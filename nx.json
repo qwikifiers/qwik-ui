@@ -1,0 +1,22 @@
+{
+  "extends": "nx/presets/npm.json",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "npmScope": "qwik-ui",
+  "affected": {
+    "defaultBase": "main"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
+        "accessToken": "MzViMzc1MGQtMDQyNi00N2E3LTliMmYtYWI4ZGIxYWJjYzE3fHJlYWQtd3JpdGU="
+      }
+    }
+  }
+}

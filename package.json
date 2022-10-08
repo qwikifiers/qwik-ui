@@ -1,0 +1,37 @@
+{
+  "name": "qwik-ui-repo",
+  "version": "0.0.0",
+  "description": "Qwik UI Components Monorepo",
+  "engines": {
+    "node": ">=15.0.0"
+  },
+  "private": false,
+  "type": "module",
+  "scripts": {
+
+  },
+  "devDependencies": {
+    "@builder.io/qwik": "0.10.0",
+    "@nrwl/cli": "14.8.3",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/workspace": "14.8.3",
+    "@types/eslint": "8.4.6",
+    "@types/node": "latest",
+    "@typescript-eslint/eslint-plugin": "5.37.0",
+    "@typescript-eslint/parser": "5.37.0",
+    "eslint": "8.23.1",
+    "eslint-plugin-qwik": "latest",
+    "node-fetch": "3.2.10",
+    "np": "7.6.1",
+    "nx": "14.8.3",
+    "postcss": "^8.4.16",
+    "prettier": "2.7.1",
+    "tailwindcss": "^3.1.8",
+    "typescript": "4.8.3",
+    "vite": "3.1.1"
+    
+  },
+  "workspaces":[
+    "packages/*"
+  ]
+}
