@@ -32,11 +32,20 @@
     "lint": "eslint \"src/**/*.ts*\"",
     "release": "np",
     "start": "vite --open --mode ssr",
-    "qwik": "qwik"
+    "qwik": "qwik",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    
-    
+    "@babel/core": "^7.19.6",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-vite": "^0.2.4",
+    "@storybook/html": "^6.5.12",
+    "@storybook/testing-library": "0.0.13",
+    "babel-loader": "^8.2.5"
   },
   "dependencies": {
     "daisyui": "^2.31.0"
