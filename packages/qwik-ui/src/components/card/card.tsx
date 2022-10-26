@@ -9,9 +9,9 @@ interface CardProps {
   imageAsOverlay?: boolean;
 }
 
-export const Card = component$(({ title, imageUrl, imagePlacement = "top", imageAsOverlay = false} : CardProps) => {
+export const Card = component$(({ title, imageUrl, imagePlacement = "top", imageAsOverlay = false, ...props} : CardProps) => {
   return (
-    <div className={`card w-96 bg-base-100 shadow-xl ${imageAsOverlay ? 'image-full' : ''}`}>
+    <div className={`card w-96 bg-base-100 shadow-xl ${imageAsOverlay ? 'image-full' : ''}`} {...props}>
       {imagePlacement === "top" && imageUrl && <figure><img src={imageUrl} /></figure>}
       <div className="card-body">
         {title && <h2 className="card-title">{title}</h2>}
