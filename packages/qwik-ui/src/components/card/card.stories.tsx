@@ -32,8 +32,8 @@ WithImage.args = {
 
 const WithCardComponentsTemplate = (args: any) => <Card {...args}>
   <CardContent>If a dog chews shoes whose shoes does he choose?</CardContent>
-  <CardActions className="justify-end">
-    <button className="btn btn-primary">Buy Now</button>
+  <CardActions class="justify-end">
+    <button class="btn btn-primary">Buy Now</button>
   </CardActions>
 </Card>;
 export const WithCardComponents = WithCardComponentsTemplate.bind({});
