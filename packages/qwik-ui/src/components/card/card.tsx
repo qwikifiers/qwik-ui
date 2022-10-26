@@ -1,4 +1,5 @@
 import {component$, Slot} from '@builder.io/qwik';
+import {CardActions} from "./CardActions";
 
 interface CardProps {
   class?: string;

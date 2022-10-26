@@ -1,5 +1,7 @@
 import { Meta } from '@storybook/html';
 import { Card } from './card';
+import { CardActions } from './cardActions';
+import { CardContent } from './cardContent';
 
 export default {
   title: 'Card',
@@ -28,3 +30,13 @@ WithImage.args = {
   imageAsOverlay: false
 }
 
+const WithCardComponentsTemplate = (args: any) => <Card {...args}>
+  <CardContent>If a dog chews shoes whose shoes does he choose?</CardContent>
+  <CardActions className="justify-end">
+    <button className="btn btn-primary">Buy Now</button>
+  </CardActions>
+</Card>;
+export const WithCardComponents = WithCardComponentsTemplate.bind({});
+WithCardComponents.args = {
+  title: 'Qwik!'
+}
