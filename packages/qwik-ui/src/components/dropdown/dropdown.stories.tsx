@@ -6,6 +6,9 @@ import {DropdownItem} from "./dropdownItem";
 
 export default {
   title: 'Dropdown',
+  argTypes: {
+    openOnHover: {control: 'boolean'}
+  }
 } as Meta;
 
 const Template = (args: any) => <Dropdown {...args}>
