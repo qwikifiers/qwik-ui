@@ -3,7 +3,7 @@ import { $ } from '@builder.io/qwik';
 import { Checkbox } from './checkbox';
 
 export default {
-  title: 'Checkbox',
+  title: 'Data Input / Checkbox',
   argTypes: {
     checked: { control: 'boolean' },
     label: { control: 'text' }

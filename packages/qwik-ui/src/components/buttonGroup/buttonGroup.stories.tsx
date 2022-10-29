@@ -3,7 +3,7 @@ import { ButtonGroup } from './buttonGroup';
 import { Button } from '../button/button';
 
 export default {
-  title: 'Button Group',
+  title: 'Layout / Button Group',
 } as Meta;
 
 const Template = (args: any) => <ButtonGroup {...args}>

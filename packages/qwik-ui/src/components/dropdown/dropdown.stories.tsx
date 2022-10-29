@@ -5,7 +5,7 @@ import {DropdownContent} from "./dropdownContent";
 import {DropdownItem} from "./dropdownItem";
 
 export default {
-  title: 'Dropdown',
+  title: 'Actions / Dropdown',
   argTypes: {
     openOnHover: {control: 'boolean'}
   }

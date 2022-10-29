@@ -3,7 +3,7 @@ import { Tabs } from './tabs';
 import { Tab } from './tab';
 
 export default {
-  title: 'Tabs',
+  title: 'Navigation / Tabs',
   argTypes: {
     boxed: { control: 'boolean' },
     isLifted: { control: 'boolean'},

@@ -2,7 +2,7 @@ import { Meta } from '@storybook/html';
 import { Alert } from './alert';
 
 export default {
-  title: 'Alert',
+  title: 'Data Display / Alert',
 } as Meta;
 
 const Template = () => <Alert>An alert</Alert>;

@@ -4,7 +4,7 @@ import { CardActions } from './cardActions';
 import { CardContent } from './cardContent';
 
 export default {
-  title: 'Card',
+  title: 'Data Display / Card',
   argTypes: {
     imagePlacement: { control: 'select', options: ['top', 'bottom']}
   }

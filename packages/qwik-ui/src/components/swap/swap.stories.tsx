@@ -2,7 +2,7 @@ import { Meta } from '@storybook/html';
 import { Swap } from './swap';
 
 export default {
-  title: 'Swap',
+  title: 'Actions / Swap',
 } as Meta;
 
 const Template = (args: any) => <Swap {...args}>

@@ -4,7 +4,7 @@ import { CollapseTitle } from './collapseTitle';
 import { CollapseContent } from './collapseContent';
 
 export default {
-  title: 'Collapse',
+  title: 'Data Display / Collapse',
   argTypes: {
     showArrow: { control: 'boolean'},
     showPlus: { control: 'boolean' }
