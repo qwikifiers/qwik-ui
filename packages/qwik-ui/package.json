@@ -49,6 +49,6 @@
     "babel-loader": "^8.2.5"
   },
   "dependencies": {
-    "daisyui": "^2.31.0"
+    "daisyui": "^2.37.0"
   }
 }
