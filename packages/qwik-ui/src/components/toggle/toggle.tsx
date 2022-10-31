@@ -7,13 +7,15 @@ interface ToggleProps {
   label?: string;
 }
 
-export const Toggle = component$(({ checked, label }: ToggleProps) => {
-  return (
-    <div class="form-control">
-      <label class="label cursor-pointer">
-        {label && <span class="label-text">{label}</span>}
-        <input type="checkbox" class="toggle" checked={checked} />
-      </label>
-    </div>
-  );
-});
+export const Toggle = component$(
+  ({ checked, label, ...props }: ToggleProps) => {
+    return (
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          {label && <span class="label-text">{label}</span>}
+          <input type="checkbox" class="toggle" checked={checked} {...props} />
+        </label>
+      </div>
+    );
+  }
+);
