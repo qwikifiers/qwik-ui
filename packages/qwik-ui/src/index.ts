@@ -26,6 +26,7 @@ export {
   DropdownTrigger,
 } from './components/dropdown';
 export { FileInput } from './components/file-input/file-input';
+export { InputGroup } from './components/input-group/input-group';
 export { Link } from './components/link/link';
 export {
   Modal,
