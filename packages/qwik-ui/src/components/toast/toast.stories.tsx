@@ -5,6 +5,9 @@ export default {
   title: 'Layout / Toast',
   argTypes: {
     message: { control: 'text' },
+    type: { control: 'select', options: ['success', 'info', 'warning', 'error']},
+    verticalAlign: { control: 'select', options: ['top', 'middle', 'bottom']},
+    horizontalAlign: { control: 'select', options: ['start', 'center', 'end']},
   },
 } as Meta;
 
