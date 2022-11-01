@@ -15,7 +15,7 @@ export const Rating = component$(({ value, max }: RatingProps) => {
             type="radio"
             name="rating-1"
             class="mask mask-star"
-            checked={value === i + 1 ? true : false}
+            checked={value === i + 1}
           />
         ))}
     </div>
