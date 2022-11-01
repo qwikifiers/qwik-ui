@@ -28,6 +28,7 @@ export {
 export { FileInput } from './components/file-input/file-input';
 export { InputGroup } from './components/input-group/input-group';
 export { Link } from './components/link/link';
+export { Menu } from './components/menu/menu';
 export {
   Modal,
   ModalActions,

@@ -1,18 +1,18 @@
 import { $ } from '@builder.io/qwik';
 import { Meta } from '@storybook/html';
-import { Navbar } from './navbar';
+import { Menu } from './menu';
 
 export default {
-  title: 'Navigation / Navbar',
+  title: 'Navigation / Menu',
   argTypes: {
-    links: { control: 'object' },
+    items: { control: 'object' },
   },
 } as Meta;
 
-const Template = (args: any) => <Navbar {...args} />;
+const Template = (args: any) => <Menu {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  links: ['one', 'two'],
+  items: ['one', 'two'],
   onClick: $((index: number) => console.log(index)),
 };
