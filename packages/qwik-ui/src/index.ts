@@ -1,20 +1,47 @@
 export { Alert } from './components/alert/alert';
+export { Avatar } from './components/avatar/avatar';
+export { Badge } from './components/badge/badge';
+export { Breadcrumb, BreadcrumbItem } from './components/breadcrumb';
 export { Button } from './components/button/button';
 export { ButtonGroup } from './components/buttonGroup/buttonGroup';
-export { Breadcrumb, BreadcrumbItem } from './components/breadcrumb';
 export { Card, CardActions, CardContent } from './components/card';
+export { Carousel } from './components/carousel/carousel';
 export { Checkbox } from './components/checkbox/checkbox';
-export { Collapse, CollapseTitle, CollapseContent } from './components/collapse';
+export {
+  Collapse,
+  CollapseContent,
+  CollapseTitle,
+} from './components/collapse';
 export { Divider } from './components/divider/divider';
-export { Drawer, DrawerSide, DrawerContent, DrawerTrigger } from './components/drawer';
-export { Dropdown, DropdownItem, DropdownTrigger, DropdownContent } from './components/dropdown';
+export {
+  Drawer,
+  DrawerContent,
+  DrawerSide,
+  DrawerTrigger,
+} from './components/drawer';
+export {
+  Dropdown,
+  DropdownContent,
+  DropdownItem,
+  DropdownTrigger,
+} from './components/dropdown';
+export { FileInput } from './components/file-input/file-input';
 export { Link } from './components/link/link';
-export { Modal, ModalContent, ModalTrigger, ModalActions } from './components/modal';
+export {
+  Modal,
+  ModalActions,
+  ModalContent,
+  ModalTrigger,
+} from './components/modal';
+export { Navbar } from './components/navbar/navbar';
+export { Progress } from './components/progress/progress';
 export { Radio } from './components/radio/radio';
 export { Range } from './components/range/range';
+export { Rating } from './components/rating/rating';
 export { Stack } from './components/stack/stack';
-export { Steps, Step } from './components/steps';
+export { Step, Steps } from './components/steps';
 export { Swap } from './components/swap/swap';
-export { Tabs, Tab } from './components/tabs';
+export { Tab, Tabs } from './components/tabs';
+export { TextInput } from './components/text-input/text-input';
 export { Toggle } from './components/toggle/toggle';
 export { Tooltip } from './components/tooltip/tooltip';
