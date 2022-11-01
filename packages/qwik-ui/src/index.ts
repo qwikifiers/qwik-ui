@@ -36,6 +36,7 @@ export {
   ModalTrigger,
 } from './components/modal';
 export { Navbar } from './components/navbar/navbar';
+export { Pagination } from './components/pagination/pagination';
 export { Progress } from './components/progress/progress';
 export { Radio } from './components/radio/radio';
 export { Range } from './components/range/range';
