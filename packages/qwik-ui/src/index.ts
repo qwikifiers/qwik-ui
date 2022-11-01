@@ -11,6 +11,7 @@ export { Link } from './components/link/link';
 export { Modal, ModalContent, ModalTrigger, ModalActions } from './components/modal';
 export { Radio } from './components/radio/radio';
 export { Range } from './components/range/range';
+export { Steps, Step } from './components/steps';
 export { Swap } from './components/swap/swap';
 export { Tabs, Tab } from './components/tabs';
 export { Toggle } from './components/toggle/toggle';
