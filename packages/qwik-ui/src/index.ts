@@ -5,7 +5,8 @@ export { Breadcrumb, BreadcrumbItem } from './components/breadcrumb';
 export { Card, CardActions, CardContent } from './components/card';
 export { Checkbox } from './components/checkbox/checkbox';
 export { Collapse, CollapseTitle, CollapseContent } from './components/collapse';
-export { Divider } from './components/divider/divider'
+export { Divider } from './components/divider/divider';
+export { Drawer, DrawerSide, DrawerContent, DrawerTrigger } from './components/drawer';
 export { Dropdown, DropdownItem, DropdownTrigger, DropdownContent } from './components/dropdown';
 export { Link } from './components/link/link';
 export { Modal, ModalContent, ModalTrigger, ModalActions } from './components/modal';
