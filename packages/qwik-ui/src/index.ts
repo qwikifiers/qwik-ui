@@ -16,3 +16,4 @@ export { Steps, Step } from './components/steps';
 export { Swap } from './components/swap/swap';
 export { Tabs, Tab } from './components/tabs';
 export { Toggle } from './components/toggle/toggle';
+export { Tooltip } from './components/tooltip/tooltip';
