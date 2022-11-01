@@ -45,6 +45,7 @@ export { Select } from './components/select/select';
 export { Stack } from './components/stack/stack';
 export { Step, Steps } from './components/steps';
 export { Swap } from './components/swap/swap';
+export { Table } from './components/table/table';
 export { Tab, Tabs } from './components/tabs';
 export { TextInput } from './components/text-input/text-input';
 export { Textarea } from './components/textarea/textarea';
