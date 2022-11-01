@@ -1,8 +1,11 @@
 export { Alert } from './components/alert/alert';
+export { Avatar } from './components/avatar/avatar';
+export { Badge } from './components/badge/badge';
+export { Breadcrumb, BreadcrumbItem } from './components/breadcrumb';
 export { Button } from './components/button/button';
 export { ButtonGroup } from './components/buttonGroup/buttonGroup';
-export { Breadcrumb, BreadcrumbItem } from './components/breadcrumb';
 export { Card, CardActions, CardContent } from './components/card';
+export { Carousel } from './components/carousel/carousel';
 export { Checkbox } from './components/checkbox/checkbox';
 export { Collapse, CollapseTitle, CollapseContent } from './components/collapse';
 export { Divider } from './components/divider/divider';
@@ -10,8 +13,10 @@ export { Drawer, DrawerSide, DrawerContent, DrawerTrigger } from './components/d
 export { Dropdown, DropdownItem, DropdownTrigger, DropdownContent } from './components/dropdown';
 export { Link } from './components/link/link';
 export { Modal, ModalContent, ModalTrigger, ModalActions } from './components/modal';
+export { Progress } from './components/progress/progress';
 export { Radio } from './components/radio/radio';
 export { Range } from './components/range/range';
+export { Rating } from './components/rating/rating';
 export { Stack } from './components/stack/stack';
 export { Steps, Step } from './components/steps';
 export { Swap } from './components/swap/swap';
