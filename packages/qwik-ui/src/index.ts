@@ -43,5 +43,6 @@ export { Step, Steps } from './components/steps';
 export { Swap } from './components/swap/swap';
 export { Tab, Tabs } from './components/tabs';
 export { TextInput } from './components/text-input/text-input';
+export { Toast } from './components/toast/toast';
 export { Toggle } from './components/toggle/toggle';
 export { Tooltip } from './components/tooltip/tooltip';
