@@ -11,7 +11,7 @@ export default {
 
 const Template = (args: any) => <div style={{ margin: '25px' }}>
   <Tooltip {...args}>
-    <button className="btn">Hover me</button>
+    <button className={`btn ${args.type ? `btn-${args.type}` : ''}`}>Hover me</button>
   </Tooltip>
 </div>
 
