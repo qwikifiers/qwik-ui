@@ -41,6 +41,7 @@ export { Progress } from './components/progress/progress';
 export { Radio } from './components/radio/radio';
 export { Range } from './components/range/range';
 export { Rating } from './components/rating/rating';
+export { Select } from './components/select/select';
 export { Stack } from './components/stack/stack';
 export { Step, Steps } from './components/steps';
 export { Swap } from './components/swap/swap';
