@@ -1,15 +1,17 @@
-import { $ } from '@builder.io/qwik';
 import { Meta } from '@storybook/html';
 import { Badge } from './badge';
 
 export default {
   title: 'Data Display / Badge',
   argTypes: {
-    label: { control: 'text' },
+    color: { control: 'select', options: ['success', 'info', 'warning', 'error', 'primary', 'secondary', 'accent'] },
+    withOutline: { control: 'boolean' }
   },
 } as Meta;
 
-const Template = (args: any) => <Badge {...args} />;
+const Template = (args: any) => <Badge {...args}>{args.content}</Badge>;
 
 export const Default = Template.bind({});
-Default.args = { label: 'Label Badge' };
+Default.args = {
+  content: 'Badge label'
+}

@@ -1,9 +1,11 @@
 import { component$, Slot } from '@builder.io/qwik';
+import {ColorTypes} from '../../types/types';
 
 interface BadgeProps {
-  label: string;
+  color?: ColorTypes;
+  withOutline?: boolean;
 }
 
-export const Badge = component$(({ label }: BadgeProps) => {
-  return <span class="badge">{label}</span>;
+export const Badge = component$(({ color, withOutline = false }: BadgeProps) => {
+  return <span class={`badge ${color ? `badge-${color}` : ''} ${withOutline ? 'badge-outline' : ''}`}><Slot /></span>;
 });
