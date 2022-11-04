@@ -1,5 +1,5 @@
 export { Alert } from './components/alert/alert';
-export { Avatar } from './components/avatar/avatar';
+export { Avatar, AvatarGroup } from './components/avatar';
 export { Badge } from './components/badge/badge';
 export { Breadcrumb, BreadcrumbItem } from './components/breadcrumb';
 export { Button } from './components/button/button';
