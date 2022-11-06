@@ -7,19 +7,26 @@
   },
   "private": false,
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "commit": "git-cz"
+  },
   "devDependencies": {
     "@builder.io/qwik": "0.10.0",
     "@nrwl/cli": "14.8.3",
     "@nrwl/nx-cloud": "latest",
+    "@nrwl/storybook": "^15.0.8",
     "@nrwl/workspace": "14.8.3",
     "@types/eslint": "8.4.6",
     "@types/node": "latest",
     "@typescript-eslint/eslint-plugin": "5.37.0",
     "@typescript-eslint/parser": "5.37.0",
     "autoprefixer": "^10.4.12",
+    "commitizen": "^4.2.5",
+    "commitlint": "^17.2.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "8.23.1",
     "eslint-plugin-qwik": "latest",
+    "husky": "^8.0.1",
     "node-fetch": "3.2.10",
     "np": "7.6.1",
     "nx": "14.8.3",
@@ -31,5 +38,15 @@
   },
   "workspaces": [
     "packages/*"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "keywords": [
+    "qwik",
+    "qwik ui components",
+    "components library"
   ]
 }
