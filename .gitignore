@@ -19,6 +19,7 @@ tsconfig.tsbuildinfo
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/qwik.code-snippets
 
 # Logs
 logs
@@ -30,7 +31,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Editor
-!.vscode/extensions.json
 .idea
 .DS_Store
 *.suo

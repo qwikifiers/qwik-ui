@@ -1,24 +1,31 @@
-const qwikVite = require("@builder.io/qwik/optimizer").qwikVite;
+import { qwikVite } from '@builder.io/qwik/optimizer';
+import type { StorybookViteConfig } from '@storybook/builder-vite';
+import { rootMain } from '../../../.storybook/main';
 
-module.exports = {
-  "stories": [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+const config: StorybookViteConfig = {
+  ...rootMain,
+  stories: [
+    ...rootMain.stories,
+    '../src/**/*.stories.mdx',
+    '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions"
+  addons: [
+    ...(rootMain.addons || []),
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
   ],
-  "framework": "@storybook/html",
-  "core": {
-    "builder": "@storybook/builder-vite"
+  framework: '@storybook/html',
+  core: {
+    builder: '@storybook/builder-vite',
   },
-  "features": {
-    "storyStoreV7": true
+  features: {
+    storyStoreV7: true,
   },
-  "viteFinal": async (config, options) => {
+  viteFinal: async (config, options) => {
     config.plugins?.unshift(qwikVite());
     return config;
-  }
-}
+  },
+};
+
+export default config;
