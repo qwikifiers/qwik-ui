@@ -6,7 +6,6 @@
     "node": ">=15.0.0"
   },
   "private": false,
-  "type": "module",
   "scripts": {
     "commit": "git-cz"
   },
