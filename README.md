@@ -7,7 +7,7 @@ This components library for Qwik
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 <!-- [![codecov](https://img.shields.io/codecov/c/github/qwikifiers/qwik-ui.svg)](https://codecov.io/gh/qwikifiers/qwik-ui)  -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <br/>
@@ -69,6 +69,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center"><a href="https://hirez.io/?utm_source=github&utm_medium=link&utm_campaign=qwik-ui"><img src="https://avatars1.githubusercontent.com/u/1430726?v=4?s=100" width="100px;" alt="Shai Reznik"/><br /><sub><b>Shai Reznik</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=shairez" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=shairez" title="Tests">⚠️</a> <a href="#infra-shairez" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=shairez" title="Documentation">📖</a> <a href="#maintenance-shairez" title="Maintenance">🚧</a> <a href="https://github.com/qwikifiers/qwik-ui/pulls?q=is%3Apr+reviewed-by%3Ashairez" title="Reviewed Pull Requests">👀</a> <a href="#ideas-shairez" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center"><a href="http://www.gilfink.net"><img src="https://avatars.githubusercontent.com/u/1590253?v=4?s=100" width="100px;" alt="Gil Fink"/><br /><sub><b>Gil Fink</b></sub></a><br /><a href="#infra-gilf" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=gilf" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=gilf" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=gilf" title="Documentation">📖</a> <a href="#ideas-gilf" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/qwikifiers/qwik-ui/pulls?q=is%3Apr+reviewed-by%3Agilf" title="Reviewed Pull Requests">👀</a></td>
+      <td align="center"><a href="https://it.linkedin.com/in/giorgio-boa"><img src="https://avatars.githubusercontent.com/u/35845425?v=4?s=100" width="100px;" alt="Giorgio Boa"/><br /><sub><b>Giorgio Boa</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=gioboa" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=gioboa" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=gioboa" title="Documentation">📖</a> <a href="#ideas-gioboa" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/qwikifiers/qwik-ui/pulls?q=is%3Apr+reviewed-by%3Agioboa" title="Reviewed Pull Requests">👀</a></td>
     </tr>
   </tbody>
 </table>
