@@ -12,19 +12,19 @@ runs:
 
     - name: Lint
       shell: bash
-      run: npx nx affected:lint --base=last-release
+      run: npx nx affected:lint --base=last-release --exclude=website
 
     - name: Build
       shell: bash
-      run: npx nx affected:build --base=last-release
+      run: npx nx affected:build --base=last-release --exclude=website
 
     # - name: Test
     #   shell: bash
     #   run: npx nx affected --target=test --base=last-release
 
-    - name: E2E Tests
-      shell: bash
-      run: npx nx affected --target=e2e --base=last-release
+    # - name: E2E Tests
+    #   shell: bash
+    #   run: npx nx affected --target=e2e --base=last-release
 
-    - name: Codecov upload
-      uses: codecov/codecov-action@v2
+    # - name: Codecov upload
+    #   uses: codecov/codecov-action@v2
