@@ -1,26 +1,29 @@
 module.exports = {
-  root: true,
+  ignorePatterns: [
+    '!**/*',
+    'node_modules',
+    '.storybook',
+    '**/*.stories.tsx',
+    // 'lib',
+    // 'lib-types',
+    // 'vite.config.ts',
+    // 'src/types',
+  ],
   env: {
     browser: true,
     es2021: true,
     node: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:qwik/recommended',
-  ],
-  parser: '@typescript-eslint/parser',
+  extends: ['../../.eslintrc.json', 'plugin:qwik/recommended'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ['./tsconfig.json'],
+    project: ['tsconfig.json'],
     ecmaVersion: 2021,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint'],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -37,4 +40,18 @@ module.exports = {
     'no-console': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+      rules: {},
+    },
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {},
+    },
+    {
+      files: ['*.js', '*.jsx'],
+      rules: {},
+    },
+  ],
 };

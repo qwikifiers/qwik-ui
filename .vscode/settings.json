@@ -4,4 +4,7 @@
     "source.fixAll": true
   },
   "editor.formatOnSave": true,
+  "codesnap.shutterAction": "copy",
+  "codesnap.transparentBackground": false,
+  "codesnap.showWindowControls": true
 }

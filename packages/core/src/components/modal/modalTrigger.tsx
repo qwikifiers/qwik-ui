@@ -6,8 +6,10 @@ interface ModalTriggerProps {
   id: string;
 }
 
-export const ModalTrigger = component$(({ id, ...props }: ModalTriggerProps) => {
+export const ModalTrigger = component$(({ id }: ModalTriggerProps) => {
   return (
-    <label htmlFor={id} className="btn"><Slot /></label>
+    <label for={id} className="btn">
+      <Slot />
+    </label>
   );
 });

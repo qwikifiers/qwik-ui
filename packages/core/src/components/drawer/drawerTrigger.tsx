@@ -7,8 +7,12 @@ interface DrawerTriggerProps {
   label: string;
 }
 
-export const DrawerTrigger = component$(({ id, label, ...props }: DrawerTriggerProps) => {
-  return (
-    <label htmlFor={id} className="btn btn-primary drawer-button" {...props}>{label}</label>
-  );
-});
+export const DrawerTrigger = component$(
+  ({ id, label, ...props }: DrawerTriggerProps) => {
+    return (
+      <label for={id} className="btn btn-primary drawer-button" {...props}>
+        {label}
+      </label>
+    );
+  }
+);

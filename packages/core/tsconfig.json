@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
     "allowJs": true,
     "target": "ES2017",
     "module": "ES2020",
@@ -21,12 +22,15 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vite/client"]
   },
-  "include": ["src"],
-  "exclude": ["**/*.stories.ts", "**/*.stories.js"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": [
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/*.stories.js",
+    "jest.config.ts",
+    "**/*.spec.ts"
+  ],
   "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    },
     {
       "path": "./.storybook/tsconfig.json"
     }

@@ -3,20 +3,18 @@ import { component$, PropFunction } from '@builder.io/qwik';
 interface SelectProps {
   placeholder: string;
   options: string[];
-  onChange?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: InputEvent) => void>;
 }
 
-export const Select = component$(
-  ({ placeholder, options, onChange }: SelectProps) => {
-    return (
-      <select class="select w-full max-w-xs" onChange$={onChange}>
-        <option disabled selected>
-          {placeholder}
-        </option>
-        {options.map((option, i) => (
-          <option>{option}</option>
-        ))}
-      </select>
-    );
-  }
-);
+export const Select = component$((props: SelectProps) => {
+  return (
+    <select class="select w-full max-w-xs" onChange$={props.onChange$}>
+      <option disabled selected>
+        {props.placeholder}
+      </option>
+      {props.options.map((option) => (
+        <option>{option}</option>
+      ))}
+    </select>
+  );
+});

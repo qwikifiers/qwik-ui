@@ -1,7 +1,7 @@
 # Build
-/dist
-/lib
-/lib-types
+dist
+lib
+lib-types
 /server
 
 # Development
@@ -15,7 +15,7 @@ tsconfig.tsbuildinfo
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
+# !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json

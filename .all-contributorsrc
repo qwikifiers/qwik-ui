@@ -1,0 +1,31 @@
+{
+  "projectName": "qwik-ui",
+  "projectOwner": "qwikifiers",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "shairez",
+      "name": "Shai Reznik",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1430726?v=4",
+      "profile": "https://hirez.io/?utm_source=github&utm_medium=link&utm_campaign=qwik-ui",
+      "contributions": [
+        "code",
+        "test",
+        "infra",
+        "doc",
+        "maintenance",
+        "review",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true
+}

@@ -9,7 +9,7 @@ interface ModalActionsProps {
 export const DrawerSide = component$(({ id, ...props }: ModalActionsProps) => {
   return (
     <div className="drawer-side" {...props}>
-      <label htmlFor={id} className="drawer-overlay" />
+      <label for={id} className="drawer-overlay" />
       <Slot />
     </div>
   );

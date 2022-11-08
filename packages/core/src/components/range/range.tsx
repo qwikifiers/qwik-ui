@@ -1,4 +1,4 @@
-import {$, component$, PropFunction} from '@builder.io/qwik';
+import { component$, PropFunction } from '@builder.io/qwik';
 
 interface RangeProps {
   class?: string;
@@ -6,11 +6,20 @@ interface RangeProps {
   value?: number;
   min?: number;
   max?: number;
-  onChange?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: InputEvent) => void>;
 }
 
-export const Range = component$(({ value = 0, min, max, onChange = $(() => {}), ...props }: RangeProps) => {
+export const Range = component$((props: RangeProps) => {
+  const { value = 0, min, max } = props;
   return (
-    <input type="range" min={min} max={max} value={value} className="range" onChange$={onChange} {...props} />
+    <input
+      type="range"
+      min={min}
+      max={max}
+      value={value}
+      className="range"
+      onChange$={props.onChange$}
+      {...props}
+    />
   );
 });
