@@ -1,6 +1,6 @@
 # 🚀🧩 Qwik UI - Components Library
 
-This is a components library for Qwik
+The components library for Qwik
 
 [![npm version](https://img.shields.io/npm/v/@qwik-ui/qwik-ui.svg?style=flat-square)](https://www.npmjs.org/package/@qwik-ui/core)
 [![npm downloads](https://img.shields.io/npm/dm/@qwik-ui/core.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@qwik-ui/core&from=2017-07-26)
