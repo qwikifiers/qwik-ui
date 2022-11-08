@@ -10,8 +10,8 @@ export const Modal = component$(({ id, ...props }: ModalProps) => {
   return (
     <>
       <input type="checkbox" id={id} className="modal-toggle" {...props} />
-      <label htmlFor={id} className="modal">
-        <Slot/>
+      <label for={id} className="modal">
+        <Slot />
       </label>
     </>
   );
