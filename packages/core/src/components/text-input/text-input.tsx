@@ -4,19 +4,17 @@ interface TextInputProps {
   class?: string;
   className?: string;
   placeholder?: string;
-  onChange?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: InputEvent) => void>;
 }
 
-export const TextInput = component$(
-  ({ placeholder, onChange, ...props }: TextInputProps) => {
-    return (
-      <input
-        type="text"
-        placeholder={placeholder}
-        class="input w-full max-w-xs"
-        {...props}
-        onChange$={onChange}
-      />
-    );
-  }
-);
+export const TextInput = component$((props: TextInputProps) => {
+  return (
+    <input
+      type="text"
+      placeholder={props.placeholder}
+      class="input w-full max-w-xs"
+      {...props}
+      onChange$={props.onChange$}
+    />
+  );
+});

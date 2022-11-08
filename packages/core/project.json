@@ -8,7 +8,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/core/**/*.ts"]
+        "lintFilePatterns": ["packages/core/src/components/**/*.tsx"],
+        "eslintConfig": "packages/core/.eslintrc.cjs"
       }
     },
     "storybook": {
