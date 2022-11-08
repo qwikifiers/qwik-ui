@@ -1,5 +1,12 @@
 module.exports = {
-  ignorePatterns: ['!**/*', 'node_modules', '.storybook'],
+  ignorePatterns: [
+    '!**/*',
+    'node_modules',
+    '.storybook',
+    'lib',
+    'lib-types',
+    'vite.config.ts',
+  ],
   env: {
     browser: true,
     es2021: true,
@@ -8,7 +15,7 @@ module.exports = {
   extends: ['../../.eslintrc.json', 'plugin:qwik/recommended'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ['tsconfig.lib.json'],
+    project: ['tsconfig.json'],
     ecmaVersion: 2021,
     sourceType: 'module',
     ecmaFeatures: {
