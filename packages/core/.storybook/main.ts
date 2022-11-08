@@ -11,16 +11,13 @@ const config: StorybookViteConfig = {
   ],
   addons: [
     ...(rootMain.addons || []),
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
   ],
   framework: '@storybook/html',
   core: {
     builder: '@storybook/builder-vite',
   },
   features: {
-    storyStoreV7: true,
+    storyStoreV7: true
   },
   viteFinal: async (config, options) => {
     config.plugins?.unshift(qwikVite());
