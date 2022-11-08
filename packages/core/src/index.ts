@@ -27,6 +27,7 @@ export {
 } from './components/dropdown';
 export { FileInput } from './components/file-input/file-input';
 export { InputGroup } from './components/input-group/input-group';
+export { Kbd } from './components/kbd/kbd';
 export { Link } from './components/link/link';
 export { Menu } from './components/menu/menu';
 export {
