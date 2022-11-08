@@ -1,7 +1,9 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
+import { CarouselItem } from './carousel-item';
 
 interface CarouselProps {
-  images: Image[];
+  images?: Image[];
+  withIndicators?: boolean;
 }
 
 interface Image {
@@ -9,23 +11,25 @@ interface Image {
   alt: string;
 }
 
-export const Carousel = component$(({ images }: CarouselProps) => {
+export const Carousel = component$(({ images, withIndicators = true, ...props }: CarouselProps) => {
   return (
     <>
-      <div class="carousel w-full">
-        {images.map(({ src, alt }: Image, i: number) => (
-          <div id={`item${i}`} class="carousel-item w-full">
-            <img src={src} alt={alt} class="w-full" />
-          </div>
-        ))}
+      <div class="carousel w-full rounded-box" {...props}>
+        { images ?
+        images.map(({ src, alt }: Image, i: number) => (
+          <CarouselItem src={src} alt={alt} index={i} />
+        )) : <Slot />}
       </div>
-      <div class="flex justify-center w-full py-2 gap-2">
-        {images.map((_, i: number) => (
-          <a href={`#item${i}`} class="btn btn-xs">
-            {i + 1}
-          </a>
-        ))}
-      </div>
+      {withIndicators ?
+        (images ? <div class="flex justify-center w-full py-2 gap-2">
+          {images?.map((_, i: number) => (
+            <a preventdefault:click href={`#item${i}`} class="btn btn-xs">
+              {i + 1}
+            </a>
+          ))}
+          </div> : <Slot name="indicators"/>)
+        : undefined
+      }
     </>
   );
 });
