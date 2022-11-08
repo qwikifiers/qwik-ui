@@ -20,7 +20,6 @@
     "node": ">=15.0.0"
   },
   "private": false,
-  "type": "module",
   "scripts": {
     "build": "qwik build",
     "build.lib": "vite build --mode lib",
