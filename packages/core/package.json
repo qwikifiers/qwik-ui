@@ -31,9 +31,7 @@
     "lint": "eslint \"src/**/*.ts*\"",
     "release": "np",
     "start": "vite --open --mode ssr",
-    "qwik": "qwik",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "qwik": "qwik"
   },
   "devDependencies": {},
   "dependencies": {

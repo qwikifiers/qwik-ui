@@ -9,17 +9,15 @@ const config: StorybookViteConfig = {
     '../src/**/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  addons: [
-    ...(rootMain.addons || []),
-  ],
+  addons: [...(rootMain.addons || [])],
   framework: '@storybook/html',
   core: {
     builder: '@storybook/builder-vite',
   },
   features: {
-    storyStoreV7: true
+    storyStoreV7: true,
   },
-  viteFinal: async (config, options) => {
+  viteFinal: async (config) => {
     config.plugins?.unshift(qwikVite());
     return config;
   },

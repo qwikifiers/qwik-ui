@@ -1,0 +1,30 @@
+name: Test
+
+description: Lint, Test and upload to Codecov
+
+runs:
+  using: composite
+
+  steps:
+    # - name: Commitlint
+    # shell: bash
+    # run: npx --no-install commitlint --from=last-release
+
+    - name: Lint
+      shell: bash
+      run: npx nx affected:lint --base=last-release
+
+    - name: Build
+      shell: bash
+      run: npx nx affected:build --base=last-release
+
+    # - name: Test
+    #   shell: bash
+    #   run: npx nx affected --target=test --base=last-release
+
+    - name: E2E Tests
+      shell: bash
+      run: npx nx affected --target=e2e --base=last-release
+
+    - name: Codecov upload
+      uses: codecov/codecov-action@v2

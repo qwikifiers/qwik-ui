@@ -1,0 +1,39 @@
+name: Release
+
+description: Release packages
+
+inputs:
+  github_token:
+    description: GitHub token
+    required: true
+  npm_token:
+    description: NPM token
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Check Authentication with Registry
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
+      shell: bash
+      run: npm whoami
+
+    - name: Version
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+      shell: bash
+      run: npx nx affected --base=last-release --target=version-publish
+
+    - name: Tag last-release
+      shell: bash
+      run: git tag -f last-release
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ inputs.github_token }}
+        branch: ${{ github.ref }}
+        force: true
+        tags: true
