@@ -5,7 +5,7 @@ export { Breadcrumb, BreadcrumbItem } from './components/breadcrumb';
 export { Button } from './components/button/button';
 export { ButtonGroup } from './components/buttonGroup/buttonGroup';
 export { Card, CardActions, CardContent } from './components/card';
-export { Carousel } from './components/carousel/carousel';
+export { Carousel, CarouselItem } from './components/carousel';
 export { Checkbox } from './components/checkbox/checkbox';
 export {
   Collapse,
