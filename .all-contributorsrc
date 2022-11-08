@@ -24,6 +24,20 @@
         "review",
         "ideas"
       ]
+    },
+    {
+      "login": "gilf",
+      "name": "Gil Fink",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1590253?v=4",
+      "profile": "http://www.gilfink.net",
+      "contributions": [
+        "infra",
+        "test",
+        "code",
+        "doc",
+        "ideas",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
