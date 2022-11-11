@@ -17,6 +17,8 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 # Screenshots/Demo
 
+<!-- Add your screenshots here -->
+
 # Checklist:
 
 - [ ] My code follows the [developer guidelines of this project](https://github.com/reemardelarosa/qwik-ui/blob/main/CONTRIBUTING.md)
