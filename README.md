@@ -20,7 +20,7 @@ Here is our temporary logo 😅👇
 
 # ⚠ This is not ready for production!
 
-This library is still in early stages and once we collect enough feedback from the community.
+This library is still in early stages and once we'll collect enough feedback from the community we'll release the first beta version.
 
 We still need to
 
