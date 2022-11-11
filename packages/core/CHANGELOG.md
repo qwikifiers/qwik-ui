@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.3](https://github.com/qwikifiers/qwik-ui/compare/core-0.0.2...core-0.0.3) (2022-11-11)
+
+
+### Bug Fixes
+
+* **core:** fix types issues ([6c74215](https://github.com/qwikifiers/qwik-ui/commit/6c7421537a5c755e3dfc05f26a0322e72d71279e))
+* fix alert ([e8cd553](https://github.com/qwikifiers/qwik-ui/commit/e8cd553673254710b3ca5ca591a92a6edd89e3a6))
+
+
+
 ## [0.0.2](https://github.com/qwikifiers/qwik-ui/compare/core-0.0.1...core-0.0.2) (2022-11-11)
 
 
