@@ -32,7 +32,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "uiFramework": "@storybook/html",
-        "outputPath": "packages/core/dist",
+        "outputPath": "dist/storybook/core",
         "config": {
           "configFolder": "packages/core/.storybook"
         }
