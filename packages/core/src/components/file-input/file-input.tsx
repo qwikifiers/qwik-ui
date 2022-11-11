@@ -3,7 +3,7 @@ import { component$, PropFunction } from '@builder.io/qwik';
 interface FileInputProps {
   class?: string;
   className?: string;
-  onChange$?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: any) => void>;
 }
 
 export const FileInput = component$((props: FileInputProps) => {

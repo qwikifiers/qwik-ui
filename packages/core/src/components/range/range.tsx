@@ -6,7 +6,7 @@ interface RangeProps {
   value?: number;
   min?: number;
   max?: number;
-  onChange$?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: any) => void>;
 }
 
 export const Range = component$((props: RangeProps) => {

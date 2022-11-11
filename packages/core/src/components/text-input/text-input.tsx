@@ -4,7 +4,7 @@ interface TextInputProps {
   class?: string;
   className?: string;
   placeholder?: string;
-  onChange$?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: any) => void>;
 }
 
 export const TextInput = component$((props: TextInputProps) => {
