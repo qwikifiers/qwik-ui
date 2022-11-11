@@ -4,7 +4,7 @@ interface TextareaProps {
   class?: string;
   className?: string;
   placeholder?: string;
-  onChange?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: any) => void>;
 }
 
 export const Textarea = component$((props: TextareaProps) => {
@@ -13,7 +13,7 @@ export const Textarea = component$((props: TextareaProps) => {
       class="textarea"
       placeholder={props.placeholder}
       {...props}
-      onChange$={props.onChange}
+      onChange$={props.onChange$}
     />
   );
 });

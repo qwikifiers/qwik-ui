@@ -6,7 +6,7 @@ interface RadioProps {
   checked: boolean;
   label?: string;
   name?: string;
-  onChange$?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: any) => void>;
 }
 
 export const Radio = component$((props: RadioProps) => {
