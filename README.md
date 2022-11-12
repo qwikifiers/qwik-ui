@@ -38,10 +38,45 @@ We still need to
 
 npm install -D @qwik-ui/core
 ```
+or
+```console
 
-<br/>
+yarn add @qwik-ui/core
+```
+Once the package was added to your project, you will have to add tailwind configuration. </br>
+At the root of your project, add `postcss.config.cjs` file with the following content:
+```js
+const path = require('path');
 
-## Example
+module.exports = {
+  plugins: {
+    tailwindcss: {
+      config: path.join(__dirname, 'tailwind.config.cjs'),
+    },
+    autoprefixer: {},
+  },
+};
+```
+At the root of your project add `tailwind.config.cjs` file with the following content:
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [require('daisyui')],
+};
+```
+At the main css file in your project you will need to add the following lines to enable tailwind and daisy styles:
+````css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+````
+Now you can start using the library components.
+
+## Component Usage Example
 
 ```
 
