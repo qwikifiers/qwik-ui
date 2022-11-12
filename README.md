@@ -78,10 +78,9 @@ Now you can start using the library components.
 
 ## Component Usage Example
 
-```
+```js
 
 import { Alert } from '@qwik-ui/core';
-
 
 export Page = component$(()=> {
   return (
