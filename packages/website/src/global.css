@@ -10,6 +10,10 @@
  *
  */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --qwik-dark-blue: #006ce9;
   --qwik-light-blue: #18b6f6;
@@ -25,7 +29,7 @@ body {
 }
 
 main {
-  max-width: 760px;
+  /* max-width: 760px; */
   margin: 0 auto;
   background-color: white;
   border-radius: 5px;
@@ -44,7 +48,7 @@ h2 {
 
 section {
   padding: 20px;
-  border-bottom: 10px solid var(--qwik-dark-blue);
+  /* border-bottom: 10px solid var(--qwik-dark-blue); */
 }
 
 ul {

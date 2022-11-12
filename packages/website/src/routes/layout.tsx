@@ -10,11 +10,7 @@ export default component$(() => {
           <Slot />
         </section>
       </main>
-      <footer>
-        <a href="https://github.com/qwikifiers" target="_blank">
-          Made with ♡ by Qwikifiers
-        </a>
-      </footer>
+      <footer></footer>
     </>
   );
 });

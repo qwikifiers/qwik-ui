@@ -4,7 +4,7 @@ interface InputGroupProps {
   hint: string;
   label: string;
   placeholder?: string;
-  onChange$?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: any) => void>;
 }
 
 export const InputGroup = component$((props: InputGroupProps) => {

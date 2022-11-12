@@ -3,7 +3,7 @@ import { component$, PropFunction } from '@builder.io/qwik';
 interface SelectProps {
   placeholder: string;
   options: string[];
-  onChange$?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(evt: any) => void>;
 }
 
 export const Select = component$((props: SelectProps) => {

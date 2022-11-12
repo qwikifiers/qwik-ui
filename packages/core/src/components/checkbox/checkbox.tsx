@@ -5,7 +5,7 @@ interface CheckboxProps {
   className?: string;
   checked: boolean;
   label?: string;
-  onChange$?: PropFunction<(evt: InputEvent) => void>;
+  onChange$?: PropFunction<(event: any) => void>;
 }
 
 export const Checkbox = component$((props: CheckboxProps) => {
