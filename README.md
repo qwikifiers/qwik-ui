@@ -3,14 +3,14 @@
 The components library for Qwik
 
 ![npm](https://img.shields.io/npm/v/@qwik-ui/core?label=npm%20version)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section --> 
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-green.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- [![npm downloads](https://img.shields.io/npm/dm/@qwik-ui/core.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@qwik-ui/core&from=2017-07-26) -->
 
 <!-- [![codecov](https://img.shields.io/codecov/c/github/qwikifiers/qwik-ui.svg)](https://codecov.io/gh/qwikifiers/qwik-ui)  -->
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 
 <br/>
 
