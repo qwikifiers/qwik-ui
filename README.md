@@ -12,12 +12,6 @@ The components library for Qwik
 
 <!-- [![codecov](https://img.shields.io/codecov/c/github/qwikifiers/qwik-ui.svg)](https://codecov.io/gh/qwikifiers/qwik-ui)  -->
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-
-# <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 <br/>
 
 Here is our temporary logo 😅👇
