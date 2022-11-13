@@ -3,8 +3,9 @@
 The components library for Qwik
 
 ![npm](https://img.shields.io/npm/v/@qwik-ui/core?label=npm%20version)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section --> 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-green.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- [![npm downloads](https://img.shields.io/npm/dm/@qwik-ui/core.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@qwik-ui/core&from=2017-07-26) -->
@@ -15,9 +16,7 @@ The components library for Qwik
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-=======
-
+# <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <br/>
 
@@ -46,14 +45,57 @@ We still need to
 npm install -D @qwik-ui/core
 ```
 
-<br/>
+or
 
-## Example
+```console
 
+yarn add @qwik-ui/core
 ```
 
-import { Alert } from '@qwik-ui/core';
+Once the package was added to your project, you will have to add tailwind configuration. </br>
+At the root of your project, add `postcss.config.cjs` file with the following content:
 
+```js
+const path = require('path');
+
+module.exports = {
+  plugins: {
+    tailwindcss: {
+      config: path.join(__dirname, 'tailwind.config.cjs'),
+    },
+    autoprefixer: {},
+  },
+};
+```
+
+At the root of your project add `tailwind.config.cjs` file with the following content:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [require('daisyui')],
+};
+```
+
+At the main css file in your project you will need to add the following lines to enable tailwind and daisy styles:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+Now you can start using the library components.
+
+## Component Usage Example
+
+```js
+
+import { Alert } from '@qwik-ui/core';
 
 export Page = component$(()=> {
   return (
