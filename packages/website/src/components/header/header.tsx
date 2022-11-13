@@ -1,5 +1,6 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './header.css?inline';
+import { QwikUILogo } from '~/components/icons/qwikuiLogo';
 
 export default component$(() => {
   useStylesScoped$(styles);
@@ -7,7 +8,7 @@ export default component$(() => {
   return (
     <header>
       <div class="logo">
-        <h1 class="">qwik ui</h1>
+        <QwikUILogo />
       </div>
       <ul>
         <li>
