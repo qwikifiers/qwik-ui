@@ -64,7 +64,7 @@ git checkout -b my-fix-branch master
 
 - After running `npx nx storybook core` visit the URL printed in the console and you'll have the Storybook opened with the suite of widgets.
 
-- Once you made some changes to the `core` package, refresh the storybook tab in your browser to see the changes reflected.
+- Once you made some changes to the `core` package, you will see them automatically reflected in the storybook.
 
 ### ▶ 5. Make sure you add / modify tests
 
