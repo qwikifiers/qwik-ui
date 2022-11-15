@@ -56,13 +56,23 @@ git checkout -b my-fix-branch master
 
 <br/>
 
-### ▶ 4. Make sure you add / modify tests
+### ▶ 4. Run the storybook
+
+- From the root of the project run `npm install`. 
+
+- Then, in one terminal run `npm run dev --workspace=packages/core` and in another one run `npx nx storybook core`.
+
+- After running `npx nx storybook core` visit the URL printed in the console and you'll have the Storybook opened with the suite of widgets.
+
+- Once you made some changes to the `core` package, you will see them automatically reflected in the storybook.
+
+### ▶ 5. Make sure you add / modify tests
 
 Run `npm run test` to make sure there aren't any errors
 
 <br/>
 
-### ▶ 5. Commit your changes using commitizen:
+### ▶ 6. Commit your changes using commitizen:
 
 Instead of `git commit` use the following command:
 
@@ -79,13 +89,13 @@ This is necessary to generate meaningful release notes / CHANGELOG automatically
 
 <br/>
 
-### ▶ 6. Push your branch to GitHub:
+### ▶ 7. Push your branch to GitHub:
 
 ```shell
 git push origin my-fix-branch
 ```
 
-### ▶ 7. Create a PR
+### ▶ 8. Create a PR
 
 In GitHub, create a pull request for `qwikifiers/qwik-ui:master`.
 
@@ -108,7 +118,7 @@ If you need to update your PR for some reason -
 
 <br/>
 
-### ▶ 8. After your PR is merged - delete your branches
+### ▶ 9. After your PR is merged - delete your branches
 
 After your pull request is merged, you can safely delete your branch and pull the changes from the main (upstream) repository:
 
@@ -138,6 +148,6 @@ After your pull request is merged, you can safely delete your branch and pull th
 
 <br/>
 
-### ▶ 9. That's it! Thank you for your contribution! 🙏💓
+### ▶ 10. That's it! Thank you for your contribution! 🙏💓
 
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#
