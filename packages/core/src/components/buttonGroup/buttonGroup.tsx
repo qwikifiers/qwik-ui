@@ -1,4 +1,5 @@
-import {component$, Slot} from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
+import cn from 'classnames';
 
 interface ButtonGroupProps {
   class?: string;
@@ -6,8 +7,23 @@ interface ButtonGroupProps {
   vertical?: boolean;
 }
 
-export const ButtonGroup = component$((props: ButtonGroupProps) => {
-  return (
-    <div class={`btn-group ${props.vertical && 'btn-group-vertical'}`} aria-label="outlined button group" {...props}><Slot/></div>
-  );
-});
+export const ButtonGroup = component$(
+  ({
+    class: classProp = '',
+    className = '',
+    vertical,
+    ...props
+  }: ButtonGroupProps) => {
+    const cssClass = cn(
+      'btn-group',
+      { 'btn-group-vertical': vertical },
+      classProp,
+      className
+    );
+    return (
+      <div class={cssClass} aria-label="outlined button group" {...props}>
+        <Slot />
+      </div>
+    );
+  }
+);
