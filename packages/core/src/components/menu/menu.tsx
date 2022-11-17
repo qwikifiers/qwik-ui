@@ -5,16 +5,22 @@ interface MenuProps {
   className?: string;
   items: string[];
   onClick: PropFunction<(index: number) => void>;
+  isHorizontal?: boolean;
 }
 
-export const Menu = component$(({ items, onClick, ...props }: MenuProps) => {
-  return (
-    <ul class="menu bg-base-100 w-56" {...props}>
-      {items.map((item, i) => (
-        <li>
-          <a onClick$={() => onClick(i)}>{item}</a>
-        </li>
-      ))}
-    </ul>
-  );
-});
+export const Menu = component$(
+  ({ items, onClick, isHorizontal, ...props }: MenuProps) => {
+    return (
+      <ul
+        class={`menu bg-base-100 ${isHorizontal ? 'menu-horizontal' : ''}`}
+        {...props}
+      >
+        {items.map((item, i) => (
+          <li>
+            <a onClick$={() => onClick(i)}>{item}</a>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+);

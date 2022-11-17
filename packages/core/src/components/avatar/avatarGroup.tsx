@@ -1,4 +1,5 @@
 import { component$, Slot } from '@builder.io/qwik';
+import cn from 'classnames';
 
 interface AvatarGroupProps {
   class?: string;
@@ -6,8 +7,14 @@ interface AvatarGroupProps {
 }
 
 export const AvatarGroup = component$((props: AvatarGroupProps) => {
+  const cssClass = cn(
+    'avatar-group',
+    '-space-x-6',
+    props.class,
+    props.className
+  );
   return (
-    <div class="avatar-group -space-x-6" {...props}>
+    <div class={cssClass} {...props}>
       <Slot />
     </div>
   );

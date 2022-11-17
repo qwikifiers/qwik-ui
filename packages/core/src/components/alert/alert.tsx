@@ -1,4 +1,5 @@
 import { component$, Slot } from '@builder.io/qwik';
+import cn from 'classnames';
 
 interface AlertProps {
   class?: string;
@@ -6,9 +7,7 @@ interface AlertProps {
 }
 
 export const Alert = component$((props: AlertProps) => {
-  const cssClass = `alert ${props.class ? props.class : ''} ${
-    props.className ? props.className : ''
-  }`;
+  const cssClass = cn('alert', props.class, props.className);
 
   return (
     <div class={cssClass}>
