@@ -1,16 +1,23 @@
 import { component$ } from '@builder.io/qwik';
+import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface DrawerTriggerProps {
-  class?: string;
-  className?: string;
+interface DrawerTriggerProps extends WithClassesProp {
   id: string;
   label: string;
 }
 
 export const DrawerTrigger = component$(
-  ({ id, label, ...props }: DrawerTriggerProps) => {
+  ({
+    id,
+    label,
+    class: classProp = '',
+    className = '',
+    ...props
+  }: DrawerTriggerProps) => {
+    const cssClass = cn('btn btn-primary drawer-button', classProp, className);
     return (
-      <label for={id} className="btn btn-primary drawer-button" {...props}>
+      <label for={id} className={cssClass} {...props}>
         {label}
       </label>
     );

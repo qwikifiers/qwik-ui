@@ -1,15 +1,23 @@
-import {component$, Slot} from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
+import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface TabsProps {
-  class?: string;
-  className?: string;
+interface TabsProps extends WithClassesProp {
   boxed?: boolean;
 }
 
-export const Tabs = component$(({ boxed = false, ...props } : TabsProps) => {
-  return (
-    <div class={`tabs ${boxed ? 'tabs-boxed' : ''}`} {...props}>
-      <Slot />
-    </div>
-  );
-});
+export const Tabs = component$(
+  ({
+    boxed = false,
+    class: classProp = '',
+    className = '',
+    ...props
+  }: TabsProps) => {
+    const cssClass = cn('tabs', { 'tabs-boxed': boxed }, classProp, className);
+    return (
+      <div class={cssClass} {...props}>
+        <Slot />
+      </div>
+    );
+  }
+);

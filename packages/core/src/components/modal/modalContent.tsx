@@ -1,14 +1,16 @@
 import { component$, Slot } from '@builder.io/qwik';
+import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface ModalContentProps {
-  class?: string;
-  className?: string;
-}
+interface ModalContentProps extends WithClassesProp {}
 
-export const ModalContent = component$((props: ModalContentProps) => {
-  return (
-    <div className="modal-box" {...props}>
-      <Slot />
-    </div>
-  );
-});
+export const ModalContent = component$(
+  ({ class: classProp = '', className = '', ...props }: ModalContentProps) => {
+    const cssClass = cn('modal-box', classProp, className);
+    return (
+      <div className={cssClass} {...props}>
+        <Slot />
+      </div>
+    );
+  }
+);

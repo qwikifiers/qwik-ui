@@ -1,12 +1,16 @@
-import {component$, Slot} from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
+import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface StackProps {
-  class?: string;
-  className?: string;
-}
+interface StackProps extends WithClassesProp {}
 
-export const Stack = component$((props: StackProps) => {
-  return (
-    <a className="stack" {...props}><Slot /></a>
-  );
-});
+export const Stack = component$(
+  ({ class: classProp = '', className = '', ...props }: StackProps) => {
+    const cssClass = cn('stack', classProp, className);
+    return (
+      <a className={cssClass} {...props}>
+        <Slot />
+      </a>
+    );
+  }
+);
