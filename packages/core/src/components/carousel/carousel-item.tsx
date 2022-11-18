@@ -1,15 +1,27 @@
-import {component$} from "@builder.io/qwik";
+import { component$ } from '@builder.io/qwik';
+import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface CarouselItemProps {
+interface CarouselItemProps extends WithClassesProp {
   index: number;
   src: string;
   alt: string;
 }
 
-export const CarouselItem = component$(({ index, src, alt, ...props } : CarouselItemProps) => {
-  return (
-    <div id={`item${index}`} className="carousel-item w-full" {...props}>
-      <img src={src} alt={alt} className="w-full"/>
-    </div>
-  );
-});
+export const CarouselItem = component$(
+  ({
+    index,
+    src,
+    alt,
+    class: classProp = '',
+    className = '',
+    ...props
+  }: CarouselItemProps) => {
+    const cssClass = cn('carousel-item w-full', classProp, className);
+    return (
+      <div id={`item${index}`} className={cssClass} {...props}>
+        <img src={src} alt={alt} className="w-full" />
+      </div>
+    );
+  }
+);

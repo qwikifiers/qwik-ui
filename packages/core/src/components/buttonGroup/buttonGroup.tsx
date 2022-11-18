@@ -1,9 +1,8 @@
 import { component$, Slot } from '@builder.io/qwik';
 import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface ButtonGroupProps {
-  class?: string;
-  className?: string;
+interface ButtonGroupProps extends WithClassesProp {
   vertical?: boolean;
 }
 

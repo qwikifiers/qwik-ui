@@ -1,14 +1,20 @@
 import { component$, Slot } from '@builder.io/qwik';
+import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface CollapseContentProps {
-  class?: string;
-  className?: string;
-}
+interface CollapseContentProps extends WithClassesProp {}
 
-export const CollapseContent = component$((props: CollapseContentProps) => {
-  return (
-    <div className="collapse-content" {...props}>
-      <Slot />
-    </div>
-  );
-});
+export const CollapseContent = component$(
+  ({
+    class: classProp = '',
+    className = '',
+    ...props
+  }: CollapseContentProps) => {
+    const cssClass = cn('collapse-content', classProp, className);
+    return (
+      <div className={cssClass} {...props}>
+        <Slot />
+      </div>
+    );
+  }
+);

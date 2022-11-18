@@ -1,9 +1,8 @@
 import { component$ } from '@builder.io/qwik';
 import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface BreadcrumbItemProps {
-  class?: string;
-  className?: string;
+interface BreadcrumbItemProps extends WithClassesProp {
   navigationUrl?: string;
   label?: string;
 }

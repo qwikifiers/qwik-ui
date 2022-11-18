@@ -1,10 +1,8 @@
 import { component$, Slot } from '@builder.io/qwik';
 import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface BreadcrumbProps {
-  class?: string;
-  className?: string;
-}
+interface BreadcrumbProps extends WithClassesProp {}
 
 export const Breadcrumb = component$(
   ({ class: classProp = '', className = '', ...props }: BreadcrumbProps) => {

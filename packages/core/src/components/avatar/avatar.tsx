@@ -1,14 +1,12 @@
 import { component$, Slot } from '@builder.io/qwik';
-import { Size } from '../../types/types';
 import cn from 'classnames';
+import { Size, WithClassesProp } from '../../types';
 
-interface AvatarProps {
+interface AvatarProps extends WithClassesProp {
   size?: Size;
   hasRoundedCorners?: boolean;
   hasRing?: boolean;
   isCircle?: boolean;
-  class?: string;
-  className?: string;
 }
 
 export const Avatar = component$(

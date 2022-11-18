@@ -1,14 +1,16 @@
-import {component$, Slot} from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
+import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface CardActionsProps {
-  class?: string;
-  className?: string;
-}
+interface CardActionsProps extends WithClassesProp {}
 
-export const CardActions = component$((props : CardActionsProps) => {
-  return (
-    <div className="card-actions" {...props}>
-      <Slot />
-    </div>
-  );
-});
+export const CardActions = component$(
+  ({ class: classProp = '', className = '', ...props }: CardActionsProps) => {
+    const cssClass = cn('card-actions', classProp, className);
+    return (
+      <div className={cssClass} {...props}>
+        <Slot />
+      </div>
+    );
+  }
+);

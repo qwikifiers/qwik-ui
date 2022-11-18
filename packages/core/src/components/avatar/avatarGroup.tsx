@@ -1,10 +1,8 @@
 import { component$, Slot } from '@builder.io/qwik';
 import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface AvatarGroupProps {
-  class?: string;
-  className?: string;
-}
+interface AvatarGroupProps extends WithClassesProp {}
 
 export const AvatarGroup = component$((props: AvatarGroupProps) => {
   const cssClass = cn(

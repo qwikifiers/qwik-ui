@@ -1,12 +1,10 @@
 import { component$, Slot } from '@builder.io/qwik';
 import cn from 'classnames';
-import { ColorTypes } from '../../types/types';
+import { ColorTypes, WithClassesProp } from '../../types';
 
-interface BadgeProps {
+interface BadgeProps extends WithClassesProp {
   color?: ColorTypes;
   withOutline?: boolean;
-  class?: string;
-  className?: string;
 }
 
 export const Badge = component$(

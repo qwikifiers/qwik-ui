@@ -1,8 +1,8 @@
 import { component$, Slot } from '@builder.io/qwik';
+import cn from 'classnames';
+import { WithClassesProp } from '../../types';
 
-interface CardProps {
-  class?: string;
-  className?: string;
+interface CardProps extends WithClassesProp {
   title?: string;
   imageUrl?: string;
   imagePlacement?: 'top' | 'bottom';
@@ -15,15 +15,18 @@ export const Card = component$(
     imageUrl,
     imagePlacement = 'top',
     imageAsOverlay = false,
+    class: classProp = '',
+    className = '',
     ...props
   }: CardProps) => {
+    const cssClass = cn(
+      'card w-96 bg-base-100 shadow-xl',
+      { 'image-full': imageAsOverlay },
+      classProp,
+      className
+    );
     return (
-      <div
-        className={`card w-96 bg-base-100 shadow-xl ${
-          imageAsOverlay ? 'image-full' : ''
-        }`}
-        {...props}
-      >
+      <div className={cssClass} {...props}>
         {imagePlacement === 'top' && imageUrl && (
           <figure>
             <img src={imageUrl} />
