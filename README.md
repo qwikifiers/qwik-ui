@@ -27,18 +27,19 @@
 <details>
 <summary>Table of Contents</summary>
 
+
 - [⚠ This is not ready for production!](#-this-is-not-ready-for-production)
-  - [Installation](#installation)
-  - [Example](#example)
-  - [Contributing](#contributing)
-  - [Code Of Conduct](#code-of-conduct)
-  - [Contributors](#contributors)
-  - [Related Links](#related-links)
-  - [License](#license)
+- [Installation](#installation)
+- [Example](#example)
+- [Contributing](#contributing)
+- [Code Of Conduct](#code-of-conduct)
+- [Contributors](#contributors)
+- [Related Links](#related-links)
+- [License](#license)
 
 </details>
 
-# ⚠ This is not ready for production!
+## ⚠ This is not ready for production!
 
 This library is still in early stages and once we'll collect enough feedback from the community we'll release the first beta version.
 
