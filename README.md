@@ -1,22 +1,42 @@
-# 🚀🧩 Qwik UI - Components Library
 
-The components library for Qwik
+<p align="center">
+  <br>
+  <img width="400" src="./packages/website/public/qwik-ui.png" alt="awesome logo of qwik ui">
+  <br>
+  <br>
+</p>
 
-![npm](https://img.shields.io/npm/v/@qwik-ui/core?label=npm%20version)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-green.svg?style=flat-square)](#contributors-)
+<h1 align='center'>Qwik UI</h1>
 
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+<div align='center'>
+  The components library for <a href='https://github.com/BuilderIO/qwik'>Qwik</a>
+  <br><br>
 
-<!-- [![npm downloads](https://img.shields.io/npm/dm/@qwik-ui/core.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@qwik-ui/core&from=2017-07-26) -->
+  <a href='https://img.shields.io/npm/v/@qwik-ui/core?label=npm%20version'>
+  <img src='https://img.shields.io/npm/v/@qwik-ui/core?label=npm%20version' alt='QWIK UI npm'>
+  </a>
+  <a href='https://opensource.org/licenses/MIT'>
+  <img src='https://img.shields.io/badge/License-MIT-green.svg' alt='MIT'>
+  </a>
+  <a href='#contributors'>
+  <img src='https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square' alt='All Contributors'>
+  </a>
 
-<!-- [![codecov](https://img.shields.io/codecov/c/github/qwikifiers/qwik-ui.svg)](https://codecov.io/gh/qwikifiers/qwik-ui)  -->
+</div>
+<br>
+<details>
+<summary>Table of Contents</summary>
 
-<br/>
+- [⚠ This is not ready for production!](#-this-is-not-ready-for-production)
+  - [Installation](#installation)
+  - [Example](#example)
+  - [Contributing](#contributing)
+  - [Code Of Conduct](#code-of-conduct)
+  - [Contributors](#contributors)
+  - [Related Links](#related-links)
+  - [License](#license)
 
-Here is our temporary logo 😅👇
-
-![image](packages/website/public/qwik-ui-banner-github.png)
+</details>
 
 # ⚠ This is not ready for production!
 
@@ -24,7 +44,7 @@ This library is still in early stages and once we'll collect enough feedback fro
 
 We still need to
 
-- [ ] Design a normal logo
+- [x] Design a normal logo
 - [ ] Build a proper documentation website
 - [ ] Add tests
 - [ ] Fix bugs
@@ -32,64 +52,22 @@ We still need to
 
 <br/>
 
-## Installation (for trying it out and reporting issues)
+## Installation
+> Please create issue if you encounter bugs.
 
 ```console
 
 npm install -D @qwik-ui/core
 ```
 
-or
+<br/>
 
-```console
+## Example
 
-yarn add @qwik-ui/core
-```
-
-Once the package was added to your project, you will have to add tailwind configuration. </br>
-At the root of your project, add `postcss.config.cjs` file with the following content:
-
-```js
-const path = require('path');
-
-module.exports = {
-  plugins: {
-    tailwindcss: {
-      config: path.join(__dirname, 'tailwind.config.cjs'),
-    },
-    autoprefixer: {},
-  },
-};
-```
-
-At the root of your project add `tailwind.config.cjs` file with the following content:
-
-```js
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
-  theme: {
-    extend: {},
-  },
-  plugins: [require('daisyui')],
-};
-```
-
-At the main css file in your project you will need to add the following lines to enable tailwind and daisy styles:
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-Now you can start using the library components.
-
-## Component Usage Example
-
-```js
+```typescript
 
 import { Alert } from '@qwik-ui/core';
+
 
 export Page = component$(()=> {
   return (
@@ -118,7 +96,7 @@ Be kind to each other and please read our [code of conduct](CODE_OF_CONDUCT.md).
 
 <br/>
 
-## Contributors ✨
+## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -144,6 +122,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 <br/>
+## Related Links
+- [Qwik Docs](https://qwik.builder.io/)
+- [Discord](https://qwik.builder.io/chat)
+- [Qwik GitHub](https://github.com/BuilderIO/qwik)
+- [@QwikDev](https://twitter.com/QwikDev)
+- [Vite](https://vitejs.dev/)
 
 ## License
 
