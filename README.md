@@ -124,8 +124,9 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 <br/>
 ## Related Links
+- [Qwik UI Discord](https://discord.gg/PVWUUejrez)
 - [Qwik Docs](https://qwik.builder.io/)
-- [Discord](https://qwik.builder.io/chat)
+- [Qwik Discord](https://qwik.builder.io/chat)
 - [Qwik GitHub](https://github.com/BuilderIO/qwik)
 - [@QwikDev](https://twitter.com/QwikDev)
 - [Vite](https://vitejs.dev/)
