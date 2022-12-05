@@ -1,0 +1,11 @@
+* [role='tab'] {
+  width: 250px;
+  background: lightgreen;
+}
+
+* [role='tab'].selected {
+  background: magenta;
+}
+* [role='tablist'] {
+  border: 1px solid;
+}
