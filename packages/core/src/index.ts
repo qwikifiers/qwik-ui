@@ -53,4 +53,3 @@ export { Textarea } from './components/textarea/textarea';
 export { Toast } from './components/toast/toast';
 export { Toggle } from './components/toggle/toggle';
 export { Tooltip } from './components/tooltip/tooltip';
-export * as headless from './headless/tabs';

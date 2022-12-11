@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@qwik-ui/core": ["packages/core/src/index.ts"]
+      "@qwik-ui/core": ["packages/core/src/index.ts"],
+      "@qwik-ui/headless": ["packages/headless/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

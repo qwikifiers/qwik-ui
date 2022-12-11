@@ -1,7 +1,6 @@
 import {
   component$,
   createContext,
-  useServerMount$,
   Signal,
   Slot,
   $,
@@ -9,6 +8,7 @@ import {
   useContext,
   useContextProvider,
   useSignal,
+  useMount$,
 } from '@builder.io/qwik';
 
 export type Behavior = 'automatic' | 'manual';
@@ -27,7 +27,7 @@ export interface TabsProps {
   behavior?: Behavior;
 }
 
-export const Tabs = component$(({ behavior = 'automatic' }: TabsProps) => {
+export const Tabs = component$(({ behavior = 'manual' }: TabsProps) => {
   const lastTabIndex = useSignal(-1);
   const lastPanelIndex = useSignal(-1);
 
@@ -68,7 +68,7 @@ interface TabListProps {
 // List of tabs that can be clicked to show different content.
 export const TabList = component$((props?: TabListProps) => {
   return (
-    <div role="tablist" aria-labelledby={props?.labelledBy} onClick$={() => {}}>
+    <div role="tablist" aria-labelledby={props?.labelledBy}>
       <Slot />
     </div>
   );
@@ -79,7 +79,7 @@ export const Tab = component$(() => {
   const contextService = useContext(tabsContext);
   const thisTabIndex = useSignal(0);
 
-  useServerMount$(async () => {
+  useMount$(async () => {
     thisTabIndex.value = await await contextService.getNextTabIndex();
   });
   const isSelected = () =>
@@ -97,7 +97,7 @@ export const Tab = component$(() => {
       type="button"
       role="tab"
       onFocus$={selectIfAutomatic}
-      onMouseOver$={selectIfAutomatic}
+      onMouseEnter$={selectIfAutomatic}
       aria-selected={isSelected()}
       aria-controls={`tabpanel-${thisTabIndex}`}
       class={{ selected: isSelected() }}
@@ -116,7 +116,7 @@ export const TabPanel = component$(() => {
   const thisPanelIndex = useSignal(0);
   const isSelected = () =>
     thisPanelIndex.value === contextService.selectedIndex.value;
-  useServerMount$(async () => {
+  useMount$(async () => {
     thisPanelIndex.value = await await contextService.getNextPanelIndex();
   });
   return (
