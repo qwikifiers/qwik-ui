@@ -5,8 +5,8 @@ import {
   TabList,
   Tab,
   TabPanel,
-  Drawer,
   Collapse,
+  Drawer,
 } from '@qwik-ui/headless';
 import styles from './index.css?inline';
 
@@ -100,11 +100,14 @@ export default component$(() => {
       </Tabs>
 
       <hr />
-      <Drawer />
+      <Drawer label="Drawer label">
+        <span q:slot="closeButtonLabel">Close me!!!</span>
+        <div>Hello from Drawer!!</div>
+      </Drawer>
 
       <hr />
-      <Collapse label='Show Greeting'>
-        <p>Hello Giorgio</p>
+      <Collapse label="Collapse label">
+        <p>Hello from Collapse</p>
       </Collapse>
     </div>
   );
