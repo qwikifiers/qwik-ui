@@ -1,6 +1,13 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Tabs, TabList, Tab, TabPanel } from '@qwik-ui/headless';
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  Drawer,
+  Collapse,
+} from '@qwik-ui/headless';
 import styles from './index.css?inline';
 
 export default component$(() => {
@@ -49,6 +56,7 @@ export default component$(() => {
         </TabPanel>
       </Tabs>
 
+      <hr />
       <Tabs behavior="automatic">
         <h3 id="tablist-1">Danish Composers</h3>
         <TabList>
@@ -90,6 +98,12 @@ export default component$(() => {
           </p>
         </TabPanel>
       </Tabs>
+
+      <hr />
+      <Drawer />
+
+      <hr />
+      <Collapse />
     </div>
   );
 });
