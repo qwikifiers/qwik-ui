@@ -103,7 +103,9 @@ export default component$(() => {
       <Drawer />
 
       <hr />
-      <Collapse />
+      <Collapse label='Show Greeting'>
+        <p>Hello Giorgio</p>
+      </Collapse>
     </div>
   );
 });
