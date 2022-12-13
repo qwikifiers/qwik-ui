@@ -38,7 +38,7 @@ export const Tooltip = component$(
     });
 
     return (
-      <>
+      <div>
         <div
           ref={slotted}
           onMouseEnter$={() => showTooltip()}
@@ -56,12 +56,13 @@ export const Tooltip = component$(
           style={`${
             isTooltipVisible.value ? 'display: block' : 'display: none'
           }; 
+            position: absolute;
             left: ${xSignal.value}px; 
             top: ${ySignal.value}px;`}
         >
           {message}
         </div>
-      </>
+      </div>
     );
   }
 );

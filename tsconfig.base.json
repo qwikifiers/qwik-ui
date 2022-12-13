@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@qwik-ui/core": ["packages/core/src/index.ts"],
+      "@qwik-ui/daisy": ["packages/daisy/src/index.ts"],
       "@qwik-ui/headless": ["packages/headless/src/index.ts"]
     }
   },
