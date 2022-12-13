@@ -1,12 +1,13 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanel,
   Collapse,
   Drawer,
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
+  Tooltip,
 } from '@qwik-ui/headless';
 import styles from './index.css?inline';
 
@@ -109,6 +110,11 @@ export default component$(() => {
       <Collapse label="Collapse label">
         <p>Hello from Collapse</p>
       </Collapse>
+
+      <hr />
+      <Tooltip message="Hi this is the message">
+        <div>I'm the trigger</div>
+      </Tooltip>
     </div>
   );
 });

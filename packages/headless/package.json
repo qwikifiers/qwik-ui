@@ -33,6 +33,7 @@
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
   },
-  "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {
+    "@floating-ui/dom": "1.0.10"
+  }
 }

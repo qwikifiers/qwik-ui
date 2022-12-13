@@ -1,15 +1,15 @@
-import { component$, Slot, useSignal, Signal } from '@builder.io/qwik';
+import { component$, Slot, useSignal } from '@builder.io/qwik';
 
 export interface DrawerProps {
   class?: string;
   label: string;
 }
 
-export type State = 'open' | 'closed' | 'closing';
+export type DrawerState = 'open' | 'closed' | 'closing';
 
 export const Drawer = component$((props: DrawerProps) => {
   const random = Math.random() * 1000;
-  const state = useSignal<State>('closed');
+  const state = useSignal<DrawerState>('closed');
   return (
     <div data-state={state.value}>
       <style
