@@ -9,6 +9,7 @@ import {
   useContextProvider,
   useSignal,
   useMount$,
+  PropFunction,
 } from '@builder.io/qwik';
 
 export type Behavior = 'automatic' | 'manual';
@@ -25,40 +26,43 @@ export const tabsContext = createContext<TabsContext>('tabList');
 
 export interface TabsProps {
   behavior?: Behavior;
+  class?: string;
 }
 
-export const Tabs = component$(({ behavior = 'manual' }: TabsProps) => {
-  const lastTabIndex = useSignal(-1);
-  const lastPanelIndex = useSignal(-1);
+export const Tabs = component$(
+  ({ behavior = 'manual', ...props }: TabsProps) => {
+    const lastTabIndex = useSignal(0);
+    const lastPanelIndex = useSignal(0);
 
-  const tabsHash = `${Math.random() * 1000}`;
+    const tabsHash = `${Math.random() * 1000}`;
 
-  const getNextTabIndex = $(() => {
-    return ++lastTabIndex.value;
-  });
+    const getNextTabIndex = $(() => {
+      return lastTabIndex.value++;
+    });
 
-  const getNextPanelIndex = $(() => {
-    return ++lastPanelIndex.value;
-  });
+    const getNextPanelIndex = $(() => {
+      return lastPanelIndex.value++;
+    });
 
-  const selected = useSignal(0);
+    const selected = useSignal(0);
 
-  const contextService: TabsContext = {
-    selectedIndex: selected,
-    getNextTabIndex,
-    getNextPanelIndex,
-    tabsHash,
-    behavior,
-  };
+    const contextService: TabsContext = {
+      selectedIndex: selected,
+      getNextTabIndex,
+      getNextPanelIndex,
+      tabsHash,
+      behavior,
+    };
 
-  useContextProvider(tabsContext, contextService);
+    useContextProvider(tabsContext, contextService);
 
-  return (
-    <div>
-      <Slot />
-    </div>
-  );
-});
+    return (
+      <div {...props}>
+        <Slot />
+      </div>
+    );
+  }
+);
 
 interface TabListProps {
   labelledBy?: string;
@@ -66,16 +70,22 @@ interface TabListProps {
 }
 
 // List of tabs that can be clicked to show different content.
-export const TabList = component$((props?: TabListProps) => {
+export const TabList = component$((props: TabListProps) => {
+  const { labelledBy, ...rest } = props;
   return (
-    <div role="tablist" aria-labelledby={props?.labelledBy}>
+    <div role="tablist" aria-labelledby={labelledBy} {...rest}>
       <Slot />
     </div>
   );
 });
 
+interface TabProps {
+  onClick?: PropFunction<(clicked: number) => void>;
+  class?: string;
+}
+
 // Tab button inside of a tab list
-export const Tab = component$(() => {
+export const Tab = component$(({ onClick, ...props }: TabProps) => {
   const contextService = useContext(tabsContext);
   const thisTabIndex = useSignal(0);
 
@@ -93,25 +103,35 @@ export const Tab = component$(() => {
 
   return (
     <button
-      id={`${contextService.tabsHash}-tab-${thisTabIndex}`}
+      id={`${contextService.tabsHash}-tab-${thisTabIndex.value}`}
       type="button"
       role="tab"
       onFocus$={selectIfAutomatic}
       onMouseEnter$={selectIfAutomatic}
       aria-selected={isSelected()}
-      aria-controls={`tabpanel-${thisTabIndex}`}
-      class={{ selected: isSelected() }}
-      onClick$={() => {
+      aria-controls={`tabpanel-${thisTabIndex.value}`}
+      class={`${isSelected() ? 'selected' : ''}${
+        props.class ? ` ${props.class}` : ''
+      }`}
+      onClick$={$(() => {
         contextService.selectedIndex.value = thisTabIndex.value;
-      }}
+        if (onClick) {
+          onClick(thisTabIndex.value);
+        }
+      })}
     >
       <Slot />
     </button>
   );
 });
 
-// Tab Panel
-export const TabPanel = component$(() => {
+interface TabPanelProps {
+  class?: string;
+}
+
+// Tab Panel implementation
+export const TabPanel = component$(({ ...props }: TabPanelProps) => {
+  const { class: className, ...rest } = props;
   const contextService = useContext(tabsContext);
   const thisPanelIndex = useSignal(0);
   const isSelected = () =>
@@ -125,8 +145,11 @@ export const TabPanel = component$(() => {
       role="tabpanel"
       tabIndex={0}
       aria-labelledby={`tab-${thisPanelIndex}`}
-      class={isSelected() ? 'is-hidden' : ''}
+      class={`${isSelected() ? 'is-hidden' : ''}${
+        className ? ` ${className}` : ''
+      }`}
       style={isSelected() ? 'display: block' : 'display: none'}
+      {...rest}
     >
       <Slot />
     </div>

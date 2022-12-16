@@ -1,15 +1,19 @@
-import {component$, Slot} from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
+import { Tabs as HeadlessTabs } from '@qwik-ui/headless';
 
 interface TabsProps {
   class?: string;
-  className?: string;
   boxed?: boolean;
 }
 
-export const Tabs = component$(({ boxed = false, ...props } : TabsProps) => {
+export const Tabs = component$(({ boxed = false, ...props }: TabsProps) => {
   return (
-    <div class={`tabs ${boxed ? 'tabs-boxed' : ''}`} {...props}>
+    <HeadlessTabs
+      behavior="manual"
+      class={`tabs ${boxed ? 'tabs-boxed' : ''}`}
+      {...props}
+    >
       <Slot />
-    </div>
+    </HeadlessTabs>
   );
 });
