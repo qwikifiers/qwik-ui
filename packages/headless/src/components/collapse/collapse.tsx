@@ -1,10 +1,7 @@
 import { component$, Slot, useSignal } from '@builder.io/qwik';
 
 export interface CollapseProps {
-  collapseClass?: string;
-  titleClass?: string;
-  contentClass?: string;
-  label: string;
+  class?: string;
 }
 
 export type CollapseState = 'open' | 'closed' | 'closing';
@@ -13,7 +10,7 @@ export const Collapse = component$((props: CollapseProps) => {
   const random = Math.random() * 1000;
   const state = useSignal<CollapseState>('closed');
   return (
-    <div data-state={state.value} className={props.collapseClass}>
+    <div data-state={state.value} className={props.class}>
       <style
         dangerouslySetInnerHTML={`
       @keyframes DummyIn {
@@ -34,7 +31,6 @@ export const Collapse = component$((props: CollapseProps) => {
     `}
       />
       <button
-        className={props.titleClass}
         aria-expanded={state.value === 'open'}
         aria-controls={random.toString()}
         onClick$={() =>
@@ -43,7 +39,7 @@ export const Collapse = component$((props: CollapseProps) => {
             : (state.value = 'open')
         }
       >
-        {props.label}
+        <Slot name="label" />
       </button>
       <div
         id={random.toString()}
@@ -51,9 +47,7 @@ export const Collapse = component$((props: CollapseProps) => {
           state.value === 'closing' ? (state.value = 'closed') : state.value;
         }}
       >
-        <div className={props.contentClass}>
-          <Slot />
-        </div>
+        <Slot name="content" />
       </div>
     </div>
   );

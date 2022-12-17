@@ -10,8 +10,11 @@ export default component$(() => {
   return (
     <div>
       <div style="width: 300px">
-        <Collapse label="Hi Glenn and Gil!" showPlus={true}>
-          <div class="text-center">QwikUI 🚀</div>
+        <Collapse showArrow={true}>
+          <label q:slot="label">Hi Glenn and Gil!</label>
+          <div class="text-center" q:slot="content">
+            QwikUI 🚀
+          </div>
         </Collapse>
       </div>
 
@@ -55,7 +58,7 @@ export default component$(() => {
       {/* hack to prevent tailwind purge */}
       <div
         style={{ display: 'none' }}
-        class="collapse collapse-title text-xl font-medium collapse-content max-h-fit tabs tabs-boxed tab tab-active tab-bordered tab-lifted form-control abel cursor-pointer toggle label-text"
+        class="collapse border border-base-300 rounded-box collapse-arrow collapse-plus collapse-title text-xl font-medium collapse-content max-h-fit tabs tabs-boxed tab tab-active tab-bordered tab-lifted form-control abel cursor-pointer toggle label-text"
       />
     </div>
   );
