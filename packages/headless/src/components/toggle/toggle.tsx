@@ -1,4 +1,9 @@
-import { component$, PropFunction, useSignal } from '@builder.io/qwik';
+import {
+  component$,
+  PropFunction,
+  QwikMouseEvent,
+  useSignal,
+} from '@builder.io/qwik';
 
 interface ToggleProps {
   value?: string;
@@ -14,7 +19,7 @@ interface ToggleProps {
    */
   defaultPressed?: boolean;
 
-  onClick$: PropFunction<(evt: Event) => void>;
+  onClick$: PropFunction<(evt: QwikMouseEvent) => void>;
 }
 
 export const Toggle = component$((props: ToggleProps) => {
@@ -35,12 +40,12 @@ export const Toggle = component$((props: ToggleProps) => {
       aria-pressed={pressedState.value}
       data-state={pressedState.value ? 'on' : 'off'}
       data-disabled={disabled ? '' : undefined}
-      onClick$={(event) => {
+      onClick$={(event: QwikMouseEvent<HTMLInputElement>) => {
         if (!disabled) {
           pressedState.value = !pressedState.value;
           if (onClick$) {
             // REPORT MISSING QwikMouseEvent to Qwik github
-            onClick$(event as any);
+            onClick$(event);
           }
         }
       }}

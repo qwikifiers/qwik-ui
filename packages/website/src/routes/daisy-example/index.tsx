@@ -1,10 +1,11 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Collapse, Tabs, Tab, TabPanel } from '@qwik-ui/daisy';
+import { Collapse, Tabs, Tab, TabPanel, Toggle } from '@qwik-ui/daisy';
 
 export default component$(() => {
   const tabs = ['Tab 1', 'Tab 2', 'Tab 3'];
   const activeTab = useSignal(0);
+  const toggleChecked = useSignal(false);
 
   return (
     <div>
@@ -42,10 +43,19 @@ export default component$(() => {
         </Tabs>
       </div>
 
+      <div>
+        <Toggle
+          checked={toggleChecked.value}
+          onClick$={() => {
+            toggleChecked.value = !toggleChecked.value;
+          }}
+        />
+      </div>
+
       {/* hack to prevent tailwind purge */}
       <div
         style={{ display: 'none' }}
-        class="collapse collapse-title text-xl font-medium collapse-content max-h-fit tabs tabs-boxed tab tab-active tab-bordered tab-lifted"
+        class="collapse collapse-title text-xl font-medium collapse-content max-h-fit tabs tabs-boxed tab tab-active tab-bordered tab-lifted form-control abel cursor-pointer toggle label-text"
       />
     </div>
   );
