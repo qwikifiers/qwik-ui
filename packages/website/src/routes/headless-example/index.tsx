@@ -3,6 +3,8 @@ import type { DocumentHead } from '@builder.io/qwik-city';
 import {
   Collapse,
   Drawer,
+  DrawerContent,
+  DrawerTrigger,
   Tab,
   TabList,
   TabPanel,
@@ -101,14 +103,41 @@ export default component$(() => {
       </Tabs>
 
       <hr />
-      <Drawer label="Drawer label">
-        <span q:slot="closeButtonLabel">Close me!!!</span>
-        <div>Hello from Drawer!!</div>
+      <Drawer class="drawer">
+        <DrawerTrigger>
+          <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+          <div class="drawer-content">
+            <label for="my-drawer" class="btn btn-primary drawer-button">
+              Open drawer
+            </label>
+          </div>
+        </DrawerTrigger>
+        <DrawerContent class="drawer-side">
+          <label for="my-drawer" class="drawer-overlay"></label>
+          <ul class="menu p-4 w-80 bg-base-100 text-base-content">
+            <li>
+              <a href="/" target="_blank">
+                Homepage
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/qwikifiers/qwik-ui" target="_blank">
+                QwikUI
+              </a>
+            </li>
+            <li>
+              <a href="https://qwik.builder.io/" target="_blank">
+                Qwik
+              </a>
+            </li>
+          </ul>
+        </DrawerContent>
       </Drawer>
 
       <hr />
-      <Collapse label="Collapse label">
-        <p>Hello from Collapse</p>
+      <Collapse>
+        <p q:slot="label">Hello from Collapse</p>
+        <p q:slot="content">Collapse content</p>
       </Collapse>
 
       <hr />
