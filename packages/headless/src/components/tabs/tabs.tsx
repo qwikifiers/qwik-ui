@@ -82,48 +82,51 @@ export const TabList = component$((props: TabListProps) => {
 interface TabProps {
   onClick?: PropFunction<(clicked: number) => void>;
   class?: string;
+  selectedClassName?: string;
 }
 
 // Tab button inside of a tab list
-export const Tab = component$(({ onClick, ...props }: TabProps) => {
-  const contextService = useContext(tabsContext);
-  const thisTabIndex = useSignal(0);
+export const Tab = component$(
+  ({ selectedClassName, onClick, ...props }: TabProps) => {
+    const contextService = useContext(tabsContext);
+    const thisTabIndex = useSignal(0);
 
-  useMount$(async () => {
-    thisTabIndex.value = await await contextService.getNextTabIndex();
-  });
-  const isSelected = () =>
-    thisTabIndex.value === contextService.selectedIndex.value;
+    useMount$(async () => {
+      thisTabIndex.value = await await contextService.getNextTabIndex();
+    });
+    const isSelected = () =>
+      thisTabIndex.value === contextService.selectedIndex.value;
 
-  const selectIfAutomatic = $(() => {
-    if (contextService.behavior === 'automatic') {
-      contextService.selectedIndex.value = thisTabIndex.value;
-    }
-  });
-
-  return (
-    <button
-      id={`${contextService.tabsHash}-tab-${thisTabIndex.value}`}
-      type="button"
-      role="tab"
-      onFocus$={selectIfAutomatic}
-      onMouseEnter$={selectIfAutomatic}
-      aria-selected={isSelected()}
-      aria-controls={`tabpanel-${thisTabIndex.value}`}
-      class={`${isSelected() ? 'selected' : ''}${
-        props.class ? ` ${props.class}` : ''
-      }`}
-      onClick$={$(() => {
+    const selectIfAutomatic = $(() => {
+      if (contextService.behavior === 'automatic') {
         contextService.selectedIndex.value = thisTabIndex.value;
-        if (onClick) {
-          onClick(thisTabIndex.value);
-        }
-      })}
-    >
-      <Slot />
-    </button>
-  );
-});
+      }
+    });
+
+    return (
+      <button
+        id={`${contextService.tabsHash}-tab-${thisTabIndex.value}`}
+        type="button"
+        role="tab"
+        onFocus$={selectIfAutomatic}
+        onMouseEnter$={selectIfAutomatic}
+        aria-selected={isSelected()}
+        aria-controls={`tabpanel-${thisTabIndex.value}`}
+        class={`${isSelected() ? `selected ${selectedClassName}` : ''}${
+          props.class ? ` ${props.class}` : ''
+        }`}
+        onClick$={$(() => {
+          contextService.selectedIndex.value = thisTabIndex.value;
+          if (onClick) {
+            onClick(thisTabIndex.value);
+          }
+        })}
+      >
+        <Slot />
+      </button>
+    );
+  }
+);
 
 interface TabPanelProps {
   class?: string;
