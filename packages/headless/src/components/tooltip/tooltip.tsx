@@ -40,6 +40,7 @@ export const Tooltip = component$(
     return (
       <div>
         <div
+          style={`width: max-content;`}
           ref={slotted}
           onMouseEnter$={() => showTooltip()}
           onMouseLeave$={() => hideTooltip()}
@@ -55,9 +56,10 @@ export const Tooltip = component$(
           {...props}
           style={`${
             isTooltipVisible.value ? 'display: block' : 'display: none'
-          }; 
+          };
+            width: max-content;
             position: absolute;
-            left: ${xSignal.value}px; 
+            left: ${xSignal.value}px;
             top: ${ySignal.value}px;`}
         >
           {message}
