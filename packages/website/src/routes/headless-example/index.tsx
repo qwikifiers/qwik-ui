@@ -101,14 +101,14 @@ export default component$(() => {
       </Tabs>
 
       <hr />
-      <Drawer label="Drawer label">
-        <span q:slot="closeButtonLabel">Close me!!!</span>
+      <Drawer>
         <div>Hello from Drawer!!</div>
       </Drawer>
 
       <hr />
-      <Collapse label="Collapse label">
-        <p>Hello from Collapse</p>
+      <Collapse>
+        <p q:slot="label">Hello from Collapse</p>
+        <p q:slot="content">Collapse content</p>
       </Collapse>
 
       <hr />
