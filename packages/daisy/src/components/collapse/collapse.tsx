@@ -1,4 +1,4 @@
-import { component$, Slot, useSignal } from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
 import { Collapse as HeadlessCollapse } from '@qwik-ui/headless';
 export interface CollapseProps {
   class?: string;

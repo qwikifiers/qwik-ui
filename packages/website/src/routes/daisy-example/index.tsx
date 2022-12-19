@@ -1,6 +1,6 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Collapse, Tabs, Tab, TabPanel, Toggle } from '@qwik-ui/daisy';
+import { Collapse, Drawer, Tab, TabPanel, Tabs, Toggle } from '@qwik-ui/daisy';
 
 export default component$(() => {
   const tabs = ['Tab 1', 'Tab 2', 'Tab 3'];
@@ -17,6 +17,8 @@ export default component$(() => {
           </div>
         </Collapse>
       </div>
+
+      <hr class="my-5" />
 
       <div style="width: 300px">
         <Tabs>
@@ -46,6 +48,8 @@ export default component$(() => {
         </Tabs>
       </div>
 
+      <hr class="my-5" />
+
       <div>
         <Toggle
           checked={toggleChecked.value}
@@ -53,6 +57,14 @@ export default component$(() => {
             toggleChecked.value = !toggleChecked.value;
           }}
         />
+      </div>
+
+      <hr class="my-5" />
+
+      <div>
+        <Drawer label="Open">
+          <div q:slot="drawerContent">Drawer Content</div>
+        </Drawer>
       </div>
 
       {/* hack to prevent tailwind purge */}

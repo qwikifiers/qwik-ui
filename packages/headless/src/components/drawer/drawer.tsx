@@ -1,17 +1,35 @@
-import { component$, Slot, useSignal } from '@builder.io/qwik';
+import {
+  component$,
+  createContext,
+  Signal,
+  Slot,
+  useContextProvider,
+  useSignal,
+} from '@builder.io/qwik';
+
+export type DrawerState = 'open' | 'closed' | 'closing';
+export interface DrawerContext {
+  drawerState: Signal<DrawerState>;
+  randomId: string;
+}
+
+export const drawerContext = createContext<DrawerContext>('DrawerContext');
 
 export interface DrawerProps {
   class?: string;
-  label: string;
 }
 
-export type DrawerState = 'open' | 'closed' | 'closing';
-
 export const Drawer = component$((props: DrawerProps) => {
-  const random = Math.random() * 1000;
-  const state = useSignal<DrawerState>('closed');
+  const randomId = (Math.random() * 1000).toString();
+  const drawerState = useSignal<DrawerState>('closed');
+
+  useContextProvider(drawerContext, {
+    randomId,
+    drawerState,
+  });
+
   return (
-    <div data-state={state.value}>
+    <div class={props.class ? props.class : ''} data-state={drawerState.value}>
       <style
         dangerouslySetInnerHTML={`
       @keyframes DummyIn {
@@ -31,29 +49,7 @@ export const Drawer = component$((props: DrawerProps) => {
       }
     `}
       />
-      <button
-        aria-expanded={state.value === 'open'}
-        aria-controls={random.toString()}
-        onClick$={() =>
-          state.value === 'open'
-            ? (state.value = 'closing')
-            : (state.value = 'open')
-        }
-      >
-        {props.label} {state.value}
-      </button>
-      <div
-        class="modal"
-        id={random.toString()}
-        onAnimationEnd$={() => {
-          state.value === 'closing' ? (state.value = 'closed') : state.value;
-        }}
-      >
-        <button onClick$={() => (state.value = 'closing')}>
-          <Slot name="closeButtonLabel" />
-        </button>
-        <Slot />
-      </div>
+      <Slot />
     </div>
   );
 });
