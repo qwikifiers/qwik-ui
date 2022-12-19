@@ -29,26 +29,7 @@ export const Drawer = component$((props: DrawerProps) => {
   });
 
   return (
-    <div class={props.class ? props.class : ''} data-state={drawerState.value}>
-      <style
-        dangerouslySetInnerHTML={`
-      @keyframes DummyIn {
-        to: { opacity(1); }
-      }
-      @keyframes DummyOut {
-        to: { opacity(0); }
-      }
-      [data-state='closing'] > modal {
-        animation: DummyOut 1ms linear forwards; 
-      }
-      [data-state='open'] > modal {
-        animation: DummyIn 1ms linear forwards; 
-      }
-      [data-state='closed'] > modal {
-        display: none;
-      }
-    `}
-      />
+    <div class={props.class ? props.class : ''}>
       <Slot />
     </div>
   );

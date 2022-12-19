@@ -61,16 +61,33 @@ export default component$(() => {
 
       <hr class="my-5" />
 
-      <div>
-        <Drawer label="Open">
-          <div q:slot="drawerContent">Drawer Content</div>
-        </Drawer>
-      </div>
+      <Drawer drawerId="my-drawer" label="Open it pls!">
+        <label for="my-drawer" class="drawer-overlay"></label>
+        <ul class="menu p-4 w-80 bg-base-100 text-base-content">
+          <li>
+            <a>Sidebar Item 1</a>
+          </li>
+          <li>
+            <a>Sidebar Item 2</a>
+          </li>
+          <li>
+            <a>Sidebar Item 3</a>
+          </li>
+        </ul>
+      </Drawer>
 
       {/* hack to prevent tailwind purge */}
       <div
         style={{ display: 'none' }}
-        class="collapse border border-base-300 rounded-box collapse-arrow collapse-plus collapse-title text-xl font-medium collapse-content max-h-fit tabs tabs-boxed tab tab-active tab-bordered tab-lifted form-control abel cursor-pointer toggle label-text"
+        class={`collapse border border-base-300 rounded-box collapse-arrow collapse-plus 
+                collapse-title text-xl font-medium collapse-content max-h-fit tabs tabs-boxed 
+                tab tab-active tab-bordered tab-lifted form-control abel cursor-pointer toggle label-text
+                drawer
+                drawer-toggle
+                btn btn-primary drawer-button
+                drawer-side
+                drawer-overlay
+                `}
       />
     </div>
   );

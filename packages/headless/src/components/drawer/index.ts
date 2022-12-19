@@ -1,3 +1,3 @@
 export * from './drawer';
-export * from './drawer-modal';
+export * from './drawer-content';
 export * from './drawer-trigger';
