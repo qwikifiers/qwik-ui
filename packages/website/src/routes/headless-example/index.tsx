@@ -3,6 +3,8 @@ import type { DocumentHead } from '@builder.io/qwik-city';
 import {
   Collapse,
   Drawer,
+  DrawerContent,
+  DrawerTrigger,
   Tab,
   TabList,
   TabPanel,
@@ -102,13 +104,15 @@ export default component$(() => {
 
       <hr />
       <Drawer class="drawer">
-        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content">
-          <label for="my-drawer" class="btn btn-primary drawer-button">
-            Open drawer
-          </label>
-        </div>
-        <div class="drawer-side">
+        <DrawerTrigger>
+          <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+          <div class="drawer-content">
+            <label for="my-drawer" class="btn btn-primary drawer-button">
+              Open drawer
+            </label>
+          </div>
+        </DrawerTrigger>
+        <DrawerContent class="drawer-side">
           <label for="my-drawer" class="drawer-overlay"></label>
           <ul class="menu p-4 w-80 bg-base-100 text-base-content">
             <li>
@@ -127,7 +131,7 @@ export default component$(() => {
               </a>
             </li>
           </ul>
-        </div>
+        </DrawerContent>
       </Drawer>
 
       <hr />
