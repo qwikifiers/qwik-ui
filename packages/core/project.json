@@ -9,7 +9,8 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/core/src/components/**/*.tsx"],
-        "eslintConfig": "packages/core/.eslintrc.cjs"
+        "eslintConfig": "packages/core/.eslintrc.cjs",
+        "mode": "lib"
       }
     },
     "storybook": {
