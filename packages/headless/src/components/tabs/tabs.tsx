@@ -1,15 +1,15 @@
 import {
+  $,
   component$,
   createContext,
+  PropFunction,
+  QRL,
   Signal,
   Slot,
-  $,
-  QRL,
   useContext,
   useContextProvider,
-  useSignal,
   useMount$,
-  PropFunction,
+  useSignal,
 } from '@builder.io/qwik';
 
 export type Behavior = 'automatic' | 'manual';
@@ -29,40 +29,39 @@ export interface TabsProps {
   class?: string;
 }
 
-export const Tabs = component$(
-  ({ behavior = 'manual', ...props }: TabsProps) => {
-    const lastTabIndex = useSignal(0);
-    const lastPanelIndex = useSignal(0);
+export const Tabs = component$((props: TabsProps) => {
+  const behavior = props.behavior ?? 'manual';
+  const lastTabIndex = useSignal(0);
+  const lastPanelIndex = useSignal(0);
 
-    const tabsHash = `${Math.random() * 1000}`;
+  const tabsHash = `${Math.random() * 1000}`;
 
-    const getNextTabIndex = $(() => {
-      return lastTabIndex.value++;
-    });
+  const getNextTabIndex = $(() => {
+    return lastTabIndex.value++;
+  });
 
-    const getNextPanelIndex = $(() => {
-      return lastPanelIndex.value++;
-    });
+  const getNextPanelIndex = $(() => {
+    return lastPanelIndex.value++;
+  });
 
-    const selected = useSignal(0);
+  const selected = useSignal(0);
 
-    const contextService: TabsContext = {
-      selectedIndex: selected,
-      getNextTabIndex,
-      getNextPanelIndex,
-      tabsHash,
-      behavior,
-    };
+  const contextService: TabsContext = {
+    selectedIndex: selected,
+    getNextTabIndex,
+    getNextPanelIndex,
+    tabsHash,
+    behavior,
+  };
 
-    useContextProvider(tabsContext, contextService);
+  useContextProvider(tabsContext, contextService);
 
-    return (
-      <div {...props}>
-        <Slot />
-      </div>
-    );
-  }
-);
+  return (
+    <div {...props}>
+      <Slot />
+    </div>
+  );
+});
 
 interface TabListProps {
   labelledBy?: string;
