@@ -10,6 +10,8 @@ import {
   TabPanel,
   Tabs,
   Tooltip,
+  Select,
+  SelectOption,
 } from '@qwik-ui/headless';
 import styles from './index.css?inline';
 
@@ -17,6 +19,21 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <div>
+      <Select>
+        {[
+          { value: 'option 1', label: 'option one', disabled: false },
+          { value: 'option 2', label: 'option two', disabled: false },
+          { value: 'option 3', label: 'option three', disabled: true },
+        ].map((item) => {
+          return (
+            <SelectOption
+              value={item.value}
+              label={item.label}
+              disabled={item.disabled}
+            />
+          );
+        })}
+      </Select>
       <Tabs behavior="automatic">
         <h3 id="tablist-1">Danish Composers</h3>
         <TabList>
