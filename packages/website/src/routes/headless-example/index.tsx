@@ -19,6 +19,7 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <div>
+
       <Select>
         {[
           { value: 'option 1', label: 'option one', disabled: false },
@@ -34,6 +35,9 @@ export default component$(() => {
           );
         })}
       </Select>
+
+      <p style="position: relative;">Hey Shai!</p>
+
       <Tabs behavior="automatic">
         <h3 id="tablist-1">Danish Composers</h3>
         <TabList>
@@ -75,7 +79,6 @@ export default component$(() => {
           </p>
         </TabPanel>
       </Tabs>
-
       <hr />
       <Tabs behavior="automatic">
         <h3 id="tablist-1">Danish Composers</h3>
@@ -118,8 +121,29 @@ export default component$(() => {
           </p>
         </TabPanel>
       </Tabs>
+      <hr />
+
+      <h1>HEYYY</h1>
+
+      <div>
+        Hey I am a text and you can &nbsp;
+        <Tooltip
+          inline={true}
+          position="bottom"
+          content="Hi this is the message"
+        >
+          hover on me
+          <div q:slot="tooltip-content">Custom thing</div>
+        </Tooltip>
+      </div>
 
       <hr />
+
+      <Tooltip content="Hi this is the message">
+        <div style="width: 100px; height: 100px; background-color: red;"></div>
+        <div q:slot="tooltip-content">Custom thing</div>
+      </Tooltip>
+
       <Drawer class="drawer">
         <DrawerTrigger>
           <input id="my-drawer" type="checkbox" class="drawer-toggle" />
@@ -156,11 +180,7 @@ export default component$(() => {
         <p q:slot="label">Hello from Collapse</p>
         <p q:slot="content">Collapse content</p>
       </Collapse>
-
       <hr />
-      <Tooltip message="Hi this is the message">
-        <div>I'm the trigger</div>
-      </Tooltip>
     </div>
   );
 });
