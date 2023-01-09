@@ -1,14 +1,32 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Collapse, Drawer, Tab, TabPanel, Tabs, Toggle } from '@qwik-ui/daisy';
+import {
+  Collapse,
+  Drawer,
+  Tab,
+  TabPanel,
+  Tabs,
+  Toggle,
+  Select,
+} from '@qwik-ui/daisy';
 
 export default component$(() => {
   const tabs = ['Tab 1', 'Tab 2', 'Tab 3'];
-  const activeTab = useSignal(0);
   const toggleChecked = useSignal(false);
 
   return (
     <div>
+      <Select
+        placeholder="select"
+        options={[
+          { value: 'option 1', label: 'option one', disabled: false },
+          { value: 'option 2', label: 'option two', disabled: false },
+          { value: 'option 3', label: 'option three', disabled: true },
+        ]}
+      />
+
+      <hr className="my-5" />
+
       <div style="width: 300px">
         <Collapse showArrow={true}>
           <label q:slot="label">Hi Glenn and Gil!</label>
@@ -22,16 +40,9 @@ export default component$(() => {
 
       <div style="width: 300px">
         <Tabs>
-          {tabs.map((tab, index) => {
+          {tabs.map((tab) => {
             return (
-              <Tab
-                onClick$={(clicked: number) => {
-                  activeTab.value = clicked;
-                }}
-                isLifted={false}
-                isBordered={true}
-                isActive={index === activeTab.value}
-              >
+              <Tab isLifted={false} isBordered={true}>
                 {tab}
               </Tab>
             );
@@ -85,14 +96,17 @@ export default component$(() => {
       {/* hack to prevent tailwind purge */}
       <div
         style={{ display: 'none' }}
-        class={`collapse border border-base-300 rounded-box collapse-arrow collapse-plus 
-                collapse-title text-xl font-medium collapse-content max-h-fit tabs tabs-boxed 
+        class={`select
+                collapse border border-base-300 rounded-box collapse-arrow collapse-plus
+                collapse-title text-xl font-medium collapse-content max-h-fit tabs tabs-boxed
                 tab tab-active tab-bordered tab-lifted form-control abel cursor-pointer toggle label-text
                 drawer
                 drawer-toggle
                 btn btn-primary drawer-button
                 drawer-side
                 drawer-overlay
+                w-full
+                max-w-xs
                 `}
       />
     </div>
