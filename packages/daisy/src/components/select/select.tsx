@@ -12,9 +12,13 @@ interface SelectProps {
 }
 
 export const Select = component$(
-  ({ onChange$, placeholder, options }: SelectProps) => {
+  ({ onChange$, placeholder, options, ...props }: SelectProps) => {
     return (
-      <HeadlessSelect class="select w-full max-w-xs" onChange={onChange$}>
+      <HeadlessSelect
+        class="select w-full max-w-xs"
+        onChange={onChange$}
+        {...props}
+      >
         {placeholder && <HeadlessSelectOption disabled label={placeholder} />}
         {options.map((option) => (
           <HeadlessSelectOption
