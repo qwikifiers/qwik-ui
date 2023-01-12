@@ -8,7 +8,10 @@ import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 const config: StorybookViteConfig = {
   ...rootMain,
-  core: { ...rootMain.core, builder: '@storybook/builder-vite' },
+  core: {
+    ...rootMain.core,
+    builder: '@storybook/builder-vite',
+  },
   stories: [
     ...rootMain.stories,
     '../src/lib/**/*.stories.mdx',

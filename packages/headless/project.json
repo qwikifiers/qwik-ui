@@ -59,7 +59,7 @@
         "notes": "${notes}"
       }
     },
-    "storybook": {
+    "storybook-when-it-will-work": {
       "executor": "@nrwl/storybook:storybook",
       "options": {
         "uiFramework": "@storybook/html",
@@ -72,6 +72,13 @@
         "ci": {
           "quiet": true
         }
+      }
+    },
+    "storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "storybook dev",
+        "cwd": "packages/headless"
       }
     },
     "build-storybook": {
