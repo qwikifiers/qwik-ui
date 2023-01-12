@@ -9,7 +9,7 @@ import {
 } from '@builder.io/qwik';
 import { computePosition, type ComputePositionConfig } from '@floating-ui/dom';
 
-interface TooltipProps {
+export interface TooltipProps {
   content?: string;
   inline?: boolean;
   position?: ComputePositionConfig['placement'];

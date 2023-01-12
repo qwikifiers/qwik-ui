@@ -5,6 +5,6 @@
     "types": ["node", "vite/client"]
   },
   "files": [],
-  "exclude": [],
+  "exclude": ["**/*.stories.ts", "**/*.stories.js"],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }
