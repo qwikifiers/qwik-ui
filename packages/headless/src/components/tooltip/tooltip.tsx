@@ -43,29 +43,24 @@ export const Tooltip = component$(
         );
         positionSignal.value = {x, y};
         stateSignal.value = 'positioned';
-        console.log("Update", positionSignal.value)
       }
     });
 
     const showTooltip = $(() => {
       stateSignal.value = 'unpositioned';
-      console.log("Show Tooltip", positionSignal.value)
     });
 
     const hideTooltip = $(() => {
       stateSignal.value = 'fading';
-      console.log("Hide tooltip", positionSignal.value)
     });
 
     useOnWindow(
       'keyup',
       $((e) => {
         const key = (e as KeyboardEvent).key;
-        console.log('e.key', (e as KeyboardEvent).key);
         if (key === 'Escape') {
           hideTooltip();
         }
-        // if the key pressed was escape, hide the tip.
       })
     );
 
@@ -74,7 +69,6 @@ export const Tooltip = component$(
       if (state == 'unpositioned') {
         // run auto update
         update();
-        console.log("Client Effect", positionSignal.value)
       } else {
         // Cleanup auto update listeners
       }
