@@ -6,25 +6,29 @@ import {
   useId,
   useOnWindow,
   useSignal,
+  useStylesScoped$
 } from '@builder.io/qwik';
 import { computePosition, type ComputePositionConfig } from '@floating-ui/dom';
+import styles from "./tooltip.css?inline";
 
-interface TooltipProps {
-  content?: string;
+export interface TooltipProps {
+  class?: string;
+  content: string;
   inline?: boolean;
+  durationMs?: number
   position?: ComputePositionConfig['placement'];
 }
 
-type TooltipState = 'NotInDom' | 'InDomNotVisible' | 'inDomVisible';
+type State = "hidden" | "positioned" | "unpositioned" | "fading";
 
 export const Tooltip = component$(
-  ({ content, position = 'top', ...props }: TooltipProps) => {
+  ({ content, position = 'top', durationMs = 100, ...props }: TooltipProps) => {
+    useStylesScoped$(styles);
     const id = useId();
     const triggerAnchor = useSignal<HTMLElement>();
     const tooltipAnchor = useSignal<HTMLElement>();
-    const isTooltipVisible = useSignal<boolean>(false);
-    const xSignal = useSignal<number>(0);
-    const ySignal = useSignal<number>(0);
+    const stateSignal = useSignal<State>("hidden");
+    const positionSignal = useSignal<{x: number, y: number}>({x: 0, y: 0});
 
     const Wrapper: keyof HTMLElementTagNameMap = props.inline ? 'span' : 'div';
 
@@ -37,18 +41,20 @@ export const Tooltip = component$(
             placement: position,
           }
         );
-        console.log(`x: ${x} y: ${y}`);
-        xSignal.value = x;
-        ySignal.value = y;
+        positionSignal.value = {x, y};
+        stateSignal.value = 'positioned';
+        console.log("Update", positionSignal.value)
       }
     });
 
     const showTooltip = $(() => {
-      isTooltipVisible.value = true;
+      stateSignal.value = 'unpositioned';
+      console.log("Show Tooltip", positionSignal.value)
     });
 
     const hideTooltip = $(() => {
-      isTooltipVisible.value = false;
+      stateSignal.value = 'fading';
+      console.log("Hide tooltip", positionSignal.value)
     });
 
     useOnWindow(
@@ -64,10 +70,11 @@ export const Tooltip = component$(
     );
 
     useClientEffect$(({ track }) => {
-      const visible = track(() => isTooltipVisible.value);
-      if (visible) {
+      const state = track(() => stateSignal.value);
+      if (state == 'unpositioned') {
         // run auto update
         update();
+        console.log("Client Effect", positionSignal.value)
       } else {
         // Cleanup auto update listeners
       }
@@ -90,17 +97,23 @@ export const Tooltip = component$(
         </Wrapper>
 
         <Wrapper
+          class={`${stateSignal.value} ${props.class || ''}`}
           id={id}
+          onAnimationEnd$={() => {
+            if (stateSignal.value == "fading") {
+              stateSignal.value = 'hidden';
+              positionSignal.value = { x: 0, y: 0 }
+            }
+          }}
           ref={tooltipAnchor}
           role="tooltip"
           {...props}
           // Cannot be animated
-          style={`display: ${isTooltipVisible.value ? 'block' : 'none'};
-            position: absolute;
-            left: ${xSignal.value}px;
-            top: ${ySignal.value}px;`}
+          style={`--duration: ${durationMs}ms;--x: ${positionSignal.value.x || 0}px; --y: ${positionSignal.value.y || 0}px;`}
+          data-state={stateSignal.value}
         >
-          {content ? content : <Slot name="tooltip-content" />}
+          {content}
+          {/* {content ? content : <Slot name="tooltip-content" />} */}
         </Wrapper>
       </>
     );
