@@ -1,17 +1,19 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useId, useStyles$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import {
   Collapse,
   Drawer,
   DrawerContent,
   DrawerTrigger,
+  Select,
+  SelectOption,
+  SelectOptionsList,
+  SelectTrigger,
   Tab,
   TabList,
   TabPanel,
   Tabs,
   Tooltip,
-  Select,
-  SelectOption,
 } from '@qwik-ui/headless';
 import styles from './index.css?inline';
 
@@ -19,25 +21,29 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <div>
-
+      SELECT
       <Select>
-        {[
-          { value: 'option 1', label: 'option one', disabled: false },
-          { value: 'option 2', label: 'option two', disabled: false },
-          { value: 'option 3', label: 'option three', disabled: true },
-        ].map((item) => {
-          return (
-            <SelectOption
-              value={item.value}
-              label={item.label}
-              disabled={item.disabled}
-            />
-          );
-        })}
+        <SelectTrigger>
+          <button>Select Me</button>
+        </SelectTrigger>
+        <SelectOptionsList style="background: white">
+          {[
+            { value: 'option 1', label: 'option one', disabled: false },
+            { value: 'option 2', label: 'option two', disabled: false },
+            { value: 'option 3', label: 'option three', disabled: true },
+          ].map((item) => {
+            return (
+              <SelectOption
+                key={useId()}
+                value={item.value}
+                label={item.label}
+                disabled={item.disabled}
+              />
+            );
+          })}
+        </SelectOptionsList>
       </Select>
-
       <p style="position: relative;">Hey Shai!</p>
-
       <Tabs behavior="automatic">
         <h3 id="tablist-1">Danish Composers</h3>
         <TabList>
@@ -122,9 +128,7 @@ export default component$(() => {
         </TabPanel>
       </Tabs>
       <hr />
-
       <h1>HEYYY</h1>
-
       <div>
         Hey I am a text and you can &nbsp;
         <Tooltip
@@ -136,14 +140,11 @@ export default component$(() => {
           <div q:slot="tooltip-content">Custom thing</div>
         </Tooltip>
       </div>
-
       <hr />
-
       <Tooltip content="Hi this is the message">
         <div style="width: 100px; height: 100px; background-color: red;"></div>
         <div q:slot="tooltip-content">Custom thing</div>
       </Tooltip>
-
       <Drawer class="drawer">
         <DrawerTrigger>
           <input id="my-drawer" type="checkbox" class="drawer-toggle" />
@@ -174,7 +175,6 @@ export default component$(() => {
           </ul>
         </DrawerContent>
       </Drawer>
-
       <hr />
       <Collapse>
         <p q:slot="label">Hello from Collapse</p>

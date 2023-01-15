@@ -1,12 +1,12 @@
 import { component$, PropFunction } from '@builder.io/qwik';
 import {
   Select as HeadlessSelect,
-  SelectItemProps,
   SelectOption as HeadlessSelectOption,
+  SelectOptionProps,
 } from '@qwik-ui/headless';
 
 interface SelectProps {
-  options: SelectItemProps[];
+  options: SelectOptionProps[];
   onChange$?: PropFunction<(evt: any) => void>;
   placeholder?: string;
 }
