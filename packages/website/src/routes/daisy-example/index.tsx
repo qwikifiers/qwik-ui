@@ -17,7 +17,7 @@ export default component$(() => {
   return (
     <div>
       <Select
-        placeholder="select"
+        placeholder="Select me"
         options={[
           { value: 'option 1', label: 'option one', disabled: false },
           { value: 'option 2', label: 'option two', disabled: false },
@@ -107,6 +107,10 @@ export default component$(() => {
                 drawer-overlay
                 w-full
                 max-w-xs
+                dropdown
+                dropdown-content
+                menu
+                p-2 shadow bg-base-100 rounded-box w-52
                 `}
       />
     </div>

@@ -113,6 +113,7 @@ export const SelectOptionsList = component$(
         position: absolute;
         left: ${selectContextService.listXSignal.value}px;
         top: ${selectContextService.listYSignal.value}px;
+        z-index: 300;
         ${props.style}`}
         class={props.class}
       >
@@ -144,7 +145,11 @@ export const SelectTrigger = component$(({ ...props }: SelectTriggerProps) => {
       }}
       {...props}
     >
-      <Slot />
+      {selectContextService.selectedOptionSignal.value !== '' ? (
+        selectContextService.selectedOptionSignal.value
+      ) : (
+        <Slot />
+      )}
     </div>
   );
 });
