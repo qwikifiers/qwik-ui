@@ -5,24 +5,24 @@
   transition: opacity var(--duration) linear;
 }
 
-*[data-state="positioned"] {
+*[data-state='positioned'] {
   display: block;
   top: var(--y, 0px);
   left: var(--x, 0px);
   opacity: 1;
 }
 
-*[data-state="unpositioned"] {
+*[data-state='unpositioned'] {
   display: block;
   visibility: 'hidden';
 }
 
-*[data-state="fading"] {
+*[data-state='fading'] {
   top: var(--y, 0px);
   left: var(--x, 0px);
   opacity: 0;
 }
 
-*[data-state="hidden"] {
+*[data-state='hidden'] {
   display: none;
 }

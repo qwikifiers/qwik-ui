@@ -6,20 +6,20 @@ import {
   useId,
   useOnWindow,
   useSignal,
-  useStylesScoped$
+  useStylesScoped$,
 } from '@builder.io/qwik';
 import { computePosition, type ComputePositionConfig } from '@floating-ui/dom';
-import styles from "./tooltip.css?inline";
+import styles from './tooltip.css?inline';
 
 export interface TooltipProps {
   class?: string;
   content: string;
   inline?: boolean;
-  durationMs?: number
+  durationMs?: number;
   position?: ComputePositionConfig['placement'];
 }
 
-type State = "hidden" | "positioned" | "unpositioned" | "fading";
+type State = 'hidden' | 'positioned' | 'unpositioned' | 'closing';
 
 export const Tooltip = component$(
   ({ content, position = 'top', durationMs = 100, ...props }: TooltipProps) => {
@@ -27,8 +27,8 @@ export const Tooltip = component$(
     const id = useId();
     const triggerAnchor = useSignal<HTMLElement>();
     const tooltipAnchor = useSignal<HTMLElement>();
-    const stateSignal = useSignal<State>("hidden");
-    const positionSignal = useSignal<{x: number, y: number}>({x: 0, y: 0});
+    const stateSignal = useSignal<State>('hidden');
+    const positionSignal = useSignal<{ x: number; y: number }>({ x: 0, y: 0 });
 
     const Wrapper: keyof HTMLElementTagNameMap = props.inline ? 'span' : 'div';
 
@@ -41,7 +41,7 @@ export const Tooltip = component$(
             placement: position,
           }
         );
-        positionSignal.value = {x, y};
+        positionSignal.value = { x, y };
         stateSignal.value = 'positioned';
       }
     });
@@ -51,7 +51,7 @@ export const Tooltip = component$(
     });
 
     const hideTooltip = $(() => {
-      stateSignal.value = 'fading';
+      stateSignal.value = 'closing';
     });
 
     useOnWindow(
@@ -94,16 +94,18 @@ export const Tooltip = component$(
           class={`${stateSignal.value} ${props.class || ''}`}
           id={id}
           onAnimationEnd$={() => {
-            if (stateSignal.value == "fading") {
+            if (stateSignal.value == 'closing') {
               stateSignal.value = 'hidden';
-              positionSignal.value = { x: 0, y: 0 }
+              positionSignal.value = { x: 0, y: 0 };
             }
           }}
           ref={tooltipAnchor}
           role="tooltip"
           {...props}
           // Cannot be animated
-          style={`--duration: ${durationMs}ms;--x: ${positionSignal.value.x || 0}px; --y: ${positionSignal.value.y || 0}px;`}
+          style={`--duration: ${durationMs}ms;--x: ${
+            positionSignal.value.x || 0
+          }px; --y: ${positionSignal.value.y || 0}px;`}
           data-state={stateSignal.value}
         >
           {content}
