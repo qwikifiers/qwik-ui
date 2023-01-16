@@ -9,6 +9,7 @@ import {
   useClientEffect$,
   useContext,
   useContextProvider,
+  useOnWindow,
   useSignal,
 } from '@builder.io/qwik';
 import { computePosition } from '@floating-ui/dom';
@@ -86,6 +87,20 @@ export const Select = component$(({ onChange, ...props }: SelectProps) => {
     }
   });
 
+  useOnWindow(
+    'keyup',
+    $((e) => {
+      const key = (e as KeyboardEvent).key;
+      if (key === 'Escape') {
+        isListVisibleSignal.value = false;
+      }
+      if (key === 'Enter' && e.target.nodeName === 'LI') {
+        selectedOptionSignal.value = e.target.getAttribute('value');
+        isListVisibleSignal.value = false;
+      }
+    })
+  );
+
   return <Slot />;
 });
 
@@ -107,6 +122,7 @@ export const SelectOptionsList = component$(
       <ul
         ref={ref}
         role="listbox"
+        tabIndex={0}
         style={`display: ${
           selectContextService.isListVisibleSignal.value ? 'block' : 'none'
         };
@@ -172,6 +188,7 @@ export const SelectOption = component$(
     return (
       <li
         role="option"
+        tabIndex={0}
         value={value}
         aria-selected={value === contextService.selectedOptionSignal.value}
         onClick$={() => {
