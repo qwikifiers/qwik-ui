@@ -18,9 +18,7 @@
       "options": {
         "uiFramework": "@storybook/html",
         "port": 4400,
-        "config": {
-          "configFolder": "packages/core/.storybook"
-        }
+        "configDir": "packages/core/.storybook"
       },
       "configurations": {
         "ci": {
@@ -30,13 +28,11 @@
     },
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": ["{options.outputDir}"],
       "options": {
         "uiFramework": "@storybook/html",
-        "outputPath": "dist/storybook/core",
-        "config": {
-          "configFolder": "packages/core/.storybook"
-        }
+        "configDir": "packages/core/.storybook",
+        "outputDir": "dist/storybook/core"
       },
       "configurations": {
         "ci": {

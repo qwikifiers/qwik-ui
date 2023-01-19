@@ -64,9 +64,7 @@
       "options": {
         "uiFramework": "@storybook/html",
         "port": 4400,
-        "config": {
-          "configFolder": "packages/headless/.storybook"
-        }
+        "configDir": "packages/headless/.storybook"
       },
       "configurations": {
         "ci": {
@@ -83,13 +81,11 @@
     },
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": ["{options.outputDir}"],
       "options": {
         "uiFramework": "@storybook/html",
-        "outputPath": "dist/storybook/headless",
-        "config": {
-          "configFolder": "packages/headless/.storybook"
-        }
+        "configDir": "packages/headless/.storybook",
+        "outputDir": "dist/storybook/headless"
       },
       "configurations": {
         "ci": {
