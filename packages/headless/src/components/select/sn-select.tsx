@@ -171,8 +171,9 @@ const ListBox = component$(({ ...props }: ListBoxProps) => {
       display: ${contextService.isExpanded.value ? 'block' : 'none'};
       position: absolute;
       z-index: 1;
+      ${props.style}
     `}
-      {...props}
+      class={props.class}
     >
       <Slot />
     </ul>
