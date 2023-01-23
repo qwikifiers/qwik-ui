@@ -1,5 +1,5 @@
 {
-  "name": "@qwik-ui/daisy",
+  "name": "@qwik-ui/theme-daisy",
   "version": "0.0.0",
   "description": "Qwik UI components library - daisy theme",
   "main": "./lib/index.qwik.cjs",
