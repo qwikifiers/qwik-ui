@@ -1,6 +1,7 @@
 import {
   $,
   component$,
+  QRL,
   Slot,
   useClientEffect$,
   useId,
@@ -8,7 +9,7 @@ import {
   useSignal,
   useStylesScoped$,
 } from '@builder.io/qwik';
-import { computePosition, flip, type ComputePositionConfig } from '@floating-ui/dom';
+import { autoUpdate, computePosition, flip, type ComputePositionConfig } from '@floating-ui/dom';
 import styles from './tooltip.css?inline';
 
 export interface TooltipProps {
@@ -48,7 +49,6 @@ export const Tooltip = component$(
             top: `${y}px`
           })
         });
-        stateSignal.value = 'positioned';
       }
     });
 
@@ -71,15 +71,30 @@ export const Tooltip = component$(
       })
     );
 
-    useClientEffect$(({ track }) => {
+    useClientEffect$(async ({ track }) => {
+      let cleanup = () => {
+        console.log('clean up signal has not been set');
+      };
       const state = track(() => stateSignal.value);
-      if (state == 'unpositioned') {
-        // run auto update
+      if (state === 'unpositioned') {
+        let trigger = triggerAnchor.value;
+        let tooltip = tooltipAnchor.value;
+        if (!trigger || ! tooltip) { return }
         update();
-      } else {
-        // Cleanup auto update listeners
+        stateSignal.value = 'positioned';
+        
+        // run auto update
+        console.log('adding auto update for', tooltip.id);
+        cleanup = autoUpdate(trigger, tooltip, async () => { await update() });
+        return;
       }
-    });
+      if (state === 'closing') {
+        // Cleanup auto update listeners
+        console.log('cleaning up event listeners');
+        cleanup();
+        return;
+      }
+    }, { eagerness: 'visible'});
 
     return (
       <>
