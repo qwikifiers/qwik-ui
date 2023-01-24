@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/headless",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Qwik UI headless components library",
   "main": "./index.qwik.cjs",
   "qwik": "./index.qwik.mjs",
