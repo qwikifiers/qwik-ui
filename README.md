@@ -1,4 +1,3 @@
-
 <p align="center">
   <br>
   <img width="400" src="./packages/website/public/qwik-ui.png" alt="awesome logo of qwik ui">
@@ -12,14 +11,14 @@
   The components library for <a href='https://github.com/BuilderIO/qwik'>Qwik</a>
   <br><br>
 
-  <a href='https://img.shields.io/npm/v/@qwik-ui/core?label=npm%20version'>
-  <img src='https://img.shields.io/npm/v/@qwik-ui/core?label=npm%20version' alt='QWIK UI npm'>
+  <a href='https://img.shields.io/npm/v/@qwik-ui/headless?label=npm%20version'>
+  <img src='https://img.shields.io/npm/v/@qwik-ui/headless?label=npm%20version' alt='QWIK UI npm'>
   </a>
   <a href='https://opensource.org/licenses/MIT'>
   <img src='https://img.shields.io/badge/License-MIT-green.svg' alt='MIT'>
   </a>
   <a href='#contributors'>
-  <img src='https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square' alt='All Contributors'>
+  <img src='https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square' alt='All Contributors'>
   </a>
 
 </div>
@@ -27,10 +26,8 @@
 <details>
 <summary>Table of Contents</summary>
 
-
 - [⚠ This is not ready for production!](#-this-is-not-ready-for-production)
-- [Installation](#installation)
-- [Example](#example)
+- [Installation of the headless components](#installation-of-the-headless-components)
 - [Contributing](#contributing)
 - [Code Of Conduct](#code-of-conduct)
 - [Contributors](#contributors)
@@ -53,33 +50,16 @@ We still need to
 
 <br/>
 
-## Installation
+## Installation of the headless components
+
 > Please create issue if you encounter bugs.
 
 ```console
 
-npm install -D @qwik-ui/core
+npm install -D @qwik-ui/headless
 ```
 
 <br/>
-
-## Example
-
-```typescript
-
-import { Alert } from '@qwik-ui/core';
-
-
-export Page = component$(()=> {
-  return (
-
-    <div>
-      <Alert class="alert-success">Some message</Alert>
-    </div>
-  )
-})
-
-```
 
 ## Contributing
 
@@ -126,6 +106,7 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 <br/>
 
 ## Related Links
+
 - [Qwik UI Discord](https://discord.gg/PVWUUejrez)
 - [Qwik Docs](https://qwik.builder.io/)
 - [Qwik Discord](https://qwik.builder.io/chat)
