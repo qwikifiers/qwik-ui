@@ -2,6 +2,9 @@
   "name": "@qwik-ui/headless",
   "version": "0.1.0",
   "description": "Qwik UI headless components library",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./index.qwik.cjs",
   "qwik": "./index.qwik.mjs",
   "module": "./index.qwik.mjs",
