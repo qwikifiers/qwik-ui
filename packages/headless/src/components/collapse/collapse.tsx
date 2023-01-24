@@ -10,7 +10,7 @@ export const Collapse = component$((props: CollapseProps) => {
   const random = Math.random() * 1000;
   const state = useSignal<CollapseState>('closed');
   return (
-    <div data-state={state.value} className={props.class}>
+    <div data-state={state.value} class={props.class}>
       <style
         dangerouslySetInnerHTML={`
       @keyframes DummyIn {
