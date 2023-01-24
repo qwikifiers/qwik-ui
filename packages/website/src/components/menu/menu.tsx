@@ -5,9 +5,9 @@ import styles from './menu.css?inline';
 
 type Props = {
   library: Types;
-}
+};
 
-export const Menu = component$<Props>(({library}) => {
+export const Menu = component$<Props>(({ library }) => {
   useStylesScoped$(styles);
 
   return (
@@ -17,6 +17,11 @@ export const Menu = component$<Props>(({library}) => {
         <li>
           <Link href={`/${library.toLowerCase()}/toogle`}>
             <span class="subtitle">Toogle</span>
+          </Link>
+        </li>
+        <li>
+          <Link href={`/${library.toLowerCase()}/tabs`}>
+            <span class="subtitle">Tabs</span>
           </Link>
         </li>
       </ul>
