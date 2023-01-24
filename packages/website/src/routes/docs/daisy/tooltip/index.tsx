@@ -12,7 +12,7 @@ export default component$(() => {
           position="bottom"
           content="Hi this is the message"
         >
-          hover on me
+          <strong>hover on me</strong>
           <div q:slot="tooltip-content">Custom thing</div>
         </Tooltip>
       </div>
@@ -22,7 +22,7 @@ export default component$(() => {
       <br />
 
       <Tooltip content="Hi this is the message">
-        <div style="width: 100px; height: 100px; background-color: red;"></div>
+        <div style="width: 100px; height: 100px; background-color: black;"></div>
         <div q:slot="tooltip-content">Custom thing</div>
       </Tooltip>
     </>
