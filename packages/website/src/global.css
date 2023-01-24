@@ -11,6 +11,8 @@
 
 body {
   background-color: white;
+  width: 100vw;
+  min-height: 100vh;
 }
 
 .layout {
