@@ -7,14 +7,8 @@ export default component$(() => {
   return (
     <header>
       <div class="logo">
-        {/* <QwikUILogo /> */}
         <img src="/qwik-ui.png" style={'width: 200px'} />
       </div>
-      <ul>
-        <li>
-          <a href="#" target="_blank"></a>
-        </li>
-      </ul>
     </header>
   );
 });

@@ -1,33 +1,45 @@
-import { component$ } from '@builder.io/qwik';
-import { useContent, useLocation } from '@builder.io/qwik-city';
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
+import { Link } from '@builder.io/qwik-city';
+import { Types } from '../../routes/layout';
+import styles from './menu.css?inline';
 
-export default component$(() => {
-  const { menu } = useContent();
-  const { pathname } = useLocation();
+type Props = {
+  library: Types;
+};
+
+export const Menu = component$<Props>(({ library }) => {
+  useStylesScoped$(styles);
 
   return (
-    <div class="menu">
-      {menu
-        ? menu.items?.map((item) => (
-            <>
-              <h5>{item.text}</h5>
-              <ul>
-                {item.items?.map((item) => (
-                  <li>
-                    <a
-                      href={item.href}
-                      class={{
-                        'is-active': pathname === item.href,
-                      }}
-                    >
-                      {item.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ))
-        : null}
-    </div>
+    <aside class="aside">
+      <h5 class="title">Components</h5>
+      <ul>
+        <li>
+          <Link href={`/${library.toLowerCase()}/collapse`}>
+            <span class="subtitle">Collapse</span>
+          </Link>
+        </li>
+        <li>
+          <Link href={`/${library.toLowerCase()}/drawer`}>
+            <span class="subtitle">Drawer</span>
+          </Link>
+        </li>
+        <li>
+          <Link href={`/${library.toLowerCase()}/tabs`}>
+            <span class="subtitle">Tabs</span>
+          </Link>
+        </li>
+        <li>
+          <Link href={`/${library.toLowerCase()}/toogle`}>
+            <span class="subtitle">Toogle</span>
+          </Link>
+        </li>
+        <li>
+          <Link href={`/${library.toLowerCase()}/tooltip`}>
+            <span class="subtitle">Tooltip</span>
+          </Link>
+        </li>
+      </ul>
+    </aside>
   );
 });
