@@ -15,6 +15,11 @@ export const Menu = component$<Props>(({ library }) => {
       <h5 class="title">Components</h5>
       <ul>
         <li>
+          <Link href={`/${library.toLowerCase()}/collapse`}>
+            <span class="subtitle">Collapse</span>
+          </Link>
+        </li>
+        <li>
           <Link href={`/${library.toLowerCase()}/toogle`}>
             <span class="subtitle">Toogle</span>
           </Link>
