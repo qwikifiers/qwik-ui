@@ -1,5 +1,20 @@
 import { component$ } from '@builder.io/qwik';
-import { Tooltip } from '@qwik-ui/theme-daisy';
+import { Tooltip, TooltipProps } from '@qwik-ui/theme-daisy';
+
+export const positions: TooltipProps['position'][] = [
+  'top-end',
+  'top',
+  'top-start',
+  'bottom-end',
+  'bottom',
+  'bottom-start',
+  'left',
+  'left-end',
+  'left-start',
+  'right',
+  'right-start',
+  'right-end',
+];
 
 export default component$(() => {
   return (
@@ -20,9 +35,15 @@ export default component$(() => {
       <br />
       <br />
 
-      <Tooltip content="Hi this is the message">
-        <div style="width: 50px; height: 50px; background-color: black;"></div>
-      </Tooltip>
+      <div class="grid md:grid-cols-3 p-2 gap-6 max-w-[800px]">
+        {positions.map((position) => {
+          return <div class="grid place-content-center p-12">
+            <Tooltip content={`This message is ${position} positioned`} position={position}>
+              <div class="bg-black inline-block w-[75px] aspect-square"></div>
+            </Tooltip>
+          </div>
+        })}
+      </div>
     </>
   );
 });
