@@ -47,6 +47,14 @@
       "created_at": "2023-01-16T00:10:43Z",
       "repoId": 545159943,
       "pullRequestNo": 83
+    },
+    {
+      "name": "shiroinegai",
+      "id": 88586552,
+      "comment_id": 1401598964,
+      "created_at": "2023-01-24T09:12:11Z",
+      "repoId": 545159943,
+      "pullRequestNo": 88
     }
   ]
 }
