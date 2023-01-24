@@ -25,13 +25,18 @@ export const Menu = component$<Props>(({ library }) => {
           </Link>
         </li>
         <li>
+          <Link href={`/${library.toLowerCase()}/tabs`}>
+            <span class="subtitle">Tabs</span>
+          </Link>
+        </li>
+        <li>
           <Link href={`/${library.toLowerCase()}/toogle`}>
             <span class="subtitle">Toogle</span>
           </Link>
         </li>
         <li>
-          <Link href={`/${library.toLowerCase()}/tabs`}>
-            <span class="subtitle">Tabs</span>
+          <Link href={`/${library.toLowerCase()}/tooltip`}>
+            <span class="subtitle">Tooltip</span>
           </Link>
         </li>
       </ul>

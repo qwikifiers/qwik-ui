@@ -1,23 +1,10 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import {
-  Collapse,
-  Drawer,
-  DrawerContent,
-  DrawerTrigger,
-  Tab,
-  TabList,
-  TabPanel,
-  Tabs,
-  Tooltip,
-} from '@qwik-ui/headless';
-import styles from './index.css?inline';
+import { component$, useSignal } from '@builder.io/qwik';
+import { Tooltip } from '@qwik-ui/headless';
 
 export default component$(() => {
-  useStyles$(styles);
   return (
-    <div>
-      
+    <>
+      <h2>This is the documentation for the Tooltip</h2>
       <div>
         Hey I am a text and you can &nbsp;
         <Tooltip
@@ -30,17 +17,14 @@ export default component$(() => {
         </Tooltip>
       </div>
 
-      <hr />
+      <br />
+      <br />
+      <br />
 
       <Tooltip content="Hi this is the message">
         <div style="width: 100px; height: 100px; background-color: red;"></div>
         <div q:slot="tooltip-content">Custom thing</div>
       </Tooltip>
-
-    </div>
+    </>
   );
 });
-
-export const head: DocumentHead = {
-  title: 'Welcome to Qwik',
-};
