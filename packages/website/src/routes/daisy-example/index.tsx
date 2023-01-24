@@ -1,6 +1,14 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Collapse, Drawer, Tab, TabPanel, Tabs, Toggle, Tooltip } from '@qwik-ui/daisy';
+import {
+  Collapse,
+  Drawer,
+  Tab,
+  TabPanel,
+  Tabs,
+  Toggle,
+  Tooltip,
+} from '@qwik-ui/theme-daisy';
 
 export default component$(() => {
   const tabs = ['Tab 1', 'Tab 2', 'Tab 3'];
@@ -9,8 +17,7 @@ export default component$(() => {
 
   return (
     <div>
-
-<div>
+      <div>
         Hey I am a text and you can &nbsp;
         <Tooltip
           inline={true}
