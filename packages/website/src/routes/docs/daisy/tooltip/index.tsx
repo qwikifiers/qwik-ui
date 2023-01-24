@@ -13,7 +13,6 @@ export default component$(() => {
           content="Hi this is the message"
         >
           <strong>hover on me</strong>
-          <div q:slot="tooltip-content">Custom thing</div>
         </Tooltip>
       </div>
 
@@ -23,7 +22,6 @@ export default component$(() => {
 
       <Tooltip content="Hi this is the message">
         <div style="width: 100px; height: 100px; background-color: black;"></div>
-        <div q:slot="tooltip-content">Custom thing</div>
       </Tooltip>
     </>
   );
