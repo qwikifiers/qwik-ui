@@ -28,90 +28,76 @@ interface StyleProps {
 
 interface RootProps extends StyleProps {
   defaultValue?: string;
-  placeholder?: string;
-  name?: string;
-  disabled?: boolean;
-  required?: boolean;
 }
 
-const Root = component$(
-  ({ defaultValue, name, disabled, required, ...props }: RootProps) => {
-    const selectedOption = useSignal(defaultValue ? defaultValue : '');
-    const isExpanded = useSignal(false);
+const Root = component$(({ defaultValue, ...props }: RootProps) => {
+  const selectedOption = useSignal(defaultValue ? defaultValue : '');
+  const isExpanded = useSignal(false);
 
-    const triggerRef = useSignal<HTMLElement>();
-    const setTriggerRef$ = $((ref: Signal<HTMLElement | undefined>) => {
-      if (ref) {
-        triggerRef.value = ref.value;
-      }
-    });
+  const triggerRef = useSignal<HTMLElement>();
+  const setTriggerRef$ = $((ref: Signal<HTMLElement | undefined>) => {
+    if (ref) {
+      triggerRef.value = ref.value;
+    }
+  });
 
-    const listBoxRef = useSignal<HTMLElement>();
-    const setListBoxRef$ = $((ref: Signal<HTMLElement | undefined>) => {
-      if (ref) {
-        listBoxRef.value = ref.value;
-      }
-    });
+  const listBoxRef = useSignal<HTMLElement>();
+  const setListBoxRef$ = $((ref: Signal<HTMLElement | undefined>) => {
+    if (ref) {
+      listBoxRef.value = ref.value;
+    }
+  });
 
-    const contextService: SelectRootContextService = {
-      selectedOption,
-      isExpanded,
-      setTriggerRef$,
-      setListBoxRef$,
-    };
+  const contextService: SelectRootContextService = {
+    selectedOption,
+    isExpanded,
+    setTriggerRef$,
+    setListBoxRef$,
+  };
 
-    useContextProvider(selectContext, contextService);
+  useContextProvider(selectContext, contextService);
 
-    useClientEffect$(async ({ track }) => {
-      const trigger = track(() => triggerRef.value);
-      const listBox = track(() => listBoxRef.value);
-      const expanded = track(() => isExpanded.value);
+  useClientEffect$(async ({ track }) => {
+    const trigger = track(() => triggerRef.value);
+    const listBox = track(() => listBoxRef.value);
+    const expanded = track(() => isExpanded.value);
 
-      if (expanded && trigger && listBox) {
-        computePosition(trigger, listBox, {
-          placement: 'bottom',
-          middleware: [flip()],
-        }).then(({ x, y }) => {
-          Object.assign(listBox.style, {
-            left: `${x}px`,
-            top: `${y}px`,
-          });
+    if (expanded && trigger && listBox) {
+      computePosition(trigger, listBox, {
+        placement: 'bottom',
+        middleware: [flip()],
+      }).then(({ x, y }) => {
+        Object.assign(listBox.style, {
+          left: `${x}px`,
+          top: `${y}px`,
         });
-      }
+      });
+    }
 
-      if (expanded === false) {
-        trigger?.focus();
-      }
-    });
+    if (expanded === false) {
+      trigger?.focus();
+    }
+  });
 
-    return (
-      <div
-        onKeyUp$={(e) => {
-          const target = e.target as HTMLElement;
+  return (
+    <div
+      onKeyUp$={(e) => {
+        if (e.key === 'Escape') {
+          contextService.isExpanded.value = false;
+        }
+      }}
+      {...props}
+    >
+      <Slot />
+    </div>
+  );
+});
 
-          if (e.key === 'Escape') {
-            contextService.isExpanded.value = false;
-          }
-          if (
-            (e.key === 'Enter' || e.key === ' ') &&
-            target.getAttribute('value')
-          ) {
-            const value = target.getAttribute('value') as string;
-            selectedOption.value = value;
-            contextService.isExpanded.value = false;
-          }
-        }}
-        {...props}
-      >
-        <Slot />
-      </div>
-    );
-  }
-);
+interface TriggerProps extends StyleProps {
+  disabled?: boolean;
+}
 
-interface TriggerProps extends StyleProps {}
-
-const Trigger = component$(({ ...props }: TriggerProps) => {
+const Trigger = component$(({ disabled, ...props }: TriggerProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(selectContext);
 
@@ -123,6 +109,7 @@ const Trigger = component$(({ ...props }: TriggerProps) => {
     <button
       ref={ref}
       aria-expanded={contextService.isExpanded.value}
+      disabled={disabled}
       onClick$={() => {
         contextService.isExpanded.value = !contextService.isExpanded.value;
       }}
@@ -147,7 +134,7 @@ interface MarkerProps extends StyleProps {}
 
 const Marker = component$(({ ...props }: MarkerProps) => {
   return (
-    <span {...props}>
+    <span aria-hidden="true" {...props}>
       <Slot />
     </span>
   );
@@ -186,7 +173,7 @@ interface GroupProps extends StyleProps {
 
 const Group = component$(({ disabled, ...props }: GroupProps) => {
   return (
-    <div role="group" {...props}>
+    <div role="group" aria-disabled={disabled} {...props}>
       <Slot />
     </div>
   );
@@ -215,14 +202,35 @@ const Option = component$(
     return (
       <li
         role="option"
-        tabIndex={0}
+        tabIndex={disabled ? -1 : 0}
         value={value}
+        aria-disabled={disabled}
         aria-selected={value === contextService.selectedOption.value}
         onClick$={(e) => {
+          if (!disabled) {
+            const target = e.target as HTMLElement;
+            const value = target.getAttribute('value') as string;
+            contextService.selectedOption.value = value;
+            contextService.isExpanded.value = false;
+          }
+        }}
+        onKeyUp$={(e) => {
           const target = e.target as HTMLElement;
-          const value = target.getAttribute('value') as string;
-          contextService.selectedOption.value = value;
-          contextService.isExpanded.value = false;
+          if (
+            !disabled &&
+            (e.key === 'Enter' || e.key === ' ') &&
+            target.getAttribute('value')
+          ) {
+            const value = target.getAttribute('value') as string;
+            contextService.selectedOption.value = value;
+            contextService.isExpanded.value = false;
+          }
+        }}
+        onMouseEnter$={(e) => {
+          if (!disabled) {
+            const target = e.target as HTMLElement;
+            target.focus();
+          }
         }}
         {...props}
       >
