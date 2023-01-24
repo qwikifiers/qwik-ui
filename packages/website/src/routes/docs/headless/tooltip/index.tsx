@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { Tooltip } from '@qwik-ui/headless';
 
 export default component$(() => {
@@ -12,8 +12,7 @@ export default component$(() => {
           content="Hi this is the message"
           class={'inline-block bg-black text-white p-2 rounded-lg z-[99] '}
         >
-          hover on me
-          <div q:slot="tooltip-content">Custom thing</div>
+          <strong>hover on me</strong>
         </Tooltip>
       </div>
 
@@ -25,7 +24,7 @@ export default component$(() => {
         content="Hi this is the message"
         class={'inline-block bg-black text-white p-2 rounded-lg z-[99] '}
       >
-        <div style="width: 100px; height: 100px; background-color: red;"></div>
+        <div style="width: 50px; height: 50px; background-color: black;"></div>
         <div q:slot="tooltip-content">Custom thing</div>
       </Tooltip>
     </>

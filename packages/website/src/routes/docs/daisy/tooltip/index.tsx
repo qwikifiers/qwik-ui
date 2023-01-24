@@ -21,7 +21,7 @@ export default component$(() => {
       <br />
 
       <Tooltip content="Hi this is the message">
-        <div style="width: 100px; height: 100px; background-color: black;"></div>
+        <div style="width: 50px; height: 50px; background-color: black;"></div>
       </Tooltip>
     </>
   );
