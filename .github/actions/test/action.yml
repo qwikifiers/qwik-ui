@@ -18,9 +18,9 @@ runs:
       shell: bash
       run: npx nx build headless
 
-    - name: Build Daisy Theme
-      shell: bash
-      run: npx nx build daisy
+    # - name: Build Daisy Theme
+    #   shell: bash
+    #   run: npx nx build daisy
 
     # - name: Build
     #   shell: bash

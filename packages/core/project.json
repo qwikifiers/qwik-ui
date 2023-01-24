@@ -50,7 +50,7 @@
       "executor": "@jscutlery/semver:version",
       "options": {}
     },
-    "version-publish": {
+    "version-publish2": {
       "executor": "@jscutlery/semver:version",
       "options": {
         "noVerify": true,
