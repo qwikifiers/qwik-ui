@@ -6,7 +6,6 @@ export default component$(() => {
   const activeTab = useSignal(0);
   return (
     <>
-      <h1>Daisy</h1>
       <h2>This is the documentation for the Tabs</h2>
       <div style="width: 300px">
         <Tabs>

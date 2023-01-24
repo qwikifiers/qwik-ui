@@ -4,7 +4,6 @@ import { Collapse } from '@qwik-ui/daisy';
 export default component$(() => {
   return (
     <>
-      <h1>Daisy</h1>
       <h2>This is the documentation for the Collapse</h2>
       <div style="width: 300px">
         <Collapse showArrow={true}>

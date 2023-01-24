@@ -88,26 +88,7 @@ export default component$(() => {
 
       <hr class="my-5" />
 
-      <Drawer drawerId="my-drawer" label="Open it pls!">
-        <label for="my-drawer" class="drawer-overlay"></label>
-        <ul class="menu p-4 w-80 bg-base-100 text-base-content">
-          <li>
-            <a href="/" target="_blank">
-              Homepage
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/qwikifiers/qwik-ui" target="_blank">
-              QwikUI
-            </a>
-          </li>
-          <li>
-            <a href="https://qwik.builder.io/" target="_blank">
-              Qwik
-            </a>
-          </li>
-        </ul>
-      </Drawer>
+      
 
       {/* hack to prevent tailwind purge */}
       <div

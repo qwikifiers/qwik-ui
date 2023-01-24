@@ -43,6 +43,7 @@ export default component$(() => {
             <Menu library={librarySignal.value} />
           </div>
           <div class="content">
+            <h1>{librarySignal.value}</h1>
             <Slot />
           </div>
         </section>

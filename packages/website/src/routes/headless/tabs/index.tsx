@@ -7,7 +7,6 @@ export default component$(() => {
 
   return (
     <>
-      <h1>Headless</h1>
       <h2>This is the documentation for the Tabs</h2>
       <Tabs behavior="automatic">
         <h3 id="tablist-1">Danish Composers</h3>

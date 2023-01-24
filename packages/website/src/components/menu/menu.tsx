@@ -20,6 +20,11 @@ export const Menu = component$<Props>(({ library }) => {
           </Link>
         </li>
         <li>
+          <Link href={`/${library.toLowerCase()}/drawer`}>
+            <span class="subtitle">Drawer</span>
+          </Link>
+        </li>
+        <li>
           <Link href={`/${library.toLowerCase()}/toogle`}>
             <span class="subtitle">Toogle</span>
           </Link>
