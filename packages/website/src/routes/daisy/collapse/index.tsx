@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Collapse } from '@qwik-ui/daisy';
+import { Collapse } from '@qwik-ui/theme-daisy';
 
 export default component$(() => {
   return (

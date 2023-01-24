@@ -24,10 +24,13 @@ export default component$(() => {
           <div class="sidebar">
             <select
               onChange$={$((event: QwikChangeEvent<HTMLSelectElement>) => {
-                window.location.pathname = window.location.pathname.replace(
-                  librarySignal.value.toLowerCase(),
-                  event.target.value.toLowerCase()
-                );
+                if (window.location.pathname !== '/') {
+                  window.location.pathname = window.location.pathname.replace(
+                    librarySignal.value.toLowerCase(),
+                    event.target.value.toLowerCase()
+                  );
+                }
+                librarySignal.value = event.target.value as Types;
               })}
             >
               <option

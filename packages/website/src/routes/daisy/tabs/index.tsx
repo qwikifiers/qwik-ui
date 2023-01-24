@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Tab, TabPanel, Tabs } from '@qwik-ui/daisy';
+import { Tab, TabPanel, Tabs } from '@qwik-ui/theme-daisy';
 
 export default component$(() => {
   const tabs = ['Tab 1', 'Tab 2', 'Tab 3'];
@@ -9,9 +9,10 @@ export default component$(() => {
       <h2>This is the documentation for the Tabs</h2>
       <div style="width: 300px">
         <Tabs>
-          {tabs.map((tab) => {
+          {tabs.map((tab, index) => {
             return (
               <Tab
+                key={index}
                 onClick$={(clicked: number) => {
                   activeTab.value = clicked;
                 }}
@@ -22,9 +23,9 @@ export default component$(() => {
               </Tab>
             );
           })}
-          {tabs.map((tab) => {
+          {tabs.map((tab, index) => {
             return (
-              <TabPanel>
+              <TabPanel key={'panel' + index}>
                 <div>
                   {tab} {tab} {tab}
                 </div>
