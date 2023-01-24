@@ -2,13 +2,11 @@
   z-index: 99;
   position: absolute;
   opacity: 0;
-  transition: opacity var(--duration) linear;
+  transition: opacity var(--duration, 0ms) linear;
 }
 
 *[data-state='positioned'] {
   display: block;
-  top: var(--y, 0px);
-  left: var(--x, 0px);
   opacity: 1;
 }
 
@@ -18,8 +16,6 @@
 }
 
 *[data-state='fading'] {
-  top: var(--y, 0px);
-  left: var(--x, 0px);
   opacity: 0;
 }
 
