@@ -29,27 +29,18 @@ export default component$(() => {
           </AltSelect.Marker>
         </AltSelect.Trigger>
         <AltSelect.ListBox class="qui-SelectListBox">
-          <AltSelect.Option
-            label="🚀 Qwik"
-            value="🚀 Qwik"
-            class="qui-SelectOption"
-          />
+          <AltSelect.Option value="🚀 Qwik" class="qui-SelectOption" />
           <AltSelect.Group class="qui-SelectGroup">
             <AltSelect.Label class="qui-SelectLabel">Fruits</AltSelect.Label>
             {[
-              { label: '🍎 Apple', value: '🍎 Apple', disabled: false },
-              { label: '🍌 Banana', value: '🍌 Banana', disabled: false },
-              { label: '🍒 Cherry', value: '🍒 Cherry', disabled: false },
-              {
-                label: '🐲 Dragonfruit',
-                value: '🐲 Dragonfruit',
-                disabled: true,
-              },
+              { value: '🍎 Apple', disabled: false },
+              { value: '🍌 Banana', disabled: false },
+              { value: '🍒 Cherry', disabled: false },
+              { value: '🐲 Dragonfruit', disabled: true },
             ].map((option) => {
               return (
                 <AltSelect.Option
                   key={useId()}
-                  label={option.label}
                   value={option.value}
                   disabled={option.disabled}
                   class="qui-SelectOption"

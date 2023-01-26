@@ -207,55 +207,47 @@ const Label = component$(({ ...props }: LabelProps) => {
 
 interface OptionProps extends StyleProps {
   disabled?: boolean;
-  label?: string;
-  value?: string;
+  value: string;
 }
 
-const Option = component$(
-  ({ disabled, label, value, ...props }: OptionProps) => {
-    console.log(value);
-    const contextService = useContext(selectContext);
+const Option = component$(({ disabled, value, ...props }: OptionProps) => {
+  const contextService = useContext(selectContext);
 
-    return (
-      <li
-        role="option"
-        tabIndex={disabled ? -1 : 0}
-        value={value}
-        aria-disabled={disabled}
-        aria-selected={value === contextService.selectedOption.value}
-        onClick$={(e) => {
-          if (!disabled) {
-            const target = e.target as HTMLElement;
-            const value = target.getAttribute('value') as string;
-            contextService.selectedOption.value = value;
-            contextService.isExpanded.value = false;
-          }
-        }}
-        onKeyUp$={(e) => {
+  return (
+    <li
+      role="option"
+      tabIndex={disabled ? -1 : 0}
+      aria-disabled={disabled}
+      aria-selected={value === contextService.selectedOption.value}
+      onClick$={() => {
+        if (!disabled) {
+          contextService.selectedOption.value = value;
+          contextService.isExpanded.value = false;
+        }
+      }}
+      onKeyUp$={(e) => {
+        const target = e.target as HTMLElement;
+        if (
+          !disabled &&
+          (e.key === 'Enter' || e.key === ' ') &&
+          target.innerText === value
+        ) {
+          contextService.selectedOption.value = value;
+          contextService.isExpanded.value = false;
+        }
+      }}
+      onMouseEnter$={(e) => {
+        if (!disabled) {
           const target = e.target as HTMLElement;
-          if (
-            !disabled &&
-            (e.key === 'Enter' || e.key === ' ') &&
-            target.getAttribute('value')
-          ) {
-            const value = target.getAttribute('value') as string;
-            contextService.selectedOption.value = value;
-            contextService.isExpanded.value = false;
-          }
-        }}
-        onMouseEnter$={(e) => {
-          if (!disabled) {
-            const target = e.target as HTMLElement;
-            target.focus();
-          }
-        }}
-        {...props}
-      >
-        {label ? label : <Slot />}
-      </li>
-    );
-  }
-);
+          target.focus();
+        }
+      }}
+      {...props}
+    >
+      {value}
+    </li>
+  );
+});
 
 export {
   selectContext,
