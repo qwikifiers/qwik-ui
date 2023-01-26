@@ -9,6 +9,7 @@ import {
   Signal,
   $,
   QRL,
+  useOnWindow,
 } from '@builder.io/qwik';
 import { computePosition, flip } from '@floating-ui/dom';
 
@@ -78,6 +79,21 @@ const Root = component$(({ defaultValue, ...props }: RootProps) => {
       trigger?.focus();
     }
   });
+
+  useOnWindow(
+    'click',
+    $((e) => {
+      const target = e.target as HTMLElement;
+      if (
+        isExpanded.value === true &&
+        e.target !== triggerRef.value &&
+        target.getAttribute('role') !== 'option' &&
+        target.nodeName !== 'LABEL'
+      ) {
+        isExpanded.value = false;
+      }
+    })
+  );
 
   return (
     <div
@@ -197,6 +213,7 @@ interface OptionProps extends StyleProps {
 
 const Option = component$(
   ({ disabled, label, value, ...props }: OptionProps) => {
+    console.log(value);
     const contextService = useContext(selectContext);
 
     return (
