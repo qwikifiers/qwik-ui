@@ -10,10 +10,12 @@ import {
   $,
   QRL,
   useOnWindow,
+  useStore,
 } from '@builder.io/qwik';
 import { computePosition, flip } from '@floating-ui/dom';
 
 interface SelectRootContextService {
+  options: HTMLElement[];
   selectedOption: Signal<string>;
   isExpanded: Signal<boolean>;
   setTriggerRef$: QRL<(ref: Signal<HTMLElement | undefined>) => void>;
@@ -32,6 +34,8 @@ interface RootProps extends StyleProps {
 }
 
 const Root = component$(({ defaultValue, ...props }: RootProps) => {
+  const options = useStore([]);
+
   const selectedOption = useSignal(defaultValue ? defaultValue : '');
   const isExpanded = useSignal(false);
 
@@ -50,6 +54,7 @@ const Root = component$(({ defaultValue, ...props }: RootProps) => {
   });
 
   const contextService: SelectRootContextService = {
+    options,
     selectedOption,
     isExpanded,
     setTriggerRef$,
@@ -78,6 +83,10 @@ const Root = component$(({ defaultValue, ...props }: RootProps) => {
     if (expanded === false) {
       trigger?.focus();
     }
+
+    if (expanded === true) {
+      listBox?.focus();
+    }
   });
 
   useOnWindow(
@@ -85,19 +94,19 @@ const Root = component$(({ defaultValue, ...props }: RootProps) => {
     $((e) => {
       const target = e.target as HTMLElement;
       if (
-        isExpanded.value === true &&
+        contextService.isExpanded.value === true &&
         e.target !== triggerRef.value &&
         target.getAttribute('role') !== 'option' &&
         target.nodeName !== 'LABEL'
       ) {
-        isExpanded.value = false;
+        contextService.isExpanded.value = false;
       }
     })
   );
 
   return (
     <div
-      onKeyUp$={(e) => {
+      onKeyDown$={(e) => {
         if (e.key === 'Escape') {
           contextService.isExpanded.value = false;
         }
@@ -128,6 +137,11 @@ const Trigger = component$(({ disabled, ...props }: TriggerProps) => {
       disabled={disabled}
       onClick$={() => {
         contextService.isExpanded.value = !contextService.isExpanded.value;
+      }}
+      onKeyDown$={(e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          contextService.isExpanded.value = true;
+        }
       }}
       {...props}
     >
@@ -164,12 +178,17 @@ const ListBox = component$(({ ...props }: ListBoxProps) => {
 
   useClientEffect$(() => {
     contextService.setListBoxRef$(ref);
+    const options = ref.value?.querySelectorAll<HTMLElement>('[role="option"]');
+    if (options?.length) {
+      options.forEach((option) => contextService.options.push(option));
+    }
   });
 
   return (
     <ul
       ref={ref}
       role="listbox"
+      tabIndex={0}
       style={`
       display: ${contextService.isExpanded.value ? 'block' : 'none'};
       position: absolute;
@@ -177,6 +196,29 @@ const ListBox = component$(({ ...props }: ListBoxProps) => {
       ${props.style}
     `}
       class={props.class}
+      onKeyDown$={(e) => {
+        const availableOptions = contextService.options.filter(
+          (option) => !(option.getAttribute('aria-disabled') === 'true')
+        );
+        const target = e.target as HTMLElement;
+        const currentIndex = availableOptions.indexOf(target);
+
+        if (e.key === 'ArrowDown') {
+          if (currentIndex === availableOptions.length - 1) {
+            availableOptions[0].focus();
+          } else {
+            availableOptions[currentIndex + 1].focus();
+          }
+        }
+
+        if (e.key === 'ArrowUp') {
+          if (currentIndex <= 0) {
+            availableOptions[availableOptions.length - 1].focus();
+          } else {
+            availableOptions[currentIndex - 1].focus();
+          }
+        }
+      }}
     >
       <Slot />
     </ul>
@@ -232,6 +274,13 @@ const Option = component$(({ disabled, value, ...props }: OptionProps) => {
           (e.key === 'Enter' || e.key === ' ') &&
           target.innerText === value
         ) {
+          contextService.selectedOption.value = value;
+          contextService.isExpanded.value = false;
+        }
+      }}
+      onKeyDown$={(e) => {
+        const target = e.target as HTMLElement;
+        if (!disabled && e.key === 'Tab' && target.innerText === value) {
           contextService.selectedOption.value = value;
           contextService.isExpanded.value = false;
         }
