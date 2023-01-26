@@ -1,5 +1,4 @@
-import { component$, Slot, useContext } from '@builder.io/qwik';
-import { drawerContext } from './drawer';
+import { component$, Slot } from '@builder.io/qwik';
 
 export interface DrawerTriggerProps {
   class?: string;

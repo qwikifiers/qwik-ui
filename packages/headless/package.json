@@ -1,21 +1,23 @@
 {
   "name": "@qwik-ui/headless",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Qwik UI headless components library",
-  "main": "./lib/index.qwik.cjs",
-  "qwik": "./lib/index.qwik.mjs",
-  "module": "./lib/index.qwik.mjs",
-  "types": "./lib-types/packages/core/src/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./index.qwik.cjs",
+  "qwik": "./index.qwik.mjs",
+  "module": "./index.qwik.mjs",
+  "types": "./packages/headless/src/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./lib/index.qwik.mjs",
-      "require": "./lib/index.qwik.cjs"
+      "import": "./index.qwik.mjs",
+      "require": "./index.qwik.cjs"
     }
   },
   "files": [
-    "lib",
-    "lib-types"
+    "packages/headless/src"
   ],
   "engines": {
     "node": ">=16.0.0"

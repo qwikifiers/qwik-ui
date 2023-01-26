@@ -9,7 +9,8 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/daisy"
+        "outputPath": "dist/packages/daisy",
+        "mode": "lib"
       },
       "configurations": {
         "development": {},

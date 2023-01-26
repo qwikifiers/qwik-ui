@@ -14,9 +14,17 @@ runs:
       shell: bash
       run: npx nx affected:lint --base=last-release --exclude=website
 
-    - name: Build
+    - name: Build Headless
       shell: bash
-      run: npx nx affected:build --base=last-release --exclude=website
+      run: npx nx build headless
+
+    # - name: Build Daisy Theme
+    #   shell: bash
+    #   run: npx nx build daisy
+
+    # - name: Build
+    #   shell: bash
+    #   run: npx nx affected:build --base=last-release --exclude=website
 
     # - name: Test
     #   shell: bash

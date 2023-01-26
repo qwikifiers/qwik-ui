@@ -60,6 +60,29 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "nnelgxorz",
+      "name": "Glenn Becker",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9634080?v=4",
+      "profile": "https://github.com/nnelgxorz",
+      "contributions": [
+        "code",
+        "test",
+        "doc",
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "michalmw",
+      "name": "Michał Wójcik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10683327?v=4",
+      "profile": "https://github.com/michalmw",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

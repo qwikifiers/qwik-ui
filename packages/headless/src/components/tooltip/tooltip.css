@@ -1,0 +1,28 @@
+*[data-state] {
+  z-index: 99;
+  position: absolute;
+  opacity: 0;
+  transition: opacity var(--duration) linear;
+}
+
+*[data-state='positioned'] {
+  display: block;
+  top: var(--y, 0px);
+  left: var(--x, 0px);
+  opacity: 1;
+}
+
+*[data-state='unpositioned'] {
+  display: block;
+  visibility: 'hidden';
+}
+
+*[data-state='fading'] {
+  top: var(--y, 0px);
+  left: var(--x, 0px);
+  opacity: 0;
+}
+
+*[data-state='hidden'] {
+  display: none;
+}
