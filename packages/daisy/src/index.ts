@@ -1,3 +1,4 @@
+export * from './components/button/button';
 export * from './components/collapse/collapse';
 export * from './components/drawer/drawer';
 export * from './components/tabs';
