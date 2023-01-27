@@ -9,9 +9,10 @@ export default component$(() => {
     <>
       <h2></h2>
       <Wrapper
-        title='Tabs'
-        subtitle='Daisy'
-        description='This is the documentation for the Tabs'>
+        title="Tabs"
+        subtitle="Daisy"
+        description="This is the documentation for the Tabs"
+      >
         <div q:slot="preview">
           <div style="width: 300px">
             <Tabs>
@@ -43,21 +44,30 @@ export default component$(() => {
         </div>
         <div q:slot="code">
           <pre>
-            { ' <Tabs> '} <br />
-            { ' <Tab '}<br />
-            { '     key={index} '}<br />
-            { '     onClick$={(clicked: number) => { '}<br />
-            { '     activeTab.value = clicked; '}<br />
-                { ' }} '}<br />
-                { '  isLifted={false} '}<br />
-                { '  isBordered={true} '}<br />
-                { '  > '}<br />
-                { '   {tab} '}<br />
-                { ' </Tab> '}<br />
+            {' <Tabs> '} <br />
+            {' <Tab '}
+            <br />
+            {'     key={index} '}
+            <br />
+            {'     onClick$={(clicked: number) => { '}
+            <br />
+            {'     activeTab.value = clicked; '}
+            <br />
+            {' }} '}
+            <br />
+            {'  isLifted={false} '}
+            <br />
+            {'  isBordered={true} '}
+            <br />
+            {'  > '}
+            <br />
+            {'   {tab} '}
+            <br />
+            {' </Tab> '}
+            <br />
           </pre>
         </div>
       </Wrapper>
-
     </>
   );
 });
