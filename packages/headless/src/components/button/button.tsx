@@ -1,16 +1,10 @@
-import { component$, Slot, useSignal } from '@builder.io/qwik';
+import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
 
-export interface ButtonProps {
-  class?: string;
+type ButtonProps = {
   disabled?: boolean;
-}
+};
 
-
-export const Button = component$((props: ButtonProps) => {
-  return (
-      <button
-        {...props}
-      ><Slot /></button>
-  );
+export const Button = component$((props: ButtonProps & HTMLAttributes<HTMLButtonElement> ) => {
+  return <button {...props}><Slot /></button>;
 });
 
