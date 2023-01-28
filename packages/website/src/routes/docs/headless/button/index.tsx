@@ -6,7 +6,7 @@ export default component$(() => {
     <>
       <h2>This is the documentation for the Button</h2>
       <Button onClick$={$(() => window.alert('hello'))}>CLICK ME</Button>
-      <hr/>
+      <hr />
       <Button disabled={true}>CLICK ME</Button>
     </>
   );

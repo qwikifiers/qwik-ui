@@ -5,9 +5,12 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-export const Button = component$((props: ButtonProps & HTMLAttributes<HTMLButtonElement> ) => {
+export const Button = component$(
+  (props: ButtonProps & HTMLAttributes<HTMLButtonElement>) => {
     return (
-      <HeadlessButton class="btn btn-primary" {...props}><Slot /></HeadlessButton>
+      <HeadlessButton class="btn btn-primary" {...props}>
+        <Slot />
+      </HeadlessButton>
     );
   }
 );

@@ -4,7 +4,12 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-export const Button = component$((props: ButtonProps & HTMLAttributes<HTMLButtonElement> ) => {
-  return <button {...props}><Slot /></button>;
-});
-
+export const Button = component$(
+  (props: ButtonProps & HTMLAttributes<HTMLButtonElement>) => {
+    return (
+      <button {...props}>
+        <Slot />
+      </button>
+    );
+  }
+);
