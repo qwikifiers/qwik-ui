@@ -2,48 +2,37 @@ import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import styles from './menu.css?inline';
 
+
+export const generateMenu = (library: string) => [
+  { label: 'Button', path: `/docs/${library.toLowerCase()}/button` },
+  { label: 'Collapse', path: `/docs/${library.toLowerCase()}/collapse` },
+  { label: 'Drawer', path: `/docs/${library.toLowerCase()}/drawer` },
+  { label: 'Tabs', path: `/docs/${library.toLowerCase()}/tabs` },
+  { label: 'Toogle', path: `/docs/${library.toLowerCase()}/toogle` },
+  { label: 'Tooltip', path: `/docs/${library.toLowerCase()}/tooltip` },
+];
+
 type Props = {
   library: string;
 };
 
 export const Menu = component$<Props>(({ library }) => {
   useStylesScoped$(styles);
+  const menu = generateMenu(library)
 
   return (
     <aside class="aside">
       <h5 class="title">Components</h5>
       <ul>
-        <li>
-          <Link href={`/docs/${library.toLowerCase()}/collapse`}>
-            <span class="subtitle">Collapse</span>
-          </Link>
-        </li>
-        <li>
-          <Link href={`/docs/${library.toLowerCase()}/drawer`}>
-            <span class="subtitle">Drawer</span>
-          </Link>
-        </li>
-        <li>
-          <Link href={`/docs/${library.toLowerCase()}/tabs`}>
-            <span class="subtitle">Tabs</span>
-          </Link>
-        </li>
-        <li>
-          <Link href={`/docs/${library.toLowerCase()}/toogle`}>
-            <span class="subtitle">Toogle</span>
-          </Link>
-        </li>
-        <li>
-          <Link href={`/docs/${library.toLowerCase()}/tooltip`}>
-            <span class="subtitle">Tooltip</span>
-          </Link>
-        </li>
-
-        <li>
-          <Link href={`/docs/${library.toLowerCase()}/button`}>
-            <span class="subtitle">Button</span>
-          </Link>
-        </li>
+        {
+          menu.map(menuItem => (
+            <li>
+              <Link href={menuItem.path}>
+                <span className="subtitle">{menuItem.label}</span>
+              </Link>
+            </li>
+          ))
+        }
       </ul>
     </aside>
   );
