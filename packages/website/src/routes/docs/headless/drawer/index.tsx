@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import {  Drawer, DrawerContent, DrawerTrigger } from '@qwik-ui/headless';
+import { Drawer, DrawerContent, DrawerTrigger } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (
