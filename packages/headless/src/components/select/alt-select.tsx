@@ -63,21 +63,27 @@ const Root = component$(({ defaultValue, ...props }: RootProps) => {
 
   useContextProvider(selectContext, contextService);
 
+  const updatePosition = $(
+    (referenceEl: HTMLElement, floatingEl: HTMLElement) => {
+      computePosition(referenceEl, floatingEl, {
+        placement: 'bottom',
+        middleware: [flip()],
+      }).then(({ x, y }) => {
+        Object.assign(floatingEl.style, {
+          left: `${x}px`,
+          top: `${y}px`,
+        });
+      });
+    }
+  );
+
   useClientEffect$(async ({ track }) => {
     const trigger = track(() => triggerRef.value);
     const listBox = track(() => listBoxRef.value);
     const expanded = track(() => isExpanded.value);
 
     if (expanded && trigger && listBox) {
-      computePosition(trigger, listBox, {
-        placement: 'bottom',
-        middleware: [flip()],
-      }).then(({ x, y }) => {
-        Object.assign(listBox.style, {
-          left: `${x}px`,
-          top: `${y}px`,
-        });
-      });
+      updatePosition(trigger, listBox);
     }
 
     if (expanded === false) {
