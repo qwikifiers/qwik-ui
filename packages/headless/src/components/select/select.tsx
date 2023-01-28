@@ -1,206 +1,317 @@
 import {
-  $,
   component$,
   createContext,
-  PropFunction,
-  QRL,
-  Signal,
-  Slot,
-  useClientEffect$,
   useContext,
   useContextProvider,
-  useOnWindow,
+  Slot,
+  useClientEffect$,
   useSignal,
+  Signal,
+  $,
+  QRL,
+  useOnWindow,
+  useStore,
 } from '@builder.io/qwik';
-import { computePosition } from '@floating-ui/dom';
+import { computePosition, flip } from '@floating-ui/dom';
 
-interface SelectContextService {
-  selectedOptionSignal: Signal<string>;
-  isListVisibleSignal: Signal<boolean>;
-  listXSignal: Signal<number>;
-  listYSignal: Signal<number>;
-  setTriggerAnchor$: QRL<
-    (triggerAnchorRef: Signal<HTMLElement | undefined>) => void
-  >;
-  setListAnchor$: QRL<
-    (triggerAnchorRef: Signal<HTMLElement | undefined>) => void
-  >;
+interface SelectRootContextService {
+  options: HTMLElement[];
+  selectedOption: Signal<string>;
+  isExpanded: Signal<boolean>;
+  setTriggerRef$: QRL<(ref: Signal<HTMLElement | undefined>) => void>;
+  setListBoxRef$: QRL<(ref: Signal<HTMLElement | undefined>) => void>;
 }
 
-export const selectContextToken = createContext<SelectContextService>('select');
+const selectContext = createContext<SelectRootContextService>('select-root');
 
-export interface SelectProps {
-  onChange?: PropFunction<(selectedValue: string) => void>;
+interface StyleProps {
   class?: string;
+  style?: string;
 }
 
-export const Select = component$(({ onChange, ...props }: SelectProps) => {
-  const selectedOptionSignal = useSignal('');
-  const isListVisibleSignal = useSignal(false);
-  const triggerRefSignal = useSignal<HTMLElement>();
-  const listRefSignal = useSignal<HTMLElement>();
-  const listXSignal = useSignal<number>(0);
-  const listYSignal = useSignal<number>(0);
+interface RootProps extends StyleProps {
+  defaultValue?: string;
+}
 
-  const setTriggerAnchor$ = $((triggerRef: Signal<HTMLElement | undefined>) => {
-    if (triggerRef) {
-      triggerRefSignal.value = triggerRef.value;
+const Root = component$(({ defaultValue, ...props }: RootProps) => {
+  const options = useStore([]);
+
+  const selectedOption = useSignal(defaultValue ? defaultValue : '');
+  const isExpanded = useSignal(false);
+
+  const triggerRef = useSignal<HTMLElement>();
+  const setTriggerRef$ = $((ref: Signal<HTMLElement | undefined>) => {
+    if (ref) {
+      triggerRef.value = ref.value;
     }
   });
 
-  const setListAnchor$ = $((listRef: Signal<HTMLElement | undefined>) => {
-    if (listRef) {
-      listRefSignal.value = listRef.value;
+  const listBoxRef = useSignal<HTMLElement>();
+  const setListBoxRef$ = $((ref: Signal<HTMLElement | undefined>) => {
+    if (ref) {
+      listBoxRef.value = ref.value;
     }
   });
 
-  const contextService: SelectContextService = {
-    selectedOptionSignal,
-    isListVisibleSignal,
-    listXSignal,
-    listYSignal,
-    setTriggerAnchor$,
-    setListAnchor$,
+  const contextService: SelectRootContextService = {
+    options,
+    selectedOption,
+    isExpanded,
+    setTriggerRef$,
+    setListBoxRef$,
   };
 
-  useContextProvider(selectContextToken, contextService);
+  useContextProvider(selectContext, contextService);
+
+  const updatePosition = $(
+    (referenceEl: HTMLElement, floatingEl: HTMLElement) => {
+      computePosition(referenceEl, floatingEl, {
+        placement: 'bottom',
+        middleware: [flip()],
+      }).then(({ x, y }) => {
+        Object.assign(floatingEl.style, {
+          left: `${x}px`,
+          top: `${y}px`,
+        });
+      });
+    }
+  );
 
   useClientEffect$(async ({ track }) => {
-    const listRefValue = track(() => listRefSignal.value);
-    const triggerRefValue = track(() => triggerRefSignal.value);
-    const visible = track(() => isListVisibleSignal.value);
+    const trigger = track(() => triggerRef.value);
+    const listBox = track(() => listBoxRef.value);
+    const expanded = track(() => isExpanded.value);
 
-    if (visible && listRefValue && triggerRefValue) {
-      const { x, y } = await computePosition(triggerRefValue, triggerRefValue, {
-        placement: 'bottom',
-      });
-      console.log(`x: ${x} y: ${y}`);
-      listXSignal.value = x;
-      listYSignal.value = y;
+    if (expanded && trigger && listBox) {
+      updatePosition(trigger, listBox);
     }
-  });
 
-  useClientEffect$(({ track }) => {
-    const selectedValue = track(() => selectedOptionSignal.value);
-    if (onChange) {
-      onChange(selectedValue);
+    if (expanded === false) {
+      trigger?.focus();
+    }
+
+    if (expanded === true) {
+      listBox?.focus();
     }
   });
 
   useOnWindow(
-    'keyup',
+    'click',
     $((e) => {
-      const key = (e as KeyboardEvent).key;
-      if (key === 'Escape') {
-        isListVisibleSignal.value = false;
-      }
-      if (key === 'Enter' && e.target.nodeName === 'LI') {
-        selectedOptionSignal.value = e.target.getAttribute('value');
-        isListVisibleSignal.value = false;
+      const target = e.target as HTMLElement;
+      if (
+        contextService.isExpanded.value === true &&
+        e.target !== triggerRef.value &&
+        target.getAttribute('role') !== 'option' &&
+        target.nodeName !== 'LABEL'
+      ) {
+        contextService.isExpanded.value = false;
       }
     })
   );
 
-  return <Slot />;
-});
-
-export interface SelectOptionsListProps {
-  class?: string;
-  style?: string;
-}
-
-export const SelectOptionsList = component$(
-  ({ ...props }: SelectOptionsListProps) => {
-    const ref = useSignal<HTMLElement>();
-    const selectContextService = useContext(selectContextToken);
-
-    useClientEffect$(() => {
-      selectContextService.setListAnchor$(ref);
-    });
-
-    return (
-      <ul
-        ref={ref}
-        role="listbox"
-        tabIndex={0}
-        style={`display: ${
-          selectContextService.isListVisibleSignal.value ? 'block' : 'none'
-        };
-        position: absolute;
-        left: ${selectContextService.listXSignal.value}px;
-        top: ${selectContextService.listYSignal.value}px;
-        z-index: 300;
-        ${props.style}`}
-        class={props.class}
-      >
-        <Slot />
-      </ul>
-    );
-  }
-);
-
-export interface SelectTriggerProps {
-  class?: string;
-  style?: string;
-}
-
-export const SelectTrigger = component$(({ ...props }: SelectTriggerProps) => {
-  const ref = useSignal<HTMLElement>();
-  const selectContextService = useContext(selectContextToken);
-
-  useClientEffect$(() => {
-    selectContextService.setTriggerAnchor$(ref);
-  });
-
   return (
     <div
-      ref={ref}
-      onClick$={() => {
-        selectContextService.isListVisibleSignal.value =
-          !selectContextService.isListVisibleSignal.value;
+      onKeyDown$={(e) => {
+        if (e.key === 'Escape') {
+          contextService.isExpanded.value = false;
+        }
       }}
       {...props}
     >
-      {selectContextService.selectedOptionSignal.value !== '' ? (
-        selectContextService.selectedOptionSignal.value
-      ) : (
-        <Slot />
-      )}
+      <Slot />
     </div>
   );
 });
 
-export interface SelectOptionData {
-  value?: string;
-  label: string;
-}
-
-export interface SelectOptionProps extends SelectOptionData {
+interface TriggerProps extends StyleProps {
   disabled?: boolean;
-  class?: string;
 }
 
-// single select option
-export const SelectOption = component$(
-  ({ value, label, disabled, ...props }: SelectOptionProps) => {
-    const contextService = useContext(selectContextToken);
+const Trigger = component$(({ disabled, ...props }: TriggerProps) => {
+  const ref = useSignal<HTMLElement>();
+  const contextService = useContext(selectContext);
 
-    return (
-      <li
-        role="option"
-        tabIndex={0}
-        value={value}
-        aria-selected={value === contextService.selectedOptionSignal.value}
-        onClick$={() => {
-          if (!disabled) {
-            contextService.selectedOptionSignal.value = value ?? label;
-            contextService.isListVisibleSignal.value = false;
+  useClientEffect$(() => {
+    contextService.setTriggerRef$(ref);
+  });
+
+  return (
+    <button
+      ref={ref}
+      aria-expanded={contextService.isExpanded.value}
+      disabled={disabled}
+      onClick$={() => {
+        contextService.isExpanded.value = !contextService.isExpanded.value;
+      }}
+      onKeyDown$={(e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          contextService.isExpanded.value = true;
+        }
+      }}
+      {...props}
+    >
+      <Slot />
+    </button>
+  );
+});
+
+interface ValueProps extends StyleProps {
+  placeholder?: string;
+}
+
+const Value = component$(({ placeholder, ...props }: ValueProps) => {
+  const contextService = useContext(selectContext);
+  const value = contextService.selectedOption.value;
+  return <span {...props}>{value ? value : placeholder}</span>;
+});
+
+interface MarkerProps extends StyleProps {}
+
+const Marker = component$(({ ...props }: MarkerProps) => {
+  return (
+    <span aria-hidden="true" {...props}>
+      <Slot />
+    </span>
+  );
+});
+
+interface ListBoxProps extends StyleProps {}
+
+const ListBox = component$(({ ...props }: ListBoxProps) => {
+  const ref = useSignal<HTMLElement>();
+  const contextService = useContext(selectContext);
+
+  useClientEffect$(() => {
+    contextService.setListBoxRef$(ref);
+    const options = ref.value?.querySelectorAll<HTMLElement>('[role="option"]');
+    if (options?.length) {
+      options.forEach((option) => contextService.options.push(option));
+    }
+  });
+
+  return (
+    <ul
+      ref={ref}
+      role="listbox"
+      tabIndex={0}
+      style={`
+      display: ${contextService.isExpanded.value ? 'block' : 'none'};
+      position: absolute;
+      z-index: 1;
+      ${props.style}
+    `}
+      class={props.class}
+      onKeyDown$={(e) => {
+        const availableOptions = contextService.options.filter(
+          (option) => !(option.getAttribute('aria-disabled') === 'true')
+        );
+        const target = e.target as HTMLElement;
+        const currentIndex = availableOptions.indexOf(target);
+
+        if (e.key === 'ArrowDown') {
+          if (currentIndex === availableOptions.length - 1) {
+            availableOptions[0].focus();
+          } else {
+            availableOptions[currentIndex + 1].focus();
           }
-        }}
-        {...props}
-      >
-        {label}
-      </li>
-    );
-  }
-);
+        }
+
+        if (e.key === 'ArrowUp') {
+          if (currentIndex <= 0) {
+            availableOptions[availableOptions.length - 1].focus();
+          } else {
+            availableOptions[currentIndex - 1].focus();
+          }
+        }
+      }}
+    >
+      <Slot />
+    </ul>
+  );
+});
+
+interface GroupProps extends StyleProps {
+  disabled?: boolean;
+}
+
+const Group = component$(({ disabled, ...props }: GroupProps) => {
+  return (
+    <div role="group" aria-disabled={disabled} {...props}>
+      <Slot />
+    </div>
+  );
+});
+
+interface LabelProps extends StyleProps {}
+
+const Label = component$(({ ...props }: LabelProps) => {
+  return (
+    <label {...props}>
+      <Slot />
+    </label>
+  );
+});
+
+interface OptionProps extends StyleProps {
+  disabled?: boolean;
+  value: string;
+}
+
+const Option = component$(({ disabled, value, ...props }: OptionProps) => {
+  const contextService = useContext(selectContext);
+
+  return (
+    <li
+      role="option"
+      tabIndex={disabled ? -1 : 0}
+      aria-disabled={disabled}
+      aria-selected={value === contextService.selectedOption.value}
+      onClick$={() => {
+        if (!disabled) {
+          contextService.selectedOption.value = value;
+          contextService.isExpanded.value = false;
+        }
+      }}
+      onKeyUp$={(e) => {
+        const target = e.target as HTMLElement;
+        if (
+          !disabled &&
+          (e.key === 'Enter' || e.key === ' ') &&
+          target.innerText === value
+        ) {
+          contextService.selectedOption.value = value;
+          contextService.isExpanded.value = false;
+        }
+      }}
+      onKeyDown$={(e) => {
+        const target = e.target as HTMLElement;
+        if (!disabled && e.key === 'Tab' && target.innerText === value) {
+          contextService.selectedOption.value = value;
+          contextService.isExpanded.value = false;
+        }
+      }}
+      onMouseEnter$={(e) => {
+        if (!disabled) {
+          const target = e.target as HTMLElement;
+          target.focus();
+        }
+      }}
+      {...props}
+    >
+      {value}
+    </li>
+  );
+});
+
+export {
+  selectContext,
+  Root,
+  Trigger,
+  Value,
+  Marker,
+  ListBox,
+  Group,
+  Label,
+  Option,
+};
