@@ -38,6 +38,12 @@ export const Menu = component$<Props>(({ library }) => {
             <span class="subtitle">Tooltip</span>
           </Link>
         </li>
+
+        <li>
+          <Link href={`/${library.toLowerCase()}/button`}>
+            <span className="subtitle">Button</span>
+          </Link>
+        </li>
       </ul>
     </aside>
   );
