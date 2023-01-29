@@ -22,5 +22,9 @@
   },
   "devDependencies": {
     "daisyui": "^2.37.0"
+  },
+  "dependencies": {
+    "materialize-css": "1.0.0",
+    "sass": "1.57.1"
   }
 }

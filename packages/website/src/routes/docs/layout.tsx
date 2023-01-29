@@ -8,12 +8,16 @@ import {
 import { useLocation } from '@builder.io/qwik-city';
 import { Menu } from '../../components/menu/menu';
 
-export type Types = 'HEADLESS' | 'DAISY';
+export type Types = 'HEADLESS' | 'DAISY' | 'MATERIAL';
 
 export default component$(() => {
   const location = useLocation();
   const librarySignal = useSignal<Types>(
-    location.pathname.indexOf('/headless') !== -1 ? 'HEADLESS' : 'DAISY'
+    location.pathname.indexOf('/headless') !== -1
+      ? 'HEADLESS'
+      : location.pathname.indexOf('/material') !== -1
+      ? 'MATERIAL'
+      : 'DAISY'
   );
   return (
     <>
@@ -35,6 +39,12 @@ export default component$(() => {
               selected={librarySignal.value === 'HEADLESS'}
             >
               HEADLESS
+            </option>
+            <option
+              value="MATERIAL"
+              selected={librarySignal.value === 'MATERIAL'}
+            >
+              MATERIAL
             </option>
             <option value="DAISY" selected={librarySignal.value === 'DAISY'}>
               DAISY
