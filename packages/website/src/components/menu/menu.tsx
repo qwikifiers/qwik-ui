@@ -28,7 +28,7 @@ export const Menu = component$<Props>(({ library }) => {
         {menu.map((menuItem) => (
           <li>
             <Link href={menuItem.path}>
-              <span className="subtitle">{menuItem.label}</span>
+              <span class="subtitle">{menuItem.label}</span>
             </Link>
           </li>
         ))}

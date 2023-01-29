@@ -6,18 +6,23 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
+import { MaterialTheme } from '../../components/material-theme/material-theme';
 import { Menu } from '../../components/menu/menu';
 
-export type Types = 'HEADLESS' | 'DAISY';
+export type Types = 'HEADLESS' | 'DAISY' | 'MATERIAL';
 
 export default component$(() => {
   const location = useLocation();
   const librarySignal = useSignal<Types>(
-    location.pathname.indexOf('/headless') !== -1 ? 'HEADLESS' : 'DAISY'
+    location.pathname.indexOf('/headless') !== -1
+      ? 'HEADLESS'
+      : location.pathname.indexOf('/material') !== -1
+      ? 'MATERIAL'
+      : 'DAISY'
   );
   return (
     <>
-      <section className="layout">
+      <section class="layout">
         <div class="sidebar">
           <select
             onChange$={$((event: QwikChangeEvent<HTMLSelectElement>) => {
@@ -36,6 +41,12 @@ export default component$(() => {
             >
               HEADLESS
             </option>
+            <option
+              value="MATERIAL"
+              selected={librarySignal.value === 'MATERIAL'}
+            >
+              MATERIAL
+            </option>
             <option value="DAISY" selected={librarySignal.value === 'DAISY'}>
               DAISY
             </option>
@@ -44,7 +55,13 @@ export default component$(() => {
         </div>
         <div class="content">
           <h1>{librarySignal.value}</h1>
-          <Slot />
+          {librarySignal.value === 'MATERIAL' ? (
+            <MaterialTheme>
+              <Slot />
+            </MaterialTheme>
+          ) : (
+            <Slot />
+          )}
         </div>
       </section>
     </>

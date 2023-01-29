@@ -10,17 +10,17 @@ export default component$(() => {
         <ul>
           <li>
             <Link href="/install">
-              <span className="subtitle">Install</span>
+              <span class="subtitle">Install</span>
             </Link>
           </li>
           <li>
             <Link href="/use">
-              <span className="subtitle">Use</span>
+              <span class="subtitle">Use</span>
             </Link>
           </li>
           <li>
             <Link href="/docs">
-              <span className="subtitle">Components documentation</span>
+              <span class="subtitle">Components documentation</span>
             </Link>
           </li>
         </ul>
