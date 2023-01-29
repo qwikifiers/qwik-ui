@@ -1,0 +1,9 @@
+.customCls {
+  background-color: lightcoral;
+  color: black;
+  padding: 10px
+}
+
+.customCls:hover {
+  background-color: coral;
+}
