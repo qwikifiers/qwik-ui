@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, $ } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/material';
 
 export default component$(() => {
@@ -8,7 +8,9 @@ export default component$(() => {
       <div class="flex flex-col gap-8 mt-4">
         <div>
           <h2>Basic Example</h2>
-          <Button>SIMPLE BUTTON</Button>
+          <div class="material-theme">
+            <Button onClick$={$(() => alert('Material'))}>SIMPLE BUTTON</Button>
+          </div>
         </div>
       </div>
     </>
