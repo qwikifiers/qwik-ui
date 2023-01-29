@@ -6,7 +6,7 @@ export type ButtonProps = QwikIntrinsicElements['button'];
 export const Button = component$(
   (props: ButtonProps) => {
     return (
-      <HeadlessButton mat-button color="primary" {...props}>
+      <HeadlessButton class="waves-effect waves-light btn-large" {...props}>
         <Slot />
       </HeadlessButton>
     );
