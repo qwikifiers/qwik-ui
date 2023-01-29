@@ -1,19 +1,19 @@
 import { component$, useStyles$, useId } from '@builder.io/qwik';
-import { AltSelect } from '@qwik-ui/headless';
-import styles from './alt-select.css?inline';
+import { Select } from '@qwik-ui/headless';
+import styles from './select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
   return (
     <>
       <h2>This is the documentation for the Select</h2>
-      <AltSelect.Root class="qui-SelectRoot">
-        <AltSelect.Label class="qui-SelectLabel">
-          Alternate Headless Select implementation (minimally styled)
-        </AltSelect.Label>
-        <AltSelect.Trigger class="qui-SelectTrigger">
-          <AltSelect.Value placeholder="Select an option! ⚡" />
-          <AltSelect.Marker class="qui-SelectMarker">
+      <Select.Root class="qui-SelectRoot">
+        <Select.Label class="qui-SelectLabel">
+          Headless Select implementation (minimally styled)
+        </Select.Label>
+        <Select.Trigger class="qui-SelectTrigger">
+          <Select.Value placeholder="Select an option! ⚡" />
+          <Select.Marker class="qui-SelectMarker">
             {/* chevron-down from lucide.dev */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -26,12 +26,12 @@ export default component$(() => {
             >
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-          </AltSelect.Marker>
-        </AltSelect.Trigger>
-        <AltSelect.ListBox class="qui-SelectListBox">
-          <AltSelect.Option value="🚀 Qwik" class="qui-SelectOption" />
-          <AltSelect.Group class="qui-SelectGroup">
-            <AltSelect.Label class="qui-SelectLabel">Fruits</AltSelect.Label>
+          </Select.Marker>
+        </Select.Trigger>
+        <Select.ListBox class="qui-SelectListBox">
+          <Select.Option value="🚀 Qwik" class="qui-SelectOption" />
+          <Select.Group class="qui-SelectGroup">
+            <Select.Label class="qui-SelectLabel">Fruits</Select.Label>
             {[
               { value: '🍎 Apple', disabled: false },
               { value: '🍌 Banana', disabled: false },
@@ -39,7 +39,7 @@ export default component$(() => {
               { value: '🐲 Dragonfruit', disabled: true },
             ].map((option) => {
               return (
-                <AltSelect.Option
+                <Select.Option
                   key={useId()}
                   value={option.value}
                   disabled={option.disabled}
@@ -47,9 +47,9 @@ export default component$(() => {
                 />
               );
             })}
-          </AltSelect.Group>
-        </AltSelect.ListBox>
-      </AltSelect.Root>
+          </Select.Group>
+        </Select.ListBox>
+      </Select.Root>
     </>
   );
 });
