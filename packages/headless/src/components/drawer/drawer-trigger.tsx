@@ -6,6 +6,6 @@ export interface DrawerTriggerProps {
   drawerId?: string;
 }
 
-export const DrawerTrigger = component$((props: DrawerTriggerProps) => (
+export const DrawerTrigger = component$(() => (
   <Slot />
 ));
