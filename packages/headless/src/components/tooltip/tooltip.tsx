@@ -1,7 +1,7 @@
 import {
   $,
   component$,
-  QRL,
+  Signal,
   Slot,
   useClientEffect$,
   useId,
@@ -9,7 +9,7 @@ import {
   useSignal,
   useStylesScoped$,
 } from '@builder.io/qwik';
-import { autoUpdate, computePosition, flip, type ComputePositionConfig } from '@floating-ui/dom';
+import { autoUpdate, computePosition, flip, type Placement } from '@floating-ui/dom';
 import styles from './tooltip.css?inline';
 
 export interface TooltipProps {
@@ -17,41 +17,88 @@ export interface TooltipProps {
   content: string;
   inline?: boolean;
   durationMs?: number;
-  position?: ComputePositionConfig['placement'];
+  position?: Placement;
 }
 
 type State = 'hidden' | 'positioned' | 'unpositioned' | 'closing';
 
+export interface TipProps {
+  id: string,
+  position: Placement
+  triggerAnchor: Signal<HTMLElement | undefined>
+  tooltipAnchor: Signal<HTMLElement | undefined>
+  content: string
+  class?: string
+  stateSignal: Signal<State>
+  durationMs?: number
+  as: 'div' | 'span'
+}
+
+export const Tip = component$(({ id, content, position, triggerAnchor, tooltipAnchor, stateSignal, durationMs = 0, ...props}: TipProps) => {
+  const Wrapper = props.as;
+  useStylesScoped$(styles);
+  useClientEffect$(async ({ track, cleanup }) => {
+    const state = track(() => stateSignal.value);
+    if (state === 'unpositioned') {
+      let trigger = triggerAnchor.value;
+      let tooltip = tooltipAnchor.value;
+      if (!trigger || ! tooltip) { return }
+      cleanup(autoUpdate(trigger, tooltip, async () => { console.log('auto-update'); await update(position, triggerAnchor, tooltipAnchor) }));
+      stateSignal.value = 'positioned';
+      return;
+    }
+  }, { eagerness: 'visible'});
+
+  useClientEffect$(({cleanup}) => {
+    cleanup(() => console.log('cleaning up', id));
+  })
+  return <Wrapper
+      data-tooltip
+      class={`${props.class || ''}`}
+      id={id}
+      onAnimationEnd$={() => {
+        if (stateSignal.value == 'closing') {
+          stateSignal.value = 'hidden';
+        }
+      }}
+      ref={tooltipAnchor}
+      role="tooltip"
+      {...props}
+      style={`--duration: ${durationMs}ms;`}
+      data-state={stateSignal.value}
+    >
+    {content}
+    </Wrapper>
+})
+
+export const update = $(async (position: Placement, triggerAnchor: Signal<HTMLElement | undefined>, tooltipAnchor: Signal<HTMLElement | undefined>) => {
+  const trigger = triggerAnchor.value;
+  const tooltip = tooltipAnchor.value;
+  if (trigger && tooltip) {
+    await computePosition(
+      trigger,
+      tooltip,
+      {
+        placement: position,
+        middleware: [flip()]
+      }
+    ).then(({x, y}) => {
+      Object.assign(tooltip.style, {
+        left: `${x}px`,
+        top: `${y}px`
+      })
+    });
+  }
+});
+
 export const Tooltip = component$(
   ({ content, position = 'top', durationMs = 0, ...props }: TooltipProps) => {
-    useStylesScoped$(styles);
     const id = useId();
     const triggerAnchor = useSignal<HTMLElement>();
     const tooltipAnchor = useSignal<HTMLElement>();
     const stateSignal = useSignal<State>('hidden');
 
     const Wrapper: keyof HTMLElementTagNameMap = props.inline ? 'span' : 'div';
-
-    const update = $(async () => {
-      const trigger = triggerAnchor.value;
-      const tooltip = tooltipAnchor.value;
-      if (trigger && tooltip) {
-        await computePosition(
-          trigger,
-          tooltip,
-          {
-            placement: position,
-            middleware: [flip()]
-          }
-        ).then(({x, y}) => {
-          Object.assign(tooltip.style, {
-            left: `${x}px`,
-            top: `${y}px`
-          })
-        });
-      }
-    });
-
 
     const showTooltip = $(() => {
       stateSignal.value = 'unpositioned';
@@ -71,31 +118,6 @@ export const Tooltip = component$(
       })
     );
 
-    useClientEffect$(async ({ track }) => {
-      let cleanup = () => {
-        console.log('clean up signal has not been set');
-      };
-      const state = track(() => stateSignal.value);
-      if (state === 'unpositioned') {
-        let trigger = triggerAnchor.value;
-        let tooltip = tooltipAnchor.value;
-        if (!trigger || ! tooltip) { return }
-        update();
-        stateSignal.value = 'positioned';
-        
-        // run auto update
-        console.log('adding auto update for', tooltip.id);
-        cleanup = autoUpdate(trigger, tooltip, async () => { await update() });
-        return;
-      }
-      if (state === 'closing') {
-        // Cleanup auto update listeners
-        console.log('cleaning up event listeners');
-        cleanup();
-        return;
-      }
-    }, { eagerness: 'visible'});
-
     return (
       <>
         <Wrapper
@@ -110,8 +132,10 @@ export const Tooltip = component$(
         >
           <Slot />
         </Wrapper>
-
-        <Wrapper
+        {stateSignal.value !== 'hidden' && 
+          <Tip id={id} as={Wrapper} triggerAnchor={triggerAnchor} tooltipAnchor={tooltipAnchor} position={position} stateSignal={stateSignal} content={content} />
+        }
+        {/* <Wrapper
           class={`${stateSignal.value} ${props.class || ''}`}
           id={id}
           onAnimationEnd$={() => {
@@ -126,7 +150,7 @@ export const Tooltip = component$(
           data-state={stateSignal.value}
         >
           {content}
-        </Wrapper>
+        </Wrapper> */}
       </>
     );
   }
