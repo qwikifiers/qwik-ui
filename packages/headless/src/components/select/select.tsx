@@ -22,7 +22,7 @@ interface SelectRootContextService {
   setListBoxRef$: QRL<(ref: Signal<HTMLElement | undefined>) => void>;
 }
 
-const selectContext = createContext<SelectRootContextService>('select-root');
+export const selectContext = createContext<SelectRootContextService>('select-root');
 
 interface StyleProps {
   class?: string;
@@ -166,9 +166,7 @@ const Value = component$(({ placeholder, ...props }: ValueProps) => {
   return <span {...props}>{value ? value : placeholder}</span>;
 });
 
-interface MarkerProps extends StyleProps {}
-
-const Marker = component$(({ ...props }: MarkerProps) => {
+const Marker = component$(({ ...props }: StyleProps) => {
   return (
     <span aria-hidden="true" {...props}>
       <Slot />
@@ -176,9 +174,7 @@ const Marker = component$(({ ...props }: MarkerProps) => {
   );
 });
 
-interface ListBoxProps extends StyleProps {}
-
-const ListBox = component$(({ ...props }: ListBoxProps) => {
+const ListBox = component$(({ ...props }: StyleProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(selectContext);
 
@@ -243,9 +239,7 @@ const Group = component$(({ disabled, ...props }: GroupProps) => {
   );
 });
 
-interface LabelProps extends StyleProps {}
-
-const Label = component$(({ ...props }: LabelProps) => {
+const Label = component$(({ ...props }: StyleProps) => {
   return (
     <label {...props}>
       <Slot />
@@ -305,7 +299,6 @@ const Option = component$(({ disabled, value, ...props }: OptionProps) => {
 });
 
 export {
-  selectContext,
   Root,
   Trigger,
   Value,
