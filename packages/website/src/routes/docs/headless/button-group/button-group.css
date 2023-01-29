@@ -1,0 +1,5 @@
+.custom-btn-group {
+  display: inline-flex;
+  padding: 1rem;
+  gap: 3rem;
+}
