@@ -21,7 +21,7 @@ export default component$(() => {
         <div class="sidebar">
           <select
             onChange$={$((event: QwikChangeEvent<HTMLSelectElement>) => {
-              if (window.location.pathname !== '/') {
+              if (window.location.pathname !== '/docs/') {
                 window.location.pathname = window.location.pathname.replace(
                   librarySignal.value.toLowerCase(),
                   event.target.value.toLowerCase()
