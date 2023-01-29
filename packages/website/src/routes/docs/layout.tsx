@@ -6,7 +6,7 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import { MaterialTheme } from '../../components/material-theme/material-theme';
+import { MaterialProvider } from '../../components/material';
 import { Menu } from '../../components/menu/menu';
 
 export type Types = 'HEADLESS' | 'DAISY' | 'MATERIAL';
@@ -56,9 +56,9 @@ export default component$(() => {
         <div class="content">
           <h1>{librarySignal.value}</h1>
           {librarySignal.value === 'MATERIAL' ? (
-            <MaterialTheme>
+            <MaterialProvider>
               <Slot />
-            </MaterialTheme>
+            </MaterialProvider>
           ) : (
             <Slot />
           )}
