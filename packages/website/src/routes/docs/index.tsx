@@ -16,6 +16,32 @@ export default component$(() => {
                 btn btn-primary drawer-button
                 drawer-side
                 drawer-overlay
+                btn
+                btn-primary
+                btn-secondary
+                btn-accent
+                btn-info
+                btn-success
+                btn-warning
+                btn-error
+                btn-ghost
+                btn-link
+                btn-outline
+                btn-active
+                btn-disabled
+                
+                glass
+                loading
+                no-animation
+                
+                btn-xs
+                btn-sm
+                btn-md
+                btn-lg
+                btn-wide
+                btn-block
+                btn-circle
+                btn-square
                 `}
       />
     </div>
