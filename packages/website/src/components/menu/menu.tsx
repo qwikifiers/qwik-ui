@@ -6,6 +6,7 @@ export const generateMenu = (library: string) => [
   { label: 'Button', path: `/docs/${library.toLowerCase()}/button` },
   { label: 'ButtonGroup', path: `/docs/${library.toLowerCase()}/button-group` },
   { label: 'Collapse', path: `/docs/${library.toLowerCase()}/collapse` },
+  { label: 'Dialog', path: `/docs/${library.toLowerCase()}/dialog` },
   { label: 'Drawer', path: `/docs/${library.toLowerCase()}/drawer` },
   { label: 'Select', path: `/docs/${library.toLowerCase()}/select` },
   { label: 'Tabs', path: `/docs/${library.toLowerCase()}/tabs` },
