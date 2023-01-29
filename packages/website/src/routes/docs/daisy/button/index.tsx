@@ -14,7 +14,9 @@ export default component$(() => {
 
         <div>
           <h2>Attributes</h2>
-          <Button type="button" disabled={true}>DISABLED BUTTON</Button>
+          <Button type="button" disabled={true}>
+            DISABLED BUTTON
+          </Button>
         </div>
 
         <div>

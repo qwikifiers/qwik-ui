@@ -1,12 +1,11 @@
-import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { Button as HeadlessButton } from '@qwik-ui/headless';
 
-type ButtonProps = {
-  disabled?: boolean;
-};
+export type ButtonProps = QwikIntrinsicElements['button'];
+
 
 export const Button = component$(
-  (props: ButtonProps & HTMLAttributes<HTMLButtonElement>) => {
+  (props: ButtonProps) => {
     return (
       <HeadlessButton class="btn btn-primary" {...props}>
         <Slot />
