@@ -1,7 +1,9 @@
 .customCls {
   background-color: lightcoral;
   color: black;
-  padding: 10px
+  padding: 0.5rem 2rem;
+  margin: 0.5rem;
+  border-radius: 2rem;
 }
 
 .customCls:hover {
