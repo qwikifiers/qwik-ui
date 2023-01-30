@@ -17,9 +17,17 @@ export default component$(() => {
       </ButtonGroup>
 
       <hr/>
-      <h1>With custom styles</h1>
-      <ButtonGroup class="custom-btn-group" style="border: 2px solid black">
+      <h1>With custom class</h1>
+      <ButtonGroup class="custom-btn-group" >
         <Button>BUTTON 1</Button>
+        <Button>BUTTON 2</Button>
+        <Button>BUTTON 3</Button>
+      </ButtonGroup>
+
+      <hr/>
+      <h1>With custom styles</h1>
+      <ButtonGroup style="border: 2px solid black; display: inline-flex; gap: 2rem; padding: 1rem">
+        <Button style="color: red">BUTTON 1</Button>
         <Button>BUTTON 2</Button>
         <Button>BUTTON 3</Button>
       </ButtonGroup>
