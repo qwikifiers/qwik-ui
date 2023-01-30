@@ -5,9 +5,9 @@ export type ButtonGroupProps = HTMLAttributes<HTMLElement>;
 export const ButtonGroup = component$(
   (props: ButtonGroupProps) => {
     return (
-      <div {...props}>
+      <span {...props}>
         <Slot />
-      </div>
+      </span>
     );
   }
 );
