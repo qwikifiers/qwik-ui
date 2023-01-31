@@ -42,6 +42,17 @@ export default component$(() => {
                 btn-block
                 btn-circle
                 btn-square
+                
+                card
+                card-title
+                card-body
+                card-actions
+                
+                flex
+                justify-start
+                justify-center
+                justify-between
+                justify-end
                 `}
       />
     </div>
