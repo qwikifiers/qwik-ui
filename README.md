@@ -95,6 +95,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/michalmw"><img src="https://avatars.githubusercontent.com/u/10683327?v=4?s=100" width="100px;" alt="Michał Wójcik"/><br /><sub><b>Michał Wójcik</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=michalmw" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=michalmw" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/shiroinegai"><img src="https://avatars.githubusercontent.com/u/88586552?v=4?s=100" width="100px;" alt="Shiroi Negai"/><br /><sub><b>Shiroi Negai</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=shiroinegai" title="Code">💻</a> <a href="#ideas-shiroinegai" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3Ashiroinegai" title="Bug reports">🐛</a> <a href="#a11y-shiroinegai" title="Accessibility">️️️️♿️</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.fabiobiondi.io"><img src="https://avatars.githubusercontent.com/u/1772083?v=4?s=100" width="100px;" alt="Fabio Biondi"/><br /><sub><b>Fabio Biondi</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=fabiobiondi" title="Code">💻</a> <a href="#ideas-fabiobiondi" title="Ideas, Planning, & Feedback">🤔</a></td>
+    </tr>
   </tbody>
 </table>
 
