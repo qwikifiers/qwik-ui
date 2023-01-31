@@ -1,4 +1,4 @@
-import { component$, HTMLAttributes, Slot, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
 
 export type CardProps = HTMLAttributes<HTMLElement>;
 

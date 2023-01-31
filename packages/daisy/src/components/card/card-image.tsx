@@ -1,4 +1,4 @@
-import { component$, HTMLAttributes, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, HTMLAttributes, QwikIntrinsicElements } from '@builder.io/qwik';
 import {
   CardImage as HeadlessCardImage,
 } from '@qwik-ui/headless';
