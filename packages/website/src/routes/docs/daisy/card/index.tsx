@@ -31,7 +31,7 @@ export default component$(() => {
 
       <h1>Card with Image Example</h1>
       <Card>
-        <CardImage src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="shoes"></CardImage>
+        <CardImage src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="shoes" />
         <CardBody>
           <CardTitle>Card Title</CardTitle>
           <p>If a dog chews shoes whose shoes does he choose?</p>
@@ -41,7 +41,7 @@ export default component$(() => {
 
       <h1>Card Completed</h1>
       <Card>
-        <CardImage src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="shoes"></CardImage>
+        <CardImage src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="shoes" />
         <CardBody>
           <CardTitle>Card Title</CardTitle>
           <p>If a dog chews shoes whose shoes does he choose?</p>

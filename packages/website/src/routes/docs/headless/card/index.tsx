@@ -26,13 +26,14 @@ export default component$(() => {
       <h1>Card Completed</h1>
 
       <Card>
-        <CardImage src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="shoes"></CardImage>
+        <CardImage src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="shoes" />
         <CardBody>
           <CardTitle>Card Title</CardTitle>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid architecto delectus deleniti dolor</p>          <CardActions class="custom-card-actions">
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-        </CardActions>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid architecto delectus deleniti dolor</p>
+          <CardActions class="custom-card-actions">
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+          </CardActions>
         </CardBody>
       </Card>
 
@@ -42,16 +43,18 @@ export default component$(() => {
       <Card class="custom-card">
         <CardBody class="custom-card-body">
           <CardTitle class="custom-card-title">Card Title</CardTitle>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid architecto delectus deleniti dolor</p>        </CardBody>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid architecto delectus deleniti dolor</p>
+        </CardBody>
       </Card>
 
 
       <h1>Skinned Card with custom CSS</h1>
       <Card class="custom-card">
-        <CardImage src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="shoes"></CardImage>
+        <CardImage src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="shoes" />
         <CardBody class="custom-card-body">
           <CardTitle>Card Title</CardTitle>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid architecto delectus deleniti dolor</p>          <CardActions class="custom-card-actions">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid architecto delectus deleniti dolor</p>
+          <CardActions class="custom-card-actions">
             <Button>Button 1</Button>
             <Button>Button 2</Button>
           </CardActions>
