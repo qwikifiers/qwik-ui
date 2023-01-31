@@ -83,6 +83,18 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "shiroinegai",
+      "name": "Shiroi Negai",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88586552?v=4",
+      "profile": "https://github.com/shiroinegai",
+      "contributions": [
+        "code",
+        "ideas",
+        "bug",
+        "a11y"
+      ]
     }
   ],
   "contributorsPerLine": 7,
