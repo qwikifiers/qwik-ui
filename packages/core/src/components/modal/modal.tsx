@@ -9,8 +9,8 @@ interface ModalProps {
 export const Modal = component$(({ id, ...props }: ModalProps) => {
   return (
     <>
-      <input type="checkbox" id={id} className="modal-toggle" {...props} />
-      <label for={id} className="modal">
+      <input type="checkbox" id={id} class="modal-toggle" {...props} />
+      <label for={id} class="modal">
         <Slot />
       </label>
     </>

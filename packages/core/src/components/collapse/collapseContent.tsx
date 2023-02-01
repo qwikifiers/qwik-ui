@@ -7,7 +7,7 @@ interface CollapseContentProps {
 
 export const CollapseContent = component$((props: CollapseContentProps) => {
   return (
-    <div className="collapse-content" {...props}>
+    <div class="collapse-content" {...props}>
       <Slot />
     </div>
   );

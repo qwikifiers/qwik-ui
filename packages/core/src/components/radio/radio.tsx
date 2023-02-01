@@ -12,13 +12,13 @@ interface RadioProps {
 export const Radio = component$((props: RadioProps) => {
   const { label, name = 'radio-1' } = props;
   return (
-    <div className="form-control">
-      <label className="label cursor-pointer">
-        {label && <span className="label-text">{label}</span>}
+    <div class="form-control">
+      <label class="label cursor-pointer">
+        {label && <span class="label-text">{label}</span>}
         <input
           type="radio"
           name={name}
-          className="radio"
+          class="radio"
           onChange$={props.onChange$}
           {...props}
         />

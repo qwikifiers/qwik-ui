@@ -11,13 +11,13 @@ interface CheckboxProps {
 export const Checkbox = component$((props: CheckboxProps) => {
   const { checked, label } = props;
   return (
-    <div className="form-control" {...props}>
-      <label className="label cursor-pointer">
-        {label && <span className="label-text">{label}</span>}
+    <div class="form-control" {...props}>
+      <label class="label cursor-pointer">
+        {label && <span class="label-text">{label}</span>}
         <input
           type="checkbox"
           checked={checked}
-          className="checkbox"
+          class="checkbox"
           onChange$={props.onChange$}
         />
       </label>

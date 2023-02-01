@@ -7,6 +7,8 @@ interface DropdownTriggerProps {
 
 export const DropdownTrigger = component$((props: DropdownTriggerProps) => {
   return (
-    <label tabIndex={0} className="btn" {...props}><Slot /></label>
+    <label tabIndex={0} class="btn" {...props}>
+      <Slot />
+    </label>
   );
 });

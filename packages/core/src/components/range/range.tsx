@@ -17,7 +17,7 @@ export const Range = component$((props: RangeProps) => {
       min={min}
       max={max}
       value={value}
-      className="range"
+      class="range"
       onChange$={props.onChange$}
       {...props}
     />

@@ -1,4 +1,4 @@
-import {component$, Slot} from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
 
 interface BreadcrumbProps {
   class?: string;
@@ -7,7 +7,7 @@ interface BreadcrumbProps {
 
 export const Breadcrumb = component$((props: BreadcrumbProps) => {
   return (
-    <div className="text-sm breadcrumbs" {...props}>
+    <div class="text-sm breadcrumbs" {...props}>
       <ul>
         <Slot />
       </ul>

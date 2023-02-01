@@ -29,8 +29,8 @@ export const Card = component$(
             <img src={imageUrl} />
           </figure>
         )}
-        <div className="card-body">
-          {title && <h2 className="card-title">{title}</h2>}
+        <div class="card-body">
+          {title && <h2 class="card-title">{title}</h2>}
           <Slot />
         </div>
         {imagePlacement === 'bottom' && imageUrl && (

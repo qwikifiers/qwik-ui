@@ -10,7 +10,7 @@ interface DrawerTriggerProps {
 export const DrawerTrigger = component$(
   ({ id, label, ...props }: DrawerTriggerProps) => {
     return (
-      <label for={id} className="btn btn-primary drawer-button" {...props}>
+      <label for={id} class="btn btn-primary drawer-button" {...props}>
         {label}
       </label>
     );

@@ -11,10 +11,17 @@ export const Swap = component$((props: SwapProps) => {
   const { rotate, flip } = props;
 
   return (
-    <label className={`swap ${rotate && 'swap-rotate'} ${flip && 'swap-flip'}`} {...props}>
+    <label
+      className={`swap ${rotate && 'swap-rotate'} ${flip && 'swap-flip'}`}
+      {...props}
+    >
       <input type="checkbox" />
-      <div className="swap-on"><Slot name="swap-on" /></div>
-      <div className="swap-off"><Slot name="swap-off" /></div>
+      <div class="swap-on">
+        <Slot name="swap-on" />
+      </div>
+      <div class="swap-off">
+        <Slot name="swap-off" />
+      </div>
     </label>
   );
 });

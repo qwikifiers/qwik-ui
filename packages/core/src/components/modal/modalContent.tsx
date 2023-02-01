@@ -7,7 +7,7 @@ interface ModalContentProps {
 
 export const ModalContent = component$((props: ModalContentProps) => {
   return (
-    <div className="modal-box" {...props}>
+    <div class="modal-box" {...props}>
       <Slot />
     </div>
   );

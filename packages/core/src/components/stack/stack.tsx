@@ -1,4 +1,4 @@
-import {component$, Slot} from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
 
 interface StackProps {
   class?: string;
@@ -7,6 +7,8 @@ interface StackProps {
 
 export const Stack = component$((props: StackProps) => {
   return (
-    <a className="stack" {...props}><Slot /></a>
+    <a class="stack" {...props}>
+      <Slot />
+    </a>
   );
 });

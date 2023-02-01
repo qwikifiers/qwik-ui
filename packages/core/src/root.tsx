@@ -10,9 +10,8 @@ export default () => {
         <title>Qwik Blank App</title>
       </head>
       <body>
-
-        <Button className="btn btn-primary">Click Me</Button>
-        <Alert >Hey </Alert>
+        <Button class="btn btn-primary">Click Me</Button>
+        <Alert>Hey </Alert>
       </body>
     </>
   );

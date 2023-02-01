@@ -7,7 +7,7 @@ interface CollapseTitleProps {
 
 export const CollapseTitle = component$((props: CollapseTitleProps) => {
   return (
-    <div className="collapse-title" {...props}>
+    <div class="collapse-title" {...props}>
       <Slot />
     </div>
   );

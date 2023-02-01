@@ -7,7 +7,7 @@ interface ModalActionsProps {
 
 export const ModalActions = component$((props: ModalActionsProps) => {
   return (
-    <div className="modal-action" {...props}>
+    <div class="modal-action" {...props}>
       <Slot />
     </div>
   );

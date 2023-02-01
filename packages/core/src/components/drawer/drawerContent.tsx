@@ -7,7 +7,7 @@ interface DrawerContentProps {
 
 export const DrawerContent = component$((props: DrawerContentProps) => {
   return (
-    <div className="drawer-content" {...props}>
+    <div class="drawer-content" {...props}>
       <Slot name="drawer-content" />
       <Slot name="drawer-trigger" />
     </div>

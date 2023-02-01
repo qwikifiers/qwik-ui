@@ -8,7 +8,7 @@ interface ModalTriggerProps {
 
 export const ModalTrigger = component$(({ id }: ModalTriggerProps) => {
   return (
-    <label for={id} className="btn">
+    <label for={id} class="btn">
       <Slot />
     </label>
   );

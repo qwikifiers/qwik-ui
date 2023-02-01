@@ -6,10 +6,10 @@ interface DrawerProps {
   id: string;
 }
 
-export const Drawer = component$(({id, ...props} : DrawerProps) => {
+export const Drawer = component$(({ id, ...props }: DrawerProps) => {
   return (
-    <div className="drawer" {...props}>
-      <input id={id} type="checkbox" className="drawer-toggle" />
+    <div class="drawer" {...props}>
+      <input id={id} type="checkbox" class="drawer-toggle" />
       <Slot />
     </div>
   );

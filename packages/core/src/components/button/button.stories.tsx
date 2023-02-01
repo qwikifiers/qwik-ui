@@ -5,6 +5,6 @@ export default {
   title: 'Actions / Button',
 } as Meta;
 
-const Template = () => <Button className="btn btn-primary">Click Me!</Button>;
+const Template = () => <Button class="btn btn-primary">Click Me!</Button>;
 
 export const Default = Template.bind({});
