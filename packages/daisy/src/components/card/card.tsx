@@ -8,9 +8,9 @@ export type CardProps = HTMLAttributes<HTMLElement>;
 
 export const Card = component$(
   (props: CardProps) => {
-    const { class: className, ...rest } = props;
+    const { class: classNames, ...rest } = props;
     return (
-        <HeadlessCard class={clsq('card bg-base-100 ', className)} {...rest}>
+        <HeadlessCard class={clsq('card bg-base-100 ', classNames)} {...rest}>
           <Slot />
         </HeadlessCard>
     );
