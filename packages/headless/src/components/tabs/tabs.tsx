@@ -133,7 +133,7 @@ interface TabPanelProps {
 
 // Tab Panel implementation
 export const TabPanel = component$(({ ...props }: TabPanelProps) => {
-  const { class: className, ...rest } = props;
+  const { class: classNames, ...rest } = props;
   const contextService = useContext(tabsContext);
   const thisPanelIndex = useSignal(0);
   const isSelected = () =>
@@ -148,7 +148,7 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
       tabIndex={0}
       aria-labelledby={`tab-${thisPanelIndex}`}
       class={`${isSelected() ? 'is-hidden' : ''}${
-        className ? ` ${className}` : ''
+        classNames ? ` ${classNames}` : ''
       }`}
       style={isSelected() ? 'display: block' : 'display: none'}
       {...rest}
