@@ -5,6 +5,7 @@ import styles from './menu.css?inline';
 export const generateMenu = (library: string) => [
   { label: 'Button', path: `/docs/${library.toLowerCase()}/button` },
   { label: 'ButtonGroup', path: `/docs/${library.toLowerCase()}/button-group` },
+  { label: 'Card', path: `/docs/${library.toLowerCase()}/card` },
   { label: 'Collapse', path: `/docs/${library.toLowerCase()}/collapse` },
   { label: 'Drawer', path: `/docs/${library.toLowerCase()}/drawer` },
   { label: 'Select', path: `/docs/${library.toLowerCase()}/select` },
