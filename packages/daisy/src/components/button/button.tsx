@@ -28,7 +28,7 @@ export const Button = component$(
       variant = 'primary',
       circle,
       active,
-      class: cls,
+      class: classNames,
       disabled,
       glass,
       loading,
@@ -62,7 +62,7 @@ export const Button = component$(
               [options.circle]: circle,
               [options.square]: square,
             },
-            cls
+            classNames
           )}
       >
         <Slot />

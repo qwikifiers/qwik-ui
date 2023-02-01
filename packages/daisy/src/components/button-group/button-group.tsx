@@ -6,9 +6,9 @@ export type ButtonGroupProps = HTMLAttributes<HTMLElement>;
 
 export const ButtonGroup = component$(
   (props: ButtonGroupProps) => {
-    const { class: cls, ...rest } = props;
+    const { class: classNames, ...rest } = props;
     return (
-      <HeadlessButtonGroup class={clsq('btn-group', cls)} {...rest}>
+      <HeadlessButtonGroup class={clsq('btn-group', classNames)} {...rest}>
         <Slot />
       </HeadlessButtonGroup>
     );
