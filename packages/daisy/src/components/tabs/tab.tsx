@@ -16,7 +16,7 @@ export const Tab = component$(
         class={`tab ${isBordered ? 'tab-bordered' : ''} ${
           isLifted ? 'tab-lifted' : ''
         }`}
-        selectedclass="tab-active"
+        selectedClassName="tab-active"
         {...props}
       >
         <Slot />
