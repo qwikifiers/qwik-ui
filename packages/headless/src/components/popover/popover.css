@@ -1,0 +1,22 @@
+.popover-trigger {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.popover-content {
+  position: absolute;
+  display: none;
+/*  top: 0;
+  left: 0;*/
+  padding: 0.5rem;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.popover-content.close {
+  display: none;
+}
+
+.popover-content.open {
+  display: inline-block;
+}

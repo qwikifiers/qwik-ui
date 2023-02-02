@@ -8,6 +8,7 @@ export const generateMenu = (library: string) => [
   { label: 'Card', path: `/docs/${library.toLowerCase()}/card` },
   { label: 'Collapse', path: `/docs/${library.toLowerCase()}/collapse` },
   { label: 'Drawer', path: `/docs/${library.toLowerCase()}/drawer` },
+  { label: 'Popover', path: `/docs/${library.toLowerCase()}/popover` },
   { label: 'Select', path: `/docs/${library.toLowerCase()}/select` },
   { label: 'Tabs', path: `/docs/${library.toLowerCase()}/tabs` },
   { label: 'Toogle', path: `/docs/${library.toLowerCase()}/toogle` },
