@@ -32,7 +32,7 @@ export default component$(() => {
         </div>
 
         <h2>Active Example</h2>
-        <div className="panel">
+        <div class="panel">
           <Button active>default</Button>
           <Button variant="primary" active>primary</Button>
           <Button variant="secondary" active>secondary</Button>

@@ -43,7 +43,7 @@ h1::after {
 .section-header {
   background: #ebebeb;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .section-content {
