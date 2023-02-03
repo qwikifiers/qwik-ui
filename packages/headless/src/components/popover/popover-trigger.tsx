@@ -1,5 +1,5 @@
 import { component$, Slot, useContext, useStylesScoped$ } from '@builder.io/qwik';
-import { myContext } from "./popover";
+import { PopoverContext } from "./popover";
 import styles from './popover.css?inline';
 
 
@@ -11,7 +11,7 @@ interface PopoverTriggerProps {
 
 export const PopoverTrigger = component$(
   (props: PopoverTriggerProps) => {
-    const ctx = useContext(myContext);
+    const ctx = useContext(PopoverContext);
     useStylesScoped$(styles);
 
     return (

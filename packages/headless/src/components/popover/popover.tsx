@@ -9,20 +9,17 @@ import {
 import { autoUpdate, computePosition, flip, shift, } from "@floating-ui/dom";
 
 // context
-interface ContextProps { isOpen: boolean }
-export const myContext = createContext<ContextProps>('my-context');
+export const PopoverContext = createContext<{ isOpen: boolean }>('popover-context');
 
-// popover component
+// popover component example (TODO)
 interface PopoverProps {
   alignments?: 'auto' | 'left' | 'top' | '...';
 }
 
-export const Popover = component$((props: PopoverProps) => {
-  const state = useStore({ isOpen: false });
-
-  useContextProvider(myContext, state);
-
+export const Popover = component$(() => {
   const wrapper = useSignal<HTMLElement>();
+  const state = useStore({ isOpen: false });
+  useContextProvider(PopoverContext, state);
 
   useClientEffect$(() => {
     const content = wrapper.value?.querySelector<HTMLElement>('[role="tooltip"]');

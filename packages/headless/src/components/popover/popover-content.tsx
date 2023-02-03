@@ -6,14 +6,14 @@ import {
 
 } from "@builder.io/qwik";
 import { clsq } from '@qwik-ui/shared';
-import { myContext } from "./popover";
+import { PopoverContext } from "./popover";
 import styles from './popover.css?inline';
 
 
 export const PopoverContent = component$(
   () => {
     useStylesScoped$(styles);
-    const ctx = useContext(myContext);
+    const ctx = useContext(PopoverContext);
 
     return (
       <div
