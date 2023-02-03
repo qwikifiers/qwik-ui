@@ -1,4 +1,4 @@
-import { component$, $, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/material';
 import { MaterialContext } from '../../../../../src/components/material';
 
