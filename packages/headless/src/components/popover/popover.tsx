@@ -25,8 +25,8 @@ export const Popover = component$((props: PopoverProps) => {
   const wrapper = useSignal<HTMLElement>();
 
   useClientEffect$(() => {
-    const content = wrapper.value?.querySelector<HTMLElement>('[role="content"]');
-    const trigger = wrapper.value?.querySelector<HTMLElement>('[role="trigger"]');
+    const content = wrapper.value?.querySelector<HTMLElement>('[role="tooltip"]');
+    const trigger = wrapper.value?.querySelector<HTMLElement>('[role="button"]');
     return autoUpdate(trigger!, content!, () => {
       computePosition(
         trigger!,

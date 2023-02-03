@@ -16,7 +16,7 @@ export const PopoverTrigger = component$(
 
     return (
       <span
-        role="trigger"
+        role="button"
         class="popover-trigger"
         /*onMouseOver$={() => {
           ctx.isOpen = true;

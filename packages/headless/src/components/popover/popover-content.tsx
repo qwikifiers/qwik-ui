@@ -17,7 +17,7 @@ export const PopoverContent = component$(
 
     return (
       <div
-        role="content"
+        role="tooltip"
         class={clsq(
           'popover-content',
           {
