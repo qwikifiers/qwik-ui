@@ -20,13 +20,11 @@ export default component$(() => {
       <br/>
       <br/>
 
-      <Popover>
-        <PopoverContent>
-          ewfwfew
-        </PopoverContent>
+      <Popover triggerEvent="mouseOver">
+        <PopoverContent>lorem ipsum</PopoverContent>
         <PopoverTrigger >
           <Button onClick$={() => console.log('here')}>
-            ➡️ CLICK ME ⬅️
+            ➡️ HOVER ME ⬅️
           </Button>
         </PopoverTrigger>
       </Popover>
