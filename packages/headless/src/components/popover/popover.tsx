@@ -8,29 +8,38 @@ import {
 } from "@builder.io/qwik";
 import { autoUpdate, computePosition, flip, shift, } from "@floating-ui/dom";
 
-// context
-export const PopoverContext = createContext<{ isOpen: boolean }>('popover-context');
+interface PopoverContextProps  {
+  isOpen: boolean,
+  triggerEvent?: 'click' | 'mouseOver';
+}
+export const PopoverContext = createContext<PopoverContextProps>('popover-context');
 
-// popover component example (TODO)
 interface PopoverProps {
-  alignments?: 'auto' | 'left' | 'top' | '...';
+  alignments?: 'auto' | 'left' | 'top' | '...'; // TODO
+  triggerEvent?: 'click' | 'mouseOver';
 }
 
-export const Popover = component$(() => {
+export const Popover = component$((props: PopoverProps) => {
+  const { triggerEvent = 'click' } = props;
+
   const wrapper = useSignal<HTMLElement>();
-  const state = useStore({ isOpen: false });
+  const state = useStore({ isOpen: false, triggerEvent });
+
   useContextProvider(PopoverContext, state);
 
   useClientEffect$(() => {
-    const content = wrapper.value?.querySelector<HTMLElement>('[role="tooltip"]');
-    const trigger = wrapper.value?.querySelector<HTMLElement>('[role="button"]');
-    return autoUpdate(trigger!, content!, () => {
+    const contentEl = wrapper.value?.querySelector<HTMLElement>('[role="tooltip"]');
+    const triggerEl = wrapper.value?.querySelector<HTMLElement>('[role="button"]');
+
+    if (!contentEl || !triggerEl) return;
+
+    return autoUpdate(triggerEl, contentEl, () => {
       computePosition(
-        trigger!,
-        content!,
+        triggerEl,
+        contentEl,
         { middleware: [flip(), shift()] }
       ).then(({x, y}) => {
-        Object.assign(content!.style, {
+        Object.assign(contentEl.style, {
           left: `${x}px`,
           top: `${y}px`,
         });

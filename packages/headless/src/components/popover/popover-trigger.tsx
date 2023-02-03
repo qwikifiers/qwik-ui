@@ -1,29 +1,29 @@
-import { component$, Slot, useContext, useStylesScoped$ } from '@builder.io/qwik';
+import { $, component$, Slot, useContext, useStylesScoped$ } from '@builder.io/qwik';
 import { PopoverContext } from "./popover";
 import styles from './popover.css?inline';
 
-
-
-// popover component
-interface PopoverTriggerProps {
-  triggerEvents?: 'click' | 'mouseOver';
-}
-
 export const PopoverTrigger = component$(
-  (props: PopoverTriggerProps) => {
+  () => {
     const ctx = useContext(PopoverContext);
     useStylesScoped$(styles);
+
+    const open = $(() => ctx.isOpen = true )
+    const toggle = $(() => ctx.isOpen = !ctx.isOpen )
 
     return (
       <span
         role="button"
         class="popover-trigger"
-        /*onMouseOver$={() => {
-          ctx.isOpen = true;
-        }}*/
-        /*onMouseLeave$={() => ctx.isOpen = false}*/
+        onMouseOver$={() => {
+          if (ctx.triggerEvent === 'mouseOver') {
+            open()
+          }
+        }}
+
         onClick$={() => {
-          ctx.isOpen = !ctx.isOpen
+          if (ctx.triggerEvent === 'click') {
+            toggle()
+          }
         }}
       >
         <Slot />

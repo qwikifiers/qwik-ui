@@ -45,7 +45,14 @@ export default component$(() => {
       <br/>
       <br/>
       <br/>
-      <br/>
+      <Popover triggerEvent="mouseOver">
+        <PopoverContent><Header /></PopoverContent>
+        <PopoverTrigger >
+          <Button onClick$={() => console.log('here')}>
+            ➡️ HOVER ME ⬅️
+          </Button>
+        </PopoverTrigger>
+      </Popover>
       <br/>
       <br/>
       <br/>
