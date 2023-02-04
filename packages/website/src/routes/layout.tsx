@@ -15,7 +15,7 @@ export default component$(() => {
     <>
       <main>
         <Header />
-        <div class="relative px-4 pt-16 sm:px-6 lg:px-8">
+        <div class="relative px-4 pt-24 sm:px-6 lg:px-8">
           <Slot />
         </div>
       </main>

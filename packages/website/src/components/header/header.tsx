@@ -19,12 +19,10 @@ export default component$(() => {
   });
 
   return (
-    <header class="fixed w-full z-10">
+    <header class="fixed w-full z-10 border-b border-slate-600 dark:border-white">
       <div class="flex p-4">
-        <div class="absolute inset-x-0 top-full h-px XXtransition bg-zinc-900/7.5 dark:bg-white/7.5"></div>
         <button
           type="button"
-          class="hover:bg-zinc-900/5 dark:hover:bg-white/5"
           aria-label="Toggle navigation"
           onClick$={toggleMenu}
         >
@@ -36,11 +34,10 @@ export default component$(() => {
         <div class="flex w-full justify-end">
           <button
             type="button"
-            class="hover:bg-zinc-900/5 dark:hover:bg-white/5"
             aria-label="Toggle dark mode"
             onClick$={toggleDarkMode}
           >
-            {appState.darkMode ? <SunIcon /> : <MoonIcon />}
+            {appState.darkMode ? <MoonIcon /> : <SunIcon />}
           </button>
         </div>
       </div>
