@@ -9,8 +9,12 @@
   --qwik-dark-purple: #713fc2;
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  background-color: white;
+  min-height: 100%;
 }
 
 .layout {
