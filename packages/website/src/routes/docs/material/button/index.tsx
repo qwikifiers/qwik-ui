@@ -1,6 +1,6 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/material';
-import { MaterialContext } from '../../../../../src/components/material';
+import { WithMaterialStyles } from '../../../../../src/components/material';
 
 export default component$(() => {
   useStylesScoped$(`
@@ -16,31 +16,31 @@ export default component$(() => {
 
       <div class="flex flex-col gap-8 mt-4">
         <h2>Raised</h2>
-        <MaterialContext>
+        <WithMaterialStyles>
           <Button>Raised</Button>
-        </MaterialContext>
+        </WithMaterialStyles>
         <h2>Disabled</h2>
-        <MaterialContext>
+        <WithMaterialStyles>
           <Button disabled>Disabled</Button>
-        </MaterialContext>
+        </WithMaterialStyles>
         <h2>Floating</h2>
-        <MaterialContext>
-          <Button floating size='large'>
+        <WithMaterialStyles>
+          <Button floating size="large">
             <i class="material-icons">add</i>
           </Button>
-        </MaterialContext>
+        </WithMaterialStyles>
         <h2>Flat</h2>
-        <MaterialContext>
+        <WithMaterialStyles>
           <Button flat>Flat</Button>
-        </MaterialContext>
+        </WithMaterialStyles>
         <h2>Size: default medium</h2>
-        <MaterialContext>
+        <WithMaterialStyles>
           <div class="panel">
             <Button size={'small'}>Small</Button>
             <Button size={'medium'}>Medium</Button>
             <Button size={'large'}>Large</Button>
           </div>
-        </MaterialContext>
+        </WithMaterialStyles>
       </div>
     </>
   );
