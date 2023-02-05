@@ -9,7 +9,7 @@ import { APP_STATE } from '../constants';
 import { AppState } from '../types';
 
 export default component$(() => {
-  const state = useStore<AppState>({ darkMode: false });
+  const state = useStore<AppState>({ darkMode: false, theme: 'HEADLESS' });
   useContextProvider(APP_STATE, state);
   return (
     <>

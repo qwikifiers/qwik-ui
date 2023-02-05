@@ -4,6 +4,7 @@ import { CloseIcon } from '../icons/CloseIcon';
 import { MenuIcon } from '../icons/MenuIcon';
 import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
+import { SelectTheme } from '../selectTheme/selectTheme';
 
 export default component$(() => {
   const appState = useContext(APP_STATE);
@@ -32,6 +33,7 @@ export default component$(() => {
           <img src="/qwik-ui.png" class="w-24" />
         </div>
         <div class="flex w-full justify-end">
+          <SelectTheme />
           <button
             type="button"
             aria-label="Toggle dark mode"

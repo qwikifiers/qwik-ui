@@ -1,61 +1,19 @@
-import {
-  $,
-  component$,
-  QwikChangeEvent,
-  Slot,
-  useSignal,
-} from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { component$, Slot, useContext } from '@builder.io/qwik';
 import { MaterialProvider } from '../../components/material';
 import { Menu } from '../../components/menu/menu';
-
-export type Types = 'HEADLESS' | 'DAISY' | 'MATERIAL';
+import { APP_STATE } from '../../constants';
 
 export default component$(() => {
-  const location = useLocation();
-  const librarySignal = useSignal<Types>(
-    location.pathname.indexOf('/headless') !== -1
-      ? 'HEADLESS'
-      : location.pathname.indexOf('/material') !== -1
-      ? 'MATERIAL'
-      : 'DAISY'
-  );
+  const appState = useContext(APP_STATE);
   return (
     <>
       <section class="layout">
         <div class="sidebar">
-          <select
-            onChange$={$((event: QwikChangeEvent<HTMLSelectElement>) => {
-              if (window.location.pathname !== '/docs/') {
-                window.location.pathname = window.location.pathname.replace(
-                  librarySignal.value.toLowerCase(),
-                  event.target.value.toLowerCase()
-                );
-              }
-              librarySignal.value = event.target.value as Types;
-            })}
-          >
-            <option
-              value="HEADLESS"
-              selected={librarySignal.value === 'HEADLESS'}
-            >
-              HEADLESS
-            </option>
-            <option
-              value="MATERIAL"
-              selected={librarySignal.value === 'MATERIAL'}
-            >
-              MATERIAL
-            </option>
-            <option value="DAISY" selected={librarySignal.value === 'DAISY'}>
-              DAISY
-            </option>
-          </select>
-          <Menu library={librarySignal.value} />
+          <Menu library={appState.theme} />
         </div>
         <div class="content">
-          <h1>{librarySignal.value}</h1>
-          {librarySignal.value === 'MATERIAL' ? (
+          <h1>{appState.theme}</h1>
+          {appState.theme === 'MATERIAL' ? (
             <MaterialProvider>
               <Slot />
             </MaterialProvider>

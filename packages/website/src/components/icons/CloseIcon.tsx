@@ -4,7 +4,7 @@ export const CloseIcon = () => (
     fill="none"
     strokeLinecap="round"
     aria-hidden="true"
-    class="w-6 h-6 stroke-zinc-900 dark:stroke-white"
+    class="w-6 h-6 stroke-black dark:stroke-white hover:bg-gray-100 dark:hover:bg-slate-600"
   >
     <path d="m1.5 1 7 7M8.5 1l-7 7" />
   </svg>
