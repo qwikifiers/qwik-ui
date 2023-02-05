@@ -18,7 +18,6 @@ export const SelectTheme = component$(() => {
   const openThemeSignal = useSignal<boolean>(false);
 
   useClientEffect$(() => {
-    console.log('asdas');
     appState.theme =
       location.pathname.indexOf('/headless') !== -1
         ? 'HEADLESS'
@@ -50,7 +49,7 @@ export const SelectTheme = component$(() => {
               class="flex pl-3"
               onClick$={$(() => {
                 openThemeSignal.value = false;
-                if (window.location.pathname !== '/docs/') {
+                if (location.pathname !== '/docs/') {
                   window.location.pathname = window.location.pathname.replace(
                     appState.theme,
                     theme

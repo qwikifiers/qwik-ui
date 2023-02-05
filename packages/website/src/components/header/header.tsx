@@ -1,4 +1,5 @@
 import { $, component$, useContext, useSignal } from '@builder.io/qwik';
+import { useLocation } from '@builder.io/qwik-city';
 import { APP_STATE } from '../../constants';
 import { CloseIcon } from '../icons/CloseIcon';
 import { MenuIcon } from '../icons/MenuIcon';
@@ -7,6 +8,7 @@ import { SunIcon } from '../icons/SunIcon';
 import { SelectTheme } from '../selectTheme/selectTheme';
 
 export default component$(() => {
+  const location = useLocation();
   const appState = useContext(APP_STATE);
   const menuOpenSignal = useSignal(false);
 
@@ -18,6 +20,8 @@ export default component$(() => {
     appState.darkMode = !appState.darkMode;
     document.documentElement.classList.toggle('dark');
   });
+
+  const isDocsRoute = location.pathname.indexOf('/docs/') !== -1;
 
   return (
     <header class="fixed w-full z-10 border-b border-slate-600 dark:border-white">
@@ -33,7 +37,7 @@ export default component$(() => {
           <img src="/qwik-ui.png" class="w-24" />
         </div>
         <div class="flex w-full justify-end">
-          <SelectTheme />
+          {isDocsRoute && <SelectTheme />}
           <button
             type="button"
             aria-label="Toggle dark mode"
