@@ -7,20 +7,22 @@ export default component$(() => {
   const appState = useContext(APP_STATE);
   return (
     <>
-      <section class="layout">
-        <div class="sidebar">
-          <Menu library={appState.theme} />
+      <section class="layout block lg:grid">
+        <div class="sidebar hidden lg:block">
+          <Menu />
         </div>
-        <div class="content">
-          <h1>{appState.theme}</h1>
-          {appState.theme === 'MATERIAL' ? (
-            <MaterialProvider>
+        {appState.theme !== 'NOT_DEFINED' && (
+          <div class="px-8 py-4">
+            <div class="text-xl">{appState.theme}</div>
+            {appState.theme === 'MATERIAL' ? (
+              <MaterialProvider>
+                <Slot />
+              </MaterialProvider>
+            ) : (
               <Slot />
-            </MaterialProvider>
-          ) : (
-            <Slot />
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </section>
     </>
   );

@@ -1,6 +1,7 @@
 import {
   component$,
   Slot,
+  useClientEffect$,
   useContextProvider,
   useStore,
 } from '@builder.io/qwik';
@@ -9,8 +10,21 @@ import { APP_STATE } from '../constants';
 import { AppState } from '../types';
 
 export default component$(() => {
-  const state = useStore<AppState>({ darkMode: false, theme: 'HEADLESS' });
+  const state = useStore<AppState>({
+    darkMode: false,
+    theme: 'NOT_DEFINED',
+  });
   useContextProvider(APP_STATE, state);
+
+  useClientEffect$(() => {
+    state.theme =
+      location.pathname.indexOf('/headless') !== -1
+        ? 'HEADLESS'
+        : location.pathname.indexOf('/material') !== -1
+        ? 'MATERIAL'
+        : 'DAISY';
+  });
+
   return (
     <>
       <main>

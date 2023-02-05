@@ -1,36 +1,20 @@
-import {
-  $,
-  component$,
-  useClientEffect$,
-  useContext,
-  useId,
-  useSignal,
-} from '@builder.io/qwik';
+import { $, component$, useContext, useId, useSignal } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import { APP_STATE } from '../../constants';
 import { ThemeIcon } from '../icons/ThemeIcon';
 
-export type Theme = 'HEADLESS' | 'DAISY' | 'MATERIAL';
+export type Theme = 'HEADLESS' | 'DAISY' | 'MATERIAL' | 'NOT_DEFINED';
 
 export const SelectTheme = component$(() => {
   const location = useLocation();
   const appState = useContext(APP_STATE);
   const openThemeSignal = useSignal<boolean>(false);
 
-  useClientEffect$(() => {
-    appState.theme =
-      location.pathname.indexOf('/headless') !== -1
-        ? 'HEADLESS'
-        : location.pathname.indexOf('/material') !== -1
-        ? 'MATERIAL'
-        : 'DAISY';
-  });
-
   const themes: Theme[] = ['HEADLESS', 'DAISY', 'MATERIAL'];
   return (
     <div
       title="Change Theme"
-      class="pt-1 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-slate-600"
+      class="pt-1 hover:bg-gray-100 dark:hover:bg-slate-600"
     >
       <div
         class="flex pt-1 pb-2 ppr-2"
@@ -49,13 +33,14 @@ export const SelectTheme = component$(() => {
               class="flex pl-3"
               onClick$={$(() => {
                 openThemeSignal.value = false;
+                const oldTheme = appState.theme;
+                appState.theme = theme;
                 if (location.pathname !== '/docs/') {
                   window.location.pathname = window.location.pathname.replace(
-                    appState.theme,
-                    theme
+                    oldTheme.toLowerCase(),
+                    theme.toLowerCase()
                   );
                 }
-                appState.theme = theme;
               })}
             >
               <div class="pt-2 pl-2">

@@ -1,39 +1,79 @@
-import { component$, useStylesScoped$ } from '@builder.io/qwik';
+import { $, component$, PropFunction, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
-import styles from './menu.css?inline';
-
-export const generateMenu = (library: string) => [
-  { label: 'Button', path: `/docs/${library.toLowerCase()}/button` },
-  { label: 'ButtonGroup', path: `/docs/${library.toLowerCase()}/button-group` },
-  { label: 'Card', path: `/docs/${library.toLowerCase()}/card` },
-  { label: 'Collapse', path: `/docs/${library.toLowerCase()}/collapse` },
-  { label: 'Drawer', path: `/docs/${library.toLowerCase()}/drawer` },
-  { label: 'Select', path: `/docs/${library.toLowerCase()}/select` },
-  { label: 'Tabs', path: `/docs/${library.toLowerCase()}/tabs` },
-  { label: 'Toogle', path: `/docs/${library.toLowerCase()}/toogle` },
-  { label: 'Tooltip', path: `/docs/${library.toLowerCase()}/tooltip` },
-];
+import { APP_STATE } from '../../constants';
+import { CloseIcon } from '../icons/CloseIcon';
 
 type Props = {
-  library: string;
+  onClose?: PropFunction<() => void>;
 };
 
-export const Menu = component$<Props>(({ library }) => {
-  useStylesScoped$(styles);
-  const menu = generateMenu(library);
+export const Menu = component$<Props>(({ onClose }) => {
+  const appState = useContext(APP_STATE);
+  const menu = [
+    { label: 'Button', path: `/docs/${appState.theme.toLowerCase()}/button` },
+    {
+      label: 'ButtonGroup',
+      path: `/docs/${appState.theme.toLowerCase()}/button-group`,
+    },
+    { label: 'Card', path: `/docs/${appState.theme.toLowerCase()}/card` },
+    {
+      label: 'Collapse',
+      path: `/docs/${appState.theme.toLowerCase()}/collapse`,
+    },
+    { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
+    { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
+    { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
+    { label: 'Toogle', path: `/docs/${appState.theme.toLowerCase()}/toogle` },
+    { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
+  ];
+
+  const onChangePage = $(() => {
+    if (onClose) {
+      onClose();
+    }
+  });
 
   return (
-    <aside class="aside">
-      <h5 class="title">Components</h5>
-      <ul>
-        {menu.map((menuItem) => (
+    <div class="px-4 py-4">
+      <div class="flex items-center justify-between">
+        <h4 class="text-2xl">Documentation</h4>
+        {onClose && (
+          <h5 onClick$={onClose}>
+            <CloseIcon />
+          </h5>
+        )}
+      </div>
+      <div class="mt-4">
+        <div class="mt-8 flex items-center">
+          <p class="capitalize text-xl">guide</p>
+        </div>
+        <ul class="py-2 px-4">
           <li>
-            <Link href={menuItem.path}>
-              <span class="subtitle">{menuItem.label}</span>
+            <Link href="/install" class="text-lg">
+              <span onClick$={onChangePage}>Install</span>
             </Link>
           </li>
-        ))}
-      </ul>
-    </aside>
+          <li>
+            <Link href="/use" class="text-lg">
+              <span onClick$={onChangePage}>Use</span>
+            </Link>
+          </li>
+        </ul>
+        <div class="mt-8 flex items-center">
+          <p class="capitalize text-xl">components</p>
+        </div>
+        <ul class="py-2 px-4">
+          {menu.map((menuItem) => (
+            <li>
+              <Link href={menuItem.path}>
+                <span class="text-lg" onClick$={onChangePage}>
+                  {menuItem.label}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 });
