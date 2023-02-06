@@ -15,7 +15,7 @@ export default component$(() => {
   const appState = useContext(APP_STATE);
   const menuOpenSignal = useSignal(false);
 
-  const toggleMenu = $(() => {
+  const toggleMenu$ = $(() => {
     menuOpenSignal.value = !menuOpenSignal.value;
   });
 
@@ -32,7 +32,7 @@ export default component$(() => {
         <button
           type="button"
           aria-label="Toggle navigation"
-          onClick$={toggleMenu}
+          onClick$={toggleMenu$}
           class="block lg:hidden"
         >
           {menuOpenSignal.value ? <CloseIcon /> : <MenuIcon />}
@@ -41,7 +41,7 @@ export default component$(() => {
           <aside class="fixed top-0 left-0">
             <div class="fixed h-screen w-screen bg-gray-900/20 backdrop-blur-sm"></div>
             <div class="fixed h-screen w-80 overflow-y-scroll bg-white dark:bg-slate-800">
-              <Menu onClose={toggleMenu} />
+              <Menu onClose$={toggleMenu$} />
             </div>
           </aside>
         )}

@@ -4,10 +4,10 @@ import { APP_STATE } from '../../constants';
 import { CloseIcon } from '../icons/CloseIcon';
 
 type Props = {
-  onClose?: PropFunction<() => void>;
+  onClose$?: PropFunction<() => void>;
 };
 
-export const Menu = component$<Props>(({ onClose }) => {
+export const Menu = component$<Props>(({ onClose$ }) => {
   const appState = useContext(APP_STATE);
   const menu = [
     { label: 'Button', path: `/docs/${appState.theme.toLowerCase()}/button` },
@@ -28,8 +28,8 @@ export const Menu = component$<Props>(({ onClose }) => {
   ];
 
   const onChangePage = $(() => {
-    if (onClose) {
-      onClose();
+    if (onClose$) {
+      onClose$();
     }
   });
 
@@ -37,8 +37,9 @@ export const Menu = component$<Props>(({ onClose }) => {
     <div class="px-4 py-4">
       <div class="flex items-center justify-between">
         <h4 class="text-2xl">Documentation</h4>
-        {onClose && (
-          <h5 onClick$={onClose}>
+        {onClose$ && (
+          // eslint-disable-next-line qwik/valid-lexical-scope
+          <h5 onClick$={onClose$}>
             <CloseIcon />
           </h5>
         )}
