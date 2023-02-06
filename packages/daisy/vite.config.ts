@@ -8,7 +8,9 @@ import { join } from 'path';
 
 export default defineConfig({
   plugins: [
-    qwikVite(),
+    qwikVite({
+      vendorRoots: [join(__dirname, '../headless/src')],
+    }),
     tsconfigPaths(),
     dts({
       tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
@@ -23,8 +25,8 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
-      name: 'limpy',
-      fileName: 'index',
+      name: 'daisy',
+      fileName: (format) => `index.qwik.${format === 'es' ? 'mjs' : 'cjs'}`,
       // Change this to the formats you want to support.
       // Don't forgot to update your package.json as well.
       formats: ['es', 'cjs'],
