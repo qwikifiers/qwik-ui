@@ -8,7 +8,9 @@ import { join } from 'path';
 
 export default defineConfig({
   plugins: [
-    qwikVite(),
+    qwikVite({
+      vendorRoots: [join(__dirname, '../headless/src')],
+    }),
     tsconfigPaths(),
     dts({
       tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
