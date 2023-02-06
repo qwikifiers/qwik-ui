@@ -17,5 +17,10 @@ export default defineConfig(() => {
       }),
       tsconfigPaths(),
     ],
+    preview: {
+      headers: {
+        'Cache-Control': 'public, max-age=600',
+      },
+    },
   };
 });
