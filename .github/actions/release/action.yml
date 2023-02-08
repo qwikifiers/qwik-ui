@@ -24,7 +24,7 @@ runs:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash
-      run: npx nx affected --base=last-release --target=version-publish
+      run: npx nx affected --base=last-release --target=version-publish --parallel=1
 
     - name: Tag last-release
       shell: bash

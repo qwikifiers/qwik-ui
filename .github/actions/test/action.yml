@@ -10,6 +10,12 @@ runs:
     # shell: bash
     # run: npx --no-install commitlint --from=last-release
 
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.11.0
+      if: github.event_name == 'pull_request'
+      with:
+        access_token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Lint
       shell: bash
       run: npx nx affected:lint --base=last-release --exclude=website
