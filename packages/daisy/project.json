@@ -36,6 +36,13 @@
       "executor": "@jscutlery/semver:version",
       "options": {}
     },
+    "version-dry": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "dryRun": true,
+        "preid": "alpha"
+      }
+    },
     "version-publish": {
       "executor": "@jscutlery/semver:version",
       "options": {

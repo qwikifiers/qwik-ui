@@ -32,6 +32,13 @@
         "lintFilePatterns": ["packages/headless/**/*.{ts,tsx,js,jsx}"]
       }
     },
+    "version-dry": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "dryRun": true,
+        "preid": "alpha"
+      }
+    },
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {}
