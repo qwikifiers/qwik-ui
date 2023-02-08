@@ -51,20 +51,20 @@ Get your url by from here 👇
 - Create a new branch locally in your fork's repo
 
 ```shell
-git checkout -b my-fix-branch master
+git checkout -b my-fix-branch main
 ```
 
 <br/>
 
-### ▶ 4. Run the storybook
+### ▶ 4. Run the library
 
-- From the root of the project run `npm install`. 
+- From the root of the project run `npm install`.
 
-- Then, in one terminal run `npm run dev --workspace=packages/core` and in another one run `npx nx storybook core`.
+- Then run `npm run dev --workspace=packages/website`.
 
-- After running `npx nx storybook core` visit the URL printed in the console and you'll have the Storybook opened with the suite of widgets.
+- Visit the URL printed in the console and you'll have a page opened with the suite of widgets.
 
-- Once you made some changes to the `core` package, you will see them automatically reflected in the storybook.
+- Once you made some changes in either package (`headless`, `daisy` or `material`), you will see them immediately reflected on the page.
 
 ### ▶ 5. Make sure you add / modify tests
 
@@ -97,7 +97,7 @@ git push origin my-fix-branch
 
 ### ▶ 8. Create a PR
 
-In GitHub, create a pull request for `qwikifiers/qwik-ui:master`.
+In GitHub, create a pull request for `qwikifiers/qwik-ui:main`.
 
 Make sure you check the following checkbox "Allow edits from maintainers" -
 
@@ -112,7 +112,7 @@ If you need to update your PR for some reason -
 - Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
 
   ```shell
-  git rebase master -i
+  git rebase main -i
   git push -f
   ```
 
@@ -128,10 +128,10 @@ After your pull request is merged, you can safely delete your branch and pull th
   git push origin --delete my-fix-branch
   ```
 
-- Check out the master branch:
+- Check out the `main` branch:
 
   ```shell
-  git checkout master -f
+  git checkout main -f
   ```
 
 - Delete the local branch:
@@ -140,10 +140,10 @@ After your pull request is merged, you can safely delete your branch and pull th
   git branch -D my-fix-branch
   ```
 
-- Update your master with the latest upstream version:
+- Update your `main` with the latest upstream version:
 
   ```shell
-  git pull --ff upstream master
+  git pull --ff upstream main
   ```
 
 <br/>
