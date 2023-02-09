@@ -36,18 +36,21 @@
       "executor": "@jscutlery/semver:version",
       "options": {
         "dryRun": true,
-        "preid": "alpha"
+        "releaseAs": "patch"
       }
     },
     "version": {
       "executor": "@jscutlery/semver:version",
-      "options": {}
+      "options": {
+        "releaseAs": "patch"
+      }
     },
     "version-publish": {
       "executor": "@jscutlery/semver:version",
       "options": {
         "noVerify": true,
         "push": true,
+        "releaseAs": "patch",
         "postTargets": ["headless:publish", "headless:push-to-github"]
       }
     },

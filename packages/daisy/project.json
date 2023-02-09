@@ -40,7 +40,7 @@
       "executor": "@jscutlery/semver:version",
       "options": {
         "dryRun": true,
-        "preid": "alpha"
+        "releaseAs": "patch"
       }
     },
     "version-publish": {
@@ -48,6 +48,7 @@
       "options": {
         "noVerify": true,
         "push": true,
+        "releaseAs": "patch",
         "postTargets": ["daisy:publish", "daisy:push-to-github"]
       }
     },
