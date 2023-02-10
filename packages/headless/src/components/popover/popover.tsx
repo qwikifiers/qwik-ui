@@ -20,11 +20,18 @@ interface PopoverProps {
    */
   isOpen?: boolean;
 
+  /**
+   * When true the popover is not closed when click outside
+   */
+  disableClickOutSide?: boolean;
+  /**
+   * Notify a state update to the parent
+   */
   onUpdate$?: PropFunction<(isOpen: boolean) => void>
 }
 
 export const Popover = component$((props: PopoverProps) => {
-  const { triggerEvent = 'click', onUpdate$ } = props;
+  const { triggerEvent = 'click', onUpdate$, disableClickOutSide } = props;
   const wrapperRef = useSignal<HTMLElement>();
   const triggerRef = useSignal<HTMLElement>();
   const contentRef = useSignal<HTMLElement>();
@@ -53,7 +60,13 @@ export const Popover = component$((props: PopoverProps) => {
    * Close the popover and sync external states
    */
   const closePopover = $(async () => {
-    contextService.isOpen = false
+    contextService.isOpen = false;
+
+    if (contentRef) {
+      contentRef.value?.classList.add('close');
+      contentRef.value?.classList.remove('open');
+    }
+
     if (onUpdate$)
       await onUpdate$(contextService.isOpen)
   })
@@ -63,6 +76,12 @@ export const Popover = component$((props: PopoverProps) => {
    */
   const openPopover = $(async () => {
     contextService.isOpen = true
+
+    if (contentRef) {
+      contentRef.value?.classList.add('open');
+      contentRef.value?.classList.remove('close');
+    }
+
     if (onUpdate$)
       await onUpdate$(contextService.isOpen)
   })
@@ -118,8 +137,7 @@ export const Popover = component$((props: PopoverProps) => {
    */
   useClientEffect$(({ track }) => {
     track(() => props.isOpen);
-    if (!props.isOpen)
-      contextService.isOpen = !!props.isOpen;
+    contextService.isOpen = !!props.isOpen;
   })
 
   /**
@@ -131,41 +149,40 @@ export const Popover = component$((props: PopoverProps) => {
     if (!triggerRef.value || !contentRef.value) return;
 
     if (contextService.isOpen) {
-      contentRef?.value.classList?.add('open');
-      contentRef?.value.classList?.remove('close');
+      openPopover()
     } else {
-      contentRef?.value.classList?.add('close');
-      contentRef?.value.classList?.remove('open');
+      closePopover()
     }
   })
 
   /**
    * clickOutsideHandler
    */
-  const clickOutsideHandler = $((e: QwikMouseEvent) => {
+  const clickHandler = $((e: QwikMouseEvent) => {
     // if the popover content is clicked: do nothing
     const isContentClicked = contentRef.value?.contains(e.target as HTMLElement);
     if (isContentClicked) {
       return;
     }
 
-    // if click outside the popover
+    // if the trigger is Clicked
     const isTriggerClicked = triggerRef.value?.contains(e.target as HTMLElement);
     if (isTriggerClicked && triggerEvent === 'click') {
       // toggle if triggered by 'click'
       togglePopover();
     } else {
       // otherwise close it if popover is triggered
+      if (disableClickOutSide) return;
       closePopover();
     }
   })
 
   return (
-    <div
+    <span
       ref={wrapperRef}
-      document:onClick$={clickOutsideHandler}
+      document:onClick$={clickHandler}
     >
       <Slot />
-    </div>
+    </span>
   )
 });

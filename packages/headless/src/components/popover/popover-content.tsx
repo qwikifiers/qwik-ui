@@ -12,7 +12,6 @@ export const PopoverContent = component$(
       contextService.setOverlayRef$(ref);
     });
 
-
     return (
       <div
         ref={ref}

@@ -11,6 +11,8 @@ export default component$(() => {
   return (
     <>
       <h2>This is the documentation for the Popover</h2>
+
+      <h1 class="mt-8">Examples</h1>
       <Popover placement="top">
         <PopoverContent><Box /></PopoverContent>
 
@@ -18,8 +20,7 @@ export default component$(() => {
           <Button onClick$={() => console.log('here')}> CLICK ME </Button>
         </PopoverTrigger>
       </Popover>
-      <br/>
-      <br/>
+
 
       <Popover offset={10} placement="right">
         <PopoverContent><Box /></PopoverContent>
@@ -30,43 +31,59 @@ export default component$(() => {
         </PopoverTrigger>
       </Popover>
 
-      <br/>
-      <br/>
-      <br/>
-      <br/>
 
-      <h1>ALIGNMENTS</h1>
+      <h1 class="mt-8">ALIGNMENTS</h1>
 
-      <Popover placement="right">
-        <PopoverContent><Box /></PopoverContent>
-        <PopoverTrigger><Button>right</Button></PopoverTrigger>
-      </Popover>
-      <Popover placement="right-end">
-        <PopoverContent><Box /></PopoverContent>
-        <PopoverTrigger><Button>right-end</Button></PopoverTrigger>
-      </Popover>
-      <Popover placement="right-start">
-        <PopoverContent><Box /></PopoverContent>
-        <PopoverTrigger><Button>right-start</Button></PopoverTrigger>
-      </Popover>
-      <Popover placement="left">
-        <PopoverContent><Box /></PopoverContent>
-        <PopoverTrigger><Button>left</Button></PopoverTrigger>
-      </Popover>
-      <Popover placement="bottom">
-        <PopoverContent><Box /></PopoverContent>
-        <PopoverTrigger><Button>bottom</Button></PopoverTrigger>
-      </Popover>
+      <div className="flex flex-col gap-2">
+        <Popover placement="right">
+          <PopoverContent><Box /></PopoverContent>
+          <PopoverTrigger><Button>right</Button></PopoverTrigger>
+        </Popover>
+        <Popover placement="right-end">
+          <PopoverContent><Box /></PopoverContent>
+          <PopoverTrigger><Button>right-end</Button></PopoverTrigger>
+        </Popover>
+        <Popover placement="right-start">
+          <PopoverContent><Box /></PopoverContent>
+          <PopoverTrigger><Button>right-start</Button></PopoverTrigger>
+        </Popover>
+        <Popover placement="left">
+          <PopoverContent><Box /></PopoverContent>
+          <PopoverTrigger><Button>left</Button></PopoverTrigger>
+        </Popover>
+        <Popover placement="bottom">
+          <PopoverContent><Box /></PopoverContent>
+          <PopoverTrigger><Button>bottom</Button></PopoverTrigger>
+        </Popover>
 
-      <Popover placement="top">
-        <PopoverContent><Box /></PopoverContent>
-        <PopoverTrigger><Button>top</Button></PopoverTrigger>
-      </Popover>
+        <Popover placement="top">
+          <PopoverContent><Box /></PopoverContent>
+          <PopoverTrigger><Button>top</Button></PopoverTrigger>
+        </Popover>
+      </div>
 
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+      <h1 class="mt-8">DISABLE CLICK OUTSIDE</h1>
+      <p>Popovers are not closed when click outside but they can be closed clicking their own trigger button only</p>
+
+      <div className="flex flex-col gap-2">
+
+        <Popover placement="right" disableClickOutSide={true}>
+          <PopoverContent><Box /></PopoverContent>
+          <PopoverTrigger><Button>right</Button></PopoverTrigger>
+        </Popover>
+        <Popover placement="right-end" disableClickOutSide={true}>
+          <PopoverContent><Box /></PopoverContent>
+          <PopoverTrigger><Button>right-end</Button></PopoverTrigger>
+        </Popover>
+        <Popover placement="right-start" disableClickOutSide={true}>
+          <PopoverContent><Box /></PopoverContent>
+          <PopoverTrigger><Button>right-start</Button></PopoverTrigger>
+        </Popover>
+      </div>
+
+      <h1 className="mt-8">TRIGGER: mouseover</h1>
+      <p>Popover is opened at mouse over</p>
+
       <Popover triggerEvent="mouseOver">
         <PopoverContent><Header /></PopoverContent>
         <PopoverTrigger>
@@ -76,9 +93,12 @@ export default component$(() => {
         </PopoverTrigger>
       </Popover>
 
-      <h1>This is a controlled popover </h1>
+      <h1 className="mt-8">CONTROLLED POPOVER</h1>
+
+      <div class="my-3">This is a controlled popover - <code>Current state: {JSON.stringify(controlledPopover.value)}</code></div>
       <p>The popover can be closed clicking outside or clicking the CLOSE button inside the popover</p>
       <p>the onUpdate$ callback allow you to sync local and popover states</p>
+
       <br />
       <Popover
         isOpen={controlledPopover.value}
@@ -102,6 +122,10 @@ export default component$(() => {
           </Button>
         </PopoverTrigger>
       </Popover>
+
+      <Button onClick$={() => controlledPopover.value = true}>
+        OPEN THE POPOVER ABOVE
+      </Button>
     </>
   );
 });
