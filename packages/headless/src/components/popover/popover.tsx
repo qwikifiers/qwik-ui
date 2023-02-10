@@ -1,153 +1,169 @@
-import { $, component$, PropFunction, QwikMouseEvent, Slot, useClientEffect$, useContextProvider, useSignal, useStore  } from '@builder.io/qwik';
+import { $, component$, PropFunction, QwikMouseEvent, Signal, Slot, useClientEffect$, useContextProvider, useSignal, useStore, useTask$, } from '@builder.io/qwik';import { isBrowser } from '@builder.io/qwik/build';
 import { AlignedPlacement, autoUpdate, computePosition, flip, offset, shift, Side, } from '@floating-ui/dom';
 import { PopoverContext } from './popover-context';
 
-
 interface PopoverProps {
-  placement?: Side | AlignedPlacement
+  /*
+   * The side where to show the popover
+   */
+  placement?: Side | AlignedPlacement;
+  /**
+   * Popover is opened when trigger is clicked or mouse overed
+   */
   triggerEvent?: 'click' | 'mouseOver';
-  isOpen?: boolean;
-  onUpdate$?: PropFunction<(isOpen: boolean) => void>
+  /**
+   * offset between trigger and content
+   */
   offset?: number;
+  /**
+   * Open or close the popover when popover is controlled by the parent
+   */
+  isOpen?: boolean;
+
+  onUpdate$?: PropFunction<(isOpen: boolean) => void>
 }
 
 export const Popover = component$((props: PopoverProps) => {
   const { triggerEvent = 'click', onUpdate$ } = props;
-
-  const ctx = useStore({ isOpen: false, triggerEvent });
-  useContextProvider(PopoverContext, ctx);
-
   const wrapperRef = useSignal<HTMLElement>();
   const triggerRef = useSignal<HTMLElement>();
   const contentRef = useSignal<HTMLElement>();
 
-  /**
-   * Sync openProps props with internal state
-   */
-  const updatePosition = $(() => {
-    if (!triggerRef.value || !contentRef.value) {
-      throw new Error('Popover Component must include <PopoverTrigger /> and <PopoverContent />') ;
-      return;
+  const setOverlayRef$ = $((ref: Signal<HTMLElement | undefined>) => {
+    if (ref) {
+      contentRef.value = ref.value;
     }
-
-  const triggerEl: HTMLElement = triggerRef.value;
-  const contentEl: HTMLElement = contentRef.value;
-   return autoUpdate(triggerEl, contentEl, () => {
-     computePosition(triggerEl, contentEl, {
-       middleware: [flip(), shift(), offset(props.offset || 0)],
-       placement: props.placement,
-     })
-       .then(({x, y}) => {
-         Object.assign(contentEl.style, {
-           left: `${x}px`,
-           top: `${y}px`,
-         });
-       });
-    })
-  })
-
-  /**
-   * Popover Initialization
-   */
-  useClientEffect$(() => {
-    triggerRef.value = wrapperRef.value?.querySelector<HTMLElement>('[role="button"]') as HTMLElement;
-    contentRef.value = wrapperRef.value?.querySelector<HTMLElement>('[role="tooltip"]') as HTMLElement;
-    return updatePosition()
   });
 
-  /**
-   * Sync isOpen external property with internal state
-   * NOTE: useful when the popover status is controlled by the parent
-   */
-  useClientEffect$(({ track }) => {
-    track(() => props.isOpen);
-    if (props.isOpen) {
-      ctx.isOpen = !!props.isOpen;
+  const setTriggerRef$ = $((ref: Signal<HTMLElement | undefined>) => {
+    if (ref) {
+      triggerRef.value = ref.value;
     }
-  })
+  });
 
-  /**
-   * Watch isOpen state and apply CSS classes to the Popover Content
-   */
-  useClientEffect$(({ track }) => {
-    track(() => ctx.isOpen);
-    if (ctx.isOpen) {
-      contentRef.value!.classList.add('open');
-      contentRef.value!.classList.remove('close');
-    } else {
-      contentRef.value!.classList.add('close');
-      contentRef.value!.classList.remove('open');
-    }
-  })
+  const contextService = useStore({
+    isOpen: false,
+    triggerEvent,
+    setTriggerRef$,
+    setOverlayRef$
+  });
+  useContextProvider(PopoverContext, contextService);
 
   /**
    * Close the popover and sync external states
    */
   const closePopover = $(async () => {
-    ctx.isOpen = false
+    contextService.isOpen = false
     if (onUpdate$)
-      await onUpdate$(ctx.isOpen)
-  })
-/**
-   * Open the popover and sync external states
-   */
-  const openPopover = $(async () => {
-    ctx.isOpen = true
-    if (onUpdate$)
-      await onUpdate$(ctx.isOpen)
+      await onUpdate$(contextService.isOpen)
   })
 
   /**
-   * Toggle the popover and sync external states
+   * Open the popover and sync external states
+   */
+  const openPopover = $(async () => {
+    contextService.isOpen = true
+    if (onUpdate$)
+      await onUpdate$(contextService.isOpen)
+  })
+
+  /**
+   * Toggle the popover state and emit update
    */
   const togglePopover = $(async () => {
-    if (ctx.isOpen) {
+    if (contextService.isOpen) {
       closePopover()
     } else {
       openPopover();
     }
 
     if (onUpdate$)
-      await onUpdate$(ctx.isOpen)
+      await onUpdate$(contextService.isOpen)
   })
 
+  /**
+   * Initialize popover
+   * NOTE: why useTask instead useClientEffect?
+   * It needs to be invoked after the children useClientEffect
+   */
+  useTask$(({ track }) => {
+    const trigger = track(() => triggerRef.value as Element) ;
+    const content = track(() => contentRef.value as HTMLElement);
 
+    if (isBrowser && trigger && content) {
+       autoUpdate(trigger, content, () => {
+        computePosition(trigger, content, {
+          middleware: [flip(), shift(), offset(props.offset || 0)],
+          placement: props.placement,
+        })
+          .then(({x, y}) => {
+            Object.assign(content.style, {
+              left: `${x}px`,
+              top: `${y}px`,
+            });
+          });
+      })
+
+      // Open popover after initialization
+      if (props.isOpen) {
+        openPopover()
+      }
+    }
+
+  });
 
   /**
-   * The popover is toggled  when the trigger is clicked, otherwise is closed
+   * Sync isOpen external property with internal context
+   * NOTE: useful when the popover status is controlled from the outside
    */
-  const triggerHandler = $((e: QwikMouseEvent) => {
-    const isTriggerClicked = triggerRef.value?.contains(e.target as HTMLElement);
-    if (isTriggerClicked && ctx.triggerEvent === 'click') {
-      togglePopover();
+  useClientEffect$(({ track }) => {
+    track(() => props.isOpen);
+    if (!props.isOpen)
+      contextService.isOpen = !!props.isOpen;
+  })
+
+  /**
+   * Watch isOpen context property
+   * and apply CSS classes to show and hide the Popover Content
+   */
+  useClientEffect$(({ track }) => {
+    track(() => contextService.isOpen);
+    if (!triggerRef.value || !contentRef.value) return;
+
+    if (contextService.isOpen) {
+      contentRef?.value.classList?.add('open');
+      contentRef?.value.classList?.remove('close');
     } else {
-      closePopover();
+      contentRef?.value.classList?.add('close');
+      contentRef?.value.classList?.remove('open');
     }
   })
 
   /**
-   * Check click outside of the Popover content
+   * clickOutsideHandler
    */
   const clickOutsideHandler = $((e: QwikMouseEvent) => {
+    // if the popover content is clicked: do nothing
     const isContentClicked = contentRef.value?.contains(e.target as HTMLElement);
     if (isContentClicked) {
       return;
     }
-  })
 
-  /**
-   * Document click Handler
-   */
-  const clickHandler = $((e: QwikMouseEvent) => {
-    clickOutsideHandler(e);
-    triggerHandler(e);
-
+    // if click outside the popover
+    const isTriggerClicked = triggerRef.value?.contains(e.target as HTMLElement);
+    if (isTriggerClicked && triggerEvent === 'click') {
+      // toggle if triggered by 'click'
+      togglePopover();
+    } else {
+      // otherwise close it if popover is triggered
+      closePopover();
+    }
   })
 
   return (
     <div
       ref={wrapperRef}
-      document:onClick$={clickHandler}
+      document:onClick$={clickOutsideHandler}
     >
       <Slot />
     </div>

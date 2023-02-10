@@ -90,7 +90,7 @@ export default component$(() => {
           <Card>
             <CardBody>
               <CardTitle>title</CardTitle>
-              <Button onClick$={() => console.log('clicked')}>
+              <Button onClick$={() => controlledPopover.value = false}>
                 CLOSE ME
               </Button>
             </CardBody>
