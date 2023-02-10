@@ -13,16 +13,14 @@ export const PopoverTrigger = component$(
     });
 
     const mouseOverHandler = $(() => {
-      if (contextService.triggerEvent === 'mouseOver') {
-        contextService.isOpen = true
-      }
+      contextService.isOpen = true
     })
 
     return (
       <span
         ref={ref}
         class="popover-trigger"
-        onMouseOver$={mouseOverHandler}
+        onMouseOver$={contextService.triggerEvent === 'mouseOver' ? mouseOverHandler : undefined}
       >
         <Slot />
       </span>
