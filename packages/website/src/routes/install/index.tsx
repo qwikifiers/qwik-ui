@@ -4,8 +4,11 @@ import type { DocumentHead } from '@builder.io/qwik-city';
 export default component$(() => {
   return (
     <div>
-      Installation of the headless components
-      <pre>npm install -D @qwik-ui/headless</pre>
+      <h1 class="text-xl">Installation</h1>
+      <div class="mt-4">
+        <p>Installation of the headless components package</p>
+        <pre>npm install -D @qwik-ui/headless</pre>
+      </div>
     </div>
   );
 });
