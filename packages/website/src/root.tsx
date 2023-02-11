@@ -22,10 +22,7 @@ export default component$(() => {
         <meta charSet="utf-8" />
         <RouterHead />
       </head>
-      <body
-        lang="en"
-        class="w-full bg-white dark:bg-slate-800 text-black dark:text-white"
-      >
+      <body lang="en" class="w-full">
         <RouterOutlet />
         <ServiceWorkerRegister />
       </body>

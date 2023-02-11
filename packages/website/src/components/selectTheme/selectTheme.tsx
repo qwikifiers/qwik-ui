@@ -14,7 +14,7 @@ export const SelectTheme = component$(() => {
   return (
     <div
       title="Change Theme"
-      class="pt-1 hover:bg-gray-100 dark:hover:bg-slate-600"
+      class="p-1 rounded-xl hover:bg-gray-100 dark:hover:bg-slate-600 cursor-pointer"
     >
       <div
         class="flex pt-1 pb-2 ppr-2"

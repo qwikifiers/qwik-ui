@@ -1,5 +1,13 @@
-import { $, component$, useContext, useSignal } from '@builder.io/qwik';
+import {
+  $,
+  component$,
+  useClientEffect$,
+  useContext,
+  useSignal,
+  useTask$,
+} from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
+import { isBrowser } from '@builder.io/qwik/build';
 import { version } from '../../../../../package.json';
 import { APP_STATE } from '../../constants';
 import { CloseIcon } from '../icons/CloseIcon';
@@ -21,13 +29,30 @@ export default component$(() => {
 
   const toggleDarkMode = $(() => {
     appState.darkMode = !appState.darkMode;
-    document.documentElement.classList.toggle('dark');
+  });
+
+  const setThemeClass = $(() => {
+    if (isBrowser) {
+      const theme = appState.darkMode ? 'dark' : 'light';
+      document.documentElement.setAttribute('class', theme);
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    }
+  });
+
+  useTask$(({ track }) => {
+    track(() => appState.darkMode);
+    setThemeClass();
+  });
+
+  useClientEffect$(() => {
+    setThemeClass();
   });
 
   const isDocsRoute = location.pathname.indexOf('/docs/') !== -1;
 
   return (
-    <header class="fixed w-full z-10 border-b border-slate-600 dark:border-white bg-white dark:bg-slate-800">
+    <header class="fixed w-full z-10 border-b border-slate-600">
       <div class="flex p-4">
         <button
           type="button"
@@ -40,7 +65,7 @@ export default component$(() => {
         {menuOpenSignal.value && (
           <aside class="fixed top-0 left-0">
             <div class="fixed h-screen w-screen bg-gray-900/20 backdrop-blur-sm"></div>
-            <div class="fixed h-screen w-80 overflow-y-scroll bg-white dark:bg-slate-800">
+            <div class="fixed h-screen w-80 overflow-y-scroll bg-white">
               <Menu onClose$={toggleMenu$} />
             </div>
           </aside>
@@ -50,7 +75,7 @@ export default component$(() => {
             <img src="/qwik-ui.png" class="w-32" />
           </a>
         </div>
-        <div class="flex w-full justify-end">
+        <div class="flex gap-2 w-full justify-end">
           <div data-tip="Qwik-UI Version" class="pt-2.5 px-2">
             v.{version}
           </div>

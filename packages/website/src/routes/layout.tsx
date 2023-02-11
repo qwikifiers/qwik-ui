@@ -17,6 +17,7 @@ export default component$(() => {
   useContextProvider(APP_STATE, state);
 
   useClientEffect$(() => {
+    state.darkMode = localStorage.getItem('theme') === 'dark';
     state.theme =
       location.pathname.indexOf('/headless') !== -1
         ? 'HEADLESS'
