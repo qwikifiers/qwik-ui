@@ -5,10 +5,10 @@ export default component$(() => {
   const toggleChecked = useSignal(false);
   return (
     <>
-      <h2>This is the documentation for the Toogle</h2>
+      <h2>This is the documentation for the Toggle</h2>
       <Toggle
         pressed={toggleChecked.value}
-        onClick$={$(() => console.log('toogle'))}
+        onClick$={$(() => console.log('Toggle'))}
       />
     </>
   );

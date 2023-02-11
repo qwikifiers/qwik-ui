@@ -1,10 +1,8 @@
 import { $, component$, PropFunction, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
-import styles from './menu.css?inline';
 
 import { APP_STATE } from '../../constants';
 import { CloseIcon } from '../icons/CloseIcon';
-
 
 type Props = {
   onClose$?: PropFunction<() => void>;
@@ -28,10 +26,9 @@ export const Menu = component$<Props>(({ onClose$ }) => {
     { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
     { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
     { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
-    { label: 'Toogle', path: `/docs/${appState.theme.toLowerCase()}/toogle` },
+    { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/Toggle` },
     { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
   ];
-
 
   const onChangePage = $(() => {
     if (onClose$) {
