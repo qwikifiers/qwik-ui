@@ -1,0 +1,4 @@
+input[name=rating-value]:checked~label ,
+input[name=rating-value][aria-checked=true]~label {
+  opacity: 0.2;
+}
