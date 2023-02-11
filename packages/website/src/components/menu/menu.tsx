@@ -26,7 +26,7 @@ export const Menu = component$<Props>(({ onClose$ }) => {
     { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
     { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
     { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
-    { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/Toggle` },
+    { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/toggle` },
     { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
   ];
 

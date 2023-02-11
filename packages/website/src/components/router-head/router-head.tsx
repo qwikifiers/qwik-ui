@@ -38,6 +38,17 @@ export const RouterHead = component$(() => {
       {head.styles.map((s) => (
         <style {...s.props} dangerouslySetInnerHTML={s.style} />
       ))}
+
+      {
+        <script
+          dangerouslySetInnerHTML={`
+            const darkMode = localStorage.getItem('theme') === 'dark';
+            const theme = darkMode ? 'dark' : 'light';
+            document.documentElement.setAttribute('class', theme);
+            document.documentElement.setAttribute('data-theme', theme);
+          `}
+        />
+      }
     </>
   );
 });

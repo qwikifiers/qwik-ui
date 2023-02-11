@@ -1,7 +1,6 @@
 import {
   $,
   component$,
-  useClientEffect$,
   useContext,
   useSignal,
   useTask$,
@@ -42,10 +41,6 @@ export default component$(() => {
 
   useTask$(({ track }) => {
     track(() => appState.darkMode);
-    setThemeClass();
-  });
-
-  useClientEffect$(() => {
     setThemeClass();
   });
 
