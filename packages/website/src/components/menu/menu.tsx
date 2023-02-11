@@ -5,18 +5,6 @@ import styles from './menu.css?inline';
 import { APP_STATE } from '../../constants';
 import { CloseIcon } from '../icons/CloseIcon';
 
-export const generateMenu = (library: string) => [
-  { label: 'Button', path: `/docs/${library.toLowerCase()}/button` },
-  { label: 'ButtonGroup', path: `/docs/${library.toLowerCase()}/button-group` },
-  { label: 'Card', path: `/docs/${library.toLowerCase()}/card` },
-  { label: 'Collapse', path: `/docs/${library.toLowerCase()}/collapse` },
-  { label: 'Drawer', path: `/docs/${library.toLowerCase()}/drawer` },
-  { label: 'Popover', path: `/docs/${library.toLowerCase()}/popover` },
-  { label: 'Select', path: `/docs/${library.toLowerCase()}/select` },
-  { label: 'Tabs', path: `/docs/${library.toLowerCase()}/tabs` },
-  { label: 'Toogle', path: `/docs/${library.toLowerCase()}/toogle` },
-  { label: 'Tooltip', path: `/docs/${library.toLowerCase()}/tooltip` },
-];
 
 type Props = {
   onClose$?: PropFunction<() => void>;
@@ -37,11 +25,13 @@ export const Menu = component$<Props>(({ onClose$ }) => {
     },
     { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
     { label: 'Rating', path: `/docs/${appState.theme.toLowerCase()}/rating` },
+    { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
     { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
     { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
     { label: 'Toogle', path: `/docs/${appState.theme.toLowerCase()}/toogle` },
     { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
   ];
+
 
   const onChangePage = $(() => {
     if (onClose$) {
