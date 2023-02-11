@@ -10,6 +10,7 @@
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/packages/daisy",
+        "configFile": "packages/daisy/vite.config.ts",
         "mode": "lib"
       },
       "configurations": {
@@ -29,6 +30,40 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/daisy/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {}
+    },
+    "version-dry": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "dryRun": true,
+        "releaseAs": "patch"
+      }
+    },
+    "version-publish": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "noVerify": true,
+        "push": true,
+        "releaseAs": "patch",
+        "postTargets": ["daisy:publish", "daisy:push-to-github"]
+      }
+    },
+    "publish": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public",
+        "distFolderPath": "packages/daisy"
+      }
+    },
+    "push-to-github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "tag": "${tag}",
+        "notes": "${notes}"
       }
     }
   },

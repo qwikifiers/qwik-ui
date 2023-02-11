@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/theme-daisy",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Qwik UI components library - daisy theme",
   "publishConfig": {
     "access": "public"
@@ -8,7 +8,6 @@
   "main": "./lib/index.qwik.cjs",
   "qwik": "./lib/index.qwik.mjs",
   "module": "./lib/index.qwik.mjs",
-  "types": "./lib-types/packages/core/src/index.d.ts",
   "type": "module",
   "exports": {
     ".": {

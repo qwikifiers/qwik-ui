@@ -19,9 +19,5 @@
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
-  },
-  "devDependencies": {
-    "daisyui": "^2.37.0",
-    "sass": "1.57.1"
   }
 }

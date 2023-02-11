@@ -9,27 +9,16 @@
   --qwik-dark-purple: #713fc2;
 }
 
+html {
+  height: 100%;
+  min-height: 100%;
+}
+
 body {
-  background-color: white;
+  min-height: 100%;
 }
 
 .layout {
-  display: grid;
   grid-template-columns: 25% auto;
   grid-template-areas: 'sidebar  content';
-}
-
-.sidebar {
-  border-right: 2px solid var(--qwik-dark-purple);
-}
-
-.sidebar > select {
-  margin: 10px auto;
-  display: inherit;
-  background-color: white;
-  color: black;
-}
-
-.content {
-  margin: 20px;
 }

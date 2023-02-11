@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { Tooltip } from '@qwik-ui/headless';
 
 export default component$(() => {

@@ -13,6 +13,11 @@ jobs:
         node_version: [16]
 
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+        if: github.event_name == 'pull_request'
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v3
       - name: Setup
         uses: ./.github/actions/setup

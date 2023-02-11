@@ -15,7 +15,7 @@
 .custom-card-actions {
   display: flex;
   gap: 1rem;
-  justify-content: end;
+  justify-content: flex-end;
   color: white;
   margin: 1rem 0;
 }
