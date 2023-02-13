@@ -1,6 +1,7 @@
 export * from './components/button/button';
 export * from './components/button-group/button-group';
 export * from './components/card';
+export * from './components/pagination';
 export * from './components/collapse/collapse';
 export * from './components/drawer';
 export * from './components/popover';
