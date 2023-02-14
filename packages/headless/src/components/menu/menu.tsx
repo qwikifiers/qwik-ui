@@ -15,6 +15,7 @@ import {
   useStore,
 } from '@builder.io/qwik';
 import { JSX } from '@builder.io/qwik/jsx-runtime';
+import { clsq } from '@qwik-ui/shared';
 
 interface MenuProps {
   class?: string;
@@ -85,11 +86,9 @@ export const Menu = component$((props: MenuProps) => {
   return (
     <div
       id={parentId}
-      class={
-        isExpanded.value
-          ? [CSS_CLASS_NAMES.IS_EXPANDED, props.class].join(' ')
-          : props.class
-      }
+      class={clsq(props.class, {
+        [CSS_CLASS_NAMES.IS_EXPANDED]: isExpanded.value,
+      })}
       onKeyDown$={(event: QwikKeyboardEvent) => {
         if (event.key === KEYBOARD_KEY_NAME.ESCAPE && isExpanded.value) {
           isExpanded.value = false;
@@ -124,9 +123,7 @@ export const Menu = component$((props: MenuProps) => {
         aria-haspopup
         aria-expanded={isExpanded.value}
         aria-controls={isExpanded.value ? childId : ''}
-        onClick$={() => {
-          isExpanded.value = !isExpanded.value;
-        }}
+        onClick$={() => (isExpanded.value = !isExpanded.value)}
       >
         {props.triggerElement || 'Menu'}
       </button>
@@ -160,7 +157,9 @@ export const MenuItem = component$((props: MenuItemProps) => {
         <button
           tabIndex={-1}
           id={myId}
-          class={isFocused ? CSS_CLASS_NAMES.IS_FOCUSED : ''}
+          class={clsq({
+            [CSS_CLASS_NAMES.IS_FOCUSED]: isFocused,
+          })}
           onClick$={props.onClick$}
           disabled={props.disabled || false}
         >
