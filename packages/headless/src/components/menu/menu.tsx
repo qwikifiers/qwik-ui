@@ -2,6 +2,7 @@ import {
   $,
   component$,
   createContext,
+  QRL,
   QwikKeyboardEvent,
   Signal,
   Slot,
@@ -9,98 +10,123 @@ import {
   useContext,
   useContextProvider,
   useId,
-  useSignal, useStore,
+  useOnWindow,
+  useSignal,
+  useStore,
 } from '@builder.io/qwik';
 import { JSX } from '@builder.io/qwik/jsx-runtime';
 
-//import { Button } from '../button/button';
-
 interface MenuProps {
-  isOpen?: boolean;
   class?: string;
+  isExpanded?: boolean;
   triggerElement?: string | JSX.Element;
 }
 
-export const quiMenuContext = createContext('qui-menu');
+interface MenuContextService {
+  currentId: Signal<string>;
+}
+
+const MENU_CONTEXT_NAME = 'qui-menu';
+export const quiMenuContext =
+  createContext<MenuContextService>(MENU_CONTEXT_NAME);
+export enum KEYBOARD_KEY_NAME {
+  ARROW_UP = 'ArrowUp',
+  ARROW_DOWN = 'ArrowDown',
+  ESCAPE = 'Escape',
+}
+
+export enum CSS_CLASS_NAMES {
+  IS_EXPANDED = 'quiIsExpanded',
+  IS_FOCUSED = 'quiIsFocused',
+}
 
 export const Menu = component$((props: MenuProps) => {
   const parentId = useId();
   const childId = useId();
   const triggerId = useId();
-  const isOpen = useSignal(props?.isOpen || false);
+  const isExpanded = useSignal<boolean>(props?.isExpanded || false);
   const container = useSignal<HTMLElement>();
-  const children = useSignal([]);
-  const currentButtonInFocusIndex = useSignal(-1);
+  const children = useStore<HTMLElement[]>([]);
+  const currentButtonInFocusIndex = useSignal<number>(-1);
   const triggerElementRef = useSignal<HTMLElement>();
-  const currentId = useSignal('');
+  const currentId = useSignal<string>('');
 
-  const registerSelf = $((ref: Signal<HTMLElement | undefined>) => {
-    if (ref) {
-      children.value.push(ref);
-      console.log(ref.value)
-    }
-    //console.log(children.value.map((item) => item.value.id).join(', '));
-  });
-
-  useContextProvider(quiMenuContext, {
-    registerSelf,
+  const menuContextService: MenuContextService = {
     currentId,
-  });
+  };
+
+  useContextProvider(quiMenuContext, menuContextService);
 
   useClientEffect$(({ track }) => {
-    track(() => isOpen.value);
-    if (isOpen.value === false) {
+    track(() => isExpanded.value);
+    if (!isExpanded.value) {
       currentButtonInFocusIndex.value = -1;
       currentId.value = '';
     }
   });
 
+  useClientEffect$(() => {
+    const options = container.value?.querySelectorAll<HTMLElement>('button');
+    if (options?.length) {
+      options.forEach((option) => children.push(option));
+    }
+  });
+
+  useOnWindow(
+    'click',
+    $((event) => {
+      const target = event.target as HTMLElement;
+      if (isExpanded.value && target !== triggerElementRef.value) {
+        isExpanded.value = false;
+      }
+    })
+  );
+
   return (
     <div
-      style={{ marginTop: '100px' }}
-      class={props.class ? props.class : ''}
       id={parentId}
+      class={
+        isExpanded.value
+          ? [CSS_CLASS_NAMES.IS_EXPANDED, props.class].join(' ')
+          : props.class
+      }
       onKeyDown$={(event: QwikKeyboardEvent) => {
-        if (event.key === 'Escape' && isOpen.value === true) {
-          isOpen.value = false;
-          triggerElementRef.value.focus();
+        if (event.key === KEYBOARD_KEY_NAME.ESCAPE && isExpanded.value) {
+          isExpanded.value = false;
+          triggerElementRef.value?.focus();
           return;
         }
-
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-          let idx;
-          if (event.key === 'ArrowDown') {
+        if (
+          event.key === KEYBOARD_KEY_NAME.ARROW_DOWN ||
+          event.key === KEYBOARD_KEY_NAME.ARROW_UP
+        ) {
+          let idx = currentButtonInFocusIndex.value;
+          if (event.key === KEYBOARD_KEY_NAME.ARROW_DOWN) {
             idx = currentButtonInFocusIndex.value + 1;
-            if (idx >= children.value.length) {
+            if (idx >= children.length) {
               idx = 0;
             }
-          } else if (event.key === 'ArrowUp') {
+          } else if (event.key === KEYBOARD_KEY_NAME.ARROW_UP) {
             idx = currentButtonInFocusIndex.value - 1;
             if (idx < 0) {
-              idx = children.value.length - 1;
+              idx = children.length - 1;
             }
           }
-          children.value[idx].value.focus();
-          currentId.value = children.value[idx].value.id;
+          children[idx].focus();
+          currentId.value = children[idx].id;
           currentButtonInFocusIndex.value = idx;
         }
       }}
     >
       <button
         id={triggerId}
-        aria-haspopup
-        aria-expanded={isOpen.value}
-        aria-controls={isOpen.value ? childId : null}
         ref={triggerElementRef}
+        aria-haspopup
+        aria-expanded={isExpanded.value}
+        aria-controls={isExpanded.value ? childId : ''}
         onClick$={() => {
-          isOpen.value = !isOpen.value;
+          isExpanded.value = !isExpanded.value;
         }}
-
-        /*document:onClick$={(event) => {
-          if (event.target.id !== triggerId && isOpen.value === true) {
-            isOpen.value = false;
-          }
-        }}*/
       >
         {props.triggerElement || 'Menu'}
       </button>
@@ -109,7 +135,7 @@ export const Menu = component$((props: MenuProps) => {
         role="menu"
         aria-labelledby={parentId}
         ref={container}
-        style={{ visibility: isOpen.value ? 'visible' : 'hidden' }}
+        style={{ visibility: isExpanded.value ? 'visible' : 'hidden' }}
       >
         <Slot />
       </nav>
@@ -119,34 +145,26 @@ export const Menu = component$((props: MenuProps) => {
 
 interface MenuItemProps {
   class?: string;
-  onClick$?: any;
-  id?: any;
+  disabled?: boolean;
+  onClick$?: QRL;
 }
 
 export const MenuItem = component$((props: MenuItemProps) => {
   const contextService = useContext(quiMenuContext);
-  const ref = useSignal<HTMLElement>();
   const myId = useId();
   const isFocused = contextService.currentId.value === myId;
 
-  useClientEffect$(() => {
-    contextService?.registerSelf(ref);
-    //console.log('called in useClientEffect$ for ', myId);
-  });
-
   return (
-    <div class={props.class ? props.class : ''}>
+    <div class={props.class}>
       {props.onClick$ ? (
         <button
-          class={isFocused ? 'quiIsFocused' : ''}
           tabIndex={-1}
           id={myId}
-          ref={ref}
+          class={isFocused ? CSS_CLASS_NAMES.IS_FOCUSED : ''}
           onClick$={props.onClick$}
+          disabled={props.disabled || false}
         >
           <Slot />
-          {' - '}
-          {myId} {/*isFocused ? ' - i am focused' : ''*/}
         </button>
       ) : (
         <Slot />

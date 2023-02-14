@@ -5,11 +5,13 @@ export default component$(() => {
   return (
     <>
       <h2>This is the documentation for the Menu</h2>
-      <Menu isOpen={true}>
-        <MenuItem onClick$={() => alert('clicked 1')}>button 1</MenuItem>
-        <MenuItem onClick$={() => alert('clicked 2')}>button 2</MenuItem>
-        <MenuItem onClick$={() => alert('clicked 3')}>button 3</MenuItem>
-      </Menu>
+      <div class="py-8">
+        <Menu>
+          <MenuItem onClick$={() => alert('clicked 1')}>Menu item 1</MenuItem>
+          <MenuItem onClick$={() => alert('clicked 2')}>Menu item 2</MenuItem>
+          <MenuItem onClick$={() => alert('clicked 3')}>Menu item 3</MenuItem>
+        </Menu>
+      </div>
     </>
   );
 });
