@@ -37,8 +37,9 @@ export const Menu = component$((props: MenuProps) => {
   const registerSelf = $((ref: Signal<HTMLElement | undefined>) => {
     if (ref) {
       children.value.push(ref);
+      console.log(ref.value)
     }
-    console.log(children.value.map((item) => item.value.id).join(', '));
+    //console.log(children.value.map((item) => item.value.id).join(', '));
   });
 
   useContextProvider(quiMenuContext, {
@@ -48,7 +49,6 @@ export const Menu = component$((props: MenuProps) => {
 
   useClientEffect$(({ track }) => {
     track(() => isOpen.value);
-    triggerElementRef.value.focus();
     if (isOpen.value === false) {
       currentButtonInFocusIndex.value = -1;
       currentId.value = '';
@@ -63,8 +63,10 @@ export const Menu = component$((props: MenuProps) => {
       onKeyDown$={(event: QwikKeyboardEvent) => {
         if (event.key === 'Escape' && isOpen.value === true) {
           isOpen.value = false;
+          triggerElementRef.value.focus();
           return;
         }
+
         if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
           let idx;
           if (event.key === 'ArrowDown') {
@@ -102,17 +104,15 @@ export const Menu = component$((props: MenuProps) => {
       >
         {props.triggerElement || 'Menu'}
       </button>
-      {isOpen.value && (
-        <nav
-          id={childId}
-          role="menu"
-          aria-labelledby={parentId}
-          ref={container}
-          style={{ visibility: isOpen.value ? 'visible' : 'hidden' }}
-        >
-          <Slot {...props} />
-        </nav>
-      )}
+      <nav
+        id={childId}
+        role="menu"
+        aria-labelledby={parentId}
+        ref={container}
+        style={{ visibility: isOpen.value ? 'visible' : 'hidden' }}
+      >
+        <Slot />
+      </nav>
     </div>
   );
 });
