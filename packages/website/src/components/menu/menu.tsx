@@ -21,6 +21,7 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       path: `/docs/${appState.theme.toLowerCase()}/collapse`,
     },
     { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
+    { label: 'Menu', path: `/docs/${appState.theme.toLowerCase()}/menu` },
     { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
     { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
     { label: 'Toogle', path: `/docs/${appState.theme.toLowerCase()}/toogle` },
