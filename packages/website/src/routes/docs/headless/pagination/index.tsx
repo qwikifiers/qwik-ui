@@ -9,7 +9,7 @@ export default component$(() => {
   });
 
   return (
-    <div class="flex flex-col mt-4">
+    <div>
       <h2>This is the documentation for the Pagination</h2>
       <div class="flex flex-col gap-8">
         <h2>Basic Example:</h2>

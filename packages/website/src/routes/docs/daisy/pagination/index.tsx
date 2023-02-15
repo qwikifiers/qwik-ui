@@ -1,5 +1,5 @@
 import { $, component$, useStore } from '@builder.io/qwik';
-import { Pagination } from '@qwik-ui/headless';
+import { Pagination } from '@qwik-ui/theme-daisy';
 
 export default component$(() => {
   const store = useStore({ page: 665 });
