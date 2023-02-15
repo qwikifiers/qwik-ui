@@ -16,6 +16,7 @@ import {
 } from '@builder.io/qwik';
 import { JSX } from '@builder.io/qwik/jsx-runtime';
 import { clsq } from '@qwik-ui/shared';
+import { Button } from '../button/button';
 
 interface MenuProps {
   class?: string;
@@ -44,7 +45,6 @@ export enum CSS_CLASS_NAMES {
 export const Menu = component$((props: MenuProps) => {
   const parentId = useId();
   const childId = useId();
-  const triggerId = useId();
   const isExpanded = useSignal<boolean>(props?.isExpanded || false);
   const container = useSignal<HTMLElement>();
   const children = useStore<HTMLElement[]>([]);
@@ -117,8 +117,7 @@ export const Menu = component$((props: MenuProps) => {
         }
       }}
     >
-      <button
-        id={triggerId}
+      <Button
         ref={triggerElementRef}
         aria-haspopup
         aria-expanded={isExpanded.value}
@@ -126,7 +125,7 @@ export const Menu = component$((props: MenuProps) => {
         onClick$={() => (isExpanded.value = !isExpanded.value)}
       >
         {props.triggerElement || 'Menu'}
-      </button>
+      </Button>
       <nav
         id={childId}
         role="menu"
@@ -154,7 +153,7 @@ export const MenuItem = component$((props: MenuItemProps) => {
   return (
     <div class={props.class}>
       {props.onClick$ ? (
-        <button
+        <Button
           tabIndex={-1}
           id={myId}
           class={clsq({
@@ -164,7 +163,7 @@ export const MenuItem = component$((props: MenuItemProps) => {
           disabled={props.disabled || false}
         >
           <Slot />
-        </button>
+        </Button>
       ) : (
         <Slot />
       )}
