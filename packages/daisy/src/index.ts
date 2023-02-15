@@ -8,3 +8,4 @@ export * from './components/rating/rating';
 export * from './components/tabs';
 export * from './components/toggle/toggle';
 export * from './components/tooltip/tooltip';
+export * from './components/checkbox/checkbox';
