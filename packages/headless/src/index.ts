@@ -6,6 +6,7 @@ export * from './components/drawer';
 export * from './components/popover';
 export * from './components/rating/rating';
 export * from './components/tabs/tabs';
+export * from './components/toast/toast';
 export * from './components/toggle/toggle';
 export * from './components/tooltip/tooltip';
 export * as Select from './components/select/select';
