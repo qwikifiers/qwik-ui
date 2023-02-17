@@ -105,6 +105,19 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "Obvio",
+      "name": "Obvio",
+      "avatar_url": "https://avatars.githubusercontent.com/u/300232?v=4",
+      "profile": "https://github.com/Obvio",
+      "contributions": [
+        "code",
+        "ideas",
+        "doc",
+        "bug",
+        "a11y"
+      ]
     }
   ],
   "contributorsPerLine": 7,

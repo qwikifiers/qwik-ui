@@ -97,6 +97,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="http://www.fabiobiondi.io"><img src="https://avatars.githubusercontent.com/u/1772083?v=4?s=100" width="100px;" alt="Fabio Biondi"/><br /><sub><b>Fabio Biondi</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=fabiobiondi" title="Code">💻</a> <a href="#ideas-fabiobiondi" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Obvio"><img src="https://avatars.githubusercontent.com/u/300232?v=4?s=100" width="100px;" alt="Obvio"/><br /><sub><b>Obvio</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=Obvio" title="Code">💻</a> <a href="#ideas-Obvio" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=Obvio" title="Documentation">📖</a> <a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3AObvio" title="Bug reports">🐛</a> <a href="#a11y-Obvio" title="Accessibility">️️️️♿️</a></td>
     </tr>
   </tbody>
 </table>
