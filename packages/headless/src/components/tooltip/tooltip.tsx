@@ -1,12 +1,15 @@
 import {
   $,
   component$,
+  QRL,
   Slot,
   useClientEffect$,
   useId,
   useOnWindow,
   useSignal,
   useStylesScoped$,
+  useTask$,
+  useWatch$,
 } from '@builder.io/qwik';
 import { computePosition, type ComputePositionConfig } from '@floating-ui/dom';
 import styles from './tooltip.css?inline';
@@ -29,11 +32,17 @@ export const Tooltip = component$(
     const tooltipAnchor = useSignal<HTMLElement>();
     const stateSignal = useSignal<State>('hidden');
     const positionSignal = useSignal<{ x: number; y: number }>({ x: 0, y: 0 });
-
     const Wrapper: keyof HTMLElementTagNameMap = props.inline ? 'span' : 'div';
+    const lastActivatedTimestamp = useSignal<number>(Date.now());
 
     const update = $(async () => {
-      if (triggerAnchor.value && tooltipAnchor.value) {
+      const now = Date.now();
+      const hasMouseEnterDebounced = now - lastActivatedTimestamp.value >= 300;
+      if (
+        triggerAnchor.value &&
+        tooltipAnchor.value &&
+        hasMouseEnterDebounced
+      ) {
         const { x, y } = await computePosition(
           triggerAnchor.value,
           tooltipAnchor.value as HTMLElement,
@@ -41,6 +50,7 @@ export const Tooltip = component$(
             placement: position,
           }
         );
+        lastActivatedTimestamp.value = now;
         positionSignal.value = { x, y };
         stateSignal.value = 'positioned';
       }
@@ -51,7 +61,7 @@ export const Tooltip = component$(
     });
 
     const hideTooltip = $(() => {
-      stateSignal.value = 'closing';
+      setTimeout(() => (stateSignal.value = 'closing'), durationMs);
     });
 
     useOnWindow(
@@ -66,7 +76,7 @@ export const Tooltip = component$(
 
     useClientEffect$(({ track }) => {
       const state = track(() => stateSignal.value);
-      if (state == 'unpositioned') {
+      if (state === 'unpositioned') {
         // run auto update
         update();
       } else {
@@ -103,9 +113,11 @@ export const Tooltip = component$(
           role="tooltip"
           {...props}
           // Cannot be animated
-          style={`--duration: ${durationMs}ms;--x: ${
-            positionSignal.value.x || 0
-          }px; --y: ${positionSignal.value.y || 0}px;`}
+          style={
+            `--duration: ${durationMs}ms;` +
+            `--x: ${positionSignal.value.x || 0}px;` +
+            `--y: ${positionSignal.value.y || 0}px;`
+          }
           data-state={stateSignal.value}
         >
           {content}
