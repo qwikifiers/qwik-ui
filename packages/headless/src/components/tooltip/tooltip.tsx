@@ -1,15 +1,12 @@
 import {
   $,
   component$,
-  QRL,
   Slot,
   useClientEffect$,
   useId,
   useOnWindow,
   useSignal,
   useStylesScoped$,
-  useTask$,
-  useWatch$,
 } from '@builder.io/qwik';
 import { computePosition, type ComputePositionConfig } from '@floating-ui/dom';
 import styles from './tooltip.css?inline';
