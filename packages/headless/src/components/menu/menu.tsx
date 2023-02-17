@@ -31,6 +31,7 @@ interface MenuContextService {
 const MENU_CONTEXT_NAME = 'qui-menu';
 export const quiMenuContext =
   createContext<MenuContextService>(MENU_CONTEXT_NAME);
+
 export enum KEYBOARD_KEY_NAME {
   ARROW_UP = 'ArrowUp',
   ARROW_DOWN = 'ArrowDown',
@@ -40,12 +41,14 @@ export enum KEYBOARD_KEY_NAME {
 export enum CSS_CLASS_NAMES {
   IS_EXPANDED = 'quiIsExpanded',
   IS_FOCUSED = 'quiIsFocused',
+  IS_HOVERED = 'quiIsHovered',
 }
 
 export const Menu = component$((props: MenuProps) => {
   const parentId = useId();
   const childId = useId();
   const isExpanded = useSignal<boolean>(props?.isExpanded || false);
+  const isHovered = useSignal(false);
   const container = useSignal<HTMLElement>();
   const children = useStore<HTMLElement[]>([]);
   const currentButtonInFocusIndex = useSignal<number>(-1);
@@ -88,7 +91,10 @@ export const Menu = component$((props: MenuProps) => {
       id={parentId}
       class={clsq(props.class, {
         [CSS_CLASS_NAMES.IS_EXPANDED]: isExpanded.value,
+        [CSS_CLASS_NAMES.IS_HOVERED]: isHovered.value,
       })}
+      onMouseEnter$={() => (isHovered.value = true)}
+      onMouseLeave$={() => (isHovered.value = false)}
       onKeyDown$={(event: QwikKeyboardEvent) => {
         if (event.key === KEYBOARD_KEY_NAME.ESCAPE && isExpanded.value) {
           isExpanded.value = false;
@@ -146,8 +152,8 @@ interface MenuItemProps {
 }
 
 export const MenuItem = component$((props: MenuItemProps) => {
-  const contextService = useContext(quiMenuContext);
   const myId = useId();
+  const contextService = useContext(quiMenuContext);
   const isFocused = contextService.currentId.value === myId;
 
   return (
