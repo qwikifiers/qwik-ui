@@ -1,47 +1,58 @@
 import { component$ } from '@builder.io/qwik';
 import { Toast as HeadlessToast } from '@qwik-ui/headless';
+import { clsq } from '@qwik-ui/shared';
+import { daisyConfig } from './daisy.config';
 
-interface ToastProps {
-  class?: string;
+export type DaisyToastVariants = 'info' | 'success' | 'warning' | 'error';
+export type DaisyToastProps = {
+  variant?: DaisyToastVariants;
   top?: boolean;
-  center?: boolean;
   end?: boolean;
+  start?: boolean;
   middle?: boolean;
   bottom?: boolean;
-  start?: boolean;
+  center?: boolean;
+  class?: string;
   label?: string;
-  alert?: string;
-}
+};
 
-export const Toast = component$((props: ToastProps) => {
-  const { label, top, start, center, end, middle, bottom, alert, ...rest } =
-    props;
+export type ToastProps = DaisyToastProps;
+export const Toast = component$(
+  ({
+    class: classNames,
+    label = 'New message',
+    variant = 'info',
+    top,
+    start,
+    center,
+    end,
+    middle,
+    bottom,
+    ...rest
+  }: ToastProps) => {
+    const { variants, positions } = daisyConfig;
 
-  return (
-    <div class="form-control">
-      <label class="label cursor-pointer">
-        <div
-          style={{
-            position: 'relative',
-            border: 'solid',
-            width: '480px',
-            height: '240px',
-            borderRadius: '12px',
-            background: 'rgb(220,220,220)',
-          }}
-        >
-          <HeadlessToast
-            alert={alert}
-            label={label}
-            class={`toast ${start && 'toast-start'} ${top && 'toast-top'} ${
-              center && 'toast-center'
-            } ${end && 'toast-end'} ${middle && 'toast-middle'} ${
-              bottom && 'toast-bottom'
-            }`}
-            {...rest}
-          />
-        </div>
-      </label>
-    </div>
-  );
-});
+    return (
+      <div
+        class={clsq(
+          'toast absolute',
+          {
+            [positions.top]: top,
+            [positions.middle]: middle,
+            [positions.center]: center,
+            [positions.bottom]: bottom,
+            [positions.end]: end,
+            [positions.start]: start,
+          },
+          classNames
+        )}
+      >
+        <HeadlessToast
+          label={label}
+          class={clsq('alert', variants[variant])}
+          {...rest}
+        />
+      </div>
+    );
+  }
+);

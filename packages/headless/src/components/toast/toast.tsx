@@ -1,12 +1,11 @@
 import { component$ } from '@builder.io/qwik';
 interface ToastProps {
-  value?: string;
   /**
    * The controlled state of the toast.
    */
 
   label?: string;
-  alert?: string;
+  class?: string;
   /**
    * The state of the toast when initially rendered. Use `defaultPressed`
    * if you do not need to control the state of the toast.
@@ -14,19 +13,12 @@ interface ToastProps {
    */
 }
 
-export const Toast = component$((props: ToastProps) => {
-  const { alert = 'info', label, ...toastProps } = props;
-
-  return (
-    <div class="toast" style={{ position: 'absolute' }} {...toastProps}>
-      <div
-        class={`alert alert-${alert}`}
-        style={{ background: alert === 'error' ? 'red' : 'auto' }}
-      >
-        <div>
-          <span>{label}</span>
-        </div>
+export const Toast = component$(
+  ({ label = 'New Message', ...toastProps }: ToastProps) => {
+    return (
+      <div {...toastProps}>
+        <span>{label}</span>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
