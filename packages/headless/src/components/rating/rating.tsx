@@ -40,6 +40,7 @@ export const Rating = component$(
             const Icon = props.icon || DefaultIcon ;
             return (
               <RatingIcon
+                key={useId()}
                 name={`rating-${uniqueId}`}
                 index={i}
                 onChange$={() => onItemClick$(i)}
