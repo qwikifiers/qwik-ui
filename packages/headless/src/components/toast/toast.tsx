@@ -3,14 +3,8 @@ interface ToastProps {
   /**
    * The controlled state of the toast.
    */
-
   label?: string;
   class?: string;
-  /**
-   * The state of the toast when initially rendered. Use `defaultPressed`
-   * if you do not need to control the state of the toast.
-   * @defaultValue false
-   */
 }
 
 export const Toast = component$(
