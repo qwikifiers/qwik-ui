@@ -22,12 +22,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       path: `/docs/${appState.theme.toLowerCase()}/collapse`,
     },
     { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
-    { label: 'Menu', path: `/docs/${appState.theme.toLowerCase()}/menu` },
-    { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
     { label: 'Rating', path: `/docs/${appState.theme.toLowerCase()}/rating` },
+    { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
     { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
     { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
-    { label: 'Toast', path: `/docs/${appState.theme.toLowerCase()}/toast` },
     { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/toggle` },
     { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
   ];
