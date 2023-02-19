@@ -2,8 +2,6 @@ import { component$, useSignal } from '@builder.io/qwik';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
 
 import { Button, Card, CardBody, CardTitle } from '@qwik-ui/theme-daisy';
-import React from 'react';
-import Header from '../../../../components/header/header';
 
 export default component$(() => {
   const controlledPopover = useSignal<boolean>(true);
@@ -14,122 +12,169 @@ export default component$(() => {
 
       <h1 class="mt-8">Examples</h1>
       <Popover placement="top">
-        <PopoverContent><Box /></PopoverContent>
+        <PopoverContent>
+          <Box />
+        </PopoverContent>
 
         <PopoverTrigger>
           <Button onClick$={() => console.log('here')}> CLICK ME </Button>
         </PopoverTrigger>
       </Popover>
 
-
       <Popover offset={10} placement="right">
-        <PopoverContent><Box /></PopoverContent>
+        <PopoverContent>
+          <Box />
+        </PopoverContent>
         <PopoverTrigger>
           <Button onClick$={() => console.log('here')}>
-             Offset and position
+            Offset and position
           </Button>
         </PopoverTrigger>
       </Popover>
 
-
       <h1 class="mt-8">ALIGNMENTS</h1>
 
-      <div className="flex flex-col gap-2">
+      <div class="flex flex-col gap-2">
         <Popover placement="right">
-          <PopoverContent><Box /></PopoverContent>
-          <PopoverTrigger><Button>right</Button></PopoverTrigger>
+          <PopoverContent>
+            <Box />
+          </PopoverContent>
+          <PopoverTrigger>
+            <Button>right</Button>
+          </PopoverTrigger>
         </Popover>
         <Popover placement="right-end">
-          <PopoverContent><Box /></PopoverContent>
-          <PopoverTrigger><Button>right-end</Button></PopoverTrigger>
+          <PopoverContent>
+            <Box />
+          </PopoverContent>
+          <PopoverTrigger>
+            <Button>right-end</Button>
+          </PopoverTrigger>
         </Popover>
         <Popover placement="right-start">
-          <PopoverContent><Box /></PopoverContent>
-          <PopoverTrigger><Button>right-start</Button></PopoverTrigger>
+          <PopoverContent>
+            <Box />
+          </PopoverContent>
+          <PopoverTrigger>
+            <Button>right-start</Button>
+          </PopoverTrigger>
         </Popover>
         <Popover placement="left">
-          <PopoverContent><Box /></PopoverContent>
-          <PopoverTrigger><Button>left</Button></PopoverTrigger>
+          <PopoverContent>
+            <Box />
+          </PopoverContent>
+          <PopoverTrigger>
+            <Button>left</Button>
+          </PopoverTrigger>
         </Popover>
         <Popover placement="bottom">
-          <PopoverContent><Box /></PopoverContent>
-          <PopoverTrigger><Button>bottom</Button></PopoverTrigger>
+          <PopoverContent>
+            <Box />
+          </PopoverContent>
+          <PopoverTrigger>
+            <Button>bottom</Button>
+          </PopoverTrigger>
         </Popover>
 
         <Popover placement="top">
-          <PopoverContent><Box /></PopoverContent>
-          <PopoverTrigger><Button>top</Button></PopoverTrigger>
+          <PopoverContent>
+            <Box />
+          </PopoverContent>
+          <PopoverTrigger>
+            <Button>top</Button>
+          </PopoverTrigger>
         </Popover>
       </div>
 
       <h1 class="mt-8">DISABLE CLICK OUTSIDE</h1>
-      <p>Popovers are not closed when click outside but they can be closed clicking their own trigger button only</p>
+      <p>
+        Popovers are not closed when click outside but they can be closed
+        clicking their own trigger button only
+      </p>
 
-      <div className="flex flex-col gap-2">
-
+      <div class="flex flex-col gap-2">
         <Popover placement="right" disableClickOutSide={true}>
-          <PopoverContent><Box /></PopoverContent>
-          <PopoverTrigger><Button>right</Button></PopoverTrigger>
+          <PopoverContent>
+            <Box />
+          </PopoverContent>
+          <PopoverTrigger>
+            <Button>right</Button>
+          </PopoverTrigger>
         </Popover>
         <Popover placement="right-end" disableClickOutSide={true}>
-          <PopoverContent><Box /></PopoverContent>
-          <PopoverTrigger><Button>right-end</Button></PopoverTrigger>
+          <PopoverContent>
+            <Box />
+          </PopoverContent>
+          <PopoverTrigger>
+            <Button>right-end</Button>
+          </PopoverTrigger>
         </Popover>
         <Popover placement="right-start" disableClickOutSide={true}>
-          <PopoverContent><Box /></PopoverContent>
-          <PopoverTrigger><Button>right-start</Button></PopoverTrigger>
+          <PopoverContent>
+            <Box />
+          </PopoverContent>
+          <PopoverTrigger>
+            <Button>right-start</Button>
+          </PopoverTrigger>
         </Popover>
       </div>
 
-      <h1 className="mt-8">TRIGGER: mouseover</h1>
+      <h1 class="mt-8">TRIGGER: mouseover</h1>
       <p>Popover is opened at mouse over</p>
 
       <Popover triggerEvent="mouseOver">
-        <PopoverContent><Header /></PopoverContent>
+        <PopoverContent>
+          <Box />
+        </PopoverContent>
         <PopoverTrigger>
           <Button variant="secondary" onClick$={() => console.log('clicked')}>
-             HOVER ME
+            HOVER ME
           </Button>
         </PopoverTrigger>
       </Popover>
 
-      <h1 className="mt-8">CONTROLLED POPOVER</h1>
+      <h1 class="mt-8">CONTROLLED POPOVER</h1>
 
-      <div class="my-3">This is a controlled popover - <code>Current state: {JSON.stringify(controlledPopover.value)}</code></div>
-      <p>The popover can be closed clicking outside or clicking the CLOSE button inside the popover</p>
-      <p>the onUpdate$ callback allow you to sync local and popover states</p>
+      <div class="my-3">
+        This is a controlled popover -{' '}
+        <code>Current state: {JSON.stringify(controlledPopover.value)}</code>
+      </div>
+      <p>
+        The popover can be closed clicking outside or clicking the CLOSE button
+        inside the popover
+      </p>
+      <p>the onUpdate$ callback allows you to sync local and popover states</p>
 
       <br />
       <Popover
         isOpen={controlledPopover.value}
         onUpdate$={(value) => {
-          controlledPopover.value = value
+          controlledPopover.value = value;
         }}
       >
         <PopoverContent>
           <Card>
             <CardBody>
               <CardTitle>title</CardTitle>
-              <Button onClick$={() => controlledPopover.value = false}>
+              <Button onClick$={() => (controlledPopover.value = false)}>
                 CLOSE ME
               </Button>
             </CardBody>
           </Card>
         </PopoverContent>
-        <PopoverTrigger >
+        <PopoverTrigger>
           <Button onClick$={() => console.log('clicked')}>
-             TOGGLE POPOVER
+            TOGGLE POPOVER
           </Button>
         </PopoverTrigger>
       </Popover>
 
-      <Button onClick$={() => controlledPopover.value = true}>
+      <Button onClick$={() => (controlledPopover.value = true)}>
         OPEN THE POPOVER ABOVE
       </Button>
     </>
   );
 });
-
 
 export const Box = component$(() => {
   return (
@@ -139,5 +184,5 @@ export const Box = component$(() => {
         this is a card component
       </CardBody>
     </Card>
-  )
-})
+  );
+});
