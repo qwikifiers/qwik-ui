@@ -105,6 +105,39 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "Obvio",
+      "name": "Obvio",
+      "avatar_url": "https://avatars.githubusercontent.com/u/300232?v=4",
+      "profile": "https://github.com/Obvio",
+      "contributions": [
+        "code",
+        "ideas",
+        "doc",
+        "bug",
+        "a11y"
+      ]
+    },
+    {
+      "login": "Balastrong",
+      "name": "Leonardo Montini",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7253929?v=4",
+      "profile": "https://leonardomontini.dev/",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "itaim18",
+      "name": "Itai Mizlish",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37772742?v=4",
+      "profile": "https://itai.netlify.app/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

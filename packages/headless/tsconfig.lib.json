@@ -5,6 +5,15 @@
     "types": ["node", "vite/client"]
   },
   "files": [],
-  "exclude": ["**/*.stories.ts", "**/*.stories.js"],
+  "exclude": [
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "cypress/**/*",
+    "cypress.config.ts",
+    "**/*.cy.ts",
+    "**/*.cy.js",
+    "**/*.cy.tsx",
+    "**/*.cy.jsx"
+  ],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

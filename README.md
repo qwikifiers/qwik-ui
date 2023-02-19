@@ -1,6 +1,6 @@
 <p align="center">
   <br>
-  <img width="400" src="./packages/website/public/qwik-ui.png" alt="awesome logo of qwik ui">
+  <img width="400" src="./apps/website/public/qwik-ui.png" alt="awesome logo of qwik ui">
   <br>
   <br>
 </p>
@@ -97,6 +97,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="http://www.fabiobiondi.io"><img src="https://avatars.githubusercontent.com/u/1772083?v=4?s=100" width="100px;" alt="Fabio Biondi"/><br /><sub><b>Fabio Biondi</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=fabiobiondi" title="Code">💻</a> <a href="#ideas-fabiobiondi" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Obvio"><img src="https://avatars.githubusercontent.com/u/300232?v=4?s=100" width="100px;" alt="Obvio"/><br /><sub><b>Obvio</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=Obvio" title="Code">💻</a> <a href="#ideas-Obvio" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=Obvio" title="Documentation">📖</a> <a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3AObvio" title="Bug reports">🐛</a> <a href="#a11y-Obvio" title="Accessibility">️️️️♿️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://leonardomontini.dev/"><img src="https://avatars.githubusercontent.com/u/7253929?v=4?s=100" width="100px;" alt="Leonardo Montini"/><br /><sub><b>Leonardo Montini</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=Balastrong" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3ABalastrong" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://itai.netlify.app/"><img src="https://avatars.githubusercontent.com/u/37772742?v=4?s=100" width="100px;" alt="Itai Mizlish"/><br /><sub><b>Itai Mizlish</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=itaim18" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=itaim18" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>

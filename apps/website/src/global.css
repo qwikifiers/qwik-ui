@@ -1,0 +1,37 @@
+@tailwind components;
+@tailwind base;
+@tailwind utilities;
+
+:root {
+  --qwik-dark-blue: #006ce9;
+  --qwik-light-blue: #18b6f6;
+  --qwik-light-purple: #ac7ff4;
+  --qwik-dark-purple: #713fc2;
+}
+
+html {
+  height: 100%;
+  min-height: 100%;
+  scroll-behavior: smooth;
+  background-color: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+
+[data-theme='light'] {
+  --color-bg: rgb(203 213 225);
+  --color-text: #333;
+}
+
+[data-theme='dark'] {
+  --color-bg: rgb(30 41 59);
+  --color-text: rgb(203 213 225);
+}
+
+body {
+  min-height: 100%;
+}
+
+.layout {
+  grid-template-columns: 25% auto;
+  grid-template-areas: 'sidebar  content';
+}
