@@ -1,0 +1,51 @@
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding-bottom: 20px;
+  align-items: baseline;
+}
+
+h1 small {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+h1::after {
+  content: '';
+  border-width: 2px;
+  border-color: #01b9fc;
+  margin-left: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 45px;
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+}
+
+.description {
+  margin-bottom: 20px;
+}
+.section-wrapper {
+  background: #fff;
+  border: 1px solid #cbc8c8;
+  width: 100%;
+}
+.section-content {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.section-header {
+  background: #ebebeb;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section-content {
+  display: flex;
+}

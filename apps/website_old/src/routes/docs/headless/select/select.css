@@ -1,0 +1,58 @@
+.qui-SelectRoot {
+  --qui-SelectSpace: 12px;
+  background: white;
+  color: black;
+  position: relative;
+  width: 100%;
+}
+
+.qui-SelectTrigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--qui-SelectSpace) calc(2 * var(--qui-SelectSpace));
+  border: 1px solid grey;
+  background: inherit;
+  width: inherit;
+}
+
+.qui-SelectMarker > *:only-child {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.qui-SelectListBox {
+  background: inherit;
+  border: 1px solid grey;
+  margin: 0;
+  padding: 0;
+  width: inherit;
+}
+
+.qui-SelectGroup .qui-SelectLabel {
+  display: block;
+  background: lightgrey;
+  font-weight: bold;
+  font-style: italic;
+  padding: calc(0.5 * var(--qui-SelectSpace)) calc(2 * var(--qui-SelectSpace));
+}
+
+.qui-SelectOption {
+  padding: var(--qui-SelectSpace) calc(2 * var(--qui-SelectSpace));
+  list-style: none;
+}
+
+.qui-SelectOption[aria-disabled='true'] {
+  color: grey;
+}
+
+.qui-SelectOption:hover {
+  background: var(--qwik-light-blue);
+  color: white;
+}
+
+.qui-SelectOption[aria-disabled='true']:hover {
+  background: unset;
+  color: grey;
+  cursor: not-allowed;
+}

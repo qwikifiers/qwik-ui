@@ -15,10 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@qwik-ui/shared": ["packages/shared/src/index.ts"],
-      "@qwik-ui/theme-daisy": ["packages/daisy/src/index.ts"],
       "@qwik-ui/headless": ["packages/headless/src/index.ts"],
-      "@qwik-ui/material": ["packages/material/src/index.ts"]
+      "@qwik-ui/material": ["packages/material/src/index.ts"],
+      "@qwik-ui/shared": ["packages/shared/src/index.ts"],
+      "@qwik-ui/theme-daisy": ["packages/daisy/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

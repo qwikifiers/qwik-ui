@@ -31,6 +31,12 @@
     },
     {
       "path": "./.storybook/tsconfig.json"
+    },
+    {
+      "path": "./cypress/tsconfig.cy.json"
+    },
+    {
+      "path": "./tsconfig.editor.json"
     }
   ]
 }

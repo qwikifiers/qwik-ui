@@ -17,7 +17,7 @@ const config: StorybookViteConfig = {
     '../src/lib/**/*.stories.mdx',
     '../src/lib/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  addons: [...(rootMain.addons || [])],
+  addons: ['@storybook/addon-essentials', ...(rootMain.addons || [])],
   framework: {
     name: 'storybook-framework-qwik',
   },

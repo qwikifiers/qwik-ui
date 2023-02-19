@@ -5,11 +5,13 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { join } from 'path';
+import { qwikNxVite } from 'qwik-nx/plugins';
 
 export default defineConfig({
   plugins: [
+    qwikNxVite(),
     qwikVite(),
-    tsconfigPaths(),
+    tsconfigPaths({ root: '../../' }),
     dts({
       tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
       // Faster builds by skipping tests. Set this to false to enable type checking.
