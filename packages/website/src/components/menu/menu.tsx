@@ -30,6 +30,7 @@ export const Menu = component$<Props>(({ onClose$ }) => {
     { label: 'Toast', path: `/docs/${appState.theme.toLowerCase()}/toast` },
     { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/toggle` },
     { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
+    { label: 'Slider', path: `/docs/${appState.theme.toLowerCase()}/slider` },
   ];
 
   const onChangePage = $(() => {
