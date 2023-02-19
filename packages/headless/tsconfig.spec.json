@@ -2,10 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["vitest/globals", "node"]
+    "types": ["vitest/globals", "cypress", "node"]
   },
   "include": [
     "vite.config.ts",
+    "src/**/*.cy.ts",
+    "src/**/*.cy.tsx",
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.tsx",

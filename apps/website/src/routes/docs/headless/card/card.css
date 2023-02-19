@@ -1,0 +1,21 @@
+.custom-card {
+  border-radius: 2rem;
+  overflow: hidden;
+}
+.custom-card-title {
+  font-size: 2rem;
+}
+
+.custom-card-body {
+  padding: 2rem;
+  background-color: darkslategray;
+  color: white;
+}
+
+.custom-card-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  color: white;
+  margin: 1rem 0;
+}

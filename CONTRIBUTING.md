@@ -58,9 +58,9 @@ git checkout -b my-fix-branch main
 
 ### ▶ 4. Run the library
 
-- From the root of the project run `npm install`.
+- From the root of the project run `pnpm install`.
 
-- Then run `npm run dev --workspace=packages/website`.
+- Then run `pnpm run dev --workspace=apps/website`.
 
 - Visit the URL printed in the console and you'll have a page opened with the suite of widgets.
 
@@ -68,7 +68,7 @@ git checkout -b my-fix-branch main
 
 ### ▶ 5. Make sure you add / modify tests
 
-Run `npm run test` to make sure there aren't any errors
+Run `pnpm run test` to make sure there aren't any errors
 
 <br/>
 
@@ -77,7 +77,7 @@ Run `npm run test` to make sure there aren't any errors
 Instead of `git commit` use the following command:
 
 ```shell
-npm run commit
+pnpm run commit
 ```
 
 It will then ask you a bunch of questions.
@@ -107,7 +107,7 @@ If you need to update your PR for some reason -
 
 - Make the required updates.
 
-- Re-run the tests to ensure tests are still passing `npm run test`
+- Re-run the tests to ensure tests are still passing `pnpm run test`
 
 - Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
 
