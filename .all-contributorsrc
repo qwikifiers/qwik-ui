@@ -138,6 +138,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "luisbeqja",
+      "name": "Luis Beqja",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75300376?v=4",
+      "profile": "http://www.luisbeqja.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
