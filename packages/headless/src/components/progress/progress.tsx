@@ -1,4 +1,4 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements } from '@builder.io/qwik';
 
 export type ProgressProps = QwikIntrinsicElements['progress'];
 
