@@ -1,10 +1,10 @@
 import {
   component$,
-  createContext,
+  createContextId,
   PropFunction,
   Signal,
   Slot,
-  useClientEffect$,
+  useBrowserVisibleTask$,
   useContextProvider,
   useSignal,
 } from '@builder.io/qwik';
@@ -21,7 +21,7 @@ interface SliderContextService {
   percentage: Signal<number>;
 }
 
-export const sliderContext = createContext<SliderContextService>('slider');
+export const sliderContext = createContextId<SliderContextService>('slider');
 
 interface SliderProps {
   value: number;
@@ -47,13 +47,13 @@ export const Slider = component$(
       percentage: percentageSignal,
     };
 
-    useClientEffect$(async ({ track }) => {
+    useBrowserVisibleTask$(async ({ track }) => {
       track(() => rootPositionRef);
       contextService.positionX.value =
         rootPositionRef.value?.getBoundingClientRect().x;
     });
 
-    useClientEffect$(async ({ track }) => {
+    useBrowserVisibleTask$(async ({ track }) => {
       const newValue = track(() => sliderValue.value);
       if (onChange$) {
         onChange$(newValue);

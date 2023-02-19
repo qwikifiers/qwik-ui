@@ -12,7 +12,7 @@ export default component$(() => {
             value={70}
             max={100}
             min={20}
-            onChange$={(value) => {
+            onChange$={(value: number) => {
               console.log(value);
             }}
           >
