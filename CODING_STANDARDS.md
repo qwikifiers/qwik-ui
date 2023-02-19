@@ -31,7 +31,7 @@ buttonGroup.tsx
 buttonGroup folder
 ```
 
-###Component conventions
+### Component conventions
 
 - For each component, add a props interface and declare all the props API there. For example:
 
