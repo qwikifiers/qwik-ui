@@ -1,0 +1,27 @@
+input[type='checkbox'] {
+  margin-right: 0.3rem;
+  line-height: 1.1;
+  font-size: 2rem;
+}
+.qui-checkbox-sm input[type='checkbox'] {
+  width: 10px;
+  height: 10px;
+}
+.qui-checkbox-md input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+}
+.qui-checkbox-lg input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+}
+
+h1 {
+  margin: 2rem 0;
+  padding-top: 1rem;
+  font-weight: bold;
+  border-top: 1px dotted #222;
+}
+.container {
+  width: 300px;
+}

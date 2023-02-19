@@ -1,16 +1,30 @@
-import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
+import { component$, HTMLAttributes, Slot, useStyles$ } from '@builder.io/qwik';
 
-export type CheckboxProps = HTMLAttributes<HTMLElement>;
+interface CheckboxProps extends HTMLAttributes<HTMLDivElement> {
+  label?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  name?: string;
+}
 
 export const Checkbox = component$(
-  (props: CheckboxProps) => {
-
+  ({ label, checked, disabled, name, ...props }: CheckboxProps) => {
     return (
-      <input
-        type="checkbox"
-        role="checkbox"
-      />
+      <div {...props}>
+        <label for={name}>
+          <input
+            type="checkbox"
+            role="checkbox"
+            checked={checked}
+            disabled={disabled}
+            name={name}
+            id={name}
+            aria-label={label}
+            aria-checked={checked}
+          />
+          {label}
+        </label>
+      </div>
     );
   }
 );
-
