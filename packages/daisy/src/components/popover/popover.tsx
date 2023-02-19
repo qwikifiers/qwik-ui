@@ -1,11 +1,7 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements } from '@builder.io/qwik';
 
-export type PopoverProps = QwikIntrinsicElements['button'];
+export type PopoverProps = QwikIntrinsicElements['div'];
 
-export const Popover = component$(
-  (props: PopoverProps) => {
-    return (
-      <div>TODO</div>
-    );
-  }
-);
+export const Popover = component$((props: PopoverProps) => {
+  return <div {...props}>TODO</div>;
+});
