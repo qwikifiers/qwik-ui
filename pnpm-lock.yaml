@@ -1,138 +1,160 @@
 lockfileVersion: 5.4
 
-specifiers:
-  '@builder.io/qwik': 0.18.1
-  '@builder.io/qwik-city': 0.2.1
-  '@commitlint/cli': ^17.4.3
-  '@commitlint/config-angular': ^17.4.3
-  '@commitlint/config-conventional': ^17.4.3
-  '@cypress/code-coverage': 3.10.0
-  '@jscutlery/semver': ^2.30.1
-  '@nrwl/cli': 15.7.1
-  '@nrwl/cypress': 15.7.1
-  '@nrwl/eslint-plugin-nx': 15.7.1
-  '@nrwl/linter': 15.7.1
-  '@nrwl/nx-cloud': 15.0.3
-  '@nrwl/storybook': 15.7.1
-  '@nrwl/vite': 15.7.1
-  '@nrwl/workspace': 15.7.1
-  '@storybook/addon-essentials': 7.0.0-beta.30
-  '@storybook/addon-interactions': 7.0.0-beta.30
-  '@storybook/addon-links': 7.0.0-beta.30
-  '@storybook/blocks': 7.0.0-beta.30
-  '@storybook/builder-vite': 0.4.2
-  '@storybook/html': 7.0.0-beta.30
-  '@storybook/html-vite': 7.0.0-beta.30
-  '@storybook/testing-library': 0.0.13
-  '@types/eslint': 8.21.1
-  '@types/node': 18.13.0
-  '@typescript-eslint/eslint-plugin': 5.52.0
-  '@typescript-eslint/parser': 5.52.0
-  '@vitest/coverage-c8': ~0.28.5
-  '@vitest/ui': ^0.28.5
-  all-contributors-cli: ^6.24.0
-  autoprefixer: ^10.4.13
-  commitizen: ^4.3.0
-  commitlint: ^17.4.3
-  cypress: ^12.6.0
-  cz-conventional-changelog: ^3.3.0
-  daisyui: ^2.50.1
-  eslint: 8.34.0
-  eslint-config-prettier: 8.6.0
-  eslint-plugin-cypress: ^2.12.1
-  eslint-plugin-qwik: 0.18.1
-  html-webpack-plugin: ^5.5.0
-  husky: ^8.0.3
-  jsdom: ~20.0.3
-  ngx-deploy-npm: ^5.0.0
-  node-fetch: 3.3.0
-  np: 7.6.3
-  nx: 15.7.1
-  postcss: ^8.4.21
-  prettier: 2.8.4
-  pretty-quick: ^3.1.3
-  qwik-nx: 0.10.0
-  sass: 1.58.1
-  storybook: 7.0.0-beta.30
-  storybook-framework-qwik: 0.0.8
-  tailwindcss: ^3.2.6
-  ts-node: 10.9.1
-  tslib: ^2.3.0
-  typescript: 4.9.5
-  undici: 5.19.1
-  vite: 4.1.1
-  vite-plugin-dts: ~1.7.3
-  vite-plugin-eslint: ^1.8.1
-  vite-tsconfig-paths: 4.0.5
-  vitest: ^0.28.5
+importers:
+  .:
+    specifiers:
+      '@builder.io/qwik': 0.18.1
+      '@builder.io/qwik-city': 0.2.1
+      '@commitlint/cli': ^17.4.3
+      '@commitlint/config-angular': ^17.4.3
+      '@commitlint/config-conventional': ^17.4.3
+      '@cypress/code-coverage': 3.10.0
+      '@cypress/vite-dev-server': ^2.2.1
+      '@jscutlery/semver': ^2.30.1
+      '@nrwl/cli': 15.7.1
+      '@nrwl/cypress': 15.7.1
+      '@nrwl/eslint-plugin-nx': 15.7.1
+      '@nrwl/linter': 15.7.1
+      '@nrwl/nx-cloud': 15.0.3
+      '@nrwl/storybook': 15.7.1
+      '@nrwl/vite': 15.7.1
+      '@nrwl/workspace': 15.7.1
+      '@storybook/addon-essentials': 7.0.0-beta.30
+      '@storybook/addon-interactions': 7.0.0-beta.30
+      '@storybook/addon-links': 7.0.0-beta.30
+      '@storybook/blocks': 7.0.0-beta.30
+      '@storybook/builder-vite': 0.4.2
+      '@storybook/html': 7.0.0-beta.30
+      '@storybook/html-vite': 7.0.0-beta.30
+      '@storybook/testing-library': 0.0.13
+      '@types/eslint': 8.21.1
+      '@types/node': 18.13.0
+      '@typescript-eslint/eslint-plugin': 5.52.0
+      '@typescript-eslint/parser': 5.52.0
+      '@vitest/coverage-c8': ~0.28.5
+      '@vitest/ui': ^0.28.5
+      all-contributors-cli: ^6.24.0
+      autoprefixer: ^10.4.13
+      commitizen: ^4.3.0
+      commitlint: ^17.4.3
+      cypress: ^12.6.0
+      cypress-ct-qwik: 0.0.5
+      cz-conventional-changelog: ^3.3.0
+      daisyui: ^2.50.1
+      eslint: 8.34.0
+      eslint-config-prettier: 8.6.0
+      eslint-plugin-cypress: ^2.12.1
+      eslint-plugin-qwik: 0.18.1
+      html-webpack-plugin: ^5.5.0
+      husky: ^8.0.3
+      jsdom: ~20.0.3
+      ngx-deploy-npm: ^5.0.0
+      node-fetch: 3.3.0
+      np: 7.6.3
+      nx: 15.7.1
+      postcss: ^8.4.21
+      prettier: 2.8.4
+      pretty-quick: ^3.1.3
+      qwik-nx: 0.10.0
+      sass: 1.58.1
+      storybook: 7.0.0-beta.30
+      storybook-framework-qwik: 0.0.8
+      tailwindcss: ^3.2.6
+      ts-node: 10.9.1
+      tslib: ^2.3.0
+      typescript: 4.9.5
+      undici: 5.19.1
+      vite: 4.1.1
+      vite-plugin-dts: ~1.7.3
+      vite-plugin-eslint: ^1.8.1
+      vite-tsconfig-paths: 4.0.5
+      vitest: ^0.28.5
+    dependencies:
+      tslib: 2.5.0
+    devDependencies:
+      '@builder.io/qwik': 0.18.1_undici@5.19.1
+      '@builder.io/qwik-city': 0.2.1_@builder.io+qwik@0.18.1
+      '@commitlint/cli': 17.4.3
+      '@commitlint/config-angular': 17.4.3
+      '@commitlint/config-conventional': 17.4.3
+      '@cypress/code-coverage': 3.10.0_cypress@12.6.0
+      '@cypress/vite-dev-server': 2.2.3_vite@4.1.1
+      '@jscutlery/semver': 2.30.1
+      '@nrwl/cli': 15.7.1
+      '@nrwl/cypress': 15.7.1_e7uv62xnxll7mv6d3ezs3pvjny
+      '@nrwl/eslint-plugin-nx': 15.7.1_4g2aujda77ww5scx75lws5eqxa
+      '@nrwl/linter': 15.7.1_ygqxsns4ysks242fpwaznhgj3i
+      '@nrwl/nx-cloud': 15.0.3
+      '@nrwl/storybook': 15.7.1_e7uv62xnxll7mv6d3ezs3pvjny
+      '@nrwl/vite': 15.7.1_hdg6rs5tp6lbxiitl36rmmhjce
+      '@nrwl/workspace': 15.7.1_ztlnmuobvwn63gpuifwwrjpt4i
+      '@storybook/addon-essentials': 7.0.0-beta.30
+      '@storybook/addon-interactions': 7.0.0-beta.30
+      '@storybook/addon-links': 7.0.0-beta.30
+      '@storybook/blocks': 7.0.0-beta.30
+      '@storybook/builder-vite': 0.4.2_myb7hxfgiuckqouxw2mlx5zt2q
+      '@storybook/html': 7.0.0-beta.30
+      '@storybook/html-vite': 7.0.0-beta.30_ggo5j25brebqqko7hdmvawpmuy
+      '@storybook/testing-library': 0.0.13
+      '@types/eslint': 8.21.1
+      '@types/node': 18.13.0
+      '@typescript-eslint/eslint-plugin': 5.52.0_6cfvjsbua5ptj65675bqcn6oza
+      '@typescript-eslint/parser': 5.52.0_7kw3g6rralp5ps6mg3uyzz6azm
+      '@vitest/coverage-c8': 0.28.5_ub72g3etjqpy7gcz7hs7exheia
+      '@vitest/ui': 0.28.5
+      all-contributors-cli: 6.24.0
+      autoprefixer: 10.4.13_postcss@8.4.21
+      commitizen: 4.3.0
+      commitlint: 17.4.3
+      cypress: 12.6.0
+      cypress-ct-qwik: 0.0.5_czihx5qla6ykhdxiioq767zhcm
+      cz-conventional-changelog: 3.3.0
+      daisyui: 2.50.1_by5iqycgvtroytm54ytclj4zzi
+      eslint: 8.34.0
+      eslint-config-prettier: 8.6.0_eslint@8.34.0
+      eslint-plugin-cypress: 2.12.1_eslint@8.34.0
+      eslint-plugin-qwik: 0.18.1_eslint@8.34.0
+      html-webpack-plugin: 5.5.0
+      husky: 8.0.3
+      jsdom: 20.0.3
+      ngx-deploy-npm: 5.0.0_x675ruvkb3arx7m5fa42asye7a
+      node-fetch: 3.3.0
+      np: 7.6.3
+      nx: 15.7.1
+      postcss: 8.4.21
+      prettier: 2.8.4
+      pretty-quick: 3.1.3_prettier@2.8.4
+      qwik-nx: 0.10.0_xhmadf5sj4kmjus6acqdwmoa4i
+      sass: 1.58.1
+      storybook: 7.0.0-beta.30
+      storybook-framework-qwik: 0.0.8_yseiwrxv756o467owc5yfzbuia
+      tailwindcss: 3.2.6_aesdjsunmf4wiehhujt67my7tu
+      ts-node: 10.9.1_4bewfcp2iebiwuold25d6rgcsy
+      typescript: 4.9.5
+      undici: 5.19.1
+      vite: 4.1.1_qwczgscu5yinpidm7yywvcndf4
+      vite-plugin-dts: 1.7.3_rgy4fnry75xg7rw6lgswyd3x2m
+      vite-plugin-eslint: 1.8.1_eslint@8.34.0+vite@4.1.1
+      vite-tsconfig-paths: 4.0.5_typescript@4.9.5
+      vitest: 0.28.5_ub72g3etjqpy7gcz7hs7exheia
 
-dependencies:
-  tslib: 2.5.0
+  apps/website:
+    specifiers: {}
 
-devDependencies:
-  '@builder.io/qwik': 0.18.1_undici@5.19.1
-  '@builder.io/qwik-city': 0.2.1_@builder.io+qwik@0.18.1
-  '@commitlint/cli': 17.4.3
-  '@commitlint/config-angular': 17.4.3
-  '@commitlint/config-conventional': 17.4.3
-  '@cypress/code-coverage': 3.10.0_cypress@12.6.0
-  '@jscutlery/semver': 2.30.1
-  '@nrwl/cli': 15.7.1
-  '@nrwl/cypress': 15.7.1_e7uv62xnxll7mv6d3ezs3pvjny
-  '@nrwl/eslint-plugin-nx': 15.7.1_4g2aujda77ww5scx75lws5eqxa
-  '@nrwl/linter': 15.7.1_ygqxsns4ysks242fpwaznhgj3i
-  '@nrwl/nx-cloud': 15.0.3
-  '@nrwl/storybook': 15.7.1_e7uv62xnxll7mv6d3ezs3pvjny
-  '@nrwl/vite': 15.7.1_hdg6rs5tp6lbxiitl36rmmhjce
-  '@nrwl/workspace': 15.7.1_ztlnmuobvwn63gpuifwwrjpt4i
-  '@storybook/addon-essentials': 7.0.0-beta.30
-  '@storybook/addon-interactions': 7.0.0-beta.30
-  '@storybook/addon-links': 7.0.0-beta.30
-  '@storybook/blocks': 7.0.0-beta.30
-  '@storybook/builder-vite': 0.4.2_myb7hxfgiuckqouxw2mlx5zt2q
-  '@storybook/html': 7.0.0-beta.30
-  '@storybook/html-vite': 7.0.0-beta.30_ggo5j25brebqqko7hdmvawpmuy
-  '@storybook/testing-library': 0.0.13
-  '@types/eslint': 8.21.1
-  '@types/node': 18.13.0
-  '@typescript-eslint/eslint-plugin': 5.52.0_6cfvjsbua5ptj65675bqcn6oza
-  '@typescript-eslint/parser': 5.52.0_7kw3g6rralp5ps6mg3uyzz6azm
-  '@vitest/coverage-c8': 0.28.5_ub72g3etjqpy7gcz7hs7exheia
-  '@vitest/ui': 0.28.5
-  all-contributors-cli: 6.24.0
-  autoprefixer: 10.4.13_postcss@8.4.21
-  commitizen: 4.3.0
-  commitlint: 17.4.3
-  cypress: 12.6.0
-  cz-conventional-changelog: 3.3.0
-  daisyui: 2.50.1_by5iqycgvtroytm54ytclj4zzi
-  eslint: 8.34.0
-  eslint-config-prettier: 8.6.0_eslint@8.34.0
-  eslint-plugin-cypress: 2.12.1_eslint@8.34.0
-  eslint-plugin-qwik: 0.18.1_eslint@8.34.0
-  html-webpack-plugin: 5.5.0
-  husky: 8.0.3
-  jsdom: 20.0.3
-  ngx-deploy-npm: 5.0.0_x675ruvkb3arx7m5fa42asye7a
-  node-fetch: 3.3.0
-  np: 7.6.3
-  nx: 15.7.1
-  postcss: 8.4.21
-  prettier: 2.8.4
-  pretty-quick: 3.1.3_prettier@2.8.4
-  qwik-nx: 0.10.0_xhmadf5sj4kmjus6acqdwmoa4i
-  sass: 1.58.1
-  storybook: 7.0.0-beta.30
-  storybook-framework-qwik: 0.0.8_yseiwrxv756o467owc5yfzbuia
-  tailwindcss: 3.2.6_aesdjsunmf4wiehhujt67my7tu
-  ts-node: 10.9.1_4bewfcp2iebiwuold25d6rgcsy
-  typescript: 4.9.5
-  undici: 5.19.1
-  vite: 4.1.1_qwczgscu5yinpidm7yywvcndf4
-  vite-plugin-dts: 1.7.3_rgy4fnry75xg7rw6lgswyd3x2m
-  vite-plugin-eslint: 1.8.1_eslint@8.34.0+vite@4.1.1
-  vite-tsconfig-paths: 4.0.5_typescript@4.9.5
-  vitest: 0.28.5_ub72g3etjqpy7gcz7hs7exheia
+  apps/website_old:
+    specifiers: {}
+
+  packages/daisy:
+    specifiers: {}
+
+  packages/headless:
+    specifiers:
+      '@floating-ui/dom': 1.0.10
+    dependencies:
+      '@floating-ui/dom': 1.0.10
+
+  packages/material:
+    specifiers: {}
 
 packages:
   /@ampproject/remapping/2.2.0:
@@ -2307,6 +2329,13 @@ packages:
       - webpack
     dev: true
 
+  /@cypress/mount-utils/4.0.0:
+    resolution:
+      {
+        integrity: sha512-4w8WZpOALz5+vhJmPfh2HkT4NMsRP2DgVqSXxXu46GR5yUGfqJ0+WgUrmVuujtKKY6n1mDiO1L4AfZ+4bsEYGQ==,
+      }
+    dev: true
+
   /@cypress/request/2.88.11:
     resolution:
       {
@@ -2332,6 +2361,21 @@ packages:
       tough-cookie: 2.5.0
       tunnel-agent: 0.6.0
       uuid: 8.3.2
+    dev: true
+
+  /@cypress/vite-dev-server/2.2.3_vite@4.1.1:
+    resolution:
+      {
+        integrity: sha512-E9cPKwReweYGRsupfR6Va1R1bHv3zPb3gHG68fyQwAjG4oPORaQlgfFWiR2i1pF+tRftvNfM0O2PBuKX3IvPxg==,
+      }
+    peerDependencies:
+      vite: '>= 2.1.3'
+    dependencies:
+      debug: 4.3.4
+      get-port: 5.1.1
+      vite: 4.1.1_qwczgscu5yinpidm7yywvcndf4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@cypress/webpack-preprocessor/5.17.0:
@@ -2671,6 +2715,22 @@ packages:
         integrity: sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==,
       }
     dev: true
+
+  /@floating-ui/core/1.2.1:
+    resolution:
+      {
+        integrity: sha512-LSqwPZkK3rYfD7GKoIeExXOyYx6Q1O4iqZWwIehDNuv3Dv425FIAE8PRwtAx1imEolFTHgBEcoFHm9MDnYgPCg==,
+      }
+    dev: false
+
+  /@floating-ui/dom/1.0.10:
+    resolution:
+      {
+        integrity: sha512-ZRe5ZmtGYCd82zrjWnnMW8hN5H1otedLh0Ur6rRo6f0exbEe6IlkVvo1RO7tgiMvbF0Df8hkhdm50VcVYqwP6g==,
+      }
+    dependencies:
+      '@floating-ui/core': 1.2.1
+    dev: false
 
   /@humanwhocodes/config-array/0.11.8:
     resolution:
@@ -3840,7 +3900,7 @@ packages:
     dependencies:
       '@storybook/client-logger': 7.0.0-beta.30
       '@storybook/core-events': 7.0.0-beta.30
-      '@storybook/csf': 0.0.2-next.8
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/global': 5.0.0
       '@storybook/manager-api': 7.0.0-beta.30
       '@storybook/preview-api': 7.0.0-beta.30
@@ -4032,7 +4092,7 @@ packages:
       '@storybook/client-logger': 7.0.0-beta.30
       '@storybook/components': 7.0.0-beta.30
       '@storybook/core-events': 7.0.0-beta.30
-      '@storybook/csf': 0.0.2-next.8
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/docs-tools': 7.0.0-beta.30
       '@storybook/global': 5.0.0
       '@storybook/manager-api': 7.0.0-beta.30
@@ -4310,7 +4370,7 @@ packages:
       '@babel/core': 7.20.12
       '@babel/preset-env': 7.20.2_@babel+core@7.20.12
       '@babel/types': 7.20.7
-      '@storybook/csf': 0.0.2-next.8
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/csf-tools': 7.0.0-beta.30
       '@storybook/node-logger': 7.0.0-beta.30
       '@storybook/types': 7.0.0-beta.30
@@ -4335,7 +4395,7 @@ packages:
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@storybook/client-logger': 7.0.0-beta.30
-      '@storybook/csf': 0.0.2-next.8
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/global': 5.0.0
       '@storybook/theming': 7.0.0-beta.30
       '@storybook/types': 7.0.0-beta.30
@@ -4489,7 +4549,7 @@ packages:
       '@storybook/builder-manager': 7.0.0-beta.30
       '@storybook/core-common': 7.0.0-beta.30
       '@storybook/core-events': 7.0.0-beta.30
-      '@storybook/csf': 0.0.2-next.8
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/csf-tools': 7.0.0-beta.30
       '@storybook/docs-mdx': 0.0.1-next.6
       '@storybook/global': 5.0.0
@@ -4552,7 +4612,7 @@ packages:
       }
     dependencies:
       '@babel/types': 7.20.7
-      '@storybook/csf': 0.0.2-next.8
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/types': 7.0.0-beta.30
       fs-extra: 9.1.0
       recast: 0.23.1
@@ -4570,14 +4630,12 @@ packages:
       lodash: 4.17.21
     dev: true
 
-  /@storybook/csf/0.0.2-next.8:
+  /@storybook/csf/0.0.2-next.10:
     resolution:
       {
-        integrity: sha512-3T6rflW7D9q1iXOR+bidwoNbd9rVUTyjYH/sqsnYjbXhb/aOXsQzGKwNeq9QqZIFVpKfg5BoOF5i7DCMtoGknQ==,
+        integrity: sha512-m2PFgBP/xRIF85VrDhvesn9ktaD2pN3VUjvMqkAL/cINp/3qXsCyI81uw7N5VEOkQAbWrY2FcydnvEPDEdE8fA==,
       }
     dependencies:
-      expect-type: 0.14.2
-      lodash: 4.17.21
       type-fest: 2.19.0
     dev: true
 
@@ -4706,7 +4764,7 @@ packages:
       '@storybook/channels': 7.0.0-beta.30
       '@storybook/client-logger': 7.0.0-beta.30
       '@storybook/core-events': 7.0.0-beta.30
-      '@storybook/csf': 0.0.2-next.8
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/global': 5.0.0
       '@storybook/router': 7.0.0-beta.30
       '@storybook/theming': 7.0.0-beta.30
@@ -4791,7 +4849,7 @@ packages:
       '@storybook/channels': 7.0.0-beta.30
       '@storybook/client-logger': 7.0.0-beta.30
       '@storybook/core-events': 7.0.0-beta.30
-      '@storybook/csf': 0.0.2-next.8
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/global': 5.0.0
       '@storybook/types': 7.0.0-beta.30
       '@types/qs': 6.9.7
@@ -9064,6 +9122,22 @@ packages:
       }
     dev: true
 
+  /cypress-ct-qwik/0.0.5_czihx5qla6ykhdxiioq767zhcm:
+    resolution:
+      {
+        integrity: sha512-Wq8L+PgI83ixvXFkXRaoHTGE0jsS/L3mTFN8LFiveEMy8IROBaJ83zrd4MjPHyiOd2T+XPwI8/XI4/cSLv/pbA==,
+      }
+    peerDependencies:
+      '@builder.io/qwik': ^0.16.0
+      cypress: '>=10.6.0'
+      undici: 5.19.1
+    dependencies:
+      '@builder.io/qwik': 0.18.1_undici@5.19.1
+      '@cypress/mount-utils': 4.0.0
+      cypress: 12.6.0
+      undici: 5.19.1
+    dev: true
+
   /cypress/12.6.0:
     resolution:
       {
@@ -10676,13 +10750,6 @@ packages:
     engines: { node: '>=0.10.0' }
     dependencies:
       homedir-polyfill: 1.0.3
-    dev: true
-
-  /expect-type/0.14.2:
-    resolution:
-      {
-        integrity: sha512-ed3+tr5ujbIYXZ8Pl/VgIphwJQ0q5tBLGGdn7Zvwt1WyPBRX83xjT5pT77P/GkuQbctx0K2ZNSSan7eruJqTCQ==,
-      }
     dev: true
 
   /express/4.18.2:

@@ -8,7 +8,8 @@
           "lint",
           "test",
           "e2e",
-          "build-storybook"
+          "build-storybook",
+          "component-test"
         ],
         "accessToken": "MzViMzc1MGQtMDQyNi00N2E3LTliMmYtYWI4ZGIxYWJjYzE3fHJlYWQtd3JpdGU="
       }
