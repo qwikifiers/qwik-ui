@@ -1,6 +1,7 @@
 import {
   component$,
   Slot,
+  useBrowserVisibleTask$,
   useClientEffect$,
   useContextProvider,
   useStore,
@@ -16,7 +17,7 @@ export default component$(() => {
   });
   useContextProvider(APP_STATE, state);
 
-  useClientEffect$(() => {
+  useBrowserVisibleTask$(() => {
     state.darkMode = localStorage.getItem('theme') === 'dark';
     state.theme =
       location.pathname.indexOf('/headless') !== -1

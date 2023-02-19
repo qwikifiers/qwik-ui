@@ -42,6 +42,9 @@ export const RouterHead = component$(() => {
       {
         <script
           dangerouslySetInnerHTML={`
+            if (!localStorage.getItem('theme')) {
+              localStorage.setItem('theme', 'dark');
+            }
             const darkMode = localStorage.getItem('theme') === 'dark';
             const theme = darkMode ? 'dark' : 'light';
             document.documentElement.setAttribute('class', theme);
