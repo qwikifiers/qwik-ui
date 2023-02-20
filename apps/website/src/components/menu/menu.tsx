@@ -11,6 +11,10 @@ type Props = {
 export const Menu = component$<Props>(({ onClose$ }) => {
   const appState = useContext(APP_STATE);
   const menu = [
+    {
+      label: 'Accordion',
+      path: `/docs/${appState.theme.toLowerCase()}/accordion`,
+    },
     { label: 'Button', path: `/docs/${appState.theme.toLowerCase()}/button` },
     {
       label: 'ButtonGroup',
