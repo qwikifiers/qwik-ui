@@ -78,13 +78,13 @@ export const AccordionItem = component$((props: AccordionItemProps) => {
       <button
         onClick$={(e) => {
           const target = (e.target as HTMLElement).parentElement;
-          const isTargetOpen = target?.hasAttribute('open');
           contextService.items.forEach((i: HTMLElement) => {
+            if (target === i) {
+              return;
+            }
             i.removeAttribute('open');
           });
-          isTargetOpen
-            ? target?.removeAttribute('open')
-            : target?.setAttribute('open', '');
+          target?.toggleAttribute('open');
         }}
         style={props.style}
         class={props.class}
