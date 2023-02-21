@@ -1,14 +1,20 @@
-import { component$, QwikIntrinsicElements } from '@builder.io/qwik';
+import {
+  component$,
+  PropFunction,
+  QwikIntrinsicElements,
+  QwikChangeEvent,
+} from '@builder.io/qwik';
 import { Radio as HeadlessRadio } from '@qwik-ui/headless';
 import { clsq } from '@qwik-ui/shared';
 import { daisyConfig } from './daisy.config';
 
-export type HTMLRadioProps = QwikIntrinsicElements['progress'];
+export type HTMLRadioProps = QwikIntrinsicElements['input'];
 
 export type DaisyRadioProps = {
   variant?: DaisyRadioVariants;
   name?: string;
-  value?: string[];
+  value?: string;
+  onChange$?: PropFunction<(evt: QwikChangeEvent<HTMLInputElement>) => void>;
 };
 
 export type DaisyRadioVariants =
@@ -26,25 +32,20 @@ export const Radio = component$((props: RadioProps) => {
   const {
     variant = 'primary',
     class: classNames,
-    value = ['first', 'second'],
+    value = 'first',
     name = 'radio-1',
+    ...rest
   } = props;
 
   const { variants } = daisyConfig;
 
   return (
-    <>
-      {value.map((e) => {
-        return (
-          <HeadlessRadio
-            type="radio"
-            name={name}
-            class={clsq('radio mx-1', variants[variant], classNames)}
-            checked
-            value={e}
-          />
-        );
-      })}
-    </>
+    <HeadlessRadio
+      {...rest}
+      type="radio"
+      name={name}
+      class={clsq('radio mx-1', variants[variant], classNames)}
+      value={value}
+    ></HeadlessRadio>
   );
 });
