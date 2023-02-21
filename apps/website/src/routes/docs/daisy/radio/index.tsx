@@ -11,13 +11,13 @@ export default component$(() => {
     }
   `);
 
-  let count = useSignal('primary');
+  let radioValue = useSignal('primary');
   return (
     <>
       <div class="container">
         <h2>This is the documentation for the Radio</h2>
         <div class="panel mt-5 flex-col">
-          <h2>Selected vatiant: {count.value}</h2>
+          <h2>Selected vatiant: {radioValue.value}</h2>
           <div>
             <Radio
               variant="primary"
@@ -25,7 +25,7 @@ export default component$(() => {
               name="radio"
               value="primary"
               onChange$={(e) => {
-                count.value = e.target.value;
+                radioValue.value = e.target.value;
               }}
               checked
             />
@@ -35,7 +35,7 @@ export default component$(() => {
               name="radio"
               value="secondary"
               onChange$={(e) => {
-                count.value = e.target.value;
+                radioValue.value = e.target.value;
               }}
             />
             <Radio
@@ -44,7 +44,7 @@ export default component$(() => {
               name="radio"
               value="accent"
               onChange$={(e) => {
-                count.value = e.target.value;
+                radioValue.value = e.target.value;
               }}
             />
             <Radio
@@ -53,7 +53,7 @@ export default component$(() => {
               name="radio"
               value="info"
               onChange$={(e) => {
-                count.value = e.target.value;
+                radioValue.value = e.target.value;
               }}
             />
             <Radio
@@ -62,7 +62,7 @@ export default component$(() => {
               name="radio"
               value="success"
               onChange$={(e) => {
-                count.value = e.target.value;
+                radioValue.value = e.target.value;
               }}
             />
             <Radio
@@ -71,7 +71,7 @@ export default component$(() => {
               name="radio"
               value="warning"
               onChange$={(e) => {
-                count.value = e.target.value;
+                radioValue.value = e.target.value;
               }}
             />
             <Radio
@@ -80,7 +80,7 @@ export default component$(() => {
               name="radio"
               value="error"
               onChange$={(e) => {
-                count.value = e.target.value;
+                radioValue.value = e.target.value;
               }}
             />
           </div>
