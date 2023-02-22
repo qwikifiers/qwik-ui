@@ -1,7 +1,7 @@
 import {
   $,
   component$,
-  createContext,
+  createContextId,
   PropFunction,
   QRL,
   Signal,
@@ -22,7 +22,7 @@ interface TabsContext {
   behavior: Behavior;
 }
 
-export const tabsContext = createContext<TabsContext>('tabList');
+export const tabsContext = createContextId<TabsContext>('tabList');
 
 export interface TabsProps {
   behavior?: Behavior;

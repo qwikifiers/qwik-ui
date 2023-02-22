@@ -1,6 +1,6 @@
 import {
   component$,
-  createContext,
+  createContextId,
   useContext,
   useContextProvider,
   Slot,
@@ -22,7 +22,7 @@ interface SelectRootContextService {
 }
 
 export const selectContext =
-  createContext<SelectRootContextService>('select-root');
+  createContextId<SelectRootContextService>('select-root');
 
 interface StyleProps {
   class?: string;

@@ -1,6 +1,6 @@
 import {
   component$,
-  createContext,
+  createContextId,
   useContext,
   useContextProvider,
   useStore,
@@ -17,7 +17,7 @@ export type DaisyRatingProps = {
   mask?: string;
 } & RatingProps;
 
-export const ContextService = createContext<{ mask: string }>('my-context');
+export const ContextService = createContextId<{ mask: string }>('my-context');
 
 export const Rating = component$((props: DaisyRatingProps) => {
   useStyles$(styles);
