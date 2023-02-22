@@ -2,8 +2,6 @@ import { component$, useSignal } from '@builder.io/qwik';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
 
 import { Button, Card, CardBody, CardTitle } from '@qwik-ui/theme-daisy';
-import React from 'react';
-import Header from '../../../../components/header/header';
 
 export default component$(() => {
   const controlledPopover = useSignal<boolean>(true);
@@ -36,7 +34,7 @@ export default component$(() => {
 
       <h1 class="mt-8">ALIGNMENTS</h1>
 
-      <div className="flex flex-col gap-2">
+      <div class="flex flex-col gap-2">
         <Popover placement="right">
           <PopoverContent>
             <Box />
@@ -94,7 +92,7 @@ export default component$(() => {
         clicking their own trigger button only
       </p>
 
-      <div className="flex flex-col gap-2">
+      <div class="flex flex-col gap-2">
         <Popover placement="right" disableClickOutSide={true}>
           <PopoverContent>
             <Box />
@@ -121,12 +119,12 @@ export default component$(() => {
         </Popover>
       </div>
 
-      <h1 className="mt-8">TRIGGER: mouseover</h1>
+      <h1 class="mt-8">TRIGGER: mouseover</h1>
       <p>Popover is opened at mouse over</p>
 
       <Popover triggerEvent="mouseOver">
         <PopoverContent>
-          <Header />
+          <Box />
         </PopoverContent>
         <PopoverTrigger>
           <Button variant="secondary" onClick$={() => console.log('clicked')}>
@@ -135,7 +133,7 @@ export default component$(() => {
         </PopoverTrigger>
       </Popover>
 
-      <h1 className="mt-8">CONTROLLED POPOVER</h1>
+      <h1 class="mt-8">CONTROLLED POPOVER</h1>
 
       <div class="my-3">
         This is a controlled popover -{' '}
@@ -145,7 +143,7 @@ export default component$(() => {
         The popover can be closed clicking outside or clicking the CLOSE button
         inside the popover
       </p>
-      <p>the onUpdate$ callback allow you to sync local and popover states</p>
+      <p>the onUpdate$ callback allows you to sync local and popover states</p>
 
       <br />
       <Popover

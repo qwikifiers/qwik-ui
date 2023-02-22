@@ -11,6 +11,10 @@ type Props = {
 export const Menu = component$<Props>(({ onClose$ }) => {
   const appState = useContext(APP_STATE);
   const menu = [
+    {
+      label: 'Accordion',
+      path: `/docs/${appState.theme.toLowerCase()}/accordion`,
+    },
     { label: 'Button', path: `/docs/${appState.theme.toLowerCase()}/button` },
     {
       label: 'ButtonGroup',
@@ -23,12 +27,17 @@ export const Menu = component$<Props>(({ onClose$ }) => {
     },
     { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
     { label: 'Rating', path: `/docs/${appState.theme.toLowerCase()}/rating` },
+    { label: 'Radio', path: `/docs/${appState.theme.toLowerCase()}/radio` },
     { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
     { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
     { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
     { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/toggle` },
     { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
     { label: 'Slider', path: `/docs/${appState.theme.toLowerCase()}/slider` },
+    {
+      label: 'Progress',
+      path: `/docs/${appState.theme.toLowerCase()}/progress`,
+    },
   ];
 
   const onChangePage = $(() => {

@@ -91,7 +91,7 @@ export const Tab = component$(
     const thisTabIndex = useSignal(0);
 
     useMount$(async () => {
-      thisTabIndex.value = await await contextService.getNextTabIndex();
+      thisTabIndex.value = await contextService.getNextTabIndex();
     });
     const isSelected = () =>
       thisTabIndex.value === contextService.selectedIndex.value;
@@ -139,7 +139,7 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   const isSelected = () =>
     thisPanelIndex.value === contextService.selectedIndex.value;
   useMount$(async () => {
-    thisPanelIndex.value = await await contextService.getNextPanelIndex();
+    thisPanelIndex.value = await contextService.getNextPanelIndex();
   });
   return (
     <div

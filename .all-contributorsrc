@@ -138,6 +138,34 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "luisbeqja",
+      "name": "Luis Beqja",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75300376?v=4",
+      "profile": "http://www.luisbeqja.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "riccardo-vettore",
+      "name": "Riccardo Vettore",
+      "avatar_url": "https://avatars.githubusercontent.com/u/108279675?v=4",
+      "profile": "https://www.riccardovettore.dev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "KenAKAFrosty",
+      "name": "Ken aka Frosty",
+      "avatar_url": "https://avatars.githubusercontent.com/u/90424167?v=4",
+      "profile": "https://github.com/KenAKAFrosty",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
