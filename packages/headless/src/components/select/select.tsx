@@ -1,16 +1,16 @@
 import {
   component$,
-  createContext,
   useContext,
   useContextProvider,
   Slot,
-  useClientEffect$,
   useSignal,
   Signal,
   $,
   QRL,
   useOnWindow,
   useStore,
+  useBrowserVisibleTask$,
+  createContextId,
 } from '@builder.io/qwik';
 import { computePosition, flip } from '@floating-ui/dom';
 
@@ -22,7 +22,8 @@ interface SelectRootContextService {
   setListBoxRef$: QRL<(ref: Signal<HTMLElement | undefined>) => void>;
 }
 
-export const selectContext = createContext<SelectRootContextService>('select-root');
+export const selectContext =
+  createContextId<SelectRootContextService>('select-root');
 
 interface StyleProps {
   class?: string;
@@ -77,7 +78,7 @@ const Root = component$(({ defaultValue, ...props }: RootProps) => {
     }
   );
 
-  useClientEffect$(async ({ track }) => {
+  useBrowserVisibleTask$(async ({ track }) => {
     const trigger = track(() => triggerRef.value);
     const listBox = track(() => listBoxRef.value);
     const expanded = track(() => isExpanded.value);
@@ -132,7 +133,7 @@ const Trigger = component$(({ disabled, ...props }: TriggerProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(selectContext);
 
-  useClientEffect$(() => {
+  useBrowserVisibleTask$(() => {
     contextService.setTriggerRef$(ref);
   });
 
@@ -178,7 +179,7 @@ const ListBox = component$(({ ...props }: StyleProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(selectContext);
 
-  useClientEffect$(() => {
+  useBrowserVisibleTask$(() => {
     contextService.setListBoxRef$(ref);
     const options = ref.value?.querySelectorAll<HTMLElement>('[role="option"]');
     if (options?.length) {
@@ -298,13 +299,4 @@ const Option = component$(({ disabled, value, ...props }: OptionProps) => {
   );
 });
 
-export {
-  Root,
-  Trigger,
-  Value,
-  Marker,
-  ListBox,
-  Group,
-  Label,
-  Option,
-};
+export { Root, Trigger, Value, Marker, ListBox, Group, Label, Option };
