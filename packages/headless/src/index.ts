@@ -14,4 +14,5 @@ export * from './components/toast/toast';
 export * from './components/toggle/toggle';
 export * from './components/tooltip/tooltip';
 export * as Select from './components/select/select';
+export * from './components/slider';
 export * from './components/radio/radio';

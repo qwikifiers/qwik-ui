@@ -1,6 +1,6 @@
 import {
   component$,
-  createContext,
+  createContextId,
   Signal,
   Slot,
   useContextProvider,
@@ -13,7 +13,7 @@ export interface DrawerContext {
   randomId: string;
 }
 
-export const drawerContext = createContext<DrawerContext>('DrawerContext');
+export const drawerContext = createContextId<DrawerContext>('DrawerContext');
 
 export interface DrawerProps {
   class?: string;

@@ -13,7 +13,7 @@ import styles from './rating.css?inline';
 export type RatingProps = {
   value?: number;
   total?: number;
-  icon?: Component<any>;
+  icon?: Component<object>;
   onChange$?: PropFunction<(index: number) => void>;
 };
 

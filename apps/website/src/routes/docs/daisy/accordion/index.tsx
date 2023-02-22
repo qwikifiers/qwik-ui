@@ -8,7 +8,7 @@ export default component$(() => {
   `);
   return (
     <>
-      <div className="container">
+      <div class="container">
         <h2>This is the documentation for the Accordion</h2>
 
         <h1>Accordion Example</h1>
@@ -22,7 +22,7 @@ export default component$(() => {
             </div>
           </AccordionItem>
           <AccordionItem label="Heading 2">
-            <div className="p-2">
+            <div class="p-2">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Accusamus aliquid architecto delectus deleniti dolor
@@ -42,7 +42,7 @@ export default component$(() => {
             </div>
           </AccordionItem>
           <AccordionItem label="Heading 2 - Disabled" disabled>
-            <div className="p-2">
+            <div class="p-2">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Accusamus aliquid architecto delectus deleniti dolor

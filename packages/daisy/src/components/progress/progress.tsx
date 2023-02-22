@@ -1,4 +1,4 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements } from '@builder.io/qwik';
 import { Progress as HeadlessProgress } from '@qwik-ui/headless';
 import { clsq } from '@qwik-ui/shared';
 import { daisyConfig } from './daisy.config';

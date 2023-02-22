@@ -156,6 +156,27 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "KenAKAFrosty",
+      "name": "Ken aka Frosty",
+      "avatar_url": "https://avatars.githubusercontent.com/u/90424167?v=4",
+      "profile": "https://github.com/KenAKAFrosty",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "sebbalex",
+      "name": "Alessandro Sebastiani",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11008116?v=4",
+      "profile": "https://developers.italia.it",
+      "contributions": [
+        "code",
+        "doc",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
