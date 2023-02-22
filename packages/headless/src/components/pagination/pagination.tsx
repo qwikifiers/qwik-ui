@@ -1,11 +1,37 @@
-import { $, component$, PropFunction } from '@builder.io/qwik';
+import {
+  $,
+  component$,
+  PropFunction,
+  JSXNode,
+  QRL,
+  FunctionComponent,
+  JSXChildren,
+  Component,
+  QwikIntrinsicElements,
+  Slot,
+  Fragment,
+} from '@builder.io/qwik';
+import { JSX } from '@builder.io/qwik/jsx-runtime';
 import { Button as HeadlessButton } from '@qwik-ui/headless';
 
-export interface PaginationProps {
+export interface IPaginationProps {
   pages: number;
   page: number;
   onPaging$: PropFunction<(index: number) => void>;
+  RenderItem?: Component<IRenderPaginationItemProps>;
+  RenderDivider?: Component<any>;
 }
+
+export interface IRenderPaginationItemProps {
+  onClick$: PropFunction<() => void>;
+  disabled?: boolean;
+  'aria-label': string;
+  'aria-current'?: boolean;
+  value: PaginationItemValue;
+  key?: string | number;
+}
+
+export type PaginationItemValue = 'prev' | 'next' | number;
 
 export function getPaginationItems(pages: number, page: number) {
   // *show which arrows to light up
@@ -45,6 +71,31 @@ export function getPaginationItems(pages: number, page: number) {
   };
 }
 
+export const RenderPaginationItem = component$(
+  ({
+    'aria-label': ariaLabel,
+    disabled,
+    onClick$,
+    key,
+    value,
+  }: IRenderPaginationItemProps) => {
+    return (
+      <HeadlessButton
+        onClick$={onClick$}
+        aria-label={ariaLabel}
+        disabled={disabled}
+        key={key}
+      >
+        {value}
+      </HeadlessButton>
+    );
+  }
+);
+
+export const PaginationDivider = component$(() => {
+  return <span>...</span>;
+});
+
 /**
  * Pagination
  * ----------
@@ -54,64 +105,65 @@ export function getPaginationItems(pages: number, page: number) {
  * @example
  * <Pagination pages={15} page={store.page} onPaging$={incrementCount} />
  */
-export const Pagination = component$((props: PaginationProps) => {
-  const pagi = getPaginationItems(props.pages, props.page);
+export const Pagination = component$(
+  ({
+    RenderItem = RenderPaginationItem,
+    RenderDivider = PaginationDivider,
+    onPaging$,
+    page,
+    pages,
+  }: IPaginationProps) => {
+    const pagi = getPaginationItems(pages, page);
 
-  const _onPaging$ = $((page: number) => {
-    if (page < 1 || page > props.pages) return;
-    props.onPaging$(page);
-  });
+    const _onPaging$ = $((page: number) => {
+      if (page < 1 || page > pages) return;
+      onPaging$(page);
+    });
 
-  return (
-    <div>
-      <HeadlessButton
-        onClick$={() => _onPaging$(props.page - 1)}
-        disabled={!pagi.prev}
-        class={pagi.prev ? '' : 'btn-disabled'}
-        aria-label="Previous page"
-      >
-        prev
-      </HeadlessButton>
-      {pagi.before !== -1 && (
-        <>
-          <HeadlessButton
-            onClick$={() => _onPaging$(pagi.before)}
-            aria-label="Page 1"
-          >
-            {pagi.before}
-          </HeadlessButton>
-          <span>...</span>
-        </>
-      )}
-      {pagi.items.map((item) => (
-        <HeadlessButton
-          onClick$={() => _onPaging$(item)}
-          key={item}
-          aria-label={`Page ${item}`}
-          class={item === props.page ? 'btn-primary' : 'btn_gray'}
-        >
-          {item}
-        </HeadlessButton>
-      ))}
-      {pagi.after !== -1 && (
-        <>
-          <span>...</span>
-          <HeadlessButton
-            aria-label={`Page ${pagi.after}`}
-            onClick$={() => _onPaging$(pagi.after)}
-          >
-            {pagi.after}
-          </HeadlessButton>
-        </>
-      )}
-      <HeadlessButton
-        aria-label={`Next page`}
-        onClick$={() => _onPaging$(props.page + 1)}
-        disabled={!pagi.next}
-        class={pagi.next ? '' : 'btn-disabled'}
-      >
-        next
-      </HeadlessButton>
-    </div>
-  );
-});
+    return (
+      <>
+        <RenderItem
+          onClick$={() => _onPaging$(page - 1)}
+          disabled={!pagi.prev}
+          aria-label="Previous page"
+          value={'prev'}
+        />
+        {pagi.before !== -1 && (
+          <>
+            <RenderItem
+              onClick$={() => _onPaging$(pagi.before)}
+              aria-label="Page 1"
+              value={pagi.before}
+            />
+            <RenderDivider />
+          </>
+        )}
+        {pagi.items.map((item) => (
+          <RenderItem
+            key={item}
+            onClick$={() => _onPaging$(item)}
+            aria-label={`Page ${item}`}
+            aria-current={item === page}
+            value={item}
+          />
+        ))}
+        {pagi.after !== -1 && (
+          <>
+            <RenderDivider />
+            <RenderItem
+              aria-label={`Page ${pagi.after}`}
+              onClick$={() => _onPaging$(pagi.after)}
+              value={pagi.after}
+            />
+          </>
+        )}
+        <RenderItem
+          aria-label={`Next page`}
+          onClick$={() => _onPaging$(page + 1)}
+          disabled={!pagi.next}
+          value={'next'}
+        />
+      </>
+    );
+  }
+);

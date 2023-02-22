@@ -1,5 +1,9 @@
-import { component$, PropFunction } from '@builder.io/qwik';
-import { Pagination as HeadlessPagination } from '@qwik-ui/headless';
+import { component$, $, PropFunction, Slot } from '@builder.io/qwik';
+import {
+  IRenderPaginationItemProps,
+  Pagination as HeadlessPagination,
+} from '@qwik-ui/headless';
+import { Button } from '@qwik-ui/theme-daisy';
 
 export interface PaginationProps {
   pages: number;
@@ -16,14 +20,44 @@ export interface PaginationProps {
  * @example
  * <Pagination pages={15} page={store.page} onPaging$={incrementCount} />
  */
+
+export const RenderPaginationItem = component$(
+  ({
+    'aria-label': ariaLabel,
+    disabled,
+    'aria-current': ariaCurrent,
+    onClick$,
+    key,
+    value,
+  }: IRenderPaginationItemProps) => {
+    return (
+      <Button
+        onClick$={onClick$}
+        aria-label={ariaLabel}
+        disabled={disabled}
+        variant={'ghost'}
+        key={key}
+        active={ariaCurrent}
+        circle
+      >
+        {value === 'prev' ? '‹' : value === 'next' ? '›' : value}
+      </Button>
+    );
+  }
+);
+
 export const Pagination = component$((props: PaginationProps) => {
   return (
-    <div class="flex gap-2">
+    <div class="flex gap-2 items-center">
       <HeadlessPagination
         page={props.page}
         pages={props.pages}
         onPaging$={props.onPaging$}
-      ></HeadlessPagination>
+        RenderItem={RenderPaginationItem}
+        RenderDivider={component$(() => {
+          return <span class="mb-2">...</span>;
+        })}
+      />
     </div>
   );
 });
