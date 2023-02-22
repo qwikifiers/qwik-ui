@@ -57,8 +57,7 @@
     "publish": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "access": "public",
-        "distFolderPath": "packages/headless"
+        "access": "public"
       }
     },
     "push-to-github": {
@@ -100,6 +99,13 @@
         "ci": {
           "quiet": true
         }
+      }
+    },
+    "component-test": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "packages/headless/cypress.config.ts",
+        "testingType": "component"
       }
     }
   },

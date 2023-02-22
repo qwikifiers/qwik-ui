@@ -55,8 +55,7 @@
     "publish": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "access": "public",
-        "distFolderPath": "packages/daisy"
+        "access": "public"
       }
     },
     "push-to-github": {

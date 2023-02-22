@@ -22,6 +22,11 @@ runs:
         git config --global user.name '@qwikifiers'
         git config --global user.email 'qwik-ui@users.noreply.github.com'
 
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2.2.4
+      with:
+        version: 7
+
     - name: Use Node
       uses: actions/setup-node@v3
       with:
@@ -32,8 +37,8 @@ runs:
         # It actually creates a .npmrc in a temporary folder
         # and sets the NPM_CONFIG_USERCONFIG environment variable.
         registry-url: https://registry.npmjs.org
-        cache: 'npm'
+        cache: 'pnpm'
 
     - name: Install dependencies
       shell: bash
-      run: npm ci
+      run: pnpm install --frozen-lockfile
