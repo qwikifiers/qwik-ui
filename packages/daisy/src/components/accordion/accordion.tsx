@@ -24,7 +24,7 @@ export const Accordion = component$((props: AccordionProps) => {
   const { class: classNames, ...rest } = props;
   return (
     <HeadlessAccordion
-      class={clsq('border collapse border collapse-arrow', classNames)}
+      class={clsq('border collapse collapse-arrow', classNames)}
       {...rest}
     >
       <Slot />
