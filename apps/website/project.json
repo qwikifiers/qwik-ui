@@ -5,33 +5,20 @@
   "sourceRoot": "apps/website/src",
   "targets": {
     "build": {
-      "executor": "@nrwl/vite:build",
+      "executor": "qwik-nx:build",
       "options": {
-        "outputPath": "dist/apps/website",
-        "configFile": "apps/website/vite.config.ts"
-      }
-    },
-    "build-ssr": {
-      "executor": "@nrwl/vite:build",
-      "defaultConfiguration": "preview",
-      "options": {
+        "runSequence": ["website:build.client", "website:build.ssr"],
         "outputPath": "dist/apps/website"
       },
       "configurations": {
-        "preview": {
-          "ssr": "src/entry.preview.tsx",
-          "mode": "production"
-        }
-      },
-      "dependsOn": ["build"]
+        "preview": {}
+      }
     },
     "preview": {
-      "executor": "nx:run-commands",
+      "executor": "@nrwl/vite:preview-server",
       "options": {
-        "command": "vite preview",
-        "cwd": "apps/website"
-      },
-      "dependsOn": ["build-ssr"]
+        "buildTarget": "website:build"
+      }
     },
     "test": {
       "executor": "@nrwl/vite:test",
@@ -43,23 +30,33 @@
     },
     "serve": {
       "executor": "@nrwl/vite:dev-server",
-      "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "website:build",
+        "buildTarget": "website:build.client",
         "mode": "ssr"
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "website:build:development",
-          "hmr": true
-        },
-        "production": {
-          "buildTarget": "website:build:production",
-          "hmr": false
-        }
       }
     },
-    "serveDebug": {
+    "build.client": {
+      "executor": "@nrwl/vite:build",
+      "options": {
+        "outputPath": "dist/apps/website",
+        "configFile": "apps/website/vite.config.ts"
+      }
+    },
+    "build.ssr": {
+      "executor": "@nrwl/vite:build",
+      "defaultConfiguration": "preview",
+      "options": {
+        "outputPath": "dist/apps/website"
+      },
+      "configurations": {
+        "preview": {
+          "ssr": "src/entry.preview.tsx",
+          "mode": "production"
+        }
+      },
+      "dependsOn": []
+    },
+    "serve.debug": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node --inspect-brk ../..//node_modules/vite/bin/vite.js --mode ssr --force",
