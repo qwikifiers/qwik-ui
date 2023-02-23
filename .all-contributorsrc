@@ -177,6 +177,16 @@
         "doc",
         "bug"
       ]
+    },
+    {
+      "login": "wahyufeb",
+      "name": "Wahyu Febrianto",
+      "avatar_url": "https://avatars.githubusercontent.com/u/38874570?v=4",
+      "profile": "https://wahyufebrianto.vercel.app",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
