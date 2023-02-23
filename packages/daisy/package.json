@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/theme-daisy",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Qwik UI components library - daisy theme",
   "publishConfig": {
     "access": "public"
