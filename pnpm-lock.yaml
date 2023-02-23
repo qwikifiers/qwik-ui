@@ -3,8 +3,8 @@ lockfileVersion: 5.4
 importers:
   .:
     specifiers:
-      '@builder.io/qwik': 0.18.1
-      '@builder.io/qwik-city': 0.2.1
+      '@builder.io/qwik': 0.19.2
+      '@builder.io/qwik-city': 0.4.0
       '@commitlint/cli': ^17.4.3
       '@commitlint/config-angular': ^17.4.3
       '@commitlint/config-conventional': ^17.4.3
@@ -73,8 +73,8 @@ importers:
     dependencies:
       tslib: 2.5.0
     devDependencies:
-      '@builder.io/qwik': 0.18.1_undici@5.19.1
-      '@builder.io/qwik-city': 0.2.1_@builder.io+qwik@0.18.1
+      '@builder.io/qwik': 0.19.2_undici@5.19.1
+      '@builder.io/qwik-city': 0.4.0_@builder.io+qwik@0.19.2
       '@commitlint/cli': 17.4.3
       '@commitlint/config-angular': 17.4.3
       '@commitlint/config-conventional': 17.4.3
@@ -109,7 +109,7 @@ importers:
       commitizen: 4.3.0
       commitlint: 17.4.3
       cypress: 12.6.0
-      cypress-ct-qwik: 0.0.5_czihx5qla6ykhdxiioq767zhcm
+      cypress-ct-qwik: 0.0.5_7ri6npvscxd6ekqgx5lqbhq62q
       cz-conventional-changelog: 3.3.0
       daisyui: 2.50.1_by5iqycgvtroytm54ytclj4zzi
       eslint: 8.34.0
@@ -126,10 +126,10 @@ importers:
       postcss: 8.4.21
       prettier: 2.8.4
       pretty-quick: 3.1.3_prettier@2.8.4
-      qwik-nx: 0.11.1_xhmadf5sj4kmjus6acqdwmoa4i
+      qwik-nx: 0.11.1_3a7ja5na3ouaguojbidrkmnf6y
       sass: 1.58.1
       storybook: 7.0.0-beta.30
-      storybook-framework-qwik: 0.0.8_yseiwrxv756o467owc5yfzbuia
+      storybook-framework-qwik: 0.0.8_6mau3cc5vxf7zaqxnhlrfex2si
       tailwindcss: 3.2.6_aesdjsunmf4wiehhujt67my7tu
       ts-node: 10.9.1_4bewfcp2iebiwuold25d6rgcsy
       typescript: 4.9.5
@@ -2014,15 +2014,16 @@ packages:
       }
     dev: true
 
-  /@builder.io/qwik-city/0.2.1_@builder.io+qwik@0.18.1:
+  /@builder.io/qwik-city/0.4.0_@builder.io+qwik@0.19.2:
     resolution:
       {
-        integrity: sha512-g+ZC4Neo1XYQ/8uquUp6GKwr0eagpuCyQ3LkAtFhaIARaO67+cZfR6EFLJzf9wz5AVSt8/0QSD7wJEpni1i4IA==,
+        integrity: sha512-XNpmHzSHam7ZYrd12kJdwFerMEck0iOk3Wgb9IlVIuaN/nLuN033qrNWLVq+ZzlhplUea9DGc4job8qMix7WWA==,
       }
+    engines: { node: '>=16.8.0 <18.0.0 || >=18.11' }
     peerDependencies:
-      '@builder.io/qwik': '>=0.17.0'
+      '@builder.io/qwik': '>=0.19.0'
     dependencies:
-      '@builder.io/qwik': 0.18.1_undici@5.19.1
+      '@builder.io/qwik': 0.19.2_undici@5.19.1
       '@mdx-js/mdx': 2.3.0
       '@types/mdx': 2.0.3
       source-map: 0.7.4
@@ -2032,12 +2033,12 @@ packages:
       - supports-color
     dev: true
 
-  /@builder.io/qwik/0.18.1_undici@5.19.1:
+  /@builder.io/qwik/0.19.2_undici@5.19.1:
     resolution:
       {
-        integrity: sha512-11qx5Wh6WRxgvHDJDppJORhykzkACUYuu9qRKEGdS3vTkBQ2Rr8NFDjYon2x6+8Wu9WukHk84ANywWnS91gS/w==,
+        integrity: sha512-Rxdyx96ucx0+nABLsg1sH7SgrlMdHgpxbR+NR3c53Ux4Jj+Xf+QHNQSIKF9zTV8KClrzmDlqILgmkDU4uMTVcg==,
       }
-    engines: { node: '>=16.8.0' }
+    engines: { node: '>=16.8.0 <18.0.0 || >=18.11' }
     hasBin: true
     peerDependencies:
       undici: ^5.14.0
@@ -9119,7 +9120,7 @@ packages:
       }
     dev: true
 
-  /cypress-ct-qwik/0.0.5_czihx5qla6ykhdxiioq767zhcm:
+  /cypress-ct-qwik/0.0.5_7ri6npvscxd6ekqgx5lqbhq62q:
     resolution:
       {
         integrity: sha512-Wq8L+PgI83ixvXFkXRaoHTGE0jsS/L3mTFN8LFiveEMy8IROBaJ83zrd4MjPHyiOd2T+XPwI8/XI4/cSLv/pbA==,
@@ -9129,7 +9130,7 @@ packages:
       cypress: '>=10.6.0'
       undici: 5.19.1
     dependencies:
-      '@builder.io/qwik': 0.18.1_undici@5.19.1
+      '@builder.io/qwik': 0.19.2_undici@5.19.1
       '@cypress/mount-utils': 4.0.0
       cypress: 12.6.0
       undici: 5.19.1
@@ -17934,7 +17935,7 @@ packages:
     engines: { node: '>=10' }
     dev: true
 
-  /qwik-nx/0.11.1_xhmadf5sj4kmjus6acqdwmoa4i:
+  /qwik-nx/0.11.1_3a7ja5na3ouaguojbidrkmnf6y:
     resolution:
       {
         integrity: sha512-XX5sJ78NqJlKRamqYar/1SJSaYyfmcj4LpX9x+dZcdUA+I+S1KXNqQ7fQ4s7zl2oVwsVzOjfcBrIiag9op44lw==,
@@ -17948,7 +17949,7 @@ packages:
       vite: ^4.0.0
       vitest: ^0.25.0
     dependencies:
-      '@builder.io/qwik': 0.18.1_undici@5.19.1
+      '@builder.io/qwik': 0.19.2_undici@5.19.1
       '@nrwl/vite': 15.7.1_hdg6rs5tp6lbxiitl36rmmhjce
       tslib: 2.5.0
       undici: 5.19.1
@@ -19553,7 +19554,7 @@ packages:
       }
     dev: true
 
-  /storybook-framework-qwik/0.0.8_yseiwrxv756o467owc5yfzbuia:
+  /storybook-framework-qwik/0.0.8_6mau3cc5vxf7zaqxnhlrfex2si:
     resolution:
       {
         integrity: sha512-EL9qRyjDyvCMCuN4uqBSJh3WshUug6GO5dA+aIxl1N6EhvFfRkTxxT0QnB0mJnsU44MTZG9g0nY92SXg7nOmNw==,
@@ -19562,10 +19563,10 @@ packages:
     peerDependencies:
       '@builder.io/qwik': '>=0.15.2'
     dependencies:
-      '@builder.io/qwik': 0.18.1_undici@5.19.1
+      '@builder.io/qwik': 0.19.2_undici@5.19.1
       '@storybook/builder-vite': 7.0.0-beta.30_ggo5j25brebqqko7hdmvawpmuy
     optionalDependencies:
-      '@builder.io/qwik-city': 0.2.1_@builder.io+qwik@0.18.1
+      '@builder.io/qwik-city': 0.4.0_@builder.io+qwik@0.19.2
     transitivePeerDependencies:
       - '@preact/preset-vite'
       - supports-color

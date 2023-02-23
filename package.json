@@ -13,8 +13,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@builder.io/qwik": "0.18.1",
-    "@builder.io/qwik-city": "0.2.1",
+    "@builder.io/qwik": "0.19.2",
+    "@builder.io/qwik-city": "0.4.0",
     "@commitlint/cli": "^17.4.3",
     "@commitlint/config-angular": "^17.4.3",
     "@commitlint/config-conventional": "^17.4.3",
