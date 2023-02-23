@@ -56,7 +56,7 @@ importers:
       postcss: ^8.4.21
       prettier: 2.8.4
       pretty-quick: ^3.1.3
-      qwik-nx: 0.10.0
+      qwik-nx: 0.11.1
       sass: 1.58.1
       storybook: 7.0.0-beta.30
       storybook-framework-qwik: 0.0.8
@@ -126,7 +126,7 @@ importers:
       postcss: 8.4.21
       prettier: 2.8.4
       pretty-quick: 3.1.3_prettier@2.8.4
-      qwik-nx: 0.10.0_xhmadf5sj4kmjus6acqdwmoa4i
+      qwik-nx: 0.11.1_xhmadf5sj4kmjus6acqdwmoa4i
       sass: 1.58.1
       storybook: 7.0.0-beta.30
       storybook-framework-qwik: 0.0.8_yseiwrxv756o467owc5yfzbuia
@@ -17934,16 +17934,16 @@ packages:
     engines: { node: '>=10' }
     dev: true
 
-  /qwik-nx/0.10.0_xhmadf5sj4kmjus6acqdwmoa4i:
+  /qwik-nx/0.11.1_xhmadf5sj4kmjus6acqdwmoa4i:
     resolution:
       {
-        integrity: sha512-xqMfBfpU7fCU7wbqPlBCioVcNGu8ZTn12ElI62kA13nAol7DKV4vQUkMsjCsd4OD7yVUBP15SKCB2LfFa09OTQ==,
+        integrity: sha512-XX5sJ78NqJlKRamqYar/1SJSaYyfmcj4LpX9x+dZcdUA+I+S1KXNqQ7fQ4s7zl2oVwsVzOjfcBrIiag9op44lw==,
       }
     peerDependencies:
       '@builder.io/qwik': ^0.17.0
-      '@nrwl/vite': ~15.6.0
+      '@nrwl/vite': ~15.7.2
       '@playwright/test': ^1.30.0
-      tslib: 2.4.1
+      tslib: ^2.3.0
       undici: ^5.18.0
       vite: ^4.0.0
       vitest: ^0.25.0
