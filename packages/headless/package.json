@@ -16,9 +16,6 @@
       "require": "./index.qwik.cjs"
     }
   },
-  "files": [
-    "headless/src"
-  ],
   "engines": {
     "node": ">=16.0.0"
   },
