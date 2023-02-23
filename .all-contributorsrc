@@ -187,6 +187,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "dmitry-stepanenko",
+      "name": "Dmitriy Stepanenko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33101123?v=4",
+      "profile": "https://github.com/dmitry-stepanenko",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
