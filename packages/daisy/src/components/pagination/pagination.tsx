@@ -1,9 +1,9 @@
-import { component$, $, PropFunction, Slot } from '@builder.io/qwik';
+import { component$, PropFunction } from '@builder.io/qwik';
 import {
   IRenderPaginationItemProps,
   Pagination as HeadlessPagination,
 } from '@qwik-ui/headless';
-import { Button } from '@qwik-ui/theme-daisy';
+import { Button } from '../button/button';
 
 export interface PaginationProps {
   pages: number;
