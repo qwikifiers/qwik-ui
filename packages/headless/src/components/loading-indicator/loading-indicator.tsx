@@ -1,6 +1,6 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
-import styles from './loading-indicator.css?inline';
 import { clsq } from '@qwik-ui/shared';
+import styles from './loading-indicator.css?inline';
 
 export type LoadingIndicatorProps = {
   class?: string;
@@ -45,24 +45,3 @@ export const LoadingIndicator = component$((props: LoadingIndicatorProps) => {
     </div>
   );
 });
-
-/*
-export type TrackProps = {
-  class: string;
-  style: string;
-}
-export const Track = component$(
-  (props: TrackProps) => {
-    const {class: classNames, style} = props;
-    return (
-      <circle class={clsq('track', classNames)}
-              style={{
-                strokeWidth: trackWidth,
-                r: `calc(0.5em - ${trackWidth}/2)`,
-                stroke: trackColor
-              }}
-      ></circle>
-    )
-  }
-)
-*/
