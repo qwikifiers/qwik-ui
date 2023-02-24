@@ -1,7 +1,7 @@
 import { $, component$, PropFunction, Component } from '@builder.io/qwik';
 import { Button as HeadlessButton } from '../button/button';
 
-export interface IPaginationProps {
+export interface IPaginationProps extends IGetPaginationItemsOptions {
   pages: number;
   page: number;
   onPaging$: PropFunction<(index: number) => void>;
@@ -14,49 +14,109 @@ export interface IRenderPaginationItemProps {
   disabled?: boolean;
   'aria-label': string;
   'aria-current'?: boolean;
-  value: PaginationItemValue;
+  value: TPaginationItemValue;
   key?: string | number;
 }
 
-export type PaginationItemValue = 'prev' | 'next' | number;
+export type TPaginationItemValue =
+  | 'prev'
+  | 'next'
+  | number
+  | 'start-ellipsis'
+  | 'end-ellipsis'
+  | 'first'
+  | 'last'
+  | string;
 
-export function getPaginationItems(pages: number, page: number) {
-  // *show which arrows to light up
-  const canGo = {
-    prev: page > 1,
-    next: page < pages,
-  };
+const range = (start: number, end: number) => {
+  const length = end - start + 1;
+  return Array.from({ length }, (_, i) => start + i);
+};
 
-  // one of first 5 pages -> should show 1, 2, 3, 4, 5 ... [last]
-  // or if length is less than 5, all pages
-  if (pages < 4 || page < 5) {
-    return {
-      items: Array.from({ length: Math.min(pages, 5) }, (_, i) => i + 1),
-      after: pages > 5 ? pages : -1,
-      before: -1,
-      ...canGo,
-    };
-  }
+export type TPaginationItem =
+  | 'first'
+  | 'last'
+  | 'prev'
+  | 'next'
+  | 'divider'
+  | number
+  | string;
 
-  // one of last 4 pages -> should show [first] ... [6, 7, 8, 9, 10]
-  if (Math.abs(page - pages) < 4) {
-    return {
-      items: Array.from({ length: 5 }, (_, i) => pages - 4 + i),
-      before: 1,
-      after: -1,
-      ...canGo,
-    };
-  }
-
-  // it's somewhere in the middle
-  // -> [first] ... [4, 5, 6] ... [last]
-  return {
-    items: Array.from({ length: 3 }, (_, i) => page - 1 + i),
-    before: 1,
-    after: pages,
-    ...canGo,
-  };
+export interface IGetPaginationItems {
+  page: number;
+  count: number;
+  options: IGetPaginationItemsOptions;
 }
+
+export interface IGetPaginationItemsOptions {
+  boundaryCount?: number;
+  siblingCount?: number;
+  hidePrevButton?: boolean;
+  hideNextButton?: boolean;
+  showFirstButton?: boolean;
+  showLastButton?: boolean;
+}
+
+export const getPaginationItems = (
+  page: IGetPaginationItems['page'],
+  count: IGetPaginationItems['count'],
+  {
+    boundaryCount = 1,
+    siblingCount = 1,
+    hidePrevButton,
+    hideNextButton,
+    showFirstButton,
+    showLastButton,
+  }: IGetPaginationItems['options']
+): TPaginationItem[] => {
+  const startPages = range(1, Math.min(boundaryCount, count));
+  const endPages = range(
+    Math.max(count - boundaryCount + 1, boundaryCount + 1),
+    count
+  );
+
+  const siblingsStart = Math.max(
+    Math.min(
+      page - siblingCount, // Natural start
+      count - boundaryCount - siblingCount * 2 - 1 // Lower boundary when page is high
+    ),
+    boundaryCount + 2 // Greater than startPages
+  );
+
+  const siblingsEnd = Math.min(
+    Math.max(
+      page + siblingCount, // Natural end
+      boundaryCount + siblingCount * 2 + 2 // Upper boundary when page is low
+    ),
+    endPages.length > 0 ? endPages[0] - 2 : count - 1 // Less than endPages
+  );
+
+  const items = [
+    ...(showFirstButton ? ['first'] : []),
+    ...(hidePrevButton ? [] : ['prev']),
+    ...startPages,
+
+    ...(siblingsStart > boundaryCount + 2
+      ? ['divider']
+      : boundaryCount + 1 < count - boundaryCount
+      ? [boundaryCount + 1]
+      : []),
+
+    ...range(siblingsStart, siblingsEnd),
+
+    ...(siblingsEnd < count - boundaryCount - 1
+      ? ['divider']
+      : count - boundaryCount > boundaryCount
+      ? [count - boundaryCount]
+      : []),
+
+    ...endPages,
+    ...(hideNextButton ? [] : ['next']),
+    ...(showLastButton ? ['last'] : []),
+  ];
+
+  return items;
+};
 
 export const RenderPaginationItem = component$(
   ({
@@ -99,8 +159,9 @@ export const Pagination = component$(
     onPaging$,
     page,
     pages,
+    ...rest
   }: IPaginationProps) => {
-    const pagi = getPaginationItems(pages, page);
+    const pagi = getPaginationItems(page, pages, rest);
 
     const _onPaging$ = $((page: number) => {
       if (page < 1 || page > pages) return;
@@ -109,48 +170,89 @@ export const Pagination = component$(
 
     return (
       <>
-        <RenderItem
-          onClick$={() => _onPaging$(page - 1)}
-          disabled={!pagi.prev}
-          aria-label="Previous page"
-          value={'prev'}
-        />
-        {pagi.before !== -1 && (
-          <>
-            <RenderItem
-              onClick$={() => _onPaging$(pagi.before)}
-              aria-label="Page 1"
-              value={pagi.before}
-            />
-            <RenderDivider />
-          </>
-        )}
-        {pagi.items.map((item) => (
-          <RenderItem
-            key={item}
-            onClick$={() => _onPaging$(item)}
-            aria-label={`Page ${item}`}
-            aria-current={item === page}
-            value={item}
-          />
-        ))}
-        {pagi.after !== -1 && (
-          <>
-            <RenderDivider />
-            <RenderItem
-              aria-label={`Page ${pagi.after}`}
-              onClick$={() => _onPaging$(pagi.after)}
-              value={pagi.after}
-            />
-          </>
-        )}
-        <RenderItem
-          aria-label={`Next page`}
-          onClick$={() => _onPaging$(page + 1)}
-          disabled={!pagi.next}
-          value={'next'}
-        />
+        {pagi.map((item, i) => {
+          return (
+            <>
+              {item === 'divider' ? (
+                <RenderDivider key={i} />
+              ) : (
+                <RenderItem
+                  key={i}
+                  onClick$={() =>
+                    _onPaging$(
+                      (() => {
+                        switch (item) {
+                          case 'first':
+                            return 1;
+                          case 'prev':
+                            return page - 1;
+                          case 'next':
+                            return page + 1;
+                          case 'last':
+                            return pages;
+                          default:
+                            if (typeof item === 'number') return item;
+                            return page;
+                        }
+                      })()
+                    )
+                  }
+                  disabled={
+                    (['prev', 'first'].includes(item.toString()) &&
+                      page === 1) ||
+                    (['next', 'last'].includes(item.toString()) &&
+                      page === pages)
+                  }
+                  aria-label={`Page ${item}`}
+                  aria-current={item === page}
+                  value={item}
+                />
+              )}
+            </>
+          );
+        })}
       </>
     );
+    // return (
+    //   <>
+    //     <RenderItem
+    //       onClick$={() => _onPaging$(page - 1)}
+    //       disabled={!pagi.prev}
+    //       aria-label="Previous page"
+    //       value={'prev'}
+    //     />
+    //     {typeof pagi.startBound === 'number' ? (
+    //       <RenderItem
+    //         onClick$={() => _onPaging$(pagi.startBound as number)}
+    //         aria-label="Page 1"
+    //         value={pagi.startBound}
+    //       />
+    //     ) : null}
+    //     {pagi.startSpacer && <RenderDivider />}
+    //     {pagi.items.map((item) => (
+    //       <RenderItem
+    //         key={item}
+    //         onClick$={() => _onPaging$(item)}
+    //         aria-label={`Page ${item}`}
+    //         aria-current={item === page}
+    //         value={item}
+    //       />
+    //     ))}
+    //     {pagi.endSpacer && <RenderDivider />}
+    //     {typeof pagi.endBound === 'number' ? (
+    //       <RenderItem
+    //         aria-label={`Page ${pagi.endBound}`}
+    //         onClick$={() => _onPaging$(pagi.endBound as number)}
+    //         value={pagi.endBound}
+    //       />
+    //     ) : null}
+    //     <RenderItem
+    //       aria-label={`Next page`}
+    //       onClick$={() => _onPaging$(page + 1)}
+    //       disabled={!pagi.next}
+    //       value={'next'}
+    //     />
+    //   </>
+    // );
   }
 );
