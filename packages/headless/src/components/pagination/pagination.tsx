@@ -1,18 +1,5 @@
-import {
-  $,
-  component$,
-  PropFunction,
-  JSXNode,
-  QRL,
-  FunctionComponent,
-  JSXChildren,
-  Component,
-  QwikIntrinsicElements,
-  Slot,
-  Fragment,
-} from '@builder.io/qwik';
-import { JSX } from '@builder.io/qwik/jsx-runtime';
-import { Button as HeadlessButton } from '@qwik-ui/headless';
+import { $, component$, PropFunction, Component } from '@builder.io/qwik';
+import { Button as HeadlessButton } from '../button/button';
 
 export interface IPaginationProps {
   pages: number;
