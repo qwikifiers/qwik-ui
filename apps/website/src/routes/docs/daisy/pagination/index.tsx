@@ -9,7 +9,7 @@ export default component$(() => {
 
   return (
     <div class={'flex flex-col gap-4'}>
-      <h2>This is the documentation for the Collapse</h2>
+      <h2>This is the documentation for the Pagination</h2>
       <DaisyPagination
         pages={store.pages}
         page={store.page}
