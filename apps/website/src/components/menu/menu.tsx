@@ -36,6 +36,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
     { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
     { label: 'Slider', path: `/docs/${appState.theme.toLowerCase()}/slider` },
     {
+      label: 'Pagination',
+      path: `/docs/${appState.theme.toLowerCase()}/pagination`,
+    },
+    {
       label: 'Progress',
       path: `/docs/${appState.theme.toLowerCase()}/progress`,
     },
