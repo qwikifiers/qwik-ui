@@ -9,7 +9,7 @@ export default component$(() => {
 
   return (
     <>
-      <h2>This is the documentation for the Collapse</h2>
+      <h2>This is the documentation for the Pagination</h2>
       <HeadlessPagination
         pages={store.pages}
         page={store.page}
