@@ -19,7 +19,7 @@ export interface IPaginationProps {
   page: number;
   onPaging$: PropFunction<(index: number) => void>;
   RenderItem?: Component<IRenderPaginationItemProps>;
-  RenderDivider?: Component<any>;
+  RenderDivider?: Component<object>;
 }
 
 export interface IRenderPaginationItemProps {
