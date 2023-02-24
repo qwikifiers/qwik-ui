@@ -28,10 +28,19 @@ interface SliderProps {
   min: number;
   max: number;
   onChange$?: PropFunction<(value: number) => void>;
+  class?: string;
+  style?: string;
 }
 
 export const Slider = component$(
-  ({ value = 0, min = 0, max = 100, onChange$ }: SliderProps) => {
+  ({
+    value = 0,
+    min = 0,
+    max = 100,
+    onChange$,
+    style,
+    class: classNames,
+  }: SliderProps) => {
     const rootPositionRef = useSignal<Element>();
     const sliderValue = useSignal(value);
     const minSignal = useSignal(min);
@@ -66,15 +75,17 @@ export const Slider = component$(
     return (
       <div
         ref={rootPositionRef}
-        style={{
-          display: 'inline-block',
-          position: 'relative',
-          border: 'solid 1px rgb(178,178,178)',
-          borderRadius: '4px',
-          background: 'rgb(239,239,239)',
-          width: '100px',
-          height: '6px',
-        }}
+        style={`
+          display: inline-block;
+          position: relative;
+          border: solid 1px rgb(178,178,178);
+          border-radius: 4px;
+          background: rgb(239,239,239);
+          width: 100px;
+          height: 6px;
+          ${style ?? ''}
+        `}
+        class={classNames}
       >
         <Slot />
       </div>

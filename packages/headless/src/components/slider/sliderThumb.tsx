@@ -13,7 +13,7 @@ export const clamp = (value: number, min: number, max: number) => {
   return Math.min(max, Math.max(value, min));
 };
 
-export const SliderThumb = component$(() => {
+export const SliderThumb = component$(({ style }: { style?: string }) => {
   const mouseDownHappenedSignal = useSignal(false);
   const contextService = useContext(sliderContext);
 
@@ -57,16 +57,17 @@ export const SliderThumb = component$(() => {
 
   return (
     <div
-      style={{
-        width: '20px',
-        height: '20px',
-        borderRadius: '20px',
-        background: 'rgba(0, 0, 250)',
-        position: 'absolute',
-        transform: 'translateX(-50%) translateY(-50%)',
-        top: '50%',
-        left: `${contextService.percentage.value}%`,
-      }}
+      style={`
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        background: rgba(0, 0, 250);
+        position: absolute;
+        transform: translateX(-50%) translateY(-50%);
+        top: 50%;
+        left: ${contextService.percentage.value}%;
+        ${style ?? ''}
+      `}
       onMouseDown$={handleMouseDown}
     >
       <Slot />
