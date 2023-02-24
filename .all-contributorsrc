@@ -196,6 +196,15 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "yishayhaz",
+      "name": "Yishay Hazan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50710472?v=4",
+      "profile": "https://yishay-hazan.netlify.app",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
