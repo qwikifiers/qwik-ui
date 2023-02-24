@@ -18,6 +18,12 @@ export default defineConfig({
       skipDiagnostics: true,
     }),
   ],
+  server: {
+    fs: {
+      // Allow serving files from the project root
+      allow: ['../../'],
+    },
+  },
   mode: 'lib',
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode

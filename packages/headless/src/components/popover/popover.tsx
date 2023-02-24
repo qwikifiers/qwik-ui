@@ -52,7 +52,10 @@ interface PopoverProps {
 }
 
 export const Popover = component$((props: PopoverProps) => {
-  const { triggerEvent = 'click', onUpdate$, disableClickOutSide } = props;
+  const triggerEvent = props.triggerEvent ?? 'click';
+  const onUpdate$ = props.onUpdate$;
+  const disableClickOutSide = props.disableClickOutSide;
+
   const wrapperRef = useSignal<HTMLElement>();
   const triggerRef = useSignal<HTMLElement>();
   const contentRef = useSignal<HTMLElement>();
