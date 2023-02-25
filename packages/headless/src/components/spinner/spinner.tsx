@@ -1,8 +1,8 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { clsq } from '@qwik-ui/shared';
-import styles from './loading-indicator.css?inline';
+import styles from './spinner.css?inline';
 
-export type LoadingIndicatorProps = {
+export type SpinnerProps = {
   class?: string;
   style?: string;
   width?: string;
@@ -11,7 +11,7 @@ export type LoadingIndicatorProps = {
   speed?: string;
 };
 
-export const LoadingIndicator = component$((props: LoadingIndicatorProps) => {
+export const Spinner = component$((props: SpinnerProps) => {
   const {
     style,
     class: classNames,
@@ -22,8 +22,8 @@ export const LoadingIndicator = component$((props: LoadingIndicatorProps) => {
   } = props;
   useStylesScoped$(styles);
   return (
-    <div class={clsq('loading-indicator-container', classNames)} style={style}>
-      <svg part="base" class="loading-indicator" role="loading-indicator">
+    <div class={clsq('spinner-container', classNames)} style={style}>
+      <svg part="base" class="spinner" role="spinner">
         <circle
           class="track"
           style={{
