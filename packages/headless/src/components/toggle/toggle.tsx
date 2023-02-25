@@ -5,8 +5,7 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 
-interface ToggleProps {
-  value?: string;
+export interface ToggleProps {
   disabled?: boolean;
   /**
    * The controlled state of the toggle.
@@ -40,6 +39,7 @@ export const Toggle = component$((props: ToggleProps) => {
       aria-pressed={pressedState.value}
       data-state={pressedState.value ? 'on' : 'off'}
       data-disabled={disabled ? '' : undefined}
+      checked={pressedState.value}
       onClick$={(event: QwikMouseEvent<HTMLInputElement>) => {
         if (!disabled) {
           pressedState.value = !pressedState.value;

@@ -1,22 +1,21 @@
-import { component$, PropFunction, QwikMouseEvent } from '@builder.io/qwik';
-import { Toggle as HeadlessToggle } from '@qwik-ui/headless';
+import { component$ } from '@builder.io/qwik';
+import {
+  Toggle as HeadlessToggle,
+  ToggleProps as HeadlessToggleProps,
+} from '@qwik-ui/headless';
 
-interface ToggleProps {
+export interface ToggleProps extends HeadlessToggleProps {
   class?: string;
-  checked: boolean;
   label?: string;
-  onClick$: PropFunction<(evt: QwikMouseEvent) => void>;
 }
 
-export const Toggle = component$(
-  ({ checked, label, ...props }: ToggleProps) => {
-    return (
-      <div class="form-control">
-        <label class="label cursor-pointer">
-          {label && <span class="label-text">{label}</span>}
-          <HeadlessToggle class="toggle" pressed={checked} {...props} />
-        </label>
-      </div>
-    );
-  }
-);
+export const Toggle = component$(({ label, ...props }: ToggleProps) => {
+  return (
+    <div class="form-control">
+      <label class="label cursor-pointer">
+        {label && <span class="label-text">{label}</span>}
+        <HeadlessToggle class="toggle" {...props} />
+      </label>
+    </div>
+  );
+});
