@@ -1,12 +1,12 @@
 import {
   $,
   component$,
-  createContext,
+  createContextId,
   QRL,
   QwikKeyboardEvent,
   Signal,
   Slot,
-  useClientEffect$,
+  useBrowserVisibleTask$,
   useContext,
   useContextProvider,
   useId,
@@ -30,7 +30,7 @@ interface MenuContextService {
 
 const MENU_CONTEXT_NAME = 'qui-menu';
 export const quiMenuContext =
-  createContext<MenuContextService>(MENU_CONTEXT_NAME);
+  createContextId<MenuContextService>(MENU_CONTEXT_NAME);
 
 export enum KEYBOARD_KEY_NAME {
   ARROW_UP = 'ArrowUp',
@@ -61,7 +61,7 @@ export const Menu = component$((props: MenuProps) => {
 
   useContextProvider(quiMenuContext, menuContextService);
 
-  useClientEffect$(({ track }) => {
+  useBrowserVisibleTask$(({ track }) => {
     track(() => isExpanded.value);
     if (!isExpanded.value) {
       currentButtonInFocusIndex.value = -1;
@@ -69,7 +69,7 @@ export const Menu = component$((props: MenuProps) => {
     }
   });
 
-  useClientEffect$(() => {
+  useBrowserVisibleTask$(() => {
     const options = container.value?.querySelectorAll<HTMLElement>('button');
     if (options?.length) {
       options.forEach((option) => children.push(option));

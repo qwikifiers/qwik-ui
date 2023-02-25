@@ -2,7 +2,6 @@ import {
   component$,
   Slot,
   useBrowserVisibleTask$,
-  useClientEffect$,
   useContextProvider,
   useStore,
 } from '@builder.io/qwik';

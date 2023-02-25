@@ -147,6 +147,64 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "riccardo-vettore",
+      "name": "Riccardo Vettore",
+      "avatar_url": "https://avatars.githubusercontent.com/u/108279675?v=4",
+      "profile": "https://www.riccardovettore.dev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "KenAKAFrosty",
+      "name": "Ken aka Frosty",
+      "avatar_url": "https://avatars.githubusercontent.com/u/90424167?v=4",
+      "profile": "https://github.com/KenAKAFrosty",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "sebbalex",
+      "name": "Alessandro Sebastiani",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11008116?v=4",
+      "profile": "https://developers.italia.it",
+      "contributions": [
+        "code",
+        "doc",
+        "bug"
+      ]
+    },
+    {
+      "login": "wahyufeb",
+      "name": "Wahyu Febrianto",
+      "avatar_url": "https://avatars.githubusercontent.com/u/38874570?v=4",
+      "profile": "https://wahyufebrianto.vercel.app",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "dmitry-stepanenko",
+      "name": "Dmitriy Stepanenko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33101123?v=4",
+      "profile": "https://github.com/dmitry-stepanenko",
+      "contributions": [
+        "maintenance"
+      ]
+    },
+    {
+      "login": "yishayhaz",
+      "name": "Yishay Hazan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50710472?v=4",
+      "profile": "https://yishay-hazan.netlify.app",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

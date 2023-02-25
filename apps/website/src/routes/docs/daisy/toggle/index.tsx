@@ -7,7 +7,7 @@ export default component$(() => {
     <>
       <h2>This is the documentation for the Toggle</h2>
       <Toggle
-        checked={toggleChecked.value}
+        pressed={toggleChecked.value}
         onClick$={() => {
           toggleChecked.value = !toggleChecked.value;
         }}

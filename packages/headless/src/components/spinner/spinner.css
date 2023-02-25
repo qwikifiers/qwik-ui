@@ -1,0 +1,44 @@
+.spinner-container {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+}
+
+.spinner {
+  flex: 1 1 auto;
+  height: 100%;
+  width: 100%;
+}
+
+.track,
+.indicator {
+  fill: none;
+  cx: 0.5em;
+  cy: 0.5em;
+  transform-origin: 50% 50%;
+}
+
+.track {
+  transform-origin: 0 0;
+  mix-blend-mode: multiply;
+}
+
+.indicator {
+  stroke-linecap: round;
+  stroke-dasharray: 150% 75%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    stroke-dasharray: 0.01em, 2.75em;
+  }
+  50% {
+    transform: rotate(450deg);
+    stroke-dasharray: 1.375em, 1.375em;
+  }
+  100% {
+    transform: rotate(1080deg);
+    stroke-dasharray: 0.01em, 2.75em;
+  }
+}

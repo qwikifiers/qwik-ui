@@ -2,7 +2,7 @@ import {
   $,
   component$,
   Slot,
-  useClientEffect$,
+  useBrowserVisibleTask$,
   useId,
   useOnWindow,
   useSignal,
@@ -71,7 +71,7 @@ export const Tooltip = component$(
       })
     );
 
-    useClientEffect$(({ track }) => {
+    useBrowserVisibleTask$(({ track }) => {
       const state = track(() => stateSignal.value);
       if (state === 'unpositioned') {
         // run auto update

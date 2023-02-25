@@ -1,9 +1,12 @@
+export * from './components/accordion/accordion';
 export * from './components/button/button';
 export * from './components/progress/progress';
 export * from './components/button-group/button-group';
 export * from './components/card';
+export * from './components/pagination/pagination';
 export * from './components/collapse/collapse';
 export * from './components/drawer';
+export * from './components/spinner/spinner';
 export * from './components/menu/menu';
 export * from './components/popover';
 export * from './components/rating/rating';
@@ -13,3 +16,5 @@ export * from './components/toggle/toggle';
 export * from './components/tooltip/tooltip';
 export * as Checkbox from './components/checkbox/checkbox';
 export * as Select from './components/select/select';
+export * from './components/slider';
+export * from './components/radio/radio';

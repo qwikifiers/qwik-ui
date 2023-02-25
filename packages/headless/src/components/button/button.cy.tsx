@@ -5,8 +5,8 @@ describe('button', () => {
   it('should be clickable', () => {
     // cy.pause();
 
-    mount(<div>Hey</div>);
+    mount(<Button>hellobtn</Button>);
 
-    cy.contains('hey').should('exist');
+    cy.contains('hellobtn').should('exist');
   });
 });
