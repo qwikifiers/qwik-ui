@@ -213,7 +213,6 @@ export const Pagination = component$(
         })}
       </>
     );
-    // return (
     //   <>
     //     <RenderItem
     //       onClick$={() => _onPaging$(page - 1)}
