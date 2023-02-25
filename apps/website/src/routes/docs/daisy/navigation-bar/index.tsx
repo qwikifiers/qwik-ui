@@ -1,14 +1,7 @@
-import { component$, $, useStylesScoped$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { NavigationBar } from '@qwik-ui/theme-daisy';
 
 export default component$(() => {
-  useStylesScoped$(`
-    .panel {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }`);
-
   return (
     <>
       <h2>This is the documentation for the Navigation Bar</h2>
