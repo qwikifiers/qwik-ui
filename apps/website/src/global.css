@@ -35,3 +35,7 @@ body {
   grid-template-columns: 25% auto;
   grid-template-areas: 'sidebar  content';
 }
+
+header {
+  background-color: var(--color-bg) !important;
+}

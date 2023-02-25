@@ -4,8 +4,9 @@ import { qwikVite } from '@builder.io/qwik/optimizer';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import { join } from 'path';
+import { dirname, join } from 'path';
 import { qwikNxVite } from 'qwik-nx/plugins';
+import { fileURLToPath } from 'url';
 
 export default defineConfig({
   plugins: [
@@ -13,11 +14,20 @@ export default defineConfig({
     qwikVite(),
     tsconfigPaths({ root: '../../' }),
     dts({
-      tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
+      tsConfigFilePath: join(
+        dirname(fileURLToPath(import.meta.url)),
+        'tsconfig.lib.json'
+      ),
       // Faster builds by skipping tests. Set this to false to enable type checking.
       skipDiagnostics: true,
     }),
   ],
+  server: {
+    fs: {
+      // Allow serving files from the project root
+      allow: ['../../'],
+    },
+  },
   mode: 'lib',
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode

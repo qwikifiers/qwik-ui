@@ -12,3 +12,6 @@ export * from './components/tabs';
 export * from './components/toast/toast';
 export * from './components/toggle/toggle';
 export * from './components/tooltip/tooltip';
+export * from './components/pagination/pagination';
+export * from './components/ratio/radio';
+export * from './components/slider/slider';
