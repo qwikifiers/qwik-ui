@@ -14,3 +14,4 @@ export * from './components/tooltip/tooltip';
 export * from './components/pagination/pagination';
 export * from './components/ratio/radio';
 export * from './components/slider/slider';
+export * from './components/navigation-bar/navigation-bar';

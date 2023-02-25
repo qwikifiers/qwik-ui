@@ -25,6 +25,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       label: 'Collapse',
       path: `/docs/${appState.theme.toLowerCase()}/collapse`,
     },
+    {
+      label: 'Navigation Bar',
+      path: `/docs/${appState.theme.toLowerCase()}/navigation-bar`,
+    },
     { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
     { label: 'Rating', path: `/docs/${appState.theme.toLowerCase()}/rating` },
     { label: 'Radio', path: `/docs/${appState.theme.toLowerCase()}/radio` },
