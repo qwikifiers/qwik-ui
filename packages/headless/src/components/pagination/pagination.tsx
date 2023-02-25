@@ -213,45 +213,5 @@ export const Pagination = component$(
         })}
       </>
     );
-    //   <>
-    //     <RenderItem
-    //       onClick$={() => _onPaging$(page - 1)}
-    //       disabled={!pagi.prev}
-    //       aria-label="Previous page"
-    //       value={'prev'}
-    //     />
-    //     {typeof pagi.startBound === 'number' ? (
-    //       <RenderItem
-    //         onClick$={() => _onPaging$(pagi.startBound as number)}
-    //         aria-label="Page 1"
-    //         value={pagi.startBound}
-    //       />
-    //     ) : null}
-    //     {pagi.startSpacer && <RenderDivider />}
-    //     {pagi.items.map((item) => (
-    //       <RenderItem
-    //         key={item}
-    //         onClick$={() => _onPaging$(item)}
-    //         aria-label={`Page ${item}`}
-    //         aria-current={item === page}
-    //         value={item}
-    //       />
-    //     ))}
-    //     {pagi.endSpacer && <RenderDivider />}
-    //     {typeof pagi.endBound === 'number' ? (
-    //       <RenderItem
-    //         aria-label={`Page ${pagi.endBound}`}
-    //         onClick$={() => _onPaging$(pagi.endBound as number)}
-    //         value={pagi.endBound}
-    //       />
-    //     ) : null}
-    //     <RenderItem
-    //       aria-label={`Next page`}
-    //       onClick$={() => _onPaging$(page + 1)}
-    //       disabled={!pagi.next}
-    //       value={'next'}
-    //     />
-    //   </>
-    // );
   }
 );
