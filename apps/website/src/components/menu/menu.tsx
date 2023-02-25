@@ -15,6 +15,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       label: 'Accordion',
       path: `/docs/${appState.theme.toLowerCase()}/accordion`,
     },
+    {
+      label: 'Breadcrumb',
+      path: `/docs/${appState.theme.toLowerCase()}/breadcrumb`,
+    },
     { label: 'Button', path: `/docs/${appState.theme.toLowerCase()}/button` },
     {
       label: 'ButtonGroup',
