@@ -11,5 +11,5 @@ export * from './components/tabs/tabs';
 export * from './components/toast/toast';
 export * from './components/toggle/toggle';
 export * from './components/tooltip/tooltip';
-export * from './components/checkbox/checkbox';
+export * as Checkbox from './components/checkbox/checkbox';
 export * as Select from './components/select/select';

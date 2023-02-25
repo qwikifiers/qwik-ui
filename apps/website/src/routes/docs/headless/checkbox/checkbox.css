@@ -1,17 +1,12 @@
-input[type='checkbox'] {
-  margin-right: 0.3rem;
-  line-height: 1.1;
-  font-size: 2rem;
-}
-.qui-checkbox-sm input[type='checkbox'] {
+input[type='checkbox'].qui-checkbox-sm {
   width: 10px;
   height: 10px;
 }
-.qui-checkbox-md input[type='checkbox'] {
+input[type='checkbox'].qui-checkbox-md {
   width: 15px;
   height: 15px;
 }
-.qui-checkbox-lg input[type='checkbox'] {
+input[type='checkbox'].qui-checkbox-lg {
   width: 20px;
   height: 20px;
 }
