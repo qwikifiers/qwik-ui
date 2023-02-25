@@ -1,13 +1,15 @@
-import { component$, useSignal, useStore } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import { Pagination } from '@qwik-ui/theme-daisy';
+import { Toggle } from '@qwik-ui/theme-daisy';
 
 export default component$(() => {
-  const store = useStore({ page: 9 });
-  const showFirstButton = useSignal(false);
-  const showLastButton = useSignal(false);
-  const hideNextButton = useSignal(false);
-  const hidePrevButton = useSignal(false);
-  const pages = useSignal(10);
+  const page = useSignal(50);
+  const pages = useSignal(100);
+
+  const showFirstButton = useSignal(true);
+  const showLastButton = useSignal(true);
+  const hideNextButton = useSignal(true);
+  const hidePrevButton = useSignal(true);
   const siblingCount = useSignal(1);
   const boundaryCount = useSignal(1);
 
@@ -21,49 +23,37 @@ export default component$(() => {
           width: '250px',
         }}
       >
-        <label class="flex items-center justify-between gap-10">
-          showFirstButton
-          <input
-            type="checkbox"
-            checked={showFirstButton.value}
-            onChange$={(e) => {
-              showFirstButton.value = e.target.checked;
-            }}
-          />
-        </label>
+        <Toggle
+          pressed={showFirstButton.value}
+          onClick$={() => {
+            showFirstButton.value = !showFirstButton.value;
+          }}
+          label="showFirstButton"
+        />
 
-        <label class="flex items-center justify-between gap-10">
-          showLastButton
-          <input
-            type="checkbox"
-            checked={showLastButton.value}
-            onChange$={(e) => {
-              showLastButton.value = e.target.checked;
-            }}
-          />
-        </label>
+        <Toggle
+          pressed={showLastButton.value}
+          onClick$={() => {
+            showLastButton.value = !showLastButton.value;
+          }}
+          label="showLastButton"
+        />
 
-        <label class="flex items-center justify-between gap-10">
-          hideNextButton
-          <input
-            type="checkbox"
-            checked={hideNextButton.value}
-            onChange$={(e) => {
-              hideNextButton.value = e.target.checked;
-            }}
-          />
-        </label>
+        <Toggle
+          pressed={hideNextButton.value}
+          onClick$={() => {
+            hideNextButton.value = !hideNextButton.value;
+          }}
+          label="hideNextButton"
+        />
 
-        <label class="flex items-center justify-between gap-10">
-          hidePrevButton
-          <input
-            type="checkbox"
-            checked={hidePrevButton.value}
-            onChange$={(e) => {
-              hidePrevButton.value = e.target.checked;
-            }}
-          />
-        </label>
+        <Toggle
+          pressed={hidePrevButton.value}
+          onClick$={() => {
+            hidePrevButton.value = !hidePrevButton.value;
+          }}
+          label="hidePrevButton"
+        />
 
         <label class="flex items-center justify-between gap-10">
           pages
@@ -117,9 +107,9 @@ export default component$(() => {
       <div class="flex flex-col gap-8">
         <Pagination
           pages={pages.value}
-          page={store.page}
+          page={page.value}
           onPaging$={(newValue: number) => {
-            store.page = newValue;
+            page.value = newValue;
           }}
           showFirstButton={showFirstButton.value}
           showLastButton={showLastButton.value}
