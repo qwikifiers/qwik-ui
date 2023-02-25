@@ -91,7 +91,7 @@ export default component$(() => {
           </ul>
         </NavigationBar>
         <h2>Custom css</h2>
-        <NavigationBar class=" bg-red-700 rounded-lg">
+        <NavigationBar class=" bg-primary rounded-lg">
           <a q:slot="navbar-left" class="btn btn-ghost normal-case text-xl">
             daisyUI
           </a>
