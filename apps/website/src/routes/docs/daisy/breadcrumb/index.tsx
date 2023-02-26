@@ -33,34 +33,33 @@ export default component$(() => {
 
       <BreadcrumbWrapper title="Breadcrumb Example">
         <Breadcrumb>
-          {breadcrumbPath.map((itemBreadcrumb) => (
-            <BreadcrumbItem>{itemBreadcrumb.name}</BreadcrumbItem>
+          {breadcrumbPath.map((itemBreadcrumb, index) => (
+            <BreadcrumbItem key={index}>{itemBreadcrumb.name}</BreadcrumbItem>
           ))}
         </Breadcrumb>
       </BreadcrumbWrapper>
 
       <BreadcrumbWrapper title="Breadcrumb with Icon Example">
         <Breadcrumb>
-          {breadcrumbPath.map((itemBreadcrumb) => {
-            return (
-              <BreadcrumbItem>
-                <a
-                  href={`${itemBreadcrumb.path}`}
-                  class="inline-flex items-center hover:underline"
-                >
-                  <PathIcon />
-                  <span>{itemBreadcrumb.name}</span>
-                </a>
-              </BreadcrumbItem>
-            );
-          })}
+          {breadcrumbPath.map((itemBreadcrumb, index) => (
+            <BreadcrumbItem key={index}>
+              <a
+                href={`${itemBreadcrumb.path}`}
+                class="inline-flex items-center hover:underline"
+              >
+                <PathIcon />
+                <span>{itemBreadcrumb.name}</span>
+              </a>
+            </BreadcrumbItem>
+          ))}
         </Breadcrumb>
       </BreadcrumbWrapper>
 
       <BreadcrumbWrapper title="Breadcrumb with Active Example">
         <Breadcrumb>
-          {breadcrumbPath.map((itemBreadcrumb) => (
+          {breadcrumbPath.map((itemBreadcrumb, index) => (
             <BreadcrumbItem
+              key={index}
               class={itemBreadcrumb.path === url.pathname ? 'text-primary' : ''}
             >
               {itemBreadcrumb.name}
@@ -71,21 +70,19 @@ export default component$(() => {
 
       <BreadcrumbWrapper class="mt-4">
         <Breadcrumb>
-          {breadcrumbPath.map((itemBreadcrumb) => {
-            return (
-              <BreadcrumbItem>
-                <a
-                  href={`${itemBreadcrumb.path}`}
-                  class={`inline-flex items-center hover:underline ${
-                    itemBreadcrumb.path === url.pathname ? 'text-primary' : ''
-                  }`}
-                >
-                  <PathIcon />
-                  <span>{itemBreadcrumb.name}</span>
-                </a>
-              </BreadcrumbItem>
-            );
-          })}
+          {breadcrumbPath.map((itemBreadcrumb, index) => (
+            <BreadcrumbItem key={index}>
+              <a
+                href={`${itemBreadcrumb.path}`}
+                class={`inline-flex items-center hover:underline ${
+                  itemBreadcrumb.path === url.pathname ? 'text-primary' : ''
+                }`}
+              >
+                <PathIcon />
+                <span>{itemBreadcrumb.name}</span>
+              </a>
+            </BreadcrumbItem>
+          ))}
         </Breadcrumb>
       </BreadcrumbWrapper>
     </div>

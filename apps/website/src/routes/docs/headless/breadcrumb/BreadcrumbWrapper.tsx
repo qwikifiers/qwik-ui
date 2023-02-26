@@ -1,10 +1,17 @@
-import { component$, Slot } from '@builder.io/qwik';
+import { component$, HTMLAttributes, Slot, useStyles$ } from '@builder.io/qwik';
+import style from './BreadcrumbWrapper.css?inline';
 
-export default component$((props: { title?: string; class?: string }) => {
+interface BreadcrumbWrapperProps extends HTMLAttributes<HTMLElement> {
+  title?: string;
+}
+
+export default component$(({ title, ...rest }: BreadcrumbWrapperProps) => {
+  useStyles$(style);
+
   return (
-    <div class={props.class || ''}>
-      {props.title && <h1 class="mt-8 mb-4">{props.title}</h1>}
-      <div class="dark:bg-slate-900 bg-slate-200 rounded p-3">
+    <div {...rest}>
+      {title && <h1 class="wrapper__title">{title}</h1>}
+      <div class="wrapper__content">
         <Slot />
       </div>
     </div>

@@ -1,13 +1,12 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
 
 export default component$(() => {
+  useStylesScoped$(`
+    svg { width: 1rem;height:1rem;stroke:currentColor;margin-right:0.5rem; }
+  `);
+
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      class="w-4 h-4 mr-2 stroke-current"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
