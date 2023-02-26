@@ -1,7 +1,10 @@
 import { component$, Slot } from '@builder.io/qwik';
-import { Alert as HeadlessAlert, HeadlessAlertProps } from '@qwik-ui/headless';
+import {
+  Alert as HeadlessAlert,
+  AlertProps as HeadlessAlertProps,
+} from '@qwik-ui/headless';
 import { clsq } from '@qwik-ui/shared';
-import { Button, ButtonProps } from '@qwik-ui/theme-daisy';
+import { Button, ButtonProps } from '../button/button';
 import { daisyConfig } from './daisy.config';
 
 export interface DaisyAlertProps extends HeadlessAlertProps {
