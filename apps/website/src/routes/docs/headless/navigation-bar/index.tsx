@@ -1,13 +1,9 @@
 import { component$, $, useStylesScoped$ } from '@builder.io/qwik';
 import { NavigationBar } from '@qwik-ui/headless';
+import styles from './navigation-bar.css?inline';
 
 export default component$(() => {
-  useStylesScoped$(`
-    .panel {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }`);
+  useStylesScoped$(styles);
 
   return (
     <>
@@ -16,11 +12,11 @@ export default component$(() => {
       <div class="flex flex-col gap-8 mt-4">
         <h2>Basic Example</h2>
 
-        <NavigationBar class="navbar bg-base-100 rounded-lg">
-          <div class="navbar-start">
+        <NavigationBar class="items-center navigation-bar flex w-full bg-base-100 rounded-lg">
+          <div class="navigation-bar__start flex">
             <a class="btn btn-ghost normal-case text-xl ">daisyUI</a>
           </div>
-          <div class="navbar-end">
+          <div class="navigation-bar__end flex">
             <ul class="menu  menu-horizontal px-1 ">
               <li>
                 <a>Item 1</a>
