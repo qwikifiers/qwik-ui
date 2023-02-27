@@ -18,4 +18,5 @@ export * from './components/tooltip/tooltip';
 export * as Select from './components/select/select';
 export * from './components/slider';
 export * from './components/radio/radio';
+export * from './components/breadcrumb';
 export * from './components/navigation-bar/navigation-bar';
