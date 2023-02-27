@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "es2020",
+    "declaration": true,
+    "baseUrl": "src",
+    "rootDir": "src",
+    "outDir": "dist",
+    "types": ["node", "vite/client"]
+  },
+  "include": ["src/**/*"]
+}

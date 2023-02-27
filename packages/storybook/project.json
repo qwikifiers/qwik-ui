@@ -1,17 +1,15 @@
 {
-  "name": "headless",
+  "name": "storybook",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/headless/src",
+  "sourceRoot": "packages/storybook/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/vite:build",
-      "outputs": ["{options.outputPath}"],
+      "executor": "nx:run-script",
+      "outputs": ["{workspaceRoot}/dist"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/headless",
-        "configFile": "packages/headless/vite.config.ts",
-        "mode": "lib"
+        "script": "build"
       },
       "configurations": {
         "development": {},
@@ -29,7 +27,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/headless/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["packages/storybook/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "version-dry": {
@@ -65,46 +63,6 @@
       "options": {
         "tag": "${tag}",
         "notes": "${notes}"
-      }
-    },
-    "storybook": {
-      "executor": "@nrwl/storybook:storybook",
-      "options": {
-        "uiFramework": "@storybook/html",
-        "port": 6006,
-        "configDir": "packages/headless/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "run-storybook": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "storybook",
-        "path": "packages/headless"
-      }
-    },
-    "build-storybook": {
-      "executor": "nx:run-script",
-      "outputs": ["{workspaceRoot}/storybook-static"],
-      "options": {
-        "script": "build-storybook",
-        "path": "packages/headless"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "component-test": {
-      "executor": "@nrwl/cypress:cypress",
-      "options": {
-        "cypressConfig": "packages/headless/cypress.config.ts",
-        "testingType": "component"
       }
     }
   },

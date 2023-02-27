@@ -1,0 +1,50 @@
+{
+  "private": false,
+  "name": "@qwik-ui/storybook",
+  "version": "0.0.0",
+  "description": "Qwik UI Storybooks Template",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./preset": {
+      "require": "./dist/preset.js",
+      "import": "./dist/preset.js",
+      "types": "./dist/preset.d.ts"
+    },
+    "./dist/preview.js": {
+      "require": "./dist/preview.js",
+      "import": "./dist/preview.js",
+      "types": "./dist/preview.d.ts"
+    },
+    "./preview.js": {
+      "require": "./dist/preview.js",
+      "import": "./dist/preview.js",
+      "types": "./dist/preview.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "*.js"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "fmt": "prettier --write .",
+    "fmt.check": "prettier --check .",
+    "release": "np"
+  },
+  "devDependencies": {
+    "vite": "4.1.4"
+  },
+  "dependencies": {}
+}

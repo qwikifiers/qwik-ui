@@ -1,36 +1,9 @@
-import { qwikVite } from '@builder.io/qwik/optimizer';
-import { rootMain } from '../../../.storybook/main';
+import { defineConfig } from '@qwik-ui/storybook';
+import { qwikNxVite } from 'qwik-nx/plugins';
 
-import type { StorybookViteConfig } from '@storybook/builder-vite';
-
-import { mergeConfig } from 'vite';
-import viteTsConfigPaths from 'vite-tsconfig-paths';
-
-const config: StorybookViteConfig = {
-  ...rootMain,
-  core: {
-    ...rootMain.core,
-    builder: '@storybook/builder-vite',
-  },
-  stories: [
-    ...rootMain.stories,
-    '../src/lib/**/*.stories.mdx',
-    '../src/lib/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
-  addons: ['@storybook/addon-essentials', ...(rootMain.addons || [])],
-  framework: {
-    name: 'storybook-framework-qwik',
-  },
-  viteFinal: async (config: any) => {
-    return mergeConfig(config, {
-      plugins: [
-        viteTsConfigPaths({
-          root: '../../../',
-        }),
-        qwikVite(),
-      ],
-    });
-  },
-};
-
-export default config;
+export default defineConfig({
+  watchMode: 'polling',
+  stories: [`../src/**/*.stories.@(js|jsx|ts|tsx)`, `../src/**/*.mdx`],
+  plugins: [qwikNxVite()],
+  framework: '@storybook/html-vite',
+});
