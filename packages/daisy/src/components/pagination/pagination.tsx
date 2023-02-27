@@ -2,10 +2,11 @@ import { component$, PropFunction } from '@builder.io/qwik';
 import {
   IRenderPaginationItemProps,
   Pagination as HeadlessPagination,
+  IPaginationProps,
 } from '@qwik-ui/headless';
 import { Button } from '../button/button';
 
-export interface PaginationProps {
+export interface PaginationProps extends Omit<IPaginationProps, 'RenderItem'> {
   pages: number;
   page: number;
   onPaging$: PropFunction<(index: number) => void>;
@@ -46,18 +47,21 @@ export const RenderPaginationItem = component$(
   }
 );
 
-export const Pagination = component$((props: PaginationProps) => {
-  return (
-    <div class="flex gap-2 items-center">
-      <HeadlessPagination
-        page={props.page}
-        pages={props.pages}
-        onPaging$={props.onPaging$}
-        RenderItem={RenderPaginationItem}
-        RenderDivider={component$(() => {
-          return <span class="mb-2">...</span>;
-        })}
-      />
-    </div>
-  );
-});
+export const Pagination = component$(
+  ({ page, pages, onPaging$, ...rest }: PaginationProps) => {
+    return (
+      <div class="flex gap-2 items-center">
+        <HeadlessPagination
+          {...rest}
+          page={page}
+          pages={pages}
+          onPaging$={onPaging$}
+          RenderItem={RenderPaginationItem}
+          RenderDivider={component$(() => {
+            return <span class="mb-2">...</span>;
+          })}
+        />
+      </div>
+    );
+  }
+);

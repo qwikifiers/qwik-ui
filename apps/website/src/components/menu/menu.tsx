@@ -16,6 +16,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       path: `/docs/${appState.theme.toLowerCase()}/accordion`,
     },
     {
+      label: 'Alert',
+      path: `/docs/${appState.theme.toLowerCase()}/alert`,
+    },
+    {
       label: 'Breadcrumb',
       path: `/docs/${appState.theme.toLowerCase()}/breadcrumb`,
     },
@@ -29,11 +33,19 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       label: 'Collapse',
       path: `/docs/${appState.theme.toLowerCase()}/collapse`,
     },
+    {
+      label: 'Navigation Bar',
+      path: `/docs/${appState.theme.toLowerCase()}/navigation-bar`,
+    },
     { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
     { label: 'Rating', path: `/docs/${appState.theme.toLowerCase()}/rating` },
     { label: 'Radio', path: `/docs/${appState.theme.toLowerCase()}/radio` },
     { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
     { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
+    {
+      label: 'Spinner',
+      path: `/docs/${appState.theme.toLowerCase()}/spinner`,
+    },
     { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
     { label: 'Toast', path: `/docs/${appState.theme.toLowerCase()}/toast` },
     { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/toggle` },
