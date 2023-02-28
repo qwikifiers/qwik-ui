@@ -1,13 +1,4 @@
-import {
-  component$,
-  HTMLAttributes,
-  Slot,
-  useStyles$,
-  DOMAttributes,
-  PropFunction,
-  QwikMouseEvent,
-  QwikChangeEvent,
-} from '@builder.io/qwik';
+import { component$, Slot, QwikChangeEvent } from '@builder.io/qwik';
 interface StyleProps {
   class?: string;
   style?: string;
@@ -24,9 +15,8 @@ const Label = component$(({ ...props }: LabelProps) => {
   );
 });
 
-interface CheckboxProps extends StyleProps {
+export interface CheckboxProps extends StyleProps {
   checked?: boolean;
-  defaultChecked?: boolean;
   disabled?: boolean;
   name?: string;
   ariaLabel?: string;
@@ -48,7 +38,6 @@ const Root = component$(
     id,
     value,
     tabIndex,
-    defaultChecked,
     onChange,
     ...props
   }: CheckboxProps) => {
