@@ -1,4 +1,5 @@
 export * from './components/accordion/accordion';
+export * from './components/alert/alert';
 export * from './components/button/button';
 export * from './components/progress/progress';
 export * from './components/button-group/button-group';
@@ -18,3 +19,5 @@ export * as Checkbox from './components/checkbox/checkbox';
 export * as Select from './components/select/select';
 export * from './components/slider';
 export * from './components/radio/radio';
+export * from './components/breadcrumb';
+export * from './components/navigation-bar/navigation-bar';
