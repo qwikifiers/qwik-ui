@@ -33,15 +33,46 @@ buttonGroup folder
 
 ### Component conventions
 
-- For each component, add a props interface and declare all the props API there. For example:
+- For each component, export a props type and declare all the props API there.
+
+For **headless** components:
 
 ```ts
-interface TooltipProps {
-  class?: string;
+export type TooltipProps = {
   tip: string;
   type?: ColorTypes;
   position?: Positions;
-}
+};
+```
+
+Note: if you want to include the HTML attributes, you can use the `QwikIntrinsicElements` type from `@builder.io/qwik` package and extend it with the [intersection type](https://www.typescriptlang.org/docs/handbook/2/objects.html#intersection-types).
+
+Example:
+
+```ts
+import { QwikIntrinsicElements } from '@builder.io/qwik';
+
+export type TooltipProps = QwikIntrinsicElements['div'] & {
+  tip: string;
+  type?: ColorTypes;
+  position?: Positions;
+};
+```
+
+For **Daisy, Material and other components variations**, you can define the new props in a new type, named with the component name and the variation as prefix. For example:
+
+```ts
+type DaisyTooltipProps = {
+  size?: 'sm' | 'md';
+};
+```
+
+The final exported type will extend from the headless props type. For example:
+
+```ts
+import { TooltipProps as HeadlessTooltipProps } from '@qwik-ui/headless';
+
+export type TooltipProps = HeadlessTooltipProps & DaisyTooltipProps;
 ```
 
 - Use object destructuring in the component$ declaration on all the props you are going to use. For example:
@@ -71,13 +102,11 @@ return (
 
 ```tsx
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
-import { Button as HeadlessButton } from '@qwik-ui/headless';
+import { Button as HeadlessButton, ButtonProps as ButtonHeadlessProps } from '@qwik-ui/headless';
 import { clsq } from '@qwik-ui/shared';
 
-// This type holds all the HTML attributes (disabled, hidden, ... )
-export type HTMLButtonProps = QwikIntrinsicElements['button'];
-export type DaisyButtonProps = { size?: 'sm' | 'md', ... };
-export type ButtonProps = HTMLButtonProps & DaisyButtonProps;
+type DaisyButtonProps = { size?: 'sm' | 'md', ... };
+export type ButtonProps = ButtonHeadlessProps & DaisyButtonProps;
 
 export const Button = component$(
   ({ size = 'md', class: classNames, ...rest }: ButtonProps) => {
