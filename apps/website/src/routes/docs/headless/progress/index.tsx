@@ -1,5 +1,5 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
-import { Progress } from '@qwik-ui/headless';
+import { Progress } from '@qwik-ui/primitives';
 
 export default component$(() => {
   useStylesScoped$(`

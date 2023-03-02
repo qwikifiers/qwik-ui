@@ -1,5 +1,5 @@
 import { $, component$, useStyles$ } from '@builder.io/qwik';
-import { Button } from '@qwik-ui/headless';
+import { Button } from '@qwik-ui/primitives';
 import styles from './index.css?inline';
 
 export default component$(() => {

@@ -4,7 +4,7 @@ import {
   QwikIntrinsicElements,
   QwikChangeEvent,
 } from '@builder.io/qwik';
-import { Radio as HeadlessRadio } from '@qwik-ui/headless';
+import { Radio as HeadlessRadio } from '@qwik-ui/primitives';
 import { clsq } from '@qwik-ui/shared';
 import { daisyConfig } from './daisy.config';
 
