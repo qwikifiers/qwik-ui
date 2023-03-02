@@ -16,7 +16,7 @@ import {
 } from '@builder.io/qwik';
 import { JSX } from '@builder.io/qwik/jsx-runtime';
 import { clsq } from '@qwik-ui/shared';
-import { Button } from '../../../../primitives/src/lib/button/button';
+import { Button } from '@qwik-ui/primitives';
 
 interface MenuProps {
   class?: string;
