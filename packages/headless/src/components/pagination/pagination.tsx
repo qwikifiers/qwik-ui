@@ -1,5 +1,5 @@
 import { $, component$, PropFunction, Component } from '@builder.io/qwik';
-import { Button as HeadlessButton } from '../button/button';
+import { Button as HeadlessButton } from '../../../../primitives/src/lib/button/button';
 
 export interface IPaginationProps extends IGetPaginationItemsOptions {
   pages: number;

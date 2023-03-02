@@ -1,5 +1,5 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
-import { Button as HeadlessButton } from '@qwik-ui/headless';
+import { Button as HeadlessButton } from '@qwik-ui/primitives';
 import { clsq } from '@qwik-ui/shared';
 
 export type HTMLButtonProps = QwikIntrinsicElements['button'];
