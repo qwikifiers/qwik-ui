@@ -1,7 +1,7 @@
-import { component$, QwikIntrinsicElements } from '@builder.io/qwik';
+import { QwikIntrinsicElements } from '@builder.io/qwik';
 
 export type ProgressProps = QwikIntrinsicElements['progress'];
 
-export const Progress = component$((props: ProgressProps) => {
+export const Progress = (props: ProgressProps) => {
   return <progress {...props} />;
-});
+};

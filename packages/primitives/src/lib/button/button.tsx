@@ -1,13 +1,9 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { QwikIntrinsicElements, JSXChildren } from '@builder.io/qwik';
 
-export type ButtonProps = QwikIntrinsicElements['button'];
+export type ButtonProps = QwikIntrinsicElements['button'] & {
+  children: JSXChildren;
+};
 
-export const Button = component$(
-  (props: ButtonProps) => {
-    return (
-      <button {...props}>
-        <Slot />
-      </button>
-    );
-  }
-);
+export const Button = ({ children, ...props }: ButtonProps) => {
+  return <button {...props}>{children}</button>;
+};
