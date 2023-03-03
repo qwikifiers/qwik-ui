@@ -1,8 +1,13 @@
 # Qwik-UI Coding Standards
 
+## Primitives package
+
+In the primitive package you put only primitive elements. What is a primitive element? A Qwik element wrapper that wraps a regular Html element and doesn't add any behavior to it in particular. All these elements should be implemented as [lite components](https://qwik.builder.io/docs/components/lite-components), if that is possible (for example, because Checkbox uses an inner state it isn't implemented as a lite component).
+
 ## Headless package CSS style
 
-The goal of this pack is to have a minimal style to be used at will. For the documentation of the headless components we will provide minimal examples style to show them to the end users.
+The goal of this package is to have a minimal style to be used at will. For the documentation of the headless components we will provide minimal examples style to show them to the end users.
+_Pay attention that classes from frameworks such as Tailwind, Daisy, Bootstrap etc. must not leak into the headless package_.
 
 ## Coding practices
 
@@ -83,7 +88,8 @@ export const Tooltip = component$(({ tip, position = 'top', type, ...props}: Too
 });
 ```
 
-- Try to avoid using `useClientEffect$` function. See [Qwik best practices](https://qwik.builder.io/docs/cheat/best-practices/) for the why.
+- Use class and not className when in the JSX and in the component props (if you expect to have a class props part if the component props).
+- Try to avoid using `useBrowserVisibleTask$` function. See [Qwik best practices](https://qwik.builder.io/docs/cheat/best-practices/) for the why.
 - Try to use the Slot element whenever the component can accept children
 - Use array spread on props to allow the component user to send props that override ours. For example:
 
