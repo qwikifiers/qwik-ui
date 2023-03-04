@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Toast } from '@qwik-ui/headless';
+import { Toast } from '@qwik-ui/primitives';
 
 export default component$(() => {
   return (

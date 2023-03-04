@@ -20,6 +20,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       path: `/docs/${appState.theme.toLowerCase()}/alert`,
     },
     {
+      label: 'Badge',
+      path: `/docs/${appState.theme.toLowerCase()}/badge`,
+    },
+    {
       label: 'Breadcrumb',
       path: `/docs/${appState.theme.toLowerCase()}/breadcrumb`,
     },

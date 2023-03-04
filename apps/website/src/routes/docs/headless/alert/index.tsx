@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Alert as HeadlessAlert } from '@qwik-ui/headless';
+import { Alert as HeadlessAlert } from '@qwik-ui/primitives';
 
 export default component$(() => {
   return (

@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Radio } from '@qwik-ui/headless';
+import { Radio } from '@qwik-ui/primitives';
 
 export default component$(() => {
   let radioValue = useSignal('first');

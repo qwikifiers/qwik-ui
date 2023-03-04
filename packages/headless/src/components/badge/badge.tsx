@@ -1,8 +1,8 @@
 import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
 
-export type AlertProps = HTMLAttributes<HTMLDivElement>;
+export type BadgeProps = HTMLAttributes<HTMLElement>;
 
-export const Alert = component$((props: AlertProps) => {
+export const Badge = component$((props: BadgeProps) => {
   return (
     <div {...props}>
       <Slot />

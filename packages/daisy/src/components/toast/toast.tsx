@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Toast as HeadlessToast } from '@qwik-ui/headless';
+import { Toast as HeadlessToast } from '@qwik-ui/primitives';
 import { clsq } from '@qwik-ui/shared';
 import { daisyConfig } from './daisy.config';
 

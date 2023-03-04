@@ -2,7 +2,7 @@ import { component$, Slot } from '@builder.io/qwik';
 import {
   Alert as HeadlessAlert,
   AlertProps as HeadlessAlertProps,
-} from '@qwik-ui/headless';
+} from '@qwik-ui/primitives';
 import { clsq } from '@qwik-ui/shared';
 import { Button, ButtonProps } from '../button/button';
 import { daisyConfig } from './daisy.config';

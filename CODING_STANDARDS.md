@@ -1,8 +1,13 @@
 # Qwik-UI Coding Standards
 
+## Primitives package
+
+In the primitive package you put only primitive elements. What is a primitive element? A Qwik element wrapper that wraps a regular Html element and doesn't add any behavior to it in particular. All these elements should be implemented as [lite components](https://qwik.builder.io/docs/components/lite-components), if that is possible (for example, because Checkbox uses an inner state it isn't implemented as a lite component).
+
 ## Headless package CSS style
 
-The goal of this pack is to have a minimal style to be used at will. For the documentation of the headless components we will provide minimal examples style to show them to the end users.
+The goal of this package is to have a minimal style to be used at will. For the documentation of the headless components we will provide minimal examples style to show them to the end users.
+_Pay attention that classes from frameworks such as Tailwind, Daisy, Bootstrap etc. must not leak into the headless package_.
 
 ## Coding practices
 
@@ -33,15 +38,46 @@ buttonGroup folder
 
 ### Component conventions
 
-- For each component, add a props interface and declare all the props API there. For example:
+- For each component, export a props type and declare all the props API there.
+
+For **headless** components:
 
 ```ts
-interface TooltipProps {
-  class?: string;
+export type TooltipProps = {
   tip: string;
   type?: ColorTypes;
   position?: Positions;
-}
+};
+```
+
+Note: if you want to include the HTML attributes, you can use the `QwikIntrinsicElements` type from `@builder.io/qwik` package and extend it with the [intersection type](https://www.typescriptlang.org/docs/handbook/2/objects.html#intersection-types).
+
+Example:
+
+```ts
+import { QwikIntrinsicElements } from '@builder.io/qwik';
+
+export type TooltipProps = QwikIntrinsicElements['div'] & {
+  tip: string;
+  type?: ColorTypes;
+  position?: Positions;
+};
+```
+
+For **Daisy, Material and other components variations**, you can define the new props in a new type, named with the component name and the variation as prefix. For example:
+
+```ts
+type DaisyTooltipProps = {
+  size?: 'sm' | 'md';
+};
+```
+
+The final exported type will extend from the headless props type. For example:
+
+```ts
+import { TooltipProps as HeadlessTooltipProps } from '@qwik-ui/headless';
+
+export type TooltipProps = HeadlessTooltipProps & DaisyTooltipProps;
 ```
 
 - Use object destructuring in the component$ declaration on all the props you are going to use. For example:
@@ -52,7 +88,8 @@ export const Tooltip = component$(({ tip, position = 'top', type, ...props}: Too
 });
 ```
 
-- Try to avoid using `useClientEffect$` function. See [Qwik best practices](https://qwik.builder.io/docs/cheat/best-practices/) for the why.
+- Use class and not className when in the JSX and in the component props (if you expect to have a class props part if the component props).
+- Try to avoid using `useBrowserVisibleTask$` function. See [Qwik best practices](https://qwik.builder.io/docs/cheat/best-practices/) for the why.
 - Try to use the Slot element whenever the component can accept children
 - Use array spread on props to allow the component user to send props that override ours. For example:
 
@@ -71,13 +108,11 @@ return (
 
 ```tsx
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
-import { Button as HeadlessButton } from '@qwik-ui/headless';
+import { Button as HeadlessButton, ButtonProps as ButtonHeadlessProps } from '@qwik-ui/headless';
 import { clsq } from '@qwik-ui/shared';
 
-// This type holds all the HTML attributes (disabled, hidden, ... )
-export type HTMLButtonProps = QwikIntrinsicElements['button'];
-export type DaisyButtonProps = { size?: 'sm' | 'md', ... };
-export type ButtonProps = HTMLButtonProps & DaisyButtonProps;
+type DaisyButtonProps = { size?: 'sm' | 'md', ... };
+export type ButtonProps = ButtonHeadlessProps & DaisyButtonProps;
 
 export const Button = component$(
   ({ size = 'md', class: classNames, ...rest }: ButtonProps) => {

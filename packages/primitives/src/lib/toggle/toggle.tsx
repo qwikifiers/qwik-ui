@@ -5,7 +5,7 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 
-export interface ToggleProps {
+export type ToggleProps = {
   disabled?: boolean;
   /**
    * The controlled state of the toggle.
@@ -44,7 +44,6 @@ export const Toggle = component$((props: ToggleProps) => {
         if (!disabled) {
           pressedState.value = !pressedState.value;
           if (onClick$) {
-            // REPORT MISSING QwikMouseEvent to Qwik github
             onClick$(event);
           }
         }
