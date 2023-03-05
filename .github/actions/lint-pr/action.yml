@@ -7,6 +7,7 @@ runs:
 
   steps:
     - name: Lint PR
+      shell: bash
       run: pnpm danger ci --use-github-checks --failOnErrors
       working-directory: packages/bots
       # env:
