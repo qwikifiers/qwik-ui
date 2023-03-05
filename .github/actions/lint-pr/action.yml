@@ -1,0 +1,13 @@
+name: Lint PR
+
+description: Run linter against PR
+
+runs:
+  using: composite
+
+  steps:
+    - name: Lint PR
+      run: pnpm danger ci --use-github-checks --failOnErrors
+      working-directory: packages/bots
+      # env:
+      # DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
