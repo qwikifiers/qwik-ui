@@ -10,5 +10,5 @@ runs:
       shell: bash
       run: pnpm danger ci --use-github-checks --failOnErrors
       working-directory: packages/bots
-      # env:
-      # DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+      DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
