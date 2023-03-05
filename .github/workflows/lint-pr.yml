@@ -34,3 +34,5 @@ jobs:
 
       - name: Lint PR
         uses: ./.github/actions/lint-pr
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
