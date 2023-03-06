@@ -20,3 +20,6 @@ h1 {
 .container {
   width: 300px;
 }
+.checkbox-margin-right {
+  margin-right: 0.5rem;
+}
