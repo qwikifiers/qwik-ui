@@ -1,0 +1,38 @@
+name: Run linter against PR
+
+on:
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  issues: write
+  pull-requests: write
+  statuses: write
+
+jobs:
+  check-PR:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node_version: [16]
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+        if: github.event_name == 'pull_request'
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          node_version: ${{ matrix.node_version }}
+
+      - name: Lint PR
+        uses: ./.github/actions/lint-pr
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

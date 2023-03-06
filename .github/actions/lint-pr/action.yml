@@ -1,0 +1,19 @@
+name: Lint PR
+
+description: Run linter against PR
+
+inputs:
+  github_token:
+    description: GitHub token
+    required: true
+
+runs:
+  using: composite
+
+  steps:
+    - name: Lint PR
+      shell: bash
+      run: pnpm danger ci --use-github-checks --failOnErrors
+      working-directory: packages/bots
+      env:
+        DANGER_GITHUB_API_TOKEN: ${{ inputs.github_token }}
