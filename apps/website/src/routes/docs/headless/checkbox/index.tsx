@@ -12,17 +12,18 @@ export default component$(() => {
   useStyles$(styles);
 
   return (
-    <div class="grid gap-4">
+    <div class="grid">
       <h2>This is the documentation for the Checkbox</h2>
 
       <h1>Checkbox</h1>
+
       <Checkbox.Label htmlFor="test">
         <Checkbox.Root
           id="test"
           name="test"
           value="test"
           onChange={$(() => console.log('clicked'))}
-          class="mr-2"
+          class="checkbox-secondary"
         />
         test
       </Checkbox.Label>

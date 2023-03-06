@@ -1,4 +1,4 @@
-import { component$, HTMLAttributes } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { clsq } from '@qwik-ui/shared';
 import { Checkbox as HeadlessCheckbox } from '@qwik-ui/headless';
 
