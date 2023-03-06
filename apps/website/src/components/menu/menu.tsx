@@ -106,15 +106,17 @@ export const Menu = component$<Props>(({ onClose$ }) => {
           <p class="capitalize text-xl">components</p>
         </div>
         <ul class="py-2 px-4">
-          {menu.map((menuItem) => (
-            <li>
-              <Link href={menuItem.path}>
-                <span class="text-lg" onClick$={onChangePage}>
-                  {menuItem.label}
-                </span>
-              </Link>
-            </li>
-          ))}
+          {menu
+            .sort((a, b) => (a.label > b.label ? 1 : -1))
+            .map((menuItem) => (
+              <li>
+                <Link href={menuItem.path}>
+                  <span class="text-lg" onClick$={onChangePage}>
+                    {menuItem.label}
+                  </span>
+                </Link>
+              </li>
+            ))}
         </ul>
       </div>
     </div>
