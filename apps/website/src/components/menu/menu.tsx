@@ -60,6 +60,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       path: `/docs/${appState.theme.toLowerCase()}/pagination`,
     },
     {
+      label: 'Checkbox',
+      path: `/docs/${appState.theme.toLowerCase()}/checkbox`,
+    },
+    {
       label: 'Progress',
       path: `/docs/${appState.theme.toLowerCase()}/progress`,
     },
