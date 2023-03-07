@@ -37,10 +37,10 @@ export const head: DocumentHead = ({ url }) => {
     const ComponentTheme =
       UrlPathList[1].charAt(0).toUpperCase() + UrlPathList[1].slice(1);
     return {
-      title: `${Component} | ${ComponentTheme} | QwikUI`,
+      title: `QwikUI | ${ComponentTheme} | ${Component}`,
     };
   }
   return {
-    title: `Docs | QwikUI`,
+    title: `QwikUI | Docs`,
   };
 };
