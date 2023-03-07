@@ -110,6 +110,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/dmitry-stepanenko"><img src="https://avatars.githubusercontent.com/u/33101123?v=4?s=100" width="100px;" alt="Dmitriy Stepanenko"/><br /><sub><b>Dmitriy Stepanenko</b></sub></a><br /><a href="#maintenance-dmitry-stepanenko" title="Maintenance">🚧</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://yishay-hazan.netlify.app"><img src="https://avatars.githubusercontent.com/u/50710472?v=4?s=100" width="100px;" alt="Yishay Hazan"/><br /><sub><b>Yishay Hazan</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=yishayhaz" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/rossellamascia"><img src="https://avatars.githubusercontent.com/u/42215075?v=4?s=100" width="100px;" alt="Rossella Mascia"/><br /><sub><b>Rossella Mascia</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=rossellamascia" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://ssd7.vercel.app"><img src="https://avatars.githubusercontent.com/u/80447788?v=4?s=100" width="100px;" alt="Sai Srikar Dumpeti"/><br /><sub><b>Sai Srikar Dumpeti</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=the-r3aper7" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
