@@ -1,11 +1,11 @@
 import { danger, fail, warn } from 'danger';
 
 const warnBigPR = () => {
-  const changesPRThreshold = 300;
   const filesPRThreshold = 30;
-  const newFiles = danger.github.pr.changed_files;
+  const changesPRThreshold = 300;
+  const files = danger.github.pr.changed_files;
   const changes = danger.github.pr.additions + danger.github.pr.deletions;
-  if (changes > changesPRThreshold || newFiles > filesPRThreshold) {
+  if (changes > changesPRThreshold || files > filesPRThreshold) {
     warn(
       `:exclamation: Pull Request size seems relatively large. If Pull Request contains multiple changes, split each into separate PR for faster, easier review.`
     );
