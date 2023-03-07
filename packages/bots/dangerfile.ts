@@ -2,7 +2,7 @@ import { danger, fail, warn } from 'danger';
 
 const warnBigPR = () => {
   const changesPRThreshold = 300;
-  const filesPRThreshold = 300;
+  const filesPRThreshold = 30;
   const newFiles = danger.github.pr.changed_files;
   const changes = danger.github.pr.additions + danger.github.pr.deletions;
   if (changes > changesPRThreshold || newFiles > filesPRThreshold) {
