@@ -1,12 +1,12 @@
 import { component$, useStyles$, useStylesScoped$ } from '@builder.io/qwik';
 import {
-  Button,
   Card,
   CardBody,
   CardTitle,
   CardActions,
   CardImage,
 } from '@qwik-ui/headless';
+import { Button } from '@qwik-ui/primitives';
 import styles from './card.css?inline';
 
 export default component$(() => {

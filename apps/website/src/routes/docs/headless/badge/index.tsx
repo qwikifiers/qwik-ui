@@ -1,5 +1,6 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
-import { Badge, Button } from '@qwik-ui/headless';
+import { Badge } from '@qwik-ui/headless';
+import { Button } from '@qwik-ui/primitives';
 
 export default component$(() => {
   useStylesScoped$(`
