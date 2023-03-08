@@ -2,7 +2,6 @@ import {
   component$,
   HTMLAttributes,
   Slot,
-  useStyles$,
   useStylesScoped$,
 } from '@builder.io/qwik';
 import styles from './breadcrumb-item.css?inline';

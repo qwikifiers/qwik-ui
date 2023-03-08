@@ -3,9 +3,9 @@ import { type ActionStore, Form } from '@builder.io/qwik-city';
 import { QwikIntrinsicElements } from '@builder.io/qwik';
 
 export type ActionButtonProps = QwikIntrinsicElements['button'] & {
-  action: ActionStore<any, any>;
+  action: ActionStore<unknown, unknown>;
   children: JSXChildren;
-  params?: Record<string, any>;
+  params?: Record<string, null>;
 };
 
 export const ActionButton = ({

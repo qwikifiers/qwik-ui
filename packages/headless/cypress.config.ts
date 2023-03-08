@@ -2,11 +2,15 @@ import { defineConfig } from 'cypress';
 import { mergeConfig } from 'vite';
 import viteConfig from './vite.config';
 
-export default defineConfig({
+const cypressConfig = {
   component: {
     devServer: {
       bundler: 'vite',
       viteConfig: mergeConfig(viteConfig, { mode: 'test' }),
-    } as any,
+    },
   },
-});
+};
+
+export default defineConfig(
+  cypressConfig as Cypress.ConfigOptions<typeof cypressConfig>
+);
