@@ -43,7 +43,7 @@ runs:
     #   uses: codecov/codecov-action@v2
 
     - name: Lint PR
-      if: 'github.event.pull_request != null'
+      if: github.event_name == 'pull_request'
       shell: bash
       run: pnpm danger ci --use-github-checks --failOnErrors
       working-directory: packages/bots
