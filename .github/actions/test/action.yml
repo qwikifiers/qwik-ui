@@ -2,6 +2,11 @@ name: Test
 
 description: Lint, Test and upload to Codecov
 
+inputs:
+  github_token:
+    description: GitHub token
+    required: true
+
 runs:
   using: composite
 
@@ -36,3 +41,11 @@ runs:
 
     # - name: Codecov upload
     #   uses: codecov/codecov-action@v2
+
+    - name: Lint PR
+      if: 'github.event.pull_request != null'
+      shell: bash
+      run: pnpm danger ci --use-github-checks --failOnErrors
+      working-directory: packages/bots
+      env:
+        DANGER_GITHUB_API_TOKEN: ${{ inputs.github_token }}

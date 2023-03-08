@@ -26,3 +26,5 @@ jobs:
 
       - name: Test
         uses: ./.github/actions/test
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
