@@ -1,4 +1,10 @@
-import { component$, Slot, QwikChangeEvent } from '@builder.io/qwik';
+import {
+  component$,
+  Slot,
+  QwikChangeEvent,
+  PropFunction,
+} from '@builder.io/qwik';
+
 interface StyleProps {
   class?: string;
   style?: string;
@@ -7,7 +13,7 @@ interface LabelProps extends StyleProps {
   htmlFor?: string;
 }
 
-const Label = component$(({ ...props }: LabelProps) => {
+export const Label = component$(({ ...props }: LabelProps) => {
   return (
     <label {...props}>
       <Slot />
@@ -23,13 +29,15 @@ export interface CheckboxProps extends StyleProps {
   id?: string;
   value?: string;
   tabIndex?: number;
-  onChange?: (
-    event: QwikChangeEvent<HTMLInputElement>,
-    element: HTMLInputElement
-  ) => any;
+  onChange?: PropFunction<
+    (
+      event: QwikChangeEvent<HTMLInputElement>,
+      element: HTMLInputElement
+    ) => void
+  >;
 }
 
-const Root = component$(
+export const Root = component$(
   ({
     checked,
     disabled,
@@ -53,11 +61,13 @@ const Root = component$(
         aria-checked={checked}
         value={value}
         tabIndex={tabIndex}
-        onChange$={onChange}
+        onChange$={(event, element) => {
+          if (onChange) {
+            onChange(event, element);
+          }
+        }}
         {...props}
       />
     );
   }
 );
-
-export { Label, Root };
