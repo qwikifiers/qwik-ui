@@ -4,6 +4,7 @@ import viteConfig from './vite.config';
 
 const cypressConfig = {
   component: {
+    specPattern: '**/*.spec.{js,jsx,ts,tsx}',
     devServer: {
       bundler: 'vite',
       viteConfig: mergeConfig(viteConfig, { mode: 'test' }),
