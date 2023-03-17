@@ -145,7 +145,10 @@ importers:
       vitest: 0.28.5_ub72g3etjqpy7gcz7hs7exheia
 
   apps/website:
-    specifiers: {}
+    specifiers:
+      libphonenumber-js: 1.10.24
+    devDependencies:
+      libphonenumber-js: 1.10.24
 
   packages/daisy:
     specifiers: {}
@@ -153,8 +156,11 @@ importers:
   packages/headless:
     specifiers:
       '@floating-ui/dom': 1.0.10
+      libphonenumber-js: 1.10.24
     dependencies:
       '@floating-ui/dom': 1.0.10
+    devDependencies:
+      libphonenumber-js: 1.10.24
 
   packages/material:
     specifiers: {}
@@ -3983,7 +3989,7 @@ packages:
       '@storybook/csf-plugin': 7.0.0-beta.30
       '@storybook/csf-tools': 7.0.0-beta.30
       '@storybook/global': 5.0.0
-      '@storybook/mdx2-csf': 1.0.0-next.5
+      '@storybook/mdx2-csf': 1.0.0-next.6
       '@storybook/node-logger': 7.0.0-beta.30
       '@storybook/postinstall': 7.0.0-beta.30
       '@storybook/preview-api': 7.0.0-beta.30
@@ -4400,7 +4406,7 @@ packages:
       '@storybook/client-logger': 7.0.0-beta.30
       '@storybook/core-common': 7.0.0-beta.30
       '@storybook/csf-plugin': 7.0.0-beta.30
-      '@storybook/mdx2-csf': 1.0.0-next.5
+      '@storybook/mdx2-csf': 1.0.0-next.6
       '@storybook/node-logger': 7.0.0-beta.30
       '@storybook/preview': 7.0.0-beta.30
       '@storybook/preview-api': 7.0.0-beta.30
@@ -4984,10 +4990,10 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/mdx2-csf/1.0.0-next.5:
+  /@storybook/mdx2-csf/1.0.0-next.6:
     resolution:
       {
-        integrity: sha512-02w0sgGZaK1agT050yCVhJ+o4rLHANWvLKWjQjeAsYbjneLC5ITt+3GDB4jRiWwJboZ8dHW1fGSK1Vg5fA34aQ==,
+        integrity: sha512-m6plojocU/rmrqWd26yvm8D+oHZPZ6PtSSFmZIgpNDEPVmc8s4fBD6LXOAB5MiPI5f8KLUr2HVhOMZ97o5pDTw==,
       }
     dev: true
 
@@ -14798,6 +14804,13 @@ packages:
     resolution:
       {
         integrity: sha512-z34TU6GlMram52Tss5mt1m//ifRIpKH5Dqm7yUVOdHI+BQCs9qGPHFaCUTIzsWX7edN30aa2WrPwR7IO10FHaw==,
+      }
+    dev: true
+
+  /libphonenumber-js/1.10.24:
+    resolution:
+      {
+        integrity: sha512-3Dk8f5AmrcWqg+oHhmm9hwSTqpWHBdSqsHmjCJGroULFubi0+x7JEIGmRZCuL3TI8Tx39xaKqfnhsDQ4ALa/Nw==,
       }
     dev: true
 

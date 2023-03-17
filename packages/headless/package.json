@@ -34,5 +34,8 @@
   },
   "dependencies": {
     "@floating-ui/dom": "1.0.10"
+  },
+  "devDependencies": {
+    "libphonenumber-js": "1.10.24"
   }
 }
