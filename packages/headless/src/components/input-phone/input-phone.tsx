@@ -19,7 +19,7 @@ import type { CountryCode } from 'libphonenumber-js';
 import { countries, type CountryListItemType } from 'country-list-json';
 import styles from './input-phone.css?inline';
 
-interface InputPhoneProps extends HTMLAttributes<HTMLInputElement> {
+interface InputPhoneProps extends HTMLAttributes<HTMLDivElement> {
   value?: string;
   countryCode?: CountryCode;
   onCountryChange$?: QRL<(country?: InputPhoneCountry) => void>;
@@ -89,6 +89,7 @@ export const InputPhone = component$(
     onCountryChange$,
     onNumberChange$,
     onValidChange$,
+    ...props
   }: InputPhoneProps) => {
     useStylesScoped$(styles);
     const defaultCountry = find(countryCode, 'code');
@@ -223,7 +224,7 @@ export const InputPhone = component$(
     });
 
     return (
-      <div>
+      <div {...props}>
         <span>{country.value?.flag ? country.value?.flag : `🌐`}</span>
         <select
           ref={selectRef}
