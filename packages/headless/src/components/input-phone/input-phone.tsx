@@ -2,6 +2,7 @@ import {
   $,
   component$,
   HTMLAttributes,
+  PropFunction,
   useSignal,
   useStylesScoped$,
   useTask$,
@@ -11,25 +12,60 @@ import {
   parsePhoneNumberWithError,
   ParseError,
   parsePhoneNumber,
+  isPossiblePhoneNumber,
+  isValidPhoneNumber,
 } from 'libphonenumber-js';
 import type { CountryCode } from 'libphonenumber-js';
 import { countries, type CountryListItemType } from 'country-list-json';
 import styles from './input-phone.css?inline';
-import { Button } from '@qwik-ui/primitives';
 
 interface InputPhoneProps extends HTMLAttributes<HTMLInputElement> {
   value?: string;
   countryCode?: CountryCode;
+  onCountryChange$?: PropFunction<
+    (country: InputPhoneCountry | undefined) => void
+  >;
+  onNumberChange$?: PropFunction<(phone: string) => void>;
+  onValidChange$?: PropFunction<(validity: InputPhoneValidity) => void>;
 }
+
+export type InputPhoneValidity =
+  | 'INVALID_COUNTRY'
+  | 'NOT_A_NUMBER'
+  | 'TOO_SHORT'
+  | 'TOO_LONG'
+  | 'INVALID_LENGTH'
+  | 'MAYBE_VALID'
+  | 'NOT_VALID'
+  | 'VALID';
 
 type CountryItem = Omit<CountryListItemType, 'code'> & {
   code: CountryCode;
 };
 
+export type InputPhoneCountry = {
+  name: string;
+  'alpha-2': CountryCode;
+  countryCode: string;
+  flag: string;
+};
+
+/**
+ * Returns the country of type CountryItem, or undefined.
+ * Looks into the list of countries against the key in param
+ * or true when a function is passed.
+ * @param value string | CountryCode | ((country: CountryItem) => boolean) | undefined,
+ * @param key keyof CountryItem
+ * @returns CountryItem | undefined
+ */
 export const find = (
   value: string | CountryCode | ((country: CountryItem) => boolean) | undefined,
   key?: keyof CountryItem
 ) => {
+  if (!value) {
+    return undefined;
+  }
+
   let fn;
 
   if (typeof value === 'function') {
@@ -54,17 +90,52 @@ export const InputPhone = component$(
     placeholder = 'Phone number',
     value = '',
     onInput$,
+    onCountryChange$,
+    onNumberChange$,
+    onValidChange$,
   }: InputPhoneProps) => {
     useStylesScoped$(styles);
+    const defaultCountry = find(countryCode, 'code');
 
     const inputRef = useSignal<HTMLInputElement>();
     const selectRef = useSignal<HTMLSelectElement>();
-
-    const defaultCountry = find(countryCode, 'code');
-
     const number = useSignal(value);
     const country = useSignal<CountryItem | undefined>(defaultCountry);
     const output = useSignal('');
+
+    const handleCountry = $((country: CountryItem | undefined) => {
+      if (!country) {
+        onCountryChange$ && onCountryChange$(undefined);
+      } else {
+        const outputCountry: InputPhoneCountry = {
+          'alpha-2': country.code,
+          countryCode: country.dial_code.replace('+', ''),
+          flag: country.flag,
+          name: country.name,
+        };
+        onCountryChange$ && onCountryChange$(outputCountry);
+      }
+    });
+
+    const handleNumber = $((number: string) => {
+      onNumberChange$ && onNumberChange$(number);
+    });
+
+    const handleValidChange = $((phone: string) => {
+      if (!onValidChange$) {
+        return;
+      }
+
+      if (isValidPhoneNumber(phone)) {
+        return onValidChange$('VALID');
+      }
+
+      if (isPossiblePhoneNumber(phone)) {
+        return onValidChange$('MAYBE_VALID');
+      }
+
+      return onValidChange$('NOT_VALID');
+    });
 
     /**
      * Change number when the country changes
@@ -91,13 +162,16 @@ export const InputPhone = component$(
         }
 
         output.value = phone;
+        handleValidChange(output.value);
       } catch (error) {
         if (error instanceof ParseError) {
-          // TODO bubble up the error
-          console.log(error.message);
+          onValidChange$ && onValidChange$(error.message as InputPhoneValidity);
         } else {
           throw error;
         }
+      } finally {
+        handleCountry(country.value);
+        handleNumber(output.value);
       }
     });
 
@@ -134,17 +208,21 @@ export const InputPhone = component$(
         } else {
           output.value = new AsYouType(code).input(number.value);
         }
+
+        handleValidChange(output.value);
       } catch (error) {
         if (number.value.at(0) === '+') {
           const country = find(code, 'code');
           country && (output.value = country.dial_code);
         }
         if (error instanceof ParseError) {
-          // TODO bubble up the error
-          console.log(error.message);
+          onValidChange$ && onValidChange$(error.message as InputPhoneValidity);
         } else {
           throw error;
         }
+      } finally {
+        handleCountry(country.value);
+        handleNumber(output.value);
       }
     });
 
