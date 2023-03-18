@@ -17,7 +17,9 @@ export default component$(() => {
 
   useStylesScoped$(`
    h1 { margin: 2rem 0; padding-top: 1rem; font-weight: bold; border-top: 1px dotted #222}
-   .container { width: 300px }
+   .form-item, hr { width: 35em; }
+   h2 { margin-block: 1.15em 0.5em; font-size: xx-large; }
+   h3 { margin-block: 0.85em 0.35em; font-size: x-large; }
   `);
 
   const country = useSignal<InputPhoneCountry>();
@@ -25,47 +27,52 @@ export default component$(() => {
   const valid = useSignal<InputPhoneValidity>();
 
   return (
-    <div class="container">
-      <h2>This is the documentation for the Input Phone</h2>
+    <>
+      <p>This is the documentation for the Input Phone</p>
 
-      <h1>Input Phone Example</h1>
+      <h2>Input Phone Example</h2>
 
-      <InputPhone
-        countryCode="FR"
-        value="06486254"
-        placeholder="Type your phone number"
-        onCountryChange$={$((value?: InputPhoneCountry) => {
-          country.value = value;
-        })}
-        onNumberChange$={$((value: string) => {
-          number.value = value;
-        })}
-        onValidChange$={$((value: InputPhoneValidity) => {
-          valid.value = value;
-        })}
-      />
+      <div class="form-item">
+        <InputPhone
+          countryCode="FR"
+          value="06486254"
+          placeholder="Type your phone number"
+          onCountryChange$={$((value?: InputPhoneCountry) => {
+            country.value = value;
+          })}
+          onNumberChange$={$((value: string) => {
+            number.value = value;
+          })}
+          onValidChange$={$((value: InputPhoneValidity) => {
+            valid.value = value;
+          })}
+        />
+      </div>
 
       <hr />
 
-      <h2>Inputs</h2>
+      <h3>Inputs</h3>
 
       <ul>
         <li>
-          <pre>placeholder</pre> type string | default Phone number
-        </li>
-        <li>
           <pre>countryCode</pre> type CountryCode | default undefined
         </li>
-        <li></li>
+        <li>
+          <pre>placeholder</pre> type string | default "Phone number"
+        </li>
+        <li>
+          <pre>value</pre> type string | default <em>empty</em>
+        </li>
       </ul>
 
       <hr />
 
-      <h2>Outputs</h2>
+      <h3>Outputs</h3>
 
       <ul>
         <li>
-          <pre>onCountryChange$</pre>: {JSON.stringify(country.value) || '–'}
+          <pre>onCountryChange$</pre>:{' '}
+          <pre>{JSON.stringify(country.value) || '–'}</pre>
         </li>
         <li>
           <pre>onNumberChange$</pre>: {number.value || '–'}
@@ -74,6 +81,6 @@ export default component$(() => {
           <pre>onValidChange$</pre>: {valid.value || '–'}
         </li>
       </ul>
-    </div>
+    </>
   );
 });
