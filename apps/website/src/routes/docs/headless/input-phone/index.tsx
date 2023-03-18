@@ -1,4 +1,5 @@
 import {
+  $,
   component$,
   useSignal,
   useStyles$,
@@ -30,17 +31,18 @@ export default component$(() => {
       <h1>Input Phone Example</h1>
 
       <InputPhone
-        // countryCode='ES'
+        countryCode="FR"
+        value="06486254"
         placeholder="Type your phone number"
-        onCountryChange$={(value) => {
+        onCountryChange$={$((value?: InputPhoneCountry) => {
           country.value = value;
-        }}
-        onNumberChange$={(value) => {
+        })}
+        onNumberChange$={$((value: string) => {
           number.value = value;
-        }}
-        onValidChange$={(value) => {
+        })}
+        onValidChange$={$((value: InputPhoneValidity) => {
           valid.value = value;
-        }}
+        })}
       />
 
       <hr />

@@ -2,7 +2,7 @@ import {
   $,
   component$,
   HTMLAttributes,
-  PropFunction,
+  type QRL,
   useSignal,
   useStylesScoped$,
   useTask$,
@@ -22,11 +22,9 @@ import styles from './input-phone.css?inline';
 interface InputPhoneProps extends HTMLAttributes<HTMLInputElement> {
   value?: string;
   countryCode?: CountryCode;
-  onCountryChange$?: PropFunction<
-    (country: InputPhoneCountry | undefined) => void
-  >;
-  onNumberChange$?: PropFunction<(phone: string) => void>;
-  onValidChange$?: PropFunction<(validity: InputPhoneValidity) => void>;
+  onCountryChange$?: QRL<(country?: InputPhoneCountry) => void>;
+  onNumberChange$?: QRL<(phone: string) => void>;
+  onValidChange$?: QRL<(validity: InputPhoneValidity) => void>;
 }
 
 export type InputPhoneValidity =
@@ -52,8 +50,7 @@ export type InputPhoneCountry = {
 
 /**
  * Returns the country of type CountryItem, or undefined.
- * Looks into the list of countries against the key in param
- * or true when a function is passed.
+ * Looks into the list of countries against the key or a function.
  * @param value string | CountryCode | ((country: CountryItem) => boolean) | undefined,
  * @param key keyof CountryItem
  * @returns CountryItem | undefined
@@ -175,8 +172,8 @@ export const InputPhone = component$(
     });
 
     /**
-     * Change country when the number changes
-     * and replace the country code of the number
+     * Changes country when the number changes
+     * and replaces the country code of the number
      * if it's already been set
      */
     useTask$(({ track }) => {
