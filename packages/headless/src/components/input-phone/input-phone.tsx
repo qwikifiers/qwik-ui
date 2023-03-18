@@ -6,6 +6,7 @@ import {
   useSignal,
   useStylesScoped$,
   useTask$,
+  useBrowserVisibleTask$,
 } from '@builder.io/qwik';
 import {
   AsYouType,
@@ -97,10 +98,10 @@ export const InputPhone = component$(
     const inputRef = useSignal<HTMLInputElement>();
     const selectRef = useSignal<HTMLSelectElement>();
     const number = useSignal(value);
-    const country = useSignal<CountryItem | undefined>(defaultCountry);
-    const output = useSignal('');
+    const country = useSignal(defaultCountry);
+    const output = useSignal(value);
 
-    const handleCountry = $((country: CountryItem | undefined) => {
+    const handleCountryChange = $((country: CountryItem | undefined) => {
       if (!country) {
         onCountryChange$ && onCountryChange$(undefined);
       } else {
@@ -114,7 +115,7 @@ export const InputPhone = component$(
       }
     });
 
-    const handleNumber = $((number: string) => {
+    const handleNumberChange = $((number: string) => {
       onNumberChange$ && onNumberChange$(number);
     });
 
@@ -132,6 +133,12 @@ export const InputPhone = component$(
       }
 
       return onValidChange$('NOT_VALID');
+    });
+
+    useBrowserVisibleTask$(() => {
+      handleCountryChange(country.value);
+      handleNumberChange(output.value);
+      handleValidChange(output.value);
     });
 
     /**
@@ -167,8 +174,8 @@ export const InputPhone = component$(
           throw error;
         }
       } finally {
-        handleCountry(country.value);
-        handleNumber(output.value);
+        handleCountryChange(country.value);
+        handleNumberChange(output.value);
       }
     });
 
@@ -218,8 +225,8 @@ export const InputPhone = component$(
           throw error;
         }
       } finally {
-        handleCountry(country.value);
-        handleNumber(output.value);
+        handleCountryChange(country.value);
+        handleNumberChange(output.value);
       }
     });
 
