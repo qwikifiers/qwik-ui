@@ -156,10 +156,12 @@ importers:
   packages/headless:
     specifiers:
       '@floating-ui/dom': 1.0.10
+      country-list-json: 1.1.0
       libphonenumber-js: 1.10.24
     dependencies:
       '@floating-ui/dom': 1.0.10
     devDependencies:
+      country-list-json: 1.1.0
       libphonenumber-js: 1.10.24
 
   packages/material:
@@ -9188,6 +9190,13 @@ packages:
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
+    dev: true
+
+  /country-list-json/1.1.0:
+    resolution:
+      {
+        integrity: sha512-9a6sGBVXq3rXmZlddQQIjk0ZAk/pfBwVMUU1zJczWtIG4VcfUKp8HDSMteK1bBZVznE7+wWVg6kntxtzDBjvPQ==,
+      }
     dev: true
 
   /create-ecdh/4.0.4:

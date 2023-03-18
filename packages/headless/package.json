@@ -36,6 +36,7 @@
     "@floating-ui/dom": "1.0.10"
   },
   "devDependencies": {
+    "country-list-json": "1.1.0",
     "libphonenumber-js": "1.10.24"
   }
 }

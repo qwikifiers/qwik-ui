@@ -17,8 +17,8 @@ export default component$(() => {
       <h1>Input Phone Example</h1>
 
       <InputPhone
-        countryCode="US"
-        onInput$={(_, { value }) => console.log({ value })}
+      // countryCode="US"
+      // onInput$={(_, { value }) => console.log({ value })}
       />
     </div>
   );
