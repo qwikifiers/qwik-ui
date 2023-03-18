@@ -89,7 +89,6 @@ export const InputPhone = component$(
     countryCode,
     placeholder = 'Phone number',
     value = '',
-    onInput$,
     onCountryChange$,
     onNumberChange$,
     onValidChange$,
@@ -250,12 +249,9 @@ export const InputPhone = component$(
           placeholder={placeholder}
           type="text"
           value={output.value}
-          onInput$={[
-            $((_: Event, { value }: HTMLInputElement) => {
-              number.value = new AsYouType(country.value?.code).input(value);
-            }),
-            onInput$,
-          ]}
+          onInput$={(_, { value }) => {
+            number.value = new AsYouType(country.value?.code).input(value);
+          }}
         />
       </div>
     );
