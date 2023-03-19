@@ -38,6 +38,7 @@ importers:
       autoprefixer: ^10.4.13
       commitizen: ^4.3.0
       commitlint: ^17.4.3
+      country-list-json: 1.1.0
       cypress: ^12.6.0
       cypress-ct-qwik: 0.0.5
       cz-conventional-changelog: ^3.3.0
@@ -50,6 +51,7 @@ importers:
       html-webpack-plugin: ^5.5.0
       husky: ^8.0.3
       jsdom: ~20.0.3
+      libphonenumber-js: 1.10.24
       lodash.includes: 4.3.0
       ngx-deploy-npm: ^5.0.0
       node-fetch: 3.3.0
@@ -110,6 +112,7 @@ importers:
       autoprefixer: 10.4.13_postcss@8.4.21
       commitizen: 4.3.0
       commitlint: 17.4.3
+      country-list-json: 1.1.0
       cypress: 12.6.0
       cypress-ct-qwik: 0.0.5_7ri6npvscxd6ekqgx5lqbhq62q
       cz-conventional-changelog: 3.3.0
@@ -122,6 +125,7 @@ importers:
       html-webpack-plugin: 5.5.0
       husky: 8.0.3
       jsdom: 20.0.3
+      libphonenumber-js: 1.10.24
       lodash.includes: 4.3.0
       ngx-deploy-npm: 5.0.0_x675ruvkb3arx7m5fa42asye7a
       node-fetch: 3.3.0
@@ -147,6 +151,9 @@ importers:
   apps/website:
     specifiers: {}
 
+  packages/bots:
+    specifiers: {}
+
   packages/daisy:
     specifiers: {}
 
@@ -157,6 +164,9 @@ importers:
       '@floating-ui/dom': 1.0.10
 
   packages/material:
+    specifiers: {}
+
+  packages/primitives:
     specifiers: {}
 
 packages:
@@ -3983,7 +3993,7 @@ packages:
       '@storybook/csf-plugin': 7.0.0-beta.30
       '@storybook/csf-tools': 7.0.0-beta.30
       '@storybook/global': 5.0.0
-      '@storybook/mdx2-csf': 1.0.0-next.5
+      '@storybook/mdx2-csf': 1.0.0-next.6
       '@storybook/node-logger': 7.0.0-beta.30
       '@storybook/postinstall': 7.0.0-beta.30
       '@storybook/preview-api': 7.0.0-beta.30
@@ -4400,7 +4410,7 @@ packages:
       '@storybook/client-logger': 7.0.0-beta.30
       '@storybook/core-common': 7.0.0-beta.30
       '@storybook/csf-plugin': 7.0.0-beta.30
-      '@storybook/mdx2-csf': 1.0.0-next.5
+      '@storybook/mdx2-csf': 1.0.0-next.6
       '@storybook/node-logger': 7.0.0-beta.30
       '@storybook/preview': 7.0.0-beta.30
       '@storybook/preview-api': 7.0.0-beta.30
@@ -4984,10 +4994,10 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/mdx2-csf/1.0.0-next.5:
+  /@storybook/mdx2-csf/1.0.0-next.6:
     resolution:
       {
-        integrity: sha512-02w0sgGZaK1agT050yCVhJ+o4rLHANWvLKWjQjeAsYbjneLC5ITt+3GDB4jRiWwJboZ8dHW1fGSK1Vg5fA34aQ==,
+        integrity: sha512-m6plojocU/rmrqWd26yvm8D+oHZPZ6PtSSFmZIgpNDEPVmc8s4fBD6LXOAB5MiPI5f8KLUr2HVhOMZ97o5pDTw==,
       }
     dev: true
 
@@ -9182,6 +9192,13 @@ packages:
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
+    dev: true
+
+  /country-list-json/1.1.0:
+    resolution:
+      {
+        integrity: sha512-9a6sGBVXq3rXmZlddQQIjk0ZAk/pfBwVMUU1zJczWtIG4VcfUKp8HDSMteK1bBZVznE7+wWVg6kntxtzDBjvPQ==,
+      }
     dev: true
 
   /create-ecdh/4.0.4:
@@ -14798,6 +14815,13 @@ packages:
     resolution:
       {
         integrity: sha512-z34TU6GlMram52Tss5mt1m//ifRIpKH5Dqm7yUVOdHI+BQCs9qGPHFaCUTIzsWX7edN30aa2WrPwR7IO10FHaw==,
+      }
+    dev: true
+
+  /libphonenumber-js/1.10.24:
+    resolution:
+      {
+        integrity: sha512-3Dk8f5AmrcWqg+oHhmm9hwSTqpWHBdSqsHmjCJGroULFubi0+x7JEIGmRZCuL3TI8Tx39xaKqfnhsDQ4ALa/Nw==,
       }
     dev: true
 
