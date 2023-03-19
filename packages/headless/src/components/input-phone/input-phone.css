@@ -40,11 +40,6 @@ select:focus {
   grid-column: 1 / 3;
 }
 
-select:focus + input {
-  visibility: hidden;
-  display: none;
-}
-
 input {
   grid-column: 2 / 3;
   grid-row: 1;
