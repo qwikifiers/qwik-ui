@@ -38,6 +38,7 @@ importers:
       autoprefixer: ^10.4.13
       commitizen: ^4.3.0
       commitlint: ^17.4.3
+      country-list-json: 1.1.0
       cypress: ^12.6.0
       cypress-ct-qwik: 0.0.5
       cz-conventional-changelog: ^3.3.0
@@ -50,6 +51,7 @@ importers:
       html-webpack-plugin: ^5.5.0
       husky: ^8.0.3
       jsdom: ~20.0.3
+      libphonenumber-js: 1.10.24
       lodash.includes: 4.3.0
       ngx-deploy-npm: ^5.0.0
       node-fetch: 3.3.0
@@ -110,6 +112,7 @@ importers:
       autoprefixer: 10.4.13_postcss@8.4.21
       commitizen: 4.3.0
       commitlint: 17.4.3
+      country-list-json: 1.1.0
       cypress: 12.6.0
       cypress-ct-qwik: 0.0.5_7ri6npvscxd6ekqgx5lqbhq62q
       cz-conventional-changelog: 3.3.0
@@ -122,6 +125,7 @@ importers:
       html-webpack-plugin: 5.5.0
       husky: 8.0.3
       jsdom: 20.0.3
+      libphonenumber-js: 1.10.24
       lodash.includes: 4.3.0
       ngx-deploy-npm: 5.0.0_x675ruvkb3arx7m5fa42asye7a
       node-fetch: 3.3.0
@@ -145,10 +149,10 @@ importers:
       vitest: 0.28.5_ub72g3etjqpy7gcz7hs7exheia
 
   apps/website:
-    specifiers:
-      libphonenumber-js: 1.10.24
-    devDependencies:
-      libphonenumber-js: 1.10.24
+    specifiers: {}
+
+  packages/bots:
+    specifiers: {}
 
   packages/daisy:
     specifiers: {}
@@ -156,15 +160,13 @@ importers:
   packages/headless:
     specifiers:
       '@floating-ui/dom': 1.0.10
-      country-list-json: 1.1.0
-      libphonenumber-js: 1.10.24
     dependencies:
       '@floating-ui/dom': 1.0.10
-    devDependencies:
-      country-list-json: 1.1.0
-      libphonenumber-js: 1.10.24
 
   packages/material:
+    specifiers: {}
+
+  packages/primitives:
     specifiers: {}
 
 packages:
