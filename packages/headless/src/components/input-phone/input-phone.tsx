@@ -7,6 +7,7 @@ import {
   useStylesScoped$,
   useTask$,
   useBrowserVisibleTask$,
+  QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import {
   AsYouType,
@@ -20,13 +21,13 @@ import type { CountryCode } from 'libphonenumber-js';
 import { countries, type CountryListItemType } from 'country-list-json';
 import styles from './input-phone.css?inline';
 
-interface InputPhoneProps extends HTMLAttributes<HTMLDivElement> {
+export type InputPhoneProps = QwikIntrinsicElements['div'] & {
   value?: string;
   countryCode?: CountryCode;
   onCountryChange$?: QRL<(country?: InputPhoneCountry) => void>;
   onNumberChange$?: QRL<(phone: string) => void>;
   onValidChange$?: QRL<(validity: InputPhoneValidity) => void>;
-}
+};
 
 export type InputPhoneValidity =
   | 'INVALID_COUNTRY'
@@ -95,11 +96,11 @@ export const InputPhone = component$(
     useStylesScoped$(styles);
     const defaultCountry = find(countryCode, 'code');
 
-    const inputRef = useSignal<HTMLInputElement>();
-    const selectRef = useSignal<HTMLSelectElement>();
-    const number = useSignal(value);
-    const country = useSignal(defaultCountry);
-    const output = useSignal(value);
+    const inputRefSignal = useSignal<HTMLInputElement>();
+    const selectRefSignal = useSignal<HTMLSelectElement>();
+    const numberSignal = useSignal(value);
+    const countrySignal = useSignal(defaultCountry);
+    const outputSignal = useSignal(value);
 
     const handleCountryChange = $((country: CountryItem | undefined) => {
       if (!country) {
@@ -135,17 +136,20 @@ export const InputPhone = component$(
       return onValidChange$('NOT_VALID');
     });
 
+    /**
+     * Emit the InputPhone's on initial render
+     */
     useBrowserVisibleTask$(() => {
-      handleCountryChange(country.value);
-      handleNumberChange(output.value);
-      handleValidChange(output.value);
+      handleCountryChange(countrySignal.value);
+      handleNumberChange(outputSignal.value);
+      handleValidChange(outputSignal.value);
     });
 
     /**
      * Change number when the country changes
      */
     useTask$(({ track }) => {
-      const phone = track(() => number.value);
+      const phone = track(() => numberSignal.value);
 
       if (!phone) {
         return;
@@ -154,7 +158,7 @@ export const InputPhone = component$(
       try {
         const phoneNumber = parsePhoneNumberWithError(
           phone,
-          country.value?.code
+          countrySignal.value?.code
         );
 
         if (!phoneNumber) {
@@ -162,11 +166,11 @@ export const InputPhone = component$(
         }
 
         if (phoneNumber.country) {
-          country.value = find(phoneNumber.country, 'code');
+          countrySignal.value = find(phoneNumber.country, 'code');
         }
 
-        output.value = phone;
-        handleValidChange(output.value);
+        outputSignal.value = phone;
+        handleValidChange(outputSignal.value);
       } catch (error) {
         if (error instanceof ParseError) {
           onValidChange$ && onValidChange$(error.message as InputPhoneValidity);
@@ -174,31 +178,31 @@ export const InputPhone = component$(
           throw error;
         }
       } finally {
-        handleCountryChange(country.value);
-        handleNumberChange(output.value);
+        handleCountryChange(countrySignal.value);
+        handleNumberChange(outputSignal.value);
       }
     });
 
     /**
      * Changes country when the number changes
-     * and replaces the country code of the number
-     * if it's already been set
+     * and replaces the country code when number
+     * contains the country code (e.g. +330648)
      */
     useTask$(({ track }) => {
-      const code = track(() => country.value?.code);
+      const code = track(() => countrySignal.value?.code);
 
       if (!code) {
         return;
       }
 
       try {
-        const phoneNumber = parsePhoneNumber(number.value, code);
+        const phoneNumber = parsePhoneNumber(numberSignal.value, code);
 
         if (!phoneNumber) {
           return;
         }
 
-        if (number.value.at(0) === '+') {
+        if (numberSignal.value.at(0) === '+') {
           const country = find(code, 'code');
           const { nationalNumber } = phoneNumber;
 
@@ -206,18 +210,18 @@ export const InputPhone = component$(
             return;
           }
 
-          output.value = new AsYouType().input(
+          outputSignal.value = new AsYouType().input(
             `${country.dial_code}${nationalNumber}`
           );
         } else {
-          output.value = new AsYouType(code).input(number.value);
+          outputSignal.value = new AsYouType(code).input(numberSignal.value);
         }
 
-        handleValidChange(output.value);
+        handleValidChange(outputSignal.value);
       } catch (error) {
-        if (number.value.at(0) === '+') {
+        if (numberSignal.value.at(0) === '+') {
           const country = find(code, 'code');
-          country && (output.value = country.dial_code);
+          country && (outputSignal.value = country.dial_code);
         }
         if (error instanceof ParseError) {
           onValidChange$ && onValidChange$(error.message as InputPhoneValidity);
@@ -225,37 +229,43 @@ export const InputPhone = component$(
           throw error;
         }
       } finally {
-        handleCountryChange(country.value);
-        handleNumberChange(output.value);
+        handleCountryChange(countrySignal.value);
+        handleNumberChange(outputSignal.value);
       }
     });
 
     return (
       <div {...props}>
-        <span>{country.value?.flag ? country.value?.flag : `🌐`}</span>
+        <button tabIndex={-1}>
+          {countrySignal.value?.flag ? countrySignal.value?.flag : `🌐`}
+        </button>
         <select
-          ref={selectRef}
-          title={country.value?.name}
+          tabIndex={1}
+          ref={selectRefSignal}
+          title={countrySignal.value?.name}
           onChange$={(_, { value }) => {
-            country.value = findBySelectValue(value);
-            selectRef.value?.blur();
-            inputRef.value?.focus();
+            countrySignal.value = findBySelectValue(value);
+            selectRefSignal.value?.blur();
+            inputRefSignal.value?.focus();
           }}
         >
           <option>Select the country's phone code</option>
           {countries.map(({ code, dial_code, name }) => (
-            <option selected={country.value?.code === code}>
+            <option selected={countrySignal.value?.code === code}>
               {`${name} (${dial_code})`}
             </option>
           ))}
         </select>
         <input
-          ref={inputRef}
+          tabIndex={2}
+          ref={inputRefSignal}
           placeholder={placeholder}
           type="text"
-          value={output.value}
+          value={outputSignal.value}
           onInput$={(_, { value }) => {
-            number.value = new AsYouType(country.value?.code).input(value);
+            numberSignal.value = new AsYouType(countrySignal.value?.code).input(
+              value
+            );
           }}
         />
       </div>
