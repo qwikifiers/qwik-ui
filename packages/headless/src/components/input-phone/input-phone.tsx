@@ -1,7 +1,6 @@
 import {
   $,
   component$,
-  HTMLAttributes,
   type QRL,
   useSignal,
   useStylesScoped$,
@@ -19,11 +18,12 @@ import {
 } from 'libphonenumber-js';
 import type { CountryCode } from 'libphonenumber-js';
 import { countries, type CountryListItemType } from 'country-list-json';
+import { timezoneCityToCountry } from './timezone-city-to-country';
 import styles from './input-phone.css?inline';
 
 export type InputPhoneProps = QwikIntrinsicElements['div'] & {
   value?: string;
-  countryCode?: CountryCode;
+  countryCode?: CountryCode | 'auto';
   onCountryChange$?: QRL<(country?: InputPhoneCountry) => void>;
   onNumberChange$?: QRL<(phone: string) => void>;
   onValidChange$?: QRL<(validity: InputPhoneValidity) => void>;
@@ -83,6 +83,30 @@ export const findBySelectValue = (value: string) => {
   return find(({ name, dial_code }) => value === `${name} (${dial_code})`);
 };
 
+/**
+ * Retrieve the dial country code in CountryItem by using the user's timezone
+ * @returns CountryItem | undefined
+ */
+export const findCountryByUserTimezone = () => {
+  if (!Intl) {
+    console.warn(
+      'We cannot automatically retrieve the country of the user because Intl is not supported.'
+    );
+    return;
+  }
+
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const city = userTimeZone.split('/').at(-1) as string;
+  const country = timezoneCityToCountry[city];
+
+  // look into the city and country's name,
+  // e.g. Reunion (as city) the country's name is Réunion
+  //      but only Reunion exists in country-list-json
+  return countries.find(({ name }) => name === city || name === country) as
+    | CountryItem
+    | undefined;
+};
+
 export const InputPhone = component$(
   ({
     countryCode,
@@ -94,7 +118,10 @@ export const InputPhone = component$(
     ...props
   }: InputPhoneProps) => {
     useStylesScoped$(styles);
-    const defaultCountry = find(countryCode, 'code');
+    const defaultCountry =
+      countryCode === 'auto'
+        ? findCountryByUserTimezone()
+        : find(countryCode, 'code');
 
     const inputRefSignal = useSignal<HTMLInputElement>();
     const selectRefSignal = useSignal<HTMLSelectElement>();
