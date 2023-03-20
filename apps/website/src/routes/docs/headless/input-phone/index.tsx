@@ -32,10 +32,32 @@ export default component$(() => {
 
       <h2>Input Phone Example</h2>
 
+      <h3>countryCode set to FR</h3>
+
       <div class="form-item">
         <InputPhone
           countryCode="FR"
-          value="06486254"
+          value="0645678990"
+          placeholder="Type your phone number"
+        />
+      </div>
+
+      <hr />
+
+      <h3>countryCode unset</h3>
+
+      <div class="form-item">
+        <InputPhone value="0645678990" placeholder="Type your phone number" />
+      </div>
+
+      <hr />
+
+      <h3>countryCode set to auto</h3>
+
+      <div class="form-item">
+        <InputPhone
+          countryCode="auto"
+          value="0481163"
           placeholder="Type your phone number"
           onCountryChange$={$((value?: InputPhoneCountry) => {
             country.value = value;
