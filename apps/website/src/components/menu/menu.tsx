@@ -56,6 +56,7 @@ export const Menu = component$<Props>(({ onClose$ }) => {
     { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/toggle` },
     { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
     { label: 'Slider', path: `/docs/${appState.theme.toLowerCase()}/slider` },
+    { label: 'Switch', path: `/docs/${appState.theme.toLowerCase()}/switch` },
     {
       label: 'Pagination',
       path: `/docs/${appState.theme.toLowerCase()}/pagination`,
