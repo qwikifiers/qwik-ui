@@ -1,0 +1,50 @@
+div {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 34px;
+  isolation: isolate;
+}
+
+div input {
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+  appearance: none;
+  cursor: pointer;
+}
+
+div input::after {
+  content: '';
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+div input::before {
+  z-index: 2;
+  position: absolute;
+  content: '';
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+div input:checked::after {
+  background-color: #2196f3;
+}
+
+div input:checked::before,
+div input[checked]::before {
+  transform: translateX(26px);
+}
