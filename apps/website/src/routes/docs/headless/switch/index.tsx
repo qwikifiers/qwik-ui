@@ -1,4 +1,9 @@
-import { component$, useStyles$, useStylesScoped$ } from '@builder.io/qwik';
+import {
+  component$,
+  useSignal,
+  useStyles$,
+  useStylesScoped$,
+} from '@builder.io/qwik';
 import { Switch } from '@qwik-ui/headless';
 import styles from './switch.css?inline';
 
@@ -11,6 +16,8 @@ export default component$(() => {
    h2 { margin-block: 1.15em 0.5em; font-size: xx-large; }
    h3 { margin-block: 0.85em 0.35em; font-size: x-large; }
   `);
+
+  const checkedSignal = useSignal(false);
 
   return (
     <>
@@ -26,6 +33,17 @@ export default component$(() => {
 
       <div class="form-item">
         <Switch checked={true} />
+      </div>
+
+      <h2>Switch with store</h2>
+
+      <div class="form-item">
+        <Switch
+          checked={checkedSignal.value}
+          onChange$={(_, { checked }) => {
+            checkedSignal.value = checked;
+          }}
+        />
       </div>
 
       <hr />

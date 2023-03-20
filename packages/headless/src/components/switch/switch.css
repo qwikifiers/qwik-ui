@@ -45,7 +45,8 @@ div input::before {
   border-radius: 50%;
 }
 
-div input:checked::after {
+div input:checked::after,
+div input[checked]::after {
   background-color: var(--_color-accent);
 }
 
