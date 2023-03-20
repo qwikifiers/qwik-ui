@@ -1,8 +1,13 @@
 div {
+  --_size: var(--size, 1em);
+  --_color-background: #ccc;
+  --_color-accent: #2196f3;
+  --_color-trigger: #fff;
+
   display: inline-block;
   position: relative;
-  width: 60px;
-  height: 34px;
+  width: calc(3.5 * var(--_size));
+  height: calc(2 * var(--_size));
   isolation: isolate;
 }
 
@@ -22,29 +27,29 @@ div input::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--_color-background);
   transition: 0.4s;
-  border-radius: 34px;
+  border-radius: calc(2 * var(--_size));
 }
 
 div input::before {
   z-index: 2;
   position: absolute;
   content: '';
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
+  height: calc(1.5 * var(--_size));
+  width: calc(1.5 * var(--_size));
+  left: calc(var(--_size) / 4);
+  bottom: calc(var(--_size) / 4);
+  background-color: var(--_color-trigger);
+  transition: 0.3s;
   border-radius: 50%;
 }
 
 div input:checked::after {
-  background-color: #2196f3;
+  background-color: var(--_color-accent);
 }
 
 div input:checked::before,
 div input[checked]::before {
-  transform: translateX(26px);
+  transform: translateX(calc(1.5 * var(--_size)));
 }
