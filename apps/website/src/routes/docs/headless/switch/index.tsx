@@ -23,23 +23,35 @@ export default component$(() => {
     <>
       <p>This is the documentation for the Switch</p>
 
-      <h2>Switch Example, inactive</h2>
-
-      <div class="form-item">
-        <Switch />
-      </div>
-
-      <h2>Switch Example, active</h2>
-
-      <div class="form-item">
-        <Switch checked={true} />
-      </div>
-
-      <h2>Switch with store</h2>
+      <h2>Switch Example</h2>
 
       <div class="form-item">
         <Switch
           checked={checkedSignal.value}
+          onChange$={(_, { checked }) => {
+            checkedSignal.value = checked;
+          }}
+        />
+      </div>
+
+      <h2>Switch Example, readonly</h2>
+
+      <div class="form-item">
+        <Switch
+          checked={checkedSignal.value}
+          readOnly={true}
+          onChange$={(_, { checked }) => {
+            checkedSignal.value = checked;
+          }}
+        />
+      </div>
+
+      <h2>Switch Example, disabled</h2>
+
+      <div class="form-item">
+        <Switch
+          checked={checkedSignal.value}
+          disabled={true}
           onChange$={(_, { checked }) => {
             checkedSignal.value = checked;
           }}

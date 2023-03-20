@@ -19,6 +19,14 @@ div input {
   cursor: pointer;
 }
 
+div input[readonly] {
+  pointer-events: none;
+}
+
+div input[disabled] {
+  cursor: not-allowed;
+}
+
 div input::after {
   content: '';
   position: absolute;

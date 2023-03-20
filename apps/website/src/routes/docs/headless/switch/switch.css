@@ -5,3 +5,7 @@ hr {
 pre {
   display: inline;
 }
+
+label {
+  display: block;
+}
