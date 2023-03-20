@@ -1,8 +1,8 @@
 div {
   --_size: var(--size, 1em);
-  --_color-background: #ccc;
-  --_color-accent: #2196f3;
-  --_color-trigger: #fff;
+  --_color-accent: var(--color-accent, #2196f3);
+  --_color-background: var(--color-background, #ccc);
+  --_color-trigger: var(--color-trigger, #fff);
 
   display: inline-block;
   position: relative;
