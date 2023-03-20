@@ -16,11 +16,33 @@ export default component$(() => {
     <>
       <p>This is the documentation for the Switch</p>
 
-      <h2>Switch Example</h2>
+      <h2>Switch Example, inactive</h2>
 
       <div class="form-item">
-        <Switch onChange$={(a, element) => console.log({ a, element })} />
+        <Switch />
       </div>
+
+      <h2>Switch Example, active</h2>
+
+      <div class="form-item">
+        <Switch checked={true} />
+      </div>
+
+      <hr />
+
+      <h3>Styles</h3>
+
+      <ul>
+        <li>
+          <pre>--color-accent</pre> background color on active
+        </li>
+        <li>
+          <pre>--color-background</pre> background color on intactive
+        </li>
+        <li>
+          <pre>--color-trigger</pre> trigger color
+        </li>
+      </ul>
 
       <hr />
 
