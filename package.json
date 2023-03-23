@@ -10,7 +10,8 @@
   "scripts": {
     "commit": "git-cz",
     "format:fix": "pretty-quick --staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:headless": "nx component-test headless --watch"
   },
   "devDependencies": {
     "@builder.io/qwik": "0.19.2",
