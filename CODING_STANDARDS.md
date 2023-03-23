@@ -125,3 +125,23 @@ export const Button = component$(
   }
 );
 ```
+
+# A11y test coverage
+
+Use [Axe](https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd) Chrome extension in order to test components against the a11y standards.
+
+Choose the suitable tests to perform among the different available categories:
+
+- table
+- keyboard
+- modal dialog
+- interactive elements
+- structure
+- images
+- forms
+
+Note: test only the component by choosing the parts of the page that have to be tested.
+
+The extension is pretty talkative and provides all the insights to perform the tests with ease. Once tests' results are available, do your best to solve any issues found.
+
+Share the tests results on the related Discord channel or Github PR.

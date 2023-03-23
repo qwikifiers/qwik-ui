@@ -1,0 +1,46 @@
+div {
+  display: grid;
+  grid-template-columns: 1.5em auto;
+  grid-template-rows: 1.5em;
+  column-gap: 0.25ch;
+}
+
+button {
+  grid-column: 1 / 1;
+  grid-row: 1;
+  pointer-events: none;
+}
+
+select,
+span {
+  /* position */
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / 1;
+  grid-row: 1;
+  /*  */
+  cursor: pointer;
+}
+
+span {
+  z-index: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+select:not(:focus) {
+  /* reset all to hide */
+  background-color: transparent;
+  color: transparent;
+  border-color: transparent;
+}
+
+select:focus {
+  grid-column: 1 / 3;
+}
+
+input {
+  grid-column: 2 / 3;
+  grid-row: 1;
+}

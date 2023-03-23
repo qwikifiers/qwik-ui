@@ -1,0 +1,121 @@
+{
+  "url": "http://127.0.0.1:5173/docs/headless/input-phone/",
+  "extensionVersion": "4.51.0",
+  "axeVersion": "4.6.3",
+  "standard": "WCAG 2.1 AA",
+  "testingStartDate": "2023-03-18T11:26:34.819Z",
+  "testingEndDate": "2023-03-18T11:48:12.451Z",
+  "bestPracticesEnabled": false,
+  "issueSummary": {
+    "critical": 0,
+    "moderate": 0,
+    "minor": 0,
+    "serious": 3,
+    "bestPractices": 0,
+    "needsReview": 0
+  },
+  "remainingTestingSummary": { "run": false },
+  "igtSummary": [
+    { "tool": "Table", "skipped": false, "name": null, "run": false },
+    {
+      "tool": "Keyboard",
+      "skipped": false,
+      "name": "3/18/2023 at 10:42 PM",
+      "run": true,
+      "issues": { "critical": 0, "moderate": 0, "minor": 0, "serious": 0 },
+      "duration": 157762
+    },
+    { "tool": "Modal Dialog", "skipped": false, "name": null, "run": false },
+    {
+      "tool": "Interactive Elements",
+      "skipped": false,
+      "name": "3/18/2023 at 10:26 PM",
+      "run": true,
+      "issues": { "critical": 0, "moderate": 0, "minor": 0, "serious": 0 },
+      "duration": 624995
+    },
+    {
+      "tool": "Structure",
+      "skipped": false,
+      "name": "3/18/2023 at 10:45 PM",
+      "run": true,
+      "issues": { "critical": 0, "moderate": 0, "minor": 0, "serious": 3 },
+      "duration": 76867
+    },
+    { "tool": "Images", "skipped": false, "name": null, "run": false },
+    { "tool": "Forms", "skipped": false, "name": null, "run": false }
+  ],
+  "failedRules": [
+    { "name": "lang-change-not-marked", "count": 3, "mode": "manual" }
+  ],
+  "needsReview": [],
+  "allIssues": [
+    {
+      "ruleId": "lang-change-not-marked",
+      "description": "The change in language for a portion of content is not coded.",
+      "help": "Change in language is not marked",
+      "helpUrl": "https://docs.deque.com/issue-help/1.0.0/en/lang-change-not-marked",
+      "impact": "serious",
+      "needsReview": false,
+      "isManual": true,
+      "selector": ["body > form.\\00002b50\\0000fe0fdqh46j-1:nth-of-type(1)"],
+      "summary": "The change in language for a portion of content is not coded.",
+      "source": null,
+      "tags": ["wcag2aa", "wcag312a"],
+      "igt": "Structure",
+      "testName": "QwikUI | Headless | Input-phone [interactivity]",
+      "shareURL": "",
+      "createdAt": "2023-03-18T11:48:12.441Z",
+      "testUrl": "http://127.0.0.1:5173/docs/headless/input-phone/",
+      "testPageTitle": "",
+      "foundBy": "thomas.leperou@gmail.com",
+      "axeVersion": "4.6.3"
+    },
+    {
+      "ruleId": "lang-change-not-marked",
+      "description": "The change in language for a portion of content is not coded.",
+      "help": "Change in language is not marked",
+      "helpUrl": "https://docs.deque.com/issue-help/1.0.0/en/lang-change-not-marked",
+      "impact": "serious",
+      "needsReview": false,
+      "isManual": true,
+      "selector": [
+        "body > form.\\00002b50\\0000fe0fdqh46j-1:nth-of-type(1) > div.\\00002b50\\0000fe0fokr433-0:nth-of-type(1) > select.\\00002b50\\0000fe0fokr433-0:nth-of-type(1)"
+      ],
+      "summary": "The change in language for a portion of content is not coded.",
+      "source": null,
+      "tags": ["wcag2aa", "wcag312a"],
+      "igt": "Structure",
+      "testName": "QwikUI | Headless | Input-phone [interactivity]",
+      "shareURL": "",
+      "createdAt": "2023-03-18T11:48:12.441Z",
+      "testUrl": "http://127.0.0.1:5173/docs/headless/input-phone/",
+      "testPageTitle": "",
+      "foundBy": "thomas.leperou@gmail.com",
+      "axeVersion": "4.6.3"
+    },
+    {
+      "ruleId": "lang-change-not-marked",
+      "description": "The change in language for a portion of content is not coded.",
+      "help": "Change in language is not marked",
+      "helpUrl": "https://docs.deque.com/issue-help/1.0.0/en/lang-change-not-marked",
+      "impact": "serious",
+      "needsReview": false,
+      "isManual": true,
+      "selector": [
+        "body > form.\\00002b50\\0000fe0fdqh46j-1:nth-of-type(1) > div.\\00002b50\\0000fe0fokr433-0:nth-of-type(1) > input.\\00002b50\\0000fe0fokr433-0:nth-of-type(1)"
+      ],
+      "summary": "The change in language for a portion of content is not coded.",
+      "source": null,
+      "tags": ["wcag2aa", "wcag312a"],
+      "igt": "Structure",
+      "testName": "QwikUI | Headless | Input-phone [interactivity]",
+      "shareURL": "",
+      "createdAt": "2023-03-18T11:48:12.441Z",
+      "testUrl": "http://127.0.0.1:5173/docs/headless/input-phone/",
+      "testPageTitle": "",
+      "foundBy": "thomas.leperou@gmail.com",
+      "axeVersion": "4.6.3"
+    }
+  ]
+}
