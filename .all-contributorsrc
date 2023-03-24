@@ -223,6 +223,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tleperou",
+      "name": "Thomas Lepérou",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8383972?v=4",
+      "profile": "https://github.com/tleperou",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
