@@ -265,14 +265,20 @@ export const InputPhone = component$(
 
     return (
       <div {...wrapperProps}>
-        <button tabIndex={-1}>
+        <button
+          tabIndex={-1}
+          aria-label={
+            countrySignal.value?.flag
+              ? `Country of ${countrySignal.value.name}, dial code ${countrySignal.value.dial_code}`
+              : `Select the country of your phone number`
+          }
+        >
           {countrySignal.value?.flag ? countrySignal.value?.flag : `🌐`}
         </button>
         <select
-          tabIndex={1}
           ref={selectRefSignal}
           title={countrySignal.value?.name}
-          aria-label="Country and dial code of your phone number"
+          aria-label="Select the country of your phone number"
           onChange$={(_, { value }) => {
             countrySignal.value = findBySelectValue(value);
             selectRefSignal.value?.blur();
@@ -288,7 +294,6 @@ export const InputPhone = component$(
         </select>
         <input
           {...props}
-          tabIndex={2}
           ref={inputRefSignal}
           placeholder={placeholder}
           type="text"
