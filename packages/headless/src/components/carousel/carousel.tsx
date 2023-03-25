@@ -37,7 +37,7 @@ export const useCarousel = (
   };
 };
 
-export default component$(({ images }: CarouselProps) => {
+export const Carousel = component$(({ images }: CarouselProps) => {
   const { activeSlideIndex, next, prev, jumpTo } = useCarousel(images);
 
   return (

@@ -2,6 +2,7 @@ export * from './components/accordion/accordion';
 export * from './components/badge/badge';
 export * from './components/button-group/button-group';
 export * from './components/card';
+export * from './components/carousel/carousel';
 export * from './components/pagination/pagination';
 export * from './components/collapse/collapse';
 export * from './components/drawer';
