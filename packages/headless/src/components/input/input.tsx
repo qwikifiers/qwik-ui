@@ -11,7 +11,6 @@ import {
   useContextProvider,
   useContext,
 } from '@builder.io/qwik';
-import { Switch as InputSwitch } from '../switch/switch';
 import { InputPhone, type InputPhoneProps } from '../input-phone';
 
 type InputContextService = {
@@ -95,25 +94,6 @@ export const Message = component$((props: InputMessage) => {
     <div aria-live="polite" id={`message-${id}`} {...props}>
       <Slot />
     </div>
-  );
-});
-
-/**
- *
- */
-
-type InputSwtichProps = QwikIntrinsicElements['input'];
-
-export const Switch = component$((props: InputSwtichProps) => {
-  const context = useContext(inputContext);
-  const id = props.id || context.id;
-
-  return (
-    <InputSwitch
-      {...props}
-      aria-describedby={`hint-${id} message-${id}`}
-      id={id}
-    />
   );
 });
 
