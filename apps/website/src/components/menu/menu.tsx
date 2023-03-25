@@ -110,7 +110,7 @@ export const Menu = component$<Props>(({ onClose$ }) => {
           {menu
             .sort((a, b) => (a.label > b.label ? 1 : -1))
             .map((menuItem) => (
-              <li>
+              <li key={menuItem.path}>
                 <Link href={menuItem.path}>
                   <span class="text-lg" onClick$={onChangePage}>
                     {menuItem.label}
