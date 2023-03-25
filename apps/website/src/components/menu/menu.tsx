@@ -42,7 +42,11 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       path: `/docs/${appState.theme.toLowerCase()}/navigation-bar`,
     },
     { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
-    { label: 'Input Phone', path: `/docs/headless/input-phone` },
+    { label: 'Input', path: `/docs/${appState.theme.toLowerCase()}/input` },
+    {
+      label: 'Input Phone',
+      path: `/docs/${appState.theme.toLowerCase()}/input-phone`,
+    },
     { label: 'Rating', path: `/docs/${appState.theme.toLowerCase()}/rating` },
     { label: 'Radio', path: `/docs/${appState.theme.toLowerCase()}/radio` },
     { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
@@ -110,7 +114,7 @@ export const Menu = component$<Props>(({ onClose$ }) => {
           {menu
             .sort((a, b) => (a.label > b.label ? 1 : -1))
             .map((menuItem) => (
-              <li>
+              <li key={menuItem.path}>
                 <Link href={menuItem.path}>
                   <span class="text-lg" onClick$={onChangePage}>
                     {menuItem.label}
