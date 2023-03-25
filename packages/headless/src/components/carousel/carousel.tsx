@@ -1,4 +1,4 @@
-import { $, component$, useSignal } from '@builder.io/qwik';
+import { $, component$, useId, useSignal } from '@builder.io/qwik';
 
 interface CarouselProps {
   images: Array<{
@@ -45,7 +45,7 @@ export const Carousel = component$(({ images }: CarouselProps) => {
       <div class="relative flex justify-center bg-white w-[495px] h-[384px]">
         {images.map((image, i) => (
           <img
-            key="image"
+            key={useId()}
             class={`object-contain h-96 w-auto ${
               i === activeSlideIndex.value ? 'block' : 'hidden'
             }`}
@@ -68,7 +68,7 @@ export const Carousel = component$(({ images }: CarouselProps) => {
       <div class="grid grid-cols-5 gap-4 mt-2">
         {images.map((image, i) => (
           <b
-            key="image"
+            key={useId()}
             class={`${i === activeSlideIndex.value ? 'border' : ''}`}
           >
             <img
