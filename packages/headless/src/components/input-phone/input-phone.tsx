@@ -272,6 +272,7 @@ export const InputPhone = component$(
           tabIndex={1}
           ref={selectRefSignal}
           title={countrySignal.value?.name}
+          aria-label="Country and dial code of your phone number"
           onChange$={(_, { value }) => {
             countrySignal.value = findBySelectValue(value);
             selectRefSignal.value?.blur();
