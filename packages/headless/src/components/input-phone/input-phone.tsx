@@ -5,8 +5,8 @@ import {
   useSignal,
   useStylesScoped$,
   useTask$,
-  useBrowserVisibleTask$,
   QwikIntrinsicElements,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import {
   AsYouType,
@@ -166,7 +166,7 @@ export const InputPhone = component$(
     /**
      * Emit the InputPhone's on initial render
      */
-    useBrowserVisibleTask$(() => {
+    useVisibleTask$(() => {
       handleCountryChange(countrySignal.value);
       handleNumberChange(outputSignal.value);
       handleValidChange(outputSignal.value);
