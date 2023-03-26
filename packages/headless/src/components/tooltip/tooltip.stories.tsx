@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
 import { Tooltip, TooltipProps } from './tooltip';
 
-const meta: Meta<typeof Tooltip> = {
+const meta: Meta<TooltipProps> = {
   component: Tooltip,
 };
 
-type Story = StoryObj<typeof Tooltip>;
+type Story = StoryObj<TooltipProps>;
 
 export default meta;
 
@@ -14,7 +14,7 @@ export const Primary: Story = {
     content: 'Hi there',
   },
   render: () => (
-    <Tooltip>
+    <Tooltip content="test">
       <button>Hello</button>
     </Tooltip>
   ),
