@@ -1,0 +1,98 @@
+.carousel {
+  --_control-size: var(--control-size, 1em);
+
+  display: grid;
+  grid-template-areas:
+    'prev item next'
+    'tbnl tbnl tbnl'
+    'ctrl ctrl ctrl';
+  align-items: center;
+  position: relative;
+}
+
+.carousel__items {
+  grid-area: item;
+}
+
+.carousel__next {
+  grid-area: next;
+}
+
+.carousel__prev {
+  grid-area: prev;
+}
+
+.controls {
+  grid-area: ctrl;
+}
+
+.thumbnails {
+  grid-area: tbnl;
+}
+
+.carousel__items {
+  --scroll-width: 0.95em;
+
+  max-height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+
+  -ms-overflow-style: var(--scroll-width);
+  scrollbar-width: var(--scroll-width);
+}
+
+.carousel:not(:hover) .carousel__items {
+  /* 1px border */
+  margin-bottom: var(--scroll-width);
+  /* prevent from CLS */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.carousel:not(:hover) .carousel__items::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
+}
+
+.carousel__items > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  aspect-ratio: 19 / 9;
+  max-width: 100%;
+  background-color: lightblue;
+}
+
+.controls ul {
+  display: flex;
+  column-gap: 0.5em;
+}
+
+.controls button[aria-current='true'] {
+  text-decoration: underline;
+}
+
+.carousel__next[disabled],
+.carousel__previous[disabled] {
+  pointer-events: none;
+}
+
+.sr-only {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
