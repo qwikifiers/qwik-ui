@@ -107,10 +107,16 @@ export const Items = component$(() => {
   );
 });
 
-export const Item = component$(() => {
+type ItemProps = QwikIntrinsicElements['li'] & {
+  label: string;
+};
+
+export const Item = component$((props: ItemProps) => {
   useStylesScoped$(stylesItem);
+  const { label, ...rest } = props;
   return (
-    <li>
+    <li {...rest}>
+      <input type="radio" style="appearance: none;" aria-label={label} />
       <Slot />
     </li>
   );
@@ -129,11 +135,10 @@ export const Controls = component$((props: ControlsProps) => {
         {Array.from({ length: count.value }).map((_, i) => (
           <li key={useId()}>
             <button
-              aria-label={`Go to slide number ${i + 1}`}
+              aria-label={`Go to the ${ordinal(i + 1)} item`}
               aria-current={active.value === i}
               onClick$={() => scrollTo(i)}
             >
-              <span class="sr-only">Go to the {ordinal(i + 1)} item</span>
               {i + 1}
             </button>
           </li>
