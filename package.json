@@ -38,6 +38,7 @@
     "@storybook/builder-vite": "7.0.0-rc.7",
     "@storybook/html": "7.0.0-rc.7",
     "@storybook/html-vite": "7.0.0-rc.7",
+    "@storybook/jest": "0.0.10",
     "@storybook/testing-library": "0.0.13",
     "@types/eslint": "8.21.3",
     "@types/node": "18.15.3",
