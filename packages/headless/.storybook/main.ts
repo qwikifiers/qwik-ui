@@ -1,4 +1,5 @@
 import { qwikVite } from '@builder.io/qwik/optimizer';
+import { resolve } from 'path';
 import { StorybookConfig } from 'storybook-framework-qwik';
 // import { rootMain } from '../../../.storybook/main';
 
@@ -28,16 +29,17 @@ const config: StorybookConfig = {
     '../src/components/**/*.stories.@(js|jsx|ts|tsx)',
   ],
 
-  // viteFinal: async (config: any) => {
-  //   return mergeConfig(config, {
-  //     plugins: [
-  //       viteTsConfigPaths({
-  //         root: '../../../',
-  //       }),
-  //       qwikVite(),
-  //     ],
-  //   });
-  // },
+  viteFinal: async (config: any) => {
+    return mergeConfig(config, {
+      plugins: [
+        qwikVite({
+          vendorRoots: [__dirname],
+          srcDir: resolve(__dirname, '../src'),
+        }),
+        viteTsConfigPaths(),
+      ],
+    });
+  },
 };
 
 export default config;

@@ -67,10 +67,9 @@
         "notes": "${notes}"
       }
     },
-    "storybook-when-it-will-work": {
+    "storybook": {
       "executor": "@nrwl/storybook:storybook",
       "options": {
-        "uiFramework": "@storybook/html",
         "port": 4400,
         "configDir": "packages/headless/.storybook"
       },
@@ -78,13 +77,6 @@
         "ci": {
           "quiet": true
         }
-      }
-    },
-    "storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "storybook dev",
-        "cwd": "packages/headless"
       }
     },
     "build-storybook": {
