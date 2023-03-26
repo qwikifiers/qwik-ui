@@ -17,12 +17,14 @@ const {
   IconPrevious,
 } = Carousel;
 
-export const IMAGES: { image: string; thumbnail: string }[] = Array.from({
-  length: 4,
-}).map(() => ({
-  image: 'https://picsum.photos/1200/550',
-  thumbnail: 'https://picsum.photos/20/30',
-}));
+export const IMAGES: { image: string; thumbnail: string; title: string }[] =
+  Array.from({
+    length: 4,
+  }).map(() => ({
+    image: 'https://picsum.photos/1200/550',
+    thumbnail: 'https://picsum.photos/20/30',
+    title: 'My great image',
+  }));
 
 export default component$(() => {
   useStylesScoped$(`
@@ -63,9 +65,8 @@ export default component$(() => {
           </ButtonPrevious>
           <Items>
             {images.value.map((image) => (
-              <Item key={useId()}>
+              <Item key={useId()} label={image.title}>
                 <img
-                  role="listitem"
                   key={useId()}
                   src={image.image}
                   style="max-height: 500px; height: 100%;"
