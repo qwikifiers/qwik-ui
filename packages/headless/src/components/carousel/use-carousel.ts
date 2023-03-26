@@ -1,4 +1,5 @@
 import { type Signal, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
+import type { CarouselContext } from './carousel';
 
 type UseCarouselParams = {
   itemsRef: Signal<HTMLElement | undefined>;
@@ -11,7 +12,7 @@ export const useCarousel = ({
   itemsRef,
   startAt = 0,
   loop = true,
-}: UseCarouselParams) => {
+}: UseCarouselParams): CarouselContext => {
   const isFirstActive = useSignal(false);
   const isLastActive = useSignal(false);
   const count = useSignal(0);
@@ -44,8 +45,14 @@ export const useCarousel = ({
 
     trackActive(index);
 
-    const el = itemsRef.value?.children[index];
-    el && el.scrollIntoView({ behavior: 'smooth' });
+    const ref = itemsRef.value?.querySelector('.carousel__items');
+    const el = ref?.children[index];
+    el &&
+      el.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start',
+      });
   });
 
   /**
@@ -76,11 +83,12 @@ export const useCarousel = ({
    * track the active item when scrolling
    */
   useVisibleTask$(() => {
+    // set total of item in the carousel
+    const ref = itemsRef.value?.querySelector('.carousel__items');
+    count.value = ref?.childElementCount || 0;
+
     // scroll to the active item on initial render
     scrollTo(active.value);
-
-    // set total of item in the carousel
-    count.value = itemsRef.value?.childElementCount || 0;
 
     // track active item while scrolling
     const observer = new IntersectionObserver((items) => {
@@ -89,19 +97,19 @@ export const useCarousel = ({
         // the view, use the ratio / number of visible item
         // because several item shall be intersecting
         if (item.isIntersecting) {
-          const index = Array.from(itemsRef.value?.children || []).indexOf(
-            item.target
-          );
+          const index = Array.from(ref?.children || []).indexOf(item.target);
           trackActive(index);
         }
       });
     });
 
-    const items = itemsRef.value?.children || [];
+    const items = ref?.children || [];
     Array.from(items).forEach((item) => observer.observe(item));
   });
 
   return {
+    loop,
+    startAt,
     active,
     count,
     next,

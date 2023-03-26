@@ -1,101 +1,147 @@
 import {
   component$,
+  createContextId,
   QwikIntrinsicElements,
+  type Signal,
   Slot,
+  useContext,
+  useContextProvider,
   useId,
   useSignal,
-  useStyles$,
+  useStylesScoped$,
+  QRL,
 } from '@builder.io/qwik';
 import { useCarousel } from './use-carousel';
 import { useOrdinal } from './use-ordinal';
-import styles from './carousel.css?inline';
 
-type CarouselProps = QwikIntrinsicElements['div'] & {
+import stylesControls from './styles-controls.css?inline';
+import stylesItem from './styles-item.css?inline';
+import stylesItems from './styles-items.css?inline';
+
+export type CarouselContext = {
+  loop: boolean;
+  startAt: number;
+  active: Signal<number>;
+  count: Signal<number>;
+  next: QRL<() => void>;
+  previous: QRL<() => void>;
+  scrollTo: QRL<(index: number) => void>;
+  isFirstActive: Signal<boolean>;
+  isLastActive: Signal<boolean>;
+};
+
+export const carouselContext =
+  createContextId<CarouselContext>('carousel-root');
+
+type RootProps = QwikIntrinsicElements['div'] & {
   startAt?: number;
   loop?: boolean;
   control?: boolean;
 };
 
-export const Carousel = component$(
-  ({ startAt = 0, control = true, loop = true }: CarouselProps) => {
+export const Root = component$(
+  ({ startAt = 0, loop = true, ...props }: RootProps) => {
     const itemsRef = useSignal<HTMLElement>();
-    const {
-      active,
-      count,
-      next,
-      previous,
-      scrollTo,
-      isFirstActive,
-      isLastActive,
-    } = useCarousel({ itemsRef, startAt, loop });
-
-    const ordinal = useOrdinal();
-
-    useStyles$(styles);
+    const contextService: CarouselContext = useCarousel({
+      itemsRef,
+      startAt,
+      loop,
+    });
+    useContextProvider(carouselContext, contextService);
 
     return (
-      <div>
+      <>
         <ul>
-          <li>count: {count.value}</li>
+          <li>count: {contextService.count.value}</li>
+          <li>active: {contextService.active.value + 1}</li>
           <li>
-            active: {active.value} (initially: {startAt})
+            first: {contextService.isFirstActive.value ? 'true' : 'false'}
           </li>
-          <li>first: {isFirstActive.value ? 'true' : 'false'}</li>
-          <li>last: {isLastActive.value ? 'true' : 'false'}</li>
+          <li>last: {contextService.isLastActive.value ? 'true' : 'false'}</li>
+          <li>loop: {contextService.loop ? 'true' : 'false'}</li>
         </ul>
-
-        <div role="presentation" class="carousel">
-          <button
-            aria-label="Got to the previous item"
-            class="carousel__previous"
-            disabled={isFirstActive.value ?? !loop}
-            onClick$={previous}
-          >
-            <Slot name="previous" />
-          </button>
-
-          <div role="list" ref={itemsRef} class="carousel__items">
-            <Slot />
-          </div>
-
-          <button
-            aria-label="Got to the next item"
-            class="carousel__next"
-            disabled={isLastActive.value ?? !loop}
-            onClick$={next}
-          >
-            <Slot name="next" />
-          </button>
-
-          <div class="thumbnails">
-            <Slot name="thumbnail" />
-          </div>
-
-          {control && (
-            <nav class="controls">
-              <ul>
-                {Array.from({ length: count.value }).map((_, i) => (
-                  <li key={useId()}>
-                    <button
-                      aria-label={`Go to slide number ${i + 1}`}
-                      aria-current={active.value === i}
-                      onClick$={() => scrollTo(i)}
-                    >
-                      <span class="sr-only">
-                        Go to the {ordinal(i + 1)} item
-                      </span>
-                      {i + 1}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          )}
+        <div ref={itemsRef} {...props}>
+          <Slot />
         </div>
-      </div>
+      </>
     );
   }
 );
+
+export const ButtonNext = component$(() => {
+  const { isLastActive, loop, next } = useContext(carouselContext);
+  return (
+    <button
+      aria-label="Got to the next item"
+      class="carousel__next"
+      disabled={!loop ? isLastActive.value : false}
+      onClick$={next}
+    >
+      <Slot />
+    </button>
+  );
+});
+
+export const ButtonPrevious = component$(() => {
+  const { isFirstActive, loop, previous } = useContext(carouselContext);
+  return (
+    <button
+      aria-label="Got to the previous item"
+      class="carousel__prev"
+      disabled={!loop ? isFirstActive.value : false}
+      onClick$={previous}
+    >
+      <Slot />
+    </button>
+  );
+});
+
+export const Items = component$(() => {
+  useStylesScoped$(stylesItems);
+  return (
+    <div class="carousel">
+      <ul class="carousel__items">
+        <Slot />
+      </ul>
+    </div>
+  );
+});
+
+export const Item = component$(() => {
+  useStylesScoped$(stylesItem);
+  return (
+    <li>
+      <Slot />
+    </li>
+  );
+});
+
+type ControlsProps = QwikIntrinsicElements['div'];
+
+export const Controls = component$((props: ControlsProps) => {
+  useStylesScoped$(stylesControls);
+  const ordinal = useOrdinal();
+  const { count, active, scrollTo } = useContext(carouselContext);
+
+  return (
+    <nav {...props}>
+      <ul>
+        {Array.from({ length: count.value }).map((_, i) => (
+          <li key={useId()}>
+            <button
+              aria-label={`Go to slide number ${i + 1}`}
+              aria-current={active.value === i}
+              onClick$={() => scrollTo(i)}
+            >
+              <span class="sr-only">Go to the {ordinal(i + 1)} item</span>
+              {i + 1}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+});
 
 export const IconPrevious = () => (
   <svg

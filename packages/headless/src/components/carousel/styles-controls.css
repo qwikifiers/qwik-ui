@@ -1,0 +1,18 @@
+ul {
+  display: flex;
+  column-gap: 0.5em;
+}
+
+button[aria-current='true'] {
+  text-decoration: underline;
+}
+
+.sr-only {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

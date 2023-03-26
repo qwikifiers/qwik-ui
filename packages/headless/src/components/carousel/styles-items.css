@@ -1,5 +1,5 @@
 .carousel {
-  --_control-size: var(--control-size, 1em);
+  --scroll-width: 0.95em;
 
   display: grid;
   grid-template-areas:
@@ -10,29 +10,13 @@
   position: relative;
 }
 
-.carousel__items {
-  grid-area: item;
-}
-
-.carousel__next {
-  grid-area: next;
-}
-
-.carousel__prev {
-  grid-area: prev;
-}
-
-.controls {
-  grid-area: ctrl;
-}
-
-.thumbnails {
-  grid-area: tbnl;
+.carousel:hover {
+  margin-bottom: calc(-1 * var(--scroll-width));
 }
 
 .carousel:not(:hover) .carousel__items {
   /* 1px border */
-  margin-bottom: var(--scroll-width);
+  /* margin-bottom: var(--scroll-width); */
   /* prevent from CLS */
   -ms-overflow-style: none;
   /* Internet Explorer 10+ */
@@ -43,4 +27,18 @@
 .carousel:not(:hover) .carousel__items::-webkit-scrollbar {
   display: none;
   /* Safari and Chrome */
+}
+
+.carousel__items {
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+
+  -ms-overflow-style: var(--scroll-width);
+  scrollbar-width: var(--scroll-width);
 }
