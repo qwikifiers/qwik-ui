@@ -7,7 +7,7 @@ const cypressConfig = {
     specPattern: '**/*.spec.{js,jsx,ts,tsx}',
     devServer: {
       bundler: 'vite',
-      viteConfig: mergeConfig(viteConfig, { mode: 'test' }),
+      viteConfig,
     },
   },
 };
