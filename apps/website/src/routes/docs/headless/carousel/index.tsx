@@ -1,20 +1,17 @@
-import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
-import { Carousel } from '@qwik-ui/headless';
+import {
+  component$,
+  useId,
+  useSignal,
+  useStylesScoped$,
+} from '@builder.io/qwik';
+import { Carousel, IconNext, IconPrevious } from '@qwik-ui/headless';
 
-export const IMAGES: { image: string; thumbnail: string }[] = [
-  {
-    image: 'https://picsum.photos/200/300',
-    thumbnail: 'https://picsum.photos/20/30',
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    thumbnail: 'https://picsum.photos/20/30',
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    thumbnail: 'https://picsum.photos/20/30',
-  },
-];
+export const IMAGES: { image: string; thumbnail: string }[] = Array.from({
+  length: 4,
+}).map(() => ({
+  image: 'https://picsum.photos/1200/550',
+  thumbnail: 'https://picsum.photos/20/30',
+}));
 
 export default component$(() => {
   useStylesScoped$(`
@@ -22,6 +19,7 @@ export default component$(() => {
    .form-item, hr { width: 35em; }
    h2 { margin-block: 1.15em 0.5em; font-size: xx-large; }
    h3 { margin-block: 0.85em 0.35em; font-size: x-large; }
+   hr { margin-block: 2em; }
   `);
 
   const images = useSignal(IMAGES);
@@ -32,14 +30,40 @@ export default component$(() => {
 
       <h2>Carousel Example</h2>
 
-      <Carousel images={images.value} />
+      <Carousel startAt={1} loop={true} control={true}>
+        {images.value.map((image) => (
+          <img
+            role="listitem"
+            key={useId()}
+            src={image.image}
+            style="max-height: 500px; height: 100%;"
+          />
+        ))}
+        <span q:slot="previous">
+          <IconPrevious />
+        </span>
+        <span q:slot="next">
+          <IconNext />
+        </span>
+      </Carousel>
 
       <hr />
 
       <h3>Inputs</h3>
 
       <ul>
-        <li></li>
+        <li>startAt: number, default 0</li>
+        <li>loop: boolean, default true</li>
+        <li>control: boolean, default true</li>
+      </ul>
+
+      <h3>q:slot</h3>
+
+      <ul>
+        <li>previous: button to previous</li>
+        <li>next: button to next</li>
+        <li>thumbnails</li>
+        <li>default: list of item</li>
       </ul>
 
       <hr />
