@@ -127,12 +127,12 @@ export const Item = component$(
     useStylesScoped$(stylesItem);
     const { id, active } = useContext(carouselContext);
     return (
-      <li {...props}>
+      <li {...props} aria-current={active.value === index}>
         <input
+          aria-label={label}
           type="radio"
           checked={active.value === index}
           name={`item-${id}`}
-          aria-label={label}
         />
         <Slot />
       </li>
