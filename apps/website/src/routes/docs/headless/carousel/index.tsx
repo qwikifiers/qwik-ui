@@ -113,16 +113,16 @@ export default component$(() => {
       <ul>
         <li>startAt: number, default 0</li>
         <li>loop: boolean, default true</li>
-        <li>control: boolean, default true</li>
       </ul>
 
-      <h3>q:slot</h3>
+      <h3>Parts</h3>
 
       <ul>
-        <li>previous: button to previous</li>
-        <li>next: button to next</li>
-        <li>thumbnails</li>
-        <li>default: list of item</li>
+        <li>Root</li>
+        <li>Items & Item</li>
+        <li>ButtonPrevious</li>
+        <li>ButtonNext</li>
+        <li>Controls & Control</li>
       </ul>
 
       <hr />
