@@ -39,7 +39,6 @@ export const carouselContext =
 type RootProps = QwikIntrinsicElements['div'] & {
   startAt?: number;
   loop?: boolean;
-  control?: boolean;
 };
 
 export const Root = component$(
