@@ -8,6 +8,7 @@ import { Carousel } from '@qwik-ui/headless';
 
 const {
   Controls,
+  Control,
   Item,
   Items,
   Root,
@@ -17,17 +18,15 @@ const {
   IconPrevious,
 } = Carousel;
 
-export const IMAGES: { image: string; thumbnail: string; title: string }[] =
-  Array.from({
-    length: 4,
-  }).map(() => ({
-    image: 'https://picsum.photos/1200/550',
-    thumbnail: 'https://picsum.photos/20/30',
-    title: 'My great image',
-  }));
+export const ITEMS: { src: string; title: string }[] = Array.from({
+  length: 4,
+}).map(() => ({
+  src: 'https://picsum.photos/1200/550',
+  title: 'My great image',
+}));
 
 export default component$(() => {
-  useStylesScoped$(`
+  const { scopeId } = useStylesScoped$(`
     h1 { margin: 2rem 0; padding-top: 1rem; font-weight: bold; border-top: 1px dotted #222}
     h2 { margin-block: 1.15em 0.5em; font-size: xx-large; }
     h3 { margin-block: 0.85em 0.35em; font-size: x-large; }
@@ -47,10 +46,34 @@ export default component$(() => {
     .controls { 
       padding: 2em;
       margin-inline: auto;
+      display: flex;
+      justify-content: center;
+      gap: 0.5em;
+    }
+
+    .control {
+      width: 2em;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .3s .1s ease-out;
+      cursor: pointer;
+    }
+
+    .control[aria-current="true"] {
+      font-weight: 900;
+    }
+
+    .item {
+      height: 500px;
+      width: 100%; 
+      object-fit: cover;
     }
   `);
 
-  const images = useSignal(IMAGES);
+  const items = useSignal(ITEMS);
 
   return (
     <>
@@ -64,13 +87,9 @@ export default component$(() => {
             <IconPrevious />
           </ButtonPrevious>
           <Items>
-            {images.value.map((image) => (
-              <Item key={useId()} label={image.title}>
-                <img
-                  key={useId()}
-                  src={image.image}
-                  style="max-height: 500px; height: 100%;"
-                />
+            {items.value.map(({ src, title }, i) => (
+              <Item key={useId()} index={i} label={title}>
+                <img src={src} class="item" />
               </Item>
             ))}
           </Items>
@@ -78,7 +97,13 @@ export default component$(() => {
             <IconNext />
           </ButtonNext>
         </div>
-        <Controls class="controls" />
+        <Controls class={[scopeId, 'controls']}>
+          {items.value.map((_, i) => (
+            <Control key={useId()} index={i} class={[scopeId, 'control']}>
+              {i + 1}
+            </Control>
+          ))}
+        </Controls>
       </Root>
 
       <hr />

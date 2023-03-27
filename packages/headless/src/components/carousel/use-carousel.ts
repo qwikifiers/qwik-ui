@@ -1,7 +1,14 @@
-import { type Signal, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
+import {
+  type Signal,
+  useSignal,
+  useVisibleTask$,
+  $,
+  useId,
+} from '@builder.io/qwik';
 import type { CarouselContext } from './carousel';
 
 type UseCarouselParams = {
+  id?: string;
   itemsRef: Signal<HTMLElement | undefined>;
   thumbnailsRef?: Signal<HTMLElement | undefined>;
   startAt?: number;
@@ -9,6 +16,7 @@ type UseCarouselParams = {
 };
 
 export const useCarousel = ({
+  id = useId(),
   itemsRef,
   startAt = 0,
   loop = true,
@@ -108,6 +116,7 @@ export const useCarousel = ({
   });
 
   return {
+    id,
     loop,
     startAt,
     active,

@@ -6,19 +6,22 @@ import {
   Slot,
   useContext,
   useContextProvider,
-  useId,
   useSignal,
   useStylesScoped$,
   QRL,
+  useId,
+  $,
 } from '@builder.io/qwik';
 import { useCarousel } from './use-carousel';
 import { useOrdinal } from './use-ordinal';
 
-import stylesControls from './styles-controls.css?inline';
+import stylesButtons from './styles-buttons.css?inline';
+import stylesControl from './styles-control.css?inline';
 import stylesItem from './styles-item.css?inline';
 import stylesItems from './styles-items.css?inline';
 
 export type CarouselContext = {
+  id: string;
   loop: boolean;
   startAt: number;
   active: Signal<number>;
@@ -40,9 +43,10 @@ type RootProps = QwikIntrinsicElements['div'] & {
 };
 
 export const Root = component$(
-  ({ startAt = 0, loop = true, ...props }: RootProps) => {
+  ({ startAt = 0, loop = true, id, ...props }: RootProps) => {
     const itemsRef = useSignal<HTMLElement>();
     const contextService: CarouselContext = useCarousel({
+      id,
       itemsRef,
       startAt,
       loop,
@@ -60,7 +64,7 @@ export const Root = component$(
           <li>last: {contextService.isLastActive.value ? 'true' : 'false'}</li>
           <li>loop: {contextService.loop ? 'true' : 'false'}</li>
         </ul>
-        <div ref={itemsRef} {...props}>
+        <div id={contextService.id} ref={itemsRef} {...props}>
           <Slot />
         </div>
       </>
@@ -68,33 +72,39 @@ export const Root = component$(
   }
 );
 
-export const ButtonNext = component$(() => {
+type ButtonProps = QwikIntrinsicElements['button'];
+
+export const ButtonNext = component$(({ onClick$, ...props }: ButtonProps) => {
+  useStylesScoped$(stylesButtons);
   const { isLastActive, loop, next } = useContext(carouselContext);
   return (
     <button
       aria-label="Got to the next item"
-      class="carousel__next"
       disabled={!loop ? isLastActive.value : false}
-      onClick$={next}
+      {...props}
+      onClick$={[$(() => next()), onClick$]}
     >
       <Slot />
     </button>
   );
 });
 
-export const ButtonPrevious = component$(() => {
-  const { isFirstActive, loop, previous } = useContext(carouselContext);
-  return (
-    <button
-      aria-label="Got to the previous item"
-      class="carousel__prev"
-      disabled={!loop ? isFirstActive.value : false}
-      onClick$={previous}
-    >
-      <Slot />
-    </button>
-  );
-});
+export const ButtonPrevious = component$(
+  ({ onClick$, ...props }: ButtonProps) => {
+    useStylesScoped$(stylesButtons);
+    const { isFirstActive, loop, previous } = useContext(carouselContext);
+    return (
+      <button
+        aria-label="Got to the previous item"
+        disabled={!loop ? isFirstActive.value : false}
+        {...props}
+        onClick$={[$(() => previous()), onClick$]}
+      >
+        <Slot />
+      </button>
+    );
+  }
+);
 
 export const Items = component$(() => {
   useStylesScoped$(stylesItems);
@@ -109,44 +119,76 @@ export const Items = component$(() => {
 
 type ItemProps = QwikIntrinsicElements['li'] & {
   label: string;
+  index: number;
 };
 
-export const Item = component$((props: ItemProps) => {
-  useStylesScoped$(stylesItem);
-  const { label, ...rest } = props;
-  return (
-    <li {...rest}>
-      <input type="radio" style="appearance: none;" aria-label={label} />
-      <Slot />
-    </li>
-  );
-});
+export const Item = component$(
+  ({ index, label, ...props }: Omit<ItemProps, 'class'>) => {
+    useStylesScoped$(stylesItem);
+    const { id, active } = useContext(carouselContext);
+    return (
+      <li {...props}>
+        <input
+          type="radio"
+          checked={active.value === index}
+          name={`item-${id}`}
+          aria-label={label}
+        />
+        <Slot />
+      </li>
+    );
+  }
+);
+
+type ControlContext = {
+  id: string;
+};
 
 type ControlsProps = QwikIntrinsicElements['div'];
 
-export const Controls = component$((props: ControlsProps) => {
-  useStylesScoped$(stylesControls);
-  const ordinal = useOrdinal();
-  const { count, active, scrollTo } = useContext(carouselContext);
+export const controlContext = createContextId<ControlContext>(
+  'carousel-control-root'
+);
 
+export const Controls = component$((props: ControlsProps) => {
+  const controlService = { id: props.id || useId() };
+  useContextProvider(controlContext, controlService);
   return (
     <nav {...props}>
-      <ul>
-        {Array.from({ length: count.value }).map((_, i) => (
-          <li key={useId()}>
-            <button
-              aria-label={`Go to the ${ordinal(i + 1)} item`}
-              aria-current={active.value === i}
-              onClick$={() => scrollTo(i)}
-            >
-              {i + 1}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <Slot />
     </nav>
   );
 });
+
+type ControlProps = QwikIntrinsicElements['div'] & {
+  index: number;
+};
+
+export const Control = component$(
+  ({ index, onClick$, ...props }: ControlProps) => {
+    useStylesScoped$(stylesControl);
+    const ordinal = useOrdinal();
+    const { active, scrollTo } = useContext(carouselContext);
+    const { id } = useContext(controlContext);
+
+    return (
+      <div
+        aria-current={active.value === index}
+        {...props}
+        onClick$={[$(() => scrollTo(index)), onClick$]}
+      >
+        <input
+          aria-label={`Go to the ${ordinal?.(index + 1)} item`}
+          type="radio"
+          checked={active.value === index}
+          name={`control-${id}`}
+          onChange$={() => scrollTo(index)}
+        />
+        <Slot />
+      </div>
+    );
+  }
+);
 
 export const IconPrevious = () => (
   <svg

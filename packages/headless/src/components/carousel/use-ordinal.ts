@@ -1,7 +1,7 @@
-import { $ } from '@builder.io/qwik';
+import { noSerialize } from '@builder.io/qwik';
 
 export const useOrdinal = () => {
-  return $((n: number) => {
+  return noSerialize((n: number) => {
     const pr = new Intl.PluralRules('en-GB', { type: 'ordinal' });
     const suffixes = new Map([
       ['one', 'st'],

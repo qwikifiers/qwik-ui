@@ -1,4 +1,4 @@
-.carousel {
+:where(.carousel) {
   --scroll-width: 0.95em;
 
   display: grid;
@@ -10,11 +10,16 @@
   position: relative;
 }
 
-.carousel:hover {
+:where(.carousel:focus-within) {
+  outline: -webkit-focus-ring-color auto 1px;
+  z-index: 1;
+}
+
+:where(.carousel:hover) {
   margin-bottom: calc(-1 * var(--scroll-width));
 }
 
-.carousel:not(:hover) .carousel__items {
+:where(.carousel:not(:hover)) .carousel__items {
   /* 1px border */
   /* margin-bottom: var(--scroll-width); */
   /* prevent from CLS */
@@ -24,12 +29,12 @@
   /* Firefox */
 }
 
-.carousel:not(:hover) .carousel__items::-webkit-scrollbar {
+:where(.carousel:not(:hover)) .carousel__items::-webkit-scrollbar {
   display: none;
   /* Safari and Chrome */
 }
 
-.carousel__items {
+:where(.carousel__items) {
   height: 100%;
   position: relative;
   display: flex;
