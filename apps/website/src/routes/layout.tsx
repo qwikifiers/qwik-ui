@@ -1,9 +1,9 @@
 import {
   component$,
   Slot,
-  useBrowserVisibleTask$,
   useContextProvider,
   useStore,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import Header from '../components/header/header';
 import { APP_STATE } from '../constants';
@@ -16,7 +16,7 @@ export default component$(() => {
   });
   useContextProvider(APP_STATE, state);
 
-  useBrowserVisibleTask$(() => {
+  useVisibleTask$(() => {
     state.darkMode = localStorage.getItem('theme') === 'dark';
     state.theme =
       location.pathname.indexOf('/headless') !== -1
