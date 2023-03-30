@@ -20,8 +20,12 @@ describe('Accordion', () => {
       </Accordion>
     );
 
+    // cy.injectAxe();
+
     cy.contains(/Heading 1/i).click();
     cy.get('.content').should('exist');
     cy.contains(/Heading 2/i).should('exist');
+
+    // cy.checkA11y();
   });
 });
