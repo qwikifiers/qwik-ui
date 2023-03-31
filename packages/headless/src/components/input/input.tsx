@@ -38,7 +38,7 @@ export const Root = component$((props: ControlProps) => {
   useContextProvider(inputContext, contextService);
 
   return (
-    <div role="presentation" {...props}>
+    <div {...props}>
       <Slot />
     </div>
   );
@@ -100,8 +100,6 @@ export const Message = component$((props: InputMessage) => {
 /**
  *
  */
-
-// type InputPhone = QwikIntrinsicElements['input'];
 
 export const Phone = component$((props: InputPhoneProps) => {
   const context = useContext(inputContext);
