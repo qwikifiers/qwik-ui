@@ -3,8 +3,10 @@ import {
   Slot,
   useContextProvider,
   useStore,
+  useTask$,
   useVisibleTask$,
 } from '@builder.io/qwik';
+import { useLocation } from '@builder.io/qwik-city';
 import Header from '../components/header/header';
 import { APP_STATE } from '../constants';
 import { AppState } from '../types';
@@ -15,13 +17,17 @@ export default component$(() => {
     theme: 'NOT_DEFINED',
   });
   useContextProvider(APP_STATE, state);
+  const loc = useLocation();
 
   useVisibleTask$(() => {
     state.darkMode = localStorage.getItem('theme') === 'dark';
+  });
+
+  useTask$(() => {
     state.theme =
-      location.pathname.indexOf('/headless') !== -1
+      loc.url.pathname.indexOf('/headless') !== -1
         ? 'HEADLESS'
-        : location.pathname.indexOf('/material') !== -1
+        : loc.url.pathname.indexOf('/material') !== -1
         ? 'MATERIAL'
         : 'DAISY';
   });

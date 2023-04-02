@@ -1,15 +1,7 @@
-import {
-  $,
-  component$,
-  PropFunction,
-  useContext,
-  useStore,
-  useVisibleTask$,
-} from '@builder.io/qwik';
+import { $, component$, PropFunction, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 
 import { APP_STATE } from '../../constants';
-import { AppPath } from '../../types';
 import { CloseIcon } from '../icons/CloseIcon';
 
 type Props = {
@@ -18,77 +10,96 @@ type Props = {
 
 export const Menu = component$<Props>(({ onClose$ }) => {
   const appState = useContext(APP_STATE);
-  const menu = useStore<{ value: AppPath[] }>({
-    value: [{ label: '', path: '' }],
-  });
 
-  useVisibleTask$(() => {
-    menu.value = [
-      {
-        label: 'Accordion',
-        path: `/docs/${appState.theme.toLowerCase()}/accordion`,
-      },
-      {
-        label: 'Alert',
-        path: `/docs/${appState.theme.toLowerCase()}/alert`,
-      },
-      {
-        label: 'Badge',
-        path: `/docs/${appState.theme.toLowerCase()}/badge`,
-      },
-      {
-        label: 'Breadcrumb',
-        path: `/docs/${appState.theme.toLowerCase()}/breadcrumb`,
-      },
-      { label: 'Button', path: `/docs/${appState.theme.toLowerCase()}/button` },
-      {
-        label: 'ButtonGroup',
-        path: `/docs/${appState.theme.toLowerCase()}/button-group`,
-      },
-      { label: 'Card', path: `/docs/${appState.theme.toLowerCase()}/card` },
-      {
-        label: 'Collapse',
-        path: `/docs/${appState.theme.toLowerCase()}/collapse`,
-      },
-      {
-        label: 'Navigation Bar',
-        path: `/docs/${appState.theme.toLowerCase()}/navigation-bar`,
-      },
-      { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
-      { label: 'Input Phone', path: `/docs/headless/input-phone` },
-      { label: 'Rating', path: `/docs/${appState.theme.toLowerCase()}/rating` },
-      { label: 'Radio', path: `/docs/${appState.theme.toLowerCase()}/radio` },
-      {
-        label: 'Popover',
-        path: `/docs/${appState.theme.toLowerCase()}/popover`,
-      },
-      { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
-      {
-        label: 'Spinner',
-        path: `/docs/${appState.theme.toLowerCase()}/spinner`,
-      },
-      { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
-      { label: 'Toast', path: `/docs/${appState.theme.toLowerCase()}/toast` },
-      { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/toggle` },
-      {
-        label: 'Tooltip',
-        path: `/docs/${appState.theme.toLowerCase()}/tooltip`,
-      },
-      { label: 'Slider', path: `/docs/${appState.theme.toLowerCase()}/slider` },
-      {
-        label: 'Pagination',
-        path: `/docs/${appState.theme.toLowerCase()}/pagination`,
-      },
-      {
-        label: 'Checkbox',
-        path: `/docs/${appState.theme.toLowerCase()}/checkbox`,
-      },
-      {
-        label: 'Progress',
-        path: `/docs/${appState.theme.toLowerCase()}/progress`,
-      },
-    ];
-  });
+  const menu = [
+    {
+      label: 'Accordion',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/accordion`,
+    },
+    {
+      label: 'Alert',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/alert`,
+    },
+    {
+      label: 'Badge',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/badge`,
+    },
+    {
+      label: 'Breadcrumb',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/breadcrumb`,
+    },
+    {
+      label: 'Button',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/button`,
+    },
+    {
+      label: 'ButtonGroup',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/button-group`,
+    },
+    { label: 'Card', path: `/docs/${appState.theme.toLocaleLowerCase()}/card` },
+    {
+      label: 'Collapse',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/collapse`,
+    },
+    {
+      label: 'Navigation Bar',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/navigation-bar`,
+    },
+    {
+      label: 'Drawer',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/drawer`,
+    },
+    { label: 'Input Phone', path: `/docs/headless/input-phone` },
+    {
+      label: 'Rating',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/rating`,
+    },
+    {
+      label: 'Radio',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/radio`,
+    },
+    {
+      label: 'Popover',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/popover`,
+    },
+    {
+      label: 'Select',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/select`,
+    },
+    {
+      label: 'Spinner',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/spinner`,
+    },
+    { label: 'Tabs', path: `/docs/${appState.theme.toLocaleLowerCase()}/tabs` },
+    {
+      label: 'Toast',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/toast`,
+    },
+    {
+      label: 'Toggle',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/toggle`,
+    },
+    {
+      label: 'Tooltip',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/tooltip`,
+    },
+    {
+      label: 'Slider',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/slider`,
+    },
+    {
+      label: 'Pagination',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/pagination`,
+    },
+    {
+      label: 'Checkbox',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/checkbox`,
+    },
+    {
+      label: 'Progress',
+      path: `/docs/${appState.theme.toLocaleLowerCase()}/progress`,
+    },
+  ];
 
   const onChangePage = $(() => {
     if (onClose$) {
@@ -127,7 +138,7 @@ export const Menu = component$<Props>(({ onClose$ }) => {
           <p class="capitalize text-xl">components</p>
         </div>
         <ul class="py-2 px-4">
-          {menu.value
+          {menu
             .sort((a, b) => (a.label > b.label ? 1 : -1))
             .map((menuItem, index) => (
               <li key={index}>
