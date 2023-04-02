@@ -16,8 +16,8 @@ export default component$(() => {
     darkMode: false,
     theme: 'NOT_DEFINED',
   });
-  useContextProvider(APP_STATE, state);
   const loc = useLocation();
+  useContextProvider(APP_STATE, state);
 
   useVisibleTask$(() => {
     state.darkMode = localStorage.getItem('theme') === 'dark';
