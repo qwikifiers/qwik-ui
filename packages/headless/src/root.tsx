@@ -1,3 +1,2 @@
-export default () => {
-  return <div>Accordion</div>;
-};
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export default () => {};
