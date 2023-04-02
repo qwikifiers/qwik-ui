@@ -14,90 +14,90 @@ export const Menu = component$<Props>(({ onClose$ }) => {
   const menu = [
     {
       label: 'Accordion',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/accordion`,
+      path: `/docs/${appState.theme.toLowerCase()}/accordion`,
     },
     {
       label: 'Alert',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/alert`,
+      path: `/docs/${appState.theme.toLowerCase()}/alert`,
     },
     {
       label: 'Badge',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/badge`,
+      path: `/docs/${appState.theme.toLowerCase()}/badge`,
     },
     {
       label: 'Breadcrumb',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/breadcrumb`,
+      path: `/docs/${appState.theme.toLowerCase()}/breadcrumb`,
     },
     {
       label: 'Button',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/button`,
+      path: `/docs/${appState.theme.toLowerCase()}/button`,
     },
     {
       label: 'ButtonGroup',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/button-group`,
+      path: `/docs/${appState.theme.toLowerCase()}/button-group`,
     },
-    { label: 'Card', path: `/docs/${appState.theme.toLocaleLowerCase()}/card` },
+    { label: 'Card', path: `/docs/${appState.theme.toLowerCase()}/card` },
     {
       label: 'Collapse',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/collapse`,
+      path: `/docs/${appState.theme.toLowerCase()}/collapse`,
     },
     {
       label: 'Navigation Bar',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/navigation-bar`,
+      path: `/docs/${appState.theme.toLowerCase()}/navigation-bar`,
     },
     {
       label: 'Drawer',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/drawer`,
+      path: `/docs/${appState.theme.toLowerCase()}/drawer`,
     },
     { label: 'Input Phone', path: `/docs/headless/input-phone` },
     {
       label: 'Rating',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/rating`,
+      path: `/docs/${appState.theme.toLowerCase()}/rating`,
     },
     {
       label: 'Radio',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/radio`,
+      path: `/docs/${appState.theme.toLowerCase()}/radio`,
     },
     {
       label: 'Popover',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/popover`,
+      path: `/docs/${appState.theme.toLowerCase()}/popover`,
     },
     {
       label: 'Select',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/select`,
+      path: `/docs/${appState.theme.toLowerCase()}/select`,
     },
     {
       label: 'Spinner',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/spinner`,
+      path: `/docs/${appState.theme.toLowerCase()}/spinner`,
     },
-    { label: 'Tabs', path: `/docs/${appState.theme.toLocaleLowerCase()}/tabs` },
+    { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
     {
       label: 'Toast',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/toast`,
+      path: `/docs/${appState.theme.toLowerCase()}/toast`,
     },
     {
       label: 'Toggle',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/toggle`,
+      path: `/docs/${appState.theme.toLowerCase()}/toggle`,
     },
     {
       label: 'Tooltip',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/tooltip`,
+      path: `/docs/${appState.theme.toLowerCase()}/tooltip`,
     },
     {
       label: 'Slider',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/slider`,
+      path: `/docs/${appState.theme.toLowerCase()}/slider`,
     },
     {
       label: 'Pagination',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/pagination`,
+      path: `/docs/${appState.theme.toLowerCase()}/pagination`,
     },
     {
       label: 'Checkbox',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/checkbox`,
+      path: `/docs/${appState.theme.toLowerCase()}/checkbox`,
     },
     {
       label: 'Progress',
-      path: `/docs/${appState.theme.toLocaleLowerCase()}/progress`,
+      path: `/docs/${appState.theme.toLowerCase()}/progress`,
     },
   ];
 
