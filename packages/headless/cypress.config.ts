@@ -1,16 +1,11 @@
 import { defineConfig } from 'cypress';
-import { mergeConfig } from 'vite';
-import viteConfig from './vite.config';
 
-const cypressConfig = {
+export default defineConfig({
   component: {
+    specPattern: '**/*.spec.{js,jsx,ts,tsx}',
     devServer: {
+      framework: 'cypress-ct-qwik',
       bundler: 'vite',
-      viteConfig: mergeConfig(viteConfig, { mode: 'test' }),
     },
   },
-};
-
-export default defineConfig(
-  cypressConfig as Cypress.ConfigOptions<typeof cypressConfig>
-);
+});
