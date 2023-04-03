@@ -1,7 +1,5 @@
-import { userEvent, within } from '@storybook/testing-library';
 import { Meta, StoryObj } from 'storybook-framework-qwik';
 import { Tooltip, TooltipProps } from './tooltip';
-import { expect } from '@storybook/jest';
 
 const meta: Meta<TooltipProps> = {
   component: Tooltip,
