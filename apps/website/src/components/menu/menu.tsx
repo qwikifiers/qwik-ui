@@ -10,6 +10,7 @@ type Props = {
 
 export const Menu = component$<Props>(({ onClose$ }) => {
   const appState = useContext(APP_STATE);
+
   const menu = [
     {
       label: 'Accordion',
@@ -27,7 +28,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       label: 'Breadcrumb',
       path: `/docs/${appState.theme.toLowerCase()}/breadcrumb`,
     },
-    { label: 'Button', path: `/docs/${appState.theme.toLowerCase()}/button` },
+    {
+      label: 'Button',
+      path: `/docs/${appState.theme.toLowerCase()}/button`,
+    },
     {
       label: 'ButtonGroup',
       path: `/docs/${appState.theme.toLowerCase()}/button-group`,
@@ -41,25 +45,49 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       label: 'Navigation Bar',
       path: `/docs/${appState.theme.toLowerCase()}/navigation-bar`,
     },
-    { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
-    { label: 'Input', path: `/docs/${appState.theme.toLowerCase()}/input` },
     {
-      label: 'Input Phone',
-      path: `/docs/${appState.theme.toLowerCase()}/input-phone`,
+      label: 'Drawer',
+      path: `/docs/${appState.theme.toLowerCase()}/drawer`,
     },
-    { label: 'Rating', path: `/docs/${appState.theme.toLowerCase()}/rating` },
-    { label: 'Radio', path: `/docs/${appState.theme.toLowerCase()}/radio` },
-    { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
-    { label: 'Select', path: `/docs/${appState.theme.toLowerCase()}/select` },
+    { label: 'Input', path: `/docs/${appState.theme.toLowerCase()}/input` },
+    { label: 'Input Phone', path: `/docs/headless/input-phone` },
+    {
+      label: 'Rating',
+      path: `/docs/${appState.theme.toLowerCase()}/rating`,
+    },
+    {
+      label: 'Radio',
+      path: `/docs/${appState.theme.toLowerCase()}/radio`,
+    },
+    {
+      label: 'Popover',
+      path: `/docs/${appState.theme.toLowerCase()}/popover`,
+    },
+    {
+      label: 'Select',
+      path: `/docs/${appState.theme.toLowerCase()}/select`,
+    },
     {
       label: 'Spinner',
       path: `/docs/${appState.theme.toLowerCase()}/spinner`,
     },
     { label: 'Tabs', path: `/docs/${appState.theme.toLowerCase()}/tabs` },
-    { label: 'Toast', path: `/docs/${appState.theme.toLowerCase()}/toast` },
-    { label: 'Toggle', path: `/docs/${appState.theme.toLowerCase()}/toggle` },
-    { label: 'Tooltip', path: `/docs/${appState.theme.toLowerCase()}/tooltip` },
-    { label: 'Slider', path: `/docs/${appState.theme.toLowerCase()}/slider` },
+    {
+      label: 'Toast',
+      path: `/docs/${appState.theme.toLowerCase()}/toast`,
+    },
+    {
+      label: 'Toggle',
+      path: `/docs/${appState.theme.toLowerCase()}/toggle`,
+    },
+    {
+      label: 'Tooltip',
+      path: `/docs/${appState.theme.toLowerCase()}/tooltip`,
+    },
+    {
+      label: 'Slider',
+      path: `/docs/${appState.theme.toLowerCase()}/slider`,
+    },
     {
       label: 'Pagination',
       path: `/docs/${appState.theme.toLowerCase()}/pagination`,
@@ -113,8 +141,8 @@ export const Menu = component$<Props>(({ onClose$ }) => {
         <ul class="py-2 px-4">
           {menu
             .sort((a, b) => (a.label > b.label ? 1 : -1))
-            .map((menuItem) => (
-              <li key={menuItem.path}>
+            .map((menuItem, index) => (
+              <li key={index}>
                 <Link href={menuItem.path}>
                   <span class="text-lg" onClick$={onChangePage}>
                     {menuItem.label}
