@@ -49,6 +49,7 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       label: 'Drawer',
       path: `/docs/${appState.theme.toLowerCase()}/drawer`,
     },
+    { label: 'Input', path: `/docs/${appState.theme.toLowerCase()}/input` },
     { label: 'Input Phone', path: `/docs/headless/input-phone` },
     {
       label: 'Rating',

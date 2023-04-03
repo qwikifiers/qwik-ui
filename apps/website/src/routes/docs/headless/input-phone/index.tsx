@@ -6,10 +6,7 @@ import {
   useStylesScoped$,
 } from '@builder.io/qwik';
 import { InputPhone } from '@qwik-ui/headless';
-import {
-  InputPhoneCountry,
-  InputPhoneValidity,
-} from 'packages/headless/src/components/input-phone/input-phone';
+import { InputPhoneCountry, InputPhoneValidity } from '@qwik-ui/headless';
 import styles from './input-phone.css?inline';
 
 export default component$(() => {
