@@ -11,7 +11,6 @@ import {
   useStore,
   useTask$,
 } from '@builder.io/qwik';
-import { computePosition, flip } from '@floating-ui/dom';
 
 interface SelectRootContextService {
   options: Signal<HTMLElement | undefined>[];
@@ -50,28 +49,10 @@ const Root = component$(({ defaultValue, ...props }: RootProps) => {
 
   useContextProvider(selectContext, contextService);
 
-  const updatePosition = $(
-    (referenceEl: HTMLElement, floatingEl: HTMLElement) => {
-      computePosition(referenceEl, floatingEl, {
-        placement: 'bottom',
-        middleware: [flip()],
-      }).then(({ x, y }) => {
-        Object.assign(floatingEl.style, {
-          left: `${x}px`,
-          top: `${y}px`,
-        });
-      });
-    }
-  );
-
   useTask$(async ({ track }) => {
     const trigger = track(() => contextService.triggerRef.value);
     const listBox = track(() => contextService.listBoxRef.value);
     const expanded = track(() => isExpanded.value);
-
-    if (expanded && trigger && listBox) {
-      updatePosition(trigger, listBox);
-    }
 
     if (expanded === false) {
       trigger?.focus();
@@ -170,6 +151,9 @@ const ListBox = component$(({ ...props }: StyleProps) => {
       style={`
       display: ${contextService.isExpanded.value ? 'block' : 'none'};
       position: absolute;
+      top: 100%;
+      left: 50%; 
+      transform: translateX(-50%);
       z-index: 1;
       ${props.style}
     `}
@@ -241,10 +225,11 @@ const Option = component$(({ disabled, value, ...props }: OptionProps) => {
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
       aria-selected={value === contextService.selectedOption.value}
-      onClick$={() => {
+      onClick$={(event) => {
         if (!disabled) {
           contextService.selectedOption.value = value;
           contextService.isExpanded.value = false;
+          event.stopPropagation();
         }
       }}
       onKeyUp$={(e) => {
