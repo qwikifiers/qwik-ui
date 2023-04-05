@@ -54,7 +54,8 @@ export const Tooltip = component$(
     });
 
     const showTooltip = $(() => {
-      stateSignal.value = 'unpositioned';
+      update();
+      setTimeout(() => (stateSignal.value = 'positioned'), durationMs);
     });
 
     const hideTooltip = $(() => {
