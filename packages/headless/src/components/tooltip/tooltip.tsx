@@ -27,7 +27,7 @@ export const Tooltip = component$(
     const id = useId();
     const triggerAnchor = useSignal<HTMLElement>();
     const tooltipAnchor = useSignal<HTMLElement>();
-    const stateSignal = useSignal<State>('hidden');
+    const stateSignal = useSignal<State>('closing');
     const positionSignal = useSignal<{ x: number; y: number }>({ x: 0, y: 0 });
     const Wrapper: keyof HTMLElementTagNameMap = props.inline ? 'span' : 'div';
     const lastActivatedTimestamp = useSignal<number>(Date.now());
@@ -54,9 +54,6 @@ export const Tooltip = component$(
     });
 
     const showTooltip = $(() => {
-      if (stateSignal.value === 'hidden') {
-        stateSignal.value = 'closing';
-      }
       update();
       setTimeout(() => (stateSignal.value = 'positioned'), durationMs);
     });
