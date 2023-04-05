@@ -115,6 +115,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/PatrykGodlewski"><img src="https://avatars.githubusercontent.com/u/81991100?v=4?s=100" width="100px;" alt="Patryk Godlewski"/><br /><sub><b>Patryk Godlewski</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3APatrykGodlewski" title="Bug reports">🐛</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=PatrykGodlewski" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/pranit-yawalkar"><img src="https://avatars.githubusercontent.com/u/64571514?v=4?s=100" width="100px;" alt="Pranit Yawalkar"/><br /><sub><b>Pranit Yawalkar</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3Apranit-yawalkar" title="Bug reports">🐛</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=pranit-yawalkar" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
