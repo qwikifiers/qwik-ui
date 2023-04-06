@@ -44,39 +44,43 @@ export const Root = component$(({ use, ...props }: RootProps) => {
 
   return (
     <>
-      <div id={use.id} ref={use.ref} {...props}>
+      <div role="presentation" id={use.id} ref={use.ref} {...props}>
         <Slot />
       </div>
     </>
   );
 });
 
-type ButtonProps = QwikIntrinsicElements['button'];
+type ButtonProps = QwikIntrinsicElements['button'] & {
+  label?: string;
+};
 
-export const ButtonNext = component$(({ onClick$, ...props }: ButtonProps) => {
-  useStylesScoped$(stylesButtons);
-  const { isLastActive, loop, next } = useContext(carouselContext);
-  return (
-    <button
-      aria-label="Got to the next item"
-      disabled={!loop ? isLastActive.value : false}
-      {...props}
-      onClick$={[$(() => next()), onClick$]}
-    >
-      <Slot />
-    </button>
-  );
-});
+export const ButtonNext = component$(
+  ({ onClick$, label = 'Go to the next item', ...props }: ButtonProps) => {
+    useStylesScoped$(stylesButtons);
+    const { isLastActive, loop, next } = useContext(carouselContext);
+    return (
+      <button
+        {...props}
+        aria-label={label}
+        disabled={!loop ? isLastActive.value : false}
+        onClick$={[$(() => next()), onClick$]}
+      >
+        <Slot />
+      </button>
+    );
+  }
+);
 
 export const ButtonPrevious = component$(
-  ({ onClick$, ...props }: ButtonProps) => {
+  ({ onClick$, label = 'Go to the previous item', ...props }: ButtonProps) => {
     useStylesScoped$(stylesButtons);
     const { isFirstActive, loop, previous } = useContext(carouselContext);
     return (
       <button
-        aria-label="Got to the previous item"
-        disabled={!loop ? isFirstActive.value : false}
         {...props}
+        aria-label={label}
+        disabled={!loop ? isFirstActive.value : false}
         onClick$={[$(() => previous()), onClick$]}
       >
         <Slot />
@@ -141,10 +145,11 @@ export const Controls = component$((props: ControlsProps) => {
 
 type ControlProps = QwikIntrinsicElements['div'] & {
   index: number;
+  label?: string;
 };
 
 export const Control = component$(
-  ({ index, onClick$, ...props }: ControlProps) => {
+  ({ index, onClick$, label, ...props }: ControlProps) => {
     useStylesScoped$(stylesControl);
     const ordinal = useOrdinal();
     const { active, scrollTo } = useContext(carouselContext);
@@ -152,12 +157,12 @@ export const Control = component$(
 
     return (
       <div
-        aria-current={active.value === index}
         {...props}
+        aria-current={active.value === index}
         onClick$={[$(() => scrollTo(index)), onClick$]}
       >
         <input
-          aria-label={`Go to the ${ordinal?.(index + 1)} item`}
+          aria-label={label || `Go to the ${ordinal?.(index + 1)} item`}
           type="radio"
           checked={active.value === index}
           name={`control-${id}`}
