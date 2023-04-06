@@ -17,6 +17,7 @@ import stylesButtons from './styles-buttons.css?inline';
 import stylesControl from './styles-control.css?inline';
 import stylesItem from './styles-item.css?inline';
 import stylesItems from './styles-items.css?inline';
+import { useCarousel } from './use-carousel';
 
 export type CarouselContext = {
   ref: Signal<HTMLElement | undefined>;
@@ -32,19 +33,24 @@ export type CarouselContext = {
   isLastActive: Signal<boolean>;
 };
 
+export const useCarouselProvider = (use: CarouselContext) => {
+  useContextProvider(carouselContext, use);
+};
+
 export const carouselContext =
   createContextId<CarouselContext>('carousel-root');
 
 type RootProps = QwikIntrinsicElements['div'] & {
-  use: CarouselContext;
+  use?: CarouselContext;
 };
 
 export const Root = component$(({ use, ...props }: RootProps) => {
-  useContextProvider(carouselContext, use);
+  const provider = use || useCarousel();
+  useCarouselProvider(provider);
 
   return (
     <>
-      <div role="presentation" id={use.id} ref={use.ref} {...props}>
+      <div role="presentation" id={provider.id} ref={provider.ref} {...props}>
         <Slot />
       </div>
     </>
