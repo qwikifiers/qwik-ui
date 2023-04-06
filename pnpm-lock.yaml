@@ -3,8 +3,8 @@ lockfileVersion: 5.4
 importers:
   .:
     specifiers:
-      '@builder.io/qwik': 0.100.0
-      '@builder.io/qwik-city': 0.100.0
+      '@builder.io/qwik': 0.101.0
+      '@builder.io/qwik-city': 0.101.0
       '@commitlint/cli': ^17.4.3
       '@commitlint/config-angular': ^17.4.3
       '@commitlint/config-conventional': ^17.4.3
@@ -85,8 +85,8 @@ importers:
     dependencies:
       tslib: 2.5.0
     devDependencies:
-      '@builder.io/qwik': 0.100.0_undici@5.21.0
-      '@builder.io/qwik-city': 0.100.0_@builder.io+qwik@0.100.0
+      '@builder.io/qwik': 0.101.0_undici@5.21.0
+      '@builder.io/qwik-city': 0.101.0_@builder.io+qwik@0.101.0
       '@commitlint/cli': 17.4.3
       '@commitlint/config-angular': 17.4.3
       '@commitlint/config-conventional': 17.4.3
@@ -127,7 +127,7 @@ importers:
       country-list-json: 1.1.0
       cypress: 12.9.0
       cypress-axe: 1.4.0_eck6iiasvhlhypk4siyuydjd2u
-      cypress-ct-qwik: 0.3.0_76sgo4v7rv3cg2zfswsx4lnjda
+      cypress-ct-qwik: 0.3.0_q3attfflendle3r6jckvofgx5u
       cz-conventional-changelog: 3.3.0
       daisyui: 2.50.1_by5iqycgvtroytm54ytclj4zzi
       danger: 11.2.4
@@ -153,7 +153,7 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       sass: 1.58.1
       storybook: 7.0.0-rc.7
-      storybook-framework-qwik: 0.0.8_et22g7xbe4tsy577dnr6mlh6rq
+      storybook-framework-qwik: 0.0.8_n3k3lhurbx7a3syyqy2h4qozwm
       tailwindcss: 3.2.6_aesdjsunmf4wiehhujt67my7tu
       ts-node: 10.9.1_sxidjv3cojnrggmso45tj7hldi
       typescript: 5.0.2
@@ -1943,18 +1943,18 @@ packages:
       }
     dev: true
 
-  /@builder.io/qwik-city/0.100.0_@builder.io+qwik@0.100.0:
+  /@builder.io/qwik-city/0.101.0_@builder.io+qwik@0.101.0:
     resolution:
       {
-        integrity: sha512-EEZ8q10vmEjOOe5qQIel+jLcuuFYOjakIIgHt5KOWnY/L0HBw9xzFDkFDcdmPJlrCmHTm3y4T1ZtqKPEFNgO9w==,
+        integrity: sha512-26hoEbBQ5yEn13zjt5YCL/eULAptSoTPwylFSKrHPQd/3iafjGFr+DjiwpHUEodW3io1MsqZ0Uu9PIDKnGJbOg==,
       }
     engines: { node: '>=16.8.0 <18.0.0 || >=18.11' }
     peerDependencies:
       '@builder.io/qwik': '>=0.22.0'
     dependencies:
-      '@builder.io/qwik': 0.100.0_undici@5.21.0
+      '@builder.io/qwik': 0.101.0_undici@5.21.0
       '@mdx-js/mdx': 2.3.0
-      '@types/mdx': 2.0.3
+      '@types/mdx': 2.0.4
       source-map: 0.7.4
       vfile: 5.3.7
       zod: 3.21.4
@@ -1962,10 +1962,10 @@ packages:
       - supports-color
     dev: true
 
-  /@builder.io/qwik/0.100.0_undici@5.21.0:
+  /@builder.io/qwik/0.101.0_undici@5.21.0:
     resolution:
       {
-        integrity: sha512-p2DAHZTkPFVN3fz3I6Ael6pLLdlzf89owPJVAIoQ9vt5jULnDJRf096qGc84Y+gaoqfoFWBYHYVnHOP0fnRjQg==,
+        integrity: sha512-uXeN5tlquw8OKsRp/tQie2tEKv5h6AuyiVpNzdCqc6VUW5c0OEB063HnUr072u0ojL/3vPfdY1mAi+6MwMaEXQ==,
       }
     engines: { node: '>=16.8.0 <18.0.0 || >=18.11' }
     hasBin: true
@@ -3270,7 +3270,7 @@ packages:
       }
     dependencies:
       '@types/estree-jsx': 1.0.0
-      '@types/mdx': 2.0.3
+      '@types/mdx': 2.0.4
       estree-util-build-jsx: 2.2.2
       estree-util-is-identifier-name: 2.1.0
       estree-util-to-js: 1.2.0
@@ -3298,7 +3298,7 @@ packages:
     peerDependencies:
       react: '>=16'
     dependencies:
-      '@types/mdx': 2.0.3
+      '@types/mdx': 2.0.4
       '@types/react': 18.0.28
       react: 18.2.0
     dev: true
@@ -6107,10 +6107,10 @@ packages:
       '@types/unist': 2.0.6
     dev: true
 
-  /@types/mdx/2.0.3:
+  /@types/mdx/2.0.4:
     resolution:
       {
-        integrity: sha512-IgHxcT3RC8LzFLhKwP3gbMPeaK7BM9eBH46OdapPA7yvuIUJ8H6zHZV53J8hGZcTSnt95jANt+rTBNUUc22ACQ==,
+        integrity: sha512-qCYrNdpKwN6YO6FVnx+ulfqifKlE3lQGsNhvDaW9Oxzyob/cRLBJWow8GHBBD4NxQ7BVvtsATgLsX0vZAWmtrg==,
       }
     dev: true
 
@@ -9240,7 +9240,7 @@ packages:
       cypress: 12.9.0
     dev: true
 
-  /cypress-ct-qwik/0.3.0_76sgo4v7rv3cg2zfswsx4lnjda:
+  /cypress-ct-qwik/0.3.0_q3attfflendle3r6jckvofgx5u:
     resolution:
       {
         integrity: sha512-S1PcR6BbZMHprTYmYvYcZODNFy+WOQewUIWCGRA2ruq4H6I2zJSVLy0VxynKuxgSx3OKp5GYUIXSTmdxkTdk4Q==,
@@ -9249,7 +9249,7 @@ packages:
       '@builder.io/qwik': '>0.23.0'
       cypress: '>=12.8.1'
     dependencies:
-      '@builder.io/qwik': 0.100.0_undici@5.21.0
+      '@builder.io/qwik': 0.101.0_undici@5.21.0
       '@cypress/mount-utils': 4.0.0
       cypress: 12.9.0
     dev: true
@@ -19507,7 +19507,7 @@ packages:
       }
     dev: true
 
-  /storybook-framework-qwik/0.0.8_et22g7xbe4tsy577dnr6mlh6rq:
+  /storybook-framework-qwik/0.0.8_n3k3lhurbx7a3syyqy2h4qozwm:
     resolution:
       {
         integrity: sha512-EL9qRyjDyvCMCuN4uqBSJh3WshUug6GO5dA+aIxl1N6EhvFfRkTxxT0QnB0mJnsU44MTZG9g0nY92SXg7nOmNw==,
@@ -19516,10 +19516,10 @@ packages:
     peerDependencies:
       '@builder.io/qwik': '>=0.15.2'
     dependencies:
-      '@builder.io/qwik': 0.100.0_undici@5.21.0
+      '@builder.io/qwik': 0.101.0_undici@5.21.0
       '@storybook/builder-vite': 7.0.0-rc.7_bi7wsi5xkno72wnymskyicz4pu
     optionalDependencies:
-      '@builder.io/qwik-city': 0.100.0_@builder.io+qwik@0.100.0
+      '@builder.io/qwik-city': 0.101.0_@builder.io+qwik@0.101.0
     transitivePeerDependencies:
       - '@preact/preset-vite'
       - '@storybook/mdx1-csf'
