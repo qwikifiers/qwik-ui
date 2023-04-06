@@ -44,7 +44,7 @@ export default component$(() => {
     setThemeClass();
   });
 
-  const isDocsRoute = location.pathname.indexOf('/docs/') !== -1;
+  const isDocsRoute = location.url.pathname.indexOf('/docs/') !== -1;
 
   return (
     <header class="fixed w-full z-10 border-b border-slate-600">

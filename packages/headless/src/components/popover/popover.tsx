@@ -5,7 +5,7 @@ import {
   QwikMouseEvent,
   Signal,
   Slot,
-  useBrowserVisibleTask$,
+  useVisibleTask$,
   useContextProvider,
   useSignal,
   useStore,
@@ -154,7 +154,7 @@ export const Popover = component$((props: PopoverProps) => {
    * Sync isOpen external property with internal context
    * NOTE: useful when the popover status is controlled from the outside
    */
-  useBrowserVisibleTask$(({ track }) => {
+  useVisibleTask$(({ track }) => {
     track(() => props.isOpen);
     contextService.isOpen = !!props.isOpen;
   });
@@ -163,7 +163,7 @@ export const Popover = component$((props: PopoverProps) => {
    * Watch isOpen context property
    * and apply CSS classes to show and hide the Popover Content
    */
-  useBrowserVisibleTask$(({ track }) => {
+  useVisibleTask$(({ track }) => {
     track(() => contextService.isOpen);
     if (!triggerRef.value || !contentRef.value) return;
 
