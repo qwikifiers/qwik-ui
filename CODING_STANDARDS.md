@@ -89,7 +89,7 @@ export const Tooltip = component$(({ tip, position = 'top', type, ...props}: Too
 ```
 
 - Use class and not className when in the JSX and in the component props (if you expect to have a class props part if the component props).
-- Try to avoid using `useBrowserVisibleTask$` function. See [Qwik best practices](https://qwik.builder.io/docs/cheat/best-practices/) for the why.
+- Try to avoid using `useVisibleTask$` function. See [Qwik best practices](https://qwik.builder.io/docs/cheat/best-practices/) for the why.
 - Try to use the Slot element whenever the component can accept children
 - Use array spread on props to allow the component user to send props that override ours. For example:
 

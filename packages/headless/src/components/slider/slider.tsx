@@ -4,7 +4,7 @@ import {
   PropFunction,
   Signal,
   Slot,
-  useBrowserVisibleTask$,
+  useVisibleTask$,
   useContextProvider,
   useSignal,
 } from '@builder.io/qwik';
@@ -56,13 +56,13 @@ export const Slider = component$(
       percentage: percentageSignal,
     };
 
-    useBrowserVisibleTask$(async ({ track }) => {
+    useVisibleTask$(async ({ track }) => {
       track(() => rootPositionRef);
       contextService.positionX.value =
         rootPositionRef.value?.getBoundingClientRect().x;
     });
 
-    useBrowserVisibleTask$(async ({ track }) => {
+    useVisibleTask$(async ({ track }) => {
       const newValue = track(() => sliderValue.value);
       if (onChange$) {
         onChange$(newValue);

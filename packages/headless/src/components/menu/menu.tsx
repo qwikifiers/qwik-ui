@@ -6,7 +6,7 @@ import {
   QwikKeyboardEvent,
   Signal,
   Slot,
-  useBrowserVisibleTask$,
+  useVisibleTask$,
   useContext,
   useContextProvider,
   useId,
@@ -61,7 +61,7 @@ export const Menu = component$((props: MenuProps) => {
 
   useContextProvider(quiMenuContext, menuContextService);
 
-  useBrowserVisibleTask$(({ track }) => {
+  useVisibleTask$(({ track }) => {
     track(() => isExpanded.value);
     if (!isExpanded.value) {
       currentButtonInFocusIndex.value = -1;
@@ -69,7 +69,7 @@ export const Menu = component$((props: MenuProps) => {
     }
   });
 
-  useBrowserVisibleTask$(() => {
+  useVisibleTask$(() => {
     const options = container.value?.querySelectorAll<HTMLElement>('button');
     if (options?.length) {
       options.forEach((option) => children.push(option));

@@ -3,8 +3,8 @@ lockfileVersion: 5.4
 importers:
   .:
     specifiers:
-      '@builder.io/qwik': 0.23.0
-      '@builder.io/qwik-city': 0.6.6
+      '@builder.io/qwik': 0.100.0
+      '@builder.io/qwik-city': 0.100.0
       '@commitlint/cli': ^17.4.3
       '@commitlint/config-angular': ^17.4.3
       '@commitlint/config-conventional': ^17.4.3
@@ -85,8 +85,8 @@ importers:
     dependencies:
       tslib: 2.5.0
     devDependencies:
-      '@builder.io/qwik': 0.23.0_undici@5.21.0
-      '@builder.io/qwik-city': 0.6.6_@builder.io+qwik@0.23.0
+      '@builder.io/qwik': 0.100.0_undici@5.21.0
+      '@builder.io/qwik-city': 0.100.0_@builder.io+qwik@0.100.0
       '@commitlint/cli': 17.4.3
       '@commitlint/config-angular': 17.4.3
       '@commitlint/config-conventional': 17.4.3
@@ -127,7 +127,7 @@ importers:
       country-list-json: 1.1.0
       cypress: 12.9.0
       cypress-axe: 1.4.0_eck6iiasvhlhypk4siyuydjd2u
-      cypress-ct-qwik: 0.3.0_mygybrl4mllyavrqshsd3awloi
+      cypress-ct-qwik: 0.3.0_76sgo4v7rv3cg2zfswsx4lnjda
       cz-conventional-changelog: 3.3.0
       daisyui: 2.50.1_by5iqycgvtroytm54ytclj4zzi
       danger: 11.2.4
@@ -153,7 +153,7 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       sass: 1.58.1
       storybook: 7.0.0-rc.7
-      storybook-framework-qwik: 0.0.8_jpgv7qoehwn6oaalcoyjhu7vze
+      storybook-framework-qwik: 0.0.8_et22g7xbe4tsy577dnr6mlh6rq
       tailwindcss: 3.2.6_aesdjsunmf4wiehhujt67my7tu
       ts-node: 10.9.1_sxidjv3cojnrggmso45tj7hldi
       typescript: 5.0.2
@@ -1943,16 +1943,16 @@ packages:
       }
     dev: true
 
-  /@builder.io/qwik-city/0.6.6_@builder.io+qwik@0.23.0:
+  /@builder.io/qwik-city/0.100.0_@builder.io+qwik@0.100.0:
     resolution:
       {
-        integrity: sha512-khqveboSCnmFCDzBq2OxNkplu6ngS64CNRu4RQI08e76uWjov+Y0xahYCsZuZP5Dp1A/Vji8d4MY4cLL+c0lZA==,
+        integrity: sha512-EEZ8q10vmEjOOe5qQIel+jLcuuFYOjakIIgHt5KOWnY/L0HBw9xzFDkFDcdmPJlrCmHTm3y4T1ZtqKPEFNgO9w==,
       }
     engines: { node: '>=16.8.0 <18.0.0 || >=18.11' }
     peerDependencies:
       '@builder.io/qwik': '>=0.22.0'
     dependencies:
-      '@builder.io/qwik': 0.23.0_undici@5.21.0
+      '@builder.io/qwik': 0.100.0_undici@5.21.0
       '@mdx-js/mdx': 2.3.0
       '@types/mdx': 2.0.3
       source-map: 0.7.4
@@ -1962,10 +1962,10 @@ packages:
       - supports-color
     dev: true
 
-  /@builder.io/qwik/0.23.0_undici@5.21.0:
+  /@builder.io/qwik/0.100.0_undici@5.21.0:
     resolution:
       {
-        integrity: sha512-srbA4o9KyeGXA0fUibZW7I6iasjYhpBlp1Iq74dLTB4Py66wfazpekZ+qi57XcuSj3cBPf/Rsz/yxvQx5DwM2g==,
+        integrity: sha512-p2DAHZTkPFVN3fz3I6Ael6pLLdlzf89owPJVAIoQ9vt5jULnDJRf096qGc84Y+gaoqfoFWBYHYVnHOP0fnRjQg==,
       }
     engines: { node: '>=16.8.0 <18.0.0 || >=18.11' }
     hasBin: true
@@ -4341,7 +4341,7 @@ packages:
       '@storybook/csf-plugin': 7.0.0-rc.7
       '@storybook/csf-tools': 7.0.0-rc.7
       '@storybook/global': 5.0.0
-      '@storybook/mdx2-csf': 1.0.0-next.7
+      '@storybook/mdx2-csf': 1.0.0-next.8
       '@storybook/node-logger': 7.0.0-rc.7
       '@storybook/postinstall': 7.0.0-rc.7
       '@storybook/preview-api': 7.0.0-rc.7
@@ -4732,7 +4732,7 @@ packages:
       '@storybook/client-logger': 7.0.0-rc.7
       '@storybook/core-common': 7.0.0-rc.7
       '@storybook/csf-plugin': 7.0.0-rc.7
-      '@storybook/mdx2-csf': 1.0.0-next.7
+      '@storybook/mdx2-csf': 1.0.0-next.8
       '@storybook/node-logger': 7.0.0-rc.7
       '@storybook/preview': 7.0.0-rc.7
       '@storybook/preview-api': 7.0.0-rc.7
@@ -5048,7 +5048,7 @@ packages:
       '@storybook/core-events': 7.0.0-rc.7
       '@storybook/csf': 0.0.2-next.11
       '@storybook/csf-tools': 7.0.0-rc.7
-      '@storybook/docs-mdx': 0.0.1-next.6
+      '@storybook/docs-mdx': 0.0.1-next.7
       '@storybook/global': 5.0.0
       '@storybook/manager': 7.0.0-rc.7
       '@storybook/node-logger': 7.0.0-rc.7
@@ -5149,10 +5149,10 @@ packages:
       type-fest: 2.19.0
     dev: true
 
-  /@storybook/docs-mdx/0.0.1-next.6:
+  /@storybook/docs-mdx/0.0.1-next.7:
     resolution:
       {
-        integrity: sha512-DjoSIXADmLJtdroXAjUotFiZlcZ2usWhqrS7aeOtZs0DVR0Ws5WQjnwtpDUXt8gryTSd+OZJ0cNsDcqg4JDEvQ==,
+        integrity: sha512-JbgBf/EMBtx65iXtB3pOiX3818UeL9jZ+KAY241OAPqJVXjMQ5KaVOdg/57MSmd508HDIGx7CiImOMEmWwQ9/g==,
       }
     dev: true
 
@@ -5347,10 +5347,10 @@ packages:
       }
     dev: true
 
-  /@storybook/mdx2-csf/1.0.0-next.7:
+  /@storybook/mdx2-csf/1.0.0-next.8:
     resolution:
       {
-        integrity: sha512-xcQ8w4IecABAjsakaZTGiUEnEgFZzVKsMjqECjd+qdkwgD3R/kwrBdfyC15CLM5Ye1miPwYBIwJGeBXB9qxsZg==,
+        integrity: sha512-t2O5s/HHTH5evZVHgVtCWTZgMZ/CaqDu3xVGgjVbKeTvpPAbi0Waab5SSX8T9PG5jNDei/x+jpAVCcNMOHoWzg==,
       }
     dev: true
 
@@ -9240,7 +9240,7 @@ packages:
       cypress: 12.9.0
     dev: true
 
-  /cypress-ct-qwik/0.3.0_mygybrl4mllyavrqshsd3awloi:
+  /cypress-ct-qwik/0.3.0_76sgo4v7rv3cg2zfswsx4lnjda:
     resolution:
       {
         integrity: sha512-S1PcR6BbZMHprTYmYvYcZODNFy+WOQewUIWCGRA2ruq4H6I2zJSVLy0VxynKuxgSx3OKp5GYUIXSTmdxkTdk4Q==,
@@ -9249,7 +9249,7 @@ packages:
       '@builder.io/qwik': '>0.23.0'
       cypress: '>=12.8.1'
     dependencies:
-      '@builder.io/qwik': 0.23.0_undici@5.21.0
+      '@builder.io/qwik': 0.100.0_undici@5.21.0
       '@cypress/mount-utils': 4.0.0
       cypress: 12.9.0
     dev: true
@@ -19507,7 +19507,7 @@ packages:
       }
     dev: true
 
-  /storybook-framework-qwik/0.0.8_jpgv7qoehwn6oaalcoyjhu7vze:
+  /storybook-framework-qwik/0.0.8_et22g7xbe4tsy577dnr6mlh6rq:
     resolution:
       {
         integrity: sha512-EL9qRyjDyvCMCuN4uqBSJh3WshUug6GO5dA+aIxl1N6EhvFfRkTxxT0QnB0mJnsU44MTZG9g0nY92SXg7nOmNw==,
@@ -19516,10 +19516,10 @@ packages:
     peerDependencies:
       '@builder.io/qwik': '>=0.15.2'
     dependencies:
-      '@builder.io/qwik': 0.23.0_undici@5.21.0
+      '@builder.io/qwik': 0.100.0_undici@5.21.0
       '@storybook/builder-vite': 7.0.0-rc.7_bi7wsi5xkno72wnymskyicz4pu
     optionalDependencies:
-      '@builder.io/qwik-city': 0.6.6_@builder.io+qwik@0.23.0
+      '@builder.io/qwik-city': 0.100.0_@builder.io+qwik@0.100.0
     transitivePeerDependencies:
       - '@preact/preset-vite'
       - '@storybook/mdx1-csf'
