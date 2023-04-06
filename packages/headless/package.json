@@ -30,7 +30,9 @@
     "fmt.check": "prettier --check .",
     "release": "np",
     "start": "vite --open --mode ssr",
-    "qwik": "qwik"
+    "qwik": "qwik",
+    "storybook1": "storybook dev -p 6006",
+    "build-storybook1": "storybook build"
   },
   "dependencies": {
     "@floating-ui/dom": "1.0.10"

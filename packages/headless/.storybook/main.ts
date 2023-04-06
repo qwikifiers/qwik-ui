@@ -1,33 +1,44 @@
 import { qwikVite } from '@builder.io/qwik/optimizer';
-import { rootMain } from '../../../.storybook/main';
-
-import type { StorybookViteConfig } from '@storybook/builder-vite';
+import { resolve } from 'path';
+import { StorybookConfig } from 'storybook-framework-qwik';
+// import { rootMain } from '../../../.storybook/main';
 
 import { mergeConfig } from 'vite';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
 
-const config: StorybookViteConfig = {
-  ...rootMain,
-  core: {
-    ...rootMain.core,
-    builder: '@storybook/builder-vite',
-  },
-  stories: [
-    ...rootMain.stories,
-    '../src/lib/**/*.stories.mdx',
-    '../src/lib/**/*.stories.@(js|jsx|ts|tsx)',
+const config: StorybookConfig = {
+  // ...rootMain,
+
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
+    '@storybook/addon-coverage',
   ],
-  addons: ['@storybook/addon-essentials', ...(rootMain.addons || [])],
+  // addons: ['@storybook/addon-essentials', ...(rootMain.addons || [])],
+
   framework: {
     name: 'storybook-framework-qwik',
   },
+  core: {
+    // ...rootMain.core,
+    renderer: 'storybook-framework-qwik',
+  },
+  stories: [
+    // ...rootMain.stories,
+    '../src/components/**/*.stories.mdx',
+    '../src/components/**/*.stories.@(js|jsx|ts|tsx)',
+  ],
+
   viteFinal: async (config: any) => {
     return mergeConfig(config, {
       plugins: [
-        viteTsConfigPaths({
-          root: '../../../',
+        qwikVite({
+          vendorRoots: [__dirname],
+          srcDir: resolve(__dirname, '../src'),
         }),
-        qwikVite(),
+        viteTsConfigPaths(),
       ],
     });
   },

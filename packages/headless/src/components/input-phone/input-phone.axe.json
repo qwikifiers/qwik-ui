@@ -1,118 +1,173 @@
 {
-  "url": "http://127.0.0.1:5173/docs/headless/input-phone/",
-  "extensionVersion": "4.51.0",
+  "url": "http://localhost:5173/docs/headless/input-phone/",
+  "extensionVersion": "4.52.0",
   "axeVersion": "4.6.3",
   "standard": "WCAG 2.1 AA",
-  "testingStartDate": "2023-03-18T11:26:34.819Z",
-  "testingEndDate": "2023-03-18T11:48:12.451Z",
-  "bestPracticesEnabled": false,
+  "testingStartDate": "2023-03-25T01:32:42.404Z",
+  "testingEndDate": "2023-03-25T01:48:43.415Z",
+  "bestPracticesEnabled": true,
   "issueSummary": {
-    "critical": 0,
-    "moderate": 0,
+    "critical": 1,
+    "moderate": 1,
     "minor": 0,
-    "serious": 3,
-    "bestPractices": 0,
+    "serious": 1,
+    "bestPractices": 1,
     "needsReview": 0
   },
-  "remainingTestingSummary": { "run": false },
+  "remainingTestingSummary": {
+    "run": false
+  },
   "igtSummary": [
-    { "tool": "Table", "skipped": false, "name": null, "run": false },
+    {
+      "tool": "Table",
+      "skipped": false,
+      "name": null,
+      "run": false
+    },
     {
       "tool": "Keyboard",
       "skipped": false,
-      "name": "3/18/2023 at 10:42 PM",
+      "name": "3/25/2023 at 12:47 PM",
       "run": true,
-      "issues": { "critical": 0, "moderate": 0, "minor": 0, "serious": 0 },
-      "duration": 157762
+      "issues": {
+        "critical": 0,
+        "moderate": 0,
+        "minor": 0,
+        "serious": 0
+      },
+      "duration": 48646
     },
-    { "tool": "Modal Dialog", "skipped": false, "name": null, "run": false },
+    {
+      "tool": "Modal Dialog",
+      "skipped": false,
+      "name": null,
+      "run": false
+    },
     {
       "tool": "Interactive Elements",
       "skipped": false,
-      "name": "3/18/2023 at 10:26 PM",
+      "name": "3/25/2023 at 12:45 PM",
       "run": true,
-      "issues": { "critical": 0, "moderate": 0, "minor": 0, "serious": 0 },
-      "duration": 624995
+      "issues": {
+        "critical": 0,
+        "moderate": 0,
+        "minor": 0,
+        "serious": 0
+      },
+      "duration": 50924
     },
     {
       "tool": "Structure",
       "skipped": false,
-      "name": "3/18/2023 at 10:45 PM",
-      "run": true,
-      "issues": { "critical": 0, "moderate": 0, "minor": 0, "serious": 3 },
-      "duration": 76867
+      "name": null,
+      "run": false
     },
-    { "tool": "Images", "skipped": false, "name": null, "run": false },
-    { "tool": "Forms", "skipped": false, "name": null, "run": false }
+    {
+      "tool": "Images",
+      "skipped": false,
+      "name": null,
+      "run": false
+    },
+    {
+      "tool": "Forms",
+      "skipped": false,
+      "name": null,
+      "run": false
+    }
   ],
   "failedRules": [
-    { "name": "lang-change-not-marked", "count": 3, "mode": "manual" }
+    {
+      "name": "page-has-heading-one",
+      "count": 1,
+      "mode": "automated"
+    },
+    {
+      "name": "image-alt",
+      "count": 1,
+      "mode": "automated"
+    },
+    {
+      "name": "link-name",
+      "count": 1,
+      "mode": "automated"
+    }
   ],
   "needsReview": [],
   "allIssues": [
     {
-      "ruleId": "lang-change-not-marked",
-      "description": "The change in language for a portion of content is not coded.",
-      "help": "Change in language is not marked",
-      "helpUrl": "https://docs.deque.com/issue-help/1.0.0/en/lang-change-not-marked",
-      "impact": "serious",
+      "ruleId": "page-has-heading-one",
+      "description": "Ensure that the page, or at least one of its frames contains a level-one heading",
+      "help": "Page should contain a level-one heading",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.6/page-has-heading-one?application=AxeChrome",
+      "impact": "moderate",
       "needsReview": false,
-      "isManual": true,
-      "selector": ["body > form.\\00002b50\\0000fe0fdqh46j-1:nth-of-type(1)"],
-      "summary": "The change in language for a portion of content is not coded.",
-      "source": null,
-      "tags": ["wcag2aa", "wcag312a"],
-      "igt": "Structure",
-      "testName": "QwikUI | Headless | Input-phone [interactivity]",
+      "isManual": false,
+      "selector": ["html"],
+      "summary": "Fix all of the following:\n  Page must have a level-one heading",
+      "source": "<html lang=\"en-us\" q:container=\"resumed\" q:version=\"0.23.0\" q:render=\"ssr-dev\" q:base=\"/build/\" q:locale=\"\" class=\"dark\" data-theme=\"dark\">",
+      "tags": ["cat.semantics", "best-practice"],
+      "igt": "",
+      "testName": "QwikUI | Headless | Input-phone",
       "shareURL": "",
-      "createdAt": "2023-03-18T11:48:12.441Z",
-      "testUrl": "http://127.0.0.1:5173/docs/headless/input-phone/",
+      "createdAt": "2023-03-25T01:32:42.965Z",
+      "testUrl": "http://localhost:5173/docs/headless/input-phone/",
       "testPageTitle": "",
       "foundBy": "thomas.leperou@gmail.com",
       "axeVersion": "4.6.3"
     },
     {
-      "ruleId": "lang-change-not-marked",
-      "description": "The change in language for a portion of content is not coded.",
-      "help": "Change in language is not marked",
-      "helpUrl": "https://docs.deque.com/issue-help/1.0.0/en/lang-change-not-marked",
-      "impact": "serious",
+      "ruleId": "image-alt",
+      "description": "Ensures <img> elements have alternate text or a role of none or presentation",
+      "help": "Images must have alternate text",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.6/image-alt?application=AxeChrome",
+      "impact": "critical",
       "needsReview": false,
-      "isManual": true,
-      "selector": [
-        "body > form.\\00002b50\\0000fe0fdqh46j-1:nth-of-type(1) > div.\\00002b50\\0000fe0fokr433-0:nth-of-type(1) > select.\\00002b50\\0000fe0fokr433-0:nth-of-type(1)"
+      "isManual": false,
+      "selector": ["img"],
+      "summary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\"",
+      "source": "<img src=\"/qwik-ui.png\" class=\"w-32\" data-qwik-inspector=\"components/header/header.tsx:70:13\">",
+      "tags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "section508",
+        "section508.22.a",
+        "ACT"
       ],
-      "summary": "The change in language for a portion of content is not coded.",
-      "source": null,
-      "tags": ["wcag2aa", "wcag312a"],
-      "igt": "Structure",
-      "testName": "QwikUI | Headless | Input-phone [interactivity]",
+      "igt": "",
+      "testName": "QwikUI | Headless | Input-phone",
       "shareURL": "",
-      "createdAt": "2023-03-18T11:48:12.441Z",
-      "testUrl": "http://127.0.0.1:5173/docs/headless/input-phone/",
+      "createdAt": "2023-03-25T01:32:42.965Z",
+      "testUrl": "http://localhost:5173/docs/headless/input-phone/",
       "testPageTitle": "",
       "foundBy": "thomas.leperou@gmail.com",
       "axeVersion": "4.6.3"
     },
     {
-      "ruleId": "lang-change-not-marked",
-      "description": "The change in language for a portion of content is not coded.",
-      "help": "Change in language is not marked",
-      "helpUrl": "https://docs.deque.com/issue-help/1.0.0/en/lang-change-not-marked",
+      "ruleId": "link-name",
+      "description": "Ensures links have discernible text",
+      "help": "Links must have discernible text",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.6/link-name?application=AxeChrome",
       "impact": "serious",
       "needsReview": false,
-      "isManual": true,
-      "selector": [
-        "body > form.\\00002b50\\0000fe0fdqh46j-1:nth-of-type(1) > div.\\00002b50\\0000fe0fokr433-0:nth-of-type(1) > input.\\00002b50\\0000fe0fokr433-0:nth-of-type(1)"
+      "isManual": false,
+      "selector": ["a[href=\"/\"]"],
+      "summary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute",
+      "source": "<a href=\"/\" data-qwik-inspector=\"components/header/header.tsx:69:11\"><img src=\"/qwik-ui.png\" class=\"w-32\" data-qwik-inspector=\"components/header/header.tsx:70:13\"></a>",
+      "tags": [
+        "cat.name-role-value",
+        "wcag2a",
+        "wcag412",
+        "wcag244",
+        "section508",
+        "section508.22.a",
+        "ACT"
       ],
-      "summary": "The change in language for a portion of content is not coded.",
-      "source": null,
-      "tags": ["wcag2aa", "wcag312a"],
-      "igt": "Structure",
-      "testName": "QwikUI | Headless | Input-phone [interactivity]",
+      "igt": "",
+      "testName": "QwikUI | Headless | Input-phone",
       "shareURL": "",
-      "createdAt": "2023-03-18T11:48:12.441Z",
-      "testUrl": "http://127.0.0.1:5173/docs/headless/input-phone/",
+      "createdAt": "2023-03-25T01:32:42.965Z",
+      "testUrl": "http://localhost:5173/docs/headless/input-phone/",
       "testPageTitle": "",
       "foundBy": "thomas.leperou@gmail.com",
       "axeVersion": "4.6.3"

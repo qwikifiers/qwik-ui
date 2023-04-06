@@ -7,6 +7,7 @@ export * from './components/pagination/pagination';
 export * from './components/collapse/collapse';
 export * from './components/drawer';
 export * from './components/input-phone';
+export * as Input from './components/input/input';
 export * from './components/spinner/spinner';
 export * from './components/menu/menu';
 export * from './components/popover';

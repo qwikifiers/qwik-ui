@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["vitest/globals", "cypress", "node"]
+    "types": ["vitest/globals", "cypress", "cypress-axe", "node"]
   },
   "include": [
     "vite.config.ts",
@@ -17,5 +17,6 @@
     "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
     "src/**/*.d.ts"
-  ]
+  ],
+  "exclude": ["**/*.stories.ts", "**/*.stories.js"]
 }
