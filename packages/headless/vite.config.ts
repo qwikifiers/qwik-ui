@@ -28,7 +28,7 @@ export default defineConfig({
       allow: ['../../'],
     },
   },
-  mode: 'lib',
+
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {

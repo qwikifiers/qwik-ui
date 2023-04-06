@@ -2,7 +2,7 @@ import {
   $,
   component$,
   Slot,
-  useBrowserVisibleTask$,
+  useVisibleTask$,
   useContext,
   useSignal,
   useStylesScoped$,
@@ -15,7 +15,7 @@ export const PopoverTrigger = component$(() => {
   const contextService = useContext(PopoverContext);
   useStylesScoped$(styles);
 
-  useBrowserVisibleTask$(() => {
+  useVisibleTask$(() => {
     contextService.setTriggerRef$(ref);
   });
 

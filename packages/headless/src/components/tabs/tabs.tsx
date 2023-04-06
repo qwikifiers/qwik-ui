@@ -8,8 +8,9 @@ import {
   Slot,
   useContext,
   useContextProvider,
-  useMount$,
+  useTask$,
   useSignal,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 
 export type Behavior = 'automatic' | 'manual';
@@ -90,7 +91,7 @@ export const Tab = component$(
     const contextService = useContext(tabsContext);
     const thisTabIndex = useSignal(0);
 
-    useMount$(async () => {
+    useTask$(async () => {
       thisTabIndex.value = await contextService.getNextTabIndex();
     });
     const isSelected = () =>
@@ -138,7 +139,7 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   const thisPanelIndex = useSignal(0);
   const isSelected = () =>
     thisPanelIndex.value === contextService.selectedIndex.value;
-  useMount$(async () => {
+  useVisibleTask$(async () => {
     thisPanelIndex.value = await contextService.getNextPanelIndex();
   });
   return (

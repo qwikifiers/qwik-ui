@@ -233,6 +233,26 @@
         "doc",
         "code"
       ]
+    },
+    {
+      "login": "PatrykGodlewski",
+      "name": "Patryk Godlewski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/81991100?v=4",
+      "profile": "https://github.com/PatrykGodlewski",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "pranit-yawalkar",
+      "name": "Pranit Yawalkar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64571514?v=4",
+      "profile": "https://github.com/pranit-yawalkar",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

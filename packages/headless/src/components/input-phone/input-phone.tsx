@@ -5,8 +5,8 @@ import {
   useSignal,
   useStylesScoped$,
   useTask$,
-  useBrowserVisibleTask$,
   QwikIntrinsicElements,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import {
   AsYouType,
@@ -21,9 +21,10 @@ import { countries, type CountryListItemType } from 'country-list-json';
 import { timezoneCityToCountry } from './timezone-city-to-country';
 import styles from './input-phone.css?inline';
 
-export type InputPhoneProps = QwikIntrinsicElements['div'] & {
+export type InputPhoneProps = QwikIntrinsicElements['input'] & {
   value?: string;
   countryCode?: CountryCode | 'auto';
+  wrapperProps?: QwikIntrinsicElements['div'];
   onCountryChange$?: QRL<(country?: InputPhoneCountry) => void>;
   onNumberChange$?: QRL<(phone: string) => void>;
   onValidChange$?: QRL<(validity: InputPhoneValidity) => void>;
@@ -112,6 +113,7 @@ export const InputPhone = component$(
     countryCode,
     placeholder = 'Phone number',
     value = '',
+    wrapperProps,
     onCountryChange$,
     onNumberChange$,
     onValidChange$,
@@ -166,7 +168,7 @@ export const InputPhone = component$(
     /**
      * Emit the InputPhone's on initial render
      */
-    useBrowserVisibleTask$(() => {
+    useVisibleTask$(() => {
       handleCountryChange(countrySignal.value);
       handleNumberChange(outputSignal.value);
       handleValidChange(outputSignal.value);
@@ -262,14 +264,21 @@ export const InputPhone = component$(
     });
 
     return (
-      <div {...props}>
-        <button tabIndex={-1}>
+      <div {...wrapperProps}>
+        <button
+          tabIndex={-1}
+          aria-label={
+            countrySignal.value?.flag
+              ? `Country of ${countrySignal.value.name}, dial code ${countrySignal.value.dial_code}`
+              : `Select the country of your phone number`
+          }
+        >
           {countrySignal.value?.flag ? countrySignal.value?.flag : `🌐`}
         </button>
         <select
-          tabIndex={1}
           ref={selectRefSignal}
           title={countrySignal.value?.name}
+          aria-label="Select the country of your phone number"
           onChange$={(_, { value }) => {
             countrySignal.value = findBySelectValue(value);
             selectRefSignal.value?.blur();
@@ -278,22 +287,25 @@ export const InputPhone = component$(
         >
           <option>Select the country's phone code</option>
           {countries.map(({ code, dial_code, name }) => (
-            <option selected={countrySignal.value?.code === code}>
+            <option key={code} selected={countrySignal.value?.code === code}>
               {`${name} (${dial_code})`}
             </option>
           ))}
         </select>
         <input
-          tabIndex={2}
+          {...props}
           ref={inputRefSignal}
           placeholder={placeholder}
           type="text"
           value={outputSignal.value}
-          onInput$={(_, { value }) => {
-            numberSignal.value = new AsYouType(countrySignal.value?.code).input(
-              value
-            );
-          }}
+          onInput$={[
+            $((_: Event, { value }: HTMLInputElement) => {
+              numberSignal.value = new AsYouType(
+                countrySignal.value?.code
+              ).input(value);
+            }),
+            props.onInput$,
+          ]}
         />
       </div>
     );
