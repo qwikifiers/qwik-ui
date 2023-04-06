@@ -7,7 +7,7 @@ import {
   QRL,
   Signal,
   Slot,
-  useBrowserVisibleTask$,
+  useVisibleTask$,
   useContext,
   useContextProvider,
   useSignal,
@@ -48,7 +48,7 @@ export const Accordion = component$((props: AccordionProps) => {
 
   useContextProvider(accordionContext, contextService);
 
-  useBrowserVisibleTask$(() => {
+  useVisibleTask$(() => {
     contextService.setItemsBoxRef$(itemsBoxRef);
     const items = itemsBoxRef.value?.querySelectorAll<HTMLElement>('div.item');
     if (items?.length) {

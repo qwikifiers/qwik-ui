@@ -14,8 +14,8 @@
     "test:headless": "nx component-test headless --watch"
   },
   "devDependencies": {
-    "@builder.io/qwik": "0.23.0",
-    "@builder.io/qwik-city": "0.6.6",
+    "@builder.io/qwik": "0.100.0",
+    "@builder.io/qwik-city": "0.100.0",
     "@commitlint/cli": "^17.4.3",
     "@commitlint/config-angular": "^17.4.3",
     "@commitlint/config-conventional": "^17.4.3",
