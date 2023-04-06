@@ -4,7 +4,7 @@ import {
   useSignal,
   useStylesScoped$,
 } from '@builder.io/qwik';
-import { Carousel } from '@qwik-ui/headless';
+import { Carousel, useCarousel } from '@qwik-ui/headless';
 
 const {
   Controls,
@@ -75,13 +75,23 @@ export default component$(() => {
 
   const items = useSignal(ITEMS);
 
+  const context = useCarousel();
+
   return (
     <>
       <p>This is the documentation for the Carousel</p>
 
       <h2>Carousel Example</h2>
 
-      <Root class="outter" startAt={1} loop={false}>
+      <ul>
+        <li>count: {context.count.value}</li>
+        <li>active: {context.active.value + 1}</li>
+        <li>first: {context.isFirstActive.value ? 'true' : 'false'}</li>
+        <li>last: {context.isLastActive.value ? 'true' : 'false'}</li>
+        <li>loop: {context.loop ? 'true' : 'false'}</li>
+      </ul>
+
+      <Root use={context} class="outter">
         <div class="inner">
           <ButtonPrevious>
             <IconPrevious />

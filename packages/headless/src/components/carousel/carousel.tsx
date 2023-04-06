@@ -6,14 +6,12 @@ import {
   Slot,
   useContext,
   useContextProvider,
-  useSignal,
   useStylesScoped$,
   QRL,
   useId,
   $,
 } from '@builder.io/qwik';
-import { useCarousel } from './use-carousel';
-import { useOrdinal } from './use-ordinal';
+import { useOrdinal } from '@qwik-ui/shared';
 
 import stylesButtons from './styles-buttons.css?inline';
 import stylesControl from './styles-control.css?inline';
@@ -21,6 +19,7 @@ import stylesItem from './styles-item.css?inline';
 import stylesItems from './styles-items.css?inline';
 
 export type CarouselContext = {
+  ref: Signal<HTMLElement | undefined>;
   id: string;
   loop: boolean;
   startAt: number;
@@ -37,39 +36,20 @@ export const carouselContext =
   createContextId<CarouselContext>('carousel-root');
 
 type RootProps = QwikIntrinsicElements['div'] & {
-  startAt?: number;
-  loop?: boolean;
+  use: CarouselContext;
 };
 
-export const Root = component$(
-  ({ startAt = 0, loop = true, id, ...props }: RootProps) => {
-    const itemsRef = useSignal<HTMLElement>();
-    const contextService: CarouselContext = useCarousel({
-      id,
-      itemsRef,
-      startAt,
-      loop,
-    });
-    useContextProvider(carouselContext, contextService);
+export const Root = component$(({ use, ...props }: RootProps) => {
+  useContextProvider(carouselContext, use);
 
-    return (
-      <>
-        <ul>
-          <li>count: {contextService.count.value}</li>
-          <li>active: {contextService.active.value + 1}</li>
-          <li>
-            first: {contextService.isFirstActive.value ? 'true' : 'false'}
-          </li>
-          <li>last: {contextService.isLastActive.value ? 'true' : 'false'}</li>
-          <li>loop: {contextService.loop ? 'true' : 'false'}</li>
-        </ul>
-        <div id={contextService.id} ref={itemsRef} {...props}>
-          <Slot />
-        </div>
-      </>
-    );
-  }
-);
+  return (
+    <>
+      <div id={use.id} ref={use.ref} {...props}>
+        <Slot />
+      </div>
+    </>
+  );
+});
 
 type ButtonProps = QwikIntrinsicElements['button'];
 
