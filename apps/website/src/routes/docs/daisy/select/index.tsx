@@ -2,6 +2,8 @@ import { component$, useId, useStyles$ } from '@builder.io/qwik';
 import { Select } from '@qwik-ui/headless';
 import styles from './select.css?inline';
 
+const { Root, Trigger, Value, ListBox, Group, Label, Option } = Select;
+
 export default component$(() => {
   useStyles$(styles);
   return (
