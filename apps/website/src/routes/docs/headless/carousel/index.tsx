@@ -19,9 +19,9 @@ const {
 } = Carousel;
 
 export const ITEMS: { src: string; title: string }[] = Array.from({
-  length: 4,
-}).map(() => ({
-  src: 'https://picsum.photos/1200/550',
+  length: 10,
+}).map((_, i) => ({
+  src: `https://picsum.photos/120${i + 1}/55${i}`,
   title: 'My great image',
 }));
 
@@ -32,7 +32,7 @@ export default component$(() => {
     h3 { margin-block: 0.85em 0.35em; font-size: x-large; }
     hr { margin-block: 2em; }
 
-    .form-item, hr { width: 35em; }
+    .form-item { width: 35em; }
 
     .outter {
       display: grid;
@@ -66,16 +66,30 @@ export default component$(() => {
       font-weight: 900;
     }
 
-    .item {
+    .img {
       height: 500px;
-      width: 100%; 
       object-fit: cover;
+    }
+
+    .item {
+      width: 350px;
+    }
+
+    .item:nth-child(8),
+    .item:nth-child(6),
+    .item:nth-child(2) {
+      width: 100px;
+    }
+
+    .item:nth-child(5),
+    .item:nth-child(3) {
+      width: 150px;
     }
   `);
 
   const items = useSignal(ITEMS);
 
-  const context = useCarousel();
+  const carousel = useCarousel({ startAt: 3 });
 
   return (
     <>
@@ -84,22 +98,31 @@ export default component$(() => {
       <h2>Carousel Example</h2>
 
       <ul>
-        <li>count: {context.count.value}</li>
-        <li>active: {context.active.value + 1}</li>
-        <li>first: {context.isFirstActive.value ? 'true' : 'false'}</li>
-        <li>last: {context.isLastActive.value ? 'true' : 'false'}</li>
-        <li>loop: {context.loop ? 'true' : 'false'}</li>
+        <li>total item: {carousel.count.value}</li>
+        <li>
+          item shown: {carousel.visibleItemStart.value + 1} to{' '}
+          {carousel.visibleItemEnd.value + 1}
+        </li>
+        <li>with focus: {carousel.active.value + 1}</li>
       </ul>
 
-      <Root use={context} class="outter">
+      <Root use={carousel} class="outter">
         <div class="inner">
           <ButtonPrevious>
             <IconPrevious />
           </ButtonPrevious>
-          <Items>
+          <Items style="gap: 3em;">
             {items.value.map(({ src, title }, i) => (
-              <Item key={useId()} index={i} label={title}>
-                <img src={src} class="item" />
+              <Item
+                key={useId()}
+                index={i}
+                label={title}
+                class={[scopeId, 'item']}
+                style={`background-image: url(${src})`}
+              >
+                <h1>Lorem Ipsum</h1>
+                {/* <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure pariatur excepturi vero magnam aliquid</p> */}
+                <a href="#">Click me</a>
               </Item>
             ))}
           </Items>
@@ -107,10 +130,19 @@ export default component$(() => {
             <IconNext />
           </ButtonNext>
         </div>
+
+        <Controls class={[scopeId, 'controls']}>
+          {carousel.pages.value.map(([start], i) => (
+            <Control key={useId()} index={start} class={[scopeId, 'control']}>
+              <>{i + 1}</>
+            </Control>
+          ))}
+        </Controls>
+
         <Controls class={[scopeId, 'controls']}>
           {items.value.map((_, i) => (
             <Control key={useId()} index={i} class={[scopeId, 'control']}>
-              {i + 1}
+              <>{i + 1}</>
             </Control>
           ))}
         </Controls>

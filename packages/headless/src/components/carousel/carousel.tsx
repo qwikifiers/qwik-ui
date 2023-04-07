@@ -25,12 +25,16 @@ export type CarouselContext = {
   loop: boolean;
   startAt: number;
   active: Signal<number>;
+  page: Signal<number>;
   count: Signal<number>;
   next: QRL<() => void>;
   previous: QRL<() => void>;
   scrollTo: QRL<(index: number) => void>;
   isFirstActive: Signal<boolean>;
   isLastActive: Signal<boolean>;
+  pages: Signal<Array<number[]>>;
+  visibleItemStart: Signal<number>;
+  visibleItemEnd: Signal<number>;
 };
 
 export const useCarouselProvider = (use: CarouselContext) => {
@@ -95,11 +99,13 @@ export const ButtonPrevious = component$(
   }
 );
 
-export const Items = component$(() => {
+type ItemsProps = QwikIntrinsicElements['ul'];
+
+export const Items = component$((props: ItemsProps) => {
   useStylesScoped$(stylesItems);
   return (
     <div class="carousel">
-      <ul class="carousel__items">
+      <ul {...props} attr-data-qui="carousel">
         <Slot />
       </ul>
     </div>
@@ -111,23 +117,22 @@ type ItemProps = QwikIntrinsicElements['li'] & {
   index: number;
 };
 
-export const Item = component$(
-  ({ index, label, ...props }: Omit<ItemProps, 'class'>) => {
-    useStylesScoped$(stylesItem);
-    const { id, active } = useContext(carouselContext);
-    return (
-      <li {...props} aria-current={active.value === index}>
-        <input
-          aria-label={label}
-          type="radio"
-          checked={active.value === index}
-          name={`item-${id}`}
-        />
-        <Slot />
-      </li>
-    );
-  }
-);
+export const Item = component$(({ index, label, ...props }: ItemProps) => {
+  useStylesScoped$(stylesItem);
+  const { id, active, scrollTo } = useContext(carouselContext);
+  return (
+    <li {...props} aria-current={active.value === index}>
+      <input
+        aria-label={label}
+        type="radio"
+        checked={active.value === index}
+        name={`item-${id}`}
+        onChange$={() => scrollTo(index)}
+      />
+      <Slot />
+    </li>
+  );
+});
 
 type ControlContext = {
   id: string;
@@ -141,12 +146,9 @@ export const controlContext = createContextId<ControlContext>(
 
 export const Controls = component$((props: ControlsProps) => {
   const controlService = { id: props.id || useId() };
+  const { pages } = useContext(carouselContext);
   useContextProvider(controlContext, controlService);
-  return (
-    <nav {...props}>
-      <Slot />
-    </nav>
-  );
+  return <nav {...props}>{pages.value && <Slot />}</nav>;
 });
 
 type ControlProps = QwikIntrinsicElements['div'] & {

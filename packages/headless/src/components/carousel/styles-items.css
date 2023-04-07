@@ -10,16 +10,11 @@
   position: relative;
 }
 
-:where(.carousel:focus-within) {
-  outline: -webkit-focus-ring-color auto 1px;
-  z-index: 1;
-}
-
 :where(.carousel:hover) {
   margin-bottom: calc(-1 * var(--scroll-width));
 }
 
-:where(.carousel:not(:hover)) .carousel__items {
+:where(.carousel:not(:hover)) [attr-data-qui='carousel'] {
   /* 1px border */
   /* margin-bottom: var(--scroll-width); */
   /* prevent from CLS */
@@ -29,17 +24,22 @@
   /* Firefox */
 }
 
-:where(.carousel:not(:hover)) .carousel__items::-webkit-scrollbar {
+:where(.carousel:not(:hover)) [attr-data-qui='carousel']::-webkit-scrollbar {
   display: none;
   /* Safari and Chrome */
 }
 
-:where(.carousel__items) {
+:where([attr-data-qui='carousel']) {
+  /**
+   give some room for showing the outline on focus.
+   Better solution would prevent from hidding the outline
+   behind the overflow – stacking issue.
+  **/
+  padding: 0.3em;
   height: 100%;
   position: relative;
   display: flex;
   align-items: center;
-  gap: 3rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   overscroll-behavior-x: contain;
