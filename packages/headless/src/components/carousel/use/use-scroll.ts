@@ -1,34 +1,26 @@
-import {
-  $,
-  type Signal,
-  QRL,
-  useTask$,
-  useSignal,
-  useVisibleTask$,
-} from '@builder.io/qwik';
+import { $, type Signal, type QRL, useVisibleTask$ } from '@builder.io/qwik';
 import { getCount, getElement } from './utils';
-import { isBrowser } from '@builder.io/qwik/build';
-import { useActive } from './use-active';
 
-export type ScrollToEvent = CustomEvent<{
-  element: Element;
-  index: number;
-}>;
+type Params = {
+  active: {
+    isFirst: Signal<boolean>;
+    isLast: Signal<boolean>;
+    index: Signal<number>;
+  };
+  loop?: boolean;
+};
 
-type Options = {
-  active: Signal<number>;
-  loop: boolean;
+export type Scroll = {
+  next: QRL<() => void>;
+  previous: QRL<() => void>;
+  to: QRL<(index: number) => void>;
 };
 
 export const useScroll = (
   ref: Signal<HTMLElement | undefined>,
-  options: Options
+  { active, loop = true }: Params
 ) => {
-  const { active, loop } = options || {};
-  const { isFirst } = useActive(ref, { active });
-  const scrolled = useSignal<Element>();
-
-  const scrollTo = $((index: number) => {
+  const to = $((index: number) => {
     const count = getCount(ref);
     const element = getElement(ref, index);
 
@@ -52,50 +44,34 @@ export const useScroll = (
       inline: 'center',
     });
 
-    scrolled.value = element;
-    ref.value.dispatchEvent(
-      new CustomEvent('scrolledTo', { detail: { element, index } })
-    );
+    active.index.value = index;
   });
 
-  const onScroll = (fn$: QRL<(event: Event) => void>) => {
-    useTask$(({ track }) => {
-      track(() => scrolled.value);
-
-      if (!isBrowser) {
-        return;
-      }
-
-      ref.value?.addEventListener('scrolledTo', fn$);
-
-      return () => ref.value?.removeEventListener('scrolledTo', fn$);
-    });
-  };
-
   const previous = $(() => {
-    if (!options?.loop && isFirst) {
+    if (!loop && active.isFirst.value) {
       return;
     }
-    const index = active.value === 0 ? getCount(ref) - 1 : active.value - 1;
-    scrollTo(index);
+    const index = active.isFirst.value
+      ? getCount(ref) - 1
+      : active.index.value - 1;
+    to(index);
   });
 
   const next = $(() => {
     const max = getCount(ref) - 1;
-    if (!loop && getCount(ref) === max) {
+    if (!loop && active.index.value === max) {
       return;
     }
-    const index = active.value === max ? 0 : active.value + 1;
-    scrollTo(index);
+    const index = active.index.value === max ? 0 : active.index.value + 1;
+    to(index);
   });
 
   useVisibleTask$(() => {
-    scrollTo(active.value);
+    to(active.index.value);
   });
 
   return {
-    scrollTo,
-    onScroll,
+    to,
     previous,
     next,
   };

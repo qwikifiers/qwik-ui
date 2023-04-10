@@ -4,10 +4,17 @@ import {
   useVisibleTask$,
   useSignal,
   useOnWindow,
+  useComputed$,
 } from '@builder.io/qwik';
 
+export type Pages = {
+  total: Signal<number>;
+  ranges: Signal<number[][]>;
+};
+
 export const usePages = (ref: Signal<HTMLElement | undefined>) => {
-  const pages = useSignal<Array<number[]>>([]);
+  const ranges = useSignal<Array<number[]>>([]);
+  const total = useComputed$(() => ranges.value.length);
 
   const computePages = $(() => {
     let acc = 0;
@@ -28,11 +35,11 @@ export const usePages = (ref: Signal<HTMLElement | undefined>) => {
       output[Math.ceil(acc / widthMax) - 1].push(i);
     });
 
-    pages.value = output;
+    ranges.value = output;
   });
 
   useVisibleTask$(() => computePages());
   useOnWindow('resize', computePages);
 
-  return pages;
+  return { total, ranges };
 };

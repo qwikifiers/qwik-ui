@@ -1,26 +1,40 @@
-import { useOnDocument, type Signal, $ } from '@builder.io/qwik';
+import {
+  useOnDocument,
+  type Signal,
+  type QRL,
+  $,
+  useSignal,
+  useStore,
+  useTask$,
+} from '@builder.io/qwik';
 import { getCount, getElements } from './utils';
 
 type Params = {
-  active: Signal<number>;
+  startAt?: number;
+  onScroll?: (fn$: QRL<(event: Event) => void>) => void;
+};
+
+export type Active = {
+  index: Signal<number>;
+  isFirst: Signal<boolean>;
+  isLast: Signal<boolean>;
 };
 
 export const useActive = (
   ref: Signal<HTMLElement | undefined>,
-  { active }: Params
+  params: Params | void
 ) => {
-  useActiveOnFocus(ref, { active });
+  const isFirst = (params?.startAt && params?.startAt === 0) || false;
+  const isLast =
+    (params?.startAt && params?.startAt + 1 === getCount(ref)) || false;
+  const index = params?.startAt || 0;
 
-  return {
-    isFirst: active.value === 0,
-    isLast: active.value + 1 === getCount(ref),
-  };
-};
+  const active = useStore({
+    isFirst: useSignal(isFirst),
+    isLast: useSignal(isLast),
+    index: useSignal(index),
+  });
 
-const useActiveOnFocus = (
-  ref: Signal<HTMLElement | undefined>,
-  { active }: { active: Signal<number> }
-) => {
   useOnDocument(
     'focus',
     $(() => {
@@ -28,8 +42,16 @@ const useActiveOnFocus = (
         if (!element.contains(document.activeElement)) {
           return;
         }
-        active.value = index;
+        active.index.value = index;
       });
     })
   );
+
+  useTask$(({ track }) => {
+    const index = track(() => active.index.value);
+    active.isFirst.value = index === 0;
+    active.isLast.value = index + 1 === getCount(ref);
+  });
+
+  return active;
 };

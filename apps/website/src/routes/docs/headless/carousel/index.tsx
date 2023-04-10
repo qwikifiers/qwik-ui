@@ -19,7 +19,7 @@ const {
 } = Carousel;
 
 export const ITEMS: { src: string; title: string }[] = Array.from({
-  length: 10,
+  length: 9,
 }).map((_, i) => ({
   src: `https://picsum.photos/120${i + 1}/55${i}`,
   title: 'My great image',
@@ -89,7 +89,8 @@ export default component$(() => {
 
   const items = useSignal(ITEMS);
 
-  const carousel = useCarousel({ startAt: 3 });
+  const carousel = useCarousel({ loop: false });
+  const carousel2 = useCarousel();
 
   return (
     <>
@@ -99,14 +100,15 @@ export default component$(() => {
 
       <ul>
         <li>total item: {carousel.count.value}</li>
+        <li>active item: {carousel.active.index.value}</li>
         <li>
-          item shown: {carousel.visibleItemStart.value + 1} to{' '}
-          {carousel.visibleItemEnd.value + 1}
+          item shown: {carousel.visible.first.value + 1} to{' '}
+          {carousel.visible.last.value + 1}
         </li>
-        <li>with focus: {carousel.active.value + 1}</li>
+        <li>with focus: {carousel.active.index.value + 1}</li>
       </ul>
 
-      <Root use={carousel} class="outter">
+      <Root use={carousel}>
         <div class="inner">
           <ButtonPrevious>
             <IconPrevious />
@@ -120,8 +122,51 @@ export default component$(() => {
                 class={[scopeId, 'item']}
                 style={`background-image: url(${src})`}
               >
+                <img src={src} alt="" />
+              </Item>
+            ))}
+          </Items>
+          <ButtonNext>
+            <IconNext />
+          </ButtonNext>
+        </div>
+
+        <Controls class={[scopeId, 'controls']}>
+          {carousel.pages.ranges.value.map(([start], i) => (
+            <Control key={useId()} index={start} class={[scopeId, 'control']}>
+              <>{i + 1}</>
+            </Control>
+          ))}
+        </Controls>
+
+        <Controls class={[scopeId, 'controls']}>
+          {items.value.map((_, i) => (
+            <Control key={useId()} index={i} class={[scopeId, 'control']}>
+              <>{i + 1}</>
+            </Control>
+          ))}
+        </Controls>
+      </Root>
+
+      <Root use={carousel2}>
+        <div class="inner">
+          <ButtonPrevious>
+            <IconPrevious />
+          </ButtonPrevious>
+          <Items style="gap: 3em;">
+            {items.value.map(({ src, title }, i) => (
+              <Item
+                key={useId()}
+                index={i}
+                label={title}
+                class={[scopeId, 'item']}
+                style={`background-image: url(${src}); width: 100%;`}
+              >
                 <h1>Lorem Ipsum</h1>
-                {/* <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure pariatur excepturi vero magnam aliquid</p> */}
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure
+                  pariatur excepturi vero magnam aliquid
+                </p>
                 <a href="#">Click me</a>
               </Item>
             ))}
@@ -132,7 +177,7 @@ export default component$(() => {
         </div>
 
         <Controls class={[scopeId, 'controls']}>
-          {carousel.pages.value.map(([start], i) => (
+          {carousel2.pages.ranges.value.map(([start], i) => (
             <Control key={useId()} index={start} class={[scopeId, 'control']}>
               <>{i + 1}</>
             </Control>
