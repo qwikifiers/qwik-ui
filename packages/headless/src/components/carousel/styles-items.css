@@ -1,32 +1,5 @@
-:where(.carousel) {
-  --scroll-width: 0.95em;
-
+:where([attr-data-qui='carousel-wapper']) {
   display: grid;
-  grid-template-areas:
-    'prev item next'
-    'tbnl tbnl tbnl'
-    'ctrl ctrl ctrl';
-  align-items: center;
-  position: relative;
-}
-
-:where(.carousel:hover) {
-  margin-bottom: calc(-1 * var(--scroll-width));
-}
-
-:where(.carousel:not(:hover)) [attr-data-qui='carousel'] {
-  /* 1px border */
-  /* margin-bottom: var(--scroll-width); */
-  /* prevent from CLS */
-  -ms-overflow-style: none;
-  /* Internet Explorer 10+ */
-  scrollbar-width: none;
-  /* Firefox */
-}
-
-:where(.carousel:not(:hover)) [attr-data-qui='carousel']::-webkit-scrollbar {
-  display: none;
-  /* Safari and Chrome */
 }
 
 :where([attr-data-qui='carousel']) {
@@ -43,7 +16,4 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   overscroll-behavior-x: contain;
-
-  -ms-overflow-style: var(--scroll-width);
-  scrollbar-width: var(--scroll-width);
 }

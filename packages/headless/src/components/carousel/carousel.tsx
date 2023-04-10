@@ -97,7 +97,7 @@ type ItemsProps = QwikIntrinsicElements['ul'];
 export const Items = component$((props: ItemsProps) => {
   useStylesScoped$(stylesItems);
   return (
-    <div class="carousel">
+    <div attr-data-qui="carousel-wapper">
       <ul {...props} attr-data-qui="carousel">
         <Slot />
       </ul>
