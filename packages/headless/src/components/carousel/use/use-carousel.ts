@@ -4,12 +4,23 @@ import {
   useVisibleTask$,
   useId,
 } from '@builder.io/qwik';
-import type { CarouselContext } from '../carousel';
-import { useActive } from './use-active';
-import { useScroll } from './use-scroll';
-import { useVisible } from './use-visible';
-import { usePages } from './use-pages';
+import { Active, useActive } from './use-active';
+import { Scroll, useScroll } from './use-scroll';
+import { Visible, useVisible } from './use-visible';
+import { Pages, usePages } from './use-pages';
 import { getCount } from './utils';
+
+export type CarouselContext = {
+  ref: Signal<HTMLElement | undefined>;
+  id: string;
+  loop: boolean;
+  startAt: number;
+  count: Signal<number>;
+  active: Active;
+  scroll: Scroll;
+  pages: Pages;
+  visible: Visible;
+};
 
 type UseCarouselParams = {
   id?: string;

@@ -1,6 +1,5 @@
 import {
   $,
-  type Signal,
   component$,
   createContextId,
   QwikIntrinsicElements,
@@ -12,24 +11,11 @@ import {
 } from '@builder.io/qwik';
 import { useOrdinal } from '@qwik-ui/shared';
 
-import stylesButtons from './styles-buttons.css?inline';
-import stylesControl from './styles-control.css?inline';
-import stylesItem from './styles-item.css?inline';
-import stylesItems from './styles-items.css?inline';
-import { useCarousel } from './use';
-import type { Active, Scroll, Pages, Visible } from './use';
-
-export type CarouselContext = {
-  ref: Signal<HTMLElement | undefined>;
-  id: string;
-  loop: boolean;
-  startAt: number;
-  count: Signal<number>;
-  active: Active;
-  scroll: Scroll;
-  pages: Pages;
-  visible: Visible;
-};
+import stylesButtons from './styles/buttons.css?inline';
+import stylesControl from './styles/control.css?inline';
+import stylesItem from './styles/item.css?inline';
+import stylesItems from './styles/items.css?inline';
+import { CarouselContext, useCarousel } from './use';
 
 export const useCarouselProvider = (state: CarouselContext) => {
   useContextProvider(carouselContext, state);
