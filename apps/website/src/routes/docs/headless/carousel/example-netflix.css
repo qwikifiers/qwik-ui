@@ -1,72 +1,114 @@
-.carousel__card {
-  --width: min(350px, 25vw);
-  --border-radius: 1em;
-  --outline-color: transparent;
-  --outline: 0.15em solid;
-  --outline-offset: 0.1em;
-  --margin: 2em;
-  --transition-ms: 150ms;
-}
+/* carousel */
 
-.carousel__card {
-  min-width: 250px;
-  max-width: var(--width);
-  width: 100%;
+.qui-carousel {
   align-items: start;
-  border-radius: var(--border-radius);
-  outline-color: var(--outline-color);
-  transition: max-width var(--transition-ms) ease-out;
 }
 
-article :first-child {
-  border-top-left-radius: var(--border-radius);
-  border-top-right-radius: var(--border-radius);
+/* card */
+
+.carousel__card {
+  --card-width: min(25em, 20vw);
+  --card-border-radius: 1em;
+  --card-outline-color: transparent;
+  --card-outline: 0.15em solid;
+  --card-outline-offset: 0.1em;
+  --card-margin: 2em;
+  --card-width-shadow: 1em;
+  --transition-ms: 150ms;
+
+  --button-border-radius: 0.35em;
+  --button-background-color: #19b6f6;
 }
 
-article :last-child {
-  border-bottom-left-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
+.carousel__card {
+  width: var(--card-width);
+  align-items: start;
+  height: max-content;
+  border-radius: var(--card-border-radius);
+  outline-color: var(--card-outline-color);
+  transition: margin calc(var(--transition-ms) * 1.5) ease-out;
+}
+
+article > :first-child {
+  border-top-left-radius: var(--card-border-radius);
+  border-top-right-radius: var(--card-border-radius);
+}
+
+article > :last-child {
+  border-bottom-left-radius: var(--card-border-radius);
+  border-bottom-right-radius: var(--card-border-radius);
 }
 
 article {
-  margin: var(--margin) calc(var(--margin) / 4);
-  border-radius: var(--border-radius);
-  transition: box-shadow calc(var(--transition-ms) * 2.5) ease-out,
-    margin var(--transition-ms) ease-out;
+  position: relative;
+  left: 0;
+  right: 0;
+  margin: var(--card-margin) calc(var(--card-margin) / 4);
+  border-radius: var(--card-border-radius);
+  transition: margin calc(var(--transition-ms) * 1.5) 100ms ease-out,
+    box-shadow calc(var(--transition-ms) * 2.5) ease-out,
+    left var(--transition-ms) ease-out, right var(--transition-ms) ease-out;
+}
+
+/* card content */
+
+img {
+  border-bottom-left-radius: var(--card-border-radius);
+  border-bottom-right-radius: var(--card-border-radius);
+  transition: border-radius calc(var(--transition-ms) * 0.75) ease-in-out;
 }
 
 .inner {
+  display: grid;
+  row-gap: 0.5em;
   background-color: black;
   padding: 1em;
   transition: opacity calc(var(--transition-ms) * 1.5) ease-out;
   opacity: 0;
 }
 
-img {
-  border-bottom-left-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
-  transition: border-radius calc(var(--transition-ms) * 0.75) ease-in-out;
-}
-
-h3 {
+.inner h3 {
   font-size: x-large;
   font-weight: bolder;
   margin-block: 1em;
   line-height: 1;
 }
 
+.inner a {
+  padding: 0.75em 1.35em;
+  background-color: var(--button-background-color);
+  border-radius: var(--button-border-radius);
+  color: black;
+  margin-inline-start: auto;
+  margin-block: 1em;
+}
+
 /* state */
 
+.carousel__card:focus-within article {
+  outline: var(--card-outline);
+  outline-offset: var(--card-outline-offset);
+}
+
 .carousel__card[aria-current='true'] {
-  --width: 30vw;
+  --card-margin: -2em;
+}
+
+.carousel__card[aria-current='true']:first-child article {
+  margin-inline-start: var(--card-width-shadow);
+  margin-inline-end: calc(2 * var(--card-margin) - var(--card-width-shadow));
+}
+
+.carousel__card[aria-current='true']:last-child article {
+  margin-inline-start: calc(2 * var(--card-margin) - var(--card-width-shadow));
+  margin-inline-end: var(--card-width-shadow);
 }
 
 .carousel__card[aria-current='true'] article {
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.75), 0 6px 6px rgba(0, 0, 0, 0.5);
-  outline: var(--outline);
-  outline-offset: var(--outline-offset);
-  margin-block-start: 0;
-  margin-block-end: calc(2 * var(--margin));
+  box-shadow: 0 0 var(--card-width-shadow) rgba(0, 0, 0, 0.75),
+    0 0.375em 0.375em rgba(0, 0, 0, 0.5);
+  margin-block: 0;
+  margin-inline: var(--card-margin);
 }
 
 .carousel__card[aria-current='true'] img {
@@ -78,7 +120,7 @@ h3 {
   opacity: 1;
 }
 
-/* layout */
+/* page layout */
 
 header h2 {
   font-size: x-large;
@@ -89,4 +131,19 @@ header,
 nav {
   display: flex;
   align-items: center;
+}
+
+header {
+  margin-block-start: 2em;
+}
+
+hr {
+  margin-block: 0.5em 2em;
+  opacity: 0.25;
+}
+
+/* navigation */
+
+button[disabled] {
+  opacity: 0.35;
 }

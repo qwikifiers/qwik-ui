@@ -1,10 +1,12 @@
 import {
+  $,
+  QwikIntrinsicElements,
   component$,
   useId,
   useSignal,
   useStylesScoped$,
 } from '@builder.io/qwik';
-import { Carousel, useCarousel } from '@qwik-ui/headless';
+import { Carousel, useCarousel, CarouselContext } from '@qwik-ui/headless';
 import styles from './example-netflix.css?inline';
 
 const { Item, Items, Root, IconNext, IconPrevious } = Carousel;
@@ -19,33 +21,19 @@ const media = {
 export const ExampleNetflix = component$(() => {
   const { scopeId } = useStylesScoped$(styles);
   const items = useSignal([...new Array(10)]);
-  const carousel = useCarousel();
+  const carousel = useCarousel({ loop: false });
 
   return (
     <>
       <header>
         <h2>Netflix example</h2>
-        <nav>
-          <strong>
-            {carousel.visible.first.value + 1} /{' '}
-            {carousel.visible.last.value + 1}
-          </strong>
-          <button
-            disabled={carousel.active.isFirst.value}
-            onClick$={() => carousel.scroll.previous()}
-          >
-            <IconPrevious />
-          </button>
-          <button
-            disabled={carousel.active.isLast.value}
-            onClick$={() => carousel.scroll.next()}
-          >
-            <IconNext />
-          </button>
-        </nav>
+        <Navigation carousel={carousel} class={scopeId} />
       </header>
+
+      <hr />
+
       <Root use={carousel}>
-        <Items class={[scopeId, 'carousel']}>
+        <Items class={[scopeId, 'qui-carousel']}>
           {items.value.map((_, i) => (
             <Item
               key={useId()}
@@ -60,6 +48,7 @@ export const ExampleNetflix = component$(() => {
                   <h3>{media.title}</h3>
                   <div class="rate">{`${media.rating}% 👍`}</div>
                   <p>{media.description}</p>
+                  <a href="#">Read more</a>
                 </div>
               </article>
             </Item>
@@ -69,3 +58,46 @@ export const ExampleNetflix = component$(() => {
     </>
   );
 });
+
+type NavigationProps = QwikIntrinsicElements['nav'] & {
+  carousel: CarouselContext;
+};
+
+export const Navigation = component$(
+  ({ carousel, ...props }: NavigationProps) => {
+    const previous = $(() => {
+      if (!carousel.loop && carousel.active.isFirst.value) {
+        return;
+      }
+      carousel.scroll.previous();
+    });
+
+    const next = $(() => {
+      if (!carousel.loop && carousel.active.isLast.value) {
+        return;
+      }
+      carousel.scroll.next();
+    });
+
+    return (
+      <nav {...props}>
+        {carousel.active.index.value + 1} / {carousel.count.value} total
+        <button
+          class={props.class}
+          disabled={carousel.active.isFirst.value}
+          onClick$={previous}
+        >
+          <IconPrevious />
+        </button>
+        {carousel.visible.first.value + 1}-{carousel.visible.last.value + 1}
+        <button
+          class={props.class}
+          disabled={carousel.active.isLast.value}
+          onClick$={next}
+        >
+          <IconNext />
+        </button>
+      </nav>
+    );
+  }
+);
