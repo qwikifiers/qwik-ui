@@ -8,7 +8,7 @@ const { Item, Items, Root } = Carousel;
 export default component$(() => {
   const { scopeId } = useStylesScoped$(styles);
 
-  const carousel = useCarousel({ loop: false });
+  // const carousel = useCarousel({ loop: false });
 
   return (
     <>
@@ -18,7 +18,7 @@ export default component$(() => {
 
       <h2>Carousel Example</h2>
 
-      <ul>
+      {/* <ul>
         <li>total item: {carousel.count.value}</li>
         <li>active item: {carousel.active.index.value}</li>
         <li>
@@ -57,7 +57,7 @@ export default component$(() => {
             </Item>
           ))}
         </Items>
-      </Root>
+      </Root> */}
 
       <hr />
 

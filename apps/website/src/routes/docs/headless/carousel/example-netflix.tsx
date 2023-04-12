@@ -9,7 +9,15 @@ import {
 import { Carousel, useCarousel, CarouselContext } from '@qwik-ui/headless';
 import styles from './example-netflix.css?inline';
 
-const { Item, Items, Root, IconNext, IconPrevious } = Carousel;
+const {
+  Item,
+  Items,
+  Root,
+  IconNext,
+  IconPrevious,
+  IconChevronLeft,
+  IconChevronRight,
+} = Carousel;
 
 const media = {
   title: 'Qwik Workshop - Live Coding',
@@ -21,7 +29,7 @@ const media = {
 export const ExampleNetflix = component$(() => {
   const { scopeId } = useStylesScoped$(styles);
   const items = useSignal([...new Array(10)]);
-  const carousel = useCarousel({ loop: false });
+  const carousel = useCarousel({ loop: false, transition: 350, startAt: 3 });
 
   return (
     <>
@@ -40,7 +48,7 @@ export const ExampleNetflix = component$(() => {
               index={i}
               label={media.title}
               class={[scopeId, 'carousel__card']}
-              onClick$={() => (carousel.active.index.value = i)}
+              onClick$={() => carousel.items.scrollAt(i)}
             >
               <article>
                 <img src={media.banner} alt="img" />
@@ -66,36 +74,52 @@ type NavigationProps = QwikIntrinsicElements['nav'] & {
 export const Navigation = component$(
   ({ carousel, ...props }: NavigationProps) => {
     const previous = $(() => {
-      if (!carousel.loop && carousel.active.isFirst.value) {
+      if (!carousel.loop && carousel.items.active.isFirst.value) {
         return;
       }
-      carousel.scroll.previous();
+      carousel.items.previous();
     });
 
     const next = $(() => {
-      if (!carousel.loop && carousel.active.isLast.value) {
+      if (!carousel.loop && carousel.items.active.isLast.value) {
         return;
       }
-      carousel.scroll.next();
+      carousel.items.next();
     });
 
     return (
       <nav {...props}>
-        {carousel.active.index.value + 1} / {carousel.count.value} total
+        {carousel.items.active.current.value + 1} / {carousel.items.total.value}{' '}
+        total
         <button
           class={props.class}
-          disabled={carousel.active.isFirst.value}
+          disabled={!carousel.loop && carousel.items.active.isFirst.value}
+          onClick$={carousel.pages.previous}
+        >
+          <IconChevronLeft />
+        </button>
+        <button
+          class={props.class}
+          disabled={!carousel.loop && carousel.items.active.isFirst.value}
           onClick$={previous}
         >
           <IconPrevious />
         </button>
-        {carousel.visible.first.value + 1}-{carousel.visible.last.value + 1}
+        {carousel.items.visible.first.value + 1}-
+        {carousel.items.visible.last.value + 1}
         <button
           class={props.class}
-          disabled={carousel.active.isLast.value}
+          disabled={!carousel.loop && carousel.items.active.isLast.value}
           onClick$={next}
         >
           <IconNext />
+        </button>
+        <button
+          class={props.class}
+          disabled={!carousel.loop && carousel.items.active.isLast.value}
+          onClick$={carousel.pages.next}
+        >
+          <IconChevronRight />
         </button>
       </nav>
     );

@@ -7,7 +7,7 @@
 /* card */
 
 .carousel__card {
-  --card-width: min(25em, 20vw);
+  --card-width: max(min(25em, 20vw), 250px);
   --card-border-radius: 1em;
   --card-outline-color: transparent;
   --card-outline: 0.15em solid;
@@ -43,11 +43,12 @@ article {
   position: relative;
   left: 0;
   right: 0;
-  margin: var(--card-margin) calc(var(--card-margin) / 4);
+  margin: calc(var(--card-margin) + var(--card-width-shadow))
+    calc(var(--card-margin) / 4);
   border-radius: var(--card-border-radius);
   transition: margin calc(var(--transition-ms) * 1.5) 100ms ease-out,
-    box-shadow calc(var(--transition-ms) * 2.5) ease-out,
-    left var(--transition-ms) ease-out, right var(--transition-ms) ease-out;
+    box-shadow calc(var(--transition-ms) * 2.5) ease-out;
+  overflow: hidden;
 }
 
 /* card content */
@@ -65,6 +66,8 @@ img {
   padding: 1em;
   transition: opacity calc(var(--transition-ms) * 1.5) ease-out;
   opacity: 0;
+  height: 0;
+  position: absolute;
 }
 
 .inner h3 {
@@ -107,7 +110,7 @@ img {
 .carousel__card[aria-current='true'] article {
   box-shadow: 0 0 var(--card-width-shadow) rgba(0, 0, 0, 0.75),
     0 0.375em 0.375em rgba(0, 0, 0, 0.5);
-  margin-block: 0;
+  margin-block: var(--card-width-shadow);
   margin-inline: var(--card-margin);
 }
 
@@ -117,6 +120,8 @@ img {
 }
 
 .carousel__card[aria-current='true'] .inner {
+  height: auto;
+  position: relative;
   opacity: 1;
 }
 

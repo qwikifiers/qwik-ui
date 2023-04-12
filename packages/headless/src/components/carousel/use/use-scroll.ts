@@ -1,13 +1,11 @@
 import { $, type Signal, type QRL, useVisibleTask$ } from '@builder.io/qwik';
 import { getCount, getElement } from './utils';
+import { Items } from './use-items';
 
 type Params = {
-  active: {
-    isFirst: Signal<boolean>;
-    isLast: Signal<boolean>;
-    index: Signal<number>;
-  };
+  items: Items;
   loop?: boolean;
+  transition?: number;
 };
 
 export type Scroll = {
@@ -18,7 +16,7 @@ export type Scroll = {
 
 export const useScroll = (
   ref: Signal<HTMLElement | undefined>,
-  { active, loop = true }: Params
+  { items, loop = true, transition = 350 }: Params
 ) => {
   const to = $((index: number) => {
     const count = getCount(ref);
@@ -38,36 +36,41 @@ export const useScroll = (
       return;
     }
 
-    element.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'center',
-    });
+    setTimeout(
+      () =>
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center',
+        }),
+      transition
+    );
 
-    active.index.value = index;
+    items.active.current.value = index;
   });
 
   const previous = $(() => {
-    if (!loop && active.isFirst.value) {
+    if (!loop && items.active.isFirst.value) {
       return;
     }
-    const index = active.isFirst.value
+    const index = items.active.isFirst.value
       ? getCount(ref) - 1
-      : active.index.value - 1;
+      : items.active.current.value - 1;
     to(index);
   });
 
   const next = $(() => {
     const max = getCount(ref) - 1;
-    if (!loop && active.index.value === max) {
+    if (!loop && items.active.current.value === max) {
       return;
     }
-    const index = active.index.value === max ? 0 : active.index.value + 1;
+    const index =
+      items.active.current.value === max ? 0 : items.active.current.value + 1;
     to(index);
   });
 
   useVisibleTask$(() => {
-    to(active.index.value);
+    to(items.active.current.value);
   });
 
   return {

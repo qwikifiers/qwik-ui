@@ -46,14 +46,14 @@ type ButtonProps = QwikIntrinsicElements['button'] & {
 export const ButtonNext = component$(
   ({ onClick$, label = 'Go to the next item', ...props }: ButtonProps) => {
     useStylesScoped$(stylesButtons);
-    const { active, loop, scroll } = useContext(carouselContext);
+    const { items, loop } = useContext(carouselContext);
 
     return (
       <button
         {...props}
         aria-label={label}
-        disabled={!loop ? active.isLast.value : false}
-        onClick$={[$(() => scroll.next()), onClick$]}
+        disabled={!loop ? items.active.isLast.value : false}
+        onClick$={[$(() => items.next()), onClick$]}
       >
         <Slot />
       </button>
@@ -64,13 +64,13 @@ export const ButtonNext = component$(
 export const ButtonPrevious = component$(
   ({ onClick$, label = 'Go to the previous item', ...props }: ButtonProps) => {
     useStylesScoped$(stylesButtons);
-    const { active, loop, scroll } = useContext(carouselContext);
+    const { items, loop } = useContext(carouselContext);
     return (
       <button
         {...props}
         aria-label={label}
-        disabled={!loop ? active.isFirst.value : false}
-        onClick$={[$(() => scroll.previous()), onClick$]}
+        disabled={!loop ? items.active.isFirst.value : false}
+        onClick$={[$(() => items.previous()), onClick$]}
       >
         <Slot />
       </button>
@@ -98,15 +98,15 @@ type ItemProps = QwikIntrinsicElements['li'] & {
 
 export const Item = component$(({ index, label, ...props }: ItemProps) => {
   useStylesScoped$(stylesItem);
-  const { id, active, scroll } = useContext(carouselContext);
+  const { id, items } = useContext(carouselContext);
   return (
-    <li {...props} aria-current={active.index.value === index}>
+    <li {...props} aria-current={items.active.current.value === index}>
       <input
         aria-label={label}
         type="radio"
-        checked={active.index.value === index}
+        checked={items.active.current.value === index}
         name={`item-${id}`}
-        onChange$={() => scroll.to(index)}
+        onChange$={() => items.scrollAt(index)}
       />
       <Slot />
     </li>
@@ -140,21 +140,21 @@ export const Control = component$(
   ({ index, onClick$, label, ...props }: ControlProps) => {
     useStylesScoped$(stylesControl);
     const ordinal = useOrdinal();
-    const { active, scroll } = useContext(carouselContext);
+    const { items } = useContext(carouselContext);
     const { id } = useContext(controlContext);
 
     return (
       <div
         {...props}
-        aria-current={active.index.value === index}
-        onClick$={[$(() => scroll.to(index)), onClick$]}
+        aria-current={items.active.current.value === index}
+        onClick$={[$(() => items.scrollAt(index)), onClick$]}
       >
         <input
           aria-label={label || `Go to the ${ordinal?.(index + 1)} item`}
           type="radio"
-          checked={active.index.value === index}
+          checked={items.active.current.value === index}
           name={`control-${id}`}
-          onChange$={() => scroll.to(index)}
+          onChange$={() => items.scrollAt(index)}
         />
         <Slot />
       </div>
@@ -191,5 +191,41 @@ export const IconNext = () => (
     stroke-linejoin="round"
   >
     <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+);
+
+export const IconChevronLeft = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="lucide lucide-chevrons-left"
+  >
+    <polyline points="11 17 6 12 11 7"></polyline>
+    <polyline points="18 17 13 12 18 7"></polyline>
+  </svg>
+);
+
+export const IconChevronRight = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="lucide lucide-chevrons-right"
+  >
+    <polyline points="13 17 18 12 13 7"></polyline>
+    <polyline points="6 17 11 12 6 7"></polyline>
   </svg>
 );
