@@ -8,7 +8,7 @@ const { Item, Items, Root } = Carousel;
 export default component$(() => {
   const { scopeId } = useStylesScoped$(styles);
 
-  // const carousel = useCarousel({ loop: false });
+  const carousel = useCarousel();
 
   return (
     <>
@@ -18,20 +18,20 @@ export default component$(() => {
 
       <h2>Carousel Example</h2>
 
-      {/* <ul>
-        <li>total item: {carousel.count.value}</li>
-        <li>active item: {carousel.active.index.value}</li>
+      <ul>
+        <li>total item: {carousel.items.total.value}</li>
+        <li>active item: {carousel.items.active.current.value}</li>
         <li>
-          item shown: {carousel.visible.first.value + 1} to{' '}
-          {carousel.visible.last.value + 1}
+          item shown: {carousel.items.visible.first.value + 1} to{' '}
+          {carousel.items.visible.last.value + 1}
         </li>
-        <li>with focus: {carousel.active.index.value + 1}</li>
+        <li>with focus: {carousel.items.active.current.value + 1}</li>
       </ul>
 
       <nav style="display: flex; gap: .5em">
         <strong>Pages:</strong>
         {carousel.pages.ranges.value.map(([first], i) => (
-          <button key={useId()} onClick$={() => carousel.scroll.to(first)}>
+          <button key={useId()} onClick$={() => carousel.items.scrollAt(first)}>
             {i + 1}
           </button>
         ))}
@@ -39,7 +39,7 @@ export default component$(() => {
       <nav style="display: flex; gap: .5em">
         <strong>Items:</strong>
         {Array.from({ length: 8 }).map((_, i) => (
-          <button key={useId()} onClick$={() => carousel.scroll.to(i)}>
+          <button key={useId()} onClick$={() => carousel.items.scrollAt(i)}>
             {i + 1}
           </button>
         ))}
@@ -57,7 +57,7 @@ export default component$(() => {
             </Item>
           ))}
         </Items>
-      </Root> */}
+      </Root>
 
       <hr />
 
