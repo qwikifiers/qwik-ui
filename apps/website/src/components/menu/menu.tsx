@@ -38,6 +38,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
     },
     { label: 'Card', path: `/docs/${appState.theme.toLowerCase()}/card` },
     {
+      label: 'Carousel',
+      path: `/docs/${appState.theme.toLowerCase()}/carousel`,
+    },
+    {
       label: 'Collapse',
       path: `/docs/${appState.theme.toLowerCase()}/collapse`,
     },
