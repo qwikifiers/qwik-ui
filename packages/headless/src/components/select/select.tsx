@@ -11,6 +11,7 @@ import {
   useStore,
   useTask$,
 } from '@builder.io/qwik';
+import { autoUpdate, computePosition, flip, shift } from '@floating-ui/dom';
 
 interface SelectRootContextService {
   options: Signal<HTMLElement | undefined>[];
@@ -53,6 +54,20 @@ const Root = component$(({ defaultValue, ...props }: RootProps) => {
     const trigger = track(() => contextService.triggerRef.value);
     const listBox = track(() => contextService.listBoxRef.value);
     const expanded = track(() => isExpanded.value);
+
+    if (expanded && trigger && listBox) {
+      autoUpdate(trigger, listBox, () => {
+        computePosition(trigger, listBox, {
+          middleware: [flip(), shift()],
+          placement: 'bottom',
+        }).then(({ x, y }) => {
+          Object.assign(listBox.style, {
+            right: `${x}px`,
+            top: `${y}px`,
+          });
+        });
+      });
+    }
 
     if (expanded === false) {
       trigger?.focus();
