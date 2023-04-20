@@ -26,7 +26,6 @@
 <details>
 <summary>Table of Contents</summary>
 
-- [⚠ This is not ready for production!](#-this-is-not-ready-for-production)
 - [Installation of the headless components](#installation-of-the-headless-components)
 - [Contributing](#contributing)
 - [Code Of Conduct](#code-of-conduct)
@@ -40,13 +39,16 @@
 
 This library is still in early stages and once we'll collect enough feedback from the community we'll release the first beta version.
 
-We still need to
-
-- [x] Design a normal logo
-- [ ] Build a proper documentation website
-- [ ] Add tests
-- [ ] Fix bugs
-- [ ] more...
+### ROADMAP
+ 
+- [ ] Deploy the documentation site 
+  - [ ] Add "Readiness" statuses to the components
+  - [ ] Add a getting started video tutorial
+  - [ ] Make a public storybook url
+- [ ] Deploy the daisy-theme package
+- [ ] Cover all of the components with storybook tests
+- [ ] Add testing coverage reports
+- [ ] Add a contribution tutorial video
 
 <br/>
 
