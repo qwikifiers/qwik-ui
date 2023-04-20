@@ -32,6 +32,9 @@ runs:
       with:
         # 👇 Chromatic projectToken, refer to the manage page to obtain it.
         projectToken: ${{ inputs.github_token }}
+        buildScriptName: story:headless
+        outputDir: dist/storybook/headless
+        zip: true
 
     # - name: Build Daisy Theme
     #   shell: bash
