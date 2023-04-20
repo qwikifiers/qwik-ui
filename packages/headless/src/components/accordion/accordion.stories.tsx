@@ -14,7 +14,7 @@ type Story = StoryObj<AccordionProps>;
 export const Primary: Story = {
   render: () => (
     <Accordion>
-      <AccordionItem label="Item 1">This is a test</AccordionItem>
+      <AccordionItem label="Item 1">This is a test 1</AccordionItem>
     </Accordion>
   ),
   play: async ({ canvasElement }) => {
@@ -22,6 +22,6 @@ export const Primary: Story = {
 
     await userEvent.click(canvas.getByText('Item 1'));
 
-    await expect(canvas.getByText('This is a test')).toBeInTheDocument();
+    await expect(canvas.getByText('This is a test 1')).toBeInTheDocument();
   },
 };
