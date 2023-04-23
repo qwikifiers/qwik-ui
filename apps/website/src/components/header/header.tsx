@@ -1,14 +1,6 @@
-import {
-  $,
-  component$,
-  useContext,
-  useSignal,
-  useTask$,
-} from '@builder.io/qwik';
+import { $, component$, useContext, useSignal } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import { isBrowser } from '@builder.io/qwik/build';
 import { version } from '../../../../../package.json';
-import { APP_STATE } from '../../constants';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
 import { MenuIcon } from '../icons/MenuIcon';
@@ -16,10 +8,12 @@ import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
 import { Menu } from '../menu/menu';
 import { SelectTheme } from '../selectTheme/selectTheme';
+import { APP_STATE_CONTEXT_ID } from '../../_state/app-state-context-id';
+import { useCSSTheme } from '../../_state/use-css-theme';
 
 export default component$(() => {
   const location = useLocation();
-  const appState = useContext(APP_STATE);
+  const appState = useContext(APP_STATE_CONTEXT_ID);
   const menuOpenSignal = useSignal(false);
 
   const toggleMenu$ = $(() => {
@@ -27,21 +21,7 @@ export default component$(() => {
   });
 
   const toggleDarkMode = $(() => {
-    appState.darkMode = !appState.darkMode;
-  });
-
-  const setThemeClass = $(() => {
-    if (isBrowser) {
-      const theme = appState.darkMode ? 'dark' : 'light';
-      document.documentElement.setAttribute('class', theme);
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-    }
-  });
-
-  useTask$(({ track }) => {
-    track(() => appState.darkMode);
-    setThemeClass();
+    appState.mode = appState.mode === 'light' ? 'dark' : 'light';
   });
 
   const isDocsRoute = location.url.pathname.indexOf('/docs/') !== -1;
@@ -80,7 +60,7 @@ export default component$(() => {
             aria-label="Toggle dark mode"
             onClick$={toggleDarkMode}
           >
-            {appState.darkMode ? <MoonIcon /> : <SunIcon />}
+            {appState.mode === 'dark' ? <MoonIcon /> : <SunIcon />}
           </button>
           <div class="px-2 pt-2">
             <a

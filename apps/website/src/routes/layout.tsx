@@ -8,16 +8,16 @@ import {
 } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import Header from '../components/header/header';
-import { APP_STATE } from '../constants';
-import { AppState } from '../types';
+import { OLD_APP_STATE_CONTEXT_ID } from '../constants';
+import { OldAppState } from '../types';
 
 export default component$(() => {
-  const state = useStore<AppState>({
+  const state = useStore<OldAppState>({
     darkMode: false,
     theme: 'NOT_DEFINED',
   });
   const loc = useLocation();
-  useContextProvider(APP_STATE, state);
+  useContextProvider(OLD_APP_STATE_CONTEXT_ID, state);
 
   useVisibleTask$(() => {
     state.darkMode = localStorage.getItem('theme') === 'dark';
@@ -34,8 +34,8 @@ export default component$(() => {
 
   return (
     <>
+      <Header />
       <main>
-        <Header />
         <div class="relative px-4 pt-24 sm:px-6 lg:px-8">
           <Slot />
         </div>

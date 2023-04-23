@@ -7,12 +7,27 @@
   --qwik-light-blue: #18b6f6;
   --qwik-light-purple: #ac7ff4;
   --qwik-dark-purple: #713fc2;
+  --dark-color-bg: rgb(30 41 59);
+  --dark-color-text: rgb(203 213 225);
+  --light-color-bg: rgb(203 213 225);
+  --light-color-text: #333;
+}
+
+.light {
+  --color-bg: rgb(203 213 225);
+  --color-text: #333;
+}
+
+.dark {
+  --color-bg: rgb(30 41 59);
+  --color-text: rgb(203 213 225);
 }
 
 html {
   height: 100%;
   min-height: 100%;
   scroll-behavior: smooth;
+
   background-color: var(--color-bg) !important;
   color: var(--color-text) !important;
 }
@@ -34,8 +49,4 @@ body {
 .layout {
   grid-template-columns: 25% auto;
   grid-template-areas: 'sidebar  content';
-}
-
-header {
-  background-color: var(--color-bg) !important;
 }

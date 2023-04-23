@@ -1,4 +1,10 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import {
+  component$,
+  useContextProvider,
+  useStore,
+  useStyles$,
+  useVisibleTask$,
+} from '@builder.io/qwik';
 import {
   QwikCityProvider,
   RouterOutlet,
@@ -7,6 +13,9 @@ import {
 import { RouterHead } from './components/router-head/router-head';
 
 import globalStyles from './global.css?inline';
+import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
+import { AppState } from './_state/app-state.type';
+import { THEME_STORAGE_KEY, useCSSTheme } from './_state/use-css-theme';
 
 export default component$(() => {
   /**
@@ -16,6 +25,22 @@ export default component$(() => {
    * Don't remove the `<head>` and `<body>` elements.
    */
   useStyles$(globalStyles);
+
+  const appState: AppState = useStore(
+    {
+      mode: 'light',
+    },
+    { deep: true }
+  );
+
+  useVisibleTask$(() => {
+    appState.mode =
+      localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+  });
+
+  useContextProvider(APP_STATE_CONTEXT_ID, appState);
+
+  useCSSTheme(appState);
 
   return (
     <QwikCityProvider>

@@ -1,4 +1,5 @@
 import { createContextId } from '@builder.io/qwik';
-import { AppState } from './types';
+import { OldAppState } from './types';
 
-export const APP_STATE = createContextId<AppState>('app_state');
+export const OLD_APP_STATE_CONTEXT_ID =
+  createContextId<OldAppState>('app_state');
