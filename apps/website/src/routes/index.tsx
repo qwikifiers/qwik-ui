@@ -6,13 +6,17 @@ export default component$(() => {
   return (
     <div class="flex flex-col gap-8">
       <h1 class="text-3xl lg:text-5xl text-center leading-normal font-bold">
-        Headless components for the <br />
+        <span class="text-[var(--qwik-light-purple)]">Qwik</span>{' '}
+        <span class="text-[var(--qwik-light-blue)]">UI</span>
+      </h1>
+      <h2 class="text-2xl lg:text-4xl text-center leading-normal font-bold">
+        Headless or opinionated components for the <br />
         <span class="text-[var(--qwik-light-blue)] leading-normal">
           next-generation framework
         </span>
-      </h1>
+      </h2>
       <p class="text-xl lg:text-2xl text-center font-medium">
-        Pick a kit and start building the future{' '}
+        Choose a kit and start building the future{' '}
         <span class="hue-rotate-[150deg]">⚡</span>
       </p>
       <div class="gap-8 flex flex-col lg:flex-row w-full justify-center justify-items-center">
