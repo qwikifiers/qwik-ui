@@ -27,52 +27,44 @@ export default component$(() => {
   const isDocsRoute = location.url.pathname.indexOf('/docs/') !== -1;
 
   return (
-    <header class="fixed w-full z-10 border-b border-slate-600">
-      <div class="flex p-4">
-        <button
-          type="button"
-          aria-label="Toggle navigation"
-          onClick$={toggleMenu$}
-          class="block lg:hidden"
-        >
-          {menuOpenSignal.value ? <CloseIcon /> : <MenuIcon />}
-        </button>
-        {menuOpenSignal.value && (
-          <aside class="fixed top-0 left-0">
-            <div class="fixed h-screen w-screen bg-gray-900/20 backdrop-blur-sm"></div>
-            <div class="fixed h-screen w-80 overflow-y-scroll bg-white">
-              <Menu onClose$={toggleMenu$} />
-            </div>
-          </aside>
-        )}
-        <div class="pl-6">
-          <a href="/">
-            <img src="/qwik-ui.png" class="w-32" />
-          </a>
-        </div>
-        <div class="flex gap-2 w-full justify-end">
-          <div data-tip="Qwik-UI Version" class="pt-2.5 px-2">
-            v.{version}
+    <header class="fixed w-full h-20 z-10 flex gap-4 p-4 items-center backdrop-blur">
+      <button
+        type="button"
+        aria-label="Toggle navigation"
+        onClick$={toggleMenu$}
+        class="block lg:hidden"
+      >
+        {menuOpenSignal.value ? <CloseIcon /> : <MenuIcon />}
+      </button>
+      {menuOpenSignal.value && (
+        <aside class="fixed top-0 left-0">
+          <div class="fixed h-screen w-screen bg-gray-900/20 backdrop-blur-sm"></div>
+          <div class="fixed h-screen w-80 overflow-y-scroll bg-white">
+            <Menu onClose$={toggleMenu$} />
           </div>
-          {isDocsRoute && <SelectTheme />}
-          <button
-            type="button"
-            aria-label="Toggle dark mode"
-            onClick$={toggleDarkMode}
-          >
-            {appState.mode === 'dark' ? <MoonIcon /> : <SunIcon />}
-          </button>
-          <div class="px-2 pt-2">
-            <a
-              target="_blank"
-              href="https://github.com/qwikifiers/qwik-ui"
-              aria-label="Qwik-UI GitHub repository"
-            >
-              <GitHubIcon />
-            </a>
-          </div>
-        </div>
+        </aside>
+      )}
+      <a href="/" class="lg:ml-8 mr-auto">
+        <img src="/qwik-ui.png" class="w-32" />
+      </a>
+      <div data-tip="Qwik-UI Version" class="">
+        v.{version}
       </div>
+      {isDocsRoute && <SelectTheme />}
+      <button
+        type="button"
+        aria-label="Toggle dark mode"
+        onClick$={toggleDarkMode}
+      >
+        {appState.mode === 'dark' ? <MoonIcon /> : <SunIcon />}
+      </button>
+      <a
+        target="_blank"
+        href="https://github.com/qwikifiers/qwik-ui"
+        aria-label="Qwik-UI GitHub repository"
+      >
+        <GitHubIcon />
+      </a>
     </header>
   );
 });

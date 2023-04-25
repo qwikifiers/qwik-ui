@@ -35,10 +35,8 @@ export default component$(() => {
   return (
     <>
       <Header />
-      <main>
-        <div class="relative px-4 pt-24 sm:px-6 lg:px-8">
-          <Slot />
-        </div>
+      <main class="mx-auto pt-28 lg:pt-32 max-w-7xl px-4 md:px-8">
+        <Slot />
       </main>
       <footer></footer>
     </>

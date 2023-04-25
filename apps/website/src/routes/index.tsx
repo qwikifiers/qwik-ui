@@ -1,20 +1,34 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import OptionalThemeButton from '../components/optionalThemeButton/optionalThemeButton';
+import KitSelectionCTA from '../components/kit-selection-cta/kit-selection-cta';
 
 export default component$(() => {
   return (
-    <div class="flex flex-col items-center">
-      <h1 class="text-5xl">Qwik UI</h1>
-      <p class="mt-6 text-lg">The components library for Qwik</p>
-      <div class=" gap-6 flex flex-col lg:flex-row  w-full justify-center justify-items-center">
-        <OptionalThemeButton theme="Headless" />
-        <OptionalThemeButton theme="Daisy" />
+    <div class="flex flex-col gap-8">
+      <h1 class="text-3xl lg:text-5xl text-center leading-normal font-bold">
+        Headless components for the <br />
+        <span class="text-[var(--qwik-light-blue)] leading-normal">
+          next-generation framework
+        </span>
+      </h1>
+      <p class="text-xl lg:text-2xl text-center font-medium">
+        Pick a kit and start building the future{' '}
+        <span class="hue-rotate-[150deg]">⚡</span>
+      </p>
+      <div class="gap-8 flex flex-col lg:flex-row w-full justify-center justify-items-center">
+        <KitSelectionCTA kit="headless">
+          Accessibility built-in and unstyled for your bespoke designs and
+          custom needs.
+        </KitSelectionCTA>
+        <KitSelectionCTA kit="tailwind">
+          Built on top of the Headless kit, ready-to-use components coated with
+          a dash of Tailwind.
+        </KitSelectionCTA>
       </div>
     </div>
   );
 });
 
 export const head: DocumentHead = {
-  title: 'QwikUI',
+  title: 'Qwik UI',
 };
