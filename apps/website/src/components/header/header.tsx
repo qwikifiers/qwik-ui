@@ -27,7 +27,7 @@ export default component$(() => {
   const isDocsRoute = location.url.pathname.indexOf('/docs/') !== -1;
 
   return (
-    <header class="fixed w-full h-20 z-10 flex gap-4 p-4 items-center backdrop-blur">
+    <header class="fixed w-full h-20 z-10 flex gap-8 p-4 items-center backdrop-blur">
       <button
         type="button"
         aria-label="Toggle navigation"
@@ -44,12 +44,16 @@ export default component$(() => {
           </div>
         </aside>
       )}
-      <a href="/" class="lg:ml-8 mr-auto">
-        <img src="/qwik-ui.png" class="w-32" />
+      <a href="/" class="lg:ml-8">
+        <img src="/qwik-ui.png" class="h-12 w-auto" />
       </a>
-      <div data-tip="Qwik-UI Version" class="">
+      <div data-tip="Qwik-UI Version" class="mr-auto">
         v.{version}
       </div>
+      <nav class="hidden sm:flex gap-4">
+        <a href="/docs">Docs</a>
+        <a href="/contact">Contact</a>
+      </nav>
       {isDocsRoute && <SelectTheme />}
       <button
         type="button"
@@ -62,6 +66,7 @@ export default component$(() => {
         target="_blank"
         href="https://github.com/qwikifiers/qwik-ui"
         aria-label="Qwik-UI GitHub repository"
+        class="sm:mr-8"
       >
         <GitHubIcon />
       </a>
