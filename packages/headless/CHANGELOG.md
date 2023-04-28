@@ -2,6 +2,45 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.4](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.3...headless-0.1.4) (2023-04-28)
+
+
+### Bug Fixes
+
+* add css inline definitions ([#276](https://github.com/qwikifiers/qwik-ui/issues/276)) ([0ed7d96](https://github.com/qwikifiers/qwik-ui/commit/0ed7d961ee0d4249afbb569bedc9bc3e18fa5807))
+* project folders and linter ([#205](https://github.com/qwikifiers/qwik-ui/issues/205)) ([198f729](https://github.com/qwikifiers/qwik-ui/commit/198f729b1263797941ee21f82a2c71b20727c45e))
+* remove any to satisfy the picky linter ✅ ([737860b](https://github.com/qwikifiers/qwik-ui/commit/737860bc6f06d523e813c0088dc1265dd36ed0f3))
+* solve headless linter warnings ([a97d826](https://github.com/qwikifiers/qwik-ui/commit/a97d826eff4fb16f51b027c87829e9c3b31f7f1e))
+* solve linter errors ([100ed43](https://github.com/qwikifiers/qwik-ui/commit/100ed4376b7cbfe454cef9ca7b1743c6335bf069))
+* **toggle component:** renamed prop & change funcionality in Toggle ([#210](https://github.com/qwikifiers/qwik-ui/issues/210)) ([d96c401](https://github.com/qwikifiers/qwik-ui/commit/d96c40130fc8bf38036d837c478de5ed503f24b1)), closes [#209](https://github.com/qwikifiers/qwik-ui/issues/209)
+* tooltip works only the first time ([#269](https://github.com/qwikifiers/qwik-ui/issues/269)) ([29b14ff](https://github.com/qwikifiers/qwik-ui/commit/29b14ff91981d6782885993422f1e7ea6bb9f2dc))
+* update config to enable cypress component testing ([ff170b8](https://github.com/qwikifiers/qwik-ui/commit/ff170b8491a58f2fd300a62745f5e7be8e2d45fd))
+
+
+### Features
+
+* add checkbox ([#154](https://github.com/qwikifiers/qwik-ui/issues/154)) ([b8d9a73](https://github.com/qwikifiers/qwik-ui/commit/b8d9a7312a276dfa0c96a4f0b0592e08b134f9fe)), closes [#128](https://github.com/qwikifiers/qwik-ui/issues/128)
+* add daisy slider component ([#199](https://github.com/qwikifiers/qwik-ui/issues/199)) ([f9b997d](https://github.com/qwikifiers/qwik-ui/commit/f9b997dcbcc2edc1c23948c93f4dc783e7b620d6))
+* add input phone ([#243](https://github.com/qwikifiers/qwik-ui/issues/243)) ([8c8b1aa](https://github.com/qwikifiers/qwik-ui/commit/8c8b1aa6a825852ed3bde0695514b9f7d676ecaf))
+* added a11y to storybook ([2310d71](https://github.com/qwikifiers/qwik-ui/commit/2310d71ef378c8852704a472da903b1a82ec6f48))
+* auto country code ([#249](https://github.com/qwikifiers/qwik-ui/issues/249)) ([91af379](https://github.com/qwikifiers/qwik-ui/commit/91af3798fe9c6e298c4747208b8db64cfd1bd3c6))
+* base pagination ([#151](https://github.com/qwikifiers/qwik-ui/issues/151)) ([76aed0e](https://github.com/qwikifiers/qwik-ui/commit/76aed0e6ae2e9c67051ab574f0d1e3c9313904e6)), closes [#130](https://github.com/qwikifiers/qwik-ui/issues/130) [#15](https://github.com/qwikifiers/qwik-ui/issues/15)
+* **component:** Add Badge Component ([#222](https://github.com/qwikifiers/qwik-ui/issues/222)) ([fe15e6c](https://github.com/qwikifiers/qwik-ui/commit/fe15e6ce8a96941f295887739f5dff4cbc296c21)), closes [#219](https://github.com/qwikifiers/qwik-ui/issues/219)
+* **component:** add carousel component ([#258](https://github.com/qwikifiers/qwik-ui/issues/258)) ([d258189](https://github.com/qwikifiers/qwik-ui/commit/d2581896653b6291f5b1ed97a6802069f2b7ddc3))
+* **component:** Add loading indicator ([#207](https://github.com/qwikifiers/qwik-ui/issues/207)) ([923fd4e](https://github.com/qwikifiers/qwik-ui/commit/923fd4e356f4855fa1be0e6ce449ed3146683231))
+* **component:** add navigation bar ([#213](https://github.com/qwikifiers/qwik-ui/issues/213)) ([dfd89e0](https://github.com/qwikifiers/qwik-ui/commit/dfd89e04b2b765476d3f31ea066af56050318ff8)), closes [#200](https://github.com/qwikifiers/qwik-ui/issues/200)
+* **component:** add new Breadcrumb component ([#212](https://github.com/qwikifiers/qwik-ui/issues/212)) ([5b526cc](https://github.com/qwikifiers/qwik-ui/commit/5b526cc2cc23acc9fecd3aefefa881af0deb33c4))
+* **component:** an alert component ([#218](https://github.com/qwikifiers/qwik-ui/issues/218)) ([d3daf68](https://github.com/qwikifiers/qwik-ui/commit/d3daf68e2f1a64cc9f267c4ca41262942bd92e0d)), closes [#217](https://github.com/qwikifiers/qwik-ui/issues/217)
+* **component:** improve pagination ([#208](https://github.com/qwikifiers/qwik-ui/issues/208)) ([5d86b51](https://github.com/qwikifiers/qwik-ui/commit/5d86b510809276e748ad990cd0310bd88155c391))
+* **input:** add input component ([#257](https://github.com/qwikifiers/qwik-ui/issues/257)) ([43c5f53](https://github.com/qwikifiers/qwik-ui/commit/43c5f53cbcd5ca5d08f522fa0707a251026a046e))
+
+
+### BREAKING CHANGES
+
+* **toggle component:** any component who uses daisy-toggle, will have to rename `checked` to `pressed`
+
+
+
 ## [0.1.3](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.2...headless-0.1.3) (2023-02-23)
 
 
