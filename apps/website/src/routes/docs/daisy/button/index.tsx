@@ -1,5 +1,5 @@
 import { component$, $, useStylesScoped$ } from '@builder.io/qwik';
-import { Button } from '@qwik-ui/theme-daisy';
+import { Button } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   useStylesScoped$(`

@@ -1,5 +1,5 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
-import { Checkbox } from '@qwik-ui/theme-daisy';
+import { Checkbox } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   useStylesScoped$(`

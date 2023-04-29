@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Slider } from '@qwik-ui/theme-daisy';
+import { Slider } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   const sliderValue = useSignal(55);

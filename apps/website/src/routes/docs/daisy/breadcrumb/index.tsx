@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import { Breadcrumb, BreadcrumbItem } from '@qwik-ui/theme-daisy';
+import { Breadcrumb, BreadcrumbItem } from '@qwik-ui/tailwind';
 import BreadcrumbWrapper from './BreadcrumbWrapper';
 import PathIcon from './PathIcon';
 
