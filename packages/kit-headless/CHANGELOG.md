@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.6](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.5...headless-0.1.6) (2023-04-29)
+
+
+### Bug Fixes
+
+* build paths ([aabbd0f](https://github.com/qwikifiers/qwik-ui/commit/aabbd0f760d0bee56451433070cc8d1b31df7c53))
+
+
+
 ## [0.1.5](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.4...headless-0.1.5) (2023-04-29)
 
 
