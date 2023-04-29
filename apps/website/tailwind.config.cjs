@@ -4,7 +4,7 @@ const { join } = require('path');
 module.exports = {
   content: [
     join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
-    join(__dirname, '../../packages/daisy/src/**/*.{js,ts,jsx,tsx,mdx}'),
+    join(__dirname, '../../packages/kit-tailwind/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
   plugins: [require('daisyui')],
   darkMode: 'class',

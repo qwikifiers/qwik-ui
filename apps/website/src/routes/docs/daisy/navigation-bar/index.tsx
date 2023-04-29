@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { NavigationBar } from '@qwik-ui/theme-daisy';
+import { NavigationBar } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   return (
@@ -11,7 +11,7 @@ export default component$(() => {
 
         <NavigationBar class="bg-base-100 rounded-lg">
           <a q:slot="navbar-left" class="btn btn-ghost normal-case text-xl">
-            daisyUI
+            tailwindUI
           </a>
           <ul q:slot="navbar-center" class="menu  menu-horizontal px-1">
             <li>
@@ -44,13 +44,13 @@ export default component$(() => {
             </li>
           </ul>
           <a q:slot="navbar-right" class="btn btn-ghost normal-case text-xl">
-            daisyUI
+            tailwindUI
           </a>
         </NavigationBar>
 
         <NavigationBar class="bg-base-100 rounded-lg">
           <a q:slot="navbar-left" class="btn btn-ghost normal-case text-xl">
-            daisyUI
+            tailwindUI
           </a>
           <ul q:slot="navbar-right" class="menu  menu-horizontal px-1">
             <li>
@@ -86,7 +86,7 @@ export default component$(() => {
         <h2>Custom css</h2>
         <NavigationBar class=" bg-primary rounded-lg">
           <a q:slot="navbar-left" class="btn btn-ghost normal-case text-xl">
-            daisyUI
+            tailwindUI
           </a>
           <ul q:slot="navbar-right" class="menu   menu-horizontal px-1">
             <li>

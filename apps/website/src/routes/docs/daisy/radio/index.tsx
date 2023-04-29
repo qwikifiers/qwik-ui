@@ -1,5 +1,5 @@
 import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
-import { Radio } from '@qwik-ui/theme-daisy';
+import { Radio } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   useStylesScoped$(`

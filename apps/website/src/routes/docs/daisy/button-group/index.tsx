@@ -1,5 +1,5 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
-import { Button, ButtonGroup } from '@qwik-ui/theme-daisy';
+import { Button, ButtonGroup } from '@qwik-ui/tailwind';
 import styles from './button-group.css?inline';
 
 export default component$(() => {

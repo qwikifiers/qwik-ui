@@ -1,5 +1,5 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
-import { Spinner } from '@qwik-ui/theme-daisy';
+import { Spinner } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   useStylesScoped$(`

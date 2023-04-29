@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Tab, TabPanel, Tabs } from '@qwik-ui/theme-daisy';
+import { Tab, TabPanel, Tabs } from '@qwik-ui/tailwind';
 import { Wrapper } from '../../../../components/wrapper/wrapper';
 
 export default component$(() => {
@@ -11,7 +11,7 @@ export default component$(() => {
 
       <Wrapper
         title="Tabs"
-        subtitle="Daisy"
+        subtitle="Tailwind"
         description="This is the documentation for the Tabs"
       >
         <div q:slot="preview">

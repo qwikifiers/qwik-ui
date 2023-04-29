@@ -23,9 +23,9 @@ runs:
       shell: bash
       run: npx nx build headless
 
-    # - name: Build Daisy Theme
+    # - name: Build Tailwind Theme
     #   shell: bash
-    #   run: npx nx build daisy
+    #   run: npx nx build tailwind
 
     # - name: Build
     #   shell: bash

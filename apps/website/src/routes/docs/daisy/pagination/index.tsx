@@ -1,6 +1,6 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Pagination } from '@qwik-ui/theme-daisy';
-import { Toggle } from '@qwik-ui/theme-daisy';
+import { Pagination } from '@qwik-ui/tailwind';
+import { Toggle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   const page = useSignal(50);

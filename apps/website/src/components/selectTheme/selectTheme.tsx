@@ -3,14 +3,14 @@ import { useLocation } from '@builder.io/qwik-city';
 import { OLD_APP_STATE_CONTEXT_ID } from '../../constants';
 import { ThemeIcon } from '../icons/ThemeIcon';
 
-export type Theme = 'HEADLESS' | 'DAISY' | 'MATERIAL' | 'NOT_DEFINED';
+export type Theme = 'HEADLESS' | 'TAILWIND' | 'MATERIAL' | 'NOT_DEFINED';
 
 export const SelectTheme = component$(() => {
   const location = useLocation();
   const appState = useContext(OLD_APP_STATE_CONTEXT_ID);
   const openThemeSignal = useSignal<boolean>(false);
 
-  const themes: Theme[] = ['HEADLESS', 'DAISY', 'MATERIAL'];
+  const themes: Theme[] = ['HEADLESS', 'TAILWIND', 'MATERIAL'];
   return (
     <div
       title="Change Theme"

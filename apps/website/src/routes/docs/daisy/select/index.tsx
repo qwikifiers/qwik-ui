@@ -9,7 +9,7 @@ export default component$(() => {
       <h2>This is the documentation for the Select</h2>
       <Select.Root>
         <Select.Label class="mr-2">
-          Alternate Daisy Select implementation
+          Alternate Tailwind Select implementation
         </Select.Label>
         <Select.Trigger class="select-caret inline-flex items-center justify-between w-full h-12 max-w-xs px-4 text-sm font-semibold leading-loose border rounded-lg cursor-pointer border-base-content border-opacity-20 bg-base-100 shrink-0">
           <Select.Value placeholder="Select an option! ⚡" />
