@@ -1,5 +1,5 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
-import { Accordion, AccordionItem } from '@qwik-ui/theme-daisy';
+import { Accordion, AccordionItem } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   useStylesScoped$(`

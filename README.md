@@ -40,12 +40,12 @@
 This library is still in early stages and once we'll collect enough feedback from the community we'll release the first beta version.
 
 ### ROADMAP
- 
-- [ ] Deploy the documentation site 
+
+- [ ] Deploy the documentation site
   - [ ] Add "Readiness" statuses to the components
   - [ ] Add a getting started video tutorial
   - [ ] Make a public storybook url
-- [ ] Deploy the daisy-theme package
+- [ ] Deploy the tailwind-kit package
 - [ ] Cover all of the components with storybook tests
 - [ ] Add testing coverage reports
 - [ ] Add a contribution tutorial video

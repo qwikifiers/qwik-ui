@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Drawer } from '@qwik-ui/theme-daisy';
+import { Drawer } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   return (

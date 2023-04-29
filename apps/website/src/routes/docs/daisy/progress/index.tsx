@@ -1,5 +1,5 @@
 import { component$, $, useStylesScoped$ } from '@builder.io/qwik';
-import { Progress } from '@qwik-ui/theme-daisy';
+import { Progress } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   useStylesScoped$(`

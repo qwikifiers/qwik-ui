@@ -6,7 +6,7 @@ import {
   CardActions,
   Button,
   CardImage,
-} from '@qwik-ui/theme-daisy';
+} from '@qwik-ui/tailwind';
 
 export default component$(() => {
   useStylesScoped$(`
@@ -36,7 +36,7 @@ export default component$(() => {
       <h1>Card with Image Example</h1>
       <Card>
         <CardImage
-          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+          src="https://tailwindui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
           alt="shoes"
         />
         <CardBody>
@@ -48,7 +48,7 @@ export default component$(() => {
       <h1>Card Completed</h1>
       <Card>
         <CardImage
-          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+          src="https://tailwindui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
           alt="shoes"
         />
         <CardBody>

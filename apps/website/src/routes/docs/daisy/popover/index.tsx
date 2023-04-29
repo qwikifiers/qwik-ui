@@ -1,7 +1,7 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
 
-import { Button, Card, CardBody, CardTitle } from '@qwik-ui/theme-daisy';
+import { Button, Card, CardBody, CardTitle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   const controlledPopover = useSignal<boolean>(true);

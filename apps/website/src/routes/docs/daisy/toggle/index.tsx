@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Toggle } from '@qwik-ui/theme-daisy';
+import { Toggle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   const toggleChecked = useSignal(false);

@@ -29,7 +29,7 @@ export default component$(() => {
         ? 'HEADLESS'
         : loc.url.pathname.indexOf('/material') !== -1
         ? 'MATERIAL'
-        : 'DAISY';
+        : 'TAILWIND';
   });
 
   return (

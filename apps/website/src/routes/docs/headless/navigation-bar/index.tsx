@@ -14,7 +14,7 @@ export default component$(() => {
 
         <NavigationBar class="items-center navigation-bar flex w-full bg-base-100 rounded-lg">
           <div class="navigation-bar__start flex">
-            <a class="btn btn-ghost normal-case text-xl ">daisyUI</a>
+            <a class="btn btn-ghost normal-case text-xl ">tailwindUI</a>
           </div>
           <div class="navigation-bar__end flex">
             <ul class="menu  menu-horizontal px-1 ">

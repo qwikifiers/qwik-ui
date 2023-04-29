@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Toast } from '@qwik-ui/theme-daisy';
+import { Toast } from '@qwik-ui/tailwind';
 import ToastContainer from './ToastContainer';
 
 export default component$(() => {

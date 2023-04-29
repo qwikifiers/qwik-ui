@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Tooltip } from '@qwik-ui/theme-daisy';
+import { Tooltip } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   return (
