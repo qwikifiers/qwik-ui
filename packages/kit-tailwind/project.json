@@ -61,6 +61,7 @@
     "push-to-github": {
       "executor": "@jscutlery/semver:github",
       "options": {
+        "title": "@qwik-ui/kit-tailwind@${version}",
         "tag": "${tag}",
         "notes": "${notes}"
       }
