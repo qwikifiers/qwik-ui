@@ -9,7 +9,7 @@ import { join } from 'path';
 export default defineConfig({
   plugins: [
     qwikVite({
-      vendorRoots: [join(__dirname, '../headless/src')],
+      vendorRoots: [join(__dirname, '../kit-headless/src')],
     }),
     tsconfigPaths(),
     dts({
