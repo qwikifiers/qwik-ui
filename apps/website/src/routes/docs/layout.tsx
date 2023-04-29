@@ -2,10 +2,10 @@ import { component$, Slot, useContext } from '@builder.io/qwik';
 import { DocumentHead } from '@builder.io/qwik-city';
 import { MaterialProvider } from '../../components/material';
 import { Menu } from '../../components/menu/menu';
-import { APP_STATE } from '../../constants';
+import { OLD_APP_STATE_CONTEXT_ID } from '../../constants';
 
 export default component$(() => {
-  const appState = useContext(APP_STATE);
+  const appState = useContext(OLD_APP_STATE_CONTEXT_ID);
   return (
     <>
       <section class="layout block lg:grid">

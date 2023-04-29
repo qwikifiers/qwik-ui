@@ -24,7 +24,7 @@ importers:
         version: 17.4.3
       '@cypress/code-coverage':
         specifier: 3.10.0
-        version: 3.10.0(@babel/core@7.21.3)(@babel/preset-env@7.20.2)(babel-loader@9.1.2)(cypress@12.9.0)(webpack@5.81.0)
+        version: 3.10.0(@babel/core@7.21.3)(@babel/preset-env@7.20.2)(babel-loader@9.1.2)(cypress@12.9.0)(webpack@5.80.0)
       '@cypress/vite-dev-server':
         specifier: ^2.2.1
         version: 2.2.3(vite@4.2.1)
@@ -162,7 +162,7 @@ importers:
         version: 0.6.11(eslint@8.36.0)(typescript@5.0.2)
       html-webpack-plugin:
         specifier: ^5.5.0
-        version: 5.5.0(webpack@5.81.0)
+        version: 5.5.0(webpack@5.80.0)
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -2305,7 +2305,7 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@cypress/code-coverage@3.10.0(@babel/core@7.21.3)(@babel/preset-env@7.20.2)(babel-loader@9.1.2)(cypress@12.9.0)(webpack@5.81.0):
+  /@cypress/code-coverage@3.10.0(@babel/core@7.21.3)(@babel/preset-env@7.20.2)(babel-loader@9.1.2)(cypress@12.9.0)(webpack@5.80.0):
     resolution:
       {
         integrity: sha512-K5pW2KPpK4vKMXqxd6vuzo6m9BNgpAv1LcrrtmqAtOJ1RGoEILXYZVost0L6Q+V01NyY7n7jXIIfS7LR3nP6YA==,
@@ -2313,7 +2313,7 @@ packages:
     peerDependencies:
       cypress: '*'
     dependencies:
-      '@cypress/webpack-preprocessor': 5.17.0(@babel/core@7.21.3)(@babel/preset-env@7.20.2)(babel-loader@9.1.2)(webpack@5.81.0)
+      '@cypress/webpack-preprocessor': 5.17.0(@babel/core@7.21.3)(@babel/preset-env@7.20.2)(babel-loader@9.1.2)(webpack@5.80.0)
       chalk: 4.1.2
       cypress: 12.9.0
       dayjs: 1.10.7
@@ -2380,7 +2380,7 @@ packages:
       - supports-color
     dev: true
 
-  /@cypress/webpack-preprocessor@5.17.0(@babel/core@7.21.3)(@babel/preset-env@7.20.2)(babel-loader@9.1.2)(webpack@5.81.0):
+  /@cypress/webpack-preprocessor@5.17.0(@babel/core@7.21.3)(@babel/preset-env@7.20.2)(babel-loader@9.1.2)(webpack@5.80.0):
     resolution:
       {
         integrity: sha512-HyFqHkrOrIIYOt4G+r3VK0kVYTcev1tEcqBI/0DJ4AzEuEgW/TB+cX56txy4Cgn60XXdJoul2utclZwUqOsPZA==,
@@ -2393,11 +2393,11 @@ packages:
     dependencies:
       '@babel/core': 7.21.3
       '@babel/preset-env': 7.20.2(@babel/core@7.21.3)
-      babel-loader: 9.1.2(@babel/core@7.21.3)(webpack@5.81.0)
+      babel-loader: 9.1.2(@babel/core@7.21.3)(webpack@5.80.0)
       bluebird: 3.7.1
       debug: 4.3.4(supports-color@8.1.1)
       lodash: 4.17.21
-      webpack: 5.81.0(esbuild@0.17.14)
+      webpack: 5.80.0(esbuild@0.17.14)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7644,7 +7644,7 @@ packages:
       - supports-color
     dev: true
 
-  /babel-loader@9.1.2(@babel/core@7.21.3)(webpack@5.81.0):
+  /babel-loader@9.1.2(@babel/core@7.21.3)(webpack@5.80.0):
     resolution:
       {
         integrity: sha512-mN14niXW43tddohGl8HPu5yfQq70iUThvFL/4QzESA7GcZoC0eVOhvWdQ8+3UlSjaDE9MVtsW9mxDY07W7VpVA==,
@@ -7657,7 +7657,7 @@ packages:
       '@babel/core': 7.21.3
       find-cache-dir: 3.3.2
       schema-utils: 4.0.1
-      webpack: 5.81.0(esbuild@0.17.14)
+      webpack: 5.80.0(esbuild@0.17.14)
     dev: true
 
   /babel-plugin-const-enum@1.2.0(@babel/core@7.21.3):
@@ -12739,7 +12739,7 @@ packages:
       terser: 5.16.3
     dev: true
 
-  /html-webpack-plugin@5.5.0(webpack@5.81.0):
+  /html-webpack-plugin@5.5.0(webpack@5.80.0):
     resolution:
       {
         integrity: sha512-sy88PC2cRTVxvETRgUHFrL4No3UxvcH8G1NepGhqaTT+GXN2kTamqasot0inS5hXeg1cMbFDt27zzo9p35lZVw==,
@@ -12753,7 +12753,7 @@ packages:
       lodash: 4.17.21
       pretty-error: 4.0.0
       tapable: 2.2.1
-      webpack: 5.81.0(esbuild@0.17.14)
+      webpack: 5.80.0(esbuild@0.17.14)
     dev: true
 
   /htmlparser2@3.10.1:
@@ -20462,7 +20462,7 @@ packages:
       supports-hyperlinks: 2.3.0
     dev: true
 
-  /terser-webpack-plugin@5.3.7(esbuild@0.17.14)(webpack@5.81.0):
+  /terser-webpack-plugin@5.3.7(esbuild@0.17.14)(webpack@5.80.0):
     resolution:
       {
         integrity: sha512-AfKwIktyP7Cu50xNjXF/6Qb5lBNzYaWpU6YfoX3uZicTx0zTy0stDDCsvjDapKsSDvOeWo5MEq4TmdBy2cNoHw==,
@@ -20487,7 +20487,7 @@ packages:
       schema-utils: 3.1.2
       serialize-javascript: 6.0.1
       terser: 5.17.1
-      webpack: 5.81.0(esbuild@0.17.14)
+      webpack: 5.80.0(esbuild@0.17.14)
     dev: true
 
   /terser@5.16.3:
@@ -21888,10 +21888,10 @@ packages:
       }
     dev: true
 
-  /webpack@5.81.0(esbuild@0.17.14):
+  /webpack@5.80.0(esbuild@0.17.14):
     resolution:
       {
-        integrity: sha512-AAjaJ9S4hYCVODKLQTgG5p5e11hiMawBwV2v8MYLE0C/6UAGLuAF4n1qa9GOwdxnicaP+5k6M5HrLmD4+gIB8Q==,
+        integrity: sha512-OIMiq37XK1rWO8mH9ssfFKZsXg4n6klTEDL7S8/HqbAOBBaiy8ABvXvz0dDCXeEF9gqwxSvVk611zFPjS8hJxA==,
       }
     engines: { node: '>=10.13.0' }
     hasBin: true
@@ -21922,7 +21922,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.2
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.7(esbuild@0.17.14)(webpack@5.81.0)
+      terser-webpack-plugin: 5.3.7(esbuild@0.17.14)(webpack@5.80.0)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:

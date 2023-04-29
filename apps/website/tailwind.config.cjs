@@ -12,4 +12,11 @@ module.exports = {
     themes: ['light', 'dark'],
     base: true,
   },
+  theme: {
+    extend: {
+      backgroundImage: {
+        'optional-theme-bg': "url('/Button-bg.svg')",
+      },
+    },
+  },
 };
