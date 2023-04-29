@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/headless",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Qwik UI headless components library",
   "publishConfig": {
     "access": "public"
@@ -8,7 +8,7 @@
   "main": "./index.qwik.cjs",
   "qwik": "./index.qwik.mjs",
   "module": "./index.qwik.mjs",
-  "types": "./headless/src/index.d.ts",
+  "types": "./kit-headless/src/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
