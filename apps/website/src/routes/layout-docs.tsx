@@ -26,7 +26,7 @@ export default component$(() => {
         </a>
       </header>
       <DocsNavigation />
-      <main class="ml-80 py-28 px-4 sm:px-28">
+      <main class="sm:ml-80 py-28 px-4 sm:px-28">
         <Slot />
       </main>
       <footer></footer>

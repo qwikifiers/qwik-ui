@@ -32,7 +32,7 @@ const components = [
 
 export const DocsNavigation = component$(() => {
   return (
-    <nav class="flex flex-col gap-4 fixed h-full pt-20 pb-6 bg-blue-900 w-80">
+    <nav class="sm:flex flex-col gap-4 fixed h-full pt-20 pb-6 bg-blue-900 w-80 hidden">
       <h1 class="pl-12 mt-8 font-medium text-lg">Getting started</h1>
       <ul class="pl-12 flex flex-col gap-2">
         <li>
@@ -68,7 +68,11 @@ export const DocsNavigation = component$(() => {
           </Link>
         </li>
       </ul>
-      <h1 class="pl-12 font-medium text-lg">Components</h1>
+      <h1 class="pl-12 font-medium text-lg">
+        <Link class="hover:text-[var(--qwik-light-blue)]" href="/components">
+          Components
+        </Link>
+      </h1>
       <ol class="pl-12 flex flex-col gap-2 w-full h-full overflow-y-auto">
         {components
           .sort((a, b) => (a > b ? 1 : -1))

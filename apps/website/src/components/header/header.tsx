@@ -45,7 +45,7 @@ export default component$(() => {
         </aside>
       )}
       <a href="/" class="lg:ml-8">
-        <img src="/qwik-ui.png" class="h-12 w-auto" />
+        <img src="/qwik-ui.png" class="h-12 w-auto object-contain" />
       </a>
       <div data-tip="Qwik-UI Version" class="mr-auto">
         v.{version}
