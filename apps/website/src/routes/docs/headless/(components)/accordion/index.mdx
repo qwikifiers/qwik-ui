@@ -3,7 +3,9 @@ title: Qwik UI | Accordion
 ---
 
 import { Accordion, AccordionItem, Checkbox } from '@qwik-ui/headless';
-
+import { Example01 } from './examples';
+import { CodeExample } from '../../../../../components/code-example/code-example';
+ 
 # Accordion
 
 A vertically stacked set of interactive headings which reveal or hide
@@ -11,35 +13,15 @@ their associated content.
 
 <article class="max-w-prose mx-auto">
 
-<section class="sm:-mx-12 mt-6 p-12 rounded-t-xl bg-slate-700 flex flex-col items-center">
-  <Accordion class="p-4 bg-slate-800 w-60">
-    <AccordionItem class="" label="Heading 1">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-      aliquid architecto delectus deleniti dolor
-    </AccordionItem>
-    <AccordionItem class="" label="Heading 2">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-      aliquid architecto delectus deleniti dolor
-    </AccordionItem>
-    <AccordionItem
-      label="Heading 3"
-      disabled
-      class="disabled:cursor-not-allowed text-gray-400"
-    >
-      You can't see me!
-    </AccordionItem>
-
-  </Accordion>
-</section>
-
-<section class="sm:-mx-12 p-12 rounded-b-xl bg-slate-900">
+{' '}
+<Example01>
   ```tsx
   <Accordion class="p-4 bg-slate-800 w-60">
-    <AccordionItem class="" label="Heading 1">
+    <AccordionItem label="Heading 1">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
       aliquid architecto delectus deleniti dolor
     </AccordionItem>
-    <AccordionItem class="" label="Heading 2">
+    <AccordionItem label="Heading 2">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
       aliquid architecto delectus deleniti dolor
     </AccordionItem>
@@ -52,27 +34,27 @@ their associated content.
     </AccordionItem>
   </Accordion>
   ```
-</section>
+</Example01>
 
-<h2 class="text-2xl mt-6 font-medium">Building blocks</h2>
+## Building blocks
 
-<section class="mt-6 p-12 rounded-xl bg-slate-900">
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Accordion, AccordionItem } from '@qwik-ui/headless';
 
-```tsx
-import { component$ } from '@builder.io/qwik';
-import { Accordion, AccordionItem } from '@qwik-ui/headless';
+    export default component$(() => (
+      <Accordion>
+        <AccordionItem>Content</AccordionItem>
+      </Accordion>
+    ));
+    ```
 
-export default component$(() => (
-  <Accordion>
-    <AccordionItem>Content</AccordionItem>
-  </Accordion>
-));
-```
+  </CodeExample>
 
-</section>
+  <section class="mt-6">
 
-<section class="mt-6">
-
+{' '}
 <h2 class="text-2xl mt-6 font-medium">Examples</h2>
 <div class="flex flex-col gap-6 mt-6 p-8 bg-slate-700 rounded-xl">
   <article class="">
@@ -165,6 +147,6 @@ export default component$(() => (
   </article>
 </div>
 
-</section>
+  </section>
 
 </article>

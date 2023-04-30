@@ -6,7 +6,7 @@ export interface Kit {
 export default component$(({ kit }: Kit) => {
   return (
     <a
-      href={`/docs/install/${kit}`}
+      href={`/docs/${kit}/introduction`}
       class="rounded-3xl border-2 overflow-hidden hover:-outline-offset-4 hover:outline-4 hover:outline hover:outline-[var(--qwik-light-blue)] hover:scale-[1.025] focus:-outline-offset-4 focus:outline-4 focus:outline focus:outline-[var(--qwik-light-blue)] focus:scale-[1.025] duration-150"
     >
       <Card class={`max-w-md`}>
