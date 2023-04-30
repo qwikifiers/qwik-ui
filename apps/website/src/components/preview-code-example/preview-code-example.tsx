@@ -7,7 +7,7 @@ export const PreviewCodeExample = component$(() => {
         <Slot name="actualComponent" />
       </section>
 
-      <section class="sm:-mx-12 p-12 rounded-b-xl bg-slate-900">
+      <section class="sm:-mx-12 p-12 rounded-b-xl bg-slate-900 overflow-auto">
         <Slot name="codeExample" />
       </section>
     </div>

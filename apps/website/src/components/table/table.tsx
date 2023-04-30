@@ -1,8 +1,9 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, $, QRL } from '@builder.io/qwik';
+import { JSX } from '@builder.io/qwik/jsx-runtime';
 
 type TableRowProps = {
   keyboard?: string;
-  deck?: string;
+  deck?: QRL;
 };
 
 const SAMPLE_DATA = {
@@ -11,60 +12,58 @@ const SAMPLE_DATA = {
     {
       id: crypto.randomUUID(),
       title: 'Space',
-      description: 'Close a dialog or cancel an action.',
+      description: $(() => <>Close a dialog or cancel an action.</>),
     },
     {
       id: crypto.randomUUID(),
       title: 'Enter',
-      description:
-        'When focus is on an Accordion Item of a collapsed section, expands the section.',
+      description: $(() => (
+        <>
+          Moves focus to the next{' '}
+          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b> when
+          orientation is vertical.
+        </>
+      )),
     },
     {
       id: crypto.randomUUID(),
       title: 'Tab',
-      description: 'Moves focus to the next focusable element.',
+      description: $(() => <>Moves focus to the next focusable element.</>),
     },
     {
       id: crypto.randomUUID(),
       title: 'Shift + Tab',
-      description:
-        'Moves focus to the next Accordion Item when orientation is vertical.',
-    },
-    {
-      id: crypto.randomUUID(),
-      title: 'ArrowDown',
-      description:
-        'Moves focus to the next Accordion Item when orientation is vertical.',
-    },
-    {
-      id: crypto.randomUUID(),
-      title: 'ArrowUp',
-      description:
-        'Moves focus to the previous Accordion Item when orientation is vertical.',
-    },
-    {
-      id: crypto.randomUUID(),
-      title: 'ArrowRight',
-      description:
-        'Moves focus to the next Accordion Item when orientation is horizontal.',
-    },
-    {
-      id: crypto.randomUUID(),
-      title: 'ArrowLeft',
-      description:
-        'Moves focus to the previous Accordion Item when orientation is horizontal.',
+      description: $(() => (
+        <>
+          Moves focus to the next{' '}
+          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b> when
+          orientation is vertical.
+        </>
+      )),
     },
     {
       id: crypto.randomUUID(),
       title: 'Home',
-      description:
-        'When focus is on an Accordion Item, moves focus to the first Accordion Item.',
+      description: $(() => (
+        <>
+          When focus is on an{' '}
+          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b>, moves
+          focus to the first{' '}
+          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b>.
+        </>
+      )),
     },
     {
       id: crypto.randomUUID(),
       title: 'End',
-      description:
-        'When focus is on an Accordion Item, moves focus to the last Accordion Item.',
+      description: $(() => (
+        <>
+          When focus is on an{' '}
+          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b>, moves
+          focus to the last{' '}
+          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b>.
+        </>
+      )),
     },
   ],
 };
@@ -93,6 +92,8 @@ export const Table = component$(() => {
 });
 
 export const TableRow = component$(({ keyboard, deck }: TableRowProps) => {
+  const Description: any = deck;
+
   return (
     <tr class="border-b-2 border-gray-700">
       <td class="py-4">
@@ -101,7 +102,9 @@ export const TableRow = component$(({ keyboard, deck }: TableRowProps) => {
         </kbd>
       </td>
       <td>
-        <p class="ml-6">{deck}</p>
+        <article class="ml-6">
+          <Description />
+        </article>
       </td>
     </tr>
   );

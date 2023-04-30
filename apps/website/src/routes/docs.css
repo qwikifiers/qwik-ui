@@ -1,5 +1,5 @@
 .docs {
-  @apply max-w-prose mx-auto;
+  @apply ml-80 lg:max-w-3xl mx-auto;
 }
 
 .docs h2 {
