@@ -1,41 +1,34 @@
-import {
-  component$,
-  Slot,
-  useContextProvider,
-  useStore,
-  useTask$,
-  useVisibleTask$,
-} from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
-import Header from '../components/header/header';
-import { OLD_APP_STATE_CONTEXT_ID } from '../constants';
-import { OldAppState } from '../types';
+import { component$, Slot, useStyles$ } from '@builder.io/qwik';
+import { GitHubIcon } from '../components/icons/GitHubIcon';
+import { DocsNavigation } from '../components/navigation-docs/navigation-docs';
+import prism from './prism.css?inline';
 
 export default component$(() => {
-  const state = useStore<OldAppState>({
-    darkMode: false,
-    theme: 'NOT_DEFINED',
-  });
-  const loc = useLocation();
-  useContextProvider(OLD_APP_STATE_CONTEXT_ID, state);
-
-  useVisibleTask$(() => {
-    state.darkMode = localStorage.getItem('theme') === 'dark';
-  });
-
-  useTask$(() => {
-    state.theme =
-      loc.url.pathname.indexOf('/headless') !== -1
-        ? 'HEADLESS'
-        : loc.url.pathname.indexOf('/material') !== -1
-        ? 'MATERIAL'
-        : 'TAILWIND';
-  });
-
+  useStyles$(prism);
   return (
     <>
-      <Header />
-      <main class="mx-auto pt-28 lg:pt-32 max-w-7xl px-4 md:px-8">
+      <header class="fixed w-full h-20 z-10 flex gap-8 p-4 items-center backdrop-blur">
+        <a href="/" class="lg:ml-8">
+          <img src="/qwik-ui.png" class="w-32" />
+        </a>
+        <div data-tip="Qwik-UI Version" class="mr-auto">
+          v.0.0.0
+        </div>
+        <nav class="hidden sm:flex gap-4">
+          <a href="/docs">Docs</a>
+          <a href="/contact">Contact</a>
+        </nav>
+        <a
+          target="_blank"
+          href="https://github.com/qwikifiers/qwik-ui"
+          aria-label="Qwik-UI GitHub repository"
+          class="sm:mr-8"
+        >
+          <GitHubIcon />
+        </a>
+      </header>
+      <DocsNavigation />
+      <main class="sm:ml-80 py-28 px-4 sm:px-28">
         <Slot />
       </main>
       <footer></footer>
