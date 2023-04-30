@@ -67,6 +67,7 @@ export const Tabs = component$((props: TabsProps) => {
 interface TabListProps {
   labelledBy?: string;
   behavior?: 'automatic' | 'manual';
+  class?: string;
 }
 
 // List of tabs that can be clicked to show different content.

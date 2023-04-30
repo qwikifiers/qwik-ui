@@ -46,7 +46,7 @@ export const Example02 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <Accordion class="mt-6 bg-slate-100 dark:bg-gray-700 w-80 rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden">
+        <Accordion class="bg-slate-100 dark:bg-gray-700 w-80 rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden">
           <AccordionItem
             class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left"
             label="Is Qwik production-ready?"

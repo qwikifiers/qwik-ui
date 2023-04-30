@@ -27,7 +27,7 @@ export default component$(() => {
   const isDocsRoute = location.url.pathname.indexOf('/docs/') !== -1;
 
   return (
-    <header class="fixed w-full h-20 z-10 flex gap-8 p-4 items-center backdrop-blur">
+    <header class="fixed w-full h-20 z-10 flex gap-8 p-4 items-center">
       <button
         type="button"
         aria-label="Toggle navigation"
