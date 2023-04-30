@@ -1,37 +1,37 @@
 import { component$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import {
+  BadgeStatus,
   StatusBadge,
-  StatusBadgeProps,
 } from '../component-status-badge/component-status-badge';
 
-const components: { name: string; status: StatusBadgeProps }[] = [
-  { name: 'Accordion', status: 'Ready' },
-  { name: 'Alert', status: 'Ready' },
-  { name: 'Badge', status: 'Ready' },
-  { name: 'Breadcrumb', status: 'Ready' },
-  { name: 'Button', status: 'Ready' },
-  { name: 'Button Group', status: 'Ready' },
-  { name: 'Card', status: 'Ready' },
-  { name: 'Carousel', status: 'Ready' },
-  { name: 'Checkbox', status: 'Ready' },
-  { name: 'Collapse', status: 'Ready' },
-  { name: 'Drawer', status: 'Ready' },
-  { name: 'Input', status: 'Ready' },
-  { name: 'Input Phone', status: 'Ready' },
-  { name: 'Navigation Bar', status: 'Ready' },
-  { name: 'Pagination', status: 'Ready' },
-  { name: 'Popover', status: 'Ready' },
-  { name: 'Progress', status: 'Ready' },
-  { name: 'Radio', status: 'Ready' },
-  { name: 'Rating', status: 'Ready' },
-  { name: 'Select', status: 'Ready' },
-  { name: 'Slider', status: 'Ready' },
-  { name: 'Spinner', status: 'Ready' },
-  { name: 'Tabs', status: 'Ready' },
-  { name: 'Toast', status: 'Ready' },
-  { name: 'Toggle', status: 'Ready' },
-  { name: 'Tooltip', status: 'Ready' },
+const components: { name: string; status: BadgeStatus }[] = [
+  { name: 'Accordion', status: 'Planned' },
+  { name: 'Alert', status: 'Planned' },
+  { name: 'Badge', status: 'Planned' },
+  { name: 'Breadcrumb', status: 'Planned' },
+  { name: 'Button', status: 'Planned' },
+  { name: 'Button Group', status: 'Planned' },
+  { name: 'Card', status: 'Planned' },
+  { name: 'Carousel', status: 'Planned' },
+  { name: 'Checkbox', status: 'Planned' },
+  { name: 'Collapse', status: 'Planned' },
+  { name: 'Drawer', status: 'Planned' },
+  { name: 'Input', status: 'Planned' },
+  { name: 'Input Phone', status: 'Planned' },
+  { name: 'Navigation Bar', status: 'Planned' },
+  { name: 'Pagination', status: 'Planned' },
+  { name: 'Popover', status: 'Planned' },
+  { name: 'Progress', status: 'Planned' },
+  { name: 'Radio', status: 'Planned' },
+  { name: 'Rating', status: 'Planned' },
+  { name: 'Select', status: 'Planned' },
+  { name: 'Slider', status: 'Planned' },
+  { name: 'Spinner', status: 'Planned' },
+  { name: 'Tabs', status: 'Planned' },
+  { name: 'Toast', status: 'Planned' },
+  { name: 'Toggle', status: 'Planned' },
+  { name: 'Tooltip', status: 'Planned' },
 ];
 
 export const DocsNavigation = component$(() => {
@@ -92,7 +92,7 @@ export const DocsNavigation = component$(() => {
                   .replace(' ', '-')}`}
               >
                 {component.name}
-                {/* <StatusBadge status={component.status} /> */}
+                <StatusBadge status={component.status} />
               </Link>
             </li>
           ))}

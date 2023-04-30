@@ -1,9 +1,13 @@
 import { component$ } from '@builder.io/qwik';
 import { Badge } from '@qwik-ui/headless';
 
-export type StatusBadgeProps = 'Ready' | 'Draft' | 'Planned';
+export type BadgeStatus = 'Ready' | 'Draft' | 'Planned';
 
-export const StatusBadge = component$<StatusBadgeProps>((status) => {
+export interface StatusBadgeProps {
+  status: BadgeStatus;
+}
+
+export const StatusBadge = component$<StatusBadgeProps>(({ status }) => {
   return (
     <Badge
       class={`ml-auto text-xs leading-3 font-medium rounded-full py-1 px-2 ${
