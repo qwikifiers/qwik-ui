@@ -1,0 +1,11 @@
+.docs {
+  @apply max-w-prose mx-auto;
+}
+
+.docs h2 {
+  @apply text-2xl font-bold mt-12 border-b-2;
+}
+
+.docs h3 {
+  @apply text-xl font-bold mt-6;
+}

@@ -1,10 +1,12 @@
 import { component$, Slot, useStyles$ } from '@builder.io/qwik';
 import { GitHubIcon } from '../components/icons/GitHubIcon';
 import { DocsNavigation } from '../components/navigation-docs/navigation-docs';
-import prism from './prism.css?inline';
+import prismStyles from './prism.css?inline';
+import docsStyles from './docs.css?inline';
 
 export default component$(() => {
-  useStyles$(prism);
+  useStyles$(prismStyles);
+  useStyles$(docsStyles);
   return (
     <>
       <header class="fixed w-full h-20 z-10 flex gap-8 p-4 items-center backdrop-blur">
