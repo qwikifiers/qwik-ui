@@ -1,8 +1,8 @@
-import { component$, $, QRL } from '@builder.io/qwik';
+import { component$, $ } from '@builder.io/qwik';
 
 type KBInteractionTableRowProps = {
-  keyboard?: string;
-  deck?: QRL;
+  keyTitle: string;
+  description: string;
 };
 
 const SAMPLE_DATA = {
@@ -66,8 +66,13 @@ const SAMPLE_DATA = {
     },
   ],
 };
+
+export interface KeyboardInteractionTableProps {
+  keyDescriptors: KBInteractionTableRowProps[];
+}
+
 export const KeyboardInteractionTable = component$(
-  (props: KBInteractionTableRowProps) => {
+  (props: KeyboardInteractionTableProps) => {
     return (
       <table class="mb-6">
         <thead>
@@ -79,13 +84,16 @@ export const KeyboardInteractionTable = component$(
           </tr>
         </thead>
         <tbody>
-          {SAMPLE_DATA.keys.map((key) => (
-            <KBInteractionTableRow
-              key={key.id}
-              keyboard={key.title}
-              deck={key.description}
-            />
-          ))}
+          {props.keyDescriptors.map((descriptor) => {
+            console.log('descriptor', descriptor);
+            return (
+              <KBInteractionTableRow
+                key={descriptor.keyTitle}
+                keyTitle={descriptor.keyTitle}
+                description={descriptor.description}
+              />
+            );
+          })}
         </tbody>
       </table>
     );
@@ -93,20 +101,16 @@ export const KeyboardInteractionTable = component$(
 );
 
 export const KBInteractionTableRow = component$(
-  ({ keyboard, deck }: KBInteractionTableRowProps) => {
-    const Description: any = deck;
-
+  ({ keyTitle, description }: KBInteractionTableRowProps) => {
     return (
       <tr class="border-b-2 border-gray-700">
         <td class="py-4">
           <kbd class="border w-max shadow-lg rounded-md px-2 capitalize text-sm inline-block">
-            {keyboard}
+            {keyTitle}
           </kbd>
         </td>
         <td>
-          <article class="ml-6">
-            <Description />
-          </article>
+          <article class="ml-6">{description}</article>
         </td>
       </tr>
     );
