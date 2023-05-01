@@ -2,11 +2,11 @@ import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
 import { Badge as HeadlessBadge } from '@qwik-ui/headless';
 import { clsq } from '@qwik-ui/shared';
 
-export type TailwindBadgeProps = {
+export interface TailwindBadgeProps extends HTMLAttributes<HTMLElement> {
   variant?: TailwindBadgeVariants;
   size?: TailwindBadgeSizes;
   outline?: boolean;
-};
+}
 
 export type TailwindBadgeVariants =
   | 'primary'
@@ -18,9 +18,8 @@ export type TailwindBadgeVariants =
   | 'warning'
   | 'error';
 export type TailwindBadgeSizes = 'xs' | 'sm' | 'md' | 'lg';
-export type BadgeProps = HTMLAttributes<HTMLElement> & TailwindBadgeProps;
 
-export const Badge = component$((props: BadgeProps) => {
+export const Badge = component$((props: TailwindBadgeProps) => {
   const {
     size = 'md',
     variant = 'neutral',
@@ -53,7 +52,7 @@ export const Badge = component$((props: BadgeProps) => {
   };
 
   return (
-    <HeadlessBadge
+    <div
       {...rest}
       class={clsq(
         'badge',
@@ -66,6 +65,6 @@ export const Badge = component$((props: BadgeProps) => {
       )}
     >
       <Slot />
-    </HeadlessBadge>
+    </div>
   );
 });
