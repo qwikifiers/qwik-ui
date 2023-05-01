@@ -17,11 +17,7 @@ export default component$(() => {
   useStyles$(prismStyles);
   useStyles$(docsStyles);
 
-  const { menu } = useContent();
-
   const { menuItemsGroups } = useKitMenuItems();
-
-  // const DecoratedLinkProps = decorateLinksWithBadges(menu?.items || []);
 
   return (
     <>

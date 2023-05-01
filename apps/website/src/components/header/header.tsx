@@ -9,7 +9,6 @@ import { SunIcon } from '../icons/SunIcon';
 import { Menu } from '../menu/menu';
 import { SelectTheme } from '../selectTheme/selectTheme';
 import { APP_STATE_CONTEXT_ID } from '../../_state/app-state-context-id';
-import { useCSSTheme } from '../../_state/use-css-theme';
 
 export default component$(() => {
   const location = useLocation();
@@ -51,8 +50,9 @@ export default component$(() => {
         v.{version}
       </div>
       <nav class="hidden sm:flex gap-4">
+        <a href="/about">About</a>
         <a href="/docs">Docs</a>
-        <a href="/contact">Contact</a>
+        {/* <a href="/contact">Contact</a> */}
       </nav>
       {isDocsRoute && <SelectTheme />}
       <button
