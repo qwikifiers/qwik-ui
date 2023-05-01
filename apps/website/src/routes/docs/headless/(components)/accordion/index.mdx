@@ -5,12 +5,12 @@ title: Qwik UI | Accordion
 import { Accordion, AccordionItem } from '@qwik-ui/headless';
 import { Example01, Example02, Example03 } from './examples';
 import { CodeExample } from '../../../../../components/code-example/code-example';
-import { Table } from '../../../../../components/table/table';
+import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../../../components/api-table/api-table';
 
 # Accordion
 
-A vertically stacked set of interactive headings which reveal or hide
-their associated content.
+#### A vertically stacked set of interactive headings which reveal or hide their associated content.
 
 {' '}
 
@@ -64,7 +64,7 @@ their associated content.
 
 ## Examples
 
-### Frequently Asked Questions
+### EXAMPLE: Frequently Asked Questions
 
 <Example02>
   ```tsx
@@ -111,9 +111,32 @@ their associated content.
 
 ### Keyboard interaction
 
-<Table />
+<KeyboardInteractionTable />
 ## API
 
-### Accordion
-
 ### AccordionItem
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the accordion container.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the accordion container.',
+    },
+    {
+      name: 'label',
+      type: 'string',
+      description: 'The label to give to the accordion item.',
+    },
+    {
+      name: 'onClick$',
+      type: 'PropFunction<() => void>',
+      description: 'A custom click handler',
+    },
+  ]}
+/>

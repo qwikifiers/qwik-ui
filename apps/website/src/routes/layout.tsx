@@ -9,7 +9,7 @@ export default component$(() => {
   useStyles$(docsStyles);
   return (
     <>
-      <header class="fixed w-full h-20 z-10 flex gap-8 p-4 items-center">
+      <header class="fixed w-full h-20 z-20 border-b-2 border-gray-700 flex gap-8 p-4 items-center">
         <a href="/" class="lg:ml-8">
           <img src="/qwik-ui.png" class="w-32" />
         </a>
@@ -30,7 +30,7 @@ export default component$(() => {
         </a>
       </header>
       <DocsNavigation />
-      <main class="docs sm:ml-80 py-28 px-4 sm:px-28">
+      <main class="docs">
         <Slot />
       </main>
       <footer></footer>

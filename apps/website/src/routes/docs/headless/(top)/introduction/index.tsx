@@ -5,7 +5,7 @@ export default component$(() => {
   return (
     <>
       <h1 class="text-6xl font-bold mx-auto w-fit">Welcome to Qwik UI! 🤩</h1>
-      <p class="text-3xl font-medium mt-6 mx-auto w-fit">
+      <p class="text-3xl font-medium mb-6 mx-auto w-fit">
         It's a new cozy component library! 🤗🚀
       </p>
       <article class="max-w-prose mx-auto">

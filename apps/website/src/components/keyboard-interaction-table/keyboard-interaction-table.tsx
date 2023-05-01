@@ -1,7 +1,6 @@
 import { component$, $, QRL } from '@builder.io/qwik';
-import { JSX } from '@builder.io/qwik/jsx-runtime';
 
-type TableRowProps = {
+type KBInteractionTableRowProps = {
   keyboard?: string;
   deck?: QRL;
 };
@@ -67,45 +66,49 @@ const SAMPLE_DATA = {
     },
   ],
 };
-export const Table = component$(() => {
-  return (
-    <table class="mt-6">
-      <thead>
-        <tr class="border-b-2">
-          <th class="text-left font-thin text-md text-slate-400">
-            {SAMPLE_DATA.title.key}
-          </th>
-          <th class="text-left">
-            <p class="ml-6 font-thin text-md text-slate-400">
-              {SAMPLE_DATA.title.deck}
-            </p>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {SAMPLE_DATA.keys.map((key) => (
-          <TableRow key={key.id} keyboard={key.title} deck={key.description} />
-        ))}
-      </tbody>
-    </table>
-  );
-});
+export const KeyboardInteractionTable = component$(
+  (props: KBInteractionTableRowProps) => {
+    return (
+      <table class="mb-6">
+        <thead>
+          <tr class="border-b-2">
+            <th class="text-left font-thin text-md text-slate-400">Key</th>
+            <th class="text-left">
+              <p class="ml-6 font-thin text-md text-slate-400">Description</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {SAMPLE_DATA.keys.map((key) => (
+            <KBInteractionTableRow
+              key={key.id}
+              keyboard={key.title}
+              deck={key.description}
+            />
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+);
 
-export const TableRow = component$(({ keyboard, deck }: TableRowProps) => {
-  const Description: any = deck;
+export const KBInteractionTableRow = component$(
+  ({ keyboard, deck }: KBInteractionTableRowProps) => {
+    const Description: any = deck;
 
-  return (
-    <tr class="border-b-2 border-gray-700">
-      <td class="py-4">
-        <kbd class="border w-max shadow-lg rounded-md px-2 capitalize text-sm inline-block">
-          {keyboard}
-        </kbd>
-      </td>
-      <td>
-        <article class="ml-6">
-          <Description />
-        </article>
-      </td>
-    </tr>
-  );
-});
+    return (
+      <tr class="border-b-2 border-gray-700">
+        <td class="py-4">
+          <kbd class="border w-max shadow-lg rounded-md px-2 capitalize text-sm inline-block">
+            {keyboard}
+          </kbd>
+        </td>
+        <td>
+          <article class="ml-6">
+            <Description />
+          </article>
+        </td>
+      </tr>
+    );
+  }
+);
