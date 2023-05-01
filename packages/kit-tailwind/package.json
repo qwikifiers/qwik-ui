@@ -1,13 +1,13 @@
 {
   "name": "@qwik-ui/tailwind",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Qwik UI components library - tailwind kit",
   "publishConfig": {
     "access": "public"
   },
   "main": "./index.qwik.cjs",
   "qwik": "./index.qwik.mjs",
-  "types": "./tailwind/src/index.d.ts",
+  "types": "./packages/kit-tailwind/src/index.d.ts",
   "module": "./index.qwik.mjs",
   "type": "module",
   "exports": {
