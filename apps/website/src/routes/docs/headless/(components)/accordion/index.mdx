@@ -114,10 +114,29 @@ import { APITable } from '../../../../../components/api-table/api-table';
 <KeyboardInteractionTable keyDescriptors={
   [
     {
+      keyTitle: 'Space',
+      description: 'Expand or collapse the `AccordionItem`.',
+    },
+    {
       keyTitle: 'Enter',
       description: 'Expand or collapse the `AccordionItem`.',
-
-    }
+    },
+    {
+      keyTitle: 'Tab',
+      description: 'Moves focus to the next focusable element.',
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: 'Moves focus to the previous focusable element.',
+    },
+    {
+      keyTitle: 'Home',
+      description: 'When on `AccordionItem`, Moves focus to the first `AccordionItem`.',
+    },
+    {
+      keyTitle: 'End',
+      description: 'When on `AccordionItem`, Moves focus to the last `AccordionItem`.',
+    },
 
 ]
 }/>
