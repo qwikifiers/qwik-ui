@@ -1,0 +1,106 @@
+---
+title: Qwik UI | Tooltip
+---
+
+import { Tooltip } from '@qwik-ui/headless';
+import { MainExample, Example1 } from './examples';
+import { CodeExample } from '../../../../../components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../../../components/api-table/api-table';
+
+# Tooltip
+
+#### A popup that displays information realted to an element when the element receives keyboard focus or the mouse hovers over it.
+
+<MainExample>
+  ```tsx
+  <Tooltip
+    content="I'm a tooltip!"
+    class="bg-slate-200 dark:bg-gray-900 p-4 rounded-xl"
+  >
+    Hover over me!
+  </Tooltip>
+  ```
+</MainExample>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Tooltip } from '@qwik-ui/headless';
+
+    export default component$(() => (
+      <Tooltip content='Tooltip content'>
+        Trigger content
+      </Tooltip>
+    ));
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### EXAMPLE: Describing Unlabelled Icon Link
+
+<Example1>
+  ```tsx
+  <Tooltip
+    content="Clicking this icon takes you to Qwik UI's GitHub repository!"
+    class="bg-slate-200 dark:bg-gray-900 p-4 rounded-xl"
+  >
+    <a href="https://github.com/qwikifiers/qwik-ui" class="mx-auto">
+      <GitHubIcon />
+    </a>
+  </Tooltip>
+  ```
+</Example1>
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable keyDescriptors={
+  [
+    {
+      keyTitle: 'Esc',
+      description: 'Dismisses the Tooltip when focused.',
+    },
+
+]
+}/>
+
+## API
+
+### AccordionItem
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the Tooltip.',
+    },
+    {
+      name: 'content',
+      type: 'string',
+      description: 'The content displayed in the Tooltip.',
+    },
+    {
+      name: 'durationMs',
+      type: 'nummber',
+      description:
+        'Sets a delay duration in milliseconds before the Tooltip is displayed.',
+    },
+    {
+      name: 'inline',
+      type: 'boolean',
+      description: 'Determines if the Tooltip is rendered inline.',
+    },
+    {
+      name: 'position',
+      type: '"bottom" | "bottom-end" | "bottom-start" | "left" | "left-end" | "left-start" | "right" | "right-end" | "right-start" | "top" | "top-end" | "top-start"',
+      description: 'Determines the position the Tooltip is rendered.',
+    },
+  ]}
+/>
