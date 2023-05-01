@@ -21,7 +21,7 @@ export interface DocsNavigationProps {
 export const DocsNavigation = component$(
   ({ linksGroups }: DocsNavigationProps) => {
     return (
-      <nav class="hidden lg:flex flex-col gap-4 fixed top-20 inset-0 overflow-y-auto bg-blue-200 dark:bg-indigo-900 w-80">
+      <nav class="flex flex-col gap-4 fixed top-20 inset-0 overflow-y-auto bg-blue-200 dark:bg-indigo-900 w-80">
         {linksGroups?.map((group) => {
           return (
             <>

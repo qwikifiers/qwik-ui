@@ -12,7 +12,7 @@ import { APP_STATE_CONTEXT_ID } from '../../_state/app-state-context-id';
 import { useCSSTheme } from '../../_state/use-css-theme';
 
 export default component$(() => {
-  const location = useLocation();
+  // const location = useLocation();
   const appState = useContext(APP_STATE_CONTEXT_ID);
   const menuOpenSignal = useSignal(false);
 
@@ -24,7 +24,7 @@ export default component$(() => {
     appState.mode = appState.mode === 'light' ? 'dark' : 'light';
   });
 
-  const isDocsRoute = location.url.pathname.indexOf('/docs/') !== -1;
+  // const isDocsRoute = location.url.pathname.indexOf('/docs/') !== -1;
 
   return (
     <header class="fixed w-full h-20 z-10 flex gap-8 p-4 items-center">
@@ -54,7 +54,7 @@ export default component$(() => {
         <a href="/docs">Docs</a>
         <a href="/contact">Contact</a>
       </nav>
-      {isDocsRoute && <SelectTheme />}
+      {/* {isDocsRoute && <SelectTheme />} */}
       <button
         type="button"
         aria-label="Toggle dark mode"

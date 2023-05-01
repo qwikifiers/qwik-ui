@@ -1,4 +1,11 @@
-import { component$, Slot, useStyles$ } from '@builder.io/qwik';
+import {
+  component$,
+  Slot,
+  useStyles$,
+  $,
+  useContext,
+  useSignal,
+} from '@builder.io/qwik';
 import { GitHubIcon } from '../components/icons/GitHubIcon';
 import {
   DocsNavigation,
@@ -12,6 +19,11 @@ import {
   componentsStatuses,
   ComponentsStatusesMap,
 } from '../_state/component-statuses';
+import { APP_STATE_CONTEXT_ID } from '../_state/app-state-context-id';
+import { MoonIcon } from '../components/icons/MoonIcon';
+import { SunIcon } from '../components/icons/SunIcon';
+import { CloseIcon } from '../components/icons/CloseIcon';
+import { MenuIcon } from '../components/icons/MenuIcon';
 
 export default component$(() => {
   useStyles$(prismStyles);
@@ -21,11 +33,28 @@ export default component$(() => {
 
   const { menuItemsGroups } = useKitMenuItems();
 
+  const appState = useContext(APP_STATE_CONTEXT_ID);
+  const toggleDarkMode = $(() => {
+    appState.mode = appState.mode === 'light' ? 'dark' : 'light';
+  });
+
   // const DecoratedLinkProps = decorateLinksWithBadges(menu?.items || []);
+  const menuOpenSignal = useSignal(false);
+  const toggleMenu$ = $(() => {
+    menuOpenSignal.value = !menuOpenSignal.value;
+  });
 
   return (
     <>
-      <header class="fixed top-0 w-full h-20 z-20 border-b-[1px] border-slate-300 dark:border-slate-600 bg-[var(--color-bg)] flex gap-8 p-4 items-center">
+      <header class="fixed top-0 w-full h-20 z-20 border-b-[1px] border-slate-300 dark:border-slate-600 bg-[var(--color-bg)] flex gap-4 sm:gap-8 p-4 items-center">
+        <button
+          type="button"
+          aria-label="Toggle navigation"
+          onClick$={toggleMenu$}
+          class="block lg:hidden"
+        >
+          {menuOpenSignal.value ? <CloseIcon /> : <MenuIcon />}
+        </button>
         <a href="/" class="lg:ml-8">
           <img src="/qwik-ui.png" class="w-32" />
         </a>
@@ -36,6 +65,13 @@ export default component$(() => {
           <a href="/docs">Docs</a>
           <a href="/contact">Contact</a>
         </nav>
+        <button
+          type="button"
+          aria-label="Toggle dark mode"
+          onClick$={toggleDarkMode}
+        >
+          {appState.mode === 'dark' ? <MoonIcon /> : <SunIcon />}
+        </button>
         <a
           target="_blank"
           href="https://github.com/qwikifiers/qwik-ui"
@@ -46,7 +82,9 @@ export default component$(() => {
         </a>
       </header>
       <div class="flex mt-20">
-        <DocsNavigation linksGroups={menuItemsGroups} />
+        {menuOpenSignal.value && (
+          <DocsNavigation linksGroups={menuItemsGroups} />
+        )}
         <main class="docs">
           <Slot />
         </main>
