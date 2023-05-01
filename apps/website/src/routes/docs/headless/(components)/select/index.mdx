@@ -1,0 +1,331 @@
+---
+title: Qwik UI | Select
+---
+
+import { Example01, Example02 } from './examples';
+import { CodeExample } from '../../../../../components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../../../components/api-table/api-table';
+
+# Select
+
+#### This element is used to create a drop-down list, it's often used in a form, to collect user input.
+
+{' '}
+
+<Example01>
+  ```tsx
+  <Root>
+    <Label class="text-black dark:text-white">Lorem ipsum dolor sit amet</Label>
+    <Trigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
+      <Value placeholder="Select an option! ⚡" />
+      <Marker class="w-6 h-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </Marker>
+    </Trigger>
+    <ListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+      <Option value="🚀 Qwik" class="p-4" />
+      <Group class="p-4">
+        <Label class="p-4">Fruits</Label>
+        {[
+          { value: '🍎 Apple', disabled: false },
+          { value: '🍌 Banana', disabled: false },
+          { value: '🍒 Cherry', disabled: false },
+          { value: '🐲 Dragonfruit', disabled: true },
+        ].map((option) => {
+          return (
+            <Option
+              key={useId()}
+              value={option.value}
+              disabled={option.disabled}
+              class="aria-disabled:text-red-500 aria-disabled:cursor-not-allowed hover:bg-slate-300 dark:hover:bg-gray-600 p-4"
+            />
+          );
+        })}
+      </Group>
+    </ListBox>
+  </Root>
+  ```
+</Example01>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Root, Label, Trigger, Value, Marker, ListBox, Option, Group, } from '@qwik-ui/headless';
+
+    export default component$(() => (
+      <Root>
+        <Label>Content</Label>
+        <Trigger>
+          <Value>Content</Value>
+          <Marker />
+        </Trigger>
+        <ListBox>
+          <Group>
+            <Label>Options</Label>
+            <Option/>
+            <Option/>
+            <Option/>
+          </Group>
+        </ListBox>
+      </Root>
+    ));
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### EXAMPLE: Navbar Menu
+
+<Example02>
+  ```tsx
+  <Root>
+    <Trigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
+      <Value placeholder="Home" />
+      <Marker class="w-6 h-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </Marker>
+    </Trigger>
+    <ListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+      <Option value="Orders" class="p-4" />
+      <Option value="Settings" class="p-4" />
+      <Option value="Contact us" class="p-4" />
+    </ListBox>
+  </Root>
+  ```
+</Example02>
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'ArrowUp',
+      description: 'To open the `ListBox`.',
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: 'To open the `ListBox`.',
+    },
+    {
+      keyTitle: 'Escape',
+      description: 'To close the `ListBox`.',
+    },
+    {
+      keyTitle: 'Tab',
+      description: 'To select the `Option`.',
+    },
+    {
+      keyTitle: 'Enter',
+      description: 'To select the `Option`.',
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: 'To select the next `Option`.',
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: 'To select the previous `Option`.',
+    },
+  ]}
+/>
+
+## API
+
+### Root
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `Root` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `Root` element.',
+    },
+    {
+      name: 'defaultValue',
+      type: 'string',
+      description: 'The defaultValue to give to the select.',
+    },
+  ]}
+/>
+<br />
+<br />
+### Trigger
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `Trigger` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `Trigger` element.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Use this property to disabled the `Trigger` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### Value
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `Value` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `Value` element.',
+    },
+    {
+      name: 'placeholder',
+      type: 'string',
+      description: 'Use this property to set the placeholder.',
+    },
+  ]}
+/>
+<br />
+<br />
+### Marker
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `Marker` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `Marker` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### ListBox
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `ListBox` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `ListBox` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### GroupProps
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `GroupProps` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `GroupProps` element.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Use this property to disabled the `GroupProps` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### Label
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `Label` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `Label` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### Option
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `Option` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `Option` element.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Use this property to disabled the `Option` element.',
+    },
+    {
+      name: 'value',
+      type: 'string',
+      description: 'Use this property to set the `Option` value.',
+    },
+  ]}
+/>

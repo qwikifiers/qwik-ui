@@ -41,7 +41,7 @@ export const componentsStatuses: ComponentKitsStatuses = {
   headless: {
     Accordion: 'Planned',
     Carousel: 'Planned',
-    Select: 'Planned',
+    Select: 'Draft',
     Tabs: 'Planned',
     Toggle: 'Planned',
     Tooltip: 'Planned',
