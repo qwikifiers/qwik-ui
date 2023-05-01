@@ -9,7 +9,7 @@ export default component$(() => {
   useStyles$(docsStyles);
   return (
     <>
-      <header class="fixed w-full h-20 z-20 border-b-2 border-gray-700 flex gap-8 p-4 items-center">
+      <header class="fixed top-0 w-full h-20 z-20 border-b-[1px] border-slate-300 dark:border-slate-600 bg-[var(--color-bg)] flex gap-8 p-4 items-center">
         <a href="/" class="lg:ml-8">
           <img src="/qwik-ui.png" class="w-32" />
         </a>
@@ -29,10 +29,12 @@ export default component$(() => {
           <GitHubIcon />
         </a>
       </header>
-      <DocsNavigation />
-      <main class="docs">
-        <Slot />
-      </main>
+      <div class="flex mt-20">
+        <DocsNavigation />
+        <main class="docs">
+          <Slot />
+        </main>
+      </div>
       <footer></footer>
     </>
   );

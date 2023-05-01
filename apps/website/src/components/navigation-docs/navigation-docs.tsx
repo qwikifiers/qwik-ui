@@ -36,10 +36,7 @@ const components: { name: string; status: BadgeStatus }[] = [
 
 export const DocsNavigation = component$(() => {
   return (
-    <nav
-      class="hidden lg:flex flex-col gap-4 fixed h-full inset-0 top-[5rem] bottom-0
-                overflow-y-auto   bg-blue-200 dark:bg-indigo-900 w-80"
-    >
+    <nav class="hidden lg:flex flex-col gap-4 fixed top-20 inset-0 overflow-y-auto bg-blue-200 dark:bg-indigo-900 w-80">
       <h1 class="pl-12 mt-8 font-medium text-lg">Getting started</h1>
       <ul class="pl-12 flex flex-col gap-2">
         <li class="pl-4">
