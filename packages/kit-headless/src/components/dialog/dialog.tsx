@@ -2,43 +2,46 @@ import {
   $,
   QRL,
   QwikMouseEvent,
+  Signal,
   Slot,
   component$,
   createContextId,
   useComputed$,
+  useContext,
   useContextProvider,
+  useOn,
   useSignal,
   useStore,
-  useVisibleTask$,
 } from '@builder.io/qwik';
 
 export type DialogState = {
   opened: boolean;
+  dialogRef: Signal<HTMLDialogElement | undefined>;
 };
 
 export type DialogContext = {
   state: DialogState;
+
   open: QRL<() => void>;
   close: QRL<() => void>;
-};
-
-export type RootProps = {
-  open: boolean;
-  type?: 'modal' | 'bottom-sheet' | 'side-nav';
+  closeOnDialogClick: QRL<
+    (
+      event: QwikMouseEvent<HTMLDialogElement, MouseEvent>,
+      element: HTMLDialogElement
+    ) => void
+  >;
 };
 
 export const dialogContext = createContextId<DialogContext>('dialog');
 
-export const Root = component$((props: RootProps) => {
-  const dialogRef = useSignal<HTMLDialogElement>();
-  const classes = useComputed$(() => [props.type ?? 'modal']);
-
+export const Root = component$(() => {
   const state = useStore({
     opened: false,
+    dialogRef: useSignal<HTMLDialogElement>(),
   });
 
   const openDialog$ = $(() => {
-    const dialog = dialogRef.value;
+    const dialog = state.dialogRef.value;
 
     if (!dialog) {
       throw new Error(
@@ -51,7 +54,7 @@ export const Root = component$((props: RootProps) => {
   });
 
   const closeDialog$ = $(() => {
-    const dialog = dialogRef.value;
+    const dialog = state.dialogRef.value;
 
     if (!dialog) {
       throw new Error(
@@ -63,7 +66,7 @@ export const Root = component$((props: RootProps) => {
     state.opened = false;
   });
 
-  const handleClick$ = $(
+  const closeOnDialogClick$ = $(
     (
       event: QwikMouseEvent<HTMLDialogElement, MouseEvent>,
       element: HTMLDialogElement
@@ -76,21 +79,47 @@ export const Root = component$((props: RootProps) => {
 
   const context: DialogContext = {
     state,
+
     open: openDialog$,
     close: closeDialog$,
+    closeOnDialogClick: closeOnDialogClick$,
   };
 
   useContextProvider(dialogContext, context);
 
-  useVisibleTask$(async ({ track }) => {
-    const shallBeOpened = track(() => props.open);
+  return <Slot />;
+});
 
-    shallBeOpened ? await openDialog$() : await closeDialog$();
-  });
+export const Trigger = component$(() => {
+  const context = useContext(dialogContext);
+
+  useOn(
+    'click',
+    $(() => context.open())
+  );
 
   return (
-    <dialog class={classes} ref={dialogRef} onClick$={handleClick$}>
-      <Slot></Slot>
+    <div role="button">
+      <Slot />
+    </div>
+  );
+});
+
+export type PortalProps = {
+  type?: 'modal' | 'bottom-sheet' | 'side-nav';
+};
+
+export const Portal = component$((props: PortalProps) => {
+  const context = useContext(dialogContext);
+  const classes = useComputed$(() => [props.type ?? 'modal']);
+
+  return (
+    <dialog
+      class={classes}
+      ref={context.state.dialogRef}
+      onClick$={context.closeOnDialogClick}
+    >
+      <Slot />
     </dialog>
   );
 });
