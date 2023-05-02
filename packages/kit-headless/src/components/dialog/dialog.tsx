@@ -6,7 +6,6 @@ import {
   Slot,
   component$,
   createContextId,
-  useComputed$,
   useContext,
   useContextProvider,
   useOn,
@@ -105,20 +104,11 @@ export const Trigger = component$(() => {
   );
 });
 
-export type PortalProps = {
-  type?: 'modal' | 'bottom-sheet' | 'side-nav';
-};
-
-export const Portal = component$((props: PortalProps) => {
+export const Portal = component$(() => {
   const context = useContext(dialogContext);
-  const classes = useComputed$(() => [props.type ?? 'modal']);
 
   return (
-    <dialog
-      class={classes}
-      ref={context.state.dialogRef}
-      onClick$={context.closeOnDialogClick}
-    >
+    <dialog ref={context.state.dialogRef} onClick$={context.closeOnDialogClick}>
       <Slot />
     </dialog>
   );
