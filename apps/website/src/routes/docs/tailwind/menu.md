@@ -4,7 +4,6 @@
 
 - [Introduction](/docs/tailwind/introduction)
 - [Installation](/docs/tailwind/install)
-- [Usage](/docs/tailwind/usage)
 - [Contributing](/docs/tailwind/contributing)
 
 ## Components
