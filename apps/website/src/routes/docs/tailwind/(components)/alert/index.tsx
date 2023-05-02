@@ -1,6 +1,6 @@
 import { $, component$ } from '@builder.io/qwik';
 import { Alert as TailwindAlert } from '@qwik-ui/tailwind';
-import { GitHubIcon } from '../../../../components/icons/GitHubIcon';
+import { GitHubIcon } from '../../../../../components/icons/GitHubIcon';
 
 export default component$(() => {
   return (

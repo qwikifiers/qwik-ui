@@ -1,6 +1,6 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { Tab, TabPanel, Tabs } from '@qwik-ui/tailwind';
-import { Wrapper } from '../../../../components/wrapper/wrapper';
+import { Wrapper } from '../../../../../components/wrapper/wrapper';
 
 export default component$(() => {
   const tabs = ['Tab 1', 'Tab 2', 'Tab 3'];

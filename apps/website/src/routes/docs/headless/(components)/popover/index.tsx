@@ -1,7 +1,7 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/primitives';
-import Header from '../../../../components/header/header';
+import Header from '../../../../../components/header/header';
 
 export default component$(() => {
   const controlledPopover = useSignal<boolean>(false);

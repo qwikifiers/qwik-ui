@@ -1,5 +1,4 @@
 import { component$, Slot, useStyles$ } from '@builder.io/qwik';
-import { GitHubIcon } from '../components/icons/GitHubIcon';
 import {
   DocsNavigation,
   LinkGroup,
@@ -22,7 +21,7 @@ export default component$(() => {
 
   return (
     <>
-      <Header showBottomBorder={true} showVersion={true} showDocsLink={false} />
+      <Header showBottomBorder={true} showVersion={true} />
 
       <div class="flex mt-20">
         <DocsNavigation linksGroups={menuItemsGroups} />
