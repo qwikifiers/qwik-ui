@@ -1,6 +1,15 @@
-import { $, component$, useContext, useSignal } from '@builder.io/qwik';
+import {
+  $,
+  component$,
+  useComputed$,
+  useContext,
+  useSignal,
+} from '@builder.io/qwik';
 import { Link, useLocation } from '@builder.io/qwik-city';
-import { version } from '../../../../../package.json';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { version as tailwindVersion } from '../../../../../packages/kit-tailwind/package.json';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
 import { MenuIcon } from '../icons/MenuIcon';
@@ -19,6 +28,21 @@ export default component$(
     const location = useLocation();
     const appState = useContext(APP_STATE_CONTEXT_ID);
     const menuOpenSignal = useSignal(false);
+
+    const kitSignal = useComputed$(() => {
+      if (location.url.pathname.indexOf('headless') !== -1) {
+        return {
+          name: 'Headless',
+          version: headlessVersion,
+        };
+      }
+      if (location.url.pathname.indexOf('tailwind') !== -1) {
+        return {
+          name: 'Tailwind',
+          version: tailwindVersion,
+        };
+      }
+    });
 
     const toggleMenu$ = $(() => {
       menuOpenSignal.value = !menuOpenSignal.value;
@@ -57,7 +81,12 @@ export default component$(
           <img src="/qwik-ui.png" class="h-12 w-auto object-contain" />
         </a>
         <div data-tip="Qwik-UI Version" class="mr-auto">
-          {showVersion && <span> v.{version} </span>}
+          {showVersion && (
+            <div class="flex flex-col">
+              <span> {kitSignal.value?.name} Kit </span>
+              <span> v.{kitSignal.value?.version} </span>
+            </div>
+          )}
         </div>
 
         <nav class="hidden sm:flex gap-4">
