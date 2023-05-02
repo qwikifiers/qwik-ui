@@ -17,8 +17,24 @@ export default component$(() => {
       </div>
 
       <p class="text-lg mt-6 mb-6">
-        That's it! The Tailwind Kit is now installed and ready for use in your
-        Qwik project.
+        Which should install DasiyUI as part of its dependencies. Then you can
+        add daisyUI to your <code class="bg-black">tailwind.config.js</code>{' '}
+        file:
+      </p>
+
+      <div class="mt-4">
+        <pre class="bg-black max-w-prose p-8 border-white border text-white">
+          {`module.exports = {
+  //...
+    plugins: [require("daisyui")],
+  //...
+}`}
+        </pre>
+      </div>
+
+      <p class="text-lg mt-6 mb-6">
+        This will install That's it! The Tailwind Kit is now installed and ready
+        for use in your Qwik project.
       </p>
 
       <p class="text-lg mb-6">

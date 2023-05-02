@@ -32,5 +32,7 @@
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
   },
-  "dependencies": {}
+  "dependencies": {
+    "daisyui": "^2.50.1"
+  }
 }

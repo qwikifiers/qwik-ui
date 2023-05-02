@@ -11,10 +11,17 @@ export default component$(() => {
 
       <p class="mt-8 leading-relaxed mb-10">
         Welcome to the Tailwind Kit, a collection of ready-to-use, beautifully
-        styled components designed to work seamlessly with Qwik. The Tailwind
-        Kit is perfect for developers who want to build their web applications
-        with a consistent, modern design while maintaining a strong focus on
-        accessibility.
+        styled components powered by{' '}
+        <a target="_blank" href="https://tailwindcss.com" class="text-blue-400">
+          Tailwind
+        </a>{' '}
+        and{' '}
+        <a target="_blank" href="https://daisyui.com/" class="text-blue-400">
+          DasiyUI
+        </a>{' '}
+        designed to work seamlessly with Qwik. The Tailwind Kit is perfect for
+        developers who want to build their web applications with a consistent,
+        modern design while maintaining a strong focus on accessibility.
       </p>
 
       <h3 class="text-2xl font-semibold mb-4">Why Choose the Tailwind Kit?</h3>
