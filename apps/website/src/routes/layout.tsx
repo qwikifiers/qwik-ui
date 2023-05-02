@@ -12,39 +12,18 @@ import {
   componentsStatuses,
   ComponentsStatusesMap,
 } from '../_state/component-statuses';
+import Header from '../components/header/header';
 
 export default component$(() => {
   useStyles$(prismStyles);
   useStyles$(docsStyles);
 
-  const { menu } = useContent();
-
   const { menuItemsGroups } = useKitMenuItems();
-
-  // const DecoratedLinkProps = decorateLinksWithBadges(menu?.items || []);
 
   return (
     <>
-      <header class="fixed top-0 w-full h-20 z-20 border-b-[1px] border-slate-300 dark:border-slate-600 bg-[var(--color-bg)] flex gap-8 p-4 items-center">
-        <a href="/" class="lg:ml-8">
-          <img src="/qwik-ui.png" class="w-32" />
-        </a>
-        <div data-tip="Qwik-UI Version" class="mr-auto">
-          v.0.0.0
-        </div>
-        <nav class="hidden sm:flex gap-4">
-          <a href="/docs">Docs</a>
-          <a href="/contact">Contact</a>
-        </nav>
-        <a
-          target="_blank"
-          href="https://github.com/qwikifiers/qwik-ui"
-          aria-label="Qwik-UI GitHub repository"
-          class="sm:mr-8"
-        >
-          <GitHubIcon />
-        </a>
-      </header>
+      <Header showBottomBorder={true} showVersion={true} showDocsLink={false} />
+
       <div class="flex mt-20">
         <DocsNavigation linksGroups={menuItemsGroups} />
         <main class="docs">

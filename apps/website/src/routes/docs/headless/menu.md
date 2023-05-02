@@ -4,7 +4,6 @@
 
 - [Introduction](/docs/headless/introduction)
 - [Installation](/docs/headless/install)
-- [Usage](/docs/headless/usage)
 - [Contributing](/docs/headless/contributing)
 
 ## Components

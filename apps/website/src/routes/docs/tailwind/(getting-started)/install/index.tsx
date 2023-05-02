@@ -3,16 +3,32 @@ import type { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
   return (
-    <div>
+    <article class="max-w-prose">
       <h1 class="text-xl">Installation</h1>
+      <p class="text-lg mb-6">
+        To get started with the Tailwind Kit for Qwik UI, run the following
+        command to install the Tailwind Kit via npm:
+      </p>
+
       <div class="mt-4">
-        <p>Installation of the headless components package</p>
-        <pre>npm install -D @qwik-ui/headless</pre>
+        <pre class="bg-black max-w-prose p-8 border-white border text-white">
+          npm install -D @qwik-ui/tailwind
+        </pre>
       </div>
-    </div>
+
+      <p class="text-lg mt-6 mb-6">
+        That's it! The Tailwind Kit is now installed and ready for use in your
+        Qwik project.
+      </p>
+
+      <p class="text-lg mb-6">
+        Now you can start building your fully designed, accessible Qwik web
+        applications using the Qwik UI Tailwind Kit.
+      </p>
+    </article>
   );
 });
 
 export const head: DocumentHead = {
-  title: 'QwikUI Installation',
+  title: 'Qwik UI | Tailwind Kit - Installation',
 };

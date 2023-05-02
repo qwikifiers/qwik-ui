@@ -1,23 +1,22 @@
 import {
   component$,
   Slot,
-  useContextProvider,
-  useStore,
+  useContext,
   useTask$,
   useVisibleTask$,
 } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import Header from '../components/header/header';
 import { OLD_APP_STATE_CONTEXT_ID } from '../constants';
-import { OldAppState } from '../types';
+
+import { Footer } from '../components/footer/footer';
 
 export default component$(() => {
-  const state = useStore<OldAppState>({
-    darkMode: false,
-    theme: 'NOT_DEFINED',
-  });
+  // useStyles$(globalStyles);
+
+  const state = useContext(OLD_APP_STATE_CONTEXT_ID);
+
   const loc = useLocation();
-  useContextProvider(OLD_APP_STATE_CONTEXT_ID, state);
 
   useVisibleTask$(() => {
     state.darkMode = localStorage.getItem('theme') === 'dark';
@@ -35,10 +34,10 @@ export default component$(() => {
   return (
     <>
       <Header />
-      <main class="mx-auto pt-28 lg:pt-32 max-w-7xl px-4 md:px-8">
+      <main class="mx-auto pt-28 lg:pt-32 max-w-7xl px-4 md:px-8 mb-24">
         <Slot />
       </main>
-      <footer></footer>
+      <Footer />
     </>
   );
 });
