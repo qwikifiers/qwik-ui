@@ -20,3 +20,4 @@ export * as Select from './components/select/select';
 export * from './components/slider';
 export * from './components/breadcrumb';
 export * from './components/navigation-bar/navigation-bar';
+export * from './components/input-password';

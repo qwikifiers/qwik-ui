@@ -104,6 +104,10 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       label: 'Progress',
       path: `/docs/${appState.theme.toLowerCase()}/progress`,
     },
+    {
+      label: 'Input Password',
+      path: `/docs/${appState.theme.toLowerCase()}/input-password`,
+    },
   ];
 
   const onChangePage = $(() => {

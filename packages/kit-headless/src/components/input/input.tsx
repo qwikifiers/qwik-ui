@@ -1,16 +1,17 @@
 import {
-  component$,
   JSXNode,
   QRL,
   QwikIntrinsicElements,
-  type Signal,
   Slot,
-  useSignal,
-  useId,
+  component$,
   createContextId,
-  useContextProvider,
   useContext,
+  useContextProvider,
+  useId,
+  useSignal,
+  type Signal,
 } from '@builder.io/qwik';
+import { InputPassword, InputPasswordProps } from '../input-password';
 import { InputPhone, type InputPhoneProps } from '../input-phone';
 
 type InputContextService = {
@@ -107,6 +108,19 @@ export const Phone = component$((props: InputPhoneProps) => {
 
   return (
     <InputPhone
+      {...props}
+      aria-describedby={`hint-${id} message-${id}`}
+      id={id}
+    />
+  );
+});
+
+export const Password = component$<InputPasswordProps>((props) => {
+  const context = useContext(inputContext);
+  const id = props.id || context.id;
+
+  return (
+    <InputPassword
       {...props}
       aria-describedby={`hint-${id} message-${id}`}
       id={id}

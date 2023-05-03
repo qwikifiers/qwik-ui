@@ -1,7 +1,7 @@
-import { component$, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
 import { Input } from '@qwik-ui/headless';
 
-const { Root, Label, Hint, Phone, Message } = Input;
+const { Root, Label, Hint, Phone, Message, Password } = Input;
 
 export default component$(() => {
   const { scopeId } = useStylesScoped$(`
@@ -14,6 +14,8 @@ export default component$(() => {
       margin-block: 2em;
     }
   `);
+
+  const passwordMessage = useSignal('');
 
   return (
     <>
@@ -60,6 +62,32 @@ export default component$(() => {
         </Hint>
         <Phone />
         <Message status="rejected">Your phone number is valid</Message>
+      </Root>
+
+      <h2>Password input</h2>
+
+      <Root class={[scopeId, 'form-item']}>
+        <Label>
+          <h3>Password</h3>
+        </Label>
+        <Hint>This password will be used to login to your account.</Hint>
+        <Password
+          constraints={{
+            minCapitalLetters: 4,
+            minLength: 4,
+            minNumbers: 4,
+            minSpecialCharacters: 1,
+          }}
+          onPasswordChange$={(pass, message) => {
+            passwordMessage.value = message;
+          }}
+          autoComplete={'current-password'}
+        />
+        <Message
+          status={passwordMessage.value === 'OK' ? 'resolved' : 'pending'}
+        >
+          {passwordMessage.value}
+        </Message>
       </Root>
 
       <hr />
