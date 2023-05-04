@@ -8,6 +8,7 @@ export * as Carousel from './components/carousel/carousel';
 export * from './components/carousel/use';
 export * from './components/pagination/pagination';
 export * from './components/collapse/collapse';
+export * as Dialog from './components/dialog/dialog'
 export * from './components/drawer';
 export * from './components/input-phone';
 export * as Input from './components/input/input';

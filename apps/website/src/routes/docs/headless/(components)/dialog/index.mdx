@@ -1,0 +1,43 @@
+---
+title: Qwik UI | Dialog
+---
+
+import { Dialog } from '@qwik-ui/headless';
+import { Example01 } from './examples';
+import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
+
+# Dialog
+
+#### A window overlaid on either the primary window or another dialog window, rendering the content underneath inert. ([Definition comes from Radix-UI](https://www.radix-ui.com/docs/primitives/components/dialog))
+
+{' '}
+
+<Example01>
+  ```tsx
+  <Dialog.Root>
+    <Dialog.Trigger>
+      <button>Open Dialog</button>
+    </Dialog.Trigger>
+    <Dialog.Portal>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+        aliquid architecto delectus deleniti dolor
+      </p>
+    </Dialog.Portal>
+
+  </Dialog.Root>
+  ```
+</Example01>
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Escape',
+      description: 'Closes the dialog.',
+    },
+  ]}
+/>
