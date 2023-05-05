@@ -1,13 +1,11 @@
 import { component$, Slot } from '@builder.io/qwik';
-import {
-  Alert as HeadlessAlert,
-  AlertProps as HeadlessAlertProps,
-} from '@qwik-ui/primitives';
+
 import { clsq } from '@qwik-ui/shared';
 import { Button, ButtonProps } from '../button/button';
 import { daisyConfig } from './daisy.config';
 
-export interface TailwindAlertProps extends HeadlessAlertProps {
+export interface TailwindAlertProps {
+  class?: string;
   variant?: TailwindAlertVariants;
   size?: TailwindAlertSizes;
   rounding?: TailwindAlertRoundings;
@@ -35,7 +33,7 @@ export const Alert = component$((props: TailwindAlertProps) => {
   const { variants, sizes, radius } = daisyConfig;
 
   return (
-    <HeadlessAlert
+    <div
       {...rest}
       class={clsq(
         variants[variant],
@@ -57,6 +55,6 @@ export const Alert = component$((props: TailwindAlertProps) => {
           {action.label}
         </Button>
       ) : null}
-    </HeadlessAlert>
+    </div>
   );
 });

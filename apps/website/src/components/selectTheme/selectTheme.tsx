@@ -35,7 +35,7 @@ export const SelectTheme = component$(() => {
                 openThemeSignal.value = false;
                 const oldTheme = appState.theme;
                 appState.theme = theme;
-                if (location.pathname !== '/docs/') {
+                if (location.url.pathname !== '/docs/') {
                   window.location.pathname = window.location.pathname.replace(
                     oldTheme.toLowerCase(),
                     theme.toLowerCase()
