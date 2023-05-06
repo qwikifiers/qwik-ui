@@ -272,6 +272,16 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "igalklebanov",
+      "name": "Igal Klebanov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14938291?v=4",
+      "profile": "https://github.com/igalklebanov",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
