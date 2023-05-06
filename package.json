@@ -11,7 +11,8 @@
     "commit": "git-cz",
     "format:fix": "pretty-quick --staged",
     "prepare": "husky install",
-    "test:headless": "nx component-test headless --watch"
+    "test:headless": "nx storybook headless",
+    "website": "nx serve website"
   },
   "devDependencies": {
     "@builder.io/qwik": "0.101.0",
