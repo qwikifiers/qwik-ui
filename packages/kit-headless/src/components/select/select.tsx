@@ -111,7 +111,7 @@ const Root = component$(({ defaultValue, ...props }: RootProps) => {
   );
 });
 
-interface TriggerProps extends StyleProps {
+export interface TriggerProps extends StyleProps {
   disabled?: boolean;
 }
 
