@@ -1,13 +1,13 @@
 import { Slot, component$, useId } from '@builder.io/qwik';
 import {
-  Root,
-  Label,
-  Trigger,
-  Value,
-  Marker,
-  ListBox,
-  Option,
-  Group,
+  SelectRoot,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+  SelectMarker,
+  SelectListBox,
+  SelectOption,
+  SelectGroup,
 } from '@qwik-ui/headless';
 import { PreviewCodeExample } from 'apps/website/src/components/preview-code-example/preview-code-example';
 
@@ -15,13 +15,13 @@ export const Example01 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <Root>
-          <Label class="text-black dark:text-white">
+        <SelectRoot>
+          <SelectLabel class="text-black dark:text-white">
             Lorem ipsum dolor sit amet
-          </Label>
-          <Trigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
-            <Value placeholder="Select an option! ⚡" />
-            <Marker class="w-6 h-6">
+          </SelectLabel>
+          <SelectTrigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
+            <SelectValue placeholder="Select an option! ⚡" />
+            <SelectMarker class="w-6 h-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -33,12 +33,12 @@ export const Example01 = component$(() => {
               >
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
-            </Marker>
-          </Trigger>
-          <ListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
-            <Option value="🚀 Qwik" class="p-4" />
-            <Group class="p-4">
-              <Label class="p-4">Fruits</Label>
+            </SelectMarker>
+          </SelectTrigger>
+          <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+            <SelectOption value="🚀 Qwik" class="p-4" />
+            <SelectGroup class="p-4">
+              <SelectLabel class="p-4">Fruits</SelectLabel>
               {[
                 { value: '🍎 Apple', disabled: false },
                 { value: '🍌 Banana', disabled: false },
@@ -46,7 +46,7 @@ export const Example01 = component$(() => {
                 { value: '🐲 Dragonfruit', disabled: true },
               ].map((option) => {
                 return (
-                  <Option
+                  <SelectOption
                     key={useId()}
                     value={option.value}
                     disabled={option.disabled}
@@ -54,9 +54,9 @@ export const Example01 = component$(() => {
                   />
                 );
               })}
-            </Group>
-          </ListBox>
-        </Root>
+            </SelectGroup>
+          </SelectListBox>
+        </SelectRoot>
       </div>
 
       <div q:slot="codeExample">
@@ -70,10 +70,10 @@ export const Example02 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <Root>
-          <Trigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
-            <Value placeholder="Home" />
-            <Marker class="w-6 h-6">
+        <SelectRoot>
+          <SelectTrigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
+            <SelectValue placeholder="Home" />
+            <SelectMarker class="w-6 h-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -85,14 +85,14 @@ export const Example02 = component$(() => {
               >
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
-            </Marker>
-          </Trigger>
-          <ListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
-            <Option value="Orders" class="p-4" />
-            <Option value="Settings" class="p-4" />
-            <Option value="Contact us" class="p-4" />
-          </ListBox>
-        </Root>
+            </SelectMarker>
+          </SelectTrigger>
+          <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+            <SelectOption value="Orders" class="p-4" />
+            <SelectOption value="Settings" class="p-4" />
+            <SelectOption value="Contact us" class="p-4" />
+          </SelectListBox>
+        </SelectRoot>
       </div>
 
       <div q:slot="codeExample">

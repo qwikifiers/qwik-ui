@@ -1,20 +1,20 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
 import { within, userEvent, waitFor } from '@storybook/testing-library';
 import {
-  Root,
-  ListBox,
-  Trigger,
-  Option,
+  SelectRoot,
+  SelectListBox,
+  SelectTrigger,
+  SelectOption,
   TriggerProps,
-  Value,
-  Marker,
-  Group,
-  Label,
+  SelectValue,
+  SelectMarker,
+  SelectGroup,
+  SelectLabel,
 } from './select';
 import { expect } from '@storybook/jest';
 
 const meta: Meta<TriggerProps> = {
-  component: Trigger,
+  component: SelectTrigger,
 };
 
 export default meta;
@@ -50,13 +50,15 @@ const dramas: TVSeries[] = [
 
 export const Primary: Story = {
   render: () => (
-    <Root>
-      <Label style="margin-right: 12px">What's your favorite TV show?</Label>
+    <SelectRoot>
+      <SelectLabel style="margin-right: 12px">
+        What's your favorite TV show?
+      </SelectLabel>
 
-      <Trigger>
-        <Value data-testid="select-value" placeholder="Pick an option" />
+      <SelectTrigger>
+        <SelectValue data-testid="select-value" placeholder="Pick an option" />
 
-        <Marker>
+        <SelectMarker>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -69,33 +71,33 @@ export const Primary: Story = {
           >
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
-        </Marker>
-      </Trigger>
+        </SelectMarker>
+      </SelectTrigger>
 
-      <ListBox>
-        <Group>
-          <Label>Comedies</Label>
+      <SelectListBox>
+        <SelectGroup>
+          <SelectLabel>Comedies</SelectLabel>
           {comedies.map((comedy, index) => (
-            <Option
+            <SelectOption
               key={`comedy-${index}`}
               value={comedy.title}
               disabled={comedy.disabled}
             />
           ))}
-        </Group>
+        </SelectGroup>
 
-        <Group>
-          <Label>Dramas</Label>
+        <SelectGroup>
+          <SelectLabel>Dramas</SelectLabel>
           {dramas.map((drama, index) => (
-            <Option
+            <SelectOption
               key={`drama-${index}`}
               value={drama.title}
               disabled={drama.disabled}
             />
           ))}
-        </Group>
-      </ListBox>
-    </Root>
+        </SelectGroup>
+      </SelectListBox>
+    </SelectRoot>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
