@@ -262,6 +262,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "naorpeled",
+      "name": "Naor Peled",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6171622?v=4",
+      "profile": "https://naor.dev",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
