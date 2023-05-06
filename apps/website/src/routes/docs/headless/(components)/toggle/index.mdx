@@ -64,3 +64,32 @@ import { APITable } from '../../../../../components/api-table/api-table';
     },
   ]}
 />
+
+## API
+
+### Toggle
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'pressed',
+      type: 'boolean',
+      description: 'Toggle between pressed and not pressed state',
+    },
+    {
+      name: 'defaultPressed',
+      type: 'boolean',
+      description: 'The default pressed state when the toggle is rendered',
+    },
+    {
+      name: 'onClick$',
+      type: 'PropFunction<() => void>',
+      description: 'A custom click handler to wire to the toggle click event',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Sets whether the toggle is disabled or not',
+    },
+  ]}
+/>

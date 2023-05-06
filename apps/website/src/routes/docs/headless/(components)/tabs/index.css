@@ -1,12 +1,12 @@
-* [role='tab'] {
+.tabs-example [role='tab'] {
   width: 250px;
   background: lightgreen;
 }
 
-* [role='tab'].selected {
+.tabs-example [role='tab'].selected {
   background: magenta;
 }
 
-* [role='tablist'] {
+.tabs-example [role='tablist'] {
   border: 1px solid;
 }
