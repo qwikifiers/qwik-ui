@@ -1,7 +1,7 @@
 import { $, component$, PropFunction, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 
-import { APP_STATE } from '../../constants';
+import { OLD_APP_STATE_CONTEXT_ID } from '../../constants';
 import { CloseIcon } from '../icons/CloseIcon';
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const Menu = component$<Props>(({ onClose$ }) => {
-  const appState = useContext(APP_STATE);
+  const appState = useContext(OLD_APP_STATE_CONTEXT_ID);
 
   const menu = [
     {

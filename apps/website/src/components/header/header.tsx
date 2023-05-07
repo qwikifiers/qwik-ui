@@ -1,54 +1,66 @@
 import {
   $,
   component$,
+  useComputed$,
   useContext,
   useSignal,
-  useTask$,
 } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
-import { isBrowser } from '@builder.io/qwik/build';
-import { version } from '../../../../../package.json';
-import { APP_STATE } from '../../constants';
+import { Link, useLocation } from '@builder.io/qwik-city';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { version as tailwindVersion } from '../../../../../packages/kit-tailwind/package.json';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
 import { MenuIcon } from '../icons/MenuIcon';
 import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
 import { Menu } from '../menu/menu';
-import { SelectTheme } from '../selectTheme/selectTheme';
+import { APP_STATE_CONTEXT_ID } from '../../_state/app-state-context-id';
 
-export default component$(() => {
-  const location = useLocation();
-  const appState = useContext(APP_STATE);
-  const menuOpenSignal = useSignal(false);
+export interface HeaderProps {
+  showVersion?: boolean;
+  showBottomBorder?: boolean;
+}
 
-  const toggleMenu$ = $(() => {
-    menuOpenSignal.value = !menuOpenSignal.value;
-  });
+export default component$(
+  ({ showVersion = false, showBottomBorder = false }: HeaderProps) => {
+    const location = useLocation();
+    const appState = useContext(APP_STATE_CONTEXT_ID);
+    const menuOpenSignal = useSignal(false);
 
-  const toggleDarkMode = $(() => {
-    appState.darkMode = !appState.darkMode;
-  });
+    const kitSignal = useComputed$(() => {
+      if (location.url.pathname.indexOf('headless') !== -1) {
+        return {
+          name: 'Headless',
+          version: headlessVersion,
+        };
+      }
+      if (location.url.pathname.indexOf('tailwind') !== -1) {
+        return {
+          name: 'Tailwind',
+          version: tailwindVersion,
+        };
+      }
+    });
 
-  const setThemeClass = $(() => {
-    if (isBrowser) {
-      const theme = appState.darkMode ? 'dark' : 'light';
-      document.documentElement.setAttribute('class', theme);
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-    }
-  });
+    const toggleMenu$ = $(() => {
+      menuOpenSignal.value = !menuOpenSignal.value;
+    });
 
-  useTask$(({ track }) => {
-    track(() => appState.darkMode);
-    setThemeClass();
-  });
+    const toggleDarkMode = $(() => {
+      appState.mode = appState.mode === 'light' ? 'dark' : 'light';
+    });
 
-  const isDocsRoute = location.url.pathname.indexOf('/docs/') !== -1;
-
-  return (
-    <header class="fixed w-full z-10 border-b border-slate-600">
-      <div class="flex p-4">
+    return (
+      <header
+        class={[
+          `fixed top-0 w-full h-20 z-20 bg-[var(--color-bg)] flex gap-8 p-4 items-center`,
+          showBottomBorder
+            ? `border-b-[1px] border-slate-300 dark:border-slate-600`
+            : ``,
+        ]}
+      >
         <button
           type="button"
           aria-label="Toggle navigation"
@@ -65,34 +77,44 @@ export default component$(() => {
             </div>
           </aside>
         )}
-        <div class="pl-6">
-          <a href="/">
-            <img src="/qwik-ui.png" class="w-32" />
+        <a href="/" class="lg:ml-8">
+          <img src="/qwik-ui.png" class="h-12 w-auto object-contain" />
+        </a>
+        <div data-tip="Qwik-UI Version" class="mr-auto">
+          {showVersion && (
+            <div class="flex flex-col">
+              <span> {kitSignal.value?.name} Kit </span>
+              <span> v.{kitSignal.value?.version} </span>
+            </div>
+          )}
+        </div>
+
+        <nav class="hidden sm:flex gap-4">
+          <a href="/about">About</a>
+          <a href="/docs/headless/introduction">Headless Kit</a>
+          <a href="/docs/tailwind/introduction">Tailwind Kit</a>
+          <a href="https://discord.gg/PVWUUejrez" target="_blank">
+            Community
           </a>
-        </div>
-        <div class="flex gap-2 w-full justify-end">
-          <div data-tip="Qwik-UI Version" class="pt-2.5 px-2">
-            v.{version}
-          </div>
-          {isDocsRoute && <SelectTheme />}
-          <button
-            type="button"
-            aria-label="Toggle dark mode"
-            onClick$={toggleDarkMode}
-          >
-            {appState.darkMode ? <MoonIcon /> : <SunIcon />}
-          </button>
-          <div class="px-2 pt-2">
-            <a
-              target="_blank"
-              href="https://github.com/qwikifiers/qwik-ui"
-              aria-label="Qwik-UI GitHub repository"
-            >
-              <GitHubIcon />
-            </a>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-});
+          {/* <a href="/contact">Contact</a> */}
+        </nav>
+
+        <button
+          type="button"
+          aria-label="Toggle dark mode"
+          onClick$={toggleDarkMode}
+        >
+          {appState.mode === 'dark' ? <MoonIcon /> : <SunIcon />}
+        </button>
+        <a
+          target="_blank"
+          href="https://github.com/qwikifiers/qwik-ui"
+          aria-label="Qwik-UI GitHub repository"
+          class="sm:mr-8"
+        >
+          <GitHubIcon />
+        </a>
+      </header>
+    );
+  }
+);
