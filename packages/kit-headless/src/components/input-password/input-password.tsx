@@ -9,6 +9,7 @@ import {
   useContextProvider,
 } from '@builder.io/qwik';
 import type { Context, Params } from './use/input-password';
+import { useCheckPassword } from './use/check-password';
 import { useInputPassword } from './use/input-password';
 import { IconHidden, IconVisible } from './icons';
 
@@ -23,6 +24,7 @@ type RootProps = Partial<Params>;
 export const Root = component$((props: RootProps) => {
   const service = useInputPassword(props);
   useContextProvider(QuiInputPasswordContext, service);
+  useCheckPassword(service);
 
   return <Slot />;
 });
