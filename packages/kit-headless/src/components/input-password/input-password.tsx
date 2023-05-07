@@ -1,89 +1,73 @@
 import {
-  Component,
-  QRL,
+  $,
   QwikIntrinsicElements,
+  Slot,
   component$,
-  useSignal,
-  useVisibleTask$,
+  createContextId,
+  useComputed$,
+  useContext,
+  useContextProvider,
 } from '@builder.io/qwik';
-import checkpass from 'checkpass';
-import { Constraints } from './checkpass-types';
+import type { Context, Params } from './use/input-password';
+import { useInputPassword } from './use/input-password';
+import { IconHidden, IconVisible } from './icons';
 
-type AnyComponent = Component<QwikIntrinsicElements[any]>;
-export type InputPasswordProps = QwikIntrinsicElements['input'] & {
-  constraints?: Constraints;
-  value?: string;
-  disabled?: boolean;
-  autoComplete: 'current-password' | 'new-password';
-  onPasswordChange$?: QRL<(password: string, message: string) => void>;
-  RenderShowIcon?: AnyComponent;
-  RenderHideIcon?: AnyComponent;
-  buttonShowAriaMessage?: string;
-  buttonHideAriaMessage?: string;
-};
-
-export const HeadlessShowIcon = component$(
-  (props: QwikIntrinsicElements['span']) => {
-    return <span {...props}>show</span>;
-  }
-);
-export const HeadlessHideIcon = component$(
-  (props: QwikIntrinsicElements['span']) => {
-    return <span {...props}>hide</span>;
-  }
+export const QuiInputPasswordContext = createContextId<Context>(
+  'input-password-root'
 );
 
-export const InputPassword = component$(
-  ({
-    value = '',
-    disabled = false,
-    required = false,
-    constraints,
-    RenderShowIcon = HeadlessShowIcon,
-    RenderHideIcon = HeadlessHideIcon,
-    onPasswordChange$,
-    buttonShowAriaMessage: buttonShowMessage = 'Show password',
-    buttonHideAriaMessage: buttonHideMessage = 'Hide password',
-    ...props
-  }: InputPasswordProps) => {
-    const password = useSignal(value);
-    const isHidden = useSignal(true);
+// Root
 
-    useVisibleTask$(({ track }) => {
-      const pass = track(() => password.value);
-      const message = checkpass(pass, constraints);
-      onPasswordChange$ && onPasswordChange$(pass, message);
-    });
+type RootProps = Partial<Params>;
 
-    return (
-      <div>
-        <input
-          bind:value={password}
-          type={isHidden.value ? 'password' : 'text'}
-          aria-required={required}
-          required={required}
-          aria-disabled={disabled}
-          disabled={disabled}
-          {...props}
-        />
-        <button
-          type={'button'}
-          role="switch"
-          aria-label={isHidden.value ? buttonShowMessage : buttonHideMessage}
-          aria-checked={isHidden.value}
-          aria-disabled={disabled}
-          disabled={disabled}
-          onClick$={() => {
-            isHidden.value = !isHidden.value;
-          }}
-        >
-          {isHidden.value ? (
-            <RenderShowIcon aria-hidden={true} />
-          ) : (
-            <RenderHideIcon aria-hidden={true} />
-          )}
-        </button>
-      </div>
-    );
-  }
-);
+export const Root = component$((props: RootProps) => {
+  const service = useInputPassword(props);
+  useContextProvider(QuiInputPasswordContext, service);
+
+  return <Slot />;
+});
+
+// Input
+
+type InputProps = Omit<QwikIntrinsicElements['input'], 'value' | 'type'>;
+
+export const Input = component$((props: InputProps) => {
+  const { visible, value } = useContext(QuiInputPasswordContext);
+  const type = useComputed$(() => (visible.value ? 'text' : 'password'));
+
+  return <input {...props} bind:value={value} type={type.value} />;
+});
+
+// Toggler
+
+type TogglerProps = QwikIntrinsicElements['button'];
+
+export const Toggler = component$(({ onClick$, ...props }: TogglerProps) => {
+  const { visible } = useContext(QuiInputPasswordContext);
+  const toggle$ = $(() => (visible.value = !visible.value));
+
+  return (
+    <button
+      {...props}
+      aria-pressed={visible.value}
+      type="button"
+      onClick$={[toggle$, onClick$]}
+    >
+      <Slot />
+    </button>
+  );
+});
+
+// Icon
+
+type IconProps = QwikIntrinsicElements['svg'];
+
+export const Icon = component$((props: IconProps) => {
+  const { visible } = useContext(QuiInputPasswordContext);
+
+  return visible.value ? (
+    <IconVisible {...props} aria-hidden={true} />
+  ) : (
+    <IconHidden {...props} aria-hidden={true} />
+  );
+});

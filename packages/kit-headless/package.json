@@ -35,6 +35,7 @@
     "build-storybook1": "storybook build"
   },
   "dependencies": {
-    "@floating-ui/dom": "1.0.10"
+    "@floating-ui/dom": "1.0.10",
+    "checkpass": "3.0.0"
   }
 }
