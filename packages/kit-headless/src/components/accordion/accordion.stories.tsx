@@ -1,27 +1,40 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
-import { Accordion, AccordionItem, AccordionProps } from './accordion';
-import { within, userEvent } from '@storybook/testing-library';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionProps,
+  AccordionItemProps,
+} from './accordion';
+import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
 const meta: Meta<AccordionProps> = {
   component: Accordion,
 };
 
+type Story = StoryObj<{
+  accordion: AccordionProps;
+  accordionItem: AccordionItemProps;
+}>;
+
 export default meta;
 
-type Story = StoryObj<AccordionProps>;
-
 export const Primary: Story = {
-  render: () => (
+  args: {
+    accordionItem: {
+      label: 'Label of the accordion being tested',
+    },
+  },
+  render: (args) => (
     <Accordion>
-      <AccordionItem label="Item 1">This is a test</AccordionItem>
+      <AccordionItem label={args.accordionItem.label}>
+        Content of the accordion
+      </AccordionItem>
     </Accordion>
   ),
-  play: async ({ canvasElement }) => {
+  play: ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-
-    await userEvent.click(canvas.getByText('Item 1'));
-
-    await expect(canvas.getByText('This is a test')).toBeInTheDocument();
+    userEvent.click(canvas.getByText(args.accordionItem.label));
+    expect(canvas.getByText('Content of the accordion')).toBeTruthy();
   },
 };
