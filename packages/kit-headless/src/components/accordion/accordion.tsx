@@ -73,11 +73,12 @@ export const AccordionItem = component$((props: AccordionItemProps) => {
       }
     `);
   const contextService = useContext(accordionContext);
+  const ref = useSignal<HTMLElement>();
   return (
-    <div class="item">
+    <div ref={ref} class="item">
       <button
         onClick$={(e) => {
-          const target = (e.target as HTMLElement).parentElement;
+          const target = ref.value;
           contextService.items.forEach((i: HTMLElement) => {
             if (target === i) {
               return;
@@ -92,7 +93,7 @@ export const AccordionItem = component$((props: AccordionItemProps) => {
       >
         {props.label}
       </button>
-      <div class="content">
+      <div class="content" aria-hidden={!!ref.value?.getAttribute('open')}>
         <Slot />
       </div>
     </div>
