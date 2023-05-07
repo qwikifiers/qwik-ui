@@ -25,7 +25,7 @@ interface AccordionContextService {
   setItemsBoxRef$: QRL<(ref: Signal<HTMLElement | undefined>) => void>;
 }
 
-interface AccordionItemProps {
+export interface AccordionItemProps {
   label: string;
   disabled?: boolean;
   class?: string;
