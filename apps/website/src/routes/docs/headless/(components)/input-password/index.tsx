@@ -15,6 +15,7 @@ export default component$(() => {
       disallowCharacters: ['$', '*'],
     },
   });
+  const input3 = useInputPassword();
 
   return (
     <div class="flex flex-col gap-8">
@@ -45,8 +46,6 @@ export default component$(() => {
       </div>
 
       <div>
-        <p>This is the documentation for the Input Password</p>
-
         <h2>With constraints</h2>
 
         <p>
@@ -75,6 +74,25 @@ export default component$(() => {
           <InputPassword.Toggler>
             <InputPassword.Icon />
           </InputPassword.Toggler>
+        </InputPassword.Root>
+      </div>
+
+      <div>
+        <h2>With confirm</h2>
+
+        <ul>
+          <li>Password: {input3.value.value}</li>
+          <li>Visible: {input3.visible.value ? 'yes' : 'no'}</li>
+          <li>Match: {input3.match.value ? 'yes' : 'no'}</li>
+        </ul>
+
+        <InputPassword.Root {...input3}>
+          <InputPassword.Input />
+          <InputPassword.Toggler>
+            <InputPassword.Icon />
+          </InputPassword.Toggler>
+          <div>confirm</div>
+          <InputPassword.InputConfirm />
         </InputPassword.Root>
       </div>
     </div>

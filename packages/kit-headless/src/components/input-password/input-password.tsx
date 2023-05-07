@@ -7,6 +7,8 @@ import {
   useComputed$,
   useContext,
   useContextProvider,
+  useSignal,
+  useTask$,
 } from '@builder.io/qwik';
 import type { Context, Params } from './use/input-password';
 import { useCheckPassword } from './use/check-password';
@@ -38,6 +40,22 @@ export const Input = component$((props: InputProps) => {
   const type = useComputed$(() => (visible.value ? 'text' : 'password'));
 
   return <input {...props} bind:value={value} type={type.value} />;
+});
+
+// InputConfirm
+
+type InputConfirmProps = Omit<QwikIntrinsicElements['input'], 'type'>;
+
+export const InputConfirm = component$((props: InputConfirmProps) => {
+  const { value, match } = useContext(QuiInputPasswordContext);
+  const confirm = useSignal<string>((props.value as string) || '');
+
+  useTask$(({ track }) => {
+    track(() => [confirm.value, value.value]);
+    match.value = confirm.value === value.value;
+  });
+
+  return <input {...props} bind:value={confirm} type="password" />;
 });
 
 // Toggler

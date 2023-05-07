@@ -11,6 +11,7 @@ type PasswordAutocomplete = 'on' | 'off' | 'current-password' | 'new-password';
 export type Params = {
   autoComplete: PasswordAutocomplete | Signal<PasswordAutocomplete>;
   errors: Signal<CheckError[]>;
+  match: boolean | Signal<boolean>;
   rules: Partial<Rules> | undefined;
   value: string | Signal<string>;
   visible: boolean | Signal<boolean>;
@@ -19,6 +20,7 @@ export type Params = {
 export type Context = {
   autoComplete: Signal<PasswordAutocomplete>;
   errors: Signal<CheckError[]>;
+  match: Signal<boolean>;
   rules: Rules;
   value: Signal<string>;
   visible: Signal<boolean>;
@@ -34,15 +36,14 @@ export const useInputPassword = (params: Partial<Params> | void): Context => {
   const value = inferParam(params?.value, DEFAULT_VALUE);
 
   const autoComplete = inferParam(params?.autoComplete, DEFAULT_AUTOCOMPLETE);
-  const errors = inferParam(
-    params?.errors,
-    checkPassword(value.value, params?.rules)
-  );
+  const match = inferParam(params?.match, false);
+  const errors = inferParam(params?.errors, checkPassword(value.value, rules));
   const visible = inferParam(params?.visible, DEFAULT_VISIBLE);
 
   return useStore({
     autoComplete,
     errors,
+    match,
     rules,
     value,
     visible,
