@@ -21,7 +21,7 @@ export default component$(() => {
       <div>
         <p>This is the documentation for the Input Password</p>
 
-        <h2>Simple usage of Password Example</h2>
+        <h2>Password Example</h2>
 
         <ul>
           <li>Password: {input.value.value}</li>
