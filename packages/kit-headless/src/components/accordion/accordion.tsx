@@ -13,6 +13,7 @@ import {
   useSignal,
   useStore,
   useStylesScoped$,
+  useId,
 } from '@builder.io/qwik';
 
 export type AccordionProps = HTMLAttributes<HTMLElement>;
@@ -25,7 +26,7 @@ interface AccordionContextService {
   setItemsBoxRef$: QRL<(ref: Signal<HTMLElement | undefined>) => void>;
 }
 
-interface AccordionItemProps {
+export interface AccordionItemProps {
   label: string;
   disabled?: boolean;
   class?: string;
@@ -73,11 +74,17 @@ export const AccordionItem = component$((props: AccordionItemProps) => {
       }
     `);
   const contextService = useContext(accordionContext);
+  const ref = useSignal<HTMLElement>();
+  const id = useId();
+
   return (
-    <div class="item">
+    <div ref={ref} class="item">
       <button
+        id={`${id}__trigger`}
+        aria-controls={`${id}__body`}
+        aria-expanded={!!ref.value?.getAttribute('open')}
         onClick$={(e) => {
-          const target = (e.target as HTMLElement).parentElement;
+          const target = ref.value;
           contextService.items.forEach((i: HTMLElement) => {
             if (target === i) {
               return;
@@ -92,7 +99,13 @@ export const AccordionItem = component$((props: AccordionItemProps) => {
       >
         {props.label}
       </button>
-      <div class="content">
+      <div
+        role="region"
+        id={`${id}__body`}
+        class="content"
+        aria-labelledby={`${id}__trigger`}
+        aria-hidden={!!ref.value?.getAttribute('open')}
+      >
         <Slot />
       </div>
     </div>
