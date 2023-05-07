@@ -1,0 +1,19 @@
+:where([attr-data-qui='carousel-wapper']) {
+  display: grid;
+}
+
+:where([attr-data-qui='carousel']) {
+  /**
+   give some room for showing the outline on focus.
+   Better solution would prevent from hidding the outline
+   behind the overflow – stacking issue.
+  **/
+  padding: 0.3em;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+}
