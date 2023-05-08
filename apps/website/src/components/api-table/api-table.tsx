@@ -1,4 +1,4 @@
-import { component$, $, QRL } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 
 type APITableProps = {
   propDescriptors: {
