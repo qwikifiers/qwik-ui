@@ -19,7 +19,6 @@ export const useCheckPassword = (service: Context) => {
   useTask$(({ track }) => {
     const value = track(() => service.value.value);
     const checks = checkPassword(value, service.rules);
-    console.log({ checks });
     service.errors.value = checks;
   });
 };
@@ -32,13 +31,6 @@ export const useCheckPassword = (service: Context) => {
  */
 export const checkPassword = (value: string, rules: Rules) => {
   const checks = checkpass(value, constraints(rules));
-
-  // if (rules) {
-  //   console.log('----------------');
-  //   console.log({ rules: constraints(rules) });
-  //   console.log({ checks });
-  //   console.log('----------------\n\n')
-  // }
 
   return Object.entries(checks)
     .filter(([, { value }]) => value)
