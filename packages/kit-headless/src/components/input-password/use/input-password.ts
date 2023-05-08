@@ -1,6 +1,5 @@
 import { useSignal, type Signal, useStore } from '@builder.io/qwik';
-import { CheckError } from 'checkpass';
-import { type Rules, checkPassword } from './check-password';
+import { type Error, type Rules, checkPassword } from './check-password';
 
 const DEFAULT_AUTOCOMPLETE: PasswordAutocomplete = 'current-password';
 const DEFAULT_VALUE = '';
@@ -10,7 +9,7 @@ type PasswordAutocomplete = 'on' | 'off' | 'current-password' | 'new-password';
 
 export type Params = {
   autoComplete: PasswordAutocomplete | Signal<PasswordAutocomplete>;
-  errors: Signal<CheckError[]>;
+  errors: Signal<Error[]>;
   match: boolean | Signal<boolean>;
   rules: Partial<Rules> | undefined;
   value: string | Signal<string>;
@@ -19,7 +18,7 @@ export type Params = {
 
 export type Context = {
   autoComplete: Signal<PasswordAutocomplete>;
-  errors: Signal<CheckError[]>;
+  errors: Signal<Error[]>;
   match: Signal<boolean>;
   rules: Rules;
   value: Signal<string>;
