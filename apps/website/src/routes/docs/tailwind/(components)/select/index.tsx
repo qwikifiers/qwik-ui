@@ -1,4 +1,4 @@
-import { component$, useId, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import {
   SelectGroup,
   SelectLabel,
@@ -37,7 +37,7 @@ export default component$(() => {
             ].map((option) => {
               return (
                 <SelectOption
-                  key={useId()}
+                  key={option.value}
                   value={option.value}
                   disabled={option.disabled}
                   class="px-1 leading-loose hover:bg-gray-300"
