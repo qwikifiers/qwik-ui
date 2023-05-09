@@ -8,7 +8,7 @@ import {
   Trigger,
   Value,
 } from '@qwik-ui/headless';
-import styles from './css?inline';
+import styles from './select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
