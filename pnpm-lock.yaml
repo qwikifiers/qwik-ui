@@ -36,7 +36,7 @@ importers:
         version: 2.30.1(@nrwl/devkit@15.9.3)
       '@k11r/nx-cloudflare-wrangler':
         specifier: ^2.0.0
-        version: 2.4.2(@nrwl/devkit@15.9.3)(@nrwl/node@16.1.0)(@nrwl/tao@16.0.3)(esbuild@0.14.54)(tslib@2.5.0)(wrangler@2.18.0)
+        version: 2.4.2(@nrwl/devkit@15.9.3)(@nrwl/node@16.1.0)(@nrwl/tao@16.1.0)(esbuild@0.14.54)(tslib@2.5.0)(wrangler@2.18.0)
       '@nx/cypress':
         specifier: 16.0.3
         version: 16.0.3(cypress@12.9.0)(eslint@8.36.0)(nx@16.0.3)(typescript@5.0.4)
@@ -3804,7 +3804,7 @@ packages:
       }
     dev: true
 
-  /@k11r/nx-cloudflare-wrangler@2.4.2(@nrwl/devkit@15.9.3)(@nrwl/node@16.1.0)(@nrwl/tao@16.0.3)(esbuild@0.14.54)(tslib@2.5.0)(wrangler@2.18.0):
+  /@k11r/nx-cloudflare-wrangler@2.4.2(@nrwl/devkit@15.9.3)(@nrwl/node@16.1.0)(@nrwl/tao@16.1.0)(esbuild@0.14.54)(tslib@2.5.0)(wrangler@2.18.0):
     resolution:
       {
         integrity: sha512-BB7oad9Zl+3CvDuKSrqymxc/wmeHezchNdQS85TEmJygKZqAmGMt95q1c5zaqG498C0L1BOATaL6WcNEtlYDog==,
@@ -3819,7 +3819,7 @@ packages:
     dependencies:
       '@nrwl/devkit': 15.9.3(nx@16.0.3)
       '@nrwl/node': 16.1.0(@types/node@18.16.1)(eslint@8.36.0)(nx@16.0.3)(ts-node@10.9.1)(typescript@5.0.4)
-      '@nrwl/tao': 16.0.3
+      '@nrwl/tao': 16.1.0
       esbuild: 0.14.54
       tslib: 2.5.0
       wrangler: 2.18.0
