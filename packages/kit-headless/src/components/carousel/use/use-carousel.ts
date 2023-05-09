@@ -37,9 +37,11 @@ export type Params = {
 };
 
 export const useCarousel = (params: Params | void): CarouselContext => {
+  const generatedId = useId();
+  const newRef = useSignal(undefined);
   const defaultParams = {
-    id: params?.id || useId(),
-    ref: params?.ref || useSignal(),
+    id: params?.id || generatedId,
+    ref: params?.ref || newRef,
     startAt: params?.startAt ?? 0,
     loop: params?.loop ?? true,
     transition: params?.transition ?? 350,
