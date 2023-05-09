@@ -1,103 +1,60 @@
 import {
+  $,
   component$,
   createContextId,
   QwikIntrinsicElements,
-  type Signal,
   Slot,
   useContext,
   useContextProvider,
-  useSignal,
   useStylesScoped$,
-  QRL,
   useId,
-  $,
 } from '@builder.io/qwik';
-import { useCarousel } from './use-carousel';
-import { useOrdinal } from './use-ordinal';
+import { useOrdinal } from '@qwik-ui/shared';
 
-import stylesButtons from './styles-buttons.css?inline';
-import stylesControl from './styles-control.css?inline';
-import stylesItem from './styles-item.css?inline';
-import stylesItems from './styles-items.css?inline';
+import stylesButtons from './styles/buttons.css?inline';
+import stylesControl from './styles/control.css?inline';
+import stylesItem from './styles/item.css?inline';
+import stylesItems from './styles/items.css?inline';
+import { CarouselContext, useCarousel } from './use';
 
-export type CarouselContext = {
-  id: string;
-  loop: boolean;
-  startAt: number;
-  active: Signal<number>;
-  count: Signal<number>;
-  next: QRL<() => void>;
-  previous: QRL<() => void>;
-  scrollTo: QRL<(index: number) => void>;
-  isFirstActive: Signal<boolean>;
-  isLastActive: Signal<boolean>;
+export const useCarouselProvider = (state: CarouselContext) => {
+  useContextProvider(carouselContext, state);
 };
 
 export const carouselContext =
   createContextId<CarouselContext>('carousel-root');
 
 type RootProps = QwikIntrinsicElements['div'] & {
-  startAt?: number;
-  loop?: boolean;
+  use?: CarouselContext;
 };
 
-export const Root = component$(
-  ({ startAt = 0, loop = true, id, ...props }: RootProps) => {
-    const itemsRef = useSignal<HTMLElement>();
-    const contextService: CarouselContext = useCarousel({
-      id,
-      itemsRef,
-      startAt,
-      loop,
-    });
-    useContextProvider(carouselContext, contextService);
+export const Root = component$(({ use, ...props }: RootProps) => {
+  const carouselState = useCarousel();
+  const provider = use || carouselState;
+  useCarouselProvider(provider);
 
-    return (
-      <>
-        <ul>
-          <li>count: {contextService.count.value}</li>
-          <li>active: {contextService.active.value + 1}</li>
-          <li>
-            first: {contextService.isFirstActive.value ? 'true' : 'false'}
-          </li>
-          <li>last: {contextService.isLastActive.value ? 'true' : 'false'}</li>
-          <li>loop: {contextService.loop ? 'true' : 'false'}</li>
-        </ul>
-        <div id={contextService.id} ref={itemsRef} {...props}>
-          <Slot />
-        </div>
-      </>
-    );
-  }
-);
-
-type ButtonProps = QwikIntrinsicElements['button'];
-
-export const ButtonNext = component$(({ onClick$, ...props }: ButtonProps) => {
-  useStylesScoped$(stylesButtons);
-  const { isLastActive, loop, next } = useContext(carouselContext);
   return (
-    <button
-      aria-label="Got to the next item"
-      disabled={!loop ? isLastActive.value : false}
-      {...props}
-      onClick$={[$(() => next()), onClick$]}
-    >
+    <div role="presentation" id={provider.id} ref={provider.ref} {...props}>
       <Slot />
-    </button>
+    </div>
   );
 });
 
-export const ButtonPrevious = component$(
-  ({ onClick$, ...props }: ButtonProps) => {
+type ButtonProps = QwikIntrinsicElements['button'] & {
+  label?: string;
+};
+
+export const ButtonNext = component$(
+  ({ onClick$, label = 'Go to the next item', ...props }: ButtonProps) => {
     useStylesScoped$(stylesButtons);
-    const { isFirstActive, loop, previous } = useContext(carouselContext);
+    const { items, loop } = useContext(carouselContext);
+
     return (
       <button
-        aria-label="Got to the previous item"
-        disabled={!loop ? isFirstActive.value : false}
         {...props}
-        onClick$={[$(() => previous()), onClick$]}
+        aria-label={label}
+        disabled={!loop ? items.active.isLast.value : false}
+        onClick$={[$(() => items.next()), onClick$]}
       >
         <Slot />
       </button>
@@ -105,11 +62,30 @@ export const ButtonPrevious = component$(
   }
 );
 
-export const Items = component$(() => {
+export const ButtonPrevious = component$(
+  ({ onClick$, label = 'Go to the previous item', ...props }: ButtonProps) => {
+    useStylesScoped$(stylesButtons);
+    const { items, loop } = useContext(carouselContext);
+    return (
+      <button
+        {...props}
+        aria-label={label}
+        disabled={!loop ? items.active.isFirst.value : false}
+        onClick$={[$(() => items.previous()), onClick$]}
+      >
+        <Slot />
+      </button>
+    );
+  }
+);
+
+type ItemsProps = QwikIntrinsicElements['ul'];
+
+export const Items = component$((props: ItemsProps) => {
   useStylesScoped$(stylesItems);
   return (
-    <div class="carousel">
-      <ul class="carousel__items">
+    <div attr-data-qui="carousel-wapper">
+      <ul {...props} attr-data-qui="carousel">
         <Slot />
       </ul>
     </div>
@@ -121,23 +97,22 @@ type ItemProps = QwikIntrinsicElements['li'] & {
   index: number;
 };
 
-export const Item = component$(
-  ({ index, label, ...props }: Omit<ItemProps, 'class'>) => {
-    useStylesScoped$(stylesItem);
-    const { id, active } = useContext(carouselContext);
-    return (
-      <li {...props} aria-current={active.value === index}>
-        <input
-          aria-label={label}
-          type="radio"
-          checked={active.value === index}
-          name={`item-${id}`}
-        />
-        <Slot />
-      </li>
-    );
-  }
-);
+export const Item = component$(({ index, label, ...props }: ItemProps) => {
+  useStylesScoped$(stylesItem);
+  const { id, items } = useContext(carouselContext);
+  return (
+    <li {...props} aria-current={items.active.current.value === index}>
+      <input
+        aria-label={label}
+        type="radio"
+        checked={items.active.current.value === index}
+        name={`item-${id}`}
+        onChange$={() => items.scrollAt(index)}
+      />
+      <Slot />
+    </li>
+  );
+});
 
 type ControlContext = {
   id: string;
@@ -150,38 +125,38 @@ export const controlContext = createContextId<ControlContext>(
 );
 
 export const Controls = component$((props: ControlsProps) => {
-  const controlService = { id: props.id || useId() };
+  const uniqueId = useId();
+  const controlService = { id: props.id || uniqueId };
+  const { pages } = useContext(carouselContext);
   useContextProvider(controlContext, controlService);
-  return (
-    <nav {...props}>
-      <Slot />
-    </nav>
-  );
+
+  return <nav {...props}>{pages.ranges.value && <Slot />}</nav>;
 });
 
 type ControlProps = QwikIntrinsicElements['div'] & {
   index: number;
+  label?: string;
 };
 
 export const Control = component$(
-  ({ index, onClick$, ...props }: ControlProps) => {
+  ({ index, onClick$, label, ...props }: ControlProps) => {
     useStylesScoped$(stylesControl);
     const ordinal = useOrdinal();
-    const { active, scrollTo } = useContext(carouselContext);
+    const { items } = useContext(carouselContext);
     const { id } = useContext(controlContext);
 
     return (
       <div
-        aria-current={active.value === index}
         {...props}
-        onClick$={[$(() => scrollTo(index)), onClick$]}
+        aria-current={items.active.current.value === index}
+        onClick$={[$(() => items.scrollAt(index)), onClick$]}
       >
         <input
-          aria-label={`Go to the ${ordinal?.(index + 1)} item`}
+          aria-label={label || `Go to the ${ordinal?.(index + 1)} item`}
           type="radio"
-          checked={active.value === index}
+          checked={items.active.current.value === index}
           name={`control-${id}`}
-          onChange$={() => scrollTo(index)}
+          onChange$={() => items.scrollAt(index)}
         />
         <Slot />
       </div>
@@ -218,5 +193,41 @@ export const IconNext = () => (
     stroke-linejoin="round"
   >
     <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+);
+
+export const IconChevronLeft = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="lucide lucide-chevrons-left"
+  >
+    <polyline points="11 17 6 12 11 7"></polyline>
+    <polyline points="18 17 13 12 18 7"></polyline>
+  </svg>
+);
+
+export const IconChevronRight = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="lucide lucide-chevrons-right"
+  >
+    <polyline points="13 17 18 12 13 7"></polyline>
+    <polyline points="6 17 11 12 6 7"></polyline>
   </svg>
 );

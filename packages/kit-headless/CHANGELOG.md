@@ -4,25 +4,17 @@ This file was generated using [@jscutlery/semver](https://github.com/jscutlery/s
 
 ## [0.1.7](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.6...headless-0.1.7) (2023-04-29)
 
-
 ### Bug Fixes
 
-* types on published kits ([a05f758](https://github.com/qwikifiers/qwik-ui/commit/a05f7586fa04abc676d145f48c38950327022468))
-
-
+- types on published kits ([a05f758](https://github.com/qwikifiers/qwik-ui/commit/a05f7586fa04abc676d145f48c38950327022468))
 
 ## [0.1.6](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.5...headless-0.1.6) (2023-04-29)
 
-
 ### Bug Fixes
 
-* build paths ([aabbd0f](https://github.com/qwikifiers/qwik-ui/commit/aabbd0f760d0bee56451433070cc8d1b31df7c53))
-
-
+- build paths ([aabbd0f](https://github.com/qwikifiers/qwik-ui/commit/aabbd0f760d0bee56451433070cc8d1b31df7c53))
 
 ## [0.1.5](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.4...headless-0.1.5) (2023-04-29)
-
-
 
 ## [0.1.4](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.3...headless-0.1.4) (2023-04-28)
 

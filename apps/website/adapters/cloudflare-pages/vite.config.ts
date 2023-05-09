@@ -13,6 +13,12 @@ export default extendConfig(baseConfig, () => {
         ],
       },
     },
-    plugins: [cloudflarePagesAdapter({})],
+    plugins: [
+      cloudflarePagesAdapter({
+        // ssg: {
+        //   include: ['/*'],
+        // }
+      }),
+    ],
   };
 });

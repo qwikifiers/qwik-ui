@@ -31,9 +31,10 @@ type ControlProps = QwikIntrinsicElements['div'] & {
 };
 
 export const Root = component$((props: ControlProps) => {
+  const uniqueId = useId();
   const contextService: InputContextService = {
     ref: useSignal<HTMLInputElement>(),
-    id: props.id || useId(),
+    id: props.id || uniqueId,
   };
   useContextProvider(inputContext, contextService);
 

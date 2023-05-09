@@ -82,6 +82,6 @@ body {
 }
 
 .layout {
-  grid-template-columns: 25% auto;
+  grid-template-columns: 25% 70%;
   grid-template-areas: 'sidebar  content';
 }

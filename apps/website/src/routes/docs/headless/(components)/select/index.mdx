@@ -15,11 +15,13 @@ import { APITable } from '../../../../../components/api-table/api-table';
 
 <Example01>
   ```tsx
-  <Root>
-    <Label class="text-black dark:text-white">Lorem ipsum dolor sit amet</Label>
-    <Trigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
-      <Value placeholder="Select an option! ⚡" />
-      <Marker class="w-6 h-6">
+  <SelectRoot>
+    <SelectLabel class="text-black dark:text-white">
+      Lorem ipsum dolor sit amet
+    </SelectLabel>
+    <SelectTrigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
+      <SelectValue placeholder="Select an option! ⚡" />
+      <SelectMarker class="w-6 h-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -31,12 +33,12 @@ import { APITable } from '../../../../../components/api-table/api-table';
         >
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
-      </Marker>
-    </Trigger>
-    <ListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
-      <Option value="🚀 Qwik" class="p-4" />
-      <Group class="p-4">
-        <Label class="p-4">Fruits</Label>
+      </SelectMarker>
+    </SelectTrigger>
+    <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+      <SelectOption value="🚀 Qwik" class="p-4" />
+      <SelectGroup class="p-4">
+        <SelectLabel class="p-4">Fruits</SelectLabel>
         {[
           { value: '🍎 Apple', disabled: false },
           { value: '🍌 Banana', disabled: false },
@@ -44,17 +46,17 @@ import { APITable } from '../../../../../components/api-table/api-table';
           { value: '🐲 Dragonfruit', disabled: true },
         ].map((option) => {
           return (
-            <Option
-              key={useId()}
+            <SelectOption
+              key={option.value}
               value={option.value}
               disabled={option.disabled}
               class="aria-disabled:text-red-500 aria-disabled:cursor-not-allowed hover:bg-slate-300 dark:hover:bg-gray-600 p-4"
             />
           );
         })}
-      </Group>
-    </ListBox>
-  </Root>
+      </SelectGroup>
+    </SelectListBox>
+  </SelectRoot>
   ```
 </Example01>
 
@@ -63,24 +65,24 @@ import { APITable } from '../../../../../components/api-table/api-table';
   <CodeExample>
     ```tsx
     import { component$ } from '@builder.io/qwik';
-    import { Root, Label, Trigger, Value, Marker, ListBox, Option, Group, } from '@qwik-ui/headless';
+    import { SelectRoot, SelectLabel, SelectTrigger, SelectValue, SelectMarker, SelectListBox, SelectOption, SelectGroup } from '@qwik-ui/headless';
 
     export default component$(() => (
-      <Root>
-        <Label>Content</Label>
-        <Trigger>
-          <Value>Content</Value>
-          <Marker />
-        </Trigger>
-        <ListBox>
-          <Group>
-            <Label>Options</Label>
-            <Option/>
-            <Option/>
-            <Option/>
-          </Group>
-        </ListBox>
-      </Root>
+      <SelectRoot>
+        <SelectLabel>Content</SelectLabel>
+        <SelectTrigger>
+          <SelectValue>Content</SelectValue>
+          <SelectMarker />
+        </SelectTrigger>
+        <SelectListBox>
+          <SelectGroup>
+            <SelectLabel>Options</SelectLabel>
+            <SelectOption/>
+            <SelectOption/>
+            <SelectOption/>
+          </SelectGroup>
+        </SelectListBox>
+      </SelectRoot>
     ));
     ```
 
@@ -92,10 +94,10 @@ import { APITable } from '../../../../../components/api-table/api-table';
 
 <Example02>
   ```tsx
-  <Root>
-    <Trigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
-      <Value placeholder="Home" />
-      <Marker class="w-6 h-6">
+  <SelectRoot>
+    <SelectTrigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
+      <SelectValue placeholder="Home" />
+      <SelectMarker class="w-6 h-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -107,14 +109,14 @@ import { APITable } from '../../../../../components/api-table/api-table';
         >
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
-      </Marker>
-    </Trigger>
-    <ListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
-      <Option value="Orders" class="p-4" />
-      <Option value="Settings" class="p-4" />
-      <Option value="Contact us" class="p-4" />
-    </ListBox>
-  </Root>
+      </SelectMarker>
+    </SelectTrigger>
+    <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+      <SelectOption value="Orders" class="p-4" />
+      <SelectOption value="Settings" class="p-4" />
+      <SelectOption value="Contact us" class="p-4" />
+    </SelectListBox>
+  </SelectRoot>
   ```
 </Example02>
 
@@ -126,50 +128,50 @@ import { APITable } from '../../../../../components/api-table/api-table';
   keyDescriptors={[
     {
       keyTitle: 'ArrowUp',
-      description: 'To open the `ListBox`.',
+      description: 'To open the `SelectListBox`.',
     },
     {
       keyTitle: 'ArrowDown',
-      description: 'To open the `ListBox`.',
+      description: 'To open the `SelectListBox`.',
     },
     {
       keyTitle: 'Escape',
-      description: 'To close the `ListBox`.',
+      description: 'To close the `SelectListBox`.',
     },
     {
       keyTitle: 'Tab',
-      description: 'To select the `Option`.',
+      description: 'To select the `SelectOption`.',
     },
     {
       keyTitle: 'Enter',
-      description: 'To select the `Option`.',
+      description: 'To select the `SelectOption`.',
     },
     {
       keyTitle: 'ArrowDown',
-      description: 'To select the next `Option`.',
+      description: 'To select the next `SelectOption`.',
     },
     {
       keyTitle: 'ArrowUp',
-      description: 'To select the previous `Option`.',
+      description: 'To select the previous `SelectOption`.',
     },
   ]}
 />
 
 ## API
 
-### Root
+### SelectRoot
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the `Root` element.',
+      description: 'CSS classes to apply to the `SelectRoot` element.',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the `Root` element.',
+      description: 'CSS styles to apply to the `SelectRoot` element.',
     },
     {
       name: 'defaultValue',
@@ -180,42 +182,42 @@ import { APITable } from '../../../../../components/api-table/api-table';
 />
 <br />
 <br />
-### Trigger
+### SelectTrigger
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the `Trigger` element.',
+      description: 'CSS classes to apply to the `SelectTrigger` element.',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the `Trigger` element.',
+      description: 'CSS styles to apply to the `SelectTrigger` element.',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: 'Use this property to disabled the `Trigger` element.',
+      description: 'Use this property to disabled the `SelectTrigger` element.',
     },
   ]}
 />
 <br />
 <br />
-### Value
+### SelectValue
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the `Value` element.',
+      description: 'CSS classes to apply to the `SelectValue` element.',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the `Value` element.',
+      description: 'CSS styles to apply to the `SelectValue` element.',
     },
     {
       name: 'placeholder',
@@ -226,106 +228,106 @@ import { APITable } from '../../../../../components/api-table/api-table';
 />
 <br />
 <br />
-### Marker
+### SelectMarker
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the `Marker` element.',
+      description: 'CSS classes to apply to the `SelectMarker` element.',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the `Marker` element.',
+      description: 'CSS styles to apply to the `SelectMarker` element.',
     },
   ]}
 />
 <br />
 <br />
-### ListBox
+### SelectListBox
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the `ListBox` element.',
+      description: 'CSS classes to apply to the `SelectListBox` element.',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the `ListBox` element.',
+      description: 'CSS styles to apply to the `SelectListBox` element.',
     },
   ]}
 />
 <br />
 <br />
-### GroupProps
+### SelectGroup
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the `GroupProps` element.',
+      description: 'CSS classes to apply to the `SelectGroup` element.',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the `GroupProps` element.',
+      description: 'CSS styles to apply to the `SelectGroup` element.',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: 'Use this property to disabled the `GroupProps` element.',
+      description: 'Use this property to disabled the `SelectGroup` element.',
     },
   ]}
 />
 <br />
 <br />
-### Label
+### SelectLabel
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the `Label` element.',
+      description: 'CSS classes to apply to the `SelectLabel` element.',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the `Label` element.',
+      description: 'CSS styles to apply to the `SelectLabel` element.',
     },
   ]}
 />
 <br />
 <br />
-### Option
+### SelectOption
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the `Option` element.',
+      description: 'CSS classes to apply to the `SelectOption` element.',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the `Option` element.',
+      description: 'CSS styles to apply to the `SelectOption` element.',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: 'Use this property to disabled the `Option` element.',
+      description: 'Use this property to disabled the `SelectOption` element.',
     },
     {
       name: 'value',
       type: 'string',
-      description: 'Use this property to set the `Option` value.',
+      description: 'Use this property to set the `SelectOption` value.',
     },
   ]}
 />
