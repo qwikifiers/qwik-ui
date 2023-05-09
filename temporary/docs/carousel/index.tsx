@@ -1,4 +1,4 @@
-import { component$, useId, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { Carousel, useCarousel } from '@qwik-ui/headless';
 import { ExampleNetflix } from './example-netflix';
 import styles from './carousel.css?inline';
@@ -31,24 +31,24 @@ export default component$(() => {
       <nav style="display: flex; gap: .5em">
         <strong>Pages:</strong>
         {carousel.pages.ranges.value.map(([first], i) => (
-          <button key={useId()} onClick$={() => carousel.items.scrollAt(first)}>
+          <button key={first} onClick$={() => carousel.items.scrollAt(first)}>
             {i + 1}
           </button>
         ))}
       </nav>
       <nav style="display: flex; gap: .5em">
         <strong>Items:</strong>
-        {Array.from({ length: 8 }).map((_, i) => (
-          <button key={useId()} onClick$={() => carousel.items.scrollAt(i)}>
+        {Array.from({ length: 8 }, (_, i) => i).map((value, i) => (
+          <button key={value} onClick$={() => carousel.items.scrollAt(i)}>
             {i + 1}
           </button>
         ))}
       </nav>
       <Root use={carousel}>
         <Items style="gap: 3em;">
-          {Array.from({ length: 8 }).map((_, i) => (
+          {Array.from({ length: 8 }, (_, index) => index).map((value, i) => (
             <Item
-              key={useId()}
+              key={value}
               index={i}
               label={`Image ${i}`}
               class={[scopeId, 'item']}

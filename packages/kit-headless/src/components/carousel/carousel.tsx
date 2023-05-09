@@ -29,7 +29,8 @@ type RootProps = QwikIntrinsicElements['div'] & {
 };
 
 export const Root = component$(({ use, ...props }: RootProps) => {
-  const provider = use || useCarousel();
+  const carouselState = useCarousel();
+  const provider = use || carouselState;
   useCarouselProvider(provider);
 
   return (
@@ -124,7 +125,8 @@ export const controlContext = createContextId<ControlContext>(
 );
 
 export const Controls = component$((props: ControlsProps) => {
-  const controlService = { id: props.id || useId() };
+  const uniqueId = useId();
+  const controlService = { id: props.id || uniqueId };
   const { pages } = useContext(carouselContext);
   useContextProvider(controlContext, controlService);
 

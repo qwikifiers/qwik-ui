@@ -1,4 +1,4 @@
-import { Slot, component$, useId } from '@builder.io/qwik';
+import { Slot, component$ } from '@builder.io/qwik';
 import {
   SelectRoot,
   SelectLabel,
@@ -47,7 +47,7 @@ export const Example01 = component$(() => {
               ].map((option) => {
                 return (
                   <SelectOption
-                    key={useId()}
+                    key={option.value}
                     value={option.value}
                     disabled={option.disabled}
                     class="aria-disabled:text-red-500 aria-disabled:cursor-not-allowed hover:bg-slate-300 dark:hover:bg-gray-600 p-4"

@@ -2,7 +2,6 @@ import {
   $,
   QwikIntrinsicElements,
   component$,
-  useId,
   useSignal,
   useStylesScoped$,
 } from '@builder.io/qwik';
@@ -28,7 +27,7 @@ const media = {
 
 export const ExampleNetflix = component$(() => {
   const { scopeId } = useStylesScoped$(styles);
-  const items = useSignal([...new Array(10)]);
+  const items = useSignal([...new Array(10).fill(1).map((_, i) => i + 1)]);
   const carousel = useCarousel({ loop: false, transition: 350, startAt: 3 });
 
   return (
@@ -42,9 +41,9 @@ export const ExampleNetflix = component$(() => {
 
       <Root use={carousel}>
         <Items class={[scopeId, 'qui-carousel']}>
-          {items.value.map((_, i) => (
+          {items.value.map((value, i) => (
             <Item
-              key={useId()}
+              key={value}
               index={i}
               label={media.title}
               class={[scopeId, 'carousel__card']}
