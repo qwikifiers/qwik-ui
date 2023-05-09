@@ -1,6 +1,26 @@
 import { $, component$, PropFunction, Component } from '@builder.io/qwik';
 import { Button as HeadlessButton } from '@qwik-ui/primitives';
 
+/**
+ * PAGINATION TODOs
+ * - Get storybook testing to work
+ *
+ * PROPS
+ * pageIndex: default pagination value
+ * activeStyles: The styles of the active page button
+ * normalStyles: The styles of the inactive page buttons
+ * disabled: enable/disable paginator
+ * color: primary | secondary
+ * variant: outlined (show border without bg)
+ * shape: rounded | square
+ * size: 'sm' | 'md' | 'lg'
+ * customArrowIcons: { previous, next }
+ * paginationRange (see https://mui.com/material-ui/react-pagination/#pagination-ranges)
+ *
+ * EVENTS
+ * onPageChange
+ *
+ */
 export interface IPaginationProps extends IGetPaginationItemsOptions {
   pages: number;
   page: number;
