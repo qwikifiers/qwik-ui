@@ -19,7 +19,7 @@ runs:
       shell: bash
       run: npx nx affected:lint --base=last-release --exclude=website
 
-    - name: Build Headless
+    - name: Build Headless Kit
       shell: bash
       run: npx nx build headless
 
