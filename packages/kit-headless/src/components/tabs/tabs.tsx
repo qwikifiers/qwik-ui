@@ -134,9 +134,11 @@ export const Tab = component$(
       }
     });
 
+    const uniqueId = useId();
+
     return (
       <button
-        id={useId()}
+        id={uniqueId}
         type="button"
         role="tab"
         onFocus$={selectIfAutomatic}
@@ -173,9 +175,10 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   useVisibleTask$(async () => {
     thisPanelIndex.value = await contextService.getNextPanelIndex();
   });
+  const uniqueId = useId();
   return (
     <div
-      id={useId()}
+      id={uniqueId}
       role="tabpanel"
       tabIndex={0}
       aria-labelledby={`tab-${thisPanelIndex}`}
