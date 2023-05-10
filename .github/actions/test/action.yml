@@ -31,7 +31,7 @@ runs:
       # Chromatic GitHub Action options
       with:
         # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-        projectToken: ${{ inputs.CHROMATIC_PROJECT_TOKEN }}
+        projectToken: ${{ inputs.chromatic_token }}
         buildScriptName: story:headless
         storybookBuildDir: dist/storybook/headless
         zip: true
