@@ -33,7 +33,7 @@ runs:
         # 👇 Chromatic projectToken, refer to the manage page to obtain it.
         projectToken: ${{ inputs.CHROMATIC_PROJECT_TOKEN }}
         buildScriptName: story:headless
-        outputDir: dist/storybook/headless
+        storybookBuildDir: dist/storybook/headless
         zip: true
 
     # - name: Build Daisy Theme
