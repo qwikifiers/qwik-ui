@@ -1,46 +1,80 @@
+import { component$, Slot, useStyles$ } from '@builder.io/qwik';
 import {
-  component$,
-  Slot,
-  useContextProvider,
-  useStore,
-  useTask$,
-  useVisibleTask$,
-} from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+  DocsNavigation,
+  LinkGroup,
+  LinkProps,
+} from '../components/navigation-docs/navigation-docs';
+import prismStyles from './prism.css?inline';
+import docsStyles from './docs.css?inline';
+import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
+import {
+  componentsStatuses,
+  ComponentsStatusesMap,
+} from '../_state/component-statuses';
 import Header from '../components/header/header';
-import { APP_STATE } from '../constants';
-import { AppState } from '../types';
 
 export default component$(() => {
-  const state = useStore<AppState>({
-    darkMode: false,
-    theme: 'NOT_DEFINED',
-  });
-  const loc = useLocation();
-  useContextProvider(APP_STATE, state);
+  useStyles$(prismStyles);
+  useStyles$(docsStyles);
 
-  useVisibleTask$(() => {
-    state.darkMode = localStorage.getItem('theme') === 'dark';
-  });
-
-  useTask$(() => {
-    state.theme =
-      loc.url.pathname.indexOf('/headless') !== -1
-        ? 'HEADLESS'
-        : loc.url.pathname.indexOf('/material') !== -1
-        ? 'MATERIAL'
-        : 'DAISY';
-  });
+  const { menuItemsGroups } = useKitMenuItems();
 
   return (
     <>
-      <main>
-        <Header />
-        <div class="relative px-4 pt-24 sm:px-6 lg:px-8">
+      <Header showBottomBorder={true} showVersion={true} />
+
+      <div class="flex mt-20">
+        <DocsNavigation linksGroups={menuItemsGroups} />
+        <main class="docs">
           <Slot />
-        </div>
-      </main>
+        </main>
+      </div>
       <footer></footer>
     </>
   );
 });
+
+function useKitMenuItems() {
+  const { url } = useLocation();
+  const { menu } = useContent();
+  let menuItemsGroups: LinkGroup[] | undefined = [];
+
+  if (url.pathname.indexOf('headless') !== -1) {
+    menuItemsGroups = decorateMenuItemsWithBadges(
+      menu?.items,
+      componentsStatuses.headless
+    );
+  }
+
+  if (url.pathname.indexOf('tailwind') !== -1) {
+    menuItemsGroups = decorateMenuItemsWithBadges(
+      menu?.items,
+      componentsStatuses.tailwind
+    );
+  }
+
+  return {
+    menuItemsGroups,
+  };
+}
+
+function decorateMenuItemsWithBadges(
+  menuItems: ContentMenu[] | undefined,
+  kitStatusesMap: ComponentsStatusesMap
+): LinkGroup[] | undefined {
+  return menuItems?.map((item) => {
+    return {
+      name: item.text,
+      children: item.items?.map((child) => {
+        const link: LinkProps = {
+          name: child.text,
+          href: child.href,
+        };
+        if (kitStatusesMap[link.name]) {
+          link.status = kitStatusesMap[link.name];
+        }
+        return link;
+      }),
+    };
+  });
+}

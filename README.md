@@ -26,7 +26,6 @@
 <details>
 <summary>Table of Contents</summary>
 
-- [⚠ This is not ready for production!](#-this-is-not-ready-for-production)
 - [Installation of the headless components](#installation-of-the-headless-components)
 - [Contributing](#contributing)
 - [Code Of Conduct](#code-of-conduct)
@@ -40,13 +39,16 @@
 
 This library is still in early stages and once we'll collect enough feedback from the community we'll release the first beta version.
 
-We still need to
+### ROADMAP
 
-- [x] Design a normal logo
-- [ ] Build a proper documentation website
-- [ ] Add tests
-- [ ] Fix bugs
-- [ ] more...
+- [ ] Deploy the documentation site
+  - [ ] Add "Readiness" statuses to the components
+  - [ ] Add a getting started video tutorial
+  - [ ] Make a public storybook url
+- [ ] Deploy the tailwind-kit package
+- [ ] Cover all of the components with storybook tests
+- [ ] Add testing coverage reports
+- [ ] Add a contribution tutorial video
 
 <br/>
 
@@ -117,6 +119,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/PatrykGodlewski"><img src="https://avatars.githubusercontent.com/u/81991100?v=4?s=100" width="100px;" alt="Patryk Godlewski"/><br /><sub><b>Patryk Godlewski</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3APatrykGodlewski" title="Bug reports">🐛</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=PatrykGodlewski" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/pranit-yawalkar"><img src="https://avatars.githubusercontent.com/u/64571514?v=4?s=100" width="100px;" alt="Pranit Yawalkar"/><br /><sub><b>Pranit Yawalkar</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3Apranit-yawalkar" title="Bug reports">🐛</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=pranit-yawalkar" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/gederer"><img src="https://avatars.githubusercontent.com/u/705111?v=4?s=100" width="100px;" alt="Greg Ederer"/><br /><sub><b>Greg Ederer</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=gederer" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://naor.dev"><img src="https://avatars.githubusercontent.com/u/6171622?v=4?s=100" width="100px;" alt="Naor Peled"/><br /><sub><b>Naor Peled</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=naorpeled" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=naorpeled" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/igalklebanov"><img src="https://avatars.githubusercontent.com/u/14938291?v=4?s=100" width="100px;" alt="Igal Klebanov"/><br /><sub><b>Igal Klebanov</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=igalklebanov" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=igalklebanov" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

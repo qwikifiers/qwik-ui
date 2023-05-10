@@ -1,0 +1,171 @@
+---
+title: Qwik UI | Accordion
+---
+
+import { Accordion, AccordionItem } from '@qwik-ui/headless';
+import { Example01, Example02, Example03 } from './examples';
+import { CodeExample } from '../../../../../components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../../../components/api-table/api-table';
+
+# Accordion
+
+#### A vertically stacked set of interactive headings which reveal or hide their associated content.
+
+{' '}
+
+<Example01>
+  ```tsx
+  <Accordion class="bg-slate-100 dark:bg-gray-700 w-60 rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden">
+    <AccordionItem
+      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]"
+      label="Peek inside."
+    >
+      <p class="bg-slate-200 dark:bg-gray-900 p-4">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+        aliquid architecto delectus deleniti dolor
+      </p>
+    </AccordionItem>
+    <AccordionItem
+      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]"
+      label="Do it again!"
+    >
+      <p class="bg-slate-200 dark:bg-gray-900 p-4">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+        aliquid architecto delectus deleniti dolor
+      </p>
+    </AccordionItem>
+    <AccordionItem
+      label="Not this time..."
+      disabled
+      class="px-4 py-2 disabled:cursor-not-allowed disabled:text-gray-400 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]"
+    >
+      You can't see me!
+    </AccordionItem>
+  </Accordion>
+  ```
+</Example01>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Accordion, AccordionItem } from '@qwik-ui/headless';
+
+    export default component$(() => (
+      <Accordion>
+        <AccordionItem>Content</AccordionItem>
+      </Accordion>
+    ));
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### EXAMPLE: Frequently Asked Questions
+
+<Example02>
+  ```tsx
+  <Accordion class="mt-6 bg-slate-100 dark:bg-gray-700 w-full rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden">
+    <AccordionItem
+      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left"
+      label="Is Qwik production-ready?"
+    >
+      <p class="bg-slate-200 dark:bg-gray-900 p-4">
+        Yes, Qwik just hit a major milestone and launched v1.0! All API features
+        are considered stable. Start building the future, today!
+      </p>
+    </AccordionItem>
+    <AccordionItem
+      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left"
+      label="Is there a UI library I can use with Qwik?"
+    >
+      <p class="bg-slate-200 dark:bg-gray-900 p-4">
+        You're looking at one right now!
+      </p>
+    </AccordionItem>
+    <AccordionItem
+      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left"
+      label="How can I contribute to Qwik UI?"
+    >
+      <p class="bg-slate-200 dark:bg-gray-900 p-4">
+        We're glad you asked. Come join us at the Qwikifiers Discord server or
+        find the{` `}
+        <a
+          class="text-[var(--qwik-light-blue)] inline"
+          href="https://github.com/qwikifiers/qwik-ui"
+        >
+          Qwik UI repository
+        </a>
+        {` `}
+        on GitHub!
+      </p>
+    </AccordionItem>
+  </Accordion>
+  ```
+</Example02>
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable keyDescriptors={
+  [
+    {
+      keyTitle: 'Space',
+      description: 'Expand or collapse the `AccordionItem`.',
+    },
+    {
+      keyTitle: 'Enter',
+      description: 'Expand or collapse the `AccordionItem`.',
+    },
+    {
+      keyTitle: 'Tab',
+      description: 'Moves focus to the next focusable element.',
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: 'Moves focus to the previous focusable element.',
+    },
+    {
+      keyTitle: 'Home',
+      description: 'When on `AccordionItem`, Moves focus to the first `AccordionItem`.',
+    },
+    {
+      keyTitle: 'End',
+      description: 'When on `AccordionItem`, Moves focus to the last `AccordionItem`.',
+    },
+
+]
+}/>
+
+## API
+
+### AccordionItem
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the accordion container.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the accordion container.',
+    },
+    {
+      name: 'label',
+      type: 'string',
+      description: 'The label to give to the accordion item.',
+    },
+    {
+      name: 'onClick$',
+      type: 'PropFunction<() => void>',
+      description: 'A custom click handler',
+    },
+  ]}
+/>

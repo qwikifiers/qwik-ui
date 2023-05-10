@@ -22,7 +22,7 @@ runs:
       shell: bash
       run: npx nx affected:lint --base=last-release --exclude=website
 
-    - name: Build Headless
+    - name: Build Headless Kit
       shell: bash
       run: npx nx build headless
 
@@ -39,9 +39,9 @@ runs:
         storybookBuildDir: dist/storybook/headless
         zip: true
 
-    # - name: Build Daisy Theme
+    # - name: Build Tailwind Theme
     #   shell: bash
-    #   run: npx nx build daisy
+    #   run: npx nx build tailwind
 
     # - name: Build
     #   shell: bash

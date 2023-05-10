@@ -2,19 +2,69 @@
 @tailwind base;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/poppins-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/poppins-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/poppins-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --qwik-dark-blue: #006ce9;
   --qwik-light-blue: #18b6f6;
   --qwik-light-purple: #ac7ff4;
   --qwik-dark-purple: #713fc2;
+  --dark-color-bg: rgb(30 41 59);
+  --dark-color-text: rgb(203 213 225);
+  --light-color-bg: rgb(203 213 225);
+  --light-color-text: #333;
+}
+
+.light {
+  --color-bg: rgb(255, 255, 255);
+  --color-text: #333;
+}
+
+.dark {
+  --color-bg: rgb(30 41 59);
+  --color-text: rgb(243, 243, 243);
 }
 
 html {
   height: 100%;
   min-height: 100%;
   scroll-behavior: smooth;
+
   background-color: var(--color-bg) !important;
   color: var(--color-text) !important;
+
+  font-family: 'Poppins', sans-serif;
 }
 
 [data-theme='light'] {
@@ -32,10 +82,6 @@ body {
 }
 
 .layout {
-  grid-template-columns: 25% auto;
+  grid-template-columns: 25% 70%;
   grid-template-areas: 'sidebar  content';
-}
-
-header {
-  background-color: var(--color-bg) !important;
 }

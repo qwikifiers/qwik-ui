@@ -64,10 +64,10 @@ export type TooltipProps = QwikIntrinsicElements['div'] & {
 };
 ```
 
-For **Daisy, Material and other components variations**, you can define the new props in a new type, named with the component name and the variation as prefix. For example:
+For **Tailwind, Material and other components variations**, you can define the new props in a new type, named with the component name and the variation as prefix. For example:
 
 ```ts
-type DaisyTooltipProps = {
+type TailwindTooltipProps = {
   size?: 'sm' | 'md';
 };
 ```
@@ -77,7 +77,7 @@ The final exported type will extend from the headless props type. For example:
 ```ts
 import { TooltipProps as HeadlessTooltipProps } from '@qwik-ui/headless';
 
-export type TooltipProps = HeadlessTooltipProps & DaisyTooltipProps;
+export type TooltipProps = HeadlessTooltipProps & TailwindTooltipProps;
 ```
 
 - Use object destructuring in the component$ declaration on all the props you are going to use. For example:
@@ -104,15 +104,15 @@ return (
 - Use accessibility attributes whenever they are needed.
 - For simple primitive states use signals. For object state, use stores.
 
-## Example of headless button customisation with Daisy
+## Example of headless button customisation with Tailwind
 
 ```tsx
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { Button as HeadlessButton, ButtonProps as ButtonHeadlessProps } from '@qwik-ui/headless';
 import { clsq } from '@qwik-ui/shared';
 
-type DaisyButtonProps = { size?: 'sm' | 'md', ... };
-export type ButtonProps = ButtonHeadlessProps & DaisyButtonProps;
+type TailwindButtonProps = { size?: 'sm' | 'md', ... };
+export type ButtonProps = ButtonHeadlessProps & TailwindButtonProps;
 
 export const Button = component$(
   ({ size = 'md', class: classNames, ...rest }: ButtonProps) => {

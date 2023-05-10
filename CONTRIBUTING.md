@@ -64,7 +64,7 @@ git checkout -b my-fix-branch main
 
 - Visit the URL printed in the console and you'll have a page opened with the suite of widgets.
 
-- Once you made some changes in either package (`headless`, `daisy` or `material`), you will see them immediately reflected on the page.
+- Once you made some changes in either package (`headless`, `tailwind` or `material`), you will see them immediately reflected on the page.
 
 ### ▶ 5. Make sure you add / modify tests
 

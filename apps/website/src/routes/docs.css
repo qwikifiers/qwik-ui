@@ -1,0 +1,19 @@
+.docs {
+  @apply lg:ml-80 w-full lg:max-w-4xl xl:max-w-6xl py-8 px-8 lg:px-16;
+}
+
+.docs h1 {
+  @apply text-5xl font-bold mb-12;
+}
+
+.docs h2 {
+  @apply text-3xl font-bold mt-20 mb-12 border-b-2;
+}
+
+.docs h3 {
+  @apply text-xl font-bold  mb-6;
+}
+
+.docs h4 {
+  @apply text-lg mb-6;
+}

@@ -1,16 +1,16 @@
-import { $, component$, useContext, useId, useSignal } from '@builder.io/qwik';
+import { $, component$, useContext, useSignal } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import { APP_STATE } from '../../constants';
+import { OLD_APP_STATE_CONTEXT_ID } from '../../constants';
 import { ThemeIcon } from '../icons/ThemeIcon';
 
-export type Theme = 'HEADLESS' | 'DAISY' | 'MATERIAL' | 'NOT_DEFINED';
+export type Theme = 'HEADLESS' | 'TAILWIND' | 'MATERIAL' | 'NOT_DEFINED';
 
 export const SelectTheme = component$(() => {
   const location = useLocation();
-  const appState = useContext(APP_STATE);
+  const appState = useContext(OLD_APP_STATE_CONTEXT_ID);
   const openThemeSignal = useSignal<boolean>(false);
 
-  const themes: Theme[] = ['HEADLESS', 'DAISY', 'MATERIAL'];
+  const themes: Theme[] = ['HEADLESS', 'TAILWIND', 'MATERIAL'];
   return (
     <div
       title="Change Theme"
@@ -29,13 +29,13 @@ export const SelectTheme = component$(() => {
         <div class="absolute w-40 right-10 z-10 bg-white dark:bg-slate-800 outline-base-content rounded-lg outline">
           {themes.map((theme) => (
             <div
-              key={useId()}
+              key={theme}
               class="flex pl-3"
               onClick$={$(() => {
                 openThemeSignal.value = false;
                 const oldTheme = appState.theme;
                 appState.theme = theme;
-                if (location.pathname !== '/docs/') {
+                if (location.url.pathname !== '/docs/') {
                   window.location.pathname = window.location.pathname.replace(
                     oldTheme.toLowerCase(),
                     theme.toLowerCase()

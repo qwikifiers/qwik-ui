@@ -1,0 +1,27 @@
+:where(li) {
+  /**
+   * CAUTION need at least 1px height to scroll to 
+   * the active item on initial render (startAt)
+   */
+  min-height: 1px;
+  /*  */
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+}
+
+:where(input[type='radio']) {
+  appearance: none;
+}
+
+:where(li[aria-current='true']) {
+  outline: 0.15em solid;
+  outline-offset: 2px;
+  border-radius: 1px;
+  z-index: 1;
+}

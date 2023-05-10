@@ -4,7 +4,7 @@ import {
   useSignal,
   useStylesScoped$,
 } from '@builder.io/qwik';
-import { Tab, TabPanel, Tabs } from '@qwik-ui/theme-daisy';
+import { Tab, TabPanel, Tabs } from '@qwik-ui/tailwind';
 import styles from './wrapper.css?inline';
 
 export interface WrapperProps {
