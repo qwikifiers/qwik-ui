@@ -11,7 +11,8 @@
     "commit": "git-cz",
     "format:fix": "pretty-quick --staged",
     "prepare": "husky install",
-    "test:headless": "nx storybook headless",
+    "test:headless": "nx component-test headless --watch",
+    "story:headless": "nx build-storybook headless",
     "website": "nx serve website"
   },
   "devDependencies": {
@@ -51,6 +52,7 @@
     "all-contributors-cli": "^6.24.0",
     "autoprefixer": "^10.4.13",
     "axe-core": "4.6.3",
+    "chromatic": "6.17.3",
     "commitizen": "^4.3.0",
     "commitlint": "^17.4.3",
     "country-list-json": "1.1.0",
