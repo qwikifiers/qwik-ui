@@ -17,32 +17,32 @@ import {
 /**
  * TABS TODOs
  * - Get storybook testing to work
- * 
+ *
  * - selectedIndex / default
  * - Orientation
  * - aria-label https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby
  * - NOTE: Radix manually handle the value/id for each tab while we calculate it behind the scenes
  *    If we end up implementing this, we need to expose a way to set this value in the root
  * - keyboard interactions (arrowDown, ARrowRight, ArrowUp, ArrowLeft, Home, End, PageUp, PageDown)
- *    Support Loop 
+ *    Support Loop
  * - expose selectedIndex in the root
  * - onValueChange
  * POST V1:
  * - RTL
- 
- * 
+
+ *
  * TAB
  *  Disable
  *  NOTE: radix / headlessui: expose data-state data-disable data-orientation
  *  NOTE: Headless UI: explorer the render props
  *  NOTE: remove tab, switch position
  *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
- * 
+ *
  * PANEL
- * 
+ *
  * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
- * 
+ *
  */
 export type Behavior = 'automatic' | 'manual';
 
@@ -82,10 +82,19 @@ export const Tabs = component$((props: TabsProps) => {
     behavior,
   };
 
+  const tabsInitialized = useSignal(false);
+
   useContextProvider(tabsContextId, contextService);
 
+  useVisibleTask$(() => {
+    tabsInitialized.value = true;
+  });
+
   return (
-    <div {...props}>
+    <div
+      {...props}
+      style={'visibility:' + tabsInitialized.value ? 'visible' : 'hidden'}
+    >
       <Slot />
     </div>
   );
