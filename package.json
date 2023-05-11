@@ -12,7 +12,8 @@
     "format:fix": "pretty-quick --staged",
     "prepare": "husky install",
     "test:headless": "nx component-test headless --watch",
-    "story:headless": "nx build-storybook headless",
+    "story:build:headless": "nx build-storybook headless",
+    "story:headless": "nx storybook headless",
     "website": "nx serve website"
   },
   "devDependencies": {
