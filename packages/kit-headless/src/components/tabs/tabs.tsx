@@ -48,9 +48,11 @@ export type Behavior = 'automatic' | 'manual';
 
 interface TabsContext {
   selectedIndex: Signal<number>;
-  getNextTabIndex: QRL<() => number>;
-  getNextPanelIndex: QRL<() => number>;
+  selectedTabId: Signal<string>;
+  registerTab: QRL<(tabId: string) => void>;
   behavior: Behavior;
+  reIndexTabs: Signal<boolean>;
+  setTabIndex: QRL<(tabId: string, index: number) => void>;
 }
 
 export const tabsContextId = createContextId<TabsContext>('qui--tabList');
@@ -58,28 +60,38 @@ export const tabsContextId = createContextId<TabsContext>('qui--tabList');
 export interface TabsProps {
   behavior?: Behavior;
   class?: string;
+  selectedIndex?: number;
+}
+
+export interface TabIndexMap {
+  [key: string]: number | undefined;
 }
 
 export const Tabs = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
-  const lastTabIndex = useSignal(0);
-  const lastPanelIndex = useSignal(0);
+  const selectedIndex = useSignal(props.selectedIndex || 0);
+  const reIndexTabs = useSignal(false);
 
-  const getNextTabIndex = $(() => {
-    return lastTabIndex.value++;
+  const tabsRegistry: TabIndexMap = {};
+
+  const setTabIndex = $((tabId: string, index: number) => {
+    tabsRegistry[tabId] = index;
   });
 
-  const getNextPanelIndex = $(() => {
-    return lastPanelIndex.value++;
+  const registerTab = $((tabId: string) => {
+    tabsRegistry[tabId] = undefined;
+    reIndexTabs.value = true;
   });
 
-  const selected = useSignal(0);
+  const selectedTabId = useSignal('');
 
   const contextService: TabsContext = {
-    selectedIndex: selected,
-    getNextTabIndex,
-    getNextPanelIndex,
+    selectedIndex,
+    registerTab,
+    setTabIndex,
     behavior,
+    reIndexTabs,
+    selectedTabId,
   };
 
   const tabsInitialized = useSignal(false);
@@ -109,8 +121,25 @@ interface TabListProps {
 // List of tabs that can be clicked to show different content.
 export const TabList = component$((props: TabListProps) => {
   const { labelledBy, ...rest } = props;
+  const contextService = useContext(tabsContextId);
+  const ref = useSignal<Element | undefined>();
+
+  useVisibleTask$(({ track }) => {
+    track(() => contextService.reIndexTabs.value);
+
+    if (ref.value) {
+      ref.value.querySelectorAll('[role="tab"]').forEach((tab, index) => {
+        const tabId = tab.getAttribute('id');
+
+        if (tabId) {
+          contextService.setTabIndex(tabId, index);
+        }
+      });
+    }
+  });
+
   return (
-    <div role="tablist" aria-labelledby={labelledBy} {...rest}>
+    <div ref={ref} role="tablist" aria-labelledby={labelledBy} {...rest}>
       <Slot />
     </div>
   );
@@ -124,18 +153,11 @@ interface TabProps {
 
 // Tab button inside of a tab list
 export const Tab = component$(
-  ({ selectedClassName, onClick, ...props }: TabProps) => {
+  ({ selectedClassName, onClick, class: classString }: TabProps) => {
     const contextService = useContext(tabsContextId);
     const thisTabIndex = useSignal(0);
 
-    useVisibleTask$(async () => {
-      thisTabIndex.value = await contextService.getNextTabIndex();
-      console.log('useVisibleTask$', thisTabIndex.value);
-    });
-
-    // TODO: Ask Manu about this 😊
-    const isSelected = () =>
-      thisTabIndex.value === contextService.selectedIndex.value;
+    const isSelected = () => forTab === contextService.selectedTabId.value;
 
     const selectIfAutomatic = $(() => {
       if (contextService.behavior === 'automatic') {
@@ -143,11 +165,11 @@ export const Tab = component$(
       }
     });
 
-    const uniqueId = useId();
+    const id = useId();
 
     return (
       <button
-        id={uniqueId}
+        id={id}
         type="button"
         role="tab"
         onFocus$={selectIfAutomatic}
@@ -155,7 +177,7 @@ export const Tab = component$(
         aria-selected={isSelected()}
         aria-controls={`tabpanel-${thisTabIndex.value}`}
         class={`${isSelected() ? `selected ${selectedClassName}` : ''}${
-          props.class ? ` ${props.class}` : ''
+          classString ? ` ${classString}` : ''
         }`}
         onClick$={$(() => {
           contextService.selectedIndex.value = thisTabIndex.value;
@@ -182,7 +204,9 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   const isSelected = () =>
     thisPanelIndex.value === contextService.selectedIndex.value;
   useVisibleTask$(async () => {
-    thisPanelIndex.value = await contextService.getNextPanelIndex();
+    setTimeout(async () => {
+      thisPanelIndex.value = await contextService.getNextPanelIndex();
+    });
   });
   const uniqueId = useId();
   return (
