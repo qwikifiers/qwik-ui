@@ -1,6 +1,7 @@
 import {
   $,
   QRL,
+  QwikIntrinsicElements,
   QwikMouseEvent,
   Signal,
   Slot,
@@ -66,13 +67,19 @@ export const Root = component$(() => {
   });
 
   const closeOnDialogClick$ = $(
-    (
-      event: QwikMouseEvent<HTMLDialogElement, MouseEvent>,
-      element: HTMLDialogElement
-    ) => {
-      if (event.target !== element) return;
+    (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) => {
+      const rect = (event.target as HTMLDialogElement).getBoundingClientRect();
 
-      return closeDialog$();
+      if (
+        rect.left > event.clientX ||
+        rect.right < event.clientX ||
+        rect.top > event.clientY ||
+        rect.bottom < event.clientY
+      ) {
+        return closeDialog$();
+      }
+
+      return Promise.resolve();
     }
   );
 
@@ -104,11 +111,32 @@ export const Trigger = component$(() => {
   );
 });
 
-export const Portal = component$(() => {
+export const Close = component$(() => {
+  const context = useContext(dialogContext);
+
+  useOn(
+    'click',
+    $(() => context.close())
+  );
+
+  return (
+    <div role="button">
+      <Slot />
+    </div>
+  );
+});
+
+type PortalProps = QwikIntrinsicElements['dialog'];
+
+export const Portal = component$((props: PortalProps) => {
   const context = useContext(dialogContext);
 
   return (
-    <dialog ref={context.state.dialogRef} onClick$={context.closeOnDialogClick}>
+    <dialog
+      {...props}
+      ref={context.state.dialogRef}
+      onClick$={context.closeOnDialogClick}
+    >
       <Slot />
     </dialog>
   );

@@ -1,5 +1,11 @@
 import { component$, Slot } from '@builder.io/qwik';
-import { Accordion, AccordionItem, Checkbox, Dialog } from '@qwik-ui/headless';
+import {
+  Accordion,
+  AccordionItem,
+  Button,
+  Checkbox,
+  Dialog,
+} from '@qwik-ui/tailwind';
 import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
 
 export const Example01 = component$(() => {
@@ -10,7 +16,12 @@ export const Example01 = component$(() => {
           <Dialog.Trigger>
             <button>Open Dialog</button>
           </Dialog.Trigger>
-          <Dialog.Portal>Hello World</Dialog.Portal>
+          <Dialog.Portal>
+            Hello World
+            <Dialog.Close>
+              <Button>Close</Button>
+            </Dialog.Close>
+          </Dialog.Portal>
         </Dialog.Root>
       </div>
 

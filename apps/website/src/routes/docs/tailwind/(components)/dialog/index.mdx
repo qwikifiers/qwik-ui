@@ -2,7 +2,7 @@
 title: Qwik UI | Dialog
 ---
 
-import { Dialog } from '@qwik-ui/headless';
+import { Dialog, Button } from '@qwik-ui/tailwind';
 import { Example01 } from './examples';
 import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
 
@@ -19,11 +19,11 @@ import { KeyboardInteractionTable } from '../../../../../components/keyboard-int
       <button>Open Dialog</button>
     </Dialog.Trigger>
     <Dialog.Portal>
-      <p>
-        Hello World
-      </p>
+      <p>Hello World</p>
+      <Dialog.Close>
+        <Button>Close</Button>
+      </Dialog.Close>
     </Dialog.Portal>
-
   </Dialog.Root>
   ```
 </Example01>

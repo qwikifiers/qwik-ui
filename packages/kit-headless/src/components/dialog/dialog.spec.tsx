@@ -9,6 +9,9 @@ describe('Dialog', () => {
           <button>Open</button>
         </Dialog.Trigger>
         <Dialog.Portal>
+          {/* Dialog.Header */}
+          {/* Dialog.Content */}
+          {/* Dialog.Actions/Footer */}
           <h2 data-test="dialog-title">Hello World!</h2>
         </Dialog.Portal>
       </Dialog.Root>
