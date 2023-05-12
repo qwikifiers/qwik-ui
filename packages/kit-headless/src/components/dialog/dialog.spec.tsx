@@ -1,5 +1,5 @@
 import { mount } from 'cypress-ct-qwik';
-import * as Dialog from './dialog';
+import * as Dialog from './public_api';
 
 describe('Dialog', () => {
   it('renders an opened Dialog', () => {
