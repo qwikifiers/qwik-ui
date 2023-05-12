@@ -67,20 +67,8 @@ export const Root = component$(() => {
   });
 
   const closeOnDialogClick$ = $(
-    (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) => {
-      const rect = (event.target as HTMLDialogElement).getBoundingClientRect();
-
-      if (
-        rect.left > event.clientX ||
-        rect.right < event.clientX ||
-        rect.top > event.clientY ||
-        rect.bottom < event.clientY
-      ) {
-        return closeDialog$();
-      }
-
-      return Promise.resolve();
-    }
+    (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) =>
+      hasBackdropBeenClicked(event) ? closeDialog$() : Promise.resolve()
   );
 
   const context: DialogContext = {
@@ -141,3 +129,16 @@ export const Portal = component$((props: PortalProps) => {
     </dialog>
   );
 });
+
+function hasBackdropBeenClicked(
+  event: QwikMouseEvent<HTMLDialogElement, MouseEvent>
+) {
+  const rect = (event.target as HTMLDialogElement).getBoundingClientRect();
+
+  return (
+    rect.left > event.clientX ||
+    rect.right < event.clientX ||
+    rect.top > event.clientY ||
+    rect.bottom < event.clientY
+  );
+}
