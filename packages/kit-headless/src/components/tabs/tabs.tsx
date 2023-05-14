@@ -1,16 +1,10 @@
 import {
   $,
   component$,
-  createContextId,
-  PropFunction,
-  QRL,
-  Signal,
   Slot,
-  useContext,
   useContextProvider,
   useSignal,
   useVisibleTask$,
-  useId,
   useStore,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
@@ -19,7 +13,8 @@ import { Behavior } from './behavior.type';
 
 /**
  * TABS TODOs
- * - Get storybook testing to work
+ * 
+ * - CHANGE THE querySelector to "scoped" queries
  *
  * - selectedIndex / default
  * - Orientation
@@ -70,15 +65,12 @@ export const Tabs = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
   const selectedIndex = useSignal(props.selectedIndex || 0);
   const selectedTabId = useSignal<string>('');
-  const selectedTabPanelId = useSignal<string>('');
   const reIndexTabs = useSignal(false);
+  const showTabsSignal = useSignal(false);
 
-  const tabsIdsByIndex: TabIndexMap = [];
-  const tabsAndPanels = useStore<TabPair[]>([]);
-  const tabsInfo = useStore<TabInfo[]>([]);
-  const infoByTabs = useStore<{ [key: string]: TabInfo }>({});
-  const indexByTabId = useStore<{ [key: string]: number }>({}, { deep: true });
-  const indexByTabPanelId = useStore<{ [key: string]: number }>({});
+  const tabsMap = useStore<{ [key: string]: TabInfo }>({});
+
+  const tabPanelsMap = useStore<{ [key: string]: TabInfo }>({});
 
   const tabsChanged$ = $(() => {
     reIndexTabs.value = true;
@@ -86,30 +78,26 @@ export const Tabs = component$((props: TabsProps) => {
 
   const selectTab$ = $((tabId: string) => {
     selectedTabId.value = tabId;
-
-    // const tabIndex = tabsIdsByIndex.findIndex(([id]) => id === tabId);
-    // selectedIndex.value = tabIndex;
-    // selectedTabPanelId.value = tabsIdsByIndex[tabIndex][1];
   });
 
-  const ref = useSignal<HTMLElement | undefined>();
+  const showTabs$ = $(() => {
+    showTabsSignal.value = true;
+  });
 
   const contextService: TabsContext = {
-    indexByTabId,
-    indexByTabPanelId,
+    tabsMap,
+    tabPanelsMap,
     selectedIndex,
     selectTab$,
+    showTabs$,
     tabsChanged$,
     behavior,
     selectedTabId,
-    selectedTabPanelId,
   };
 
-  const tabsInitialized = useSignal(false);
-
-  console.log('tabsContextId', tabsContextId);
   useContextProvider(tabsContextId, contextService);
 
+  const ref = useSignal<HTMLElement | undefined>();
   // useVisibleTask$(({ track }) => {
   //   track(() => selectedIndex.value);
   //   if (tabsIdsByIndex[selectedIndex.value]) {
@@ -133,54 +121,70 @@ export const Tabs = component$((props: TabsProps) => {
       const tabElements = ref.value.querySelectorAll(
         '[role="tablist"] > [role="tab"]'
       );
-      console.log('tabElements', tabElements);
+
+      /*
+      const parentElement = document.querySelector('#parent');
+
+      const firstLevelElements = Array.from(parentElement.childNodes)
+        .filter(node => node.nodeType === Node.ELEMENT_NODE && node.parentNode === parentElement);
+
+      */
+
       const tabPanelElements = ref.value.querySelectorAll('[role="tabpanel"]');
-      console.log('tabPanelElements.length', tabPanelElements.length);
-      let lastSelectedTabId = undefined;
+
+      // let lastSelectedTabId = undefined;
 
       tabElements.forEach((tab, index) => {
         const tabId = tab.getAttribute('data-tab-id');
-        const tabForId = tab.getAttribute('data-for');
+
+        // const tabForId = tab.getAttribute('data-for');
 
         if (!tabId) {
           throw new Error('Missing tab id for tab: ' + index);
         }
-        if (indexByTabId[tabId] === selectedIndex.value) {
-          lastSelectedTabId = tabId;
-        }
+
         const tabPanelElement = tabPanelElements[index];
         if (!tabPanelElement) {
           throw new Error('Missing tab panel for tab: ' + index);
         }
         const tabPanelId = tabPanelElement.getAttribute('data-tabpanel-id');
         if (tabId && tabPanelId) {
-          indexByTabId[tabId] = index;
-          indexByTabPanelId[tabPanelId] = index;
-          tabsIdsByIndex.push([tabId, tabPanelId]);
-          tabsAndPanels.push({ tabId, tabPanelId });
+          tabsMap[tabId] = {
+            tabId,
+            tabPanelId,
+            index,
+          };
+
+          tabPanelsMap[tabPanelId] = {
+            tabId,
+            tabPanelId,
+            index,
+          };
         } else {
           throw new Error('Missing tab id or tab panel id for tab: ' + index);
         }
+
+        // if (indexByTabId[tabForId] === selectedIndex.value) {
+        //   lastSelectedTabId = tabForId;
+        // }
+
+        // indexByTabId[tabForId] = index;
       });
 
       // Update selected index
-      if (lastSelectedTabId) {
-        selectedIndex.value = indexByTabId[lastSelectedTabId];
-      } else {
-        selectedIndex.value = 0;
-      }
+      // if (lastSelectedTabId) {
+      //   selectedIndex.value = indexByTabId[lastSelectedTabId];
+      // } else {
+      //   selectedIndex.value = 0;
+      // }
     }
-  });
-
-  useVisibleTask$(() => {
-    tabsInitialized.value = true;
   });
 
   return (
     <div
       ref={ref}
       {...props}
-      style={'visibility:' + tabsInitialized.value ? 'visible' : 'hidden'}
+      style={'visibility:' + (showTabsSignal.value ? 'visible' : 'hidden')}
     >
       <Slot />
     </div>

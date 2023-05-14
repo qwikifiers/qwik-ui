@@ -1,8 +1,6 @@
 import {
   component$,
   useContext,
-  useSignal,
-  useVisibleTask$,
   useId,
   Slot,
   useTask$,
@@ -11,19 +9,15 @@ import {
 import { tabsContextId } from './tabs-context-id';
 
 export interface TabPanelProps {
-  id: string;
   class?: string;
 }
 
-// Tab Panel implementation
 export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   const contextService = useContext(tabsContextId);
-  const uniqueId = useId();
+  const panelUID = useId();
 
-  const currentPanelIndex = useSignal(0);
-
-  const isSelectedSignal = useComputed$(
-    () => contextService.selectedIndex.value === currentPanelIndex.value
+  const matchedTabId = useComputed$(
+    () => contextService.tabPanelsMap[panelUID]?.index
   );
 
   useTask$(({ cleanup }) => {
@@ -34,25 +28,25 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
     });
   });
 
-  useTask$(({ track }) => {
-    track(contextService.indexByTabPanelId);
-    currentPanelIndex.value = contextService.indexByTabPanelId[uniqueId];
+  const isSelectedSignal = useComputed$(() => {
+    return (
+      contextService.selectedIndex.value ===
+      contextService.tabPanelsMap[panelUID]?.index
+    );
   });
 
   return (
     <div
-      data-tabpanel-id={uniqueId}
-      id={'tabpanel-' + props.id}
+      data-tabpanel-id={panelUID}
+      id={'tabpanel-' + panelUID}
       role="tabpanel"
       tabIndex={0}
-      aria-labelledby={`tab-${currentPanelIndex}`}
+      aria-labelledby={`tab-${matchedTabId}`}
       class={`${isSelectedSignal.value ? 'is-hidden' : ''}${
         props.class ? ` ${props.class}` : ''
       }`}
       style={isSelectedSignal.value ? 'display: block' : 'display: none'}
     >
-      <p>thisPanelIndex.value: {currentPanelIndex.value} </p>
-      <p>contextService.selectedIndex: {contextService.selectedIndex} </p>
       <Slot />
     </div>
   );

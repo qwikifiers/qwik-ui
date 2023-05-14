@@ -7,27 +7,19 @@ import {
   useComputed$,
   useTask$,
   $,
-  useVisibleTask$,
-  useSignal,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 
 export interface TabProps {
-  for: string;
   onClick?: PropFunction<() => void>;
   class?: string;
   selectedClassName?: string;
 }
 
-// Tab button inside of a tab list
 export const Tab = component$((props: TabProps) => {
   const contextService = useContext(tabsContextId);
 
   const uniqueId = useId();
-
-  const currentTabIndex = useSignal(0);
-
-  const isSelectedSignal = useSignal(false);
 
   useTask$(({ cleanup }) => {
     contextService.tabsChanged$();
@@ -37,24 +29,25 @@ export const Tab = component$((props: TabProps) => {
     });
   });
 
-  useTask$(({ track }) => {
-    track(contextService.indexByTabId);
-    console.log('contextService.indexByTabId', contextService.indexByTabId);
-    currentTabIndex.value = contextService.indexByTabId[uniqueId];
+  const isSelectedSignal = useComputed$(() => {
+    return (
+      contextService.selectedIndex.value ===
+      contextService.tabsMap[uniqueId]?.index
+    );
   });
 
-  useVisibleTask$(() => {
-    console.log(
-      'contextService.selectedIndex.value',
-      contextService.selectedIndex.value
-    );
-    console.log('currentTabIndex.value', currentTabIndex.value);
-    isSelectedSignal.value =
-      contextService.selectedIndex.value === currentTabIndex.value;
+  // TODO: Figure out a way to fix this shitty hack :)
+  useTask$(({ track }) => {
+    track(() => isSelectedSignal.value);
+
+    if (isSelectedSignal.value) {
+      contextService.showTabs$();
+    }
   });
 
   const selectTab$ = $(() => {
-    contextService.selectedIndex.value = currentTabIndex.value;
+    contextService.selectedIndex.value =
+      contextService.tabsMap[uniqueId]?.index || 0;
   });
 
   const selectIfAutomatic$ = $(() => {
@@ -65,19 +58,19 @@ export const Tab = component$((props: TabProps) => {
 
   return (
     <button
-      data-for={props.for}
+      id={'tab-' + uniqueId}
       data-tab-id={uniqueId}
       type="button"
       role="tab"
       onFocus$={selectIfAutomatic$}
       onMouseEnter$={selectIfAutomatic$}
       aria-selected={isSelectedSignal.value}
-      aria-controls={'tabpanel-' + props.for}
-      class={`${isSelectedSignal ? `selected ${props.selectedClassName}` : ''}${
-        props.class ? ` ${props.class}` : ''
-      }`}
-      onClick$={async () => {
-        await selectTab$();
+      aria-controls={'tabpanel-' + contextService.tabsMap[uniqueId]?.tabPanelId}
+      class={`${
+        isSelectedSignal.value ? `selected ${props.selectedClassName}` : ''
+      }${props.class ? ` ${props.class}` : ''}`}
+      onClick$={() => {
+        selectTab$();
         if (props.onClick) {
           props.onClick();
         }
