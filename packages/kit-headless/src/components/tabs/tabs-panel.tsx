@@ -11,12 +11,12 @@ import {
 import { tabsContextId } from './tabs-context-id';
 
 export interface TabPanelProps {
+  id: string;
   class?: string;
 }
 
 // Tab Panel implementation
 export const TabPanel = component$(({ ...props }: TabPanelProps) => {
-  const { class: classNames, ...rest } = props;
   const contextService = useContext(tabsContextId);
   const uniqueId = useId();
 
@@ -42,15 +42,14 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   return (
     <div
       data-tabpanel-id={uniqueId}
-      id={'tabpanel-' + currentPanelIndex.value}
+      id={'tabpanel-' + props.id}
       role="tabpanel"
       tabIndex={0}
       aria-labelledby={`tab-${currentPanelIndex}`}
       class={`${isSelectedSignal.value ? 'is-hidden' : ''}${
-        classNames ? ` ${classNames}` : ''
+        props.class ? ` ${props.class}` : ''
       }`}
       style={isSelectedSignal.value ? 'display: block' : 'display: none'}
-      {...rest}
     >
       <p>thisPanelIndex.value: {currentPanelIndex.value} </p>
       <p>contextService.selectedIndex: {contextService.selectedIndex} </p>

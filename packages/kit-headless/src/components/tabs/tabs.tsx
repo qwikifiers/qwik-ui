@@ -140,6 +140,8 @@ export const Tabs = component$((props: TabsProps) => {
 
       tabElements.forEach((tab, index) => {
         const tabId = tab.getAttribute('data-tab-id');
+        const tabForId = tab.getAttribute('data-for');
+
         if (!tabId) {
           throw new Error('Missing tab id for tab: ' + index);
         }
