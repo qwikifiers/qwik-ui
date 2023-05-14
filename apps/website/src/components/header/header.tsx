@@ -6,9 +6,9 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 import { Link, useLocation } from '@builder.io/qwik-city';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as tailwindVersion } from '../../../../../packages/kit-tailwind/package.json';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';

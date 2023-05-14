@@ -1,4 +1,4 @@
-import { component$, $, QRL } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 
 type APITableProps = {
   propDescriptors: {
@@ -42,24 +42,5 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
         })}
       </tbody>
     </table>
-  );
-});
-
-export const TableRow = component$(({ keyboard, deck }: TableRowProps) => {
-  const Description: any = deck;
-
-  return (
-    <tr class="border-b-2 border-gray-700">
-      <td class="py-4">
-        <kbd class="border w-max shadow-lg rounded-md px-2 capitalize text-sm inline-block">
-          {keyboard}
-        </kbd>
-      </td>
-      <td>
-        <article class="ml-6">
-          <Description />
-        </article>
-      </td>
-    </tr>
   );
 });

@@ -35,11 +35,11 @@ export const Rating = component$((props: RatingProps) => {
   });
   return (
     <span class="wrapper">
-      {new Array(total).fill('').map((item, i) => {
+      {Array.from({ length: total }, (_, index) => index).map((item, i) => {
         const Icon = props.icon || DefaultIcon;
         return (
           <RatingIcon
-            key={useId()}
+            key={item}
             name={`rating-${uniqueId}`}
             index={i}
             onChange$={() => onItemClick$(i)}

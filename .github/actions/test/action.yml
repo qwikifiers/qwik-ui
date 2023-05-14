@@ -6,6 +6,9 @@ inputs:
   github_token:
     description: GitHub token
     required: true
+  chromatic_token:
+    description: Chromatic token
+    required: true
 
 runs:
   using: composite
@@ -19,9 +22,22 @@ runs:
       shell: bash
       run: npx nx affected:lint --base=last-release --exclude=website
 
-    - name: Build Headless
+    - name: Build Headless Kit
       shell: bash
       run: npx nx build headless
+
+    - name: Build storybook
+      shell: bash
+      run: npx nx build-storybook headless
+
+    - name: Publish to Chromatic
+      uses: chromaui/action@v1
+      # Chromatic GitHub Action options
+      with:
+        # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+        projectToken: ${{ inputs.chromatic_token }}
+        storybookBuildDir: dist/storybook/headless
+        zip: true
 
     # - name: Build Tailwind Theme
     #   shell: bash

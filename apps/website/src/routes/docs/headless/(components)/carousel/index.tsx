@@ -1,109 +1,62 @@
-import {
-  component$,
-  useId,
-  useSignal,
-  useStylesScoped$,
-} from '@builder.io/qwik';
-import { Carousel } from '@qwik-ui/headless';
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
+import { Carousel, useCarousel } from '@qwik-ui/headless';
+import { ExampleNetflix } from './example-netflix';
+import styles from './carousel.css?inline';
 
-const {
-  Controls,
-  Control,
-  Item,
-  Items,
-  Root,
-  ButtonNext,
-  ButtonPrevious,
-  IconNext,
-  IconPrevious,
-} = Carousel;
-
-export const ITEMS: { src: string; title: string }[] = Array.from({
-  length: 4,
-}).map(() => ({
-  src: 'https://picsum.photos/1200/550',
-  title: 'My great image',
-}));
+const { Item, Items, Root } = Carousel;
 
 export default component$(() => {
-  const { scopeId } = useStylesScoped$(`
-    h1 { margin: 2rem 0; padding-top: 1rem; font-weight: bold; border-top: 1px dotted #222}
-    h2 { margin-block: 1.15em 0.5em; font-size: xx-large; }
-    h3 { margin-block: 0.85em 0.35em; font-size: x-large; }
-    hr { margin-block: 2em; }
+  const { scopeId } = useStylesScoped$(styles);
 
-    .form-item, hr { width: 35em; }
-
-    .outter {
-      display: grid;
-    }
-
-    .inner {
-      display: flex;
-      align-items: center;
-    }
-
-    .controls { 
-      padding: 2em;
-      margin-inline: auto;
-      display: flex;
-      justify-content: center;
-      gap: 0.5em;
-    }
-
-    .control {
-      width: 2em;
-      aspect-ratio: 1/1;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all .3s .1s ease-out;
-      cursor: pointer;
-    }
-
-    .control[aria-current="true"] {
-      font-weight: 900;
-    }
-
-    .item {
-      height: 500px;
-      width: 100%; 
-      object-fit: cover;
-    }
-  `);
-
-  const items = useSignal(ITEMS);
+  const carousel = useCarousel();
 
   return (
     <>
       <p>This is the documentation for the Carousel</p>
 
+      <ExampleNetflix />
+
       <h2>Carousel Example</h2>
 
-      <Root class="outter" startAt={1} loop={false}>
-        <div class="inner">
-          <ButtonPrevious>
-            <IconPrevious />
-          </ButtonPrevious>
-          <Items>
-            {items.value.map(({ src, title }, i) => (
-              <Item key={useId()} index={i} label={title}>
-                <img src={src} class="item" />
-              </Item>
-            ))}
-          </Items>
-          <ButtonNext>
-            <IconNext />
-          </ButtonNext>
-        </div>
-        <Controls class={[scopeId, 'controls']}>
-          {items.value.map((_, i) => (
-            <Control key={useId()} index={i} class={[scopeId, 'control']}>
-              {i + 1}
-            </Control>
+      <ul>
+        <li>total item: {carousel.items.total.value}</li>
+        <li>active item: {carousel.items.active.current.value}</li>
+        <li>
+          item shown: {carousel.items.visible.first.value + 1} to{' '}
+          {carousel.items.visible.last.value + 1}
+        </li>
+        <li>with focus: {carousel.items.active.current.value + 1}</li>
+      </ul>
+
+      <nav style="display: flex; gap: .5em">
+        <strong>Pages:</strong>
+        {carousel.pages.ranges.value.map(([first], i) => (
+          <button key={first} onClick$={() => carousel.items.scrollAt(first)}>
+            {i + 1}
+          </button>
+        ))}
+      </nav>
+      <nav style="display: flex; gap: .5em">
+        <strong>Items:</strong>
+        {Array.from({ length: 8 }, (_, i) => i).map((value, i) => (
+          <button key={value} onClick$={() => carousel.items.scrollAt(i)}>
+            {i + 1}
+          </button>
+        ))}
+      </nav>
+      <Root use={carousel}>
+        <Items style="gap: 3em;">
+          {Array.from({ length: 8 }, (_, i) => i).map((value, i) => (
+            <Item
+              key={value}
+              index={i}
+              label={`Image ${i}`}
+              class={[scopeId, 'item']}
+            >
+              <img src={`https://picsum.photos/120${i + 1}/55${i}`} alt="" />
+            </Item>
           ))}
-        </Controls>
+        </Items>
       </Root>
 
       <hr />

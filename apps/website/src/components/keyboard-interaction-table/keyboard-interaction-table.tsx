@@ -1,70 +1,8 @@
-import { component$, $ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 
 type KBInteractionTableRowProps = {
   keyTitle: string;
   description: string;
-};
-
-const SAMPLE_DATA = {
-  title: { key: 'Key', deck: 'Description' },
-  keys: [
-    {
-      id: crypto.randomUUID(),
-      title: 'Space',
-      description: $(() => <>Close a dialog or cancel an action.</>),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: 'Enter',
-      description: $(() => (
-        <>
-          Moves focus to the next{' '}
-          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b> when
-          orientation is vertical.
-        </>
-      )),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: 'Tab',
-      description: $(() => <>Moves focus to the next focusable element.</>),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: 'Shift + Tab',
-      description: $(() => (
-        <>
-          Moves focus to the next{' '}
-          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b> when
-          orientation is vertical.
-        </>
-      )),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: 'Home',
-      description: $(() => (
-        <>
-          When focus is on an{' '}
-          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b>, moves
-          focus to the first{' '}
-          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b>.
-        </>
-      )),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: 'End',
-      description: $(() => (
-        <>
-          When focus is on an{' '}
-          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b>, moves
-          focus to the last{' '}
-          <b class="text-[var(--qwik-light-purple)]">AccordionItem</b>.
-        </>
-      )),
-    },
-  ],
 };
 
 export interface KeyboardInteractionTableProps {
