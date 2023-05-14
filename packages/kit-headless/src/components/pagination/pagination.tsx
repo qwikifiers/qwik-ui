@@ -7,14 +7,14 @@ import { Button as HeadlessButton } from '@qwik-ui/primitives';
  *
  * PROPS
  * pageIndex: default pagination value
- * activeStyles: The styles of the active page button
- * normalStyles: The styles of the inactive page buttons
+ * V activeStyles: The styles of the active page button
+ * V normalStyles: The styles of the inactive page buttons
+ * V customArrowTexts: { previous, next }
  * disabled: enable/disable paginator
  * color: primary | secondary
  * variant: outlined (show border without bg)
  * shape: rounded | square
  * size: 'sm' | 'md' | 'lg'
- * customArrowTexts: { previous, next }
  * paginationRange (see https://mui.com/material-ui/react-pagination/#pagination-ranges)
  *
  * EVENTS
@@ -38,7 +38,15 @@ export interface IRenderPaginationItemProps {
   key?: string | number;
   activeClass?: string;
   defaultClass?: string;
+  labels?: TPaginationLabels;
 }
+
+export type TPaginationLabels = {
+  first?: string;
+  last?: string;
+  next?: string;
+  prev?: string;
+};
 
 export type TPaginationItemValue =
   | 'prev'
@@ -79,11 +87,13 @@ export interface IGetPaginationItemsOptions {
   showLastButton?: boolean;
   activeClass?: string;
   defaultClass?: string;
+  labels?: TPaginationLabels;
 }
 
 export const getPaginationItems = (
   page: IGetPaginationItems['page'],
   count: IGetPaginationItems['count'],
+  labels: TPaginationLabels | undefined,
   {
     boundaryCount = 1,
     siblingCount = 1,
@@ -185,9 +195,10 @@ export const Pagination = component$(
     pages,
     activeClass,
     defaultClass,
+    labels,
     ...rest
   }: IPaginationProps) => {
-    const pagi = getPaginationItems(page, pages, rest);
+    const pagi = getPaginationItems(page, pages, labels, rest);
 
     const _onPaging$ = $((page: number) => {
       if (page < 1 || page > pages) return;
@@ -206,6 +217,7 @@ export const Pagination = component$(
                   activeClass={activeClass}
                   defaultClass={defaultClass}
                   key={i}
+                  labels={labels}
                   onClick$={() =>
                     _onPaging$(
                       (() => {

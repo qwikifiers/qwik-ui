@@ -135,6 +135,7 @@ export default component$(() => {
           boundaryCount={boundaryCount.value}
           activeClass="!bg-cyan-500"
           defaultClass="bg-cyan-200"
+          labels={{ prev: '⬅️', next: '➡️', first: 'START', last: 'END' }}
         />
       </div>
     </div>

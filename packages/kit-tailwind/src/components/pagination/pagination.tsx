@@ -32,7 +32,23 @@ export const RenderPaginationItem = component$(
     value,
     activeClass,
     defaultClass,
+    labels,
   }: IRenderPaginationItemProps) => {
+    function getLabel() {
+      switch (value) {
+        case 'prev':
+          return labels?.prev || '‹';
+        case 'next':
+          return labels?.next || '›';
+        case 'first':
+          return labels?.first || 'first';
+        case 'last':
+          return labels?.last || 'last';
+        default:
+          return value;
+      }
+    }
+
     return (
       <Button
         onClick$={onClick$}
@@ -44,7 +60,7 @@ export const RenderPaginationItem = component$(
         circle
         class={ariaCurrent ? activeClass : defaultClass}
       >
-        {value === 'prev' ? '‹' : value === 'next' ? '›' : value}
+        {getLabel()}
       </Button>
     );
   }
