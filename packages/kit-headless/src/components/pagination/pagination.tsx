@@ -14,7 +14,7 @@ import { Button as HeadlessButton } from '@qwik-ui/primitives';
  * variant: outlined (show border without bg)
  * shape: rounded | square
  * size: 'sm' | 'md' | 'lg'
- * customArrowIcons: { previous, next }
+ * customArrowTexts: { previous, next }
  * paginationRange (see https://mui.com/material-ui/react-pagination/#pagination-ranges)
  *
  * EVENTS
@@ -36,6 +36,8 @@ export interface IRenderPaginationItemProps {
   'aria-current'?: boolean;
   value: TPaginationItemValue;
   key?: string | number;
+  activeClass?: string;
+  defaultClass?: string;
 }
 
 export type TPaginationItemValue =
@@ -75,6 +77,8 @@ export interface IGetPaginationItemsOptions {
   hideNextButton?: boolean;
   showFirstButton?: boolean;
   showLastButton?: boolean;
+  activeClass?: string;
+  defaultClass?: string;
 }
 
 export const getPaginationItems = (
@@ -179,6 +183,8 @@ export const Pagination = component$(
     onPaging$,
     page,
     pages,
+    activeClass,
+    defaultClass,
     ...rest
   }: IPaginationProps) => {
     const pagi = getPaginationItems(page, pages, rest);
@@ -197,6 +203,8 @@ export const Pagination = component$(
                 <RenderDivider key={i} />
               ) : (
                 <RenderItem
+                  activeClass={activeClass}
+                  defaultClass={defaultClass}
                   key={i}
                   onClick$={() =>
                     _onPaging$(

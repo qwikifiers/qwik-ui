@@ -119,6 +119,24 @@ export default component$(() => {
           boundaryCount={boundaryCount.value}
         />
       </div>
+
+      <div class="flex flex-col gap-8">
+        <Pagination
+          pages={pages.value}
+          page={page.value}
+          onPaging$={(newValue: number) => {
+            page.value = newValue;
+          }}
+          showFirstButton={showFirstButton.value}
+          showLastButton={showLastButton.value}
+          hideNextButton={hideNextButton.value}
+          hidePrevButton={hidePrevButton.value}
+          siblingCount={siblingCount.value}
+          boundaryCount={boundaryCount.value}
+          activeClass="!bg-cyan-500"
+          defaultClass="bg-cyan-200"
+        />
+      </div>
     </div>
   );
 });

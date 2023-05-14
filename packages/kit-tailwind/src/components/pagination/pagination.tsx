@@ -30,6 +30,8 @@ export const RenderPaginationItem = component$(
     onClick$,
     key,
     value,
+    activeClass,
+    defaultClass,
   }: IRenderPaginationItemProps) => {
     return (
       <Button
@@ -40,6 +42,7 @@ export const RenderPaginationItem = component$(
         key={key}
         active={ariaCurrent}
         circle
+        class={ariaCurrent ? activeClass : defaultClass}
       >
         {value === 'prev' ? '‹' : value === 'next' ? '›' : value}
       </Button>
