@@ -18,5 +18,5 @@
     "src/**/*.spec.jsx",
     "src/**/*.d.ts"
   ],
-  "exclude": ["**/*.stories.ts", "**/*.stories.js"]
+  "exclude": ["**/*.stories.tsx", "**/*.stories.ts", "**/*.stories.js"]
 }

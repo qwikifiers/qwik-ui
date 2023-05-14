@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
-import { Tab, TabList, TabPanel, Tabs, TabsProps } from './tabs';
+import { Tab, TabList, TabPanel, Tabs, TabsProps } from './';
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
@@ -28,10 +28,12 @@ export const Primary: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const tab2 = canvas.getByRole('tab', { name: 'Tab 2' });
-    await userEvent.click(tab2);
+    const tabs = await canvas.findAllByRole('tab');
+    await userEvent.click(tabs[1]);
 
-    // const tabPanel2 = canvas.getByRole('tabpanel');
-    // await expect(tabPanel2).toContain('Panel 2');
+    const tabPanel = await canvas.findByRole('tabpanel');
+
+    // await expect(tabPanel).toBeInTheDocument();
+    // await expect(tabPanel).toContain('Panel 2');
   },
 };
