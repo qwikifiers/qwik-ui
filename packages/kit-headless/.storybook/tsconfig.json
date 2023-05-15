@@ -4,12 +4,12 @@
     "emitDecoratorMetadata": true,
     "types": ["node", "jest", "@testing-library/jest-dom"]
   },
-
   "exclude": [
     "../**/*.spec.ts",
     "../**/*.test.ts",
     "../**/*.spec.tsx",
-    "../**/*.test.tsx"
+    "../**/*.test.tsx",
+    "../cypress.config.ts"
   ],
   "include": [
     "../src/**/*.stories.ts",

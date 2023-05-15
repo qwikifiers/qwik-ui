@@ -65,6 +65,7 @@ export const Tab = component$((props: TabProps) => {
       onFocus$={selectIfAutomatic$}
       onMouseEnter$={selectIfAutomatic$}
       aria-selected={isSelectedSignal.value}
+      tabIndex={isSelectedSignal.value ? 0 : -1}
       aria-controls={'tabpanel-' + contextService.tabsMap[uniqueId]?.tabPanelId}
       class={`${
         isSelectedSignal.value ? `selected ${props.selectedClassName}` : ''

@@ -33,7 +33,6 @@ export const Primary: Story = {
 
     const tabPanel = await canvas.findByRole('tabpanel');
 
-    // await expect(tabPanel).toBeInTheDocument();
-    // await expect(tabPanel).toContain('Panel 2');
+    await expect(tabPanel).toHaveTextContent('Panel 2');
   },
 };
