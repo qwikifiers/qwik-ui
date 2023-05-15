@@ -17,7 +17,7 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   const panelUID = useId();
 
   const matchedTabId = useComputed$(
-    () => contextService.tabPanelsMap[panelUID]?.index
+    () => contextService.tabPanelsMap[panelUID]?.tabId
   );
 
   useTask$(({ cleanup }) => {
@@ -42,7 +42,7 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
       role="tabpanel"
       tabIndex={0}
       hidden={isSelectedSignal.value ? undefined : true}
-      aria-labelledby={`tab-${matchedTabId}`}
+      aria-labelledby={`tab-${matchedTabId.value}`}
       class={`${isSelectedSignal.value ? 'is-hidden' : ''}${
         props.class ? ` ${props.class}` : ''
       }`}
