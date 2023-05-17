@@ -52,7 +52,7 @@ export const Badge = component$((props: TailwindBadgeProps) => {
   };
 
   return (
-    <div
+    <HeadlessBadge
       {...rest}
       class={clsq(
         'badge',
@@ -65,6 +65,6 @@ export const Badge = component$((props: TailwindBadgeProps) => {
       )}
     >
       <Slot />
-    </div>
+    </HeadlessBadge>
   );
 });

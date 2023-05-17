@@ -4,8 +4,8 @@ export type BadgeProps = HTMLAttributes<HTMLElement>;
 
 export const Badge = component$((props: BadgeProps) => {
   return (
-    <div {...props}>
+    <span {...props} role="status">
       <Slot />
-    </div>
+    </span>
   );
 });
