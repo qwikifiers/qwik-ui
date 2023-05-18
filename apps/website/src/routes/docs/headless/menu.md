@@ -9,6 +9,7 @@
 ## Components
 
 - [Accordion](/docs/headless/accordion)
+- [Badge](/docs/headless/badge)
 - [Carousel](/docs/headless/carousel)
 - [Select](/docs/headless/select)
 - [Tabs](/docs/headless/tabs)

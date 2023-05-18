@@ -1,0 +1,77 @@
+---
+title: Qwik UI | Badge
+---
+
+import { Badge } from '@qwik-ui/headless';
+import { Button } from '@qwik-ui/primitives';
+import { Example01, Example02 } from './example';
+import { CodeExample } from '../../../../../components/code-example/code-example';
+import { APITable } from '../../../../../components/api-table/api-table';
+
+# Badge
+
+#### This element is used to provide information on new updates and notifications.
+
+{' '}
+
+<Example01>
+  ```tsx
+  <Badge class="px-4 py-1 bg-primary rounded-full">Badge</Badge>
+  ```
+</Example01>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Badge } from '@qwik-ui/headless';
+
+    export default component$(() => (
+      <Badge class="">Content</Badge>
+    ));
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### Badge in a Button
+
+{' '}
+<Example02>
+  ```tsx
+  <Button class="flex justify-between items-center px-4 py-2 gap-2 bg-primary rounded-md">
+    Inbox
+    <Badge class="flex justify-center px-1 bg-secondary rounded-full text-xs">
+      +4
+    </Badge>
+  </Button>
+  ```
+</Example02>
+
+## Accessibility
+
+No keyboard interaction
+
+## API
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the badge container.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the badge container.',
+    },
+    {
+      name: 'onClick$',
+      type: 'PropFunction<() => void>',
+      description: 'A custom click handler',
+    },
+  ]}
+/>
