@@ -4,7 +4,6 @@ import { Meta, StoryObj } from 'storybook-framework-qwik';
 import * as Dialog from './public_api';
 
 const meta: Meta = {
-  title: 'Dialog',
   component: Dialog.Root,
 };
 
