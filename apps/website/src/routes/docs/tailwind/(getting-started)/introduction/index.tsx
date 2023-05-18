@@ -17,7 +17,7 @@ export default component$(() => {
         </a>{' '}
         and{' '}
         <a target="_blank" href="https://daisyui.com/" class="text-blue-400">
-          DasiyUI
+          DaisyUI
         </a>{' '}
         designed to work seamlessly with Qwik. The Tailwind Kit is perfect for
         developers who want to build their web applications with a consistent,
