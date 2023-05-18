@@ -39,6 +39,15 @@ export const Primary: Story = {
     </>
   ),
   play: ({ canvasElement, args }) => {
+    /**
+     *
+     * TODO: This test does not provide a real value.
+     *
+     * It just checks for the existence in the DOM, but not if it is visible.
+     * Using `toBeVisible` does not work either because the matcher does not
+     * seem to be capable of detecting the visibility of a HTML-Dialog. :-(
+     *
+     */
     const canvas = within(canvasElement);
     userEvent.click(canvas.getByText(args.dialogTrigger.text));
     expect(canvas.getByText(args.dialogPortal.text)).toBeTruthy();
