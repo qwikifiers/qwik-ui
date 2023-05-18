@@ -282,6 +282,16 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "thejackshelton",
+      "name": "Jack Shelton",
+      "avatar_url": "https://avatars.githubusercontent.com/u/104264123?v=4",
+      "profile": "https://github.com/thejackshelton",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
