@@ -1,38 +1,52 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
 import { Tab, TabList, TabPanel, Tabs, TabsProps } from './';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, within, screen } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
 const meta: Meta<TabsProps> = {
   component: Tabs,
+  args: {
+    behavior: 'automatic',
+  },
+  argTypes: {
+    behavior: {
+      control: {
+        type: 'select',
+      },
+      options: ['automatic', 'manual'],
+    },
+  },
 };
 
 export default meta;
 
 type Story = StoryObj<TabsProps>;
 
-export const Primary: Story = {
-  render: () => (
-    <Tabs>
-      <TabList>
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-        <Tab>Tab 3</Tab>
-      </TabList>
+const createThreeTabs = () => (
+  <Tabs>
+    <TabList>
+      <Tab>Tab 1</Tab>
+      <Tab>Tab 2</Tab>
+      <Tab>Tab 3</Tab>
+    </TabList>
 
-      <TabPanel>Panel 1</TabPanel>
-      <TabPanel>Panel 2</TabPanel>
-      <TabPanel>Panel 3</TabPanel>
-    </Tabs>
-  ),
+    <TabPanel>Panel 1</TabPanel>
+    <TabPanel>Panel 2</TabPanel>
+    <TabPanel>Panel 3</TabPanel>
+  </Tabs>
+);
+
+export const Primary: Story = {
+  render: () => createThreeTabs(),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const tabs = await canvas.findAllByRole('tab');
-    await userEvent.click(tabs[1]);
+    const secondTab = await canvas.findByRole('tab', { name: /Tab 2/i });
+    screen.debug(canvasElement);
+    await userEvent.click(secondTab);
 
-    const tabPanel = await canvas.findByRole('tabpanel');
+    const activeTabPanel = await canvas.findByRole('tabpanel');
 
-    await expect(tabPanel).toHaveTextContent('Panel 2');
+    await expect(activeTabPanel).toHaveTextContent('Panel 2');
   },
 };

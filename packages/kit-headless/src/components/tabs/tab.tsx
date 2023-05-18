@@ -36,6 +36,10 @@ export const Tab = component$((props: TabProps) => {
     );
   });
 
+  const matchedTabPanelId = useComputed$(
+    () => contextService.tabsMap[uniqueId]?.tabPanelId
+  );
+
   // TODO: Figure out a way to fix this shitty hack :)
   useTask$(({ track }) => {
     track(() => isSelectedSignal.value);
@@ -66,7 +70,7 @@ export const Tab = component$((props: TabProps) => {
       onMouseEnter$={selectIfAutomatic$}
       aria-selected={isSelectedSignal.value}
       tabIndex={isSelectedSignal.value ? 0 : -1}
-      aria-controls={'tabpanel-' + contextService.tabsMap[uniqueId]?.tabPanelId}
+      aria-controls={'tabpanel-' + matchedTabPanelId.value}
       class={`${
         isSelectedSignal.value ? `selected ${props.selectedClassName}` : ''
       }${props.class ? ` ${props.class}` : ''}`}

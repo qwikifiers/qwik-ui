@@ -97,8 +97,8 @@
     "test-storybook": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpm test-storybook --url http://localhost:4400",
-        "cwd": "packages/headless"
+        "command": "pnpm test-storybook --url http://localhost:4400 --coverage",
+        "cwd": "packages/kit-headless"
       }
     },
     "component-test": {
