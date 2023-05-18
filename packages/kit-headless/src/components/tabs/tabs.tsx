@@ -1,159 +1,190 @@
 import {
   $,
   component$,
-  createContextId,
-  PropFunction,
-  QRL,
-  Signal,
   Slot,
-  useContext,
   useContextProvider,
-  useTask$,
   useSignal,
   useVisibleTask$,
+  useStore,
 } from '@builder.io/qwik';
+import { tabsContextId } from './tabs-context-id';
+import { TabsContext } from './tabs-context.type';
+import { Behavior } from './behavior.type';
 
-export type Behavior = 'automatic' | 'manual';
+/**
+ * TABS TODOs
+ * 
+ * - CHANGE THE querySelector to "scoped" queries
+ *
+ * - selectedIndex / default
+ * - Orientation
+ * - aria-label https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby
+ * - NOTE: Radix manually handle the value/id for each tab while we calculate it behind the scenes
+ *    If we end up implementing this, we need to expose a way to set this value in the root
+ * - keyboard interactions (arrowDown, ARrowRight, ArrowUp, ArrowLeft, Home, End, PageUp, PageDown)
+ *    Support Loop
+ * - expose selectedIndex in the root
+ * - onValueChange
+ * POST V1:
+ * - RTL
 
-interface TabsContext {
-  selectedIndex: Signal<number>;
-  getNextTabIndex: QRL<() => number>;
-  getNextPanelIndex: QRL<() => number>;
-  tabsHash: string;
-  behavior: Behavior;
-}
-
-export const tabsContext = createContextId<TabsContext>('tabList');
+ *
+ * TAB
+ *  Disable
+ *  NOTE: radix / headlessui: expose data-state data-disable data-orientation
+ *  NOTE: Headless UI: explorer the render props
+ *  NOTE: remove tab, switch position
+ *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
+ *
+ * PANEL
+ *
+ * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+ * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+ *
+ */
 
 export interface TabsProps {
   behavior?: Behavior;
   class?: string;
+  selectedIndex?: number;
+}
+
+export type TabIndexMap = [string, string][];
+export interface TabPair {
+  tabId: string;
+  tabPanelId: string;
+}
+
+export interface TabInfo {
+  tabId: string;
+  tabPanelId?: string;
+  index?: number | undefined;
 }
 
 export const Tabs = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
-  const lastTabIndex = useSignal(0);
-  const lastPanelIndex = useSignal(0);
+  const selectedIndex = useSignal(props.selectedIndex || 0);
+  const selectedTabId = useSignal<string>('');
+  const reIndexTabs = useSignal(false);
+  const showTabsSignal = useSignal(false);
 
-  const tabsHash = `${Math.random() * 1000}`;
+  const tabsMap = useStore<{ [key: string]: TabInfo }>({});
 
-  const getNextTabIndex = $(() => {
-    return lastTabIndex.value++;
+  const tabPanelsMap = useStore<{ [key: string]: TabInfo }>({});
+
+  const tabsChanged$ = $(() => {
+    reIndexTabs.value = true;
   });
 
-  const getNextPanelIndex = $(() => {
-    return lastPanelIndex.value++;
+  const selectTab$ = $((tabId: string) => {
+    selectedTabId.value = tabId;
   });
 
-  const selected = useSignal(0);
+  const showTabs$ = $(() => {
+    showTabsSignal.value = true;
+  });
 
   const contextService: TabsContext = {
-    selectedIndex: selected,
-    getNextTabIndex,
-    getNextPanelIndex,
-    tabsHash,
+    tabsMap,
+    tabPanelsMap,
+    selectedIndex,
+    selectTab$,
+    showTabs$,
+    tabsChanged$,
     behavior,
+    selectedTabId,
   };
 
-  useContextProvider(tabsContext, contextService);
+  useContextProvider(tabsContextId, contextService);
 
-  return (
-    <div {...props}>
-      <Slot />
-    </div>
-  );
-});
+  const ref = useSignal<HTMLElement | undefined>();
+  // useVisibleTask$(({ track }) => {
+  //   track(() => selectedIndex.value);
+  //   if (tabsIdsByIndex[selectedIndex.value]) {
+  //     const currentSelectedTab = tabsIdsByIndex[selectedIndex.value][0];
 
-interface TabListProps {
-  labelledBy?: string;
-  behavior?: 'automatic' | 'manual';
-  class?: string;
-}
+  //     if (currentSelectedTab !== selectedTabId.value) {
+  //       selectTab$(currentSelectedTab);
+  //     }
+  //   }
+  // });
 
-// List of tabs that can be clicked to show different content.
-export const TabList = component$((props: TabListProps) => {
-  const { labelledBy, ...rest } = props;
-  return (
-    <div role="tablist" aria-labelledby={labelledBy} {...rest}>
-      <Slot />
-    </div>
-  );
-});
+  useVisibleTask$(({ track }) => {
+    track(() => reIndexTabs.value);
 
-interface TabProps {
-  onClick?: PropFunction<(clicked: number) => void>;
-  class?: string;
-  selectedClassName?: string;
-}
+    if (!reIndexTabs.value) {
+      return;
+    }
+    reIndexTabs.value = false;
 
-// Tab button inside of a tab list
-export const Tab = component$(
-  ({ selectedClassName, onClick, ...props }: TabProps) => {
-    const contextService = useContext(tabsContext);
-    const thisTabIndex = useSignal(0);
+    if (ref.value) {
+      const tabElements = ref.value.querySelectorAll(
+        '[role="tablist"] > [role="tab"]'
+      );
 
-    useTask$(async () => {
-      thisTabIndex.value = await contextService.getNextTabIndex();
-    });
-    const isSelected = () =>
-      thisTabIndex.value === contextService.selectedIndex.value;
+      /*
+      const parentElement = document.querySelector('#parent');
 
-    const selectIfAutomatic = $(() => {
-      if (contextService.behavior === 'automatic') {
-        contextService.selectedIndex.value = thisTabIndex.value;
-      }
-    });
+      const firstLevelElements = Array.from(parentElement.childNodes)
+        .filter(node => node.nodeType === Node.ELEMENT_NODE && node.parentNode === parentElement);
 
-    return (
-      <button
-        id={`${contextService.tabsHash}-tab-${thisTabIndex.value}`}
-        type="button"
-        role="tab"
-        onFocus$={selectIfAutomatic}
-        onMouseEnter$={selectIfAutomatic}
-        aria-selected={isSelected()}
-        aria-controls={`tabpanel-${thisTabIndex.value}`}
-        class={`${isSelected() ? `selected ${selectedClassName}` : ''}${
-          props.class ? ` ${props.class}` : ''
-        }`}
-        onClick$={$(() => {
-          contextService.selectedIndex.value = thisTabIndex.value;
-          if (onClick) {
-            onClick(thisTabIndex.value);
-          }
-        })}
-      >
-        <Slot />
-      </button>
-    );
-  }
-);
+      */
 
-interface TabPanelProps {
-  class?: string;
-}
+      const tabPanelElements = ref.value.querySelectorAll('[role="tabpanel"]');
 
-// Tab Panel implementation
-export const TabPanel = component$(({ ...props }: TabPanelProps) => {
-  const { class: classNames, ...rest } = props;
-  const contextService = useContext(tabsContext);
-  const thisPanelIndex = useSignal(0);
-  const isSelected = () =>
-    thisPanelIndex.value === contextService.selectedIndex.value;
-  useVisibleTask$(async () => {
-    thisPanelIndex.value = await contextService.getNextPanelIndex();
+      // let lastSelectedTabId = undefined;
+
+      tabElements.forEach((tab, index) => {
+        const tabId = tab.getAttribute('data-tab-id');
+
+        // const tabForId = tab.getAttribute('data-for');
+
+        if (!tabId) {
+          throw new Error('Missing tab id for tab: ' + index);
+        }
+
+        const tabPanelElement = tabPanelElements[index];
+        if (!tabPanelElement) {
+          throw new Error('Missing tab panel for tab: ' + index);
+        }
+        const tabPanelId = tabPanelElement.getAttribute('data-tabpanel-id');
+        if (tabId && tabPanelId) {
+          tabsMap[tabId] = {
+            tabId,
+            tabPanelId,
+            index,
+          };
+
+          tabPanelsMap[tabPanelId] = {
+            tabId,
+            tabPanelId,
+            index,
+          };
+        } else {
+          throw new Error('Missing tab id or tab panel id for tab: ' + index);
+        }
+
+        // if (indexByTabId[tabForId] === selectedIndex.value) {
+        //   lastSelectedTabId = tabForId;
+        // }
+
+        // indexByTabId[tabForId] = index;
+      });
+
+      // Update selected index
+      // if (lastSelectedTabId) {
+      //   selectedIndex.value = indexByTabId[lastSelectedTabId];
+      // } else {
+      //   selectedIndex.value = 0;
+      // }
+    }
   });
+
   return (
     <div
-      id={`${contextService.tabsHash}-tabpanel-${thisPanelIndex}`}
-      role="tabpanel"
-      tabIndex={0}
-      aria-labelledby={`tab-${thisPanelIndex}`}
-      class={`${isSelected() ? 'is-hidden' : ''}${
-        classNames ? ` ${classNames}` : ''
-      }`}
-      style={isSelected() ? 'display: block' : 'display: none'}
-      {...rest}
+      ref={ref}
+      {...props}
+      style={'visibility:' + (showTabsSignal.value ? 'visible' : 'hidden')}
     >
       <Slot />
     </div>

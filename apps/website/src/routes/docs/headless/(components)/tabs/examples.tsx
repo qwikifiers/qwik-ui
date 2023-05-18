@@ -18,16 +18,16 @@ export const Example01 = component$(() => {
           </TabList>
           <TabPanel>
             <p>
-              Maria Theresia Ahlefeldt (16 January 1755 – 20 December 1810) was
+              Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was
               a ...
             </p>
           </TabPanel>
           <TabPanel>
-            <p>Carl Joachim Andersen (29 April 1847 – 7 May 1909) was a ...</p>
+            <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
           </TabPanel>
           <TabPanel>
             <p>
-              Ida Henriette da Fonseca (July 27, 1802 – July 6, 1858) was a ...
+              Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...
             </p>
           </TabPanel>
         </Tabs>
