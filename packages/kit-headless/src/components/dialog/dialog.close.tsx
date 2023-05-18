@@ -10,8 +10,8 @@ export const Close = component$(() => {
   );
 
   return (
-    <div role="button">
+    <section>
       <Slot />
-    </div>
+    </section>
   );
 });

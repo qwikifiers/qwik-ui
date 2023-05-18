@@ -10,8 +10,8 @@ export const Trigger = component$(() => {
   );
 
   return (
-    <div role="button">
+    <section>
       <Slot />
-    </div>
+    </section>
   );
 });
