@@ -1,16 +1,10 @@
-import { component$, PropFunction } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import {
-  IRenderPaginationItemProps,
   Pagination as HeadlessPagination,
-  IPaginationProps,
+  PaginationProps,
+  PaginationButtonProps,
 } from '@qwik-ui/headless';
 import { Button } from '../button/button';
-
-export interface PaginationProps extends Omit<IPaginationProps, 'RenderItem'> {
-  pages: number;
-  page: number;
-  onPaging$: PropFunction<(index: number) => void>;
-}
 
 /**
  * Pagination
@@ -25,15 +19,15 @@ export interface PaginationProps extends Omit<IPaginationProps, 'RenderItem'> {
 export const RenderPaginationItem = component$(
   ({
     'aria-label': ariaLabel,
-    disabled,
     'aria-current': ariaCurrent,
+    disabled,
     onClick$,
     key,
     value,
     activeClass,
     defaultClass,
     labels,
-  }: IRenderPaginationItemProps) => {
+  }: PaginationButtonProps) => {
     function getLabel() {
       switch (value) {
         case 'prev':
@@ -67,7 +61,12 @@ export const RenderPaginationItem = component$(
 );
 
 export const Pagination = component$(
-  ({ page, pages, onPaging$, ...rest }: PaginationProps) => {
+  ({
+    page,
+    pages,
+    onPaging$,
+    ...rest
+  }: Omit<PaginationProps, 'RenderItem'>) => {
     return (
       <div class="flex gap-2 items-center">
         <HeadlessPagination

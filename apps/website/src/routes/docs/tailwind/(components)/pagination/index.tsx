@@ -3,8 +3,8 @@ import { Pagination } from '@qwik-ui/tailwind';
 import { Toggle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
-  const page = useSignal(50);
-  const pages = useSignal(100);
+  const page = useSignal(5);
+  const pages = useSignal(10);
 
   const showFirstButton = useSignal(true);
   const showLastButton = useSignal(true);
