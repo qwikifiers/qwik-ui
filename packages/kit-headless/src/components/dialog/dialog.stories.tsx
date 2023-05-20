@@ -12,7 +12,8 @@ const meta: Meta = {
     dialogTrigger: {
       text: 'Open Dialog',
     },
-    dialogPortal: {
+    dialogContent: {
+      title: 'Dialog Title',
       text: 'Hello World',
     },
     dialogClose: {
@@ -26,7 +27,7 @@ const meta: Meta = {
           <button>{args.dialogTrigger.text}</button>
         </Dialog.Trigger>
         <Dialog.Content>
-          {args.dialogPortal.text}
+          {args.dialogContent.text}
           <Dialog.Close>
             <button>{args.dialogClose.text}</button>
           </Dialog.Close>
@@ -53,7 +54,7 @@ export const Primary: Story = {
      */
     const canvas = within(canvasElement);
     userEvent.click(canvas.getByText(args.dialogTrigger.text));
-    expect(canvas.getByText(args.dialogPortal.text)).toBeTruthy();
+    expect(canvas.getByText(args.dialogContent.text)).toBeTruthy();
     userEvent.click(canvas.getByText(args.dialogClose.text));
   },
 };
@@ -61,7 +62,7 @@ export const Primary: Story = {
 export const ScrollingLongContent: Story = {
   args: {
     ...Primary.args,
-    dialogPortal: {
+    dialogContent: {
       text: Array(500)
         .fill(null)
         .map(() => 'Hello World')
@@ -75,7 +76,31 @@ export const ScrollingLongContent: Story = {
           <button>{args.dialogTrigger.text}</button>
         </Dialog.Trigger>
         <Dialog.Content>
-          {args.dialogPortal.text}
+          {args.dialogContent.text}
+          <Dialog.Actions>
+            <Dialog.Close>
+              <button>{args.dialogClose.text}</button>
+            </Dialog.Close>
+          </Dialog.Actions>
+        </Dialog.Content>
+      </Dialog.Root>
+    </>
+  ),
+};
+
+export const Title: Story = {
+  args: {
+    ...Primary.args,
+  },
+  render: (args) => (
+    <>
+      <Dialog.Root aria-labelledby="dialog-title">
+        <Dialog.Trigger>
+          <button>{args.dialogTrigger.text}</button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Title>{args.dialogContent.title}</Dialog.Title>
+          {args.dialogContent.text}
           <Dialog.Actions>
             <Dialog.Close>
               <button>{args.dialogClose.text}</button>
