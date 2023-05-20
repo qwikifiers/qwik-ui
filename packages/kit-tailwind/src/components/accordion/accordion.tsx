@@ -24,7 +24,7 @@ export const Accordion = component$((props: AccordionProps) => {
   const { class: classNames, ...rest } = props;
   return (
     <HeadlessAccordion
-      class={clsq('border collapse collapse-arrow', classNames)}
+      class={clsq('collapse collapse-arrow', classNames)}
       {...rest}
     >
       <Slot />
@@ -35,10 +35,7 @@ export const Accordion = component$((props: AccordionProps) => {
 export const AccordionItem = component$((props: AccordionItemProps) => {
   const { class: classNames, ...rest } = props;
   return (
-    <HeadlessAccordionItem
-      class={clsq('collapse-title border', classNames)}
-      {...rest}
-    >
+    <HeadlessAccordionItem class={clsq('collapse-title', classNames)} {...rest}>
       <Slot />
     </HeadlessAccordionItem>
   );
