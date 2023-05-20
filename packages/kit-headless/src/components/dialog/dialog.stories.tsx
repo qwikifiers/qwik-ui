@@ -6,6 +6,9 @@ import * as Dialog from './public_api';
 const meta: Meta = {
   component: Dialog.Root,
   args: {
+    dialog: {
+      fullScreen: false,
+    },
     dialogTrigger: {
       text: 'Open Dialog',
     },
@@ -18,7 +21,7 @@ const meta: Meta = {
   },
   render: (args) => (
     <>
-      <Dialog.Root>
+      <Dialog.Root fullScreen={args.dialog.fullScreen}>
         <Dialog.Trigger>
           <button>{args.dialogTrigger.text}</button>
         </Dialog.Trigger>
@@ -82,4 +85,13 @@ export const ScrollingLongContent: Story = {
       </Dialog.Root>
     </>
   ),
+};
+
+export const FullScreen: Story = {
+  args: {
+    ...Primary.args,
+    dialog: {
+      fullScreen: true,
+    },
+  },
 };

@@ -8,10 +8,15 @@ import {
   useStore,
 } from '@builder.io/qwik';
 import { dialogContext } from './dialog.context';
-import { DialogContext } from './types';
+import { DialogContext, DialogState } from './types';
 
-export const Root = component$(() => {
-  const state = useStore({
+export type RootProps = {
+  fullScreen?: boolean;
+};
+
+export const Root = component$((props: RootProps) => {
+  const state = useStore<DialogState>({
+    fullScreen: props.fullScreen || false,
     opened: false,
     dialogRef: useSignal<HTMLDialogElement>(),
   });
