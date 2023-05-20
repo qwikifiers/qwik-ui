@@ -5,13 +5,6 @@ import * as Dialog from './public_api';
 
 const meta: Meta = {
   component: Dialog.Root,
-};
-
-type Story = StoryObj;
-
-export default meta;
-
-export const Primary: Story = {
   args: {
     dialogTrigger: {
       text: 'Open Dialog',
@@ -38,6 +31,13 @@ export const Primary: Story = {
       </Dialog.Root>
     </>
   ),
+};
+
+type Story = StoryObj;
+
+export default meta;
+
+export const Primary: Story = {
   play: ({ canvasElement, args }) => {
     /**
      *
@@ -53,4 +53,33 @@ export const Primary: Story = {
     expect(canvas.getByText(args.dialogPortal.text)).toBeTruthy();
     userEvent.click(canvas.getByText(args.dialogClose.text));
   },
+};
+
+export const ScrollingLongContent: Story = {
+  args: {
+    ...Primary.args,
+    dialogPortal: {
+      text: Array(500)
+        .fill(null)
+        .map(() => 'Hello World')
+        .join(' '),
+    },
+  },
+  render: (args) => (
+    <>
+      <Dialog.Root>
+        <Dialog.Trigger>
+          <button>{args.dialogTrigger.text}</button>
+        </Dialog.Trigger>
+        <Dialog.Portal>
+          {args.dialogPortal.text}
+          <Dialog.Actions>
+            <Dialog.Close>
+              <button>{args.dialogClose.text}</button>
+            </Dialog.Close>
+          </Dialog.Actions>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </>
+  ),
 };

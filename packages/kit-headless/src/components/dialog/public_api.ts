@@ -1,3 +1,4 @@
+export * from './dialog.actions';
 export * from './dialog.close';
 export * from './dialog.context';
 export * from './dialog.portal';
