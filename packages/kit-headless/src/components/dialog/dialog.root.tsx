@@ -1,5 +1,6 @@
 import {
   $,
+  QwikIntrinsicElements,
   QwikMouseEvent,
   Slot,
   component$,
@@ -10,13 +11,15 @@ import {
 import { dialogContext } from './dialog.context';
 import { DialogContext, DialogState } from './types';
 
-export type RootProps = {
+export type RootProps = QwikIntrinsicElements['dialog'] & {
   fullScreen?: boolean;
 };
 
 export const Root = component$((props: RootProps) => {
+  const { fullScreen, ...dialogProps } = props;
+
   const state = useStore<DialogState>({
-    fullScreen: props.fullScreen || false,
+    fullScreen: fullScreen || false,
     opened: false,
     dialogRef: useSignal<HTMLDialogElement>(),
   });
@@ -53,6 +56,7 @@ export const Root = component$((props: RootProps) => {
   );
 
   const context: DialogContext = {
+    dialogProps,
     state,
 
     open: openDialog$,

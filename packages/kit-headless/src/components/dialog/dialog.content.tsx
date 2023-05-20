@@ -1,5 +1,4 @@
 import {
-  QwikIntrinsicElements,
   Slot,
   component$,
   useContext,
@@ -7,9 +6,7 @@ import {
 } from '@builder.io/qwik';
 import { dialogContext } from './dialog.context';
 
-type ContentProps = QwikIntrinsicElements['dialog'];
-
-export const Content = component$((props: ContentProps) => {
+export const Content = component$(() => {
   useStylesScoped$(`
     .full-screen {
       width: 100vw;
@@ -18,6 +15,7 @@ export const Content = component$((props: ContentProps) => {
   `);
 
   const context = useContext(dialogContext);
+  const props = context.dialogProps;
 
   return (
     <dialog
