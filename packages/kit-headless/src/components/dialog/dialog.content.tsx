@@ -7,9 +7,9 @@ import {
 } from '@builder.io/qwik';
 import { dialogContext } from './dialog.context';
 
-type PortalProps = QwikIntrinsicElements['dialog'];
+type ContentProps = QwikIntrinsicElements['dialog'];
 
-export const Portal = component$((props: PortalProps) => {
+export const Content = component$((props: ContentProps) => {
   useStylesScoped$(`
     .full-screen {
       width: 100vw;

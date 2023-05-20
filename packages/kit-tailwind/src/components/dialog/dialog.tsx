@@ -9,8 +9,8 @@ export const Close = Dialog.Close;
 
 export const Portal = component$(() => {
   return (
-    <Dialog.Portal class="bg-slate-900 rounded-md text-white">
+    <Dialog.Content class="bg-slate-900 rounded-md text-white">
       <Slot />
-    </Dialog.Portal>
+    </Dialog.Content>
   );
 });

@@ -8,12 +8,12 @@ describe('Dialog', () => {
         <Dialog.Trigger>
           <button>Open</button>
         </Dialog.Trigger>
-        <Dialog.Portal>
+        <Dialog.Content>
           {/* Dialog.Header */}
           {/* Dialog.Content */}
           {/* Dialog.Actions/Footer */}
           <h2 data-test="dialog-title">Hello World!</h2>
-        </Dialog.Portal>
+        </Dialog.Content>
       </Dialog.Root>
     );
 
@@ -30,9 +30,9 @@ describe('Dialog', () => {
         <Dialog.Trigger>
           <button>Open</button>
         </Dialog.Trigger>
-        <Dialog.Portal>
+        <Dialog.Content>
           <h2 data-test="dialog-title">Hello World!</h2>
-        </Dialog.Portal>
+        </Dialog.Content>
       </Dialog.Root>
     );
 
@@ -49,9 +49,9 @@ describe('Dialog', () => {
         <Dialog.Trigger>
           <button>Open</button>
         </Dialog.Trigger>
-        <Dialog.Portal>
+        <Dialog.Content>
           <h2>Hello World!</h2>
-        </Dialog.Portal>
+        </Dialog.Content>
       </Dialog.Root>
     );
 

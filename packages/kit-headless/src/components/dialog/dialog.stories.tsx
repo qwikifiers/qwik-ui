@@ -25,12 +25,12 @@ const meta: Meta = {
         <Dialog.Trigger>
           <button>{args.dialogTrigger.text}</button>
         </Dialog.Trigger>
-        <Dialog.Portal>
+        <Dialog.Content>
           {args.dialogPortal.text}
           <Dialog.Close>
             <button>{args.dialogClose.text}</button>
           </Dialog.Close>
-        </Dialog.Portal>
+        </Dialog.Content>
       </Dialog.Root>
     </>
   ),
@@ -74,14 +74,14 @@ export const ScrollingLongContent: Story = {
         <Dialog.Trigger>
           <button>{args.dialogTrigger.text}</button>
         </Dialog.Trigger>
-        <Dialog.Portal>
+        <Dialog.Content>
           {args.dialogPortal.text}
           <Dialog.Actions>
             <Dialog.Close>
               <button>{args.dialogClose.text}</button>
             </Dialog.Close>
           </Dialog.Actions>
-        </Dialog.Portal>
+        </Dialog.Content>
       </Dialog.Root>
     </>
   ),

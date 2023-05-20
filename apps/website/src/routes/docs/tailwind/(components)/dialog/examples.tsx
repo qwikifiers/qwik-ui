@@ -10,12 +10,12 @@ export const Example01 = component$(() => {
           <Dialog.Trigger>
             <button>Open Dialog</button>
           </Dialog.Trigger>
-          <Dialog.Portal>
+          <Dialog.Content>
             Hello World
             <Dialog.Close>
               <Button>Close</Button>
             </Dialog.Close>
-          </Dialog.Portal>
+          </Dialog.Content>
         </Dialog.Root>
       </div>
 

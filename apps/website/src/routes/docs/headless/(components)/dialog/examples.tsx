@@ -10,7 +10,7 @@ export const Example01 = component$(() => {
           <Dialog.Trigger>
             <button>Open Dialog</button>
           </Dialog.Trigger>
-          <Dialog.Portal>Hello World</Dialog.Portal>
+          <Dialog.Content>Hello World</Dialog.Content>
         </Dialog.Root>
       </div>
 
