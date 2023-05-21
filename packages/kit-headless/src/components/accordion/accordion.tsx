@@ -69,6 +69,21 @@ export const AccordionItem = component$((props: AccordionItemProps) => {
       div.item .content {
         display: none;
       }
+      div.item>button {
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        flex-direction: items-start;
+        align-items: center;
+        padding-left: 8px;
+      }
+      div.item>button:hover {
+        text-decoration: underline;
+      }
+      div.item[open]>button::after {
+        rotate: 180deg;
+        top: 30%;
+        transition: 0.2s ease-in-out;
+      }
       div.item[open] .content {
        display: block;
       }
