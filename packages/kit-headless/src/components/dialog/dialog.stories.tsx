@@ -88,19 +88,26 @@ export const ScrollingLongContent: Story = {
   ),
 };
 
-export const Title: Story = {
+export const Aria: Story = {
   args: {
     ...Primary.args,
   },
   render: (args) => (
     <>
-      <Dialog.Root aria-labelledby="dialog-title">
+      <Dialog.Root
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-text"
+      >
         <Dialog.Trigger>
           <button>{args.dialogTrigger.text}</button>
         </Dialog.Trigger>
         <Dialog.Content>
-          <Dialog.Title>{args.dialogContent.title}</Dialog.Title>
-          {args.dialogContent.text}
+          <Dialog.ContentTitle>
+            <h2 id="dialog-title">{args.dialogContent.title}</h2>
+          </Dialog.ContentTitle>
+          <Dialog.ContentText>
+            <p id="dialog-text">{args.dialogContent.text}</p>
+          </Dialog.ContentText>
           <Dialog.Actions>
             <Dialog.Close>
               <button>{args.dialogClose.text}</button>
