@@ -1,17 +1,15 @@
-import { component$, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, Slot, useStylesScoped$ } from '@builder.io/qwik';
+import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
 import { Accordion, AccordionItem } from '@qwik-ui/tailwind';
 
-export default component$(() => {
+export const Example01 = component$(() => {
   useStylesScoped$(`
     h1 { margin: 2rem 0; padding-top: 1rem; font-weight: bold; border-top: 1px dotted #222}
     .container { width: 300px } Accordion {border: 1px solid white}
   `);
   return (
-    <>
-      <div class="container">
-        <h2>This is the documentation for the Accordion</h2>
-
-        <h1>Accordion Example</h1>
+    <PreviewCodeExample>
+      <div q:slot="actualComponent">
         <Accordion>
           <AccordionItem label="Heading 1">
             <div class="p-2">
@@ -30,8 +28,19 @@ export default component$(() => {
             </div>
           </AccordionItem>
         </Accordion>
+      </div>
 
-        <h1>Accordion with Disabled Item Example</h1>
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
+  );
+});
+
+export const Example02 = component$(() => {
+  return (
+    <PreviewCodeExample>
+      <div q:slot="actualComponent">
         <Accordion>
           <AccordionItem label="Heading 1">
             <div class="p-2">
@@ -51,6 +60,10 @@ export default component$(() => {
           </AccordionItem>
         </Accordion>
       </div>
-    </>
+
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
   );
 });
