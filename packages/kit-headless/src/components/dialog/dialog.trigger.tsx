@@ -1,16 +1,11 @@
-import { $, Slot, component$, useContext, useOn } from '@builder.io/qwik';
+import { Slot, component$, useContext } from '@builder.io/qwik';
 import { dialogContext } from './dialog.context';
 
 export const Trigger = component$(() => {
   const context = useContext(dialogContext);
 
-  useOn(
-    'click',
-    $(() => context.open$())
-  );
-
   return (
-    <section>
+    <section onClick$={context.open$}>
       <Slot />
     </section>
   );
