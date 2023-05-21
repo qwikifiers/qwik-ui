@@ -1,16 +1,17 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { Dialog } from '@qwik-ui/headless';
 
-export const Root = Dialog.Root;
-
-export const Trigger = Dialog.Trigger;
-
-export const Close = Dialog.Close;
-
-export const Portal = component$(() => {
+export const Root = component$((props: Dialog.RootProps) => {
   return (
-    <Dialog.Content class="bg-slate-900 rounded-md text-white">
+    <Dialog.Root class="bg-slate-900 rounded-md text-white" {...props}>
       <Slot />
-    </Dialog.Content>
+    </Dialog.Root>
   );
 });
+
+export const Trigger = Dialog.Trigger;
+export const Close = Dialog.Close;
+
+export const Content = Dialog.Content;
+export const ContentTitle = Dialog.ContentTitle;
+export const ContentText = Dialog.ContentText;
