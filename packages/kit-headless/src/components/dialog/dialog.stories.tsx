@@ -5,46 +5,32 @@ import { Meta, StoryObj } from 'storybook-framework-qwik';
 import * as Dialog from './public_api';
 import { DialogRef } from './types/dialog-ref';
 
-const meta: Meta = {
+const meta: Meta<Dialog.RootProps> = {
   component: Dialog.Root,
   args: {
-    dialog: {
-      fullScreen: false,
-    },
-    dialogTrigger: {
-      text: 'Open Dialog',
-    },
-    dialogContent: {
-      title: 'Dialog Title',
-      text: 'Hello World',
-    },
-    dialogClose: {
-      text: 'Close',
-    },
+    fullScreen: false,
   },
-  render: (args) => (
-    <>
-      <Dialog.Root fullScreen={args.dialog.fullScreen}>
-        <Dialog.Trigger>
-          <button>{args.dialogTrigger.text}</button>
-        </Dialog.Trigger>
-        <Dialog.Content>
-          {args.dialogContent.text}
-          <Dialog.Close>
-            <button>{args.dialogClose.text}</button>
-          </Dialog.Close>
-        </Dialog.Content>
-      </Dialog.Root>
-    </>
+  render: (props) => (
+    <Dialog.Root {...props}>
+      <Dialog.Trigger>
+        <button>Open Dialog</button>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        Hello World
+        <Dialog.Close>
+          <button>Close</button>
+        </Dialog.Close>
+      </Dialog.Content>
+    </Dialog.Root>
   ),
 };
 
-type Story = StoryObj;
+type Story = StoryObj<Dialog.RootProps>;
 
 export default meta;
 
 export const Primary: Story = {
-  play: ({ canvasElement, args }) => {
+  play: ({ canvasElement }) => {
     /**
      *
      * TODO: This test does not provide a real value.
@@ -55,82 +41,72 @@ export const Primary: Story = {
      *
      */
     const canvas = within(canvasElement);
-    userEvent.click(canvas.getByText(args.dialogTrigger.text));
-    expect(canvas.getByText(args.dialogContent.text)).toBeTruthy();
-    userEvent.click(canvas.getByText(args.dialogClose.text));
+    userEvent.click(canvas.getByText('Open Dialog'));
+    expect(canvas.getByText('Hello World')).toBeTruthy();
+    userEvent.click(canvas.getByText('Close'));
   },
 };
 
 export const ScrollingLongContent: Story = {
-  args: {
-    ...Primary.args,
-    dialogContent: {
-      text: Array(500)
-        .fill(null)
-        .map(() => 'Hello World')
-        .join(' '),
-    },
-  },
-  render: (args) => (
-    <>
-      <Dialog.Root>
-        <Dialog.Trigger>
-          <button>{args.dialogTrigger.text}</button>
-        </Dialog.Trigger>
-        <Dialog.Content>
-          {args.dialogContent.text}
-          <Dialog.Actions>
-            <Dialog.Close>
-              <button>{args.dialogClose.text}</button>
-            </Dialog.Close>
-          </Dialog.Actions>
-        </Dialog.Content>
-      </Dialog.Root>
-    </>
+  render: () => (
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <button>Open Dialog</button>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        {Array(500)
+          .fill(null)
+          .map(() => 'Hello World')
+          .join(' ')}
+        <Dialog.Actions>
+          <Dialog.Close>
+            <button>Close</button>
+          </Dialog.Close>
+        </Dialog.Actions>
+      </Dialog.Content>
+    </Dialog.Root>
   ),
 };
 
 export const Aria: Story = {
   args: {
     ...Primary.args,
+    'aria-labelledby': 'dialog-title',
+    'aria-describedby': 'dialog-text',
   },
-  render: (args) => (
-    <>
-      <Dialog.Root
-        aria-labelledby="dialog-title"
-        aria-describedby="dialog-text"
-      >
-        <Dialog.Trigger>
-          <button>{args.dialogTrigger.text}</button>
-        </Dialog.Trigger>
-        <Dialog.Content>
-          <Dialog.ContentTitle>
-            <h2 id="dialog-title">{args.dialogContent.title}</h2>
-          </Dialog.ContentTitle>
-          <Dialog.ContentText>
-            <p id="dialog-text">{args.dialogContent.text}</p>
-          </Dialog.ContentText>
-          <Dialog.Actions>
-            <Dialog.Close>
-              <button>{args.dialogClose.text}</button>
-            </Dialog.Close>
-          </Dialog.Actions>
-        </Dialog.Content>
-      </Dialog.Root>
-    </>
+  render: (props) => (
+    <Dialog.Root {...props}>
+      <Dialog.Trigger>
+        <button>Open Dialog</button>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.ContentTitle>
+          <h2 id={props['aria-labelledby']}>My Dialog Title</h2>
+        </Dialog.ContentTitle>
+        <Dialog.ContentText>
+          <p id={props['aria-describedby']}>Hello World</p>
+        </Dialog.ContentText>
+        <Dialog.Actions>
+          <Dialog.Close>
+            <button>Close</button>
+          </Dialog.Close>
+        </Dialog.Actions>
+      </Dialog.Content>
+    </Dialog.Root>
   ),
 };
 
 export const FullScreen: Story = {
   args: {
-    ...Primary.args,
-    dialog: {
-      fullScreen: true,
-    },
+    fullScreen: true,
   },
 };
 
-const DialogUsingRef = component$((args: any) => {
+/**
+ * Using a component$ here to be able to use `useSignal`.
+ * useSignal cannot be used directly inside a story's render-Function.
+ */
+const DialogUsingRef = component$(() => {
   const dialogRef = useSignal<DialogRef>();
 
   return (
@@ -141,7 +117,7 @@ const DialogUsingRef = component$((args: any) => {
 
       <Dialog.Root ref={dialogRef}>
         <Dialog.Content>
-          <p>{args.dialogContent.text}</p>
+          <p>Hello World</p>
         </Dialog.Content>
       </Dialog.Root>
     </>
@@ -149,5 +125,5 @@ const DialogUsingRef = component$((args: any) => {
 });
 
 export const Ref: Story = {
-  render: (args) => <DialogUsingRef {...args} />,
+  render: () => <DialogUsingRef />,
 };
