@@ -6,7 +6,7 @@ export const Trigger = component$(() => {
 
   useOn(
     'click',
-    $(() => context.open())
+    $(() => context.open$())
   );
 
   return (

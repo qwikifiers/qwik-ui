@@ -6,7 +6,7 @@ export const Close = component$(() => {
 
   useOn(
     'click',
-    $(() => context.close())
+    $(() => context.close$())
   );
 
   return (

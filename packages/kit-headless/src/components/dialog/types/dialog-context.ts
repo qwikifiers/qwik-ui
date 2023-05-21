@@ -6,9 +6,9 @@ export type DialogContext = {
 
   state: DialogState;
 
-  open: QRL<() => void>;
-  close: QRL<() => void>;
-  closeOnDialogClick: QRL<
+  open$: QRL<() => void>;
+  close$: QRL<() => void>;
+  closeOnDialogClick$: QRL<
     (
       event: QwikMouseEvent<HTMLDialogElement, MouseEvent>,
       element: HTMLDialogElement

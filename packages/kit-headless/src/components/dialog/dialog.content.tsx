@@ -24,7 +24,7 @@ export const Content = component$(() => {
         context.state.fullScreen ? `${props.class} full-screen` : props.class
       }
       ref={context.state.dialogRef}
-      onClick$={context.closeOnDialogClick}
+      onClick$={context.closeOnDialogClick$}
     >
       <Slot />
     </dialog>

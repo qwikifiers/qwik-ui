@@ -1,6 +1,5 @@
 import {
   $,
-  QwikIntrinsicElements,
   QwikMouseEvent,
   Slot,
   component$,
@@ -9,14 +8,8 @@ import {
   useStore,
 } from '@builder.io/qwik';
 import { dialogContext } from './dialog.context';
+import { RootProps } from './dialog.root.props';
 import { DialogContext, DialogState } from './types';
-
-export type RootProps = Pick<
-  QwikIntrinsicElements['dialog'],
-  'class' | 'aria-labelledby' | 'aria-describedby'
-> & {
-  fullScreen?: boolean;
-};
 
 export const Root = component$((props: RootProps) => {
   const { fullScreen, ...dialogProps } = props;
@@ -62,9 +55,9 @@ export const Root = component$((props: RootProps) => {
     dialogProps,
     state,
 
-    open: openDialog$,
-    close: closeDialog$,
-    closeOnDialogClick: closeOnDialogClick$,
+    open$: openDialog$,
+    close$: closeDialog$,
+    closeOnDialogClick$: closeOnDialogClick$,
   };
 
   useContextProvider(dialogContext, context);
