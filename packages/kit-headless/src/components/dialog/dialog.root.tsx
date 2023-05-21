@@ -11,7 +11,10 @@ import {
 import { dialogContext } from './dialog.context';
 import { DialogContext, DialogState } from './types';
 
-export type RootProps = QwikIntrinsicElements['dialog'] & {
+export type RootProps = Pick<
+  QwikIntrinsicElements['dialog'],
+  'class' | 'aria-labelledby'
+> & {
   fullScreen?: boolean;
 };
 
