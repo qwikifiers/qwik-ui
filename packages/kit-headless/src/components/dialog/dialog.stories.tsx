@@ -54,6 +54,9 @@ export const ScrollingLongContent: Story = {
         <button>Open Dialog</button>
       </Dialog.Trigger>
       <Dialog.Content>
+        <Dialog.ContentTitle>
+          <h2>My Dialog Title</h2>
+        </Dialog.ContentTitle>
         {Array(500)
           .fill(null)
           .map(() => 'Hello World')
