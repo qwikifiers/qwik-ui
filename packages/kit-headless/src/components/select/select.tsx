@@ -10,6 +10,7 @@ import {
   useOnWindow,
   useStore,
   useVisibleTask$,
+  QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import { computePosition, flip } from '@floating-ui/dom';
 
@@ -71,7 +72,11 @@ export const SelectRoot = component$(
       const expanded = track(() => isExpanded.value);
 
       if (expanded && trigger && listBox) {
-        updatePosition(trigger, listBox);
+        listBox.style.visibility = 'hidden';
+
+        updatePosition(trigger, listBox).then(() => {
+          listBox.style.visibility = 'visible';
+        });
       }
 
       if (expanded === false) {
@@ -113,9 +118,9 @@ export const SelectRoot = component$(
   }
 );
 
-export interface TriggerProps extends StyleProps {
+export type TriggerProps = {
   disabled?: boolean;
-}
+} & QwikIntrinsicElements['button'];
 
 export const SelectTrigger = component$(
   ({ disabled, ...props }: TriggerProps) => {
@@ -128,7 +133,8 @@ export const SelectTrigger = component$(
         ref={ref}
         aria-expanded={contextService.isExpanded.value}
         disabled={disabled}
-        onClick$={() => {
+        onClick$={(e) => {
+          e.stopPropagation();
           contextService.isExpanded.value = !contextService.isExpanded.value;
         }}
         onKeyDown$={(e) => {
