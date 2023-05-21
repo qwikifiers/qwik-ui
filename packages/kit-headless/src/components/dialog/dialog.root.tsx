@@ -6,10 +6,12 @@ import {
   useContextProvider,
   useSignal,
   useStore,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { dialogContext } from './dialog.context';
-import { RootProps } from './dialog.root.props';
-import { DialogContext, DialogState } from './types';
+import { DialogContext, DialogState, RootProps } from './types';
+import { DialogRef } from './types/dialog-ref';
+import { hasDialogBackdropBeenClicked } from './utils';
 
 export const Root = component$((props: RootProps) => {
   const { fullScreen, ...dialogProps } = props;
@@ -20,6 +22,7 @@ export const Root = component$((props: RootProps) => {
     dialogRef: useSignal<HTMLDialogElement>(),
   });
 
+  /** Opens the Dialog */
   const openDialog$ = $(() => {
     const dialog = state.dialogRef.value;
 
@@ -33,6 +36,7 @@ export const Root = component$((props: RootProps) => {
     state.opened = true;
   });
 
+  /** Opens the Dialog */
   const closeDialog$ = $(() => {
     const dialog = state.dialogRef.value;
 
@@ -46,9 +50,10 @@ export const Root = component$((props: RootProps) => {
     state.opened = false;
   });
 
-  const closeOnDialogClick$ = $(
+  /** Closes the Dialog when its Backdrop is clicked */
+  const closeOnBackdropClick$ = $(
     (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) =>
-      hasBackdropBeenClicked(event) ? closeDialog$() : Promise.resolve()
+      hasDialogBackdropBeenClicked(event) ? closeDialog$() : Promise.resolve()
   );
 
   const context: DialogContext = {
@@ -57,23 +62,22 @@ export const Root = component$((props: RootProps) => {
 
     open$: openDialog$,
     close$: closeDialog$,
-    closeOnDialogClick$: closeOnDialogClick$,
+    closeOnDialogClick$: closeOnBackdropClick$,
   };
 
   useContextProvider(dialogContext, context);
 
+  /** Share public-api with its parent. */
+  useVisibleTask$(() => {
+    if (props.ref) {
+      const dialogRef: DialogRef = {
+        open$: context.open$,
+        close$: context.close$,
+      };
+
+      props.ref.value = dialogRef;
+    }
+  });
+
   return <Slot />;
 });
-
-function hasBackdropBeenClicked(
-  event: QwikMouseEvent<HTMLDialogElement, MouseEvent>
-) {
-  const rect = (event.target as HTMLDialogElement).getBoundingClientRect();
-
-  return (
-    rect.left > event.clientX ||
-    rect.right < event.clientX ||
-    rect.top > event.clientY ||
-    rect.bottom < event.clientY
-  );
-}

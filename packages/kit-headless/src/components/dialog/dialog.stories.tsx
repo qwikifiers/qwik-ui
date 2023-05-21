@@ -1,7 +1,9 @@
+import { component$, useSignal } from '@builder.io/qwik';
 import { expect } from '@storybook/jest';
 import { userEvent, within } from '@storybook/testing-library';
 import { Meta, StoryObj } from 'storybook-framework-qwik';
 import * as Dialog from './public_api';
+import { DialogRef } from './types/dialog-ref';
 
 const meta: Meta = {
   component: Dialog.Root,
@@ -126,4 +128,26 @@ export const FullScreen: Story = {
       fullScreen: true,
     },
   },
+};
+
+const DialogUsingRef = component$((args: any) => {
+  const dialogRef = useSignal<DialogRef>();
+
+  return (
+    <>
+      <button onClick$={() => dialogRef.value?.open$()}>
+        I am opening the dialog by using its <code>ref</code>
+      </button>
+
+      <Dialog.Root ref={dialogRef}>
+        <Dialog.Content>
+          <p>{args.dialogContent.text}</p>
+        </Dialog.Content>
+      </Dialog.Root>
+    </>
+  );
+});
+
+export const Ref: Story = {
+  render: (args) => <DialogUsingRef {...args} />,
 };

@@ -1,8 +1,9 @@
-import { QRL, QwikIntrinsicElements, QwikMouseEvent } from '@builder.io/qwik';
+import { QRL, QwikMouseEvent } from '@builder.io/qwik';
 import { DialogState } from './dialog-state';
+import { DialogIntrinsicElementProps } from './dialog.root.props';
 
 export type DialogContext = {
-  dialogProps: QwikIntrinsicElements['dialog'];
+  dialogProps: DialogIntrinsicElementProps;
 
   state: DialogState;
 
