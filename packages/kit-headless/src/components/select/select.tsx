@@ -74,9 +74,9 @@ export const SelectRoot = component$(
       if (expanded && trigger && listBox) {
         listBox.style.visibility = 'hidden';
 
-        updatePosition(trigger, listBox).then(() => {
-          listBox.style.visibility = 'visible';
-        });
+        await updatePosition(trigger, listBox);
+
+        listBox.style.visibility = 'visible';
       }
 
       if (expanded === false) {
