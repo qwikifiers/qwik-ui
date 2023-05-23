@@ -1,6 +1,5 @@
 import {
   $,
-  QwikMouseEvent,
   Slot,
   component$,
   useContextProvider,
@@ -10,7 +9,6 @@ import {
 } from '@builder.io/qwik';
 import { dialogContext } from './dialog.context';
 import { DialogContext, DialogState, RootProps } from './types';
-import { hasDialogBackdropBeenClicked } from './utils';
 
 export const Root = component$((props: RootProps) => {
   const { fullScreen, ...dialogProps } = props;
@@ -21,7 +19,6 @@ export const Root = component$((props: RootProps) => {
     dialogRef: useSignal<HTMLDialogElement>(),
   });
 
-  /** Opens the Dialog */
   const openDialog$ = $(() => {
     const dialog = state.dialogRef.value;
 
@@ -35,7 +32,6 @@ export const Root = component$((props: RootProps) => {
     state.opened = true;
   });
 
-  /** Opens the Dialog */
   const closeDialog$ = $(() => {
     const dialog = state.dialogRef.value;
 
@@ -49,19 +45,12 @@ export const Root = component$((props: RootProps) => {
     state.opened = false;
   });
 
-  /** Closes the Dialog when its Backdrop is clicked */
-  const closeOnBackdropClick$ = $(
-    (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) =>
-      hasDialogBackdropBeenClicked(event) ? closeDialog$() : Promise.resolve()
-  );
-
   const context: DialogContext = {
     dialogProps,
     state,
 
     open$: openDialog$,
     close$: closeDialog$,
-    closeOnDialogClick$: closeOnBackdropClick$,
   };
 
   useContextProvider(dialogContext, context);

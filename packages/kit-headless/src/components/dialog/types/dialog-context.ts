@@ -1,4 +1,4 @@
-import { QRL, QwikMouseEvent } from '@builder.io/qwik';
+import { QRL } from '@builder.io/qwik';
 import { DialogState } from './dialog-state';
 import { DialogIntrinsicElementProps } from './dialog.root.props';
 
@@ -9,10 +9,4 @@ export type DialogContext = {
 
   open$: QRL<() => void>;
   close$: QRL<() => void>;
-  closeOnDialogClick$: QRL<
-    (
-      event: QwikMouseEvent<HTMLDialogElement, MouseEvent>,
-      element: HTMLDialogElement
-    ) => void
-  >;
 };
