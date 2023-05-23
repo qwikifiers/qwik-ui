@@ -1,4 +1,4 @@
-import { component$, Slot, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
 import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
 import {
   Card,
