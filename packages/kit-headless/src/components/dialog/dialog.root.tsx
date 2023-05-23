@@ -66,10 +66,14 @@ export const Root = component$((props: RootProps) => {
 
   useContextProvider(dialogContext, context);
 
+  /**
+   *
+   * Share the public API of the Dialog if the dialog-caller is interested.
+   *
+   */
   useVisibleTask$(({ track }) => {
     const opened = track(() => state.opened);
 
-    // We only share the DialogRef if the dialog's parent is interested.
     if (!props.ref) return;
 
     props.ref.value = {
@@ -79,6 +83,11 @@ export const Root = component$((props: RootProps) => {
     };
   });
 
+  /**
+   *
+   * Lock Scrolling on page when Dialog is opened.
+   *
+   */
   useVisibleTask$(({ track }) => {
     const opened = track(() => state.opened);
 
