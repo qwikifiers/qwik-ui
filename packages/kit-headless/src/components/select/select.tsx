@@ -71,20 +71,21 @@ export const SelectRoot = component$(
       const listBox = track(() => contextService.listBoxRef.value);
       const expanded = track(() => isExpanded.value);
 
-      if (expanded && trigger && listBox) {
+      if (!trigger || !listBox) return;
+
+      if (expanded === true) {
         listBox.style.visibility = 'hidden';
 
         await updatePosition(trigger, listBox);
 
         listBox.style.visibility = 'visible';
+
+        listBox?.focus();
       }
+
 
       if (expanded === false) {
         trigger?.focus();
-      }
-
-      if (expanded === true) {
-        listBox?.focus();
       }
     });
 
