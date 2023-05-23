@@ -3,7 +3,7 @@ type CardBodyProps = HTMLAttributes<HTMLElement>;
 
 export const CardBody = component$((props: CardBodyProps) => {
   return (
-    <div class="card-body" {...props}>
+    <div class="card-body p-4" {...props}>
       <Slot />
     </div>
   );

@@ -1,0 +1,97 @@
+---
+title: Qwik UI | Card
+---
+
+import {
+  Card,
+  CardTitle,
+  CardBody,
+  CardActions,
+  Button,
+  CardImage,
+} from '@qwik-ui/tailwind';
+import { Example01, Example02, Example03, Example04 } from './examples';
+
+# Card
+
+#### Cards are versatile and can be used in various contexts, such as displaying product information, showcasing user profiles or presenting news articles.
+
+{' '}
+
+## Basic Card
+
+<Example01>
+  ```tsx
+  <Card>
+    <CardBody>
+      <p>
+        Qwik is a new kind of web framework that can deliver instant loading web
+        applications at any size or complexity. Your sites and apps can boot
+        with about 1kb of JS.
+      </p>
+    </CardBody>
+  </Card>
+  ```
+</Example01>
+
+## Card with title
+
+<Example02>
+  ```tsx
+  <Card>
+    <CardBody>
+      <CardTitle>Qwik City</CardTitle>
+      <p>
+        Qwik is a new kind of web framework that can deliver instant loading web
+        applications at any size or complexity. Your sites and apps can boot
+        with about 1kb of JS.
+      </p>
+    </CardBody>
+  </Card>
+  ```
+</Example02>
+
+## Card with image
+
+<Example03>
+  ```tsx
+  <Card>
+    <CardImage
+      src="https://external-preview.redd.it/YDalr3TrTBvTphj7eSESSYgG3adrSJAFcyETYJls_6s.jpg?width=640&crop=smart&auto=webp&s=829b513a6d4f8252985b000f86809b317b0cbc94"
+      alt="qwik logo"
+    />
+    <CardBody>
+      <CardTitle>Qwik City</CardTitle>
+      <p>
+        Qwik is a new kind of web framework that can deliver instant loading web
+        applications at any size or complexity. Your sites and apps can boot
+        with about 1kb of JS.
+      </p>
+    </CardBody>
+  </Card>
+  ```
+</Example03>
+
+## Card with action
+
+<Example04>
+  ```tsx
+  <Card>
+    <CardImage
+      src="https://external-preview.redd.it/YDalr3TrTBvTphj7eSESSYgG3adrSJAFcyETYJls_6s.jpg?width=640&crop=smart&auto=webp&s=829b513a6d4f8252985b000f86809b317b0cbc94"
+      alt="qwik logo"
+    />
+    <CardBody>
+      <CardTitle>Qwik City</CardTitle>
+      <p>
+        Qwik is a new kind of web framework that can deliver instant loading web
+        applications at any size or complexity. Your sites and apps can boot
+        with about 1kb of JS.
+      </p>
+      <CardActions>
+        <Button>Learn More</Button>
+      </CardActions>
+    </CardBody>
+  </Card>
+  ```
+</Example04>

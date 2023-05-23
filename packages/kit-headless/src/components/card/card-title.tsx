@@ -4,8 +4,8 @@ type CardTitleProps = HTMLAttributes<HTMLElement>;
 
 export const CardTitle = component$((props: CardTitleProps) => {
   return (
-    <h2 {...props}>
+    <div {...props}>
       <Slot />
-    </h2>
+    </div>
   );
 });
