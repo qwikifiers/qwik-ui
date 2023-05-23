@@ -10,7 +10,6 @@ import {
 } from '@builder.io/qwik';
 import { dialogContext } from './dialog.context';
 import { DialogContext, DialogState, RootProps } from './types';
-import { DialogRef } from './types/dialog-ref';
 import { hasDialogBackdropBeenClicked } from './utils';
 
 export const Root = component$((props: RootProps) => {
@@ -67,16 +66,25 @@ export const Root = component$((props: RootProps) => {
 
   useContextProvider(dialogContext, context);
 
-  /** Share public-api with its parent. */
-  useVisibleTask$(() => {
-    if (props.ref) {
-      const dialogRef: DialogRef = {
-        open$: context.open$,
-        close$: context.close$,
-      };
+  useVisibleTask$(({ track }) => {
+    const opened = track(() => state.opened);
 
-      props.ref.value = dialogRef;
-    }
+    // We only share the DialogRef if the dialog's parent is interested.
+    if (!props.ref) return;
+
+    props.ref.value = {
+      opened,
+      open$: context.open$,
+      close$: context.close$,
+    };
+  });
+
+  useVisibleTask$(({ track }) => {
+    const opened = track(() => state.opened);
+
+    const overflow = opened ? 'hidden' : '';
+
+    window.document.body.style.overflow = overflow;
   });
 
   return <Slot />;

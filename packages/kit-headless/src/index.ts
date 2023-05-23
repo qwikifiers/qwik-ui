@@ -13,6 +13,7 @@ export * from './components/collapse/collapse';
 export * from './components/combobox';
 export * from './components/combobox/';
 export * as Dialog from './components/dialog/public_api';
+export type { DialogRef } from './components/dialog/types/dialog-ref';
 export * from './components/drawer';
 export * from './components/input-phone';
 export * as Input from './components/input/input';

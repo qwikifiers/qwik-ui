@@ -105,6 +105,28 @@ export const FullScreen: Story = {
   },
 };
 
+export const PageScrollBlocking: Story = {
+  render: (props) => (
+    <>
+      <p>This page should not be scrollable, when the dialog is open</p>
+      <Dialog.Root {...props}>
+        <Dialog.Trigger>
+          <button>Open Dialog</button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <p>Hello World</p>
+          <Dialog.Actions>
+            <Dialog.Close>
+              <button>Close</button>
+            </Dialog.Close>
+          </Dialog.Actions>
+        </Dialog.Content>
+      </Dialog.Root>
+      <div style="background-color: red; width: 50vw; height: 150vh"></div>
+    </>
+  ),
+};
+
 /**
  * Using a component$ here to be able to use `useSignal`.
  * useSignal cannot be used directly inside a story's render-Function.
