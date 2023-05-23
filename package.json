@@ -14,6 +14,7 @@
     "test:headless": "nx component-test headless --watch",
     "story:build:headless": "nx build-storybook headless",
     "story:headless": "nx storybook headless",
+    "story-test:headless": "nx test-storybook headless",
     "website": "nx serve website"
   },
   "devDependencies": {
@@ -55,6 +56,7 @@
     "all-contributors-cli": "^6.24.0",
     "autoprefixer": "^10.4.13",
     "axe-core": "4.6.3",
+    "axe-playwright": "1.2.3",
     "chromatic": "6.17.3",
     "commitizen": "^4.3.0",
     "commitlint": "^17.4.3",
