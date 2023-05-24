@@ -1,5 +1,6 @@
 import { $, component$, PropFunction, Component } from '@builder.io/qwik';
 import { Button as HeadlessButton } from '@qwik-ui/primitives';
+import { TailwindButtonSizes, TailwindButtonVariants } from '@qwik-ui/tailwind';
 
 /**
  * PROPS
@@ -53,6 +54,7 @@ export interface PaginationSharedProps {
   activeClass?: string;
   defaultClass?: string;
   size?: 'xs' | 'sm' | 'md' | 'lg';
+  variant?: TailwindButtonVariants;
 }
 
 /**
@@ -197,8 +199,9 @@ export const Pagination = component$(
     activeClass,
     defaultClass,
     labels,
-    disabled: disabledAll,
+    disabled,
     size,
+    variant,
     ...rest
   }: PaginationProps) => {
     const _onPaging$ = $((page: number) => {
@@ -243,7 +246,7 @@ export const Pagination = component$(
                   labels={labels}
                   onClick$={() => itemClickHandler(item)}
                   disabled={
-                    disabledAll ||
+                    disabled ||
                     (['prev', 'first'].includes(item.toString()) &&
                       page === 1) ||
                     (['next', 'last'].includes(item.toString()) &&
@@ -253,6 +256,7 @@ export const Pagination = component$(
                   aria-current={item === page}
                   value={item}
                   size={size}
+                  variant={variant}
                 />
               )}
             </>

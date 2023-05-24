@@ -150,6 +150,21 @@ export default component$(() => {
         <Pagination pages={5} page={1} size="lg" />
       </div>
 
+      <h2>Variants</h2>
+
+      <div class="flex flex-col gap-8">
+        <Pagination pages={5} page={1} />
+        <Pagination pages={5} page={1} variant="primary" />
+        <Pagination pages={5} page={1} variant="secondary" />
+        <Pagination pages={5} page={1} variant="accent" />
+        <Pagination pages={5} page={1} variant="disabled" />
+        <Pagination pages={5} page={1} variant="success" />
+        <Pagination pages={5} page={1} variant="error" />
+        <Pagination pages={5} page={1} variant="info" />
+        <Pagination pages={5} page={1} variant="link" />
+        <Pagination pages={5} page={1} variant="warning" />
+      </div>
+
       <h2>Disabled</h2>
 
       <div class="flex flex-col gap-8">

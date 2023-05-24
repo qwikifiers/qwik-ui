@@ -30,6 +30,7 @@ export const TailwindPaginationButton = component$(
     defaultClass,
     labels,
     size,
+    variant,
   }: PaginationButtonProps & PaginationSharedProps) => {
     function getLabel() {
       switch (value) {
@@ -51,7 +52,7 @@ export const TailwindPaginationButton = component$(
         onClick$={onClick$}
         aria-label={ariaLabel}
         disabled={disabled}
-        variant={'ghost'}
+        variant={variant || 'ghost'}
         key={key}
         active={ariaCurrent}
         circle
