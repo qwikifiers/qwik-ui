@@ -3,6 +3,8 @@ import {
   Pagination as HeadlessPagination,
   PaginationProps,
   PaginationButtonProps,
+  PaginationOptions,
+  PaginationSharedProps,
 } from '@qwik-ui/headless';
 import { Button } from '../button/button';
 
@@ -16,7 +18,7 @@ import { Button } from '../button/button';
  * <Pagination pages={15} page={store.page} onPaging$={incrementCount} />
  */
 
-export const RenderPaginationItem = component$(
+export const TailwindPaginationButton = component$(
   ({
     'aria-label': ariaLabel,
     'aria-current': ariaCurrent,
@@ -27,7 +29,8 @@ export const RenderPaginationItem = component$(
     activeClass,
     defaultClass,
     labels,
-  }: PaginationButtonProps) => {
+    size,
+  }: PaginationButtonProps & PaginationSharedProps) => {
     function getLabel() {
       switch (value) {
         case 'prev':
@@ -53,6 +56,7 @@ export const RenderPaginationItem = component$(
         active={ariaCurrent}
         circle
         class={ariaCurrent ? activeClass : defaultClass}
+        size={size}
       >
         {getLabel()}
       </Button>
@@ -66,7 +70,7 @@ export const Pagination = component$(
     pages,
     onPaging$,
     ...rest
-  }: Omit<PaginationProps, 'RenderItem'>) => {
+  }: Omit<PaginationProps, 'RenderItem'> & PaginationProps) => {
     return (
       <div class="flex gap-2 items-center">
         <HeadlessPagination
@@ -74,7 +78,7 @@ export const Pagination = component$(
           page={page}
           pages={pages}
           onPaging$={onPaging$}
-          RenderItem={RenderPaginationItem}
+          RenderItem={TailwindPaginationButton}
           RenderDivider={component$(() => {
             return <span class="mb-2">...</span>;
           })}

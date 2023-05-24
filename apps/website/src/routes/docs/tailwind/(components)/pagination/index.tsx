@@ -141,6 +141,15 @@ export default component$(() => {
         />
       </div>
 
+      <h2>Size</h2>
+
+      <div class="flex flex-col gap-8">
+        <Pagination pages={5} page={1} size="xs" />
+        <Pagination pages={5} page={1} size="sm" />
+        <Pagination pages={5} page={1} size="md" />
+        <Pagination pages={5} page={1} size="lg" />
+      </div>
+
       <h2>Disabled</h2>
 
       <div class="flex flex-col gap-8">

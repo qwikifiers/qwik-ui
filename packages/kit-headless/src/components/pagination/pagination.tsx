@@ -2,51 +2,68 @@ import { $, component$, PropFunction, Component } from '@builder.io/qwik';
 import { Button as HeadlessButton } from '@qwik-ui/primitives';
 
 /**
- * PAGINATION TODOs
- * - Get storybook testing to work
- *
  * PROPS
  * pageIndex: default pagination value
- * V activeStyles: The styles of the active page button
- * V normalStyles: The styles of the inactive page buttons
- * V customArrowTexts: { previous, next }
+ * activeStyles: The styles of the active page button
+ * normalStyles: The styles of the inactive page buttons
+ * customArrowTexts: { previous, next }
  * disabled: enable/disable paginator
+ * size: 'sm' | 'md' | 'lg'
+ *
+ * TODO
  * color: primary | secondary
  * variant: outlined (show border without bg)
  * shape: rounded | square
- * size: 'sm' | 'md' | 'lg'
  * paginationRange (see https://mui.com/material-ui/react-pagination/#pagination-ranges)
  *
+ * PAGINATION TODOs
+ * V Get storybook testing to work
+ * - Add stories
+ */
+
+/**
+ * Properties of the Pagination Component
  */
 export interface PaginationProps extends PaginationOptions {
   pages: number;
   page: number;
   onPaging$?: PropFunction<(index: number) => void>;
-  RenderItem?: Component<PaginationButtonProps>;
+  RenderItem?: Component<PaginationButtonProps & PaginationSharedProps>;
   RenderDivider?: Component<object>;
-  disabled?: boolean;
 }
 
-export interface PaginationOptions {
+/**
+ * Properties to configure the Pagination options
+ */
+export interface PaginationOptions extends PaginationSharedProps {
   boundaryCount?: number;
   siblingCount?: number;
   hidePrevButton?: boolean;
   hideNextButton?: boolean;
   showFirstButton?: boolean;
   showLastButton?: boolean;
-  activeClass?: string;
-  defaultClass?: string;
   labels?: PaginationButtonLabels;
+  disabled?: boolean;
 }
 
+/**
+ * Properties used by both, the Pagination component & RenderItem (the Button)
+ */
+export interface PaginationSharedProps {
+  activeClass?: string;
+  defaultClass?: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg';
+}
+
+/**
+ * Properties of the RenderItem (the Button)
+ */
 export interface PaginationButtonProps {
   onClick$: PropFunction<() => void>;
   disabled?: boolean;
   'aria-label': string;
   'aria-current'?: boolean;
   key?: string | number;
-  activeClass?: string;
-  defaultClass?: string;
   value: PaginationButtonValue;
   labels?: PaginationButtonLabels;
 }
@@ -181,11 +198,12 @@ export const Pagination = component$(
     defaultClass,
     labels,
     disabled: disabledAll,
+    size,
     ...rest
   }: PaginationProps) => {
     const _onPaging$ = $((page: number) => {
       if (page < 1 || page > pages) return;
-      onPaging$(page);
+      if (onPaging$) onPaging$(page);
     });
 
     const itemClickHandler = $((item: PaginationButtonValue) =>
@@ -234,6 +252,7 @@ export const Pagination = component$(
                   aria-label={`Page ${item}`}
                   aria-current={item === page}
                   value={item}
+                  size={size}
                 />
               )}
             </>
