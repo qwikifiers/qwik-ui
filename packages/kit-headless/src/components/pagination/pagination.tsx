@@ -21,9 +21,10 @@ import { Button as HeadlessButton } from '@qwik-ui/primitives';
 export interface PaginationProps extends PaginationOptions {
   pages: number;
   page: number;
-  onPaging$: PropFunction<(index: number) => void>;
+  onPaging$?: PropFunction<(index: number) => void>;
   RenderItem?: Component<PaginationButtonProps>;
   RenderDivider?: Component<object>;
+  disabled?: boolean;
 }
 
 export interface PaginationOptions {
@@ -179,6 +180,7 @@ export const Pagination = component$(
     activeClass,
     defaultClass,
     labels,
+    disabled: disabledAll,
     ...rest
   }: PaginationProps) => {
     const _onPaging$ = $((page: number) => {
@@ -223,6 +225,7 @@ export const Pagination = component$(
                   labels={labels}
                   onClick$={() => itemClickHandler(item)}
                   disabled={
+                    disabledAll ||
                     (['prev', 'first'].includes(item.toString()) &&
                       page === 1) ||
                     (['next', 'last'].includes(item.toString()) &&

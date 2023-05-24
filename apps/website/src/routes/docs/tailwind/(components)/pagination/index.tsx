@@ -120,6 +120,8 @@ export default component$(() => {
         />
       </div>
 
+      <h2>Custom styles and labels</h2>
+
       <div class="flex flex-col gap-8">
         <Pagination
           pages={pages.value}
@@ -133,10 +135,16 @@ export default component$(() => {
           hidePrevButton={hidePrevButton.value}
           siblingCount={siblingCount.value}
           boundaryCount={boundaryCount.value}
-          activeClass="!bg-cyan-500"
-          defaultClass="bg-cyan-200"
+          activeClass="!bg-cyan-800"
+          defaultClass="bg-cyan-500"
           labels={{ prev: '⬅️', next: '➡️', first: 'START', last: 'END' }}
         />
+      </div>
+
+      <h2>Disabled</h2>
+
+      <div class="flex flex-col gap-8">
+        <Pagination pages={5} page={1} disabled={true} />
       </div>
     </div>
   );
