@@ -1,9 +1,8 @@
-import { mount } from 'cypress-ct-qwik';
 import { Accordion, AccordionItem } from './accordion';
 
 describe('Accordion', () => {
   it('should render an Accordion', () => {
-    mount(
+    cy.mount(
       <Accordion class="accordion">
         <AccordionItem label="Heading 1">
           <p>

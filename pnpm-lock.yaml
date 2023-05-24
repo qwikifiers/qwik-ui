@@ -91,6 +91,9 @@ importers:
       '@storybook/testing-library':
         specifier: 0.1.0
         version: 0.1.0
+      '@testing-library/cypress':
+        specifier: 9.0.0
+        version: 9.0.0(cypress@12.9.0)
       '@types/eslint':
         specifier: 8.37.0
         version: 8.37.0
@@ -7220,6 +7223,20 @@ packages:
     engines: { node: '>=10' }
     dependencies:
       defer-to-connect: 2.0.1
+    dev: true
+
+  /@testing-library/cypress@9.0.0(cypress@12.9.0):
+    resolution:
+      {
+        integrity: sha512-c1XiCGeHGGTWn0LAU12sFUfoX3qfId5gcSE2yHode+vsyHDWraxDPALjVnHd4/Fa3j4KBcc5k++Ccy6A9qnkMA==,
+      }
+    engines: { node: '>=12', npm: '>=6' }
+    peerDependencies:
+      cypress: ^12.0.0
+    dependencies:
+      '@babel/runtime': 7.20.13
+      '@testing-library/dom': 8.20.0
+      cypress: 12.9.0
     dev: true
 
   /@testing-library/dom@8.20.0:

@@ -52,6 +52,8 @@ export const Tab = component$((props: TabProps) => {
   const selectTab$ = $(() => {
     contextService.selectedIndex.value =
       contextService.tabsMap[uniqueId]?.index || 0;
+
+    contextService.selectTab$(uniqueId);
   });
 
   const selectIfAutomatic$ = $(() => {
@@ -72,7 +74,9 @@ export const Tab = component$((props: TabProps) => {
       tabIndex={isSelectedSignal.value ? 0 : -1}
       aria-controls={'tabpanel-' + matchedTabPanelId.value}
       class={`${
-        isSelectedSignal.value ? `selected ${props.selectedClassName}` : ''
+        isSelectedSignal.value
+          ? `selected ${props.selectedClassName || ''}`
+          : ''
       }${props.class ? ` ${props.class}` : ''}`}
       onClick$={() => {
         selectTab$();

@@ -41,9 +41,9 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
       id={'tabpanel-' + panelUID}
       role="tabpanel"
       tabIndex={0}
-      hidden={isSelectedSignal.value ? undefined : true}
+      hidden={isSelectedSignal.value ? (null as unknown as undefined) : true}
       aria-labelledby={`tab-${matchedTabId.value}`}
-      class={`${isSelectedSignal.value ? 'is-hidden' : ''}${
+      class={`${isSelectedSignal.value ? '' : 'is-hidden'}${
         props.class ? ` ${props.class}` : ''
       }`}
       style={isSelectedSignal.value ? 'display: block' : 'display: none'}
