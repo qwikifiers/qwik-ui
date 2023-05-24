@@ -50,7 +50,7 @@ const DynamicTabsComponent = component$(
 );
 
 describe('Tabs', () => {
-  it('should render the component', () => {
+  it('should render the component and check if its accessible', () => {
     cy.mount(
       <Tabs>
         <TabList>
@@ -68,6 +68,8 @@ describe('Tabs', () => {
     cy.findByRole('tab', { name: /Tab 2/i }).click();
 
     cy.findByRole('tabpanel').should('contain', 'Panel 2');
+
+    cy.checkA11yForComponent();
   });
 
   it('Given 3 tabs, when removing the last one dynamically, only 2 should remain', () => {
