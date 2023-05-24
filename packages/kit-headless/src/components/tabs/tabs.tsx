@@ -15,15 +15,14 @@ import { Behavior } from './behavior.type';
  * TABS TODOs
  * 
  * - CHANGE THE querySelector to "scoped" queries
- *
  * - selectedIndex / default
- * - Orientation
+* - expose selectedIndex in the root 
+* - Orientation
  * - aria-label https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby
  * - NOTE: Radix manually handle the value/id for each tab while we calculate it behind the scenes
  *    If we end up implementing this, we need to expose a way to set this value in the root
  * - keyboard interactions (arrowDown, ARrowRight, ArrowUp, ArrowLeft, Home, End, PageUp, PageDown)
  *    Support Loop
- * - expose selectedIndex in the root
  * - onValueChange
  * POST V1:
  * - RTL
@@ -49,7 +48,6 @@ export interface TabsProps {
   selectedIndex?: number;
 }
 
-export type TabIndexMap = [string, string][];
 export interface TabPair {
   tabId: string;
   tabPanelId: string;
@@ -67,6 +65,7 @@ export const Tabs = component$((props: TabsProps) => {
   const selectedTabId = useSignal<string>('');
   const reIndexTabs = useSignal(false);
   const showTabsSignal = useSignal(false);
+  const tabPairs = useStore<TabPair[]>([]);
 
   const tabsMap = useStore<{ [key: string]: TabInfo }>({});
 
@@ -118,6 +117,7 @@ export const Tabs = component$((props: TabsProps) => {
     reIndexTabs.value = false;
 
     if (ref.value) {
+      // TODO: Write a failing test for nested tabs to prove this querySelector should be scoped
       const tabElements = ref.value.querySelectorAll(
         '[role="tablist"] > [role="tab"]'
       );
@@ -132,15 +132,29 @@ export const Tabs = component$((props: TabsProps) => {
 
       const tabPanelElements = ref.value.querySelectorAll('[role="tabpanel"]');
 
-      // let lastSelectedTabId = undefined;
+      // See if the deleted index was the last one
+      let previousSelectedTabWasLastOne = false;
+      if (selectedIndex.value === tabPairs.length - 1) {
+        previousSelectedTabWasLastOne = true;
+      }
+
+      tabPairs.length = 0;
+      tabsMap;
 
       tabElements.forEach((tab, index) => {
         const tabId = tab.getAttribute('data-tab-id');
 
-        // const tabForId = tab.getAttribute('data-for');
-
         if (!tabId) {
           throw new Error('Missing tab id for tab: ' + index);
+        }
+
+        // clear all lists and maps
+        let tabWasDeleted = true;
+        // TODO: delete object maps, or turn into Map()
+
+        if (tabId === selectedTabId.value) {
+          selectedIndex.value = index;
+          tabWasDeleted = false;
         }
 
         const tabPanelElement = tabPanelElements[index];
@@ -149,6 +163,8 @@ export const Tabs = component$((props: TabsProps) => {
         }
         const tabPanelId = tabPanelElement.getAttribute('data-tabpanel-id');
         if (tabId && tabPanelId) {
+          tabPairs.push({ tabId, tabPanelId });
+
           tabsMap[tabId] = {
             tabId,
             tabPanelId,
@@ -164,19 +180,13 @@ export const Tabs = component$((props: TabsProps) => {
           throw new Error('Missing tab id or tab panel id for tab: ' + index);
         }
 
-        // if (indexByTabId[tabForId] === selectedIndex.value) {
-        //   lastSelectedTabId = tabForId;
-        // }
-
-        // indexByTabId[tabForId] = index;
+        if (tabPairs.length > 0) {
+          if (previousSelectedTabWasLastOne && tabWasDeleted) {
+            selectedIndex.value = tabPairs.length - 1;
+          }
+          selectedTabId.value = tabPairs[selectedIndex.value].tabId;
+        }
       });
-
-      // Update selected index
-      // if (lastSelectedTabId) {
-      //   selectedIndex.value = indexByTabId[lastSelectedTabId];
-      // } else {
-      //   selectedIndex.value = 0;
-      // }
     }
   });
 

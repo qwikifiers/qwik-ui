@@ -3,7 +3,7 @@ import { Accordion, AccordionItem } from './accordion';
 
 describe('Accordion', () => {
   it('should render an Accordion', () => {
-    mount(
+    cy.mount(
       <Accordion>
         <AccordionItem label="Heading 1">
           <p>

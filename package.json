@@ -45,6 +45,7 @@
     "@storybook/jest": "0.1.0",
     "@storybook/test-runner": "0.10.0",
     "@storybook/testing-library": "0.1.0",
+    "@testing-library/cypress": "9.0.0",
     "@types/eslint": "8.37.0",
     "@types/node": "18.16.1",
     "@types/testing-library__jest-dom": "5.14.5",
