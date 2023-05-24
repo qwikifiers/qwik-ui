@@ -3,21 +3,18 @@ import { Button as HeadlessButton } from '@qwik-ui/primitives';
 import { TailwindButtonSizes, TailwindButtonVariants } from '@qwik-ui/tailwind';
 
 /**
- * PROPS
+ * WHAT'S NEW
  * pageIndex: default pagination value
  * activeStyles: The styles of the active page button
  * normalStyles: The styles of the inactive page buttons
  * customArrowTexts: { previous, next }
  * disabled: enable/disable paginator
  * size: 'sm' | 'md' | 'lg'
+ * variant: 'primary' | 'secondary' | ...
+ * outline
+ * square
  *
- * TODO
- * color: primary | secondary
- * variant: outlined (show border without bg)
- * shape: rounded | square
- * paginationRange (see https://mui.com/material-ui/react-pagination/#pagination-ranges)
- *
- * PAGINATION TODOs
+ * TODOS
  * V Get storybook testing to work
  * - Add stories
  */
@@ -55,6 +52,8 @@ export interface PaginationSharedProps {
   defaultClass?: string;
   size?: 'xs' | 'sm' | 'md' | 'lg';
   variant?: TailwindButtonVariants;
+  outline?: boolean;
+  square?: boolean;
 }
 
 /**
@@ -202,6 +201,8 @@ export const Pagination = component$(
     disabled,
     size,
     variant,
+    outline,
+    square,
     ...rest
   }: PaginationProps) => {
     const _onPaging$ = $((page: number) => {
@@ -257,6 +258,8 @@ export const Pagination = component$(
                   value={item}
                   size={size}
                   variant={variant}
+                  outline={outline}
+                  square={square}
                 />
               )}
             </>

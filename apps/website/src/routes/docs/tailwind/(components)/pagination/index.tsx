@@ -3,8 +3,8 @@ import { Pagination } from '@qwik-ui/tailwind';
 import { Toggle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
-  const page = useSignal(5);
-  const pages = useSignal(10);
+  const page = useSignal(1);
+  const pages = useSignal(30);
 
   const showFirstButton = useSignal(true);
   const showLastButton = useSignal(true);
@@ -104,6 +104,8 @@ export default component$(() => {
         </label>
       </div>
 
+      <h2>Interactive Demo</h2>
+
       <div class="flex flex-col gap-8">
         <Pagination
           pages={pages.value}
@@ -118,6 +120,44 @@ export default component$(() => {
           siblingCount={siblingCount.value}
           boundaryCount={boundaryCount.value}
         />
+      </div>
+
+      <h2>Size</h2>
+
+      <div class="flex flex-col gap-8">
+        <Pagination pages={5} page={1} size="xs" />
+        <Pagination pages={5} page={1} size="sm" />
+        <Pagination pages={5} page={1} size="md" />
+        <Pagination pages={5} page={1} size="lg" />
+      </div>
+
+      <h2>Variants</h2>
+      <div class="flex flex-col gap-8">
+        <Pagination pages={5} page={1} />
+        <Pagination pages={5} page={1} variant="primary" />
+        <Pagination pages={5} page={1} variant="secondary" />
+        <Pagination pages={5} page={1} variant="accent" />
+        <Pagination pages={5} page={1} variant="disabled" />
+        <Pagination pages={5} page={1} variant="success" />
+        <Pagination pages={5} page={1} variant="error" />
+        <Pagination pages={5} page={1} variant="info" />
+        <Pagination pages={5} page={1} variant="link" />
+        <Pagination pages={5} page={1} variant="warning" />
+      </div>
+
+      <h2>Outline</h2>
+      <div class="flex flex-col gap-8">
+        <Pagination pages={5} page={1} outline />
+      </div>
+
+      <h2>Square</h2>
+      <div class="flex flex-col gap-8">
+        <Pagination pages={5} page={1} square />
+      </div>
+
+      <h2>Disabled</h2>
+      <div class="flex flex-col gap-8">
+        <Pagination pages={5} page={1} disabled={true} />
       </div>
 
       <h2>Custom styles and labels</h2>
@@ -139,36 +179,6 @@ export default component$(() => {
           defaultClass="bg-cyan-500"
           labels={{ prev: '⬅️', next: '➡️', first: 'START', last: 'END' }}
         />
-      </div>
-
-      <h2>Size</h2>
-
-      <div class="flex flex-col gap-8">
-        <Pagination pages={5} page={1} size="xs" />
-        <Pagination pages={5} page={1} size="sm" />
-        <Pagination pages={5} page={1} size="md" />
-        <Pagination pages={5} page={1} size="lg" />
-      </div>
-
-      <h2>Variants</h2>
-
-      <div class="flex flex-col gap-8">
-        <Pagination pages={5} page={1} />
-        <Pagination pages={5} page={1} variant="primary" />
-        <Pagination pages={5} page={1} variant="secondary" />
-        <Pagination pages={5} page={1} variant="accent" />
-        <Pagination pages={5} page={1} variant="disabled" />
-        <Pagination pages={5} page={1} variant="success" />
-        <Pagination pages={5} page={1} variant="error" />
-        <Pagination pages={5} page={1} variant="info" />
-        <Pagination pages={5} page={1} variant="link" />
-        <Pagination pages={5} page={1} variant="warning" />
-      </div>
-
-      <h2>Disabled</h2>
-
-      <div class="flex flex-col gap-8">
-        <Pagination pages={5} page={1} disabled={true} />
       </div>
     </div>
   );
