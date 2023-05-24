@@ -26,14 +26,14 @@ export interface PaginationProps extends PaginationOptions {
   pages: number;
   page: number;
   onPaging$?: PropFunction<(index: number) => void>;
-  RenderItem?: Component<PaginationButtonProps & PaginationSharedProps>;
+  RenderItem?: Component<PaginationButtonProps & PaginationStylingProps>;
   RenderDivider?: Component<object>;
 }
 
 /**
  * Properties to configure the Pagination options
  */
-export interface PaginationOptions extends PaginationSharedProps {
+export interface PaginationOptions extends PaginationStylingProps {
   boundaryCount?: number;
   siblingCount?: number;
   hidePrevButton?: boolean;
@@ -47,7 +47,7 @@ export interface PaginationOptions extends PaginationSharedProps {
 /**
  * Properties used by both, the Pagination component & RenderItem (the Button)
  */
-export interface PaginationSharedProps {
+export interface PaginationStylingProps {
   activeClass?: string;
   defaultClass?: string;
   size?: 'xs' | 'sm' | 'md' | 'lg';

@@ -4,7 +4,7 @@ import {
   PaginationProps,
   PaginationButtonProps,
   PaginationOptions,
-  PaginationSharedProps,
+  PaginationStylingProps,
 } from '@qwik-ui/headless';
 import { Button } from '../button/button';
 
@@ -33,7 +33,7 @@ export const TailwindPaginationButton = component$(
     variant,
     outline,
     square,
-  }: PaginationButtonProps & PaginationSharedProps) => {
+  }: PaginationButtonProps & PaginationStylingProps) => {
     function getLabel() {
       switch (value) {
         case 'prev':
