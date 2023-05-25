@@ -19,7 +19,7 @@ export const Root = component$((props: RootProps) => {
     dialogRef: useSignal<HTMLDialogElement>(),
   });
 
-  const openDialog$ = $(() => {
+  const open$ = $(() => {
     const dialog = state.dialogRef.value;
 
     if (!dialog) {
@@ -32,7 +32,7 @@ export const Root = component$((props: RootProps) => {
     state.opened = true;
   });
 
-  const closeDialog$ = $(() => {
+  const close$ = $(() => {
     const dialog = state.dialogRef.value;
 
     if (!dialog) {
@@ -49,11 +49,17 @@ export const Root = component$((props: RootProps) => {
     dialogProps,
     state,
 
-    open$: openDialog$,
-    close$: closeDialog$,
+    open$,
+    close$,
   };
 
   useContextProvider(dialogContext, context);
+
+  useVisibleTask$(({ track }) => {
+    const dialogClass = track(() => props.class);
+    console.log('Class changed', dialogClass);
+    context.dialogProps.class = dialogClass;
+  });
 
   /**
    *
