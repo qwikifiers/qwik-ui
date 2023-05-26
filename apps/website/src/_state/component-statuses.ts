@@ -40,6 +40,7 @@ export const componentsStatuses: ComponentKitsStatuses = {
   },
   headless: {
     Accordion: 'Planned',
+    Badge: 'Planned',
     Carousel: 'Planned',
     Select: 'Draft',
     Tabs: 'Planned',
