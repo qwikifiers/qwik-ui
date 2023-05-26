@@ -56,7 +56,7 @@ lerna-debug.log*
 # misc
 /.sass-cache
 /connect.lock
-/coverage
+coverage
 /libpeerconnection.log
 testem.log
 /typings

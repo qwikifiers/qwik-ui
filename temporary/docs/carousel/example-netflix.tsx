@@ -28,7 +28,7 @@ const media = {
 
 export const ExampleNetflix = component$(() => {
   const { scopeId } = useStylesScoped$(styles);
-  const items = useSignal([...new Array(10)]);
+  const items = useSignal([...new Array(10)].map((_, i) => i));
   const carousel = useCarousel({ loop: false, transition: 350, startAt: 3 });
 
   return (
@@ -42,9 +42,9 @@ export const ExampleNetflix = component$(() => {
 
       <Root use={carousel}>
         <Items class={[scopeId, 'qui-carousel']}>
-          {items.value.map((_, i) => (
+          {items.value.map((val, i) => (
             <Item
-              key={useId()}
+              key={val}
               index={i}
               label={media.title}
               class={[scopeId, 'carousel__card']}

@@ -1,0 +1,144 @@
+---
+title: Qwik UI | Accordion
+---
+
+import { Accordion, AccordionItem } from '@qwik-ui/tailwind';
+import { Example01, Example02 } from './examples';
+import { CodeExample } from '../../../../../components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../../../components/api-table/api-table';
+
+# Accordion
+
+#### A vertically stacked set of interactive headings which reveal or hide their associated content.
+
+{' '}
+
+<Example01>
+  ```tsx
+  <Accordion>
+    <AccordionItem label="Heading 1">
+      <div class="p-2">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+          aliquid architecto delectus deleniti dolor
+        </p>
+      </div>
+    </AccordionItem>
+    <AccordionItem label="Heading 2">
+      <div class="p-2">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+          aliquid architecto delectus deleniti dolor
+        </p>
+      </div>
+    </AccordionItem>
+  </Accordion>
+  ```
+</Example01>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Accordion, AccordionItem } from '@qwik-ui/tailwind';
+
+    export default component$(() => (
+      <Accordion>
+        <AccordionItem>Content</AccordionItem>
+      </Accordion>
+    ));
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### EXAMPLE: with disabled item
+
+<Example02>
+  ```tsx
+  <Accordion>
+    <AccordionItem label="Heading 1">
+      <div class="p-2">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+          aliquid architecto delectus deleniti dolor
+        </p>
+      </div>
+    </AccordionItem>
+    <AccordionItem label="Heading 2 - Disabled" disabled>
+      <div class="p-2">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+          aliquid architecto delectus deleniti dolor
+        </p>
+      </div>
+    </AccordionItem>
+  </Accordion>
+  ```
+</Example02>
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable keyDescriptors={
+  [
+    {
+      keyTitle: 'Space',
+      description: 'Expand or collapse the `AccordionItem`.',
+    },
+    {
+      keyTitle: 'Enter',
+      description: 'Expand or collapse the `AccordionItem`.',
+    },
+    {
+      keyTitle: 'Tab',
+      description: 'Moves focus to the next focusable element.',
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: 'Moves focus to the previous focusable element.',
+    },
+    {
+      keyTitle: 'Home',
+      description: 'When on `AccordionItem`, Moves focus to the first `AccordionItem`.',
+    },
+    {
+      keyTitle: 'End',
+      description: 'When on `AccordionItem`, Moves focus to the last `AccordionItem`.',
+    },
+
+]
+}/>
+
+## API
+
+### AccordionItem
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the accordion container.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the accordion container.',
+    },
+    {
+      name: 'label',
+      type: 'string',
+      description: 'The label to give to the accordion item.',
+    },
+    {
+      name: 'onClick$',
+      type: 'PropFunction<() => void>',
+      description: 'A custom click handler',
+    },
+  ]}
+/>

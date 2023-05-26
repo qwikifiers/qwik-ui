@@ -87,86 +87,255 @@ importers:
     dependencies:
       tslib: 2.5.0
     devDependencies:
-      '@builder.io/qwik': 1.0.0_undici@5.22.0
-      '@builder.io/qwik-city': 1.0.0
-      '@commitlint/cli': 17.6.3
-      '@commitlint/config-angular': 17.6.3
-      '@commitlint/config-conventional': 17.6.3
-      '@cypress/code-coverage': 3.10.0_enwidr5swcwr6m7z242v5ax4ra
-      '@cypress/vite-dev-server': 2.2.3_vite@4.3.3
-      '@floating-ui/dom': 1.0.10
-      '@jscutlery/semver': 2.30.1_@nrwl+devkit@15.9.4
-      '@k11r/nx-cloudflare-wrangler': 2.4.2_cc62suhsbbsprwbwkzlxovhkwy
-      '@nx/cypress': 16.0.3_2pj7f4av45xzgredg7komeueta
-      '@nx/eslint-plugin': 16.0.3_unaqcgws5fpfziidwanjuatuze
-      '@nx/linter': 16.0.3_4h2uraih56bfi6tayeaql2j3l4
-      '@nx/storybook': 16.0.3_2pj7f4av45xzgredg7komeueta
-      '@nx/vite': 16.0.3_xbej4mhiwa4wct5v3idcryz5hm
-      '@nx/workspace': 16.0.3
-      '@storybook/addon-a11y': 7.0.8_biqbaboplfbrettd7655fr4n2y
-      '@storybook/addon-essentials': 7.0.8_biqbaboplfbrettd7655fr4n2y
-      '@storybook/addon-interactions': 7.0.8_biqbaboplfbrettd7655fr4n2y
-      '@storybook/addon-links': 7.0.8_biqbaboplfbrettd7655fr4n2y
-      '@storybook/blocks': 7.0.8_biqbaboplfbrettd7655fr4n2y
-      '@storybook/builder-vite': 7.0.8_3z2trfxmfq3caiicz7xj33yke4
-      '@storybook/html': 7.0.8_@babel+core@7.21.8
-      '@storybook/html-vite': 7.0.8_co2y7qasovaciqmuhxxru3vbue
-      '@storybook/jest': 0.1.0
-      '@storybook/test-runner': 0.10.0_iwd3jskhz476sptmyspq3cwjam
-      '@storybook/testing-library': 0.1.0
-      '@types/eslint': 8.37.0
-      '@types/node': 18.16.1
-      '@typescript-eslint/eslint-plugin': 5.59.1_xsts5yozjr56n2uwdvphzskfme
-      '@typescript-eslint/parser': 5.59.1_erbnuj7bwa52wmxdwdiejavlui
-      '@vitest/coverage-c8': 0.28.5_ub72g3etjqpy7gcz7hs7exheia
-      '@vitest/ui': 0.28.5
-      all-contributors-cli: 6.25.1
-      autoprefixer: 10.4.14_postcss@8.4.23
-      axe-core: 4.6.3
-      chromatic: 6.17.3
-      commitizen: 4.3.0
-      commitlint: 17.6.3
-      country-list-json: 1.1.0
-      cypress: 12.12.0
-      cypress-axe: 1.4.0_pglwmsa75wey4mjf5onv5ycarm
-      cypress-ct-qwik: 0.3.0_33h3ix5r2j2nfor5dd2hzz25aq
-      cz-conventional-changelog: 3.3.0
-      daisyui: 2.51.6_3nau3chwaskv2dtdtzzur6h7oq
-      danger: 11.2.4
-      eslint: 8.36.0
-      eslint-config-prettier: 8.6.0_eslint@8.36.0
-      eslint-plugin-cypress: 2.13.3_eslint@8.36.0
-      eslint-plugin-qwik: 1.0.0_eslint@8.36.0
-      eslint-plugin-storybook: 0.6.12_erbnuj7bwa52wmxdwdiejavlui
-      html-webpack-plugin: 5.5.1_webpack@5.82.1
-      husky: 8.0.3
-      jsdom: 20.0.3
-      libphonenumber-js: 1.10.24
-      lodash.includes: 4.3.0
-      ngx-deploy-npm: 5.2.0_wultty5ctpf5j43mwe46vcwpye
-      node-fetch: 3.3.0
-      np: 7.6.3
-      nx: 16.0.3
-      nx-cloud: 16.0.5
-      postcss: 8.4.23
-      prettier: 2.8.8
-      pretty-quick: 3.1.3_prettier@2.8.8
-      qwik-nx: 1.0.0_dvbuobvgks43wktgrvtkojcdgy
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      sass: 1.58.1
-      storybook: 7.0.0-rc.7
-      storybook-framework-qwik: 0.2.0_zsjyg3rbgkhgpx2bqurityinv4
-      tailwindcss: 3.3.2_ts-node@10.9.1
-      ts-node: 10.9.1_z7iwqpnx42ndugzbwegid3n66u
-      typescript: 5.0.4
-      undici: 5.22.0
-      vite: 4.3.3_lsn3nin3mtyhhjcoqumqvcleqa
-      vite-plugin-dts: 1.7.3_hmga4hzu4eftbjuccvrayyv324
-      vite-plugin-eslint: 1.8.1_eslint@8.36.0+vite@4.3.3
-      vite-tsconfig-paths: 4.2.0_3z2trfxmfq3caiicz7xj33yke4
-      vitest: 0.30.1_ub72g3etjqpy7gcz7hs7exheia
-      wrangler: 2.20.0
+      '@builder.io/qwik':
+        specifier: 1.0.0
+        version: 1.0.0(undici@5.22.0)
+      '@builder.io/qwik-city':
+        specifier: 1.0.0
+        version: 1.0.0
+      '@commitlint/cli':
+        specifier: ^17.4.3
+        version: 17.4.3
+      '@commitlint/config-angular':
+        specifier: ^17.4.3
+        version: 17.4.3
+      '@commitlint/config-conventional':
+        specifier: ^17.4.3
+        version: 17.4.3
+      '@cypress/code-coverage':
+        specifier: 3.10.0
+        version: 3.10.0(@babel/core@7.21.3)(@babel/preset-env@7.20.2)(babel-loader@9.1.2)(cypress@12.9.0)(webpack@5.82.0)
+      '@cypress/vite-dev-server':
+        specifier: ^2.2.1
+        version: 2.2.3(vite@4.3.3)
+      '@floating-ui/dom':
+        specifier: 1.0.10
+        version: 1.0.10
+      '@jscutlery/semver':
+        specifier: ^2.30.1
+        version: 2.30.1(@nrwl/devkit@15.9.3)
+      '@k11r/nx-cloudflare-wrangler':
+        specifier: ^2.0.0
+        version: 2.4.2(@nrwl/devkit@15.9.3)(@nrwl/node@16.1.0)(@nrwl/tao@16.1.0)(esbuild@0.14.54)(tslib@2.5.0)(wrangler@2.18.0)
+      '@nx/cypress':
+        specifier: 16.0.3
+        version: 16.0.3(cypress@12.9.0)(eslint@8.36.0)(nx@16.0.3)(typescript@5.0.4)
+      '@nx/eslint-plugin':
+        specifier: 16.0.3
+        version: 16.0.3(@typescript-eslint/parser@5.59.1)(eslint-config-prettier@8.6.0)(eslint@8.36.0)(nx@16.0.3)(typescript@5.0.4)
+      '@nx/linter':
+        specifier: 16.0.3
+        version: 16.0.3(eslint@8.36.0)(nx@16.0.3)(typescript@5.0.4)
+      '@nx/storybook':
+        specifier: 16.0.3
+        version: 16.0.3(cypress@12.9.0)(eslint@8.36.0)(nx@16.0.3)(typescript@5.0.4)
+      '@nx/vite':
+        specifier: 16.0.3
+        version: 16.0.3(nx@16.0.3)(typescript@5.0.4)(vite@4.3.3)(vitest@0.30.1)
+      '@nx/workspace':
+        specifier: 16.0.3
+        version: 16.0.3
+      '@storybook/addon-a11y':
+        specifier: 7.0.8
+        version: 7.0.8(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/addon-coverage':
+        specifier: 0.0.8
+        version: 0.0.8
+      '@storybook/addon-essentials':
+        specifier: 7.0.8
+        version: 7.0.8(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/addon-interactions':
+        specifier: 7.0.8
+        version: 7.0.8(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/addon-links':
+        specifier: 7.0.8
+        version: 7.0.8(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/blocks':
+        specifier: 7.0.8
+        version: 7.0.8(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/builder-vite':
+        specifier: 7.0.8
+        version: 7.0.8(typescript@5.0.4)(vite@4.3.3)
+      '@storybook/html':
+        specifier: 7.0.8
+        version: 7.0.8(@babel/core@7.21.3)
+      '@storybook/html-vite':
+        specifier: 7.0.8
+        version: 7.0.8(@babel/core@7.21.3)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(vite@4.3.3)
+      '@storybook/jest':
+        specifier: 0.1.0
+        version: 0.1.0
+      '@storybook/test-runner':
+        specifier: 0.10.0
+        version: 0.10.0(@types/node@18.16.1)(ts-node@10.9.1)
+      '@storybook/testing-library':
+        specifier: 0.1.0
+        version: 0.1.0
+      '@testing-library/cypress':
+        specifier: 9.0.0
+        version: 9.0.0(cypress@12.9.0)
+      '@types/eslint':
+        specifier: 8.37.0
+        version: 8.37.0
+      '@types/node':
+        specifier: 18.16.1
+        version: 18.16.1
+      '@types/testing-library__jest-dom':
+        specifier: 5.14.5
+        version: 5.14.5
+      '@typescript-eslint/eslint-plugin':
+        specifier: 5.59.1
+        version: 5.59.1(@typescript-eslint/parser@5.59.1)(eslint@8.36.0)(typescript@5.0.4)
+      '@typescript-eslint/parser':
+        specifier: 5.59.1
+        version: 5.59.1(eslint@8.36.0)(typescript@5.0.4)
+      '@vitest/coverage-c8':
+        specifier: ~0.28.5
+        version: 0.28.5(@vitest/ui@0.28.5)(jsdom@20.0.3)(sass@1.58.1)
+      '@vitest/ui':
+        specifier: ^0.28.5
+        version: 0.28.5
+      all-contributors-cli:
+        specifier: ^6.24.0
+        version: 6.24.0
+      autoprefixer:
+        specifier: ^10.4.13
+        version: 10.4.13(postcss@8.4.21)
+      axe-core:
+        specifier: 4.6.3
+        version: 4.6.3
+      chromatic:
+        specifier: 6.17.3
+        version: 6.17.3
+      commitizen:
+        specifier: ^4.3.0
+        version: 4.3.0
+      commitlint:
+        specifier: ^17.4.3
+        version: 17.4.3
+      country-list-json:
+        specifier: 1.1.0
+        version: 1.1.0
+      cypress:
+        specifier: ^12.9.0
+        version: 12.9.0
+      cypress-axe:
+        specifier: 1.4.0
+        version: 1.4.0(axe-core@4.6.3)(cypress@12.9.0)
+      cypress-ct-qwik:
+        specifier: 0.3.0
+        version: 0.3.0(@builder.io/qwik@1.0.0)(cypress@12.9.0)
+      cz-conventional-changelog:
+        specifier: ^3.3.0
+        version: 3.3.0
+      daisyui:
+        specifier: ^2.50.1
+        version: 2.50.1(autoprefixer@10.4.13)(postcss@8.4.21)(ts-node@10.9.1)
+      danger:
+        specifier: 11.2.4
+        version: 11.2.4
+      eslint:
+        specifier: 8.36.0
+        version: 8.36.0
+      eslint-config-prettier:
+        specifier: 8.6.0
+        version: 8.6.0(eslint@8.36.0)
+      eslint-plugin-cypress:
+        specifier: ^2.12.1
+        version: 2.12.1(eslint@8.36.0)
+      eslint-plugin-qwik:
+        specifier: 1.0.0
+        version: 1.0.0(eslint@8.36.0)
+      eslint-plugin-storybook:
+        specifier: ^0.6.11
+        version: 0.6.11(eslint@8.36.0)(typescript@5.0.4)
+      html-webpack-plugin:
+        specifier: ^5.5.0
+        version: 5.5.0(webpack@5.82.0)
+      husky:
+        specifier: ^8.0.3
+        version: 8.0.3
+      jsdom:
+        specifier: ~20.0.3
+        version: 20.0.3
+      libphonenumber-js:
+        specifier: 1.10.24
+        version: 1.10.24
+      lodash.includes:
+        specifier: 4.3.0
+        version: 4.3.0
+      ngx-deploy-npm:
+        specifier: ^5.0.0
+        version: 5.0.0(@nrwl/devkit@15.9.3)(@nrwl/workspace@15.9.3)(nx@16.0.3)
+      node-fetch:
+        specifier: 3.3.0
+        version: 3.3.0
+      np:
+        specifier: 7.6.3
+        version: 7.6.3
+      nx:
+        specifier: 16.0.3
+        version: 16.0.3
+      nx-cloud:
+        specifier: 16.0.5
+        version: 16.0.5
+      postcss:
+        specifier: ^8.4.21
+        version: 8.4.21
+      prettier:
+        specifier: 2.8.8
+        version: 2.8.8
+      pretty-quick:
+        specifier: ^3.1.3
+        version: 3.1.3(prettier@2.8.8)
+      qwik-nx:
+        specifier: 1.0.0
+        version: 1.0.0(eslint@8.36.0)(nx@16.0.3)(typescript@5.0.4)(vite@4.3.3)(vitest@0.30.1)
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: 18.2.0
+        version: 18.2.0(react@18.2.0)
+      sass:
+        specifier: 1.58.1
+        version: 1.58.1
+      storybook:
+        specifier: 7.0.0-rc.7
+        version: 7.0.0-rc.7
+      storybook-framework-qwik:
+        specifier: 0.2.0
+        version: 0.2.0(@builder.io/qwik@1.0.0)(typescript@5.0.4)(vite@4.3.3)
+      tailwindcss:
+        specifier: ^3.2.6
+        version: 3.2.6(postcss@8.4.21)(ts-node@10.9.1)
+      ts-node:
+        specifier: 10.9.1
+        version: 10.9.1(@types/node@18.16.1)(typescript@5.0.4)
+      typescript:
+        specifier: 5.0.4
+        version: 5.0.4
+      undici:
+        specifier: 5.22.0
+        version: 5.22.0
+      vite:
+        specifier: 4.3.3
+        version: 4.3.3(@types/node@18.16.1)(sass@1.58.1)
+      vite-plugin-dts:
+        specifier: ~1.7.3
+        version: 1.7.3(@types/node@18.16.1)(vite@4.3.3)
+      vite-plugin-eslint:
+        specifier: ^1.8.1
+        version: 1.8.1(eslint@8.36.0)(vite@4.3.3)
+      vite-tsconfig-paths:
+        specifier: 4.2.0
+        version: 4.2.0(typescript@5.0.4)(vite@4.3.3)
+      vitest:
+        specifier: 0.30.1
+        version: 0.30.1(@vitest/ui@0.28.5)(jsdom@20.0.3)(sass@1.58.1)
+      wrangler:
+        specifier: ^2.8.0
+        version: 2.18.0
 
   apps/website:
     specifiers: {}
@@ -5832,7 +6001,21 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/addon-docs/7.0.8_biqbaboplfbrettd7655fr4n2y:
+  /@storybook/addon-coverage@0.0.8:
+    resolution:
+      {
+        integrity: sha512-SVcDZhBybHDxFYjMzPqHPypboRJjSn2xJKxIOTIFONfb//Jg2/3uATyyamBPjvoxWRkNIqBpANGm+BpJlWZtog==,
+      }
+    dependencies:
+      '@types/babel__core': 7.20.0
+      '@types/istanbul-lib-coverage': 2.0.4
+      babel-plugin-istanbul: 6.1.1
+      vite-plugin-istanbul: 3.0.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@storybook/addon-docs@7.0.8(react-dom@18.2.0)(react@18.2.0):
     resolution:
       {
         integrity: sha512-X+fWWaGELyQoQna5cCegUn3swfjdicbmUNJLEiU7kV7pa2fmNyx801gdkS7x1s5wjBkxVDU/TJ3kvd8tfWPV7A==,
@@ -7297,7 +7480,21 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@testing-library/dom/8.20.0:
+  /@testing-library/cypress@9.0.0(cypress@12.9.0):
+    resolution:
+      {
+        integrity: sha512-c1XiCGeHGGTWn0LAU12sFUfoX3qfId5gcSE2yHode+vsyHDWraxDPALjVnHd4/Fa3j4KBcc5k++Ccy6A9qnkMA==,
+      }
+    engines: { node: '>=12', npm: '>=6' }
+    peerDependencies:
+      cypress: ^12.0.0
+    dependencies:
+      '@babel/runtime': 7.20.13
+      '@testing-library/dom': 8.20.0
+      cypress: 12.9.0
+    dev: true
+
+  /@testing-library/dom@8.20.0:
     resolution:
       {
         integrity: sha512-d9ULIT+a4EXLX3UU8FBjauG9NnsZHkHztXoIcTsOKoOw030fyjheN9svkTULjJxtYag9DZz5Jz5qkWZDPxTFwA==,
@@ -10898,8 +11095,12 @@ packages:
       - supports-color
     dev: true
 
-  /concat-map/0.0.1:
-    resolution: { integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s= }
+  /concat-map@0.0.1:
+    resolution:
+      {
+        integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==,
+      }
+    dev: true
 
   /concat-stream/1.6.2:
     resolution:
@@ -20191,7 +20392,7 @@ packages:
       foreground-child: 2.0.0
       get-package-type: 0.1.0
       glob: 7.2.3
-      istanbul-lib-coverage: 3.0.0
+      istanbul-lib-coverage: 3.2.0
       istanbul-lib-hook: 3.0.0
       istanbul-lib-instrument: 4.0.3
       istanbul-lib-processinfo: 2.0.3
@@ -25148,7 +25349,21 @@ packages:
       vite: 4.3.3_lsn3nin3mtyhhjcoqumqvcleqa
     dev: true
 
-  /vite-tsconfig-paths/4.2.0_3z2trfxmfq3caiicz7xj33yke4:
+  /vite-plugin-istanbul@3.0.4:
+    resolution:
+      {
+        integrity: sha512-DJy3cq6yOFbsM3gLQf/3zeuaJNJsfBv5dLFdZdv8sUV30xLtZI+66QeYfHUyP/5vBUYyLA+xNUCSG5uHY6w+5g==,
+      }
+    dependencies:
+      '@istanbuljs/load-nyc-config': 1.1.0
+      istanbul-lib-instrument: 5.2.1
+      picocolors: 1.0.0
+      test-exclude: 6.0.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /vite-tsconfig-paths@4.2.0(typescript@5.0.4)(vite@4.3.3):
     resolution:
       {
         integrity: sha512-jGpus0eUy5qbbMVGiTxCL1iB9ZGN6Bd37VGLJU39kTDD6ZfULTTb1bcc5IeTWqWJKiWV5YihCaibeASPiGi8kw==,

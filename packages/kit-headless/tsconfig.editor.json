@@ -2,6 +2,11 @@
   "extends": "./tsconfig.json",
   "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "types": ["cypress", "node"]
+    "types": [
+      "node",
+      "jest",
+      "@testing-library/jest-dom",
+      "@testing-library/cypress"
+    ]
   }
 }

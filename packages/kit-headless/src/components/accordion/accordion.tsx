@@ -69,6 +69,21 @@ export const AccordionItem = component$((props: AccordionItemProps) => {
       div.item .content {
         display: none;
       }
+      div.item>button {
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        flex-direction: items-start;
+        align-items: center;
+        padding-left: 8px;
+      }
+      div.item>button:hover {
+        text-decoration: underline;
+      }
+      div.item[open]>button::after {
+        rotate: 180deg;
+        top: 30%;
+        transition: 0.2s ease-in-out;
+      }
       div.item[open] .content {
        display: block;
       }
@@ -82,7 +97,9 @@ export const AccordionItem = component$((props: AccordionItemProps) => {
       <button
         id={`${id}__trigger`}
         aria-controls={`${id}__body`}
-        aria-expanded={!!ref.value?.getAttribute('open')}
+        aria-expanded={
+          ref.value?.getAttribute ? !!ref.value?.getAttribute('open') : false
+        }
         onClick$={(e) => {
           const target = ref.value;
           contextService.items.forEach((i: HTMLElement) => {
@@ -104,7 +121,9 @@ export const AccordionItem = component$((props: AccordionItemProps) => {
         id={`${id}__body`}
         class="content"
         aria-labelledby={`${id}__trigger`}
-        aria-hidden={!!ref.value?.getAttribute('open')}
+        aria-hidden={
+          ref.value?.getAttribute ? !!ref.value?.getAttribute('open') : false
+        }
       >
         <Slot />
       </div>

@@ -6,6 +6,6 @@ export default defineConfig({
     devServer: {
       framework: 'cypress-ct-qwik',
       bundler: 'vite',
-    },
+    } as any,
   },
 });

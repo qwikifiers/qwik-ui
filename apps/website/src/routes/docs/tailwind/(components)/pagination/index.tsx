@@ -3,8 +3,8 @@ import { Pagination } from '@qwik-ui/tailwind';
 import { Toggle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
-  const page = useSignal(50);
-  const pages = useSignal(100);
+  const page = useSignal(5);
+  const pages = useSignal(10);
 
   const showFirstButton = useSignal(true);
   const showLastButton = useSignal(true);
@@ -117,6 +117,25 @@ export default component$(() => {
           hidePrevButton={hidePrevButton.value}
           siblingCount={siblingCount.value}
           boundaryCount={boundaryCount.value}
+        />
+      </div>
+
+      <div class="flex flex-col gap-8">
+        <Pagination
+          pages={pages.value}
+          page={page.value}
+          onPaging$={(newValue: number) => {
+            page.value = newValue;
+          }}
+          showFirstButton={showFirstButton.value}
+          showLastButton={showLastButton.value}
+          hideNextButton={hideNextButton.value}
+          hidePrevButton={hidePrevButton.value}
+          siblingCount={siblingCount.value}
+          boundaryCount={boundaryCount.value}
+          activeClass="!bg-cyan-500"
+          defaultClass="bg-cyan-200"
+          labels={{ prev: '⬅️', next: '➡️', first: 'START', last: 'END' }}
         />
       </div>
     </div>

@@ -20,6 +20,7 @@ addQwikLoader();
 // Import commands.ts using ES2015 syntax:
 import './commands';
 import 'cypress-axe';
+import 'axe-core';
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -30,11 +31,15 @@ declare global {
   namespace Cypress {
     interface Chainable {
       mount: typeof mount;
+      checkA11yForComponent: () => void;
     }
   }
 }
 
 Cypress.Commands.add('mount', mount);
+Cypress.Commands.add('checkA11yForComponent', () => {
+  cy.checkA11y('[data-cy-root]');
+});
 
 // Example use:
 // cy.mount(MyComponent)
