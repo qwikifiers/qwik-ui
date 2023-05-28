@@ -1,20 +1,56 @@
-import { Slot, component$, useComputed$, useSignal } from '@builder.io/qwik';
+import {
+  Slot,
+  component$,
+  useComputed$,
+  useSignal,
+  useStyles$,
+} from '@builder.io/qwik';
 import { Dialog, DialogRef } from '@qwik-ui/headless';
 
 export const Root = component$((props: Dialog.RootProps) => {
+  /**
+   *
+   * We use DaisyUI's css classes for modal to style the dialog.
+   * DaisyUI builds on top of Div-Elements. We use the <dialog>-Element.
+   *
+   * That's why we need to move the backdrop styling to the dialog's
+   * backdrop-pseudo-element.
+   *
+   */
+  useStyles$(`
+    .modal--backdrop {
+      background-color: initial;
+    }
+
+    .modal--backdrop::backdrop {
+      background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
+
+      /* copied from daisy-ui modal */
+
+      --n: 218.18 18.033% 11.961%;
+      --nf: 222.86 17.073% 8.0392%;
+      --tw-bg-opacity: .4;
+    }
+  `);
+
   const dialog = useSignal<DialogRef>();
 
-  const modalClass = useComputed$(() => {
+  const dialogClass = useComputed$(() => {
     const clazz = dialog.value?.opened ? 'modal modal-open' : 'modal';
-    console.log('CHANGE', dialog.value?.opened, clazz);
 
     return clazz;
   });
 
   return (
-    <Dialog.Root class={modalClass.value} {...props} ref={dialog}>
-      <Slot />
-    </Dialog.Root>
+    <>
+      <Dialog.Root
+        class={`${dialogClass.value} modal--backdrop`}
+        {...props}
+        ref={dialog}
+      >
+        <Slot />
+      </Dialog.Root>
+    </>
   );
 });
 
@@ -30,6 +66,7 @@ export const Content = component$(() => {
     </Dialog.Content>
   );
 });
+
 export const ContentTitle = component$(() => {
   return (
     <Dialog.ContentTitle>
@@ -39,6 +76,7 @@ export const ContentTitle = component$(() => {
     </Dialog.ContentTitle>
   );
 });
+
 export const ContentText = component$(() => {
   return (
     <Dialog.ContentText>
@@ -52,28 +90,9 @@ export const ContentText = component$(() => {
 export const Actions = component$(() => {
   return (
     <Dialog.Actions>
-      <div class="modal-actions">
+      <div class="modal-action">
         <Slot />
       </div>
     </Dialog.Actions>
   );
 });
-
-/*
-
-<!-- The button to open modal -->
-<label for="my-modal" class="btn">open modal</label>
-
-<!-- Put this part before </body> tag -->
-<input type="checkbox" id="my-modal" class="modal-toggle" />
-<div class="modal">
-  <div class="modal-box">
-    <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-    <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-    <div class="modal-action">
-      <label for="my-modal" class="btn">Yay!</label>
-    </div>
-  </div>
-</div>
-
-*/

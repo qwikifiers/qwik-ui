@@ -11,10 +11,8 @@ import { dialogContext } from './dialog.context';
 import { DialogContext, DialogState, RootProps } from './types';
 
 export const Root = component$((props: RootProps) => {
-  const { fullScreen, ...dialogProps } = props;
-
   const state = useStore<DialogState>({
-    fullScreen: fullScreen || false,
+    props,
     opened: false,
     dialogRef: useSignal<HTMLDialogElement>(),
   });
@@ -46,7 +44,6 @@ export const Root = component$((props: RootProps) => {
   });
 
   const context: DialogContext = {
-    dialogProps,
     state,
 
     open$,
@@ -55,11 +52,11 @@ export const Root = component$((props: RootProps) => {
 
   useContextProvider(dialogContext, context);
 
-  useVisibleTask$(({ track }) => {
-    const dialogClass = track(() => props.class);
-    console.log('Class changed', dialogClass);
-    context.dialogProps.class = dialogClass;
-  });
+  // useVisibleTask$(({ track }) => {
+  //   const dialogClass = track(() => props.class);
+  //   console.log('Class changed', dialogClass);
+  //   context.dialogProps.class = dialogClass;
+  // });
 
   /**
    *

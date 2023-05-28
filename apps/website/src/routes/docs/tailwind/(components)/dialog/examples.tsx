@@ -11,10 +11,13 @@ export const Example01 = component$(() => {
             <button>Open Dialog</button>
           </Dialog.Trigger>
           <Dialog.Content>
-            Hello World
-            <Dialog.Close>
-              <Button>Close</Button>
-            </Dialog.Close>
+            <Dialog.ContentTitle>Hello 👋</Dialog.ContentTitle>
+            <Dialog.ContentText>This is a simple dialog.</Dialog.ContentText>
+            <Dialog.Actions>
+              <Dialog.Close>
+                <Button>Close</Button>
+              </Dialog.Close>
+            </Dialog.Actions>
           </Dialog.Content>
         </Dialog.Root>
       </div>
