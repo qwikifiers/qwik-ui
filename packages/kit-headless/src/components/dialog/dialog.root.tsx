@@ -39,7 +39,7 @@ export const Root = component$((props: RootProps) => {
     state.opened = false;
   });
 
-  const closeOnBackdropClick$ = $(
+  const closeOnBackdropClick = $(
     (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) =>
       hasDialogBackdropBeenClicked(event) ? close() : Promise.resolve()
   );
@@ -93,7 +93,7 @@ export const Root = component$((props: RootProps) => {
       {...props}
       class={props.fullScreen ? `${props.class} full-screen` : `${props.class}`}
       ref={dialogElement}
-      onClick$={closeOnBackdropClick$}
+      onClick$={closeOnBackdropClick}
     >
       <Slot />
     </dialog>
