@@ -6,12 +6,12 @@ export const Example01 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <Dialog.Element>
+        <Dialog.Root>
           <Dialog.Trigger>
             <button>Open Dialog</button>
           </Dialog.Trigger>
           <Dialog.Content>Hello World</Dialog.Content>
-        </Dialog.Element>
+        </Dialog.Root>
       </div>
 
       <div q:slot="codeExample">

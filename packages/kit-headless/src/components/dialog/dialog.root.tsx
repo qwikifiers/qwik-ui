@@ -8,40 +8,32 @@ import {
   useStylesScoped$,
   useVisibleTask$,
 } from '@builder.io/qwik';
-import styles from './dialog.element.css?inline';
+import styles from './dialog.root.css?inline';
 import { DialogState, RootProps } from './types';
-import { hasDialogBackdropBeenClicked } from './utils';
+import { ensureDialog, hasDialogBackdropBeenClicked } from './utils';
 
-export const Element = component$((props: RootProps) => {
+export const Root = component$((props: RootProps) => {
   useStylesScoped$(styles);
 
-  const dialogRef = useSignal<HTMLDialogElement>();
+  const dialogElement = useSignal<HTMLDialogElement>();
 
   const state = useStore<DialogState>({
     opened: false,
   });
 
-  const open$ = $(() => {
-    const dialog = dialogRef.value;
+  const open = $(() => {
+    const dialog = dialogElement.value;
 
-    if (!dialog) {
-      throw new Error(
-        '[Qwik UI Dialog]: Cannot open the Dialog. <dialog>-Element not found.'
-      );
-    }
+    ensureDialog(dialog);
 
     dialog.showModal();
     state.opened = true;
   });
 
-  const close$ = $(() => {
-    const dialog = dialogRef.value;
+  const close = $(() => {
+    const dialog = dialogElement.value;
 
-    if (!dialog) {
-      throw new Error(
-        '[Qwik UI Dialog]: Cannot close the Dialog. <dialog>-Element not found.'
-      );
-    }
+    ensureDialog(dialog);
 
     dialog.close();
     state.opened = false;
@@ -49,7 +41,7 @@ export const Element = component$((props: RootProps) => {
 
   const closeOnBackdropClick$ = $(
     (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) =>
-      hasDialogBackdropBeenClicked(event) ? close$() : Promise.resolve()
+      hasDialogBackdropBeenClicked(event) ? close() : Promise.resolve()
   );
 
   /**
@@ -64,8 +56,8 @@ export const Element = component$((props: RootProps) => {
 
     props.ref.value = {
       opened,
-      open$,
-      close$,
+      open,
+      close,
     };
   });
 
@@ -89,13 +81,9 @@ export const Element = component$((props: RootProps) => {
    *
    */
   useVisibleTask$(() => {
-    const dialog = dialogRef.value;
+    const dialog = dialogElement.value;
 
-    if (!dialog) {
-      throw new Error(
-        '[Qwik UI Dialog]: Cannot update the Dialog state. <dialog>-Element not found.'
-      );
-    }
+    ensureDialog(dialog);
 
     dialog.addEventListener('close', () => (state.opened = false));
   });
@@ -104,7 +92,7 @@ export const Element = component$((props: RootProps) => {
     <dialog
       {...props}
       class={props.fullScreen ? `${props.class} full-screen` : `${props.class}`}
-      ref={dialogRef}
+      ref={dialogElement}
       onClick$={closeOnBackdropClick$}
     >
       <Slot />

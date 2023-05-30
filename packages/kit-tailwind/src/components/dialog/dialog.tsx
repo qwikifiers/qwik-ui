@@ -43,13 +43,13 @@ export const Root = component$((props: Dialog.RootProps) => {
 
   return (
     <>
-      <Dialog.Element
+      <Dialog.Root
         class={`${dialogClass.value} modal--backdrop`}
         {...props}
         ref={dialog}
       >
         <Slot />
-      </Dialog.Element>
+      </Dialog.Root>
     </>
   );
 });

@@ -11,9 +11,9 @@ const DialogStoryComponent = component$((props: Dialog.RootProps) => {
 
   return (
     <>
-      <button onClick$={() => dialogRef.value?.open$()}>Open Dialog</button>
+      <button onClick$={() => dialogRef.value?.open()}>Open Dialog</button>
 
-      <Dialog.Element {...props} ref={dialogRef}>
+      <Dialog.Root {...props} ref={dialogRef}>
         <Dialog.Header>
           <h2 id="dialog-heading">Hello 👋</h2>
         </Dialog.Header>
@@ -27,18 +27,18 @@ const DialogStoryComponent = component$((props: Dialog.RootProps) => {
           </p>
         </Dialog.Content>
         <Dialog.Footer>
-          <button onClick$={() => dialogRef.value?.close$()}>
+          <button onClick$={() => dialogRef.value?.close()}>
             Close Dialog
           </button>
         </Dialog.Footer>
-      </Dialog.Element>
+      </Dialog.Root>
       <div style="background-color: red; width: 50vw; height: 150vh"></div>
     </>
   );
 });
 
 const meta: Meta<Dialog.RootProps> = {
-  component: Dialog.Element,
+  component: Dialog.Root,
   args: {
     fullScreen: false,
     'aria-describedby': 'dialog-text',

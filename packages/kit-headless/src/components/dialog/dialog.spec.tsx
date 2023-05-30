@@ -10,9 +10,9 @@ const Sut = component$(() => {
   const dialogRef = useSignal<Dialog.DialogRef>();
   return (
     <>
-      <button onClick$={() => dialogRef.value?.open$()}>Open Dialog</button>
+      <button onClick$={() => dialogRef.value?.open()}>Open Dialog</button>
 
-      <Dialog.Element ref={dialogRef}>
+      <Dialog.Root ref={dialogRef}>
         <Dialog.Header>
           <h2 data-test="dialog-header">Hello 👋</h2>
         </Dialog.Header>
@@ -20,12 +20,12 @@ const Sut = component$(() => {
         <Dialog.Footer>
           <button
             data-test="dialog-close-button"
-            onClick$={() => dialogRef.value?.close$()}
+            onClick$={() => dialogRef.value?.close()}
           >
             Close Dialog
           </button>
         </Dialog.Footer>
-      </Dialog.Element>
+      </Dialog.Root>
     </>
   );
 });
