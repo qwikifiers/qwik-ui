@@ -4,12 +4,11 @@ import {
   Slot,
   component$,
   useSignal,
-  useStore,
   useStylesScoped$,
   useVisibleTask$,
 } from '@builder.io/qwik';
 import styles from './dialog.root.css?inline';
-import { DialogState, RootProps } from './types';
+import { RootProps } from './types';
 import { ensureDialog, hasDialogBackdropBeenClicked } from './utils';
 
 export const Root = component$((props: RootProps) => {
@@ -17,9 +16,8 @@ export const Root = component$((props: RootProps) => {
 
   const dialogElement = useSignal<HTMLDialogElement>();
 
-  const state = useStore<DialogState>({
-    opened: false,
-  });
+  /** Indicates whether the dialog is open. */
+  const opened = useSignal(false);
 
   const open = $(() => {
     const dialog = dialogElement.value;
@@ -27,7 +25,7 @@ export const Root = component$((props: RootProps) => {
     ensureDialog(dialog);
 
     dialog.showModal();
-    state.opened = true;
+    opened.value = true;
   });
 
   const close = $(() => {
@@ -36,7 +34,7 @@ export const Root = component$((props: RootProps) => {
     ensureDialog(dialog);
 
     dialog.close();
-    state.opened = false;
+    opened.value = false;
   });
 
   const closeOnBackdropClick = $(
@@ -50,12 +48,12 @@ export const Root = component$((props: RootProps) => {
    *
    */
   useVisibleTask$(({ track }) => {
-    const opened = track(() => state.opened);
+    const isOpened = track(() => opened.value);
 
     if (!props.ref) return;
 
     props.ref.value = {
-      opened,
+      opened: isOpened,
       open,
       close,
     };
@@ -67,9 +65,9 @@ export const Root = component$((props: RootProps) => {
    *
    */
   useVisibleTask$(({ track }) => {
-    const opened = track(() => state.opened);
+    const isOpened = track(() => opened.value);
 
-    const overflow = opened ? 'hidden' : '';
+    const overflow = isOpened ? 'hidden' : '';
 
     window.document.body.style.overflow = overflow;
   });
@@ -85,7 +83,7 @@ export const Root = component$((props: RootProps) => {
 
     ensureDialog(dialog);
 
-    dialog.addEventListener('close', () => (state.opened = false));
+    dialog.addEventListener('close', () => (opened.value = false));
   });
 
   return (
