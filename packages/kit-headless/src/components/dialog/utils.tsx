@@ -13,10 +13,15 @@ export function hasDialogBackdropBeenClicked(
   );
 }
 
-export function ensureDialog(
-  candidate?: HTMLDialogElement
-): asserts candidate is HTMLDialogElement {
+/**
+ *
+ * Throws an error if dialog-Element is not defined, otherwise yielding the dialog.
+ *
+ */
+export function ensureDialog(candidate?: HTMLDialogElement): HTMLDialogElement {
   if (!candidate) {
     throw new Error('[Qwik UI Dialog]: <dialog>-Element not found.');
   }
+
+  return candidate;
 }

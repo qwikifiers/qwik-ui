@@ -3,7 +3,7 @@ import { DialogRef } from './dialog-ref';
 
 export type DialogIntrinsicElementProps = Pick<
   QwikIntrinsicElements['dialog'],
-  'class' | 'aria-labelledby' | 'aria-describedby'
+  'class' | 'style' | 'aria-labelledby' | 'aria-describedby'
 >;
 
 export type RootProps = DialogIntrinsicElementProps & {

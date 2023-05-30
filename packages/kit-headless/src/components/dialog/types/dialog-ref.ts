@@ -1,7 +1,7 @@
-import { QRL } from '@builder.io/qwik';
-import { DialogState } from './dialog-state';
+import { QRL, Signal } from '@builder.io/qwik';
 
-export type DialogRef = Pick<DialogState, 'opened'> & {
+export type DialogRef = {
+  opened: Signal<boolean>;
   open: QRL<() => void>;
   close: QRL<() => void>;
 };

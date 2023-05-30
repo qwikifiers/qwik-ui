@@ -5,6 +5,7 @@ import {
   component$,
   useSignal,
   useStylesScoped$,
+  useTask$,
   useVisibleTask$,
 } from '@builder.io/qwik';
 import styles from './dialog.root.css?inline';
@@ -14,24 +15,21 @@ import { ensureDialog, hasDialogBackdropBeenClicked } from './utils';
 export const Root = component$((props: RootProps) => {
   useStylesScoped$(styles);
 
+  /** Contains reference to the rendered HTMLDialogElement. */
   const dialogElement = useSignal<HTMLDialogElement>();
 
   /** Indicates whether the dialog is open. */
   const opened = useSignal(false);
 
   const open = $(() => {
-    const dialog = dialogElement.value;
-
-    ensureDialog(dialog);
+    const dialog = ensureDialog(dialogElement.value);
 
     dialog.showModal();
     opened.value = true;
   });
 
   const close = $(() => {
-    const dialog = dialogElement.value;
-
-    ensureDialog(dialog);
+    const dialog = ensureDialog(dialogElement.value);
 
     dialog.close();
     opened.value = false;
@@ -47,16 +45,10 @@ export const Root = component$((props: RootProps) => {
    * Share the public API of the Dialog if the dialog-caller is interested.
    *
    */
-  useVisibleTask$(({ track }) => {
-    const isOpened = track(() => opened.value);
-
+  useTask$(() => {
     if (!props.ref) return;
 
-    props.ref.value = {
-      opened: isOpened,
-      open,
-      close,
-    };
+    props.ref.value = { opened, open, close };
   });
 
   /**
@@ -79,9 +71,7 @@ export const Root = component$((props: RootProps) => {
    *
    */
   useVisibleTask$(() => {
-    const dialog = dialogElement.value;
-
-    ensureDialog(dialog);
+    const dialog = ensureDialog(dialogElement.value);
 
     dialog.addEventListener('close', () => (opened.value = false));
   });
