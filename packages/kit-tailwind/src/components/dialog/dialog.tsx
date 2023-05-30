@@ -43,19 +43,16 @@ export const Root = component$((props: Dialog.RootProps) => {
 
   return (
     <>
-      <Dialog.Root
+      <Dialog.Element
         class={`${dialogClass.value} modal--backdrop`}
         {...props}
         ref={dialog}
       >
         <Slot />
-      </Dialog.Root>
+      </Dialog.Element>
     </>
   );
 });
-
-export const Close = Dialog.Close;
-export const Trigger = Dialog.Trigger;
 
 export const Content = component$(() => {
   return (
@@ -69,30 +66,30 @@ export const Content = component$(() => {
 
 export const ContentTitle = component$(() => {
   return (
-    <Dialog.ContentTitle>
+    <Dialog.Header>
       <h3 class="font-bold text-lg">
         <Slot />
       </h3>
-    </Dialog.ContentTitle>
+    </Dialog.Header>
   );
 });
 
 export const ContentText = component$(() => {
   return (
-    <Dialog.ContentText>
+    <Dialog.Content>
       <p class="py-4">
         <Slot />
       </p>
-    </Dialog.ContentText>
+    </Dialog.Content>
   );
 });
 
 export const Actions = component$(() => {
   return (
-    <Dialog.Actions>
+    <Dialog.Footer>
       <div class="modal-action">
         <Slot />
       </div>
-    </Dialog.Actions>
+    </Dialog.Footer>
   );
 });

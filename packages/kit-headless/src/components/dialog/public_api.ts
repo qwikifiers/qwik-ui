@@ -1,9 +1,6 @@
-export * from './dialog.actions';
-export * from './dialog.close';
 export * from './dialog.content';
-export * from './dialog.content-text';
-export * from './dialog.content-title';
-export * from './dialog.context';
-export * from './dialog.root';
-export * from './dialog.trigger';
+export * from './dialog.element';
+export * from './dialog.footer';
+export * from './dialog.header';
+export type { DialogRef } from './types/dialog-ref';
 export type { RootProps } from './types/dialog.root.props';

@@ -1,16 +1,16 @@
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 
-export const Actions = component$(() => {
+export const Header = component$(() => {
   useStyles$(`
-    .dialog-actions {
+    .dialog-content-title {
       position: sticky;
-      bottom: 0;
+      top: 0;
     }
   `);
 
   return (
-    <div class="dialog-actions">
+    <header class="dialog-content-title">
       <Slot />
-    </div>
+    </header>
   );
 });
