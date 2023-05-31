@@ -3,33 +3,71 @@ title: Qwik UI | Dialog
 ---
 
 import { Dialog, Button } from '@qwik-ui/tailwind';
-import { Example01 } from './examples';
+import { Example01, Example02 } from './examples';
 import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
 
 # Dialog
 
 #### A window overlaid on either the primary window or another dialog window, rendering the content underneath inert. ([Definition comes from Radix-UI](https://www.radix-ui.com/docs/primitives/components/dialog))
 
-{' '}
+## Basic Example
 
 <Example01>
-  ```tsx
-  <Dialog.Root>
-    <Dialog.Trigger>
-      <button>Open Dialog</button>
-    </Dialog.Trigger>
-    <Dialog.Content>
-      <Dialog.ContentTitle>Hello 👋</Dialog.ContentTitle>
-      <Dialog.ContentText>This is a simple dialog.</Dialog.ContentText>
-      <Dialog.Actions>
-        <Dialog.Close>
-          <Button>Close</Button>
-        </Dialog.Close>
-      </Dialog.Actions>
-    </Dialog.Content>
-  </Dialog.Root>
-  ```
+```tsx
+export const myComponent = component$(() => {
+  const dialogRef = useSignal<Dialog.DialogRef>();
+
+return <>
+<Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
+
+    <Dialog.Root ref={dialogRef}>
+      <Dialog.Header>
+        <h2 id="dialog-heading">Hello 👋</h2>
+      </Dialog.Header>
+      <Dialog.Content>
+        <p id="dialog-text">I am a simple Dialog.</p>
+      </Dialog.Content>
+      <Dialog.Footer>
+        <button onClick$={() => dialogRef.value?.close()}>Close Dialog</button>
+      </Dialog.Footer>
+    </Dialog.Root>
+
+  </>
+})
+```
 </Example01>
+
+## Scrolling Content
+
+<Example02>
+```tsx
+export const myComponent = component$(() => {
+  const dialogRef = useSignal<Dialog.DialogRef>();
+
+return <>
+<Dialog.Root ref={dialogRef}>
+<Dialog.Header>
+<h2>Poems</h2>
+<small>By ELIZABETH BISHOP</small>
+</Dialog.Header>
+<Dialog.Content>
+<p>...</p>
+<p>...</p>
+<p>...</p>
+<p>...</p>
+</Dialog.Content>
+<Dialog.Footer>
+<button onClick$={() => dialogRef.value?.close()}>
+Close Dialog
+</button>
+</Dialog.Footer>
+</Dialog.Root>
+
+  </>
+})
+```
+
+</Example02>
 
 ## Accessibility
 
