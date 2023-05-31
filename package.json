@@ -11,7 +11,8 @@
     "commit": "git-cz",
     "format:fix": "pretty-quick --staged",
     "prepare": "husky install",
-    "test:headless": "nx component-test headless --watch",
+    "test:headless": "nx component-test headless",
+    "test:headless:ci": "nx component-test-ci headless",
     "story:build:headless": "nx build-storybook headless",
     "story:headless": "nx storybook headless",
     "website": "nx serve website"
@@ -25,6 +26,7 @@
     "@cypress/code-coverage": "3.10.0",
     "@cypress/vite-dev-server": "^2.2.1",
     "@floating-ui/dom": "1.0.10",
+    "@frsource/cypress-plugin-visual-regression-diff": "3.3.5",
     "@jscutlery/semver": "^2.30.1",
     "@k11r/nx-cloudflare-wrangler": "^2.0.0",
     "@nx/cypress": "16.0.3",

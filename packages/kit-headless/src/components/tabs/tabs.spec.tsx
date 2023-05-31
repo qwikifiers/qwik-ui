@@ -11,6 +11,24 @@ interface DynamicTabsProps {
   selectedIndex?: number;
 }
 
+const ThreeTabsComponent = component$(() => {
+  return (
+    
+    <Tabs data-testid='tabs'>
+      <TabList>
+        <Tab>Tab 1</Tab>
+        <Tab>Tab 2</Tab>
+        <Tab>Tab 3</Tab>
+      </TabList>
+
+      <TabPanel>Panel 1</TabPanel>
+      <TabPanel>Panel 2</TabPanel>
+      <TabPanel>Panel 3</TabPanel>
+    </Tabs>
+    
+  )
+});
+
 const DynamicTabsComponent = component$(
   ({
     tabIndexToDelete = 0,
@@ -59,17 +77,26 @@ describe('Tabs', () => {
           <Tab>Tab 3</Tab>
         </TabList>
 
-        <TabPanel>Panel 1</TabPanel>
-        <TabPanel>Panel 2</TabPanel>
-        <TabPanel>Panel 3</TabPanel>
-      </Tabs>
+describe('Tabs', () => {
+
+  it('INIT', () => {
+    cy.mount(
+      <ThreeTabsComponent/>
+    );
+    cy.findByTestId('tabs').matchImage();
+    
+    cy.checkA11yForComponent();
+  })
+  it('should render the component', () => {
+    cy.mount(
+      <ThreeTabsComponent/>
     );
 
     cy.findByRole('tab', { name: /Tab 2/i }).click();
 
     cy.findByRole('tabpanel').should('contain', 'Panel 2');
 
-    cy.checkA11yForComponent();
+    
   });
 
   it('Given 3 tabs, when removing the last one dynamically, only 2 should remain', () => {

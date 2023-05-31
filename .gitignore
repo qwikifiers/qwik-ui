@@ -67,3 +67,7 @@ Thumbs.db
 
 # Storybook
 **/storybook-static/*
+
+# Cypress
+**/cypress/screenshots
+**/cypress/videos
