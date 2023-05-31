@@ -13,8 +13,7 @@ interface DynamicTabsProps {
 
 const ThreeTabsComponent = component$(() => {
   return (
-    
-    <Tabs data-testid='tabs'>
+    <Tabs data-testid="tabs">
       <TabList>
         <Tab>Tab 1</Tab>
         <Tab>Tab 2</Tab>
@@ -25,8 +24,7 @@ const ThreeTabsComponent = component$(() => {
       <TabPanel>Panel 2</TabPanel>
       <TabPanel>Panel 3</TabPanel>
     </Tabs>
-    
-  )
+  );
 });
 
 const DynamicTabsComponent = component$(
@@ -68,35 +66,18 @@ const DynamicTabsComponent = component$(
 );
 
 describe('Tabs', () => {
-  it('should render the component and check if its accessible', () => {
-    cy.mount(
-      <Tabs>
-        <TabList>
-          <Tab>Tab 1</Tab>
-          <Tab>Tab 2</Tab>
-          <Tab>Tab 3</Tab>
-        </TabList>
-
-describe('Tabs', () => {
-
   it('INIT', () => {
-    cy.mount(
-      <ThreeTabsComponent/>
-    );
+    cy.mount(<ThreeTabsComponent />);
     cy.findByTestId('tabs').matchImage();
-    
+
     cy.checkA11yForComponent();
-  })
+  });
   it('should render the component', () => {
-    cy.mount(
-      <ThreeTabsComponent/>
-    );
+    cy.mount(<ThreeTabsComponent />);
 
     cy.findByRole('tab', { name: /Tab 2/i }).click();
 
     cy.findByRole('tabpanel').should('contain', 'Panel 2');
-
-    
   });
 
   it('Given 3 tabs, when removing the last one dynamically, only 2 should remain', () => {
