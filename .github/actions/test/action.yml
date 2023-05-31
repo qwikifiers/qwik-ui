@@ -30,14 +30,19 @@ runs:
       shell: bash
       run: npx nx build-storybook headless
 
-    - name: Publish to Chromatic
-      uses: chromaui/action@v1
-      # Chromatic GitHub Action options
+    - name: Run Cypress component tests
+      uses: cypress-io/github-action@v5
       with:
-        # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-        projectToken: ${{ inputs.chromatic_token }}
-        storybookBuildDir: dist/storybook/headless
-        zip: true
+        command: 'pnpm test:headless:ci'
+
+    # - name: Publish to Chromatic
+    #   uses: chromaui/action@v1
+    #   # Chromatic GitHub Action options
+    #   with:
+    #     # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+    #     projectToken: ${{ inputs.chromatic_token }}
+    #     storybookBuildDir: dist/storybook/headless
+    #     zip: true
 
     # - name: Build Tailwind Theme
     #   shell: bash

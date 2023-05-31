@@ -105,7 +105,21 @@
       "executor": "@nx/cypress:cypress",
       "options": {
         "cypressConfig": "packages/kit-headless/cypress.config.ts",
-        "testingType": "component"
+        "testingType": "component",
+        "watch": true,
+        "env": {
+          "pluginVisualRegressionCleanupUnusedImages": false
+        }
+      }
+    },
+    "component-test-ci": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "packages/kit-headless/cypress.config.ts",
+        "testingType": "component",
+        "env": {
+          "pluginVisualRegressionCleanupUnusedImages": false
+        }
       }
     }
   },
