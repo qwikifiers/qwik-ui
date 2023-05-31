@@ -3,7 +3,11 @@
   height: 100vh;
 }
 
+/**
+ * Dialog was not stretching over the whole screen.
+ * Found an answer on StackOverflow that works:
+ * https://stackoverflow.com/a/75024226/1648207
+ */
 .full-screen:modal {
   max-width: 100vw;
-  height: 100vh;
 }

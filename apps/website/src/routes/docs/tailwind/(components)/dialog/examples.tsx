@@ -36,7 +36,9 @@ export const Example02 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
+        <Button autoFocus onClick$={() => dialogRef.value?.open()}>
+          Open Dialog
+        </Button>
 
         <Dialog.Root ref={dialogRef}>
           <Dialog.Header>
@@ -46,9 +48,7 @@ export const Example02 = component$(() => {
             <p id="dialog-text">Do you agree to the terms our services?</p>
           </Dialog.Content>
           <Dialog.Footer>
-            <Button onClick$={() => dialogRef.value?.close()} autoFocus>
-              Disagree
-            </Button>
+            <button onClick$={() => dialogRef.value?.close()}>Disagree</button>
             <Button onClick$={() => dialogRef.value?.close()}>Agree</Button>
           </Dialog.Footer>
         </Dialog.Root>
@@ -74,13 +74,10 @@ export const Example_FullScreen = component$(() => {
             <h2 id="dialog-heading">Hello 👋</h2>
           </Dialog.Header>
           <Dialog.Content>
-            <p id="dialog-text">Do you agree to the terms our services?</p>
+            <p id="dialog-text">I am a simple Dialog.</p>
           </Dialog.Content>
           <Dialog.Footer>
-            <Button onClick$={() => dialogRef.value?.close()} autoFocus>
-              Disagree
-            </Button>
-            <Button onClick$={() => dialogRef.value?.close()}>Agree</Button>
+            <Button onClick$={() => dialogRef.value?.close()}>Close</Button>
           </Dialog.Footer>
         </Dialog.Root>
       </div>
