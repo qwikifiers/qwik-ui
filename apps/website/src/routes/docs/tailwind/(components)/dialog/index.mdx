@@ -17,8 +17,8 @@ import { KeyboardInteractionTable } from '../../../../../components/keyboard-int
 export const myComponent = component$(() => {
   const dialogRef = useSignal<Dialog.DialogRef>();
 
-return <>
-<Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
+  return <>
+    <Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
 
     <Dialog.Root ref={dialogRef}>
       <Dialog.Header>
@@ -31,7 +31,6 @@ return <>
         <button onClick$={() => dialogRef.value?.close()}>Close Dialog</button>
       </Dialog.Footer>
     </Dialog.Root>
-
   </>
 })
 ```
@@ -44,25 +43,24 @@ return <>
 export const myComponent = component$(() => {
   const dialogRef = useSignal<Dialog.DialogRef>();
 
-return <>
-<Dialog.Root ref={dialogRef}>
-<Dialog.Header>
-<h2>Poems</h2>
-<small>By ELIZABETH BISHOP</small>
-</Dialog.Header>
-<Dialog.Content>
-<p>...</p>
-<p>...</p>
-<p>...</p>
-<p>...</p>
-</Dialog.Content>
-<Dialog.Footer>
-<button onClick$={() => dialogRef.value?.close()}>
-Close Dialog
-</button>
-</Dialog.Footer>
-</Dialog.Root>
-
+  return <>
+    <Dialog.Root ref={dialogRef}>
+      <Dialog.Header>
+        <h2>Poems</h2>
+        <small>By ELIZABETH BISHOP</small>
+      </Dialog.Header>
+      <Dialog.Content>
+        <p>...</p>
+        <p>...</p>
+        <p>...</p>
+        <p>...</p>
+      </Dialog.Content>
+      <Dialog.Footer>
+        <button onClick$={() => dialogRef.value?.close()}>
+          Close Dialog
+        </button>
+      </Dialog.Footer>
+    </Dialog.Root>
   </>
 })
 ```
