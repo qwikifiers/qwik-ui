@@ -47,7 +47,7 @@ export const Root = component$((props: RootProps) => {
   useVisibleTask$(() => {
     if (!props.ref) return;
 
-    props.ref.value = { opened, open, close };
+    props.ref.value = { isOpen: opened, open, close };
   });
 
   /**
