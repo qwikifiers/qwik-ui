@@ -10,7 +10,7 @@ import { KeyboardInteractionTable } from '../../../../../components/keyboard-int
 
 #### A window overlaid on either the primary window or another dialog window, rendering the content underneath inert. ([Definition comes from Radix-UI](https://www.radix-ui.com/docs/primitives/components/dialog))
 
-## Basic Example
+## Basic Dialog
 
 <Example01>
 ```tsx
@@ -28,7 +28,7 @@ export const myComponent = component$(() => {
         <p id="dialog-text">I am a simple Dialog.</p>
       </Dialog.Content>
       <Dialog.Footer>
-        <button onClick$={() => dialogRef.value?.close()}>Close Dialog</button>
+        <button onClick$={() => dialogRef.value?.close()}>Close</button>
       </Dialog.Footer>
     </Dialog.Root>
   </>
@@ -36,7 +36,28 @@ export const myComponent = component$(() => {
 ```
 </Example01>
 
-## Scrolling Content
+## Alerts
+> t.b.d
+
+## Transistions
+> t.b.d
+
+## Form dialogs
+> t.b.d
+
+## Customization
+> t.b.d
+
+## Optional sizes
+> t.b.d
+
+## Full-Screen
+> t.b.d
+
+## Responsive Full-Screen
+> t.b.d
+
+## Scrolling long content
 
 <Example02>
 ```tsx
@@ -57,7 +78,7 @@ export const myComponent = component$(() => {
       </Dialog.Content>
       <Dialog.Footer>
         <button onClick$={() => dialogRef.value?.close()}>
-          Close Dialog
+          Close
         </button>
       </Dialog.Footer>
     </Dialog.Root>
