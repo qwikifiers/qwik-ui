@@ -18,20 +18,20 @@ export const Root = component$((props: RootProps) => {
   const dialogElement = useSignal<HTMLDialogElement>();
 
   /** Indicates whether the dialog is open. */
-  const opened = useSignal(false);
+  const isOpen = useSignal(false);
 
   const open = $(() => {
     const dialog = ensureDialog(dialogElement.value);
 
     dialog.showModal();
-    opened.value = true;
+    isOpen.value = true;
   });
 
   const close = $(() => {
     const dialog = ensureDialog(dialogElement.value);
 
     dialog.close();
-    opened.value = false;
+    isOpen.value = false;
   });
 
   const closeOnBackdropClick = $(
@@ -47,7 +47,7 @@ export const Root = component$((props: RootProps) => {
   useVisibleTask$(() => {
     if (!props.ref) return;
 
-    props.ref.value = { isOpen: opened, open, close };
+    props.ref.value = { isOpen, open, close };
   });
 
   /**
@@ -56,7 +56,7 @@ export const Root = component$((props: RootProps) => {
    *
    */
   useVisibleTask$(({ track }) => {
-    const isOpened = track(() => opened.value);
+    const isOpened = track(() => isOpen.value);
 
     const overflow = isOpened ? 'hidden' : '';
 
@@ -72,7 +72,7 @@ export const Root = component$((props: RootProps) => {
   useVisibleTask$(() => {
     const dialog = ensureDialog(dialogElement.value);
 
-    dialog.addEventListener('close', () => (opened.value = false));
+    dialog.addEventListener('close', () => (isOpen.value = false));
   });
 
   return (
