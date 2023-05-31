@@ -3,7 +3,12 @@ title: Qwik UI | Dialog
 ---
 
 import { Dialog, Button } from '@qwik-ui/tailwind';
-import { Example01, Example02 } from './examples';
+import {
+  Example01,
+  Example02,
+  Example_ScrollingLongContent,
+  Example_FullScreen,
+} from './examples';
 import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
 
 # Dialog
@@ -17,8 +22,8 @@ import { KeyboardInteractionTable } from '../../../../../components/keyboard-int
 export const myComponent = component$(() => {
   const dialogRef = useSignal<Dialog.DialogRef>();
 
-  return <>
-    <Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
+return <>
+<Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
 
     <Dialog.Root ref={dialogRef}>
       <Dialog.Header>
@@ -31,62 +36,120 @@ export const myComponent = component$(() => {
         <button onClick$={() => dialogRef.value?.close()}>Close</button>
       </Dialog.Footer>
     </Dialog.Root>
+
   </>
 })
 ```
 </Example01>
 
 ## Alerts
-> t.b.d
-
-## Transistions
-> t.b.d
-
-## Form dialogs
-> t.b.d
-
-## Customization
-> t.b.d
-
-## Optional sizes
-> t.b.d
-
-## Full-Screen
-> t.b.d
-
-## Responsive Full-Screen
-> t.b.d
-
-## Scrolling long content
 
 <Example02>
 ```tsx
 export const myComponent = component$(() => {
   const dialogRef = useSignal<Dialog.DialogRef>();
 
-  return <>
+return <>
+<Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
+
     <Dialog.Root ref={dialogRef}>
       <Dialog.Header>
-        <h2>Poems</h2>
-        <small>By ELIZABETH BISHOP</small>
+        <h2 id="dialog-heading">Hello 👋</h2>
       </Dialog.Header>
       <Dialog.Content>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
+        <p id="dialog-text">Do you agree to the terms our services?</p>
       </Dialog.Content>
       <Dialog.Footer>
-        <button onClick$={() => dialogRef.value?.close()}>
-          Close
-        </button>
+        <button onClick$={() => dialogRef.value?.close()}>Close</button>
       </Dialog.Footer>
     </Dialog.Root>
+
   </>
 })
 ```
-
 </Example02>
+
+## Transistions
+
+> t.b.d
+
+## Form dialogs
+
+> t.b.d
+
+## Customization
+
+> t.b.d
+
+## Optional sizes
+
+> t.b.d
+
+## Full-Screen
+
+<Example_FullScreen>
+
+```tsx
+export const myComponent = component$(() => {
+  const dialogRef = useSignal<Dialog.DialogRef>();
+
+  return (
+    <>
+      <Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
+
+      <Dialog.Root ref={dialogRef} fullScreen={true}>
+        <Dialog.Header>
+          <h2 id="dialog-heading">Hello 👋</h2>
+        </Dialog.Header>
+        <Dialog.Content>
+          <p id="dialog-text">Do you agree to the terms our services?</p>
+        </Dialog.Content>
+        <Dialog.Footer>
+          <button onClick$={() => dialogRef.value?.close()}>Close</button>
+        </Dialog.Footer>
+      </Dialog.Root>
+    </>
+  );
+});
+```
+
+</Example_FullScreen>
+
+## Responsive Full-Screen
+
+> t.b.d
+
+## Scrolling long content
+
+<Example_ScrollingLongContent>
+
+```tsx
+export const myComponent = component$(() => {
+  const dialogRef = useSignal<Dialog.DialogRef>();
+
+  return (
+    <>
+      <Dialog.Root ref={dialogRef}>
+        <Dialog.Header>
+          <h2>Poems</h2>
+          <small>By ELIZABETH BISHOP</small>
+        </Dialog.Header>
+        <Dialog.Content>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+        </Dialog.Content>
+        <Dialog.Footer>
+          <button onClick$={() => dialogRef.value?.close()}>Close</button>
+        </Dialog.Footer>
+      </Dialog.Root>
+    </>
+  );
+});
+```
+
+</Example_ScrollingLongContent>
 
 ## Accessibility
 

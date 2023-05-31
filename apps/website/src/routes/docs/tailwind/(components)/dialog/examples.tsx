@@ -40,6 +40,68 @@ export const Example02 = component$(() => {
 
         <Dialog.Root ref={dialogRef}>
           <Dialog.Header>
+            <h2 id="dialog-heading">Hello 👋</h2>
+          </Dialog.Header>
+          <Dialog.Content>
+            <p id="dialog-text">Do you agree to the terms our services?</p>
+          </Dialog.Content>
+          <Dialog.Footer>
+            <Button onClick$={() => dialogRef.value?.close()} autoFocus>
+              Disagree
+            </Button>
+            <Button onClick$={() => dialogRef.value?.close()}>Agree</Button>
+          </Dialog.Footer>
+        </Dialog.Root>
+      </div>
+
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
+  );
+});
+
+export const Example_FullScreen = component$(() => {
+  const dialogRef = useSignal<Dialog.DialogRef>();
+
+  return (
+    <PreviewCodeExample>
+      <div q:slot="actualComponent">
+        <Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
+
+        <Dialog.Root ref={dialogRef} fullScreen={true}>
+          <Dialog.Header>
+            <h2 id="dialog-heading">Hello 👋</h2>
+          </Dialog.Header>
+          <Dialog.Content>
+            <p id="dialog-text">Do you agree to the terms our services?</p>
+          </Dialog.Content>
+          <Dialog.Footer>
+            <Button onClick$={() => dialogRef.value?.close()} autoFocus>
+              Disagree
+            </Button>
+            <Button onClick$={() => dialogRef.value?.close()}>Agree</Button>
+          </Dialog.Footer>
+        </Dialog.Root>
+      </div>
+
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
+  );
+});
+
+export const Example_ScrollingLongContent = component$(() => {
+  const dialogRef = useSignal<Dialog.DialogRef>();
+
+  return (
+    <PreviewCodeExample>
+      <div q:slot="actualComponent">
+        <Button onClick$={() => dialogRef.value?.open()}>Open Dialog</Button>
+
+        <Dialog.Root ref={dialogRef}>
+          <Dialog.Header>
             <h2>Poems</h2>
             <small>By ELIZABETH BISHOP</small>
           </Dialog.Header>

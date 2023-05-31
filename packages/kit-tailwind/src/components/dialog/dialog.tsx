@@ -7,34 +7,14 @@ import {
   useVisibleTask$,
 } from '@builder.io/qwik';
 import { Dialog } from '@qwik-ui/headless';
+import styles from './dialog.root.css?inline';
 
 export type DialogRef = Dialog.DialogRef;
 
 export const Root = component$((props: Dialog.RootProps) => {
-  /**
-   *
-   * We use DaisyUI's css classes for modal to style the dialog.
-   * DaisyUI builds on top of Div-Elements. We use the <dialog>-Element.
-   *
-   * That's why we need to move the backdrop styling to the dialog's
-   * backdrop-pseudo-element.
-   *
-   */
-  useStyles$(`
-    .modal--backdrop {
-      background-color: initial;
-    }
-
-    .modal--backdrop::backdrop {
-      background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
-
-      /* copied from daisy-ui modal */
-
-      --n: 218.18 18.033% 11.961%;
-      --nf: 222.86 17.073% 8.0392%;
-      --tw-bg-opacity: .4;
-    }
-  `);
+  // We cannot use useStylesScoped$ here because we need to override DaisyUI's classes
+  // which are global.
+  useStyles$(styles);
 
   const dialogRef = useSignal<Dialog.DialogRef>();
 
@@ -55,6 +35,10 @@ export const Root = component$((props: Dialog.RootProps) => {
     props.ref.value = dialogRef.value;
   });
 
+  const classModalBoxFullScreen = useComputed$(() => {
+    return props.fullScreen ? 'modal-box--full-screen' : '';
+  });
+
   return (
     <>
       <Dialog.Root
@@ -62,7 +46,7 @@ export const Root = component$((props: Dialog.RootProps) => {
         class={`${dialogClass.value} modal--backdrop`}
         ref={dialogRef}
       >
-        <div class="modal-box">
+        <div class={`modal-box ${classModalBoxFullScreen.value}`}>
           <Slot />
         </div>
       </Dialog.Root>
@@ -79,7 +63,15 @@ export const Header = component$(() => {
     </Dialog.Header>
   );
 });
-export const Content = Dialog.Content;
+export const Content = component$(() => {
+  return (
+    <Dialog.Content>
+      <div class="py-4">
+        <Slot />
+      </div>
+    </Dialog.Content>
+  );
+});
 
 export const Footer = component$(() => {
   return (
