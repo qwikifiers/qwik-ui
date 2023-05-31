@@ -18,9 +18,7 @@ export const Example01 = component$(() => {
             <p id="dialog-text">I am a simple Dialog.</p>
           </Dialog.Content>
           <Dialog.Footer>
-            <button onClick$={() => dialogRef.value?.close()}>
-              Close Dialog
-            </button>
+            <Button onClick$={() => dialogRef.value?.close()}>Close</Button>
           </Dialog.Footer>
         </Dialog.Root>
       </div>
@@ -120,7 +118,7 @@ export const Example02 = component$(() => {
             </p>
           </Dialog.Content>
           <Dialog.Footer>
-            <button onClick$={() => dialogRef.value?.close()}>Close</button>
+            <Button onClick$={() => dialogRef.value?.close()}>Close</Button>
           </Dialog.Footer>
         </Dialog.Root>
       </div>
