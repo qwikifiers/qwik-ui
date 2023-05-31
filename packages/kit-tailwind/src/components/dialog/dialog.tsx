@@ -40,7 +40,6 @@ export const Root = component$((props: Dialog.RootProps) => {
 
   const dialogClass = useComputed$(() => {
     const dialog = dialogRef.value;
-    console.log('as;dlaksd;ka', dialogRef.value);
     const clazz = dialog?.isOpen.value ? 'modal modal-open' : 'modal';
 
     return clazz;
