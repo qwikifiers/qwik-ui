@@ -68,7 +68,8 @@ const DynamicTabsComponent = component$(
 describe('Tabs', () => {
   it('INIT', () => {
     cy.mount(<ThreeTabsComponent />);
-    cy.findByTestId('tabs').matchImage();
+
+    cy.findByTestId('tabs').should('be.visible').matchImage();
 
     cy.checkA11yForComponent();
   });
