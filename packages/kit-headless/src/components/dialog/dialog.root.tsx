@@ -5,7 +5,6 @@ import {
   component$,
   useSignal,
   useStylesScoped$,
-  useTask$,
   useVisibleTask$,
 } from '@builder.io/qwik';
 import styles from './dialog.root.css?inline';
@@ -45,7 +44,7 @@ export const Root = component$((props: RootProps) => {
    * Share the public API of the Dialog if the dialog-caller is interested.
    *
    */
-  useTask$(() => {
+  useVisibleTask$(() => {
     if (!props.ref) return;
 
     props.ref.value = { opened, open, close };

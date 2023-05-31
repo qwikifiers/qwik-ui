@@ -4,8 +4,11 @@ import {
   useComputed$,
   useSignal,
   useStyles$,
+  useVisibleTask$,
 } from '@builder.io/qwik';
-import { Dialog, DialogRef } from '@qwik-ui/headless';
+import { Dialog } from '@qwik-ui/headless';
+
+export type DialogRef = Dialog.DialogRef;
 
 export const Root = component$((props: Dialog.RootProps) => {
   /**
@@ -33,38 +36,42 @@ export const Root = component$((props: Dialog.RootProps) => {
     }
   `);
 
-  const dialog = useSignal<DialogRef>();
+  const dialogRef = useSignal<Dialog.DialogRef>();
 
   const dialogClass = useComputed$(() => {
-    const clazz = dialog.value?.opened ? 'modal modal-open' : 'modal';
+    const dialog = dialogRef.value;
+    console.log('as;dlaksd;ka', dialogRef.value);
+    const clazz = dialog?.opened.value ? 'modal modal-open' : 'modal';
 
     return clazz;
+  });
+
+  useVisibleTask$(({ track }) => {
+    // HACK: If the dialogRef is not tracked, the ref is not propagated sometimes.
+    //       Normally, we should not need to track the dialogRef.
+    track(() => dialogRef.value);
+
+    if (!props.ref) return;
+
+    props.ref.value = dialogRef.value;
   });
 
   return (
     <>
       <Dialog.Root
-        class={`${dialogClass.value} modal--backdrop`}
         {...props}
-        ref={dialog}
+        class={`${dialogClass.value} modal--backdrop`}
+        ref={dialogRef}
       >
-        <Slot />
+        <div class="modal-box">
+          <Slot />
+        </div>
       </Dialog.Root>
     </>
   );
 });
 
-export const Content = component$(() => {
-  return (
-    <Dialog.Content>
-      <div class="modal-box">
-        <Slot />
-      </div>
-    </Dialog.Content>
-  );
-});
-
-export const ContentTitle = component$(() => {
+export const Header = component$(() => {
   return (
     <Dialog.Header>
       <h3 class="font-bold text-lg">
@@ -73,18 +80,9 @@ export const ContentTitle = component$(() => {
     </Dialog.Header>
   );
 });
+export const Content = Dialog.Content;
 
-export const ContentText = component$(() => {
-  return (
-    <Dialog.Content>
-      <p class="py-4">
-        <Slot />
-      </p>
-    </Dialog.Content>
-  );
-});
-
-export const Actions = component$(() => {
+export const Footer = component$(() => {
   return (
     <Dialog.Footer>
       <div class="modal-action">
