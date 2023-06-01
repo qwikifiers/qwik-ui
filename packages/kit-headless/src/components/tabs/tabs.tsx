@@ -6,6 +6,7 @@ import {
   useSignal,
   useVisibleTask$,
   useStore,
+  useTask$,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
@@ -14,9 +15,6 @@ import { Behavior } from './behavior.type';
 /**
  * TABS TODOs
  * 
- * - CHANGE THE querySelector to "scoped" queries
- * - selectedIndex / default
-* - expose selectedIndex in the root 
 * - Orientation
  * - aria-label https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby
  * - NOTE: Radix manually handle the value/id for each tab while we calculate it behind the scenes
@@ -61,7 +59,14 @@ export interface TabInfo {
 
 export const Tabs = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
-  const selectedIndex = useSignal(props.selectedIndex || 0);
+
+  const selectedIndex = useSignal(0);
+
+  useTask$(({ track }) => {
+    track(() => props.selectedIndex);
+    selectedIndex.value = props.selectedIndex || 0;
+  });
+
   const selectedTabId = useSignal<string>('');
   const reIndexTabs = useSignal(false);
   const showTabsSignal = useSignal(false);
@@ -117,20 +122,24 @@ export const Tabs = component$((props: TabsProps) => {
     reIndexTabs.value = false;
 
     if (ref.value) {
-      // TODO: Write a failing test for nested tabs to prove this querySelector should be scoped
-      const tabElements = ref.value.querySelectorAll(
-        '[role="tablist"] > [role="tab"]'
-      );
+      const tabsRootElement = ref.value;
 
-      /*
-      const parentElement = document.querySelector('#parent');
+      const tabListElement = tabsRootElement.querySelector('[role="tablist"]');
+      let tabElements: Element[] = [];
+      if (tabListElement) {
+        tabElements = Array.from(tabListElement?.children).filter((child) => {
+          return child.getAttribute('role') === 'tab';
+        });
+      }
 
-      const firstLevelElements = Array.from(parentElement.childNodes)
-        .filter(node => node.nodeType === Node.ELEMENT_NODE && node.parentNode === parentElement);
-
-      */
-
-      const tabPanelElements = ref.value.querySelectorAll('[role="tabpanel"]');
+      let tabPanelElements: Element[] = [];
+      if (tabsRootElement.children) {
+        tabPanelElements = Array.from(tabsRootElement.children).filter(
+          (child) => {
+            return child.getAttribute('role') === 'tabpanel';
+          }
+        );
+      }
 
       // See if the deleted index was the last one
       let previousSelectedTabWasLastOne = false;
