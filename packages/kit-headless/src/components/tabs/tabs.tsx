@@ -15,10 +15,8 @@ import { Behavior } from './behavior.type';
 /**
  * TABS TODOs
  * 
+ * onSelectedIndexChange
 * - Orientation
- * - aria-label https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby
- * - NOTE: Radix manually handle the value/id for each tab while we calculate it behind the scenes
- *    If we end up implementing this, we need to expose a way to set this value in the root
  * - keyboard interactions (arrowDown, ARrowRight, ArrowUp, ArrowLeft, Home, End, PageUp, PageDown)
  *    Support Loop
  * - onValueChange
