@@ -11,25 +11,26 @@ import {
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
 import { Behavior } from './behavior.type';
+import { KeyCode } from '../../utils/key-code.type';
 
 /**
  * TABS TODOs
- * 
- * onSelectedIndexChange
-* - Orientation
+ *
+ * - onSelectedIndexChange
+ * - Orientation
  * - keyboard interactions (arrowDown, ARrowRight, ArrowUp, ArrowLeft, Home, End, PageUp, PageDown)
  *    Support Loop
- * - onValueChange
  * POST V1:
  * - RTL
+ *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
+ * Add ability to close tabs with an ❌ icon (and keyboard support)
 
  *
  * TAB
  *  Disable
- *  NOTE: radix / headlessui: expose data-state data-disable data-orientation
  *  NOTE: Headless UI: explorer the render props
- *  NOTE: remove tab, switch position
- *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
+ *  NOTE: switch position
+
  *
  * PANEL
  *
@@ -58,6 +59,7 @@ export interface TabInfo {
 export const Tabs = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
 
+  const ref = useSignal<HTMLElement | undefined>();
   const selectedIndex = useSignal(0);
 
   useTask$(({ track }) => {
@@ -74,7 +76,7 @@ export const Tabs = component$((props: TabsProps) => {
 
   const tabPanelsMap = useStore<{ [key: string]: TabInfo }>({});
 
-  const tabsChanged$ = $(() => {
+  const onTabsChanged$ = $(() => {
     reIndexTabs.value = true;
   });
 
@@ -86,20 +88,39 @@ export const Tabs = component$((props: TabsProps) => {
     showTabsSignal.value = true;
   });
 
+  const onTabKeyDown$ = $((key: KeyCode, tabId: string) => {
+    const tabsRootElement = ref.value;
+    if (key === KeyCode.ArrowRight) {
+      const currentFocusedTabIndex = tabsMap[tabId].index!;
+
+      // TODO: add disabled support
+      if (currentFocusedTabIndex < tabPairs.length - 1) {
+        const nextTabId = tabPairs[currentFocusedTabIndex + 1].tabId;
+        tabsRootElement
+          ?.querySelector<HTMLElement>(`[data-tab-id='${nextTabId}']`)
+          ?.focus();
+      } else {
+        tabsRootElement
+          ?.querySelector<HTMLElement>(`[data-tab-id='${tabPairs[0].tabId}']`)
+          ?.focus();
+      }
+    }
+  });
+
   const contextService: TabsContext = {
     tabsMap,
     tabPanelsMap,
     selectedIndex,
     selectTab$,
     showTabs$,
-    tabsChanged$,
+    onTabsChanged$,
     behavior,
     selectedTabId,
+    onTabKeyDown$,
   };
 
   useContextProvider(tabsContextId, contextService);
 
-  const ref = useSignal<HTMLElement | undefined>();
   // useVisibleTask$(({ track }) => {
   //   track(() => selectedIndex.value);
   //   if (tabsIdsByIndex[selectedIndex.value]) {
@@ -201,6 +222,12 @@ export const Tabs = component$((props: TabsProps) => {
     <div
       ref={ref}
       {...props}
+      onKeyDown$={(e) => {
+        onTabKeyDown$(
+          e.key as KeyCode,
+          (e.target as any).getAttribute('data-tab-id')
+        );
+      }}
       style={'visibility:' + (showTabsSignal.value ? 'visible' : 'hidden')}
     >
       <Slot />

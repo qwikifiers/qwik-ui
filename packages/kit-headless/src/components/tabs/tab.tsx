@@ -22,10 +22,10 @@ export const Tab = component$((props: TabProps) => {
   const uniqueId = useId();
 
   useTask$(({ cleanup }) => {
-    contextService.tabsChanged$();
+    contextService.onTabsChanged$();
 
     cleanup(() => {
-      contextService.tabsChanged$();
+      contextService.onTabsChanged$();
     });
   });
 
@@ -50,6 +50,7 @@ export const Tab = component$((props: TabProps) => {
   });
 
   const selectTab$ = $(() => {
+    // TODO: try to move this to the Tabs component
     contextService.selectedIndex.value =
       contextService.tabsMap[uniqueId]?.index || 0;
 

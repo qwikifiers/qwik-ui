@@ -1,4 +1,4 @@
-import { component$, useSignal, useStore, useTask$ } from '@builder.io/qwik';
+import { component$, useSignal, useStore } from '@builder.io/qwik';
 import { Tab } from './tab';
 import { Tabs } from './tabs';
 import { TabList } from './tabs-list';
@@ -110,7 +110,7 @@ describe('Tabs', () => {
 
     cy.checkA11yForComponent();
   });
-  it(`GIVEN 3 tabs 
+  it(`GIVEN 3 tabs
       WHEN clicking the middle one
       THEN render the middle panel`, () => {
     cy.mount(<ThreeTabsComponent />);
@@ -120,7 +120,7 @@ describe('Tabs', () => {
     cy.findByRole('tabpanel').should('contain', 'Panel 2');
   });
 
-  it(`GIVEN 3 tabs 
+  it(`GIVEN 3 tabs
       WHEN changing the selected index programmatically to the middle
       THEN render the middle panel`, () => {
     cy.mount(<DynamicTabsComponent tabsLength={3} changeIndexTo={1} />);
@@ -132,7 +132,7 @@ describe('Tabs', () => {
     cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 2 Panel');
   });
 
-  it(`GIVEN 3 tabs, 
+  it(`GIVEN 3 tabs,
       WHEN removing the last one dynamically
       THEN only 2 should remain`, () => {
     cy.mount(<DynamicTabsComponent tabsLength={3} tabIndexToDelete={2} />);
@@ -142,7 +142,7 @@ describe('Tabs', () => {
     cy.findAllByRole('tab').should('have.length', 2);
   });
 
-  it(`GIVEN 3 tabs 
+  it(`GIVEN 3 tabs
       WHEN clicking on the last one and then removing it
       THEN tab 2 should be shown`, () => {
     cy.mount(<DynamicTabsComponent tabsLength={3} tabIndexToDelete={2} />);
@@ -155,7 +155,7 @@ describe('Tabs', () => {
     cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 2 Panel');
   });
 
-  it(`GIVEN 4 tabs 
+  it(`GIVEN 4 tabs
       WHEN clicking on the last one and then removing the 3rd
       THEN tab 4 should be shown`, () => {
     cy.mount(<DynamicTabsComponent tabsLength={4} tabIndexToDelete={2} />);
@@ -165,7 +165,7 @@ describe('Tabs', () => {
     cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 4 Panel');
   });
 
-  it(`GIVEN 4 tabs 
+  it(`GIVEN 4 tabs
       WHEN selecting the 3rd one and adding a tab at the start
       THEN the correct tab should be displayed`, () => {
     cy.mount(<DynamicTabsComponent tabsLength={4} tabIndexToAdd={1} />);
@@ -195,5 +195,15 @@ describe('Tabs', () => {
     cy.findAllByRole('tab', { name: /Tab 2/i }).eq(1).click();
 
     cy.findAllByRole('tabpanel').eq(1).should('contain', 'Child Panel 2');
+  });
+
+  it(`GIVEN 3 tabs and the focus is on the first,
+      WHEN triggering the right arrow key
+      THEN the focus should be on the next tab`, () => {
+    cy.mount(<ThreeTabsComponent />);
+
+    cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+
+    cy.findByRole('tab', { name: /Tab 2/i }).should('have.focus');
   });
 });

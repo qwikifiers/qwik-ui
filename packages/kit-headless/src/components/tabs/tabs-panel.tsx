@@ -21,10 +21,10 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   );
 
   useTask$(({ cleanup }) => {
-    contextService.tabsChanged$();
+    contextService.onTabsChanged$();
 
     cleanup(() => {
-      contextService.tabsChanged$();
+      contextService.onTabsChanged$();
     });
   });
 
