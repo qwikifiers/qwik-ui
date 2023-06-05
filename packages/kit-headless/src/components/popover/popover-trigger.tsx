@@ -26,6 +26,7 @@ export const PopoverTrigger = component$(() => {
   return (
     <span
       ref={ref}
+      role="button"
       class="popover-trigger"
       onMouseOver$={
         contextService.triggerEvent === 'mouseOver'

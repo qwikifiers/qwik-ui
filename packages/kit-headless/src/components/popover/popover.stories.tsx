@@ -23,14 +23,11 @@ export const Primary: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const button = await canvas.findByRole('popover-trigger');
-    screen.debug(button);
+    const button = await canvas.findByRole('button');
 
     await userEvent.click(button);
-    screen.logTestingPlaygroundURL();
 
-    const popover = await canvas.findByRole('popovercontent');
-    screen.debug(popover);
+    const popover = await canvas.findByRole('dialog');
 
     await expect(popover).toHaveTextContent('Oh hi mark!');
   },
