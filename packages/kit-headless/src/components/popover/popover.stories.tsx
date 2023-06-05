@@ -1,17 +1,37 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
 import { Popover, PopoverProps } from './popover';
+import { PopoverTrigger } from './popover-trigger';
+import { PopoverContent } from './popover-content';
+import { screen, userEvent, within } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 
 const meta: Meta<PopoverProps> = {
   component: Popover,
-}
+};
 
 type Story = StoryObj<PopoverProps>;
 
 export default meta;
 
 export const Primary: Story = {
-  args: {
-    content: 'Oh hi mark!',
+  render: () => (
+    <Popover>
+      <PopoverContent>Oh hi mark!</PopoverContent>
+      <PopoverTrigger>Click me please</PopoverTrigger>
+    </Popover>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const button = await canvas.findByRole('popover-trigger');
+    screen.debug(button);
+
+    await userEvent.click(button);
+    screen.logTestingPlaygroundURL();
+
+    const popover = await canvas.findByRole('popovercontent');
+    screen.debug(popover);
+
+    await expect(popover).toHaveTextContent('Oh hi mark!');
   },
-  render: (args) => <Popover content={args.content}>Please hover me</Popover>,
-}
+};
