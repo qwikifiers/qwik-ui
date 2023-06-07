@@ -4,21 +4,51 @@ import { Tabs } from './tabs';
 import { TabList } from './tabs-list';
 import { TabPanel } from './tabs-panel';
 
-const ThreeTabsComponent = component$(() => {
-  return (
-    <Tabs data-testid="tabs">
-      <TabList>
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-        <Tab>Tab 3</Tab>
-      </TabList>
+interface ThreeTabsCompProps {
+  isMiddleDisabled?: boolean;
+  showDisableButton?: boolean;
+  disabledIndex?: number;
+}
 
-      <TabPanel>Panel 1</TabPanel>
-      <TabPanel>Panel 2</TabPanel>
-      <TabPanel>Panel 3</TabPanel>
-    </Tabs>
-  );
-});
+const ThreeTabsComponent = component$(
+  ({
+    isMiddleDisabled = false,
+    showDisableButton = false,
+    disabledIndex,
+  }: ThreeTabsCompProps) => {
+    const isMiddleDisabledSignal = useSignal(isMiddleDisabled);
+
+    return (
+      <>
+        <Tabs data-testid="tabs">
+          <TabList>
+            <Tab disabled={disabledIndex === 0}>Tab 1</Tab>
+            <Tab disabled={disabledIndex === 1 || isMiddleDisabledSignal.value}>
+              Tab 2
+            </Tab>
+            <Tab disabled={disabledIndex === 2}>Tab 3</Tab>
+          </TabList>
+
+          <TabPanel>Panel 1</TabPanel>
+          <TabPanel>Panel 2</TabPanel>
+          <TabPanel>Panel 3</TabPanel>
+        </Tabs>
+
+        <br />
+
+        {showDisableButton && (
+          <button
+            onClick$={() =>
+              (isMiddleDisabledSignal.value = !isMiddleDisabledSignal.value)
+            }
+          >
+            Toggle middle tab disabled
+          </button>
+        )}
+      </>
+    );
+  }
+);
 
 interface DynamicTabsProps {
   tabIndexToDelete?: number;
@@ -132,78 +162,208 @@ describe('Tabs', () => {
     cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 2 Panel');
   });
 
-  it(`GIVEN 3 tabs,
-      WHEN removing the last one dynamically
-      THEN only 2 should remain`, () => {
-    cy.mount(<DynamicTabsComponent tabsLength={3} tabIndexToDelete={2} />);
+  describe('Dynamic Tabs', () => {
+    it(`GIVEN 3 tabs,
+        WHEN removing the last one dynamically
+        THEN only 2 should remain`, () => {
+      cy.mount(<DynamicTabsComponent tabsLength={3} tabIndexToDelete={2} />);
 
-    cy.findByRole('button', { name: /remove tab/i }).click();
+      cy.findByRole('button', { name: /remove tab/i }).click();
 
-    cy.findAllByRole('tab').should('have.length', 2);
+      cy.findAllByRole('tab').should('have.length', 2);
+    });
+
+    it(`GIVEN 3 tabs
+        WHEN clicking on the last one and then removing it
+        THEN tab 2 should be shown`, () => {
+      cy.mount(<DynamicTabsComponent tabsLength={3} tabIndexToDelete={2} />);
+
+      cy.findByRole('tab', { name: /Dynamic Tab 3/i }).click();
+      cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 3 Panel');
+
+      cy.findByRole('button', { name: /remove tab/i }).click();
+
+      cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 2 Panel');
+    });
+
+    it(`GIVEN 4 tabs
+        WHEN clicking on the last one and then removing the 3rd
+        THEN tab 4 should be shown`, () => {
+      cy.mount(<DynamicTabsComponent tabsLength={4} tabIndexToDelete={2} />);
+      cy.findByRole('tab', { name: /Dynamic Tab 4/i }).click();
+      cy.findByRole('button', { name: /remove tab/i }).click();
+
+      cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 4 Panel');
+    });
+
+    it(`GIVEN 4 tabs
+        WHEN selecting the 3rd one and adding a tab at the start
+        THEN the correct tab should be displayed`, () => {
+      cy.mount(<DynamicTabsComponent tabsLength={4} tabIndexToAdd={1} />);
+      cy.findByRole('tab', { name: /Dynamic Tab 3/i }).click();
+      cy.findByRole('button', { name: /add tab/i }).click();
+
+      cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 3 Panel');
+    });
+
+    it(`GIVEN tabs inside of tabs
+        WHEN clicking on the root second tab
+        THEN it should show only the selected root panel`, () => {
+      cy.mount(<TabsInsideOfTabs />);
+
+      cy.findAllByRole('tab', { name: /Tab 2/i }).first().click();
+
+      cy.findByRole('tabpanel')
+        .should('be.visible')
+        .should('contain', 'Root Panel 2');
+    });
+
+    it(`GIVEN tabs inside of tabs
+        WHEN clicking on the child second tab
+        THEN it should show only the selected child panel`, () => {
+      cy.mount(<TabsInsideOfTabs />);
+
+      cy.findAllByRole('tab', { name: /Tab 2/i }).eq(1).click();
+
+      cy.findAllByRole('tabpanel').eq(1).should('contain', 'Child Panel 2');
+    });
   });
 
-  it(`GIVEN 3 tabs
-      WHEN clicking on the last one and then removing it
-      THEN tab 2 should be shown`, () => {
-    cy.mount(<DynamicTabsComponent tabsLength={3} tabIndexToDelete={2} />);
+  describe('Right key handling', () => {
+    it(`GIVEN 3 tabs and the focus is on the first,
+        WHEN triggering the right arrow key
+        THEN the focus should be on the next tab`, () => {
+      cy.mount(<ThreeTabsComponent />);
 
-    cy.findByRole('tab', { name: /Dynamic Tab 3/i }).click();
-    cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 3 Panel');
+      cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
 
-    cy.findByRole('button', { name: /remove tab/i }).click();
+      cy.findByRole('tab', { name: /Tab 2/i }).should('have.focus');
+    });
 
-    cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 2 Panel');
+    it(`GIVEN 3 tabs and the focus is on the last,
+        WHEN triggering the right arrow key
+        THEN the focus should be on the first tab`, () => {
+      cy.mount(<ThreeTabsComponent />);
+
+      cy.findByRole('tab', { name: /Tab 3/i }).type('{rightarrow}');
+
+      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 tabs and the second is disabled and the focus is on the first,
+        WHEN triggering the right arrow key
+        THEN the focus should be on the third tab`, () => {
+      cy.mount(<ThreeTabsComponent isMiddleDisabled={true} />);
+
+      cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+
+      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 tabs and the focus is on the first,
+        WHEN disabling the middle dynamically and triggering the right arrow key
+        THEN the focus should be on the third tab`, () => {
+      cy.mount(<ThreeTabsComponent showDisableButton={true} />);
+
+      cy.findByRole('button', { name: 'Toggle middle tab disabled' }).click();
+
+      cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+
+      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+    });
   });
 
-  it(`GIVEN 4 tabs
-      WHEN clicking on the last one and then removing the 3rd
-      THEN tab 4 should be shown`, () => {
-    cy.mount(<DynamicTabsComponent tabsLength={4} tabIndexToDelete={2} />);
-    cy.findByRole('tab', { name: /Dynamic Tab 4/i }).click();
-    cy.findByRole('button', { name: /remove tab/i }).click();
+  describe('Left key handling', () => {
+    it(`GIVEN 3 tabs and the focus is on the second,
+        WHEN triggering the left arrow key
+        THEN the focus should be on the first tab`, () => {
+      cy.mount(<ThreeTabsComponent />);
 
-    cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 4 Panel');
+      cy.findByRole('tab', { name: /Tab 2/i }).type('{leftarrow}');
+
+      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 tabs and the focus is on the first,
+        WHEN triggering the left arrow key
+        THEN the focus should be on the last tab`, () => {
+      cy.mount(<ThreeTabsComponent />);
+
+      cy.findByRole('tab', { name: /Tab 1/i }).type('{leftarrow}');
+
+      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 tabs and the second is disabled and the focus is on the third,
+        WHEN triggering the left arrow key
+        THEN the focus should be on the first tab`, () => {
+      cy.mount(<ThreeTabsComponent isMiddleDisabled={true} />);
+
+      cy.findByRole('tab', { name: /Tab 3/i }).type('{leftarrow}');
+
+      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+    });
   });
 
-  it(`GIVEN 4 tabs
-      WHEN selecting the 3rd one and adding a tab at the start
-      THEN the correct tab should be displayed`, () => {
-    cy.mount(<DynamicTabsComponent tabsLength={4} tabIndexToAdd={1} />);
-    cy.findByRole('tab', { name: /Dynamic Tab 3/i }).click();
-    cy.findByRole('button', { name: /add tab/i }).click();
+  describe('Home, End, PageUp and PageDown keys handling', () => {
+    it(`GIVEN 3 tabs and the focus is on the third,
+        WHEN triggering the 'home' key
+        THEN the focus should be on the first tab`, () => {
+      cy.mount(<ThreeTabsComponent />);
 
-    cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 3 Panel');
-  });
+      cy.findByRole('tab', { name: /Tab 3/i }).type('{home}');
 
-  it(`GIVEN tabs inside of tabs
-      WHEN clicking on the root second tab
-      THEN it should show only the selected root panel`, () => {
-    cy.mount(<TabsInsideOfTabs />);
+      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+    });
 
-    cy.findAllByRole('tab', { name: /Tab 2/i }).first().click();
+    it(`GIVEN 3 tabs and the first is disabled and the focus is on the third,
+        WHEN triggering the 'home' key
+        THEN the focus should be on the second tab`, () => {
+      cy.mount(<ThreeTabsComponent disabledIndex={0} />);
 
-    cy.findByRole('tabpanel')
-      .should('be.visible')
-      .should('contain', 'Root Panel 2');
-  });
+      cy.findByRole('tab', { name: /Tab 3/i }).type('{home}');
 
-  it(`GIVEN tabs inside of tabs
-      WHEN clicking on the child second tab
-      THEN it should show only the selected child panel`, () => {
-    cy.mount(<TabsInsideOfTabs />);
+      cy.findByRole('tab', { name: /Tab 2/i }).should('have.focus');
+    });
 
-    cy.findAllByRole('tab', { name: /Tab 2/i }).eq(1).click();
+    it(`GIVEN 3 tabs and the focus is on the third,
+        WHEN triggering the 'home' key
+        THEN the focus should be on the first tab`, () => {
+      cy.mount(<ThreeTabsComponent />);
 
-    cy.findAllByRole('tabpanel').eq(1).should('contain', 'Child Panel 2');
-  });
+      cy.findByRole('tab', { name: /Tab 3/i }).type('{pageUp}');
 
-  it(`GIVEN 3 tabs and the focus is on the first,
-      WHEN triggering the right arrow key
-      THEN the focus should be on the next tab`, () => {
-    cy.mount(<ThreeTabsComponent />);
+      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+    });
 
-    cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+    it(`GIVEN 3 tabs and the focus is on the third,
+        WHEN triggering the 'end' key
+        THEN the focus should be on the first tab`, () => {
+      cy.mount(<ThreeTabsComponent />);
 
-    cy.findByRole('tab', { name: /Tab 2/i }).should('have.focus');
+      cy.findByRole('tab', { name: /Tab 1/i }).type('{end}');
+
+      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 tabs and the first is disabled and the focus is on the third,
+        WHEN triggering the 'end' key
+        THEN the focus should be on the second tab`, () => {
+      cy.mount(<ThreeTabsComponent disabledIndex={2} />);
+
+      cy.findByRole('tab', { name: /Tab 1/i }).type('{end}');
+
+      cy.findByRole('tab', { name: /Tab 2/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 tabs and the focus is on the third,
+        WHEN triggering the 'end' key
+        THEN the focus should be on the first tab`, () => {
+      cy.mount(<ThreeTabsComponent />);
+
+      cy.findByRole('tab', { name: /Tab 1/i }).type('{pageDown}');
+
+      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+    });
   });
 });

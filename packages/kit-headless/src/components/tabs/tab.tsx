@@ -9,11 +9,13 @@ import {
   $,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
+import { KeyCode } from '../../utils/key-code.type';
 
 export interface TabProps {
   onClick?: PropFunction<() => void>;
   class?: string;
   selectedClassName?: string;
+  disabled?: boolean;
 }
 
 export const Tab = component$((props: TabProps) => {
@@ -27,6 +29,17 @@ export const Tab = component$((props: TabProps) => {
     cleanup(() => {
       contextService.onTabsChanged$();
     });
+  });
+
+  useTask$(({ track }) => {
+    track(() => props.disabled);
+    console.log(
+      'contextService.tabsMap[uniqueId]',
+      contextService.tabsMap[uniqueId]
+    );
+    if (props.disabled && contextService.tabsMap[uniqueId]) {
+      contextService.tabsMap[uniqueId].disabled = true;
+    }
   });
 
   const isSelectedSignal = useComputed$(() => {
@@ -51,6 +64,10 @@ export const Tab = component$((props: TabProps) => {
 
   const selectTab$ = $(() => {
     // TODO: try to move this to the Tabs component
+
+    if (props.disabled) {
+      return;
+    }
     contextService.selectedIndex.value =
       contextService.tabsMap[uniqueId]?.index || 0;
 
@@ -69,6 +86,8 @@ export const Tab = component$((props: TabProps) => {
       data-tab-id={uniqueId}
       type="button"
       role="tab"
+      disabled={props.disabled}
+      aria-disabled={props.disabled}
       onFocus$={selectIfAutomatic$}
       onMouseEnter$={selectIfAutomatic$}
       aria-selected={isSelectedSignal.value}
@@ -84,6 +103,12 @@ export const Tab = component$((props: TabProps) => {
         if (props.onClick) {
           props.onClick();
         }
+      }}
+      onKeyDown$={(e) => {
+        contextService.onTabKeyDown$(
+          e.key as KeyCode,
+          (e.target as any).getAttribute('data-tab-id')
+        );
       }}
     >
       <Slot />

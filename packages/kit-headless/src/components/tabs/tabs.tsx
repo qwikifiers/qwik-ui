@@ -18,24 +18,18 @@ import { KeyCode } from '../../utils/key-code.type';
  *
  * - onSelectedIndexChange
  * - Orientation
- * - keyboard interactions (arrowDown, ARrowRight, ArrowUp, ArrowLeft, Home, End, PageUp, PageDown)
- *    Support Loop
- * POST V1:
+ * - keyboard interactions (arrowDown, ArrowUp,  - and home, pagedown, up and end for vertical)
+
+* aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+ * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+  
+
+
+* POST V1:
  * - RTL
  *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
  * Add ability to close tabs with an ❌ icon (and keyboard support)
 
- *
- * TAB
- *  Disable
- *  NOTE: Headless UI: explorer the render props
- *  NOTE: switch position
-
- *
- * PANEL
- *
- * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
- * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
  *
  */
 
@@ -53,7 +47,8 @@ export interface TabPair {
 export interface TabInfo {
   tabId: string;
   tabPanelId?: string;
-  index?: number | undefined;
+  index?: number;
+  disabled?: boolean;
 }
 
 export const Tabs = component$((props: TabsProps) => {
@@ -90,20 +85,48 @@ export const Tabs = component$((props: TabsProps) => {
 
   const onTabKeyDown$ = $((key: KeyCode, tabId: string) => {
     const tabsRootElement = ref.value;
-    if (key === KeyCode.ArrowRight) {
-      const currentFocusedTabIndex = tabsMap[tabId].index!;
 
-      // TODO: add disabled support
+    const enabledTabs = tabPairs.filter((tabPair) => {
+      return !tabsMap[tabPair.tabId].disabled;
+    });
+    const currentFocusedTabIndex = enabledTabs.findIndex(
+      (tabPair) => tabPair.tabId === tabId
+    );
+
+    if (key === KeyCode.ArrowRight) {
+      let nextTabId = enabledTabs[0].tabId;
+
       if (currentFocusedTabIndex < tabPairs.length - 1) {
-        const nextTabId = tabPairs[currentFocusedTabIndex + 1].tabId;
-        tabsRootElement
-          ?.querySelector<HTMLElement>(`[data-tab-id='${nextTabId}']`)
-          ?.focus();
-      } else {
-        tabsRootElement
-          ?.querySelector<HTMLElement>(`[data-tab-id='${tabPairs[0].tabId}']`)
-          ?.focus();
+        nextTabId = enabledTabs[currentFocusedTabIndex + 1].tabId;
       }
+      tabsRootElement
+        ?.querySelector<HTMLElement>(`[data-tab-id='${nextTabId}']`)
+        ?.focus();
+    }
+
+    if (key === KeyCode.ArrowLeft) {
+      let previousTabId = enabledTabs[enabledTabs.length - 1].tabId;
+
+      if (currentFocusedTabIndex !== 0) {
+        previousTabId = enabledTabs[currentFocusedTabIndex - 1].tabId;
+      }
+      tabsRootElement
+        ?.querySelector<HTMLElement>(`[data-tab-id='${previousTabId}']`)
+        ?.focus();
+    }
+
+    if (key === KeyCode.Home || key === KeyCode.PageUp) {
+      tabsRootElement
+        ?.querySelector<HTMLElement>(`[data-tab-id='${enabledTabs[0].tabId}']`)
+        ?.focus();
+    }
+
+    if (key === KeyCode.End || key === KeyCode.PageDown) {
+      tabsRootElement
+        ?.querySelector<HTMLElement>(
+          `[data-tab-id='${enabledTabs[enabledTabs.length - 1].tabId}']`
+        )
+        ?.focus();
     }
   });
 
@@ -120,17 +143,6 @@ export const Tabs = component$((props: TabsProps) => {
   };
 
   useContextProvider(tabsContextId, contextService);
-
-  // useVisibleTask$(({ track }) => {
-  //   track(() => selectedIndex.value);
-  //   if (tabsIdsByIndex[selectedIndex.value]) {
-  //     const currentSelectedTab = tabsIdsByIndex[selectedIndex.value][0];
-
-  //     if (currentSelectedTab !== selectedTabId.value) {
-  //       selectTab$(currentSelectedTab);
-  //     }
-  //   }
-  // });
 
   useVisibleTask$(({ track }) => {
     track(() => reIndexTabs.value);
@@ -171,6 +183,7 @@ export const Tabs = component$((props: TabsProps) => {
 
       tabElements.forEach((tab, index) => {
         const tabId = tab.getAttribute('data-tab-id');
+        const isDisabled = tab.hasAttribute('disabled');
 
         if (!tabId) {
           throw new Error('Missing tab id for tab: ' + index);
@@ -197,6 +210,7 @@ export const Tabs = component$((props: TabsProps) => {
             tabId,
             tabPanelId,
             index,
+            disabled: isDisabled,
           };
 
           tabPanelsMap[tabPanelId] = {
@@ -222,12 +236,6 @@ export const Tabs = component$((props: TabsProps) => {
     <div
       ref={ref}
       {...props}
-      onKeyDown$={(e) => {
-        onTabKeyDown$(
-          e.key as KeyCode,
-          (e.target as any).getAttribute('data-tab-id')
-        );
-      }}
       style={'visibility:' + (showTabsSignal.value ? 'visible' : 'hidden')}
     >
       <Slot />

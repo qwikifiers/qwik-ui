@@ -5,4 +5,6 @@ export enum KeyCode {
   ArrowDown = 'ArrowDown',
   Home = 'Home',
   End = 'End',
+  PageUp = 'PageUp',
+  PageDown = 'PageDown',
 }
