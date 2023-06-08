@@ -1,7 +1,8 @@
 import { component$ } from '@builder.io/qwik';
 import {
-  Autocomplete,
+  AutocompleteRoot,
   AutocompleteLabel,
+  AutocompleteTrigger,
   AutocompleteInput,
   AutocompleteButton,
   AutocompleteListbox,
@@ -12,8 +13,8 @@ const RegularAutocomplete = component$(() => {
   return (
     <>
       <AutocompleteLabel>Label</AutocompleteLabel>
-      <Autocomplete>
-        <div>
+      <AutocompleteRoot>
+        <AutocompleteTrigger>
           <AutocompleteInput />
           <AutocompleteButton class="test">
             <svg
@@ -29,13 +30,13 @@ const RegularAutocomplete = component$(() => {
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </AutocompleteButton>
-        </div>
+        </AutocompleteTrigger>
         <AutocompleteListbox>
           <AutocompleteOption>Option 1</AutocompleteOption>
           <AutocompleteOption>Option 2</AutocompleteOption>
           <AutocompleteOption>Option 3</AutocompleteOption>
         </AutocompleteListbox>
-      </Autocomplete>
+      </AutocompleteRoot>
     </>
   );
 });
