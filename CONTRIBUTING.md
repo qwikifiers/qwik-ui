@@ -118,7 +118,21 @@ If you need to update your PR for some reason -
 
 <br/>
 
-### ▶ 9. After your PR is merged - delete your branches
+### ▶ 9. Sign the CLA
+
+You will be asked to sign a [CLA (Contributor License Agreement)](/CLA.md) as part of the PR process, if you haven't already signed it.
+
+Simply submit a comment on your PR with the following text:
+
+```
+I have read the CLA Document and I hereby sign the CLA
+```
+
+The CLA assistant will automatically add your signature [here](/cla-signs/v1/cla.json) and push a commit to your PR.
+
+<br/>
+
+### ▶ 10. After your PR is merged - delete your branches
 
 After your pull request is merged, you can safely delete your branch and pull the changes from the main (upstream) repository:
 
@@ -148,6 +162,6 @@ After your pull request is merged, you can safely delete your branch and pull th
 
 <br/>
 
-### ▶ 10. That's it! Thank you for your contribution! 🙏💓
+### ▶ 11. That's it! Thank you for your contribution! 🙏💓
 
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#
