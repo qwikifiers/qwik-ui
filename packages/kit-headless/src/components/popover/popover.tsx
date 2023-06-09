@@ -23,7 +23,7 @@ import {
 } from '@floating-ui/dom';
 import { PopoverContext } from './popover-context';
 
-interface PopoverProps {
+export interface PopoverProps {
   /*
    * The side where to show the popover
    */
