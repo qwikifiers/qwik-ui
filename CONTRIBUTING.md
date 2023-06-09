@@ -128,7 +128,7 @@ Simply submit a comment on your PR with the following text:
 I have read the CLA Document and I hereby sign the CLA
 ```
 
-The CLA assistant will automatically add your signature [here](/cla-signs/v1/cla.json) and push a commit to your PR.
+The CLA assistant will automatically add your signature [here](/cla-signs/v1/cla.json) and push a commit to the main branch.
 
 <br/>
 
