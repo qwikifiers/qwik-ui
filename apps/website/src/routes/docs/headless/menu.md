@@ -10,6 +10,7 @@
 
 - [Accordion](/docs/headless/accordion)
 - [Carousel](/docs/headless/carousel)
+- [Popover](/docs/headless/popover)
 - [Select](/docs/headless/select)
 - [Tabs](/docs/headless/tabs)
 - [Toggle](/docs/headless/toggle)
