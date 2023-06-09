@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Test } from './autocomplete';
 
 /*
 
@@ -9,6 +8,88 @@ import { Test } from './autocomplete';
     Want to test QwikIntrinsicElements & HTMLAttributes
 
 */
+
+const fruits = [
+  'Apple',
+  'Apricot',
+  'Avocado 🥑',
+  'Banana',
+  'Bilberry',
+  'Blackberry',
+  'Blackcurrant',
+  'Blueberry',
+  'Boysenberry',
+  'Currant',
+  'Cherry',
+  'Coconut',
+  'Cranberry',
+  'Cucumber',
+  'Custard apple',
+  'Damson',
+  'Date',
+  'Dragonfruit',
+  'Durian',
+  'Elderberry',
+  'Feijoa',
+  'Fig',
+  'Gooseberry',
+  'Grape',
+  'Raisin',
+  'Grapefruit',
+  'Guava',
+  'Honeyberry',
+  'Huckleberry',
+  'Jabuticaba',
+  'Jackfruit',
+  'Jambul',
+  'Juniper berry',
+  'Kiwifruit',
+  'Kumquat',
+  'Lemon',
+  'Lime',
+  'Loquat',
+  'Longan',
+  'Lychee',
+  'Mango',
+  'Mangosteen',
+  'Marionberry',
+  'Melon',
+  'Cantaloupe',
+  'Honeydew',
+  'Watermelon',
+  'Miracle fruit',
+  'Mulberry',
+  'Nectarine',
+  'Nance',
+  'Olive',
+  'Orange',
+  'Clementine',
+  'Mandarine',
+  'Tangerine',
+  'Papaya',
+  'Passionfruit',
+  'Peach',
+  'Pear',
+  'Persimmon',
+  'Plantain',
+  'Plum',
+  'Pineapple',
+  'Pomegranate',
+  'Pomelo',
+  'Quince',
+  'Raspberry',
+  'Salmonberry',
+  'Rambutan',
+  'Redcurrant',
+  'Salak',
+  'Satsuma',
+  'Soursop',
+  'Star fruit',
+  'Strawberry',
+  'Tamarillo',
+  'Tamarind',
+  'Yuzu',
+];
 
 import {
   AutocompleteRoot,
@@ -34,7 +115,7 @@ const RegularAutocomplete = () => (
     <AutocompleteRoot>
       <AutocompleteTrigger>
         <AutocompleteInput />
-        <AutocompleteButton class="test" onClick$={() => console.log('hi')}>
+        <AutocompleteButton>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -50,9 +131,11 @@ const RegularAutocomplete = () => (
         </AutocompleteButton>
       </AutocompleteTrigger>
       <AutocompleteListbox>
-        <AutocompleteOption>Option 1</AutocompleteOption>
-        <AutocompleteOption>Option 2</AutocompleteOption>
-        <AutocompleteOption>Option 3</AutocompleteOption>
+        {fruits.map((fruit, index) => (
+          <AutocompleteOption optionValue={fruit} key={index}>
+            {fruit}
+          </AutocompleteOption>
+        ))}
       </AutocompleteListbox>
     </AutocompleteRoot>
   </>

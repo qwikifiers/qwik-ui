@@ -5,13 +5,15 @@ import {
   useContextProvider,
   createContextId,
   useSignal,
-  Signal,
+  type Signal,
   QwikIntrinsicElements,
   useStore,
   useVisibleTask$,
+  useTask$,
   $,
   useStylesScoped$,
 } from '@builder.io/qwik';
+import { routeAction$ } from '@builder.io/qwik-city';
 
 import { computePosition, flip } from '@floating-ui/dom';
 
@@ -102,6 +104,18 @@ import { computePosition, flip } from '@floating-ui/dom';
     Floating UI:
     Compute position & our triggerRef is what determines what is anchored with floating UI.
     https://floating-ui.com/docs/computePosition
+
+
+    Autocomplete implementation:
+    - grab reference to input box and listbox
+    - search function that has an array of results, returns results
+    - searchHandler function
+      - sets input signal as whatever is in the text box
+      - sets results to empty array
+      - if input is not empty set results equal to the search function with our input signal value as param
+      - showSuggestions function with results and our input signal value as params
+    - 
+      
 
 */
 
@@ -230,8 +244,45 @@ export type InputProps = QwikIntrinsicElements['input'];
 
 // Add required context here
 export const AutocompleteInput = component$((props: InputProps) => {
+  const ref = useSignal<HTMLElement>();
+  const contextService = useContext(AutocompleteContextId);
   // required prop here
-  return <input id="autocomplete-test" role="combobox" {...props} />;
+
+  useVisibleTask$(({ track }) => {
+    track(() => contextService.inputValue.value);
+
+    if (
+      contextService.inputValue.value.length > 0 &&
+      document.activeElement === ref.value
+    ) {
+      contextService.isExpanded.value = true;
+    }
+
+    // Probably better to refactor Signal type later
+    contextService.options.map((option: Signal) => {
+      if (
+        !option.value
+          ?.getAttribute('optionValue')
+          ?.match(contextService.inputValue.value)
+      ) {
+        option.value.style.display = 'none';
+      } else {
+        option.value.style.display = '';
+      }
+    });
+
+    console.log(contextService.inputValue.value);
+  });
+
+  return (
+    <input
+      ref={ref}
+      id="autocomplete-test"
+      role="combobox"
+      bind:value={contextService.inputValue}
+      {...props}
+    />
+  );
 });
 
 export type ButtonProps = QwikIntrinsicElements['button'];
@@ -281,6 +332,7 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
   contextService.listBoxRef = ref;
+
   return (
     <ul
       ref={ref}
@@ -297,11 +349,23 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
   );
 });
 
-export type OptionProps = QwikIntrinsicElements['li'];
+export type OptionProps = { optionValue: string } & QwikIntrinsicElements['li'];
 
 export const AutocompleteOption = component$((props: OptionProps) => {
+  const ref = useSignal<HTMLElement>();
+  const contextService = useContext(AutocompleteContextId);
+  contextService.options = [...contextService.options, ref];
+
   return (
-    <li role="option" {...props}>
+    <li
+      ref={ref}
+      role="option"
+      onClick$={() => {
+        contextService.inputValue.value = props.optionValue;
+        contextService.isExpanded.value = false;
+      }}
+      {...props}
+    >
       <Slot />
     </li>
   );
