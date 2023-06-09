@@ -19,7 +19,13 @@ export const PopoverContent = component$(() => {
   });
 
   return (
-    <div ref={ref} role="dialog" aria-modal="true" class="popover-content">
+    <div
+      ref={ref}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Popover"
+      class="popover-content"
+    >
       <Slot />
     </div>
   );
