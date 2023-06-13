@@ -7,9 +7,11 @@ import {
   useComputed$,
   useTask$,
   $,
+  useSignal,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { KeyCode } from '../../utils/key-code.type';
+import { isServer } from '@builder.io/qwik/build';
 
 export interface TabProps {
   onClick?: PropFunction<() => void>;
@@ -21,30 +23,33 @@ export interface TabProps {
 export const Tab = component$((props: TabProps) => {
   const contextService = useContext(tabsContextId);
 
+  const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
   const uniqueId = useId();
 
-  useTask$(({ cleanup }) => {
-    contextService.onTabsChanged$();
-
-    cleanup(() => {
-      contextService.onTabsChanged$();
-    });
+  useTask$(() => {
+    if (isServer) {
+      serverAssignedIndexSig.value =
+        contextService.lastAssignedTabIndexSig.value;
+      contextService.lastAssignedTabIndexSig.value++;
+    }
   });
 
   useTask$(({ track }) => {
     track(() => props.disabled);
-    console.log(
-      'contextService.tabsMap[uniqueId]',
-      contextService.tabsMap[uniqueId]
-    );
+
     if (props.disabled && contextService.tabsMap[uniqueId]) {
       contextService.tabsMap[uniqueId].disabled = true;
     }
   });
 
   const isSelectedSignal = useComputed$(() => {
+    if (isServer) {
+      return (
+        serverAssignedIndexSig.value === contextService.selectedIndexSig.value
+      );
+    }
     return (
-      contextService.selectedIndex.value ===
+      contextService.selectedIndexSig.value ===
       contextService.tabsMap[uniqueId]?.index
     );
   });
@@ -53,22 +58,13 @@ export const Tab = component$((props: TabProps) => {
     () => contextService.tabsMap[uniqueId]?.tabPanelId
   );
 
-  // TODO: Figure out a way to fix this shitty hack :)
-  useTask$(({ track }) => {
-    track(() => isSelectedSignal.value);
-
-    if (isSelectedSignal.value) {
-      contextService.showTabs$();
-    }
-  });
-
   const selectTab$ = $(() => {
     // TODO: try to move this to the Tabs component
 
     if (props.disabled) {
       return;
     }
-    contextService.selectedIndex.value =
+    contextService.selectedIndexSig.value =
       contextService.tabsMap[uniqueId]?.index || 0;
 
     contextService.selectTab$(uniqueId);

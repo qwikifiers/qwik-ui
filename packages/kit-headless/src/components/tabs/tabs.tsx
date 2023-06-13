@@ -55,16 +55,18 @@ export const Tabs = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
 
   const ref = useSignal<HTMLElement | undefined>();
-  const selectedIndex = useSignal(0);
+  const selectedIndexSig = useSignal(0);
+  const lastAssignedTabIndexSig = useSignal(0);
+  const lastAssignedPanelIndexSig = useSignal(0);
 
   useTask$(({ track }) => {
     track(() => props.selectedIndex);
-    selectedIndex.value = props.selectedIndex || 0;
+    selectedIndexSig.value = props.selectedIndex || 0;
   });
 
-  const selectedTabId = useSignal<string>('');
-  const reIndexTabs = useSignal(false);
-  const showTabsSignal = useSignal(false);
+  const selectedTabIdSig = useSignal<string>('');
+  const reIndexTabsSig = useSignal(true);
+  const showTabsSig = useSignal(false);
   const tabPairs = useStore<TabPair[]>([]);
 
   const tabsMap = useStore<{ [key: string]: TabInfo }>({});
@@ -72,15 +74,15 @@ export const Tabs = component$((props: TabsProps) => {
   const tabPanelsMap = useStore<{ [key: string]: TabInfo }>({});
 
   const onTabsChanged$ = $(() => {
-    reIndexTabs.value = true;
+    reIndexTabsSig.value = true;
   });
 
   const selectTab$ = $((tabId: string) => {
-    selectedTabId.value = tabId;
+    selectedTabIdSig.value = tabId;
   });
 
   const showTabs$ = $(() => {
-    showTabsSignal.value = true;
+    showTabsSig.value = true;
   });
 
   const onTabKeyDown$ = $((key: KeyCode, tabId: string) => {
@@ -131,26 +133,28 @@ export const Tabs = component$((props: TabsProps) => {
   });
 
   const contextService: TabsContext = {
-    tabsMap,
-    tabPanelsMap,
-    selectedIndex,
     selectTab$,
     showTabs$,
     onTabsChanged$,
-    behavior,
-    selectedTabId,
     onTabKeyDown$,
+    selectedTabIdSig,
+    selectedIndexSig,
+    tabsMap,
+    tabPanelsMap,
+    behavior,
+    lastAssignedTabIndexSig,
+    lastAssignedPanelIndexSig,
   };
 
   useContextProvider(tabsContextId, contextService);
 
   useVisibleTask$(({ track }) => {
-    track(() => reIndexTabs.value);
+    track(() => reIndexTabsSig.value);
 
-    if (!reIndexTabs.value) {
+    if (!reIndexTabsSig.value) {
       return;
     }
-    reIndexTabs.value = false;
+    reIndexTabsSig.value = false;
 
     if (ref.value) {
       const tabsRootElement = ref.value;
@@ -173,13 +177,14 @@ export const Tabs = component$((props: TabsProps) => {
       }
 
       // See if the deleted index was the last one
-      let previousSelectedTabWasLastOne = false;
-      if (selectedIndex.value === tabPairs.length - 1) {
-        previousSelectedTabWasLastOne = true;
+      let lastTabWasSelectedPreviously = false;
+      if (selectedIndexSig.value === tabPairs.length - 1) {
+        lastTabWasSelectedPreviously = true;
       }
 
       tabPairs.length = 0;
-      tabsMap;
+
+      let deletedTabId: string | undefined = undefined;
 
       tabElements.forEach((tab, index) => {
         const tabId = tab.getAttribute('data-tab-id');
@@ -190,12 +195,14 @@ export const Tabs = component$((props: TabsProps) => {
         }
 
         // clear all lists and maps
-        let tabWasDeleted = true;
+        let thisTabWasDeleted = true;
         // TODO: delete object maps, or turn into Map()
 
-        if (tabId === selectedTabId.value) {
-          selectedIndex.value = index;
-          tabWasDeleted = false;
+        if (selectedTabIdSig.value === '') {
+          thisTabWasDeleted = false;
+        } else if (tabId === selectedTabIdSig.value) {
+          selectedIndexSig.value = index;
+          thisTabWasDeleted = false;
         }
 
         const tabPanelElement = tabPanelElements[index];
@@ -222,22 +229,22 @@ export const Tabs = component$((props: TabsProps) => {
           throw new Error('Missing tab id or tab panel id for tab: ' + index);
         }
 
-        if (tabPairs.length > 0) {
-          if (previousSelectedTabWasLastOne && tabWasDeleted) {
-            selectedIndex.value = tabPairs.length - 1;
-          }
-          selectedTabId.value = tabPairs[selectedIndex.value].tabId;
+        if (thisTabWasDeleted) {
+          deletedTabId = tabId;
         }
       });
+
+      if (tabPairs.length > 0) {
+        if (lastTabWasSelectedPreviously && deletedTabId) {
+          selectedIndexSig.value = tabPairs.length - 1;
+        }
+        selectedTabIdSig.value = tabPairs[selectedIndexSig.value].tabId;
+      }
     }
   });
 
   return (
-    <div
-      ref={ref}
-      {...props}
-      style={'visibility:' + (showTabsSignal.value ? 'visible' : 'hidden')}
-    >
+    <div ref={ref} {...props}>
       <Slot />
     </div>
   );

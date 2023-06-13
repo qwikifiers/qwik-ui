@@ -5,8 +5,10 @@ import {
   Slot,
   useTask$,
   useComputed$,
+  useSignal,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
+import { isServer } from '@builder.io/qwik/build';
 
 export interface TabPanelProps {
   class?: string;
@@ -14,23 +16,32 @@ export interface TabPanelProps {
 
 export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   const contextService = useContext(tabsContextId);
+
+  const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
+
   const panelUID = useId();
 
   const matchedTabId = useComputed$(
     () => contextService.tabPanelsMap[panelUID]?.tabId
   );
 
-  useTask$(({ cleanup }) => {
-    contextService.onTabsChanged$();
-
-    cleanup(() => {
-      contextService.onTabsChanged$();
-    });
+  useTask$(() => {
+    if (isServer) {
+      serverAssignedIndexSig.value =
+        contextService.lastAssignedPanelIndexSig.value;
+      contextService.lastAssignedPanelIndexSig.value++;
+    }
   });
 
   const isSelectedSignal = useComputed$(() => {
+    if (isServer) {
+      return (
+        serverAssignedIndexSig.value === contextService.selectedIndexSig.value
+      );
+    }
+
     return (
-      contextService.selectedIndex.value ===
+      contextService.selectedIndexSig.value ===
       contextService.tabPanelsMap[panelUID]?.index
     );
   });
