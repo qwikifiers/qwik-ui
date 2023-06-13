@@ -11,7 +11,7 @@ import {
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { KeyCode } from '../../utils/key-code.type';
-import { isServer } from '@builder.io/qwik/build';
+import { isBrowser, isServer } from '@builder.io/qwik/build';
 
 export interface TabProps {
   onClick?: PropFunction<() => void>;
@@ -26,12 +26,18 @@ export const Tab = component$((props: TabProps) => {
   const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
   const uniqueId = useId();
 
-  useTask$(() => {
+  useTask$(({ cleanup }) => {
     if (isServer) {
       serverAssignedIndexSig.value =
         contextService.lastAssignedTabIndexSig.value;
       contextService.lastAssignedTabIndexSig.value++;
     }
+    if (isBrowser) {
+      contextService.onTabsChanged$();
+    }
+    cleanup(() => {
+      contextService.onTabsChanged$();
+    });
   });
 
   useTask$(({ track }) => {
