@@ -9,11 +9,10 @@ import {
   QwikIntrinsicElements,
   useStore,
   useVisibleTask$,
-  useTask$,
   $,
-  useStylesScoped$,
+  useId,
+  useOnWindow,
 } from '@builder.io/qwik';
-import { routeAction$ } from '@builder.io/qwik-city';
 
 import { computePosition, flip } from '@floating-ui/dom';
 
@@ -62,8 +61,8 @@ import { computePosition, flip } from '@floating-ui/dom';
       - Listbox toggles - ✅
       - Floating UI anchor working - ✅
       - Listbox is anchored to a wrapper containing the input and button - ✅
-      - Autocomplete/filter functionality
-      - Select Value, and value is displayed in input
+      - Autocomplete/filter functionality - ✅
+      - Select Value, and value is displayed in input - ✅
 
 
 
@@ -114,7 +113,6 @@ import { computePosition, flip } from '@floating-ui/dom';
       - sets results to empty array
       - if input is not empty set results equal to the search function with our input signal value as param
       - showSuggestions function with results and our input signal value as params
-    - 
       
 
 */
@@ -122,10 +120,14 @@ import { computePosition, flip } from '@floating-ui/dom';
 // Taken similar props from select + input Value
 interface AutocompleteContext {
   options: Signal<HTMLElement | undefined>[];
+  filteredOptions: Signal<HTMLElement | undefined>[];
   selectedOption: Signal<string>;
   isExpanded: Signal<boolean>;
   triggerRef: Signal<HTMLElement | undefined>;
   listBoxRef: Signal<HTMLElement | undefined>;
+  listBoxId: string;
+  inputId: string;
+  activeOptionId: Signal<string | null>;
   inputValue: Signal<string>;
 }
 
@@ -138,28 +140,28 @@ export type AutocompleteRootProps = {
 
 export const AutocompleteRoot = component$(
   ({ defaultValue, ...props }: AutocompleteRootProps) => {
-    useStylesScoped$(`
-      div {
-        background: blue;
-        width: fit-content;
-        position: relative;
-      }
-    `);
-
     const options = useStore([]);
+    const filteredOptions = useStore([]);
     const selectedOption = useSignal(defaultValue ? defaultValue : '');
     const isExpanded = useSignal(false);
     const triggerRef = useSignal<HTMLElement>();
     const listBoxRef = useSignal<HTMLElement>();
     const inputValue = useSignal(defaultValue ? defaultValue : '');
+    const listBoxId = useId();
+    const inputId = useId();
+    const activeOptionId = useSignal(null);
 
     const contextService: AutocompleteContext = {
       options,
+      filteredOptions,
       selectedOption,
       isExpanded,
       triggerRef,
       listBoxRef,
       inputValue,
+      listBoxId,
+      inputId,
+      activeOptionId,
     };
 
     useContextProvider(AutocompleteContextId, contextService);
@@ -200,8 +202,31 @@ export const AutocompleteRoot = component$(
       }
     });
 
+    // useOnWindow(
+    //   'click',
+    //   $((e) => {
+    //     const target = e.target as HTMLElement;
+    //     if (
+    //       contextService.isExpanded.value === true &&
+    //       !target.contains(contextService.triggerRef.value as Node)
+    //     ) {
+    //       contextService.isExpanded.value = false;
+    //     }
+    //   })
+    // );
+
     return (
-      <div {...props}>
+      <div
+        onKeyDown$={(e) => {
+          if (e.key === 'Escape') {
+            contextService.isExpanded.value = false;
+            const inputElement = contextService.triggerRef.value
+              ?.firstElementChild as HTMLElement;
+            inputElement?.focus();
+          }
+        }}
+        {...props}
+      >
         <Slot />
       </div>
     );
@@ -211,8 +236,9 @@ export const AutocompleteRoot = component$(
 export type AutocompleteLabelProps = QwikIntrinsicElements['label'];
 
 export const AutocompleteLabel = component$((props: AutocompleteLabelProps) => {
+  const contextService = useContext(AutocompleteContextId);
   return (
-    <label {...props} for="autocomplete-test">
+    <label {...props} for={contextService.inputId}>
       <Slot />
     </label>
   );
@@ -222,12 +248,6 @@ export type AutocompleteTriggerProps = QwikIntrinsicElements['div'];
 
 export const AutocompleteTrigger = component$(
   (props: AutocompleteTriggerProps) => {
-    // useStylesScoped$(`
-    //     div {
-    //       margin-left: 80px;
-    //     }
-    //   `);
-
     const ref = useSignal<HTMLElement>();
     const contextService = useContext(AutocompleteContextId);
     contextService.triggerRef = ref;
@@ -246,7 +266,17 @@ export type InputProps = QwikIntrinsicElements['input'];
 export const AutocompleteInput = component$((props: InputProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
-  // required prop here
+
+  /*
+
+    If we save the file, and then type the exact option value, 
+    then click the down arrow key to focus the first item in the array
+
+    it will focus the 2nd thing in the entire array, not the first thing.
+
+    works fine when we remount the component in storybook
+
+  */
 
   useVisibleTask$(({ track }) => {
     track(() => contextService.inputValue.value);
@@ -258,28 +288,44 @@ export const AutocompleteInput = component$((props: InputProps) => {
       contextService.isExpanded.value = true;
     }
 
+    contextService.filteredOptions = contextService.options.filter(
+      (option: Signal) => {
+        const optionValue = option.value.getAttribute('optionValue');
+        const inputValue = contextService.inputValue.value;
+
+        return optionValue.match(new RegExp(inputValue, 'i'));
+      }
+    );
+
+    console.log(contextService.filteredOptions);
+
     // Probably better to refactor Signal type later
     contextService.options.map((option: Signal) => {
       if (
         !option.value
-          ?.getAttribute('optionValue')
-          ?.match(contextService.inputValue.value)
+          .getAttribute('optionValue')
+          .match(new RegExp(contextService.inputValue.value, 'i'))
       ) {
         option.value.style.display = 'none';
       } else {
         option.value.style.display = '';
       }
     });
-
-    console.log(contextService.inputValue.value);
   });
 
   return (
     <input
       ref={ref}
-      id="autocomplete-test"
       role="combobox"
+      id={contextService.inputId}
+      aria-autocomplete="list"
+      aria-controls={contextService.listBoxId}
       bind:value={contextService.inputValue}
+      onKeyDown$={(e) => {
+        if (e.key === 'ArrowDown' && contextService.options?.[0]?.value) {
+          contextService.filteredOptions[0].value?.focus();
+        }
+      }}
       {...props}
     />
   );
@@ -313,36 +359,61 @@ export type ListboxProps = {
 } & QwikIntrinsicElements['ul'];
 
 export const AutocompleteListbox = component$((props: ListboxProps) => {
-  // useStylesScoped$(`
-  //     @keyframes opacity {
-  //       from {
-  //         opacity: 0;
-  //       }
-  //       to {
-  //         opacity: 1;
-  //       }
-  //     }
-
-  //     ul {
-  //       animation: opacity 2000ms ease-in-out;
-  //       width: 100%;
-  //     }
-  //   `);
-
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
   contextService.listBoxRef = ref;
 
+  // useStylesScoped$(`
+  //   ul {
+  //     width: 100%;
+  //     padding-left: 0;
+  //     margin-top: 0px;
+  //   }
+  // `);
+
   return (
     <ul
+      id={contextService.listBoxId}
       ref={ref}
       style={`
-    display: ${
-      contextService.isExpanded.value ? 'block' : 'none'
-    }; background: yellow; position: absolute; ${props.style}
+      display: ${
+        contextService.isExpanded.value ? 'block' : 'none'
+      }; position: absolute; ${props.style}
   `}
       role="listbox"
       {...props}
+      onKeyDown$={(e) => {
+        const availableOptions = contextService.filteredOptions.map(
+          (option) => option.value
+        );
+
+        const target = e.target as HTMLElement;
+        const currentIndex = availableOptions.indexOf(target);
+
+        if (e.key === 'ArrowDown') {
+          if (currentIndex === availableOptions.length - 1) {
+            availableOptions[0]?.focus();
+          } else {
+            availableOptions[currentIndex + 1]?.focus();
+          }
+        }
+
+        if (e.key === 'ArrowUp') {
+          if (currentIndex <= 0) {
+            availableOptions[availableOptions.length - 1]?.focus();
+          } else {
+            availableOptions[currentIndex - 1]?.focus();
+          }
+        }
+
+        if (e.key === 'Home') {
+          availableOptions[0]?.focus();
+        }
+
+        if (e.key === 'End') {
+          availableOptions[availableOptions.length - 1]?.focus();
+        }
+      }}
     >
       <Slot />
     </ul>
@@ -364,6 +435,16 @@ export const AutocompleteOption = component$((props: OptionProps) => {
         contextService.inputValue.value = props.optionValue;
         contextService.isExpanded.value = false;
       }}
+      onKeyDown$={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          contextService.inputValue.value = props.optionValue;
+          contextService.isExpanded.value = false;
+          const inputElement = contextService.triggerRef.value
+            ?.firstElementChild as HTMLElement;
+          inputElement?.focus();
+        }
+      }}
+      tabIndex={0}
       {...props}
     >
       <Slot />
