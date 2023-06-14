@@ -5,8 +5,11 @@ import { KeyCode } from '../../utils/key-code.type';
 
 export interface TabsContext {
   selectTab$: QRL<(tabId: string) => void>;
-  showTabs$: QRL<() => void>;
-  onTabsChanged$: QRL<() => void>;
+  setSelectedIndex$: QRL<(index: number) => void>;
+  getNextServerAssignedTabIndex$: QRL<() => number>;
+  getNextServerAssignedPanelIndex$: QRL<() => number>;
+  updateTabState$: QRL<(tabIndex: number, state: Partial<TabInfo>) => number>;
+  reIndexTabs$: QRL<() => void>;
   onTabKeyDown$: QRL<(key: KeyCode, tabId: string) => void>;
   selectedIndexSig: Signal<number>;
   selectedTabIdSig: Signal<string>;

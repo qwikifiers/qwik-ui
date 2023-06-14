@@ -32,10 +32,10 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
       contextService.lastAssignedPanelIndexSig.value++;
     }
     if (isBrowser) {
-      contextService.onTabsChanged$();
+      contextService.reIndexTabs$();
     }
     cleanup(() => {
-      contextService.onTabsChanged$();
+      contextService.reIndexTabs$();
     });
   });
 

@@ -26,29 +26,35 @@ export const Tab = component$((props: TabProps) => {
   const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
   const uniqueId = useId();
 
-  useTask$(({ cleanup }) => {
+  useTask$(async ({ cleanup }) => {
     if (isServer) {
       serverAssignedIndexSig.value =
-        contextService.lastAssignedTabIndexSig.value;
-      contextService.lastAssignedTabIndexSig.value++;
+        await contextService.getNextServerAssignedTabIndex$();
     }
     if (isBrowser) {
-      contextService.onTabsChanged$();
+      contextService.reIndexTabs$();
     }
     cleanup(() => {
-      contextService.onTabsChanged$();
+      contextService.reIndexTabs$();
     });
   });
 
   useTask$(({ track }) => {
     track(() => props.disabled);
 
-    if (props.disabled && contextService.tabsMap[uniqueId]) {
-      contextService.tabsMap[uniqueId].disabled = true;
+    if (props.disabled) {
+      contextService.updateTabState$();
     }
   });
 
-  const isSelectedSignal = useComputed$(() => {
+  const currentTabIndexSig = useComputed$(() => {
+    if (isServer) {
+      return serverAssignedIndexSig.value;
+    }
+    return;
+  });
+
+  const isSelectedSignalSig = useComputed$(() => {
     if (isServer) {
       return (
         serverAssignedIndexSig.value === contextService.selectedIndexSig.value
@@ -92,11 +98,11 @@ export const Tab = component$((props: TabProps) => {
       aria-disabled={props.disabled}
       onFocus$={selectIfAutomatic$}
       onMouseEnter$={selectIfAutomatic$}
-      aria-selected={isSelectedSignal.value}
-      tabIndex={isSelectedSignal.value ? 0 : -1}
+      aria-selected={isSelectedSignalSig.value}
+      tabIndex={isSelectedSignalSig.value ? 0 : -1}
       aria-controls={'tabpanel-' + matchedTabPanelId.value}
       class={`${
-        isSelectedSignal.value
+        isSelectedSignalSig.value
           ? `selected ${props.selectedClassName || ''}`
           : ''
       }${props.class ? ` ${props.class}` : ''}`}

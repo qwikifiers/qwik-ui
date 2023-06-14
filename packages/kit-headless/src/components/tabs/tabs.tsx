@@ -7,6 +7,7 @@ import {
   useVisibleTask$,
   useStore,
   useTask$,
+  QRL,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
@@ -36,6 +37,7 @@ export interface TabsProps {
   class?: string;
   selectedIndex?: number;
   vertical?: boolean;
+  onSelectedIndexChange$?: QRL<(index: number) => void>;
 }
 
 export interface TabPair {
@@ -65,14 +67,14 @@ export const Tabs = component$((props: TabsProps) => {
 
   const selectedTabIdSig = useSignal<string>('');
   const reIndexTabsSig = useSignal(true);
-  const showTabsSig = useSignal(false);
-  const tabPairs = useStore<TabPair[]>([]);
+
+  const tabPairsList = useStore<TabPair[]>([]);
 
   const tabsMap = useStore<{ [key: string]: TabInfo }>({});
 
   const tabPanelsMap = useStore<{ [key: string]: TabInfo }>({});
 
-  const onTabsChanged$ = $(() => {
+  const reIndexTabs$ = $(() => {
     reIndexTabsSig.value = true;
   });
 
@@ -80,14 +82,27 @@ export const Tabs = component$((props: TabsProps) => {
     selectedTabIdSig.value = tabId;
   });
 
-  const showTabs$ = $(() => {
-    showTabsSig.value = true;
+  const updateTabState$ = $((tabIndex: number, state: Partial<TabInfo>) => {
+    const prevState = tabPairsList[tabIndex];
+    tabPairsList[tabIndex] = { ...prevState, ...state };
   });
+
+  const getNextServerAssignedTabIndex$ = $(() => {
+    lastAssignedTabIndexSig.value++;
+    return lastAssignedTabIndexSig.value;
+  });
+
+  const getNextServerAssignedPanelIndex$ = $(() => {
+    lastAssignedPanelIndexSig.value++;
+    return lastAssignedPanelIndexSig.value;
+  });
+
+  const setSelectedIndex$ = $((index: number) => {});
 
   const onTabKeyDown$ = $((key: KeyCode, tabId: string) => {
     const tabsRootElement = ref.value;
 
-    const enabledTabs = tabPairs.filter((tabPair) => {
+    const enabledTabs = tabPairsList.filter((tabPair) => {
       return !tabsMap[tabPair.tabId].disabled;
     });
     const currentFocusedTabIndex = enabledTabs.findIndex(
@@ -100,7 +115,7 @@ export const Tabs = component$((props: TabsProps) => {
     ) {
       let nextTabId = enabledTabs[0].tabId;
 
-      if (currentFocusedTabIndex < tabPairs.length - 1) {
+      if (currentFocusedTabIndex < tabPairsList.length - 1) {
         nextTabId = enabledTabs[currentFocusedTabIndex + 1].tabId;
       }
       tabsRootElement
@@ -139,8 +154,10 @@ export const Tabs = component$((props: TabsProps) => {
 
   const contextService: TabsContext = {
     selectTab$,
-    showTabs$,
-    onTabsChanged$,
+    setSelectedIndex$,
+    getNextServerAssignedTabIndex$,
+    getNextServerAssignedPanelIndex$,
+    reIndexTabs$,
     onTabKeyDown$,
     selectedTabIdSig,
     selectedIndexSig,
@@ -183,11 +200,11 @@ export const Tabs = component$((props: TabsProps) => {
 
       // See if the deleted index was the last one
       let lastTabWasSelectedPreviously = false;
-      if (selectedIndexSig.value === tabPairs.length - 1) {
+      if (selectedIndexSig.value === tabPairsList.length - 1) {
         lastTabWasSelectedPreviously = true;
       }
 
-      tabPairs.length = 0;
+      tabPairsList.length = 0;
 
       let deletedTabId: string | undefined = undefined;
 
@@ -216,7 +233,7 @@ export const Tabs = component$((props: TabsProps) => {
         }
         const tabPanelId = tabPanelElement.getAttribute('data-tabpanel-id');
         if (tabId && tabPanelId) {
-          tabPairs.push({ tabId, tabPanelId });
+          tabPairsList.push({ tabId, tabPanelId });
 
           tabsMap[tabId] = {
             tabId,
@@ -239,11 +256,11 @@ export const Tabs = component$((props: TabsProps) => {
         }
       });
 
-      if (tabPairs.length > 0) {
+      if (tabPairsList.length > 0) {
         if (lastTabWasSelectedPreviously && deletedTabId) {
-          selectedIndexSig.value = tabPairs.length - 1;
+          selectedIndexSig.value = tabPairsList.length - 1;
         }
-        selectedTabIdSig.value = tabPairs[selectedIndexSig.value].tabId;
+        selectedTabIdSig.value = tabPairsList[selectedIndexSig.value].tabId;
       }
     }
   });

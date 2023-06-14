@@ -1,4 +1,4 @@
-import { component$, useSignal, useStore } from '@builder.io/qwik';
+import { component$, useSignal, useStore, $, QRL } from '@builder.io/qwik';
 import { Tab } from './tab';
 import { Tabs } from './tabs';
 import { TabList } from './tabs-list';
@@ -19,10 +19,17 @@ const ThreeTabsComponent = component$(
     disabledIndex,
   }: ThreeTabsCompProps) => {
     const isMiddleDisabledSignal = useSignal(isMiddleDisabled);
-
+    const selectedIndexDisplayValueSig = useSignal<number>();
+    const onSelectedIndexChange$ = $((index: number) => {
+      selectedIndexDisplayValueSig.value = index;
+    });
     return (
       <>
-        <Tabs data-testid="tabs" vertical={isVertical}>
+        <Tabs
+          data-testid="tabs"
+          vertical={isVertical}
+          onSelectedIndexChange$={onSelectedIndexChange$}
+        >
           <TabList
             style={{
               display: 'flex',
@@ -42,6 +49,12 @@ const ThreeTabsComponent = component$(
         </Tabs>
 
         <br />
+
+        {selectedIndexDisplayValueSig.value !== undefined && (
+          <div data-testid="selected-index-from-event">
+            Selected index from event: {selectedIndexDisplayValueSig.value}
+          </div>
+        )}
 
         {showDisableButton && (
           <button
@@ -167,6 +180,16 @@ describe('Tabs', () => {
     cy.findByRole('button', { name: /Change index/i }).click();
 
     cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 2 Panel');
+  });
+
+  it.only(`GIVEN 3 tabs
+      WHEN clicking the middle one
+      THEN onSelectedIndexChange should be called`, () => {
+    cy.mount(<ThreeTabsComponent />);
+
+    cy.findByRole('tab', { name: /Tab 2/i }).click();
+
+    cy.findByTestId('selected-index-from-event').should('contain.text', 1);
   });
 
   describe('Dynamic Tabs', () => {
