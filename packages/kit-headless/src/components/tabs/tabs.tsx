@@ -25,6 +25,7 @@ import { KeyCode } from '../../utils/key-code.type';
 
 * POST V1:
  * - RTL
+ * Add automated tests for preventDefault on end, home,  pageDown, pageUp
  *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
  * Add ability to close tabs with an ❌ icon (and keyboard support)
 
