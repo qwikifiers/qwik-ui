@@ -17,6 +17,7 @@ import { KeyCode } from '../../utils/key-code.type';
  * TABS TODOs
  *
  * - onSelectedIndexChange
+ * - preventDefault on end, home,  pageDown, pageUp
 
 * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
