@@ -17,8 +17,6 @@ import { KeyCode } from '../../utils/key-code.type';
  * TABS TODOs
  *
  * - onSelectedIndexChange
- * - Orientation
- * - keyboard interactions (arrowDown, ArrowUp,  - and home, pagedown, up and end for vertical)
 
 * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
@@ -37,6 +35,7 @@ export interface TabsProps {
   behavior?: Behavior;
   class?: string;
   selectedIndex?: number;
+  vertical?: boolean;
 }
 
 export interface TabPair {
@@ -95,7 +94,10 @@ export const Tabs = component$((props: TabsProps) => {
       (tabPair) => tabPair.tabId === tabId
     );
 
-    if (key === KeyCode.ArrowRight) {
+    if (
+      key === KeyCode.ArrowRight ||
+      (props.vertical && key === KeyCode.ArrowDown)
+    ) {
       let nextTabId = enabledTabs[0].tabId;
 
       if (currentFocusedTabIndex < tabPairs.length - 1) {
@@ -106,7 +108,10 @@ export const Tabs = component$((props: TabsProps) => {
         ?.focus();
     }
 
-    if (key === KeyCode.ArrowLeft) {
+    if (
+      key === KeyCode.ArrowLeft ||
+      (props.vertical && key === KeyCode.ArrowUp)
+    ) {
       let previousTabId = enabledTabs[enabledTabs.length - 1].tabId;
 
       if (currentFocusedTabIndex !== 0) {

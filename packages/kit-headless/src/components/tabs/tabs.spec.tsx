@@ -8,20 +8,27 @@ interface ThreeTabsCompProps {
   isMiddleDisabled?: boolean;
   showDisableButton?: boolean;
   disabledIndex?: number;
+  isVertical?: boolean;
 }
 
 const ThreeTabsComponent = component$(
   ({
     isMiddleDisabled = false,
     showDisableButton = false,
+    isVertical = false,
     disabledIndex,
   }: ThreeTabsCompProps) => {
     const isMiddleDisabledSignal = useSignal(isMiddleDisabled);
 
     return (
       <>
-        <Tabs data-testid="tabs">
-          <TabList>
+        <Tabs data-testid="tabs" vertical={isVertical}>
+          <TabList
+            style={{
+              display: 'flex',
+              flexDirection: isVertical ? 'column' : 'row',
+            }}
+          >
             <Tab disabled={disabledIndex === 0}>Tab 1</Tab>
             <Tab disabled={disabledIndex === 1 || isMiddleDisabledSignal.value}>
               Tab 2
@@ -229,79 +236,165 @@ describe('Tabs', () => {
     });
   });
 
-  describe('Right key handling', () => {
-    it(`GIVEN 3 tabs and the focus is on the first,
-        WHEN triggering the right arrow key
-        THEN the focus should be on the next tab`, () => {
-      cy.mount(<ThreeTabsComponent />);
+  describe('Orientation: Horizontal', () => {
+    describe('RIGHT key handling', () => {
+      it(`GIVEN 3 tabs and the focus is on the first,
+          WHEN triggering the right arrow key
+          THEN the focus should be on the next tab`, () => {
+        cy.mount(<ThreeTabsComponent />);
 
-      cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
 
-      cy.findByRole('tab', { name: /Tab 2/i }).should('have.focus');
+        cy.findByRole('tab', { name: /Tab 2/i }).should('have.focus');
+      });
+
+      it(`GIVEN 3 tabs and the focus is on the last,
+          WHEN triggering the right arrow key
+          THEN the focus should be on the first tab`, () => {
+        cy.mount(<ThreeTabsComponent />);
+
+        cy.findByRole('tab', { name: /Tab 3/i }).type('{rightarrow}');
+
+        cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+      });
+
+      it(`GIVEN 3 tabs and the second is disabled and the focus is on the first,
+          WHEN triggering the right arrow key
+          THEN the focus should be on the third tab`, () => {
+        cy.mount(<ThreeTabsComponent isMiddleDisabled={true} />);
+
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+
+        cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+      });
+
+      it(`GIVEN 3 tabs and the focus is on the first,
+          WHEN disabling the middle dynamically and triggering the right arrow key
+          THEN the focus should be on the third tab`, () => {
+        cy.mount(<ThreeTabsComponent showDisableButton={true} />);
+
+        cy.findByRole('button', { name: 'Toggle middle tab disabled' }).click();
+
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+
+        cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+      });
     });
 
-    it(`GIVEN 3 tabs and the focus is on the last,
-        WHEN triggering the right arrow key
-        THEN the focus should be on the first tab`, () => {
-      cy.mount(<ThreeTabsComponent />);
+    describe('LEFT key handling', () => {
+      it(`GIVEN 3 tabs and the focus is on the second,
+          WHEN triggering the left arrow key
+          THEN the focus should be on the first tab`, () => {
+        cy.mount(<ThreeTabsComponent />);
 
-      cy.findByRole('tab', { name: /Tab 3/i }).type('{rightarrow}');
+        cy.findByRole('tab', { name: /Tab 2/i }).type('{leftarrow}');
 
-      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
-    });
+        cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+      });
 
-    it(`GIVEN 3 tabs and the second is disabled and the focus is on the first,
-        WHEN triggering the right arrow key
-        THEN the focus should be on the third tab`, () => {
-      cy.mount(<ThreeTabsComponent isMiddleDisabled={true} />);
+      it(`GIVEN 3 tabs and the focus is on the first,
+          WHEN triggering the left arrow key
+          THEN the focus should be on the last tab`, () => {
+        cy.mount(<ThreeTabsComponent />);
 
-      cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{leftarrow}');
 
-      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
-    });
+        cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+      });
 
-    it(`GIVEN 3 tabs and the focus is on the first,
-        WHEN disabling the middle dynamically and triggering the right arrow key
-        THEN the focus should be on the third tab`, () => {
-      cy.mount(<ThreeTabsComponent showDisableButton={true} />);
+      it(`GIVEN 3 tabs and the second is disabled and the focus is on the third,
+          WHEN triggering the left arrow key
+          THEN the focus should be on the first tab`, () => {
+        cy.mount(<ThreeTabsComponent isMiddleDisabled={true} />);
 
-      cy.findByRole('button', { name: 'Toggle middle tab disabled' }).click();
+        cy.findByRole('tab', { name: /Tab 3/i }).type('{leftarrow}');
 
-      cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
-
-      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+        cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+      });
     });
   });
 
-  describe('Left key handling', () => {
-    it(`GIVEN 3 tabs and the focus is on the second,
-        WHEN triggering the left arrow key
-        THEN the focus should be on the first tab`, () => {
-      cy.mount(<ThreeTabsComponent />);
+  describe('Orientation: Vertical', () => {
+    describe('DOWN key handling', () => {
+      it(`GIVEN 3 vertical tabs and the focus is on the first,
+          WHEN triggering the down arrow key
+          THEN the focus should be on the next tab`, () => {
+        cy.mount(<ThreeTabsComponent isVertical={true} />);
 
-      cy.findByRole('tab', { name: /Tab 2/i }).type('{leftarrow}');
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{downarrow}');
 
-      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+        cy.findByRole('tab', { name: /Tab 2/i }).should('have.focus');
+      });
+
+      it(`GIVEN 3 vertical tabs and the focus is on the last,
+          WHEN triggering the down arrow key
+          THEN the focus should be on the first tab`, () => {
+        cy.mount(<ThreeTabsComponent isVertical={true} />);
+
+        cy.findByRole('tab', { name: /Tab 3/i }).type('{downarrow}');
+
+        cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+      });
+
+      it(`GIVEN 3 vertical tabs and the second is disabled and the focus is on the first,
+          WHEN triggering the down arrow key
+          THEN the focus should be on the third tab`, () => {
+        cy.mount(
+          <ThreeTabsComponent isVertical={true} isMiddleDisabled={true} />
+        );
+
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{downarrow}');
+
+        cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+      });
+
+      it(`GIVEN 3 vertical tabs and the focus is on the first,
+          WHEN disabling the middle dynamically and triggering the down arrow key
+          THEN the focus should be on the third tab`, () => {
+        cy.mount(
+          <ThreeTabsComponent isVertical={true} showDisableButton={true} />
+        );
+
+        cy.findByRole('button', { name: 'Toggle middle tab disabled' }).click();
+
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{downarrow}');
+
+        cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+      });
     });
 
-    it(`GIVEN 3 tabs and the focus is on the first,
-        WHEN triggering the left arrow key
-        THEN the focus should be on the last tab`, () => {
-      cy.mount(<ThreeTabsComponent />);
+    describe('UP key handling', () => {
+      it(`GIVEN 3 vertical tabs and the focus is on the second,
+          WHEN triggering the up arrow key
+          THEN the focus should be on the first tab`, () => {
+        cy.mount(<ThreeTabsComponent isVertical={true} />);
 
-      cy.findByRole('tab', { name: /Tab 1/i }).type('{leftarrow}');
+        cy.findByRole('tab', { name: /Tab 2/i }).type('{uparrow}');
 
-      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
-    });
+        cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+      });
 
-    it(`GIVEN 3 tabs and the second is disabled and the focus is on the third,
-        WHEN triggering the left arrow key
-        THEN the focus should be on the first tab`, () => {
-      cy.mount(<ThreeTabsComponent isMiddleDisabled={true} />);
+      it(`GIVEN 3 vertical tabs and the focus is on the first,
+          WHEN triggering the up arrow key
+          THEN the focus should be on the last tab`, () => {
+        cy.mount(<ThreeTabsComponent isVertical={true} />);
 
-      cy.findByRole('tab', { name: /Tab 3/i }).type('{leftarrow}');
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{uparrow}');
 
-      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+        cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+      });
+
+      it(`GIVEN 3 vertical tabs and the second is disabled and the focus is on the third,
+          WHEN triggering the up arrow key
+          THEN the focus should be on the first tab`, () => {
+        cy.mount(
+          <ThreeTabsComponent isVertical={true} isMiddleDisabled={true} />
+        );
+
+        cy.findByRole('tab', { name: /Tab 3/i }).type('{uparrow}');
+
+        cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+      });
     });
   });
 
@@ -310,6 +403,16 @@ describe('Tabs', () => {
         WHEN triggering the 'home' key
         THEN the focus should be on the first tab`, () => {
       cy.mount(<ThreeTabsComponent />);
+
+      cy.findByRole('tab', { name: /Tab 3/i }).type('{home}');
+
+      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 vertical tabs and the focus is on the third,
+        WHEN triggering the 'home' key
+        THEN the focus should be on the first tab`, () => {
+      cy.mount(<ThreeTabsComponent isVertical={true} />);
 
       cy.findByRole('tab', { name: /Tab 3/i }).type('{home}');
 
