@@ -58,6 +58,9 @@ export const Primary: Story = {
   },
 };
 
+// export const TabsWithMiddleDisabled: Story = {
+//   render: () =>
+
 // const DynamicTabsComponent = component$(() => {
 //   const tabsState = useStore(['Dynamic Tab 1', 'Dynamic Tab 2', 'Dynamic Tab 3']);
 

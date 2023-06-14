@@ -6,39 +6,30 @@ import {
   useSignal,
   useVisibleTask$,
   useStore,
+  useTask$,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
 import { Behavior } from './behavior.type';
+import { KeyCode } from '../../utils/key-code.type';
 
 /**
  * TABS TODOs
- * 
- * - CHANGE THE querySelector to "scoped" queries
- * - selectedIndex / default
-* - expose selectedIndex in the root 
-* - Orientation
- * - aria-label https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby
- * - NOTE: Radix manually handle the value/id for each tab while we calculate it behind the scenes
- *    If we end up implementing this, we need to expose a way to set this value in the root
- * - keyboard interactions (arrowDown, ARrowRight, ArrowUp, ArrowLeft, Home, End, PageUp, PageDown)
- *    Support Loop
- * - onValueChange
- * POST V1:
- * - RTL
+ *
+ * - onSelectedIndexChange
+ * - preventDefault on end, home,  pageDown, pageUp
 
- *
- * TAB
- *  Disable
- *  NOTE: radix / headlessui: expose data-state data-disable data-orientation
- *  NOTE: Headless UI: explorer the render props
- *  NOTE: remove tab, switch position
- *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
- *
- * PANEL
- *
- * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+* aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+  
+
+
+* POST V1:
+ * - RTL
+ * Add automated tests for preventDefault on end, home,  pageDown, pageUp
+ *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
+ * Add ability to close tabs with an ❌ icon (and keyboard support)
+
  *
  */
 
@@ -46,6 +37,7 @@ export interface TabsProps {
   behavior?: Behavior;
   class?: string;
   selectedIndex?: number;
+  vertical?: boolean;
 }
 
 export interface TabPair {
@@ -56,105 +48,168 @@ export interface TabPair {
 export interface TabInfo {
   tabId: string;
   tabPanelId?: string;
-  index?: number | undefined;
+  index?: number;
+  disabled?: boolean;
 }
 
 export const Tabs = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
-  const selectedIndex = useSignal(props.selectedIndex || 0);
-  const selectedTabId = useSignal<string>('');
-  const reIndexTabs = useSignal(false);
-  const showTabsSignal = useSignal(false);
+
+  const ref = useSignal<HTMLElement | undefined>();
+  const selectedIndexSig = useSignal(0);
+  const lastAssignedTabIndexSig = useSignal(0);
+  const lastAssignedPanelIndexSig = useSignal(0);
+
+  useTask$(({ track }) => {
+    track(() => props.selectedIndex);
+    selectedIndexSig.value = props.selectedIndex || 0;
+  });
+
+  const selectedTabIdSig = useSignal<string>('');
+  const reIndexTabsSig = useSignal(true);
+  const showTabsSig = useSignal(false);
   const tabPairs = useStore<TabPair[]>([]);
 
   const tabsMap = useStore<{ [key: string]: TabInfo }>({});
 
   const tabPanelsMap = useStore<{ [key: string]: TabInfo }>({});
 
-  const tabsChanged$ = $(() => {
-    reIndexTabs.value = true;
+  const onTabsChanged$ = $(() => {
+    reIndexTabsSig.value = true;
   });
 
   const selectTab$ = $((tabId: string) => {
-    selectedTabId.value = tabId;
+    selectedTabIdSig.value = tabId;
   });
 
   const showTabs$ = $(() => {
-    showTabsSignal.value = true;
+    showTabsSig.value = true;
+  });
+
+  const onTabKeyDown$ = $((key: KeyCode, tabId: string) => {
+    const tabsRootElement = ref.value;
+
+    const enabledTabs = tabPairs.filter((tabPair) => {
+      return !tabsMap[tabPair.tabId].disabled;
+    });
+    const currentFocusedTabIndex = enabledTabs.findIndex(
+      (tabPair) => tabPair.tabId === tabId
+    );
+
+    if (
+      key === KeyCode.ArrowRight ||
+      (props.vertical && key === KeyCode.ArrowDown)
+    ) {
+      let nextTabId = enabledTabs[0].tabId;
+
+      if (currentFocusedTabIndex < tabPairs.length - 1) {
+        nextTabId = enabledTabs[currentFocusedTabIndex + 1].tabId;
+      }
+      tabsRootElement
+        ?.querySelector<HTMLElement>(`[data-tab-id='${nextTabId}']`)
+        ?.focus();
+    }
+
+    if (
+      key === KeyCode.ArrowLeft ||
+      (props.vertical && key === KeyCode.ArrowUp)
+    ) {
+      let previousTabId = enabledTabs[enabledTabs.length - 1].tabId;
+
+      if (currentFocusedTabIndex !== 0) {
+        previousTabId = enabledTabs[currentFocusedTabIndex - 1].tabId;
+      }
+      tabsRootElement
+        ?.querySelector<HTMLElement>(`[data-tab-id='${previousTabId}']`)
+        ?.focus();
+    }
+
+    if (key === KeyCode.Home || key === KeyCode.PageUp) {
+      tabsRootElement
+        ?.querySelector<HTMLElement>(`[data-tab-id='${enabledTabs[0].tabId}']`)
+        ?.focus();
+    }
+
+    if (key === KeyCode.End || key === KeyCode.PageDown) {
+      tabsRootElement
+        ?.querySelector<HTMLElement>(
+          `[data-tab-id='${enabledTabs[enabledTabs.length - 1].tabId}']`
+        )
+        ?.focus();
+    }
   });
 
   const contextService: TabsContext = {
-    tabsMap,
-    tabPanelsMap,
-    selectedIndex,
     selectTab$,
     showTabs$,
-    tabsChanged$,
+    onTabsChanged$,
+    onTabKeyDown$,
+    selectedTabIdSig,
+    selectedIndexSig,
+    tabsMap,
+    tabPanelsMap,
     behavior,
-    selectedTabId,
+    lastAssignedTabIndexSig,
+    lastAssignedPanelIndexSig,
   };
 
   useContextProvider(tabsContextId, contextService);
 
-  const ref = useSignal<HTMLElement | undefined>();
-  // useVisibleTask$(({ track }) => {
-  //   track(() => selectedIndex.value);
-  //   if (tabsIdsByIndex[selectedIndex.value]) {
-  //     const currentSelectedTab = tabsIdsByIndex[selectedIndex.value][0];
-
-  //     if (currentSelectedTab !== selectedTabId.value) {
-  //       selectTab$(currentSelectedTab);
-  //     }
-  //   }
-  // });
-
   useVisibleTask$(({ track }) => {
-    track(() => reIndexTabs.value);
+    track(() => reIndexTabsSig.value);
 
-    if (!reIndexTabs.value) {
+    if (!reIndexTabsSig.value) {
       return;
     }
-    reIndexTabs.value = false;
+    reIndexTabsSig.value = false;
 
     if (ref.value) {
-      // TODO: Write a failing test for nested tabs to prove this querySelector should be scoped
-      const tabElements = ref.value.querySelectorAll(
-        '[role="tablist"] > [role="tab"]'
-      );
+      const tabsRootElement = ref.value;
 
-      /*
-      const parentElement = document.querySelector('#parent');
+      const tabListElement = tabsRootElement.querySelector('[role="tablist"]');
+      let tabElements: Element[] = [];
+      if (tabListElement) {
+        tabElements = Array.from(tabListElement?.children).filter((child) => {
+          return child.getAttribute('role') === 'tab';
+        });
+      }
 
-      const firstLevelElements = Array.from(parentElement.childNodes)
-        .filter(node => node.nodeType === Node.ELEMENT_NODE && node.parentNode === parentElement);
-
-      */
-
-      const tabPanelElements = ref.value.querySelectorAll('[role="tabpanel"]');
+      let tabPanelElements: Element[] = [];
+      if (tabsRootElement.children) {
+        tabPanelElements = Array.from(tabsRootElement.children).filter(
+          (child) => {
+            return child.getAttribute('role') === 'tabpanel';
+          }
+        );
+      }
 
       // See if the deleted index was the last one
-      let previousSelectedTabWasLastOne = false;
-      if (selectedIndex.value === tabPairs.length - 1) {
-        previousSelectedTabWasLastOne = true;
+      let lastTabWasSelectedPreviously = false;
+      if (selectedIndexSig.value === tabPairs.length - 1) {
+        lastTabWasSelectedPreviously = true;
       }
 
       tabPairs.length = 0;
-      tabsMap;
+
+      let deletedTabId: string | undefined = undefined;
 
       tabElements.forEach((tab, index) => {
         const tabId = tab.getAttribute('data-tab-id');
+        const isDisabled = tab.hasAttribute('disabled');
 
         if (!tabId) {
           throw new Error('Missing tab id for tab: ' + index);
         }
 
         // clear all lists and maps
-        let tabWasDeleted = true;
+        let thisTabWasDeleted = true;
         // TODO: delete object maps, or turn into Map()
 
-        if (tabId === selectedTabId.value) {
-          selectedIndex.value = index;
-          tabWasDeleted = false;
+        if (selectedTabIdSig.value === '') {
+          thisTabWasDeleted = false;
+        } else if (tabId === selectedTabIdSig.value) {
+          selectedIndexSig.value = index;
+          thisTabWasDeleted = false;
         }
 
         const tabPanelElement = tabPanelElements[index];
@@ -169,6 +224,7 @@ export const Tabs = component$((props: TabsProps) => {
             tabId,
             tabPanelId,
             index,
+            disabled: isDisabled,
           };
 
           tabPanelsMap[tabPanelId] = {
@@ -180,22 +236,22 @@ export const Tabs = component$((props: TabsProps) => {
           throw new Error('Missing tab id or tab panel id for tab: ' + index);
         }
 
-        if (tabPairs.length > 0) {
-          if (previousSelectedTabWasLastOne && tabWasDeleted) {
-            selectedIndex.value = tabPairs.length - 1;
-          }
-          selectedTabId.value = tabPairs[selectedIndex.value].tabId;
+        if (thisTabWasDeleted) {
+          deletedTabId = tabId;
         }
       });
+
+      if (tabPairs.length > 0) {
+        if (lastTabWasSelectedPreviously && deletedTabId) {
+          selectedIndexSig.value = tabPairs.length - 1;
+        }
+        selectedTabIdSig.value = tabPairs[selectedIndexSig.value].tabId;
+      }
     }
   });
 
   return (
-    <div
-      ref={ref}
-      {...props}
-      style={'visibility:' + (showTabsSignal.value ? 'visible' : 'hidden')}
-    >
+    <div ref={ref} {...props}>
       <Slot />
     </div>
   );

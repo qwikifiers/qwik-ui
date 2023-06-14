@@ -1,11 +1,10 @@
-import { component$, Slot } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { Behavior } from './behavior.type';
 
-export interface TabListProps {
+export type TabListProps = QwikIntrinsicElements['div'] & {
   labelledBy?: string;
   behavior?: Behavior;
-  class?: string;
-}
+};
 
 // List of tabs that can be clicked to show different content.
 export const TabList = component$((props: TabListProps) => {
