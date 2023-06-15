@@ -18,6 +18,7 @@ import { KeyCode } from '../../utils/key-code.type';
  * TABS TODOs
  *
  * - onSelectedIndexChange
+ * - preventDefault on end, home,  pageDown, pageUp
 
 * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
@@ -26,6 +27,7 @@ import { KeyCode } from '../../utils/key-code.type';
 
 * POST V1:
  * - RTL
+ * Add automated tests for preventDefault on end, home,  pageDown, pageUp
  *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
  * Add ability to close tabs with an ❌ icon (and keyboard support)
 

@@ -464,13 +464,34 @@ describe('Tabs', () => {
 
     it(`GIVEN 3 tabs and the focus is on the third,
         WHEN triggering the 'end' key
-        THEN the focus should be on the first tab`, () => {
+        THEN the focus should be on the last tab`, () => {
       cy.mount(<ThreeTabsComponent />);
 
       cy.findByRole('tab', { name: /Tab 1/i }).type('{end}');
 
       cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
     });
+
+    it.skip(
+      `GIVEN 3 tabs on a long page and the focus is on the third,
+        WHEN triggering the 'end' key
+        THEN the focus should be on the last tab and page should not scroll`,
+      { scrollBehavior: false },
+      () => {
+        cy.mount(
+          <div>
+            <div style="height:900px">
+              <ThreeTabsComponent />
+            </div>
+            <div data-testid="scroll-target">Outside</div>
+          </div>
+        );
+
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{pageDown}');
+
+        cy.window().its('scrollY').should('equal', 0);
+      }
+    );
 
     it(`GIVEN 3 tabs and the first is disabled and the focus is on the third,
         WHEN triggering the 'end' key

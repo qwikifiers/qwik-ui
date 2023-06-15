@@ -1,0 +1,98 @@
+---
+title: Qwik UI | Popover
+---
+
+import { Popover } from '@qwik-ui/headless';
+import { MainExample, Example1 } from './examples';
+import { CodeExample } from '../../../../../components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../../../components/api-table/api-table';
+
+# Popover
+
+#### A popover is an element that displays a modal with content when the user clicks or hovers on a trigger element.
+
+<MainExample>
+  ```tsx
+  <Popover>
+    <PopoverContent>
+      <div class="p-4 bg-gray-500">Hi, I'm the content</div>
+    </PopoverContent>
+    <PopoverTrigger> Click on me </PopoverTrigger>
+  </Popover>
+  ```
+</MainExample>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Popover } from '@qwik-ui/headless';
+
+    export default component$(() => (
+      <Popover>
+        <PopoverContent>
+          <div class="p-4 bg-gray-500">Hi, I'm the content</div>
+        </PopoverContent>
+        <PopoverTrigger> Click on me </PopoverTrigger>
+      </Popover>
+    ));
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### EXAMPLE: Positioning the popover's content (on top)
+
+<Example1>
+  ```tsx
+  <Popover placement="top">
+    <PopoverContent>
+      <div class="p-4 bg-gray-500">Hi, I'm the content, but now on top</div>
+    </PopoverContent>
+    <PopoverTrigger> Click on me </PopoverTrigger>
+  </Popover>
+  ```
+</Example1>
+
+## API
+
+### Popover
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'placement',
+      type: '"top" | "right" | "bottom" | "left" | "top-start" | "top-end" | "right-start" | "right-end" | "bottom-start" | "bottom-end" | "left-start" | "left-end"',
+      description: 'The side where to show the popover.',
+    },
+    {
+      name: 'triggerEvent',
+      type: '"click" | "mouseOver"',
+      description: 'Popover is opened when trigger is clicked or mouse overed.',
+    },
+    {
+      name: 'offset',
+      type: 'number',
+      description: 'Offset between trigger and content.',
+    },
+    {
+      name: 'isOpen',
+      type: 'boolean',
+      description:
+        'Open or close the popover when popover is controlled by the parent.',
+    },
+    {
+      name: 'disableClickOutSide',
+      type: 'boolean',
+      description: 'When true the popover is not closed when click outside.',
+    },
+    {
+      name: 'onUpdate$',
+      type: 'PropFunction<(isOpen: boolean) => void>',
+      description: 'Notify a state update to the parent.',
+    },
+  ]}
+/>
