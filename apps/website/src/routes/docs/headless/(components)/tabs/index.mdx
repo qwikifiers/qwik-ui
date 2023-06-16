@@ -88,11 +88,45 @@ import { APITable } from '../../../../../components/api-table/api-table';
   keyDescriptors={[
     {
       keyTitle: 'Tab',
-      description: 'Moves focus to next tab.',
+      description: 'Moves focus to the selected panel.',
     },
     {
       keyTitle: 'Shift + Tab',
+      description: 'Moves focus to the selected tab.',
+    },
+    {
+      keyTitle: 'ArrowRight',
+      description: 'Moves focus to the next tab.',
+    },
+    {
+      keyTitle: 'ArrowLeft',
       description: 'Moves focus to the previous tab.',
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: 'In "vertical mode", moves focus to the next tab.',
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: 'In "vertical mode", moves focus to the previous tab.',
+    },
+    {
+      /* {
+      keyTitle: 'Home',
+      description: 'Moves focus to the first tab.',
+    },
+    {
+      keyTitle: 'PageUp',
+      description: 'Moves focus to the first tab.',
+    },
+    {
+      keyTitle: 'End',
+      description: 'Moves focus to the last tab.',
+    },
+    {
+      keyTitle: 'PageDown',
+      description: 'Moves focus to the first tab.',
+    }, */
     },
   ]}
 />
@@ -108,6 +142,12 @@ import { APITable } from '../../../../../components/api-table/api-table';
       type: 'string',
       description:
         'Toggle between automatic or manual. The automatic behavior moves between tabs when hover. The manual behavior moves between tabs on click.',
+    },
+    {
+      name: 'vertical',
+      type: 'boolean',
+      description:
+        'If set to true, the behavior of UpArrow and DownArrow will navigate between tabs vertically instead of horizontally.',
     },
   ]}
 />

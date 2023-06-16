@@ -7,31 +7,55 @@ import {
   useComputed$,
   useTask$,
   $,
+  useSignal,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
+import { KeyCode } from '../../utils/key-code.type';
+import { isBrowser, isServer } from '@builder.io/qwik/build';
 
 export interface TabProps {
   onClick?: PropFunction<() => void>;
   class?: string;
   selectedClassName?: string;
+  disabled?: boolean;
 }
 
 export const Tab = component$((props: TabProps) => {
   const contextService = useContext(tabsContextId);
 
+  const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
   const uniqueId = useId();
 
   useTask$(({ cleanup }) => {
-    contextService.tabsChanged$();
-
+    if (isServer) {
+      serverAssignedIndexSig.value =
+        contextService.lastAssignedTabIndexSig.value;
+      contextService.lastAssignedTabIndexSig.value++;
+    }
+    if (isBrowser) {
+      contextService.onTabsChanged$();
+    }
     cleanup(() => {
-      contextService.tabsChanged$();
+      contextService.onTabsChanged$();
     });
   });
 
+  useTask$(({ track }) => {
+    track(() => props.disabled);
+
+    if (props.disabled && contextService.tabsMap[uniqueId]) {
+      contextService.tabsMap[uniqueId].disabled = true;
+    }
+  });
+
   const isSelectedSignal = useComputed$(() => {
+    if (isServer) {
+      return (
+        serverAssignedIndexSig.value === contextService.selectedIndexSig.value
+      );
+    }
     return (
-      contextService.selectedIndex.value ===
+      contextService.selectedIndexSig.value ===
       contextService.tabsMap[uniqueId]?.index
     );
   });
@@ -40,17 +64,13 @@ export const Tab = component$((props: TabProps) => {
     () => contextService.tabsMap[uniqueId]?.tabPanelId
   );
 
-  // TODO: Figure out a way to fix this shitty hack :)
-  useTask$(({ track }) => {
-    track(() => isSelectedSignal.value);
-
-    if (isSelectedSignal.value) {
-      contextService.showTabs$();
-    }
-  });
-
   const selectTab$ = $(() => {
-    contextService.selectedIndex.value =
+    // TODO: try to move this to the Tabs component
+
+    if (props.disabled) {
+      return;
+    }
+    contextService.selectedIndexSig.value =
       contextService.tabsMap[uniqueId]?.index || 0;
 
     contextService.selectTab$(uniqueId);
@@ -68,6 +88,8 @@ export const Tab = component$((props: TabProps) => {
       data-tab-id={uniqueId}
       type="button"
       role="tab"
+      disabled={props.disabled}
+      aria-disabled={props.disabled}
       onFocus$={selectIfAutomatic$}
       onMouseEnter$={selectIfAutomatic$}
       aria-selected={isSelectedSignal.value}
@@ -83,6 +105,12 @@ export const Tab = component$((props: TabProps) => {
         if (props.onClick) {
           props.onClick();
         }
+      }}
+      onKeyDown$={(e) => {
+        contextService.onTabKeyDown$(
+          e.key as KeyCode,
+          (e.target as any).getAttribute('data-tab-id')
+        );
       }}
     >
       <Slot />

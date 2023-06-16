@@ -23,7 +23,6 @@ export const KeyboardInteractionTable = component$(
         </thead>
         <tbody>
           {props.keyDescriptors.map((descriptor) => {
-            console.log('descriptor', descriptor);
             return (
               <KBInteractionTableRow
                 key={descriptor.keyTitle}
