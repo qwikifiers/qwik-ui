@@ -57,7 +57,7 @@ import { computePosition, flip } from '@floating-ui/dom';
 
     - Get it working
       - Context - 🏗️
-      - Key events work 
+      - Key events work - ✅
       - Listbox toggles - ✅
       - Floating UI anchor working - ✅
       - Listbox is anchored to a wrapper containing the input and button - ✅
@@ -281,17 +281,23 @@ export const AutocompleteInput = component$((props: InputProps) => {
   useVisibleTask$(({ track }) => {
     track(() => contextService.inputValue.value);
 
-    if (
-      contextService.inputValue.value.length > 0 &&
-      document.activeElement === ref.value
-    ) {
-      contextService.isExpanded.value = true;
-    }
-
     contextService.filteredOptions = contextService.options.filter(
       (option: Signal) => {
         const optionValue = option.value.getAttribute('optionValue');
         const inputValue = contextService.inputValue.value;
+
+        if (
+          contextService.inputValue.value.length > 0 &&
+          document.activeElement === ref.value
+        ) {
+          // issue we need to look at. Still gives an array if any keyword is a match.
+          //For example, apple returns 3 options after hitting enter.
+          if (optionValue.match(new RegExp(inputValue, 'i'))) {
+            contextService.isExpanded.value = true;
+          } else {
+            contextService.isExpanded.value = false;
+          }
+        }
 
         return optionValue.match(new RegExp(inputValue, 'i'));
       }
@@ -439,6 +445,7 @@ export const AutocompleteOption = component$((props: OptionProps) => {
         if (e.key === 'Enter' || e.key === ' ') {
           contextService.inputValue.value = props.optionValue;
           contextService.isExpanded.value = false;
+          console.log('inside option!');
           const inputElement = contextService.triggerRef.value
             ?.firstElementChild as HTMLElement;
           inputElement?.focus();
