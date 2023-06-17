@@ -23,7 +23,37 @@ import { APITable } from '../../../../../components/api-table/api-table';
 
 {' '}
 
-<Example01>```tsx ```</Example01>
+<Example01>
+  ```tsx
+  <AutocompleteRoot class="relative">
+    <AutocompleteLabel>Personal Trainers ⚡</AutocompleteLabel>
+    <AutocompleteTrigger>
+      <AutocompleteInput />
+      <AutocompleteButton>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          style="width: 20px; height: 20px;"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </AutocompleteButton>
+    </AutocompleteTrigger>
+    <AutocompleteListbox class="w-full bg-black">
+      {trainers.map((trainer, index) => (
+        <AutocompleteOption optionValue={trainer} key={index}>
+          {trainer}
+        </AutocompleteOption>
+      ))}
+    </AutocompleteListbox>
+  </AutocompleteRoot>
+  ```
+</Example01>
 
 ## Building blocks
 
