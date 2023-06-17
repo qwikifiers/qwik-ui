@@ -14,6 +14,14 @@ import {
 } from '@builder.io/qwik';
 import { computePosition, flip } from '@floating-ui/dom';
 
+/*
+
+  TODO:
+
+  Add a required prop.
+
+*/
+
 interface SelectRootContextService {
   options: Signal<HTMLElement | undefined>[];
   selectedOption: Signal<string>;
@@ -82,7 +90,6 @@ export const SelectRoot = component$(
 
         listBox?.focus();
       }
-
 
       if (expanded === false) {
         trigger?.focus();
