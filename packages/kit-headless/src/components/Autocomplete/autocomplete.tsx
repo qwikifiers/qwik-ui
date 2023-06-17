@@ -77,7 +77,7 @@ import { computePosition, flip } from '@floating-ui/dom';
     - Maybe: selected value context for the combobox?
     
 
-    APG Type:
+    APG Type: 
     List autocomplete with manual selection
 
     Refer to Combobox Pattern for General Changes & Listbox Pattern for Listbox Changes
@@ -279,7 +279,7 @@ export const AutocompleteInput = component$((props: InputProps) => {
 
   */
 
-  useVisibleTask$(({ track }) => {
+  useTask$(({ track }) => {
     track(() => contextService.inputValue.value);
 
     contextService.filteredOptions = contextService.options.filter(

@@ -27,7 +27,7 @@ export const Example01 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <AutocompleteRoot style="width: fit-content">
+        <AutocompleteRoot class="relative">
           <AutocompleteLabel>Personal Trainers ⚡</AutocompleteLabel>
           <AutocompleteTrigger>
             <AutocompleteInput />
@@ -46,7 +46,7 @@ export const Example01 = component$(() => {
               </svg>
             </AutocompleteButton>
           </AutocompleteTrigger>
-          <AutocompleteListbox class="listboxStyle">
+          <AutocompleteListbox class="w-full bg-black">
             {trainers.map((trainer, index) => (
               <AutocompleteOption optionValue={trainer} key={index}>
                 {trainer}

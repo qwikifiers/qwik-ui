@@ -9,25 +9,28 @@ import {
   SelectOption,
   SelectGroup,
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from 'apps/website/src/components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
 
 export const Example01 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <SelectRoot>
-          <SelectLabel class="text-black dark:text-white">
-            Lorem ipsum dolor sit amet
+        <SelectRoot class="dark:bg-gray-700">
+          <SelectLabel class="text-white font-semibold ml-2">
+            Qwik Fruits
           </SelectLabel>
-          <SelectTrigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
-            <SelectValue placeholder="Select an option! ⚡" />
+          <SelectTrigger class="flex justify-between items-center px-8 bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px] rounded-md p-4 group peer">
+            <SelectValue
+              placeholder="Select a fruit! 🍹"
+              class="text-gray-700 dark:text-white"
+            />
             <SelectMarker class="w-6 h-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="currentColor"
                 stroke-width="2"
+                class="stroke-gray-700 dark:stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
@@ -35,9 +38,9 @@ export const Example01 = component$(() => {
               </svg>
             </SelectMarker>
           </SelectTrigger>
-          <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+          <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 mt-2 border-[1px] rounded-md">
             <SelectOption value="🚀 Qwik" class="p-4" />
-            <SelectGroup class="p-4">
+            <SelectGroup class="p-4 ">
               <SelectLabel class="p-4">Fruits</SelectLabel>
               {[
                 { value: '🍎 Apple', disabled: false },
@@ -50,7 +53,7 @@ export const Example01 = component$(() => {
                     key={option.value}
                     value={option.value}
                     disabled={option.disabled}
-                    class="aria-disabled:text-red-500 aria-disabled:cursor-not-allowed hover:bg-slate-300 dark:hover:bg-gray-600 p-4"
+                    class="aria-disabled:text-red-500 aria-disabled:cursor-not-allowed hover:bg-slate-200 rounded-sm dark:hover:bg-gray-600 p-4"
                   />
                 );
               })}
@@ -71,14 +74,17 @@ export const Example02 = component$(() => {
     <PreviewCodeExample>
       <div q:slot="actualComponent">
         <SelectRoot>
-          <SelectTrigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
-            <SelectValue placeholder="Home" />
+          <SelectTrigger class="flex justify-between items-center bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px] p-4">
+            <SelectValue
+              placeholder="Home"
+              class="text-gray-700 dark:text-white"
+            />
             <SelectMarker class="w-6 h-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="currentColor"
+                class="stroke-gray-700 dark:stroke-white"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
