@@ -12,6 +12,7 @@ import {
   $,
   useId,
   useOnWindow,
+  useTask$,
 } from '@builder.io/qwik';
 
 import { computePosition, flip } from '@floating-ui/dom';
@@ -287,16 +288,16 @@ export const AutocompleteInput = component$((props: InputProps) => {
         const inputValue = contextService.inputValue.value;
 
         if (
-          contextService.inputValue.value.length > 0 &&
+          contextService.inputValue.value.length >= 0 &&
           document.activeElement === ref.value
         ) {
-          // issue we need to look at. Still gives an array if any keyword is a match.
-          //For example, apple returns 3 options after hitting enter.
-          if (optionValue.match(new RegExp(inputValue, 'i'))) {
-            contextService.isExpanded.value = true;
-          } else {
+          if (optionValue === inputValue) {
             contextService.isExpanded.value = false;
+          } else if (optionValue.match(new RegExp(inputValue, 'i'))) {
+            contextService.isExpanded.value = true;
           }
+        } else {
+          contextService.isExpanded.value = false;
         }
 
         return optionValue.match(new RegExp(inputValue, 'i'));
@@ -328,8 +329,9 @@ export const AutocompleteInput = component$((props: InputProps) => {
       aria-controls={contextService.listBoxId}
       bind:value={contextService.inputValue}
       onKeyDown$={(e) => {
-        if (e.key === 'ArrowDown' && contextService.options?.[0]?.value) {
-          contextService.filteredOptions[0].value?.focus();
+        if (e.key === 'ArrowDown') {
+          contextService.isExpanded.value = true;
+          contextService.filteredOptions[0]?.value?.focus();
         }
       }}
       {...props}

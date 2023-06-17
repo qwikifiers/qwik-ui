@@ -1,0 +1,120 @@
+---
+title: Qwik UI | Autocomplete
+---
+
+import {
+  AutocompleteRoot,
+  AutocompleteLabel,
+  AutocompleteTrigger,
+  AutocompleteInput,
+  AutocompleteButton,
+  AutocompleteListbox,
+  AutocompleteOption,
+} from '@qwik-ui/headless';
+
+import { Example01, Example02, Example03 } from './examples';
+import { CodeExample } from '../../../../../components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../../../components/api-table/api-table';
+
+# Autocomplete
+
+#### A combobox pattern that allows users to select from a list of previously searched terms, ensuring that the listbox popup is not automatically triggered but only when a character is typed in or an open command is given.
+
+{' '}
+
+<Example01>```tsx ```</Example01>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { AutocompleteRoot, AutocompleteLabel, AutocompleteTrigger, AutocompleteInput, AutocompleteButton, AutocompleteListbox, AutocompleteOption } from '@qwik-ui/headless';
+
+    export default component$(() => (
+      <AutocompleteRoot>
+        <AutocompleteLabel>Label</AutocompleteLabel>
+        <AutocompleteTrigger>
+          <AutocompleteInput />
+          <AutocompleteButton>
+            Button Marker
+          </AutocompleteButton>
+        </AutocompleteTrigger>
+        <AutocompleteListbox>
+          <AutocompleteOption />
+        </AutocompleteListbox>
+      </AutocompleteRoot>
+    ))
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### EXAMPLE: Frequently Asked Questions
+
+<Example02>```tsx ```</Example02>
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable keyDescriptors={
+  [
+    {
+      keyTitle: 'Space',
+      description: 'Expand or collapse the `AccordionItem`.',
+    },
+    {
+      keyTitle: 'Enter',
+      description: 'Expand or collapse the `AccordionItem`.',
+    },
+    {
+      keyTitle: 'Tab',
+      description: 'Moves focus to the next focusable element.',
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: 'Moves focus to the previous focusable element.',
+    },
+    {
+      keyTitle: 'Home',
+      description: 'When on `AccordionItem`, Moves focus to the first `AccordionItem`.',
+    },
+    {
+      keyTitle: 'End',
+      description: 'When on `AccordionItem`, Moves focus to the last `AccordionItem`.',
+    },
+
+]
+}/>
+
+## API
+
+### AccordionItem
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the accordion container.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the accordion container.',
+    },
+    {
+      name: 'label',
+      type: 'string',
+      description: 'The label to give to the accordion item.',
+    },
+    {
+      name: 'onClick$',
+      type: 'PropFunction<() => void>',
+      description: 'A custom click handler',
+    },
+  ]}
+/>
