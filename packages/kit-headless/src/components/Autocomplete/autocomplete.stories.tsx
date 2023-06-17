@@ -139,7 +139,7 @@ const RegularAutocomplete = () => (
         ))}
       </AutocompleteListbox>
     </AutocompleteRoot>
-    <AutocompleteRoot style="width: fit-content">
+    {/* <AutocompleteRoot style="width: fit-content">
       <AutocompleteLabel>Label</AutocompleteLabel>
       <AutocompleteTrigger>
         <AutocompleteInput />
@@ -192,7 +192,7 @@ const RegularAutocomplete = () => (
           </AutocompleteOption>
         ))}
       </AutocompleteListbox>
-    </AutocompleteRoot>
+    </AutocompleteRoot> */}
   </>
 );
 

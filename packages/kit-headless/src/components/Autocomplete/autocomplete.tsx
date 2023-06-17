@@ -12,6 +12,7 @@ import {
   $,
   useId,
   useOnWindow,
+  useTask$,
 } from '@builder.io/qwik';
 
 import { computePosition, flip } from '@floating-ui/dom';
@@ -57,7 +58,7 @@ import { computePosition, flip } from '@floating-ui/dom';
 
     - Get it working
       - Context - 🏗️
-      - Key events work 
+      - Key events work - ✅
       - Listbox toggles - ✅
       - Floating UI anchor working - ✅
       - Listbox is anchored to a wrapper containing the input and button - ✅
@@ -76,7 +77,7 @@ import { computePosition, flip } from '@floating-ui/dom';
     - Maybe: selected value context for the combobox?
     
 
-    APG Type:
+    APG Type: 
     List autocomplete with manual selection
 
     Refer to Combobox Pattern for General Changes & Listbox Pattern for Listbox Changes
@@ -278,20 +279,26 @@ export const AutocompleteInput = component$((props: InputProps) => {
 
   */
 
-  useVisibleTask$(({ track }) => {
+  useTask$(({ track }) => {
     track(() => contextService.inputValue.value);
-
-    if (
-      contextService.inputValue.value.length > 0 &&
-      document.activeElement === ref.value
-    ) {
-      contextService.isExpanded.value = true;
-    }
 
     contextService.filteredOptions = contextService.options.filter(
       (option: Signal) => {
         const optionValue = option.value.getAttribute('optionValue');
         const inputValue = contextService.inputValue.value;
+
+        if (
+          contextService.inputValue.value.length >= 0 &&
+          document.activeElement === ref.value
+        ) {
+          if (optionValue === inputValue) {
+            contextService.isExpanded.value = false;
+          } else if (optionValue.match(new RegExp(inputValue, 'i'))) {
+            contextService.isExpanded.value = true;
+          }
+        } else {
+          contextService.isExpanded.value = false;
+        }
 
         return optionValue.match(new RegExp(inputValue, 'i'));
       }
@@ -322,8 +329,9 @@ export const AutocompleteInput = component$((props: InputProps) => {
       aria-controls={contextService.listBoxId}
       bind:value={contextService.inputValue}
       onKeyDown$={(e) => {
-        if (e.key === 'ArrowDown' && contextService.options?.[0]?.value) {
-          contextService.filteredOptions[0].value?.focus();
+        if (e.key === 'ArrowDown') {
+          contextService.isExpanded.value = true;
+          contextService.filteredOptions[0]?.value?.focus();
         }
       }}
       {...props}
@@ -439,6 +447,7 @@ export const AutocompleteOption = component$((props: OptionProps) => {
         if (e.key === 'Enter' || e.key === ' ') {
           contextService.inputValue.value = props.optionValue;
           contextService.isExpanded.value = false;
+          console.log('inside option!');
           const inputElement = contextService.triggerRef.value
             ?.firstElementChild as HTMLElement;
           inputElement?.focus();
