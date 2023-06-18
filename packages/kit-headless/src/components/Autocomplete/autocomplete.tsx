@@ -15,6 +15,10 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 
+import { KeyCode } from '../../utils/key-code.type';
+
+// import { Popover, PopoverContent, PopoverTrigger } from '../popover';
+
 import { computePosition, flip } from '@floating-ui/dom';
 
 /*
@@ -22,7 +26,7 @@ import { computePosition, flip } from '@floating-ui/dom';
     Input Textbox - Role Combobox
     Listbox - Role Listbox
 
-    Notes:
+    Notes: 
 
     https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/
 
@@ -126,6 +130,7 @@ interface AutocompleteContext {
   isExpanded: Signal<boolean>;
   triggerRef: Signal<HTMLElement | undefined>;
   listBoxRef: Signal<HTMLElement | undefined>;
+  labelRef: Signal<HTMLElement | undefined>;
   listBoxId: string;
   inputId: string;
   activeOptionId: Signal<string | null>;
@@ -147,6 +152,7 @@ export const AutocompleteRoot = component$(
     const isExpanded = useSignal(false);
     const triggerRef = useSignal<HTMLElement>();
     const listBoxRef = useSignal<HTMLElement>();
+    const labelRef = useSignal<HTMLElement>();
     const inputValue = useSignal(defaultValue ? defaultValue : '');
     const listBoxId = useId();
     const inputId = useId();
@@ -159,6 +165,7 @@ export const AutocompleteRoot = component$(
       isExpanded,
       triggerRef,
       listBoxRef,
+      labelRef,
       inputValue,
       listBoxId,
       inputId,
@@ -203,18 +210,19 @@ export const AutocompleteRoot = component$(
       }
     });
 
-    // useOnWindow(
-    //   'click',
-    //   $((e) => {
-    //     const target = e.target as HTMLElement;
-    //     if (
-    //       contextService.isExpanded.value === true &&
-    //       !target.contains(contextService.triggerRef.value as Node)
-    //     ) {
-    //       contextService.isExpanded.value = false;
-    //     }
-    //   })
-    // );
+    useOnWindow(
+      'click',
+      $((e) => {
+        const target = e.target as HTMLElement;
+        if (
+          contextService.isExpanded.value === true &&
+          !contextService.listBoxRef.value?.contains(target) &&
+          !contextService.triggerRef.value?.contains(target)
+        ) {
+          contextService.isExpanded.value = false;
+        }
+      })
+    );
 
     return (
       <div
@@ -237,7 +245,10 @@ export const AutocompleteRoot = component$(
 export type AutocompleteLabelProps = QwikIntrinsicElements['label'];
 
 export const AutocompleteLabel = component$((props: AutocompleteLabelProps) => {
+  const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
+  contextService.labelRef = ref;
+
   return (
     <label {...props} for={contextService.inputId}>
       <Slot />
@@ -268,17 +279,6 @@ export const AutocompleteInput = component$((props: InputProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
 
-  /*
-
-    If we save the file, and then type the exact option value, 
-    then click the down arrow key to focus the first item in the array
-
-    it will focus the 2nd thing in the entire array, not the first thing.
-
-    works fine when we remount the component in storybook
-
-  */
-
   useTask$(({ track }) => {
     track(() => contextService.inputValue.value);
 
@@ -303,8 +303,6 @@ export const AutocompleteInput = component$((props: InputProps) => {
         return optionValue.match(new RegExp(inputValue, 'i'));
       }
     );
-
-    console.log(contextService.filteredOptions);
 
     // Probably better to refactor Signal type later
     contextService.options.map((option: Signal) => {
@@ -356,6 +354,7 @@ export const AutocompleteButton = component$((props: ButtonProps) => {
         ),
         props.onClick$,
       ]}
+      tabIndex={-1}
     >
       <Slot />
     </button>
@@ -371,25 +370,18 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
   const contextService = useContext(AutocompleteContextId);
   contextService.listBoxRef = ref;
 
-  // useStylesScoped$(`
-  //   ul {
-  //     width: 100%;
-  //     padding-left: 0;
-  //     margin-top: 0px;
-  //   }
-  // `);
-
   return (
     <ul
       id={contextService.listBoxId}
       ref={ref}
       style={`
-      display: ${
-        contextService.isExpanded.value ? 'block' : 'none'
-      }; position: absolute; ${props.style}
-  `}
+        display: ${
+          contextService.isExpanded.value ? 'block' : 'none'
+        }; position: absolute; z-index: 1; ${props.style}
+    `}
       role="listbox"
       {...props}
+      // aria-label={!contextService.labelRef.value ? contextService.inputValue.value : undefined}
       onKeyDown$={(e) => {
         const availableOptions = contextService.filteredOptions.map(
           (option) => option.value
@@ -447,7 +439,6 @@ export const AutocompleteOption = component$((props: OptionProps) => {
         if (e.key === 'Enter' || e.key === ' ') {
           contextService.inputValue.value = props.optionValue;
           contextService.isExpanded.value = false;
-          console.log('inside option!');
           const inputElement = contextService.triggerRef.value
             ?.firstElementChild as HTMLElement;
           inputElement?.focus();
