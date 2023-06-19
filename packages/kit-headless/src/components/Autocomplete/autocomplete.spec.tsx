@@ -8,7 +8,6 @@ import {
   AutocompleteListbox,
   AutocompleteOption,
 } from './autocomplete';
-import './autocompleteTest.css';
 
 const fruits = [
   'Apple',

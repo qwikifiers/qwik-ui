@@ -13,7 +13,10 @@ import {
   useId,
   useOnWindow,
   useTask$,
+  QwikKeyboardEvent,
 } from '@builder.io/qwik';
+
+import { isBrowser, isServer } from '@builder.io/qwik/build';
 
 import { KeyCode } from '../../utils/key-code.type';
 
@@ -226,14 +229,17 @@ export const AutocompleteRoot = component$(
 
     return (
       <div
-        onKeyDown$={(e) => {
-          if (e.key === 'Escape') {
-            contextService.isExpanded.value = false;
-            const inputElement = contextService.triggerRef.value
-              ?.firstElementChild as HTMLElement;
-            inputElement?.focus();
-          }
-        }}
+        onKeyDown$={[
+          $((e: QwikKeyboardEvent) => {
+            if (e.key === 'Escape') {
+              contextService.isExpanded.value = false;
+              const inputElement = contextService.triggerRef.value
+                ?.firstElementChild as HTMLElement;
+              inputElement?.focus();
+            }
+          }),
+          props.onKeyDown$,
+        ]}
         {...props}
       >
         <Slot />
@@ -279,7 +285,13 @@ export const AutocompleteInput = component$((props: InputProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
 
-  useTask$(({ track }) => {
+  /* 
+    previously had useTask here, but noticed whenever it first renders, 
+    it won't focus the first option when hitting the down arrow key to open the listbox
+    Also, all of our tests break on useTask, BUT it seems to work fine in the browser with useTask.
+    Very odd.
+  */
+  useVisibleTask$(({ track }) => {
     track(() => contextService.inputValue.value);
 
     contextService.filteredOptions = contextService.options.filter(
@@ -326,12 +338,15 @@ export const AutocompleteInput = component$((props: InputProps) => {
       aria-autocomplete="list"
       aria-controls={contextService.listBoxId}
       bind:value={contextService.inputValue}
-      onKeyDown$={(e) => {
-        if (e.key === 'ArrowDown') {
-          contextService.isExpanded.value = true;
-          contextService.filteredOptions[0]?.value?.focus();
-        }
-      }}
+      onKeyDown$={[
+        $((e: QwikKeyboardEvent) => {
+          if (e.key === 'ArrowDown') {
+            contextService.isExpanded.value = true;
+            contextService.filteredOptions[0]?.value?.focus();
+          }
+        }),
+        props.onKeyDown$,
+      ]}
       {...props}
     />
   );
@@ -382,38 +397,41 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
       role="listbox"
       {...props}
       // aria-label={!contextService.labelRef.value ? contextService.inputValue.value : undefined}
-      onKeyDown$={(e) => {
-        const availableOptions = contextService.filteredOptions.map(
-          (option) => option.value
-        );
+      onKeyDown$={[
+        $((e: QwikKeyboardEvent) => {
+          const availableOptions = contextService.filteredOptions.map(
+            (option) => option.value
+          );
 
-        const target = e.target as HTMLElement;
-        const currentIndex = availableOptions.indexOf(target);
+          const target = e.target as HTMLElement;
+          const currentIndex = availableOptions.indexOf(target);
 
-        if (e.key === 'ArrowDown') {
-          if (currentIndex === availableOptions.length - 1) {
+          if (e.key === 'ArrowDown') {
+            if (currentIndex === availableOptions.length - 1) {
+              availableOptions[0]?.focus();
+            } else {
+              availableOptions[currentIndex + 1]?.focus();
+            }
+          }
+
+          if (e.key === 'ArrowUp') {
+            if (currentIndex <= 0) {
+              availableOptions[availableOptions.length - 1]?.focus();
+            } else {
+              availableOptions[currentIndex - 1]?.focus();
+            }
+          }
+
+          if (e.key === 'Home') {
             availableOptions[0]?.focus();
-          } else {
-            availableOptions[currentIndex + 1]?.focus();
           }
-        }
 
-        if (e.key === 'ArrowUp') {
-          if (currentIndex <= 0) {
+          if (e.key === 'End') {
             availableOptions[availableOptions.length - 1]?.focus();
-          } else {
-            availableOptions[currentIndex - 1]?.focus();
           }
-        }
-
-        if (e.key === 'Home') {
-          availableOptions[0]?.focus();
-        }
-
-        if (e.key === 'End') {
-          availableOptions[availableOptions.length - 1]?.focus();
-        }
-      }}
+        }),
+        props.onKeyDown$,
+      ]}
     >
       <Slot />
     </ul>
@@ -425,25 +443,32 @@ export type OptionProps = { optionValue: string } & QwikIntrinsicElements['li'];
 export const AutocompleteOption = component$((props: OptionProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
+
   contextService.options = [...contextService.options, ref];
 
   return (
     <li
       ref={ref}
       role="option"
-      onClick$={() => {
-        contextService.inputValue.value = props.optionValue;
-        contextService.isExpanded.value = false;
-      }}
-      onKeyDown$={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+      onClick$={[
+        $(() => {
           contextService.inputValue.value = props.optionValue;
           contextService.isExpanded.value = false;
-          const inputElement = contextService.triggerRef.value
-            ?.firstElementChild as HTMLElement;
-          inputElement?.focus();
-        }
-      }}
+        }),
+        props.onClick$,
+      ]}
+      onKeyDown$={[
+        $((e: QwikKeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            contextService.inputValue.value = props.optionValue;
+            contextService.isExpanded.value = false;
+            const inputElement = contextService.triggerRef.value
+              ?.firstElementChild as HTMLElement;
+            inputElement?.focus();
+          }
+        }),
+        props.onKeyDown$,
+      ]}
       tabIndex={0}
       {...props}
     >
