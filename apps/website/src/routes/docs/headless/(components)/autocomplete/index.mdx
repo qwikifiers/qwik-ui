@@ -25,28 +25,33 @@ import { APITable } from '../../../../../components/api-table/api-table';
 
 <Example01>
   ```tsx
-  <AutocompleteRoot class="relative">
-    <AutocompleteLabel>Personal Trainers ⚡</AutocompleteLabel>
-    <AutocompleteTrigger>
-      <AutocompleteInput />
-      <AutocompleteButton>
+  <AutocompleteRoot class="relative text-white">
+    <AutocompleteLabel class="text-inherit font-semibold">
+      Personal Trainers ⚡
+    </AutocompleteLabel>
+    <AutocompleteTrigger class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
+      <AutocompleteInput class="w-44 bg-inherit px-2 pr-6" />
+      <AutocompleteButton class="w-6 h-6 group absolute right-0">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="currentColor"
           stroke-width="2"
+          class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
           stroke-linecap="round"
           stroke-linejoin="round"
-          style="width: 20px; height: 20px;"
         >
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
       </AutocompleteButton>
     </AutocompleteTrigger>
-    <AutocompleteListbox class="w-full bg-black">
+    <AutocompleteListbox class="w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
       {trainers.map((trainer, index) => (
-        <AutocompleteOption optionValue={trainer} key={index}>
+        <AutocompleteOption
+          optionValue={trainer}
+          key={index}
+          class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
+        >
           {trainer}
         </AutocompleteOption>
       ))}
@@ -93,48 +98,64 @@ import { APITable } from '../../../../../components/api-table/api-table';
 <KeyboardInteractionTable keyDescriptors={
   [
     {
-      keyTitle: 'Space',
-      description: 'Expand or collapse the `AccordionItem`.',
-    },
-    {
-      keyTitle: 'Enter',
-      description: 'Expand or collapse the `AccordionItem`.',
-    },
-    {
       keyTitle: 'Tab',
-      description: 'Moves focus to the next focusable element.',
+      description: 'Moves focus to the next focusable element or option.',
     },
     {
       keyTitle: 'Shift + Tab',
-      description: 'Moves focus to the previous focusable element.',
+      description: 'Moves focus to the previous focusable element or option.',
+    },
+    {
+      keyTitle: 'DownArrow',
+      description: "Opens the listbox and moves focus to the first option. When focus is on an option, moves focus to the next option.  If there isn't one, it will go back to the first option.",
+    },
+    {
+      keyTitle: 'UpArrow',
+      description: "When focus is on an option, moves focus to the previous option. If there isn't one, it will go back to the last option.",
+    },
+    {
+      keyTitle: 'Enter / Space',
+      description: `Selects the option when focused. The listbox will close and the selected option becomes the input's value.`,
+    },
+    {
+      keyTitle: 'Escape',
+      description: 'Closes the listbox.',
     },
     {
       keyTitle: 'Home',
-      description: 'When on `AccordionItem`, Moves focus to the first `AccordionItem`.',
+      description: 'When the input is focused, the cursor moves to the start of the input value. When focused on any listbox option, focus is moved to the first option.',
     },
     {
       keyTitle: 'End',
-      description: 'When on `AccordionItem`, Moves focus to the last `AccordionItem`.',
+      description: 'When the input is focused, the cursor moves to the end of the input value. When focused on any listbox option, focus is moved to the last option.',
+    },
+    {
+      keyTitle: 'Delete',
+      description: 'When text is selected in the input, deletes the selected text.',
     },
 
 ]
 }/>
 
+Adheres to the [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) WAI-ARIA design pattern. See the W3C Editable Combobox With List Autocomplete Example for more information.
+
 ## API
 
-### AccordionItem
+By default, the API holds available attributes of both native DOM elements and custom Qwik elements. This is thanks to **QwikIntrinsicElements**. Here are some of the notable API's for this component.
+
+### AutocompleteRoot
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the accordion container.',
+      description: 'CSS classes to apply to the autocomplete container.',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the accordion container.',
+      description: 'inline CSS styles to apply to the autocomplete container.',
     },
     {
       name: 'label',
