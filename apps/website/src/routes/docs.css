@@ -17,3 +17,21 @@
 .docs h4 {
   @apply text-lg mb-6;
 }
+
+/* Styles Jack has added / will change */
+.docs a {
+  @apply border-b-2 border-[#00B9FC] font-bold;
+}
+
+/* adds sufficient padding to the table items */
+.docs td article {
+  @apply pt-4 pb-4 mb-0;
+}
+
+.docs p {
+  @apply mb-4;
+}
+
+.docs td p {
+  @apply mb-0;
+}
