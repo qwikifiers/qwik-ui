@@ -266,6 +266,9 @@ importers:
 
   packages/kit-headless:
     dependencies:
+      '@builder.io/qwik':
+        specifier: '>1.1.0'
+        version: 1.1.5(undici@5.22.0)
       '@floating-ui/dom':
         specifier: 1.0.10
         version: 1.0.10
@@ -274,6 +277,9 @@ importers:
 
   packages/kit-tailwind:
     dependencies:
+      '@builder.io/qwik':
+        specifier: '>1.1.0'
+        version: 1.1.5(undici@5.22.0)
       daisyui:
         specifier: ^2.50.1
         version: 2.50.1(autoprefixer@10.4.13)(postcss@8.4.23)(ts-node@10.9.1)
@@ -2085,7 +2091,6 @@ packages:
       undici: ^5.14.0
     dependencies:
       undici: 5.22.0
-    dev: true
 
   /@cloudflare/kv-asset-handler@0.2.0:
     resolution:
@@ -9817,7 +9822,6 @@ packages:
     engines: { node: '>=10.16.0' }
     dependencies:
       streamsearch: 1.1.0
-    dev: true
 
   /bytes@3.0.0:
     resolution:
@@ -23183,7 +23187,6 @@ packages:
         integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==,
       }
     engines: { node: '>=10.0.0' }
-    dev: true
 
   /strict-uri-encode@2.0.0:
     resolution:
@@ -24403,7 +24406,6 @@ packages:
     engines: { node: '>=14.0' }
     dependencies:
       busboy: 1.6.0
-    dev: true
 
   /unfetch@4.2.0:
     resolution:
