@@ -8,6 +8,7 @@ import {
   useTask$,
   $,
   useSignal,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { KeyCode } from '../../utils/key-code.type';
@@ -22,15 +23,18 @@ export interface TabProps {
 
 export const Tab = component$((props: TabProps) => {
   const contextService = useContext(tabsContextId);
-
+  const isSelectedSig = useSignal(false);
   const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
-  const uniqueId = useId();
+  const matchedTabPanelIdSig = useSignal<string | undefined>(undefined);
+  const uniqueTabId = useId();
 
+  // Index task
   useTask$(async ({ cleanup }) => {
     if (isServer) {
       serverAssignedIndexSig.value =
         await contextService.getNextServerAssignedTabIndex$();
     }
+
     if (isBrowser) {
       contextService.reIndexTabs$();
     }
@@ -39,47 +43,40 @@ export const Tab = component$((props: TabProps) => {
     });
   });
 
+  // is selected task
+  useTask$(async ({ track }) => {
+    if (isServer) {
+      isSelectedSig.value = await contextService.isIndexSelected$(
+        serverAssignedIndexSig.value
+      );
+      return;
+    }
+    isSelectedSig.value = await track(() =>
+      contextService.isTabSelected$(uniqueTabId)
+    );
+  });
+
+  // disabled task
   useTask$(({ track }) => {
     track(() => props.disabled);
 
     if (props.disabled) {
-      contextService.updateTabState$();
+      contextService.updateTabState$(uniqueTabId, { disabled: true });
     }
   });
 
-  const currentTabIndexSig = useComputed$(() => {
-    if (isServer) {
-      return serverAssignedIndexSig.value;
-    }
-    return;
-  });
-
-  const isSelectedSignalSig = useComputed$(() => {
-    if (isServer) {
-      return (
-        serverAssignedIndexSig.value === contextService.selectedIndexSig.value
-      );
-    }
-    return (
-      contextService.selectedIndexSig.value ===
-      contextService.tabsMap[uniqueId]?.index
+  // matched panel id task
+  useVisibleTask$(async ({ track }) => {
+    matchedTabPanelIdSig.value = await track(() =>
+      contextService.getMatchedPanelId$(uniqueTabId)
     );
   });
 
-  const matchedTabPanelId = useComputed$(
-    () => contextService.tabsMap[uniqueId]?.tabPanelId
-  );
-
   const selectTab$ = $(() => {
-    // TODO: try to move this to the Tabs component
-
     if (props.disabled) {
       return;
     }
-    contextService.selectedIndexSig.value =
-      contextService.tabsMap[uniqueId]?.index || 0;
-
-    contextService.selectTab$(uniqueId);
+    contextService.selectTab$(uniqueTabId);
   });
 
   const selectIfAutomatic$ = $(() => {
@@ -90,21 +87,19 @@ export const Tab = component$((props: TabProps) => {
 
   return (
     <button
-      id={'tab-' + uniqueId}
-      data-tab-id={uniqueId}
+      id={'tab-' + uniqueTabId}
+      data-tab-id={uniqueTabId}
       type="button"
       role="tab"
       disabled={props.disabled}
       aria-disabled={props.disabled}
       onFocus$={selectIfAutomatic$}
       onMouseEnter$={selectIfAutomatic$}
-      aria-selected={isSelectedSignalSig.value}
-      tabIndex={isSelectedSignalSig.value ? 0 : -1}
-      aria-controls={'tabpanel-' + matchedTabPanelId.value}
+      aria-selected={isSelectedSig.value}
+      tabIndex={isSelectedSig.value ? 0 : -1}
+      aria-controls={'tabpanel-' + matchedTabPanelIdSig.value}
       class={`${
-        isSelectedSignalSig.value
-          ? `selected ${props.selectedClassName || ''}`
-          : ''
+        isSelectedSig.value ? `selected ${props.selectedClassName || ''}` : ''
       }${props.class ? ` ${props.class}` : ''}`}
       onClick$={() => {
         selectTab$();

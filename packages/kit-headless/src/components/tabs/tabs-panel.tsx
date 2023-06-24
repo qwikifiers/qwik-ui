@@ -4,8 +4,8 @@ import {
   useId,
   Slot,
   useTask$,
-  useComputed$,
   useSignal,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { isBrowser, isServer } from '@builder.io/qwik/build';
@@ -16,20 +16,17 @@ export interface TabPanelProps {
 
 export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   const contextService = useContext(tabsContextId);
-
+  const isSelectedSig = useSignal(false);
   const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
+  const matchedTabIdSig = useSignal<string | undefined>(undefined);
 
   const panelUID = useId();
 
-  const matchedTabId = useComputed$(
-    () => contextService.tabPanelsMap[panelUID]?.tabId
-  );
-
-  useTask$(({ cleanup }) => {
+  // Index task
+  useTask$(async ({ cleanup }) => {
     if (isServer) {
       serverAssignedIndexSig.value =
-        contextService.lastAssignedPanelIndexSig.value;
-      contextService.lastAssignedPanelIndexSig.value++;
+        await contextService.getNextServerAssignedPanelIndex$();
     }
     if (isBrowser) {
       contextService.reIndexTabs$();
@@ -39,16 +36,24 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
     });
   });
 
-  const isSelectedSignal = useComputed$(() => {
+  // matched panel id task
+  useVisibleTask$(async ({ track }) => {
+    matchedTabIdSig.value = await track(() =>
+      contextService.getMatchedTabId$(panelUID)
+    );
+  });
+
+  // is selected task
+  useTask$(async ({ track }) => {
     if (isServer) {
-      return (
-        serverAssignedIndexSig.value === contextService.selectedIndexSig.value
+      isSelectedSig.value = await contextService.isIndexSelected$(
+        serverAssignedIndexSig.value
       );
+      return;
     }
 
-    return (
-      contextService.selectedIndexSig.value ===
-      contextService.tabPanelsMap[panelUID]?.index
+    isSelectedSig.value = await track(() =>
+      contextService.isPanelSelected$(panelUID)
     );
   });
 
@@ -58,12 +63,12 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
       id={'tabpanel-' + panelUID}
       role="tabpanel"
       tabIndex={0}
-      hidden={isSelectedSignal.value ? (null as unknown as undefined) : true}
-      aria-labelledby={`tab-${matchedTabId.value}`}
-      class={`${isSelectedSignal.value ? '' : 'is-hidden'}${
+      hidden={isSelectedSig.value ? (null as unknown as undefined) : true}
+      aria-labelledby={`tab-${matchedTabIdSig.value}`}
+      class={`${isSelectedSig.value ? '' : 'is-hidden'}${
         props.class ? ` ${props.class}` : ''
       }`}
-      style={isSelectedSignal.value ? 'display: block' : 'display: none'}
+      style={isSelectedSig.value ? 'display: block' : 'display: none'}
     >
       <Slot />
     </div>

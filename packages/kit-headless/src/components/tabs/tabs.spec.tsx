@@ -1,4 +1,4 @@
-import { component$, useSignal, useStore, $, QRL } from '@builder.io/qwik';
+import { component$, useSignal, useStore, $ } from '@builder.io/qwik';
 import { Tab } from './tab';
 import { Tabs } from './tabs';
 import { TabList } from './tabs-list';
@@ -160,6 +160,7 @@ describe('Tabs', () => {
 
     cy.checkA11yForComponent();
   });
+
   it(`GIVEN 3 tabs
       WHEN clicking the middle one
       THEN render the middle panel`, () => {
@@ -182,7 +183,7 @@ describe('Tabs', () => {
     cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 2 Panel');
   });
 
-  it.only(`GIVEN 3 tabs
+  it(`GIVEN 3 tabs
       WHEN clicking the middle one
       THEN onSelectedIndexChange should be called`, () => {
     cy.mount(<ThreeTabsComponent />);
@@ -297,6 +298,8 @@ describe('Tabs', () => {
         cy.mount(<ThreeTabsComponent showDisableButton={true} />);
 
         cy.findByRole('button', { name: 'Toggle middle tab disabled' }).click();
+
+        cy.findByRole('tab', { name: /Tab 2/i }).should('be.disabled');
 
         cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
 

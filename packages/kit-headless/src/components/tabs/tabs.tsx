@@ -67,6 +67,13 @@ export const Tabs = component$((props: TabsProps) => {
     selectedIndexSig.value = props.selectedIndex || 0;
   });
 
+  useTask$(({ track }) => {
+    track(() => selectedIndexSig.value);
+    if (props.onSelectedIndexChange$) {
+      props.onSelectedIndexChange$(selectedIndexSig.value);
+    }
+  });
+
   const selectedTabIdSig = useSignal<string>('');
   const reIndexTabsSig = useSignal(true);
 
@@ -80,13 +87,22 @@ export const Tabs = component$((props: TabsProps) => {
     reIndexTabsSig.value = true;
   });
 
-  const selectTab$ = $((tabId: string) => {
-    selectedTabIdSig.value = tabId;
+  const getMatchedPanelId$ = $((tabId: string) => {
+    return tabsMap[tabId]?.tabPanelId;
   });
 
-  const updateTabState$ = $((tabIndex: number, state: Partial<TabInfo>) => {
-    const prevState = tabPairsList[tabIndex];
-    tabPairsList[tabIndex] = { ...prevState, ...state };
+  const getMatchedTabId$ = $((panelId: string) => {
+    return tabPanelsMap[panelId]?.tabId;
+  });
+
+  const selectTab$ = $((tabId: string) => {
+    selectedTabIdSig.value = tabId;
+    selectedIndexSig.value = tabsMap[tabId]?.index || 0;
+  });
+
+  const updateTabState$ = $((tabId: string, state: Partial<TabInfo>) => {
+    const prevState = tabsMap[tabId];
+    tabsMap[tabId] = { ...prevState, ...state };
   });
 
   const getNextServerAssignedTabIndex$ = $(() => {
@@ -99,7 +115,17 @@ export const Tabs = component$((props: TabsProps) => {
     return lastAssignedPanelIndexSig.value;
   });
 
-  const setSelectedIndex$ = $((index: number) => {});
+  const isIndexSelected$ = $((index?: number) => {
+    return selectedIndexSig.value === index;
+  });
+
+  const isTabSelected$ = $((tabId: string) => {
+    return selectedIndexSig.value === tabsMap[tabId]?.index;
+  });
+
+  const isPanelSelected$ = $((panelId: string) => {
+    return selectedIndexSig.value === tabPanelsMap[panelId]?.index;
+  });
 
   const onTabKeyDown$ = $((key: KeyCode, tabId: string) => {
     const tabsRootElement = ref.value;
@@ -156,18 +182,17 @@ export const Tabs = component$((props: TabsProps) => {
 
   const contextService: TabsContext = {
     selectTab$,
-    setSelectedIndex$,
+    isTabSelected$,
+    isPanelSelected$,
+    updateTabState$,
     getNextServerAssignedTabIndex$,
     getNextServerAssignedPanelIndex$,
+    getMatchedPanelId$,
+    getMatchedTabId$,
+    isIndexSelected$,
     reIndexTabs$,
     onTabKeyDown$,
-    selectedTabIdSig,
-    selectedIndexSig,
-    tabsMap,
-    tabPanelsMap,
     behavior,
-    lastAssignedTabIndexSig,
-    lastAssignedPanelIndexSig,
   };
 
   useContextProvider(tabsContextId, contextService);
