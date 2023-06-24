@@ -21,6 +21,9 @@
   },
   "private": false,
   "scripts": {},
+  "peerDependencies": {
+    "@builder.io/qwik": ">1.1.0"
+  },
   "dependencies": {
     "@floating-ui/dom": "1.0.10"
   }
