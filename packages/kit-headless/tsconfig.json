@@ -33,10 +33,10 @@
       "path": "./.storybook/tsconfig.json"
     },
     {
-      "path": "./cypress/tsconfig.cy.json"
+      "path": "./tsconfig.editor.json"
     },
     {
-      "path": "./tsconfig.editor.json"
+      "path": "./cypress/tsconfig.json"
     }
   ]
 }

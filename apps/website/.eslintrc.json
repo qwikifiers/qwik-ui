@@ -12,7 +12,9 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "parser": "@typescript-eslint/parser",
+    "tsconfigRootDir": "__dirname"
   },
   "plugins": ["@typescript-eslint"],
   "ignorePatterns": ["!**/*"],

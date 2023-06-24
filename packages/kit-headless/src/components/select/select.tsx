@@ -7,12 +7,20 @@ import {
   useSignal,
   Signal,
   $,
-  useOnWindow,
   useStore,
   useVisibleTask$,
   QwikIntrinsicElements,
+  useOnDocument,
 } from '@builder.io/qwik';
 import { computePosition, flip } from '@floating-ui/dom';
+
+/*
+
+  TODO:
+
+  Add a required prop.
+
+*/
 
 interface SelectRootContextService {
   options: Signal<HTMLElement | undefined>[];
@@ -83,21 +91,19 @@ export const SelectRoot = component$(
         listBox?.focus();
       }
 
-
       if (expanded === false) {
         trigger?.focus();
       }
     });
 
-    useOnWindow(
+    useOnDocument(
       'click',
       $((e) => {
         const target = e.target as HTMLElement;
         if (
           contextService.isExpanded.value === true &&
-          e.target !== contextService.triggerRef.value &&
-          target.getAttribute('role') !== 'option' &&
-          target.nodeName !== 'LABEL'
+          !contextService.listBoxRef.value?.contains(target) &&
+          !contextService.triggerRef.value?.contains(target)
         ) {
           contextService.isExpanded.value = false;
         }

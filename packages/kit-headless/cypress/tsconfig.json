@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["cypress", "@testing-library/cypress", "node"]
+    "types": ["cypress", "@testing-library/cypress", "node"],
+    "sourceMap": false
   },
   "include": [
     "support/**/*.ts",
