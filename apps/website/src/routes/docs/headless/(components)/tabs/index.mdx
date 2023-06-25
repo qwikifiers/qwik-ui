@@ -111,7 +111,6 @@ import { APITable } from '../../../../../components/api-table/api-table';
       description: 'In "vertical mode", moves focus to the previous tab.',
     },
     {
-      /* {
       keyTitle: 'Home',
       description: 'Moves focus to the first tab.',
     },
@@ -126,7 +125,6 @@ import { APITable } from '../../../../../components/api-table/api-table';
     {
       keyTitle: 'PageDown',
       description: 'Moves focus to the first tab.',
-    }, */
     },
   ]}
 />
@@ -144,23 +142,21 @@ import { APITable } from '../../../../../components/api-table/api-table';
         'Toggle between automatic or manual. The automatic behavior moves between tabs when hover. The manual behavior moves between tabs on click.',
     },
     {
+      name: 'selectedIndex',
+      type: 'number',
+      description: 'A way to set the selected index programmatically',
+    },
+    {
       name: 'vertical',
       type: 'boolean',
       description:
         'If set to true, the behavior of UpArrow and DownArrow will navigate between tabs vertically instead of horizontally.',
     },
-  ]}
-/>
-
-### TabList
-
-<APITable
-  propDescriptors={[
     {
-      name: 'labelledBy',
-      type: 'string',
+      name: 'onSelectedIndexChange$',
+      type: '(index: number) => void',
       description:
-        'The aria-labelledby for this tablist. Mainly for accessibility purpose.',
+        'An event hook that getting notified whenever the selected index changes',
     },
   ]}
 />
@@ -176,8 +172,13 @@ import { APITable } from '../../../../../components/api-table/api-table';
     },
     {
       name: 'onClick',
-      type: 'PropFunction<() => void>',
+      type: '(event: QwikMouseEvent) => void',
       description: 'A custom click handler to wire to tab click event',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Set the disabled state of a specific tab',
     },
   ]}
 />

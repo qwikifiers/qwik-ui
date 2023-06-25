@@ -15,5 +15,5 @@ export interface TabsContext {
   isIndexSelected$: QRL<(index?: number) => boolean>;
   isTabSelected$: QRL<(tabId: string) => boolean>;
   isPanelSelected$: QRL<(panelId: string) => boolean>;
-  behavior: Behavior;
+  selectIfAutomatic$: QRL<(tabId: string) => void>;
 }

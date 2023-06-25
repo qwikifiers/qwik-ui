@@ -2,7 +2,7 @@ import { component$, useSignal, useStore, $ } from '@builder.io/qwik';
 import { Tab } from './tab';
 import { Tabs } from './tabs';
 import { TabList } from './tabs-list';
-import { TabPanel } from './tabs-panel';
+import { TabPanel } from './tab-panel';
 
 interface ThreeTabsCompProps {
   isMiddleDisabled?: boolean;

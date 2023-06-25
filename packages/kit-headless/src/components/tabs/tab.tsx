@@ -1,25 +1,24 @@
 import {
-  PropFunction,
   component$,
   useContext,
   useId,
   Slot,
-  useComputed$,
   useTask$,
   $,
   useSignal,
   useVisibleTask$,
+  QwikIntrinsicElements,
+  type QwikMouseEvent,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { KeyCode } from '../../utils/key-code.type';
 import { isBrowser, isServer } from '@builder.io/qwik/build';
 
-export interface TabProps {
-  onClick?: PropFunction<() => void>;
-  class?: string;
+export type TabProps = {
+  onClick$?: (event: QwikMouseEvent) => void;
   selectedClassName?: string;
   disabled?: boolean;
-}
+} & QwikIntrinsicElements['button'];
 
 export const Tab = component$((props: TabProps) => {
   const contextService = useContext(tabsContextId);
@@ -28,8 +27,7 @@ export const Tab = component$((props: TabProps) => {
   const matchedTabPanelIdSig = useSignal<string | undefined>(undefined);
   const uniqueTabId = useId();
 
-  // Index task
-  useTask$(async ({ cleanup }) => {
+  useTask$(async function indexInitTask({ cleanup }) {
     if (isServer) {
       serverAssignedIndexSig.value =
         await contextService.getNextServerAssignedTabIndex$();
@@ -43,21 +41,20 @@ export const Tab = component$((props: TabProps) => {
     });
   });
 
-  // is selected task
-  useTask$(async ({ track }) => {
+  useTask$(async function isSelectedTask({ track }) {
+    const isTabSelected = await track(() =>
+      contextService.isTabSelected$(uniqueTabId)
+    );
     if (isServer) {
       isSelectedSig.value = await contextService.isIndexSelected$(
         serverAssignedIndexSig.value
       );
       return;
     }
-    isSelectedSig.value = await track(() =>
-      contextService.isTabSelected$(uniqueTabId)
-    );
+    isSelectedSig.value = isTabSelected;
   });
 
-  // disabled task
-  useTask$(({ track }) => {
+  useTask$(function disabledTask({ track }) {
     track(() => props.disabled);
 
     if (props.disabled) {
@@ -65,24 +62,14 @@ export const Tab = component$((props: TabProps) => {
     }
   });
 
-  // matched panel id task
-  useVisibleTask$(async ({ track }) => {
+  useVisibleTask$(async function setMatchedTabPanelIdTask({ track }) {
     matchedTabPanelIdSig.value = await track(() =>
       contextService.getMatchedPanelId$(uniqueTabId)
     );
   });
 
-  const selectTab$ = $(() => {
-    if (props.disabled) {
-      return;
-    }
-    contextService.selectTab$(uniqueTabId);
-  });
-
   const selectIfAutomatic$ = $(() => {
-    if (contextService.behavior === 'automatic') {
-      selectTab$();
-    }
+    contextService.selectIfAutomatic$(uniqueTabId);
   });
 
   return (
@@ -101,12 +88,13 @@ export const Tab = component$((props: TabProps) => {
       class={`${
         isSelectedSig.value ? `selected ${props.selectedClassName || ''}` : ''
       }${props.class ? ` ${props.class}` : ''}`}
-      onClick$={() => {
-        selectTab$();
-        if (props.onClick) {
-          props.onClick();
+      onClick$={(event) => {
+        contextService.selectTab$(uniqueTabId);
+        if (props.onClick$) {
+          props.onClick$(event);
         }
       }}
+      preventdefault:keydown
       onKeyDown$={(e) => {
         contextService.onTabKeyDown$(
           e.key as KeyCode,
