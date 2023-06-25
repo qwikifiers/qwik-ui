@@ -12,15 +12,10 @@ import {
   $,
   useId,
   useOnWindow,
-  useTask$,
   QwikKeyboardEvent,
 } from '@builder.io/qwik';
 
-import { isBrowser, isServer } from '@builder.io/qwik/build';
-
-import { KeyCode } from '../../utils/key-code.type';
-
-// import { Popover, PopoverContent, PopoverTrigger } from '../popover';
+import { isServer, isBrowser } from '@builder.io/qwik/build';
 
 import { computePosition, flip } from '@floating-ui/dom';
 

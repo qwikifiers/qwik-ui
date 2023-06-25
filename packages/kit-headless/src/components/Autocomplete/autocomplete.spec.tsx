@@ -132,7 +132,9 @@ describe('Autocomplete', () => {
     cy.checkA11yForComponent();
   });
 
-  it('Should open the listbox and aria-expanded is true on the button', () => {
+  it(`GIVEN a button is present that controls the visibility of a listbox 
+      WHEN the button is clicked,
+      THEN the listbox should open and the attribute 'aria-expanded' on the button should be set to 'true'.`, () => {
     cy.mount(<RegularAutocomplete />);
 
     cy.get('button').click().should('have.attr', 'aria-expanded', 'true');
@@ -140,7 +142,9 @@ describe('Autocomplete', () => {
     cy.findByRole('listbox').should('be.visible');
   });
 
-  it('Should close the listbox and aria-expanded is false on the button', () => {
+  it(`GIVEN a button is present that controls the visibility of a listbox, and the listbox is currently open,
+      WHEN the button is clicked,
+      THEN the listbox should close and the attribute 'aria-expanded' on the button should be set to 'false'.`, () => {
     cy.mount(<RegularAutocomplete />);
 
     cy.get('button')
@@ -151,7 +155,59 @@ describe('Autocomplete', () => {
     cy.findByRole('listbox').should('not.exist');
   });
 
-  it('Should input a value and the listbox should open', () => {
+  it(`GIVEN an open listbox
+      WHEN the user presses the 'Escape' key,
+      THEN the listbox should close and the attribute 'aria-expanded' on the button should be set to 'false'.`, () => {
+    cy.mount(<RegularAutocomplete />);
+
+    cy.get('button').click();
+
+    cy.findByRole('listbox');
+
+    cy.get('body').type(`{esc}`);
+
+    cy.findByRole('listbox').should('not.exist');
+  });
+
+  it(`GIVEN a focused option in a listbox,
+      WHEN the user presses the 'Home' key,
+      THEN the first option in the listbox should be focused.`, () => {
+    cy.mount(<RegularAutocomplete />);
+
+    cy.get('button').click();
+
+    cy.findByRole('option', { name: 'Yuzu' }).focus().type(`{home}`);
+
+    cy.get('li').first().should('have.focus');
+  });
+
+  it(`GIVEN a focused option in a listbox,
+      WHEN the user presses the 'End' key,
+      THEN the last option in the listbox should be focused.`, () => {
+    cy.mount(<RegularAutocomplete />);
+
+    cy.get('button').click();
+
+    cy.findByRole('option', { name: 'Apricot' }).focus().type(`{end}`);
+
+    cy.get('li').last().should('have.focus');
+  });
+
+  it(`GIVEN selected text in an input field,
+      WHEN the user presses the 'Delete' key,
+      THEN the text within the input field should be removed.`, () => {
+    cy.mount(<RegularAutocomplete />);
+
+    cy.get('input')
+      .type(`Here's some text!`)
+      .type(`{selectall}`)
+      .type(`{del}`)
+      .should('have.value', '');
+  });
+
+  it(`GIVEN an input field is present that is connected to a listbox,
+      WHEN a value is entered into the input field,
+      THEN the listbox should open.`, () => {
     cy.mount(<RegularAutocomplete />);
 
     cy.get('input').type(`Ap`);
@@ -159,7 +215,9 @@ describe('Autocomplete', () => {
     cy.findByRole('listbox').should('be.visible');
   });
 
-  it('Should input a value and select a value, with the input value as the option', () => {
+  it(`GIVEN an input field is present that is connected to a listbox,
+      WHEN a value is entered into the input field, and an option matching the input value is selected from the listbox,
+      THEN the selected value should populate the input field.`, () => {
     cy.mount(<RegularAutocomplete />);
 
     cy.get('input').type(`Ap`);
@@ -171,7 +229,9 @@ describe('Autocomplete', () => {
     cy.get('input').should('have.value', 'Apple');
   });
 
-  it('Should close the listbox when a value is selected', () => {
+  it(`GIVEN a listbox is open and populated with selectable options,
+      WHEN a value is selected from the listbox,
+      THEN the listbox should close.`, () => {
     cy.mount(<RegularAutocomplete />);
 
     cy.get('input').type(`Ap`);
@@ -183,7 +243,9 @@ describe('Autocomplete', () => {
     cy.findByRole('listbox').should('not.exist');
   });
 
-  it('Should focus the first filtered option when the down arrow is prssed', () => {
+  it(`GIVEN a listbox is open and populated with filtered options,
+      WHEN the down arrow key is pressed,
+      THEN the first filtered option in the listbox should receive focus.`, () => {
     cy.mount(<RegularAutocomplete />);
 
     cy.get('input').type(`Ba`);
@@ -195,23 +257,26 @@ describe('Autocomplete', () => {
     cy.get('li').filter(':visible').first().should('have.focus');
   });
 
-  it('Should select an option using the enter key, closing the listbox', () => {
+  it(`GIVEN a listbox is open and an option is in focus,
+      WHEN the enter key is pressed,
+      THEN the focused option should be selected and the listbox should close.`, () => {
     cy.mount(<RegularAutocomplete />);
 
-    cy.get('input').type(`Ba`);
+    cy.get('button').click();
 
     cy.findByRole('listbox').should('be.visible');
 
-    cy.get('input').type(`{downarrow}`);
+    cy.findByRole('option', { name: 'Guava' }).focus().type(`{enter}`);
 
-    cy.get('li').filter(':visible').first().type(`{enter}`);
-
-    cy.get('input').should('have.value', 'Banana');
+    cy.get('input').should('have.value', 'Guava');
 
     cy.findByRole('listbox').should('not.exist');
   });
 
-  it('Should go down an option and back up, using the up & down arrow keys', () => {
+  it(`GIVEN a listbox is open and populated with selectable options,
+      WHEN the down arrow key is pressed,
+      THEN focus should move to the next option in the list,
+      `, () => {
     cy.mount(<RegularAutocomplete />);
 
     cy.get('input').type(`A`);
@@ -220,12 +285,22 @@ describe('Autocomplete', () => {
 
     cy.get('input').type(`{downarrow}`);
 
-    cy.get('li').filter(':visible').first().type(`{downarrow}`);
+    cy.findByRole('option', { name: 'Apple' }).focus().type(`{downarrow}`);
 
     // grabs the 2nd element because the index is 1
     cy.get('li').filter(':visible').eq(1).should('have.focus');
+  });
 
-    cy.get('li').filter(':visible').eq(1).type(`{uparrow}`);
+  it(`GIVEN a listbox is open and populated with selectable options,
+      WHEN the up arrow key is pressed,
+      THEN focus should move back to the previous option in the list.`, () => {
+    cy.mount(<RegularAutocomplete />);
+
+    cy.get('input').type(`A`);
+
+    cy.findByRole('listbox').should('be.visible');
+
+    cy.findByRole('option', { name: 'Apricot' }).focus().type(`{uparrow}`);
 
     cy.get('li').filter(':visible').first().should('have.focus');
   });
