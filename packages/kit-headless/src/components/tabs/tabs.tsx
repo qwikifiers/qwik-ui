@@ -127,14 +127,14 @@ export const Tabs = component$((props: TabsProps) => {
     return selectedIndexSig.value === tabPanelsMap[panelId]?.index;
   });
 
-  const onTabKeyDown$ = $((key: KeyCode, tabId: string) => {
+  const onTabKeyDown$ = $((key: KeyCode, currentTabId: string) => {
     const tabsRootElement = ref.value;
 
     const enabledTabs = tabPairsList.filter((tabPair) => {
       return !tabsMap[tabPair.tabId].disabled;
     });
     const currentFocusedTabIndex = enabledTabs.findIndex(
-      (tabPair) => tabPair.tabId === tabId
+      (tabPair) => tabPair.tabId === currentTabId
     );
 
     if (
@@ -146,9 +146,7 @@ export const Tabs = component$((props: TabsProps) => {
       if (currentFocusedTabIndex < tabPairsList.length - 1) {
         nextTabId = enabledTabs[currentFocusedTabIndex + 1].tabId;
       }
-      tabsRootElement
-        ?.querySelector<HTMLElement>(`[data-tab-id='${nextTabId}']`)
-        ?.focus();
+      focusOnTab(nextTabId);
     }
 
     if (
@@ -160,22 +158,22 @@ export const Tabs = component$((props: TabsProps) => {
       if (currentFocusedTabIndex !== 0) {
         previousTabId = enabledTabs[currentFocusedTabIndex - 1].tabId;
       }
-      tabsRootElement
-        ?.querySelector<HTMLElement>(`[data-tab-id='${previousTabId}']`)
-        ?.focus();
+      focusOnTab(previousTabId);
     }
 
     if (key === KeyCode.Home || key === KeyCode.PageUp) {
-      tabsRootElement
-        ?.querySelector<HTMLElement>(`[data-tab-id='${enabledTabs[0].tabId}']`)
-        ?.focus();
+      const firstTabId = enabledTabs[0].tabId;
+      focusOnTab(firstTabId);
     }
 
     if (key === KeyCode.End || key === KeyCode.PageDown) {
+      const lastTabId = enabledTabs[enabledTabs.length - 1].tabId;
+      focusOnTab(lastTabId);
+    }
+
+    function focusOnTab(tabId: string) {
       tabsRootElement
-        ?.querySelector<HTMLElement>(
-          `[data-tab-id='${enabledTabs[enabledTabs.length - 1].tabId}']`
-        )
+        ?.querySelector<HTMLElement>(`[data-tab-id='${tabId}']`)
         ?.focus();
     }
   });
