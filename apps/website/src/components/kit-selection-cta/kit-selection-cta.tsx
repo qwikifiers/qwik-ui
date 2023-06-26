@@ -11,7 +11,7 @@ export default component$(({ kit }: Kit) => {
       hover:-outline-offset-4 hover:outline-4 hover:outline hover:outline-[var(--qwik-light-blue)] hover:scale-[1.025] 
             focus:-outline-offset-4 focus:outline-4 focus:outline focus:outline-[var(--qwik-light-blue)] focus:scale-[1.025] duration-150"
     >
-      <Card class={`max-w-md`}>
+      <Card>
         <CardImage
           src={`/images/kit-cta-${kit}.png`}
           alt={`${kit} kit`}
