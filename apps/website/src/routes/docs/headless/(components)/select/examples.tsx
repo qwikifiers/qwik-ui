@@ -15,8 +15,8 @@ export const Example01 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <SelectRoot class="dark:bg-gray-700">
-          <SelectLabel class="text-white font-semibold ml-2">
+        <SelectRoot>
+          <SelectLabel class=" font-semibold ml-2 text-[#333333] dark:text-white">
             Qwik Fruits
           </SelectLabel>
           <SelectTrigger class="flex justify-between items-center px-8 bg-[#1f2532] border-[#7d95b3] border-[1px] rounded-md p-4 group peer">

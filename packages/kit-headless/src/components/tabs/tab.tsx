@@ -8,17 +8,17 @@ import {
   useTask$,
   $,
   useSignal,
+  QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { KeyCode } from '../../utils/key-code.type';
 import { isBrowser, isServer } from '@builder.io/qwik/build';
 
-export interface TabProps {
-  onClick?: PropFunction<() => void>;
+export type TabProps = {
   class?: string;
   selectedClassName?: string;
   disabled?: boolean;
-}
+} & QwikIntrinsicElements['button'];
 
 export const Tab = component$((props: TabProps) => {
   const contextService = useContext(tabsContextId);
@@ -100,12 +100,12 @@ export const Tab = component$((props: TabProps) => {
           ? `selected ${props.selectedClassName || ''}`
           : ''
       }${props.class ? ` ${props.class}` : ''}`}
-      onClick$={() => {
-        selectTab$();
-        if (props.onClick) {
-          props.onClick();
-        }
-      }}
+      onClick$={[
+        $(() => {
+          selectTab$();
+        }),
+        props.onClick$,
+      ]}
       onKeyDown$={(e) => {
         contextService.onTabKeyDown$(
           e.key as KeyCode,
