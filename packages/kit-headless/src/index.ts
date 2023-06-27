@@ -1,8 +1,8 @@
 export * from './components/accordion/accordion';
-export * from './components/autocomplete/autocomplete';
 export * from './components/badge/badge';
 export * from './components/button-group/button-group';
 export * from './components/card';
+export * from './components/autocomplete/autocomplete';
 export * as Carousel from './components/carousel/carousel';
 export * from './components/carousel/use';
 export * from './components/pagination/pagination';
