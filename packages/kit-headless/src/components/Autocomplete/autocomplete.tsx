@@ -433,7 +433,10 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
   );
 });
 
-export type OptionProps = { optionValue: string } & QwikIntrinsicElements['li'];
+export type OptionProps = {
+  optionValue: string;
+  disabled?: boolean;
+} & QwikIntrinsicElements['li'];
 
 export const AutocompleteOption = component$((props: OptionProps) => {
   const ref = useSignal<HTMLElement>();
@@ -445,16 +448,20 @@ export const AutocompleteOption = component$((props: OptionProps) => {
     <li
       ref={ref}
       role="option"
+      tabIndex={props.disabled ? -1 : 0}
+      aria-disabled={props.disabled}
       onClick$={[
         $(() => {
-          contextService.inputValue.value = props.optionValue;
-          contextService.isExpanded.value = false;
+          if (!props.disabled) {
+            contextService.inputValue.value = props.optionValue;
+            contextService.isExpanded.value = false;
+          }
         }),
         props.onClick$,
       ]}
       onKeyDown$={[
         $((e: QwikKeyboardEvent) => {
-          if (e.key === 'Enter' || e.key === ' ') {
+          if ((e.key === 'Enter' || e.key === ' ') && !props.disabled) {
             contextService.inputValue.value = props.optionValue;
             contextService.isExpanded.value = false;
             const inputElement = contextService.triggerRef.value
@@ -464,7 +471,6 @@ export const AutocompleteOption = component$((props: OptionProps) => {
         }),
         props.onKeyDown$,
       ]}
-      tabIndex={0}
       {...props}
     >
       <Slot />
