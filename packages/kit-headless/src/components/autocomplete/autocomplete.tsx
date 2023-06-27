@@ -22,9 +22,9 @@ import { computePosition, flip } from '@floating-ui/dom';
 /*
 
     Input Textbox - Role Combobox.
-    Listbox - Role Listbox
+    Listbox - Role Listbox.
 
-    Notes: 
+    Notes:
 
     https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/
 
