@@ -101,7 +101,7 @@ import {
   AutocompleteListbox,
   AutocompleteOption,
   type AutocompleteRootProps,
-} from './autocomplete';
+} from './index';
 
 const meta: Meta<AutocompleteRootProps> = {
   args: {},
