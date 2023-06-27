@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
   .:
     dependencies:
@@ -260,7 +264,11 @@ importers:
         specifier: ^2.8.0
         version: 2.18.0
 
-  apps/website: {}
+  apps/website:
+    dependencies:
+      '@fontsource/poppins':
+        specifier: 5.0.3
+        version: 5.0.3
 
   packages/bots: {}
 
@@ -3102,6 +3110,13 @@ packages:
       }
     dependencies:
       '@floating-ui/core': 1.2.1
+
+  /@fontsource/poppins@5.0.3:
+    resolution:
+      {
+        integrity: sha512-5lL2vmvmh4zbknTh1nVH9pTWyhYqAlYMHIAnkNhqo5qwMZGlr+coM1dtMwiQHRBgmHAl3ZvJ35Bj0s8cpmXZbg==,
+      }
+    dev: false
 
   /@frsource/base64@1.0.14:
     resolution:
@@ -6452,7 +6467,7 @@ packages:
       '@babel/core': 7.21.3
       '@babel/preset-env': 7.20.2(@babel/core@7.21.3)
       '@babel/types': 7.21.3
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/csf-tools': 7.0.0-rc.7
       '@storybook/node-logger': 7.0.0-rc.7
       '@storybook/types': 7.0.0-rc.7
@@ -6581,7 +6596,7 @@ packages:
       '@storybook/builder-manager': 7.0.0-rc.7
       '@storybook/core-common': 7.0.0-rc.7
       '@storybook/core-events': 7.0.0-rc.7
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/csf-tools': 7.0.0-rc.7
       '@storybook/docs-mdx': 0.0.1-next.7
       '@storybook/global': 5.0.0
@@ -6703,7 +6718,7 @@ packages:
       '@babel/parser': 7.21.3
       '@babel/traverse': 7.21.3
       '@babel/types': 7.21.3
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/types': 7.0.0-rc.7
       fs-extra: 11.1.0
       recast: 0.23.1
@@ -6759,19 +6774,19 @@ packages:
       lodash: 4.17.21
     dev: true
 
-  /@storybook/csf@0.0.2-next.11:
+  /@storybook/csf@0.1.0:
     resolution:
       {
-        integrity: sha512-xGt0YSVxZb43sKmEf1GIQD8xEbo+c+S6khDEL7Qu/pYA0gh5z3WUuhOlovnelYj/YJod+XRsfVvk23AaRfUJ4Q==,
+        integrity: sha512-uk+jMXCZ8t38jSTHk2o5btI+aV2Ksbvl6DoOv3r6VaCM1KZqeuMwtwywIQdflkA8/6q/dKT8z8L+g8hC4GC3VQ==,
       }
     dependencies:
       type-fest: 2.19.0
     dev: true
 
-  /@storybook/csf@0.1.0:
+  /@storybook/csf@0.1.1-next.0:
     resolution:
       {
-        integrity: sha512-uk+jMXCZ8t38jSTHk2o5btI+aV2Ksbvl6DoOv3r6VaCM1KZqeuMwtwywIQdflkA8/6q/dKT8z8L+g8hC4GC3VQ==,
+        integrity: sha512-2M8E4CZOVW77P9lrgZZc2rcwxhNKVVykpzbcAauc3bots7xvDJMG60EasMRB/Y+cfqnSu6aaSUEVmKHTKsVJ3A==,
       }
     dependencies:
       type-fest: 2.19.0
@@ -6990,7 +7005,7 @@ packages:
       '@storybook/channels': 7.0.0-rc.7
       '@storybook/client-logger': 7.0.0-rc.7
       '@storybook/core-events': 7.0.0-rc.7
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/global': 5.0.0
       '@storybook/types': 7.0.0-rc.7
       '@types/qs': 6.9.7

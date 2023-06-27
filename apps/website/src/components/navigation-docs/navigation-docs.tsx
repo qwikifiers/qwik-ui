@@ -27,9 +27,9 @@ export const DocsNavigation = component$(
             <>
               <h1 class="pl-12 mt-8 font-medium text-lg">{group.name}</h1>
               <ul class="pl-12 flex flex-col gap-2">
-                {group.children?.map((link) => {
+                {group.children?.map((link, index) => {
                   return (
-                    <li class="pl-4" key={link.name + link.href}>
+                    <li class="pl-4" key={link.href}>
                       <Link
                         class="px-4 py-2 -ml-4 mr-8 text-sm flex items-center rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]"
                         href={link.href}

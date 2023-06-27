@@ -12,11 +12,11 @@ export default component$(() => {
       <p class="mt-8 leading-relaxed mb-10">
         Welcome to the Tailwind Kit, a collection of ready-to-use, beautifully
         styled components powered by{' '}
-        <a target="_blank" href="https://tailwindcss.com" class="text-blue-400">
+        <a target="_blank" href="https://tailwindcss.com">
           Tailwind
         </a>{' '}
         and{' '}
-        <a target="_blank" href="https://daisyui.com/" class="text-blue-400">
+        <a target="_blank" href="https://daisyui.com/">
           DaisyUI
         </a>{' '}
         designed to work seamlessly with Qwik. The Tailwind Kit is perfect for

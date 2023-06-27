@@ -22,13 +22,18 @@ export default component$(() => {
         <a
           href="https://github.com/qwikifiers/qwik-ui/blob/main/CONTRIBUTING.md"
           target="_blank"
+          class="border-none"
         >
           <h3 class="underline text-2xl font-semibold mb-4 inline-block">
             Read our contributing guidelines
           </h3>
         </a>
 
-        <a href="https://discord.gg/PVWUUejrez" target="_blank">
+        <a
+          href="https://discord.gg/PVWUUejrez"
+          target="_blank"
+          class="border-none"
+        >
           <h3 class="underline text-2xl font-semibold mb-4 inline-block">
             Join Our Discord Community
           </h3>

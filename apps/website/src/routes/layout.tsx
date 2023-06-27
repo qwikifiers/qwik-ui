@@ -12,6 +12,9 @@ import {
   ComponentsStatusesMap,
 } from '../_state/component-statuses';
 import Header from '../components/header/header';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/700.css';
 
 export default component$(() => {
   useStyles$(prismStyles);
