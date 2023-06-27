@@ -20,8 +20,8 @@ import { isServer, isBrowser } from '@builder.io/qwik/build';
 import { computePosition, flip } from '@floating-ui/dom';
 
 /*
-    
-    Input Textbox - Role Combobox
+
+    Input Textbox - Role Combobox.
     Listbox - Role Listbox
 
     Notes: 
