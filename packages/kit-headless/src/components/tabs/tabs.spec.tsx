@@ -125,38 +125,9 @@ const DynamicTabsComponent = component$(
   }
 );
 
-const TabsInsideOfTabs = component$(() => {
-  return (
-    <Tabs>
-      <TabList>
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-        <Tab>Tab 3</Tab>
-      </TabList>
-
-      <TabPanel>
-        <Tabs>
-          <TabList>
-            <Tab>Tab 1</Tab>
-            <Tab>Tab 2</Tab>
-            <Tab>Tab 3</Tab>
-          </TabList>
-
-          <TabPanel>Panel 1</TabPanel>
-          <TabPanel>Child Panel 2</TabPanel>
-          <TabPanel>Panel 3</TabPanel>
-        </Tabs>
-      </TabPanel>
-      <TabPanel>Root Panel 2</TabPanel>
-      <TabPanel>Panel 3</TabPanel>
-    </Tabs>
-  );
-});
-
 describe('Tabs', () => {
   it('INIT', () => {
     cy.mount(<ThreeTabsComponent />);
-    // cy.findByTestId('tabs').matchImage();
 
     cy.checkA11yForComponent();
   });
@@ -191,6 +162,33 @@ describe('Tabs', () => {
     cy.findByRole('tab', { name: /Tab 2/i }).click();
 
     cy.findByTestId('selected-index-from-event').should('contain.text', 1);
+  });
+
+  it(`GIVEN a tab with a custom onClick$ handler
+      WHEN tab is clicked on
+      THEN the handler should be called`, () => {
+    const TabsWithCustomOnClick = component$(() => {
+      const wasSelectedSig = useSignal(false);
+      return (
+        <Tabs>
+          <TabList>
+            <Tab onClick$={() => (wasSelectedSig.value = true)}>Tab 1</Tab>
+          </TabList>
+          <TabPanel>
+            Custom onClick was called: {`${wasSelectedSig.value}`}
+          </TabPanel>
+        </Tabs>
+      );
+    });
+
+    cy.mount(<TabsWithCustomOnClick />);
+
+    cy.findByRole('tab', { name: /Tab 1/i }).click();
+
+    cy.findByRole('tabpanel').should(
+      'contain',
+      'Custom onClick was called: true'
+    );
   });
 
   describe('Dynamic Tabs', () => {
@@ -257,6 +255,34 @@ describe('Tabs', () => {
       cy.findAllByRole('tab', { name: /Tab 2/i }).eq(1).click();
 
       cy.findAllByRole('tabpanel').eq(1).should('contain', 'Child Panel 2');
+    });
+
+    const TabsInsideOfTabs = component$(() => {
+      return (
+        <Tabs>
+          <TabList>
+            <Tab>Tab 1</Tab>
+            <Tab>Tab 2</Tab>
+            <Tab>Tab 3</Tab>
+          </TabList>
+
+          <TabPanel>
+            <Tabs>
+              <TabList>
+                <Tab>Tab 1</Tab>
+                <Tab>Tab 2</Tab>
+                <Tab>Tab 3</Tab>
+              </TabList>
+
+              <TabPanel>Panel 1</TabPanel>
+              <TabPanel>Child Panel 2</TabPanel>
+              <TabPanel>Panel 3</TabPanel>
+            </Tabs>
+          </TabPanel>
+          <TabPanel>Root Panel 2</TabPanel>
+          <TabPanel>Panel 3</TabPanel>
+        </Tabs>
+      );
     });
   });
 
@@ -337,6 +363,16 @@ describe('Tabs', () => {
 
         cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
       });
+    });
+
+    it.only(`GIVEN 3 tabs
+             WHEN clicking the first one and triggering the right arrow key
+             THEN render the middle panel`, () => {
+      cy.mount(<ThreeTabsComponent />);
+
+      cy.findByRole('tab', { name: /Tab 1/i }).click();
+
+      cy.findByRole('tabpanel').should('contain', 'Panel 2');
     });
   });
 

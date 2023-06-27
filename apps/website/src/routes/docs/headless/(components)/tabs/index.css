@@ -1,12 +1,14 @@
 .tabs-example [role='tab'] {
   width: 250px;
-  background: lightgreen;
+  background: #333;
 }
 
 .tabs-example [role='tab'].selected {
-  background: magenta;
+  background: gray;
 }
 
 .tabs-example [role='tablist'] {
   border: 1px solid;
+  color: white;
+  margin-bottom: 1rem;
 }
