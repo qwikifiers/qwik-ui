@@ -1,4 +1,5 @@
 export * from './components/accordion/accordion';
+export * from './components/autocomplete/autocomplete';
 export * from './components/badge/badge';
 export * from './components/button-group/button-group';
 export * from './components/card';
@@ -18,7 +19,6 @@ export * from './components/tooltip/tooltip';
 export * as Checkbox from './components/checkbox/checkbox';
 export * as CheckboxProps from './components/checkbox/checkbox';
 export * from './components/select/select';
-export * from './components/autocomplete/autocomplete';
 export * from './components/slider';
 export * from './components/breadcrumb';
 export * from './components/navigation-bar/navigation-bar';

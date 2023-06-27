@@ -1,5 +1,4 @@
 import {
-  PropFunction,
   component$,
   useContext,
   useId,
