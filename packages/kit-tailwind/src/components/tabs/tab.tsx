@@ -1,12 +1,16 @@
-import { component$, Slot, QwikIntrinsicElements } from '@builder.io/qwik';
+import {
+  component$,
+  Slot,
+  QwikIntrinsicElements,
+  PropFunction,
+} from '@builder.io/qwik';
 import { Tab as HeadlessTab } from '@qwik-ui/headless';
 
 export type TabProps = {
   class?: string;
   isLifted?: boolean;
   isBordered?: boolean;
-  // commented out if need to refactor. failing build due to this.
-  // onClick$?: PropFunction<(clicked: number) => void>;
+  onClick$?: PropFunction<(clicked: number) => void>;
 } & QwikIntrinsicElements['button'];
 
 export const Tab = component$(
