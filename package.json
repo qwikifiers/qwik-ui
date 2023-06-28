@@ -11,6 +11,7 @@
     "commit": "git-cz",
     "format:fix": "pretty-quick --staged",
     "prepare": "husky install",
+    "build:headless": "nx build headless",
     "test:headless": "nx component-test headless",
     "test:headless:ci": "nx component-test-ci headless",
     "story:build:headless": "nx build-storybook headless",
