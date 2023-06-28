@@ -40,6 +40,7 @@ export const componentsStatuses: ComponentKitsStatuses = {
   },
   headless: {
     Accordion: 'Planned',
+    Autocomplete: 'Draft',
     Carousel: 'Planned',
     Popover: 'Planned',
     Select: 'Draft',

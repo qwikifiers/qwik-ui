@@ -27,12 +27,12 @@ export const Example01 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <AutocompleteRoot class="relative text-white">
-          <AutocompleteLabel class="text-inherit font-semibold">
+        <AutocompleteRoot class="relative">
+          <AutocompleteLabel class=" font-semibold dark:text-white text-[#333333]">
             Personal Trainers ⚡
           </AutocompleteLabel>
           <AutocompleteTrigger class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
-            <AutocompleteInput class="w-44 bg-inherit px-2 pr-6" />
+            <AutocompleteInput class="w-44 bg-inherit px-2 pr-6 text-white" />
             <AutocompleteButton class="w-6 h-6 group absolute right-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ export const Example01 = component$(() => {
               </svg>
             </AutocompleteButton>
           </AutocompleteTrigger>
-          <AutocompleteListbox class="w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
+          <AutocompleteListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
             {trainers.map((trainer, index) => (
               <AutocompleteOption
                 optionValue={trainer}
