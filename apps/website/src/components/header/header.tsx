@@ -27,6 +27,7 @@ export default component$(
   ({ showVersion = false, showBottomBorder = false }: HeaderProps) => {
     const location = useLocation();
     const appState = useContext(APP_STATE_CONTEXT_ID);
+
     const menuOpenSignal = useSignal(false);
 
     const kitSignal = useComputed$(() => {
@@ -61,18 +62,13 @@ export default component$(
             : ``,
         ]}
       >
-        <button
-          type="button"
-          aria-label="Toggle navigation"
-          onClick$={toggleMenu$}
-          class="block lg:hidden"
-        >
-          {menuOpenSignal.value ? <CloseIcon /> : <MenuIcon />}
-        </button>
         {menuOpenSignal.value && (
-          <aside class="fixed top-0 left-0">
-            <div class="fixed h-screen w-screen bg-gray-900/20 backdrop-blur-sm"></div>
-            <div class="fixed h-screen w-80 overflow-y-scroll bg-white">
+          <aside class="fixed top-20 left-0 lg:hidden">
+            <div
+              onClick$={toggleMenu$}
+              class="fixed h-screen w-screen bg-gray-900/20 backdrop-blur-sm"
+            ></div>
+            <div class="fixed h-screen w-screen sm:w-80 overflow-y-scroll bg-white dark:bg-[var(--color-bg)]">
               <Menu onClose$={toggleMenu$} />
             </div>
           </aside>
@@ -114,6 +110,14 @@ export default component$(
         >
           <GitHubIcon />
         </a>
+        <button
+          type="button"
+          aria-label="Toggle navigation"
+          onClick$={toggleMenu$}
+          class="block lg:hidden"
+        >
+          {menuOpenSignal.value ? <CloseIcon /> : <MenuIcon />}
+        </button>
       </header>
     );
   }
