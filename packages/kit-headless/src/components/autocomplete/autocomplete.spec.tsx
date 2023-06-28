@@ -7,7 +7,7 @@ import {
   AutocompleteButton,
   AutocompleteListbox,
   AutocompleteOption,
-} from './autocomplete';
+} from './index';
 
 const fruits = [
   'Apple',
