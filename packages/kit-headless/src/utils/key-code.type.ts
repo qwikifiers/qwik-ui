@@ -7,4 +7,5 @@ export enum KeyCode {
   End = 'End',
   PageUp = 'PageUp',
   PageDown = 'PageDown',
+  Enter = 'Enter',
 }

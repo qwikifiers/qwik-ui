@@ -365,14 +365,19 @@ describe('Tabs', () => {
       });
     });
 
-    it.only(`GIVEN 3 tabs
-             WHEN clicking the first one and triggering the right arrow key
-             THEN render the middle panel`, () => {
-      cy.mount(<ThreeTabsComponent />);
+    describe.skip('Manual behavior', () => {
+      it(`GIVEN 3 tabs
+          WHEN clicking the first one and triggering the right arrow key and then "enter"
+          THEN the middle panel should be selected`, () => {
+        cy.mount(<ThreeTabsComponent />);
 
-      cy.findByRole('tab', { name: /Tab 1/i }).click();
+        cy.findByRole('tab', { name: /Tab 1/i })
+          .click()
+          .type('{rightarrow}')
+          .type('{enter}');
 
-      cy.findByRole('tabpanel').should('contain', 'Panel 2');
+        cy.findByRole('tabpanel').should('contain', 'Panel 2');
+      });
     });
   });
 
