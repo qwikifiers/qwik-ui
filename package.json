@@ -116,5 +116,10 @@
   ],
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "eslint-plugin-qwik@1.1.5": "patches/eslint-plugin-qwik@1.1.5.patch"
+    }
   }
 }

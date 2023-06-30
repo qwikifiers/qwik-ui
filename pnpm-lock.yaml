@@ -1,5 +1,14 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+patchedDependencies:
+  eslint-plugin-qwik@1.1.5:
+    hash: fzn72ahi7ejqf3rg4334hge3oi
+    path: patches/eslint-plugin-qwik@1.1.5.patch
+
 importers:
   .:
     dependencies:
@@ -168,7 +177,7 @@ importers:
         version: 2.12.1(eslint@8.36.0)
       eslint-plugin-qwik:
         specifier: 1.1.5
-        version: 1.1.5(eslint@8.36.0)
+        version: 1.1.5(patch_hash=fzn72ahi7ejqf3rg4334hge3oi)(eslint@8.36.0)
       eslint-plugin-storybook:
         specifier: ^0.6.11
         version: 0.6.11(eslint@8.36.0)(typescript@5.0.4)
@@ -12884,7 +12893,7 @@ packages:
       globals: 11.12.0
     dev: true
 
-  /eslint-plugin-qwik@1.1.5(eslint@8.36.0):
+  /eslint-plugin-qwik@1.1.5(patch_hash=fzn72ahi7ejqf3rg4334hge3oi)(eslint@8.36.0):
     resolution:
       {
         integrity: sha512-fTVZ+XAioqgzs1SkwS43mQl2BSNByWfwdlFSsCPzs4BAAxM9Ii8P1qImBYCAeISYf975G/+VFKpxDmP6FdiFtw==,
@@ -12896,6 +12905,7 @@ packages:
       eslint: 8.36.0
       jsx-ast-utils: 3.3.3
     dev: true
+    patched: true
 
   /eslint-plugin-storybook@0.6.11(eslint@8.36.0)(typescript@5.0.4):
     resolution:
