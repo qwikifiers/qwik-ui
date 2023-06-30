@@ -92,7 +92,7 @@
     "react-dom": "18.2.0",
     "sass": "1.58.1",
     "storybook": "7.0.0-rc.7",
-    "storybook-framework-qwik": "0.2.0",
+    "storybook-framework-qwik": "0.2.2",
     "tailwindcss": "^3.2.6",
     "ts-node": "10.9.1",
     "typescript": "5.0.4",
