@@ -113,15 +113,15 @@ export const Menu = component$<Props>(({ onClose$ }) => {
   });
 
   return (
-    <div class="px-4 py-4">
+    <div class="px-4 py-4 ">
       <div class="flex items-center justify-between">
         <h4 class="text-2xl">Documentation</h4>
-        {onClose$ && (
+        {/* {onClose$ && (
           // eslint-disable-next-line qwik/valid-lexical-scope
           <h5 onClick$={onClose$}>
             <CloseIcon />
           </h5>
-        )}
+        )} */}
       </div>
       <div class="mt-4">
         <div class="mt-8 flex items-center">
