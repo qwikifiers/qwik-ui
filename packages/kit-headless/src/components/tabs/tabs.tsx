@@ -153,9 +153,6 @@ export const Tabs = component$((props: TabsProps) => {
       (tabPair) => tabPair.tabId === currentTabId
     );
 
-    if (key === KeyCode.Enter) {
-    }
-
     if (
       key === KeyCode.ArrowRight ||
       (props.vertical && key === KeyCode.ArrowDown)
