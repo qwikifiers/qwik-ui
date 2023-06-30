@@ -26,9 +26,9 @@ runs:
       shell: bash
       run: npx nx build headless
 
-    - name: Build storybook
-      shell: bash
-      run: npx nx build-storybook headless
+    # - name: Build storybook
+    #   shell: bash
+    #   run: npx nx build-storybook headless
 
     - name: Run Cypress component tests
       uses: cypress-io/github-action@v5
