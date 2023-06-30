@@ -365,16 +365,19 @@ describe('Tabs', () => {
       });
     });
 
-    describe.skip('Manual behavior', () => {
+    describe('Manual behavior', () => {
       it(`GIVEN 3 tabs
           WHEN clicking the first one and triggering the right arrow key and then "enter"
           THEN the middle panel should be selected`, () => {
         cy.mount(<ThreeTabsComponent />);
 
-        cy.findByRole('tab', { name: /Tab 1/i })
-          .click()
-          .type('{rightarrow}')
-          .type('{enter}');
+        cy.findByRole('tab', { name: /Tab 1/i }).click().type('{rightarrow}');
+
+        const secondTab = cy.findByRole('tab', { name: /Tab 2/i });
+        secondTab.should('be.focused');
+        cy.findByRole('tabpanel').should('contain', 'Panel 1');
+
+        secondTab.type('{enter}');
 
         cy.findByRole('tabpanel').should('contain', 'Panel 2');
       });

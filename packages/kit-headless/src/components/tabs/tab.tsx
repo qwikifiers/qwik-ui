@@ -20,11 +20,23 @@ export type TabProps = {
   disabled?: boolean;
 } & QwikIntrinsicElements['button'];
 
+export const preventedKeys = [
+  KeyCode.Home,
+  KeyCode.End,
+  KeyCode.PageDown,
+  KeyCode.PageUp,
+  KeyCode.ArrowDown,
+  KeyCode.ArrowUp,
+  KeyCode.ArrowLeft,
+  KeyCode.ArrowRight,
+];
+
 export const Tab = component$((props: TabProps) => {
   const contextService = useContext(tabsContextId);
   const isSelectedSig = useSignal(false);
   const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
   const matchedTabPanelIdSig = useSignal<string | undefined>(undefined);
+  const elementRefSig = useSignal<HTMLElement | undefined>();
   const uniqueTabId = useId();
 
   useTask$(async function indexInitTask({ cleanup }) {
@@ -42,6 +54,8 @@ export const Tab = component$((props: TabProps) => {
   });
 
   useTask$(async function isSelectedTask({ track }) {
+    track(() => serverAssignedIndexSig.value);
+
     const isTabSelected = await track(() =>
       contextService.isTabSelected$(uniqueTabId)
     );
@@ -68,6 +82,19 @@ export const Tab = component$((props: TabProps) => {
     );
   });
 
+  useVisibleTask$(function preventDefaultOnKeysVisibleTask({ cleanup }) {
+    function handler(event: KeyboardEvent) {
+      if (preventedKeys.includes(event.key as KeyCode)) {
+        event.preventDefault();
+      }
+      contextService.onTabKeyDown$(event.key as KeyCode, uniqueTabId);
+    }
+    elementRefSig.value?.addEventListener('keydown', handler);
+    cleanup(() => {
+      elementRefSig.value?.removeEventListener('keydown', handler);
+    });
+  });
+
   const selectIfAutomatic$ = $(() => {
     contextService.selectIfAutomatic$(uniqueTabId);
   });
@@ -78,6 +105,7 @@ export const Tab = component$((props: TabProps) => {
       data-tab-id={uniqueTabId}
       type="button"
       role="tab"
+      ref={elementRefSig}
       disabled={props.disabled}
       aria-disabled={props.disabled}
       onFocus$={selectIfAutomatic$}
@@ -93,13 +121,6 @@ export const Tab = component$((props: TabProps) => {
         if (props.onClick$) {
           props.onClick$(event);
         }
-      }}
-      preventdefault:keydown
-      onKeyDown$={(e) => {
-        contextService.onTabKeyDown$(
-          e.key as KeyCode,
-          (e.target as any).getAttribute('data-tab-id')
-        );
       }}
     >
       <Slot />

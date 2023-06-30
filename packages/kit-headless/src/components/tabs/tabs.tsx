@@ -18,12 +18,6 @@ import { KeyCode } from '../../utils/key-code.type';
 /**
  * TABS TODOs
  * 
- * Add "enter" or "space" keys when in manual behavior
- * 
- * Missing tests for:
- *  automatic and manual behavior
- * 
- * Add a test for custom onClick$
  * Add examples for:
  *  - Vertical
  *  - disabled
