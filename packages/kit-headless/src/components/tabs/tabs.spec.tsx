@@ -1,8 +1,8 @@
-import { component$, useSignal, useStore } from '@builder.io/qwik';
+import { component$, useSignal, useStore, $ } from '@builder.io/qwik';
 import { Tab } from './tab';
 import { Tabs } from './tabs';
 import { TabList } from './tabs-list';
-import { TabPanel } from './tabs-panel';
+import { TabPanel } from './tab-panel';
 
 interface ThreeTabsCompProps {
   isMiddleDisabled?: boolean;
@@ -19,10 +19,17 @@ const ThreeTabsComponent = component$(
     disabledIndex,
   }: ThreeTabsCompProps) => {
     const isMiddleDisabledSignal = useSignal(isMiddleDisabled);
-
+    const selectedIndexDisplayValueSig = useSignal<number>();
+    const onSelectedIndexChange$ = $((index: number) => {
+      selectedIndexDisplayValueSig.value = index;
+    });
     return (
       <>
-        <Tabs data-testid="tabs" vertical={isVertical}>
+        <Tabs
+          data-testid="tabs"
+          vertical={isVertical}
+          onSelectedIndexChange$={onSelectedIndexChange$}
+        >
           <TabList
             style={{
               display: 'flex',
@@ -42,6 +49,12 @@ const ThreeTabsComponent = component$(
         </Tabs>
 
         <br />
+
+        {selectedIndexDisplayValueSig.value !== undefined && (
+          <div data-testid="selected-index-from-event">
+            Selected index from event: {selectedIndexDisplayValueSig.value}
+          </div>
+        )}
 
         {showDisableButton && (
           <button
@@ -112,41 +125,13 @@ const DynamicTabsComponent = component$(
   }
 );
 
-const TabsInsideOfTabs = component$(() => {
-  return (
-    <Tabs>
-      <TabList>
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-        <Tab>Tab 3</Tab>
-      </TabList>
-
-      <TabPanel>
-        <Tabs>
-          <TabList>
-            <Tab>Tab 1</Tab>
-            <Tab>Tab 2</Tab>
-            <Tab>Tab 3</Tab>
-          </TabList>
-
-          <TabPanel>Panel 1</TabPanel>
-          <TabPanel>Child Panel 2</TabPanel>
-          <TabPanel>Panel 3</TabPanel>
-        </Tabs>
-      </TabPanel>
-      <TabPanel>Root Panel 2</TabPanel>
-      <TabPanel>Panel 3</TabPanel>
-    </Tabs>
-  );
-});
-
 describe('Tabs', () => {
   it('INIT', () => {
     cy.mount(<ThreeTabsComponent />);
-    // cy.findByTestId('tabs').matchImage();
 
     cy.checkA11yForComponent();
   });
+
   it(`GIVEN 3 tabs
       WHEN clicking the middle one
       THEN render the middle panel`, () => {
@@ -167,6 +152,43 @@ describe('Tabs', () => {
     cy.findByRole('button', { name: /Change index/i }).click();
 
     cy.findByRole('tabpanel').should('contain', 'Dynamic Tab 2 Panel');
+  });
+
+  it(`GIVEN 3 tabs
+      WHEN clicking the middle one
+      THEN onSelectedIndexChange should be called`, () => {
+    cy.mount(<ThreeTabsComponent />);
+
+    cy.findByRole('tab', { name: /Tab 2/i }).click();
+
+    cy.findByTestId('selected-index-from-event').should('contain.text', 1);
+  });
+
+  it(`GIVEN a tab with a custom onClick$ handler
+      WHEN tab is clicked on
+      THEN the handler should be called`, () => {
+    const TabsWithCustomOnClick = component$(() => {
+      const wasSelectedSig = useSignal(false);
+      return (
+        <Tabs>
+          <TabList>
+            <Tab onClick$={() => (wasSelectedSig.value = true)}>Tab 1</Tab>
+          </TabList>
+          <TabPanel>
+            Custom onClick was called: {`${wasSelectedSig.value}`}
+          </TabPanel>
+        </Tabs>
+      );
+    });
+
+    cy.mount(<TabsWithCustomOnClick />);
+
+    cy.findByRole('tab', { name: /Tab 1/i }).click();
+
+    cy.findByRole('tabpanel').should(
+      'contain',
+      'Custom onClick was called: true'
+    );
   });
 
   describe('Dynamic Tabs', () => {
@@ -234,6 +256,34 @@ describe('Tabs', () => {
 
       cy.findAllByRole('tabpanel').eq(1).should('contain', 'Child Panel 2');
     });
+
+    const TabsInsideOfTabs = component$(() => {
+      return (
+        <Tabs>
+          <TabList>
+            <Tab>Tab 1</Tab>
+            <Tab>Tab 2</Tab>
+            <Tab>Tab 3</Tab>
+          </TabList>
+
+          <TabPanel>
+            <Tabs>
+              <TabList>
+                <Tab>Tab 1</Tab>
+                <Tab>Tab 2</Tab>
+                <Tab>Tab 3</Tab>
+              </TabList>
+
+              <TabPanel>Panel 1</TabPanel>
+              <TabPanel>Child Panel 2</TabPanel>
+              <TabPanel>Panel 3</TabPanel>
+            </Tabs>
+          </TabPanel>
+          <TabPanel>Root Panel 2</TabPanel>
+          <TabPanel>Panel 3</TabPanel>
+        </Tabs>
+      );
+    });
   });
 
   describe('Orientation: Horizontal', () => {
@@ -275,6 +325,8 @@ describe('Tabs', () => {
 
         cy.findByRole('button', { name: 'Toggle middle tab disabled' }).click();
 
+        cy.findByRole('tab', { name: /Tab 2/i }).should('be.disabled');
+
         cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
 
         cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
@@ -310,6 +362,24 @@ describe('Tabs', () => {
         cy.findByRole('tab', { name: /Tab 3/i }).type('{leftarrow}');
 
         cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+      });
+    });
+
+    describe('Manual behavior', () => {
+      it(`GIVEN 3 tabs
+          WHEN clicking the first one and triggering the right arrow key and then "enter"
+          THEN the middle panel should be selected`, () => {
+        cy.mount(<ThreeTabsComponent />);
+
+        cy.findByRole('tab', { name: /Tab 1/i }).click().type('{rightarrow}');
+
+        const secondTab = cy.findByRole('tab', { name: /Tab 2/i });
+        secondTab.should('be.focused');
+        cy.findByRole('tabpanel').should('contain', 'Panel 1');
+
+        secondTab.type('{enter}');
+
+        cy.findByRole('tabpanel').should('contain', 'Panel 2');
       });
     });
   });

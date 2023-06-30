@@ -1,5 +1,14 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+patchedDependencies:
+  eslint-plugin-qwik@1.1.5:
+    hash: fzn72ahi7ejqf3rg4334hge3oi
+    path: patches/eslint-plugin-qwik@1.1.5.patch
+
 importers:
   .:
     dependencies:
@@ -168,7 +177,7 @@ importers:
         version: 2.12.1(eslint@8.36.0)
       eslint-plugin-qwik:
         specifier: 1.1.5
-        version: 1.1.5(eslint@8.36.0)
+        version: 1.1.5(patch_hash=fzn72ahi7ejqf3rg4334hge3oi)(eslint@8.36.0)
       eslint-plugin-storybook:
         specifier: ^0.6.11
         version: 0.6.11(eslint@8.36.0)(typescript@5.0.4)
@@ -227,8 +236,8 @@ importers:
         specifier: 7.0.0-rc.7
         version: 7.0.0-rc.7
       storybook-framework-qwik:
-        specifier: 0.2.0
-        version: 0.2.0(@builder.io/qwik@1.1.5)(typescript@5.0.4)(vite@4.3.5)
+        specifier: 0.2.2
+        version: 0.2.2(@builder.io/qwik@1.1.5)(typescript@5.0.4)(vite@4.3.5)
       tailwindcss:
         specifier: ^3.2.6
         version: 3.2.6(postcss@8.4.21)(ts-node@10.9.1)
@@ -266,6 +275,9 @@ importers:
 
   packages/kit-headless:
     dependencies:
+      '@builder.io/qwik':
+        specifier: '>1.1.0'
+        version: 1.1.5(undici@5.22.0)
       '@floating-ui/dom':
         specifier: 1.0.10
         version: 1.0.10
@@ -274,6 +286,9 @@ importers:
 
   packages/kit-tailwind:
     dependencies:
+      '@builder.io/qwik':
+        specifier: '>1.1.0'
+        version: 1.1.5(undici@5.22.0)
       daisyui:
         specifier: ^2.50.1
         version: 2.50.1(autoprefixer@10.4.13)(postcss@8.4.23)(ts-node@10.9.1)
@@ -2085,7 +2100,6 @@ packages:
       undici: ^5.14.0
     dependencies:
       undici: 5.22.0
-    dev: true
 
   /@cloudflare/kv-asset-handler@0.2.0:
     resolution:
@@ -9817,7 +9831,6 @@ packages:
     engines: { node: '>=10.16.0' }
     dependencies:
       streamsearch: 1.1.0
-    dev: true
 
   /bytes@3.0.0:
     resolution:
@@ -12880,7 +12893,7 @@ packages:
       globals: 11.12.0
     dev: true
 
-  /eslint-plugin-qwik@1.1.5(eslint@8.36.0):
+  /eslint-plugin-qwik@1.1.5(patch_hash=fzn72ahi7ejqf3rg4334hge3oi)(eslint@8.36.0):
     resolution:
       {
         integrity: sha512-fTVZ+XAioqgzs1SkwS43mQl2BSNByWfwdlFSsCPzs4BAAxM9Ii8P1qImBYCAeISYf975G/+VFKpxDmP6FdiFtw==,
@@ -12892,6 +12905,7 @@ packages:
       eslint: 8.36.0
       jsx-ast-utils: 3.3.3
     dev: true
+    patched: true
 
   /eslint-plugin-storybook@0.6.11(eslint@8.36.0)(typescript@5.0.4):
     resolution:
@@ -23102,10 +23116,10 @@ packages:
       }
     dev: true
 
-  /storybook-framework-qwik@0.2.0(@builder.io/qwik@1.1.5)(typescript@5.0.4)(vite@4.3.5):
+  /storybook-framework-qwik@0.2.2(@builder.io/qwik@1.1.5)(typescript@5.0.4)(vite@4.3.5):
     resolution:
       {
-        integrity: sha512-qu8aRd4PZSCPmCyQSVFBzXxrF0G54JWBao3GRy5MjD0CxO7NvxNTevXOwVb/aF5pzawXb3nkz4RiG5X1MlolRQ==,
+        integrity: sha512-MXUNKdOsMpY7S57+KJjR1E3GKORmlvgHKC//0RFmuNNq9lnDbKH8eU0DfwqvtcRfz+x4MHkRj32r1sM/3+Wj2A==,
       }
     engines: { node: ^14.18 || >=16 }
     peerDependencies:
@@ -23183,7 +23197,6 @@ packages:
         integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==,
       }
     engines: { node: '>=10.0.0' }
-    dev: true
 
   /strict-uri-encode@2.0.0:
     resolution:
@@ -24403,7 +24416,6 @@ packages:
     engines: { node: '>=14.0' }
     dependencies:
       busboy: 1.6.0
-    dev: true
 
   /unfetch@4.2.0:
     resolution:

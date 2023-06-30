@@ -14,7 +14,10 @@
     "**/*.cy.ts",
     "**/*.cy.js",
     "**/*.cy.tsx",
-    "**/*.cy.jsx"
+    "**/*.cy.jsx",
+    "**/*.spec.jsx",
+    "**/*.spec.tsx",
+    "**/*.spec.ts"
   ],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

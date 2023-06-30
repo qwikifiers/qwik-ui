@@ -3,113 +3,124 @@ import {
   useContext,
   useId,
   Slot,
-  useComputed$,
   useTask$,
   $,
   useSignal,
+  useVisibleTask$,
   QwikIntrinsicElements,
+  type QwikMouseEvent,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { KeyCode } from '../../utils/key-code.type';
 import { isBrowser, isServer } from '@builder.io/qwik/build';
 
 export type TabProps = {
-  class?: string;
+  onClick$?: (event: QwikMouseEvent) => void;
   selectedClassName?: string;
   disabled?: boolean;
 } & QwikIntrinsicElements['button'];
 
+export const preventedKeys = [
+  KeyCode.Home,
+  KeyCode.End,
+  KeyCode.PageDown,
+  KeyCode.PageUp,
+  KeyCode.ArrowDown,
+  KeyCode.ArrowUp,
+  KeyCode.ArrowLeft,
+  KeyCode.ArrowRight,
+];
+
 export const Tab = component$((props: TabProps) => {
   const contextService = useContext(tabsContextId);
-
+  const isSelectedSig = useSignal(false);
   const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
-  const uniqueId = useId();
+  const matchedTabPanelIdSig = useSignal<string | undefined>(undefined);
+  const elementRefSig = useSignal<HTMLElement | undefined>();
+  const uniqueTabId = useId();
 
-  useTask$(({ cleanup }) => {
+  useTask$(async function indexInitTask({ cleanup }) {
     if (isServer) {
       serverAssignedIndexSig.value =
-        contextService.lastAssignedTabIndexSig.value;
-      contextService.lastAssignedTabIndexSig.value++;
+        await contextService.getNextServerAssignedTabIndex$();
     }
+
     if (isBrowser) {
-      contextService.onTabsChanged$();
+      contextService.reIndexTabs$();
     }
     cleanup(() => {
-      contextService.onTabsChanged$();
+      contextService.reIndexTabs$();
     });
   });
 
-  useTask$(({ track }) => {
+  useTask$(async function isSelectedTask({ track }) {
+    track(() => serverAssignedIndexSig.value);
+
+    const isTabSelected = await track(() =>
+      contextService.isTabSelected$(uniqueTabId)
+    );
+    if (isServer) {
+      isSelectedSig.value = await contextService.isIndexSelected$(
+        serverAssignedIndexSig.value
+      );
+      return;
+    }
+    isSelectedSig.value = isTabSelected;
+  });
+
+  useTask$(function disabledTask({ track }) {
     track(() => props.disabled);
 
-    if (props.disabled && contextService.tabsMap[uniqueId]) {
-      contextService.tabsMap[uniqueId].disabled = true;
+    if (props.disabled) {
+      contextService.updateTabState$(uniqueTabId, { disabled: true });
     }
   });
 
-  const isSelectedSignal = useComputed$(() => {
-    if (isServer) {
-      return (
-        serverAssignedIndexSig.value === contextService.selectedIndexSig.value
-      );
-    }
-    return (
-      contextService.selectedIndexSig.value ===
-      contextService.tabsMap[uniqueId]?.index
+  useVisibleTask$(async function setMatchedTabPanelIdTask({ track }) {
+    matchedTabPanelIdSig.value = await track(() =>
+      contextService.getMatchedPanelId$(uniqueTabId)
     );
   });
 
-  const matchedTabPanelId = useComputed$(
-    () => contextService.tabsMap[uniqueId]?.tabPanelId
-  );
-
-  const selectTab$ = $(() => {
-    // TODO: try to move this to the Tabs component
-
-    if (props.disabled) {
-      return;
+  useVisibleTask$(function preventDefaultOnKeysVisibleTask({ cleanup }) {
+    function handler(event: KeyboardEvent) {
+      if (preventedKeys.includes(event.key as KeyCode)) {
+        event.preventDefault();
+      }
+      contextService.onTabKeyDown$(event.key as KeyCode, uniqueTabId);
     }
-    contextService.selectedIndexSig.value =
-      contextService.tabsMap[uniqueId]?.index || 0;
-
-    contextService.selectTab$(uniqueId);
+    elementRefSig.value?.addEventListener('keydown', handler);
+    cleanup(() => {
+      elementRefSig.value?.removeEventListener('keydown', handler);
+    });
   });
 
   const selectIfAutomatic$ = $(() => {
-    if (contextService.behavior === 'automatic') {
-      selectTab$();
-    }
+    contextService.selectIfAutomatic$(uniqueTabId);
   });
 
   return (
     <button
-      id={'tab-' + uniqueId}
-      data-tab-id={uniqueId}
+      id={'tab-' + uniqueTabId}
+      data-tab-id={uniqueTabId}
       type="button"
       role="tab"
+      ref={elementRefSig}
       disabled={props.disabled}
       aria-disabled={props.disabled}
       onFocus$={selectIfAutomatic$}
       onMouseEnter$={selectIfAutomatic$}
-      aria-selected={isSelectedSignal.value}
-      tabIndex={isSelectedSignal.value ? 0 : -1}
-      aria-controls={'tabpanel-' + matchedTabPanelId.value}
+      aria-selected={isSelectedSig.value}
+      tabIndex={isSelectedSig.value ? 0 : -1}
+      aria-controls={'tabpanel-' + matchedTabPanelIdSig.value}
       class={`${
-        isSelectedSignal.value
-          ? `selected ${props.selectedClassName || ''}`
-          : ''
+        isSelectedSig.value ? `selected ${props.selectedClassName || ''}` : ''
       }${props.class ? ` ${props.class}` : ''}`}
-      onClick$={[
-        $(() => {
-          selectTab$();
-        }),
-        props.onClick$,
-      ]}
-      onKeyDown$={(e) => {
-        contextService.onTabKeyDown$(
-          e.key as KeyCode,
-          (e.target as any).getAttribute('data-tab-id')
-        );
+      onClick$={(event) => {
+        contextService.selectTab$(uniqueTabId);
+        if (props.onClick$) {
+          props.onClick$(event);
+        }
       }}
     >
       <Slot />

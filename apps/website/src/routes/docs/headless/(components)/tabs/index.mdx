@@ -3,7 +3,7 @@ title: Qwik UI | Tabs
 ---
 
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
-import { Example01 } from './examples';
+import { Example01, VerticalTabsExample } from './examples';
 import { CodeExample } from '../../../../../components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../../../components/api-table/api-table';
@@ -80,6 +80,34 @@ import { APITable } from '../../../../../components/api-table/api-table';
 
   </CodeExample>
 
+## Vertical
+
+by default, the tabs are horizontal, but you can adjust the underlying behavior to be vertical by setting the `vertical` prop to true.
+
+<VerticalTabsExample>
+  ```tsx
+  <Tabs vertical>
+    <h3 id="tablist-1">Danish Composers</h3>
+    <TabList>
+      <Tab>Maria Ahlefeldt</Tab>
+      <Tab>Carl Andersen</Tab>
+      <Tab>Ida Henriette da Fonseca</Tab>
+    </TabList>
+    <TabPanel>
+      <p>
+        Maria Theresia Ahlefeldt (16 January 1755 – 20 December 1810) was a ...
+      </p>
+    </TabPanel>
+    <TabPanel>
+      <p>Carl Joachim Andersen (29 April 1847 – 7 May 1909) was a ...</p>
+    </TabPanel>
+    <TabPanel>
+      <p>Ida Henriette da Fonseca (July 27, 1802 – July 6, 1858) was a ...</p>
+    </TabPanel>
+  </Tabs>
+  ```
+</VerticalTabsExample>
+
 ## Accessibility
 
 ### Keyboard interaction
@@ -111,7 +139,6 @@ import { APITable } from '../../../../../components/api-table/api-table';
       description: 'In "vertical mode", moves focus to the previous tab.',
     },
     {
-      /* {
       keyTitle: 'Home',
       description: 'Moves focus to the first tab.',
     },
@@ -126,7 +153,6 @@ import { APITable } from '../../../../../components/api-table/api-table';
     {
       keyTitle: 'PageDown',
       description: 'Moves focus to the first tab.',
-    }, */
     },
   ]}
 />
@@ -144,23 +170,21 @@ import { APITable } from '../../../../../components/api-table/api-table';
         'Toggle between automatic or manual. The automatic behavior moves between tabs when hover. The manual behavior moves between tabs on click.',
     },
     {
+      name: 'selectedIndex',
+      type: 'number',
+      description: 'A way to set the selected index programmatically',
+    },
+    {
       name: 'vertical',
       type: 'boolean',
       description:
         'If set to true, the behavior of UpArrow and DownArrow will navigate between tabs vertically instead of horizontally.',
     },
-  ]}
-/>
-
-### TabList
-
-<APITable
-  propDescriptors={[
     {
-      name: 'labelledBy',
-      type: 'string',
+      name: 'onSelectedIndexChange$',
+      type: '(index: number) => void',
       description:
-        'The aria-labelledby for this tablist. Mainly for accessibility purpose.',
+        'An event hook that getting notified whenever the selected index changes',
     },
   ]}
 />
@@ -176,8 +200,13 @@ import { APITable } from '../../../../../components/api-table/api-table';
     },
     {
       name: 'onClick',
-      type: 'PropFunction<() => void>',
+      type: '(event: QwikMouseEvent) => void',
       description: 'A custom click handler to wire to tab click event',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Set the disabled state of a specific tab',
     },
   ]}
 />

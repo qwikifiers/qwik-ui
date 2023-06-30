@@ -7,6 +7,8 @@ import {
   useVisibleTask$,
   useStore,
   useTask$,
+  QRL,
+  QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
@@ -15,30 +17,36 @@ import { KeyCode } from '../../utils/key-code.type';
 
 /**
  * TABS TODOs
+ * 
+ * Add examples for:
+ *  - Vertical
+ *  - disabled
+ *  - dynamic
+ *  - behavior
+ *  - onSelectedIndexChange$
+ *  - onClick$
  *
- * - onSelectedIndexChange
- * - preventDefault on end, home,  pageDown, pageUp
-
 * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
   
-
+* POST Beta
+  * Add automated tests for preventDefault on end, home,  pageDown, pageUp
+  * Add automated tests for SSR indexing behavior (and in general)
 
 * POST V1:
  * - RTL
- * Add automated tests for preventDefault on end, home,  pageDown, pageUp
  *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
  * Add ability to close tabs with an ❌ icon (and keyboard support)
 
  *
  */
 
-export interface TabsProps {
+export type TabsProps = {
   behavior?: Behavior;
-  class?: string;
   selectedIndex?: number;
   vertical?: boolean;
-}
+  onSelectedIndexChange$?: (index: number) => void;
+} & QwikIntrinsicElements['div'];
 
 export interface TabPair {
   tabId: string;
@@ -47,8 +55,8 @@ export interface TabPair {
 
 export interface TabInfo {
   tabId: string;
+  index: number;
   tabPanelId?: string;
-  index?: number;
   disabled?: boolean;
 }
 
@@ -57,43 +65,92 @@ export const Tabs = component$((props: TabsProps) => {
 
   const ref = useSignal<HTMLElement | undefined>();
   const selectedIndexSig = useSignal(0);
-  const lastAssignedTabIndexSig = useSignal(0);
-  const lastAssignedPanelIndexSig = useSignal(0);
+  const lastAssignedTabIndexSig = useSignal(-1);
+  const lastAssignedPanelIndexSig = useSignal(-1);
 
   useTask$(({ track }) => {
     track(() => props.selectedIndex);
     selectedIndexSig.value = props.selectedIndex || 0;
   });
 
+  useTask$(({ track }) => {
+    track(() => selectedIndexSig.value);
+    if (props.onSelectedIndexChange$) {
+      props.onSelectedIndexChange$(selectedIndexSig.value);
+    }
+  });
+
   const selectedTabIdSig = useSignal<string>('');
-  const reIndexTabsSig = useSignal(true);
-  const showTabsSig = useSignal(false);
-  const tabPairs = useStore<TabPair[]>([]);
+  const shouldReIndexTabsSig = useSignal(true);
+
+  const tabPairsList = useStore<TabPair[]>([]);
 
   const tabsMap = useStore<{ [key: string]: TabInfo }>({});
 
   const tabPanelsMap = useStore<{ [key: string]: TabInfo }>({});
 
-  const onTabsChanged$ = $(() => {
-    reIndexTabsSig.value = true;
+  const reIndexTabs$ = $(() => {
+    shouldReIndexTabsSig.value = true;
+  });
+
+  const getMatchedPanelId$ = $((tabId: string) => {
+    return tabsMap[tabId]?.tabPanelId;
+  });
+
+  const getMatchedTabId$ = $((panelId: string) => {
+    return tabPanelsMap[panelId]?.tabId;
   });
 
   const selectTab$ = $((tabId: string) => {
+    const tab = tabsMap[tabId];
+    if (!tab || tab.disabled) {
+      return;
+    }
     selectedTabIdSig.value = tabId;
+    selectedIndexSig.value = tabsMap[tabId].index || 0;
   });
 
-  const showTabs$ = $(() => {
-    showTabsSig.value = true;
+  const selectIfAutomatic$ = $((tabId: string) => {
+    if (behavior === 'automatic') {
+      selectTab$(tabId);
+    }
   });
 
-  const onTabKeyDown$ = $((key: KeyCode, tabId: string) => {
+  const updateTabState$ = $((tabId: string, state: Partial<TabInfo>) => {
+    const prevState = tabsMap[tabId];
+    tabsMap[tabId] = { ...prevState, ...state };
+  });
+
+  const getNextServerAssignedTabIndex$ = $(() => {
+    lastAssignedTabIndexSig.value++;
+    return lastAssignedTabIndexSig.value;
+  });
+
+  const getNextServerAssignedPanelIndex$ = $(() => {
+    lastAssignedPanelIndexSig.value++;
+    return lastAssignedPanelIndexSig.value;
+  });
+
+  const isIndexSelected$ = $((index?: number) => {
+    return selectedIndexSig.value === index;
+  });
+
+  const isTabSelected$ = $((tabId: string) => {
+    return selectedIndexSig.value === tabsMap[tabId]?.index;
+  });
+
+  const isPanelSelected$ = $((panelId: string) => {
+    return selectedIndexSig.value === tabPanelsMap[panelId]?.index;
+  });
+
+  const onTabKeyDown$ = $((key: KeyCode, currentTabId: string) => {
     const tabsRootElement = ref.value;
 
-    const enabledTabs = tabPairs.filter((tabPair) => {
+    const enabledTabs = tabPairsList.filter((tabPair) => {
       return !tabsMap[tabPair.tabId].disabled;
     });
     const currentFocusedTabIndex = enabledTabs.findIndex(
-      (tabPair) => tabPair.tabId === tabId
+      (tabPair) => tabPair.tabId === currentTabId
     );
 
     if (
@@ -102,12 +159,10 @@ export const Tabs = component$((props: TabsProps) => {
     ) {
       let nextTabId = enabledTabs[0].tabId;
 
-      if (currentFocusedTabIndex < tabPairs.length - 1) {
+      if (currentFocusedTabIndex < tabPairsList.length - 1) {
         nextTabId = enabledTabs[currentFocusedTabIndex + 1].tabId;
       }
-      tabsRootElement
-        ?.querySelector<HTMLElement>(`[data-tab-id='${nextTabId}']`)
-        ?.focus();
+      focusOnTab(nextTabId);
     }
 
     if (
@@ -119,134 +174,136 @@ export const Tabs = component$((props: TabsProps) => {
       if (currentFocusedTabIndex !== 0) {
         previousTabId = enabledTabs[currentFocusedTabIndex - 1].tabId;
       }
-      tabsRootElement
-        ?.querySelector<HTMLElement>(`[data-tab-id='${previousTabId}']`)
-        ?.focus();
+      focusOnTab(previousTabId);
     }
 
     if (key === KeyCode.Home || key === KeyCode.PageUp) {
-      tabsRootElement
-        ?.querySelector<HTMLElement>(`[data-tab-id='${enabledTabs[0].tabId}']`)
-        ?.focus();
+      const firstTabId = enabledTabs[0].tabId;
+      focusOnTab(firstTabId);
     }
 
     if (key === KeyCode.End || key === KeyCode.PageDown) {
+      const lastTabId = enabledTabs[enabledTabs.length - 1].tabId;
+      focusOnTab(lastTabId);
+    }
+
+    function focusOnTab(tabId: string) {
       tabsRootElement
-        ?.querySelector<HTMLElement>(
-          `[data-tab-id='${enabledTabs[enabledTabs.length - 1].tabId}']`
-        )
+        ?.querySelector<HTMLElement>(`[data-tab-id='${tabId}']`)
         ?.focus();
     }
   });
 
   const contextService: TabsContext = {
     selectTab$,
-    showTabs$,
-    onTabsChanged$,
+    isTabSelected$,
+    isPanelSelected$,
+    updateTabState$,
+    getNextServerAssignedTabIndex$,
+    getNextServerAssignedPanelIndex$,
+    getMatchedPanelId$,
+    getMatchedTabId$,
+    isIndexSelected$,
+    reIndexTabs$,
     onTabKeyDown$,
-    selectedTabIdSig,
-    selectedIndexSig,
-    tabsMap,
-    tabPanelsMap,
-    behavior,
-    lastAssignedTabIndexSig,
-    lastAssignedPanelIndexSig,
+    selectIfAutomatic$,
   };
 
   useContextProvider(tabsContextId, contextService);
 
-  useVisibleTask$(({ track }) => {
-    track(() => reIndexTabsSig.value);
+  useVisibleTask$(function buildTabsInfoVisibleTask({ track }) {
+    track(() => shouldReIndexTabsSig.value);
 
-    if (!reIndexTabsSig.value) {
+    if (!shouldReIndexTabsSig.value) {
       return;
     }
-    reIndexTabsSig.value = false;
+    shouldReIndexTabsSig.value = false;
 
-    if (ref.value) {
-      const tabsRootElement = ref.value;
+    if (!ref.value) {
+      return;
+    }
+    const tabsRootElement = ref.value;
 
-      const tabListElement = tabsRootElement.querySelector('[role="tablist"]');
-      let tabElements: Element[] = [];
-      if (tabListElement) {
-        tabElements = Array.from(tabListElement?.children).filter((child) => {
-          return child.getAttribute('role') === 'tab';
-        });
-      }
-
-      let tabPanelElements: Element[] = [];
-      if (tabsRootElement.children) {
-        tabPanelElements = Array.from(tabsRootElement.children).filter(
-          (child) => {
-            return child.getAttribute('role') === 'tabpanel';
-          }
-        );
-      }
-
-      // See if the deleted index was the last one
-      let lastTabWasSelectedPreviously = false;
-      if (selectedIndexSig.value === tabPairs.length - 1) {
-        lastTabWasSelectedPreviously = true;
-      }
-
-      tabPairs.length = 0;
-
-      let deletedTabId: string | undefined = undefined;
-
-      tabElements.forEach((tab, index) => {
-        const tabId = tab.getAttribute('data-tab-id');
-        const isDisabled = tab.hasAttribute('disabled');
-
-        if (!tabId) {
-          throw new Error('Missing tab id for tab: ' + index);
-        }
-
-        // clear all lists and maps
-        let thisTabWasDeleted = true;
-        // TODO: delete object maps, or turn into Map()
-
-        if (selectedTabIdSig.value === '') {
-          thisTabWasDeleted = false;
-        } else if (tabId === selectedTabIdSig.value) {
-          selectedIndexSig.value = index;
-          thisTabWasDeleted = false;
-        }
-
-        const tabPanelElement = tabPanelElements[index];
-        if (!tabPanelElement) {
-          throw new Error('Missing tab panel for tab: ' + index);
-        }
-        const tabPanelId = tabPanelElement.getAttribute('data-tabpanel-id');
-        if (tabId && tabPanelId) {
-          tabPairs.push({ tabId, tabPanelId });
-
-          tabsMap[tabId] = {
-            tabId,
-            tabPanelId,
-            index,
-            disabled: isDisabled,
-          };
-
-          tabPanelsMap[tabPanelId] = {
-            tabId,
-            tabPanelId,
-            index,
-          };
-        } else {
-          throw new Error('Missing tab id or tab panel id for tab: ' + index);
-        }
-
-        if (thisTabWasDeleted) {
-          deletedTabId = tabId;
-        }
+    const tabListElement = tabsRootElement.querySelector('[role="tablist"]');
+    let tabElements: Element[] = [];
+    if (tabListElement) {
+      tabElements = Array.from(tabListElement?.children).filter((child) => {
+        return child.getAttribute('role') === 'tab';
       });
+    }
 
-      if (tabPairs.length > 0) {
-        if (lastTabWasSelectedPreviously && deletedTabId) {
-          selectedIndexSig.value = tabPairs.length - 1;
+    let tabPanelElements: Element[] = [];
+    if (tabsRootElement.children) {
+      tabPanelElements = Array.from(tabsRootElement.children).filter(
+        (child) => {
+          return child.getAttribute('role') === 'tabpanel';
         }
-        selectedTabIdSig.value = tabPairs[selectedIndexSig.value].tabId;
+      );
+    }
+
+    // See if the deleted index was the last one
+    let lastTabWasSelectedPreviously = false;
+    if (selectedIndexSig.value === tabPairsList.length - 1) {
+      lastTabWasSelectedPreviously = true;
+    }
+
+    tabPairsList.length = 0;
+
+    let deletedTabId: string | undefined = undefined;
+
+    tabElements.forEach((tab, index) => {
+      const tabId = tab.getAttribute('data-tab-id');
+      const isDisabled = tab.hasAttribute('disabled');
+
+      if (!tabId) {
+        throw new Error('Missing tab id for tab: ' + index);
       }
+
+      // clear all lists and maps
+      let thisTabWasDeleted = true;
+      // TODO: delete object maps, or turn into Map()
+
+      if (selectedTabIdSig.value === '') {
+        thisTabWasDeleted = false;
+      } else if (tabId === selectedTabIdSig.value) {
+        selectedIndexSig.value = index;
+        thisTabWasDeleted = false;
+      }
+
+      const tabPanelElement = tabPanelElements[index];
+      if (!tabPanelElement) {
+        throw new Error('Missing tab panel for tab: ' + index);
+      }
+      const tabPanelId = tabPanelElement.getAttribute('data-tabpanel-id');
+      if (tabId && tabPanelId) {
+        tabPairsList.push({ tabId, tabPanelId });
+
+        tabsMap[tabId] = {
+          tabId,
+          tabPanelId,
+          index,
+          disabled: isDisabled,
+        };
+
+        tabPanelsMap[tabPanelId] = {
+          tabId,
+          tabPanelId,
+          index,
+        };
+      } else {
+        throw new Error('Missing tab id or tab panel id for tab: ' + index);
+      }
+
+      if (thisTabWasDeleted) {
+        deletedTabId = tabId;
+      }
+    });
+
+    if (tabPairsList.length > 0) {
+      if (lastTabWasSelectedPreviously && deletedTabId) {
+        selectedIndexSig.value = tabPairsList.length - 1;
+      }
+      selectedTabIdSig.value = tabPairsList[selectedIndexSig.value].tabId;
     }
   });
 
