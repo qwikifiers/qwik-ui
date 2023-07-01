@@ -107,6 +107,7 @@
         "cypressConfig": "packages/kit-headless/cypress.config.ts",
         "testingType": "component",
         "watch": true,
+        "skipNxCache": true,
         "env": {
           "pluginVisualRegressionCleanupUnusedImages": false
         }
