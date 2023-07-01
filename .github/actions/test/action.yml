@@ -33,6 +33,7 @@ runs:
     - name: Run Cypress component tests
       uses: cypress-io/github-action@v5
       with:
+        browser: chrome
         command: 'pnpm test:headless:ci'
 
     # - name: Publish to Chromatic
