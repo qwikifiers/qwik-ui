@@ -10,6 +10,7 @@ export interface AutocompleteContext {
   labelRef: Signal<HTMLElement | undefined>;
   listBoxId: string;
   inputId: string;
+  buttonId: string;
   activeOptionId: Signal<string | null>;
   inputValue: Signal<string>;
   focusInput$: QRL<(inputId: string) => void>;

@@ -16,6 +16,8 @@ export type InputProps = QwikIntrinsicElements['input'];
 export const AutocompleteInput = component$((props: InputProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
+  const listboxId = contextService.listBoxId;
+  const labelRef = contextService.labelRef;
 
   /* 
     previously had useTask here, but noticed whenever it first renders, 
@@ -67,9 +69,15 @@ export const AutocompleteInput = component$((props: InputProps) => {
       data-autocomplete-input-id={contextService.inputId}
       ref={ref}
       role="combobox"
+      aria-invalid={props['aria-invalid'] || false}
       id={contextService.inputId}
       aria-autocomplete="list"
-      aria-controls={contextService.listBoxId}
+      aria-haspopup="listbox"
+      aria-controls={listboxId}
+      aria-expanded={contextService.isExpanded.value}
+      aria-disabled={props['aria-disabled'] || false}
+      aria-label={labelRef.value ? undefined : contextService.inputValue.value}
+      aria-required={props['aria-required'] || false}
       bind:value={contextService.inputValue}
       onKeyDown$={[
         $((e: QwikKeyboardEvent) => {

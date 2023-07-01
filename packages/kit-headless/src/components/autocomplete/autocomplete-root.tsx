@@ -134,6 +134,7 @@ export const AutocompleteRoot = component$(
     const inputValue = useSignal(defaultValue ? defaultValue : '');
     const listBoxId = useId();
     const inputId = useId();
+    const buttonId = useId();
     const activeOptionId = useSignal(null);
     const focusInput$ = $((inputId: string) => {
       triggerRef.value
@@ -156,6 +157,7 @@ export const AutocompleteRoot = component$(
       inputValue,
       listBoxId,
       inputId,
+      buttonId,
       activeOptionId,
       focusInput$,
     };
