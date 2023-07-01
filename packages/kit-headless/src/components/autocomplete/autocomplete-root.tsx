@@ -130,19 +130,19 @@ export const AutocompleteRoot = component$(
     const isExpanded = useSignal(false);
     const triggerRef = useSignal<HTMLElement>();
     const listBoxRef = useSignal<HTMLElement>();
+    const rootRef = useSignal<HTMLElement>();
     const labelRef = useSignal<HTMLElement>();
     const inputValue = useSignal(defaultValue ? defaultValue : '');
     const listBoxId = useId();
     const inputId = useId();
+    const buttonId = useId();
     const activeOptionId = useSignal(null);
     const focusInput$ = $((inputId: string) => {
-      triggerRef.value
+      rootRef.value
         ?.querySelector<HTMLElement>(
           `[data-autocomplete-input-id="${inputId}"]`
         )
         ?.focus();
-
-      console.log(triggerRef.value);
     });
 
     const contextService: AutocompleteContext = {
@@ -156,6 +156,7 @@ export const AutocompleteRoot = component$(
       inputValue,
       listBoxId,
       inputId,
+      buttonId,
       activeOptionId,
       focusInput$,
     };
@@ -226,6 +227,7 @@ export const AutocompleteRoot = component$(
           props.onKeyDown$,
         ]}
         {...props}
+        ref={rootRef}
       >
         <Slot />
       </div>

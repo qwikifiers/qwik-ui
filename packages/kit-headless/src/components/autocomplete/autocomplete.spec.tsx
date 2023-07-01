@@ -296,11 +296,11 @@ describe('Autocomplete', () => {
       THEN focus should move back to the previous option in the list.`, () => {
     cy.mount(<RegularAutocomplete />);
 
-    cy.get('input').type(`A`);
+    cy.get('input').type(`Ba`);
 
-    cy.findByRole('listbox').should('be.visible');
+    cy.findByRole('listbox');
 
-    cy.findByRole('option', { name: 'Apricot' }).focus().type(`{uparrow}`);
+    cy.findByRole('option', { name: 'Jabuticaba' }).focus().type(`{uparrow}`);
 
     cy.get('li').filter(':visible').first().should('have.focus');
   });

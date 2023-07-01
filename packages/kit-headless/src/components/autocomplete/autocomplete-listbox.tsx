@@ -16,11 +16,12 @@ export type ListboxProps = {
 export const AutocompleteListbox = component$((props: ListboxProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
+  const listboxId = contextService.listBoxId;
   contextService.listBoxRef = ref;
 
   return (
     <ul
-      id={contextService.listBoxId}
+      id={listboxId}
       ref={ref}
       style={`
           display: ${
