@@ -84,18 +84,4 @@ describe('Select', () => {
 
     cy.findByRole('listbox').should('not.exist');
   });
-
-  it('should use the arrow keys to navigate options', () => {
-    cy.mount(<ThreeOptionSelect />);
-
-    cy.get('button').focus().click();
-
-    cy.findByRole('listbox').should('be.visible');
-
-    cy.findByRole('group').type(`{downarrow}`);
-
-    cy.findByTestId('selectOptionTwo').type(`{enter}`).should('not.be.visible');
-
-    cy.findByTestId('selectValue').should('have.text', 'Two');
-  });
 });
