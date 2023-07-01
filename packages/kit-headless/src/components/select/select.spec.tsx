@@ -74,13 +74,13 @@ describe('Select', () => {
   it('should toggle aria-expanded and the listbox should be hidden', () => {
     cy.mount(<ThreeOptionSelect />);
 
-    cy.get('button').click().should('have.attr', 'aria-expanded', 'true');
+    cy.get('button')
+      .click()
+      .should('have.attr', 'aria-expanded', 'true')
+      .click()
+      .should('have.attr', 'aria-expanded', 'false');
 
     // current passed test for now. doesn't work with click for some reason
-    cy.get('button')
-      .focus()
-      .type('{enter}')
-      .should('have.attr', 'aria-expanded', 'false');
 
     cy.findByRole('listbox').should('not.exist');
   });
@@ -88,13 +88,13 @@ describe('Select', () => {
   it('should use the arrow keys to navigate options', () => {
     cy.mount(<ThreeOptionSelect />);
 
-    cy.findByTestId('selectTrigger').type('{enter}');
+    cy.get('button').focus().click();
 
     cy.findByRole('listbox').should('be.visible');
 
-    cy.findByRole('group').type('{downarrow}');
+    cy.findByRole('group').type(`{downarrow}`);
 
-    cy.findByTestId('selectOptionTwo').type('{enter}').should('not.be.visible');
+    cy.findByTestId('selectOptionTwo').type(`{enter}`).should('not.be.visible');
 
     cy.findByTestId('selectValue').should('have.text', 'Two');
   });
