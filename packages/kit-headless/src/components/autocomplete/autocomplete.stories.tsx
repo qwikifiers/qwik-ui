@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
-import { userEvent, within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { within } from '@storybook/testing-library';
 import './autocompleteTest.css';
 
 /*
