@@ -2,6 +2,24 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.4](https://github.com/qwikifiers/qwik-ui/compare/tailwind-0.0.3...tailwind-0.0.4) (2023-07-04)
+
+
+### Bug Fixes
+
+* **autocomplete & website deploy fixes:** autocomplete dropdown fix & deploy fix ([6a1710e](https://github.com/qwikifiers/qwik-ui/commit/6a1710e65e9aa038f70a12a444e4747d3450c062))
+* **docs site build:** docs site should build correctly now ([a70b6e8](https://github.com/qwikifiers/qwik-ui/commit/a70b6e80f8fb670b1088a44bd68464c5962c6b9d))
+* **website builds locally:** n ([29cfafa](https://github.com/qwikifiers/qwik-ui/commit/29cfafa676c14cffc3afa19a10a9b5dc5d2ae89e))
+
+
+### Features
+
+* add carousel component ([#280](https://github.com/qwikifiers/qwik-ui/issues/280)) ([396aeb1](https://github.com/qwikifiers/qwik-ui/commit/396aeb1843740c3cf7f50520dc2ebb3882692e77))
+* **component:** add support for button custom labels ([b71af63](https://github.com/qwikifiers/qwik-ui/commit/b71af63ad2032fcf23942d8d2c8156d355cd359d))
+* **component:** add support to customize the default and active classes in button ([8ad71bf](https://github.com/qwikifiers/qwik-ui/commit/8ad71bf66059582f7818d113c5a8e5c3c2d89e54))
+
+
+
 ## [0.0.3](https://github.com/qwikifiers/qwik-ui/compare/tailwind-0.0.2...tailwind-0.0.3) (2023-04-29)
 
 ### Bug Fixes
