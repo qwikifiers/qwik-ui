@@ -2,6 +2,56 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.8](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.7...headless-0.1.8) (2023-07-04)
+
+
+### Bug Fixes
+
+* **attempted build fix:** n ([3d3158a](https://github.com/qwikifiers/qwik-ui/commit/3d3158a1bda10ab3f182d127e75f9d9f81bdc3d7))
+* **autocomplete & website deploy fixes:** autocomplete dropdown fix & deploy fix ([6a1710e](https://github.com/qwikifiers/qwik-ui/commit/6a1710e65e9aa038f70a12a444e4747d3450c062))
+* **autocomplete file issue:** n ([f44779d](https://github.com/qwikifiers/qwik-ui/commit/f44779d951771b1f513d70c7366725d7da53f2f3))
+* **autocomplete issue:** n ([81c1acb](https://github.com/qwikifiers/qwik-ui/commit/81c1acb300caedc02546dbd44f2a0f4dbc160105))
+* content blocking aria-expanded and select visible after computed ([0e97e1b](https://github.com/qwikifiers/qwik-ui/commit/0e97e1b7c8722638f00513dae522781bd0b0463b))
+* **cypress:** attempt to fix async error in cypress ([8240870](https://github.com/qwikifiers/qwik-ui/commit/82408705e337d638e31f7d6ce385cc993ff2401b))
+* **fixed enter key not properly hiding listbox:** enter key now hides the listbow ([899a56d](https://github.com/qwikifiers/qwik-ui/commit/899a56dcaeaea3f1e32f244e5fe07c7c65d2935b))
+* **headless/tabs:** removed empty if ([1e8be6b](https://github.com/qwikifiers/qwik-ui/commit/1e8be6b15dc1244d32ec00960250baf72b6464de))
+* **headless/tabs:** render on server ([8309d7b](https://github.com/qwikifiers/qwik-ui/commit/8309d7b4e5c93058e4fbb5f7951e8f198f895a36))
+* **headless/tabs:** restored dynamic handling ([c5621a5](https://github.com/qwikifiers/qwik-ui/commit/c5621a53c0258fb4c1ad1f30a142367d74009ade))
+* **headless/tabs:** specific preventDefault ([a7bd27b](https://github.com/qwikifiers/qwik-ui/commit/a7bd27b9ecf841386afc571f9bfee8dceccec6c8))
+* **headless:** added tests to ts exclude ([8bc36a0](https://github.com/qwikifiers/qwik-ui/commit/8bc36a0c5cc4ba86a14a78742388ed89f3d595f4))
+* **hopeful fix for autocomplete directory:** n ([f6368ae](https://github.com/qwikifiers/qwik-ui/commit/f6368ae4894b8c5ee96a4f4fc488ee18901d9a6b))
+* moved useId outside fo template ([ce2799f](https://github.com/qwikifiers/qwik-ui/commit/ce2799f1181ff5b970dab0b867e9bd12c878b5d3))
+* **popover-content:** add aria-label attr to pass a11y cypress assertion ([dd06273](https://github.com/qwikifiers/qwik-ui/commit/dd06273facf460462e1e1d1868f05627ef93425c))
+* **previous commit:** overwrite previous commit ([3767c44](https://github.com/qwikifiers/qwik-ui/commit/3767c4405990c72edee776963bf3a9d339bfb081))
+* tabs flicker ([e2227c2](https://github.com/qwikifiers/qwik-ui/commit/e2227c21f9d1dd89d1074f223e94753aa8530a4c))
+* tabs, finally 😅 ([9d579b6](https://github.com/qwikifiers/qwik-ui/commit/9d579b68c91baaaa03b0872deb91c46a4df44fae))
+* **tabs:** wrong labelledBy value ([8cb43c9](https://github.com/qwikifiers/qwik-ui/commit/8cb43c97fa2d8b359ede08121f1a01b6504f6780))
+
+
+### Features
+
+* **accessibility:** axe accessibility recommendation changes ([ef1e1f2](https://github.com/qwikifiers/qwik-ui/commit/ef1e1f295c833fd5acfb59db61e33b4cb5554e51))
+* add carousel component ([#280](https://github.com/qwikifiers/qwik-ui/issues/280)) ([396aeb1](https://github.com/qwikifiers/qwik-ui/commit/396aeb1843740c3cf7f50520dc2ebb3882692e77))
+* **component:** add support for button custom labels ([b71af63](https://github.com/qwikifiers/qwik-ui/commit/b71af63ad2032fcf23942d8d2c8156d355cd359d))
+* **component:** add support to customize the default and active classes in button ([8ad71bf](https://github.com/qwikifiers/qwik-ui/commit/8ad71bf66059582f7818d113c5a8e5c3c2d89e54))
+* **cypress select tests:** added tests for select component using cypress ([515e77d](https://github.com/qwikifiers/qwik-ui/commit/515e77ddc76e69ea5ed2c51a2a49097541059c19))
+* **disabled options for autocomplete:** disabled options for autocomplete ([f9c01b3](https://github.com/qwikifiers/qwik-ui/commit/f9c01b3da86bac96b41921f78c3b23b331c4d84d))
+* **docs:** add preview/code switching to examples ([05862dc](https://github.com/qwikifiers/qwik-ui/commit/05862dc73123b46b4f1153726af09a21aa6c62db))
+* **filtering, autocomplete functionality , along with selecting an object:** autocomplete works ([f3cd73c](https://github.com/qwikifiers/qwik-ui/commit/f3cd73c179ba902c58d3ac522bf6b4bbadb1ed3e))
+* **headless/tabs:** add right arrow support ([1284b1e](https://github.com/qwikifiers/qwik-ui/commit/1284b1e1b48747de42993368aaab21a019e22746))
+* **headless/tabs:** end,home,pagedn,pageup ([745c8bd](https://github.com/qwikifiers/qwik-ui/commit/745c8bd44fdb50c8a550d2655830b9f6414b2ec2))
+* **headless/tabs:** handle left arrow, home, end ([487de0e](https://github.com/qwikifiers/qwik-ui/commit/487de0efc2587392d3bad2a49a40b98551c36541))
+* **headless/tabs:** handle vertical tabs ([1a6ae5a](https://github.com/qwikifiers/qwik-ui/commit/1a6ae5af7417640b0ed624f25e35bbd28c2a43b1))
+* **headless/tabs:** onSelectedIndexChange ([a43c87a](https://github.com/qwikifiers/qwik-ui/commit/a43c87aba2d778deafdfc206935b233b0ebf089f))
+* **headless:** tabs  selectedIndex impl & tests ([74fb635](https://github.com/qwikifiers/qwik-ui/commit/74fb635e6887cc58d8eb7e80826bfad42aa1e2e1))
+* **initial api additions & scaffolding:** initial API, Setting up types & props ([99e31e6](https://github.com/qwikifiers/qwik-ui/commit/99e31e6ecd1f2b2df5b680a11017e353cfb40786))
+* **keyboard navigation & aria:** added keyboard navigation ([09689c0](https://github.com/qwikifiers/qwik-ui/commit/09689c053429c6ec0744ae7d320e11b5d54b8eea))
+* **listbox toggle, floating ui anchor additiongs, listbox wrapper:** part of the autocomplete added ([593aa80](https://github.com/qwikifiers/qwik-ui/commit/593aa80af6c8df565001a4209d9cd358cb9ecc37))
+* **popover-content:** add aria-modal attr ([4b8aa11](https://github.com/qwikifiers/qwik-ui/commit/4b8aa11398d0f05d79f2986e6db46f1d8d8d0c71))
+* **popover:** add roles to popover trigger and content ([4d8c94a](https://github.com/qwikifiers/qwik-ui/commit/4d8c94a72023ebb6cc5614bbf5c6e617d4fa1322))
+
+
+
 ## [0.1.7](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.6...headless-0.1.7) (2023-04-29)
 
 ### Bug Fixes
