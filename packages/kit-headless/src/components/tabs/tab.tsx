@@ -54,8 +54,6 @@ export const Tab = component$((props: TabProps) => {
   });
 
   useTask$(async function isSelectedTask({ track }) {
-    track(() => serverAssignedIndexSig.value);
-
     const isTabSelected = await track(() =>
       contextService.isTabSelected$(uniqueTabId)
     );
