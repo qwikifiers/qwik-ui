@@ -17,18 +17,19 @@ import { KeyCode } from '../../utils/key-code.type';
 
 /**
  * TABS TODOs
- * 
- * Add examples for:
+ *
+ * Missing 'code' section implementation:
  *  - Vertical
  *  - disabled
  *  - dynamic
  *  - behavior
  *  - onSelectedIndexChange$
  *  - onClick$
+
  *
 * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
-  
+
 * POST Beta
   * Add automated tests for preventDefault on end, home,  pageDown, pageUp
   * Add automated tests for SSR indexing behavior (and in general)
