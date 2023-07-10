@@ -18,13 +18,7 @@ import { KeyCode } from '../../utils/key-code.type';
 /**
  * TABS TODOs
  *
- * Missing 'code' section implementation:
- *  - Vertical
- *  - disabled
- *  - dynamic
- *  - behavior
- *  - onSelectedIndexChange$
- *  - onClick$
+ * Create a test for arrow right and left and make sure it works only in horizontal mode
 
  *
 * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
@@ -162,7 +156,7 @@ export const Tabs = component$((props: TabsProps) => {
     );
 
     if (
-      key === KeyCode.ArrowRight ||
+      (!props.vertical && key === KeyCode.ArrowRight) ||
       (props.vertical && key === KeyCode.ArrowDown)
     ) {
       let nextTabId = enabledTabs[0].tabId;
@@ -174,7 +168,7 @@ export const Tabs = component$((props: TabsProps) => {
     }
 
     if (
-      key === KeyCode.ArrowLeft ||
+      (!props.vertical && key === KeyCode.ArrowLeft) ||
       (props.vertical && key === KeyCode.ArrowUp)
     ) {
       let previousTabId = enabledTabs[enabledTabs.length - 1].tabId;
@@ -215,7 +209,7 @@ export const Tabs = component$((props: TabsProps) => {
     reIndexTabs$,
     onTabKeyDown$,
     selectIfAutomatic$,
-    selectedClassName: props.selectedClassName
+    selectedClassName: props.selectedClassName,
   };
 
   useContextProvider(tabsContextId, contextService);

@@ -297,6 +297,20 @@ describe('Tabs', () => {
 
         cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
       });
+
+      it(`GIVEN 3 vertical tabs and the focus is on the first,
+          WHEN triggering the right arrow key or left arrow key
+          THEN the focus should stay on the first tab`, () => {
+        cy.mount(<ThreeTabsComponent isVertical={true} />);
+
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+
+        cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+
+        cy.findByRole('tab', { name: /Tab 1/i }).type('{leftarrow}');
+
+        cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+      });
     });
 
     describe('UP key handling', () => {
