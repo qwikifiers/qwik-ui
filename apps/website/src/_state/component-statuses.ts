@@ -44,7 +44,7 @@ export const componentsStatuses: ComponentKitsStatuses = {
     Carousel: 'Planned',
     Popover: 'Planned',
     Select: 'Draft',
-    Tabs: 'Planned',
+    Tabs: 'Ready',
     Toggle: 'Planned',
     Tooltip: 'Planned',
   },
