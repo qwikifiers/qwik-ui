@@ -9,6 +9,7 @@ import {
   useVisibleTask$,
   QwikIntrinsicElements,
   type QwikMouseEvent,
+  useComputed$,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';
 import { KeyCode } from '../../utils/key-code.type';
@@ -38,6 +39,10 @@ export const Tab = component$((props: TabProps) => {
   const matchedTabPanelIdSig = useSignal<string | undefined>(undefined);
   const elementRefSig = useSignal<HTMLElement | undefined>();
   const uniqueTabId = useId();
+
+  const selectedClassNameSig = useComputed$(() => {
+    return props.selectedClassName || contextService.selectedClassName;
+  });
 
   useTask$(async function indexInitTask({ cleanup }) {
     if (isServer) {
@@ -112,7 +117,9 @@ export const Tab = component$((props: TabProps) => {
       tabIndex={isSelectedSig.value ? 0 : -1}
       aria-controls={'tabpanel-' + matchedTabPanelIdSig.value}
       class={`${
-        isSelectedSig.value ? `selected ${props.selectedClassName || ''}` : ''
+        isSelectedSig.value
+          ? `selected ${selectedClassNameSig.value || ''}`
+          : ''
       }${props.class ? ` ${props.class}` : ''}`}
       onClick$={(event) => {
         contextService.selectTab$(uniqueTabId);
@@ -120,6 +127,7 @@ export const Tab = component$((props: TabProps) => {
           props.onClick$(event);
         }
       }}
+      style={props.style}
     >
       <Slot />
     </button>

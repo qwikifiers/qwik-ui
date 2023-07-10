@@ -1,5 +1,4 @@
 import { QRL } from '@builder.io/qwik';
-import { Behavior } from './behavior.type';
 import { TabInfo } from './tabs';
 import { KeyCode } from '../../utils/key-code.type';
 
@@ -16,4 +15,5 @@ export interface TabsContext {
   isTabSelected$: QRL<(tabId: string) => boolean>;
   isPanelSelected$: QRL<(panelId: string) => boolean>;
   selectIfAutomatic$: QRL<(tabId: string) => void>;
+  selectedClassName?: string;
 }

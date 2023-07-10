@@ -46,6 +46,7 @@ export type TabsProps = {
   behavior?: Behavior;
   selectedIndex?: number;
   vertical?: boolean;
+  selectedClassName?: string;
   onSelectedIndexChange$?: (index: number) => void;
 } & QwikIntrinsicElements['div'];
 
@@ -214,6 +215,7 @@ export const Tabs = component$((props: TabsProps) => {
     reIndexTabs$,
     onTabKeyDown$,
     selectIfAutomatic$,
+    selectedClassName: props.selectedClassName
   };
 
   useContextProvider(tabsContextId, contextService);
