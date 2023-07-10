@@ -1,42 +1,52 @@
-import {
-  component$,
-  HTMLAttributes,
-  PropFunction,
-  Slot,
-} from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 
 import {
-  Accordion as HeadlessAccordion,
-  AccordionItem as HeadlessAccordionItem,
+  AccordionRoot,
+  AccordionItem,
+  AccordionContent,
+  AccordionTrigger,
 } from '@qwik-ui/headless';
-import { clsq } from '@qwik-ui/shared';
 
-export type AccordionProps = HTMLAttributes<HTMLElement>;
-export interface AccordionItemProps {
-  label: string;
-  disabled?: boolean;
-  class?: string;
-  style?: string;
-  onClick$?: PropFunction<() => void>;
-}
-
-export const Accordion = component$((props: AccordionProps) => {
-  const { class: classNames, ...rest } = props;
+export const Accordion = component$(() => {
   return (
-    <HeadlessAccordion
-      class={clsq('collapse collapse-arrow', classNames)}
-      {...rest}
+    <AccordionRoot
+      behavior="single"
+      class="bg-gray-100 dark:bg-gray-700 max-w-[25rem] rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden"
     >
-      <Slot />
-    </HeadlessAccordion>
-  );
-});
-
-export const AccordionItem = component$((props: AccordionItemProps) => {
-  const { class: classNames, ...rest } = props;
-  return (
-    <HeadlessAccordionItem class={clsq('collapse-title', classNames)} {...rest}>
-      <Slot />
-    </HeadlessAccordionItem>
+      <AccordionItem>
+        <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800  text-left dark:border-gray-600 border-b-[1px]">
+          Can I add headings inside the accordion?
+        </AccordionTrigger>
+        <AccordionContent class="">
+          <p class="bg-violet-200 dark:bg-gray-900 p-4">
+            Yes, if you wrap a heading around the trigger, screen readers will
+            announce it properly.
+          </p>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800  text-left dark:border-gray-600 border-b-[1px]">
+          Is it easy to animate?
+        </AccordionTrigger>
+        <AccordionContent>
+          <p class="bg-violet-200 dark:bg-gray-900 p-4">
+            Yup! Whether you'd like to use CSS transitions with flex-basis,
+            grid-template columns, or use a JavaScript animation library, it's
+            easy out of the box!
+          </p>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionTrigger class="bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 px-4 py-2 w-full dark:hover:bg-gray-800 text-left">
+          How about opening multiple items at once?
+        </AccordionTrigger>
+        <AccordionContent>
+          <p class="bg-violet-200 dark:bg-gray-900 p-4 dark:border-gray-600 border-t-[1px]">
+            You can do that by setting the <strong>behavior</strong> prop to
+            "multi" on the Accordion
+          </p>
+        </AccordionContent>
+      </AccordionItem>
+    </AccordionRoot>
   );
 });

@@ -7,7 +7,7 @@ import {
   $,
   useSignal,
   useVisibleTask$,
-  QwikIntrinsicElements,
+  type QwikIntrinsicElements,
   type QwikMouseEvent,
 } from '@builder.io/qwik';
 import { tabsContextId } from './tabs-context-id';

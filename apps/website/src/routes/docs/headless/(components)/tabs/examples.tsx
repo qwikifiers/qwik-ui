@@ -9,7 +9,7 @@ export const Example01 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example">
-        <Tabs behavior="automatic">
+        <Tabs selectedIndex={1} behavior="automatic">
           <h3 id="tablist-1">Danish Composers</h3>
           <TabList>
             <Tab>Maria Ahlefeldt</Tab>

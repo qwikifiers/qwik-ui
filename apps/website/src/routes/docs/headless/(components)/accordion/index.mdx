@@ -2,7 +2,13 @@
 title: Qwik UI | Accordion
 ---
 
-import { Accordion, AccordionItem } from '@qwik-ui/headless';
+import {
+  AccordionRoot,
+  AccordionItem,
+  AccordionContent,
+  AccordionTrigger,
+  Checkbox,
+} from '@qwik-ui/headless';
 import { Example01, Example02, Example03 } from './examples';
 import { CodeExample } from '../../../../../components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
@@ -16,33 +22,42 @@ import { APITable } from '../../../../../components/api-table/api-table';
 
 <Example01>
   ```tsx
-  <Accordion class="bg-slate-100 dark:bg-gray-700 w-60 rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden">
-    <AccordionItem
-      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]"
-      label="Peek inside."
-    >
-      <p class="bg-slate-200 dark:bg-gray-900 p-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-        aliquid architecto delectus deleniti dolor
-      </p>
+  <AccordionRoot class="bg-gray-100 dark:bg-gray-700 max-w-[25rem] rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden">
+    <AccordionItem>
+      <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left">
+        Can I add headings inside the accordion?
+      </AccordionTrigger>
+      <AccordionContent>
+        <p class="bg-violet-200 dark:bg-gray-900 p-4">
+          Yes, if you wrap a heading around the trigger, screen readers will
+          announce it properly.
+        </p>
+      </AccordionContent>
     </AccordionItem>
-    <AccordionItem
-      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]"
-      label="Do it again!"
-    >
-      <p class="bg-slate-200 dark:bg-gray-900 p-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-        aliquid architecto delectus deleniti dolor
-      </p>
+    <AccordionItem class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]">
+      <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left">
+        Is it easy to animate?
+      </AccordionTrigger>
+      <AccordionContent>
+        <p class="bg-violet-200 dark:bg-gray-900 p-4">
+          Yup! Whether you'd like to use CSS transitions with flex-basis,
+          grid-template columns, or use a JavaScript animation library, it's
+          easy out of the box!
+        </p>
+      </AccordionContent>
     </AccordionItem>
-    <AccordionItem
-      label="Not this time..."
-      disabled
-      class="px-4 py-2 disabled:cursor-not-allowed disabled:text-gray-400 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]"
-    >
-      You can't see me!
+    <AccordionItem class="px-4 py-2 disabled:cursor-not-allowed disabled:text-gray-400 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]">
+      <AccordionTrigger class="bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 px-4 py-2 w-full dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left">
+        How about opening multiple items at once?
+      </AccordionTrigger>
+      <AccordionContent>
+        <p class="bg-violet-200 dark:bg-gray-900 p-4">
+          You can do that by setting the <strong>behavior</strong> prop to
+          "multi" on the Accordion
+        </p>
+      </AccordionContent>
     </AccordionItem>
-  </Accordion>
+  </AccordionRoot>
   ```
 </Example01>
 
@@ -51,11 +66,13 @@ import { APITable } from '../../../../../components/api-table/api-table';
   <CodeExample>
     ```tsx
     import { component$ } from '@builder.io/qwik';
-    import { Accordion, AccordionItem } from '@qwik-ui/headless';
 
     export default component$(() => (
       <Accordion>
-        <AccordionItem>Content</AccordionItem>
+        <AccordionItem>
+          <AccordionTrigger>Title</AccordionTrigger>
+          <AccordionContent>Content</AccordionContent>
+        </AccordionItem>
       </Accordion>
     ));
     ```
