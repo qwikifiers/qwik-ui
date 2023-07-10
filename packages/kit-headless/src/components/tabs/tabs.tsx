@@ -17,9 +17,7 @@ import { KeyCode } from '../../utils/key-code.type';
 
 /**
  * TABS TODOs
- *
- * Create a test for arrow right and left and make sure it works only in horizontal mode
-
+ 
  *
 * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
