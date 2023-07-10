@@ -57,7 +57,7 @@ export const Tab = component$((props: TabProps) => {
     const isTabSelected = await track(() =>
       contextService.isTabSelected$(uniqueTabId)
     );
-    if (isServer) {
+    if (isServer && !props.disabled) {
       isSelectedSig.value = await contextService.isIndexSelected$(
         serverAssignedIndexSig.value
       );
