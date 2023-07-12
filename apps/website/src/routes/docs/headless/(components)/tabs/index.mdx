@@ -200,6 +200,7 @@ const tabsState = useStore([
 return <>
 
 {' '}
+
 <Tabs>
   <TabList>
     {tabsState.map((tab) => (
@@ -235,6 +236,7 @@ const selectedIndexSig = useSignal(0);
 return <div>
 
 {' '}
+
 <Tabs
   onSelectedIndexChange$={(index) => {
     selectedIndexSig.value = index;
@@ -275,6 +277,7 @@ const tabsClickedCountSig = useSignal(0);
 return <div>
 
 {' '}
+
 <h3>Danish Composers</h3>
 <h4>(watch the counter below)</h4>
 <Tabs
@@ -301,6 +304,7 @@ return <div>
 </Tabs>
 
 {' '}
+
 <p>Click count: {tabsClickedCountSig.value}</p>
 
 </div>
