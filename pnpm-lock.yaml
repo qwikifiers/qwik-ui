@@ -269,7 +269,11 @@ importers:
         specifier: 3.1.0
         version: 3.1.0
 
-  apps/website: {}
+  apps/website:
+    dependencies:
+      '@qwik-ui/headless':
+        specifier: file:../../dist/packages/kit-headless
+        version: file:dist/packages/kit-headless(@builder.io/qwik@1.1.5)
 
   packages/bots: {}
 
@@ -25809,3 +25813,16 @@ packages:
         integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==,
       }
     dev: true
+
+  file:dist/packages/kit-headless(@builder.io/qwik@1.1.5):
+    resolution: { directory: dist/packages/kit-headless, type: directory }
+    id: file:dist/packages/kit-headless
+    name: '@qwik-ui/headless'
+    version: 0.1.7
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@builder.io/qwik': '>1.1.0'
+    dependencies:
+      '@builder.io/qwik': 1.1.5(undici@5.22.0)
+      '@floating-ui/dom': 1.0.10
+    dev: false
