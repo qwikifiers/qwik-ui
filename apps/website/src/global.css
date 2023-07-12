@@ -67,16 +67,6 @@ html {
   font-family: 'Poppins', sans-serif;
 }
 
-[data-theme='light'] {
-  --color-bg: rgb(203 213 225);
-  --color-text: #333;
-}
-
-[data-theme='dark'] {
-  --color-bg: rgb(30 41 59);
-  --color-text: rgb(203 213 225);
-}
-
 body {
   min-height: 100%;
 }
