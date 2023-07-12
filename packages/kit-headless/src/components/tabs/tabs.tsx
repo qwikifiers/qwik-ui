@@ -159,7 +159,7 @@ export const Tabs = component$((props: TabsProps) => {
     ) {
       let nextTabId = enabledTabs[0].tabId;
 
-      if (currentFocusedTabIndex < tabPairsList.length - 1) {
+      if (currentFocusedTabIndex < enabledTabs.length - 1) {
         nextTabId = enabledTabs[currentFocusedTabIndex + 1].tabId;
       }
       focusOnTab(nextTabId);

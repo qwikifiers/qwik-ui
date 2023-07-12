@@ -527,6 +527,26 @@ describe('Tabs', () => {
       cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
     });
 
+    it(`GIVEN 3 horizontal tabs with the first one disabled and last one is focused
+        WHEN triggering the right arrow key
+        THEN the focus should be on the second tab`, () => {
+      cy.mount(<PotentiallyDisabledThreeTabs disabledIndex={0} />);
+
+      cy.findByRole('tab', { name: /Tab 3/i }).type('{rightarrow}');
+
+      cy.findByRole('tab', { name: /Tab 2/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 horizontal tabs with the first one disabled and last one is focused
+        WHEN triggering the right arrow key
+        THEN the focus should be on the second tab`, () => {
+      cy.mount(<PotentiallyDisabledThreeTabs disabledIndex={2} />);
+
+      cy.findByRole('tab', { name: /Tab 2/i }).type('{rightarrow}');
+
+      cy.findByRole('tab', { name: /Tab 1/i }).should('have.focus');
+    });
+
     it(`GIVEN 3 tabs and the last is disabled and the focus is on the first,
         WHEN triggering the 'end' key
         THEN the focus should be on the second tab`, () => {
