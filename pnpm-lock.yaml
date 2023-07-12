@@ -264,21 +264,6 @@ importers:
         specifier: 3.2.0
         version: 3.2.0
 
-  apps/website:
-    dependencies:
-      '@qwik-ui/headless':
-        specifier: file:../../dist/packages/kit-headless
-        version: file:dist/packages/kit-headless(@builder.io/qwik@1.2.6)
-      '@qwik-ui/material':
-        specifier: file:../../dist/packages/kit-material
-        version: file:dist/packages/kit-material
-      '@qwik-ui/primitives':
-        specifier: file:../../dist/packages/primitives
-        version: file:dist/packages/primitives
-      '@qwik-ui/tailwind':
-        specifier: file:../../dist/packages/kit-tailwind
-        version: file:dist/packages/kit-tailwind(@builder.io/qwik@1.2.6)(autoprefixer@10.4.13)(postcss@8.4.25)(ts-node@10.9.1)
-
   packages/bots: {}
 
   packages/kit-headless:
@@ -2125,6 +2110,7 @@ packages:
     dependencies:
       csstype: 3.1.2
       undici: 5.22.1
+    dev: true
 
   /@cloudflare/kv-asset-handler@0.2.0:
     resolution:
@@ -11975,6 +11961,7 @@ packages:
       {
         integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==,
       }
+    dev: true
 
   /cwd@0.10.0:
     resolution:
@@ -26766,45 +26753,3 @@ packages:
         integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==,
       }
     dev: true
-
-  file:dist/packages/kit-headless(@builder.io/qwik@1.2.6):
-    resolution: { directory: dist/packages/kit-headless, type: directory }
-    id: file:dist/packages/kit-headless
-    name: '@qwik-ui/headless'
-    version: 0.1.7
-    engines: { node: '>=16.0.0' }
-    peerDependencies:
-      '@builder.io/qwik': '>1.1.0'
-    dependencies:
-      '@builder.io/qwik': 1.2.6(undici@5.22.1)
-      '@floating-ui/dom': 1.0.10
-    dev: false
-
-  file:dist/packages/kit-material:
-    resolution: { directory: dist/packages/kit-material, type: directory }
-    name: '@qwik-ui/theme-material'
-    version: 0.0.0
-    engines: { node: '>=16.0.0' }
-    dev: false
-
-  file:dist/packages/kit-tailwind(@builder.io/qwik@1.2.6)(autoprefixer@10.4.13)(postcss@8.4.25)(ts-node@10.9.1):
-    resolution: { directory: dist/packages/kit-tailwind, type: directory }
-    id: file:dist/packages/kit-tailwind
-    name: '@qwik-ui/tailwind'
-    version: 0.0.3
-    engines: { node: '>=16.0.0' }
-    peerDependencies:
-      '@builder.io/qwik': '>1.1.0'
-    dependencies:
-      '@builder.io/qwik': 1.2.6(undici@5.22.1)
-      daisyui: 2.50.1(autoprefixer@10.4.13)(postcss@8.4.25)(ts-node@10.9.1)
-    transitivePeerDependencies:
-      - autoprefixer
-      - postcss
-      - ts-node
-    dev: false
-
-  file:dist/packages/primitives:
-    resolution: { directory: dist/packages/primitives, type: directory }
-    name: primitives
-    dev: false
