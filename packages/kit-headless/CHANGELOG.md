@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.10](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.9...headless-0.1.10) (2023-07-13)
+
+
+### Bug Fixes
+
+* **headless/tabs:** disabled edges working now ([92ae8c8](https://github.com/qwikifiers/qwik-ui/commit/92ae8c877622429dffc24a3d9fdc2a957ffbedac))
+
+
+### Features
+
+* **accordion & banner:** major accordion refactor and banner component for docs ([c5d4017](https://github.com/qwikifiers/qwik-ui/commit/c5d40172243ac9fa71917fea1f44c2dc96ccc340))
+* **headless/tabs:** add custom selected class ([0590bf4](https://github.com/qwikifiers/qwik-ui/commit/0590bf424b76f773be60f0e2ead52ea8861a96ca))
+
+
+
 ## [0.1.9](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.8...headless-0.1.9) (2023-07-08)
 
 
