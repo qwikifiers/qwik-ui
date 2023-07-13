@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.5](https://github.com/qwikifiers/qwik-ui/compare/tailwind-0.0.4...tailwind-0.0.5) (2023-07-08)
+
+
+### Bug Fixes
+
+* types path in all packages ([d1baf5e](https://github.com/qwikifiers/qwik-ui/commit/d1baf5ea69a23d5f8f9700c0e6d5bb006c642cf9))
+
+
+
 ## [0.0.4](https://github.com/qwikifiers/qwik-ui/compare/tailwind-0.0.3...tailwind-0.0.4) (2023-07-04)
 
 

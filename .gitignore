@@ -6,7 +6,7 @@ lib-types
 
 # Development
 node_modules
-migrations.json
+#migrations.json
 
 # Cache
 .cache
