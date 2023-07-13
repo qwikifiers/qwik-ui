@@ -385,7 +385,8 @@ return <div>
     },
     {
       name: 'onSelectedIndexChange$',
-      type: '(index: number) => void',
+      type: 'function',
+      info: '(index: number) => void',
       description:
         'An event hook that getting notified whenever the selected index changes',
     },
@@ -403,7 +404,8 @@ return <div>
     },
     {
       name: 'onClick',
-      type: '(event: QwikMouseEvent) => void',
+      info: '(event: QwikMouseEvent) => void',
+      type: 'function',
       description: 'A custom click handler to wire to tab click event',
     },
     {
