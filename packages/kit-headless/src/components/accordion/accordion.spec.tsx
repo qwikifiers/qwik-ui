@@ -55,24 +55,24 @@ describe('Accordion', () => {
       .should('have.attr', 'aria-expanded', 'true');
   });
 
-  // it(`GIVEN 3 accordion items with the first one opened
-  //     WHEN clicking the middle one
-  //     THEN the content of the first item should close, and the middle should open.
-  //   `, () => {
-  //   cy.mount(<ThreeDisclosureAccordion />);
+  it(`GIVEN 3 accordion items with the first one opened
+      WHEN clicking the middle one
+      THEN the content of the first item should close, and the middle should open.
+    `, () => {
+    cy.mount(<ThreeDisclosureAccordion />);
 
-  //   cy.findByRole('button', { name: /Item 1/i })
-  //     .click()
-  //     .should('have.attr', 'aria-expanded', 'true');
+    cy.findByRole('button', { name: /Item 1/i })
+      .click()
+      .should('have.attr', 'aria-expanded', 'true');
 
-  //   cy.findByRole('button', { name: /Item 2/i })
-  //     .click()
-  //     .should('have.attr', 'aria-expanded', 'true');
+    cy.findByRole('button', { name: /Item 2/i })
+      .click()
+      .should('have.attr', 'aria-expanded', 'true');
 
-  //   cy.findByRole('button', { name: /Item 1/i }).should(
-  //     'have.attr',
-  //     'aria-expanded',
-  //     'false'
-  //   );
-  // });
+    cy.findByRole('button', { name: /Item 1/i }).should(
+      'have.attr',
+      'aria-expanded',
+      'false'
+    );
+  });
 });
