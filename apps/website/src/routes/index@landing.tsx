@@ -24,10 +24,10 @@ export default component$(() => {
           Accessibility built-in and unstyled for your bespoke designs and
           custom needs.
         </KitSelectionCTA>
-        <KitSelectionCTA kit="tailwind">
+        {/* <KitSelectionCTA kit="tailwind">
           Built on top of the Headless kit, ready-to-use components coated with
           a dash of Tailwind.
-        </KitSelectionCTA>
+        </KitSelectionCTA> */}
       </div>
     </div>
   );

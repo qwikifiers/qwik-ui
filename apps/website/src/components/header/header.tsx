@@ -88,7 +88,7 @@ export default component$(
         <nav class="hidden sm:flex gap-4">
           <a href="/about">About</a>
           <a href="/docs/headless/introduction">Headless Kit</a>
-          <a href="/docs/tailwind/introduction">Tailwind Kit</a>
+          {/* <a href="/docs/tailwind/introduction">Tailwind Kit</a> */}
           <a href="https://discord.gg/PVWUUejrez" target="_blank">
             Community
           </a>
