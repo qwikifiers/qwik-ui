@@ -65,12 +65,14 @@ import { APITable } from '../../../../../components/api-table/api-table';
   propDescriptors={[
     {
       name: 'placement',
-      type: '"top" | "right" | "bottom" | "left" | "top-start" | "top-end" | "right-start" | "right-end" | "bottom-start" | "bottom-end" | "left-start" | "left-end"',
+      type:"enum",
+      info: '"top" | "right" | "bottom" | "left" | "top-start" | "top-end" | "right-start" | "right-end" | "bottom-start" | "bottom-end" | "left-start" | "left-end"',
       description: 'The side where to show the popover.',
     },
     {
       name: 'triggerEvent',
-      type: '"click" | "mouseOver"',
+      type: 'enum',
+      info: '"click" | "mouseOver"',
       description: 'Popover is opened when trigger is clicked or mouse overed.',
     },
     {
@@ -91,8 +93,11 @@ import { APITable } from '../../../../../components/api-table/api-table';
     },
     {
       name: 'onUpdate$',
-      type: 'PropFunction<(isOpen: boolean) => void>',
+      type: 'function',
+      info: 'PropFunction<(isOpen: boolean) => void>',
+
       description: 'Notify a state update to the parent.',
     },
-  ]}
+
+]}
 />
