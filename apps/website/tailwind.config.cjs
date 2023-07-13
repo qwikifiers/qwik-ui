@@ -17,6 +17,10 @@ module.exports = {
       backgroundImage: {
         'optional-theme-bg': "url('/Button-bg.svg')",
       },
+      boxShadow: {
+        depth: 'var(--shadow-elevation-medium)',
+        'depth-dark': 'var(--dark-shadow-elevation-medium)',
+      },
     },
   },
 };

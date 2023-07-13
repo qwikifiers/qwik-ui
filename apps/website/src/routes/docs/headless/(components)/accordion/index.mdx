@@ -2,110 +2,223 @@
 title: Qwik UI | Accordion
 ---
 
-import { Accordion, AccordionItem } from '@qwik-ui/headless';
+import {
+  AccordionRoot,
+  AccordionItem,
+  AccordionContent,
+  AccordionTrigger,
+  Checkbox,
+} from '@qwik-ui/headless';
 import { Example01, Example02, Example03 } from './examples';
 import { CodeExample } from '../../../../../components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../../../components/api-table/api-table';
+import { AlphaBanner } from '../../../../../components/alpha-banner/alpha-banner';
+
+<AlphaBanner />
 
 # Accordion
 
-#### A vertically stacked set of interactive headings which reveal or hide their associated content.
+#### A stacked set of interactive headings which reveal or hide their associated content.
 
 {' '}
 
 <Example01>
   ```tsx
-  <Accordion class="bg-slate-100 dark:bg-gray-700 w-60 rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden">
-    <AccordionItem
-      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]"
-      label="Peek inside."
-    >
-      <p class="bg-slate-200 dark:bg-gray-900 p-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-        aliquid architecto delectus deleniti dolor
-      </p>
+  <AccordionRoot class="accordion-wrapper" animated>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="accordion-trigger">
+          <span>Can I add headings inside the accordion?</span>
+          <span>
+            <SVG />
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-content">
+        <p>
+          Yes, if you wrap a heading around the trigger, screen readers will
+          announce it properly.
+        </p>
+      </AccordionContent>
     </AccordionItem>
-    <AccordionItem
-      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]"
-      label="Do it again!"
-    >
-      <p class="bg-slate-200 dark:bg-gray-900 p-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-        aliquid architecto delectus deleniti dolor
-      </p>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="accordion-trigger">
+          <span>Is it easy to animate?</span>
+          <span>
+            <SVG />
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-content">
+        <p>
+          Yup! You can even use animations or CSS transitions from display none,
+          using the <strong>animated</strong> prop on the accordion root!
+        </p>
+      </AccordionContent>
     </AccordionItem>
-    <AccordionItem
-      label="Not this time..."
-      disabled
-      class="px-4 py-2 disabled:cursor-not-allowed disabled:text-gray-400 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]"
-    >
-      You can't see me!
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="accordion-trigger">
+          <span>How about opening multiple items at once?</span>
+          <span>
+            <SVG />
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-content">
+        <p>
+          You can do that by setting the <strong>behavior</strong> prop to
+          "multi" on the Accordion
+        </p>
+      </AccordionContent>
     </AccordionItem>
-  </Accordion>
+  </AccordionRoot>
   ```
 </Example01>
+
+Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) design pattern, along with some additional API's that enhance the flexibiltiy and make it easier to use.
+
+Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. This is because for example, the `summary` tag does not recognize headings, and screen readers will not announce them properly.
 
 ## Building blocks
 
   <CodeExample>
     ```tsx
     import { component$ } from '@builder.io/qwik';
-    import { Accordion, AccordionItem } from '@qwik-ui/headless';
 
     export default component$(() => (
-      <Accordion>
-        <AccordionItem>Content</AccordionItem>
-      </Accordion>
+      <AccordionRoot>
+        <AccordionItem>
+          <AccordionHeader>
+            <AccordionTrigger>Title</AccordionTrigger>
+          </AccordionHeader>
+          <AccordionContent>Content</AccordionContent>
+        </AccordionItem>
+      </AccordionRoot>
     ));
     ```
 
   </CodeExample>
 
-## Examples
-
-### EXAMPLE: Frequently Asked Questions
+## Multiple items
 
 <Example02>
   ```tsx
-  <Accordion class="mt-6 bg-slate-100 dark:bg-gray-700 w-full rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden">
-    <AccordionItem
-      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left"
-      label="Is Qwik production-ready?"
-    >
-      <p class="bg-slate-200 dark:bg-gray-900 p-4">
-        Yes, Qwik just hit a major milestone and launched v1.0! All API features
-        are considered stable. Start building the future, today!
-      </p>
+  <AccordionRoot behavior="mutli" class="accordion-wrapper" animated>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="accordion-trigger">
+          <span>Can I add headings inside the accordion?</span>
+          <span>
+            <p class="plus-styles">+</p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-content">
+        <p>
+          Yes, if you wrap a heading around the trigger, screen readers will
+          announce it properly.
+        </p>
+      </AccordionContent>
     </AccordionItem>
-    <AccordionItem
-      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left"
-      label="Is there a UI library I can use with Qwik?"
-    >
-      <p class="bg-slate-200 dark:bg-gray-900 p-4">
-        You're looking at one right now!
-      </p>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="accordion-trigger">
+          <span>Is it easy to animate?</span>
+          <span>
+            <p class="plus-styles">+</p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-content">
+        <p>
+          Yup! You can even use animations or CSS transitions from display none,
+          using the <strong>animated</strong> prop on the accordion root!
+        </p>
+      </AccordionContent>
     </AccordionItem>
-    <AccordionItem
-      class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left"
-      label="How can I contribute to Qwik UI?"
-    >
-      <p class="bg-slate-200 dark:bg-gray-900 p-4">
-        We're glad you asked. Come join us at the Qwikifiers Discord server or
-        find the{` `}
-        <a
-          class="text-[var(--qwik-light-blue)] inline"
-          href="https://github.com/qwikifiers/qwik-ui"
-        >
-          Qwik UI repository
-        </a>
-        {` `}
-        on GitHub!
-      </p>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="accordion-trigger">
+          <span>How about opening multiple items at once?</span>
+          <span>
+            <p class="plus-styles">+</p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-content">
+        <p>
+          You can do that by setting the <strong>behavior</strong> prop to
+          "multi" on the Accordion
+        </p>
+      </AccordionContent>
     </AccordionItem>
-  </Accordion>
+  </AccordionRoot>
   ```
 </Example02>
+
+If you're curious about how the accordion is animated, we use a cubic bezier curve and the `animation` property in CSS. You can check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
+
+## Non-collapsible
+
+<Example03>
+  ```tsx
+  <AccordionRoot class="accordion-wrapper" animated collapsible={false}>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="accordion-trigger">
+          <span>How do I collapse my accordion?</span>
+          <span>
+            <p class="plus-styles">+</p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-content">
+        <p>
+          Yes, if you wrap a heading around the trigger, screen readers will
+          announce it properly.
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="accordion-trigger">
+          <span>Is it easy to animate?</span>
+          <span>
+            <p class="plus-styles">+</p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-content">
+        <p>
+          Yup! You can even use animations or CSS transitions from display none,
+          using the <strong>animated</strong> prop on the accordion root!
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="accordion-trigger">
+          <span>How about opening multiple items at once?</span>
+          <span>
+            <p class="plus-styles">+</p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-content">
+        <p>
+          You can do that by setting the <strong>behavior</strong> prop to
+          "multi" on the Accordion
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+  </AccordionRoot>
+  ```
+</Example03>
+
+By default, the <strong>collapsible</strong> prop is set to true. You can revert this behavior by setting it to false in the Accordion Root component.
 
 ## Accessibility
 
@@ -114,28 +227,24 @@ import { APITable } from '../../../../../components/api-table/api-table';
 <KeyboardInteractionTable keyDescriptors={
   [
     {
-      keyTitle: 'Space',
-      description: 'Expand or collapse the `AccordionItem`.',
-    },
-    {
-      keyTitle: 'Enter',
-      description: 'Expand or collapse the `AccordionItem`.',
-    },
-    {
       keyTitle: 'Tab',
-      description: 'Moves focus to the next focusable element.',
+      description: 'Moves focus to the next focusable trigger.',
     },
     {
       keyTitle: 'Shift + Tab',
-      description: 'Moves focus to the previous focusable element.',
+      description: 'Moves focus to the previous focusable trigger.',
+    },
+    {
+      keyTitle: 'Space / Enter',
+      description: 'Expand or collapse the Accordion Trigger.',
     },
     {
       keyTitle: 'Home',
-      description: 'When on `AccordionItem`, Moves focus to the first `AccordionItem`.',
+      description: 'When on an Accordion Trigger, Moves focus to the first Accordion Trigger.',
     },
     {
       keyTitle: 'End',
-      description: 'When on `AccordionItem`, Moves focus to the last `AccordionItem`.',
+      description: 'When on an Accordion Trigger, Moves focus to the last Accordion Trigger.',
     },
 
 ]
@@ -143,30 +252,80 @@ import { APITable } from '../../../../../components/api-table/api-table';
 
 ## API
 
-### AccordionItem
+### Accordion Root
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'behavior',
+      type: 'string',
+      description:
+        'Determines whether the Accordion will open one or multiple items at a time.',
+    },
+    {
+      name: 'collapsible',
+      type: 'boolean',
+      description: 'Will allow the accordion to collapse items if set to true.',
+    },
+    {
+      name: 'animated',
+      type: 'boolean',
+      description:
+        'Allows you to transition from display none or using the hidden attribute.',
+    },
+  ]}
+/>
+
+<br />
+
+### Accordion Header
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'as',
+      type: 'union',
+      description:
+        'Sets the heading tag of the Accordion Header (Rendered HTML)',
+    },
+  ]}
+/>
+
+<br />
+
+### Common Built-in Props
+
+Thanks to `QwikIntrinsicAttributes` , you can use most if not all normal JSX props and handlers on the semantically correlated component. Here are some of the most common ones:
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the accordion container.',
+      description: 'CSS classes you can apply',
     },
     {
       name: 'style',
       type: 'string',
-      description: 'CSS styles to apply to the accordion container.',
+      description: 'CSS styles you can apply',
     },
     {
-      name: 'label',
-      type: 'string',
-      description: 'The label to give to the accordion item.',
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Disables the element',
     },
     {
       name: 'onClick$',
       type: 'function',
       info: 'PropFunction<() => void>',
-      description: 'A custom click handler',
+      description: 'A custom click handler that executes when the element is clicked.',
+      },
+      {
+      name: 'onKeyDown$',
+      type: 'function',
+      description:
+        'A custom click handler that executes when the key is pressed down.',
+        },
     },
   ]}
 />

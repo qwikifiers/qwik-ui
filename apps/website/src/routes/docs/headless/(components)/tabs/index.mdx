@@ -3,7 +3,16 @@ title: Qwik UI | Tabs
 ---
 
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
-import { Example01, VerticalTabsExample } from './examples';
+import {
+  Example01,
+  VerticalTabsExample,
+  DisabledTabsExample,
+  AutomaticBehaviorTabsExample,
+  ManualBehaviorTabsExample,
+  DynamicTabsExample,
+  OnSelectedIndexChangeTabsExample,
+  OnClickTabsExample,
+} from './examples';
 import { CodeExample } from '../../../../../components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../../../components/api-table/api-table';
@@ -17,7 +26,7 @@ import { APITable } from '../../../../../components/api-table/api-table';
 <Example01>
   ```tsx
   <Tabs behavior="automatic">
-    <h3 id="tablist-1">Danish Composers</h3>
+    <h3>Danish Composers</h3>
     <TabList>
       <Tab>Maria Ahlefeldt</Tab>
       <Tab>Carl Andersen</Tab>
@@ -25,14 +34,14 @@ import { APITable } from '../../../../../components/api-table/api-table';
     </TabList>
     <TabPanel>
       <p>
-        Maria Theresia Ahlefeldt (16 January 1755 – 20 December 1810) was a ...
+        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
       </p>
     </TabPanel>
     <TabPanel>
-      <p>Carl Joachim Andersen (29 April 1847 – 7 May 1909) was a ...</p>
+      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
     </TabPanel>
     <TabPanel>
-      <p>Ida Henriette da Fonseca (July 27, 1802 – July 6, 1858) was a ...</p>
+      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
     </TabPanel>
   </Tabs>
   ```
@@ -49,29 +58,16 @@ import { APITable } from '../../../../../components/api-table/api-table';
 
       return (
         <>
-          <h2>This is the documentation for the Tabs</h2>
-          <Tabs behavior="automatic">
-            <h3 id="tablist-1">Danish Composers</h3>
+          <Tabs>
             <TabList>
-              <Tab>Maria Ahlefeldt</Tab>
-              <Tab>Carl Andersen</Tab>
-              <Tab>Ida Henriette da Fonseca</Tab>
+              <Tab>Tab 1</Tab>
+              <Tab>Tab 2</Tab>
+              <Tab>Tab 3</Tab>
             </TabList>
-            <TabPanel>
-              <p>
-                Maria Theresia Ahlefeldt (16 January 1755 – 20 December 1810) was a ...
-              </p>
-            </TabPanel>
-            <TabPanel>
-              <p>
-                Carl Joachim Andersen (29 April 1847 – 7 May 1909) was a ...
-              </p>
-            </TabPanel>
-            <TabPanel>
-              <p>
-                Ida Henriette da Fonseca (July 27, 1802 – July 6, 1858) was a ...
-              </p>
-            </TabPanel>
+
+            <TabPanel>Content 1</TabPanel>
+            <TabPanel>Content 2</TabPanel>
+            <TabPanel>Content 3</TabPanel>
           </Tabs>
         </>
       );
@@ -86,8 +82,8 @@ by default, the tabs are horizontal, but you can adjust the underlying behavior 
 
 <VerticalTabsExample>
   ```tsx
+  <h3>Danish Composers</h3>
   <Tabs vertical>
-    <h3 id="tablist-1">Danish Composers</h3>
     <TabList>
       <Tab>Maria Ahlefeldt</Tab>
       <Tab>Carl Andersen</Tab>
@@ -95,18 +91,225 @@ by default, the tabs are horizontal, but you can adjust the underlying behavior 
     </TabList>
     <TabPanel>
       <p>
-        Maria Theresia Ahlefeldt (16 January 1755 – 20 December 1810) was a ...
+        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
       </p>
     </TabPanel>
     <TabPanel>
-      <p>Carl Joachim Andersen (29 April 1847 – 7 May 1909) was a ...</p>
+      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
     </TabPanel>
     <TabPanel>
-      <p>Ida Henriette da Fonseca (July 27, 1802 – July 6, 1858) was a ...</p>
+      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
     </TabPanel>
   </Tabs>
   ```
 </VerticalTabsExample>
+
+## Disabled
+
+You can disable a tab by setting the `disabled` prop to true.
+
+<DisabledTabsExample>
+  ```tsx
+  <Tabs>
+    <h3>Dad jokes</h3>
+    <TabList>
+      <Tab disabled={true}>Disabled Tab</Tab>
+      <Tab>Joke 2</Tab>
+      <Tab>Joke 3</Tab>
+      <Tab>Joke 4</Tab>
+    </TabList>
+    <TabPanel>
+      "What did the coffee report to the police", " A mugging."
+    </TabPanel>
+    <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
+    <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
+    <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
+  </Tabs>
+  ```
+</DisabledTabsExample>
+
+## Behavior
+
+### Automatic
+
+The default behavior of the tabs is manual, which means that the tabs will automatically switch to the next tab when the user hovers over the tab. You can change this behavior by setting the `behavior` prop to `automatic`.
+
+<AutomaticBehaviorTabsExample>
+  ```tsx
+  <Tabs behavior="automatic">
+    <h3>Danish Composers</h3>
+    <TabList>
+      <Tab>Maria Ahlefeldt</Tab>
+      <Tab>Carl Andersen</Tab>
+      <Tab>Ida Henriette da Fonseca</Tab>
+    </TabList>
+    <TabPanel>
+      <p>
+        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
+      </p>
+    </TabPanel>
+    <TabPanel>
+      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+    </TabPanel>
+    <TabPanel>
+      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+    </TabPanel>
+  </Tabs>
+  ```
+</AutomaticBehaviorTabsExample>
+
+### Manual
+
+You can set the behavior to manual, which means that the tabs will not automatically switch to the next tab when the user presses the right arrow key, and to the previous tab when the user presses the left arrow key.
+
+<ManualBehaviorTabsExample>
+  ```tsx
+  <h3>Danish Composers</h3>
+  <Tabs behavior="manual">
+    <TabList>
+      <Tab>Maria Ahlefeldt</Tab>
+      <Tab>Carl Andersen</Tab>
+      <Tab>Ida Henriette da Fonseca</Tab>
+    </TabList>
+    <TabPanel>
+      <p>
+        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
+      </p>
+    </TabPanel>
+    <TabPanel>
+      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+    </TabPanel>
+    <TabPanel>
+      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+    </TabPanel>
+  </Tabs>
+  ```
+</ManualBehaviorTabsExample>
+
+## Dynamic
+
+<DynamicTabsExample>
+```tsx
+
+const tabsState = useStore([
+'Dynamic Tab 1',
+'Dynamic Tab 2',
+'Dynamic Tab 3',
+]);
+
+return <>
+
+{' '}
+
+<Tabs>
+  <TabList>
+    {tabsState.map((tab) => (
+      <Tab key={tab}>{tab}</Tab>
+    ))}
+  </TabList>
+  {tabsState.map((tab) => (
+    <TabPanel key={tab}>{tab} Panel</TabPanel>
+  ))}
+</Tabs>
+
+  <button style={{ color: 'red', marginTop: '1rem' }}
+    onClick$={() => {
+      if (tabsState.length > 1) {
+        tabsState.splice(0, 1)
+      }
+    }}>
+    Remove First Tab
+  </button>
+</>
+```
+</DynamicTabsExample>
+
+## onSelectedIndexChange$
+
+You can listen to changes in the selected index by subscribing to the `onSelectedIndexChange$` store.
+
+<OnSelectedIndexChangeTabsExample>
+```tsx
+
+const selectedIndexSig = useSignal(0);
+
+return <div>
+
+{' '}
+
+<Tabs
+  onSelectedIndexChange$={(index) => {
+    selectedIndexSig.value = index;
+  }}
+>
+  <h3>Danish Composers</h3>
+  <TabList>
+    <Tab>Maria Ahlefeldt</Tab>
+    <Tab>Carl Andersen</Tab>
+    <Tab>Ida Henriette da Fonseca</Tab>
+  </TabList>
+  <TabPanel>
+    <p>
+      Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
+    </p>
+  </TabPanel>
+  <TabPanel>
+    <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+  </TabPanel>
+  <TabPanel>
+    <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+  </TabPanel>
+</Tabs>
+
+  <p>Selected Index: {selectedIndexSig.value}</p>
+</div>
+```
+</OnSelectedIndexChangeTabsExample>
+
+## onClick$
+
+You can pass a custom `onClick$` handler.
+
+<OnClickTabsExample>
+```tsx
+const tabsClickedCountSig = useSignal(0);
+
+return <div>
+
+{' '}
+
+<h3>Danish Composers</h3>
+<h4>(watch the counter below)</h4>
+<Tabs
+  onClick$={() => {
+    tabsClickedCountSig.value++;
+  }}
+>
+  <TabList>
+    <Tab>Maria Ahlefeldt</Tab>
+    <Tab>Carl Andersen</Tab>
+    <Tab>Ida Henriette da Fonseca</Tab>
+  </TabList>
+  <TabPanel>
+    <p>
+      Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
+    </p>
+  </TabPanel>
+  <TabPanel>
+    <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+  </TabPanel>
+  <TabPanel>
+    <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+  </TabPanel>
+</Tabs>
+
+{' '}
+
+<p>Click count: {tabsClickedCountSig.value}</p>
+
+</div>
+```
+</OnClickTabsExample>
 
 ## Accessibility
 
@@ -212,3 +415,4 @@ by default, the tabs are horizontal, but you can adjust the underlying behavior 
     },
   ]}
 />
+```
