@@ -7,7 +7,7 @@ import {
   $,
   useSignal,
   useVisibleTask$,
-  QwikIntrinsicElements,
+  type QwikIntrinsicElements,
   type QwikMouseEvent,
   useComputed$,
 } from '@builder.io/qwik';

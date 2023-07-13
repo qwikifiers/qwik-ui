@@ -44,6 +44,42 @@
   --dark-color-text: rgb(203 213 225);
   --light-color-bg: rgb(203 213 225);
   --light-color-text: #333;
+
+  --shadow-color: 0deg 0% 63%;
+  --shadow-elevation-low: 0.5px 0.6px 0.9px hsl(var(--shadow-color) / 0.34),
+    0.9px 1px 1.5px -1.2px hsl(var(--shadow-color) / 0.34),
+    2.1px 2.3px 3.5px -2.5px hsl(var(--shadow-color) / 0.34);
+  --shadow-elevation-medium: 0.5px 0.6px 0.9px hsl(var(--shadow-color) / 0.36),
+    1.7px 1.9px 2.9px -0.8px hsl(var(--shadow-color) / 0.36),
+    4.3px 4.8px 7.2px -1.7px hsl(var(--shadow-color) / 0.36),
+    10.4px 11.6px 17.5px -2.5px hsl(var(--shadow-color) / 0.36);
+  --shadow-elevation-high: 0.5px 0.6px 0.9px hsl(var(--shadow-color) / 0.34),
+    3px 3.4px 5.1px -0.4px hsl(var(--shadow-color) / 0.34),
+    5.6px 6.3px 9.5px -0.7px hsl(var(--shadow-color) / 0.34),
+    9.3px 10.4px 15.7px -1.1px hsl(var(--shadow-color) / 0.34),
+    14.8px 16.6px 25px -1.4px hsl(var(--shadow-color) / 0.34),
+    23.1px 26px 39.1px -1.8px hsl(var(--shadow-color) / 0.34),
+    35.1px 39.5px 59.4px -2.1px hsl(var(--shadow-color) / 0.34),
+    51.8px 58.2px 87.7px -2.5px hsl(var(--shadow-color) / 0.34);
+
+  --dark-shadow-color: 218deg 49% 7%;
+  --dark-shadow-elevation-low: 0.5px 0.6px 0.9px hsl(var(--shadow-color) / 0.34),
+    0.9px 1.1px 1.6px -1.2px hsl(var(--dark-shadow-color) / 0.34),
+    2.2px 2.6px 3.8px -2.5px hsl(var(--dark-shadow-color) / 0.34);
+  --dark-shadow-elevation-medium: 0.5px 0.6px 0.9px
+      hsl(var(--dark-shadow-color) / 0.36),
+    1.8px 2.1px 3.1px -0.8px hsl(var(--dark-shadow-color) / 0.36),
+    4.4px 5.3px 7.7px -1.7px hsl(var(--dark-shadow-color) / 0.36),
+    10.8px 12.8px 18.8px -2.5px hsl(var(--dark-shadow-color) / 0.36);
+  --dark-shadow-elevation-high: 0.5px 0.6px 0.9px
+      hsl(var(--dark-shadow-color) / 0.34),
+    3.1px 3.7px 5.4px -0.4px hsl(var(--dark-shadow-color) / 0.34),
+    5.9px 7px 10.3px -0.7px hsl(var(--dark-shadow-color) / 0.34),
+    9.6px 11.5px 16.9px -1.1px hsl(var(--dark-shadow-color) / 0.34),
+    15.4px 18.3px 26.9px -1.4px hsl(var(--dark-shadow-color) / 0.34),
+    24.1px 28.6px 42.1px -1.8px hsl(var(--dark-shadow-color) / 0.34),
+    36.6px 43.5px 64px -2.1px hsl(var(--dark-shadow-color) / 0.34),
+    53.9px 64.1px 94.2px -2.5px hsl(var(--dark-shadow-color) / 0.34);
 }
 
 .light {

@@ -1,4 +1,4 @@
-export * from './components/accordion/accordion';
+export * from './components/accordion/';
 export * from './components/badge/badge';
 export * from './components/button-group/button-group';
 export * from './components/card';
