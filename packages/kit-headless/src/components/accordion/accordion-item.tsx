@@ -15,6 +15,7 @@ export type AccordionItemProps = QwikIntrinsicElements['div'];
 
 export const AccordionItem = component$(({ ...props }: AccordionItemProps) => {
   const itemId = useId();
+
   const itemRef = useSignal<HTMLElement>();
   const isTriggerExpandedSig = useSignal<boolean>(false);
 
@@ -28,8 +29,8 @@ export const AccordionItem = component$(({ ...props }: AccordionItemProps) => {
   return (
     <div
       ref={itemRef}
-      data-type="item"
       id={itemId}
+      data-type="item"
       data-item-id={itemId}
       {...props}
     >

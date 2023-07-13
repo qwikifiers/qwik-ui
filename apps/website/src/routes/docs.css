@@ -28,10 +28,18 @@
     h4 {
       @apply text-lg mb-6;
     }
+  }
 
-    a {
-      @apply border-b-2 border-[#00B9FC] font-bold;
-    }
+  a {
+    @apply border-b-[1.25px] border-[#00B9FC] font-bold transition-[border-radius] duration-500 ease-in;
+  }
+
+  a:hover {
+    @apply border-b-2;
+  }
+
+  p code {
+    @apply bg-transparent px-2 rounded-md dark:bg-transparent border-[1px] dark:border-white w-max border-[#333333];
   }
 
   /* adds sufficient padding to the table items / API Component */

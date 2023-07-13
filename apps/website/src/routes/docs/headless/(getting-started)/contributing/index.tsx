@@ -20,6 +20,7 @@ export default component$(() => {
 
       <section class="flex flex-col">
         <a
+          class="border-none"
           href="https://github.com/qwikifiers/qwik-ui/blob/main/CONTRIBUTING.md"
           target="_blank"
         >
@@ -28,7 +29,11 @@ export default component$(() => {
           </h3>
         </a>
 
-        <a href="https://discord.gg/PVWUUejrez" target="_blank">
+        <a
+          class="border-none"
+          href="https://discord.gg/PVWUUejrez"
+          target="_blank"
+        >
           <h3 class="underline text-2xl font-semibold mb-4 inline-block">
             Join Our Discord Community
           </h3>

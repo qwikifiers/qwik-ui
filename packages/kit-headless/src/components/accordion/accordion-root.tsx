@@ -5,6 +5,7 @@ import {
   useContextProvider,
   useSignal,
   type QwikIntrinsicElements,
+  useStore,
 } from '@builder.io/qwik';
 
 import { type AccordionRootContext } from './accordion-context.type';
@@ -12,11 +13,20 @@ import { accordionRootContextId } from './accordion-context-id';
 
 export type AccordionRootProps = {
   behavior?: 'single' | 'multi';
+  animated?: boolean;
+  collapsible?: boolean;
 } & QwikIntrinsicElements['div'];
 
 export const AccordionRoot = component$(
-  ({ behavior = 'single', ...props }: AccordionRootProps) => {
+  ({
+    collapsible = true,
+    behavior = 'single',
+    animated = false,
+    ...props
+  }: AccordionRootProps) => {
     const rootRef = useSignal<HTMLDivElement | undefined>();
+    const triggerStore = useStore<HTMLButtonElement[]>([]);
+    const triggerIndexSig = useSignal(0);
 
     // const selectedIndexSig = useSignal<number | null>(null);
     const selectedTriggerIdSig = useSignal<string>('');
@@ -25,15 +35,35 @@ export const AccordionRoot = component$(
       return (selectedTriggerIdSig.value = triggerId);
     });
 
-    // const updateTriggerStore$ = $((isExpanded: boolean) => {
-    //   triggerStore.push(isExpanded);
+    const focusPreviousTrigger$ = $(() => {
+      if (triggerIndexSig.value === 0) {
+        triggerIndexSig.value = triggerStore.length - 1;
+        return triggerStore[triggerStore.length - 1].focus();
+      }
 
-    //   if (!seenElements.has(ref)) {
-    //     seenElements.add(ref);
-    //   }
+      triggerIndexSig.value--;
 
-    //   console.log(seenElements);
-    // });
+      return triggerStore[triggerIndexSig.value].focus();
+    });
+
+    const focusNextTrigger$ = $(() => {
+      if (triggerIndexSig.value === triggerStore.length - 1) {
+        triggerIndexSig.value = 0;
+        return triggerStore[0].focus();
+      }
+
+      triggerIndexSig.value++;
+
+      return triggerStore[triggerIndexSig.value].focus();
+    });
+
+    const focusFirstTrigger$ = $(() => {
+      return triggerStore[0].focus();
+    });
+
+    const focusLastTrigger$ = $(() => {
+      return triggerStore[triggerStore.length - 1].focus();
+    });
 
     // const lastAssignedTriggerIndexSig = useSignal<number>(-1);
     // const lastAssignedContentIndexSig = useSignal<number>(-1);
@@ -55,10 +85,16 @@ export const AccordionRoot = component$(
     // });
 
     const contextService: AccordionRootContext = {
-      rootRef,
       getSelectedTriggerId$,
       selectedTriggerIdSig,
+      focusFirstTrigger$,
+      focusPreviousTrigger$,
+      focusNextTrigger$,
+      focusLastTrigger$,
+      triggerStore,
+      collapsible,
       behavior,
+      animated,
     };
 
     useContextProvider(accordionRootContextId, contextService);
