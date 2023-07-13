@@ -1,10 +1,31 @@
 .tabs-example [role='tab'] {
   width: 250px;
+  background: #ccc;
+  color: black;
+}
+
+.dark .tabs-example [role='tab'] {
   background: #333;
+  color: white;
+}
+
+.dark .tabs-example [role='tab'][disabled] {
+  background: #ebebeb;
+  color: black;
+}
+
+.dark .tabs-example [role='tab'].selected {
+  background: #b7b5f5;
+  color: black;
+}
+
+.tabs-example [role='tab'][disabled] {
+  background: #999;
 }
 
 .tabs-example [role='tab'].selected {
-  background: gray;
+  background: #0059c5;
+  color: white;
 }
 
 .tabs-example [role='tablist'] {

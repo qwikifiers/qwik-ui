@@ -1,0 +1,20 @@
+{
+  "migrations": [
+    {
+      "version": "16.4.1-beta.0",
+      "description": "Changes the testFile config in the vite:test exectutor from a string to an array of strings",
+      "cli": "nx",
+      "implementation": "./src/migrations/update-16-4-1-update-test-file-config/update-16-4-1-test-file-config",
+      "package": "@nx/vite",
+      "name": "update-16-4-1-test-file-config"
+    },
+    {
+      "cli": "nx",
+      "version": "16.5.0-beta.0",
+      "description": "Move .storybook/tsconfig.json to tsconfig.storybook.json for non-Angular projects.",
+      "factory": "./src/migrations/update-16-5-0/move-storybook-tsconfig",
+      "package": "@nx/storybook",
+      "name": "update-16-5-0"
+    }
+  ]
+}
