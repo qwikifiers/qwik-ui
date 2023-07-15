@@ -16,6 +16,7 @@ export const SelectOption = component$(
   ({ disabled, optionValue, ...props }: OptionProps) => {
     const selectContext = useContext(SelectContextId);
     const ref = useSignal<HTMLElement>();
+
     return (
       <li
         ref={ref}
@@ -23,6 +24,7 @@ export const SelectOption = component$(
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
         aria-selected={optionValue === selectContext.selection.value}
+        data-optionvalue={optionValue}
         onClick$={() => {
           if (!disabled) {
             selectContext.selection.value = optionValue;
@@ -55,7 +57,6 @@ export const SelectOption = component$(
           if (!disabled) {
             const target = e.target as HTMLElement;
             target.focus();
-            console.log('focus');
           }
         }}
         {...props}

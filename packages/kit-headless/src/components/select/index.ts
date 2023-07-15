@@ -8,3 +8,4 @@ export * from './select-listbox';
 export * from './select-label';
 export * from './select-group';
 export * from './select-option';
+export * from './select-native-select';

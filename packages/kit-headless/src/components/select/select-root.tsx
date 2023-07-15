@@ -13,6 +13,9 @@ import {
 import { SelectContext } from './select-context.type';
 import SelectContextId from './select-context-id';
 import { computePosition, flip } from '@floating-ui/dom';
+import { VisuallyHidden } from '../../utils/visually-hidden';
+import { useTask$ } from '@builder.io/qwik';
+import { NativeSelect } from './select-native-select';
 
 export type SelectRootProps = {
   required?: boolean;
@@ -20,7 +23,7 @@ export type SelectRootProps = {
 
 export const SelectRoot = component$((props: SelectRootProps) => {
   const options = useStore([]);
-  const selection = useSignal(null);
+  const selection = useSignal('');
   const isExpanded = useSignal(false);
   const triggerRef = useSignal<HTMLElement>();
   const listBoxRef = useSignal<HTMLElement>();
@@ -33,14 +36,23 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     listBoxRef,
   };
 
+  useTask$(({ track }) => {
+    track(() => selection.value);
+  });
+
   useContextProvider(SelectContextId, selectContext);
-  useCollateOptions(selectContext);
+  useCollectOptions(selectContext);
   useUpdatePosition(selectContext);
   useDismiss(selectContext);
 
   return (
     <div {...props}>
       <Slot />
+      {props.required ? (
+        <VisuallyHidden>
+          <NativeSelect />
+        </VisuallyHidden>
+      ) : null}
     </div>
   );
 });
@@ -63,6 +75,7 @@ function useDismiss(context: SelectContext) {
   useOn(
     'keydown',
     $((e) => {
+      e.preventDefault();
       const event = e as KeyboardEvent;
       if (event.key === 'Escape') {
         context.isExpanded.value = false;
@@ -109,16 +122,16 @@ function useUpdatePosition(context: SelectContext) {
   });
 }
 
-function useCollateOptions(context: SelectContext) {
+function useCollectOptions(context: SelectContext) {
   useVisibleTask$(({ track }) => {
     const listBox = track(() => context.listBoxRef.value);
 
     if (listBox) {
-      const collatedOptions = Array.from(
+      const collectedOptions = Array.from(
         listBox.querySelectorAll('[role="option"]')
       ) as HTMLElement[];
 
-      context.options.push(...collatedOptions);
+      context.options.push(...collectedOptions);
     }
   });
 }

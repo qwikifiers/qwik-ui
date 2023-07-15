@@ -19,7 +19,7 @@ export * from './components/tabs';
 export * from './components/tooltip/tooltip';
 export * as Checkbox from './components/checkbox/checkbox';
 export * as CheckboxProps from './components/checkbox/checkbox';
-export * from './components/select/select';
+export * from './components/select';
 export * from './components/slider';
 export * from './components/breadcrumb';
 export * from './components/navigation-bar/navigation-bar';
