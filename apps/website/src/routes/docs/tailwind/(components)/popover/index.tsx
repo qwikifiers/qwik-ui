@@ -16,7 +16,7 @@ export default component$(() => {
           <Box />
         </PopoverContent>
 
-        <PopoverTrigger>
+        <PopoverTrigger ariaAttributes={{ ariaLabel: 'click-friend' }}>
           <Button onClick$={() => console.log('here')}> CLICK ME </Button>
         </PopoverTrigger>
       </Popover>
