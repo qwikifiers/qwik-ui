@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AriaAttributes } from '@builder.io/qwik';
-import { propertiesOf } from 'ts-reflection';
+// import { propertiesOf } from 'ts-reflection';
 
 type ToCamelCase<S extends string> = S extends `${infer Head}-${infer Tail}`
   ? `${Head}${Capitalize<ToCamelCase<Tail>>}`
@@ -37,13 +37,15 @@ export type ExtendedPropsByAriaAttribute<T = undefined> = T extends object
 export function isKeyOfQwikUiAriaAttributes(
   key: string
 ): key is keyof QwikUiAriaAttributesKebab {
-  const ariaAttributeKeys = propertiesOf<QwikUiAriaAttributesKebab>();
-  return ariaAttributeKeys.includes(key as keyof QwikUiAriaAttributesKebab);
+  // const ariaAttributeKeys = propertiesOf<QwikUiAriaAttributesKebab>();
+  // return ariaAttributeKeys.includes(key as keyof QwikUiAriaAttributesKebab);
+  return true;
 }
 
 export function isKeyOfAriaAttributes(
   key: string
 ): key is keyof AriaAttributes {
-  const ariaAttributeKeys = propertiesOf<AriaAttributes>();
-  return ariaAttributeKeys.includes(key as keyof AriaAttributes);
+  // const ariaAttributeKeys = propertiesOf<AriaAttributes>();
+  // return ariaAttributeKeys.includes(key as keyof AriaAttributes);
+  return true;
 }
