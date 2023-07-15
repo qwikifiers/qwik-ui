@@ -1,0 +1,70 @@
+import { component$ } from '@builder.io/qwik';
+import {
+  SelectListBox,
+  SelectMarker,
+  SelectRoot,
+  SelectTrigger,
+  SelectValue,
+  SelectOption,
+  SelectLabel,
+  SelectGroup,
+} from './refactor';
+import SelectTestData from './select-test-data';
+
+const BasicSelect = component$(() => {
+  const { groups, options } = SelectTestData();
+
+  return (
+    <>
+      <SelectLabel id="basic-select">Fruits, Vegetables or Meat</SelectLabel>
+      <SelectRoot data-testid="select-root">
+        <SelectTrigger aria-labelledby="basic-select">
+          <SelectValue placeholder="Select an item" />
+          <SelectMarker>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="width: 20px; height: 20px;"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </SelectMarker>
+        </SelectTrigger>
+        <SelectListBox aria-labelledby="basic-select">
+          {groups.map((group) => (
+            <>
+              <SelectLabel id={group}>{group}</SelectLabel>
+              <SelectGroup aria-labelledby={group}>
+                {options.map(
+                  (option, index) =>
+                    option.type === group && (
+                      <SelectOption optionValue={option.name} key={index} />
+                    )
+                )}
+              </SelectGroup>
+            </>
+          ))}
+          <SelectOption optionValue="disabled" disabled />
+        </SelectListBox>
+      </SelectRoot>
+    </>
+  );
+});
+
+describe('Select', () => {
+  it('INIT', () => {
+    cy.mount(<BasicSelect />);
+    cy.checkA11yForComponent();
+  });
+
+  // it(`GIVEN a 'required' attribute and value is undefined,
+  //     WHEN the button is clicked,
+  //     THEN the submit event should fail with a native prompt autofocusing the Select.`, () => {
+  //   cy.mount(<BasicSelect />);
+  // });
+});
