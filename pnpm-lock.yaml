@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
   .:
     dependencies:
@@ -239,6 +235,9 @@ importers:
       ts-node:
         specifier: 10.9.1
         version: 10.9.1(@types/node@18.16.1)(typescript@5.1.6)
+      ts-reflection:
+        specifier: 0.3.0
+        version: 0.3.0(typescript@5.1.6)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -25064,6 +25063,17 @@ packages:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
+  /ts-reflection@0.3.0(typescript@5.1.6):
+    resolution:
+      {
+        integrity: sha512-Zi6U+53hIMMkRhqcGKKTQ0dC8MbQ0tgHjGIKGb3hD+9ZcK+PwHFUWQG64atq4KHaAXHB8rRANa2I/M00CGVCQQ==,
+      }
+    peerDependencies:
+      typescript: ^3.2.1
+    dependencies:
+      typescript: 5.1.6
+    dev: true
+
   /tsconfck@2.1.1(typescript@5.1.6):
     resolution:
       {
@@ -26753,3 +26763,7 @@ packages:
         integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==,
       }
     dev: true
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false

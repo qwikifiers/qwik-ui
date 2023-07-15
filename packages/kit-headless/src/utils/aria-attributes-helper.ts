@@ -20,33 +20,26 @@ type FunctionType = (
   ariaAttributes?: Partial<QwikUiAriaAttributesKebab>
 ) => Partial<AriaAttributes>;
 
+const cacheMap: Map<string, Partial<AriaAttributes>> = new Map();
+
+const memoize = (func: FunctionType): FunctionType => {
+  return (
+    ariaAttributes?: Partial<QwikUiAriaAttributesKebab>
+  ): Partial<AriaAttributes> => {
+    const key = JSON.stringify(ariaAttributes);
+    if (!cacheMap.has(key) || !ariaAttributes) {
+      const out = func(ariaAttributes);
+      cacheMap.set(key, out);
+      return out;
+    } else {
+      return cacheMap.get(key) || {};
+    }
+  };
+};
+
 export const useAriaAttributes = (
   ariaAttributes?: Partial<QwikUiAriaAttributesKebab>
 ): Partial<AriaAttributes> => {
-  const memoize = (func: FunctionType): FunctionType => {
-    let cache:
-      | { in: string | undefined; out: Partial<AriaAttributes> }
-      | undefined;
-    return (
-      ariaAttributes?: Partial<QwikUiAriaAttributesKebab>
-    ): Partial<AriaAttributes> => {
-      if (!cache || !ariaAttributes) {
-        const out = func(ariaAttributes);
-        cache = {
-          in: ariaAttributes ? JSON.stringify(ariaAttributes) : undefined,
-          out,
-        };
-        return out;
-      } else {
-        const newCacheInValue = JSON.stringify(ariaAttributes);
-        if (cache.in === newCacheInValue) {
-          return cache.out;
-        }
-        cache = { in: newCacheInValue, out: func(ariaAttributes) };
-        return cache.out;
-      }
-    };
-  };
   const process = (
     ariaAttributes?: Partial<QwikUiAriaAttributesKebab>
   ): Partial<AriaAttributes> => {

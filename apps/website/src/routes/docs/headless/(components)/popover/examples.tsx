@@ -1,6 +1,5 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
-import { GitHubIcon } from 'apps/website/src/components/icons/GitHubIcon';
 import { PreviewCodeExample } from 'apps/website/src/components/preview-code-example/preview-code-example';
 
 export const MainExample = component$(() => {
@@ -11,7 +10,9 @@ export const MainExample = component$(() => {
           <PopoverContent>
             <div class="p-4 bg-gray-500">Hi, I'm the content</div>
           </PopoverContent>
-          <PopoverTrigger> Click on me </PopoverTrigger>
+          <PopoverTrigger ariaAttributes={{ ariaLabel: 'click-friend' }}>
+            Click on me
+          </PopoverTrigger>
         </Popover>
       </div>
       <div q:slot="codeExample">
@@ -31,7 +32,9 @@ export const Example1 = component$(() => {
               Hi, I'm the content, but now on top
             </div>
           </PopoverContent>
-          <PopoverTrigger> Click on me </PopoverTrigger>
+          <PopoverTrigger ariaAttributes={{ ariaLabel: 'no-click-friend' }}>
+            Click on me
+          </PopoverTrigger>
         </Popover>
       </div>
       <div q:slot="codeExample">
