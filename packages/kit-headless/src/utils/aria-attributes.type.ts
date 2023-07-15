@@ -22,24 +22,28 @@ type CamelToKebabKeys<T> = {
   [K in keyof T as FromCamelCase<string & K>]: T[K];
 };
 
-type AA = {
-  ariaAttributes?: QwikUiAriaAttributesKebab;
-};
-
 export type QwikUiAriaAttributesKebab = KebabToCamelKeys<AriaAttributes>;
 
 export type ExtendedPropsByAriaAttribute<T = undefined> = T extends object
-  ? T & AA
+  ? T & QwikUiAriaAttributesKebab
   : T extends undefined
-  ? AA
+  ? QwikUiAriaAttributesKebab
   : never;
+
+export type QwikUiAreaAttributesFunctionType = (
+  ariaAttributes?: Partial<QwikUiAriaAttributesKebab>,
+  lastKey?: string
+) => { lastKey: string; ariaAttributes: Partial<AriaAttributes> };
+
+export type QwikUiAreaAttributesFunctionReturnType =
+  ReturnType<QwikUiAreaAttributesFunctionType>;
 
 export function isKeyOfQwikUiAriaAttributes(
   key: string
 ): key is keyof QwikUiAriaAttributesKebab {
   // const ariaAttributeKeys = propertiesOf<QwikUiAriaAttributesKebab>();
   // return ariaAttributeKeys.includes(key as keyof QwikUiAriaAttributesKebab);
-  return true;
+  return key.startsWith('aria') && key.indexOf('-') === -1;
 }
 
 export function isKeyOfAriaAttributes(
@@ -47,5 +51,5 @@ export function isKeyOfAriaAttributes(
 ): key is keyof AriaAttributes {
   // const ariaAttributeKeys = propertiesOf<AriaAttributes>();
   // return ariaAttributeKeys.includes(key as keyof AriaAttributes);
-  return true;
+  return key.startsWith('aria') && key.indexOf('-') > -1;
 }

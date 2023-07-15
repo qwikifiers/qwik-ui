@@ -1,16 +1,19 @@
-import { component$ } from '@builder.io/qwik';
+import { AriaAttributes, component$ } from '@builder.io/qwik';
+import { ExtendedPropsByAriaAttribute } from '../../utils';
 import { Popover, PopoverProps } from './popover';
 import { PopoverContent } from './popover-content';
 import { PopoverTrigger } from './popover-trigger';
 
-const PopoverComponent = component$((props: PopoverProps) => {
-  return (
-    <Popover {...props}>
-      <PopoverContent>popover content</PopoverContent>
-      <PopoverTrigger>trigger text</PopoverTrigger>
-    </Popover>
-  );
-});
+const PopoverComponent = component$(
+  (props: ExtendedPropsByAriaAttribute<PopoverProps>) => {
+    return (
+      <Popover {...props}>
+        <PopoverContent>popover content</PopoverContent>
+        <PopoverTrigger {...props}>trigger text</PopoverTrigger>
+      </Popover>
+    );
+  }
+);
 
 describe('Popover', () => {
   function clickOnTrigger() {
@@ -33,6 +36,18 @@ describe('Popover', () => {
 
   function hoverOnTrigger() {
     cy.findByRole('button').trigger('mouseover');
+  }
+
+  function assertAriaAttribute(attributes: AriaAttributes) {
+    const trigger = cy.findByRole('button');
+    Object.keys(attributes).forEach((attributeKey) => {
+      trigger.should(
+        'have.a.property',
+        `[${attributeKey}]="${
+          attributes[attributeKey as keyof AriaAttributes]
+        }]`
+      );
+    });
   }
 
   it('INIT', () => {
@@ -109,5 +124,11 @@ describe('Popover', () => {
     clickOutside();
 
     assertClosed();
+  });
+
+  it('should set the arial label', () => {
+    const label = 'hello';
+    cy.mount(<PopoverComponent ariaLabel={label} />);
+    assertAriaAttribute({ 'aria-label': label });
   });
 });
