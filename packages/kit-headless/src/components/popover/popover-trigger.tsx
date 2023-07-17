@@ -18,22 +18,24 @@ import { PopoverContext } from './popover-context';
 import styles from './popover-trigger.css?inline';
 
 export const PopoverTrigger = component$(
-  (props: ExtendedPropsByAriaAttribute) => {
+  (props: ExtendedPropsByAriaAttribute<'span'>) => {
     const ref = useSignal<HTMLElement>();
     const contextService = useContext(PopoverContext);
     useStylesScoped$(styles);
-    const store = useStore<Partial<QwikUiAreaAttributesFunctionReturnType>>({
+    const ariaAttributesStore = useStore<
+      Partial<QwikUiAreaAttributesFunctionReturnType<'span'>>
+    >({
       lastKey: undefined,
-      ariaAttributes: {},
+      ariaAttributes: undefined,
     });
     useTask$(({ track }) => {
       track(() => ({ ...props }));
-      const { lastKey, ariaAttributes } = getAriaAttributes(
+      const { lastKey, ariaAttributes } = getAriaAttributes<'span'>(
         props,
-        store.lastKey
+        ariaAttributesStore.lastKey
       );
-      store.ariaAttributes = ariaAttributes;
-      store.lastKey = lastKey;
+      ariaAttributesStore.ariaAttributes = ariaAttributes;
+      ariaAttributesStore.lastKey = lastKey;
     });
 
     useVisibleTask$(() => {
@@ -46,7 +48,7 @@ export const PopoverTrigger = component$(
     return (
       <span
         ref={ref}
-        {...store.ariaAttributes}
+        {...ariaAttributesStore.ariaAttributes}
         role="button"
         class="popover-trigger"
         onMouseOver$={

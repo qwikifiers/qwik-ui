@@ -1,33 +1,36 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AriaAttributes } from '@builder.io/qwik';
 import {
   ExtendedPropsByAriaAttribute,
+  QwikAriaAttributeCamelCaseElement,
+  QwikIntrinsicAriaAttributes,
+  QwikUiAreaAttributesFunctionReturnType,
   QwikUiAreaAttributesFunctionType,
-  QwikUiAriaAttributesKebab,
-  isKeyOfAriaAttributes,
-  isKeyOfQwikUiAriaAttributes,
+  isKeyOfQwikCamelAriaAttributes,
+  isKeyOfQwikIntrinsicAriaAttributes,
 } from './aria-attributes.type';
 
-export function keyToKebabCase(str: string): keyof AriaAttributes {
+export function keyToKebabCase(
+  str: string
+): keyof QwikIntrinsicAriaAttributes<string> {
   const newStr = str
     .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
     .toLowerCase();
-  if (isKeyOfAriaAttributes(newStr)) {
+  if (isKeyOfQwikIntrinsicAriaAttributes(newStr)) {
     return newStr;
   } else {
     throw new Error('The key you speficied was not an aria attribute.');
   }
 }
 
-const cacheMap: Map<string, Partial<AriaAttributes>> = new Map();
+const cacheMap = new Map();
 
-const memoize = (
-  func: QwikUiAreaAttributesFunctionType
-): QwikUiAreaAttributesFunctionType => {
+const memoize = <K extends string>(
+  func: QwikUiAreaAttributesFunctionType<K>
+): QwikUiAreaAttributesFunctionType<K> => {
   return (
-    qwikUiAriaAttributes?: Partial<QwikUiAriaAttributesKebab>,
+    qwikUiAriaAttributes?: Partial<QwikAriaAttributeCamelCaseElement<K>>,
     lastKey?: string
-  ): ReturnType<QwikUiAreaAttributesFunctionType> => {
+  ): ReturnType<QwikUiAreaAttributesFunctionType<K>> => {
     const key = JSON.stringify(qwikUiAriaAttributes);
     if (lastKey) {
       cacheMap.delete(lastKey);
@@ -42,31 +45,34 @@ const memoize = (
   };
 };
 
-export const extractQwikUiAriaAttributes = <T = any>(
-  props: ExtendedPropsByAriaAttribute<T>
+export const extractCamelAriaAttributes = <K extends string, T = any>(
+  props: ExtendedPropsByAriaAttribute<K, T>
 ) => {
+  if (!props) {
+    return {};
+  }
   return Object.keys(props).reduce(
     (cur, propKey) =>
-      isKeyOfQwikUiAriaAttributes(propKey)
+      isKeyOfQwikCamelAriaAttributes(propKey)
         ? { ...cur, [propKey]: props[propKey] }
         : cur,
     {}
   );
 };
 
-export const getAriaAttributes = <T = any>(
-  props: ExtendedPropsByAriaAttribute<T>,
+export const getAriaAttributes = <K extends string, T = any>(
+  props: ExtendedPropsByAriaAttribute<K, T>,
   lastKey?: string
-): ReturnType<QwikUiAreaAttributesFunctionType> => {
+): QwikUiAreaAttributesFunctionReturnType<K> => {
   const process = (
-    qwikUiAriaAttributes?: Partial<QwikUiAriaAttributesKebab>
-  ): ReturnType<QwikUiAreaAttributesFunctionType> => {
+    qwikUiAriaAttributes?: Partial<QwikAriaAttributeCamelCaseElement<K>>
+  ): ReturnType<QwikUiAreaAttributesFunctionType<K>> => {
     return {
       lastKey: JSON.stringify(qwikUiAriaAttributes),
       ariaAttributes: qwikUiAriaAttributes
         ? Object.keys(qwikUiAriaAttributes).reduce(
             (cur, key) =>
-              isKeyOfQwikUiAriaAttributes(key)
+              isKeyOfQwikCamelAriaAttributes(key)
                 ? { ...cur, [keyToKebabCase(key)]: qwikUiAriaAttributes[key] }
                 : cur,
             {}
@@ -74,6 +80,6 @@ export const getAriaAttributes = <T = any>(
         : {},
     };
   };
-  const qwikUiAriaAttributes = extractQwikUiAriaAttributes<T>(props);
+  const qwikUiAriaAttributes = extractCamelAriaAttributes<K, T>(props);
   return memoize(process)(qwikUiAriaAttributes, lastKey);
 };
