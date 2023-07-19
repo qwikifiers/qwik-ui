@@ -1,42 +1,22 @@
 import {
   $,
+  QwikIntrinsicElements,
   Slot,
   component$,
   useContext,
   useSignal,
-  useStore,
   useStylesScoped$,
-  useTask$,
   useVisibleTask$,
 } from '@builder.io/qwik';
-import {
-  ExtendedPropsByAriaAttribute,
-  QwikUiAreaAttributesFunctionReturnType,
-  getAriaAttributes,
-} from '../../utils';
+import { AriaKeysOnlyKebab } from '../../utils';
 import { PopoverContext } from './popover-context';
 import styles from './popover-trigger.css?inline';
 
 export const PopoverTrigger = component$(
-  (props: ExtendedPropsByAriaAttribute<'span'>) => {
+  (props: AriaKeysOnlyKebab<QwikIntrinsicElements['span']>) => {
     const ref = useSignal<HTMLElement>();
     const contextService = useContext(PopoverContext);
     useStylesScoped$(styles);
-    const ariaAttributesStore = useStore<
-      Partial<QwikUiAreaAttributesFunctionReturnType<'span'>>
-    >({
-      lastKey: undefined,
-      ariaAttributes: undefined,
-    });
-    useTask$(({ track }) => {
-      track(() => ({ ...props }));
-      const { lastKey, ariaAttributes } = getAriaAttributes<'span'>(
-        props,
-        ariaAttributesStore.lastKey
-      );
-      ariaAttributesStore.ariaAttributes = ariaAttributes;
-      ariaAttributesStore.lastKey = lastKey;
-    });
 
     useVisibleTask$(() => {
       contextService.setTriggerRef$(ref);
@@ -48,7 +28,7 @@ export const PopoverTrigger = component$(
     return (
       <span
         ref={ref}
-        {...ariaAttributesStore.ariaAttributes}
+        {...props}
         role="button"
         class="popover-trigger"
         onMouseOver$={
