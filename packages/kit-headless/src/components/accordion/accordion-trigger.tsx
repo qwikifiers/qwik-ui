@@ -1,13 +1,13 @@
 import {
-  QwikIntrinsicElements,
-  Slot,
   component$,
+  Slot,
   useContext,
   useSignal,
   useTask$,
-  $,
   useVisibleTask$,
-  QwikKeyboardEvent,
+  $,
+  type QwikIntrinsicElements,
+  type QwikKeyboardEvent,
 } from '@builder.io/qwik';
 
 import {
@@ -15,16 +15,30 @@ import {
   accordionRootContextId,
 } from './accordion-context-id';
 
+import { KeyCode } from '../../utils/key-code.type';
+
+export const accordionPreventedKeys = [
+  KeyCode.Home,
+  KeyCode.End,
+  KeyCode.PageDown,
+  KeyCode.PageUp,
+  KeyCode.ArrowDown,
+  KeyCode.ArrowUp,
+];
+
 export type AccordionTriggerProps = QwikIntrinsicElements['button'];
 
 export const AccordionTrigger = component$(
-  ({ ...props }: AccordionTriggerProps) => {
+  ({ disabled, ...props }: AccordionTriggerProps) => {
     const contextService = useContext(accordionRootContextId);
     const itemContext = useContext(accordionItemContextId);
 
     const ref = useSignal<HTMLButtonElement>();
+    const triggerElement = ref.value;
+
     const behavior = contextService.behavior;
     const collapsible = contextService.collapsible;
+    const defaultValue = itemContext.defaultValue;
 
     const triggerStore = contextService.triggerStore;
     const triggerId = `${itemContext.itemId}-trigger`;
@@ -33,6 +47,7 @@ export const AccordionTrigger = component$(
     const contentId = `${itemContext.itemId}-content`;
 
     const getSelectedTriggerId$ = contextService.getSelectedTriggerId$;
+
     const selectedTriggerIdSig = contextService.selectedTriggerIdSig;
     const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
 
@@ -45,10 +60,24 @@ export const AccordionTrigger = component$(
       }
     });
 
-    useVisibleTask$(function navigateTriggerVisibleTask() {
-      if (ref.value) {
-        triggerStore.push(ref.value);
-        console.log(triggerStore);
+    useVisibleTask$(function navigateTriggerVisibleTask({ cleanup }) {
+      if (triggerElement && !disabled) {
+        triggerStore.push(triggerElement);
+      }
+
+      function handler(e: KeyboardEvent) {
+        if (accordionPreventedKeys.includes(e.key as KeyCode)) {
+          e.preventDefault();
+        }
+      }
+
+      triggerElement?.addEventListener('keydown', handler);
+      cleanup(() => {
+        triggerElement?.removeEventListener('keydown', handler);
+      });
+
+      if (behavior === 'single' && defaultValue) {
+        isTriggerExpandedSig.value = true;
       }
     });
 
@@ -57,7 +86,8 @@ export const AccordionTrigger = component$(
         ref={ref}
         id={triggerId}
         data-trigger-id={triggerId}
-        disabled={props.disabled}
+        disabled={disabled}
+        aria-disabled={disabled}
         onClick$={[
           $(() => {
             getSelectedTriggerId$(triggerId);
@@ -68,6 +98,7 @@ export const AccordionTrigger = component$(
           }),
           props.onClick$,
         ]}
+        tabIndex={disabled ? -1 : 0}
         aria-expanded={isTriggerExpandedSig.value}
         aria-controls={contentId}
         onKeydown$={[

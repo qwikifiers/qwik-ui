@@ -89,7 +89,11 @@ export const DisabledTabsExample = component$(() => {
         <h3>Dad jokes</h3>
         <Tabs>
           <TabList>
-            <Tab style="width: 25%" disabled={true}>
+            <Tab
+              class="aria-disabled:cursor-not-allowed"
+              style="width: 25%"
+              disabled={true}
+            >
               Disabled Tab
             </Tab>
             <Tab style="width: 25%">Joke 2</Tab>

@@ -4,8 +4,8 @@ import {
   Slot,
   useContextProvider,
   useSignal,
-  type QwikIntrinsicElements,
   useStore,
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
 import { type AccordionRootContext } from './accordion-context.type';
@@ -15,6 +15,7 @@ export type AccordionRootProps = {
   behavior?: 'single' | 'multi';
   animated?: boolean;
   collapsible?: boolean;
+  orientation?: 'vertical' | 'horizontal';
 } & QwikIntrinsicElements['div'];
 
 export const AccordionRoot = component$(
@@ -22,6 +23,7 @@ export const AccordionRoot = component$(
     collapsible = true,
     behavior = 'single',
     animated = false,
+    orientation = 'vertical',
     ...props
   }: AccordionRootProps) => {
     const rootRef = useSignal<HTMLDivElement | undefined>();

@@ -9,7 +9,13 @@ import {
   AccordionTrigger,
   Checkbox,
 } from '@qwik-ui/headless';
-import { Example01, Example02, Example03 } from './examples';
+import {
+  Example01,
+  Example02,
+  Example03,
+  Example04,
+  DefaultValueAccordion,
+} from './examples';
 import { CodeExample } from '../../../../../components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../../../components/api-table/api-table';
@@ -159,7 +165,15 @@ Rather than using the `details` and `summary` tags as disclosure widgets, we use
   ```
 </Example02>
 
-If you're curious about how the accordion is animated, we use a cubic bezier curve and the `animation` property in CSS. You can check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
+### Animations
+
+The previous two examples make use of the `animated` prop. This prop allows you to use the `transition` and `animation` properties from display: none or hidden. In the future, there will be support for transitioning display, but this should do the trick in the meantime.
+
+If you're curious about how the accordion is animated, you can use a built-in Qwik UI variable called `--qwikui-collapsible-content-height`.
+
+The variable calculates the content height behind the scenes, so that you can use this variable in your keyframes. Out of the box, you can use the `accordion-open` and `accordion-close` keyframes in your project. These use an `animation` declaration on the height property.
+
+You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
 
 ## Non-collapsible
 
@@ -220,6 +234,130 @@ If you're curious about how the accordion is animated, we use a cubic bezier cur
 
 By default, the <strong>collapsible</strong> prop is set to true. You can revert this behavior by setting it to false in the Accordion Root component.
 
+## Disabled
+
+<Example04>
+  ```tsx
+  <AccordionRoot class="bg-gray-100 dark:bg-gray-700 rounded-sm border-slate-200 dark:border-gray-600 border-[1px] box-border w-[min(400px,_100%)]">
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800  text-left dark:border-gray-600 border-b-[1px] flex items-center justify-between group rounded-t-sm">
+          <span>I'm enabled!</span>
+          <span class="pl-2">
+            <p class="group-aria-expanded:transform group-aria-expanded:rotate-45 transition-transform duration-500 ease scale-150">
+              +
+            </p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-animation-1">
+        <p class="bg-violet-200 dark:bg-gray-900 p-4 ">
+          Hey, I'm enabled! This is because I don't use the{' '}
+          <strong>disabled</strong> prop on the trigger.
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800  text-left dark:border-gray-600 border-b-[1px] flex items-center justify-between group">
+          <span>I'm enabled!</span>
+          <span class="pl-2">
+            <p class="group-aria-expanded:transform group-aria-expanded:rotate-45 transition-transform duration-500 ease scale-150">
+              +
+            </p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-animation-1">
+        <p class="bg-violet-200 dark:bg-gray-900 p-4">
+          Hey, I'm enabled! This is because I don't use the{' '}
+          <strong>disabled</strong> prop on the trigger.
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem>
+      <h3>
+        <AccordionTrigger class="bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 px-4 py-2 w-full dark:hover:bg-gray-800 text-left flex items-center justify-between group aria-expanded:rounded-none">
+          <span>I'm disabled!</span>
+          <span class="pl-2 flex">
+            <p class="group-aria-expanded:transform group-aria-expanded:rotate-45 transition-transform duration-500 ease scale-150">
+              +
+            </p>
+          </span>
+        </AccordionTrigger>
+      </h3>
+      <AccordionContent class="accordion-animation-1">
+        <p class="bg-violet-200 dark:bg-gray-900 p-4 dark:border-gray-600 border-t-[1px]">
+          You shouldn't be able to see this!
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+  </AccordionRoot>
+  ```
+</Example04>
+
+## Default Value
+
+<DefaultValueAccordion>
+  ```tsx
+  <AccordionRoot class="bg-gray-100 dark:bg-gray-700 rounded-sm border-slate-200 dark:border-gray-600 border-[1px] box-border w-[min(400px,_100%)]">
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800  text-left dark:border-gray-600 border-b-[1px] flex items-center justify-between group rounded-t-sm">
+          <span>I'm enabled!</span>
+          <span class="pl-2">
+            <p class="group-aria-expanded:transform group-aria-expanded:rotate-45 transition-transform duration-500 ease scale-150">
+              +
+            </p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-animation-1">
+        <p class="bg-violet-200 dark:bg-gray-900 p-4 ">
+          Hey, I'm enabled! This is because I don't use the{' '}
+          <strong>disabled</strong> prop on the trigger.
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionHeader as="h3">
+        <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800  text-left dark:border-gray-600 border-b-[1px] flex items-center justify-between group">
+          <span>I'm enabled!</span>
+          <span class="pl-2">
+            <p class="group-aria-expanded:transform group-aria-expanded:rotate-45 transition-transform duration-500 ease scale-150">
+              +
+            </p>
+          </span>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent class="accordion-animation-1">
+        <p class="bg-violet-200 dark:bg-gray-900 p-4">
+          Hey, I'm enabled! This is because I don't use the{' '}
+          <strong>disabled</strong> prop on the trigger.
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem>
+      <h3>
+        <AccordionTrigger class="bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 px-4 py-2 w-full dark:hover:bg-gray-800 text-left flex items-center justify-between group aria-expanded:rounded-none">
+          <span>I'm disabled!</span>
+          <span class="pl-2 flex">
+            <p class="group-aria-expanded:transform group-aria-expanded:rotate-45 transition-transform duration-500 ease scale-150">
+              +
+            </p>
+          </span>
+        </AccordionTrigger>
+      </h3>
+      <AccordionContent class="accordion-animation-1">
+        <p class="bg-violet-200 dark:bg-gray-900 p-4 dark:border-gray-600 border-t-[1px]">
+          You shouldn't be able to see this!
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+  </AccordionRoot>
+  ```
+</DefaultValueAccordion>
+
 ## Accessibility
 
 ### Keyboard interaction
@@ -237,6 +375,14 @@ By default, the <strong>collapsible</strong> prop is set to true. You can revert
     {
       keyTitle: 'Space / Enter',
       description: 'Expand or collapse the Accordion Trigger.',
+    },
+    {
+      keyTitle: 'Up Arrow',
+      description: 'When focus is on an accordion trigger, it will move to the previous one, or the last if at the top.'
+    },
+    {
+      keyTitle: 'Down Arrow',
+      description: 'When focus is on an accordion trigger, it will move to the next one, or the first if at the bottom.'
     },
     {
       keyTitle: 'Home',
