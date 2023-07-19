@@ -13,7 +13,11 @@ import { PopoverContext } from './popover-context';
 import styles from './popover-trigger.css?inline';
 
 export const PopoverTrigger = component$(
-  (props: AriaKeysOnlyKebab<QwikIntrinsicElements['span']>) => {
+  (
+    props: AriaKeysOnlyKebab<QwikIntrinsicElements['span']> & {
+      tabIndex?: number;
+    }
+  ) => {
     const ref = useSignal<HTMLElement>();
     const contextService = useContext(PopoverContext);
     useStylesScoped$(styles);
