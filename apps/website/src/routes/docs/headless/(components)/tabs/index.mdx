@@ -192,25 +192,23 @@ You can set the behavior to manual, which means that the tabs will not automatic
 ```tsx
 
 const tabsState = useStore([
-'Dynamic Tab 1',
-'Dynamic Tab 2',
-'Dynamic Tab 3',
+  'Dynamic Tab 1',
+  'Dynamic Tab 2',
+  'Dynamic Tab 3',
 ]);
 
 return <>
-
-{' '}
-
-<Tabs>
-  <TabList>
+  
+  <Tabs>
+    <TabList>
+      {tabsState.map((tab) => (
+        <Tab key={tab}>{tab}</Tab>
+      ))}
+    </TabList>
     {tabsState.map((tab) => (
-      <Tab key={tab}>{tab}</Tab>
+      <TabPanel key={tab}>{tab} Panel</TabPanel>
     ))}
-  </TabList>
-  {tabsState.map((tab) => (
-    <TabPanel key={tab}>{tab} Panel</TabPanel>
-  ))}
-</Tabs>
+  </Tabs>
 
   <button style={{ color: 'red', marginTop: '1rem' }}
     onClick$={() => {
@@ -276,8 +274,6 @@ const tabsClickedCountSig = useSignal(0);
 
 return <div>
 
-{' '}
-
 <h3>Danish Composers</h3>
 <h4>(watch the counter below)</h4>
 <Tabs
@@ -302,8 +298,6 @@ return <div>
     <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
   </TabPanel>
 </Tabs>
-
-{' '}
 
 <p>Click count: {tabsClickedCountSig.value}</p>
 
