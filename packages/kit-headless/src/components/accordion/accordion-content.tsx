@@ -21,14 +21,18 @@ export type ContentProps = QwikIntrinsicElements['div'];
 
 export const AccordionContent = component$(({ ...props }: ContentProps) => {
   const contextService = useContext(accordionRootContextId);
+  const itemContext = useContext(accordionItemContextId);
+
   const ref = useSignal<HTMLElement>();
   const contentElement = ref.value;
-  const itemContext = useContext(accordionItemContextId);
   const contentId = `${itemContext.itemId}-content`;
-  const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
-  const isContentHiddenSig = useSignal<boolean>(true);
+
   const animated = contextService.animated;
+  const defaultValue = itemContext.defaultValue;
   const totalHeightSig = useSignal<number>(0);
+
+  const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
+  const isContentHiddenSig = useSignal<boolean>(!defaultValue);
 
   const hideContent$ = $(() => {
     if (!isTriggerExpandedSig.value) {
@@ -39,6 +43,10 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
   useStylesScoped$(`
     [data-state] {
       overflow: hidden;
+    }
+
+    [data-state="open"] {
+      display: block;
     }
 
     /* check global.css utilites layer for animation */
@@ -71,13 +79,18 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
   });
 
   /* calculates height of the content container based on children */
-  useVisibleTask$(function calculateHeightVisibleTask() {
-    if (animated) {
-      totalHeightSig.value = 0;
+  useVisibleTask$(function calculateHeightVisibleTask({ track }) {
+    track(() => isContentHiddenSig.value);
 
+    if (animated && totalHeightSig.value === 0) {
+      getCalculatedHeight();
+    }
+
+    function getCalculatedHeight() {
       const contentChildren = Array.from(
         contentElement?.children!
       ) as HTMLElement[];
+
       contentChildren.forEach((element, index) => {
         totalHeightSig.value += element.offsetHeight;
 

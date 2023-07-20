@@ -7,9 +7,6 @@ settings:
 importers:
   .:
     dependencies:
-      '@fontsource/poppins':
-        specifier: 5.0.5
-        version: 5.0.5
       tslib:
         specifier: ^2.3.0
         version: 2.5.0
@@ -3465,13 +3462,6 @@ packages:
       }
     dependencies:
       '@floating-ui/core': 1.2.1
-
-  /@fontsource/poppins@5.0.5:
-    resolution:
-      {
-        integrity: sha512-Y/AGmD6iavfobRb7f2l49q0dQSyisvRrUfJ7F0AWOlTNFty8bbnPBbg+5Qsq5EN6xWaIAn++50aLfOCEe7zu3w==,
-      }
-    dev: false
 
   /@frsource/base64@1.0.14:
     resolution:

@@ -20,10 +20,7 @@ export const AccordionItem = component$(
     const itemId = useId();
 
     const itemRef = useSignal<HTMLElement>();
-    const isTriggerExpandedSig = useSignal<boolean>(
-      defaultValue ? true : false
-    );
-    console.log(isTriggerExpandedSig.value);
+    const isTriggerExpandedSig = useSignal<boolean>(defaultValue);
 
     const itemContext: AccordionItemContext = {
       itemId,
