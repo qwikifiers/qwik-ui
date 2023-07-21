@@ -16,6 +16,7 @@ import {
 } from './accordion-context-id';
 
 import { KeyCode } from '../../utils/key-code.type';
+import { isBrowser, isServer } from '@builder.io/qwik/build';
 
 export const accordionPreventedKeys = [
   KeyCode.Home,
@@ -50,6 +51,7 @@ export const AccordionTrigger = component$(
 
     const selectedTriggerIdSig = contextService.selectedTriggerIdSig;
     const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
+    const isDefaultValueOpenedSig = useSignal<boolean>(false);
 
     /* selectedTriggerIdSig is updated when getSelectedTriggerId$ runs */
     useTask$(function resetTriggersTask({ track }) {
@@ -57,6 +59,11 @@ export const AccordionTrigger = component$(
 
       if (behavior === 'single' && triggerId !== selectedTriggerIdSig.value) {
         isTriggerExpandedSig.value = false;
+      }
+
+      if (defaultValue && !isDefaultValueOpenedSig.value) {
+        isTriggerExpandedSig.value = true;
+        isDefaultValueOpenedSig.value = true;
       }
     });
 
@@ -75,10 +82,6 @@ export const AccordionTrigger = component$(
       cleanup(() => {
         triggerElement?.removeEventListener('keydown', handler);
       });
-
-      if (behavior === 'single' && defaultValue) {
-        isTriggerExpandedSig.value = true;
-      }
     });
 
     return (
