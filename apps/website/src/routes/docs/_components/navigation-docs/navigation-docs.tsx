@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
-import { BadgeStatus } from '../../_state/component-statuses';
+import { BadgeStatus } from '../../../../_state/component-statuses';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
 
 export interface LinkGroup {
@@ -30,13 +29,13 @@ export const DocsNavigation = component$(
                 {group.children?.map((link) => {
                   return (
                     <li class="pl-4" key={link.name + link.href}>
-                      <Link
+                      <a
                         class="px-4 py-2 -ml-4 mr-8 text-sm flex items-center rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]"
                         href={link.href}
                       >
                         {link.name}{' '}
                         {link.status && <StatusBadge status={link.status} />}
-                      </Link>
+                      </a>
                     </li>
                   );
                 })}

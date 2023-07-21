@@ -1,14 +1,14 @@
 import { component$, Slot } from '@builder.io/qwik';
 import {
-  AutocompleteRoot,
-  AutocompleteLabel,
-  AutocompleteTrigger,
-  AutocompleteInput,
   AutocompleteButton,
+  AutocompleteInput,
+  AutocompleteLabel,
   AutocompleteListbox,
   AutocompleteOption,
+  AutocompleteRoot,
+  AutocompleteTrigger,
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
 const trainers = [
   'Caleb',

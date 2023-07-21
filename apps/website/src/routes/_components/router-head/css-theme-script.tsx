@@ -1,4 +1,4 @@
-import { THEME_STORAGE_KEY } from '../../_state/use-css-theme';
+import { THEME_STORAGE_KEY } from '../../../_state/use-css-theme';
 
 export const CSSThemeScript = () => {
   const themeScript = `

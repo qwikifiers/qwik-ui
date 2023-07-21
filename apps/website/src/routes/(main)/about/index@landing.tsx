@@ -1,37 +1,3 @@
-// # About Qwik UI
-
-// Qwik UI is the first component library ever created for Qwik, designed exclusively for developers working with the revolutionary Qwik web framework.
-// Created by leading members of the Qwik community, including members from the Qwik team, Qwik UI offers an open-source solution for
-// building instant loading web applications that achieve top-tier SEO performance.
-
-// ## Target Audience
-
-// Qwik UI is built for developers who want to harness the power of Qwik's innovative JavaScript Streaming technology
-// and create highly performant web applications with minimal effort.
-// Whether you're developing an e-commerce platform or any search engine-facing application,
-// Qwik UI provides the components and tools you need to deliver a seamless user experience.
-
-// ## Ideal for E-commerce and SEO-focused Applications
-
-// Qwik's instant loading capabilities offer a significant advantage for e-commerce and other search engine-facing applications.
-// By ensuring the highest Core Web Vitals scores, Qwik UI not only delivers blazing-fast performance but also helps improve
-// your site's search engine rankings. Stand out from the competition with a web application that loads instantly, regardless of its size or complexity.
-
-// ## Built by Qwik Experts
-
-// As the only native-to-Qwik component library currently available, Qwik UI benefits from the expertise of the very
-// people who are shaping the future of web development. Developed in collaboration with Qwik team members,
-// Qwik UI components are designed to work seamlessly with the Qwik framework, ensuring that you can build web applications that are both fast and scalable.
-
-// ## Open Source and Community-Driven
-
-// Qwik UI is an open-source project, which means that it's freely available for developers to use and contribute to.
-// By fostering a community-driven approach, we aim to continuously improve and expand the capabilities of Qwik UI,
-// making it the go-to component library for developers working with the Qwik web framework.
-
-// Join us in our mission to revolutionize web development and create instant loading web applications that offer unparalleled
-// performance and SEO advantages. Get started with Qwik UI today!
-
 import { component$ } from '@builder.io/qwik';
 import { DocumentHead, Link } from '@builder.io/qwik-city';
 

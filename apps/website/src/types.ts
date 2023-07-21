@@ -1,4 +1,4 @@
-import { Theme } from './components/selectTheme/selectTheme';
+import { Theme } from './components/select-theme/select-theme';
 
 export type OldAppState = {
   darkMode: boolean;
