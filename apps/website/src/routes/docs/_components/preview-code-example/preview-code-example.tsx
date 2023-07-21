@@ -1,9 +1,4 @@
-import {
-  component$,
-  Slot,
-  useStyles$,
-  useStylesScoped$,
-} from '@builder.io/qwik';
+import { component$, Slot, useStyles$ } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 
 export const PreviewCodeExample = component$(() => {

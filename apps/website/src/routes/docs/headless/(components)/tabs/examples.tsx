@@ -6,7 +6,7 @@ import {
   useStyles$,
 } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 import styles from './index.css?inline';
 
 export const Example01 = component$(() => {
