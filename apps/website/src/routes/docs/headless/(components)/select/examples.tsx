@@ -1,15 +1,15 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import {
-  SelectRoot,
+  SelectGroup,
   SelectLabel,
+  SelectListBox,
+  SelectMarker,
+  SelectOption,
+  SelectRoot,
   SelectTrigger,
   SelectValue,
-  SelectMarker,
-  SelectListBox,
-  SelectOption,
-  SelectGroup,
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
 export const Example01 = component$(() => {
   return (

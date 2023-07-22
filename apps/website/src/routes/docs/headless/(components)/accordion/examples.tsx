@@ -1,13 +1,12 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
   AccordionContent,
-  Checkbox,
+  AccordionHeader,
+  AccordionItem,
+  AccordionRoot,
+  AccordionTrigger,
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
 export function SVG(props: QwikIntrinsicElements['svg'], key: string) {
   return (

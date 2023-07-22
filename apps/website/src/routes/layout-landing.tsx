@@ -6,10 +6,10 @@ import {
   useVisibleTask$,
 } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import Header from '../components/header/header';
 import { OLD_APP_STATE_CONTEXT_ID } from '../constants';
+import Header from './_components/header/header';
 
-import { Footer } from '../components/footer/footer';
+import { Footer } from './_components/footer/footer';
 
 export default component$(() => {
   // useStyles$(globalStyles);

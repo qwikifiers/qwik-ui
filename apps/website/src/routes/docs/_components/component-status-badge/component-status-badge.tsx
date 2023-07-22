@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { Badge } from '@qwik-ui/tailwind';
-import { BadgeStatus } from '../../_state/component-statuses';
+import { BadgeStatus } from '../../../../_state/component-statuses';
 
 export interface StatusBadgeProps {
   status: BadgeStatus;

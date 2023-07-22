@@ -1,12 +1,12 @@
 import { component$, Slot } from '@builder.io/qwik';
 import {
-  AccordionRoot,
-  AccordionItem,
   AccordionContent,
+  AccordionItem,
+  AccordionRoot,
   AccordionTrigger,
   Checkbox,
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
 export const Example01 = component$(() => {
   return (

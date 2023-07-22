@@ -10,14 +10,14 @@ import {
   RouterOutlet,
   ServiceWorkerRegister,
 } from '@builder.io/qwik-city';
-import { RouterHead } from './components/router-head/router-head';
+import { RouterHead } from './routes/_components/router-head/router-head';
 
-import globalStyles from './global.css?inline';
-import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
+import { ROOT_STORE_CONTEXT_ID } from './_state/root-store-context-id';
 import { THEME_STORAGE_KEY, useCSSTheme } from './_state/use-css-theme';
-import { OldAppState } from './types';
 import { OLD_APP_STATE_CONTEXT_ID } from './constants';
+import globalStyles from './global.css?inline';
+import { OldAppState } from './types';
 
 export default component$(() => {
   /**
@@ -28,14 +28,14 @@ export default component$(() => {
    */
   useStyles$(globalStyles);
 
-  const appState: AppState = useStore(
-    {
-      mode: 'light',
+  const appState = useStore<AppState>({
+    mode: 'light',
+    featureFlags: {
+      showTailwind: import.meta.env.DEV,
     },
-    { deep: true }
-  );
+  });
 
-  useContextProvider(APP_STATE_CONTEXT_ID, appState);
+  useContextProvider(ROOT_STORE_CONTEXT_ID, appState);
 
   useVisibleTask$(() => {
     appState.mode =

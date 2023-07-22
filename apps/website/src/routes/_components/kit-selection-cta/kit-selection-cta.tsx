@@ -1,5 +1,5 @@
 import { Slot, component$ } from '@builder.io/qwik';
-import { Card, CardBody, CardTitle, CardImage } from '@qwik-ui/headless';
+import { Card, CardBody, CardImage, CardTitle } from '@qwik-ui/headless';
 export interface Kit {
   kit: 'headless' | 'tailwind';
 }
@@ -14,6 +14,8 @@ export default component$(({ kit }: Kit) => {
       <Card>
         <CardImage
           src={`/images/kit-cta-${kit}.png`}
+          width="611"
+          height="408"
           alt={`${kit} kit`}
           class="bg-gradient-to-r from-[var(--qwik-light-blue)] 
           to-[var(--qwik-light-purple)] h-64 w-full object-cover"

@@ -1,8 +1,7 @@
 import { $, component$, PropFunction, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 
-import { OLD_APP_STATE_CONTEXT_ID } from '../../constants';
-import { CloseIcon } from '../icons/CloseIcon';
+import { OLD_APP_STATE_CONTEXT_ID } from '../../../constants';
 
 type Props = {
   onClose$?: PropFunction<() => void>;

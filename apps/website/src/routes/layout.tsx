@@ -1,17 +1,17 @@
 import { component$, Slot, useStyles$ } from '@builder.io/qwik';
-import {
-  DocsNavigation,
-  LinkGroup,
-  LinkProps,
-} from '../components/navigation-docs/navigation-docs';
-import prismStyles from './prism.css?inline';
-import docsStyles from './docs.css?inline';
 import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
 import {
   componentsStatuses,
   ComponentsStatusesMap,
 } from '../_state/component-statuses';
-import Header from '../components/header/header';
+import Header from './_components/header/header';
+import docsStyles from './docs.css?inline';
+import {
+  DocsNavigation,
+  LinkGroup,
+  LinkProps,
+} from './docs/_components/navigation-docs/navigation-docs';
+import prismStyles from './prism.css?inline';
 
 export default component$(() => {
   useStyles$(prismStyles);
