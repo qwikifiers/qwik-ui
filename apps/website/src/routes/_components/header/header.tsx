@@ -11,6 +11,7 @@ import { MenuIcon } from '../icons/MenuIcon';
 import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
 import { Menu } from '../menu/menu';
+import { Logo } from '../icons/logo';
 
 export interface HeaderProps {
   showVersion?: boolean;
@@ -67,15 +68,11 @@ export default component$(
             </div>
           </aside>
         )}
+
         <a href="/" class="lg:ml-8">
-          <img
-            src="/images/qwik-ui.svg"
-            width="122"
-            height="48"
-            class="h-12 w-auto object-contain"
-          />
-          {/* <SvgLogo  /> */}
+          <Logo />
         </a>
+
         <div data-tip="Qwik-UI Version" class="mr-auto">
           {showVersion && (
             <div class="flex flex-col">
