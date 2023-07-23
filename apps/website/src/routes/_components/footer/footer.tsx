@@ -20,10 +20,10 @@ export const Footer = component$(() => {
           </div>
           <div class="px-5 py-2">
             <a
-              href="/docs/tailwind"
+              href="/docs/headless/introduction"
               class="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300"
             >
-              Documentation
+              Headless Kit
             </a>
           </div>
 

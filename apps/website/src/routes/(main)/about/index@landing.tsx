@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { DocumentHead, Link } from '@builder.io/qwik-city';
+import { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
   return (
@@ -76,11 +76,11 @@ export default component$(() => {
           SEO advantages, and accessibility.
         </p>
 
-        <Link href="/docs/tailwind">
+        <a href="/docs/headless/introduction">
           <h2 class="text-center underline hover:no-underline">
             Get started with Qwik UI today!
           </h2>
-        </Link>
+        </a>
       </div>
     </>
   );
