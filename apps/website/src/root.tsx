@@ -28,28 +28,28 @@ export default component$(() => {
    */
   useStyles$(globalStyles);
 
-  const appState = useStore<AppState>({
+  const rootStore = useStore<AppState>({
     mode: 'light',
+    isSidebarOpened: false,
     featureFlags: {
       showTailwind: import.meta.env.DEV,
     },
   });
 
-  useContextProvider(ROOT_STORE_CONTEXT_ID, appState);
+  useContextProvider(ROOT_STORE_CONTEXT_ID, rootStore);
 
   useVisibleTask$(() => {
-    appState.mode =
+    rootStore.mode =
       localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
   });
 
   // TODO: remove this old state once refactored
   const state = useStore<OldAppState>({
     darkMode: false,
-    theme: 'NOT_DEFINED',
   });
   useContextProvider(OLD_APP_STATE_CONTEXT_ID, state);
 
-  useCSSTheme(appState);
+  useCSSTheme(rootStore);
 
   return (
     <QwikCityProvider>
@@ -58,7 +58,12 @@ export default component$(() => {
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
       </head>
-      <body lang="en">
+      <body
+        lang="en"
+        class={{
+          'overflow-y-hidden': rootStore.isSidebarOpened,
+        }}
+      >
         <RouterOutlet />
         <ServiceWorkerRegister />
       </body>

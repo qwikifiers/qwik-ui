@@ -9,7 +9,7 @@ export interface StatusBadgeProps {
 export const StatusBadge = component$<StatusBadgeProps>(({ status }) => {
   return (
     <Badge
-      class={`ml-auto text-xs leading-3 font-medium rounded-full py-1 px-2 ${
+      class={`text-lg lg:text-xs leading-3 font-medium rounded-full p-3 lg:py-1 lg:px-2 ${
         status === 'Ready'
           ? 'text-green-900 bg-green-300'
           : status === 'Draft'

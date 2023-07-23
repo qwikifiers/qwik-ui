@@ -1,9 +1,11 @@
-import { component$, Slot, useStyles$ } from '@builder.io/qwik';
-import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
+import { Slot, component$, useStyles$ } from '@builder.io/qwik';
+import { ContentMenu, useContent } from '@builder.io/qwik-city';
 import {
-  componentsStatuses,
   ComponentsStatusesMap,
+  componentsStatuses,
 } from '../_state/component-statuses';
+import { KitName } from '../_state/kit-name.type';
+import { useRootStore } from '../_state/use-root-store';
 import Header from './_components/header/header';
 import docsStyles from './docs.css?inline';
 import {
@@ -11,6 +13,7 @@ import {
   LinkGroup,
   LinkProps,
 } from './docs/_components/navigation-docs/navigation-docs';
+import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
 export default component$(() => {
@@ -18,6 +21,7 @@ export default component$(() => {
   useStyles$(docsStyles);
 
   const { menuItemsGroups } = useKitMenuItems();
+  const rootStore = useRootStore();
 
   return (
     <>
@@ -35,18 +39,18 @@ export default component$(() => {
 });
 
 function useKitMenuItems() {
-  const { url } = useLocation();
+  const selectedKitSig = useSelectedKit();
   const { menu } = useContent();
   let menuItemsGroups: LinkGroup[] | undefined = [];
 
-  if (url.pathname.indexOf('headless') !== -1) {
+  if (selectedKitSig.value === KitName.HEADLESS) {
     menuItemsGroups = decorateMenuItemsWithBadges(
       menu?.items,
       componentsStatuses.headless
     );
   }
 
-  if (url.pathname.indexOf('tailwind') !== -1) {
+  if (selectedKitSig.value === KitName.TAILWIND) {
     menuItemsGroups = decorateMenuItemsWithBadges(
       menu?.items,
       componentsStatuses.tailwind
