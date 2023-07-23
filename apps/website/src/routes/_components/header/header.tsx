@@ -47,24 +47,29 @@ export default component$(
     return (
       <header
         class={[
-          `fixed top-0 w-full h-20 z-20 bg-[var(--color-bg)] flex gap-8 p-4 items-center`,
+          `fixed top-0 w-full h-20 md:h-20 z-20 lg:bg-[var(--color-bg)] flex gap-8 p-4 items-center`,
+          rootStore.isSidebarOpened
+            ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
+            : '',
           showBottomBorder
             ? `border-b-[1px] border-slate-300 dark:border-slate-600`
             : ``,
         ]}
       >
-        <a href="/" class="lg:ml-8">
-          <Logo />
-        </a>
+        <section class="flex flex-col md:flex-row gap-1 md:gap-8 mr-auto">
+          <a href="/" class="lg:ml-8">
+            <Logo />
+          </a>
 
-        <div data-tip="Qwik-UI Version" class="mr-auto">
           {showVersion && (
-            <div class="flex flex-col">
-              <span> {kitSignal.value?.name} Kit </span>
-              <span> v.{kitSignal.value?.version} </span>
+            <div data-tip="Qwik-UI Version" class="mr-auto">
+              <div class="flex flex-row gap-1 ml-2 md:mt-1 md:flex-col text-xs md:text-sm">
+                <span> {kitSignal.value?.name} Kit </span>
+                <span> v.{kitSignal.value?.version} </span>
+              </div>
             </div>
           )}
-        </div>
+        </section>
 
         <nav class="hidden lg:flex gap-4">
           <a href="/about">About</a>
