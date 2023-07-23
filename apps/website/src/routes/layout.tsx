@@ -1,9 +1,6 @@
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 import { ContentMenu, useContent } from '@builder.io/qwik-city';
-import {
-  ComponentsStatusesMap,
-  componentsStatuses,
-} from '../_state/component-statuses';
+import { ComponentsStatusesMap, componentsStatuses } from '../_state/component-statuses';
 import { KitName } from '../_state/kit-name.type';
 import { useRootStore } from '../_state/use-root-store';
 import Header from './_components/header/header';
@@ -11,7 +8,7 @@ import docsStyles from './docs.css?inline';
 import {
   DocsNavigation,
   LinkGroup,
-  LinkProps,
+  LinkProps
 } from './docs/_components/navigation-docs/navigation-docs';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
@@ -58,7 +55,7 @@ function useKitMenuItems() {
   }
 
   return {
-    menuItemsGroups,
+    menuItemsGroups
   };
 }
 
@@ -72,13 +69,13 @@ function decorateMenuItemsWithBadges(
       children: item.items?.map((child) => {
         const link: LinkProps = {
           name: child.text,
-          href: child.href,
+          href: child.href
         };
         if (kitStatusesMap[link.name]) {
           link.status = kitStatusesMap[link.name];
         }
         return link;
-      }),
+      })
     };
   });
 }

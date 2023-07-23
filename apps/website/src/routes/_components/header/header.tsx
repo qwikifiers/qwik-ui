@@ -29,13 +29,13 @@ export default component$(
       if (selectedKitSig.value === KitName.HEADLESS) {
         return {
           name: 'Headless',
-          version: headlessVersion,
+          version: headlessVersion
         };
       }
       if (selectedKitSig.value === KitName.TAILWIND) {
         return {
           name: 'Tailwind',
-          version: tailwindVersion,
+          version: tailwindVersion
         };
       }
     });
@@ -47,13 +47,12 @@ export default component$(
     return (
       <header
         class={[
-          `fixed top-0 w-full h-20 md:h-20 z-20 lg:bg-[var(--color-bg)] flex gap-8 p-4 items-center`,
+          `fixed top-0 w-full h-20 md:h-20 z-20 md:bg-[var(--color-bg)] flex gap-8 p-4 items-center`,
+          `ease-in-out duration-300`,
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
-            : '',
-          showBottomBorder
-            ? `border-b-[1px] border-slate-300 dark:border-slate-600`
-            : ``,
+            : 'bg-[var(--color-bg)]',
+          showBottomBorder ? `border-b-[1px] border-slate-300 dark:border-slate-600` : ``
         ]}
       >
         <section class="flex flex-col md:flex-row gap-1 md:gap-8 mr-auto">
@@ -83,11 +82,7 @@ export default component$(
           {/* <a href="/contact">Contact</a> */}
         </nav>
 
-        <button
-          type="button"
-          aria-label="Toggle dark mode"
-          onClick$={toggleDarkMode}
-        >
+        <button type="button" aria-label="Toggle dark mode" onClick$={toggleDarkMode}>
           {rootStore.mode === 'dark' ? <MoonIcon /> : <SunIcon />}
         </button>
         <a
