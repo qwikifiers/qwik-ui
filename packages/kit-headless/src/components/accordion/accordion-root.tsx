@@ -5,8 +5,9 @@ import {
   useContextProvider,
   useSignal,
   useStore,
+  useTask$,
   type QwikIntrinsicElements,
-  useTask$
+  type PropFunction
 } from '@builder.io/qwik';
 
 import { type AccordionRootContext } from './accordion-context.type';
@@ -16,8 +17,8 @@ export type AccordionRootProps = {
   behavior?: 'single' | 'multi';
   animated?: boolean;
   collapsible?: boolean;
-  onSelectedIndexChange$?: (index: number) => void;
-  onFocusIndexChange$?: (index: number) => void;
+  onSelectedIndexChange$?: PropFunction<(index: number) => void>;
+  onFocusIndexChange$?: PropFunction<(index: number) => void>;
 } & QwikIntrinsicElements['div'];
 
 export const AccordionRoot = component$(
