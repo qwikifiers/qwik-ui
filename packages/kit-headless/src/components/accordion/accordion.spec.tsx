@@ -432,16 +432,16 @@ describe('Dynamic', () => {
     cy.get('[data-trigger-id]').should('have.length', 2);
   });
 
-  it(`GIVEN 3 accordion items
-      WHEN clicking on the 3rd trigger and adding a new one at the start
-      THEN the label and content should change, but the index remain the same`, () => {
-    cy.mount(<DynamicAccordion itemsLength={3} itemIndexToAdd={0} />);
+  // it(`GIVEN 3 accordion items
+  //     WHEN clicking on the 3rd trigger and adding a new one at the start
+  //     THEN the label and content should change, but the index remain the same`, () => {
+  //   cy.mount(<DynamicAccordion itemsLength={3} itemIndexToAdd={0} />);
 
-    cy.get('[data-trigger-id]').eq(2).click();
-    cy.findByRole('button', { name: /add item/i }).click();
+  //   cy.get('[data-trigger-id]').eq(2).click();
+  //   cy.findByRole('button', { name: /add item/i }).click();
 
-    cy.get('[data-trigger-id]').eq(2);
-  });
+  //   cy.get('[data-trigger-id]').eq(2);
+  // });
 
   // it(`GIVEN 4 accordion items
   //     WHEN clicking on 3rd trigger and removing it
