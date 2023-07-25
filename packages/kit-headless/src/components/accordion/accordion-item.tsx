@@ -5,6 +5,7 @@ import {
   useId,
   useContextProvider,
   type QwikIntrinsicElements,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 
 import { accordionItemContextId } from './accordion-context-id';
@@ -21,10 +22,12 @@ export const AccordionItem = component$(
 
     const itemRef = useSignal<HTMLElement>();
     const isTriggerExpandedSig = useSignal<boolean>(defaultValue);
+    const isDefaultValueOpenedSig = useSignal<boolean>(false);
 
     const itemContext: AccordionItemContext = {
       itemId,
       isTriggerExpandedSig,
+      isDefaultValueOpenedSig,
       defaultValue,
     };
 

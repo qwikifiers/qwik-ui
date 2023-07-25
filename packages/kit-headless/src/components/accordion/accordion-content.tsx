@@ -41,27 +41,19 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
   });
 
   useStylesScoped$(`
-    [data-state] {
-      overflow: hidden;
-    }
-
-    [data-state="open"] {
-      display: block;
-    }
-
     /* check global.css utilites layer for animation */
     @keyframes accordion-open {
       0% {
         height: 0;
       }
       100% {
-        height: var(--qwikui-collapsible-content-height);
+        height: var(--qwikui-accordion-content-height);
       }
     }
   
     @keyframes accordion-close {
         0% {
-          height: var(--qwikui-collapsible-content-height);
+          height: var(--qwikui-accordion-content-height);
         }
         100% {
           height: 0;
@@ -96,7 +88,7 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
 
         if (index === contentChildren.length - 1) {
           contentElement?.style.setProperty(
-            '--qwikui-collapsible-content-height',
+            '--qwikui-accordion-content-height',
             `${totalHeightSig.value}px`
           );
         }
@@ -118,10 +110,10 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
         onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
         onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
         style={{
-          ['--qwikui-accordion-content-height' as string]:
-            'var(--qwikui-collapsible-content-height)',
-          ['--qwikui-accordion-content-width' as string]:
-            'var(--qwikui-collapsible-content-width)',
+          ['--qwikui-collapsible-content-height' as string]:
+            'var(--qwikui-accordion-content-height)',
+          ['--qwikui-collapsible-content-width' as string]:
+            'var(--qwikui-accordion-content-width)',
         }}
         {...props}
       >

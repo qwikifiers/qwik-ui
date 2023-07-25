@@ -16,7 +16,7 @@ import {
 } from './accordion-context-id';
 
 import { KeyCode } from '../../utils/key-code.type';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
+import { cleanup } from 'axe-core';
 
 export const accordionPreventedKeys = [
   KeyCode.Home,
@@ -47,20 +47,33 @@ export const AccordionTrigger = component$(
     /* content panel id for aria-controls */
     const contentId = `${itemContext.itemId}-content`;
 
-    const getSelectedTriggerId$ = contextService.getSelectedTriggerId$;
-
     const selectedTriggerIdSig = contextService.selectedTriggerIdSig;
+    const currFocusedTriggerIndexSig =
+      contextService.currFocusedTriggerIndexSig;
+    const currSelectedTriggerIndexSig =
+      contextService.currSelectedTriggerIndexSig;
+
     const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
-    const isDefaultValueOpenedSig = useSignal<boolean>(false);
+    const isDefaultValueOpenedSig = itemContext.isDefaultValueOpenedSig;
+
+    const setSelectedTriggerIndex$ = $(() => {
+      if (behavior === 'single') {
+        currSelectedTriggerIndexSig.value = triggerStore.indexOf(
+          triggerElement!
+        );
+      }
+    });
 
     /* selectedTriggerIdSig is updated when getSelectedTriggerId$ runs */
-    useTask$(function resetTriggersTask({ track }) {
+    useTask$(function resetTriggersTask({ track, cleanup }) {
       track(() => selectedTriggerIdSig.value);
 
       if (behavior === 'single' && triggerId !== selectedTriggerIdSig.value) {
         isTriggerExpandedSig.value = false;
       }
+    });
 
+    useTask$(function openDefaultValueTask() {
       if (defaultValue && !isDefaultValueOpenedSig.value) {
         isTriggerExpandedSig.value = true;
         isDefaultValueOpenedSig.value = true;
@@ -72,17 +85,27 @@ export const AccordionTrigger = component$(
         triggerStore.push(triggerElement);
       }
 
-      function handler(e: KeyboardEvent) {
+      function keyHandler(e: KeyboardEvent) {
         if (accordionPreventedKeys.includes(e.key as KeyCode)) {
           e.preventDefault();
         }
       }
 
-      triggerElement?.addEventListener('keydown', handler);
+      triggerElement?.addEventListener('keydown', keyHandler);
       cleanup(() => {
-        triggerElement?.removeEventListener('keydown', handler);
+        triggerElement?.removeEventListener('keydown', keyHandler);
       });
     });
+
+    // cleans up trigger element
+    useVisibleTask$(
+      function cleanupTriggersTask({ cleanup }) {
+        cleanup(() => {
+          triggerStore.splice(triggerStore.indexOf(triggerElement!), 1);
+        });
+      },
+      { strategy: 'document-idle' }
+    );
 
     return (
       <button
@@ -93,7 +116,9 @@ export const AccordionTrigger = component$(
         aria-disabled={disabled}
         onClick$={[
           $(() => {
-            getSelectedTriggerId$(triggerId);
+            selectedTriggerIdSig.value = triggerId;
+
+            setSelectedTriggerIndex$();
 
             collapsible
               ? (isTriggerExpandedSig.value = !isTriggerExpandedSig.value)
@@ -101,29 +126,33 @@ export const AccordionTrigger = component$(
           }),
           props.onClick$,
         ]}
-        tabIndex={disabled ? -1 : 0}
         aria-expanded={isTriggerExpandedSig.value}
         aria-controls={contentId}
-        onKeydown$={[
-          $((e: QwikKeyboardEvent) => {
+        onKeyDown$={[
+          $(async (e: QwikKeyboardEvent) => {
             if (e.key === 'ArrowUp') {
-              contextService.focusPreviousTrigger$();
+              await contextService.focusPreviousTrigger$();
             }
 
             if (e.key === 'ArrowDown') {
-              contextService.focusNextTrigger$();
+              await contextService.focusNextTrigger$();
             }
 
             if (e.key === 'Home') {
-              contextService.focusFirstTrigger$();
+              await contextService.focusFirstTrigger$();
             }
 
             if (e.key === 'End') {
-              contextService.focusLastTrigger$();
+              await contextService.focusLastTrigger$();
             }
           }),
           props.onKeyDown$,
         ]}
+        onFocus$={() => {
+          currFocusedTriggerIndexSig.value = triggerStore.indexOf(
+            triggerElement!
+          );
+        }}
         {...props}
       >
         <Slot />
