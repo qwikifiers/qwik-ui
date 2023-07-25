@@ -7,15 +7,10 @@ import {
   useTask$,
   $,
   useVisibleTask$,
-  type QwikIntrinsicElements,
+  type QwikIntrinsicElements
 } from '@builder.io/qwik';
 
-import {
-  accordionItemContextId,
-  accordionRootContextId,
-} from './accordion-context-id';
-
-import { isBrowser } from '@builder.io/qwik/build';
+import { accordionItemContextId, accordionRootContextId } from './accordion-context-id';
 
 export type ContentProps = QwikIntrinsicElements['div'];
 
@@ -79,20 +74,20 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
     }
 
     function getCalculatedHeight() {
-      const contentChildren = Array.from(
-        contentElement?.children!
-      ) as HTMLElement[];
+      if (contentElement) {
+        const contentChildren = Array.from(contentElement.children) as HTMLElement[];
 
-      contentChildren.forEach((element, index) => {
-        totalHeightSig.value += element.offsetHeight;
+        contentChildren.forEach((element, index) => {
+          totalHeightSig.value += element.offsetHeight;
 
-        if (index === contentChildren.length - 1) {
-          contentElement?.style.setProperty(
-            '--qwikui-accordion-content-height',
-            `${totalHeightSig.value}px`
-          );
-        }
-      });
+          if (index === contentChildren.length - 1) {
+            contentElement?.style.setProperty(
+              '--qwikui-accordion-content-height',
+              `${totalHeightSig.value}px`
+            );
+          }
+        });
+      }
     }
   });
 
@@ -104,16 +99,14 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
         id={contentId}
         data-content-id={contentId}
         data-state={isTriggerExpandedSig.value ? 'open' : 'closed'}
-        hidden={
-          animated ? isContentHiddenSig.value : !isTriggerExpandedSig.value
-        }
+        hidden={animated ? isContentHiddenSig.value : !isTriggerExpandedSig.value}
         onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
         onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
         style={{
           ['--qwikui-collapsible-content-height' as string]:
             'var(--qwikui-accordion-content-height)',
           ['--qwikui-collapsible-content-width' as string]:
-            'var(--qwikui-accordion-content-width)',
+            'var(--qwikui-accordion-content-width)'
         }}
         {...props}
       >

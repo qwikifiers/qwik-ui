@@ -7,16 +7,12 @@ import {
   useVisibleTask$,
   $,
   type QwikIntrinsicElements,
-  type QwikKeyboardEvent,
+  type QwikKeyboardEvent
 } from '@builder.io/qwik';
 
-import {
-  accordionItemContextId,
-  accordionRootContextId,
-} from './accordion-context-id';
+import { accordionItemContextId, accordionRootContextId } from './accordion-context-id';
 
 import { KeyCode } from '../../utils/key-code.type';
-import { cleanup } from 'axe-core';
 
 export const accordionPreventedKeys = [
   KeyCode.Home,
@@ -24,7 +20,7 @@ export const accordionPreventedKeys = [
   KeyCode.PageDown,
   KeyCode.PageUp,
   KeyCode.ArrowDown,
-  KeyCode.ArrowUp,
+  KeyCode.ArrowUp
 ];
 
 export type AccordionTriggerProps = QwikIntrinsicElements['button'];
@@ -48,24 +44,20 @@ export const AccordionTrigger = component$(
     const contentId = `${itemContext.itemId}-content`;
 
     const selectedTriggerIdSig = contextService.selectedTriggerIdSig;
-    const currFocusedTriggerIndexSig =
-      contextService.currFocusedTriggerIndexSig;
-    const currSelectedTriggerIndexSig =
-      contextService.currSelectedTriggerIndexSig;
+    const currFocusedTriggerIndexSig = contextService.currFocusedTriggerIndexSig;
+    const currSelectedTriggerIndexSig = contextService.currSelectedTriggerIndexSig;
 
     const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
     const isDefaultValueOpenedSig = itemContext.isDefaultValueOpenedSig;
 
-    const setSelectedTriggerIndex$ = $(() => {
-      if (behavior === 'single') {
-        currSelectedTriggerIndexSig.value = triggerStore.indexOf(
-          triggerElement!
-        );
+    const setSelectedTriggerIndexSig$ = $(() => {
+      if (behavior === 'single' && triggerElement) {
+        currSelectedTriggerIndexSig.value = triggerStore.indexOf(triggerElement);
       }
     });
 
     /* selectedTriggerIdSig is updated when getSelectedTriggerId$ runs */
-    useTask$(function resetTriggersTask({ track, cleanup }) {
+    useTask$(function resetTriggersTask({ track }) {
       track(() => selectedTriggerIdSig.value);
 
       if (behavior === 'single' && triggerId !== selectedTriggerIdSig.value) {
@@ -101,7 +93,9 @@ export const AccordionTrigger = component$(
     useVisibleTask$(
       function cleanupTriggersTask({ cleanup }) {
         cleanup(() => {
-          triggerStore.splice(triggerStore.indexOf(triggerElement!), 1);
+          if (triggerElement) {
+            triggerStore.splice(triggerStore.indexOf(triggerElement), 1);
+          }
         });
       },
       { strategy: 'document-idle' }
@@ -118,13 +112,13 @@ export const AccordionTrigger = component$(
           $(() => {
             selectedTriggerIdSig.value = triggerId;
 
-            setSelectedTriggerIndex$();
+            setSelectedTriggerIndexSig$();
 
             collapsible
               ? (isTriggerExpandedSig.value = !isTriggerExpandedSig.value)
               : (isTriggerExpandedSig.value = true);
           }),
-          props.onClick$,
+          props.onClick$
         ]}
         aria-expanded={isTriggerExpandedSig.value}
         aria-controls={contentId}
@@ -146,12 +140,12 @@ export const AccordionTrigger = component$(
               await contextService.focusLastTrigger$();
             }
           }),
-          props.onKeyDown$,
+          props.onKeyDown$
         ]}
         onFocus$={() => {
-          currFocusedTriggerIndexSig.value = triggerStore.indexOf(
-            triggerElement!
-          );
+          if (triggerElement) {
+            currFocusedTriggerIndexSig.value = triggerStore.indexOf(triggerElement);
+          }
         }}
         {...props}
       >

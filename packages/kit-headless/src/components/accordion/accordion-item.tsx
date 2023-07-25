@@ -4,8 +4,7 @@ import {
   Slot,
   useId,
   useContextProvider,
-  type QwikIntrinsicElements,
-  useVisibleTask$,
+  type QwikIntrinsicElements
 } from '@builder.io/qwik';
 
 import { accordionItemContextId } from './accordion-context-id';
@@ -28,19 +27,13 @@ export const AccordionItem = component$(
       itemId,
       isTriggerExpandedSig,
       isDefaultValueOpenedSig,
-      defaultValue,
+      defaultValue
     };
 
     useContextProvider(accordionItemContextId, itemContext);
 
     return (
-      <div
-        ref={itemRef}
-        id={itemId}
-        data-type="item"
-        data-item-id={itemId}
-        {...props}
-      >
+      <div ref={itemRef} id={itemId} data-type="item" data-item-id={itemId} {...props}>
         <Slot />
       </div>
     );

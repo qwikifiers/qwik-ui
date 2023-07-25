@@ -6,10 +6,7 @@ import {
   useSignal,
   useStore,
   type QwikIntrinsicElements,
-  useVisibleTask$,
-  useOnWindow,
-  useOnDocument,
-  useTask$,
+  useTask$
 } from '@builder.io/qwik';
 
 import { type AccordionRootContext } from './accordion-context.type';
@@ -19,7 +16,6 @@ export type AccordionRootProps = {
   behavior?: 'single' | 'multi';
   animated?: boolean;
   collapsible?: boolean;
-  orientation?: 'vertical' | 'horizontal';
   onSelectedIndexChange$?: (index: number) => void;
   onFocusIndexChange$?: (index: number) => void;
 } & QwikIntrinsicElements['div'];
@@ -29,7 +25,6 @@ export const AccordionRoot = component$(
     collapsible = true,
     behavior = 'single',
     animated = false,
-    orientation = 'vertical',
     ...props
   }: AccordionRootProps) => {
     const rootRef = useSignal<HTMLDivElement | undefined>();
@@ -94,7 +89,7 @@ export const AccordionRoot = component$(
       triggerStore,
       collapsible,
       behavior,
-      animated,
+      animated
     };
 
     useContextProvider(accordionRootContextId, contextService);

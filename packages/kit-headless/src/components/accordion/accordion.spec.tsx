@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionContent,
   AccordionTrigger,
-  AccordionHeader,
+  AccordionHeader
 } from './index';
 
 import './accordion-cypress.css';
@@ -17,7 +17,7 @@ interface AccordionProps {
 const ThreeItemAccordion = component$(
   ({ behavior, collapsible, ...props }: AccordionProps) => {
     return (
-      <AccordionRoot behavior={behavior} collapsible={collapsible}>
+      <AccordionRoot behavior={behavior} collapsible={collapsible} {...props}>
         <AccordionItem>
           <AccordionTrigger>Trigger 1</AccordionTrigger>
           <AccordionContent>
@@ -286,7 +286,7 @@ describe('Disabled', () => {
   const FourItemDisabledAccordion = component$(
     ({ behavior, collapsible, ...props }: AccordionProps) => {
       return (
-        <AccordionRoot behavior={behavior} collapsible={collapsible}>
+        <AccordionRoot behavior={behavior} collapsible={collapsible} {...props}>
           <AccordionItem>
             <AccordionTrigger>Trigger 1</AccordionTrigger>
             <AccordionContent>
@@ -367,7 +367,7 @@ describe('Dynamic', () => {
     ({
       itemIndexToDelete = 0,
       itemIndexToAdd = 0,
-      itemsLength,
+      itemsLength
     }: DynamicAccordionProps) => {
       const itemNames = Array(itemsLength)
         .fill(1)
@@ -420,11 +420,7 @@ describe('Dynamic', () => {
       THEN only 2 should remain
   `, () => {
     cy.mount(
-      <DynamicAccordion
-        itemsLength={3}
-        itemIndexToDelete={2}
-        itemIndexToAdd={0}
-      />
+      <DynamicAccordion itemsLength={3} itemIndexToDelete={2} itemIndexToAdd={0} />
     );
 
     cy.findByRole('button', { name: /remove item/i }).click();
