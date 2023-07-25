@@ -1,0 +1,11 @@
+.dynamic-root {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dynamic-trigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

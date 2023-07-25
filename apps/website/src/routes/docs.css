@@ -13,6 +13,15 @@
       @apply mb-4;
     }
 
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      overflow-wrap: break-word;
+    }
+
     h1 {
       @apply text-5xl font-bold mb-12;
     }
@@ -28,6 +37,22 @@
     h4 {
       @apply text-lg mb-6;
     }
+
+    h5 {
+      @apply text-xl mb-1 font-bold;
+    }
+
+    blockquote {
+      @apply bg-[#BFDBFE] dark:bg-[#312E81] p-4 border-l-[3px] dark:border-[#F3F3F3] border-[#333333] rounded-sm;
+    }
+
+    ul {
+      @apply list-disc px-6 mb-4 font-[500];
+    }
+
+    li {
+      @apply py-2;
+    }
   }
 
   a {
@@ -39,7 +64,7 @@
   }
 
   p code {
-    @apply bg-transparent px-2 rounded-md dark:bg-transparent border-[1px] dark:border-white w-max border-[#333333];
+    @apply bg-transparent px-2 mx-1 rounded-md dark:bg-transparent border-[1px] dark:border-white w-max border-[#333333];
   }
 
   /* adds sufficient padding to the table items / API Component */
@@ -49,5 +74,9 @@
 
   td p {
     @apply mb-0;
+  }
+
+  blockquote a {
+    @apply border-[#333] dark:border-[#F3F3F3];
   }
 }

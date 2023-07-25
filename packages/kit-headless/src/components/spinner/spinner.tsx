@@ -26,17 +26,17 @@ export const Spinner = component$((props: SpinnerProps) => {
       <svg part="base" class="spinner" role="spinner">
         <circle
           class="track"
+          r={`calc(0.5em - ${width}/2)`}
           style={{
             strokeWidth: width,
-            r: `calc(0.5em - ${width}/2)`,
             stroke: trackColor,
           }}
         ></circle>
         <circle
           class="indicator"
+          r={`calc(0.5em - ${width}/2)`}
           style={{
             strokeWidth: width,
-            r: `calc(0.5em - ${width}/2)`,
             stroke: indicatorColor,
             animation: `spin ${speed} linear infinite`,
           }}
