@@ -1,8 +1,11 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import KitSelectionCTA from '../components/kit-selection-cta/kit-selection-cta';
+import { useRootStore } from '../_state/use-root-store';
+import KitSelectionCTA from './_components/kit-selection-cta/kit-selection-cta';
 
 export default component$(() => {
+  const { featureFlags } = useRootStore();
+
   return (
     <div class="flex flex-col gap-8">
       <h1 class="text-3xl lg:text-5xl text-center leading-normal font-bold">
@@ -21,18 +24,19 @@ export default component$(() => {
       </p>
       <div class="gap-8 flex flex-col lg:flex-row w-full justify-center justify-items-center">
         <KitSelectionCTA kit="headless">
-          Accessibility built-in and unstyled for your bespoke designs and
-          custom needs.
+          Accessibility built-in and unstyled for your bespoke designs and custom needs.
         </KitSelectionCTA>
-        {/* <KitSelectionCTA kit="tailwind">
-          Built on top of the Headless kit, ready-to-use components coated with
-          a dash of Tailwind.
-        </KitSelectionCTA> */}
+        {featureFlags?.showTailwind && (
+          <KitSelectionCTA kit="tailwind">
+            Built on top of the Headless kit, ready-to-use components coated with a dash
+            of Tailwind.
+          </KitSelectionCTA>
+        )}
       </div>
     </div>
   );
 });
 
 export const head: DocumentHead = {
-  title: 'Qwik UI',
+  title: 'Qwik UI - The first component library for Qwik'
 };

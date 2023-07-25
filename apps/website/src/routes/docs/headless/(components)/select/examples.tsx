@@ -1,15 +1,15 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import {
-  SelectRoot,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-  SelectMarker,
-  SelectListBox,
-  SelectOption,
   SelectGroup,
+  SelectLabel,
+  SelectListBox,
+  SelectMarker,
+  SelectOption,
+  SelectRoot,
+  SelectTrigger,
+  SelectValue
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
 export const Example01 = component$(() => {
   return (
@@ -46,7 +46,7 @@ export const Example01 = component$(() => {
                 { value: '🍎 Apple', disabled: false },
                 { value: '🍌 Banana', disabled: false },
                 { value: '🍒 Cherry', disabled: false },
-                { value: '🐲 Dragonfruit', disabled: true },
+                { value: '🐲 Dragonfruit', disabled: true }
               ].map((option) => {
                 return (
                   <SelectOption
@@ -75,10 +75,7 @@ export const Example02 = component$(() => {
       <div q:slot="actualComponent">
         <SelectRoot>
           <SelectTrigger class="flex justify-between items-center bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px] p-4">
-            <SelectValue
-              placeholder="Home"
-              class="text-gray-700 dark:text-white"
-            />
+            <SelectValue placeholder="Home" class="text-gray-700 dark:text-white" />
             <SelectMarker class="w-6 h-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

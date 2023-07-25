@@ -1,7 +1,6 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
-import { GitHubIcon } from 'apps/website/src/components/icons/GitHubIcon';
-import { PreviewCodeExample } from 'apps/website/src/components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from 'apps/website/src/routes/docs/_components/preview-code-example/preview-code-example';
 
 export const MainExample = component$(() => {
   return (
@@ -27,9 +26,7 @@ export const Example1 = component$(() => {
       <div q:slot="actualComponent">
         <Popover placement="top">
           <PopoverContent>
-            <div class="p-4 bg-gray-500">
-              Hi, I'm the content, but now on top
-            </div>
+            <div class="p-4 bg-gray-500">Hi, I'm the content, but now on top</div>
           </PopoverContent>
           <PopoverTrigger> Click on me </PopoverTrigger>
         </Popover>

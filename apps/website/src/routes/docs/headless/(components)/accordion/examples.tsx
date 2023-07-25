@@ -3,16 +3,16 @@ import {
   QwikIntrinsicElements,
   Slot,
   useSignal,
-  useStore,
+  useStore
 } from '@builder.io/qwik';
 import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
   AccordionContent,
+  AccordionHeader,
+  AccordionItem,
+  AccordionRoot,
+  AccordionTrigger
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
 export const HeroAccordion = component$(() => {
   return (
@@ -33,8 +33,8 @@ export const HeroAccordion = component$(() => {
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
               <p class="bg-violet-200 dark:bg-gray-900 p-4 ">
-                Yes, if you wrap the <strong>AccordionHeader</strong> component
-                around the trigger, screen readers will announce it properly.
+                Yes, if you wrap the <strong>AccordionHeader</strong> component around the
+                trigger, screen readers will announce it properly.
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -65,8 +65,8 @@ export const HeroAccordion = component$(() => {
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
               <p class="bg-violet-200 dark:bg-gray-900 p-4 dark:border-gray-600 border-t-[1px]">
-                You can do that by setting the <strong>behavior</strong> prop to
-                "multi" on the Accordion
+                You can do that by setting the <strong>behavior</strong> prop to "multi"
+                on the Accordion
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -103,8 +103,8 @@ export const MultiAccordion = component$(() => {
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
               <p class="bg-violet-200 dark:bg-gray-900 p-4 ">
-                100%. The trigger has a <strong>[data-state]</strong> selector
-                that can be styled when opened or closed.
+                100%. The trigger has a <strong>[data-state]</strong> selector that can be
+                styled when opened or closed.
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -121,8 +121,8 @@ export const MultiAccordion = component$(() => {
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
               <p class="bg-violet-200 dark:bg-gray-900 p-4">
-                It's typed using <strong>QwikIntrinsicElements</strong>, meaning
-                you can treat it like an element!
+                It's typed using <strong>QwikIntrinsicElements</strong>, meaning you can
+                treat it like an element!
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -139,8 +139,8 @@ export const MultiAccordion = component$(() => {
             </h3>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
               <p class="bg-violet-200 dark:bg-gray-900 p-4 dark:border-gray-600 border-t-[1px]">
-                You can use onClick$, onKeyDown$, any handlers you'd normally
-                use with Qwik!
+                You can use onClick$, onKeyDown$, any handlers you'd normally use with
+                Qwik!
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -177,8 +177,8 @@ export const NonCollapsibleAccordion = component$(() => {
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
               <p class="bg-violet-200 dark:bg-gray-900 p-4 ">
-                You can turn it off by setting the <strong>collapsible</strong>{' '}
-                prop to false.
+                You can turn it off by setting the <strong>collapsible</strong> prop to
+                false.
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -321,9 +321,7 @@ export const DefaultValueAccordion = component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="bg-violet-200 dark:bg-gray-900 p-4 ">
-                I wasn't open by default!
-              </p>
+              <p class="bg-violet-200 dark:bg-gray-900 p-4 ">I wasn't open by default!</p>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem defaultValue>
@@ -339,8 +337,8 @@ export const DefaultValueAccordion = component$(() => {
             </AccordionHeader>
             <AccordionContent>
               <p class="bg-violet-200 dark:bg-gray-900 p-4">
-                You can open me by default by putting the{' '}
-                <strong>defaultValue</strong> prop on the Accordion Item.
+                You can open me by default by putting the <strong>defaultValue</strong>{' '}
+                prop on the Accordion Item.
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -388,9 +386,7 @@ export const PolymorphicHeadingAccordion = component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="bg-violet-200 dark:bg-gray-900 p-4 ">
-                My Heading is an h4!
-              </p>
+              <p class="bg-violet-200 dark:bg-gray-900 p-4 ">My Heading is an h4!</p>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem>
@@ -405,9 +401,7 @@ export const PolymorphicHeadingAccordion = component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="bg-violet-200 dark:bg-gray-900 p-4">
-                My Heading is an h5!
-              </p>
+              <p class="bg-violet-200 dark:bg-gray-900 p-4">My Heading is an h5!</p>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem>
@@ -442,10 +436,7 @@ export const OnSelectedIndexChange = component$(() => {
 
   return (
     <PreviewCodeExample>
-      <div
-        class="w-full flex flex-col items-center gap-4"
-        q:slot="actualComponent"
-      >
+      <div class="w-full flex flex-col items-center gap-4" q:slot="actualComponent">
         <AccordionRoot
           class="bg-gray-100 dark:bg-gray-700 rounded-sm border-slate-200 dark:border-gray-600 border-[1px] box-border w-[min(400px,_100%)]"
           onSelectedIndexChange$={(index) => {
@@ -482,8 +473,8 @@ export const OnSelectedIndexChange = component$(() => {
             </AccordionHeader>
             <AccordionContent>
               <p class="bg-violet-200 dark:bg-gray-900 p-4">
-                According to the 2023 <strong>stack overflow survey</strong>,
-                it's close to the amount of people learning Remix already!
+                According to the 2023 <strong>stack overflow survey</strong>, it's close
+                to the amount of people learning Remix already!
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -507,8 +498,7 @@ export const OnSelectedIndexChange = component$(() => {
         </AccordionRoot>
 
         <p>
-          Selected Index:{' '}
-          {selectedIndexSig.value === -1 ? 'X' : selectedIndexSig.value}
+          Selected Index: {selectedIndexSig.value === -1 ? 'X' : selectedIndexSig.value}
         </p>
       </div>
 
@@ -523,10 +513,7 @@ export const OnFocusIndexChange = component$(() => {
 
   return (
     <PreviewCodeExample>
-      <div
-        class="w-full flex flex-col items-center gap-4"
-        q:slot="actualComponent"
-      >
+      <div class="w-full flex flex-col items-center gap-4" q:slot="actualComponent">
         <AccordionRoot
           class="bg-gray-100 dark:bg-gray-700 rounded-sm border-slate-200 dark:border-gray-600 border-[1px] box-border w-[min(400px,_100%)]"
           onFocusIndexChange$={(index) => {
@@ -563,8 +550,8 @@ export const OnFocusIndexChange = component$(() => {
             </AccordionHeader>
             <AccordionContent>
               <p class="bg-violet-200 dark:bg-gray-900 p-4">
-                Because you're doing less work! Thanks to resumability we
-                execute JavaScript on interaction.
+                Because you're doing less work! Thanks to resumability we execute
+                JavaScript on interaction.
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -581,17 +568,14 @@ export const OnFocusIndexChange = component$(() => {
             </AccordionHeader>
             <AccordionContent>
               <p class="bg-violet-200 dark:bg-gray-900 p-4 dark:border-gray-600 border-t-[1px]">
-                Check out Qwik-React! It allows you to partially hydrate React
-                components into your Qwik app.
+                Check out Qwik-React! It allows you to partially hydrate React components
+                into your Qwik app.
               </p>
             </AccordionContent>
           </AccordionItem>
         </AccordionRoot>
 
-        <p>
-          Focused Index:{' '}
-          {focusedIndexSig.value === -1 ? 'X' : focusedIndexSig.value}
-        </p>
+        <p>Focused Index: {focusedIndexSig.value === -1 ? 'X' : focusedIndexSig.value}</p>
       </div>
 
       <div q:slot="codeExample">
