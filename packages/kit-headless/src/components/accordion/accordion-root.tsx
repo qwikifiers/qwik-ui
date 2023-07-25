@@ -25,12 +25,28 @@ export const AccordionRoot = component$(
     collapsible = true,
     behavior = 'single',
     animated = false,
+    onSelectedIndexChange$,
+    onFocusIndexChange$,
     ...props
   }: AccordionRootProps) => {
     const rootRef = useSignal<HTMLDivElement | undefined>();
     const triggerStore = useStore<HTMLButtonElement[]>([]);
     const currFocusedTriggerIndexSig = useSignal<number>(-1);
     const currSelectedTriggerIndexSig = useSignal<number>(-1);
+
+    useTask$(({ track }) => {
+      track(() => currSelectedTriggerIndexSig.value);
+      if (onSelectedIndexChange$) {
+        onSelectedIndexChange$(currSelectedTriggerIndexSig.value);
+      }
+    });
+
+    useTask$(({ track }) => {
+      track(() => currFocusedTriggerIndexSig.value);
+      if (onFocusIndexChange$) {
+        onFocusIndexChange$(currFocusedTriggerIndexSig.value);
+      }
+    });
 
     const selectedTriggerIdSig = useSignal<string>('');
 
@@ -62,20 +78,6 @@ export const AccordionRoot = component$(
 
     const focusLastTrigger$ = $(() => {
       return triggerStore[triggerStore.length - 1].focus();
-    });
-
-    useTask$(({ track }) => {
-      track(() => currSelectedTriggerIndexSig.value);
-      if (props.onSelectedIndexChange$) {
-        props.onSelectedIndexChange$(currSelectedTriggerIndexSig.value);
-      }
-    });
-
-    useTask$(({ track }) => {
-      track(() => currFocusedTriggerIndexSig.value);
-      if (props.onFocusIndexChange$) {
-        props.onFocusIndexChange$(currFocusedTriggerIndexSig.value);
-      }
     });
 
     const contextService: AccordionRootContext = {
