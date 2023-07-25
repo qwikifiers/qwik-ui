@@ -24,13 +24,12 @@ export default component$(() => {
       </p>
       <div class="gap-8 flex flex-col lg:flex-row w-full justify-center justify-items-center">
         <KitSelectionCTA kit="headless">
-          Accessibility built-in and unstyled for your bespoke designs and
-          custom needs.
+          Accessibility built-in and unstyled for your bespoke designs and custom needs.
         </KitSelectionCTA>
         {featureFlags?.showTailwind && (
           <KitSelectionCTA kit="tailwind">
-            Built on top of the Headless kit, ready-to-use components coated
-            with a dash of Tailwind.
+            Built on top of the Headless kit, ready-to-use components coated with a dash
+            of Tailwind.
           </KitSelectionCTA>
         )}
       </div>
@@ -39,5 +38,5 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'Qwik UI - The first component library for Qwik',
+  title: 'Qwik UI - The first component library for Qwik'
 };

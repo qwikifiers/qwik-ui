@@ -1,9 +1,4 @@
-import {
-  component$,
-  Slot,
-  useContext,
-  useVisibleTask$,
-} from '@builder.io/qwik';
+import { component$, Slot, useContext, useVisibleTask$ } from '@builder.io/qwik';
 import { OLD_APP_STATE_CONTEXT_ID } from '../constants';
 import Header from './_components/header/header';
 

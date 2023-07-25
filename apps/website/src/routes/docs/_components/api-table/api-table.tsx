@@ -1,5 +1,8 @@
 import { component$ } from '@builder.io/qwik';
+import { Tooltip } from '@qwik-ui/headless';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
+import {} from '@qwik-ui/headless';
+import { Button } from '@qwik-ui/tailwind';
 type APITableProps = {
   propDescriptors: {
     name: string;
@@ -11,7 +14,7 @@ type APITableProps = {
 
 export const APITable = component$(({ propDescriptors }: APITableProps) => {
   return (
-    <div class="overflow-x-auto">
+    <div class="overflow-auto">
       <table class="w-full min-w-[540px] border-b border-gray-700 text-left sm:min-w-full">
         <tbody class="divide-y divide-gray-700">
           <tr class="w-1/4 text-white">
@@ -25,13 +28,11 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
             return (
               <tr key={propDescriptor.name}>
                 <td class="prose prose-sm py-3 pl-4 align-baseline sm:pl-0 ">
-                  <code class="bg-indigo-900 rounded-md">{propDescriptor.name}</code>
+                  <code>{propDescriptor.name}</code>
                 </td>
                 <td class="prose prose-sm py-3 align-baseline">
                   <span class="flex items-center">
-                    <code class="bg-gray-300 dark:bg-gray-700 rounded-md ">
-                      {propDescriptor.type}
-                    </code>
+                    <code>{propDescriptor.type}</code>
                     {propDescriptor.info && (
                       <Popover placement="top">
                         <PopoverContent>

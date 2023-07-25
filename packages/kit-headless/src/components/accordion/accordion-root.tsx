@@ -4,8 +4,10 @@ import {
   Slot,
   useContextProvider,
   useSignal,
-  type QwikIntrinsicElements,
   useStore,
+  useTask$,
+  type QwikIntrinsicElements,
+  type PropFunction
 } from '@builder.io/qwik';
 
 import { type AccordionRootContext } from './accordion-context.type';
@@ -15,6 +17,8 @@ export type AccordionRootProps = {
   behavior?: 'single' | 'multi';
   animated?: boolean;
   collapsible?: boolean;
+  onSelectedIndexChange$?: PropFunction<(index: number) => void>;
+  onFocusIndexChange$?: PropFunction<(index: number) => void>;
 } & QwikIntrinsicElements['div'];
 
 export const AccordionRoot = component$(
@@ -22,39 +26,51 @@ export const AccordionRoot = component$(
     collapsible = true,
     behavior = 'single',
     animated = false,
+    onSelectedIndexChange$,
+    onFocusIndexChange$,
     ...props
   }: AccordionRootProps) => {
     const rootRef = useSignal<HTMLDivElement | undefined>();
     const triggerStore = useStore<HTMLButtonElement[]>([]);
-    const triggerIndexSig = useSignal(0);
+    const currFocusedTriggerIndexSig = useSignal<number>(-1);
+    const currSelectedTriggerIndexSig = useSignal<number>(-1);
 
-    // const selectedIndexSig = useSignal<number | null>(null);
-    const selectedTriggerIdSig = useSignal<string>('');
-
-    const getSelectedTriggerId$ = $((triggerId: string) => {
-      return (selectedTriggerIdSig.value = triggerId);
+    useTask$(({ track }) => {
+      track(() => currSelectedTriggerIndexSig.value);
+      if (onSelectedIndexChange$) {
+        onSelectedIndexChange$(currSelectedTriggerIndexSig.value);
+      }
     });
 
+    useTask$(({ track }) => {
+      track(() => currFocusedTriggerIndexSig.value);
+      if (onFocusIndexChange$) {
+        onFocusIndexChange$(currFocusedTriggerIndexSig.value);
+      }
+    });
+
+    const selectedTriggerIdSig = useSignal<string>('');
+
     const focusPreviousTrigger$ = $(() => {
-      if (triggerIndexSig.value === 0) {
-        triggerIndexSig.value = triggerStore.length - 1;
+      if (currFocusedTriggerIndexSig.value === 0) {
+        currFocusedTriggerIndexSig.value = triggerStore.length - 1;
         return triggerStore[triggerStore.length - 1].focus();
       }
 
-      triggerIndexSig.value--;
+      currFocusedTriggerIndexSig.value--;
 
-      return triggerStore[triggerIndexSig.value].focus();
+      return triggerStore[currFocusedTriggerIndexSig.value].focus();
     });
 
     const focusNextTrigger$ = $(() => {
-      if (triggerIndexSig.value === triggerStore.length - 1) {
-        triggerIndexSig.value = 0;
+      if (currFocusedTriggerIndexSig.value === triggerStore.length - 1) {
+        currFocusedTriggerIndexSig.value = 0;
         return triggerStore[0].focus();
       }
 
-      triggerIndexSig.value++;
+      currFocusedTriggerIndexSig.value++;
 
-      return triggerStore[triggerIndexSig.value].focus();
+      return triggerStore[currFocusedTriggerIndexSig.value].focus();
     });
 
     const focusFirstTrigger$ = $(() => {
@@ -65,28 +81,10 @@ export const AccordionRoot = component$(
       return triggerStore[triggerStore.length - 1].focus();
     });
 
-    // const lastAssignedTriggerIndexSig = useSignal<number>(-1);
-    // const lastAssignedContentIndexSig = useSignal<number>(-1);
-
-    // const itemPairs = useStore<ItemPair[]>([]);
-
-    // const getNextServerAssignedTriggerIndex$ = $(() => {
-    //   lastAssignedTriggerIndexSig.value++;
-    //   return lastAssignedTriggerIndexSig.value;
-    // });
-
-    // const getNextServerAssignedContentIndex$ = $(() => {
-    //   lastAssignedContentIndexSig.value++;
-    //   return lastAssignedContentIndexSig.value;
-    // });
-
-    // const isIndexSelected$ = $((index: number) => {
-    //   return selectedIndexSig.value === index;
-    // });
-
     const contextService: AccordionRootContext = {
-      getSelectedTriggerId$,
       selectedTriggerIdSig,
+      currFocusedTriggerIndexSig,
+      currSelectedTriggerIndexSig,
       focusFirstTrigger$,
       focusPreviousTrigger$,
       focusNextTrigger$,
@@ -94,7 +92,7 @@ export const AccordionRoot = component$(
       triggerStore,
       collapsible,
       behavior,
-      animated,
+      animated
     };
 
     useContextProvider(accordionRootContextId, contextService);

@@ -10,9 +10,7 @@ export default component$(() => {
       <div class="flex flex-col gap-4">
         <TailwindAlert>This is a success alert.</TailwindAlert>
         <TailwindAlert variant="error">This is an error alert.</TailwindAlert>
-        <TailwindAlert variant="warning">
-          This is a warning alert.
-        </TailwindAlert>
+        <TailwindAlert variant="warning">This is a warning alert.</TailwindAlert>
         <TailwindAlert variant="info">This is an info alert.</TailwindAlert>
       </div>
 
