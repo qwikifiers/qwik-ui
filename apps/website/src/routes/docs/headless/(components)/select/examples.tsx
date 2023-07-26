@@ -37,9 +37,11 @@ export const Example01 = component$(() => {
           </SelectTrigger>
           <SelectListBox class="bg-[#1f2532] border-[#7d95b3] mt-2 border-[1px] rounded-md text-white">
             <SelectOption
-              value="🚀 Qwik"
+              optionValue="🚀 Qwik"
               class="p-4 hover:bg-[#496080] focus:bg-[#496080]"
-            />
+            >
+              🚀 Qwik
+            </SelectOption>
             <SelectGroup class="p-4">
               <SelectLabel class="p-4">Fruits</SelectLabel>
               {[
@@ -51,10 +53,12 @@ export const Example01 = component$(() => {
                 return (
                   <SelectOption
                     key={option.value}
-                    value={option.value}
+                    optionValue={option.value}
                     disabled={option.disabled}
                     class="hover:bg-[#496080] focus:bg-[#496080] aria-disabled:text-red-500 aria-disabled:cursor-not-allowed rounded-sm p-4"
-                  />
+                  >
+                    {option.value}
+                  </SelectOption>
                 );
               })}
             </SelectGroup>
@@ -91,9 +95,15 @@ export const Example02 = component$(() => {
             </SelectMarker>
           </SelectTrigger>
           <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
-            <SelectOption optionValue="Orders" class="p-4" />
-            <SelectOption optionValue="Settings" class="p-4" />
-            <SelectOption optionValue="Contact us" class="p-4" />
+            <SelectOption optionValue="Orders" class="p-4">
+              Orders
+            </SelectOption>
+            <SelectOption optionValue="Settings" class="p-4">
+              Settings
+            </SelectOption>
+            <SelectOption optionValue="Contact us" class="p-4">
+              Contact us
+            </SelectOption>
           </SelectListBox>
         </SelectRoot>
       </div>

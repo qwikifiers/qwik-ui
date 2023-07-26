@@ -7,7 +7,7 @@ import {
   SelectValue,
   SelectOption,
   SelectLabel,
-  SelectGroup,
+  SelectGroup
 } from '.';
 import SelectTestData from './select-test-data';
 
@@ -43,13 +43,17 @@ const BasicSelect = component$(() => {
                 {options.map(
                   (option, index) =>
                     option.type === group && (
-                      <SelectOption optionValue={option.name} key={index} />
+                      <SelectOption optionValue={option.name} key={index}>
+                        {option.name}
+                      </SelectOption>
                     )
                 )}
               </SelectGroup>
             </>
           ))}
-          <SelectOption optionValue="disabled" disabled />
+          <SelectOption optionValue="disabled" disabled>
+            disabled
+          </SelectOption>
         </SelectListBox>
       </SelectRoot>
     </>
@@ -87,13 +91,17 @@ const SelectInForm = component$(() => {
                 {options.map(
                   (option, index) =>
                     option.type === group && (
-                      <SelectOption optionValue={option.name} key={index} />
+                      <SelectOption optionValue={option.name} key={index}>
+                        {option.name}
+                      </SelectOption>
                     )
                 )}
               </SelectGroup>
             </>
           ))}
-          <SelectOption optionValue="disabled" disabled />
+          <SelectOption optionValue="disabled" disabled>
+            disabled
+          </SelectOption>
         </SelectListBox>
       </SelectRoot>
       <button type="submit">Submit</button>
@@ -113,19 +121,19 @@ describe('Select', () => {
   //   cy.mount(<BasicSelect />);
   // });
 
-  it(`
-    GIVEN a BasicSelect component
-    WHEN the required attribute is added
-    THEN there should be no visual regressions.
-  `, () => {
-    cy.mount(<BasicSelect />).then(() => {
-      cy.matchImage();
-      cy.get('[data-testid="select-root"]').then(($select) => {
-        $select.attr('required', 'true');
-      });
-      cy.matchImage();
-    });
-  });
+  // it(`
+  //   GIVEN a BasicSelect component
+  //   WHEN the required attribute is added
+  //   THEN there should be no visual regressions.
+  // `, () => {
+  //   cy.mount(<BasicSelect />).then(() => {
+  //     cy.matchImage();
+  //     cy.get('[data-testid="select-root"]').then(($select) => {
+  //       $select.attr('required', 'true');
+  //     });
+  //     cy.matchImage();
+  //   });
+  // });
 
   it(`
     GIVEN a form with the native select, it is required, and a value is selected

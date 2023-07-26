@@ -1,14 +1,15 @@
 import {
-  QwikIntrinsicElements,
   component$,
+  QwikIntrinsicElements,
   useContext,
   useSignal,
-  useVisibleTask$,
+  useVisibleTask$
 } from '@builder.io/qwik';
 import { OptionProps } from '../autocomplete';
 import SelectContextId from './select-context-id';
 
 import { KeyCode } from '../../utils/key-code.type';
+import { Slot } from '@builder.io/qwik';
 
 export type SelectOptionProps = {
   disabled?: boolean;
@@ -20,16 +21,16 @@ export const selectOptionPreventedKeys = [KeyCode.ArrowDown, KeyCode.ArrowUp];
 export const SelectOption = component$(
   ({ disabled, optionValue, ...props }: OptionProps) => {
     const selectContext = useContext(SelectContextId);
-    const ref = useSignal<HTMLElement>();
+    const optionRef = useSignal<HTMLElement>();
 
-    useVisibleTask$(function preventDefaultOnKeys({ cleanup }) {
-      function handler(e: KeyboardEvent) {
+    useVisibleTask$(function setKeyHandler({ cleanup }) {
+      function keyHandler(e: KeyboardEvent) {
         const target = e.target as HTMLElement;
         if (selectOptionPreventedKeys.includes(e.key as KeyCode)) {
           e.preventDefault();
         }
 
-        if (!disabled && e.key === 'Tab' && target.innerText === optionValue) {
+        if (!disabled && e.key === 'Tab' && target.dataset.optionValue === optionValue) {
           selectContext.selection.value = optionValue;
           selectContext.isExpanded.value = false;
         }
@@ -37,26 +38,26 @@ export const SelectOption = component$(
         if (
           !disabled &&
           (e.key === 'Enter' || e.key === ' ') &&
-          target.innerText === optionValue
+          target.dataset.optionValue === optionValue
         ) {
           selectContext.selection.value = optionValue;
           selectContext.isExpanded.value = false;
         }
       }
-      ref.value?.addEventListener('keydown', handler);
+      optionRef.value?.addEventListener('keydown', keyHandler);
       cleanup(() => {
-        ref.value?.removeEventListener('keydown', handler);
+        optionRef.value?.removeEventListener('keydown', keyHandler);
       });
     });
 
     return (
       <li
-        ref={ref}
+        ref={optionRef}
         role="option"
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
         aria-selected={optionValue === selectContext.selection.value}
-        data-optionvalue={optionValue}
+        data-option-value={optionValue}
         onClick$={() => {
           if (!disabled) {
             selectContext.selection.value = optionValue;
@@ -71,7 +72,7 @@ export const SelectOption = component$(
         }}
         {...props}
       >
-        {optionValue}
+        <Slot />
       </li>
     );
   }
