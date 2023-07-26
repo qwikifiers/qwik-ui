@@ -48,7 +48,6 @@ export const AccordionTrigger = component$(
     const currSelectedTriggerIndexSig = contextService.currSelectedTriggerIndexSig;
 
     const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
-    const isDefaultValueOpenedSig = itemContext.isDefaultValueOpenedSig;
 
     const setSelectedTriggerIndexSig$ = $(() => {
       if (behavior === 'single' && triggerElement) {
@@ -56,7 +55,6 @@ export const AccordionTrigger = component$(
       }
     });
 
-    /* selectedTriggerIdSig is updated when getSelectedTriggerId$ runs */
     useTask$(function resetTriggersTask({ track }) {
       track(() => selectedTriggerIdSig.value);
 
@@ -66,9 +64,8 @@ export const AccordionTrigger = component$(
     });
 
     useTask$(function openDefaultValueTask() {
-      if (defaultValue && !isDefaultValueOpenedSig.value) {
+      if (defaultValue) {
         isTriggerExpandedSig.value = true;
-        isDefaultValueOpenedSig.value = true;
       }
     });
 
@@ -89,7 +86,6 @@ export const AccordionTrigger = component$(
       });
     });
 
-    // cleans up trigger element
     useVisibleTask$(
       function cleanupTriggersTask({ cleanup }) {
         cleanup(() => {

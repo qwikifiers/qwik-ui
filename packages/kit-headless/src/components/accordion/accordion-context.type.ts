@@ -16,7 +16,6 @@ export interface AccordionRootContext {
 
 export interface AccordionItemContext {
   isTriggerExpandedSig: Signal<boolean>;
-  isDefaultValueOpenedSig: Signal<boolean>;
   defaultValue: boolean;
   itemId: string;
 }
