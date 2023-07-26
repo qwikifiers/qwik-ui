@@ -1,10 +1,4 @@
-import {
-  component$,
-  Slot,
-  useSignal,
-  useStore,
-  useStyles$,
-} from '@builder.io/qwik';
+import { component$, Slot, useSignal, useStore, useStyles$ } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 import styles from './index.css?inline';
@@ -23,18 +17,13 @@ export const Example01 = component$(() => {
             <Tab>Ida Henriette da Fonseca</Tab>
           </TabList>
           <TabPanel>
-            <p>
-              Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was
-              a ...
-            </p>
+            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
           </TabPanel>
           <TabPanel>
             <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
           </TabPanel>
           <TabPanel>
-            <p>
-              Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...
-            </p>
+            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
           </TabPanel>
         </Tabs>
       </div>
@@ -59,18 +48,13 @@ export const VerticalTabsExample = component$(() => {
             <Tab>Ida Henriette da Fonseca</Tab>
           </TabList>
           <TabPanel>
-            <p>
-              Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was
-              a ...
-            </p>
+            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
           </TabPanel>
           <TabPanel>
             <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
           </TabPanel>
           <TabPanel>
-            <p>
-              Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...
-            </p>
+            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
           </TabPanel>
         </Tabs>
       </div>
@@ -89,23 +73,21 @@ export const DisabledTabsExample = component$(() => {
         <h3>Dad jokes</h3>
         <Tabs>
           <TabList>
-            <Tab style="width: 25%" disabled={true}>
+            <Tab
+              class="aria-disabled:cursor-not-allowed"
+              style="width: 25%"
+              disabled={true}
+            >
               Disabled Tab
             </Tab>
             <Tab style="width: 25%">Joke 2</Tab>
             <Tab style="width: 25%">Joke 3</Tab>
             <Tab style="width: 25%">Joke 4</Tab>
           </TabList>
-          <TabPanel>
-            "What did the coffee report to the police", " A mugging."
-          </TabPanel>
+          <TabPanel>"What did the coffee report to the police", " A mugging."</TabPanel>
           <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
-          <TabPanel>
-            "How do the trees get on the internet?", "They log on."
-          </TabPanel>
-          <TabPanel>
-            "What did the fish say when he hit the wall", " Dam."
-          </TabPanel>
+          <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
+          <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
         </Tabs>
       </div>
 
@@ -129,18 +111,13 @@ export const AutomaticBehaviorTabsExample = component$(() => {
             <Tab>Ida Henriette da Fonseca</Tab>
           </TabList>
           <TabPanel>
-            <p>
-              Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was
-              a ...
-            </p>
+            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
           </TabPanel>
           <TabPanel>
             <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
           </TabPanel>
           <TabPanel>
-            <p>
-              Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...
-            </p>
+            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
           </TabPanel>
         </Tabs>
       </div>
@@ -165,18 +142,13 @@ export const ManualBehaviorTabsExample = component$(() => {
             <Tab>Ida Henriette da Fonseca</Tab>
           </TabList>
           <TabPanel>
-            <p>
-              Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was
-              a ...
-            </p>
+            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
           </TabPanel>
           <TabPanel>
             <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
           </TabPanel>
           <TabPanel>
-            <p>
-              Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...
-            </p>
+            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
           </TabPanel>
         </Tabs>
       </div>
@@ -189,11 +161,7 @@ export const ManualBehaviorTabsExample = component$(() => {
 });
 
 export const DynamicTabsExample = component$(() => {
-  const tabsState = useStore([
-    'Dynamic Tab 1',
-    'Dynamic Tab 2',
-    'Dynamic Tab 3',
-  ]);
+  const tabsState = useStore(['Dynamic Tab 1', 'Dynamic Tab 2', 'Dynamic Tab 3']);
 
   return (
     <PreviewCodeExample>
@@ -246,18 +214,13 @@ export const OnSelectedIndexChangeTabsExample = component$(() => {
             <Tab>Ida Henriette da Fonseca</Tab>
           </TabList>
           <TabPanel>
-            <p>
-              Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was
-              a ...
-            </p>
+            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
           </TabPanel>
           <TabPanel>
             <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
           </TabPanel>
           <TabPanel>
-            <p>
-              Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...
-            </p>
+            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
           </TabPanel>
         </Tabs>
 
@@ -290,18 +253,13 @@ export const OnClickTabsExample = component$(() => {
             <Tab>Ida Henriette da Fonseca</Tab>
           </TabList>
           <TabPanel>
-            <p>
-              Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was
-              a ...
-            </p>
+            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
           </TabPanel>
           <TabPanel>
             <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
           </TabPanel>
           <TabPanel>
-            <p>
-              Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...
-            </p>
+            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
           </TabPanel>
         </Tabs>
 

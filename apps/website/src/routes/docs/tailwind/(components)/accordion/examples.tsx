@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-  Checkbox,
+  Checkbox
 } from '@qwik-ui/headless';
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
@@ -22,8 +22,8 @@ export const Example01 = component$(() => {
             </AccordionTrigger>
             <AccordionContent class="">
               <p class="bg-violet-200 dark:bg-gray-900 p-4">
-                Yes, if you wrap a heading around the trigger, screen readers
-                will announce it properly.
+                Yes, if you wrap a heading around the trigger, screen readers will
+                announce it properly.
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -34,8 +34,8 @@ export const Example01 = component$(() => {
             <AccordionContent>
               <p class="bg-violet-200 dark:bg-gray-900 p-4">
                 Yup! Whether you'd like to use CSS transitions with flex-basis,
-                grid-template columns, or use a JavaScript animation library,
-                it's easy out of the box!
+                grid-template columns, or use a JavaScript animation library, it's easy
+                out of the box!
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -45,8 +45,8 @@ export const Example01 = component$(() => {
             </AccordionTrigger>
             <AccordionContent>
               <p class="bg-violet-200 dark:bg-gray-900 p-4 dark:border-gray-600 border-t-[1px]">
-                You can do that by setting the <strong>behavior</strong> prop to
-                "multi" on the Accordion
+                You can do that by setting the <strong>behavior</strong> prop to "multi"
+                on the Accordion
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -69,9 +69,8 @@ export const Example02 = component$(() => {
             <AccordionTrigger>Is Qwik production-ready?</AccordionTrigger>
             <AccordionContent>
               <p class="bg-slate-200 dark:bg-gray-900 p-4">
-                Yes, Qwik just hit a major milestone and launched v1.0! All API
-                features are considered stable. Start building the future,
-                today!
+                Yes, Qwik just hit a major milestone and launched v1.0! All API features
+                are considered stable. Start building the future, today!
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -86,12 +85,10 @@ export const Example02 = component$(() => {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left">
-            <AccordionTrigger>
-              How can I contribute to Qwik UI?
-            </AccordionTrigger>
+            <AccordionTrigger>How can I contribute to Qwik UI?</AccordionTrigger>
             <p class="bg-slate-200 dark:bg-gray-900 p-4">
-              We're glad you asked. Come join us at the Qwikifiers Discord
-              server or find the{` `}
+              We're glad you asked. Come join us at the Qwikifiers Discord server or find
+              the{` `}
               <a
                 class="text-[var(--qwik-light-blue)] inline"
                 href="https://github.com/qwikifiers/qwik-ui"

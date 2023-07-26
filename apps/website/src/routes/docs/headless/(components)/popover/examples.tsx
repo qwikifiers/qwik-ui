@@ -26,9 +26,7 @@ export const Example1 = component$(() => {
       <div q:slot="actualComponent">
         <Popover placement="top">
           <PopoverContent>
-            <div class="p-4 bg-gray-500">
-              Hi, I'm the content, but now on top
-            </div>
+            <div class="p-4 bg-gray-500">Hi, I'm the content, but now on top</div>
           </PopoverContent>
           <PopoverTrigger> Click on me </PopoverTrigger>
         </Popover>

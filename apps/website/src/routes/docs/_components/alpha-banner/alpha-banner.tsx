@@ -3,7 +3,7 @@ import {
   Slot,
   component$,
   useSignal,
-  useStylesScoped$,
+  useStylesScoped$
 } from '@builder.io/qwik';
 
 export const AlphaBanner = component$(() => {
@@ -76,9 +76,9 @@ export const AlphaBanner = component$(() => {
         class="bg-[#fef1c7] dark:bg-[#92730e] mb-8 px-6 py-4 rounded-xl md:items-center relative md:flex-row normal-state shadow-depth dark:shadow-depth-dark"
       >
         <span class="pr-2">
-          <strong>WARNING:</strong> This component is currently in Alpha, and
-          not intended to use in production. You may use it for testing
-          purposes, or use a component with the <strong>Ready</strong> state
+          <strong>WARNING:</strong> This component is currently in Alpha, and not intended
+          to use in production. You may use it for testing purposes, or use a component
+          with the <strong>Ready</strong> state
         </span>
         <button
           onClick$={() => ref.value?.classList.toggle('fade')}
@@ -91,10 +91,7 @@ export const AlphaBanner = component$(() => {
   );
 });
 
-export function EpCircleCloseFilled(
-  props: QwikIntrinsicElements['svg'],
-  key: string
-) {
+export function EpCircleCloseFilled(props: QwikIntrinsicElements['svg'], key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
