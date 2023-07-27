@@ -13,11 +13,11 @@ export type SelectListBoxProps = QwikIntrinsicElements['ul'];
 export const SelectListBox = component$((props: SelectListBoxProps) => {
   const listBoxRef = useSignal<HTMLElement>();
   const selectContext = useContext(SelectContextId);
-  selectContext.listBoxRef = listBoxRef;
+  selectContext.listBoxRefSig = listBoxRef;
 
   useVisibleTask$(function setKeyHandler({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
-      const availableOptions = selectContext.options.filter(
+      const availableOptions = selectContext.optionsStore.filter(
         (option) => !(option?.getAttribute('aria-disabled') === 'true')
       );
       const target = e.target as HTMLElement;
@@ -61,7 +61,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
       role="listbox"
       tabIndex={0}
       style={`
-      display: ${selectContext.isExpanded.value ? 'block' : 'none'};
+      display: ${selectContext.isOpenSig.value ? 'block' : 'none'};
       position: absolute;
       z-index: 1;
       ${props.style}

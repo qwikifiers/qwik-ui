@@ -1,4 +1,4 @@
-import { QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 
 export type SelectMarkerProps = QwikIntrinsicElements['span'];
 

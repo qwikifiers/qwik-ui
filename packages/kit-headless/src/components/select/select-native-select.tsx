@@ -10,7 +10,7 @@ export const NativeSelect = component$(
     const ref = useSignal<HTMLElement>();
 
     useVisibleTask$(function populateNativeSelect({ track }) {
-      const options = track(() => selectContext.options);
+      const options = track(() => selectContext.optionsStore);
 
       options.length > 0 &&
         options.map((option) => {
@@ -25,7 +25,7 @@ export const NativeSelect = component$(
       'change',
       $((e) => {
         const target = e.target as HTMLSelectElement;
-        target.value = selectContext.selection.value!;
+        target.value = selectContext.selectedOptionSig.value!;
       })
     );
 
@@ -35,7 +35,7 @@ export const NativeSelect = component$(
         required
         aria-hidden
         tabIndex={-1}
-        bind:value={selectContext.selection}
+        bind:value={selectContext.selectedOptionSig}
         {...props}
       >
         <option value="" />

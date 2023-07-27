@@ -1,9 +1,9 @@
-import { QRL, Signal } from '@builder.io/qwik';
+import { Signal } from '@builder.io/qwik';
 
 export type SelectContext = {
-  options: HTMLElement[];
-  selection: Signal<string | undefined>;
-  isExpanded: Signal<boolean>;
-  triggerRef: Signal<HTMLElement | undefined>;
-  listBoxRef: Signal<HTMLElement | undefined>;
+  optionsStore: HTMLElement[];
+  selectedOptionSig: Signal<string | undefined>;
+  isOpenSig: Signal<boolean>;
+  triggerRefSig: Signal<HTMLElement | undefined>;
+  listBoxRefSig: Signal<HTMLElement | undefined>;
 };

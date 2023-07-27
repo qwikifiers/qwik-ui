@@ -31,8 +31,8 @@ export const SelectOption = component$(
         }
 
         if (!disabled && e.key === 'Tab' && target.dataset.optionValue === optionValue) {
-          selectContext.selection.value = optionValue;
-          selectContext.isExpanded.value = false;
+          selectContext.selectedOptionSig.value = optionValue;
+          selectContext.isOpenSig.value = false;
         }
 
         if (
@@ -40,8 +40,8 @@ export const SelectOption = component$(
           (e.key === 'Enter' || e.key === ' ') &&
           target.dataset.optionValue === optionValue
         ) {
-          selectContext.selection.value = optionValue;
-          selectContext.isExpanded.value = false;
+          selectContext.selectedOptionSig.value = optionValue;
+          selectContext.isOpenSig.value = false;
         }
       }
       optionRef.value?.addEventListener('keydown', keyHandler);
@@ -56,12 +56,12 @@ export const SelectOption = component$(
         role="option"
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
-        aria-selected={optionValue === selectContext.selection.value}
+        aria-selected={optionValue === selectContext.selectedOptionSig.value}
         data-option-value={optionValue}
         onClick$={() => {
           if (!disabled) {
-            selectContext.selection.value = optionValue;
-            selectContext.isExpanded.value = false;
+            selectContext.selectedOptionSig.value = optionValue;
+            selectContext.isOpenSig.value = false;
           }
         }}
         onMouseEnter$={(e) => {

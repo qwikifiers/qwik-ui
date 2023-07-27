@@ -20,19 +20,19 @@ export type SelectRootProps = {
 } & QwikIntrinsicElements['div'];
 
 export const SelectRoot = component$((props: SelectRootProps) => {
-  const rootRef = useSignal<HTMLElement>();
-  const options = useStore([]);
-  const selection = useSignal('');
-  const isExpanded = useSignal(false);
-  const triggerRef = useSignal<HTMLElement>();
-  const listBoxRef = useSignal<HTMLElement>();
+  const rootRefSig = useSignal<HTMLElement>();
+  const optionsStore = useStore([]);
+  const selectedOptionSig = useSignal('');
+  const isOpenSig = useSignal(false);
+  const triggerRefSig = useSignal<HTMLElement>();
+  const listBoxRefSig = useSignal<HTMLElement>();
 
   const selectContext: SelectContext = {
-    options,
-    selection,
-    isExpanded,
-    triggerRef,
-    listBoxRef
+    optionsStore,
+    selectedOptionSig,
+    isOpenSig,
+    triggerRefSig,
+    listBoxRefSig
   };
 
   useContextProvider(SelectContextId, selectContext);
@@ -41,8 +41,8 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     'click',
     $((e) => {
       const target = e.target as HTMLElement;
-      if (selectContext.isExpanded.value === true && !rootRef.value?.contains(target)) {
-        selectContext.isExpanded.value = false;
+      if (selectContext.isOpenSig.value === true && !rootRefSig.value?.contains(target)) {
+        selectContext.isOpenSig.value = false;
       }
     })
   );
@@ -51,12 +51,12 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     function keyHandler(e: KeyboardEvent) {
       e.preventDefault();
       if (e.key === 'Escape') {
-        selectContext.isExpanded.value = false;
+        selectContext.isOpenSig.value = false;
       }
     }
-    rootRef.value?.addEventListener('keydown', keyHandler);
+    rootRefSig.value?.addEventListener('keydown', keyHandler);
     cleanup(() => {
-      rootRef.value?.removeEventListener('keydown', keyHandler);
+      rootRefSig.value?.removeEventListener('keydown', keyHandler);
     });
   });
 
@@ -73,9 +73,9 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   });
 
   useVisibleTask$(async function toggleSelectListBox({ track }) {
-    const trigger = track(() => selectContext.triggerRef.value);
-    const listBox = track(() => selectContext.listBoxRef.value);
-    const expanded = track(() => selectContext.isExpanded.value);
+    const trigger = track(() => selectContext.triggerRefSig.value);
+    const listBox = track(() => selectContext.listBoxRefSig.value);
+    const expanded = track(() => selectContext.isOpenSig.value);
 
     if (!trigger || !listBox) return;
 
@@ -92,18 +92,18 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   });
 
   useVisibleTask$(function collectOptions({ track }) {
-    const listBox = track(() => selectContext.listBoxRef.value);
+    const listBox = track(() => selectContext.listBoxRefSig.value);
 
     if (listBox) {
       const collectedOptions = Array.from(
         listBox.querySelectorAll('[role="option"]')
       ) as HTMLElement[];
-      selectContext.options.push(...collectedOptions);
+      selectContext.optionsStore.push(...collectedOptions);
     }
   });
 
   return (
-    <div ref={rootRef} {...props}>
+    <div ref={rootRefSig} {...props}>
       <Slot />
       {props.required ? (
         <VisuallyHidden>

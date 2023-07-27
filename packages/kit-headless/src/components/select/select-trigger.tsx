@@ -13,12 +13,12 @@ export type SelectTriggerProps = QwikIntrinsicElements['button'];
 export const SelectTrigger = component$((props: SelectTriggerProps) => {
   const selectContext = useContext(SelectContextId);
   const triggerRef = useSignal<HTMLElement>();
-  selectContext.triggerRef = triggerRef;
+  selectContext.triggerRefSig = triggerRef;
 
   useVisibleTask$(function setClickHandler({ cleanup }) {
     function clickHandler(e: Event) {
       e.preventDefault();
-      selectContext.isExpanded.value = !selectContext.isExpanded.value;
+      selectContext.isOpenSig.value = !selectContext.isOpenSig.value;
     }
     triggerRef.value?.addEventListener('click', clickHandler);
     cleanup(() => {
@@ -37,7 +37,7 @@ export const SelectTrigger = component$((props: SelectTriggerProps) => {
         e.key === 'Enter' ||
         e.key === ' '
       ) {
-        selectContext.isExpanded.value = true;
+        selectContext.isOpenSig.value = true;
       }
     }
     triggerRef.value?.addEventListener('keydown', keyHandler);
@@ -47,7 +47,7 @@ export const SelectTrigger = component$((props: SelectTriggerProps) => {
   });
 
   return (
-    <button ref={triggerRef} aria-expanded={selectContext.isExpanded.value} {...props}>
+    <button ref={triggerRef} aria-expanded={selectContext.isOpenSig.value} {...props}>
       <Slot />
     </button>
   );
