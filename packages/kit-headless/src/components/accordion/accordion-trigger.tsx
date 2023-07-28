@@ -56,7 +56,7 @@ export const AccordionTrigger = component$(
       }
     });
 
-    const getCurrFocusedIndexSig$ = $(() => {
+    const setCurrFocusedIndexSig$ = $(() => {
       if (triggerElement) {
         currFocusedTriggerIndexSig.value = triggerStore.indexOf(triggerElement);
       }
@@ -145,7 +145,7 @@ export const AccordionTrigger = component$(
           }),
           props.onKeyDown$
         ]}
-        onFocus$={[getCurrFocusedIndexSig$, props.onFocus$]}
+        onFocus$={[setCurrFocusedIndexSig$, props.onFocus$]}
         {...props}
       >
         <Slot />
