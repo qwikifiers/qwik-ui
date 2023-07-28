@@ -4,9 +4,9 @@ import {
   AutocompleteLabel,
   AutocompleteTrigger,
   AutocompleteInput,
-  AutocompleteButton,
+  AutocompleteControl,
   AutocompleteListbox,
-  AutocompleteOption,
+  AutocompleteOption
 } from './index';
 
 import TestData from './test-data';
@@ -18,9 +18,9 @@ const RegularAutocomplete = component$(() => {
     <>
       <AutocompleteRoot style="width: fit-content">
         <AutocompleteLabel>Label</AutocompleteLabel>
-        <AutocompleteTrigger>
+        <AutocompleteControl>
           <AutocompleteInput />
-          <AutocompleteButton>
+          <AutocompleteTrigger>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -33,8 +33,8 @@ const RegularAutocomplete = component$(() => {
             >
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-          </AutocompleteButton>
-        </AutocompleteTrigger>
+          </AutocompleteTrigger>
+        </AutocompleteControl>
         <AutocompleteListbox class="listboxStyle">
           {fruits.map((fruit, index) => (
             <AutocompleteOption optionValue={fruit} key={index}>
@@ -69,10 +69,7 @@ describe('Autocomplete', () => {
       THEN the listbox should close and the attribute 'aria-expanded' on the button should be set to 'false'.`, () => {
     cy.mount(<RegularAutocomplete />);
 
-    cy.get('button')
-      .click()
-      .click()
-      .should('have.attr', 'aria-expanded', 'false');
+    cy.get('button').click().click().should('have.attr', 'aria-expanded', 'false');
 
     cy.findByRole('listbox').should('not.exist');
   });

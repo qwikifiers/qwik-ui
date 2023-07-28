@@ -8,7 +8,7 @@ export interface AccordionRootContext {
   currFocusedTriggerIndexSig: Signal<number>;
   currSelectedTriggerIndexSig: Signal<number>;
   selectedTriggerIdSig: Signal;
-  triggerStore: HTMLButtonElement[];
+  triggerStore: HTMLElement[];
   collapsible: boolean;
   behavior?: string;
   animated?: boolean;

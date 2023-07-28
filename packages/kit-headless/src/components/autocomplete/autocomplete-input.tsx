@@ -6,9 +6,20 @@ import {
   $,
   type Signal,
   type QwikKeyboardEvent,
-  type QwikIntrinsicElements,
+  type QwikIntrinsicElements
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
+
+import { KeyCode } from '../../utils/key-code.type';
+
+const autocompletePreventedKeys = [
+  KeyCode.Home,
+  KeyCode.End,
+  KeyCode.PageDown,
+  KeyCode.PageUp,
+  KeyCode.ArrowDown,
+  KeyCode.ArrowUp
+];
 
 export type InputProps = QwikIntrinsicElements['input'];
 
@@ -18,6 +29,20 @@ export const AutocompleteInput = component$((props: InputProps) => {
   const contextService = useContext(AutocompleteContextId);
   const listboxId = contextService.listBoxId;
   const labelRef = contextService.labelRef;
+  const inputElement = ref.value;
+
+  useVisibleTask$(function preventDefaultTask({ cleanup }) {
+    function keyHandler(e: KeyboardEvent) {
+      if (autocompletePreventedKeys.includes(e.key as KeyCode)) {
+        e.preventDefault();
+      }
+    }
+
+    inputElement?.addEventListener('keydown', keyHandler);
+    cleanup(() => {
+      inputElement?.removeEventListener('keydown', keyHandler);
+    });
+  });
 
   /* 
     previously had useTask here, but noticed whenever it first renders, 
@@ -25,30 +50,32 @@ export const AutocompleteInput = component$((props: InputProps) => {
     Also, all of our tests break on useTask, BUT it seems to work fine in the browser with useTask.
     Very odd.
   */
-  useVisibleTask$(({ track }) => {
+  useVisibleTask$(async ({ track }) => {
     track(() => contextService.inputValue.value);
 
-    contextService.filteredOptions = contextService.options.filter(
-      (option: Signal) => {
-        const optionValue = option.value.getAttribute('optionValue');
-        const inputValue = contextService.inputValue.value;
+    contextService.filteredOptions = contextService.options.filter((option: Signal) => {
+      const optionValue = option.value.getAttribute('optionValue');
+      const inputValue = contextService.inputValue.value;
 
-        if (
-          contextService.inputValue.value.length >= 0 &&
-          document.activeElement === ref.value
-        ) {
-          if (optionValue === inputValue) {
-            contextService.isExpanded.value = false;
-          } else if (optionValue.match(new RegExp(inputValue, 'i'))) {
-            contextService.isExpanded.value = true;
-          }
-        } else {
+      const defaultFilterRegex = '[0-9]*';
+      const defaultFilterPattern = inputValue + defaultFilterRegex;
+      const defaultFilter = new RegExp(defaultFilterPattern, 'i');
+
+      if (
+        contextService.inputValue.value.length >= 0 &&
+        document.activeElement === ref.value
+      ) {
+        if (optionValue === inputValue) {
           contextService.isExpanded.value = false;
+        } else if (optionValue.match(defaultFilter)) {
+          contextService.isExpanded.value = true;
         }
-
-        return optionValue.match(new RegExp(inputValue, 'i'));
+      } else {
+        contextService.isExpanded.value = false;
       }
-    );
+
+      return optionValue.match(defaultFilter);
+    });
 
     // Probably better to refactor Signal type later
     contextService.options.map((option: Signal) => {
@@ -86,7 +113,7 @@ export const AutocompleteInput = component$((props: InputProps) => {
             contextService.filteredOptions[0]?.value?.focus();
           }
         }),
-        props.onKeyDown$,
+        props.onKeyDown$
       ]}
       {...props}
     />

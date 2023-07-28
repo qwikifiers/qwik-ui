@@ -9,7 +9,7 @@ import {
   $,
   useId,
   useOnWindow,
-  QwikKeyboardEvent,
+  QwikKeyboardEvent
 } from '@builder.io/qwik';
 
 import { computePosition, flip } from '@floating-ui/dom';
@@ -135,13 +135,11 @@ export const AutocompleteRoot = component$(
     const inputValue = useSignal(defaultValue ? defaultValue : '');
     const listBoxId = useId();
     const inputId = useId();
-    const buttonId = useId();
+    const triggerId = useId();
     const activeOptionId = useSignal(null);
     const focusInput$ = $((inputId: string) => {
       rootRef.value
-        ?.querySelector<HTMLElement>(
-          `[data-autocomplete-input-id="${inputId}"]`
-        )
+        ?.querySelector<HTMLElement>(`[data-autocomplete-input-id="${inputId}"]`)
         ?.focus();
     });
 
@@ -156,26 +154,24 @@ export const AutocompleteRoot = component$(
       inputValue,
       listBoxId,
       inputId,
-      buttonId,
+      triggerId,
       activeOptionId,
-      focusInput$,
+      focusInput$
     };
 
     useContextProvider(AutocompleteContextId, contextService);
 
-    const updatePosition = $(
-      (referenceEl: HTMLElement, floatingEl: HTMLElement) => {
-        computePosition(referenceEl, floatingEl, {
-          placement: 'bottom',
-          middleware: [flip()],
-        }).then(({ x, y }) => {
-          Object.assign(floatingEl.style, {
-            left: `${x}px`,
-            top: `${y}px`,
-          });
+    const updatePosition = $((referenceEl: HTMLElement, floatingEl: HTMLElement) => {
+      computePosition(referenceEl, floatingEl, {
+        placement: 'bottom',
+        middleware: [flip()]
+      }).then(({ x, y }) => {
+        Object.assign(floatingEl.style, {
+          left: `${x}px`,
+          top: `${y}px`
         });
-      }
-    );
+      });
+    });
 
     useVisibleTask$(async ({ track }) => {
       const trigger = track(() => contextService.triggerRef.value);
@@ -224,7 +220,7 @@ export const AutocompleteRoot = component$(
               inputElement?.focus();
             }
           }),
-          props.onKeyDown$,
+          props.onKeyDown$
         ]}
         {...props}
         ref={rootRef}
