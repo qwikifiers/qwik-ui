@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.12](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.11...headless-0.1.12) (2023-07-28)
+
+
+### Bug Fixes
+
+* **accordion:** proper generic type annotation ([598a22c](https://github.com/qwikifiers/qwik-ui/commit/598a22c0d5cf78cf455e8a4de531cd447519f7b1))
+
+
+
 ## [0.1.11](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.10...headless-0.1.11) (2023-07-28)
 
 
