@@ -2,6 +2,41 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.11](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.10...headless-0.1.11) (2023-07-28)
+
+
+### Bug Fixes
+
+* **accordion:** add propfunction type ([66e89b6](https://github.com/qwikifiers/qwik-ui/commit/66e89b670ca3386e6b4e8cb068a0f348d51d5c01))
+* **accordion:** ci / lint warning fixes ([f7de15d](https://github.com/qwikifiers/qwik-ui/commit/f7de15d9744bca65d5fe3587b77457c449beb28d))
+* **accordion:** defaultValue flicker fix ([f8a7bd0](https://github.com/qwikifiers/qwik-ui/commit/f8a7bd0f5439c255f59a2f341cf789a683bf6cc8))
+* **accordion:** docs typo, cleanup comments, comment out dynamic tests for now ([049d788](https://github.com/qwikifiers/qwik-ui/commit/049d7885a51ac273ec1bb7781d6db6c07969195d))
+* **accordion:** fixed animated height calculation for keyframes ([bb320ef](https://github.com/qwikifiers/qwik-ui/commit/bb320ef3dd6ef6b6ec9e1ab1d0063ee8c274294f))
+* **accordion:** proper naming of QRL ([669863e](https://github.com/qwikifiers/qwik-ui/commit/669863ed88bd2d8b9f4056ae9bcb528c69e25fe9))
+* **eslint props task error:** eslint props task error fix ([048d9ce](https://github.com/qwikifiers/qwik-ui/commit/048d9cee18ba013e4e9ee88ab93c485ede8e2313))
+
+
+### Code Refactoring
+
+* **select:** update event handlers ([bc08c54](https://github.com/qwikifiers/qwik-ui/commit/bc08c54872275ba8dfd1d0cf81733ae8cd3e70eb))
+
+
+### Features
+
+* **accordion & website:** accordion examples, feats, critical fix, website font build fix ([a6a213b](https://github.com/qwikifiers/qwik-ui/commit/a6a213beb61fab01a123b46e67be0fa5fe10deaf))
+* **accordion:** possible ready state, major refactor, major docs additions ([fffbb87](https://github.com/qwikifiers/qwik-ui/commit/fffbb8703b52af7d12cac53cb37dbd8b460c1756))
+* **accordion:** small code refactor, and props array for consumers ([1e37d53](https://github.com/qwikifiers/qwik-ui/commit/1e37d5349a66fc5334e29c778130bb6363ab9baa))
+* **Select:** add preliminary required behaviour ([009be72](https://github.com/qwikifiers/qwik-ui/commit/009be72d8b6c43a9b3bad9331eb20e459dfdb11e))
+
+
+### BREAKING CHANGES
+
+* **select:** Previously, optionValue automatically emits as a text node to the <li> element for
+SelectOption which was potentially problematic if the user has different values for what should be
+displayed instead of what is stored in state for form submission
+
+
+
 ## [0.1.10](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.9...headless-0.1.10) (2023-07-13)
 
 
