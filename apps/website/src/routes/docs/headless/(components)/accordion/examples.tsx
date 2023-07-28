@@ -104,7 +104,11 @@ export const MultiAccordion = component$(() => {
             <AccordionContent class="accordion-animation-1 overflow-hidden">
               <p class="bg-violet-200 dark:bg-gray-900 p-4 ">
                 100%. The trigger has a <strong>[data-state]</strong> selector that can be
-                styled when opened or closed.
+                styled when equal to the <strong>open</strong> or <strong>closed</strong>{' '}
+                values.
+                <br />
+                <br />
+                For example, [data-state="open"]
               </p>
             </AccordionContent>
           </AccordionItem>

@@ -7,8 +7,9 @@ import {
   AccordionItem,
   AccordionContent,
   AccordionTrigger,
-  Checkbox,
+  AccordionHeader,
 } from '@qwik-ui/headless';
+
 import {
   HeroAccordion,
   MultiAccordion,
@@ -89,7 +90,7 @@ import { AlphaBanner } from '../../../_components/alpha-banner/alpha-banner';
   ```
 </HeroAccordion>
 
-Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) design pattern, along with some additional API's that enhance the flexibiltiy, types, and performance.
+Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
 
 ##### ✨ Features
 
@@ -112,10 +113,18 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 ## Building blocks
 
   <CodeExample>
-    ```tsx
-    import { component$ } from '@builder.io/qwik';
+  ```tsx
+  import { component$ } from '@builder.io/qwik';
+  import { 
+    AccordionRoot, 
+    AccordionItem, 
+    AccordionHeader, 
+    AccordionTrigger, 
+    AccordionContent 
+  } from '@qwik-ui/headless';
 
-    export default component$(() => (
+  export default component$(() => {
+    return (
       <AccordionRoot>
         <AccordionItem>
           <AccordionHeader>
@@ -124,8 +133,9 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
           <AccordionContent>Content</AccordionContent>
         </AccordionItem>
       </AccordionRoot>
-    ));
-    ```
+    )
+  });
+  ```
 
   </CodeExample>
 
@@ -138,11 +148,11 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
   propDescriptors={[
     {
       name: 'AccordionRoot',
-      description: 'The Root container for the accordion.',
+      description: 'The root container for the accordion.',
     },
     {
       name: 'AccordionItem',
-      description: `An item inside of the root. It contains the item's heading, trigger, and the content`,
+      description: `An item inside of the root. It contains the item's heading, trigger, and content.`,
     },
     {
       name: 'AccordionHeader',
@@ -150,11 +160,11 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
     },
     {
       name: 'AccordionTrigger',
-      description: `Opens or closes the matching content, and should be put inside the AccordionHeader.`,
+      description: `Toggles the corresponding content when clicked or activated. It should be placed within the AccordionHeader component.`,
     },
     {
       name: 'AccordionContent',
-      description: `The content associated with that item when clicking on its respective trigger.`,
+      description: `Contains the content associated with an item when clicking on its respective trigger.`,
     },
   ]}
 />
@@ -169,7 +179,7 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
     <AccordionItem>
       <AccordionHeader>
         <AccordionTrigger class="accordion-trigger">
-          <span>Can I styled based on the trigger state?</span>
+          <span>Can I style content based on the trigger state?</span>
           <span>
             <p class="plus-styles">+</p>
           </span>
@@ -177,8 +187,9 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          100%. The trigger has a [data-state] selector that can be styled when
-          opened or closed.
+          100%. The trigger has a [data-state] selector that can be styled when equal to the open or closed values. 
+                
+          For example, [data-state="open"]
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -686,14 +697,14 @@ propDescriptors={[
   {
     name: 'onSelectedIndexChange$',
     type: 'function',
-    info: '(index: number) => void',
+    info: 'PropFunction<(index: number) => void>',
     description:
       'An event hook that gets notified whenever the selected index changes.',
   },
   {
     name: 'onFocusIndexChange$',
     type: 'function',
-    info: '(index: number) => void',
+    info: 'PropFunction<(index: number) => void>',
     description:
       'An event hook that gets notified whenever the focus index changes.',
   },
@@ -752,6 +763,13 @@ propDescriptors={[
     info: 'PropFunction<() => void>',
     description:
       'A custom click handler that executes when the key is pressed down.',
+  },
+  {
+    name: 'onFocus$',
+    type: 'function',
+    info: 'PropFunction<() => void>',
+    description:
+      'A custom click handler that executes when element is focused.',
   },
 ]}
 />

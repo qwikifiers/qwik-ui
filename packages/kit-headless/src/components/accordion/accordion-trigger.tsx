@@ -108,9 +108,10 @@ export const AccordionTrigger = component$(
       <button
         ref={ref}
         id={triggerId}
-        data-trigger-id={triggerId}
         disabled={disabled}
         aria-disabled={disabled}
+        data-trigger-id={triggerId}
+        data-state={isTriggerExpandedSig.value ? 'open' : 'closed'}
         onClick$={[
           $(() => {
             selectedTriggerIdSig.value = triggerId;
