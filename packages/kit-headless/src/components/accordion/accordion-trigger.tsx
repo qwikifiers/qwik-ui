@@ -32,7 +32,7 @@ export const AccordionTrigger = component$(
     const contextService = useContext(accordionRootContextId);
     const itemContext = useContext(accordionItemContextId);
 
-    const ref = useSignal<HTMLElement>();
+    const ref = useSignal<HTMLButtonElement>();
     const triggerElement = ref.value;
 
     const behavior = contextService.behavior;
