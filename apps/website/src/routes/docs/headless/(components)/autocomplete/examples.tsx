@@ -1,13 +1,14 @@
 import { component$, Slot } from '@builder.io/qwik';
 import {
-  AutocompleteButton,
-  AutocompleteInput,
   AutocompleteLabel,
-  AutocompleteListbox,
-  AutocompleteOption,
   AutocompleteRoot,
-  AutocompleteTrigger
+  AutocompleteControl,
+  AutocompleteInput,
+  AutocompleteTrigger,
+  AutocompleteListbox,
+  AutocompleteOption
 } from '@qwik-ui/headless';
+
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
 const trainers = [
@@ -31,9 +32,9 @@ export const Example01 = component$(() => {
           <AutocompleteLabel class=" font-semibold dark:text-white text-[#333333]">
             Personal Trainers ⚡
           </AutocompleteLabel>
-          <AutocompleteTrigger class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
+          <AutocompleteControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
             <AutocompleteInput class="w-44 bg-inherit px-2 pr-6 text-white" />
-            <AutocompleteButton class="w-6 h-6 group absolute right-0">
+            <AutocompleteTrigger class="w-6 h-6 group absolute right-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -45,8 +46,8 @@ export const Example01 = component$(() => {
               >
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
-            </AutocompleteButton>
-          </AutocompleteTrigger>
+            </AutocompleteTrigger>
+          </AutocompleteControl>
           <AutocompleteListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
             {trainers.map((trainer, index) => (
               <AutocompleteOption

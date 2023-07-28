@@ -14,7 +14,7 @@ import { accordionItemContextId, accordionRootContextId } from './accordion-cont
 
 import { KeyCode } from '../../utils/key-code.type';
 
-export const accordionPreventedKeys = [
+const accordionPreventedKeys = [
   KeyCode.Home,
   KeyCode.End,
   KeyCode.PageDown,
@@ -23,7 +23,9 @@ export const accordionPreventedKeys = [
   KeyCode.ArrowUp
 ];
 
-export type AccordionTriggerProps = QwikIntrinsicElements['button'];
+export type AccordionTriggerProps = {
+  disabled?: boolean;
+} & QwikIntrinsicElements['button'];
 
 export const AccordionTrigger = component$(
   ({ disabled, ...props }: AccordionTriggerProps) => {
