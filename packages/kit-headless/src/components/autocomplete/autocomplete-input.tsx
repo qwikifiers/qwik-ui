@@ -57,9 +57,7 @@ export const AutocompleteInput = component$((props: InputProps) => {
       const optionValue = option.value.getAttribute('optionValue');
       const inputValue = contextService.inputValue.value;
 
-      const defaultFilterRegex = '[0-9]*';
-      const defaultFilterPattern = inputValue + defaultFilterRegex;
-      const defaultFilter = new RegExp(defaultFilterPattern, 'i');
+      const defaultFilter = new RegExp(inputValue, 'i');
 
       if (
         contextService.inputValue.value.length >= 0 &&
