@@ -44,14 +44,21 @@ export const AccordionTrigger = component$(
     const contentId = `${itemContext.itemId}-content`;
 
     const selectedTriggerIdSig = contextService.selectedTriggerIdSig;
+    const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
+
+    /* The consumer can use these two signals. */
     const currFocusedTriggerIndexSig = contextService.currFocusedTriggerIndexSig;
     const currSelectedTriggerIndexSig = contextService.currSelectedTriggerIndexSig;
-
-    const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
 
     const setSelectedTriggerIndexSig$ = $(() => {
       if (behavior === 'single' && triggerElement) {
         currSelectedTriggerIndexSig.value = triggerStore.indexOf(triggerElement);
+      }
+    });
+
+    const setCurrFocusedIndexSig$ = $(() => {
+      if (triggerElement) {
+        currFocusedTriggerIndexSig.value = triggerStore.indexOf(triggerElement);
       }
     });
 
@@ -138,11 +145,7 @@ export const AccordionTrigger = component$(
           }),
           props.onKeyDown$
         ]}
-        onFocus$={() => {
-          if (triggerElement) {
-            currFocusedTriggerIndexSig.value = triggerStore.indexOf(triggerElement);
-          }
-        }}
+        onFocus$={[setCurrFocusedIndexSig$, props.onFocus$]}
         {...props}
       >
         <Slot />
