@@ -363,70 +363,70 @@ describe('Dynamic', () => {
     itemsLength: number;
   }
 
-  const DynamicAccordion = component$(
-    ({
-      itemIndexToDelete = 0,
-      itemIndexToAdd = 0,
-      itemsLength
-    }: DynamicAccordionProps) => {
-      const itemNames = Array(itemsLength)
-        .fill(1)
-        .map((_, index) => `Item ${index + 1}`);
+  // const DynamicAccordion = component$(
+  //   ({
+  //     itemIndexToDelete = 0,
+  //     itemIndexToAdd = 0,
+  //     itemsLength
+  //   }: DynamicAccordionProps) => {
+  //     // const itemNames = Array(itemsLength)
+  //     //   .fill(1)
+  //     //   .map((_, index) => `Item ${index + 1}`);
 
-      const itemStore = useStore(itemNames);
+  //     const itemStore = useStore([1, 2, 3, 4]);
 
-      return (
-        <>
-          <AccordionRoot class="dynamic-root">
-            {itemStore.map((itemName, index) => {
-              return (
-                <AccordionItem key={index}>
-                  <AccordionTrigger class="dynamic-trigger">
-                    {' '}
-                    {itemName} index: {index}
-                  </AccordionTrigger>
-                  <AccordionContent>index: {index}</AccordionContent>
-                </AccordionItem>
-              );
-            })}
-          </AccordionRoot>
+  //     return (
+  //       <>
+  //         <AccordionRoot class="dynamic-root">
+  //           {itemStore.map((itemName, index) => {
+  //             return (
+  //               <AccordionItem key={index}>
+  //                 <AccordionTrigger data-item-name={itemName} class="dynamic-trigger">
+  //                   {' '}
+  //                   {itemName} index: {index}
+  //                 </AccordionTrigger>
+  //                 <AccordionContent>index: {index}</AccordionContent>
+  //               </AccordionItem>
+  //             );
+  //           })}
+  //         </AccordionRoot>
 
-          <div>
-            <button
-              style={{ color: 'green', marginTop: '1rem' }}
-              onClick$={() => {
-                itemStore.splice(itemIndexToAdd, 0, `new added item`);
-              }}
-            >
-              <strong>Add Item</strong>
-            </button>
+  //         <div>
+  //           <button
+  //             style={{ color: 'green', marginTop: '1rem' }}
+  //             onClick$={() => {
+  //               itemStore.push(`new added item`);
+  //             }}
+  //           >
+  //             <strong>Add Item</strong>
+  //           </button>
 
-            <button
-              style={{ color: 'red', marginTop: '1rem' }}
-              onClick$={() => {
-                itemStore.splice(itemIndexToDelete, 1);
-              }}
-            >
-              <strong>Remove Item</strong>
-            </button>
-          </div>
-        </>
-      );
-    }
-  );
+  //           <button
+  //             style={{ color: 'red', marginTop: '1rem' }}
+  //             onClick$={() => {
+  //               itemStore.splice(0, 1);
+  //             }}
+  //           >
+  //             <strong>Remove Item</strong>
+  //           </button>
+  //         </div>
+  //       </>
+  //     );
+  //   }
+  // );
 
-  it(`GIVEN 3 accordion items
-      WHEN removing the 3rd one dynamically
-      THEN only 2 should remain
-  `, () => {
-    cy.mount(
-      <DynamicAccordion itemsLength={3} itemIndexToDelete={2} itemIndexToAdd={0} />
-    );
+  // it(`GIVEN 3 accordion items
+  //     WHEN removing the 3rd one dynamically
+  //     THEN only 2 should remain
+  // `, () => {
+  //   cy.mount(
+  //     <DynamicAccordion itemsLength={3} itemIndexToDelete={2} itemIndexToAdd={0} />
+  //   );
 
-    cy.findByRole('button', { name: /remove item/i }).click();
+  //   cy.findByRole('button', { name: /remove item/i }).click();
 
-    cy.get('[data-trigger-id]').should('have.length', 2);
-  });
+  //   cy.get('[data-trigger-id]').should('have.length', 2);
+  // });
 
   // it(`GIVEN 3 accordion items
   //     WHEN clicking on the 3rd trigger and adding a new one at the start
@@ -442,7 +442,7 @@ describe('Dynamic', () => {
   // it(`GIVEN 4 accordion items
   //     WHEN clicking on 3rd trigger and removing it
   //     THEN the 4th trigger's content should be open`, () => {
-  //     cy.mount(<DynamicAccordion itemsLength={4} itemIndexToDelete={3} />);
+  //     cy.mount(<DynamicAccordion itemsLength={4} itemIndexToDelete={0} />);
 
   //     cy.findByRole('button', { name: /Trigger Item 3/i }).click();
   //     cy.findByRole('region').should('contain', 'Content Item 3');

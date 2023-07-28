@@ -36,7 +36,7 @@ import { AlphaBanner } from '../../../_components/alpha-banner/alpha-banner';
 
 <HeroAccordion>
   ```tsx
-  <AccordionRoot class="accordion-wrapper" animate>
+  <AccordionRoot class="accordion-wrapper" animated>
     <AccordionItem>
       <AccordionHeader>
         <AccordionTrigger class="accordion-trigger">
@@ -226,7 +226,7 @@ If you're curious about how the accordion is animated, you can use a built-in Qw
 
 The variable calculates the content height behind the scenes, so that you can use this variable in your keyframes. Out of the box, you can use the `accordion-open` and `accordion-close` keyframes in your project. These use an `animation` declaration on the height property.
 
-> You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
+> The animation above makes use of the overflow hidden declaration. You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
 
 ## Non-collapsible
 
