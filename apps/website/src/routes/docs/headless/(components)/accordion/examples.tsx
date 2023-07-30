@@ -620,7 +620,7 @@ export const DynamicAccordion = component$(
           <div class="flex gap-4">
             <label class="flex flex-col-reverse mb-4 items-center text-center">
               <input
-                class="rounded-md px-2 max-w-[50px] bg-[#374151]"
+                class="rounded-md px-2 max-w-[50px] dark:bg-[#374151] bg-[#F5F3FF]"
                 type="text"
                 bind:value={itemIndexToAdd}
               />
@@ -629,7 +629,7 @@ export const DynamicAccordion = component$(
 
             <label class="flex flex-col-reverse mb-4 items-center text-center">
               <input
-                class="rounded-md px-2 max-w-[50px] bg-[#374151]"
+                class="rounded-md px-2 max-w-[50px] dark:bg-[#374151] bg-[#F5F3FF]"
                 type="text"
                 bind:value={itemIndexToDelete}
               />
