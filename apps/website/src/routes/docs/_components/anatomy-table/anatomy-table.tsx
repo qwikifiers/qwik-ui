@@ -24,7 +24,7 @@ export const AnatomyTable = component$(({ propDescriptors }: AnatomyTableProps) 
           {propDescriptors?.map((propDescriptor) => {
             return (
               <tr key={propDescriptor.name}>
-                <td class="prose prose-sm py-3 pl-4 align-baseline sm:pl-0 ">
+                <td class="prose prose-sm py-3 pl-2 pr-2 align-center sm:pl-0 md:align-baseline">
                   <code>{propDescriptor.name}</code>
                 </td>
                 <td class="py-3 align-baseline">

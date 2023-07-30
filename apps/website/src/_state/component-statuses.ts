@@ -36,16 +36,16 @@ export const componentsStatuses: ComponentKitsStatuses = {
     Tabs: 'Planned',
     Toast: 'Planned',
     Toggle: 'Planned',
-    Tooltip: 'Planned',
+    Tooltip: 'Planned'
   },
   headless: {
-    Accordion: 'Planned',
+    Accordion: 'Ready',
     Autocomplete: 'Draft',
     Carousel: 'Planned',
     Popover: 'Planned',
     Select: 'Draft',
     Tabs: 'Ready',
     Toggle: 'Planned',
-    Tooltip: 'Planned',
-  },
+    Tooltip: 'Planned'
+  }
 };

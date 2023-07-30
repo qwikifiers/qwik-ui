@@ -39,8 +39,10 @@ export const AccordionTrigger = component$(
     const collapsible = contextService.collapsible;
     const defaultValue = itemContext.defaultValue;
 
-    const triggerStore = contextService.triggerStore;
+    const triggerElementsSig = contextService.triggerElementsSig;
     const triggerId = `${itemContext.itemId}-trigger`;
+
+    const updateTriggers$ = contextService.updateTriggers$;
 
     /* content panel id for aria-controls */
     const contentId = `${itemContext.itemId}-content`;
@@ -54,14 +56,17 @@ export const AccordionTrigger = component$(
 
     const setSelectedTriggerIndexSig$ = $(() => {
       if (behavior === 'single' && triggerElement) {
-        currSelectedTriggerIndexSig.value = triggerStore.indexOf(triggerElement);
+        currSelectedTriggerIndexSig.value =
+          triggerElementsSig.value.indexOf(triggerElement);
       }
     });
 
     const setCurrFocusedIndexSig$ = $(() => {
-      if (triggerElement) {
-        currFocusedTriggerIndexSig.value = triggerStore.indexOf(triggerElement);
+      if (!triggerElement) {
+        return;
       }
+
+      currFocusedTriggerIndexSig.value = triggerElementsSig.value.indexOf(triggerElement);
     });
 
     useTask$(function resetTriggersTask({ track }) {
@@ -79,8 +84,13 @@ export const AccordionTrigger = component$(
     });
 
     useVisibleTask$(function navigateTriggerVisibleTask({ cleanup }) {
-      if (triggerElement && !disabled) {
-        triggerStore.push(triggerElement);
+      if (!triggerElement) {
+        return;
+      }
+
+      /* runs each time a new trigger is added. We need to tell the root it's time to take a role call. */
+      if (!disabled) {
+        updateTriggers$();
       }
 
       function keyHandler(e: KeyboardEvent) {
@@ -89,7 +99,7 @@ export const AccordionTrigger = component$(
         }
       }
 
-      triggerElement?.addEventListener('keydown', keyHandler);
+      triggerElement.addEventListener('keydown', keyHandler);
       cleanup(() => {
         triggerElement?.removeEventListener('keydown', keyHandler);
       });
@@ -98,14 +108,11 @@ export const AccordionTrigger = component$(
     useVisibleTask$(
       function cleanupTriggersTask({ cleanup }) {
         cleanup(() => {
-          if (triggerElement) {
-            triggerStore.splice(triggerStore.indexOf(triggerElement), 1);
-          }
+          updateTriggers$();
         });
       },
-      { strategy: 'document-idle' }
+      { strategy: 'document-ready' }
     );
-
     return (
       <button
         ref={ref}
