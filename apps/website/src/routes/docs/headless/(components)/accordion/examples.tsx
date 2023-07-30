@@ -20,6 +20,7 @@ export const HeroAccordion = component$(() => {
       <div class="w-full flex justify-center" q:slot="actualComponent">
         <AccordionRoot
           animated
+          enhance={true}
           class="bg-gray-100 dark:bg-gray-700 rounded-sm border-slate-200 dark:border-gray-600 border-[1px] box-border w-[min(400px,_100%)]"
         >
           <AccordionItem>
@@ -589,63 +590,100 @@ export const OnFocusIndexChange = component$(() => {
   );
 });
 
-export const DynamicAccordion = component$(() => {
-  const itemStore = useStore<number[]>([1, 2]);
+interface DynamicAccordionProps {
+  itemIndexToDelete?: number;
+  itemIndexToAdd?: number;
+  itemsLength: number;
+}
 
-  return (
-    <PreviewCodeExample>
-      <div class="w-full flex flex-col items-center" q:slot="actualComponent">
-        <AccordionRoot class="bg-gray-100 dark:bg-gray-700 rounded-sm border-slate-200 dark:border-gray-600 border-[1px] border-t-[0px] box-border w-[min(400px,_100%)]">
-          {itemStore.map((itemNumber, index) => {
-            return (
-              <AccordionItem key={index}>
-                <AccordionTrigger class="bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 px-4 py-2 w-full dark:hover:bg-gray-800 text-left flex items-center justify-between group aria-expanded:rounded-none border-t-[1px] border-slate-200 dark:border-gray-600">
-                  <span>Trigger {itemNumber}</span>
-                  <span class="pl-2 flex">
-                    <p class="group-aria-expanded:transform group-aria-expanded:rotate-45 scale-150">
-                      +
-                    </p>
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent class="bg-violet-200 dark:bg-gray-900 p-4 border-t-[1px] dark:border-gray-600 border-slate-200">
-                  Content {itemNumber}
-                </AccordionContent>
-              </AccordionItem>
-            );
-          })}
-        </AccordionRoot>
+export const DynamicAccordion = component$(
+  ({ itemsLength = 3 }: DynamicAccordionProps) => {
+    const itemIndexToAdd = useSignal<string>('0');
+    const itemIndexToDelete = useSignal<string>('0');
 
-        <div class="flex flex-col sm:flex-row gap-2 md:gap-4">
-          <button
-            style={{ color: 'green', marginTop: '1rem' }}
-            onClick$={() => {
-              if (itemStore.length < 4) {
-                itemStore.push(itemStore.length + 1);
-              }
-            }}
-          >
-            <strong>Add Item</strong>
-          </button>
+    // start off with some items
+    const items = [];
+    const newItem = { label: 'New Item', id: Math.random() };
 
-          <button
-            style={{ color: 'red', marginTop: '1rem' }}
-            onClick$={() => {
-              if (itemStore.length > 1) {
-                itemStore.pop();
-              }
-            }}
-          >
-            <strong>Remove Item</strong>
-          </button>
+    for (let i = 0; i < itemsLength; i++) {
+      items.push({
+        label: `Original Item ${i + 1}`,
+        id: Math.random()
+      });
+    }
+
+    const itemStore = useStore<{ label: string; id: number }[]>(items);
+
+    return (
+      <PreviewCodeExample>
+        <div class="w-full flex flex-col items-center" q:slot="actualComponent">
+          <div class="flex gap-4">
+            <label class="flex flex-col-reverse mb-4 items-center text-center">
+              <input
+                class="rounded-md px-2 max-w-[50px] bg-[#374151]"
+                type="text"
+                bind:value={itemIndexToAdd}
+              />
+              <span>Index to Add</span>
+            </label>
+
+            <label class="flex flex-col-reverse mb-4 items-center text-center">
+              <input
+                class="rounded-md px-2 max-w-[50px] bg-[#374151]"
+                type="text"
+                bind:value={itemIndexToDelete}
+              />
+              <span>Index to Delete</span>
+            </label>
+          </div>
+
+          <AccordionRoot class="bg-gray-100 dark:bg-gray-700 rounded-sm border-slate-200 dark:border-gray-600 border-[1px] border-t-[0px] box-border w-[min(400px,_100%)]">
+            {itemStore.map(({ label, id }, index) => {
+              return (
+                <AccordionItem id={`${id}`} key={id}>
+                  <AccordionHeader>
+                    <AccordionTrigger class="bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 px-4 py-2 w-full dark:hover:bg-gray-800 text-left flex items-center justify-between group aria-expanded:rounded-none border-t-[1px] border-slate-200 dark:border-gray-600">
+                      {label}
+                    </AccordionTrigger>
+                  </AccordionHeader>
+                  <AccordionContent class="bg-violet-200 dark:bg-gray-900 p-4 border-t-[1px] dark:border-gray-600 border-slate-200">
+                    index: {index}
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </AccordionRoot>
+          <div class="flex gap-2 md:gap-4">
+            <button
+              style={{ color: 'green', marginTop: '1rem' }}
+              onClick$={() => {
+                if (itemStore.length < 6) {
+                  itemStore.splice(parseInt(itemIndexToAdd.value), 0, newItem);
+                }
+              }}
+            >
+              <strong>Add Item</strong>
+            </button>
+            <button
+              style={{ color: 'red', marginTop: '1rem' }}
+              onClick$={() => {
+                if (itemStore.length > 2) {
+                  itemStore.splice(parseInt(itemIndexToDelete.value), 1);
+                }
+              }}
+            >
+              <strong>Remove Item</strong>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
-    </PreviewCodeExample>
-  );
-});
+        <div q:slot="codeExample">
+          <Slot />
+        </div>
+      </PreviewCodeExample>
+    );
+  }
+);
 
 export function SVG(props: QwikIntrinsicElements['svg'], key: string) {
   return (

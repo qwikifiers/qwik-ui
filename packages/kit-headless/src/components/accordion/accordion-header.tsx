@@ -1,4 +1,10 @@
-import { component$, Slot, type QwikIntrinsicElements } from '@builder.io/qwik';
+import {
+  component$,
+  Slot,
+  useContext,
+  type QwikIntrinsicElements
+} from '@builder.io/qwik';
+import { accordionItemContextId } from './accordion-context-id';
 
 type HeadingUnion = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
@@ -8,10 +14,14 @@ export type AccordionHeaderProps = QwikIntrinsicElements[HeadingUnion] & {
 
 export const AccordionHeader = component$(
   ({ as = 'h3', ...props }: AccordionHeaderProps) => {
+    const itemContext = useContext(accordionItemContextId);
+    const itemId = itemContext.itemId;
+    const headerId = `${itemId}-header`;
+
     const PolymorphicHeading = as;
 
     return (
-      <PolymorphicHeading {...props}>
+      <PolymorphicHeading id={headerId} {...props}>
         <Slot />
       </PolymorphicHeading>
     );

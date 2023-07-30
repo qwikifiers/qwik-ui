@@ -1,9 +1,9 @@
 import {
-  component$,
-  useSignal,
   Slot,
-  useId,
+  component$,
   useContextProvider,
+  useId,
+  useSignal,
   type QwikIntrinsicElements
 } from '@builder.io/qwik';
 
@@ -16,8 +16,9 @@ export type AccordionItemProps = {
 } & QwikIntrinsicElements['div'];
 
 export const AccordionItem = component$(
-  ({ defaultValue = false, ...props }: AccordionItemProps) => {
-    const itemId = useId();
+  ({ defaultValue = false, id, ...props }: AccordionItemProps) => {
+    const localId = useId();
+    const itemId = id || localId;
 
     const isTriggerExpandedSig = useSignal<boolean>(defaultValue);
 

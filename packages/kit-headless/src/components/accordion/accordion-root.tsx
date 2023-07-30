@@ -4,10 +4,10 @@ import {
   Slot,
   useContextProvider,
   useSignal,
-  useStore,
   useTask$,
   type QwikIntrinsicElements,
-  type PropFunction
+  type PropFunction,
+  useVisibleTask$
 } from '@builder.io/qwik';
 
 import { type AccordionRootContext } from './accordion-context.type';
@@ -16,6 +16,7 @@ import { accordionRootContextId } from './accordion-context-id';
 export type AccordionRootProps = {
   behavior?: 'single' | 'multi';
   animated?: boolean;
+  enhance?: boolean;
   collapsible?: boolean;
   onSelectedIndexChange$?: PropFunction<(index: number) => void>;
   onFocusIndexChange$?: PropFunction<(index: number) => void>;
@@ -31,9 +32,11 @@ export const AccordionRoot = component$(
     ...props
   }: AccordionRootProps) => {
     const rootRef = useSignal<HTMLDivElement | undefined>();
-    const triggerStore = useStore<HTMLButtonElement[]>([]);
+    const rootElement = rootRef.value;
     const currFocusedTriggerIndexSig = useSignal<number>(-1);
     const currSelectedTriggerIndexSig = useSignal<number>(-1);
+    const selectedTriggerIdSig = useSignal<string>('');
+    const triggerElementsSig = useSignal<HTMLButtonElement[]>([]);
 
     useTask$(({ track }) => {
       track(() => currSelectedTriggerIndexSig.value);
@@ -49,47 +52,70 @@ export const AccordionRoot = component$(
       }
     });
 
-    const selectedTriggerIdSig = useSignal<string>('');
+    const updateTriggers$ = $(() => {
+      if (!rootElement) {
+        return;
+      }
+
+      // needs to grab a new array when adding or removing elements dynamically.
+      const getLatestTriggers = Array.from(
+        rootElement.querySelectorAll('[data-trigger-id]')
+      ) as HTMLButtonElement[];
+
+      triggerElementsSig.value = getLatestTriggers.filter((element) => {
+        if (element.getAttribute('aria-disabled') === 'true') {
+          return false;
+        }
+
+        return true;
+      });
+    });
 
     const focusPreviousTrigger$ = $(() => {
       if (currFocusedTriggerIndexSig.value === 0) {
-        currFocusedTriggerIndexSig.value = triggerStore.length - 1;
-        return triggerStore[triggerStore.length - 1].focus();
+        currFocusedTriggerIndexSig.value = triggerElementsSig.value.length - 1;
+        return triggerElementsSig.value[triggerElementsSig.value.length - 1].focus();
       }
 
       currFocusedTriggerIndexSig.value--;
 
-      return triggerStore[currFocusedTriggerIndexSig.value].focus();
+      return triggerElementsSig.value[currFocusedTriggerIndexSig.value].focus();
     });
 
     const focusNextTrigger$ = $(() => {
-      if (currFocusedTriggerIndexSig.value === triggerStore.length - 1) {
+      if (currFocusedTriggerIndexSig.value === triggerElementsSig.value.length - 1) {
         currFocusedTriggerIndexSig.value = 0;
-        return triggerStore[0].focus();
+        return triggerElementsSig.value[0].focus();
       }
 
       currFocusedTriggerIndexSig.value++;
 
-      return triggerStore[currFocusedTriggerIndexSig.value].focus();
+      return triggerElementsSig.value[currFocusedTriggerIndexSig.value].focus();
     });
 
     const focusFirstTrigger$ = $(() => {
-      return triggerStore[0].focus();
+      return triggerElementsSig.value[0].focus();
     });
 
     const focusLastTrigger$ = $(() => {
-      return triggerStore[triggerStore.length - 1].focus();
+      return triggerElementsSig.value[triggerElementsSig.value.length - 1].focus();
+    });
+
+    // takes a role call of its children (reactive b/c it's a signal)
+    useVisibleTask$(function reIndexTriggers() {
+      updateTriggers$();
     });
 
     const contextService: AccordionRootContext = {
-      selectedTriggerIdSig,
-      currFocusedTriggerIndexSig,
-      currSelectedTriggerIndexSig,
+      updateTriggers$,
       focusFirstTrigger$,
       focusPreviousTrigger$,
       focusNextTrigger$,
       focusLastTrigger$,
-      triggerStore,
+      currFocusedTriggerIndexSig,
+      currSelectedTriggerIndexSig,
+      selectedTriggerIdSig,
+      triggerElementsSig,
       collapsible,
       behavior,
       animated

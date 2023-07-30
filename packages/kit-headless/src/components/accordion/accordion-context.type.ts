@@ -1,6 +1,7 @@
 import { Signal, QRL } from '@builder.io/qwik';
 
 export interface AccordionRootContext {
+  updateTriggers$: QRL<() => void>;
   focusFirstTrigger$: QRL<() => void>;
   focusPreviousTrigger$: QRL<() => void>;
   focusNextTrigger$: QRL<() => void>;
@@ -8,7 +9,7 @@ export interface AccordionRootContext {
   currFocusedTriggerIndexSig: Signal<number>;
   currSelectedTriggerIndexSig: Signal<number>;
   selectedTriggerIdSig: Signal;
-  triggerStore: HTMLButtonElement[];
+  triggerElementsSig: Signal<HTMLButtonElement[]>;
   collapsible: boolean;
   behavior?: string;
   animated?: boolean;

@@ -58,60 +58,68 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
 
   /* allows animate / transition from display none */
   useTask$(function animateContentTask({ track }) {
+    if (!animated) {
+      return;
+    }
+
     track(() => isTriggerExpandedSig.value);
 
-    if (animated && isTriggerExpandedSig.value) {
+    if (isTriggerExpandedSig.value) {
       isContentHiddenSig.value = false;
     }
   });
 
   /* calculates height of the content container based on children */
   useVisibleTask$(function calculateHeightVisibleTask({ track }) {
+    if (animated === false) {
+      return;
+    }
+
     track(() => isContentHiddenSig.value);
 
-    if (animated && totalHeightSig.value === 0) {
+    if (totalHeightSig.value === 0) {
       getCalculatedHeight();
     }
 
     function getCalculatedHeight() {
-      if (contentElement) {
-        const contentChildren = Array.from(contentElement.children) as HTMLElement[];
-
-        contentChildren.forEach((element, index) => {
-          totalHeightSig.value += element.offsetHeight;
-
-          if (index === contentChildren.length - 1) {
-            contentElement?.style.setProperty(
-              '--qwikui-accordion-content-height',
-              `${totalHeightSig.value}px`
-            );
-          }
-        });
+      if (!contentElement) {
+        return;
       }
+
+      const contentChildren = Array.from(contentElement.children) as HTMLElement[];
+
+      contentChildren.forEach((element, index) => {
+        totalHeightSig.value += element.offsetHeight;
+
+        if (index === contentChildren.length - 1) {
+          contentElement.style.setProperty(
+            '--qwikui-accordion-content-height',
+            `${totalHeightSig.value}px`
+          );
+        }
+      });
     }
   });
 
   return (
-    <>
-      <div
-        ref={ref}
-        role="region"
-        id={contentId}
-        data-content-id={contentId}
-        data-state={isTriggerExpandedSig.value ? 'open' : 'closed'}
-        hidden={animated ? isContentHiddenSig.value : !isTriggerExpandedSig.value}
-        onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
-        onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
-        style={{
-          ['--qwikui-collapsible-content-height' as string]:
-            'var(--qwikui-accordion-content-height)',
-          ['--qwikui-collapsible-content-width' as string]:
-            'var(--qwikui-accordion-content-width)'
-        }}
-        {...props}
-      >
-        <Slot />
-      </div>
-    </>
+    <div
+      ref={ref}
+      role="region"
+      id={contentId}
+      data-content-id={contentId}
+      data-state={isTriggerExpandedSig.value ? 'open' : 'closed'}
+      hidden={animated ? isContentHiddenSig.value : !isTriggerExpandedSig.value}
+      onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
+      onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
+      style={{
+        ['--qwikui-collapsible-content-height' as string]:
+          'var(--qwikui-accordion-content-height)',
+        ['--qwikui-collapsible-content-width' as string]:
+          'var(--qwikui-accordion-content-width)'
+      }}
+      {...props}
+    >
+      <Slot />
+    </div>
   );
 });
