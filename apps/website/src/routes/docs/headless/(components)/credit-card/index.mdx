@@ -1,0 +1,80 @@
+---
+title: Qwik UI | Credit Card
+---
+
+import { MainExample } from './examples';
+import { CodeExample } from '../../../_components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../_components/api-table/api-table';
+import { AlphaBanner } from '../../../_components/alpha-banner/alpha-banner';
+
+<AlphaBanner />
+
+# Credit Card
+
+#### The CreditCard component is a reusable UI component that allows users to input credit card information, including the card holder name, card number, expiry date, and CVV (Card Verification Value).
+
+{' '}
+
+<MainExample>
+  ```tsx
+  <CreditCard handleSubmit={handleSubmit} />
+  ```
+</MainExample>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { $, component$, useSignal } from '@builder.io/qwik';
+    import { Toggle } from '@qwik-ui/primitives';
+
+    export default component$(() => {
+      const handleSubmit = $((data) => {
+        console.log(data);
+      })
+      return (
+        <CreditCard
+          handleSubmit={handleSubmit}
+        />
+      );
+    });
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### EXAMPLE: Frequently Asked Questions
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Tab',
+      description: 'Moves focus to the next focusable element.',
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: 'Moves focus to the previous focusable element.',
+    },
+  ]}
+/>
+
+## API
+
+### Toggle
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'handleSubmit',
+      info: 'PropFunction<(data:ICreditCard) => void>',
+      type: 'function',
+      description: 'A function that will be called when the user clicks the "Submit" button in the credit card form.',
+    },
+  ]}
+/>
