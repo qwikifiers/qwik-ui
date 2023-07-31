@@ -42,6 +42,7 @@ export const componentsStatuses: ComponentKitsStatuses = {
     Accordion: 'Ready',
     Autocomplete: 'Draft',
     Carousel: 'Planned',
+    'Credit Card': 'Draft',
     Popover: 'Planned',
     Select: 'Draft',
     Tabs: 'Ready',
