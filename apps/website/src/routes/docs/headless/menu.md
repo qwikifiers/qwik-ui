@@ -10,6 +10,7 @@
 
 - [Accordion](/docs/headless/accordion)
 - [Autocomplete](/docs/headless/autocomplete)
+- [Credit Card](/docs/headless/credit-card)
 - [Popover](/docs/headless/popover)
 - [Select](/docs/headless/select)
 - [Tabs](/docs/headless/tabs)
