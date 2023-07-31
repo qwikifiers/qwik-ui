@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 5px;
+  width: 400px;
+}
+.wrapper input {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.wrapper .date-info {
+  display: flex;
+  justify-content: space-between;
+}
+.wrapper .date-info > input {
+  width: 49%;
+}
+
+.wrapper button {
+  border: 2px solid white;
+  padding: 10px;
+}
+.wrapper .error-msg {
+  color: red;
+  margin-bottom: 10px;
+}
