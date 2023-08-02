@@ -1,30 +1,40 @@
 import {
   $,
-  component$,
+  QwikIntrinsicElements,
   Slot,
+  component$,
+  useComputed$,
   useContextProvider,
   useSignal,
-  useVisibleTask$,
   useStore,
   useTask$,
-  QwikIntrinsicElements,
-  useComputed$,
+  useVisibleTask$,
+  type ClassList,
+  type FunctionComponent
 } from '@builder.io/qwik';
+import { JSX } from '@builder.io/qwik/jsx-runtime';
+import { KeyCode } from '../../utils/key-code.type';
+import { Behavior } from './behavior.type';
+import { Tab } from './tab';
+import { TabPanel } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
-import { Behavior } from './behavior.type';
-import { KeyCode } from '../../utils/key-code.type';
+import { TabList } from './tabs-list';
 
 /**
  * TABS TODOs
- 
+
  *
 * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
 
+* POST Alpha
+  * Add a way to add a default tab class from the root (for styling all the tabs in one place)
+
 * POST Beta
   * Add automated tests for preventDefault on end, home,  pageDown, pageUp
   * Add automated tests for SSR indexing behavior (and in general)
+  
 
 * POST V1:
  * - RTL
@@ -40,6 +50,8 @@ export type TabsProps = {
   vertical?: boolean;
   selectedClassName?: string;
   onSelectedIndexChange$?: (index: number) => void;
+  /** @deprecated Internal use only */
+  _knownKeys?: Map<string, number>;
 } & QwikIntrinsicElements['div'];
 
 export interface TabPair {
@@ -188,9 +200,7 @@ export const Tabs = component$((props: TabsProps) => {
     }
 
     function focusOnTab(tabId: string) {
-      tabsRootElement
-        ?.querySelector<HTMLElement>(`[data-tab-id='${tabId}']`)
-        ?.focus();
+      tabsRootElement?.querySelector<HTMLElement>(`[data-tab-id='${tabId}']`)?.focus();
     }
   });
 
@@ -207,7 +217,7 @@ export const Tabs = component$((props: TabsProps) => {
     reIndexTabs$,
     onTabKeyDown$,
     selectIfAutomatic$,
-    selectedClassName: props.selectedClassName,
+    selectedClassName: props.selectedClassName
   };
 
   useContextProvider(tabsContextId, contextService);
@@ -299,13 +309,13 @@ export const Tabs = component$((props: TabsProps) => {
         tabId,
         tabPanelId,
         index,
-        disabled: isTabDisabled,
+        disabled: isTabDisabled
       };
 
       tabPanelsMap[tabPanelId] = {
         tabId,
         tabPanelId,
-        index,
+        index
       };
 
       if (thisTabWasDeleted) {
@@ -333,11 +343,9 @@ export const Tabs = component$((props: TabsProps) => {
 
       let tabPanelElements: Element[] = [];
       if (tabsRootElement.children) {
-        tabPanelElements = Array.from(tabsRootElement.children).filter(
-          (child) => {
-            return child.getAttribute('role') === 'tabpanel';
-          }
-        );
+        tabPanelElements = Array.from(tabsRootElement.children).filter((child) => {
+          return child.getAttribute('role') === 'tabpanel';
+        });
       }
       return [tabElements, tabPanelElements];
     }
@@ -357,3 +365,98 @@ export const Tabs = component$((props: TabsProps) => {
     </div>
   );
 });
+
+// TODO default classes
+export const NewTabs: FunctionComponent<{
+  children: JSX.Element | JSX.Element[];
+  tabClass?: ClassList;
+  panelClass?: ClassList;
+}> = ({ children, tabClass, panelClass, ...props }) => {
+  console.log('START RENDER');
+  children = Array.isArray(children) ? [...children] : [children];
+
+  let tabList: JSX.Element | undefined;
+  const tabs: JSX.Element[] = [];
+  const panels: JSX.Element[] = [];
+  const knownKeys = new Map<string, number>();
+  let tabIndex = 0;
+  let panelIndex = 0;
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
+    if (!child) {
+      continue;
+    }
+    if (Array.isArray(child)) {
+      children.splice(i + 1, 0, ...child);
+      continue;
+    }
+    // TODO handle tablist
+    switch (child.type) {
+      case TabList: {
+        tabList = child;
+        children.splice(i + 1, 0, ...child.props.children);
+        break;
+      }
+      case Tab: {
+        // TODO: check if in inline components it warns the dev to assign a key
+        const { key = tabIndex } = child.props;
+        console.log('TAB key', key);
+        knownKeys.set(key, tabIndex);
+        child.props = {
+          ...props,
+          key,
+          index: tabIndex,
+          _key: key,
+          class: [tabClass, child.props.class]
+        };
+        tabs.push(child);
+        tabIndex++;
+        console.log('tabIndex', tabIndex);
+        break;
+      }
+      case TabPanel: {
+        const { title, key = panelIndex } = child.props;
+        console.log('TAB PANEL key', key);
+        knownKeys.set(key, panelIndex);
+        child.props = {
+          ...props,
+          title: undefined,
+          key,
+          _key: key,
+          index: panelIndex,
+          class: [panelClass, child.props.class]
+        };
+        if (title) {
+          tabs.push(
+            <Tab class={tabClass} key={key} _key={key}>
+              {title}
+            </Tab>
+          );
+          tabIndex++;
+        }
+        panels.push(child);
+        panelIndex++;
+        console.log('panelIndex', panelIndex);
+        break;
+      }
+      default: {
+        console.error('unknown type', String(child.type));
+        // throw new TypeError(`Tabs can't handle the given children`);
+      }
+    }
+  }
+
+  tabList ||= <TabList />;
+  tabList.props.children = tabs;
+
+  console.log(`tabIndex, panelIndex`, tabIndex, panelIndex);
+  if (tabIndex !== panelIndex) {
+    console.error(`mismatched number of tabs and panels: ${tabIndex} ${panelIndex}`);
+  }
+  return (
+    <Tabs _knownKeys={knownKeys} {...props}>
+      {tabList}
+      {panels}
+    </Tabs>
+  );
+};

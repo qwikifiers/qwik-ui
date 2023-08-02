@@ -1,17 +1,20 @@
 import {
+  QwikIntrinsicElements,
+  Slot,
   component$,
   useContext,
   useId,
-  Slot,
-  useTask$,
   useSignal,
-  useVisibleTask$,
-  QwikIntrinsicElements,
+  useTask$,
+  useVisibleTask$
 } from '@builder.io/qwik';
-import { tabsContextId } from './tabs-context-id';
 import { isBrowser, isServer } from '@builder.io/qwik/build';
+import { tabsContextId } from './tabs-context-id';
 
-export type TabPanelProps = QwikIntrinsicElements['div'];
+export type TabPanelProps = {
+  /** @deprecated Internal use only */
+  _key?: string;
+} & QwikIntrinsicElements['div'];
 
 export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   const contextService = useContext(tabsContextId);
@@ -35,9 +38,7 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   });
 
   useTask$(async function isSelectedPanelTask({ track }) {
-    const isSelected = await track(() =>
-      contextService.isPanelSelected$(panelUID)
-    );
+    const isSelected = await track(() => contextService.isPanelSelected$(panelUID));
 
     if (isServer) {
       isSelectedSig.value = await contextService.isIndexSelected$(
@@ -50,9 +51,7 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
   });
 
   useVisibleTask$(async function matchedPanelIdTask({ track }) {
-    matchedTabIdSig.value = await track(() =>
-      contextService.getMatchedTabId$(panelUID)
-    );
+    matchedTabIdSig.value = await track(() => contextService.getMatchedTabId$(panelUID));
   });
 
   return (

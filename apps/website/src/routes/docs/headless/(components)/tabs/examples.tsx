@@ -102,9 +102,9 @@ export const AutomaticBehaviorTabsExample = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example mr-auto">
+        <h3>Danish Composers</h3>
+        <h4>(Hover over the tabs)</h4>
         <Tabs behavior="automatic">
-          <h3>Danish Composers</h3>
-          <h4>(Hover over the tabs)</h4>
           <TabList>
             <Tab>Maria Ahlefeldt</Tab>
             <Tab>Carl Andersen</Tab>

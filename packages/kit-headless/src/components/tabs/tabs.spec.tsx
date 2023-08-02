@@ -1,8 +1,8 @@
-import { component$, useSignal, useStore, $ } from '@builder.io/qwik';
+import { $, component$, useSignal, useStore } from '@builder.io/qwik';
 import { Tab } from './tab';
+import { TabPanel } from './tab-panel';
 import { Tabs } from './tabs';
 import { TabList } from './tabs-list';
-import { TabPanel } from './tab-panel';
 
 describe('Tabs', () => {
   it('INIT', () => {
@@ -53,9 +53,7 @@ describe('Tabs', () => {
           <TabList>
             <Tab onClick$={() => (wasSelectedSig.value = true)}>Tab 1</Tab>
           </TabList>
-          <TabPanel>
-            Custom onClick was called: {`${wasSelectedSig.value}`}
-          </TabPanel>
+          <TabPanel>Custom onClick was called: {`${wasSelectedSig.value}`}</TabPanel>
         </Tabs>
       );
     });
@@ -64,10 +62,7 @@ describe('Tabs', () => {
 
     cy.findByRole('tab', { name: /Tab 1/i }).click();
 
-    cy.findByRole('tabpanel').should(
-      'contain',
-      'Custom onClick was called: true'
-    );
+    cy.findByRole('tabpanel').should('contain', 'Custom onClick was called: true');
   });
 
   describe('Dynamic Tabs', () => {
@@ -121,11 +116,7 @@ describe('Tabs', () => {
     }
 
     const DynamicTabsComponent = component$(
-      ({
-        tabIndexToDelete = 0,
-        tabIndexToAdd = 0,
-        tabsLength,
-      }: DynamicTabsProps) => {
+      ({ tabIndexToDelete = 0, tabIndexToAdd = 0, tabsLength }: DynamicTabsProps) => {
         const tabNames = Array(tabsLength)
           .fill(1)
           .map((_, index) => `Dynamic Tab ${index + 1}`);
@@ -147,11 +138,7 @@ describe('Tabs', () => {
             <button onClick$={() => tabsState.splice(tabIndexToDelete, 1)}>
               Remove Tab
             </button>
-            <button
-              onClick$={() =>
-                tabsState.splice(tabIndexToAdd, 0, 'new added tab')
-              }
-            >
+            <button onClick$={() => tabsState.splice(tabIndexToAdd, 0, 'new added tab')}>
               Add Tab
             </button>
           </>
@@ -168,9 +155,7 @@ describe('Tabs', () => {
 
       cy.findAllByRole('tab', { name: /Tab 2/i }).first().click();
 
-      cy.findByRole('tabpanel')
-        .should('be.visible')
-        .should('contain', 'Root Panel 2');
+      cy.findByRole('tabpanel').should('be.visible').should('contain', 'Root Panel 2');
     });
 
     it(`GIVEN tabs inside of tabs
@@ -433,7 +418,7 @@ describe('Tabs', () => {
             <TabList
               style={{
                 display: 'flex',
-                flexDirection: isVertical ? 'column' : 'row',
+                flexDirection: isVertical ? 'column' : 'row'
               }}
             >
               <Tab>Tab 1</Tab>
@@ -602,9 +587,7 @@ describe('Tabs', () => {
     it(`GIVEN 3 vertical tabs and the second is disabled and the focus is on the first,
         WHEN triggering the down arrow key
         THEN the focus should be on the third tab`, () => {
-      cy.mount(
-        <PotentiallyDisabledThreeTabs isVertical={true} disabledIndex={1} />
-      );
+      cy.mount(<PotentiallyDisabledThreeTabs isVertical={true} disabledIndex={1} />);
 
       cy.findByRole('tab', { name: /Tab 1/i }).type('{downarrow}');
 
@@ -614,9 +597,7 @@ describe('Tabs', () => {
     it(`GIVEN 3 vertical tabs and the second is disabled and the focus is on the third,
         WHEN triggering the up arrow key
         THEN the focus should be on the first tab`, () => {
-      cy.mount(
-        <PotentiallyDisabledThreeTabs isVertical={true} disabledIndex={1} />
-      );
+      cy.mount(<PotentiallyDisabledThreeTabs isVertical={true} disabledIndex={1} />);
 
       cy.findByRole('tab', { name: /Tab 3/i }).type('{uparrow}');
 
@@ -636,16 +617,12 @@ describe('Tabs', () => {
               vertical={!!props.isVertical}
               style={{
                 display: 'flex',
-                flexDirection: props.isVertical ? 'column' : 'row',
+                flexDirection: props.isVertical ? 'column' : 'row'
               }}
             >
               <TabList>
                 <Tab disabled={props.disabledIndex === 0}>Tab 1</Tab>
-                <Tab
-                  disabled={
-                    props.disabledIndex === 1 || isMiddleDisabledSig.value
-                  }
-                >
+                <Tab disabled={props.disabledIndex === 1 || isMiddleDisabledSig.value}>
                   Tab 2
                 </Tab>
                 <Tab disabled={props.disabledIndex === 2}>Tab 3</Tab>
@@ -656,9 +633,7 @@ describe('Tabs', () => {
             </Tabs>
             {props.showDisableButton && (
               <button
-                onClick$={() =>
-                  (isMiddleDisabledSig.value = !isMiddleDisabledSig.value)
-                }
+                onClick$={() => (isMiddleDisabledSig.value = !isMiddleDisabledSig.value)}
               >
                 Toggle middle tab disabled
               </button>
