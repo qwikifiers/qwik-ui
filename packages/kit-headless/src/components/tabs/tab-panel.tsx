@@ -13,14 +13,14 @@ import { tabsContextId } from './tabs-context-id';
 
 export type TabPanelProps = {
   /** @deprecated Internal use only */
-  _key?: string;
+  tabId?: string;
 } & QwikIntrinsicElements['div'];
 
-export const TabPanel = component$(({ ...props }: TabPanelProps) => {
+export const TabPanel = component$(({ index, tabId, ...props }: TabPanelProps) => {
+  console.log('TabPanel', props);
   const contextService = useContext(tabsContextId);
   const isSelectedSig = useSignal(false);
   const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
-  const matchedTabIdSig = useSignal<string | undefined>(undefined);
 
   const panelUID = useId();
 
@@ -50,23 +50,20 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
     isSelectedSig.value = isSelected;
   });
 
-  useVisibleTask$(async function matchedPanelIdTask({ track }) {
-    matchedTabIdSig.value = await track(() => contextService.getMatchedTabId$(panelUID));
-  });
-
   return (
     <div
-      data-tabpanel-id={panelUID}
-      id={'tabpanel-' + panelUID}
+      data-tabpanel-id={tabId}
+      id={'tabpanel-' + tabId}
       role="tabpanel"
       tabIndex={0}
       hidden={isSelectedSig.value ? (null as unknown as undefined) : true}
-      aria-labelledby={`tab-${matchedTabIdSig.value}`}
+      aria-labelledby={`tab-${tabId}`}
       class={`${isSelectedSig.value ? '' : 'is-hidden'}${
         props.class ? ` ${props.class}` : ''
       }`}
       style={isSelectedSig.value ? 'display: block' : 'display: none'}
     >
+      panel
       <Slot />
     </div>
   );

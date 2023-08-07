@@ -5,24 +5,35 @@ import styles from './index.css?inline';
 
 export const Example01 = component$(() => {
   useStyles$(styles);
+  return (
+    <div class="tabs-example">
+      <h3>Danish Composers</h3>
+      <Tabs behavior="automatic">
+        <TabPanel title="Maria Ahlefeldt">
+          <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
+        </TabPanel>
+        <TabPanel title="Carl Andersen">
+          <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+        </TabPanel>
+        <TabPanel title="Ida Henriette da Fonseca">
+          <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+        </TabPanel>
+      </Tabs>
+    </div>
+  );
 
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example">
         <h3>Danish Composers</h3>
         <Tabs behavior="automatic">
-          <TabList>
-            <Tab>Maria Ahlefeldt</Tab>
-            <Tab>Carl Andersen</Tab>
-            <Tab>Ida Henriette da Fonseca</Tab>
-          </TabList>
-          <TabPanel>
+          <TabPanel title="Maria Ahlefeldt">
             <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
           </TabPanel>
-          <TabPanel>
+          <TabPanel title="Carl Andersen">
             <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
           </TabPanel>
-          <TabPanel>
+          <TabPanel title="Ida Henriette da Fonseca">
             <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
           </TabPanel>
         </Tabs>

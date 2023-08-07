@@ -4,12 +4,12 @@ import {
   component$,
   useComputed$,
   useContext,
-  useId,
   useSignal,
   useTask$,
   useVisibleTask$,
   type QwikIntrinsicElements,
-  type QwikMouseEvent
+  type QwikMouseEvent,
+  type Signal
 } from '@builder.io/qwik';
 import { isBrowser, isServer } from '@builder.io/qwik/build';
 import { KeyCode } from '../../utils/key-code.type';
@@ -20,7 +20,7 @@ export type TabProps = {
   selectedClassName?: string;
   disabled?: boolean;
   /** @deprecated Internal use only */
-  _key?: string;
+  tabId?: string;
 } & QwikIntrinsicElements['button'];
 
 export const preventedKeys = [
@@ -35,12 +35,12 @@ export const preventedKeys = [
 ];
 
 export const Tab = component$((props: TabProps) => {
+  console.log('Tab', props);
   const contextService = useContext(tabsContextId);
   const isSelectedSig = useSignal(false);
   const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
-  const matchedTabPanelIdSig = useSignal<string | undefined>(undefined);
   const elementRefSig = useSignal<HTMLElement | undefined>();
-  const uniqueTabId = useId();
+  const uniqueTabId = props.tabId!;
 
   const selectedClassNameSig = useComputed$(() => {
     return props.selectedClassName || contextService.selectedClassName;
@@ -79,12 +79,6 @@ export const Tab = component$((props: TabProps) => {
     }
   });
 
-  useVisibleTask$(async function setMatchedTabPanelIdTask({ track }) {
-    matchedTabPanelIdSig.value = await track(() =>
-      contextService.getMatchedPanelId$(uniqueTabId)
-    );
-  });
-
   useVisibleTask$(function preventDefaultOnKeysVisibleTask({ cleanup }) {
     function handler(event: KeyboardEvent) {
       if (preventedKeys.includes(event.key as KeyCode)) {
@@ -115,18 +109,15 @@ export const Tab = component$((props: TabProps) => {
       onMouseEnter$={selectIfAutomatic$}
       aria-selected={isSelectedSig.value}
       tabIndex={isSelectedSig.value ? 0 : -1}
-      aria-controls={'tabpanel-' + matchedTabPanelIdSig.value}
-      class={`${
-        isSelectedSig.value ? `selected ${selectedClassNameSig.value || ''}` : ''
-      }${props.class ? ` ${props.class}` : ''}`}
-      onClick$={(event) => {
-        contextService.selectTab$(uniqueTabId);
-        if (props.onClick$) {
-          props.onClick$(event);
-        }
-      }}
+      aria-controls={'tabpanel-' + uniqueTabId}
+      class={[
+        (props.class as Signal<string>)?.value ?? (props.class as string),
+        isSelectedSig.value && ['selected', selectedClassNameSig.value]
+      ]}
+      onClick$={[props.onClick$, () => contextService.selectTab$(uniqueTabId)]}
       style={props.style}
     >
+      button
       <Slot />
     </button>
   );

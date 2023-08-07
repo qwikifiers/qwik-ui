@@ -10,7 +10,8 @@ import {
   useTask$,
   useVisibleTask$,
   type ClassList,
-  type FunctionComponent
+  type FunctionComponent,
+  type PropsOf
 } from '@builder.io/qwik';
 import { JSX } from '@builder.io/qwik/jsx-runtime';
 import { KeyCode } from '../../utils/key-code.type';
@@ -20,6 +21,7 @@ import { TabPanel } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
 import { TabList } from './tabs-list';
+import { Signal } from '@builder.io/qwik';
 
 /**
  * TABS TODOs
@@ -34,7 +36,7 @@ import { TabList } from './tabs-list';
 * POST Beta
   * Add automated tests for preventDefault on end, home,  pageDown, pageUp
   * Add automated tests for SSR indexing behavior (and in general)
-  
+
 
 * POST V1:
  * - RTL
@@ -50,6 +52,7 @@ export type TabsProps = {
   vertical?: boolean;
   selectedClassName?: string;
   onSelectedIndexChange$?: (index: number) => void;
+  'bind:selectedIndex'?: Signal<number>;
   /** @deprecated Internal use only */
   _knownKeys?: Map<string, number>;
 } & QwikIntrinsicElements['div'];
@@ -66,13 +69,15 @@ export interface TabInfo {
   disabled?: boolean;
 }
 
-export const Tabs = component$((props: TabsProps) => {
+export const TabsImpl = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
 
   const ref = useSignal<HTMLElement | undefined>();
-  const selectedIndexSig = useSignal(0);
+  const mySelectedIndexSig = useSignal(0);
+  const selectedIndexSig = props['bind:selectedIndex'] || mySelectedIndexSig;
   const lastAssignedTabIndexSig = useSignal(-1);
   const lastAssignedPanelIndexSig = useSignal(-1);
+  const tabsMap = useStore<{ [key: string]: TabInfo }>({});
 
   useTask$(({ track }) => {
     track(() => props.selectedIndex);
@@ -80,46 +85,20 @@ export const Tabs = component$((props: TabsProps) => {
   });
 
   useTask$(({ track }) => {
-    track(() => selectedIndexSig.value);
-    if (props.onSelectedIndexChange$) {
-      props.onSelectedIndexChange$(selectedIndexSig.value);
+    const fn = props.onSelectedIndexChange$;
+    if (fn) {
+      track(() => selectedIndexSig.value);
+      fn(selectedIndexSig.value);
     }
-  });
-
-  const shouldReIndexTabsSig = useSignal(true);
-
-  const tabPairsList = useStore<TabPair[]>([]);
-
-  const tabsMap = useStore<{ [key: string]: TabInfo }>({});
-
-  const tabPanelsMap = useStore<{ [key: string]: TabInfo }>({});
-
-  const selectedTabIdSig = useComputed$(() => {
-    const tabPair = tabPairsList[selectedIndexSig.value];
-    if (!tabPair) {
-      return '';
-    }
-    return tabPair.tabId;
-  });
-
-  const reIndexTabs$ = $(() => {
-    shouldReIndexTabsSig.value = true;
-  });
-
-  const getMatchedPanelId$ = $((tabId: string) => {
-    return tabsMap[tabId]?.tabPanelId;
-  });
-
-  const getMatchedTabId$ = $((panelId: string) => {
-    return tabPanelsMap[panelId]?.tabId;
   });
 
   const selectTab$ = $((tabId: string) => {
-    const tab = tabsMap[tabId];
-    if (!tab || tab.disabled) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const index = props._knownKeys!.get(tabId);
+    if (typeof index === 'undefined') {
       return;
     }
-    selectedIndexSig.value = tabsMap[tabId].index || 0;
+    selectedIndexSig.value = index;
   });
 
   const selectIfAutomatic$ = $((tabId: string) => {
@@ -211,10 +190,7 @@ export const Tabs = component$((props: TabsProps) => {
     updateTabState$,
     getNextServerAssignedTabIndex$,
     getNextServerAssignedPanelIndex$,
-    getMatchedPanelId$,
-    getMatchedTabId$,
     isIndexSelected$,
-    reIndexTabs$,
     onTabKeyDown$,
     selectIfAutomatic$,
     selectedClassName: props.selectedClassName
@@ -248,7 +224,7 @@ export const Tabs = component$((props: TabsProps) => {
     }
 
     function findPreviousEnabledTab(tabPairsList: TabPair[], index: number) {
-      for (let i = index; i >= 0; i--) {
+      for (let i = Math.min(index, tabPairsList.length - 1); i >= 0; i--) {
         const tabId = tabPairsList[i].tabId;
         if (!tabsMap[tabId].disabled) {
           return i;
@@ -361,17 +337,21 @@ export const Tabs = component$((props: TabsProps) => {
 
   return (
     <div ref={ref} {...props}>
+      <div>Hi there</div>
       <Slot />
+      After
     </div>
   );
 });
 
 // TODO default classes
-export const NewTabs: FunctionComponent<{
-  children: JSX.Element | JSX.Element[];
-  tabClass?: ClassList;
-  panelClass?: ClassList;
-}> = ({ children, tabClass, panelClass, ...props }) => {
+export const Tabs: FunctionComponent<
+  Omit<PropsOf<typeof TabsImpl>, 'children'> & {
+    children: JSX.Element | JSX.Element[];
+    tabClass?: ClassList;
+    panelClass?: ClassList;
+  }
+> = ({ children, tabClass, panelClass, ...props }) => {
   console.log('START RENDER');
   children = Array.isArray(children) ? [...children] : [children];
 
@@ -400,13 +380,13 @@ export const NewTabs: FunctionComponent<{
       case Tab: {
         // TODO: check if in inline components it warns the dev to assign a key
         const { key = tabIndex } = child.props;
-        console.log('TAB key', key);
+        console.log('TAB key', key, child.props);
         knownKeys.set(key, tabIndex);
         child.props = {
           ...props,
           key,
           index: tabIndex,
-          _key: key,
+          tabId: key,
           class: [tabClass, child.props.class]
         };
         tabs.push(child);
@@ -415,20 +395,20 @@ export const NewTabs: FunctionComponent<{
         break;
       }
       case TabPanel: {
-        const { title, key = panelIndex } = child.props;
-        console.log('TAB PANEL key', key);
+        const { title, key = `${panelIndex}` } = child.props;
+        console.log('TAB PANEL key', key, child.props);
         knownKeys.set(key, panelIndex);
         child.props = {
           ...props,
           title: undefined,
           key,
-          _key: key,
+          tabId: key,
           index: panelIndex,
           class: [panelClass, child.props.class]
         };
         if (title) {
           tabs.push(
-            <Tab class={tabClass} key={key} _key={key}>
+            <Tab class={tabClass} key={key} tabId={key}>
               {title}
             </Tab>
           );
@@ -447,16 +427,16 @@ export const NewTabs: FunctionComponent<{
   }
 
   tabList ||= <TabList />;
-  tabList.props.children = tabs;
+  tabList.children = tabs;
 
   console.log(`tabIndex, panelIndex`, tabIndex, panelIndex);
   if (tabIndex !== panelIndex) {
     console.error(`mismatched number of tabs and panels: ${tabIndex} ${panelIndex}`);
   }
   return (
-    <Tabs _knownKeys={knownKeys} {...props}>
+    <TabsImpl _knownKeys={knownKeys} {...props}>
       {tabList}
       {panels}
-    </Tabs>
+    </TabsImpl>
   );
 };
