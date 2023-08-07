@@ -48,24 +48,19 @@ import { Signal } from '@builder.io/qwik';
 
 export type TabsProps = {
   behavior?: Behavior;
+  selectedId?: string;
   selectedIndex?: number;
   vertical?: boolean;
   selectedClassName?: string;
   onSelectedIndexChange$?: (index: number) => void;
   'bind:selectedIndex'?: Signal<number>;
   /** @deprecated Internal use only */
-  _knownKeys?: Map<string, number>;
+  _known?: Record<string, TabInfo>;
 } & QwikIntrinsicElements['div'];
-
-export interface TabPair {
-  tabId: string;
-  tabPanelId: string;
-}
 
 export interface TabInfo {
   tabId: string;
   index: number;
-  tabPanelId?: string;
   disabled?: boolean;
 }
 
@@ -77,7 +72,7 @@ export const TabsImpl = component$((props: TabsProps) => {
   const selectedIndexSig = props['bind:selectedIndex'] || mySelectedIndexSig;
   const lastAssignedTabIndexSig = useSignal(-1);
   const lastAssignedPanelIndexSig = useSignal(-1);
-  const tabsMap = useStore<{ [key: string]: TabInfo }>({});
+  const tabsMap = useStore<Record<string, TabInfo>>(props._known!);
 
   useTask$(({ track }) => {
     track(() => props.selectedIndex);
@@ -94,11 +89,11 @@ export const TabsImpl = component$((props: TabsProps) => {
 
   const selectTab$ = $((tabId: string) => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const index = props._knownKeys!.get(tabId);
-    if (typeof index === 'undefined') {
+    const info = props._known![tabId];
+    if (!info || info.disabled) {
       return;
     }
-    selectedIndexSig.value = index;
+    selectedIndexSig.value = info.index;
   });
 
   const selectIfAutomatic$ = $((tabId: string) => {
@@ -358,7 +353,7 @@ export const Tabs: FunctionComponent<
   let tabList: JSX.Element | undefined;
   const tabs: JSX.Element[] = [];
   const panels: JSX.Element[] = [];
-  const knownKeys = new Map<string, number>();
+  const known: Record<string, TabInfo> = {};
   let tabIndex = 0;
   let panelIndex = 0;
   for (let i = 0; i < children.length; i++) {
@@ -381,14 +376,6 @@ export const Tabs: FunctionComponent<
         // TODO: check if in inline components it warns the dev to assign a key
         const { key = tabIndex } = child.props;
         console.log('TAB key', key, child.props);
-        knownKeys.set(key, tabIndex);
-        child.props = {
-          ...props,
-          key,
-          index: tabIndex,
-          tabId: key,
-          class: [tabClass, child.props.class]
-        };
         tabs.push(child);
         tabIndex++;
         console.log('tabIndex', tabIndex);
@@ -397,7 +384,7 @@ export const Tabs: FunctionComponent<
       case TabPanel: {
         const { title, key = `${panelIndex}` } = child.props;
         console.log('TAB PANEL key', key, child.props);
-        knownKeys.set(key, panelIndex);
+        known[key] = { tabId: key, index: panelIndex };
         child.props = {
           ...props,
           title: undefined,
@@ -426,15 +413,28 @@ export const Tabs: FunctionComponent<
     }
   }
 
-  tabList ||= <TabList />;
-  tabList.children = tabs;
-
   console.log(`tabIndex, panelIndex`, tabIndex, panelIndex);
   if (tabIndex !== panelIndex) {
     console.error(`mismatched number of tabs and panels: ${tabIndex} ${panelIndex}`);
   }
+
+  for (let index = 0; index < tabs.length; index++) {
+    const tab = tabs[index];
+    const key = panels[index as keyof typeof panels]?.props.key;
+    tab.props = {
+      ...tab.props,
+      key,
+      index,
+      tabId: key,
+      class: [tabClass, tab.props.class]
+    };
+  }
+
+  tabList ||= <TabList />;
+  tabList.children = tabs;
+
   return (
-    <TabsImpl _knownKeys={knownKeys} {...props}>
+    <TabsImpl _known={known} {...props}>
       {tabList}
       {panels}
     </TabsImpl>
