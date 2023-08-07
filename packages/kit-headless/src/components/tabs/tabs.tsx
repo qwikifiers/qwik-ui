@@ -1,14 +1,15 @@
 import {
   $,
   QwikIntrinsicElements,
+  Signal,
   Slot,
   component$,
   useComputed$,
   useContextProvider,
+  useId,
   useSignal,
   useStore,
   useTask$,
-  useVisibleTask$,
   type ClassList,
   type FunctionComponent,
   type PropsOf
@@ -21,7 +22,6 @@ import { TabPanel } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
 import { TabList } from './tabs-list';
-import { Signal } from '@builder.io/qwik';
 
 /**
  * TABS TODOs
@@ -55,7 +55,7 @@ export type TabsProps = {
   onSelectedIndexChange$?: (index: number) => void;
   'bind:selectedIndex'?: Signal<number>;
   /** @deprecated Internal use only */
-  _known?: Record<string, TabInfo>;
+  _tabsInfoList?: TabInfo[];
 } & QwikIntrinsicElements['div'];
 
 export interface TabInfo {
@@ -68,32 +68,79 @@ export const TabsImpl = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
 
   const ref = useSignal<HTMLElement | undefined>();
-  const mySelectedIndexSig = useSignal(0);
-  const selectedIndexSig = props['bind:selectedIndex'] || mySelectedIndexSig;
-  const lastAssignedTabIndexSig = useSignal(-1);
-  const lastAssignedPanelIndexSig = useSignal(-1);
-  const tabsMap = useStore<Record<string, TabInfo>>(props._known!);
 
-  useTask$(({ track }) => {
-    track(() => props.selectedIndex);
-    selectedIndexSig.value = props.selectedIndex || 0;
+  const initialSelectedIndexSig = useSignal(0);
+  const selectedIndexSig = props['bind:selectedIndex'] || initialSelectedIndexSig;
+
+  const tabsPrefix = useId();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const tabsInfoListStore = useStore<TabInfo[]>(props._tabsInfoList!);
+
+  const enabledTabsSig = useComputed$(() => {
+    return tabsInfoListStore.filter((tab) => !tab.disabled);
   });
 
-  useTask$(({ track }) => {
-    const fn = props.onSelectedIndexChange$;
-    if (fn) {
-      track(() => selectedIndexSig.value);
-      fn(selectedIndexSig.value);
+  useTask$(function syncPropSelectedIndexTask({ track }) {
+    selectedIndexSig.value = track(() => props.selectedIndex) || 0;
+  });
+
+  useTask$(function callOnSelectedChangeTask({ track }) {
+    if (props.onSelectedIndexChange$) {
+      props.onSelectedIndexChange$(track(() => selectedIndexSig.value));
+    }
+  });
+
+  useTask$(async function selectEnabledTabTask({ track }) {
+    track(() => tabsInfoListStore.length);
+    let newIndex = selectedIndexSig.value;
+    const selectedTab = track(() => tabsInfoListStore[newIndex]);
+    if (!selectedTab) {
+      return;
+    }
+    if (!selectedTab?.disabled) {
+      return;
+    }
+
+    if (newIndex < 0) {
+      newIndex = 0;
+    }
+    if (newIndex >= tabsInfoListStore.length) {
+      newIndex = 0;
+    }
+    let enabledTabIndex = findNextEnabledTab(tabsInfoListStore, newIndex);
+    if (enabledTabIndex === -1) {
+      enabledTabIndex = findPreviousEnabledTab(tabsInfoListStore, newIndex);
+    }
+    newIndex = enabledTabIndex;
+
+    selectedIndexSig.value = newIndex;
+
+    function findNextEnabledTab(tabsStore: TabInfo[], index: number) {
+      for (let i = index; i < tabsStore.length; i++) {
+        if (!tabsStore[i].disabled) {
+          return i;
+        }
+      }
+      return -1;
+    }
+
+    function findPreviousEnabledTab(tabsStore: TabInfo[], index: number) {
+      for (let i = index; i >= 0; i--) {
+        if (!tabsStore[i].disabled) {
+          return i;
+        }
+      }
+      return -1;
     }
   });
 
   const selectTab$ = $((tabId: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const info = props._known![tabId];
-    if (!info || info.disabled) {
+    const foundTab = enabledTabsSig.value.find((tab) => tab.tabId === tabId);
+
+    if (!foundTab) {
       return;
     }
-    selectedIndexSig.value = info.index;
+    selectedIndexSig.value = foundTab.index;
   });
 
   const selectIfAutomatic$ = $((tabId: string) => {
@@ -103,40 +150,19 @@ export const TabsImpl = component$((props: TabsProps) => {
   });
 
   const updateTabState$ = $((tabId: string, state: Partial<TabInfo>) => {
-    const prevState = tabsMap[tabId];
-    tabsMap[tabId] = { ...prevState, ...state };
-  });
-
-  const getNextServerAssignedTabIndex$ = $(() => {
-    lastAssignedTabIndexSig.value++;
-    return lastAssignedTabIndexSig.value;
-  });
-
-  const getNextServerAssignedPanelIndex$ = $(() => {
-    lastAssignedPanelIndexSig.value++;
-    return lastAssignedPanelIndexSig.value;
-  });
-
-  const isIndexSelected$ = $((index?: number) => {
-    return selectedIndexSig.value === index;
-  });
-
-  const isTabSelected$ = $((tabId: string) => {
-    return selectedIndexSig.value === tabsMap[tabId]?.index;
-  });
-
-  const isPanelSelected$ = $((panelId: string) => {
-    return selectedIndexSig.value === tabPanelsMap[panelId]?.index;
+    const foundTabIndex = tabsInfoListStore.findIndex((tab) => tab.tabId === tabId);
+    if (foundTabIndex) {
+      const prevState = tabsInfoListStore[foundTabIndex];
+      tabsInfoListStore[foundTabIndex] = { ...prevState, ...state };
+    }
   });
 
   const onTabKeyDown$ = $((key: KeyCode, currentTabId: string) => {
     const tabsRootElement = ref.value;
 
-    const enabledTabs = tabPairsList.filter((tabPair) => {
-      return !tabsMap[tabPair.tabId].disabled;
-    });
+    const enabledTabs = enabledTabsSig.value;
     const currentFocusedTabIndex = enabledTabs.findIndex(
-      (tabPair) => tabPair.tabId === currentTabId
+      (tabData) => tabData.tabId === currentTabId
     );
 
     if (
@@ -180,230 +206,84 @@ export const TabsImpl = component$((props: TabsProps) => {
 
   const contextService: TabsContext = {
     selectTab$,
-    isTabSelected$,
-    isPanelSelected$,
+    tabsPrefix,
     updateTabState$,
-    getNextServerAssignedTabIndex$,
-    getNextServerAssignedPanelIndex$,
-    isIndexSelected$,
     onTabKeyDown$,
     selectIfAutomatic$,
+    selectedIndexSig,
     selectedClassName: props.selectedClassName
   };
 
   useContextProvider(tabsContextId, contextService);
 
-  const selectEnabledIndex$ = $((newIndex: number) => {
-    if (newIndex < 0) {
-      newIndex = 0;
-    }
-    if (newIndex >= tabPairsList.length) {
-      newIndex = 0;
-    }
-    let enabledTabIndex = findNextEnabledTab(tabPairsList, newIndex);
-    if (enabledTabIndex === -1) {
-      enabledTabIndex = findPreviousEnabledTab(tabPairsList, newIndex);
-    }
-    newIndex = enabledTabIndex;
-
-    selectedIndexSig.value = newIndex;
-
-    function findNextEnabledTab(tabPairsList: TabPair[], index: number) {
-      for (let i = index; i < tabPairsList.length; i++) {
-        const tabId = tabPairsList[i].tabId;
-        if (!tabsMap[tabId].disabled) {
-          return i;
-        }
-      }
-      return -1;
-    }
-
-    function findPreviousEnabledTab(tabPairsList: TabPair[], index: number) {
-      for (let i = Math.min(index, tabPairsList.length - 1); i >= 0; i--) {
-        const tabId = tabPairsList[i].tabId;
-        if (!tabsMap[tabId].disabled) {
-          return i;
-        }
-      }
-      return -1;
-    }
-  });
-
-  useVisibleTask$(async function buildTabsInfoVisibleTask({ track }) {
-    track(() => shouldReIndexTabsSig.value);
-
-    if (!shouldReIndexTabsSig.value) {
-      return;
-    }
-    shouldReIndexTabsSig.value = false;
-
-    if (!ref.value) {
-      return;
-    }
-
-    const [tabElements, tabPanelElements] = getTabsAndPanels();
-
-    // See if the deleted index was the last one
-    let lastTabWasSelectedPreviously = false;
-    if (selectedIndexSig.value === tabPairsList.length - 1) {
-      lastTabWasSelectedPreviously = true;
-    }
-
-    // clear all lists and maps
-    // TODO: delete object maps, or turn into Map()
-    tabPairsList.length = 0;
-
-    let deletedTabId: string | undefined = undefined;
-    let indexToBeSelected = selectedIndexSig.value;
-
-    tabElements.forEach((tab, index) => {
-      const tabId = tab.getAttribute('data-tab-id');
-      const isTabDisabled = tab.hasAttribute('disabled');
-
-      let thisTabWasDeleted = true;
-
-      if (selectedTabIdSig.value === '') {
-        thisTabWasDeleted = false;
-      } else if (selectedTabIdSig.value === tabId) {
-        indexToBeSelected = index;
-        thisTabWasDeleted = false;
-      }
-
-      const tabPanelId = getTabPanelId(tabPanelElements, index);
-
-      if (!tabId || !tabPanelId) {
-        throw new Error('Missing tab id or tab panel id for tab: ' + index);
-      }
-      tabPairsList.push({ tabId, tabPanelId });
-
-      tabsMap[tabId] = {
-        tabId,
-        tabPanelId,
-        index,
-        disabled: isTabDisabled
-      };
-
-      tabPanelsMap[tabPanelId] = {
-        tabId,
-        tabPanelId,
-        index
-      };
-
-      if (thisTabWasDeleted) {
-        deletedTabId = tabId;
-      }
-    });
-
-    if (tabPairsList.length > 0) {
-      if (lastTabWasSelectedPreviously && deletedTabId) {
-        indexToBeSelected = tabPairsList.length - 1;
-      }
-    }
-
-    await selectEnabledIndex$(indexToBeSelected);
-
-    function getTabsAndPanels() {
-      const tabsRootElement = ref.value!;
-      const tabListElement = tabsRootElement.querySelector('[role="tablist"]');
-      let tabElements: Element[] = [];
-      if (tabListElement) {
-        tabElements = Array.from(tabListElement?.children).filter((child) => {
-          return child.getAttribute('role') === 'tab';
-        });
-      }
-
-      let tabPanelElements: Element[] = [];
-      if (tabsRootElement.children) {
-        tabPanelElements = Array.from(tabsRootElement.children).filter((child) => {
-          return child.getAttribute('role') === 'tabpanel';
-        });
-      }
-      return [tabElements, tabPanelElements];
-    }
-
-    function getTabPanelId(tabPanelElements: Element[], index: number) {
-      const tabPanelElement = tabPanelElements[index];
-      if (!tabPanelElement) {
-        throw new Error('Missing tab panel for tab: ' + index);
-      }
-      return tabPanelElement.getAttribute('data-tabpanel-id');
-    }
-  });
-
   return (
     <div ref={ref} {...props}>
-      <div>Hi there</div>
       <Slot />
-      After
     </div>
   );
 });
 
-// TODO default classes
+// TODO: default classes
 export const Tabs: FunctionComponent<
-  Omit<PropsOf<typeof TabsImpl>, 'children'> & {
-    children: JSX.Element | JSX.Element[];
+  Omit<PropsOf<typeof TabsImpl>, 'children' | '_tabsInfoList'> & {
+    children: unknown | unknown[];
     tabClass?: ClassList;
     panelClass?: ClassList;
   }
 > = ({ children, tabClass, panelClass, ...props }) => {
-  console.log('START RENDER');
   children = Array.isArray(children) ? [...children] : [children];
-
-  let tabList: JSX.Element | undefined;
-  const tabs: JSX.Element[] = [];
-  const panels: JSX.Element[] = [];
-  const known: Record<string, TabInfo> = {};
+  const typedChildren = children as JSX.Element[];
+  let tabListElement: JSX.Element | undefined;
+  const tabComponents: JSX.Element[] = [];
+  const panelComponents: JSX.Element[] = [];
+  const tabsInfoList: TabInfo[] = [];
   let tabIndex = 0;
   let panelIndex = 0;
-  for (let i = 0; i < children.length; i++) {
-    const child = children[i];
+  for (let i = 0; i < typedChildren.length; i++) {
+    const child = typedChildren[i];
     if (!child) {
       continue;
     }
     if (Array.isArray(child)) {
-      children.splice(i + 1, 0, ...child);
+      typedChildren.splice(i + 1, 0, ...child);
       continue;
     }
-    // TODO handle tablist
+
     switch (child.type) {
       case TabList: {
-        tabList = child;
-        children.splice(i + 1, 0, ...child.props.children);
+        tabListElement = child;
+        typedChildren.splice(i + 1, 0, ...child.props.children);
         break;
       }
       case Tab: {
-        // TODO: check if in inline components it warns the dev to assign a key
-        const { key = tabIndex } = child.props;
-        console.log('TAB key', key, child.props);
-        tabs.push(child);
+        child.props.key ||= `${tabIndex}`;
+        tabComponents.push(child);
         tabIndex++;
-        console.log('tabIndex', tabIndex);
         break;
       }
       case TabPanel: {
         const { title, key = `${panelIndex}` } = child.props;
-        console.log('TAB PANEL key', key, child.props);
-        known[key] = { tabId: key, index: panelIndex };
+
+        tabsInfoList.push({ tabId: key, index: panelIndex });
         child.props = {
           ...props,
           title: undefined,
           key,
-          tabId: key,
-          index: panelIndex,
+          _tabId: key,
+          _index: panelIndex,
           class: [panelClass, child.props.class]
         };
         if (title) {
-          tabs.push(
-            <Tab class={tabClass} key={key} tabId={key}>
+          tabComponents.push(
+            <Tab class={tabClass} key={key} _tabId={key} _index={panelIndex}>
               {title}
             </Tab>
           );
           tabIndex++;
         }
-        panels.push(child);
+        panelComponents.push(child);
         panelIndex++;
-        console.log('panelIndex', panelIndex);
+
         break;
       }
       default: {
@@ -413,30 +293,33 @@ export const Tabs: FunctionComponent<
     }
   }
 
-  console.log(`tabIndex, panelIndex`, tabIndex, panelIndex);
   if (tabIndex !== panelIndex) {
     console.error(`mismatched number of tabs and panels: ${tabIndex} ${panelIndex}`);
   }
 
-  for (let index = 0; index < tabs.length; index++) {
-    const tab = tabs[index];
-    const key = panels[index as keyof typeof panels]?.props.key;
+  for (
+    let index: keyof typeof panelComponents = 0;
+    index < tabComponents.length;
+    index++
+  ) {
+    const tab = tabComponents[index];
+    const key = panelComponents[index]?.props.key;
     tab.props = {
       ...tab.props,
       key,
-      index,
-      tabId: key,
+      _index: index,
+      _tabId: key,
       class: [tabClass, tab.props.class]
     };
   }
 
-  tabList ||= <TabList />;
-  tabList.children = tabs;
+  tabListElement ||= <TabList />;
+  tabListElement.children = tabComponents;
 
   return (
-    <TabsImpl _known={known} {...props}>
-      {tabList}
-      {panels}
+    <TabsImpl _tabsInfoList={tabsInfoList} {...props}>
+      {tabListElement}
+      {panelComponents}
     </TabsImpl>
   );
 };

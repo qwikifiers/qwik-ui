@@ -2,68 +2,47 @@ import {
   QwikIntrinsicElements,
   Slot,
   component$,
-  useContext,
-  useId,
-  useSignal,
-  useTask$,
-  useVisibleTask$
+  useComputed$,
+  useContext
 } from '@builder.io/qwik';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
+import { TAB_ID_PREFIX } from './tab';
 import { tabsContextId } from './tabs-context-id';
 
 export type TabPanelProps = {
   /** @deprecated Internal use only */
-  tabId?: string;
+  _index?: number;
+  /** @deprecated Internal use only */
+  _tabId?: string;
 } & QwikIntrinsicElements['div'];
 
-export const TabPanel = component$(({ index, tabId, ...props }: TabPanelProps) => {
-  console.log('TabPanel', props);
+export const TAB_PANEL_ID_PREFIX = 'tabpanel-';
+
+export const TabPanel = component$(({ _index, _tabId, ...props }: TabPanelProps) => {
   const contextService = useContext(tabsContextId);
-  const isSelectedSig = useSignal(false);
-  const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
 
-  const panelUID = useId();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const tabId = _tabId!;
 
-  useTask$(async function initIndexTask({ cleanup }) {
-    if (isServer) {
-      serverAssignedIndexSig.value =
-        await contextService.getNextServerAssignedPanelIndex$();
-    }
-    if (isBrowser) {
-      contextService.reIndexTabs$();
-    }
-    cleanup(() => {
-      contextService.reIndexTabs$();
-    });
-  });
+  const fullPanelElementId = contextService.tabsPrefix + TAB_PANEL_ID_PREFIX + tabId;
+  const fullTabElementId = contextService.tabsPrefix + TAB_ID_PREFIX + tabId;
 
-  useTask$(async function isSelectedPanelTask({ track }) {
-    const isSelected = await track(() => contextService.isPanelSelected$(panelUID));
-
-    if (isServer) {
-      isSelectedSig.value = await contextService.isIndexSelected$(
-        serverAssignedIndexSig.value
-      );
-      return;
-    }
-
-    isSelectedSig.value = isSelected;
+  const isSelectedSig = useComputed$(() => {
+    return contextService.selectedIndexSig.value === _index;
   });
 
   return (
     <div
-      data-tabpanel-id={tabId}
-      id={'tabpanel-' + tabId}
+      data-tabpanel-id={fullPanelElementId}
+      id={fullPanelElementId}
       role="tabpanel"
       tabIndex={0}
       hidden={isSelectedSig.value ? (null as unknown as undefined) : true}
-      aria-labelledby={`tab-${tabId}`}
+      aria-labelledby={fullTabElementId}
       class={`${isSelectedSig.value ? '' : 'is-hidden'}${
         props.class ? ` ${props.class}` : ''
       }`}
       style={isSelectedSig.value ? 'display: block' : 'display: none'}
     >
-      panel
       <Slot />
     </div>
   );
