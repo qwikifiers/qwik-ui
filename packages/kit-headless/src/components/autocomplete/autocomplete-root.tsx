@@ -30,19 +30,19 @@ import { AutocompleteContext } from './autocomplete-context.type';
     
     https://thejackshelton.notion.site/Combobox-e82cae2325914c3c82d4cbfcab574825?pvs=4
 
-
+    
     Current thoughts for API implementation
 
-    <Autocomplete>
-        <AutocompleteLabel />
-        <AutocompleteTrigger>
-            <AutocompleteInput />
-            <AutocompleteButton />
-        </AutocompleteTrigger>
-        <AutoCompleteListbox>
-            <AutoCompleteOption />
-        </AutoCompleteListbox>
-    </Autocomplete>
+    <AutocompleteRoot>
+      <AutocompleteLabel />
+      <AutocompleteControl>
+          <AutocompleteInput />
+          <AutocompleteTrigger />
+      </AutocompleteControl>
+      <AutoCompleteListbox>
+          <AutoCompleteOption />
+      </AutoCompleteListbox>
+    </AutocompleteRoot>
 
     Side note: This is based off of both the ARIA combobox pattern linked above and headless UI
 
