@@ -93,7 +93,12 @@ export const Tabs: FunctionComponent<
     switch (child.type) {
       case TabList: {
         tabListElement = child;
-        typedChildren.splice(i + 1, 0, ...child.props.children);
+        const tabListChildren = Array.isArray(child.props.children)
+          ? child.props.children
+          : [child.props.children];
+
+        typedChildren.splice(i + 1, 0, ...tabListChildren);
+
         break;
       }
       case Tab: {
