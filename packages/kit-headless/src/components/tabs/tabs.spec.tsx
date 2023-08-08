@@ -100,7 +100,7 @@ describe('Tabs', () => {
     });
 
     it(`GIVEN 4 tabs
-        WHEN selecting the 3rd one and adding a tab at the start
+        WHEN selecting the 3rd one and adding a tab at the second one
         THEN the correct tab should be displayed`, () => {
       cy.mount(<DynamicTabsComponent tabsLength={4} tabIndexToAdd={1} />);
       cy.findByRole('tab', { name: /Dynamic Tab 3/i }).click();
@@ -617,10 +617,15 @@ describe('Tabs', () => {
               vertical={!!props.isVertical}
               style={{
                 display: 'flex',
-                flexDirection: props.isVertical ? 'column' : 'row'
+                flexDirection: props.isVertical ? 'row' : 'column'
               }}
             >
-              <TabList>
+              <TabList
+                style={{
+                  display: 'flex',
+                  flexDirection: props.isVertical ? 'column' : 'row'
+                }}
+              >
                 <Tab disabled={props.disabledIndex === 0}>Tab 1</Tab>
                 <Tab disabled={props.disabledIndex === 1 || isMiddleDisabledSig.value}>
                   Tab 2

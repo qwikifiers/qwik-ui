@@ -61,7 +61,7 @@ export const Tab = component$((props: TabProps) => {
     track(() => props.disabled);
 
     if (props.disabled) {
-      contextService.updateTabState$(tabId, { disabled: true });
+      contextService.disableTab$(tabId);
     }
   });
 

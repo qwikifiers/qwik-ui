@@ -65,6 +65,7 @@ export interface TabInfo {
 }
 
 // TODO: default classes
+// TODO: Add tests
 export const Tabs: FunctionComponent<
   Omit<PropsOf<typeof TabsImpl>, 'children' | '_tabsInfoList'> & {
     children: unknown | unknown[];
@@ -80,6 +81,18 @@ export const Tabs: FunctionComponent<
   const tabsInfoList: TabInfo[] = [];
   let tabIndex = 0;
   let panelIndex = 0;
+
+  const tabIds: string[] = [];
+
+  function getTabIdByIndex(index: number) {
+    if (tabIds[index]) {
+      return tabIds[index];
+    }
+    const newTabId = `${index}`; // Math.random().toString().split('.')[1];
+    tabIds.push(newTabId);
+    return newTabId;
+  }
+
   for (let i = 0; i < typedChildren.length; i++) {
     const child = typedChildren[i];
     if (!child) {
@@ -102,26 +115,29 @@ export const Tabs: FunctionComponent<
         break;
       }
       case Tab: {
+        const tabId = getTabIdByIndex(tabIndex);
         child.props.key ||= `${tabIndex}`;
         tabComponents.push(child);
-        tabsInfoList.push({ tabId: child.props.key, index: tabIndex, disabled: false });
+        tabsInfoList.push({ tabId, index: tabIndex, disabled: false });
         tabIndex++;
         break;
       }
       case TabPanel: {
+        const tabId = getTabIdByIndex(panelIndex);
         const { title, key = `${panelIndex}` } = child.props;
 
         child.props = {
           ...child.props,
           title: undefined,
           key,
-          _tabId: key,
+          _tabId: tabId,
           _index: panelIndex,
           class: [panelClass, child.props.class]
         };
         if (title) {
+          const tabKey = `tab${tabId}`;
           tabComponents.push(
-            <Tab class={tabClass} key={key} _tabId={key} _index={panelIndex}>
+            <Tab class={tabClass} key={tabKey} _tabId={tabId} _index={panelIndex}>
               {title}
             </Tab>
           );
@@ -143,18 +159,15 @@ export const Tabs: FunctionComponent<
     console.error(`mismatched number of tabs and panels: ${tabIndex} ${panelIndex}`);
   }
 
-  for (
-    let index: keyof typeof panelComponents = 0;
-    index < tabComponents.length;
-    index++
-  ) {
+  for (let index = 0; index < tabComponents.length; index++) {
+    const tabId = getTabIdByIndex(index);
     const tab = tabComponents[index];
     const key = panelComponents[index]?.props.key;
     tab.props = {
       ...tab.props,
       key,
       _index: index,
-      _tabId: key,
+      _tabId: tabId,
       class: [tabClass, tab.props.class]
     };
   }
@@ -165,7 +178,7 @@ export const Tabs: FunctionComponent<
   console.log('tabsInfoList', tabsInfoList);
   console.log('tabListElement.children', tabListElement.children);
   console.log('panelComponents', panelComponents);
-
+  console.log('==============');
   return (
     <TabsImpl _tabsInfoList={tabsInfoList} {...props}>
       {tabListElement}
@@ -180,11 +193,21 @@ export const TabsImpl = component$((props: TabsProps) => {
   const ref = useSignal<HTMLElement | undefined>();
 
   const initialSelectedIndexSig = useSignal(0);
+  // TODO: Add tests for bind
   const selectedIndexSig = props['bind:selectedIndex'] || initialSelectedIndexSig;
 
+  const lastSelectedTabSig = useSignal<TabInfo | undefined>();
+
   const tabsPrefix = useId();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const tabsInfoListStore = useStore<TabInfo[]>(props._tabsInfoList!);
+
+  const tabsInfoListStore = useStore<TabInfo[]>([]);
+  useTask$(function syncTabsInfoListTask({ track }) {
+    const tabsInfoList = track(() => props._tabsInfoList);
+    console.log('SYNC INFO LIST');
+    if (tabsInfoList) {
+      tabsInfoListStore.splice(0, tabsInfoListStore.length, ...tabsInfoList);
+    }
+  });
 
   const enabledTabsSig = useComputed$(() => {
     return tabsInfoListStore.filter((tab) => !tab.disabled);
@@ -194,36 +217,33 @@ export const TabsImpl = component$((props: TabsProps) => {
     selectedIndexSig.value = track(() => props.selectedIndex) || 0;
   });
 
-  useTask$(function callOnSelectedChangeTask({ track }) {
-    if (props.onSelectedIndexChange$) {
-      props.onSelectedIndexChange$(track(() => selectedIndexSig.value));
-    }
-  });
-
-  useTask$(async function selectEnabledTabTask({ track }) {
-    track(() => tabsInfoListStore.length);
-    let newIndex = selectedIndexSig.value;
-    const selectedTab = track(() => tabsInfoListStore[newIndex]);
-    if (!selectedTab) {
+  useTask$(function selectFirstEnabledTabTask({ track }) {
+    console.log('UPDATE SELECTED INDEX TASK', selectedIndexSig.value);
+    track(() => selectedIndexSig.value);
+    if (selectedIndexSig.value === -1) {
+      console.log('MINUS 1');
       return;
     }
-    if (!selectedTab?.disabled) {
+    if (selectedIndexSig.value >= tabsInfoListStore.length) {
+      selectedIndexSig.value = tabsInfoListStore.length - 1;
+      console.log('MORE THAN LENGTH');
       return;
     }
 
-    if (newIndex < 0) {
-      newIndex = 0;
+    if (tabsInfoListStore[selectedIndexSig.value].disabled) {
+      let enabledTabIndex = findNextEnabledTab(tabsInfoListStore, selectedIndexSig.value);
+      if (enabledTabIndex === -1) {
+        enabledTabIndex = findPreviousEnabledTab(
+          tabsInfoListStore,
+          selectedIndexSig.value
+        );
+      }
+      if (enabledTabIndex === -1) {
+        console.warn('no enabled tabs to select');
+      }
+      console.log('FINAL UPDATED INDEX: ', enabledTabIndex);
+      selectedIndexSig.value = enabledTabIndex;
     }
-    if (newIndex >= tabsInfoListStore.length) {
-      newIndex = 0;
-    }
-    let enabledTabIndex = findNextEnabledTab(tabsInfoListStore, newIndex);
-    if (enabledTabIndex === -1) {
-      enabledTabIndex = findPreviousEnabledTab(tabsInfoListStore, newIndex);
-    }
-    newIndex = enabledTabIndex;
-
-    selectedIndexSig.value = newIndex;
 
     function findNextEnabledTab(tabsStore: TabInfo[], index: number) {
       for (let i = index; i < tabsStore.length; i++) {
@@ -244,6 +264,45 @@ export const TabsImpl = component$((props: TabsProps) => {
     }
   });
 
+  useTask$(function callOnSelectedChangeTask({ track }) {
+    if (props.onSelectedIndexChange$) {
+      props.onSelectedIndexChange$(track(() => selectedIndexSig.value));
+    }
+  });
+
+  useTask$(function syncLastSelectedTab({ track }) {
+    console.log('COMPUTED tabsInfoListStore', tabsInfoListStore);
+    console.log('COMPUTED selectedIndexSig.value', selectedIndexSig.value);
+    track(() => selectedIndexSig.value);
+    lastSelectedTabSig.value = tabsInfoListStore[selectedIndexSig.value];
+  });
+
+  useTask$(async function updateSelectedIndexAfterTabListChangeTask({ track }) {
+    track(() => tabsInfoListStore.length);
+    console.log('tabsInfoListStore.length', tabsInfoListStore.length);
+    if (!lastSelectedTabSig.value) {
+      return;
+    }
+    const lastSelectedTabId = lastSelectedTabSig.value.tabId;
+    const lastSelectedTabIndex = lastSelectedTabSig.value.index;
+    console.log(
+      '*** lastSelectedTabId + index',
+      lastSelectedTabId,
+      lastSelectedTabIndex,
+      tabsInfoListStore
+    );
+    const foundUpdatedSelectedTabIndex = tabsInfoListStore.findIndex(
+      (tab) => tab.tabId === lastSelectedTabId
+    );
+    if (foundUpdatedSelectedTabIndex === -1) {
+      selectedIndexSig.value = lastSelectedTabIndex + 1;
+      console.log('UPDATED selectedIndexSig.value', selectedIndexSig.value);
+      return;
+    }
+    console.log('foundUpdatedSelectedTabIndex', foundUpdatedSelectedTabIndex);
+    selectedIndexSig.value = foundUpdatedSelectedTabIndex;
+  });
+
   const selectTab$ = $((tabId: string) => {
     const foundTab = enabledTabsSig.value.find((tab) => tab.tabId === tabId);
 
@@ -259,12 +318,10 @@ export const TabsImpl = component$((props: TabsProps) => {
     }
   });
 
-  const updateTabState$ = $((tabId: string, state: Partial<TabInfo>) => {
+  const disableTab$ = $((tabId: string) => {
     const foundTabIndex = tabsInfoListStore.findIndex((tab) => tab.tabId === tabId);
-    if (foundTabIndex) {
-      const prevState = tabsInfoListStore[foundTabIndex];
-      tabsInfoListStore[foundTabIndex] = { ...prevState, ...state };
-    }
+    tabsInfoListStore[foundTabIndex].disabled = true;
+    selectedIndexSig.value++;
   });
 
   const onTabKeyDown$ = $((key: KeyCode, currentTabId: string) => {
@@ -320,7 +377,7 @@ export const TabsImpl = component$((props: TabsProps) => {
   const contextService: TabsContext = {
     selectTab$,
     tabsPrefix,
-    updateTabState$,
+    disableTab$,
     onTabKeyDown$,
     selectIfAutomatic$,
     selectedIndexSig,
