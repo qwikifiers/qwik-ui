@@ -54,8 +54,6 @@ export type TabsProps = {
   selectedClassName?: string;
   onSelectedIndexChange$?: (index: number) => void;
   'bind:selectedIndex'?: Signal<number>;
-  /** @deprecated Internal use only */
-  _tabsInfoList?: TabInfo[];
 } & QwikIntrinsicElements['div'];
 
 export interface TabInfo {
@@ -82,24 +80,14 @@ export const Tabs: FunctionComponent<
   let tabIndex = 0;
   let panelIndex = 0;
 
-  const tabIds: string[] = [];
-
-  function getTabIdByIndex(index: number) {
-    if (tabIds[index]) {
-      return tabIds[index];
-    }
-    const newTabId = `${index}`; // Math.random().toString().split('.')[1];
-    tabIds.push(newTabId);
-    return newTabId;
-  }
-
-  for (let i = 0; i < typedChildren.length; i++) {
-    const child = typedChildren[i];
+  // Extract the Tab related components from the children
+  while (typedChildren.length) {
+    const child = typedChildren.shift();
     if (!child) {
       continue;
     }
     if (Array.isArray(child)) {
-      typedChildren.splice(i + 1, 0, ...child);
+      typedChildren.unshift(...child);
       continue;
     }
 
@@ -110,41 +98,34 @@ export const Tabs: FunctionComponent<
           ? child.props.children
           : [child.props.children];
 
-        typedChildren.splice(i + 1, 0, ...tabListChildren);
-
+        typedChildren.unshift(...tabListChildren);
         break;
       }
       case Tab: {
-        const tabId = getTabIdByIndex(tabIndex);
-        child.props.key ||= `${tabIndex}`;
         tabComponents.push(child);
-        tabsInfoList.push({ tabId, index: tabIndex, disabled: false });
         tabIndex++;
         break;
       }
       case TabPanel: {
-        const tabId = getTabIdByIndex(panelIndex);
-        const { title, key = `${panelIndex}` } = child.props;
+        const { title, key: tabId = `${panelIndex}` } = child.props;
+        console.log('panel keys', tabId, child.key);
+
+        if (title) {
+          tabComponents.push(<Tab>{title}</Tab>);
+          tabIndex++;
+        }
 
         child.props = {
           ...child.props,
           title: undefined,
-          key,
+          key: tabId,
           _tabId: tabId,
           _index: panelIndex,
-          class: [panelClass, child.props.class]
+          class: panelClass ? [panelClass, child.props.class] : child.props.class
         };
-        if (title) {
-          const tabKey = `tab${tabId}`;
-          tabComponents.push(
-            <Tab class={tabClass} key={tabKey} _tabId={tabId} _index={panelIndex}>
-              {title}
-            </Tab>
-          );
-          tabIndex++;
-        }
         panelComponents.push(child);
         panelIndex++;
+        tabsInfoList.push({ tabId, index: tabIndex });
 
         break;
       }
@@ -159,16 +140,19 @@ export const Tabs: FunctionComponent<
     console.error(`mismatched number of tabs and panels: ${tabIndex} ${panelIndex}`);
   }
 
-  for (let index = 0; index < tabComponents.length; index++) {
-    const tabId = getTabIdByIndex(index);
+  for (
+    let index: keyof typeof panelComponents = 0;
+    index < tabComponents.length;
+    index++
+  ) {
     const tab = tabComponents[index];
-    const key = panelComponents[index]?.props.key;
+    const tabId = panelComponents[index]?.props._tabId;
     tab.props = {
       ...tab.props,
-      key,
+      key: tabId,
       _index: index,
       _tabId: tabId,
-      class: [tabClass, tab.props.class]
+      class: tabClass ? [tabClass, tab.props.class] : tab.props.class
     };
   }
 
@@ -178,217 +162,210 @@ export const Tabs: FunctionComponent<
   console.log('tabsInfoList', tabsInfoList);
   console.log('tabListElement.children', tabListElement.children);
   console.log('panelComponents', panelComponents);
-  console.log('==============');
+
   return (
-    <TabsImpl _tabsInfoList={tabsInfoList} {...props}>
+    <TabsImpl _tabInfoList={tabsInfoList} {...props}>
       {tabListElement}
       {panelComponents}
     </TabsImpl>
   );
 };
 
-export const TabsImpl = component$((props: TabsProps) => {
-  const behavior = props.behavior ?? 'manual';
+export const TabsImpl = component$(
+  (props: TabsProps & { _tabInfoList?: TabInfo[] | undefined }) => {
+    const behavior = props.behavior ?? 'manual';
 
-  const ref = useSignal<HTMLElement | undefined>();
+    const ref = useSignal<HTMLElement | undefined>();
 
-  const initialSelectedIndexSig = useSignal(0);
-  // TODO: Add tests for bind
-  const selectedIndexSig = props['bind:selectedIndex'] || initialSelectedIndexSig;
+    const initialSelectedIndexSig = useSignal(0);
+    // TODO: Add tests for bind
+    const selectedIndexSig = props['bind:selectedIndex'] || initialSelectedIndexSig;
 
-  const lastSelectedTabSig = useSignal<TabInfo | undefined>();
+    const lastSelectedTabSig = useSignal<TabInfo | undefined>();
 
-  const tabsPrefix = useId();
+    const tabsPrefix = useId();
 
-  const tabsInfoListStore = useStore<TabInfo[]>([]);
-  useTask$(function syncTabsInfoListTask({ track }) {
-    const tabsInfoList = track(() => props._tabsInfoList);
-    console.log('SYNC INFO LIST');
-    if (tabsInfoList) {
-      tabsInfoListStore.splice(0, tabsInfoListStore.length, ...tabsInfoList);
-    }
-  });
+    const { _tabInfoList: tabsInfoList } = props as { _tabInfoList: TabInfo[] };
+    const disabledStore = useStore({});
 
-  const enabledTabsSig = useComputed$(() => {
-    return tabsInfoListStore.filter((tab) => !tab.disabled);
-  });
+    const enabledTabsSig = useComputed$(() => {
+      return tabsInfoList.filter((tab) => !tab.disabled);
+    });
 
-  useTask$(function syncPropSelectedIndexTask({ track }) {
-    selectedIndexSig.value = track(() => props.selectedIndex) || 0;
-  });
+    useTask$(function syncPropSelectedIndexTask({ track }) {
+      selectedIndexSig.value = track(() => props.selectedIndex) || 0;
+    });
 
-  useTask$(function selectFirstEnabledTabTask({ track }) {
-    console.log('UPDATE SELECTED INDEX TASK', selectedIndexSig.value);
-    track(() => selectedIndexSig.value);
-    if (selectedIndexSig.value === -1) {
-      console.log('MINUS 1');
-      return;
-    }
-    if (selectedIndexSig.value >= tabsInfoListStore.length) {
-      selectedIndexSig.value = tabsInfoListStore.length - 1;
-      console.log('MORE THAN LENGTH');
-      return;
-    }
-
-    if (tabsInfoListStore[selectedIndexSig.value].disabled) {
-      let enabledTabIndex = findNextEnabledTab(tabsInfoListStore, selectedIndexSig.value);
-      if (enabledTabIndex === -1) {
-        enabledTabIndex = findPreviousEnabledTab(
-          tabsInfoListStore,
-          selectedIndexSig.value
-        );
+    useTask$(function selectFirstEnabledTabTask({ track }) {
+      console.log('UPDATE SELECTED INDEX TASK', selectedIndexSig.value);
+      track(() => selectedIndexSig.value);
+      if (selectedIndexSig.value === -1) {
+        console.log('MINUS 1');
+        return;
       }
-      if (enabledTabIndex === -1) {
-        console.warn('no enabled tabs to select');
+      if (selectedIndexSig.value >= tabsInfoList.length) {
+        selectedIndexSig.value = tabsInfoList.length - 1;
+        console.log('MORE THAN LENGTH');
+        return;
       }
-      console.log('FINAL UPDATED INDEX: ', enabledTabIndex);
-      selectedIndexSig.value = enabledTabIndex;
-    }
 
-    function findNextEnabledTab(tabsStore: TabInfo[], index: number) {
-      for (let i = index; i < tabsStore.length; i++) {
-        if (!tabsStore[i].disabled) {
-          return i;
+      if (tabsInfoList[selectedIndexSig.value].disabled) {
+        let enabledTabIndex = findNextEnabledTab(tabsInfoList, selectedIndexSig.value);
+        if (enabledTabIndex === -1) {
+          enabledTabIndex = findPreviousEnabledTab(tabsInfoList, selectedIndexSig.value);
         }
-      }
-      return -1;
-    }
-
-    function findPreviousEnabledTab(tabsStore: TabInfo[], index: number) {
-      for (let i = index; i >= 0; i--) {
-        if (!tabsStore[i].disabled) {
-          return i;
+        if (enabledTabIndex === -1) {
+          console.warn('no enabled tabs to select');
         }
+        console.log('FINAL UPDATED INDEX: ', enabledTabIndex);
+        selectedIndexSig.value = enabledTabIndex;
       }
-      return -1;
-    }
-  });
 
-  useTask$(function callOnSelectedChangeTask({ track }) {
-    if (props.onSelectedIndexChange$) {
-      props.onSelectedIndexChange$(track(() => selectedIndexSig.value));
-    }
-  });
-
-  useTask$(function syncLastSelectedTab({ track }) {
-    console.log('COMPUTED tabsInfoListStore', tabsInfoListStore);
-    console.log('COMPUTED selectedIndexSig.value', selectedIndexSig.value);
-    track(() => selectedIndexSig.value);
-    lastSelectedTabSig.value = tabsInfoListStore[selectedIndexSig.value];
-  });
-
-  useTask$(async function updateSelectedIndexAfterTabListChangeTask({ track }) {
-    track(() => tabsInfoListStore.length);
-    console.log('tabsInfoListStore.length', tabsInfoListStore.length);
-    if (!lastSelectedTabSig.value) {
-      return;
-    }
-    const lastSelectedTabId = lastSelectedTabSig.value.tabId;
-    const lastSelectedTabIndex = lastSelectedTabSig.value.index;
-    console.log(
-      '*** lastSelectedTabId + index',
-      lastSelectedTabId,
-      lastSelectedTabIndex,
-      tabsInfoListStore
-    );
-    const foundUpdatedSelectedTabIndex = tabsInfoListStore.findIndex(
-      (tab) => tab.tabId === lastSelectedTabId
-    );
-    if (foundUpdatedSelectedTabIndex === -1) {
-      selectedIndexSig.value = lastSelectedTabIndex + 1;
-      console.log('UPDATED selectedIndexSig.value', selectedIndexSig.value);
-      return;
-    }
-    console.log('foundUpdatedSelectedTabIndex', foundUpdatedSelectedTabIndex);
-    selectedIndexSig.value = foundUpdatedSelectedTabIndex;
-  });
-
-  const selectTab$ = $((tabId: string) => {
-    const foundTab = enabledTabsSig.value.find((tab) => tab.tabId === tabId);
-
-    if (!foundTab) {
-      return;
-    }
-    selectedIndexSig.value = foundTab.index;
-  });
-
-  const selectIfAutomatic$ = $((tabId: string) => {
-    if (behavior === 'automatic') {
-      selectTab$(tabId);
-    }
-  });
-
-  const disableTab$ = $((tabId: string) => {
-    const foundTabIndex = tabsInfoListStore.findIndex((tab) => tab.tabId === tabId);
-    tabsInfoListStore[foundTabIndex].disabled = true;
-    selectedIndexSig.value++;
-  });
-
-  const onTabKeyDown$ = $((key: KeyCode, currentTabId: string) => {
-    const tabsRootElement = ref.value;
-
-    const enabledTabs = enabledTabsSig.value;
-    const currentFocusedTabIndex = enabledTabs.findIndex(
-      (tabData) => tabData.tabId === currentTabId
-    );
-
-    if (
-      (!props.vertical && key === KeyCode.ArrowRight) ||
-      (props.vertical && key === KeyCode.ArrowDown)
-    ) {
-      let nextTabId = enabledTabs[0].tabId;
-
-      if (currentFocusedTabIndex < enabledTabs.length - 1) {
-        nextTabId = enabledTabs[currentFocusedTabIndex + 1].tabId;
+      function findNextEnabledTab(tabsStore: TabInfo[], index: number) {
+        for (let i = index; i < tabsStore.length; i++) {
+          if (!tabsStore[i].disabled) {
+            return i;
+          }
+        }
+        return -1;
       }
-      focusOnTab(nextTabId);
-    }
 
-    if (
-      (!props.vertical && key === KeyCode.ArrowLeft) ||
-      (props.vertical && key === KeyCode.ArrowUp)
-    ) {
-      let previousTabId = enabledTabs[enabledTabs.length - 1].tabId;
-
-      if (currentFocusedTabIndex !== 0) {
-        previousTabId = enabledTabs[currentFocusedTabIndex - 1].tabId;
+      function findPreviousEnabledTab(tabsStore: TabInfo[], index: number) {
+        for (let i = index; i >= 0; i--) {
+          if (!tabsStore[i].disabled) {
+            return i;
+          }
+        }
+        return -1;
       }
-      focusOnTab(previousTabId);
-    }
+    });
 
-    if (key === KeyCode.Home || key === KeyCode.PageUp) {
-      const firstTabId = enabledTabs[0].tabId;
-      focusOnTab(firstTabId);
-    }
+    useTask$(function callOnSelectedChangeTask({ track }) {
+      if (props.onSelectedIndexChange$) {
+        props.onSelectedIndexChange$(track(() => selectedIndexSig.value));
+      }
+    });
 
-    if (key === KeyCode.End || key === KeyCode.PageDown) {
-      const lastTabId = enabledTabs[enabledTabs.length - 1].tabId;
-      focusOnTab(lastTabId);
-    }
+    useTask$(function syncLastSelectedTab({ track }) {
+      console.log('COMPUTED tabsInfoListStore', tabsInfoList);
+      console.log('COMPUTED selectedIndexSig.value', selectedIndexSig.value);
+      track(() => selectedIndexSig.value);
+      lastSelectedTabSig.value = tabsInfoList[selectedIndexSig.value];
+    });
 
-    function focusOnTab(tabId: string) {
-      const fullTabElementId = tabsPrefix + TAB_ID_PREFIX + tabId;
-      tabsRootElement
-        ?.querySelector<HTMLElement>(`[data-tab-id='${fullTabElementId}']`)
-        ?.focus();
-    }
-  });
+    useTask$(async function updateSelectedIndexAfterTabListChangeTask({ track }) {
+      track(() => tabsInfoList.length);
+      console.log('tabsInfoListStore.length', tabsInfoList.length);
+      if (!lastSelectedTabSig.value) {
+        return;
+      }
+      const lastSelectedTabId = lastSelectedTabSig.value.tabId;
+      const lastSelectedTabIndex = lastSelectedTabSig.value.index;
+      console.log(
+        '*** lastSelectedTabId + index',
+        lastSelectedTabId,
+        lastSelectedTabIndex,
+        tabsInfoList
+      );
+      const foundUpdatedSelectedTabIndex = tabsInfoList.findIndex(
+        (tab) => tab.tabId === lastSelectedTabId
+      );
+      if (foundUpdatedSelectedTabIndex === -1) {
+        selectedIndexSig.value = lastSelectedTabIndex + 1;
+        console.log('UPDATED selectedIndexSig.value', selectedIndexSig.value);
+        return;
+      }
+      console.log('foundUpdatedSelectedTabIndex', foundUpdatedSelectedTabIndex);
+      selectedIndexSig.value = foundUpdatedSelectedTabIndex;
+    });
 
-  const contextService: TabsContext = {
-    selectTab$,
-    tabsPrefix,
-    disableTab$,
-    onTabKeyDown$,
-    selectIfAutomatic$,
-    selectedIndexSig,
-    selectedClassName: props.selectedClassName
-  };
+    const selectTab$ = $((tabId: string) => {
+      const foundTab = enabledTabsSig.value.find((tab) => tab.tabId === tabId);
 
-  useContextProvider(tabsContextId, contextService);
+      if (!foundTab) {
+        return;
+      }
+      selectedIndexSig.value = foundTab.index;
+    });
 
-  return (
-    <div ref={ref} {...props}>
-      <Slot />
-    </div>
-  );
-});
+    const selectIfAutomatic$ = $((tabId: string) => {
+      if (behavior === 'automatic') {
+        selectTab$(tabId);
+      }
+    });
+
+    const disableTab$ = $((tabId: string) => {
+      const foundTabIndex = tabsInfoList.findIndex((tab) => tab.tabId === tabId);
+      tabsInfoList[foundTabIndex].disabled = true;
+      selectedIndexSig.value++;
+    });
+
+    const onTabKeyDown$ = $((key: KeyCode, currentTabId: string) => {
+      const tabsRootElement = ref.value;
+
+      const enabledTabs = enabledTabsSig.value;
+      const currentFocusedTabIndex = enabledTabs.findIndex(
+        (tabData) => tabData.tabId === currentTabId
+      );
+
+      if (
+        (!props.vertical && key === KeyCode.ArrowRight) ||
+        (props.vertical && key === KeyCode.ArrowDown)
+      ) {
+        let nextTabId = enabledTabs[0].tabId;
+
+        if (currentFocusedTabIndex < enabledTabs.length - 1) {
+          nextTabId = enabledTabs[currentFocusedTabIndex + 1].tabId;
+        }
+        focusOnTab(nextTabId);
+      }
+
+      if (
+        (!props.vertical && key === KeyCode.ArrowLeft) ||
+        (props.vertical && key === KeyCode.ArrowUp)
+      ) {
+        let previousTabId = enabledTabs[enabledTabs.length - 1].tabId;
+
+        if (currentFocusedTabIndex !== 0) {
+          previousTabId = enabledTabs[currentFocusedTabIndex - 1].tabId;
+        }
+        focusOnTab(previousTabId);
+      }
+
+      if (key === KeyCode.Home || key === KeyCode.PageUp) {
+        const firstTabId = enabledTabs[0].tabId;
+        focusOnTab(firstTabId);
+      }
+
+      if (key === KeyCode.End || key === KeyCode.PageDown) {
+        const lastTabId = enabledTabs[enabledTabs.length - 1].tabId;
+        focusOnTab(lastTabId);
+      }
+
+      function focusOnTab(tabId: string) {
+        const fullTabElementId = tabsPrefix + TAB_ID_PREFIX + tabId;
+        tabsRootElement
+          ?.querySelector<HTMLElement>(`[data-tab-id='${fullTabElementId}']`)
+          ?.focus();
+      }
+    });
+
+    const contextService: TabsContext = {
+      selectTab$,
+      tabsPrefix,
+      disableTab$,
+      onTabKeyDown$,
+      selectIfAutomatic$,
+      selectedIndexSig,
+      selectedClassName: props.selectedClassName
+    };
+
+    useContextProvider(tabsContextId, contextService);
+
+    return (
+      <div ref={ref} {...props}>
+        <Slot />
+      </div>
+    );
+  }
+);
