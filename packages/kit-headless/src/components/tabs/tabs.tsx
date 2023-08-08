@@ -22,6 +22,7 @@ import { TabPanel } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
 import { TabList } from './tabs-list';
+import { JSXNode } from '@builder.io/qwik';
 
 /**
  * TABS TODOs
@@ -59,20 +60,20 @@ export type TabsProps = {
 export interface TabInfo {
   tabId: string;
   index: number;
-  disabled?: boolean;
 }
 
 // TODO: default classes
 // TODO: Add tests
 export const Tabs: FunctionComponent<
   Omit<PropsOf<typeof TabsImpl>, 'children' | '_tabsInfoList'> & {
-    children: unknown | unknown[];
+    children: unknown;
     tabClass?: ClassList;
     panelClass?: ClassList;
   }
-> = ({ children, tabClass, panelClass, ...props }) => {
-  children = Array.isArray(children) ? [...children] : [children];
-  const typedChildren = children as JSX.Element[];
+> = ({ children: myChildren, tabClass, panelClass, ...props }) => {
+  const toProcess = (
+    Array.isArray(myChildren) ? [...myChildren] : [myChildren]
+  ) as JSXNode[];
   let tabListElement: JSX.Element | undefined;
   const tabComponents: JSX.Element[] = [];
   const panelComponents: JSX.Element[] = [];
@@ -81,13 +82,13 @@ export const Tabs: FunctionComponent<
   let panelIndex = 0;
 
   // Extract the Tab related components from the children
-  while (typedChildren.length) {
-    const child = typedChildren.shift();
+  while (toProcess.length) {
+    const child = toProcess.shift();
     if (!child) {
       continue;
     }
     if (Array.isArray(child)) {
-      typedChildren.unshift(...child);
+      toProcess.unshift(...child);
       continue;
     }
 
@@ -98,7 +99,7 @@ export const Tabs: FunctionComponent<
           ? child.props.children
           : [child.props.children];
 
-        typedChildren.unshift(...tabListChildren);
+        toProcess.unshift(...tabListChildren);
         break;
       }
       case Tab: {
@@ -107,25 +108,26 @@ export const Tabs: FunctionComponent<
         break;
       }
       case TabPanel: {
-        const { title, key: tabId = `${panelIndex}` } = child.props;
-        console.log('panel keys', tabId, child.key);
+        const { title, ...props } = child.props;
+        const tabId = child.key || `${panelIndex}`;
 
         if (title) {
           tabComponents.push(<Tab>{title}</Tab>);
           tabIndex++;
         }
-
+        child.key = tabId;
         child.props = {
-          ...child.props,
-          title: undefined,
-          key: tabId,
+          ...props,
           _tabId: tabId,
-          _index: panelIndex,
-          class: panelClass ? [panelClass, child.props.class] : child.props.class
+          _index: panelIndex
         };
+        if (panelClass) {
+          // TODO handle signal class, probably best to pass _extraClass so the signal is used in the component
+          child.props.class = [panelClass, child.props.class];
+        }
         panelComponents.push(child);
         panelIndex++;
-        tabsInfoList.push({ tabId, index: tabIndex });
+        tabsInfoList.push({ tabId, index: panelIndex });
 
         break;
       }
@@ -140,23 +142,23 @@ export const Tabs: FunctionComponent<
     console.error(`mismatched number of tabs and panels: ${tabIndex} ${panelIndex}`);
   }
 
-  for (
-    let index: keyof typeof panelComponents = 0;
-    index < tabComponents.length;
-    index++
-  ) {
-    const tab = tabComponents[index];
-    const tabId = panelComponents[index]?.props._tabId;
+  tabComponents.forEach((tab, index) => {
+    const tabId = tabsInfoList[index]?.tabId;
+    tab.key = tabId;
     tab.props = {
       ...tab.props,
-      key: tabId,
       _index: index,
       _tabId: tabId,
       class: tabClass ? [tabClass, tab.props.class] : tab.props.class
     };
-  }
+    if (tabClass) {
+      // TODO handle signal class, probably best to pass _extraClass so the signal is used in the component
+      tab.props.class = [tabClass, tab.props.class];
+    }
+  });
 
   tabListElement ||= <TabList />;
+  tabListElement.props.children = tabComponents;
   tabListElement.children = tabComponents;
 
   console.log('tabsInfoList', tabsInfoList);
@@ -186,10 +188,10 @@ export const TabsImpl = component$(
     const tabsPrefix = useId();
 
     const { _tabInfoList: tabsInfoList } = props as { _tabInfoList: TabInfo[] };
-    const disabledStore = useStore({});
+    const disabledStore = useStore<Record<string, boolean>>({});
 
     const enabledTabsSig = useComputed$(() => {
-      return tabsInfoList.filter((tab) => !tab.disabled);
+      return tabsInfoList.filter((tab) => !disabledStore[tab.tabId]);
     });
 
     useTask$(function syncPropSelectedIndexTask({ track }) {
@@ -209,7 +211,7 @@ export const TabsImpl = component$(
         return;
       }
 
-      if (tabsInfoList[selectedIndexSig.value].disabled) {
+      if (disabledStore[tabsInfoList[selectedIndexSig.value].tabId]) {
         let enabledTabIndex = findNextEnabledTab(tabsInfoList, selectedIndexSig.value);
         if (enabledTabIndex === -1) {
           enabledTabIndex = findPreviousEnabledTab(tabsInfoList, selectedIndexSig.value);
@@ -222,8 +224,9 @@ export const TabsImpl = component$(
       }
 
       function findNextEnabledTab(tabsStore: TabInfo[], index: number) {
+        tabsInfoList.findIndex((tab) => !disabledStore[tab.tabId]);
         for (let i = index; i < tabsStore.length; i++) {
-          if (!tabsStore[i].disabled) {
+          if (!disabledStore[tabsStore[i].tabId]) {
             return i;
           }
         }
@@ -232,7 +235,7 @@ export const TabsImpl = component$(
 
       function findPreviousEnabledTab(tabsStore: TabInfo[], index: number) {
         for (let i = index; i >= 0; i--) {
-          if (!tabsStore[i].disabled) {
+          if (!disabledStore[tabsStore[i].tabId]) {
             return i;
           }
         }
@@ -282,10 +285,9 @@ export const TabsImpl = component$(
     const selectTab$ = $((tabId: string) => {
       const foundTab = enabledTabsSig.value.find((tab) => tab.tabId === tabId);
 
-      if (!foundTab) {
-        return;
+      if (foundTab) {
+        selectedIndexSig.value = foundTab.index;
       }
-      selectedIndexSig.value = foundTab.index;
     });
 
     const selectIfAutomatic$ = $((tabId: string) => {
@@ -294,9 +296,9 @@ export const TabsImpl = component$(
       }
     });
 
-    const disableTab$ = $((tabId: string) => {
+    const setTabDisabled$ = $((tabId: string, disabled: boolean) => {
       const foundTabIndex = tabsInfoList.findIndex((tab) => tab.tabId === tabId);
-      tabsInfoList[foundTabIndex].disabled = true;
+      disabledStore[tabsInfoList[foundTabIndex].tabId] = disabled;
       selectedIndexSig.value++;
     });
 
@@ -353,7 +355,7 @@ export const TabsImpl = component$(
     const contextService: TabsContext = {
       selectTab$,
       tabsPrefix,
-      disableTab$,
+      setTabDisabled$,
       onTabKeyDown$,
       selectIfAutomatic$,
       selectedIndexSig,

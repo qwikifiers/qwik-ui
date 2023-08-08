@@ -58,11 +58,7 @@ export const Tab = component$((props: TabProps) => {
   });
 
   useTask$(function disabledTask({ track }) {
-    track(() => props.disabled);
-
-    if (props.disabled) {
-      contextService.disableTab$(tabId);
-    }
+    contextService.setTabDisabled$(tabId, !!track(() => props.disabled));
   });
 
   useVisibleTask$(function preventDefaultOnKeysVisibleTask({ cleanup }) {

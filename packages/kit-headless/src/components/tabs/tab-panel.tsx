@@ -7,6 +7,7 @@ import {
 } from '@builder.io/qwik';
 import { TAB_ID_PREFIX } from './tab';
 import { tabsContextId } from './tabs-context-id';
+import { Signal } from '@builder.io/qwik';
 
 export type TabPanelProps = {
   /** @deprecated Internal use only */
@@ -38,9 +39,11 @@ export const TabPanel = component$(({ _index, _tabId, ...props }: TabPanelProps)
       tabIndex={0}
       hidden={isSelectedSig.value ? (null as unknown as undefined) : true}
       aria-labelledby={fullTabElementId}
-      class={`${isSelectedSig.value ? '' : 'is-hidden'}${
-        props.class ? ` ${props.class}` : ''
-      }`}
+      class={[
+        (props.class as Signal<string>)?.value ?? (props.class as string),
+        isSelectedSig.value && 'is-hidden'
+      ]}
+      // TODO require to do this via CSS in non-headless wrappers
       style={isSelectedSig.value ? 'display: block' : 'display: none'}
     >
       <Slot />
