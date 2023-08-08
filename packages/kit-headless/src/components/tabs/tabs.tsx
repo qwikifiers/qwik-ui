@@ -17,7 +17,7 @@ import {
 import { JSX } from '@builder.io/qwik/jsx-runtime';
 import { KeyCode } from '../../utils/key-code.type';
 import { Behavior } from './behavior.type';
-import { Tab } from './tab';
+import { TAB_ID_PREFIX, Tab } from './tab';
 import { TabPanel } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
@@ -63,6 +63,111 @@ export interface TabInfo {
   index: number;
   disabled?: boolean;
 }
+
+// TODO: default classes
+export const Tabs: FunctionComponent<
+  Omit<PropsOf<typeof TabsImpl>, 'children' | '_tabsInfoList'> & {
+    children: unknown | unknown[];
+    tabClass?: ClassList;
+    panelClass?: ClassList;
+  }
+> = ({ children, tabClass, panelClass, ...props }) => {
+  children = Array.isArray(children) ? [...children] : [children];
+  const typedChildren = children as JSX.Element[];
+  let tabListElement: JSX.Element | undefined;
+  const tabComponents: JSX.Element[] = [];
+  const panelComponents: JSX.Element[] = [];
+  const tabsInfoList: TabInfo[] = [];
+  let tabIndex = 0;
+  let panelIndex = 0;
+  for (let i = 0; i < typedChildren.length; i++) {
+    const child = typedChildren[i];
+    if (!child) {
+      continue;
+    }
+    if (Array.isArray(child)) {
+      typedChildren.splice(i + 1, 0, ...child);
+      continue;
+    }
+
+    switch (child.type) {
+      case TabList: {
+        tabListElement = child;
+        typedChildren.splice(i + 1, 0, ...child.props.children);
+        break;
+      }
+      case Tab: {
+        child.props.key ||= `${tabIndex}`;
+        tabComponents.push(child);
+        tabsInfoList.push({ tabId: child.props.key, index: tabIndex, disabled: false });
+        tabIndex++;
+        break;
+      }
+      case TabPanel: {
+        const { title, key = `${panelIndex}` } = child.props;
+
+        child.props = {
+          ...child.props,
+          title: undefined,
+          key,
+          _tabId: key,
+          _index: panelIndex,
+          class: [panelClass, child.props.class]
+        };
+        if (title) {
+          tabComponents.push(
+            <Tab class={tabClass} key={key} _tabId={key} _index={panelIndex}>
+              {title}
+            </Tab>
+          );
+          tabIndex++;
+        }
+        panelComponents.push(child);
+        panelIndex++;
+
+        break;
+      }
+      default: {
+        console.error('unknown type', String(child.type));
+        // throw new TypeError(`Tabs can't handle the given children`);
+      }
+    }
+  }
+
+  if (tabIndex !== panelIndex) {
+    console.error(`mismatched number of tabs and panels: ${tabIndex} ${panelIndex}`);
+  }
+
+  for (
+    let index: keyof typeof panelComponents = 0;
+    index < tabComponents.length;
+    index++
+  ) {
+    const tab = tabComponents[index];
+    const key = panelComponents[index]?.props.key;
+    tab.props = {
+      ...tab.props,
+      key,
+      _index: index,
+      _tabId: key,
+      class: [tabClass, tab.props.class]
+    };
+  }
+
+  tabListElement ||= <TabList />;
+  tabListElement.children = tabComponents;
+
+  console.log('tabsInfoList', tabsInfoList);
+  console.log('tabListElement.children', tabListElement.children);
+  console.log('panelComponents', panelComponents);
+
+  return (
+    <TabsImpl _tabsInfoList={tabsInfoList} {...props}>
+      {tabListElement}
+      {panelComponents}
+    </TabsImpl>
+  );
+};
 
 export const TabsImpl = component$((props: TabsProps) => {
   const behavior = props.behavior ?? 'manual';
@@ -200,7 +305,10 @@ export const TabsImpl = component$((props: TabsProps) => {
     }
 
     function focusOnTab(tabId: string) {
-      tabsRootElement?.querySelector<HTMLElement>(`[data-tab-id='${tabId}']`)?.focus();
+      const fullTabElementId = tabsPrefix + TAB_ID_PREFIX + tabId;
+      tabsRootElement
+        ?.querySelector<HTMLElement>(`[data-tab-id='${fullTabElementId}']`)
+        ?.focus();
     }
   });
 
@@ -222,104 +330,3 @@ export const TabsImpl = component$((props: TabsProps) => {
     </div>
   );
 });
-
-// TODO: default classes
-export const Tabs: FunctionComponent<
-  Omit<PropsOf<typeof TabsImpl>, 'children' | '_tabsInfoList'> & {
-    children: unknown | unknown[];
-    tabClass?: ClassList;
-    panelClass?: ClassList;
-  }
-> = ({ children, tabClass, panelClass, ...props }) => {
-  children = Array.isArray(children) ? [...children] : [children];
-  const typedChildren = children as JSX.Element[];
-  let tabListElement: JSX.Element | undefined;
-  const tabComponents: JSX.Element[] = [];
-  const panelComponents: JSX.Element[] = [];
-  const tabsInfoList: TabInfo[] = [];
-  let tabIndex = 0;
-  let panelIndex = 0;
-  for (let i = 0; i < typedChildren.length; i++) {
-    const child = typedChildren[i];
-    if (!child) {
-      continue;
-    }
-    if (Array.isArray(child)) {
-      typedChildren.splice(i + 1, 0, ...child);
-      continue;
-    }
-
-    switch (child.type) {
-      case TabList: {
-        tabListElement = child;
-        typedChildren.splice(i + 1, 0, ...child.props.children);
-        break;
-      }
-      case Tab: {
-        child.props.key ||= `${tabIndex}`;
-        tabComponents.push(child);
-        tabIndex++;
-        break;
-      }
-      case TabPanel: {
-        const { title, key = `${panelIndex}` } = child.props;
-
-        tabsInfoList.push({ tabId: key, index: panelIndex });
-        child.props = {
-          ...props,
-          title: undefined,
-          key,
-          _tabId: key,
-          _index: panelIndex,
-          class: [panelClass, child.props.class]
-        };
-        if (title) {
-          tabComponents.push(
-            <Tab class={tabClass} key={key} _tabId={key} _index={panelIndex}>
-              {title}
-            </Tab>
-          );
-          tabIndex++;
-        }
-        panelComponents.push(child);
-        panelIndex++;
-
-        break;
-      }
-      default: {
-        console.error('unknown type', String(child.type));
-        // throw new TypeError(`Tabs can't handle the given children`);
-      }
-    }
-  }
-
-  if (tabIndex !== panelIndex) {
-    console.error(`mismatched number of tabs and panels: ${tabIndex} ${panelIndex}`);
-  }
-
-  for (
-    let index: keyof typeof panelComponents = 0;
-    index < tabComponents.length;
-    index++
-  ) {
-    const tab = tabComponents[index];
-    const key = panelComponents[index]?.props.key;
-    tab.props = {
-      ...tab.props,
-      key,
-      _index: index,
-      _tabId: key,
-      class: [tabClass, tab.props.class]
-    };
-  }
-
-  tabListElement ||= <TabList />;
-  tabListElement.children = tabComponents;
-
-  return (
-    <TabsImpl _tabsInfoList={tabsInfoList} {...props}>
-      {tabListElement}
-      {panelComponents}
-    </TabsImpl>
-  );
-};

@@ -101,9 +101,13 @@ export const Tab = component$((props: TabProps) => {
         (props.class as Signal<string>)?.value ?? (props.class as string),
         isSelectedSig.value && ['selected', selectedClassNameSig.value]
       ]}
-      onClick$={[props.onClick$, () => contextService.selectTab$(tabId)]}
+      onClick$={async (event) => {
+        await contextService.selectTab$(tabId);
+        if (props.onClick$) {
+          await props.onClick$(event);
+        }
+      }}
     >
-      Tab
       <Slot />
     </button>
   );

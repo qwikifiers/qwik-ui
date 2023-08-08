@@ -11,7 +11,7 @@ describe('Tabs', () => {
     cy.checkA11yForComponent();
   });
 
-  it.only(`GIVEN 3 tabs
+  it(`GIVEN 3 tabs
       WHEN clicking the middle one
       THEN render the middle panel`, () => {
     cy.mount(<ThreeTabsComponent />);
