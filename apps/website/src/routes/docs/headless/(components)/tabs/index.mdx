@@ -110,21 +110,25 @@ You can disable a tab by setting the `disabled` prop to true.
 
 <DisabledTabsExample>
   ```tsx
-  <Tabs>
     <h3>Dad jokes</h3>
-    <TabList>
-      <Tab disabled={true}>Disabled Tab</Tab>
-      <Tab>Joke 2</Tab>
-      <Tab>Joke 3</Tab>
-      <Tab>Joke 4</Tab>
-    </TabList>
-    <TabPanel>
-      "What did the coffee report to the police", " A mugging."
-    </TabPanel>
-    <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
-    <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
-    <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
-  </Tabs>
+    <Tabs>
+      <TabList>
+        <Tab
+          class="aria-disabled:cursor-not-allowed"
+          style="width: 25%"
+          disabled={true}
+        >
+          Disabled Tab
+        </Tab>
+        <Tab style="width: 25%">Joke 2</Tab>
+        <Tab style="width: 25%">Joke 3</Tab>
+        <Tab style="width: 25%">Joke 4</Tab>
+      </TabList>
+      <TabPanel>"What did the coffee report to the police", " A mugging."</TabPanel>
+      <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
+      <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
+      <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
+    </Tabs>
   ```
 </DisabledTabsExample>
 
@@ -198,7 +202,7 @@ const tabsState = useStore([
 ]);
 
 return <>
-  
+
   <Tabs>
     <TabList>
       {tabsState.map((tab) => (
@@ -263,6 +267,10 @@ return <div>
 </div>
 ```
 </OnSelectedIndexChangeTabsExample>
+
+## bind:selectedIndex
+
+You can provide a signal for the selected index with the `bind:selectedIndex={yourSignal}` and it will be used directly. This is a more efficient version of `onSelectedIndexChange$`.
 
 ## onClick$
 

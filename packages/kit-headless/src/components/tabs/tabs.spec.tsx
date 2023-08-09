@@ -486,6 +486,10 @@ describe('Tabs', () => {
       cy.mount(<PotentiallyDisabledThreeTabs disabledIndex={0} />);
 
       cy.findByRole('tabpanel').should('contain', 'Panel 2');
+
+      cy.findByRole('tab', { name: /Tab 1/ })
+        .debug()
+        .should('not.have.class', 'selected');
     });
 
     it(`GIVEN 5 tabs with tab 3 selected and tabs 3-5 are disabled
