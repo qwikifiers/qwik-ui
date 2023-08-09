@@ -35,26 +35,9 @@
 
 </details>
 
-## ⚠ This is not ready for production!
-
-This library is still in early stages and once we'll collect enough feedback from the community we'll release the first beta version.
-
-### ROADMAP
-
-- [ ] Deploy the documentation site
-  - [ ] Add "Readiness" statuses to the components
-  - [ ] Add a getting started video tutorial
-  - [ ] Make a public storybook url
-- [ ] Deploy the tailwind-kit package
-- [ ] Cover all of the components with storybook tests
-- [ ] Add testing coverage reports
-- [ ] Add a contribution tutorial video
-
 <br/>
 
 ## Installation of the headless components
-
-> Please create issue if you encounter bugs.
 
 ```console
 
@@ -62,6 +45,23 @@ npm install -D @qwik-ui/headless
 ```
 
 <br/>
+
+## Components Status
+
+### Headless Kit
+
+| Component                                                     | Planned | Draft (Alpha) | Beta | Stable |
+| :------------------------------------------------------------ | :-----: | ------------- | ---- | ------ |
+| [Accordion](https://qwikui.com/docs/headless/accordion)       |         |               | ✅   |        |
+| [Autocomplete](https://qwikui.com/docs/headless/autocomplete) |         | ✅            |      |        |
+| Carousel                                                      |   ✅    |               |      |        |
+| Dialog                                                        |   ✅    |               |      |        |
+| Pagination                                                    |   ✅    |               |      |        |
+| [Popover](https://qwikui.com/docs/headless/popover)           |         | ✅            |      |        |
+| [Select](https://qwikui.com/docs/headless/select)             |         | ✅            |      |        |
+| [Tabs](https://qwikui.com/docs/headless/tabs)                 |         |               | ✅   |        |
+| [Toggle](https://qwikui.com/docs/headless/toggle)             |   ✅    |               |      |        |
+| [Tooltip](https://qwikui.com/docs/headless/tooltip)           |         | ✅            |      |        |
 
 ## Contributing
 

@@ -42,10 +42,10 @@ export const statusByComponent: ComponentKitsStatuses = {
     Accordion: ComponentStatus.Beta,
     Autocomplete: ComponentStatus.Draft,
     Carousel: ComponentStatus.Planned,
-    Popover: ComponentStatus.Planned,
+    Popover: ComponentStatus.Draft,
     Select: ComponentStatus.Draft,
     Tabs: ComponentStatus.Beta,
     Toggle: ComponentStatus.Planned,
-    Tooltip: ComponentStatus.Planned
+    Tooltip: ComponentStatus.Draft
   }
 };
