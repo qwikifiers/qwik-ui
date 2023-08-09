@@ -49,6 +49,8 @@ import { APITable } from '../../../_components/api-table/api-table';
 
 ## Building blocks
 
+### The full version
+
   <CodeExample>
     ```tsx
     import { component$ } from '@builder.io/qwik';
@@ -75,6 +77,31 @@ import { APITable } from '../../../_components/api-table/api-table';
     ```
 
   </CodeExample>
+
+### The short version
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Tabs, TabPanel,  } from '@qwik-ui/headless';
+
+    export default component$(() => {
+
+      return (
+        <>
+          <Tabs>
+            <TabPanel title="Tab 1">Content 1</TabPanel>
+            <TabPanel title="Tab 2">Content 2</TabPanel>
+            <TabPanel title="Tab 3">Content 3</TabPanel>
+          </Tabs>
+        </>
+      );
+    });
+    ```
+
+  </CodeExample>
+
+> The "short version" 👆 will be automatically transformed into the full ARIA compliant version
 
 ## Vertical
 
