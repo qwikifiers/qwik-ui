@@ -23,17 +23,10 @@
 
 </div>
 <br>
-<details>
-<summary>Table of Contents</summary>
 
-- [Installation of the headless components](#installation-of-the-headless-components)
-- [Contributing](#contributing)
-- [Code Of Conduct](#code-of-conduct)
-- [Contributors](#contributors)
-- [Related Links](#related-links)
-- [License](#license)
+## Documentation
 
-</details>
+To read the complete docs, please visit [qwikui.com](https://qwikui.com)
 
 <br/>
 
