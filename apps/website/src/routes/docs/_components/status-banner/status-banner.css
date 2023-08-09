@@ -1,0 +1,54 @@
+.normal-state {
+  transition: margin-top 0.5s ease;
+}
+
+/* 
+  if you see these media queries I'm sorry xd. Normally, you would use a transform here, since it reflects the elements size, but margin-top affects the siblig elements, and is the only way I can animate the upwards slide (without JS) in this component.
+
+  I could do it with JS using RequestAnimationFrame
+  -Jack 
+*/
+
+.fade {
+  animation: fadeOut 0.5s ease forwards;
+  margin-top: -256px;
+}
+
+@media (min-width: 336px) {
+  .fade {
+    margin-top: -232px;
+  }
+}
+
+@media (min-width: 365px) {
+  .fade {
+    margin-top: -208px;
+  }
+}
+
+@media (min-width: 405px) {
+  .fade {
+    margin-top: -184px;
+  }
+}
+
+@media (min-width: 479px) {
+  .fade {
+    margin-top: -160px;
+  }
+}
+
+@media (min-width: 812px) {
+  .fade {
+    margin-top: -112px;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

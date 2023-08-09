@@ -1,7 +1,7 @@
-export type BadgeStatus = 'Ready' | 'Draft' | 'Planned';
+import { ComponentStatus } from './component-status.type';
 
 export interface ComponentsStatusesMap {
-  [key: string]: BadgeStatus;
+  [key: string]: ComponentStatus;
 }
 
 export type ComponentKitsStatuses = {
@@ -9,43 +9,43 @@ export type ComponentKitsStatuses = {
   headless: ComponentsStatusesMap;
 };
 
-export const componentsStatuses: ComponentKitsStatuses = {
+export const statusByComponent: ComponentKitsStatuses = {
   tailwind: {
-    Accordion: 'Planned',
-    Alert: 'Planned',
-    Badge: 'Planned',
-    Breadcrumb: 'Planned',
-    Button: 'Planned',
-    'Button Group': 'Planned',
-    Card: 'Planned',
-    Carousel: 'Planned',
-    Checkbox: 'Planned',
-    Collapse: 'Planned',
-    Drawer: 'Planned',
-    Input: 'Planned',
-    'Input Phone': 'Planned',
-    'Navigation Bar': 'Planned',
-    Pagination: 'Planned',
-    Popover: 'Planned',
-    Progress: 'Planned',
-    Radio: 'Planned',
-    Rating: 'Planned',
-    Select: 'Planned',
-    Slider: 'Planned',
-    Spinner: 'Planned',
-    Tabs: 'Planned',
-    Toast: 'Planned',
-    Toggle: 'Planned',
-    Tooltip: 'Planned'
+    Accordion: ComponentStatus.Planned,
+    Alert: ComponentStatus.Planned,
+    Badge: ComponentStatus.Planned,
+    Breadcrumb: ComponentStatus.Planned,
+    Button: ComponentStatus.Planned,
+    'Button Group': ComponentStatus.Planned,
+    Card: ComponentStatus.Planned,
+    Carousel: ComponentStatus.Planned,
+    Checkbox: ComponentStatus.Planned,
+    Collapse: ComponentStatus.Planned,
+    Drawer: ComponentStatus.Planned,
+    Input: ComponentStatus.Planned,
+    'Input Phone': ComponentStatus.Planned,
+    'Navigation Bar': ComponentStatus.Planned,
+    Pagination: ComponentStatus.Planned,
+    Popover: ComponentStatus.Planned,
+    Progress: ComponentStatus.Planned,
+    Radio: ComponentStatus.Planned,
+    Rating: ComponentStatus.Planned,
+    Select: ComponentStatus.Planned,
+    Slider: ComponentStatus.Planned,
+    Spinner: ComponentStatus.Planned,
+    Tabs: ComponentStatus.Planned,
+    Toast: ComponentStatus.Planned,
+    Toggle: ComponentStatus.Planned,
+    Tooltip: ComponentStatus.Planned
   },
   headless: {
-    Accordion: 'Ready',
-    Autocomplete: 'Draft',
-    Carousel: 'Planned',
-    Popover: 'Planned',
-    Select: 'Draft',
-    Tabs: 'Ready',
-    Toggle: 'Planned',
-    Tooltip: 'Planned'
+    Accordion: ComponentStatus.Beta,
+    Autocomplete: ComponentStatus.Draft,
+    Carousel: ComponentStatus.Planned,
+    Popover: ComponentStatus.Draft,
+    Select: ComponentStatus.Draft,
+    Tabs: ComponentStatus.Beta,
+    Toggle: ComponentStatus.Planned,
+    Tooltip: ComponentStatus.Draft
   }
 };
