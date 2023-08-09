@@ -5,7 +5,6 @@ import {
   Signal,
   Slot,
   component$,
-  useComputed$,
   useContextProvider,
   useId,
   useSignal,
@@ -159,7 +158,7 @@ export const Tabs: FunctionComponent<
 
   tabListElement ||= <TabList />;
 
-  // tabListElement.props.children = tabComponents;
+  tabListElement.props.children = tabComponents;
   tabListElement.children = tabComponents;
 
   return (
@@ -184,12 +183,8 @@ export const TabsImpl = component$(
 
     const tabsPrefix = useId();
 
-    const { _tabInfoList: tabsInfoList } = props as { _tabInfoList: TabInfo[] };
+    const { _tabInfoList: tabInfoList } = props as { _tabInfoList: TabInfo[] };
     const disabledStore = useStore<Record<string, boolean>>({});
-
-    const enabledTabsSig = useComputed$(() => {
-      return tabsInfoList.filter((tab) => !disabledStore[tab.tabId]);
-    });
 
     useTask$(function syncPropSelectedIndexTask({ track }) {
       selectedIndexSig.value = track(() => props.selectedIndex) || 0;
@@ -200,15 +195,15 @@ export const TabsImpl = component$(
       if (selectedIndexSig.value === -1) {
         return;
       }
-      if (selectedIndexSig.value >= tabsInfoList.length) {
-        selectedIndexSig.value = tabsInfoList.length - 1;
+      if (selectedIndexSig.value >= tabInfoList.length) {
+        selectedIndexSig.value = tabInfoList.length - 1;
         return;
       }
-      const selectedTabId = tabsInfoList[selectedIndexSig.value].tabId;
+      const selectedTabId = tabInfoList[selectedIndexSig.value].tabId;
       if (disabledStore[selectedTabId]) {
-        let enabledTabIndex = findNextEnabledTab(tabsInfoList, selectedIndexSig.value);
+        let enabledTabIndex = findNextEnabledTab(tabInfoList, selectedIndexSig.value);
         if (enabledTabIndex === -1) {
-          enabledTabIndex = findPreviousEnabledTab(tabsInfoList, selectedIndexSig.value);
+          enabledTabIndex = findPreviousEnabledTab(tabInfoList, selectedIndexSig.value);
         }
         if (enabledTabIndex === -1) {
           console.warn('no enabled tabs to select');
@@ -217,7 +212,7 @@ export const TabsImpl = component$(
       }
 
       function findNextEnabledTab(tabsStore: TabInfo[], index: number) {
-        tabsInfoList.findIndex((tab) => !disabledStore[tab.tabId]);
+        tabInfoList.findIndex((tab) => !disabledStore[tab.tabId]);
         for (let i = index; i < tabsStore.length; i++) {
           if (!disabledStore[tabsStore[i].tabId]) {
             return i;
@@ -244,11 +239,11 @@ export const TabsImpl = component$(
 
     useTask$(function syncLastSelectedTab({ track }) {
       track(() => selectedIndexSig.value);
-      lastSelectedTabSig.value = tabsInfoList[selectedIndexSig.value];
+      lastSelectedTabSig.value = tabInfoList[selectedIndexSig.value];
     });
 
     useTask$(async function updateSelectedIndexAfterTabListChangeTask({ track }) {
-      track(() => tabsInfoList.length);
+      track(() => tabInfoList.length);
 
       if (!lastSelectedTabSig.value) {
         return;
@@ -256,7 +251,7 @@ export const TabsImpl = component$(
       const lastSelectedTabId = lastSelectedTabSig.value.tabId;
       const lastSelectedTabIndex = lastSelectedTabSig.value.index;
 
-      const foundUpdatedSelectedTabIndex = tabsInfoList.findIndex(
+      const foundUpdatedSelectedTabIndex = tabInfoList.findIndex(
         (tab) => tab.tabId === lastSelectedTabId
       );
       if (foundUpdatedSelectedTabIndex === -1) {
@@ -269,7 +264,9 @@ export const TabsImpl = component$(
     });
 
     const selectTab$ = $((tabId: string) => {
-      const foundTab = enabledTabsSig.value.find((tab) => tab.tabId === tabId);
+      const foundTab = tabInfoList.find(
+        ({ tabId: id }) => !disabledStore[id] && id === tabId
+      );
 
       if (foundTab) {
         selectedIndexSig.value = foundTab.index;
@@ -283,7 +280,7 @@ export const TabsImpl = component$(
     });
 
     const setTabDisabled$ = $((tabId: string, disabled: boolean) => {
-      const foundTabIndex = tabsInfoList.findIndex((tab) => tab.tabId === tabId);
+      const foundTabIndex = tabInfoList.findIndex((tab) => tab.tabId === tabId);
 
       disabledStore[tabId] = disabled;
       if (foundTabIndex === selectedIndexSig.value && disabled) {
@@ -294,7 +291,8 @@ export const TabsImpl = component$(
     const onTabKeyDown$ = $((key: KeyCode, currentTabId: string) => {
       const tabsRootElement = ref.value;
 
-      const enabledTabs = enabledTabsSig.value;
+      const enabledTabs = tabInfoList.filter(({ tabId }) => !disabledStore[tabId]);
+
       const currentFocusedTabIndex = enabledTabs.findIndex(
         (tabData) => tabData.tabId === currentTabId
       );

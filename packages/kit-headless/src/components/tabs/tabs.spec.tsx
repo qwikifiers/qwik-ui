@@ -76,6 +76,25 @@ describe('Tabs', () => {
       cy.findAllByRole('tab').should('have.length', 2);
     });
 
+    it(`GIVEN 3 tabs,
+        WHEN selecting 3rd
+        AND removing 1st dynamically
+        AND clicking 2nd (now 1st)
+        THEN the correct tab should be displayed`, () => {
+      cy.mount(<DynamicTabsComponent tabsLength={3} tabIndexToDelete={0} />);
+
+      cy.findByRole('tab', { name: /Tab 3/i }).click();
+      cy.findByTestId('selected-index-from-event').should('contain.text', 2);
+
+      cy.findByRole('button', { name: /remove tab/i }).click();
+
+      cy.findAllByRole('tab').should('have.length', 2);
+
+      cy.findByRole('tab', { name: /Tab 2/i }).click();
+
+      cy.findByTestId('selected-index-from-event').should('contain.text', 0);
+    });
+
     it(`GIVEN 3 tabs
         WHEN clicking on the last one and then removing it
         THEN tab 2 should be shown`, () => {
@@ -122,10 +141,11 @@ describe('Tabs', () => {
           .map((_, index) => `Dynamic Tab ${index + 1}`);
 
         const tabsState = useStore(tabNames);
+        const selectedIndexSig = useSignal(0);
 
         return (
           <>
-            <Tabs>
+            <Tabs bind:selectedIndex={selectedIndexSig}>
               <TabList>
                 {tabsState.map((tab) => (
                   <Tab key={tab}>{tab}</Tab>
@@ -141,6 +161,11 @@ describe('Tabs', () => {
             <button onClick$={() => tabsState.splice(tabIndexToAdd, 0, 'new added tab')}>
               Add Tab
             </button>
+            {selectedIndexSig.value !== undefined && (
+              <div data-testid="selected-index-from-event">
+                Selected index from event: {selectedIndexSig.value}
+              </div>
+            )}
           </>
         );
       }
