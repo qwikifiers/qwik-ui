@@ -1,5 +1,6 @@
 import {
   QwikIntrinsicElements,
+  Signal,
   Slot,
   component$,
   useComputed$,
@@ -7,7 +8,6 @@ import {
 } from '@builder.io/qwik';
 import { TAB_ID_PREFIX } from './tab';
 import { tabsContextId } from './tabs-context-id';
-import { Signal } from '@builder.io/qwik';
 
 export type TabPanelProps = {
   /** @deprecated Internal use only */
@@ -16,7 +16,7 @@ export type TabPanelProps = {
   _tabId?: string;
 } & QwikIntrinsicElements['div'];
 
-export const TAB_PANEL_ID_PREFIX = 'tabpanel-';
+export const TAB_PANEL_ID_PREFIX = '_tabpanel_';
 
 export const TabPanel = component$(({ _index, _tabId, ...props }: TabPanelProps) => {
   const contextService = useContext(tabsContextId);

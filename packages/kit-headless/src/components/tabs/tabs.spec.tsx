@@ -163,7 +163,8 @@ describe('Tabs', () => {
         THEN it should show only the selected child panel`, () => {
       cy.mount(<TabsInsideOfTabs />);
 
-      cy.findAllByRole('tab', { name: /Tab 2/i }).eq(1).click();
+      cy.findAllByRole('tab', { name: /Tab 2/i }).eq(1).as('childTab');
+      cy.get('@childTab').click();
 
       cy.findAllByRole('tabpanel').eq(1).should('contain', 'Child Panel 2');
     });

@@ -15,7 +15,7 @@ import { KeyCode } from '../../utils/key-code.type';
 import { TAB_PANEL_ID_PREFIX } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 
-export const TAB_ID_PREFIX = 'tab-';
+export const TAB_ID_PREFIX = '_tab_';
 
 export type TabProps = {
   onClick$?: (event: QwikMouseEvent) => void;
@@ -58,7 +58,7 @@ export const Tab = component$((props: TabProps) => {
   });
 
   useTask$(function disabledTask({ track }) {
-    contextService.setTabDisabled$(tabId, !!track(() => props.disabled));
+    contextService.setTabDisabledStatus$(tabId, !!track(() => props.disabled));
   });
 
   useVisibleTask$(function preventDefaultOnKeysVisibleTask({ cleanup }) {

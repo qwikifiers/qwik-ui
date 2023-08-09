@@ -25,20 +25,388 @@ import { APITable } from '../../../_components/api-table/api-table';
 
 <Example01>
   ```tsx
-    <h3>Danish Composers</h3>
   <Tabs behavior="automatic">
-    <TabPanel title="Maria Ahlefeldt">
+    <h3>Danish Composers</h3>
+    <TabList>
+      <Tab>Maria Ahlefeldt</Tab>
+      <Tab>Carl Andersen</Tab>
+      <Tab>Ida Henriette da Fonseca</Tab>
+    </TabList>
+    <TabPanel>
       <p>
         Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
       </p>
     </TabPanel>
-    <TabPanel title="Carl Andersen">
+    <TabPanel>
       <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
     </TabPanel>
-    <TabPanel title="Ida Henriette da Fonseca">
+    <TabPanel>
       <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
     </TabPanel>
   </Tabs>
   ```
 </Example01>
 
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
+
+    export default component$(() => {
+
+      return (
+        <>
+          <Tabs>
+            <TabList>
+              <Tab>Tab 1</Tab>
+              <Tab>Tab 2</Tab>
+              <Tab>Tab 3</Tab>
+            </TabList>
+
+            <TabPanel>Content 1</TabPanel>
+            <TabPanel>Content 2</TabPanel>
+            <TabPanel>Content 3</TabPanel>
+          </Tabs>
+        </>
+      );
+    });
+    ```
+
+  </CodeExample>
+
+## Vertical
+
+by default, the tabs are horizontal, but you can adjust the underlying behavior to be vertical by setting the `vertical` prop to true.
+
+<VerticalTabsExample>
+  ```tsx
+  <h3>Danish Composers</h3>
+  <Tabs vertical>
+    <TabList>
+      <Tab>Maria Ahlefeldt</Tab>
+      <Tab>Carl Andersen</Tab>
+      <Tab>Ida Henriette da Fonseca</Tab>
+    </TabList>
+    <TabPanel>
+      <p>
+        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
+      </p>
+    </TabPanel>
+    <TabPanel>
+      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+    </TabPanel>
+    <TabPanel>
+      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+    </TabPanel>
+  </Tabs>
+  ```
+</VerticalTabsExample>
+
+## Disabled
+
+You can disable a tab by setting the `disabled` prop to true.
+
+<DisabledTabsExample>
+  ```tsx
+  <Tabs>
+    <h3>Dad jokes</h3>
+    <TabList>
+      <Tab disabled={true}>Disabled Tab</Tab>
+      <Tab>Joke 2</Tab>
+      <Tab>Joke 3</Tab>
+      <Tab>Joke 4</Tab>
+    </TabList>
+    <TabPanel>
+      "What did the coffee report to the police", " A mugging."
+    </TabPanel>
+    <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
+    <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
+    <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
+  </Tabs>
+  ```
+</DisabledTabsExample>
+
+## Behavior
+
+### Automatic
+
+The default behavior of the tabs is manual, which means that the tabs will automatically switch to the next tab when the user hovers over the tab. You can change this behavior by setting the `behavior` prop to `automatic`.
+
+<AutomaticBehaviorTabsExample>
+  ```tsx
+  <Tabs behavior="automatic">
+    <h3>Danish Composers</h3>
+    <TabList>
+      <Tab>Maria Ahlefeldt</Tab>
+      <Tab>Carl Andersen</Tab>
+      <Tab>Ida Henriette da Fonseca</Tab>
+    </TabList>
+    <TabPanel>
+      <p>
+        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
+      </p>
+    </TabPanel>
+    <TabPanel>
+      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+    </TabPanel>
+    <TabPanel>
+      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+    </TabPanel>
+  </Tabs>
+  ```
+</AutomaticBehaviorTabsExample>
+
+### Manual
+
+You can set the behavior to manual, which means that the tabs will not automatically switch to the next tab when the user presses the right arrow key, and to the previous tab when the user presses the left arrow key.
+
+<ManualBehaviorTabsExample>
+  ```tsx
+  <h3>Danish Composers</h3>
+  <Tabs behavior="manual">
+    <TabList>
+      <Tab>Maria Ahlefeldt</Tab>
+      <Tab>Carl Andersen</Tab>
+      <Tab>Ida Henriette da Fonseca</Tab>
+    </TabList>
+    <TabPanel>
+      <p>
+        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
+      </p>
+    </TabPanel>
+    <TabPanel>
+      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+    </TabPanel>
+    <TabPanel>
+      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+    </TabPanel>
+  </Tabs>
+  ```
+</ManualBehaviorTabsExample>
+
+## Dynamic
+
+<DynamicTabsExample>
+```tsx
+
+const tabsState = useStore([
+  'Dynamic Tab 1',
+  'Dynamic Tab 2',
+  'Dynamic Tab 3',
+]);
+
+return <>
+  
+  <Tabs>
+    <TabList>
+      {tabsState.map((tab) => (
+        <Tab key={tab}>{tab}</Tab>
+      ))}
+    </TabList>
+    {tabsState.map((tab) => (
+      <TabPanel key={tab}>{tab} Panel</TabPanel>
+    ))}
+  </Tabs>
+
+  <button style={{ color: 'red', marginTop: '1rem' }}
+    onClick$={() => {
+      if (tabsState.length > 1) {
+        tabsState.splice(0, 1)
+      }
+    }}>
+    Remove First Tab
+  </button>
+</>
+```
+</DynamicTabsExample>
+
+## onSelectedIndexChange$
+
+You can listen to changes in the selected index by subscribing to the `onSelectedIndexChange$` store.
+
+<OnSelectedIndexChangeTabsExample>
+```tsx
+
+const selectedIndexSig = useSignal(0);
+
+return <div>
+
+{' '}
+
+<Tabs
+  onSelectedIndexChange$={(index) => {
+    selectedIndexSig.value = index;
+  }}
+>
+  <h3>Danish Composers</h3>
+  <TabList>
+    <Tab>Maria Ahlefeldt</Tab>
+    <Tab>Carl Andersen</Tab>
+    <Tab>Ida Henriette da Fonseca</Tab>
+  </TabList>
+  <TabPanel>
+    <p>
+      Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
+    </p>
+  </TabPanel>
+  <TabPanel>
+    <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+  </TabPanel>
+  <TabPanel>
+    <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+  </TabPanel>
+</Tabs>
+
+  <p>Selected Index: {selectedIndexSig.value}</p>
+</div>
+```
+</OnSelectedIndexChangeTabsExample>
+
+## onClick$
+
+You can pass a custom `onClick$` handler.
+
+<OnClickTabsExample>
+```tsx
+const tabsClickedCountSig = useSignal(0);
+
+return <div>
+
+<h3>Danish Composers</h3>
+<h4>(watch the counter below)</h4>
+<Tabs
+  onClick$={() => {
+    tabsClickedCountSig.value++;
+  }}
+>
+  <TabList>
+    <Tab>Maria Ahlefeldt</Tab>
+    <Tab>Carl Andersen</Tab>
+    <Tab>Ida Henriette da Fonseca</Tab>
+  </TabList>
+  <TabPanel>
+    <p>
+      Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
+    </p>
+  </TabPanel>
+  <TabPanel>
+    <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+  </TabPanel>
+  <TabPanel>
+    <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+  </TabPanel>
+</Tabs>
+
+<p>Click count: {tabsClickedCountSig.value}</p>
+
+</div>
+```
+</OnClickTabsExample>
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Tab',
+      description: 'Moves focus to the selected panel.',
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: 'Moves focus to the selected tab.',
+    },
+    {
+      keyTitle: 'ArrowRight',
+      description: 'Moves focus to the next tab.',
+    },
+    {
+      keyTitle: 'ArrowLeft',
+      description: 'Moves focus to the previous tab.',
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: 'In "vertical mode", moves focus to the next tab.',
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: 'In "vertical mode", moves focus to the previous tab.',
+    },
+    {
+      keyTitle: 'Home',
+      description: 'Moves focus to the first tab.',
+    },
+    {
+      keyTitle: 'PageUp',
+      description: 'Moves focus to the first tab.',
+    },
+    {
+      keyTitle: 'End',
+      description: 'Moves focus to the last tab.',
+    },
+    {
+      keyTitle: 'PageDown',
+      description: 'Moves focus to the first tab.',
+    },
+  ]}
+/>
+
+## API
+
+### Tabs
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'behavior',
+      type: 'string',
+      description:
+        'Toggle between automatic or manual. The automatic behavior moves between tabs when hover. The manual behavior moves between tabs on click.',
+    },
+    {
+      name: 'selectedIndex',
+      type: 'number',
+      description: 'A way to set the selected index programmatically',
+    },
+    {
+      name: 'vertical',
+      type: 'boolean',
+      description:
+        'If set to true, the behavior of UpArrow and DownArrow will navigate between tabs vertically instead of horizontally.',
+    },
+    {
+      name: 'onSelectedIndexChange$',
+      type: 'function',
+      info: '(index: number) => void',
+      description:
+        'An event hook that getting notified whenever the selected index changes',
+    },
+  ]}
+/>
+
+### Tab
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'selectedClassName',
+      type: 'string',
+      description: 'The class name to apply when the tab is selected',
+    },
+    {
+      name: 'onClick',
+      info: '(event: QwikMouseEvent) => void',
+      type: 'function',
+      description: 'A custom click handler to wire to tab click event',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Set the disabled state of a specific tab',
+    },
+  ]}
+/>
+```

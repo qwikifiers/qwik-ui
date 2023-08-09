@@ -1,5 +1,6 @@
 import {
   $,
+  JSXNode,
   QwikIntrinsicElements,
   Signal,
   Slot,
@@ -22,7 +23,6 @@ import { TabPanel } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
 import { TabList } from './tabs-list';
-import { JSXNode } from '@builder.io/qwik';
 
 /**
  * TABS TODOs
@@ -71,7 +71,7 @@ export const Tabs: FunctionComponent<
     panelClass?: ClassList;
   }
 > = ({ children: myChildren, tabClass, panelClass, ...props }) => {
-  const toProcess = (
+  const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
   ) as JSXNode[];
   let tabListElement: JSX.Element | undefined;
@@ -82,13 +82,13 @@ export const Tabs: FunctionComponent<
   let panelIndex = 0;
 
   // Extract the Tab related components from the children
-  while (toProcess.length) {
-    const child = toProcess.shift();
+  while (childrenToProcess.length) {
+    const child = childrenToProcess.shift();
     if (!child) {
       continue;
     }
     if (Array.isArray(child)) {
-      toProcess.unshift(...child);
+      childrenToProcess.unshift(...child);
       continue;
     }
 
@@ -99,7 +99,7 @@ export const Tabs: FunctionComponent<
           ? child.props.children
           : [child.props.children];
 
-        toProcess.unshift(...tabListChildren);
+        childrenToProcess.unshift(...tabListChildren);
         break;
       }
       case Tab: {
@@ -126,8 +126,8 @@ export const Tabs: FunctionComponent<
           child.props.class = [panelClass, child.props.class];
         }
         panelComponents.push(child);
-        panelIndex++;
         tabsInfoList.push({ tabId, index: panelIndex });
+        panelIndex++;
 
         break;
       }
@@ -158,12 +158,9 @@ export const Tabs: FunctionComponent<
   });
 
   tabListElement ||= <TabList />;
-  tabListElement.props.children = tabComponents;
-  tabListElement.children = tabComponents;
 
-  console.log('tabsInfoList', tabsInfoList);
-  console.log('tabListElement.children', tabListElement.children);
-  console.log('panelComponents', panelComponents);
+  // tabListElement.props.children = tabComponents;
+  tabListElement.children = tabComponents;
 
   return (
     <TabsImpl _tabInfoList={tabsInfoList} {...props}>
@@ -199,19 +196,16 @@ export const TabsImpl = component$(
     });
 
     useTask$(function selectFirstEnabledTabTask({ track }) {
-      console.log('UPDATE SELECTED INDEX TASK', selectedIndexSig.value);
       track(() => selectedIndexSig.value);
       if (selectedIndexSig.value === -1) {
-        console.log('MINUS 1');
         return;
       }
       if (selectedIndexSig.value >= tabsInfoList.length) {
         selectedIndexSig.value = tabsInfoList.length - 1;
-        console.log('MORE THAN LENGTH');
         return;
       }
-
-      if (disabledStore[tabsInfoList[selectedIndexSig.value].tabId]) {
+      const selectedTabId = tabsInfoList[selectedIndexSig.value].tabId;
+      if (disabledStore[selectedTabId]) {
         let enabledTabIndex = findNextEnabledTab(tabsInfoList, selectedIndexSig.value);
         if (enabledTabIndex === -1) {
           enabledTabIndex = findPreviousEnabledTab(tabsInfoList, selectedIndexSig.value);
@@ -219,7 +213,6 @@ export const TabsImpl = component$(
         if (enabledTabIndex === -1) {
           console.warn('no enabled tabs to select');
         }
-        console.log('FINAL UPDATED INDEX: ', enabledTabIndex);
         selectedIndexSig.value = enabledTabIndex;
       }
 
@@ -250,35 +243,28 @@ export const TabsImpl = component$(
     });
 
     useTask$(function syncLastSelectedTab({ track }) {
-      console.log('COMPUTED tabsInfoListStore', tabsInfoList);
-      console.log('COMPUTED selectedIndexSig.value', selectedIndexSig.value);
       track(() => selectedIndexSig.value);
       lastSelectedTabSig.value = tabsInfoList[selectedIndexSig.value];
     });
 
     useTask$(async function updateSelectedIndexAfterTabListChangeTask({ track }) {
       track(() => tabsInfoList.length);
-      console.log('tabsInfoListStore.length', tabsInfoList.length);
+
       if (!lastSelectedTabSig.value) {
         return;
       }
       const lastSelectedTabId = lastSelectedTabSig.value.tabId;
       const lastSelectedTabIndex = lastSelectedTabSig.value.index;
-      console.log(
-        '*** lastSelectedTabId + index',
-        lastSelectedTabId,
-        lastSelectedTabIndex,
-        tabsInfoList
-      );
+
       const foundUpdatedSelectedTabIndex = tabsInfoList.findIndex(
         (tab) => tab.tabId === lastSelectedTabId
       );
       if (foundUpdatedSelectedTabIndex === -1) {
         selectedIndexSig.value = lastSelectedTabIndex + 1;
-        console.log('UPDATED selectedIndexSig.value', selectedIndexSig.value);
+
         return;
       }
-      console.log('foundUpdatedSelectedTabIndex', foundUpdatedSelectedTabIndex);
+
       selectedIndexSig.value = foundUpdatedSelectedTabIndex;
     });
 
@@ -298,8 +284,11 @@ export const TabsImpl = component$(
 
     const setTabDisabled$ = $((tabId: string, disabled: boolean) => {
       const foundTabIndex = tabsInfoList.findIndex((tab) => tab.tabId === tabId);
-      disabledStore[tabsInfoList[foundTabIndex].tabId] = disabled;
-      selectedIndexSig.value++;
+
+      disabledStore[tabId] = disabled;
+      if (foundTabIndex === selectedIndexSig.value && disabled) {
+        selectedIndexSig.value++;
+      }
     });
 
     const onTabKeyDown$ = $((key: KeyCode, currentTabId: string) => {
@@ -355,7 +344,7 @@ export const TabsImpl = component$(
     const contextService: TabsContext = {
       selectTab$,
       tabsPrefix,
-      setTabDisabled$,
+      setTabDisabledStatus$: setTabDisabled$,
       onTabKeyDown$,
       selectIfAutomatic$,
       selectedIndexSig,
