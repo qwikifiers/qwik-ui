@@ -124,6 +124,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/thejackshelton"><img src="https://avatars.githubusercontent.com/u/104264123?v=4?s=100" width="100px;" alt="Jack Shelton"/><br /><sub><b>Jack Shelton</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=thejackshelton" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=thejackshelton" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/vasucp1207"><img src="https://avatars.githubusercontent.com/u/85363195?v=4?s=100" width="100px;" alt="Vasu Singh"/><br /><sub><b>Vasu Singh</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=vasucp1207" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/wmertens"><img src="https://avatars.githubusercontent.com/u/54934?v=4?s=100" width="100px;" alt="Wout Mertens"/><br /><sub><b>Wout Mertens</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=wmertens" title="Code">💻</a> <a href="#research-wmertens" title="Research">🔬</a> <a href="#ideas-wmertens" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=wmertens" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=wmertens" title="Documentation">📖</a></td>
+    </tr>
   </tbody>
 </table>
 
