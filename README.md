@@ -51,17 +51,17 @@ npm install -D @qwik-ui/headless
 ### Headless Kit
 
 | Component                                                     | Planned | Draft (Alpha) | Beta | Stable |
-| :------------------------------------------------------------ | :-----: | ------------- | ---- | ------ |
+| :------------------------------------------------------------ | :-----: | :-----------: | ---- | ------ |
 | [Accordion](https://qwikui.com/docs/headless/accordion)       |         |               | ✅   |        |
-| [Autocomplete](https://qwikui.com/docs/headless/autocomplete) |         | ✅            |      |        |
+| [Autocomplete](https://qwikui.com/docs/headless/autocomplete) |         |      ✅       |      |        |
 | Carousel                                                      |   ✅    |               |      |        |
 | Dialog                                                        |   ✅    |               |      |        |
 | Pagination                                                    |   ✅    |               |      |        |
-| [Popover](https://qwikui.com/docs/headless/popover)           |         | ✅            |      |        |
-| [Select](https://qwikui.com/docs/headless/select)             |         | ✅            |      |        |
+| [Popover](https://qwikui.com/docs/headless/popover)           |         |      ✅       |      |        |
+| [Select](https://qwikui.com/docs/headless/select)             |         |      ✅       |      |        |
 | [Tabs](https://qwikui.com/docs/headless/tabs)                 |         |               | ✅   |        |
 | [Toggle](https://qwikui.com/docs/headless/toggle)             |   ✅    |               |      |        |
-| [Tooltip](https://qwikui.com/docs/headless/tooltip)           |         | ✅            |      |        |
+| [Tooltip](https://qwikui.com/docs/headless/tooltip)           |         |      ✅       |      |        |
 
 ## Contributing
 
