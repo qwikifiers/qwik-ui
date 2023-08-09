@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
+import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
 import { KitName } from 'apps/website/src/_state/kit-name.type';
 import { useRootStore } from 'apps/website/src/_state/use-root-store';
-import { BadgeStatus } from '../../../../_state/component-statuses';
 import { useSelectedKit } from '../../use-selected-kit';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
 
@@ -13,7 +13,7 @@ export interface LinkGroup {
 export interface LinkProps {
   name: string;
   href?: string;
-  status?: BadgeStatus;
+  status?: ComponentStatus;
 }
 
 export interface DocsNavigationProps {
