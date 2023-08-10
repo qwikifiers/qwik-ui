@@ -11,6 +11,7 @@ import {
 import AutocompleteContextId from './autocomplete-context-id';
 
 export type OptionProps = {
+  // optionValue: Record<string, any> | string;
   optionValue: string;
   disabled?: boolean;
 } & QwikIntrinsicElements['li'];
@@ -18,9 +19,9 @@ export type OptionProps = {
 export const AutocompleteOption = component$((props: OptionProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
-  const optionElement = ref.value;
 
-  contextService.options = [...contextService.options, ref];
+  // push optionValue instead of ref to store
+  contextService.optionsStore = [...contextService.optionsStore, ref];
 
   return (
     <li
@@ -31,8 +32,8 @@ export const AutocompleteOption = component$((props: OptionProps) => {
       onClick$={[
         $(() => {
           if (!props.disabled) {
-            contextService.inputValue.value = props.optionValue;
-            contextService.isExpanded.value = false;
+            contextService.inputValueSig.value = props.optionValue;
+            contextService.isTriggerExpandedSig.value = false;
           }
         }),
         props.onClick$
@@ -40,8 +41,8 @@ export const AutocompleteOption = component$((props: OptionProps) => {
       onKeyDown$={[
         $((e: QwikKeyboardEvent) => {
           if ((e.key === 'Enter' || e.key === ' ') && !props.disabled) {
-            contextService.inputValue.value = props.optionValue;
-            contextService.isExpanded.value = false;
+            contextService.inputValueSig.value = props.optionValue;
+            contextService.isTriggerExpandedSig.value = false;
             contextService.focusInput$(contextService.inputId);
           }
         }),

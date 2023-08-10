@@ -9,7 +9,9 @@ import {
   $,
   useId,
   useOnWindow,
-  QwikKeyboardEvent
+  QwikKeyboardEvent,
+  Signal,
+  useComputed$
 } from '@builder.io/qwik';
 
 import { computePosition, flip } from '@floating-ui/dom';
@@ -33,14 +35,19 @@ import { AutocompleteContext } from './autocomplete-context.type';
     
     Current thoughts for API implementation
 
+    // inline impl: iterate over children & pass correct index. each group: Build index of inner children
+
     <AutocompleteRoot>
       <AutocompleteLabel />
       <AutocompleteControl>
           <AutocompleteInput />
           <AutocompleteTrigger />
       </AutocompleteControl>
+      Inline component here 
       <AutoCompleteListbox>
+        <AutocompleteGroup> <== Countries
           <AutoCompleteOption />
+        </AutocompleteGroup>
       </AutoCompleteListbox>
     </AutocompleteRoot>
 
@@ -124,15 +131,16 @@ export type AutocompleteRootProps = {
 
 export const AutocompleteRoot = component$(
   ({ defaultValue, ...props }: AutocompleteRootProps) => {
-    const options = useStore([]);
-    const filteredOptions = useStore([]);
+    const optionsStore = useStore<Signal<HTMLElement>[]>([]);
+    const filteredOptionsStore = useStore([]);
     const selectedOption = useSignal(defaultValue ? defaultValue : '');
-    const isExpanded = useSignal(false);
-    const triggerRef = useSignal<HTMLElement>();
-    const listBoxRef = useSignal<HTMLElement>();
+    const isTriggerExpandedSig = useSignal(false);
+    const inputRefSig = useSignal<HTMLElement>();
+    const triggerRefSig = useSignal<HTMLElement>();
+    const listBoxRefSig = useSignal<HTMLElement>();
     const rootRef = useSignal<HTMLElement>();
     const labelRef = useSignal<HTMLElement>();
-    const inputValue = useSignal(defaultValue ? defaultValue : '');
+    const inputValueSig = useSignal(defaultValue ? defaultValue : '');
     const listBoxId = useId();
     const inputId = useId();
     const triggerId = useId();
@@ -144,14 +152,15 @@ export const AutocompleteRoot = component$(
     });
 
     const contextService: AutocompleteContext = {
-      options,
-      filteredOptions,
+      optionsStore,
+      filteredOptionsStore,
       selectedOption,
-      isExpanded,
-      triggerRef,
-      listBoxRef,
+      isTriggerExpandedSig,
+      inputRefSig,
+      triggerRefSig,
+      listBoxRefSig,
       labelRef,
-      inputValue,
+      inputValueSig,
       listBoxId,
       inputId,
       triggerId,
@@ -173,26 +182,110 @@ export const AutocompleteRoot = component$(
       });
     });
 
-    useVisibleTask$(async ({ track }) => {
-      const trigger = track(() => contextService.triggerRef.value);
-      const listBox = track(() => contextService.listBoxRef.value);
-      const expanded = track(() => isExpanded.value);
+    useVisibleTask$(async function updatePositionTask({ track }) {
+      const inputRefValue = track(() => inputRefSig.value);
+      const listBox = track(() => listBoxRefSig.value);
+      const expanded = track(() => isTriggerExpandedSig.value);
 
-      if (!trigger || !listBox) return;
+      if (!inputRefValue || !listBox) return;
 
       if (expanded === true) {
-        listBox.style.visibility = 'hidden';
-
-        await updatePosition(trigger, listBox);
-
-        listBox.style.visibility = 'visible';
-
-        listBox?.focus();
+        await updatePosition(inputRefValue, listBox);
       }
+    });
 
-      if (expanded === false) {
-        trigger?.focus();
-      }
+    useVisibleTask$(async ({ track }) => {
+      track(() => inputValueSig.value);
+
+      contextService.filteredOptionsStore = contextService.optionsStore.filter(
+        (option: Signal) => {
+          const optionValue = option.value.getAttribute('optionValue');
+          const inputValue = inputValueSig.value;
+
+          const defaultFilter = new RegExp(inputValue, 'i');
+
+          if (
+            inputValueSig.value.length >= 0 &&
+            document.activeElement === inputRefSig.value
+          ) {
+            if (optionValue === inputValue) {
+              contextService.isTriggerExpandedSig.value = false;
+            } else if (optionValue.match(defaultFilter)) {
+              contextService.isTriggerExpandedSig.value = true;
+            }
+          } else {
+            contextService.isTriggerExpandedSig.value = false;
+          }
+
+          return optionValue.match(defaultFilter);
+        }
+      );
+
+      // Probably better to refactor Signal type later
+      contextService.optionsStore.map((option: Signal) => {
+        if (
+          !option.value
+            .getAttribute('optionValue')
+            .match(new RegExp(inputValueSig.value, 'i'))
+        ) {
+          option.value.style.display = 'none';
+        } else {
+          option.value.style.display = '';
+        }
+      });
+    });
+
+    const filteredOptionsSig = useComputed$(() => {
+      return optionsStore.filter((option) => {
+        const inputValue = inputValueSig.value;
+        const optionValue = option.value.getAttribute('optionValue');
+        const defaultFilter = new RegExp(inputValue, 'i');
+
+        return optionValue?.match(defaultFilter);
+      });
+    });
+
+    useVisibleTask$(function filterOptionsTask({ track }) {
+      track(() => inputValueSig.value);
+
+      contextService.filteredOptionsStore = contextService.optionsStore.filter(
+        (option: Signal) => {
+          const optionValue = option.value.getAttribute('optionValue');
+          const inputValue = inputValueSig.value;
+
+          const defaultFilter = new RegExp(inputValue, 'i');
+
+          if (
+            inputValueSig.value.length >= 0 &&
+            document.activeElement === inputRefSig.value
+          ) {
+            if (optionValue === inputValue) {
+              contextService.isTriggerExpandedSig.value = false;
+            } else if (optionValue.match(defaultFilter)) {
+              contextService.isTriggerExpandedSig.value = true;
+            }
+          } else {
+            contextService.isTriggerExpandedSig.value = false;
+          }
+
+          return optionValue.match(defaultFilter);
+        }
+      );
+
+      // Probably better to refactor Signal type later
+      contextService.optionsStore.map((option: Signal) => {
+        if (
+          !option.value
+            .getAttribute('optionValue')
+            .match(new RegExp(inputValueSig.value, 'i'))
+        ) {
+          option.value.style.display = 'none';
+        } else {
+          option.value.style.display = '';
+        }
+      });
+
+      console.log('hi');
     });
 
     useOnWindow(
@@ -200,11 +293,11 @@ export const AutocompleteRoot = component$(
       $((e) => {
         const target = e.target as HTMLElement;
         if (
-          contextService.isExpanded.value === true &&
-          !contextService.listBoxRef.value?.contains(target) &&
-          !contextService.triggerRef.value?.contains(target)
+          contextService.isTriggerExpandedSig.value === true &&
+          !contextService.listBoxRefSig.value?.contains(target) &&
+          !contextService.triggerRefSig.value?.contains(target)
         ) {
-          contextService.isExpanded.value = false;
+          contextService.isTriggerExpandedSig.value = false;
         }
       })
     );
@@ -214,8 +307,8 @@ export const AutocompleteRoot = component$(
         onKeyDown$={[
           $((e: QwikKeyboardEvent) => {
             if (e.key === 'Escape') {
-              contextService.isExpanded.value = false;
-              const inputElement = contextService.triggerRef.value
+              contextService.isTriggerExpandedSig.value = false;
+              const inputElement = contextService.inputRefSig.value
                 ?.firstElementChild as HTMLElement;
               inputElement?.focus();
             }

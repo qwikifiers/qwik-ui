@@ -12,7 +12,6 @@ export type AutocompleteControlProps = QwikIntrinsicElements['div'];
 export const AutocompleteControl = component$((props: AutocompleteControlProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
-  contextService.triggerRef = ref;
 
   return (
     <div ref={ref} {...props}>

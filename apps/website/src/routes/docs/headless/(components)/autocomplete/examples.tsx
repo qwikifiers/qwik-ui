@@ -49,10 +49,10 @@ export const Example01 = component$(() => {
             </AutocompleteTrigger>
           </AutocompleteControl>
           <AutocompleteListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
-            {trainers.map((trainer, index) => (
+            {trainers.map((trainer) => (
               <AutocompleteOption
                 optionValue={trainer}
-                key={index}
+                key={trainer}
                 class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
               >
                 {trainer}

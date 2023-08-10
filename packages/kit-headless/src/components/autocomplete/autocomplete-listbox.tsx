@@ -21,15 +21,13 @@ const preventedKeys = [
   KeyCode.ArrowUp
 ];
 
-export type ListboxProps = {
-  isExpanded?: boolean;
-} & QwikIntrinsicElements['ul'];
+export type ListboxProps = QwikIntrinsicElements['ul'];
 
 export const AutocompleteListbox = component$((props: ListboxProps) => {
-  const ref = useSignal<HTMLElement>();
+  const listboxRefSig = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
   const listboxId = contextService.listBoxId;
-  const listboxElement = ref.value;
+  const isTriggerExpandedSig = contextService.isTriggerExpandedSig;
 
   useVisibleTask$(function preventDefaultTask({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
@@ -38,19 +36,29 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
       }
     }
 
-    listboxElement?.addEventListener('keydown', keyHandler);
+    listboxRefSig.value?.addEventListener('keydown', keyHandler);
     cleanup(() => {
-      listboxElement?.removeEventListener('keydown', keyHandler);
+      listboxRefSig.value?.removeEventListener('keydown', keyHandler);
     });
+  });
+
+  useVisibleTask$(function focusListboxTask({ track }) {
+    if (track(() => isTriggerExpandedSig.value)) {
+      listboxRefSig.value?.focus();
+    }
+  });
+
+  useVisibleTask$(function registerListboxRefTask() {
+    contextService.listBoxRefSig.value = listboxRefSig.value;
   });
 
   return (
     <ul
       id={listboxId}
-      ref={ref}
+      ref={listboxRefSig}
       style={`
           display: ${
-            contextService.isExpanded.value ? 'block' : 'none'
+            isTriggerExpandedSig.value ? 'block' : 'none'
           }; position: absolute; z-index: 1; ${props.style}
       `}
       role="listbox"
@@ -58,7 +66,7 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
       // aria-label={!contextService.labelRef.value ? contextService.inputValue.value : undefined}
       onKeyDown$={[
         $((e: QwikKeyboardEvent) => {
-          const availableOptions = contextService.filteredOptions.map(
+          const availableOptions = contextService.filteredOptionsStore.map(
             (option) => option.value
           );
 

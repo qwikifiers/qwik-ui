@@ -36,8 +36,8 @@ const RegularAutocomplete = component$(() => {
           </AutocompleteTrigger>
         </AutocompleteControl>
         <AutocompleteListbox class="listboxStyle">
-          {fruits.map((fruit, index) => (
-            <AutocompleteOption optionValue={fruit} key={index}>
+          {fruits.map((fruit) => (
+            <AutocompleteOption optionValue={fruit} key={fruit}>
               {fruit}
             </AutocompleteOption>
           ))}
@@ -78,7 +78,11 @@ describe('Critical Functionality', () => {
       THEN the listbox should close`, () => {
     cy.mount(<RegularAutocomplete />);
 
-    cy.get('button').click().click();
+    cy.get('button').click();
+
+    cy.findByRole('listbox').should('exist');
+
+    cy.get('button').click();
 
     cy.findByRole('listbox').should('not.exist');
   });
