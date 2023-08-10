@@ -107,11 +107,11 @@ export const Tabs: FunctionComponent<
         break;
       }
       case TabPanel: {
-        const { title, ...props } = child.props;
+        const { label, ...props } = child.props;
         const tabId = child.key || `${panelIndex}`;
 
-        if (title) {
-          tabComponents.push(<Tab>{title}</Tab>);
+        if (label) {
+          tabComponents.push(<Tab>{label}</Tab>);
           tabIndex++;
         }
         child.key = tabId;
@@ -158,7 +158,7 @@ export const Tabs: FunctionComponent<
 
   tabListElement ||= <TabList />;
 
-  tabListElement.props.children = tabComponents;
+  // tabListElement.props.children = tabComponents;
   tabListElement.children = tabComponents;
 
   return (

@@ -10,6 +10,7 @@ import { TAB_ID_PREFIX } from './tab';
 import { tabsContextId } from './tabs-context-id';
 
 export type TabPanelProps = {
+  label?: string;
   /** @deprecated Internal use only */
   _index?: number;
   /** @deprecated Internal use only */

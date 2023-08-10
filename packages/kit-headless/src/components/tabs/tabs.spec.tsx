@@ -678,4 +678,32 @@ describe('Tabs', () => {
       }
     );
   });
+
+  describe('Shorthand API', () => {
+    it(`GIVEN 3 tabs written using only panels 
+        WHEN clicking the middle one
+        THEN render the middle panel`, () => {
+      cy.mount(
+        <Tabs>
+          <TabPanel label="Tab 1">Panel 1</TabPanel>
+          <TabPanel label="Tab 2">Panel 2</TabPanel>
+          <TabPanel label="Tab 3">Panel 3</TabPanel>
+          {/* <TabList>
+            <Tab>Tab 1</Tab>
+            <Tab>Tab 2</Tab>
+            <Tab>Tab 3</Tab>
+          </TabList>
+          <TabPanel>Panel 1</TabPanel>
+          <TabPanel>Panel 2</TabPanel>
+          <TabPanel>Panel 3</TabPanel> */}
+        </Tabs>
+      );
+
+      cy.findByRole('tab', { name: /Tab 2/i }).click();
+
+      cy.findByRole('tabpanel').should('contain', 'Panel 2');
+
+      cy.findByRole('tablist').should('exist');
+    });
+  });
 });
