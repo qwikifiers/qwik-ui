@@ -26,13 +26,8 @@ import { TabList } from './tabs-list';
 * aria Tabs Pattern https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  * a11y lint plugin https://www.npmjs.com/package/eslint-plugin-jsx-a11y
 
-* POST Alpha
-  * Add a way to add a default tab class from the root (for styling all the tabs in one place)
-
 * POST Beta
   * Add automated tests for preventDefault on end, home,  pageDown, pageUp
-  * Add automated tests for SSR indexing behavior (and in general)
-
 
 * POST V1:
  * - RTL
@@ -120,6 +115,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
   const panelComponents: JSXNode[] = [];
   const tabs: TabInfo[] = [];
   let panelIndex = 0;
+  let selectedIndex;
 
   // Extract the Tab related components from the children
   while (childrenToProcess.length) {
@@ -143,17 +139,26 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
         break;
       }
       case Tab: {
+        if (child.props.selected) {
+          selectedIndex = tabComponents.length;
+          child.props.selected = undefined;
+        }
         tabComponents.push(child);
         break;
       }
       case TabPanel: {
-        const { label } = child.props;
+        const { label, selected } = child.props;
         // The consumer must provide a key if they change the order
         const tabId = child.key || `${panelIndex}`;
 
         if (label) {
           tabComponents.push(<Tab>{label}</Tab>);
         }
+        if (selected) {
+          selectedIndex = panelIndex;
+          child.props.selected = undefined;
+        }
+
         // Always assign a key
         child.key = tabId;
         // Add props but don't replace the object
@@ -196,6 +201,10 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
   } else {
     // Creating it as <TabList /> and adding children later doesn't work
     tabListElement = <TabList>{tabComponents}</TabList>;
+  }
+
+  if (typeof selectedIndex === 'number') {
+    rest.selectedIndex = selectedIndex;
   }
 
   return (

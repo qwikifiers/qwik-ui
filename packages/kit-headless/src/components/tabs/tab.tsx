@@ -18,6 +18,7 @@ export const TAB_ID_PREFIX = '_tab_';
 
 export type TabProps = {
   disabled?: boolean;
+  selected?: boolean;
   selectedClassName?: string;
 
   /** @deprecated Internal use only */

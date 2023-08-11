@@ -13,6 +13,7 @@ import { tabsContextId } from './tabs-context-id';
 export type TabPanelProps = {
   /** Optional tab contents. */
   label?: QwikIntrinsicElements['div']['children'];
+  selected?: boolean;
 
   /** @deprecated Internal use only */
   _tabId?: string;

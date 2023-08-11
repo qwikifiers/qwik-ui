@@ -699,12 +699,14 @@ describe('Tabs', () => {
           <Tab>Tab 1</Tab>
           <TabPanel>Panel 1</TabPanel>
           <TabPanel label="Tab 2">Panel 2</TabPanel>
-          <TabPanel>Panel 3</TabPanel>
+          <TabPanel selected>Panel 3</TabPanel>
           <Tab>Tab 3</Tab>
         </Tabs>
       );
 
       cy.get('[role="tab"]').should('have.length', 3);
+
+      cy.findByRole('tabpanel').should('contain', 'Panel 3');
 
       cy.findByRole('tab', { name: /Tab 2/i }).click();
 
