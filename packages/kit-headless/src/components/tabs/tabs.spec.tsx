@@ -160,7 +160,8 @@ describe('Tabs', () => {
                 ))}
               </TabList>
               {tabsState.map((tab) => (
-                <TabPanel key={tab}>{tab} Panel</TabPanel>
+                // Making sure the key is taken from the tab
+                <TabPanel key={'panel' + tab}>{tab} Panel</TabPanel>
               ))}
             </Tabs>
             <button onClick$={() => tabsState.splice(tabIndexToDelete, 1)}>

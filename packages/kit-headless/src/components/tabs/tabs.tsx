@@ -34,6 +34,13 @@ import { TabList } from './tabs-list';
  *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
  * Add ability to close tabs with an ❌ icon (and keyboard support)
 
+* TO DISCUSS
+ - name of the components, e.g. Tabs, Tabs.Trigger, Tabs.Panel
+ - selectedClassname => selectedClass
+ - do we keep all current props (tabId callbacks?)
+ - shorthand for tab: "label" or "tab"?
+ - the TODOs
+ - why id and data-tab-id? we don't need any of them
  *
  */
 
@@ -149,7 +156,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
       case TabPanel: {
         const { label, selected } = child.props;
         // The consumer must provide a key if they change the order
-        const tabId = child.key || `${panelIndex}`;
+        const tabId = tabComponents[panelIndex]?.key || child.key || `${panelIndex}`;
 
         if (label) {
           tabComponents.push(<Tab>{label}</Tab>);

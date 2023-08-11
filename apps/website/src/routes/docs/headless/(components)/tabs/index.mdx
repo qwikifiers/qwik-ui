@@ -60,7 +60,7 @@ import { APITable } from '../../../_components/api-table/api-table';
 
       return (
         <>
-          <Tabs>
+          <Tabs seletedIndex={1}>
             <TabList>
               <Tab>Tab 1</Tab>
               <Tab>Tab 2</Tab>
@@ -91,7 +91,7 @@ import { APITable } from '../../../_components/api-table/api-table';
         <>
           <Tabs>
             <TabPanel title="Tab 1">Content 1</TabPanel>
-            <TabPanel title="Tab 2">Content 2</TabPanel>
+            <TabPanel title="Tab 2" selected>Content 2</TabPanel>
             <TabPanel title="Tab 3">Content 3</TabPanel>
           </Tabs>
         </>
@@ -407,6 +407,11 @@ return <div>
       description: 'A way to set the selected index programmatically',
     },
     {
+      name: 'selectedTabId',
+      type: 'number',
+      description: 'A way to set the selected tabId programmatically. The tabId is set by the `key` prop of the Tab or TabPanel',
+    },
+    {
       name: 'vertical',
       type: 'boolean',
       description:
@@ -417,7 +422,38 @@ return <div>
       type: 'function',
       info: '(index: number) => void',
       description:
-        'An event hook that getting notified whenever the selected index changes',
+        'An event hook that gets notified whenever the selected index changes',
+    },
+    {
+      name: 'onSelectedTabIdChange$',
+      type: 'function',
+      info: '(index: string) => void',
+      description:
+        'An event hook that gets notified whenever the selected tabId changes',
+    },
+    {
+      name: 'bind:selectedIndex',
+      type: 'signal',
+      info: 'Signal<number | undefined>',
+      description:
+        'A signal that binds the selected index. This is a more efficient version of `selectedIndex` + `onSelectedIndexChange$`',
+    },
+    {
+      name: 'bind:selectedTabId',
+      type: 'signal',
+      info: 'Signal<string | undefined>',
+      description:
+        'A signal that binds the selected tabId. This is a more efficient version of `selectedTabId` + `onSelectedTabIdChange$`',
+    },
+    {
+      name: 'tabClass',
+      type: 'string',
+      description: 'The class name to apply to tabs',
+    },
+    {
+      name: 'panelClass',
+      type: 'string',
+      description: 'The class name to apply to panels',
     },
   ]}
 />
@@ -432,10 +468,9 @@ return <div>
       description: 'The class name to apply when the tab is selected',
     },
     {
-      name: 'onClick',
-      info: '(event: QwikMouseEvent) => void',
-      type: 'function',
-      description: 'A custom click handler to wire to tab click event',
+      name: 'selected',
+      type: 'boolean',
+      description: 'Select this tab by default',
     },
     {
       name: 'disabled',
@@ -444,4 +479,20 @@ return <div>
     },
   ]}
 />
-```
+
+### TabPanel
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'label',
+      type: 'element',
+      description: 'Shorthand for `<Tab>{label}</Tab>`',
+    },
+    {
+      name: 'selected',
+      type: 'boolean',
+      description: 'Select this tab by default',
+    },
+  ]}
+/>
