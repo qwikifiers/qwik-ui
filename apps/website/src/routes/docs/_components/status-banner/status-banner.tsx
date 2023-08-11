@@ -2,11 +2,11 @@ import {
   QwikIntrinsicElements,
   component$,
   useSignal,
-  useStylesScoped$
+  useStylesScoped$,
+  $
 } from '@builder.io/qwik';
 import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
 import { getClassByStatus } from '../component-status-badge/component-status-badge';
-import styles from './status-banner.css?inline';
 
 export interface StatusBannerProps {
   status?: ComponentStatus;
@@ -73,23 +73,52 @@ function getBackgroundByStatus(status?: ComponentStatus) {
 
 export const StatusBanner = component$((props: StatusBannerProps) => {
   const ref = useSignal<HTMLElement | undefined>();
-  const isClosed = useSignal(false);
+  const isBannerClosedSig = useSignal(false);
+  const marginBottom = 32;
 
-  useStylesScoped$(styles);
+  useStylesScoped$(`
+
+  .normal-state {
+    transition: margin-top 0.5s ease;
+  }
+
+  .fade {
+    animation: fadeOut 0.5s ease forwards;
+    margin-top: var(--dynamic-banner-height);
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  `);
 
   return (
     <>
       <div
         ref={ref}
-        hidden={isClosed.value}
-        onAnimationEnd$={() => (isClosed.value = true)}
-        class={`${getBackgroundByStatus(props.status)} mb-8 px-6 py-4 
+        hidden={isBannerClosedSig.value}
+        onAnimationEnd$={() => (isBannerClosedSig.value = true)}
+        class={`${getBackgroundByStatus(props.status)} px-6 py-4 
         rounded-xl md:items-center relative md:flex-row normal-state
         shadow-depth dark:shadow-depth-dark`}
+        style={{ marginBottom: `${marginBottom}px` }}
       >
         <span class="pr-2">{getMessageByStatus(props.status)}</span>
         <button
-          onClick$={() => ref.value?.classList.toggle('fade')}
+          onClick$={() => {
+            // we need the margin as a variable rather than a static class.
+            ref.value?.style.setProperty(
+              '--dynamic-banner-height',
+              `-${ref.value?.offsetHeight + marginBottom}px`
+            );
+
+            ref.value?.classList.toggle('fade');
+          }}
           class="scale-150 absolute top-2 right-2"
         >
           <EpCircleCloseFilled />
