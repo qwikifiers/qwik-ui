@@ -1,4 +1,14 @@
 {
+  "rules": {
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      // allow unused vars starting with _
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ]
+  },
   "extends": [
     "../../.eslintrc.json",
     "eslint:recommended",

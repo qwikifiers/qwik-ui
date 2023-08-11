@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   QwikIntrinsicElements,
   Signal,
@@ -10,44 +11,48 @@ import { TAB_ID_PREFIX } from './tab';
 import { tabsContextId } from './tabs-context-id';
 
 export type TabPanelProps = {
-  label?: string;
-  /** @deprecated Internal use only */
-  _index?: number;
+  /** Optional tab contents. */
+  label?: QwikIntrinsicElements['div']['children'];
+
   /** @deprecated Internal use only */
   _tabId?: string;
+  /** @deprecated Internal use only */
+  _extraClass?: QwikIntrinsicElements['div']['class'];
 } & QwikIntrinsicElements['div'];
 
 export const TAB_PANEL_ID_PREFIX = '_tabpanel_';
 
-export const TabPanel = component$(({ _index, _tabId, ...props }: TabPanelProps) => {
-  const contextService = useContext(tabsContextId);
+export const TabPanel = component$(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ({ label, _tabId, _extraClass, ...props }: TabPanelProps) => {
+    const contextService = useContext(tabsContextId);
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const tabId = _tabId!;
+    const fullPanelElementId = contextService.tabsPrefix + TAB_PANEL_ID_PREFIX + _tabId!;
+    const fullTabElementId = contextService.tabsPrefix + TAB_ID_PREFIX + _tabId!;
 
-  const fullPanelElementId = contextService.tabsPrefix + TAB_PANEL_ID_PREFIX + tabId;
-  const fullTabElementId = contextService.tabsPrefix + TAB_ID_PREFIX + tabId;
+    const isSelectedSig = useComputed$(() => {
+      return contextService.selectedTabIdSig.value === _tabId;
+    });
 
-  const isSelectedSig = useComputed$(() => {
-    return contextService.selectedIndexSig.value === _index;
-  });
-
-  return (
-    <div
-      data-tabpanel-id={fullPanelElementId}
-      id={fullPanelElementId}
-      role="tabpanel"
-      tabIndex={0}
-      hidden={isSelectedSig.value ? (null as unknown as undefined) : true}
-      aria-labelledby={fullTabElementId}
-      class={[
-        (props.class as Signal<string>)?.value ?? (props.class as string),
-        isSelectedSig.value && 'is-hidden'
-      ]}
-      // TODO require to do this via CSS in non-headless wrappers
-      style={isSelectedSig.value ? 'display: block' : 'display: none'}
-    >
-      <Slot />
-    </div>
-  );
-});
+    return (
+      <div
+        {...props}
+        data-tabpanel-id={fullPanelElementId}
+        id={fullPanelElementId}
+        role="tabpanel"
+        tabIndex={0}
+        aria-labelledby={fullTabElementId}
+        class={[
+          (props.class as Signal<string>)?.value ?? (props.class as string),
+          (_extraClass as Signal<string>)?.value ?? (_extraClass as string),
+          // TODO hiddenClass
+          isSelectedSig.value && 'is-hidden'
+        ]}
+        // We need to use null so a previous hidden attribute is removed.
+        hidden={isSelectedSig.value ? (null as unknown as undefined) : true}
+      >
+        <Slot />
+      </div>
+    );
+  }
+);

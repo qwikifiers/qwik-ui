@@ -84,7 +84,7 @@ describe('Tabs', () => {
       cy.mount(<DynamicTabsComponent tabsLength={3} tabIndexToDelete={0} />);
 
       cy.findByRole('tab', { name: /Tab 3/i }).click();
-      cy.findByTestId('selected-index-from-event').should('contain.text', 2);
+      cy.findByTestId('selected-index-from-event').should('contain.text', ': 2');
 
       cy.findByRole('button', { name: /remove tab/i }).click();
 
@@ -92,7 +92,11 @@ describe('Tabs', () => {
 
       cy.findByRole('tab', { name: /Tab 2/i }).click();
 
-      cy.findByTestId('selected-index-from-event').should('contain.text', 0);
+      cy.findByTestId('selected-index-from-event').should('contain.text', ': 0');
+      cy.findByTestId('selected-tab-id-from-event').should(
+        'contain.text',
+        ': Dynamic Tab 2'
+      );
     });
 
     it(`GIVEN 3 tabs
@@ -142,10 +146,14 @@ describe('Tabs', () => {
 
         const tabsState = useStore(tabNames);
         const selectedIndexSig = useSignal(0);
+        const selectedTabIdSig = useSignal<string | undefined>();
 
         return (
           <>
-            <Tabs bind:selectedIndex={selectedIndexSig}>
+            <Tabs
+              bind:selectedIndex={selectedIndexSig}
+              bind:selectedTabId={selectedTabIdSig}
+            >
               <TabList>
                 {tabsState.map((tab) => (
                   <Tab key={tab}>{tab}</Tab>
@@ -163,7 +171,12 @@ describe('Tabs', () => {
             </button>
             {selectedIndexSig.value !== undefined && (
               <div data-testid="selected-index-from-event">
-                Selected index from event: {selectedIndexSig.value}
+                Selected index: {selectedIndexSig.value}
+              </div>
+            )}
+            {selectedTabIdSig.value !== undefined && (
+              <div data-testid="selected-tab-id-from-event">
+                Selected tab id: {selectedTabIdSig.value}
               </div>
             )}
           </>
@@ -487,9 +500,7 @@ describe('Tabs', () => {
 
       cy.findByRole('tabpanel').should('contain', 'Panel 2');
 
-      cy.findByRole('tab', { name: /Tab 1/ })
-        .debug()
-        .should('not.have.class', 'selected');
+      cy.findByRole('tab', { name: /Tab 1/ }).should('not.have.class', 'selected');
     });
 
     it(`GIVEN 5 tabs with tab 3 selected and tabs 3-5 are disabled
@@ -680,24 +691,20 @@ describe('Tabs', () => {
   });
 
   describe('Shorthand API', () => {
-    it(`GIVEN 3 tabs written using only panels 
+    it(`GIVEN 3 tabs written using shorthand
         WHEN clicking the middle one
         THEN render the middle panel`, () => {
       cy.mount(
         <Tabs>
-          <TabPanel label="Tab 1">Panel 1</TabPanel>
-          <TabPanel label="Tab 2">Panel 2</TabPanel>
-          <TabPanel label="Tab 3">Panel 3</TabPanel>
-          {/* <TabList>
-            <Tab>Tab 1</Tab>
-            <Tab>Tab 2</Tab>
-            <Tab>Tab 3</Tab>
-          </TabList>
+          <Tab>Tab 1</Tab>
           <TabPanel>Panel 1</TabPanel>
-          <TabPanel>Panel 2</TabPanel>
-          <TabPanel>Panel 3</TabPanel> */}
+          <TabPanel label="Tab 2">Panel 2</TabPanel>
+          <TabPanel>Panel 3</TabPanel>
+          <Tab>Tab 3</Tab>
         </Tabs>
       );
+
+      cy.get('[role="tab"]').should('have.length', 3);
 
       cy.findByRole('tab', { name: /Tab 2/i }).click();
 
