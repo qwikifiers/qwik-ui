@@ -1,4 +1,4 @@
-import { component$, Slot } from '@builder.io/qwik';
+import { component$, Slot, useSignal } from '@builder.io/qwik';
 import {
   AutocompleteLabel,
   AutocompleteRoot,
@@ -25,9 +25,23 @@ const trainers = [
 ];
 
 export const Example01 = component$(() => {
+  const trainersSig = useSignal(trainers);
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
+        <button
+          onClick$={() => {
+            trainersSig.value = [
+              'testy',
+              'another testy westy',
+              'christmas',
+              'something else',
+              "ken's favorite christmas present"
+            ];
+          }}
+        >
+          Testy testy
+        </button>
         <AutocompleteRoot class="relative">
           <AutocompleteLabel class=" font-semibold dark:text-white text-[#333333]">
             Personal Trainers ⚡
@@ -49,7 +63,7 @@ export const Example01 = component$(() => {
             </AutocompleteTrigger>
           </AutocompleteControl>
           <AutocompleteListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
-            {trainers.map((trainer) => (
+            {trainersSig.value.map((trainer) => (
               <AutocompleteOption
                 optionValue={trainer}
                 key={trainer}

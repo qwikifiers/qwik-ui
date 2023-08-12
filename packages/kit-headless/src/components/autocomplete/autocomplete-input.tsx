@@ -71,6 +71,12 @@ export const AutocompleteInput = component$((props: InputProps) => {
         }),
         props.onKeyDown$
       ]}
+      onFocus$={() => {
+        contextService.isInputFocusedSig.value = true;
+      }}
+      onBlur$={() => {
+        contextService.isInputFocusedSig.value = false;
+      }}
       {...props}
     />
   );

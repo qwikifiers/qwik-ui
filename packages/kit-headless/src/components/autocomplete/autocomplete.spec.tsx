@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import {
   AutocompleteRoot,
   AutocompleteLabel,
@@ -11,15 +11,22 @@ import {
 
 import TestData from './test-data';
 
-const RegularAutocomplete = component$(() => {
+const RegularAutocomplete = component$(({ defaultValue }: { defaultValue?: string }) => {
   const fruits = TestData();
-
+  const fruitsSig = useSignal(TestData());
   return (
     <>
-      <AutocompleteRoot style="width: fit-content">
+      {/* <button
+        onClick$={() => {
+          fruitsSig.value = ['testy', 'testy2', 'testy3'];
+        }}
+      >
+        Testy testy
+      </button> */}
+      <AutocompleteRoot defaultValue={defaultValue} style="width: fit-content">
         <AutocompleteLabel>Label</AutocompleteLabel>
         <AutocompleteControl>
-          <AutocompleteInput />
+          <AutocompleteInput placeholder="random placeholder" />
           <AutocompleteTrigger>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +43,7 @@ const RegularAutocomplete = component$(() => {
           </AutocompleteTrigger>
         </AutocompleteControl>
         <AutocompleteListbox class="listboxStyle">
-          {fruits.map((fruit) => (
+          {fruitsSig.value.map((fruit) => (
             <AutocompleteOption optionValue={fruit} key={fruit}>
               {fruit}
             </AutocompleteOption>
@@ -45,6 +52,57 @@ const RegularAutocomplete = component$(() => {
       </AutocompleteRoot>
     </>
   );
+});
+
+describe('Gang gang', () => {
+  it(`GIVEN an Autocomplete component
+      WHEN there is no default value,
+      THEN it should display without a default value
+  `, () => {
+    cy.mount(<RegularAutocomplete />);
+
+    cy.get('input').should('have.value', '');
+  });
+
+  it(`GIVEN an Autocomplete component
+      WHEN there is a default value,
+      THEN it should display the default value within the input
+  `, () => {
+    cy.mount(<RegularAutocomplete defaultValue="hi there!" />);
+
+    cy.get('input').should('have.value', 'hi there!');
+  });
+
+  it(`GIVEN an Autocomplete component
+      WHEN there is a default value and it exactly matches an option
+      THEN it should display the default value within the input AND the listbox should be closed.
+  `, () => {
+    cy.mount(<RegularAutocomplete defaultValue="apple" />);
+
+    cy.get('input').should('have.value', 'apple');
+
+    cy.findByRole('listbox').should('not.exist');
+  });
+
+  it(`GIVEN an Autocomplete component
+      WHEN there is a default value and it doesn't exactly match an option
+      THEN it should open the listbox
+  `, () => {
+    cy.mount(<RegularAutocomplete defaultValue="appl" />);
+
+    cy.get('input').should('have.value', 'appl');
+
+    cy.findByRole('listbox').should('exist');
+  });
+
+  // it(`GIVEN an Autocomplete component
+  //     WHEN there is a placeholder and the input is empty or undefined
+  //     THEN it should display the default value within the input
+  // `, () => {
+  //   cy.mount(<RegularAutocomplete />);
+
+  //   cy.get('input').should('have.value', '');
+  // });
 });
 
 describe('Critical Functionality', () => {
@@ -133,7 +191,7 @@ describe('Critical Functionality', () => {
     cy.findByRole('listbox').should('not.exist');
   });
 
-  it(`GIVEN an Autocomplete component with an open listbox and something else in the DOM
+  it.only(`GIVEN an Autocomplete component with an open listbox and something else in the DOM
     WHEN the user clicks outside of the Autocomplete component
     THEN the listbox should close.`, () => {
     cy.mount(
