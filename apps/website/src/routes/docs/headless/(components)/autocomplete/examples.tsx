@@ -26,7 +26,7 @@ const trainers = [
 
 export const Example01 = component$(() => {
   const trainersSig = useSignal(trainers);
-  const showExample = useSignal(false);
+  const showExample = useSignal(true);
   return (
     <PreviewCodeExample>
       <div class="flex flex-col gap-4" q:slot="actualComponent">
