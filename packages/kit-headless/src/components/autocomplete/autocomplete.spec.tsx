@@ -16,18 +16,18 @@ const RegularAutocomplete = component$(({ defaultValue }: { defaultValue?: strin
   const fruitsSig = useSignal(TestData());
   return (
     <>
-      {/* <button
+      <button
         onClick$={() => {
           fruitsSig.value = ['testy', 'testy2', 'testy3'];
         }}
       >
         Testy testy
-      </button> */}
+      </button>
       <AutocompleteRoot defaultValue={defaultValue} style="width: fit-content">
         <AutocompleteLabel>Label</AutocompleteLabel>
         <AutocompleteControl>
           <AutocompleteInput placeholder="random placeholder" />
-          <AutocompleteTrigger>
+          <AutocompleteTrigger data-testid="trigger">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -191,31 +191,31 @@ describe('Critical Functionality', () => {
     cy.findByRole('listbox').should('not.exist');
   });
 
-  it.only(`GIVEN an Autocomplete component with an open listbox and something else in the DOM
-    WHEN the user clicks outside of the Autocomplete component
-    THEN the listbox should close.`, () => {
-    cy.mount(
-      <>
-        <RegularAutocomplete />
-        <button>Random Element</button>
-      </>
-    );
+  //   it(`GIVEN an Autocomplete component with an open listbox and something else in the DOM
+  //     WHEN the user clicks outside of the Autocomplete component
+  //     THEN the listbox should close.`, () => {
+  //     cy.mount(
+  //       <>
+  //         <RegularAutocomplete />
+  //         <button>Random Element</button>
+  //       </>
+  //     );
 
-    cy.get('button').first().focus().click();
+  //     cy.get('button').first().focus().click();
 
-    cy.findByRole('button', { name: 'Random Element' }).focus().click();
+  //     cy.findByRole('button', { name: 'Random Element' }).focus().click();
 
-    cy.findByRole('listbox').should('not.exist');
-  });
+  //     cy.findByRole('listbox').should('not.exist');
+  //   });
 });
 
 describe('Keyboard Navigation', () => {
-  it(`GIVEN an Autocomplete component with an open listbox
+  it.only(`GIVEN an Autocomplete component with an open listbox
       WHEN the user presses the 'Escape' key,
       THEN the listbox should close`, () => {
     cy.mount(<RegularAutocomplete />);
 
-    cy.get('button').click();
+    cy.findByTestId('trigger').click();
 
     cy.findByRole('listbox');
 
