@@ -29,20 +29,13 @@ export const Example01 = component$(() => {
   const showExample = useSignal(false);
   return (
     <PreviewCodeExample>
-      <div q:slot="actualComponent">
+      <div class="flex flex-col gap-4" q:slot="actualComponent">
         <button
           onClick$={() => {
             showExample.value = !showExample.value;
           }}
         >
           Show them
-        </button>
-        <button
-          onClick$={() => {
-            trainersSig.value = ['One', 'Two', 'Three', 'Four', 'Five'];
-          }}
-        >
-          Change them
         </button>
         {showExample.value === true && (
           <AutocompleteRoot class="relative">
@@ -78,6 +71,13 @@ export const Example01 = component$(() => {
             </AutocompleteListbox>
           </AutocompleteRoot>
         )}
+        <button
+          onClick$={() => {
+            trainersSig.value = ['One', 'Two', 'Three', 'Four', 'Five'];
+          }}
+        >
+          Change them
+        </button>
       </div>
 
       <div q:slot="codeExample">
