@@ -26,9 +26,18 @@ const trainers = [
 
 export const Example01 = component$(() => {
   const trainersSig = useSignal(trainers);
+  const showExample = useSignal(false);
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
+        <button
+          style={{ marginRight: '20px' }}
+          onClick$={() => {
+            showExample.value = !showExample.value;
+          }}
+        >
+          Show them
+        </button>
         <button
           onClick$={() => {
             trainersSig.value = [
@@ -40,40 +49,42 @@ export const Example01 = component$(() => {
             ];
           }}
         >
-          Testy testy
+          Change them
         </button>
-        <AutocompleteRoot class="relative">
-          <AutocompleteLabel class=" font-semibold dark:text-white text-[#333333]">
-            Personal Trainers ⚡
-          </AutocompleteLabel>
-          <AutocompleteControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
-            <AutocompleteInput class="w-44 bg-inherit px-2 pr-6 text-white" />
-            <AutocompleteTrigger class="w-6 h-6 group absolute right-0">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke-width="2"
-                class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </AutocompleteTrigger>
-          </AutocompleteControl>
-          <AutocompleteListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
-            {trainersSig.value.map((trainer) => (
-              <AutocompleteOption
-                optionValue={trainer}
-                key={trainer}
-                class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
-              >
-                {trainer}
-              </AutocompleteOption>
-            ))}
-          </AutocompleteListbox>
-        </AutocompleteRoot>
+        {showExample.value === true && (
+          <AutocompleteRoot class="relative">
+            <AutocompleteLabel class=" font-semibold dark:text-white text-[#333333]">
+              Personal Trainers ⚡
+            </AutocompleteLabel>
+            <AutocompleteControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
+              <AutocompleteInput class="w-44 bg-inherit px-2 pr-6 text-white" />
+              <AutocompleteTrigger class="w-6 h-6 group absolute right-0">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="2"
+                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </AutocompleteTrigger>
+            </AutocompleteControl>
+            <AutocompleteListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
+              {trainersSig.value.map((trainer) => (
+                <AutocompleteOption
+                  optionValue={trainer}
+                  key={trainer}
+                  class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
+                >
+                  {trainer}
+                </AutocompleteOption>
+              ))}
+            </AutocompleteListbox>
+          </AutocompleteRoot>
+        )}
       </div>
 
       <div q:slot="codeExample">

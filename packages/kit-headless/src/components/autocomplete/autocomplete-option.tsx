@@ -46,10 +46,10 @@ export const AutocompleteOption = component$((props: OptionProps) => {
       });
 
       console.log(props.optionValue, specialId);
-      const exists = contextService.dataHolder.value.find(
+      const wasRenderedOnServer = contextService.dataHolder.value.find(
         (item) => item.id === specialId
       );
-      if (exists) {
+      if (wasRenderedOnServer) {
         return;
       }
       contextService.dataHolder.value = [
