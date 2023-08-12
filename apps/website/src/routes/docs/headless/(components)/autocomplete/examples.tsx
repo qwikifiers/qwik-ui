@@ -31,7 +31,6 @@ export const Example01 = component$(() => {
     <PreviewCodeExample>
       <div q:slot="actualComponent">
         <button
-          style={{ marginRight: '20px' }}
           onClick$={() => {
             showExample.value = !showExample.value;
           }}
@@ -40,13 +39,7 @@ export const Example01 = component$(() => {
         </button>
         <button
           onClick$={() => {
-            trainersSig.value = [
-              'testy',
-              'another testy westy',
-              'christmas',
-              'something else',
-              "ken's favorite christmas present"
-            ];
+            trainersSig.value = ['One', 'Two', 'Three', 'Four', 'Five'];
           }}
         >
           Change them
