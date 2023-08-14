@@ -73,25 +73,28 @@ export const Tab = component$(
       contextService.selectIfAutomatic$(_tabId!);
     });
 
+    const classNamesSig = useComputed$(() => [
+      (_extraClass as Signal<string>)?.value ?? (_extraClass as string),
+      // TODO only given class if selected
+      isSelectedSig.value && ['selected', selectedClassNameSig.value]
+    ]);
+
     return (
       <button
         {...props}
         type="button"
         role="tab"
         id={fullTabElementId}
-        data-tab-id={fullTabElementId}
+        aria-controls={fullPanelElementId}
         ref={elementRefSig}
         aria-disabled={props.disabled}
         onFocus$={[selectIfAutomatic$, props.onFocus$]}
         onMouseEnter$={[selectIfAutomatic$, props.onMouseEnter$]}
         aria-selected={isSelectedSig.value}
         tabIndex={isSelectedSig.value ? 0 : -1}
-        aria-controls={fullPanelElementId}
         class={[
           (props.class as Signal<string>)?.value ?? (props.class as string),
-          (_extraClass as Signal<string>)?.value ?? (_extraClass as string),
-          // TODO only given class if selected
-          isSelectedSig.value && ['selected', selectedClassNameSig.value]
+          classNamesSig.value
         ]}
         onClick$={[$(() => contextService.selectTab$(_tabId!)), props.onClick$]}
       >

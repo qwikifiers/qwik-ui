@@ -13,7 +13,7 @@ import {
 } from '@builder.io/qwik';
 import { KeyCode } from '../../utils/key-code.type';
 import { Behavior } from './behavior.type';
-import { TAB_ID_PREFIX, Tab, TabProps } from './tab';
+import { Tab, TabProps } from './tab';
 import { TabPanel, TabPanelProps } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
@@ -40,8 +40,7 @@ import { TabList } from './tabs-list';
  - do we keep all current props (tabId callbacks?)
  - shorthand for tab: "label" or "tab"?
  - the TODOs
- - why id and data-tab-id? we don't need any of them
- *
+  *
  */
 
 export type TabsProps = {
@@ -120,7 +119,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
   let tabListElement: JSXNode | undefined;
   const tabComponents: JSXNode[] = [];
   const panelComponents: JSXNode[] = [];
-  const tabs: TabInfo[] = [];
+  const tabsInfo: TabInfo[] = [];
   let panelIndex = 0;
   let selectedIndex;
 
@@ -156,7 +155,8 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
       case TabPanel: {
         const { label, selected } = child.props;
         // The consumer must provide a key if they change the order
-        const tabId = tabComponents[panelIndex]?.key || child.key || `${panelIndex}`;
+        const tabIdFromTabMaybe = tabComponents[panelIndex]?.key;
+        const tabId = tabIdFromTabMaybe || child.key || `${panelIndex}`;
 
         if (label) {
           tabComponents.push(<Tab>{label}</Tab>);
@@ -173,7 +173,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
         child.props._extraClass = panelClass;
 
         panelComponents.push(child);
-        tabs.push({
+        tabsInfo.push({
           tabId,
           index: panelIndex,
           panelProps: child.props
@@ -195,11 +195,11 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
   }
 
   tabComponents.forEach((tab, index) => {
-    const tabId = tabs[index]?.tabId;
+    const tabId = tabsInfo[index]?.tabId;
     tab.key = tabId;
     tab.props._tabId = tabId;
     tab.props._extraClass = tabClass;
-    tabs[index].tabProps = tab.props;
+    tabsInfo[index].tabProps = tab.props;
   });
 
   if (tabListElement) {
@@ -215,7 +215,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
   }
 
   return (
-    <TabsImpl tabs={tabs} {...rest}>
+    <TabsImpl tabs={tabsInfo} {...rest}>
       {tabListElement}
       {panelComponents}
     </TabsImpl>
@@ -276,6 +276,8 @@ export const TabsImpl = component$((props: TabsProps & { tabs: TabInfo[] }) => {
   const selectedTabIdSig = givenTabIdSig || initialSelectedTabIdSig;
 
   useTask$(function syncTabsTask({ track }) {
+    // Possible optimizer bug: tracking only works with props.tabs
+    // TODO: Write a test in Qwik optimizer to prove this bug
     const tabs = track(() => props.tabs);
     const tabId = selectedTabIdSig.value;
     updateSignals(tabs, selectedIndexSig, selectedTabIdSig, { tabId }, true);
@@ -350,15 +352,11 @@ export const TabsImpl = component$((props: TabsProps & { tabs: TabInfo[] }) => {
       tab = findPrevEnabledTab(props.tabs, props.tabs.length);
     }
     if (tab) {
-      focusOnTab(tab.tabId);
+      focusOnTab(tab.index);
     }
 
-    function focusOnTab(tabId: string) {
-      const fullTabElementId = tabsPrefix + TAB_ID_PREFIX + tabId;
-      // TODO use the index
-      tabsRootElement
-        ?.querySelector<HTMLElement>(`[data-tab-id='${fullTabElementId}']`)
-        ?.focus();
+    function focusOnTab(index: number) {
+      tabsRootElement?.children[0]?.children[index]?.focus();
     }
   });
 

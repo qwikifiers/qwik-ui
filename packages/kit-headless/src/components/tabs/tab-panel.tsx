@@ -38,19 +38,15 @@ export const TabPanel = component$(
     return (
       <div
         {...props}
-        data-tabpanel-id={fullPanelElementId}
         id={fullPanelElementId}
+        aria-labelledby={fullTabElementId}
         role="tabpanel"
         tabIndex={0}
-        aria-labelledby={fullTabElementId}
         class={[
           (props.class as Signal<string>)?.value ?? (props.class as string),
-          (_extraClass as Signal<string>)?.value ?? (_extraClass as string),
-          // TODO hiddenClass
-          isSelectedSig.value && 'is-hidden'
+          (_extraClass as Signal<string>)?.value ?? (_extraClass as string)
         ]}
-        // We need to use null so a previous hidden attribute is removed.
-        hidden={isSelectedSig.value ? (null as unknown as undefined) : true}
+        hidden={!isSelectedSig.value}
       >
         <Slot />
       </div>
