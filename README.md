@@ -119,6 +119,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/wmertens"><img src="https://avatars.githubusercontent.com/u/54934?v=4?s=100" width="100px;" alt="Wout Mertens"/><br /><sub><b>Wout Mertens</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=wmertens" title="Code">💻</a> <a href="#research-wmertens" title="Research">🔬</a> <a href="#ideas-wmertens" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=wmertens" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=wmertens" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://zankel-engineering.de"><img src="https://avatars.githubusercontent.com/u/43412711?v=4?s=100" width="100px;" alt="Zankel-Engineering"/><br /><sub><b>Zankel-Engineering</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=Zankel-Engineering" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=Zankel-Engineering" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3AZankel-Engineering" title="Bug reports">🐛</a> <a href="#a11y-Zankel-Engineering" title="Accessibility">️️️️♿️</a></td>
     </tr>
   </tbody>
 </table>
