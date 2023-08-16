@@ -10,7 +10,7 @@ export const MainExample = component$(() => {
           <PopoverContent>
             <div class="p-4 bg-gray-500">Hi, I'm the content</div>
           </PopoverContent>
-          <PopoverTrigger aria-label="Freund">Click on me</PopoverTrigger>
+          <PopoverTrigger>Click on me</PopoverTrigger>
         </Popover>
       </div>
       <div q:slot="codeExample">
@@ -28,7 +28,7 @@ export const Example1 = component$(() => {
           <PopoverContent>
             <div class="p-4 bg-gray-500">Hi, I'm the content, but now on top</div>
           </PopoverContent>
-          <PopoverTrigger aria-label="no-click-friend">Click on me</PopoverTrigger>
+          <PopoverTrigger>Click on me</PopoverTrigger>
         </Popover>
       </div>
       <div q:slot="codeExample">

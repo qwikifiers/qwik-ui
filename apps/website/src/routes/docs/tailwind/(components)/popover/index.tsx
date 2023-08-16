@@ -16,7 +16,7 @@ export default component$(() => {
           <Box />
         </PopoverContent>
 
-        <PopoverTrigger ariaAttributes={{ ariaLabel: 'click-friend' }}>
+        <PopoverTrigger>
           <Button onClick$={() => console.log('here')}> CLICK ME </Button>
         </PopoverTrigger>
       </Popover>
@@ -26,9 +26,7 @@ export default component$(() => {
           <Box />
         </PopoverContent>
         <PopoverTrigger>
-          <Button onClick$={() => console.log('here')}>
-            Offset and position
-          </Button>
+          <Button onClick$={() => console.log('here')}>Offset and position</Button>
         </PopoverTrigger>
       </Popover>
 
@@ -88,8 +86,8 @@ export default component$(() => {
 
       <h1 class="mt-8">DISABLE CLICK OUTSIDE</h1>
       <p>
-        Popovers are not closed when click outside but they can be closed
-        clicking their own trigger button only
+        Popovers are not closed when click outside but they can be closed clicking their
+        own trigger button only
       </p>
 
       <div class="flex flex-col gap-2">
@@ -140,8 +138,8 @@ export default component$(() => {
         <code>Current state: {JSON.stringify(controlledPopover.value)}</code>
       </div>
       <p>
-        The popover can be closed clicking outside or clicking the CLOSE button
-        inside the popover
+        The popover can be closed clicking outside or clicking the CLOSE button inside the
+        popover
       </p>
       <p>the onUpdate$ callback allows you to sync local and popover states</p>
 
@@ -156,16 +154,12 @@ export default component$(() => {
           <Card>
             <CardBody>
               <CardTitle>title</CardTitle>
-              <Button onClick$={() => (controlledPopover.value = false)}>
-                CLOSE ME
-              </Button>
+              <Button onClick$={() => (controlledPopover.value = false)}>CLOSE ME</Button>
             </CardBody>
           </Card>
         </PopoverContent>
         <PopoverTrigger>
-          <Button onClick$={() => console.log('clicked')}>
-            TOGGLE POPOVER
-          </Button>
+          <Button onClick$={() => console.log('clicked')}>TOGGLE POPOVER</Button>
         </PopoverTrigger>
       </Popover>
 

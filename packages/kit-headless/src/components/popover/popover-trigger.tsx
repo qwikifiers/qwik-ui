@@ -6,15 +6,14 @@ import {
   useContext,
   useSignal,
   useStylesScoped$,
-  useVisibleTask$,
+  useVisibleTask$
 } from '@builder.io/qwik';
-import { AriaKeysOnlyKebab } from '../../utils';
 import { PopoverContext } from './popover-context';
 import styles from './popover-trigger.css?inline';
 
 export const PopoverTrigger = component$(
   (
-    props: AriaKeysOnlyKebab<QwikIntrinsicElements['span']> & {
+    props: QwikIntrinsicElements['span'] & {
       tabIndex?: number;
     }
   ) => {
@@ -36,9 +35,7 @@ export const PopoverTrigger = component$(
         role="button"
         class="popover-trigger"
         onMouseOver$={
-          contextService.triggerEvent === 'mouseOver'
-            ? mouseOverHandler
-            : undefined
+          contextService.triggerEvent === 'mouseOver' ? mouseOverHandler : undefined
         }
       >
         <Slot />
