@@ -356,7 +356,9 @@ export const TabsImpl = component$((props: TabsProps & { tabs: TabInfo[] }) => {
     }
 
     function focusOnTab(index: number) {
-      tabsRootElement?.children[0]?.children[index]?.focus();
+      const tabListElement = tabsRootElement?.children[0];
+      const tabToFocusOn = tabListElement?.children[index] as HTMLElement;
+      tabToFocusOn.focus();
     }
   });
 
