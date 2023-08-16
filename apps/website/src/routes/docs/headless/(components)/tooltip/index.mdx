@@ -4,12 +4,13 @@ title: Qwik UI | Tooltip
 
 import { Tooltip } from '@qwik-ui/headless';
 import { MainExample, Example1 } from './examples';
-import { CodeExample } from '../../../../../components/code-example/code-example';
-import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '../../../../../components/api-table/api-table';
-import { AlphaBanner } from '../../../../../components/alpha-banner/alpha-banner';
+import { CodeExample } from '../../../_components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../_components/api-table/api-table';
+import { StatusBanner } from '../../../_components/status-banner/status-banner';
+import {statusByComponent} from '../../../../../_state/component-statuses';
 
-<AlphaBanner />
+<StatusBanner status={statusByComponent.headless.Tooltip}/> 
 
 # Tooltip
 

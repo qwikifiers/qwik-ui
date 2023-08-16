@@ -1,23 +1,24 @@
-import { component$, Slot, useStyles$ } from '@builder.io/qwik';
+import { Slot, component$, useStyles$ } from '@builder.io/qwik';
+import { ContentMenu, useContent } from '@builder.io/qwik-city';
+import { ComponentsStatusesMap, statusByComponent } from '../_state/component-statuses';
+import { KitName } from '../_state/kit-name.type';
+import { useRootStore } from '../_state/use-root-store';
+import Header from './_components/header/header';
+import docsStyles from './docs.css?inline';
 import {
   DocsNavigation,
   LinkGroup,
-  LinkProps,
-} from '../components/navigation-docs/navigation-docs';
+  LinkProps
+} from './docs/_components/navigation-docs/navigation-docs';
+import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
-import docsStyles from './docs.css?inline';
-import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
-import {
-  componentsStatuses,
-  ComponentsStatusesMap,
-} from '../_state/component-statuses';
-import Header from '../components/header/header';
 
 export default component$(() => {
   useStyles$(prismStyles);
   useStyles$(docsStyles);
 
   const { menuItemsGroups } = useKitMenuItems();
+  const rootStore = useRootStore();
 
   return (
     <>
@@ -35,26 +36,26 @@ export default component$(() => {
 });
 
 function useKitMenuItems() {
-  const { url } = useLocation();
+  const selectedKitSig = useSelectedKit();
   const { menu } = useContent();
   let menuItemsGroups: LinkGroup[] | undefined = [];
 
-  if (url.pathname.indexOf('headless') !== -1) {
+  if (selectedKitSig.value === KitName.HEADLESS) {
     menuItemsGroups = decorateMenuItemsWithBadges(
       menu?.items,
-      componentsStatuses.headless
+      statusByComponent.headless
     );
   }
 
-  if (url.pathname.indexOf('tailwind') !== -1) {
+  if (selectedKitSig.value === KitName.TAILWIND) {
     menuItemsGroups = decorateMenuItemsWithBadges(
       menu?.items,
-      componentsStatuses.tailwind
+      statusByComponent.tailwind
     );
   }
 
   return {
-    menuItemsGroups,
+    menuItemsGroups
   };
 }
 
@@ -68,13 +69,13 @@ function decorateMenuItemsWithBadges(
       children: item.items?.map((child) => {
         const link: LinkProps = {
           name: child.text,
-          href: child.href,
+          href: child.href
         };
         if (kitStatusesMap[link.name]) {
           link.status = kitStatusesMap[link.name];
         }
         return link;
-      }),
+      })
     };
   });
 }

@@ -4,8 +4,9 @@ import {
   useContext,
   component$,
   $,
+  useVisibleTask$,
   type QwikIntrinsicElements,
-  type QwikKeyboardEvent,
+  type QwikKeyboardEvent
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
@@ -17,6 +18,7 @@ export type OptionProps = {
 export const AutocompleteOption = component$((props: OptionProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
+  const optionElement = ref.value;
 
   contextService.options = [...contextService.options, ref];
 
@@ -33,7 +35,7 @@ export const AutocompleteOption = component$((props: OptionProps) => {
             contextService.isExpanded.value = false;
           }
         }),
-        props.onClick$,
+        props.onClick$
       ]}
       onKeyDown$={[
         $((e: QwikKeyboardEvent) => {
@@ -43,7 +45,7 @@ export const AutocompleteOption = component$((props: OptionProps) => {
             contextService.focusInput$(contextService.inputId);
           }
         }),
-        props.onKeyDown$,
+        props.onKeyDown$
       ]}
       {...props}
     >

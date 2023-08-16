@@ -1,40 +1,39 @@
 import {
-  QwikIntrinsicElements,
-  component$,
-  useSignal,
   Slot,
-  useId,
+  component$,
   useContextProvider,
+  useId,
+  useSignal,
+  type QwikIntrinsicElements
 } from '@builder.io/qwik';
 
 import { accordionItemContextId } from './accordion-context-id';
 
 import { type AccordionItemContext } from './accordion-context.type';
 
-export type AccordionItemProps = QwikIntrinsicElements['div'];
+export type AccordionItemProps = {
+  defaultValue?: boolean;
+} & QwikIntrinsicElements['div'];
 
-export const AccordionItem = component$(({ ...props }: AccordionItemProps) => {
-  const itemId = useId();
+export const AccordionItem = component$(
+  ({ defaultValue = false, id, ...props }: AccordionItemProps) => {
+    const localId = useId();
+    const itemId = id || localId;
 
-  const itemRef = useSignal<HTMLElement>();
-  const isTriggerExpandedSig = useSignal<boolean>(false);
+    const isTriggerExpandedSig = useSignal<boolean>(defaultValue);
 
-  const itemContext: AccordionItemContext = {
-    itemId,
-    isTriggerExpandedSig,
-  };
+    const itemContext: AccordionItemContext = {
+      itemId,
+      isTriggerExpandedSig,
+      defaultValue
+    };
 
-  useContextProvider(accordionItemContextId, itemContext);
+    useContextProvider(accordionItemContextId, itemContext);
 
-  return (
-    <div
-      ref={itemRef}
-      id={itemId}
-      data-type="item"
-      data-item-id={itemId}
-      {...props}
-    >
-      <Slot />
-    </div>
-  );
-});
+    return (
+      <div id={itemId} data-type="item" data-item-id={itemId} {...props}>
+        <Slot />
+      </div>
+    );
+  }
+);

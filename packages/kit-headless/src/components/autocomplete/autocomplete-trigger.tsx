@@ -1,24 +1,35 @@
 import {
   component$,
-  useSignal,
-  useContext,
+  $,
   Slot,
-  type QwikIntrinsicElements,
+  useContext,
+  type QwikIntrinsicElements
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
-export type AutocompleteTriggerProps = QwikIntrinsicElements['div'];
+export type TriggerProps = QwikIntrinsicElements['button'];
 
-export const AutocompleteTrigger = component$(
-  (props: AutocompleteTriggerProps) => {
-    const ref = useSignal<HTMLElement>();
-    const contextService = useContext(AutocompleteContextId);
-    contextService.triggerRef = ref;
+export const AutocompleteTrigger = component$(({ ...props }: TriggerProps) => {
+  const contextService = useContext(AutocompleteContextId);
+  const triggerId = contextService.triggerId;
+  const listboxId = contextService.listBoxId;
 
-    return (
-      <div ref={ref} {...props}>
-        <Slot />
-      </div>
-    );
-  }
-);
+  return (
+    <button
+      {...props}
+      id={triggerId}
+      aria-expanded={contextService.isExpanded.value}
+      aria-label="listbox toggle trigger"
+      aria-haspopup="listbox"
+      aria-controls={listboxId}
+      // add their own custom onClick with our onClick functionality
+      onClick$={[
+        $(() => (contextService.isExpanded.value = !contextService.isExpanded.value)),
+        props.onClick$
+      ]}
+      tabIndex={-1}
+    >
+      <Slot />
+    </button>
+  );
+});

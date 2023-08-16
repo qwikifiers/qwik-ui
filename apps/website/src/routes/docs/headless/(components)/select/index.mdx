@@ -3,12 +3,13 @@ title: Qwik UI | Select
 ---
 
 import { Example01, Example02 } from './examples';
-import { CodeExample } from '../../../../../components/code-example/code-example';
-import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '../../../../../components/api-table/api-table';
-import { AlphaBanner } from '../../../../../components/alpha-banner/alpha-banner';
+import { CodeExample } from '../../../_components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../_components/api-table/api-table';
+import { StatusBanner } from '../../../_components/status-banner/status-banner';
+import {statusByComponent} from '../../../../../_state/component-statuses';
 
-<AlphaBanner />
+<StatusBanner status={statusByComponent.headless.Select}/> 
 
 # Select
 
@@ -40,7 +41,7 @@ import { AlphaBanner } from '../../../../../components/alpha-banner/alpha-banner
       </SelectMarker>
     </SelectTrigger>
     <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 mt-2 border-[1px] rounded-md">
-      <SelectOption value="🚀 Qwik" class="p-4" />
+      <SelectOption value="🚀 Qwik" class="p-4">🚀 Qwik</SelectOption>
       <SelectGroup class="p-4 ">
         <SelectLabel class="p-4">Fruits</SelectLabel>
         {[
@@ -55,7 +56,7 @@ import { AlphaBanner } from '../../../../../components/alpha-banner/alpha-banner
               value={option.value}
               disabled={option.disabled}
               class="aria-disabled:text-red-500 aria-disabled:cursor-not-allowed hover:bg-slate-200 rounded-sm dark:hover:bg-gray-600 p-4"
-            />
+            >{option.value}</SelectOption>
           );
         })}
       </SelectGroup>
@@ -81,9 +82,9 @@ import { AlphaBanner } from '../../../../../components/alpha-banner/alpha-banner
         <SelectListBox>
           <SelectGroup>
             <SelectLabel>Options</SelectLabel>
-            <SelectOption/>
-            <SelectOption/>
-            <SelectOption/>
+            <SelectOption>Value</SelectOption>
+            <SelectOption>Value</SelectOption>
+            <SelectOption>Value</SelectOption>
           </SelectGroup>
         </SelectListBox>
       </SelectRoot>
@@ -116,9 +117,15 @@ import { AlphaBanner } from '../../../../../components/alpha-banner/alpha-banner
       </SelectMarker>
     </SelectTrigger>
     <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
-      <SelectOption value="Orders" class="p-4" />
-      <SelectOption value="Settings" class="p-4" />
-      <SelectOption value="Contact us" class="p-4" />
+      <SelectOption optionValue="Orders" class="p-4">
+        Orders
+      </SelectOption>
+      <SelectOption optionValue="Settings" class="p-4">
+        Settings
+      </SelectOption>
+      <SelectOption optionValue="Contact us" class="p-4">
+        Contact us
+      </SelectOption>
     </SelectListBox>
   </SelectRoot>
   ```

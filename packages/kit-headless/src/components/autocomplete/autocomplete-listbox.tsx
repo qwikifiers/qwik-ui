@@ -6,8 +6,20 @@ import {
   Slot,
   type QwikIntrinsicElements,
   type QwikKeyboardEvent,
+  useVisibleTask$
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
+
+import { KeyCode } from '../../utils/key-code.type';
+
+const preventedKeys = [
+  KeyCode.Home,
+  KeyCode.End,
+  KeyCode.PageDown,
+  KeyCode.PageUp,
+  KeyCode.ArrowDown,
+  KeyCode.ArrowUp
+];
 
 export type ListboxProps = {
   isExpanded?: boolean;
@@ -17,7 +29,20 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
   const listboxId = contextService.listBoxId;
-  contextService.listBoxRef = ref;
+  const listboxElement = ref.value;
+
+  useVisibleTask$(function preventDefaultTask({ cleanup }) {
+    function keyHandler(e: KeyboardEvent) {
+      if (preventedKeys.includes(e.key as KeyCode)) {
+        e.preventDefault();
+      }
+    }
+
+    listboxElement?.addEventListener('keydown', keyHandler);
+    cleanup(() => {
+      listboxElement?.removeEventListener('keydown', keyHandler);
+    });
+  });
 
   return (
     <ul
@@ -64,7 +89,7 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
             availableOptions[availableOptions.length - 1]?.focus();
           }
         }),
-        props.onKeyDown$,
+        props.onKeyDown$
       ]}
     >
       <Slot />

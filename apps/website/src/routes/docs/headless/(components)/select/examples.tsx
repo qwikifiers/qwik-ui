@@ -1,15 +1,15 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import {
-  SelectRoot,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-  SelectMarker,
-  SelectListBox,
-  SelectOption,
   SelectGroup,
+  SelectLabel,
+  SelectListBox,
+  SelectMarker,
+  SelectOption,
+  SelectRoot,
+  SelectTrigger,
+  SelectValue
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../../../components/preview-code-example/preview-code-example';
+import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
 export const Example01 = component$(() => {
   return (
@@ -37,24 +37,28 @@ export const Example01 = component$(() => {
           </SelectTrigger>
           <SelectListBox class="bg-[#1f2532] border-[#7d95b3] mt-2 border-[1px] rounded-md text-white">
             <SelectOption
-              value="🚀 Qwik"
+              optionValue="🚀 Qwik"
               class="p-4 hover:bg-[#496080] focus:bg-[#496080]"
-            />
+            >
+              🚀 Qwik
+            </SelectOption>
             <SelectGroup class="p-4">
               <SelectLabel class="p-4">Fruits</SelectLabel>
               {[
                 { value: '🍎 Apple', disabled: false },
                 { value: '🍌 Banana', disabled: false },
                 { value: '🍒 Cherry', disabled: false },
-                { value: '🐲 Dragonfruit', disabled: true },
+                { value: '🐲 Dragonfruit', disabled: true }
               ].map((option) => {
                 return (
                   <SelectOption
                     key={option.value}
-                    value={option.value}
+                    optionValue={option.value}
                     disabled={option.disabled}
                     class="hover:bg-[#496080] focus:bg-[#496080] aria-disabled:text-red-500 aria-disabled:cursor-not-allowed rounded-sm p-4"
-                  />
+                  >
+                    {option.value}
+                  </SelectOption>
                 );
               })}
             </SelectGroup>
@@ -75,10 +79,7 @@ export const Example02 = component$(() => {
       <div q:slot="actualComponent">
         <SelectRoot>
           <SelectTrigger class="flex justify-between items-center bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px] p-4">
-            <SelectValue
-              placeholder="Home"
-              class="text-gray-700 dark:text-white"
-            />
+            <SelectValue placeholder="Home" class="text-gray-700 dark:text-white" />
             <SelectMarker class="w-6 h-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -94,9 +95,15 @@ export const Example02 = component$(() => {
             </SelectMarker>
           </SelectTrigger>
           <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
-            <SelectOption value="Orders" class="p-4" />
-            <SelectOption value="Settings" class="p-4" />
-            <SelectOption value="Contact us" class="p-4" />
+            <SelectOption optionValue="Orders" class="p-4">
+              Orders
+            </SelectOption>
+            <SelectOption optionValue="Settings" class="p-4">
+              Settings
+            </SelectOption>
+            <SelectOption optionValue="Contact us" class="p-4">
+              Contact us
+            </SelectOption>
           </SelectListBox>
         </SelectRoot>
       </div>

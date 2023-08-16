@@ -18,7 +18,7 @@ export const Spinner = component$((props: SpinnerProps) => {
     width = '2px',
     trackColor = '#8080803f',
     indicatorColor = '#006ce9',
-    speed = '2s',
+    speed = '2s'
   } = props;
   useStylesScoped$(styles);
   return (
@@ -26,19 +26,19 @@ export const Spinner = component$((props: SpinnerProps) => {
       <svg part="base" class="spinner" role="spinner">
         <circle
           class="track"
+          r={`calc(0.5em - ${width}/2)`}
           style={{
             strokeWidth: width,
-            r: `calc(0.5em - ${width}/2)`,
-            stroke: trackColor,
+            stroke: trackColor
           }}
         ></circle>
         <circle
           class="indicator"
+          r={`calc(0.5em - ${width}/2)`}
           style={{
             strokeWidth: width,
-            r: `calc(0.5em - ${width}/2)`,
             stroke: indicatorColor,
-            animation: `spin ${speed} linear infinite`,
+            animation: `spin ${speed} linear infinite`
           }}
         ></circle>
       </svg>

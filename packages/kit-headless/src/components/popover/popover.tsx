@@ -10,6 +10,7 @@ import {
   useSignal,
   useStore,
   useTask$,
+  useStylesScoped$
 } from '@builder.io/qwik';
 import { isBrowser } from '@builder.io/qwik/build';
 import {
@@ -19,7 +20,7 @@ import {
   flip,
   offset,
   shift,
-  Side,
+  Side
 } from '@floating-ui/dom';
 import { PopoverContext } from './popover-context';
 
@@ -72,11 +73,18 @@ export const Popover = component$((props: PopoverProps) => {
     }
   });
 
+  //relative here because absolute needs a containing block - Jack
+  useStylesScoped$(`
+     [data-type="popover-root"] {
+      position: relative;
+     }
+  `);
+
   const contextService = useStore({
     isOpen: false,
     triggerEvent,
     setTriggerRef$,
-    setOverlayRef$,
+    setOverlayRef$
   });
   useContextProvider(PopoverContext, contextService);
 
@@ -134,11 +142,11 @@ export const Popover = component$((props: PopoverProps) => {
       autoUpdate(trigger, content, () => {
         computePosition(trigger, content, {
           middleware: [flip(), shift(), offset(props.offset || 0)],
-          placement: props.placement,
+          placement: props.placement
         }).then(({ x, y }) => {
           Object.assign(content.style, {
             left: `${x}px`,
-            top: `${y}px`,
+            top: `${y}px`
           });
         });
       });
@@ -179,17 +187,13 @@ export const Popover = component$((props: PopoverProps) => {
    */
   const clickHandler = $((e: QwikMouseEvent) => {
     // if the popover content is clicked: do nothing
-    const isContentClicked = contentRef.value?.contains(
-      e.target as HTMLElement
-    );
+    const isContentClicked = contentRef.value?.contains(e.target as HTMLElement);
     if (isContentClicked) {
       return;
     }
 
     // if the trigger is Clicked
-    const isTriggerClicked = triggerRef.value?.contains(
-      e.target as HTMLElement
-    );
+    const isTriggerClicked = triggerRef.value?.contains(e.target as HTMLElement);
     if (isTriggerClicked && triggerEvent === 'click') {
       // toggle if triggered by 'click'
       togglePopover();
@@ -201,7 +205,7 @@ export const Popover = component$((props: PopoverProps) => {
   });
 
   return (
-    <span ref={wrapperRef} document:onClick$={clickHandler}>
+    <span data-type="popover-root" ref={wrapperRef} document:onClick$={clickHandler}>
       <Slot />
     </span>
   );
