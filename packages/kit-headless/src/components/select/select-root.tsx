@@ -26,13 +26,15 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   const isOpenSig = useSignal(false);
   const triggerRefSig = useSignal<HTMLElement>();
   const listBoxRefSig = useSignal<HTMLElement>();
+  const isListboxHiddenSig = useSignal(true);
 
   const selectContext: SelectContext = {
     optionsStore,
     selectedOptionSig,
     isOpenSig,
     triggerRefSig,
-    listBoxRefSig
+    listBoxRefSig,
+    isListboxHiddenSig
   };
 
   useContextProvider(SelectContextId, selectContext);
@@ -80,9 +82,8 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     if (!trigger || !listBox) return;
 
     if (expanded === true) {
-      listBox.style.visibility = 'hidden';
       await updatePosition$(trigger, listBox);
-      listBox.style.visibility = 'visible';
+      isListboxHiddenSig.value = false;
       listBox?.focus();
     }
 

@@ -19,11 +19,11 @@ export const AutocompleteTrigger = component$(({ ...props }: TriggerProps) => {
 
   const isTriggerExpandedSig = contextService.isTriggerExpandedSig;
 
-  useVisibleTask$(function focusInputTask({ track }) {
-    if (track(() => !isTriggerExpandedSig.value)) {
-      triggerRefSig.value?.focus();
-    }
-  });
+  // useVisibleTask$(function focusInputTask({ track }) {
+  //   if (track(() => !isTriggerExpandedSig.value)) {
+  //     triggerRefSig.value?.focus();
+  //   }
+  // });
 
   useVisibleTask$(function registerInputRefTask() {
     contextService.triggerRefSig.value = triggerRefSig.value;

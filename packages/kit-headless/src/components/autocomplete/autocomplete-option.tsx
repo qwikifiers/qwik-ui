@@ -22,10 +22,14 @@ export const AutocompleteOption = component$((props: OptionProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
   const specialId = useId();
+  console.log('inside option');
+
   useTask$(() => {
     if (typeof window !== 'undefined') {
       return;
     }
+
+    // contextService.optionsStore.push(ref);
 
     console.log(props.optionValue, specialId);
     contextService.dataHolder.value = [
@@ -61,7 +65,10 @@ export const AutocompleteOption = component$((props: OptionProps) => {
   );
 
   // push optionValue instead of ref to store
-  contextService.optionsStore = [...contextService.optionsStore, ref];
+
+  const newStore = contextService.optionsStore.slice();
+  newStore.push(ref);
+  contextService.optionsStore = newStore;
 
   return (
     <li

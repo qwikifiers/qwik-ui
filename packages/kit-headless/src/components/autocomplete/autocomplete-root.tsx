@@ -45,9 +45,7 @@ import { AutocompleteContext } from './autocomplete-context.type';
       </AutocompleteControl>
       Inline component here 
       <AutoCompleteListbox>
-        <AutocompleteGroup> <== Countries
-          <AutoCompleteOption />
-        </AutocompleteGroup>
+        <AutoCompleteOption />
       </AutoCompleteListbox>
     </AutocompleteRoot>
 
@@ -121,8 +119,6 @@ import { AutocompleteContext } from './autocomplete-context.type';
       - sets results to empty array
       - if input is not empty set results equal to the search function with our input signal value as param
       - showSuggestions function with results and our input signal value as params
-      
-
 */
 
 export type AutocompleteRootProps = {
