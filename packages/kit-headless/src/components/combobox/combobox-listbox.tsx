@@ -2,7 +2,8 @@ import {
   component$,
   Slot,
   type QwikIntrinsicElements,
-  useContext
+  useContext,
+  useTask$
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 
@@ -13,7 +14,12 @@ export const ComboboxListbox = component$((props: ComboboxListboxProps) => {
   const context = useContext(ComboboxContextId);
 
   return (
-    <ul hidden={!context.isListboxOpenSig.value} role="listbox" {...props}>
+    <ul
+      style={{ position: 'absolute' }}
+      hidden={!context.isListboxOpenSig.value}
+      role="listbox"
+      {...props}
+    >
       <Slot />
     </ul>
   );

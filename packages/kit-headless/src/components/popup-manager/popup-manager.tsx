@@ -7,7 +7,8 @@ import {
   $,
   JSXNode,
   QRL,
-  useStylesScoped$
+  useStylesScoped$,
+  Signal
 } from '@builder.io/qwik';
 
 // Define public API for the PopupManager
@@ -43,7 +44,7 @@ export const PopupManager = component$(() => {
     }
   `);
   const modal = useSignal<JSXNode>();
-  console.log('running popup manager');
+  console.log('Render: PopupManager');
   // Provide the public API for the PopupManager for other components.
   useContextProvider(PopupManagerContext, {
     show: $((component: JSXNode) => {
@@ -57,13 +58,23 @@ export const PopupManager = component$(() => {
   return (
     <>
       <Slot />
+      {console.log('Rendering Modal!!', modal.value)}
+      <PortalAnchor modal={modal} />
+    </>
+  );
+});
+
+export const PortalAnchor = component$<{ modal: Signal<JSXNode> }>(({ modal }) => {
+  console.log('Render: PortalAnchor');
+  return (
+    <>
       {
         // Conditionally render the modal
         modal.value && (
           <div class="qwik-modal">
             <h1>SOMETHING STATIC HERE</h1>
             {/* Funky Qwik thing where it doesn't like a single JSXNode */}
-            {console.log('modal value heree!!', modal.value)}
+            {console.log('modal value here!!', modal.value)}
             {modal.value}
             {[modal.value].map((jsx) => jsx)}
           </div>

@@ -31,6 +31,7 @@ export const ComboboxOption = component$((props: ComboboxOptionProps) => {
   return (
     <li
       {...props}
+      tabIndex={0}
       style={computedStyle.value}
       onClick$={() => {
         selectedOptionIndexSig.value = index;

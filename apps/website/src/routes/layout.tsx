@@ -12,7 +12,7 @@ import {
 } from './docs/_components/navigation-docs/navigation-docs';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
-import { PopupManager } from '@qwik-ui/headless';
+import { PopupManager, PortalAnchor } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(prismStyles);
@@ -25,6 +25,7 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <PopupManager>
+        {console.log('PopuManager children')}
         <div class="flex mt-20">
           <DocsNavigation linksGroups={menuItemsGroups} />
           <main class="docs">

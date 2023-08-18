@@ -16,6 +16,8 @@ export type ComboboxImplProps = {
   defaultValue?: string;
   placeholder?: string;
   'bind:isListboxOpenSig'?: Signal<boolean | undefined>;
+  'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
+  'bind:isTriggerFocusedSig'?: Signal<boolean | undefined>;
 } & QwikIntrinsicElements['div'];
 
 export type OptionInfo = {
@@ -67,14 +69,28 @@ import ComboboxContextId from './combobox-context-id';
 import { ComboboxContext } from './combobox-context.type';
 
 export const ComboboxImpl = component$((props: ComboboxImplProps) => {
-  const { 'bind:isListboxOpenSig': givenListboxOpenSig, ...rest } = props;
+  const {
+    'bind:isListboxOpenSig': givenListboxOpenSig,
+    'bind:isInputFocusedSig': givenInputFocusedSig,
+    'bind:isTriggerFocusedSig': givenTriggerFocusedSig,
+    ...rest
+  } = props;
   const selectedOptionIndexSig = useSignal<number>(-1);
+
   const defaultListboxOpenSig = useSignal<boolean | undefined>(false);
   const isListboxOpenSig = givenListboxOpenSig || defaultListboxOpenSig;
 
+  const defaultInputFocusedSig = useSignal<boolean | undefined>(false);
+  const isInputFocusedSig = givenInputFocusedSig || defaultInputFocusedSig;
+
+  const defaultTriggerFocusedSig = useSignal<boolean | undefined>(false);
+  const isTriggerFocusedSig = givenTriggerFocusedSig || defaultTriggerFocusedSig;
+
   const context: ComboboxContext = {
     selectedOptionIndexSig,
-    isListboxOpenSig
+    isListboxOpenSig,
+    isInputFocusedSig,
+    isTriggerFocusedSig
   };
 
   useContextProvider(ComboboxContextId, context);
