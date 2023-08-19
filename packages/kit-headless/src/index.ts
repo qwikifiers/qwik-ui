@@ -24,4 +24,3 @@ export * from './components/select';
 export * from './components/slider';
 export * from './components/breadcrumb';
 export * from './components/navigation-bar/navigation-bar';
-export * from './components/popup-manager/popup-manager';

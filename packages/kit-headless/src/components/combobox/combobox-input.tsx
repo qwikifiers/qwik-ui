@@ -1,15 +1,5 @@
-import {
-  component$,
-  useContext,
-  type QwikIntrinsicElements,
-  useSignal,
-  useTask$,
-  $,
-  useOnWindow,
-  useVisibleTask$
-} from '@builder.io/qwik';
+import { component$, useContext, type QwikIntrinsicElements } from '@builder.io/qwik';
 import ComboboxContextId, { ComboboxControlContextId } from './combobox-context-id';
-import { isBrowser } from '@builder.io/qwik/build';
 
 export type ComboboxInputProps = QwikIntrinsicElements['input'];
 
@@ -17,22 +7,10 @@ export type ComboboxInputProps = QwikIntrinsicElements['input'];
 export const ComboboxInput = component$((props: ComboboxInputProps) => {
   const context = useContext(ComboboxContextId);
   const controlContext = useContext(ComboboxControlContextId);
-  const inputRef = useSignal<HTMLButtonElement>();
-  controlContext.inputRef = inputRef;
-
-  // useTask$(({ track }) => {
-  //   track(() => context.isInputFocusedSig.value);
-
-  //   if (context.isInputFocusedSig.value) {
-  //     inputRef.value?.focus();
-  //   }
-  // });
-
-  // useOnWindow('click', closeListbox$);
 
   return (
     <input
-      ref={inputRef}
+      ref={controlContext.inputRef}
       type="text"
       onInput$={() => (context.isListboxOpenSig.value = true)}
       onKeyDown$={(e) => {
@@ -40,6 +18,7 @@ export const ComboboxInput = component$((props: ComboboxInputProps) => {
           context.isListboxOpenSig.value = true;
         }
       }}
+      onBlur$={() => (context.isListboxOpenSig.value = false)}
       {...props}
     />
   );

@@ -170,6 +170,7 @@ export const AutocompleteRoot = component$(
       activeOptionId,
       focusInput$,
       isInputFocusedSig
+      // filter: (value: string) => boolean
     };
 
     useContextProvider(AutocompleteContextId, contextService);
@@ -221,9 +222,9 @@ export const AutocompleteRoot = component$(
     useVisibleTask$(function filterOptionsTask({ track }) {
       track(() => inputValueSig.value);
 
-      if (!inputValueSig.value) {
-        contextService.filteredOptionsStore;
-      }
+      // if (!inputValueSig.value) {
+      //   contextService.filteredOptionsStore;
+      // }
 
       contextService.filteredOptionsStore = contextService.optionsStore.filter(
         (option: Signal) => {

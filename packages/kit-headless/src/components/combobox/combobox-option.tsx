@@ -36,6 +36,7 @@ export const ComboboxOption = component$((props: ComboboxOptionProps) => {
       onClick$={() => {
         selectedOptionIndexSig.value = index;
       }}
+      role="option"
     >
       <Slot />
     </li>

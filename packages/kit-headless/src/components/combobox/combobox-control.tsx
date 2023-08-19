@@ -1,11 +1,10 @@
 import {
   component$,
   useSignal,
-  useContext,
   Slot,
-  type QwikIntrinsicElements,
   useVisibleTask$,
-  useContextProvider
+  useContextProvider,
+  type QwikIntrinsicElements
 } from '@builder.io/qwik';
 
 // import ComboboxContextId from './combobox-context-id';
@@ -30,17 +29,25 @@ export const ComboboxControl = component$((props: ComboboxControlProps) => {
   useVisibleTask$(({ cleanup }) => {
     if (controlRef.value) {
       const handleMousedown = (e: MouseEvent): void => {
-        if (e.target === triggerRef.value) {
+        const isTrigger = e.target === controlContext.triggerRef.value;
+        const isTriggerDescendant =
+          e.target && controlContext.triggerRef.value?.contains(e.target as Node);
+
+        if (isTrigger || isTriggerDescendant) {
           e.preventDefault();
         }
-        inputRef.value!.focus();
-        console.log(e.target, e.currentTarget);
+
+        if (!controlContext.inputRef.value) {
+          return;
+        }
+
+        controlContext.inputRef.value.focus();
       };
 
       controlRef.value.addEventListener('mousedown', handleMousedown);
 
       cleanup(() => {
-        controlRef.value!.removeEventListener('mousedown', handleMousedown);
+        controlRef.value?.removeEventListener('mousedown', handleMousedown);
       });
     }
   });
