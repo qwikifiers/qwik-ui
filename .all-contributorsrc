@@ -314,6 +314,18 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "Zankel-Engineering",
+      "name": "Zankel-Engineering",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43412711?v=4",
+      "profile": "http://zankel-engineering.de",
+      "contributions": [
+        "code",
+        "test",
+        "bug",
+        "a11y"
+      ]
     }
   ],
   "contributorsPerLine": 7,

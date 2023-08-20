@@ -30,7 +30,7 @@ export default function SelectTestData() {
     { name: 'bacon', type: 'meat' },
     { name: 'sausage', type: 'meat' },
     { name: 'ham', type: 'meat' },
-    { name: 'venison', type: 'meat' },
+    { name: 'venison', type: 'meat' }
   ];
 
   return { groups, options };
