@@ -4,10 +4,13 @@ import {
   Slot,
   useVisibleTask$,
   useContextProvider,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
+  useOnWindow,
+  $,
+  useContext
 } from '@builder.io/qwik';
 
-// import ComboboxContextId from './combobox-context-id';
+import ComboboxContextId from './combobox-context-id';
 
 import { ComboboxControlContextId } from './combobox-context-id';
 import { ComboboxControlContext } from './combobox-context.type';
@@ -15,8 +18,9 @@ import { ComboboxControlContext } from './combobox-context.type';
 export type ComboboxControlProps = QwikIntrinsicElements['div'];
 
 export const ComboboxControl = component$((props: ComboboxControlProps) => {
+  const context = useContext(ComboboxContextId);
   const controlRef = useSignal<HTMLDivElement>();
-  const inputRef = useSignal<HTMLElement>();
+  const inputRef = useSignal<HTMLInputElement>();
   const triggerRef = useSignal<HTMLButtonElement>();
 
   const controlContext: ComboboxControlContext = {
@@ -25,6 +29,19 @@ export const ComboboxControl = component$((props: ComboboxControlProps) => {
   };
 
   useContextProvider(ComboboxControlContextId, controlContext);
+
+  const closeULOnOutsideClick$ = $((e: Event) => {
+    const target = e.target as HTMLElement;
+    if (
+      context.isListboxOpenSig.value &&
+      !context.listboxRef.value?.contains(target) &&
+      !controlContext.triggerRef.value?.contains(target)
+    ) {
+      context.isListboxOpenSig.value = false;
+    }
+  });
+
+  useOnWindow('click', closeULOnOutsideClick$);
 
   useVisibleTask$(({ cleanup }) => {
     if (controlRef.value) {

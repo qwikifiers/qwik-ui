@@ -30,7 +30,7 @@ export const Combobox: FunctionComponent<ComboboxImplProps> = (props) => {
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
-  ) as JSXNode[];
+  ) as Array<JSXNode>;
 
   // const optionsMetaData: OptionInfo[] = [];
 
@@ -75,6 +75,8 @@ export const ComboboxImpl = component$((props: ComboboxImplProps) => {
     'bind:isTriggerFocusedSig': givenTriggerFocusedSig,
     ...rest
   } = props;
+  const listboxRef = useSignal<HTMLUListElement>();
+
   const selectedOptionIndexSig = useSignal<number>(-1);
 
   const defaultListboxOpenSig = useSignal<boolean | undefined>(false);
@@ -90,7 +92,8 @@ export const ComboboxImpl = component$((props: ComboboxImplProps) => {
     selectedOptionIndexSig,
     isListboxOpenSig,
     isInputFocusedSig,
-    isTriggerFocusedSig
+    isTriggerFocusedSig,
+    listboxRef
   };
 
   useContextProvider(ComboboxContextId, context);
