@@ -12,6 +12,8 @@ import {
   DynamicTabsExample,
   OnSelectedIndexChangeTabsExample,
   OnClickTabsExample,
+  SelectedTabIdExample,
+  SelectedPropExample
 } from './examples';
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
@@ -299,6 +301,75 @@ return <div>
 
 You can provide a signal for the selected index with the `bind:selectedIndex={yourSignal}` and it will be used directly. This is a more efficient version of `onSelectedIndexChange$`.
 
+## bind:selectedTabId
+
+You can provide a signal for the selected tab id with the `bind:selectedTabId={yourSignal}` 
+and it will be used directly. 
+
+💡 You can manually set the `tabId` prop on each tab to be able to select any tab by its ID.
+
+
+<SelectedTabIdExample>
+```tsx
+
+const selectedTabIdSig = useSignal<string | undefined>();
+
+return (
+    
+  <div>
+    <Tabs bind:selectedTabId={selectedTabIdSig}>
+      <h3>Danish Composers</h3>
+      <TabList>
+        <Tab tabId="Maria">Maria Ahlefeldt</Tab>
+        <Tab tabId="Carl">Carl Andersen</Tab>
+        <Tab tabId="Ida">Ida Henriette da Fonseca</Tab>
+      </TabList>
+      <TabPanel>
+        <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
+      </TabPanel>
+      <TabPanel>
+        <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+      </TabPanel>
+      <TabPanel>
+        <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+      </TabPanel>
+    </Tabs>
+    
+    <p>Selected Tab Id: {selectedTabIdSig.value}</p>
+  </div>
+)
+```
+</SelectedTabIdExample>
+
+
+## Add a "selected" prop
+
+You can add a "selected" prop to the Tab component to make it selected by default.
+
+<SelectedPropExample>
+```tsx
+<h3>Danish Composers</h3>
+
+<Tabs>
+  <TabList>
+    <Tab>Maria Ahlefeldt</Tab>
+    <Tab selected>Carl Andersen</Tab>
+    <Tab>Ida Henriette da Fonseca</Tab>
+  </TabList>
+  <TabPanel>
+    <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
+  </TabPanel>
+  <TabPanel>
+    <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+  </TabPanel>
+  <TabPanel>
+    <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+  </TabPanel>
+</Tabs>
+
+```
+</SelectedPropExample>
+
 ## onClick$
 
 You can pass a custom `onClick$` handler.
@@ -476,6 +547,11 @@ return <div>
       name: 'disabled',
       type: 'boolean',
       description: 'Set the disabled state of a specific tab',
+    },
+    {
+      name: 'tabId',
+      type: 'string',
+      description: 'Set the tab id, can be used with `bind:selectedTabId` to select a tab programmatically',
     },
   ]}
 />
