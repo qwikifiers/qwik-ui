@@ -186,6 +186,32 @@ describe('Tabs', () => {
     );
   });
 
+  describe('Manual Tab Ids', () => {
+    it(`GIVEN 2 tabs and tab ids are set on both tabs and panels
+        WHEN clicking on the second tab
+        THEN the second panel should be displayed
+    `, () => {
+      const ManualTabIdsComponent = component$(() => {
+        return (
+          <Tabs>
+            <TabList>
+              <Tab tabId="first">Tab 1</Tab>
+              <Tab tabId="second">Tab 2</Tab>
+            </TabList>
+            <TabPanel tabId="first">Panel 1</TabPanel>
+            <TabPanel tabId="second">Panel 2</TabPanel>
+          </Tabs>
+        );
+      });
+
+      cy.mount(<ManualTabIdsComponent />);
+
+      cy.findByRole('tab', { name: /Tab 2/i }).click();
+
+      cy.findByRole('tabpanel').should('contain', 'Panel 2');
+    });
+  });
+
   describe('Tabs inside of tabs', () => {
     it(`GIVEN tabs inside of tabs
         WHEN clicking on the root second tab

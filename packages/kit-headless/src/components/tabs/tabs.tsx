@@ -73,7 +73,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
   ) as JSXNode[];
-  let tabListElement: JSXNode | undefined;
+  let tabListComponent: JSXNode | undefined;
   const tabComponents: JSXNode[] = [];
   const panelComponents: JSXNode[] = [];
   const tabInfoList: TabInfo[] = [];
@@ -93,7 +93,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
 
     switch (child.type) {
       case TabList: {
-        tabListElement = child;
+        tabListComponent = child;
         const tabListChildren = Array.isArray(child.props.children)
           ? child.props.children
           : [child.props.children];
@@ -103,7 +103,8 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
       }
       case Tab: {
         if (child.props.selected) {
-          selectedIndex = tabComponents.length;
+          const currentTabIndex = tabComponents.length;
+          selectedIndex = currentTabIndex;
           child.props.selected = undefined;
         }
         tabComponents.push(child);
@@ -112,7 +113,9 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
       case TabPanel: {
         const { label, selected } = child.props;
         // The consumer must provide a key if they change the order
-        const tabIdFromTabMaybe = tabComponents[panelIndex]?.key;
+        const matchedTabComponent = tabComponents[panelIndex];
+        const tabIdFromTabMaybe =
+          matchedTabComponent?.props.tabId || matchedTabComponent?.key;
         const tabId = tabIdFromTabMaybe || child.key || `${panelIndex}`;
 
         if (label) {
@@ -159,12 +162,12 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
     tabInfoList[index].tabProps = tab.props;
   });
 
-  if (tabListElement) {
-    tabListElement.children = tabComponents;
-    tabListElement.props.children = tabComponents;
+  if (tabListComponent) {
+    tabListComponent.children = tabComponents;
+    tabListComponent.props.children = tabComponents;
   } else {
     // Creating it as <TabList /> and adding children later doesn't work
-    tabListElement = <TabList>{tabComponents}</TabList>;
+    tabListComponent = <TabList>{tabComponents}</TabList>;
   }
 
   if (typeof selectedIndex === 'number') {
@@ -173,7 +176,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
 
   return (
     <TabsImpl tabInfoList={tabInfoList} {...rest}>
-      {tabListElement}
+      {tabListComponent}
       {panelComponents}
     </TabsImpl>
   );
