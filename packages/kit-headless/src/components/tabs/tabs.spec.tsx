@@ -187,20 +187,29 @@ describe('Tabs', () => {
   });
 
   describe('Manual Tab Ids', () => {
-    it(`GIVEN 2 tabs and tab ids are set on both tabs and panels
+    it(`GIVEN 2 tabs and tab ids are set on tabs
         WHEN clicking on the second tab
-        THEN the second panel should be displayed
+        THEN the second panel should be displayed 
+             and the selectTabId should match the second tab id
     `, () => {
       const ManualTabIdsComponent = component$(() => {
+        const selectedTabIdSig = useSignal<string | undefined>();
         return (
-          <Tabs>
-            <TabList>
-              <Tab tabId="first">Tab 1</Tab>
-              <Tab tabId="second">Tab 2</Tab>
-            </TabList>
-            <TabPanel tabId="first">Panel 1</TabPanel>
-            <TabPanel tabId="second">Panel 2</TabPanel>
-          </Tabs>
+          <>
+            <Tabs bind:selectedTabId={selectedTabIdSig}>
+              <TabList>
+                <Tab tabId="first">Tab 1</Tab>
+                <Tab tabId="second">Tab 2</Tab>
+              </TabList>
+              <TabPanel>Panel 1</TabPanel>
+              <TabPanel>Panel 2</TabPanel>
+            </Tabs>
+            {selectedTabIdSig.value && (
+              <div data-testid="selected-tab-id-from-event">
+                Selected tab id: {selectedTabIdSig.value}
+              </div>
+            )}
+          </>
         );
       });
 
@@ -209,6 +218,7 @@ describe('Tabs', () => {
       cy.findByRole('tab', { name: /Tab 2/i }).click();
 
       cy.findByRole('tabpanel').should('contain', 'Panel 2');
+      cy.findByTestId('selected-tab-id-from-event').should('contain', 'second');
     });
   });
 

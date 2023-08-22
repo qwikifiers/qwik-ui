@@ -157,7 +157,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
   tabComponents.forEach((tab, index) => {
     const tabId = tabInfoList[index]?.tabId;
     tab.key = tabId;
-    tab.props._tabId = tabId;
+    tab.props.tabId = tabId;
     tab.props._extraClass = tabClass;
     tabInfoList[index].tabProps = tab.props;
   });

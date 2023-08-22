@@ -20,11 +20,11 @@ export type TabProps = {
   disabled?: boolean;
   selected?: boolean;
   selectedClassName?: string;
+  tabId?: string;
 
   /** @deprecated Internal use only */
   _extraClass?: QwikIntrinsicElements['div']['class'];
   /** @deprecated Internal use only */
-  _tabId?: string;
 } & QwikIntrinsicElements['button'];
 
 export const preventedKeys = [
@@ -39,20 +39,20 @@ export const preventedKeys = [
 ];
 
 export const Tab = component$(
-  ({ selectedClassName, _extraClass, _tabId, ...props }: TabProps) => {
+  ({ selectedClassName, _extraClass, tabId, ...props }: TabProps) => {
     const contextService = useContext(tabsContextId);
 
     const elementRefSig = useSignal<HTMLElement | undefined>();
 
-    const fullTabElementId = contextService.tabsPrefix + TAB_ID_PREFIX + _tabId!;
-    const fullPanelElementId = contextService.tabsPrefix + TAB_PANEL_ID_PREFIX + _tabId!;
+    const fullTabElementId = contextService.tabsPrefix + TAB_ID_PREFIX + tabId!;
+    const fullPanelElementId = contextService.tabsPrefix + TAB_PANEL_ID_PREFIX + tabId!;
 
     const selectedClassNameSig = useComputed$(() => {
       return selectedClassName || contextService.selectedClassName;
     });
 
     const isSelectedSig = useComputed$(() => {
-      return contextService.selectedTabIdSig.value === _tabId;
+      return contextService.selectedTabIdSig.value === tabId;
     });
 
     useVisibleTask$(function preventDefaultOnKeysVisibleTask({ cleanup }) {
@@ -60,7 +60,7 @@ export const Tab = component$(
         if (preventedKeys.includes(event.key as KeyCode)) {
           event.preventDefault();
         }
-        contextService.onTabKeyDown$(event.key as KeyCode, _tabId!);
+        contextService.onTabKeyDown$(event.key as KeyCode, tabId!);
       }
       // TODO put the listener on TabList
       elementRefSig.value?.addEventListener('keydown', handler);
@@ -70,7 +70,7 @@ export const Tab = component$(
     });
 
     const selectIfAutomatic$ = $(() => {
-      contextService.selectIfAutomatic$(_tabId!);
+      contextService.selectIfAutomatic$(tabId!);
     });
 
     const classNamesSig = useComputed$(() => [
@@ -96,7 +96,7 @@ export const Tab = component$(
           (props.class as Signal<string>)?.value ?? (props.class as string),
           classNamesSig.value
         ]}
-        onClick$={[$(() => contextService.selectTab$(_tabId!)), props.onClick$]}
+        onClick$={[$(() => contextService.selectTab$(tabId!)), props.onClick$]}
       >
         <Slot />
       </button>
