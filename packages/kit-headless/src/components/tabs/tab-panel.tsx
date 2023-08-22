@@ -14,6 +14,7 @@ export type TabPanelProps = {
   /** Optional tab contents. */
   label?: QwikIntrinsicElements['div']['children'];
   selected?: boolean;
+  disabled?: boolean;
 
   /** @deprecated Internal use only */
   _tabId?: string;

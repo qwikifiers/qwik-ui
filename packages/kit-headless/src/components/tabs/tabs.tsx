@@ -159,6 +159,12 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
     tab.key = tabId;
     tab.props.tabId = tabId;
     tab.props._extraClass = tabClass;
+    if (
+      tabInfoList[index].panelProps.disabled !== undefined &&
+      tab.props.disabled === undefined
+    ) {
+      tab.props.disabled = tabInfoList[index].panelProps.disabled;
+    }
     tabInfoList[index].tabProps = tab.props;
   });
 

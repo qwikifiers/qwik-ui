@@ -541,8 +541,8 @@ describe('Tabs', () => {
     });
 
     it(`GIVEN 5 tabs with tab 3 selected and tabs 3-5 are disabled
-          WHEN loading the component
-          THEN the selected tab should be the second tab`, () => {
+        WHEN loading the component
+        THEN the selected tab should be the second tab`, () => {
       cy.mount(
         <Tabs selectedIndex={2}>
           <TabList>
@@ -563,7 +563,23 @@ describe('Tabs', () => {
       cy.findByRole('tabpanel').should('contain', 'Panel 2');
     });
 
-    it(`GIVEN 1 disabled tab
+    it.only(`GIVEN 3 tabs written with the short version and the middle TabPanel has a disabled prop
+        WHEN focusing on first component and hitting the right key
+        THEN the selected tab should be the third one`, () => {
+      cy.mount(
+        <Tabs>
+          <TabPanel label="Tab 1">Panel 1</TabPanel>
+          <TabPanel label="Tab 2" disabled>
+            Panel 2
+          </TabPanel>
+          <TabPanel label="Tab 3">Panel 3</TabPanel>
+        </Tabs>
+      );
+      cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 disabled tab
           WHEN loading the component
           THEN no panel or tab should be selected`, () => {
       cy.mount(
