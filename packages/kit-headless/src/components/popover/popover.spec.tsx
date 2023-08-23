@@ -7,7 +7,7 @@ const PopoverComponent = component$((props: PopoverProps) => {
   return (
     <Popover {...props}>
       <PopoverContent>popover content</PopoverContent>
-      <PopoverTrigger>trigger text</PopoverTrigger>
+      <PopoverTrigger {...props}>trigger text</PopoverTrigger>
     </Popover>
   );
 });
@@ -109,5 +109,11 @@ describe('Popover', () => {
     clickOutside();
 
     assertClosed();
+  });
+
+  it('should set the arial label', () => {
+    const label = 'hello';
+    cy.mount(<PopoverComponent aria-label={label} />);
+    cy.findByRole('button').should('have.attr', 'aria-label', label);
   });
 });

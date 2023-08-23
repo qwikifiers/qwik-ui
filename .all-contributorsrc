@@ -301,8 +301,34 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "wmertens",
+      "name": "Wout Mertens",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54934?v=4",
+      "profile": "https://github.com/wmertens",
+      "contributions": [
+        "code",
+        "research",
+        "ideas",
+        "test",
+        "doc"
+      ]
+    },
+    {
+      "login": "Zankel-Engineering",
+      "name": "Zankel-Engineering",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43412711?v=4",
+      "profile": "http://zankel-engineering.de",
+      "contributions": [
+        "code",
+        "test",
+        "bug",
+        "a11y"
+      ]
     }
   ],
   "contributorsPerLine": 7,
-  "skipCi": true
+  "skipCi": true,
+  "commitType": "docs"
 }

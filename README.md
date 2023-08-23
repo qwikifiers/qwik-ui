@@ -23,38 +23,14 @@
 
 </div>
 <br>
-<details>
-<summary>Table of Contents</summary>
 
-- [Installation of the headless components](#installation-of-the-headless-components)
-- [Contributing](#contributing)
-- [Code Of Conduct](#code-of-conduct)
-- [Contributors](#contributors)
-- [Related Links](#related-links)
-- [License](#license)
+## Documentation
 
-</details>
-
-## ⚠ This is not ready for production!
-
-This library is still in early stages and once we'll collect enough feedback from the community we'll release the first beta version.
-
-### ROADMAP
-
-- [ ] Deploy the documentation site
-  - [ ] Add "Readiness" statuses to the components
-  - [ ] Add a getting started video tutorial
-  - [ ] Make a public storybook url
-- [ ] Deploy the tailwind-kit package
-- [ ] Cover all of the components with storybook tests
-- [ ] Add testing coverage reports
-- [ ] Add a contribution tutorial video
+To read the complete docs, please visit [qwikui.com](https://qwikui.com)
 
 <br/>
 
 ## Installation of the headless components
-
-> Please create issue if you encounter bugs.
 
 ```console
 
@@ -62,6 +38,23 @@ npm install -D @qwik-ui/headless
 ```
 
 <br/>
+
+## Components Status
+
+### Headless Kit
+
+| Component                                                     | Planned | Draft (Alpha) | Beta | Stable |
+| :------------------------------------------------------------ | :-----: | :-----------: | ---- | ------ |
+| [Accordion](https://qwikui.com/docs/headless/accordion)       |         |               | ✅   |        |
+| [Autocomplete](https://qwikui.com/docs/headless/autocomplete) |         |      ✅       |      |        |
+| Carousel                                                      |   ✅    |               |      |        |
+| Dialog                                                        |   ✅    |               |      |        |
+| Pagination                                                    |   ✅    |               |      |        |
+| [Popover](https://qwikui.com/docs/headless/popover)           |         |      ✅       |      |        |
+| [Select](https://qwikui.com/docs/headless/select)             |         |      ✅       |      |        |
+| [Tabs](https://qwikui.com/docs/headless/tabs)                 |         |               | ✅   |        |
+| [Toggle](https://qwikui.com/docs/headless/toggle)             |   ✅    |               |      |        |
+| [Tooltip](https://qwikui.com/docs/headless/tooltip)           |         |      ✅       |      |        |
 
 ## Contributing
 
@@ -123,6 +116,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/igalklebanov"><img src="https://avatars.githubusercontent.com/u/14938291?v=4?s=100" width="100px;" alt="Igal Klebanov"/><br /><sub><b>Igal Klebanov</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=igalklebanov" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=igalklebanov" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/thejackshelton"><img src="https://avatars.githubusercontent.com/u/104264123?v=4?s=100" width="100px;" alt="Jack Shelton"/><br /><sub><b>Jack Shelton</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=thejackshelton" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=thejackshelton" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/vasucp1207"><img src="https://avatars.githubusercontent.com/u/85363195?v=4?s=100" width="100px;" alt="Vasu Singh"/><br /><sub><b>Vasu Singh</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=vasucp1207" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/wmertens"><img src="https://avatars.githubusercontent.com/u/54934?v=4?s=100" width="100px;" alt="Wout Mertens"/><br /><sub><b>Wout Mertens</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=wmertens" title="Code">💻</a> <a href="#research-wmertens" title="Research">🔬</a> <a href="#ideas-wmertens" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=wmertens" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=wmertens" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://zankel-engineering.de"><img src="https://avatars.githubusercontent.com/u/43412711?v=4?s=100" width="100px;" alt="Zankel-Engineering"/><br /><sub><b>Zankel-Engineering</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=Zankel-Engineering" title="Code">💻</a> <a href="https://github.com/qwikifiers/qwik-ui/commits?author=Zankel-Engineering" title="Tests">⚠️</a> <a href="https://github.com/qwikifiers/qwik-ui/issues?q=author%3AZankel-Engineering" title="Bug reports">🐛</a> <a href="#a11y-Zankel-Engineering" title="Accessibility">️️️️♿️</a></td>
     </tr>
   </tbody>
 </table>

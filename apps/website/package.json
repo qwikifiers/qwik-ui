@@ -3,9 +3,9 @@
   "description": "The Qwik UI Website",
   "private": true,
   "dependencies": {
-    "@qwik-ui/headless": "file:../../dist/packages/kit-headless",
-    "@qwik-ui/tailwind": "file:../../dist/packages/kit-tailwind",
-    "@qwik-ui/material": "file:../../dist/packages/kit-material",
-    "@qwik-ui/primitives": "file:../../dist/packages/primitives"
+    "@qwik-ui/headless": "workspace:*",
+    "@qwik-ui/tailwind": "workspace:*",
+    "@qwik-ui/material": "workspace:*",
+    "@qwik-ui/primitives": "workspace:*"
   }
 }
