@@ -12,6 +12,7 @@ import {
 } from './docs/_components/navigation-docs/navigation-docs';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
+import { PortalInfo, QwikUIProvider } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(prismStyles);
@@ -23,12 +24,14 @@ export default component$(() => {
   return (
     <>
       <Header showBottomBorder={true} showVersion={true} />
-      <div class="flex mt-20">
-        <DocsNavigation linksGroups={menuItemsGroups} />
-        <main class="docs">
-          <Slot />
-        </main>
-      </div>
+      <QwikUIProvider>
+        <div class="flex mt-20">
+          <DocsNavigation linksGroups={menuItemsGroups} />
+          <main class="docs">
+            <Slot />
+          </main>
+        </div>
+      </QwikUIProvider>
       <footer></footer>
     </>
   );

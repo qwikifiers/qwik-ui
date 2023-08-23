@@ -6,10 +6,12 @@ import {
   ComboboxInput,
   ComboboxTrigger,
   ComboboxListbox,
-  ComboboxOption
+  ComboboxOption,
+  ComboboxPortal
 } from '@qwik-ui/headless';
 
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import ComboboxContextId from 'packages/kit-headless/src/components/combobox/combobox-context-id';
 
 const trainers = [
   'Caleb',
@@ -60,16 +62,18 @@ export const Example01 = component$(() => {
                 </svg>
               </ComboboxTrigger>
             </ComboboxControl>
-            <ComboboxListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
-              {trainersSig.value.map((trainer) => (
-                <ComboboxOption
-                  key={trainer}
-                  class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
-                >
-                  {trainer}
-                </ComboboxOption>
-              ))}
-            </ComboboxListbox>
+            <ComboboxPortal>
+              <ComboboxListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
+                {trainersSig.value.map((trainer) => (
+                  <ComboboxOption
+                    key={trainer}
+                    class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
+                  >
+                    {trainer}
+                  </ComboboxOption>
+                ))}
+              </ComboboxListbox>
+            </ComboboxPortal>
           </Combobox>
         )}
         <button
