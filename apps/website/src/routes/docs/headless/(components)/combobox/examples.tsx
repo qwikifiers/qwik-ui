@@ -28,7 +28,6 @@ const trainers = [
 export const Example01 = component$(() => {
   const trainersSig = useSignal(trainers);
   const showExample = useSignal(true);
-  const isListboxOpenSig = useSignal(false);
 
   return (
     <PreviewCodeExample>

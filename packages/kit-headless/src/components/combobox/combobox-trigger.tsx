@@ -17,7 +17,6 @@ export const ComboboxTrigger = component$(({ ...props }: ComboboxTriggerProps) =
         ref={context.triggerRef}
         onMouseDown$={() => {
           context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
-          context.isInputFocusedSig.value = true;
         }}
         tabIndex={-1}
         aria-expanded={context.isListboxOpenSig.value}
