@@ -1,17 +1,16 @@
 import { component$, Slot, useSignal } from '@builder.io/qwik';
 import {
-  ComboboxLabel,
   Combobox,
   ComboboxControl,
   ComboboxInput,
-  ComboboxTrigger,
+  ComboboxLabel,
   ComboboxListbox,
   ComboboxOption,
-  ComboboxPortal
+  ComboboxPortal,
+  ComboboxTrigger
 } from '@qwik-ui/headless';
 
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
-import ComboboxContextId from 'packages/kit-headless/src/components/combobox/combobox-context-id';
 
 const trainers = [
   'Caleb',
@@ -63,7 +62,7 @@ export const Example01 = component$(() => {
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
-              <ComboboxListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
+              <ComboboxListbox class="text-white w-44 bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
                 {trainersSig.value.map((trainer) => (
                   <ComboboxOption
                     key={trainer}

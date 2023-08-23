@@ -1,21 +1,20 @@
 import {
-  component$,
   Slot,
-  type QwikIntrinsicElements,
-  useContext
+  component$,
+  useContext,
+  type QwikIntrinsicElements
 } from '@builder.io/qwik';
-import ComboboxContextId, { ComboboxControlContextId } from './combobox-context-id';
+import ComboboxContextId from './combobox-context-id';
 
 export type ComboboxTriggerProps = QwikIntrinsicElements['button'];
 
 export const ComboboxTrigger = component$(({ ...props }: ComboboxTriggerProps) => {
   const context = useContext(ComboboxContextId);
-  const controlContext = useContext(ComboboxControlContextId);
 
   return (
     <>
       <button
-        ref={controlContext.triggerRef}
+        ref={context.triggerRef}
         onMouseDown$={() => {
           context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
           context.isInputFocusedSig.value = true;

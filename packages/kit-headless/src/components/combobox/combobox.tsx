@@ -1,12 +1,12 @@
 import {
-  type FunctionComponent,
   JSXNode,
   QwikIntrinsicElements,
-  component$,
+  Signal,
   Slot,
+  component$,
   useContextProvider,
   useSignal,
-  Signal
+  type FunctionComponent
 } from '@builder.io/qwik';
 
 import { ComboboxListbox } from './combobox-listbox';
@@ -76,6 +76,8 @@ export const ComboboxImpl = component$((props: ComboboxImplProps) => {
     ...rest
   } = props;
   const listboxRef = useSignal<HTMLUListElement>();
+  const inputRef = useSignal<HTMLInputElement>();
+  const triggerRef = useSignal<HTMLButtonElement>();
 
   const selectedOptionIndexSig = useSignal<number>(-1);
 
@@ -93,6 +95,8 @@ export const ComboboxImpl = component$((props: ComboboxImplProps) => {
     isListboxOpenSig,
     isInputFocusedSig,
     isTriggerFocusedSig,
+    inputRef,
+    triggerRef,
     listboxRef
   };
 

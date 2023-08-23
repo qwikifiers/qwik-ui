@@ -1,5 +1,6 @@
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 import { ContentMenu, useContent } from '@builder.io/qwik-city';
+import { QwikUIProvider } from '@qwik-ui/headless';
 import { ComponentsStatusesMap, componentsStatuses } from '../_state/component-statuses';
 import { KitName } from '../_state/kit-name.type';
 import { useRootStore } from '../_state/use-root-store';
@@ -12,7 +13,6 @@ import {
 } from './docs/_components/navigation-docs/navigation-docs';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
-import { PortalInfo, QwikUIProvider } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(prismStyles);

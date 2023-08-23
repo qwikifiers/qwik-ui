@@ -6,9 +6,6 @@ export interface ComboboxContext {
   isInputFocusedSig: Signal<boolean | undefined>;
   isTriggerFocusedSig: Signal<boolean | undefined>;
   listboxRef: Signal<HTMLUListElement | undefined>;
-}
-
-export interface ComboboxControlContext {
   inputRef: Signal<HTMLInputElement | undefined>;
   triggerRef: Signal<HTMLButtonElement | undefined>;
 }
