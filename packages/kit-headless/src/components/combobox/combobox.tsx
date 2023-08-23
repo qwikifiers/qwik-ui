@@ -99,6 +99,8 @@ export const ComboboxImpl = component$((props: ComboboxImplProps) => {
   const defaultTriggerFocusedSig = useSignal<boolean | undefined>(false);
   const isTriggerFocusedSig = givenTriggerFocusedSig || defaultTriggerFocusedSig;
 
+  console.log(selectedOptionIndexSig.value);
+
   const context: ComboboxContext = {
     selectedOptionIndexSig,
     isListboxOpenSig,
