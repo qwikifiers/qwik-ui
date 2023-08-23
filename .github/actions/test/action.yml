@@ -44,9 +44,9 @@ runs:
     #     storybookBuildDir: dist/storybook/headless
     #     zip: true
 
-    # - name: Build Tailwind Theme
+    # - name: Build the fluffy kit
     #   shell: bash
-    #   run: npx nx build tailwind
+    #   run: npx nx build fluffy
 
     # - name: Build
     #   shell: bash

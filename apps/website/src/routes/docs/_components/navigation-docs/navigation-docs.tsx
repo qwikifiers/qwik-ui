@@ -41,10 +41,10 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
             <a href="/docs/headless/introduction">Headless Kit</a>
           </li>
         )}
-        {rootStore.featureFlags?.showTailwind &&
-          selectedKitSig.value !== KitName.TAILWIND && (
+        {rootStore.featureFlags?.showFluffy &&
+          selectedKitSig.value !== KitName.FLUFFY && (
             <li class={linkStyles}>
-              <a href="/docs/tailwind/introduction">Tailwind Kit</a>
+              <a href="/docs/fluffy/introduction">Styled Kit</a>
             </li>
           )}
         <li class={linkStyles}>

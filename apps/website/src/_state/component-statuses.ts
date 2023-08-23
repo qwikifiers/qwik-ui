@@ -5,12 +5,12 @@ export interface ComponentsStatusesMap {
 }
 
 export type ComponentKitsStatuses = {
-  tailwind: ComponentsStatusesMap;
+  fluffy: ComponentsStatusesMap;
   headless: ComponentsStatusesMap;
 };
 
 export const statusByComponent: ComponentKitsStatuses = {
-  tailwind: {
+  fluffy: {
     Accordion: ComponentStatus.Planned,
     Alert: ComponentStatus.Planned,
     Badge: ComponentStatus.Planned,

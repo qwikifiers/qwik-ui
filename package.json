@@ -60,6 +60,7 @@
     "autoprefixer": "^10.4.13",
     "axe-core": "4.6.3",
     "chromatic": "6.17.3",
+    "class-variance-authority": "0.7.0",
     "commitizen": "^4.3.0",
     "commitlint": "^17.4.3",
     "country-list-json": "1.1.0",

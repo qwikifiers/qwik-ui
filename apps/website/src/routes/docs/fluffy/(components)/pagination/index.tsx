@@ -20,7 +20,7 @@ export default component$(() => {
       <div
         class="flex flex-col gap-2 items-stretch"
         style={{
-          width: '250px',
+          width: '250px'
         }}
       >
         <Toggle
@@ -62,7 +62,7 @@ export default component$(() => {
             style={{
               width: '50px',
               background: 'transparent',
-              textAlign: 'right',
+              textAlign: 'right'
             }}
             value={pages.value}
             onChange$={(e) => {
@@ -78,7 +78,7 @@ export default component$(() => {
             style={{
               width: '50px',
               background: 'transparent',
-              textAlign: 'right',
+              textAlign: 'right'
             }}
             value={siblingCount.value}
             onChange$={(e) => {
@@ -94,7 +94,7 @@ export default component$(() => {
             style={{
               width: '50px',
               background: 'transparent',
-              textAlign: 'right',
+              textAlign: 'right'
             }}
             value={boundaryCount.value}
             onChange$={(e) => {

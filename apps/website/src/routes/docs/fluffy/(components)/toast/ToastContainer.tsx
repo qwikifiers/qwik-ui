@@ -11,7 +11,7 @@ export default component$(() => {
             width: '480px',
             height: '240px',
             borderRadius: '12px',
-            background: 'rgb(220,220,220)',
+            background: 'rgb(220,220,220)'
           }}
         >
           <Slot />

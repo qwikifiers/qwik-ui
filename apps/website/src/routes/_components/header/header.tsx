@@ -5,7 +5,7 @@ import { version as headlessVersion } from '../../../../../../packages/kit-headl
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { KitName } from 'apps/website/src/_state/kit-name.type';
 import { useRootStore } from 'apps/website/src/_state/use-root-store';
-import { version as tailwindVersion } from '../../../../../../packages/kit-tailwind/package.json';
+import { version as fluffyVersion } from '../../../../../../packages/kit-fluffy/package.json';
 import { useSelectedKit } from '../../docs/use-selected-kit';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
@@ -32,10 +32,10 @@ export default component$(
           version: headlessVersion
         };
       }
-      if (selectedKitSig.value === KitName.TAILWIND) {
+      if (selectedKitSig.value === KitName.FLUFFY) {
         return {
-          name: 'Tailwind',
-          version: tailwindVersion
+          name: 'Fluffy',
+          version: fluffyVersion
         };
       }
     });
@@ -73,8 +73,8 @@ export default component$(
         <nav class="hidden lg:flex gap-4">
           <a href="/about">About</a>
           <a href="/docs/headless/introduction">Headless Kit</a>
-          {rootStore.featureFlags?.showTailwind && (
-            <a href="/docs/tailwind/introduction">Tailwind Kit</a>
+          {rootStore.featureFlags?.showFluffy && (
+            <a href="/docs/fluffy/introduction">Fluffy (styled) Kit</a>
           )}
           <a href="https://discord.gg/PVWUUejrez" target="_blank">
             Community

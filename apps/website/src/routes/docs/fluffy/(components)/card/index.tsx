@@ -5,7 +5,7 @@ import {
   CardBody,
   CardActions,
   Button,
-  CardImage,
+  CardImage
 } from '@qwik-ui/tailwind';
 
 export default component$(() => {

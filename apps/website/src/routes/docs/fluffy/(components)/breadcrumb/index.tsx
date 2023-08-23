@@ -20,10 +20,10 @@ export default component$(() => {
         name: path,
         path:
           indexPath > 0
-            ? `/${arrPath
-                .filter((_, indexPath2) => indexPath2 < indexPath)
-                .join('/')}/${arrPath[indexPath]}/`
-            : `/${path}/`,
+            ? `/${arrPath.filter((_, indexPath2) => indexPath2 < indexPath).join('/')}/${
+                arrPath[indexPath]
+              }/`
+            : `/${path}/`
       };
     });
 

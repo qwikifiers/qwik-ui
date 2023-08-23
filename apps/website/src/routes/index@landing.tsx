@@ -26,8 +26,8 @@ export default component$(() => {
         <KitSelectionCTA kit="headless">
           Accessibility built-in and unstyled for your bespoke designs and custom needs.
         </KitSelectionCTA>
-        {featureFlags?.showTailwind && (
-          <KitSelectionCTA kit="tailwind">
+        {featureFlags?.showFluffy && (
+          <KitSelectionCTA kit="fluffy">
             Built on top of the Headless kit, ready-to-use components coated with a dash
             of Tailwind.
           </KitSelectionCTA>

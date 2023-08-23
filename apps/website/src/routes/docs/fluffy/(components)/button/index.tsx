@@ -1,5 +1,6 @@
-import { component$, $, useStylesScoped$ } from '@builder.io/qwik';
+import { $, component$, useStylesScoped$ } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/tailwind';
+import { button } from '../../../../../_fluffy/button/button';
 
 export default component$(() => {
   useStylesScoped$(`
@@ -14,6 +15,12 @@ export default component$(() => {
       <h2>This is the documentation for the Button</h2>
 
       <div class="flex flex-col gap-8 mt-4">
+        <h2>Fluffy Example</h2>
+
+        <div>
+          <button class={button({ intent: 'primary' })}>I'm from Fluffy</button>
+        </div>
+
         <h2>Basic Example</h2>
         <div class="panel">
           <Button>default</Button>
@@ -153,11 +160,7 @@ export default component$(() => {
         <h2>Custom class</h2>
 
         <div class="panel">
-          <Button
-            type="button"
-            variant="primary"
-            class="px-32 border-4 border-black"
-          >
+          <Button type="button" variant="primary" class="px-32 border-4 border-black">
             CUSTOM CLASS
           </Button>
         </div>

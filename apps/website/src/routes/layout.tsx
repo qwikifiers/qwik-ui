@@ -47,11 +47,8 @@ function useKitMenuItems() {
     );
   }
 
-  if (selectedKitSig.value === KitName.TAILWIND) {
-    menuItemsGroups = decorateMenuItemsWithBadges(
-      menu?.items,
-      statusByComponent.tailwind
-    );
+  if (selectedKitSig.value === KitName.FLUFFY) {
+    menuItemsGroups = decorateMenuItemsWithBadges(menu?.items, statusByComponent.fluffy);
   }
 
   return {
