@@ -3,9 +3,9 @@
     @apply lg:ml-80 w-full lg:max-w-4xl xl:max-w-6xl py-8 px-8 lg:px-16;
   }
 
-  /* 
+  /*
     Styles that are direct descendents of .docs
-    this should not affect the styles inside of the tabpanel 
+    this should not affect the styles inside of the tabpanel
     A.K.A the components
   */
   & > {
@@ -31,11 +31,11 @@
     }
 
     h3 {
-      @apply text-xl font-bold  mb-6;
+      @apply text-xl font-bold mt-4 mb-6;
     }
 
     h4 {
-      @apply text-lg mb-6;
+      @apply text-lg mt-4 mb-6;
     }
 
     h5 {

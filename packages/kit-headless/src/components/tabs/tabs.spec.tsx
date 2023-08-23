@@ -1,8 +1,8 @@
-import { component$, useSignal, useStore, $ } from '@builder.io/qwik';
+import { $, component$, useSignal, useStore } from '@builder.io/qwik';
 import { Tab } from './tab';
+import { TabPanel } from './tab-panel';
 import { Tabs } from './tabs';
 import { TabList } from './tabs-list';
-import { TabPanel } from './tab-panel';
 
 describe('Tabs', () => {
   it('INIT', () => {
@@ -53,9 +53,7 @@ describe('Tabs', () => {
           <TabList>
             <Tab onClick$={() => (wasSelectedSig.value = true)}>Tab 1</Tab>
           </TabList>
-          <TabPanel>
-            Custom onClick was called: {`${wasSelectedSig.value}`}
-          </TabPanel>
+          <TabPanel>Custom onClick was called: {`${wasSelectedSig.value}`}</TabPanel>
         </Tabs>
       );
     });
@@ -64,10 +62,7 @@ describe('Tabs', () => {
 
     cy.findByRole('tab', { name: /Tab 1/i }).click();
 
-    cy.findByRole('tabpanel').should(
-      'contain',
-      'Custom onClick was called: true'
-    );
+    cy.findByRole('tabpanel').should('contain', 'Custom onClick was called: true');
   });
 
   describe('Dynamic Tabs', () => {
@@ -79,6 +74,29 @@ describe('Tabs', () => {
       cy.findByRole('button', { name: /remove tab/i }).click();
 
       cy.findAllByRole('tab').should('have.length', 2);
+    });
+
+    it(`GIVEN 3 tabs,
+        WHEN selecting 3rd
+        AND removing 1st dynamically
+        AND clicking 2nd (now 1st)
+        THEN the correct tab should be displayed`, () => {
+      cy.mount(<DynamicTabsComponent tabsLength={3} tabIndexToDelete={0} />);
+
+      cy.findByRole('tab', { name: /Tab 3/i }).click();
+      cy.findByTestId('selected-index-from-event').should('contain.text', ': 2');
+
+      cy.findByRole('button', { name: /remove tab/i }).click();
+
+      cy.findAllByRole('tab').should('have.length', 2);
+
+      cy.findByRole('tab', { name: /Tab 2/i }).click();
+
+      cy.findByTestId('selected-index-from-event').should('contain.text', ': 0');
+      cy.findByTestId('selected-tab-id-from-event').should(
+        'contain.text',
+        ': Dynamic Tab 2'
+      );
     });
 
     it(`GIVEN 3 tabs
@@ -105,7 +123,7 @@ describe('Tabs', () => {
     });
 
     it(`GIVEN 4 tabs
-        WHEN selecting the 3rd one and adding a tab at the start
+        WHEN selecting the 3rd one and adding a tab at the second one
         THEN the correct tab should be displayed`, () => {
       cy.mount(<DynamicTabsComponent tabsLength={4} tabIndexToAdd={1} />);
       cy.findByRole('tab', { name: /Dynamic Tab 3/i }).click();
@@ -121,43 +139,87 @@ describe('Tabs', () => {
     }
 
     const DynamicTabsComponent = component$(
-      ({
-        tabIndexToDelete = 0,
-        tabIndexToAdd = 0,
-        tabsLength,
-      }: DynamicTabsProps) => {
+      ({ tabIndexToDelete = 0, tabIndexToAdd = 0, tabsLength }: DynamicTabsProps) => {
         const tabNames = Array(tabsLength)
           .fill(1)
           .map((_, index) => `Dynamic Tab ${index + 1}`);
 
         const tabsState = useStore(tabNames);
+        const selectedIndexSig = useSignal(0);
+        const selectedTabIdSig = useSignal<string | undefined>();
 
         return (
           <>
-            <Tabs>
+            <Tabs
+              bind:selectedIndex={selectedIndexSig}
+              bind:selectedTabId={selectedTabIdSig}
+            >
               <TabList>
                 {tabsState.map((tab) => (
                   <Tab key={tab}>{tab}</Tab>
                 ))}
               </TabList>
               {tabsState.map((tab) => (
-                <TabPanel key={tab}>{tab} Panel</TabPanel>
+                // Making sure the key is taken from the tab
+                <TabPanel key={'panel' + tab}>{tab} Panel</TabPanel>
               ))}
             </Tabs>
             <button onClick$={() => tabsState.splice(tabIndexToDelete, 1)}>
               Remove Tab
             </button>
-            <button
-              onClick$={() =>
-                tabsState.splice(tabIndexToAdd, 0, 'new added tab')
-              }
-            >
+            <button onClick$={() => tabsState.splice(tabIndexToAdd, 0, 'new added tab')}>
               Add Tab
             </button>
+            {selectedIndexSig.value !== undefined && (
+              <div data-testid="selected-index-from-event">
+                Selected index: {selectedIndexSig.value}
+              </div>
+            )}
+            {selectedTabIdSig.value !== undefined && (
+              <div data-testid="selected-tab-id-from-event">
+                Selected tab id: {selectedTabIdSig.value}
+              </div>
+            )}
           </>
         );
       }
     );
+  });
+
+  describe('Manual Tab Ids', () => {
+    it(`GIVEN 2 tabs and tab ids are set on tabs
+        WHEN clicking on the second tab
+        THEN the second panel should be displayed 
+             and the selectTabId should match the second tab id
+    `, () => {
+      const ManualTabIdsComponent = component$(() => {
+        const selectedTabIdSig = useSignal<string | undefined>();
+        return (
+          <>
+            <Tabs bind:selectedTabId={selectedTabIdSig}>
+              <TabList>
+                <Tab tabId="first">Tab 1</Tab>
+                <Tab tabId="second">Tab 2</Tab>
+              </TabList>
+              <TabPanel>Panel 1</TabPanel>
+              <TabPanel>Panel 2</TabPanel>
+            </Tabs>
+            {selectedTabIdSig.value && (
+              <div data-testid="selected-tab-id-from-event">
+                Selected tab id: {selectedTabIdSig.value}
+              </div>
+            )}
+          </>
+        );
+      });
+
+      cy.mount(<ManualTabIdsComponent />);
+
+      cy.findByRole('tab', { name: /Tab 2/i }).click();
+
+      cy.findByRole('tabpanel').should('contain', 'Panel 2');
+      cy.findByTestId('selected-tab-id-from-event').should('contain', 'second');
+    });
   });
 
   describe('Tabs inside of tabs', () => {
@@ -168,9 +230,7 @@ describe('Tabs', () => {
 
       cy.findAllByRole('tab', { name: /Tab 2/i }).first().click();
 
-      cy.findByRole('tabpanel')
-        .should('be.visible')
-        .should('contain', 'Root Panel 2');
+      cy.findByRole('tabpanel').should('be.visible').should('contain', 'Root Panel 2');
     });
 
     it(`GIVEN tabs inside of tabs
@@ -178,7 +238,8 @@ describe('Tabs', () => {
         THEN it should show only the selected child panel`, () => {
       cy.mount(<TabsInsideOfTabs />);
 
-      cy.findAllByRole('tab', { name: /Tab 2/i }).eq(1).click();
+      cy.findAllByRole('tab', { name: /Tab 2/i }).eq(1).as('childTab');
+      cy.get('@childTab').click();
 
       cy.findAllByRole('tabpanel').eq(1).should('contain', 'Child Panel 2');
     });
@@ -433,7 +494,7 @@ describe('Tabs', () => {
             <TabList
               style={{
                 display: 'flex',
-                flexDirection: isVertical ? 'column' : 'row',
+                flexDirection: isVertical ? 'column' : 'row'
               }}
             >
               <Tab>Tab 1</Tab>
@@ -475,11 +536,13 @@ describe('Tabs', () => {
       cy.mount(<PotentiallyDisabledThreeTabs disabledIndex={0} />);
 
       cy.findByRole('tabpanel').should('contain', 'Panel 2');
+
+      cy.findByRole('tab', { name: /Tab 1/ }).should('not.have.class', 'selected');
     });
 
     it(`GIVEN 5 tabs with tab 3 selected and tabs 3-5 are disabled
-          WHEN loading the component
-          THEN the selected tab should be the second tab`, () => {
+        WHEN loading the component
+        THEN the selected tab should be the second tab`, () => {
       cy.mount(
         <Tabs selectedIndex={2}>
           <TabList>
@@ -500,7 +563,23 @@ describe('Tabs', () => {
       cy.findByRole('tabpanel').should('contain', 'Panel 2');
     });
 
-    it(`GIVEN 1 disabled tab
+    it.only(`GIVEN 3 tabs written with the short version and the middle TabPanel has a disabled prop
+        WHEN focusing on first component and hitting the right key
+        THEN the selected tab should be the third one`, () => {
+      cy.mount(
+        <Tabs>
+          <TabPanel label="Tab 1">Panel 1</TabPanel>
+          <TabPanel label="Tab 2" disabled>
+            Panel 2
+          </TabPanel>
+          <TabPanel label="Tab 3">Panel 3</TabPanel>
+        </Tabs>
+      );
+      cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
+      cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
+    });
+
+    it(`GIVEN 3 disabled tab
           WHEN loading the component
           THEN no panel or tab should be selected`, () => {
       cy.mount(
@@ -602,9 +681,7 @@ describe('Tabs', () => {
     it(`GIVEN 3 vertical tabs and the second is disabled and the focus is on the first,
         WHEN triggering the down arrow key
         THEN the focus should be on the third tab`, () => {
-      cy.mount(
-        <PotentiallyDisabledThreeTabs isVertical={true} disabledIndex={1} />
-      );
+      cy.mount(<PotentiallyDisabledThreeTabs isVertical={true} disabledIndex={1} />);
 
       cy.findByRole('tab', { name: /Tab 1/i }).type('{downarrow}');
 
@@ -614,9 +691,7 @@ describe('Tabs', () => {
     it(`GIVEN 3 vertical tabs and the second is disabled and the focus is on the third,
         WHEN triggering the up arrow key
         THEN the focus should be on the first tab`, () => {
-      cy.mount(
-        <PotentiallyDisabledThreeTabs isVertical={true} disabledIndex={1} />
-      );
+      cy.mount(<PotentiallyDisabledThreeTabs isVertical={true} disabledIndex={1} />);
 
       cy.findByRole('tab', { name: /Tab 3/i }).type('{uparrow}');
 
@@ -636,16 +711,17 @@ describe('Tabs', () => {
               vertical={!!props.isVertical}
               style={{
                 display: 'flex',
-                flexDirection: props.isVertical ? 'column' : 'row',
+                flexDirection: props.isVertical ? 'row' : 'column'
               }}
             >
-              <TabList>
+              <TabList
+                style={{
+                  display: 'flex',
+                  flexDirection: props.isVertical ? 'column' : 'row'
+                }}
+              >
                 <Tab disabled={props.disabledIndex === 0}>Tab 1</Tab>
-                <Tab
-                  disabled={
-                    props.disabledIndex === 1 || isMiddleDisabledSig.value
-                  }
-                >
+                <Tab disabled={props.disabledIndex === 1 || isMiddleDisabledSig.value}>
                   Tab 2
                 </Tab>
                 <Tab disabled={props.disabledIndex === 2}>Tab 3</Tab>
@@ -656,9 +732,7 @@ describe('Tabs', () => {
             </Tabs>
             {props.showDisableButton && (
               <button
-                onClick$={() =>
-                  (isMiddleDisabledSig.value = !isMiddleDisabledSig.value)
-                }
+                onClick$={() => (isMiddleDisabledSig.value = !isMiddleDisabledSig.value)}
               >
                 Toggle middle tab disabled
               </button>
@@ -667,5 +741,31 @@ describe('Tabs', () => {
         );
       }
     );
+  });
+
+  describe('Shorthand API', () => {
+    it(`GIVEN 3 tabs written using shorthand
+        WHEN clicking the middle one
+        THEN render the middle panel`, () => {
+      cy.mount(
+        <Tabs>
+          <Tab>Tab 1</Tab>
+          <TabPanel>Panel 1</TabPanel>
+          <TabPanel label="Tab 2">Panel 2</TabPanel>
+          <TabPanel selected>Panel 3</TabPanel>
+          <Tab>Tab 3</Tab>
+        </Tabs>
+      );
+
+      cy.get('[role="tab"]').should('have.length', 3);
+
+      cy.findByRole('tabpanel').should('contain', 'Panel 3');
+
+      cy.findByRole('tab', { name: /Tab 2/i }).click();
+
+      cy.findByRole('tabpanel').should('contain', 'Panel 2');
+
+      cy.findByRole('tablist').should('exist');
+    });
   });
 });

@@ -1,74 +1,56 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
-  component$,
-  useContext,
-  useId,
-  Slot,
-  useTask$,
-  useSignal,
-  useVisibleTask$,
   QwikIntrinsicElements,
+  Signal,
+  Slot,
+  component$,
+  useComputed$,
+  useContext
 } from '@builder.io/qwik';
+import { TAB_ID_PREFIX } from './tab';
 import { tabsContextId } from './tabs-context-id';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
 
-export type TabPanelProps = QwikIntrinsicElements['div'];
+export type TabPanelProps = {
+  /** Optional tab contents. */
+  label?: QwikIntrinsicElements['div']['children'];
+  selected?: boolean;
+  disabled?: boolean;
 
-export const TabPanel = component$(({ ...props }: TabPanelProps) => {
-  const contextService = useContext(tabsContextId);
-  const isSelectedSig = useSignal(false);
-  const serverAssignedIndexSig = useSignal<number | undefined>(undefined);
-  const matchedTabIdSig = useSignal<string | undefined>(undefined);
+  /** @deprecated Internal use only */
+  _tabId?: string;
+  /** @deprecated Internal use only */
+  _extraClass?: QwikIntrinsicElements['div']['class'];
+} & QwikIntrinsicElements['div'];
 
-  const panelUID = useId();
+export const TAB_PANEL_ID_PREFIX = '_tabpanel_';
 
-  useTask$(async function initIndexTask({ cleanup }) {
-    if (isServer) {
-      serverAssignedIndexSig.value =
-        await contextService.getNextServerAssignedPanelIndex$();
-    }
-    if (isBrowser) {
-      contextService.reIndexTabs$();
-    }
-    cleanup(() => {
-      contextService.reIndexTabs$();
+export const TabPanel = component$(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ({ label, _tabId, _extraClass, ...props }: TabPanelProps) => {
+    const contextService = useContext(tabsContextId);
+
+    const fullPanelElementId = contextService.tabsPrefix + TAB_PANEL_ID_PREFIX + _tabId!;
+    const fullTabElementId = contextService.tabsPrefix + TAB_ID_PREFIX + _tabId!;
+
+    const isSelectedSig = useComputed$(() => {
+      return contextService.selectedTabIdSig.value === _tabId;
     });
-  });
 
-  useTask$(async function isSelectedPanelTask({ track }) {
-    const isSelected = await track(() =>
-      contextService.isPanelSelected$(panelUID)
+    return (
+      <div
+        {...props}
+        id={fullPanelElementId}
+        aria-labelledby={fullTabElementId}
+        role="tabpanel"
+        tabIndex={0}
+        class={[
+          (props.class as Signal<string>)?.value ?? (props.class as string),
+          (_extraClass as Signal<string>)?.value ?? (_extraClass as string)
+        ]}
+        hidden={!isSelectedSig.value}
+      >
+        <Slot />
+      </div>
     );
-
-    if (isServer) {
-      isSelectedSig.value = await contextService.isIndexSelected$(
-        serverAssignedIndexSig.value
-      );
-      return;
-    }
-
-    isSelectedSig.value = isSelected;
-  });
-
-  useVisibleTask$(async function matchedPanelIdTask({ track }) {
-    matchedTabIdSig.value = await track(() =>
-      contextService.getMatchedTabId$(panelUID)
-    );
-  });
-
-  return (
-    <div
-      data-tabpanel-id={panelUID}
-      id={'tabpanel-' + panelUID}
-      role="tabpanel"
-      tabIndex={0}
-      hidden={isSelectedSig.value ? (null as unknown as undefined) : true}
-      aria-labelledby={`tab-${matchedTabIdSig.value}`}
-      class={`${isSelectedSig.value ? '' : 'is-hidden'}${
-        props.class ? ` ${props.class}` : ''
-      }`}
-      style={isSelectedSig.value ? 'display: block' : 'display: none'}
-    >
-      <Slot />
-    </div>
-  );
-});
+  }
+);

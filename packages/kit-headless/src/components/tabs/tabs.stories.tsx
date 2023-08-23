@@ -1,27 +1,21 @@
-import { Meta, StoryObj } from 'storybook-framework-qwik';
-import {
-  useSignal,
-  useStore,
-  component$,
-  useComputed$,
-} from '@builder.io/qwik';
-import { Tab, TabList, TabPanel, Tabs, TabsProps } from './';
-import { userEvent, within, screen, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import { screen, userEvent, within } from '@storybook/testing-library';
+import { Meta, StoryObj } from 'storybook-framework-qwik';
+import { Tab, TabList, TabPanel, Tabs, TabsProps } from './';
 
 const meta: Meta<TabsProps> = {
   component: Tabs,
   args: {
-    behavior: 'automatic',
+    behavior: 'automatic'
   },
   argTypes: {
     behavior: {
       control: {
-        type: 'select',
+        type: 'select'
       },
-      options: ['automatic', 'manual'],
-    },
-  },
+      options: ['automatic', 'manual']
+    }
+  }
 };
 
 export default meta;
@@ -55,7 +49,7 @@ export const Primary: Story = {
     const activeTabPanel = await canvas.findByRole('tabpanel');
 
     await expect(activeTabPanel).toHaveTextContent('Panel 2');
-  },
+  }
 };
 
 // export const TabsWithMiddleDisabled: Story = {

@@ -102,9 +102,9 @@ export const AutomaticBehaviorTabsExample = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example mr-auto">
+        <h3>Danish Composers</h3>
+        <h4>(Hover over the tabs)</h4>
         <Tabs behavior="automatic">
-          <h3>Danish Composers</h3>
-          <h4>(Hover over the tabs)</h4>
           <TabList>
             <Tab>Maria Ahlefeldt</Tab>
             <Tab>Carl Andersen</Tab>
@@ -203,7 +203,7 @@ export const OnSelectedIndexChangeTabsExample = component$(() => {
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example mr-auto">
         <Tabs
-          onSelectedIndexChange$={(index) => {
+          onSelectedIndexChange$={(index: number) => {
             selectedIndexSig.value = index;
           }}
         >
@@ -225,6 +225,42 @@ export const OnSelectedIndexChangeTabsExample = component$(() => {
         </Tabs>
 
         <p>Selected Index: {selectedIndexSig.value}</p>
+      </div>
+
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
+  );
+});
+
+export const SelectedTabIdExample = component$(() => {
+  const selectedTabIdSig = useSignal<string | undefined>();
+
+  return (
+    <PreviewCodeExample>
+      <div q:slot="actualComponent" class="tabs-example mr-auto">
+        <Tabs bind:selectedTabId={selectedTabIdSig}>
+          <h3>Danish Composers</h3>
+          <TabList>
+            <Tab tabId="Maria">Maria Ahlefeldt</Tab>
+            <Tab tabId="Carl">Carl Andersen</Tab>
+            <Tab tabId="Ida">Ida Henriette da Fonseca</Tab>
+          </TabList>
+          <TabPanel>
+            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
+          </TabPanel>
+          <TabPanel>
+            <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+          </TabPanel>
+          <TabPanel>
+            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+          </TabPanel>
+        </Tabs>
+        <br />
+        <p>
+          <strong>Selected Tab Id</strong>: {selectedTabIdSig.value}
+        </p>
       </div>
 
       <div q:slot="codeExample">
@@ -264,6 +300,37 @@ export const OnClickTabsExample = component$(() => {
         </Tabs>
 
         <p>Click count: {tabsClickedCountSig.value}</p>
+      </div>
+
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
+  );
+});
+
+export const SelectedPropExample = component$(() => {
+  return (
+    <PreviewCodeExample>
+      <div q:slot="actualComponent" class="tabs-example mr-auto">
+        <h3>Danish Composers</h3>
+
+        <Tabs>
+          <TabList>
+            <Tab>Maria Ahlefeldt</Tab>
+            <Tab selected>Carl Andersen</Tab>
+            <Tab>Ida Henriette da Fonseca</Tab>
+          </TabList>
+          <TabPanel>
+            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
+          </TabPanel>
+          <TabPanel>
+            <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+          </TabPanel>
+          <TabPanel>
+            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+          </TabPanel>
+        </Tabs>
       </div>
 
       <div q:slot="codeExample">

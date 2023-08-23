@@ -1,10 +1,9 @@
 import {
-  Slot,
-  useSignal,
-  useContext,
-  component$,
   $,
-  useVisibleTask$,
+  Slot,
+  component$,
+  useContext,
+  useSignal,
   type QwikIntrinsicElements,
   type QwikKeyboardEvent
 } from '@builder.io/qwik';
@@ -18,7 +17,6 @@ export type OptionProps = {
 export const AutocompleteOption = component$((props: OptionProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
-  const optionElement = ref.value;
 
   contextService.options = [...contextService.options, ref];
 

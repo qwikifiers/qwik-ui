@@ -12,7 +12,7 @@ type APITableProps = {
 export const APITable = component$(({ propDescriptors }: APITableProps) => {
   return (
     <div class="overflow-auto">
-      <table class="w-full min-w-[540px] border-b border-gray-700 text-left sm:min-w-full">
+      <table class="w-full min-w-[540px] border-b border-gray-700 text-left sm:min-w-full mb-6">
         <tbody class="divide-y divide-gray-700">
           <tr class="w-1/4 dark:text-white ">
             <td class="w-1/6 whitespace-nowrap py-2 pl-4 text-sm font-medium sm:pl-0">
