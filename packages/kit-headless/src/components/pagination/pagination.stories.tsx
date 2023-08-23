@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
 import { Pagination, PaginationProps } from './pagination';
 
-import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import { within } from '@storybook/testing-library';
 
 const meta: Meta<PaginationProps> = {
-  component: Pagination,
+  component: Pagination
 };
 
 type Story = StoryObj<PaginationProps>;
@@ -15,7 +15,7 @@ export default meta;
 export const Default: Story = {
   args: {
     pages: 10,
-    page: 5,
+    page: 5
   },
   render: (args) => (
     <>
@@ -34,7 +34,7 @@ export const Default: Story = {
       />
     </>
   ),
-  play: ({ canvasElement, args }) => {
+  play: ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const values = ['1', '4', '5', '6', '10'];
     values.forEach((value) => {
@@ -44,7 +44,7 @@ export const Default: Story = {
     expect(canvas.queryByText('last')).toBeNull();
     expect(canvas.getByText('prev')).toBeVisible();
     expect(canvas.getByText('next')).toBeVisible();
-  },
+  }
 };
 
 export const AllButtons: Story = {
@@ -56,7 +56,7 @@ export const AllButtons: Story = {
     hideNextButton: false,
     hidePrevButton: false,
     siblingCount: 1,
-    boundaryCount: 1,
+    boundaryCount: 1
   },
   render: (args) => (
     <>
@@ -75,7 +75,7 @@ export const AllButtons: Story = {
       />
     </>
   ),
-  play: ({ canvasElement, args }) => {
+  play: ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const values = ['1', '4', '5', '6', '10'];
     values.forEach((value) => {
@@ -85,7 +85,7 @@ export const AllButtons: Story = {
     expect(canvas.getByText('last')).toBeVisible();
     expect(canvas.getByText('prev')).toBeVisible();
     expect(canvas.getByText('next')).toBeVisible();
-  },
+  }
 };
 
 export const HideButtons: Story = {
@@ -97,7 +97,7 @@ export const HideButtons: Story = {
     hideNextButton: true,
     hidePrevButton: true,
     siblingCount: 1,
-    boundaryCount: 1,
+    boundaryCount: 1
   },
   render: (args) => (
     <>
@@ -116,7 +116,7 @@ export const HideButtons: Story = {
       />
     </>
   ),
-  play: ({ canvasElement, args }) => {
+  play: ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const values = ['1', '4', '5', '6', '10'];
     values.forEach((value) => {
@@ -126,5 +126,5 @@ export const HideButtons: Story = {
     expect(canvas.queryByText('last')).toBeNull();
     expect(canvas.queryByText('prev')).toBeNull();
     expect(canvas.queryByText('next')).toBeNull();
-  },
+  }
 };
