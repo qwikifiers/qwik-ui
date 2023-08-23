@@ -2,8 +2,8 @@ import {
   QwikIntrinsicElements,
   Slot,
   component$,
-  useContext,
-  useComputed$
+  useComputed$,
+  useContext
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 
@@ -20,7 +20,9 @@ export type ComboboxOptionProps = {
 export const ComboboxOption = component$((props: ComboboxOptionProps) => {
   const index = (props as ComboboxOptionProps & { _index: number })._index;
   const context = useContext(ComboboxContextId);
+  // const selectedOptionIndexSig = useSignal<number>(-1);
   const selectedOptionIndexSig = context.selectedOptionIndexSig;
+  console.log(selectedOptionIndexSig.value);
 
   const computedStyle = useComputed$(() => {
     return index === selectedOptionIndexSig.value

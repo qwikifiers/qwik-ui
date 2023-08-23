@@ -11,6 +11,7 @@ import {
 
 import { ComboboxListbox } from './combobox-listbox';
 import { ComboboxOption } from './combobox-option';
+import { ComboboxPortal } from './combobox-portal';
 
 export type ComboboxImplProps = {
   defaultValue?: string;
@@ -49,11 +50,19 @@ export const Combobox: FunctionComponent<ComboboxImplProps> = (props) => {
     }
 
     switch (child.type) {
-      case ComboboxListbox: {
-        const grandChildren = Array.isArray(child.props.children)
+      case ComboboxPortal: {
+        const portalChildren = Array.isArray(child.props.children)
           ? [...child.props.children]
           : [child.props.children];
-        childrenToProcess.unshift(...grandChildren);
+        childrenToProcess.unshift(...portalChildren);
+        break;
+      }
+
+      case ComboboxListbox: {
+        const listboxChildren = Array.isArray(child.props.children)
+          ? [...child.props.children]
+          : [child.props.children];
+        childrenToProcess.unshift(...listboxChildren);
         break;
       }
       case ComboboxOption: {

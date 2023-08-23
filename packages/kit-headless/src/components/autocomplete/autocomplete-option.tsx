@@ -1,14 +1,14 @@
 import {
-  Slot,
-  useSignal,
-  useContext,
-  component$,
   $,
-  type QwikIntrinsicElements,
-  type QwikKeyboardEvent,
+  Slot,
+  component$,
+  useContext,
+  useId,
+  useSignal,
   useTask$,
   useVisibleTask$,
-  useId
+  type QwikIntrinsicElements,
+  type QwikKeyboardEvent
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
@@ -22,7 +22,6 @@ export const AutocompleteOption = component$((props: OptionProps) => {
   const ref = useSignal<HTMLElement>();
   const contextService = useContext(AutocompleteContextId);
   const specialId = useId();
-  console.log('inside option');
 
   useTask$(() => {
     if (typeof window !== 'undefined') {

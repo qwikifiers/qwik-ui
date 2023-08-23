@@ -38,7 +38,7 @@ export const ComboboxListbox = component$((props: ComboboxListboxProps) => {
   return (
     <ul
       ref={context.listboxRef}
-      style={{ position: 'absolute', zIndex: 9999 }}
+      style={{ position: 'absolute' }}
       hidden={!context.isListboxOpenSig.value}
       role="listbox"
       {...props}
