@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Link, type DocumentHead } from '@builder.io/qwik-city';
+import { type DocumentHead } from '@builder.io/qwik-city';
 import { useRootStore } from '../_state/use-root-store';
 import KitSelectionCTA from './_components/kit-selection-cta/kit-selection-cta';
 
@@ -22,9 +22,6 @@ export default component$(() => {
         Choose a kit and start building the future{' '}
         <span class="hue-rotate-[150deg]">⚡</span>
       </p>
-      <div>
-        <Link href="/docs/headless/autocomplete">Here is a link component</Link>
-      </div>
       <div class="gap-8 flex flex-col lg:flex-row w-full justify-center justify-items-center">
         <KitSelectionCTA kit="headless">
           Accessibility built-in and unstyled for your bespoke designs and custom needs.
