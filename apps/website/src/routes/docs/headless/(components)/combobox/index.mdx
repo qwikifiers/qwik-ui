@@ -1,0 +1,180 @@
+---
+title: Qwik UI | Combobox
+---
+
+import {
+  Combobox,
+  ComboboxLabel,
+  ComboboxTrigger,
+  ComboboxInput,
+  ComboboxListbox,
+  ComboboxOption,
+} from '@qwik-ui/headless';
+
+import { Example01, Example02, Example03 } from './examples';
+import { CodeExample } from '../../../_components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../_components/api-table/api-table';
+import { AlphaBanner } from '../../../_components/alpha-banner/alpha-banner';
+
+<AlphaBanner />
+
+# Combobox
+
+#### A customizable text field with a listbox, enabling users to narrow down a list of choices based on their search criteria.
+
+{' '}
+
+<Example01>
+  ```tsx
+  <Combobox class="relative text-white">
+    <ComboboxLabel class="text-inherit font-semibold">
+      Personal Trainers ⚡
+    </ComboboxLabel>
+    <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
+      <ComboboxInput class="w-44 bg-inherit px-2 pr-6" />
+      <ComboboxTrigger class="w-6 h-6 group absolute right-0">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="2"
+          class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </ComboboxTrigger>
+    </ComboboxControl>
+    <ComboboxPortal>
+      <ComboboxListbox class="w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
+        {trainers.map((trainer, index) => (
+          <ComboboxOption
+            optionValue={trainer}
+            key={index}
+            class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
+          >
+            {trainer}
+          </ComboboxOption>
+        ))}
+      </ComboboxListbox>
+    </ComboboxPortal>
+  </Combobox>
+  ```
+</Example01>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Combobox, ComboboxLabel, ComboboxControl, ComboboxInput, ComboboxTrigger, ComboboxPortal, ComboboxListbox, ComboboxOption } from '@qwik-ui/headless';
+
+    export default component$(() => {
+      return (
+        <Combobox>
+          <ComboboxLabel>Label</ComboboxLabel>
+          <ComboboxControl>
+            <ComboboxInput />
+            <ComboboxTrigger>
+              Button
+            </ComboboxTrigger>
+          </ComboboxControl>
+          <ComboboxPortal>
+            <ComboboxListbox>
+              <ComboboxOption>Option</ComboboxOption>
+            </ComboboxListbox>
+          </ComboboxPortal>
+        </Combobox>
+      )
+    })
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### EXAMPLE: Frequently Asked Questions
+
+<Example02>```tsx ```</Example02>
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable keyDescriptors={
+  [
+    {
+      keyTitle: 'Tab',
+      description: 'Moves focus to the next focusable element or option.',
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: 'Moves focus to the previous focusable element or option.',
+    },
+    {
+      keyTitle: 'DownArrow',
+      description: "Opens the listbox and moves focus to the first option. When focus is on an option, moves focus to the next option.  If there isn't one, it will go back to the first option.",
+    },
+    {
+      keyTitle: 'UpArrow',
+      description: "When focus is on an option, moves focus to the previous option. If there isn't one, it will go back to the last option.",
+    },
+    {
+      keyTitle: 'Enter / Space',
+      description: `Selects the option when focused. The listbox will close and the selected option becomes the input's value.`,
+    },
+    {
+      keyTitle: 'Escape',
+      description: 'Closes the listbox.',
+    },
+    {
+      keyTitle: 'Home',
+      description: 'When the input is focused, the cursor moves to the start of the input value. When focused on any listbox option, focus is moved to the first option.',
+    },
+    {
+      keyTitle: 'End',
+      description: 'When the input is focused, the cursor moves to the end of the input value. When focused on any listbox option, focus is moved to the last option.',
+    },
+    {
+      keyTitle: 'Delete',
+      description: 'When text is selected in the input, deletes the selected text.',
+    },
+
+]
+}/>
+
+Adheres to the [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) WAI-ARIA design pattern. See the W3C Editable Combobox With List Combobox Example for more information.
+
+## API
+
+By default, the API holds available attributes of both native DOM elements and custom Qwik elements. This is thanks to **QwikIntrinsicElements**. Here are some of the notable API's for this component.
+
+### Combobox (Root)
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the Combobox container.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'inline CSS styles to apply to the Combobox container.',
+    },
+    {
+      name: 'label',
+      type: 'string',
+      description: 'The label to give to the accordion item.',
+    },
+    {
+      name: 'onClick$',
+      type: 'function',
+      info: 'PropFunction<() => void>',
+      description: 'A custom click handler',
+    },
+  ]}
+/>

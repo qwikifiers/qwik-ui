@@ -1,12 +1,13 @@
 import { component$, Slot, useSignal } from '@builder.io/qwik';
 import {
-  AutocompleteLabel,
-  AutocompleteRoot,
-  AutocompleteControl,
-  AutocompleteInput,
-  AutocompleteTrigger,
-  AutocompleteListbox,
-  AutocompleteOption
+  Combobox,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxListbox,
+  ComboboxOption,
+  ComboboxPortal,
+  ComboboxTrigger
 } from '@qwik-ui/headless';
 
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
@@ -27,6 +28,7 @@ const trainers = [
 export const Example01 = component$(() => {
   const trainersSig = useSignal(trainers);
   const showExample = useSignal(true);
+
   return (
     <PreviewCodeExample>
       <div class="flex flex-col gap-4" q:slot="actualComponent">
@@ -38,13 +40,13 @@ export const Example01 = component$(() => {
           Show them
         </button>
         {showExample.value === true && (
-          <AutocompleteRoot class="relative">
-            <AutocompleteLabel class=" font-semibold dark:text-white text-[#333333]">
+          <Combobox class="relative">
+            <ComboboxLabel class=" font-semibold dark:text-white text-[#333333]">
               Personal Trainers ⚡
-            </AutocompleteLabel>
-            <AutocompleteControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
-              <AutocompleteInput class="w-44 bg-inherit px-2 pr-6 text-white" />
-              <AutocompleteTrigger class="w-6 h-6 group absolute right-0">
+            </ComboboxLabel>
+            <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
+              <ComboboxInput class="w-44 bg-inherit px-d2 pr-6 text-white" />
+              <ComboboxTrigger class="w-6 h-6 group absolute right-0">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -56,20 +58,21 @@ export const Example01 = component$(() => {
                 >
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
-              </AutocompleteTrigger>
-            </AutocompleteControl>
-            <AutocompleteListbox class="text-white w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
-              {trainersSig.value.map((trainer) => (
-                <AutocompleteOption
-                  optionValue={trainer}
-                  key={trainer}
-                  class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
-                >
-                  {trainer}
-                </AutocompleteOption>
-              ))}
-            </AutocompleteListbox>
-          </AutocompleteRoot>
+              </ComboboxTrigger>
+            </ComboboxControl>
+            <ComboboxPortal>
+              <ComboboxListbox class="text-white w-44 bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
+                {trainersSig.value.map((trainer) => (
+                  <ComboboxOption
+                    key={trainer}
+                    class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
+                  >
+                    {trainer}
+                  </ComboboxOption>
+                ))}
+              </ComboboxListbox>
+            </ComboboxPortal>
+          </Combobox>
         )}
         <button
           onClick$={() => {

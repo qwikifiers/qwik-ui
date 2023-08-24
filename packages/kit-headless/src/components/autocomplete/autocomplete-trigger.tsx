@@ -3,7 +3,9 @@ import {
   $,
   Slot,
   useContext,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
+  useSignal,
+  useVisibleTask$
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
@@ -13,18 +15,35 @@ export const AutocompleteTrigger = component$(({ ...props }: TriggerProps) => {
   const contextService = useContext(AutocompleteContextId);
   const triggerId = contextService.triggerId;
   const listboxId = contextService.listBoxId;
+  const triggerRefSig = useSignal<HTMLElement>();
+
+  const isTriggerExpandedSig = contextService.isTriggerExpandedSig;
+
+  // useVisibleTask$(function focusInputTask({ track }) {
+  //   if (track(() => !isTriggerExpandedSig.value)) {
+  //     triggerRefSig.value?.focus();
+  //   }
+  // });
+
+  useVisibleTask$(function registerInputRefTask() {
+    contextService.triggerRefSig.value = triggerRefSig.value;
+  });
 
   return (
     <button
       {...props}
+      ref={triggerRefSig}
       id={triggerId}
-      aria-expanded={contextService.isExpanded.value}
+      aria-expanded={contextService.isTriggerExpandedSig.value}
       aria-label="listbox toggle trigger"
       aria-haspopup="listbox"
       aria-controls={listboxId}
       // add their own custom onClick with our onClick functionality
       onClick$={[
-        $(() => (contextService.isExpanded.value = !contextService.isExpanded.value)),
+        $(() => {
+          contextService.isTriggerExpandedSig.value =
+            !contextService.isTriggerExpandedSig.value;
+        }),
         props.onClick$
       ]}
       tabIndex={-1}
