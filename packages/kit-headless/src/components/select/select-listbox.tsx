@@ -60,12 +60,13 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
       ref={listBoxRef}
       role="listbox"
       tabIndex={0}
+      hidden={!selectContext.isListboxHiddenSig.value}
       style={`
-      display: ${selectContext.isOpenSig.value ? 'block' : 'none'};
-      position: absolute;
-      z-index: 1;
-      ${props.style}
-    `}
+        display: ${selectContext.isOpenSig.value ? 'block' : 'none'};
+        position: absolute;
+        z-index: 1;
+        ${props.style}
+      `}
       class={props.class}
     >
       <Slot />

@@ -1,5 +1,6 @@
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 import { ContentMenu, useContent } from '@builder.io/qwik-city';
+import { QwikUIProvider } from '@qwik-ui/headless';
 import { ComponentsStatusesMap, statusByComponent } from '../_state/component-statuses';
 import { KitName } from '../_state/kit-name.type';
 import { useRootStore } from '../_state/use-root-store';
@@ -23,13 +24,14 @@ export default component$(() => {
   return (
     <>
       <Header showBottomBorder={true} showVersion={true} />
-
-      <div class="flex mt-20">
-        <DocsNavigation linksGroups={menuItemsGroups} />
-        <main class="docs">
-          <Slot />
-        </main>
-      </div>
+      <QwikUIProvider>
+        <div class="flex mt-20">
+          <DocsNavigation linksGroups={menuItemsGroups} />
+          <main class="docs">
+            <Slot />
+          </main>
+        </div>
+      </QwikUIProvider>
       <footer></footer>
     </>
   );
