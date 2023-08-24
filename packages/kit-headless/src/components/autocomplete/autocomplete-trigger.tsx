@@ -1,11 +1,11 @@
 import {
-  component$,
   $,
   Slot,
+  component$,
   useContext,
-  type QwikIntrinsicElements,
   useSignal,
-  useVisibleTask$
+  useVisibleTask$,
+  type QwikIntrinsicElements
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
@@ -16,8 +16,6 @@ export const AutocompleteTrigger = component$(({ ...props }: TriggerProps) => {
   const triggerId = contextService.triggerId;
   const listboxId = contextService.listBoxId;
   const triggerRefSig = useSignal<HTMLElement>();
-
-  const isTriggerExpandedSig = contextService.isTriggerExpandedSig;
 
   // useVisibleTask$(function focusInputTask({ track }) {
   //   if (track(() => !isTriggerExpandedSig.value)) {

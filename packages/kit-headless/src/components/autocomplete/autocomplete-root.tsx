@@ -132,7 +132,7 @@ export type AutocompleteRootProps = {
  *
  */
 export const AutocompleteRoot = component$(
-  ({ defaultValue, placeholder, ...props }: AutocompleteRootProps) => {
+  ({ defaultValue, ...props }: AutocompleteRootProps) => {
     useVisibleTask$(function deprecatedComponentError() {
       throw new Error(
         'Qwik UI: The Autocomplete component has been deprecated in favor of the Combobox. Please use the Combobox component instead.'

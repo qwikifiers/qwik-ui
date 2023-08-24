@@ -1,12 +1,11 @@
 import {
-  component$,
-  useSignal,
-  useContext,
-  useVisibleTask$,
   $,
-  type Signal,
-  type QwikKeyboardEvent,
-  type QwikIntrinsicElements
+  component$,
+  useContext,
+  useSignal,
+  useVisibleTask$,
+  type QwikIntrinsicElements,
+  type QwikKeyboardEvent
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
