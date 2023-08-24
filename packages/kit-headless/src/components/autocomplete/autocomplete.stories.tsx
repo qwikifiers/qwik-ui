@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from 'storybook-framework-qwik';
-import { within } from '@storybook/testing-library';
 import './autocompleteTest.css';
 
 /*
@@ -92,13 +91,13 @@ const fruits = [
 ];
 
 import {
-  AutocompleteRoot,
-  AutocompleteLabel,
-  AutocompleteTrigger,
-  AutocompleteInput,
   AutocompleteControl,
+  AutocompleteInput,
+  AutocompleteLabel,
   AutocompleteListbox,
   AutocompleteOption,
+  AutocompleteRoot,
+  AutocompleteTrigger,
   type AutocompleteRootProps
 } from './index';
 
@@ -142,10 +141,10 @@ const RegularAutocomplete = () => (
 );
 
 export const Primary: Story = {
-  render: () => RegularAutocomplete(),
-  play: ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-  }
+  render: () => RegularAutocomplete()
+  // play: ({ canvasElement }) => {
+  //    const canvas = within(canvasElement);
+  // }
 };
 
 export default meta;

@@ -12,6 +12,8 @@ import {
   DynamicTabsExample,
   OnSelectedIndexChangeTabsExample,
   OnClickTabsExample,
+  SelectedTabIdExample,
+  SelectedPropExample
 } from './examples';
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
@@ -53,6 +55,8 @@ import {statusByComponent} from '../../../../../_state/component-statuses';
 
 ## Building blocks
 
+### The full version
+
   <CodeExample>
     ```tsx
     import { component$ } from '@builder.io/qwik';
@@ -62,7 +66,7 @@ import {statusByComponent} from '../../../../../_state/component-statuses';
 
       return (
         <>
-          <Tabs>
+          <Tabs seletedIndex={1}>
             <TabList>
               <Tab>Tab 1</Tab>
               <Tab>Tab 2</Tab>
@@ -79,6 +83,31 @@ import {statusByComponent} from '../../../../../_state/component-statuses';
     ```
 
   </CodeExample>
+
+### The short version
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { Tabs, TabPanel,  } from '@qwik-ui/headless';
+
+    export default component$(() => {
+
+      return (
+        <>
+          <Tabs>
+            <TabPanel title="Tab 1">Content 1</TabPanel>
+            <TabPanel title="Tab 2" selected>Content 2</TabPanel>
+            <TabPanel title="Tab 3">Content 3</TabPanel>
+          </Tabs>
+        </>
+      );
+    });
+    ```
+
+  </CodeExample>
+
+> The "short version" 👆 will be automatically transformed into the full ARIA compliant version
 
 ## Vertical
 
@@ -114,21 +143,25 @@ You can disable a tab by setting the `disabled` prop to true.
 
 <DisabledTabsExample>
   ```tsx
-  <Tabs>
     <h3>Dad jokes</h3>
-    <TabList>
-      <Tab disabled={true}>Disabled Tab</Tab>
-      <Tab>Joke 2</Tab>
-      <Tab>Joke 3</Tab>
-      <Tab>Joke 4</Tab>
-    </TabList>
-    <TabPanel>
-      "What did the coffee report to the police", " A mugging."
-    </TabPanel>
-    <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
-    <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
-    <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
-  </Tabs>
+    <Tabs>
+      <TabList>
+        <Tab
+          class="aria-disabled:cursor-not-allowed"
+          style="width: 25%"
+          disabled={true}
+        >
+          Disabled Tab
+        </Tab>
+        <Tab style="width: 25%">Joke 2</Tab>
+        <Tab style="width: 25%">Joke 3</Tab>
+        <Tab style="width: 25%">Joke 4</Tab>
+      </TabList>
+      <TabPanel>"What did the coffee report to the police", " A mugging."</TabPanel>
+      <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
+      <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
+      <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
+    </Tabs>
   ```
 </DisabledTabsExample>
 
@@ -202,7 +235,7 @@ const tabsState = useStore([
 ]);
 
 return <>
-  
+
   <Tabs>
     <TabList>
       {tabsState.map((tab) => (
@@ -267,6 +300,79 @@ return <div>
 </div>
 ```
 </OnSelectedIndexChangeTabsExample>
+
+## bind:selectedIndex
+
+You can provide a signal for the selected index with the `bind:selectedIndex={yourSignal}` and it will be used directly. This is a more efficient version of `onSelectedIndexChange$`.
+
+## bind:selectedTabId
+
+You can provide a signal for the selected tab id with the `bind:selectedTabId={yourSignal}` 
+and it will be used directly. 
+
+💡 You can manually set the `tabId` prop on each tab to be able to select any tab by its ID.
+
+
+<SelectedTabIdExample>
+```tsx
+
+const selectedTabIdSig = useSignal<string | undefined>();
+
+return (
+    
+  <div>
+    <Tabs bind:selectedTabId={selectedTabIdSig}>
+      <h3>Danish Composers</h3>
+      <TabList>
+        <Tab tabId="Maria">Maria Ahlefeldt</Tab>
+        <Tab tabId="Carl">Carl Andersen</Tab>
+        <Tab tabId="Ida">Ida Henriette da Fonseca</Tab>
+      </TabList>
+      <TabPanel>
+        <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
+      </TabPanel>
+      <TabPanel>
+        <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+      </TabPanel>
+      <TabPanel>
+        <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+      </TabPanel>
+    </Tabs>
+    
+    <p>Selected Tab Id: {selectedTabIdSig.value}</p>
+  </div>
+)
+```
+</SelectedTabIdExample>
+
+
+## Add a "selected" prop
+
+You can add a "selected" prop to the Tab component to make it selected by default.
+
+<SelectedPropExample>
+```tsx
+<h3>Danish Composers</h3>
+
+<Tabs>
+  <TabList>
+    <Tab>Maria Ahlefeldt</Tab>
+    <Tab selected>Carl Andersen</Tab>
+    <Tab>Ida Henriette da Fonseca</Tab>
+  </TabList>
+  <TabPanel>
+    <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
+  </TabPanel>
+  <TabPanel>
+    <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+  </TabPanel>
+  <TabPanel>
+    <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+  </TabPanel>
+</Tabs>
+
+```
+</SelectedPropExample>
 
 ## onClick$
 
@@ -376,6 +482,11 @@ return <div>
       description: 'A way to set the selected index programmatically',
     },
     {
+      name: 'selectedTabId',
+      type: 'number',
+      description: 'A way to set the selected tabId programmatically. The tabId is set by the `key` prop of the Tab or TabPanel',
+    },
+    {
       name: 'vertical',
       type: 'boolean',
       description:
@@ -386,7 +497,38 @@ return <div>
       type: 'function',
       info: '(index: number) => void',
       description:
-        'An event hook that getting notified whenever the selected index changes',
+        'An event hook that gets notified whenever the selected index changes',
+    },
+    {
+      name: 'onSelectedTabIdChange$',
+      type: 'function',
+      info: '(index: string) => void',
+      description:
+        'An event hook that gets notified whenever the selected tabId changes',
+    },
+    {
+      name: 'bind:selectedIndex',
+      type: 'signal',
+      info: 'Signal<number | undefined>',
+      description:
+        'A signal that binds the selected index. This is a more efficient version of `selectedIndex` + `onSelectedIndexChange$`',
+    },
+    {
+      name: 'bind:selectedTabId',
+      type: 'signal',
+      info: 'Signal<string | undefined>',
+      description:
+        'A signal that binds the selected tabId. This is a more efficient version of `selectedTabId` + `onSelectedTabIdChange$`',
+    },
+    {
+      name: 'tabClass',
+      type: 'string',
+      description: 'The class name to apply to tabs',
+    },
+    {
+      name: 'panelClass',
+      type: 'string',
+      description: 'The class name to apply to panels',
     },
   ]}
 />
@@ -401,16 +543,36 @@ return <div>
       description: 'The class name to apply when the tab is selected',
     },
     {
-      name: 'onClick',
-      info: '(event: QwikMouseEvent) => void',
-      type: 'function',
-      description: 'A custom click handler to wire to tab click event',
+      name: 'selected',
+      type: 'boolean',
+      description: 'Select this tab by default',
     },
     {
       name: 'disabled',
       type: 'boolean',
       description: 'Set the disabled state of a specific tab',
     },
+    {
+      name: 'tabId',
+      type: 'string',
+      description: 'Set the tab id, can be used with `bind:selectedTabId` to select a tab programmatically',
+    },
   ]}
 />
-```
+
+### TabPanel
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'label',
+      type: 'element',
+      description: 'Shorthand for `<Tab>{label}</Tab>`',
+    },
+    {
+      name: 'selected',
+      type: 'boolean',
+      description: 'Select this tab by default',
+    },
+  ]}
+/>

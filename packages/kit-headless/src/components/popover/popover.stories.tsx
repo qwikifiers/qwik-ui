@@ -1,12 +1,12 @@
+import { expect } from '@storybook/jest';
+import { userEvent, within } from '@storybook/testing-library';
 import { Meta, StoryObj } from 'storybook-framework-qwik';
 import { Popover, PopoverProps } from './popover';
-import { PopoverTrigger } from './popover-trigger';
 import { PopoverContent } from './popover-content';
-import { screen, userEvent, within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { PopoverTrigger } from './popover-trigger';
 
 const meta: Meta<PopoverProps> = {
-  component: Popover,
+  component: Popover
 };
 
 type Story = StoryObj<PopoverProps>;
@@ -30,5 +30,5 @@ export const Primary: Story = {
     const popover = await canvas.findByRole('dialog');
 
     await expect(popover).toHaveTextContent('Oh hi mark!');
-  },
+  }
 };

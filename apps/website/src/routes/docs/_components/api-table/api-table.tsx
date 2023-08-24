@@ -12,14 +12,14 @@ type APITableProps = {
 export const APITable = component$(({ propDescriptors }: APITableProps) => {
   return (
     <div class="overflow-auto">
-      <table class="w-full min-w-[540px] border-b border-gray-700 text-left sm:min-w-full">
+      <table class="w-full min-w-[540px] border-b border-gray-700 text-left sm:min-w-full mb-6">
         <tbody class="divide-y divide-gray-700">
           <tr class="w-1/4 dark:text-white ">
             <td class="w-1/6 whitespace-nowrap py-2 pl-4 text-sm font-medium sm:pl-0">
               Prop
             </td>
             <td class="w-1/6 whitespace-nowrap py-2 text-sm font-medium ">Type</td>
-            <td class="w-2/3 whitespace-nowrap py-2 text-sm font-medium ">Description</td>
+            <td class="w-2/3 whitespace-nowrap p-2 text-sm font-medium ">Description</td>
           </tr>
           {propDescriptors?.map((propDescriptor) => {
             return (
@@ -37,12 +37,12 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
                     {propDescriptor.info && (
                       <Popover placement="top">
                         <PopoverContent>
-                          <div class="bg-[#202425] text-[#7881fa] max-w-xs mb-2 text-md px-4 py-2  rounded-md">
+                          <div class="bg-[#202425] text-[#7881fa] max-w-xs mb-2 text-md px-4 py-2  rounded-md sm:w-max">
                             {propDescriptor?.info}
                           </div>
                         </PopoverContent>
                         <PopoverTrigger>
-                          <div class="hover:bg-slate-500 hover:bg-opacity-50 h-[31px] mt-2 p-2 rounded-md">
+                          <div class="hover:bg-slate-500 hover:bg-opacity-50 mt-2 p-1 rounded-md mx-2 rounded-xl">
                             <svg
                               width="15"
                               height="15"
@@ -66,7 +66,7 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
                   </span>
                 </td>
                 <td class="py-3 align-baseline">
-                  <div class="prose prose-sm prose-docs-table">
+                  <div class="prose prose-sm prose-docs-table px-2">
                     <p>{propDescriptor.description}</p>
                   </div>
                 </td>

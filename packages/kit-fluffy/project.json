@@ -1,0 +1,71 @@
+{
+  "name": "fluffy",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/kit-fluffy/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/packages/kit-fluffy",
+        "configFile": "packages/kit-fluffy/vite.config.ts",
+        "mode": "lib"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/kit-fluffy/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {}
+    },
+    "version-dry": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "dryRun": true,
+        "releaseAs": "patch"
+      }
+    },
+    "version-publish": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "noVerify": true,
+        "push": true,
+        "releaseAs": "patch",
+        "postTargets": ["fluffy:publish", "fluffy:push-to-github"]
+      }
+    },
+    "publish": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
+      }
+    },
+    "push-to-github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "title": "@qwik-ui/kit-fluffy@${version}",
+        "tag": "${tag}",
+        "notes": "${notes}"
+      }
+    }
+  },
+  "tags": []
+}

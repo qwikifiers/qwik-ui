@@ -1,7 +1,7 @@
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 import { ContentMenu, useContent } from '@builder.io/qwik-city';
 import { QwikUIProvider } from '@qwik-ui/headless';
-import { ComponentsStatusesMap } from '../_state/component-statuses';
+import { ComponentsStatusesMap, statusByComponent } from '../_state/component-statuses';
 import { KitName } from '../_state/kit-name.type';
 import { useRootStore } from '../_state/use-root-store';
 import Header from './_components/header/header';
