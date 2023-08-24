@@ -1,17 +1,16 @@
 import {
-  component$,
-  Slot,
-  useContextProvider,
-  useSignal,
-  QwikIntrinsicElements,
-  useStore,
-  useVisibleTask$,
   $,
-  useId,
-  useOnWindow,
+  QwikIntrinsicElements,
   QwikKeyboardEvent,
   Signal,
-  useComputed$
+  Slot,
+  component$,
+  useContextProvider,
+  useId,
+  useOnWindow,
+  useSignal,
+  useStore,
+  useVisibleTask$
 } from '@builder.io/qwik';
 
 import { computePosition, flip } from '@floating-ui/dom';
@@ -126,8 +125,20 @@ export type AutocompleteRootProps = {
   placeholder?: string;
 } & QwikIntrinsicElements['div'];
 
+/**
+ * **QWIK-UI WARNING**: This component has been deprecated. If you're looking for an autocomplete, I recommend checking out the autocomplete example inside the Combobox component.
+ *
+ * @deprecated Use the Combobox component instead.
+ *
+ */
 export const AutocompleteRoot = component$(
   ({ defaultValue, placeholder, ...props }: AutocompleteRootProps) => {
+    useVisibleTask$(function deprecatedComponentError() {
+      throw new Error(
+        'Qwik UI: The Autocomplete component has been deprecated in favor of the Combobox. Please use the Combobox component instead.'
+      );
+    });
+
     const optionsStore = useStore<Signal<HTMLElement>[]>([]);
     const filteredOptionsStore = useStore([]);
     const selectedOptionSig = useSignal(defaultValue ? defaultValue : '');

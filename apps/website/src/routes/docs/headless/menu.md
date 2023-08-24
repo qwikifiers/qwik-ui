@@ -9,7 +9,6 @@
 ## Components
 
 - [Accordion](/docs/headless/accordion)
-- [Autocomplete](/docs/headless/autocomplete)
 - [Combobox](/docs/headless/combobox)
 - [Popover](/docs/headless/popover)
 - [Select](/docs/headless/select)

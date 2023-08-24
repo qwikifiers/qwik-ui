@@ -20,7 +20,7 @@ export const openPortalContextId =
     QRL<
       (
         name: string,
-        elementToProject: JSXNode,
+        elementToTeleport: JSXNode,
         contexts?: Array<ContextPair<unknown>>
       ) => QRL<() => void>
     >
@@ -36,7 +36,7 @@ const portalInfoListContextId = createContextId<Signal<Array<PortalInfo>>>('Port
 
 interface PortalInfo {
   name: string;
-  elementToProject: JSXNode;
+  elementToTeleport: JSXNode;
   contextPairs: Array<ContextPair<unknown>>;
   close$?: QRL<() => void>;
 }
@@ -51,12 +51,12 @@ export const QwikUIProvider = component$(() => {
     $(
       (
         name: string,
-        elementToProject: JSXNode,
+        elementToTeleport: JSXNode,
         contextPairs?: Array<ContextPair<unknown>>
       ) => {
         const portalInfo: PortalInfo = {
           name,
-          elementToProject,
+          elementToTeleport,
           contextPairs: contextPairs || []
         };
         portalInfo.close$ = $(function removePortalFromList() {
@@ -95,7 +95,7 @@ export const Portal = component$<{ name: string }>(({ name }) => {
       {myPortalInfoList.map((portalInfo) => (
         <Fragment key={name}>
           <WrapJsxInContext
-            elementToProject={portalInfo.elementToProject}
+            elementToTeleport={portalInfo.elementToTeleport}
             contextPairs={portalInfo.contextPairs}
           />
         </Fragment>
@@ -105,17 +105,17 @@ export const Portal = component$<{ name: string }>(({ name }) => {
 });
 
 export const WrapJsxInContext = component$<{
-  elementToProject: JSXNode;
+  elementToTeleport: JSXNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   contextPairs: Array<ContextPair<any>>;
-}>(({ elementToProject, contextPairs }) => {
+}>(({ elementToTeleport: elementToTeleport, contextPairs }) => {
   // eslint-disable-next-line qwik/use-method-usage
   contextPairs.forEach(({ id, value }) => useContextProvider(id, value));
   return (
     <>
       {/* Workaround: https://github.com/BuilderIO/qwik/issues/4966 */}
       {/* {jsx} */}
-      {[elementToProject].map((jsx) => jsx)}
+      {[elementToTeleport].map((jsx) => jsx)}
     </>
   );
 });

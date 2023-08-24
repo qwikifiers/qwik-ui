@@ -18,11 +18,11 @@ import ComboboxContextId from './combobox-context-id';
 import { isServer } from '@builder.io/qwik/build';
 
 export const ComboboxPortal: FunctionComponent = ({ children }) => {
-  return <ComboboxPortalImpl elementToProject={children} />;
+  return <ComboboxPortalImpl elementToTeleport={children} />;
 };
 
 export type ComboboxPortalProps = {
-  elementToProject: JSXNode;
+  elementToTeleport: JSXNode;
   contextIds?: ContextId<any>[];
 };
 
@@ -46,7 +46,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
   useTask$(async function openListboxOnServer() {
     // Open Portal Conditionally on SSR
     if (isServer && comboboxContext.isListboxOpenSig.value) {
-      await openPortal$('comboboxPortal', props.elementToProject, contextPairsSig.value);
+      await openPortal$('comboboxPortal', props.elementToTeleport, contextPairsSig.value);
     }
   });
 
@@ -59,7 +59,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
     if (comboboxContext.isListboxOpenSig.value && contextPairsSig.value) {
       closePortalSig.value = await openPortal$(
         'comboboxPortal',
-        props.elementToProject,
+        props.elementToTeleport,
         contextPairsSig.value
       );
     } else if (closePortalSig.value) {
@@ -68,7 +68,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
     }
   });
 
-  useVisibleTask$(async function cleanupProjectedElement({ cleanup }) {
+  useVisibleTask$(async function cleanupTeleportedElement({ cleanup }) {
     cleanup(async () => {
       if (closePortalSig.value) {
         const closePortal$ = closePortalSig.value;
