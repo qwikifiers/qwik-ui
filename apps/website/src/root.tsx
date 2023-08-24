@@ -39,8 +39,14 @@ export default component$(() => {
   useContextProvider(ROOT_STORE_CONTEXT_ID, rootStore);
 
   useVisibleTask$(() => {
-    rootStore.mode =
-      localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+    const userStoredTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    if (userStoredTheme) {
+      rootStore.mode = userStoredTheme === 'dark' ? 'dark' : 'light';
+    } else {
+      rootStore.mode = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+    }
   });
 
   // TODO: remove this old state once refactored
