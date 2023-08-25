@@ -7,10 +7,11 @@ import {
   Slot,
   useSignal,
   useStylesScoped$,
-  useVisibleTask$
+  useTask$
 } from '@builder.io/qwik';
 import styles from './modal-root.css?inline';
 import { ModalApi } from './types';
+import { isServer } from '@builder.io/qwik/build';
 
 /**
  * Todo-List
@@ -39,18 +40,17 @@ export const Modal = component$((props: ModalProps) => {
   const open$ = $(() => {
     const dialog = dialogElementSig.value;
 
-    if (!dialog) {
-      return;
-    }
+    if (!dialog) return;
+
     dialog.showModal();
     isOpenSig.value = true;
   });
 
   const close$ = $(() => {
     const dialog = dialogElementSig.value;
-    if (!dialog) {
-      return;
-    }
+
+    if (!dialog) return;
+
     dialog.close();
     isOpenSig.value = false;
   });
@@ -65,7 +65,7 @@ export const Modal = component$((props: ModalProps) => {
    * Share the public API of the Modal if the modal-caller is interested.
    *
    */
-  useVisibleTask$(() => {
+  useTask$(() => {
     if (!props.api) return;
 
     props.api.value = { isOpen: isOpenSig, open$, close$ };
@@ -76,12 +76,12 @@ export const Modal = component$((props: ModalProps) => {
    * Lock Scrolling on page when Modal is opened.
    *
    */
-  useVisibleTask$(({ track }) => {
+  useTask$(({ track }) => {
+    if (isServer) return;
+
     const isOpened = track(() => isOpenSig.value);
 
-    const overflow = isOpened ? 'hidden' : '';
-
-    window.document.body.style.overflow = overflow;
+    window.document.body.style.overflow = isOpened ? 'hidden' : '';
   });
 
   /**
@@ -90,12 +90,12 @@ export const Modal = component$((props: ModalProps) => {
    * we set the opened state to false.
    *
    */
-  useVisibleTask$(() => {
+  useTask$(() => {
+    if (isServer) return;
+
     const dialog = dialogElementSig.value;
 
-    if (!dialog) {
-      return;
-    }
+    if (!dialog) return;
 
     dialog.addEventListener('close', () => (isOpenSig.value = false));
   });
