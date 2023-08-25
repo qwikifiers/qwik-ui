@@ -1,21 +1,24 @@
 import {
   JSXNode,
+  QRL,
   QwikIntrinsicElements,
   Signal,
   Slot,
   component$,
   useContextProvider,
   useSignal,
-  type FunctionComponent,
 } from '@builder.io/qwik';
-
-import { ComboboxListbox } from './combobox-listbox';
-import { ComboboxOption } from './combobox-option';
-import { ComboboxPortal } from './combobox-portal';
 
 export type ComboboxImplProps = {
   defaultValue?: string;
   placeholder?: string;
+  // filter: boolean | ((value: string) => boolean);
+  optionComponent$?: QRL<(option: any, index: number) => JSXNode>;
+  onInputChange$?: QRL<(value: string) => void>;
+  optionValue?: string;
+  optionTextValue?: string;
+  optionLabel?: string;
+  options: Signal<Array<string | Record<string, any>>>;
   'bind:isListboxOpenSig'?: Signal<boolean | undefined>;
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
   'bind:isTriggerFocusedSig'?: Signal<boolean | undefined>;
@@ -26,62 +29,65 @@ export type OptionInfo = {
   index: number;
 };
 
-export const Combobox: FunctionComponent<ComboboxImplProps> = (props) => {
-  const { children: myChildren, ...rest } = props;
+// export const Combobox: FunctionComponent<ComboboxImplProps> = (props) => {
+//   const { children: myChildren, ...rest } = props;
 
-  const childrenToProcess = (
-    Array.isArray(myChildren) ? [...myChildren] : [myChildren]
-  ) as Array<JSXNode>;
+//   const childrenToProcess = (
+//     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
+//   ) as Array<JSXNode>;
 
-  // const optionsMetaData: OptionInfo[] = [];
+//   // const optionsMetaData: OptionInfo[] = [];
 
-  let currentIndex = 0;
+//   let currentIndex = 0;
 
-  while (childrenToProcess.length) {
-    const child = childrenToProcess.shift();
+//   while (childrenToProcess.length) {
+//     const child = childrenToProcess.shift();
 
-    if (!child) {
-      continue;
-    }
+//     if (!child) {
+//       continue;
+//     }
 
-    if (Array.isArray(child)) {
-      childrenToProcess.unshift(...child);
-      continue;
-    }
+//     if (Array.isArray(child)) {
+//       childrenToProcess.unshift(...child);
+//       continue;
+//     }
 
-    switch (child.type) {
-      case ComboboxPortal: {
-        const portalChildren = Array.isArray(child.props.children)
-          ? [...child.props.children]
-          : [child.props.children];
-        childrenToProcess.unshift(...portalChildren);
-        break;
-      }
+//     switch (child.type) {
+//       case ComboboxPortal: {
+//         const portalChildren = Array.isArray(child.props.children)
+//           ? [...child.props.children]
+//           : [child.props.children];
+//         childrenToProcess.unshift(...portalChildren);
+//         break;
+//       }
 
-      case ComboboxListbox: {
-        const listboxChildren = Array.isArray(child.props.children)
-          ? [...child.props.children]
-          : [child.props.children];
-        childrenToProcess.unshift(...listboxChildren);
-        break;
-      }
-      case ComboboxOption: {
-        child.props._index = currentIndex;
-        currentIndex++;
-      }
-    }
-  }
-  return <ComboboxImpl {...rest}>{props.children}</ComboboxImpl>;
-};
+//       case ComboboxListbox: {
+//         const listboxChildren = Array.isArray(child.props.children)
+//           ? [...child.props.children]
+//           : [child.props.children];
+//         childrenToProcess.unshift(...listboxChildren);
+//         break;
+//       }
+//       case ComboboxOption: {
+//         child.props._index = currentIndex;
+//         currentIndex++;
+//       }
+//     }
+//   }
+//   return <ComboboxImpl {...rest}>{props.children}</ComboboxImpl>;
+// };
 
 import ComboboxContextId from './combobox-context-id';
 import { ComboboxContext } from './combobox-context.type';
 
-export const ComboboxImpl = component$((props: ComboboxImplProps) => {
+export const Combobox = component$((props: ComboboxImplProps) => {
   const {
     'bind:isListboxOpenSig': givenListboxOpenSig,
     'bind:isInputFocusedSig': givenInputFocusedSig,
     'bind:isTriggerFocusedSig': givenTriggerFocusedSig,
+    optionComponent$,
+    onInputChange$,
+    options,
     ...rest
   } = props;
   const listboxRef = useSignal<HTMLUListElement>();
@@ -101,6 +107,8 @@ export const ComboboxImpl = component$((props: ComboboxImplProps) => {
 
   console.log(selectedOptionIndexSig.value);
 
+  const highlightedIndexSig = useSignal<number>(-1);
+
   const context: ComboboxContext = {
     selectedOptionIndexSig,
     isListboxOpenSig,
@@ -109,6 +117,10 @@ export const ComboboxImpl = component$((props: ComboboxImplProps) => {
     inputRef,
     triggerRef,
     listboxRef,
+    optionComponent$,
+    onInputChange$,
+    options,
+    highlightedIndexSig,
   };
 
   useContextProvider(ComboboxContextId, context);

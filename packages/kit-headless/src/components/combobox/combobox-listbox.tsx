@@ -1,12 +1,16 @@
 import {
-  $,
-  Slot,
   component$,
   useContext,
   useVisibleTask$,
   type QwikIntrinsicElements,
 } from '@builder.io/qwik';
-import { computePosition, flip } from '@floating-ui/dom';
+import {
+  ReferenceElement,
+  autoUpdate,
+  computePosition,
+  flip,
+  offset,
+} from '@floating-ui/dom';
 import ComboboxContextId from './combobox-context-id';
 
 export type ComboboxListboxProps = QwikIntrinsicElements['ul'];
@@ -14,23 +18,37 @@ export type ComboboxListboxProps = QwikIntrinsicElements['ul'];
 export const ComboboxListbox = component$((props: ComboboxListboxProps) => {
   const context = useContext(ComboboxContextId);
 
-  const updatePosition$ = $(
-    (referenceEl: HTMLInputElement, floatingEl: HTMLUListElement) => {
-      computePosition(referenceEl, floatingEl, {
-        placement: 'bottom',
-        middleware: [flip()],
-      }).then(({ x, y }) => {
-        Object.assign(floatingEl.style, {
-          left: `${x}px`,
-          top: `${y}px`,
-        });
+  useVisibleTask$(function setListboxPosition({ cleanup }) {
+    function updatePosition() {
+      computePosition(
+        context.inputRef.value as ReferenceElement,
+        context.listboxRef.value as HTMLElement,
+        {
+          placement: 'bottom',
+          middleware: [offset(8), flip()],
+        },
+      ).then(({ x, y }) => {
+        if (context.listboxRef.value) {
+          Object.assign(context.listboxRef.value.style, {
+            left: `${x}px`,
+            top: `${y}px`,
+          });
+        }
       });
-    },
-  );
+    }
 
-  useVisibleTask$(async function updateListboxPosition() {
     if (context.inputRef.value && context.listboxRef.value) {
-      await updatePosition$(context.inputRef.value, context.listboxRef.value);
+      updatePosition();
+
+      const cleanupFunc = autoUpdate(
+        context.inputRef.value,
+        context.listboxRef.value,
+        updatePosition,
+      );
+
+      cleanup(() => {
+        cleanupFunc();
+      });
     }
   });
 
@@ -42,7 +60,10 @@ export const ComboboxListbox = component$((props: ComboboxListboxProps) => {
       role="listbox"
       {...props}
     >
-      <Slot />
+      {context.options.value.map(
+        (option, index) =>
+          context.optionComponent$ && context.optionComponent$(option, index),
+      )}
     </ul>
   );
 });

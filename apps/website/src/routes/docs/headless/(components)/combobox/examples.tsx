@@ -1,4 +1,4 @@
-import { component$, Slot, useSignal } from '@builder.io/qwik';
+import { $, component$, Slot, useSignal } from '@builder.io/qwik';
 import {
   Combobox,
   ComboboxControl,
@@ -25,9 +25,32 @@ const trainers = [
   'Elizabeth',
 ];
 
+interface Trainer {
+  value: string;
+  label: string;
+  disabled: boolean;
+}
+
+const ALL_OPTIONS: Array<Trainer> = [
+  { value: 'alice', label: 'Alice', disabled: false },
+  { value: 'joana', label: 'Joana', disabled: false },
+  { value: 'malcolm', label: 'Malcolm', disabled: false },
+  { value: 'zack', label: 'Zack', disabled: true },
+  { value: 'brian', label: 'Brian', disabled: false }
+];
+
 export const Example01 = component$(() => {
-  const trainersSig = useSignal(trainers);
+  // const trainersSig = useSignal(trainers);
+  const optionsSig = useSignal(ALL_OPTIONS);
   const showExample = useSignal(true);
+
+  const onInputChange$ = $((value: string) => {
+    optionsSig.value = ALL_OPTIONS.filter((option) => {
+      return option.label.toLowerCase().includes(value.toLowerCase());
+    });
+
+    console.log(optionsSig.value);
+  });
 
   return (
     <PreviewCodeExample>
@@ -40,12 +63,25 @@ export const Example01 = component$(() => {
           Show them
         </button>
         {showExample.value === true && (
-          <Combobox class="relative">
+          <Combobox
+            options={optionsSig}
+            onInputChange$={onInputChange$}
+            optionComponent$={$((option: string | Trainer, index: number) => (
+              <ComboboxOption
+                index={index}
+                option={option}
+                class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
+              >
+                {typeof option === 'string' ? option : option.label}
+              </ComboboxOption>
+            ))}
+            class="relative"
+          >
             <ComboboxLabel class=" font-semibold dark:text-white text-[#333333]">
               Personal Trainers ⚡
             </ComboboxLabel>
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
-              <ComboboxInput class="w-44 bg-inherit px-d2 pr-6 text-white" />
+              <ComboboxInput class="px-2 w-44 bg-inherit px-d2 pr-6 text-white" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -61,23 +97,14 @@ export const Example01 = component$(() => {
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
-              <ComboboxListbox class="text-white w-44 bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
-                {trainersSig.value.map((trainer) => (
-                  <ComboboxOption
-                    key={trainer}
-                    class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
-                  >
-                    {trainer}
-                  </ComboboxOption>
-                ))}
-              </ComboboxListbox>
+              <ComboboxListbox class="text-white w-44 bg-[#1f2532] px-4 py-2 rounded-sm border-[#7d95b3] border-[1px]" />
             </ComboboxPortal>
           </Combobox>
         )}
         <button
-          onClick$={() => {
-            trainersSig.value = ['One', 'Two', 'Three', 'Four', 'Five'];
-          }}
+        // onClick$={() => {
+        //   trainersSig.value = ['One', 'Two', 'Three', 'Four', 'Five'];
+        // }}
         >
           Change them
         </button>

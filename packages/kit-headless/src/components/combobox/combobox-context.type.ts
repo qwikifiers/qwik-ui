@@ -1,4 +1,4 @@
-import { Signal } from '@builder.io/qwik';
+import { JSXNode, QRL, Signal } from '@builder.io/qwik';
 
 export interface ComboboxContext {
   selectedOptionIndexSig: Signal<number>;
@@ -8,4 +8,8 @@ export interface ComboboxContext {
   listboxRef: Signal<HTMLUListElement | undefined>;
   inputRef: Signal<HTMLInputElement | undefined>;
   triggerRef: Signal<HTMLButtonElement | undefined>;
+  optionComponent$?: QRL<(option: any, index: number) => JSXNode>;
+  onInputChange$?: QRL<(value: string) => void>;
+  options: Signal<Array<string | Record<string, any>>>;
+  highlightedIndexSig: Signal<number>;
 }
