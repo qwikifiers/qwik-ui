@@ -18,7 +18,7 @@ const Sut = component$(() => {
 
       <Modal api={modalApi}>
         <ModalHeader>
-          <h2 data-test="dialog-header">Hello 👋</h2>
+          <h2>Hello 👋</h2>
         </ModalHeader>
         <ModalContent>I am a simple Modal</ModalContent>
         <ModalFooter>
@@ -34,27 +34,25 @@ const Sut = component$(() => {
   );
 });
 
-describe('Dialog', () => {
-  it('renders an opened Dialog', () => {
+describe('Modal', () => {
+  it('renders an opened Modal', () => {
     mount(<Sut />);
 
     cy.get('button')
-      .contains(/Open Dialog/i)
+      .contains(/Open Modal/i)
       .click();
 
-    cy.get('[data-test=dialog-header]')
-      .should('be.visible')
-      .should('contain', 'Hello 👋');
+    cy.get('[data-test=modal-header]').should('be.visible').should('contain', 'Hello 👋');
   });
 
   it('closes on button-click', () => {
     mount(<Sut />);
 
     cy.get('button')
-      .contains(/Open Dialog/i)
+      .contains(/Open Modal/i)
       .click();
 
-    cy.get('[data-test=dialog-close-button]').click();
+    cy.get('[data-test=modal-close-button]').click();
 
     cy.get('dialog').should('not.be.visible');
   });
@@ -63,7 +61,7 @@ describe('Dialog', () => {
     mount(<Sut />);
 
     cy.get('button')
-      .contains(/Open Dialog/i)
+      .contains(/Open Modal/i)
       .click();
 
     cy.get('body').click('top');
@@ -71,7 +69,7 @@ describe('Dialog', () => {
     cy.get('dialog').should('not.be.visible');
   });
 
-  it('does not show if Dialog is closed', () => {
+  it('does not show if Modal is closed', () => {
     mount(<Sut />);
 
     cy.get('dialog').should('not.be.visible');

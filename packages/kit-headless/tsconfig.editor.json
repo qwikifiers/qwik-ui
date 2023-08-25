@@ -1,10 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "src/components/dialog/dialog.content-title"
-  ],
+  "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "types": ["node", "jest", "@testing-library/jest-dom", "@testing-library/cypress"]
   }

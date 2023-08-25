@@ -39,8 +39,8 @@ const meta: Meta<Dialog.RootProps> = {
   component: Dialog.Root,
   args: {
     fullScreen: false,
-    'aria-describedby': 'dialog-text',
-    'aria-labelledby': 'dialog-heading'
+    'aria-describedby': 'modal-text',
+    'aria-labelledby': 'modal-heading'
   },
   render: (props) => <DialogStoryComponent {...props} />
 };

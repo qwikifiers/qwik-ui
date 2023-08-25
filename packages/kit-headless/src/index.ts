@@ -12,7 +12,7 @@ export * as Checkbox from './components/checkbox/checkbox';
 export * from './components/collapse/collapse';
 export * from './components/combobox';
 export * from './components/combobox/';
-export * from './components/dialog';
+export * from './components/modal';
 export * from './components/drawer';
 export * from './components/input-phone';
 export * as Input from './components/input/input';

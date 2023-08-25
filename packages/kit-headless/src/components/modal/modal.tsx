@@ -36,7 +36,7 @@ export const Modal = component$((props: ModalProps) => {
   /** Contains reference to the rendered HTMLDialogElement. */
   const dialogElementSig = useSignal<HTMLDialogElement>();
 
-  /** Indicates whether the dialog is open. */
+  /** Indicates whether the modal is open. */
   const isOpenSig = useSignal(false);
 
   const open$ = $(() => {
@@ -65,7 +65,7 @@ export const Modal = component$((props: ModalProps) => {
 
   /**
    *
-   * Share the public API of the Dialog if the dialog-caller is interested.
+   * Share the public API of the Modal if the modal-caller is interested.
    *
    */
   useVisibleTask$(() => {
@@ -76,7 +76,7 @@ export const Modal = component$((props: ModalProps) => {
 
   /**
    *
-   * Lock Scrolling on page when Dialog is opened.
+   * Lock Scrolling on page when Modal is opened.
    *
    */
   useVisibleTask$(({ track }) => {
@@ -89,7 +89,7 @@ export const Modal = component$((props: ModalProps) => {
 
   /**
    *
-   * When dialog is closed by pressing the Escape-Key,
+   * When modal is closed by pressing the Escape-Key,
    * we set the opened state to false.
    *
    */

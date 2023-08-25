@@ -1,9 +1,9 @@
 /**
  *
- * We use DaisyUI's css classes for modal to style the dialog.
- * DaisyUI builds on top of Div-Elements. We use the <dialog>-Element.
+ * We use DaisyUI's css classes for modal to style the modal.
+ * DaisyUI builds on top of Div-Elements. We use the <modal>-Element.
  *
- * That's why we need to move the backdrop styling to the dialog's
+ * That's why we need to move the backdrop styling to the modal's
  * backdrop-pseudo-element.
  *
  */
