@@ -4,7 +4,7 @@ title: Qwik UI | Dialog
 
 import { Dialog } from '@qwik-ui/headless';
 import { Example01 } from './examples';
-import { KeyboardInteractionTable } from '../../../../../components/keyboard-interaction-table/keyboard-interaction-table';
+import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
 
 # Dialog
 
@@ -14,17 +14,15 @@ import { KeyboardInteractionTable } from '../../../../../components/keyboard-int
 
 <Example01>
   ```tsx
-  <Dialog.Root>
-    <Dialog.Trigger>
-      <button>Open Dialog</button>
-    </Dialog.Trigger>
-    <Dialog.Content>
-      <p>
-        Hello World
-      </p>
-    </Dialog.Content>
+  <button onClick$={() => modalApi.value?.open$()}>Open Modal</button>
 
-  </Dialog.Root>
+  <Modal api={modalApi}>
+    <ModalHeader>
+      <h2>Hi 👋🏻</h2>
+    </ModalHeader>
+
+    <ModalContent>I am a Modal</ModalContent>
+  </Modal>
   ```
 </Example01>
 
