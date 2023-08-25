@@ -1,31 +1,35 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { mount } from 'cypress-ct-qwik';
-import * as Dialog from './public_api';
+import { Modal } from './modal';
+import { ModalApi } from './types';
+import { ModalHeader } from './modal-header';
+import { ModalContent } from './modal-content';
+import { ModalFooter } from './modal-footer';
 
 /**
  * SUT - System under test
  * Reference: https://en.wikipedia.org/wiki/System_under_test
  */
 const Sut = component$(() => {
-  const dialogRef = useSignal<Dialog.DialogRef>();
+  const modalApi = useSignal<ModalApi>();
   return (
     <>
-      <button onClick$={() => dialogRef.value?.open()}>Open Dialog</button>
+      <button onClick$={() => modalApi.value?.open$()}>Open Dialog</button>
 
-      <Dialog.Root ref={dialogRef}>
-        <Dialog.Header>
+      <Modal api={modalApi}>
+        <ModalHeader>
           <h2 data-test="dialog-header">Hello 👋</h2>
-        </Dialog.Header>
-        <Dialog.Content>I am a simple Dialog.</Dialog.Content>
-        <Dialog.Footer>
+        </ModalHeader>
+        <ModalContent>I am a simple Modal</ModalContent>
+        <ModalFooter>
           <button
             data-test="dialog-close-button"
-            onClick$={() => dialogRef.value?.close()}
+            onClick$={() => modalApi.value?.close$()}
           >
             Close Dialog
           </button>
-        </Dialog.Footer>
-      </Dialog.Root>
+        </ModalFooter>
+      </Modal>
     </>
   );
 });

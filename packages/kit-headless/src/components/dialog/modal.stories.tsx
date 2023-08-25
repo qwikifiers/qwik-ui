@@ -27,9 +27,7 @@ const DialogStoryComponent = component$((props: Dialog.RootProps) => {
           </p>
         </Dialog.Content>
         <Dialog.Footer>
-          <button onClick$={() => dialogRef.value?.close()}>
-            Close Dialog
-          </button>
+          <button onClick$={() => dialogRef.value?.close()}>Close Dialog</button>
         </Dialog.Footer>
       </Dialog.Root>
       <div style="background-color: red; width: 50vw; height: 150vh"></div>
@@ -42,9 +40,9 @@ const meta: Meta<Dialog.RootProps> = {
   args: {
     fullScreen: false,
     'aria-describedby': 'dialog-text',
-    'aria-labelledby': 'dialog-heading',
+    'aria-labelledby': 'dialog-heading'
   },
-  render: (props) => <DialogStoryComponent {...props} />,
+  render: (props) => <DialogStoryComponent {...props} />
 };
 
 type Story = StoryObj<Dialog.RootProps>;
@@ -55,6 +53,6 @@ export const Primary: Story = {};
 
 export const FullScreen: Story = {
   args: {
-    fullScreen: true,
-  },
+    fullScreen: true
+  }
 };

@@ -1,2 +1,2 @@
-export * from './dialog-ref';
+export * from './modal-api';
 export * from './dialog.root.props';

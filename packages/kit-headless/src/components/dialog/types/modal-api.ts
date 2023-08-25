@@ -1,7 +1,7 @@
 import { QRL, Signal } from '@builder.io/qwik';
 
-export type DialogRef = {
+export type ModalApi = {
   isOpen: Signal<boolean>;
-  open: QRL<() => void>;
-  close: QRL<() => void>;
+  open$: QRL<() => void>;
+  close$: QRL<() => void>;
 };

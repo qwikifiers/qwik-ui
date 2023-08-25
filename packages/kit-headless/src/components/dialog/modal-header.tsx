@@ -1,6 +1,6 @@
 import { Slot, component$ } from '@builder.io/qwik';
 
-export const Header = component$(() => {
+export const ModalHeader = component$(() => {
   return (
     <header>
       <Slot />

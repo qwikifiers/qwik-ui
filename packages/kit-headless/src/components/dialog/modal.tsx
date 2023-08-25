@@ -1,23 +1,23 @@
 import {
   $,
+  component$,
   QwikIntrinsicElements,
   QwikMouseEvent,
   Signal,
   Slot,
-  component$,
   useSignal,
   useStylesScoped$,
   useVisibleTask$
 } from '@builder.io/qwik';
-import styles from './dialog-root.css?inline';
-import { DialogRef } from './types';
+import styles from './modal-root.css?inline';
+import { ModalApi } from './types';
 
 /**
  * Todo-List
  * ---------
  *
- * [ ] Rename Root to ModalRoot
- * [ ] Drop dot-Notation. e.g. = Dialog.Root = ModalDialogRoot
+ * [x] Rename Root to ModalRoot
+ * [x] Drop dot-Notation. e.g. = Dialog.Root = ModalDialogRoot
  * [ ] Rename ref since it is a Qwik reserved word
  * [ ] Have a look at Radix-Dialog to get inspired by features/examples
  *     * What is important for BETA
@@ -25,12 +25,12 @@ import { DialogRef } from './types';
  * [ ] Think about more tests
  */
 
-export type RootProps = QwikIntrinsicElements['dialog'] & {
+export type ModalProps = QwikIntrinsicElements['dialog'] & {
   fullScreen?: boolean;
-  dialogRef?: Signal<DialogRef | undefined>;
+  api?: Signal<ModalApi | undefined>;
 };
 
-export const Root = component$((props: RootProps) => {
+export const Modal = component$((props: ModalProps) => {
   useStylesScoped$(styles);
 
   /** Contains reference to the rendered HTMLDialogElement. */
@@ -69,9 +69,9 @@ export const Root = component$((props: RootProps) => {
    *
    */
   useVisibleTask$(() => {
-    if (!props.dialogRef) return;
+    if (!props.api) return;
 
-    props.dialogRef.value = { isOpen: isOpenSig, open$, close$ };
+    props.api.value = { isOpen: isOpenSig, open$, close$ };
   });
 
   /**

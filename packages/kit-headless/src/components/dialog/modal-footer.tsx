@@ -1,9 +1,9 @@
 import { Slot, component$ } from '@builder.io/qwik';
 
-export const Content = component$(() => {
+export const ModalFooter = component$(() => {
   return (
-    <div>
+    <footer>
       <Slot />
-    </div>
+    </footer>
   );
 });
