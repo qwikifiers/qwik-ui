@@ -1,6 +1,7 @@
 import {
   $,
   component$,
+  QRL,
   QwikIntrinsicElements,
   QwikMouseEvent,
   Signal,
@@ -10,7 +11,6 @@ import {
   useTask$
 } from '@builder.io/qwik';
 import styles from './modal-root.css?inline';
-import { ModalApi } from './types';
 import { isServer } from '@builder.io/qwik/build';
 
 /**
@@ -23,89 +23,64 @@ import { isServer } from '@builder.io/qwik/build';
  * [ ] Think about more tests
  */
 
-export type ModalProps = QwikIntrinsicElements['dialog'] & {
-  fullScreen?: boolean;
-  api?: Signal<ModalApi | undefined>;
+export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
+  open: Signal<boolean>;
+
+  fullScreen?: Signal<boolean>;
+
+  onOpen$?: QRL<() => void>;
+  onClose$?: QRL<() => void>;
 };
 
 export const Modal = component$((props: ModalProps) => {
   useStylesScoped$(styles);
 
   /** Contains reference to the rendered HTMLDialogElement. */
-  const dialogElementSig = useSignal<HTMLDialogElement>();
+  const refSig = useSignal<HTMLDialogElement>();
 
   /** Indicates whether the modal is open. */
-  const isOpenSig = useSignal(false);
-
-  const open$ = $(() => {
-    const dialog = dialogElementSig.value;
-
-    if (!dialog) return;
-
-    dialog.showModal();
-    isOpenSig.value = true;
-  });
-
-  const close$ = $(() => {
-    const dialog = dialogElementSig.value;
-
-    if (!dialog) return;
-
-    dialog.close();
-    isOpenSig.value = false;
-  });
+  const openSig = props.open;
 
   const closeOnBackdropClick$ = $(
-    (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) =>
-      hasDialogBackdropBeenClicked(event) ? close$() : Promise.resolve()
+    (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) => {
+      if (hasDialogBackdropBeenClicked(event)) {
+        openSig.value = false;
+      }
+    }
   );
 
-  /**
-   *
-   * Share the public API of the Modal if the modal-caller is interested.
-   *
-   */
-  useTask$(() => {
-    if (!props.api) return;
+  /** Open or close Modal depending on its state. */
+  useTask$(async ({ track }) => {
+    const isOpen = track(() => openSig.value);
 
-    props.api.value = { isOpen: isOpenSig, open$, close$ };
+    const dialog = refSig.value;
+
+    if (!dialog) return;
+
+    if (isOpen) {
+      dialog.showModal();
+      await props.onOpen$?.();
+    } else {
+      await props.onClose$?.();
+      dialog.close();
+    }
   });
 
-  /**
-   *
-   * Lock Scrolling on page when Modal is opened.
-   *
-   */
+  /** Lock Scrolling on page when Modal is opened. */
   useTask$(({ track }) => {
     if (isServer) return;
 
-    const isOpened = track(() => isOpenSig.value);
+    const isOpened = track(() => openSig.value);
 
     window.document.body.style.overflow = isOpened ? 'hidden' : '';
   });
 
-  /**
-   *
-   * When modal is closed by pressing the Escape-Key,
-   * we set the opened state to false.
-   *
-   */
-  useTask$(() => {
-    if (isServer) return;
-
-    const dialog = dialogElementSig.value;
-
-    if (!dialog) return;
-
-    dialog.addEventListener('close', () => (isOpenSig.value = false));
-  });
-
   return (
     <dialog
-      {...props}
       class={`${props.class} ${props.fullScreen ? 'full-screen' : ''}`}
-      ref={dialogElementSig}
+      ref={refSig}
       onClick$={closeOnBackdropClick$}
+      onClose$={() => (openSig.value = false)}
     >
       <Slot />
     </dialog>

@@ -1,7 +1,6 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { mount } from 'cypress-ct-qwik';
 import { Modal } from './modal';
-import { ModalApi } from './types';
 import { ModalHeader } from './modal-header';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
@@ -11,12 +10,12 @@ import { ModalFooter } from './modal-footer';
  * Reference: https://en.wikipedia.org/wiki/System_under_test
  */
 const Sut = component$(() => {
-  const modalApi = useSignal<ModalApi>();
+  const openSig = useSignal(false);
   return (
     <>
-      <button onClick$={() => modalApi.value?.open$()}>Open Dialog</button>
+      <button onClick$={() => (openSig.value = true)}>Open Dialog</button>
 
-      <Modal api={modalApi}>
+      <Modal open={openSig}>
         <ModalHeader>
           <h2>Hello 👋</h2>
         </ModalHeader>
@@ -24,7 +23,7 @@ const Sut = component$(() => {
         <ModalFooter>
           <button
             data-test="dialog-close-button"
-            onClick$={() => modalApi.value?.close$()}
+            onClick$={() => (openSig.value = false)}
           >
             Close Dialog
           </button>
