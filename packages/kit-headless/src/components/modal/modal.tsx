@@ -16,9 +16,6 @@ import { ModalApi } from './types';
  * Todo-List
  * ---------
  *
- * [x] Rename Root to ModalRoot
- * [x] Drop dot-Notation. e.g. = Dialog.Root = ModalDialogRoot
- * [ ] Rename ref since it is a Qwik reserved word
  * [ ] Have a look at Radix-Dialog to get inspired by features/examples
  *     * What is important for BETA
  *     * What might be implemented later
