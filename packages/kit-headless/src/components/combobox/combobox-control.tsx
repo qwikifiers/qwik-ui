@@ -31,7 +31,7 @@ export const ComboboxControl = component$((props: ComboboxControlProps) => {
 
   useOnWindow('click', closeULOnOutsideClick$);
 
-  useVisibleTask$(({ cleanup }) => {
+  useVisibleTask$(function preventFocusChangeTask({ cleanup }) {
     if (controlRef.value) {
       const handleMousedown = (e: MouseEvent): void => {
         const isTrigger = e.target === context.triggerRef.value;

@@ -10,6 +10,11 @@ export interface ComboboxContext {
   triggerRef: Signal<HTMLButtonElement | undefined>;
   optionComponent$?: QRL<(option: any, index: number) => JSXNode>;
   onInputChange$?: QRL<(value: string) => void>;
+  optionValueKey?: string;
+  optionLabelKey?: string;
+  optionDisabledKey?: string;
   options: Signal<Array<string | Record<string, any>>>;
   highlightedIndexSig: Signal<number>;
 }
+
+export type Option = ComboboxContext['options']['value'][number];

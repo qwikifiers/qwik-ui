@@ -12,10 +12,9 @@ import {
   useVisibleTask$,
 } from '@builder.io/qwik';
 
+import { isServer } from '@builder.io/qwik/build';
 import { ContextPair, openPortalContextId } from '../qwik-ui-provider';
 import ComboboxContextId from './combobox-context-id';
-
-import { isServer } from '@builder.io/qwik/build';
 
 export const ComboboxPortal: FunctionComponent = ({ children }) => {
   return <ComboboxPortalImpl elementToTeleport={children} />;

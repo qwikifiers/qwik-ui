@@ -26,17 +26,17 @@ const trainers = [
 ];
 
 interface Trainer {
-  value: string;
-  label: string;
+  testValue: string;
+  testLabel: string;
   disabled: boolean;
 }
 
 const ALL_OPTIONS: Array<Trainer> = [
-  { value: 'alice', label: 'Alice', disabled: false },
-  { value: 'joana', label: 'Joana', disabled: false },
-  { value: 'malcolm', label: 'Malcolm', disabled: false },
-  { value: 'zack', label: 'Zack', disabled: true },
-  { value: 'brian', label: 'Brian', disabled: false }
+  { testValue: 'alice', testLabel: 'Alice', disabled: false },
+  { testValue: 'joana', testLabel: 'Joana', disabled: false },
+  { testValue: 'malcolm', testLabel: 'Malcolm', disabled: false },
+  { testValue: 'zack', testLabel: 'Zack', disabled: true },
+  { testValue: 'brian', testLabel: 'Brian', disabled: false }
 ];
 
 export const Example01 = component$(() => {
@@ -46,7 +46,7 @@ export const Example01 = component$(() => {
 
   const onInputChange$ = $((value: string) => {
     optionsSig.value = ALL_OPTIONS.filter((option) => {
-      return option.label.toLowerCase().includes(value.toLowerCase());
+      return option.testLabel.toLowerCase().includes(value.toLowerCase());
     });
 
     console.log(optionsSig.value);
@@ -66,13 +66,15 @@ export const Example01 = component$(() => {
           <Combobox
             options={optionsSig}
             onInputChange$={onInputChange$}
+            optionValueKey="testValue"
+            optionLabelKey="testLabel"
             optionComponent$={$((option: string | Trainer, index: number) => (
               <ComboboxOption
                 index={index}
                 option={option}
                 class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
               >
-                {typeof option === 'string' ? option : option.label}
+                {typeof option === 'string' ? option : option.testLabel}
               </ComboboxOption>
             ))}
             class="relative"

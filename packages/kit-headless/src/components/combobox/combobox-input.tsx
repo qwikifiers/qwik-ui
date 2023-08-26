@@ -8,6 +8,7 @@ import {
 } from '@builder.io/qwik';
 import { KeyCode } from '../../utils';
 import ComboboxContextId from './combobox-context-id';
+import { getOptionLabel } from './utils';
 
 const preventedKeys = [KeyCode.Home, KeyCode.End, KeyCode.PageDown, KeyCode.ArrowUp];
 
@@ -18,10 +19,10 @@ export const ComboboxInput = component$((props: ComboboxInputProps) => {
   const context = useContext(ComboboxContextId);
 
   const onKeydownBehavior$ = $((e: QwikKeyboardEvent) => {
-    const highlightedOption = context.options.value[context.highlightedIndexSig.value];
-    const highlightedOptionLabel = highlightedOption
-      ? (highlightedOption as any).label
-      : undefined;
+    const highlightedOptionLabel = getOptionLabel(
+      context.options.value[context.highlightedIndexSig.value],
+      context
+    );
 
     if (e.key === 'ArrowDown') {
       // If the listbox is already open, move down

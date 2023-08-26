@@ -9,16 +9,21 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 
-export type ComboboxImplProps = {
+import { Option } from './combobox-context.type';
+
+export type ComboboxProps = {
   defaultValue?: string;
   placeholder?: string;
   // filter: boolean | ((value: string) => boolean);
-  optionComponent$?: QRL<(option: any, index: number) => JSXNode>;
+  optionComponent$?: QRL<(option: Option, index: number) => JSXNode>;
   onInputChange$?: QRL<(value: string) => void>;
   optionValue?: string;
   optionTextValue?: string;
   optionLabel?: string;
-  options: Signal<Array<string | Record<string, any>>>;
+  optionValueKey?: string;
+  optionLabelKey?: string;
+  optionDisabledKey?: string;
+  options: Signal<Array<Option>>;
   'bind:isListboxOpenSig'?: Signal<boolean | undefined>;
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
   'bind:isTriggerFocusedSig'?: Signal<boolean | undefined>;
@@ -29,6 +34,7 @@ export type OptionInfo = {
   index: number;
 };
 
+// DO NOT REMOVE THIS: IT'S HOW YOU GET INDEXES WITHOUT MAPPING
 // export const Combobox: FunctionComponent<ComboboxImplProps> = (props) => {
 //   const { children: myChildren, ...rest } = props;
 
@@ -60,7 +66,6 @@ export type OptionInfo = {
 //         childrenToProcess.unshift(...portalChildren);
 //         break;
 //       }
-
 //       case ComboboxListbox: {
 //         const listboxChildren = Array.isArray(child.props.children)
 //           ? [...child.props.children]
@@ -80,7 +85,7 @@ export type OptionInfo = {
 import ComboboxContextId from './combobox-context-id';
 import { ComboboxContext } from './combobox-context.type';
 
-export const Combobox = component$((props: ComboboxImplProps) => {
+export const Combobox = component$((props: ComboboxProps) => {
   const {
     'bind:isListboxOpenSig': givenListboxOpenSig,
     'bind:isInputFocusedSig': givenInputFocusedSig,
@@ -88,6 +93,9 @@ export const Combobox = component$((props: ComboboxImplProps) => {
     optionComponent$,
     onInputChange$,
     options,
+    optionValueKey,
+    optionLabelKey,
+    optionDisabledKey,
     ...rest
   } = props;
   const listboxRef = useSignal<HTMLUListElement>();
@@ -119,6 +127,9 @@ export const Combobox = component$((props: ComboboxImplProps) => {
     listboxRef,
     optionComponent$,
     onInputChange$,
+    optionValueKey,
+    optionLabelKey,
+    optionDisabledKey,
     options,
     highlightedIndexSig,
   };
