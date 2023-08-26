@@ -17,7 +17,7 @@ function getMessageByStatus(status?: ComponentStatus) {
     case ComponentStatus.Ready:
       return (
         <>
-          This component is <strong>Production Readty</strong>
+          This component is <strong>Production Ready</strong>
         </>
       );
     case ComponentStatus.Beta:
