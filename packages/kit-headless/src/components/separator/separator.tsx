@@ -1,10 +1,13 @@
-import { component$, HTMLAttributes, useComputed$ } from '@builder.io/qwik';
+import { QwikIntrinsicElements } from '@builder.io/qwik';
+import { component$, useComputed$ } from '@builder.io/qwik';
 
 const ORIENTATIONS = ['horizontal', 'vertical'] as const;
 
 type Orientation = (typeof ORIENTATIONS)[number];
 
-export interface SeparatorProps extends HTMLAttributes<HTMLElement> {
+type QwikDiv = QwikIntrinsicElements['div'];
+
+export interface SeparatorProps extends QwikDiv {
   /**
    * Either `vertical` or `horizontal`. Defaults to `horizontal`.
    */
@@ -40,7 +43,7 @@ export const Separator = component$(
 
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
     const ariaOrientation = useComputed$(() =>
-      orientation.value === 'vertical' ? orientation : undefined
+      orientation.value === 'vertical' ? orientation.value : undefined
     );
 
     const semanticProps = useComputed$(() =>
@@ -48,10 +51,12 @@ export const Separator = component$(
         ? { role: 'none' }
         : {
             role: 'separator',
-            'aria-orientation': ariaOrientation
+            'aria-orientation': ariaOrientation.value
           }
     );
 
-    return <div data-orientation={orientation} {...semanticProps} {...props} />;
+    return (
+      <div data-orientation={orientation.value} {...semanticProps.value} {...props} />
+    );
   }
 );
