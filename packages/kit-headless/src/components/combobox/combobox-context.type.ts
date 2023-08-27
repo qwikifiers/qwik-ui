@@ -17,4 +17,5 @@ export interface ComboboxContext {
   highlightedIndexSig: Signal<number>;
 }
 
+// Whether it is a string or an object we want to be able to access the value
 export type Option = ComboboxContext['options']['value'][number];

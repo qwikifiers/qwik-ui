@@ -12,7 +12,7 @@ import {
 
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
-const trainers = [
+const stringsExample = [
   'Caleb',
   'Olivia',
   'James',
@@ -25,13 +25,13 @@ const trainers = [
   'Elizabeth',
 ];
 
-interface Trainer {
+type Trainer = {
   testValue: string;
   testLabel: string;
   disabled: boolean;
-}
+};
 
-const ALL_OPTIONS: Array<Trainer> = [
+const objectExample: Array<Trainer> = [
   { testValue: 'alice', testLabel: 'Alice', disabled: false },
   { testValue: 'joana', testLabel: 'Joana', disabled: false },
   { testValue: 'malcolm', testLabel: 'Malcolm', disabled: false },
@@ -40,16 +40,14 @@ const ALL_OPTIONS: Array<Trainer> = [
 ];
 
 export const Example01 = component$(() => {
-  // const trainersSig = useSignal(trainers);
-  const optionsSig = useSignal(ALL_OPTIONS);
-  const showExample = useSignal(true);
+  const stringsExampleSig = useSignal(stringsExample);
+  const objectExampleSig = useSignal(objectExample);
+  const isComboboxVisibleSig = useSignal(true);
 
   const onInputChange$ = $((value: string) => {
-    optionsSig.value = ALL_OPTIONS.filter((option) => {
+    objectExampleSig.value = objectExample.filter((option) => {
       return option.testLabel.toLowerCase().includes(value.toLowerCase());
     });
-
-    console.log(optionsSig.value);
   });
 
   return (
@@ -57,24 +55,24 @@ export const Example01 = component$(() => {
       <div class="flex flex-col gap-4" q:slot="actualComponent">
         <button
           onClick$={() => {
-            showExample.value = !showExample.value;
+            isComboboxVisibleSig.value = !isComboboxVisibleSig.value;
           }}
         >
-          Show them
+          Toggle Client Side
         </button>
-        {showExample.value === true && (
+        {isComboboxVisibleSig.value && (
           <Combobox
-            options={optionsSig}
+            options={objectExampleSig}
             onInputChange$={onInputChange$}
             optionValueKey="testValue"
             optionLabelKey="testLabel"
-            optionComponent$={$((option: string | Trainer, index: number) => (
+            optionComponent$={$((option: Trainer, index: number) => (
               <ComboboxOption
                 index={index}
                 option={option}
                 class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
               >
-                {typeof option === 'string' ? option : option.testLabel}
+                {option.testLabel}
               </ComboboxOption>
             ))}
             class="relative"
@@ -103,13 +101,6 @@ export const Example01 = component$(() => {
             </ComboboxPortal>
           </Combobox>
         )}
-        <button
-        // onClick$={() => {
-        //   trainersSig.value = ['One', 'Two', 'Three', 'Four', 'Five'];
-        // }}
-        >
-          Change them
-        </button>
       </div>
 
       <div q:slot="codeExample">

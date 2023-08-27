@@ -25,12 +25,17 @@ export const ComboboxInput = component$((props: ComboboxInputProps) => {
     );
 
     if (e.key === 'ArrowDown') {
+      if (!context.isListboxOpenSig.value && context.highlightedIndexSig.value === -1) {
+        context.highlightedIndexSig.value = 0;
+      }
+
       // If the listbox is already open, move down
       if (context.isListboxOpenSig.value) {
         context.highlightedIndexSig.value === context.options.value.length - 1
           ? (context.highlightedIndexSig.value = 0)
           : context.highlightedIndexSig.value++;
       }
+
       context.isListboxOpenSig.value = true;
     }
 

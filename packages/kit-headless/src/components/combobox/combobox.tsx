@@ -15,7 +15,7 @@ export type ComboboxProps = {
   defaultValue?: string;
   placeholder?: string;
   // filter: boolean | ((value: string) => boolean);
-  optionComponent$?: QRL<(option: Option, index: number) => JSXNode>;
+  optionComponent$?: QRL<(option: any, index: number) => JSXNode>;
   onInputChange$?: QRL<(value: string) => void>;
   optionValue?: string;
   optionTextValue?: string;
