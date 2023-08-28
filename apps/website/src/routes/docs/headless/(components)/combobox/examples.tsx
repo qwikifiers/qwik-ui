@@ -66,13 +66,17 @@ export const Example01 = component$(() => {
             onInputChange$={onInputChange$}
             optionValueKey="testValue"
             optionLabelKey="testLabel"
+            optionDisabledKey="disabled"
             optionComponent$={$((option: Trainer, index: number) => (
               <ComboboxOption
                 index={index}
                 option={option}
-                class="rounded-sm px-2 hover:bg-[#496080] focus:bg-[#496080]"
+                style={option.disabled ? { color: 'gray' } : {}}
+                class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
               >
-                {option.testLabel}
+                <span class="block group-aria-selected:translate-x-[3px] transition-transform duration-350">
+                  {option.testLabel}
+                </span>
               </ComboboxOption>
             ))}
             class="relative"

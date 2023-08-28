@@ -12,18 +12,23 @@ import {
 import { Option } from './combobox-context.type';
 
 export type ComboboxProps = {
-  defaultValue?: string;
-  placeholder?: string;
-  // filter: boolean | ((value: string) => boolean);
+  // user's source of truth
+  options: Signal<Array<Option>>;
   optionComponent$?: QRL<(option: any, index: number) => JSXNode>;
-  onInputChange$?: QRL<(value: string) => void>;
   optionValue?: string;
   optionTextValue?: string;
   optionLabel?: string;
+
+  // option settings
+  onInputChange$?: QRL<(value: string) => void>;
   optionValueKey?: string;
   optionLabelKey?: string;
   optionDisabledKey?: string;
-  options: Signal<Array<Option>>;
+
+  // input
+  placeholder?: string;
+
+  // signal binds
   'bind:isListboxOpenSig'?: Signal<boolean | undefined>;
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
   'bind:isTriggerFocusedSig'?: Signal<boolean | undefined>;
@@ -34,54 +39,6 @@ export type OptionInfo = {
   index: number;
 };
 
-// DO NOT REMOVE THIS: IT'S HOW YOU GET INDEXES WITHOUT MAPPING
-// export const Combobox: FunctionComponent<ComboboxImplProps> = (props) => {
-//   const { children: myChildren, ...rest } = props;
-
-//   const childrenToProcess = (
-//     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
-//   ) as Array<JSXNode>;
-
-//   // const optionsMetaData: OptionInfo[] = [];
-
-//   let currentIndex = 0;
-
-//   while (childrenToProcess.length) {
-//     const child = childrenToProcess.shift();
-
-//     if (!child) {
-//       continue;
-//     }
-
-//     if (Array.isArray(child)) {
-//       childrenToProcess.unshift(...child);
-//       continue;
-//     }
-
-//     switch (child.type) {
-//       case ComboboxPortal: {
-//         const portalChildren = Array.isArray(child.props.children)
-//           ? [...child.props.children]
-//           : [child.props.children];
-//         childrenToProcess.unshift(...portalChildren);
-//         break;
-//       }
-//       case ComboboxListbox: {
-//         const listboxChildren = Array.isArray(child.props.children)
-//           ? [...child.props.children]
-//           : [child.props.children];
-//         childrenToProcess.unshift(...listboxChildren);
-//         break;
-//       }
-//       case ComboboxOption: {
-//         child.props._index = currentIndex;
-//         currentIndex++;
-//       }
-//     }
-//   }
-//   return <ComboboxImpl {...rest}>{props.children}</ComboboxImpl>;
-// };
-
 import ComboboxContextId from './combobox-context-id';
 import { ComboboxContext } from './combobox-context.type';
 
@@ -90,9 +47,9 @@ export const Combobox = component$((props: ComboboxProps) => {
     'bind:isListboxOpenSig': givenListboxOpenSig,
     'bind:isInputFocusedSig': givenInputFocusedSig,
     'bind:isTriggerFocusedSig': givenTriggerFocusedSig,
+    options,
     optionComponent$,
     onInputChange$,
-    options,
     optionValueKey,
     optionLabelKey,
     optionDisabledKey,
@@ -113,25 +70,24 @@ export const Combobox = component$((props: ComboboxProps) => {
   const defaultTriggerFocusedSig = useSignal<boolean | undefined>(false);
   const isTriggerFocusedSig = givenTriggerFocusedSig || defaultTriggerFocusedSig;
 
-  console.log(selectedOptionIndexSig.value);
-
   const highlightedIndexSig = useSignal<number>(-1);
 
   const context: ComboboxContext = {
-    selectedOptionIndexSig,
-    isListboxOpenSig,
-    isInputFocusedSig,
-    isTriggerFocusedSig,
+    options,
+    optionComponent$,
+
     inputRef,
     triggerRef,
     listboxRef,
-    optionComponent$,
+    isInputFocusedSig,
+    isTriggerFocusedSig,
+    isListboxOpenSig,
+    highlightedIndexSig,
+    selectedOptionIndexSig,
     onInputChange$,
     optionValueKey,
     optionLabelKey,
     optionDisabledKey,
-    options,
-    highlightedIndexSig,
   };
 
   useContextProvider(ComboboxContextId, context);
