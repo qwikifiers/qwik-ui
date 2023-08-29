@@ -173,6 +173,24 @@ describe('Critical Functionality', () => {
 
     cy.findByRole('listbox').should('not.exist');
   });
+
+  it(`GIVEN a Combobox component with an open listbox
+  WHEN the user hits the downarrow with the input focused
+  THEN input should remain focused`, () => {
+    cy.mount(<StringCombobox />);
+
+    cy.get('input').type(`{downarrow}`).should('have.focus');
+  });
+
+  it(`GIVEN a Combobox component with a trigger
+  WHEN the user clicks on the trigger
+  THEN the input should remain focused`, () => {
+    cy.mount(<StringCombobox />);
+
+    cy.get('button').click();
+
+    cy.get('input').should('have.focus');
+  });
 });
 
 describe('Default Label', () => {
@@ -319,7 +337,7 @@ describe('Keyboard Navigation', () => {
     cy.get('li').filter(':visible').first().should('have.attr', 'aria-selected', 'true');
   });
 
-  it(`GIVEN a Combobox component with an open listbox and multiple         filtered options
+  it(`GIVEN a Combobox component with an open listbox and multiple filtered options
   WHEN the down arrow key is pressed,
   THEN the 1st filtered option in the listbox should be selected.`, () => {
     cy.mount(<StringCombobox />);
@@ -348,102 +366,266 @@ describe('Keyboard Navigation', () => {
   });
 });
 
-// const DisabledCombobox = component$(() => {
-//   type Trainer = {
-//     testValue: string;
-//     testLabel: string;
-//     disabled: boolean;
-//   };
+const DisabledCombobox = component$(() => {
+  type Trainer = {
+    testValue: string;
+    testLabel: string;
+    disabled: boolean;
+  };
 
-//   const objectExample: Array<Trainer> = [
-//     { testValue: 'alice', testLabel: 'Alice', disabled: true },
-//     { testValue: 'joana', testLabel: 'Joana', disabled: true },
-//     { testValue: 'malcolm', testLabel: 'Malcolm', disabled: false },
-//     { testValue: 'zack', testLabel: 'Zack', disabled: true },
-//     { testValue: 'brian', testLabel: 'Brian', disabled: false },
-//     { testValue: 'ryan', testLabel: 'Ryan', disabled: false },
-//     { testValue: 'joe', testLabel: 'Joe', disabled: false },
-//     { testValue: 'randy', testLabel: 'Randy', disabled: false },
-//     { testValue: 'david', testLabel: 'David', disabled: true },
-//     { testValue: 'joseph', testLabel: 'Joseph', disabled: false }
-//   ];
+  const objectExample: Array<Trainer> = [
+    { testValue: 'alice', testLabel: 'Alice', disabled: true },
+    { testValue: 'joana', testLabel: 'Joana', disabled: true },
+    { testValue: 'malcolm', testLabel: 'Malcolm', disabled: false },
+    { testValue: 'zack', testLabel: 'Zack', disabled: true },
+    { testValue: 'brian', testLabel: 'Brian', disabled: false },
+    { testValue: 'ryan', testLabel: 'Ryan', disabled: false },
+    { testValue: 'joe', testLabel: 'Joe', disabled: false },
+    { testValue: 'randy', testLabel: 'Randy', disabled: false },
+    { testValue: 'david', testLabel: 'David', disabled: true },
+    { testValue: 'joseph', testLabel: 'Joseph', disabled: true },
+    { testValue: 'mark', testLabel: 'Mark', disabled: false },
+    { testValue: 'sidney', testLabel: 'Sidney', disabled: true }
+  ];
 
-//   const objectExampleSig = useSignal(objectExample);
+  const objectExampleSig = useSignal(objectExample);
 
-//   const onInputChange$ = $((value: string) => {
-//     objectExampleSig.value = objectExample.filter((option) => {
-//       return option.testLabel.toLowerCase().includes(value.toLowerCase());
-//     });
-//   });
+  const onInputChange$ = $((value: string) => {
+    objectExampleSig.value = objectExample.filter((option) => {
+      return option.testLabel.toLowerCase().includes(value.toLowerCase());
+    });
+  });
 
-//   return (
-//     <>
-//       <QwikUIProvider>
-//         <Combobox
-//           options={objectExampleSig}
-//           onInputChange$={onInputChange$}
-//           optionLabelKey="testLabel"
-//           optionValue="testValue"
-//           optionDisabledKey="disabled"
-//           optionComponent$={$((option: Trainer, index: number) => (
-//             <ComboboxOption
-//               style={{ color: option.disabled ? 'gray' : '' }}
-//               class="option"
-//               index={index}
-//               option={option}
-//             >
-//               {option.testLabel}
-//             </ComboboxOption>
-//           ))}
-//         >
-//           <ComboboxLabel>Fruits</ComboboxLabel>
-//           <ComboboxControl style={{ display: 'flex' }}>
-//             <ComboboxInput />
-//             <ComboboxTrigger data-testid="trigger">
-//               <svg
-//                 xmlns="http://www.w3.org/2000/svg"
-//                 viewBox="0 0 24 24"
-//                 width="20px"
-//                 style="stroke: black"
-//                 stroke-width="2"
-//                 stroke-linecap="round"
-//                 stroke-linejoin="round"
-//               >
-//                 <polyline points="6 9 12 15 18 9"></polyline>
-//               </svg>
-//             </ComboboxTrigger>
-//           </ComboboxControl>
-//           <ComboboxPortal>
-//             <ComboboxListbox style={{ width: 'fit-content' }} />
-//           </ComboboxPortal>
-//         </Combobox>
-//       </QwikUIProvider>
-//     </>
-//   );
-// });
+  return (
+    <>
+      <QwikUIProvider>
+        <Combobox
+          options={objectExampleSig}
+          onInputChange$={onInputChange$}
+          optionLabelKey="testLabel"
+          optionValue="testValue"
+          optionDisabledKey="disabled"
+          optionComponent$={$((option: Trainer, index: number) => (
+            <ComboboxOption
+              style={{ color: option.disabled ? 'gray' : '' }}
+              class="option"
+              index={index}
+              option={option}
+            >
+              {option.testLabel}
+            </ComboboxOption>
+          ))}
+        >
+          <ComboboxLabel>Fruits</ComboboxLabel>
+          <ComboboxControl style={{ display: 'flex' }}>
+            <ComboboxInput />
+            <ComboboxTrigger data-testid="trigger">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="20px"
+                style="stroke: black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </ComboboxTrigger>
+          </ComboboxControl>
+          <ComboboxPortal>
+            <ComboboxListbox style={{ width: 'fit-content' }} />
+          </ComboboxPortal>
+        </Combobox>
+      </QwikUIProvider>
+    </>
+  );
+});
 
-// describe('Disabled', () => {
-//   it(`GIVEN a Combobox component with an open listbox and a disabled option,
-//       WHEN the user clicks on the disabled option,
-//       THEN the disabled option should not be selected.`, () => {
-//     cy.mount(<DisabledCombobox />);
+describe('Disabled & Object Combobox', () => {
+  it(`GIVEN a Combobox component with an open listbox and a disabled option,
+      WHEN the user clicks on a disabled option,
+      THEN the disabled option should not be selected.`, () => {
+    cy.mount(<DisabledCombobox />);
 
-//     cy.get('[data-testid="trigger"]').click();
+    cy.findByTestId('trigger').click();
 
-//     cy.findByRole('option', { name: `Alice` }).click();
+    cy.findByRole('option', { name: `David` }).click();
 
-//     cy.get('input').should('have.value', '');
-//   });
+    cy.get('input').should('have.value', '');
+  });
 
-//   it(`GIVEN a Combobox component with an open listbox and a disabled option,
-//       WHEN the user clicks on the disabled option,
-//       THEN the listbox should not close`, () => {
-//     cy.mount(<DisabledCombobox />);
+  it(`GIVEN a Combobox component with an open listbox and a disabled option,
+      WHEN the user clicks on a disabled option,
+      THEN the listbox should remain open`, () => {
+    cy.mount(<DisabledCombobox />);
 
-//     cy.get('button').click();
+    cy.findByTestId('trigger').click();
 
-//     cy.findByRole('option', { name: `I'm disabled!` }).click();
+    cy.findByRole('option', { name: `David` }).click();
 
-//     cy.get('listbox').should('exist');
-//   });
-// });
+    cy.findByRole('listbox').should('be.visible');
+  });
+
+  it(`GIVEN a Combobox component with an open listbox and a disabled option,
+      WHEN the user clicks on a disabled option,
+      THEN the input should remain focused`, () => {
+    cy.mount(<DisabledCombobox />);
+
+    cy.findByTestId('trigger').click();
+
+    cy.findByRole('option', { name: `David` }).click();
+
+    cy.get('input').should('have.focus');
+  });
+
+  it(`GIVEN a Combobox component with an open listbox and disabled options,
+      WHEN the user hits the downarrow with the input focused
+      THEN the first enabled option should be selected`, () => {
+    cy.mount(<DisabledCombobox />);
+
+    cy.get('input').type(`{downarrow}`);
+
+    cy.findByRole('option', { name: `Malcolm` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+  });
+
+  it(`GIVEN a Combobox component with an open listbox and disabled options,
+      WHEN the user hits the up arrow on the first enabled option
+      THEN the last enabled option should be selected`, () => {
+    cy.mount(<DisabledCombobox />);
+
+    cy.get('input').type(`{downarrow}{uparrow}`);
+
+    cy.findByRole('option', { name: `Mark` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+  });
+
+  it(`GIVEN a Combobox component with an open listbox and disabled options,
+      WHEN the user is on an option and pressed the Home key
+      THEN the first enabled option should be selected`, () => {
+    cy.mount(<DisabledCombobox />);
+
+    cy.get('input').type(`{downarrow}{downarrow}{downarrow}`);
+
+    cy.get('input').type(`{home}`);
+
+    cy.findByRole('option', { name: `Malcolm` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+  });
+
+  it(`GIVEN a Combobox component with an open listbox and disabled options,
+      WHEN the user is on an option and pressed the End key
+      THEN the first last enabled option should be selected`, () => {
+    cy.mount(<DisabledCombobox />);
+
+    cy.get('input').type(`{downarrow}{downarrow}`);
+
+    cy.get('input').type(`{end}`);
+
+    cy.findByRole('option', { name: `Mark` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+  });
+
+  it(`GIVEN a Combobox component with an open listbox and disabled options,
+      WHEN the user is on an option and pressed the down arrow key
+      THEN the next enabled index should be selected skipping a disabled option`, () => {
+    cy.mount(<DisabledCombobox />);
+
+    // selects Malcolm
+    cy.get('input').type(`{downarrow}`);
+
+    cy.get('input').type(`{downarrow}`);
+
+    cy.findByRole('option', { name: `Brian` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+  });
+
+  it(`GIVEN a Combobox component with an open listbox and disabled options,
+      WHEN the user is on an option and pressed the up arrow key
+      THEN the previous enabled index should be selected skipping a disabled option`, () => {
+    cy.mount(<DisabledCombobox />);
+
+    // selects Malcolm
+    cy.get('input').type(`{downarrow}`);
+
+    cy.get('input').type(`{downarrow}`);
+
+    cy.get('input').type(`{uparrow}`);
+
+    cy.findByRole('option', { name: `Malcolm` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+  });
+
+  it(`GIVEN a Combobox component with an open listbox and disabled options,
+      WHEN the user is on an option and pressed the down arrow key
+      THEN the next enabled index should be selected skipping multiple disabled options`, () => {
+    cy.mount(<DisabledCombobox />);
+
+    // selects Malcolm
+    cy.get('input').type(`{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}`);
+
+    cy.findByRole('option', { name: `Randy` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+
+    cy.get('input').type(`{downarrow}`);
+
+    cy.findByRole('option', { name: `Mark` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+  });
+
+  it(`GIVEN a Combobox component with an open listbox and disabled options,
+      WHEN the user is on an option and pressed the up arrow key
+      THEN the previous enabled index should be selected skipping multiple disabled options`, () => {
+    cy.mount(<DisabledCombobox />);
+
+    // selects Malcolm
+    cy.get('input').type(`{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}`);
+
+    cy.findByRole('option', { name: `Randy` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+
+    cy.get('input').type(`{downarrow}`);
+
+    cy.findByRole('option', { name: `Mark` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+
+    cy.get('input').type(`{uparrow}`);
+
+    cy.findByRole('option', { name: `Randy` }).should(
+      'have.attr',
+      'aria-selected',
+      'true'
+    );
+  });
+});
