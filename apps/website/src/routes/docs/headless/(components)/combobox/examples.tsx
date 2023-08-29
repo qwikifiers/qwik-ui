@@ -44,7 +44,7 @@ const objectExample: Array<Trainer> = [
   { testValue: 'joseph', testLabel: 'Joseph', disabled: false }
 ];
 
-export const Example01 = component$(() => {
+export const HeroExample = component$(() => {
   const stringsExampleSig = useSignal(stringsExample);
   const objectExampleSig = useSignal(objectExample);
   const isComboboxVisibleSig = useSignal(true);

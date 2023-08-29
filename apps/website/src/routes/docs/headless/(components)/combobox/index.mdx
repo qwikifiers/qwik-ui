@@ -11,7 +11,7 @@ import {
   ComboboxOption,
 } from '@qwik-ui/headless';
 
-import { Example01, StringCombobox, Example03 } from './examples';
+import { HeroExample, StringCombobox, Example03 } from './examples';
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../_components/api-table/api-table';
@@ -26,7 +26,7 @@ import {statusByComponent} from '../../../../../_state/component-statuses';
 
 {' '}
 
-<Example01>
+<HeroExample>
   ```tsx
   <Combobox class="relative text-white">
     <ComboboxLabel class="text-inherit font-semibold">
@@ -63,7 +63,40 @@ import {statusByComponent} from '../../../../../_state/component-statuses';
     </ComboboxPortal>
   </Combobox>
   ```
-</Example01>
+</HeroExample>
+
+<div class="bg-[#9A3412] p-4 rounded-sm border-l-[3px] dark:border-[#F3F3F3] border-[#333333]">
+  <p class="pb-4">The Combobox component makes use of **portals**. A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.</p>
+  <CodeExample classes="!mb-0 !p-6 !rounded-md">
+    ```tsx
+    <body>
+      <QwikUIProvider>
+        <slot />
+      </QwikUIProvider>
+    </body>
+    ```
+  </CodeExample>
+</div>
+
+> In Beta, we're currently supporting the **Autocomplete** configuration. We aim to support other combobox configurations according to our [roadmap](https://github.com/qwikifiers/qwik-ui/issues/405)
+
+##### ✨ Features
+
+- Full keyboard navigation.
+- Single or Multi Accordion.
+- Controlled or uncontrolled.
+- Animatable, dynamic, and resumable.
+
+Qwik UI's Combobox implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
+
+<div class="mb-6 flex flex-col gap-2">
+[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/combobox)
+
+[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
+
+[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/combobox/index.mdx>)
+
+</div>
 
 ## Building blocks
 

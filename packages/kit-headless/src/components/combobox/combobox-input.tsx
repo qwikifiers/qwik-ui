@@ -28,7 +28,7 @@ export const ComboboxInput = component$(({ ...props }: ComboboxInputProps) => {
   const inputId = `${context.localId}-input`;
   const listboxId = `${context.localId}-listbox`;
 
-  const isDefaultLabelNeeded = useSignal<boolean>(true);
+  const isDefaultLabelNeededSig = useSignal<boolean>(true);
 
   const onKeydownBehavior$ = $((e: QwikKeyboardEvent) => {
     const highlightedOptionLabel = getOptionLabel(
@@ -97,7 +97,7 @@ export const ComboboxInput = component$(({ ...props }: ComboboxInputProps) => {
     }
 
     if (context.inputRef.value.value === context.defaultLabel) {
-      isDefaultLabelNeeded.value = false;
+      isDefaultLabelNeededSig.value = false;
     }
   });
 
@@ -152,7 +152,7 @@ export const ComboboxInput = component$(({ ...props }: ComboboxInputProps) => {
           context.onInputChange$(inputElement.value);
         }
       }}
-      value={isDefaultLabelNeeded && context.defaultLabel}
+      value={isDefaultLabelNeededSig && context.defaultLabel}
       onBlur$={() => (context.isListboxOpenSig.value = false)}
       onKeyDown$={[onKeydownBehavior$, props.onKeyDown$]}
       {...props}
