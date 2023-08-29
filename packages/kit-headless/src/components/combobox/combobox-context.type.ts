@@ -3,12 +3,18 @@ import { JSXNode, QRL, Signal } from '@builder.io/qwik';
 export interface ComboboxContext {
   // user's source of truth
   options: Signal<Array<string | Record<string, any>>>;
-  optionComponent$?: QRL<(option: any, index: number, ...args: any) => JSXNode>;
+  optionComponent$?: QRL<(option: any, index: number) => JSXNode>;
 
-  // refs
+  // element state
+  localId: string;
+  labelRef: Signal<HTMLLabelElement | undefined>;
   listboxRef: Signal<HTMLUListElement | undefined>;
   inputRef: Signal<HTMLInputElement | undefined>;
   triggerRef: Signal<HTMLButtonElement | undefined>;
+  optionIds: Signal<string[]>;
+
+  //uncontrolled state
+  defaultLabel?: string;
 
   // internal state
   isInputFocusedSig: Signal<boolean | undefined>;

@@ -17,8 +17,10 @@ export type ComboboxListboxProps = QwikIntrinsicElements['ul'];
 
 export const ComboboxListbox = component$((props: ComboboxListboxProps) => {
   const context = useContext(ComboboxContextId);
+  const listboxId = `${context.localId}-listbox`;
 
   useVisibleTask$(function setListboxPosition({ cleanup }) {
+    // Our settings from Floating UI
     function updatePosition() {
       computePosition(
         context.inputRef.value as ReferenceElement,
@@ -54,10 +56,16 @@ export const ComboboxListbox = component$((props: ComboboxListboxProps) => {
 
   return (
     <ul
+      id={listboxId}
       ref={context.listboxRef}
+      aria-label={
+        context.labelRef.value
+          ? context.labelRef.value?.innerText
+          : context.inputRef.value?.value
+      }
+      role="listbox"
       style={{ position: 'absolute' }}
       hidden={!context.isListboxOpenSig.value}
-      role="listbox"
       {...props}
     >
       {context.options.value.map(

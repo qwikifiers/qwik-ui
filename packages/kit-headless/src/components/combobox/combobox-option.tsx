@@ -4,6 +4,7 @@ import {
   component$,
   useComputed$,
   useContext,
+  useId,
   useSignal,
   useVisibleTask$,
 } from '@builder.io/qwik';
@@ -23,6 +24,8 @@ export const ComboboxOption = component$(
     option;
 
     const context = useContext(ComboboxContextId);
+    const optionId = useId();
+    context.optionIds.value[index] = optionId;
 
     const isOptionDisabledSig = useComputed$(() => isOptionDisabled(index, context));
 
@@ -61,8 +64,10 @@ export const ComboboxOption = component$(
     return (
       <li
         {...props}
+        id={optionId}
         ref={optionRef}
         tabIndex={0}
+        role="option"
         aria-selected={isHighlightedSig.value}
         aria-disabled={isOptionDisabledSig.value}
         data-disabled={isOptionDisabledSig.value}
@@ -78,7 +83,6 @@ export const ComboboxOption = component$(
 
           context.isListboxOpenSig.value = false;
         }}
-        role="option"
         onMouseEnter$={() => (context.highlightedIndexSig.value = index)}
       >
         <Slot />

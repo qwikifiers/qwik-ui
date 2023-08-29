@@ -4,10 +4,13 @@ import {
   component$,
   useContext,
   useVisibleTask$,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
+  useTask$,
+  useSignal
 } from '@builder.io/qwik';
 import { KeyCode } from '../../utils';
 import ComboboxContextId from './combobox-context-id';
+import { Option } from './combobox-context.type';
 import {
   isOptionDisabled,
   getOptionLabel,
@@ -19,8 +22,13 @@ const preventedKeys = [KeyCode.Home, KeyCode.End, KeyCode.PageDown, KeyCode.Arro
 
 export type ComboboxInputProps = QwikIntrinsicElements['input'];
 
-export const ComboboxInput = component$((props: ComboboxInputProps) => {
+export const ComboboxInput = component$(({ ...props }: ComboboxInputProps) => {
   const context = useContext(ComboboxContextId);
+
+  const inputId = `${context.localId}-input`;
+  const listboxId = `${context.localId}-listbox`;
+
+  const isDefaultLabelNeeded = useSignal<boolean>(true);
 
   const onKeydownBehavior$ = $((e: QwikKeyboardEvent) => {
     const highlightedOptionLabel = getOptionLabel(
@@ -29,11 +37,18 @@ export const ComboboxInput = component$((props: ComboboxInputProps) => {
     );
 
     if (e.key === 'ArrowDown') {
-      const nextEnabledOptionIndex = getNextEnabledOptionIndex(
-        context.highlightedIndexSig.value,
-        context
-      );
-      context.highlightedIndexSig.value = nextEnabledOptionIndex;
+      if (context.isListboxOpenSig.value) {
+        const nextEnabledOptionIndex = getNextEnabledOptionIndex(
+          context.highlightedIndexSig.value,
+          context
+        );
+
+        context.highlightedIndexSig.value = nextEnabledOptionIndex;
+      } else if (context.highlightedIndexSig.value === -1) {
+        // get the first enabled option when there is no highlighted index
+        const firstEnabledOptionIndex = getNextEnabledOptionIndex(-1, context);
+        context.highlightedIndexSig.value = firstEnabledOptionIndex;
+      }
 
       context.isListboxOpenSig.value = true;
     }
@@ -58,11 +73,46 @@ export const ComboboxInput = component$((props: ComboboxInputProps) => {
     }
 
     if (e.key === 'Home') {
-      context.highlightedIndexSig.value = 0;
+      const firstEnabledOptionIndex = getNextEnabledOptionIndex(-1, context);
+      context.highlightedIndexSig.value = firstEnabledOptionIndex;
     }
 
     if (e.key === 'End') {
-      context.highlightedIndexSig.value = context.options.value.length - 1;
+      const lastEnabledOptionIndex = getPrevEnabledOptionIndex(
+        context.options.value.length,
+        context
+      );
+      context.highlightedIndexSig.value = lastEnabledOptionIndex;
+    }
+
+    if (e.key === 'Escape') {
+      context.isListboxOpenSig.value = false;
+    }
+  });
+
+  // checks if a defaultLabel has been set on the input
+  useTask$(function isLabelNeededTask() {
+    if (!context.inputRef.value || !context.defaultLabel) {
+      return;
+    }
+
+    if (context.inputRef.value.value === context.defaultLabel) {
+      isDefaultLabelNeeded.value = false;
+    }
+  });
+
+  useTask$(function highlightDefaultLabelTask() {
+    const defaultIndex = context.options.value.findIndex((option: Option) => {
+      if (typeof option === 'string') {
+        return option === context.defaultLabel;
+      } else if (context.optionLabelKey && option[context.optionLabelKey]) {
+        return option[context.optionLabelKey] === context.defaultLabel;
+      }
+      return false;
+    });
+
+    if (defaultIndex !== -1) {
+      context.highlightedIndexSig.value = defaultIndex;
     }
   });
 
@@ -81,8 +131,15 @@ export const ComboboxInput = component$((props: ComboboxInputProps) => {
 
   return (
     <input
+      id={inputId}
       ref={context.inputRef}
       type="text"
+      role="combobox"
+      aria-expanded={context.isListboxOpenSig.value}
+      aria-haspopup="listbox"
+      aria-autocomplete="list"
+      aria-activedescendant={context.optionIds.value[context.highlightedIndexSig.value]}
+      aria-controls={listboxId}
       onInput$={(e: InputEvent) => {
         context.isListboxOpenSig.value = true;
 
@@ -95,6 +152,7 @@ export const ComboboxInput = component$((props: ComboboxInputProps) => {
           context.onInputChange$(inputElement.value);
         }
       }}
+      value={isDefaultLabelNeeded && context.defaultLabel}
       onBlur$={() => (context.isListboxOpenSig.value = false)}
       onKeyDown$={[onKeydownBehavior$, props.onKeyDown$]}
       {...props}

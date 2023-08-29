@@ -1,4 +1,7 @@
 {
   "git.pullTags": false,
-  "conventionalCommits.scopes": ["tailwind"]
+  "conventionalCommits.scopes": ["tailwind"],
+  "editor.codeActionsOnSave": {
+    "source.removeUnusedImports": true
+  }
 }

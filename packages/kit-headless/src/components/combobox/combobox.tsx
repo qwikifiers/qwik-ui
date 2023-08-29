@@ -6,6 +6,7 @@ import {
   Slot,
   component$,
   useContextProvider,
+  useId,
   useSignal,
 } from '@builder.io/qwik';
 
@@ -25,8 +26,8 @@ export type ComboboxProps = {
   optionLabelKey?: string;
   optionDisabledKey?: string;
 
-  // input
-  placeholder?: string;
+  // uncontrolled state
+  defaultLabel?: string;
 
   // signal binds
   'bind:isListboxOpenSig'?: Signal<boolean | undefined>;
@@ -50,13 +51,16 @@ export const Combobox = component$((props: ComboboxProps) => {
     options,
     optionComponent$,
     onInputChange$,
+    defaultLabel: defaultLabel,
     optionValueKey,
     optionLabelKey,
     optionDisabledKey,
     ...rest
   } = props;
+  const labelRef = useSignal<HTMLLabelElement>();
   const listboxRef = useSignal<HTMLUListElement>();
   const inputRef = useSignal<HTMLInputElement>();
+
   const triggerRef = useSignal<HTMLButtonElement>();
 
   const selectedOptionIndexSig = useSignal<number>(-1);
@@ -72,11 +76,19 @@ export const Combobox = component$((props: ComboboxProps) => {
 
   const highlightedIndexSig = useSignal<number>(-1);
 
+  const optionIds = useSignal<string[]>([]);
+
+  /**
+   * Id for 1:1 items other than the options
+   */
+  const localId = useId();
+
   const context: ComboboxContext = {
     options,
     optionComponent$,
-
+    labelRef,
     inputRef,
+    localId,
     triggerRef,
     listboxRef,
     isInputFocusedSig,
@@ -85,6 +97,8 @@ export const Combobox = component$((props: ComboboxProps) => {
     highlightedIndexSig,
     selectedOptionIndexSig,
     onInputChange$,
+    defaultLabel,
+    optionIds,
     optionValueKey,
     optionLabelKey,
     optionDisabledKey,
