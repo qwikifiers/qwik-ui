@@ -35,7 +35,9 @@
     "storybook": "storybook dev -p 6006",
     "qwik": "qwik"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@qwik-ui/cva": "workspace:*"
+  },
   "peerDependencies": {
     "@builder.io/qwik": ">1.1.0"
   },

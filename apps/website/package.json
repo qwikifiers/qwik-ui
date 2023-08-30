@@ -3,6 +3,7 @@
   "description": "The Qwik UI Website",
   "private": true,
   "dependencies": {
+    "@qwik-ui/cva": "workspace:*",
     "@qwik-ui/headless": "workspace:*",
     "@qwik-ui/tailwind": "workspace:*",
     "@qwik-ui/material": "workspace:*",

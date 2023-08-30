@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@qwik-ui/cva": ["packages/cva/src/index.ts"],
       "@qwik-ui/headless": ["packages/kit-headless/src/index.ts"],
       "@qwik-ui/material": ["packages/kit-material/src/index.ts"],
       "@qwik-ui/primitives": ["packages/primitives/src/index.ts"],
