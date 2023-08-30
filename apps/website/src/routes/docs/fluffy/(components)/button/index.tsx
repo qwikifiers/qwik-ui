@@ -1,6 +1,6 @@
 import { $, component$, useStylesScoped$ } from '@builder.io/qwik';
-import { Button } from '@qwik-ui/tailwind';
-import { button } from '../../../../../_fluffy/button/button';
+import { Button } from '@qwik-ui/fluffy';
+import { Button as TailwindButton } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   useStylesScoped$(`
@@ -14,162 +14,166 @@ export default component$(() => {
     <>
       <h2>This is the documentation for the Button</h2>
 
-      <div class="flex flex-col gap-8 mt-4">
+      <div class="mt-4 flex flex-col gap-8">
         <h2>Fluffy Example</h2>
 
         <div>
-          <button class={button({ intent: 'primary' })}>I'm from Fluffy</button>
+          <Button intent="default">I'm from Fluffy</Button>
         </div>
 
         <h2>Basic Example</h2>
         <div class="panel">
-          <Button>default</Button>
-          <Button variant="primary">primary</Button>
-          <Button variant="secondary">secondary</Button>
-          <Button variant="accent">accent</Button>
-          <Button variant="info">info</Button>
-          <Button variant="success">success</Button>
-          <Button variant="warning">warning</Button>
-          <Button variant="error">error</Button>
-          <Button variant="ghost">ghost</Button>
-          <Button variant="link">link</Button>
-          <Button variant="primary" disabled>
+          <TailwindButton>default</TailwindButton>
+          <TailwindButton variant="primary">primary</TailwindButton>
+          <TailwindButton variant="secondary">secondary</TailwindButton>
+          <TailwindButton variant="accent">accent</TailwindButton>
+          <TailwindButton variant="info">info</TailwindButton>
+          <TailwindButton variant="success">success</TailwindButton>
+          <TailwindButton variant="warning">warning</TailwindButton>
+          <TailwindButton variant="error">error</TailwindButton>
+          <TailwindButton variant="ghost">ghost</TailwindButton>
+          <TailwindButton variant="link">link</TailwindButton>
+          <TailwindButton variant="primary" disabled>
             primary disabled
-          </Button>
-          <Button variant="secondary" disabled>
+          </TailwindButton>
+          <TailwindButton variant="secondary" disabled>
             secondary disabled
-          </Button>
+          </TailwindButton>
         </div>
 
         <h2>Active Example</h2>
         <div class="panel">
-          <Button active>default</Button>
-          <Button variant="primary" active>
+          <TailwindButton active>default</TailwindButton>
+          <TailwindButton variant="primary" active>
             primary
-          </Button>
-          <Button variant="secondary" active>
+          </TailwindButton>
+          <TailwindButton variant="secondary" active>
             secondary
-          </Button>
-          <Button variant="accent" active>
+          </TailwindButton>
+          <TailwindButton variant="accent" active>
             accent
-          </Button>
-          <Button variant="info" active>
+          </TailwindButton>
+          <TailwindButton variant="info" active>
             info
-          </Button>
-          <Button variant="success" active>
+          </TailwindButton>
+          <TailwindButton variant="success" active>
             success
-          </Button>
-          <Button variant="warning" active>
+          </TailwindButton>
+          <TailwindButton variant="warning" active>
             warning
-          </Button>
-          <Button variant="error" active>
+          </TailwindButton>
+          <TailwindButton variant="error" active>
             error
-          </Button>
-          <Button variant="ghost" active>
+          </TailwindButton>
+          <TailwindButton variant="ghost" active>
             ghost
-          </Button>
-          <Button variant="link" active>
+          </TailwindButton>
+          <TailwindButton variant="link" active>
             link
-          </Button>
-          <Button variant="primary" active disabled>
+          </TailwindButton>
+          <TailwindButton variant="primary" active disabled>
             primary | active | disabled
-          </Button>
-          <Button variant="secondary" active disabled>
+          </TailwindButton>
+          <TailwindButton variant="secondary" active disabled>
             secondary | active | disabled
-          </Button>
+          </TailwindButton>
         </div>
 
         <h2>Outline Example</h2>
         <div class="panel">
-          <Button outline variant="primary">
+          <TailwindButton outline variant="primary">
             primary
-          </Button>
-          <Button outline variant="secondary">
+          </TailwindButton>
+          <TailwindButton outline variant="secondary">
             secondary
-          </Button>
-          <Button outline variant="accent">
+          </TailwindButton>
+          <TailwindButton outline variant="accent">
             accent
-          </Button>
-          <Button outline variant="info">
+          </TailwindButton>
+          <TailwindButton outline variant="info">
             info
-          </Button>
-          <Button outline variant="success">
+          </TailwindButton>
+          <TailwindButton outline variant="success">
             success
-          </Button>
-          <Button outline variant="warning">
+          </TailwindButton>
+          <TailwindButton outline variant="warning">
             warning
-          </Button>
-          <Button outline variant="error">
+          </TailwindButton>
+          <TailwindButton outline variant="error">
             error
-          </Button>
-          <Button outline variant="ghost">
+          </TailwindButton>
+          <TailwindButton outline variant="ghost">
             ghost
-          </Button>
-          <Button outline variant="link">
+          </TailwindButton>
+          <TailwindButton outline variant="link">
             link
-          </Button>
-          <Button outline variant="disabled">
+          </TailwindButton>
+          <TailwindButton outline variant="disabled">
             disabled
-          </Button>
+          </TailwindButton>
         </div>
 
         <h2>size</h2>
         <div class="panel">
-          <Button variant="primary" size="xs">
+          <TailwindButton variant="primary" size="xs">
             xs
-          </Button>
-          <Button variant="secondary" size="sm">
+          </TailwindButton>
+          <TailwindButton variant="secondary" size="sm">
             sm
-          </Button>
-          <Button variant="accent" size="md">
+          </TailwindButton>
+          <TailwindButton variant="accent" size="md">
             md
-          </Button>
-          <Button variant="warning" size="lg">
+          </TailwindButton>
+          <TailwindButton variant="warning" size="lg">
             lg
-          </Button>
+          </TailwindButton>
         </div>
 
         <h2>loading</h2>
         <div class="panel">
-          <Button variant="primary" loading>
+          <TailwindButton variant="primary" loading>
             loading
-          </Button>
-          <Button loading square></Button>
+          </TailwindButton>
+          <TailwindButton loading square></TailwindButton>
         </div>
 
         <h2>no click animation</h2>
         <div class="panel">
-          <Button variant="primary" noAnimation>
+          <TailwindButton variant="primary" noAnimation>
             click me
-          </Button>
-          <Button variant="secondary" noAnimation>
+          </TailwindButton>
+          <TailwindButton variant="secondary" noAnimation>
             click me
-          </Button>
+          </TailwindButton>
         </div>
 
         <h2>Square and Circle</h2>
         <div class="panel">
-          <Button variant="secondary" square>
+          <TailwindButton variant="secondary" square>
             A
-          </Button>
-          <Button variant="accent" circle>
+          </TailwindButton>
+          <TailwindButton variant="accent" circle>
             B
-          </Button>
+          </TailwindButton>
         </div>
 
         <h2>Custom class</h2>
 
         <div class="panel">
-          <Button type="button" variant="primary" class="px-32 border-4 border-black">
+          <TailwindButton
+            type="TailwindButton"
+            variant="primary"
+            class="border-4 border-black px-32"
+          >
             CUSTOM CLASS
-          </Button>
+          </TailwindButton>
         </div>
 
         <div>
           <h2>Qwik Events</h2>
-          <Button variant="primary" onClick$={$(() => window.alert('hello'))}>
+          <TailwindButton variant="primary" onClick$={$(() => window.alert('hello'))}>
             SHOW ALERT
-          </Button>
+          </TailwindButton>
         </div>
       </div>
     </>

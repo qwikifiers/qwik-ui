@@ -43,13 +43,13 @@
 */
 
 import { Slot, component$ } from '@builder.io/qwik';
-import { cva, type VariantPropsFor } from '@qwik-ui/cva';
+import { cva, type AddVariantPropsTo } from '@qwik-ui/cva';
 
 export const buttonVariants = cva(
   'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
-      variant: {
+      intent: {
         default: 'bg-primary text-primary-foreground hover:bg-primary/90',
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         outline:
@@ -66,16 +66,18 @@ export const buttonVariants = cva(
       }
     },
     defaultVariants: {
-      variant: 'default',
+      intent: 'default',
       size: 'default'
     }
   }
 );
 
-export type ButtonProps = VariantPropsFor<'button', typeof buttonVariants>;
+export type ButtonProps = AddVariantPropsTo<'button', typeof buttonVariants>;
 
-export const Button = component$<ButtonProps>((props) => (
-  <button {...props}>
-    <Slot />
-  </button>
-));
+export const Button = component$<ButtonProps>(({ intent, size, ...restOfProps }) => {
+  return (
+    <button class={buttonVariants({ intent, size })} {...restOfProps}>
+      <Slot />
+    </button>
+  );
+});

@@ -6,6 +6,7 @@
     "@qwik-ui/cva": "workspace:*",
     "@qwik-ui/headless": "workspace:*",
     "@qwik-ui/tailwind": "workspace:*",
+    "@qwik-ui/fluffy": "workspace:*",
     "@qwik-ui/material": "workspace:*",
     "@qwik-ui/primitives": "workspace:*"
   }
