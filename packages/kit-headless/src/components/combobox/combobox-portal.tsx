@@ -16,17 +16,20 @@ import { isServer } from '@builder.io/qwik/build';
 import { ContextPair, openPortalContextId } from '../qwik-ui-provider';
 import ComboboxContextId from './combobox-context-id';
 
-export const ComboboxPortal: FunctionComponent = ({ children }) => {
-  return <ComboboxPortalImpl elementToTeleport={children} />;
+export const ComboboxPortal: FunctionComponent<{
+  children: JSXNode;
+  contextIds?: ComboboxPortalProps['contextIds'];
+}> = ({ children, contextIds }) => {
+  return <ComboboxPortalImpl contextIds={contextIds} elementToTeleport={children} />;
 };
 
 export type ComboboxPortalProps = {
   elementToTeleport: JSXNode;
-  contextIds?: ContextId<any>[];
+  contextIds?: ContextId<unknown>[];
 };
 
 export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
-  const contextPairsSig = useSignal<ContextPair<any>[]>();
+  const contextPairsSig = useSignal<ContextPair[]>();
 
   const comboboxContext = useContext(ComboboxContextId);
 
@@ -36,7 +39,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
 
     contextIdsFromProps?.map((id) => {
       // eslint-disable-next-line qwik/use-method-usage
-      contextPairsSig.value?.push({ id, value: useContext(id) });
+      contextPairsSig.value?.push({ id, value: useContext(id as ContextId<object>) });
     });
   });
 

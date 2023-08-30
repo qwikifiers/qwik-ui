@@ -3,7 +3,6 @@ import {
   component$,
   useSignal,
   useStylesScoped$,
-  $,
 } from '@builder.io/qwik';
 import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
 import { getClassByStatus } from '../component-status-badge/component-status-badge';
@@ -86,7 +85,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
     animation: fadeOut 0.5s ease forwards;
     margin-top: var(--dynamic-banner-height);
   }
-  
+
   @keyframes fadeOut {
     from {
       opacity: 1;
@@ -103,7 +102,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
         ref={ref}
         hidden={isBannerClosedSig.value}
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
-        class={`${getBackgroundByStatus(props.status)} px-6 py-4 
+        class={`${getBackgroundByStatus(props.status)} px-6 py-4
         rounded-xl md:items-center relative md:flex-row normal-state
         shadow-depth dark:shadow-depth-dark`}
         style={{ marginBottom: `${marginBottom}px` }}

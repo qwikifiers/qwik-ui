@@ -1,11 +1,13 @@
-import { JSXNode, QRL, Signal } from '@builder.io/qwik';
+import { QRL, Signal } from '@builder.io/qwik';
+import { JSX } from '@builder.io/qwik/jsx-runtime';
 
-export interface ComboboxContext {
+export interface ComboboxContext<O extends Option = Option> {
   // user's source of truth
-  options: Signal<Array<string | Record<string, any>>>;
-  optionComponent$?: QRL<(option: any, index: number) => JSXNode>;
+  optionsSig: Signal<{ option: O; key: number }[]>;
+  optionComponent$?: QRL<(option: O, key: number, filteredIndex: number) => JSX.Element>;
 
   // element state
+  inputValueSig: Signal<string>;
   localId: string;
   labelRef: Signal<HTMLLabelElement | undefined>;
   listboxRef: Signal<HTMLUListElement | undefined>;
@@ -24,11 +26,10 @@ export interface ComboboxContext {
   selectedOptionIndexSig: Signal<number>;
 
   // option settings
-  onInputChange$?: QRL<(value: string) => void>;
-  optionValueKey?: string;
-  optionLabelKey?: string;
-  optionDisabledKey?: string;
+  optionValueKey: string;
+  optionLabelKey: string;
+  optionDisabledKey: string;
 }
 
 // Whether it is a string or an object we want to be able to access the value
-export type Option = ComboboxContext['options']['value'][number];
+export type Option = string | Record<string, unknown>;

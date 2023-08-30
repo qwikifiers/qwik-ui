@@ -13,7 +13,7 @@ export const ComboboxLabel = component$((props: ComboboxLabelProps) => {
   const inputId = `${context.localId}-input`;
 
   return (
-    <label for={inputId} ref={context.labelRef} {...props}>
+    <label {...props} for={inputId} ref={context.labelRef}>
       <Slot />
     </label>
   );

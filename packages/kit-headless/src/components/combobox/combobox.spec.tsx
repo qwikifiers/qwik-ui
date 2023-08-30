@@ -33,7 +33,7 @@ const StringCombobox = component$(({ defaultLabel, ...props }: StringCombobox) =
     <>
       <QwikUIProvider>
         <Combobox
-          options={fruitsSig}
+          options={fruitsSig.value}
           defaultLabel={defaultLabel && defaultLabel}
           onInputChange$={onInputChange$}
           optionComponent$={$((option: string, index: number) => (
@@ -400,7 +400,7 @@ const DisabledCombobox = component$(() => {
     <>
       <QwikUIProvider>
         <Combobox
-          options={objectExampleSig}
+          options={objectExampleSig.value}
           onInputChange$={onInputChange$}
           optionLabelKey="testLabel"
           optionValue="testValue"

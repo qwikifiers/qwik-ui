@@ -56,6 +56,7 @@ export const ComboboxListbox = component$((props: ComboboxListboxProps) => {
 
   return (
     <ul
+      {...props}
       id={listboxId}
       ref={context.listboxRef}
       aria-label={
@@ -64,13 +65,11 @@ export const ComboboxListbox = component$((props: ComboboxListboxProps) => {
           : context.inputRef.value?.value
       }
       role="listbox"
-      style={{ position: 'absolute' }}
       hidden={!context.isListboxOpenSig.value}
-      {...props}
+      style={{ ...(props.style as object), position: 'absolute' }}
     >
-      {context.options.value.map(
-        (option, index) =>
-          context.optionComponent$ && context.optionComponent$(option, index),
+      {context.optionsSig.value.map(({ option, key }, filteredIndex) =>
+        context.optionComponent$?.(option, key, filteredIndex),
       )}
     </ul>
   );

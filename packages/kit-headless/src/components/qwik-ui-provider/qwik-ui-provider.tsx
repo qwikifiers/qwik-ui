@@ -26,7 +26,7 @@ export const openPortalContextId =
     >
   >('PortalProviderAPI');
 
-export type ContextPair<T> = { id: ContextId<T>; value: T };
+export type ContextPair<T = unknown> = { id: ContextId<T>; value: T };
 
 // Define public API for closing Portals
 export const closePortalContextId = createContextId<QRL<() => void>>('PortalCloseAPI');

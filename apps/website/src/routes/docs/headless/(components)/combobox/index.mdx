@@ -11,7 +11,7 @@ import {
   ComboboxOption,
 } from '@qwik-ui/headless';
 
-import { HeroExample, StringCombobox, Example03 } from './examples';
+import { HeroExample, ParentComponent, StringCombobox, Example03 } from './examples';
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../_components/api-table/api-table';
@@ -65,7 +65,7 @@ import {statusByComponent} from '../../../../../_state/component-statuses';
   ```
 </HeroExample>
 
-<div class="bg-[#9A3412] p-4 rounded-sm border-l-[3px] dark:border-[#F3F3F3] border-[#333333]">
+<div class="bg-red-200 dark:bg-red-900 p-4 rounded-sm border-l-[3px] dark:border-[#F3F3F3] border-[#333333]">
   <p class="pb-4">The Combobox component makes use of **portals**. A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.</p>
   <CodeExample classes="!mb-0 !p-6 !rounded-md">
     ```tsx
@@ -76,16 +76,37 @@ import {statusByComponent} from '../../../../../_state/component-statuses';
     </body>
     ```
   </CodeExample>
+
+  <p class="pt-4">Portals are still currently in **Beta**, as a result, if you'd like to use context within these components, you must pass your context ID using the `contextIds` prop on the `ComboboxPortal` component. If you're not using context, you don't need to do this step.</p>
+    <CodeExample classes="!mb-0 !p-6 !rounded-md">
+    ```tsx
+      <ComboboxPortal contextIds={["my-context-id", "my-context-id-2"]}>
+        <ComboboxListbox>
+          <ComboboxOption>Option</ComboboxOption>
+        </ComboboxListbox>
+      </ComboboxPortal>
+    ```
+  </CodeExample>
 </div>
+
+<br/>
 
 > In Beta, we're currently supporting the **Autocomplete** configuration. We aim to support other combobox configurations according to our [roadmap](https://github.com/qwikifiers/qwik-ui/issues/405)
 
+<br/>
+
 ##### ✨ Features
 
-- Full keyboard navigation.
-- Single or Multi Accordion.
-- Controlled or uncontrolled.
-- Animatable, dynamic, and resumable.
+- Full WAI-Aria compliance
+- Full keyboard navigation
+- Autocomplete configuration
+- Can add your own custom filter
+- Controlled or uncontrolled
+- Supports disabled options
+- Animatable, dynamic, and resumable
+
+<br/>
+
 
 Qwik UI's Combobox implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
 
@@ -127,9 +148,10 @@ Qwik UI's Combobox implementation follows the [WAI-Aria](https://www.w3.org/WAI/
 
   </CodeExample>
 
-## Examples
+## Passing context
 
-### EXAMPLE: Frequently Asked Questions
+<ParentComponent>```tsx ```</ParentComponent>
+
 
 <StringCombobox>```tsx ```</StringCombobox>
 

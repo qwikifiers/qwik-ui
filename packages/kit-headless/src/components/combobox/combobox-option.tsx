@@ -1,5 +1,6 @@
 import {
   QwikIntrinsicElements,
+  Signal,
   Slot,
   component$,
   useComputed$,
@@ -20,9 +21,8 @@ export type ComboboxOptionProps = {
 } & QwikIntrinsicElements['li'];
 
 export const ComboboxOption = component$(
-  ({ index, option, ...props }: ComboboxOptionProps) => {
-    option;
-
+  // remove non-li props from props
+  ({ index, option: _0, disabled: _1, ...liProps }: ComboboxOptionProps) => {
     const context = useContext(ComboboxContextId);
     const optionId = useId();
     context.optionIds.value[index] = optionId;
@@ -30,7 +30,9 @@ export const ComboboxOption = component$(
     const isOptionDisabledSig = useComputed$(() => isOptionDisabled(index, context));
 
     const isHighlightedSig = useComputed$(
-      () => !isOptionDisabledSig.value && context.highlightedIndexSig.value === index
+      () =>
+        !(isOptionDisabledSig as Signal<boolean>).value &&
+        context.highlightedIndexSig.value === index
     );
 
     const optionRef = useSignal<HTMLLIElement>();
@@ -63,7 +65,7 @@ export const ComboboxOption = component$(
 
     return (
       <li
-        {...props}
+        {...liProps}
         id={optionId}
         ref={optionRef}
         tabIndex={0}
@@ -77,8 +79,8 @@ export const ComboboxOption = component$(
           }
 
           context.inputRef.value.value = getOptionLabel(
-            context.options.value[context.highlightedIndexSig.value],
-            context
+            context.optionsSig.value[context.highlightedIndexSig.value]?.option,
+            context.optionLabelKey
           );
 
           context.isListboxOpenSig.value = false;
