@@ -13,16 +13,23 @@
         * sm, md, lg, xl, 2xl
       * SHAPE
         * Square / rounded / circular
+        * 
       * ANIMATION
         * None
-        * Clicky
-      * VARIATION
+        * Pulse
+        
+      * INTENT
+        * Primary
+        * Secondary
+        * Danger / Destructive
+      * LOOK
         * Outline 
-        * ghost
-        * link
-        * Disabled
-        * Destructive
+        * Ghost
+        * Link
+        
+      * STATE
         * Active
+        * Disabled
     
     DOCS EXAMPLES:
     * with Icon
