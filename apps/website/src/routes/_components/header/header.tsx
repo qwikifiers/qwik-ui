@@ -47,22 +47,22 @@ export default component$(
     return (
       <header
         class={[
-          `fixed top-0 w-full h-20 md:h-20 z-20 md:bg-[var(--color-bg)] flex gap-8 p-4 items-center`,
-          `ease-in-out duration-300`,
+          `fixed top-0 z-20 flex h-20 w-full items-center gap-8 p-4 md:h-20 md:bg-[var(--color-bg)]`,
+          `duration-300 ease-in-out`,
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
             : 'bg-[var(--color-bg)]',
           showBottomBorder ? `border-b-[1px] border-slate-300 dark:border-slate-600` : ``
         ]}
       >
-        <section class="flex flex-col md:flex-row gap-1 md:gap-8 mr-auto">
+        <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">
           <a href="/" class="lg:ml-8">
             <Logo />
           </a>
 
           {showVersion && (
             <div data-tip="Qwik-UI Version" class="mr-auto">
-              <div class="flex flex-row gap-1 ml-2 md:mt-1 md:flex-col text-xs md:text-sm">
+              <div class="ml-2 flex flex-row gap-1 text-xs md:mt-1 md:flex-col md:text-sm">
                 <span> {kitSignal.value?.name} Kit </span>
                 <span> v.{kitSignal.value?.version} </span>
               </div>
@@ -70,7 +70,7 @@ export default component$(
           )}
         </section>
 
-        <nav class="hidden lg:flex gap-4">
+        <nav class="hidden gap-4 lg:flex">
           <a href="/about">About</a>
           <a href="/docs/headless/introduction">Headless Kit</a>
           {rootStore.featureFlags?.showFluffy && (

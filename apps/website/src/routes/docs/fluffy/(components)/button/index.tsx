@@ -18,7 +18,7 @@ export default component$(() => {
         <h2>Fluffy Example</h2>
 
         <div>
-          <Button intent="default">I'm from Fluffy</Button>
+          <Button>I'm from Fluffy</Button>
         </div>
 
         <h2>Basic Example</h2>
