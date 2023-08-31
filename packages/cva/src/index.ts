@@ -1,1 +1,1 @@
-export * from './lib/cva';
+export * from './cva';
