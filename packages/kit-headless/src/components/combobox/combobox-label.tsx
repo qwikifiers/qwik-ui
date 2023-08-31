@@ -2,7 +2,7 @@ import {
   Slot,
   component$,
   useContext,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 

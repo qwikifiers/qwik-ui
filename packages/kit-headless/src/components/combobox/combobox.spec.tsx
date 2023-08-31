@@ -7,7 +7,7 @@ import {
   ComboboxControl,
   ComboboxListbox,
   ComboboxOption,
-  ComboboxPortal
+  ComboboxPortal,
 } from './index';
 
 import TestData from './test-data';
@@ -162,7 +162,7 @@ describe('Critical Functionality', () => {
       <>
         <StringCombobox />
         <button>Random Element</button>
-      </>
+      </>,
     );
 
     cy.get('button').first().focus().click();
@@ -234,7 +234,7 @@ describe('Default Label', () => {
     cy.findByRole('option', { name: 'Jabuticaba' }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
   });
 });
@@ -385,7 +385,7 @@ const DisabledCombobox = component$(() => {
     { testValue: 'david', testLabel: 'David', disabled: true },
     { testValue: 'joseph', testLabel: 'Joseph', disabled: true },
     { testValue: 'mark', testLabel: 'Mark', disabled: false },
-    { testValue: 'sidney', testLabel: 'Sidney', disabled: true }
+    { testValue: 'sidney', testLabel: 'Sidney', disabled: true },
   ];
 
   const objectExampleSig = useSignal(objectExample);
@@ -489,7 +489,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Malcolm` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
   });
 
@@ -503,7 +503,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Mark` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
   });
 
@@ -519,7 +519,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Malcolm` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
   });
 
@@ -535,7 +535,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Mark` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
   });
 
@@ -552,7 +552,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Brian` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
   });
 
@@ -571,7 +571,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Malcolm` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
   });
 
@@ -586,7 +586,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Randy` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
 
     cy.get('input').type(`{downarrow}`);
@@ -594,7 +594,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Mark` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
   });
 
@@ -609,7 +609,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Randy` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
 
     cy.get('input').type(`{downarrow}`);
@@ -617,7 +617,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Mark` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
 
     cy.get('input').type(`{uparrow}`);
@@ -625,7 +625,7 @@ describe('Disabled & Object Combobox', () => {
     cy.findByRole('option', { name: `Randy` }).should(
       'have.attr',
       'aria-selected',
-      'true'
+      'true',
     );
   });
 });

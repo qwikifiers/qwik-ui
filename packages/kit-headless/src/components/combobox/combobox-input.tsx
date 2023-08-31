@@ -6,7 +6,7 @@ import {
   useVisibleTask$,
   type QwikIntrinsicElements,
   useTask$,
-  useSignal
+  useSignal,
 } from '@builder.io/qwik';
 import { KeyCode } from '../../utils';
 import ComboboxContextId from './combobox-context-id';
@@ -14,7 +14,7 @@ import {
   isOptionDisabled,
   getOptionLabel,
   getNextEnabledOptionIndex,
-  getPrevEnabledOptionIndex
+  getPrevEnabledOptionIndex,
 } from './utils';
 
 const preventedKeys = [KeyCode.Home, KeyCode.End, KeyCode.PageDown, KeyCode.ArrowUp];
@@ -32,14 +32,14 @@ export const ComboboxInput = component$(({ ...props }: ComboboxInputProps) => {
   const onKeydownBehavior$ = $((e: QwikKeyboardEvent) => {
     const highlightedOptionLabel = getOptionLabel(
       context.optionsSig.value[context.highlightedIndexSig.value]?.option,
-      context.optionLabelKey
+      context.optionLabelKey,
     );
 
     if (e.key === 'ArrowDown') {
       if (context.isListboxOpenSig.value) {
         const nextEnabledOptionIndex = getNextEnabledOptionIndex(
           context.highlightedIndexSig.value,
-          context
+          context,
         );
 
         context.highlightedIndexSig.value = nextEnabledOptionIndex;
@@ -55,7 +55,7 @@ export const ComboboxInput = component$(({ ...props }: ComboboxInputProps) => {
     if (e.key === 'ArrowUp') {
       const prevEnabledOptionIndex = getPrevEnabledOptionIndex(
         context.highlightedIndexSig.value,
-        context
+        context,
       );
       context.highlightedIndexSig.value = prevEnabledOptionIndex;
     }
@@ -79,7 +79,7 @@ export const ComboboxInput = component$(({ ...props }: ComboboxInputProps) => {
     if (e.key === 'End') {
       const lastEnabledOptionIndex = getPrevEnabledOptionIndex(
         context.optionsSig.value.length,
-        context
+        context,
       );
       context.highlightedIndexSig.value = lastEnabledOptionIndex;
     }

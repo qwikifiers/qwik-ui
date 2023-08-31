@@ -42,7 +42,7 @@ const objectExample: Array<Trainer> = [
   { testValue: 'joe', testLabel: 'Joe', disabled: false },
   { testValue: 'randy', testLabel: 'Randy', disabled: false },
   { testValue: 'david', testLabel: 'David', disabled: true },
-  { testValue: 'joseph', testLabel: 'Joseph', disabled: false }
+  { testValue: 'joseph', testLabel: 'Joseph', disabled: false },
 ];
 
 export const HeroExample = component$(() => {
@@ -123,7 +123,7 @@ export const StringCombobox = component$(() => {
     'Cherry',
     'Coconut',
     'Cranberry',
-    'Cucumber'
+    'Cucumber',
   ];
 
   const fruitsSig = useSignal(fruits);

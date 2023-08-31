@@ -12,7 +12,7 @@ export function getOptionLabel(option: undefined | Option, labelKey: string): st
   const label = option[labelKey] as unknown;
   if (typeof label !== 'string') {
     throw new Error(
-      'Qwik UI: Combobox optionLabelKey was not provided, and the option was not a string. Please provide a value for optionLabelKey, use the property name "label", or ensure that the option is a string.'
+      'Qwik UI: Combobox optionLabelKey was not provided, and the option was not a string. Please provide a value for optionLabelKey, use the property name "label", or ensure that the option is a string.',
     );
   }
   return label;
@@ -53,7 +53,7 @@ export const getPrevEnabledOptionIndex = (index: number, context: ComboboxContex
     isOptionDisabled(
       (currentIndex - offset + context.optionsSig.value.length) %
         context.optionsSig.value.length,
-      context
+      context,
     )
   ) {
     offset++;

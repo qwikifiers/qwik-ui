@@ -32,7 +32,7 @@ export const ComboboxOption = component$(
     const isHighlightedSig = useComputed$(
       () =>
         !(isOptionDisabledSig as Signal<boolean>).value &&
-        context.highlightedIndexSig.value === index
+        context.highlightedIndexSig.value === index,
     );
 
     const optionRef = useSignal<HTMLLIElement>();
@@ -80,7 +80,7 @@ export const ComboboxOption = component$(
 
           context.inputRef.value.value = getOptionLabel(
             context.optionsSig.value[context.highlightedIndexSig.value]?.option,
-            context.optionLabelKey
+            context.optionLabelKey,
           );
 
           context.isListboxOpenSig.value = false;
