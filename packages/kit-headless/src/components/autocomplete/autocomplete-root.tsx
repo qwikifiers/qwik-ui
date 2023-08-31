@@ -10,7 +10,7 @@ import {
   useOnWindow,
   useSignal,
   useStore,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 
 import { computePosition, flip } from '@floating-ui/dom';
@@ -135,7 +135,7 @@ export const AutocompleteRoot = component$(
   ({ defaultValue, ...props }: AutocompleteRootProps) => {
     useVisibleTask$(function deprecatedComponentError() {
       throw new Error(
-        'Qwik UI: The Autocomplete component has been deprecated in favor of the Combobox. Please use the Combobox component instead.'
+        'Qwik UI: The Autocomplete component has been deprecated in favor of the Combobox. Please use the Combobox component instead.',
       );
     });
 
@@ -180,7 +180,7 @@ export const AutocompleteRoot = component$(
       triggerId,
       activeOptionId,
       focusInput$,
-      isInputFocusedSig
+      isInputFocusedSig,
       // filter: (value: string) => boolean
     };
 
@@ -189,11 +189,11 @@ export const AutocompleteRoot = component$(
     const updatePosition = $((referenceEl: HTMLElement, floatingEl: HTMLElement) => {
       computePosition(referenceEl, floatingEl, {
         placement: 'bottom',
-        middleware: [flip()]
+        middleware: [flip()],
       }).then(({ x, y }) => {
         Object.assign(floatingEl.style, {
           left: `${x}px`,
-          top: `${y}px`
+          top: `${y}px`,
         });
       });
     });
@@ -254,7 +254,7 @@ export const AutocompleteRoot = component$(
           }
 
           return optionValue.match(defaultFilter);
-        }
+        },
       );
 
       // Probably better to refactor Signal type later
@@ -282,7 +282,7 @@ export const AutocompleteRoot = component$(
         ) {
           contextService.isTriggerExpandedSig.value = false;
         }
-      })
+      }),
     );
 
     return (
@@ -296,7 +296,7 @@ export const AutocompleteRoot = component$(
               inputElement?.focus();
             }
           }),
-          props.onKeyDown$
+          props.onKeyDown$,
         ]}
         {...props}
         ref={rootRef}
@@ -304,5 +304,5 @@ export const AutocompleteRoot = component$(
         <Slot />
       </div>
     );
-  }
+  },
 );

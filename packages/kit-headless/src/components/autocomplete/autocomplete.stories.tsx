@@ -87,7 +87,7 @@ const fruits = [
   'Strawberry',
   'Tamarillo',
   'Tamarind',
-  'Yuzu'
+  'Yuzu',
 ];
 
 import {
@@ -98,12 +98,12 @@ import {
   AutocompleteOption,
   AutocompleteRoot,
   AutocompleteTrigger,
-  type AutocompleteRootProps
+  type AutocompleteRootProps,
 } from './index';
 
 const meta: Meta<AutocompleteRootProps> = {
   args: {},
-  component: AutocompleteRoot
+  component: AutocompleteRoot,
 };
 
 type Story = StoryObj<AutocompleteRootProps>;
@@ -141,7 +141,7 @@ const RegularAutocomplete = () => (
 );
 
 export const Primary: Story = {
-  render: () => RegularAutocomplete()
+  render: () => RegularAutocomplete(),
   // play: ({ canvasElement }) => {
   //    const canvas = within(canvasElement);
   // }

@@ -7,7 +7,7 @@ import {
   useVisibleTask$,
   $,
   type QwikIntrinsicElements,
-  type QwikKeyboardEvent
+  type QwikKeyboardEvent,
 } from '@builder.io/qwik';
 
 import { accordionItemContextId, accordionRootContextId } from './accordion-context-id';
@@ -20,7 +20,7 @@ const accordionPreventedKeys = [
   KeyCode.PageDown,
   KeyCode.PageUp,
   KeyCode.ArrowDown,
-  KeyCode.ArrowUp
+  KeyCode.ArrowUp,
 ];
 
 export type AccordionTriggerProps = {
@@ -111,7 +111,7 @@ export const AccordionTrigger = component$(
           updateTriggers$();
         });
       },
-      { strategy: 'document-ready' }
+      { strategy: 'document-ready' },
     );
     return (
       <button
@@ -131,7 +131,7 @@ export const AccordionTrigger = component$(
               ? (isTriggerExpandedSig.value = !isTriggerExpandedSig.value)
               : (isTriggerExpandedSig.value = true);
           }),
-          props.onClick$
+          props.onClick$,
         ]}
         aria-expanded={isTriggerExpandedSig.value}
         aria-controls={contentId}
@@ -153,7 +153,7 @@ export const AccordionTrigger = component$(
               await contextService.focusLastTrigger$();
             }
           }),
-          props.onKeyDown$
+          props.onKeyDown$,
         ]}
         onFocus$={[setCurrFocusedIndexSig$, props.onFocus$]}
         {...props}
@@ -161,5 +161,5 @@ export const AccordionTrigger = component$(
         <Slot />
       </button>
     );
-  }
+  },
 );

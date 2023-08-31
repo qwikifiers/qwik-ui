@@ -3,7 +3,7 @@ import {
   QwikIntrinsicElements,
   useContext,
   useSignal,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { OptionProps } from '../autocomplete';
 import SelectContextId from './select-context-id';
@@ -75,5 +75,5 @@ export const SelectOption = component$(
         <Slot />
       </li>
     );
-  }
+  },
 );

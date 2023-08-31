@@ -2,7 +2,7 @@ import {
   Slot,
   component$,
   useSignal,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
 export type AutocompleteControlProps = QwikIntrinsicElements['div'];

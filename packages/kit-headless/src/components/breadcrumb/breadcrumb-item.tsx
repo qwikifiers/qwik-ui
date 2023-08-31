@@ -1,9 +1,4 @@
-import {
-  component$,
-  HTMLAttributes,
-  Slot,
-  useStylesScoped$,
-} from '@builder.io/qwik';
+import { component$, HTMLAttributes, Slot, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './breadcrumb-item.css?inline';
 import { clsq } from '@qwik-ui/shared';
 
@@ -17,10 +12,7 @@ export const BreadcrumbItem = component$((props: BreadcrumbItemProps) => {
   useStylesScoped$(styles);
 
   return (
-    <div
-      style={clsq(`--breadcrumb-divider: "${props.divider || '/'}"`, style)}
-      {...rest}
-    >
+    <div style={clsq(`--breadcrumb-divider: "${props.divider || '/'}"`, style)} {...rest}>
       <Slot />
     </div>
   );

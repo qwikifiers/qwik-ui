@@ -44,15 +44,11 @@ export const Toast = component$(
             [positions.end]: end,
             [positions.start]: start,
           },
-          classNames
+          classNames,
         )}
       >
-        <HeadlessToast
-          label={label}
-          class={clsq('alert', variants[variant])}
-          {...rest}
-        />
+        <HeadlessToast label={label} class={clsq('alert', variants[variant])} {...rest} />
       </div>
     );
-  }
+  },
 );

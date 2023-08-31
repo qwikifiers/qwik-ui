@@ -1,9 +1,4 @@
-import {
-  component$,
-  Slot,
-  QwikIntrinsicElements,
-  PropFunction,
-} from '@builder.io/qwik';
+import { component$, Slot, QwikIntrinsicElements, PropFunction } from '@builder.io/qwik';
 import { Tab as HeadlessTab } from '@qwik-ui/headless';
 
 export type TabProps = {
@@ -13,19 +8,15 @@ export type TabProps = {
   onClick$?: PropFunction<(clicked: number) => void>;
 } & QwikIntrinsicElements['button'];
 
-export const Tab = component$(
-  ({ isBordered, isLifted, ...props }: TabProps) => {
-    return (
-      <HeadlessTab
-        onClick$={props.onClick$}
-        class={`tab ${isBordered ? 'tab-bordered' : ''} ${
-          isLifted ? 'tab-lifted' : ''
-        }`}
-        selectedClassName="tab-active"
-        {...props}
-      >
-        <Slot />
-      </HeadlessTab>
-    );
-  }
-);
+export const Tab = component$(({ isBordered, isLifted, ...props }: TabProps) => {
+  return (
+    <HeadlessTab
+      onClick$={props.onClick$}
+      class={`tab ${isBordered ? 'tab-bordered' : ''} ${isLifted ? 'tab-lifted' : ''}`}
+      selectedClassName="tab-active"
+      {...props}
+    >
+      <Slot />
+    </HeadlessTab>
+  );
+});

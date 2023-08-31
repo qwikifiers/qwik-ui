@@ -29,8 +29,7 @@ interface MenuContextService {
 }
 
 const MENU_CONTEXT_NAME = 'qui-menu';
-export const quiMenuContext =
-  createContextId<MenuContextService>(MENU_CONTEXT_NAME);
+export const quiMenuContext = createContextId<MenuContextService>(MENU_CONTEXT_NAME);
 
 export enum KEYBOARD_KEY_NAME {
   ARROW_UP = 'ArrowUp',
@@ -83,7 +82,7 @@ export const Menu = component$((props: MenuProps) => {
       if (isExpanded.value && target !== triggerElementRef.value) {
         isExpanded.value = false;
       }
-    })
+    }),
   );
 
   return (

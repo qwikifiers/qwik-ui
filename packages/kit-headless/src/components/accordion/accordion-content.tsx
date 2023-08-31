@@ -7,7 +7,7 @@ import {
   useTask$,
   $,
   useVisibleTask$,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
 import { accordionItemContextId, accordionRootContextId } from './accordion-context-id';
@@ -94,7 +94,7 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
         if (index === contentChildren.length - 1) {
           contentElement.style.setProperty(
             '--qwikui-accordion-content-height',
-            `${totalHeightSig.value}px`
+            `${totalHeightSig.value}px`,
           );
         }
       });
@@ -115,7 +115,7 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
         ['--qwikui-collapsible-content-height' as string]:
           'var(--qwikui-accordion-content-height)',
         ['--qwikui-collapsible-content-width' as string]:
-          'var(--qwikui-accordion-content-width)'
+          'var(--qwikui-accordion-content-width)',
       }}
       {...props}
     >

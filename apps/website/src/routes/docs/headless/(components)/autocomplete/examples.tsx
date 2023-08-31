@@ -6,7 +6,7 @@ import {
   AutocompleteInput,
   AutocompleteTrigger,
   AutocompleteListbox,
-  AutocompleteOption
+  AutocompleteOption,
 } from '@qwik-ui/headless';
 
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
@@ -21,7 +21,7 @@ const trainers = [
   'Oliver',
   'Amelia',
   'Theodore',
-  'Elizabeth'
+  'Elizabeth',
 ];
 
 export const Example01 = component$(() => {

@@ -60,7 +60,7 @@ export type InputPhoneCountry = {
  */
 export const find = (
   value: string | CountryCode | ((country: CountryItem) => boolean) | undefined,
-  key?: keyof CountryItem
+  key?: keyof CountryItem,
 ) => {
   if (!value) {
     return undefined;
@@ -91,7 +91,7 @@ export const findBySelectValue = (value: string) => {
 export const findCountryByUserTimezone = () => {
   if (!Intl) {
     console.warn(
-      'We cannot automatically retrieve the country of the user because Intl is not supported.'
+      'We cannot automatically retrieve the country of the user because Intl is not supported.',
     );
     return;
   }
@@ -121,9 +121,7 @@ export const InputPhone = component$(
   }: InputPhoneProps) => {
     useStylesScoped$(styles);
     const defaultCountry =
-      countryCode === 'auto'
-        ? findCountryByUserTimezone()
-        : find(countryCode, 'code');
+      countryCode === 'auto' ? findCountryByUserTimezone() : find(countryCode, 'code');
 
     const inputRefSignal = useSignal<HTMLInputElement>();
     const selectRefSignal = useSignal<HTMLSelectElement>();
@@ -185,10 +183,7 @@ export const InputPhone = component$(
       }
 
       try {
-        const phoneNumber = parsePhoneNumberWithError(
-          phone,
-          countrySignal.value?.code
-        );
+        const phoneNumber = parsePhoneNumberWithError(phone, countrySignal.value?.code);
 
         if (!phoneNumber) {
           return;
@@ -240,7 +235,7 @@ export const InputPhone = component$(
           }
 
           outputSignal.value = new AsYouType().input(
-            `${country.dial_code}${nationalNumber}`
+            `${country.dial_code}${nationalNumber}`,
           );
         } else {
           outputSignal.value = new AsYouType(code).input(numberSignal.value);
@@ -300,14 +295,12 @@ export const InputPhone = component$(
           value={outputSignal.value}
           onInput$={[
             $((_: Event, { value }: HTMLInputElement) => {
-              numberSignal.value = new AsYouType(
-                countrySignal.value?.code
-              ).input(value);
+              numberSignal.value = new AsYouType(countrySignal.value?.code).input(value);
             }),
             props.onInput$,
           ]}
         />
       </div>
     );
-  }
+  },
 );

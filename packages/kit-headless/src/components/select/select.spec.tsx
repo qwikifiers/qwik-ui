@@ -7,7 +7,7 @@ import {
   SelectValue,
   SelectOption,
   SelectLabel,
-  SelectGroup
+  SelectGroup,
 } from '.';
 import SelectTestData from './select-test-data';
 
@@ -46,7 +46,7 @@ const BasicSelect = component$(() => {
                       <SelectOption optionValue={option.name} key={index}>
                         {option.name}
                       </SelectOption>
-                    )
+                    ),
                 )}
               </SelectGroup>
             </>
@@ -94,7 +94,7 @@ const SelectInForm = component$(() => {
                       <SelectOption optionValue={option.name} key={index}>
                         {option.name}
                       </SelectOption>
-                    )
+                    ),
                 )}
               </SelectGroup>
             </>

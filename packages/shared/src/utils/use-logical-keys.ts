@@ -21,7 +21,7 @@ type Params = {
 
 export const useLogicalKeys = (
   ref: Signal<HTMLElement | undefined>,
-  params: Params | void
+  params: Params | void,
 ) => {
   useOn(
     'keydown',
@@ -44,6 +44,6 @@ export const useLogicalKeys = (
 
       e.preventDefault();
       e.stopPropagation();
-    })
+    }),
   );
 };

@@ -4,7 +4,14 @@
 
 export type ClassDictionary = Record<string, any>;
 export type ClassArray = ClassValue[];
-export type ClassValue = ClassArray | ClassDictionary | string | number | null | boolean | undefined;
+export type ClassValue =
+  | ClassArray
+  | ClassDictionary
+  | string
+  | number
+  | null
+  | boolean
+  | undefined;
 
 function toVal(mix: ClassValue) {
   let str = '';
@@ -13,9 +20,9 @@ function toVal(mix: ClassValue) {
     str += mix;
   } else if (typeof mix === 'object') {
     if (Array.isArray(mix)) {
-      for (let k=0; k < mix.length; k++) {
+      for (let k = 0; k < mix.length; k++) {
         if (mix[k]) {
-          const y = toVal(mix[k])
+          const y = toVal(mix[k]);
           if (y) {
             str && (str += ' ');
             str += y;
@@ -42,10 +49,10 @@ export function clsq(...inputs: ClassValue[]) {
   while (i < inputs.length) {
     tmp = inputs[i++];
     if (tmp) {
-      const x = toVal(tmp)
+      const x = toVal(tmp);
       if (x) {
         str && (str += ' ');
-        str += x
+        str += x;
       }
     }
   }

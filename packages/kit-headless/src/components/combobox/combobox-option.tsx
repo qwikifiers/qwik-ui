@@ -3,7 +3,7 @@ import {
   Slot,
   component$,
   useComputed$,
-  useContext
+  useContext,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 

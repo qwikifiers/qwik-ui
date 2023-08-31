@@ -1,9 +1,4 @@
-import {
-  component$,
-  PropFunction,
-  QwikMouseEvent,
-  useSignal,
-} from '@builder.io/qwik';
+import { component$, PropFunction, QwikMouseEvent, useSignal } from '@builder.io/qwik';
 
 export type ToggleProps = {
   disabled?: boolean;
@@ -19,7 +14,7 @@ export type ToggleProps = {
   defaultPressed?: boolean;
 
   onClick$: PropFunction<(evt: QwikMouseEvent) => void>;
-}
+};
 
 export const Toggle = component$((props: ToggleProps) => {
   const {

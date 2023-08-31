@@ -87,12 +87,7 @@ export default component$(() => {
 
           <h2 class="mt-5">Primary Example</h2>
           <div>
-            <Radio
-              variant="primary"
-              name="radio-Selected"
-              value="first"
-              checked
-            />
+            <Radio variant="primary" name="radio-Selected" value="first" checked />
             <Radio variant="primary" name="radio-Selected" value="second" />
           </div>
         </div>

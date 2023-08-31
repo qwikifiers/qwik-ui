@@ -18,9 +18,7 @@ type InputContextService = {
   id: string;
 };
 
-const inputContext = createContextId<InputContextService>(
-  'input-context-service'
-);
+const inputContext = createContextId<InputContextService>('input-context-service');
 
 /**
  *
@@ -106,11 +104,5 @@ export const Phone = component$((props: InputPhoneProps) => {
   const context = useContext(inputContext);
   const id = props.id || context.id;
 
-  return (
-    <InputPhone
-      {...props}
-      aria-describedby={`hint-${id} message-${id}`}
-      id={id}
-    />
-  );
+  return <InputPhone {...props} aria-describedby={`hint-${id} message-${id}`} id={id} />;
 });

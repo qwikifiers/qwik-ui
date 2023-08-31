@@ -21,8 +21,7 @@ export const useCarouselProvider = (state: CarouselContext) => {
   useContextProvider(carouselContext, state);
 };
 
-export const carouselContext =
-  createContextId<CarouselContext>('carousel-root');
+export const carouselContext = createContextId<CarouselContext>('carousel-root');
 
 type RootProps = QwikIntrinsicElements['div'] & {
   use?: CarouselContext;
@@ -59,7 +58,7 @@ export const ButtonNext = component$(
         <Slot />
       </button>
     );
-  }
+  },
 );
 
 export const ButtonPrevious = component$(
@@ -76,7 +75,7 @@ export const ButtonPrevious = component$(
         <Slot />
       </button>
     );
-  }
+  },
 );
 
 type ItemsProps = QwikIntrinsicElements['ul'];
@@ -120,9 +119,7 @@ type ControlContext = {
 
 type ControlsProps = QwikIntrinsicElements['div'];
 
-export const controlContext = createContextId<ControlContext>(
-  'carousel-control-root'
-);
+export const controlContext = createContextId<ControlContext>('carousel-control-root');
 
 export const Controls = component$((props: ControlsProps) => {
   const uniqueId = useId();
@@ -161,7 +158,7 @@ export const Control = component$(
         <Slot />
       </div>
     );
-  }
+  },
 );
 
 export const IconPrevious = () => (

@@ -9,7 +9,7 @@ import {
   useContext,
   useSignal,
   useTask$,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 
 import { ContextPair, openPortalContextId } from '../qwik-ui-provider';
@@ -60,7 +60,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
       closePortalSig.value = await openPortal$(
         'comboboxPortal',
         props.elementToTeleport,
-        contextPairsSig.value
+        contextPairsSig.value,
       );
     } else if (closePortalSig.value) {
       const closePortal$ = closePortalSig.value;

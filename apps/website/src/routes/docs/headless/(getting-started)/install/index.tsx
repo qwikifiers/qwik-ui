@@ -6,8 +6,8 @@ export default component$(() => {
     <article class="max-w-prose">
       <h1 class="text-xl">Installation</h1>
       <p class="text-lg mb-6">
-        To get started with the Headless Kit for Qwik UI, run the following
-        command to install the Headless Kit via npm:
+        To get started with the Headless Kit for Qwik UI, run the following command to
+        install the Headless Kit via npm:
       </p>
 
       <div class="mt-4">
@@ -17,13 +17,13 @@ export default component$(() => {
       </div>
 
       <p class="text-lg mt-6 mb-6">
-        That's it! The Headless Kit is now installed and ready for use in your
-        Qwik project.
+        That's it! The Headless Kit is now installed and ready for use in your Qwik
+        project.
       </p>
 
       <p class="text-lg mb-6">
-        Now you can start building your custom-designed, accessible Qwik web
-        applications using the Qwik UIHeadless Kit.
+        Now you can start building your custom-designed, accessible Qwik web applications
+        using the Qwik UIHeadless Kit.
       </p>
     </article>
   );

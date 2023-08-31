@@ -4,7 +4,7 @@ import {
   Slot,
   useContext,
   useSignal,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import SelectContextId from './select-context-id';
 
@@ -18,7 +18,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
   useVisibleTask$(function setKeyHandler({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
       const availableOptions = selectContext.optionsStore.filter(
-        (option) => !(option?.getAttribute('aria-disabled') === 'true')
+        (option) => !(option?.getAttribute('aria-disabled') === 'true'),
       );
       const target = e.target as HTMLElement;
       const currentIndex = availableOptions.indexOf(target);

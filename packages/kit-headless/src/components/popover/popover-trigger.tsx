@@ -6,7 +6,7 @@ import {
   useContext,
   useSignal,
   useStylesScoped$,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { PopoverContext } from './popover-context';
 import styles from './popover-trigger.css?inline';
@@ -15,7 +15,7 @@ export const PopoverTrigger = component$(
   (
     props: QwikIntrinsicElements['span'] & {
       tabIndex?: number;
-    }
+    },
   ) => {
     const ref = useSignal<HTMLElement>();
     const contextService = useContext(PopoverContext);
@@ -41,5 +41,5 @@ export const PopoverTrigger = component$(
         <Slot />
       </span>
     );
-  }
+  },
 );

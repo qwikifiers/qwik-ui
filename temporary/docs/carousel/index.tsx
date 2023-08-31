@@ -47,12 +47,7 @@ export default component$(() => {
       <Root use={carousel}>
         <Items style="gap: 3em;">
           {Array.from({ length: 8 }, (_, index) => index).map((value, i) => (
-            <Item
-              key={value}
-              index={i}
-              label={`Image ${i}`}
-              class={[scopeId, 'item']}
-            >
+            <Item key={value} index={i} label={`Image ${i}`} class={[scopeId, 'item']}>
               <img src={`https://picsum.photos/120${i + 1}/55${i}`} alt="" />
             </Item>
           ))}

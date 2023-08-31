@@ -38,5 +38,5 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'Qwik UI - The first component library for Qwik'
+  title: 'Qwik UI - The first component library for Qwik',
 };

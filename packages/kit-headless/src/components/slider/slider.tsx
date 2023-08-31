@@ -58,8 +58,7 @@ export const Slider = component$(
 
     useVisibleTask$(async ({ track }) => {
       track(() => rootPositionRef);
-      contextService.positionX.value =
-        rootPositionRef.value?.getBoundingClientRect().x;
+      contextService.positionX.value = rootPositionRef.value?.getBoundingClientRect().x;
     });
 
     useVisibleTask$(async ({ track }) => {
@@ -90,5 +89,5 @@ export const Slider = component$(
         <Slot />
       </div>
     );
-  }
+  },
 );

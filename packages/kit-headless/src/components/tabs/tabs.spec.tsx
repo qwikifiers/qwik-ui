@@ -95,7 +95,7 @@ describe('Tabs', () => {
       cy.findByTestId('selected-index-from-event').should('contain.text', ': 0');
       cy.findByTestId('selected-tab-id-from-event').should(
         'contain.text',
-        ': Dynamic Tab 2'
+        ': Dynamic Tab 2',
       );
     });
 
@@ -182,7 +182,7 @@ describe('Tabs', () => {
             )}
           </>
         );
-      }
+      },
     );
   });
 
@@ -450,13 +450,13 @@ describe('Tabs', () => {
               <ThreeTabsComponent />
             </div>
             <div data-testid="scroll-target">Outside</div>
-          </div>
+          </div>,
         );
 
         cy.findByRole('tab', { name: /Tab 1/i }).type('{pageDown}');
 
         cy.window().its('scrollY').should('equal', 0);
-      }
+      },
     );
 
     it(`GIVEN 3 tabs and the focus is on the third,
@@ -494,7 +494,7 @@ describe('Tabs', () => {
             <TabList
               style={{
                 display: 'flex',
-                flexDirection: isVertical ? 'column' : 'row'
+                flexDirection: isVertical ? 'column' : 'row',
               }}
             >
               <Tab>Tab 1</Tab>
@@ -526,7 +526,7 @@ describe('Tabs', () => {
           )}
         </>
       );
-    }
+    },
   );
 
   describe('Disabled tabs', () => {
@@ -557,7 +557,7 @@ describe('Tabs', () => {
           <TabPanel>Panel 3</TabPanel>
           <TabPanel>Panel 4</TabPanel>
           <TabPanel>Panel 5</TabPanel>
-        </Tabs>
+        </Tabs>,
       );
 
       cy.findByRole('tabpanel').should('contain', 'Panel 2');
@@ -573,7 +573,7 @@ describe('Tabs', () => {
             Panel 2
           </TabPanel>
           <TabPanel label="Tab 3">Panel 3</TabPanel>
-        </Tabs>
+        </Tabs>,
       );
       cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
       cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
@@ -588,7 +588,7 @@ describe('Tabs', () => {
             <Tab disabled={true}>Tab 1</Tab>
           </TabList>
           <TabPanel>Panel 1</TabPanel>
-        </Tabs>
+        </Tabs>,
       );
 
       cy.findByRole('tabpanel').should('not.exist');
@@ -711,13 +711,13 @@ describe('Tabs', () => {
               vertical={!!props.isVertical}
               style={{
                 display: 'flex',
-                flexDirection: props.isVertical ? 'row' : 'column'
+                flexDirection: props.isVertical ? 'row' : 'column',
               }}
             >
               <TabList
                 style={{
                   display: 'flex',
-                  flexDirection: props.isVertical ? 'column' : 'row'
+                  flexDirection: props.isVertical ? 'column' : 'row',
                 }}
               >
                 <Tab disabled={props.disabledIndex === 0}>Tab 1</Tab>
@@ -739,7 +739,7 @@ describe('Tabs', () => {
             )}
           </div>
         );
-      }
+      },
     );
   });
 
@@ -754,7 +754,7 @@ describe('Tabs', () => {
           <TabPanel label="Tab 2">Panel 2</TabPanel>
           <TabPanel selected>Panel 3</TabPanel>
           <Tab>Tab 3</Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       cy.get('[role="tab"]').should('have.length', 3);

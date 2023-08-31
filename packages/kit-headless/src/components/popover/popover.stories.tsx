@@ -6,7 +6,7 @@ import { PopoverContent } from './popover-content';
 import { PopoverTrigger } from './popover-trigger';
 
 const meta: Meta<PopoverProps> = {
-  component: Popover
+  component: Popover,
 };
 
 type Story = StoryObj<PopoverProps>;
@@ -30,5 +30,5 @@ export const Primary: Story = {
     const popover = await canvas.findByRole('dialog');
 
     await expect(popover).toHaveTextContent('Oh hi mark!');
-  }
+  },
 };
