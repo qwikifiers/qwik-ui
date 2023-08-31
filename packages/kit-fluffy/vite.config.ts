@@ -22,10 +22,8 @@ export default defineConfig({
     }),
     tsconfigPaths(),
     dts({
-      tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
-      // Faster builds by skipping tests. Set this to false to enable type checking.
-      skipDiagnostics: true
-    })
+      tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
+    }),
   ],
   server: {
     fs: {
