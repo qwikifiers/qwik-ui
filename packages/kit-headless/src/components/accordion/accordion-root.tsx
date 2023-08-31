@@ -7,7 +7,7 @@ import {
   useTask$,
   type QwikIntrinsicElements,
   type PropFunction,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 
 import { type AccordionRootContext } from './accordion-context.type';
@@ -59,7 +59,7 @@ export const AccordionRoot = component$(
 
       // needs to grab a new array when adding or removing elements dynamically.
       const getLatestTriggers = Array.from(
-        rootElement.querySelectorAll('[data-trigger-id]')
+        rootElement.querySelectorAll('[data-trigger-id]'),
       ) as HTMLButtonElement[];
 
       triggerElementsSig.value = getLatestTriggers.filter((element) => {
@@ -118,7 +118,7 @@ export const AccordionRoot = component$(
       triggerElementsSig,
       collapsible,
       behavior,
-      animated
+      animated,
     };
 
     useContextProvider(accordionRootContextId, contextService);
@@ -128,5 +128,5 @@ export const AccordionRoot = component$(
         <Slot />
       </div>
     );
-  }
+  },
 );

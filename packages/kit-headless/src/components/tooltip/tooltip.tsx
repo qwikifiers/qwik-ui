@@ -35,17 +35,13 @@ export const Tooltip = component$(
     const update = $(async () => {
       const now = Date.now();
       const hasMouseEnterDebounced = now - lastActivatedTimestamp.value >= 300;
-      if (
-        triggerAnchor.value &&
-        tooltipAnchor.value &&
-        hasMouseEnterDebounced
-      ) {
+      if (triggerAnchor.value && tooltipAnchor.value && hasMouseEnterDebounced) {
         const { x, y } = await computePosition(
           triggerAnchor.value,
           tooltipAnchor.value as HTMLElement,
           {
             placement: position,
-          }
+          },
         );
         lastActivatedTimestamp.value = now;
         positionSignal.value = { x, y };
@@ -69,7 +65,7 @@ export const Tooltip = component$(
         if (key === 'Escape') {
           hideTooltip();
         }
-      })
+      }),
     );
 
     useVisibleTask$(({ track }) => {
@@ -123,5 +119,5 @@ export const Tooltip = component$(
         </Wrapper>
       </>
     );
-  }
+  },
 );

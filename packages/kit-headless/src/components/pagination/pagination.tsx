@@ -84,28 +84,25 @@ export const getPaginationButtons = (
     hideNextButton,
     showFirstButton,
     showLastButton,
-  }: PaginationOptions
+  }: PaginationOptions,
 ): PaginationButtonValue[] => {
   const startPages = range(1, Math.min(boundaryCount, count));
-  const endPages = range(
-    Math.max(count - boundaryCount + 1, boundaryCount + 1),
-    count
-  );
+  const endPages = range(Math.max(count - boundaryCount + 1, boundaryCount + 1), count);
 
   const siblingsStart = Math.max(
     Math.min(
       page - siblingCount, // Natural start
-      count - boundaryCount - siblingCount * 2 - 1 // Lower boundary when page is high
+      count - boundaryCount - siblingCount * 2 - 1, // Lower boundary when page is high
     ),
-    boundaryCount + 2 // Greater than startPages
+    boundaryCount + 2, // Greater than startPages
   );
 
   const siblingsEnd = Math.min(
     Math.max(
       page + siblingCount, // Natural end
-      boundaryCount + siblingCount * 2 + 2 // Upper boundary when page is low
+      boundaryCount + siblingCount * 2 + 2, // Upper boundary when page is low
     ),
-    endPages.length > 0 ? endPages[0] - 2 : count - 1 // Less than endPages
+    endPages.length > 0 ? endPages[0] - 2 : count - 1, // Less than endPages
   );
 
   const items = [
@@ -153,7 +150,7 @@ export const PaginationButton = component$(
         {value}
       </HeadlessButton>
     );
-  }
+  },
 );
 
 export const PaginationDivider = component$(() => {
@@ -202,8 +199,8 @@ export const Pagination = component$(
               if (typeof item === 'number') return item;
               return page;
           }
-        })()
-      )
+        })(),
+      ),
     );
 
     const items = getPaginationButtons(page, pages, labels, rest);
@@ -223,10 +220,8 @@ export const Pagination = component$(
                   labels={labels}
                   onClick$={() => itemClickHandler(item)}
                   disabled={
-                    (['prev', 'first'].includes(item.toString()) &&
-                      page === 1) ||
-                    (['next', 'last'].includes(item.toString()) &&
-                      page === pages)
+                    (['prev', 'first'].includes(item.toString()) && page === 1) ||
+                    (['next', 'last'].includes(item.toString()) && page === pages)
                   }
                   aria-label={`Page ${item}`}
                   aria-current={item === page}
@@ -238,5 +233,5 @@ export const Pagination = component$(
         })}
       </>
     );
-  }
+  },
 );

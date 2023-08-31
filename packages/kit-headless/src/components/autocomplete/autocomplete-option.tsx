@@ -8,7 +8,7 @@ import {
   useTask$,
   useVisibleTask$,
   type QwikIntrinsicElements,
-  type QwikKeyboardEvent
+  type QwikKeyboardEvent,
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
@@ -33,7 +33,7 @@ export const AutocompleteOption = component$((props: OptionProps) => {
     console.log(props.optionValue, specialId);
     contextService.dataHolder.value = [
       ...contextService.dataHolder.value,
-      { value: props.optionValue, id: specialId, ref }
+      { value: props.optionValue, id: specialId, ref },
     ];
   });
 
@@ -44,23 +44,23 @@ export const AutocompleteOption = component$((props: OptionProps) => {
         //no matter what, even if the component started on the server.
         //This is because if we run this cleanup on the server, it'll cleanup while still on the server.
         contextService.dataHolder.value = contextService.dataHolder.value.filter(
-          (item) => item.id !== specialId
+          (item) => item.id !== specialId,
         );
       });
 
       console.log(props.optionValue, specialId);
       const wasRenderedOnServer = contextService.dataHolder.value.find(
-        (item) => item.id === specialId
+        (item) => item.id === specialId,
       );
       if (wasRenderedOnServer) {
         return;
       }
       contextService.dataHolder.value = [
         ...contextService.dataHolder.value,
-        { value: props.optionValue, id: specialId, ref }
+        { value: props.optionValue, id: specialId, ref },
       ];
     },
-    { strategy: 'document-idle' }
+    { strategy: 'document-idle' },
   );
 
   // push optionValue instead of ref to store
@@ -95,7 +95,7 @@ export const AutocompleteOption = component$((props: OptionProps) => {
             contextService.isTriggerExpandedSig.value = false;
           }
         }),
-        props.onClick$
+        props.onClick$,
       ]}
       onKeyDown$={[
         $((e: QwikKeyboardEvent) => {
@@ -105,7 +105,7 @@ export const AutocompleteOption = component$((props: OptionProps) => {
             contextService.focusInput$(contextService.inputId);
           }
         }),
-        props.onKeyDown$
+        props.onKeyDown$,
       ]}
       {...props}
     >

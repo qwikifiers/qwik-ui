@@ -10,7 +10,7 @@ import {
   useSignal,
   type ContextId,
   type QRL,
-  type Signal
+  type Signal,
 } from '@builder.io/qwik';
 import { type JSXNode } from '@builder.io/qwik/jsx-runtime';
 
@@ -21,7 +21,7 @@ export const openPortalContextId =
       (
         name: string,
         elementToTeleport: JSXNode,
-        contexts?: Array<ContextPair<unknown>>
+        contexts?: Array<ContextPair<unknown>>,
       ) => QRL<() => void>
     >
   >('PortalProviderAPI');
@@ -52,26 +52,26 @@ export const QwikUIProvider = component$(() => {
       (
         name: string,
         elementToTeleport: JSXNode,
-        contextPairs?: Array<ContextPair<unknown>>
+        contextPairs?: Array<ContextPair<unknown>>,
       ) => {
         const portalInfo: PortalInfo = {
           name,
           elementToTeleport,
-          contextPairs: contextPairs || []
+          contextPairs: contextPairs || [],
         };
         portalInfo.close$ = $(function removePortalFromList() {
           portalInfoListSig.value = portalInfoListSig.value.filter(
-            (currentPortalInfo) => currentPortalInfo !== portalInfo
+            (currentPortalInfo) => currentPortalInfo !== portalInfo,
           );
         });
         portalInfo.contextPairs.push({
           id: closePortalContextId,
-          value: portalInfo.close$
+          value: portalInfo.close$,
         });
         portalInfoListSig.value = [...portalInfoListSig.value, portalInfo];
         return portalInfo.close$;
-      }
-    )
+      },
+    ),
   );
   return (
     <>

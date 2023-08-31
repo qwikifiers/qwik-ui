@@ -34,15 +34,14 @@ export type Items = {
 
 export const useItems = (
   ref: Signal<HTMLElement | undefined>,
-  params: Params | void
+  params: Params | void,
 ): Items => {
   const visible = useVisible(ref);
 
   const loop = params?.loop ?? true;
   const transition = params?.transition || 350;
   const isFirst = (params?.startAt && params?.startAt === 0) || false;
-  const isLast =
-    (params?.startAt && params?.startAt + 1 === getCount(ref)) || false;
+  const isLast = (params?.startAt && params?.startAt + 1 === getCount(ref)) || false;
   const index = params?.startAt || 0;
 
   const total = useSignal(0);
@@ -57,15 +56,13 @@ export const useItems = (
     const element = getElement(ref, index);
 
     if (!ref?.value || !count) {
-      console.warn(
-        `Can't jump to ${index} because the carousel elements is empty.`
-      );
+      console.warn(`Can't jump to ${index} because the carousel elements is empty.`);
       return;
     }
 
     if (!element) {
       console.warn(
-        `Can't jump to ${index} because the element index ${index} doesn't exist.`
+        `Can't jump to ${index} because the element index ${index} doesn't exist.`,
       );
       return;
     }
@@ -77,7 +74,7 @@ export const useItems = (
           block: 'nearest',
           inline: 'center',
         }),
-      transition
+      transition,
     );
 
     active.current.value = index;
@@ -87,9 +84,7 @@ export const useItems = (
     if (!loop && active.isFirst.value) {
       return;
     }
-    const index = active.isFirst.value
-      ? getCount(ref) - 1
-      : active.current.value - 1;
+    const index = active.isFirst.value ? getCount(ref) - 1 : active.current.value - 1;
     scrollAt(index);
   });
 
@@ -111,7 +106,7 @@ export const useItems = (
         }
         active.current.value = index;
       });
-    })
+    }),
   );
 
   useTask$(({ track }) => {

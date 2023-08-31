@@ -43,8 +43,7 @@ article {
   position: relative;
   left: 0;
   right: 0;
-  margin: calc(var(--card-margin) + var(--card-width-shadow))
-    calc(var(--card-margin) / 4);
+  margin: calc(var(--card-margin) + var(--card-width-shadow)) calc(var(--card-margin) / 4);
   border-radius: var(--card-border-radius);
   transition: margin calc(var(--transition-ms) * 1.5) 100ms ease-out,
     box-shadow calc(var(--transition-ms) * 2.5) ease-out;

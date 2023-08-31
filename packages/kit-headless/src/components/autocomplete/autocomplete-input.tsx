@@ -5,7 +5,7 @@ import {
   useSignal,
   useVisibleTask$,
   type QwikIntrinsicElements,
-  type QwikKeyboardEvent
+  type QwikKeyboardEvent,
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
@@ -17,7 +17,7 @@ const autocompletePreventedKeys = [
   KeyCode.PageDown,
   KeyCode.PageUp,
   KeyCode.ArrowDown,
-  KeyCode.ArrowUp
+  KeyCode.ArrowUp,
 ];
 
 export type InputProps = QwikIntrinsicElements['input'];
@@ -68,7 +68,7 @@ export const AutocompleteInput = component$((props: InputProps) => {
             contextService.filteredOptionsStore[0]?.value?.focus();
           }
         }),
-        props.onKeyDown$
+        props.onKeyDown$,
       ]}
       onFocus$={() => {
         contextService.isInputFocusedSig.value = true;

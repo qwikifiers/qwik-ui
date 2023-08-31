@@ -6,7 +6,7 @@ import {
   Slot,
   type QwikIntrinsicElements,
   type QwikKeyboardEvent,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
@@ -18,7 +18,7 @@ const preventedKeys = [
   KeyCode.PageDown,
   KeyCode.PageUp,
   KeyCode.ArrowDown,
-  KeyCode.ArrowUp
+  KeyCode.ArrowUp,
 ];
 
 export type ListboxProps = QwikIntrinsicElements['ul'];
@@ -67,7 +67,7 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
       onKeyDown$={[
         $((e: QwikKeyboardEvent) => {
           const availableOptions = contextService.filteredOptionsStore.map(
-            (option) => option.value
+            (option) => option.value,
           );
 
           const target = e.target as HTMLElement;
@@ -97,7 +97,7 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
             availableOptions[availableOptions.length - 1]?.focus();
           }
         }),
-        props.onKeyDown$
+        props.onKeyDown$,
       ]}
     >
       <Slot />

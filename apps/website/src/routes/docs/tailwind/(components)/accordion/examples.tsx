@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-  Checkbox
+  Checkbox,
 } from '@qwik-ui/headless';
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 

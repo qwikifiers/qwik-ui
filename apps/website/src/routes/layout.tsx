@@ -9,7 +9,7 @@ import docsStyles from './docs.css?inline';
 import {
   DocsNavigation,
   LinkGroup,
-  LinkProps
+  LinkProps,
 } from './docs/_components/navigation-docs/navigation-docs';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
@@ -45,25 +45,25 @@ function useKitMenuItems() {
   if (selectedKitSig.value === KitName.HEADLESS) {
     menuItemsGroups = decorateMenuItemsWithBadges(
       menu?.items,
-      statusByComponent.headless
+      statusByComponent.headless,
     );
   }
 
   if (selectedKitSig.value === KitName.TAILWIND) {
     menuItemsGroups = decorateMenuItemsWithBadges(
       menu?.items,
-      statusByComponent.tailwind
+      statusByComponent.tailwind,
     );
   }
 
   return {
-    menuItemsGroups
+    menuItemsGroups,
   };
 }
 
 function decorateMenuItemsWithBadges(
   menuItems: ContentMenu[] | undefined,
-  kitStatusesMap: ComponentsStatusesMap
+  kitStatusesMap: ComponentsStatusesMap,
 ): LinkGroup[] | undefined {
   return menuItems?.map((item) => {
     return {
@@ -71,13 +71,13 @@ function decorateMenuItemsWithBadges(
       children: item.items?.map((child) => {
         const link: LinkProps = {
           name: child.text,
-          href: child.href
+          href: child.href,
         };
         if (kitStatusesMap[link.name]) {
           link.status = kitStatusesMap[link.name];
         }
         return link;
-      })
+      }),
     };
   });
 }

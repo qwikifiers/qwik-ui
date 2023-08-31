@@ -25,5 +25,5 @@ export const Collapse = component$(
         </span>
       </HeadlessCollapse>
     );
-  }
+  },
 );

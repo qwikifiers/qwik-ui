@@ -17,8 +17,8 @@ export default component$(() => {
       <h1>Size</h1>
       <p>
         Spinner are sized based on the font size. To change their size, set the{' '}
-        <b>font-size</b> property on the Spinner itself or on a parent element
-        as shown below.
+        <b>font-size</b> property on the Spinner itself or on a parent element as shown
+        below.
       </p>
 
       <Spinner />
@@ -27,16 +27,15 @@ export default component$(() => {
 
       <h1>Track Width</h1>
       <p>
-        The width of the Spinner track can be changed by the property{' '}
-        <b>width</b>.
+        The width of the Spinner track can be changed by the property <b>width</b>.
       </p>
 
       <Spinner class="text-5xl" width="10px" />
 
       <h1>Color</h1>
       <p>
-        The colors of Spinner can be changed by the properties{' '}
-        <b>indicatorColor</b> and <b>trackColor</b>.
+        The colors of Spinner can be changed by the properties <b>indicatorColor</b> and{' '}
+        <b>trackColor</b>.
       </p>
       <Spinner
         class="text-5xl"

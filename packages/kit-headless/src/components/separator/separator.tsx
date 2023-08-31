@@ -36,14 +36,14 @@ export const Separator = component$(
         - horizontal
         - vertical
 
-        Defaulting to 'horizontal'.`
+        Defaulting to 'horizontal'.`,
       );
       return 'horizontal';
     });
 
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
     const ariaOrientation = useComputed$(() =>
-      orientation.value === 'vertical' ? orientation.value : undefined
+      orientation.value === 'vertical' ? orientation.value : undefined,
     );
 
     const semanticProps = useComputed$(() =>
@@ -51,12 +51,12 @@ export const Separator = component$(
         ? { role: 'none' }
         : {
             role: 'separator',
-            'aria-orientation': ariaOrientation.value
-          }
+            'aria-orientation': ariaOrientation.value,
+          },
     );
 
     return (
       <div data-orientation={orientation.value} {...semanticProps.value} {...props} />
     );
-  }
+  },
 );

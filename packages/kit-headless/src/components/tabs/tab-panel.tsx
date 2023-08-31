@@ -5,7 +5,7 @@ import {
   Slot,
   component$,
   useComputed$,
-  useContext
+  useContext,
 } from '@builder.io/qwik';
 import { TAB_ID_PREFIX } from './tab';
 import { tabsContextId } from './tabs-context-id';
@@ -45,12 +45,12 @@ export const TabPanel = component$(
         tabIndex={0}
         class={[
           (props.class as Signal<string>)?.value ?? (props.class as string),
-          (_extraClass as Signal<string>)?.value ?? (_extraClass as string)
+          (_extraClass as Signal<string>)?.value ?? (_extraClass as string),
         ]}
         hidden={!isSelectedSig.value}
       >
         <Slot />
       </div>
     );
-  }
+  },
 );

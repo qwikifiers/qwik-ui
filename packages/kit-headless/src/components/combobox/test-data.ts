@@ -78,7 +78,7 @@ export default function TestData() {
     'Strawberry',
     'Tamarillo',
     'Tamarind',
-    'Yuzu'
+    'Yuzu',
   ];
 
   return fruits;

@@ -21,9 +21,9 @@ export default component$(() => {
         name: path,
         path:
           indexPath > 0
-            ? `/${arrPath
-                .filter((_, indexPath2) => indexPath2 < indexPath)
-                .join('/')}/${arrPath[indexPath]}/`
+            ? `/${arrPath.filter((_, indexPath2) => indexPath2 < indexPath).join('/')}/${
+                arrPath[indexPath]
+              }/`
             : `/${path}/`,
       };
     });
@@ -61,9 +61,7 @@ export default component$(() => {
             <BreadcrumbItem
               key={index}
               class={
-                itemBreadcrumb.path === url.pathname
-                  ? 'breadcrumb-item--active'
-                  : ''
+                itemBreadcrumb.path === url.pathname ? 'breadcrumb-item--active' : ''
               }
             >
               {itemBreadcrumb.name}
@@ -79,9 +77,7 @@ export default component$(() => {
               <a
                 href={`${itemBreadcrumb.path}`}
                 class={`breadcrumb-item ${
-                  itemBreadcrumb.path === url.pathname
-                    ? 'breadcrumb-item--active'
-                    : ''
+                  itemBreadcrumb.path === url.pathname ? 'breadcrumb-item--active' : ''
                 }`}
               >
                 <PathIcon />
@@ -96,10 +92,7 @@ export default component$(() => {
         <Breadcrumb>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
             <BreadcrumbItem key={index} divider="→">
-              <a
-                href={`${itemBreadcrumb.path}`}
-                class="breadcrumb-item--hovered"
-              >
+              <a href={`${itemBreadcrumb.path}`} class="breadcrumb-item--hovered">
                 <span>{itemBreadcrumb.name}</span>
               </a>
             </BreadcrumbItem>

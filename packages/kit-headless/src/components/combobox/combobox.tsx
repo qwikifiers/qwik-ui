@@ -6,7 +6,7 @@ import {
   component$,
   useContextProvider,
   useSignal,
-  type FunctionComponent
+  type FunctionComponent,
 } from '@builder.io/qwik';
 
 import { ComboboxListbox } from './combobox-listbox';
@@ -108,7 +108,7 @@ export const ComboboxImpl = component$((props: ComboboxImplProps) => {
     isTriggerFocusedSig,
     inputRef,
     triggerRef,
-    listboxRef
+    listboxRef,
   };
 
   useContextProvider(ComboboxContextId, context);

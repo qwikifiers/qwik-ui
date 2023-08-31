@@ -23,13 +23,7 @@ export type TailwindProgressVariants =
 export type ProgressProps = HTMLProgressProps & TailwindProgressProps;
 
 export const Progress = component$((props: ProgressProps) => {
-  const {
-    variant = 'primary',
-    class: classNames,
-    value = 0,
-    max = 100,
-    ...rest
-  } = props;
+  const { variant = 'primary', class: classNames, value = 0, max = 100, ...rest } = props;
 
   const { variants } = daisyConfig;
 

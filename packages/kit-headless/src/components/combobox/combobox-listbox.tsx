@@ -4,7 +4,7 @@ import {
   component$,
   useContext,
   useVisibleTask$,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import { computePosition, flip } from '@floating-ui/dom';
 import ComboboxContextId from './combobox-context-id';
@@ -18,14 +18,14 @@ export const ComboboxListbox = component$((props: ComboboxListboxProps) => {
     (referenceEl: HTMLInputElement, floatingEl: HTMLUListElement) => {
       computePosition(referenceEl, floatingEl, {
         placement: 'bottom',
-        middleware: [flip()]
+        middleware: [flip()],
       }).then(({ x, y }) => {
         Object.assign(floatingEl.style, {
           left: `${x}px`,
-          top: `${y}px`
+          top: `${y}px`,
         });
       });
-    }
+    },
   );
 
   useVisibleTask$(async function updateListboxPosition() {

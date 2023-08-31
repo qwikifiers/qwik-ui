@@ -3,7 +3,7 @@ import {
   component$,
   useSignal,
   useStylesScoped$,
-  $
+  $,
 } from '@builder.io/qwik';
 import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
 import { getClassByStatus } from '../component-status-badge/component-status-badge';
@@ -45,7 +45,7 @@ function getMessageByStatus(status?: ComponentStatus) {
           <strong>WARNING:</strong> This component is in{' '}
           <span
             class={`px-2 rounded-full ${getClassByStatus(
-              status || ComponentStatus.Planned
+              status || ComponentStatus.Planned,
             )}`}
           >
             {status}
@@ -114,7 +114,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
             // we need the margin as a variable rather than a static class.
             ref.value?.style.setProperty(
               '--dynamic-banner-height',
-              `-${ref.value?.offsetHeight + marginBottom}px`
+              `-${ref.value?.offsetHeight + marginBottom}px`,
             );
 
             ref.value?.classList.toggle('fade');

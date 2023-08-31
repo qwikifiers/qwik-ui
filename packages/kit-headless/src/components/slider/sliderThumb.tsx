@@ -22,7 +22,7 @@ export const SliderThumb = component$(({ style }: { style?: string }) => {
       contextService.value.value = clamp(
         e.pageX - contextService.positionX.value,
         contextService.min.value,
-        contextService.max.value
+        contextService.max.value,
       );
     }
     mouseDownHappenedSignal.value = true;
@@ -35,10 +35,10 @@ export const SliderThumb = component$(({ style }: { style?: string }) => {
         contextService.value.value = clamp(
           (e as MouseEvent).pageX - contextService.positionX.value,
           contextService.min.value,
-          contextService.max.value
+          contextService.max.value,
         );
       }
-    })
+    }),
   );
 
   useOnWindow(
@@ -48,11 +48,11 @@ export const SliderThumb = component$(({ style }: { style?: string }) => {
         contextService.value.value = clamp(
           (e as MouseEvent).pageX - contextService.positionX.value,
           contextService.min.value,
-          contextService.max.value
+          contextService.max.value,
         );
       }
       mouseDownHappenedSignal.value = false;
-    })
+    }),
   );
 
   return (

@@ -1,9 +1,4 @@
-import {
-  component$,
-  Slot,
-  QwikChangeEvent,
-  PropFunction,
-} from '@builder.io/qwik';
+import { component$, Slot, QwikChangeEvent, PropFunction } from '@builder.io/qwik';
 
 interface StyleProps {
   class?: string;
@@ -30,10 +25,7 @@ export interface CheckboxProps extends StyleProps {
   value?: string;
   tabIndex?: number;
   onChange?: PropFunction<
-    (
-      event: QwikChangeEvent<HTMLInputElement>,
-      element: HTMLInputElement
-    ) => void
+    (event: QwikChangeEvent<HTMLInputElement>, element: HTMLInputElement) => void
   >;
 }
 
@@ -69,5 +61,5 @@ export const Root = component$(
         {...props}
       />
     );
-  }
+  },
 );

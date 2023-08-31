@@ -6,8 +6,8 @@ export default component$(() => {
     <article class="max-w-prose">
       <h1 class="text-xl">Installation</h1>
       <p class="text-lg mb-6">
-        To get started with the Tailwind Kit for Qwik UI, run the following
-        command to install the Tailwind Kit via npm:
+        To get started with the Tailwind Kit for Qwik UI, run the following command to
+        install the Tailwind Kit via npm:
       </p>
 
       <div class="mt-4">
@@ -17,9 +17,8 @@ export default component$(() => {
       </div>
 
       <p class="text-lg mt-6 mb-6">
-        Which should install DasiyUI as part of its dependencies. Then you can
-        add daisyUI to your <code class="bg-black">tailwind.config.js</code>{' '}
-        file:
+        Which should install DasiyUI as part of its dependencies. Then you can add daisyUI
+        to your <code class="bg-black">tailwind.config.js</code> file:
       </p>
 
       <div class="mt-4">
@@ -33,13 +32,13 @@ export default component$(() => {
       </div>
 
       <p class="text-lg mt-6 mb-6">
-        This will install That's it! The Tailwind Kit is now installed and ready
-        for use in your Qwik project.
+        This will install That's it! The Tailwind Kit is now installed and ready for use
+        in your Qwik project.
       </p>
 
       <p class="text-lg mb-6">
-        Now you can start building your fully designed, accessible Qwik web
-        applications using the Qwik UI Tailwind Kit.
+        Now you can start building your fully designed, accessible Qwik web applications
+        using the Qwik UI Tailwind Kit.
       </p>
     </article>
   );

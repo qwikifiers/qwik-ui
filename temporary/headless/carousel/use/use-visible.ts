@@ -46,7 +46,7 @@ export const useVisible = (ref: Signal<HTMLElement | undefined>) => {
           last.value = end;
         });
       },
-      { root: getContainer(ref) }
+      { root: getContainer(ref) },
     );
 
     getElements(ref).forEach((item) => observer.observe(item));

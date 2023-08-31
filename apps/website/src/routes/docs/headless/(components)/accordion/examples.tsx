@@ -3,14 +3,14 @@ import {
   QwikIntrinsicElements,
   Slot,
   useSignal,
-  useStore
+  useStore,
 } from '@builder.io/qwik';
 import {
   AccordionContent,
   AccordionHeader,
   AccordionItem,
   AccordionRoot,
-  AccordionTrigger
+  AccordionTrigger,
 } from '@qwik-ui/headless';
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
@@ -608,7 +608,7 @@ export const DynamicAccordion = component$(
     for (let i = 0; i < itemsLength; i++) {
       items.push({
         label: `Original Item ${i + 1}`,
-        id: Math.random()
+        id: Math.random(),
       });
     }
 
@@ -682,7 +682,7 @@ export const DynamicAccordion = component$(
         </div>
       </PreviewCodeExample>
     );
-  }
+  },
 );
 
 export function SVG(props: QwikIntrinsicElements['svg'], key: string) {

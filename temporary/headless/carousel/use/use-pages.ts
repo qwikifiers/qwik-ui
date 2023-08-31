@@ -26,16 +26,13 @@ type Params = {
   transition?: number;
 };
 
-export const usePages = (
-  ref: Signal<HTMLElement | undefined>,
-  params: Params
-): Pages => {
+export const usePages = (ref: Signal<HTMLElement | undefined>, params: Params): Pages => {
   const transition = params.transition || 350;
   const loop = params.loop ?? true;
   const ranges = useSignal<Array<number[]>>([]);
   const total = useComputed$(() => ranges.value.length);
   const current = useComputed$(() =>
-    getPageFromActiveItem(params.items.active.current.value, ranges.value)
+    getPageFromActiveItem(params.items.active.current.value, ranges.value),
   );
   const active = params.items.active;
 
@@ -66,15 +63,13 @@ export const usePages = (
     const element = getElement(ref, index);
 
     if (!ref?.value || !count) {
-      console.warn(
-        `Can't jump to ${index} because the carousel elements is empty.`
-      );
+      console.warn(`Can't jump to ${index} because the carousel elements is empty.`);
       return;
     }
 
     if (!element) {
       console.warn(
-        `Can't jump to ${index} because the element index ${index} doesn't exist.`
+        `Can't jump to ${index} because the element index ${index} doesn't exist.`,
       );
       return;
     }
@@ -86,7 +81,7 @@ export const usePages = (
           block: 'nearest',
           inline: 'center',
         }),
-      transition
+      transition,
     );
 
     active.current.value = index;

@@ -5,7 +5,7 @@ import {
   useContext,
   useSignal,
   useVisibleTask$,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import AutocompleteContextId from './autocomplete-context-id';
 
@@ -42,7 +42,7 @@ export const AutocompleteTrigger = component$(({ ...props }: TriggerProps) => {
           contextService.isTriggerExpandedSig.value =
             !contextService.isTriggerExpandedSig.value;
         }),
-        props.onClick$
+        props.onClick$,
       ]}
       tabIndex={-1}
     >

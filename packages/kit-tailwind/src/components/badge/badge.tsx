@@ -20,13 +20,7 @@ export type TailwindBadgeVariants =
 export type TailwindBadgeSizes = 'xs' | 'sm' | 'md' | 'lg';
 
 export const Badge = component$((props: TailwindBadgeProps) => {
-  const {
-    size = 'md',
-    variant = 'neutral',
-    class: classNames,
-    outline,
-    ...rest
-  } = props;
+  const { size = 'md', variant = 'neutral', class: classNames, outline, ...rest } = props;
 
   const { variants, sizes, options } = {
     variants: {
@@ -61,7 +55,7 @@ export const Badge = component$((props: TailwindBadgeProps) => {
         {
           [options.outline]: outline,
         },
-        classNames
+        classNames,
       )}
     >
       <Slot />

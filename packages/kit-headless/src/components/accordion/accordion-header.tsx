@@ -2,7 +2,7 @@ import {
   component$,
   Slot,
   useContext,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import { accordionItemContextId } from './accordion-context-id';
 
@@ -25,5 +25,5 @@ export const AccordionHeader = component$(
         <Slot />
       </PolymorphicHeading>
     );
-  }
+  },
 );

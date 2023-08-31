@@ -4,7 +4,7 @@ export type ToastProps = {
    */
   label?: string;
   class?: string;
-}
+};
 
 export const Toast = ({ label = 'New Message', ...toastProps }: ToastProps) => {
   return (

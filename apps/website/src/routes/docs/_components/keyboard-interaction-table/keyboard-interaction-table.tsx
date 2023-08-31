@@ -34,7 +34,7 @@ export const KeyboardInteractionTable = component$(
         </tbody>
       </table>
     );
-  }
+  },
 );
 
 export const KBInteractionTableRow = component$(
@@ -51,5 +51,5 @@ export const KBInteractionTableRow = component$(
         </td>
       </tr>
     );
-  }
+  },
 );

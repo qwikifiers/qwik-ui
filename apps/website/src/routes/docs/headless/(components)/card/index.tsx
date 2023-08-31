@@ -1,11 +1,5 @@
 import { component$, useStyles$, useStylesScoped$ } from '@builder.io/qwik';
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  CardActions,
-  CardImage,
-} from '@qwik-ui/headless';
+import { Card, CardBody, CardTitle, CardActions, CardImage } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/primitives';
 import styles from './card.css?inline';
 
@@ -27,8 +21,8 @@ export default component$(() => {
         <CardBody>
           <CardTitle>Card Title</CardTitle>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-            aliquid architecto delectus deleniti dolor
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
+            architecto delectus deleniti dolor
           </p>
         </CardBody>
       </Card>
@@ -43,8 +37,8 @@ export default component$(() => {
         <CardBody>
           <CardTitle>Card Title</CardTitle>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-            aliquid architecto delectus deleniti dolor
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
+            architecto delectus deleniti dolor
           </p>
           <CardActions class="custom-card-actions">
             <Button>Button 1</Button>
@@ -59,8 +53,8 @@ export default component$(() => {
         <CardBody class="custom-card-body">
           <CardTitle class="custom-card-title">Card Title</CardTitle>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-            aliquid architecto delectus deleniti dolor
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
+            architecto delectus deleniti dolor
           </p>
         </CardBody>
       </Card>
@@ -74,8 +68,8 @@ export default component$(() => {
         <CardBody class="custom-card-body">
           <CardTitle>Card Title</CardTitle>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-            aliquid architecto delectus deleniti dolor
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
+            architecto delectus deleniti dolor
           </p>
           <CardActions class="custom-card-actions">
             <Button>Button 1</Button>

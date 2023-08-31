@@ -6,7 +6,7 @@ import {
   SelectOption,
   SelectRoot,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@qwik-ui/headless';
 import styles from './select.css?inline';
 
@@ -31,7 +31,7 @@ export default component$(() => {
               { value: '🍎 Apple', disabled: false },
               { value: '🍌 Banana', disabled: false },
               { value: '🍒 Cherry', disabled: false },
-              { value: '🐲 Dragonfruit', disabled: true }
+              { value: '🐲 Dragonfruit', disabled: true },
             ].map((option) => {
               return (
                 <SelectOption

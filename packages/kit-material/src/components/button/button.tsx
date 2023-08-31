@@ -14,14 +14,7 @@ export type MaterialButtonProps = {
 export type ButtonProps = HTMLButtonProps & MaterialButtonProps;
 
 export const Button = component$((props: ButtonProps) => {
-  const {
-    class: classNames,
-    disabled,
-    floating,
-    flat,
-    size = 'medium',
-    ...rest
-  } = props;
+  const { class: classNames, disabled, floating, flat, size = 'medium', ...rest } = props;
 
   return (
     <HeadlessButton
@@ -36,7 +29,7 @@ export const Button = component$((props: ButtonProps) => {
           btn: size === 'medium',
           'btn-large': size === 'large',
         },
-        classNames
+        classNames,
       )}
     >
       <Slot />

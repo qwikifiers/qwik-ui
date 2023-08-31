@@ -153,11 +153,7 @@ export default component$(() => {
         <h2>Custom class</h2>
 
         <div class="panel">
-          <Button
-            type="button"
-            variant="primary"
-            class="px-32 border-4 border-black"
-          >
+          <Button type="button" variant="primary" class="px-32 border-4 border-black">
             CUSTOM CLASS
           </Button>
         </div>

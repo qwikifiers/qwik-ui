@@ -6,5 +6,5 @@ export const tooltipByStatus = {
     'This component is ready for production, but the API might change.',
   [ComponentStatus.Draft]:
     'This component is still in development and may have bugs or missing features.',
-  [ComponentStatus.Planned]: 'This component is planned for development.'
+  [ComponentStatus.Planned]: 'This component is planned for development.',
 };

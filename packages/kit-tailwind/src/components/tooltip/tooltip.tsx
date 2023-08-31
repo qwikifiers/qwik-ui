@@ -11,8 +11,7 @@ export const Tooltip = component$((props: TooltipProps) => {
     <TooltipHeadless
       {...props}
       class={
-        'inline-block bg-black text-white p-2 rounded-lg z-[99] ' +
-        (props.class || '')
+        'inline-block bg-black text-white p-2 rounded-lg z-[99] ' + (props.class || '')
       }
     >
       <Slot />

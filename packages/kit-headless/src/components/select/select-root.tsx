@@ -7,7 +7,7 @@ import {
   useOnDocument,
   useSignal,
   useStore,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { computePosition, flip } from '@floating-ui/dom';
 import { VisuallyHidden } from '../../utils/visually-hidden';
@@ -34,7 +34,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     isOpenSig,
     triggerRefSig,
     listBoxRefSig,
-    isListboxHiddenSig
+    isListboxHiddenSig,
   };
 
   useContextProvider(SelectContextId, selectContext);
@@ -46,7 +46,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
       if (selectContext.isOpenSig.value === true && !rootRefSig.value?.contains(target)) {
         selectContext.isOpenSig.value = false;
       }
-    })
+    }),
   );
 
   useVisibleTask$(function setKeyHandler({ cleanup }) {
@@ -65,11 +65,11 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   const updatePosition$ = $((referenceEl: HTMLElement, floatingEl: HTMLElement) => {
     computePosition(referenceEl, floatingEl, {
       placement: 'bottom',
-      middleware: [flip()]
+      middleware: [flip()],
     }).then(({ x, y }) => {
       Object.assign(floatingEl.style, {
         left: `${x}px`,
-        top: `${y}px`
+        top: `${y}px`,
       });
     });
   });
@@ -100,7 +100,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
 
     if (listBox) {
       const collectedOptions = Array.from(
-        listBox.querySelectorAll('[role="option"]')
+        listBox.querySelectorAll('[role="option"]'),
       ) as HTMLElement[];
       selectContext.optionsStore.push(...collectedOptions);
     }

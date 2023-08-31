@@ -4,7 +4,7 @@ import {
   Slot,
   useContext,
   useSignal,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import SelectContextId from './select-context-id';
 
