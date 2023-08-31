@@ -8,9 +8,16 @@ import {
   useId,
   useSignal,
   useTask$,
+  useComputed$,
 } from '@builder.io/qwik';
+import { JSX } from '@builder.io/qwik/jsx-runtime';
+import ComboboxContextId from './combobox-context-id';
+import { ComboboxContext } from './combobox-context.type';
+import { getOptionLabel } from './utils';
 
 import { type Option } from './combobox-context.type';
+
+type QrlType<T> = T extends QRL<infer U> ? U : never;
 
 export type ComboboxProps<
   O extends Option = Option,
@@ -43,11 +50,6 @@ export type OptionInfo = {
   index: number;
 };
 
-import ComboboxContextId from './combobox-context-id';
-import { ComboboxContext } from './combobox-context.type';
-import { JSX } from '@builder.io/qwik/jsx-runtime';
-import { getOptionLabel } from './utils';
-
 export const Combobox = component$(
   <
     O extends Option = Option,
@@ -69,22 +71,23 @@ export const Combobox = component$(
       ...rest
     } = props;
 
+    const complexSig = useComputed$(() =>
+      options.map((option, key) => ({ option, key } as Complex)),
+    );
     const optionsSig = useSignal<Complex[]>([]);
     const inputValueSig = useSignal<string>(defaultLabel);
     useTask$(async ({ track }) => {
-      // TODO track in separate signal to prevent copying on every key
-      const opts = track(() =>
-        options.map((option, key) => ({ option, key } as Complex)),
-      );
+      const opts = track(() => complexSig.value);
       const inputValue = track(() => inputValueSig.value);
-
-      let filterFunction = await track(() => filter$)?.resolve();
+      let filterFunction: QrlType<ComboboxProps<O, Complex>['filter$']> | undefined =
+        await track(() => filter$)?.resolve();
 
       if (!filterFunction) {
         const labelKey = track(() => optionLabelKey);
 
         filterFunction = (value: string, options: Complex[]) => {
           if (!options) return [];
+          if (!value) return options;
           return options.filter(({ option }) => {
             if (typeof option === 'string')
               return option.toLowerCase().includes(value.toLowerCase());

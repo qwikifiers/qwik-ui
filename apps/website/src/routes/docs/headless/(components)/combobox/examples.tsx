@@ -131,6 +131,9 @@ export const StringCombobox = component$(() => {
   return (
     <PreviewCodeExample>
       <div class="flex flex-col gap-4" q:slot="actualComponent">
+        <div>
+          This uses a custom filter to only filter from the beginning of the options.
+        </div>
         <Combobox
           options={fruitsSig.value}
           defaultLabel="Currant"
