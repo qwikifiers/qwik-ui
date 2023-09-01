@@ -97,8 +97,8 @@ export const HeroExample = component$(() => {
             </ComboboxControl>
             <ComboboxPortal>
               <ComboboxListbox
-                position="bottom"
-                gap={8}
+                placement="bottom"
+                setOffset={8}
                 class="text-white w-44 bg-[#1f2532] px-4 py-2 rounded-sm border-[#7d95b3] border-[1px]"
               />
             </ComboboxPortal>

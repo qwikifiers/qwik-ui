@@ -6,16 +6,23 @@ import {
 } from '@builder.io/qwik';
 import {
   ReferenceElement,
+  arrow,
   autoUpdate,
   computePosition,
   flip,
   offset,
+  shift,
 } from '@floating-ui/dom';
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
 
+// type ArrowData = { element: HTMLElement; padding?: number | undefined };
+
 export type ComboboxListboxProps = {
-  shift?: {
+  // come back to shift later
+  arrowData?: { element: HTMLElement; padding?: number | undefined };
+  setArrow?: boolean;
+  setShift?: {
     mainAxis?: boolean;
     crossAxis?: boolean;
     limiter?: {
@@ -23,15 +30,15 @@ export type ComboboxListboxProps = {
       options?: unknown;
     };
   };
-  gap?:
+  setOffset?:
     | number
     | {
         mainAxis?: number;
         crossAxis?: number;
         alignmentAxis?: number | null;
       };
-  toggleFlip?: boolean;
-  position?:
+  setFlip?: boolean;
+  placement?:
     | 'top'
     | 'top-start'
     | 'top-end'
@@ -53,9 +60,12 @@ export type ComboboxListboxProps = {
 
 export const ComboboxListbox = component$(
   <O extends Option = Option>({
-    gap,
-    toggleFlip = true,
-    position = 'bottom',
+    setOffset,
+    setFlip = true,
+    placement = 'bottom',
+    setShift,
+    setArrow,
+    arrowData,
     ancestorScroll = true,
     ancestorResize = true,
     elementResize = true,
@@ -68,12 +78,18 @@ export const ComboboxListbox = component$(
     useVisibleTask$(function setListboxPosition({ cleanup }) {
       // Our settings from Floating UI
       function updatePosition() {
+        const middleware = [offset(setOffset), setFlip && flip(), setShift && shift()];
+
+        if (setArrow && arrowData) {
+          middleware.push(arrow(arrowData));
+        }
+
         computePosition(
           context.inputRef.value as ReferenceElement,
           context.listboxRef.value as HTMLElement,
           {
-            placement: position,
-            middleware: [offset(gap), toggleFlip && flip()],
+            placement: placement,
+            middleware: middleware,
           },
         ).then(({ x, y }) => {
           if (context.listboxRef.value) {
