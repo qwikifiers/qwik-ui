@@ -1,69 +1,51 @@
-import { ComboboxContext, Option } from './combobox-context.type';
+import type { ComboboxContext, Option } from './combobox-context.type';
 
-export function getOptionLabel(option: undefined | Option, labelKey: string): string {
-  if (option == null) {
-    return '';
-  }
-
-  if (typeof option === 'string') {
-    return option;
-  }
-
-  const label = option[labelKey] as unknown;
-  if (typeof label !== 'string') {
-    throw new Error(
-      'Qwik UI: Combobox optionLabelKey was not provided, and the option was not a string. Please provide a value for optionLabelKey, use the property name "label", or ensure that the option is a string.',
-    );
-  }
-  return label;
-}
-
-export const isOptionDisabled = (index: number, context: ComboboxContext): boolean => {
-  const option = context.optionsSig.value[index]?.option;
-  if (!option) {
-    return true;
-  }
-
-  if (typeof option === 'string') {
-    return false;
-  }
-
-  return !!option[context.optionDisabledKey];
-};
-
-export const getNextEnabledOptionIndex = (index: number, context: ComboboxContext) => {
+export const getNextEnabledOptionIndex = <O extends Option = Option>(
+  index: number,
+  context: ComboboxContext<O>,
+) => {
   let offset = 1;
   let currentIndex = index;
-  while (
-    isOptionDisabled((currentIndex + offset) % context.optionsSig.value.length, context)
-  ) {
+  const opts = context.filteredOptionsSig.value;
+  const len = opts.length;
+
+  while (opts[(currentIndex + offset) % len]?.disabled) {
     offset++;
-    if (offset + currentIndex > context.optionsSig.value.length - 1) {
+    if (offset + currentIndex > len - 1) {
       currentIndex = 0;
       offset = 0;
     }
   }
-  return (currentIndex + offset) % context.optionsSig.value.length;
+  return (currentIndex + offset) % len;
 };
 
-export const getPrevEnabledOptionIndex = (index: number, context: ComboboxContext) => {
+export const getPrevEnabledOptionIndex = <O extends Option = Option>(
+  index: number,
+  context: ComboboxContext<O>,
+) => {
   let offset = 1;
   let currentIndex = index;
-  while (
-    isOptionDisabled(
-      (currentIndex - offset + context.optionsSig.value.length) %
-        context.optionsSig.value.length,
-      context,
-    )
-  ) {
+  const opts = context.filteredOptionsSig.value;
+  const len = opts.length;
+  while (opts[(currentIndex - offset + len) % len]?.disabled) {
     offset++;
     if (currentIndex - offset < 0) {
-      currentIndex = context.optionsSig.value.length - 1;
+      currentIndex = len - 1;
       offset = 0;
     }
   }
-  return (
-    (currentIndex - offset + context.optionsSig.value.length) %
-    context.optionsSig.value.length
-  );
+  return (currentIndex - offset + len) % len;
+};
+
+export const getActiveDescendant = <O extends Option = Option>(
+  context: ComboboxContext<O>,
+) => {
+  const highlightedIndex = context.highlightedIndexSig.value;
+  const option = context.filteredOptionsSig.value[highlightedIndex];
+
+  if (highlightedIndex === -1 || option?.disabled) {
+    return '';
+  }
+
+  return `${context.localId}-${option?.key}`;
 };

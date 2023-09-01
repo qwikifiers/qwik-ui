@@ -1,38 +1,31 @@
 import {
   QwikIntrinsicElements,
-  Signal,
   Slot,
   component$,
   useComputed$,
   useContext,
-  useId,
   useSignal,
   useVisibleTask$,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
-import { isOptionDisabled, getOptionLabel } from './utils';
 
-import { Option } from './combobox-context.type';
+import { ResolvedOption } from './combobox';
 
 export type ComboboxOptionProps = {
   index: number;
-  option: Option;
-  disabled?: boolean;
+  resolved: ResolvedOption;
 } & QwikIntrinsicElements['li'];
 
 export const ComboboxOption = component$(
   // remove non-li props from props
-  ({ index, option: _0, disabled: _1, ...liProps }: ComboboxOptionProps) => {
+  ({ index, resolved, ...liProps }: ComboboxOptionProps) => {
     const context = useContext(ComboboxContextId);
-    const optionId = useId();
+    const optionId = `${context.localId}${resolved.key}`;
     context.optionIds.value[index] = optionId;
 
-    const isOptionDisabledSig = useComputed$(() => isOptionDisabled(index, context));
-
     const isHighlightedSig = useComputed$(
-      () =>
-        !(isOptionDisabledSig as Signal<boolean>).value &&
-        context.highlightedIndexSig.value === index,
+      // eslint-disable-next-line qwik/valid-lexical-scope
+      () => !resolved.disabled && context.highlightedIndexSig.value === index,
     );
 
     const optionRef = useSignal<HTMLLIElement>();
@@ -66,24 +59,24 @@ export const ComboboxOption = component$(
     return (
       <li
         {...liProps}
-        id={optionId}
+        id={`${context.localId}-${
+          context.filteredOptionsSig.value[context.highlightedIndexSig.value]?.key
+        }`}
         ref={optionRef}
         tabIndex={0}
         role="option"
         aria-selected={isHighlightedSig.value}
-        aria-disabled={isOptionDisabledSig.value}
-        data-disabled={isOptionDisabledSig.value}
+        aria-disabled={resolved.disabled}
+        data-disabled={resolved.disabled}
         onClick$={() => {
-          if (!context.inputRef.value || isOptionDisabledSig.value) {
+          // eslint-disable-next-line qwik/valid-lexical-scope
+          if (!context.inputRef.value || resolved.disabled) {
             return;
           }
 
-          context.inputRef.value.value = getOptionLabel(
-            context.optionsSig.value[context.highlightedIndexSig.value]?.option,
-            context.optionLabelKey,
-          );
-
-          context.isListboxOpenSig.value = false;
+          (context.inputRef.value.value =
+            context.filteredOptionsSig.value[context.highlightedIndexSig.value]?.label),
+            (context.isListboxOpenSig.value = false);
         }}
         onMouseEnter$={() => (context.highlightedIndexSig.value = index)}
       >

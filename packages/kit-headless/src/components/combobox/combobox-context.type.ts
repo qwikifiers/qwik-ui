@@ -1,10 +1,10 @@
-import { QRL, Signal } from '@builder.io/qwik';
-import { JSX } from '@builder.io/qwik/jsx-runtime';
+import type { Signal } from '@builder.io/qwik';
+import type { ComboboxProps, ResolvedOption } from './combobox';
 
 export interface ComboboxContext<O extends Option = Option> {
   // user's source of truth
-  optionsSig: Signal<{ option: O; key: number }[]>;
-  optionComponent$?: QRL<(option: O, key: number, filteredIndex: number) => JSX.Element>;
+  filteredOptionsSig: Signal<ResolvedOption<O>[]>;
+  renderOption$?: ComboboxProps<O>['renderOption$'];
 
   // element state
   inputValueSig: Signal<string>;

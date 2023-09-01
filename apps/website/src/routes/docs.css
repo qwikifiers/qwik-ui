@@ -43,7 +43,7 @@
     }
 
     blockquote {
-      @apply bg-[#BFDBFE] dark:bg-[#312E81] p-4 border-l-[3px] dark:border-[#F3F3F3] border-[#333333] rounded-sm my-4;
+      @apply bg-[#BFDBFE] dark:bg-[#312E81] p-4 lg:p-6 dark:border-[#F3F3F3] border-[#333333] rounded-xl my-4;
     }
 
     ul {

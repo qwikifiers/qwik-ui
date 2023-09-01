@@ -65,35 +65,18 @@ import {statusByComponent} from '../../../../../_state/component-statuses';
   ```
 </HeroExample>
 
-<div class="bg-red-200 dark:bg-red-900 p-4 rounded-sm border-l-[3px] dark:border-[#F3F3F3] border-[#333333]">
-  <p class="pb-4">The Combobox component makes use of **portals**. A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.</p>
-  <CodeExample classes="!mb-0 !p-6 !rounded-md">
-    ```tsx
-    <body>
-      <QwikUIProvider>
-        <slot />
-      </QwikUIProvider>
-    </body>
-    ```
-  </CodeExample>
+Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/), along with some additional API's that enhance the flexibility, types, and performance.
 
-  <p class="pt-4">Portals are still currently in **Beta**, as a result, if you'd like to use context within these components, you must pass your context ID using the `contextIds` prop on the `ComboboxPortal` component. If you're not using context, you don't need to do this step.</p>
-    <CodeExample classes="!mb-0 !p-6 !rounded-md">
-    ```tsx
-      <ComboboxPortal contextIds={["my-context-id", "my-context-id-2"]}>
-        <ComboboxListbox>
-          <ComboboxOption>Option</ComboboxOption>
-        </ComboboxListbox>
-      </ComboboxPortal>
-    ```
-  </CodeExample>
+<div class="mb-6 flex flex-col gap-2">
+[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/combobox)
+
+[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
+
+[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/combobox/index.mdx>)
+
 </div>
 
-<br/>
-
-> In Beta, we're currently supporting the **Autocomplete** configuration. We aim to support other combobox configurations according to our [roadmap](https://github.com/qwikifiers/qwik-ui/issues/405)
-
-<br/>
+<br />
 
 ##### ✨ Features
 
@@ -107,17 +90,44 @@ import {statusByComponent} from '../../../../../_state/component-statuses';
 
 <br/>
 
+> In Beta, we're currently supporting the **Autocomplete** configuration. We aim to support other combobox configurations according to our [roadmap](https://github.com/qwikifiers/qwik-ui/issues/405)
 
-Qwik UI's Combobox implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
+<br />
 
-<div class="mb-6 flex flex-col gap-2">
-[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/combobox)
+<div class="bg-red-200 dark:bg-red-900 p-4 lg:p-6 rounded-xl dark:border-[#F3F3F3] border-[#333333]">
+  <p class="pb-4">The Combobox component makes use of **portals**. A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.</p>
+  <CodeExample classes="!mb-0 !p-6 !rounded-md">
+    ```tsx
+    import { QwikUIProvider } from '@qwik-ui/headless'; // import Provider component
 
-[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
+    // wrap as a direct child to the body tag
+    <body>
+      <QwikUIProvider>
+        <slot />
+      </QwikUIProvider>
+    </body>
+    ```
+  </CodeExample>
 
-[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/combobox/index.mdx>)
+  <div class="pt-12 pb-4">
+    #### <ins>**Context Caveats**</ins>
+    <p class="pt-2 pb-4">Portals are still currently in **Beta**, as a result, you may experience an issue using your own context to pass data into the portal children.</p>
+    <p class="pb-4">If you do experience any context related issues, add the following **contextIds** prop to the **ComboboxPortal** component. It takes in an array of string context id's as a prop. We also have a live example below with context.</p>
+    <p class="pb-4">If you are not using context inside the portal children, this will not be an issue.</p>
 
+      <CodeExample classes="!mb-0 !p-6 !rounded-md">
+      ```tsx
+        <ComboboxPortal contextIds={["my-context-id", "my-context-id-2"]}>
+          <ComboboxListbox>
+            <ComboboxOption>Option</ComboboxOption>
+          </ComboboxListbox>
+        </ComboboxPortal> 
+      ```
+    </CodeExample>
+  </div>
 </div>
+
+<br/>
 
 ## Building blocks
 
@@ -128,22 +138,23 @@ Qwik UI's Combobox implementation follows the [WAI-Aria](https://www.w3.org/WAI/
 
     export default component$(() => {
       return (
-        <Combobox>
-          <ComboboxLabel>Label</ComboboxLabel>
+        <Combobox renderOption$={() => (
+            <ComboboxOption>
+              Option
+            </ComboboxOption>
+          )}>
+          <ComboboxLabel>Label Element</ComboboxLabel>
           <ComboboxControl>
             <ComboboxInput />
             <ComboboxTrigger>
-              Button
+              Opens Listbox
             </ComboboxTrigger>
           </ComboboxControl>
           <ComboboxPortal>
-            <ComboboxListbox>
-              <ComboboxOption>Option</ComboboxOption>
-            </ComboboxListbox>
+            <ComboboxListbox />
           </ComboboxPortal>
         </Combobox>
       )
-    })
     ```
 
   </CodeExample>

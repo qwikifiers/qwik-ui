@@ -1,18 +1,19 @@
-import { component$, useSignal, $ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import {
   Combobox,
-  ComboboxLabel,
-  ComboboxTrigger,
-  ComboboxInput,
   ComboboxControl,
+  ComboboxInput,
+  ComboboxLabel,
   ComboboxListbox,
   ComboboxOption,
   ComboboxPortal,
+  ComboboxTrigger,
+  ResolvedOption,
 } from './index';
 
-import TestData from './test-data';
 import { QwikUIProvider } from '../qwik-ui-provider';
 import './combobox-test.css';
+import TestData from './test-data';
 
 type StringCombobox = {
   defaultLabel?: string;
@@ -21,26 +22,27 @@ type StringCombobox = {
 const StringCombobox = component$(({ defaultLabel, ...props }: StringCombobox) => {
   const fruits = TestData();
 
-  const fruitsSig = useSignal(fruits);
-
-  const onInputChange$ = $((value: string) => {
-    fruitsSig.value = fruits.filter((option) => {
-      return option.toLowerCase().includes(value.toLowerCase());
-    });
-  });
-
   return (
     <>
       <QwikUIProvider>
         <Combobox
-          options={fruitsSig.value}
+          options={fruits}
           defaultLabel={defaultLabel && defaultLabel}
-          onInputChange$={onInputChange$}
-          optionComponent$={$((option: string, index: number) => (
-            <ComboboxOption class="option" index={index} option={option}>
-              {option}
+          filter$={(value: string, options) =>
+            options.filter(({ option }) => {
+              return option.toLowerCase().includes(value.toLowerCase());
+            })
+          }
+          renderOption$={(resolved: ResolvedOption, index: number) => (
+            <ComboboxOption
+              key={resolved.key}
+              class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
+              index={index}
+              resolved={resolved}
+            >
+              {resolved.label}
             </ComboboxOption>
-          ))}
+          )}
           {...props}
         >
           <ComboboxLabel>Fruits</ComboboxLabel>
@@ -269,7 +271,7 @@ describe('Keyboard Navigation', () => {
       THEN the last option in the listbox should be selected.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`{end}{downarrow}`);
+    cy.get('input').type(`{downarrow}{end}`);
 
     cy.get('li').last().should('have.attr', 'aria-selected', 'true');
   });
@@ -318,7 +320,7 @@ describe('Keyboard Navigation', () => {
   THEN focus should move to the last option in the list.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`Ap{downarrow}{uparrow}`);
+    cy.get('input').type(`{downarrow}{uparrow}`);
 
     cy.findByRole('listbox');
 
@@ -330,7 +332,7 @@ describe('Keyboard Navigation', () => {
   THEN focus should move to the first option in the list.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`Ap{downarrow}{uparrow}{downarrow}`);
+    cy.get('input').type(`{downarrow}{uparrow}{downarrow}`);
 
     cy.findByRole('listbox');
 
@@ -388,33 +390,30 @@ const DisabledCombobox = component$(() => {
     { testValue: 'sidney', testLabel: 'Sidney', disabled: true },
   ];
 
-  const objectExampleSig = useSignal(objectExample);
-
-  const onInputChange$ = $((value: string) => {
-    objectExampleSig.value = objectExample.filter((option) => {
-      return option.testLabel.toLowerCase().includes(value.toLowerCase());
-    });
-  });
-
   return (
     <>
       <QwikUIProvider>
         <Combobox
-          options={objectExampleSig.value}
-          onInputChange$={onInputChange$}
+          options={objectExample}
+          filter$={(value: string, options) =>
+            options.filter(({ option }) => {
+              return option.testLabel.toLowerCase().includes(value.toLowerCase());
+            })
+          }
           optionLabelKey="testLabel"
-          optionValue="testValue"
+          optionValueKey="testValue"
           optionDisabledKey="disabled"
-          optionComponent$={$((option: Trainer, index: number) => (
+          renderOption$={(resolved: ResolvedOption, index: number) => (
             <ComboboxOption
-              style={{ color: option.disabled ? 'gray' : '' }}
-              class="option"
+              key={resolved.key}
+              class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
               index={index}
-              option={option}
+              resolved={resolved}
+              style={{ color: resolved.disabled ? 'gray' : undefined }}
             >
-              {option.testLabel}
+              {resolved.label}
             </ComboboxOption>
-          ))}
+          )}
         >
           <ComboboxLabel>Fruits</ComboboxLabel>
           <ComboboxControl style={{ display: 'flex' }}>

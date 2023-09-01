@@ -45,16 +45,16 @@ export const RouterHead = component$(() => {
       <meta name="twitter:site" content="@QwikDev" />
       <meta name="twitter:title" content="Qwik" />
 
-      {head.meta.map((m) => (
-        <meta {...m} />
+      {head.meta.map((m, i) => (
+        <meta key={i} {...m} />
       ))}
 
-      {head.links.map((l) => (
-        <link {...l} />
+      {head.links.map((l, i) => (
+        <link key={i} {...l} />
       ))}
 
-      {head.styles.map((s) => (
-        <style {...s.props} dangerouslySetInnerHTML={s.style} />
+      {head.styles.map((s, i) => (
+        <style key={i} {...s.props} dangerouslySetInnerHTML={s.style} />
       ))}
 
       <CSSThemeScript />
