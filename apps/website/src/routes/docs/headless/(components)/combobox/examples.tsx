@@ -63,8 +63,7 @@ export const HeroExample = component$(() => {
                 key={resolved.key}
                 resolved={resolved}
                 index={index}
-                style={resolved.disabled ? { color: 'gray' } : {}}
-                class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
+                class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
               >
                 <span class="block group-aria-selected:translate-x-[3px] transition-transform duration-350">
                   {resolved.option.testLabel}
@@ -73,13 +72,13 @@ export const HeroExample = component$(() => {
             )}
             class="relative"
           >
-            <ComboboxLabel class=" font-semibold dark:text-white text-[#333333]">
+            <ComboboxLabel class=" font-semibold text-white">
               Personal Trainers ⚡
             </ComboboxLabel>
-            <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
+            <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
               <ComboboxInput
                 placeholder="Jim"
-                class="px-2 w-44 bg-inherit px-d2 pr-6 text-white"
+                class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
               />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
                 <svg
@@ -99,7 +98,7 @@ export const HeroExample = component$(() => {
               <ComboboxListbox
                 flip={true}
                 offset={8}
-                class="w-44 bg-[#1f2532] px-4 py-2 rounded-sm border-[#7d95b3] border-[1px]"
+                class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
               />
             </ComboboxPortal>
           </Combobox>
@@ -134,7 +133,7 @@ export const StringCombobox = component$(() => {
   return (
     <PreviewCodeExample>
       <div class="flex flex-col items-center gap-4 p-4" q:slot="actualComponent">
-        <div class=" text-left">
+        <div class="text-white text-left">
           This uses a custom filter to only filter from the beginning of the options.
         </div>
         <div>
@@ -150,7 +149,7 @@ export const StringCombobox = component$(() => {
             renderOption$={(resolved: ResolvedOption, index: number) => (
               <ComboboxOption
                 key={resolved.key}
-                class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
+                class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
                 index={index}
                 resolved={resolved}
               >
@@ -158,12 +157,10 @@ export const StringCombobox = component$(() => {
               </ComboboxOption>
             )}
           >
-            <ComboboxLabel class=" font-semibold dark:text-white text-[#333333]">
-              Fruits 🍓
-            </ComboboxLabel>
-            <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
+            <ComboboxLabel class=" font-semibold text-white">Fruits 🍓</ComboboxLabel>
+            <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
               <ComboboxInput
-                class="px-2 w-44 bg-inherit px-d2 pr-6 text-white"
+                class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
                 placeholder="Papaya"
               />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
@@ -181,7 +178,11 @@ export const StringCombobox = component$(() => {
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
-              <ComboboxListbox class="text-white w-44 bg-[#1f2532] px-4 py-2 rounded-sm border-[#7d95b3] border-[1px]" />
+              <ComboboxListbox
+                flip={true}
+                offset={8}
+                class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
+              />
             </ComboboxPortal>
           </Combobox>
         </div>
@@ -221,7 +222,7 @@ export const ContextExample = component$(() => {
             <ComboboxOption
               index={index}
               resolved={resolved}
-              class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
+              class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
             >
               <span class="block group-aria-selected:translate-x-[3px] transition-transform duration-350">
                 {resolved.label}
@@ -230,11 +231,9 @@ export const ContextExample = component$(() => {
           )}
           class="relative"
         >
-          <ComboboxLabel class="font-semibold dark:text-white text-[#333333]">
-            Animals 🐖
-          </ComboboxLabel>
-          <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
-            <ComboboxInput class="px-2 w-44 bg-inherit px-d2 pr-6 text-white" />
+          <ComboboxLabel class=" font-semibold text-white">Animals 🐖</ComboboxLabel>
+          <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
+            <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
             <ComboboxTrigger class="w-6 h-6 group absolute right-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -250,7 +249,11 @@ export const ContextExample = component$(() => {
             </ComboboxTrigger>
           </ComboboxControl>
           <ComboboxPortal>
-            <ComboboxListbox class="text-white w-44 bg-[#1f2532] px-4 py-2 rounded-sm border-[#7d95b3] border-[1px]" />
+            <ComboboxListbox
+              flip={true}
+              offset={8}
+              class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
+            />
           </ComboboxPortal>
         </Combobox>
       </div>

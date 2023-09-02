@@ -12,8 +12,8 @@ type APITableProps = {
 export const APITable = component$(({ propDescriptors }: APITableProps) => {
   return (
     <div class="overflow-auto">
-      <table class="w-full min-w-[540px] border-b border-gray-700 text-left sm:min-w-full mb-6">
-        <tbody class="divide-y divide-gray-700">
+      <table class="w-full min-w-[540px] border-b border-slate-700 text-left sm:min-w-full mb-6">
+        <tbody class="divide-y divide-slate-700">
           <tr class="w-1/4 dark:text-white ">
             <td class="w-1/6 whitespace-nowrap py-2 pl-4 text-sm font-medium sm:pl-0">
               Prop
@@ -25,19 +25,19 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
             return (
               <tr key={propDescriptor.name}>
                 <td class="prose prose-sm py-3 pl-4 align-baseline sm:pl-0 ">
-                  <code class="bg-indigo-200 dark:bg-indigo-900 rounded-md mr-6">
+                  <code class="bg-qwikui-blue-100 dark:bg-qwikui-purple-800 rounded-md mr-6">
                     {propDescriptor.name}
                   </code>
                 </td>
-                <td class="prose prose-sm py-3 align-baseline">
+                <td class="py-3 align-baseline">
                   <span class="flex items-center">
-                    <code class="bg-gray-300 dark:bg-gray-700">
+                    <code class="bg-slate-300 dark:bg-slate-700 rounded-md px-2">
                       {propDescriptor.type}
                     </code>
                     {propDescriptor.info && (
                       <Popover placement="top">
                         <PopoverContent>
-                          <div class="bg-[#202425] text-[#7881fa] max-w-xs mb-2 text-md px-4 py-2  rounded-md sm:w-max">
+                          <div class="shadow-light-medium bg-qwikui-blue-100 text-slate-950 dark:text-white dark:bg-qwikui-purple-800 dark:shadow-dark-medium  max-w-xs mb-2 text-md px-4 py-2  rounded-md sm:w-max">
                             {propDescriptor?.info}
                           </div>
                         </PopoverContent>

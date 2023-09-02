@@ -4,6 +4,7 @@ import { KitName } from 'apps/website/src/_state/kit-name.type';
 import { useRootStore } from 'apps/website/src/_state/use-root-store';
 import { useSelectedKit } from '../../use-selected-kit';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
+import { useLocation } from '@builder.io/qwik-city';
 
 export interface LinkGroup {
   name: string;
@@ -22,6 +23,7 @@ export interface DocsNavigationProps {
 }
 
 export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) => {
+  const location = useLocation();
   const rootStore = useRootStore();
   const selectedKitSig = useSelectedKit();
   const linkStyles = `px-4 py-2 -ml-4 mr-8 text-xl lg:text-sm flex items-center 
@@ -58,16 +60,19 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
         return (
           <>
             <div class="px-6 pt-6">
-              <h2 class="mb-4 font-bold text-white text-3xl lg:text-lg bg-qwikui-blue-400 px-4 py-1 rounded-lg dark:bg-qwikui-purple-500">
+              <h2 class="mb-4 font-bold text-white text-3xl lg:text-lg bg-qwikui-blue-400 px-4 py-1 rounded-lg dark:bg-qwikui-purple-500 shadow-dark-low dark:shadow-dark-high border-qwikui-blue-100 dark:border-qwikui-purple-100 border-2">
                 {group.name}
               </h2>
               <ul class="flex flex-col gap-2">
                 {group.children?.map((link) => {
+                  const isLinkActive = location.url.pathname === link.href;
                   return (
                     <li key={link.name + link.href}>
                       <a
                         class={`px-4 py-2 text-xl lg:text-sm flex items-center 
-                                rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800`}
+                          rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 ${
+                            isLinkActive ? 'font-bold' : ''
+                          }`}
                         href={link.href}
                       >
                         <div class="flex flex-row gap-2 w-full">

@@ -14,6 +14,16 @@ import {
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
+import '@fontsource/poppins/100.css';
+import '@fontsource/poppins/200.css';
+import '@fontsource/poppins/300.css';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/poppins/800.css';
+import '@fontsource/poppins/900.css';
+
 export default component$(() => {
   useStyles$(prismStyles);
   useStyles$(docsStyles);
@@ -27,7 +37,7 @@ export default component$(() => {
       <QwikUIProvider>
         <div class="flex mt-20">
           <DocsNavigation linksGroups={menuItemsGroups} />
-          <main class="docs">
+          <main class="docs mx-auto">
             <Slot />
           </main>
         </div>

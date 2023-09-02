@@ -12,11 +12,11 @@ export function getClassByStatus(status: ComponentStatus) {
     case ComponentStatus.Ready:
       return 'text-green-900 bg-green-300 tracking-wide';
     case ComponentStatus.Beta:
-      return 'dark:text-slate-100 dark:bg-qwikui-purple-500 bg-qwikui-blue-500 text-white dark:border-qwikui-purple-600 border-[1px] border-qwikui-blue-700 tracking-wide shadow-light-low dark:shadow-dark-low';
+      return 'dark:text-slate-100 dark:bg-qwikui-purple-500 bg-qwikui-blue-500 text-white dark:border-qwikui-purple-600 border-[1px] border-qwikui-blue-700 tracking-wide shadow-dark-low dark:shadow-dark-low';
     case ComponentStatus.Draft:
-      return 'text-slate-200 bg-slate-700 dark:bg-slate-800 border-[1px] dark:border-slate-400 shadow-light-low tracking-wide dark:shadow-dark-low';
+      return 'text-slate-200 bg-slate-700 dark:bg-slate-800 border-[1px] border-slate-400 shadow-dark-low tracking-wide dark:shadow-dark-low';
     case ComponentStatus.Planned:
-      return 'text-slate-900 bg-slate-300 border-[1px] dark:border-slate-400 tracking-wide shadow-light-low dark:shadow-dark-low';
+      return 'text-slate-900 bg-slate-300 border-[1px] border-slate-500 dark:border-slate-400 tracking-wide shadow-dark-low dark:shadow-dark-low';
     default:
       return null;
   }

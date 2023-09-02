@@ -15,9 +15,13 @@ export const KeyboardInteractionTable = component$(
       <table class="mb-6">
         <thead>
           <tr class="border-b-2">
-            <th class="text-left font-thin text-md text-slate-400">Key</th>
+            <th class="text-left font-400 text-md text-slate-800 dark:text-slate-400">
+              Key
+            </th>
             <th class="text-left">
-              <p class="ml-6 font-thin text-md text-slate-400">Description</p>
+              <p class="ml-6 font-400 text-md text-slate-800 dark:text-slate-400">
+                Description
+              </p>
             </th>
           </tr>
         </thead>

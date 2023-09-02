@@ -1,5 +1,4 @@
 import { $, component$, useComputed$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -22,7 +21,6 @@ export interface HeaderProps {
 export default component$(
   ({ showVersion = false, showBottomBorder = false }: HeaderProps) => {
     const rootStore = useRootStore();
-    const location = useLocation();
     const selectedKitSig = useSelectedKit();
 
     const kitSignal = useComputed$(() => {
@@ -44,11 +42,12 @@ export default component$(
       rootStore.mode = rootStore.mode === 'light' ? 'dark' : 'light';
     });
 
+    // we can add back the header animation if you'd like. Maybe something springy with motion?
     return (
       <header
         class={[
           `fixed top-0 w-full h-20 md:h-20 z-20 md:bg-[var(--color-bg)] flex gap-8 p-4 items-center`,
-          `ease-in-out duration-300 shadow-light-medium dark:shadow-dark-medium`,
+          `shadow-light-medium dark:shadow-dark-medium`,
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
             : 'bg-[var(--color-bg)]',

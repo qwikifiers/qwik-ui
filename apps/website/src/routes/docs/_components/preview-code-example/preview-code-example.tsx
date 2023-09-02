@@ -4,26 +4,34 @@ import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 export const PreviewCodeExample = component$(() => {
   useStyles$(`
     .dark .previewCodeExampleSelectedTab{
-      background-color: #423dff;
+      background-color: var(--qwikui-purple-600);
+      font-weight: 600;
     }
+    
     .previewCodeExampleSelectedTab{
-      background-color: #6daeff;
+      background-color: var(--qwikui-blue-500);
+      font-weight: 600;
     }
   `);
   return (
-    <Tabs class="mb-12" selectedClassName="previewCodeExampleSelectedTab">
-      <TabList class="flex rounded-t-xl bg-blue-200 dark:bg-indigo-900">
-        <Tab class="px-4 py-2 rounded-tl-xl hover:bg-[#6daeff] dark:hover:bg-[#423dff]">
+    <Tabs
+      class="mb-12 shadow-light-medium dark:shadow-dark-medium rounded-xl"
+      selectedClassName="previewCodeExampleSelectedTab"
+    >
+      <TabList class="text-white flex rounded-t-xl bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-slate-600 dark:border-slate-400 border-[1.5px] border-b-0 shadow-light-medium dark:shadow-dark-medium">
+        <Tab class="px-4 py-2 rounded-tl-[.625rem] hover:bg-qwikui-blue-500 dark:hover:bg-qwikui-purple-600">
           Preview
         </Tab>
-        <Tab class="px-4 py-2 hover:bg-[#6daeff] dark:hover:bg-[#423dff]">Code</Tab>
+        <Tab class="px-4 py-2 hover:bg-qwikui-blue-500 dark:hover:bg-qwikui-purple-600">
+          Code
+        </Tab>
       </TabList>
-      <TabPanel class="rounded-b-xl p-4  md:p-12 bg-slate-200 dark:bg-slate-900">
+      <TabPanel class="rounded-b-xl shadow-light-medium bg-slate-800 dark:shadow-dark-medium border-slate-600 border-[1.5px] p-4 dark:border-slate-400  md:p-12 bg-slate-200 dark:bg-slate-950">
         <section class="flex flex-col items-center">
           <Slot name="actualComponent" />
         </section>
       </TabPanel>
-      <TabPanel class="rounded-b-xl p-4 md:p-12 bg-slate-900">
+      <TabPanel class="rounded-b-xl p-4 md:p-12 bg-slate-900 border-[1.5px] border-slate-600 dark:border-slate-400">
         <section class="overflow-auto">
           <Slot name="codeExample" />
         </section>

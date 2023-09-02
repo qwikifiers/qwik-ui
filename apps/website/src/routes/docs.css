@@ -13,17 +13,8 @@
       @apply mb-4;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      overflow-wrap: break-word;
-    }
-
     h1 {
-      @apply text-5xl font-bold mb-12;
+      @apply text-3xl md:text-5xl md:mb-12 font-[800] tracking-wide;
     }
 
     h2 {
@@ -43,7 +34,7 @@
     }
 
     blockquote {
-      @apply bg-[#BFDBFE] dark:bg-[#312E81] p-4 lg:p-6 dark:border-[#F3F3F3] border-[#333333] rounded-xl my-4;
+      @apply bg-qwikui-blue-800 text-white shadow-light-medium dark:shadow-dark-medium dark:bg-qwikui-purple-800 p-4 lg:p-6 dark:border-[#F3F3F3] border-[#333333] rounded-xl my-4;
     }
 
     ul {
@@ -56,15 +47,11 @@
   }
 
   a {
-    @apply border-b-[1.25px] border-[#00B9FC] font-bold transition-[border-radius] duration-500 ease-in;
-  }
-
-  a:hover {
-    @apply border-b-2;
+    @apply border-b-[1.5px] border-qwikui-blue-500 dark:border-qwikui-purple-400 transition transition-colors duration-300 ease-step hover:border-qwikui-blue-600 font-bold;
   }
 
   p code {
-    @apply bg-transparent px-2 mx-1 rounded-md dark:bg-transparent border-[1px] dark:border-white w-max border-[#333333];
+    @apply bg-white text-gray-950  shadow-dark-low dark:shadow-dark-low px-2 py-[2px] mx-1 rounded-md font-[600] border-[1px] dark:border-white w-max border-[#333333];
   }
 
   /* adds sufficient padding to the table items / API Component */
@@ -77,6 +64,6 @@
   }
 
   blockquote a {
-    @apply border-[#333] dark:border-[#F3F3F3];
+    @apply border-qwikui-blue-200 hover:border-qwikui-blue-100 dark:border-qwikui-purple-100 dark:hover:border-qwikui-purple-200;
   }
 }

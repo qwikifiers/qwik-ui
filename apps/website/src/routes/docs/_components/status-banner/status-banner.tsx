@@ -71,10 +71,10 @@ function getBackgroundByStatus(status?: ComponentStatus) {
     case ComponentStatus.Beta:
       return 'bg-qwikui-blue-800 dark:bg-qwikui-purple-800';
     case ComponentStatus.Draft:
-      return 'bg-red-300 dark:bg-orange-800';
+      return 'bg-orange-700 dark:bg-red-800';
     case ComponentStatus.Planned:
     default:
-      return 'bg-[#fef1c7] dark:bg-[#92730e]';
+      return 'bg-orange-700 dark:bg-red-800';
   }
 }
 
