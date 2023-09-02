@@ -4,99 +4,126 @@ import {
   useVisibleTask$,
   type QwikIntrinsicElements,
 } from '@builder.io/qwik';
+
 import {
   ReferenceElement,
-  arrow,
   autoUpdate,
   computePosition,
-  flip,
-  offset,
-  shift,
+  offset as _offset,
+  flip as _flip,
+  shift as _shift,
+  arrow as _arrow,
+  size as _size,
+  autoPlacement as _autoPlacement,
+  hide as _hide,
+  inline as _inline,
+  type Placement,
+  type DetectOverflowOptions,
+  type ComputePositionReturn,
 } from '@floating-ui/dom';
+
+import type {
+  ShiftOptions,
+  OffsetOptions,
+  ArrowOptions,
+  FlipOptions,
+  SizeOptions,
+  AutoPlacementOptions,
+  HideOptions,
+  InlineOptions,
+  Platform,
+} from '@floating-ui/core';
+
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
 
-// type ArrowData = { element: HTMLElement; padding?: number | undefined };
-
 export type ComboboxListboxProps = {
-  // come back to shift later
-  arrowData?: { element: HTMLElement; padding?: number | undefined };
-  setArrow?: boolean;
-  setShift?: {
-    mainAxis?: boolean;
-    crossAxis?: boolean;
-    limiter?: {
-      fn: (state: unknown) => unknown;
-      options?: unknown;
-    };
-  };
-  setOffset?:
-    | number
-    | {
-        mainAxis?: number;
-        crossAxis?: number;
-        alignmentAxis?: number | null;
-      };
-  setFlip?: boolean;
-  placement?:
-    | 'top'
-    | 'top-start'
-    | 'top-end'
-    | 'right'
-    | 'right-start'
-    | 'right-end'
-    | 'bottom'
-    | 'bottom-start'
-    | 'bottom-end'
-    | 'left'
-    | 'left-start'
-    | 'left-end';
+  // main floating UI props
+  placement?: Placement;
   ancestorScroll?: boolean;
   ancestorResize?: boolean;
   elementResize?: boolean;
   layoutShift?: boolean;
   animationFrame?: boolean;
+
+  // middleware
+  offset?: OffsetOptions;
+  shift?: Partial<ShiftOptions & DetectOverflowOptions> | boolean;
+  flip?: FlipOptions | boolean;
+  arrow?: ArrowOptions;
+  size?: SizeOptions;
+  autoPlacement?: AutoPlacementOptions | boolean;
+  hide?: HideOptions | boolean;
+  inline?: InlineOptions | boolean;
+  onPositionComputed?: (resolvedData: ComputePositionReturn) => void;
+
+  // misc
+  transform: string;
+  platform: Platform;
 } & QwikIntrinsicElements['ul'];
 
 export const ComboboxListbox = component$(
   <O extends Option = Option>({
-    setOffset,
-    setFlip = true,
+    offset,
+    flip = true,
     placement = 'bottom',
-    setShift,
-    setArrow,
-    arrowData,
+    shift,
+    arrow,
+    size,
+    hide,
+    inline,
+    autoPlacement = false,
     ancestorScroll = true,
     ancestorResize = true,
     elementResize = true,
     animationFrame = false,
+    onPositionComputed,
+    transform,
+    platform,
     ...props
   }: ComboboxListboxProps) => {
     const context = useContext<ComboboxContext<O>>(ComboboxContextId);
     const listboxId = `${context.localId}-listbox`;
 
-    useVisibleTask$(function setListboxPosition({ cleanup }) {
-      // Our settings from Floating UI
+    useVisibleTask$(function setFloatingUIConfig({ cleanup }) {
       function updatePosition() {
-        const middleware = [offset(setOffset), setFlip && flip(), setShift && shift()];
+        const middleware = [_offset(offset), arrow && _arrow(arrow), size && _size(size)];
 
-        if (setArrow && arrowData) {
-          middleware.push(arrow(arrowData));
-        }
+        // offers a bool to turn on or off default config, or customize it.
+        const middlewareFunctions = [_flip, _shift, _autoPlacement, _hide, _inline];
+        const middlewareProps = [flip, shift, autoPlacement, hide, inline];
+
+        middlewareFunctions.forEach((func, index) => {
+          const isMiddlewareEnabled = middlewareProps[index];
+
+          if (isMiddlewareEnabled) {
+            const middlewareConfig =
+              isMiddlewareEnabled === true ? undefined : isMiddlewareEnabled;
+            middleware.push(func(middlewareConfig));
+          }
+        });
 
         computePosition(
           context.inputRef.value as ReferenceElement,
           context.listboxRef.value as HTMLElement,
           {
-            placement: placement,
-            middleware: middleware,
+            placement,
+            middleware,
+            platform,
           },
-        ).then(({ x, y }) => {
+        ).then((resolvedData) => {
+          const { x, y } = resolvedData;
           if (context.listboxRef.value) {
             Object.assign(context.listboxRef.value.style, {
               left: `${x}px`,
               top: `${y}px`,
+              transform,
             });
+          }
+
+          // user-provided resolved code
+          if (onPositionComputed) {
+            onPositionComputed(resolvedData);
           }
         });
       }
@@ -109,10 +136,10 @@ export const ComboboxListbox = component$(
           context.listboxRef.value,
           updatePosition,
           {
-            ancestorScroll: ancestorScroll,
-            ancestorResize: ancestorResize,
-            elementResize: elementResize,
-            animationFrame: animationFrame,
+            ancestorScroll,
+            ancestorResize,
+            elementResize,
+            animationFrame,
           },
         );
 
@@ -128,9 +155,7 @@ export const ComboboxListbox = component$(
         id={listboxId}
         ref={context.listboxRef}
         aria-label={
-          context.labelRef.value
-            ? context.labelRef.value?.innerText
-            : context.inputRef.value?.value
+          context.labelRef.value ? context.labelRef.value?.innerText : 'Suggestions'
         }
         role="listbox"
         hidden={!context.isListboxOpenSig.value}
