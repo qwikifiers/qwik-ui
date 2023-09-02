@@ -31,7 +31,6 @@ import type {
   AutoPlacementOptions,
   HideOptions,
   InlineOptions,
-  Platform,
 } from '@floating-ui/core';
 
 import ComboboxContextId from './combobox-context-id';
@@ -58,8 +57,7 @@ export type ComboboxListboxProps = {
   onPositionComputed?: (resolvedData: ComputePositionReturn) => void;
 
   // misc
-  transform: string;
-  platform: Platform;
+  transform?: string;
 } & QwikIntrinsicElements['ul'];
 
 export const ComboboxListbox = component$(
@@ -79,7 +77,6 @@ export const ComboboxListbox = component$(
     animationFrame = false,
     onPositionComputed,
     transform,
-    platform,
     ...props
   }: ComboboxListboxProps) => {
     const context = useContext<ComboboxContext<O>>(ComboboxContextId);
@@ -109,7 +106,6 @@ export const ComboboxListbox = component$(
           {
             placement,
             middleware,
-            platform,
           },
         ).then((resolvedData) => {
           const { x, y } = resolvedData;
