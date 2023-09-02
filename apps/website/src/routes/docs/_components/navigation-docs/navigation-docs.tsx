@@ -29,7 +29,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
   return (
     <nav
       class={`flex-col gap-4 fixed top-20 inset-0 z-10 lg:w-80 pb-6
-              overflow-y-auto bg-blue-200 dark:bg-indigo-900
+              overflow-y-auto bg-slate-100 dark:bg-slate-900
               ${rootStore.isSidebarOpened ? 'flex w-100' : 'hidden lg:flex'} `}
     >
       <ul class="show lg:hidden pl-12 mt-8 flex flex-col gap-2">
@@ -57,27 +57,31 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
       {linksGroups?.map((group) => {
         return (
           <>
-            <h1 class="pl-12 mt-8 font-medium text-3xl lg:text-lg">{group.name}</h1>
-            <ul class="pl-12 flex flex-col gap-2">
-              {group.children?.map((link) => {
-                return (
-                  <li class="pl-4" key={link.name + link.href}>
-                    <a
-                      class={`px-4 py-2 -ml-4 mr-8 text-xl lg:text-sm flex items-center 
-                                rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`}
-                      href={link.href}
-                    >
-                      <div class="flex flex-row gap-2 w-full">
-                        <div class="w-48">{link.name}</div>
-                        <div class="flex-auto">
-                          {link.status && <StatusBadge status={link.status} />}
+            <div class="px-6 pt-6">
+              <h2 class="mb-4 font-bold text-white text-3xl lg:text-lg bg-qwikui-blue-400 px-4 py-1 rounded-lg dark:bg-qwikui-purple-500">
+                {group.name}
+              </h2>
+              <ul class="flex flex-col gap-2">
+                {group.children?.map((link) => {
+                  return (
+                    <li key={link.name + link.href}>
+                      <a
+                        class={`px-4 py-2 text-xl lg:text-sm flex items-center 
+                                rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800`}
+                        href={link.href}
+                      >
+                        <div class="flex flex-row gap-2 w-full">
+                          <div class="w-48">{link.name}</div>
+                          <div class="flex-auto">
+                            {link.status && <StatusBadge status={link.status} />}
+                          </div>
                         </div>
-                      </div>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </>
         );
       })}

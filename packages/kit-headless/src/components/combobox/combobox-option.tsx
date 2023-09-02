@@ -20,8 +20,7 @@ export const ComboboxOption = component$(
   // remove non-li props from props
   ({ index, resolved, ...liProps }: ComboboxOptionProps) => {
     const context = useContext(ComboboxContextId);
-    const optionId = `${context.localId}${resolved.key}`;
-    context.optionIds.value[index] = optionId;
+    const optionId = `${context.localId}-${resolved.key}`;
 
     const isHighlightedSig = useComputed$(
       // eslint-disable-next-line qwik/valid-lexical-scope
@@ -54,14 +53,14 @@ export const ComboboxOption = component$(
           optionRef.value?.removeEventListener('mousedown', handleMousedown);
         });
       }
+
+      console.log(optionId);
     });
 
     return (
       <li
         {...liProps}
-        id={`${context.localId}-${
-          context.filteredOptionsSig.value[context.highlightedIndexSig.value]?.key
-        }`}
+        id={optionId}
         ref={optionRef}
         tabIndex={0}
         role="option"

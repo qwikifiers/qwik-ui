@@ -48,11 +48,11 @@ export default component$(
       <header
         class={[
           `fixed top-0 w-full h-20 md:h-20 z-20 md:bg-[var(--color-bg)] flex gap-8 p-4 items-center`,
-          `ease-in-out duration-300`,
+          `ease-in-out duration-300 shadow-light-medium dark:shadow-dark-medium`,
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
             : 'bg-[var(--color-bg)]',
-          showBottomBorder ? `border-b-[1px] border-slate-300 dark:border-slate-600` : ``,
+          showBottomBorder ? `shadow-light-medium dark:shadow-dark-medium` : ``,
         ]}
       >
         <section class="flex flex-col md:flex-row gap-1 md:gap-8 mr-auto">

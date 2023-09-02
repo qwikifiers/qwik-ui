@@ -33,7 +33,6 @@ export const ComboboxInput = component$(
 
     const onKeydownBehavior$ = $((e: QwikKeyboardEvent) => {
       if (e.key === 'ArrowDown') {
-        context.isListboxOpenSig.value = true;
         if (context.isListboxOpenSig.value) {
           const nextEnabledOptionIndex = getNextEnabledOptionIndex(
             context.highlightedIndexSig.value,
@@ -46,6 +45,7 @@ export const ComboboxInput = component$(
           const firstEnabledOptionIndex = getNextEnabledOptionIndex(-1, context);
           context.highlightedIndexSig.value = firstEnabledOptionIndex;
         }
+        context.isListboxOpenSig.value = true;
       }
 
       if (e.key === 'ArrowUp') {

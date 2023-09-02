@@ -1,4 +1,3 @@
-/* eslint-disable qwik/valid-lexical-scope */
 import {
   ContextId,
   FunctionComponent,

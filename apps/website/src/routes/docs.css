@@ -1,6 +1,6 @@
 .docs {
   & {
-    @apply lg:ml-80 w-full lg:max-w-4xl xl:max-w-6xl py-8 px-8 lg:px-16;
+    @apply lg:ml-80 w-full lg:max-w-4xl xl:max-w-6xl py-8 px-8 lg:px-16 overflow-hidden;
   }
 
   /*

@@ -5,7 +5,6 @@ import Header from './_components/header/header';
 import { useRootStore } from '../_state/use-root-store';
 import { Footer } from './_components/footer/footer';
 import { DocsNavigation } from './docs/_components/navigation-docs/navigation-docs';
-import { Link } from '@builder.io/qwik-city';
 
 export default component$(() => {
   // useStyles$(globalStyles);
@@ -23,9 +22,6 @@ export default component$(() => {
       <main class="mx-auto pt-28 lg:pt-32 max-w-7xl px-4 md:px-8 mb-24">
         <Slot />
       </main>
-      <Link class="text-white" href="/docs/headless/combobox/">
-        Take me to combobox
-      </Link>
       <Footer />
     </>
   );

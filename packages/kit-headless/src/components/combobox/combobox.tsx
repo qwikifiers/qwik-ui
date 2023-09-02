@@ -143,8 +143,6 @@ export const Combobox = component$(
 
     const highlightedIndexSig = useSignal<number>(-1);
 
-    const optionIds = useSignal<string[]>([]);
-
     /**
      * Id for 1:1 items. Also used as a prefix for the options and then their key.
      */
@@ -165,7 +163,6 @@ export const Combobox = component$(
       highlightedIndexSig,
       selectedOptionIndexSig,
       defaultLabel,
-      optionIds,
       optionValueKey,
       optionLabelKey,
       optionDisabledKey,
