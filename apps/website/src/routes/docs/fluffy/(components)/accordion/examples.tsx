@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-  Checkbox
+  Checkbox,
 } from '@qwik-ui/headless';
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 
@@ -14,25 +14,25 @@ export const Example01 = component$(() => {
       <div q:slot="actualComponent">
         <AccordionRoot
           behavior="single"
-          class="bg-gray-100 dark:bg-gray-700 max-w-[25rem] rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden"
+          class="max-w-[25rem] overflow-hidden rounded-xl border-[1px] border-slate-200 bg-gray-100 dark:border-gray-600 dark:bg-gray-700"
         >
           <AccordionItem>
-            <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800  text-left dark:border-gray-600 border-b-[1px]">
+            <AccordionTrigger class="w-full border-b-[1px] bg-violet-50 px-4 py-2 text-left hover:bg-violet-100  dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-800">
               Can I add headings inside the accordion?
             </AccordionTrigger>
             <AccordionContent class="">
-              <p class="bg-violet-200 dark:bg-gray-900 p-4">
+              <p class="bg-violet-200 p-4 dark:bg-gray-900">
                 Yes, if you wrap a heading around the trigger, screen readers will
                 announce it properly.
               </p>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem>
-            <AccordionTrigger class="px-4 py-2 w-full bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800  text-left dark:border-gray-600 border-b-[1px]">
+            <AccordionTrigger class="w-full border-b-[1px] bg-violet-50 px-4 py-2 text-left hover:bg-violet-100  dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-800">
               Is it easy to animate?
             </AccordionTrigger>
             <AccordionContent>
-              <p class="bg-violet-200 dark:bg-gray-900 p-4">
+              <p class="bg-violet-200 p-4 dark:bg-gray-900">
                 Yup! Whether you'd like to use CSS transitions with flex-basis,
                 grid-template columns, or use a JavaScript animation library, it's easy
                 out of the box!
@@ -40,11 +40,11 @@ export const Example01 = component$(() => {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem>
-            <AccordionTrigger class="bg-violet-50 hover:bg-violet-100 dark:bg-gray-700 px-4 py-2 w-full dark:hover:bg-gray-800 text-left">
+            <AccordionTrigger class="w-full bg-violet-50 px-4 py-2 text-left hover:bg-violet-100 dark:bg-gray-700 dark:hover:bg-gray-800">
               How about opening multiple items at once?
             </AccordionTrigger>
             <AccordionContent>
-              <p class="bg-violet-200 dark:bg-gray-900 p-4 dark:border-gray-600 border-t-[1px]">
+              <p class="border-t-[1px] bg-violet-200 p-4 dark:border-gray-600 dark:bg-gray-900">
                 You can do that by setting the <strong>behavior</strong> prop to "multi"
                 on the Accordion
               </p>
@@ -64,33 +64,33 @@ export const Example02 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <AccordionRoot class="bg-slate-100 dark:bg-gray-700 w-80 rounded-xl border-slate-200 dark:border-gray-600 border-[1px] overflow-hidden">
-          <AccordionItem class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left">
+        <AccordionRoot class="w-80 overflow-hidden rounded-xl border-[1px] border-slate-200 bg-slate-100 dark:border-gray-600 dark:bg-gray-700">
+          <AccordionItem class="w-full border-[1px] border-slate-200 px-4 py-2 text-left hover:bg-slate-300 dark:border-gray-600 dark:hover:bg-gray-800">
             <AccordionTrigger>Is Qwik production-ready?</AccordionTrigger>
             <AccordionContent>
-              <p class="bg-slate-200 dark:bg-gray-900 p-4">
+              <p class="bg-slate-200 p-4 dark:bg-gray-900">
                 Yes, Qwik just hit a major milestone and launched v1.0! All API features
                 are considered stable. Start building the future, today!
               </p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left">
+          <AccordionItem class="w-full border-[1px] border-slate-200 px-4 py-2 text-left hover:bg-slate-300 dark:border-gray-600 dark:hover:bg-gray-800">
             <AccordionTrigger>
               Is there a UI library I can use with Qwik?
             </AccordionTrigger>
             <AccordionContent>
-              <p class="bg-slate-200 dark:bg-gray-900 p-4">
+              <p class="bg-slate-200 p-4 dark:bg-gray-900">
                 You're looking at one right now!
               </p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem class="px-4 py-2 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px] text-left">
+          <AccordionItem class="w-full border-[1px] border-slate-200 px-4 py-2 text-left hover:bg-slate-300 dark:border-gray-600 dark:hover:bg-gray-800">
             <AccordionTrigger>How can I contribute to Qwik UI?</AccordionTrigger>
-            <p class="bg-slate-200 dark:bg-gray-900 p-4">
+            <p class="bg-slate-200 p-4 dark:bg-gray-900">
               We're glad you asked. Come join us at the Qwikifiers Discord server or find
               the{` `}
               <a
-                class="text-[var(--qwik-light-blue)] inline"
+                class="inline text-[var(--qwik-light-blue)]"
                 href="https://github.com/qwikifiers/qwik-ui"
               >
                 Qwik UI repository
@@ -113,7 +113,7 @@ export const Example03 = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent">
-        <AccordionRoot class="mt-4 p-4 bg-slate-800">
+        <AccordionRoot class="mt-4 bg-slate-800 p-4">
           <AccordionItem>
             <AccordionTrigger>Availability</AccordionTrigger>
             <AccordionContent>

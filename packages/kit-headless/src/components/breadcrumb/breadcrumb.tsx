@@ -1,9 +1,4 @@
-import {
-  component$,
-  HTMLAttributes,
-  Slot,
-  useStylesScoped$,
-} from '@builder.io/qwik';
+import { component$, HTMLAttributes, Slot, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './breadcrumb.css?inline';
 
 export type BreadcrumbProps = HTMLAttributes<HTMLElement>;

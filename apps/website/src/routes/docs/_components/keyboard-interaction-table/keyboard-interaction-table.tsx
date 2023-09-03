@@ -15,9 +15,9 @@ export const KeyboardInteractionTable = component$(
       <table class="mb-6">
         <thead>
           <tr class="border-b-2">
-            <th class="text-left font-thin text-md text-slate-400">Key</th>
+            <th class="text-md text-left font-thin text-slate-400">Key</th>
             <th class="text-left">
-              <p class="ml-6 font-thin text-md text-slate-400">Description</p>
+              <p class="text-md ml-6 font-thin text-slate-400">Description</p>
             </th>
           </tr>
         </thead>
@@ -34,7 +34,7 @@ export const KeyboardInteractionTable = component$(
         </tbody>
       </table>
     );
-  }
+  },
 );
 
 export const KBInteractionTableRow = component$(
@@ -42,7 +42,7 @@ export const KBInteractionTableRow = component$(
     return (
       <tr class="border-b-2 border-gray-700">
         <td class="py-4">
-          <kbd class="border w-max shadow-lg rounded-md px-2 capitalize text-sm inline-block">
+          <kbd class="inline-block w-max rounded-md border px-2 text-sm capitalize shadow-lg">
             {keyTitle}
           </kbd>
         </td>
@@ -51,5 +51,5 @@ export const KBInteractionTableRow = component$(
         </td>
       </tr>
     );
-  }
+  },
 );

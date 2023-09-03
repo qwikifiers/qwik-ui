@@ -1,10 +1,4 @@
-import {
-  $,
-  component$,
-  useSignal,
-  useStyles$,
-  useStylesScoped$,
-} from '@builder.io/qwik';
+import { $, component$, useSignal, useStyles$, useStylesScoped$ } from '@builder.io/qwik';
 import { InputPhone } from '@qwik-ui/headless';
 import { InputPhoneCountry, InputPhoneValidity } from '@qwik-ui/headless';
 import styles from './input-phone.css?inline';
@@ -90,8 +84,7 @@ export default component$(() => {
 
       <ul>
         <li>
-          <pre>onCountryChange$</pre>:{' '}
-          <pre>{JSON.stringify(country.value) || '–'}</pre>
+          <pre>onCountryChange$</pre>: <pre>{JSON.stringify(country.value) || '–'}</pre>
         </li>
         <li>
           <pre>onNumberChange$</pre>: {number.value || '–'}

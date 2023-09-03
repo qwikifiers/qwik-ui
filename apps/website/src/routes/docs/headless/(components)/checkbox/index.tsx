@@ -46,32 +46,16 @@ export default component$(() => {
 
       <h1>Size</h1>
       <fieldset class="">
-        <Checkbox.Root
-          disabled
-          checked
-          class="qui-checkbox-sm checkbox-margin-right"
-        />
-        <Checkbox.Root
-          disabled
-          checked
-          class="qui-checkbox-md checkbox-margin-right"
-        />
+        <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
+        <Checkbox.Root disabled checked class="qui-checkbox-md checkbox-margin-right" />
         <Checkbox.Root disabled checked class="qui-checkbox-lg" />
       </fieldset>
 
       <h1>With legend</h1>
       <fieldset>
         <legend>group</legend>
-        <Checkbox.Root
-          disabled
-          checked
-          class="qui-checkbox-sm checkbox-margin-right"
-        />
-        <Checkbox.Root
-          disabled
-          checked
-          class="qui-checkbox-md checkbox-margin-right"
-        />
+        <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
+        <Checkbox.Root disabled checked class="qui-checkbox-md checkbox-margin-right" />
         <Checkbox.Root disabled checked class="qui-checkbox-lg" />
       </fieldset>
 
@@ -79,31 +63,19 @@ export default component$(() => {
       <legend>group</legend>
       <fieldset>
         <Checkbox.Label htmlFor="test">
-          <Checkbox.Root
-            disabled
-            checked
-            class="qui-checkbox-sm checkbox-margin-right"
-          />
+          <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
           test
         </Checkbox.Label>
       </fieldset>
       <fieldset>
         <Checkbox.Label htmlFor="test">
-          <Checkbox.Root
-            disabled
-            checked
-            class="qui-checkbox-sm checkbox-margin-right"
-          />
+          <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
           test
         </Checkbox.Label>
       </fieldset>
       <fieldset>
         <Checkbox.Label htmlFor="test">
-          <Checkbox.Root
-            disabled
-            checked
-            class="qui-checkbox-sm checkbox-margin-right"
-          />
+          <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
           test
         </Checkbox.Label>
       </fieldset>

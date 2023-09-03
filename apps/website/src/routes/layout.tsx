@@ -1,5 +1,6 @@
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 import { ContentMenu, useContent } from '@builder.io/qwik-city';
+import { QwikUIProvider } from '@qwik-ui/headless';
 import { ComponentsStatusesMap, statusByComponent } from '../_state/component-statuses';
 import { KitName } from '../_state/kit-name.type';
 import { useRootStore } from '../_state/use-root-store';
@@ -8,7 +9,7 @@ import docsStyles from './docs.css?inline';
 import {
   DocsNavigation,
   LinkGroup,
-  LinkProps
+  LinkProps,
 } from './docs/_components/navigation-docs/navigation-docs';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
@@ -23,13 +24,14 @@ export default component$(() => {
   return (
     <>
       <Header showBottomBorder={true} showVersion={true} />
-
-      <div class="flex mt-20">
-        <DocsNavigation linksGroups={menuItemsGroups} />
-        <main class="docs">
-          <Slot />
-        </main>
-      </div>
+      <QwikUIProvider>
+        <div class="mt-20 flex">
+          <DocsNavigation linksGroups={menuItemsGroups} />
+          <main class="docs">
+            <Slot />
+          </main>
+        </div>
+      </QwikUIProvider>
       <footer></footer>
     </>
   );
@@ -43,7 +45,7 @@ function useKitMenuItems() {
   if (selectedKitSig.value === KitName.HEADLESS) {
     menuItemsGroups = decorateMenuItemsWithBadges(
       menu?.items,
-      statusByComponent.headless
+      statusByComponent.headless,
     );
   }
 
@@ -52,13 +54,13 @@ function useKitMenuItems() {
   }
 
   return {
-    menuItemsGroups
+    menuItemsGroups,
   };
 }
 
 function decorateMenuItemsWithBadges(
   menuItems: ContentMenu[] | undefined,
-  kitStatusesMap: ComponentsStatusesMap
+  kitStatusesMap: ComponentsStatusesMap,
 ): LinkGroup[] | undefined {
   return menuItems?.map((item) => {
     return {
@@ -66,13 +68,13 @@ function decorateMenuItemsWithBadges(
       children: item.items?.map((child) => {
         const link: LinkProps = {
           name: child.text,
-          href: child.href
+          href: child.href,
         };
         if (kitStatusesMap[link.name]) {
           link.status = kitStatusesMap[link.name];
         }
         return link;
-      })
+      }),
     };
   });
 }

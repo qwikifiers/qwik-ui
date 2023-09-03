@@ -6,4 +6,5 @@ export type SelectContext = {
   isOpenSig: Signal<boolean>;
   triggerRefSig: Signal<HTMLElement | undefined>;
   listBoxRefSig: Signal<HTMLElement | undefined>;
+  isListboxHiddenSig: Signal<boolean>;
 };

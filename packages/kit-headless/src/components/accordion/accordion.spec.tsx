@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionContent,
   AccordionTrigger,
-  AccordionHeader
+  AccordionHeader,
 } from './index';
 
 import './accordion-cypress.css';
@@ -38,7 +38,7 @@ const ThreeItemAccordion = component$(
         </AccordionItem>
       </AccordionRoot>
     );
-  }
+  },
 );
 
 describe('Critical Functionality', () => {
@@ -172,7 +172,7 @@ describe('Prop Behavior', () => {
     cy.findByRole('button', { name: /Trigger 1/i }).should(
       'have.attr',
       'aria-expanded',
-      'false'
+      'false',
     );
   });
 
@@ -313,7 +313,7 @@ describe('Disabled', () => {
           </AccordionItem>
         </AccordionRoot>
       );
-    }
+    },
   );
 
   it(`GIVEN 4 accordion items
@@ -367,7 +367,7 @@ describe('Dynamic', () => {
     ({
       itemIndexToAdd = 0,
       itemIndexToDelete = 0,
-      itemsLength
+      itemsLength,
     }: DynamicAccordionProps) => {
       // start off with some items
       const items = [];
@@ -376,7 +376,7 @@ describe('Dynamic', () => {
       for (let i = 0; i < itemsLength; i++) {
         items.push({
           label: `Original Item ${i + 1}`,
-          id: Math.random()
+          id: Math.random(),
         });
       }
 
@@ -416,7 +416,7 @@ describe('Dynamic', () => {
           </div>
         </>
       );
-    }
+    },
   );
 
   it(`GIVEN 3 accordion items

@@ -26,7 +26,7 @@ export const NativeSelect = component$(
       $((e) => {
         const target = e.target as HTMLSelectElement;
         target.value = selectContext.selectedOptionSig.value!;
-      })
+      }),
     );
 
     return (
@@ -41,5 +41,5 @@ export const NativeSelect = component$(
         <option value="" />
       </select>
     );
-  }
+  },
 );

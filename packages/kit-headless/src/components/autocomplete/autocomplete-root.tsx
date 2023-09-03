@@ -1,15 +1,16 @@
 import {
-  component$,
-  Slot,
-  useContextProvider,
-  useSignal,
-  QwikIntrinsicElements,
-  useStore,
-  useVisibleTask$,
   $,
+  QwikIntrinsicElements,
+  QwikKeyboardEvent,
+  Signal,
+  Slot,
+  component$,
+  useContextProvider,
   useId,
   useOnWindow,
-  QwikKeyboardEvent
+  useSignal,
+  useStore,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 
 import { computePosition, flip } from '@floating-ui/dom';
@@ -30,19 +31,22 @@ import { AutocompleteContext } from './autocomplete-context.type';
     
     https://thejackshelton.notion.site/Combobox-e82cae2325914c3c82d4cbfcab574825?pvs=4
 
-
+    
     Current thoughts for API implementation
 
-    <Autocomplete>
-        <AutocompleteLabel />
-        <AutocompleteTrigger>
-            <AutocompleteInput />
-            <AutocompleteButton />
-        </AutocompleteTrigger>
-        <AutoCompleteListbox>
-            <AutoCompleteOption />
-        </AutoCompleteListbox>
-    </Autocomplete>
+    // inline impl: iterate over children & pass correct index. each group: Build index of inner children
+
+    <AutocompleteRoot>
+      <AutocompleteLabel />
+      <AutocompleteControl>
+          <AutocompleteInput />
+          <AutocompleteTrigger />
+      </AutocompleteControl>
+      Inline component here 
+      <AutoCompleteListbox>
+        <AutoCompleteOption />
+      </AutoCompleteListbox>
+    </AutocompleteRoot>
 
     Side note: This is based off of both the ARIA combobox pattern linked above and headless UI
 
@@ -114,49 +118,70 @@ import { AutocompleteContext } from './autocomplete-context.type';
       - sets results to empty array
       - if input is not empty set results equal to the search function with our input signal value as param
       - showSuggestions function with results and our input signal value as params
-      
-
 */
 
 export type AutocompleteRootProps = {
   defaultValue?: string;
+  placeholder?: string;
 } & QwikIntrinsicElements['div'];
 
+/**
+ * **QWIK-UI WARNING**: This component has been deprecated. If you're looking for an autocomplete, I recommend checking out the autocomplete example inside the Combobox component.
+ *
+ * @deprecated Use the Combobox component instead.
+ *
+ */
 export const AutocompleteRoot = component$(
   ({ defaultValue, ...props }: AutocompleteRootProps) => {
-    const options = useStore([]);
-    const filteredOptions = useStore([]);
-    const selectedOption = useSignal(defaultValue ? defaultValue : '');
-    const isExpanded = useSignal(false);
-    const triggerRef = useSignal<HTMLElement>();
-    const listBoxRef = useSignal<HTMLElement>();
+    useVisibleTask$(function deprecatedComponentError() {
+      throw new Error(
+        'Qwik UI: The Autocomplete component has been deprecated in favor of the Combobox. Please use the Combobox component instead.',
+      );
+    });
+
+    const optionsStore = useStore<Signal<HTMLElement>[]>([]);
+    const filteredOptionsStore = useStore([]);
+    const selectedOptionSig = useSignal(defaultValue ? defaultValue : '');
+    const isTriggerExpandedSig = useSignal(false);
+    const inputRefSig = useSignal<HTMLElement>();
+    const triggerRefSig = useSignal<HTMLElement>();
+    const listBoxRefSig = useSignal<HTMLElement>();
     const rootRef = useSignal<HTMLElement>();
     const labelRef = useSignal<HTMLElement>();
-    const inputValue = useSignal(defaultValue ? defaultValue : '');
+    const inputValueSig = useSignal(defaultValue ? defaultValue : '');
     const listBoxId = useId();
     const inputId = useId();
     const triggerId = useId();
     const activeOptionId = useSignal(null);
+    const isInputFocusedSig = useSignal(false);
     const focusInput$ = $((inputId: string) => {
       rootRef.value
         ?.querySelector<HTMLElement>(`[data-autocomplete-input-id="${inputId}"]`)
         ?.focus();
     });
 
+    const dataHolder = useSignal<
+      Array<{ value: string; id: string; ref: Signal<HTMLElement | undefined> }>
+    >([]);
+    console.log(dataHolder.value);
     const contextService: AutocompleteContext = {
-      options,
-      filteredOptions,
-      selectedOption,
-      isExpanded,
-      triggerRef,
-      listBoxRef,
+      dataHolder,
+      optionsStore,
+      filteredOptionsStore,
+      selectedOptionSig,
+      isTriggerExpandedSig,
+      inputRefSig,
+      triggerRefSig,
+      listBoxRefSig,
       labelRef,
-      inputValue,
+      inputValueSig,
       listBoxId,
       inputId,
       triggerId,
       activeOptionId,
-      focusInput$
+      focusInput$,
+      isInputFocusedSig,
+      // filter: (value: string) => boolean
     };
 
     useContextProvider(AutocompleteContextId, contextService);
@@ -164,35 +189,86 @@ export const AutocompleteRoot = component$(
     const updatePosition = $((referenceEl: HTMLElement, floatingEl: HTMLElement) => {
       computePosition(referenceEl, floatingEl, {
         placement: 'bottom',
-        middleware: [flip()]
+        middleware: [flip()],
       }).then(({ x, y }) => {
         Object.assign(floatingEl.style, {
           left: `${x}px`,
-          top: `${y}px`
+          top: `${y}px`,
         });
       });
     });
 
-    useVisibleTask$(async ({ track }) => {
-      const trigger = track(() => contextService.triggerRef.value);
-      const listBox = track(() => contextService.listBoxRef.value);
-      const expanded = track(() => isExpanded.value);
+    // useVisibleTask$(() => {
+    //   if (!defaultValue) {
+    //     return;
+    //   }
 
-      if (!trigger || !listBox) return;
+    //   if (optionsStore.indexOf(defaultValue) !== -1) {
+    //     console.log('');
+    //   }
+    // })
+
+    useVisibleTask$(async function updatePositionTask({ track }) {
+      const inputRefValue = track(() => inputRefSig.value);
+      const listBox = track(() => listBoxRefSig.value);
+      const expanded = track(() => isTriggerExpandedSig.value);
+
+      if (!inputRefValue || !listBox) return;
 
       if (expanded === true) {
-        listBox.style.visibility = 'hidden';
-
-        await updatePosition(trigger, listBox);
-
-        listBox.style.visibility = 'visible';
-
-        listBox?.focus();
+        await updatePosition(inputRefValue, listBox);
       }
+    });
 
-      if (expanded === false) {
-        trigger?.focus();
-      }
+    // const filteredOptionsSig = useComputed$(() => {
+    //   return optionsStore.filter((option) => {
+    //     const inputValue = inputValueSig.value;
+    //     const optionValue = option.value.getAttribute('optionValue');
+    //     const defaultFilter = new RegExp(inputValue, 'i');
+
+    //     return optionValue?.match(defaultFilter);
+    //   });
+    // });
+
+    useVisibleTask$(function filterOptionsTask({ track }) {
+      track(() => inputValueSig.value);
+
+      // if (!inputValueSig.value) {
+      //   contextService.filteredOptionsStore;
+      // }
+
+      contextService.filteredOptionsStore = contextService.optionsStore.filter(
+        (option: Signal) => {
+          const optionValue = option.value.getAttribute('optionValue');
+
+          const defaultFilter = new RegExp(inputValueSig.value, 'i');
+
+          if (isInputFocusedSig.value) {
+            if (optionValue === inputValueSig.value) {
+              contextService.isTriggerExpandedSig.value = false;
+            } else if (optionValue.match(defaultFilter)) {
+              contextService.isTriggerExpandedSig.value = true;
+            }
+          } else {
+            contextService.isTriggerExpandedSig.value = false;
+          }
+
+          return optionValue.match(defaultFilter);
+        },
+      );
+
+      // Probably better to refactor Signal type later
+      contextService.optionsStore.map((option: Signal) => {
+        if (
+          !option.value
+            .getAttribute('optionValue')
+            .match(new RegExp(inputValueSig.value, 'i'))
+        ) {
+          option.value.style.display = 'none';
+        } else {
+          option.value.style.display = '';
+        }
+      });
     });
 
     useOnWindow(
@@ -200,13 +276,13 @@ export const AutocompleteRoot = component$(
       $((e) => {
         const target = e.target as HTMLElement;
         if (
-          contextService.isExpanded.value === true &&
-          !contextService.listBoxRef.value?.contains(target) &&
-          !contextService.triggerRef.value?.contains(target)
+          contextService.isTriggerExpandedSig.value === true &&
+          !contextService.listBoxRefSig.value?.contains(target) &&
+          !contextService.triggerRefSig.value?.contains(target)
         ) {
-          contextService.isExpanded.value = false;
+          contextService.isTriggerExpandedSig.value = false;
         }
-      })
+      }),
     );
 
     return (
@@ -214,13 +290,13 @@ export const AutocompleteRoot = component$(
         onKeyDown$={[
           $((e: QwikKeyboardEvent) => {
             if (e.key === 'Escape') {
-              contextService.isExpanded.value = false;
-              const inputElement = contextService.triggerRef.value
+              contextService.isTriggerExpandedSig.value = false;
+              const inputElement = contextService.inputRefSig.value
                 ?.firstElementChild as HTMLElement;
               inputElement?.focus();
             }
           }),
-          props.onKeyDown$
+          props.onKeyDown$,
         ]}
         {...props}
         ref={rootRef}
@@ -228,5 +304,5 @@ export const AutocompleteRoot = component$(
         <Slot />
       </div>
     );
-  }
+  },
 );

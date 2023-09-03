@@ -11,9 +11,7 @@ export default defineConfig({
     qwikVite(),
     tsconfigPaths({ root: '../../' }),
     dts({
-      tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
-      // Faster builds by skipping tests. Set this to false to enable type checking.
-      skipDiagnostics: true,
+      tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
     }),
   ],
   mode: 'lib',

@@ -7,13 +7,13 @@ import {
   useOnDocument,
   useSignal,
   useStore,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
-import { SelectContext } from './select-context.type';
-import SelectContextId from './select-context-id';
-import { NativeSelect } from './select-native-select';
-import { VisuallyHidden } from '../../utils/visually-hidden';
 import { computePosition, flip } from '@floating-ui/dom';
+import { VisuallyHidden } from '../../utils/visually-hidden';
+import SelectContextId from './select-context-id';
+import { SelectContext } from './select-context.type';
+import { NativeSelect } from './select-native-select';
 
 export type SelectRootProps = {
   required?: boolean;
@@ -26,13 +26,15 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   const isOpenSig = useSignal(false);
   const triggerRefSig = useSignal<HTMLElement>();
   const listBoxRefSig = useSignal<HTMLElement>();
+  const isListboxHiddenSig = useSignal(true);
 
   const selectContext: SelectContext = {
     optionsStore,
     selectedOptionSig,
     isOpenSig,
     triggerRefSig,
-    listBoxRefSig
+    listBoxRefSig,
+    isListboxHiddenSig,
   };
 
   useContextProvider(SelectContextId, selectContext);
@@ -44,7 +46,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
       if (selectContext.isOpenSig.value === true && !rootRefSig.value?.contains(target)) {
         selectContext.isOpenSig.value = false;
       }
-    })
+    }),
   );
 
   useVisibleTask$(function setKeyHandler({ cleanup }) {
@@ -63,11 +65,11 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   const updatePosition$ = $((referenceEl: HTMLElement, floatingEl: HTMLElement) => {
     computePosition(referenceEl, floatingEl, {
       placement: 'bottom',
-      middleware: [flip()]
+      middleware: [flip()],
     }).then(({ x, y }) => {
       Object.assign(floatingEl.style, {
         left: `${x}px`,
-        top: `${y}px`
+        top: `${y}px`,
       });
     });
   });
@@ -80,9 +82,11 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     if (!trigger || !listBox) return;
 
     if (expanded === true) {
+      // Will fix this visibility workaround asap.
       listBox.style.visibility = 'hidden';
       await updatePosition$(trigger, listBox);
       listBox.style.visibility = 'visible';
+      isListboxHiddenSig.value = false;
       listBox?.focus();
     }
 
@@ -96,7 +100,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
 
     if (listBox) {
       const collectedOptions = Array.from(
-        listBox.querySelectorAll('[role="option"]')
+        listBox.querySelectorAll('[role="option"]'),
       ) as HTMLElement[];
       selectContext.optionsStore.push(...collectedOptions);
     }

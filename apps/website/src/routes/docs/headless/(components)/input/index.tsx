@@ -25,9 +25,7 @@ export default component$(() => {
         <Label>
           <h3>Delivery phone number</h3>
         </Label>
-        <Hint>
-          Shipper will call at this phone number when your parcel is delivered.
-        </Hint>
+        <Hint>Shipper will call at this phone number when your parcel is delivered.</Hint>
         <Phone />
         <Message status="resolved">Your phone number is valid</Message>
       </Root>
@@ -40,9 +38,7 @@ export default component$(() => {
         <Label>
           <h3>Delivery phone number</h3>
         </Label>
-        <Hint>
-          Shipper will call at this phone number when your parcel is delivered.
-        </Hint>
+        <Hint>Shipper will call at this phone number when your parcel is delivered.</Hint>
         <Phone />
         <Message status="pending">Your phone number is being verified</Message>
       </Root>
@@ -55,9 +51,7 @@ export default component$(() => {
         <Label>
           <h3>Delivery phone number</h3>
         </Label>
-        <Hint>
-          Shipper will call at this phone number when your parcel is delivered.
-        </Hint>
+        <Hint>Shipper will call at this phone number when your parcel is delivered.</Hint>
         <Phone />
         <Message status="rejected">Your phone number is valid</Message>
       </Root>

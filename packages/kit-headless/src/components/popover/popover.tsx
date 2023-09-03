@@ -11,7 +11,7 @@ import {
   useStylesScoped$,
   useTask$,
   useVisibleTask$,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import { isBrowser } from '@builder.io/qwik/build';
 import {
@@ -21,7 +21,7 @@ import {
   computePosition,
   flip,
   offset as offsetPlugin,
-  shift
+  shift,
 } from '@floating-ui/dom';
 import { PopoverContext } from './popover-context';
 
@@ -90,7 +90,7 @@ export const Popover = component$(
       isOpen: false,
       triggerEvent,
       setTriggerRef$,
-      setOverlayRef$
+      setOverlayRef$,
     });
     useContextProvider(PopoverContext, contextService);
 
@@ -148,11 +148,11 @@ export const Popover = component$(
         autoUpdate(trigger, content, () => {
           computePosition(trigger, content, {
             middleware: [flip(), shift(), offsetPlugin(offset || 0)],
-            placement: placement
+            placement: placement,
           }).then(({ x, y }) => {
             Object.assign(content.style, {
               left: `${x}px`,
-              top: `${y}px`
+              top: `${y}px`,
             });
           });
         });
@@ -220,5 +220,5 @@ export const Popover = component$(
         <Slot />
       </span>
     );
-  }
+  },
 );

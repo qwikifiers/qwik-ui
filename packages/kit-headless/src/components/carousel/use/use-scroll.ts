@@ -16,22 +16,20 @@ export type Scroll = {
 
 export const useScroll = (
   ref: Signal<HTMLElement | undefined>,
-  { items, loop = true, transition = 350 }: Params
+  { items, loop = true, transition = 350 }: Params,
 ) => {
   const to = $((index: number) => {
     const count = getCount(ref);
     const element = getElement(ref, index);
 
     if (!ref?.value || !count) {
-      console.warn(
-        `Can't jump to ${index} because the carousel elements is empty.`
-      );
+      console.warn(`Can't jump to ${index} because the carousel elements is empty.`);
       return;
     }
 
     if (!element) {
       console.warn(
-        `Can't jump to ${index} because the element index ${index} doesn't exist.`
+        `Can't jump to ${index} because the element index ${index} doesn't exist.`,
       );
       return;
     }
@@ -43,7 +41,7 @@ export const useScroll = (
           block: 'nearest',
           inline: 'center',
         }),
-      transition
+      transition,
     );
 
     items.active.current.value = index;
@@ -64,8 +62,7 @@ export const useScroll = (
     if (!loop && items.active.current.value === max) {
       return;
     }
-    const index =
-      items.active.current.value === max ? 0 : items.active.current.value + 1;
+    const index = items.active.current.value === max ? 0 : items.active.current.value + 1;
     to(index);
   });
 

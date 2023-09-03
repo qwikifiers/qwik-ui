@@ -4,7 +4,7 @@ import {
   useContextProvider,
   useId,
   useSignal,
-  type QwikIntrinsicElements
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
 import { accordionItemContextId } from './accordion-context-id';
@@ -25,7 +25,7 @@ export const AccordionItem = component$(
     const itemContext: AccordionItemContext = {
       itemId,
       isTriggerExpandedSig,
-      defaultValue
+      defaultValue,
     };
 
     useContextProvider(accordionItemContextId, itemContext);
@@ -35,5 +35,5 @@ export const AccordionItem = component$(
         <Slot />
       </div>
     );
-  }
+  },
 );

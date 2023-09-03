@@ -3,12 +3,12 @@ import {
   useContextProvider,
   useStore,
   useStyles$,
-  useVisibleTask$
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import {
   QwikCityProvider,
   RouterOutlet,
-  ServiceWorkerRegister
+  ServiceWorkerRegister,
 } from '@builder.io/qwik-city';
 import { RouterHead } from './routes/_components/router-head/router-head';
 
@@ -32,20 +32,26 @@ export default component$(() => {
     mode: 'light',
     isSidebarOpened: false,
     featureFlags: {
-      showFluffy: import.meta.env.DEV
-    }
+      showFluffy: import.meta.env.DEV,
+    },
   });
 
   useContextProvider(ROOT_STORE_CONTEXT_ID, rootStore);
 
   useVisibleTask$(() => {
-    rootStore.mode =
-      localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+    const userStoredTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    if (userStoredTheme) {
+      rootStore.mode = userStoredTheme === 'dark' ? 'dark' : 'light';
+    } else {
+      rootStore.mode = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+    }
   });
 
   // TODO: remove this old state once refactored
   const state = useStore<OldAppState>({
-    darkMode: false
+    darkMode: false,
   });
   useContextProvider(OLD_APP_STATE_CONTEXT_ID, state);
 
@@ -61,7 +67,7 @@ export default component$(() => {
       <body
         lang="en"
         class={{
-          'overflow-y-hidden': rootStore.isSidebarOpened
+          'overflow-y-hidden': rootStore.isSidebarOpened,
         }}
       >
         <RouterOutlet />

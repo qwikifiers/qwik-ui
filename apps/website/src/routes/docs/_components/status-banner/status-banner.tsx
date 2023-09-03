@@ -3,7 +3,7 @@ import {
   component$,
   useSignal,
   useStylesScoped$,
-  $
+  $,
 } from '@builder.io/qwik';
 import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
 import { getClassByStatus } from '../component-status-badge/component-status-badge';
@@ -17,14 +17,14 @@ function getMessageByStatus(status?: ComponentStatus) {
     case ComponentStatus.Ready:
       return (
         <>
-          This component is <strong>Production Readty</strong>
+          This component is <strong>Production Ready</strong>
         </>
       );
     case ComponentStatus.Beta:
       return (
         <>
           <strong>DISCLAIMER:</strong> This component is{' '}
-          <span class={`px-2 rounded-full ${getClassByStatus(status)}`}>{status}</span>{' '}
+          <span class={`rounded-full px-2 ${getClassByStatus(status)}`}>{status}</span>{' '}
           status. That means that it is ready for production, but the API might change.
         </>
       );
@@ -32,7 +32,7 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>WARNING:</strong> This component is in{' '}
-          <span class={`px-2 rounded-full ${getClassByStatus(status)}`}>{status}</span>{' '}
+          <span class={`rounded-full px-2 ${getClassByStatus(status)}`}>{status}</span>{' '}
           status. This means that it is still in development and may have bugs or missing
           features. It is not intended to be used in production. You may use it for
           testing purposes.
@@ -44,8 +44,8 @@ function getMessageByStatus(status?: ComponentStatus) {
         <>
           <strong>WARNING:</strong> This component is in{' '}
           <span
-            class={`px-2 rounded-full ${getClassByStatus(
-              status || ComponentStatus.Planned
+            class={`rounded-full px-2 ${getClassByStatus(
+              status || ComponentStatus.Planned,
             )}`}
           >
             {status}
@@ -103,9 +103,9 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
         ref={ref}
         hidden={isBannerClosedSig.value}
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
-        class={`${getBackgroundByStatus(props.status)} px-6 py-4 
-        rounded-xl md:items-center relative md:flex-row normal-state
-        shadow-depth dark:shadow-depth-dark`}
+        class={`${getBackgroundByStatus(props.status)} normal-state shadow-depth 
+        dark:shadow-depth-dark relative rounded-xl px-6 py-4
+        md:flex-row md:items-center`}
         style={{ marginBottom: `${marginBottom}px` }}
       >
         <span class="pr-2">{getMessageByStatus(props.status)}</span>
@@ -114,12 +114,12 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
             // we need the margin as a variable rather than a static class.
             ref.value?.style.setProperty(
               '--dynamic-banner-height',
-              `-${ref.value?.offsetHeight + marginBottom}px`
+              `-${ref.value?.offsetHeight + marginBottom}px`,
             );
 
             ref.value?.classList.toggle('fade');
           }}
-          class="scale-150 absolute top-2 right-2"
+          class="absolute right-2 top-2 scale-150"
         >
           <EpCircleCloseFilled />
         </button>

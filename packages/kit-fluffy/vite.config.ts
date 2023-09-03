@@ -16,24 +16,22 @@ export default defineConfig({
           !id.includes('/jsx') &&
           (id.startsWith('.') || id.startsWith('~'))
         );
-      }
+      },
     }),
     qwikNxVite(),
     qwikVite({
-      // vendorRoots: [join(__dirname, '../kit-headless/src')]
+      vendorRoots: [join(__dirname, '../kit-headless/src')],
     }),
     tsconfigPaths({ root: '../../' }),
     dts({
-      tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
-      // Faster builds by skipping tests. Set this to false to enable type checking.
-      skipDiagnostics: true
-    })
+      tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
+    }),
   ],
   server: {
     fs: {
       // Allow serving files from the project root
-      allow: ['../../']
-    }
+      allow: ['../../'],
+    },
   },
 
   // Configuration for building your library.
@@ -47,22 +45,22 @@ export default defineConfig({
       fileName: (format) => `index.qwik.${format === 'es' ? 'mjs' : 'cjs'}`,
       // Change this to the formats you want to support.
       // Don't forgot to update your package.json as well.
-      formats: ['es', 'cjs']
+      formats: ['es', 'cjs'],
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: []
-    }
+      external: [],
+    },
   },
   test: {
     globals: true,
     cache: {
-      dir: '../../node_modules/.vitest'
+      dir: '../../node_modules/.vitest',
     },
     environment: 'node',
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     coverage: {
-      reportsDirectory: '../../coverage/packages/kit-fluffy'
-    }
-  }
+      reportsDirectory: '../../coverage/packages/kit-fluffy',
+    },
+  },
 });

@@ -34,9 +34,7 @@ export const Collapse = component$((props: CollapseProps) => {
         aria-expanded={state.value === 'open'}
         aria-controls={random.toString()}
         onClick$={() =>
-          state.value === 'open'
-            ? (state.value = 'closing')
-            : (state.value = 'open')
+          state.value === 'open' ? (state.value = 'closing') : (state.value = 'open')
         }
       >
         <Slot name="label" />

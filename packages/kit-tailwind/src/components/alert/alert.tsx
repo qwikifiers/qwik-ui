@@ -40,7 +40,7 @@ export const Alert = component$((props: TailwindAlertProps) => {
         sizes[size],
         radius[rounding],
         'flex gap-4',
-        classNames
+        classNames,
       )}
     >
       <Slot name="icon" />

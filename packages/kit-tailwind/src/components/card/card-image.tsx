@@ -1,8 +1,4 @@
-import {
-  component$,
-  HTMLAttributes,
-  QwikIntrinsicElements,
-} from '@builder.io/qwik';
+import { component$, HTMLAttributes, QwikIntrinsicElements } from '@builder.io/qwik';
 import { CardImage as HeadlessCardImage } from '@qwik-ui/headless';
 export type HTMLImgProps = QwikIntrinsicElements['img'];
 

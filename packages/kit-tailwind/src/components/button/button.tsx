@@ -66,7 +66,7 @@ export const Button = component$((props: ButtonProps) => {
           [options.circle]: circle,
           [options.square]: square,
         },
-        classNames
+        classNames,
       )}
     >
       <Slot />

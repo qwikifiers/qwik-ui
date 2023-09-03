@@ -57,18 +57,13 @@ export const RenderPaginationItem = component$(
         {getLabel()}
       </Button>
     );
-  }
+  },
 );
 
 export const Pagination = component$(
-  ({
-    page,
-    pages,
-    onPaging$,
-    ...rest
-  }: Omit<PaginationProps, 'RenderItem'>) => {
+  ({ page, pages, onPaging$, ...rest }: Omit<PaginationProps, 'RenderItem'>) => {
     return (
-      <div class="flex gap-2 items-center">
+      <div class="flex items-center gap-2">
         <HeadlessPagination
           {...rest}
           page={page}
@@ -81,5 +76,5 @@ export const Pagination = component$(
         />
       </div>
     );
-  }
+  },
 );

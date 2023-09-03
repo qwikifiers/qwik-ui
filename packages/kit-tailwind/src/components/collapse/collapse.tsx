@@ -12,7 +12,7 @@ export const Collapse = component$(
   ({ showArrow = false, showPlus = false, ...props }: CollapseProps) => {
     return (
       <HeadlessCollapse
-        class={`collapse border border-base-300 rounded-box 
+        class={`border-base-300 rounded-box collapse border 
                         ${showArrow && !showPlus && 'collapse-arrow'} 
                         ${showPlus && !showArrow && 'collapse-plus'}`}
         {...props}
@@ -25,5 +25,5 @@ export const Collapse = component$(
         </span>
       </HeadlessCollapse>
     );
-  }
+  },
 );

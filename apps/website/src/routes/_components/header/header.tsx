@@ -29,13 +29,13 @@ export default component$(
       if (selectedKitSig.value === KitName.HEADLESS) {
         return {
           name: 'Headless',
-          version: headlessVersion
+          version: headlessVersion,
         };
       }
       if (selectedKitSig.value === KitName.FLUFFY) {
         return {
           name: 'Fluffy',
-          version: fluffyVersion
+          version: fluffyVersion,
         };
       }
     });
@@ -52,7 +52,7 @@ export default component$(
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
             : 'bg-[var(--color-bg)]',
-          showBottomBorder ? `border-b-[1px] border-slate-300 dark:border-slate-600` : ``
+          showBottomBorder ? `border-b-[1px] border-slate-300 dark:border-slate-600` : ``,
         ]}
       >
         <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">
@@ -105,5 +105,5 @@ export default component$(
         </button>
       </header>
     );
-  }
+  },
 );

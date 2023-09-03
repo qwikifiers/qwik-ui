@@ -8,7 +8,7 @@ import {
   useSignal,
   useVisibleTask$,
   type QwikIntrinsicElements,
-  type Signal
+  type Signal,
 } from '@builder.io/qwik';
 import { KeyCode } from '../../utils/key-code.type';
 import { TAB_PANEL_ID_PREFIX } from './tab-panel';
@@ -35,7 +35,7 @@ export const preventedKeys = [
   KeyCode.ArrowDown,
   KeyCode.ArrowUp,
   KeyCode.ArrowLeft,
-  KeyCode.ArrowRight
+  KeyCode.ArrowRight,
 ];
 
 export const Tab = component$(
@@ -76,7 +76,7 @@ export const Tab = component$(
     const classNamesSig = useComputed$(() => [
       (_extraClass as Signal<string>)?.value ?? (_extraClass as string),
       // TODO only given class if selected
-      isSelectedSig.value && ['selected', selectedClassNameSig.value]
+      isSelectedSig.value && ['selected', selectedClassNameSig.value],
     ]);
 
     return (
@@ -94,12 +94,12 @@ export const Tab = component$(
         tabIndex={isSelectedSig.value ? 0 : -1}
         class={[
           (props.class as Signal<string>)?.value ?? (props.class as string),
-          classNamesSig.value
+          classNamesSig.value,
         ]}
         onClick$={[$(() => contextService.selectTab$(tabId!)), props.onClick$]}
       >
         <Slot />
       </button>
     );
-  }
+  },
 );

@@ -9,7 +9,7 @@ import {
   useId,
   useSignal,
   useTask$,
-  type FunctionComponent
+  type FunctionComponent,
 } from '@builder.io/qwik';
 import { KeyCode } from '../../utils/key-code.type';
 import { Behavior } from './behavior.type';
@@ -136,7 +136,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
         tabInfoList.push({
           tabId,
           index: panelIndex,
-          panelProps: child.props
+          panelProps: child.props,
         } as TabInfo);
         panelIndex++;
 
@@ -150,7 +150,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
 
   if (tabComponents.length !== panelIndex) {
     console.error(
-      `mismatched number of tabs and panels: ${tabComponents.length} ${panelIndex}`
+      `mismatched number of tabs and panels: ${tabComponents.length} ${panelIndex}`,
     );
   }
 
@@ -222,19 +222,19 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
       selectedIndexSig,
       selectedTabIdSig,
       { tabIdToSelect: tabId },
-      true
+      true,
     );
   });
   useTask$(function syncPropSelectedIndexTask({ track }) {
     const updatedIndexFromProps = track(() => props.selectedIndex);
     syncSelectedStateSignals(props.tabInfoList, selectedIndexSig, selectedTabIdSig, {
-      indexToSelect: updatedIndexFromProps
+      indexToSelect: updatedIndexFromProps,
     });
   });
   useTask$(function syncSelectedIndexSigTask({ track }) {
     const updatedIndexSignal = track(() => selectedIndexSig.value);
     syncSelectedStateSignals(props.tabInfoList, selectedIndexSig, selectedTabIdSig, {
-      indexToSelect: updatedIndexSignal
+      indexToSelect: updatedIndexSignal,
     });
     if (typeof selectedIndexSig.value !== 'undefined') {
       onSelectedIndexChange$?.(selectedIndexSig.value);
@@ -243,7 +243,7 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
   useTask$(function syncPropSelectedTabIdTask({ track }) {
     const updatedTabIdFromProps = track(() => props.selectedTabId);
     syncSelectedStateSignals(props.tabInfoList, selectedIndexSig, selectedTabIdSig, {
-      tabIdToSelect: updatedTabIdFromProps
+      tabIdToSelect: updatedTabIdFromProps,
     });
   });
   useTask$(function syncSelectedTabIdSigTask({ track }) {
@@ -256,7 +256,7 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
       }
     }
     syncSelectedStateSignals(props.tabInfoList, selectedIndexSig, selectedTabIdSig, {
-      tabIdToSelect: updatedTabId
+      tabIdToSelect: updatedTabId,
     });
     if (typeof selectedTabIdSig.value !== 'undefined') {
       onSelectedTabIdChange$?.(selectedTabIdSig.value);
@@ -271,7 +271,7 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
 
   const selectTab$ = $((tabId: string) => {
     syncSelectedStateSignals(props.tabInfoList, selectedIndexSig, selectedTabIdSig, {
-      tabIdToSelect: tabId
+      tabIdToSelect: tabId,
     });
   });
 
@@ -285,7 +285,7 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
     const tabsRootElement = ref.value;
 
     const currentFocusedTabIndex = props.tabInfoList.findIndex(
-      (tabData) => tabData.tabId === currentTabId
+      (tabData) => tabData.tabId === currentTabId,
     );
 
     let tabInfo;
@@ -321,7 +321,7 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
     onTabKeyDown$,
     selectIfAutomatic$,
     selectedTabIdSig,
-    selectedClassName
+    selectedClassName,
   };
 
   useContextProvider(tabsContextId, contextService);
@@ -341,7 +341,7 @@ export const syncSelectedStateSignals = (
   selectedIndexSig: Signal<number | undefined>,
   selectedTabIdSig: Signal<string | undefined>,
   { indexToSelect, tabIdToSelect }: { indexToSelect?: number; tabIdToSelect?: string },
-  ignoreIndexNotFound?: boolean
+  ignoreIndexNotFound?: boolean,
 ) => {
   if (tabIdToSelect) {
     indexToSelect = tabsInfoList.findIndex((tabInfo) => tabInfo.tabId === tabIdToSelect);
@@ -373,7 +373,7 @@ export const getEnabledTab = (tabInfoList: TabInfo[], index: number) =>
 export const findNextEnabledTab = (
   tabsInfo: TabInfo[],
   index: number,
-  wrap?: boolean
+  wrap?: boolean,
 ) => {
   let info;
   for (let i = Math.max(0, index); i < tabsInfo.length; i++) {
@@ -397,7 +397,7 @@ export const findNextEnabledTab = (
 export const findPrevEnabledTab = (
   tabsInfo: TabInfo[],
   index: number,
-  wrap?: boolean
+  wrap?: boolean,
 ) => {
   let info;
   for (let i = Math.min(tabsInfo.length, index) - 1; i >= 0; i--) {

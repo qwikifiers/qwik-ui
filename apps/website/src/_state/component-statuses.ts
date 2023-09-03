@@ -36,16 +36,17 @@ export const statusByComponent: ComponentKitsStatuses = {
     Tabs: ComponentStatus.Planned,
     Toast: ComponentStatus.Planned,
     Toggle: ComponentStatus.Planned,
-    Tooltip: ComponentStatus.Planned
+    Tooltip: ComponentStatus.Planned,
   },
   headless: {
     Accordion: ComponentStatus.Beta,
-    Autocomplete: ComponentStatus.Draft,
     Carousel: ComponentStatus.Planned,
+    Combobox: ComponentStatus.Draft,
     Popover: ComponentStatus.Draft,
     Select: ComponentStatus.Draft,
+    Separator: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
     Toggle: ComponentStatus.Planned,
-    Tooltip: ComponentStatus.Draft
-  }
+    Tooltip: ComponentStatus.Draft,
+  },
 };
