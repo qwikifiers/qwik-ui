@@ -1,40 +1,78 @@
+@import '@fontsource-variable/inter';
+
 @tailwind components;
 @tailwind base;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('/fonts/poppins-400.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+@layer base {
+  :root {
+    --color-background: 0 0% 100%;
+    --color-foreground: 263 84% 5%;
 
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-display: fallback;
-  src: url('/fonts/poppins-500.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+    --color-primary: 263 84% 35%;
+    --color-primary-foreground: 0 0% 100%;
 
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 700;
-  font-display: fallback;
-  src: url('/fonts/poppins-700.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    --color-secondary: 197 93% 25%;
+    --color-secondary-foreground: 0 0% 100%;
+
+    --color-muted: 210 40% 96%;
+    --color-muted-foreground: 263 16% 47%;
+
+    --color-accent: 210 40% 96%;
+    --color-accent-foreground: 263 47% 11%;
+
+    --color-destructive: 0 84% 60%;
+    --color-destructive-foreground: 263 40% 98%;
+
+    --color-card: 0 0% 100%;
+    --color-card-foreground: 263 84% 5%;
+
+    --color-popover: 0 0% 100%;
+    --color-popover-foreground: 263 84% 5%;
+
+    --color-border: 263 32% 91%;
+
+    --color-input: 263 32% 91%;
+
+    --color-ring: 263 84% 25%;
+
+    --border-radius: 0.375rem;
+  }
+
+  .dark {
+    --color-background: 263 84% 5%;
+    --color-foreground: 263 40% 98%;
+
+    --color-primary: 263 40% 98%;
+    --color-primary-foreground: 263 47.4% 11.2%;
+
+    --color-secondary: 197 32.6% 17.5%;
+    --color-secondary-foreground: 190 40% 98%;
+
+    --color-muted: 218 32.6% 17.5%;
+    --color-muted-foreground: 263 20.2% 65.1%;
+
+    --color-accent: 263 32.6% 17.5%;
+    --color-accent-foreground: 263 40% 98%;
+
+    --color-destructive: 0 62.8% 30.6%;
+    --color-destructive-foreground: 263 40% 98%;
+
+    --color-card: 263 84% 4.9%;
+    --color-card-foreground: 263 40% 98%;
+
+    --color-popover: 263 84% 4.9%;
+    --color-popover-foreground: 263 40% 98%;
+
+    --color-border: 263 32.6% 17.5%;
+
+    --color-input: 263 32.6% 17.5%;
+
+    --color-ring: 263 26.8% 83.9%;
+  }
 }
 
 :root {
-  --color-primary: #006ce9;
-
   --qwik-dark-blue: #006ce9;
   --qwik-light-blue: #18b6f6;
   --qwik-light-purple: #ac7ff4;
@@ -96,10 +134,6 @@ html {
 
   background-color: var(--color-bg) !important;
   color: var(--color-text) !important;
-
-  font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
 }
 
 body {

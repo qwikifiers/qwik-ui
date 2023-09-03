@@ -4,7 +4,8 @@ const { join } = require('path');
 module.exports = {
   content: [
     join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
-    join(__dirname, '../../packages/kit-tailwind/src/**/*.{js,ts,jsx,tsx,mdx}')
+    join(__dirname, '../../packages/kit-tailwind/src/**/*.{js,ts,jsx,tsx,mdx}'),
+    join(__dirname, '../../packages/kit-fluffy/src/**/*.{js,ts,jsx,tsx,mdx}')
   ],
   plugins: [require('daisyui')],
   darkMode: 'class',
@@ -14,6 +15,9 @@ module.exports = {
   },
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter Variable', 'sans-serif']
+      },
       backgroundImage: {
         'optional-theme-bg': "url('/Button-bg.svg')"
       },
@@ -49,12 +53,45 @@ module.exports = {
           950: 'hsl(269, 67%, 13%)'
         },
 
+        border: 'hsl(var(--color-border))',
+        input: 'hsl(var(--color-input))',
+        ring: 'hsl(var(--color-ring))',
+        background: 'hsl(var(--color-background))',
+        foreground: 'hsl(var(--color-foreground))',
+
         primary: {
-          DEFAULT: 'var(--color-primary)',
-          forground: 'var(--color-primary)',
-          dark: 'var(--color-primary-dark)',
-          light: 'var(--color-primary-light)'
+          DEFAULT: 'hsl(var(--color-primary))',
+          foreground: 'hsl(var(--color-primary-foreground))'
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--color-secondary))',
+          foreground: 'hsl(var(--color-secondary-foreground))'
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--color-accent))',
+          foreground: 'hsl(var(--color-accent-foreground))'
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--color-muted))',
+          foreground: 'hsl(var(--color-muted-foreground))'
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--color-destructive))',
+          foreground: 'hsl(var(--color-destructive-foreground))'
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--color-popover))',
+          foreground: 'hsl(var(--color-popover-foreground))'
+        },
+        card: {
+          DEFAULT: 'hsl(var(--color-card))',
+          foreground: 'hsl(var(--color-card-foreground))'
         }
+      },
+      borderRadius: {
+        lg: 'var(--border-radius)',
+        md: 'calc(var(--border-radius) - 2px)',
+        sm: 'calc(var(--border-radius) - 4px)'
       }
     }
   }
