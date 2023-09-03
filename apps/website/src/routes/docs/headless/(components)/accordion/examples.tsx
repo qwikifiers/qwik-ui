@@ -630,7 +630,7 @@ export const DynamicAccordion = component$(
             </label>
           </div>
 
-          <AccordionRoot class="text-white bg-slate-700 rounded-sm border-slate-600 border-[1px] box-border w-[min(400px,_100%)]">
+          <AccordionRoot class="text-white bg-slate-700 rounded-sm border-slate-600 border-[1px] border-t-0 box-border w-[min(400px,_100%)]">
             {itemStore.map(({ label, id }, index) => {
               return (
                 <AccordionItem id={`${id}`} key={id}>

@@ -1,11 +1,12 @@
 .tabs-example [role='tab'] {
   width: 250px;
-  background: var(--qwikui-slate-300);
-  color: var(--qwikui-slate-950);
+  background: var(--qwikui-slate-500);
+  color: white;
 }
 
 .tabs-example [role='tab'][disabled] {
-  color: var(--qwikui-slate-500);
+  color: var(--qwikui-slate-400);
+  background: var(--qwikui-slate-600);
 }
 
 .tabs-example [role='tab'].selected {
