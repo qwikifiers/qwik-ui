@@ -11,12 +11,13 @@ import {
   ComboboxOption,
 } from '@qwik-ui/headless';
 
-import { HeroExample, ParentComponent, StringCombobox, Example03 } from './examples';
+import { HeroExample, ParentComponent, StringCombobox, ObjectCombobox, CustomFilter, SortingExample, DisabledExample, CustomKeysExample } from './examples';
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../_components/api-table/api-table';
 import { StatusBanner } from '../../../_components/status-banner/status-banner';
 import {statusByComponent} from '../../../../../_state/component-statuses';
+import { AnatomyTable } from '../../../_components/anatomy-table/anatomy-table';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
@@ -82,6 +83,7 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 - Full WAI-Aria compliance
 - Full keyboard navigation
+- Floating UI integration (listbox)
 - Autocomplete configuration
 - Can add your own custom filter
 - Controlled or uncontrolled
@@ -95,7 +97,7 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 <br />
 
 <div class="bg-red-200 dark:bg-red-900 p-4 lg:p-6 rounded-xl dark:border-[#F3F3F3] border-[#333333]">
-  <p class="pb-4">The Combobox component makes use of **portals**. A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.</p>
+  <p class="pb-4">The Combobox component makes use of <a class="border-b-2 !border-red-800 hover:!border-red-900" href="https://qwik.builder.io/docs/cookbook/portal/#portal">portals</a>. A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.</p>
   <CodeExample classes="!mb-0 !p-6 !rounded-md">
     ```tsx
     import { QwikUIProvider } from '@qwik-ui/headless'; // import Provider component
@@ -156,15 +158,122 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
         </Combobox>
       )
     ```
-
   </CodeExample>
+
+  ### 🎨 Anatomy
+  <AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Combobox',
+      description: 'The root container for the Combobox.',
+    },
+    {
+      name: 'ComboboxLabel',
+      description: 'A label element to connect to the Combobox.',
+    },
+    {
+      name: 'ComboboxControl',
+      description: `A container for the combobox trigger, and input.`,
+    },
+    {
+      name: 'ComboboxInput',
+      description: `An input element used for filtering, and controlling the combobox state.`,
+    },
+    {
+      name: 'ComboboxTrigger',
+      description: `A button that toggles the corresponding listbox when clicked.`,
+    },
+    {
+      name: 'ComboboxPortal',
+      description: `A portal component that teleports the children outside its parent when the listbox state is open.`,
+    },
+    {
+      name: 'ComboboxListbox',
+      description: `An unordered list that contains multiple options that display when opened.`,
+    },
+    {
+      name: 'ComboboxOption',
+      description: `A list item that is shown based on the listbox state and filter API.`,
+    },
+  ]}
+/>
+
+## Passing data
+
+### String example
+
+<StringCombobox>```tsx ```</StringCombobox>
+
+Qwik UI's Combobox supports **both** string and option data. Whether that's an array of strings, or an array of objects. To pass in data, add the `options` prop on the combobox root.
+
+Under the hood, the data passed in populates the listbox with options. To see options visually, add the `renderOption$` prop on the combobox root. This prop is a [QRL](https://qwik.builder.io/docs/advanced/qrl/#qrl), inside is a callback where the `ComboboxOption` component needs to be passed in.
+
+### Object example
+
+<ObjectCombobox>```tsx ```</ObjectCombobox>
+
+The callback takes **two** parameters: 
+
+- An object that holds the resolved option data.
+- The option index.
+
+The resolved object also holds:
+
+- The key.
+- Option Label.
+- Option Value.
+- Any disabled options.
+
+Import the **ResolvedOption** type from Qwik UI and pass in the data according to the code block below.
+
+<CodeExample>
+  ```tsx
+  import { ComboboxOption, type ResolvedOption } from '@qwik-ui/headless';
+
+  renderOption$={(option: ResolvedOption, index: number) => (
+    <ComboboxOption
+      key={option.key}
+      index={index}
+      resolved={option}
+    >
+      {option.label}
+    </ComboboxOption>
+  )}
+  ```
+</CodeExample>
+
+## Adding a filter
+
+Out of the box, the Combobox comes with a default filter that uses the **includes** method to filter options. To add a custom filter, you can use the `filter$` QRL.
+
+<CustomFilter>```tsx ```</CustomFilter>
+
+In this example, the filter function retrieves the input value and options object. It then filters the options using the JavaScript `startsWith` method as part of our filter logic. However, you are not limited to this method. You can use any filtering method of your choice to customize the behavior to suit your needs.
+
+### Sorting
+
+In our previous example, you may have noticed that the country data wasn't sorted alphabetically. To sort options, add an additional sort method after the filter.
+
+<SortingExample>```tsx ```</SortingExample>
+
+## Disabled Behavior
+
+To disable options in the Combobox component, add a **disabled** key to your options object. For unique key names, pass the key name to the `optionDisabledKey` prop in the root combobox.
+
+<DisabledExample>```tsx ```</DisabledExample>
+
+The **optionDisabledKey** prop does not need to be passed when there is a key already named disabled, OR you do not have any disabled options.
+
+## Custom Key Names
+
+Like we saw previously with the **optionDisabledKey** prop, custom key names can also be passed in for values and labels.
+
+<CustomKeysExample>```tsx ```</CustomKeysExample>
+
 
 ## Passing context
 
 <ParentComponent>```tsx ```</ParentComponent>
-
-
-<StringCombobox>```tsx ```</StringCombobox>
 
 ## Accessibility
 
@@ -235,7 +344,7 @@ By default, the API holds available attributes of both native DOM elements and c
     {
       name: 'label',
       type: 'string',
-      description: 'The label to give to the accordion item.',
+      description: 'The label to give to the Combobox item.',
     },
     {
       name: 'onClick$',

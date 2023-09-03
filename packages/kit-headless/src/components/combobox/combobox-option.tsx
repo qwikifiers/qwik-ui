@@ -6,6 +6,7 @@ import {
   useContext,
   useSignal,
   useVisibleTask$,
+  $,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 
@@ -18,7 +19,7 @@ export type ComboboxOptionProps = {
 
 export const ComboboxOption = component$(
   // remove non-li props from props
-  ({ index, resolved, ...liProps }: ComboboxOptionProps) => {
+  ({ index, resolved, onMouseEnter$, onClick$, ...liProps }: ComboboxOptionProps) => {
     const context = useContext(ComboboxContextId);
     const optionId = `${context.localId}-${resolved.key}`;
 
@@ -26,6 +27,17 @@ export const ComboboxOption = component$(
       // eslint-disable-next-line qwik/valid-lexical-scope
       () => !resolved.disabled && context.highlightedIndexSig.value === index,
     );
+
+    const onClickBehavior$ = $(() => {
+      // eslint-disable-next-line qwik/valid-lexical-scope
+      if (!context.inputRef.value || resolved.disabled) {
+        return;
+      }
+
+      (context.inputRef.value.value =
+        context.filteredOptionsSig.value[context.highlightedIndexSig.value]?.label),
+        (context.isListboxOpenSig.value = false);
+    });
 
     const optionRef = useSignal<HTMLLIElement>();
 
@@ -53,8 +65,6 @@ export const ComboboxOption = component$(
           optionRef.value?.removeEventListener('mousedown', handleMousedown);
         });
       }
-
-      console.log(optionId);
     });
 
     return (
@@ -67,17 +77,11 @@ export const ComboboxOption = component$(
         aria-selected={isHighlightedSig.value}
         aria-disabled={resolved.disabled}
         data-disabled={resolved.disabled}
-        onClick$={() => {
-          // eslint-disable-next-line qwik/valid-lexical-scope
-          if (!context.inputRef.value || resolved.disabled) {
-            return;
-          }
-
-          (context.inputRef.value.value =
-            context.filteredOptionsSig.value[context.highlightedIndexSig.value]?.label),
-            (context.isListboxOpenSig.value = false);
-        }}
-        onMouseEnter$={() => (context.highlightedIndexSig.value = index)}
+        onClick$={[onClickBehavior$, onClick$]}
+        onMouseEnter$={[
+          $(() => (context.highlightedIndexSig.value = index)),
+          onMouseEnter$,
+        ]}
       >
         <Slot />
       </li>
