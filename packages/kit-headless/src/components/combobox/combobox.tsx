@@ -96,6 +96,7 @@ export const Combobox = component$(
     });
 
     const filteredOptionsSig = useSignal<ResolvedOption<O>[]>([]);
+
     const inputValueSig = useSignal<string>(defaultLabel);
 
     useTask$(async function filterAPITask({ track }) {

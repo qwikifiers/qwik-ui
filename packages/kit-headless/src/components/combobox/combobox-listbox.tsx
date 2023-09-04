@@ -12,33 +12,40 @@ import {
   offset as _offset,
   flip as _flip,
   shift as _shift,
-  arrow as _arrow,
-  size as _size,
   autoPlacement as _autoPlacement,
   hide as _hide,
   inline as _inline,
-  type Placement,
-  type DetectOverflowOptions,
-  type ComputePositionReturn,
 } from '@floating-ui/dom';
 
-import type {
-  ShiftOptions,
-  OffsetOptions,
-  ArrowOptions,
-  FlipOptions,
-  SizeOptions,
-  AutoPlacementOptions,
-  HideOptions,
-  InlineOptions,
-} from '@floating-ui/core';
+// FULL FloatingUI integration. DONT REMOVE ANY COMMENTED LINES.
+// import type {
+//   ShiftOptions,
+//   OffsetOptions,
+//   ArrowOptions,
+//   FlipOptions,
+//   SizeOptions,
+//   AutoPlacementOptions,
+//   HideOptions,
+//   InlineOptions,
+// } from '@floating-ui/core';
+
+// full API middleware
+// offset?: OffsetOptions;
+// shift?: Partial<ShiftOptions & DetectOverflowOptions> | boolean;
+// flip?: FlipOptions | boolean;
+// arrow?: ArrowOptions;
+// size?: SizeOptions;
+// autoPlacement?: AutoPlacementOptions | boolean;
+// hide?: HideOptions | boolean;
+// inline?: InlineOptions | boolean;
+// onPositionComputed?: (resolvedData: ComputePositionReturn) => void;
 
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
 
 export type ComboboxListboxProps = {
   // main floating UI props
-  placement?: Placement;
+  placement?: 'top' | 'bottom';
   ancestorScroll?: boolean;
   ancestorResize?: boolean;
   elementResize?: boolean;
@@ -46,15 +53,13 @@ export type ComboboxListboxProps = {
   animationFrame?: boolean;
 
   // middleware
-  offset?: OffsetOptions;
-  shift?: Partial<ShiftOptions & DetectOverflowOptions> | boolean;
-  flip?: FlipOptions | boolean;
-  arrow?: ArrowOptions;
-  size?: SizeOptions;
-  autoPlacement?: AutoPlacementOptions | boolean;
-  hide?: HideOptions | boolean;
-  inline?: InlineOptions | boolean;
-  onPositionComputed?: (resolvedData: ComputePositionReturn) => void;
+  offset?: number;
+  shift?: boolean;
+  flip?: boolean;
+  size?: boolean;
+  autoPlacement?: boolean;
+  hide?: boolean;
+  inline?: boolean;
 
   // misc
   transform?: string;
@@ -66,8 +71,6 @@ export const ComboboxListbox = component$(
     flip = true,
     placement = 'bottom',
     shift,
-    arrow,
-    size,
     hide,
     inline,
     autoPlacement = false,
@@ -75,7 +78,6 @@ export const ComboboxListbox = component$(
     ancestorResize = true,
     elementResize = true,
     animationFrame = false,
-    onPositionComputed,
     transform,
     ...props
   }: ComboboxListboxProps) => {
@@ -84,19 +86,23 @@ export const ComboboxListbox = component$(
 
     useVisibleTask$(function setFloatingUIConfig({ cleanup }) {
       function updatePosition() {
-        const middleware = [_offset(offset), arrow && _arrow(arrow), size && _size(size)];
+        // const middleware = [_offset(offset), arrow && _arrow(arrow), size && _size(size)];
+        const middleware = [_offset(offset)];
 
-        // offers a bool to turn on or off default config, or customize it.
         const middlewareFunctions = [_flip, _shift, _autoPlacement, _hide, _inline];
         const middlewareProps = [flip, shift, autoPlacement, hide, inline];
 
         middlewareFunctions.forEach((func, index) => {
           const isMiddlewareEnabled = middlewareProps[index];
 
+          // non-commented push is boolean, no option property customization.
           if (isMiddlewareEnabled) {
-            const middlewareConfig =
-              isMiddlewareEnabled === true ? undefined : isMiddlewareEnabled;
-            middleware.push(func(middlewareConfig));
+            middleware.push(func());
+
+            // commented ternary offers a bool to turn on or off default config, or customize it.
+            // const middlewareConfig =
+            //   isMiddlewareEnabled === true ? undefined : isMiddlewareEnabled;
+            // middleware.push(func(middlewareConfig));
           }
         });
 
@@ -118,9 +124,9 @@ export const ComboboxListbox = component$(
           }
 
           // user-provided resolved code
-          if (onPositionComputed) {
-            onPositionComputed(resolvedData);
-          }
+          // if (onPositionComputed) {
+          //   onPositionComputed(resolvedData);
+          // }
         });
       }
 

@@ -11,7 +11,7 @@ import {
   ComboboxOption,
 } from '@qwik-ui/headless';
 
-import { HeroExample, ParentComponent, StringCombobox, ObjectCombobox, CustomFilter, SortingExample, DisabledExample, CustomKeysExample } from './examples';
+import { HeroExample, ParentComponent, StringCombobox, ObjectCombobox, CustomFilter, SortingExample, DisabledExample, CustomKeysExample, FlipExample, ShiftExample } from './examples';
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../_components/api-table/api-table';
@@ -23,7 +23,7 @@ import { AnatomyTable } from '../../../_components/anatomy-table/anatomy-table';
 
 # Combobox
 
-#### A customizable text field with a listbox, enabling users to narrow down a list of choices based on their search criteria.
+#### A customizable text field with a listbox, enabling users to constrain a list of choices based on their search criteria.
 
 {' '}
 
@@ -84,8 +84,8 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 - Full WAI-Aria compliance
 - Full keyboard navigation
 - Floating UI integration (listbox)
-- Autocomplete configuration
-- Can add your own custom filter
+- Custom Autocomplete behavior
+- Custom filter functionality
 - Controlled or uncontrolled
 - Supports disabled options
 - Animatable, dynamic, and resumable
@@ -200,11 +200,11 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 ## Passing data
 
+Qwik UI's Combobox supports **both** string and option data. Whether that's an array of strings, or an array of objects. To pass in data, add the `options` prop on the combobox root.
+
 ### String example
 
 <StringCombobox>```tsx ```</StringCombobox>
-
-Qwik UI's Combobox supports **both** string and option data. Whether that's an array of strings, or an array of objects. To pass in data, add the `options` prop on the combobox root.
 
 Under the hood, the data passed in populates the listbox with options. To see options visually, add the `renderOption$` prop on the combobox root. This prop is a [QRL](https://qwik.builder.io/docs/advanced/qrl/#qrl), inside is a callback where the `ComboboxOption` component needs to be passed in.
 
@@ -244,11 +244,11 @@ Import the **ResolvedOption** type from Qwik UI and pass in the data according t
 
 ## Adding a filter
 
-Out of the box, the Combobox comes with a default filter that uses the **includes** method to filter options. To add a custom filter, you can use the `filter$` QRL.
+Out of the box, the Combobox comes with a default filter that uses the **string.includes** method to filter options. To add a custom filter, you can use the `filter$` QRL.
 
 <CustomFilter>```tsx ```</CustomFilter>
 
-In this example, the filter function retrieves the input value and options object. It then filters the options using the JavaScript `startsWith` method as part of our filter logic. However, you are not limited to this method. You can use any filtering method of your choice to customize the behavior to suit your needs.
+In this example, the filter function retrieves the input value and options object. It then filters the options using the JavaScript `string.startsWith` method as part of our filter logic. However, you are not limited to this method. You can use any filtering method of your choice to customize the behavior to suit your needs.
 
 ### Sorting
 
@@ -258,7 +258,10 @@ In our previous example, you may have noticed that the country data wasn't sorte
 
 ## Disabled Behavior
 
-To disable options in the Combobox component, add a **disabled** key to your options object. For unique key names, pass the key name to the `optionDisabledKey` prop in the root combobox.
+There are two ways to indicate that an option is disabled:
+
+- Using the default **disabled** key.
+- Passing a unique key name using the **optionDisabledKey** prop.
 
 <DisabledExample>```tsx ```</DisabledExample>
 
@@ -266,10 +269,78 @@ The **optionDisabledKey** prop does not need to be passed when there is a key al
 
 ## Custom Key Names
 
-Like we saw previously with the **optionDisabledKey** prop, custom key names can also be passed in for values and labels.
+As we saw previously with the **optionDisabledKey** prop, custom key names can also be passed in for values and labels.
 
 <CustomKeysExample>```tsx ```</CustomKeysExample>
 
+In some cases, your data object keys may not match the default keys that the Combobox component expects for option values and labels. By default, the Combobox component looks for keys named **value** for option values and **label** for option labels.
+
+If your data object keys are different, you can specify custom key names using the `optionValueKey` and `optionLabelKey` props.
+
+<CodeExample>
+  ```tsx
+    <Combobox
+    options={myOptions}
+    optionValueKey="pokedex"
+    optionLabelKey="pokemon"
+    optionDisabledKey="isPokemonCaught"
+    />
+  ```
+</CodeExample>
+
+Within our example, the value key is called **pokedex** and the label key is called **pokemon**. This tells the Combobox component to use the "pokedex" key for option values and the "pokemon" key for option labels.
+
+> these props only need to be used if your data object keys **do not match** the default "value" and "label" keys. If your data object keys match these defaults, you do not need to pass in any custom keys.
+
+## Customizing the Listbox
+
+The `ComboboxListbox` component is seamlessly integrated with **Floating UI**, A JavaScript library designed for positioning elements that float and facilitating interactions with them.
+
+This integration offers the flexibility to adapt the listbox to meet the specific requirements of the application.
+
+### Flip
+
+<FlipExample>```tsx ```</FlipExample>
+
+Some Floating UI properties are enabled by default, such as the `flip` middleware. To turn off flip, you could add `flip={false}` on the listbox component.
+
+### Consuming Floating UI
+
+Suppose we want to use Floating UI's shift middleware on our Combobox Listbox to prevent overflow. In the floating UI docs, it looks like this:
+
+<CodeExample>
+  ```tsx
+  import {computePosition, shift} from '@floating-ui/dom';
+ 
+  computePosition(referenceEl, floatingEl, {
+    middleware: [shift()],
+  });
+  ```
+</CodeExample>
+
+In this example, we are preventing overflow, while maintaining the desired placement when possible.
+
+<ShiftExample>```tsx ```</ShiftExample>
+
+Qwik UI handles all middleware and options under the hood. The Qwik UI equivalent would be:
+
+<CodeExample>
+  ```tsx
+  // enabling the middleware
+  <ComboboxListbox
+    shift={true}
+  />
+
+  // fine-grained options
+  <ComboboxListbox
+    shift={{ mainAxis: true }}
+  />
+  ```
+</CodeExample>
+
+It also allows for specific object properties. Such as setting only the main axis to true.
+
+> All floating UI options should be supported. If you don't know what options to add, here's a reference to the [Floating UI docs](https://floating-ui.com/)
 
 ## Passing context
 

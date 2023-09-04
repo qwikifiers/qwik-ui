@@ -11,7 +11,6 @@ import {
   useVisibleTask$,
 } from '@builder.io/qwik';
 
-import { isServer } from '@builder.io/qwik/build';
 import { ContextPair, openPortalContextId } from '../qwik-ui-provider';
 import ComboboxContextId from './combobox-context-id';
 
@@ -43,13 +42,6 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
   });
 
   const openPortal$ = useContext(openPortalContextId);
-
-  useTask$(async function openListboxOnServer() {
-    // Open Portal Conditionally on SSR
-    if (isServer && comboboxContext.isListboxOpenSig.value) {
-      await openPortal$('comboboxPortal', props.elementToTeleport, contextPairsSig.value);
-    }
-  });
 
   const closePortalSig = useSignal<QRL<() => void>>();
 
