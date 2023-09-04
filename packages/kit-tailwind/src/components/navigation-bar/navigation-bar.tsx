@@ -1,14 +1,15 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { NavigationBar as HeadlessNavigationBar } from '@qwik-ui/headless';
-import { clsq } from '@qwik-ui/shared';
 
 export type HTMLNavigationBarProps = QwikIntrinsicElements['div'];
 
 export const NavigationBar = component$((props: HTMLNavigationBarProps) => {
   const { class: className, ...rest } = props;
 
+  // TODO: discuss this
+
   return (
-    <HeadlessNavigationBar class={clsq('navbar', className)} {...rest}>
+    <HeadlessNavigationBar class={['navbar', className]} {...rest}>
       <div class="navbar-start">
         <Slot name="navbar-left" />
       </div>

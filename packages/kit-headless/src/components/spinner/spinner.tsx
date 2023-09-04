@@ -1,5 +1,4 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
-import { clsq } from '@qwik-ui/shared';
 import styles from './spinner.css?inline';
 
 export type SpinnerProps = {
@@ -22,7 +21,7 @@ export const Spinner = component$((props: SpinnerProps) => {
   } = props;
   useStylesScoped$(styles);
   return (
-    <div class={clsq('spinner-container', classNames)} style={style}>
+    <div class={`spinner-container ${classNames}`} style={style}>
       <svg part="base" class="spinner" role="spinner">
         <circle
           class="track"

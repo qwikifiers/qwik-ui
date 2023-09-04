@@ -1,6 +1,4 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
-import { Button as HeadlessButton } from '@qwik-ui/primitives';
-import { clsq } from '@qwik-ui/shared';
 import { daisyConfig } from './daisy.config';
 
 export type HTMLButtonProps = QwikIntrinsicElements['button'];
@@ -48,28 +46,28 @@ export const Button = component$((props: ButtonProps) => {
   } = props;
 
   const { variants, sizes, options } = daisyConfig;
-
+  // TODO: discuss this
   return (
-    <HeadlessButton
+    <button
       {...rest}
-      class={clsq(
-        'btn',
-        variants[variant],
-        sizes[size],
-        {
-          [options.active]: active,
-          [options.outline]: outline,
-          [options.disabled]: disabled,
-          [options.glass]: glass,
-          [options.loading]: loading,
-          [options.noAnimation]: noAnimation,
-          [options.circle]: circle,
-          [options.square]: square,
-        },
-        classNames,
-      )}
+      // class={[
+      //   'btn',
+      //   variants[variant],
+      //   sizes[size],
+      //   {
+      //     [options.active]: active,
+      //     [options.outline]: outline,
+      //     [options.disabled]: disabled,
+      //     [options.glass]: glass,
+      //     [options.loading]: loading,
+      //     [options.noAnimation]: noAnimation,
+      //     [options.circle]: circle,
+      //     [options.square]: square,
+      //   },
+      //   classNames,
+      // ]}
     >
       <Slot />
-    </HeadlessButton>
+    </button>
   );
 });

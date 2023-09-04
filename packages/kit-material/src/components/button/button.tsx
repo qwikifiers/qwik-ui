@@ -1,6 +1,4 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
-import { Button as HeadlessButton } from '@qwik-ui/primitives';
-import { clsq } from '@qwik-ui/shared';
 
 export type HTMLButtonProps = QwikIntrinsicElements['button'];
 
@@ -17,9 +15,9 @@ export const Button = component$((props: ButtonProps) => {
   const { class: classNames, disabled, floating, flat, size = 'medium', ...rest } = props;
 
   return (
-    <HeadlessButton
+    <button
       {...rest}
-      class={clsq(
+      class={[
         {
           disabled: disabled,
           'btn-floating': floating,
@@ -29,10 +27,9 @@ export const Button = component$((props: ButtonProps) => {
           btn: size === 'medium',
           'btn-large': size === 'large',
         },
-        classNames,
-      )}
+      ]}
     >
       <Slot />
-    </HeadlessButton>
+    </button>
   );
 });

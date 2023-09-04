@@ -1,12 +1,13 @@
 import {
-  component$,
-  createContextId,
   PropFunction,
+  QwikIntrinsicElements,
   Signal,
   Slot,
-  useVisibleTask$,
+  component$,
+  createContextId,
   useContextProvider,
   useSignal,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 
 export const getPercentage = (value: number, min = 0, max = 100) => {
@@ -23,14 +24,14 @@ interface SliderContextService {
 
 export const sliderContext = createContextId<SliderContextService>('slider');
 
-interface SliderProps {
+export type SliderProps = {
   value: number;
   min: number;
   max: number;
   onChange$?: PropFunction<(value: number) => void>;
   class?: string;
   style?: string;
-}
+} & QwikIntrinsicElements['div'];
 
 export const Slider = component$(
   ({

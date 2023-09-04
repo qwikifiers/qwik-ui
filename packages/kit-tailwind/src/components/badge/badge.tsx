@@ -1,6 +1,4 @@
 import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
-import { Badge as HeadlessBadge } from '@qwik-ui/headless';
-import { clsq } from '@qwik-ui/shared';
 
 export interface TailwindBadgeProps extends HTMLAttributes<HTMLElement> {
   variant?: TailwindBadgeVariants;
@@ -48,15 +46,13 @@ export const Badge = component$((props: TailwindBadgeProps) => {
   return (
     <div
       {...rest}
-      class={clsq(
+      class={[
         'badge',
         variants[variant],
         sizes[size],
-        {
-          [options.outline]: outline,
-        },
-        classNames,
-      )}
+        outline ? options.outline : '',
+        `${classNames}`,
+      ]}
     >
       <Slot />
     </div>

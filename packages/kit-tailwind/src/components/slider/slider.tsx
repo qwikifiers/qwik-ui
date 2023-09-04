@@ -4,7 +4,6 @@ import {
   SliderProgress as HeadlessSliderProgress,
   SliderThumb as HeadlessSliderThumb,
 } from '@qwik-ui/headless';
-import { clsq } from '@qwik-ui/shared';
 import { daisyConfig } from './daisy.config';
 
 export type SliderProps = {
@@ -36,6 +35,8 @@ export const Slider = component$(
   }: SliderProps) => {
     const { variants } = daisyConfig;
 
+    // TODO: discuss this
+
     return (
       <HeadlessSlider
         {...rest}
@@ -45,7 +46,7 @@ export const Slider = component$(
         border: none;
         ${style ?? ''}
       `}
-        class={clsq('mx-4', classNames)}
+        class={['mx-4', classNames]}
         value={value}
         onChange$={(value) => onChange$?.(value)}
       >

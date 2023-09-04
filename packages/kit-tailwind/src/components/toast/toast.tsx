@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik';
 import { Toast as HeadlessToast } from '@qwik-ui/primitives';
-import { clsq } from '@qwik-ui/shared';
 import { daisyConfig } from './daisy.config';
 
 export type TailwindToastVariants = 'info' | 'success' | 'warning' | 'error';
@@ -31,10 +30,10 @@ export const Toast = component$(
     ...rest
   }: ToastProps) => {
     const { variants, positions } = daisyConfig;
-
+    // TODO: discuss this
     return (
       <div
-        class={clsq(
+        class={[
           'toast absolute',
           {
             [positions.top]: top,
@@ -45,9 +44,9 @@ export const Toast = component$(
             [positions.start]: start,
           },
           classNames,
-        )}
+        ]}
       >
-        <HeadlessToast label={label} class={clsq('alert', variants[variant])} {...rest} />
+        <HeadlessToast label={label} class={['alert', variants[variant]]} {...rest} />
       </div>
     );
   },

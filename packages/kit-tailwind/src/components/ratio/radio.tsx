@@ -1,11 +1,10 @@
 import {
-  component$,
   PropFunction,
-  QwikIntrinsicElements,
   QwikChangeEvent,
+  QwikIntrinsicElements,
+  component$,
 } from '@builder.io/qwik';
 import { Radio as HeadlessRadio } from '@qwik-ui/primitives';
-import { clsq } from '@qwik-ui/shared';
 import { daisyConfig } from './daisy.config';
 
 export type HTMLRadioProps = QwikIntrinsicElements['input'];
@@ -44,8 +43,10 @@ export const Radio = component$((props: RadioProps) => {
       {...rest}
       type="radio"
       name={name}
-      class={clsq('radio mx-1', variants[variant], classNames)}
+      class={['radio mx-1', variants[variant], classNames]}
       value={value}
     ></HeadlessRadio>
   );
 });
+
+// TODO: discuss this
