@@ -9,6 +9,7 @@ import {
   useSignal,
   useVisibleTask$,
 } from '@builder.io/qwik';
+import { OmitSignalClass } from '@qwik-ui/type-utils';
 
 export const getPercentage = (value: number, min = 0, max = 100) => {
   return ((value - min) * 100) / (max - min);
@@ -24,14 +25,12 @@ interface SliderContextService {
 
 export const sliderContext = createContextId<SliderContextService>('slider');
 
-export type SliderProps = {
+export type SliderProps = OmitSignalClass<QwikIntrinsicElements['div']> & {
   value: number;
   min: number;
   max: number;
   onChange$?: PropFunction<(value: number) => void>;
-  class?: string;
-  style?: string;
-} & QwikIntrinsicElements['div'];
+};
 
 export const Slider = component$(
   ({

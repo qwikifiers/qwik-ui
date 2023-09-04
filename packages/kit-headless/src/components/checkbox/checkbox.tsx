@@ -1,12 +1,14 @@
-import { component$, Slot, QwikChangeEvent, PropFunction } from '@builder.io/qwik';
+import {
+  PropFunction,
+  QwikChangeEvent,
+  QwikIntrinsicElements,
+  Slot,
+  component$,
+} from '@builder.io/qwik';
 
-interface StyleProps {
-  class?: string;
-  style?: string;
-}
-interface LabelProps extends StyleProps {
+export type LabelProps = QwikIntrinsicElements['label'] & {
   htmlFor?: string;
-}
+};
 
 export const Label = component$(({ ...props }: LabelProps) => {
   return (
@@ -16,7 +18,7 @@ export const Label = component$(({ ...props }: LabelProps) => {
   );
 });
 
-export interface CheckboxProps extends StyleProps {
+export type CheckboxProps = QwikIntrinsicElements['input'] & {
   checked?: boolean;
   disabled?: boolean;
   name?: string;
@@ -27,7 +29,7 @@ export interface CheckboxProps extends StyleProps {
   onChange?: PropFunction<
     (event: QwikChangeEvent<HTMLInputElement>, element: HTMLInputElement) => void
   >;
-}
+};
 
 export const Root = component$(
   ({
