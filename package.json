@@ -116,7 +116,6 @@
     "components library"
   ],
   "dependencies": {
-    "@fontsource/poppins": "5.0.8",
     "tslib": "^2.6.2"
   }
 }
