@@ -1,12 +1,12 @@
 /// <reference types="vitest" />
 
 import { qwikVite } from '@builder.io/qwik/optimizer';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
 import { dirname, join } from 'path';
 import { qwikNxVite } from 'qwik-nx/plugins';
 import { fileURLToPath } from 'url';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [
@@ -14,7 +14,10 @@ export default defineConfig({
     qwikVite(),
     tsconfigPaths({ root: '../../' }),
     dts({
-      tsconfigPath: join(dirname(fileURLToPath(import.meta.url)), 'tsconfig.lib.json'),
+      tsConfigFilePath: join(
+        dirname(fileURLToPath(import.meta.url)),
+        'tsconfig.lib.json',
+      ),
     }),
   ],
   server: {
@@ -32,7 +35,7 @@ export default defineConfig({
       entry: './src/index.ts',
       // Could also be a dictionary or array of multiple entry points.
       name: 'headless',
-      fileName: (format) => `index.qwik.${format === 'es' ? 'mjs' : 'cjs'}`,
+      fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'mjs' : 'cjs'}`,
       // fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forgot to update your package.json as well.
@@ -41,6 +44,10 @@ export default defineConfig({
     rollupOptions: {
       // External packages that should not be bundled into your library.
       external: [],
+      output: {
+        preserveModules: true,
+        preserveModulesRoot: 'packages/kit-headless/src',
+      },
     },
   },
   test: {

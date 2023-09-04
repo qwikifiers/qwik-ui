@@ -11,7 +11,8 @@
       "options": {
         "outputPath": "dist/packages/kit-headless",
         "configFile": "packages/kit-headless/vite.config.ts",
-        "mode": "lib"
+        "mode": "lib",
+        "emptyOutDir": true
       },
       "configurations": {
         "development": {},

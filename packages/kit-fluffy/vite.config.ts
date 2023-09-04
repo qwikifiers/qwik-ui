@@ -24,7 +24,7 @@ export default defineConfig({
     }),
     tsconfigPaths({ root: '../../' }),
     dts({
-      tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
+      tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
     }),
   ],
   server: {
