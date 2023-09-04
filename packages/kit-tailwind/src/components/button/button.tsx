@@ -50,22 +50,22 @@ export const Button = component$((props: ButtonProps) => {
   return (
     <button
       {...rest}
-      // class={[
-      //   'btn',
-      //   variants[variant],
-      //   sizes[size],
-      //   {
-      //     [options.active]: active,
-      //     [options.outline]: outline,
-      //     [options.disabled]: disabled,
-      //     [options.glass]: glass,
-      //     [options.loading]: loading,
-      //     [options.noAnimation]: noAnimation,
-      //     [options.circle]: circle,
-      //     [options.square]: square,
-      //   },
-      //   classNames,
-      // ]}
+      class={[
+        'btn',
+        variants[variant],
+        sizes[size],
+        {
+          [options.active]: active,
+          [options.outline]: outline,
+          [options.disabled]: disabled,
+          [options.glass]: glass,
+          [options.loading]: loading,
+          [options.noAnimation]: noAnimation,
+          [options.circle]: circle,
+          [options.square]: square,
+        },
+        classNames,
+      ]}
     >
       <Slot />
     </button>

@@ -1,7 +1,9 @@
-import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
+import { HTMLAttributes, Slot, component$ } from '@builder.io/qwik';
 import { ButtonGroup as HeadlessButtonGroup } from '@qwik-ui/headless';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import type { OmitSignalClass } from '../../../../shared/src/utils';
 
-export type ButtonGroupProps = HTMLAttributes<HTMLElement>;
+export type ButtonGroupProps = OmitSignalClass<HTMLAttributes<HTMLElement>>;
 
 // TODO: discuss this
 
