@@ -14,10 +14,8 @@ export default defineConfig({
     qwikVite(),
     tsconfigPaths({ root: '../../' }),
     dts({
-      tsConfigFilePath: join(
-        dirname(fileURLToPath(import.meta.url)),
-        'tsconfig.lib.json',
-      ),
+      tsconfigPath: join(dirname(fileURLToPath(import.meta.url)), 'tsconfig.lib.json'),
+      entryRoot: 'src',
     }),
   ],
   server: {

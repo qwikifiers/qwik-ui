@@ -5,15 +5,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./index.qwik.cjs",
-  "qwik": "./index.qwik.mjs",
-  "module": "./index.qwik.mjs",
-  "types": "./qwik-ui/packages/kit-headless/src/index.d.ts",
+  "main": "./index.cjs",
+  "qwik": "./index.mjs",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.qwik.mjs",
-      "require": "./index.qwik.cjs"
+      "import": "./index.mjs",
+      "require": "./index.cjs"
     }
   },
   "engines": {

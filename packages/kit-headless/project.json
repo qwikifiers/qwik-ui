@@ -11,13 +11,13 @@
       "options": {
         "outputPath": "dist/packages/kit-headless",
         "configFile": "packages/kit-headless/vite.config.ts",
-        "mode": "lib",
-        "emptyOutDir": true
+        "mode": "lib"
       },
       "configurations": {
         "development": {},
         "production": {}
-      }
+      },
+      "dependsOn": []
     },
     "test": {
       "executor": "@nx/vite:test",
