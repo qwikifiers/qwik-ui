@@ -1,13 +1,12 @@
 import { component$ } from '@builder.io/qwik';
 import { Checkbox as HeadlessCheckbox } from '@qwik-ui/headless';
+import type { OmitSignalClass } from '@qwik-ui/type-utils';
 
-export interface CheckboxProps extends HeadlessCheckbox.CheckboxProps {
+export type CheckboxProps = OmitSignalClass<HeadlessCheckbox.CheckboxProps> & {
   label?: string;
-  class?: string;
-  labelPosition?: 'end' | 'start';
-}
 
-// TODO: discuss this
+  labelPosition?: 'end' | 'start';
+};
 
 export const Checkbox = component$((props: CheckboxProps) => {
   const { class: classNames, label, labelPosition, ...rest } = props;

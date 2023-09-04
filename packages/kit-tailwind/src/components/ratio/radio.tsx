@@ -5,9 +5,10 @@ import {
   component$,
 } from '@builder.io/qwik';
 import { Radio as HeadlessRadio } from '@qwik-ui/primitives';
+import type { OmitSignalClass } from '@qwik-ui/type-utils';
 import { daisyConfig } from './daisy.config';
 
-export type HTMLRadioProps = QwikIntrinsicElements['input'];
+export type HTMLRadioProps = OmitSignalClass<QwikIntrinsicElements['input']>;
 
 export type TailwindRadioProps = {
   variant?: TailwindRadioVariants;
@@ -48,5 +49,3 @@ export const Radio = component$((props: RadioProps) => {
     ></HeadlessRadio>
   );
 });
-
-// TODO: discuss this

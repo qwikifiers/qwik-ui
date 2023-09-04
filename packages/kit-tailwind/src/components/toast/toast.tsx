@@ -1,9 +1,10 @@
-import { component$ } from '@builder.io/qwik';
+import { QwikIntrinsicElements, component$ } from '@builder.io/qwik';
 import { Toast as HeadlessToast } from '@qwik-ui/primitives';
+import { OmitSignalClass } from '@qwik-ui/type-utils';
 import { daisyConfig } from './daisy.config';
 
 export type TailwindToastVariants = 'info' | 'success' | 'warning' | 'error';
-export type TailwindToastProps = {
+export type TailwindToastProps = OmitSignalClass<QwikIntrinsicElements['div']> & {
   variant?: TailwindToastVariants;
   top?: boolean;
   end?: boolean;
@@ -11,7 +12,6 @@ export type TailwindToastProps = {
   middle?: boolean;
   bottom?: boolean;
   center?: boolean;
-  class?: string;
   label?: string;
 };
 
@@ -30,7 +30,7 @@ export const Toast = component$(
     ...rest
   }: ToastProps) => {
     const { variants, positions } = daisyConfig;
-    // TODO: discuss this
+
     return (
       <div
         class={[
