@@ -76,6 +76,7 @@
     "eslint-plugin-cypress": "^2.14.0",
     "eslint-plugin-qwik": "^1.2.10",
     "eslint-plugin-storybook": "^0.6.13",
+    "highlight.js": "11.8.0",
     "husky": "^8.0.3",
     "jsdom": "22.1.0",
     "libphonenumber-js": "^1.10.43",

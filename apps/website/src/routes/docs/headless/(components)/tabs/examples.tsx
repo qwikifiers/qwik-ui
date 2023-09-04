@@ -1,36 +1,57 @@
-import { component$, Slot, useSignal, useStore, useStyles$ } from '@builder.io/qwik';
+import {
+  component$,
+  QwikIntrinsicElements,
+  Slot,
+  useSignal,
+  useStore,
+  useStyles$,
+} from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
+import type { OmitSignalClass } from '../../../../../../../../../shared/src/utils';
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import { Example01 as Example1 } from './example';
+import example1Code from './example?raw';
 import styles from './index.css?inline';
 
+import hljs from 'highlight.js/lib/core';
+import css from 'highlight.js/lib/languages/css';
+import javascript from 'highlight.js/lib/languages/javascript';
+import typescript from 'highlight.js/lib/languages/typescript';
+import xml from 'highlight.js/lib/languages/xml';
+import 'highlight.js/styles/atom-one-dark.css';
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('css', css);
+
+export const Highlight = ({
+  code,
+  ...props
+}: OmitSignalClass<QwikIntrinsicElements['pre']> & { code: string }) => (
+  <pre
+    {...props}
+    class={[
+      'theme-atom-one-dark shadow-3xl tab-size relative h-full max-w-full overflow-hidden text-sm',
+      props.class,
+    ]}
+  >
+    <code
+      dangerouslySetInnerHTML={hljs.highlight(code, { language: 'typescript' }).value}
+    />
+  </pre>
+);
+
 export const Example01 = component$(() => {
+  console.log('example1Code', example1Code);
   useStyles$(styles);
 
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example">
-        <h3>Danish Composers</h3>
-        <Tabs behavior="automatic">
-          <TabList>
-            <Tab>Maria Ahlefeldt</Tab>
-            <Tab>Carl Andersen</Tab>
-            <Tab>Ida Henriette da Fonseca</Tab>
-          </TabList>
-          <TabPanel>
-            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
-          </TabPanel>
-          <TabPanel>
-            <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-          </TabPanel>
-          <TabPanel>
-            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-          </TabPanel>
-        </Tabs>
+        <Example1 />
       </div>
 
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
+      <Highlight q:slot="codeExample" code={example1Code} />
     </PreviewCodeExample>
   );
 });
@@ -42,7 +63,7 @@ export const VerticalTabsExample = component$(() => {
         <h3>Danish Composers</h3>
 
         <Tabs vertical class="flex flex-wrap gap-5">
-          <TabList class="flex flex-col w-fit">
+          <TabList class="flex w-fit flex-col">
             <Tab>Maria Ahlefeldt</Tab>
             <Tab>Carl Andersen</Tab>
             <Tab>Ida Henriette da Fonseca</Tab>
