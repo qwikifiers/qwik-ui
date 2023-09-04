@@ -1,15 +1,15 @@
 import {
   $,
-  component$,
-  createContextId,
   QwikIntrinsicElements,
   Slot,
+  component$,
+  createContextId,
+  noSerialize,
   useContext,
   useContextProvider,
-  useStylesScoped$,
   useId,
+  useStylesScoped$,
 } from '@builder.io/qwik';
-import { useOrdinal } from '@qwik-ui/shared';
 
 import stylesButtons from './styles/buttons.css?inline';
 import stylesControl from './styles/control.css?inline';
@@ -228,3 +228,16 @@ export const IconChevronRight = () => (
     <polyline points="6 17 11 12 6 7"></polyline>
   </svg>
 );
+
+export const useOrdinal = () => {
+  return noSerialize((n: number) => {
+    const pr = new Intl.PluralRules('en-GB', { type: 'ordinal' });
+    const suffixes = new Map([
+      ['one', 'st'],
+      ['two', 'nd'],
+      ['few', 'rd'],
+      ['other', 'th'],
+    ]);
+    return `${n}${suffixes.get(pr.select(n))}`;
+  });
+};
