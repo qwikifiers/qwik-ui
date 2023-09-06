@@ -19,27 +19,6 @@ export const RouterHead = component$(() => {
 
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-      <link
-        rel="preload"
-        href="/fonts/poppins-400.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin="anonymous"
-      />
-      <link
-        rel="preload"
-        href="/fonts/poppins-500.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin="anonymous"
-      />
-      <link
-        rel="preload"
-        href="/fonts/poppins-700.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin="anonymous"
-      />
 
       <meta property="og:site_name" content="Qwik" />
       <meta name="twitter:site" content="@QwikDev" />

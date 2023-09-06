@@ -11,7 +11,7 @@ import {
   ComboboxOption,
 } from '@qwik-ui/headless';
 
-import { HeroExample, ParentComponent, StringCombobox, ObjectCombobox, CustomFilter, SortingExample, DisabledExample, CustomKeysExample, FlipExample, ShiftExample } from './examples';
+import { HeroExample, ContextExample, StringCombobox, ObjectCombobox, CustomFilter, SortingExample, DisabledExample, CustomKeysExample, DisableBlur, PlacementExample, FlipExample, GutterExample, HideExample, AnimationExample, AutoPlacementExample } from './examples';
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../_components/api-table/api-table';
@@ -23,7 +23,7 @@ import { AnatomyTable } from '../../../_components/anatomy-table/anatomy-table';
 
 # Combobox
 
-#### A customizable text field with a listbox, enabling users to constrain a list of choices based on their search criteria.
+A customizable text field with a listbox, enabling users to constrain a list of choices based on their search criteria.
 
 {' '}
 
@@ -79,7 +79,7 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 <br />
 
-##### ✨ Features
+#### ✨ Features
 
 - Full WAI-Aria compliance
 - Full keyboard navigation
@@ -96,7 +96,7 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 <br />
 
-<div class="bg-red-200 dark:bg-red-900 p-4 lg:p-6 rounded-xl dark:border-[#F3F3F3] border-[#333333]">
+<div class="bg-red-200 dark:bg-red-900 p-4 lg:p-6 rounded-xl dark:border-[#F3F3F3] border-[#333333] shadow-light-medium dark:shadow-dark-medium">
   <p class="pb-4">The Combobox component makes use of <a class="border-b-2 !border-red-800 hover:!border-red-900" href="https://qwik.builder.io/docs/cookbook/portal/#portal">portals</a>. A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.</p>
   <CodeExample classes="!mb-0 !p-6 !rounded-md">
     ```tsx
@@ -140,11 +140,7 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
     export default component$(() => {
       return (
-        <Combobox renderOption$={() => (
-            <ComboboxOption>
-              Option
-            </ComboboxOption>
-          )}>
+        <Combobox>
           <ComboboxLabel>Label Element</ComboboxLabel>
           <ComboboxControl>
             <ComboboxInput />
@@ -153,7 +149,12 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
             </ComboboxTrigger>
           </ComboboxControl>
           <ComboboxPortal>
-            <ComboboxListbox />
+            <ComboboxListbox 
+            optionRenderer$={() => (
+              <ComboboxOption>
+                Option Label
+              </ComboboxOption>
+            )} />
           </ComboboxPortal>
         </Combobox>
       )
@@ -200,13 +201,13 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 ## Passing data
 
-Qwik UI's Combobox supports **both** string and option data. Whether that's an array of strings, or an array of objects. To pass in data, add the `options` prop on the combobox root.
+Qwik UI's Combobox supports **both** string and option data. Whether that's an array of strings, or an array of objects. To pass in data, add the `options` prop on the Combobox Root.
 
 ### String example
 
 <StringCombobox>```tsx ```</StringCombobox>
 
-Under the hood, the data passed in populates the listbox with options. To see options visually, add the `renderOption$` prop on the combobox root. This prop is a [QRL](https://qwik.builder.io/docs/advanced/qrl/#qrl), inside is a callback where the `ComboboxOption` component needs to be passed in.
+Under the hood, the data passed in populates the listbox with options. To see options visually, add the `renderOption$` prop on the Combobox Listbox. This prop is a [QRL](https://qwik.builder.io/docs/advanced/qrl/#qrl), inside is a callback where the `ComboboxOption` component needs to be passed in.
 
 ### Object example
 
@@ -292,107 +293,143 @@ Within our example, the value key is called **pokedex** and the label key is cal
 
 > these props only need to be used if your data object keys **do not match** the default "value" and "label" keys. If your data object keys match these defaults, you do not need to pass in any custom keys.
 
-## Customizing the Listbox
+## Configuring the Input
 
-The `ComboboxListbox` component is seamlessly integrated with **Floating UI**, A JavaScript library designed for positioning elements that float and facilitating interactions with them.
+### Disabling Blur
 
-This integration offers the flexibility to adapt the listbox to meet the specific requirements of the application.
+The Qwik UI Combobox uses the `onBlur$ event` on the input to close the listbox when interacting with other elements.
+
+<DisableBlur>```tsx ```</DisableBlur>
+
+This can get tedious if certain custom behavior needs to be added, or the listbox needs to be inspected in the dev tools. 
+
+To disable this behavior, set `disableBlur={true}` on the Input.
+
+## **Configuring the Listbox**
+
+The `ComboboxListbox` component is designed for positioning elements that float and facilitating interactions with them. The listbox is highly configurable, here are some example use cases:
+
+### Placement
+
+To set the default position of the listbox, you can use the `placement` prop. In the example below, we've set placement to top. When the user opens the listbox, it will be above the input.
+
+<PlacementExample>```tsx ```</PlacementExample>
+
+The default placement is **bottom**.
 
 ### Flip
 
+Allows the listbox to flip its position based on available space. It's enabled by default, but can be disabled by adding `flip={false}` on the listbox.
+
 <FlipExample>```tsx ```</FlipExample>
+  
+{
+/* commented out for now
+#### Shift
+  
+Enables the listbox to shift its position to prevent overflow.
 
-Some Floating UI properties are enabled by default, such as the `flip` middleware. To turn off flip, you could add `flip={false}` on the listbox component.
+<ShiftExample>```tsx ```</ShiftExample>
+*/
+}
 
-### Consuming Floating UI
+### Gutter
+  
+In the previous docs examples, we use the gutter property on the listbox. Gutter is the space between the input and the floating element.
 
-Suppose we want to use Floating UI's shift middleware on our Combobox Listbox to prevent overflow. In the floating UI docs, it looks like this:
+<GutterExample>```tsx ```</GutterExample>
 
-<CodeExample>
-  ```tsx
-  import {computePosition, shift} from '@floating-ui/dom';
- 
-  computePosition(referenceEl, floatingEl, {
-    middleware: [shift()],
-  });
-  ```
-</CodeExample>
+If Flip is enabled, it will provide a gutter space for both the top and bottom.
+
+### Hide
+
+<HideExample>```tsx ```</HideExample>
+  
+Allows hiding the listbox.
+
+### Animations
+
+<AnimationExample>```tsx ```</AnimationExample>
+  
+#### Transform
+  
+Enables transforming the listbox for custom animations and transitions.
 
 In this example, we are preventing overflow, while maintaining the desired placement when possible.
 
-<ShiftExample>```tsx ```</ShiftExample>
+## Customizing State Signals
 
-Qwik UI handles all middleware and options under the hood. The Qwik UI equivalent would be:
+The Combobox component allows you to customize its state signals. This can be useful if you want to control or observe these states externally. 
 
-<CodeExample>
-  ```tsx
-  // enabling the middleware
-  <ComboboxListbox
-    shift={true}
-  />
+This involves creating a signal and passing it in using the [bind syntax](https://qwik.builder.io/docs/components/rendering/#bind-attribute), such as in the Qwik docs.
 
-  // fine-grained options
-  <ComboboxListbox
-    shift={{ mainAxis: true }}
-  />
-  ```
-</CodeExample>
+<APITable
+  propDescriptors={[
+    {
+      name: 'bind:isListboxOpenSig',
+      type: 'Signal',
+      description: 'Controls the open state of the listbox.',
+    },
+    {
+      name: 'bind:isInputFocusedSig',
+      type: 'Signal',
+      description: 'Controls the focus state of the input.',
+    },
+    {
+      name: 'bind:isTriggerFocusedSig',
+      type: 'Signal',
+      description: 'Controls the focus state of the trigger.',
+    },
+    {
+      name: 'bind:inputValueSig',
+      type: 'Signal',
+      description: 'Controls the current value of the input.',
+    },
+  ]}
+/>
 
-It also allows for specific object properties. Such as setting only the main axis to true.
+Here is an example of how to customize these signals:
 
-> All floating UI options should be supported. If you don't know what options to add, here's a reference to the [Floating UI docs](https://floating-ui.com/)
 
 ## Passing context
 
-<ParentComponent>```tsx ```</ParentComponent>
+<ContextExample>```tsx ```</ContextExample>
 
-## Accessibility
-
-### Keyboard interaction
+## **Keyboard interactions**
 
 <KeyboardInteractionTable keyDescriptors={
   [
     {
-      keyTitle: 'Tab',
-      description: 'Moves focus to the next focusable element or option.',
+      keyTitle: 'Enter',
+      description: `Selects the highlighted option. The listbox closes and the selected option becomes the input's value.`
     },
     {
-      keyTitle: 'Shift + Tab',
-      description: 'Moves focus to the previous focusable element or option.',
+      keyTitle: 'Down Arrow',
+      description: `Opens the listbox and shifts focus to the first option. If focus is already on an option, it moves to the next one. If no next option exists, focus returns to the first option.`,
     },
     {
-      keyTitle: 'DownArrow',
-      description: "Opens the listbox and moves focus to the first option. When focus is on an option, moves focus to the next option.  If there isn't one, it will go back to the first option.",
-    },
-    {
-      keyTitle: 'UpArrow',
-      description: "When focus is on an option, moves focus to the previous option. If there isn't one, it will go back to the last option.",
-    },
-    {
-      keyTitle: 'Enter / Space',
-      description: `Selects the option when focused. The listbox will close and the selected option becomes the input's value.`,
+      keyTitle: 'Up Arrow',
+      description: `If focus is on an option, it moves to the previous option. If no previous option exists, focus moves to the last option.`,
     },
     {
       keyTitle: 'Escape',
-      description: 'Closes the listbox.',
+      description: `Closes the listbox.`,
     },
     {
       keyTitle: 'Home',
-      description: 'When the input is focused, the cursor moves to the start of the input value. When focused on any listbox option, focus is moved to the first option.',
+      description: `Moves the cursor to the start of the input value when the input is focused. When any listbox option is focused, focus shifts to the first enabled option.`,
     },
     {
       keyTitle: 'End',
-      description: 'When the input is focused, the cursor moves to the end of the input value. When focused on any listbox option, focus is moved to the last option.',
+      description: `Moves the cursor to the end of the input value when the input is focused. When any listbox option is focused, focus shifts to the last enabled option.`,
     },
     {
       keyTitle: 'Delete',
-      description: 'When text is selected in the input, deletes the selected text.',
+      description: `Deletes the selected text in the input.`,
     },
 
 ]
 }/>
-
-Adheres to the [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) WAI-ARIA design pattern. See the W3C Editable Combobox With List Combobox Example for more information.
 
 ## API
 
@@ -425,3 +462,16 @@ By default, the API holds available attributes of both native DOM elements and c
     },
   ]}
 />
+
+## Additional Examples
+
+#### Auto Placement
+  
+Automatically places the listbox based on available space. **You must set flip to false before using it.**  This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
+
+<AutoPlacementExample>```tsx ```</AutoPlacementExample>
+
+<div class="bg-red-200 dark:bg-red-900 p-4 lg:p-6 rounded-xl dark:border-[#F3F3F3] border-[#333333] shadow-light-medium dark:shadow-dark-medium">
+  **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the placement but with different strategies. Using both can result in a continuous reset loop as they try to override each other's work.
+</div>
+

@@ -12,32 +12,36 @@ type APITableProps = {
 export const APITable = component$(({ propDescriptors }: APITableProps) => {
   return (
     <div class="overflow-auto">
-      <table class="w-full min-w-[540px] border-b border-slate-700 text-left sm:min-w-full mb-6">
-        <tbody class="divide-y divide-slate-700">
+      <table class="w-full min-w-[540px] border-b border-slate-300 dark:border-slate-600 text-left sm:min-w-full mb-6">
+        <tbody class="divide-y divide-slate-300 dark:divide-slate-600">
           <tr class="w-1/4 dark:text-white ">
-            <td class="w-1/6 whitespace-nowrap py-2 pl-4 text-sm font-medium sm:pl-0">
+            <td class="w-1/6 whitespace-nowrap py-2 pl-4 text-base font-medium sm:pl-0 text-slate-700 dark:text-slate-300 font-[600]">
               Prop
             </td>
-            <td class="w-1/6 whitespace-nowrap py-2 text-sm font-medium ">Type</td>
-            <td class="w-2/3 whitespace-nowrap p-2 text-sm font-medium ">Description</td>
+            <td class="w-1/6 whitespace-nowrap py-2 text-base text-slate-700 dark:text-slate-300 font-[600]">
+              Type
+            </td>
+            <td class="w-2/3 whitespace-nowrap p-2 text-base text-slate-700 dark:text-slate-300 font-[600]">
+              Description
+            </td>
           </tr>
           {propDescriptors?.map((propDescriptor) => {
             return (
               <tr key={propDescriptor.name}>
                 <td class="prose prose-sm py-3 pl-4 align-baseline sm:pl-0 ">
-                  <code class="bg-qwikui-blue-100 dark:bg-qwikui-purple-800 rounded-md mr-6">
+                  <code class="border-[1px] border-b-[2px] border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500 text-slate-950 rounded-md mr-6 font-[400]">
                     {propDescriptor.name}
                   </code>
                 </td>
                 <td class="py-3 align-baseline">
                   <span class="flex items-center">
-                    <code class="bg-slate-300 dark:bg-slate-700 rounded-md px-2">
+                    <code class="bg-slate-100 border-[1px] border-b-2 border-slate-700 dark:border-slate-400 dark:bg-slate-700 rounded-md px-2">
                       {propDescriptor.type}
                     </code>
                     {propDescriptor.info && (
                       <Popover placement="top">
                         <PopoverContent>
-                          <div class="shadow-light-medium bg-qwikui-blue-100 text-slate-950 dark:text-white dark:bg-qwikui-purple-800 dark:shadow-dark-medium  max-w-xs mb-2 text-md px-4 py-2  rounded-md sm:w-max">
+                          <div class="shadow-light-high bg-qwikui-blue-50 text-slate-950 dark:shadow-dark-high  max-w-xs mb-2 text-md py-2 px-3  rounded-lg sm:w-max border-[1px] border-b-2 border-qwikui-blue-500 dark:border-qwikui-purple-500 dark:bg-qwikui-purple-100 font-[500]">
                             {propDescriptor?.info}
                           </div>
                         </PopoverContent>

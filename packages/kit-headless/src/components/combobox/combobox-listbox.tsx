@@ -3,6 +3,7 @@ import {
   useContext,
   useVisibleTask$,
   type QwikIntrinsicElements,
+  QRL,
 } from '@builder.io/qwik';
 
 import {
@@ -16,6 +17,8 @@ import {
   hide as _hide,
   inline as _inline,
 } from '@floating-ui/dom';
+
+import { JSX } from '@builder.io/qwik/jsx-runtime';
 
 // FULL FloatingUI integration. DONT REMOVE ANY COMMENTED LINES.
 // import type {
@@ -42,10 +45,15 @@ import {
 
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
+import { ResolvedOption } from './combobox';
 
-export type ComboboxListboxProps = {
+export type ComboboxListboxProps<O extends Option = Option> = {
+  optionRenderer$?: QRL<
+    (resolved: ResolvedOption<O>, filteredIndex: number) => JSX.Element
+  >;
+
   // main floating UI props
-  placement?: 'top' | 'bottom';
+  placement?: 'top' | 'bottom' | 'right' | 'left';
   ancestorScroll?: boolean;
   ancestorResize?: boolean;
   elementResize?: boolean;
@@ -53,12 +61,12 @@ export type ComboboxListboxProps = {
   animationFrame?: boolean;
 
   // middleware
-  offset?: number;
+  gutter?: number;
   shift?: boolean;
   flip?: boolean;
   size?: boolean;
   autoPlacement?: boolean;
-  hide?: boolean;
+  hide?: 'referenceHidden' | 'escaped';
   inline?: boolean;
 
   // misc
@@ -67,7 +75,8 @@ export type ComboboxListboxProps = {
 
 export const ComboboxListbox = component$(
   <O extends Option = Option>({
-    offset,
+    optionRenderer$,
+    gutter,
     flip = true,
     placement = 'bottom',
     shift,
@@ -80,17 +89,17 @@ export const ComboboxListbox = component$(
     animationFrame = false,
     transform,
     ...props
-  }: ComboboxListboxProps) => {
+  }: ComboboxListboxProps<O>) => {
     const context = useContext<ComboboxContext<O>>(ComboboxContextId);
     const listboxId = `${context.localId}-listbox`;
 
     useVisibleTask$(function setFloatingUIConfig({ cleanup }) {
       function updatePosition() {
         // const middleware = [_offset(offset), arrow && _arrow(arrow), size && _size(size)];
-        const middleware = [_offset(offset)];
+        const middleware = [_offset(gutter), _hide({ strategy: hide })];
 
-        const middlewareFunctions = [_flip, _shift, _autoPlacement, _hide, _inline];
-        const middlewareProps = [flip, shift, autoPlacement, hide, inline];
+        const middlewareFunctions = [_flip, _shift, _autoPlacement, _inline];
+        const middlewareProps = [flip, shift, autoPlacement, inline];
 
         middlewareFunctions.forEach((func, index) => {
           const isMiddlewareEnabled = middlewareProps[index];
@@ -160,11 +169,10 @@ export const ComboboxListbox = component$(
           context.labelRef.value ? context.labelRef.value?.innerText : 'Suggestions'
         }
         role="listbox"
-        hidden={!context.isListboxOpenSig.value}
         style={{ ...(props.style as object), position: 'absolute' }}
       >
         {context.filteredOptionsSig.value.map((resolved, filteredIndex) =>
-          context.renderOption$?.(resolved, filteredIndex),
+          optionRenderer$?.(resolved, filteredIndex),
         )}
       </ul>
     );

@@ -27,12 +27,12 @@ export const PreviewCodeExample = component$(({ ...props }) => {
           Code
         </Tab>
       </TabList>
-      <TabPanel class="rounded-b-xl shadow-light-medium bg-slate-800 dark:shadow-dark-medium border-qwikui-blue-300 border-[1.5px] p-4 dark:border-qwikui-purple-200  md:p-12 bg-slate-200 dark:bg-slate-950">
+      <TabPanel class="rounded-b-xl shadow-light-medium bg-slate-800 dark:shadow-dark-medium border-qwikui-blue-300 border-[1.5px] p-4 dark:border-qwikui-purple-200  md:p-12 bg-slate-200 dark:bg-slate-900">
         <section class="flex flex-col items-center">
           <Slot name="actualComponent" />
         </section>
       </TabPanel>
-      <TabPanel class="rounded-b-xl p-4 md:p-12 bg-slate-900 border-[1.5px]  border-qwikui-blue-300 dark:border-qwikui-purple-200">
+      <TabPanel class="rounded-b-xl p-4 md:p-12 bg-slate-800 dark:bg-slate-900 border-[1.5px]  border-qwikui-blue-300 dark:border-qwikui-purple-200">
         <section class="overflow-auto">
           <Slot name="codeExample" />
         </section>

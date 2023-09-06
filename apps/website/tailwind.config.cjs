@@ -90,6 +90,16 @@ module.exports = {
         step: 'cubic-bezier(0.6, 0.6, 0, 1)',
         jumpy: 'cubic-bezier(0.87, 0, 0.13, 1)',
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        fadeOut: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
+      },
     },
   },
 };

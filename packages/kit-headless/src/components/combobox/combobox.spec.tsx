@@ -33,16 +33,6 @@ const StringCombobox = component$(({ defaultLabel, ...props }: StringCombobox) =
               return option.toLowerCase().includes(value.toLowerCase());
             })
           }
-          renderOption$={(resolved: ResolvedOption, index: number) => (
-            <ComboboxOption
-              key={resolved.key}
-              class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
-              index={index}
-              resolved={resolved}
-            >
-              {resolved.label}
-            </ComboboxOption>
-          )}
           {...props}
         >
           <ComboboxLabel>Fruits</ComboboxLabel>
@@ -63,7 +53,19 @@ const StringCombobox = component$(({ defaultLabel, ...props }: StringCombobox) =
             </ComboboxTrigger>
           </ComboboxControl>
           <ComboboxPortal>
-            <ComboboxListbox style={{ width: 'fit-content' }} />
+            <ComboboxListbox
+              style={{ width: 'fit-content' }}
+              optionRenderer$={(resolved: ResolvedOption, index: number) => (
+                <ComboboxOption
+                  key={resolved.key}
+                  class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
+                  index={index}
+                  resolved={resolved}
+                >
+                  {resolved.label}
+                </ComboboxOption>
+              )}
+            />
           </ComboboxPortal>
         </Combobox>
       </QwikUIProvider>
@@ -403,17 +405,6 @@ const DisabledCombobox = component$(() => {
           optionLabelKey="testLabel"
           optionValueKey="testValue"
           optionDisabledKey="disabled"
-          renderOption$={(resolved: ResolvedOption, index: number) => (
-            <ComboboxOption
-              key={resolved.key}
-              class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
-              index={index}
-              resolved={resolved}
-              style={{ color: resolved.disabled ? 'gray' : undefined }}
-            >
-              {resolved.label}
-            </ComboboxOption>
-          )}
         >
           <ComboboxLabel>Fruits</ComboboxLabel>
           <ComboboxControl style={{ display: 'flex' }}>
@@ -433,7 +424,20 @@ const DisabledCombobox = component$(() => {
             </ComboboxTrigger>
           </ComboboxControl>
           <ComboboxPortal>
-            <ComboboxListbox style={{ width: 'fit-content' }} />
+            <ComboboxListbox
+              style={{ width: 'fit-content' }}
+              optionRenderer$={(resolved: ResolvedOption, index: number) => (
+                <ComboboxOption
+                  key={resolved.key}
+                  class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
+                  index={index}
+                  resolved={resolved}
+                  style={{ color: resolved.disabled ? 'gray' : undefined }}
+                >
+                  {resolved.label}
+                </ComboboxOption>
+              )}
+            />
           </ComboboxPortal>
         </Combobox>
       </QwikUIProvider>

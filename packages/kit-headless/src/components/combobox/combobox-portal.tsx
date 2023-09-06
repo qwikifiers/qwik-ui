@@ -27,7 +27,7 @@ export type ComboboxPortalProps = {
 };
 
 export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
-  const contextPairsSig = useSignal<ContextPair[]>();
+  const contextPairsSig = useSignal<ContextPair[]>([]);
 
   const comboboxContext = useContext(ComboboxContextId);
 
@@ -37,7 +37,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
 
     contextIdsFromProps?.map((id) => {
       // eslint-disable-next-line qwik/use-method-usage
-      contextPairsSig.value?.push({ id, value: useContext(id as ContextId<object>) });
+      contextPairsSig.value.push({ id, value: useContext(id as ContextId<object>) });
     });
   });
 
@@ -51,7 +51,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
 
     if (comboboxContext.isListboxOpenSig.value && contextPairsSig.value) {
       closePortalSig.value = await openPortal$(
-        'comboboxPortal',
+        comboboxContext.localId,
         props.elementToTeleport,
         contextPairsSig.value,
       );

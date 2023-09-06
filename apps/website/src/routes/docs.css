@@ -10,35 +10,35 @@
   */
   & > {
     p {
-      @apply mb-4;
+      @apply mb-6;
     }
 
     h1 {
-      @apply text-3xl md:text-5xl md:mb-12 font-[800] tracking-wide;
+      @apply text-3xl md:text-5xl md:mb-12 font-extrabold tracking-wide;
     }
 
     h2 {
-      @apply text-3xl font-bold mt-20 mb-12 border-b-2;
+      @apply text-2xl font-extrabold mt-20 mb-8 border-b-[1px] border-slate-300 dark:border-slate-700 pb-2;
     }
 
     h3 {
-      @apply text-xl font-bold mt-4 mb-6;
+      @apply text-xl font-semibold mt-8 mb-6;
     }
 
     h4 {
-      @apply text-lg mt-4 mb-6;
+      @apply text-lg font-medium mt-6 mb-4 font-bold;
     }
 
     h5 {
-      @apply text-xl mb-1 font-bold;
+      @apply text-base font-[700];
     }
 
     blockquote {
-      @apply bg-qwikui-blue-800 text-white shadow-light-medium dark:shadow-dark-medium dark:bg-qwikui-purple-800 p-4 lg:p-6 dark:border-[#F3F3F3] border-[#333333] rounded-xl my-4;
+      @apply bg-qwikui-blue-800 text-white shadow-light-medium dark:shadow-dark-medium dark:bg-qwikui-purple-800 p-4 lg:p-6 rounded-xl my-4 border-[2px] border-qwikui-blue-200 dark:border-qwikui-purple-200;
     }
 
     ul {
-      @apply list-disc px-6 mb-4 font-[500];
+      @apply list-disc px-6 mb-4 font-medium;
     }
 
     li {
@@ -47,11 +47,11 @@
   }
 
   a {
-    @apply border-b-[1.5px] border-qwikui-blue-500 dark:border-qwikui-purple-400 transition transition-colors duration-300 ease-step hover:border-qwikui-blue-600 font-bold;
+    @apply border-b-[1.5px] border-qwikui-blue-500 dark:border-qwikui-purple-400 transition transition-colors duration-300 ease-step hover:border-qwikui-blue-600 font-semibold;
   }
 
   p code {
-    @apply bg-white text-gray-950  shadow-dark-low dark:shadow-dark-low px-2 py-[2px] mx-1 rounded-md font-[600] border-[1px] dark:border-white w-max border-[#333333];
+    @apply bg-white text-slate-800  shadow-dark-low dark:shadow-dark-low px-2 py-[2px] mx-1 rounded-md font-medium border-[1px] dark:border-white w-max border-[#333333] border-b-[2px] border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500;
   }
 
   /* adds sufficient padding to the table items / API Component */
@@ -65,5 +65,9 @@
 
   blockquote a {
     @apply border-qwikui-blue-200 hover:border-qwikui-blue-100 dark:border-qwikui-purple-100 dark:hover:border-qwikui-purple-200;
+  }
+
+  ol li {
+    @apply my-4;
   }
 }

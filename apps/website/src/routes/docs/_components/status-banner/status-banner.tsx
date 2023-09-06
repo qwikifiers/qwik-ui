@@ -111,7 +111,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
         hidden={isBannerClosedSig.value}
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
         class={`${getBackgroundByStatus(props.status)} px-6 py-4 text-white
-        rounded-xl md:items-center relative md:flex-row normal-state shadow-light-medium dark:shadow-dark-medium`}
+        rounded-xl md:items-center relative md:flex-row normal-state shadow-light-medium dark:shadow-dark-medium border-[1px] border-qwikui-blue-200 dark:border-qwikui-purple-200`}
         style={{ marginBottom: `${marginBottom}px` }}
       >
         <span class="pr-2">{getMessageByStatus(props.status)}</span>

@@ -1,10 +1,9 @@
 import type { Signal } from '@builder.io/qwik';
-import type { ComboboxProps, ResolvedOption } from './combobox';
+import type { ResolvedOption } from './combobox';
 
 export interface ComboboxContext<O extends Option = Option> {
   // user's source of truth
   filteredOptionsSig: Signal<ResolvedOption<O>[]>;
-  renderOption$?: ComboboxProps<O>['renderOption$'];
 
   // element state
   inputValueSig: Signal<string>;

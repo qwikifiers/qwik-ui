@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik';
-import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
 import {} from '@qwik-ui/headless';
 
 type AnatomyTableProps = {
@@ -12,14 +11,14 @@ type AnatomyTableProps = {
 
 export const AnatomyTable = component$(({ propDescriptors }: AnatomyTableProps) => {
   return (
-    <div class="overflow-auto">
-      <table class="w-full max-w-full border-b border-gray-700 text-left">
-        <tbody class="divide-y divide-gray-700">
-          <tr class="text-white">
-            <td class="whitespace-nowrap py-2 pl-4 text-sm font-medium sm:pl-0">
+    <div class="overflow-auto rounded-xl">
+      <table class="w-full max-w-full text-left">
+        <tbody class="divide-y divide-slate-300 dark:divide-slate-600">
+          <tr class="text-slate-950 dark:text-white">
+            <td class="whitespace-nowrap py-2 pl-4 text-sm font-medium sm:pl-0 font-[700]">
               Component
             </td>
-            <td class="whitespace-nowrap py-2 text-sm font-medium">Description</td>
+            <td class="whitespace-nowrap py-2 text-sm font-[600]">Description</td>
           </tr>
           {propDescriptors?.map((propDescriptor) => {
             return (

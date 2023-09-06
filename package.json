@@ -116,6 +116,7 @@
     "components library"
   ],
   "dependencies": {
+    "@fontsource-variable/inter": "5.0.8",
     "tslib": "^2.6.2"
   }
 }

@@ -11,7 +11,6 @@ import {
   type Signal,
   type ContextId,
 } from '@builder.io/qwik';
-import { JSX } from '@builder.io/qwik/jsx-runtime';
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
 
@@ -32,9 +31,6 @@ export type ResolvedOption<
 export type ComboboxProps<O extends Option = Option> = {
   // user's source of truth
   options: O[];
-  renderOption$?: QRL<
-    (resolved: ResolvedOption<O>, filteredIndex: number) => JSX.Element
-  >;
   filter$?: QRL<
     (labelInput: string, options: ResolvedOption<O>[]) => ResolvedOption<O>[]
   >;
@@ -51,6 +47,7 @@ export type ComboboxProps<O extends Option = Option> = {
   'bind:isListboxOpenSig'?: Signal<boolean | undefined>;
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
   'bind:isTriggerFocusedSig'?: Signal<boolean | undefined>;
+  'bind:inputValueSig'?: Signal<string>;
 } & QwikIntrinsicElements['div'];
 
 export const Combobox = component$(
@@ -59,8 +56,8 @@ export const Combobox = component$(
       'bind:isListboxOpenSig': givenListboxOpenSig,
       'bind:isInputFocusedSig': givenInputFocusedSig,
       'bind:isTriggerFocusedSig': givenTriggerFocusedSig,
+      'bind:inputValueSig': givenInputValueSig,
       options,
-      renderOption$,
       defaultLabel = '',
       optionValueKey = 'value',
       optionLabelKey = 'label',
@@ -97,7 +94,8 @@ export const Combobox = component$(
 
     const filteredOptionsSig = useSignal<ResolvedOption<O>[]>([]);
 
-    const inputValueSig = useSignal<string>(defaultLabel);
+    const defaultInputValueSig = useSignal<string>(defaultLabel);
+    const inputValueSig = givenInputValueSig || defaultInputValueSig;
 
     useTask$(async function filterAPITask({ track }) {
       const opts = track(() => resolvedSig.value);
@@ -151,7 +149,6 @@ export const Combobox = component$(
 
     const context: ComboboxContext<O> = {
       filteredOptionsSig,
-      renderOption$,
       inputValueSig,
       labelRef,
       inputRef,
