@@ -1,7 +1,7 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { Card, CardBody, CardImage, CardTitle } from '@qwik-ui/headless';
 export interface Kit {
-  kit: 'headless' | 'tailwind';
+  kit: 'headless' | 'fluffy';
 }
 export default component$(({ kit }: Kit) => {
   return (
@@ -13,7 +13,7 @@ export default component$(({ kit }: Kit) => {
     >
       <Card>
         <CardImage
-          src={`/images/kit-cta-${kit}.png`}
+          src={`/images/fluffy-hero.webp`}
           width="611"
           height="408"
           alt={`${kit} kit`}

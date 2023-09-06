@@ -8,7 +8,11 @@ import {
   useSignal,
   useStylesScoped$,
 } from '@builder.io/qwik';
-import { computePosition, type ComputePositionConfig } from '@floating-ui/dom';
+import {
+  offset as _offset,
+  computePosition,
+  type ComputePositionConfig,
+} from '@floating-ui/dom';
 import styles from './tooltip.css?inline';
 
 export interface TooltipProps {
@@ -16,13 +20,14 @@ export interface TooltipProps {
   content: string;
   inline?: boolean;
   durationMs?: number;
+  offset?: number;
   position?: ComputePositionConfig['placement'];
 }
 
 type State = 'hidden' | 'positioned' | 'unpositioned' | 'closing';
 
 export const Tooltip = component$(
-  ({ content, position = 'top', durationMs = 100, ...props }: TooltipProps) => {
+  ({ offset, content, position = 'top', durationMs = 100, ...props }: TooltipProps) => {
     useStylesScoped$(styles);
     const id = useId();
     const triggerAnchor = useSignal<HTMLElement>();
@@ -34,6 +39,8 @@ export const Tooltip = component$(
 
     const update = $(async () => {
       const now = Date.now();
+      const middleware = [_offset(offset)];
+
       const hasMouseEnterDebounced = now - lastActivatedTimestamp.value >= 300;
       if (triggerAnchor.value && tooltipAnchor.value && hasMouseEnterDebounced) {
         const { x, y } = await computePosition(
@@ -41,6 +48,7 @@ export const Tooltip = component$(
           tooltipAnchor.value as HTMLElement,
           {
             placement: position,
+            middleware,
           },
         );
         lastActivatedTimestamp.value = now;

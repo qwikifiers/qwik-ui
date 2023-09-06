@@ -3,7 +3,6 @@ import {
   component$,
   useSignal,
   useStylesScoped$,
-  $,
 } from '@builder.io/qwik';
 import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
 import { getClassByStatus } from '../component-status-badge/component-status-badge';
@@ -24,7 +23,11 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>DISCLAIMER:</strong> This component is{' '}
-          <span class={`px-2 rounded-full ${getClassByStatus(status)}`}>{status}</span>{' '}
+          <span
+            class={`px-2 rounded-lg font-bold tracking-wide ${getClassByStatus(status)}`}
+          >
+            {status}
+          </span>{' '}
           status. That means that it is ready for production, but the API might change.
         </>
       );
@@ -32,7 +35,11 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>WARNING:</strong> This component is in{' '}
-          <span class={`px-2 rounded-full ${getClassByStatus(status)}`}>{status}</span>{' '}
+          <span
+            class={`px-2 rounded-lg font-bold tracking-wide ${getClassByStatus(status)}`}
+          >
+            {status}
+          </span>{' '}
           status. This means that it is still in development and may have bugs or missing
           features. It is not intended to be used in production. You may use it for
           testing purposes.
@@ -44,7 +51,7 @@ function getMessageByStatus(status?: ComponentStatus) {
         <>
           <strong>WARNING:</strong> This component is in{' '}
           <span
-            class={`px-2 rounded-full ${getClassByStatus(
+            class={`px-2 rounded-lg font-bold tracking-wide ${getClassByStatus(
               status || ComponentStatus.Planned,
             )}`}
           >
@@ -62,12 +69,12 @@ function getBackgroundByStatus(status?: ComponentStatus) {
     case ComponentStatus.Ready:
       return 'bg-green-300';
     case ComponentStatus.Beta:
-      return 'bg-indigo-200 dark:bg-purple-800';
+      return 'bg-qwikui-blue-800 dark:bg-qwikui-purple-800';
     case ComponentStatus.Draft:
-      return 'bg-red-300 dark:bg-orange-800';
+      return 'bg-orange-700 dark:bg-red-800';
     case ComponentStatus.Planned:
     default:
-      return 'bg-[#fef1c7] dark:bg-[#92730e]';
+      return 'bg-orange-700 dark:bg-red-800';
   }
 }
 
@@ -86,7 +93,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
     animation: fadeOut 0.5s ease forwards;
     margin-top: var(--dynamic-banner-height);
   }
-  
+
   @keyframes fadeOut {
     from {
       opacity: 1;
@@ -103,9 +110,8 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
         ref={ref}
         hidden={isBannerClosedSig.value}
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
-        class={`${getBackgroundByStatus(props.status)} px-6 py-4 
-        rounded-xl md:items-center relative md:flex-row normal-state
-        shadow-depth dark:shadow-depth-dark`}
+        class={`${getBackgroundByStatus(props.status)} px-6 py-4 text-white
+        rounded-xl md:items-center relative md:flex-row normal-state shadow-light-medium dark:shadow-dark-medium border-[1px] border-qwikui-blue-200 dark:border-qwikui-purple-200`}
         style={{ marginBottom: `${marginBottom}px` }}
       >
         <span class="pr-2">{getMessageByStatus(props.status)}</span>

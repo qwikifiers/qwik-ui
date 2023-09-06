@@ -10,7 +10,7 @@ export const Footer = component$(() => {
           <div class="px-5 py-2">
             <a
               href="/about"
-              class="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
             >
               About
             </a>
@@ -18,7 +18,7 @@ export const Footer = component$(() => {
           <div class="px-5 py-2">
             <a
               href="/docs/headless/introduction"
-              class="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
             >
               Headless Kit
             </a>
@@ -28,7 +28,7 @@ export const Footer = component$(() => {
             <a
               href="https://discord.gg/PVWUUejrez"
               target="_blank"
-              class="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
             >
               Community
             </a>
@@ -38,7 +38,7 @@ export const Footer = component$(() => {
             <a
               href="https://www.w3.org/standards/webdesign/accessibility"
               target="_blank"
-              class="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
             >
               Accessibility
             </a>
@@ -47,7 +47,7 @@ export const Footer = component$(() => {
             <a
               href="https://qwik.builder.io/docs"
               target="_blank"
-              class="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
             >
               Qwik Documentation
             </a>
@@ -58,7 +58,7 @@ export const Footer = component$(() => {
             target="_blank"
             href="https://github.com/qwikifiers/qwik-ui"
             aria-label="Qwik-UI GitHub repository"
-            class="text-gray-400 hover:text-gray-500"
+            class="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white"
           >
             <GitHubIcon />
           </a>
@@ -66,7 +66,7 @@ export const Footer = component$(() => {
             target="_blank"
             href="https://discord.gg/PVWUUejrez"
             aria-label="Qwik-UI Discord server"
-            class="text-gray-400 hover:text-gray-500"
+            class="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white"
           >
             <DiscordIcon />
           </a>
