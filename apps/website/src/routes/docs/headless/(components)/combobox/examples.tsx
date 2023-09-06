@@ -7,6 +7,7 @@ import {
   ComboboxListbox,
   ComboboxPortal,
   ComboboxTrigger,
+  ComboboxIcon,
   ComboboxOption,
   type ResolvedOption,
 } from '@qwik-ui/headless';
@@ -58,17 +59,7 @@ export const HeroExample = component$(() => {
                 class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
               />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke-width="2"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -141,17 +132,7 @@ export const StringCombobox = component$(() => {
                 placeholder="Papaya"
               />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -203,17 +184,7 @@ export const ObjectCombobox = component$(() => {
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
               <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -277,17 +248,7 @@ export const CustomFilter = component$(() => {
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
               <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -356,17 +317,7 @@ export const SortingExample = component$(() => {
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
               <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -428,17 +379,7 @@ export const DisabledExample = component$(() => {
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
               <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -513,17 +454,7 @@ export const CustomKeysExample = component$(() => {
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
               <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -566,6 +497,71 @@ export const CustomKeysExample = component$(() => {
   );
 });
 
+export const DisableBlur = component$(() => {
+  const planets = [
+    'Mercury',
+    'Venus',
+    'Earth',
+    'Mars',
+    'Jupiter',
+    'Saturn',
+    'Uranus',
+    'Neptune',
+  ];
+
+  return (
+    <PreviewCodeExample>
+      <div class="flex flex-col items-center gap-4 p-4" q:slot="actualComponent">
+        <p class="text-white text-center">
+          I have blur disabled! Inspect me in the dev tools.
+        </p>
+        <div>
+          <Combobox
+            class="w-fit"
+            options={planets}
+            filter$={(value: string, options) =>
+              options.filter(({ option }) => {
+                return option.toLowerCase().startsWith(value.toLowerCase());
+              })
+            }
+          >
+            <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
+              <ComboboxInput
+                disableOnBlur={true}
+                class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
+              />
+              <ComboboxTrigger class="w-6 h-6 group absolute right-0">
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
+              </ComboboxTrigger>
+            </ComboboxControl>
+            <ComboboxPortal>
+              <ComboboxListbox
+                gutter={8}
+                class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
+                hide="referenceHidden"
+                optionRenderer$={(option: ResolvedOption, index: number) => (
+                  <ComboboxOption
+                    key={option.key}
+                    class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
+                    index={index}
+                    resolved={option}
+                  >
+                    {option.label}
+                  </ComboboxOption>
+                )}
+              />
+            </ComboboxPortal>
+          </Combobox>
+        </div>
+      </div>
+
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
+  );
+});
+
 export const PlacementExample = component$(() => {
   const inputValueSig = useSignal('');
   type PlacementExample = {
@@ -594,17 +590,7 @@ export const PlacementExample = component$(() => {
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative mt-2">
               <ComboboxInput class="w-44 px-2 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -661,17 +647,7 @@ export const FlipExample = component$(() => {
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative mt-2">
               <ComboboxInput class="w-44 px-2 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -735,98 +711,13 @@ export const GutterExample = component$(() => {
                 placeholder="Wallaby Rd."
               />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
               <ComboboxListbox
                 gutter={24}
                 class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
-                optionRenderer$={(option: ResolvedOption, index: number) => (
-                  <ComboboxOption
-                    key={option.key}
-                    class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
-                    index={index}
-                    resolved={option}
-                  >
-                    {option.label}
-                  </ComboboxOption>
-                )}
-              />
-            </ComboboxPortal>
-          </Combobox>
-        </div>
-      </div>
-
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
-    </PreviewCodeExample>
-  );
-});
-
-export const DisableBlur = component$(() => {
-  const planets = [
-    'Mercury',
-    'Venus',
-    'Earth',
-    'Mars',
-    'Jupiter',
-    'Saturn',
-    'Uranus',
-    'Neptune',
-  ];
-
-  return (
-    <PreviewCodeExample>
-      <div class="flex flex-col items-center gap-4 p-4" q:slot="actualComponent">
-        <p class="text-white text-center">
-          I have blur disabled! Inspect me in the dev tools.
-        </p>
-        <div>
-          <Combobox
-            class="w-fit"
-            options={planets}
-            filter$={(value: string, options) =>
-              options.filter(({ option }) => {
-                return option.toLowerCase().startsWith(value.toLowerCase());
-              })
-            }
-          >
-            <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
-              <ComboboxInput
-                disableBlur={true}
-                class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
-              />
-              <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </ComboboxTrigger>
-            </ComboboxControl>
-            <ComboboxPortal>
-              <ComboboxListbox
-                gutter={8}
-                class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
-                hide="referenceHidden"
                 optionRenderer$={(option: ResolvedOption, index: number) => (
                   <ComboboxOption
                     key={option.key}
@@ -883,22 +774,9 @@ export const HideExample = component$(() => {
             }
           >
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
-              <ComboboxInput
-                disableBlur={true}
-                class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
-              />
+              <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>
@@ -959,7 +837,7 @@ export const AnimationExample = component$(() => {
             <ComboboxLabel class=" font-semibold text-white">Streets 🛣️</ComboboxLabel>
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
               <ComboboxInput
-                disableBlur={true}
+                disableOnBlur={true}
                 class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
                 placeholder="Wallaby Rd."
               />
@@ -983,6 +861,163 @@ export const AnimationExample = component$(() => {
                 class={`w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px] transition-opacity duration-[500ms] ${
                   isListboxOpenSig.value ? 'opacity-100' : 'opacity-0'
                 }`}
+                optionRenderer$={(option: ResolvedOption, index: number) => (
+                  <ComboboxOption
+                    key={option.key}
+                    class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
+                    index={index}
+                    resolved={option}
+                  >
+                    {option.label}
+                  </ComboboxOption>
+                )}
+              />
+            </ComboboxPortal>
+          </Combobox>
+        </div>
+      </div>
+
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
+  );
+});
+
+export const CustomState = component$(() => {
+  const isListboxOpenSig = useSignal(false);
+  const highlightedIndexSig = useSignal(2);
+
+  const signalsExample = [
+    'bind:isListboxOpenSig',
+    'bind:isInputFocusedSig',
+    'bind:isTriggerFocusedSig',
+    'bind:inputValueSig',
+  ];
+
+  return (
+    <PreviewCodeExample>
+      <div class="flex flex-col items-center gap-4 p-4" q:slot="actualComponent">
+        <p class="text-white text-center">I love signals! 🗼</p>
+        <div>
+          <Combobox
+            class="w-fit"
+            options={signalsExample}
+            bind:isListboxOpenSig={isListboxOpenSig}
+            bind:highlightedIndexSig={highlightedIndexSig}
+          >
+            <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
+              <ComboboxInput
+                class="px-2 w-fit bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
+                onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
+              />
+              <ComboboxTrigger class="w-6 h-6 group absolute right-0">
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
+              </ComboboxTrigger>
+            </ComboboxControl>
+            <ComboboxPortal>
+              <ComboboxListbox
+                gutter={8}
+                class="w-fit bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
+                hide="escaped"
+                optionRenderer$={(option: ResolvedOption, index: number) => (
+                  <ComboboxOption
+                    key={option.key}
+                    class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
+                    index={index}
+                    resolved={option}
+                  >
+                    {option.label}
+                  </ComboboxOption>
+                )}
+              />
+            </ComboboxPortal>
+          </Combobox>
+        </div>
+      </div>
+
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
+  );
+});
+
+export const DefaultLabel = component$(() => {
+  const names = ['Jim', 'Joanna', 'John', 'Jessica'];
+
+  return (
+    <PreviewCodeExample>
+      <div class="flex flex-col items-center gap-4 p-4" q:slot="actualComponent">
+        <div>
+          <Combobox class="w-fit" defaultLabel={names[2]} options={names}>
+            <ComboboxLabel class="text-white">Default Label</ComboboxLabel>
+            <ComboboxControl class="bg-[#1f2532] rounded-sm border-slate-400 border-[1px] relative">
+              <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
+              <ComboboxTrigger class="w-6 h-6 group absolute right-0">
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
+              </ComboboxTrigger>
+            </ComboboxControl>
+            <ComboboxPortal>
+              <ComboboxListbox
+                gutter={8}
+                class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
+                hide="escaped"
+                optionRenderer$={(option: ResolvedOption, index: number) => (
+                  <ComboboxOption
+                    key={option.key}
+                    class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
+                    index={index}
+                    resolved={option}
+                  >
+                    {option.label}
+                  </ComboboxOption>
+                )}
+              />
+            </ComboboxPortal>
+          </Combobox>
+        </div>
+      </div>
+
+      <div q:slot="codeExample">
+        <Slot />
+      </div>
+    </PreviewCodeExample>
+  );
+});
+
+export const HighlightedExample = component$(() => {
+  const highlightedIndexSig = useSignal(2);
+
+  const highlightedExample = [
+    'not highlighted',
+    'not highlighted',
+    'highlighted by default!',
+    'not highlighted',
+  ];
+
+  return (
+    <PreviewCodeExample>
+      <div class="flex flex-col items-center gap-4 p-4" q:slot="actualComponent">
+        <p class="text-white text-center">Third option highlighted! 🚨</p>
+        <div>
+          <Combobox
+            class="w-fit"
+            options={highlightedExample}
+            bind:highlightedIndexSig={highlightedIndexSig}
+          >
+            <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
+              <ComboboxInput class="px-2 w-fit bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
+              <ComboboxTrigger class="w-6 h-6 group absolute right-0">
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
+              </ComboboxTrigger>
+            </ComboboxControl>
+            <ComboboxPortal>
+              <ComboboxListbox
+                gutter={8}
+                size={true}
+                class="w-fit bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
+                hide="escaped"
                 optionRenderer$={(option: ResolvedOption, index: number) => (
                   <ComboboxOption
                     key={option.key}
@@ -1070,72 +1105,62 @@ export const AnimationExample = component$(() => {
 //   );
 // });
 
-// Using context example.
+// // Using context example.
 
-import { createContextId, useContext, useContextProvider } from '@builder.io/qwik';
+// import { createContextId, useContext, useContextProvider } from '@builder.io/qwik';
 
-// Create a context ID
-export const AnimalContext = createContextId<string[]>('animal-context');
+// // Create a context ID
+// export const AnimalContext = createContextId<string[]>('animal-context');
 
-export const ContextExample = component$(() => {
-  const animals = ['Armadillo', 'Donkey', 'Baboon', 'Badger', 'Barracuda', 'Bat', 'Bear'];
-  // Provide the animals array to the context under the context ID
-  useContextProvider(AnimalContext, animals);
+// export const ContextExample = component$(() => {
+//   const animals = ['Armadillo', 'Donkey', 'Baboon', 'Badger', 'Barracuda', 'Bat', 'Bear'];
+//   // Provide the animals array to the context under the context ID
+//   useContextProvider(AnimalContext, animals);
 
-  return <ContextChild />;
-});
+//   return <ContextChild />;
+// });
 
-export const ContextChild = component$(() => {
-  const animals = useContext(AnimalContext);
+// export const ContextChild = component$(() => {
+//   const animals = useContext(AnimalContext);
 
-  return (
-    <PreviewCodeExample>
-      <div class="flex flex-col gap-4" q:slot="actualComponent">
-        <Combobox options={animals} class="relative">
-          <ComboboxLabel class=" font-semibold text-white">Animals 🐖</ComboboxLabel>
-          <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
-            <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
-            <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke-width="2"
-                class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </ComboboxTrigger>
-          </ComboboxControl>
-          <ComboboxPortal>
-            <ComboboxListbox
-              flip={true}
-              gutter={8}
-              class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
-              optionRenderer$={(option: ResolvedOption, index: number) => (
-                <ComboboxOption
-                  index={index}
-                  resolved={option}
-                  class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
-                >
-                  <span class="block group-aria-selected:translate-x-[3px] transition-transform duration-350">
-                    <span>{option.label}</span>
-                  </span>
-                </ComboboxOption>
-              )}
-            />
-          </ComboboxPortal>
-        </Combobox>
-      </div>
+//   return (
+//     <PreviewCodeExample>
+//       <div class="flex flex-col gap-4" q:slot="actualComponent">
+//         <Combobox options={animals} class="relative">
+//           <ComboboxLabel class=" font-semibold text-white">Animals 🐖</ComboboxLabel>
+//           <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative">
+//             <ComboboxInput class="px-2 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
+//             <ComboboxTrigger class="w-6 h-6 group absolute right-0">
+//               <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
+//             </ComboboxTrigger>
+//           </ComboboxControl>
+//           <ComboboxPortal>
+//             <ComboboxListbox
+//               flip={true}
+//               gutter={8}
+//               class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
+//               optionRenderer$={(option: ResolvedOption, index: number) => (
+//                 <ComboboxOption
+//                   index={index}
+//                   resolved={option}
+//                   class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
+//                 >
+//                   <span class="block group-aria-selected:translate-x-[3px] transition-transform duration-350">
+//                     <span>{option.label}</span>
+//                   </span>
+//                 </ComboboxOption>
+//               )}
+//             />
+//           </ComboboxPortal>
+//         </Combobox>
+//       </div>
 
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
-    </PreviewCodeExample>
-  );
-});
+//       <div q:slot="codeExample">
+//         <Slot />
+//       </div>
+//     </PreviewCodeExample>
+//   );
+// });
 
 export const AutoPlacementExample = component$(() => {
   const isListboxOpenSig = useSignal(true);
@@ -1170,17 +1195,7 @@ export const AutoPlacementExample = component$(() => {
             <ComboboxControl class="bg-[#1f2532] flex items-center rounded-sm border-slate-400 border-[1px] relative mt-2">
               <ComboboxInput class="w-44 px-2 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500" />
               <ComboboxTrigger class="w-6 h-6 group absolute right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <ComboboxIcon class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]" />
               </ComboboxTrigger>
             </ComboboxControl>
             <ComboboxPortal>

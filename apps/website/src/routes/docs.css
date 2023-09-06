@@ -14,7 +14,7 @@
     }
 
     h1 {
-      @apply text-3xl md:text-5xl md:mb-12 font-extrabold tracking-wide;
+      @apply text-3xl md:text-5xl md:mb-12 font-extrabold;
     }
 
     h2 {
@@ -26,7 +26,7 @@
     }
 
     h4 {
-      @apply text-lg font-medium mt-6 mb-4 font-bold;
+      @apply text-lg font-medium mt-6 mb-4 font-[600];
     }
 
     h5 {

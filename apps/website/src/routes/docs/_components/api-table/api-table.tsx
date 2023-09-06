@@ -41,7 +41,7 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
                     {propDescriptor.info && (
                       <Popover placement="top">
                         <PopoverContent>
-                          <div class="shadow-light-high bg-qwikui-blue-50 text-slate-950 dark:shadow-dark-high  max-w-xs mb-2 text-md py-2 px-3  rounded-lg sm:w-max border-[1px] border-b-2 border-qwikui-blue-500 dark:border-qwikui-purple-500 dark:bg-qwikui-purple-100 font-[500]">
+                          <div class="shadow-light-medium bg-qwikui-blue-50 text-slate-950 dark:shadow-dark-high  max-w-xs mb-2 text-md py-2 px-3  rounded-lg sm:w-max border-[1px] border-b-2 border-qwikui-blue-500 dark:border-qwikui-purple-500 dark:bg-qwikui-purple-100 font-[500]">
                             {propDescriptor?.info}
                           </div>
                         </PopoverContent>

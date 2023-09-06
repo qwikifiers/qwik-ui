@@ -46,8 +46,8 @@ export type ComboboxProps<O extends Option = Option> = {
   // signal binds
   'bind:isListboxOpenSig'?: Signal<boolean | undefined>;
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
-  'bind:isTriggerFocusedSig'?: Signal<boolean | undefined>;
   'bind:inputValueSig'?: Signal<string>;
+  'bind:highlightedIndexSig'?: Signal<number>;
 } & QwikIntrinsicElements['div'];
 
 export const Combobox = component$(
@@ -55,8 +55,8 @@ export const Combobox = component$(
     const {
       'bind:isListboxOpenSig': givenListboxOpenSig,
       'bind:isInputFocusedSig': givenInputFocusedSig,
-      'bind:isTriggerFocusedSig': givenTriggerFocusedSig,
       'bind:inputValueSig': givenInputValueSig,
+      'bind:highlightedIndexSig': givenHighlightedIndexSig,
       options,
       defaultLabel = '',
       optionValueKey = 'value',
@@ -137,10 +137,8 @@ export const Combobox = component$(
     const defaultInputFocusedSig = useSignal<boolean | undefined>(false);
     const isInputFocusedSig = givenInputFocusedSig || defaultInputFocusedSig;
 
-    const defaultTriggerFocusedSig = useSignal<boolean | undefined>(false);
-    const isTriggerFocusedSig = givenTriggerFocusedSig || defaultTriggerFocusedSig;
-
-    const highlightedIndexSig = useSignal<number>(-1);
+    const defaultHighlightedIndexSig = useSignal<number>(-1);
+    const highlightedIndexSig = givenHighlightedIndexSig || defaultHighlightedIndexSig;
 
     /**
      * Id for 1:1 items. Also used as a prefix for the options and then their key.
@@ -156,7 +154,6 @@ export const Combobox = component$(
       triggerRef,
       listboxRef,
       isInputFocusedSig,
-      isTriggerFocusedSig,
       isListboxOpenSig,
       highlightedIndexSig,
       selectedOptionIndexSig,

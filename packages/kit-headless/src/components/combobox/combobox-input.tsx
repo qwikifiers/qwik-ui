@@ -21,11 +21,14 @@ import {
 const preventedKeys = [KeyCode.Home, KeyCode.End, KeyCode.PageDown, KeyCode.ArrowUp];
 
 export type ComboboxInputProps = {
-  disableBlur?: boolean;
+  disableOnBlur?: boolean;
 } & QwikIntrinsicElements['input'];
 
 export const ComboboxInput = component$(
-  <O extends Option = Option>({ disableBlur = false, ...props }: ComboboxInputProps) => {
+  <O extends Option = Option>({
+    disableOnBlur = false,
+    ...props
+  }: ComboboxInputProps) => {
     const context = useContext(ComboboxContextId as ContextId<ComboboxContext<O>>);
 
     const inputId = `${context.localId}-input`;
@@ -149,7 +152,7 @@ export const ComboboxInput = component$(
           context.inputValueSig.value = inputElement.value;
         }}
         onBlur$={() => {
-          disableBlur ? '' : (context.isListboxOpenSig.value = false);
+          disableOnBlur ? null : (context.isListboxOpenSig.value = false);
         }}
         onKeyDown$={[onKeydownBehavior$, props.onKeyDown$]}
       />

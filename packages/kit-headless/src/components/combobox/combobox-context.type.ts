@@ -18,7 +18,6 @@ export interface ComboboxContext<O extends Option = Option> {
 
   // internal state
   isInputFocusedSig: Signal<boolean | undefined>;
-  isTriggerFocusedSig: Signal<boolean | undefined>;
   isListboxOpenSig: Signal<boolean | undefined>;
   highlightedIndexSig: Signal<number>;
   selectedOptionIndexSig: Signal<number>;

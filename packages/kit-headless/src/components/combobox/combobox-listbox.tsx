@@ -15,7 +15,6 @@ import {
   shift as _shift,
   autoPlacement as _autoPlacement,
   hide as _hide,
-  inline as _inline,
 } from '@floating-ui/dom';
 
 import { JSX } from '@builder.io/qwik/jsx-runtime';
@@ -81,7 +80,6 @@ export const ComboboxListbox = component$(
     placement = 'bottom',
     shift,
     hide,
-    inline,
     autoPlacement = false,
     ancestorScroll = true,
     ancestorResize = true,
@@ -98,8 +96,8 @@ export const ComboboxListbox = component$(
         // const middleware = [_offset(offset), arrow && _arrow(arrow), size && _size(size)];
         const middleware = [_offset(gutter), _hide({ strategy: hide })];
 
-        const middlewareFunctions = [_flip, _shift, _autoPlacement, _inline];
-        const middlewareProps = [flip, shift, autoPlacement, inline];
+        const middlewareFunctions = [_flip, _shift, _autoPlacement];
+        const middlewareProps = [flip, shift, autoPlacement];
 
         middlewareFunctions.forEach((func, index) => {
           const isMiddlewareEnabled = middlewareProps[index];
