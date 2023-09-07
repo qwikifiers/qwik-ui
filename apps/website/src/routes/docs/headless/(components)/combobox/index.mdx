@@ -1304,81 +1304,77 @@ export const SearchBar = component$(() => {
   ];
 
   return (
-    <PreviewCodeExample>
-      <div class="flex flex-col items-center gap-4 p-4" q:slot="actualComponent">
-        <div>
-          <Combobox
-            bind:inputValueSig={inputValueSig}
-            bind:inputRef={inputRef}
-            bind:highlightedIndexSig={highlightedIndexSig}
-            bind:isListboxOpenSig={isListboxOpenSig}
-            optionValueKey="component"
-            class="w-fit"
-            options={components}
+    <Combobox
+      bind:inputValueSig={inputValueSig}
+      bind:inputRef={inputRef}
+      bind:highlightedIndexSig={highlightedIndexSig}
+      bind:isListboxOpenSig={isListboxOpenSig}
+      optionValueKey="component"
+      class="w-fit"
+      options={components}
+    >
+      <ComboboxLabel class="text-white">Qwik UI ⚡</ComboboxLabel>
+      <ComboboxControl class="bg-[#1f2532] rounded-sm border-slate-400 border-[1px] relative">
+        <ComboboxInput
+          onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
+          class="pl-6 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
+          onKeyDown$={(e) => {
+            if (e.key === 'Enter') {
+              const inputElement = e.target as HTMLInputElement;
+              window.location.href = `${docsPrefix}/${inputElement.value.toLowerCase()}`;
+            }
+          }}
+        />
+        <ComboboxTrigger class="w-6 h-6 group absolute left-[4px]">
+          <SearchIcon />
+        </ComboboxTrigger>
+        {inputValueSig.value.length > 0 && (
+          // give separate id if two triggers
+          <button
+            id="close-button"
+            aria-label="clear search"
+            onMouseDown$={() => {
+              inputValueSig.value = '';
+              inputRef.value?.focus();
+            }}
+            class="w-6 h-6 flex justify-center items-center absolute top-0 right-0"
           >
-            <ComboboxLabel class="text-white">Qwik UI ⚡</ComboboxLabel>
-            <ComboboxControl class="bg-[#1f2532] rounded-sm border-slate-400 border-[1px] relative">
-              <ComboboxInput
-                onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
-                class="pl-6 w-44 bg-slate-900 px-d2 pr-6 text-white placeholder:text-slate-500"
-                onKeyDown$={(e) => {
-                  if (e.key === 'Enter') {
-                    const inputElement = e.target as HTMLInputElement;
-                    window.location.href = `${docsPrefix}/${inputElement.value.toLowerCase()}`;
-                  }
-                }}
-              />
-              <ComboboxTrigger class="w-6 h-6 group absolute left-[4px]">
-                <SearchIcon />
-              </ComboboxTrigger>
-              {inputValueSig.value.length > 0 && (
-                // give separate id if two triggers
-                <button
-                  id="close-button"
-                  aria-label="clear search"
-                  onMouseDown$={() => {
-                    inputValueSig.value = '';
-                    inputRef.value?.focus();
-                  }}
-                  class="w-6 h-6 flex justify-center items-center absolute top-0 right-0"
+            <ClearIcon class="w-4 h-4" />
+          </button>
+        )}
+      </ComboboxControl>
+      <ComboboxPortal>
+        <ComboboxListbox
+          gutter={8}
+          class="w-44 bg-slate-900 px-1 py-2 rounded-sm border-slate-400 border-[1px]"
+          hide="escaped"
+          optionRenderer$={(option: ResolvedOption, index: number) => {
+            const searchOption = option.option as MyComponents;
+            return (
+              <a
+                href={`${docsPrefix}/${searchOption.component}`}
+                aria-label={option.label}
+              >
+                <ComboboxOption
+                  key={option.key}
+                  class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group flex justify-between items-start gap-4"
+                  index={index}
+                  resolved={option}
                 >
-                  <ClearIcon class="w-4 h-4" />
-                </button>
-              )}
-            </ComboboxControl>
-            <ComboboxPortal>
-              <ComboboxListbox
-                gutter={8}
-                class="w-44 bg-slate-900 px-4 py-2 rounded-sm border-slate-400 border-[1px]"
-                hide="escaped"
-                optionRenderer$={(option: ResolvedOption, index: number) => {
-                  const searchOption = option.option as MyComponents;
-                  return (
-                    <a
-                      href={`${docsPrefix}/${searchOption.component}`}
-                      aria-label={option.label}
-                    >
-                      <ComboboxOption
-                        key={option.key}
-                        class="aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 rounded-sm px-2 hover:bg-slate-500 aria-selected:bg-slate-500 text-white  border-2 border-transparent aria-selected:border-slate-200 group"
-                        index={index}
-                        resolved={option}
-                      >
-                        {searchOption.label}
-                      </ComboboxOption>
-                    </a>
-                  );
-                }}
-              />
-            </ComboboxPortal>
-          </Combobox>
-        </div>
-      </div>
-
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
-    </PreviewCodeExample>
+                  <span>{searchOption.label}</span>
+                  <span class="scale-[0.9]">
+                    {/* this is a Qwik UI docs component */}
+                    <StatusBadge
+                      status={statusByComponent.headless[option.label]}
+                    />
+                  </span>
+                </ComboboxOption>
+              </a>
+            );
+          }}
+        />
+      </ComboboxPortal>
+    </Combobox>
   );
 });
 
