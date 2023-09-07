@@ -48,6 +48,7 @@ export type ComboboxProps<O extends Option = Option> = {
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
   'bind:inputValueSig'?: Signal<string>;
   'bind:highlightedIndexSig'?: Signal<number>;
+  'bind:inputRef'?: Signal<HTMLInputElement | undefined>;
 } & QwikIntrinsicElements['div'];
 
 export const Combobox = component$(
@@ -57,6 +58,7 @@ export const Combobox = component$(
       'bind:isInputFocusedSig': givenInputFocusedSig,
       'bind:inputValueSig': givenInputValueSig,
       'bind:highlightedIndexSig': givenHighlightedIndexSig,
+      'bind:inputRef': givenInputRef,
       options,
       defaultLabel = '',
       optionValueKey = 'value',
@@ -125,7 +127,8 @@ export const Combobox = component$(
 
     const labelRef = useSignal<HTMLLabelElement>();
     const listboxRef = useSignal<HTMLUListElement>();
-    const inputRef = useSignal<HTMLInputElement>();
+    const defaultInputRef = useSignal<HTMLInputElement>();
+    const inputRef = givenInputRef || defaultInputRef;
 
     const triggerRef = useSignal<HTMLButtonElement>();
 

@@ -15,15 +15,15 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
       <table class="w-full min-w-[540px] border-b border-slate-300 dark:border-slate-600 text-left sm:min-w-full mb-6">
         <tbody class="divide-y divide-slate-300 dark:divide-slate-600">
           <tr class="w-1/4 dark:text-white ">
-            <td class="w-1/6 whitespace-nowrap py-2 pl-4 text-base font-medium sm:pl-0 text-slate-700 dark:text-slate-300 font-[600]">
+            <th class="w-1/6 whitespace-nowrap py-2 pl-4 text-base font-medium sm:pl-0 text-slate-700 dark:text-slate-300 font-[600]">
               Prop
-            </td>
-            <td class="w-1/6 whitespace-nowrap py-2 text-base text-slate-700 dark:text-slate-300 font-[600]">
+            </th>
+            <th class="w-1/6 whitespace-nowrap py-2 text-base text-slate-700 dark:text-slate-300 font-[600]">
               Type
-            </td>
-            <td class="w-2/3 whitespace-nowrap p-2 text-base text-slate-700 dark:text-slate-300 font-[600]">
+            </th>
+            <th class="w-2/3 whitespace-nowrap p-2 text-base text-slate-700 dark:text-slate-300 font-[600]">
               Description
-            </td>
+            </th>
           </tr>
           {propDescriptors?.map((propDescriptor) => {
             return (

@@ -116,6 +116,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
       >
         <span class="pr-2">{getMessageByStatus(props.status)}</span>
         <button
+          aria-label="close status banner"
           onClick$={() => {
             // we need the margin as a variable rather than a static class.
             ref.value?.style.setProperty(

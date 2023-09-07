@@ -55,7 +55,7 @@ export default component$(
         ]}
       >
         <section class="flex flex-col md:flex-row gap-1 md:gap-8 mr-auto">
-          <a href="/" class="lg:ml-8">
+          <a href="/" aria-label="Qwik UI Logo" class="lg:ml-8">
             <Logo />
           </a>
 
