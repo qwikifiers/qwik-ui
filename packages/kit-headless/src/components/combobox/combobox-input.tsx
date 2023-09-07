@@ -138,7 +138,9 @@ export const ComboboxInput = component$(
         aria-expanded={context.isListboxOpenSig.value}
         aria-haspopup="listbox"
         aria-autocomplete="list"
-        aria-activedescendant={getActiveDescendant(context)}
+        aria-activedescendant={
+          context.isListboxOpenSig.value ? getActiveDescendant(context) : ''
+        }
         aria-controls={listboxId}
         value={context.inputValueSig.value}
         onInput$={(e: InputEvent) => {

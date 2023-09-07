@@ -1,20 +1,21 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { JSX } from '@builder.io/qwik/jsx-runtime';
 
 type ComboboxIcon = {
-  svg?: HTMLOrSVGElement;
+  svg?: JSX.Element;
 } & QwikIntrinsicElements['svg'];
 
 export const ComboboxIcon = component$<ComboboxIcon>(({ svg, ...iconProps }) => {
   if (svg) {
     return (
-      <span aria-hidden="true">
+      <div aria-hidden="true">
         <Slot />
-      </span>
+      </div>
     );
   }
 
   return !svg ? (
-    <span aria-hidden="true">
+    <div aria-hidden="true">
       <svg
         {...iconProps}
         xmlns="http://www.w3.org/2000/svg"
@@ -26,6 +27,6 @@ export const ComboboxIcon = component$<ComboboxIcon>(({ svg, ...iconProps }) => 
       >
         <polyline points="6 9 12 15 18 9"></polyline>
       </svg>
-    </span>
+    </div>
   ) : null;
 });
