@@ -1173,7 +1173,6 @@ export const ContextChild = component$(() => {
 export const SearchBar = component$(() => {
   const inputValueSig = useSignal('');
   const highlightedIndexSig = useSignal(0);
-  const inputRef = useSignal<HTMLInputElement>();
   const isListboxOpenSig = useSignal(false);
 
   type MyComponents = {
@@ -1199,7 +1198,6 @@ export const SearchBar = component$(() => {
         <div>
           <Combobox
             bind:inputValueSig={inputValueSig}
-            bind:inputRef={inputRef}
             bind:highlightedIndexSig={highlightedIndexSig}
             bind:isListboxOpenSig={isListboxOpenSig}
             optionValueKey="component"
@@ -1228,7 +1226,6 @@ export const SearchBar = component$(() => {
                   aria-label="clear search"
                   onMouseDown$={() => {
                     inputValueSig.value = '';
-                    inputRef.value?.focus();
                   }}
                   class="w-6 h-6 flex justify-center items-center absolute top-0 right-0"
                 >
