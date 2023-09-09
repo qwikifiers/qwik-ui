@@ -31,6 +31,7 @@
 - [Select](/docs/tailwind/select)
 - [Spinner](/docs/tailwind/spinner)
 - [Tabs](/docs/tailwind/tabs)
+- [Textarea](/docs/tailwind/textarea)
 - [Toast](/docs/tailwind/toast)
 - [Toggle](/docs/tailwind/toggle)
 - [Tooltip](/docs/tailwind/tooltip)
