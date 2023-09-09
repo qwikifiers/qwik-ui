@@ -145,4 +145,51 @@ ol {
   .accordion-animation-1[data-state='closed'] {
     animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-close;
   }
+
+  .text-outline-lg {
+    text-shadow: 1.6px 0.6px 0 var(--qwikui-blue-800),
+      -0.6px -0.6px 0 var(--qwikui-blue-800), 0.6px -0.6px 0 var(--qwikui-blue-800),
+      -0.6px 0.6px 0 var(--qwikui-blue-800), 0.6px 0.6px 0 var(--qwikui-blue-800);
+  }
+
+  .dark .text-outline-lg {
+    text-shadow: 1.2px 1.2px 0 var(--qwikui-purple-800),
+      -0.6px -0.6px 0 var(--qwikui-purple-800), 0.6px -0.6px 0 var(--qwikui-purple-800),
+      -0.6px 0.6px 0 var(--qwikui-purple-800), 0.6px 0.6px 0 var(--qwikui-purple-800);
+  }
+
+  .text-outline-beta {
+    text-shadow: 1.5px 0.5px 0 var(--qwikui-blue-800),
+      -0.5px -0.5px 0 var(--qwikui-blue-800), 0.5px -0.5px 0 var(--qwikui-blue-800),
+      -0.5px 0.5px 0 var(--qwikui-blue-800), 0.5px 0.5px 0 var(--qwikui-blue-800);
+  }
+
+  .dark .text-outline-beta {
+    text-shadow: 1.5px 0.5px 0 var(--qwikui-slate-800),
+      -0.5px -0.5px 0 var(--qwikui-slate-800), 0.5px -0.5px 0 var(--qwikui-slate-800),
+      -0.5px 0.5px 0 var(--qwikui-slate-800), 0.5px 0.5px 0 var(--qwikui-slate-800);
+  }
+
+  .text-outline-draft {
+    text-shadow: 1.5px 0.5px 0 var(--qwikui-slate-900),
+      -0.5px -0.5px 0 var(--qwikui-slate-900), 0.5px -0.5px 0 var(--qwikui-slate-900),
+      -0.5px 0.5px 0 var(--qwikui-slate-900), 0.5px 0.5px 0 var(--qwikui-slate-900);
+  }
+  .dark .text-outline-draft {
+    text-shadow: 1.5px 0.5px 0 var(--qwikui-slate-950),
+      -0.5px -0.5px 0 var(--qwikui-slate-950), 0.5px -0.5px 0 var(--qwikui-slate-950),
+      -0.5px 0.5px 0 var(--qwikui-slate-950), 0.5px 0.5px 0 var(--qwikui-slate-950);
+  }
+
+  .text-outline-planned {
+    text-shadow: 1.5px 0.5px 0 var(--qwikui-slate-500),
+      -0.5px -0.5px 0 var(--qwikui-slate-500), 0.5px -0.5px 0 var(--qwikui-slate-500),
+      -0.5px 0.5px 0 var(--qwikui-slate-500), 0.5px 0.5px 0 var(--qwikui-slate-500);
+  }
+
+  .dark .text-outline-planned {
+    text-shadow: 1.5px 0.5px 0 var(--qwikui-slate-500),
+      -0.4px -0.4px 0 var(--qwikui-slate-500), 0.4px -0.4px 0 var(--qwikui-slate-500),
+      -0.4px 0.4px 0 var(--qwikui-slate-500), 0.4px 0.4px 0 var(--qwikui-slate-500);
+  }
 }

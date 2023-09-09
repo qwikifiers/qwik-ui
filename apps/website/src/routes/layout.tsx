@@ -29,7 +29,7 @@ export default component$(() => {
       <QwikUIProvider>
         <div class="flex mt-20">
           <DocsNavigation linksGroups={menuItemsGroups} />
-          <main class="docs mx-auto">
+          <main class="docs">
             <Slot />
           </main>
         </div>

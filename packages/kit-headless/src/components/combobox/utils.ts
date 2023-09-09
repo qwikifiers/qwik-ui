@@ -15,6 +15,11 @@ export const getNextEnabledOptionIndex = <O extends Option = Option>(
       currentIndex = 0;
       offset = 0;
     }
+
+    // no enabled opt found
+    if (offset >= len) {
+      return -1;
+    }
   }
   return (currentIndex + offset) % len;
 };

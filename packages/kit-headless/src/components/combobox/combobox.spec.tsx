@@ -463,7 +463,7 @@ describe('Disabled & Object Combobox', () => {
       THEN the listbox should remain open`, () => {
     cy.mount(<DisabledCombobox />);
 
-    cy.findByTestId('trigger').click();
+    cy.get('button').click();
 
     cy.findByRole('option', { name: `David` }).click();
 
