@@ -1,5 +1,4 @@
 import { $, component$, useComputed$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -22,7 +21,6 @@ export interface HeaderProps {
 export default component$(
   ({ showVersion = false, showBottomBorder = false }: HeaderProps) => {
     const rootStore = useRootStore();
-    const location = useLocation();
     const selectedKitSig = useSelectedKit();
 
     const kitSignal = useComputed$(() => {
@@ -44,19 +42,20 @@ export default component$(
       rootStore.mode = rootStore.mode === 'light' ? 'dark' : 'light';
     });
 
+    // we can add back the header animation if you'd like. Maybe something springy with motion?
     return (
       <header
         class={[
           `fixed top-0 z-20 flex h-20 w-full items-center gap-8 p-4 md:h-20 md:bg-[var(--color-bg)]`,
-          `duration-300 ease-in-out`,
+          `shadow-light-medium dark:shadow-dark-medium`,
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
             : 'bg-[var(--color-bg)]',
-          showBottomBorder ? `border-b-[1px] border-slate-300 dark:border-slate-600` : ``,
+          showBottomBorder ? `shadow-light-medium dark:shadow-dark-medium` : ``,
         ]}
       >
         <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">
-          <a href="/" class="lg:ml-8">
+          <a href="/" aria-label="Qwik UI Logo" class="lg:ml-8">
             <Logo />
           </a>
 

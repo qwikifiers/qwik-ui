@@ -1,6 +1,6 @@
 .docs {
   & {
-    @apply lg:ml-80 w-full lg:max-w-4xl xl:max-w-6xl py-8 px-8 lg:px-16;
+    @apply w-full overflow-hidden px-8 py-8 lg:ml-80 lg:max-w-4xl lg:px-16 xl:max-w-6xl;
   }
 
   /*
@@ -10,44 +10,35 @@
   */
   & > {
     p {
-      @apply mb-4;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      overflow-wrap: break-word;
+      @apply mb-6;
     }
 
     h1 {
-      @apply text-5xl font-bold mb-12;
+      @apply text-3xl font-extrabold md:mb-12 md:text-5xl;
     }
 
     h2 {
-      @apply text-3xl font-bold mt-20 mb-12 border-b-2;
+      @apply mb-8 mt-20 border-b-[1px] border-slate-300 pb-2 text-2xl font-extrabold dark:border-slate-700;
     }
 
     h3 {
-      @apply text-xl font-bold mt-4 mb-6;
+      @apply mb-6 mt-8 text-xl font-semibold;
     }
 
     h4 {
-      @apply text-lg mt-4 mb-6;
+      @apply mb-4 mt-6 text-lg font-[600] font-medium;
     }
 
     h5 {
-      @apply text-xl mb-1 font-bold;
+      @apply text-base font-[700];
     }
 
     blockquote {
-      @apply bg-[#BFDBFE] dark:bg-[#312E81] p-4 border-l-[3px] dark:border-[#F3F3F3] border-[#333333] rounded-sm;
+      @apply bg-qwikui-blue-800 shadow-light-medium dark:shadow-dark-medium dark:bg-qwikui-purple-800 border-qwikui-blue-200 dark:border-qwikui-purple-200 my-4 rounded-xl border-[2px] p-4 text-white lg:p-6;
     }
 
     ul {
-      @apply list-disc px-6 mb-4 font-[500];
+      @apply mb-4 list-disc px-6 font-medium;
     }
 
     li {
@@ -56,20 +47,16 @@
   }
 
   a {
-    @apply border-b-[1.25px] border-[#00B9FC] font-bold transition-[border-radius] duration-500 ease-in;
-  }
-
-  a:hover {
-    @apply border-b-2;
+    @apply border-qwikui-blue-500 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] font-semibold transition transition-colors duration-300;
   }
 
   p code {
-    @apply bg-transparent px-2 mx-1 rounded-md dark:bg-transparent border-[1px] dark:border-white w-max border-[#333333];
+    @apply shadow-dark-low dark:shadow-dark-low  border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500 mx-1 w-max rounded-md border-[1px] border-b-[2px] border-[#333333] bg-white px-2 py-[2px] font-medium text-slate-800 dark:border-white;
   }
 
   /* adds sufficient padding to the table items / API Component */
   td article {
-    @apply pt-4 pb-4 mb-0;
+    @apply mb-0 pb-4 pt-4;
   }
 
   td p {
@@ -77,6 +64,10 @@
   }
 
   blockquote a {
-    @apply border-[#333] dark:border-[#F3F3F3];
+    @apply border-qwikui-blue-200 hover:border-qwikui-blue-100 dark:border-qwikui-purple-100 dark:hover:border-qwikui-purple-200;
+  }
+
+  ol li {
+    @apply my-4;
   }
 }

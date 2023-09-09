@@ -27,6 +27,7 @@
     "@commitlint/config-conventional": "^17.7.0",
     "@cypress/code-coverage": "^3.11.0",
     "@cypress/vite-dev-server": "^5.0.6",
+    "@floating-ui/core": "1.4.1",
     "@floating-ui/dom": "^1.5.1",
     "@fontsource-variable/inter": "5.0.8",
     "@frsource/cypress-plugin-visual-regression-diff": "^3.3.10",
@@ -119,6 +120,7 @@
     "components library"
   ],
   "dependencies": {
+    "@fontsource-variable/inter": "5.0.8",
     "tslib": "^2.6.2"
   },
   "nx": {

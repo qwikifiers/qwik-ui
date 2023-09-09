@@ -14,6 +14,8 @@ import {
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
+import '@fontsource-variable/inter';
+
 export default component$(() => {
   useStyles$(prismStyles);
   useStyles$(docsStyles);
@@ -27,7 +29,7 @@ export default component$(() => {
       <QwikUIProvider>
         <div class="mt-20 flex">
           <DocsNavigation linksGroups={menuItemsGroups} />
-          <main class="docs">
+          <main class="docs mx-auto">
             <Slot />
           </main>
         </div>

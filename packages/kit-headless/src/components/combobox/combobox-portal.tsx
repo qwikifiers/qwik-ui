@@ -1,4 +1,3 @@
-/* eslint-disable qwik/valid-lexical-scope */
 import {
   ContextId,
   FunctionComponent,
@@ -15,19 +14,20 @@ import {
 import { ContextPair, openPortalContextId } from '../qwik-ui-provider';
 import ComboboxContextId from './combobox-context-id';
 
-import { isServer } from '@builder.io/qwik/build';
-
-export const ComboboxPortal: FunctionComponent = ({ children }) => {
-  return <ComboboxPortalImpl elementToTeleport={children} />;
+export const ComboboxPortal: FunctionComponent<{
+  children: JSXNode;
+  contextIds?: ComboboxPortalProps['contextIds'];
+}> = ({ children, contextIds }) => {
+  return <ComboboxPortalImpl contextIds={contextIds} elementToTeleport={children} />;
 };
 
 export type ComboboxPortalProps = {
   elementToTeleport: JSXNode;
-  contextIds?: ContextId<any>[];
+  contextIds?: ContextId<unknown>[];
 };
 
 export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
-  const contextPairsSig = useSignal<ContextPair<any>[]>();
+  const contextPairsSig = useSignal<ContextPair[]>([]);
 
   const comboboxContext = useContext(ComboboxContextId);
 
@@ -37,18 +37,11 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
 
     contextIdsFromProps?.map((id) => {
       // eslint-disable-next-line qwik/use-method-usage
-      contextPairsSig.value?.push({ id, value: useContext(id) });
+      contextPairsSig.value.push({ id, value: useContext(id as ContextId<object>) });
     });
   });
 
   const openPortal$ = useContext(openPortalContextId);
-
-  useTask$(async function openListboxOnServer() {
-    // Open Portal Conditionally on SSR
-    if (isServer && comboboxContext.isListboxOpenSig.value) {
-      await openPortal$('comboboxPortal', props.elementToTeleport, contextPairsSig.value);
-    }
-  });
 
   const closePortalSig = useSignal<QRL<() => void>>();
 
@@ -58,7 +51,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
 
     if (comboboxContext.isListboxOpenSig.value && contextPairsSig.value) {
       closePortalSig.value = await openPortal$(
-        'comboboxPortal',
+        comboboxContext.localId,
         props.elementToTeleport,
         contextPairsSig.value,
       );
