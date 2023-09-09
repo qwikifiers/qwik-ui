@@ -6,6 +6,7 @@ import { qwikNxVite } from 'qwik-nx/plugins';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
@@ -16,6 +17,9 @@ export default defineConfig({
     dts({
       tsconfigPath: join(dirname(fileURLToPath(import.meta.url)), 'tsconfig.lib.json'),
       entryRoot: 'src',
+    }),
+    viteStaticCopy({
+      targets: [{ src: './README.md', dest: './' }],
     }),
   ],
   server: {
@@ -29,6 +33,7 @@ export default defineConfig({
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
     target: 'es2020',
+    emptyOutDir: true,
     lib: {
       entry: './src/index.ts',
       // Could also be a dictionary or array of multiple entry points.
