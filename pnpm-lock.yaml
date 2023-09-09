@@ -277,6 +277,15 @@ importers:
         specifier: ^2
         version: 2.0.0
 
+  dist/packages/kit-headless:
+    dependencies:
+      '@builder.io/qwik':
+        specifier: '>1.1.0'
+        version: 1.1.5(undici@5.23.0)
+      '@floating-ui/dom':
+        specifier: 1.0.10
+        version: 1.0.10
+
   packages/bots: {}
 
   packages/cva: {}
@@ -4139,20 +4148,15 @@ packages:
     resolution: {integrity: sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==}
     dev: true
 
-  /@floating-ui/core@1.2.1:
-    resolution: {integrity: sha512-LSqwPZkK3rYfD7GKoIeExXOyYx6Q1O4iqZWwIehDNuv3Dv425FIAE8PRwtAx1imEolFTHgBEcoFHm9MDnYgPCg==}
-    dev: false
-
   /@floating-ui/core@1.4.1:
     resolution: {integrity: sha512-jk3WqquEJRlcyu7997NtR5PibI+y5bi+LS3hPmguVClypenMsCY3CBa3LAQnozRCtCrYWSEtAdiskpamuJRFOQ==}
     dependencies:
       '@floating-ui/utils': 0.1.1
-    dev: true
 
   /@floating-ui/dom@1.0.10:
     resolution: {integrity: sha512-ZRe5ZmtGYCd82zrjWnnMW8hN5H1otedLh0Ur6rRo6f0exbEe6IlkVvo1RO7tgiMvbF0Df8hkhdm50VcVYqwP6g==}
     dependencies:
-      '@floating-ui/core': 1.2.1
+      '@floating-ui/core': 1.4.1
     dev: false
 
   /@floating-ui/dom@1.5.1:
@@ -4175,7 +4179,6 @@ packages:
 
   /@floating-ui/utils@0.1.1:
     resolution: {integrity: sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==}
-    dev: true
 
   /@fontsource-variable/inter@5.0.8:
     resolution: {integrity: sha512-WkYfFNccmEIeL2fNg0mYeLWqOoB7xD8MFxFRc4IwbSP2o8ZaBt36v5aW4by4MyrgGRMNk7uNi5LbvYKq6clPjw==}
