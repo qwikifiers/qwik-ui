@@ -60,7 +60,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
         return (
           <>
             <div class="px-6 pt-6">
-              <h2 class="mb-4 font-bold text-white text-3xl lg:text-lg bg-qwikui-blue-400 px-4 py-1 rounded-lg dark:bg-qwikui-purple-500 shadow-dark-low dark:shadow-dark-high border-qwikui-blue-100 dark:border-qwikui-purple-100 border-2">
+              <h2 class="mb-4 font-bold text-white text-3xl lg:text-lg bg-qwikui-blue-400 px-4 py-1 rounded-lg dark:bg-qwikui-purple-500 shadow-dark-low dark:shadow-dark-high border-qwikui-blue-100 dark:border-qwikui-purple-100 border-2 text-outline-lg tracking-widest">
                 {group.name}
               </h2>
               <ul class="flex flex-col gap-2">
