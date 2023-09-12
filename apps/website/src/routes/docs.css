@@ -1,6 +1,6 @@
 .docs {
   & {
-    @apply lg:ml-80 w-full lg:max-w-4xl xl:max-w-6xl py-8 px-8 lg:px-16 overflow-hidden;
+    @apply w-full overflow-hidden px-8 py-8 lg:ml-80 lg:max-w-4xl lg:px-16 xl:max-w-6xl;
   }
 
   /*
@@ -14,19 +14,19 @@
     }
 
     h1 {
-      @apply text-3xl md:text-5xl md:mb-12 font-extrabold;
+      @apply text-3xl font-extrabold md:mb-12 md:text-5xl;
     }
 
     h2 {
-      @apply text-2xl font-extrabold mt-20 mb-8 border-b-[1px] border-slate-300 dark:border-slate-700 pb-2;
+      @apply mb-8 mt-20 border-b-[1px] border-slate-300 pb-2 text-2xl font-extrabold dark:border-slate-700;
     }
 
     h3 {
-      @apply text-xl font-semibold mt-8 mb-6;
+      @apply mb-6 mt-8 text-xl font-semibold;
     }
 
     h4 {
-      @apply text-lg font-medium mt-6 mb-4 font-[600];
+      @apply mb-4 mt-6 text-lg font-[600] font-medium;
     }
 
     h5 {
@@ -34,11 +34,11 @@
     }
 
     blockquote {
-      @apply bg-qwikui-blue-800 text-white shadow-light-medium dark:shadow-dark-medium dark:bg-qwikui-purple-800 p-4 lg:p-6 rounded-xl my-4 border-[2px] border-qwikui-blue-200 dark:border-qwikui-purple-200;
+      @apply bg-qwikui-blue-800 shadow-light-medium dark:shadow-dark-medium dark:bg-qwikui-purple-800 border-qwikui-blue-200 dark:border-qwikui-purple-200 my-4 rounded-xl border-[2px] p-4 text-white lg:p-6;
     }
 
     ul {
-      @apply list-disc px-6 mb-4 font-medium;
+      @apply mb-4 list-disc px-6 font-medium;
     }
 
     li {
@@ -47,16 +47,16 @@
   }
 
   a {
-    @apply border-b-[1.5px] border-qwikui-blue-500 dark:border-qwikui-purple-400 transition transition-colors duration-300 ease-step hover:border-qwikui-blue-600 font-semibold;
+    @apply border-qwikui-blue-500 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] font-semibold transition transition-colors duration-300;
   }
 
   p code {
-    @apply bg-white text-slate-800  shadow-dark-low dark:shadow-dark-low px-2 py-[2px] mx-1 rounded-md font-medium border-[1px] dark:border-white w-max border-[#333333] border-b-[2px] border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500;
+    @apply shadow-dark-low dark:shadow-dark-low  border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500 mx-1 w-max rounded-md border-[1px] border-b-[2px] border-[#333333] bg-white px-2 py-[2px] font-medium text-slate-800 dark:border-white;
   }
 
   /* adds sufficient padding to the table items / API Component */
   td article {
-    @apply pt-4 pb-4 mb-0;
+    @apply mb-0 pb-4 pt-4;
   }
 
   td p {

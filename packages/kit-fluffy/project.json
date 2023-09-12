@@ -32,38 +32,67 @@
         "lintFilePatterns": ["packages/kit-fluffy/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {}
-    },
-    "version-dry": {
-      "executor": "@jscutlery/semver:version",
+
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
       "options": {
-        "dryRun": true,
-        "releaseAs": "patch"
+        "port": 4400,
+        "configDir": "packages/kit-fluffy/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
       }
     },
-    "version-publish": {
-      "executor": "@jscutlery/semver:version",
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
       "options": {
-        "noVerify": true,
-        "push": true,
-        "releaseAs": "patch",
-        "postTargets": ["fluffy:publish", "fluffy:push-to-github"]
+        "uiFramework": "@storybook/html",
+        "configDir": "packages/kit-fluffy/.storybook",
+        "outputDir": "dist/storybook/fluffy"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
       }
     },
-    "publish": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "access": "public"
-      }
-    },
-    "push-to-github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "title": "@qwik-ui/kit-fluffy@${version}",
-        "tag": "${tag}",
-        "notes": "${notes}"
+    "disabling-publish-for-now": {
+      "version": {
+        "executor": "@jscutlery/semver:version",
+        "options": {}
+      },
+      "version-dry": {
+        "executor": "@jscutlery/semver:version",
+        "options": {
+          "dryRun": true,
+          "releaseAs": "patch"
+        }
+      },
+      "version-publish": {
+        "executor": "@jscutlery/semver:version",
+        "options": {
+          "noVerify": true,
+          "push": true,
+          "releaseAs": "patch",
+          "postTargets": ["fluffy:publish", "fluffy:push-to-github"]
+        }
+      },
+      "publish": {
+        "executor": "ngx-deploy-npm:deploy",
+        "options": {
+          "access": "public"
+        }
+      },
+      "push-to-github": {
+        "executor": "@jscutlery/semver:github",
+        "options": {
+          "title": "@qwik-ui/kit-fluffy@${version}",
+          "tag": "${tag}",
+          "notes": "${notes}"
+        }
       }
     }
   },

@@ -1,9 +1,8 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
-import { Button as HeadlessButton } from '@qwik-ui/primitives';
-import { clsq } from '@qwik-ui/shared';
+import type { OmitSignalClass } from '@qwik-ui/type-utils';
 import { daisyConfig } from './daisy.config';
 
-export type HTMLButtonProps = QwikIntrinsicElements['button'];
+export type HTMLButtonProps = OmitSignalClass<QwikIntrinsicElements['button']>;
 
 export type TailwindButtonProps = {
   variant?: TailwindButtonVariants;
@@ -50,9 +49,9 @@ export const Button = component$((props: ButtonProps) => {
   const { variants, sizes, options } = daisyConfig;
 
   return (
-    <HeadlessButton
+    <button
       {...rest}
-      class={clsq(
+      class={[
         'btn',
         variants[variant],
         sizes[size],
@@ -67,9 +66,9 @@ export const Button = component$((props: ButtonProps) => {
           [options.square]: square,
         },
         classNames,
-      )}
+      ]}
     >
       <Slot />
-    </HeadlessButton>
+    </button>
   );
 });

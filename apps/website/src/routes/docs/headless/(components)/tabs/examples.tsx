@@ -42,7 +42,7 @@ export const VerticalTabsExample = component$(() => {
         <h3>Danish Composers</h3>
 
         <Tabs vertical class="flex flex-wrap gap-5">
-          <TabList class="flex flex-col w-fit">
+          <TabList class="flex w-fit flex-col">
             <Tab>Maria Ahlefeldt</Tab>
             <Tab>Carl Andersen</Tab>
             <Tab>Ida Henriette da Fonseca</Tab>
@@ -178,7 +178,7 @@ export const DynamicTabsExample = component$(() => {
         </Tabs>
 
         <button
-          class="mt-4 text-red-600 font-bold"
+          class="mt-4 font-bold text-red-600"
           onClick$={() => {
             if (tabsState.length > 1) {
               tabsState.splice(0, 1);
@@ -224,7 +224,7 @@ export const OnSelectedIndexChangeTabsExample = component$(() => {
           </TabPanel>
         </Tabs>
 
-        <p class="text-white mt-4">Selected Index: {selectedIndexSig.value}</p>
+        <p class="mt-4 text-white">Selected Index: {selectedIndexSig.value}</p>
       </div>
 
       <div q:slot="codeExample">
@@ -257,7 +257,7 @@ export const SelectedTabIdExample = component$(() => {
             <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
           </TabPanel>
         </Tabs>
-        <p class="text-white mt-4">
+        <p class="mt-4 text-white">
           <strong>Selected Tab Id</strong>: {selectedTabIdSig.value}
         </p>
       </div>
@@ -276,7 +276,7 @@ export const OnClickTabsExample = component$(() => {
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example mr-auto">
         <h3>Danish Composers</h3>
-        <h4 class="text-white mt-4">(watch the counter below)</h4>
+        <h4 class="mt-4 text-white">(watch the counter below)</h4>
         <Tabs
           onClick$={() => {
             tabsClickedCountSig.value++;
@@ -298,7 +298,7 @@ export const OnClickTabsExample = component$(() => {
           </TabPanel>
         </Tabs>
 
-        <p class="text-white mt-4">Click count: {tabsClickedCountSig.value}</p>
+        <p class="mt-4 text-white">Click count: {tabsClickedCountSig.value}</p>
       </div>
 
       <div q:slot="codeExample">

@@ -1,20 +1,18 @@
-import { component$, PropFunction } from '@builder.io/qwik';
+import { component$, PropFunction, QwikIntrinsicElements } from '@builder.io/qwik';
 import {
   Slider as HeadlessSlider,
   SliderProgress as HeadlessSliderProgress,
   SliderThumb as HeadlessSliderThumb,
 } from '@qwik-ui/headless';
-import { clsq } from '@qwik-ui/shared';
+import type { OmitSignalClass } from '@qwik-ui/type-utils';
 import { daisyConfig } from './daisy.config';
 
-export type SliderProps = {
+export type SliderProps = OmitSignalClass<QwikIntrinsicElements['div']> & {
   variant?: TailwindSliderVariants;
   value: number;
   min: number;
   max: number;
   onChange$?: PropFunction<(value: number) => void>;
-  class?: string;
-  style?: string;
 };
 
 export type TailwindSliderVariants =
@@ -45,7 +43,7 @@ export const Slider = component$(
         border: none;
         ${style ?? ''}
       `}
-        class={clsq('mx-4', classNames)}
+        class={['mx-4', classNames]}
         value={value}
         onChange$={(value) => onChange$?.(value)}
       >

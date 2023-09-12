@@ -10,8 +10,8 @@ export const useSelectedKit = () => {
       return KitName.HEADLESS;
     }
 
-    if (url.pathname.indexOf('tailwind') !== -1) {
-      return KitName.TAILWIND;
+    if (url.pathname.indexOf('fluffy') !== -1) {
+      return KitName.FLUFFY;
     }
 
     return KitName.NO_KIT;

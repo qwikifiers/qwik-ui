@@ -58,7 +58,7 @@ const StringCombobox = component$(({ defaultLabel, ...props }: StringCombobox) =
               optionRenderer$={(resolved: ResolvedOption, index: number) => (
                 <ComboboxOption
                   key={resolved.key}
-                  class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
+                  class="group rounded-sm border-2 border-transparent  px-2 hover:bg-[#496080] aria-selected:border-[#abbbce] aria-selected:bg-[#496080]"
                   index={index}
                   resolved={resolved}
                 >
@@ -429,7 +429,7 @@ const DisabledCombobox = component$(() => {
               optionRenderer$={(resolved: ResolvedOption, index: number) => (
                 <ComboboxOption
                   key={resolved.key}
-                  class="rounded-sm px-2 hover:bg-[#496080] aria-selected:bg-[#496080]  border-2 border-transparent aria-selected:border-[#abbbce] group"
+                  class="group rounded-sm border-2 border-transparent  px-2 hover:bg-[#496080] aria-selected:border-[#abbbce] aria-selected:bg-[#496080]"
                   index={index}
                   resolved={resolved}
                   style={{ color: resolved.disabled ? 'gray' : undefined }}

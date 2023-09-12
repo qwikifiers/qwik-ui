@@ -32,7 +32,7 @@ export default component$(() => {
     mode: 'light',
     isSidebarOpened: false,
     featureFlags: {
-      showTailwind: import.meta.env.DEV,
+      showFluffy: import.meta.env.DEV,
     },
   });
 

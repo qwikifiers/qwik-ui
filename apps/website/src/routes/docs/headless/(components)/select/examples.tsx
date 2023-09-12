@@ -16,16 +16,16 @@ export const Example01 = component$(() => {
     <PreviewCodeExample>
       <div q:slot="actualComponent">
         <SelectRoot>
-          <SelectLabel class="font-semibold ml-2 text-white">Qwik Fruits</SelectLabel>
-          <SelectTrigger class="flex justify-between items-center px-8 bg-slate-800 border-slate-600 border-[1px] rounded-md p-4 group peer">
+          <SelectLabel class="ml-2 font-semibold text-white">Qwik Fruits</SelectLabel>
+          <SelectTrigger class="group peer flex items-center justify-between rounded-md border-[1px] border-slate-600 bg-slate-800 p-4 px-8">
             <SelectValue placeholder="Select a fruit! 🍹" class="text-white" />
-            <SelectMarker class="w-6 h-6">
+            <SelectMarker class="h-6 w-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke-width="2"
-                class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
+                class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
@@ -33,7 +33,7 @@ export const Example01 = component$(() => {
               </svg>
             </SelectMarker>
           </SelectTrigger>
-          <SelectListBox class="bg-slate-800 border-slate-600 mt-2 border-[1px] rounded-md text-white">
+          <SelectListBox class="mt-2 rounded-md border-[1px] border-slate-600 bg-slate-800 text-white">
             <SelectOption
               optionValue="🚀 Qwik"
               class="p-4 hover:bg-slate-700 focus:bg-slate-700"
@@ -53,7 +53,7 @@ export const Example01 = component$(() => {
                     key={option.value}
                     optionValue={option.value}
                     disabled={option.disabled}
-                    class="p-4 hover:bg-slate-700 focus:bg-slate-700 aria-disabled:text-red-500 aria-disabled:cursor-not-allowed rounded-sm"
+                    class="rounded-sm p-4 hover:bg-slate-700 focus:bg-slate-700 aria-disabled:cursor-not-allowed aria-disabled:text-red-500"
                   >
                     {option.value}
                   </SelectOption>
@@ -76,15 +76,15 @@ export const Example02 = component$(() => {
     <PreviewCodeExample>
       <div q:slot="actualComponent">
         <SelectRoot>
-          <SelectTrigger class="flex justify-between items-center px-8 bg-slate-800 border-slate-600 border-[1px] rounded-md p-4 group peer">
+          <SelectTrigger class="group peer flex items-center justify-between rounded-md border-[1px] border-slate-600 bg-slate-800 p-4 px-8">
             <SelectValue placeholder="Home" class="text-white" />
-            <SelectMarker class="w-6 h-6">
+            <SelectMarker class="h-6 w-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke-width="2"
-                class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
+                class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
@@ -92,10 +92,10 @@ export const Example02 = component$(() => {
               </svg>
             </SelectMarker>
           </SelectTrigger>
-          <SelectListBox class="bg-slate-800 border-slate-600 mt-2 border-[1px] rounded-md text-white">
+          <SelectListBox class="mt-2 rounded-md border-[1px] border-slate-600 bg-slate-800 text-white">
             <SelectOption
               optionValue="Orders"
-              class="p-4 hover:bg-slate-700 focus:bg-slate-700 rounded-t-md"
+              class="rounded-t-md p-4 hover:bg-slate-700 focus:bg-slate-700"
             >
               Orders
             </SelectOption>
@@ -107,7 +107,7 @@ export const Example02 = component$(() => {
             </SelectOption>
             <SelectOption
               optionValue="Contact us"
-              class="p-4 hover:bg-slate-700 focus:bg-slate-700 rounded-b-md"
+              class="rounded-b-md p-4 hover:bg-slate-700 focus:bg-slate-700"
             >
               Contact us
             </SelectOption>

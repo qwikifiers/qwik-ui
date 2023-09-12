@@ -24,7 +24,7 @@ function getMessageByStatus(status?: ComponentStatus) {
         <>
           <strong>DISCLAIMER:</strong> This component is{' '}
           <span
-            class={`px-2 rounded-lg font-bold tracking-wide ${getClassByStatus(status)}`}
+            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(status)}`}
           >
             {status}
           </span>{' '}
@@ -36,7 +36,7 @@ function getMessageByStatus(status?: ComponentStatus) {
         <>
           <strong>WARNING:</strong> This component is in{' '}
           <span
-            class={`px-2 rounded-lg font-bold tracking-wide ${getClassByStatus(status)}`}
+            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(status)}`}
           >
             {status}
           </span>{' '}
@@ -51,7 +51,7 @@ function getMessageByStatus(status?: ComponentStatus) {
         <>
           <strong>WARNING:</strong> This component is in{' '}
           <span
-            class={`px-2 rounded-lg font-bold tracking-wide ${getClassByStatus(
+            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(
               status || ComponentStatus.Planned,
             )}`}
           >
@@ -110,8 +110,10 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
         ref={ref}
         hidden={isBannerClosedSig.value}
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
-        class={`${getBackgroundByStatus(props.status)} px-6 py-4 text-white
-        rounded-xl md:items-center relative md:flex-row normal-state shadow-light-medium dark:shadow-dark-medium border-[1px] border-qwikui-blue-200 dark:border-qwikui-purple-200`}
+        class={`${getBackgroundByStatus(
+          props.status,
+        )} normal-state shadow-light-medium dark:shadow-dark-medium
+        border-qwikui-blue-200 dark:border-qwikui-purple-200 relative rounded-xl border-[1px] px-6 py-4 text-white md:flex-row md:items-center`}
         style={{ marginBottom: `${marginBottom}px` }}
       >
         <span class="pr-2">{getMessageByStatus(props.status)}</span>
@@ -126,7 +128,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
 
             ref.value?.classList.toggle('fade');
           }}
-          class="scale-150 absolute top-2 right-2"
+          class="absolute right-2 top-2 scale-150"
         >
           <EpCircleCloseFilled />
         </button>

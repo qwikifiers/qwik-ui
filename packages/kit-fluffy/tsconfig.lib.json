@@ -5,6 +5,19 @@
     "types": ["node", "vite/client"]
   },
   "files": [],
-  "exclude": [],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "exclude": [
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "**/*.stories.tsx",
+    "cypress/**/*",
+    "cypress.config.ts",
+    "**/*.cy.ts",
+    "**/*.cy.js",
+    "**/*.cy.tsx",
+    "**/*.cy.jsx",
+    "**/*.spec.jsx",
+    "**/*.spec.tsx",
+    "**/*.spec.ts"
+  ],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "postcss.config.cjs"]
 }

@@ -15,7 +15,7 @@ export const AnatomyTable = component$(({ propDescriptors }: AnatomyTableProps) 
       <table class="w-full max-w-full text-left">
         <tbody class="divide-y divide-slate-300 dark:divide-slate-600">
           <tr class="text-slate-950 dark:text-white">
-            <td class="whitespace-nowrap py-2 pl-4 text-sm font-medium sm:pl-0 font-[700]">
+            <td class="whitespace-nowrap py-2 pl-4 text-sm font-[700] font-medium sm:pl-0">
               Component
             </td>
             <td class="whitespace-nowrap py-2 text-sm font-[600]">Description</td>
@@ -23,8 +23,8 @@ export const AnatomyTable = component$(({ propDescriptors }: AnatomyTableProps) 
           {propDescriptors?.map((propDescriptor) => {
             return (
               <tr key={propDescriptor.name}>
-                <td class="py-3 pl-2 pr-2 align-center sm:pl-0 md:align-baseline">
-                  <code class="px-2 py-[2px] rounded-md border-[1px] border-b-[2px] border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500 text-slate-950 rounded-md mr-6 font-[400]">
+                <td class="align-center py-3 pl-2 pr-2 sm:pl-0 md:align-baseline">
+                  <code class="border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500 mr-6 rounded-md rounded-md border-[1px] border-b-[2px] px-2 py-[2px] font-[400] text-slate-950">
                     {propDescriptor.name}
                   </code>
                 </td>

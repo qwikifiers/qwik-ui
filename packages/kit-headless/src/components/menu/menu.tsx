@@ -1,21 +1,20 @@
 import {
   $,
-  component$,
-  createContextId,
   QRL,
   QwikKeyboardEvent,
   Signal,
   Slot,
-  useVisibleTask$,
+  component$,
+  createContextId,
   useContext,
   useContextProvider,
   useId,
   useOnWindow,
   useSignal,
   useStore,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { JSX } from '@builder.io/qwik/jsx-runtime';
-import { clsq } from '@qwik-ui/shared';
 import { Button } from '@qwik-ui/primitives';
 
 interface MenuProps {
@@ -88,10 +87,13 @@ export const Menu = component$((props: MenuProps) => {
   return (
     <div
       id={parentId}
-      class={clsq(props.class, {
-        [CSS_CLASS_NAMES.IS_EXPANDED]: isExpanded.value,
-        [CSS_CLASS_NAMES.IS_HOVERED]: isHovered.value,
-      })}
+      class={[
+        props.class,
+        {
+          [CSS_CLASS_NAMES.IS_EXPANDED]: isExpanded.value,
+          [CSS_CLASS_NAMES.IS_HOVERED]: isHovered.value,
+        },
+      ]}
       onMouseEnter$={() => (isHovered.value = true)}
       onMouseLeave$={() => (isHovered.value = false)}
       onKeyDown$={(event: QwikKeyboardEvent) => {
@@ -161,9 +163,9 @@ export const MenuItem = component$((props: MenuItemProps) => {
         <Button
           tabIndex={-1}
           id={myId}
-          class={clsq({
+          class={{
             [CSS_CLASS_NAMES.IS_FOCUSED]: isFocused,
-          })}
+          }}
           onClick$={props.onClick$}
           disabled={props.disabled || false}
         >

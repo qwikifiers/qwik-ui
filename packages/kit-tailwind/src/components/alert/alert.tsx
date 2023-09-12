@@ -1,6 +1,4 @@
 import { component$, Slot } from '@builder.io/qwik';
-
-import { clsq } from '@qwik-ui/shared';
 import { Button, ButtonProps } from '../button/button';
 import { daisyConfig } from './daisy.config';
 
@@ -35,13 +33,7 @@ export const Alert = component$((props: TailwindAlertProps) => {
   return (
     <div
       {...rest}
-      class={clsq(
-        variants[variant],
-        sizes[size],
-        radius[rounding],
-        'flex gap-4',
-        classNames,
-      )}
+      class={[variants[variant], sizes[size], radius[rounding], 'flex gap-4', classNames]}
     >
       <Slot name="icon" />
       <div class="flex-1">

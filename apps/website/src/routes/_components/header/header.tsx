@@ -4,7 +4,7 @@ import { version as headlessVersion } from '../../../../../../packages/kit-headl
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { KitName } from 'apps/website/src/_state/kit-name.type';
 import { useRootStore } from 'apps/website/src/_state/use-root-store';
-import { version as tailwindVersion } from '../../../../../../packages/kit-tailwind/package.json';
+import { version as fluffyVersion } from '../../../../../../packages/kit-fluffy/package.json';
 import { useSelectedKit } from '../../docs/use-selected-kit';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
@@ -30,10 +30,10 @@ export default component$(
           version: headlessVersion,
         };
       }
-      if (selectedKitSig.value === KitName.TAILWIND) {
+      if (selectedKitSig.value === KitName.FLUFFY) {
         return {
-          name: 'Tailwind',
-          version: tailwindVersion,
+          name: 'Fluffy',
+          version: fluffyVersion,
         };
       }
     });
@@ -46,7 +46,7 @@ export default component$(
     return (
       <header
         class={[
-          `fixed top-0 w-full h-20 md:h-20 z-20 md:bg-[var(--color-bg)] flex gap-8 p-4 items-center`,
+          `fixed top-0 z-20 flex h-20 w-full items-center gap-8 p-4 md:h-20 md:bg-[var(--color-bg)]`,
           `shadow-light-medium dark:shadow-dark-medium`,
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
@@ -54,14 +54,14 @@ export default component$(
           showBottomBorder ? `shadow-light-medium dark:shadow-dark-medium` : ``,
         ]}
       >
-        <section class="flex flex-col md:flex-row gap-1 md:gap-8 mr-auto">
+        <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">
           <a href="/" aria-label="Qwik UI Logo" class="lg:ml-8">
             <Logo />
           </a>
 
           {showVersion && (
             <div data-tip="Qwik-UI Version" class="mr-auto">
-              <div class="flex flex-row gap-1 ml-2 md:mt-1 md:flex-col text-xs md:text-sm">
+              <div class="ml-2 flex flex-row gap-1 text-xs md:mt-1 md:flex-col md:text-sm">
                 <span> {kitSignal.value?.name} Kit </span>
                 <span> v.{kitSignal.value?.version} </span>
               </div>
@@ -69,11 +69,11 @@ export default component$(
           )}
         </section>
 
-        <nav class="hidden lg:flex gap-4">
+        <nav class="hidden gap-4 lg:flex">
           <a href="/about">About</a>
           <a href="/docs/headless/introduction">Headless Kit</a>
-          {rootStore.featureFlags?.showTailwind && (
-            <a href="/docs/tailwind/introduction">Tailwind Kit</a>
+          {rootStore.featureFlags?.showFluffy && (
+            <a href="/docs/fluffy/introduction">Fluffy (styled) Kit</a>
           )}
           <a href="https://discord.gg/PVWUUejrez" target="_blank">
             Community

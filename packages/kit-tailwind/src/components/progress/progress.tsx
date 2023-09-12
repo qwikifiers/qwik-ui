@@ -1,9 +1,9 @@
 import { component$, QwikIntrinsicElements } from '@builder.io/qwik';
 import { Progress as HeadlessProgress } from '@qwik-ui/primitives';
-import { clsq } from '@qwik-ui/shared';
+import type { OmitSignalClass } from '@qwik-ui/type-utils';
 import { daisyConfig } from './daisy.config';
 
-export type HTMLProgressProps = QwikIntrinsicElements['progress'];
+export type HTMLProgressProps = OmitSignalClass<QwikIntrinsicElements['progress']>;
 
 export type TailwindProgressProps = {
   variant?: TailwindProgressVariants;
@@ -32,7 +32,7 @@ export const Progress = component$((props: ProgressProps) => {
       {...rest}
       value={value}
       max={max}
-      class={clsq('progress', variants[variant], classNames)}
+      class={['progress', variants[variant], classNames]}
     ></HeadlessProgress>
   );
 });

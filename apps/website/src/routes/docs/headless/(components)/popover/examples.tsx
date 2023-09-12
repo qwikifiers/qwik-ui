@@ -8,7 +8,7 @@ export const MainExample = component$(() => {
       <div q:slot="actualComponent">
         <Popover placement="top">
           <PopoverContent>
-            <div class="p-4 bg-slate-500 text-white">Hi, I'm the content</div>
+            <div class="bg-slate-500 p-4 text-white">Hi, I'm the content</div>
           </PopoverContent>
           <PopoverTrigger class="text-white">Click on me</PopoverTrigger>
         </Popover>
@@ -26,7 +26,7 @@ export const Example1 = component$(() => {
       <div q:slot="actualComponent">
         <Popover placement="top">
           <PopoverContent>
-            <div class="p-4 bg-slate-500 text-white">
+            <div class="bg-slate-500 p-4 text-white">
               Hi, I'm the content, but now on top
             </div>
           </PopoverContent>

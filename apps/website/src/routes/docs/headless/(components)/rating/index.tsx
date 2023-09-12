@@ -6,7 +6,7 @@ export default component$(() => {
   useStyles$(styles);
 
   return (
-    <div class="flex flex-col gap-3 mt-2">
+    <div class="mt-2 flex flex-col gap-3">
       <h2>This is the documentation for the Rating</h2>
       <h3>Basic Example </h3>
       <Rating />
@@ -27,7 +27,7 @@ export default component$(() => {
 });
 
 export const MyStarIcon = component$(() => <>💩</>);
-export const MyHeartIcon = component$(() => <div class="text-red-500 text-4xl">♥️</div>);
+export const MyHeartIcon = component$(() => <div class="text-4xl text-red-500">♥️</div>);
 export const MyComponentIcon = component$(() => (
-  <div class="bg-green-400 rounded-xl w-8 h-8 p-1 m-1 flex justify-center items-center" />
+  <div class="m-1 flex h-8 w-8 items-center justify-center rounded-xl bg-green-400 p-1" />
 ));

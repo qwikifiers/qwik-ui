@@ -2,6 +2,7 @@
 import { qwikVite } from '@builder.io/qwik/optimizer';
 import { macroPlugin } from '@builder.io/vite-plugin-macro';
 import { join } from 'path';
+import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -17,10 +18,11 @@ export default defineConfig({
         );
       },
     }),
+    qwikNxVite(),
     qwikVite({
       vendorRoots: [join(__dirname, '../kit-headless/src')],
     }),
-    tsconfigPaths(),
+    tsconfigPaths({ root: '../../' }),
     dts({
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
     }),
@@ -31,10 +33,11 @@ export default defineConfig({
       allow: ['../../'],
     },
   },
-  mode: 'lib',
+
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
+    target: 'es2020',
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',

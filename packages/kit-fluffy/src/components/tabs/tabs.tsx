@@ -1,9 +1,9 @@
-import { component$ } from '@builder.io/qwik';
+import { Slot, component$ } from '@builder.io/qwik';
 import { Tabs as HeadlessTabs } from '@qwik-ui/headless';
 
 export const Tabs = component$(() => {
   return (
-    <HeadlessTabs class={}>
+    <HeadlessTabs>
       <Slot />
     </HeadlessTabs>
   );

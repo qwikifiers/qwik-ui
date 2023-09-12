@@ -5,12 +5,12 @@ import { DiscordIcon } from '../icons/discord';
 export const Footer = component$(() => {
   return (
     <footer class="bg-gray-300 dark:bg-gray-900">
-      <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
           <div class="px-5 py-2">
             <a
               href="/about"
-              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300"
             >
               About
             </a>
@@ -18,7 +18,7 @@ export const Footer = component$(() => {
           <div class="px-5 py-2">
             <a
               href="/docs/headless/introduction"
-              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300"
             >
               Headless Kit
             </a>
@@ -28,7 +28,7 @@ export const Footer = component$(() => {
             <a
               href="https://discord.gg/PVWUUejrez"
               target="_blank"
-              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300"
             >
               Community
             </a>
@@ -38,7 +38,7 @@ export const Footer = component$(() => {
             <a
               href="https://www.w3.org/standards/webdesign/accessibility"
               target="_blank"
-              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300"
             >
               Accessibility
             </a>
@@ -47,7 +47,7 @@ export const Footer = component$(() => {
             <a
               href="https://qwik.builder.io/docs"
               target="_blank"
-              class="text-base text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-gray-300"
+              class="text-base text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300"
             >
               Qwik Documentation
             </a>
@@ -71,7 +71,7 @@ export const Footer = component$(() => {
             <DiscordIcon />
           </a>
         </div>
-        <p class="mt-8 text-center text-base dark:text-gray-400 text-gray-600">
+        <p class="mt-8 text-center text-base text-gray-600 dark:text-gray-400">
           &copy; 2023 Qwik UI. All rights reserved.
         </p>
       </div>

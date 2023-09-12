@@ -27,7 +27,7 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <QwikUIProvider>
-        <div class="flex mt-20">
+        <div class="mt-20 flex">
           <DocsNavigation linksGroups={menuItemsGroups} />
           <main class="docs">
             <Slot />
@@ -51,11 +51,8 @@ function useKitMenuItems() {
     );
   }
 
-  if (selectedKitSig.value === KitName.TAILWIND) {
-    menuItemsGroups = decorateMenuItemsWithBadges(
-      menu?.items,
-      statusByComponent.tailwind,
-    );
+  if (selectedKitSig.value === KitName.FLUFFY) {
+    menuItemsGroups = decorateMenuItemsWithBadges(menu?.items, statusByComponent.fluffy);
   }
 
   return {

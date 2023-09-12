@@ -30,11 +30,11 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
     rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
   return (
     <nav
-      class={`flex-col gap-4 fixed top-20 inset-0 z-10 lg:w-80 pb-6
-              overflow-y-auto bg-slate-100 dark:bg-slate-900
-              ${rootStore.isSidebarOpened ? 'flex w-100' : 'hidden lg:flex'} `}
+      class={`fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto bg-slate-100
+              pb-6 dark:bg-slate-900 lg:w-80
+              ${rootStore.isSidebarOpened ? 'w-100 flex' : 'hidden lg:flex'} `}
     >
-      <ul class="show lg:hidden pl-12 mt-8 flex flex-col gap-2">
+      <ul class="show mt-8 flex flex-col gap-2 pl-12 lg:hidden">
         <li class={linkStyles}>
           <a href="/about">About</a>
         </li>
@@ -43,10 +43,10 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
             <a href="/docs/headless/introduction">Headless Kit</a>
           </li>
         )}
-        {rootStore.featureFlags?.showTailwind &&
-          selectedKitSig.value !== KitName.TAILWIND && (
+        {rootStore.featureFlags?.showFluffy &&
+          selectedKitSig.value !== KitName.FLUFFY && (
             <li class={linkStyles}>
-              <a href="/docs/tailwind/introduction">Tailwind Kit</a>
+              <a href="/docs/fluffy/introduction">Styled Kit</a>
             </li>
           )}
         <li class={linkStyles}>
@@ -60,7 +60,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
         return (
           <>
             <div class="px-6 pt-6">
-              <h2 class="mb-4 font-bold text-white text-3xl lg:text-lg bg-qwikui-blue-400 px-4 py-1 rounded-lg dark:bg-qwikui-purple-500 shadow-dark-low dark:shadow-dark-high border-qwikui-blue-100 dark:border-qwikui-purple-100 border-2 text-outline-lg tracking-widest">
+              <h2 class="bg-qwikui-blue-400 dark:bg-qwikui-purple-500 shadow-dark-low dark:shadow-dark-high border-qwikui-blue-100 dark:border-qwikui-purple-100 text-outline-lg mb-4 rounded-lg border-2 px-4 py-1 text-3xl font-bold tracking-widest text-white lg:text-lg">
                 {group.name}
               </h2>
               <ul class="flex flex-col gap-2">
@@ -69,13 +69,13 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
                   return (
                     <li key={link.name + link.href}>
                       <a
-                        class={`px-4 py-2 text-xl lg:text-sm flex items-center 
-                          rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 ${
+                        class={`flex items-center rounded-lg px-4 py-2 text-xl 
+                          hover:bg-slate-200 dark:hover:bg-slate-800 lg:text-sm ${
                             isLinkActive ? 'font-bold' : ''
                           }`}
                         href={link.href}
                       >
-                        <div class="flex flex-row gap-2 w-full">
+                        <div class="flex w-full flex-row gap-2">
                           <div class="w-48">{link.name}</div>
                           <div class="flex-auto">
                             {link.status && <StatusBadge status={link.status} />}

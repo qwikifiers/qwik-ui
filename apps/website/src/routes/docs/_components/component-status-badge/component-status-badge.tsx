@@ -26,7 +26,7 @@ export const StatusBadge = component$<StatusBadgeProps>(({ status }) => {
   return (
     <Badge
       title={tooltipByStatus[status]}
-      class={`text-lg lg:text-xs leading-3 font-medium rounded-lg p-3 lg:py-1 lg:px-2 
+      class={`rounded-lg p-3 text-lg font-medium leading-3 lg:px-2 lg:py-1 lg:text-xs 
       ${getClassByStatus(status)}`}
     >
       {status}

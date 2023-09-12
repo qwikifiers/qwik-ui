@@ -64,7 +64,7 @@ export type TooltipProps = QwikIntrinsicElements['div'] & {
 };
 ```
 
-For **Tailwind, Material and other components variations**, you can define the new props in a new type, named with the component name and the variation as prefix. For example:
+For **Fluffy, Material and other components variations**, you can define the new props in a new type, named with the component name and the variation as prefix. For example:
 
 ```ts
 type TailwindTooltipProps = {
@@ -104,12 +104,11 @@ return (
 - Use accessibility attributes whenever they are needed.
 - For simple primitive states use signals. For object state, use stores.
 
-## Example of headless button customisation with Tailwind
+## Example of headless button customization with Tailwind
 
 ```tsx
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { Button as HeadlessButton, ButtonProps as ButtonHeadlessProps } from '@qwik-ui/headless';
-import { clsq } from '@qwik-ui/shared';
 
 type TailwindButtonProps = { size?: 'sm' | 'md', ... };
 export type ButtonProps = ButtonHeadlessProps & TailwindButtonProps;
@@ -118,7 +117,7 @@ export const Button = component$(
   ({ size = 'md', class: classNames, ...rest }: ButtonProps) => {
     const { sizes, ... } = { sizes: { sm: 'btn-sm', md: 'btn-md', ... } };
     return (
-      <HeadlessButton {...rest} class={clsq('btn', sizes[size], classNames)}>
+      <HeadlessButton {...rest} class={['btn', sizes[size], classNames]}>
         <Slot />
       </HeadlessButton>
     );

@@ -13,7 +13,7 @@ export const MainExample = component$(() => {
           </div>
           <Separator
             orientation="horizontal"
-            class="h-px my-1 bg-qwikui-blue-200 dark:bg-qwikui-purple-200"
+            class="bg-qwikui-blue-200 dark:bg-qwikui-purple-200 my-1 h-px"
           />
           <menu class="flex gap-2">
             <li>
@@ -23,7 +23,7 @@ export const MainExample = component$(() => {
             </li>
             <Separator
               orientation="vertical"
-              class="w-px mx-1 bg-qwikui-blue-200 dark:bg-qwikui-purple-200"
+              class="bg-qwikui-blue-200 dark:bg-qwikui-purple-200 mx-1 w-px"
             />
             <li>
               {' '}
@@ -33,7 +33,7 @@ export const MainExample = component$(() => {
             </li>
             <Separator
               orientation="vertical"
-              class="w-px mx-1 bg-qwikui-blue-200 dark:bg-qwikui-purple-200"
+              class="bg-qwikui-blue-200 dark:bg-qwikui-purple-200 mx-1 w-px"
             />
             <li>
               <a class="border-none" href="/docs/headless/contributing/">
