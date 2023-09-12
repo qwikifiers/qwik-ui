@@ -12,6 +12,7 @@
     "format:fix": "pretty-quick --staged",
     "prepare": "husky install",
     "build:headless": "nx build headless",
+    "lint": "nx affected:lint",
     "test:headless": "nx component-test headless",
     "test:headless:ci": "nx component-test-ci headless",
     "story:build:headless": "nx build-storybook headless",
