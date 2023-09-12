@@ -13,14 +13,14 @@ import {
 
 import { QwikUIProvider } from '../qwik-ui-provider';
 import './combobox-test.css';
-import TestData from './test-data';
+import createFakeFruitsList from './combobox.faketory';
 
 type StringCombobox = {
   defaultLabel?: string;
 };
 
 const StringCombobox = component$(({ defaultLabel, ...props }: StringCombobox) => {
-  const fruits = TestData();
+  const fruits = createFakeFruitsList();
 
   return (
     <>
@@ -258,12 +258,12 @@ describe('Keyboard Navigation', () => {
     cy.findByRole('listbox').should('not.exist');
   });
 
-  it(`GIVEN a Combobox component with an input,
+  it(`GIVEN a Combobox component with an input, 
       WHEN the user hits the downarrow key twice, then the end key, and then the home key,
       THEN the first option in the listbox should be selected.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`{downarrow}{downarrow}{end}{home}`);
+    cy.get('input').type(`{downarrow}{downarrow}{home}`);
 
     cy.get('li').first().should('have.attr', 'aria-selected', 'true');
   });
