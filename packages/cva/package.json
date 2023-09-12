@@ -1,7 +1,12 @@
 {
   "name": "@qwik-ui/cva",
   "version": "0.0.1",
+  "description": "Qwik Version of Class Variation Authority",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {},
+  "type": "module",
   "main": "./index.js",
   "module": "./index.mjs",
   "typings": "./index.d.ts"

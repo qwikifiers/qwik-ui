@@ -31,40 +31,6 @@
       "options": {
         "lintFilePatterns": ["packages/kit-tailwind/**/*.{ts,tsx,js,jsx}"]
       }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {}
-    },
-    "version-dry": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "dryRun": true,
-        "releaseAs": "patch"
-      }
-    },
-    "version-publish": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "noVerify": true,
-        "push": true,
-        "releaseAs": "patch",
-        "postTargets": ["tailwind:publish", "tailwind:push-to-github"]
-      }
-    },
-    "publish": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "access": "public"
-      }
-    },
-    "push-to-github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "title": "@qwik-ui/kit-tailwind@${version}",
-        "tag": "${tag}",
-        "notes": "${notes}"
-      }
     }
   },
   "tags": []

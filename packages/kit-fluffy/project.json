@@ -32,40 +32,7 @@
         "lintFilePatterns": ["packages/kit-fluffy/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {}
-    },
-    "version-dry": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "dryRun": true,
-        "releaseAs": "patch"
-      }
-    },
-    "version-publish": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "noVerify": true,
-        "push": true,
-        "releaseAs": "patch",
-        "postTargets": ["fluffy:publish", "fluffy:push-to-github"]
-      }
-    },
-    "publish": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "access": "public"
-      }
-    },
-    "push-to-github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "title": "@qwik-ui/kit-fluffy@${version}",
-        "tag": "${tag}",
-        "notes": "${notes}"
-      }
-    },
+
     "storybook": {
       "executor": "@nx/storybook:storybook",
       "options": {
@@ -89,6 +56,42 @@
       "configurations": {
         "ci": {
           "quiet": true
+        }
+      }
+    },
+    "disabling-publish-for-now": {
+      "version": {
+        "executor": "@jscutlery/semver:version",
+        "options": {}
+      },
+      "version-dry": {
+        "executor": "@jscutlery/semver:version",
+        "options": {
+          "dryRun": true,
+          "releaseAs": "patch"
+        }
+      },
+      "version-publish": {
+        "executor": "@jscutlery/semver:version",
+        "options": {
+          "noVerify": true,
+          "push": true,
+          "releaseAs": "patch",
+          "postTargets": ["fluffy:publish", "fluffy:push-to-github"]
+        }
+      },
+      "publish": {
+        "executor": "ngx-deploy-npm:deploy",
+        "options": {
+          "access": "public"
+        }
+      },
+      "push-to-github": {
+        "executor": "@jscutlery/semver:github",
+        "options": {
+          "title": "@qwik-ui/kit-fluffy@${version}",
+          "tag": "${tag}",
+          "notes": "${notes}"
         }
       }
     }
