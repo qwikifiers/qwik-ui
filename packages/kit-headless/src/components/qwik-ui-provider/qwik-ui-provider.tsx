@@ -1,7 +1,6 @@
 /* eslint-disable qwik/valid-lexical-scope */
 import {
   $,
-  Fragment,
   Slot,
   component$,
   createContextId,
@@ -11,22 +10,21 @@ import {
   type ContextId,
   type QRL,
   type Signal,
+  Fragment,
 } from '@builder.io/qwik';
 import { type JSXNode } from '@builder.io/qwik/jsx-runtime';
 
 // Define public API for opening up Portals
 export const openPortalContextId =
   createContextId<
-    QRL<
-      (
-        name: string,
-        elementToTeleport: JSXNode,
-        contexts?: Array<ContextPair<unknown>>,
-      ) => QRL<() => void>
-    >
+    (
+      id: string,
+      elementToTeleport: JSXNode,
+      contexts?: Array<ContextPair<unknown>>,
+    ) => Promise<QRL<() => void>>
   >('PortalProviderAPI');
 
-export type ContextPair<T> = { id: ContextId<T>; value: T };
+export type ContextPair<T = unknown> = { id: ContextId<T>; value: T };
 
 // Define public API for closing Portals
 export const closePortalContextId = createContextId<QRL<() => void>>('PortalCloseAPI');
@@ -35,7 +33,7 @@ export const closePortalContextId = createContextId<QRL<() => void>>('PortalClos
 const portalInfoListContextId = createContextId<Signal<Array<PortalInfo>>>('Portals');
 
 interface PortalInfo {
-  name: string;
+  id: string;
   elementToTeleport: JSXNode;
   contextPairs: Array<ContextPair<unknown>>;
   close$?: QRL<() => void>;
@@ -50,12 +48,12 @@ export const QwikUIProvider = component$(() => {
     openPortalContextId,
     $(
       (
-        name: string,
+        id: string,
         elementToTeleport: JSXNode,
         contextPairs?: Array<ContextPair<unknown>>,
       ) => {
         const portalInfo: PortalInfo = {
-          name,
+          id,
           elementToTeleport,
           contextPairs: contextPairs || [],
         };
@@ -76,7 +74,9 @@ export const QwikUIProvider = component$(() => {
   return (
     <>
       <Slot />
-      <Portal name="comboboxPortal" />
+      {portalInfoListSig.value.map((portalInfo) => (
+        <Portal key={portalInfo.id} id={portalInfo.id} />
+      ))}
     </>
   );
 });
@@ -87,13 +87,14 @@ export const QwikUIProvider = component$(() => {
  * AFTER the portal is rendered can't be done in SSR, because it is not possible
  * to return back to the <Portal/> after it has been streamed to the client.)
  */
-export const Portal = component$<{ name: string }>(({ name }) => {
+export const Portal = component$<{ id: string }>(({ id }) => {
   const portalInfoList = useContext(portalInfoListContextId);
-  const myPortalInfoList = portalInfoList.value.filter((portal) => portal.name === name);
+  const myPortalInfoList = portalInfoList.value.filter((portal) => portal.id === id);
+
   return (
     <>
       {myPortalInfoList.map((portalInfo) => (
-        <Fragment key={name}>
+        <Fragment data-qwikui-portal-id={id} key={portalInfo.id}>
           <WrapJsxInContext
             elementToTeleport={portalInfo.elementToTeleport}
             contextPairs={portalInfo.contextPairs}

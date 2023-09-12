@@ -1,0 +1,9 @@
+.option {
+  background: lightgray;
+  color: black;
+}
+
+[aria-selected='true'] {
+  background: green;
+  color: white;
+}

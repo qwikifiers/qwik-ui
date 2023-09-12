@@ -14,6 +14,8 @@ import {
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
+import '@fontsource-variable/inter';
+
 export default component$(() => {
   useStyles$(prismStyles);
   useStyles$(docsStyles);

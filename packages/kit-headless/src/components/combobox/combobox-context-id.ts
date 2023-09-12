@@ -1,6 +1,7 @@
 import { createContextId } from '@builder.io/qwik';
 import { ComboboxContext } from './combobox-context.type';
 
-const ComboboxContextId = createContextId<ComboboxContext>('combobox');
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ComboboxContextId = createContextId<ComboboxContext<any>>('combobox');
 
 export default ComboboxContextId;
