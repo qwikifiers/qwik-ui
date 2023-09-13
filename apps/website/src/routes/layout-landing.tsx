@@ -2,7 +2,7 @@ import { component$, Slot, useContext, useVisibleTask$ } from '@builder.io/qwik'
 import { OLD_APP_STATE_CONTEXT_ID } from '../constants';
 import Header from './_components/header/header';
 
-import { useRootStore } from '../_state/use-root-store';
+import { useAppState } from '../_state/use-app-state';
 import { Footer } from './_components/footer/footer';
 import { DocsNavigation } from './docs/_components/navigation-docs/navigation-docs';
 
@@ -10,7 +10,7 @@ export default component$(() => {
   // useStyles$(globalStyles);
 
   const state = useContext(OLD_APP_STATE_CONTEXT_ID);
-  const rootStore = useRootStore();
+  const rootStore = useAppState();
   useVisibleTask$(() => {
     state.darkMode = localStorage.getItem('theme') === 'dark';
   });
@@ -19,7 +19,7 @@ export default component$(() => {
     <>
       <Header />
       {rootStore.isSidebarOpened && <DocsNavigation />}
-      <main class="mx-auto pt-28 lg:pt-32 max-w-7xl px-4 md:px-8 mb-24">
+      <main class="mx-auto mb-24 max-w-7xl px-4 pt-28 md:px-8 lg:pt-32">
         <Slot />
       </main>
       <Footer />

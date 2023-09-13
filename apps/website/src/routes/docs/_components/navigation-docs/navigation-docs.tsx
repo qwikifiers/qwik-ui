@@ -1,10 +1,10 @@
 import { component$ } from '@builder.io/qwik';
+import { useLocation } from '@builder.io/qwik-city';
 import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
 import { KitName } from 'apps/website/src/_state/kit-name.type';
-import { useRootStore } from 'apps/website/src/_state/use-root-store';
+import { useAppState } from 'apps/website/src/_state/use-app-state';
 import { useSelectedKit } from '../../use-selected-kit';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
-import { useLocation } from '@builder.io/qwik-city';
 
 export interface LinkGroup {
   name: string;
@@ -24,7 +24,7 @@ export interface DocsNavigationProps {
 
 export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) => {
   const location = useLocation();
-  const rootStore = useRootStore();
+  const rootStore = useAppState();
   const selectedKitSig = useSelectedKit();
   const linkStyles = `px-4 py-2 -ml-4 mr-8 text-xl lg:text-sm flex items-center 
     rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
