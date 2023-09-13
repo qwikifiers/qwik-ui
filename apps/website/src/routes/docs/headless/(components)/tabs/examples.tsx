@@ -1,58 +1,46 @@
-import {
-  component$,
-  QwikIntrinsicElements,
-  Slot,
-  useSignal,
-  useStore,
-  useStyles$,
-} from '@builder.io/qwik';
+import { component$, Slot, useSignal, useStore, useStyles$ } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
-import type { OmitSignalClass } from '../../../../../../../../../shared/src/utils';
+
+import { CodeExample } from '../../../_components/code-example/code-example';
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
-import { Example01 as Example1 } from './example';
-import example1Code from './example?raw';
+import DisabledTabsComponent from './examples/disabled-example';
+import disabledTabsCode from './examples/disabled-example?raw';
+import FirstExampleComponent from './examples/first-example';
+import firstExampleCode from './examples/first-example?raw';
+import longExampleCode from './examples/long-example?raw';
+import shortExampleCode from './examples/short-example?raw';
+import VerticalTabsComponent from './examples/vertical-example';
+import verticalTabsCode from './examples/vertical-example?raw';
+import { Highlight } from './highlight';
 import styles from './index.css?inline';
 
-import hljs from 'highlight.js/lib/core';
-import css from 'highlight.js/lib/languages/css';
-import javascript from 'highlight.js/lib/languages/javascript';
-import typescript from 'highlight.js/lib/languages/typescript';
-import xml from 'highlight.js/lib/languages/xml';
-import 'highlight.js/styles/atom-one-dark.css';
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('xml', xml);
-hljs.registerLanguage('css', css);
-
-export const Highlight = ({
-  code,
-  ...props
-}: OmitSignalClass<QwikIntrinsicElements['pre']> & { code: string }) => (
-  <pre
-    {...props}
-    class={[
-      'theme-atom-one-dark shadow-3xl tab-size relative h-full max-w-full overflow-hidden text-sm',
-      props.class,
-    ]}
-  >
-    <code
-      dangerouslySetInnerHTML={hljs.highlight(code, { language: 'typescript' }).value}
-    />
-  </pre>
-);
-
-export const Example01 = component$(() => {
-  console.log('example1Code', example1Code);
+export const FirstExample = component$(() => {
   useStyles$(styles);
 
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example">
-        <Example1 />
+        <FirstExampleComponent />
       </div>
 
-      <Highlight q:slot="codeExample" code={example1Code} />
+      <Highlight q:slot="codeExample" code={firstExampleCode} />
     </PreviewCodeExample>
+  );
+});
+
+export const ShortExample = component$(() => {
+  return (
+    <CodeExample>
+      <Highlight code={shortExampleCode} />
+    </CodeExample>
+  );
+});
+
+export const LongExample = component$(() => {
+  return (
+    <CodeExample>
+      <Highlight code={longExampleCode} />
+    </CodeExample>
   );
 });
 
@@ -60,29 +48,10 @@ export const VerticalTabsExample = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example mr-auto">
-        <h3>Danish Composers</h3>
-
-        <Tabs vertical class="flex flex-wrap gap-5">
-          <TabList class="flex w-fit flex-col">
-            <Tab>Maria Ahlefeldt</Tab>
-            <Tab>Carl Andersen</Tab>
-            <Tab>Ida Henriette da Fonseca</Tab>
-          </TabList>
-          <TabPanel>
-            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
-          </TabPanel>
-          <TabPanel>
-            <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-          </TabPanel>
-          <TabPanel>
-            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-          </TabPanel>
-        </Tabs>
+        <VerticalTabsComponent />
       </div>
 
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
+      <Highlight q:slot="codeExample" code={verticalTabsCode} />
     </PreviewCodeExample>
   );
 });
@@ -91,30 +60,9 @@ export const DisabledTabsExample = component$(() => {
   return (
     <PreviewCodeExample>
       <div q:slot="actualComponent" class="tabs-example mr-auto w-full">
-        <h3>Dad jokes</h3>
-        <Tabs>
-          <TabList>
-            <Tab
-              class="aria-disabled:cursor-not-allowed"
-              style="width: 25%"
-              disabled={true}
-            >
-              Disabled Tab
-            </Tab>
-            <Tab style="width: 25%">Joke 2</Tab>
-            <Tab style="width: 25%">Joke 3</Tab>
-            <Tab style="width: 25%">Joke 4</Tab>
-          </TabList>
-          <TabPanel>"What did the coffee report to the police", " A mugging."</TabPanel>
-          <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
-          <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
-          <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
-        </Tabs>
+        <DisabledTabsComponent />
       </div>
-
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
+      <Highlight q:slot="codeExample" code={disabledTabsCode} />
     </PreviewCodeExample>
   );
 });

@@ -1,17 +1,13 @@
-import { FunctionComponent, component$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 
-export const InlineExample: FunctionComponent = (props) => {
-  props.children; // pre
-  return <></>;
-};
-
-export const Example01 = component$(() => {
+export default component$(() => {
   return (
     <>
       <h3>Danish Composers</h3>
-      <Tabs behavior="automatic">
-        <TabList>
+
+      <Tabs vertical class="flex flex-wrap gap-5">
+        <TabList class="flex w-fit flex-col">
           <Tab>Maria Ahlefeldt</Tab>
           <Tab>Carl Andersen</Tab>
           <Tab>Ida Henriette da Fonseca</Tab>

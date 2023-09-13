@@ -2,9 +2,9 @@
 title: Qwik UI | Tabs
 ---
 
-import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import {
-  Example01,
+  Tab, TabList, TabPanel, Tabs,
+  FirstExample,
   VerticalTabsExample,
   DisabledTabsExample,
   AutomaticBehaviorTabsExample,
@@ -13,15 +13,18 @@ import {
   OnSelectedIndexChangeTabsExample,
   OnClickTabsExample,
   SelectedTabIdExample,
-  SelectedPropExample
-} from './examples';
-import { CodeExample } from '../../../_components/code-example/code-example';
-import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '../../../_components/api-table/api-table';
-import { StatusBanner } from '../../../_components/status-banner/status-banner';
-import {statusByComponent} from '../../../../../_state/component-statuses';
+  SelectedPropExample,
+  CodeExample,
+  KeyboardInteractionTable,
+  APITable,
+  StatusBanner,
+  statusByComponent,
+  ShortExample,
+  LongExample
+} from './exports';
 
 <StatusBanner status={statusByComponent.headless.Tabs}/> 
+
 
 # Tabs
 
@@ -29,83 +32,17 @@ Explore and switch between different views using tabs
 
 {' '}
 
-<Example01>
-  ```tsx
-  <Tabs behavior="automatic">
-    <h3>Danish Composers</h3>
-    <TabList>
-      <Tab>Maria Ahlefeldt</Tab>
-      <Tab>Carl Andersen</Tab>
-      <Tab>Ida Henriette da Fonseca</Tab>
-    </TabList>
-    <TabPanel>
-      <p>
-        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
-      </p>
-    </TabPanel>
-    <TabPanel>
-      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-    </TabPanel>
-    <TabPanel>
-      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-    </TabPanel>
-  </Tabs>
-  ```
-</Example01>
+<FirstExample/>
 
 ## Building blocks
 
 ### The full version
 
-  <CodeExample>
-    ```tsx
-    import { component$ } from '@builder.io/qwik';
-    import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
-
-    export default component$(() => {
-
-      return (
-        <>
-          <Tabs seletedIndex={1}>
-            <TabList>
-              <Tab>Tab 1</Tab>
-              <Tab>Tab 2</Tab>
-              <Tab>Tab 3</Tab>
-            </TabList>
-
-            <TabPanel>Content 1</TabPanel>
-            <TabPanel>Content 2</TabPanel>
-            <TabPanel>Content 3</TabPanel>
-          </Tabs>
-        </>
-      );
-    });
-    ```
-
-  </CodeExample>
+<LongExample/>
 
 ### The short version
 
-  <CodeExample>
-    ```tsx
-    import { component$ } from '@builder.io/qwik';
-    import { Tabs, TabPanel,  } from '@qwik-ui/headless';
-
-    export default component$(() => {
-
-      return (
-        <>
-          <Tabs>
-            <TabPanel title="Tab 1">Content 1</TabPanel>
-            <TabPanel title="Tab 2" selected>Content 2</TabPanel>
-            <TabPanel title="Tab 3">Content 3</TabPanel>
-          </Tabs>
-        </>
-      );
-    });
-    ```
-
-  </CodeExample>
+<ShortExample/>
 
 > The "short version" 👆 will be automatically transformed into the full ARIA compliant version
 
@@ -113,29 +50,7 @@ Explore and switch between different views using tabs
 
 by default, the tabs are horizontal, but you can adjust the underlying behavior to be vertical by setting the `vertical` prop to true.
 
-<VerticalTabsExample>
-  ```tsx
-  <h3>Danish Composers</h3>
-  <Tabs vertical>
-    <TabList>
-      <Tab>Maria Ahlefeldt</Tab>
-      <Tab>Carl Andersen</Tab>
-      <Tab>Ida Henriette da Fonseca</Tab>
-    </TabList>
-    <TabPanel>
-      <p>
-        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
-      </p>
-    </TabPanel>
-    <TabPanel>
-      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-    </TabPanel>
-    <TabPanel>
-      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-    </TabPanel>
-  </Tabs>
-  ```
-</VerticalTabsExample>
+<VerticalTabsExample/>
 
 ## Disabled
 
