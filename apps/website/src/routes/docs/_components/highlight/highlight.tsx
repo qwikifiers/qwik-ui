@@ -1,6 +1,6 @@
 import { QwikIntrinsicElements, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { OmitSignalClass } from '@qwik-ui/type-utils';
-import shiki from 'shiki';
+import { getOrCreateHighlighter } from './get-or-create-highlighter';
 
 export type HighlightProps = OmitSignalClass<QwikIntrinsicElements['pre']> & {
   code: string;
@@ -17,10 +17,8 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
-    // const appState = useContext(APP_STATE_CONTEXT_ID);
-
     useTask$(async function createHighlightedCode() {
-      const highlighter = await shiki.getHighlighter({ theme: 'css-variables' });
+      const highlighter = await getOrCreateHighlighter();
       let modifiedCode: string = code;
 
       let partsOfCode = modifiedCode.split(splitCommentStart);

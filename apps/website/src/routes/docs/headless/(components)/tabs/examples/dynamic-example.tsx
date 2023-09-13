@@ -1,28 +1,31 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useStore } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 
 export default component$(() => {
+  const tabsState = useStore(['Dynamic Tab 1', 'Dynamic Tab 2', 'Dynamic Tab 3']);
   return (
     <>
-      <h3>Dad jokes</h3>
       <Tabs>
         <TabList>
-          <Tab
-            class="aria-disabled:cursor-not-allowed"
-            style="width: 25%"
-            disabled={true}
-          >
-            Disabled Tab
-          </Tab>
-          <Tab style="width: 25%">Joke 2</Tab>
-          <Tab style="width: 25%">Joke 3</Tab>
-          <Tab style="width: 25%">Joke 4</Tab>
+          {tabsState.map((tab) => (
+            <Tab key={tab}>{tab}</Tab>
+          ))}
         </TabList>
-        <TabPanel>"What did the coffee report to the police", " A mugging."</TabPanel>
-        <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
-        <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
-        <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
+        {tabsState.map((tab) => (
+          <TabPanel key={tab}>{tab} Panel</TabPanel>
+        ))}
       </Tabs>
+
+      <button
+        class="mt-4 font-bold text-red-600"
+        onClick$={() => {
+          if (tabsState.length > 1) {
+            tabsState.splice(0, 1);
+          }
+        }}
+      >
+        Remove First Tab
+      </button>
     </>
   );
 });

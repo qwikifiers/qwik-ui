@@ -4,24 +4,23 @@ import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 export default component$(() => {
   return (
     <>
-      <h3>Dad jokes</h3>
-      <Tabs>
+      <h3>Danish Composers</h3>
+      <h4 class="mb-4">(Hover over the tabs - they should not be selected)</h4>
+      <Tabs behavior="manual">
         <TabList>
-          <Tab
-            class="aria-disabled:cursor-not-allowed"
-            style="width: 25%"
-            disabled={true}
-          >
-            Disabled Tab
-          </Tab>
-          <Tab style="width: 25%">Joke 2</Tab>
-          <Tab style="width: 25%">Joke 3</Tab>
-          <Tab style="width: 25%">Joke 4</Tab>
+          <Tab>Maria Ahlefeldt</Tab>
+          <Tab>Carl Andersen</Tab>
+          <Tab>Ida Henriette da Fonseca</Tab>
         </TabList>
-        <TabPanel>"What did the coffee report to the police", " A mugging."</TabPanel>
-        <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
-        <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
-        <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
+        <TabPanel>
+          <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
+        </TabPanel>
+        <TabPanel>
+          <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+        </TabPanel>
+        <TabPanel>
+          <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+        </TabPanel>
       </Tabs>
     </>
   );

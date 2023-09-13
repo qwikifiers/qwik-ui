@@ -3,28 +3,16 @@ title: Qwik UI | Tabs
 ---
 
 import {
-  Tab, TabList, TabPanel, Tabs,
-  FirstExample,
-  VerticalTabsExample,
-  DisabledTabsExample,
-  AutomaticBehaviorTabsExample,
-  ManualBehaviorTabsExample,
-  DynamicTabsExample,
-  OnSelectedIndexChangeTabsExample,
-  OnClickTabsExample,
-  SelectedTabIdExample,
-  SelectedPropExample,
-  CodeExample,
   KeyboardInteractionTable,
   APITable,
   StatusBanner,
   statusByComponent,
   ShortExample,
-  LongExample
+  LongExample,
+  ShowExample
 } from './exports';
 
 <StatusBanner status={statusByComponent.headless.Tabs}/> 
-
 
 # Tabs
 
@@ -32,7 +20,7 @@ Explore and switch between different views using tabs
 
 {' '}
 
-<FirstExample/>
+<ShowExample example="first"/>
 
 ## Building blocks
 
@@ -50,35 +38,13 @@ Explore and switch between different views using tabs
 
 by default, the tabs are horizontal, but you can adjust the underlying behavior to be vertical by setting the `vertical` prop to true.
 
-<VerticalTabsExample/>
+<ShowExample example="vertical"/>
 
 ## Disabled
 
 You can disable a tab by setting the `disabled` prop to true.
 
-<DisabledTabsExample>
-  ```tsx
-    <h3>Dad jokes</h3>
-    <Tabs>
-      <TabList>
-        <Tab
-          class="aria-disabled:cursor-not-allowed"
-          style="width: 25%"
-          disabled={true}
-        >
-          Disabled Tab
-        </Tab>
-        <Tab style="width: 25%">Joke 2</Tab>
-        <Tab style="width: 25%">Joke 3</Tab>
-        <Tab style="width: 25%">Joke 4</Tab>
-      </TabList>
-      <TabPanel>"What did the coffee report to the police", " A mugging."</TabPanel>
-      <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
-      <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
-      <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
-    </Tabs>
-  ```
-</DisabledTabsExample>
+<ShowExample example="disabled"/> 
 
 ## Behavior
 
@@ -86,135 +52,23 @@ You can disable a tab by setting the `disabled` prop to true.
 
 The default behavior of the tabs is manual, which means that the tabs will automatically switch to the next tab when the user hovers over the tab. You can change this behavior by setting the `behavior` prop to `automatic`.
 
-<AutomaticBehaviorTabsExample>
-  ```tsx
-  <Tabs behavior="automatic">
-    <h3>Danish Composers</h3>
-    <TabList>
-      <Tab>Maria Ahlefeldt</Tab>
-      <Tab>Carl Andersen</Tab>
-      <Tab>Ida Henriette da Fonseca</Tab>
-    </TabList>
-    <TabPanel>
-      <p>
-        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
-      </p>
-    </TabPanel>
-    <TabPanel>
-      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-    </TabPanel>
-    <TabPanel>
-      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-    </TabPanel>
-  </Tabs>
-  ```
-</AutomaticBehaviorTabsExample>
+<ShowExample example="automatic"/> 
 
 ### Manual
 
 You can set the behavior to manual, which means that the tabs will not automatically switch to the next tab when the user presses the right arrow key, and to the previous tab when the user presses the left arrow key.
 
-<ManualBehaviorTabsExample>
-  ```tsx
-  <h3>Danish Composers</h3>
-  <Tabs behavior="manual">
-    <TabList>
-      <Tab>Maria Ahlefeldt</Tab>
-      <Tab>Carl Andersen</Tab>
-      <Tab>Ida Henriette da Fonseca</Tab>
-    </TabList>
-    <TabPanel>
-      <p>
-        Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
-      </p>
-    </TabPanel>
-    <TabPanel>
-      <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-    </TabPanel>
-    <TabPanel>
-      <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-    </TabPanel>
-  </Tabs>
-  ```
-</ManualBehaviorTabsExample>
+<ShowExample example="manual"/> 
 
 ## Dynamic
 
-<DynamicTabsExample>
-```tsx
-
-const tabsState = useStore([
-  'Dynamic Tab 1',
-  'Dynamic Tab 2',
-  'Dynamic Tab 3',
-]);
-
-return <>
-
-  <Tabs>
-    <TabList>
-      {tabsState.map((tab) => (
-        <Tab key={tab}>{tab}</Tab>
-      ))}
-    </TabList>
-    {tabsState.map((tab) => (
-      <TabPanel key={tab}>{tab} Panel</TabPanel>
-    ))}
-  </Tabs>
-
-  <button style={{ color: 'red', marginTop: '1rem' }}
-    onClick$={() => {
-      if (tabsState.length > 1) {
-        tabsState.splice(0, 1)
-      }
-    }}>
-    Remove First Tab
-  </button>
-</>
-```
-</DynamicTabsExample>
+<ShowExample example="dynamic"/> 
 
 ## onSelectedIndexChange$
 
 You can listen to changes in the selected index by subscribing to the `onSelectedIndexChange$` store.
 
-<OnSelectedIndexChangeTabsExample>
-```tsx
-
-const selectedIndexSig = useSignal(0);
-
-return <div>
-
-{' '}
-
-<Tabs
-  onSelectedIndexChange$={(index) => {
-    selectedIndexSig.value = index;
-  }}
->
-  <h3>Danish Composers</h3>
-  <TabList>
-    <Tab>Maria Ahlefeldt</Tab>
-    <Tab>Carl Andersen</Tab>
-    <Tab>Ida Henriette da Fonseca</Tab>
-  </TabList>
-  <TabPanel>
-    <p>
-      Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
-    </p>
-  </TabPanel>
-  <TabPanel>
-    <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-  </TabPanel>
-  <TabPanel>
-    <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-  </TabPanel>
-</Tabs>
-
-  <p>Selected Index: {selectedIndexSig.value}</p>
-</div>
-```
-</OnSelectedIndexChangeTabsExample>
+<ShowExample example="onSelectedIndexChange"/> 
 
 ## bind:selectedIndex
 
@@ -228,107 +82,20 @@ and it will be used directly.
 💡 You can manually set the `tabId` prop on each tab to be able to select any tab by its ID.
 
 
-<SelectedTabIdExample>
-```tsx
-
-const selectedTabIdSig = useSignal<string | undefined>();
-
-return (
-    
-  <div>
-    <Tabs bind:selectedTabId={selectedTabIdSig}>
-      <h3>Danish Composers</h3>
-      <TabList>
-        <Tab tabId="Maria">Maria Ahlefeldt</Tab>
-        <Tab tabId="Carl">Carl Andersen</Tab>
-        <Tab tabId="Ida">Ida Henriette da Fonseca</Tab>
-      </TabList>
-      <TabPanel>
-        <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
-      </TabPanel>
-      <TabPanel>
-        <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-      </TabPanel>
-      <TabPanel>
-        <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-      </TabPanel>
-    </Tabs>
-    
-    <p>Selected Tab Id: {selectedTabIdSig.value}</p>
-  </div>
-)
-```
-</SelectedTabIdExample>
+<ShowExample example="selectedTabId"/> 
 
 
 ## Add a "selected" prop
 
 You can add a "selected" prop to the Tab component to make it selected by default.
 
-<SelectedPropExample>
-```tsx
-<h3>Danish Composers</h3>
-
-<Tabs>
-  <TabList>
-    <Tab>Maria Ahlefeldt</Tab>
-    <Tab selected>Carl Andersen</Tab>
-    <Tab>Ida Henriette da Fonseca</Tab>
-  </TabList>
-  <TabPanel>
-    <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
-  </TabPanel>
-  <TabPanel>
-    <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-  </TabPanel>
-  <TabPanel>
-    <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-  </TabPanel>
-</Tabs>
-
-```
-</SelectedPropExample>
+<ShowExample example="selectedProp"/> 
 
 ## onClick$
 
 You can pass a custom `onClick$` handler.
 
-<OnClickTabsExample>
-```tsx
-const tabsClickedCountSig = useSignal(0);
-
-return <div>
-
-<h3>Danish Composers</h3>
-<h4>(watch the counter below)</h4>
-<Tabs
-  onClick$={() => {
-    tabsClickedCountSig.value++;
-  }}
->
-  <TabList>
-    <Tab>Maria Ahlefeldt</Tab>
-    <Tab>Carl Andersen</Tab>
-    <Tab>Ida Henriette da Fonseca</Tab>
-  </TabList>
-  <TabPanel>
-    <p>
-      Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...
-    </p>
-  </TabPanel>
-  <TabPanel>
-    <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
-  </TabPanel>
-  <TabPanel>
-    <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
-  </TabPanel>
-</Tabs>
-
-<p>Click count: {tabsClickedCountSig.value}</p>
-
-</div>
-```
-</OnClickTabsExample>
+<ShowExample example="onClick"/> 
 
 ## Accessibility
 

@@ -1,9 +1,9 @@
 {
   "extends": [
+    "../../.eslintrc.json",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:qwik/recommended",
-    "../../.eslintrc.json"
+    "plugin:qwik/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -12,9 +12,7 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "tsconfigRootDir": "__dirname"
+    }
   },
   "plugins": ["@typescript-eslint"],
   "ignorePatterns": ["!**/*"],
