@@ -1,4 +1,4 @@
-export default function TestData() {
+export default function createFakeFruitsList() {
   const fruits = [
     'Apple',
     'Apricot',

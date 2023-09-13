@@ -1,12 +1,11 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { NavigationBar as HeadlessNavigationBar } from '@qwik-ui/headless';
+import type { OmitSignalClass } from '@qwik-ui/type-utils';
 
-export type HTMLNavigationBarProps = QwikIntrinsicElements['div'];
+export type HTMLNavigationBarProps = OmitSignalClass<QwikIntrinsicElements['div']>;
 
 export const NavigationBar = component$((props: HTMLNavigationBarProps) => {
   const { class: className, ...rest } = props;
-
-  // TODO: discuss this
 
   return (
     <HeadlessNavigationBar class={['navbar', className]} {...rest}>

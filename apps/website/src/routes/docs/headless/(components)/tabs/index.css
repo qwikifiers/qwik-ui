@@ -1,30 +1,16 @@
 .tabs-example [role='tab'] {
   width: 250px;
-  background: #ccc;
-  color: black;
-}
-
-.dark .tabs-example [role='tab'] {
-  background: #333;
+  background: var(--qwikui-slate-500);
   color: white;
 }
 
-.dark .tabs-example [role='tab'][disabled] {
-  background: #ebebeb;
-  color: black;
-}
-
-.dark .tabs-example [role='tab'].selected {
-  background: #b7b5f5;
-  color: black;
-}
-
 .tabs-example [role='tab'][disabled] {
-  background: #999;
+  color: var(--qwikui-slate-400);
+  background: var(--qwikui-slate-600);
 }
 
 .tabs-example [role='tab'].selected {
-  background: #0059c5;
+  background: var(--qwikui-slate-950);
   color: white;
 }
 
@@ -32,4 +18,14 @@
   border: 1px solid;
   color: white;
   margin-bottom: 1rem;
+}
+
+.tabs-example h3 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.tabs-example [role='tabpanel'] {
+  color: white;
 }

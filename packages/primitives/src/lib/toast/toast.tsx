@@ -1,9 +1,7 @@
-export type ToastProps = {
-  /**
-   * The controlled state of the toast.
-   */
+import { QwikIntrinsicElements } from '@builder.io/qwik';
+
+export type ToastProps = QwikIntrinsicElements['div'] & {
   label?: string;
-  class?: string;
 };
 
 export const Toast = ({ label = 'New Message', ...toastProps }: ToastProps) => {

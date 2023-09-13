@@ -40,7 +40,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: [],
+      external: ['@floating-ui/dom', 'country-list-json', 'libphonenumber-js'],
     },
   },
   test: {

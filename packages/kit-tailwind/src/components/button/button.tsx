@@ -1,7 +1,8 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import type { OmitSignalClass } from '@qwik-ui/type-utils';
 import { daisyConfig } from './daisy.config';
 
-export type HTMLButtonProps = QwikIntrinsicElements['button'];
+export type HTMLButtonProps = OmitSignalClass<QwikIntrinsicElements['button']>;
 
 export type TailwindButtonProps = {
   variant?: TailwindButtonVariants;
@@ -46,7 +47,7 @@ export const Button = component$((props: ButtonProps) => {
   } = props;
 
   const { variants, sizes, options } = daisyConfig;
-  // TODO: discuss this
+
   return (
     <button
       {...rest}

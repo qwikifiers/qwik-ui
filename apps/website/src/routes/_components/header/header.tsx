@@ -1,5 +1,4 @@
 import { $, component$, useComputed$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -13,6 +12,7 @@ import { MenuIcon } from '../icons/MenuIcon';
 import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
 import { Logo } from '../icons/logo';
+import { useLocation } from '@builder.io/qwik-city';
 
 export interface HeaderProps {
   showVersion?: boolean;
@@ -22,8 +22,24 @@ export interface HeaderProps {
 export default component$(
   ({ showVersion = false, showBottomBorder = false }: HeaderProps) => {
     const rootStore = useRootStore();
-    const location = useLocation();
     const selectedKitSig = useSelectedKit();
+    const location = useLocation();
+
+    const isRouteActive = (href: string) => {
+      const isLinkActive = location.url.pathname.startsWith(href);
+      return `text-slate-600 dark:text-slate-400 hover:text-slate-950 focus:text-slate-950 dark:hover:text-white dark:focus:text-white
+        transition-color ease-step duration-300 ${
+          isLinkActive ? 'font-bold !text-slate-950 dark:!text-white' : ''
+        }`;
+    };
+
+    const isDocsActive = (baseHref: string) => {
+      const isLinkActive = location.url.pathname.startsWith(baseHref);
+      return `text-slate-600 dark:text-slate-400 hover:text-slate-950 focus:text-slate-950 dark:hover:text-white dark:focus:text-white
+        transition-color ease-step duration-300 ${
+          isLinkActive ? 'font-bold !text-slate-950 dark:!text-white' : ''
+        }`;
+    };
 
     const kitSignal = useComputed$(() => {
       if (selectedKitSig.value === KitName.HEADLESS) {
@@ -44,19 +60,20 @@ export default component$(
       rootStore.mode = rootStore.mode === 'light' ? 'dark' : 'light';
     });
 
+    // we can add back the header animation if you'd like. Maybe something springy with motion?
     return (
       <header
         class={[
-          `fixed top-0 z-20 flex h-20 w-full items-center gap-8 p-4 md:h-20 md:bg-[var(--color-bg)]`,
-          `duration-300 ease-in-out`,
+          `fixed top-0 z-20 flex h-20 w-full items-center gap-8 border-b-[1px] border-slate-200 bg-white  p-4 dark:border-slate-800 dark:bg-slate-900 md:h-20`,
+          `shadow-light-low dark:shadow-dark-medium`,
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
             : 'bg-[var(--color-bg)]',
-          showBottomBorder ? `border-b-[1px] border-slate-300 dark:border-slate-600` : ``,
+          showBottomBorder ? `shadow-light-low dark:shadow-dark-medium` : ``,
         ]}
       >
         <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">
-          <a href="/" class="lg:ml-8">
+          <a href="/" aria-label="Qwik UI Logo" class="lg:ml-8">
             <Logo />
           </a>
 
@@ -71,12 +88,22 @@ export default component$(
         </section>
 
         <nav class="hidden gap-4 lg:flex">
-          <a href="/about">About</a>
-          <a href="/docs/headless/introduction">Headless Kit</a>
+          <a class={isRouteActive('/about')} href="/about">
+            About
+          </a>
+          <a class={isDocsActive('/docs/headless/')} href="/docs/headless/introduction">
+            Headless Kit
+          </a>
           {rootStore.featureFlags?.showFluffy && (
-            <a href="/docs/fluffy/introduction">Fluffy (styled) Kit</a>
+            <a class={isDocsActive('/docs/fluffy/')} href="/docs/fluffy/introduction">
+              Fluffy (styled) Kit
+            </a>
           )}
-          <a href="https://discord.gg/PVWUUejrez" target="_blank">
+          <a
+            class={isRouteActive('https://discord.gg/PVWUUejrez')}
+            href="https://discord.gg/PVWUUejrez"
+            target="_blank"
+          >
             Community
           </a>
           {/* <a href="/contact">Contact</a> */}

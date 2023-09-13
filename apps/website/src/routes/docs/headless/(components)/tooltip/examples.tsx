@@ -8,10 +8,11 @@ export const MainExample = component$(() => {
     <PreviewCodeExample>
       <div q:slot="actualComponent">
         <Tooltip
+          offset={8}
           content="I'm a tooltip!"
-          class="bg-slate-200 dark:bg-gray-900 p-4 rounded-xl"
+          class="shadow-dark-medium rounded-xl border-2 border-slate-400 bg-slate-800 p-4 text-white"
         >
-          Hover over me!
+          <span class="text-white">Hover over me!</span>
         </Tooltip>
       </div>
       <div q:slot="codeExample">
@@ -27,9 +28,13 @@ export const Example1 = component$(() => {
       <div q:slot="actualComponent">
         <Tooltip
           content="Clicking this icon takes you to Qwik UI's GitHub repository!"
-          class="bg-slate-200 dark:bg-gray-900 p-4 rounded-xl"
+          class="shadow-dark-medium rounded-xl border-2 border-slate-400 bg-slate-800 p-4 text-white"
+          offset={8}
         >
-          <a href="https://github.com/qwikifiers/qwik-ui" class="mx-auto">
+          <a
+            href="https://github.com/qwikifiers/qwik-ui"
+            class="block border-none text-white"
+          >
             <GitHubIcon />
           </a>
         </Tooltip>

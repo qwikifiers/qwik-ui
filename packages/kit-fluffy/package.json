@@ -29,7 +29,6 @@
     "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
-    "prebuild.pandacss": "panda codegen --silent",
     "release": "np",
     "start": "vite --open --mode ssr",
     "storybook": "storybook dev -p 6006",
@@ -43,7 +42,6 @@
   },
   "devDependencies": {
     "@builder.io/vite-plugin-macro": "~0.0.7",
-    "@pandacss/dev": "^0.4.0",
     "@storybook/addon-essentials": "7.0.23",
     "@storybook/addon-links": "7.0.23",
     "@storybook/blocks": "7.0.23",

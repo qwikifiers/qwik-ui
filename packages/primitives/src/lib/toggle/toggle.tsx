@@ -1,49 +1,40 @@
-import { component$, PropFunction, QwikMouseEvent, useSignal } from '@builder.io/qwik';
+import { component$, useSignal, QwikIntrinsicElements } from '@builder.io/qwik';
 
 export type ToggleProps = {
   disabled?: boolean;
-  /**
-   * The controlled state of the toggle.
-   */
   pressed?: boolean;
-  /**
-   * The state of the toggle when initially rendered. Use `defaultPressed`
-   * if you do not need to control the state of the toggle.
-   * @defaultValue false
-   */
   defaultPressed?: boolean;
+} & QwikIntrinsicElements['input'];
 
-  onClick$: PropFunction<(evt: QwikMouseEvent) => void>;
-};
-
-export const Toggle = component$((props: ToggleProps) => {
-  const {
-    pressed: pressedProp,
-    defaultPressed = false,
+export const Toggle = component$(
+  ({
     onClick$,
+    pressed,
+    defaultPressed = false,
     disabled,
     ...toggleProps
-  } = props;
+  }: ToggleProps) => {
+    const pressedState = useSignal(pressed || defaultPressed);
 
-  const pressedState = useSignal(pressedProp || defaultPressed);
-
-  return (
-    <input
-      type="checkbox"
-      role="switch"
-      aria-pressed={pressedState.value}
-      data-state={pressedState.value ? 'on' : 'off'}
-      data-disabled={disabled ? '' : undefined}
-      checked={pressedState.value}
-      onClick$={(event: QwikMouseEvent<HTMLInputElement>) => {
-        if (!disabled) {
-          pressedState.value = !pressedState.value;
-          if (onClick$) {
-            onClick$(event);
-          }
-        }
-      }}
-      {...toggleProps}
-    />
-  );
-});
+    // event handlers seem to break toggle when exported from qwik-ui primitive
+    return (
+      <input
+        type="checkbox"
+        role="switch"
+        aria-pressed={pressedState.value}
+        data-state={pressedState.value ? 'on' : 'off'}
+        data-disabled={disabled ? '' : undefined}
+        checked={pressedState.value}
+        // onClick$={[
+        //   () => {
+        //     if (!disabled) {
+        //       pressedState.value = !pressedState.value;
+        //     }
+        //   },
+        //   onClick$,
+        // ]}
+        {...toggleProps}
+      />
+    );
+  },
+);
