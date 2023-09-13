@@ -1,12 +1,15 @@
-import type { ComboboxContext, Option } from './combobox-context.type';
+interface Option {
+  key: number;
+  disabled: boolean;
+}
 
 export const getNextEnabledOptionIndex = <O extends Option = Option>(
   index: number,
-  context: ComboboxContext<O>,
+  filteredOptionsSig: { value: O[] },
 ) => {
   let offset = 1;
   let currentIndex = index;
-  const opts = context.filteredOptionsSig.value;
+  const opts = filteredOptionsSig.value;
   const len = opts.length;
 
   while (opts[(currentIndex + offset) % len]?.disabled) {
@@ -26,11 +29,11 @@ export const getNextEnabledOptionIndex = <O extends Option = Option>(
 
 export const getPrevEnabledOptionIndex = <O extends Option = Option>(
   index: number,
-  context: ComboboxContext<O>,
+  filteredOptionsSig: { value: O[] },
 ) => {
   let offset = 1;
   let currentIndex = index;
-  const opts = context.filteredOptionsSig.value;
+  const opts = filteredOptionsSig.value;
   const len = opts.length;
   while (opts[(currentIndex - offset + len) % len]?.disabled) {
     offset++;
@@ -43,14 +46,16 @@ export const getPrevEnabledOptionIndex = <O extends Option = Option>(
 };
 
 export const getActiveDescendant = <O extends Option = Option>(
-  context: ComboboxContext<O>,
+  highlightedIndexSig: { value: number },
+  filteredOptionsSig: { value: O[] },
+  localId: string,
 ) => {
-  const highlightedIndex = context.highlightedIndexSig.value;
-  const option = context.filteredOptionsSig.value[highlightedIndex];
+  const highlightedIndex = highlightedIndexSig.value;
+  const option = filteredOptionsSig.value[highlightedIndex];
 
   if (highlightedIndex === -1 || option?.disabled) {
     return '';
   }
 
-  return `${context.localId}-${option?.key}`;
+  return `${localId}-${option?.key}`;
 };

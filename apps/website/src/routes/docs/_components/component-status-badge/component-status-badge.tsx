@@ -16,7 +16,7 @@ export function getClassByStatus(status: ComponentStatus) {
     case ComponentStatus.Draft:
       return 'text-slate-200 bg-slate-700 dark:bg-slate-800 border-[1px] border-slate-400 shadow-dark-low tracking-wide dark:shadow-dark-low text-outline-draft';
     case ComponentStatus.Planned:
-      return 'text-slate-50 bg-slate-300 border-[1px] border-slate-500 dark:border-slate-400 tracking-wide shadow-dark-low dark:shadow-dark-low text-outline-planned';
+      return 'text-white bg-slate-300 border-[1px] border-slate-500 dark:border-slate-400 tracking-wide shadow-dark-low dark:shadow-dark-low text-outline-planned';
     default:
       return null;
   }

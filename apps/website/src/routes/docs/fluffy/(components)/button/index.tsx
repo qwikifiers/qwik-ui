@@ -160,8 +160,9 @@ export default component$(() => {
         <h2>Custom class</h2>
 
         <div class="panel">
+          {/* previously type="TailwindButton", giving a type error. */}
           <TailwindButton
-            type="TailwindButton"
+            type="button"
             variant="primary"
             class="border-4 border-black px-32"
           >

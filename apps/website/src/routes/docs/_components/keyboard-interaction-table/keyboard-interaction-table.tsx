@@ -44,7 +44,7 @@ export const KeyboardInteractionTable = component$(
 export const KBInteractionTableRow = component$(
   ({ keyTitle, description }: KBInteractionTableRowProps) => {
     return (
-      <tr class="border-b-[1px] border-slate-300 dark:border-slate-600">
+      <tr class="border-b-[1px] border-slate-200 dark:border-slate-800">
         <td class="py-4">
           <kbd class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-400 inline-block w-max rounded-md border border-b-[2px] px-2 text-base capitalize text-slate-700 dark:text-slate-950">
             {keyTitle}

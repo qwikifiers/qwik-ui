@@ -259,11 +259,11 @@ describe('Keyboard Navigation', () => {
   });
 
   it(`GIVEN a Combobox component with an input, 
-      WHEN the user hits the downarrow key twice, then the end key, and then the home key,
-      THEN the first option in the listbox should be selected.`, () => {
+      WHEN the user hits the downarrow to open the listbox, then the home key,
+      THEN the first enabled option in the listbox should be selected.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`{downarrow}{downarrow}{home}`);
+    cy.get('input').type(`{downarrow}`).type(`{home}`);
 
     cy.get('li').first().should('have.attr', 'aria-selected', 'true');
   });
@@ -273,7 +273,7 @@ describe('Keyboard Navigation', () => {
       THEN the last option in the listbox should be selected.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`{downarrow}{end}`);
+    cy.get('input').type(`{downarrow}`).type(`{end}`);
 
     cy.get('li').last().should('have.attr', 'aria-selected', 'true');
   });
@@ -299,7 +299,7 @@ describe('Keyboard Navigation', () => {
 
     cy.findByRole('listbox').should('be.visible');
 
-    cy.get('input').type(`{downarrow}{downarrow}`);
+    cy.get('input').type(`{downarrow}`).type(`{downarrow}`);
 
     // grabs the 2nd element because the index is 1
     cy.get('li').filter(':visible').eq(1).should('have.attr', 'aria-selected', 'true');
@@ -310,7 +310,7 @@ describe('Keyboard Navigation', () => {
   THEN focus should move back to the previous option in the list.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`Ba{downarrow}{downarrow}{uparrow}`);
+    cy.get('input').type(`Ba`).type(`{downarrow}`).type(`{downarrow}`).type(`{uparrow}`);
 
     cy.findByRole('listbox');
 
@@ -322,7 +322,7 @@ describe('Keyboard Navigation', () => {
   THEN focus should move to the last option in the list.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`{downarrow}{uparrow}`);
+    cy.get('input').type(`{downarrow}`).type(`{uparrow}`);
 
     cy.findByRole('listbox');
 
@@ -334,7 +334,7 @@ describe('Keyboard Navigation', () => {
   THEN focus should move to the first option in the list.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`{downarrow}{uparrow}{downarrow}`);
+    cy.get('input').type(`{downarrow}`).type(`{uparrow}`).type(`{downarrow}`);
 
     cy.findByRole('listbox');
 
@@ -360,7 +360,11 @@ describe('Keyboard Navigation', () => {
   THEN the focused option should be selected and the listbox should close.`, () => {
     cy.mount(<StringCombobox />);
 
-    cy.get('input').type(`Ba{downarrow}{downarrow}{downarrow}`);
+    cy.get('input')
+      .type(`Ba`)
+      .type(`{downarrow}`)
+      .type(`{downarrow}`)
+      .type(`{downarrow}`);
 
     cy.findByRole('listbox').should('be.visible');
 
@@ -501,7 +505,7 @@ describe('Disabled & Object Combobox', () => {
       THEN the last enabled option should be selected`, () => {
     cy.mount(<DisabledCombobox />);
 
-    cy.get('input').type(`{downarrow}{uparrow}`);
+    cy.get('input').type(`{downarrow}`).type(`{uparrow}`);
 
     cy.findByRole('option', { name: `Mark` }).should(
       'have.attr',
@@ -515,7 +519,7 @@ describe('Disabled & Object Combobox', () => {
       THEN the first enabled option should be selected`, () => {
     cy.mount(<DisabledCombobox />);
 
-    cy.get('input').type(`{downarrow}{downarrow}{downarrow}`);
+    cy.get('input').type(`{downarrow}`).type(`{downarrow}`).type(`{downarrow}`);
 
     cy.get('input').type(`{home}`);
 
@@ -531,7 +535,7 @@ describe('Disabled & Object Combobox', () => {
       THEN the first last enabled option should be selected`, () => {
     cy.mount(<DisabledCombobox />);
 
-    cy.get('input').type(`{downarrow}{downarrow}`);
+    cy.get('input').type(`{downarrow}`).type(`{downarrow}`);
 
     cy.get('input').type(`{end}`);
 
@@ -584,7 +588,12 @@ describe('Disabled & Object Combobox', () => {
     cy.mount(<DisabledCombobox />);
 
     // selects Malcolm
-    cy.get('input').type(`{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}`);
+    cy.get('input')
+      .type(`{downarrow}`)
+      .type(`{downarrow}`)
+      .type(`{downarrow}`)
+      .type(`{downarrow}`)
+      .type(`{downarrow}`);
 
     cy.findByRole('option', { name: `Randy` }).should(
       'have.attr',
@@ -607,7 +616,12 @@ describe('Disabled & Object Combobox', () => {
     cy.mount(<DisabledCombobox />);
 
     // selects Malcolm
-    cy.get('input').type(`{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}`);
+    cy.get('input')
+      .type(`{downarrow}`)
+      .type(`{downarrow}`)
+      .type(`{downarrow}`)
+      .type(`{downarrow}`)
+      .type(`{downarrow}`);
 
     cy.findByRole('option', { name: `Randy` }).should(
       'have.attr',
