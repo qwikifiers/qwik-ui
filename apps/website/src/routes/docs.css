@@ -14,7 +14,7 @@
     }
 
     h1 {
-      @apply text-3xl font-extrabold md:mb-12 md:text-5xl;
+      @apply mb-6 text-3xl font-extrabold md:mb-12 md:text-5xl;
     }
 
     h2 {
@@ -51,7 +51,11 @@
   }
 
   p code {
-    @apply shadow-dark-low dark:shadow-dark-low  border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500 mx-1 w-max rounded-md border-[1px] border-b-[2px] border-[#333333] bg-white px-2 py-[2px] font-medium text-slate-800 dark:border-white;
+    @apply shadow-dark-low dark:shadow-dark-low  rounded-md border-[1px] border-b-2 border-slate-700 bg-slate-100 px-2 py-[2px] dark:border-slate-400 dark:bg-slate-700;
+  }
+
+  blockquote p code {
+    @apply border-slate-700 text-slate-800 dark:border-slate-800 dark:bg-slate-50;
   }
 
   /* adds sufficient padding to the table items / API Component */

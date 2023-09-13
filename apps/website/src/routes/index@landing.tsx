@@ -9,12 +9,16 @@ export default component$(() => {
   return (
     <div class="flex flex-col gap-8 text-gray-950 dark:text-white">
       <h1 class="text-center text-3xl font-bold leading-normal lg:text-5xl">
-        <span class="text-qwikui-purple-400 font-[900] tracking-wide">Qwik</span>{' '}
-        <span class="text-qwikui-blue-500 font-[900] tracking-wide">UI</span>
+        <span class="text-qwikui-purple-400 dark:text-qwikui-purple-500 text-outline-purple-title font-[900] tracking-wide">
+          Qwik
+        </span>{' '}
+        <span class="text-qwikui-blue-400 text-qwikui-blue-200 dark:text-qwikui-blue-500 text-outline-blue-title font-[900] tracking-wide">
+          UI
+        </span>
       </h1>
       <h2 class="text-center text-2xl font-bold leading-normal lg:text-4xl">
         Headless or opinionated components for the <br />
-        <span class="leading-normal text-[var(--qwik-light-blue)]">
+        <span class="text-qwikui-blue-400 dark:text-qwikui-purple-500 text-outline-lg leading-normal">
           next-generation framework
         </span>
       </h2>
@@ -25,9 +29,7 @@ export default component$(() => {
       <div class="flex flex-wrap justify-center justify-items-center gap-8">
         <a
           href={`/docs/headless/introduction`}
-          class=" ease-step shadow-light-high dark:shadow-dark-high relative
-          block 
-                rounded-b-xl rounded-t-md border-2 border-slate-800 duration-150 hover:scale-[1.025] focus:scale-[1.025] dark:border-slate-300"
+          class="ease-step shadow-light-medium dark:shadow-dark-high relative block rounded-b-xl rounded-t-md border-2 border-slate-700 outline-[1px] duration-150 hover:scale-[1.025] focus:scale-[1.025] dark:border-slate-400"
         >
           <Card class="max-w-[450px]">
             <CardImage
@@ -36,10 +38,10 @@ export default component$(() => {
               height="408"
               alt={`fluffy kit`}
               class="h-64 w-full 
-              rounded-t-[.225rem] bg-gradient-to-r from-[var(--qwik-light-blue)] to-[var(--qwik-light-purple)] object-cover"
+              rounded-t-[.125rem] bg-gradient-to-r from-[var(--qwik-light-blue)] to-[var(--qwik-light-purple)] object-cover"
             />
             <CardBody
-              class={`border-t-[2px] border-slate-800 px-8 py-6 dark:border-slate-300`}
+              class={`border-t-[2px] border-slate-700 px-8 py-6 dark:border-slate-400`}
             >
               <CardTitle class="flex items-center justify-between text-xl font-bold">
                 <span>Qwik UI Headless</span>
@@ -51,16 +53,16 @@ export default component$(() => {
               </p>
             </CardBody>
           </Card>
-          <span class="border-qwikui-purple-600 bg-qwikui-purple-500 shadow-dark-medium absolute left-[5px] top-[5px] rounded-md border-[1px] px-2 py-1 text-[12px] font-bold text-white">
+          <span class="border-qwikui-purple-600 bg-qwikui-purple-500 shadow-dark-medium text-outline-purple-title absolute left-[5px] top-[5px] rounded-md border-[1px] px-2 py-1 text-[12px] font-bold tracking-wide text-white">
             Core Package
           </span>
         </a>
-        {featureFlags?.showTailwind && (
+        {featureFlags?.showFluffy && (
           <a
             href={`/docs/tailwind/introduction`}
-            class=" ease-step shadow-light-high dark:shadow-dark-high relative block
+            class=" ease-step shadow-light-medium dark:shadow-dark-high relative block
           rounded-b-xl
-                rounded-t-md border-2 border-2 border-slate-800 duration-150 hover:scale-[1.025] focus:scale-[1.025] dark:border-slate-300"
+                rounded-t-md border-2 border-2 border-slate-700 duration-150 hover:scale-[1.025] focus:scale-[1.025] dark:border-slate-400"
           >
             <Card class="max-w-[450px] overflow-hidden">
               <CardImage
@@ -68,10 +70,10 @@ export default component$(() => {
                 width="611"
                 height="408"
                 alt={`fluffy kit`}
-                class="h-64 rounded-t-[.225rem] object-cover"
+                class="h-64 rounded-t-[.125rem] object-cover"
               />
               <CardBody
-                class={`border-t-[2px] border-slate-800 bg-transparent px-8 py-6 dark:border-slate-300`}
+                class={`border-t-[2px] border-slate-700 bg-transparent px-8 py-6 dark:border-slate-400`}
               >
                 <CardTitle class="flex items-center justify-between text-xl font-bold">
                   <span>Fluffy</span>
@@ -82,7 +84,7 @@ export default component$(() => {
                 </p>
               </CardBody>
             </Card>
-            <span class="border-qwikui-blue-600 bg-qwikui-blue-500 shadow-dark-medium absolute left-[5px] top-[5px] rounded-md border-[1px] px-2 py-1 text-[12px] font-bold text-white">
+            <span class="border-qwikui-blue-600 bg-qwikui-blue-500 shadow-dark-medium text-outline-blue-title absolute left-[5px] top-[5px] rounded-md border-[1px] px-2 py-1 text-[12px] font-bold tracking-wide text-white">
               Experimental
             </span>
           </a>

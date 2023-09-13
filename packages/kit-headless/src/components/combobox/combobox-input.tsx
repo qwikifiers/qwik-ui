@@ -31,7 +31,7 @@ export const ComboboxInput = component$(
   }: ComboboxInputProps) => {
     const context = useContext(ComboboxContextId as ContextId<ComboboxContext<O>>);
 
-    const inputId = `${context.localId}-input`;
+    const inputId = props.id || `${context.localId}-input`;
     const listboxId = `${context.localId}-listbox`;
 
     const isDefaultLabelNeededSig = useSignal<boolean>(true);
@@ -41,13 +41,16 @@ export const ComboboxInput = component$(
         if (context.isListboxOpenSig.value) {
           const nextEnabledOptionIndex = getNextEnabledOptionIndex(
             context.highlightedIndexSig.value,
-            context,
+            context.filteredOptionsSig,
           );
 
           context.highlightedIndexSig.value = nextEnabledOptionIndex;
         } else if (context.highlightedIndexSig.value === -1) {
           // get the first enabled option when there is no highlighted index
-          const firstEnabledOptionIndex = getNextEnabledOptionIndex(-1, context);
+          const firstEnabledOptionIndex = getNextEnabledOptionIndex(
+            -1,
+            context.filteredOptionsSig,
+          );
           context.highlightedIndexSig.value = firstEnabledOptionIndex;
         }
         context.isListboxOpenSig.value = true;
@@ -56,7 +59,7 @@ export const ComboboxInput = component$(
       if (e.key === 'ArrowUp') {
         const prevEnabledOptionIndex = getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
-          context,
+          context.filteredOptionsSig,
         );
         context.highlightedIndexSig.value = prevEnabledOptionIndex;
       }
@@ -77,14 +80,17 @@ export const ComboboxInput = component$(
       }
 
       if (e.key === 'Home') {
-        const firstEnabledOptionIndex = getNextEnabledOptionIndex(-1, context);
+        const firstEnabledOptionIndex = getNextEnabledOptionIndex(
+          -1,
+          context.filteredOptionsSig,
+        );
         context.highlightedIndexSig.value = firstEnabledOptionIndex;
       }
 
       if (e.key === 'End') {
         const lastEnabledOptionIndex = getPrevEnabledOptionIndex(
           context.filteredOptionsSig.value.length,
-          context,
+          context.filteredOptionsSig,
         );
         context.highlightedIndexSig.value = lastEnabledOptionIndex;
       }
@@ -131,7 +137,7 @@ export const ComboboxInput = component$(
     return (
       <input
         {...props}
-        id={inputId}
+        id={inputId || props.id}
         ref={context.inputRef}
         type="text"
         role="combobox"
@@ -139,7 +145,13 @@ export const ComboboxInput = component$(
         aria-haspopup="listbox"
         aria-autocomplete="list"
         aria-activedescendant={
-          context.isListboxOpenSig.value ? getActiveDescendant(context) : ''
+          context.isListboxOpenSig.value
+            ? getActiveDescendant(
+                context.highlightedIndexSig,
+                context.filteredOptionsSig,
+                context.localId,
+              )
+            : ''
         }
         aria-controls={listboxId}
         value={context.inputValueSig.value}

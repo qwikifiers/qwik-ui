@@ -13,7 +13,7 @@ export const AnatomyTable = component$(({ propDescriptors }: AnatomyTableProps) 
   return (
     <div class="overflow-auto">
       <table class="w-full max-w-full text-left">
-        <tbody class="divide-y divide-slate-300 dark:divide-slate-600">
+        <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
           <tr class="text-slate-950 dark:text-white">
             <td class="whitespace-nowrap py-2 pl-4 text-sm font-[700] font-medium sm:pl-0">
               Component
