@@ -4,12 +4,10 @@ import {
   useContext,
   useSignal,
   useTask$,
-  useVisibleTask$,
   type QwikKeyboardEvent,
   type QwikIntrinsicElements,
   type ContextId,
 } from '@builder.io/qwik';
-import { KeyCode } from '../../utils';
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
 import {
@@ -17,8 +15,6 @@ import {
   getNextEnabledOptionIndex,
   getPrevEnabledOptionIndex,
 } from './utils';
-
-const preventedKeys = [KeyCode.Home, KeyCode.End, KeyCode.PageDown, KeyCode.ArrowUp];
 
 export type ComboboxInputProps = {
   disableOnBlur?: boolean;
@@ -35,6 +31,17 @@ export const ComboboxInput = component$(
     const listboxId = `${context.localId}-listbox`;
 
     const isDefaultLabelNeededSig = useSignal<boolean>(true);
+
+    const onInputBehavior$ = $((e: InputEvent) => {
+      context.isListboxOpenSig.value = true;
+
+      // Deselect the currently selected option
+      context.highlightedIndexSig.value = -1;
+
+      const inputElement = e.target as HTMLInputElement;
+
+      context.inputValueSig.value = inputElement.value;
+    });
 
     const onKeydownBehavior$ = $((e: QwikKeyboardEvent) => {
       if (e.key === 'ArrowDown') {
@@ -121,19 +128,6 @@ export const ComboboxInput = component$(
       }
     });
 
-    useVisibleTask$(function preventDefaultTask({ cleanup }) {
-      function keyHandler(e: KeyboardEvent) {
-        if (preventedKeys.includes(e.key as KeyCode)) {
-          e.preventDefault();
-        }
-      }
-
-      context.inputRef?.value?.addEventListener('keydown', keyHandler);
-      cleanup(() => {
-        context.inputRef?.value?.removeEventListener('keydown', keyHandler);
-      });
-    });
-
     return (
       <input
         {...props}
@@ -155,19 +149,13 @@ export const ComboboxInput = component$(
         }
         aria-controls={listboxId}
         value={context.inputValueSig.value}
-        onInput$={(e: InputEvent) => {
-          context.isListboxOpenSig.value = true;
-
-          // Deselect the currently selected option
-          context.highlightedIndexSig.value = -1;
-
-          const inputElement = e.target as HTMLInputElement;
-
-          context.inputValueSig.value = inputElement.value;
-        }}
-        onBlur$={() => {
-          disableOnBlur ? null : (context.isListboxOpenSig.value = false);
-        }}
+        onInput$={[onInputBehavior$, props.onInput$]}
+        onBlur$={[
+          $(() => {
+            disableOnBlur ? null : (context.isListboxOpenSig.value = false);
+          }),
+          props.onBlur$,
+        ]}
         onKeyDown$={[onKeydownBehavior$, props.onKeyDown$]}
       />
     );

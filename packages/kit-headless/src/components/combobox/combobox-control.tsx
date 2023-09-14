@@ -3,7 +3,7 @@ import {
   component$,
   useContext,
   useSignal,
-  useVisibleTask$,
+  $,
   type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
@@ -15,34 +15,23 @@ export const ComboboxControl = component$((props: ComboboxControlProps) => {
   const context = useContext(ComboboxContextId);
   const controlRef = useSignal<HTMLDivElement>();
 
-  useVisibleTask$(function preventFocusChangeTask({ cleanup }) {
+  const handleMousedown$ = $(() => {
     if (controlRef.value) {
-      const handleMousedown = (e: MouseEvent): void => {
-        const isTrigger = e.target === context.triggerRef.value;
-        const isTriggerDescendant =
-          e.target && context.triggerRef.value?.contains(e.target as Node);
+      context.inputRef.value?.focus();
 
-        if (isTrigger || isTriggerDescendant) {
-          e.preventDefault();
-        }
-
-        if (!context.inputRef.value) {
-          return;
-        }
-
-        context.inputRef.value.focus();
-      };
-
-      controlRef.value.addEventListener('mousedown', handleMousedown);
-
-      cleanup(() => {
-        controlRef.value?.removeEventListener('mousedown', handleMousedown);
-      });
+      if (!context.inputRef.value) {
+        return;
+      }
     }
   });
 
   return (
-    <div ref={controlRef} {...props}>
+    <div
+      ref={controlRef}
+      {...props}
+      preventdefault:mousedown
+      onMouseDown$={[handleMousedown$, props.onMouseDown$]}
+    >
       <Slot />
     </div>
   );
