@@ -5,7 +5,6 @@ import {
   useComputed$,
   useContext,
   useSignal,
-  useVisibleTask$,
   $,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
@@ -19,7 +18,7 @@ export type ComboboxOptionProps = {
 
 export const ComboboxOption = component$(
   // remove non-li props from props
-  ({ index, resolved, onMouseEnter$, onClick$, ...liProps }: ComboboxOptionProps) => {
+  ({ index, resolved, ...props }: ComboboxOptionProps) => {
     const context = useContext(ComboboxContextId);
     const optionId = `${context.localId}-${resolved.key}`;
 
@@ -41,35 +40,9 @@ export const ComboboxOption = component$(
 
     const optionRef = useSignal<HTMLLIElement>();
 
-    useVisibleTask$(function preventFocusChangeTask({ cleanup }) {
-      if (optionRef.value) {
-        const handleMousedown = (e: MouseEvent): void => {
-          const isOption = e.target === context.triggerRef.value;
-          const isOptionDescendant =
-            e.target && optionRef.value?.contains(e.target as Node);
-
-          if (isOption || isOptionDescendant) {
-            e.preventDefault();
-          }
-
-          if (!context.inputRef.value) {
-            return;
-          }
-
-          context.inputRef.value.focus();
-        };
-
-        optionRef.value.addEventListener('mousedown', handleMousedown);
-
-        cleanup(() => {
-          optionRef.value?.removeEventListener('mousedown', handleMousedown);
-        });
-      }
-    });
-
     return (
       <li
-        {...liProps}
+        {...props}
         id={optionId}
         ref={optionRef}
         tabIndex={0}
@@ -77,11 +50,12 @@ export const ComboboxOption = component$(
         aria-selected={isHighlightedSig.value}
         aria-disabled={resolved.disabled}
         data-disabled={resolved.disabled}
-        onClick$={[onClickBehavior$, onClick$]}
+        onClick$={[onClickBehavior$, props.onClick$]}
         onMouseEnter$={[
           $(() => (context.highlightedIndexSig.value = index)),
-          onMouseEnter$,
+          props.onMouseEnter$,
         ]}
+        preventdefault:mousedown
       >
         <Slot />
       </li>
