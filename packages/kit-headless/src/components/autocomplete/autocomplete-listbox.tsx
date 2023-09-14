@@ -12,7 +12,7 @@ import AutocompleteContextId from './autocomplete-context-id';
 
 import { KeyCode } from '../../utils/key-code.type';
 
-const preventedKeys = [
+const listPreventedKeys = [
   KeyCode.Home,
   KeyCode.End,
   KeyCode.PageDown,
@@ -31,7 +31,7 @@ export const AutocompleteListbox = component$((props: ListboxProps) => {
 
   useVisibleTask$(function preventDefaultTask({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
-      if (preventedKeys.includes(e.key as KeyCode)) {
+      if (listPreventedKeys.includes(e.key as KeyCode)) {
         e.preventDefault();
       }
     }

@@ -18,7 +18,7 @@ import {
   getPrevEnabledOptionIndex,
 } from './utils';
 
-const preventedKeys = [KeyCode.Home, KeyCode.End, KeyCode.PageDown, KeyCode.ArrowUp];
+const comboPreventedKeys = [KeyCode.Home, KeyCode.End, KeyCode.PageDown, KeyCode.ArrowUp];
 
 export type ComboboxInputProps = {
   disableOnBlur?: boolean;
@@ -123,7 +123,7 @@ export const ComboboxInput = component$(
 
     useVisibleTask$(function preventDefaultTask({ cleanup }) {
       function keyHandler(e: KeyboardEvent) {
-        if (preventedKeys.includes(e.key as KeyCode)) {
+        if (comboPreventedKeys.includes(e.key as KeyCode)) {
           e.preventDefault();
         }
       }

@@ -27,7 +27,7 @@ export type TabProps = {
   /** @deprecated Internal use only */
 } & QwikIntrinsicElements['button'];
 
-export const preventedKeys = [
+const tabPreventedKeys = [
   KeyCode.Home,
   KeyCode.End,
   KeyCode.PageDown,
@@ -57,7 +57,7 @@ export const Tab = component$(
 
     useVisibleTask$(function preventDefaultOnKeysVisibleTask({ cleanup }) {
       function handler(event: KeyboardEvent) {
-        if (preventedKeys.includes(event.key as KeyCode)) {
+        if (tabPreventedKeys.includes(event.key as KeyCode)) {
           event.preventDefault();
         }
         contextService.onTabKeyDown$(event.key as KeyCode, tabId!);

@@ -1,4 +1,5 @@
 import {
+  Component,
   PropFunction,
   QwikChangeEvent,
   QwikIntrinsicElements,
@@ -10,7 +11,7 @@ export type LabelProps = QwikIntrinsicElements['label'] & {
   htmlFor?: string;
 };
 
-export const Label = component$(({ ...props }: LabelProps) => {
+export const Label: Component<LabelProps> = component$(({ ...props }: LabelProps) => {
   return (
     <label {...props}>
       <Slot />
@@ -31,7 +32,7 @@ export type CheckboxProps = QwikIntrinsicElements['input'] & {
   >;
 };
 
-export const Root = component$(
+export const Root: Component<CheckboxProps> = component$(
   ({
     checked,
     disabled,
