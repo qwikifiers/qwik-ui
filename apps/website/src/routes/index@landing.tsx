@@ -1,10 +1,10 @@
 import { component$ } from '@builder.io/qwik';
 import { type DocumentHead } from '@builder.io/qwik-city';
 import { Card, CardBody, CardImage, CardTitle } from '@qwik-ui/headless';
-import { useRootStore } from '../_state/use-root-store';
+import { useAppState } from '../_state/use-app-state';
 
 export default component$(() => {
-  const { featureFlags } = useRootStore();
+  const { featureFlags } = useAppState();
 
   return (
     <div class="flex flex-col gap-8 text-gray-950 dark:text-white">
@@ -59,7 +59,7 @@ export default component$(() => {
         </a>
         {featureFlags?.showFluffy && (
           <a
-            href={`/docs/tailwind/introduction`}
+            href={`/docs/fluffy/introduction`}
             class=" ease-step shadow-light-medium dark:shadow-dark-high relative block
           rounded-b-xl
                 rounded-t-md border-2 border-2 border-slate-700 duration-150 hover:scale-[1.025] focus:scale-[1.025] dark:border-slate-400"
