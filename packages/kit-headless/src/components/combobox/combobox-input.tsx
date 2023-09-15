@@ -132,9 +132,6 @@ export const ComboboxInput = component$(
       <input
         {...props}
         id={inputId || props.id}
-        
-        
-        
         ref={context.inputRef}
         type="text"
         role="combobox"
