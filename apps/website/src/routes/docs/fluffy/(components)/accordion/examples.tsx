@@ -6,11 +6,11 @@ import {
   AccordionTrigger,
   Checkbox,
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
 
 export const Example01 = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div q:slot="actualComponent">
         <AccordionRoot
           behavior="single"
@@ -56,13 +56,13 @@ export const Example01 = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 export const Example02 = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div q:slot="actualComponent">
         <AccordionRoot class="w-80 overflow-hidden rounded-xl border-[1px] border-slate-200 bg-slate-100 dark:border-gray-600 dark:bg-gray-700">
           <AccordionItem class="w-full border-[1px] border-slate-200 px-4 py-2 text-left hover:bg-slate-300 dark:border-gray-600 dark:hover:bg-gray-800">
@@ -105,13 +105,13 @@ export const Example02 = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 export const Example03 = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div q:slot="actualComponent">
         <AccordionRoot class="mt-4 bg-slate-800 p-4">
           <AccordionItem>
@@ -187,6 +187,6 @@ export const Example03 = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });

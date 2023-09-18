@@ -38,7 +38,7 @@ export const Highlight = component$(
       <pre
         {...props}
         class={[
-          'theme-atom-one-dark shadow-3xl tab-size relative h-full max-w-full overflow-hidden text-sm',
+          'shadow-3xl tab-size relative h-full max-w-full overflow-hidden text-sm',
           props.class,
         ]}
       >

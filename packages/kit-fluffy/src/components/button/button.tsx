@@ -1,54 +1,3 @@
-/*
-
-  # TODO:
-  
-  * Go over different solutions for inspiration
-    
-    TAILWIND CONFIG
-    * Brand colors
-    * Button state colors
-    
-    PROPS / CVA
-      * SIZES
-        * sm, md, lg, xl, 2xl
-      * SHAPE
-        * Square / rounded / circular
-        * 
-      * ANIMATION
-        * None
-        * Pulse
-        
-      * INTENT
-        * Primary
-        * Secondary
-        * Accent
-        * Danger / Destructive / Error
-        * Success
-        * Warning
-        * Info
-        
-      STATE: 
-        * Active
-        * Disabled
-        
-      * LOOK
-        * Outline 
-        * Ghost
-        * Link
-
-
-    
-    DOCS EXAMPLES:
-    * with Icon
-    * loading state?
-  
-  * Decide on theme / branding colors 
-  * Run storybook locally
-  * Make CVA efficient with Qwik
-  * Find a way to project the source code of this file into the docs
-
-*/
-
 import { Slot, component$ } from '@builder.io/qwik';
 import { cva, type AddVariantPropsTo } from '@qwik-ui/cva';
 
@@ -80,10 +29,13 @@ export const buttonVariants = cva(
         active: '',
         disabled: '',
       },
-      animation: {},
+      animation: {
+        none: '',
+        bouncy: 'transition duration-300 ease-in-out transform hover:scale-105',
+      },
       size: {
-        default: 'h-10 px-4 py-2',
         sm: 'h-9 rounded-md px-3',
+        md: 'h-10 px-4 py-2',
         lg: 'h-11 rounded-md px-8',
         icon: 'h-10 w-10',
       },
@@ -91,8 +43,17 @@ export const buttonVariants = cva(
     defaultVariants: {
       state: 'enabled',
       intent: 'primary',
-      size: 'default',
+      size: 'md',
+      animation: 'none',
     },
+    compoundVariants: [
+      {
+        // intent: 'primary',
+        // look: 'outline',
+        // state: 'enabled',
+        // class: 'hover:bg-primary/90 hover:text-primary-foreground',
+      },
+    ],
   },
 );
 

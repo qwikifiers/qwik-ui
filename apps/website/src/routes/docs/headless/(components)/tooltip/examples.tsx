@@ -1,11 +1,11 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { Tooltip } from '@qwik-ui/headless';
 import { GitHubIcon } from 'apps/website/src/routes/_components/icons/GitHubIcon';
-import { PreviewCodeExample } from 'apps/website/src/routes/docs/_components/preview-code-example/preview-code-example';
+import { PreviewCodeExampleTabs } from 'apps/website/src/routes/docs/_components/preview-code-example/preview-code-example-tabs';
 
 export const MainExample = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div q:slot="actualComponent">
         <Tooltip
           offset={8}
@@ -18,13 +18,13 @@ export const MainExample = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 export const Example1 = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div q:slot="actualComponent">
         <Tooltip
           content="Clicking this icon takes you to Qwik UI's GitHub repository!"
@@ -42,6 +42,6 @@ export const Example1 = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });

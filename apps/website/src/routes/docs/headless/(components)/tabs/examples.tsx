@@ -2,7 +2,7 @@ import { component$, useStyles$, type JSXNode } from '@builder.io/qwik';
 
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { Highlight } from '../../../_components/highlight/highlight';
-import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
 import AutomaticBehaviorComponent from './examples/automatic-behavior-example';
 import automaticBehaviorCode from './examples/automatic-behavior-example?raw';
 import DisabledTabsComponent from './examples/disabled-example';
@@ -85,13 +85,13 @@ export const ShowExample = component$(({ example }: ShowExampleProps) => {
   useStyles$(styles);
   const { component, code, cssClasses = '' } = examples[example];
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div q:slot="actualComponent" class={['tabs-example mr-auto', cssClasses]}>
         {component}
       </div>
 
       <Highlight q:slot="codeExample" code={code} />
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 

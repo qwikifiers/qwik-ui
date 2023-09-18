@@ -1,7 +1,7 @@
 import { component$, Slot, useStyles$ } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 
-export const PreviewCodeExample = component$(({ ...props }) => {
+export const PreviewCodeExampleTabs = component$(({ ...props }) => {
   useStyles$(`
     .dark .previewCodeExampleSelectedTab{
       background-color: var(--qwikui-purple-600);

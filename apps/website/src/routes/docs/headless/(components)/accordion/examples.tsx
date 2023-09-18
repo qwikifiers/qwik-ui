@@ -12,11 +12,11 @@ import {
   AccordionRoot,
   AccordionTrigger,
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
 
 export const HeroAccordion = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div class="flex w-full justify-center" q:slot="actualComponent">
         <AccordionRoot
           animated
@@ -77,13 +77,13 @@ export const HeroAccordion = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 export const MultiAccordion = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div class="flex w-full justify-center" q:slot="actualComponent">
         <AccordionRoot
           collapsible
@@ -149,14 +149,14 @@ export const MultiAccordion = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 // non-collapsible
 export const NonCollapsibleAccordion = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div class="flex w-full justify-center" q:slot="actualComponent">
         <AccordionRoot
           animated
@@ -216,14 +216,14 @@ export const NonCollapsibleAccordion = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 // disabled
 export const DisabledAccordion = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div class="flex w-full justify-center" q:slot="actualComponent">
         <AccordionRoot class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white">
           <AccordionItem>
@@ -293,13 +293,13 @@ export const DisabledAccordion = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 export const DefaultValueAccordion = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div class="flex w-full justify-center" q:slot="actualComponent">
         <AccordionRoot class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white">
           <AccordionItem>
@@ -358,13 +358,13 @@ export const DefaultValueAccordion = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 export const PolymorphicHeadingAccordion = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div class="flex w-full justify-center" q:slot="actualComponent">
         <AccordionRoot class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white">
           <AccordionItem>
@@ -420,7 +420,7 @@ export const PolymorphicHeadingAccordion = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
@@ -428,7 +428,7 @@ export const OnSelectedIndexChange = component$(() => {
   const selectedIndexSig = useSignal(0);
 
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div class="flex w-full flex-col items-center gap-4" q:slot="actualComponent">
         <AccordionRoot
           class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white"
@@ -498,14 +498,14 @@ export const OnSelectedIndexChange = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 export const OnFocusIndexChange = component$(() => {
   const focusedIndexSig = useSignal(0);
 
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div class="flex w-full flex-col items-center gap-4" q:slot="actualComponent">
         <AccordionRoot
           class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white"
@@ -576,7 +576,7 @@ export const OnFocusIndexChange = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
@@ -605,7 +605,7 @@ export const DynamicAccordion = component$(
     const itemStore = useStore<{ label: string; id: number }[]>(items);
 
     return (
-      <PreviewCodeExample>
+      <PreviewCodeExampleTabs>
         <div
           class="flex w-full flex-col items-center text-white"
           q:slot="actualComponent"
@@ -673,7 +673,7 @@ export const DynamicAccordion = component$(
         <div q:slot="codeExample">
           <Slot />
         </div>
-      </PreviewCodeExample>
+      </PreviewCodeExampleTabs>
     );
   },
 );

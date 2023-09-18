@@ -1,10 +1,10 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
-import { PreviewCodeExample } from 'apps/website/src/routes/docs/_components/preview-code-example/preview-code-example';
+import { PreviewCodeExampleTabs } from 'apps/website/src/routes/docs/_components/preview-code-example/preview-code-example-tabs';
 
 export const MainExample = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div q:slot="actualComponent">
         <Popover placement="top">
           <PopoverContent>
@@ -16,13 +16,13 @@ export const MainExample = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 export const Example1 = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs>
       <div q:slot="actualComponent">
         <Popover placement="top">
           <PopoverContent>
@@ -36,6 +36,6 @@ export const Example1 = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
