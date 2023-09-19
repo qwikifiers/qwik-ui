@@ -15,6 +15,16 @@ export default defineConfig({
     tsconfigPaths({ root: '../../' }),
     dts({
       tsconfigPath: join(dirname(fileURLToPath(import.meta.url)), 'tsconfig.lib.json'),
+
+      afterDiagnostic(ds) {
+        const nonPortableTypeErrors = ds.filter((d) => d.code === 2742);
+        if (nonPortableTypeErrors.length > 0) {
+          // stop the build - yes with an empty promise - that's what the func expects
+          return Promise.reject(nonPortableTypeErrors);
+        }
+
+        return;
+      },
     }),
   ],
   server: {
