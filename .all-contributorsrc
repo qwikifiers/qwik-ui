@@ -326,6 +326,16 @@
         "bug",
         "a11y"
       ]
+    },
+    {
+      "login": "adamgen",
+      "name": "Adam",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7424209?v=4",
+      "profile": "https://github.com/adamgen",
+      "contributions": [
+        "doc",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
