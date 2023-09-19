@@ -1,9 +1,9 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { mount } from 'cypress-ct-qwik';
 import { Modal } from './modal';
-import { ModalHeader } from './modal-header';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
+import { ModalHeader } from './modal-header';
 
 /**
  * SUT - System under test
@@ -15,7 +15,7 @@ const Sut = component$(() => {
     <>
       <button onClick$={() => (openSig.value = true)}>Open Dialog</button>
 
-      <Modal open={openSig}>
+      <Modal show={openSig}>
         <ModalHeader>
           <h2>Hello 👋</h2>
         </ModalHeader>
