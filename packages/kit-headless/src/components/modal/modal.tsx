@@ -8,10 +8,10 @@ import {
   Slot,
   useSignal,
   useStylesScoped$,
-  useTask$
+  useTask$,
 } from '@builder.io/qwik';
-import styles from './modal-root.css?inline';
 import { isServer } from '@builder.io/qwik/build';
+import styles from './modal-root.css?inline';
 
 /**
  * Todo-List
@@ -46,11 +46,10 @@ export const Modal = component$((props: ModalProps) => {
       if (hasDialogBackdropBeenClicked(event)) {
         openSig.value = false;
       }
-    }
+    },
   );
 
-  /** Open or close Modal depending on its state. */
-  useTask$(async ({ track }) => {
+  useTask$(async function openOrCloseModal({ track }) {
     const isOpen = track(() => openSig.value);
 
     const dialog = refSig.value;
@@ -66,8 +65,7 @@ export const Modal = component$((props: ModalProps) => {
     }
   });
 
-  /** Lock Scrolling on page when Modal is opened. */
-  useTask$(({ track }) => {
+  useTask$(async function lockScrollingWhenModalIsOpened({ track }) {
     if (isServer) return;
 
     const isOpened = track(() => openSig.value);
@@ -88,7 +86,7 @@ export const Modal = component$((props: ModalProps) => {
 });
 
 function hasDialogBackdropBeenClicked(
-  event: QwikMouseEvent<HTMLDialogElement, MouseEvent>
+  event: QwikMouseEvent<HTMLDialogElement, MouseEvent>,
 ) {
   const rect = (event.target as HTMLDialogElement).getBoundingClientRect();
 
