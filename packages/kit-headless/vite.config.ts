@@ -17,9 +17,12 @@ export default defineConfig({
       tsconfigPath: join(dirname(fileURLToPath(import.meta.url)), 'tsconfig.lib.json'),
 
       afterDiagnostic(ds) {
+        // ensure DTS errors are still visible - otherwise get swallowed and silent
+        console.log((ds ?? []).map((d) => d.messageText));
+
         const nonPortableTypeErrors = ds.filter((d) => d.code === 2742);
         if (nonPortableTypeErrors.length > 0) {
-          // stop the build - yes with an empty promise - that's what the func expects
+          // stop the build for 2742 specifically
           return Promise.reject(nonPortableTypeErrors);
         }
 
