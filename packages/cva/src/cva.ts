@@ -86,7 +86,7 @@ export const cva =
             { ...defaultVariants } as Record<string, unknown>,
           )
         : defaultVariants;
-
+      // console.log('combinedProps', combinedProps);
       getCompoundVariantClassNames =
         combinedProps &&
         config.compoundVariants.reduce(
