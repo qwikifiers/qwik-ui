@@ -1,4 +1,9 @@
-import { component$, useSignal, QwikIntrinsicElements } from '@builder.io/qwik';
+import {
+  component$,
+  useSignal,
+  QwikIntrinsicElements,
+  Component,
+} from '@builder.io/qwik';
 
 export type ToggleProps = {
   disabled?: boolean;
@@ -6,14 +11,8 @@ export type ToggleProps = {
   defaultPressed?: boolean;
 } & QwikIntrinsicElements['input'];
 
-export const Toggle = component$(
-  ({
-    onClick$,
-    pressed,
-    defaultPressed = false,
-    disabled,
-    ...toggleProps
-  }: ToggleProps) => {
+export const Toggle: Component<ToggleProps> = component$(
+  ({ pressed, defaultPressed = false, disabled, ...toggleProps }: ToggleProps) => {
     const pressedState = useSignal(pressed || defaultPressed);
 
     // event handlers seem to break toggle when exported from qwik-ui primitive
@@ -25,14 +24,6 @@ export const Toggle = component$(
         data-state={pressedState.value ? 'on' : 'off'}
         data-disabled={disabled ? '' : undefined}
         checked={pressedState.value}
-        // onClick$={[
-        //   () => {
-        //     if (!disabled) {
-        //       pressedState.value = !pressedState.value;
-        //     }
-        //   },
-        //   onClick$,
-        // ]}
         {...toggleProps}
       />
     );

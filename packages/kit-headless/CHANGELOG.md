@@ -2,6 +2,48 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.14](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.13...headless-0.1.14) (2023-09-19)
+
+### Bug Fixes
+
+- **combobox:** fix race condition issue with disabled options ([494d68f](https://github.com/qwikifiers/qwik-ui/commit/494d68f362a8d84a34a07ac80403a5c5188fd2a4))
+- **combobox:** remove platform prop ([dd029ce](https://github.com/qwikifiers/qwik-ui/commit/dd029ce4f76f8279623759b1aacee7e0de914734))
+- **combobox:** removing extra ref api ([d7f4982](https://github.com/qwikifiers/qwik-ui/commit/d7f49822e3973e8c3db50fddb727c87ff5921e10))
+- **cypress:** tests fixes, docs improvements ([90688a4](https://github.com/qwikifiers/qwik-ui/commit/90688a437f6263170460a826bd4dea2b247e6600))
+- **docs & popover:** popover overflow fix, banner animation fix ([fd9ec4e](https://github.com/qwikifiers/qwik-ui/commit/fd9ec4eefc35641d6bfcde3fc95c37c9ae8c1334))
+- **headless/tabs:** flickering is fixed ([e5193fc](https://github.com/qwikifiers/qwik-ui/commit/e5193fcdd19de5a42806a51bb2a342d317e5ece1))
+- **headless/tabs:** type issues ([aa15c83](https://github.com/qwikifiers/qwik-ui/commit/aa15c836831341aa3ee2ac112347312eab73fbc3))
+- **kit-headless:** fix the TS2742 errors on dts generation ([b71d1d0](https://github.com/qwikifiers/qwik-ui/commit/b71d1d01729eb8a744ac397325c3dfd1c0c68a52))
+- type issues ([ba0eaaa](https://github.com/qwikifiers/qwik-ui/commit/ba0eaaa168b717efae6c4db0ee01fcdfb3aee811))
+
+### Features
+
+- add new separator component and fix typo in status banner message ([e9f9d37](https://github.com/qwikifiers/qwik-ui/commit/e9f9d377fee77392ff3dca43d5acc2cdeb555a1e))
+- **combobox:** adding floating UI feature parity for the listbox ([edaa979](https://github.com/qwikifiers/qwik-ui/commit/edaa9794ca09eb93365d4e8cd773196862b425aa))
+- **combobox:** beta! This component can be used in production ([54c8330](https://github.com/qwikifiers/qwik-ui/commit/54c8330b923b06b3ce5af408092ac830ba679de1))
+- **combobox:** filter API, major refactor, type changes, docs additions ([a47e524](https://github.com/qwikifiers/qwik-ui/commit/a47e5248c8ad21808a7b4566291d10158e390c51))
+- **combobox:** focus first option when hitting down arrow ([1bc9bca](https://github.com/qwikifiers/qwik-ui/commit/1bc9bcaf9562e4c26863714d3e14b56453443632))
+- **combobox:** more feature parity with floating UI ([742ccfd](https://github.com/qwikifiers/qwik-ui/commit/742ccfd1a581754e6bc624af154e16ca5e163e51))
+- **combobox:** new keyboard navigation, selecting options, prevent default on click ([15d5924](https://github.com/qwikifiers/qwik-ui/commit/15d5924d3ed56d6af31b852b6cdb35a019ed15f1))
+- **combobox:** new prop support such as default Value, better navigation, bigger test suite ([4b4ae1b](https://github.com/qwikifiers/qwik-ui/commit/4b4ae1bd28feef152c60b5eb65f78e816a136685))
+- **combobox:** proper disabled behavior, refactor ([1bff0a0](https://github.com/qwikifiers/qwik-ui/commit/1bff0a0fd13ad106d632fe968a2cf68485b7b36c))
+- **combobox:** search Bar configuration ([6149b6d](https://github.com/qwikifiers/qwik-ui/commit/6149b6ddda49a20222829b9da759ec38c54313f4))
+- **docs:** docs fixes ([ac59001](https://github.com/qwikifiers/qwik-ui/commit/ac59001ab3e25e9f8ee7253e4fc9fe41fa47c98e))
+- **docs:** docs redesign ([bdc9e95](https://github.com/qwikifiers/qwik-ui/commit/bdc9e9541a3b98c5069705f0dd345d3ab6c7c912))
+- **docs:** updating a lot more docs examples ([e895a61](https://github.com/qwikifiers/qwik-ui/commit/e895a616dc5e235a5b57e48db4dc8c4ac130b195))
+- **headless/tabs:** add `disabled` to TabPanel ([d705db4](https://github.com/qwikifiers/qwik-ui/commit/d705db457134996b53482409caa6de490f65e120))
+- **headless/tabs:** add tabId to tab ([eb40287](https://github.com/qwikifiers/qwik-ui/commit/eb40287f19c646787af7fa40147ada079ffe118c))
+- **headless/tabs:** shortcut for adding tabs ([de08124](https://github.com/qwikifiers/qwik-ui/commit/de08124bcda7cb580bfe99e79b9d92bda6c193be))
+- **popover:** adding accessibility to the popover trigger - removing ts-reflection ([a13cdf0](https://github.com/qwikifiers/qwik-ui/commit/a13cdf044f17911327b9c07718a9cf3e735fd1f7))
+- **popover:** adding accessibility to the popover trigger as a first test ([1bf6f99](https://github.com/qwikifiers/qwik-ui/commit/1bf6f99b53ef8ae54a4c25b667dcfbe4c8570c2e))
+- **popover:** changes after review ([c3e1532](https://github.com/qwikifiers/qwik-ui/commit/c3e1532cd0def0a4248162f46f919e58ad701f87))
+- **popover:** changes after review ([f3581fb](https://github.com/qwikifiers/qwik-ui/commit/f3581fb8fd9447b993c7f66abe1aa9805f3cbc41))
+- **popover:** fixed comments from the code review ([caf47c0](https://github.com/qwikifiers/qwik-ui/commit/caf47c09391efc07bc214f9ba2f0b145cf511d82))
+- **popover:** Making the solution more reliable ([5d65ffd](https://github.com/qwikifiers/qwik-ui/commit/5d65ffd817ae9bcd21104200ebab8b7302b4ba14))
+- **popover:** Signing cla ([c596e24](https://github.com/qwikifiers/qwik-ui/commit/c596e249300104caa00d07c1d58b584d60f53964))
+- **portals:** portals support, deprecation of autocomplete ([e4c03fe](https://github.com/qwikifiers/qwik-ui/commit/e4c03fed98fc01f291efd72de9b283902e4ecbf2))
+- **tabs:** add "selected" shorthand ([2ecc712](https://github.com/qwikifiers/qwik-ui/commit/2ecc7127b6c67bac4298b1d447eeb4ffb692c875))
+
 ## [0.1.13](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.12...headless-0.1.13) (2023-08-01)
 
 ### Features

@@ -9,6 +9,7 @@ export default defineConfig({
     qwikNxVite(),
     qwikCity(),
     qwikVite({
+      tsconfigFileNames: ['tsconfig.app.json'],
       client: {
         outDir: '../../dist/apps/website/client',
       },

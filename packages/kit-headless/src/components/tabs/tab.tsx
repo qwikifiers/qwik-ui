@@ -27,7 +27,7 @@ export type TabProps = {
   /** @deprecated Internal use only */
 } & QwikIntrinsicElements['button'];
 
-export const preventedKeys = [
+const preventedKeys = [
   KeyCode.Home,
   KeyCode.End,
   KeyCode.PageDown,
