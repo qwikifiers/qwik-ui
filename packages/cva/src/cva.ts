@@ -68,7 +68,7 @@ export const cva =
           falsyToString(defaultVariantProp)) as keyof (typeof variants)[typeof variant];
 
         return variants[variant][variantKey];
-      }
+      },
     );
 
     let getCompoundVariantClassNames;
@@ -83,7 +83,7 @@ export const cva =
               acc[key] = value;
               return acc;
             },
-            { ...defaultVariants } as Record<string, unknown>
+            { ...defaultVariants } as Record<string, unknown>,
           )
         : defaultVariants;
 
@@ -97,7 +97,7 @@ export const cva =
             })
               ? [...acc, cvClass]
               : acc,
-          [] as ClassList[]
+          [] as ClassList[],
         );
     }
 

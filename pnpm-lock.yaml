@@ -240,6 +240,9 @@ importers:
       storybook-framework-qwik:
         specifier: ^0.2.3
         version: 0.2.3(@builder.io/qwik@1.2.10)(typescript@5.2.2)(vite@4.4.9)
+      tailwind-merge:
+        specifier: 1.14.0
+        version: 1.14.0
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3(ts-node@10.9.1)
@@ -22060,6 +22063,10 @@ packages:
 
   /synchronous-promise@2.0.17:
     resolution: {integrity: sha512-AsS729u2RHUfEra9xJrE39peJcc2stq2+poBXX8bcM08Y6g9j/i/PUzwNQqkaJde7Ntg1TO7bSREbR5sdosQ+g==}
+    dev: true
+
+  /tailwind-merge@1.14.0:
+    resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
     dev: true
 
   /tailwindcss@3.2.6(postcss@8.4.29)(ts-node@10.9.1):

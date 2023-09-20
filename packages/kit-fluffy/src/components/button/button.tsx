@@ -1,11 +1,13 @@
 import { Slot, component$ } from '@builder.io/qwik';
-import { cva, type AddVariantPropsTo } from '@qwik-ui/cva';
+import { cva, stringifyClassList, type AddVariantPropsTo } from '@qwik-ui/cva';
+import { twMerge } from 'tailwind-merge';
 
 export const buttonVariants = cva(
-  `inline-flex items-center justify-center rounded-md 
+  `inline-flex items-center justify-center rounded-md
   text-sm font-medium ring-offset-background transition-colors
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
   focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`,
+
   {
     variants: {
       intent: {
@@ -59,10 +61,13 @@ export const buttonVariants = cva(
 
 export type ButtonProps = AddVariantPropsTo<'button', typeof buttonVariants>;
 
-export const Button = component$<ButtonProps>(({ intent, size, ...restOfProps }) => {
-  return (
-    <button class={buttonVariants({ intent, size })} {...restOfProps}>
-      <Slot />
-    </button>
-  );
-});
+export const Button = component$<ButtonProps>(
+  ({ intent, size, class: classList, ...restOfProps }) => {
+    const finalClassList = buttonVariants({ intent, size, class: classList });
+    return (
+      <button class={twMerge(stringifyClassList(finalClassList))} {...restOfProps}>
+        <Slot />
+      </button>
+    );
+  },
+);
