@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.15](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.14...headless-0.1.15) (2023-09-22)
+
+
+### Bug Fixes
+
+* **bump qwik dep version:** bump qwik peer dep in packages ([10fc5ed](https://github.com/qwikifiers/qwik-ui/commit/10fc5edf7398792c84e22fdb78f19425462a6718)), closes [#396](https://github.com/qwikifiers/qwik-ui/issues/396)
+
+
+
 ## [0.1.14](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.13...headless-0.1.14) (2023-09-19)
 
 
