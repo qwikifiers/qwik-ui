@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.2](https://github.com/qwikifiers/qwik-ui/compare/cva-0.0.1...cva-0.0.2) (2023-09-22)
+
+
+
 ## 0.0.1 (2023-09-19)
 
 
