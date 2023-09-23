@@ -11,10 +11,11 @@ export function getPopoverParent(popoverElement: HTMLElement): HTMLElement {
 
   if (isSupported) {
     // For supported browsers, return the div with the popover attribute
+    console.log(isSupported);
     return popoverElement;
   } else {
     // For unsupported browsers, return the div with data-qwik-ui-popover-polyfill attribute
-    console.log('hi');
+    console.log(popoverElement.closest('div[data-qwik-ui-popover-polyfill]'));
     return popoverElement.closest('div[data-qwik-ui-popover-polyfill]') || popoverElement;
   }
 }

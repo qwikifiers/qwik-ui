@@ -106,8 +106,6 @@ export const PopoverImpl = component$((props: PopoverProps) => {
     }
 
     if (childRef.value) {
-      polyfillContainer.style.position = 'fixed';
-      polyfillContainer.style.top = '0';
       polyfillContainer.appendChild(childRef.value);
     }
 
