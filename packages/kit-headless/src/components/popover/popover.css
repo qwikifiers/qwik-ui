@@ -1,0 +1,23 @@
+/* This applies when popover is supported */
+@supports selector(:popover-open) {
+  /* Hide the polyfill div so it doesn't fire */
+  [data-qui-popover-pf] {
+    display: none;
+  }
+}
+/* This only applies when popover isn't supported */
+@supports not selector(:popover-open) {
+  /* The polyfill adds this class when popped out */
+  [popover]:not(.\:popover-open) {
+    display: none !important;
+  }
+}
+
+/* Popover Presets: TODO figure out specificity to make this easier for user to override */
+.listbox {
+  margin: unset;
+  padding: unset;
+  border: unset;
+  overflow: unset;
+  position: absolute;
+}

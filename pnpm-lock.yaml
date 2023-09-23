@@ -11,6 +11,9 @@ importers:
       '@fontsource-variable/inter':
         specifier: 5.0.8
         version: 5.0.8
+      '@oddbird/popover-polyfill':
+        specifier: 0.2.3
+        version: 0.2.3
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
@@ -5960,6 +5963,10 @@ packages:
     dependencies:
       '@octokit/openapi-types': 12.11.0
     dev: true
+
+  /@oddbird/popover-polyfill@0.2.3:
+    resolution: {integrity: sha512-XDK+V/gUeE4NEsWp79eVzhlK3wuVcRDJuaas63qo0IJLJpyOLHqycJLFYvuq8kebgT1nl87P3sbSb5ZN6Vyf5g==}
+    dev: false
 
   /@parcel/watcher@2.0.4:
     resolution: {integrity: sha512-cTDi+FUDBIUOBKEtj+nhiJ71AZVlkAsQFuGQTun5tV9mwQBQgZvhCzG+URPQc8myeN32yRVZEfVAPCs1RW+Jvg==}

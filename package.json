@@ -121,6 +121,7 @@
   ],
   "dependencies": {
     "@fontsource-variable/inter": "5.0.8",
+    "@oddbird/popover-polyfill": "0.2.3",
     "tslib": "^2.6.2"
   },
   "nx": {
