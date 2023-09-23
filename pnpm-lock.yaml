@@ -141,6 +141,9 @@ importers:
       chromatic:
         specifier: ^6.24.1
         version: 6.24.1
+      clipboard-copy:
+        specifier: 4.0.1
+        version: 4.0.1
       commitizen:
         specifier: ^4.3.0
         version: 4.3.0(@swc/core@1.3.82)
@@ -11323,6 +11326,10 @@ packages:
       typanion: '*'
     dependencies:
       typanion: 3.14.0
+    dev: true
+
+  /clipboard-copy@4.0.1:
+    resolution: {integrity: sha512-wOlqdqziE/NNTUJsfSgXmBMIrYmfd5V0HCGsR8uAKHcg+h9NENWINcfRjtWGU77wDHC8B8ijV4hMTGYbrKovng==}
     dev: true
 
   /cliui@6.0.0:
