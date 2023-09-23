@@ -58,7 +58,11 @@ export const PopoverImpl = component$((props: PopoverProps) => {
     'popover' in HTMLElement.prototype
   ) {
     return (
-      <div id={props.id} popover={props.popover ?? true}>
+      <div
+        id={props.id}
+        // @ts-ignore
+        popover={props.popover ?? true}
+      >
         <Slot />
       </div>
     );
@@ -99,6 +103,7 @@ export const PopoverImpl = component$((props: PopoverProps) => {
     let polyfillContainer: HTMLDivElement | null = document.querySelector(
       'div[data-qwik-ui-popover-polyfill]',
     );
+
     if (!polyfillContainer) {
       polyfillContainer = document.createElement('div');
       polyfillContainer.setAttribute('data-qwik-ui-popover-polyfill', '');
@@ -139,6 +144,7 @@ export const PopoverImpl = component$((props: PopoverProps) => {
         class={props.preset || ''}
         id={props.id}
         ref={childRef}
+        // @ts-ignore
         popover={props.popover ?? true}
       >
         <Slot />
