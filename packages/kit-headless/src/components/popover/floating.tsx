@@ -6,7 +6,6 @@ import {
   component$,
   useVisibleTask$,
   Signal,
-  useStylesScoped$,
   Slot,
 } from '@builder.io/qwik';
 import {
@@ -79,15 +78,6 @@ export const Popover = component$(
   }: PopoverProps) => {
     const popoverRef = useSignal<HTMLElement>();
 
-    useStylesScoped$(`
-        [data-child] {
-          margin: 0;
-          padding: 0;
-          position: absolute;
-          border: 0;
-        }
-      `);
-
     // sets floating UI config
     useVisibleTask$(({ track, cleanup }) => {
       if (!anchorRef || !anchorRef.value) return;
@@ -114,9 +104,7 @@ export const Popover = component$(
 
           const { x, y } = resolvedData;
 
-          const popoverParent = popoverRef.value;
-
-          Object.assign(popoverParent.style, {
+          Object.assign(popoverRef.value.style, {
             left: `${x}px`,
             top: `${y}px`,
             transform,
