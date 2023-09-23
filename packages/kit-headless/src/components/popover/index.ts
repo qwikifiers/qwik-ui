@@ -1,1 +1,1 @@
-export * from './floating';
+export * from './popover';

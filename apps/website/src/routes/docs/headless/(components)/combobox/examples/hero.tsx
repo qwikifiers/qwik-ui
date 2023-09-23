@@ -8,6 +8,7 @@ import {
   ComboboxOption,
   ComboboxTrigger,
   ResolvedOption,
+  ComboboxPopover,
 } from '@qwik-ui/headless';
 
 import { Popover } from '@qwik-ui/headless';
@@ -59,7 +60,8 @@ export default component$(() => {
           <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
         </ComboboxTrigger>
       </ComboboxControl>
-      <Popover
+      <ComboboxPopover
+        floating={true}
         class="my-hero-class"
         preset="listbox"
         id="hero-floating"
@@ -84,7 +86,7 @@ export default component$(() => {
             );
           }}
         />
-      </Popover>
+      </ComboboxPopover>
     </Combobox>
   );
 });

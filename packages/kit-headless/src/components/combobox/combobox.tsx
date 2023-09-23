@@ -128,6 +128,7 @@ export const Combobox = component$(
     const labelRef = useSignal<HTMLLabelElement>();
     const listboxRef = useSignal<HTMLUListElement>();
     const inputRef = givenInputRef;
+    const popoverRef = useSignal<HTMLElement>();
 
     const triggerRef = useSignal<HTMLButtonElement>();
 
@@ -152,6 +153,7 @@ export const Combobox = component$(
       inputValueSig,
       labelRef,
       inputRef,
+      popoverRef,
       localId,
       triggerRef,
       listboxRef,

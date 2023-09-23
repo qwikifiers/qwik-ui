@@ -12,7 +12,7 @@ import {
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
 
-type PopoverProps = {
+type PopoverImplProps = {
   id: string;
   popover?: string;
   ref: Signal;
@@ -48,7 +48,7 @@ export const loadPolyfill$ = $(async () => {
 
 // This component is a polyfill for the popover API
 // It is complex because it optimizes for supported browsers
-export const PopoverImpl = component$((props: PopoverProps) => {
+export const PopoverImpl = component$((props: PopoverImplProps) => {
   // On supported browsers (no SSR), just render the popover
   if (
     !isServer &&

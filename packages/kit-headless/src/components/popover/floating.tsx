@@ -1,5 +1,4 @@
 import { PopoverImpl } from './popover-impl';
-import { useSignal } from '@builder.io/qwik';
 
 import {
   type QwikIntrinsicElements,
@@ -28,7 +27,7 @@ declare global {
   }
 }
 
-export type PopoverProps = {
+export type FloatingProps = {
   preset: 'listbox' | 'none';
   id: string;
   anchorRef?: Signal<HTMLElement | undefined>;
@@ -60,7 +59,7 @@ export type PopoverProps = {
   transform?: string;
 } & QwikIntrinsicElements['div'];
 
-export const Popover = component$(
+export const FloatingPopover = component$(
   ({
     anchorRef,
     gutter,
@@ -75,8 +74,8 @@ export const Popover = component$(
     animationFrame = false,
     transform,
     ...props
-  }: PopoverProps) => {
-    const popoverRef = useSignal<HTMLElement>();
+  }: FloatingProps) => {
+    const popoverRef = props.popoverRef;
 
     // sets floating UI config
     useVisibleTask$(({ track, cleanup }) => {
