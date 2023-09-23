@@ -45,7 +45,7 @@ export const Slider = component$(
       `}
         class={['mx-4', classNames]}
         value={value}
-        onChange$={(value) => onChange$?.(value)}
+        onChange$={(value: any) => onChange$?.(value)}
       >
         <HeadlessSliderProgress
           style={`

@@ -7,22 +7,22 @@ import {
   useStyles$,
 } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
-import type { OmitSignalClass } from '../../../../../../../../../shared/src/utils';
 import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
 import { Example01 as Example1 } from './example';
-import example1Code from './example?raw';
+// import example1Code from './example?raw';
 import styles from './index.css?inline';
 
-import hljs from 'highlight.js/lib/core';
-import css from 'highlight.js/lib/languages/css';
-import javascript from 'highlight.js/lib/languages/javascript';
-import typescript from 'highlight.js/lib/languages/typescript';
-import xml from 'highlight.js/lib/languages/xml';
-import 'highlight.js/styles/atom-one-dark.css';
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('xml', xml);
-hljs.registerLanguage('css', css);
+// import hljs from 'highlight.js/lib/core';
+// import css from 'highlight.js/lib/languages/css';
+// import javascript from 'highlight.js/lib/languages/javascript';
+// import typescript from 'highlight.js/lib/languages/typescript';
+// import xml from 'highlight.js/lib/languages/xml';
+// import 'highlight.js/styles/atom-one-dark.css';
+import type { OmitSignalClass } from '@qwik-ui/type-utils';
+// hljs.registerLanguage('javascript', javascript);
+// hljs.registerLanguage('typescript', typescript);
+// hljs.registerLanguage('xml', xml);
+// hljs.registerLanguage('css', css);
 
 export const Highlight = ({
   code,
@@ -35,14 +35,14 @@ export const Highlight = ({
       props.class,
     ]}
   >
-    <code
+    {/* <code
       dangerouslySetInnerHTML={hljs.highlight(code, { language: 'typescript' }).value}
-    />
+    /> */}
   </pre>
 );
 
 export const Example01 = component$(() => {
-  console.log('example1Code', example1Code);
+  // console.log('example1Code', example1Code);
   useStyles$(styles);
 
   return (
@@ -51,7 +51,7 @@ export const Example01 = component$(() => {
         <Example1 />
       </div>
 
-      <Highlight q:slot="codeExample" code={example1Code} />
+      {/* <Highlight q:slot="codeExample" code={example1Code} /> */}
     </PreviewCodeExample>
   );
 });

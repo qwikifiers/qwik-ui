@@ -5,15 +5,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./index.cjs",
-  "qwik": "./index.mjs",
-  "module": "./index.mjs",
-  "types": "./index.d.ts",
+  "main": "./index.qwik.cjs",
+  "qwik": "./index.qwik.mjs",
+  "module": "./index.qwik.mjs",
+  "types": "./index.qwik.d.ts",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./index.cjs"
+      "import": "./index.qwik.mjs",
+      "require": "./index.qwik.cjs"
     }
   },
   "engines": {

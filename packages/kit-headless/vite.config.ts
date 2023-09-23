@@ -38,7 +38,8 @@ export default defineConfig({
       entry: './src/index.ts',
       // Could also be a dictionary or array of multiple entry points.
       name: 'headless',
-      fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'mjs' : 'cjs'}`,
+      fileName: (format, entryName) =>
+        `${entryName}.qwik.${format === 'es' ? 'mjs' : 'cjs'}`,
       // fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forgot to update your package.json as well.

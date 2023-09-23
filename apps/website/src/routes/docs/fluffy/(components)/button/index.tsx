@@ -160,11 +160,7 @@ export default component$(() => {
         <h2>Custom class</h2>
 
         <div class="panel">
-          <TailwindButton
-            type="TailwindButton"
-            variant="primary"
-            class="border-4 border-black px-32"
-          >
+          <TailwindButton variant="primary" class="border-4 border-black px-32">
             CUSTOM CLASS
           </TailwindButton>
         </div>

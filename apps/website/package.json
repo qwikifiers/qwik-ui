@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@qwik-ui/cva": "workspace:*",
-    "@qwik-ui/headless": "workspace:*",
+    "@qwik-ui/headless": "0.1.14",
     "@qwik-ui/tailwind": "workspace:*",
     "@qwik-ui/fluffy": "workspace:*",
     "@qwik-ui/material": "workspace:*",

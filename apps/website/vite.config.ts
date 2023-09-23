@@ -3,7 +3,7 @@ import { qwikVite } from '@builder.io/qwik/optimizer';
 import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-
+import inspect from 'vite-plugin-inspect';
 export default defineConfig({
   plugins: [
     qwikNxVite(),
@@ -17,6 +17,7 @@ export default defineConfig({
       },
     }),
     tsconfigPaths({ root: '../../' }),
+    inspect(),
   ],
   server: {
     fs: {

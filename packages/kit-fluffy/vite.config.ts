@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 import { qwikVite } from '@builder.io/qwik/optimizer';
-import { macroPlugin } from '@builder.io/vite-plugin-macro';
+// import { macroPlugin } from '@builder.io/vite-plugin-macro';
 import { join } from 'path';
 import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
@@ -9,22 +9,22 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [
-    macroPlugin({
-      filter: (ident, id) => {
-        return (
-          id.includes('/styled-system/') &&
-          !id.includes('/jsx') &&
-          (id.startsWith('.') || id.startsWith('~'))
-        );
-      },
-    }),
+    // macroPlugin({
+    //   filter: (ident, id) => {
+    //     return (
+    //       id.includes('/styled-system/') &&
+    //       !id.includes('/jsx') &&
+    //       (id.startsWith('.') || id.startsWith('~'))
+    //     );
+    //   },
+    // }),
     qwikNxVite(),
     qwikVite({
       vendorRoots: [join(__dirname, '../kit-headless/src')],
     }),
     tsconfigPaths({ root: '../../' }),
     dts({
-      tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
+      tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
     }),
   ],
   server: {
