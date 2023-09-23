@@ -161,7 +161,7 @@ export const PopoverImpl = component$((props: PopoverProps) => {
 
             console.log(`TOGGLE!`);
 
-            shouldTeleportSig.value = e.newState === 'open';
+            shouldTeleportSig.value = true;
           })}
           ref={childRef}
           // @ts-ignore
