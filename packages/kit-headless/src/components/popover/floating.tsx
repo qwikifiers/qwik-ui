@@ -18,6 +18,7 @@ import {
   autoPlacement as _autoPlacement,
   hide as _hide,
 } from '@floating-ui/dom';
+import { getPopoverParent } from './utils';
 
 declare global {
   interface Document {
@@ -96,20 +97,26 @@ export const Popover = component$(
           throw new Error('Qwik UI: Popover Element not found.');
         }
 
-        await computePosition(anchorRef?.value as ReferenceElement, popoverRef.value, {
-          placement,
-          middleware,
-        }).then((resolvedData) => {
-          if (!popoverRef.value) return;
+        if (anchorRef.value) {
+          await computePosition(
+            anchorRef?.value as ReferenceElement,
+            getPopoverParent(popoverRef.value),
+            {
+              placement,
+              middleware,
+            },
+          ).then((resolvedData) => {
+            if (!popoverRef.value) return;
 
-          const { x, y } = resolvedData;
+            const { x, y } = resolvedData;
 
-          Object.assign(popoverRef.value.style, {
-            left: `${x}px`,
-            top: `${y}px`,
-            transform,
+            Object.assign(popoverRef.value.style, {
+              left: `${x}px`,
+              top: `${y}px`,
+              transform,
+            });
           });
-        });
+        }
       };
 
       if (!popoverRef.value) {
@@ -118,7 +125,7 @@ export const Popover = component$(
 
       const cleanupFunc = autoUpdate(
         anchor as ReferenceElement,
-        popoverRef.value,
+        getPopoverParent(popoverRef.value),
         updatePosition,
         {
           ancestorScroll,
