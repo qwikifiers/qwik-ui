@@ -13,11 +13,11 @@ import {
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
 
-type PopoverImplProps = {
+export type PopoverImplProps = {
   id: string;
   popover?: 'manual' | 'auto' | true;
   class?: ClassList;
-  ref: Signal;
+  popoverRef: Signal<HTMLElement | undefined>;
   preset: 'listbox' | 'none';
 };
 
@@ -90,7 +90,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         typeof HTMLElement.prototype === 'object' &&
         'popover' in HTMLElement.prototype
       ) {
-        if (props.ref) props.ref.value = childRef.value;
+        if (props.popoverRef) props.popoverRef.value = childRef.value;
         // supported browser, no further action needed
         return;
       }
@@ -116,7 +116,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
     if (childRef.value) {
       polyfillContainer.appendChild(childRef.value);
-      if (props.ref) props.ref.value = childRef.value;
+      if (props.popoverRef) props.popoverRef.value = childRef.value;
     }
 
     // TODO test if children's Qwik cleanup runs
@@ -145,7 +145,12 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   return (
     <>
       {isServer && <div data-qui-popover-pf />}
-      <div popover {...props} class={[props.preset, props.class]} ref={childRef}>
+      <div
+        popover={props.popover}
+        {...props}
+        class={[props.preset, props.class]}
+        ref={childRef}
+      >
         <Slot />
       </div>
     </>

@@ -7,29 +7,6 @@ import {
 
 import { JSX } from '@builder.io/qwik/jsx-runtime';
 
-// FULL FloatingUI integration. DONT REMOVE ANY COMMENTED LINES.
-// import type {
-//   ShiftOptions,
-//   OffsetOptions,
-//   ArrowOptions,
-//   FlipOptions,
-//   SizeOptions,
-//   AutoPlacementOptions,
-//   HideOptions,
-//   InlineOptions,
-// } from '@floating-ui/core';
-
-// full API middleware
-// offset?: OffsetOptions;
-// shift?: Partial<ShiftOptions & DetectOverflowOptions> | boolean;
-// flip?: FlipOptions | boolean;
-// arrow?: ArrowOptions;
-// size?: SizeOptions;
-// autoPlacement?: AutoPlacementOptions | boolean;
-// hide?: HideOptions | boolean;
-// inline?: InlineOptions | boolean;
-// onPositionComputed?: (resolvedData: ComputePositionReturn) => void;
-
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
 import { ResolvedOption } from './combobox';

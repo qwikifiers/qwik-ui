@@ -11,9 +11,7 @@ import {
   ComboboxPopover,
 } from '@qwik-ui/headless';
 
-import { Popover } from '@qwik-ui/headless';
-
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import './hero.css';
 
 export default component$(() => {
@@ -47,6 +45,7 @@ export default component$(() => {
       <ComboboxLabel class="font-semibold text-white">Personal Trainers ⚡</ComboboxLabel>
       <ComboboxControl class="relative flex items-center rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
         <ComboboxInput
+          disableOnBlur={true}
           placeholder="Jim"
           class="px-d2 w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
         />
@@ -54,7 +53,7 @@ export default component$(() => {
           <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
         </ComboboxTrigger>
       </ComboboxControl>
-      <ComboboxPopover floating={true} class="my-hero-class" gutter={8}>
+      <ComboboxPopover floating={true} gutter={8}>
         <ComboboxListbox
           class="w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
           optionRenderer$={(option: ResolvedOption, index: number) => {

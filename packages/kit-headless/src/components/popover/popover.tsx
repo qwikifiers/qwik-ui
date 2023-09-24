@@ -1,21 +1,26 @@
-import { component$, Slot, type PropsOf, type Signal } from '@builder.io/qwik';
+import { component$, Slot, type Signal } from '@builder.io/qwik';
 import { FloatingPopover } from './floating';
 import { PopoverImpl } from './popover-impl';
+import { PopoverImplProps } from './popover-impl';
 
 type PopoverProps = (
   | {
       floating?: false | undefined;
       anchorRef?: never;
     }
-  | { floating: true; anchorRef: Signal<HTMLElement> }
+  | { floating: true; anchorRef: Signal<HTMLElement | undefined> }
 ) &
-  PropsOf<typeof PopoverImpl>;
+  PopoverImplProps;
 
 /* This component determines whether the popover needs floating behavior, a common example where it doesn't, would be a toast. */
-export const Popover = component$(({ floating, ...props }: PopoverProps) => {
+export const Popover = component$(({ floating, anchorRef, ...props }: PopoverProps) => {
   if (floating) {
+    if (!anchorRef) {
+      throw new Error('anchorRef is required when floating is true');
+    }
+
     return (
-      <FloatingPopover {...props}>
+      <FloatingPopover anchorRef={anchorRef} {...props}>
         <Slot />
       </FloatingPopover>
     );

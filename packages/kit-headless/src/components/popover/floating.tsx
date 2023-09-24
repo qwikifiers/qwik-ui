@@ -124,7 +124,7 @@ export const FloatingPopover = component$(
       cleanup(cleanupFunc);
     });
     return (
-      <PopoverImpl {...props} ref={popoverRef}>
+      <PopoverImpl {...props} popoverRef={popoverRef}>
         <Slot />
       </PopoverImpl>
     );
