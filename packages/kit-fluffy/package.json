@@ -7,7 +7,7 @@
   },
   "main": "./index.qwik.cjs",
   "qwik": "./index.qwik.mjs",
-  "types": "./qwik-ui/packages/kit-fluffy/src/index.d.ts",
+  "types": "./packages/kit-fluffy/src/index.d.ts",
   "module": "./index.qwik.mjs",
   "type": "module",
   "exports": {
