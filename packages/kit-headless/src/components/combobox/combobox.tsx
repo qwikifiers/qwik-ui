@@ -48,7 +48,6 @@ export type ComboboxProps<O extends Option = Option> = {
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
   'bind:inputValueSig'?: Signal<string>;
   'bind:highlightedIndexSig'?: Signal<number>;
-  'bind:inputRef': Signal<HTMLInputElement | undefined>;
 } & QwikIntrinsicElements['div'];
 
 export const Combobox = component$(

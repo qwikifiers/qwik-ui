@@ -2,13 +2,14 @@ import { component$, Slot, type Signal } from '@builder.io/qwik';
 import { FloatingPopover } from './floating';
 import { PopoverImpl } from './popover-impl';
 import { PopoverImplProps } from './popover-impl';
+import { FloatingProps } from './floating';
 
 type PopoverProps = (
   | {
       floating?: false | undefined;
       anchorRef?: never;
     }
-  | { floating: true; anchorRef: Signal<HTMLElement | undefined> }
+  | { floating: true; anchorRef: Signal<HTMLElement | undefined> & FloatingProps }
 ) &
   PopoverImplProps;
 
@@ -16,7 +17,9 @@ type PopoverProps = (
 export const Popover = component$(({ floating, anchorRef, ...props }: PopoverProps) => {
   if (floating) {
     if (!anchorRef) {
-      throw new Error('anchorRef is required when floating is true');
+      throw new Error(
+        'Qwik UI Popover: anchorRef is required on the popover when floating is true',
+      );
     }
 
     return (
