@@ -6,7 +6,8 @@ import {
   $,
   useStyles$,
   useVisibleTask$,
-  Signal,
+  type Signal,
+  type ClassList,
 } from '@builder.io/qwik';
 
 import { isServer } from '@builder.io/qwik/build';
@@ -15,6 +16,7 @@ import popoverStyles from './popover.css?inline';
 type PopoverImplProps = {
   id: string;
   popover?: 'manual' | 'auto' | true;
+  class?: ClassList;
   ref: Signal;
   preset: 'listbox' | 'none';
 };
@@ -48,7 +50,7 @@ export const loadPolyfill$ = $(async () => {
 
 // This component is a polyfill for the popover API
 // It is complex because it optimizes for supported browsers
-export const PopoverImpl = component$((props: PopoverImplProps) => {
+export const PopoverImpl = component$<PopoverImplProps>((props) => {
   // On supported browsers (no SSR), just render the popover
   if (
     !isServer &&
@@ -59,9 +61,10 @@ export const PopoverImpl = component$((props: PopoverImplProps) => {
   ) {
     return (
       <div
-        id={props.id}
-        // @ts-ignore
-        popover={props.popover ?? true}
+        popover
+        {...props}
+        // ??? why not just use props.class
+        class={[props.preset, props.class]}
       >
         <Slot />
       </div>
@@ -73,7 +76,7 @@ export const PopoverImpl = component$((props: PopoverImplProps) => {
   useStyles$(popoverStyles);
 
   // the popover
-  const childRef = props.ref;
+  const childRef = useSignal<HTMLElement | undefined>(undefined);
 
   /** have we rendered on the client yet? 0: no, 1: force, 2: yes */
   const hasRenderedOnClientSig = useSignal(isServer ? 0 : 2);
@@ -82,12 +85,13 @@ export const PopoverImpl = component$((props: PopoverImplProps) => {
   useVisibleTask$(async ({ track, cleanup }) => {
     // polyfill missing?
     if (!document.__QUI_POPOVER_PF__) {
-      // supported browser, no action needed
       if (
         typeof HTMLElement !== 'undefined' &&
         typeof HTMLElement.prototype === 'object' &&
         'popover' in HTMLElement.prototype
       ) {
+        if (props.ref) props.ref.value = childRef.value;
+        // supported browser, no further action needed
         return;
       }
 
@@ -112,6 +116,7 @@ export const PopoverImpl = component$((props: PopoverImplProps) => {
 
     if (childRef.value) {
       polyfillContainer.appendChild(childRef.value);
+      if (props.ref) props.ref.value = childRef.value;
     }
 
     // TODO test if children's Qwik cleanup runs
@@ -140,13 +145,7 @@ export const PopoverImpl = component$((props: PopoverImplProps) => {
   return (
     <>
       {isServer && <div data-qui-popover-pf />}
-      <div
-        class={props.preset || ''}
-        id={props.id}
-        ref={childRef}
-        // @ts-ignore
-        popover={props.popover ?? true}
-      >
+      <div popover {...props} class={[props.preset, props.class]} ref={childRef}>
         <Slot />
       </div>
     </>

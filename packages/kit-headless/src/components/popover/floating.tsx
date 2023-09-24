@@ -4,9 +4,11 @@ import {
   type QwikIntrinsicElements,
   component$,
   useVisibleTask$,
-  Signal,
+  useSignal,
+  type Signal,
   Slot,
 } from '@builder.io/qwik';
+import { OmitSignalClass } from '@qwik-ui/type-utils';
 import {
   ReferenceElement,
   autoUpdate,
@@ -30,7 +32,8 @@ declare global {
 export type FloatingProps = {
   preset: 'listbox' | 'none';
   id: string;
-  anchorRef?: Signal<HTMLElement | undefined>;
+  anchorRef: Signal<HTMLElement | undefined>;
+  popoverRef?: Signal<HTMLElement | undefined>;
   placement?:
     | 'top'
     | 'top-start'
@@ -57,7 +60,7 @@ export type FloatingProps = {
   hide?: 'referenceHidden' | 'escaped';
   inline?: boolean;
   transform?: string;
-} & QwikIntrinsicElements['div'];
+} & OmitSignalClass<QwikIntrinsicElements['div']>;
 
 export const FloatingPopover = component$(
   ({
@@ -75,12 +78,14 @@ export const FloatingPopover = component$(
     transform,
     ...props
   }: FloatingProps) => {
-    const popoverRef = props.popoverRef;
+    const myRef = useSignal<HTMLElement | undefined>();
+    const popoverRef = props.popoverRef || myRef;
 
     // sets floating UI config
     useVisibleTask$(({ track, cleanup }) => {
-      if (!anchorRef || !anchorRef.value) return;
-      const anchor = track(() => anchorRef.value);
+      const anchor = track(() => anchorRef?.value);
+      const popover = track(() => popoverRef.value);
+      if (!anchor || !popover) return;
 
       const updatePosition = async () => {
         const middleware = [
@@ -91,35 +96,23 @@ export const FloatingPopover = component$(
           autoPlacement && _autoPlacement(),
         ];
 
-        if (!popoverRef.value) {
-          throw new Error('Qwik UI: Popover Element not found.');
-        }
+        await computePosition(anchor as ReferenceElement, popover, {
+          placement,
+          middleware,
+        }).then((resolvedData) => {
+          const { x, y } = resolvedData;
 
-        if (anchorRef.value && popoverRef.value) {
-          await computePosition(anchorRef?.value as ReferenceElement, popoverRef.value, {
-            placement,
-            middleware,
-          }).then((resolvedData) => {
-            if (!popoverRef.value) return;
-
-            const { x, y } = resolvedData;
-
-            Object.assign(popoverRef.value.style, {
-              left: `${x}px`,
-              top: `${y}px`,
-              transform,
-            });
+          Object.assign(popover.style, {
+            left: `${x}px`,
+            top: `${y}px`,
+            transform,
           });
-        }
+        });
       };
-
-      if (!popoverRef.value) {
-        throw new Error('Qwik UI: Popover Element not found.');
-      }
 
       const cleanupFunc = autoUpdate(
         anchor as ReferenceElement,
-        popoverRef.value,
+        popover,
         updatePosition,
         {
           ancestorScroll,
