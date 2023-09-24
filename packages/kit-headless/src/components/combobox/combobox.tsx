@@ -58,7 +58,6 @@ export const Combobox = component$(
       'bind:isInputFocusedSig': givenInputFocusedSig,
       'bind:inputValueSig': givenInputValueSig,
       'bind:highlightedIndexSig': givenHighlightedIndexSig,
-      'bind:inputRef': givenInputRef,
       options,
       defaultLabel = '',
       optionValueKey = 'value',
@@ -127,7 +126,7 @@ export const Combobox = component$(
 
     const labelRef = useSignal<HTMLLabelElement>();
     const listboxRef = useSignal<HTMLUListElement>();
-    const inputRef = givenInputRef;
+    const inputRef = useSignal<HTMLInputElement>();
     const popoverRef = useSignal<HTMLElement>();
 
     const triggerRef = useSignal<HTMLButtonElement>();

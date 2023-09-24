@@ -14,7 +14,7 @@ import popoverStyles from './popover.css?inline';
 
 type PopoverImplProps = {
   id: string;
-  popover?: string;
+  popover?: 'manual' | 'auto' | true;
   ref: Signal;
   preset: 'listbox' | 'none';
 };

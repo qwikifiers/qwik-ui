@@ -17,8 +17,6 @@ import { component$, useSignal } from '@builder.io/qwik';
 import './hero.css';
 
 export default component$(() => {
-  const inputRef = useSignal<HTMLInputElement>();
-
   const objectExample = [
     { testValue: 'alice', testLabel: 'Alice', disabled: true },
     { testValue: 'joana', testLabel: 'Joana', disabled: true },
@@ -40,7 +38,6 @@ export default component$(() => {
 
   return (
     <Combobox
-      bind:inputRef={inputRef}
       options={objectExample}
       optionValueKey="testValue"
       optionLabelKey="testLabel"
@@ -53,21 +50,11 @@ export default component$(() => {
           placeholder="Jim"
           class="px-d2 w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
         />
-        <ComboboxTrigger
-          popovertarget="hero-floating"
-          class="group absolute right-0 h-6 w-6"
-        >
+        <ComboboxTrigger class="group absolute right-0 h-6 w-6">
           <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
         </ComboboxTrigger>
       </ComboboxControl>
-      <ComboboxPopover
-        floating={true}
-        class="my-hero-class"
-        preset="listbox"
-        id="hero-floating"
-        anchorRef={inputRef}
-        gutter={8}
-      >
+      <ComboboxPopover floating={true} class="my-hero-class" gutter={8}>
         <ComboboxListbox
           class="w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
           optionRenderer$={(option: ResolvedOption, index: number) => {
