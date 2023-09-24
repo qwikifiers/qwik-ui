@@ -31,7 +31,7 @@ export const ComboboxListbox = component$(
           context.labelRef.value ? context.labelRef.value?.innerText : 'Suggestions'
         }
         role="listbox"
-        style={{ ...(props.style as object), position: 'absolute' }}
+        style={{ ...(props.style as object) }}
       >
         {context.filteredOptionsSig.value.map((resolved, filteredIndex) =>
           optionRenderer$?.(resolved, filteredIndex),

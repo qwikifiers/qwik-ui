@@ -63,7 +63,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       <div
         popover
         {...props}
-        // ??? why not just use props.class
+        // preset to override user agent styles
         class={[props.preset, props.class]}
       >
         <Slot />

@@ -13,8 +13,7 @@
   }
 }
 
-/* fake toplayer
-div[data-qwik-ui-popover-polyfill] {
+/* fake toplayer div[data-qwik-ui-popover-polyfill] {
   position: absolute;
   top: 0;
   left: 0;
