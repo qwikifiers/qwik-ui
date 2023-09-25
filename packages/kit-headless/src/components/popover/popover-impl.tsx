@@ -51,8 +51,10 @@ export const loadPolyfill$ = $(async () => {
 // This component is a polyfill for the popover API
 // It is complex because it optimizes for supported browsers
 export const PopoverImpl = component$<PopoverImplProps>((props) => {
-  // On supported browsers (no SSR), just render the popover
+  // We must inject some minimal hiding CSS while the polyfill loads, and the preset class
+  useStyles$(popoverStyles);
 
+  // On supported browsers (no SSR), just render the popover
   if (
     !isServer &&
     !document.__QUI_POPOVER_PF__ &&
@@ -62,6 +64,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   ) {
     return (
       <div
+        // ??? this should just work as "popover" which means popover={true} and is overridden by props.popover
         popover={props.popover}
         // preset to override user agent styles
         class={[props.preset, props.class]}
@@ -73,9 +76,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   }
   // The below applies to SSR and unsupported browsers
 
-  // We must inject some minimal hiding CSS while the polyfill loads
-  useStyles$(popoverStyles);
-
+  const baseRef = useSignal<HTMLElement | undefined>(undefined);
   // the popover
   const childRef = useSignal<HTMLElement | undefined>(undefined);
 
@@ -118,10 +119,9 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
     if (childRef.value) {
       polyfillContainer.appendChild(childRef.value);
       if (props.popoverRef) props.popoverRef.value = childRef.value;
-    }
 
-    // TODO test if children's Qwik cleanup runs
-    cleanup(() => childRef.value?.remove());
+      cleanup(() => childRef.value && baseRef.value?.appendChild(childRef.value));
+    }
   });
 
   // This forces a re-render when the signal changes
@@ -131,12 +131,12 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
     setTimeout(() => (shouldTeleportSig.value = true), 0);
   }
 
-  // If we are rendering on on unsupported browser without SSR, we might need to load the polyfill
-  if (!isServer && !document.__QUI_POPOVER_PF__) {
-    // We don't await this because we don't want to block the render
-    // The user most likely won't click a popover trigger before the polyfill loads
-    loadPolyfill$.resolve().then((fn) => fn());
-  }
+  // // If we are rendering on on unsupported browser without SSR, we might need to load the polyfill
+  // if (!isServer && !document.__QUI_POPOVER_PF__) {
+  //   // We don't await this because we don't want to block the render
+  //   // The user most likely won't click a popover trigger before the polyfill loads
+  //   loadPolyfill$.resolve().then((fn) => fn());
+  // }
 
   /**
    * We put our popover div in a div we control so we can teleport it out and back without worry
@@ -145,14 +145,16 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
    */
   return (
     <>
-      {isServer && <div data-qui-popover-pf />}
-      <div
-        popover={props.popover === 'manual' ? 'manual' : 'auto'}
-        class={[props.preset, props.class]}
-        {...props}
-        ref={childRef}
-      >
-        <Slot />
+      {/* {isServer && <div data-qui-popover-pf />} */}
+      <div ref={baseRef}>
+        <div
+          popover={props.popover === 'manual' ? 'manual' : 'auto'}
+          class={[props.preset, props.class]}
+          {...props}
+          ref={childRef}
+        >
+          <Slot />
+        </div>
       </div>
     </>
   );
