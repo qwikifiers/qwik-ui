@@ -1,14 +1,21 @@
 import { component$ } from '@builder.io/qwik';
 import { Popover } from '@qwik-ui/headless';
-import './hero.css';
 
 export default component$(() => {
-  /* same as tailwind slate */
-
   return (
     <>
-      <button popovertarget="example-id">Open Popover!</button>
-      <Popover id="example-id">I'm on top of everything!</Popover>
+      <button
+        popovertarget="example-id"
+        class="rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
+      >
+        Popover Trigger
+      </button>
+      <Popover
+        id="example-id"
+        class="shadow-dark-medium py- rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1"
+      >
+        Popover
+      </Popover>
     </>
   );
 });

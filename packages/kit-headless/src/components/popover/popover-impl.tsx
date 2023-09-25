@@ -41,11 +41,11 @@ export const loadPolyfill$ = $(async () => {
     import('@oddbird/popover-polyfill'),
     import('@oddbird/popover-polyfill/dist/popover.css?inline'),
   ]);
-  // Inject the polyfill CSS into head
+  // Inject the polyfill CSS into head BEFORE everything else so that users can override it without important or inline
   const styleNode = document.createElement('style');
   styleNode.setAttribute('data-qwik-ui-popover-polyfill', '');
   styleNode.textContent = css;
-  document.head.appendChild(styleNode);
+  document.head.insertBefore(styleNode, document.head.firstChild);
 });
 
 // This component is a polyfill for the popover API
@@ -147,7 +147,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
     <>
       {isServer && <div data-qui-popover-pf />}
       <div
-        popover={props.popover}
+        popover={props.popover === 'manual' ? 'manual' : 'auto'}
         class={[props.preset, props.class]}
         {...props}
         ref={childRef}

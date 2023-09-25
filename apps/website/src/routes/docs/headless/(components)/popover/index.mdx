@@ -28,15 +28,13 @@ A popover is a **non-modal** UI element that creates overlays around a DOM eleme
 
 This is particularly useful for displaying additional information or options without navigating away from the current context. It is also a **native replacement for [portals](https://qwik.builder.io/docs/cookbook/portal/#portal)**, which are commonly used in other JavaScript frameworks. 
 
-> A common use case for a popover, is preventing overflow issues within your UI. The popover API guarantees that your content remains above the rest of the page.
+> An example use case for a popover, is preventing overflow issues within your UI. The popover API guarantees that your content remains above the rest of the page.
 
-Most importantly, this API is a foundation for other headless components.
+Most importantly, this API is a foundation for other headless components. Qwik UI is one of the first *(if not the first)* headless libraries to align with the specification. The content inside of Qwik UI popovers are also natively resumable.
 
-## Example use cases
+## Versatile Use Cases
 
-Here are a couple of example components where the Popover API can be used. Including other parts of Qwik UI headless. Throughout the part of the documentation, we will show the Combobox being used as an example.
-
-The content inside of Qwik UI popovers are resumable and built with Qwik in mind.
+Here are a couple of example components where the Popover API can be used. Including other parts of Qwik UI headless. Throughout the documentation, we will show the Combobox being used as an example.
 
  <AnatomyTable
   propDescriptors={[
@@ -75,3 +73,10 @@ The content inside of Qwik UI popovers are resumable and built with Qwik in mind
   ]}
 />
 
+## Caveats
+
+1. The polyfill for the native popover's `:popover-open` pseudo selector uses the `.popover-open` CSS class instead. This class is added to any open popover. With that said, both can be selected using the native way.
+
+2. Styling a popover using .popover-open needs a separate declaration. Using :popover-open in CSS that doesn't support native popover will result in an invalid selector.
+
+3. For **native invokers** (buttons or inputs using the popovertarget attribute) on `popover=auto`, the polyfill sets the `aria-expanded` attribute to render them in the accessibility tree as elements with expanded.
