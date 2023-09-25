@@ -13,12 +13,6 @@
   }
 }
 
-/* fake toplayer div[data-qwik-ui-popover-polyfill] {
-  position: absolute;
-  top: 0;
-  left: 0;
-} */
-
 /* Popover Presets: TODO figure out specificity to make this easier for user to override */
 .listbox {
   margin: unset;

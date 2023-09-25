@@ -2,106 +2,76 @@
 title: Qwik UI | Popover
 ---
 
-import { Popover } from '@qwik-ui/headless';
-import { MainExample, Example1 } from './examples';
-import { CodeExample } from '../../../_components/code-example/code-example';
-import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '../../../_components/api-table/api-table';
-import { StatusBanner } from '../../../_components/status-banner/status-banner';
-import {statusByComponent} from '../../../../../_state/component-statuses';
+import {
+  StatusBanner,
+  ShowExample,
+  CodeExample,
+  AnatomyTable,
+  statusByComponent,
+  KeyboardInteractionTable,
+  APITable,
+} from './exports';
 
 <StatusBanner status={statusByComponent.headless.Popover}/> 
 
 # Popover
 
-A popover is an element that displays a modal with content when the user clicks or hovers on a trigger element.
+A non-modal primitive with overlays that open and close around a DOM element.
 
-<MainExample>
-  ```tsx
-  <Popover>
-    <PopoverContent>
-      <div class="p-4 bg-gray-500">Hi, I'm the content</div>
-    </PopoverContent>
-    <PopoverTrigger> Click on me </PopoverTrigger>
-  </Popover>
-  ```
-</MainExample>
+<ShowExample example="hero" />
 
-## Building blocks
+The Qwik UI Popover component is designed to align with the [HTML Popover API Specification](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API). As of now, native support for this API is around `63%`. To ensure consistent behavior across all browsers, Qwik UI provides a `polyfill` for browsers that do not support the API natively.
 
-  <CodeExample>
-    ```tsx
-    import { component$ } from '@builder.io/qwik';
-    import { Popover } from '@qwik-ui/headless';
+## What is a Popover?
 
-    export default component$(() => (
-      <Popover>
-        <PopoverContent>
-          <div class="p-4 bg-gray-500">Hi, I'm the content</div>
-        </PopoverContent>
-        <PopoverTrigger> Click on me </PopoverTrigger>
-      </Popover>
-    ));
-    ```
+A popover is a **non-modal** UI element that creates overlays around a DOM element. Non-modal meaning the rest of the page can be interacted with while the popover is shown.
 
-  </CodeExample>
+This is particularly useful for displaying additional information or options without navigating away from the current context. It is also a **native replacement for [portals](https://qwik.builder.io/docs/cookbook/portal/#portal)**, which are commonly used in other JavaScript frameworks. 
 
-## Examples
+> A common use case for a popover, is preventing overflow issues within your UI. The popover API guarantees that your content remains above the rest of the page.
 
-### EXAMPLE: Positioning the popover's content (on top)
+Most importantly, this API is a foundation for other headless components.
 
-<Example1>
-  ```tsx
-  <Popover placement="top">
-    <PopoverContent>
-      <div class="p-4 bg-gray-500">Hi, I'm the content, but now on top</div>
-    </PopoverContent>
-    <PopoverTrigger> Click on me </PopoverTrigger>
-  </Popover>
-  ```
-</Example1>
+## Example use cases
 
-## API
+Here are a couple of example components where the Popover API can be used. Including other parts of Qwik UI headless. Throughout the part of the documentation, we will show the Combobox being used as an example.
 
-### Popover
+The content inside of Qwik UI popovers are resumable and built with Qwik in mind.
 
-<APITable
+ <AnatomyTable
   propDescriptors={[
     {
-      name: 'placement',
-      type:"enum",
-      info: '"top" | "right" | "bottom" | "left" | "top-start" | "top-end" | "right-start" | "right-end" | "bottom-start" | "bottom-end" | "left-start" | "left-end"',
-      description: 'The side where to show the popover.',
+      name: 'Combobox',
+      description: 'A text input that allows users to fill in values from a predefined list.',
     },
     {
-      name: 'triggerEvent',
-      type: 'enum',
-      info: '"click" | "mouseOver"',
-      description: 'Popover is opened when trigger is clicked or mouse overed.',
+      name: 'Select',
+      description: 'A dropdown menu that allows users to choose one value from a list.',
     },
     {
-      name: 'offset',
-      type: 'number',
-      description: 'Offset between trigger and content.',
+      name: 'Context Menu',
+      description: 'A menu that appears upon user interaction, such as right-clicking.',
     },
     {
-      name: 'isOpen',
-      type: 'boolean',
-      description:
-        'Open or close the popover when popover is controlled by the parent.',
+      name: 'Tooltip',
+      description: 'A text label that appears when a user hovers, focuses, or touches an element.',
     },
     {
-      name: 'disableClickOutSide',
-      type: 'boolean',
-      description: 'When true the popover is not closed when click outside.',
+      name: 'Toast',
+      description: 'A small message that shows up temporarily to give the user some feedback.',
     },
     {
-      name: 'onUpdate$',
-      type: 'function',
-      info: 'PropFunction<(isOpen: boolean) => void>',
-
-      description: 'Notify a state update to the parent.',
+      name: 'Dropdown Menu',
+      description: 'A list of options that appears below a button, that users can select from.',
     },
-
-]}
+    {
+      name: 'Hover Card',
+      description: 'A card that appears when a user hovers over an element.',
+    },
+    {
+      name: 'Menubar',
+      description: 'A horizontal menu with clickable items.',
+    },
+  ]}
 />
+

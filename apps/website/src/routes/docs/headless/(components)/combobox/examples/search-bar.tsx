@@ -5,7 +5,7 @@ import {
   ComboboxLabel,
   ComboboxListbox,
   ComboboxOption,
-  ComboboxPortal,
+  ComboboxPopover,
   ComboboxTrigger,
   ResolvedOption,
 } from '@qwik-ui/headless';
@@ -75,11 +75,9 @@ export default component$(() => {
           </button>
         )}
       </ComboboxControl>
-      <ComboboxPortal>
+      <ComboboxPopover gutter={8} hide="escaped">
         <ComboboxListbox
-          gutter={8}
           class="w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-1 py-2"
-          hide="escaped"
           optionRenderer$={(option: ResolvedOption, index: number) => {
             const searchOption = option.option as MyComponents;
             return (
@@ -102,7 +100,7 @@ export default component$(() => {
             );
           }}
         />
-      </ComboboxPortal>
+      </ComboboxPopover>
     </Combobox>
   );
 });

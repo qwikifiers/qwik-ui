@@ -45,7 +45,6 @@ export default component$(() => {
       <ComboboxLabel class="font-semibold text-white">Personal Trainers ⚡</ComboboxLabel>
       <ComboboxControl class="relative flex items-center rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
         <ComboboxInput
-          disableOnBlur={true}
           placeholder="Jim"
           class="px-d2 w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
         />

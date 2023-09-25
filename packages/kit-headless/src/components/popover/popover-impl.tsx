@@ -52,6 +52,7 @@ export const loadPolyfill$ = $(async () => {
 // It is complex because it optimizes for supported browsers
 export const PopoverImpl = component$<PopoverImplProps>((props) => {
   // On supported browsers (no SSR), just render the popover
+
   if (
     !isServer &&
     !document.__QUI_POPOVER_PF__ &&
@@ -61,10 +62,10 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   ) {
     return (
       <div
-        popover
-        {...props}
+        popover={props.popover}
         // preset to override user agent styles
         class={[props.preset, props.class]}
+        {...props}
       >
         <Slot />
       </div>
@@ -147,8 +148,8 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       {isServer && <div data-qui-popover-pf />}
       <div
         popover={props.popover}
-        {...props}
         class={[props.preset, props.class]}
+        {...props}
         ref={childRef}
       >
         <Slot />

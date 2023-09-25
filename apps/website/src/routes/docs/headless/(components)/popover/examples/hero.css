@@ -1,0 +1,7 @@
+[popovertarget] {
+  background: var(--qwikui-slate-700);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 0.375rem;
+  border: 2px solid var(--qwikui-slate-200);
+}

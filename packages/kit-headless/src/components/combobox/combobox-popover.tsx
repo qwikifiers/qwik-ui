@@ -2,10 +2,9 @@ import { component$, useContext, Slot, useTask$ } from '@builder.io/qwik';
 import { Popover } from '../popover';
 
 import ComboboxContextId from './combobox-context-id';
-import type { ComboboxContext, Option } from './combobox-context.type';
 
-export const ComboboxPopover = component$<ComboboxContext<Option>>(({ ...props }) => {
-  const context = useContext<ComboboxContext<Option>>(ComboboxContextId);
+export const ComboboxPopover = component$(({ ...props }) => {
+  const context = useContext(ComboboxContextId);
   const popoverId = `${context.localId}-popover`;
 
   /* REMEMBER, whenever an option is selected or onMouseDown$ the listbox is closed, and the popover should sync to that */
@@ -25,11 +24,11 @@ export const ComboboxPopover = component$<ComboboxContext<Option>>(({ ...props }
     <Popover
       {...props}
       id={popoverId}
+      floating={true}
       anchorRef={context.inputRef}
       popoverRef={context.popoverRef}
       preset="listbox"
       popover="manual"
-      floating={true}
     >
       <Slot />
     </Popover>

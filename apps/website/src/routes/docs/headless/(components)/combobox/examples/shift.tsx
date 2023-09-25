@@ -5,7 +5,7 @@ import {
   ComboboxLabel,
   ComboboxListbox,
   ComboboxOption,
-  ComboboxPortal,
+  ComboboxPopover,
   ComboboxTrigger,
   ResolvedOption,
 } from '@qwik-ui/headless';
@@ -48,7 +48,7 @@ export const ShiftExample = component$(() => {
               </svg>
             </ComboboxTrigger>
           </ComboboxControl>
-          <ComboboxPortal>
+          <ComboboxPopover>
             <ComboboxListbox
               optionRenderer$={(option: ResolvedOption, index: number) => (
                 <ComboboxOption
@@ -62,7 +62,7 @@ export const ShiftExample = component$(() => {
               )}
               class="left:0 top:0 absolute w-fit rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
             />
-          </ComboboxPortal>
+          </ComboboxPopover>
         </Combobox>
       </div>
     </div>

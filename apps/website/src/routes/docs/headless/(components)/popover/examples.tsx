@@ -1,41 +1,42 @@
-import { Slot, component$ } from '@builder.io/qwik';
-import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
-import { PreviewCodeExample } from 'apps/website/src/routes/docs/_components/preview-code-example/preview-code-example';
+import { component$, type JSXNode } from '@builder.io/qwik';
 
-export const MainExample = component$(() => {
+import { Highlight } from '../../../_components/highlight/highlight';
+import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import HeroComponent from './examples/hero';
+import heroCode from './examples/hero?raw';
+
+export type Example = {
+  component: JSXNode;
+  code: string;
+  cssClasses?: string;
+};
+
+export const comboboxExamples: Record<string, Example> = {
+  hero: {
+    component: <HeroComponent />,
+    code: heroCode,
+  },
+};
+
+export type ShowExampleProps = {
+  example: string;
+};
+
+export const ShowExample = component$(({ example }: ShowExampleProps) => {
+  const { component, code, cssClasses = '' } = comboboxExamples[example];
   return (
     <PreviewCodeExample>
-      <div q:slot="actualComponent">
-        <Popover placement="top">
-          <PopoverContent>
-            <div class="bg-slate-500 p-4 text-white">Hi, I'm the content</div>
-          </PopoverContent>
-          <PopoverTrigger class="text-white">Click on me</PopoverTrigger>
-        </Popover>
+      <div class={['flex flex-col gap-4', cssClasses]} q:slot="actualComponent">
+        {component}
       </div>
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
+
+      <Highlight q:slot="codeExample" code={code} />
     </PreviewCodeExample>
   );
 });
 
-export const Example1 = component$(() => {
-  return (
-    <PreviewCodeExample>
-      <div q:slot="actualComponent">
-        <Popover placement="top">
-          <PopoverContent>
-            <div class="bg-slate-500 p-4 text-white">
-              Hi, I'm the content, but now on top
-            </div>
-          </PopoverContent>
-          <PopoverTrigger class="text-white">Click on me</PopoverTrigger>
-        </Popover>
-      </div>
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
-    </PreviewCodeExample>
-  );
-});
+// export const BuildingBlocks = component$(() => (
+//   <CodeExample>
+//     <Highlight code={buildingBlocksCode} />
+//   </CodeExample>
+// ));

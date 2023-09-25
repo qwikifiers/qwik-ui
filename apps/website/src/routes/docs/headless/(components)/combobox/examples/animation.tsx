@@ -5,7 +5,7 @@ import {
   ComboboxControl,
   ComboboxInput,
   ComboboxTrigger,
-  ComboboxPortal,
+  ComboboxPopover,
   ComboboxListbox,
   ComboboxOption,
   ResolvedOption,
@@ -56,9 +56,8 @@ export default component$(() => {
           </svg>
         </ComboboxTrigger>
       </ComboboxControl>
-      <ComboboxPortal>
+      <ComboboxPopover gutter={8}>
         <ComboboxListbox
-          gutter={8}
           class={`w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2 transition-opacity duration-[500ms] ${
             isListboxOpenSig.value ? 'opacity-100' : 'opacity-0'
           }`}
@@ -73,7 +72,7 @@ export default component$(() => {
             </ComboboxOption>
           )}
         />
-      </ComboboxPortal>
+      </ComboboxPopover>
     </Combobox>
   );
 });
