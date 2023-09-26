@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.16](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.15...headless-0.1.16) (2023-09-26)
+
+
+### Bug Fixes
+
+* **types:** types no longer under qwik-ui/ ([5afc917](https://github.com/qwikifiers/qwik-ui/commit/5afc9174b015c576b05caa72266e0ff38ab73031)), closes [#396](https://github.com/qwikifiers/qwik-ui/issues/396)
+
+
+
 ## [0.1.15](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.14...headless-0.1.15) (2023-09-22)
 
 
