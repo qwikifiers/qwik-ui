@@ -28,11 +28,13 @@ A popover is a **non-modal** UI element that creates overlays around a DOM eleme
 
 This is particularly useful for displaying additional information or options without navigating away from the current context. It is also a **native replacement for [portals](https://qwik.builder.io/docs/cookbook/portal/#portal)**, which are commonly used in other JavaScript frameworks. 
 
+<ShowExample example="inspect" />
+
 > An example use case for a popover, is preventing overflow issues within your UI. The popover API guarantees that your content remains above the rest of the page.
 
 Most importantly, this API is a foundation for other headless components. Qwik UI is one of the first *(if not the first)* headless libraries to align with the specification. The content inside of Qwik UI popovers are also natively resumable.
 
-## Versatile Use Cases
+## Versatile use cases
 
 Here are a couple of example components where the Popover API can be used. Including other parts of Qwik UI headless. Throughout the documentation, we will show the Combobox being used as an example.
 
@@ -75,8 +77,59 @@ Here are a couple of example components where the Popover API can be used. Inclu
 
 ## Caveats
 
-1. The polyfill for the native popover's `:popover-open` pseudo selector uses the `.popover-open` CSS class instead. This class is added to any open popover. With that said, both can be selected using the native way.
 
-2. Styling a popover using .popover-open needs a separate declaration. Using :popover-open in CSS that doesn't support native popover will result in an invalid selector.
+### Psuedo Selectors
+In the context of a native popover, the `:popover-open` pseudo selector is used when the popover is in the open state. However, pseudo selectors can't be polyfilled within CSS. So, the polyfill adds the `.popover-open` CSS class to any open popover instead. This means an open popover will have `class="popover-open"`.
 
-3. For **native invokers** (buttons or inputs using the popovertarget attribute) on `popover=auto`, the polyfill sets the `aria-expanded` attribute to render them in the accessibility tree as elements with expanded.
+In JavaScript, both the pseudoselector and class can be used to select the same element, thanks to the polyfill. The matches and closest methods are also patched to work with `:popover-open`. Below is an example of both scenarios.
+
+However, in CSS, using :popover-open in environments that don't support native popover will result in an invalid selector, and the entire declaration will be ignored. Therefore, if you want to style a popover using .popover-open, it needs to be a separate declaration. For instance, [popover]:popover-open, [popover].popover-open won't work.
+
+### Native Invokers
+
+For **native invokers** (buttons using the popovertarget attribute) on `popover=auto`, the polyfill sets the `aria-expanded` attribute to render them in the accessibility tree as elements with expanded.
+
+## Popovertarget
+
+To add a popover trigger, it can be done exactly like the native API, using the `popovertarget` attribute along with the corresponding popover id. This includes being used on **native button elements**, but it can be leveraged as a prop as well.
+
+<CodeExample>
+  ```tsx
+  // Opens when trigger is clicked, with a matching id to popovertarget
+
+  <button popovertarget="get-20-off">Get 20% off your next order!</button>
+
+  // Note: can be used to trigger popups anywhere in the component tree!
+  ```
+</CodeExample>
+
+## The popover attribute
+
+A popover can be set to either `auto` (the default setting) or `manual`. What we've seen so far have been **auto** popovers.
+
+Qwik UI adds the popover attribute for you under the hood.
+
+<CodeExample>
+  ```tsx
+  // Qwik UI
+  <Popover id="my-id">"Auto vs Manual Popovers: A Qwik Guide to Playing Hide and Seek!"</Popover>
+
+  // Native API:  Adding popover here is the same as popover="auto"
+  <div id="my-id" popover>"Auto vs Manual Popovers: A Qwik Guide to Playing Hide and Seek!"</div>
+  ```
+</CodeExample>
+
+
+### Auto
+
+<ShowExample example="auto" />
+
+An auto popover will automatically hide when you click outside of it and typically only one can be shown at a time. 
+
+### Manual
+
+<ShowExample example="manual" />
+
+On the other hand, a `manual` popover needs to be manually hidden, such as toggling the button or programmatically, and allows for scenarios like nested popovers in menus.
+
+
