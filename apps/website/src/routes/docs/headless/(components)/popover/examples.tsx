@@ -24,8 +24,11 @@ import flipCode from './examples/flip?raw';
 import GutterComponent from './examples/gutter';
 import gutterCode from './examples/gutter?raw';
 
-import AnimationComponent from './examples/animation';
-import animationCode from './examples/animation?raw';
+import StylingComponent from './examples/styling';
+import stylingCode from './examples/styling?raw';
+
+import AnimationListboxComponent from './examples/listbox-animation';
+import animationListboxCode from './examples/listbox-animation?raw';
 
 import AutoPlacementComponent from './examples/auto-placement';
 import autoPlacementCode from './examples/auto-placement?raw';
@@ -70,9 +73,13 @@ export const comboboxExamples: Record<string, Example> = {
     component: <GutterComponent />,
     code: gutterCode,
   },
-  animation: {
-    component: <AnimationComponent />,
-    code: animationCode,
+  styling: {
+    component: <StylingComponent />,
+    code: stylingCode,
+  },
+  animationListbox: {
+    component: <AnimationListboxComponent />,
+    code: animationListboxCode,
   },
   autoPlacement: {
     component: <AutoPlacementComponent />,

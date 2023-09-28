@@ -6,16 +6,15 @@ export default component$(() => {
     <>
       <button
         // @ts-ignore
-        popovertarget="example-id"
+        popovertarget="styling-id"
         class="rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
       >
         Popover Trigger
       </button>
+      {/* slate gets overrided */}
       <Popover
-        id="example-id"
-        class="shadow-dark-medium rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1"
-        entryAnimation="animate-in"
-        exitAnimation="animate-out"
+        class="shadow-dark-medium rounded-md border-2 border-red-200 bg-slate-600 px-3 py-1 [&[popover]]:bg-red-900"
+        id="styling-id"
       >
         Popover
       </Popover>

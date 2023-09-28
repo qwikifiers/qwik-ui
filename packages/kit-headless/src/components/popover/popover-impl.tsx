@@ -12,6 +12,7 @@ import {
 
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
+import './test.css';
 
 export type PopoverImplProps = {
   id: string;
@@ -19,6 +20,8 @@ export type PopoverImplProps = {
   class?: ClassList;
   popoverRef?: Signal<HTMLElement | undefined>;
   manual?: boolean;
+  entryAnimation?: string;
+  exitAnimation?: string;
 };
 
 declare global {
@@ -78,6 +81,8 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   const baseRef = useSignal<HTMLElement | undefined>(undefined);
   // the popover
   const childRef = useSignal<HTMLElement | undefined>(undefined);
+  // animations
+  const isPopoverOpenSig = useSignal<boolean>(false);
 
   /** have we rendered on the client yet? 0: no, 1: force, 2: yes */
   const hasRenderedOnClientSig = useSignal(isServer ? 0 : 2);
@@ -142,6 +147,34 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
    * The data-popover-pf div is used to signal loading of the polyfill. It receives the useVisibleTask$() handler.
    * It is hidden by CSS when popover is supported, so then it never fires.
    */
+
+  const animationHandlers =
+    props.entryAnimation || props.exitAnimation
+      ? {
+          onBeforeToggle$: $((event) => {
+            const popoverElement = event.target as HTMLElement;
+            popoverElement.classList.add('animating');
+
+            if (!isPopoverOpenSig.value) {
+              popoverElement.classList.add(props.entryAnimation);
+              popoverElement.classList.remove(props.exitAnimation);
+            } else {
+              popoverElement.classList.add(props.exitAnimation);
+              popoverElement.classList.remove(props.entryAnimation);
+            }
+          }),
+          onAnimationEnd$: $((event) => {
+            const popoverElement = event.target as HTMLElement;
+            // Remove the animation classes when the animation ends
+            popoverElement.classList.remove(
+              props.entryAnimation,
+              props.exitAnimation,
+              'animating',
+            );
+          }),
+        }
+      : {};
+
   return (
     <>
       {isServer && <div data-qui-popover-pf />}
@@ -150,6 +183,10 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         class={props.class}
         {...props}
         ref={childRef}
+        onToggle$={() => {
+          isPopoverOpenSig.value = !isPopoverOpenSig.value;
+        }}
+        {...animationHandlers}
       >
         <Slot />
       </div>

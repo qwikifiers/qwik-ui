@@ -10,8 +10,12 @@
 @supports not selector(:popover-open) {
   /* The polyfill adds this class when popped out */
   [popover]:not(.\:popover-open) {
-    display: none !important;
+    display: none;
   }
+}
+
+.animating {
+  display: block !important;
 }
 
 /* Popover Presets: TODO figure out specificity to make this easier for user to override */
