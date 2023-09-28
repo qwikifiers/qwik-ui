@@ -22,6 +22,7 @@ export type PopoverImplProps = {
   manual?: boolean;
   entryAnimation?: string;
   exitAnimation?: string;
+  transition?: boolean;
 };
 
 declare global {
@@ -155,12 +156,14 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
             const popoverElement = event.target as HTMLElement;
             popoverElement.classList.add('animating');
 
-            if (!isPopoverOpenSig.value) {
-              popoverElement.classList.add(props.entryAnimation);
-              popoverElement.classList.remove(props.exitAnimation);
-            } else {
-              popoverElement.classList.add(props.exitAnimation);
-              popoverElement.classList.remove(props.entryAnimation);
+            if (!props.transition) {
+              if (!isPopoverOpenSig.value) {
+                popoverElement.classList.add(props.entryAnimation);
+                popoverElement.classList.remove(props.exitAnimation);
+              } else {
+                popoverElement.classList.add(props.exitAnimation);
+                popoverElement.classList.remove(props.entryAnimation);
+              }
             }
           }),
           onAnimationEnd$: $((event) => {
@@ -171,6 +174,11 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
               props.exitAnimation,
               'animating',
             );
+          }),
+          onTransitionEnd$: $((event) => {
+            const popoverElement = event.target as HTMLElement;
+
+            popoverElement.classList.remove('animating');
           }),
         }
       : {};
@@ -183,8 +191,18 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         class={props.class}
         {...props}
         ref={childRef}
-        onToggle$={() => {
+        onToggle$={(event) => {
+          const popoverElement = event.target as HTMLElement;
+
           isPopoverOpenSig.value = !isPopoverOpenSig.value;
+
+          if (props.transition) {
+            if (isPopoverOpenSig.value) {
+              popoverElement.classList.add(props.entryAnimation);
+            } else {
+              popoverElement.classList.remove(props.entryAnimation);
+            }
+          }
         }}
         {...animationHandlers}
       >
