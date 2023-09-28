@@ -9,7 +9,7 @@ type PopoverProps = (
       floating?: false | undefined;
       anchorRef: never;
     }
-  | ({ floating: true } & FloatingProps)
+  | ({ floating?: true } & FloatingProps)
 ) &
   PopoverImplProps;
 

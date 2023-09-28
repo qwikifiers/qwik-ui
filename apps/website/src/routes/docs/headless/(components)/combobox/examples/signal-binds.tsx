@@ -42,10 +42,9 @@ export default component$(() => {
               <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
             </ComboboxTrigger>
           </ComboboxControl>
-          <ComboboxPopover gutter={8}>
+          <ComboboxPopover hide="escaped" gutter={8}>
             <ComboboxListbox
               class="w-fit rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
-              hide="escaped"
               optionRenderer$={(option: ResolvedOption, index: number) => (
                 <ComboboxOption
                   key={option.key}

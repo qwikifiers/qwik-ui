@@ -1,7 +1,7 @@
-import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { BreadcrumbItem as HeadlessBreadcrumbItem } from '@qwik-ui/headless';
 
-type BreadcrumbProps = HTMLAttributes<HTMLElement>;
+type BreadcrumbProps = QwikIntrinsicElements['div'];
 
 export const BreadcrumbItem = component$((props: BreadcrumbProps) => {
   return (

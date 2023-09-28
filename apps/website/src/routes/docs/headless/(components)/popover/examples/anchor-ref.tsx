@@ -10,6 +10,7 @@ export default component$(() => {
         We're using popover target action on the trigger.{' '}
         <button
           ref={buttonRef}
+          // @ts-ignore
           popovertargetaction="show"
           popovertarget="anchor-ref-id"
           class="rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"

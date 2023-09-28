@@ -117,7 +117,7 @@ type ControlContext = {
   id: string;
 };
 
-type ControlsProps = QwikIntrinsicElements['div'];
+type ControlsProps = QwikIntrinsicElements['nav'];
 
 export const controlContext = createContextId<ControlContext>('carousel-control-root');
 
