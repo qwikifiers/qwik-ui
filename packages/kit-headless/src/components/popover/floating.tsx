@@ -30,7 +30,6 @@ declare global {
 }
 
 export type FloatingProps = {
-  preset: 'listbox' | 'none';
   id: string;
   anchorRef?: Signal<HTMLElement | undefined>;
   popoverRef?: Signal<HTMLElement | undefined>;

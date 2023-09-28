@@ -16,7 +16,7 @@ export const PreviewCodeExample = component$(({ ...props }) => {
   return (
     <Tabs
       {...props}
-      class="shadow-light-medium dark:shadow-dark-medium mb-12 rounded-xl"
+      class="shadow-light-medium dark:shadow-dark-medium mb-12 rounded-xl text-white"
       selectedClassName="previewCodeExampleSelectedTab"
     >
       <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 shadow-light-medium dark:shadow-dark-medium flex rounded-t-xl border-[1.5px] border-b-0 text-white">

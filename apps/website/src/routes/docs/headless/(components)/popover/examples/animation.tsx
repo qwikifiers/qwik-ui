@@ -58,9 +58,7 @@ export default component$(() => {
       </ComboboxControl>
       <ComboboxPopover gutter={8}>
         <ComboboxListbox
-          class={`w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2 transition-opacity duration-[500ms] ${
-            isListboxOpenSig.value ? 'opacity-100' : 'opacity-0'
-          }`}
+          class={`w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2`}
           optionRenderer$={(option: ResolvedOption, index: number) => (
             <ComboboxOption
               key={option.key}

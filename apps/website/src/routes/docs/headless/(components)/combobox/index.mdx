@@ -261,40 +261,6 @@ This can get tedious if certain custom behavior needs to be added, or the listbo
 
 To disable this behavior, set `disableOnBlur={true}` on the Input.
 
-## **Configuring the Listbox**
-
-The `ComboboxListbox` component is designed for positioning elements that float and facilitating interactions with them. The listbox is highly configurable, here are some example use cases:
-
-### Placement
-
-To set the default position of the listbox, you can use the `placement` prop. In the example below, we've set placement to top. When the user opens the listbox, it will be above the input.
-
-<ShowExample example="placement" />
-
-The default placement is **bottom**.
-
-### Flip
-
-Allows the listbox to flip its position based on available space. It's enabled by default, but can be disabled by adding `flip={false}` on the listbox.
-
-<ShowExample example="flip" />
-
-### Gutter
-  
-In the previous docs examples, we use the gutter property on the listbox. Gutter is the space between the input and the floating element.
-
-<ShowExample example="gutter" />
-
-If Flip is enabled, it will provide a gutter space for both the top and bottom.
-
-### Animations <span class="ml-2 text-red-400 dark:text-red-500 text-base px-2 bg-red-100 rounded-md shadow-light-low dark:shadow-dark-medium border-b-2 border-[1px] border-red-200 dark:border-red-400">WIP</span>
-
-We're still currently working to figure out animating things conditionally with portals. Would be open to some contributions on this!
-
-<ShowExample example="animation" />
-
-An idea here might be having an `isComboboxAnimatingSig` and changing that value based on the `onAnimationStart$` and `onAnimationEnd$` events before closing or opening the portal.
-
 ## Customizing State Signals
 
 The Combobox component allows you to customize its state signals. This can be useful if you want to control or observe these states externally. 
@@ -641,20 +607,4 @@ The Combobox component API provides a set of properties that allow you to custom
     },
   ]}
 />
-
-
-
-
-
-## Additional Examples
-
-### Auto Placement
-  
-Automatically places the listbox based on available space. **You must set flip to false before using it.**  This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
-
-<ShowExample example="autoPlacement" />
-
-<div class="bg-red-200 dark:bg-red-900 p-4 lg:p-6 rounded-xl dark:border-[#F3F3F3] border-[#333333] shadow-light-medium dark:shadow-dark-medium">
-  **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the placement but with different strategies. Using both can result in a continuous reset loop as they try to override each other's work.
-</div>
 

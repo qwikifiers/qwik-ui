@@ -15,6 +15,24 @@ import autoCode from './examples/auto?raw';
 import ManualComponent from './examples/manual';
 import manualCode from './examples/manual?raw';
 
+import PlacementComponent from './examples/placement';
+import placementCode from './examples/placement?raw';
+
+import FlipComponent from './examples/flip';
+import flipCode from './examples/flip?raw';
+
+import GutterComponent from './examples/gutter';
+import gutterCode from './examples/gutter?raw';
+
+import AnimationComponent from './examples/animation';
+import animationCode from './examples/animation?raw';
+
+import AutoPlacementComponent from './examples/auto-placement';
+import autoPlacementCode from './examples/auto-placement?raw';
+
+import AnchorRefComponent from './examples/anchor-ref';
+import anchorRefCode from './examples/anchor-ref?raw';
+
 import buildingBlocksCode from './examples/buildingBlocks?raw';
 
 export type Example = {
@@ -39,6 +57,30 @@ export const comboboxExamples: Record<string, Example> = {
   manual: {
     component: <ManualComponent />,
     code: manualCode,
+  },
+  placement: {
+    component: <PlacementComponent />,
+    code: placementCode,
+  },
+  flip: {
+    component: <FlipComponent />,
+    code: flipCode,
+  },
+  gutter: {
+    component: <GutterComponent />,
+    code: gutterCode,
+  },
+  animation: {
+    component: <AnimationComponent />,
+    code: animationCode,
+  },
+  autoPlacement: {
+    component: <AutoPlacementComponent />,
+    code: autoPlacementCode,
+  },
+  anchorRef: {
+    component: <AnchorRefComponent />,
+    code: anchorRefCode,
   },
 };
 

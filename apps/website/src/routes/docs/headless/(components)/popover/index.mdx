@@ -132,4 +132,105 @@ An auto popover will automatically hide when you click outside of it and typical
 
 On the other hand, a `manual` popover needs to be manually hidden, such as toggling the button or programmatically, and allows for scenarios like nested popovers in menus.
 
+### Popover Methods
+
+There are two methods for showing and hiding popovers manually in JavaScript. The `showPopover` and `hidePopover` methods. For example, here is programmatic behavior syncing the popover state with the listbox in the `Combobox` component.
+
+<CodeExample>
+  ```tsx
+  useTask$(function syncPopoverStateTask({ track }) {
+    track(() => context.isListboxOpenSig.value);
+
+    if (!context.popoverRef.value) {
+      return;
+    }
+
+    context.isListboxOpenSig.value
+      ? context.popoverRef.value.showPopover()
+      : context.popoverRef.value.hidePopover();
+  });
+  ```
+</CodeExample>
+
+## Floating Behavior
+
+To use the popover API with floating elements, you can add the `floating={true}` prop to the Popover component. This API enables the use of JavaScript to dynamically position the listbox using the `top` & `left` absolute properties.
+
+To float an element, it must have an anchored element to latch onto. This can be done with the `anchorRef` prop.
+
+### AnchorRef Prop
+
+<ShowExample example="anchorRef" />
+
+### Floating Prop
+
+This API is purposely opt-in / incremental. At some point JavaScript will not be needed here thanks to the CSS Anchor API that is currently experimental.
+
+We chose not to use an Anchor polyfill here due to the difference in bundle size compared to a JavaScript implementation.
+
+## **Configuring the Listbox**
+
+The `Popover` component is designed for positioning elements that float and facilitating interactions with them.
+
+For the following examples, we'll be using the Combobox component. `ComboboxPopover` is merely a wrapper of the Popover component. Under the hood, it looks something like this:
+
+<CodeExample>
+  ```tsx
+    <Popover
+      {...props}
+      manual
+      id={popoverId}
+      floating={true}
+      // passing in a custom ref for programmatic behavior
+      anchorRef={context.inputRef}
+      popoverRef={context.popoverRef}
+      preset="listbox"
+    >
+      <Slot />
+    </Popover>
+  ```
+</CodeExample>
+
+### Placement
+
+To set the default position of the listbox, you can use the `placement` prop. In the example below, we've set placement to top. When the user opens the listbox, it will be above the input.
+
+<ShowExample example="placement" />
+
+The default placement is **bottom**.
+
+### Flip
+
+Allows the listbox to flip its position based on available space. It's enabled by default, but can be disabled by adding `flip={false}` on the listbox.
+
+<ShowExample example="flip" />
+
+### Gutter
+  
+In the previous docs examples, we use the gutter property on the listbox. Gutter is the space between the input and the floating element.
+
+<ShowExample example="gutter" />
+
+If Flip is enabled, it will provide a gutter space for both the top and bottom.
+
+## Animations <span class="ml-2 text-red-400 dark:text-red-500 text-base px-2 bg-red-100 rounded-md shadow-light-low dark:shadow-dark-medium border-b-2 border-[1px] border-red-200 dark:border-red-400">WIP</span>
+
+Currently, animation support for the popover API is [not quite there yet](https://open-ui.org/components/popover.research.explainer/#animation-of-popovers).
+
+<ShowExample example="animation" />
+
+## Additional Examples
+
+### Auto Placement
+  
+Automatically places the listbox based on available space. **You must set flip to false before using it.**  This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
+
+<ShowExample example="autoPlacement" />
+
+<div class="bg-red-200 dark:bg-red-900 p-4 lg:p-6 rounded-xl dark:border-[#F3F3F3] border-[#333333] shadow-light-medium dark:shadow-dark-medium">
+  **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the placement but with different strategies. Using both can result in a continuous reset loop as they try to override each other's work.
+</div>
+
+
+
 

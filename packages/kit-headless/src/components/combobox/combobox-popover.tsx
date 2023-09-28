@@ -2,8 +2,9 @@ import { component$, useContext, Slot, useTask$ } from '@builder.io/qwik';
 import { Popover } from '../popover';
 
 import ComboboxContextId from './combobox-context-id';
+import { FloatingProps } from '../popover/floating';
 
-export const ComboboxPopover = component$(({ ...props }) => {
+export const ComboboxPopover = component$((props: Partial<FloatingProps>) => {
   const context = useContext(ComboboxContextId);
   const popoverId = `${context.localId}-popover`;
 
@@ -27,8 +28,8 @@ export const ComboboxPopover = component$(({ ...props }) => {
       floating={true}
       anchorRef={context.inputRef}
       popoverRef={context.popoverRef}
-      preset="listbox"
-      popover="manual"
+      class={`listbox ${props.class}`}
+      manual
     >
       <Slot />
     </Popover>

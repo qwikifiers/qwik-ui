@@ -20,14 +20,6 @@ import CustomKeysComponent from './examples/custom-keys';
 import customKeysCode from './examples/custom-keys?raw';
 import DisableBlurComponent from './examples/disable-blur';
 import disableBlurCode from './examples/disable-blur?raw';
-import PlacementComponent from './examples/placement';
-import placementCode from './examples/placement?raw';
-import FlipComponent from './examples/flip';
-import flipCode from './examples/flip?raw';
-import GutterComponent from './examples/gutter';
-import gutterCode from './examples/gutter?raw';
-import AnimationComponent from './examples/animation';
-import animationCode from './examples/animation?raw';
 import SignalBindsComponent from './examples/signal-binds';
 import signalBindsCode from './examples/signal-binds?raw';
 import DefaultLabelComponent from './examples/default-label';
@@ -36,8 +28,6 @@ import HighlightedIndexComponent from './examples/highlighted-index';
 import highlightedIndexCode from './examples/highlighted-index?raw';
 import SearchBarComponent from './examples/search-bar';
 import searchBarCode from './examples/search-bar?raw';
-import AutoPlacementComponent from './examples/auto-placement';
-import autoPlacementCode from './examples/auto-placement?raw';
 
 export type Example = {
   component: JSXNode;
@@ -78,22 +68,6 @@ export const comboboxExamples: Record<string, Example> = {
     component: <DisableBlurComponent />,
     code: disableBlurCode,
   },
-  placement: {
-    component: <PlacementComponent />,
-    code: placementCode,
-  },
-  flip: {
-    component: <FlipComponent />,
-    code: flipCode,
-  },
-  gutter: {
-    component: <GutterComponent />,
-    code: gutterCode,
-  },
-  animation: {
-    component: <AnimationComponent />,
-    code: animationCode,
-  },
   signalBinds: {
     component: <SignalBindsComponent />,
     code: signalBindsCode,
@@ -109,10 +83,6 @@ export const comboboxExamples: Record<string, Example> = {
   searchBar: {
     component: <SearchBarComponent />,
     code: searchBarCode,
-  },
-  autoPlacement: {
-    component: <AutoPlacementComponent />,
-    code: autoPlacementCode,
   },
 };
 

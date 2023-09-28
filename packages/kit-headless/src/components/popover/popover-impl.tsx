@@ -17,9 +17,8 @@ export type PopoverImplProps = {
   id: string;
   popover?: 'manual' | 'auto' | true;
   class?: ClassList;
-  popoverRef: Signal<HTMLElement | undefined>;
-  preset: 'listbox' | 'none';
-  manual: boolean;
+  popoverRef?: Signal<HTMLElement | undefined>;
+  manual?: boolean;
 };
 
 declare global {
@@ -65,9 +64,9 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   ) {
     return (
       <div
-        popover={props.manual ? 'manual' : 'auto'}
+        popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
         // preset to override user agent styles
-        class={[props.preset, props.class]}
+        class={props.class}
         {...props}
       >
         <Slot />
@@ -147,8 +146,8 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
     <>
       {isServer && <div data-qui-popover-pf />}
       <div
-        popover={props.manual ? 'manual' : 'auto'}
-        class={[props.preset, props.class]}
+        popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
+        class={props.class}
         {...props}
         ref={childRef}
       >

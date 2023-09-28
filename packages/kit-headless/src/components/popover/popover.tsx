@@ -1,4 +1,4 @@
-import { component$, Slot, type Signal } from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
 import { FloatingPopover } from './floating';
 import { PopoverImpl } from './popover-impl';
 import { PopoverImplProps } from './popover-impl';
@@ -7,9 +7,9 @@ import { FloatingProps } from './floating';
 type PopoverProps = (
   | {
       floating?: false | undefined;
-      anchorRef?: never;
+      anchorRef: never;
     }
-  | { floating: true; anchorRef: Signal<HTMLElement | undefined> & FloatingProps }
+  | ({ floating: true } & FloatingProps)
 ) &
   PopoverImplProps;
 

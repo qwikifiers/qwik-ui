@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import {
   Combobox,
   ComboboxControl,
@@ -12,8 +12,6 @@ import {
 } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const isListboxOpenSig = useSignal(true);
-
   type AutoPlacementExample = {
     value: string;
     label: string;
@@ -31,7 +29,6 @@ export default component$(() => {
       <div class="flex h-[10rem] flex-col items-center justify-center">
         <p class="text-center text-white">My Car Collection 🚘</p>
         <Combobox
-          bind:isListboxOpenSig={isListboxOpenSig}
           class="w-fit"
           options={autoPlacementExample}
           optionDisabledKey="myDisabledKey"
