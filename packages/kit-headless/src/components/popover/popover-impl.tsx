@@ -57,6 +57,7 @@ export const loadPolyfill$ = $(async () => {
 // This component is a polyfill for the popover API
 // It is complex because it optimizes for supported browsers
 export const PopoverImpl = component$<PopoverImplProps>((props) => {
+  console.log('rendering');
   // We must inject some minimal hiding CSS while the polyfill loads, and the preset class
   useStyles$(popoverStyles);
 
@@ -74,6 +75,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         // preset to override user agent styles
         class={props.class}
         {...props}
+        ref={props.popoverRef}
       >
         <Slot />
       </div>
@@ -91,45 +93,49 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   const hasRenderedOnClientSig = useSignal(isServer ? 0 : 2);
   const shouldTeleportSig = useSignal(false);
 
-  useVisibleTask$(async ({ track, cleanup }) => {
-    // polyfill missing?
-    if (!document.__QUI_POPOVER_PF__) {
-      if (
-        typeof HTMLElement !== 'undefined' &&
-        typeof HTMLElement.prototype === 'object' &&
-        'popover' in HTMLElement.prototype
-      ) {
-        if (props.popoverRef) props.popoverRef.value = childRef.value;
-        // supported browser, no further action needed
+  useVisibleTask$(
+    async ({ track, cleanup }) => {
+      console.log('visible task');
+      // polyfill missing?
+      if (!document.__QUI_POPOVER_PF__) {
+        if (
+          typeof HTMLElement !== 'undefined' &&
+          typeof HTMLElement.prototype === 'object' &&
+          'popover' in HTMLElement.prototype
+        ) {
+          if (props.popoverRef) props.popoverRef.value = childRef.value;
+          // supported browser, no further action needed
+          return;
+        }
+
+        await loadPolyfill$.resolve().then((fn) => fn());
+      }
+      if (hasRenderedOnClientSig.value === 0) {
+        // Force re-render and wait for teleport signal
+        hasRenderedOnClientSig.value = 1;
+        track(() => shouldTeleportSig.value);
         return;
       }
 
-      await loadPolyfill$.resolve().then((fn) => fn());
-    }
-    if (hasRenderedOnClientSig.value === 0) {
-      // Force re-render and wait for teleport signal
-      hasRenderedOnClientSig.value = 1;
-      track(() => shouldTeleportSig.value);
-      return;
-    }
+      let polyfillContainer: HTMLDivElement | null = document.querySelector(
+        'div[data-qwik-ui-popover-polyfill]',
+      );
 
-    let polyfillContainer: HTMLDivElement | null = document.querySelector(
-      'div[data-qwik-ui-popover-polyfill]',
-    );
+      if (!polyfillContainer) {
+        polyfillContainer = document.createElement('div');
+        polyfillContainer.setAttribute('data-qwik-ui-popover-polyfill', '');
+        document.body.appendChild(polyfillContainer);
+      }
 
-    if (!polyfillContainer) {
-      polyfillContainer = document.createElement('div');
-      polyfillContainer.setAttribute('data-qwik-ui-popover-polyfill', '');
-      document.body.appendChild(polyfillContainer);
-    }
+      if (childRef.value) {
+        polyfillContainer.appendChild(childRef.value);
+        if (props.popoverRef) props.popoverRef.value = childRef.value;
 
-    if (childRef.value) {
-      polyfillContainer.appendChild(childRef.value);
-      if (props.popoverRef) props.popoverRef.value = childRef.value;
-
-      cleanup(() => childRef.value && baseRef.value?.appendChild(childRef.value));
-    }
-  });
+        cleanup(() => childRef.value && baseRef.value?.appendChild(childRef.value));
+      }
+    },
+    { strategy: 'document-idle' },
+  );
 
   // This forces a re-render when the signal changes
   if (hasRenderedOnClientSig.value === 1) {
@@ -197,28 +203,25 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       : {};
 
   return (
-    <>
-      {isServer && <div style={{ position: 'fixed' }} data-qui-popover-pf />}
-      <div
-        popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
-        class={props.class}
-        {...props}
-        ref={childRef}
-        onToggle$={(event) => {
-          const popoverElement = event.target as HTMLElement;
+    <div
+      popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
+      class={props.class}
+      {...props}
+      ref={childRef}
+      onToggle$={(event) => {
+        const popoverElement = event.target as HTMLElement;
 
-          isPopoverOpenSig.value = !isPopoverOpenSig.value;
+        isPopoverOpenSig.value = !isPopoverOpenSig.value;
 
-          if (props.transition && props.entryAnimation) {
-            isPopoverOpenSig.value
-              ? popoverElement.classList.add(props.entryAnimation)
-              : popoverElement.classList.remove(props.entryAnimation);
-          }
-        }}
-        {...animationHandlers}
-      >
-        <Slot />
-      </div>
-    </>
+        if (props.transition && props.entryAnimation) {
+          isPopoverOpenSig.value
+            ? popoverElement.classList.add(props.entryAnimation)
+            : popoverElement.classList.remove(props.entryAnimation);
+        }
+      }}
+      {...animationHandlers}
+    >
+      <Slot />
+    </div>
   );
 });
