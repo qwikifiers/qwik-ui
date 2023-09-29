@@ -198,7 +198,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
   return (
     <>
-      {isServer && <div data-qui-popover-pf />}
+      {isServer && <div style={{ position: 'fixed' }} data-qui-popover-pf />}
       <div
         popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
         class={props.class}

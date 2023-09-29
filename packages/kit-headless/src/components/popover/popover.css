@@ -12,10 +12,6 @@
   [popover]:not(.\:popover-open) {
     display: none;
   }
-
-  [data-qui-popover-pf] {
-    display: none;
-  }
 }
 
 .animating {
