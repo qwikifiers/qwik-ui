@@ -8,11 +8,12 @@ import {
   useVisibleTask$,
   type Signal,
   type ClassList,
+  type QwikAnimationEvent,
+  type QwikTransitionEvent,
 } from '@builder.io/qwik';
 
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
-import './test.css';
 
 export type PopoverImplProps = {
   id: string;
@@ -22,6 +23,7 @@ export type PopoverImplProps = {
   manual?: boolean;
   entryAnimation?: string;
   exitAnimation?: string;
+  animation?: boolean;
   transition?: boolean;
 };
 
@@ -152,30 +154,41 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   const animationHandlers =
     props.entryAnimation || props.exitAnimation
       ? {
-          onBeforeToggle$: $((event) => {
+          onBeforeToggle$: $((event: QwikAnimationEvent<HTMLDivElement>) => {
             const popoverElement = event.target as HTMLElement;
             popoverElement.classList.add('animating');
 
-            if (!props.transition) {
+            if (props.animation) {
               if (!isPopoverOpenSig.value) {
-                popoverElement.classList.add(props.entryAnimation);
-                popoverElement.classList.remove(props.exitAnimation);
+                props.entryAnimation &&
+                  popoverElement.classList.add(props.entryAnimation);
+
+                props.exitAnimation &&
+                  popoverElement.classList.remove(props.exitAnimation);
               } else {
-                popoverElement.classList.add(props.exitAnimation);
-                popoverElement.classList.remove(props.entryAnimation);
+                if (props.exitAnimation) {
+                  popoverElement.classList.add(props.exitAnimation);
+                }
+                if (props.entryAnimation) {
+                  popoverElement.classList.remove(props.entryAnimation);
+                }
               }
             }
           }),
-          onAnimationEnd$: $((event) => {
+          onAnimationEnd$: $((event: QwikAnimationEvent<HTMLDivElement>) => {
             const popoverElement = event.target as HTMLElement;
-            // Remove the animation classes when the animation ends
-            popoverElement.classList.remove(
-              props.entryAnimation,
-              props.exitAnimation,
-              'animating',
-            );
+
+            if (props.entryAnimation) {
+              popoverElement.classList.remove(props.entryAnimation);
+            }
+
+            if (props.exitAnimation) {
+              popoverElement.classList.remove(props.exitAnimation);
+            }
+
+            popoverElement.classList.remove('animating');
           }),
-          onTransitionEnd$: $((event) => {
+          onTransitionEnd$: $((event: QwikTransitionEvent<HTMLDivElement>) => {
             const popoverElement = event.target as HTMLElement;
 
             popoverElement.classList.remove('animating');
@@ -196,12 +209,10 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
           isPopoverOpenSig.value = !isPopoverOpenSig.value;
 
-          if (props.transition) {
-            if (isPopoverOpenSig.value) {
-              popoverElement.classList.add(props.entryAnimation);
-            } else {
-              popoverElement.classList.remove(props.entryAnimation);
-            }
+          if (props.transition && props.entryAnimation) {
+            isPopoverOpenSig.value
+              ? popoverElement.classList.add(props.entryAnimation)
+              : popoverElement.classList.remove(props.entryAnimation);
           }
         }}
         {...animationHandlers}

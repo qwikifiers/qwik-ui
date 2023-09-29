@@ -58,7 +58,12 @@ export default component$(() => {
           </svg>
         </ComboboxTrigger>
       </ComboboxControl>
-      <ComboboxPopover class="animate-in" gutter={8}>
+      <ComboboxPopover
+        animation
+        entryAnimation="animate-in"
+        exitAnimation="animate-out"
+        gutter={8}
+      >
         <ComboboxListbox
           class={`w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2`}
           optionRenderer$={(option: ResolvedOption, index: number) => (
