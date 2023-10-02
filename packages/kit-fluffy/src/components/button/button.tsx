@@ -7,11 +7,11 @@ export const buttonVariants = cva(
   text-sm font-medium ring-offset-background transition-colors
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
   focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`,
-
   {
     variants: {
       intent: {
-        basic: ' text-black font-semibold py-2 px-4 border border-gray-300 rounded',
+        basic:
+          'text-black dark:text-white font-semibold py-2 px-4 border border-gray-300 rounded hover:bg-accent',
         primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',

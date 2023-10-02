@@ -1,10 +1,10 @@
 import { component$, Slot } from '@builder.io/qwik';
 import { Separator } from '@qwik-ui/headless';
-import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
+import { PreviewCodeExampleTabsDeprecated } from '../../../_components/preview-code-example/preview-code-example-tabs-deprecated';
 
 export const MainExample = component$(() => {
   return (
-    <PreviewCodeExampleTabs>
+    <PreviewCodeExampleTabsDeprecated>
       <div q:slot="actualComponent">
         <div class="text-white">
           <div>
@@ -47,6 +47,6 @@ export const MainExample = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExampleTabs>
+    </PreviewCodeExampleTabsDeprecated>
   );
 });

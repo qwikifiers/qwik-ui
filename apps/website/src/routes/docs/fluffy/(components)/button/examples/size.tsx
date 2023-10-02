@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/fluffy';
-import { SunIcon } from '../../../../../_components/icons/SunIcon';
 
 export default component$(() => {
   return (
@@ -13,9 +12,6 @@ export default component$(() => {
       </Button>
       <Button intent="danger" size="lg">
         Large
-      </Button>
-      <Button size="icon">
-        <SunIcon />
       </Button>
     </section>
   );

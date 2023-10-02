@@ -1,13 +1,13 @@
 import { JSXNode, component$ } from '@builder.io/qwik';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import fluffyButtonCode from '../../../../../../../../packages/kit-fluffy/src/components/button/button?raw';
-import { CodeCopy } from '../../../_components/code-copy/code-copy';
-import { CodeExample } from '../../../_components/code-example/code-example';
 import { Highlight } from '../../../_components/highlight/highlight';
 import { PreviewCodeExampleVertical } from '../../../_components/preview-code-example/preview-code-example-vertical';
 import { ShowExampleProps } from '../../../headless/(components)/combobox/examples';
 import AnimationExampleComponent from './examples/animation';
+import IconExampleComponent from './examples/icon';
 import animationExamplesCode from './examples/animation?raw';
+import iconExamplesCode from './examples/icon?raw';
 import IntentExampleComponent from './examples/intent';
 import intentExamplesCode from './examples/intent?raw';
 import LookExampleComponent from './examples/look';
@@ -18,6 +18,7 @@ import SizeExampleComponent from './examples/size';
 import sizeExamplesCode from './examples/size?raw';
 import StateExampleComponent from './examples/state';
 import stateExamplesCode from './examples/state?raw';
+import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
 export type Example = {
   component: JSXNode;
   code: string;
@@ -49,19 +50,21 @@ export const examples: Record<string, Example> = {
     component: <AnimationExampleComponent />,
     code: animationExamplesCode,
   },
+  icon: {
+    component: <IconExampleComponent />,
+    code: iconExamplesCode,
+  },
 };
 
 export const InstallExample = component$(() => (
-  <CodeExample code={fluffyButtonCode}>
-    <Highlight code={fluffyButtonCode} />
-  </CodeExample>
+  <CodeExampleContainer code={fluffyButtonCode} />
 ));
 
 export const ShowExample = component$(({ example }: ShowExampleProps) => {
   const { component, code, cssClasses = '' } = examples[example];
   const changedCode = code.replace('@qwik-ui/fluffy', '@/components/ui/button');
   return (
-    <PreviewCodeExampleVertical class="relative" code={changedCode}>
+    <PreviewCodeExampleVertical code={changedCode}>
       <div q:slot="actualComponent" class={['tabs-example mr-auto', cssClasses]}>
         {component}
       </div>

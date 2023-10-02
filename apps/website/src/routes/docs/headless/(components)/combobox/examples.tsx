@@ -2,7 +2,7 @@ import { component$, type JSXNode } from '@builder.io/qwik';
 
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { Highlight } from '../../../_components/highlight/highlight';
-import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
+import { PreviewCodeExampleTabsDeprecated } from '../../../_components/preview-code-example/preview-code-example-tabs-deprecated';
 import AnimationComponent from './examples/animation';
 import animationCode from './examples/animation?raw';
 import AutoPlacementComponent from './examples/auto-placement';
@@ -123,13 +123,13 @@ export type ShowExampleProps = {
 export const ShowExample = component$(({ example }: ShowExampleProps) => {
   const { component, code, cssClasses = '' } = comboboxExamples[example];
   return (
-    <PreviewCodeExampleTabs>
+    <PreviewCodeExampleTabsDeprecated>
       <div class={['flex flex-col gap-4', cssClasses]} q:slot="actualComponent">
         {component}
       </div>
 
       <Highlight q:slot="codeExample" code={code} />
-    </PreviewCodeExampleTabs>
+    </PreviewCodeExampleTabsDeprecated>
   );
 });
 
