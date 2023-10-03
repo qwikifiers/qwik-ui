@@ -11,7 +11,7 @@ export const buttonVariants = cva(
     variants: {
       intent: {
         basic:
-          'text-black dark:text-white font-semibold py-2 px-4 border border-gray-300 rounded hover:bg-accent',
+          'text-foreground font-semibold py-2 px-4 border border-gray-300 rounded hover:bg-accent hover:text-accent-foreground',
         primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/80',
@@ -20,9 +20,9 @@ export const buttonVariants = cva(
         link: `border-transparent bg-transparent text-foreground 
                hover:underline hover:bg-transparent shadow-none outline-current`,
         ghost:
-          'border-transparent bg-transparent border  hover:bg-accent hover:text-accent-foreground',
+          'border-transparent bg-transparent border hover:bg-accent hover:text-accent-foreground',
         outline:
-          'bg-transparent border border-input hover:bg-accent hover:text-accent-foreground',
+          'bg-transparent border border-input hover:bg-accent  hover:text-accent-foreground',
       },
       shape: {
         rounded: 'rounded',
@@ -37,7 +37,7 @@ export const buttonVariants = cva(
       },
       animation: {
         none: '',
-        bouncy: 'transition duration-300 ease-in-out transform hover:scale-105',
+        bouncy: 'transition active:scale-90',
       },
       size: {
         sm: 'h-8 rounded-md px-3',
@@ -50,13 +50,38 @@ export const buttonVariants = cva(
       state: 'enabled',
       intent: 'primary',
       size: 'md',
-      animation: 'none',
+      animation: 'bouncy',
     },
     compoundVariants: [
       {
         intent: 'primary',
         look: ['outline', 'ghost'],
-        class: 'text-primary',
+        class: 'text-primary hover:text-primary',
+      },
+      {
+        intent: 'secondary',
+        look: ['outline', 'ghost'],
+        class: 'text-secondary hover:text-secondary',
+      },
+      {
+        intent: 'danger',
+        look: ['outline', 'ghost'],
+        class: 'text-destructive hover:text-destructive',
+      },
+      {
+        intent: 'primary',
+        look: ['outline'],
+        class: 'border-primary',
+      },
+      {
+        intent: 'secondary',
+        look: ['outline'],
+        class: 'border-secondary',
+      },
+      {
+        intent: 'danger',
+        look: ['outline'],
+        class: 'border-destructive',
       },
     ],
   },
