@@ -19,7 +19,7 @@ export const CodeCopy = component$(
             {...restOfProps}
             title={copied ? 'Copied to Clipboard' : 'Copy to Clipboard'}
             class={twMerge(
-              `rounded p-3 hover:bg-slate-500/25`,
+              `mt-2 rounded p-3 hover:bg-slate-500/25`,
               stringifyClassList(outsideClass),
             )}
             onClick$={async () => {

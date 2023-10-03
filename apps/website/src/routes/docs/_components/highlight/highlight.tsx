@@ -39,7 +39,7 @@ export const Highlight = component$(
       <div
         {...props}
         class={[
-          'tab-size bg-background relative h-full max-w-full overflow-hidden overflow-x-auto  p-12 text-sm dark:bg-slate-900',
+          'tab-size bg-background relative h-full max-w-full overflow-hidden overflow-x-auto rounded-xl p-12 text-sm dark:bg-slate-900',
           props.class,
         ]}
       >
