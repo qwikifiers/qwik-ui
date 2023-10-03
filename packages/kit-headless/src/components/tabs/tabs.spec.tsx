@@ -563,7 +563,7 @@ describe('Tabs', () => {
       cy.findByRole('tabpanel').should('contain', 'Panel 2');
     });
 
-    it.only(`GIVEN 3 tabs written with the short version and the middle TabPanel has a disabled prop
+    it(`GIVEN 3 tabs written with the short version and the middle TabPanel has a disabled prop
         WHEN focusing on first component and hitting the right key
         THEN the selected tab should be the third one`, () => {
       cy.mount(
