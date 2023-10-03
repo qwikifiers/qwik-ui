@@ -1,5 +1,6 @@
 import { QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
 import { stringifyClassList } from '@qwik-ui/cva';
+import { Button } from '@qwik-ui/fluffy';
 import { OmitSignalClass } from '@qwik-ui/type-utils';
 import copy from 'clipboard-copy';
 import { twMerge } from 'tailwind-merge';
@@ -14,24 +15,21 @@ export const CodeCopy = component$(
 
     return (
       <div>
-        {!copied.value ? (
-          <button
-            {...restOfProps}
-            title={copied ? 'Copied to Clipboard' : 'Copy to Clipboard'}
-            class={twMerge(
-              `mt-2 rounded p-3 hover:bg-slate-500/25`,
-              stringifyClassList(outsideClass),
-            )}
-            onClick$={async () => {
-              await copy(code);
-              copied.value = true;
-            }}
-          >
-            Copy
-          </button>
-        ) : (
-          <span class={twMerge(`m-3`, stringifyClassList(outsideClass))}>Copied!</span>
-        )}
+        <Button
+          look="ghost"
+          intent="basic"
+          animation={!copied.value ? 'bouncy' : 'none'}
+          {...restOfProps}
+          title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
+          class={twMerge(stringifyClassList(outsideClass))}
+          onClick$={async () => {
+            await copy(code);
+            copied.value = true;
+          }}
+        >
+          {!copied.value ? 'Copy' : 'Copied!'}
+        </Button>
+        )
       </div>
     );
   },

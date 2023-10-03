@@ -10,8 +10,8 @@ export const buttonVariants = cva(
   {
     variants: {
       intent: {
-        basic:
-          'text-foreground font-semibold py-2 px-4 border border-gray-300 rounded hover:bg-accent hover:text-accent-foreground',
+        basic: `text-foreground font-semibold py-2 px-4 border border-gray-300 
+           rounded hover:bg-accent hover:text-accent-foreground`,
         primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/80',
@@ -21,8 +21,7 @@ export const buttonVariants = cva(
                hover:underline hover:bg-transparent shadow-none outline-current`,
         ghost:
           'border-transparent bg-transparent border hover:bg-accent hover:text-accent-foreground',
-        outline:
-          'bg-transparent border border-input hover:bg-accent  hover:text-accent-foreground',
+        outline: 'bg-transparent border  hover:bg-accent  hover:text-accent-foreground',
       },
       shape: {
         rounded: 'rounded',
@@ -82,6 +81,11 @@ export const buttonVariants = cva(
         intent: 'danger',
         look: ['outline'],
         class: 'border-destructive',
+      },
+      {
+        intent: 'basic',
+        look: ['outline'],
+        class: 'border-foreground',
       },
     ],
   },

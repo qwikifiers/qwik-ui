@@ -39,12 +39,12 @@ export const Highlight = component$(
       <div
         {...props}
         class={[
-          'tab-size bg-background relative h-full max-w-full overflow-hidden overflow-x-auto rounded-xl p-12 text-sm dark:bg-slate-900',
+          'tab-size relative h-full max-w-full overflow-hidden overflow-x-auto rounded-xl bg-slate-50 p-12 text-sm dark:bg-slate-800',
           props.class,
         ]}
       >
         <div dangerouslySetInnerHTML={codeSig.value} />
-        <CodeCopy class="absolute right-2 top-0" code={code} />
+        <CodeCopy class="absolute right-2 top-2" code={code} />
       </div>
     );
   },

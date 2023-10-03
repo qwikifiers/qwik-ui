@@ -1,12 +1,15 @@
 import { JSXNode, component$ } from '@builder.io/qwik';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import fluffyButtonCode from '../../../../../../../../packages/kit-fluffy/src/components/button/button?raw';
+import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
 import { Highlight } from '../../../_components/highlight/highlight';
 import { PreviewCodeExampleVertical } from '../../../_components/preview-code-example/preview-code-example-vertical';
 import { ShowExampleProps } from '../../../headless/(components)/combobox/examples';
 import AnimationExampleComponent from './examples/animation';
-import IconExampleComponent from './examples/icon';
 import animationExamplesCode from './examples/animation?raw';
+import CombinationExampleComponent from './examples/combination';
+import combinationExamplesCode from './examples/combination?raw';
+import IconExampleComponent from './examples/icon';
 import iconExamplesCode from './examples/icon?raw';
 import IntentExampleComponent from './examples/intent';
 import intentExamplesCode from './examples/intent?raw';
@@ -18,7 +21,6 @@ import SizeExampleComponent from './examples/size';
 import sizeExamplesCode from './examples/size?raw';
 import StateExampleComponent from './examples/state';
 import stateExamplesCode from './examples/state?raw';
-import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
 export type Example = {
   component: JSXNode;
   code: string;
@@ -53,6 +55,10 @@ export const examples: Record<string, Example> = {
   icon: {
     component: <IconExampleComponent />,
     code: iconExamplesCode,
+  },
+  combination: {
+    component: <CombinationExampleComponent />,
+    code: combinationExamplesCode,
   },
 };
 
