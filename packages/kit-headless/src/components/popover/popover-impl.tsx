@@ -48,10 +48,16 @@ export const loadPolyfill$ = $(async () => {
     import('@oddbird/popover-polyfill/dist/popover.css?inline'),
   ]);
   // Inject the polyfill CSS into head BEFORE everything else so that users can override it without important or inline
-  const styleNode = document.createElement('style');
-  styleNode.setAttribute('data-qwik-ui-popover-polyfill', '');
-  styleNode.textContent = css;
-  document.head.insertBefore(styleNode, document.head.firstChild);
+  let styleNode: HTMLStyleElement | null = document.querySelector(
+    'style[data-qwik-ui-popover-polyfill]',
+  );
+
+  if (!styleNode) {
+    styleNode = document.createElement('style');
+    styleNode.setAttribute('data-qwik-ui-popover-polyfill', '');
+    styleNode.textContent = css;
+    document.head.insertBefore(styleNode, document.head.firstChild);
+  }
 });
 
 // This component is a polyfill for the popover API
@@ -128,8 +134,8 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       }
 
       if (childRef.value) {
-        polyfillContainer.appendChild(childRef.value);
         if (props.popoverRef) props.popoverRef.value = childRef.value;
+        polyfillContainer.appendChild(childRef.value);
 
         cleanup(() => childRef.value && baseRef.value?.appendChild(childRef.value));
       }
@@ -217,6 +223,16 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
           isPopoverOpenSig.value
             ? popoverElement.classList.add(props.entryAnimation)
             : popoverElement.classList.remove(props.entryAnimation);
+        }
+
+        // ensures polyfill popovers are always above the other
+        if (
+          document.__QUI_POPOVER_PF__ &&
+          isPopoverOpenSig.value &&
+          popoverElement.parentElement &&
+          !popoverElement.classList.contains('animating')
+        ) {
+          popoverElement.parentElement.appendChild(popoverElement);
         }
       }}
       {...animationHandlers}
