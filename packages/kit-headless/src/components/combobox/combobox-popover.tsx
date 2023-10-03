@@ -30,7 +30,7 @@ export const ComboboxPopover = component$(
         floating={true}
         anchorRef={context.inputRef}
         popoverRef={context.popoverRef}
-        class={`listbox ${props.class}`}
+        class={['listbox', props.class]}
         manual
       >
         <Slot />

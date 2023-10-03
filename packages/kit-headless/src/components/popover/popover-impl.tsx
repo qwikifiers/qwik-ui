@@ -101,6 +101,10 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
   useVisibleTask$(
     async ({ track, cleanup }) => {
+      // prevents animation flickers across browsers
+      if (props.animation && props.entryAnimation) {
+        childRef.value?.classList.add(props.entryAnimation);
+      }
       console.log('visible task');
       // polyfill missing?
       if (!document.__QUI_POPOVER_PF__) {
@@ -171,19 +175,10 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
             popoverElement.classList.add('animating');
 
             if (props.animation) {
-              if (!isPopoverOpenSig.value) {
-                props.entryAnimation &&
-                  popoverElement.classList.add(props.entryAnimation);
-
-                props.exitAnimation &&
-                  popoverElement.classList.remove(props.exitAnimation);
-              } else {
-                if (props.exitAnimation) {
-                  popoverElement.classList.add(props.exitAnimation);
-                }
-                if (props.entryAnimation) {
-                  popoverElement.classList.remove(props.entryAnimation);
-                }
+              if (!isPopoverOpenSig.value && props.entryAnimation) {
+                popoverElement.classList.add(props.entryAnimation);
+              } else if (isPopoverOpenSig.value && props.exitAnimation) {
+                popoverElement.classList.add(props.exitAnimation);
               }
             }
           }),
@@ -212,7 +207,6 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
     <div
       popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
       class={props.class}
-      {...props}
       ref={childRef}
       onToggle$={(event) => {
         const popoverElement = event.target as HTMLElement;
@@ -235,6 +229,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
           popoverElement.parentElement.appendChild(popoverElement);
         }
       }}
+      {...props}
       {...animationHandlers}
     >
       <Slot />
