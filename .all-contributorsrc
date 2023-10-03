@@ -347,6 +347,17 @@
         "bug",
         "maintenance"
       ]
+    },
+    {
+      "login": "nsdonato",
+      "name": "Noelia",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7875216?v=4",
+      "profile": "https://www.linkedin.com/in/noeliadonato",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
