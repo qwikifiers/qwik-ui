@@ -12,12 +12,13 @@ export const buttonVariants = cva(
       intent: {
         basic:
           'text-black dark:text-white font-semibold py-2 px-4 border border-gray-300 rounded hover:bg-accent',
-        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/80',
       },
       look: {
-        link: 'border-transparent bg-transparent text-foreground hover:underline hover:bg-transparent shadow-none outline-current;',
+        link: `border-transparent bg-transparent text-foreground 
+               hover:underline hover:bg-transparent shadow-none outline-current`,
         ghost:
           'border-transparent bg-transparent border  hover:bg-accent hover:text-accent-foreground',
         outline:
@@ -39,9 +40,9 @@ export const buttonVariants = cva(
         bouncy: 'transition duration-300 ease-in-out transform hover:scale-105',
       },
       size: {
-        sm: 'h-9 rounded-md px-3',
+        sm: 'h-8 rounded-md px-3',
         md: 'h-10 px-4 py-2',
-        lg: 'h-11 rounded-md px-8',
+        lg: 'h-12 rounded-md px-8 text-lg',
         icon: 'h-10 w-10',
       },
     },
@@ -75,8 +76,10 @@ export const Button = component$<ButtonProps>(
       class: classList,
     });
 
+    const twOptimizedClassesString = twMerge(stringifyClassList(finalClassList));
+
     return (
-      <button class={twMerge(stringifyClassList(finalClassList))} {...restOfProps}>
+      <button class={twOptimizedClassesString} {...restOfProps}>
         <Slot />
       </button>
     );

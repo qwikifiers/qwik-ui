@@ -3,10 +3,10 @@
     --color-background: hsl(0, 0%, 100%);
     --color-foreground: hsl(263, 84%, 5%);
 
-    --color-primary: hsl(263, 84%, 35%);
+    --color-primary: hsl(263, 56%, 52%);
     --color-primary-foreground: hsl(0, 0%, 100%);
 
-    --color-secondary: hsl(197, 93%, 25%);
+    --color-secondary: hsl(197, 78%, 48%);
     --color-secondary-foreground: hsl(0, 0%, 100%);
 
     --color-muted: hsl(210, 40%, 96%);
@@ -37,8 +37,8 @@
     --color-background: hsl(263, 84%, 5%);
     --color-foreground: hsl(263, 40%, 98%);
 
-    --color-primary: hsl(263 40% 98%);
-    --color-primary-foreground: hsl(263 47.4% 11.2%);
+    --color-primary: hsl(263, 56%, 52%);
+    --color-primary-foreground: hsl(190 40% 98%);
 
     --color-secondary: hsl(197 32.6% 17.5%);
     --color-secondary-foreground: hsl(190 40% 98%);

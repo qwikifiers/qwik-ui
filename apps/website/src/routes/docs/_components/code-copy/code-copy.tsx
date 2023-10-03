@@ -1,8 +1,8 @@
-import { component$, useSignal, QwikIntrinsicElements } from '@builder.io/qwik';
-import { twMerge } from 'tailwind-merge';
-import copy from 'clipboard-copy';
+import { QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
 import { stringifyClassList } from '@qwik-ui/cva';
 import { OmitSignalClass } from '@qwik-ui/type-utils';
+import copy from 'clipboard-copy';
+import { twMerge } from 'tailwind-merge';
 
 export type CodeCopyProps = OmitSignalClass<QwikIntrinsicElements['button']> & {
   code?: string;
@@ -13,7 +13,7 @@ export const CodeCopy = component$(
     const copied = useSignal(false);
 
     return (
-      <>
+      <div>
         {!copied.value ? (
           <button
             {...restOfProps}
@@ -32,7 +32,7 @@ export const CodeCopy = component$(
         ) : (
           <span class={twMerge(`m-3`, stringifyClassList(outsideClass))}>Copied!</span>
         )}
-      </>
+      </div>
     );
   },
 );

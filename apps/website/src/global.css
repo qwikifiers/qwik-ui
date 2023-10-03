@@ -7,10 +7,10 @@
     --color-background: 0 0% 100%;
     --color-foreground: 263 84% 5%;
 
-    --color-primary: 263 84% 35%;
+    --color-primary: 263 56% 52%;
     --color-primary-foreground: 0 0% 100%;
 
-    --color-secondary: 197 93% 25%;
+    --color-secondary: 197 78% 42%;
     --color-secondary-foreground: 0 0% 100%;
 
     --color-muted: 210 40% 96%;
@@ -36,15 +36,15 @@
 
     --border-radius: 0.375rem;
 
-    --shiki-color-text: theme('colors.white');
-    --shiki-token-constant: theme('colors.emerald.300');
-    --shiki-token-string: theme('colors.emerald.300');
-    --shiki-token-comment: theme('colors.zinc.500');
-    --shiki-token-keyword: theme('colors.sky.300');
-    --shiki-token-parameter: theme('colors.pink.300');
-    --shiki-token-function: theme('colors.violet.300');
-    --shiki-token-string-expression: theme('colors.emerald.300');
-    --shiki-token-punctuation: theme('colors.zinc.200');
+    --shiki-color-text: theme('colors.black');
+    --shiki-token-constant: theme('colors.emerald.700');
+    --shiki-token-string: theme('colors.emerald.700');
+    --shiki-token-comment: theme('colors.zinc.700');
+    --shiki-token-keyword: theme('colors.sky.600');
+    --shiki-token-parameter: theme('colors.pink.700');
+    --shiki-token-function: theme('colors.violet.800');
+    --shiki-token-string-expression: theme('colors.emerald.600');
+    --shiki-token-punctuation: theme('colors.zinc.700');
   }
 
   .dark {
@@ -52,8 +52,8 @@
     --color-background: 222 47% 11%;
     --color-foreground: 263 40% 98%;
 
-    --color-primary: 263 40% 98%;
-    --color-primary-foreground: 263 47.4% 11.2%;
+    --color-primary: 263 56% 52%;
+    --color-primary-foreground: 190 40% 98%;
 
     --color-secondary: 197 32.6% 17.5%;
     --color-secondary-foreground: 190 40% 98%;
@@ -78,6 +78,16 @@
     --color-input: 263 32.6% 17.5%;
 
     --color-ring: 263 26.8% 83.9%;
+
+    --shiki-color-text: theme('colors.white');
+    --shiki-token-constant: theme('colors.emerald.300');
+    --shiki-token-string: theme('colors.emerald.300');
+    --shiki-token-comment: theme('colors.zinc.500');
+    --shiki-token-keyword: theme('colors.sky.300');
+    --shiki-token-parameter: theme('colors.pink.300');
+    --shiki-token-function: theme('colors.violet.300');
+    --shiki-token-string-expression: theme('colors.emerald.300');
+    --shiki-token-punctuation: theme('colors.zinc.200');
   }
 }
 
