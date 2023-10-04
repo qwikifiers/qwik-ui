@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": ["./*"],
       "@qwik-ui/cva": ["packages/cva/src/index.ts"],
       "@qwik-ui/fluffy": ["packages/kit-fluffy/src/index.ts"],
       "@qwik-ui/headless": ["packages/kit-headless/src/index.ts"],
@@ -25,5 +26,6 @@
       "@qwik-ui/type-utils": ["packages/shared/util/types/src/index.ts"]
     }
   },
+  "include": ["packages"],
   "exclude": ["node_modules", "tmp"]
 }

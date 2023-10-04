@@ -15,7 +15,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Alert: ComponentStatus.Planned,
     Badge: ComponentStatus.Planned,
     Breadcrumb: ComponentStatus.Planned,
-    Button: ComponentStatus.Planned,
+    Button: ComponentStatus.Beta,
     'Button Group': ComponentStatus.Planned,
     Card: ComponentStatus.Planned,
     Carousel: ComponentStatus.Planned,

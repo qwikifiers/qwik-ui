@@ -14,23 +14,20 @@ export const CodeCopy = component$(
     const copied = useSignal(false);
 
     return (
-      <div>
-        <Button
-          look="ghost"
-          intent="basic"
-          animation={!copied.value ? 'bouncy' : 'none'}
-          {...restOfProps}
-          title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
-          class={twMerge(stringifyClassList(outsideClass))}
-          onClick$={async () => {
-            await copy(code);
-            copied.value = true;
-          }}
-        >
-          {!copied.value ? 'Copy' : 'Copied!'}
-        </Button>
-        )
-      </div>
+      <Button
+        look="ghost"
+        intent="basic"
+        animation={!copied.value ? 'bouncy' : 'none'}
+        {...restOfProps}
+        title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
+        class={twMerge(stringifyClassList(outsideClass))}
+        onClick$={async () => {
+          await copy(code);
+          copied.value = true;
+        }}
+      >
+        {!copied.value ? 'Copy' : 'Copied!'}
+      </Button>
     );
   },
 );
