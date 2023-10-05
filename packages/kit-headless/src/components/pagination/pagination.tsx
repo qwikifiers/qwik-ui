@@ -1,5 +1,4 @@
-import { $, component$, PropFunction, Component } from '@builder.io/qwik';
-import { Button as HeadlessButton } from '@qwik-ui/primitives';
+import { $, Component, PropFunction, component$ } from '@builder.io/qwik';
 
 /**
  * PAGINATION TODOs
@@ -141,14 +140,9 @@ export const PaginationButton = component$(
     value,
   }: PaginationButtonProps) => {
     return (
-      <HeadlessButton
-        onClick$={onClick$}
-        aria-label={ariaLabel}
-        disabled={disabled}
-        key={key}
-      >
+      <button onClick$={onClick$} aria-label={ariaLabel} disabled={disabled} key={key}>
         {value}
-      </HeadlessButton>
+      </button>
     );
   },
 );

@@ -1,6 +1,8 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 
+import ImgQwikUiHeadlessHero from '@/apps/website/public/images/qwik-ui-headless-hero.webp?jsx';
+
 export default component$(() => {
   return (
     <>
@@ -38,6 +40,9 @@ export default component$(() => {
         advantages of Qwik while having complete control over the appearance of your web
         application. It's the best of both worlds!
       </p>
+      <section>
+        <ImgQwikUiHeadlessHero />
+      </section>
     </>
   );
 });

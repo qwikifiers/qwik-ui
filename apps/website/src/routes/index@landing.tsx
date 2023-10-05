@@ -12,13 +12,13 @@ export default component$(() => {
         <span class="text-qwikui-purple-400 dark:text-qwikui-purple-500 font-[900] tracking-wide">
           Qwik
         </span>{' '}
-        <span class="text-qwikui-blue-400 dark:text-qwikui-blue-500  font-[900] tracking-wide">
+        <span class="text-qwikui-blue-500 dark:text-qwikui-blue-500  font-[900] tracking-wide">
           UI
         </span>
       </h1>
       <h2 class="text-center text-2xl font-bold leading-normal lg:text-4xl">
         The world's fastest loading UI components <br />
-        <span class="text-qwikui-blue-400 dark:text-qwikui-purple-500  leading-normal">
+        <span class="text-qwikui-blue-500 dark:text-qwikui-purple-500  leading-normal">
           automatically optimized for you
         </span>
       </h2>
@@ -33,7 +33,7 @@ export default component$(() => {
         >
           <Card class="max-w-[450px]">
             <CardImage
-              src={`/images/qwik-ui-headless-cta.webp`}
+              src={`/images/qwik-ui-headless-hero.webp`}
               width="611"
               height="408"
               alt={`fluffy kit`}
@@ -65,7 +65,7 @@ export default component$(() => {
           >
             <Card class="max-w-[450px] overflow-hidden">
               <CardImage
-                src={`/images/qwik-ui-fluffy-creature.webp`}
+                src={`/images/qwik-ui-fluffy-creature-screen.webp`}
                 width="611"
                 height="408"
                 alt={`fluffy kit`}

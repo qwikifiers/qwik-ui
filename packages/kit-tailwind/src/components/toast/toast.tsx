@@ -1,6 +1,6 @@
 import { QwikIntrinsicElements, component$ } from '@builder.io/qwik';
 import { Toast as HeadlessToast } from '@qwik-ui/primitives';
-import { OmitSignalClass } from '@qwik-ui/type-utils';
+import { OmitSignalClass } from '@qwik-ui/utils';
 import { daisyConfig } from './daisy.config';
 
 export type TailwindToastVariants = 'info' | 'success' | 'warning' | 'error';

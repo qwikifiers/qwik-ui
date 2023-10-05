@@ -1,7 +1,7 @@
+import { stringifyClassList } from '@/packages/utils/src';
 import { QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
-import { stringifyClassList } from '@qwik-ui/cva';
 import { Button } from '@qwik-ui/fluffy';
-import { OmitSignalClass } from '@qwik-ui/type-utils';
+import { OmitSignalClass } from '@qwik-ui/utils';
 import copy from 'clipboard-copy';
 import { twMerge } from 'tailwind-merge';
 

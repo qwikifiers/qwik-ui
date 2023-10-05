@@ -1,6 +1,5 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { Badge } from '@qwik-ui/headless';
-import { Button } from '@qwik-ui/primitives';
 
 export default component$(() => {
   useStylesScoped$(`
@@ -55,12 +54,6 @@ export default component$(() => {
         Heading
         <Badge class="badge">NEW</Badge>
       </h2>
-
-      <h1>Badge in a button</h1>
-      <Button style="background-color: lightcoral">
-        Inbox
-        <Badge class="badge">+4</Badge>
-      </Button>
     </>
   );
 });

@@ -1,8 +1,7 @@
+import { tcva, type AddVariantPropsTo } from '@/packages/utils/src';
 import { Slot, component$ } from '@builder.io/qwik';
-import { cva, stringifyClassList, type AddVariantPropsTo } from '@qwik-ui/cva';
-import { twMerge } from 'tailwind-merge';
 
-export const buttonVariants = cva(
+export const buttonVariants = tcva(
   `inline-flex items-center justify-center
   text-sm font-medium ring-offset-background transition-colors
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
@@ -96,7 +95,7 @@ export type ButtonProps = AddVariantPropsTo<'button', typeof buttonVariants>;
 
 export const Button = component$<ButtonProps>(
   ({ intent, size, look, shape, state, animation, class: classList, ...restOfProps }) => {
-    const finalClassList = buttonVariants({
+    const twOptimizedClassesString = buttonVariants({
       intent,
       size,
       look,
@@ -105,8 +104,6 @@ export const Button = component$<ButtonProps>(
       animation,
       class: classList,
     });
-
-    const twOptimizedClassesString = twMerge(stringifyClassList(finalClassList));
 
     return (
       <button class={twOptimizedClassesString} {...restOfProps}>

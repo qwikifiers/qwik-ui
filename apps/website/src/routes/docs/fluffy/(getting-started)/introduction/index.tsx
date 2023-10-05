@@ -1,3 +1,4 @@
+import ImgQwikUiFluffyCreatureScreen from '@/apps/website/public/images/qwik-ui-fluffy-creature-screen.webp?jsx';
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 
@@ -49,6 +50,9 @@ export default component$(() => {
         It's the perfect combination: the cutting-edge technology of Qwik, paired with the
         modern design aesthetics of Tailwind CSS.
       </p>
+      <section>
+        <ImgQwikUiFluffyCreatureScreen />
+      </section>
     </>
   );
 });

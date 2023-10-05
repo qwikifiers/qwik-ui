@@ -12,12 +12,12 @@ export default defineConfig({
     dts({
       entryRoot: 'src',
       tsConfigFilePath: path.join(__dirname, 'tsconfig.lib.json'),
-      skipDiagnostics: true
+      skipDiagnostics: true,
     }),
 
     viteTsConfigPaths({
-      root: '../../'
-    })
+      root: '../../',
+    }),
   ],
 
   // Uncomment this if you are using workers.
@@ -39,20 +39,20 @@ export default defineConfig({
       fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
-      formats: ['es', 'cjs']
+      formats: ['es', 'cjs'],
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: []
-    }
+      external: [],
+    },
   },
 
   test: {
     globals: true,
     cache: {
-      dir: '../../node_modules/.vitest'
+      dir: '../../node_modules/.vitest',
     },
     environment: 'node',
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']
-  }
+    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+  },
 });

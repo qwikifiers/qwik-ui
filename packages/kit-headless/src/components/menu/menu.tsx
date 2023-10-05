@@ -15,7 +15,6 @@ import {
   useVisibleTask$,
 } from '@builder.io/qwik';
 import { JSX } from '@builder.io/qwik/jsx-runtime';
-import { Button } from '@qwik-ui/primitives';
 
 interface MenuProps {
   class?: string;
@@ -124,7 +123,7 @@ export const Menu = component$((props: MenuProps) => {
         }
       }}
     >
-      <Button
+      <button
         ref={triggerElementRef}
         aria-haspopup
         aria-expanded={isExpanded.value}
@@ -132,7 +131,7 @@ export const Menu = component$((props: MenuProps) => {
         onClick$={() => (isExpanded.value = !isExpanded.value)}
       >
         {props.triggerElement || 'Menu'}
-      </Button>
+      </button>
       <nav
         id={childId}
         role="menu"
@@ -160,7 +159,7 @@ export const MenuItem = component$((props: MenuItemProps) => {
   return (
     <div class={props.class}>
       {props.onClick$ ? (
-        <Button
+        <button
           tabIndex={-1}
           id={myId}
           class={{
@@ -170,7 +169,7 @@ export const MenuItem = component$((props: MenuItemProps) => {
           disabled={props.disabled || false}
         >
           <Slot />
-        </Button>
+        </button>
       ) : (
         <Slot />
       )}

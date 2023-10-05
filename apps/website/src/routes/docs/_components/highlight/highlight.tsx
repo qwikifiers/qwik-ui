@@ -5,7 +5,7 @@ import {
   useSignal,
   useTask$,
 } from '@builder.io/qwik';
-import { OmitSignalClass } from '@qwik-ui/type-utils';
+import { OmitSignalClass } from '@qwik-ui/utils';
 import { CodeCopy } from '../code-copy/code-copy';
 import { getOrCreateHighlighter } from './get-or-create-highlighter';
 

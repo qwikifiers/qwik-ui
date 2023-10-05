@@ -1,29 +1,29 @@
 {
-  "name": "cva",
+  "name": "utils",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/cva/src",
+  "sourceRoot": "packages/utils/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/cva"
+        "outputPath": "dist/packages/utils"
       }
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/packages/cva"],
+      "outputs": ["coverage/packages/utils"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/packages/cva"
+        "reportsDirectory": "../../coverage/packages/utils"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/cva/**/*.ts"]
+        "lintFilePatterns": ["packages/utils/**/*.ts"]
       }
     },
     "version-dry": {
@@ -45,7 +45,7 @@
         "noVerify": true,
         "push": true,
         "releaseAs": "patch",
-        "postTargets": ["cva:publish", "cva:push-to-github"]
+        "postTargets": ["utils:publish", "utils:push-to-github"]
       }
     },
     "publish": {
@@ -59,7 +59,7 @@
       "options": {
         "tag": "${tag}",
         "notes": "${notes}",
-        "title": "@qwik-ui/cva@${version}"
+        "title": "@qwik-ui/utils@${version}"
       }
     }
   },

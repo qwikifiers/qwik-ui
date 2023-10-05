@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { Checkbox as HeadlessCheckbox } from '@qwik-ui/headless';
-import type { OmitSignalClass } from '@qwik-ui/type-utils';
+import type { OmitSignalClass } from '@qwik-ui/utils';
 
 export type CheckboxProps = OmitSignalClass<HeadlessCheckbox.CheckboxProps> & {
   label?: string;

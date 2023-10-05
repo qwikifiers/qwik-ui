@@ -4,7 +4,7 @@ import {
   SliderProgress as HeadlessSliderProgress,
   SliderThumb as HeadlessSliderThumb,
 } from '@qwik-ui/headless';
-import type { OmitSignalClass } from '@qwik-ui/type-utils';
+import type { OmitSignalClass } from '@qwik-ui/utils';
 import { daisyConfig } from './daisy.config';
 
 export type SliderProps = OmitSignalClass<QwikIntrinsicElements['div']> & {

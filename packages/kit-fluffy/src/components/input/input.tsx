@@ -1,6 +1,5 @@
 import { QwikIntrinsicElements, component$ } from '@builder.io/qwik';
-import { stringifyClassList } from '@qwik-ui/cva';
-import type { OmitSignalClass } from '@qwik-ui/type-utils';
+import { stringifyClassList, type OmitSignalClass } from '@qwik-ui/utils';
 import { twMerge } from 'tailwind-merge';
 
 export type InputProps = OmitSignalClass<
