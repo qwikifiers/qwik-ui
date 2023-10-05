@@ -1,10 +1,10 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { Toggle } from '@qwik-ui/primitives';
-import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import { PreviewCodeExampleTabsDeprecated } from '../../../_components/preview-code-example/preview-code-example-tabs';
 
 export const Example01 = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabsDeprecated>
       <div q:slot="actualComponent">
         <Toggle pressed={true} onClick$={() => console.log('Toggle')} />
       </div>
@@ -12,6 +12,6 @@ export const Example01 = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabsDeprecated>
   );
 });

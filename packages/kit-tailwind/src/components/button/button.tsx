@@ -1,5 +1,5 @@
 import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
-import type { OmitSignalClass } from '@qwik-ui/type-utils';
+import type { OmitSignalClass } from '@qwik-ui/utils';
 import { daisyConfig } from './daisy.config';
 
 export type HTMLButtonProps = OmitSignalClass<QwikIntrinsicElements['button']>;

@@ -1,107 +1,114 @@
-/*
-
-  # TODO:
-  
-  * Go over different solutions for inspiration
-    
-    TAILWIND CONFIG
-    * Brand colors
-    * Button state colors
-    
-    PROPS / CVA
-      * SIZES
-        * sm, md, lg, xl, 2xl
-      * SHAPE
-        * Square / rounded / circular
-        * 
-      * ANIMATION
-        * None
-        * Pulse
-        
-      * INTENT
-        * Primary
-        * Secondary
-        * Accent
-        * Danger / Destructive / Error
-        * Success
-        * Warning
-        * Info
-        
-      STATE: 
-        * Active
-        * Disabled
-        
-      * LOOK
-        * Outline 
-        * Ghost
-        * Link
-
-
-    
-    DOCS EXAMPLES:
-    * with Icon
-    * loading state?
-  
-  * Decide on theme / branding colors 
-  * Run storybook locally
-  * Make CVA efficient with Qwik
-  * Find a way to project the source code of this file into the docs
-
-*/
-
+import { tcva, type AddVariantPropsTo } from '@/packages/utils/src';
 import { Slot, component$ } from '@builder.io/qwik';
-import { cva, type AddVariantPropsTo } from '@qwik-ui/cva';
 
-export const buttonVariants = cva(
-  `inline-flex items-center justify-center rounded-md 
+export const buttonVariants = tcva(
+  `inline-flex items-center justify-center
   text-sm font-medium ring-offset-background transition-colors
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
   focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`,
   {
     variants: {
       intent: {
-        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        basic: `text-foreground font-semibold py-2 px-4 border border-gray-300 
+           rounded hover:bg-accent hover:text-accent-foreground`,
+        primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/80',
       },
       look: {
-        link: 'text-primary underline-offset-4 hover:underline',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        outline:
-          'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        link: `border-transparent bg-transparent text-foreground 
+               hover:underline hover:bg-transparent shadow-none outline-current`,
+        ghost:
+          'border-transparent bg-transparent border hover:bg-accent hover:text-accent-foreground',
+        outline: 'bg-transparent border  hover:bg-accent  hover:text-accent-foreground',
       },
       shape: {
-        rounded: '',
-        circular: '',
-        square: '',
+        rounded: 'rounded',
+        circular: 'w-20 h-20 rounded-full',
+        square: 'w-20 h-20',
       },
       state: {
         enabled: '',
-        active: '',
-        disabled: '',
+        active: 'bg-primary/90 text-white font-semibold py-2 px-4',
+        disabled:
+          'bg-gray-300 text-gray-500 font-semibold py-2 px-4 rounded pointer-events-none cursor-not-allowed',
       },
-      animation: {},
+      animation: {
+        none: '',
+        bouncy: 'transition active:scale-90',
+      },
       size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
-        lg: 'h-11 rounded-md px-8',
+        sm: 'h-8 rounded-md px-3',
+        md: 'h-10 px-4 py-2',
+        lg: 'h-12 rounded-md px-8 text-lg',
         icon: 'h-10 w-10',
       },
     },
     defaultVariants: {
       state: 'enabled',
       intent: 'primary',
-      size: 'default',
+      shape: 'rounded',
+      size: 'md',
+      animation: 'bouncy',
     },
+    compoundVariants: [
+      {
+        intent: 'primary',
+        look: ['outline', 'ghost'],
+        class: 'text-primary hover:text-primary dark:filter dark:brightness-200',
+      },
+      {
+        intent: 'secondary',
+        look: ['outline', 'ghost'],
+        class: 'text-secondary hover:text-secondary dark:filter dark:brightness-200',
+      },
+      {
+        intent: 'danger',
+        look: ['outline', 'ghost'],
+        class: 'text-destructive hover:text-destructive dark:filter dark:brightness-200',
+      },
+      {
+        intent: 'primary',
+        look: ['outline'],
+        class: 'border-primary',
+      },
+      {
+        intent: 'secondary',
+        look: ['outline'],
+        class: 'border-secondary',
+      },
+      {
+        intent: 'danger',
+        look: ['outline'],
+        class: 'border-destructive',
+      },
+      {
+        intent: 'basic',
+        look: ['outline'],
+        class: 'border-foreground',
+      },
+    ],
   },
 );
 
 export type ButtonProps = AddVariantPropsTo<'button', typeof buttonVariants>;
 
-export const Button = component$<ButtonProps>(({ intent, size, ...restOfProps }) => {
-  return (
-    <button class={buttonVariants({ intent, size })} {...restOfProps}>
-      <Slot />
-    </button>
-  );
-});
+export const Button = component$<ButtonProps>(
+  ({ intent, size, look, shape, state, animation, class: classList, ...restOfProps }) => {
+    const twOptimizedClassesString = buttonVariants({
+      intent,
+      size,
+      look,
+      shape,
+      state,
+      animation,
+      class: classList,
+    });
+
+    return (
+      <button class={twOptimizedClassesString} {...restOfProps}>
+        <Slot />
+      </button>
+    );
+  },
+);

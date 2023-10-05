@@ -1,15 +1,15 @@
 import { component$, Slot, useSignal } from '@builder.io/qwik';
 import {
-  AutocompleteLabel,
-  AutocompleteRoot,
   AutocompleteControl,
   AutocompleteInput,
-  AutocompleteTrigger,
+  AutocompleteLabel,
   AutocompleteListbox,
   AutocompleteOption,
+  AutocompleteRoot,
+  AutocompleteTrigger,
 } from '@qwik-ui/headless';
 
-import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import { PreviewCodeExampleTabsDeprecated } from '../../../_components/preview-code-example/preview-code-example-tabs-deprecated';
 
 const trainers = [
   'Caleb',
@@ -28,7 +28,7 @@ export const Example01 = component$(() => {
   const trainersSig = useSignal(trainers);
   const showExample = useSignal(true);
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabsDeprecated>
       <div class="flex flex-col gap-4" q:slot="actualComponent">
         <button
           onClick$={() => {
@@ -83,14 +83,14 @@ export const Example01 = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabsDeprecated>
   );
 });
 
 export const Example02 = component$(() => {
-  return <PreviewCodeExample></PreviewCodeExample>;
+  return <PreviewCodeExampleTabsDeprecated></PreviewCodeExampleTabsDeprecated>;
 });
 
 export const Example03 = component$(() => {
-  return <PreviewCodeExample></PreviewCodeExample>;
+  return <PreviewCodeExampleTabsDeprecated></PreviewCodeExampleTabsDeprecated>;
 });

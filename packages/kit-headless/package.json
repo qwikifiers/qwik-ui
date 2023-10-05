@@ -25,6 +25,7 @@
     "@builder.io/qwik": ">1.2.11"
   },
   "dependencies": {
+    "@qwik-ui/utils": "workspace:*",
     "@floating-ui/dom": "1.0.10",
     "country-list-json": "^1.1.0",
     "libphonenumber-js": "^1.10.43"

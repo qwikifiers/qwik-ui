@@ -1,9 +1,18 @@
-import { QwikIntrinsicElements, component$, useSignal, useTask$ } from '@builder.io/qwik';
-import { OmitSignalClass } from '@qwik-ui/type-utils';
+import {
+  ClassList,
+  QwikIntrinsicElements,
+  component$,
+  useSignal,
+  useTask$,
+} from '@builder.io/qwik';
+import { OmitSignalClass } from '@qwik-ui/utils';
+import { CodeCopy } from '../code-copy/code-copy';
 import { getOrCreateHighlighter } from './get-or-create-highlighter';
 
 export type HighlightProps = OmitSignalClass<QwikIntrinsicElements['pre']> & {
   code: string;
+  copyCodeClass?: ClassList;
+  language?: 'tsx' | 'html' | 'css';
   splitCommentStart?: string;
   splitCommentEnd?: string;
 };
@@ -11,6 +20,8 @@ export type HighlightProps = OmitSignalClass<QwikIntrinsicElements['pre']> & {
 export const Highlight = component$(
   ({
     code,
+    copyCodeClass,
+    language = 'tsx',
     splitCommentStart = '{/* start */}',
     splitCommentEnd = '{/* end */}',
     ...props
@@ -31,19 +42,20 @@ export const Highlight = component$(
         modifiedCode = partsOfCode[0];
       }
 
-      codeSig.value = highlighter.codeToHtml(modifiedCode, { lang: 'tsx' });
+      codeSig.value = highlighter.codeToHtml(modifiedCode, { lang: language });
     });
 
     return (
-      <pre
+      <div
         {...props}
         class={[
-          'theme-atom-one-dark shadow-3xl tab-size relative h-full max-w-full overflow-hidden text-sm',
+          'tab-size relative max-w-full overflow-hidden overflow-x-auto rounded-xl bg-slate-50 p-12 text-sm dark:bg-slate-800',
           props.class,
         ]}
       >
-        <code dangerouslySetInnerHTML={codeSig.value} />
-      </pre>
+        <div dangerouslySetInnerHTML={codeSig.value} />
+        <CodeCopy class={['absolute right-2 top-2', copyCodeClass]} code={code} />
+      </div>
     );
   },
 );

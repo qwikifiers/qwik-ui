@@ -9,11 +9,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@qwik-ui/headless';
-import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import { PreviewCodeExampleTabsDeprecated } from '../../../_components/preview-code-example/preview-code-example-tabs-deprecated';
 
 export const Example01 = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabsDeprecated>
       <div q:slot="actualComponent">
         <SelectRoot>
           <SelectLabel class="ml-2 font-semibold text-white">Qwik Fruits</SelectLabel>
@@ -67,13 +67,13 @@ export const Example01 = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabsDeprecated>
   );
 });
 
 export const Example02 = component$(() => {
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabsDeprecated>
       <div q:slot="actualComponent">
         <SelectRoot>
           <SelectTrigger class="group peer flex items-center justify-between rounded-md border-[1px] border-slate-600 bg-slate-800 p-4 px-8">
@@ -118,6 +118,6 @@ export const Example02 = component$(() => {
       <div q:slot="codeExample">
         <Slot />
       </div>
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabsDeprecated>
   );
 });

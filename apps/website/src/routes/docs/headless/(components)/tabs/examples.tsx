@@ -1,8 +1,7 @@
 import { component$, useStyles$, type JSXNode } from '@builder.io/qwik';
 
-import { CodeExample } from '../../../_components/code-example/code-example';
-import { Highlight } from '../../../_components/highlight/highlight';
-import { PreviewCodeExample } from '../../../_components/preview-code-example/preview-code-example';
+import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
+import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
 import AutomaticBehaviorComponent from './examples/automatic-behavior-example';
 import automaticBehaviorCode from './examples/automatic-behavior-example?raw';
 import DisabledTabsComponent from './examples/disabled-example';
@@ -85,24 +84,18 @@ export const ShowExample = component$(({ example }: ShowExampleProps) => {
   useStyles$(styles);
   const { component, code, cssClasses = '' } = examples[example];
   return (
-    <PreviewCodeExample>
+    <PreviewCodeExampleTabs code={code}>
       <div q:slot="actualComponent" class={['tabs-example mr-auto', cssClasses]}>
         {component}
       </div>
-
-      <Highlight q:slot="codeExample" code={code} />
-    </PreviewCodeExample>
+    </PreviewCodeExampleTabs>
   );
 });
 
 export const ShortExample = component$(() => (
-  <CodeExample>
-    <Highlight code={shortExampleCode} />
-  </CodeExample>
+  <CodeExampleContainer code={shortExampleCode} />
 ));
 
 export const LongExample = component$(() => (
-  <CodeExample>
-    <Highlight code={longExampleCode} />
-  </CodeExample>
+  <CodeExampleContainer code={longExampleCode} />
 ));
