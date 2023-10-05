@@ -288,16 +288,14 @@ importers:
 
   packages/bots: {}
 
-  packages/cva: {}
-
   packages/kit-fluffy:
     dependencies:
       '@builder.io/qwik':
         specifier: '>1.1.0'
         version: 1.2.6(undici@5.23.0)
-      '@qwik-ui/cva':
+      '@qwik-ui/utils':
         specifier: workspace:*
-        version: link:../cva
+        version: link:../utils
     devDependencies:
       '@builder.io/vite-plugin-macro':
         specifier: ~0.0.7
@@ -335,6 +333,9 @@ importers:
       '@floating-ui/dom':
         specifier: 1.0.10
         version: 1.0.10
+      '@qwik-ui/utils':
+        specifier: workspace:*
+        version: link:../utils
       country-list-json:
         specifier: ^1.1.0
         version: 1.1.0
@@ -354,6 +355,12 @@ importers:
         version: 2.50.1(autoprefixer@10.4.15)(postcss@8.4.29)(ts-node@10.9.1)
 
   packages/primitives: {}
+
+  packages/utils:
+    dependencies:
+      tailwind-merge:
+        specifier: ^1.14.0
+        version: 1.14.0
 
 packages:
 
@@ -21567,7 +21574,6 @@ packages:
 
   /tailwind-merge@1.14.0:
     resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
-    dev: true
 
   /tailwindcss@3.2.6(postcss@8.4.29)(ts-node@10.9.1):
     resolution: {integrity: sha512-BfgQWZrtqowOQMC2bwaSNe7xcIjdDEgixWGYOd6AL0CbKHJlvhfdbINeAW76l1sO+1ov/MJ93ODJ9yluRituIw==}

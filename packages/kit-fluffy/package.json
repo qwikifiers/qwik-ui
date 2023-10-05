@@ -35,7 +35,7 @@
     "qwik": "qwik"
   },
   "dependencies": {
-    "@qwik-ui/cva": "workspace:*"
+    "@qwik-ui/utils": "workspace:*"
   },
   "peerDependencies": {
     "@builder.io/qwik": ">1.1.0"
