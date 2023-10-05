@@ -14,7 +14,7 @@ export default component$(() => {
     <>
       <h2>This is the documentation for the Progress</h2>
 
-      <div class="flex flex-col gap-8 mt-4">
+      <div class="mt-4 flex flex-col gap-8">
         <h2>Basic Example</h2>
         <div class="panel">
           <Progress variant="primary" value={10} max={100} class="w-56" />

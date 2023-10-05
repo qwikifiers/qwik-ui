@@ -20,7 +20,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Card: ComponentStatus.Planned,
     Carousel: ComponentStatus.Planned,
     Checkbox: ComponentStatus.Planned,
-    Collapse: ComponentStatus.Planned,
+    Combobox: ComponentStatus.Planned,
     Drawer: ComponentStatus.Planned,
     Input: ComponentStatus.Planned,
     'Input Phone': ComponentStatus.Planned,

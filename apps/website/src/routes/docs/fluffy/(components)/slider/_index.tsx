@@ -5,10 +5,10 @@ export default component$(() => {
   const sliderValue = useSignal(55);
 
   return (
-    <div class="flex flex-col gap-8 mt-4">
+    <div class="mt-4 flex flex-col gap-8">
       <h2>This is the documentation for the Slider</h2>
 
-      <div class="flex flex-col gap-8 mt-4">
+      <div class="mt-4 flex flex-col gap-8">
         <div>
           <h2>Basic Example</h2>
           <div class="panel">
@@ -21,7 +21,7 @@ export default component$(() => {
           </div>
         </div>
       </div>
-      <div class="flex flex-col gap-8 mt-4">
+      <div class="mt-4 flex flex-col gap-8">
         <h2>Value: {sliderValue.value}</h2>
         <Slider
           value={sliderValue.value}

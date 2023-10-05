@@ -3,7 +3,7 @@ import { cva, stringifyClassList, type AddVariantPropsTo } from '@qwik-ui/cva';
 import { twMerge } from 'tailwind-merge';
 
 export const buttonVariants = cva(
-  `inline-flex items-center justify-center rounded-md
+  `inline-flex items-center justify-center
   text-sm font-medium ring-offset-background transition-colors
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
   focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`,
@@ -26,7 +26,7 @@ export const buttonVariants = cva(
       shape: {
         rounded: 'rounded',
         circular: 'w-20 h-20 rounded-full',
-        square: 'w-20 h-20 rounded',
+        square: 'w-20 h-20',
       },
       state: {
         enabled: '',
@@ -48,6 +48,7 @@ export const buttonVariants = cva(
     defaultVariants: {
       state: 'enabled',
       intent: 'primary',
+      shape: 'rounded',
       size: 'md',
       animation: 'bouncy',
     },
@@ -55,17 +56,17 @@ export const buttonVariants = cva(
       {
         intent: 'primary',
         look: ['outline', 'ghost'],
-        class: 'text-primary hover:text-primary',
+        class: 'text-primary hover:text-primary dark:filter dark:brightness-200',
       },
       {
         intent: 'secondary',
         look: ['outline', 'ghost'],
-        class: 'text-secondary hover:text-secondary',
+        class: 'text-secondary hover:text-secondary dark:filter dark:brightness-200',
       },
       {
         intent: 'danger',
         look: ['outline', 'ghost'],
-        class: 'text-destructive hover:text-destructive',
+        class: 'text-destructive hover:text-destructive dark:filter dark:brightness-200',
       },
       {
         intent: 'primary',

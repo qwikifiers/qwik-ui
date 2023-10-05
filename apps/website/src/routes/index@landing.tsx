@@ -9,17 +9,17 @@ export default component$(() => {
   return (
     <div class="flex flex-col gap-8 text-gray-950 dark:text-white">
       <h1 class="text-center text-3xl font-bold leading-normal lg:text-5xl">
-        <span class="text-qwikui-purple-400 dark:text-qwikui-purple-500 text-outline-purple-title font-[900] tracking-wide">
+        <span class="text-qwikui-purple-400 dark:text-qwikui-purple-500 font-[900] tracking-wide">
           Qwik
         </span>{' '}
-        <span class="text-qwikui-blue-400 text-qwikui-blue-200 dark:text-qwikui-blue-500 text-outline-blue-title font-[900] tracking-wide">
+        <span class="text-qwikui-blue-400 dark:text-qwikui-blue-500  font-[900] tracking-wide">
           UI
         </span>
       </h1>
       <h2 class="text-center text-2xl font-bold leading-normal lg:text-4xl">
-        Headless or opinionated components for the <br />
-        <span class="text-qwikui-blue-400 dark:text-qwikui-purple-500 text-outline-lg leading-normal">
-          next-generation framework
+        The world's fastest loading UI components <br />
+        <span class="text-qwikui-blue-400 dark:text-qwikui-purple-500  leading-normal">
+          automatically optimized for you
         </span>
       </h2>
       <p class="text-center text-xl font-medium lg:text-2xl">
@@ -95,5 +95,5 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'Qwik UI - The first component library for Qwik',
+  title: "Qwik UI - The world's fastest loading UI components library",
 };

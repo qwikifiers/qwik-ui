@@ -23,7 +23,7 @@ export default component$(() => {
             ? `/${arrPath.filter((_, indexPath2) => indexPath2 < indexPath).join('/')}/${
                 arrPath[indexPath]
               }/`
-            : `/${path}/`
+            : `/${path}/`,
       };
     });
 

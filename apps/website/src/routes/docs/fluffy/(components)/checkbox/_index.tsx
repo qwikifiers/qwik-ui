@@ -8,7 +8,7 @@ export default component$(() => {
 
     }`);
   return (
-    <div class="flex flex-col gap-8 mt-4">
+    <div class="mt-4 flex flex-col gap-8">
       <h2>This is the documentation for the Checkbox</h2>
 
       <h1>With label start</h1>

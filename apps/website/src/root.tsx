@@ -32,7 +32,7 @@ export default component$(() => {
     mode: 'light',
     isSidebarOpened: false,
     featureFlags: {
-      showFluffy: import.meta.env.DEV,
+      showFluffy: true, //import.meta.env.DEV
     },
   });
 

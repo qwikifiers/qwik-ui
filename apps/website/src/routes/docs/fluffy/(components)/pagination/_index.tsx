@@ -14,13 +14,13 @@ export default component$(() => {
   const boundaryCount = useSignal(1);
 
   return (
-    <div class="flex flex-col gap-6 mt-4">
+    <div class="mt-4 flex flex-col gap-6">
       <h2>This is the documentation for the Pagination</h2>
 
       <div
-        class="flex flex-col gap-2 items-stretch"
+        class="flex flex-col items-stretch gap-2"
         style={{
-          width: '250px'
+          width: '250px',
         }}
       >
         <Toggle
@@ -62,7 +62,7 @@ export default component$(() => {
             style={{
               width: '50px',
               background: 'transparent',
-              textAlign: 'right'
+              textAlign: 'right',
             }}
             value={pages.value}
             onChange$={(e) => {
@@ -78,7 +78,7 @@ export default component$(() => {
             style={{
               width: '50px',
               background: 'transparent',
-              textAlign: 'right'
+              textAlign: 'right',
             }}
             value={siblingCount.value}
             onChange$={(e) => {
@@ -94,7 +94,7 @@ export default component$(() => {
             style={{
               width: '50px',
               background: 'transparent',
-              textAlign: 'right'
+              textAlign: 'right',
             }}
             value={boundaryCount.value}
             onChange$={(e) => {
