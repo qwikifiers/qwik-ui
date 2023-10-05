@@ -9,6 +9,9 @@ import heroCode from './examples/hero?raw';
 import InspectComponent from './examples/inspect';
 import inspectCode from './examples/inspect?raw';
 
+import MatchesComponent from './examples/matches';
+import matchesCode from './examples/matches?raw';
+
 import AutoComponent from './examples/auto';
 import autoCode from './examples/auto?raw';
 
@@ -55,6 +58,10 @@ export const comboboxExamples: Record<string, Example> = {
   inspect: {
     component: <InspectComponent />,
     code: inspectCode,
+  },
+  matches: {
+    component: <MatchesComponent />,
+    code: matchesCode,
   },
   auto: {
     component: <AutoComponent />,

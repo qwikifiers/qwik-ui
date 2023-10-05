@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik';
 import { Popover } from '@qwik-ui/headless';
-import './listbox-animation';
 
 export default component$(() => {
   return (

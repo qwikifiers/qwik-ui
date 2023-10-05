@@ -79,11 +79,13 @@ Here are a couple of example components where the Popover API can be used. Inclu
 
 
 ### Psuedo Selectors
-In the context of a native popover, the `:popover-open` pseudo selector is used when the popover is in the open state. However, pseudo selectors can't be polyfilled within CSS. So, the polyfill adds the `.popover-open` CSS class to any open popover instead. This means an open popover will have `class="popover-open"`.
+In the context of a native popover, the `:popover-open` pseudo selector is used when the popover is in the open state. However, pseudo selectors can't be polyfilled within CSS. So, the polyfill adds the `.popover-open` CSS class to any open popover instead. This means an open popover will have `class=":popover-open"`.
 
 In JavaScript, both the pseudoselector and class can be used to select the same element, thanks to the polyfill. The matches and closest methods are also patched to work with `:popover-open`. Below is an example of both scenarios.
 
-However, in CSS, using :popover-open in environments that don't support native popover will result in an invalid selector, and the entire declaration will be ignored. Therefore, if you want to style a popover using .popover-open, it needs to be a separate declaration. For instance, [popover]:popover-open, [popover].popover-open won't work.
+<ShowExample example="matches" />
+
+In environments that don't support the native popover, using `:popover-open` in CSS will be invalid and ignored. If you want to style a popover using .popover-open, it must be a separate declaration. Combining selectors like `[popover]:popover-open` or `[popover].popover-open` won't work.
 
 ### Native Invokers
 
@@ -307,6 +309,15 @@ Transitions use the same props as the animation declaration when it comes to ent
 In order to use a transition, add the `transition` prop on the popover.
 
 > The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) is another native solution that aims to solve this problem. Support is currently in around **65%** of browsers. 
+
+## Additional References
+
+Qwik UI aims to be in line with the standard whenever possible. Our goal is to give Qwik developers the proper tooling when it comes to creating accessible & complex web applications.
+
+To read more about the popover API you can check it out on:
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
+- [Open UI Proposal](https://open-ui.org/components/popover.research.explainer/)
+- [What is the top layer?](https://developer.chrome.com/blog/what-is-the-top-layer/)
 
 ## Additional Examples
 
