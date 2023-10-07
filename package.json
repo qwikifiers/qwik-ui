@@ -80,6 +80,7 @@
     "eslint-plugin-cypress": "^2.14.0",
     "eslint-plugin-qwik": "^1.2.12",
     "eslint-plugin-storybook": "^0.6.13",
+    "focus-trap": "7.5.3",
     "husky": "^8.0.3",
     "jsdom": "22.1.0",
     "libphonenumber-js": "^1.10.43",
