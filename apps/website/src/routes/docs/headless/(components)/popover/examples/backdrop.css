@@ -1,0 +1,14 @@
+.\:popover-open::before {
+  content: '';
+  position: fixed;
+  inset: 0px;
+  z-index: -1;
+  pointer-events: none;
+  background-color: black;
+}
+
+.\:popover-open {
+  background: blue;
+  z-index: 9999999;
+  isolation: isolate;
+}

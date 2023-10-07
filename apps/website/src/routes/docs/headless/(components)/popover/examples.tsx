@@ -30,6 +30,9 @@ import gutterCode from './examples/gutter?raw';
 import StylingComponent from './examples/styling';
 import stylingCode from './examples/styling?raw';
 
+import BackdropComponent from './examples/backdrop';
+import backdropCode from './examples/backdrop?raw';
+
 import AnimationComponent from './examples/animation';
 import animationCode from './examples/animation?raw';
 
@@ -86,6 +89,10 @@ export const comboboxExamples: Record<string, Example> = {
   styling: {
     component: <StylingComponent />,
     code: stylingCode,
+  },
+  backdrop: {
+    component: <BackdropComponent />,
+    code: backdropCode,
   },
   animation: {
     component: <AnimationComponent />,
