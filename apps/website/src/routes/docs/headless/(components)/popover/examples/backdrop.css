@@ -1,14 +1,16 @@
-.\:popover-open::before {
+/* this applies to the whole page for some reason */
+
+/* .\:popover-open::before {
   content: '';
   position: fixed;
   inset: 0px;
   z-index: -1;
   pointer-events: none;
-  background-color: black;
+  background-color: hsla(0, 0%, 0%, 0.5);
 }
 
 .\:popover-open {
   background: blue;
   z-index: 9999999;
   isolation: isolate;
-}
+} */
