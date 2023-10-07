@@ -40,6 +40,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 // TODO: Introduce bind:open to allow passing a signal.
 export const ModalRoot = component$((props: ModalProps) => {
   const { 'bind:show': givenOpenSig, ...rest } = props;
+
   useStylesScoped$(styles);
 
   /** Contains reference to the rendered HTMLDialogElement. */
@@ -52,7 +53,15 @@ export const ModalRoot = component$((props: ModalProps) => {
 
   const closeOnBackdropClick$ = $(
     (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) => {
-      if (hasDialogBackdropBeenClicked(event)) {
+      const dialogRect = (event.target as HTMLDialogElement).getBoundingClientRect();
+
+      const wasClickTriggeredOutsideDialogRect =
+        dialogRect.left > event.clientX ||
+        dialogRect.right < event.clientX ||
+        dialogRect.top > event.clientY ||
+        dialogRect.bottom < event.clientY;
+
+      if (wasClickTriggeredOutsideDialogRect) {
         openSig.value = false;
       }
     },
@@ -103,16 +112,3 @@ export const ModalRoot = component$((props: ModalProps) => {
     </dialog>
   );
 });
-
-function hasDialogBackdropBeenClicked(
-  event: QwikMouseEvent<HTMLDialogElement, MouseEvent>,
-) {
-  const rect = (event.target as HTMLDialogElement).getBoundingClientRect();
-
-  return (
-    rect.left > event.clientX ||
-    rect.right < event.clientX ||
-    rect.top > event.clientY ||
-    rect.bottom < event.clientY
-  );
-}
