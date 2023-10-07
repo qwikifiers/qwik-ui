@@ -38,7 +38,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 };
 
 // TODO: Introduce bind:open to allow passing a signal.
-export const Modal = component$((props: ModalProps) => {
+export const ModalRoot = component$((props: ModalProps) => {
   const { 'bind:show': givenOpenSig, ...rest } = props;
   useStylesScoped$(styles);
 

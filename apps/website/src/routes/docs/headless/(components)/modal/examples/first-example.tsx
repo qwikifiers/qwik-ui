@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
+import { ModalContent, ModalFooter, ModalHeader, ModalRoot } from '@qwik-ui/headless';
 
 export default component$(() => {
   const showSignal = useSignal(false);
@@ -12,7 +12,7 @@ export default component$(() => {
       >
         Open Modal
       </button>
-      <Modal bind:show={showSignal} class="rounded-md p-4 shadow-md">
+      <ModalRoot bind:show={showSignal} class="rounded-md p-4 shadow-md">
         <ModalHeader>
           <h2 class="text:md font-bold">Are your sure?</h2>
         </ModalHeader>
@@ -33,7 +33,7 @@ export default component$(() => {
             Yes
           </button>
         </ModalFooter>
-      </Modal>
+      </ModalRoot>
     </>
   );
 });
