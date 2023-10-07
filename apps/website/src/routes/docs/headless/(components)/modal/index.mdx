@@ -1,10 +1,18 @@
 ---
-title: Qwik UI | Dialog
+title: Qwik UI | Tabs
 ---
 
-import { Dialog } from '@qwik-ui/headless';
-import { Example01 } from './examples';
-import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
+import {
+  KeyboardInteractionTable,
+  APITable,
+  StatusBanner,
+  statusByComponent,
+  ShortExample,
+  LongExample,
+  ShowExample
+} from './exports';
+
+<StatusBanner status={statusByComponent.headless.Modal}/>
 
 # Dialog
 
@@ -12,19 +20,7 @@ import { KeyboardInteractionTable } from '../../../_components/keyboard-interact
 
 {' '}
 
-<Example01>
-  ```tsx
-  <button onClick$={() => modalApi.value?.open$()}>Open Modal</button>
-
-  <Modal api={modalApi}>
-    <ModalHeader>
-      <h2>Hi 👋🏻</h2>
-    </ModalHeader>
-
-    <ModalContent>I am a Modal</ModalContent>
-  </Modal>
-  ```
-</Example01>
+<ShowExample example="first"/>
 
 ## Accessibility
 
