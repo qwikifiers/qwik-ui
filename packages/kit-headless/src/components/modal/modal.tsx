@@ -33,7 +33,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   fullScreen?: Signal<boolean>; // TODO: change to bind
   onShow$?: QRL<() => void>;
   onHide$?: QRL<() => void>;
-  show: boolean;
+  show?: boolean;
   'bind:show'?: Signal<boolean | undefined>;
 };
 
