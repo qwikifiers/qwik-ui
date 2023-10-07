@@ -8,8 +8,9 @@ import {
   Slot,
   useSignal,
   useTask$,
+  useVisibleTask$,
 } from '@builder.io/qwik';
-import { isServer } from '@builder.io/qwik/build';
+import { createFocusTrap, FocusTrap } from 'focus-trap';
 
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
@@ -22,21 +23,22 @@ export const ModalRoot = component$((props: ModalProps) => {
   const { 'bind:show': givenOpenSig, ...rest } = props;
 
   const refSig = useSignal<HTMLDialogElement>();
+  const focusTrapSig = useSignal<FocusTrap>();
 
   const defaultOpenSig = useSignal(false);
   const openSig = givenOpenSig || defaultOpenSig;
 
   const closeOnBackdropClick$ = $(
     (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) => {
-      const dialogRect = (event.target as HTMLDialogElement).getBoundingClientRect();
+      const modalRect = (event.target as HTMLDialogElement).getBoundingClientRect();
 
-      const wasClickTriggeredOutsideDialogRect =
-        dialogRect.left > event.clientX ||
-        dialogRect.right < event.clientX ||
-        dialogRect.top > event.clientY ||
-        dialogRect.bottom < event.clientY;
+      const wasClickTriggeredOutsideModalRect =
+        modalRect.left > event.clientX ||
+        modalRect.right < event.clientX ||
+        modalRect.top > event.clientY ||
+        modalRect.bottom < event.clientY;
 
-      if (wasClickTriggeredOutsideDialogRect) {
+      if (wasClickTriggeredOutsideModalRect) {
         openSig.value = false;
       }
     },
@@ -51,28 +53,39 @@ export const ModalRoot = component$((props: ModalProps) => {
   useTask$(async function openOrCloseModal({ track }) {
     const isOpen = track(() => openSig.value);
 
-    const dialog = refSig.value;
+    const modal = refSig.value;
 
-    if (!dialog) return;
+    if (!modal) return;
 
     if (isOpen) {
-      dialog.showModal();
+      modal.showModal();
+
       await props.onShow$?.();
     } else {
       await props.onHide$?.();
-      dialog.close();
+
+      modal.close();
     }
   });
 
-  useTask$(async function lockScrollingWhenModalIsOpened({ track }) {
-    if (isServer) return;
+  useVisibleTask$(function setupFocusTrap({ track }) {
+    const isOpen = track(() => openSig.value);
+    const modal = refSig.value;
 
-    // TODO: Make this work with SSR
-    //       Idea: using useVisibleTask$ and check whether Modal has been opened
-    //             on the server. If it has been opened lock scrolling.
-    const isOpened = track(() => openSig.value);
+    if (!modal) return;
 
-    window.document.body.style.overflow = isOpened ? 'hidden' : '';
+    if (isOpen) {
+      focusTrapSig.value = createFocusTrap(modal);
+      focusTrapSig.value?.activate();
+    } else {
+      focusTrapSig.value?.deactivate();
+    }
+  });
+
+  useVisibleTask$(function lockScrollingWhenModalIsOpen({ track }) {
+    const isOpen = track(() => openSig.value);
+
+    window.document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   return (
