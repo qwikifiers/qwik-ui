@@ -1,9 +1,9 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { mount } from 'cypress-ct-qwik';
-import { ModalRoot } from './modal';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
 import { ModalHeader } from './modal-header';
+import { ModalRoot } from './modal-root';
 
 /**
  * SUT - System under test

@@ -7,11 +7,9 @@ import {
   Signal,
   Slot,
   useSignal,
-  useStylesScoped$,
   useTask$,
 } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
-import styles from './modal-root.css?inline';
 
 /**
  * Todo-List
@@ -30,7 +28,6 @@ import styles from './modal-root.css?inline';
  */
 
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
-  fullScreen?: Signal<boolean>; // TODO: change to bind
   onShow$?: QRL<() => void>;
   onHide$?: QRL<() => void>;
   show?: boolean;
@@ -41,12 +38,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 export const ModalRoot = component$((props: ModalProps) => {
   const { 'bind:show': givenOpenSig, ...rest } = props;
 
-  useStylesScoped$(styles);
-
-  /** Contains reference to the rendered HTMLDialogElement. */
   const refSig = useSignal<HTMLDialogElement>();
-
-  /** Indicates whether the modal is open. */
 
   const defaultOpenSig = useSignal(false);
   const openSig = givenOpenSig || defaultOpenSig;
@@ -103,7 +95,6 @@ export const ModalRoot = component$((props: ModalProps) => {
   return (
     <dialog
       {...rest}
-      class={`${props.class} ${props.fullScreen ? 'full-screen' : ''}`}
       ref={refSig}
       onClick$={closeOnBackdropClick$}
       onClose$={() => (openSig.value = false)}
