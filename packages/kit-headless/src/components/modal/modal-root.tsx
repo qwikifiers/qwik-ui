@@ -11,22 +11,6 @@ import {
 } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 
-/**
- * Todo-List
- * ---------
- *
- * [ ] Have a look at Radix-Dialog to get inspired by features/examples
- *     * What is important for BETA
- *     * What might be implemented later
- * [ ] Think about more tests
- *
-
-<modal bind:open={mySig}>
-
-</modal>
-
- */
-
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
   onHide$?: QRL<() => void>;
@@ -34,7 +18,6 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   'bind:show'?: Signal<boolean | undefined>;
 };
 
-// TODO: Introduce bind:open to allow passing a signal.
 export const ModalRoot = component$((props: ModalProps) => {
   const { 'bind:show': givenOpenSig, ...rest } = props;
 
