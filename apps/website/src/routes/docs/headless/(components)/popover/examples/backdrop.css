@@ -9,7 +9,7 @@
 }
 
 /* supported browsers */
-.backdrop::backdrop {
+.backdrop:popover-open::before {
   content: '';
   position: fixed;
   inset: 0px;
