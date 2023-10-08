@@ -13,11 +13,11 @@ export default component$(() => {
       >
         Popover Trigger
       </button>
-      <Popover
-        id="backdrop-id"
-        class="shadow-dark-medium backdrop rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1"
-      >
-        Popover
+      <Popover class="backdrop border-none bg-transparent" id="backdrop-id">
+        {/* Need a child here, or else the pseudo element background takes priority */}
+        <div class="shadow-dark-medium rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1">
+          Popover
+        </div>
       </Popover>
     </>
   );
