@@ -39,7 +39,7 @@ export const ModalPortal = component$(() => {
     if (!modal) return;
 
     if (isOpen) {
-      focusTrap = createFocusTrap(modal);
+      focusTrap = createFocusTrap(modal, { escapeDeactivates: false });
       focusTrap.activate();
     }
 

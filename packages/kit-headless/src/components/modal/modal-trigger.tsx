@@ -1,18 +1,8 @@
-import {
-  $,
-  Slot,
-  component$,
-  useContext,
-  useOn,
-  useSignal,
-  useVisibleTask$,
-} from '@builder.io/qwik';
-import { tabbable } from 'tabbable';
+import { $, Slot, component$, useContext, useOn } from '@builder.io/qwik';
 import { modalContextId } from './modal-context-id';
 
 export const ModalTrigger = component$(() => {
   const modalContext = useContext(modalContextId);
-  const modalTriggerContainerSig = useSignal<HTMLDivElement>();
 
   useOn(
     'click',
@@ -21,22 +11,8 @@ export const ModalTrigger = component$(() => {
     }),
   );
 
-  useVisibleTask$(function focusOnModalClose({ track }) {
-    const isOpen = track(() => modalContext.showSig.value);
-    const modalTriggerContainer = modalTriggerContainerSig.value;
-
-    if (isOpen || !modalTriggerContainer) {
-      return;
-    }
-
-    const [trigger] = tabbable(modalTriggerContainer);
-    console.log('huhuhu', trigger);
-
-    trigger?.focus();
-  });
-
   return (
-    <div ref={modalTriggerContainerSig}>
+    <div>
       <Slot />
     </div>
   );
