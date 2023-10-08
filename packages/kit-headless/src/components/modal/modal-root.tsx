@@ -1,104 +1,48 @@
 import {
-  $,
   component$,
   QRL,
   QwikIntrinsicElements,
-  QwikMouseEvent,
   Signal,
   Slot,
+  useContextProvider,
   useSignal,
   useTask$,
-  useVisibleTask$,
 } from '@builder.io/qwik';
-import { createFocusTrap, FocusTrap } from 'focus-trap';
+import { modalContextId } from './modal-context-id';
+import { ModalContext } from './modal-context.type';
 
-export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
+export type ModalRootProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
   onHide$?: QRL<() => void>;
   show?: boolean;
-  'bind:show'?: Signal<boolean | undefined>;
+  'bind:show'?: Signal<boolean>;
 };
 
-export const ModalRoot = component$((props: ModalProps) => {
-  const { 'bind:show': givenOpenSig, ...rest } = props;
-
-  const refSig = useSignal<HTMLDialogElement>();
+export const ModalRoot = component$((props: ModalRootProps) => {
+  const {
+    'bind:show': givenOpenSig,
+    show: givenShow,
+    onShow$,
+    onHide$,
+    ...htmlDialogProps
+  } = props;
 
   const defaultOpenSig = useSignal(false);
-  const openSig = givenOpenSig || defaultOpenSig;
-
-  const closeOnBackdropClick$ = $(
-    (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) => {
-      const modalRect = (event.target as HTMLDialogElement).getBoundingClientRect();
-
-      const wasClickTriggeredOutsideModalRect =
-        modalRect.left > event.clientX ||
-        modalRect.right < event.clientX ||
-        modalRect.top > event.clientY ||
-        modalRect.bottom < event.clientY;
-
-      if (wasClickTriggeredOutsideModalRect) {
-        openSig.value = false;
-      }
-    },
-  );
+  const showSig = givenOpenSig || defaultOpenSig;
 
   useTask$(async function syncOpenProp({ track }) {
-    const openPropValue = track(() => props.show);
+    const openPropValue = track(() => givenShow);
 
-    openSig.value = openPropValue;
+    showSig.value = openPropValue || false;
   });
 
-  useTask$(async function openOrCloseModal({ track }) {
-    const isOpen = track(() => openSig.value);
+  const context: ModalContext = {
+    showSig,
+    htmlDialogProps,
+    handler: { onShow$, onHide$ },
+  };
 
-    const modal = refSig.value;
+  useContextProvider(modalContextId, context);
 
-    if (!modal) return;
-
-    if (isOpen) {
-      modal.showModal();
-
-      await props.onShow$?.();
-    } else {
-      await props.onHide$?.();
-
-      modal.close();
-    }
-  });
-
-  useVisibleTask$(function setupFocusTrap({ track, cleanup }) {
-    const isOpen = track(() => openSig.value);
-    const modal = refSig.value;
-    let focusTrap: FocusTrap | null = null;
-
-    if (!modal) return;
-
-    if (isOpen) {
-      focusTrap = createFocusTrap(modal);
-      focusTrap.activate();
-    }
-
-    cleanup(() => {
-      focusTrap?.deactivate();
-      focusTrap = null;
-    });
-  });
-
-  useVisibleTask$(function lockScrollingWhenModalIsOpen({ track }) {
-    const isOpen = track(() => openSig.value);
-
-    window.document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  return (
-    <dialog
-      {...rest}
-      ref={refSig}
-      onClick$={closeOnBackdropClick$}
-      onClose$={() => (openSig.value = false)}
-    >
-      <Slot />
-    </dialog>
-  );
+  return <Slot />;
 });

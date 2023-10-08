@@ -246,6 +246,9 @@ importers:
       storybook-framework-qwik:
         specifier: ^0.2.3
         version: 0.2.3(@builder.io/qwik@1.2.12)(typescript@5.2.2)(vite@4.4.9)
+      tabbable:
+        specifier: 6.2.0
+        version: 6.2.0
       tailwind-merge:
         specifier: 1.14.0
         version: 1.14.0
