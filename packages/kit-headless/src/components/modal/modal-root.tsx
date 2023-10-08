@@ -23,7 +23,6 @@ export const ModalRoot = component$((props: ModalProps) => {
   const { 'bind:show': givenOpenSig, ...rest } = props;
 
   const refSig = useSignal<HTMLDialogElement>();
-  const focusTrapSig = useSignal<FocusTrap>();
 
   const defaultOpenSig = useSignal(false);
   const openSig = givenOpenSig || defaultOpenSig;
@@ -68,18 +67,22 @@ export const ModalRoot = component$((props: ModalProps) => {
     }
   });
 
-  useVisibleTask$(function setupFocusTrap({ track }) {
+  useVisibleTask$(function setupFocusTrap({ track, cleanup }) {
     const isOpen = track(() => openSig.value);
     const modal = refSig.value;
+    let focusTrap: FocusTrap | null = null;
 
     if (!modal) return;
 
     if (isOpen) {
-      focusTrapSig.value = createFocusTrap(modal);
-      focusTrapSig.value?.activate();
-    } else {
-      focusTrapSig.value?.deactivate();
+      focusTrap = createFocusTrap(modal);
+      focusTrap.activate();
     }
+
+    cleanup(() => {
+      focusTrap?.deactivate();
+      focusTrap = null;
+    });
   });
 
   useVisibleTask$(function lockScrollingWhenModalIsOpen({ track }) {
