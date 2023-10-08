@@ -3,7 +3,7 @@ import { mount } from 'cypress-ct-qwik';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
 import { ModalHeader } from './modal-header';
-import { ModalRoot } from './modal-root';
+import { ModalRoot } from './modal';
 
 /**
  * SUT - System under test

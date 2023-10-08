@@ -11,14 +11,14 @@ import {
 import { modalContextId } from './modal-context-id';
 import { ModalContext } from './modal-context.type';
 
-export type ModalRootProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
+export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
   onHide$?: QRL<() => void>;
   show?: boolean;
   'bind:show'?: Signal<boolean>;
 };
 
-export const ModalRoot = component$((props: ModalRootProps) => {
+export const Modal = component$((props: ModalProps) => {
   const {
     'bind:show': givenOpenSig,
     show: givenShow,
