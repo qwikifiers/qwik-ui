@@ -1,58 +1,60 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { Meta, StoryObj } from 'storybook-framework-qwik';
-import * as Dialog from './public_api';
+import { Modal, ModalProps } from './modal';
+import { ModalClose } from './modal-close';
+import { ModalContent } from './modal-content';
+import { ModalFooter } from './modal-footer';
+import { ModalHeader } from './modal-header';
+import { ModalPortal } from './modal-portal';
+import { ModalTrigger } from './modal-trigger';
 
 /**
  * Using a component$ here to be able to use `useSignal`.
  * useSignal cannot be used directly inside a story's render-Function.
  */
-const DialogStoryComponent = component$((props: Dialog.RootProps) => {
-  const dialogRef = useSignal<Dialog.DialogRef>();
-
+const DialogStoryComponent = component$((props: ModalProps) => {
   return (
     <>
-      <button onClick$={() => dialogRef.value?.open()}>Open Dialog</button>
-
-      <Dialog.Root {...props} ref={dialogRef}>
-        <Dialog.Header>
-          <h2 id="dialog-heading">Hello 👋</h2>
-        </Dialog.Header>
-        <Dialog.Content>
-          <p id="dialog-text">I am a simple Dialog.</p>
-          <p>
-            {Array(500)
-              .fill(null)
-              .map(() => 'Hello World')
-              .join(' ')}
-          </p>
-        </Dialog.Content>
-        <Dialog.Footer>
-          <button onClick$={() => dialogRef.value?.close()}>Close Dialog</button>
-        </Dialog.Footer>
-      </Dialog.Root>
+      <Modal {...props}>
+        <ModalTrigger>
+          <button>Open Dialog</button>
+        </ModalTrigger>
+        <ModalPortal>
+          <ModalHeader>
+            <h2 id="modal-heading">Hello 👋</h2>
+          </ModalHeader>
+          <ModalContent>
+            <p id="modal-text">I am a simple Modal</p>
+            <p>
+              {Array(500)
+                .fill(null)
+                .map(() => 'Hello World')
+                .join(' ')}
+            </p>
+          </ModalContent>
+          <ModalFooter>
+            <ModalClose>
+              <button>Close Dialog</button>
+            </ModalClose>
+          </ModalFooter>
+        </ModalPortal>
+      </Modal>
       <div style="background-color: red; width: 50vw; height: 150vh"></div>
     </>
   );
 });
 
-const meta: Meta<Dialog.RootProps> = {
-  component: Dialog.Root,
+const meta: Meta<ModalProps> = {
+  component: Modal,
   args: {
-    fullScreen: false,
     'aria-describedby': 'modal-text',
-    'aria-labelledby': 'modal-heading'
+    'aria-labelledby': 'modal-heading',
   },
-  render: (props) => <DialogStoryComponent {...props} />
+  render: (props) => <DialogStoryComponent {...props} />,
 };
 
-type Story = StoryObj<Dialog.RootProps>;
+type Story = StoryObj<ModalProps>;
 
 export default meta;
 
 export const Primary: Story = {};
-
-export const FullScreen: Story = {
-  args: {
-    fullScreen: true
-  }
-};
