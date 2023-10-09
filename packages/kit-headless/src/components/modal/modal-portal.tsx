@@ -33,20 +33,23 @@ export const ModalPortal = component$(
       }
     });
 
-    useVisibleTask$(function setupFocusTrap({ track, cleanup }) {
+    useVisibleTask$(function toggleFocusTrap({ track, cleanup }) {
       const isOpen = track(() => modalContext.showSig.value);
       const modal = refSig.value;
-      let focusTrap: FocusTrap | null = null;
 
       if (!modal) return;
 
+      let focusTrap: FocusTrap | null = createFocusTrap(modal, {
+        escapeDeactivates: false,
+      });
+
       if (isOpen) {
-        focusTrap = createFocusTrap(modal, { escapeDeactivates: false });
         focusTrap.activate();
+      } else {
+        focusTrap.deactivate();
       }
 
       cleanup(() => {
-        focusTrap?.deactivate();
         focusTrap = null;
       });
     });

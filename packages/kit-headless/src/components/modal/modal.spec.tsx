@@ -1,35 +1,35 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { mount } from 'cypress-ct-qwik';
+import { Modal } from './modal';
+import { ModalClose } from './modal-close';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
 import { ModalHeader } from './modal-header';
-import { ModalRoot } from './modal';
+import { ModalPortal } from './modal-portal';
+import { ModalTrigger } from './modal-trigger';
 
 /**
  * SUT - System under test
  * Reference: https://en.wikipedia.org/wiki/System_under_test
  */
 const Sut = component$(() => {
-  const openSig = useSignal(false);
   return (
-    <>
-      <button onClick$={() => (openSig.value = true)}>Open Dialog</button>
-
-      <ModalRoot show={openSig}>
+    <Modal>
+      <ModalTrigger>
+        <button data-test="modal-trigger">Open Modal</button>
+      </ModalTrigger>
+      <ModalPortal>
         <ModalHeader>
-          <h2>Hello 👋</h2>
+          <h2 data-test="modal-header">Hello 👋</h2>
         </ModalHeader>
         <ModalContent>I am a simple Modal</ModalContent>
         <ModalFooter>
-          <button
-            data-test="dialog-close-button"
-            onClick$={() => (openSig.value = false)}
-          >
-            Close Dialog
-          </button>
+          <ModalClose>
+            <button data-test="modal-close-button">Close Modal</button>
+          </ModalClose>
         </ModalFooter>
-      </ModalRoot>
-    </>
+      </ModalPortal>
+    </Modal>
   );
 });
 
@@ -37,9 +37,7 @@ describe('Modal', () => {
   it('renders an opened Modal', () => {
     mount(<Sut />);
 
-    cy.get('button')
-      .contains(/Open Modal/i)
-      .click();
+    cy.get('[data-test=modal-trigger]').click();
 
     cy.get('[data-test=modal-header]').should('be.visible').should('contain', 'Hello 👋');
   });
@@ -47,9 +45,7 @@ describe('Modal', () => {
   it('closes on button-click', () => {
     mount(<Sut />);
 
-    cy.get('button')
-      .contains(/Open Modal/i)
-      .click();
+    cy.get('[data-test=modal-trigger]').click();
 
     cy.get('[data-test=modal-close-button]').click();
 
@@ -59,9 +55,7 @@ describe('Modal', () => {
   it('closes on backdrop-click', () => {
     mount(<Sut />);
 
-    cy.get('button')
-      .contains(/Open Modal/i)
-      .click();
+    cy.get('[data-test=modal-trigger]').click();
 
     cy.get('body').click('top');
 
