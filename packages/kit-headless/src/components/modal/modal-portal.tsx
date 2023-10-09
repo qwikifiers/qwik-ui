@@ -45,11 +45,10 @@ export const ModalPortal = component$(
 
       if (isOpen) {
         focusTrap.activate();
-      } else {
-        focusTrap.deactivate();
       }
 
       cleanup(() => {
+        focusTrap?.deactivate();
         focusTrap = null;
       });
     });
