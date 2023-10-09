@@ -62,6 +62,16 @@ describe('Modal', () => {
     cy.get('dialog').should('not.be.visible');
   });
 
+  it('closes on ESC backdrop-click', () => {
+    mount(<Sut />);
+
+    cy.get('[data-test=modal-trigger]').click();
+
+    cy.realPress('Escape');
+
+    cy.get('dialog').should('not.be.visible');
+  });
+
   it('does not show if Modal is closed', () => {
     mount(<Sut />);
 
