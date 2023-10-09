@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik';
-import { mount } from 'cypress-ct-qwik';
 import { Modal } from './modal';
 import { ModalClose } from './modal-close';
 import { ModalContent } from './modal-content';
@@ -34,26 +33,28 @@ const Sut = component$(() => {
 });
 
 describe('Modal', () => {
-  it('renders an opened Modal', () => {
-    mount(<Sut />);
+  it(`GIVEN a Modal
+      WHEN opening it
+      AND being visible
+      AND showing its heading
+      AND clicking the close button
+      THEN it is not visible any more`, () => {
+    cy.mount(<Sut />);
 
     cy.get('[data-test=modal-trigger]').click();
 
     cy.get('[data-test=modal-header]').should('be.visible').should('contain', 'Hello 👋');
-  });
-
-  it('closes on button-click', () => {
-    mount(<Sut />);
-
-    cy.get('[data-test=modal-trigger]').click();
 
     cy.get('[data-test=modal-close-button]').click();
 
     cy.get('dialog').should('not.be.visible');
   });
 
-  it('closes on backdrop-click', () => {
-    mount(<Sut />);
+  it(`GIVEN a Modal
+      WHEN opening it
+      AND clicking the backdrop
+      THEN it is not visible any more`, () => {
+    cy.mount(<Sut />);
 
     cy.get('[data-test=modal-trigger]').click();
 
@@ -62,8 +63,11 @@ describe('Modal', () => {
     cy.get('dialog').should('not.be.visible');
   });
 
-  it('closes on ESC backdrop-click', () => {
-    mount(<Sut />);
+  it(`GIVEN a Modal
+      WHEN opening it
+      AND hitting ESC on the keyboard
+      THEN it is not visible any more`, () => {
+    cy.mount(<Sut />);
 
     cy.get('[data-test=modal-trigger]').click();
 
@@ -72,8 +76,10 @@ describe('Modal', () => {
     cy.get('dialog').should('not.be.visible');
   });
 
-  it('does not show if Modal is closed', () => {
-    mount(<Sut />);
+  it(`GIVEN a Modal
+      WHEN not opened
+      THEN it is not visible`, () => {
+    cy.mount(<Sut />);
 
     cy.get('dialog').should('not.be.visible');
   });
