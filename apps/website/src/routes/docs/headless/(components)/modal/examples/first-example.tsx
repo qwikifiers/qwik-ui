@@ -1,10 +1,10 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import {
+  Modal,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalPortal,
-  ModalRoot,
   ModalTrigger,
 } from '@qwik-ui/headless';
 
@@ -13,13 +13,13 @@ export default component$(() => {
 
   return (
     <>
-      <ModalRoot bind:show={showSignal} class="rounded-md p-4 shadow-md">
+      <Modal bind:show={showSignal}>
         <ModalTrigger>
           <button class="p-1 focus:shadow-[0_0_0_2px] focus:shadow-[var(--qwik-light-blue)] focus:outline-none">
             Open Modal
           </button>
         </ModalTrigger>
-        <ModalPortal>
+        <ModalPortal class="rounded-md p-4 shadow-md">
           <ModalHeader>
             <h2 class="text:md font-bold">Are your sure?</h2>
           </ModalHeader>
@@ -41,7 +41,7 @@ export default component$(() => {
             </button>
           </ModalFooter>
         </ModalPortal>
-      </ModalRoot>
+      </Modal>
     </>
   );
 });

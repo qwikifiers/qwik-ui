@@ -1,7 +1,6 @@
 import {
   component$,
   QRL,
-  QwikIntrinsicElements,
   Signal,
   Slot,
   useContextProvider,
@@ -11,7 +10,7 @@ import {
 import { modalContextId } from './modal-context-id';
 import { ModalContext } from './modal-context.type';
 
-export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
+export type ModalProps = {
   onShow$?: QRL<() => void>;
   onHide$?: QRL<() => void>;
   show?: boolean;
@@ -19,13 +18,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 };
 
 export const Modal = component$((props: ModalProps) => {
-  const {
-    'bind:show': givenOpenSig,
-    show: givenShow,
-    onShow$,
-    onHide$,
-    ...htmlDialogProps
-  } = props;
+  const { 'bind:show': givenOpenSig, show: givenShow, onShow$, onHide$ } = props;
 
   const defaultOpenSig = useSignal(false);
   const showSig = givenOpenSig || defaultOpenSig;
@@ -38,7 +31,6 @@ export const Modal = component$((props: ModalProps) => {
 
   const context: ModalContext = {
     showSig,
-    htmlDialogProps,
     handler: { onShow$, onHide$ },
   };
 
