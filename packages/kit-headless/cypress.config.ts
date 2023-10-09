@@ -1,5 +1,5 @@
-import { defineConfig } from 'cypress';
 import { initPlugin } from '@frsource/cypress-plugin-visual-regression-diff/plugins';
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
   component: {
