@@ -14,6 +14,7 @@ import { modalContextId } from './modal-context-id';
 
 export const ModalPopup = component$(
   (props: Omit<QwikIntrinsicElements['dialog'], 'open'>) => {
+    const { class: modalPopupClass, ...htmlDialogProps } = props;
     const modalContext = useContext(modalContextId);
     const refSig = useSignal<HTMLDialogElement>();
 
@@ -69,12 +70,14 @@ export const ModalPopup = component$(
 
     return (
       <dialog
-        {...props}
+        {...htmlDialogProps}
         ref={refSig}
         onClick$={(event) => closeOnBackdropClick$(event)}
         onClose$={() => (modalContext.showSig.value = false)}
       >
-        <Slot />
+        <div class={modalPopupClass}>
+          <Slot />
+        </div>
       </dialog>
     );
   },
