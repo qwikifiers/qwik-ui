@@ -4,7 +4,7 @@ import { ModalClose } from './modal-close';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
 import { ModalHeader } from './modal-header';
-import { ModalPortal } from './modal-portal';
+import { ModalPopup } from './modal-popup';
 import { ModalTrigger } from './modal-trigger';
 
 /**
@@ -17,7 +17,7 @@ const Sut = component$(() => {
       <ModalTrigger>
         <button data-test="modal-trigger">Open Modal</button>
       </ModalTrigger>
-      <ModalPortal>
+      <ModalPopup>
         <ModalHeader>
           <h2 data-test="modal-header">Hello 👋</h2>
         </ModalHeader>
@@ -27,7 +27,7 @@ const Sut = component$(() => {
             <button data-test="modal-close-button">Close Modal</button>
           </ModalClose>
         </ModalFooter>
-      </ModalPortal>
+      </ModalPopup>
     </Modal>
   );
 });

@@ -12,7 +12,7 @@ import {
 import { FocusTrap, createFocusTrap } from 'focus-trap';
 import { modalContextId } from './modal-context-id';
 
-export const ModalPortal = component$(
+export const ModalPopup = component$(
   (props: Omit<QwikIntrinsicElements['dialog'], 'open'>) => {
     const modalContext = useContext(modalContextId);
     const refSig = useSignal<HTMLDialogElement>();

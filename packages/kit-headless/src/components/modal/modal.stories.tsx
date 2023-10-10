@@ -5,7 +5,7 @@ import { ModalClose } from './modal-close';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
 import { ModalHeader } from './modal-header';
-import { ModalPortal } from './modal-portal';
+import { ModalPopup } from './modal-popup';
 import { ModalTrigger } from './modal-trigger';
 
 /**
@@ -19,7 +19,7 @@ const DialogStoryComponent = component$((props: ModalProps) => {
         <ModalTrigger>
           <button>Open Dialog</button>
         </ModalTrigger>
-        <ModalPortal>
+        <ModalPopup>
           <ModalHeader>
             <h2 id="modal-heading">Hello 👋</h2>
           </ModalHeader>
@@ -37,7 +37,7 @@ const DialogStoryComponent = component$((props: ModalProps) => {
               <button>Close Dialog</button>
             </ModalClose>
           </ModalFooter>
-        </ModalPortal>
+        </ModalPopup>
       </Modal>
       <div style="background-color: red; width: 50vw; height: 150vh"></div>
     </>

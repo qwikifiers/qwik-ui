@@ -16,11 +16,19 @@ import {
 
 # Modal
 
-#### A window overlaid on either the primary window or another dialog window, rendering the content underneath inert. ([Definition comes from Radix-UI](https://www.radix-ui.com/docs/primitives/components/dialog))
-
-{' '}
+A window overlaid on either the primary window or another dialog window. Modal content is placed in the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer), rendering the underneath content as [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) meaning non-interactive.
 
 <ShowExample example="first"/>
+
+Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed. 
+
+> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) *(in progress)*. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself.
+
+##### ✨ Features
+
+- Managed focus order
+- Controlled or uncontrolled
+- Controlled or uncontrolled
 
 ## Accessibility
 

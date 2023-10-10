@@ -1,19 +1,14 @@
-import { $, Slot, component$, useContext, useOn } from '@builder.io/qwik';
+import { QwikIntrinsicElements, Slot, component$, useContext } from '@builder.io/qwik';
 import { modalContextId } from './modal-context-id';
 
-export const ModalTrigger = component$(() => {
+export type ModalTriggerProps = QwikIntrinsicElements['button'];
+
+export const ModalTrigger = component$((props: ModalTriggerProps) => {
   const modalContext = useContext(modalContextId);
 
-  useOn(
-    'click',
-    $(function openModal() {
-      modalContext.showSig.value = true;
-    }),
-  );
-
   return (
-    <div>
+    <button onClick$={() => (modalContext.showSig.value = true)} {...props}>
       <Slot />
-    </div>
+    </button>
   );
 });

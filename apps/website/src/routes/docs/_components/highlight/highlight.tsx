@@ -50,12 +50,18 @@ export const Highlight = component$(
       <div
         {...props}
         class={[
-          'tab-size relative max-w-full overflow-hidden overflow-x-auto rounded-xl bg-slate-50 p-12 text-sm dark:bg-slate-800',
+          'tab-size relative max-w-full overflow-hidden overflow-x-auto rounded-b-xl bg-slate-50 p-12 text-sm dark:bg-slate-800',
           props.class,
         ]}
       >
         <div dangerouslySetInnerHTML={codeSig.value} />
-        <CodeCopy class={['absolute right-2 top-2', copyCodeClass]} code={code} />
+        <CodeCopy
+          class={[
+            'absolute right-2 top-2 bg-slate-200 text-slate-950 hover:bg-slate-300 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600',
+            copyCodeClass,
+          ]}
+          code={code}
+        />
       </div>
     );
   },

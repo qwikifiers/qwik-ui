@@ -27,7 +27,7 @@ export const ShowExample = component$(({ example }: ShowExampleProps) => {
   const { component, code, cssClasses = '' } = examples[example];
   return (
     <PreviewCodeExampleTabs code={code}>
-      <div q:slot="actualComponent" class={['tabs-example mr-auto', cssClasses]}>
+      <div q:slot="actualComponent" class={['tabs-example mx-auto', cssClasses]}>
         {component}
       </div>
     </PreviewCodeExampleTabs>

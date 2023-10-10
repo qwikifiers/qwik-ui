@@ -1,19 +1,14 @@
-import { $, Slot, component$, useContext, useOn } from '@builder.io/qwik';
+import { QwikIntrinsicElements, Slot, component$, useContext } from '@builder.io/qwik';
 import { modalContextId } from './modal-context-id';
 
-export const ModalClose = component$(() => {
+type ModalCloseProps = QwikIntrinsicElements['button'];
+
+export const ModalClose = component$((props: ModalCloseProps) => {
   const modalContext = useContext(modalContextId);
 
-  useOn(
-    'click',
-    $(function closeModal() {
-      modalContext.showSig.value = false;
-    }),
-  );
-
   return (
-    <div>
+    <button onClick$={() => (modalContext.showSig.value = false)} {...props}>
       <Slot />
-    </div>
+    </button>
   );
 });
