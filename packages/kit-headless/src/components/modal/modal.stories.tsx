@@ -4,7 +4,6 @@ import { Modal, ModalProps } from './modal';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
 import { ModalHeader } from './modal-header';
-import { ModalPopup } from './modal-popup';
 
 /**
  * Using a component$ here to be able to use `useSignal`.
@@ -18,23 +17,21 @@ const DialogStoryComponent = component$((props: ModalProps) => {
       <button onClick$={() => (showSig.value = true)}>Open Dialog</button>
 
       <Modal {...props} bind:show={showSig}>
-        <ModalPopup aria-describedby="modal-text" aria-labelledby="modal-heading">
-          <ModalHeader>
-            <h2 id="modal-heading">Hello 👋</h2>
-          </ModalHeader>
-          <ModalContent>
-            <p id="modal-text">I am a simple Modal</p>
-            <p>
-              {Array(500)
-                .fill(null)
-                .map(() => 'Hello World')
-                .join(' ')}
-            </p>
-          </ModalContent>
-          <ModalFooter>
-            <button onClick$={() => (showSig.value = false)}>Close Dialog</button>
-          </ModalFooter>
-        </ModalPopup>
+        <ModalHeader>
+          <h2 id="modal-heading">Hello 👋</h2>
+        </ModalHeader>
+        <ModalContent>
+          <p id="modal-text">I am a simple Modal</p>
+          <p>
+            {Array(500)
+              .fill(null)
+              .map(() => 'Hello World')
+              .join(' ')}
+          </p>
+        </ModalContent>
+        <ModalFooter>
+          <button onClick$={() => (showSig.value = false)}>Close Dialog</button>
+        </ModalFooter>
       </Modal>
       <div style="background-color: red; width: 50vw; height: 150vh"></div>
     </>
@@ -43,6 +40,10 @@ const DialogStoryComponent = component$((props: ModalProps) => {
 
 const meta: Meta<ModalProps> = {
   component: Modal,
+  args: {
+    'aria-describedby': 'modal-text',
+    'aria-labelledby': 'modal-heading',
+  },
   render: (props) => <DialogStoryComponent {...props} />,
 };
 

@@ -3,7 +3,6 @@ import { Modal } from './modal';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
 import { ModalHeader } from './modal-header';
-import { ModalPopup } from './modal-popup';
 
 /**
  * SUT - System under test
@@ -17,20 +16,15 @@ const Sut = component$(() => {
         Open Modal
       </button>
       <Modal>
-        <ModalPopup>
-          <ModalHeader>
-            <h2 data-test="modal-header">Hello 👋</h2>
-          </ModalHeader>
-          <ModalContent>I am a simple Modal</ModalContent>
-          <ModalFooter>
-            <button
-              onClick$={() => (showSig.value = false)}
-              data-test="modal-close-button"
-            >
-              Close Modal
-            </button>
-          </ModalFooter>
-        </ModalPopup>
+        <ModalHeader>
+          <h2 data-test="modal-header">Hello 👋</h2>
+        </ModalHeader>
+        <ModalContent>I am a simple Modal</ModalContent>
+        <ModalFooter>
+          <button onClick$={() => (showSig.value = false)} data-test="modal-close-button">
+            Close Modal
+          </button>
+        </ModalFooter>
       </Modal>
     </>
   );
