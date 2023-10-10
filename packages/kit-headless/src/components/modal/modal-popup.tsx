@@ -27,6 +27,15 @@ export const ModalPopup = component$(
       if (isOpen) {
         modal.showModal();
         await modalContext.handler.onShow$?.();
+
+        let scrollbarWidth: number | null = null;
+
+        // prevents scrollbar flickers
+        if (scrollbarWidth === null) {
+          scrollbarWidth = window.innerWidth - document.body.offsetWidth;
+          document.body.style.overflow = 'hidden';
+          document.body.style.paddingRight = `${scrollbarWidth}px`;
+        }
       } else {
         await modalContext.handler.onHide$?.();
         modal.close();
