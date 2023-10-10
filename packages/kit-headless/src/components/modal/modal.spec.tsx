@@ -15,7 +15,7 @@ const Sut = component$(() => {
       <button onClick$={() => (showSig.value = true)} data-test="modal-trigger">
         Open Modal
       </button>
-      <Modal>
+      <Modal bind:show={showSig}>
         <ModalHeader>
           <h2 data-test="modal-header">Hello 👋</h2>
         </ModalHeader>
