@@ -1,68 +1,71 @@
 import { QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
 import {
   Modal,
-  ModalPopup,
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalTrigger,
-  ModalClose,
+  ModalPopup,
 } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const showSignal = useSignal(false);
+  const showSig = useSignal(false);
 
   return (
-    <Modal bind:show={showSignal}>
-      <ModalTrigger class="rounded-md border-2 border-slate-300 bg-slate-700 px-3 py-2 text-white">
+    <>
+      <button
+        onClick$={() => (showSig.value = true)}
+        class="rounded-md border-2 border-slate-300 bg-slate-700 px-3 py-2 text-white"
+      >
         Open Modal
-      </ModalTrigger>
-      <ModalPopup class="shadow-dark-medium max-w-[25rem] rounded-md bg-white p-[28px] text-slate-950">
-        <ModalHeader class="relative">
-          <h2 class="mb-2 text-lg font-bold">Edit Profile</h2>
-          <p class="leading-5">
-            You can update your profile here. Hit the save button when finished.
-          </p>
-        </ModalHeader>
-        <ModalContent class="mb-2 py-4">
-          <fieldset class="mb-1 flex items-baseline justify-between">
-            <label for="name">Name</label>
-            <input
-              class="mt-2 rounded-sm px-4 py-[10px] text-white"
-              id="name"
-              type="text"
-              placeholder="John Doe"
-            />
-          </fieldset>
-          <fieldset class="flex items-baseline justify-between">
-            <label for="email">Email</label>
-            <input
-              class="mt-2 rounded-sm px-4 py-3 text-white"
-              id="email"
-              type="text"
-              placeholder="johndoe@gmail.com"
-            />
-          </fieldset>
-        </ModalContent>
-        <ModalFooter class="flex justify-end gap-4">
-          <button
-            class="rounded-sm border border-none bg-slate-200 px-4 py-[10px] text-slate-600 outline-none focus-visible:outline-slate-700"
-            onClick$={() => (showSignal.value = false)}
-          >
-            Cancel
+      </button>
+      <Modal bind:show={showSig}>
+        <ModalPopup class="shadow-dark-medium max-w-[25rem] rounded-md bg-white p-[28px] text-slate-950">
+          <ModalHeader class="relative">
+            <h2 class="mb-2 text-lg font-bold">Edit Profile</h2>
+            <p class="leading-5">
+              You can update your profile here. Hit the save button when finished.
+            </p>
+          </ModalHeader>
+          <ModalContent class="mb-2 py-4">
+            <fieldset class="mb-1 flex items-baseline justify-between">
+              <label for="name">Name</label>
+              <input
+                class="mt-2 rounded-sm px-4 py-[10px] text-white"
+                id="name"
+                type="text"
+                placeholder="John Doe"
+              />
+            </fieldset>
+            <fieldset class="flex items-baseline justify-between">
+              <label for="email">Email</label>
+              <input
+                class="mt-2 rounded-sm px-4 py-3 text-white"
+                id="email"
+                type="text"
+                placeholder="johndoe@gmail.com"
+              />
+            </fieldset>
+          </ModalContent>
+          <ModalFooter class="flex justify-end gap-4">
+            <button
+              class="rounded-sm border border-none bg-slate-200 px-4 py-[10px] text-slate-600 outline-none focus-visible:outline-slate-700"
+              onClick$={() => (showSig.value = false)}
+            >
+              Cancel
+            </button>
+            <button
+              class="rounded-sm border border-none bg-green-200 px-4 py-[10px] text-green-900 outline-none focus-visible:outline-green-700"
+              onClick$={() => (showSig.value = false)}
+            >
+              Save Changes
+            </button>
+          </ModalFooter>
+          <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-6">
+            <CloseIcon class="h-8 w-8" />
           </button>
-          <button
-            class="rounded-sm border border-none bg-green-200 px-4 py-[10px] text-green-900 outline-none focus-visible:outline-green-700"
-            onClick$={() => (showSignal.value = false)}
-          >
-            Save Changes
-          </button>
-        </ModalFooter>
-        <ModalClose class="absolute right-6 top-6">
-          <CloseIcon class="h-8 w-8" />
-        </ModalClose>
-      </ModalPopup>
-    </Modal>
+        </ModalPopup>
+      </Modal>
+    </>
   );
 });
 

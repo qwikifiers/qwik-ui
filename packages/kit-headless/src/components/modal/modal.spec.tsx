@@ -1,34 +1,38 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import { Modal } from './modal';
-import { ModalClose } from './modal-close';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
 import { ModalHeader } from './modal-header';
 import { ModalPopup } from './modal-popup';
-import { ModalTrigger } from './modal-trigger';
 
 /**
  * SUT - System under test
  * Reference: https://en.wikipedia.org/wiki/System_under_test
  */
 const Sut = component$(() => {
+  const showSig = useSignal(false);
   return (
-    <Modal>
-      <ModalTrigger>
-        <button data-test="modal-trigger">Open Modal</button>
-      </ModalTrigger>
-      <ModalPopup>
-        <ModalHeader>
-          <h2 data-test="modal-header">Hello 👋</h2>
-        </ModalHeader>
-        <ModalContent>I am a simple Modal</ModalContent>
-        <ModalFooter>
-          <ModalClose>
-            <button data-test="modal-close-button">Close Modal</button>
-          </ModalClose>
-        </ModalFooter>
-      </ModalPopup>
-    </Modal>
+    <>
+      <button onClick$={() => (showSig.value = true)} data-test="modal-trigger">
+        Open Modal
+      </button>
+      <Modal>
+        <ModalPopup>
+          <ModalHeader>
+            <h2 data-test="modal-header">Hello 👋</h2>
+          </ModalHeader>
+          <ModalContent>I am a simple Modal</ModalContent>
+          <ModalFooter>
+            <button
+              onClick$={() => (showSig.value = false)}
+              data-test="modal-close-button"
+            >
+              Close Modal
+            </button>
+          </ModalFooter>
+        </ModalPopup>
+      </Modal>
+    </>
   );
 });
 
