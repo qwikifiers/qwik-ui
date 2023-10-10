@@ -9,7 +9,6 @@ import {
   useContextProvider,
   useSignal,
   useTask$,
-  useVisibleTask$,
 } from '@builder.io/qwik';
 import { createFocusTrap, FocusTrap } from 'focus-trap';
 import { modalContextId } from './modal-context-id';
@@ -60,7 +59,7 @@ export const Modal = component$((props: ModalProps) => {
     }
   });
 
-  useVisibleTask$(function toggleFocusTrap({ track, cleanup }) {
+  useTask$(function toggleFocusAndScrollLock({ track, cleanup }) {
     const isOpen = track(() => showSig.value);
     const modal = refSig.value;
 
@@ -72,18 +71,14 @@ export const Modal = component$((props: ModalProps) => {
 
     if (isOpen) {
       focusTrap.activate();
+      window.document.body.style.overflow = 'hidden';
     }
 
     cleanup(() => {
       focusTrap?.deactivate();
+      window.document.body.style.overflow = '';
       focusTrap = null;
     });
-  });
-
-  useVisibleTask$(function lockScrollingWhenModalIsOpen({ track }) {
-    const isOpen = track(() => showSig.value);
-
-    window.document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   const closeOnBackdropClick$ = $((event: QwikMouseEvent) => {
