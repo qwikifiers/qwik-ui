@@ -34,9 +34,8 @@ export const Modal = component$((props: ModalProps) => {
     showSig.value = openPropValue || false;
   });
 
-  useTask$(async function openOrCloseModal({ track }) {
+  useTask$(async function toggleModal({ track }) {
     const isOpen = track(() => showSig.value);
-
     const modal = refSig.value;
 
     if (!modal) return;
@@ -59,7 +58,7 @@ export const Modal = component$((props: ModalProps) => {
     }
   });
 
-  useTask$(function toggleFocusAndScrollLock({ track, cleanup }) {
+  useTask$(function toggleFocusLock({ track, cleanup }) {
     const isOpen = track(() => showSig.value);
     const modal = refSig.value;
 
@@ -71,13 +70,26 @@ export const Modal = component$((props: ModalProps) => {
 
     if (isOpen) {
       focusTrap.activate();
-      window.document.body.style.overflow = 'hidden';
     }
 
     cleanup(() => {
       focusTrap?.deactivate();
-      window.document.body.style.overflow = '';
       focusTrap = null;
+    });
+  });
+
+  useTask$(function toggleScrollLock({ track, cleanup }) {
+    const isOpen = track(() => showSig.value);
+    const modal = refSig.value;
+
+    if (!modal) return;
+
+    if (isOpen) {
+      window.document.body.style.overflow = 'hidden';
+    }
+
+    cleanup(() => {
+      window.document.body.style.overflow = '';
     });
   });
 
