@@ -28,4 +28,3 @@ export * from './components/slider';
 export * from './components/spinner/spinner';
 export * from './components/tabs';
 export * from './components/tooltip/tooltip';
-

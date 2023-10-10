@@ -7,7 +7,6 @@ export * from './components/button/button';
 export * from './components/card';
 export * from './components/checkbox/checkbox';
 export * from './components/collapse/collapse';
-export * as Dialog from './components/dialog/dialog';
 export * from './components/drawer/drawer';
 export * from './components/navigation-bar/navigation-bar';
 export * from './components/pagination/pagination';
