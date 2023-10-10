@@ -59,27 +59,19 @@ export const ModalPopup = component$(
       window.document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    const closeOnBackdropClick$ = $(
-      (event: QwikMouseEvent<HTMLDialogElement, MouseEvent>) => {
-        const modalRect = (event.target as HTMLDialogElement).getBoundingClientRect();
+    const closeOnBackdropClick$ = $((event: QwikMouseEvent) => {
+      if ((event.target as Element).nodeName !== 'DIALOG') {
+        return;
+      }
 
-        const wasClickTriggeredOutsideModalRect =
-          modalRect.left > event.clientX ||
-          modalRect.right < event.clientX ||
-          modalRect.top > event.clientY ||
-          modalRect.bottom < event.clientY;
-
-        if (wasClickTriggeredOutsideModalRect) {
-          modalContext.showSig.value = false;
-        }
-      },
-    );
+      modalContext.showSig.value = false;
+    });
 
     return (
       <dialog
         {...props}
         ref={refSig}
-        onClick$={closeOnBackdropClick$}
+        onClick$={(event) => closeOnBackdropClick$(event)}
         onClose$={() => (modalContext.showSig.value = false)}
       >
         <Slot />
