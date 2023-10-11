@@ -19,7 +19,9 @@ const Sut = component$(() => {
         <ModalHeader>
           <h2 data-test="modal-header">Hello 👋</h2>
         </ModalHeader>
-        <ModalContent>I am a simple Modal</ModalContent>
+        <ModalContent>
+          <input type="text" data-test="modal-input" />
+        </ModalContent>
         <ModalFooter>
           <button onClick$={() => (showSig.value = false)} data-test="modal-close-button">
             Close Modal
@@ -80,5 +82,50 @@ describe('Modal', () => {
     cy.mount(<Sut />);
 
     cy.get('dialog').should('not.be.visible');
+  });
+
+  it(`GIVEN a Modal with one input field & one button
+      WHEN opening the Modal
+      THEN it focuses the input field`, () => {
+    cy.mount(<Sut />);
+
+    cy.get('[data-test=modal-trigger]').click();
+
+    cy.get('[data-test=modal-input]').should('be.focused');
+  });
+
+  it(`GIVEN a Modal with one input field & one button
+        WHEN opening the Modal
+        AND pressing TAB
+        THEN it focuses the close button`, () => {
+    cy.mount(<Sut />);
+
+    cy.get('[data-test=modal-trigger]').click();
+
+    cy.get('[data-test=modal-input]').should('be.focused');
+
+    cy.realPress('Tab');
+
+    cy.get('[data-test=modal-close-button]').should('be.focused');
+  });
+
+  it(`GIVEN a Modal with one input field & one button
+        WHEN opening the Modal
+        AND pressing TAB
+        AND pressing TAB
+        THEN it focuses the input field because the focus is trapped`, () => {
+    cy.mount(<Sut />);
+
+    cy.get('[data-test=modal-trigger]').click();
+
+    cy.get('[data-test=modal-input]').should('be.focused');
+
+    cy.realPress('Tab');
+
+    cy.get('[data-test=modal-close-button]').should('be.focused');
+
+    cy.realPress('Tab');
+
+    cy.get('[data-test=modal-input]').should('be.focused');
   });
 });
