@@ -227,11 +227,6 @@ ol {
   line-height: 1.75;
 }
 
-.layout {
-  grid-template-columns: 25% 70%;
-  grid-template-areas: 'sidebar  content';
-}
-
 /* Utilities layer for animations. The current arbitrary & docs tailwind animation guidelines are not maintainable long term. 
   It would make more sense to supply the user with the animation declaration in the docs.
 */
@@ -313,5 +308,9 @@ ol {
     text-shadow: 1.2px 1.2px 0 var(--qwikui-purple-700),
       -0.8px -0.8px 0 var(--qwikui-purple-700), 0.8px -0.8px 0 var(--qwikui-purple-700),
       -0.8px 0.8px 0 var(--qwikui-purple-700), 0.8px 0.8px 0 var(--qwikui-purple-700);
+  }
+
+  .setup-grid-areas {
+    grid-template-areas: 'nav main toc';
   }
 }

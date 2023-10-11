@@ -30,9 +30,9 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
     rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
   return (
     <nav
-      class={`fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px]
-              border-slate-200 bg-slate-100 bg-white pb-6 dark:border-slate-800 dark:bg-slate-900  lg:w-80
-              ${rootStore.isSidebarOpened ? 'w-100 flex' : 'hidden 2xl:flex'} `}
+      class={`fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px] border-slate-200
+              bg-slate-100 bg-white pb-6 [grid-area:nav] dark:border-slate-800 dark:bg-slate-900  lg:w-80
+              ${rootStore.isSidebarOpened ? 'w-100 flex' : 'hidden lg:flex'} `}
     >
       <ul class="show mt-8 flex flex-col gap-2 pl-12 lg:hidden">
         <li class={linkStyles}>

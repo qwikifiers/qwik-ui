@@ -23,6 +23,11 @@ module.exports = {
     },
     important: true,
     extend: {
+      // arbitrary cols create multiple grids
+      gridTemplateColumns: {
+        'custom-lg': '320px 1fr',
+        'custom-2xl': '320px 1fr 320px',
+      },
       fontFamily: {
         sans: ['Inter Variable', 'sans-serif'],
       },
