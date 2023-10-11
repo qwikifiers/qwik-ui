@@ -6,25 +6,34 @@ import {
   QwikMouseEvent,
   Signal,
   Slot,
-  useContextProvider,
   useSignal,
   useTask$,
 } from '@builder.io/qwik';
-import { createFocusTrap, FocusTrap } from 'focus-trap';
-import { modalContextId } from './modal-context-id';
-import { ModalContext } from './modal-context.type';
+import {
+  activateFocusTrap,
+  preventScrollbarFlickering as adjustScrollbar,
+  closeModal,
+  deactivateFocusTrap,
+  lockScroll,
+  showModal,
+  trapFocus,
+  unlockScroll,
+  WidthElement,
+} from './modal-behavior';
 
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
-  onHide$?: QRL<() => void>;
+  onClose$?: QRL<() => void>;
   show?: boolean;
   'bind:show'?: Signal<boolean>;
 };
 
 export const Modal = component$((props: ModalProps) => {
-  const modalRef = useSignal<HTMLDialogElement>();
+  const modalRefSig = useSignal<HTMLDialogElement>();
+  const scrollbar: WidthElement = { width: null };
 
-  const { 'bind:show': givenOpenSig, show: givenShow, onShow$, onHide$ } = props;
+  const { 'bind:show': givenOpenSig, show: givenShow } = props;
+
   const defaultOpenSig = useSignal(false);
   const showSig = givenOpenSig || defaultOpenSig;
 
@@ -36,48 +45,29 @@ export const Modal = component$((props: ModalProps) => {
 
   useTask$(async function toggleModal({ track, cleanup }) {
     const isOpen = track(() => showSig.value);
-    const modal = modalRef.value;
+    const modal = modalRefSig.value;
 
     if (!modal) return;
 
-    let focusTrap: FocusTrap | null = createFocusTrap(modal, {
-      escapeDeactivates: false,
-    });
+    const focusTrap = trapFocus(modal);
 
     if (isOpen) {
-      // open modal
-      modal.showModal();
-      await props.onShow$?.();
-
-      // focus lock
-      focusTrap.activate();
-
-      // scroll lock
-      window.document.body.style.overflow = 'hidden';
-
-      // prevents scrollbar flickers
-      let scrollbarWidth: number | null = null;
-      if (scrollbarWidth === null) {
-        scrollbarWidth = window.innerWidth - document.body.offsetWidth;
-        document.body.style.overflow = 'hidden';
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
-      }
+      showModal(modal, props.onShow$);
+      activateFocusTrap(focusTrap);
+      lockScroll();
+      adjustScrollbar(scrollbar);
     } else {
-      await props.onHide$?.();
-      modal.close();
+      closeModal(modal, props.onClose$);
     }
 
     cleanup(() => {
-      focusTrap?.deactivate();
-      focusTrap = null;
-
-      // back to scroll
-      window.document.body.style.overflow = '';
+      deactivateFocusTrap(focusTrap);
+      unlockScroll();
     });
   });
 
   const closeOnBackdropClick$ = $((event: QwikMouseEvent) => {
-    const modal = modalRef.value;
+    const modal = modalRefSig.value;
 
     if (!modal) {
       return;
@@ -96,17 +86,10 @@ export const Modal = component$((props: ModalProps) => {
     }
   });
 
-  const context: ModalContext = {
-    showSig,
-    handler: { onShow$, onHide$ },
-  };
-
-  useContextProvider(modalContextId, context);
-
   return (
     <dialog
       {...props}
-      ref={modalRef}
+      ref={modalRefSig}
       onClick$={(event) => closeOnBackdropClick$(event)}
       onClose$={() => (showSig.value = false)}
     >
