@@ -38,9 +38,9 @@ export const Modal = component$((props: ModalProps) => {
   const showSig = givenOpenSig || defaultOpenSig;
 
   useTask$(async function syncOpenProp({ track }) {
-    const openPropValue = track(() => givenShow);
+    const showPropValue = track(() => givenShow);
 
-    showSig.value = openPropValue || false;
+    showSig.value = showPropValue || false;
   });
 
   useTask$(async function toggleModal({ track, cleanup }) {
