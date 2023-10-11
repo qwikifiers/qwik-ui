@@ -12,24 +12,53 @@ import {
   ShowExample
 } from './exports';
 
+import testImage from '../../../../../../public/images/test-image.png'
+
 <StatusBanner status={statusByComponent.headless.Modal}/>
 
 # Modal
 
 A window overlaid on either the primary window or another dialog window. Modal content is placed in the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer), rendering the underneath content as [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) meaning non-interactive.
 
-<ShowExample example="first"/>
+<ShowExample example="hero"/>
+
+The modal makes use of HTML's `dialog` element, which has great browser support in [every major browser](https://caniuse.com/?search=dialog). 
+
+> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) *(in progress)*. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
 
 Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed. 
-
-> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) *(in progress)*. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself.
 
 ##### ✨ Features
 
 - Managed focus order
+- Scroll locking
 - Controlled or uncontrolled
 - Closes on escape
 - Toggle backdrop dismiss
+
+<div class="mb-6 flex flex-col gap-2">
+[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/modal)
+
+[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
+
+[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/modal/index.mdx>)
+</div>
+
+## The dialog element
+
+<ShowExample example="inspect"/>
+
+The [dialog element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) provides a native solution for modals. That said, the element itself is not fully accessible, and may not have the desired features. Qwik UI solves that problem, providing scroll & focus lock, as well as other quality of life features on top of the dialog element.
+
+> To add dialog properties, it is the same as sticking the attribute, class, or API on the dialog element itself. 
+
+### The top layer
+
+<img class="rounded-xl mb-6" src={testImage} />
+
+In Chrome and Edge, a `top layer` attribute is shown in the dev tools. This means dialog content is placed above any other content, preventing any overflow or style issues. 
+
+> The previous implementation of modals required the use of portals, the top layer pseudo class is a native solution to this problem.
 
 ## Accessibility
 

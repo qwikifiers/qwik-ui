@@ -16,7 +16,7 @@ export default component$(() => {
         bind:show={showSig}
         class="shadow-dark-medium max-w-[25rem] rounded-md bg-white p-[28px] text-slate-950"
       >
-        <ModalHeader class="relative">
+        <ModalHeader>
           <h2 class="mb-2 text-lg font-bold">Edit Profile</h2>
           <p class="leading-5">
             You can update your profile here. Hit the save button when finished.
@@ -56,7 +56,10 @@ export default component$(() => {
             Save Changes
           </button>
         </ModalFooter>
-        <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-6">
+        <button
+          onClick$={() => (showSig.value = false)}
+          class="absolute right-6 top-[26px]"
+        >
           <CloseIcon class="h-8 w-8" />
         </button>
       </Modal>

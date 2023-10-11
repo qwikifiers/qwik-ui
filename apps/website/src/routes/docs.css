@@ -1,6 +1,6 @@
 .docs {
   & {
-    @apply w-full overflow-hidden px-8 py-8 lg:ml-80 lg:max-w-4xl lg:px-16 xl:max-w-6xl;
+    @apply mx-auto w-full max-w-[85ch] overflow-hidden px-8 py-8 lg:px-16;
   }
 
   /*
@@ -14,7 +14,7 @@
     }
 
     h1 {
-      @apply mb-6 text-3xl font-extrabold md:mb-12 md:text-5xl;
+      @apply mb-6 pt-6 text-3xl font-extrabold md:text-5xl;
     }
 
     h2 {

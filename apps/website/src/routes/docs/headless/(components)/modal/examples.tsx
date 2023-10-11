@@ -1,7 +1,12 @@
 import { JSXNode, component$, useStyles$ } from '@builder.io/qwik';
 import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
-import FirstExample from './examples/first-example';
-import firstExampleCode from './examples/first-example?raw';
+
+import Hero from './examples/hero';
+import heroExampleCode from './examples/hero?raw';
+
+import Inspect from './examples/inspect';
+import inspectExampleCode from './examples/inspect?raw';
+
 import styles from './index.css?inline';
 
 export type Example = {
@@ -11,9 +16,13 @@ export type Example = {
 };
 
 export const examples: Record<string, Example> = {
-  first: {
-    component: <FirstExample />,
-    code: firstExampleCode,
+  hero: {
+    component: <Hero />,
+    code: heroExampleCode,
+  },
+  inspect: {
+    component: <Inspect />,
+    code: inspectExampleCode,
   },
 };
 

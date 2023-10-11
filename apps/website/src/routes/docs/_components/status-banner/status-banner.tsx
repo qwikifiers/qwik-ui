@@ -81,7 +81,7 @@ function getBackgroundByStatus(status?: ComponentStatus) {
 export const StatusBanner = component$((props: StatusBannerProps) => {
   const ref = useSignal<HTMLElement | undefined>();
   const isBannerClosedSig = useSignal(false);
-  const marginBottom = 32;
+  const marginBottom = 64;
 
   useStylesScoped$(`
 
@@ -90,7 +90,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
   }
 
   .fade {
-    animation: fadeOut 0.5s ease forwards;
+    animation: fadeOut 1s cubic-bezier(0.6, 0.6, 0, 1) forwards;
     margin-top: var(--dynamic-banner-height);
   }
 
