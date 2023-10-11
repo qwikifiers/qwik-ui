@@ -57,8 +57,8 @@ export type WidthElement = {
 
 export function preventScrollbarFlickering(scrollbar: WidthElement) {
   if (scrollbar.width === null) {
-    scrollbar.width = window.innerWidth - document.body.offsetWidth;
-    document.body.style.overflow = 'hidden';
-    document.body.style.paddingRight = `${scrollbar.width}px`;
+    scrollbar.width = window.innerWidth - document.documentElement.clientWidth;
   }
+
+  document.body.style.paddingRight = `${scrollbar.width}px`;
 }

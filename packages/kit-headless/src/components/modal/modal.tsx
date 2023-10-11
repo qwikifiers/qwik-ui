@@ -31,7 +31,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 
 export const Modal = component$((props: ModalProps) => {
   const modalRefSig = useSignal<HTMLDialogElement>();
-  const scrollbarState: WidthState = { width: null };
+  const scrollbarWidth: WidthState = { width: null };
 
   const { 'bind:show': givenOpenSig, show: givenShow } = props;
 
@@ -53,10 +53,10 @@ export const Modal = component$((props: ModalProps) => {
     const focusTrap = trapFocus(modal);
 
     if (isOpen) {
+      adjustScrollbar(scrollbarWidth);
       showModal(modal, props.onShow$);
       activateFocusTrap(focusTrap);
       lockScroll();
-      adjustScrollbar(scrollbarState);
     } else {
       closeModal(modal, props.onClose$);
     }
@@ -64,6 +64,10 @@ export const Modal = component$((props: ModalProps) => {
     cleanup(() => {
       deactivateFocusTrap(focusTrap);
       unlockScroll();
+
+      // cleanup the scroll padding
+      const currentPadding = parseInt(document.body.style.paddingRight);
+      document.body.style.paddingRight = `${currentPadding - scrollbarWidth.width}px`;
     });
   });
 
@@ -75,6 +79,7 @@ export const Modal = component$((props: ModalProps) => {
 
   return (
     <dialog
+      class="preventScrollFlicker"
       {...props}
       ref={modalRefSig}
       onClick$={(event) => closeOnBackdropClick$(event)}
