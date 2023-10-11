@@ -18,7 +18,8 @@ import {
   showModal,
   trapFocus,
   unlockScroll,
-  WidthElement,
+  wasModalBackdropClicked,
+  WidthElement as WidthState,
 } from './modal-behavior';
 
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
@@ -30,7 +31,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 
 export const Modal = component$((props: ModalProps) => {
   const modalRefSig = useSignal<HTMLDialogElement>();
-  const scrollbar: WidthElement = { width: null };
+  const scrollbarState: WidthState = { width: null };
 
   const { 'bind:show': givenOpenSig, show: givenShow } = props;
 
@@ -55,7 +56,7 @@ export const Modal = component$((props: ModalProps) => {
       showModal(modal, props.onShow$);
       activateFocusTrap(focusTrap);
       lockScroll();
-      adjustScrollbar(scrollbar);
+      adjustScrollbar(scrollbarState);
     } else {
       closeModal(modal, props.onClose$);
     }
@@ -67,21 +68,7 @@ export const Modal = component$((props: ModalProps) => {
   });
 
   const closeOnBackdropClick$ = $((event: QwikMouseEvent) => {
-    const modal = modalRefSig.value;
-
-    if (!modal) {
-      return;
-    }
-
-    const modalRect = modal.getBoundingClientRect();
-
-    const wasClickTriggeredOutsideModalRect =
-      modalRect.left > event.clientX ||
-      modalRect.right < event.clientX ||
-      modalRect.top > event.clientY ||
-      modalRect.bottom < event.clientY;
-
-    if (wasClickTriggeredOutsideModalRect) {
+    if (wasModalBackdropClicked(modalRefSig.value, event)) {
       showSig.value = false;
     }
   });

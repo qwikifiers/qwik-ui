@@ -1,4 +1,4 @@
-import { QRL } from '@builder.io/qwik';
+import { QRL, QwikMouseEvent } from '@builder.io/qwik';
 import { FocusTrap, createFocusTrap } from 'focus-trap';
 
 export function trapFocus(modal: HTMLDialogElement) {
@@ -22,6 +22,25 @@ export async function showModal(modal: HTMLDialogElement, onShow$?: QRL<() => vo
 export async function closeModal(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
   modal.close();
   await onClose$?.();
+}
+
+export function wasModalBackdropClicked(
+  modal: HTMLDialogElement | undefined,
+  clickEvent: QwikMouseEvent,
+): boolean {
+  if (!modal) {
+    return false;
+  }
+
+  const rect = modal.getBoundingClientRect();
+
+  const wasBackdropClicked =
+    rect.left > clickEvent.clientX ||
+    rect.right < clickEvent.clientX ||
+    rect.top > clickEvent.clientY ||
+    rect.bottom < clickEvent.clientY;
+
+  return wasBackdropClicked;
 }
 
 export function lockScroll() {
