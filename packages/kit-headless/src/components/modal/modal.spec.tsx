@@ -32,8 +32,29 @@ const Sut = component$(() => {
   );
 });
 
+const SutNoInteractions = component$(() => {
+  const showSig = useSignal(false);
+  return (
+    <>
+      <button onClick$={() => (showSig.value = true)} data-test="modal-trigger">
+        Open Modal
+      </button>
+      <Modal bind:show={showSig}>
+        <ModalHeader>
+          <h2 data-test="modal-header">Hello 👋</h2>
+        </ModalHeader>
+        <ModalContent>
+          <span data-test="modal-content">I am a modal dialog.</span>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+});
+
 describe('Modal', () => {
-  it(`init`, () => {
+  it(`Given a Modal
+      WHEN opening it
+      THEN it passes a11y-Tests`, () => {
     cy.mount(<Sut />);
 
     cy.checkA11yForComponent();
@@ -101,9 +122,9 @@ describe('Modal', () => {
   });
 
   it(`GIVEN a Modal with one input field & one button
-        WHEN opening the Modal
-        AND pressing TAB
-        THEN it focuses the close button`, () => {
+      WHEN opening the Modal
+      AND pressing TAB
+      THEN it focuses the close button`, () => {
     cy.mount(<Sut />);
 
     cy.get('[data-test=modal-trigger]').click();
@@ -116,10 +137,10 @@ describe('Modal', () => {
   });
 
   it(`GIVEN a Modal with one input field & one button
-        WHEN opening the Modal
-        AND pressing TAB
-        AND pressing TAB
-        THEN it focuses the input field because the focus is trapped`, () => {
+      WHEN opening the Modal
+      AND pressing TAB
+      AND pressing TAB
+      THEN it focuses the input field because the focus is trapped`, () => {
     cy.mount(<Sut />);
 
     cy.get('[data-test=modal-trigger]').click();
@@ -133,5 +154,23 @@ describe('Modal', () => {
     cy.realPress('Tab');
 
     cy.get('[data-test=modal-input]').should('be.focused');
+
+    cy.realPress('Escape');
+
+    cy.get('dialog').should('not.be.visible');
+  });
+
+  it(`GIVEN a Modal with no tappable elements
+      WHEN opening the Modal
+      THEN it works without focus trap`, () => {
+    cy.mount(<SutNoInteractions />);
+
+    cy.get('[data-test=modal-trigger]').click();
+
+    cy.get('[data-test=modal-content]').should('be.visible');
+
+    cy.realPress('Escape');
+
+    cy.get('dialog').should('not.be.visible');
   });
 });
