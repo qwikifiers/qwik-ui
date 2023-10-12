@@ -98,6 +98,37 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  *::-webkit-scrollbar {
+    background-color: var(--qwikui-slate-50);
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .dark *::-webkit-scrollbar {
+    /* Track color */
+    background-color: var(--qwikui-slate-800);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    /* Thumb color */
+    background-color: var(--qwikui-slate-500);
+    border-radius: 0.5rem;
+    background-clip: padding-box;
+    border: 0.3rem solid transparent;
+  }
+
+  *::-webkit-scrollbar-thumb .tab-size {
+    background: red !important;
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 
 :root {
@@ -312,5 +343,13 @@ ol {
 
   .setup-grid-areas {
     grid-template-areas: 'nav main toc';
+  }
+
+  .copy-btn-bg-dark {
+    background: hsla(215, 25%, 27%, 0.9);
+  }
+
+  .copy-btn-bg-light {
+    background: hsla(214, 32%, 91%, 0.9);
   }
 }

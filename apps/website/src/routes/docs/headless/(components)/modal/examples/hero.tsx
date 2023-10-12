@@ -1,4 +1,4 @@
-import { QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
+import { type QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
 import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
 
 export default component$(() => {
@@ -14,7 +14,7 @@ export default component$(() => {
       </button>
       <Modal
         bind:show={showSig}
-        class="shadow-dark-medium max-w-[25rem] rounded-md bg-white p-[28px] text-slate-950"
+        class="shadow-dark-medium max-w-[25rem] rounded-md bg-white p-[28px] text-slate-950 backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
         <ModalHeader>
           <h2 class="mb-2 text-lg font-bold">Edit Profile</h2>

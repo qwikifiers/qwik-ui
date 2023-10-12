@@ -47,21 +47,23 @@ export const Highlight = component$(
     });
 
     return (
-      <div
-        {...props}
-        class={[
-          'tab-size relative max-w-full overflow-hidden overflow-x-auto rounded-b-xl bg-slate-50 p-12 text-sm dark:bg-slate-800',
-          props.class,
-        ]}
-      >
-        <div dangerouslySetInnerHTML={codeSig.value} />
+      <div class="relative max-h-[31.25rem] rounded-b-xl">
         <CodeCopy
           class={[
-            'absolute right-2 top-2 bg-slate-200 text-slate-950 hover:bg-slate-300 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600',
+            'copy-btn-bg-light dark:copy-btn-bg-dark absolute right-4 top-4 bg-slate-200 text-slate-950 hover:bg-slate-300 dark:text-white dark:hover:bg-slate-600',
             copyCodeClass,
           ]}
           code={code}
         />
+        <div
+          {...props}
+          class={[
+            'tab-size max-h-[31.25rem] max-w-full  overflow-scroll overflow-x-auto rounded-b-xl bg-slate-50 p-6 text-sm dark:bg-slate-800',
+            props.class,
+          ]}
+        >
+          <div dangerouslySetInnerHTML={codeSig.value} />
+        </div>
       </div>
     );
   },

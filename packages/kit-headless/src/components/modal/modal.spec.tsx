@@ -33,6 +33,12 @@ const Sut = component$(() => {
 });
 
 describe('Modal', () => {
+  it(`init`, () => {
+    cy.mount(<Sut />);
+
+    cy.checkA11yForComponent();
+  });
+
   it(`GIVEN a Modal
       WHEN opening it
       AND being visible
