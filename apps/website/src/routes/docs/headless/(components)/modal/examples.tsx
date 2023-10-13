@@ -7,7 +7,17 @@ import heroExampleCode from './examples/hero?raw';
 import Inspect from './examples/inspect';
 import inspectExampleCode from './examples/inspect?raw';
 
+import AutoFocus from './examples/auto-focus';
+import autoFocusExampleCode from './examples/auto-focus?raw';
+
+import Backdrop from './examples/backdrop';
+import backdropCssCode from './examples/backdrop.css?raw';
+import backdropExampleCode from './examples/backdrop?raw';
+
+import buildingBlocksSnip from './examples/building-blocks-snip?raw';
+
 import styles from './index.css?inline';
+import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
 
 export type Example = {
   component: JSXNode;
@@ -23,6 +33,14 @@ export const examples: Record<string, Example> = {
   inspect: {
     component: <Inspect />,
     code: inspectExampleCode,
+  },
+  autoFocus: {
+    component: <AutoFocus />,
+    code: autoFocusExampleCode,
+  },
+  backdrop: {
+    component: <Backdrop />,
+    code: backdropExampleCode,
   },
 };
 
@@ -42,3 +60,11 @@ export const ShowExample = component$(({ example }: ShowExampleProps) => {
     </PreviewCodeExampleTabs>
   );
 });
+
+export const BackdropCss = component$(() => (
+  <CodeExampleContainer code={backdropCssCode} />
+));
+
+export const BuildingBlocksSnip = component$(() => (
+  <CodeExampleContainer code={buildingBlocksSnip} />
+));

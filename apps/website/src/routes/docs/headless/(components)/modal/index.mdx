@@ -6,11 +6,14 @@ import ImgTestImage from '/public/images/test-image.png?jsx';
 import {
   KeyboardInteractionTable,
   APITable,
+  AnatomyTable,
   StatusBanner,
   statusByComponent,
   ShortExample,
   LongExample,
-  ShowExample
+  ShowExample,
+  BackdropCss,
+  BuildingBlocksSnip
 } from './exports';
 
 import testImage from '../../../../../../public/images/test-image.png'
@@ -23,19 +26,11 @@ A window overlaid on either the primary window or another dialog window. Modal c
 
 <ShowExample example="hero"/>
 
-The modal makes use of HTML's `dialog` element, which has great browser support in [every major browser](https://caniuse.com/?search=dialog). 
+The modal makes use of HTML's `dialog` element, which has great support in [every major browser](https://caniuse.com/?search=dialog). 
 
 > For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) *(in progress)*. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
 
 Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed. 
-
-##### ✨ Features
-
-- Managed focus order
-- Scroll locking
-- Controlled or uncontrolled
-- Closes on escape
-- Toggle backdrop dismiss
 
 <div class="mb-6 flex flex-col gap-2">
 [View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/modal)
@@ -45,26 +40,101 @@ Modals are used when an important choice needs to be made in the application. Th
 [Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/modal/index.mdx>)
 </div>
 
-## The dialog element
+## ✨ Features
+
+- Managed focus order
+- Scroll locking
+- Controlled or uncontrolled
+- Closes on escape
+- Toggle backdrop dismiss
+
+## Building Blocks
+
+<BuildingBlocksSnip />
+
+### 🎨 Anatomy
+  <AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Modal',
+      description: 'The root component that contains the dialog element.',
+    },
+    {
+      name: 'ModalHeader',
+      description: 'A semantic header element that titles the modal.',
+    },
+    {
+      name: 'ModalContent',
+      description: `The main content of the modal.`,
+    },
+    {
+      name: 'ModalFooter',
+      description: `A semantic footer element used to contain menu action buttons.`,
+    },
+  ]}
+/>
+
+## Dialog extendability
 
 <ShowExample example="inspect"/>
 
-The [dialog element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) provides a native solution for modals. That said, the element itself is not fully accessible, and may not have the desired features. Qwik UI solves that problem, providing scroll & focus lock, as well as other quality of life features on top of the dialog element.
+The Qwik UI Modal component is built on top of the `dialog` element. To see additional capabilities of the dialog, take a look at the [offical MDN page](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog).
 
-> To add dialog properties, it is the same as sticking the attribute, class, or API on the dialog element itself. 
+Our goal is to fill existing gaps, ensuring your modal is a11y compliant and enriched with HTML spec features, reducing reliance on Qwik UI maintainers.
 
-### The top layer
+### Attribute example
+
+<ShowExample example="autoFocus" />
+
+Above is an example of the `autofocus` attribute used to focus the 2nd input when the dialog is opened. 
+
+> When adding properties on `<Modal />`, it is the same as sticking the attribute, class, or API on the dialog element itself. 
+
+## Open or close the modal
+
+To open or close the modal, we can use `bind:show`, a custom signal bind that leverages the [bind](https://qwik.builder.io/docs/components/rendering/#bind-attribute) syntax in Qwik.
+
+<ShowExample example="hero" />
+
+`showSig` is a signal that we pass into our Modal component to customize when the modal can be open or closed.
+
+The above example sets the signal to true when the button with the text **Open Modal** is clicked, then closed whenever a button inside of the modal is clicked.
+
+> Custom signal binds can be thought of as a remote control for a television. Just as you use a remote control to change channels, adjust volume, or turn the TV on or off, custom signal binds allow you to control the state of a component, such as opening or closing a modal, from a distance.
+
+## The top layer
 
 <ImgTestImage class="rounded-xl mb-6" />
 
-In Chrome and Edge, a `top layer` attribute is shown in the dev tools. This means dialog content is placed above any other content, preventing any overflow or style issues. 
+In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues. 
 
-> The previous implementation of modals required the use of portals, the top layer pseudo class is a native solution to this problem.
+The top layer is used in Qwik UI, whenever a modal or popover is used. Popovers can be applied to any semantic element, modals in Qwik UI are tied to the `dialog` element.
+
+> The previous implementation of modals required the use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal), the top layer pseudo class is a **native solution** to this problem. No more z-index wars!
 
 ## Backdrops
 
-Due to the modal's implementation using the dialog, the `::backdrop` pseudo element can be used as well. 
+To add a modal backdrop, the `::backdrop` pseudo element can be utilized. [Backdrops](https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop) are right underneath top layer elements.
 
+By default, the `dialog` element comes with a subtle backdrop, below is a snippet customizing the backdrop background along with the [backdrop filter](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter) css property.
+
+<BackdropCss />
+
+<ShowExample example="backdrop"/>
+
+Styling a [backdrop in Tailwind](https://tailwindcss.com/docs/backdrop-blur) can be done using the `:backdrop` selector. In the example code below, we've changed the brightness based on dark or light mode, along with a blur.
+
+<ShowExample example="hero"/>
+
+## Modal focus
+
+One of the features that Qwik UI provides is focus locking. This refers to keeping focus within the modal element. 
+
+<ShowExample example="hero"/>
+
+For example, when tabbing and the modal is opened, it will loop back to the first focusable element.
+
+> This is a default behavior that we provide out of the box, please [let us know](https://github.com/qwikifiers/qwik-ui/issues) if there are any additional use cases that require personalized focus lock behavior.
 
 
 ## Accessibility
@@ -76,6 +146,14 @@ Due to the modal's implementation using the dialog, the `::backdrop` pseudo elem
     {
       keyTitle: 'Escape',
       description: 'Closes the dialog.',
+    },
+    {
+      keyTitle: 'Tab',
+      description: 'Moves focus to the next focusable item in the modal. If none, then loops back to the last item.',
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: 'Moves focus to the previous focusable item in the modal. If none, then loops back to the last item.',
     },
   ]}
 />
