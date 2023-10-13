@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Modal } from './modal';
+import { Modal, ModalProps } from './modal';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
 import { ModalHeader } from './modal-header';
@@ -8,14 +8,14 @@ import { ModalHeader } from './modal-header';
  * SUT - System under test
  * Reference: https://en.wikipedia.org/wiki/System_under_test
  */
-const Sut = component$(() => {
+const Sut = component$((props?: ModalProps) => {
   const showSig = useSignal(false);
   return (
     <>
       <button onClick$={() => (showSig.value = true)} data-test="modal-trigger">
         Open Modal
       </button>
-      <Modal bind:show={showSig}>
+      <Modal bind:show={showSig} {...props}>
         <ModalHeader>
           <h2 data-test="modal-header">Hello 👋</h2>
         </ModalHeader>
@@ -86,6 +86,22 @@ describe('Modal', () => {
     cy.get('[data-test=modal-trigger]').click();
 
     cy.get('body').click('top');
+
+    cy.get('dialog').should('not.be.visible');
+  });
+
+  it(`Given a Modal
+      WHEN closing the Modal on backdrop-click is deactivated
+      THEN it stays open, after the backdrop has been clicked`, () => {
+    cy.mount(<Sut closeOnBackdropClick={false} />);
+
+    cy.get('[data-test=modal-trigger]').click();
+
+    cy.get('body').click('top');
+
+    cy.get('dialog').should('be.visible');
+
+    cy.realPress('Escape');
 
     cy.get('dialog').should('not.be.visible');
   });

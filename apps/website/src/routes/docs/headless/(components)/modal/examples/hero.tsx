@@ -1,4 +1,4 @@
-import { type QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal, type QwikIntrinsicElements } from '@builder.io/qwik';
 import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
 
 export default component$(() => {
