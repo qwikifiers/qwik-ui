@@ -143,23 +143,12 @@ Due to the modal's implementation using the dialog, the `::backdrop` pseudo elem
 <APITable
   propDescriptors={[
     {
-      name: 'show',
-      type: 'boolean',
-      description:
-        'Toggle between showing or hiding the modal.',
-    },
-    {
       name: 'bind:show',
       type: 'Signal<boolean>',
       description: 'Toggle between showing or hiding the modal.',
     },
     {
       name: 'closeOnBackdropClick',
-      type: 'boolean',
-      description: 'A way to tell the modal to not hide when the ::backdrop is clicked.',
-    },
-    {
-      name: 'bind:closeOnBackdropClick',
       type: 'boolean',
       description: 'A way to tell the modal to not hide when the ::backdrop is clicked.',
     },
