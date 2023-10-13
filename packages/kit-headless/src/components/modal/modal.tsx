@@ -25,40 +25,25 @@ import {
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
   onClose$?: QRL<() => void>;
-  show?: boolean;
   'bind:show'?: Signal<boolean>;
   closeOnBackdropClick?: boolean;
-  'bind:closeOnBackdropClick'?: Signal<boolean>;
 };
 
 export const Modal = component$((props: ModalProps) => {
   const modalRefSig = useSignal<HTMLDialogElement>();
   const scrollbarWidth: WidthState = { width: null };
 
-  const { 'bind:show': givenOpenSig, show: givenShow } = props;
-  const {
-    'bind:closeOnBackdropClick': givenCloseOnBackdropClickSig,
-    closeOnBackdropClick: givenCloseOnBackdropClick,
-  } = props;
+  const { 'bind:show': givenOpenSig } = props;
 
-  const defaultOpenSig = useSignal(false);
-  const defaultCloseOnBackdropClickSig = useSignal(true);
+  const defaultShowSig = useSignal(false);
+  const showSig = givenOpenSig || defaultShowSig;
 
-  const showSig = givenOpenSig || defaultOpenSig;
-  const closeOnBackdropClickSig =
-    givenCloseOnBackdropClickSig || defaultCloseOnBackdropClickSig;
+  const closeOnBackdropClickSig = useSignal(true);
 
-  useTask$(async function syncShowProp({ track }) {
-    const showPropValue = track(() => givenShow);
-
-    showSig.value = showPropValue || false;
-  });
-
-  useTask$(async function syncShowProp({ track }) {
-    const closeOnBackdropClickValue = track(() => givenCloseOnBackdropClick);
-
-    closeOnBackdropClickSig.value =
-      closeOnBackdropClickValue === undefined ? true : closeOnBackdropClickValue;
+  useTask$(async function bindCloseOnBackdropClick({ track }) {
+    closeOnBackdropClickSig.value = track(() =>
+      props.closeOnBackdropClick === undefined ? true : false,
+    );
   });
 
   useTask$(async function toggleModal({ track, cleanup }) {
