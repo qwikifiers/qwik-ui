@@ -30,7 +30,7 @@ export default component$(() => {
   return (
     <>
       <Combobox
-        class="w-fit"
+        class="w-fit text-white"
         options={placementExample}
         optionDisabledKey="myDisabledKey"
         bind:inputValueSig={inputValueSig}

@@ -69,12 +69,12 @@ function getBackgroundByStatus(status?: ComponentStatus) {
     case ComponentStatus.Ready:
       return 'bg-green-300';
     case ComponentStatus.Beta:
-      return 'bg-qwikui-blue-800 dark:bg-qwikui-purple-800';
+      return 'bg-gradient-to-b from-qwikui-blue-800 to-qwikui-blue-900 dark:from-qwikui-purple-800 dark:to-qwikui-purple-900';
     case ComponentStatus.Draft:
-      return 'bg-orange-700 dark:bg-red-800';
+      return 'bg-gradient-to-b from-orange-700 to-orange-800 dark:from-red-700 dark:to-red-800';
     case ComponentStatus.Planned:
     default:
-      return 'bg-orange-700 dark:bg-red-800';
+      return 'bg-gradient-to-b from-orange-700 to-orange-800 dark:from-red-700 dark:to-red-800';
   }
 }
 

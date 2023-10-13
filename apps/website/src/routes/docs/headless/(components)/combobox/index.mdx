@@ -10,6 +10,11 @@ import {
   statusByComponent,
   KeyboardInteractionTable,
   APITable,
+  BuildingBlocksSnip,
+  ProviderSnip,
+  ContextIdsSnip,
+  ResolvedOptionSnip,
+  CustomKeysSnip
 } from './exports';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
@@ -52,70 +57,24 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 <br />
 
-<div class="bg-slate-200 dark:bg-slate-800 border-2 border-slate-500 p-4 lg:p-6 rounded-xl shadow-light-medium dark:shadow-dark-medium">
-  <p class="pb-4">The Combobox component makes use of <a class="border-b-2 !border-qwikui-blue-400 dark:border-qwikui-purple-500" href="https://qwik.builder.io/docs/cookbook/portal/#portal">portals</a>. A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.</p>
-  <CodeExample classes="!mb-0 !p-6 !rounded-md">
-    ```tsx
-    import { QwikUIProvider } from '@qwik-ui/headless'; // import Provider component
+The Combobox component makes use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal). A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.
+<ProviderSnip />
 
-    // wrap as a direct child to the body tag
-    <body>
-      <QwikUIProvider>
-        <Slot />
-      </QwikUIProvider>
-    </body>
-    ```
-  </CodeExample>
+## **Context Caveats**
+Portals are still currently in **Beta**, as a result, you may experience an issue using your own context to pass data into the portal children.
 
-  <div class="pt-12 pb-4">
-    ### <ins>**Context Caveats**</ins>
-    <p class="pt-2 pb-4">Portals are still currently in **Beta**, as a result, you may experience an issue using your own context to pass data into the portal children.</p>
-    <p class="pb-4">If you do experience any context related issues, add the following **contextIds** prop to the **ComboboxPortal** component. It takes in an array of string context id's as a prop. We also have a live example below with context.</p>
-    <p class="pb-4">If you are not using context inside the portal children, this will not be an issue.</p>
+If you do experience any context related issues, add the following **contextIds** prop to the **ComboboxPortal** component. 
 
-      <CodeExample classes="!mb-0 !p-6 !rounded-md">
-      ```tsx
-        <ComboboxPortal contextIds={["my-context-id", "my-context-id-2"]}>
-          <ComboboxListbox>
-            <ComboboxOption>Option</ComboboxOption>
-          </ComboboxListbox>
-        </ComboboxPortal> 
-      ```
-    </CodeExample>
-  </div>
-</div>
+<ContextIdsSnip />
+
+It takes in an array of string context id's as a prop. We also have a live example below with context.
+If you are not using context inside the portal children, this will not be an issue.
 
 <br/>
 
 ## Building blocks
 
-  <CodeExample>
-    ```tsx
-    import { component$ } from '@builder.io/qwik';
-    import { Combobox, ComboboxLabel, ComboboxControl, ComboboxInput, ComboboxTrigger, ComboboxPortal, ComboboxListbox, ComboboxOption } from '@qwik-ui/headless';
-
-    export default component$(() => {
-      return (
-        <Combobox>
-          <ComboboxLabel>Label Element</ComboboxLabel>
-          <ComboboxControl>
-            <ComboboxInput />
-            <ComboboxTrigger>
-              Opens Listbox
-            </ComboboxTrigger>
-          </ComboboxControl>
-          <ComboboxPortal>
-            <ComboboxListbox 
-            optionRenderer$={() => (
-              <ComboboxOption>
-                Option Label
-              </ComboboxOption>
-            )} />
-          </ComboboxPortal>
-        </Combobox>
-      )
-    ```
-  </CodeExample>
+  <BuildingBlocksSnip />
 
   ### 🎨 Anatomy
   <AnatomyTable
@@ -183,21 +142,7 @@ The resolved object also holds:
 
 Import the **ResolvedOption** type from Qwik UI and pass in the data according to the code block below.
 
-<CodeExample>
-  ```tsx
-  import { ComboboxOption, type ResolvedOption } from '@qwik-ui/headless';
-
-  renderOption$={(option: ResolvedOption, index: number) => (
-    <ComboboxOption
-      key={option.key}
-      index={index}
-      resolved={option}
-    >
-      {option.label}
-    </ComboboxOption>
-  )}
-  ```
-</CodeExample>
+<ResolvedOptionSnip />
 
 ## Adding a filter
 
@@ -234,16 +179,7 @@ In some cases, your data object keys may not match the default keys that the Com
 
 If your data object keys are different, you can specify custom key names using the `optionValueKey` and `optionLabelKey` props.
 
-<CodeExample>
-  ```tsx
-    <Combobox
-    options={myOptions}
-    optionValueKey="pokedex"
-    optionLabelKey="pokemon"
-    optionDisabledKey="isPokemonCaught"
-    />
-  ```
-</CodeExample>
+<CustomKeysSnip />
 
 Within our example, the value key is called **pokedex** and the label key is called **pokemon**. This tells the Combobox component to use the "pokedex" key for option values and the "pokemon" key for option labels.
 
@@ -658,13 +594,13 @@ The Combobox component API provides a set of properties that allow you to custom
 
 ## Additional Examples
 
+<div class="text-white bg-gradient-to-b from-orange-700 to-orange-800 dark:from-red-700 dark:to-red-800 p-4 lg:p-6 rounded-xl shadow-light-medium dark:shadow-dark-medium">
+  **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the placement but with different strategies. Using both can result in a continuous reset loop as they try to override each other's work.
+</div>
+
 ### Auto Placement
   
 Automatically places the listbox based on available space. **You must set flip to false before using it.**  This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
 
 <ShowExample example="autoPlacement" />
-
-<div class="bg-red-200 dark:bg-red-900 p-4 lg:p-6 rounded-xl dark:border-[#F3F3F3] border-[#333333] shadow-light-medium dark:shadow-dark-medium">
-  **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the placement but with different strategies. Using both can result in a continuous reset loop as they try to override each other's work.
-</div>
 

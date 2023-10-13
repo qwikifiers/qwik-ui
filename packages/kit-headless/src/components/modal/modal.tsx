@@ -67,7 +67,9 @@ export const Modal = component$((props: ModalProps) => {
 
       // cleanup the scroll padding
       const currentPadding = parseInt(document.body.style.paddingRight);
-      document.body.style.paddingRight = `${currentPadding - scrollbarWidth.width}px`;
+      if (scrollbarWidth.width) {
+        document.body.style.paddingRight = `${currentPadding - scrollbarWidth.width}px`;
+      }
     });
   });
 

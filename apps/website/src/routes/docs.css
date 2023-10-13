@@ -34,7 +34,7 @@
     }
 
     blockquote {
-      @apply bg-qwikui-blue-800 shadow-light-medium dark:shadow-dark-medium dark:bg-qwikui-purple-800 border-qwikui-blue-200 dark:border-qwikui-purple-200 my-4 rounded-xl border-[2px] p-4 text-white lg:p-6;
+      @apply from-qwikui-blue-800 to-qwikui-blue-900 shadow-light-medium dark:shadow-dark-medium dark:from-qwikui-purple-800 dark:to-qwikui-purple-900 border-qwikui-blue-200 dark:border-qwikui-purple-200 my-4 rounded-xl border-[2px] bg-gradient-to-b p-4 text-white lg:p-6;
     }
 
     ul {
