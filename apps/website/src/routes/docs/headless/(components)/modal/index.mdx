@@ -26,11 +26,11 @@ A window overlaid on either the primary window or another dialog window. Modal c
 
 <ShowExample example="hero"/>
 
-The modal makes use of HTML's `dialog` element, which has great support in [every major browser](https://caniuse.com/?search=dialog). 
+The modal makes use of HTML's `dialog` element, which has great browser support in [every major browser](https://caniuse.com/?search=dialog).
 
 > For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) *(in progress)*. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
 
-Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed. 
+Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed.
 
 <div class="mb-6 flex flex-col gap-2">
 [View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/modal)
@@ -80,15 +80,15 @@ Modals are used when an important choice needs to be made in the application. Th
 
 The Qwik UI Modal component is built on top of the `dialog` element. To see additional capabilities of the dialog, take a look at the [offical MDN page](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog).
 
-Our goal is to fill existing gaps, ensuring your modal is a11y compliant and enriched with HTML spec features, reducing reliance on Qwik UI maintainers.
+> To add dialog properties, it is the same as sticking the attribute, class, or API on the dialog element itself.
 
 ### Attribute example
 
 <ShowExample example="autoFocus" />
 
-Above is an example of the `autofocus` attribute used to focus the 2nd input when the dialog is opened. 
+Above is an example of the `autofocus` attribute used to focus the 2nd input when the dialog is opened.
 
-> When adding properties on `<Modal />`, it is the same as sticking the attribute, class, or API on the dialog element itself. 
+> When adding properties on `<Modal />`, it is the same as sticking the attribute, class, or API on the dialog element itself.
 
 ## Open or close the modal
 
@@ -106,7 +106,7 @@ The above example sets the signal to true when the button with the text **Open M
 
 <ImgTestImage class="rounded-xl mb-6" />
 
-In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues. 
+In Chrome and Edge, a `top layer` attribute is shown in the dev tools. This means dialog content is placed above any other content, preventing any overflow or style issues.
 
 The top layer is used in Qwik UI, whenever a modal or popover is used. Popovers can be applied to any semantic element, modals in Qwik UI are tied to the `dialog` element.
 
@@ -114,28 +114,7 @@ The top layer is used in Qwik UI, whenever a modal or popover is used. Popovers 
 
 ## Backdrops
 
-To add a modal backdrop, the `::backdrop` pseudo element can be utilized. [Backdrops](https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop) are right underneath top layer elements.
-
-By default, the `dialog` element comes with a subtle backdrop, below is a snippet customizing the backdrop background along with the [backdrop filter](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter) css property.
-
-<BackdropCss />
-
-<ShowExample example="backdrop"/>
-
-Styling a [backdrop in Tailwind](https://tailwindcss.com/docs/backdrop-blur) can be done using the `:backdrop` selector. In the example code below, we've changed the brightness based on dark or light mode, along with a blur.
-
-<ShowExample example="hero"/>
-
-## Modal focus
-
-One of the features that Qwik UI provides is focus locking. This refers to keeping focus within the modal element. 
-
-<ShowExample example="hero"/>
-
-For example, when tabbing and the modal is opened, it will loop back to the first focusable element.
-
-> This is a default behavior that we provide out of the box, please [let us know](https://github.com/qwikifiers/qwik-ui/issues) if there are any additional use cases that require personalized focus lock behavior.
-
+Due to the modal's implementation using the dialog, the `::backdrop` pseudo element can be used as well.
 
 ## Accessibility
 
@@ -154,6 +133,55 @@ For example, when tabbing and the modal is opened, it will loop back to the firs
     {
       keyTitle: 'Shift + Tab',
       description: 'Moves focus to the previous focusable item in the modal. If none, then loops back to the last item.',
+    },
+  ]}
+/>
+
+
+## API
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'show',
+      type: 'boolean',
+      description:
+        'Toggle between showing or hiding the modal.',
+    },
+    {
+      name: 'bind:show',
+      type: 'Signal<boolean>',
+      description: 'Toggle between showing or hiding the modal.',
+    },
+    {
+      name: 'closeOnBackdropClick',
+      type: 'boolean',
+      description: 'A way to tell the modal to not hide when the ::backdrop is clicked.',
+    },
+    {
+      name: 'bind:closeOnBackdropClick',
+      type: 'boolean',
+      description: 'A way to tell the modal to not hide when the ::backdrop is clicked.',
+    },
+    {
+      name: '<dialog>-Attributes',
+      type: 'QwikIntrinsicElements<HTMLDialog>',
+      description:
+        'A way to configure the modal with all native attributes the HTMLDialog defines.',
+    },
+    {
+      name: 'onHide()$',
+      type: 'function',
+      info: '() => void',
+      description:
+        'An event hook that gets notified whenever the modal gets hidden.',
+    },
+    {
+      name: 'onShow()$',
+      type: 'function',
+      info: '() => void',
+      description:
+        'An event hook that gets notified whenever the modal shows up.',
     },
   ]}
 />
