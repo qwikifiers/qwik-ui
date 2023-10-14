@@ -27,6 +27,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onClose$?: QRL<() => void>;
   'bind:show'?: Signal<boolean>;
   closeOnBackdropClick?: boolean;
+  alert?: boolean;
 };
 
 export const Modal = component$((props: ModalProps) => {
@@ -76,7 +77,7 @@ export const Modal = component$((props: ModalProps) => {
   });
 
   const closeOnBackdropClick$ = $((event: QwikMouseEvent) => {
-    if (!closeOnBackdropClickSig.value) {
+    if (props.alert === true || props.closeOnBackdropClick === false) {
       return;
     }
 
@@ -87,6 +88,7 @@ export const Modal = component$((props: ModalProps) => {
 
   return (
     <dialog
+      role={props.alert === true ? 'alertdialog' : 'dialog'}
       class="preventScrollFlicker"
       {...props}
       ref={modalRefSig}
