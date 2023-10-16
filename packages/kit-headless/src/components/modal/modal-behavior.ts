@@ -15,6 +15,11 @@ export function activateFocusTrap(focusTrap: FocusTrap | null) {
   }
 }
 
+export function getFocusTrap(modal: HTMLDialogElement) {
+  const focusTrap = trapFocus(modal);
+  return focusTrap;
+}
+
 export function deactivateFocusTrap(focusTrap: FocusTrap | null) {
   focusTrap?.deactivate();
   focusTrap = null;
@@ -53,21 +58,48 @@ export function lockScroll() {
   window.document.body.style.overflow = 'hidden';
 }
 
-export function unlockScroll() {
+export function unlockScroll(scrollbar: WidthElement) {
   window.document.body.style.overflow = '';
+
+  // cleanup the scroll padding
+  const currentPadding = parseInt(document.body.style.paddingRight);
+  if (scrollbar.width) {
+    document.body.style.paddingRight = `${currentPadding - scrollbar.width}px`;
+  }
 }
 
 export type WidthElement = {
   width: number | null;
 };
 
-export function preventScrollbarFlickering(scrollbar: WidthElement) {
+export function adjustScrollbar(scrollbar: WidthElement) {
   if (scrollbar.width === null) {
     scrollbar.width = window.innerWidth - document.documentElement.clientWidth;
   }
 
   document.body.style.paddingRight = `${scrollbar.width}px`;
 }
-function isTappable(modal: HTMLDialogElement) {
-  throw new Error('Function not implemented.');
+
+// utility function to add support for animations & transitions
+export function closing(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.add('closing');
+  const { animationDuration, transitionDuration } = getComputedStyle(modal);
+
+  if (animationDuration !== '0s')
+    modal.addEventListener('animationend', () => {
+      modal.classList.remove('closing');
+      closeModal(modal, onClose$);
+    });
+  else if (transitionDuration !== '0s')
+    modal.addEventListener('transitionend', () => {
+      modal.classList.remove('closing');
+      closeModal(modal, onClose$);
+    });
+  else {
+    closeModal(modal, onClose$);
+  }
 }

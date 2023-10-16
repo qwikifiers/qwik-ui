@@ -155,6 +155,10 @@ For example, when tabbing and the modal is opened, it will loop back to the firs
 
 > This is a default behavior that we provide out of the box, please [let us know](https://github.com/qwikifiers/qwik-ui/issues) if there are any additional use cases that require personalized focus lock behavior.
 
+## Animations
+
+<ShowExample example="animation" />
+
 ## Open on page load
 
 There might come a time where a modal is needed open as soon as the page loads. Unfortunately, to create modals a client-side API is currently needed regardless of implementation.
@@ -173,12 +177,9 @@ The current solution across framework ecosystems, is to open the Modal eagerly o
 
 <PageLoadSnip />
 
-> We believe that the dialog element will have native support for SSR Modals in the future, allowing you to gain this behavior when implemented.
+> We believe that the dialog element will have native support for SSR Modals in the future, gaining this behavior in the process.
 
-
-## Accessibility
-
-### Keyboard interaction
+## Keyboard interaction
 
 <KeyboardInteractionTable
   keyDescriptors={[
@@ -203,7 +204,8 @@ The current solution across framework ecosystems, is to open the Modal eagerly o
   propDescriptors={[
     {
       name: 'bind:show',
-      type: 'Signal<boolean>',
+      type: 'Signal',
+      info: 'boolean',
       description: 'Toggle between showing or hiding the modal.',
     },
     {

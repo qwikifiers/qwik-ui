@@ -20,6 +20,9 @@ import backdropCloseExampleCode from './examples/backdrop-close?raw';
 import AlertDialog from './examples/alert-dialog';
 import alertDialogExampleCode from './examples/alert-dialog?raw';
 
+import Animation from './examples/animation';
+import animationExampleCode from './examples/animation?raw';
+
 import buildingBlocksSnip from './examples/building-blocks-snip?raw';
 import pageLoadSnip from './examples/page-load-snip?raw';
 
@@ -56,6 +59,10 @@ export const examples: Record<string, Example> = {
   alertDialog: {
     component: <AlertDialog />,
     code: alertDialogExampleCode,
+  },
+  animation: {
+    component: <Animation />,
+    code: animationExampleCode,
   },
 };
 

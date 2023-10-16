@@ -1,0 +1,14 @@
+.my-modal {
+  opacity: 0;
+  position: fixed;
+  /* left: 200px; */
+}
+
+.my-modal[open] {
+  opacity: 1;
+  transition: opacity 400ms ease;
+}
+
+.my-modal.closing {
+  opacity: 0;
+}

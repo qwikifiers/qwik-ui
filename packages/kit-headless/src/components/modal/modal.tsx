@@ -8,19 +8,22 @@ import {
   Slot,
   useSignal,
   useTask$,
+  useStyles$,
 } from '@builder.io/qwik';
 import {
   activateFocusTrap,
-  preventScrollbarFlickering as adjustScrollbar,
-  closeModal,
   deactivateFocusTrap,
   lockScroll,
   showModal,
-  trapFocus,
-  unlockScroll,
+  getFocusTrap,
   wasModalBackdropClicked,
   WidthElement as WidthState,
+  closing,
+  unlockScroll,
+  adjustScrollbar,
 } from './modal-behavior';
+
+import styles from './modal.css?inline';
 
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
@@ -31,6 +34,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 };
 
 export const Modal = component$((props: ModalProps) => {
+  useStyles$(styles);
   const modalRefSig = useSignal<HTMLDialogElement>();
   const scrollbarWidth: WidthState = { width: null };
 
@@ -53,26 +57,46 @@ export const Modal = component$((props: ModalProps) => {
 
     if (!modal) return;
 
-    const focusTrap = trapFocus(modal);
+    const focusTrap = getFocusTrap(modal);
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+
+        // fixes modal scrollbar flickering
+        modal.style.left = `${scrollbarWidth}px`;
+
+        deactivateFocusTrap(focusTrap);
+        closing(modal, props.onClose$);
+
+        showSig.value = false;
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
 
     if (isOpen) {
-      adjustScrollbar(scrollbarWidth);
+      modal.style.left = `0px`;
+
       showModal(modal, props.onShow$);
+      adjustScrollbar(scrollbarWidth);
       activateFocusTrap(focusTrap);
       lockScroll();
     } else {
-      closeModal(modal, props.onClose$);
+      unlockScroll(scrollbarWidth);
+      closing(modal, props.onClose$);
     }
 
     cleanup(() => {
       deactivateFocusTrap(focusTrap);
-      unlockScroll();
 
-      // cleanup the scroll padding
-      const currentPadding = parseInt(document.body.style.paddingRight);
+      // prevents closing animation scrollbar flickers (chrome & edge)
       if (scrollbarWidth.width) {
-        document.body.style.paddingRight = `${currentPadding - scrollbarWidth.width}px`;
+        const currLeft = parseInt(modal.style.left);
+        modal.style.left = `${scrollbarWidth.width - currLeft}px`;
       }
+
+      window.removeEventListener('keydown', handleEscape);
     });
   });
 
@@ -89,11 +113,9 @@ export const Modal = component$((props: ModalProps) => {
   return (
     <dialog
       role={props.alert === true ? 'alertdialog' : 'dialog'}
-      class="preventScrollFlicker"
       {...props}
       ref={modalRefSig}
       onClick$={(event) => closeOnBackdropClick$(event)}
-      onClose$={() => (showSig.value = false)}
     >
       <Slot />
     </dialog>
