@@ -1,12 +1,19 @@
 .my-modal {
   position: fixed;
-  animation: fadeIn 0.4s forwards;
+  transition: opacity 0.4s ease;
+  opacity: 0;
+  /* animation: fadeIn 0.4s forwards; */
 
   /* left: 200px; */
 }
 
+.my-modal[open] {
+  opacity: 1;
+}
+
 .my-modal.closing {
-  animation: fadeOut 0.4s forwards;
+  /* animation: fadeOut 0.4s forwards; */
+  opacity: 0;
 }
 
 @keyframes fadeIn {

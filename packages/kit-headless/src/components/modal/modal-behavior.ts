@@ -104,7 +104,7 @@ export function closing(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
   if (animationDuration !== '0s') {
     modal.addEventListener('animationend', runAnimationEnd);
   } else if (transitionDuration !== '0s') {
-    modal.addEventListener('animationend', runTransitionEnd);
+    modal.addEventListener('transitionend', runTransitionEnd);
   } else {
     closeModal(modal, onClose$);
   }
