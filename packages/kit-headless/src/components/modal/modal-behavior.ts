@@ -89,17 +89,23 @@ export function closing(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
   modal.classList.add('closing');
   const { animationDuration, transitionDuration } = getComputedStyle(modal);
 
-  if (animationDuration !== '0s')
-    modal.addEventListener('animationend', () => {
-      modal.classList.remove('closing');
-      closeModal(modal, onClose$);
-    });
-  else if (transitionDuration !== '0s')
-    modal.addEventListener('transitionend', () => {
-      modal.classList.remove('closing');
-      closeModal(modal, onClose$);
-    });
-  else {
+  const runAnimationEnd = () => {
+    modal.classList.remove('closing');
+    closeModal(modal, onClose$);
+    modal.removeEventListener('animationend', runAnimationEnd);
+  };
+
+  const runTransitionEnd = () => {
+    modal.classList.remove('closing');
+    closeModal(modal, onClose$);
+    modal.removeEventListener('transitionend', runTransitionEnd);
+  };
+
+  if (animationDuration !== '0s') {
+    modal.addEventListener('animationend', runAnimationEnd);
+  } else if (transitionDuration !== '0s') {
+    modal.addEventListener('animationend', runTransitionEnd);
+  } else {
     closeModal(modal, onClose$);
   }
 }

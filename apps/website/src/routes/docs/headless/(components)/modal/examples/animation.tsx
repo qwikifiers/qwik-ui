@@ -14,7 +14,9 @@ export default component$(() => {
   return (
     <>
       <button
-        onClick$={() => (showSig.value = true)}
+        onClick$={() => {
+          showSig.value = true;
+        }}
         class="rounded-md border-2 border-slate-300 bg-slate-700 px-3 py-2 text-white"
       >
         Open Modal
