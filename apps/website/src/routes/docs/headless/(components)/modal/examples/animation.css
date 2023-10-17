@@ -6,14 +6,31 @@
   animation: zoomIn 0.45s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
-.my-modal.modal-opening::backdrop {
+.my-modal::backdrop {
   background: hsla(0, 0%, 0%, 0.8);
+}
+
+.my-modal.modal-opening::backdrop {
   animation: modalFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
 .my-modal.modal-closing::backdrop {
   animation: modalFadeOut 0.45s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
+
+/* .my-modal::backdrop {
+  opacity: 0;
+  transition: opacity 850ms ease;
+}
+
+.my-modal.modal-opening::backdrop {
+  background: hsla(0, 0%, 0%, 0.8);
+  opacity: 1;
+}
+
+.my-modal.modal-closing::backdrop {
+  opacity: 0;
+} */
 
 @keyframes zoomOut {
   from {

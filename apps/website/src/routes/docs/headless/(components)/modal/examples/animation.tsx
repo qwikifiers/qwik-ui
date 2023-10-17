@@ -26,12 +26,12 @@ export default component$(() => {
         class="my-modal shadow-dark-medium max-w-[25rem] rounded-md bg-white p-[28px] text-slate-950"
       >
         <ModalHeader>
-          <h2 class="mb-2 text-lg font-bold">Edit Profile</h2>
-          <p class="leading-5">
-            You can update your profile here. Hit the save button when finished.
-          </p>
+          <h2 class="text-lg font-bold">Edit Profile</h2>
         </ModalHeader>
         <ModalContent class="mb-2 py-4">
+          <p class="mb-4 leading-5">
+            You can update your profile here. Hit the save button when finished.
+          </p>
           <fieldset class="mb-1 flex items-baseline justify-between">
             <label for="name">Name</label>
             <input

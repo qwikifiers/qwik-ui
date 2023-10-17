@@ -20,7 +20,7 @@ export default component$(() => {
         <ModalHeader>
           <h2 class="mb-2 text-lg font-bold">Deactive Account</h2>
         </ModalHeader>
-        <ModalContent class="mb-2 py-4">
+        <ModalContent class="mb-2 pb-4 pt-2">
           <p class="leading-5">Are you sure you want to deactivate your account?</p>
         </ModalContent>
         <ModalFooter class="flex justify-end gap-4">
