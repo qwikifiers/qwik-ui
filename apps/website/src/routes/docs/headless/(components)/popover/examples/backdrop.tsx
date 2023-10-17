@@ -9,15 +9,22 @@ export default component$(() => {
       <button
         // @ts-ignore
         popovertarget="backdrop-id"
-        class="backdrop rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
+        class="rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
       >
         Popover Trigger
       </button>
-      <Popover class="backdrop border-none bg-transparent" id="backdrop-id">
+      <Popover
+        animation
+        entryAnimation="opacity-100"
+        exitAnimation="opacity-0"
+        class="backdrop border-none bg-transparent opacity-0"
+        id="backdrop-id"
+      >
         {/* Need a child here, or else the pseudo element background takes priority */}
-        <div class="rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1">
+        {/* <div class="rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1">
           Popover
-        </div>
+        </div> */}
+        Popover
       </Popover>
     </>
   );
