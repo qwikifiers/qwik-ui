@@ -6,6 +6,15 @@
   animation: zoomIn 0.45s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
+.my-modal.modal-opening::backdrop {
+  background: hsla(0, 0%, 0%, 0.8);
+  animation: modalFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
+}
+
+.my-modal.modal-closing::backdrop {
+  animation: modalFadeOut 0.45s forwards cubic-bezier(0.6, 0.6, 0, 1);
+}
+
 @keyframes zoomOut {
   from {
     opacity: 0;
@@ -25,5 +34,23 @@
   to {
     opacity: 0;
     transform: translateY(-200%);
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
