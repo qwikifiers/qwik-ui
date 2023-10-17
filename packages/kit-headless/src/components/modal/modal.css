@@ -1,5 +1,6 @@
 dialog {
   animation: placeholder 0s;
+  transition: placeholder 0s;
 }
 
 @keyframes placeholder {

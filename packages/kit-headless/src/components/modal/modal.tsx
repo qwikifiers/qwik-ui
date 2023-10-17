@@ -77,7 +77,6 @@ export const Modal = component$((props: ModalProps) => {
 
     if (isOpen) {
       modal.style.left = `0px`;
-
       showModal(modal, props.onShow$);
       adjustScrollbar(scrollbarWidth);
       activateFocusTrap(focusTrap);
