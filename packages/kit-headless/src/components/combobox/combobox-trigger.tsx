@@ -6,6 +6,7 @@ import {
   type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
+import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type ComboboxTriggerProps = QwikIntrinsicElements['button'];
 
@@ -28,8 +29,11 @@ export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
         aria-haspopup="listbox"
         aria-controls={listboxId}
         aria-expanded={context.isListboxOpenSig.value}
-        aria-label="Show suggestions"
       >
+        <VisuallyHidden>
+          Toggle list of
+          {context.labelRef.value ? context.labelRef.value?.innerText : 'options'}
+        </VisuallyHidden>
         <Slot />
       </button>
     </>

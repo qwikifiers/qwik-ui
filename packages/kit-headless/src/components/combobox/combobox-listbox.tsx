@@ -10,6 +10,7 @@ import { JSX } from '@builder.io/qwik/jsx-runtime';
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
 import { ResolvedOption } from './combobox';
+import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type ComboboxListboxProps<O extends Option = Option> = {
   optionRenderer$?: QRL<
@@ -27,12 +28,13 @@ export const ComboboxListbox = component$(
         {...props}
         id={listboxId}
         ref={context.listboxRef}
-        aria-label={
-          context.labelRef.value ? context.labelRef.value?.innerText : 'Suggestions'
-        }
         role="listbox"
         style={{ ...(props.style as object) }}
       >
+        <VisuallyHidden>
+          List of
+          {context.labelRef.value ? context.labelRef.value?.innerText : 'options'}
+        </VisuallyHidden>
         {context.filteredOptionsSig.value.map((resolved, filteredIndex) =>
           optionRenderer$?.(resolved, filteredIndex),
         )}
