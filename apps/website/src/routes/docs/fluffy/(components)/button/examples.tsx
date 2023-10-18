@@ -1,6 +1,6 @@
 import { JSXNode, component$ } from '@builder.io/qwik';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import fluffyButtonCode from '../../../../../../../../packages/kit-fluffy/src/components/button/button?raw';
+import Button from '../../../../../../../../packages/kit-fluffy/src/components/button/button?raw';
 import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
 import { Highlight } from '../../../_components/highlight/highlight';
 import { PreviewCodeExampleVertical } from '../../../_components/preview-code-example/preview-code-example-vertical';
@@ -62,9 +62,7 @@ export const examples: Record<string, Example> = {
   },
 };
 
-export const InstallExample = component$(() => (
-  <CodeExampleContainer code={fluffyButtonCode} />
-));
+export const InstallExample = component$(() => <CodeExampleContainer code={Button} />);
 
 export const ShowExample = component$(({ example }: ShowExampleProps) => {
   const { component, code, cssClasses = '' } = examples[example];

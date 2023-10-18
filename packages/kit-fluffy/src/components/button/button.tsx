@@ -112,3 +112,5 @@ export const Button = component$<ButtonProps>(
     );
   },
 );
+
+export default Button;
