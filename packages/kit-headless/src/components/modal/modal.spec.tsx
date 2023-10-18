@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Modal, ModalProps } from './modal';
 import { ModalContent } from './modal-content';
 import { ModalFooter } from './modal-footer';
@@ -10,6 +10,39 @@ import { ModalHeader } from './modal-header';
  */
 const Sut = component$((props?: ModalProps) => {
   const showSig = useSignal(false);
+
+  useStyles$(`
+    .modal.modal-opening {
+      animation: zoomOut 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
+    }
+
+    .modal.modal-closing {
+      animation: zoomIn 0.45s forwards cubic-bezier(0.6, 0.6, 0, 1);
+    }
+
+    @keyframes zoomOut {
+      from {
+        opacity: 0;
+        transform: scale(150%);
+      }
+      to {
+        opacity: 1;
+        transform: scale(100%);
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-200%);
+      }
+    }
+`);
+
   return (
     <>
       <button onClick$={() => (showSig.value = true)} data-test="modal-trigger">
@@ -188,5 +221,25 @@ describe('Modal', () => {
     cy.realPress('Escape');
 
     cy.get('dialog').should('not.be.visible');
+  });
+
+  it(`GIVEN a animated Modal
+           WHEN opening the Modal
+           THEN it applies a CSS-Class allowing to animate the Modal-opening
+           AND closing the Modal
+           THEN it applies a CSS-Class allowing to animate the Modal-closing
+           THEN it remove the CSS-Class`, () => {
+    cy.mount(<Sut class="modal" />);
+
+    cy.get('[data-test=modal-trigger]').click();
+
+    cy.get('dialog').should('have.class', 'modal-opening');
+    cy.get('[data-test=modal-header]').should('be.visible');
+
+    cy.realPress('Escape');
+
+    cy.get('dialog').should('have.class', 'modal-closing');
+    cy.get('dialog').should('not.be.visible');
+    cy.get('dialog').should('not.have.class', 'modal-closing');
   });
 });
