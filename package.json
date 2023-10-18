@@ -34,7 +34,7 @@
     "@fontsource-variable/inter": "5.0.8",
     "@frsource/cypress-plugin-visual-regression-diff": "^3.3.10",
     "@jscutlery/semver": "^3.1.0",
-    "@k11r/nx-cloudflare-wrangler": "2.4.2",
+    "@k11r/nx-cloudflare-wrangler": "2.7.1",
     "@nx/cypress": "16.9.1",
     "@nx/eslint-plugin": "16.9.1",
     "@nx/js": "16.9.1",
@@ -112,7 +112,7 @@
     "vite-plugin-static-copy": "0.17.0",
     "vite-tsconfig-paths": "4.2.0",
     "vitest": "^0.34.3",
-    "wrangler": "^2"
+    "wrangler": "^3.11.0"
   },
   "config": {
     "commitizen": {
