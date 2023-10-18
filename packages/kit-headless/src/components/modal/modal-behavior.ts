@@ -139,6 +139,7 @@ export function closing(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
   } else if (transitionDuration !== '0s') {
     modal.addEventListener('transitionend', runTransitionEnd);
   } else {
+    modal.classList.remove('modal-closing');
     closeModal(modal, onClose$);
   }
 }
