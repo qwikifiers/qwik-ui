@@ -19,23 +19,39 @@ export function activateFocusTrap(focusTrap: FocusTrap | null) {
   }
 }
 
+/**
+ * Deactivates the given FocusTrap
+ */
 export function deactivateFocusTrap(focusTrap: FocusTrap | null) {
   focusTrap?.deactivate();
   focusTrap = null;
 }
 
+/**
+ * Shows the given Modal.
+ * Applies CSS-Class to animate the Modal-opening.
+ * Calls the given callback that is executed after the Modal has been opened.
+ */
 export async function showModal(modal: HTMLDialogElement, onShow$?: QRL<() => void>) {
   modal.showModal();
   modal.classList.add('modal-opening');
   await onShow$?.();
 }
 
+/**
+ * Closes the given Modal.
+ * Applies CSS-Class to animate the Modal-closing.
+ * Calls the given callback that is executed after the Modal has been closed.
+ */
 export async function closeModal(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
   modal.close();
   modal.classList.remove('modal-opening');
   await onClose$?.();
 }
 
+/**
+ * Determines if the backdrop of the Modal has been clicked.
+ */
 export function wasModalBackdropClicked(
   modal: HTMLDialogElement | undefined,
   clickEvent: QwikMouseEvent,
@@ -55,24 +71,36 @@ export function wasModalBackdropClicked(
   return wasBackdropClicked;
 }
 
+/**
+ * Locks scrolling of the document.
+ */
 export function lockScroll() {
   window.document.body.style.overflow = 'hidden';
-}
-
-export function unlockScroll(scrollbar: WidthElement) {
-  window.document.body.style.overflow = '';
-
-  // cleanup the scroll padding
-  const currentPadding = parseInt(document.body.style.paddingRight);
-  if (scrollbar.width) {
-    document.body.style.paddingRight = `${currentPadding - scrollbar.width}px`;
-  }
 }
 
 export type WidthElement = {
   width: number | null;
 };
 
+/**
+ * Unlocks scrolling of the document.
+ * Adjusts padding of the given scrollbar.
+ */
+export function unlockScroll(scrollbar: WidthElement) {
+  window.document.body.style.overflow = '';
+
+  const currentPadding = parseInt(document.body.style.paddingRight);
+  if (scrollbar.width) {
+    document.body.style.paddingRight = `${currentPadding - scrollbar.width}px`;
+  }
+}
+
+/**
+ *
+ * Adjusts scrollbar padding
+ * TODO: Why???
+ *
+ */
 export function adjustScrollbar(scrollbar: WidthElement) {
   if (scrollbar.width === null) {
     scrollbar.width = window.innerWidth - document.documentElement.clientWidth;
@@ -81,13 +109,17 @@ export function adjustScrollbar(scrollbar: WidthElement) {
   document.body.style.paddingRight = `${scrollbar.width}px`;
 }
 
-// utility function to add support for animations & transitions
+/*
+ * Listens for animation/transition events in order to
+ * remove Animation-CSS-Classes after animation/transition ended.
+ */
 export function closing(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
   if (!modal) {
     return;
   }
 
   modal.classList.add('modal-closing');
+
   const { animationDuration, transitionDuration } = getComputedStyle(modal);
 
   const runAnimationEnd = () => {
