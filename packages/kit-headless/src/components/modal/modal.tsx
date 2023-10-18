@@ -59,19 +59,6 @@ export const Modal = component$((props: ModalProps) => {
 
     const focusTrap = trapFocus(modal);
 
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-
-        // fixes modal scrollbar flickering
-        modal.style.left = `${scrollbarWidth}px`;
-
-        showSig.value = false;
-      }
-    };
-
-    window.addEventListener('keydown', handleEscape);
-
     if (isOpen) {
       modal.style.left = `0px`;
       showModal(modal, props.onShow$);
@@ -91,8 +78,6 @@ export const Modal = component$((props: ModalProps) => {
         const currLeft = parseInt(modal.style.left);
         modal.style.left = `${scrollbarWidth.width - currLeft}px`;
       }
-
-      window.removeEventListener('keydown', handleEscape);
     });
   });
 
