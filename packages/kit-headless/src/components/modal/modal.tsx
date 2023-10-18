@@ -16,9 +16,9 @@ import {
   adjustScrollbar,
   closing,
   deactivateFocusTrap,
-  getFocusTrap,
   lockScroll,
   showModal,
+  trapFocus,
   unlockScroll,
   wasModalBackdropClicked,
 } from './modal-behavior';
@@ -57,7 +57,7 @@ export const Modal = component$((props: ModalProps) => {
 
     if (!modal) return;
 
-    const focusTrap = getFocusTrap(modal);
+    const focusTrap = trapFocus(modal);
 
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {

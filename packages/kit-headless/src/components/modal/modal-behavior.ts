@@ -1,6 +1,10 @@
 import { QRL, QwikMouseEvent } from '@builder.io/qwik';
 import { FocusTrap, createFocusTrap } from 'focus-trap';
 
+/**
+ * Traps the focus of the given Modal
+ * @returns FocusTrap
+ */
 export function trapFocus(modal: HTMLDialogElement): FocusTrap {
   return createFocusTrap(modal, { escapeDeactivates: false });
 }
@@ -13,11 +17,6 @@ export function activateFocusTrap(focusTrap: FocusTrap | null) {
     // If this is the case we are fine with not activating the focus trap.
     // That's why we ignore the thrown error.
   }
-}
-
-export function getFocusTrap(modal: HTMLDialogElement) {
-  const focusTrap = trapFocus(modal);
-  return focusTrap;
 }
 
 export function deactivateFocusTrap(focusTrap: FocusTrap | null) {
