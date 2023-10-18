@@ -80,10 +80,10 @@ export const Modal = component$((props: ModalProps) => {
       lockScroll();
     } else {
       unlockScroll(scrollbarWidth);
+      closing(modal, props.onClose$);
     }
 
     cleanup(() => {
-      closing(modal, props.onClose$);
       deactivateFocusTrap(focusTrap);
 
       // prevents closing animation scrollbar flickers (chrome & edge)
