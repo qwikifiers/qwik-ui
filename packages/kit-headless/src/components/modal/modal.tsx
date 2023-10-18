@@ -1,26 +1,26 @@
 import {
   $,
-  component$,
   QRL,
   QwikIntrinsicElements,
   QwikMouseEvent,
   Signal,
   Slot,
+  component$,
   useSignal,
-  useTask$,
   useStyles$,
+  useTask$,
 } from '@builder.io/qwik';
 import {
+  WidthElement as WidthState,
   activateFocusTrap,
+  adjustScrollbar,
+  closing,
   deactivateFocusTrap,
+  getFocusTrap,
   lockScroll,
   showModal,
-  getFocusTrap,
-  wasModalBackdropClicked,
-  WidthElement as WidthState,
-  closing,
   unlockScroll,
-  adjustScrollbar,
+  wasModalBackdropClicked,
 } from './modal-behavior';
 
 import styles from './modal.css?inline';
@@ -66,7 +66,6 @@ export const Modal = component$((props: ModalProps) => {
         // fixes modal scrollbar flickering
         modal.style.left = `${scrollbarWidth}px`;
 
-        deactivateFocusTrap(focusTrap);
         closing(modal, props.onClose$);
 
         showSig.value = false;
