@@ -235,6 +235,7 @@ describe('Modal', () => {
 
     cy.get('dialog').should('have.class', 'modal-opening');
     cy.get('[data-test=modal-header]').should('be.visible');
+    cy.get('dialog').should('not.have.class', 'modal-opening');
 
     cy.realPress('Escape');
 

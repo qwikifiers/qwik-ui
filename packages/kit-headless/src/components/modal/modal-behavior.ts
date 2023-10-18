@@ -34,7 +34,7 @@ export function deactivateFocusTrap(focusTrap: FocusTrap | null) {
  */
 export async function showModal(modal: HTMLDialogElement, onShow$?: QRL<() => void>) {
   modal.showModal();
-  modal.classList.add('modal-opening');
+  opening(modal);
   await onShow$?.();
 }
 
@@ -141,5 +141,37 @@ export function closing(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
   } else {
     modal.classList.remove('modal-closing');
     closeModal(modal, onClose$);
+  }
+}
+
+/*
+ * Listens for animation/transition events in order to
+ * remove Animation-CSS-Classes after animation/transition ended.
+ */
+export function opening(modal: HTMLDialogElement) {
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.add('modal-opening');
+
+  const { animationDuration, transitionDuration } = getComputedStyle(modal);
+
+  const runAnimationEnd = () => {
+    modal.classList.remove('modal-opening');
+    modal.removeEventListener('animationend', runAnimationEnd);
+  };
+
+  const runTransitionEnd = () => {
+    modal.classList.remove('modal-opening');
+    modal.removeEventListener('transitionend', runTransitionEnd);
+  };
+
+  if (animationDuration !== '0s') {
+    modal.addEventListener('animationend', runAnimationEnd);
+  } else if (transitionDuration !== '0s') {
+    modal.addEventListener('transitionend', runTransitionEnd);
+  } else {
+    modal.classList.remove('modal-opening');
   }
 }
