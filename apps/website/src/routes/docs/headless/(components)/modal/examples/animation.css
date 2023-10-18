@@ -1,4 +1,4 @@
-.my-modal.modal-opening {
+.my-modal.modal-showing {
   animation: zoomOut 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
@@ -10,7 +10,7 @@
   background: hsla(0, 0%, 0%, 0.8);
 }
 
-.my-modal.modal-opening::backdrop {
+.my-modal.modal-showing::backdrop {
   animation: modalFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
@@ -23,7 +23,7 @@
   transition: opacity 850ms ease;
 }
 
-.my-modal.modal-opening::backdrop {
+.my-modal.modal-showing::backdrop {
   background: hsla(0, 0%, 0%, 0.8);
   opacity: 1;
 }

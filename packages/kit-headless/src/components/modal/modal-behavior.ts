@@ -29,7 +29,7 @@ export function deactivateFocusTrap(focusTrap: FocusTrap | null) {
 
 /**
  * Shows the given Modal.
- * Applies CSS-Class to animate the Modal-opening.
+ * Applies CSS-Class to animate the modal-showing.
  * Calls the given callback that is executed after the Modal has been opened.
  */
 export async function showModal(modal: HTMLDialogElement, onShow$?: QRL<() => void>) {
@@ -45,7 +45,7 @@ export async function showModal(modal: HTMLDialogElement, onShow$?: QRL<() => vo
  */
 export async function closeModal(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
   modal.close();
-  modal.classList.remove('modal-opening');
+  modal.classList.remove('modal-showing');
   await onClose$?.();
 }
 
@@ -153,17 +153,17 @@ export function opening(modal: HTMLDialogElement) {
     return;
   }
 
-  modal.classList.add('modal-opening');
+  modal.classList.add('modal-showing');
 
   const { animationDuration, transitionDuration } = getComputedStyle(modal);
 
   const runAnimationEnd = () => {
-    modal.classList.remove('modal-opening');
+    modal.classList.remove('modal-showing');
     modal.removeEventListener('animationend', runAnimationEnd);
   };
 
   const runTransitionEnd = () => {
-    modal.classList.remove('modal-opening');
+    modal.classList.remove('modal-showing');
     modal.removeEventListener('transitionend', runTransitionEnd);
   };
 
@@ -172,6 +172,6 @@ export function opening(modal: HTMLDialogElement) {
   } else if (transitionDuration !== '0s') {
     modal.addEventListener('transitionend', runTransitionEnd);
   } else {
-    modal.classList.remove('modal-opening');
+    modal.classList.remove('modal-showing');
   }
 }

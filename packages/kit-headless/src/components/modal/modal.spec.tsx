@@ -12,7 +12,7 @@ const Sut = component$((props?: ModalProps) => {
   const showSig = useSignal(false);
 
   useStyles$(`
-    .modal.modal-opening {
+    .modal.modal-showing {
       animation: zoomOut 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
 
@@ -225,7 +225,7 @@ describe('Modal', () => {
 
   it(`GIVEN a animated Modal
            WHEN opening the Modal
-           THEN it applies a CSS-Class allowing to animate the Modal-opening
+           THEN it applies a CSS-Class allowing to animate the modal-showing
            AND closing the Modal
            THEN it applies a CSS-Class allowing to animate the Modal-closing
            THEN it remove the CSS-Class`, () => {
@@ -233,9 +233,9 @@ describe('Modal', () => {
 
     cy.get('[data-test=modal-trigger]').click();
 
-    cy.get('dialog').should('have.class', 'modal-opening');
+    cy.get('dialog').should('have.class', 'modal-showing');
     cy.get('[data-test=modal-header]').should('be.visible');
-    cy.get('dialog').should('not.have.class', 'modal-opening');
+    cy.get('dialog').should('not.have.class', 'modal-showing');
 
     cy.realPress('Escape');
 
