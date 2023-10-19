@@ -23,7 +23,7 @@ export default component$(() => {
       </button>
       <Modal
         bind:show={showSig}
-        class="my-modal shadow-dark-medium max-w-[25rem] rounded-md bg-white p-[28px] text-slate-950"
+        class="my-animation shadow-dark-medium max-w-[25rem] rounded-md bg-white p-[28px] text-slate-950 backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>

@@ -101,11 +101,12 @@ export function unlockScroll(scrollbar: WidthElement) {
  * TODO: Why???
  *
  */
-export function adjustScrollbar(scrollbar: WidthElement) {
+export function adjustScrollbar(scrollbar: WidthElement, modal: HTMLDialogElement) {
   if (scrollbar.width === null) {
     scrollbar.width = window.innerWidth - document.documentElement.clientWidth;
   }
 
+  modal.style.left = `0px`;
   document.body.style.paddingRight = `${scrollbar.width}px`;
 }
 

@@ -25,6 +25,7 @@ import animationExampleCode from './examples/animation?raw';
 
 import buildingBlocksSnip from './examples/building-blocks-snip?raw';
 import pageLoadSnip from './examples/page-load-snip?raw';
+import animationSnip from './examples/animation-snip.css?raw';
 
 import styles from './index.css?inline';
 import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
@@ -93,4 +94,8 @@ export const BuildingBlocksSnip = component$(() => (
 
 export const PageLoadSnip = component$(() => (
   <CodeExampleContainer code={pageLoadSnip} />
+));
+
+export const AnimationSnip = component$(() => (
+  <CodeExampleContainer code={animationSnip} />
 ));

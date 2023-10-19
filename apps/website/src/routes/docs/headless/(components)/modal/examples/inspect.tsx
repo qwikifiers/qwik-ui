@@ -10,7 +10,7 @@ export default component$(() => {
         onClick$={() => (showSig.value = true)}
         class="rounded-md border-2 border-slate-300 bg-slate-700 px-3 py-2 text-white"
       >
-        Inspect my modal!
+        Open Modal
       </button>
       <Modal
         bind:show={showSig}

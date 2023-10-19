@@ -63,9 +63,6 @@ export const Modal = component$((props: ModalProps) => {
       if (e.key === 'Escape') {
         e.preventDefault();
 
-        // fixes modal scrollbar flickering
-        modal.style.left = `${scrollbarWidth}px`;
-
         showSig.value = false;
       }
     };
@@ -73,9 +70,8 @@ export const Modal = component$((props: ModalProps) => {
     window.addEventListener('keydown', handleEscape);
 
     if (isOpen) {
-      modal.style.left = `0px`;
       showModal(modal, props.onShow$);
-      adjustScrollbar(scrollbarWidth);
+      adjustScrollbar(scrollbarWidth, modal);
       activateFocusTrap(focusTrap);
       lockScroll();
     } else {

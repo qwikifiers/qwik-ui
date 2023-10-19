@@ -14,7 +14,8 @@ import {
   ShowExample,
   BackdropCss,
   BuildingBlocksSnip,
-  PageLoadSnip
+  PageLoadSnip,
+  AnimationSnip
 } from './exports';
 
 import testImage from '../../../../../../public/images/test-image.png'
@@ -27,7 +28,7 @@ A window overlaid on either the primary window or another dialog window. Modal c
 
 <ShowExample example="hero"/>
 
-The modal makes use of HTML's `dialog` element, which has great support in [every major browser](https://caniuse.com/?search=dialog). 
+The modal makes use of the HTML `dialog` element, which is supported in [every major browser](https://caniuse.com/?search=dialog). 
 
 > For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) *(in progress)*. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
 
@@ -48,6 +49,9 @@ Modals are used when an important choice needs to be made in the application. Th
 - Scroll locking
 - Closes on escape
 - Toggle backdrop dismiss
+- Animation support
+- Transition support
+- Backdrop animations
 
 ## Building Blocks
 
@@ -81,13 +85,13 @@ Modals are used when an important choice needs to be made in the application. Th
 
 The Qwik UI Modal component is built on top of the `dialog` element. To see additional capabilities of the dialog, take a look at the [offical MDN page](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog).
 
-Our goal is to fill existing gaps, ensuring your modal is a11y compliant and enriched with HTML spec features, reducing reliance on Qwik UI maintainers.
+Our goal is to fill existing gaps, ensuring the modal is a11y compliant and enriched with HTML spec features, reducing reliance on Qwik UI maintainers.
 
 ### Attribute example
 
 <ShowExample example="autoFocus" />
 
-Above is an example of the `autofocus` attribute used to focus the 2nd input when the dialog is opened. 
+Above is an example of the `autofocus` attribute, used to focus the 2nd input when the dialog is opened. 
 
 > When adding properties on `<Modal />`, it is the same as sticking the attribute, class, or API on the dialog element itself. 
 
@@ -95,21 +99,21 @@ Above is an example of the `autofocus` attribute used to focus the 2nd input whe
 
 To open or close the modal, we can use `bind:show`, a custom signal bind that leverages the [bind](https://qwik.builder.io/docs/components/rendering/#bind-attribute) syntax in Qwik.
 
-<ShowExample example="hero" />
+<ShowExample example="inspect" />
 
 `showSig` is a signal that we pass into our Modal component to customize when the modal can be open or closed.
 
-The above example sets the signal to true when the button with the text **Open Modal** is clicked, then closed whenever a button inside of the modal is clicked.
+The example above opens the modal when the **Open Modal** button is clicked and closes it when a button inside the modal is clicked.
 
-> Custom signal binds can be thought of as a remote control for a television. Just as you use a remote control to change channels, adjust volume, or turn the TV on or off, custom signal binds allow you to control the state of a component, such as opening or closing a modal, from a distance.
+> Custom signal binds are like a remote control for components, controlling states like opening or closing a modal.
 
-## The top layer
+## The Top Layer
 
 <ImgTestImage class="rounded-xl mb-6" />
 
 In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues. 
 
-The top layer is used in Qwik UI, whenever a modal or popover is used. Popovers can be applied to any semantic element, modals in Qwik UI are tied to the `dialog` element.
+The top layer is used in Qwik UI whenever a modal or popover is used in supported browsers. Popovers can be applied to any semantic element, modals in Qwik UI are tied to the `dialog` element.
 
 > The previous implementation of modals required the use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal), the top layer pseudo class is a **native solution** to this problem. No more z-index wars!
 
@@ -127,37 +131,59 @@ Styling a [backdrop in Tailwind](https://tailwindcss.com/docs/backdrop-blur) can
 
 <ShowExample example="hero"/>
 
-## Backdrop dismiss
+## Dismissing Modals via Backdrop
 
-By default, modals can be dismissed by clicking on the backdrop. This can be changed with the `closeOnBackdropClick` prop.
+Modals in Qwik UI can be dismissed by default when the backdrop is clicked. However, this behavior can be modified using the `closeOnBackdropClick` property.
 
 <ShowExample example="backdropClose"/>
 
-Above is an example of a modal that does not dismiss when the backdrop is clicked, where `closeOnBackdropClick` is set to false.
+The example above demonstrates a modal where the `closeOnBackdropClick` property is set to false. As a result, clicking on the backdrop does not dismiss the modal.
 
 ## Alertdialog
 
-An alert dialog is a modal that interrupts user workflow to convey critical information and obtain a response. It's used for confirmations or error messages. 
+An alert dialog is a modal that interrupts user workflow to convey critical information and obtain a response. It's typically used for confirmations, error messages, or destructive actions. 
 
 <ShowExample example="alertDialog"/>
 
-By adding the `alert` prop to our component, we adhere to the [WAI ARIA specification](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/), enabling assistive technologies to distinguish alert dialogs for special handling.
+By adding the `alert` prop to our component, we adhere to the [WAI ARIA Alertdialog specification](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/), enabling assistive technologies to distinguish alert dialogs for special handling.
 
 Alertdialogs do not allow the backdrop to be closed when clicked, regardless of whether the `closeOnBackdropClick` prop was set to true.
 
-## Modal focus
+## Focus Locking in Modals
 
-One of the features that Qwik UI provides is focus locking. This refers to keeping focus within the modal component. 
+Qwik UI incorporates a feature known as focus locking, which confines the focus within the modal component when it is open. 
 
-<ShowExample example="hero"/>
+<ShowExample example="inspect"/>
 
-For example, when tabbing and the modal is opened, it will loop back to the first focusable element.
+This means that if a user is navigating through the modal using the Tab key, reaching the last focusable element and pressing Tab again will cycle the focus back to the first focusable element within the modal.
 
-> This is a default behavior that we provide out of the box, please [let us know](https://github.com/qwikifiers/qwik-ui/issues) if there are any additional use cases that require personalized focus lock behavior.
+> Focus locking behavior is provided by default in Qwik UI. If you encounter any use cases that require customized focus lock behavior, please [submit an issue](https://github.com/qwikifiers/qwik-ui/issues) on our GitHub repository.
 
 ## Animations
 
 <ShowExample example="animation" />
+
+Animating things to display none has historically been a significant challenge on the web. This is because display none is a `discrete` property, and is **unanimatable**.
+
+> There is currently efforts to solve this problem. [New CSS properties](https://developer.chrome.com/blog/entry-exit-animations/) have been introduced, but currently do not provide good enough browser support.
+
+### Our current approach
+
+Qwik UI automatically detects any `animation` or `transition` declarations under the hood and waits for them to finish before closing the modal. If there is no animation, then it will close normally.
+
+### Adding an animation
+
+To add an animation, use the `modal-showing` and `modal-closing` css classes. Below is a snippet of the animation example above.
+
+<AnimationSnip />
+
+### Backdrop animations
+
+Backdrop animations have also made significant progress in the last year, with support provided in over half of the major browsers, and close to 70% of users.
+
+To add a backdrop animation, make sure to use the `::backdrop` pseudo selector to the end of the `modal-closing` or `modal-opening` classes.
+
+> Firefox currently does not support backdrop animations. The fallback for browsers that do not support animated backdrops is the same as a non-animated backdrop.
 
 ## Open on page load
 
@@ -233,6 +259,18 @@ The current solution across framework ecosystems, is to open the Modal eagerly o
       info: '() => void',
       description:
         'An event hook that gets notified whenever the modal shows up.',
+    },
+    {
+      name: '.modal-showing',
+      type: 'CSS',
+      description:
+        'A CSS class used for entry animations.',
+    },
+    {
+      name: '.modal-closing',
+      type: 'CSS',
+      description:
+        'A CSS class used for exit animations.',
     },
   ]}
 />
