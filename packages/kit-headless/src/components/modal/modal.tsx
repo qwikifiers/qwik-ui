@@ -57,14 +57,15 @@ export const Modal = component$((props: ModalProps) => {
     window.addEventListener('keydown', escapeKeydownHandler);
 
     if (isOpen) {
-      showModal(modal, props.onShow$);
+      showModal(modal);
+      props.onShow$?.();
       adjustScrollbar(scrollbar, modal);
       activateFocusTrap(focusTrap);
       lockScroll();
     } else {
       unlockScroll(scrollbar);
       closeModal(modal);
-      // animateClosing(modal, props.onClose$);
+      props.onClose$?.();
     }
 
     cleanup(() => {

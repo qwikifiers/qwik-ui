@@ -1,4 +1,4 @@
-import { QRL, QwikMouseEvent } from '@builder.io/qwik';
+import { QwikMouseEvent } from '@builder.io/qwik';
 import { FocusTrap, createFocusTrap } from 'focus-trap';
 
 export type WidthState = {
@@ -36,10 +36,9 @@ export function deactivateFocusTrap(focusTrap: FocusTrap | null) {
  * Applies a CSS-Class to animate the modal-showing.
  * Calls the given callback that is executed after the Modal has been opened.
  */
-export async function showModal(modal: HTMLDialogElement, onShow$?: QRL<() => void>) {
+export async function showModal(modal: HTMLDialogElement) {
   modal.showModal();
   supportShowAnimation(modal);
-  await onShow$?.();
 }
 
 /**
@@ -47,9 +46,8 @@ export async function showModal(modal: HTMLDialogElement, onShow$?: QRL<() => vo
  * Applies a CSS-Class to animate the Modal-closing.
  * Calls the given callback that is executed after the Modal has been closed.
  */
-export async function closeModal(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
+export async function closeModal(modal: HTMLDialogElement) {
   supportClosingAnimation(modal, () => modal.close());
-  await onClose$?.();
 }
 
 /**
