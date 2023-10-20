@@ -50,11 +50,11 @@ export const Modal = component$((props: ModalProps) => {
 
     const focusTrap = trapFocus(modal);
 
-    const escapeKeydownHandler = overrideNativeDialogEscapeBehaviorWith(
-      () => (showSig.value = false),
+    window.addEventListener(
+      'keydown',
+      overrideNativeDialogEscapeBehaviorWith(() => (showSig.value = false)),
+      { once: true },
     );
-
-    window.addEventListener('keydown', escapeKeydownHandler);
 
     if (isOpen) {
       showModal(modal);
@@ -71,7 +71,6 @@ export const Modal = component$((props: ModalProps) => {
     cleanup(() => {
       deactivateFocusTrap(focusTrap);
       keepModalInPlaceWhileScrollbarReappears(scrollbar, modalRefSig.value);
-      window.removeEventListener('keydown', escapeKeydownHandler);
     });
   });
 
