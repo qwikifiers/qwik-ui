@@ -1,6 +1,10 @@
 import { QRL, QwikMouseEvent } from '@builder.io/qwik';
 import { FocusTrap, createFocusTrap } from 'focus-trap';
 
+export type WidthState = {
+  width: number | null;
+};
+
 /**
  * Traps the focus of the given Modal
  * @returns FocusTrap
@@ -29,23 +33,22 @@ export function deactivateFocusTrap(focusTrap: FocusTrap | null) {
 
 /**
  * Shows the given Modal.
- * Applies CSS-Class to animate the modal-showing.
+ * Applies a CSS-Class to animate the modal-showing.
  * Calls the given callback that is executed after the Modal has been opened.
  */
 export async function showModal(modal: HTMLDialogElement, onShow$?: QRL<() => void>) {
   modal.showModal();
-  opening(modal);
+  supportShowAnimation(modal);
   await onShow$?.();
 }
 
 /**
  * Closes the given Modal.
- * Applies CSS-Class to animate the Modal-closing.
+ * Applies a CSS-Class to animate the Modal-closing.
  * Calls the given callback that is executed after the Modal has been closed.
  */
 export async function closeModal(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
-  modal.close();
-  modal.classList.remove('modal-showing');
+  supportClosingAnimation(modal, () => modal.close());
   await onClose$?.();
 }
 
@@ -78,10 +81,6 @@ export function lockScroll() {
   window.document.body.style.overflow = 'hidden';
 }
 
-export type WidthState = {
-  width: number | null;
-};
-
 /**
  * Unlocks scrolling of the document.
  * Adjusts padding of the given scrollbar.
@@ -96,10 +95,12 @@ export function unlockScroll(scrollbar: WidthState) {
 }
 
 /**
+ * When the Modal is opened we are disabling scrolling.
+ * This means the scrollbar will vanish.
+ * The scrollbar has a width and causes the Modal to reposition.
  *
- * Adjusts scrollbar padding
- * TODO: Why???
- *
+ * That's why we take the scrollbar-width into account so that the
+ * Modal does not jump to the right.
  */
 export function adjustScrollbar(scrollbar: WidthState, modal: HTMLDialogElement) {
   if (scrollbar.width === null) {
@@ -121,7 +122,7 @@ export function overrideNativeDialogEscapeBehaviorWith(continuation: () => void)
 }
 
 /**
- * When the Modal is closed we are enabling scrolling again.
+ * When the Modal is closed we are enabling scrolling.
  * This means the scrollbar will reappear in the browser.
  * The scrollbar has a width and causes the Modal to reposition.
  *
@@ -142,26 +143,33 @@ export function keepModalInPlaceWhileScrollbarReappears(
 }
 
 /*
+ * Adds CSS-Class to support modal-opening-animation
+ */
+export function supportShowAnimation(modal: HTMLDialogElement) {
+  modal.classList.add('modal-showing');
+}
+
+/*
  * Listens for animation/transition events in order to
  * remove Animation-CSS-Classes after animation/transition ended.
  */
-export function closing(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
-  if (!modal) {
-    return;
-  }
-
+export function supportClosingAnimation(
+  modal: HTMLDialogElement,
+  afterAnimate: () => void,
+) {
+  modal.classList.remove('modal-showing');
   modal.classList.add('modal-closing');
 
   const { animationDuration, transitionDuration } = getComputedStyle(modal);
 
   const runAnimationEnd = () => {
     modal.classList.remove('modal-closing');
-    closeModal(modal, onClose$);
+    afterAnimate();
   };
 
   const runTransitionEnd = () => {
     modal.classList.remove('modal-closing');
-    closeModal(modal, onClose$);
+    afterAnimate();
   };
 
   if (animationDuration !== '0s') {
@@ -170,15 +178,6 @@ export function closing(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
     modal.addEventListener('transitionend', runTransitionEnd, { once: true });
   } else {
     modal.classList.remove('modal-closing');
-    closeModal(modal, onClose$);
+    afterAnimate();
   }
-}
-
-/*
- * Adds CSS-Class to support modal-opening-animation
- */
-export function opening(modal: HTMLDialogElement) {
-  if (!modal) return;
-
-  modal.classList.add('modal-showing');
 }

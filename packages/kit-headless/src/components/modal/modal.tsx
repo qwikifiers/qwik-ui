@@ -14,7 +14,7 @@ import {
   WidthState,
   activateFocusTrap,
   adjustScrollbar,
-  closing,
+  closeModal,
   deactivateFocusTrap,
   keepModalInPlaceWhileScrollbarReappears,
   lockScroll,
@@ -63,7 +63,8 @@ export const Modal = component$((props: ModalProps) => {
       lockScroll();
     } else {
       unlockScroll(scrollbar);
-      closing(modal, props.onClose$);
+      closeModal(modal);
+      // animateClosing(modal, props.onClose$);
     }
 
     cleanup(() => {
