@@ -17,6 +17,7 @@ import {
   closing,
   deactivateFocusTrap,
   lockScroll,
+  overrideNativeDialogEscapeBehaviorWith,
   showModal,
   trapFocus,
   unlockScroll,
@@ -62,16 +63,11 @@ export const Modal = component$((props: ModalProps) => {
     if (!modal) return;
 
     const focusTrap = trapFocus(modal);
+    const escapeKeydownHandler = overrideNativeDialogEscapeBehaviorWith(
+      () => (showSig.value = false),
+    );
 
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-
-        showSig.value = false;
-      }
-    };
-
-    window.addEventListener('keydown', handleEscape);
+    window.addEventListener('keydown', escapeKeydownHandler);
 
     if (isOpen) {
       showModal(modal, props.onShow$);
@@ -92,7 +88,7 @@ export const Modal = component$((props: ModalProps) => {
         modal.style.left = `${scrollbarWidth.width - currLeft}px`;
       }
 
-      window.removeEventListener('keydown', handleEscape);
+      window.removeEventListener('keydown', escapeKeydownHandler);
     });
   });
 

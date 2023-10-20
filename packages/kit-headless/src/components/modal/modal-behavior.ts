@@ -110,6 +110,16 @@ export function adjustScrollbar(scrollbar: WidthElement, modal: HTMLDialogElemen
   document.body.style.paddingRight = `${scrollbar.width}px`;
 }
 
+export function overrideNativeDialogEscapeBehaviorWith(continuation: () => void) {
+  return function handleKeydown(e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+
+      continuation();
+    }
+  };
+}
+
 /*
  * Listens for animation/transition events in order to
  * remove Animation-CSS-Classes after animation/transition ended.
