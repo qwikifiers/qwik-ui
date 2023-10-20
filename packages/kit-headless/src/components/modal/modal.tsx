@@ -86,6 +86,8 @@ export const Modal = component$((props: ModalProps) => {
       // prevents closing animation scrollbar flickers (chrome & edge)
       if (scrollbarWidthState.width) {
         const currLeft = parseInt(modal.style.left);
+        console.log(scrollbarWidthState, currLeft);
+
         modal.style.left = `${scrollbarWidthState.width - currLeft}px`;
       }
 

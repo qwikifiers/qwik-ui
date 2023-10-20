@@ -120,6 +120,27 @@ export function overrideNativeDialogEscapeBehaviorWith(continuation: () => void)
   };
 }
 
+/**
+ * When the Modal is closed we are enabling scrolling again.
+ * This means the scrollbar will reappear in the browser.
+ * The scrollbar has a width and causes the Modal to reposition.
+ *
+ * That's why we take the scrollbar-width into account so that the
+ * Modal remains in the same position as before.
+ */
+export function keepModalInPlaceWhileScrollbarReappears(
+  scrollbar: WidthElement,
+  modal?: HTMLDialogElement,
+) {
+  if (!modal) return;
+
+  if (scrollbar.width) {
+    const modalLeft = parseInt(modal.style.left);
+
+    modal.style.left = `${scrollbar.width - modalLeft}px`;
+  }
+}
+
 /*
  * Listens for animation/transition events in order to
  * remove Animation-CSS-Classes after animation/transition ended.
