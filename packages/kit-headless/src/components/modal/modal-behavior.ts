@@ -175,32 +175,10 @@ export function closing(modal: HTMLDialogElement, onClose$?: QRL<() => void>) {
 }
 
 /*
- * Listens for animation/transition events in order to
- * remove Animation-CSS-Classes after animation/transition ended.
+ * Adds CSS-Class to support modal-opening-animation
  */
 export function opening(modal: HTMLDialogElement) {
-  if (!modal) {
-    return;
-  }
+  if (!modal) return;
 
   modal.classList.add('modal-showing');
-
-  const { animationDuration, transitionDuration } = getComputedStyle(modal);
-
-  const runAnimationEnd = () => {
-    modal.classList.remove('modal-showing');
-    modal.removeEventListener('animationend', runAnimationEnd);
-  };
-
-  const runTransitionEnd = () => {
-    modal.removeEventListener('transitionend', runTransitionEnd);
-  };
-
-  if (animationDuration !== '0s') {
-    modal.addEventListener('animationend', runAnimationEnd);
-  } else if (transitionDuration !== '0s') {
-    modal.addEventListener('transitionend', runTransitionEnd);
-  } else {
-    modal.classList.remove('modal-showing');
-  }
 }
