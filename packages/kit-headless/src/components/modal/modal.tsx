@@ -46,9 +46,13 @@ export const Modal = component$((props: ModalProps) => {
   const closeOnBackdropClickSig = useSignal(true);
 
   useTask$(async function bindCloseOnBackdropClick({ track }) {
-    closeOnBackdropClickSig.value = track(() =>
-      props.closeOnBackdropClick === undefined ? true : false,
-    );
+    const closeOnBackdropClick = track(() => props.closeOnBackdropClick);
+
+    if (closeOnBackdropClick === undefined || closeOnBackdropClick === true) {
+      closeOnBackdropClickSig.value = true;
+    } else {
+      closeOnBackdropClickSig.value = false;
+    }
   });
 
   useTask$(async function toggleModal({ track, cleanup }) {
