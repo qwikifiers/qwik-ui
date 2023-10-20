@@ -11,7 +11,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 import {
-  WidthElement as WidthState,
+  WidthState,
   activateFocusTrap,
   adjustScrollbar,
   closing,
@@ -30,7 +30,7 @@ import styles from './modal.css?inline';
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
   onClose$?: QRL<() => void>;
-  'bind:show'?: Signal<boolean>;
+  'bind:show': Signal<boolean>;
   closeOnBackdropClick?: boolean;
   alert?: boolean;
 };
@@ -40,10 +40,7 @@ export const Modal = component$((props: ModalProps) => {
   const modalRefSig = useSignal<HTMLDialogElement>();
   const scrollbar: WidthState = { width: null };
 
-  const { 'bind:show': givenOpenSig } = props;
-
-  const defaultShowSig = useSignal(false);
-  const showSig = givenOpenSig || defaultShowSig;
+  const { 'bind:show': showSig } = props;
 
   useTask$(async function toggleModal({ track, cleanup }) {
     const isOpen = track(() => showSig.value);

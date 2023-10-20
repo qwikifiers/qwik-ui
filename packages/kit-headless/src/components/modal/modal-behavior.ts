@@ -78,7 +78,7 @@ export function lockScroll() {
   window.document.body.style.overflow = 'hidden';
 }
 
-export type WidthElement = {
+export type WidthState = {
   width: number | null;
 };
 
@@ -86,7 +86,7 @@ export type WidthElement = {
  * Unlocks scrolling of the document.
  * Adjusts padding of the given scrollbar.
  */
-export function unlockScroll(scrollbar: WidthElement) {
+export function unlockScroll(scrollbar: WidthState) {
   window.document.body.style.overflow = '';
 
   const currentPadding = parseInt(document.body.style.paddingRight);
@@ -101,7 +101,7 @@ export function unlockScroll(scrollbar: WidthElement) {
  * TODO: Why???
  *
  */
-export function adjustScrollbar(scrollbar: WidthElement, modal: HTMLDialogElement) {
+export function adjustScrollbar(scrollbar: WidthState, modal: HTMLDialogElement) {
   if (scrollbar.width === null) {
     scrollbar.width = window.innerWidth - document.documentElement.clientWidth;
   }
@@ -129,7 +129,7 @@ export function overrideNativeDialogEscapeBehaviorWith(continuation: () => void)
  * Modal remains in the same position as before.
  */
 export function keepModalInPlaceWhileScrollbarReappears(
-  scrollbar: WidthElement,
+  scrollbar: WidthState,
   modal?: HTMLDialogElement,
 ) {
   if (!modal) return;
