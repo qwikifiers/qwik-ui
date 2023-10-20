@@ -14,6 +14,8 @@ import {
   activateFocusTrap,
   closeModal,
   deactivateFocusTrap,
+  keepModalInPlaceWhileScrollbarReappears as keepModalInPlaceWhenScrollbarReappears,
+  lockScroll,
   overrideNativeDialogEscapeBehaviorWith,
   showModal,
   trapFocus,
@@ -68,6 +70,7 @@ export const Modal = component$((props: ModalProps) => {
 
     cleanup(() => {
       deactivateFocusTrap(focusTrap);
+      keepModalInPlaceWhenScrollbarReappears(scrollbar, modalRefSig.value);
     });
   });
 
