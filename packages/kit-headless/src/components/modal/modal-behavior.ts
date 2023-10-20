@@ -195,7 +195,6 @@ export function opening(modal: HTMLDialogElement) {
   };
 
   const runTransitionEnd = () => {
-    modal.classList.remove('modal-showing');
     modal.removeEventListener('transitionend', runTransitionEnd);
   };
 

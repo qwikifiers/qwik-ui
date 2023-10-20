@@ -159,8 +159,6 @@ This means that if a user is navigating through the modal using the Tab key, rea
 
 ## Animations
 
-<ShowExample example="animation" />
-
 Animating things to display none has historically been a significant challenge on the web. This is because display none is a `discrete` property, and is **unanimatable**.
 
 > There is currently efforts to solve this problem. [New CSS properties](https://developer.chrome.com/blog/entry-exit-animations/) have been introduced, but currently do not provide good enough browser support.
@@ -169,9 +167,17 @@ Animating things to display none has historically been a significant challenge o
 
 Qwik UI automatically detects any `animation` or `transition` declarations under the hood and waits for them to finish before closing the modal. If there is no animation, then it will close normally.
 
+### Adding a transition
+
+<ShowExample example="transition" />
+
+To add an transition, use the `modal-showing` and `modal-closing` css classes. Above is a snippet where we transition both the modal and backdrop's opacity.
+
 ### Adding an animation
 
-To add an animation, use the `modal-showing` and `modal-closing` css classes. Below is a snippet of the animation example above.
+<ShowExample example="animation" />
+
+To add an animation, it's the same as with transitions, using the `modal-showing` and `modal-closing` css classes. Below is a snippet of the animation example above.
 
 <AnimationSnip />
 

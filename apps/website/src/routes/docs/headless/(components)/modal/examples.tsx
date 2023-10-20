@@ -23,6 +23,9 @@ import alertDialogExampleCode from './examples/alert-dialog?raw';
 import Animation from './examples/animation';
 import animationExampleCode from './examples/animation?raw';
 
+import Transition from './examples/transition';
+import transitionExampleCode from './examples/transition?raw';
+
 import buildingBlocksSnip from './examples/building-blocks-snip?raw';
 import pageLoadSnip from './examples/page-load-snip?raw';
 import animationSnip from './examples/animation-snip.css?raw';
@@ -64,6 +67,10 @@ export const examples: Record<string, Example> = {
   animation: {
     component: <Animation />,
     code: animationExampleCode,
+  },
+  transition: {
+    component: <Transition />,
+    code: transitionExampleCode,
   },
 };
 

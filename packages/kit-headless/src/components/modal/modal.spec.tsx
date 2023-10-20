@@ -8,7 +8,7 @@ import { ModalHeader } from './modal-header';
  * SUT - System under test
  * Reference: https://en.wikipedia.org/wiki/System_under_test
  */
-const Sut = component$((props?: ModalProps) => {
+const Sut = component$((props: ModalProps) => {
   const showSig = useSignal(false);
 
   useStyles$(`
