@@ -86,8 +86,8 @@ export const Modal = component$((props: ModalProps) => {
 
   return (
     <dialog
-      role={props.alert === true ? 'alertdialog' : 'dialog'}
       {...props}
+      role={props.alert === true ? 'alertdialog' : 'dialog'}
       ref={modalRefSig}
       onClick$={(event) => closeOnBackdropClick$(event)}
     >
