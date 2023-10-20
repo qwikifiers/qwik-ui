@@ -111,9 +111,10 @@ describe('Modal', () => {
   });
 
   it(`GIVEN a Modal
-      WHEN opening it
+      WHEN opening it with a button
       AND clicking the backdrop
-      THEN it is not visible any more`, () => {
+      THEN it is not visible any more
+      THEN it focuses the opening button`, () => {
     cy.mount(<Sut />);
 
     cy.get('[data-test=modal-trigger]').click();
@@ -121,6 +122,8 @@ describe('Modal', () => {
     cy.get('body').click('top');
 
     cy.get('dialog').should('not.be.visible');
+
+    cy.get('[data-test=modal-trigger]').should('be.focused');
   });
 
   it(`Given a Modal
