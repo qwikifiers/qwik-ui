@@ -37,7 +37,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 export const Modal = component$((props: ModalProps) => {
   useStyles$(styles);
   const modalRefSig = useSignal<HTMLDialogElement>();
-  const scrollbarWidth: WidthState = { width: null };
+  const scrollbarWidthState: WidthState = { width: null };
 
   const { 'bind:show': givenOpenSig } = props;
 
@@ -63,6 +63,7 @@ export const Modal = component$((props: ModalProps) => {
     if (!modal) return;
 
     const focusTrap = trapFocus(modal);
+
     const escapeKeydownHandler = overrideNativeDialogEscapeBehaviorWith(
       () => (showSig.value = false),
     );
@@ -71,11 +72,11 @@ export const Modal = component$((props: ModalProps) => {
 
     if (isOpen) {
       showModal(modal, props.onShow$);
-      adjustScrollbar(scrollbarWidth, modal);
+      adjustScrollbar(scrollbarWidthState, modal);
       activateFocusTrap(focusTrap);
       lockScroll();
     } else {
-      unlockScroll(scrollbarWidth);
+      unlockScroll(scrollbarWidthState);
       closing(modal, props.onClose$);
     }
 
@@ -83,9 +84,9 @@ export const Modal = component$((props: ModalProps) => {
       deactivateFocusTrap(focusTrap);
 
       // prevents closing animation scrollbar flickers (chrome & edge)
-      if (scrollbarWidth.width) {
+      if (scrollbarWidthState.width) {
         const currLeft = parseInt(modal.style.left);
-        modal.style.left = `${scrollbarWidth.width - currLeft}px`;
+        modal.style.left = `${scrollbarWidthState.width - currLeft}px`;
       }
 
       window.removeEventListener('keydown', escapeKeydownHandler);
