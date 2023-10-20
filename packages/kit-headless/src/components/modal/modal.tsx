@@ -16,6 +16,7 @@ import {
   adjustScrollbar,
   closing,
   deactivateFocusTrap,
+  keepModalInPlaceWhileScrollbarReappears,
   lockScroll,
   overrideNativeDialogEscapeBehaviorWith,
   showModal,
@@ -37,24 +38,12 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 export const Modal = component$((props: ModalProps) => {
   useStyles$(styles);
   const modalRefSig = useSignal<HTMLDialogElement>();
-  const scrollbarWidthState: WidthState = { width: null };
+  const scrollbar: WidthState = { width: null };
 
   const { 'bind:show': givenOpenSig } = props;
 
   const defaultShowSig = useSignal(false);
   const showSig = givenOpenSig || defaultShowSig;
-
-  const closeOnBackdropClickSig = useSignal(true);
-
-  useTask$(async function bindCloseOnBackdropClick({ track }) {
-    const closeOnBackdropClick = track(() => props.closeOnBackdropClick);
-
-    if (closeOnBackdropClick === undefined || closeOnBackdropClick === true) {
-      closeOnBackdropClickSig.value = true;
-    } else {
-      closeOnBackdropClickSig.value = false;
-    }
-  });
 
   useTask$(async function toggleModal({ track, cleanup }) {
     const isOpen = track(() => showSig.value);
@@ -72,25 +61,17 @@ export const Modal = component$((props: ModalProps) => {
 
     if (isOpen) {
       showModal(modal, props.onShow$);
-      adjustScrollbar(scrollbarWidthState, modal);
+      adjustScrollbar(scrollbar, modal);
       activateFocusTrap(focusTrap);
       lockScroll();
     } else {
-      unlockScroll(scrollbarWidthState);
+      unlockScroll(scrollbar);
       closing(modal, props.onClose$);
     }
 
     cleanup(() => {
       deactivateFocusTrap(focusTrap);
-
-      // prevents closing animation scrollbar flickers (chrome & edge)
-      if (scrollbarWidthState.width) {
-        const currLeft = parseInt(modal.style.left);
-        console.log(scrollbarWidthState, currLeft);
-
-        modal.style.left = `${scrollbarWidthState.width - currLeft}px`;
-      }
-
+      keepModalInPlaceWhileScrollbarReappears(scrollbar, modalRefSig.value);
       window.removeEventListener('keydown', escapeKeydownHandler);
     });
   });
