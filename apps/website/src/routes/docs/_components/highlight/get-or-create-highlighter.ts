@@ -1,10 +1,10 @@
-import { getHighlighter, type Highlighter } from 'shikiji';
+import { getHighlighter, type Highlighter } from 'shiki';
 
 let highlighter: Highlighter;
 export async function getOrCreateHighlighter() {
   if (highlighter) {
     return highlighter;
   }
-  highlighter = await getHighlighter({ themes: ['nord'], langs: ['tsx', 'css', 'html'] });
+  highlighter = await getHighlighter({ theme: 'css-variables' });
   return highlighter;
 }

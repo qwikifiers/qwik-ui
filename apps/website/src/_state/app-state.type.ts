@@ -1,5 +1,5 @@
 import { NoSerialize } from '@builder.io/qwik';
-import type { Highlighter } from 'shikiji';
+import type { Highlighter } from 'shiki';
 
 export interface AppState {
   mode: 'light' | 'dark';

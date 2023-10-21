@@ -43,10 +43,7 @@ export const Highlight = component$(
       }
 
       console.log(highlighter);
-      codeSig.value = highlighter.codeToHtml(modifiedCode, {
-        lang: language,
-        theme: 'nord',
-      });
+      codeSig.value = highlighter.codeToHtml(modifiedCode, { lang: language });
     });
 
     return (
