@@ -96,7 +96,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sass": "^1.66.1",
-    "shiki": "0.14.4",
+    "shikiji": "0.6.10",
     "storybook": "^7.4.0",
     "storybook-framework-qwik": "^0.2.3",
     "tailwind-merge": "1.14.0",
