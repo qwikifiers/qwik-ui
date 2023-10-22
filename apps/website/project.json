@@ -55,7 +55,7 @@
           "mode": "production"
         },
         "production": {
-          "configFile": "apps/website/adapters/cloudflare-pages/vite.config.ts"
+          "configFile": "apps/website/adapters/static/vite.config.ts"
         }
       },
       "dependsOn": []
@@ -65,6 +65,12 @@
       "options": {
         "command": "node --inspect-brk ../..//node_modules/vite/bin/vite.js --mode ssr --force",
         "cwd": "apps/website"
+      }
+    },
+    "build-cloudflare": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx nx run website:build:production"
       }
     }
   },
