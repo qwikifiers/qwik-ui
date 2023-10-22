@@ -55,7 +55,7 @@
           "mode": "production"
         },
         "production": {
-          "configFile": "apps/website/adapters/cloudflare-pages/vite.config.ts"
+          "configFile": "apps/website/adapters/static/vite.config.ts"
         }
       },
       "dependsOn": []
