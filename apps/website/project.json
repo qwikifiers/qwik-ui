@@ -66,6 +66,12 @@
         "command": "node --inspect-brk ../..//node_modules/vite/bin/vite.js --mode ssr --force",
         "cwd": "apps/website"
       }
+    },
+    "build-cloudflare": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx nx run website:build:production"
+      }
     }
   },
   "tags": []
