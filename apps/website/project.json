@@ -66,28 +66,6 @@
         "command": "node --inspect-brk ../..//node_modules/vite/bin/vite.js --mode ssr --force",
         "cwd": "apps/website"
       }
-    },
-    "deploy": {
-      "executor": "@k11r/nx-cloudflare-wrangler:deploy-page",
-      "options": {
-        "dist": "dist/apps/website/client",
-        "branch": "main",
-        "projectName": "qwik-ui"
-      },
-      "dependsOn": ["build-cloudflare"]
-    },
-    "preview-cloudflare": {
-      "executor": "@k11r/nx-cloudflare-wrangler:serve-page",
-      "options": {
-        "dist": "dist/apps/website/client"
-      },
-      "dependsOn": ["build-cloudflare"]
-    },
-    "build-cloudflare": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx nx run website:build:production"
-      }
     }
   },
   "tags": []
