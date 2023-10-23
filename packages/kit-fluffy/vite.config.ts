@@ -1,6 +1,5 @@
 /// <reference types="vitest" />
 import { qwikVite } from '@builder.io/qwik/optimizer';
-import { macroPlugin } from '@builder.io/vite-plugin-macro';
 import { join } from 'path';
 import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
@@ -44,7 +43,7 @@ export default defineConfig({
       name: 'fluffy',
       fileName: (format) => `index.qwik.${format === 'es' ? 'mjs' : 'cjs'}`,
       // Change this to the formats you want to support.
-      // Don't forgot to update your package.json as well.
+      // Don't forget to update your package.json as well.
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
