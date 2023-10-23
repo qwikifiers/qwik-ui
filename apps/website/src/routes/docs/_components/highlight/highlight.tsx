@@ -42,6 +42,7 @@ export const Highlight = component$(
         modifiedCode = partsOfCode[0];
       }
 
+      console.log(highlighter);
       codeSig.value = highlighter.codeToHtml(modifiedCode, { lang: language });
     });
 

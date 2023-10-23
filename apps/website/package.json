@@ -9,8 +9,5 @@
     "@qwik-ui/fluffy": "workspace:*",
     "@qwik-ui/material": "workspace:*",
     "@qwik-ui/primitives": "workspace:*"
-  },
-  "scripts": {
-    "build.server": "vite build -c adapters/static/vite.config.ts"
   }
 }

@@ -1,4 +1,4 @@
-import { staticAdapter } from '@builder.io/qwik-city/adapters/static/vite';
+import { cloudflarePagesAdapter } from '@builder.io/qwik-city/adapters/cloudflare-pages/vite';
 import { extendConfig } from '@builder.io/qwik-city/vite';
 import baseConfig from '../../vite.config';
 
@@ -7,12 +7,14 @@ export default extendConfig(baseConfig, () => {
     build: {
       ssr: true,
       rollupOptions: {
-        input: ['@qwik-city-plan'],
+        input: ['apps/website/src/entry.cloudflare-pages.tsx', '@qwik-city-plan'],
       },
     },
     plugins: [
-      staticAdapter({
-        origin: 'https://qwikui.com/',
+      cloudflarePagesAdapter({
+        // ssg: {
+        //   include: ['/*'],
+        // }
       }),
     ],
   };
