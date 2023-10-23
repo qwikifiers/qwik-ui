@@ -25,9 +25,6 @@ export function activateFocusTrap(focusTrap: FocusTrap | null) {
   }
 }
 
-/**
- * Deactivates the given FocusTrap
- */
 export function deactivateFocusTrap(focusTrap: FocusTrap | null) {
   focusTrap?.deactivate();
   focusTrap = null;
@@ -84,14 +81,14 @@ export function overrideNativeDialogEscapeBehaviorWith(continuation: () => void)
   };
 }
 
-/*
+/**
  * Adds CSS-Class to support modal-opening-animation
  */
 export function supportShowAnimation(modal: HTMLDialogElement) {
   modal.classList.add('modal-showing');
 }
 
-/*
+/**
  * Listens for animation/transition events in order to
  * remove Animation-CSS-Classes after animation/transition ended.
  */
@@ -105,14 +102,14 @@ export function supportClosingAnimation(
   const { animationDuration, transitionDuration } = getComputedStyle(modal);
 
   const runAnimationEnd = () => {
-    clearAllBodyScrollLocks();
     modal.classList.remove('modal-closing');
+    clearAllBodyScrollLocks();
     afterAnimate();
   };
 
   const runTransitionEnd = () => {
-    clearAllBodyScrollLocks();
     modal.classList.remove('modal-closing');
+    clearAllBodyScrollLocks();
     afterAnimate();
   };
 

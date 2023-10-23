@@ -27,7 +27,7 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <QwikUIProvider>
-        <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl mt-20 grid">
+        <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl grid">
           <DocsNavigation linksGroups={menuItemsGroups} />
           <main class="docs [grid-area:main]">
             <Slot />
