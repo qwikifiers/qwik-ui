@@ -16,7 +16,7 @@ export default component$(() => {
 
     .my-transition, .my-transition::backdrop {
         opacity: 0;
-        transition: opacity 500ms ease;
+        transition: opacity 300ms ease;
     }
 
     .my-transition.modal-showing, .my-transition.modal-showing::backdrop {

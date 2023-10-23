@@ -114,6 +114,9 @@ importers:
       '@testing-library/cypress':
         specifier: 9.0.0
         version: 9.0.0(cypress@13.0.0)
+      '@types/body-scroll-lock':
+        specifier: 3.1.1
+        version: 3.1.1
       '@types/eslint':
         specifier: ^8.44.2
         version: 8.44.2
@@ -141,6 +144,9 @@ importers:
       axe-core:
         specifier: ^4.7.2
         version: 4.7.2
+      body-scroll-lock:
+        specifier: 4.0.0-beta.0
+        version: 4.0.0-beta.0
       chromatic:
         specifier: ^6.24.1
         version: 6.24.1
@@ -8587,6 +8593,10 @@ packages:
       '@types/node': 20.5.9
     dev: true
 
+  /@types/body-scroll-lock@3.1.1:
+    resolution: {integrity: sha512-W5tM34rxQzEGXomqg5A2V8pHl/NQDCCuf7pygI2+2SZEbFB6zPDuX3uwkUxlVLIF31fob4elEjiMLliq3szk0g==}
+    dev: true
+
   /@types/cacheable-request@6.0.3:
     resolution: {integrity: sha512-IQ3EbTzGxIigb1I3qPZc1rWJnH0BmSKv5QYTalEwweFvyBDLSAe24zP0le/hyi7ecGfZVlIVAg4BZqb8WBwKqw==}
     dependencies:
@@ -10413,6 +10423,10 @@ packages:
       unpipe: 1.0.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /body-scroll-lock@4.0.0-beta.0:
+    resolution: {integrity: sha512-a7tP5+0Mw3YlUJcGAKUqIBkYYGlYxk2fnCasq/FUph1hadxlTRjF+gAcZksxANnaMnALjxEddmSi/H3OR8ugcQ==}
     dev: true
 
   /boolbase@1.0.0:

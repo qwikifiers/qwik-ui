@@ -11,11 +11,11 @@
 }
 
 .my-animation.modal-closing {
-  animation: modalClose 0.45s forwards cubic-bezier(0.6, 0.6, 0, 1);
+  animation: modalClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
 .my-animation.modal-closing::backdrop {
-  animation: modalFadeOut 0.45s forwards cubic-bezier(0.6, 0.6, 0, 1);
+  animation: modalFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
 @keyframes modalOpen {

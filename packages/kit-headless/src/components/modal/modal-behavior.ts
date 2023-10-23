@@ -5,6 +5,8 @@ export type WidthState = {
   width: number | null;
 };
 
+import { clearAllBodyScrollLocks } from 'body-scroll-lock';
+
 /**
  * Traps the focus of the given Modal
  * @returns FocusTrap
@@ -72,44 +74,6 @@ export function wasModalBackdropClicked(
   return wasBackdropClicked;
 }
 
-/**
- * Locks scrolling of the document.
- */
-export function lockScroll(scrollbar: WidthState) {
-  if (scrollbar.width === null) {
-    scrollbar.width = window.innerWidth - document.documentElement.clientWidth;
-  }
-
-  window.document.body.style.overflow = 'hidden';
-  document.body.style.paddingRight = `${scrollbar.width}px`;
-}
-
-/**
- * Unlocks scrolling of the document.
- * Adjusts padding of the given scrollbar.
- */
-export function unlockScroll() {
-  window.document.body.style.overflow = '';
-  document.body.style.paddingRight = '';
-}
-
-/**
- * When the Modal is opened we are disabling scrolling.
- * This means the scrollbar will vanish.
- * The scrollbar has a width and causes the Modal to reposition.
- *
- * That's why we take the scrollbar-width into account so that the
- * Modal does not jump to the right.
- */
-export function adjustScrollbar(scrollbar: WidthState, modal: HTMLDialogElement) {
-  if (scrollbar.width === null) {
-    scrollbar.width = window.innerWidth - document.documentElement.clientWidth;
-  }
-
-  modal.style.left = 0 + 'px';
-  document.body.style.paddingRight = `${scrollbar.width}px`;
-}
-
 export function overrideNativeDialogEscapeBehaviorWith(continuation: () => void) {
   return function handleKeydown(e: KeyboardEvent) {
     if (e.key === 'Escape') {
@@ -118,27 +82,6 @@ export function overrideNativeDialogEscapeBehaviorWith(continuation: () => void)
       continuation();
     }
   };
-}
-
-/**
- * When the Modal is closed we are enabling scrolling.
- * This means the scrollbar will reappear in the browser.
- * The scrollbar has a width and causes the Modal to reposition.
- *
- * That's why we take the scrollbar-width into account so that the
- * Modal remains in the same position as before.
- */
-export function keepModalInPlaceWhileScrollbarReappears(
-  scrollbar: WidthState,
-  modal?: HTMLDialogElement,
-) {
-  if (!modal) return;
-
-  if (scrollbar.width) {
-    const modalLeft = parseInt(modal.style.left);
-
-    modal.style.left = `${scrollbar.width - modalLeft}px`;
-  }
 }
 
 /*
@@ -162,11 +105,13 @@ export function supportClosingAnimation(
   const { animationDuration, transitionDuration } = getComputedStyle(modal);
 
   const runAnimationEnd = () => {
+    clearAllBodyScrollLocks();
     modal.classList.remove('modal-closing');
     afterAnimate();
   };
 
   const runTransitionEnd = () => {
+    clearAllBodyScrollLocks();
     modal.classList.remove('modal-closing');
     afterAnimate();
   };
@@ -177,6 +122,7 @@ export function supportClosingAnimation(
     modal.addEventListener('transitionend', runTransitionEnd, { once: true });
   } else {
     modal.classList.remove('modal-closing');
+    clearAllBodyScrollLocks();
     afterAnimate();
   }
 }

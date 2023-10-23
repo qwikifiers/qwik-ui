@@ -22,11 +22,11 @@ export default component$(() => {
   }
   
   .sheet.modal-closing {
-    animation: sheetClose 0.45s forwards cubic-bezier(0.6, 0.6, 0, 1);
+    animation: sheetClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
   }
   
   .sheet.modal-closing::backdrop {
-    animation: sheetFadeOut 0.45s forwards cubic-bezier(0.6, 0.6, 0, 1);
+    animation: sheetFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
   }
   
   @keyframes sheetOpen {

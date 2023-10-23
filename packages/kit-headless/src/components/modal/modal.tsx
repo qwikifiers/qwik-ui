@@ -11,19 +11,16 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 import {
-  WidthState,
   activateFocusTrap,
-  adjustScrollbar,
   closeModal,
   deactivateFocusTrap,
-  keepModalInPlaceWhileScrollbarReappears,
-  lockScroll,
   overrideNativeDialogEscapeBehaviorWith,
   showModal,
   trapFocus,
-  unlockScroll,
   wasModalBackdropClicked,
 } from './modal-behavior';
+
+import { disableBodyScroll, type BodyScrollOptions } from 'body-scroll-lock';
 
 import styles from './modal.css?inline';
 
@@ -38,7 +35,10 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 export const Modal = component$((props: ModalProps) => {
   useStyles$(styles);
   const modalRefSig = useSignal<HTMLDialogElement>();
-  const scrollbar: WidthState = { width: null };
+
+  const scrollOptions: BodyScrollOptions = {
+    reserveScrollBarGap: true,
+  };
 
   const { 'bind:show': showSig } = props;
 
@@ -58,19 +58,16 @@ export const Modal = component$((props: ModalProps) => {
 
     if (isOpen) {
       showModal(modal);
+      disableBodyScroll(modal, scrollOptions);
       props.onShow$?.();
-      adjustScrollbar(scrollbar, modal);
       activateFocusTrap(focusTrap);
-      lockScroll(scrollbar);
     } else {
-      unlockScroll();
       closeModal(modal);
       props.onClose$?.();
     }
 
     cleanup(() => {
       deactivateFocusTrap(focusTrap);
-      keepModalInPlaceWhileScrollbarReappears(scrollbar, modalRefSig.value);
     });
   });
 
