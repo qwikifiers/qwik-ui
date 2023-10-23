@@ -61,9 +61,9 @@ export const Modal = component$((props: ModalProps) => {
       props.onShow$?.();
       adjustScrollbar(scrollbar, modal);
       activateFocusTrap(focusTrap);
-      lockScroll();
+      lockScroll(scrollbar);
     } else {
-      unlockScroll(scrollbar);
+      unlockScroll();
       closeModal(modal);
       props.onClose$?.();
     }

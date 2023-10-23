@@ -75,21 +75,22 @@ export function wasModalBackdropClicked(
 /**
  * Locks scrolling of the document.
  */
-export function lockScroll() {
+export function lockScroll(scrollbar: WidthState) {
+  if (scrollbar.width === null) {
+    scrollbar.width = window.innerWidth - document.documentElement.clientWidth;
+  }
+
   window.document.body.style.overflow = 'hidden';
+  document.body.style.paddingRight = `${scrollbar.width}px`;
 }
 
 /**
  * Unlocks scrolling of the document.
  * Adjusts padding of the given scrollbar.
  */
-export function unlockScroll(scrollbar: WidthState) {
+export function unlockScroll() {
   window.document.body.style.overflow = '';
-
-  const currentPadding = parseInt(document.body.style.paddingRight);
-  if (scrollbar.width) {
-    document.body.style.paddingRight = `${currentPadding - scrollbar.width}px`;
-  }
+  document.body.style.paddingRight = '';
 }
 
 /**
@@ -105,7 +106,7 @@ export function adjustScrollbar(scrollbar: WidthState, modal: HTMLDialogElement)
     scrollbar.width = window.innerWidth - document.documentElement.clientWidth;
   }
 
-  modal.style.left = `0px`;
+  modal.style.left = 0 + 'px';
   document.body.style.paddingRight = `${scrollbar.width}px`;
 }
 
