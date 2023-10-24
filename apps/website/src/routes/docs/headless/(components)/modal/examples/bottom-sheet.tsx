@@ -9,67 +9,67 @@ import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless
 export default component$(() => {
   const showSig = useSignal(false);
   useStyles$(`
-  .sheet::backdrop {
-    background: hsla(0, 0%, 0%, 0.5);
-  }
-  
-  .sheet.modal-showing {
-    animation: sheetOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
-  }
-  
-  .sheet.modal-showing::backdrop {
-    animation: sheetFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
-  }
-  
-  .sheet.modal-closing {
-    animation: sheetClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
-  }
-  
-  .sheet.modal-closing::backdrop {
-    animation: sheetFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
-  }
-  
-  @keyframes sheetOpen {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
+    .bottom-sheet::backdrop {
+      background: hsla(0, 0%, 0%, 0.5);
     }
-    to {
-      opacity: 1;
-      transform: translateX(0%);
+    
+    .bottom-sheet.modal-showing {
+      animation: bottomSheetOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-  }
-  
-  @keyframes sheetClose {
-    from {
-      opacity: 1;
-      transform: translateX(0%);
+    
+    .bottom-sheet.modal-showing::backdrop {
+      animation: sheetFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-    to {
-      opacity: 0;
-      transform: translateX(100%);
+    
+    .bottom-sheet.modal-closing {
+      animation: bottomSheetClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-  }
-  
-  @keyframes sheetFadeIn {
-    from {
-      opacity: 0;
+    
+    .bottom-sheet.modal-closing::backdrop {
+      animation: sheetFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-    to {
-      opacity: 1;
+    
+    @keyframes bottomSheetOpen {
+      from {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0%);
+      }
     }
-  }
-  
-  @keyframes sheetFadeOut {
-    from {
-      opacity: 1;
+    
+    @keyframes bottomSheetClose {
+      from {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(100%);
+      }
     }
-    to {
-      opacity: 0;
+    
+    @keyframes sheetFadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
-  }
-  
-  `);
+    
+    @keyframes sheetFadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+    
+    `);
 
   return (
     <>
@@ -83,7 +83,7 @@ export default component$(() => {
       </button>
       <Modal
         bind:show={showSig}
-        class="sheet shadow-dark-medium fixed bottom-[50%] right-0 top-[50%] mr-0 h-[80vh] max-w-[25rem] rounded-md border-0 bg-white p-[28px] text-slate-950 backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
+        class="bottom-sheet shadow-dark-medium fixed bottom-0 mb-0 max-w-[25rem] rounded-md border-0 bg-white p-[28px] text-slate-950 backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>

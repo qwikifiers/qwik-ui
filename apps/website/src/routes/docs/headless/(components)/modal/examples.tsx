@@ -29,6 +29,9 @@ import transitionExampleCode from './examples/transition?raw';
 import Sheet from './examples/sheet';
 import sheetExampleCode from './examples/sheet?raw';
 
+import BottomSheet from './examples/bottom-sheet';
+import bottomSheetExampleCode from './examples/bottom-sheet?raw';
+
 import buildingBlocksSnip from './examples/building-blocks-snip?raw';
 import pageLoadSnip from './examples/page-load-snip?raw';
 import animationSnip from './examples/animation-snip.css?raw';
@@ -78,6 +81,10 @@ export const examples: Record<string, Example> = {
   sheet: {
     component: <Sheet />,
     code: sheetExampleCode,
+  },
+  bottomSheet: {
+    component: <BottomSheet />,
+    code: bottomSheetExampleCode,
   },
 };
 
