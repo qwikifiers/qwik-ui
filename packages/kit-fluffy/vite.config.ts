@@ -44,7 +44,7 @@ export default defineConfig({
       name: 'fluffy',
       fileName: (format) => `index.qwik.${format === 'es' ? 'mjs' : 'cjs'}`,
       // Change this to the formats you want to support.
-      // Don't forgot to update your package.json as well.
+      // Don't forget to update your package.json as well.
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
