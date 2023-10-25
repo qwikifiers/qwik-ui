@@ -19,11 +19,11 @@ importers:
         version: 2.6.2
     devDependencies:
       '@builder.io/qwik':
-        specifier: ^1.2.12
-        version: 1.2.12(undici@5.23.0)
+        specifier: ^1.2.14
+        version: 1.2.14(undici@5.23.0)
       '@builder.io/qwik-city':
-        specifier: ^1.2.12
-        version: 1.2.12
+        specifier: ^1.2.14
+        version: 1.2.14
       '@commitlint/cli':
         specifier: ^17.7.1
         version: 17.7.1(@swc/core@1.3.82)
@@ -161,7 +161,7 @@ importers:
         version: 1.4.0(axe-core@4.7.2)(cypress@12.17.1)
       cypress-ct-qwik:
         specifier: 0.3.0
-        version: 0.3.0(@builder.io/qwik@1.2.12)(cypress@12.17.1)
+        version: 0.3.0(@builder.io/qwik@1.2.14)(cypress@12.17.1)
       cz-conventional-changelog:
         specifier: ^3.3.0
         version: 3.3.0(@swc/core@1.3.82)
@@ -181,8 +181,8 @@ importers:
         specifier: ^2.14.0
         version: 2.14.0(eslint@8.48.0)
       eslint-plugin-qwik:
-        specifier: ^1.2.12
-        version: 1.2.12(eslint@8.48.0)
+        specifier: ^1.2.14
+        version: 1.2.14(eslint@8.48.0)
       eslint-plugin-storybook:
         specifier: ^0.6.13
         version: 0.6.13(eslint@8.48.0)(typescript@5.2.2)
@@ -242,7 +242,7 @@ importers:
         version: 7.4.0
       storybook-framework-qwik:
         specifier: ^0.2.3
-        version: 0.2.3(@builder.io/qwik@1.2.12)(typescript@5.2.2)(vite@4.4.9)
+        version: 0.2.3(@builder.io/qwik@1.2.14)(typescript@5.2.2)(vite@4.4.9)
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3(ts-node@10.9.1)
@@ -3315,6 +3315,7 @@ packages:
   /@builder.io/qwik-city@1.2.12:
     resolution: {integrity: sha512-gi8QXd9TohBDjG+xsIdkln+6iMjUFWO6PXe3CTNTpqacTcX0vN7mQkPUcPWj5alo8aSE+Mog8xnZYHx3qsQzwg==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
+    requiresBuild: true
     dependencies:
       '@mdx-js/mdx': 2.3.0
       '@types/mdx': 2.0.5
@@ -3323,6 +3324,23 @@ packages:
       vfile: 6.0.1
       vite-imagetools: 5.0.5
       zod: 3.21.4
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+    dev: true
+    optional: true
+
+  /@builder.io/qwik-city@1.2.14:
+    resolution: {integrity: sha512-+irXLn/5YcX6MLcXe0MJRws+vG1KatcFyVcwfi/mDypwHCUQi2snz5TYqWUyEjRcELPsI8j2XY6FlCd5eq3nQA==}
+    engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
+    dependencies:
+      '@mdx-js/mdx': 2.3.0
+      '@types/mdx': 2.0.9
+      source-map: 0.7.4
+      svgo: 3.0.2
+      vfile: 6.0.1
+      vite-imagetools: 5.1.2
+      zod: 3.22.4
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -3337,6 +3355,18 @@ packages:
     dependencies:
       csstype: 3.1.2
       undici: 5.23.0
+    dev: false
+
+  /@builder.io/qwik@1.2.14(undici@5.23.0):
+    resolution: {integrity: sha512-z+NFSNrAKjCVV/9d2f50Y/AthcHdlH4Hbltyjjl/0wOv4FUR3F/Ke9wz9eIhDYQ6rzFqzdav2/yTiip05El1zA==}
+    engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
+    hasBin: true
+    peerDependencies:
+      undici: ^5.14.0
+    dependencies:
+      csstype: 3.1.2
+      undici: 5.23.0
+    dev: true
 
   /@builder.io/qwik@1.2.6(undici@5.23.0):
     resolution: {integrity: sha512-Cm1sLAimML55I5T1RI80R1lLgI4cnSeQt5obQtcMKa8wMmf2/luEyQaEkeN2fV3sp/gaVXCfAuKaddXK6ONdww==}
@@ -4789,7 +4819,7 @@ packages:
     resolution: {integrity: sha512-jLuwRlz8DQfQNiUCJR50Y09CGPq3fLtmtUQfVrj79E0JWu3dvsVcxVIcfhR5h0iXu+/z++zDrYeiJqifRynJkA==}
     dependencies:
       '@types/estree-jsx': 1.0.0
-      '@types/mdx': 2.0.5
+      '@types/mdx': 2.0.9
       estree-util-build-jsx: 2.2.2
       estree-util-is-identifier-name: 2.1.0
       estree-util-to-js: 1.2.0
@@ -9147,6 +9177,10 @@ packages:
     resolution: {integrity: sha512-76CqzuD6Q7LC+AtbPqrvD9AqsN0k8bsYo2bM2J8pmNldP1aIPAbzUQ7QbobyXL4eLr1wK5x8FZFe8eF/ubRuBg==}
     dev: true
 
+  /@types/mdx@2.0.9:
+    resolution: {integrity: sha512-OKMdj17y8Cs+k1r0XFyp59ChSOwf8ODGtMQ4mnpfz5eFDk1aO41yN3pSKGuvVzmWAkFp37seubY1tzOVpwfWwg==}
+    dev: true
+
   /@types/mime-types@2.1.1:
     resolution: {integrity: sha512-vXOTGVSLR2jMw440moWTC7H19iUyLtP3Z1YTj7cSsubOICinjMxFeb/V57v9QdyyPGbbWolUFSSmSiRSn94tFw==}
     dev: true
@@ -10454,6 +10488,7 @@ packages:
 
   /b4a@1.6.4:
     resolution: {integrity: sha512-fpWrvyVHEKyeEvbKZTVOeZF3VSKKWtJxFIxX/jaVPf+cLbGUSitjb49pHLqPV2BUNNZ0LcoeEGfE/YCpyDYHIw==}
+    requiresBuild: true
     dev: true
 
   /babel-core@7.0.0-bridge.0(@babel/core@7.22.10):
@@ -12028,13 +12063,13 @@ packages:
       cypress: 12.17.1
     dev: true
 
-  /cypress-ct-qwik@0.3.0(@builder.io/qwik@1.2.12)(cypress@12.17.1):
+  /cypress-ct-qwik@0.3.0(@builder.io/qwik@1.2.14)(cypress@12.17.1):
     resolution: {integrity: sha512-S1PcR6BbZMHprTYmYvYcZODNFy+WOQewUIWCGRA2ruq4H6I2zJSVLy0VxynKuxgSx3OKp5GYUIXSTmdxkTdk4Q==}
     peerDependencies:
       '@builder.io/qwik': '>0.23.0'
       cypress: '>=12.8.1'
     dependencies:
-      '@builder.io/qwik': 1.2.12(undici@5.23.0)
+      '@builder.io/qwik': 1.2.14(undici@5.23.0)
       '@cypress/mount-utils': 4.0.0
       cypress: 12.17.1
     dev: true
@@ -12516,6 +12551,11 @@ packages:
 
   /detect-libc@2.0.1:
     resolution: {integrity: sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==}
+    engines: {node: '>=8'}
+    dev: true
+
+  /detect-libc@2.0.2:
+    resolution: {integrity: sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw==}
     engines: {node: '>=8'}
     dev: true
 
@@ -13558,14 +13598,14 @@ packages:
       globals: 13.20.0
     dev: true
 
-  /eslint-plugin-qwik@1.2.12(eslint@8.48.0):
-    resolution: {integrity: sha512-BdwXm3UcBlufWOvOFJSoqxImHa9LcM3k44/oTshcuNa4+iOuiR8FFb/pFn7kk5BcugH7gUOsOyhQlvpKauOqXw==}
+  /eslint-plugin-qwik@1.2.14(eslint@8.48.0):
+    resolution: {integrity: sha512-FwSlyIPD1h6anfuGrmRK+oHEbqDCs96guCXzzKYD6NpjNZiwzJsgawEZkg5mKt2Qu4SCZk6JMaxtT04NvNeppQ==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     peerDependencies:
       eslint: ^8.45.0
     dependencies:
       eslint: 8.48.0
-      jsx-ast-utils: 3.3.4
+      jsx-ast-utils: 3.3.5
     dev: true
 
   /eslint-plugin-storybook@0.6.13(eslint@8.48.0)(typescript@5.2.2):
@@ -14019,6 +14059,7 @@ packages:
 
   /fast-fifo@1.3.0:
     resolution: {integrity: sha512-IgfweLvEpwyA4WgiQe9Nx6VV2QkML2NkvZnk1oKnIzXgXdWxuhF7zw4DvLTPZJn6PIUneiAXPF24QmoEqHTjyw==}
+    requiresBuild: true
     dev: true
 
   /fast-glob@3.2.7:
@@ -15310,8 +15351,17 @@ packages:
   /imagetools-core@4.0.3:
     resolution: {integrity: sha512-Cn+xuuRiA2UC5XzSWKWaRBJGA9iFhwtaVLUIgujfv6SM4TF/wOAwAqWeZkbv/yyhmapdhFR5stsKE9owUge0jQ==}
     engines: {node: '>=12.0.0'}
+    requiresBuild: true
     dependencies:
       sharp: 0.32.2
+    dev: true
+    optional: true
+
+  /imagetools-core@4.1.0:
+    resolution: {integrity: sha512-GDMgj3zhQ3g6Ga3yWBSmdJC7mM8UePgHiZsVQZ8sUWgAk2UzRyGlFV5qdv0topv63vE86KaK6MmAbjVUVibOzA==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      sharp: 0.32.6
     dev: true
 
   /immutable@4.2.4:
@@ -17263,8 +17313,8 @@ packages:
       verror: 1.10.0
     dev: true
 
-  /jsx-ast-utils@3.3.4:
-    resolution: {integrity: sha512-fX2TVdCViod6HwKEtSWGHs57oFhVfCMwieb9PuRDgjDPh5XeqJiHFFFJCHxU5cnTc3Bu/GRL+kPiFmw8XWOfKw==}
+  /jsx-ast-utils@3.3.5:
+    resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
     dependencies:
       array-includes: 3.1.6
@@ -20259,6 +20309,7 @@ packages:
 
   /queue-tick@1.0.1:
     resolution: {integrity: sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==}
+    requiresBuild: true
     dev: true
 
   /quick-format-unescaped@4.0.1:
@@ -21354,6 +21405,22 @@ packages:
       tar-fs: 3.0.4
       tunnel-agent: 0.6.0
     dev: true
+    optional: true
+
+  /sharp@0.32.6:
+    resolution: {integrity: sha512-KyLTWwgcR9Oe4d9HwCwNM2l7+J0dUQwn/yf7S0EnTtb0eVS4RxO0eUSvxPtzT4F3SY+C4K6fqdv/DO27sJ/v/w==}
+    engines: {node: '>=14.15.0'}
+    requiresBuild: true
+    dependencies:
+      color: 4.2.3
+      detect-libc: 2.0.2
+      node-addon-api: 6.1.0
+      prebuild-install: 7.1.1
+      semver: 7.5.4
+      simple-get: 4.0.1
+      tar-fs: 3.0.4
+      tunnel-agent: 0.6.0
+    dev: true
 
   /shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
@@ -21701,19 +21768,19 @@ packages:
       - vite-plugin-glimmerx
     dev: true
 
-  /storybook-framework-qwik@0.2.3(@builder.io/qwik@1.2.12)(typescript@5.2.2)(vite@4.4.9):
+  /storybook-framework-qwik@0.2.3(@builder.io/qwik@1.2.14)(typescript@5.2.2)(vite@4.4.9):
     resolution: {integrity: sha512-JCfjqGdC+9f/ClfO0tN1YFdDByJBiU+uIl5vGHvn6QPwwVBCk/lwU7HKS3UHHL3fIX9Vd4k4RvVSdk7+ZSvgTA==}
     engines: {node: ^14.18 || >=16}
     peerDependencies:
       '@builder.io/qwik': '>=0.15.2'
     dependencies:
-      '@builder.io/qwik': 1.2.12(undici@5.23.0)
+      '@builder.io/qwik': 1.2.14(undici@5.23.0)
       '@storybook/builder-vite': 7.4.0(typescript@5.2.2)(vite@4.4.9)
       '@storybook/docs-tools': 7.0.27
       magic-string: 0.30.3
       react-docgen-typescript: 2.2.2(typescript@5.2.2)
     optionalDependencies:
-      '@builder.io/qwik-city': 1.2.12
+      '@builder.io/qwik-city': 1.2.14
     transitivePeerDependencies:
       - '@preact/preset-vite'
       - encoding
@@ -21763,6 +21830,7 @@ packages:
 
   /streamx@2.15.0:
     resolution: {integrity: sha512-HcxY6ncGjjklGs1xsP1aR71INYcsXFJet5CU1CHqihQ2J5nOsbd4OjgjHO42w/4QNv9gZb3BueV+Vxok5pLEXg==}
+    requiresBuild: true
     dependencies:
       fast-fifo: 1.3.0
       queue-tick: 1.0.1
@@ -22158,6 +22226,7 @@ packages:
 
   /tar-stream@3.1.6:
     resolution: {integrity: sha512-B/UyjYwPpMBv+PaFSWAmtYjwdrlEaZQEhMIBFNC5oEG8lpiW8XjcSdmEaClj28ArfKScKHs2nshz3k2le6crsg==}
+    requiresBuild: true
     dependencies:
       b4a: 1.6.4
       fast-fifo: 1.3.0
@@ -23251,9 +23320,21 @@ packages:
   /vite-imagetools@5.0.5:
     resolution: {integrity: sha512-q+BRot2b7AxUHgkQzU+5ku+NERVZcXmLdAnQWSnIw31bRoPIBSDxmDRTDldX8gqyjQNkIBjObF+xqPCeNp7CzQ==}
     engines: {node: '>=12.0.0'}
+    requiresBuild: true
     dependencies:
       '@rollup/pluginutils': 5.0.2
       imagetools-core: 4.0.3
+    transitivePeerDependencies:
+      - rollup
+    dev: true
+    optional: true
+
+  /vite-imagetools@5.1.2:
+    resolution: {integrity: sha512-r8WVrrmYSmctm1IEMJuYSo3jGH93W6mf0NK3+85rmG+BJBO05E/YsbWw/lhE1nPBHgYb8liPC2ID3jSzGiPzJw==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      '@rollup/pluginutils': 5.0.2
+      imagetools-core: 4.1.0
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -24057,6 +24138,12 @@ packages:
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: true
 
   /zwitch@2.0.4:

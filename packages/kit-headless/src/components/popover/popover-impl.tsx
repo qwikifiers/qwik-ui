@@ -6,10 +6,12 @@ import {
   $,
   useStyles$,
   useVisibleTask$,
+  useContext,
   type Signal,
   type ClassList,
   type QwikAnimationEvent,
   type QwikTransitionEvent,
+  createContextId,
 } from '@builder.io/qwik';
 
 import { isServer } from '@builder.io/qwik/build';
@@ -60,8 +62,23 @@ export const loadPolyfill$ = $(async () => {
   }
 });
 
-// This component is a polyfill for the popover API
-// It is complex because it optimizes for supported browsers
+const portalContextId = createContextId('portal-context-id');
+
+/**
+ *
+ * Portal Context in Qwik, akin to React's Portal, enables element teleportation. Rendering this component forces Qwik to parse the vDOM, enabling efficient context retrieval.
+ *
+ */
+export const PortalContext = component$(() => {
+  // @ts-expect-error 2769
+  useContext(portalContextId, null);
+  return null;
+});
+
+/**
+ *  This component is a polyfill for MDN's popover API. It enables the usage of popovers across browsers.
+ *
+ */
 export const PopoverImpl = component$<PopoverImplProps>((props) => {
   console.log('rendering');
   // We must inject some minimal hiding CSS while the polyfill loads, and the preset class
@@ -209,29 +226,30 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       class={props.class}
       ref={childRef}
       onToggle$={(event) => {
-        const popoverElement = event.target as HTMLElement;
+        const popover = event.target as HTMLElement;
 
         isPopoverOpenSig.value = !isPopoverOpenSig.value;
 
         if (props.transition && props.entryAnimation) {
           isPopoverOpenSig.value
-            ? popoverElement.classList.add(props.entryAnimation)
-            : popoverElement.classList.remove(props.entryAnimation);
+            ? popover.classList.add(props.entryAnimation)
+            : popover.classList.remove(props.entryAnimation);
         }
 
         // ensures polyfill popovers are always above the other
         if (
           document.__QUI_POPOVER_PF__ &&
-          isPopoverOpenSig.value &&
-          popoverElement.parentElement &&
-          !popoverElement.classList.contains('animating')
+          popover.classList.contains(':popover-open') &&
+          popover.parentElement &&
+          !popover.classList.contains('animating')
         ) {
-          popoverElement.parentElement.appendChild(popoverElement);
+          popover.parentElement.appendChild(popover);
         }
       }}
       {...props}
       {...animationHandlers}
     >
+      {hasRenderedOnClientSig.value === 1 && <PortalContext />}
       <Slot />
     </div>
   );
