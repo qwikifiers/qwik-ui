@@ -24,6 +24,10 @@ export const CodeCopy = component$(
         onClick$={async () => {
           await copy(code);
           copied.value = true;
+
+          setTimeout(() => {
+            copied.value = false;
+          }, 4000);
         }}
       >
         {!copied.value ? 'Copy' : 'Copied!'}

@@ -1,6 +1,6 @@
 .docs {
   & {
-    @apply w-full overflow-hidden px-8 py-8 lg:ml-80 lg:max-w-4xl lg:px-16 xl:max-w-6xl;
+    @apply mx-auto w-full max-w-[85ch] overflow-hidden px-8 py-8 lg:px-16;
   }
 
   /*
@@ -14,7 +14,7 @@
     }
 
     h1 {
-      @apply mb-6 text-3xl font-extrabold md:mb-12 md:text-5xl;
+      @apply mb-6 pt-6 text-3xl font-extrabold md:text-5xl;
     }
 
     h2 {
@@ -34,7 +34,7 @@
     }
 
     blockquote {
-      @apply bg-qwikui-blue-800 shadow-light-medium dark:shadow-dark-medium dark:bg-qwikui-purple-800 border-qwikui-blue-200 dark:border-qwikui-purple-200 my-4 rounded-xl border-[2px] p-4 text-white lg:p-6;
+      @apply from-qwikui-blue-800 to-qwikui-blue-900 shadow-light-medium dark:shadow-dark-medium dark:from-qwikui-purple-800 dark:to-qwikui-purple-900 border-qwikui-blue-200 dark:border-qwikui-purple-200 my-4 rounded-xl border-[2px] bg-gradient-to-b p-4 text-white lg:p-6;
     }
 
     ul {

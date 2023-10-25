@@ -36,15 +36,15 @@
 
     --border-radius: 0.375rem;
 
-    --shiki-color-text: theme('colors.black');
-    --shiki-token-constant: theme('colors.emerald.800');
-    --shiki-token-string: theme('colors.emerald.700');
-    --shiki-token-comment: theme('colors.zinc.700');
-    --shiki-token-keyword: theme('colors.sky.600');
-    --shiki-token-parameter: theme('colors.pink.700');
-    --shiki-token-function: theme('colors.purple.700');
-    --shiki-token-string-expression: theme('colors.emerald.700');
-    --shiki-token-punctuation: theme('colors.zinc.700');
+    --shiki-color-text: theme('colors.white');
+    --shiki-token-constant: theme('colors.emerald.300');
+    --shiki-token-string: theme('colors.emerald.300');
+    --shiki-token-comment: theme('colors.zinc.500');
+    --shiki-token-keyword: theme('colors.sky.300');
+    --shiki-token-parameter: theme('colors.pink.300');
+    --shiki-token-function: theme('colors.violet.300');
+    --shiki-token-string-expression: theme('colors.emerald.300');
+    --shiki-token-punctuation: theme('colors.zinc.200');
   }
 
   .dark {
@@ -78,16 +78,6 @@
     --color-input: 263 32.6% 17.5%;
 
     --color-ring: 263 26.8% 83.9%;
-
-    --shiki-color-text: theme('colors.white');
-    --shiki-token-constant: theme('colors.emerald.300');
-    --shiki-token-string: theme('colors.emerald.300');
-    --shiki-token-comment: theme('colors.zinc.500');
-    --shiki-token-keyword: theme('colors.sky.300');
-    --shiki-token-parameter: theme('colors.pink.300');
-    --shiki-token-function: theme('colors.violet.300');
-    --shiki-token-string-expression: theme('colors.emerald.300');
-    --shiki-token-punctuation: theme('colors.zinc.200');
   }
 }
 
@@ -97,6 +87,77 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  *::-webkit-scrollbar {
+    background-color: transparent;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    /* Thumb color */
+    background-color: var(--qwikui-slate-500);
+    border-radius: 0.5rem;
+    background-clip: padding-box;
+    border: 0.3rem solid transparent;
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-left: 1px solid var(--qwikui-slate-300);
+  }
+
+  .dark *::-webkit-scrollbar-thumb {
+    background-color: var(--qwikui-slate-500);
+  }
+
+  .dark *::-webkit-scrollbar-track {
+    background: var(--qwikui-slate-950);
+    border-left: 1px solid var(--qwikui-slate-800);
+  }
+
+  .code-example *::-webkit-scrollbar-track {
+    background: transparent;
+    border-left: 0px;
+  }
+
+  .code-example *::-webkit-scrollbar-thumb {
+    background: var(--qwikui-slate-400);
+    border-radius: 0.5rem;
+    background-clip: padding-box;
+    border: 0.35rem solid transparent;
+  }
+
+  .code-example *::-webkit-scrollbar-thumb:hover {
+    background: var(--qwikui-slate-500);
+    border-radius: 0.5rem;
+    background-clip: padding-box;
+    border: 0.35rem solid transparent;
+  }
+
+  .code-example-gradient {
+    background: linear-gradient(
+      to bottom,
+      var(--qwikui-slate-900),
+      var(--qwikui-slate-800)
+    );
+  }
+  .dark .code-example-gradient {
+    background: linear-gradient(
+      to bottom,
+      var(--qwikui-slate-800),
+      var(--qwikui-slate-900)
+    );
+  }
+
+  /* no horizontal overflow on code examples */
+  .tab-size pre {
+    white-space: pre-wrap;
   }
 }
 
@@ -227,11 +288,6 @@ ol {
   line-height: 1.75;
 }
 
-.layout {
-  grid-template-columns: 25% 70%;
-  grid-template-areas: 'sidebar  content';
-}
-
 /* Utilities layer for animations. The current arbitrary & docs tailwind animation guidelines are not maintainable long term. 
   It would make more sense to supply the user with the animation declaration in the docs.
 */
@@ -313,5 +369,17 @@ ol {
     text-shadow: 1.2px 1.2px 0 var(--qwikui-purple-700),
       -0.8px -0.8px 0 var(--qwikui-purple-700), 0.8px -0.8px 0 var(--qwikui-purple-700),
       -0.8px 0.8px 0 var(--qwikui-purple-700), 0.8px 0.8px 0 var(--qwikui-purple-700);
+  }
+
+  .setup-grid-areas {
+    grid-template-areas: 'nav main toc';
+  }
+
+  .copy-btn-bg-dark {
+    background: hsla(215, 25%, 27%, 0.9);
+  }
+
+  .copy-btn-bg-light {
+    background: hsla(214, 32%, 91%, 0.9);
   }
 }

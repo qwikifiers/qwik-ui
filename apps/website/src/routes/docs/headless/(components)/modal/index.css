@@ -1,5 +1,5 @@
 .tabs-example [role='tab'] {
-  width: 205px;
+  width: 250px;
   background: var(--qwikui-slate-500);
   color: white;
 }

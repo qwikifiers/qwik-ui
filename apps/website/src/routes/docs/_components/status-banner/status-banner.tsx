@@ -69,19 +69,19 @@ function getBackgroundByStatus(status?: ComponentStatus) {
     case ComponentStatus.Ready:
       return 'bg-green-300';
     case ComponentStatus.Beta:
-      return 'bg-qwikui-blue-800 dark:bg-qwikui-purple-800';
+      return 'bg-gradient-to-b from-qwikui-blue-800 to-qwikui-blue-900 dark:from-qwikui-purple-800 dark:to-qwikui-purple-900';
     case ComponentStatus.Draft:
-      return 'bg-orange-700 dark:bg-red-800';
+      return 'bg-gradient-to-b from-orange-700 to-orange-800 dark:from-red-700 dark:to-red-800';
     case ComponentStatus.Planned:
     default:
-      return 'bg-orange-700 dark:bg-red-800';
+      return 'bg-gradient-to-b from-orange-700 to-orange-800 dark:from-red-700 dark:to-red-800';
   }
 }
 
 export const StatusBanner = component$((props: StatusBannerProps) => {
   const ref = useSignal<HTMLElement | undefined>();
   const isBannerClosedSig = useSignal(false);
-  const marginBottom = 32;
+  const marginBottom = 64;
 
   useStylesScoped$(`
 
@@ -90,7 +90,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
   }
 
   .fade {
-    animation: fadeOut 0.5s ease forwards;
+    animation: fadeOut 1s cubic-bezier(0.6, 0.6, 0, 1) forwards;
     margin-top: var(--dynamic-banner-height);
   }
 

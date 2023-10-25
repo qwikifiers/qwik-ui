@@ -10,6 +10,7 @@
 
 - [Accordion](/docs/headless/accordion)
 - [Combobox](/docs/headless/combobox)
+- [Modal](/docs/headless/modal)
 - [Popover](/docs/headless/popover)
 - [Select](/docs/headless/select)
 - [Separator](/docs/headless/separator)

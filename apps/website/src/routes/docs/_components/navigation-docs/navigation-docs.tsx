@@ -30,8 +30,8 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
     rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
   return (
     <nav
-      class={`fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px]
-              border-slate-200 bg-slate-100 bg-white pb-6 dark:border-slate-800 dark:bg-slate-900  lg:w-80
+      class={`fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px] border-slate-200
+              bg-slate-100 bg-white pb-6 [grid-area:nav] dark:border-slate-800 dark:bg-slate-900  lg:w-80
               ${rootStore.isSidebarOpened ? 'w-100 flex' : 'hidden lg:flex'} `}
     >
       <ul class="show mt-8 flex flex-col gap-2 pl-12 lg:hidden">
@@ -59,7 +59,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
       {linksGroups?.map((group) => {
         return (
           <>
-            <div class="px-6 pt-6">
+            <div class="px-6 pt-8">
               <h2 class="bg-qwikui-blue-600 dark:bg-qwikui-purple-800 shadow-dark-low dark:shadow-dark-high border-qwikui-blue-100 dark:border-qwikui-purple-100 text-outline-lg mb-4 rounded-lg border-2 px-4 py-1 text-3xl font-bold  text-white lg:text-lg">
                 {group.name}
               </h2>

@@ -27,11 +27,13 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <QwikUIProvider>
-        <div class="mt-20 flex">
+        <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl grid">
           <DocsNavigation linksGroups={menuItemsGroups} />
-          <main class="docs">
+          <main class="docs [grid-area:main]">
             <Slot />
           </main>
+          {/* future table of contents */}
+          <div class="hidden [grid-area:toc]"></div>
         </div>
       </QwikUIProvider>
       <footer></footer>

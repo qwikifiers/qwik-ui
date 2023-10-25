@@ -4,7 +4,7 @@ import { PreviewCodeExampleProps } from './preview-code-example-props.type';
 
 export const PreviewCodeExampleVertical = component$((props: PreviewCodeExampleProps) => {
   return (
-    <div class="dark:border-qwikui-purple-200 shadow-light-medium dark:shadow-dark-medium flex w-full flex-col rounded-b-xl rounded-t-xl border-[1.5px] border-solid border-slate-200">
+    <div class="dark:border-qwikui-purple-200 shadow-light-medium dark:shadow-dark-medium flex w-full flex-col rounded-xl border-[1.5px] border-solid border-slate-200">
       <h3 class=" flex rounded-t-xl text-white"></h3>
       <section class="rounded-t-xl bg-slate-50 p-4 dark:bg-slate-800">
         <Slot name="actualComponent" />
@@ -13,7 +13,7 @@ export const PreviewCodeExampleVertical = component$((props: PreviewCodeExampleP
         Code
       </h3>
       <aside class="rounded-b-xl border-[1.5px] border-solid">
-        <Highlight code={props.code} class="rounded" />
+        <Highlight code={props.code} class="rounded rounded-t-none" />
       </aside>
     </div>
   );

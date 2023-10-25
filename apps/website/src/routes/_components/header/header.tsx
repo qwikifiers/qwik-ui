@@ -64,7 +64,7 @@ export default component$(
     return (
       <header
         class={[
-          `fixed top-0 z-20 flex h-20 w-full items-center gap-8 border-b-[1px] border-slate-200 bg-white  p-4 dark:border-slate-800 dark:bg-slate-900 md:h-20`,
+          `sticky top-0 z-20 flex h-20 w-full items-center gap-8 border-b-[1px] border-slate-200 bg-white  p-4 dark:border-slate-800 dark:bg-slate-900 md:h-20`,
           `shadow-light-low dark:shadow-dark-medium`,
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
