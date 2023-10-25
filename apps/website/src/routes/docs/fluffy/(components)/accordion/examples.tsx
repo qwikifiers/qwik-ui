@@ -119,19 +119,19 @@ export const Example03 = component$(() => {
             <AccordionContent>
               <ul>
                 <li>
-                  <Checkbox.Label class="flex" htmlFor="in-stock">
+                  <Checkbox.Label class="flex" for="in-stock">
                     <Checkbox.Root id="in-stock" />
                     In stock
                   </Checkbox.Label>
                 </li>
                 <li>
-                  <Checkbox.Label class="flex" htmlFor="out-of-stock">
+                  <Checkbox.Label class="flex" for="out-of-stock">
                     <Checkbox.Root id="out-of-stock" />
                     Out of stock
                   </Checkbox.Label>
                 </li>
                 <li>
-                  <Checkbox.Label class="flex" htmlFor="coming-soon">
+                  <Checkbox.Label class="flex" for="coming-soon">
                     <Checkbox.Root id="coming-soon" />
                     Coming soon
                   </Checkbox.Label>
@@ -144,13 +144,13 @@ export const Example03 = component$(() => {
             <AccordionContent>
               <ul>
                 <li>
-                  <Checkbox.Label class="flex" htmlFor="fifty-off">
+                  <Checkbox.Label class="flex" for="fifty-off">
                     <Checkbox.Root id="fifty-off" />
                     50% off on selected products
                   </Checkbox.Label>
                 </li>
                 <li>
-                  <Checkbox.Label class="flex" htmlFor="winter-special">
+                  <Checkbox.Label class="flex" for="winter-special">
                     <Checkbox.Root id="winter-special" />
                     Winter specials
                   </Checkbox.Label>
@@ -162,19 +162,19 @@ export const Example03 = component$(() => {
             <AccordionTrigger>Category</AccordionTrigger>
             <ul>
               <li>
-                <Checkbox.Label class="flex" htmlFor="books">
+                <Checkbox.Label class="flex" for="books">
                   <Checkbox.Root id="books" />
                   Books
                 </Checkbox.Label>
               </li>
               <li>
-                <Checkbox.Label class="flex" htmlFor="stationery">
+                <Checkbox.Label class="flex" for="stationery">
                   <Checkbox.Root id="stationery" />
                   Stationery
                 </Checkbox.Label>
               </li>
               <li>
-                <Checkbox.Label class="flex" htmlFor="storage">
+                <Checkbox.Label class="flex" for="storage">
                   <Checkbox.Root id="storage" />
                   Storage
                 </Checkbox.Label>

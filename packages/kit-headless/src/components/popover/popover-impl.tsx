@@ -14,6 +14,8 @@ import {
   createContextId,
 } from '@builder.io/qwik';
 
+import { polyStyles } from './utils';
+
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
 
@@ -45,10 +47,7 @@ export const loadPolyfill$ = $(async () => {
   document.__QUI_POPOVER_PF__ = true;
   if (document.querySelector('style[data-qwik-ui-popover-polyfill]')) return;
   // Run the polyfill and get the CSS
-  const [, { default: css }] = await Promise.all([
-    import('@oddbird/popover-polyfill'),
-    import('@oddbird/popover-polyfill/dist/popover.css?inline'),
-  ]);
+  await import('@oddbird/popover-polyfill');
   // Inject the polyfill CSS into head BEFORE everything else so that users can override it without important or inline
   let styleNode: HTMLStyleElement | null = document.querySelector(
     'style[data-qwik-ui-popover-polyfill]',
@@ -57,7 +56,7 @@ export const loadPolyfill$ = $(async () => {
   if (!styleNode) {
     styleNode = document.createElement('style');
     styleNode.setAttribute('data-qwik-ui-popover-polyfill', '');
-    styleNode.textContent = css;
+    styleNode.textContent = polyStyles;
     document.head.insertBefore(styleNode, document.head.firstChild);
   }
 });

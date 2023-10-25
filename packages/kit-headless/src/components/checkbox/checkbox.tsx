@@ -6,9 +6,7 @@ import {
   component$,
 } from '@builder.io/qwik';
 
-export type LabelProps = QwikIntrinsicElements['label'] & {
-  htmlFor?: string;
-};
+export type LabelProps = QwikIntrinsicElements['label'];
 
 export const Label = component$(({ ...props }: LabelProps) => {
   return (
