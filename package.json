@@ -70,6 +70,7 @@
     "cypress": "^12",
     "cypress-axe": "1.4.0",
     "cypress-ct-qwik": "0.3.0",
+    "cypress-real-events": "1.10.3",
     "cz-conventional-changelog": "^3.3.0",
     "daisyui": "^3.6.4",
     "danger": "^11.2.8",

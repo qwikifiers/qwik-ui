@@ -162,6 +162,9 @@ importers:
       cypress-ct-qwik:
         specifier: 0.3.0
         version: 0.3.0(@builder.io/qwik@1.2.14)(cypress@12.17.1)
+      cypress-real-events:
+        specifier: 1.10.3
+        version: 1.10.3(cypress@12.17.1)
       cz-conventional-changelog:
         specifier: ^3.3.0
         version: 3.3.0(@swc/core@1.3.82)
@@ -3311,24 +3314,6 @@ packages:
       read-json-safe: 1.0.5
       types-pkg-json: 1.2.1
     dev: true
-
-  /@builder.io/qwik-city@1.2.12:
-    resolution: {integrity: sha512-gi8QXd9TohBDjG+xsIdkln+6iMjUFWO6PXe3CTNTpqacTcX0vN7mQkPUcPWj5alo8aSE+Mog8xnZYHx3qsQzwg==}
-    engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
-    requiresBuild: true
-    dependencies:
-      '@mdx-js/mdx': 2.3.0
-      '@types/mdx': 2.0.5
-      source-map: 0.7.4
-      svgo: 3.0.2
-      vfile: 6.0.1
-      vite-imagetools: 5.0.5
-      zod: 3.21.4
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
-    dev: true
-    optional: true
 
   /@builder.io/qwik-city@1.2.14:
     resolution: {integrity: sha512-+irXLn/5YcX6MLcXe0MJRws+vG1KatcFyVcwfi/mDypwHCUQi2snz5TYqWUyEjRcELPsI8j2XY6FlCd5eq3nQA==}
@@ -12074,6 +12059,14 @@ packages:
       cypress: 12.17.1
     dev: true
 
+  /cypress-real-events@1.10.3(cypress@12.17.1):
+    resolution: {integrity: sha512-YN3fn+CJIAM638sE6uMvv2/n3PsWowdd0rOiN6ZoyezNAMyENfuQHvccLKZpN+apGfQZYetCml6QXLYgDid2fg==}
+    peerDependencies:
+      cypress: ^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x || ^10.x || ^11.x || ^12.x || ^13.x
+    dependencies:
+      cypress: 12.17.1
+    dev: true
+
   /cypress@12.17.1:
     resolution: {integrity: sha512-eKfBgO6t8waEyhegL4gxD7tcI6uTCGttu+ZU7y9Hq8BlpMztd7iLeIF4AJFAnbZH1xjX+wwgg4cRKFNSvv3VWQ==}
     engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
@@ -15347,15 +15340,6 @@ packages:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
     dev: true
-
-  /imagetools-core@4.0.3:
-    resolution: {integrity: sha512-Cn+xuuRiA2UC5XzSWKWaRBJGA9iFhwtaVLUIgujfv6SM4TF/wOAwAqWeZkbv/yyhmapdhFR5stsKE9owUge0jQ==}
-    engines: {node: '>=12.0.0'}
-    requiresBuild: true
-    dependencies:
-      sharp: 0.32.2
-    dev: true
-    optional: true
 
   /imagetools-core@4.1.0:
     resolution: {integrity: sha512-GDMgj3zhQ3g6Ga3yWBSmdJC7mM8UePgHiZsVQZ8sUWgAk2UzRyGlFV5qdv0topv63vE86KaK6MmAbjVUVibOzA==}
@@ -21391,22 +21375,6 @@ packages:
       tunnel-agent: 0.6.0
     dev: true
 
-  /sharp@0.32.2:
-    resolution: {integrity: sha512-e4hyWKtU7ks/rLmoPys476zhpQnLqPJopz4+5b6OPeyJfvCTInAp0pe5tGhstjsNdUvDLrUVGEwevewYdZM8Eg==}
-    engines: {node: '>=14.15.0'}
-    requiresBuild: true
-    dependencies:
-      color: 4.2.3
-      detect-libc: 2.0.1
-      node-addon-api: 6.1.0
-      prebuild-install: 7.1.1
-      semver: 7.5.4
-      simple-get: 4.0.1
-      tar-fs: 3.0.4
-      tunnel-agent: 0.6.0
-    dev: true
-    optional: true
-
   /sharp@0.32.6:
     resolution: {integrity: sha512-KyLTWwgcR9Oe4d9HwCwNM2l7+J0dUQwn/yf7S0EnTtb0eVS4RxO0eUSvxPtzT4F3SY+C4K6fqdv/DO27sJ/v/w==}
     engines: {node: '>=14.15.0'}
@@ -21757,7 +21725,7 @@ packages:
       magic-string: 0.30.3
       react-docgen-typescript: 2.2.2(typescript@5.2.2)
     optionalDependencies:
-      '@builder.io/qwik-city': 1.2.12
+      '@builder.io/qwik-city': 1.2.14
     transitivePeerDependencies:
       - '@preact/preset-vite'
       - encoding
@@ -23317,18 +23285,6 @@ packages:
       vfile-message: 4.0.2
     dev: true
 
-  /vite-imagetools@5.0.5:
-    resolution: {integrity: sha512-q+BRot2b7AxUHgkQzU+5ku+NERVZcXmLdAnQWSnIw31bRoPIBSDxmDRTDldX8gqyjQNkIBjObF+xqPCeNp7CzQ==}
-    engines: {node: '>=12.0.0'}
-    requiresBuild: true
-    dependencies:
-      '@rollup/pluginutils': 5.0.2
-      imagetools-core: 4.0.3
-    transitivePeerDependencies:
-      - rollup
-    dev: true
-    optional: true
-
   /vite-imagetools@5.1.2:
     resolution: {integrity: sha512-r8WVrrmYSmctm1IEMJuYSo3jGH93W6mf0NK3+85rmG+BJBO05E/YsbWw/lhE1nPBHgYb8liPC2ID3jSzGiPzJw==}
     engines: {node: '>=12.0.0'}
@@ -24135,12 +24091,6 @@ packages:
     optionalDependencies:
       commander: 9.5.0
     dev: true
-
-  /zod@3.21.4:
-    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
-    requiresBuild: true
-    dev: true
-    optional: true
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
