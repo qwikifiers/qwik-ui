@@ -54,4 +54,18 @@ describe('Popover', () => {
 
     cy.get('[data-test=popover-content]').should('not.be.visible');
   });
+
+  it(`GIVEN a Popover
+      WHEN opening it
+      AND being visible
+      AND clicking space around the popover
+      THEN it is not visible any more`, () => {
+    cy.mount(<Sut />);
+
+    cy.get('[data-test=popover-trigger]').click();
+
+    cy.get('body').click('top');
+
+    cy.get('[data-test=popover-content]').should('not.be.visible');
+  });
 });
