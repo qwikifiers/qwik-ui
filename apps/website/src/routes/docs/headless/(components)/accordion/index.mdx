@@ -28,6 +28,7 @@ import { APITable } from '../../../_components/api-table/api-table';
 import { AnatomyTable } from '../../../_components/anatomy-table/anatomy-table';
 import { StatusBanner } from '../../../_components/status-banner/status-banner';
 import {statusByComponent} from '../../../../../_state/component-statuses';
+import { CheckIcon } from '../../../../_components/icons/Check.tsx'
 
 <StatusBanner status={statusByComponent.headless.Accordion}/> 
 
@@ -94,14 +95,28 @@ A stacked set of interactive headings which reveal or hide their associated cont
 
 Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
 
-##### ✨ Features
+## Features
 
-- Full keyboard navigation
-- Single or Multi Accordion
-- Controlled or uncontrolled
-- Animatable, dynamic, and resumable
+<ul class="!pl-0 mt-[-16px] mb-12">
+  <li class="list-none flex items-center gap-x-2 gap-y-4">
+    <CheckIcon />
+    Full keyboard navigation
+  </li>
+  <li class="list-none flex items-center gap-x-2 gap-y-4">
+    <CheckIcon />
+    Single or Multi Accordion
+  </li>
+  <li class="list-none flex items-center gap-x-2 gap-y-4">
+    <CheckIcon />
+    Controlled or uncontrolled
+  </li>
+  <li class="list-none flex items-center gap-x-2 gap-y-4">
+    <CheckIcon />
+    Animatable, dynamic, and resumable
+  </li>
+</ul>
 
-<div class="mb-6 flex flex-col gap-2">
+<div class="mb-6 mt-10 flex flex-col gap-2">
 [View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/accordion)
 
 [Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)

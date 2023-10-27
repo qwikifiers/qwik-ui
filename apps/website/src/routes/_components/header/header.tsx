@@ -81,7 +81,10 @@ export default component$(
             <div data-tip="Qwik-UI Version" class="mr-auto">
               <div class="ml-2 flex flex-row gap-1 text-xs md:mt-1 md:flex-col md:text-sm">
                 <span> {kitSignal.value?.name} Kit </span>
-                <span> v.{kitSignal.value?.version} </span>
+                <span>
+                  {' '}
+                  <span>v{kitSignal.value?.version}</span>{' '}
+                </span>
               </div>
             </div>
           )}
