@@ -1,5 +1,5 @@
 {
-  "name": "qwik-ui-repo",
+  "name": "@qwik-ui/root",
   "version": "0.0.0",
   "description": "Qwik UI Components Monorepo",
   "engines": {
