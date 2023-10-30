@@ -28,8 +28,9 @@ import { APITable } from '../../../_components/api-table/api-table';
 import { AnatomyTable } from '../../../_components/anatomy-table/anatomy-table';
 import { StatusBanner } from '../../../_components/status-banner/status-banner';
 import {statusByComponent} from '../../../../../_state/component-statuses';
-import { CheckIcon } from '../../../../_components/icons/Check.tsx'
-
+import { FeatureList } from '../../../_components/feature-list/feature-list'
+import { Note } from '../../../_components/note/note.tsx';
+ 
 <StatusBanner status={statusByComponent.headless.Accordion}/> 
 
 # Accordion
@@ -97,24 +98,7 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 
 ## Features
 
-<ul class="!pl-0 mt-[-16px] mb-12">
-  <li class="list-none flex items-center gap-x-2 gap-y-4">
-    <CheckIcon />
-    Full keyboard navigation
-  </li>
-  <li class="list-none flex items-center gap-x-2 gap-y-4">
-    <CheckIcon />
-    Single or Multi Accordion
-  </li>
-  <li class="list-none flex items-center gap-x-2 gap-y-4">
-    <CheckIcon />
-    Controlled or uncontrolled
-  </li>
-  <li class="list-none flex items-center gap-x-2 gap-y-4">
-    <CheckIcon />
-    Animatable, dynamic, and resumable
-  </li>
-</ul>
+<FeatureList features={['Full keyboard navigation', 'Single or Multi Accordion', 'Controlled or uncontrolled', 'Animatable, dynamic, and resumable']} />
 
 <div class="mb-6 mt-10 flex flex-col gap-2">
 [View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/accordion)
@@ -125,7 +109,11 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 
 </div>
 
-> Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. While these widgets can be used without JavaScript, they come with their own accessibility drawbacks.
+<Note status="info"> 
+**Why not just use the details & summary tags?**
+
+Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. While these widgets can be used without JavaScript, they come with [their own accessibility drawbacks](https://www.scottohara.me/blog/2022/09/12/details-summary.html).
+</Note> 
 
 ## Building blocks
 
@@ -254,7 +242,7 @@ If you're curious about how the accordion is animated, you can use a built-in Qw
 
 The variable calculates the content height behind the scenes, so that you can use this variable in your keyframes. Out of the box, you can use the `accordion-open` and `accordion-close` keyframes in your project. These use an `animation` declaration on the height property.
 
-> The animation above makes use of the overflow hidden declaration. You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
+<Note status="info"> The animation above makes use of the overflow hidden declaration. You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.</Note>
 
 ## Non-collapsible
 
@@ -420,7 +408,11 @@ Any disabled elements will be skipped over when using tab or the `Up Arrow` and 
 
 You can make the accordion items uncontrolled by adding the **defaultValue** prop on the items. This will open an accordion item without user interaction, and can be used on both type single and multi accordions.
 
-> Keep in mind: if you're using `behavior="single"` with multiple defaultValue accordion items, the last item will be the one that opens. You may experience flickering behavior as well.
+<Note status="warning">
+**Don't try to open multiple items with single mode!**
+
+If you're using `behavior="single"` with multiple defaultValue accordion items, the last item will be the one that opens. You may experience flickering behavior as well.
+</Note>
 
 ## Custom Heading Label
 
@@ -594,7 +586,7 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
 
 `onFocusIndexChange$` will keep track of the current focused index. It can be useful for when you want to programmatically change something based on what the user focuses.
 
-> When a user clicks a trigger, they are also focusing it, which is worth keeping in mind.
+<Note status="info"> When a user clicks a trigger, they are also focusing it, which is worth keeping in mind when using this custom event.</Note>
 
 ## Dynamic
 

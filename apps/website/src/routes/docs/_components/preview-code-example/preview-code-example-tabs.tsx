@@ -18,18 +18,18 @@ export const PreviewCodeExampleTabs = component$((props: PreviewCodeExampleProps
   return (
     <Tabs
       {...props}
-      class="shadow-light-medium dark:shadow-dark-medium mb-12 rounded-xl"
+      class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-xl lg:mx-[-32px]"
       selectedClassName="previewCodeExampleSelectedTab"
     >
       <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 flex rounded-t-xl border-[1.5px] border-b-0 text-white">
-        <Tab class="hover:bg-qwikui-blue-500 dark:hover:bg-qwikui-purple-600 text-outline-lg rounded-tl-[.625rem] px-4 py-2">
+        <Tab class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color min-h-[44px] rounded-tl-[.625rem] px-4 px-[28px] py-2 transition">
           Preview
         </Tab>
-        <Tab class="hover:bg-qwikui-blue-500 dark:hover:bg-qwikui-purple-600 text-outline-lg px-4 py-2">
+        <Tab class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color min-h-[44px] px-4 px-[28px] py-2 transition duration-300">
           Code
         </Tab>
       </TabList>
-      <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-xl border-[1.5px] bg-slate-200 bg-slate-800  p-4 dark:bg-slate-900 md:p-12">
+      <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-xl border-[1.5px] bg-slate-200 bg-slate-800  py-12 dark:bg-slate-900 md:p-12">
         <section class="flex flex-col items-center">
           <Slot name="actualComponent" />
         </section>

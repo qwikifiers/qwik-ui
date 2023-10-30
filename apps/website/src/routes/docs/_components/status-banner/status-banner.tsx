@@ -113,7 +113,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
         class={`${getBackgroundByStatus(
           props.status,
         )} normal-state shadow-light-medium dark:shadow-dark-medium
-        border-qwikui-blue-200 dark:border-qwikui-purple-200 relative rounded-xl border-[1px] px-6 py-4 text-white md:flex-row md:items-center`}
+        border-qwikui-blue-200 dark:border-qwikui-purple-200 relative mx-[-24px] rounded-xl border-[1px] px-8 py-4 text-white md:flex-row md:items-center lg:mx-[-32px]`}
         style={{ marginBottom: `${marginBottom}px` }}
       >
         <span class="pr-2">{getMessageByStatus(props.status)}</span>

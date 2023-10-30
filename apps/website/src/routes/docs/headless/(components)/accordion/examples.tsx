@@ -25,7 +25,7 @@ export const HeroAccordion = component$(() => {
         >
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between  rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between  rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>Can I add headings inside the accordion?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -41,7 +41,7 @@ export const HeroAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>Is it easy to animate?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -57,7 +57,7 @@ export const HeroAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
                 <span>How about opening multiple items?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -93,7 +93,7 @@ export const MultiAccordion = component$(() => {
         >
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between  rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between  rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>Can I style based on the trigger state?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -113,7 +113,7 @@ export const MultiAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>What about applying attributes?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -129,7 +129,7 @@ export const MultiAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
                 <span>How about using event handlers?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -165,7 +165,7 @@ export const NonCollapsibleAccordion = component$(() => {
         >
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between  rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between  rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>How do I turn off collapsing?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -181,7 +181,7 @@ export const NonCollapsibleAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>Can it be dynamic?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -196,7 +196,7 @@ export const NonCollapsibleAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <h3>
-              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
                 <span>Can I reactively change stuff?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -228,7 +228,7 @@ export const DisabledAccordion = component$(() => {
         <AccordionRoot class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white">
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>I'm enabled!</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -246,7 +246,7 @@ export const DisabledAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>I'm enabled!</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -266,7 +266,7 @@ export const DisabledAccordion = component$(() => {
             <h3>
               <AccordionTrigger
                 disabled
-                class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-disabled:cursor-not-allowed aria-expanded:rounded-none"
+                class="group flex min-h-[44px] w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-disabled:cursor-not-allowed aria-expanded:rounded-none"
               >
                 <span>
                   I'm{' '}
@@ -304,7 +304,7 @@ export const DefaultValueAccordion = component$(() => {
         <AccordionRoot class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white">
           <AccordionItem>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>Not open by default.</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -319,7 +319,7 @@ export const DefaultValueAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem defaultValue>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>I'm open!</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -337,7 +337,7 @@ export const DefaultValueAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <h3>
-              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
                 <span>Not open by default.</span>
                 <span class="flex pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -369,7 +369,7 @@ export const PolymorphicHeadingAccordion = component$(() => {
         <AccordionRoot class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white">
           <AccordionItem>
             <AccordionHeader as="h4">
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>I'm an h4</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -384,7 +384,7 @@ export const PolymorphicHeadingAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader as="h5">
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>I'm an h5</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -399,7 +399,7 @@ export const PolymorphicHeadingAccordion = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader as="h6">
-              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
                 <span>I'm an h6</span>
                 <span class="flex pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -438,7 +438,7 @@ export const OnSelectedIndexChange = component$(() => {
         >
           <AccordionItem>
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>Can I contribute to Qwik UI?</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -455,7 +455,7 @@ export const OnSelectedIndexChange = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>How many people are learning Qwik?</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -473,7 +473,7 @@ export const OnSelectedIndexChange = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
                 <span>What's the Qwikifiers discord?</span>
                 <span class="flex pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -515,7 +515,7 @@ export const OnFocusIndexChange = component$(() => {
         >
           <AccordionItem>
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>Is Qwik Production Ready?</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -532,7 +532,7 @@ export const OnFocusIndexChange = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                 <span>Why is Qwik so fast?</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -550,7 +550,7 @@ export const OnFocusIndexChange = component$(() => {
           </AccordionItem>
           <AccordionItem>
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
                 <span>What if I want to use React?</span>
                 <span class="flex pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -635,7 +635,7 @@ export const DynamicAccordion = component$(
               return (
                 <AccordionItem id={`${id}`} key={id}>
                   <AccordionHeader>
-                    <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm border-t-[1px] border-slate-600 border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+                    <AccordionTrigger class="group flex min-h-[44px] w-full items-center justify-between rounded-t-sm border-t-[1px] border-slate-600 border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
                       {label}
                     </AccordionTrigger>
                   </AccordionHeader>

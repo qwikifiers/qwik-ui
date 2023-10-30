@@ -17,6 +17,8 @@ import {
 } from './exports';
 
 import testImage from '../../../../../../public/images/test-image.png'
+import { Note } from '../../../_components/note/note.tsx';
+import { FeatureList } from '../../../_components/feature-list/feature-list'
 
 <StatusBanner status={statusByComponent.headless.Modal}/>
 
@@ -28,7 +30,11 @@ A window overlaid on either the primary window or another dialog window. Modal c
 
 The modal makes use of the HTML `dialog` element, which is supported in [every major browser](https://caniuse.com/?search=dialog). 
 
-> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) *(in progress)*. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
+<Note status="info">
+**What about non-modal components?**
+
+For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) *(in progress)*. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
+</Note>
 
 Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed. 
 
@@ -40,16 +46,9 @@ Modals are used when an important choice needs to be made in the application. Th
 [Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/modal/index.mdx>)
 </div>
 
-## ✨ Features
+## Features ✨
 
-- Follows the WAI ARIA Dialog & Alertdialog design patterns.
-- Managed focus order
-- Scroll locking
-- Closes on escape
-- Toggle backdrop dismiss
-- Animation support
-- Transition support
-- Backdrop animations
+<FeatureList features={['Follows the WAI ARIA Dialog & Alertdialog design patterns.', 'Managed focus order', 'Scroll locking', 'Closes on escape', 'Toggle backdrop dismiss', 'Animation support', 'Transition support', 'Backdrop animations']} />
 
 ## Building Blocks
 
@@ -91,7 +90,7 @@ Our goal is to fill existing gaps, ensuring the modal is a11y compliant and enri
 
 Above is an example of the `autofocus` attribute, used to focus the 2nd input when the dialog is opened. 
 
-> When adding properties on `<Modal />`, it is the same as sticking the attribute, class, or API on the dialog element itself. 
+<Note status="info">When adding properties on **`<Modal />`**, it is the same as sticking the attribute, class, or API on the dialog element itself. </Note>
 
 ## Open or close the modal
 
@@ -103,7 +102,11 @@ To open or close the modal, we can use `bind:show`, a custom signal bind that le
 
 The example above opens the modal when the **Open Modal** button is clicked and closes it when a button inside the modal is clicked.
 
-> In the future, we may not need to manage state for the opening and closing of dialogs and other UI elements. Here's Open UI's [invoker proposal](https://open-ui.org/components/invokers.explainer/).
+<Note status="info">
+**Native Invokers**
+
+In the future, we may not need to manage state for the opening and closing of dialogs and other UI elements. Here's Open UI's [invoker proposal](https://open-ui.org/components/invokers.explainer/).
+</Note>
 
 Custom signal binds are like a remote control for components, controlling states like opening or closing a modal.
 
@@ -115,7 +118,7 @@ In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This mean
 
 The top layer is used in Qwik UI whenever a modal or popover is used in supported browsers. Popovers can be applied to any semantic element, modals in Qwik UI are tied to the `dialog` element.
 
-> The previous implementation of modals required the use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal), the top layer pseudo class is a **native solution** to this problem. No more z-index wars!
+<Note status="success"> The previous implementation of modals required the use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal), the top layer pseudo class is a **native solution** to this problem. No more z-index wars!</Note>
 
 ## Backdrops
 
@@ -157,13 +160,17 @@ Qwik UI incorporates a feature known as focus locking, which confines the focus 
 
 This means that if a user is navigating through the modal using the Tab key, reaching the last focusable element and pressing Tab again will cycle the focus back to the first focusable element within the modal.
 
-> Focus locking behavior is provided by default in Qwik UI. If you encounter any use cases that require customized focus lock behavior, please [submit an issue](https://github.com/qwikifiers/qwik-ui/issues) on our GitHub repository.
+<Note status="info"> Qwik UI provides default focus lock looping. For custom behavior, please [submit an issue](https://github.com/qwikifiers/qwik-ui/issues) on GitHub.</Note>
 
 ## Animations
 
 Animating things to display none has historically been a significant challenge on the web. This is because display none is a `discrete` property, and is **unanimatable**.
 
-> There is currently efforts to solve this problem. [New CSS properties](https://developer.chrome.com/blog/entry-exit-animations/) have been introduced, but currently do not provide good enough browser support.
+<Note status="info">
+**The future of entry & exit animations**
+
+There is currently efforts to solve this problem. [New CSS properties](https://developer.chrome.com/blog/entry-exit-animations/) have been introduced, but currently do not provide good enough browser support.
+</Note>
 
 ### Our current approach
 
@@ -189,7 +196,7 @@ Backdrop animations have also made significant progress in the last year, with s
 
 To add a backdrop animation, make sure to use the `::backdrop` pseudo selector to the end of the `modal-closing` or `modal-opening` classes.
 
-> Firefox currently does not support backdrop animations. The fallback for browsers that do not support animated backdrops is the same as a non-animated backdrop.
+<Note status="warning"> Firefox currently does not support backdrop animations. The fallback for browsers that do not support animated backdrops is the same as a non-animated backdrop.</Note>
 
 ## Sheets
 
@@ -223,7 +230,7 @@ The current solution across framework ecosystems, is to open the Modal eagerly o
 
 <PageLoadSnip />
 
-> We believe that the dialog element will have native support for SSR Modals in the future, gaining this behavior in the process.
+<Note status="warning"> We believe that the dialog element will have native support for SSR Modals in the future, gaining this behavior in the process.</Note>
 
 ## Keyboard interaction
 
