@@ -170,7 +170,7 @@ After your pull request is merged, you can safely delete your branch and pull th
 
 ## Running in your own app
 
-Sometimes you may not face an issue after running the build process, but your consumer app might.
+Sometimes you may not face an issue after running the build process, but your consumer app still might.
 
 When that is the case, you can use `pnpm link` to link your own app to your forked version of qwik-ui.
 
