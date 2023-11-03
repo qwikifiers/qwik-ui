@@ -34,7 +34,7 @@ Discussing the design up front helps to ensure that we're ready to accept your w
 
 <br/>
 
-### ▶ 3. Fork the this repo and create a branch.
+### ▶ 3. Fork this repo and create a branch.
 
 - Hit that "Fork" button above (in this repo's github page).
 
@@ -165,3 +165,28 @@ After your pull request is merged, you can safely delete your branch and pull th
 ### ▶ 11. That's it! Thank you for your contribution! 🙏💓
 
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#
+
+<br/>
+
+## Running in your own app
+
+Sometimes you may not face an issue after running the build process, but your consumer app still might.
+
+When that is the case, you can use `pnpm link` to link your own app to your forked version of qwik-ui.
+
+### ▶ 1. Link your fork
+
+Inside the root of your `qwik-ui` branch run:
+
+```
+pnpm link.dist
+```
+
+### ▶ 2. Link your app
+
+Inside the root of your project run:
+
+```
+pnpm install
+pnpm link --global @qwik-ui/headless
+```
