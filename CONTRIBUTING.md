@@ -42,7 +42,9 @@ Discussing the design up front helps to ensure that we're ready to accept your w
 
 - git clone your fork
 
-`git clone YOUR_FORK_URL`
+```shell
+git clone YOUR_FORK_URL
+```
 
 Get your url by from here 👇
 
@@ -58,9 +60,17 @@ git checkout -b my-fix-branch main
 
 ### ▶ 4. Run the library
 
-- From the root of the project run `pnpm install`.
+- From the root of the project run the following command:
 
-- Then run `npx nx@latest serve website`.
+```shell
+pnpm install
+```
+
+- Then run this command:
+
+```shell
+npx nx@latest serve website
+```
 
 - Visit the URL printed in the console and you'll have a page opened with the suite of widgets.
 
@@ -68,7 +78,11 @@ git checkout -b my-fix-branch main
 
 ### ▶ 5. Make sure you add / modify tests
 
-Run `pnpm run test` to make sure there aren't any errors
+Run the follwoing command to make sure there aren't any errors:
+
+```shell
+pnpm run test
+```
 
 <br/>
 
@@ -88,7 +102,6 @@ This will create a descriptive commit message that follows the
 This is necessary to generate meaningful release notes / CHANGELOG automatically.
 
 <br/>
-
 ### ▶ 7. Push your branch to GitHub:
 
 ```shell
@@ -107,7 +120,11 @@ If you need to update your PR for some reason -
 
 - Make the required updates.
 
-- Re-run the tests to ensure tests are still passing `pnpm run test`
+- Re-run the tests to ensure tests are still passing:
+
+```shell
+pnpm run test
+```
 
 - Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
 
