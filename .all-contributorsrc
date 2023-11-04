@@ -358,6 +358,17 @@
         "ideas",
         "maintenance"
       ]
+    },
+    {
+      "login": "uceumice",
+      "name": "Alex Tocar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/65486851?v=4",
+      "profile": "https://ueuie.dev",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
