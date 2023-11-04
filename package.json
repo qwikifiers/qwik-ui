@@ -8,17 +8,18 @@
   "private": false,
   "type": "module",
   "scripts": {
+    "build:headless": "nx build headless",
     "commit": "git-cz",
     "format:fix": "pretty-quick --staged",
-    "prepare": "husky install",
-    "build:headless": "nx build headless",
+    "link.dist": "cd packages/kit-headless/dist && pnpm link --global",
     "lint": "nx affected:lint",
-    "test:headless": "nx component-test headless",
-    "test:headless:ci": "nx component-test-ci headless",
+    "local:npm": "nx local-registry",
+    "prepare": "husky install",
     "story:build:headless": "nx build-storybook headless",
     "story:headless": "nx storybook headless",
-    "website": "nx serve website",
-    "local:npm": "nx local-registry"
+    "test:headless": "nx component-test headless",
+    "test:headless:ci": "nx component-test-ci headless",
+    "website": "nx serve website"
   },
   "packageManager": "pnpm@8.7.0",
   "devDependencies": {

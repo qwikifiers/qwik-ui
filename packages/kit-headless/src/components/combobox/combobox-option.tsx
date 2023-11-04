@@ -33,8 +33,7 @@ export const ComboboxOption = component$(
         return;
       }
 
-      (context.inputRef.value.value =
-        context.filteredOptionsSig.value[context.highlightedIndexSig.value]?.label),
+      (context.inputRef.value.value = context.filteredOptionsSig.value[index]?.label),
         (context.isListboxOpenSig.value = false);
     });
 

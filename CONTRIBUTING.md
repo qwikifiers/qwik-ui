@@ -34,17 +34,19 @@ Discussing the design up front helps to ensure that we're ready to accept your w
 
 <br/>
 
-### ▶ 3. Fork the this repo and create a branch.
+### ▶ 3. Fork this repo and create a branch.
 
-- Hit that "Fork" button above (in this repo's github page).
+- Hit that "Fork" button above (in this repo's GitHub page).
 
 ![image](https://user-images.githubusercontent.com/1430726/95460679-ec014400-097d-11eb-9a7a-93e0262d37d9.png)
 
 - git clone your fork
 
-`git clone YOUR_FORK_URL`
+```shell
+git clone YOUR_FORK_URL
+```
 
-Get your url by from here 👇
+Get your URL by from here 👇
 
 ![image](https://user-images.githubusercontent.com/1430726/95461173-94afa380-097e-11eb-9568-dc986e050de6.png)
 
@@ -58,9 +60,17 @@ git checkout -b my-fix-branch main
 
 ### ▶ 4. Run the library
 
-- From the root of the project run `pnpm install`.
+- From the root of the project run the following command:
 
-- Then run `npx nx@latest serve website`.
+```shell
+pnpm install
+```
+
+- Then run this command:
+
+```shell
+npx nx@latest serve website
+```
 
 - Visit the URL printed in the console and you'll have a page opened with the suite of widgets.
 
@@ -68,8 +78,19 @@ git checkout -b my-fix-branch main
 
 ### ▶ 5. Make sure you add / modify tests
 
-Run `pnpm run test` to make sure there aren't any errors
+Run either command to make sure there aren't any errors:
 
+```shell
+nx component-test headless
+```
+
+Or
+
+```shell
+pnpm run test:headless
+```
+
+Both commands run the same tests. You are free to choose which syntax you prefer.
 <br/>
 
 ### ▶ 6. Commit your changes using commitizen:
@@ -88,7 +109,6 @@ This will create a descriptive commit message that follows the
 This is necessary to generate meaningful release notes / CHANGELOG automatically.
 
 <br/>
-
 ### ▶ 7. Push your branch to GitHub:
 
 ```shell
@@ -107,7 +127,17 @@ If you need to update your PR for some reason -
 
 - Make the required updates.
 
-- Re-run the tests to ensure tests are still passing `pnpm run test`
+- Re-run the tests to ensure tests are still passing:
+
+```shell
+nx component-test headless
+```
+
+Or
+
+```shell
+pnpm run test:headless
+```
 
 - Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
 
@@ -165,3 +195,28 @@ After your pull request is merged, you can safely delete your branch and pull th
 ### ▶ 11. That's it! Thank you for your contribution! 🙏💓
 
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#
+
+<br/>
+
+## Running in your own app
+
+Sometimes you may not face an issue after running the build process, but your consumer app still might.
+
+When that is the case, you can use `pnpm link` to link your own app to your forked version of qwik-ui.
+
+### ▶ 1. Link your fork
+
+Inside the root of your `qwik-ui` branch run:
+
+```
+pnpm link.dist
+```
+
+### ▶ 2. Link your app
+
+Inside the root of your project run:
+
+```
+pnpm install
+pnpm link --global @qwik-ui/headless
+```

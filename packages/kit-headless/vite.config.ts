@@ -57,8 +57,6 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      // External packages that should not be bundled into your library.
-      external: ['@floating-ui/dom', 'country-list-json', 'libphonenumber-js'],
       output: {
         preserveModules: true,
         preserveModulesRoot: 'packages/kit-headless/src',
