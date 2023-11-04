@@ -78,12 +78,19 @@ npx nx@latest serve website
 
 ### ▶ 5. Make sure you add / modify tests
 
-Run the following command to make sure there aren't any errors:
+Run either command to make sure there aren't any errors:
 
 ```shell
-pnpm run test
+nx component-test headless
 ```
 
+Or
+
+```shell
+pnpm run test:headless
+```
+
+Both commands run the same tests. You are free to choose which syntax you prefer.
 <br/>
 
 ### ▶ 6. Commit your changes using commitizen:
@@ -123,7 +130,13 @@ If you need to update your PR for some reason -
 - Re-run the tests to ensure tests are still passing:
 
 ```shell
-pnpm run test
+nx component-test headless
+```
+
+Or
+
+```shell
+pnpm run test:headless
 ```
 
 - Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
