@@ -36,7 +36,7 @@ Discussing the design up front helps to ensure that we're ready to accept your w
 
 ### ▶ 3. Fork this repo and create a branch.
 
-- Hit that "Fork" button above (in this repo's github page).
+- Hit that "Fork" button above (in this repo's GitHub page).
 
 ![image](https://user-images.githubusercontent.com/1430726/95460679-ec014400-097d-11eb-9a7a-93e0262d37d9.png)
 
@@ -46,7 +46,7 @@ Discussing the design up front helps to ensure that we're ready to accept your w
 git clone YOUR_FORK_URL
 ```
 
-Get your url by from here 👇
+Get your URL by from here 👇
 
 ![image](https://user-images.githubusercontent.com/1430726/95461173-94afa380-097e-11eb-9568-dc986e050de6.png)
 
@@ -78,7 +78,7 @@ npx nx@latest serve website
 
 ### ▶ 5. Make sure you add / modify tests
 
-Run the follwoing command to make sure there aren't any errors:
+Run the following command to make sure there aren't any errors:
 
 ```shell
 pnpm run test
