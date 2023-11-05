@@ -28,6 +28,7 @@ export const Highlight = component$(
     const codeSig = useSignal('');
 
     useVisibleTask$(async function createHighlightedCode() {
+      const highlighter = await (window as any).shikiji;
       let modifiedCode: string = code;
 
       let partsOfCode = modifiedCode.split(splitCommentStart);
@@ -40,7 +41,7 @@ export const Highlight = component$(
         modifiedCode = partsOfCode[0];
       }
 
-      const str = await (window as any).shikiji.codeToHtml(modifiedCode, {
+      const str = await highlighter.codeToHtml(modifiedCode, {
         lang: language,
         themes: {
           light: 'github-dark',

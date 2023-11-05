@@ -67,8 +67,7 @@ export default component$(() => {
           type="module"
           dangerouslySetInnerHTML={
             /*javascript*/ `
-            import * as shikiji from 'https://esm.sh/shikiji@0.5.0'
-            window.shikiji = shikiji;
+            window.shikiji = import('https://esm.sh/shikiji@0.5.0');
         `
           }
         />
