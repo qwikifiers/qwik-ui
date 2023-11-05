@@ -27,29 +27,32 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
-    useVisibleTask$(async function createHighlightedCode() {
-      const highlighter = await (window as any).shikiji;
-      let modifiedCode: string = code;
+    useVisibleTask$(
+      async function createHighlightedCode() {
+        const highlighter = await (window as any).shikiji;
+        let modifiedCode: string = code;
 
-      let partsOfCode = modifiedCode.split(splitCommentStart);
-      if (partsOfCode.length > 1) {
-        modifiedCode = partsOfCode[1];
-      }
+        let partsOfCode = modifiedCode.split(splitCommentStart);
+        if (partsOfCode.length > 1) {
+          modifiedCode = partsOfCode[1];
+        }
 
-      partsOfCode = modifiedCode.split(splitCommentEnd);
-      if (partsOfCode.length > 1) {
-        modifiedCode = partsOfCode[0];
-      }
+        partsOfCode = modifiedCode.split(splitCommentEnd);
+        if (partsOfCode.length > 1) {
+          modifiedCode = partsOfCode[0];
+        }
 
-      const str = await highlighter.codeToHtml(modifiedCode, {
-        lang: language,
-        themes: {
-          light: 'github-dark',
-          dark: 'github-dark',
-        },
-      });
-      codeSig.value = str.toString();
-    });
+        const str = await highlighter.codeToHtml(modifiedCode, {
+          lang: language,
+          themes: {
+            light: 'github-dark',
+            dark: 'github-dark',
+          },
+        });
+        codeSig.value = str.toString();
+      },
+      { strategy: 'document-idle' },
+    );
 
     return (
       <div class="code-example relative max-h-[31.25rem] rounded-b-xl">
