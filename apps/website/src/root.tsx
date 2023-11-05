@@ -63,6 +63,15 @@ export default component$(() => {
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
+        <script
+          type="module"
+          dangerouslySetInnerHTML={
+            /*javascript*/ `
+            import * as shikiji from 'https://esm.sh/shikiji@0.5.0'
+            window.shikiji = shikiji;
+        `
+          }
+        />
       </head>
       <body
         lang="en"

@@ -3,11 +3,10 @@ import {
   QwikIntrinsicElements,
   component$,
   useSignal,
-  useTask$,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { OmitSignalClass } from '@qwik-ui/utils';
 import { CodeCopy } from '../code-copy/code-copy';
-import { getOrCreateHighlighter } from './get-or-create-highlighter';
 
 export type HighlightProps = OmitSignalClass<QwikIntrinsicElements['pre']> & {
   code: string;
@@ -28,8 +27,7 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
-    useTask$(async function createHighlightedCode() {
-      const highlighter = await getOrCreateHighlighter();
+    useVisibleTask$(async function createHighlightedCode() {
       let modifiedCode: string = code;
 
       let partsOfCode = modifiedCode.split(splitCommentStart);
@@ -42,8 +40,14 @@ export const Highlight = component$(
         modifiedCode = partsOfCode[0];
       }
 
-      console.log(highlighter);
-      codeSig.value = highlighter.codeToHtml(modifiedCode, { lang: language });
+      const str = await (window as any).shikiji.codeToHtml(modifiedCode, {
+        lang: language,
+        themes: {
+          light: 'vitesse-light',
+          dark: 'vitesse-dark',
+        },
+      });
+      codeSig.value = str.toString();
     });
 
     return (
