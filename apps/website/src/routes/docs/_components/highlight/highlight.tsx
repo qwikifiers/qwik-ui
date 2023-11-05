@@ -43,8 +43,8 @@ export const Highlight = component$(
       const str = await (window as any).shikiji.codeToHtml(modifiedCode, {
         lang: language,
         themes: {
-          light: 'vitesse-light',
-          dark: 'vitesse-dark',
+          light: 'github-dark',
+          dark: 'github-dark',
         },
       });
       codeSig.value = str.toString();
