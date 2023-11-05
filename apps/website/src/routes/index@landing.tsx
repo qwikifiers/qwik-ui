@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { type DocumentHead } from '@builder.io/qwik-city';
 import { Card, CardBody, CardImage, CardTitle } from '@qwik-ui/headless';
-import { useAppState } from '../_state/use-app-state';
+import { useAppState } from '~/_state/use-app-state';
 
 export default component$(() => {
   const { featureFlags } = useAppState();

@@ -1,5 +1,5 @@
-import { tcva, type AddVariantPropsTo } from '@/packages/utils/src';
 import { Slot, component$ } from '@builder.io/qwik';
+import { AddVariantPropsTo, tcva } from '@qwik-ui/utils';
 
 export const buttonVariants = tcva(
   `inline-flex items-center justify-center

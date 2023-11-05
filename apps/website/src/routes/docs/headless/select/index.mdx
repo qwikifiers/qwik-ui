@@ -1,0 +1,344 @@
+---
+title: Qwik UI | Select
+---
+
+import { Example01, Example02 } from './examples';
+import { CodeExample } from '../../../_components/code-example/code-example';
+import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
+import { APITable } from '../../../_components/api-table/api-table';
+import { StatusBanner } from '../../../_components/status-banner/status-banner';
+import {statusByComponent} from '../../../../../_state/component-statuses';
+
+<StatusBanner status={statusByComponent.headless.Select}/> 
+
+# Select
+
+This element is used to create a drop-down list, it's often used in a form, to collect user input.
+
+
+
+<Example01>
+  ```tsx
+  <SelectRoot class="dark:bg-gray-700">
+    <SelectLabel class="text-white font-semibold ml-2">Qwik Fruits</SelectLabel>
+    <SelectTrigger class="flex justify-between items-center px-8 bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px] rounded-md p-4 group peer">
+      <SelectValue
+        placeholder="Select a fruit! 🍹"
+        class="text-gray-700 dark:text-white"
+      />
+      <SelectMarker class="w-6 h-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="2"
+          class="stroke-gray-700 dark:stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </SelectMarker>
+    </SelectTrigger>
+    <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 mt-2 border-[1px] rounded-md">
+      <SelectOption value="🚀 Qwik" class="p-4">🚀 Qwik</SelectOption>
+      <SelectGroup class="p-4 ">
+        <SelectLabel class="p-4">Fruits</SelectLabel>
+        {[
+          { value: '🍎 Apple', disabled: false },
+          { value: '🍌 Banana', disabled: false },
+          { value: '🍒 Cherry', disabled: false },
+          { value: '🐲 Dragonfruit', disabled: true },
+        ].map((option) => {
+          return (
+            <SelectOption
+              key={option.value}
+              value={option.value}
+              disabled={option.disabled}
+              class="aria-disabled:text-red-500 aria-disabled:cursor-not-allowed hover:bg-slate-200 rounded-sm dark:hover:bg-gray-600 p-4"
+            >{option.value}</SelectOption>
+          );
+        })}
+      </SelectGroup>
+    </SelectListBox>
+  </SelectRoot>
+  ```
+</Example01>
+
+## Building blocks
+
+  <CodeExample>
+    ```tsx
+    import { component$ } from '@builder.io/qwik';
+    import { SelectRoot, SelectLabel, SelectTrigger, SelectValue, SelectMarker, SelectListBox, SelectOption, SelectGroup } from '@qwik-ui/headless';
+
+    export default component$(() => (
+      <SelectRoot>
+        <SelectLabel>Content</SelectLabel>
+        <SelectTrigger>
+          <SelectValue>Content</SelectValue>
+          <SelectMarker />
+        </SelectTrigger>
+        <SelectListBox>
+          <SelectGroup>
+            <SelectLabel>Options</SelectLabel>
+            <SelectOption>Value</SelectOption>
+            <SelectOption>Value</SelectOption>
+            <SelectOption>Value</SelectOption>
+          </SelectGroup>
+        </SelectListBox>
+      </SelectRoot>
+    ));
+    ```
+
+  </CodeExample>
+
+## Examples
+
+### EXAMPLE: Navbar Menu
+
+<Example02>
+  ```tsx
+  <SelectRoot>
+    <SelectTrigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
+      <SelectValue placeholder="Home" />
+      <SelectMarker class="w-6 h-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </SelectMarker>
+    </SelectTrigger>
+    <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+      <SelectOption optionValue="Orders" class="p-4">
+        Orders
+      </SelectOption>
+      <SelectOption optionValue="Settings" class="p-4">
+        Settings
+      </SelectOption>
+      <SelectOption optionValue="Contact us" class="p-4">
+        Contact us
+      </SelectOption>
+    </SelectListBox>
+  </SelectRoot>
+  ```
+</Example02>
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'ArrowUp',
+      description: 'To open the `SelectListBox`.',
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: 'To open the `SelectListBox`.',
+    },
+    {
+      keyTitle: 'Escape',
+      description: 'To close the `SelectListBox`.',
+    },
+    {
+      keyTitle: 'Tab',
+      description: 'To select the `SelectOption`.',
+    },
+    {
+      keyTitle: 'Enter',
+      description: 'To select the `SelectOption`.',
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: 'To select the next `SelectOption`.',
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: 'To select the previous `SelectOption`.',
+    },
+  ]}
+/>
+
+## API
+
+### SelectRoot
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectRoot` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectRoot` element.',
+    },
+    {
+      name: 'defaultValue',
+      type: 'string',
+      description: 'The defaultValue to give to the select.',
+    },
+  ]}
+/>
+<br />
+<br />
+### SelectTrigger
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectTrigger` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectTrigger` element.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Use this property to disable the `SelectTrigger` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### SelectValue
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectValue` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectValue` element.',
+    },
+    {
+      name: 'placeholder',
+      type: 'string',
+      description: 'Use this property to set the placeholder.',
+    },
+  ]}
+/>
+<br />
+<br />
+### SelectMarker
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectMarker` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectMarker` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### SelectListBox
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectListBox` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectListBox` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### SelectGroup
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectGroup` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectGroup` element.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Use this property to disable the `SelectGroup` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### SelectLabel
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectLabel` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectLabel` element.',
+    },
+  ]}
+/>
+<br />
+<br />
+### SelectOption
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectOption` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectOption` element.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Use this property to disable the `SelectOption` element.',
+    },
+    {
+      name: 'value',
+      type: 'string',
+      description: 'Use this property to set the `SelectOption` value.',
+    },
+  ]}
+/>

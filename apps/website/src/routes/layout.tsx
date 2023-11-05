@@ -3,40 +3,37 @@ import { ContentMenu, useContent } from '@builder.io/qwik-city';
 import { QwikUIProvider } from '@qwik-ui/headless';
 import { ComponentsStatusesMap, statusByComponent } from '../_state/component-statuses';
 import { KitName } from '../_state/kit-name.type';
-import { useAppState } from '../_state/use-app-state';
-import Header from './_components/header/header';
 import docsStyles from './docs.css?inline';
-import {
-  DocsNavigation,
-  LinkGroup,
-  LinkProps,
-} from './docs/_components/navigation-docs/navigation-docs';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
 import '@fontsource-variable/inter';
+import { Header } from '~/components/header';
+import { DocsNavigation, LinkGroup, LinkProps } from '~/components/docs-navigation';
+import { MDXProvider } from '~/_state/MDXProvider';
+import { components } from '~/components/mdx-components';
 
 export default component$(() => {
   useStyles$(prismStyles);
   useStyles$(docsStyles);
 
   const { menuItemsGroups } = useKitMenuItems();
-  const rootStore = useAppState();
 
   return (
     <>
       <Header showBottomBorder={true} showVersion={true} />
-      <QwikUIProvider>
-        <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl grid">
-          <DocsNavigation linksGroups={menuItemsGroups} />
-          <main class="docs [grid-area:main]">
-            <Slot />
-          </main>
-          {/* future table of contents */}
-          <div class="hidden [grid-area:toc]"></div>
-        </div>
-      </QwikUIProvider>
-      <footer></footer>
+      <MDXProvider components={components}>
+        <QwikUIProvider>
+          <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl grid">
+            <DocsNavigation linksGroups={menuItemsGroups} />
+            <main class="docs [grid-area:main]">
+              <Slot />
+            </main>
+            {/* future table of contents */}
+            <div class="hidden [grid-area:toc]"></div>
+          </div>
+        </QwikUIProvider>
+      </MDXProvider>
     </>
   );
 });
