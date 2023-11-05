@@ -43,6 +43,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Accordion: ComponentStatus.Beta,
     Carousel: ComponentStatus.Planned,
     Combobox: ComponentStatus.Beta,
+    Pagination: ComponentStatus.Draft,
     Popover: ComponentStatus.Draft,
     Modal: ComponentStatus.Beta,
     Select: ComponentStatus.Draft,
