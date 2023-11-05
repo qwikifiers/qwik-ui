@@ -158,6 +158,7 @@
   /* no horizontal overflow on code examples */
   .tab-size pre {
     white-space: pre-wrap;
+    background: transparent !important;
   }
 }
 
