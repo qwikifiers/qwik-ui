@@ -3,24 +3,30 @@ import { Highlight } from '../highlight';
 import { useLocation } from '@builder.io/qwik-city';
 import { removeDocsFromPath } from '~/lib/utils';
 
-const componentsRaw = import.meta.glob('/src/examples/**/**/snippets/*', {
+const snippetRaw = import.meta.glob('/src/examples/**/**/*', {
   as: 'raw',
 });
 
 type CodeSnippetProps = QwikIntrinsicElements['div'] & {
-  name?: string;
+  name: string;
 };
 
 export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   const location = useLocation();
 
+  let lang = '.tsx';
+
+  if (name.endsWith('.tsx')) lang = '';
+  if (name.endsWith('.ts')) lang = '';
+  if (name.endsWith('.css')) lang = '';
+
   const dynamicPath = removeDocsFromPath(location.url.pathname);
-  const componentPath = `/src/examples/${dynamicPath}snippets/${name}.tsx`;
+  const snippetPath = `/src/examples/${dynamicPath}${name}${lang}`;
 
   const ComponentRaw = useSignal<string>();
 
   useTask$(async () => {
-    ComponentRaw.value = (await componentsRaw[componentPath]()) as string;
+    ComponentRaw.value = (await snippetRaw[snippetPath]()) as string;
   });
   return (
     <div
