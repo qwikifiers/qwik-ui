@@ -2,64 +2,23 @@
 title: Qwik UI | Popover
 ---
 
-import { Popover } from '@qwik-ui/headless';
-import { MainExample, Example1 } from './examples';
-import { CodeExample } from '../../../_components/code-example/code-example';
-import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '../../../_components/api-table/api-table';
-import { StatusBanner } from '../../../_components/status-banner/status-banner';
-import {statusByComponent} from '../../../../../_state/component-statuses';
-
-<StatusBanner status={statusByComponent.headless.Popover}/> 
+<StatusBanner status={'Draft'} />
 
 # Popover
 
 A popover is an element that displays a modal with content when the user clicks or hovers on a trigger element.
 
-<MainExample>
-  ```tsx
-  <Popover>
-    <PopoverContent>
-      <div class="p-4 bg-gray-500">Hi, I'm the content</div>
-    </PopoverContent>
-    <PopoverTrigger> Click on me </PopoverTrigger>
-  </Popover>
-  ```
-</MainExample>
+<Example name="hero" />
 
 ## Building blocks
 
-  <CodeExample>
-    ```tsx
-    import { component$ } from '@builder.io/qwik';
-    import { Popover } from '@qwik-ui/headless';
-
-    export default component$(() => (
-      <Popover>
-        <PopoverContent>
-          <div class="p-4 bg-gray-500">Hi, I'm the content</div>
-        </PopoverContent>
-        <PopoverTrigger> Click on me </PopoverTrigger>
-      </Popover>
-    ));
-    ```
-
-  </CodeExample>
+<CodeSnippet name="snippets/building-blocks" />
 
 ## Examples
 
-### EXAMPLE: Positioning the popover's content (on top)
+### Positioning the popover's content (on top)
 
-<Example1>
-  ```tsx
-  <Popover placement="top">
-    <PopoverContent>
-      <div class="p-4 bg-gray-500">Hi, I'm the content, but now on top</div>
-    </PopoverContent>
-    <PopoverTrigger> Click on me </PopoverTrigger>
-  </Popover>
-  ```
-</Example1>
+<Example name="top" />
 
 ## API
 

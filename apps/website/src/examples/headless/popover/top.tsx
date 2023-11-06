@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
 
-export const Example1 = component$(() => {
+export default component$(() => {
   return (
     <>
       <div>

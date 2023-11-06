@@ -1,4 +1,4 @@
-import { Slot, component$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
 
 export default component$(() => {
@@ -11,9 +11,6 @@ export default component$(() => {
           </PopoverContent>
           <PopoverTrigger class="text-white">Click on me</PopoverTrigger>
         </Popover>
-      </div>
-      <div q:slot="codeExample">
-        <Slot />
       </div>
     </>
   );
