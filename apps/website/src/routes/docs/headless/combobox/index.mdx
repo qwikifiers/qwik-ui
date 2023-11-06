@@ -47,7 +47,7 @@ Portals are still currently in **Beta**, as a result, you may experience an issu
 
 If you do experience any context related issues, add the following **contextIds** prop to the **ComboboxPortal** component. 
 
-{/* <ContextIdsSnip /> */}
+<CodeSnippet name="context-ids" />
 
 It takes in an array of string context id's as a prop. We also have a live example below with context.
 If you are not using context inside the portal children, this will not be an issue.
@@ -56,7 +56,7 @@ If you are not using context inside the portal children, this will not be an iss
 
 ## Building blocks
 
-  {/* <BuildingBlocksSnip /> */}
+<CodeSnippet name="building-blocks" />
 
   ### 🎨 Anatomy
   <AnatomyTable
@@ -102,13 +102,13 @@ Qwik UI's Combobox supports **both** string and option data. Whether that's an a
 
 ### String example
 
-{/* <ShowExample example="string" /> */}
+<Example name="string" />
 
 Under the hood, the data passed in populates the listbox with options. To see options visually, add the `renderOption$` prop on the Combobox Listbox. This prop is a [QRL](https://qwik.builder.io/docs/advanced/qrl/#qrl), inside is a callback where the `ComboboxOption` component needs to be passed in.
 
 ### Object example
 
-{/* <ShowExample example="object" /> */}
+<Example name="object" />
 
 The callback takes **two** parameters: 
 
@@ -124,13 +124,12 @@ The resolved object also holds:
 
 Import the **ResolvedOption** type from Qwik UI and pass in the data according to the code block below.
 
-{/* <ResolvedOptionSnip /> */}
-
+<CodeSnippet name="resolved-option" />
 ## Adding a filter
 
 Out of the box, the Combobox comes with a default filter that uses the **string.includes** method to filter options. To add a custom filter, you can use the `filter$` QRL.
 
-{/* <ShowExample example="customFilter" /> */}
+<Example name="custom-filter" />
 
 In this example, the filter function retrieves the input value and options object. It then filters the options using the JavaScript `string.startsWith` method as part of our filter logic. However, you are not limited to this method. You can use any filtering method of your choice to customize the behavior to suit your needs.
 
@@ -138,7 +137,7 @@ In this example, the filter function retrieves the input value and options objec
 
 In our previous example, you may have noticed that the country data wasn't sorted alphabetically. To sort options, add an additional sort method after the filter.
 
-{/* <ShowExample example="sortFilter" /> */}
+<Example name="sort-filter" />
 
 ## Disabled Behavior
 
@@ -147,7 +146,7 @@ There are two ways to indicate that an option is disabled:
 - Using the default **disabled** key.
 - Passing a unique key name using the **optionDisabledKey** prop.
 
-{/* <ShowExample example="disabled" /> */}
+<Example name="disabled" />
 
 The **optionDisabledKey** prop does not need to be passed when there is a key already named disabled, OR you do not have any disabled options.
 
@@ -155,13 +154,13 @@ The **optionDisabledKey** prop does not need to be passed when there is a key al
 
 As we saw previously with the **optionDisabledKey** prop, custom key names can also be passed in for values and labels.
 
-{/* <ShowExample example="customKeys" /> */}
+<Example name="custom-keys" />
 
 In some cases, your data object keys may not match the default keys that the Combobox component expects for option values and labels. By default, the Combobox component looks for keys named **value** for option values and **label** for option labels.
 
 If your data object keys are different, you can specify custom key names using the `optionValueKey` and `optionLabelKey` props.
 
-{/* <CustomKeysSnip /> */}
+<CodeSnippet name="custom-keys" />
 
 Within our example, the value key is called **pokedex** and the label key is called **pokemon**. This tells the Combobox component to use the "pokedex" key for option values and the "pokemon" key for option labels.
 
@@ -173,7 +172,7 @@ Within our example, the value key is called **pokedex** and the label key is cal
 
 The Qwik UI Combobox uses the `onBlur$ event` on the input to close the listbox when interacting with other elements.
 
-{/* <ShowExample example="disableBlur" /> */}
+<Example name="disable-blur" />
 
 This can get tedious if certain custom behavior needs to be added, or the listbox needs to be inspected in the dev tools. 
 
@@ -187,7 +186,7 @@ The `ComboboxListbox` component is designed for positioning elements that float 
 
 To set the default position of the listbox, you can use the `placement` prop. In the example below, we've set placement to top. When the user opens the listbox, it will be above the input.
 
-{/* <ShowExample example="placement" /> */}
+<Example name="placement" />
 
 The default placement is **bottom**.
 
@@ -195,7 +194,7 @@ The default placement is **bottom**.
 
 Allows the listbox to flip its position based on available space. It's enabled by default, but can be disabled by adding `flip={false}` on the listbox.
 
-{/* <ShowExample example="flip" /> */}
+<Example name="flip" />
   
 {
 /* commented out for now
@@ -211,7 +210,7 @@ Enables the listbox to shift its position to prevent overflow.
   
 In the previous docs examples, we use the gutter property on the listbox. Gutter is the space between the input and the floating element.
 
-{/* <ShowExample example="gutter" /> */}
+<Example name="gutter" />
 
 If Flip is enabled, it will provide a gutter space for both the top and bottom.
 
@@ -219,7 +218,7 @@ If Flip is enabled, it will provide a gutter space for both the top and bottom.
 
 We're still currently working to figure out animating things conditionally with portals. Would be open to some contributions on this!
 
-{/* <ShowExample example="animation" /> */}
+<Example name="animation" />
 
 An idea here might be having an `isComboboxAnimatingSig` and changing that value based on the `onAnimationStart$` and `onAnimationEnd$` events before closing or opening the portal.
 
@@ -256,7 +255,7 @@ This involves creating a signal and passing it in using the [bind syntax](https:
 
 Here is an example of how to customize these signals:
 
-{/* <ShowExample example="signalBinds" /> */}
+<Example name="signal-binds" />
 
 When clicking on the input, it will now toggle the listbox. Signal binds are a useful toolbelt when customizing state is needed.
 
@@ -264,19 +263,19 @@ When clicking on the input, it will now toggle the listbox. Signal binds are a u
 
 To set a default Label, pass the `defaultLabel` prop to the Combobox Root, along with the string label. This label connects to its proper option value, and highlights it accordingly.
 
-{/* <ShowExample example="defaultLabel" /> */}
+<Example name="default-label" />
 
 ### Setting a default highlighted index
 
 With the trick we learned about signal binds earlier, we can highlight an index by default, or customize the highlighted index based on user interaction.
 
-{/* <ShowExample example="highlightedIndex" /> */}
+<Example name="highlighted-index" />
 
 ## Search Bar
 
 A common use case for an Autocomplete is a search bar. Here's an example of that using the Combobox.
 
-{/* <ShowExample example="searchBar" /> */}
+<Example name="search-bar" />
 
 This example shows MPA navigation using the Search Bar component. For SPA navigation, use Qwik's [useNavigate](https://qwik.builder.io/docs/api/#usenavigate) hook.
 
@@ -584,5 +583,5 @@ The Combobox component API provides a set of properties that allow you to custom
   
 Automatically places the listbox based on available space. **You must set flip to false before using it.**  This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
 
-{/* <ShowExample example="autoPlacement" /> */}
+<Example name="auto-placement" />
 

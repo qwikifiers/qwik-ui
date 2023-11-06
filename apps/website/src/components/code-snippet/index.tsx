@@ -15,7 +15,6 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   const location = useLocation();
 
   const dynamicPath = removeDocsFromPath(location.url.pathname);
-  console.log(dynamicPath);
   const componentPath = `/src/examples/${dynamicPath}snippets/${name}.tsx`;
 
   const ComponentRaw = useSignal<string>();
