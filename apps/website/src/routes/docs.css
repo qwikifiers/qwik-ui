@@ -26,7 +26,7 @@
     }
 
     h4 {
-      @apply mb-4 mt-6 text-lg font-[600] font-medium;
+      @apply mb-4 mt-6 text-lg font-medium;
     }
 
     h5 {

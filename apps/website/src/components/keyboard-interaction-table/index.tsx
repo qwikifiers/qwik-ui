@@ -9,8 +9,8 @@ export interface KeyboardInteractionTableProps {
   keyDescriptors: KBInteractionTableRowProps[];
 }
 
-export const KeyboardInteractionTable = component$(
-  (props: KeyboardInteractionTableProps) => {
+export const KeyboardInteractionTable = component$<KeyboardInteractionTableProps>(
+  (props) => {
     return (
       <table class="mb-6">
         <thead>

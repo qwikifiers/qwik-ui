@@ -65,5 +65,3 @@ export default component$(() => {
     </>
   );
 });
-
-export const Example02 = 

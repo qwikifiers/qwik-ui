@@ -3,10 +3,21 @@ import { qwikVite } from '@builder.io/qwik/optimizer';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
-import { getHighlighter } from 'shiki';
 
+import { getHighlighter, type Highlighter } from 'shiki';
+
+let highlighter: Highlighter;
 export default defineConfig(async () => {
   const { default: rehypePrettyCode } = await import('rehype-pretty-code');
+  const { visit } = await import('unist-util-visit');
+
+  async function getOrCreateHighlighter() {
+    if (highlighter) {
+      return highlighter;
+    }
+    highlighter = await getHighlighter({ theme: 'css-variables' });
+    return highlighter;
+  }
 
   return {
     plugins: [
@@ -20,10 +31,22 @@ export default defineConfig(async () => {
           providerImportSource: '~/_state/MDXProvider',
           recmaPlugins: [recmaProvideComponents],
           rehypePlugins: [
+            () => (tree) => {
+              visit(tree, (node) => {
+                if (node?.type === 'element' && node?.tagName === 'pre') {
+                  const [codeEl] = node.children;
+                  if (codeEl.tagName !== 'code') {
+                    return;
+                  }
+
+                  node.__rawString__ = codeEl.children?.[0].value;
+                }
+              });
+            },
             [
               rehypePrettyCode,
               {
-                getHighlighter: getHighlighter({ theme: 'css-variables' }),
+                getHighlighter: getOrCreateHighlighter,
                 onVisitLine(node: any) {
                   // Prevent lines from collapsing in `display: grid` mode, and allow empty
                   // lines to be copy/pasted
@@ -44,6 +67,22 @@ export default defineConfig(async () => {
                 },
               },
             ],
+            () => (tree) => {
+              visit(tree, (node) => {
+                if (node?.type === 'element' && node?.tagName === 'div') {
+                  if (!('data-rehype-pretty-code-fragment' in node.properties)) {
+                    return;
+                  }
+
+                  const preElement = node.children.at(-1);
+                  if (preElement.tagName !== 'pre') {
+                    return;
+                  }
+
+                  preElement.properties['__rawString__'] = node.__rawString__;
+                }
+              });
+            },
           ],
         },
       }),

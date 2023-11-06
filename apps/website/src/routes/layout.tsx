@@ -5,7 +5,6 @@ import { ComponentsStatusesMap, statusByComponent } from '../_state/component-st
 import { KitName } from '../_state/kit-name.type';
 import docsStyles from './docs.css?inline';
 import { useSelectedKit } from './docs/use-selected-kit';
-import prismStyles from './prism.css?inline';
 
 import '@fontsource-variable/inter';
 import { Header } from '~/components/header';
@@ -14,7 +13,6 @@ import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 
 export default component$(() => {
-  useStyles$(prismStyles);
   useStyles$(docsStyles);
 
   const { menuItemsGroups } = useKitMenuItems();
@@ -22,8 +20,8 @@ export default component$(() => {
   return (
     <>
       <Header showBottomBorder={true} showVersion={true} />
-      <MDXProvider components={components}>
-        <QwikUIProvider>
+      <QwikUIProvider>
+        <MDXProvider components={components}>
           <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl grid">
             <DocsNavigation linksGroups={menuItemsGroups} />
             <main class="docs [grid-area:main]">
@@ -32,8 +30,8 @@ export default component$(() => {
             {/* future table of contents */}
             <div class="hidden [grid-area:toc]"></div>
           </div>
-        </QwikUIProvider>
-      </MDXProvider>
+        </MDXProvider>
+      </QwikUIProvider>
     </>
   );
 });

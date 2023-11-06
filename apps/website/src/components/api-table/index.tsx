@@ -9,7 +9,7 @@ type APITableProps = {
   }[];
 };
 
-export const APITable = component$(({ propDescriptors }: APITableProps) => {
+export const APITable = component$<APITableProps>(({ propDescriptors }) => {
   return (
     <div class="overflow-auto">
       <table class="mb-6 w-full min-w-[540px] border-b border-slate-200 text-left dark:border-slate-800 sm:min-w-full">

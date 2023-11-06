@@ -1,3 +1,5 @@
+import { component$ } from '@builder.io/qwik';
+
 type AnatomyTableProps = {
   propDescriptors: {
     name: string;
@@ -6,7 +8,7 @@ type AnatomyTableProps = {
   }[];
 };
 
-export const AnatomyTable = component$$(({ propDescriptors }: AnatomyTableProps) => {
+export const AnatomyTable = component$<AnatomyTableProps>(({ propDescriptors }) => {
   return (
     <div class="overflow-auto">
       <table class="w-full max-w-full text-left">

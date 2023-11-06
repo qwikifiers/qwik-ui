@@ -10,61 +10,7 @@ title: Qwik UI | Accordion
 A stacked set of interactive headings which reveal or hide their associated content.
 
 
-<ComponentPreview name="accordion-hero" />
-{/* <HeroAccordion>
-  ```tsx
-  <AccordionRoot class="accordion-wrapper" animated>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Can I add headings inside the accordion?</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          Yes, if you wrap the AccordionHeader component around the trigger,
-          screen readers will announce it properly.
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Is it easy to animate?</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          Yup! You can even use animations or CSS transitions using the{' '}
-          <strong>animated</strong> prop on the accordion root!
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>How about opening multiple items at once?</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          You can do that by setting the <strong>behavior</strong> prop to
-          "multi" on the Accordion
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
-  ```
-</HeroAccordion> */}
+<Example name="accordion/hero" />
 
 Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
 
@@ -88,7 +34,6 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 
 ## Building blocks
 
-  {/* <CodeExample>
   ```tsx
   import { component$ } from '@builder.io/qwik';
   import { 
@@ -111,14 +56,11 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
       </AccordionRoot>
     )
   });
-  ```
+```
 
-  </CodeExample> */}
-
-<br />
 ### 🎨 Anatomy
 
-{/* <AnatomyTable
+<AnatomyTable
   propDescriptors={[
     {
       name: 'AccordionRoot',
@@ -141,67 +83,12 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
       description: `Contains the content associated with an item when clicking on its respective trigger.`,
     },
   ]}
-/> */}
+/>
 
-<br />
 
 ## Multiple items
 
-{/* <MultiAccordion>
-  ```tsx
-  <AccordionRoot behavior="mutli" class="accordion-wrapper" animated>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Can I style content based on the trigger state?</span>
-          <span>
-            <p class="plus-styles">+</p>
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          100%. The trigger has a [data-state] selector that can be styled when equal to the open or closed values. 
-                
-          For example, [data-state="open"]
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>What about applying attributes?</span>
-          <span>
-            <p class="plus-styles">+</p>
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          It's typed using QwikIntrinsicElements, meaning you can treat it like
-          an element!
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>How about using event handlers?</span>
-          <span>
-            <p class="plus-styles">+</p>
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          You can use onClick$, onKeyDown$, any handlers you'd normally use with
-          Qwik!
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
-  ```
-</MultiAccordion> */}
+<Example name="accordion/multi" />
 
 ### Animations
 
@@ -215,110 +102,13 @@ The variable calculates the content height behind the scenes, so that you can us
 
 ## Non-collapsible
 
-{/* <NonCollapsibleAccordion>
-  ```tsx
-  <AccordionRoot class="accordion-wrapper" animated={true} collapsible={false}>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>How do I turn off collapsing?</span>
-          <span>
-            <p class="plus-styles">+</p>
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>You can turn it off by setting the collapsible prop to false.</p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Can it be dynamic?</span>
-          <span>
-            <p class="plus-styles">+</p>
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>Yes, there's a dynamic section further below.</p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Can it be dynamic?</span>
-          <span>
-            <p class="plus-styles">+</p>
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          Of course! You can also use the onFocusIndexChange$ and
-          onSelectedIndexChange$ custom events.
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
-  ```
-</NonCollapsibleAccordion> */}
+<Example name="accordion/non-collapsible" />
 
 By default, the <strong>collapsible</strong> prop is set to true. You can revert this behavior by setting it to false in the Accordion Root component.
 
 ## Disabled
 
-{/* <DisabledAccordion>
-  ```tsx
-  <AccordionRoot class="accordion-wrapper">
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>I'm enabled!</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          Hey, I'm enabled! This is because I don't use the disabled prop on the
-          trigger.
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>I'm enabled!</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          Hey, I'm enabled! This is because I don't use the disabled prop on the
-          trigger.
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger" disabled={true}>
-          <span>I'm disabled!</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>You can't view this content!</p>
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
-  ```
-</DisabledAccordion> */}
+<Example name="accordion/disabled"/>
 
 When disabling an accordion trigger, you're adding the default disabled browser behavior, along with removing the element from the focus order.
 
@@ -326,54 +116,7 @@ Any disabled elements will be skipped over when using tab or the `Up Arrow` and 
 
 ## Default Value
 
-{/* <DefaultValueAccordion>
-  ```tsx
-  <AccordionRoot class="accordion-wrapper">
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Not open by default.</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>I wasn't open by default!</p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem defaultValue={true}>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>I'm open!</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          You can open me by default by putting the defaultValue prop on the
-          Accordion Item.
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Not open by default.</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>I wasn't open by default!</p>
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
-  ```
-</DefaultValueAccordion> */}
+<Example name="accordion/default-value" />
 
 You can make the accordion items uncontrolled by adding the **defaultValue** prop on the items. This will open an accordion item without user interaction, and can be used on both type single and multi accordions.
 
@@ -381,173 +124,19 @@ You can make the accordion items uncontrolled by adding the **defaultValue** pro
 
 ## Custom Heading Label
 
-{/* <PolymorphicHeadingAccordion>
-  ```tsx
-  <AccordionRoot class="accordion-wrapper">
-    <AccordionItem>
-      <AccordionHeader as="h4">
-        <AccordionTrigger class="accordion-trigger">
-          <span>I'm an h4</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>My Heading is an h4!</p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader as="h5">
-        <AccordionTrigger class="accordion-trigger">
-          <span>I'm an h5</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>My Heading is an h5!</p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader as="h6">
-        <AccordionTrigger class="accordion-trigger">
-          <span>I'm an h6</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>My Heading is an h6!</p>
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
-  ```
-</PolymorphicHeadingAccordion> */}
+<Example name="accordion/custom-heading" />
 
 By default, when using the `AccordionHeader` component, it's rendered as an `h3` tag. You can render your heading of choice by using the **as** prop.
 
 ## Selected Index
 
-{/* <OnSelectedIndexChange>
-  ```tsx
-  const selectedIndexSig = useSignal(0);
-
-<AccordionRoot class="accordion-wrapper" 
-  onSelectedIndexChange$={(index) => {
-    selectedIndexSig.value = index;
-  }}>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Can I contribute to Qwik UI?</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          Absolutely! You can reach out to us in the Qwikifiers discord.
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>How many people are learning Qwik?</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          According to the 2023 stack overflow survey, it's close to the amount of people learning Remix already!
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>What's the Qwikifiers discord?</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          A group of active contributors in the Qwik ecosystem!
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
-```
-</OnSelectedIndexChange> */}
+<Example name="accordion/selected-index" />
 
 `onSelectedIndexChange$` will keep track of the current selected index. It can be useful for when you want to programmatically change something based on a user's interaction.
 
 ## Focused Index
 
-{/* <OnFocusIndexChange>
-```tsx
-  const focusedIndexSig = useSignal(0);
-
-  <AccordionRoot class="accordion-wrapper" 
-  onFocusIndexhange$={(index) => {
-    focusIndexSig.value = index;
-  }}>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Is Qwik Production Ready?</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          Yes! Since 1.0 back in May, Qwik apps are great for production.
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Why is Qwik so fast?</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          Because you're doing less work! Thanks to resumability we execute JavaScript on interaction.
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>What if I want to use React?</span>
-          <span>
-            <SVG />
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          Check out Qwik-React! It allows you to partially hydrate React components into your Qwik app.
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
-```
-</OnFocusIndexChange> */}
+<Example name="accordion/focused-index" />
 
 `onFocusIndexChange$` will keep track of the current focused index. It can be useful for when you want to programmatically change something based on what the user focuses.
 
@@ -555,80 +144,7 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
 
 ## Dynamic
 
-{/* <DynamicAccordion>
-  ```tsx
-    export const DynamicAccordion = component$(
-    ({ itemsLength = 3}: DynamicAccordionProps) => {
-
-    const itemIndexToAdd = useSignal<string>('0');
-    const itemIndexToDelete = useSignal<string>('0');
-
-    // start off with some items
-    const items = [];
-    const newItem = { label: 'New Item', id: Math.random() };
-    
-    for(let i = 0; i < itemsLength; i++) {
-      items.push({
-          label: `Original Item ${i + 1}`,
-          id: Math.random()
-      });
-    }
-
-    const itemStore = useStore<{ label: string, id: number }[]>(items);
-
-    return (
-    <div>
-      <label>
-        <input bind:value={itemIndexToAdd} />
-        <span>Index to Add</span> 
-      </label>
-      
-      <label>
-        <input bind:value={itemIndexToDelete} />
-        <span>Index to Delete</span>
-      </label>
-    </div>
-
-    <AccordionRoot class="dynamic-root">
-      {itemStore.map(({label, id}, index) => {
-        return (
-          <AccordionItem id={`${id}`} key={id}>
-            <AccordionHeader>
-              <AccordionTrigger class="dynamic-trigger">
-                {label}
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionContent class="dynamic-content">index: {index}</AccordionContent>
-          </AccordionItem>
-        );
-      })}
-    </AccordionRoot>
-    <div>
-      <button
-        style={{ color: 'green', marginTop: '1rem' }}
-        onClick$={() => {
-          if (itemStore.length > 2) {
-            itemStore.splice(parseInt(itemIndexToAdd.value), 1);
-          }
-        }}
-      >
-        <strong>Add Item</strong>
-      </button>
-      <button
-        style={{ color: 'red', marginTop: '1rem' }}
-        onClick$={() => {
-          if (itemStore.length < 6) {
-            itemStore.splice(parseInt(itemIndexToAdd.value), 0, newItem);
-          }
-        }}
-      >
-        <strong>Remove Item</strong>
-      </button>
-    </div>
-    )}
-  );
-```
-</DynamicAccordion> */}
+<Example name="accordion/dynamic" />
 
 You can embrace reactivity, using signals, stores, and however else you'd like to use the Accordion with dynamic behavior.
 
@@ -646,7 +162,7 @@ By default, the Accordion Item has a locally scoped id with Qwik's `useId` hook.
 
 ### Keyboard interaction
 
-{/* <KeyboardInteractionTable keyDescriptors={
+<KeyboardInteractionTable keyDescriptors={
 [
   {
     keyTitle: 'Tab',
@@ -678,13 +194,13 @@ By default, the Accordion Item has a locally scoped id with Qwik's `useId` hook.
   },
 
 ]
-}/> */}
+}/>
 
 ## API
 
 ### Accordion Root
 
-{/* <APITable
+<APITable
 propDescriptors={[
   {
     name: 'behavior',
@@ -718,13 +234,11 @@ propDescriptors={[
       'An event hook that gets notified whenever the focus index changes.',
   },
 ]}
-/> */}
-
-<br />
+/>
 
 ### Accordion Item
 
-{/* <APITable
+<APITable
 propDescriptors={[
   {
     name: 'id',
@@ -739,13 +253,11 @@ propDescriptors={[
       'Determines whether the Accordion Item will open by default.',
   },
 ]}
-/> */}
-
-<br />
+/>
 
 ### Accordion Header
 
-{/* <APITable
+<APITable
 propDescriptors={[
   {
     name: 'as',
@@ -755,15 +267,13 @@ propDescriptors={[
       'Sets the heading tag of the Accordion Header (Rendered HTML)',
   },
 ]}
-/> */}
-
-<br />
+/>
 
 ### Common Built-in Props
 
 Thanks to `QwikIntrinsicAttributes` , you can use most if not all normal JSX props and handlers on the semantically correlated component. Here are some of the most common ones:
 
-{/* <APITable
+<APITable
 propDescriptors={[
   {
     name: 'class',
@@ -802,5 +312,4 @@ propDescriptors={[
       'A custom click handler that executes when element is focused.',
   },
 ]}
-/> */}
-```
+/>

@@ -1,9 +1,12 @@
 import { Component, QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
 
-import { ComponentPreview } from '~/components/component-preview';
 import { OmitSignalClass } from '@qwik-ui/utils';
-import { CodeCopy } from '../code-copy';
 import { StatusBanner } from '../status-banner';
+import { CodeCopy } from '../code-copy';
+import { Example } from '../example';
+import { AnatomyTable } from '../anatomy-table';
+import { KeyboardInteractionTable } from '../keyboard-interaction-table';
+import { APITable } from '../api-table';
 
 export const components: Record<string, Component<any>> = {
   h1: component$<OmitSignalClass<QwikIntrinsicElements['pre']>>(({ ...props }) => (
@@ -114,31 +117,51 @@ export const components: Record<string, Component<any>> = {
       <Slot />
     </td>
   )),
-  pre: component$<OmitSignalClass<QwikIntrinsicElements['pre']>>(({ ...props }) => {
+  pre: component$<
+    OmitSignalClass<
+      QwikIntrinsicElements['pre'] & {
+        __rawString__?: string;
+      }
+    >
+  >(({ __rawString__, ...props }) => {
     return (
-      <pre
-        {...props}
-        class={[
-          'relative mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-lg border bg-zinc-950 px-2 py-4 dark:bg-zinc-900',
-          props.class,
-        ]}
-      >
-        <Slot />
-
-        <CodeCopy class={['absolute right-4 top-4']} />
-      </pre>
+      <div class="code-example relative max-h-[31.25rem] rounded-b-xl">
+        <CodeCopy
+          class={[
+            'copy-btn-bg-dark absolute right-4 top-4 bg-slate-200 text-white hover:bg-slate-600 hover:text-white',
+          ]}
+          code={__rawString__}
+        />
+        <div
+          {...props}
+          class={[
+            'tab-size code-example-gradient max-h-[31.25rem] max-w-full overflow-auto rounded-xl bg-slate-800 p-6 text-sm dark:bg-slate-800',
+            props.class,
+          ]}
+        >
+          <pre>
+            <Slot />
+          </pre>
+        </div>
+      </div>
     );
   }),
   code: component$<OmitSignalClass<QwikIntrinsicElements['code']>>(({ ...props }) => {
     return (
       <code
         {...props}
-        class={['rounded px-[0.3rem] py-[0.2rem] font-mono text-sm', props.class]}
+        class={[
+          'rounded bg-transparent px-[0.3rem] py-[0.2rem] font-mono text-sm',
+          props.class,
+        ]}
       >
         <Slot />
       </code>
     );
   }),
-  ComponentPreview,
+  AnatomyTable: AnatomyTable as Component<any>,
+  APITable: APITable as Component<any>,
+  KeyboardInteractionTable: KeyboardInteractionTable as Component<any>,
+  Example,
   StatusBanner,
 };
