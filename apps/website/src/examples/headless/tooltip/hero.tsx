@@ -13,9 +13,6 @@ export default component$(() => {
           <span class="text-white">Hover over me!</span>
         </Tooltip>
       </div>
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
     </>
   );
 });

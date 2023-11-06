@@ -64,10 +64,6 @@ export default component$(() => {
           </AccordionItem>
         </AccordionRoot>
       </div>
-
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
     </>
   );
 });

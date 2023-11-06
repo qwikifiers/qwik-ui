@@ -1,4 +1,4 @@
-import { component$, Slot, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import {
   AutocompleteControl,
   AutocompleteInput,
@@ -76,10 +76,6 @@ export default component$(() => {
         >
           Change them
         </button>
-      </div>
-
-      <div q:slot="codeExample">
-        <Slot />
       </div>
     </>
   );

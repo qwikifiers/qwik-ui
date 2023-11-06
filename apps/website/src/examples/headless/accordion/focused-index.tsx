@@ -78,10 +78,6 @@ export default component$(() => {
           Focused Index: {focusedIndexSig.value === -1 ? 'X' : focusedIndexSig.value}
         </p>
       </div>
-
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
     </>
   );
 });

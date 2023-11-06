@@ -1,4 +1,4 @@
-import { component$, Slot } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import {
   AccordionContent,
   AccordionHeader,
@@ -66,10 +66,6 @@ export default component$(() => {
             </AccordionContent>
           </AccordionItem>
         </AccordionRoot>
-      </div>
-
-      <div q:slot="codeExample">
-        <Slot />
       </div>
     </>
   );

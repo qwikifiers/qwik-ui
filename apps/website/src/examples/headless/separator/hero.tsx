@@ -42,10 +42,6 @@ export default component$(() => {
           </menu>
         </div>
       </div>
-
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
     </>
   );
 });

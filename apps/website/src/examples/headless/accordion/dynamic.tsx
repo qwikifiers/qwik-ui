@@ -1,4 +1,4 @@
-import { component$, Slot, useSignal, useStore } from '@builder.io/qwik';
+import { component$, useSignal, useStore } from '@builder.io/qwik';
 import {
   AccordionContent,
   AccordionHeader,
@@ -91,10 +91,6 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
             <strong>Remove Item</strong>
           </button>
         </div>
-      </div>
-
-      <div q:slot="codeExample">
-        <Slot />
       </div>
     </>
   );

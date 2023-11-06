@@ -77,10 +77,6 @@ export default component$(() => {
           Selected Index: {selectedIndexSig.value === -1 ? 'X' : selectedIndexSig.value}
         </p>
       </div>
-
-      <div q:slot="codeExample">
-        <Slot />
-      </div>
     </>
   );
 });
