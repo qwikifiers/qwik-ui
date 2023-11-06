@@ -72,7 +72,7 @@ pnpm install
 pnpm install --global nx@latest
 ```
 
-- Then run this command to run the qwik-ui docs site in dev mode:
+- Then run this command to get the qwik-ui documentation site in dev mode:
 
 ```shell
 pnpm website
