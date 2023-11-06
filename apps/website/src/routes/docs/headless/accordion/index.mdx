@@ -10,7 +10,7 @@ title: Qwik UI | Accordion
 A stacked set of interactive headings which reveal or hide their associated content.
 
 
-<Example name="accordion/hero" />
+<Example name="hero" />
 
 Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
 
@@ -88,7 +88,7 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 
 ## Multiple items
 
-<Example name="accordion/multi" />
+<Example name="multi" />
 
 ### Animations
 
@@ -102,13 +102,13 @@ The variable calculates the content height behind the scenes, so that you can us
 
 ## Non-collapsible
 
-<Example name="accordion/non-collapsible" />
+<Example name="non-collapsible" />
 
 By default, the <strong>collapsible</strong> prop is set to true. You can revert this behavior by setting it to false in the Accordion Root component.
 
 ## Disabled
 
-<Example name="accordion/disabled"/>
+<Example name="disabled"/>
 
 When disabling an accordion trigger, you're adding the default disabled browser behavior, along with removing the element from the focus order.
 
@@ -116,7 +116,7 @@ Any disabled elements will be skipped over when using tab or the `Up Arrow` and 
 
 ## Default Value
 
-<Example name="accordion/default-value" />
+<Example name="default-value" />
 
 You can make the accordion items uncontrolled by adding the **defaultValue** prop on the items. This will open an accordion item without user interaction, and can be used on both type single and multi accordions.
 
@@ -124,19 +124,19 @@ You can make the accordion items uncontrolled by adding the **defaultValue** pro
 
 ## Custom Heading Label
 
-<Example name="accordion/custom-heading" />
+<Example name="custom-heading" />
 
 By default, when using the `AccordionHeader` component, it's rendered as an `h3` tag. You can render your heading of choice by using the **as** prop.
 
 ## Selected Index
 
-<Example name="accordion/selected-index" />
+<Example name="selected-index" />
 
 `onSelectedIndexChange$` will keep track of the current selected index. It can be useful for when you want to programmatically change something based on a user's interaction.
 
 ## Focused Index
 
-<Example name="accordion/focused-index" />
+<Example name="focused-index" />
 
 `onFocusIndexChange$` will keep track of the current focused index. It can be useful for when you want to programmatically change something based on what the user focuses.
 
@@ -144,7 +144,7 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
 
 ## Dynamic
 
-<Example name="accordion/dynamic" />
+<Example name="dynamic" />
 
 You can embrace reactivity, using signals, stores, and however else you'd like to use the Accordion with dynamic behavior.
 

@@ -7,6 +7,7 @@ import { Example } from '../example';
 import { AnatomyTable } from '../anatomy-table';
 import { KeyboardInteractionTable } from '../keyboard-interaction-table';
 import { APITable } from '../api-table';
+import { CodeSnippet } from '../code-snippet';
 
 export const components: Record<string, Component<any>> = {
   h1: component$<OmitSignalClass<QwikIntrinsicElements['pre']>>(({ ...props }) => (
@@ -161,6 +162,7 @@ export const components: Record<string, Component<any>> = {
   }),
   AnatomyTable: AnatomyTable as Component<any>,
   APITable: APITable as Component<any>,
+  CodeSnippet,
   KeyboardInteractionTable: KeyboardInteractionTable as Component<any>,
   Example,
   StatusBanner,

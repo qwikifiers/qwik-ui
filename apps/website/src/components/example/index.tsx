@@ -10,12 +10,14 @@ import styles from './index.css?inline';
 
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { Highlight } from '../highlight';
+import { useLocation } from '@builder.io/qwik-city';
+import { removeDocsFromPath } from '~/lib/utils';
 
-const components = import.meta.glob('/src/examples/headless/**/*', {
+const components = import.meta.glob('/src/examples/**/**/*', {
   import: 'default',
 });
 
-const componentsRaw = import.meta.glob('/src/examples/headless/**/*', {
+const componentsRaw = import.meta.glob('/src/examples/**/**/*', {
   as: 'raw',
 });
 
@@ -24,7 +26,10 @@ type ExampleProps = QwikIntrinsicElements['div'] & {
 };
 
 export const Example = component$<ExampleProps>(({ name, ...props }) => {
-  const componentPath = `/src/examples/headless/${name}.tsx`;
+  const location = useLocation();
+
+  const dynamicPath = removeDocsFromPath(location.url.pathname);
+  const componentPath = `/src/examples/${dynamicPath}${name}.tsx`;
 
   const Component = useSignal<Component<any>>();
   const ComponentRaw = useSignal<string>();
@@ -32,9 +37,6 @@ export const Example = component$<ExampleProps>(({ name, ...props }) => {
   useTask$(async () => {
     Component.value = (await components[componentPath]()) as Component<any>;
     ComponentRaw.value = (await componentsRaw[componentPath]()) as string;
-
-    console.log('Component.value', Component.value);
-    console.log('ComponentRaw.value', ComponentRaw.value);
   });
 
   useStyles$(styles);
