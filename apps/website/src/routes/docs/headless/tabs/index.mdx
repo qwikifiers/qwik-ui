@@ -2,35 +2,23 @@
 title: Qwik UI | Tabs
 ---
 
-import {
-  KeyboardInteractionTable,
-  APITable,
-  StatusBanner,
-  statusByComponent,
-  ShortExample,
-  LongExample,
-  ShowExample
-} from './exports';
-
-<StatusBanner status={statusByComponent.headless.Tabs}/> 
+<StatusBanner status={'Beta'} />
 
 # Tabs
 
 Explore and switch between different views using tabs
 
-
-
-<ShowExample example="first"/>
+<Example name="hero" />
 
 ## Building blocks
 
 ### The full version
 
-<LongExample/>
+<CodeSnippet name="snippets/long" />
 
 ### The short version
 
-<ShortExample/>
+<CodeSnippet name="snippets/short" />
 
 > The "short version" 👆 will be automatically transformed into the full ARIA compliant version
 
@@ -38,13 +26,13 @@ Explore and switch between different views using tabs
 
 by default, the tabs are horizontal, but you can adjust the underlying behavior to be vertical by setting the `vertical` prop to true.
 
-<ShowExample example="vertical"/>
+<Example name="vertical" />
 
 ## Disabled
 
 You can disable a tab by setting the `disabled` prop to true.
 
-<ShowExample example="disabled"/> 
+<Example name="disabled" />
 
 ## Behavior
 
@@ -52,23 +40,23 @@ You can disable a tab by setting the `disabled` prop to true.
 
 The default behavior of the tabs is manual, which means that the tabs will automatically switch to the next tab when the user hovers over the tab. You can change this behavior by setting the `behavior` prop to `automatic`.
 
-<ShowExample example="automatic"/> 
+<Example name="automatic" />
 
 ### Manual
 
 You can set the behavior to manual, which means that the tabs will not automatically switch to the next tab when the user presses the right arrow key, and to the previous tab when the user presses the left arrow key.
 
-<ShowExample example="manual"/> 
+<Example name="manual" />
 
 ## Dynamic
 
-<ShowExample example="dynamic"/> 
+<Example name="dynamic" />
 
 ## onSelectedIndexChange$
 
 You can listen to changes in the selected index by subscribing to the `onSelectedIndexChange$` store.
 
-<ShowExample example="onSelectedIndexChange"/> 
+<Example name="on-selected-index-change" />
 
 ## bind:selectedIndex
 
@@ -76,26 +64,24 @@ You can provide a signal for the selected index with the `bind:selectedIndex={yo
 
 ## bind:selectedTabId
 
-You can provide a signal for the selected tab id with the `bind:selectedTabId={yourSignal}` 
-and it will be used directly. 
+You can provide a signal for the selected tab id with the `bind:selectedTabId={yourSignal}`
+and it will be used directly.
 
 💡 You can manually set the `tabId` prop on each tab to be able to select any tab by its ID.
 
-
-<ShowExample example="selectedTabId"/> 
-
+<Example name="selected-tab-id" />
 
 ## Add a "selected" prop
 
 You can add a "selected" prop to the Tab component to make it selected by default.
 
-<ShowExample example="selectedProp"/> 
+<Example name="selected-prop" />
 
-## onClick$
+## Tabs onClick$
 
-You can pass a custom `onClick$` handler.
+You can pass a custom `onClick$` handler to the Tabs component.
 
-<ShowExample example="onClick"/> 
+<Example name="on-click-tabs" />
 
 ## Accessibility
 
@@ -166,7 +152,8 @@ You can pass a custom `onClick$` handler.
     {
       name: 'selectedTabId',
       type: 'number',
-      description: 'A way to set the selected tabId programmatically. The tabId is set by the `key` prop of the Tab or TabPanel',
+      description:
+        'A way to set the selected tabId programmatically. The tabId is set by the `key` prop of the Tab or TabPanel',
     },
     {
       name: 'vertical',
@@ -178,15 +165,13 @@ You can pass a custom `onClick$` handler.
       name: 'onSelectedIndexChange$',
       type: 'function',
       info: '(index: number) => void',
-      description:
-        'An event hook that gets notified whenever the selected index changes',
+      description: 'An event hook that gets notified whenever the selected index changes',
     },
     {
       name: 'onSelectedTabIdChange$',
       type: 'function',
       info: '(index: string) => void',
-      description:
-        'An event hook that gets notified whenever the selected tabId changes',
+      description: 'An event hook that gets notified whenever the selected tabId changes',
     },
     {
       name: 'bind:selectedIndex',
@@ -237,7 +222,8 @@ You can pass a custom `onClick$` handler.
     {
       name: 'tabId',
       type: 'string',
-      description: 'Set the tab id, can be used with `bind:selectedTabId` to select a tab programmatically',
+      description:
+        'Set the tab id, can be used with `bind:selectedTabId` to select a tab programmatically',
     },
   ]}
 />
