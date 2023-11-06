@@ -100,122 +100,64 @@ export const Pagination = component$<PaginationProps>(
     });
 
     return (
-      <>
-        <div style={{ display: 'flex', alignItems: 'center', gap: gap }}>
-          {/* PREV BUTTON */}
-          <button
-            type="button"
-            aria-label={'prevAriaLabel'}
-            disabled={selectedPage <= 1}
-            onClick$={() => {
-              if (selectedPage > 1) {
-                onPageChange$(selectedPage - 1);
-              }
-            }}
-          >
-            <Slot name="prefix" />
-            <span>PREV</span>
-          </button>
+      <nav
+        role="navigation"
+        aria-label="pagination"
+        data-testid="pagination"
+        style={{ display: 'flex', alignItems: 'center', gap: gap }}
+      >
+        {/* PREV BUTTON */}
+        <button
+          type="button"
+          aria-label={'prevAriaLabel'}
+          disabled={selectedPage <= 1}
+          onClick$={() => {
+            if (selectedPage > 1) {
+              onPageChange$(selectedPage - 1);
+            }
+          }}
+        >
+          <Slot name="prefix" />
+          <span>PREV</span>
+        </button>
 
-          {visibleItems.value.map((item: string | number, index: number) => {
-            return (
-              <span key={index}>
-                {typeof item === 'string' ? (
-                  <button class={dividerClass}>...</button>
-                ) : (
-                  <button
-                    class={[selectedPage === item ? selectedClass : defaultClass]}
-                    type="button"
-                    aria-label={`Page ${item} of ${totalPages}`}
-                    aria-current={selectedPage === item}
-                    onClick$={() => {
-                      onPageChange$(item);
-                    }}
-                  >
-                    {item}
-                  </button>
-                )}
-              </span>
-            );
-          })}
+        {visibleItems.value.map((item: string | number, index: number) => {
+          return (
+            <span key={index}>
+              {typeof item === 'string' ? (
+                <button class={dividerClass}>...</button>
+              ) : (
+                <button
+                  class={[selectedPage === item ? selectedClass : defaultClass]}
+                  type="button"
+                  aria-label={`Page ${item} of ${totalPages}`}
+                  aria-current={selectedPage === item}
+                  onClick$={() => {
+                    onPageChange$(item);
+                  }}
+                >
+                  {item}
+                </button>
+              )}
+            </span>
+          );
+        })}
 
-          {/* NEXT BUTTON */}
-          <button
-            type="button"
-            aria-label={'nextAriaLabel'}
-            disabled={selectedPage >= totalPages}
-            onClick$={() => {
-              if (selectedPage < totalPages) {
-                onPageChange$(selectedPage + 1);
-              }
-            }}
-          >
-            <span>NEXT</span>
-            <Slot name="suffix" />
-          </button>
-        </div>
-
-        {/*
-          PREVIOUS IMPLEMENTATION
-          It display all items
-        */}
-        {/*
-        <nav role="navigation" aria-label="pagination" data-testid="pagination">
-          <button
-            type="button"
-            aria-label={'prevAriaLabel'}
-            disabled={selectedPage <= 1}
-            onClick$={() => {
-              if (selectedPage !== 1) {
-                onPageChange$(selectedPage - 1);
-              }
-            }}
-          >
-            <Slot name="prefix" />
-            <span>PREV</span>
-          </button>
-
-          <ul style={{ display: 'flex', gap: gap }}>
-            {[...new Array(totalPages + 1).keys()].map((page: number) => {
-              if (page === 0) return null;
-              return (
-                <li key={page}>
-                  <div>
-                    <button
-                      class={{
-                        defaultClass,
-                        [selectedClass || '']: selectedPage === page,
-                      }}
-                      type="button"
-                      aria-label={`Page ${page} of ${totalPages}`}
-                      aria-current={selectedPage === page}
-                      onClick$={() => {
-                        onPageChange$(page);
-                      }}
-                    >
-                      {page}
-                    </button>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-          <button
-            type="button"
-            aria-label={'nextAriaLabel'}
-            disabled={selectedPage >= totalPages}
-            onClick$={() => {
-              if (selectedPage < totalPages) {
-                onPageChange$(selectedPage + 1);
-              }
-            }}
-          >
-            <span>NEXT</span>
-            <Slot name="suffix" />
-          </button>
-        </nav>
-        */}
-      </>
+        {/* NEXT BUTTON */}
+        <button
+          type="button"
+          aria-label={'nextAriaLabel'}
+          disabled={selectedPage >= totalPages}
+          onClick$={() => {
+            if (selectedPage < totalPages) {
+              onPageChange$(selectedPage + 1);
+            }
+          }}
+        >
+          <span>NEXT</span>
+          <Slot name="suffix" />
+        </button>
+      </nav>
     );
   },
 );
