@@ -66,31 +66,63 @@ git checkout -b my-fix-branch main
 pnpm install
 ```
 
-- Then run this command:
+- Download [Nx](https://nx.dev/):
 
 ```shell
-npx nx@latest serve website
+pnpm install --global nx@latest
+```
+
+- Then run this command to run the qwik-ui docs site in dev mode:
+
+```shell
+pnpm website
 ```
 
 - Visit the URL printed in the console and you'll have a page opened with the suite of widgets.
 
 - Once you made some changes in either package (`headless`, `tailwind` or `material`), you will see them immediately reflected on the page.
 
-### ▶ 5. Make sure you add / modify tests
+Below is a list of other commands that you might find useful:
 
-Run either command to make sure there aren't any errors:
+- Build the qwik-ui documentation:
 
 ```shell
-nx component-test headless
+nx build website
+```
+
+- Preview of the qwik-ui documentation (no HMR):
+
+```shell
+nx preview website
+```
+
+- Build the Cloudfare version of the qwik-ui documentation
+
+```shell
+nx build-cloudfare website
+```
+
+- Preview the Cloudfare build of the qwik-ui documentation (no HMR)
+
+```shell
+nx preview-cloudflare website
+```
+
+### ▶ 5. Make sure you add / modify tests
+
+Run either command to make sure there aren't any errors.
+
+```shell
+nx component-test headless --skip-nx-cache
 ```
 
 Or
 
 ```shell
-pnpm run test:headless
+pnpm run test:headless --skip-nx-cache
 ```
 
-Both commands run the same tests. You are free to choose which syntax you prefer.
+Both commands will set up the Cypress component testing GUI, so you are free to chose which syntax you prefer. Please refer to official Cypress [documentation](https://docs.cypress.io/guides/overview/why-cypress) for further assistance.
 <br/>
 
 ### ▶ 6. Commit your changes using commitizen:
@@ -130,13 +162,13 @@ If you need to update your PR for some reason -
 - Re-run the tests to ensure tests are still passing:
 
 ```shell
-nx component-test headless
+nx component-test headless --skip-nx-cache
 ```
 
 Or
 
 ```shell
-pnpm run test:headless
+pnpm run test:headless --skip-nx-cache
 ```
 
 - Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
