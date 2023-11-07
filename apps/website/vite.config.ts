@@ -20,6 +20,13 @@ export default defineConfig(async () => {
   }
 
   return {
+    build: {
+      rollupOptions: {
+        output: {
+          chunkFileNames: '[name]-[hash].mjs',
+        },
+      },
+    },
     plugins: [
       qwikCity({
         mdxPlugins: {

@@ -165,7 +165,7 @@ export const components: Record<string, Component<any>> = {
   APITable: APITable as Component<any>,
   CodeSnippet: CodeSnippet as Component<any>,
   Example,
-  InstallExample: InstallExample,
+  InstallExample,
   KeyboardInteractionTable: KeyboardInteractionTable as Component<any>,
   StatusBanner,
 };
