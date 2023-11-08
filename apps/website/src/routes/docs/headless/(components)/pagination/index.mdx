@@ -11,9 +11,9 @@ import {
   statusByComponent,
   ShowExample,
   BackdropCss,
-  BuildingBlocksSnip,
   PageLoadSnip,
-  AnimationSnip
+  AnimationSnip,
+  Basics
 } from './exports';
 
 import testImage from '../../../../../../public/images/test-image.png'
@@ -22,9 +22,77 @@ import testImage from '../../../../../../public/images/test-image.png'
 
 # Pagination
 
+## ✨ Features
+
+- Pagination ranges
+- Custom Arrows
+- Custom Button Labels
+- Support custom styles (default, selected and divider)
+
 ## Interactive Example
 
 <ShowExample example="interactive" />
+
+
+### 🎨 Properties
+  <AnatomyTable
+  propDescriptors={[
+    {
+      name: 'selectedPage',
+      description: 'Current Page Index (start from 1)',
+    },
+    {
+      name: 'totalPages',
+      description: 'The total of available pages',
+    },
+    {
+      name: 'onPageChange$',
+      description: `Emitted when a button is clicked`,
+    },
+    {
+      name: 'siblingCount',
+      description: `set sibling items close to the selected value`,
+    },
+    {
+      name: 'boundaryCount',
+      description: `set adjacent items to the start and end page number`,
+    },
+    {
+      name: 'hidePrevButton',
+      description: `hide the previous button`,
+    },
+    {
+      name: 'hideNextButton',
+      description: `hide the next button`,
+    },
+    {
+      name: 'customArrowTexts',
+      description: `customize the PREVIOUS and NEXT button labels`,
+    },
+    {
+      name: 'gap',
+      description: `set the gap between items`,
+    },
+    {
+      name: 'wrapperClass',
+      description: `(TODO) allow to apply a custom class to the pagination wrapper `,
+    },
+    {
+      name: 'defaultClass',
+      description: `custom class for the pagination item`,
+    },
+    {
+      name: 'selectedClass',
+      description: `custom class for the selected item`,
+    },
+    {
+      name: 'dividerClass',
+      description: `custom class for the divider item`,
+    }
+  ]}
+/>
+
+
 
 ## Basic Example
 
@@ -33,3 +101,10 @@ import testImage from '../../../../../../public/images/test-image.png'
 ## Hide Next/Prev Buttons
 
 <ShowExample example="hidePrevNextButtons" />
+
+## Custom Button Labels
+
+<ShowExample example="customButtonLabels" />
+
+
+## TODO (Snippet di codice)

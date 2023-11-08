@@ -4,12 +4,8 @@ import { component$, Slot, useSignal, useTask$, useVisibleTask$ } from '@builder
 
 /**
  * TODO
- * show / hide PREV / NEXT buttons
- * customArrowTexts: { previous: '...', next: '... }
  * disabled: enable/disable paginator
- *
  */
-
 export interface PaginationProps {
   selectedPage: number;
   totalPages: number;
@@ -20,8 +16,9 @@ export interface PaginationProps {
   boundaryCount?: number;
   hidePrevButton?: boolean;
   hideNextButton?: boolean;
+  customArrowTexts?: { previous: string; next: string };
 
-  // styles
+  // styling
   class?: string;
   gap?: number | string;
   defaultClass?: string;
@@ -34,12 +31,16 @@ export const Pagination = component$<PaginationProps>(
     selectedPage,
     totalPages,
     onPageChange$,
-
+    // configuration
     siblingCount = 1,
     boundaryCount = 1,
     hidePrevButton = false,
     hideNextButton = false,
-
+    customArrowTexts: {
+      previous: previousButtonLabel = 'PREV',
+      next: nextButtonLabel = 'NEXT',
+    } = {},
+    // styling
     class: _class,
     gap = '10px',
     defaultClass,
@@ -65,7 +66,7 @@ export const Pagination = component$<PaginationProps>(
         data-testid="pagination"
         style={{ display: 'flex', alignItems: 'center', gap: gap }}
       >
-        {/* PREV BUTTON */}
+        {/* Prev Button */}
         {isPrevButtonVisible() && (
           <button
             type="button"
@@ -78,9 +79,11 @@ export const Pagination = component$<PaginationProps>(
             }}
           >
             <Slot name="prefix" />
-            <span>PREV</span>
+            <span>{previousButtonLabel}</span>
           </button>
         )}
+
+        {/* Button List */}
         {visibleItems.value.map((item: string | number, index: number) => {
           return (
             <span key={index}>
@@ -103,7 +106,7 @@ export const Pagination = component$<PaginationProps>(
           );
         })}
 
-        {/* NEXT BUTTON */}
+        {/* Next Button */}
         {isNextButtonVisible() && (
           <button
             type="button"
@@ -115,7 +118,7 @@ export const Pagination = component$<PaginationProps>(
               }
             }}
           >
-            <span>NEXT</span>
+            <span>{nextButtonLabel}</span>
             <Slot name="suffix" />
           </button>
         )}

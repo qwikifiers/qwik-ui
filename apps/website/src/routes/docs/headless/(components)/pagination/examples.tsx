@@ -1,3 +1,4 @@
+import CustomButtonLabels from '@/apps/website/src/routes/docs/headless/(components)/pagination/examples/customButtonLabels';
 import HidePrevNextButtons from '@/apps/website/src/routes/docs/headless/(components)/pagination/examples/hidePrevNextButtons';
 import { JSXNode, component$ } from '@builder.io/qwik';
 import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
@@ -7,6 +8,7 @@ import Interactive from './examples/interactive';
 import basicCode from './examples/basic?raw';
 import interactiveCode from './examples/interactive?raw';
 import hidePrevNextButtonsCode from './examples/hidePrevNextButtons?raw';
+import customButtonLabelsCode from './examples/customButtonLabels?raw';
 
 export type Example = {
   component: JSXNode;
@@ -26,6 +28,10 @@ export const examples: Record<string, Example> = {
   hidePrevNextButtons: {
     component: <HidePrevNextButtons />,
     code: hidePrevNextButtonsCode,
+  },
+  customButtonLabels: {
+    component: <CustomButtonLabels />,
+    code: customButtonLabelsCode,
   },
 };
 

@@ -4,7 +4,7 @@ import { Toggle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   const selectedPage = useSignal(1);
-  const totalPages = useSignal(10);
+  const totalPages = useSignal(20);
 
   const hideNextButton = useSignal(false);
   const hidePrevButton = useSignal(false);
