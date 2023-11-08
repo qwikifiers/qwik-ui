@@ -3,10 +3,11 @@ import {
   QwikIntrinsicElements,
   component$,
   useSignal,
-  useVisibleTask$,
+  useTask$,
 } from '@builder.io/qwik';
 import { OmitSignalClass } from '@qwik-ui/utils';
 import { CodeCopy } from '../code-copy/code-copy';
+import { getOrCreateHighlighter } from './get-or-create-highlighter';
 
 export type HighlightProps = OmitSignalClass<QwikIntrinsicElements['pre']> & {
   code: string;
@@ -27,32 +28,25 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
-    useVisibleTask$(
-      async function createHighlightedCode() {
-        const highlighter = await (window as any).shikiji;
-        let modifiedCode: string = code;
+    useTask$(async function createHighlightedCode() {
+      const highlighter = await getOrCreateHighlighter();
+      let modifiedCode: string = code;
 
-        let partsOfCode = modifiedCode.split(splitCommentStart);
-        if (partsOfCode.length > 1) {
-          modifiedCode = partsOfCode[1];
-        }
+      let partsOfCode = modifiedCode.split(splitCommentStart);
+      if (partsOfCode.length > 1) {
+        modifiedCode = partsOfCode[1];
+      }
 
-        partsOfCode = modifiedCode.split(splitCommentEnd);
-        if (partsOfCode.length > 1) {
-          modifiedCode = partsOfCode[0];
-        }
+      partsOfCode = modifiedCode.split(splitCommentEnd);
+      if (partsOfCode.length > 1) {
+        modifiedCode = partsOfCode[0];
+      }
 
-        const str = await highlighter.codeToHtml(modifiedCode, {
-          lang: language,
-          themes: {
-            light: 'github-dark',
-            dark: 'github-dark',
-          },
-        });
-        codeSig.value = str.toString();
-      },
-      { strategy: 'document-idle' },
-    );
+      const str = highlighter.codeToHtml(modifiedCode, {
+        lang: language,
+      });
+      codeSig.value = str.toString();
+    });
 
     return (
       <div class="code-example relative max-h-[31.25rem] rounded-b-xl">

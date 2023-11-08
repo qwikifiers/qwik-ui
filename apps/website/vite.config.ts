@@ -4,8 +4,11 @@ import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+import vitePluginRequireResolve from 'vite-plugin-require-resolve';
+
 export default defineConfig({
   plugins: [
+    vitePluginRequireResolve(),
     qwikNxVite(),
     qwikCity(),
     qwikVite({

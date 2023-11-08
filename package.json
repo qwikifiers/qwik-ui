@@ -131,7 +131,8 @@
   "dependencies": {
     "@fontsource-variable/inter": "5.0.8",
     "shiki": "0.14.5",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "vite-plugin-require-resolve": "0.0.1"
   },
   "nx": {
     "includedScripts": []
