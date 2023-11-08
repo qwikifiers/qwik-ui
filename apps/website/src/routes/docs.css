@@ -1,3 +1,81 @@
 .docs {
-  @apply mx-auto w-full max-w-[85ch] overflow-hidden px-8 py-8 lg:px-16;
+  & {
+    @apply mx-auto w-full max-w-[85ch] overflow-hidden px-8 py-8 lg:px-16;
+  }
+
+  /*
+    Styles that are direct descendents of .docs
+    this should not affect the styles inside of the tabpanel
+    A.K.A the components
+  */
+  & > {
+    p {
+      @apply mb-6;
+    }
+
+    h1 {
+      @apply mb-6 pt-6 text-3xl font-extrabold md:text-5xl;
+    }
+
+    h2 {
+      @apply mb-8 mt-20 border-b-[1px] border-slate-300 pb-2 text-2xl font-extrabold dark:border-slate-700;
+    }
+
+    h3 {
+      @apply mb-6 mt-8 text-xl font-semibold;
+    }
+
+    h4 {
+      @apply mb-4 mt-6 text-lg font-medium;
+    }
+
+    h5 {
+      @apply text-base font-[700];
+    }
+
+    blockquote {
+      @apply from-qwikui-blue-800 to-qwikui-blue-900 shadow-light-medium dark:shadow-dark-medium dark:from-qwikui-purple-800 dark:to-qwikui-purple-900 border-qwikui-blue-200 dark:border-qwikui-purple-200 my-4 rounded-xl border-[2px] bg-gradient-to-b p-4 text-white lg:p-6;
+    }
+
+    ul {
+      @apply mb-4 list-disc px-6 font-medium;
+    }
+
+    li {
+      @apply py-2;
+    }
+  }
+
+  a {
+    @apply border-qwikui-blue-500 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] font-semibold transition-colors duration-300;
+  }
+
+  code {
+    @apply bg-transparent;
+  }
+
+  p code {
+    @apply shadow-dark-low dark:shadow-dark-low  rounded-md border-[1px] border-b-2 border-slate-700 bg-slate-100 px-2 py-[2px] dark:border-slate-400 dark:bg-slate-700;
+  }
+
+  blockquote p code {
+    @apply border-slate-700 text-slate-800 dark:border-slate-800 dark:bg-slate-50;
+  }
+
+  /* adds sufficient padding to the table items / API Component */
+  td article {
+    @apply mb-0 pb-4 pt-4;
+  }
+
+  td p {
+    @apply mb-0;
+  }
+
+  blockquote a {
+    @apply border-qwikui-blue-200 hover:border-qwikui-blue-100 dark:border-qwikui-purple-100 dark:hover:border-qwikui-purple-200;
+  }
+
+  ol li {
+    @apply my-4;
+  }
 }

@@ -17,10 +17,8 @@ export interface Components {
  * Get current components from the MDX Context.
  */
 export function useMDXComponents() {
-  return useContext(MDXContext, emptyObject);
+  return useContext(MDXContext, {});
 }
-
-export const emptyObject = {};
 
 export const DefaultWrapper = component$(() => {
   return <Slot />;
@@ -30,12 +28,18 @@ export const DefaultWrapper = component$(() => {
  * Provider for MDX context
  */
 export const MDXProvider = component$(
-  (props: { components: Components; disableParentContext?: boolean }) => {
+  ({
+    components,
+    disableParentContext,
+  }: {
+    components: Components;
+    disableParentContext?: boolean;
+  }) => {
     let allComponents = useMDXComponents();
-    if (props.disableParentContext) {
-      allComponents = props.components;
+    if (disableParentContext) {
+      allComponents = components;
     } else {
-      allComponents = { ...allComponents, ...props.components };
+      allComponents = { ...allComponents, ...components };
     }
     useContextProvider(MDXContext, {
       wrapper: DefaultWrapper,
