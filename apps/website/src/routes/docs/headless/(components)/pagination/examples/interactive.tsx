@@ -6,8 +6,8 @@ export default component$(() => {
   const selectedPage = useSignal(1);
   const totalPages = useSignal(10);
 
-  const hideNextButton = useSignal(true);
-  const hidePrevButton = useSignal(true);
+  const hideNextButton = useSignal(false);
+  const hidePrevButton = useSignal(false);
   const siblingCount = useSignal(1);
   const boundaryCount = useSignal(1);
 
@@ -24,6 +24,8 @@ export default component$(() => {
         defaultClass="border-2 border-sky-400 p-4"
         selectedClass="border-2 border-red-500 bg-red-500 p-4"
         dividerClass="p-4"
+        hidePrevButton={hidePrevButton.value}
+        hideNextButton={hideNextButton.value}
         gap={'10px'}
       >
         <span q:slot="prefix">👈</span>
