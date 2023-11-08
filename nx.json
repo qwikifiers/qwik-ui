@@ -15,7 +15,6 @@
       }
     }
   },
-  "extends": "nx/presets/npm.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "qwik-ui",
   "affected": {
@@ -26,9 +25,6 @@
     "libsDir": "packages"
   },
   "targetDefaults": {
-    "build": {
-      "dependsOn": ["^build"]
-    },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     },

@@ -34,21 +34,10 @@
     "storybook": "storybook dev -p 6006",
     "qwik": "qwik"
   },
-  "dependencies": {
-    "@qwik-ui/utils": "workspace:*"
-  },
   "peerDependencies": {
     "@builder.io/qwik": ">1.1.0"
   },
   "devDependencies": {
-    "@builder.io/vite-plugin-macro": "~0.0.7",
-    "@storybook/addon-essentials": "7.0.23",
-    "@storybook/addon-links": "7.0.23",
-    "@storybook/blocks": "7.0.23",
-    "@storybook/builder-vite": "7.0.23",
-    "@storybook/html": "7.0.23",
-    "@storybook/html-vite": "7.0.23",
-    "storybook": "7.0.23",
-    "storybook-framework-qwik": "0.2.2"
+    "@builder.io/vite-plugin-macro": "~0.0.7"
   }
 }
