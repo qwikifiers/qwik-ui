@@ -49,12 +49,16 @@ export const Pagination = component$<PaginationProps>(
   }) => {
     const visibleItems = useSignal<(string | number)[]>([]);
 
-    visibleItems.value = usePagination(
-      totalPages,
-      selectedPage,
-      siblingCount,
-      boundaryCount,
-    );
+    useTask$(({ track }) => {
+      track(() => [selectedPage, totalPages, siblingCount, boundaryCount]);
+
+      visibleItems.value = usePagination(
+        totalPages,
+        selectedPage,
+        siblingCount,
+        boundaryCount,
+      );
+    });
 
     const isPrevButtonVisible = () => !hidePrevButton && selectedPage > 1;
     const isNextButtonVisible = () => !hideNextButton && selectedPage !== totalPages;
