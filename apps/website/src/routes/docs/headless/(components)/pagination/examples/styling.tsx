@@ -18,6 +18,18 @@ export default component$(() => {
         selectedClass="border-2 border-red-500 bg-red-500 p-4"
         dividerClass="p-4"
       />
+
+      <Pagination
+        selectedPage={selectedPage.value}
+        totalPages={totalPages.value}
+        onPageChange$={(page) => {
+          selectedPage.value = page;
+        }}
+        class="border-2 border-white p-2"
+        defaultClass="bg-cyan-400 w-8 h-8"
+        selectedClass="bg-red-500 w-8 h-8"
+        dividerClass="bg-red-300 h-8 px-2"
+      />
     </div>
   );
 });

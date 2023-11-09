@@ -17,7 +17,6 @@ export const Pagination = component$<PaginationProps>((props) => {
       next: nextButtonLabel = 'NEXT',
     } = {},
     class: _class,
-    gap = '10px',
     defaultClass,
     selectedClass,
     dividerClass,
@@ -39,9 +38,6 @@ export const Pagination = component$<PaginationProps>((props) => {
       data-testid="pagination"
       class={_class}
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap,
         pointerEvents: disabled ? 'none' : 'inherit',
       }}
     >

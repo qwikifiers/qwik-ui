@@ -13,6 +13,19 @@ export default component$(() => {
         onPageChange$={(page) => {
           selectedPage.value = page;
         }}
+        class="flex gap-3"
+      />
+
+      <Pagination
+        selectedPage={selectedPage.value}
+        totalPages={totalPages.value}
+        onPageChange$={(page) => {
+          selectedPage.value = page;
+        }}
+        class="flex flex-col items-center gap-2 border border-sky-500"
+        defaultClass=""
+        selectedClass=""
+        dividerClass=""
       />
     </div>
   );
