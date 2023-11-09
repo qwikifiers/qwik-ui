@@ -35,7 +35,6 @@ export const Pagination = component$<PaginationProps>((props) => {
 
   return (
     <nav
-      role="navigation"
       aria-label="pagination"
       data-testid="pagination"
       class={_class}
