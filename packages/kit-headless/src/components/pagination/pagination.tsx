@@ -1,6 +1,6 @@
-import { usePagination } from '@/packages/kit-headless/src/components/pagination/use-pagination';
+import { usePagination } from './use-pagination';
 import type { PropFunction } from '@builder.io/qwik';
-import { component$, Slot, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import { component$, Slot, useSignal, useTask$ } from '@builder.io/qwik';
 
 /**
  * TODO
