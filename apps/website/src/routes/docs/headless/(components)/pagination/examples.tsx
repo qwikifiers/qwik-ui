@@ -1,6 +1,8 @@
-import CustomButtonLabels from '@/apps/website/src/routes/docs/headless/(components)/pagination/examples/customButtonLabels';
-import HidePrevNextButtons from '@/apps/website/src/routes/docs/headless/(components)/pagination/examples/hidePrevNextButtons';
-import Styling from '@/apps/website/src/routes/docs/headless/(components)/pagination/examples/styling';
+import CustomArrows from './examples/custom-arrows';
+import CustomButtonLabels from './examples/custom-button-labels';
+import Disabled from './examples/disabled';
+import HidePrevNextButtons from './examples/hide-prev-next-buttons';
+import Styling from './examples/styling';
 import { JSXNode, component$ } from '@builder.io/qwik';
 import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
 
@@ -8,9 +10,11 @@ import Basic from './examples/basic';
 import Interactive from './examples/interactive';
 import basicCode from './examples/basic?raw';
 import interactiveCode from './examples/interactive?raw';
-import hidePrevNextButtonsCode from './examples/hidePrevNextButtons?raw';
-import customButtonLabelsCode from './examples/customButtonLabels?raw';
+import hidePrevNextButtonsCode from './examples/hide-prev-next-buttons?raw';
+import customButtonLabelsCode from './examples/custom-button-labels?raw';
 import stylingCode from './examples/styling?raw';
+import customArrowsCode from './examples/custom-arrows?raw';
+import disabledCode from './examples/disabled?raw';
 
 export type Example = {
   component: JSXNode;
@@ -38,6 +42,14 @@ export const examples: Record<string, Example> = {
   styling: {
     component: <Styling />,
     code: stylingCode,
+  },
+  customArrows: {
+    component: <CustomArrows />,
+    code: customArrowsCode,
+  },
+  disabled: {
+    component: <Disabled />,
+    code: disabledCode,
   },
 };
 

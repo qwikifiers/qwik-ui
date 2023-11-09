@@ -3,7 +3,7 @@ import { Pagination } from '@qwik-ui/headless';
 import { Toggle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
-  const selectedPage = useSignal(1);
+  const selectedPage = useSignal(5);
   const totalPages = useSignal(20);
 
   const hideNextButton = useSignal(false);
@@ -25,10 +25,9 @@ export default component$(() => {
         hidePrevButton={hidePrevButton.value}
         hideNextButton={hideNextButton.value}
         gap={'10px'}
-      >
-        <span q:slot="prefix">👈</span>
-        <span q:slot="suffix">👉</span>
-      </Pagination>
+      />
+
+      <hr />
 
       <div
         class="flex flex-col items-stretch gap-2"

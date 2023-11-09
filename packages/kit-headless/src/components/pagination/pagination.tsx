@@ -22,6 +22,7 @@ export interface PaginationProps {
   boundaryCount?: number;
   hidePrevButton?: boolean;
   hideNextButton?: boolean;
+  disabled?: boolean;
   customArrowTexts?: ArrowLabels;
 
   // styling
@@ -38,10 +39,9 @@ export const Pagination = component$<PaginationProps>((props) => {
     totalPages,
     onPageChange$,
     // configuration
-    siblingCount = 1,
-    boundaryCount = 1,
     hidePrevButton = false,
     hideNextButton = false,
+    disabled = false,
     customArrowTexts: {
       previous: previousButtonLabel = 'PREV',
       next: nextButtonLabel = 'NEXT',
@@ -69,8 +69,8 @@ export const Pagination = component$<PaginationProps>((props) => {
     visibleItems.value = usePagination(
       props.totalPages,
       props.selectedPage,
-      props.siblingCount,
-      props.boundaryCount,
+      props.siblingCount || 1,
+      props.boundaryCount || 1,
     );
   });
 
@@ -80,7 +80,12 @@ export const Pagination = component$<PaginationProps>((props) => {
       aria-label="pagination"
       data-testid="pagination"
       class={_class}
-      style={{ display: 'flex', alignItems: 'center', gap: gap }}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap,
+        pointerEvents: disabled ? 'none' : 'inherit',
+      }}
     >
       {/* Prev Button */}
       {isPrevButtonVisible() && (
