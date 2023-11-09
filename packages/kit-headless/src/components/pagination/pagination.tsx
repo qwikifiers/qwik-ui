@@ -16,10 +16,10 @@ export const Pagination = component$<PaginationProps>((props) => {
       previous: previousButtonLabel = 'PREV',
       next: nextButtonLabel = 'NEXT',
     } = {},
-    class: _class,
     defaultClass,
     selectedClass,
     dividerClass,
+    ...rest
   } = props;
 
   const isPrevButtonVisible = () => !hidePrevButton && selectedPage > 1;
@@ -33,7 +33,7 @@ export const Pagination = component$<PaginationProps>((props) => {
   );
 
   return (
-    <nav aria-label="pagination" data-testid="pagination" class={_class}>
+    <nav aria-label="pagination" data-testid="pagination" {...rest}>
       {isPrevButtonVisible() && (
         <button
           aria-label={'prevAriaLabel'}
