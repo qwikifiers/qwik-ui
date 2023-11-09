@@ -21,9 +21,7 @@ export default component$(() => {
         onPageChange$={(page) => {
           selectedPage.value = page;
         }}
-        defaultClass="border-2 border-sky-400 p-4"
-        selectedClass="border-2 border-red-500 bg-red-500 p-4"
-        dividerClass="p-4"
+        selectedClass="text-sky-500 font-bold px-3"
         hidePrevButton={hidePrevButton.value}
         hideNextButton={hideNextButton.value}
         gap={'10px'}

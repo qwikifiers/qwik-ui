@@ -6,6 +6,12 @@ import { component$, Slot, useSignal, useTask$, useVisibleTask$ } from '@builder
  * TODO
  * disabled: enable/disable paginator
  */
+
+type ArrowLabels = {
+  previous: string;
+  next: string;
+};
+
 export interface PaginationProps {
   selectedPage: number;
   totalPages: number;
@@ -16,18 +22,18 @@ export interface PaginationProps {
   boundaryCount?: number;
   hidePrevButton?: boolean;
   hideNextButton?: boolean;
-  customArrowTexts?: { previous: string; next: string };
+  customArrowTexts?: ArrowLabels;
 
   // styling
   class?: string;
-  gap?: number | string;
+  gap?: string;
   defaultClass?: string;
   selectedClass?: string;
   dividerClass?: string;
 }
 
-export const Pagination = component$<PaginationProps>(
-  ({
+export const Pagination = component$<PaginationProps>((props) => {
+  const {
     selectedPage,
     totalPages,
     onPageChange$,
@@ -46,87 +52,92 @@ export const Pagination = component$<PaginationProps>(
     defaultClass,
     selectedClass,
     dividerClass,
-  }) => {
-    const visibleItems = useSignal<(string | number)[]>([]);
+  } = props;
 
-    useTask$(({ track }) => {
-      track(() => [selectedPage, totalPages, siblingCount, boundaryCount]);
+  const visibleItems = useSignal<(string | number)[]>([]);
+  const isPrevButtonVisible = () => !hidePrevButton && selectedPage > 1;
+  const isNextButtonVisible = () => !hideNextButton && selectedPage !== totalPages;
 
-      visibleItems.value = usePagination(
-        totalPages,
-        selectedPage,
-        siblingCount,
-        boundaryCount,
-      );
-    });
+  useTask$(({ track }) => {
+    track(() => [
+      props.selectedPage,
+      props.totalPages,
+      props.siblingCount,
+      props.boundaryCount,
+    ]);
 
-    const isPrevButtonVisible = () => !hidePrevButton && selectedPage > 1;
-    const isNextButtonVisible = () => !hideNextButton && selectedPage !== totalPages;
-
-    return (
-      <nav
-        role="navigation"
-        aria-label="pagination"
-        data-testid="pagination"
-        style={{ display: 'flex', alignItems: 'center', gap: gap }}
-      >
-        {/* Prev Button */}
-        {isPrevButtonVisible() && (
-          <button
-            type="button"
-            aria-label={'prevAriaLabel'}
-            disabled={selectedPage <= 1}
-            onClick$={() => {
-              if (selectedPage > 1) {
-                onPageChange$(selectedPage - 1);
-              }
-            }}
-          >
-            <Slot name="prefix" />
-            <span>{previousButtonLabel}</span>
-          </button>
-        )}
-
-        {/* Button List */}
-        {visibleItems.value.map((item: string | number, index: number) => {
-          return (
-            <span key={index}>
-              {typeof item === 'string' ? (
-                <button class={dividerClass}>...</button>
-              ) : (
-                <button
-                  class={[selectedPage === item ? selectedClass : defaultClass]}
-                  type="button"
-                  aria-label={`Page ${item} of ${totalPages}`}
-                  aria-current={selectedPage === item}
-                  onClick$={() => {
-                    onPageChange$(item);
-                  }}
-                >
-                  {item}
-                </button>
-              )}
-            </span>
-          );
-        })}
-
-        {/* Next Button */}
-        {isNextButtonVisible() && (
-          <button
-            type="button"
-            aria-label={'nextAriaLabel'}
-            disabled={selectedPage >= totalPages}
-            onClick$={() => {
-              if (selectedPage < totalPages) {
-                onPageChange$(selectedPage + 1);
-              }
-            }}
-          >
-            <span>{nextButtonLabel}</span>
-            <Slot name="suffix" />
-          </button>
-        )}
-      </nav>
+    visibleItems.value = usePagination(
+      props.totalPages,
+      props.selectedPage,
+      props.siblingCount,
+      props.boundaryCount,
     );
-  },
-);
+  });
+
+  return (
+    <nav
+      role="navigation"
+      aria-label="pagination"
+      data-testid="pagination"
+      class={_class}
+      style={{ display: 'flex', alignItems: 'center', gap: gap }}
+    >
+      {/* Prev Button */}
+      {isPrevButtonVisible() && (
+        <button
+          type="button"
+          aria-label={'prevAriaLabel'}
+          disabled={selectedPage <= 1}
+          onClick$={() => {
+            if (selectedPage > 1) {
+              onPageChange$(selectedPage - 1);
+            }
+          }}
+        >
+          <Slot name="prefix" />
+          <span>{previousButtonLabel}</span>
+        </button>
+      )}
+
+      {/* Button List */}
+      {visibleItems.value.map((item: string | number, index: number) => {
+        return (
+          <span key={index}>
+            {typeof item === 'string' ? (
+              <button class={dividerClass}>...</button>
+            ) : (
+              <button
+                class={[selectedPage === item ? selectedClass : defaultClass]}
+                type="button"
+                aria-label={`Page ${item} of ${totalPages}`}
+                aria-current={selectedPage === item}
+                onClick$={() => {
+                  onPageChange$(item);
+                }}
+              >
+                {item}
+              </button>
+            )}
+          </span>
+        );
+      })}
+
+      {/* Next Button */}
+      {isNextButtonVisible() && (
+        <button
+          type="button"
+          aria-label={'nextAriaLabel'}
+          disabled={selectedPage >= totalPages}
+          onClick$={() => {
+            if (selectedPage < totalPages) {
+              onPageChange$(selectedPage + 1);
+            }
+          }}
+        >
+          <span>{nextButtonLabel}</span>
+          <Slot name="suffix" />
+        </button>
+      )}
+    </nav>
+  );
+});

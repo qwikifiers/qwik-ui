@@ -27,7 +27,7 @@ import testImage from '../../../../../../public/images/test-image.png'
 - Pagination ranges
 - Custom Arrows
 - Custom Button Labels
-- Support custom styles (default, selected and divider)
+- Fully Customizable
 
 ## Interactive Example
 
@@ -35,58 +35,79 @@ import testImage from '../../../../../../public/images/test-image.png'
 
 
 ### 🎨 Properties
-  <AnatomyTable
+
+
+## API
+
+The Pagination component API provides a set of properties that allow you to customize the behavior and appearance of the pagination.
+
+Here are the notable properties for this component:
+
+<APITable
   propDescriptors={[
     {
       name: 'selectedPage',
+      type: 'number',
       description: 'Current Page Index (start from 1)',
     },
     {
       name: 'totalPages',
+      type: 'number',
       description: 'The total of available pages',
     },
     {
       name: 'onPageChange$',
+      type: 'function',
       description: `Emitted when a button is clicked`,
     },
     {
       name: 'siblingCount',
+      type: 'number',
       description: `set sibling items close to the selected value`,
     },
     {
       name: 'boundaryCount',
+      type: 'number',
       description: `set adjacent items to the start and end page number`,
     },
     {
       name: 'hidePrevButton',
+      type: 'boolean',
       description: `hide the previous button`,
     },
     {
       name: 'hideNextButton',
+      type: 'boolean',
       description: `hide the next button`,
     },
     {
       name: 'customArrowTexts',
-      description: `customize the PREVIOUS and NEXT button labels`,
+      type: 'ArrowLabels',
+      description: `customize the PREVIOUS and NEXT button labels `,
     },
     {
       name: 'gap',
-      description: `set the gap between items`,
+      type: 'string',
+      description: `set the gap between items (i.e. '10px', '1rem', ...)`,
     },
     {
-      name: 'wrapperClass',
-      description: `(TODO) allow to apply a custom class to the pagination wrapper `,
+      name: 'class',
+      type: 'string',
+      description: `custom class for pagination wrapper `,
     },
     {
       name: 'defaultClass',
-      description: `custom class for the pagination item`,
+      type: 'string',
+      description: `custom class for each pagination item`,
     },
     {
       name: 'selectedClass',
+      type: 'string',
       description: `custom class for the selected item`,
     },
     {
       name: 'dividerClass',
+      type: 'string',
       description: `custom class for the divider item`,
     }
   ]}
@@ -98,6 +119,10 @@ import testImage from '../../../../../../public/images/test-image.png'
 
 <ShowExample example="basic" />
 
+## Styling
+
+<ShowExample example="styling" />
+
 ## Hide Next/Prev Buttons
 
 <ShowExample example="hidePrevNextButtons" />
@@ -107,4 +132,3 @@ import testImage from '../../../../../../public/images/test-image.png'
 <ShowExample example="customButtonLabels" />
 
 
-## TODO (Snippet di codice)

@@ -1,0 +1,23 @@
+import { component$, useSignal } from '@builder.io/qwik';
+import { Pagination } from '@qwik-ui/headless';
+
+export default component$(() => {
+  const selectedPage = useSignal(1);
+  const totalPages = useSignal(10);
+
+  return (
+    <div class="mt-4 flex flex-col gap-6">
+      <Pagination
+        selectedPage={selectedPage.value}
+        totalPages={totalPages.value}
+        onPageChange$={(page) => {
+          selectedPage.value = page;
+        }}
+        class="border-2 border-white p-2"
+        defaultClass="border-2 border-sky-400 p-4"
+        selectedClass="border-2 border-red-500 bg-red-500 p-4"
+        dividerClass="p-4"
+      />
+    </div>
+  );
+});
