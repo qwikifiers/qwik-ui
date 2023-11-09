@@ -26,7 +26,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     'Input Phone': ComponentStatus.Planned,
     'Navigation Bar': ComponentStatus.Planned,
     Modal: ComponentStatus.Planned,
-    Pagination: ComponentStatus.Planned,
+    Pagination: ComponentStatus.Draft,
     Popover: ComponentStatus.Planned,
     Progress: ComponentStatus.Planned,
     Radio: ComponentStatus.Planned,
