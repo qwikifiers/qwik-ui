@@ -33,20 +33,12 @@ export const Pagination = component$<PaginationProps>((props) => {
   );
 
   return (
-    <nav
-      aria-label="pagination"
-      data-testid="pagination"
-      class={_class}
-      style={{
-        pointerEvents: disabled ? 'none' : 'inherit',
-      }}
-    >
-      {/* Prev Button */}
+    <nav aria-label="pagination" data-testid="pagination" class={_class}>
       {isPrevButtonVisible() && (
         <button
           type="button"
           aria-label={'prevAriaLabel'}
-          disabled={selectedPage <= 1}
+          disabled={disabled}
           onClick$={() => {
             if (selectedPage > 1) {
               onPageChange$(selectedPage - 1);
@@ -70,6 +62,7 @@ export const Pagination = component$<PaginationProps>((props) => {
                 type="button"
                 aria-label={`Page ${item} of ${totalPages}`}
                 aria-current={selectedPage === item}
+                disabled={true}
                 onClick$={() => {
                   onPageChange$(item);
                 }}
@@ -86,7 +79,7 @@ export const Pagination = component$<PaginationProps>((props) => {
         <button
           type="button"
           aria-label={'nextAriaLabel'}
-          disabled={selectedPage >= totalPages}
+          disabled={disabled}
           onClick$={() => {
             if (selectedPage < totalPages) {
               onPageChange$(selectedPage + 1);
