@@ -1,39 +1,12 @@
+import { PaginationProps } from './types';
 import { usePagination } from './use-pagination';
-import type { PropFunction } from '@builder.io/qwik';
 import { component$, Slot } from '@builder.io/qwik';
-
-type ArrowLabels = {
-  previous: string;
-  next: string;
-};
-
-export interface PaginationProps {
-  selectedPage: number;
-  totalPages: number;
-  onPageChange$: PropFunction<(page: number) => void>;
-
-  // configuration
-  siblingCount?: number;
-  boundaryCount?: number;
-  hidePrevButton?: boolean;
-  hideNextButton?: boolean;
-  disabled?: boolean;
-  customArrowTexts?: ArrowLabels;
-
-  // styling
-  class?: string;
-  gap?: string;
-  defaultClass?: string;
-  selectedClass?: string;
-  dividerClass?: string;
-}
 
 export const Pagination = component$<PaginationProps>((props) => {
   const {
     selectedPage,
     totalPages,
     onPageChange$,
-    // configuration
     siblingCount,
     boundaryCount,
     hidePrevButton = false,
@@ -43,7 +16,6 @@ export const Pagination = component$<PaginationProps>((props) => {
       previous: previousButtonLabel = 'PREV',
       next: nextButtonLabel = 'NEXT',
     } = {},
-    // styling
     class: _class,
     gap = '10px',
     defaultClass,
