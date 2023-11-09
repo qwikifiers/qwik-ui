@@ -1,13 +1,11 @@
-// example: usePagination(20, 6, 1, 1);
-
 export function usePagination(
-  count: number,
-  defaultPage: number,
+  totalPages: number,
+  selectedPage: number,
   siblingCount = 1,
   boundaryCount = 1,
 ) {
-  const pageCount = Math.min(count, Math.max(1, count));
-  const page = Math.min(Math.max(1, defaultPage), pageCount);
+  const pageCount = Math.min(totalPages, Math.max(1, totalPages));
+  const page = Math.min(Math.max(1, selectedPage), pageCount);
 
   const range = (start: number, end: number) =>
     Array.from({ length: end - start + 1 }, (_, i) => start + i);

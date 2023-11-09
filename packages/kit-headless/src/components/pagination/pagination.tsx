@@ -1,11 +1,6 @@
 import { usePagination } from './use-pagination';
 import type { PropFunction } from '@builder.io/qwik';
-import { component$, Slot, useSignal, useTask$ } from '@builder.io/qwik';
-
-/**
- * TODO
- * disabled: enable/disable paginator
- */
+import { component$, Slot } from '@builder.io/qwik';
 
 type ArrowLabels = {
   previous: string;
@@ -39,6 +34,8 @@ export const Pagination = component$<PaginationProps>((props) => {
     totalPages,
     onPageChange$,
     // configuration
+    siblingCount,
+    boundaryCount,
     hidePrevButton = false,
     hideNextButton = false,
     disabled = false,
@@ -54,25 +51,15 @@ export const Pagination = component$<PaginationProps>((props) => {
     dividerClass,
   } = props;
 
-  const visibleItems = useSignal<(string | number)[]>([]);
   const isPrevButtonVisible = () => !hidePrevButton && selectedPage > 1;
   const isNextButtonVisible = () => !hideNextButton && selectedPage !== totalPages;
 
-  useTask$(({ track }) => {
-    track(() => [
-      props.selectedPage,
-      props.totalPages,
-      props.siblingCount,
-      props.boundaryCount,
-    ]);
-
-    visibleItems.value = usePagination(
-      props.totalPages,
-      props.selectedPage,
-      props.siblingCount || 1,
-      props.boundaryCount || 1,
-    );
-  });
+  const visibleItems = usePagination(
+    totalPages,
+    selectedPage,
+    siblingCount || 1,
+    boundaryCount || 1,
+  );
 
   return (
     <nav
@@ -105,7 +92,7 @@ export const Pagination = component$<PaginationProps>((props) => {
       )}
 
       {/* Button List */}
-      {visibleItems.value.map((item: string | number, index: number) => {
+      {visibleItems.map((item: string | number, index: number) => {
         return (
           <span key={index}>
             {typeof item === 'string' ? (
