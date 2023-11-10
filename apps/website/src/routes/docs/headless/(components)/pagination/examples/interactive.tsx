@@ -1,0 +1,104 @@
+import { component$, useSignal, Slot } from '@builder.io/qwik';
+import { Pagination } from '@qwik-ui/headless';
+import { Toggle } from '@qwik-ui/tailwind';
+
+export default component$(() => {
+  const selectedPage = useSignal(5);
+  const totalPages = useSignal(20);
+
+  const hideNextButton = useSignal(false);
+  const hidePrevButton = useSignal(false);
+  const siblingCount = useSignal(1);
+  const boundaryCount = useSignal(1);
+
+  return (
+    <div class="mt-4 flex flex-col gap-6">
+      <Pagination
+        selectedPage={selectedPage.value}
+        totalPages={totalPages.value}
+        siblingCount={siblingCount.value}
+        boundaryCount={boundaryCount.value}
+        onPageChange$={(page) => {
+          selectedPage.value = page;
+        }}
+        selectedClass="text-sky-500 font-bold px-3"
+        hidePrevButton={hidePrevButton.value}
+        hideNextButton={hideNextButton.value}
+        gap={'10px'}
+      />
+
+      <hr />
+
+      <div
+        class="flex flex-col items-stretch gap-2"
+        style={{
+          width: '250px',
+        }}
+      >
+        <label class="flex items-center justify-between gap-10">
+          pages
+          <input
+            type="number"
+            style={{
+              width: '50px',
+              background: 'transparent',
+              textAlign: 'right',
+            }}
+            value={totalPages.value}
+            onChange$={(e) => {
+              totalPages.value = Number(e.target.value);
+            }}
+          />
+        </label>
+
+        <label class="flex items-center justify-between gap-10">
+          siblingCount
+          <input
+            type="number"
+            style={{
+              width: '50px',
+              background: 'transparent',
+              textAlign: 'right',
+            }}
+            value={siblingCount.value}
+            onChange$={(e) => {
+              siblingCount.value = Number(e.target.value);
+            }}
+          />
+        </label>
+
+        <label class="flex items-center justify-between gap-10">
+          boundaryCount
+          <input
+            type="number"
+            style={{
+              width: '50px',
+              background: 'transparent',
+              textAlign: 'right',
+            }}
+            value={boundaryCount.value}
+            onChange$={(e) => {
+              boundaryCount.value = Number(e.target.value);
+            }}
+          />
+        </label>
+
+        <Toggle
+          pressed={hideNextButton.value}
+          onClick$={() => {
+            hideNextButton.value = !hideNextButton.value;
+          }}
+          label="hideNextButton"
+        />
+
+        <Toggle
+          pressed={hidePrevButton.value}
+          onClick$={() => {
+            hidePrevButton.value = !hidePrevButton.value;
+          }}
+          label="hidePrevButton"
+        />
+      </div>
+    </div>
+  );
+});
