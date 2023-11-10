@@ -18,7 +18,7 @@ import { createContextId, useContext, useContextProvider } from '@builder.io/qwi
 // Create a context ID
 export const AnimalContext = createContextId<string[]>('animal-context');
 
-export const ContextExample = component$(() => {
+export default component$(() => {
   const animals = ['Armadillo', 'Donkey', 'Baboon', 'Badger', 'Barracuda', 'Bat', 'Bear'];
   // Provide the animals array to the context under the context ID
   useContextProvider(AnimalContext, animals);

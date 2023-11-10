@@ -1,5 +1,4 @@
 import { Component, QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
-
 import { OmitSignalClass } from '@qwik-ui/utils';
 import { StatusBanner } from '../status-banner';
 import { CodeCopy } from '../code-copy';

@@ -12,13 +12,16 @@ import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { Highlight } from '../highlight';
 import { useLocation } from '@builder.io/qwik-city';
 import { removeDocsFromPath } from '~/lib/utils';
+import { isDev } from '@builder.io/qwik/build';
 
-const components = import.meta.glob('/src/examples/**/**/*', {
+const components: any = import.meta.glob('/src/examples/**/**/*', {
   import: 'default',
+  eager: isDev ? false : true,
 });
 
-const componentsRaw = import.meta.glob('/src/examples/**/**/*', {
+const componentsRaw: any = import.meta.glob('/src/examples/**/**/*', {
   as: 'raw',
+  eager: isDev ? false : true,
 });
 
 type ExampleProps = QwikIntrinsicElements['div'] & {
@@ -35,8 +38,13 @@ export const Example = component$<ExampleProps>(({ name, ...props }) => {
   const ComponentRaw = useSignal<string>();
 
   useTask$(async () => {
-    Component.value = (await components[componentPath]()) as Component<any>;
-    ComponentRaw.value = (await componentsRaw[componentPath]()) as string;
+    if (isDev) {
+      Component.value = await components[componentPath]();
+      ComponentRaw.value = await componentsRaw[componentPath]();
+    } else {
+      Component.value = components[componentPath];
+      ComponentRaw.value = componentsRaw[componentPath];
+    }
   });
 
   useStyles$(styles);

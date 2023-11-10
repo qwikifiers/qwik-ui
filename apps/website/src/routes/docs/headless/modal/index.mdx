@@ -4,7 +4,6 @@ title: Qwik UI | Modal
 
 import ImgTestImage from '/public/images/test-image.png?jsx';
 
-import testImage from '/public/images/test-image.png';
 
 <StatusBanner status={'Beta'} />
 
@@ -12,7 +11,7 @@ import testImage from '/public/images/test-image.png';
 
 A window overlaid on either the primary window or another dialog window. Modal content is placed in the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer), rendering the underneath content as [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) / non-interactive.
 
-<Example name="hero" />
+<Example name="main" />
 
 The modal makes use of the HTML `dialog` element, which is supported in [every major browser](https://caniuse.com/?search=dialog).
 
@@ -119,7 +118,7 @@ By default, the `dialog` element comes with a subtle backdrop, below is a snippe
 
 Styling a [backdrop in Tailwind](https://tailwindcss.com/docs/backdrop-blur) can be done using the `:backdrop` selector. In the example code below, we've changed the brightness based on dark or light mode, along with a blur.
 
-<Example name="hero" />
+<Example name="main" />
 
 ## Dismissing Modals via Backdrop
 

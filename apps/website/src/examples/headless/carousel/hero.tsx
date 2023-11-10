@@ -1,6 +1,6 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { Carousel, useCarousel } from '@qwik-ui/headless';
-import { ExampleNetflix } from './example-netflix';
+import ExampleNetflix from './example-netflix';
 import styles from './carousel.css?inline';
 
 const { Item, Items, Root } = Carousel;

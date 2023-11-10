@@ -1,4 +1,4 @@
-import { component$, Slot } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import {
   AccordionContent,
   AccordionHeader,
@@ -6,7 +6,7 @@ import {
   AccordionRoot,
   AccordionTrigger,
 } from '@qwik-ui/headless';
-import { SVG } from './svg';
+import SVG from './svg';
 
 export default component$(() => {
   return (

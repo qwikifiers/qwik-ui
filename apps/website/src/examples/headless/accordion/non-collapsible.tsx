@@ -6,7 +6,7 @@ import {
   AccordionRoot,
   AccordionTrigger,
 } from '@qwik-ui/headless';
-import { SVG } from './svg';
+import SVG from './svg';
 
 // non-collapsible
 export default component$(() => {

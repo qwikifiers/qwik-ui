@@ -2,9 +2,11 @@ import { QwikIntrinsicElements, component$, useSignal, useTask$ } from '@builder
 import { Highlight } from '../highlight';
 import { useLocation } from '@builder.io/qwik-city';
 import { removeDocsFromPath } from '~/lib/utils';
+import { isDev } from '@builder.io/qwik/build';
 
-const snippetRaw = import.meta.glob('/src/examples/**/**/*', {
+const componentsRaw: any = import.meta.glob('/src/examples/**/**/*', {
   as: 'raw',
+  eager: isDev ? false : true,
 });
 
 type CodeSnippetProps = QwikIntrinsicElements['div'] & {
@@ -26,7 +28,11 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   const ComponentRaw = useSignal<string>();
 
   useTask$(async () => {
-    ComponentRaw.value = (await snippetRaw[snippetPath]()) as string;
+    if (isDev) {
+      ComponentRaw.value = await componentsRaw[snippetPath]();
+    } else {
+      ComponentRaw.value = componentsRaw[snippetPath];
+    }
   });
   return (
     <div

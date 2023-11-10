@@ -2,7 +2,7 @@ import { $, component$ } from '@builder.io/qwik';
 import { Alert as TailwindAlert } from '@qwik-ui/tailwind';
 import { GitHubIcon } from '~/components/icons/GitHubIcon';
 
-export const Alert = component$(() => {
+export default component$(() => {
   return (
     <div class="container flex flex-col gap-8">
       <h2>This is the documentation for the Alert</h2>

@@ -1,4 +1,4 @@
-import { component$, Slot, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import {
   AccordionContent,
   AccordionHeader,

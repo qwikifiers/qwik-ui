@@ -18,7 +18,7 @@ const media = {
   description: 'Lorem ipsum',
 };
 
-export const ExampleNetflix = component$(() => {
+export default component$(() => {
   const { scopeId } = useStylesScoped$(styles);
   const items = useSignal([...new Array(10).fill(1).map((_, i) => i + 1)]);
   const carousel = useCarousel({ loop: false, transition: 350, startAt: 3 });

@@ -18,15 +18,7 @@ export default defineConfig(async () => {
     highlighter = await getHighlighter({ theme: 'css-variables' });
     return highlighter;
   }
-
   return {
-    build: {
-      rollupOptions: {
-        output: {
-          chunkFileNames: '[name]-[hash].mjs',
-        },
-      },
-    },
     plugins: [
       qwikCity({
         mdxPlugins: {
