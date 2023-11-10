@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 
-import ImgQwikUiHeadlessHero from '@/apps/website/public/images/qwik-ui-headless-hero.webp?jsx';
+import ImgQwikUiHeadlessHero from '../../../../../../public/images/qwik-ui-headless-hero.webp?jsx';
 
 export default component$(() => {
   return (

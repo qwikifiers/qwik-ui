@@ -1,4 +1,4 @@
-import { stringifyClassList } from '@/packages/utils/src';
+import { stringifyClassList } from '@qwik-ui/utils';
 import { QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/fluffy';
 import { OmitSignalClass } from '@qwik-ui/utils';

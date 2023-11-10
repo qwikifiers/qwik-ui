@@ -1,4 +1,4 @@
-import ImgQwikUiFluffyCreatureScreen from '@/apps/website/public/images/qwik-ui-fluffy-creature-screen.webp?jsx';
+import ImgQwikUiFluffyCreatureScreen from './../../../../../../public/images/qwik-ui-fluffy-creature-screen.webp?jsx';
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 

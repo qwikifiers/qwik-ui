@@ -66,14 +66,13 @@ export const InstallExample = component$(() => <CodeExampleContainer code={Butto
 
 export const ShowExample = component$(({ example }: ShowExampleProps) => {
   const { component, code, cssClasses = '' } = examples[example];
-  const changedCode = code.replace('@qwik-ui/fluffy', '@/components/ui/button');
   return (
-    <PreviewCodeExampleVertical code={changedCode}>
+    <PreviewCodeExampleVertical code={code}>
       <div q:slot="actualComponent" class={['tabs-example mr-auto', cssClasses]}>
         {component}
       </div>
 
-      <Highlight q:slot="codeExample" code={changedCode} />
+      <Highlight q:slot="codeExample" code={code} />
     </PreviewCodeExampleVertical>
   );
 });
