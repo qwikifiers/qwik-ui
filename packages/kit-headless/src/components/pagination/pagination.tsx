@@ -8,7 +8,7 @@ export const Pagination = component$<PaginationProps>((props) => {
     totalPages,
     onPageChange$,
     siblingCount,
-    boundaryCount,
+    boundaryCount, // still not supported
     hidePrevButton = false,
     hideNextButton = false,
     disabled = false,
@@ -31,9 +31,10 @@ export const Pagination = component$<PaginationProps>((props) => {
     totalPages,
     selectedPage,
     siblingCount || 1,
-    boundaryCount || 1,
+    boundaryCount || 1, // still not supported
   );
 
+  console.log(visibleItems);
   return (
     <nav aria-label="pagination" data-testid="pagination" {...rest}>
       <button
