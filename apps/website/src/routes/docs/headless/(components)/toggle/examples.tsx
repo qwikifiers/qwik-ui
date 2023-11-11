@@ -1,6 +1,6 @@
 import { component$, type JSXNode } from '@builder.io/qwik';
+import { PreviewCodeExampleTabs } from '~/components/preview-code-example/preview-code-example-tabs';
 
-import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
 // import styles from './index.css?inline';
 
 export type Example = {

@@ -1,8 +1,7 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-
 import rootCssCode from '../../../../../../../../packages/kit-fluffy/src/templates/root.css_template?raw';
 import tailwindConfigCode from '../../../../../../../../packages/kit-fluffy/src/templates/tailwind.config.js_template?raw';
-import { Highlight } from '../../../_components/highlight/highlight';
+import { Highlight } from '~/components/highlight/highlight';
 
 export const InstallExample = () => (
   <Highlight
