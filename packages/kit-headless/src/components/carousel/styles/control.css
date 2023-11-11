@@ -1,8 +1,0 @@
-:where(input[type='radio']) {
-  appearance: none;
-}
-
-:where(div:focus-within) {
-  outline: -webkit-focus-ring-color auto 1px;
-  z-index: 1;
-}

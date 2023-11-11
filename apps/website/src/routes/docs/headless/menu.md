@@ -9,6 +9,7 @@
 ## Components
 
 - [Accordion](/docs/headless/accordion)
+- [Carousel](/docs/headless/carousel)
 - [Combobox](/docs/headless/combobox)
 - [Modal](/docs/headless/modal)
 - [Pagination](/docs/headless/pagination)
