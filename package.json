@@ -8,18 +8,22 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "build:headless": "nx build headless",
     "commit": "git-cz",
-    "format:fix": "pretty-quick --staged",
+    "format.fix": "pretty-quick --staged",
+    "headless.build": "nx build headless",
     "link.dist": "cd packages/kit-headless/dist && pnpm link --global",
     "lint": "nx affected:lint",
-    "local:npm": "nx local-registry",
+    "local.npm": "nx local-registry",
     "prepare": "husky install",
-    "story:build:headless": "nx build-storybook headless",
-    "story:headless": "nx storybook headless",
-    "test:headless": "nx component-test headless",
-    "test:headless:ci": "nx component-test-ci headless",
-    "website": "nx serve website"
+    "story.build.headless": "nx build-storybook headless",
+    "story.headless": "nx storybook headless",
+    "test.headless": "nx component-test headless",
+    "test.headless.ci": "nx component-test-ci headless",
+    "build": "nx build website",
+    "build.cloudflare": "nx build-cloudflare website",
+    "dev": "nx serve website",
+    "preview": "nx preview website",
+    "preview.cloudflare": "nx preview-cloudflare website"
   },
   "packageManager": "pnpm@8.7.0",
   "devDependencies": {
@@ -100,6 +104,7 @@
     "qwik-nx": "^1.0.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "rehype-pretty-code": "0.10.2",
     "sass": "^1.66.1",
     "storybook": "^7.4.0",
     "storybook-framework-qwik": "^0.2.3",
@@ -108,6 +113,7 @@
     "ts-node": "10.9.1",
     "typescript": "^5.2.2",
     "undici": "^5.23.0",
+    "unist-util-visit": "5.0.0",
     "verdaccio": "^5.0.4",
     "vite": "^4.4.9",
     "vite-plugin-dts": "^3.5.3",
@@ -117,6 +123,11 @@
     "vite-tsconfig-paths": "4.2.0",
     "vitest": "^0.34.3",
     "wrangler": "^3.11.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "5.0.8",
+    "shiki": "0.14.5",
+    "tslib": "^2.6.2"
   },
   "config": {
     "commitizen": {
@@ -128,11 +139,6 @@
     "qwik ui components",
     "components library"
   ],
-  "dependencies": {
-    "@fontsource-variable/inter": "5.0.8",
-    "shiki": "0.14.5",
-    "tslib": "^2.6.2"
-  },
   "nx": {
     "includedScripts": []
   }
