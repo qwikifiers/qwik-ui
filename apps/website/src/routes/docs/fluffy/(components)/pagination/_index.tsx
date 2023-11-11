@@ -1,5 +1,4 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Pagination } from '@qwik-ui/tailwind';
 import { Toggle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
@@ -105,7 +104,8 @@ export default component$(() => {
       </div>
 
       <div class="flex flex-col gap-8">
-        <Pagination
+        Pagination Example
+        {/* <Pagination
           pages={pages.value}
           page={page.value}
           onPaging$={(newValue: number) => {
@@ -117,11 +117,12 @@ export default component$(() => {
           hidePrevButton={hidePrevButton.value}
           siblingCount={siblingCount.value}
           boundaryCount={boundaryCount.value}
-        />
+        /> */}
       </div>
 
       <div class="flex flex-col gap-8">
-        <Pagination
+        Pagination Example
+        {/* <Pagination
           pages={pages.value}
           page={page.value}
           onPaging$={(newValue: number) => {
@@ -136,7 +137,7 @@ export default component$(() => {
           activeClass="!bg-cyan-500"
           defaultClass="bg-cyan-200"
           labels={{ prev: '⬅️', next: '➡️', first: 'START', last: 'END' }}
-        />
+        /> */}
       </div>
     </div>
   );
