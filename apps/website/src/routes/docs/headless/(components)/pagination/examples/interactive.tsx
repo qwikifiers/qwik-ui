@@ -1,9 +1,12 @@
-import { component$, useSignal, Slot } from '@builder.io/qwik';
+import { component$, useSignal, Slot, useStylesScoped$ } from '@builder.io/qwik';
 import { Pagination } from '@qwik-ui/headless';
 import { Toggle } from '@qwik-ui/tailwind';
+import styles from '../index.css?inline';
 
 export default component$(() => {
-  const selectedPage = useSignal(5);
+  useStylesScoped$(styles);
+
+  const selectedPage = useSignal(1);
   const totalPages = useSignal(20);
 
   const hideNextButton = useSignal(false);
@@ -21,10 +24,14 @@ export default component$(() => {
         onPageChange$={(page) => {
           selectedPage.value = page;
         }}
-        selectedClass="text-sky-500 font-bold px-3"
         hidePrevButton={hidePrevButton.value}
         hideNextButton={hideNextButton.value}
-        gap={'10px'}
+        class="pagination-wrapper"
+        selectedClass="pagination-selected-btn"
+        defaultClass="pagination-btn"
+        dividerClass="pagination-divider"
+        prevButtonClass="prevNextButtons"
+        nextButtonClass="prevNextButtons"
       />
 
       <hr />
