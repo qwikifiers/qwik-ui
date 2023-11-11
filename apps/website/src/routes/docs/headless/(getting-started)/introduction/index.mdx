@@ -6,28 +6,27 @@ import HeadlessArt from '../../../../../../public/images/qwik-ui-headless-hero.w
 import { CheckIcon } from '../../../../_components/icons/Check.tsx'
 import { StatusBanner } from '../../../_components/status-banner/status-banner.tsx'
 import { statusByComponent } from '../../../../../_state/component-statuses'
-import { Note } from '../../../_components/note/note.tsx'
+import { Note } from '../../../_components/note/note.tsx';
+import {   AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger,  AccordionContent   } from '@qwik-ui/headless'
 
 # Introduction
 
-<p class="text-slate-600 dark:text-slate-500 font-semibold text-lg mt-[-8px]">An open source, unstyled, and automatically optimized component library for Qwik.</p>
+<p class="text-slate-600 dark:text-slate-500 font-semibold text-lg mt-[-8px]">An open source toolkit for building accessible, customizable, and rich user interfaces with Qwik.</p>
 
-Roses are red, violets are blue, I need accessible components, and you probably do too...
+Qwik UI is a low-level component library built with a strong emphasis on performance, accessibility, customization, and developer experience. It aims to give the developer more time focusing on what matters most, building the app!
 
-**Qwik UI Headless** enables developers to create accessible and performant applications with their own custom styles.
+This library serves as a foundation of your design system, providing the missing or non-existent functionality from native solutions.
 
-Qwik UI is **NOT a styled library**. 
-
-Qwik UI. The Headless Kit is perfect for developers who want to build their web
-applications with custom styles while maintaining a strong focus on accessibility.
-
-Qwik UI Headless is a powerful UI library that allows you to build dynamic, interactive web applications without the need for a traditional front-end framework. It's all about giving you the power to create rich user interfaces, but in a way that's more efficient and flexible.
 
 <Note status="warning">
 **Woah, why is there a 0 by the version?**
 
 Qwik UI is in its beta phase - it's like a roller coaster, thrilling and full of surprises! **Expect new features and some breaking changes** until we reach version 1.0. So, buckle up and enjoy the ride. 🏍️
 </Note>
+
+## Vision
+
+Nobody should be recreating the same [WAI-Aria Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/) from scratch in **2024**. Creating custom components are not an easy task, and a developer should not be expected to 
 
 ## Why Choose the Headless Kit?
 
@@ -51,3 +50,12 @@ advantages of Qwik while having complete control over the appearance of your web
 application. It's the best of both worlds!
 
 <HeadlessArt />
+
+<AccordionRoot>
+    <AccordionItem>
+        <AccordionHeader>
+            <AccordionTrigger>Test</AccordionTrigger>
+        </AccordionHeader>
+        <AccordionContent>I am content!</AccordionContent>
+    </AccordionItem>
+</AccordionRoot>
