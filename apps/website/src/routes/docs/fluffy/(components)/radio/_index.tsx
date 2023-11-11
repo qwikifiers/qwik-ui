@@ -11,7 +11,7 @@ export default component$(() => {
     }
   `);
 
-  let radioValue = useSignal('primary');
+  const radioValue = useSignal('primary');
   return (
     <>
       <div class="container">

@@ -5,7 +5,7 @@ export const ThemeIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    class="inline-block h-5 w-5 md:h-6 md:w-6 stroke-black dark:stroke-white"
+    class="inline-block h-5 w-5 stroke-black dark:stroke-white md:h-6 md:w-6"
   >
     <path
       stroke-linecap="round"

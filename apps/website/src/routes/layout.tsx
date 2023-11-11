@@ -1,16 +1,16 @@
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 import { ContentMenu, useContent } from '@builder.io/qwik-city';
 import { QwikUIProvider } from '@qwik-ui/headless';
-import { ComponentsStatusesMap, statusByComponent } from '../_state/component-statuses';
-import { KitName } from '../_state/kit-name.type';
-import { useAppState } from '../_state/use-app-state';
-import Header from './_components/header/header';
+import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
+import { KitName } from '~/_state/kit-name.type';
+import { useAppState } from '~/_state/use-app-state';
+import Header from '~/components/header/header';
 import docsStyles from './docs.css?inline';
 import {
   DocsNavigation,
   LinkGroup,
   LinkProps,
-} from './docs/_components/navigation-docs/navigation-docs';
+} from '~/components/navigation-docs/navigation-docs';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 

@@ -12,7 +12,7 @@ import {
   AccordionRoot,
   AccordionTrigger,
 } from '@qwik-ui/headless';
-import { PreviewCodeExampleTabsDeprecated } from '../../../_components/preview-code-example/preview-code-example-tabs-deprecated';
+import { PreviewCodeExampleTabsDeprecated } from '~/components/preview-code-example/preview-code-example-tabs-deprecated';
 
 export const HeroAccordion = component$(() => {
   return (

@@ -1,7 +1,5 @@
 import { component$, useStyles$, type JSXNode } from '@builder.io/qwik';
 
-import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
-import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
 import AutomaticBehaviorComponent from './examples/automatic-behavior-example';
 import automaticBehaviorCode from './examples/automatic-behavior-example?raw';
 import DisabledTabsComponent from './examples/disabled-example';
@@ -25,6 +23,8 @@ import shortExampleCode from './examples/short-example?raw';
 import VerticalTabsComponent from './examples/vertical-example';
 import verticalTabsCode from './examples/vertical-example?raw';
 import styles from './index.css?inline';
+import { PreviewCodeExampleTabs } from '~/components/preview-code-example/preview-code-example-tabs';
+import { CodeExampleContainer } from '~/components/code-example/code-example-container';
 
 export type Example = {
   component: JSXNode;

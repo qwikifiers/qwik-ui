@@ -3,8 +3,8 @@ import { useLocation } from '@builder.io/qwik-city';
 import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
 import { KitName } from 'apps/website/src/_state/kit-name.type';
 import { useAppState } from 'apps/website/src/_state/use-app-state';
-import { useSelectedKit } from '../../use-selected-kit';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
+import { useSelectedKit } from '../../routes/docs/use-selected-kit';
 
 export interface LinkGroup {
   name: string;
@@ -31,7 +31,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
   return (
     <nav
       class={`fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px] border-slate-200
-              bg-slate-100 bg-white pb-6 [grid-area:nav] dark:border-slate-800 dark:bg-slate-900  lg:w-80
+              bg-white pb-6 [grid-area:nav] dark:border-slate-800 dark:bg-slate-900  lg:w-80
               ${rootStore.isSidebarOpened ? 'w-100 flex' : 'hidden lg:flex'} `}
     >
       <ul class="show mt-8 flex flex-col gap-2 pl-12 lg:hidden">

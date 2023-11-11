@@ -1,18 +1,18 @@
 import { $, component$, useComputed$ } from '@builder.io/qwik';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { version as headlessVersion } from '../../../../../../packages/kit-headless/package.json';
+import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { useLocation } from '@builder.io/qwik-city';
 import { KitName } from 'apps/website/src/_state/kit-name.type';
 import { useAppState } from 'apps/website/src/_state/use-app-state';
-import { version as fluffyVersion } from '../../../../../../packages/kit-fluffy/package.json';
-import { useSelectedKit } from '../../docs/use-selected-kit';
+import { version as fluffyVersion } from '../../../../../packages/kit-fluffy/package.json';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
 import { MenuIcon } from '../icons/MenuIcon';
 import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
 import { Logo } from '../icons/logo';
+import { useSelectedKit } from '~/routes/docs/use-selected-kit';
 
 export interface HeaderProps {
   showVersion?: boolean;
