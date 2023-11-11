@@ -1,4 +1,4 @@
-import { usePagination } from '@/packages/kit-headless/src/components/pagination/use-pagination';
+import { usePagination } from './use-pagination';
 
 it(`Given totalPages = 1
     AND siblingCount = 1
@@ -19,6 +19,7 @@ it(`Given totalPages = 1
   ];
 
   tests.forEach(([selectedPage, expectedResult]) => {
+    // eslint-disable-next-line qwik/use-method-usage
     testItems(usePagination(10, selectedPage, 1, 1), expectedResult);
   });
 });
@@ -42,6 +43,7 @@ it(`Given totalPages = 1
   ];
 
   tests.forEach(([selectedPage, expectedResult]) => {
+    // eslint-disable-next-line qwik/use-method-usage
     testItems(usePagination(10, selectedPage, 2, 1), expectedResult);
   });
 });

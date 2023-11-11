@@ -1,4 +1,4 @@
-import { Pagination } from '@qwik-ui/headless';
+import { Pagination } from './pagination';
 import { component$, useSignal } from '@builder.io/qwik';
 
 /**
