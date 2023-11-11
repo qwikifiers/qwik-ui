@@ -17,6 +17,7 @@ export type PaginationStyling = {
 
 export type PaginationConfig = {
   siblingCount?: number;
+  // still not supported
   boundaryCount?: number;
   hidePrevButton?: boolean;
   hideNextButton?: boolean;

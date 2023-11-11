@@ -14,8 +14,6 @@ export function usePagination(
   totalPages: number,
   selectedPage: number,
   siblingCount = 1,
-  // Still not supported
-  boundaryCount = 1,
 ): (number | string)[] {
   const page = Math.min(Math.max(1, selectedPage), totalPages);
 

@@ -12,7 +12,6 @@ export default component$(() => {
   const hideNextButton = useSignal(false);
   const hidePrevButton = useSignal(false);
   const siblingCount = useSignal(1);
-  const boundaryCount = useSignal(1);
 
   return (
     <div class="mt-4 flex flex-col gap-6">
@@ -20,7 +19,6 @@ export default component$(() => {
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
         siblingCount={siblingCount.value}
-        boundaryCount={boundaryCount.value}
         onPageChange$={(page) => {
           selectedPage.value = page;
         }}
@@ -70,22 +68,6 @@ export default component$(() => {
             value={siblingCount.value}
             onChange$={(e) => {
               siblingCount.value = Number(e.target.value);
-            }}
-          />
-        </label>
-
-        <label class="flex items-center justify-between gap-10">
-          boundaryCount
-          <input
-            type="number"
-            style={{
-              width: '50px',
-              background: 'transparent',
-              textAlign: 'right',
-            }}
-            value={boundaryCount.value}
-            onChange$={(e) => {
-              boundaryCount.value = Number(e.target.value);
             }}
           />
         </label>

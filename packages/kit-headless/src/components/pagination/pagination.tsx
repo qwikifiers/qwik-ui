@@ -8,7 +8,6 @@ export const Pagination = component$<PaginationProps>((props) => {
     totalPages,
     onPageChange$,
     siblingCount,
-    boundaryCount, // still not supported
     hidePrevButton = false,
     hideNextButton = false,
     disabled = false,
@@ -27,12 +26,7 @@ export const Pagination = component$<PaginationProps>((props) => {
   const isPrevButtonEnabled = () => !hidePrevButton && selectedPage > 1;
   const isNextButtonEnabled = () => !hideNextButton && selectedPage !== totalPages;
 
-  const visibleItems = usePagination(
-    totalPages,
-    selectedPage,
-    siblingCount || 1,
-    boundaryCount || 1, // still not supported
-  );
+  const visibleItems = usePagination(totalPages, selectedPage, siblingCount || 1);
 
   console.log(visibleItems);
   return (
