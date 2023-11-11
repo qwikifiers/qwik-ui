@@ -35,7 +35,7 @@ const BasicSelect = component$(() => {
             </svg>
           </SelectMarker>
         </SelectTrigger>
-        <SelectListBox aria-labelledby="basic-select">
+        <SelectListBox aria-labelledby="basic-select" id="listbox">
           {groups.map((group) => (
             <>
               <SelectLabel id={group}>{group}</SelectLabel>
@@ -142,5 +142,43 @@ describe('Select', () => {
   `, () => {
     cy.mount(<SelectInForm />);
     // cy.get('button').last().click();
+  });
+});
+
+describe('printable chars spec ', () => {
+  it(`
+  GIVEN the select-list-box is focused, and all keys pressed exist as the first char in any item on the list
+  WHEN a key is pressed
+  THEN focus on the first item on the list that has its first char be equal to the key pressed
+  WHEN a new key is pressed
+  THEN focus on the first item on the list, from absolute top to absulute bottom, that has its first char be equal to the key pressed
+  `, () => {
+    cy.mount(<BasicSelect />);
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.focused().type('z');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'zucchini');
+    cy.focused().type('a');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'apple');
+    cy.focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
+    cy.focused().type('m');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'mango');
+  });
+
+  it(`
+  GIVEN the select-list-box is focused, and all keys pressed exist as the first char in any item on the list
+  WHEN the same key is pressed multiple times
+  THEN focus on all instances where the first char of the item is equal to the key being pressed, starting from absolute top to absoulte bottom, and looping when the last item is met
+  `, () => {
+    cy.mount(<BasicSelect />);
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
+    cy.focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'cucumber');
+    cy.focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'chicken');
+    cy.focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
   });
 });

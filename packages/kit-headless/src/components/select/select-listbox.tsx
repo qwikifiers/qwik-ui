@@ -11,15 +11,17 @@ import SelectContextId from './select-context-id';
 export type SelectListBoxProps = QwikIntrinsicElements['ul'];
 
 export const SelectListBox = component$((props: SelectListBoxProps) => {
+  const indexDiff = useSignal<number | undefined>(undefined);
   const listBoxRef = useSignal<HTMLElement>();
   const selectContext = useContext(SelectContextId);
   selectContext.listBoxRefSig = listBoxRef;
 
   useVisibleTask$(function setKeyHandler({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
-      const availableOptions = selectContext.optionsStore.filter(
+      const availableOptions: Array<HTMLElement> = selectContext.optionsStore.filter(
         (option) => !(option?.getAttribute('aria-disabled') === 'true'),
       );
+
       const target = e.target as HTMLElement;
       const currentIndex = availableOptions.indexOf(target);
 
@@ -32,7 +34,6 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
       ) {
         e.preventDefault();
       }
-
       if (e.key === 'ArrowDown') {
         if (currentIndex === availableOptions.length - 1) {
           availableOptions[0]?.focus();
@@ -48,13 +49,41 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
           availableOptions[currentIndex - 1]?.focus();
         }
       }
+
+      const charOptions: Array<string> = availableOptions.map((e) => {
+        return e.textContent!.slice(0, 1).toLowerCase();
+      });
+      const currentChar = e.key.toLowerCase();
+      const charIndex = charOptions.indexOf(currentChar);
+      if (charIndex !== -1) {
+        if (indexDiff.value === undefined) {
+          availableOptions[charIndex].focus();
+          indexDiff.value = charIndex + 1;
+        } else {
+          const isRepeat = charOptions[indexDiff.value - 1] === currentChar;
+          if (isRepeat) {
+            const nextChars = charOptions.slice(indexDiff.value);
+            const repeatIndex = nextChars.indexOf(currentChar);
+            if (repeatIndex !== -1) {
+              const nextIndex = repeatIndex + indexDiff.value;
+              availableOptions[nextIndex].focus();
+              indexDiff.value = nextIndex + 1;
+            } else {
+              availableOptions[charIndex].focus();
+              indexDiff.value = charIndex + 1;
+            }
+          } else {
+            availableOptions[charIndex].focus();
+            indexDiff.value = charIndex + 1;
+          }
+        }
+      }
     }
     listBoxRef.value?.addEventListener('keydown', keyHandler);
     cleanup(() => {
       listBoxRef.value?.removeEventListener('keydown', keyHandler);
     });
   });
-
   return (
     <ul
       ref={listBoxRef}
