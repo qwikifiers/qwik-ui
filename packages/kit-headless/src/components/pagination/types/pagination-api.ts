@@ -11,6 +11,8 @@ export type PaginationStyling = {
   defaultClass?: string;
   selectedClass?: string;
   dividerClass?: string;
+  nextButtonClass?: string;
+  prevButtonClass?: string;
 };
 
 export type PaginationConfig = {
