@@ -391,6 +391,16 @@
         "ideas",
         "maintenance"
       ]
+    },
+    {
+      "login": "ilteoood",
+      "name": "Matteo Pietro Dazzi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6383527?v=4",
+      "profile": "https://ilteoood.xyz/",
+      "contributions": [
+        "doc",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
