@@ -154,6 +154,9 @@ describe('printable chars spec ', () => {
   THEN focus on the first item on the list, from absolute top to absulute bottom, that has its first char be equal to the key pressed
   `, () => {
     cy.mount(<BasicSelect />);
+    // click() is repeated above to stop a cold-start bug
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
     cy.get('[data-testid="select-root"] > button').click();
     cy.focused().type('z');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'zucchini');
