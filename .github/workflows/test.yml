@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node_version: [16]
+        node_version: [16, 18, 20, 21]
 
     steps:
       - name: Cancel Previous Runs
