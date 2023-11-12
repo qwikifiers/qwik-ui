@@ -18,7 +18,7 @@ export default component$(() => {
         <CarouselPrev class="bg-slate-700 px-3 py-2">Prev</CarouselPrev>
       </div>
       <CarouselSlidePicker />
-      <div>
+      <div class="flex w-[10000px] gap-4 overflow-x-hidden">
         {slides.map((content) => (
           <CarouselSlide key={content}>{content}</CarouselSlide>
         ))}

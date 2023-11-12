@@ -1,9 +1,12 @@
-import { Slot, component$ } from '@builder.io/qwik';
+import { Slot, component$, useContext } from '@builder.io/qwik';
 import { CarouselButtonProps } from './types';
+import CarouselContextId from './carousel-context-id';
 
 export const CarouselPrev = component$((props: CarouselButtonProps) => {
+  const context = useContext(CarouselContextId);
+
   return (
-    <button {...props}>
+    <button {...props} onClick$={() => context.currentSlideSig.value--}>
       <Slot />
     </button>
   );

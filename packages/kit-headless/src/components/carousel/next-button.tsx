@@ -1,16 +1,12 @@
-import { Slot, component$, useContext, useVisibleTask$ } from '@builder.io/qwik';
+import { Slot, component$, useContext } from '@builder.io/qwik';
 import { CarouselButtonProps } from './types';
 import CarouselContextId from './carousel-context-id';
 
 export const CarouselNext = component$((props: CarouselButtonProps) => {
   const context = useContext(CarouselContextId);
 
-  useVisibleTask$(() => {
-    console.log(context.currentSlideSig.value);
-  });
-
   return (
-    <button {...props}>
+    <button {...props} onClick$={() => context.currentSlideSig.value++}>
       <Slot />
     </button>
   );

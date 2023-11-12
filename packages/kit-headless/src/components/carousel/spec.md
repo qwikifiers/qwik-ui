@@ -19,3 +19,13 @@ For keyboard interactions:
 - If present, the rotation control is the first element in the Tab sequence inside the carousel.
 
 - If tab elements are used for slide picker controls, they implement the keyboard interaction defined in the Tabs Pattern.
+
+Implementation logic whiteboard:
+
+What's the width of the carousel component?
+
+Make the containing slide div the size of the slide
+
+When someone navigates, slide the containing div over by however many carousel component widths to get to the wanted slide.
+
+Ex. Slide 1-10 -> n - 1 widths
