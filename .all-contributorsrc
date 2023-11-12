@@ -391,7 +391,7 @@
         "ideas",
         "maintenance"
       ]
-    },
+    }
   ],
   "contributorsPerLine": 7,
   "skipCi": true,
