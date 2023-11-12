@@ -8,7 +8,6 @@ export const Pagination = component$<PaginationProps>((props) => {
     totalPages,
     onPageChange$,
     siblingCount,
-    boundaryCount,
     hidePrevButton = false,
     hideNextButton = false,
     disabled = false,
@@ -16,51 +15,51 @@ export const Pagination = component$<PaginationProps>((props) => {
       previous: previousButtonLabel = 'PREV',
       next: nextButtonLabel = 'NEXT',
     } = {},
-    defaultClass,
-    selectedClass,
-    dividerClass,
+    defaultClass = '',
+    selectedClass = '',
+    dividerClass = '',
+    nextButtonClass = '',
+    prevButtonClass = '',
     ...rest
   } = props;
 
-  const isPrevButtonVisible = () => !hidePrevButton && selectedPage > 1;
-  const isNextButtonVisible = () => !hideNextButton && selectedPage !== totalPages;
+  const isPrevButtonEnabled = () => !hidePrevButton && selectedPage > 1;
+  const isNextButtonEnabled = () => !hideNextButton && selectedPage !== totalPages;
 
-  const visibleItems = usePagination(
-    totalPages,
-    selectedPage,
-    siblingCount || 1,
-    boundaryCount || 1,
-  );
+  const visibleItems = usePagination(totalPages, selectedPage, siblingCount || 1);
 
+  console.log(visibleItems);
   return (
     <nav aria-label="pagination" data-testid="pagination" {...rest}>
-      {isPrevButtonVisible() && (
-        <button
-          aria-label={'prevAriaLabel'}
-          disabled={disabled}
-          onClick$={() => {
-            if (selectedPage > 1) {
-              onPageChange$(selectedPage - 1);
-            }
-          }}
-        >
-          <Slot name="prefix" />
-          <span>{previousButtonLabel}</span>
-        </button>
-      )}
+      <button
+        class={nextButtonClass}
+        aria-label={'prevAriaLabel'}
+        disabled={disabled || !isPrevButtonEnabled()}
+        onClick$={() => {
+          if (selectedPage > 1) {
+            onPageChange$(selectedPage - 1);
+          }
+        }}
+      >
+        <Slot name="prefix" />
+        <span>{previousButtonLabel}</span>
+      </button>
 
       {/* Button List */}
       {visibleItems.map((item: string | number, index: number) => {
+        const isSelected = selectedPage === item;
         return (
           <span key={index}>
             {typeof item === 'string' ? (
-              <button class={dividerClass}>...</button>
+              <button class={dividerClass} disabled={true}>
+                ...
+              </button>
             ) : (
               <button
-                class={[selectedPage === item ? selectedClass : defaultClass]}
+                class={[defaultClass, selectedPage === item && selectedClass]}
                 aria-label={`Page ${item} of ${totalPages}`}
                 aria-current={selectedPage === item}
-                disabled={true}
+                disabled={disabled || isSelected}
                 onClick$={() => {
                   onPageChange$(item);
                 }}
@@ -73,20 +72,19 @@ export const Pagination = component$<PaginationProps>((props) => {
       })}
 
       {/* Next Button */}
-      {isNextButtonVisible() && (
-        <button
-          aria-label={'nextAriaLabel'}
-          disabled={disabled}
-          onClick$={() => {
-            if (selectedPage < totalPages) {
-              onPageChange$(selectedPage + 1);
-            }
-          }}
-        >
-          <span>{nextButtonLabel}</span>
-          <Slot name="suffix" />
-        </button>
-      )}
+      <button
+        class={prevButtonClass}
+        aria-label={'nextAriaLabel'}
+        disabled={disabled || !isNextButtonEnabled()}
+        onClick$={() => {
+          if (selectedPage < totalPages) {
+            onPageChange$(selectedPage + 1);
+          }
+        }}
+      >
+        <span>{nextButtonLabel}</span>
+        <Slot name="suffix" />
+      </button>
     </nav>
   );
 });

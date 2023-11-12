@@ -1,0 +1,18 @@
+.pagination-wrapper {
+  @apply flex gap-3;
+}
+.pagination-btn {
+  @apply h-8 !cursor-pointer rounded-md bg-white px-3 text-center text-black hover:bg-slate-200;
+}
+
+.pagination-selected-btn {
+  @apply pointer-events-none h-8  rounded-md bg-slate-500 text-black;
+}
+
+.pagination-divider {
+  @apply h-8 w-8 rounded-md text-white;
+}
+
+.prevNextButtons {
+  @apply h-8 !cursor-pointer rounded-md bg-white px-2 text-black hover:bg-slate-200 disabled:pointer-events-none disabled:opacity-30;
+}
