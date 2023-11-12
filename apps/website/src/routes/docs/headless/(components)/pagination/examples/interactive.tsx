@@ -1,15 +1,17 @@
-import { component$, useSignal, Slot } from '@builder.io/qwik';
+import { component$, useSignal, Slot, useStylesScoped$ } from '@builder.io/qwik';
 import { Pagination } from '@qwik-ui/headless';
 import { Toggle } from '@qwik-ui/tailwind';
+import styles from '../index.css?inline';
 
 export default component$(() => {
-  const selectedPage = useSignal(5);
+  useStylesScoped$(styles);
+
+  const selectedPage = useSignal(1);
   const totalPages = useSignal(20);
 
   const hideNextButton = useSignal(false);
   const hidePrevButton = useSignal(false);
   const siblingCount = useSignal(1);
-  const boundaryCount = useSignal(1);
 
   return (
     <div class="mt-4 flex flex-col gap-6">
@@ -17,14 +19,17 @@ export default component$(() => {
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
         siblingCount={siblingCount.value}
-        boundaryCount={boundaryCount.value}
         onPageChange$={(page) => {
           selectedPage.value = page;
         }}
-        selectedClass="text-sky-500 font-bold px-3"
         hidePrevButton={hidePrevButton.value}
         hideNextButton={hideNextButton.value}
-        gap={'10px'}
+        class="pagination-wrapper"
+        selectedClass="pagination-selected-btn"
+        defaultClass="pagination-btn"
+        dividerClass="pagination-divider"
+        prevButtonClass="prevNextButtons"
+        nextButtonClass="prevNextButtons"
       />
 
       <hr />
@@ -63,22 +68,6 @@ export default component$(() => {
             value={siblingCount.value}
             onChange$={(e) => {
               siblingCount.value = Number(e.target.value);
-            }}
-          />
-        </label>
-
-        <label class="flex items-center justify-between gap-10">
-          boundaryCount
-          <input
-            type="number"
-            style={{
-              width: '50px',
-              background: 'transparent',
-              textAlign: 'right',
-            }}
-            value={boundaryCount.value}
-            onChange$={(e) => {
-              boundaryCount.value = Number(e.target.value);
             }}
           />
         </label>

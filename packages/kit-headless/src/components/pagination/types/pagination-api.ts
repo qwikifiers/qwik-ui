@@ -11,10 +11,13 @@ export type PaginationStyling = {
   defaultClass?: string;
   selectedClass?: string;
   dividerClass?: string;
+  nextButtonClass?: string;
+  prevButtonClass?: string;
 };
 
 export type PaginationConfig = {
   siblingCount?: number;
+  // still not supported
   boundaryCount?: number;
   hidePrevButton?: boolean;
   hideNextButton?: boolean;
