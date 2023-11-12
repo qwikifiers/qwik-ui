@@ -174,6 +174,9 @@ describe('printable chars spec ', () => {
   THEN focus on all instances where the first char of the item is equal to the key being pressed, starting from absolute top to absoulte bottom, and looping when the last item is met
   `, () => {
     cy.mount(<BasicSelect />);
+    // click() is repeated above to stop a cold-start bug
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
     cy.get('[data-testid="select-root"] > button').click();
     cy.focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
