@@ -6,7 +6,13 @@ export const CarouselNext = component$((props: CarouselButtonProps) => {
   const context = useContext(CarouselContextId);
 
   return (
-    <button {...props} onClick$={() => context.currentSlideSig.value++}>
+    <button
+      {...props}
+      onClick$={() => {
+        context.currentSlideSig.value++;
+        console.log(context.currentSlideSig.value);
+      }}
+    >
       <Slot />
     </button>
   );
