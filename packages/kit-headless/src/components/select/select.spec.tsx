@@ -10,6 +10,7 @@ import {
   SelectGroup,
 } from '.';
 import SelectTestData from './select-test-data';
+import cypress from 'cypress';
 
 const BasicSelect = component$(() => {
   const { groups, options } = SelectTestData();
@@ -160,11 +161,12 @@ describe('printable chars spec ', () => {
     cy.get('[data-testid="select-root"] > button').click();
     cy.focused().type('z');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'zucchini');
-    cy.focused().type('a');
+    cy.wait(2000).focused().type('a');
+    // cy.focused().type('a');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'apple');
-    cy.focused().type('c');
+    cy.wait(2000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
-    cy.focused().type('m');
+    cy.wait(2000).focused().type('m');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'mango');
   });
 
@@ -178,13 +180,13 @@ describe('printable chars spec ', () => {
     cy.get('[data-testid="select-root"] > button').click();
     cy.get('[data-testid="select-root"] > button').click();
     cy.get('[data-testid="select-root"] > button').click();
-    cy.focused().type('c');
+    cy.wait(2000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
-    cy.focused().type('c');
+    cy.wait(2000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'cucumber');
-    cy.focused().type('c');
+    cy.wait(2000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'chicken');
-    cy.focused().type('c');
+    cy.wait(2000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
   });
 });
