@@ -1,10 +1,24 @@
-import { QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
+import {
+  QwikIntrinsicElements,
+  Slot,
+  component$,
+  useContext,
+  useTask$,
+} from '@builder.io/qwik';
+import CarouselContextId from './carousel-context-id';
 
 export type CarouselSlideProps = QwikIntrinsicElements['div'];
 
 export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
+  const context = useContext(CarouselContextId);
+
+  useTask$(() => {
+    context.totalSlidesSig.value++;
+    console.log(context.totalSlidesSig.value);
+  });
+
   return (
-    <div {...props}>
+    <div ref={context.slideRef} {...props}>
       <Slot />
     </div>
   );

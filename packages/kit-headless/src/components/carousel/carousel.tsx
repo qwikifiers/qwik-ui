@@ -11,10 +11,18 @@ import CarouselContextId from './carousel-context-id';
 export type CarouselRootProps = QwikIntrinsicElements['section'];
 
 export const Carousel = component$((props: CarouselRootProps) => {
-  const currentSlideSig = useSignal(0);
+  const currentSlideSig = useSignal(1);
+  const viewportRef = useSignal<HTMLDivElement>();
+  const slideOffset = useSignal<number>(0);
+  const slideRef = useSignal<HTMLDivElement>();
+  const totalSlidesSig = useSignal<number>(0);
 
   const context: CarouselContext = {
     currentSlideSig,
+    viewportRef,
+    slideRef,
+    slideOffset,
+    totalSlidesSig,
   };
 
   useContextProvider(CarouselContextId, context);

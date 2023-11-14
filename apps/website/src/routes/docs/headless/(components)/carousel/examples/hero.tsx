@@ -5,7 +5,8 @@ import {
   CarouselNext,
   CarouselPrev,
   CarouselSlide,
-  CarouselSlidePicker,
+  CarouselViewport,
+  CarouselContainer,
 } from '@qwik-ui/headless';
 
 export default component$(() => {
@@ -13,14 +14,10 @@ export default component$(() => {
 
   useStyles$(`
     .qwikui-carousel {
-      --slide-spacing: 1rem;
+      --slide-spacing: 0rem;
       --slide-size: 100%;
       --slide-height: 19rem;
       padding: 1.6rem;
-    }
-
-    .qwikui-viewport {
-      overflow: hidden;
     }
 
     .qwikui-container {
@@ -29,7 +26,7 @@ export default component$(() => {
       touch-action: pan-y;
       margin-left: calc(var(--slide-spacing) * -1);
       display: flex;
-      gap: 16px;
+
     }
 
     .qwikui-slide {
@@ -37,6 +34,8 @@ export default component$(() => {
       min-width: 0;
       padding-left: var(--slide-spacing);
       position: relative;
+      padding-top: 16px;
+      padding-bottom: 16px;
     }
   `);
 
@@ -46,16 +45,15 @@ export default component$(() => {
         <CarouselPrev class="bg-slate-700 px-3 py-2">Prev</CarouselPrev>
         <CarouselNext class="bg-slate-700 px-3 py-2">Next</CarouselNext>
       </div>
-      <CarouselSlidePicker />
-      <div class="qwikui-viewport">
-        <div class="qwikui-container">
+      <CarouselViewport class="bg-slate-500">
+        <CarouselContainer class="qwikui-container">
           {slides.map((content) => (
             <CarouselSlide class="qwikui-slide" key={content}>
               {content}
             </CarouselSlide>
           ))}
-        </div>
-      </div>
+        </CarouselContainer>
+      </CarouselViewport>
     </Carousel>
   );
 });
