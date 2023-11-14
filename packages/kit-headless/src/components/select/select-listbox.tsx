@@ -59,12 +59,12 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         console.log('base case ', favStrg.value);
         prevTimeout.value = setTimeout(() => {
           favStrg.value = '';
-        }, 1000);
+        }, 500);
       } else {
         clearTimeout(prevTimeout.value);
         prevTimeout.value = setTimeout(() => {
           favStrg.value = '';
-        }, 1000);
+        }, 500);
       }
       //
       if (favStrg.value.length < 1 || fullStrgSearchFailed.value) {

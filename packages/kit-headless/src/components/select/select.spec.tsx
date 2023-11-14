@@ -10,8 +10,6 @@ import {
   SelectGroup,
 } from '.';
 import SelectTestData from './select-test-data';
-import cypress from 'cypress';
-
 const BasicSelect = component$(() => {
   const { groups, options } = SelectTestData();
 
@@ -161,12 +159,12 @@ describe('printable chars spec ', () => {
     cy.get('[data-testid="select-root"] > button').click();
     cy.focused().type('z');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'zucchini');
-    cy.wait(2000).focused().type('a');
-    // cy.focused().type('a');
+    // we must wait after each type bc spec (500ms before searching by char)
+    cy.wait(1000).focused().type('a');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'apple');
-    cy.wait(2000).focused().type('c');
+    cy.wait(1000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
-    cy.wait(2000).focused().type('m');
+    cy.wait(1000).focused().type('m');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'mango');
   });
 
@@ -180,13 +178,31 @@ describe('printable chars spec ', () => {
     cy.get('[data-testid="select-root"] > button').click();
     cy.get('[data-testid="select-root"] > button').click();
     cy.get('[data-testid="select-root"] > button').click();
-    cy.wait(2000).focused().type('c');
+    // we must wait after each type bc spec (500ms before searching by char)
+    cy.wait(1000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
-    cy.wait(2000).focused().type('c');
+    cy.wait(1000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'cucumber');
-    cy.wait(2000).focused().type('c');
+    cy.wait(1000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'chicken');
-    cy.wait(2000).focused().type('c');
+    cy.wait(1000).focused().type('c');
     cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
+  });
+
+  it(`
+  GIVEN the select-list-box is focused, all the strg typed exist as items in the list
+  WHEN the strg is typed
+  THEN focus on the first instance
+  `, () => {
+    cy.mount(<BasicSelect />);
+    // click() is repeated above to stop a cold-start bug
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
+    // we must wait after each type bc spec
+    cy.focused().type('bac');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'bacon');
+    cy.wait(1000).focused().type('sa');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'sausage');
   });
 });
