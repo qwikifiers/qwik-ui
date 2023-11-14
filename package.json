@@ -10,8 +10,7 @@
   "scripts": {
     "commit": "git-cz",
     "format.fix": "pretty-quick --staged",
-    "headless.build": "nx build headless",
-    "link.dist": "cd packages/kit-headless/dist && pnpm link --global",
+    "link.dist": "cd dist/packages/kit-headless && pnpm link --global",
     "lint": "nx affected:lint",
     "local.npm": "nx local-registry",
     "prepare": "husky install",
@@ -21,6 +20,7 @@
     "test.headless.ci": "nx component-test-ci headless",
     "build": "nx build website",
     "build.cloudflare": "nx build-cloudflare website",
+    "build.headless": "nx build headless",
     "dev": "nx serve website",
     "preview": "nx preview website",
     "preview.cloudflare": "nx preview-cloudflare website"
