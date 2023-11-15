@@ -159,6 +159,14 @@
   .tab-size pre {
     white-space: pre-wrap;
   }
+
+  .note-link a {
+    border-bottom: 1px solid var(--qwikui-slate-950) !important;
+  }
+
+  .dark .note-link a {
+    border-bottom: 1px solid white !important;
+  }
 }
 
 :root {

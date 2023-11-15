@@ -47,7 +47,7 @@
   }
 
   a {
-    @apply border-qwikui-blue-600 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] font-semibold transition transition-colors duration-300;
+    @apply border-qwikui-blue-600 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] pb-[1.5px] font-semibold transition transition-colors duration-300;
   }
 
   p code {
