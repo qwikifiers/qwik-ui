@@ -1,5 +1,4 @@
 import { JSXNode, component$, useStyles$ } from '@builder.io/qwik';
-import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
 
 import Hero from './examples/hero';
 import heroExampleCode from './examples/hero?raw';
@@ -37,7 +36,8 @@ import pageLoadSnip from './examples/page-load-snip?raw';
 import animationSnip from './examples/animation-snip.css?raw';
 
 import styles from './index.css?inline';
-import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
+import { PreviewCodeExampleTabs } from '~/components/preview-code-example/preview-code-example-tabs';
+import { CodeExampleContainer } from '~/components/code-example/code-example-container';
 
 export type Example = {
   component: JSXNode;

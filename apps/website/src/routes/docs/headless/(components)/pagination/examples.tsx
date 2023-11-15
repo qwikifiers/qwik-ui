@@ -4,7 +4,6 @@ import Disabled from './examples/disabled';
 import HidePrevNextButtons from './examples/hide-prev-next-buttons';
 import Styling from './examples/styling';
 import { JSXNode, component$ } from '@builder.io/qwik';
-import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
 
 import Basic from './examples/basic';
 import Interactive from './examples/interactive';
@@ -15,6 +14,7 @@ import customButtonLabelsCode from './examples/custom-button-labels?raw';
 import stylingCode from './examples/styling?raw';
 import customArrowsCode from './examples/custom-arrows?raw';
 import disabledCode from './examples/disabled?raw';
+import { PreviewCodeExampleTabs } from '~/components/preview-code-example/preview-code-example-tabs';
 
 export type Example = {
   component: JSXNode;

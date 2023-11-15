@@ -24,7 +24,7 @@
 - [Progress](/docs/fluffy/progress)
 - [Radio](/docs/fluffy/radio)
 - [Rating](/docs/fluffy/rating)
-- [Slider](/docs/fluffy/Slider)
+- [Slider](/docs/fluffy/slider)
 - [Select](/docs/fluffy/select)
 - [Tabs](/docs/fluffy/tabs)
 - [Toast](/docs/fluffy/toast)

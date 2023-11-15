@@ -1,10 +1,4 @@
-import {
-  component$,
-  useStyles$,
-  $,
-  QwikMouseEvent,
-  QwikChangeEvent,
-} from '@builder.io/qwik';
+import { component$, useStyles$, $ } from '@builder.io/qwik';
 import styles from './checkbox.css?inline';
 import { Checkbox } from '@qwik-ui/headless';
 
@@ -17,7 +11,7 @@ export default component$(() => {
 
       <h1>Checkbox</h1>
 
-      <Checkbox.Label htmlFor="test">
+      <Checkbox.Label for="test">
         <Checkbox.Root
           id="test"
           name="test"
@@ -29,7 +23,7 @@ export default component$(() => {
       </Checkbox.Label>
 
       <h1>With label</h1>
-      <Checkbox.Label htmlFor="test">
+      <Checkbox.Label for="test">
         <Checkbox.Root class="checkbox-margin-right" />
         test
       </Checkbox.Label>
@@ -62,19 +56,19 @@ export default component$(() => {
       <h1>With legend group</h1>
       <legend>group</legend>
       <fieldset>
-        <Checkbox.Label htmlFor="test">
+        <Checkbox.Label for="test">
           <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
           test
         </Checkbox.Label>
       </fieldset>
       <fieldset>
-        <Checkbox.Label htmlFor="test">
+        <Checkbox.Label for="test">
           <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
           test
         </Checkbox.Label>
       </fieldset>
       <fieldset>
-        <Checkbox.Label htmlFor="test">
+        <Checkbox.Label for="test">
           <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
           test
         </Checkbox.Label>

@@ -1,9 +1,5 @@
 import { component$, type JSXNode } from '@builder.io/qwik';
 
-import { Highlight } from '../../../_components/highlight/highlight';
-import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
-import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
-
 import AnimationComponent from './examples/animation';
 import animationCode from './examples/animation?raw';
 
@@ -60,6 +56,9 @@ import sortFilterCode from './examples/sort-filter?raw';
 
 import StringComponent from './examples/string';
 import stringCode from './examples/string?raw';
+import { PreviewCodeExampleTabs } from '~/components/preview-code-example/preview-code-example-tabs';
+import { CodeExampleContainer } from '~/components/code-example/code-example-container';
+import { Highlight } from '~/components/highlight/highlight';
 
 export type Example = {
   component: JSXNode;

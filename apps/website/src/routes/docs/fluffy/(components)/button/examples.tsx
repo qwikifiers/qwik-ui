@@ -1,10 +1,5 @@
 import { JSXNode, component$ } from '@builder.io/qwik';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import Button from '../../../../../../../../packages/kit-fluffy/src/components/button/button?raw';
-import { CodeExampleContainer } from '../../../_components/code-example/code-example-container';
-import { Highlight } from '../../../_components/highlight/highlight';
-import { PreviewCodeExampleVertical } from '../../../_components/preview-code-example/preview-code-example-vertical';
-import { ShowExampleProps } from '../../../headless/(components)/combobox/examples';
 import AnimationExampleComponent from './examples/animation';
 import animationExamplesCode from './examples/animation?raw';
 import CombinationExampleComponent from './examples/combination';
@@ -21,6 +16,12 @@ import SizeExampleComponent from './examples/size';
 import sizeExamplesCode from './examples/size?raw';
 import StateExampleComponent from './examples/state';
 import stateExamplesCode from './examples/state?raw';
+import { CodeExampleContainer } from '~/components/code-example/code-example-container';
+import { PreviewCodeExampleVertical } from '~/components/preview-code-example/preview-code-example-vertical';
+import { Highlight } from '~/components/highlight/highlight';
+import { ShowExampleProps } from '~/routes/docs/headless/(components)/combobox/examples';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import ButtonCode from '../../../../../../../../packages/kit-fluffy/src/components/button/button?raw';
 export type Example = {
   component: JSXNode;
   code: string;
@@ -62,7 +63,9 @@ export const examples: Record<string, Example> = {
   },
 };
 
-export const InstallExample = component$(() => <CodeExampleContainer code={Button} />);
+export const InstallExample = component$(() => (
+  <CodeExampleContainer code={ButtonCode} />
+));
 
 export const ShowExample = component$(({ example }: ShowExampleProps) => {
   const { component, code, cssClasses = '' } = examples[example];

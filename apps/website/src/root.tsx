@@ -10,7 +10,6 @@ import {
   RouterOutlet,
   ServiceWorkerRegister,
 } from '@builder.io/qwik-city';
-import { RouterHead } from './routes/_components/router-head/router-head';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
@@ -18,6 +17,7 @@ import { THEME_STORAGE_KEY, useCSSTheme } from './_state/use-css-theme';
 import { OLD_APP_STATE_CONTEXT_ID } from './constants';
 import globalStyles from './global.css?inline';
 import { OldAppState } from './types';
+import { RouterHead } from './components/router-head/router-head';
 
 export default component$(() => {
   /**

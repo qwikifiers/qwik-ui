@@ -11,9 +11,8 @@ import {
 } from '@qwik-ui/headless';
 
 import { QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
-
-import { statusByComponent } from '../../../../../../_state/component-statuses';
-import { StatusBadge } from '../../../../_components/component-status-badge/component-status-badge';
+import { StatusBadge } from '~/components/component-status-badge/component-status-badge';
+import { statusByComponent } from '~/_state/component-statuses';
 
 export default component$(() => {
   const inputValueSig = useSignal('');
