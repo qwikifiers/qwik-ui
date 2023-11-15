@@ -13,6 +13,7 @@ export type CarouselRootProps = QwikIntrinsicElements['section'];
 export const Carousel = component$((props: CarouselRootProps) => {
   const currentSlideSig = useSignal(1);
   const viewportRef = useSignal<HTMLDivElement>();
+  const containerRef = useSignal<HTMLDivElement>();
   const slideOffset = useSignal<number>(0);
   const slideRef = useSignal<HTMLDivElement>();
   const totalSlidesSig = useSignal<number>(0);
@@ -23,6 +24,7 @@ export const Carousel = component$((props: CarouselRootProps) => {
     slideRef,
     slideOffset,
     totalSlidesSig,
+    containerRef,
   };
 
   useContextProvider(CarouselContextId, context);

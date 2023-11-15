@@ -5,7 +5,7 @@ import {
   CarouselNext,
   CarouselPrev,
   CarouselSlide,
-  CarouselViewport,
+  CarouselView,
   CarouselContainer,
 } from '@qwik-ui/headless';
 
@@ -36,6 +36,7 @@ export default component$(() => {
       position: relative;
       padding-top: 16px;
       padding-bottom: 16px;
+      user-select: none;
     }
   `);
 
@@ -45,15 +46,15 @@ export default component$(() => {
         <CarouselPrev class="bg-slate-700 px-3 py-2">Prev</CarouselPrev>
         <CarouselNext class="bg-slate-700 px-3 py-2">Next</CarouselNext>
       </div>
-      <CarouselViewport class="bg-slate-500">
+      <CarouselView class="bg-slate-500">
         <CarouselContainer class="qwikui-container">
           {slides.map((content) => (
-            <CarouselSlide class="qwikui-slide" key={content}>
+            <CarouselSlide class="qwikui-slide noselect" key={content}>
               {content}
             </CarouselSlide>
           ))}
         </CarouselContainer>
-      </CarouselViewport>
+      </CarouselView>
     </Carousel>
   );
 });
