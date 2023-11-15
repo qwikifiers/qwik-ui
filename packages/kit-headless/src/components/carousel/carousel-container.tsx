@@ -10,10 +10,10 @@ export const CarouselContainer = component$((props: CarouselContainerProps) => {
   return (
     <div
       ref={context.containerRef}
-      style={{
-        transform: `translate3d(${context.slideOffset.value + 'px'}, 0px, 0px)`,
-        transition: 'transform 300ms ease',
-      }}
+      // style={{
+      //   transform: `translate3d(${context.slideOffset.value + 'px'}, 0px, 0px)`,
+      //   transition: 'transform 300ms ease',
+      // }}
       {...props}
     >
       <Slot />

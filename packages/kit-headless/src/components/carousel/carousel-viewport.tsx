@@ -20,7 +20,7 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
 
   const handlePointerMove$ = $((event: MouseEvent) => {
     if (viewContainerSig.value) {
-      totalXSig.value = event.clientX - viewContainerSig.value + deltaXSig.value;
+      totalXSig.value = event.clientX - viewContainerSig.value;
 
       if (context.containerRef.value) {
         context.containerRef.value.style.transform = `translate3d(${totalXSig.value}px, 0px, 0px)`;
