@@ -1,5 +1,4 @@
 /// <reference types="vitest" />
-
 import { qwikVite } from '@builder.io/qwik/optimizer';
 import { dirname, join } from 'path';
 import { qwikNxVite } from 'qwik-nx/plugins';
@@ -8,6 +7,11 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import pkg from './package.json';
+
+const { dependencies = {}, peerDependencies = {} } = pkg as any;
+const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
+const excludeAll = (obj: any) => Object.keys(obj).map(makeRegex);
 
 export default defineConfig({
   plugins: [
@@ -57,6 +61,11 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
+      external: [
+        /^node:.*/,
+        ...excludeAll(dependencies),
+        ...excludeAll(peerDependencies),
+      ],
       output: {
         preserveModules: true,
         preserveModulesRoot: 'packages/kit-headless/src',

@@ -22,11 +22,13 @@
   "private": false,
   "scripts": {},
   "peerDependencies": {
-    "@builder.io/qwik": ">1.2.11"
+    "@builder.io/qwik": ">=1.2.17"
   },
   "dependencies": {
     "@qwik-ui/utils": "workspace:*",
-    "@floating-ui/dom": "1.0.10",
+    "@floating-ui/dom": "^1.0.10",
+    "focus-trap": "^7.5.3",
+    "body-scroll-lock": "^4.0.0-beta.0",
     "country-list-json": "^1.1.0",
     "libphonenumber-js": "^1.10.43"
   }
