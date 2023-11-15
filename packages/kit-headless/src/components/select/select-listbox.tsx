@@ -11,17 +11,17 @@ import SelectContextId from './select-context-id';
 export type SelectListBoxProps = QwikIntrinsicElements['ul'];
 
 export const SelectListBox = component$((props: SelectListBoxProps) => {
-  const indexDiff = useSignal<number | undefined>(undefined);
-  const listBoxRef = useSignal<HTMLElement>();
-  const selectContext = useContext(SelectContextId);
-  const prevTimeout = useSignal<undefined | NodeJS.Timeout>(undefined);
-  const favStrg = useSignal('');
-  const fullStrgSearchFailed = useSignal(false);
-  selectContext.listBoxRefSig = listBoxRef;
+  const indexDiffSignal = useSignal<number | undefined>(undefined);
+  const listBoxRefSignal = useSignal<HTMLElement>();
+  const selectContextSignal = useContext(SelectContextId);
+  const prevTimeoutSignal = useSignal<undefined | NodeJS.Timeout>(undefined);
+  const inputStrgSignal = useSignal('');
+  const fullStrgSearchFailedSignal = useSignal(false);
+  selectContextSignal.listBoxRefSig = listBoxRefSignal;
 
   useVisibleTask$(function setKeyHandler({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
-      const availableOptions = selectContext.optionsStore.filter(
+      const availableOptions = selectContextSignal.optionsStore.filter(
         (option) => !(option?.getAttribute('aria-disabled') === 'true'),
       );
 
@@ -54,85 +54,92 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
       }
 
       // reset the timer when a key is pressed again
-      // w3c uses 500ms, for testing purposes is at 1000
-      if (prevTimeout.value === undefined) {
-        console.log('base case ', favStrg.value);
-        prevTimeout.value = setTimeout(() => {
-          favStrg.value = '';
+      // reset the inputStrg if the timer runs out
+      // w3c uses 500ms, so do we
+      if (prevTimeoutSignal.value === undefined) {
+        prevTimeoutSignal.value = setTimeout(() => {
+          inputStrgSignal.value = '';
         }, 500);
       } else {
-        clearTimeout(prevTimeout.value);
-        prevTimeout.value = setTimeout(() => {
-          favStrg.value = '';
+        clearTimeout(prevTimeoutSignal.value);
+        prevTimeoutSignal.value = setTimeout(() => {
+          inputStrgSignal.value = '';
         }, 500);
       }
-      //
-      if (favStrg.value.length < 1 || fullStrgSearchFailed.value) {
+      // We go into "one char search mode" when:
+      // A key is pressed every >500ms cycle
+      // The input strg has been confirmed to not exitst & the same key is pressed
+      if (inputStrgSignal.value.length < 1 || fullStrgSearchFailedSignal.value) {
+        // for perf reasons, it might be better to store charOptions as global state since its mapped through everytime
         const charOptions: Array<string> = availableOptions.map((e) => {
           return e.textContent!.slice(0, 1).toLowerCase();
         });
         const currentChar = e.key.toLowerCase();
-        favStrg.value += currentChar;
+        inputStrgSignal.value += currentChar;
         const charIndex = charOptions.indexOf(currentChar);
         if (charIndex !== -1) {
-          if (indexDiff.value === undefined) {
+          if (indexDiffSignal.value === undefined) {
             availableOptions[charIndex].focus();
-            indexDiff.value = charIndex + 1;
+            indexDiffSignal.value = charIndex + 1;
           } else {
-            const isRepeat = charOptions[indexDiff.value - 1] === currentChar;
+            // repeat logic handles looping behavior & if the key changes we open the door for a full strg search again
+            const isRepeat = charOptions[indexDiffSignal.value - 1] === currentChar;
             if (isRepeat) {
-              const nextChars = charOptions.slice(indexDiff.value);
+              const nextChars = charOptions.slice(indexDiffSignal.value);
               const repeatIndex = nextChars.indexOf(currentChar);
               if (repeatIndex !== -1) {
-                const nextIndex = repeatIndex + indexDiff.value;
+                const nextIndex = repeatIndex + indexDiffSignal.value;
                 availableOptions[nextIndex].focus();
-                indexDiff.value = nextIndex + 1;
+                indexDiffSignal.value = nextIndex + 1;
               } else {
                 availableOptions[charIndex].focus();
-                indexDiff.value = charIndex + 1;
+                indexDiffSignal.value = charIndex + 1;
               }
             } else {
               availableOptions[charIndex].focus();
-              fullStrgSearchFailed.value = false;
-              indexDiff.value = charIndex + 1;
+              fullStrgSearchFailedSignal.value = false;
+              indexDiffSignal.value = charIndex + 1;
             }
           }
         }
-      } else {
-        // if time has not passed, we search for the full strg match
+      }
+      // if timer has not passed & the fullstrg is unknown, we search for the full strg match
+      else {
+        // for perf reasons, it might be better to store charOptions as global state since its mapped through everytime
         const strgOptions: Array<string> = availableOptions.map((e) => {
           return e.textContent!.toLowerCase();
         });
         // signals dont update as eagerly as i need them to here
-        const searchStrg = favStrg.value + e.key.toLowerCase();
+        const searchStrg = inputStrgSignal.value + e.key.toLowerCase();
         const firstPossibleOption = strgOptions.findIndex((e) => {
           const size = searchStrg.length;
           return e.substring(0, size) === searchStrg;
         });
         if (firstPossibleOption !== -1) {
           availableOptions[firstPossibleOption].focus();
-          favStrg.value = searchStrg;
-          indexDiff.value = firstPossibleOption + 1;
+          inputStrgSignal.value = searchStrg;
+          indexDiffSignal.value = firstPossibleOption + 1;
         } else {
-          // clean the timeout of this call to make sure the next time the fn is called, it has correct signal val
-          clearTimeout(prevTimeout.value);
-          fullStrgSearchFailed.value = true;
+          // clean the timeout of this call to make sure the next time the fn is called it has correct signal val and to not span the user with timeOuts
+          clearTimeout(prevTimeoutSignal.value);
+          // this makes a "char loop" until a different key is pressed
+          fullStrgSearchFailedSignal.value = true;
         }
       }
     }
-    listBoxRef.value?.addEventListener('keydown', keyHandler);
+    listBoxRefSignal.value?.addEventListener('keydown', keyHandler);
     cleanup(() => {
-      listBoxRef.value?.removeEventListener('keydown', keyHandler);
+      listBoxRefSignal.value?.removeEventListener('keydown', keyHandler);
     });
   });
   return (
     <ul
-      ref={listBoxRef}
+      ref={listBoxRefSignal}
       role="listbox"
       tabIndex={0}
-      hidden={!selectContext.isListboxHiddenSig.value}
+      hidden={!selectContextSignal.isListboxHiddenSig.value}
       style={`
-        display: ${selectContext.isOpenSig.value ? 'block' : 'none'};
+        display: ${selectContextSignal.isOpenSig.value ? 'block' : 'none'};
         position: absolute;
         z-index: 1;
         ${props.style}
