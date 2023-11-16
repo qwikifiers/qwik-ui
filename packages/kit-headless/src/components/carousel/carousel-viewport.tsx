@@ -22,9 +22,19 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
     if (viewContainerSig.value) {
       totalXSig.value = event.clientX - viewContainerSig.value;
 
+      // GE
       if (context.containerRef.value) {
-        context.containerRef.value.style.transform = `translate3d(${totalXSig.value}px, 0px, 0px)`;
+        const style = window.getComputedStyle(context.containerRef.value);
+        const matrix = new DOMMatrix(style.transform);
+        context.containerRef.value.style.transform = `translate3d(${
+          matrix.m41 + event.movementX
+        }px, 0px, 0px)`;
       }
+      // End GE
+
+      // if (context.containerRef.value) {
+      //   context.containerRef.value.style.transform = `translate3d(${totalXSig.value}px, 0px, 0px)`;
+      // }
     }
   });
 

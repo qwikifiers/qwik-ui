@@ -9,5 +9,8 @@
   },
   "githubPullRequests.remotes": [
     "upstream"
+  ],
+  "cSpell.words": [
+    "qwik"
   ]
 }
