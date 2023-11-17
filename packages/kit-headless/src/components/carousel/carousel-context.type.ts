@@ -8,4 +8,6 @@ export interface CarouselContext {
   slideOffset: Signal<number>;
   totalSlidesSig: Signal<number>;
   containerRef: Signal<HTMLDivElement | undefined>;
+  spaceBetween: number;
+  slidesArraySig: Signal<Array<HTMLDivElement>>;
 }

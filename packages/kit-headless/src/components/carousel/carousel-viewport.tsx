@@ -41,8 +41,20 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
   const handlePointerUp$ = $((e: MouseEvent) => {
     console.log(`I'm inside pointer up!`);
 
-    deltaXSig.value = e.clientX;
-    console.log('delta X: ', e.clientX);
+    // deltaXSig.value = e.clientX;
+    // console.log('delta X: ', e.clientX);
+
+    // Get the number of the slide over the centerline
+    if (context.containerRef.value) {
+      const style = window.getComputedStyle(context.containerRef.value);
+      const matrix = new DOMMatrix(style.transform);
+      const offset = matrix.m41;
+      const currentSlideDiv =
+        context.slidesArraySig.value[context.currentSlideSig.value - 1];
+      console.log(offset, currentSlideDiv, context.currentSlideSig.value);
+      // Set this to the current slide
+      // Set the slide offset value to center the current slide
+    }
 
     window.removeEventListener('pointermove', handlePointerMove$);
   });
@@ -59,11 +71,6 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
         window.addEventListener('pointermove', handlePointerMove$);
 
         window.addEventListener('pointerup', handlePointerUp$);
-      }}
-      onPointerUp$={(e) => {
-        console.log('pointer up: ', e);
-
-        window.removeEventListener('pointermove', handlePointerMove$);
       }}
       ref={context.viewportRef}
       style={{ overflow: 'hidden' }}

@@ -8,33 +8,40 @@ import {
 import { CarouselContext } from './carousel-context.type';
 import CarouselContextId from './carousel-context-id';
 
-export type CarouselRootProps = QwikIntrinsicElements['section'];
+export type CarouselRootProps = QwikIntrinsicElements['section'] & {
+  spaceBetween?: number;
+};
 
-export const Carousel = component$((props: CarouselRootProps) => {
-  const currentSlideSig = useSignal(1);
-  const viewportRef = useSignal<HTMLDivElement>();
-  const containerRef = useSignal<HTMLDivElement>();
-  const slideOffset = useSignal<number>(0);
-  const slideRef = useSignal<HTMLDivElement>();
-  const totalSlidesSig = useSignal<number>(0);
+export const Carousel = component$(
+  ({ spaceBetween = 0, ...props }: CarouselRootProps) => {
+    const currentSlideSig = useSignal(1);
+    const viewportRef = useSignal<HTMLDivElement>();
+    const containerRef = useSignal<HTMLDivElement>();
+    const slideOffset = useSignal<number>(0);
+    const slideRef = useSignal<HTMLDivElement>();
+    const totalSlidesSig = useSignal<number>(0);
+    const slidesArraySig = useSignal<Array<HTMLDivElement>>([]);
 
-  const context: CarouselContext = {
-    currentSlideSig,
-    viewportRef,
-    slideRef,
-    slideOffset,
-    totalSlidesSig,
-    containerRef,
-  };
+    const context: CarouselContext = {
+      currentSlideSig,
+      viewportRef,
+      slideRef,
+      slideOffset,
+      totalSlidesSig,
+      containerRef,
+      spaceBetween,
+      slidesArraySig,
+    };
 
-  useContextProvider(CarouselContextId, context);
+    useContextProvider(CarouselContextId, context);
 
-  return (
-    <section {...props}>
-      <Slot />
-    </section>
-  );
-});
+    return (
+      <section {...props}>
+        <Slot />
+      </section>
+    );
+  },
+);
 
 /*
 
