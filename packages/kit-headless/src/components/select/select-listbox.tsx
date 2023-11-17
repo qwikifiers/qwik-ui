@@ -53,6 +53,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         }
       }
 
+      // First potential fn: useStateTimer(state,baseCondition,ms), mutate & returns a clearMethod
       // reset the timer when a key is pressed again
       // reset the inputStrg if the timer runs out
       // w3c uses 500ms, so do we
@@ -66,16 +67,22 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
           inputStrgSignal.value = '';
         }, 500);
       }
+      // Second potential fn: printChars(DOM elem list), index-sy
       // We go into "one char search mode" when:
       // A key is pressed every >500ms cycle
       // The input strg has been confirmed to not exitst & the same key is pressed
-      if (inputStrgSignal.value.length < 1 || fullStrgSearchFailedSignal.value) {
-        // for perf reasons, it might be better to store charOptions as global state since its mapped through everytime
+      const searchFirstCharOnly =
+        inputStrgSignal.value.length < 1 || fullStrgSearchFailedSignal.value;
+      if (searchFirstCharOnly) {
+        // for perf reasons, it might be better to store charOptions as global state since its mapped through everytime or replace with filter on og arr
         const charOptions: Readonly<string[]> = availableOptions.map((e) => {
           return e.textContent!.slice(0, 1).toLowerCase();
         });
         const currentChar = e.key.toLowerCase();
-        inputStrgSignal.value += currentChar;
+        if (!fullStrgSearchFailedSignal.value) {
+          // only change state if we think it might exist
+          inputStrgSignal.value += currentChar;
+        }
         const charIndex = charOptions.indexOf(currentChar);
         if (charIndex !== -1) {
           if (indexDiffSignal.value === undefined) {
@@ -97,6 +104,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
               }
             } else {
               availableOptions[charIndex].focus();
+              // bc char has changed, user is typing  a new strg
               fullStrgSearchFailedSignal.value = false;
               indexDiffSignal.value = charIndex + 1;
             }
@@ -105,7 +113,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
       }
       // if timer has not passed & the fullstrg is unknown, we search for the full strg match
       else {
-        // for perf reasons, it might be better to store charOptions as global state since its mapped through everytime
+        // for perf reasons, it might be better to store charOptions as global state since its mapped through everytime or replace with filter on og arr
         const strgOptions: Readonly<string[]> = availableOptions.map((e) => {
           return e.textContent!.toLowerCase();
         });
