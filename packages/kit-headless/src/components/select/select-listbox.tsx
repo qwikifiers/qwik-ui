@@ -71,7 +71,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
       // The input strg has been confirmed to not exitst & the same key is pressed
       if (inputStrgSignal.value.length < 1 || fullStrgSearchFailedSignal.value) {
         // for perf reasons, it might be better to store charOptions as global state since its mapped through everytime
-        const charOptions: Array<string> = availableOptions.map((e) => {
+        const charOptions: Readonly<string[]> = availableOptions.map((e) => {
           return e.textContent!.slice(0, 1).toLowerCase();
         });
         const currentChar = e.key.toLowerCase();
@@ -106,7 +106,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
       // if timer has not passed & the fullstrg is unknown, we search for the full strg match
       else {
         // for perf reasons, it might be better to store charOptions as global state since its mapped through everytime
-        const strgOptions: Array<string> = availableOptions.map((e) => {
+        const strgOptions: Readonly<string[]> = availableOptions.map((e) => {
           return e.textContent!.toLowerCase();
         });
         // signals dont update as eagerly as i need them to here
