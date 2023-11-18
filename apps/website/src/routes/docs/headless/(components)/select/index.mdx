@@ -2,14 +2,14 @@
 title: Qwik UI | Select
 ---
 
-import { Example01, Example02 } from './examples';
+import { Example01, Example02, Example03 } from './examples';
 import { CodeExample } from '../../../_components/code-example/code-example';
 import { KeyboardInteractionTable } from '../../../_components/keyboard-interaction-table/keyboard-interaction-table';
 import { APITable } from '../../../_components/api-table/api-table';
 import { StatusBanner } from '../../../_components/status-banner/status-banner';
-import {statusByComponent} from '../../../../../_state/component-statuses';
+import { statusByComponent } from '../../../../../_state/component-statuses';
 
-<StatusBanner status={statusByComponent.headless.Select}/> 
+<StatusBanner status={statusByComponent.headless.Select} />
 
 # Select
 
@@ -20,19 +20,19 @@ This element is used to create a drop-down list, it's often used in a form, to c
 <Example01>
   ```tsx
   <SelectRoot class="dark:bg-gray-700">
-    <SelectLabel class="text-white font-semibold ml-2">Qwik Fruits</SelectLabel>
-    <SelectTrigger class="flex justify-between items-center px-8 bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px] rounded-md p-4 group peer">
+    <SelectLabel class="ml-2 font-semibold text-white">Qwik Fruits</SelectLabel>
+    <SelectTrigger class="group peer flex items-center justify-between rounded-md border-[1px] border-slate-200 bg-slate-100 p-4 px-8 dark:border-gray-600 dark:bg-gray-700">
       <SelectValue
         placeholder="Select a fruit! 🍹"
         class="text-gray-700 dark:text-white"
       />
-      <SelectMarker class="w-6 h-6">
+      <SelectMarker class="h-6 w-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
           stroke-width="2"
-          class="stroke-gray-700 dark:stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
+          class="stroke-gray-700 transition-transform duration-[450ms] group-aria-expanded:-rotate-180 dark:stroke-white"
           stroke-linecap="round"
           stroke-linejoin="round"
         >
@@ -40,8 +40,10 @@ This element is used to create a drop-down list, it's often used in a form, to c
         </svg>
       </SelectMarker>
     </SelectTrigger>
-    <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 mt-2 border-[1px] rounded-md">
-      <SelectOption value="🚀 Qwik" class="p-4">🚀 Qwik</SelectOption>
+    <SelectListBox class="mt-2 rounded-md border-[1px] border-slate-200 bg-slate-100 dark:border-gray-600 dark:bg-gray-700">
+      <SelectOption value="🚀 Qwik" class="p-4">
+        🚀 Qwik
+      </SelectOption>
       <SelectGroup class="p-4 ">
         <SelectLabel class="p-4">Fruits</SelectLabel>
         {[
@@ -55,8 +57,10 @@ This element is used to create a drop-down list, it's often used in a form, to c
               key={option.value}
               value={option.value}
               disabled={option.disabled}
-              class="aria-disabled:text-red-500 aria-disabled:cursor-not-allowed hover:bg-slate-200 rounded-sm dark:hover:bg-gray-600 p-4"
-            >{option.value}</SelectOption>
+              class="rounded-sm p-4 hover:bg-slate-200 aria-disabled:cursor-not-allowed aria-disabled:text-red-500 dark:hover:bg-gray-600"
+            >
+              {option.value}
+            </SelectOption>
           );
         })}
       </SelectGroup>
@@ -100,9 +104,9 @@ This element is used to create a drop-down list, it's often used in a form, to c
 <Example02>
   ```tsx
   <SelectRoot>
-    <SelectTrigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
+    <SelectTrigger class="flex items-center justify-between border-[1px] border-slate-200 p-4 dark:border-gray-600">
       <SelectValue placeholder="Home" />
-      <SelectMarker class="w-6 h-6">
+      <SelectMarker class="h-6 w-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -116,7 +120,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
         </svg>
       </SelectMarker>
     </SelectTrigger>
-    <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+    <SelectListBox class="border-[1px] border-slate-200 bg-slate-100 dark:border-gray-600 dark:bg-gray-700">
       <SelectOption optionValue="Orders" class="p-4">
         Orders
       </SelectOption>
@@ -131,6 +135,68 @@ This element is used to create a drop-down list, it's often used in a form, to c
   ```
 </Example02>
 
+### EXAMPLE: Fruit Picker
+
+<Example03>
+  ```tsx
+  <SelectRoot>
+    <SelectTrigger class="group peer flex items-center justify-between rounded-md border-[1px] border-slate-600 bg-slate-800 p-4 px-8">
+      <SelectValue placeholder="Pick a fruit" class="text-white" />
+      <SelectMarker class="h-6 w-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="2"
+          class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </SelectMarker>
+    </SelectTrigger>
+    <SelectListBox class="mt-2 rounded-md border-[1px] border-slate-600 bg-slate-800 text-white">
+      <SelectOption
+        optionValue="Orders"
+        class="rounded-t-md p-4 hover:bg-slate-700 focus:bg-slate-700"
+      >
+        Apples
+      </SelectOption>
+      <SelectOption
+        optionValue="Orders"
+        class="rounded-t-md p-4 hover:bg-slate-700 focus:bg-slate-700"
+      >
+        Avocado
+      </SelectOption>
+      <SelectOption
+        optionValue="Orders"
+        class="rounded-t-md p-4 hover:bg-slate-700 focus:bg-slate-700"
+      >
+        Bananas
+      </SelectOption>
+      <SelectOption
+        optionValue="Orders"
+        class="rounded-t-md p-4 hover:bg-slate-700 focus:bg-slate-700"
+      >
+        Grapes
+      </SelectOption>
+      <SelectOption
+        optionValue="Orders"
+        class="rounded-t-md p-4 hover:bg-slate-700 focus:bg-slate-700"
+      >
+        Guava
+      </SelectOption>
+      <SelectOption
+        optionValue="Orders"
+        class="rounded-t-md p-4 hover:bg-slate-700 focus:bg-slate-700"
+      >
+        Oranges
+      </SelectOption>
+    </SelectListBox>
+  </SelectRoot>
+  ```
+</Example03>
 ## Accessibility
 
 ### Keyboard interaction
@@ -164,6 +230,26 @@ This element is used to create a drop-down list, it's often used in a form, to c
     {
       keyTitle: 'ArrowUp',
       description: 'To select the previous `SelectOption`.',
+    },
+    {
+      keyTitle: 'Printable Characters',
+      description:
+        'One of three options: (1) If a single key is presssed, hover on the first `SelectOption` whose starting character  matches the key pressed. (2) If a key is held, or if the same key is pressed again after some time,hover though all available `SelectOptions` whose starting character  matches the keys pressed. (3) If a sequence of keys is quickly typed, hover on the the first `SelectOption`, from absolute top to absulote bottom, that mathches the full string of keys typed.',
+    },
+    {
+      keyTitle: 'Single Character',
+      description:
+        '(1) Hover on the first `SelectOption` whose starting character  matches the key pressed. ',
+    },
+    {
+      keyTitle: 'Repeated Character',
+      description:
+        '(2) Hover though all available `SelectOptions` whose starting character  matches the keys pressed.',
+    },
+    {
+      keyTitle: 'Quickly typed Characters',
+      description:
+        '(3) Hover on the the first `SelectOption`, from absolute top to absulote bottom, that mathches the full string of keys typed.',
     },
   ]}
 />
