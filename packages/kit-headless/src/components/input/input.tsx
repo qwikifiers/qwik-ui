@@ -11,7 +11,6 @@ import {
   useContextProvider,
   useContext,
 } from '@builder.io/qwik';
-import { InputPhone, type InputPhoneProps } from '../input-phone';
 
 type InputContextService = {
   ref: Signal<HTMLInputElement | undefined>;
@@ -94,15 +93,4 @@ export const Message = component$((props: InputMessage) => {
       <Slot />
     </div>
   );
-});
-
-/**
- *
- */
-
-export const Phone = component$((props: InputPhoneProps) => {
-  const context = useContext(inputContext);
-  const id = props.id || context.id;
-
-  return <InputPhone {...props} aria-describedby={`hint-${id} message-${id}`} id={id} />;
 });

@@ -14,7 +14,6 @@ export * from './components/combobox';
 export * from './components/combobox/';
 export * from './components/modal';
 export * from './components/drawer';
-export * from './components/input-phone';
 export * as Input from './components/input/input';
 export * from './components/menu/menu';
 export * from './components/navigation-bar/navigation-bar';
