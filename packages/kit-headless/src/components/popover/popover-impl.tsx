@@ -67,6 +67,12 @@ const portalContextId = createContextId('portal-context-id');
  *
  * Portal Context in Qwik, akin to React's Portal, enables element teleportation. Rendering this component forces Qwik to parse the vDOM, enabling efficient context retrieval.
  *
+ * TODO: RENDER PORTAL CONTEXT ON CLICK INSTEAD OF FORCE RERENDER
+ *
+ * 1. Render on client -> don't need anything
+ *
+ * 2. SSR -> click -> force context the one time.
+ *
  */
 export const PortalContext = component$(() => {
   // @ts-expect-error 2769
@@ -84,6 +90,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   useStyles$(popoverStyles);
 
   // On supported browsers (no SSR), just render the popover
+  // TODO: Stick in variable
   if (
     !isServer &&
     !document.__QUI_POPOVER_PF__ &&
