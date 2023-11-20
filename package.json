@@ -8,18 +8,22 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "build:headless": "nx build headless",
     "commit": "git-cz",
-    "format:fix": "pretty-quick --staged",
-    "link.dist": "cd packages/kit-headless/dist && pnpm link --global",
+    "format.fix": "pretty-quick --staged",
+    "link.dist": "cd dist/packages/kit-headless && pnpm link --global",
     "lint": "nx affected:lint",
-    "local:npm": "nx local-registry",
+    "local.npm": "nx local-registry",
     "prepare": "husky install",
-    "story:build:headless": "nx build-storybook headless",
-    "story:headless": "nx storybook headless",
-    "test:headless": "nx component-test headless",
-    "test:headless:ci": "nx component-test-ci headless",
-    "website": "nx serve website"
+    "story.build.headless": "nx build-storybook headless",
+    "story.headless": "nx storybook headless",
+    "test.headless": "nx component-test headless",
+    "test.headless.ci": "nx component-test-ci headless",
+    "build": "nx build website",
+    "build.cloudflare": "nx build-cloudflare website",
+    "build.headless": "nx build headless",
+    "dev": "nx serve website",
+    "preview": "nx preview website",
+    "preview.cloudflare": "nx preview-cloudflare website"
   },
   "packageManager": "pnpm@8.7.0",
   "devDependencies": {
@@ -118,6 +122,11 @@
     "vitest": "^0.34.3",
     "wrangler": "^3.11.0"
   },
+  "dependencies": {
+    "@fontsource-variable/inter": "5.0.8",
+    "shiki": "0.14.5",
+    "tslib": "^2.6.2"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
@@ -128,11 +137,6 @@
     "qwik ui components",
     "components library"
   ],
-  "dependencies": {
-    "@fontsource-variable/inter": "5.0.8",
-    "shiki": "0.14.5",
-    "tslib": "^2.6.2"
-  },
   "nx": {
     "includedScripts": []
   }
