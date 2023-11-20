@@ -8,6 +8,11 @@
     this should not affect the styles inside of the tabpanel
     A.K.A the components
   */
+
+  table a {
+    @apply border-none;
+  }
+
   & > {
     p {
       @apply mb-6;

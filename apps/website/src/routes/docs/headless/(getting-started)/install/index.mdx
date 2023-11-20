@@ -1,0 +1,88 @@
+---
+title: 'Qwik UI - Get Started'
+---
+
+import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
+import { CodeCopy } from '../../../_components/code-copy/code-copy.tsx';
+import QwikLogo from '../../../../_components/icons/QwikLogo.tsx'
+import AstroLogo from '../../../../_components/icons/AstroLogo.tsx'
+import { BuildingBlocksSnip } from './examples/'
+
+export const packages = {
+    'npm': 'npm install @qwik-ui/headless',
+    'yarn': 'yarn add @qwik-ui/headless',
+    'pnpm': 'pnpm add @qwik-ui/headless'
+}
+
+# Installation
+
+Install Qwik UI with your choice of package manager below:
+
+    <Tabs
+        class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-lg lg:mx-[-32px] text-white"
+        behavior="manual"
+    >
+        <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 flex rounded-t-lg border-[1.5px] border-b-0 text-white">
+            <Tab class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color min-h-[44px] rounded-tl-[.325rem]  px-[28px] py-2 transition aria-selected:bg-qwikui-blue-500 dark:aria-selected:bg-qwikui-purple-600 aria-selected:font-bold">
+                {Object.keys(packages)[0]}
+            </Tab>
+            <Tab class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color min-h-[44px] px-[28px] py-2 transition duration-300 aria-selected:bg-qwikui-blue-500 dark:aria-selected:bg-qwikui-purple-600 aria-selected:font-bold">
+                {Object.keys(packages)[1]}
+            </Tab>
+            <Tab class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color min-h-[44px] px-[28px] py-2 transition duration-300 aria-selected:bg-qwikui-blue-500 dark:aria-selected:bg-qwikui-purple-600 aria-selected:font-bold">
+                {Object.keys(packages)[2]}
+            </Tab>
+        </TabList>
+        <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-lg border-[1.5px] bg-slate-200 bg-slate-800 py-6 dark:bg-slate-900 px-[28px]">
+            <div class="flex items-center justify-between">
+                {packages.npm}
+                <CodeCopy code={packages.npm} class="hover:bg-slate-700 dark:hover:bg-slate-800 p-4" icon={true} />
+            </div>
+        </TabPanel>
+        <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-lg border-[1.5px] bg-slate-200 bg-slate-800 py-6 dark:bg-slate-900 px-[28px]">
+            <div class="flex items-center justify-between">
+                {packages.yarn}
+                <CodeCopy code={packages.yarn} class="hover:bg-slate-700 dark:hover:bg-slate-800 p-4" icon={true} />
+            </div>
+        </TabPanel>
+        <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-lg border-[1.5px] bg-slate-200 bg-slate-800 py-6 dark:bg-slate-900 px-[28px]">
+            <div class="flex items-center justify-between">
+                {packages.pnpm}
+                <CodeCopy code={packages.pnpm} class="hover:bg-slate-700 dark:hover:bg-slate-800 p-4" icon={true} />
+            </div>
+        </TabPanel>
+    </Tabs>
+
+    ## Meta-framework guides
+
+    <div class="flex flex-col gap-4 md:flex-row">
+        <a class="flex-1 border-none" href="#qwik-city">
+            <span class="p-8 dark:bg-slate-800 rounded-lg gap-4 flex  bg-slate-100 border-slate-200 flex-col items-center border-[1px] dark:border-slate-700 dark:hover:bg-slate-900 transition duration-300 ease-step hover:bg-white">
+            <QwikLogo class="max-w-[100px] max-h-[100px]" />
+            <span class="text-lg font-bold">Qwik City</span>
+            </span>
+        </a>
+        <a class="flex-1 border-none" href="#astro">
+            <span class="p-8 dark:bg-slate-800 rounded-lg gap-4 flex  bg-slate-100 border-slate-200 flex-col items-center border-[1px] dark:border-slate-700 dark:hover:bg-slate-900 transition duration-300 ease-step hover:bg-white">
+                <AstroLogo class="max-w-[100px] max-h-[100px]" />
+                <span class="text-lg font-bold">Astro</span>
+            </span>
+        </a>
+    </div>
+
+    ## Building Blocks
+
+    Each component includes a `building blocks` section, which provides a barebones example of the component. This can be used as a starting point for implementing the component from scratch.
+
+    Below is an example of the `Accordion` component's building blocks:
+
+    <BuildingBlocksSnip />
+
+    We will use this example as a Qwik UI component in each guide.
+
+    ## Qwik City
+
+    ## Astro
+
+    
+
