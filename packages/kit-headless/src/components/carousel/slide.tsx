@@ -3,8 +3,10 @@ import {
   Slot,
   component$,
   useContext,
+  useTask$,
   useSignal,
-  useVisibleTask$,
+  useOnWindow,
+  $,
 } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
 
@@ -13,19 +15,26 @@ export type CarouselSlideProps = QwikIntrinsicElements['div'];
 export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
   const context = useContext(CarouselContextId);
   const slideRef = useSignal<HTMLDivElement | undefined>();
+  const isOnClientSig = useSignal<boolean>(false);
 
-  useVisibleTask$(({ track }) => {
-    track(() => slideRef.value);
+  useTask$(({ track }) => {
+    track(() => isOnClientSig.value);
 
     if (!slideRef.value) {
       return;
     }
 
+    context.slidesArraySig.value = [...context.slidesArraySig.value, slideRef.value];
     context.totalSlidesSig.value++;
-    context.slidesArraySig.value.push(slideRef.value);
-    console.log('Adding slideRef:', slideRef.value?.innerText);
-    console.log('hi');
+    console.log('slides array: ', context.slidesArraySig.value);
   });
+
+  useOnWindow(
+    'DOMContentLoaded',
+    $(() => {
+      isOnClientSig.value = true;
+    }),
+  );
 
   return (
     <div style={{ marginRight: `${context.spaceBetween}px` }} ref={slideRef} {...props}>

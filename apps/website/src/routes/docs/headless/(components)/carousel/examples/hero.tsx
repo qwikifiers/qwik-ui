@@ -10,7 +10,18 @@ import {
 } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const slides = ['Slide 1 content', 'Slide 2 content', 'Slide 3 content'];
+  const slides = [
+    'Slide 1 content',
+    'Slide 2 content',
+    'Slide 3 content',
+    'Slide 4 content',
+    'Slide 5 content',
+    'Slide 6 content',
+    'Slide 7 content',
+    'Slide 8 content',
+    'Slide 9 content',
+    'Slide 10 content',
+  ];
 
   useStyles$(`
     .qwikui-carousel {

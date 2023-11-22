@@ -8,15 +8,16 @@ export const CarouselNext = component$((props: CarouselButtonProps) => {
   useTask$(({ track }) => {
     track(() => context.totalSlidesSig.value);
     track(() => context.currentSlideSig.value);
+    track(() => context.slideOffset.value);
 
     console.log('current slide: ', context.currentSlideSig.value);
     console.log('total slide', context.totalSlidesSig.value);
+    console.log('slide offset: ', context.slideOffset.value);
   });
 
   return (
     <button
       {...props}
-      disabled={context.currentSlideSig.value === context.totalSlidesSig.value}
       style={
         context.currentSlideSig.value === context.totalSlidesSig.value
           ? { background: 'rgba(51, 65, 85, .35)' }
@@ -24,11 +25,12 @@ export const CarouselNext = component$((props: CarouselButtonProps) => {
       }
       onClick$={() => {
         context.currentSlideSig.value++;
+        console.log('INSIDE ONCLICK$: ', context.currentSlideSig.value);
 
-        if (context.slideRef.value || context.slideRef.value === 0) {
-          context.slideOffset.value =
-            context.slideOffset.value - context.slideRef.value.offsetWidth;
-        }
+        const nextSlideElement =
+          context.slidesArraySig.value[context.currentSlideSig.value - 1];
+
+        console.log(nextSlideElement);
       }}
     >
       <Slot />
