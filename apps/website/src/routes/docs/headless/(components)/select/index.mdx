@@ -3,19 +3,13 @@ title: Qwik UI | Select
 ---
 
 import { Example01, Example02, Example03 } from './examples';
-import { CodeExample } from '~/components/code-example/code-example';
-import { KeyboardInteractionTable } from '~/components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '~/components/api-table/api-table';
-import { StatusBanner } from '~/components/status-banner/status-banner';
-import {statusByComponent} from '~/_state/component-statuses';
+import { statusByComponent } from '~/_state/component-statuses';
 
 <StatusBanner status={statusByComponent.headless.Select} />
 
 # Select
 
 This element is used to create a drop-down list, it's often used in a form, to collect user input.
-
-{' '}
 
 <Example01>
   ```tsx
@@ -71,7 +65,6 @@ This element is used to create a drop-down list, it's often used in a form, to c
 
 ## Building blocks
 
-  <CodeExample>
     ```tsx
     import { component$ } from '@builder.io/qwik';
     import { SelectRoot, SelectLabel, SelectTrigger, SelectValue, SelectMarker, SelectListBox, SelectOption, SelectGroup } from '@qwik-ui/headless';
@@ -94,8 +87,6 @@ This element is used to create a drop-down list, it's often used in a form, to c
       </SelectRoot>
     ));
     ```
-
-  </CodeExample>
 
 ## Examples
 
@@ -277,8 +268,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectTrigger
 
 <APITable
@@ -300,8 +290,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectValue
 
 <APITable
@@ -341,8 +330,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectListBox
 
 <APITable
@@ -359,8 +347,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectGroup
 
 <APITable
@@ -382,8 +369,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectLabel
 
 <APITable
@@ -400,8 +386,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectOption
 
 <APITable

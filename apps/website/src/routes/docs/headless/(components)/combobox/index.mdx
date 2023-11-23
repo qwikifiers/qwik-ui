@@ -3,26 +3,20 @@ title: Qwik UI | Combobox
 ---
 
 import {
-  StatusBanner,
   ShowExample,
-  AnatomyTable,
-  statusByComponent,
-  KeyboardInteractionTable,
-  APITable,
   BuildingBlocksSnip,
   ProviderSnip,
   ContextIdsSnip,
   ResolvedOptionSnip,
-  CustomKeysSnip
+  CustomKeysSnip,
 } from './exports';
+import { statusByComponent } from '~/_state/component-statuses';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
 # Combobox
 
 A customizable text field with a listbox, enabling users to constrain a list of choices based on their search criteria.
-
-{' '}
 
 <ShowExample example="hero" />
 
@@ -50,33 +44,40 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 - Custom signal binds
 - Animatable, dynamic, and resumable
 
-<br/>
+<br />
 
 > In Beta, we're currently supporting the **`Autocomplete`** configuration. We aim to support other combobox configurations according to our [roadmap](https://github.com/qwikifiers/qwik-ui/issues/405)
 
 <br />
 
 The Combobox component makes use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal). A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.
+
 <ProviderSnip />
 
 ## **Context Caveats**
+
 Portals are still currently in **Beta**, as a result, you may experience an issue using your own context to pass data into the portal children.
 
-If you do experience any context related issues, add the following **contextIds** prop to the **ComboboxPortal** component. 
+If you do experience any context related issues, add the following **contextIds** prop to the **ComboboxPortal** component.
 
 <ContextIdsSnip />
 
 It takes in an array of string context id's as a prop. We also have a live example below with context.
 If you are not using context inside the portal children, this will not be an issue.
 
-<br/>
+<br />
 
 ## Building blocks
 
-  <BuildingBlocksSnip />
+{' '}
 
-  ### 🎨 Anatomy
-  <AnatomyTable
+<BuildingBlocksSnip />
+
+### 🎨 Anatomy
+
+{' '}
+
+<AnatomyTable
   propDescriptors={[
     {
       name: 'Combobox',
@@ -127,7 +128,7 @@ Under the hood, the data passed in populates the listbox with options. To see op
 
 <ShowExample example="object" />
 
-The callback takes **two** parameters: 
+The callback takes **two** parameters:
 
 - An object that holds the resolved option data.
 - The option index.
@@ -192,7 +193,7 @@ The Qwik UI Combobox uses the `onBlur$ event` on the input to close the listbox 
 
 <ShowExample example="disableBlur" />
 
-This can get tedious if certain custom behavior needs to be added, or the listbox needs to be inspected in the dev tools. 
+This can get tedious if certain custom behavior needs to be added, or the listbox needs to be inspected in the dev tools.
 
 To disable this behavior, set `disableOnBlur={true}` on the Input.
 
@@ -221,11 +222,10 @@ Allows the listbox to flip its position based on available space. It's enabled b
 Enables the listbox to shift its position to prevent overflow.
 
 <ShiftExample>```tsx ```</ShiftExample>
-*/
-}
+*/ }
 
 ### Gutter
-  
+
 In the previous docs examples, we use the gutter property on the listbox. Gutter is the space between the input and the floating element.
 
 <ShowExample example="gutter" />
@@ -242,7 +242,7 @@ An idea here might be having an `isComboboxAnimatingSig` and changing that value
 
 ## Customizing State Signals
 
-The Combobox component allows you to customize its state signals. This can be useful if you want to control or observe these states externally. 
+The Combobox component allows you to customize its state signals. This can be useful if you want to control or observe these states externally.
 
 This involves creating a signal and passing it in using the [bind syntax](https://qwik.builder.io/docs/components/rendering/#bind-attribute), such as in the Qwik docs.
 
@@ -347,7 +347,6 @@ The Combobox component API provides a set of properties that allow you to custom
       description: 'An array of options for the combobox.',
     },
     {
-      
       name: 'filter$',
       type: 'QRL',
       description: 'A QRL for a custom filter function.',
@@ -484,7 +483,7 @@ The Combobox component API provides a set of properties that allow you to custom
       name: 'placement',
       type: 'union',
       description: 'The placement of the listbox.',
-      info: `"top" | "bottom" | "left" | "right"`
+      info: `"top" | "bottom" | "left" | "right"`,
     },
     {
       name: 'gutter',
@@ -509,10 +508,11 @@ The Combobox component API provides a set of properties that allow you to custom
     {
       name: 'hide',
       type: 'union',
-      description: 'Allows hiding the listbox when it appears detached from the reference element.',
-      info: `"escaped" | "referenceHidden"`
+      description:
+        'Allows hiding the listbox when it appears detached from the reference element.',
+      info: `"escaped" | "referenceHidden"`,
     },
-        {
+    {
       name: 'ancestorScroll',
       type: 'boolean',
       description: 'Controls the scroll behavior of the listbox.',
@@ -535,7 +535,8 @@ The Combobox component API provides a set of properties that allow you to custom
     {
       name: 'animationFrame',
       type: 'boolean',
-      description: 'Whether to update the position of the listbox on every animation frame.',
+      description:
+        'Whether to update the position of the listbox on every animation frame.',
     },
   ]}
 />
@@ -560,7 +561,7 @@ The Combobox component API provides a set of properties that allow you to custom
         label: string;
         disabled: boolean;
         lcLabel?: string;
-      `
+      `,
     },
     {
       name: 'onMouseEnter$',
@@ -582,24 +583,22 @@ The Combobox component API provides a set of properties that allow you to custom
     {
       name: 'svg',
       type: 'HTMLOrSVGElement',
-      description: 'A custom SVG element wrapped around a span with aria-hidden to be used as the icon. If an SVG is not passed inside, it will use the library default caret icon.',
+      description:
+        'A custom SVG element wrapped around a span with aria-hidden to be used as the icon. If an SVG is not passed inside, it will use the library default caret icon.',
     },
   ]}
 />
 
-
-
-
-
 ## Additional Examples
 
-<div class="text-white bg-gradient-to-b from-orange-700 to-orange-800 dark:from-red-700 dark:to-red-800 p-4 lg:p-6 rounded-xl shadow-light-medium dark:shadow-dark-medium">
-  **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the placement but with different strategies. Using both can result in a continuous reset loop as they try to override each other's work.
+<div class="shadow-light-medium dark:shadow-dark-medium rounded-xl bg-gradient-to-b from-orange-700 to-orange-800 p-4 text-white dark:from-red-700 dark:to-red-800 lg:p-6">
+  **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both
+  manipulate the placement but with different strategies. Using both can result in a
+  continuous reset loop as they try to override each other's work.
 </div>
 
 ### Auto Placement
-  
-Automatically places the listbox based on available space. **You must set flip to false before using it.**  This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
+
+Automatically places the listbox based on available space. **You must set flip to false before using it.** This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
 
 <ShowExample example="autoPlacement" />
-
