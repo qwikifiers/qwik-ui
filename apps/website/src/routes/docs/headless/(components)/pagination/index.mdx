@@ -2,14 +2,10 @@
 title: Qwik UI | Pagination
 ---
 
-import {
-  APITable,
-  StatusBanner,
-  statusByComponent,
-  ShowExample,
-} from './exports';
+import { ShowExample } from './exports';
+import { statusByComponent } from '~/_state/component-statuses';
 
-<StatusBanner status={statusByComponent.headless.Pagination}/>
+<StatusBanner status={statusByComponent.headless.Pagination} />
 
 # Pagination
 
@@ -23,9 +19,6 @@ import {
 ## Interactive Example
 
 <ShowExample example="interactive" />
-
-
-
 
 ## API
 
@@ -55,7 +48,7 @@ Here are the notable properties for this component:
       type: 'number',
       description: `set sibling items close to the selected value`,
     },
-   /*
+    /*
    {
       name: 'boundaryCount',
       type: 'number',
@@ -120,8 +113,6 @@ Here are the notable properties for this component:
   ]}
 />
 
-
-
 ## Basic Example
 
 <ShowExample example="basic" />
@@ -134,19 +125,14 @@ Here are the notable properties for this component:
 
 <ShowExample example="customButtonLabels" />
 
-
 ## Custom Arrows
 
 <ShowExample example="customArrows" />
-
 
 ## Hide Next/Prev Buttons
 
 <ShowExample example="hidePrevNextButtons" />
 
-
 ## Disabled
 
 <ShowExample example="disabled" />
-
-

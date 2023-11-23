@@ -3,13 +3,9 @@ title: Qwik UI | Tooltip
 ---
 
 import { MainExample, Example1 } from './examples';
-import { CodeExample } from '~/components/code-example/code-example';
-import { KeyboardInteractionTable } from '~/components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '~/components/api-table/api-table';
-import { StatusBanner } from '~/components/status-banner/status-banner';
-import {statusByComponent} from '~/_state/component-statuses';
+import { statusByComponent } from '~/_state/component-statuses';
 
-<StatusBanner status={statusByComponent.headless.Tooltip}/> 
+<StatusBanner status={statusByComponent.headless.Tooltip} />
 
 # Tooltip
 
@@ -17,10 +13,7 @@ A tooltip that displays information related to an element when the element recei
 
 <MainExample>
   ```tsx
-  <Tooltip
-    content="I'm a tooltip!"
-    class="bg-slate-200 dark:bg-gray-900 p-4 rounded-xl"
-  >
+  <Tooltip content="I'm a tooltip!" class="rounded-xl bg-slate-200 p-4 dark:bg-gray-900">
     Hover over me!
   </Tooltip>
   ```
@@ -28,19 +21,14 @@ A tooltip that displays information related to an element when the element recei
 
 ## Building blocks
 
-  <CodeExample>
-    ```tsx
-    import { component$ } from '@builder.io/qwik';
-    import { Tooltip } from '@qwik-ui/headless';
+```tsx
+import { component$ } from '@builder.io/qwik';
+import { Tooltip } from '@qwik-ui/headless';
 
-    export default component$(() => (
-      <Tooltip content='Tooltip content'>
-        Trigger content
-      </Tooltip>
-    ));
-    ```
-
-  </CodeExample>
+export default component$(() => (
+  <Tooltip content="Tooltip content">Trigger content</Tooltip>
+));
+```
 
 ## Examples
 
@@ -50,7 +38,7 @@ A tooltip that displays information related to an element when the element recei
   ```tsx
   <Tooltip
     content="Clicking this icon takes you to Qwik UI's GitHub repository!"
-    class="bg-slate-200 dark:bg-gray-900 p-4 rounded-xl"
+    class="rounded-xl bg-slate-200 p-4 dark:bg-gray-900"
   >
     <a href="https://github.com/qwikifiers/qwik-ui" class="mx-auto">
       <GitHubIcon />

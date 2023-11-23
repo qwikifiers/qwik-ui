@@ -154,12 +154,6 @@
       var(--qwikui-slate-900)
     );
   }
-
-  /* no horizontal overflow on code examples */
-  .tab-size pre {
-    white-space: pre-wrap;
-    background: transparent !important;
-  }
 }
 
 :root {

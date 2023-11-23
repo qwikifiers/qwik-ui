@@ -2,45 +2,30 @@
 title: Qwik UI | Autocomplete
 ---
 
-import {
-  AutocompleteRoot,
-  AutocompleteLabel,
-  AutocompleteTrigger,
-  AutocompleteInput,
-  AutocompleteListbox,
-  AutocompleteOption,
-} from '@qwik-ui/headless';
+import { Example01, Example02 } from './examples';
+import { statusByComponent } from '~/_state/component-statuses';
 
-import { Example01, Example02, Example03 } from './examples';
-import { CodeExample } from '~/components/code-example/code-example';
-import { KeyboardInteractionTable } from '~/components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '~/components/api-table/api-table';
-import { StatusBanner } from '~/components/status-banner/status-banner';
-import {statusByComponent} from '~/_state/component-statuses';
-
-<StatusBanner status={statusByComponent.headless.Autocomplete}/> 
+<StatusBanner status={statusByComponent.headless.Autocomplete} />
 
 # Autocomplete
 
 #### A combobox pattern that allows users to select from a list of previously searched terms, ensuring that the listbox popup is not automatically triggered but only when a character is typed in or an open command is given.
 
-{' '}
-
 <Example01>
   ```tsx
   <AutocompleteRoot class="relative text-white">
-    <AutocompleteLabel class="text-inherit font-semibold">
+    <AutocompleteLabel class="font-semibold text-inherit">
       Personal Trainers ⚡
     </AutocompleteLabel>
-    <AutocompleteControl class="bg-[#1f2532] flex items-center rounded-sm border-[#7d95b3] border-[1px] relative">
+    <AutocompleteControl class="relative flex items-center rounded-sm border-[1px] border-[#7d95b3] bg-[#1f2532]">
       <AutocompleteInput class="w-44 bg-inherit px-2 pr-6" />
-      <AutocompleteTrigger class="w-6 h-6 group absolute right-0">
+      <AutocompleteTrigger class="group absolute right-0 h-6 w-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
           stroke-width="2"
-          class="stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
+          class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
           stroke-linecap="round"
           stroke-linejoin="round"
         >
@@ -48,7 +33,7 @@ import {statusByComponent} from '~/_state/component-statuses';
         </svg>
       </AutocompleteTrigger>
     </AutocompleteControl>
-    <AutocompleteListbox class="w-full bg-[#1f2532] px-4 py-2 mt-2 rounded-sm border-[#7d95b3] border-[1px]">
+    <AutocompleteListbox class="mt-2 w-full rounded-sm border-[1px] border-[#7d95b3] bg-[#1f2532] px-4 py-2">
       {trainers.map((trainer, index) => (
         <AutocompleteOption
           optionValue={trainer}
@@ -65,30 +50,33 @@ import {statusByComponent} from '~/_state/component-statuses';
 
 ## Building blocks
 
-  <CodeExample>
-    ```tsx
-    import { component$ } from '@builder.io/qwik';
-    import { AutocompleteRoot, AutocompleteLabel, AutocompleteControl, AutocompleteInput, AutocompleteTrigger, AutocompleteListbox, AutocompleteOption } from '@qwik-ui/headless';
+```tsx
+import { component$ } from '@builder.io/qwik';
+import {
+  AutocompleteRoot,
+  AutocompleteLabel,
+  AutocompleteControl,
+  AutocompleteInput,
+  AutocompleteTrigger,
+  AutocompleteListbox,
+  AutocompleteOption,
+} from '@qwik-ui/headless';
 
-    export default component$(() => {
-      return (
-        <AutocompleteRoot>
-          <AutocompleteLabel>Label</AutocompleteLabel>
-          <AutocompleteControl>
-            <AutocompleteInput />
-            <AutocompleteTrigger>
-              Button
-            </AutocompleteTrigger>
-          </AutocompleteControl>
-          <AutocompleteListbox>
-            <AutocompleteOption>Option</AutocompleteOption>
-          </AutocompleteListbox>
-        </AutocompleteRoot>
-      )
-    })
-    ```
-
-  </CodeExample>
+export default component$(() => {
+  return (
+    <AutocompleteRoot>
+      <AutocompleteLabel>Label</AutocompleteLabel>
+      <AutocompleteControl>
+        <AutocompleteInput />
+        <AutocompleteTrigger>Button</AutocompleteTrigger>
+      </AutocompleteControl>
+      <AutocompleteListbox>
+        <AutocompleteOption>Option</AutocompleteOption>
+      </AutocompleteListbox>
+    </AutocompleteRoot>
+  );
+});
+```
 
 ## Examples
 

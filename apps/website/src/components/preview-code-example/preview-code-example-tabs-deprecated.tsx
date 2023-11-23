@@ -1,6 +1,5 @@
 import { component$, Slot, useStyles$ } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
-import { CodeCopy } from '../code-copy/code-copy';
 
 export const PreviewCodeExampleTabsDeprecated = component$((props: { code?: string }) => {
   useStyles$(`
@@ -33,9 +32,8 @@ export const PreviewCodeExampleTabsDeprecated = component$((props: { code?: stri
           <Slot name="actualComponent" />
         </section>
       </TabPanel>
-      <TabPanel class="border-qwikui-blue-300 dark:border-qwikui-purple-200 relative rounded-b-xl border-[1.5px] bg-slate-800 p-4  dark:bg-slate-900 md:p-12">
-        <CodeCopy class="code-copy absolute right-0 top-0" code={props.code} />
-        <section class="overflow-auto">
+      <TabPanel class="border-qwikui-blue-300 dark:border-qwikui-purple-200 relative rounded-b-xl border-[1.5px] bg-slate-800 dark:bg-slate-900">
+        <section>
           <Slot name="codeExample" />
         </section>
       </TabPanel>
