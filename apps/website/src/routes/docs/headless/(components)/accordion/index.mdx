@@ -3,14 +3,6 @@ title: Qwik UI | Accordion
 ---
 
 import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionContent,
-  AccordionTrigger,
-  AccordionHeader,
-} from '@qwik-ui/headless';
-
-import {
   HeroAccordion,
   MultiAccordion,
   NonCollapsibleAccordion,
@@ -21,21 +13,13 @@ import {
   OnFocusIndexChange,
   DynamicAccordion,
 } from './examples';
+import { statusByComponent } from '~/_state/component-statuses';
 
-import { CodeExample } from '~/components/code-example/code-example';
-import { KeyboardInteractionTable } from '~/components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '~/components/api-table/api-table';
-import { AnatomyTable } from '~/components/anatomy-table/anatomy-table';
-import { StatusBanner } from '~/components/status-banner/status-banner';
-import {statusByComponent} from '~/_state/component-statuses';
-
-<StatusBanner status={statusByComponent.headless.Accordion}/> 
+<StatusBanner status={statusByComponent.headless.Accordion} />
 
 # Accordion
 
 A stacked set of interactive headings which reveal or hide their associated content.
-
-{' '}
 
 <HeroAccordion>
   ```tsx
@@ -51,8 +35,8 @@ A stacked set of interactive headings which reveal or hide their associated cont
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          Yes, if you wrap the AccordionHeader component around the trigger,
-          screen readers will announce it properly.
+          Yes, if you wrap the AccordionHeader component around the trigger, screen
+          readers will announce it properly.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -83,8 +67,8 @@ A stacked set of interactive headings which reveal or hide their associated cont
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          You can do that by setting the <strong>behavior</strong> prop to
-          "multi" on the Accordion
+          You can do that by setting the <strong>behavior</strong> prop to "multi" on the
+          Accordion
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -114,38 +98,32 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 
 ## Building blocks
 
-  <CodeExample>
-  ```tsx
-  import { component$ } from '@builder.io/qwik';
-  import { 
-    AccordionRoot, 
-    AccordionItem, 
-    AccordionHeader, 
-    AccordionTrigger, 
-    AccordionContent 
-  } from '@qwik-ui/headless';
+```tsx
+import { component$ } from '@builder.io/qwik';
+import {
+  AccordionRoot,
+  AccordionItem,
+  AccordionHeader,
+  AccordionTrigger,
+  AccordionContent,
+} from '@qwik-ui/headless';
 
-  export default component$(() => {
-    return (
-      <AccordionRoot>
-        <AccordionItem>
-          <AccordionHeader>
-            <AccordionTrigger>Title</AccordionTrigger>
-          </AccordionHeader>
-          <AccordionContent>Content</AccordionContent>
-        </AccordionItem>
-      </AccordionRoot>
-    )
-  });
-  ```
+export default component$(() => {
+  return (
+    <AccordionRoot>
+      <AccordionItem>
+        <AccordionHeader>
+          <AccordionTrigger>Title</AccordionTrigger>
+        </AccordionHeader>
+        <AccordionContent>Content</AccordionContent>
+      </AccordionItem>
+    </AccordionRoot>
+  );
+});
+```
 
-  </CodeExample>
-
-{' '}
-<br />
 ### 🎨 Anatomy
 
-{' '}
 <AnatomyTable
   propDescriptors={[
     {
@@ -189,9 +167,8 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          100%. The trigger has a [data-state] selector that can be styled when equal to the open or closed values. 
-                
-          For example, [data-state="open"]
+          100%. The trigger has a [data-state] selector that can be styled when equal to
+          the open or closed values. For example, [data-state="open"]
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -206,8 +183,8 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          It's typed using QwikIntrinsicElements, meaning you can treat it like
-          an element!
+          It's typed using QwikIntrinsicElements, meaning you can treat it like an
+          element!
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -222,8 +199,7 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          You can use onClick$, onKeyDown$, any handlers you'd normally use with
-          Qwik!
+          You can use onClick$, onKeyDown$, any handlers you'd normally use with Qwik!
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -283,8 +259,8 @@ The variable calculates the content height behind the scenes, so that you can us
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          Of course! You can also use the onFocusIndexChange$ and
-          onSelectedIndexChange$ custom events.
+          Of course! You can also use the onFocusIndexChange$ and onSelectedIndexChange$
+          custom events.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -310,8 +286,7 @@ By default, the <strong>collapsible</strong> prop is set to true. You can revert
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          Hey, I'm enabled! This is because I don't use the disabled prop on the
-          trigger.
+          Hey, I'm enabled! This is because I don't use the disabled prop on the trigger.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -326,8 +301,7 @@ By default, the <strong>collapsible</strong> prop is set to true. You can revert
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          Hey, I'm enabled! This is because I don't use the disabled prop on the
-          trigger.
+          Hey, I'm enabled! This is because I don't use the disabled prop on the trigger.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -381,8 +355,8 @@ Any disabled elements will be skipped over when using tab or the `Up Arrow` and 
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          You can open me by default by putting the defaultValue prop on the
-          Accordion Item.
+          You can open me by default by putting the defaultValue prop on the Accordion
+          Item.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -594,7 +568,7 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
     // start off with some items
     const items = [];
     const newItem = { label: 'New Item', id: Math.random() };
-    
+
     for(let i = 0; i < itemsLength; i++) {
       items.push({
           label: `Original Item ${i + 1}`,
@@ -608,9 +582,9 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
     <div>
       <label>
         <input bind:value={itemIndexToAdd} />
-        <span>Index to Add</span> 
+        <span>Index to Add</span>
       </label>
-      
+
       <label>
         <input bind:value={itemIndexToDelete} />
         <span>Index to Delete</span>
@@ -654,7 +628,9 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
       </button>
     </div>
     )}
-  );
+
+);
+
 ```
 </DynamicAccordion>
 

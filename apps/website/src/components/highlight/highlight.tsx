@@ -45,8 +45,8 @@ export const Highlight = component$(
         const str = await highlighter.codeToHtml(modifiedCode, {
           lang: language,
           themes: {
-            light: 'github-dark',
-            dark: 'github-dark',
+            light: 'poimandres',
+            dark: 'poimandres',
           },
         });
         codeSig.value = str.toString();
@@ -66,7 +66,7 @@ export const Highlight = component$(
         <div
           {...props}
           class={[
-            'tab-size code-example-gradient max-h-[31.25rem] max-w-full overflow-auto rounded-xl bg-slate-800 p-6 text-sm dark:bg-slate-800',
+            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl bg-[#1B1E28] p-6 text-sm dark:bg-[#1B1E28]',
             props.class,
           ]}
         >

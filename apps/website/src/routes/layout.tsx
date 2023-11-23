@@ -15,6 +15,8 @@ import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
 import '@fontsource-variable/inter';
+import { MDXProvider } from '~/_state/MDXProvider';
+import { components } from '~/components/mdx-components';
 
 export default component$(() => {
   useStyles$(prismStyles);
@@ -27,14 +29,16 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <QwikUIProvider>
-        <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl grid">
-          <DocsNavigation linksGroups={menuItemsGroups} />
-          <main class="docs [grid-area:main]">
-            <Slot />
-          </main>
-          {/* future table of contents */}
-          <div class="hidden [grid-area:toc]"></div>
-        </div>
+        <MDXProvider components={components}>
+          <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl grid">
+            <DocsNavigation linksGroups={menuItemsGroups} />
+            <main class="docs [grid-area:main]">
+              <Slot />
+            </main>
+            {/* future table of contents */}
+            <div class="hidden [grid-area:toc]"></div>
+          </div>
+        </MDXProvider>
       </QwikUIProvider>
       <footer></footer>
     </>
