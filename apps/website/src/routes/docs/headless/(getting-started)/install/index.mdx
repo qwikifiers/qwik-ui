@@ -9,6 +9,7 @@ import AstroLogo from '../../../../_components/icons/AstroLogo.tsx'
 import { BuildingBlocksSnip } from './examples/'
 import { Note } from '../../../_components/note/note.tsx';
 import { ShowExample } from './examples'
+import qwikCityCLI from '../../../../../../public/images/qwik-city-cli.webp'
 
 export const packages = {
     'npm': 'npm install @qwik-ui/headless',
@@ -112,7 +113,9 @@ Install Qwik UI with your choice of package manager below:
 
     <Note status="info">For a more in-depth installation, or if you'd like to use a different package manager, follow the guide in the [Qwik docs](https://qwik.builder.io/docs/getting-started/#create-an-app-using-the-cli)</Note>
 
-    Make sure to select the `empty app` option in the CLI to keep it simple. Also you have to choose the dad joke, we'll find out if you didn't!
+    Let's select the `empty app` option in the CLI to keep it simple. And remember, choosing the dad joke is not optional - it's mandatory! We have a highly sophisticated Dad Joke Detection System (DJDS) in place, so we'll know if you didn't!
+
+    <img src={qwikCityCLI} class="block max-w-full rounded-md mb-6 border-qwikui-purple-200" />
 
     Below is the Qwik City project structure. Let's create a new folder called `accordion`, and a file named **`accordion.tsx`** inside of `src/components`.
 
@@ -148,7 +151,12 @@ Install Qwik UI with your choice of package manager below:
         └─ vite.config.ts
     </div>
 
+    Now let's copy our accordion code example from the building blocks section:  
+    <BuildingBlocksSnip />
+
     <ShowExample example="qwikCity" />
+
+    Hooray! We've now added our first Qwik UI component in Qwik City.
 
     ## Astro
 
