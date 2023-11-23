@@ -23,7 +23,7 @@
     }
 
     h2 {
-      @apply mb-8 mt-20 border-b-[1px] border-slate-300 pb-2 text-2xl font-extrabold dark:border-slate-700;
+      @apply mb-8 mt-20 scroll-mt-32 border-b-[1px] border-slate-300 pb-2 text-2xl font-extrabold dark:border-slate-700;
     }
 
     h3 {

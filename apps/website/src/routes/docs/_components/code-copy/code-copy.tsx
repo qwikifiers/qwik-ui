@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge';
 
 export type CodeCopyProps = OmitSignalClass<QwikIntrinsicElements['button']> & {
   code?: string;
-  icon: boolean;
+  icon?: boolean;
 };
 
 export const CodeCopy = component$(

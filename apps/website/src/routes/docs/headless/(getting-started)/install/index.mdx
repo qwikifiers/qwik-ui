@@ -1,5 +1,5 @@
 ---
-title: 'Qwik UI - Get Started'
+title: 'Qwik UI - Installation'
 ---
 
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
@@ -7,11 +7,20 @@ import { CodeCopy } from '../../../_components/code-copy/code-copy.tsx';
 import QwikLogo from '../../../../_components/icons/QwikLogo.tsx'
 import AstroLogo from '../../../../_components/icons/AstroLogo.tsx'
 import { BuildingBlocksSnip } from './examples/'
+import { Note } from '../../../_components/note/note.tsx';
+import { ShowExample } from './examples'
 
 export const packages = {
     'npm': 'npm install @qwik-ui/headless',
     'yarn': 'yarn add @qwik-ui/headless',
     'pnpm': 'pnpm add @qwik-ui/headless'
+}
+
+export const qwikPackages = {
+    'npm': 'npm create qwik@latest',
+    'yarn': 'yarn create qwik',
+    'pnpm': 'pnpm create qwik@latest',
+    'bun': 'bun create qwik@latest'
 }
 
 # Installation
@@ -74,13 +83,72 @@ Install Qwik UI with your choice of package manager below:
 
     Each component includes a `building blocks` section, which provides a barebones example of the component. This can be used as a starting point for implementing the component from scratch.
 
-    Below is an example of the `Accordion` component's building blocks:
+    Below is an example of the `Accordion` component's building block:
 
     <BuildingBlocksSnip />
 
     We will use this example as a Qwik UI component in each guide.
 
     ## Qwik City
+
+    To create a Qwik city app, run the following command:
+
+        <Tabs
+        class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-lg lg:mx-[-32px] text-white"
+        behavior="manual"
+    >
+        <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 flex rounded-t-lg border-[1.5px] border-b-0 text-white">
+            <Tab class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color min-h-[44px] rounded-tl-[.325rem]  px-[28px] py-2 transition aria-selected:bg-qwikui-blue-500 dark:aria-selected:bg-qwikui-purple-600 aria-selected:font-bold">
+                Qwik City
+            </Tab>
+        </TabList>
+        <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-lg border-[1.5px] bg-slate-200 bg-slate-800 py-6 dark:bg-slate-900 px-[28px]">
+            <div class="flex items-center justify-between">
+                npm create qwik@latest
+                <CodeCopy code={`npm create qwik@latest`} class="hover:bg-slate-700 dark:hover:bg-slate-800 p-4" icon={true} />
+            </div>
+        </TabPanel>
+    </Tabs>
+
+    <Note status="info">For a more in-depth installation, or if you'd like to use a different package manager, follow the guide in the [Qwik docs](https://qwik.builder.io/docs/getting-started/#create-an-app-using-the-cli)</Note>
+
+    Make sure to select the `empty app` option in the CLI to keep it simple. Also you have to choose the dad joke, we'll find out if you didn't!
+
+    Below is the Qwik City project structure. Let's create a new folder called `accordion`, and a file named **`accordion.tsx`** inside of `src/components`.
+
+    <div class="whitespace-pre-wrap bg-[#ECDDFD] dark:bg-[#0C2944] mx-[-24px] lg:mx-[-32px] px-5 py-4 lg:px-[28px] text-slate-700 dark:text-slate-300 border-[1px] border-qwikui-purple-600 rounded-lg dark:border-qwikui-blue-600 mb-6 lg:mb-12">
+        <strong class="text-slate-950 dark:text-white">Qwik City files</strong>
+        ├─ .eslintignore
+        ├─ .eslintrc.cjs
+        ├─ .gitignore
+        ├─ .prettierignore
+        ├─ README.md
+        ├─ package-lock.json
+        ├─ package.json
+        ├─ public
+        │  ├─ favicon.svg
+        │  ├─ manifest.json
+        │  └─ robots.txt
+        ├─ <strong class="text-slate-950 dark:text-white">src</strong>
+        │  ├─ <strong class="text-slate-950 dark:text-white">components</strong>
+        │  │  └─ <strong class="text-slate-950 dark:text-white">accordion</strong>
+        │  │     └─ <strong class="text-slate-950 dark:text-white">accordion.tsx</strong>
+        │  │  └─ router-head
+        │  │     └─ router-head.tsx
+        │  ├─ entry.dev.tsx
+        │  ├─ entry.preview.tsx
+        │  ├─ entry.ssr.tsx
+        │  ├─ global.css
+        │  ├─ root.tsx
+        │  └─ routes
+        │     ├─ index.tsx
+        │     ├─ layout.tsx
+        │     └─ service-worker.ts
+        ├─ tsconfig.json
+        └─ vite.config.ts
+    </div>
+
+    <ShowExample example="qwikCity" />
 
     ## Astro
 
