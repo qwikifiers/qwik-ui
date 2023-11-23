@@ -1,34 +1,31 @@
 ---
 title: Qwik UI | Modal
 ---
+
 import ImgTestImage from '/public/images/test-image.png?jsx';
 
 import {
-  KeyboardInteractionTable,
-  APITable,
-  AnatomyTable,
-  StatusBanner,
-  statusByComponent,
   ShowExample,
   BackdropCss,
   BuildingBlocksSnip,
   PageLoadSnip,
-  AnimationSnip
+  AnimationSnip,
 } from './exports';
+import { statusByComponent } from '~/_state/component-statuses';
 
-<StatusBanner status={statusByComponent.headless.Modal}/>
+<StatusBanner status={statusByComponent.headless.Modal} />
 
 # Modal
 
 A window overlaid on either the primary window or another dialog window. Modal content is placed in the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer), rendering the underneath content as [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) / non-interactive.
 
-<ShowExample example="hero"/>
+<ShowExample example="hero" />
 
-The modal makes use of the HTML `dialog` element, which is supported in [every major browser](https://caniuse.com/?search=dialog). 
+The modal makes use of the HTML `dialog` element, which is supported in [every major browser](https://caniuse.com/?search=dialog).
 
-> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) *(in progress)*. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
+> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) _(in progress)_. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
 
-Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed. 
+Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed.
 
 <div class="mb-6 flex flex-col gap-2">
 [View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/modal)
@@ -36,6 +33,7 @@ Modals are used when an important choice needs to be made in the application. Th
 [Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
 
 [Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/modal/index.mdx>)
+
 </div>
 
 ## ✨ Features
@@ -54,7 +52,8 @@ Modals are used when an important choice needs to be made in the application. Th
 <BuildingBlocksSnip />
 
 ### 🎨 Anatomy
-  <AnatomyTable
+
+<AnatomyTable
   propDescriptors={[
     {
       name: 'Modal',
@@ -77,7 +76,7 @@ Modals are used when an important choice needs to be made in the application. Th
 
 ## Dialog extendability
 
-<ShowExample example="inspect"/>
+<ShowExample example="inspect" />
 
 The Qwik UI Modal component is built on top of the `dialog` element. To see additional capabilities of the dialog, take a look at the [offical MDN page](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog).
 
@@ -87,9 +86,9 @@ Our goal is to fill existing gaps, ensuring the modal is a11y compliant and enri
 
 <ShowExample example="autoFocus" />
 
-Above is an example of the `autofocus` attribute, used to focus the 2nd input when the dialog is opened. 
+Above is an example of the `autofocus` attribute, used to focus the 2nd input when the dialog is opened.
 
-> When adding properties on `<Modal />`, it is the same as sticking the attribute, class, or API on the dialog element itself. 
+> When adding properties on `<Modal />`, it is the same as sticking the attribute, class, or API on the dialog element itself.
 
 ## Open or close the modal
 
@@ -107,9 +106,9 @@ Custom signal binds are like a remote control for components, controlling states
 
 ## The Top Layer
 
-<ImgTestImage class="rounded-xl mb-6" />
+<ImgTestImage class="mb-6 rounded-xl" />
 
-In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues. 
+In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues.
 
 The top layer is used in Qwik UI whenever a modal or popover is used in supported browsers. Popovers can be applied to any semantic element, modals in Qwik UI are tied to the `dialog` element.
 
@@ -123,25 +122,25 @@ By default, the `dialog` element comes with a subtle backdrop, below is a snippe
 
 <BackdropCss />
 
-<ShowExample example="backdrop"/>
+<ShowExample example="backdrop" />
 
 Styling a [backdrop in Tailwind](https://tailwindcss.com/docs/backdrop-blur) can be done using the `:backdrop` selector. In the example code below, we've changed the brightness based on dark or light mode, along with a blur.
 
-<ShowExample example="hero"/>
+<ShowExample example="hero" />
 
 ## Dismissing Modals via Backdrop
 
 Modals in Qwik UI can be dismissed by default when the backdrop is clicked. However, this behavior can be modified using the `closeOnBackdropClick` property.
 
-<ShowExample example="backdropClose"/>
+<ShowExample example="backdropClose" />
 
 The example above demonstrates a modal where the `closeOnBackdropClick` property is set to false. As a result, clicking on the backdrop does not dismiss the modal.
 
 ## Alertdialog
 
-An alert dialog is a modal that interrupts user workflow to convey critical information and obtain a response. It's typically used for confirmations, error messages, or destructive actions. 
+An alert dialog is a modal that interrupts user workflow to convey critical information and obtain a response. It's typically used for confirmations, error messages, or destructive actions.
 
-<ShowExample example="alertDialog"/>
+<ShowExample example="alertDialog" />
 
 By adding the `alert` prop to our component, we adhere to the [WAI ARIA Alertdialog specification](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/), enabling assistive technologies to distinguish alert dialogs for special handling.
 
@@ -149,9 +148,9 @@ Alertdialogs do not allow the backdrop to be closed when clicked, regardless of 
 
 ## Focus Locking in Modals
 
-Qwik UI incorporates a feature known as focus locking, which confines the focus within the modal component when it is open. 
+Qwik UI incorporates a feature known as focus locking, which confines the focus within the modal component when it is open.
 
-<ShowExample example="inspect"/>
+<ShowExample example="inspect" />
 
 This means that if a user is navigating through the modal using the Tab key, reaching the last focusable element and pressing Tab again will cycle the focus back to the first focusable element within the modal.
 
@@ -233,11 +232,13 @@ The current solution across framework ecosystems, is to open the Modal eagerly o
     },
     {
       keyTitle: 'Tab',
-      description: 'Moves focus to the next focusable item in the modal. If none, then loops back to the last item.',
+      description:
+        'Moves focus to the next focusable item in the modal. If none, then loops back to the last item.',
     },
     {
       keyTitle: 'Shift + Tab',
-      description: 'Moves focus to the previous focusable item in the modal. If none, then loops back to the last item.',
+      description:
+        'Moves focus to the previous focusable item in the modal. If none, then loops back to the last item.',
     },
   ]}
 />
@@ -268,27 +269,23 @@ The current solution across framework ecosystems, is to open the Modal eagerly o
       name: 'onHide()$',
       type: 'function',
       info: '() => void',
-      description:
-        'An event hook that gets notified whenever the modal gets hidden.',
+      description: 'An event hook that gets notified whenever the modal gets hidden.',
     },
     {
       name: 'onShow()$',
       type: 'function',
       info: '() => void',
-      description:
-        'An event hook that gets notified whenever the modal shows up.',
+      description: 'An event hook that gets notified whenever the modal shows up.',
     },
     {
       name: '.modal-showing',
       type: 'CSS',
-      description:
-        'A CSS class used for entry animations.',
+      description: 'A CSS class used for entry animations.',
     },
     {
       name: '.modal-closing',
       type: 'CSS',
-      description:
-        'A CSS class used for exit animations.',
+      description: 'A CSS class used for exit animations.',
     },
   ]}
 />

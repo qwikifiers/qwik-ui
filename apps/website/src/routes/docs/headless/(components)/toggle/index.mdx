@@ -2,39 +2,25 @@
 title: Qwik UI | Toggle
 ---
 
-import { CodeExample } from '~/components/code-example/code-example';
-import { KeyboardInteractionTable } from '~/components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '~/components/api-table/api-table';
-import { StatusBanner } from '~/components/status-banner/status-banner';
-import {statusByComponent} from '~/_state/component-statuses';
+import { statusByComponent } from '~/_state/component-statuses';
 
-<StatusBanner status={statusByComponent.headless.Toggle}/> 
+<StatusBanner status={statusByComponent.headless.Toggle} />
 
 # Toggle
 
 A toggle component is a primitive that us used to quickly switch between two possible states.
 
-{' '}
-
 ## Building blocks
 
-  <CodeExample>
-    ```tsx
-    import { $, component$, useSignal } from '@builder.io/qwik';
-    import { Toggle } from '@qwik-ui/primitives';
+```tsx
+import { $, component$, useSignal } from '@builder.io/qwik';
+import { Toggle } from '@qwik-ui/primitives';
 
-    export default component$(() => {
-      const toggleChecked = useSignal(false);
-      return (
-        <Toggle
-          pressed={toggleChecked.value}
-          onClick$={$(() => console.log('Toggle'))}
-        />
-      );
-    });
-    ```
-
-  </CodeExample>
+export default component$(() => {
+  const toggleChecked = useSignal(false);
+  return <Toggle pressed={toggleChecked.value} onClick$={() => console.log('Toggle')} />;
+});
+```
 
 ## Examples
 
