@@ -31,9 +31,10 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
       const containerTranslateX = matrix.m41 + e.movementX;
 
       for (let i = 0; i < context.slidesArraySig.value.length; i++) {
-        const slideLeftOffset = context.slidesArraySig.value[i].offsetLeft;
+        const slide = context.slidesArraySig.value[i];
+        const slideLeftOffset = slide.offsetLeft;
         const slideRightEdgePos =
-          slideLeftOffset + context.slidesArraySig.value[i].offsetWidth;
+          slideLeftOffset + slide.offsetWidth + context.spaceBetween;
 
         const halfViewportWidth = context.viewportRef.value?.offsetWidth / 2;
         const absContainerTranslateX = Math.abs(containerTranslateX);
@@ -46,9 +47,17 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
 
         if (isWithinLeftBound && isWithinRightBound) {
           context.currentSlideSig.value = i + 1;
-          const newSlide =
-            context.slidesArraySig.value[context.currentSlideSig.value - 1];
-          context.slideOffset.value = newSlide.offsetLeft * -1;
+
+          // Setting context.slideOffset.value to its current value will not trigger
+          // and update. Have to compare absolute values because it can be set to -0,
+          // which !== 0 (how about that!)
+          if (Math.abs(context.slideOffset.value) === Math.abs(slide.offsetLeft)) {
+            console.log('Moving manually');
+            context.containerRef.value.style.transform = `translate3d(${
+              slide.offsetLeft * -1
+            }px, 0px, 0px)`;
+          }
+          context.slideOffset.value = slide.offsetLeft * -1;
           break;
         }
       }
