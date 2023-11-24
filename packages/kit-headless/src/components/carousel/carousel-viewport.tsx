@@ -20,7 +20,7 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
       const matrix = new DOMMatrix(style.transform);
       const containerTranslateX = matrix.m41 + event.movementX;
 
-      context.containerRef.value.style.transform = `translate3d(${containerTranslateX}px, 0px, 0px)`;
+      context.slideOffset.value = containerTranslateX;
     }
   });
 
@@ -47,17 +47,8 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
 
         if (isWithinLeftBound && isWithinRightBound) {
           context.currentSlideSig.value = i + 1;
-
-          // Setting context.slideOffset.value to its current value will not trigger
-          // and update. Have to compare absolute values because it can be set to -0,
-          // which !== 0 (how about that!)
-          if (Math.abs(context.slideOffset.value) === Math.abs(slide.offsetLeft)) {
-            console.log('Moving manually');
-            context.containerRef.value.style.transform = `translate3d(${
-              slide.offsetLeft * -1
-            }px, 0px, 0px)`;
-          }
           context.slideOffset.value = slide.offsetLeft * -1;
+          console.log(context.slideOffset.value);
           break;
         }
       }

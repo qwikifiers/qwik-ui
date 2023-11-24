@@ -32,14 +32,12 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
 
     context.slidesArraySig.value = [...context.slidesArraySig.value, slideRef.value];
     context.totalSlidesSig.value++;
-    console.log('slides array: ', context.slidesArraySig.value);
   });
 
   useOnWindow(
     'DOMContentLoaded',
     $(() => {
       isOnClientSig.value = true;
-      console.log('CLIENT:', slideRef.value);
     }),
   );
 

@@ -27,7 +27,7 @@ export const ShowExample = component$(({ example }: ShowExampleProps) => {
   const { component, code, cssClasses = '' } = comboboxExamples[example];
   return (
     <PreviewCodeExampleTabs code={code}>
-      <div class={['flex w-[623px] flex-col gap-4', cssClasses]} q:slot="actualComponent">
+      <div class={['flex w-full flex-col gap-4', cssClasses]} q:slot="actualComponent">
         {component}
       </div>
 
