@@ -21,6 +21,7 @@ export const Carousel = component$(
     const slideRef = useSignal<HTMLDivElement>();
     const totalSlidesSig = useSignal<number>(0);
     const slidesArraySig = useSignal<Array<HTMLDivElement>>([]);
+    const transitionDurationSig = useSignal<number>(0);
 
     const context: CarouselContext = {
       currentSlideSig,
@@ -31,6 +32,7 @@ export const Carousel = component$(
       containerRef,
       spaceBetween,
       slidesArraySig,
+      transitionDurationSig,
     };
 
     useContextProvider(CarouselContextId, context);

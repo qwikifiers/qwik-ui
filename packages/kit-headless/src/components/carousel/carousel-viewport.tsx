@@ -47,7 +47,9 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
 
         if (isWithinLeftBound && isWithinRightBound) {
           context.currentSlideSig.value = i + 1;
+          context;
           context.slideOffset.value = slide.offsetLeft * -1;
+          context.transitionDurationSig.value = 300;
           console.log(context.slideOffset.value);
           break;
         }
@@ -67,6 +69,7 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
       }}
       ref={context.viewportRef}
       style={{ overflow: 'hidden', position: 'relative' }}
+      onTransitionEnd$={() => (context.transitionDurationSig.value = 0)}
       {...props}
     >
       <Slot />

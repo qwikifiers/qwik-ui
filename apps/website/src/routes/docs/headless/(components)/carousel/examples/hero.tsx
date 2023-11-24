@@ -37,6 +37,8 @@ export default component$(() => {
       touch-action: pan-y;
       margin-left: calc(var(--slide-spacing) * -1);
       display: flex;
+      transition-property: transform;
+      transition-timing-function: ease;
     }
 
     .qwikui-slide {
@@ -47,6 +49,7 @@ export default component$(() => {
       padding-top: 16px;
       padding-bottom: 16px;
       user-select: none;
+      transition-property: transform;
     }
 
     qwikui-slide:nth-child(even) {
