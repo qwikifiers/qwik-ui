@@ -1,0 +1,68 @@
+---
+title: Qwik UI | Popover
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.headless.Popover} />
+
+# Popover
+
+A popover is an element that displays a modal with content when the user clicks or hovers on a trigger element.
+
+<Showcase name="hero" />
+
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
+## Examples
+
+### Positioning the popover's content (on top)
+
+<Showcase name="top" />
+
+## API
+
+### Popover
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'placement',
+      type:"enum",
+      info: '"top" | "right" | "bottom" | "left" | "top-start" | "top-end" | "right-start" | "right-end" | "bottom-start" | "bottom-end" | "left-start" | "left-end"',
+      description: 'The side where to show the popover.',
+    },
+    {
+      name: 'triggerEvent',
+      type: 'enum',
+      info: '"click" | "mouseOver"',
+      description: 'Popover is opened when trigger is clicked or mouse overed.',
+    },
+    {
+      name: 'offset',
+      type: 'number',
+      description: 'Offset between trigger and content.',
+    },
+    {
+      name: 'isOpen',
+      type: 'boolean',
+      description:
+        'Open or close the popover when popover is controlled by the parent.',
+    },
+    {
+      name: 'disableClickOutSide',
+      type: 'boolean',
+      description: 'When true the popover is not closed when click outside.',
+    },
+    {
+      name: 'onUpdate$',
+      type: 'function',
+      info: 'PropFunction<(isOpen: boolean) => void>',
+
+      description: 'Notify a state update to the parent.',
+    },
+
+]}
+/>
