@@ -1,6 +1,13 @@
-import { Slot, component$, useStylesScoped$ } from '@builder.io/qwik';
+import {
+  QwikIntrinsicElements,
+  Slot,
+  component$,
+  useStylesScoped$,
+} from '@builder.io/qwik';
 
-export const VisuallyHidden = component$(() => {
+type VisuallyHiddenProps = QwikIntrinsicElements['span'];
+
+export const VisuallyHidden = component$((props: VisuallyHiddenProps) => {
   useStylesScoped$(`
     .visually-hidden {
         display: inline-block;
@@ -16,7 +23,7 @@ export const VisuallyHidden = component$(() => {
 `);
 
   return (
-    <span class="visually-hidden">
+    <span {...props} class="visually-hidden">
       <Slot />
     </span>
   );

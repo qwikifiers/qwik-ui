@@ -20,7 +20,7 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
       const matrix = new DOMMatrix(style.transform);
       const containerTranslateX = matrix.m41 + event.movementX;
 
-      context.slideOffset.value = containerTranslateX;
+      context.slideOffsetSig.value = containerTranslateX;
     }
   });
 
@@ -30,11 +30,11 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
       const matrix = new DOMMatrix(style.transform);
       const containerTranslateX = matrix.m41 + e.movementX;
 
-      for (let i = 0; i < context.slidesArraySig.value.length; i++) {
-        const slide = context.slidesArraySig.value[i];
+      for (let i = 0; i < context.allSlideRefs.value.length; i++) {
+        const slide = context.allSlideRefs.value[i];
         const slideLeftOffset = slide.offsetLeft;
         const slideRightEdgePos =
-          slideLeftOffset + slide.offsetWidth + context.spaceBetween;
+          slideLeftOffset + slide.offsetWidth + context.spaceBetweenSlides;
 
         const halfViewportWidth = context.viewportRef.value?.offsetWidth / 2;
         const absContainerTranslateX = Math.abs(containerTranslateX);
@@ -47,10 +47,9 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
 
         if (isWithinLeftBound && isWithinRightBound) {
           context.currentSlideSig.value = i + 1;
-          context;
-          context.slideOffset.value = slide.offsetLeft * -1;
+          context.slideOffsetSig.value = slide.offsetLeft * -1;
           context.transitionDurationSig.value = 300;
-          console.log(context.slideOffset.value);
+          console.log(context.slideOffsetSig.value);
           break;
         }
       }

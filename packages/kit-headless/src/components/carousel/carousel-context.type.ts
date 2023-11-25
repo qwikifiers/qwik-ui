@@ -1,14 +1,22 @@
 import { Signal } from '@builder.io/qwik';
 
 export interface CarouselContext {
-  // user's source of truth
+  // source of truth
+  slideOffsetSig: Signal<number>;
   currentSlideSig: Signal<number>;
+  numSlidesSig: Signal<number>;
+  spaceBetweenSlides: number;
+
+  /* 
+    refs 
+    (I don't like adding sig to refs 
+    because we know they are signals in qwik)
+  */
   viewportRef: Signal<HTMLDivElement | undefined>;
-  slideRef: Signal<HTMLDivElement | undefined>;
-  slideOffset: Signal<number>;
-  totalSlidesSig: Signal<number>;
   containerRef: Signal<HTMLDivElement | undefined>;
-  spaceBetween: number;
-  slidesArraySig: Signal<Array<HTMLDivElement>>;
+  slideRef: Signal<HTMLDivElement | undefined>;
+  allSlideRefs: Signal<Array<HTMLDivElement>>;
+
+  // animation
   transitionDurationSig: Signal<number>;
 }

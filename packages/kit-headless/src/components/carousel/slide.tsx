@@ -30,8 +30,8 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
       return;
     }
 
-    context.slidesArraySig.value = [...context.slidesArraySig.value, slideRef.value];
-    context.totalSlidesSig.value++;
+    context.allSlideRefs.value = [...context.allSlideRefs.value, slideRef.value];
+    context.numSlidesSig.value++;
   });
 
   useOnWindow(
@@ -42,14 +42,13 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
   );
 
   return (
-    <div style={{ marginRight: `${context.spaceBetween}px` }} ref={slideRef} {...props}>
+    <div
+      style={{ marginRight: `${context.spaceBetweenSlides}px` }}
+      ref={slideRef}
+      {...props}
+    >
       <Slot />
       test
     </div>
   );
 });
-
-/*
-    slide.tsx: This component represents an individual slide in the carousel. It should receive its content as a prop from the Carousel component.
-
-*/

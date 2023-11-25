@@ -7,6 +7,7 @@ import {
 } from '@builder.io/qwik';
 import { CarouselContext } from './carousel-context.type';
 import CarouselContextId from './carousel-context-id';
+import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type CarouselRootProps = QwikIntrinsicElements['section'] & {
   spaceBetween?: number;
@@ -27,26 +28,24 @@ export const Carousel = component$(
       currentSlideSig,
       viewportRef,
       slideRef,
-      slideOffset,
-      totalSlidesSig,
+      slideOffsetSig: slideOffset,
+      numSlidesSig: totalSlidesSig,
       containerRef,
-      spaceBetween,
-      slidesArraySig,
+      spaceBetweenSlides: spaceBetween,
+      allSlideRefs: slidesArraySig,
       transitionDurationSig,
     };
 
     useContextProvider(CarouselContextId, context);
 
     return (
-      <section {...props}>
+      <section aria-roledescription="carousel" role="group" {...props}>
+        <VisuallyHidden aria-live="polite" aria-atomic="true">
+          Slide {context.currentSlideSig.value} of
+          {context.allSlideRefs.value.length}
+        </VisuallyHidden>
         <Slot />
       </section>
     );
   },
 );
-
-/*
-
-- carousel.tsx: This is the main Carousel component. It should include the logic for auto-rotation and stopping rotation when necessary. It should also manage the current slide state and pass it down to the necessary components.
-
-*/

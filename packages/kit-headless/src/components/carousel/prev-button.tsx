@@ -1,10 +1,10 @@
 import { Slot, component$, useContext } from '@builder.io/qwik';
 import { CarouselButtonProps } from './types';
 import CarouselContextId from './carousel-context-id';
+import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export const CarouselPrev = component$((props: CarouselButtonProps) => {
   const context = useContext(CarouselContextId);
-
   return (
     <button
       {...props}
@@ -14,20 +14,17 @@ export const CarouselPrev = component$((props: CarouselButtonProps) => {
       }
       onClick$={() => {
         context.currentSlideSig.value--;
+        const currIndex = context.currentSlideSig.value - 1;
 
-        if (context.slideRef.value || context.slideRef.value === 0) {
-          context.slideOffset.value =
-            context.slideOffset.value + context.slideRef.value.offsetWidth;
-        }
+        const prevSlideElement = context.allSlideRefs.value[currIndex];
+
+        context.slideOffsetSig.value = prevSlideElement.offsetLeft * -1;
+
+        context.transitionDurationSig.value = 625;
       }}
     >
+      <VisuallyHidden>previous slide</VisuallyHidden>
       <Slot />
     </button>
   );
 });
-
-/*
-
-nextButton.tsx and prevButton.tsx: These components represent the buttons for navigating to the next and previous slides. They should receive a callback prop from the Carousel component to update the current slide state.
-
-*/
