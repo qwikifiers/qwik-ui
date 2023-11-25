@@ -19,10 +19,10 @@ importers:
         version: 2.6.2
     devDependencies:
       '@builder.io/qwik':
-        specifier: ^1.2.16
+        specifier: ^1.2.13
         version: 1.2.18(@types/node@20.5.7)(sass@1.66.1)(undici@5.23.0)
       '@builder.io/qwik-city':
-        specifier: ^1.2.16
+        specifier: ^1.2.13
         version: 1.2.18(@types/node@20.5.7)(sass@1.66.1)
       '@commitlint/cli':
         specifier: ^17.7.1
@@ -190,7 +190,7 @@ importers:
         specifier: ^2.14.0
         version: 2.14.0(eslint@8.48.0)
       eslint-plugin-qwik:
-        specifier: ^1.2.16
+        specifier: ^1.2.13
         version: 1.2.18(eslint@8.48.0)
       eslint-plugin-storybook:
         specifier: ^0.6.13
