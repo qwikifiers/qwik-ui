@@ -36,14 +36,13 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
         return;
       }
 
-      const slideLeftOffset = slide.offsetLeft;
       const slideRightEdgePos =
-        slideLeftOffset + slide.offsetWidth + context.spaceBetweenSlides;
+        slide.offsetLeft + slide.offsetWidth + context.spaceBetweenSlides;
 
       const halfViewportWidth = context.viewportRef.value.offsetWidth / 2;
 
       const isWithinBounds =
-        absContainerTranslateX > slideLeftOffset - halfViewportWidth &&
+        absContainerTranslateX > slide.offsetLeft - halfViewportWidth &&
         absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
 
       if (isWithinBounds) {
