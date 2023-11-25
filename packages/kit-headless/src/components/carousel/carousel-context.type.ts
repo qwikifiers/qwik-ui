@@ -19,4 +19,7 @@ export interface CarouselContext {
 
   // animation
   transitionDurationSig: Signal<number>;
+
+  // signal binds
+  moveToSig?: Signal<number | undefined>;
 }

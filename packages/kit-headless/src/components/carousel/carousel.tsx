@@ -1,5 +1,6 @@
 import {
   QwikIntrinsicElements,
+  Signal,
   Slot,
   component$,
   useContextProvider,
@@ -11,10 +12,17 @@ import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type CarouselRootProps = QwikIntrinsicElements['section'] & {
   spaceBetweenSlides?: number;
+  'bind:moveTo'?: Signal<number | undefined>;
 };
 
 export const Carousel = component$(
-  ({ spaceBetweenSlides = 0, ...props }: CarouselRootProps) => {
+  ({
+    spaceBetweenSlides = 0,
+    'bind:moveTo': givenMoveToSig,
+    ...props
+  }: CarouselRootProps) => {
+    const moveToSig = givenMoveToSig;
+
     const slideOffsetSig = useSignal<number>(0);
     const currentSlideSig = useSignal(1);
     const numSlidesSig = useSignal<number>(0);
@@ -25,6 +33,7 @@ export const Carousel = component$(
     const allSlideRefs = useSignal<Array<HTMLDivElement>>([]);
 
     const context: CarouselContext = {
+      moveToSig,
       slideOffsetSig,
       currentSlideSig,
       numSlidesSig,

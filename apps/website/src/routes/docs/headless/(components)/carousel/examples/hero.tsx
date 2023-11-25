@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 
 import {
   Carousel,
@@ -10,6 +10,8 @@ import {
 } from '@qwik-ui/headless';
 
 export default component$(() => {
+  const moveToSig = useSignal<number>(0);
+
   const slides = [
     'Slide 1 content',
     'Slide 2 content',
@@ -62,23 +64,26 @@ export default component$(() => {
   `);
 
   return (
-    <Carousel spaceBetweenSlides={30} class="qwikui-carousel">
-      <div class="flex gap-4">
-        <CarouselPrev class="prev-button bg-slate-700 px-3 py-2">Prev</CarouselPrev>
-        <CarouselNext class="next-button bg-slate-700 px-3 py-2">Next</CarouselNext>
-      </div>
-      <CarouselView class="bg-slate-500">
-        <CarouselContainer class="qwikui-container">
-          {slides.map((content) => (
-            <CarouselSlide
-              class="qwikui-slide noselect bg-white text-black"
-              key={content}
-            >
-              {content}
-            </CarouselSlide>
-          ))}
-        </CarouselContainer>
-      </CarouselView>
-    </Carousel>
+    <>
+      <Carousel bind:moveTo={moveToSig} spaceBetweenSlides={30} class="qwikui-carousel">
+        <div class="flex gap-4">
+          <CarouselPrev class="prev-button bg-slate-700 px-3 py-2">Prev</CarouselPrev>
+          <CarouselNext class="next-button bg-slate-700 px-3 py-2">Next</CarouselNext>
+        </div>
+        <CarouselView class="bg-slate-500">
+          <CarouselContainer class="qwikui-container">
+            {slides.map((content) => (
+              <CarouselSlide
+                class="qwikui-slide noselect bg-white text-black"
+                key={content}
+              >
+                {content}
+              </CarouselSlide>
+            ))}
+          </CarouselContainer>
+        </CarouselView>
+      </Carousel>
+      <button onClick$={() => (moveToSig.value = 5)}>Move to 5</button>
+    </>
   );
 });
