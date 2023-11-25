@@ -18,12 +18,8 @@ export const CarouselNext = component$((props: CarouselButtonProps) => {
   return (
     <button
       {...props}
+      aria-disabled={context.currentSlideSig.value === context.allSlideRefs.value.length}
       disabled={context.currentSlideSig.value === context.allSlideRefs.value.length}
-      style={
-        context.currentSlideSig.value === context.numSlidesSig.value
-          ? { background: 'rgba(51, 65, 85, .35)' }
-          : ''
-      }
       onClick$={() => {
         context.currentSlideSig.value++;
         const currIndex = context.currentSlideSig.value - 1;

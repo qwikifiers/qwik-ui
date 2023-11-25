@@ -55,13 +55,17 @@ export default component$(() => {
     qwikui-slide:nth-child(even) {
       background-color: orange !important;
     }
+
+    .next-button[aria-disabled="true"], .prev-button[aria-disabled="true"] {
+      background: rgba(51, 65, 85, .35);
+    }
   `);
 
   return (
-    <Carousel spaceBetween={30} class="qwikui-carousel">
+    <Carousel spaceBetweenSlides={30} class="qwikui-carousel">
       <div class="flex gap-4">
-        <CarouselPrev class="bg-slate-700 px-3 py-2">Prev</CarouselPrev>
-        <CarouselNext class="bg-slate-700 px-3 py-2">Next</CarouselNext>
+        <CarouselPrev class="prev-button bg-slate-700 px-3 py-2">Prev</CarouselPrev>
+        <CarouselNext class="next-button bg-slate-700 px-3 py-2">Next</CarouselNext>
       </div>
       <CarouselView class="bg-slate-500">
         <CarouselContainer class="qwikui-container">

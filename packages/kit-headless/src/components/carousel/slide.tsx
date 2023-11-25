@@ -42,7 +42,6 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
       {...props}
     >
       <Slot />
-      test
     </div>
   );
 });

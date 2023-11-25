@@ -10,30 +10,30 @@ import CarouselContextId from './carousel-context-id';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type CarouselRootProps = QwikIntrinsicElements['section'] & {
-  spaceBetween?: number;
+  spaceBetweenSlides?: number;
 };
 
 export const Carousel = component$(
-  ({ spaceBetween = 0, ...props }: CarouselRootProps) => {
+  ({ spaceBetweenSlides = 0, ...props }: CarouselRootProps) => {
+    const slideOffsetSig = useSignal<number>(0);
     const currentSlideSig = useSignal(1);
+    const numSlidesSig = useSignal<number>(0);
+    const transitionDurationSig = useSignal<number>(0);
     const viewportRef = useSignal<HTMLDivElement>();
     const containerRef = useSignal<HTMLDivElement>();
-    const slideOffset = useSignal<number>(0);
     const slideRef = useSignal<HTMLDivElement>();
-    const totalSlidesSig = useSignal<number>(0);
-    const slidesArraySig = useSignal<Array<HTMLDivElement>>([]);
-    const transitionDurationSig = useSignal<number>(0);
+    const allSlideRefs = useSignal<Array<HTMLDivElement>>([]);
 
     const context: CarouselContext = {
+      slideOffsetSig,
       currentSlideSig,
-      viewportRef,
-      slideRef,
-      slideOffsetSig: slideOffset,
-      numSlidesSig: totalSlidesSig,
-      containerRef,
-      spaceBetweenSlides: spaceBetween,
-      allSlideRefs: slidesArraySig,
+      numSlidesSig,
       transitionDurationSig,
+      viewportRef,
+      containerRef,
+      slideRef,
+      allSlideRefs,
+      spaceBetweenSlides,
     };
 
     useContextProvider(CarouselContextId, context);
