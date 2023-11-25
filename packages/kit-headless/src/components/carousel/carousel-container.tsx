@@ -1,6 +1,5 @@
 import { component$, QwikIntrinsicElements, Slot, useContext } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
-// import { handlePointerMove } from './utils';
 
 type CarouselContainerProps = QwikIntrinsicElements['div'];
 

@@ -25,35 +25,39 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
   });
 
   const handlePointerUp$ = $((e: MouseEvent) => {
-    if (context.containerRef.value && context.viewportRef.value) {
-      const style = window.getComputedStyle(context.containerRef.value);
-      const matrix = new DOMMatrix(style.transform);
-      const containerTranslateX = matrix.m41 + e.movementX;
-
-      for (let i = 0; i < context.allSlideRefs.value.length; i++) {
-        const slide = context.allSlideRefs.value[i];
-        const slideLeftOffset = slide.offsetLeft;
-        const slideRightEdgePos =
-          slideLeftOffset + slide.offsetWidth + context.spaceBetweenSlides;
-
-        const halfViewportWidth = context.viewportRef.value?.offsetWidth / 2;
-        const absContainerTranslateX = Math.abs(containerTranslateX);
-
-        const isWithinLeftBound =
-          absContainerTranslateX > slideLeftOffset - halfViewportWidth;
-
-        const isWithinRightBound =
-          absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
-
-        if (isWithinLeftBound && isWithinRightBound) {
-          context.currentSlideSig.value = i + 1;
-          context.slideOffsetSig.value = slide.offsetLeft * -1;
-          context.transitionDurationSig.value = 300;
-          console.log(context.slideOffsetSig.value);
-          break;
-        }
-      }
+    if (!context.containerRef.value) {
+      return;
     }
+
+    const style = window.getComputedStyle(context.containerRef.value);
+    const matrix = new DOMMatrix(style.transform);
+    const containerTranslateX = matrix.m41 + e.movementX;
+    const absContainerTranslateX = Math.abs(containerTranslateX);
+
+    context.allSlideRefs.value.find((slide, i) => {
+      if (!context.viewportRef.value) {
+        return;
+      }
+
+      const slideLeftOffset = slide.offsetLeft;
+      const slideRightEdgePos =
+        slideLeftOffset + slide.offsetWidth + context.spaceBetweenSlides;
+
+      const halfViewportWidth = context.viewportRef.value?.offsetWidth / 2;
+
+      const isWithinBounds =
+        absContainerTranslateX > slideLeftOffset - halfViewportWidth &&
+        absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
+
+      if (isWithinBounds) {
+        context.currentSlideSig.value = i + 1;
+        context.slideOffsetSig.value = slide.offsetLeft * -1;
+        context.transitionDurationSig.value = 300;
+        return true;
+      }
+
+      return false;
+    });
 
     window.removeEventListener('pointermove', handlePointerMove$);
   });

@@ -12,8 +12,6 @@ import CarouselContextId from './carousel-context-id';
 
 export type CarouselSlideProps = QwikIntrinsicElements['div'];
 
-import { isServer } from '@builder.io/qwik/build';
-
 export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
   const context = useContext(CarouselContextId);
   const slideRef = useSignal<HTMLDivElement | undefined>();
@@ -21,10 +19,6 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
 
   useTask$(({ track }) => {
     track(() => isOnClientSig.value);
-
-    if (isServer) {
-      console.log('SERVER:', slideRef.value);
-    }
 
     if (!slideRef.value) {
       return;
