@@ -7,6 +7,7 @@ import {
   $,
 } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
+import { getContainerTranslateX } from './utils';
 
 type CarouselViewportProps = QwikIntrinsicElements['div'];
 
@@ -14,14 +15,12 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
   const context = useContext(CarouselContextId);
   const initialX = useSignal<number>(0);
 
-  const handlePointerMove$ = $((event: MouseEvent) => {
-    if (context.containerRef.value && context.viewportRef.value) {
-      const style = window.getComputedStyle(context.containerRef.value);
-      const matrix = new DOMMatrix(style.transform);
-      const containerTranslateX = matrix.m41 + event.movementX;
-
-      context.slideOffsetSig.value = containerTranslateX;
+  const handlePointerMove$ = $((e: MouseEvent) => {
+    if (!context.containerRef.value) {
+      return;
     }
+
+    context.slideOffsetSig.value = getContainerTranslateX(context.containerRef.value, e);
   });
 
   const handlePointerUp$ = $((e: MouseEvent) => {
@@ -29,9 +28,7 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
       return;
     }
 
-    const style = window.getComputedStyle(context.containerRef.value);
-    const matrix = new DOMMatrix(style.transform);
-    const containerTranslateX = matrix.m41 + e.movementX;
+    const containerTranslateX = getContainerTranslateX(context.containerRef.value, e);
     const absContainerTranslateX = Math.abs(containerTranslateX);
 
     context.allSlideRefs.value.find((slide, i) => {
@@ -43,7 +40,7 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
       const slideRightEdgePos =
         slideLeftOffset + slide.offsetWidth + context.spaceBetweenSlides;
 
-      const halfViewportWidth = context.viewportRef.value?.offsetWidth / 2;
+      const halfViewportWidth = context.viewportRef.value.offsetWidth / 2;
 
       const isWithinBounds =
         absContainerTranslateX > slideLeftOffset - halfViewportWidth &&
