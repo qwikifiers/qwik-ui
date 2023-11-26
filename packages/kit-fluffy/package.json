@@ -35,7 +35,7 @@
     "qwik": "qwik"
   },
   "peerDependencies": {
-    "@builder.io/qwik": ">1.1.0"
+    "@builder.io/qwik": "^1.1.0"
   },
   "devDependencies": {
     "@builder.io/vite-plugin-macro": "~0.0.7"
