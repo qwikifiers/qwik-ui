@@ -401,6 +401,16 @@
         "doc",
         "maintenance"
       ]
+    },
+    {
+      "login": "oxcened",
+      "name": "Alen Ajam",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6226131?v=4",
+      "profile": "http://alenajam.dev",
+      "contributions": [
+        "doc",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
