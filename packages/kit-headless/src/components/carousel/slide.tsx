@@ -10,53 +10,61 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
+import { isServer } from '@builder.io/qwik/build';
 
 export type CarouselSlideProps = QwikIntrinsicElements['div'];
-
-export function useSlideOffset() {
-  const context = useContext(CarouselContextId);
-
-  return useComputed$(() => {
-    const currIndex = context.currentSlideSig.value - 1;
-    const slideElement = context.allSlideRefs.value[currIndex];
-    return slideElement.offsetLeft * -1;
-  });
-}
 
 export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
   const context = useContext(CarouselContextId);
   const slideRef = useSignal<HTMLDivElement | undefined>();
   const isOnClientSig = useSignal<boolean>(false);
+  const serverRenderedSig = useSignal<boolean>(false);
 
+  // current slide sig change auto computes slide offset
   useComputed$(() => {
-    // programmatically move slides
-    const isSlideMoved = context.moveToSig?.value;
+    const currIndex = context.currentSlideSig.value - 1;
+    const currentSlideElement = context.allSlideRefs.value[currIndex];
 
-    if (isSlideMoved) {
-      // unchanged if no moveToSig
-      context.currentSlideSig.value =
-        context.moveToSig?.value || context.currentSlideSig.value;
-
-      const currIndex = context.currentSlideSig.value - 1;
-
-      const movedSlideElement = context.allSlideRefs.value[currIndex];
-
-      context.slideOffsetSig.value = movedSlideElement.offsetLeft * -1;
-
-      context.transitionDurationSig.value = 625;
+    if (currentSlideElement) {
+      context.slideOffsetSig.value = currentSlideElement.offsetLeft * -1;
     }
+  });
+
+  // programmatically move slides
+  useComputed$(() => {
+    if (!context.moveToSig) {
+      return;
+    }
+
+    const isSameSlide = context.moveToSig.value === context.currentSlideSig.value;
+
+    if (context.moveToSig.value === null || isSameSlide) {
+      return;
+    }
+
+    context.currentSlideSig.value = context.moveToSig.value;
+    context.transitionDurationSig.value = 625;
+
+    // Reset after move
+    context.moveToSig.value = null;
   });
 
   useTask$(({ track }) => {
     track(() => isOnClientSig.value);
 
-    if (!slideRef.value) {
+    if (isServer || !slideRef.value) {
+      serverRenderedSig.value = true;
+      context.numSlidesSig.value++;
       return;
+    }
+
+    if (!serverRenderedSig.value) {
+      // do it on the client if SPA
+      context.numSlidesSig.value++;
     }
 
     // get all slide dimensions
     context.allSlideRefs.value = [...context.allSlideRefs.value, slideRef.value];
-    context.numSlidesSig.value++;
   });
 
   useOnWindow(

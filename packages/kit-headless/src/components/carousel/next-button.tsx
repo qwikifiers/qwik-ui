@@ -22,11 +22,6 @@ export const CarouselNext = component$((props: CarouselButtonProps) => {
       disabled={context.currentSlideSig.value === context.allSlideRefs.value.length}
       onClick$={() => {
         context.currentSlideSig.value++;
-        const currIndex = context.currentSlideSig.value - 1;
-
-        const nextSlideElement = context.allSlideRefs.value[currIndex];
-
-        context.slideOffsetSig.value = nextSlideElement.offsetLeft * -1;
 
         context.transitionDurationSig.value = 625;
       }}

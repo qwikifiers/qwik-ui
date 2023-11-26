@@ -21,5 +21,5 @@ export interface CarouselContext {
   transitionDurationSig: Signal<number>;
 
   // signal binds
-  moveToSig?: Signal<number | undefined>;
+  moveToSig?: Signal<number | null>;
 }

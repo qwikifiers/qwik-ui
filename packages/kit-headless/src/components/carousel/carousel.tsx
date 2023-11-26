@@ -4,7 +4,9 @@ import {
   Slot,
   component$,
   useContextProvider,
+  useOnWindow,
   useSignal,
+  $,
 } from '@builder.io/qwik';
 import { CarouselContext } from './carousel-context.type';
 import CarouselContextId from './carousel-context-id';
@@ -12,7 +14,8 @@ import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type CarouselRootProps = QwikIntrinsicElements['section'] & {
   spaceBetweenSlides?: number;
-  'bind:moveTo'?: Signal<number | undefined>;
+  'bind:moveTo'?: Signal<number | null>;
+  'bind:currSlideIndex'?: Signal<number | null>;
 };
 
 export const Carousel = component$(
@@ -46,6 +49,13 @@ export const Carousel = component$(
     };
 
     useContextProvider(CarouselContextId, context);
+
+    useOnWindow(
+      'resize',
+      $((e) => {
+        console.log(e);
+      }),
+    );
 
     return (
       <section aria-roledescription="carousel" role="group" {...props}>

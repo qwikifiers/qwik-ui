@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$, $ } from '@builder.io/qwik';
 
 import {
   Carousel,
@@ -7,10 +7,14 @@ import {
   CarouselSlide,
   CarouselView,
   CarouselContainer,
+  CarouselPagination,
 } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const moveToSig = useSignal<number>(0);
+  /* TODO: document this to always have initial state to null. 
+  Use defaultSlide instead for setting a slide on page load */
+  const moveToSig = useSignal<number | null>(null);
+  const activeIndex = useSignal<number | null>(null);
 
   const slides = [
     'Slide 1 content',
@@ -63,6 +67,8 @@ export default component$(() => {
     }
   `);
 
+  const bulletLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
   return (
     <>
       <Carousel bind:moveTo={moveToSig} spaceBetweenSlides={30} class="qwikui-carousel">
@@ -82,6 +88,17 @@ export default component$(() => {
             ))}
           </CarouselContainer>
         </CarouselView>
+        <div>
+          {bulletLetters.map((letter) => (
+            <span>{letter}</span>
+          ))}
+          {/* <CarouselPagination
+            renderBullet$={$((i: number) => {
+              return <span>{bulletLetters[i]}</span>;
+            })}
+            class="mr-2 bg-slate-700 p-2 data-[current-slide]:bg-slate-800"
+          /> */}
+        </div>
       </Carousel>
       <button onClick$={() => (moveToSig.value = 5)}>Move to 5</button>
     </>
