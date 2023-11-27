@@ -22,31 +22,20 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
 
   // current slide sig change auto computes slide offset
   useComputed$(() => {
-    const currIndex = context.currentSlideSig.value - 1;
-    const currentSlideElement = context.allSlideRefs.value[currIndex];
+    const currentSlideElement = context.allSlideRefs.value[context.currentIndexSig.value];
 
     if (currentSlideElement) {
       context.slideOffsetSig.value = currentSlideElement.offsetLeft * -1;
     }
-  });
 
-  // programmatically move slides
-  useComputed$(() => {
-    if (!context.moveToSig) {
-      return;
-    }
+    /* TODO: figure out how to customize animation for seprate actions:
 
-    const isSameSlide = context.moveToSig.value === context.currentSlideSig.value;
+    For example, this 625 is now for everything, because the slide index changing is our source of truth.
 
-    if (context.moveToSig.value === null || isSameSlide) {
-      return;
-    }
+    Perhaps a bind?
 
-    context.currentSlideSig.value = context.moveToSig.value;
+    */
     context.transitionDurationSig.value = 625;
-
-    // Reset after move
-    context.moveToSig.value = null;
   });
 
   useTask$(({ track }) => {
@@ -64,7 +53,9 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
     }
 
     // get all slide dimensions
-    context.allSlideRefs.value = [...context.allSlideRefs.value, slideRef.value];
+    if (isOnClientSig.value) {
+      context.allSlideRefs.value = [...context.allSlideRefs.value, slideRef.value];
+    }
   });
 
   useOnWindow(

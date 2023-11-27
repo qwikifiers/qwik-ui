@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$, $ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 
 import {
   Carousel,
@@ -7,14 +7,13 @@ import {
   CarouselSlide,
   CarouselView,
   CarouselContainer,
-  CarouselPagination,
 } from '@qwik-ui/headless';
 
 export default component$(() => {
   /* TODO: document this to always have initial state to null. 
   Use defaultSlide instead for setting a slide on page load */
   const moveToSig = useSignal<number | null>(null);
-  const activeIndex = useSignal<number | null>(null);
+  const activeIndex = useSignal<number>(0);
 
   const slides = [
     'Slide 1 content',
@@ -71,7 +70,12 @@ export default component$(() => {
 
   return (
     <>
-      <Carousel bind:moveTo={moveToSig} spaceBetweenSlides={30} class="qwikui-carousel">
+      <Carousel
+        bind:currSlideIndex={activeIndex}
+        bind:moveTo={moveToSig}
+        spaceBetweenSlides={30}
+        class="qwikui-carousel"
+      >
         <div class="flex gap-4">
           <CarouselPrev class="prev-button bg-slate-700 px-3 py-2">Prev</CarouselPrev>
           <CarouselNext class="next-button bg-slate-700 px-3 py-2">Next</CarouselNext>
@@ -89,8 +93,17 @@ export default component$(() => {
           </CarouselContainer>
         </CarouselView>
         <div>
-          {bulletLetters.map((letter) => (
-            <span>{letter}</span>
+          {bulletLetters.map((letter, index) => (
+            <span
+              key={letter + '-' + index}
+              class="mr-2 bg-slate-700 p-2 data-[current-slide]:bg-slate-800"
+              onClick$={() => {
+                activeIndex.value = 3;
+                console.log('activeIndex', activeIndex.value);
+              }}
+            >
+              {letter}
+            </span>
           ))}
           {/* <CarouselPagination
             renderBullet$={$((i: number) => {
@@ -100,7 +113,7 @@ export default component$(() => {
           /> */}
         </div>
       </Carousel>
-      <button onClick$={() => (moveToSig.value = 5)}>Move to 5</button>
+      <button onClick$={() => (activeIndex.value = 4)}>Move to 5</button>
     </>
   );
 });

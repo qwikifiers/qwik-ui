@@ -46,13 +46,14 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
         absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
 
       if (isWithinBounds) {
-        context.currentSlideSig.value = i + 1;
+        context.currentIndexSig.value = i;
 
         /* 
           we update here when mouse released (not when slide changes)
           this is how it can "snap" back to the previous slide
         */
         context.slideOffsetSig.value = slide.offsetLeft * -1;
+        console.log(context.currentIndexSig.value);
 
         context.transitionDurationSig.value = 300;
         return true;

@@ -8,10 +8,10 @@ export const CarouselPrev = component$((props: CarouselButtonProps) => {
   return (
     <button
       {...props}
-      aria-disabled={context.currentSlideSig.value === 1}
-      disabled={context.currentSlideSig.value === 1}
+      aria-disabled={context.currentIndexSig.value === 0}
+      disabled={context.currentIndexSig.value === 0}
       onClick$={() => {
-        context.currentSlideSig.value--;
+        context.currentIndexSig.value--;
 
         context.transitionDurationSig.value = 625;
       }}

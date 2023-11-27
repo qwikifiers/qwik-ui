@@ -3,7 +3,6 @@ import { Signal } from '@builder.io/qwik';
 export interface CarouselContext {
   // source of truth
   slideOffsetSig: Signal<number>;
-  currentSlideSig: Signal<number>;
   numSlidesSig: Signal<number>;
   spaceBetweenSlides: number;
 
@@ -22,4 +21,5 @@ export interface CarouselContext {
 
   // signal binds
   moveToSig?: Signal<number | null>;
+  currentIndexSig: Signal<number>;
 }

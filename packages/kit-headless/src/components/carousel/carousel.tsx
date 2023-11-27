@@ -15,19 +15,22 @@ import { VisuallyHidden } from '../../utils/visually-hidden';
 export type CarouselRootProps = QwikIntrinsicElements['section'] & {
   spaceBetweenSlides?: number;
   'bind:moveTo'?: Signal<number | null>;
-  'bind:currSlideIndex'?: Signal<number | null>;
+  'bind:currSlideIndex'?: Signal<number>;
 };
 
 export const Carousel = component$(
   ({
     spaceBetweenSlides = 0,
     'bind:moveTo': givenMoveToSig,
+    'bind:currSlideIndex': givenSlideIndexSig,
     ...props
   }: CarouselRootProps) => {
+    const defaultIndexSig = useSignal(0);
+
     const moveToSig = givenMoveToSig;
+    const currentIndexSig = givenSlideIndexSig || defaultIndexSig;
 
     const slideOffsetSig = useSignal<number>(0);
-    const currentSlideSig = useSignal(1);
     const numSlidesSig = useSignal<number>(0);
     const transitionDurationSig = useSignal<number>(0);
     const viewportRef = useSignal<HTMLDivElement>();
@@ -38,7 +41,7 @@ export const Carousel = component$(
     const context: CarouselContext = {
       moveToSig,
       slideOffsetSig,
-      currentSlideSig,
+      currentIndexSig,
       numSlidesSig,
       transitionDurationSig,
       viewportRef,
@@ -60,7 +63,7 @@ export const Carousel = component$(
     return (
       <section aria-roledescription="carousel" role="group" {...props}>
         <VisuallyHidden aria-live="polite" aria-atomic="true">
-          Slide {context.currentSlideSig.value} of
+          Slide {context.currentIndexSig.value} of
           {context.allSlideRefs.value.length}
         </VisuallyHidden>
         <Slot />
