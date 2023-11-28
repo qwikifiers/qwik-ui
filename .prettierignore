@@ -8,3 +8,5 @@ node_modules
 coverage
 discussion
 pnpm-lock.yaml
+
+/.nx/cache
