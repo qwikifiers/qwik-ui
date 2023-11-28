@@ -1,0 +1,71 @@
+---
+title: Qwik UI | Tooltip
+---
+
+<StatusBanner status={'Draft'} />
+
+# Tooltip
+
+A tooltip that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+
+<Showcase name="hero" />
+
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
+## Examples
+
+### Describing Icon with Tooltip
+
+<Showcase name="describing-icon" />
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable keyDescriptors={
+  [
+    {
+      keyTitle: 'Esc',
+      description: 'Dismisses the Tooltip when focused.',
+    },
+
+]
+}/>
+
+## API
+
+### Tooltip
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the Tooltip.',
+    },
+    {
+      name: 'content',
+      type: 'string',
+      description: 'The content displayed in the Tooltip.',
+    },
+    {
+      name: 'durationMs',
+      type: 'number',
+      description:
+        'Sets a delay duration in milliseconds before the Tooltip is displayed.',
+    },
+    {
+      name: 'inline',
+      type: 'boolean',
+      description: 'Determines if the Tooltip is rendered inline.',
+    },
+    {
+      name: 'position',
+      type: 'enum',
+      info: '"bottom" | "bottom-end" | "bottom-start" | "left" | "left-end" | "left-start" | "right" | "right-end" | "right-start" | "top" | "top-end" | "top-start"',
+      description: 'Determines the position the Tooltip is rendered.',
+    },
+  ]}
+/>

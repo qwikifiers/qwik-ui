@@ -1,0 +1,228 @@
+---
+title: Qwik UI | Select
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.headless.Select} />
+
+# Select
+
+This element is used to create a drop-down list, it's often used in a form, to collect user input.
+
+<Showcase name="hero" />
+
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
+## Examples
+
+### Navbar Menu
+
+<Showcase name="navbar-menu" />
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'ArrowUp',
+      description: 'To open the `SelectListBox`.',
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: 'To open the `SelectListBox`.',
+    },
+    {
+      keyTitle: 'Escape',
+      description: 'To close the `SelectListBox`.',
+    },
+    {
+      keyTitle: 'Tab',
+      description: 'To select the `SelectOption`.',
+    },
+    {
+      keyTitle: 'Enter',
+      description: 'To select the `SelectOption`.',
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: 'To select the next `SelectOption`.',
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: 'To select the previous `SelectOption`.',
+    },
+  ]}
+/>
+
+## API
+
+### SelectRoot
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectRoot` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectRoot` element.',
+    },
+    {
+      name: 'defaultValue',
+      type: 'string',
+      description: 'The defaultValue to give to the select.',
+    },
+  ]}
+/>
+
+### SelectTrigger
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectTrigger` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectTrigger` element.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Use this property to disable the `SelectTrigger` element.',
+    },
+  ]}
+/>
+
+### SelectValue
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectValue` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectValue` element.',
+    },
+    {
+      name: 'placeholder',
+      type: 'string',
+      description: 'Use this property to set the placeholder.',
+    },
+  ]}
+/>
+
+### SelectMarker
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectMarker` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectMarker` element.',
+    },
+  ]}
+/>
+
+### SelectListBox
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectListBox` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectListBox` element.',
+    },
+  ]}
+/>
+
+### SelectGroup
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectGroup` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectGroup` element.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Use this property to disable the `SelectGroup` element.',
+    },
+  ]}
+/>
+
+### SelectLabel
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectLabel` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectLabel` element.',
+    },
+  ]}
+/>
+
+### SelectOption
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the `SelectOption` element.',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles to apply to the `SelectOption` element.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Use this property to disable the `SelectOption` element.',
+    },
+    {
+      name: 'value',
+      type: 'string',
+      description: 'Use this property to set the `SelectOption` value.',
+    },
+  ]}
+/>

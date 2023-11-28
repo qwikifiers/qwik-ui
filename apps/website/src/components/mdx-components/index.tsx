@@ -5,7 +5,8 @@ import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
 import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard-interaction-table';
 import { CodeCopy } from '../code-copy/code-copy';
-import { statusByComponent } from '~/_state/component-statuses';
+import { Showcase } from '../show-example/show-example';
+import { CodeSnippet } from '../code-snippet/code-snippet';
 
 export const components: Record<string, any> = {
   pre: component$<
@@ -41,5 +42,6 @@ export const components: Record<string, any> = {
   APITable,
   KeyboardInteractionTable,
   StatusBanner,
-  statusByComponent: statusByComponent,
+  Showcase,
+  CodeSnippet,
 };
