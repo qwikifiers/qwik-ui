@@ -39,18 +39,18 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
 
   console.log('componentPath', componentPath);
 
-  const Component = useSignal<Component<any>>();
-  const ComponentRaw = useSignal<string>();
+  const ComponentSig = useSignal<Component<any>>();
+  const ComponentRawSig = useSignal<string>();
 
   useTask$(async () => {
     // We need to call `await components[componentPath]()` in development as it is `eager:false`
     if (isDev) {
-      Component.value = await components[componentPath]();
-      ComponentRaw.value = await componentsRaw[componentPath]();
+      ComponentSig.value = await components[componentPath]();
+      ComponentRawSig.value = await componentsRaw[componentPath]();
       // We need to directly access the `components[componentPath]` expression in preview/production as it is `eager:true`
     } else {
-      Component.value = components[componentPath];
-      ComponentRaw.value = componentsRaw[componentPath];
+      ComponentSig.value = components[componentPath];
+      ComponentRawSig.value = componentsRaw[componentPath];
     }
   });
 
@@ -71,11 +71,14 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
       </TabList>
       <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-xl border-[1.5px] bg-slate-200 bg-slate-800  p-4 dark:bg-slate-900 md:p-12">
         <section class="flex flex-col items-center">
-          {Component.value && <Component.value />}
+          {ComponentSig.value && <ComponentSig.value />}
         </section>
       </TabPanel>
       <TabPanel class="border-qwikui-blue-300 dark:border-qwikui-purple-200 relative rounded-b-xl border-[1.5px]">
-        <Highlight class="rounded-b-xl rounded-t-none" code={ComponentRaw.value || ''} />
+        <Highlight
+          class="rounded-b-xl rounded-t-none"
+          code={ComponentRawSig.value || ''}
+        />
       </TabPanel>
     </Tabs>
   );

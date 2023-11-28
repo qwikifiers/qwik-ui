@@ -28,22 +28,22 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
 
   const snippetPath = `/src/routes${location.url.pathname}snippets/${name}${lang}`;
 
-  const CodeSnippet = useSignal<string>();
+  const CodeSnippetSig = useSignal<string>();
 
   useTask$(async () => {
     // We need to call `await rawCodeSnippets[snippetPath]()` in development as it is `eager:false`
     if (isDev) {
-      CodeSnippet.value = await rawCodeSnippets[snippetPath]();
+      CodeSnippetSig.value = await rawCodeSnippets[snippetPath]();
       // We need to directly access the `components[componentPath]` expression in preview/production as it is `eager:true`
     } else {
-      CodeSnippet.value = rawCodeSnippets[snippetPath];
+      CodeSnippetSig.value = rawCodeSnippets[snippetPath];
     }
   });
   return (
     <div
       class={`shadow-3xl shadow-light-medium dark:shadow-dark-medium mb-6 rounded-xl border-2 border-slate-200 dark:border-slate-400`}
     >
-      <Highlight code={CodeSnippet.value || ''} />
+      <Highlight code={CodeSnippetSig.value || ''} />
     </div>
   );
 });
