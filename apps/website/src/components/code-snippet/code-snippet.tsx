@@ -28,10 +28,9 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   const codeSnippetSig = useSignal<string>();
 
   useTask$(async () => {
-    const snippet = isDev
+    codeSnippetSig.value = isDev
       ? await codeSnippets[snippetPath]() // We need to call `await codeSnippets[snippetPath]()` in development as it is `eager:false`
       : codeSnippets[snippetPath]; // We need to directly access the `codeSnippets[snippetPath]` expression in preview/production as it is `eager:true`
-    codeSnippetSig.value = snippet;
   });
 
   return (
