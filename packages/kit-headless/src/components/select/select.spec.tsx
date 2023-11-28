@@ -144,3 +144,66 @@ describe('Select', () => {
     // cy.get('button').last().click();
   });
 });
+
+describe('printable chars spec ', () => {
+  it(`
+  GIVEN the select-list-box is focused, and all keys pressed exist as the first char in any item on the list
+  WHEN a key is pressed
+  THEN focus on the first item on the list that has its first char be equal to the key pressed
+  WHEN a new key is pressed
+  THEN focus on the first item on the list, from absolute top to absulute bottom, that has its first char be equal to the key pressed
+  `, () => {
+    cy.mount(<BasicSelect />);
+    // click() is repeated above to stop a cold-start bug
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.focused().type('z');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'zucchini');
+    // we must wait after each type bc spec (500ms before searching by char)
+    cy.wait(1000).focused().type('a');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'apple');
+    cy.wait(1000).focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
+    cy.wait(1000).focused().type('m');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'mango');
+  });
+
+  it(`
+  GIVEN the select-list-box is focused, and all keys pressed exist as the first char in any item on the list
+  WHEN the same key is pressed multiple times
+  THEN focus on all instances where the first char of the item is equal to the key being pressed, starting from absolute top to absoulte bottom, and looping when the last item is met
+  `, () => {
+    cy.mount(<BasicSelect />);
+    // click() is repeated above to stop a cold-start bug
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
+    // we must wait after each type bc spec (500ms before searching by char)
+    cy.wait(1000).focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
+    cy.wait(1000).focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'cucumber');
+    cy.wait(1000).focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'chicken');
+    cy.wait(1000).focused().type('c');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
+  });
+
+  it(`
+  GIVEN the select-list-box is focused, all the strg typed exist as items in the list
+  WHEN the strg is typed
+  THEN focus on the first instance
+  `, () => {
+    cy.mount(<BasicSelect />);
+    // click() is repeated above to stop a cold-start bug
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
+    cy.get('[data-testid="select-root"] > button').click();
+    // we must wait after each type bc spec
+    cy.focused().type('bac');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'bacon');
+    cy.wait(1000).focused().type('sa');
+    cy.focused().should('have.attr', 'data-option-value').and('eq', 'sausage');
+  });
+});
