@@ -5,7 +5,7 @@ import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
 import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard-interaction-table';
 import { CodeCopy } from '../code-copy/code-copy';
-import { Showcase } from '../show-example/show-example';
+import { Showcase } from '../showcase/showcase';
 import { CodeSnippet } from '../code-snippet/code-snippet';
 
 export const components: Record<string, any> = {

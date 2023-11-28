@@ -6,7 +6,7 @@ import {
   useStyles$,
   useTask$,
 } from '@builder.io/qwik';
-import styles from './show-example.css?inline';
+import styles from './showcase.css?inline';
 
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { useLocation } from '@builder.io/qwik-city';
