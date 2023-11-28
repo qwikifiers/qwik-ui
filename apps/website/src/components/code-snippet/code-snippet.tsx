@@ -8,7 +8,7 @@ import { Highlight } from '../highlight/highlight';
 // /src/routes/docs/components/fluffy/modal/snippets/building-blocks.tsx
 // /src/routes/docs/components/headless/modal/snippets/building-blocks.tsx
 
-const rawCodeSnippets: any = import.meta.glob('/src/routes/docs/**/**/snippets/*', {
+const codeSnippets: any = import.meta.glob('/src/routes/docs/**/**/snippets/*', {
   as: 'raw',
   eager: isDev ? false : true,
 });
@@ -20,30 +20,23 @@ type CodeSnippetProps = QwikIntrinsicElements['div'] & {
 export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   const location = useLocation();
 
-  let lang = '.tsx';
+  // Determine the file extension if not specified
+  const fileExtension =
+    name.endsWith('.tsx') || name.endsWith('.ts') || name.endsWith('.css') ? '' : '.tsx';
+  const snippetPath = `/src/routes${location.url.pathname}snippets/${name}${fileExtension}`;
 
-  if (name.endsWith('.tsx')) lang = '';
-  if (name.endsWith('.ts')) lang = '';
-  if (name.endsWith('.css')) lang = '';
-
-  const snippetPath = `/src/routes${location.url.pathname}snippets/${name}${lang}`;
-
-  const CodeSnippetSig = useSignal<string>();
+  const codeSnippetSig = useSignal<string>();
 
   useTask$(async () => {
-    // We need to call `await rawCodeSnippets[snippetPath]()` in development as it is `eager:false`
-    if (isDev) {
-      CodeSnippetSig.value = await rawCodeSnippets[snippetPath]();
-      // We need to directly access the `components[componentPath]` expression in preview/production as it is `eager:true`
-    } else {
-      CodeSnippetSig.value = rawCodeSnippets[snippetPath];
-    }
+    const snippet = isDev
+      ? await codeSnippets[snippetPath]() // We need to call `await codeSnippets[snippetPath]()` in development as it is `eager:false`
+      : codeSnippets[snippetPath]; // We need to directly access the `codeSnippets[snippetPath]` expression in preview/production as it is `eager:true`
+    codeSnippetSig.value = snippet;
   });
+
   return (
-    <div
-      class={`shadow-3xl shadow-light-medium dark:shadow-dark-medium mb-6 rounded-xl border-2 border-slate-200 dark:border-slate-400`}
-    >
-      <Highlight code={CodeSnippetSig.value || ''} />
+    <div class="shadow-3xl shadow-light-medium dark:shadow-dark-medium mb-6 rounded-xl border-2 border-slate-200 dark:border-slate-400">
+      <Highlight code={codeSnippetSig.value || ''} />
     </div>
   );
 });
