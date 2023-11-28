@@ -3,36 +3,30 @@ title: Qwik UI | Select
 ---
 
 import { Example01, Example02 } from './examples';
-import { CodeExample } from '~/components/code-example/code-example';
-import { KeyboardInteractionTable } from '~/components/keyboard-interaction-table/keyboard-interaction-table';
-import { APITable } from '~/components/api-table/api-table';
-import { StatusBanner } from '~/components/status-banner/status-banner';
-import {statusByComponent} from '~/_state/component-statuses';
+import { statusByComponent } from '~/_state/component-statuses';
 
-<StatusBanner status={statusByComponent.headless.Select}/> 
+<StatusBanner status={statusByComponent.headless.Select} />
 
 # Select
 
 This element is used to create a drop-down list, it's often used in a form, to collect user input.
 
-{' '}
-
 <Example01>
   ```tsx
   <SelectRoot class="dark:bg-gray-700">
-    <SelectLabel class="text-white font-semibold ml-2">Qwik Fruits</SelectLabel>
-    <SelectTrigger class="flex justify-between items-center px-8 bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px] rounded-md p-4 group peer">
+    <SelectLabel class="ml-2 font-semibold text-white">Qwik Fruits</SelectLabel>
+    <SelectTrigger class="group peer flex items-center justify-between rounded-md border-[1px] border-slate-200 bg-slate-100 p-4 px-8 dark:border-gray-600 dark:bg-gray-700">
       <SelectValue
         placeholder="Select a fruit! 🍹"
         class="text-gray-700 dark:text-white"
       />
-      <SelectMarker class="w-6 h-6">
+      <SelectMarker class="h-6 w-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
           stroke-width="2"
-          class="stroke-gray-700 dark:stroke-white group-aria-expanded:-rotate-180 transition-transform duration-[450ms]"
+          class="stroke-gray-700 transition-transform duration-[450ms] group-aria-expanded:-rotate-180 dark:stroke-white"
           stroke-linecap="round"
           stroke-linejoin="round"
         >
@@ -40,8 +34,10 @@ This element is used to create a drop-down list, it's often used in a form, to c
         </svg>
       </SelectMarker>
     </SelectTrigger>
-    <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 mt-2 border-[1px] rounded-md">
-      <SelectOption value="🚀 Qwik" class="p-4">🚀 Qwik</SelectOption>
+    <SelectListBox class="mt-2 rounded-md border-[1px] border-slate-200 bg-slate-100 dark:border-gray-600 dark:bg-gray-700">
+      <SelectOption value="🚀 Qwik" class="p-4">
+        🚀 Qwik
+      </SelectOption>
       <SelectGroup class="p-4 ">
         <SelectLabel class="p-4">Fruits</SelectLabel>
         {[
@@ -55,8 +51,10 @@ This element is used to create a drop-down list, it's often used in a form, to c
               key={option.value}
               value={option.value}
               disabled={option.disabled}
-              class="aria-disabled:text-red-500 aria-disabled:cursor-not-allowed hover:bg-slate-200 rounded-sm dark:hover:bg-gray-600 p-4"
-            >{option.value}</SelectOption>
+              class="rounded-sm p-4 hover:bg-slate-200 aria-disabled:cursor-not-allowed aria-disabled:text-red-500 dark:hover:bg-gray-600"
+            >
+              {option.value}
+            </SelectOption>
           );
         })}
       </SelectGroup>
@@ -67,7 +65,6 @@ This element is used to create a drop-down list, it's often used in a form, to c
 
 ## Building blocks
 
-  <CodeExample>
     ```tsx
     import { component$ } from '@builder.io/qwik';
     import { SelectRoot, SelectLabel, SelectTrigger, SelectValue, SelectMarker, SelectListBox, SelectOption, SelectGroup } from '@qwik-ui/headless';
@@ -91,8 +88,6 @@ This element is used to create a drop-down list, it's often used in a form, to c
     ));
     ```
 
-  </CodeExample>
-
 ## Examples
 
 ### EXAMPLE: Navbar Menu
@@ -100,9 +95,9 @@ This element is used to create a drop-down list, it's often used in a form, to c
 <Example02>
   ```tsx
   <SelectRoot>
-    <SelectTrigger class="flex justify-between items-center border-slate-200 dark:border-gray-600 border-[1px] p-4">
+    <SelectTrigger class="flex items-center justify-between border-[1px] border-slate-200 p-4 dark:border-gray-600">
       <SelectValue placeholder="Home" />
-      <SelectMarker class="w-6 h-6">
+      <SelectMarker class="h-6 w-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -116,7 +111,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
         </svg>
       </SelectMarker>
     </SelectTrigger>
-    <SelectListBox class="bg-slate-100 dark:bg-gray-700 border-slate-200 dark:border-gray-600 border-[1px]">
+    <SelectListBox class="border-[1px] border-slate-200 bg-slate-100 dark:border-gray-600 dark:bg-gray-700">
       <SelectOption optionValue="Orders" class="p-4">
         Orders
       </SelectOption>
@@ -191,8 +186,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectTrigger
 
 <APITable
@@ -214,8 +208,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectValue
 
 <APITable
@@ -255,8 +248,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectListBox
 
 <APITable
@@ -273,8 +265,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectGroup
 
 <APITable
@@ -296,8 +287,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectLabel
 
 <APITable
@@ -314,8 +304,7 @@ This element is used to create a drop-down list, it's often used in a form, to c
     },
   ]}
 />
-<br />
-<br />
+
 ### SelectOption
 
 <APITable

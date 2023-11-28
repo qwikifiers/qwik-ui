@@ -26,7 +26,7 @@
     }
 
     h4 {
-      @apply mb-4 mt-6 text-lg font-[600] font-medium;
+      @apply mb-4 mt-6 text-lg font-medium;
     }
 
     h5 {
@@ -47,7 +47,11 @@
   }
 
   a {
-    @apply border-qwikui-blue-500 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] font-semibold transition transition-colors duration-300;
+    @apply border-qwikui-blue-500 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] font-semibold transition-colors duration-300;
+  }
+
+  code {
+    @apply bg-transparent;
   }
 
   p code {

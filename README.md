@@ -18,7 +18,7 @@
   <img src='https://img.shields.io/badge/License-MIT-green.svg' alt='MIT'>
   </a>
   <a href='#contributors'>
-  <img src='https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square' alt='All Contributors'>
+  <img src='https://img.shields.io/github/all-contributors/qwikifiers/qwik-ui?style=flat-square&color=orange' alt='All Contributors'>
   </a>
 
 </div>
@@ -44,13 +44,13 @@ npm install -D @qwik-ui/headless
 ### Headless Kit
 
 | Component                                                     | Planned | Draft (Alpha) | Beta | Stable |
-| :------------------------------------------------------------ | :-----: | :-----------: | ---- | ------ | 
+| :------------------------------------------------------------ | :-----: | :-----------: | ---- | ------ |
 | [Accordion](https://qwikui.com/docs/headless/accordion)       |         |               | ✅   |        |
 | [Autocomplete](https://qwikui.com/docs/headless/autocomplete) |         |      ✅       |      |        |
 | Carousel                                                      |   ✅    |               |      |        |
 | [Combobox](https://qwikui.com/docs/headless/combobox)         |         |               | ✅   |        |
 | Dialog                                                        |   ✅    |               |      |        |
-| [Modal](https://qwikui.com/docs/headless/modal)               |         |               | ✅   |        | 
+| [Modal](https://qwikui.com/docs/headless/modal)               |         |               | ✅   |        |
 | [Pagination](https://qwikui.com/docs/headless/pagination)     |         |      ✅       |      |        |
 | [Popover](https://qwikui.com/docs/headless/popover)           |         |      ✅       |      |        |
 | [Select](https://qwikui.com/docs/headless/select)             |         |      ✅       |      |        |
@@ -132,6 +132,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/TheMcnafaha"><img src="https://avatars.githubusercontent.com/u/102767512?v=4?s=100" width="100px;" alt="TheMcnafaha"/><br /><sub><b>TheMcnafaha</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=TheMcnafaha" title="Code">💻</a> <a href="#ideas-TheMcnafaha" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-TheMcnafaha" title="Maintenance">🚧</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://ilteoood.xyz/"><img src="https://avatars.githubusercontent.com/u/6383527?v=4?s=100" width="100px;" alt="Matteo Pietro Dazzi"/><br /><sub><b>Matteo Pietro Dazzi</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=ilteoood" title="Documentation">📖</a> <a href="#maintenance-ilteoood" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://alenajam.dev"><img src="https://avatars.githubusercontent.com/u/6226131?v=4?s=100" width="100px;" alt="Alen Ajam"/><br /><sub><b>Alen Ajam</b></sub></a><br /><a href="https://github.com/qwikifiers/qwik-ui/commits?author=oxcened" title="Documentation">📖</a> <a href="#maintenance-oxcened" title="Maintenance">🚧</a></td>
     </tr>
   </tbody>
 </table>

@@ -1,42 +1,33 @@
 # Contribution Guidelines
 
 We would love for you to contribute to this project.
-As a contributor, here are the guidelines we would like you to follow:
+As a contributor, here are the guidelines we would like you to follow 👇
 
-## Be Kind - Code of Conduct
+### Be Kind - Code of Conduct
 
-Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) to help us keep this project open and inclusive.
+Please, read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) to help us keep this project open and inclusive.
 
-<br/>
-
-## Found a bug? Want a feature? - Submit an Issue
+### Found a bug? Want a feature? - Submit an Issue
 
 [Choose an issue template](https://github.com/qwikifiers/qwik-ui/issues/new/choose) to file a bug report / feature request.
 
-<br/>
-
 ## Ready to contribute a Pull Request (PR)?
 
-<br/>
+### 1. Make sure you aren't duplicating someone else's efforts.
 
-### ▶ 1. First - [Search this repo for existing PRs](https://github.com/qwikifiers/qwik-ui/pulls) !
+- [Look out for existing PRs](https://github.com/qwikifiers/qwik-ui/pulls)
 
-Try to find an open or closed PR that relates to the change you want to introduce.
+### 2. Make sure your idea is the right way to solve the issue.
 
-<br/>
+[Look out for existing issues](https://github.com/qwikifiers/qwik-ui/issues) that may describe the problem you're fixing, or document the design for the feature you'd like to add.
 
-### ▶ 2. **Before you start coding - [find](https://github.com/qwikifiers/qwik-ui/issues) / [create an issue](https://github.com/qwikifiers/qwik-ui/issues/new/choose)**
+Please, consider [creating an issue](https://github.com/qwikifiers/qwik-ui/issues/new) if you can't find anything.
 
-**Make sure there's an issue** describing the problem you're fixing, or documents the design for the feature you'd like to add.
 Discussing the design up front helps to ensure that we're ready to accept your work.
 
-**Don't waste your time working on code before you got a 👍 in an issue comment.**
+### 3. Fork this repo and create a branch.
 
-<br/>
-
-### ▶ 3. Fork this repo and create a branch.
-
-- Hit that "Fork" button above (in this repo's GitHub page).
+- Hit the "Fork" button (top-right of the github repository).
 
 ![image](https://user-images.githubusercontent.com/1430726/95460679-ec014400-097d-11eb-9a7a-93e0262d37d9.png)
 
@@ -56,81 +47,78 @@ Get your URL by from here 👇
 git checkout -b my-fix-branch main
 ```
 
-<br/>
+### 4. Run the library
 
-### ▶ 4. Run the library
-
-- From the root of the project run the following command:
+- From the root of the project run the install script:
 
 ```shell
 pnpm install
 ```
 
-- Download [Nx](https://nx.dev/):
+- Then run the dev script to get the qwik-ui documentation site in dev mode:
 
 ```shell
-pnpm install --global nx@latest
-```
-
-- Then run this command to get the qwik-ui documentation site in dev mode:
-
-```shell
-pnpm website
+pnpm dev
 ```
 
 - Visit the URL printed in the console and you'll have a page opened with the suite of widgets.
 
-- Once you made some changes in either package (`headless`, `tailwind` or `material`), you will see them immediately reflected on the page.
+- Once you made some changes in either package (`headless` or `fluffy`) or the documentation website (`apps/website`), you will see them immediately reflected on the page.
 
 Below is a list of other commands that you might find useful:
 
 - Build the qwik-ui documentation:
 
 ```shell
-nx build website
+pnpm build
 ```
 
 - Preview of the qwik-ui documentation (no HMR):
 
 ```shell
-nx preview website
+pnpm preview
 ```
 
 - Build the Cloudfare version of the qwik-ui documentation
 
 ```shell
-nx build-cloudfare website
+pnpm build.clouflare
 ```
 
 - Preview the Cloudfare build of the qwik-ui documentation (no HMR)
 
 ```shell
-nx preview-cloudflare website
+pnpm preview.clouflare
 ```
 
-### ▶ 5. Make sure you add / modify tests
+### 5. Make sure you add / modify tests
 
 Run either command to make sure there aren't any errors.
 
 ```shell
-nx component-test headless --skip-nx-cache
+pnpm test.headless --skip-nx-cache
 ```
 
-Or
+This will set up the Cypress component testing GUI. Please refer to official Cypress [documentation](https://docs.cypress.io/guides/overview/why-cypress) for further assistance.
 
-```shell
-pnpm run test:headless --skip-nx-cache
-```
-
-Both commands will set up the Cypress component testing GUI, so you are free to chose which syntax you prefer. Please refer to official Cypress [documentation](https://docs.cypress.io/guides/overview/why-cypress) for further assistance.
-<br/>
-
-### ▶ 6. Commit your changes using commitizen:
+### 6. Commit your changes using commitizen:
 
 Instead of `git commit` use the following command:
 
 ```shell
-pnpm run commit
+pnpm commit
+```
+
+Or if you prefer to keep your git workflow, you can install commitizen globally:
+
+```shell
+pnpm install -g commitizen
+```
+
+And run it with:
+
+```shell
+git cz
 ```
 
 It will then ask you a bunch of questions.
@@ -138,16 +126,15 @@ It will then ask you a bunch of questions.
 This will create a descriptive commit message that follows the
 [Angular commit message convention](#commit-message-format).
 
-This is necessary to generate meaningful release notes / CHANGELOG automatically.
+This allows us to keep meaningful release notes / CHANGELOG automatically.
 
-<br/>
-### ▶ 7. Push your branch to GitHub:
+### 7. Push your branch to GitHub:
 
 ```shell
 git push origin my-fix-branch
 ```
 
-### ▶ 8. Create a PR
+### 8. Create a PR
 
 In GitHub, create a pull request for `qwikifiers/qwik-ui:main`.
 
@@ -155,20 +142,14 @@ Make sure you check the following checkbox "Allow edits from maintainers" -
 
 ![image](https://user-images.githubusercontent.com/1430726/95461503-fbcd5800-097e-11eb-9b55-321d1ff0e6bb.png)
 
-If you need to update your PR for some reason -
+#### If you need to update your PR for some reason
 
 - Make the required updates.
 
 - Re-run the tests to ensure tests are still passing:
 
 ```shell
-nx component-test headless --skip-nx-cache
-```
-
-Or
-
-```shell
-pnpm run test:headless --skip-nx-cache
+pnpm test.headless --skip-nx-cache
 ```
 
 - Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
@@ -178,9 +159,7 @@ pnpm run test:headless --skip-nx-cache
   git push -f
   ```
 
-<br/>
-
-### ▶ 9. Sign the CLA
+### 9. Sign the CLA
 
 You will be asked to sign a [CLA (Contributor License Agreement)](/CLA.md) as part of the PR process, if you haven't already signed it.
 
@@ -192,9 +171,7 @@ I have read the CLA Document and I hereby sign the CLA
 
 The CLA assistant will automatically add your signature [here](/cla-signs/v1/cla.json) and push a commit to the main branch.
 
-<br/>
-
-### ▶ 10. After your PR is merged - delete your branches
+### 10. After your PR is merged - delete your branches
 
 After your pull request is merged, you can safely delete your branch and pull the changes from the main (upstream) repository:
 
@@ -222,31 +199,27 @@ After your pull request is merged, you can safely delete your branch and pull th
   git pull --ff upstream main
   ```
 
-<br/>
-
-### ▶ 11. That's it! Thank you for your contribution! 🙏💓
+### 11. That's it! Thank you for your contribution! 🙏💓
 
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#
-
-<br/>
 
 ## Running in your own app
 
 Sometimes you may not face an issue after running the build process, but your consumer app still might.
 
-When that is the case, you can use `pnpm link` to link your own app to your forked version of qwik-ui.
+When that is the case, you can use npm linking to link your own app to your forked version of qwik-ui.
 
-### ▶ 1. Link your fork
+### 1. Link your fork
 
-Inside the root of your `qwik-ui` branch run:
+Inside the root of **your qwik-ui branch** run:
 
 ```
 pnpm link.dist
 ```
 
-### ▶ 2. Link your app
+### 2. Link your app
 
-Inside the root of your project run:
+Inside the root of **your project** run:
 
 ```
 pnpm install

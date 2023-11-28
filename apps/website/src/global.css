@@ -155,7 +155,7 @@
     );
   }
 
-  /* no horizontal overflow on code examples */
+  /* no horizontal overflow on code snippets */
   .tab-size pre {
     white-space: pre-wrap;
     background: transparent !important;

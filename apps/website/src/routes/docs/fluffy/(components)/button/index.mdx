@@ -1,5 +1,7 @@
-import {APITable, KeyboardInteractionTable} from '../exports';
 import { ShowExample, InstallExample } from './examples';
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.fluffy.Button} />
 
 # Button
 
@@ -9,40 +11,38 @@ The fluffy button is meant to be fun, playful, but serious when it comes to hand
 
 Just copy and paste the following code to your repository.
 
-<InstallExample/>
+<InstallExample />
 
 ## Examples
 
 ### Intent
 
-<ShowExample example="buttons"/>
+<ShowExample example="buttons" />
 
 ### Look
 
-<ShowExample example="look"/>
+<ShowExample example="look" />
 
 ### Shape
 
-<ShowExample example="shape"/>
+<ShowExample example="shape" />
 
 ### State
 
-<ShowExample example="state"/>
+<ShowExample example="state" />
 
 ### Size
 
-<ShowExample example="size"/>
+<ShowExample example="size" />
 
 ### Animation
 
-<ShowExample example="animation"/>
+<ShowExample example="animation" />
 
 ### Icon
 
-<ShowExample example="icon"/>
+<ShowExample example="icon" />
 
 ### Combination
 
-<ShowExample example="combination"/>
-
-
+<ShowExample example="combination" />
