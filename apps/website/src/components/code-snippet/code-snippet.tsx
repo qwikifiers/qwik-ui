@@ -3,14 +3,19 @@ import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
 import { Highlight } from '../highlight/highlight';
 
-type CodeSnippetProps = QwikIntrinsicElements['div'] & {
-  name: string;
-};
+// The below `/src/routes/docs/**/**/snippets/*.tsx` pattern is here so that import.meta.glob works both for fluffy and headless routes.
+// For example:
+// /src/routes/docs/components/fluffy/modal/snippets/building-blocks.tsx
+// /src/routes/docs/components/headless/modal/snippets/building-blocks.tsx
 
 const rawCodeSnippets: any = import.meta.glob('/src/routes/docs/**/**/snippets/*', {
   as: 'raw',
   eager: isDev ? false : true,
 });
+
+type CodeSnippetProps = QwikIntrinsicElements['div'] & {
+  name: string;
+};
 
 export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   const location = useLocation();
@@ -26,8 +31,10 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   const CodeSnippet = useSignal<string>();
 
   useTask$(async () => {
+    // We need to call `await rawCodeSnippets[snippetPath]()` in development as it is `eager:false`
     if (isDev) {
       CodeSnippet.value = await rawCodeSnippets[snippetPath]();
+      // We need to directly access the `components[componentPath]` expression in preview/production as it is `eager:true`
     } else {
       CodeSnippet.value = rawCodeSnippets[snippetPath];
     }

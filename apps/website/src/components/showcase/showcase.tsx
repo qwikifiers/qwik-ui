@@ -13,7 +13,7 @@ import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
 import { Highlight } from '../highlight/highlight';
 
-// The below patterns are here so that import.meta.glob works both for fluffy and headless routes.
+// The below `/src/routes/docs/**/**/examples/*.tsx` patterns are here so that import.meta.glob works both for fluffy and headless routes.
 // For example:
 // /src/routes/docs/components/fluffy/modal/examples/hero.tsx
 // /src/routes/docs/components/headless/modal/examples/hero.tsx
@@ -43,9 +43,11 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   const ComponentRaw = useSignal<string>();
 
   useTask$(async () => {
+    // We need to call `await components[componentPath]()` in development as it is `eager:false`
     if (isDev) {
       Component.value = await components[componentPath]();
       ComponentRaw.value = await componentsRaw[componentPath]();
+      // We need to directly access the `components[componentPath]` expression in preview/production as it is `eager:true`
     } else {
       Component.value = components[componentPath];
       ComponentRaw.value = componentsRaw[componentPath];
