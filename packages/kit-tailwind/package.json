@@ -33,9 +33,9 @@
     "qwik": "qwik"
   },
   "dependencies": {
-    "daisyui": "^2.50.1"
+    "daisyui": "^3.6.4"
   },
   "peerDependencies": {
-    "@builder.io/qwik": ">1.2.11"
+    "@builder.io/qwik": "^1.2.11"
   }
 }
