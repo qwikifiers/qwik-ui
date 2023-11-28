@@ -9,10 +9,8 @@ export const CarouselNext = component$((props: CarouselButtonProps) => {
   return (
     <button
       {...props}
-      aria-disabled={
-        context.currentIndexSig.value + 1 === context.allSlideRefs.value.length
-      }
-      disabled={context.currentIndexSig.value + 1 === context.allSlideRefs.value.length}
+      aria-disabled={context.currentIndexSig.value + 1 === context.numSlidesSig.value}
+      disabled={context.currentIndexSig.value + 1 === context.numSlidesSig.value}
       onClick$={() => {
         context.currentIndexSig.value++;
 

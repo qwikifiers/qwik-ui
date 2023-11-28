@@ -14,12 +14,14 @@ export interface CarouselContext {
   viewportRef: Signal<HTMLDivElement | undefined>;
   containerRef: Signal<HTMLDivElement | undefined>;
   slideRef: Signal<HTMLDivElement | undefined>;
-  allSlideRefs: Signal<Array<HTMLDivElement>>;
 
   // animation
   transitionDurationSig: Signal<number>;
 
   // signal binds
-  moveToSig?: Signal<number | null>;
   currentIndexSig: Signal<number>;
+
+  // dragging
+  absContainerTranslateXSig: Signal<number | null>;
+  pointerUpFiredSig: Signal<boolean>;
 }

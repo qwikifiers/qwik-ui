@@ -23,47 +23,47 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
     context.slideOffsetSig.value = getContainerTranslateX(context.containerRef.value, e);
   });
 
-  const handlePointerUp$ = $((e: MouseEvent) => {
-    if (!context.containerRef.value) {
-      return;
-    }
+  // const handlePointerUp$ = $((e: MouseEvent) => {
+  //   if (!context.containerRef.value) {
+  //     return;
+  //   }
 
-    const containerTranslateX = getContainerTranslateX(context.containerRef.value, e);
-    const absContainerTranslateX = Math.abs(containerTranslateX);
+  //   const containerTranslateX = getContainerTranslateX(context.containerRef.value, e);
+  //   const absContainerTranslateX = Math.abs(containerTranslateX);
 
-    context.allSlideRefs.value.find((slide, i) => {
-      if (!context.viewportRef.value) {
-        return;
-      }
+  //   context.allSlideRefs.value.find((slide, i) => {
+  //     if (!context.viewportRef.value) {
+  //       return;
+  //     }
 
-      const slideRightEdgePos =
-        slide.offsetLeft + slide.offsetWidth + context.spaceBetweenSlides;
+  //     const slideRightEdgePos =
+  //       slide.offsetLeft + slide.offsetWidth + context.spaceBetweenSlides;
 
-      const halfViewportWidth = context.viewportRef.value.offsetWidth / 2;
+  //     const halfViewportWidth = context.viewportRef.value.offsetWidth / 2;
 
-      const isWithinBounds =
-        absContainerTranslateX > slide.offsetLeft - halfViewportWidth &&
-        absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
+  //     const isWithinBounds =
+  //       absContainerTranslateX > slide.offsetLeft - halfViewportWidth &&
+  //       absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
 
-      if (isWithinBounds) {
-        context.currentIndexSig.value = i;
+  //     if (isWithinBounds) {
+  //       context.currentIndexSig.value = i;
 
-        /* 
-          we update here when mouse released (not when slide changes)
-          this is how it can "snap" back to the previous slide
-        */
-        context.slideOffsetSig.value = slide.offsetLeft * -1;
-        console.log(context.currentIndexSig.value);
+  //       /*
+  //         we update here when mouse released (not when slide changes)
+  //         this is how it can "snap" back to the previous slide
+  //       */
+  //       context.slideOffsetSig.value = slide.offsetLeft * -1;
+  //       console.log(context.currentIndexSig.value);
 
-        context.transitionDurationSig.value = 300;
-        return true;
-      }
+  //       context.transitionDurationSig.value = 300;
+  //       return true;
+  //     }
 
-      return false;
-    });
+  //     return false;
+  //   });
 
-    window.removeEventListener('pointermove', handlePointerMove$);
-  });
+  //   window.removeEventListener('pointermove', handlePointerMove$);
+  // });
 
   return (
     <div

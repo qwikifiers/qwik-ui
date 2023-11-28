@@ -4,9 +4,7 @@ import {
   Slot,
   component$,
   useContextProvider,
-  useOnWindow,
   useSignal,
-  $,
 } from '@builder.io/qwik';
 import { CarouselContext } from './carousel-context.type';
 import CarouselContextId from './carousel-context-id';
@@ -21,14 +19,13 @@ export type CarouselRootProps = QwikIntrinsicElements['section'] & {
 export const Carousel = component$(
   ({
     spaceBetweenSlides = 0,
-    'bind:moveTo': givenMoveToSig,
     'bind:currSlideIndex': givenSlideIndexSig,
     ...props
   }: CarouselRootProps) => {
-    const defaultIndexSig = useSignal(0);
+    // const defaultIndexSig = useSignal(0);
 
-    const moveToSig = givenMoveToSig;
-    const currentIndexSig = givenSlideIndexSig || defaultIndexSig;
+    const defaultIndexSig = useSignal(0);
+    const currentIndexSig = givenSlideIndexSig ? givenSlideIndexSig : defaultIndexSig;
 
     const slideOffsetSig = useSignal<number>(0);
     const numSlidesSig = useSignal<number>(0);
@@ -36,10 +33,10 @@ export const Carousel = component$(
     const viewportRef = useSignal<HTMLDivElement>();
     const containerRef = useSignal<HTMLDivElement>();
     const slideRef = useSignal<HTMLDivElement>();
-    const allSlideRefs = useSignal<Array<HTMLDivElement>>([]);
+    const absContainerTranslateXSig = useSignal<number | null>(null);
+    const pointerUpFiredSig = useSignal<boolean>(false);
 
     const context: CarouselContext = {
-      moveToSig,
       slideOffsetSig,
       currentIndexSig,
       numSlidesSig,
@@ -47,24 +44,18 @@ export const Carousel = component$(
       viewportRef,
       containerRef,
       slideRef,
-      allSlideRefs,
       spaceBetweenSlides,
+      absContainerTranslateXSig,
+      pointerUpFiredSig,
     };
 
     useContextProvider(CarouselContextId, context);
-
-    useOnWindow(
-      'resize',
-      $((e) => {
-        console.log(e);
-      }),
-    );
 
     return (
       <section aria-roledescription="carousel" role="group" {...props}>
         <VisuallyHidden aria-live="polite" aria-atomic="true">
           Slide {context.currentIndexSig.value} of
-          {context.allSlideRefs.value.length}
+          {context.numSlidesSig.value}
         </VisuallyHidden>
         <Slot />
       </section>
