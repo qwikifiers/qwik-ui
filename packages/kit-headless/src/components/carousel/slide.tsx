@@ -7,6 +7,7 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
+import { getContainerTranslateX } from './utils';
 
 export type CarouselSlideProps = QwikIntrinsicElements['div'];
 
@@ -42,6 +43,45 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
 
   return (
     <div
+      window:onPointerUp$={(e) => {
+        console.log('Pointer up');
+        context.isDraggingSig.value = false;
+
+        if (!context.containerRef.value || !slideRef.value) {
+          return;
+        }
+
+        const containerTranslateX = getContainerTranslateX(context.containerRef.value, e);
+        const absContainerTranslateX = Math.abs(containerTranslateX);
+
+        if (!context.viewportRef.value) {
+          return;
+        }
+
+        const slideRightEdgePos =
+          slideRef.value.offsetLeft +
+          slideRef.value.offsetWidth +
+          context.spaceBetweenSlides;
+
+        const halfViewportWidth = context.viewportRef.value.offsetWidth / 2;
+
+        const isWithinBounds =
+          absContainerTranslateX > slideRef.value.offsetLeft - halfViewportWidth &&
+          absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
+
+        if (isWithinBounds) {
+          context.currentIndexSig.value = localIndexSig.value || 0;
+
+          /*
+            we update here when mouse released (not when slide changes)
+            this is how it can "snap" back to the previous slide
+          */
+          context.slideOffsetSig.value = slideRef.value.offsetLeft * -1;
+          console.log(context.currentIndexSig.value);
+
+          context.transitionDurationSig.value = 300;
+        }
+      }}
       style={{ marginRight: `${context.spaceBetweenSlides}px` }}
       ref={slideRef}
       {...props}

@@ -12,7 +12,6 @@ import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type CarouselRootProps = QwikIntrinsicElements['section'] & {
   spaceBetweenSlides?: number;
-  'bind:moveTo'?: Signal<number | null>;
   'bind:currSlideIndex'?: Signal<number>;
 };
 
@@ -22,8 +21,6 @@ export const Carousel = component$(
     'bind:currSlideIndex': givenSlideIndexSig,
     ...props
   }: CarouselRootProps) => {
-    // const defaultIndexSig = useSignal(0);
-
     const defaultIndexSig = useSignal(0);
     const currentIndexSig = givenSlideIndexSig ? givenSlideIndexSig : defaultIndexSig;
 
@@ -32,9 +29,7 @@ export const Carousel = component$(
     const transitionDurationSig = useSignal<number>(0);
     const viewportRef = useSignal<HTMLDivElement>();
     const containerRef = useSignal<HTMLDivElement>();
-    const slideRef = useSignal<HTMLDivElement>();
-    const absContainerTranslateXSig = useSignal<number | null>(null);
-    const pointerUpFiredSig = useSignal<boolean>(false);
+    const isDraggingSig = useSignal<boolean>(false);
 
     const context: CarouselContext = {
       slideOffsetSig,
@@ -43,10 +38,8 @@ export const Carousel = component$(
       transitionDurationSig,
       viewportRef,
       containerRef,
-      slideRef,
       spaceBetweenSlides,
-      absContainerTranslateXSig,
-      pointerUpFiredSig,
+      isDraggingSig,
     };
 
     useContextProvider(CarouselContextId, context);

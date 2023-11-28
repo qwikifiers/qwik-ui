@@ -12,7 +12,6 @@ import {
 export default component$(() => {
   /* TODO: document this to always have initial state to null. 
   Use defaultSlide instead for setting a slide on page load */
-  const moveToSig = useSignal<number | null>(null);
   const currentIndexSig = useSignal<number>(0);
 
   const slides = [
@@ -72,7 +71,6 @@ export default component$(() => {
     <>
       <Carousel
         bind:currSlideIndex={currentIndexSig}
-        bind:moveTo={moveToSig}
         spaceBetweenSlides={30}
         class="qwikui-carousel"
       >
@@ -113,7 +111,13 @@ export default component$(() => {
           /> */}
         </div>
       </Carousel>
-      <button onClick$={() => (currentIndexSig.value = 4)}>Move to 5</button>
+      <button
+        onClick$={() => {
+          currentIndexSig.value = 4;
+        }}
+      >
+        Move to 5
+      </button>
     </>
   );
 });

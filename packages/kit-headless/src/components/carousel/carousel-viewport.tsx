@@ -4,7 +4,6 @@ import {
   Slot,
   useContext,
   useSignal,
-  $,
 } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
 import { getContainerTranslateX } from './utils';
@@ -15,63 +14,25 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
   const context = useContext(CarouselContextId);
   const initialX = useSignal<number>(0);
 
-  const handlePointerMove$ = $((e: MouseEvent) => {
-    if (!context.containerRef.value) {
-      return;
-    }
-
-    context.slideOffsetSig.value = getContainerTranslateX(context.containerRef.value, e);
-  });
-
-  // const handlePointerUp$ = $((e: MouseEvent) => {
-  //   if (!context.containerRef.value) {
-  //     return;
-  //   }
-
-  //   const containerTranslateX = getContainerTranslateX(context.containerRef.value, e);
-  //   const absContainerTranslateX = Math.abs(containerTranslateX);
-
-  //   context.allSlideRefs.value.find((slide, i) => {
-  //     if (!context.viewportRef.value) {
-  //       return;
-  //     }
-
-  //     const slideRightEdgePos =
-  //       slide.offsetLeft + slide.offsetWidth + context.spaceBetweenSlides;
-
-  //     const halfViewportWidth = context.viewportRef.value.offsetWidth / 2;
-
-  //     const isWithinBounds =
-  //       absContainerTranslateX > slide.offsetLeft - halfViewportWidth &&
-  //       absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
-
-  //     if (isWithinBounds) {
-  //       context.currentIndexSig.value = i;
-
-  //       /*
-  //         we update here when mouse released (not when slide changes)
-  //         this is how it can "snap" back to the previous slide
-  //       */
-  //       context.slideOffsetSig.value = slide.offsetLeft * -1;
-  //       console.log(context.currentIndexSig.value);
-
-  //       context.transitionDurationSig.value = 300;
-  //       return true;
-  //     }
-
-  //     return false;
-  //   });
-
-  //   window.removeEventListener('pointermove', handlePointerMove$);
-  // });
-
   return (
     <div
       onPointerDown$={(e) => {
         initialX.value = e.clientX;
 
-        window.addEventListener('pointermove', handlePointerMove$);
-        window.addEventListener('pointerup', handlePointerUp$, { once: true });
+        console.log('Pointer down');
+        context.isDraggingSig.value = true;
+      }}
+      window:onPointerMove$={(e) => {
+        if (context.isDraggingSig.value) {
+          if (!context.containerRef.value) {
+            return;
+          }
+
+          context.slideOffsetSig.value = getContainerTranslateX(
+            context.containerRef.value,
+            e,
+          );
+        }
       }}
       ref={context.viewportRef}
       style={{ overflow: 'hidden', position: 'relative' }}

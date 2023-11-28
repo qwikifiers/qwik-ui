@@ -13,7 +13,6 @@ export interface CarouselContext {
   */
   viewportRef: Signal<HTMLDivElement | undefined>;
   containerRef: Signal<HTMLDivElement | undefined>;
-  slideRef: Signal<HTMLDivElement | undefined>;
 
   // animation
   transitionDurationSig: Signal<number>;
@@ -22,6 +21,5 @@ export interface CarouselContext {
   currentIndexSig: Signal<number>;
 
   // dragging
-  absContainerTranslateXSig: Signal<number | null>;
-  pointerUpFiredSig: Signal<boolean>;
+  isDraggingSig: Signal<boolean>;
 }
