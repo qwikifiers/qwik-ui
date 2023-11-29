@@ -27,8 +27,8 @@
   },
   "packageManager": "pnpm@8.7.0",
   "devDependencies": {
-    "@builder.io/qwik": "^1.2.19",
-    "@builder.io/qwik-city": "^1.2.19",
+    "@builder.io/qwik": "github:BuilderIO/qwik-build#decd924161c22323caecc64628b736d1d6d6e3fc",
+    "@builder.io/qwik-city": "github:BuilderIO/qwik-city-build#58208e2036d6907d18d01980a3da26d10b84c85e",
     "@builder.io/vite-plugin-macro": "~0.0.7",
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-angular": "^17.7.0",
@@ -119,7 +119,7 @@
     "unified": "^10.1.2",
     "unist-util-visit": "^5.0.0",
     "verdaccio": "^5.0.4",
-    "vite": "^4.5.0",
+    "vite": "^5.0.4",
     "vite-plugin-dts": "^3.5.3",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-inspect": "0.7.38",
@@ -144,10 +144,5 @@
   ],
   "nx": {
     "includedScripts": []
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "@builder.io/qwik@1.2.19": "patches/@builder.io__qwik@1.2.19.patch"
-    }
   }
 }
