@@ -62,7 +62,7 @@ const loadPolyfill$ = $(async () => {
   // Now load floating ui
 
   // Give the popovers some time to re-render
-  await new Promise((r) => setTimeout(r, 50));
+  // await new Promise((r) => setTimeout(r, 50));
 });
 
 type PopoverTriggerProps = {

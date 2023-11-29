@@ -64,7 +64,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
   const baseRef = useSignal<HTMLElement | undefined>(undefined);
   // the popover
-  const childRef = useSignal<HTMLElement | undefined>(undefined);
+  const popoverRef = useSignal<HTMLElement | undefined>(undefined);
   // animations
   const isPopoverOpenSig = useSignal<boolean>(false);
 
@@ -77,12 +77,6 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
     // Now run the task again after we force-rendered the contex
     setTimeout(() => (shouldTeleportSig.value = true), 0);
   }
-
-  /**
-   * We put our popover div in a div we control so we can teleport it out and back without worry
-   * The data-popover-pf div is used to signal loading of the polyfill. It receives the useVisibleTask$() handler.
-   * It is hidden by CSS when popover is supported, so then it never fires.
-   */
 
   const animationHandlers =
     props.entryAnimation || props.exitAnimation
@@ -133,11 +127,11 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       document.body.appendChild(polyfillContainer);
     }
 
-    if (childRef.value) {
-      if (props.popoverRef) props.popoverRef.value = childRef.value;
-      polyfillContainer.appendChild(childRef.value);
+    if (popoverRef.value) {
+      if (props.popoverRef) props.popoverRef.value = popoverRef.value;
+      polyfillContainer.appendChild(popoverRef.value);
 
-      cleanup(() => childRef.value && baseRef.value?.appendChild(childRef.value));
+      cleanup(() => popoverRef.value && baseRef.value?.appendChild(popoverRef.value));
     }
   });
 
@@ -148,9 +142,9 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         {...animationHandlers}
         // @ts-expect-error bad types
         popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
-        ref={childRef}
+        ref={popoverRef}
         onToggle$={(e) => {
-          const popover = childRef.value!;
+          const popover = popoverRef.value!;
           // @ts-expect-error bad types
           console.log('toggled!', e.newState === 'open');
           if (props.transition && props.entryAnimation) {
