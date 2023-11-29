@@ -5,7 +5,6 @@ import {
   useSignal,
   $,
   useStyles$,
-  useVisibleTask$,
   useContext,
   type Signal,
   type ClassList,
@@ -14,10 +13,9 @@ import {
   createContextId,
 } from '@builder.io/qwik';
 
-import { polyStyles } from './utils';
-
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
+import { useTask$ } from '@builder.io/qwik';
 
 export type PopoverImplProps = {
   id: string;
@@ -31,86 +29,38 @@ export type PopoverImplProps = {
   transition?: boolean;
 };
 
-declare global {
-  interface Document {
-    __QUI_POPOVER_PF__?: true;
-  }
-}
-
-export const loadPolyfill$ = $(async () => {
-  const isSupported =
-    typeof HTMLElement !== 'undefined' &&
-    typeof HTMLElement.prototype === 'object' &&
-    'popover' in HTMLElement.prototype;
-  console.log('POLYFILL:', !isSupported);
-  if (isSupported) return;
-  document.__QUI_POPOVER_PF__ = true;
-  if (document.querySelector('style[data-qwik-ui-popover-polyfill]')) return;
-  // Run the polyfill and get the CSS
-  await import('@oddbird/popover-polyfill');
-  // Inject the polyfill CSS into head BEFORE everything else so that users can override it without important or inline
-  let styleNode: HTMLStyleElement | null = document.querySelector(
-    'style[data-qwik-ui-popover-polyfill]',
-  );
-
-  if (!styleNode) {
-    styleNode = document.createElement('style');
-    styleNode.setAttribute('data-qwik-ui-popover-polyfill', '');
-    styleNode.textContent = polyStyles;
-    document.head.insertBefore(styleNode, document.head.firstChild);
-  }
-});
-
-const portalContextId = createContextId('portal-context-id');
+// We don't need a provider, that way we connect all context to the root
+const ensureContextId = createContextId('qui-popover');
 
 /**
  *
  * Portal Context in Qwik, akin to React's Portal, enables element teleportation. Rendering this component forces Qwik to parse the vDOM, enabling efficient context retrieval.
- *
- * TODO: RENDER PORTAL CONTEXT ON CLICK INSTEAD OF FORCE RERENDER
- *
+ * *
  * 1. Render on client -> don't need anything
  *
  * 2. SSR -> click -> force context the one time.
  *
  */
-export const PortalContext = component$(() => {
+export const EnsuredContext = component$(() => {
   // @ts-expect-error 2769
-  useContext(portalContextId, null);
+  useContext(ensureContextId, null);
   return null;
 });
+
+const isSupported =
+  !isServer &&
+  !document.__QUI_POPOVER_PF__ &&
+  typeof HTMLElement !== 'undefined' &&
+  typeof HTMLElement.prototype === 'object' &&
+  'popover' in HTMLElement.prototype;
 
 /**
  *  This component is a polyfill for MDN's popover API. It enables the usage of popovers across browsers.
  *
  */
 export const PopoverImpl = component$<PopoverImplProps>((props) => {
-  console.log('rendering');
   // We must inject some minimal hiding CSS while the polyfill loads, and the preset class
   useStyles$(popoverStyles);
-
-  // On supported browsers (no SSR), just render the popover
-  // TODO: Stick in variable
-  if (
-    !isServer &&
-    !document.__QUI_POPOVER_PF__ &&
-    typeof HTMLElement !== 'undefined' &&
-    typeof HTMLElement.prototype === 'object' &&
-    'popover' in HTMLElement.prototype
-  ) {
-    return (
-      <div
-        popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
-        // preset to override user agent styles
-        class={props.class}
-        {...props}
-        ref={props.popoverRef}
-      >
-        <Slot />
-      </div>
-    );
-  }
-  // The below applies to SSR and unsupported browsers
 
   const baseRef = useSignal<HTMLElement | undefined>(undefined);
   // the popover
@@ -122,67 +72,11 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   const hasRenderedOnClientSig = useSignal(isServer ? 0 : 2);
   const shouldTeleportSig = useSignal(false);
 
-  useVisibleTask$(
-    async ({ track, cleanup }) => {
-      // prevents animation flickers across browsers
-      if (props.animation && props.entryAnimation) {
-        childRef.value?.classList.add(props.entryAnimation);
-      }
-      console.log('visible task');
-      // polyfill missing?
-      if (!document.__QUI_POPOVER_PF__) {
-        if (
-          typeof HTMLElement !== 'undefined' &&
-          typeof HTMLElement.prototype === 'object' &&
-          'popover' in HTMLElement.prototype
-        ) {
-          if (props.popoverRef) props.popoverRef.value = childRef.value;
-          // supported browser, no further action needed
-          return;
-        }
-
-        await loadPolyfill$.resolve().then((fn) => fn());
-      }
-      if (hasRenderedOnClientSig.value === 0) {
-        // Force re-render and wait for teleport signal
-        hasRenderedOnClientSig.value = 1;
-        track(() => shouldTeleportSig.value);
-        return;
-      }
-
-      let polyfillContainer: HTMLDivElement | null = document.querySelector(
-        'div[data-qwik-ui-popover-polyfill]',
-      );
-
-      if (!polyfillContainer) {
-        polyfillContainer = document.createElement('div');
-        polyfillContainer.setAttribute('data-qwik-ui-popover-polyfill', '');
-        document.body.appendChild(polyfillContainer);
-      }
-
-      if (childRef.value) {
-        if (props.popoverRef) props.popoverRef.value = childRef.value;
-        polyfillContainer.appendChild(childRef.value);
-
-        cleanup(() => childRef.value && baseRef.value?.appendChild(childRef.value));
-      }
-    },
-    { strategy: 'document-idle' },
-  );
-
   // This forces a re-render when the signal changes
   if (hasRenderedOnClientSig.value === 1) {
-    console.log('yey rerendered');
-    // Now run the task again
+    // Now run the task again after we force-rendered the contex
     setTimeout(() => (shouldTeleportSig.value = true), 0);
   }
-
-  // // If we are rendering on on unsupported browser without SSR, we might need to load the polyfill
-  // if (!isServer && !document.__QUI_POPOVER_PF__) {
-  //   // We don't await this because we don't want to block the render
-  //   // The user most likely won't click a popover trigger before the polyfill loads
-  //   loadPolyfill$.resolve().then((fn) => fn());
-  // }
 
   /**
    * We put our popover div in a div we control so we can teleport it out and back without worry
@@ -226,37 +120,76 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         }
       : {};
 
+  useTask$(({ track, cleanup }) => {
+    if (!track(() => shouldTeleportSig.value)) return;
+
+    let polyfillContainer: HTMLDivElement | null = document.querySelector(
+      'div[data-qwik-ui-popover-polyfill]',
+    );
+
+    if (!polyfillContainer) {
+      polyfillContainer = document.createElement('div');
+      polyfillContainer.setAttribute('data-qwik-ui-popover-polyfill', '');
+      document.body.appendChild(polyfillContainer);
+    }
+
+    if (childRef.value) {
+      if (props.popoverRef) props.popoverRef.value = childRef.value;
+      polyfillContainer.appendChild(childRef.value);
+
+      cleanup(() => childRef.value && baseRef.value?.appendChild(childRef.value));
+    }
+  });
+
   return (
-    <div
-      popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
-      class={props.class}
-      ref={childRef}
-      onToggle$={(event) => {
-        const popover = event.target as HTMLElement;
+    <div ref={baseRef}>
+      <div
+        {...props}
+        {...animationHandlers}
+        // @ts-expect-error bad types
+        popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
+        ref={childRef}
+        onToggle$={(e) => {
+          const popover = childRef.value!;
+          // @ts-expect-error bad types
+          console.log('toggled!', e.newState === 'open');
+          if (props.transition && props.entryAnimation) {
+            isPopoverOpenSig.value
+              ? popover.classList.add(props.entryAnimation)
+              : popover.classList.remove(props.entryAnimation);
+          }
 
-        isPopoverOpenSig.value = !isPopoverOpenSig.value;
+          // move opened polyfill popovers are always above the other
+          if (
+            !isSupported &&
+            popover.classList.contains(':popover-open') &&
+            popover.parentElement &&
+            !popover.classList.contains('animating')
+          ) {
+            popover.parentElement.appendChild(popover);
+          }
 
-        if (props.transition && props.entryAnimation) {
-          isPopoverOpenSig.value
-            ? popover.classList.add(props.entryAnimation)
-            : popover.classList.remove(props.entryAnimation);
-        }
+          // @ts-expect-error bad types
+          props.onToggle$?.(e);
+        }}
+        // This gets called when the polyfill loads and we need to pop out
+        document:onQuipoppolyloaded$={() => {
+          console.log('I run in popoly!');
+          // prevents animation flickers across browsers
+          // if (props.animation && props.entryAnimation) {
+          //   childRef.value?.classList.add(props.entryAnimation);
+          // }
 
-        // ensures polyfill popovers are always above the other
-        if (
-          document.__QUI_POPOVER_PF__ &&
-          popover.classList.contains(':popover-open') &&
-          popover.parentElement &&
-          !popover.classList.contains('animating')
-        ) {
-          popover.parentElement.appendChild(popover);
-        }
-      }}
-      {...props}
-      {...animationHandlers}
-    >
-      {hasRenderedOnClientSig.value === 1 && <PortalContext />}
-      <Slot />
+          if (hasRenderedOnClientSig.value === 0) {
+            // Force re-render and wait for teleport signal
+            hasRenderedOnClientSig.value = 1;
+            return;
+          }
+        }}
+      >
+        {hasRenderedOnClientSig.value === 1 && <EnsuredContext />}
+        <Slot />
+      </div>
     </div>
   );
 });
