@@ -6,24 +6,26 @@ import {
   useStyles$,
   useTask$,
 } from '@builder.io/qwik';
-import styles from './show-example.css?inline';
-
+import styles from './showcase.css?inline';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
 import { Highlight } from '../highlight/highlight';
 
-// The below patterns are here so that import.meta.glob works both for fluffy and headless routes.
+// The below `/src/routes/docs/**/**/examples/*.tsx` patterns are here so that import.meta.glob works both for fluffy and headless routes.
 // For example:
 // /src/routes/docs/components/fluffy/modal/examples/hero.tsx
 // /src/routes/docs/components/headless/modal/examples/hero.tsx
 
-const components: any = import.meta.glob('/src/routes/docs/**/**/examples/*.tsx', {
-  import: 'default',
-  eager: isDev ? false : true,
-});
+const metaGlobComponents: any = import.meta.glob(
+  '/src/routes/docs/**/**/examples/*.tsx',
+  {
+    import: 'default',
+    eager: isDev ? false : true,
+  },
+);
 
-const componentsRaw: any = import.meta.glob('/src/routes/docs/**/**/examples/*.tsx', {
+const rawComponents: any = import.meta.glob('/src/routes/docs/**/**/examples/*.tsx', {
   as: 'raw',
   eager: isDev ? false : true,
 });
@@ -34,25 +36,22 @@ type ShowcaseProps = QwikIntrinsicElements['div'] & {
 
 export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   const location = useLocation();
-
   const componentPath = `/src/routes${location.url.pathname}examples/${name}.tsx`;
 
-  console.log('componentPath', componentPath);
-
-  const Component = useSignal<Component<any>>();
-  const ComponentRaw = useSignal<string>();
+  const MetaGlobComponentSig = useSignal<Component<any>>();
+  const componentCodeSig = useSignal<string>();
 
   useTask$(async () => {
-    if (isDev) {
-      Component.value = await components[componentPath]();
-      ComponentRaw.value = await componentsRaw[componentPath]();
-    } else {
-      Component.value = components[componentPath];
-      ComponentRaw.value = componentsRaw[componentPath];
-    }
+    MetaGlobComponentSig.value = isDev
+      ? await metaGlobComponents[componentPath]() // We need to call `await metaGlobComponents[componentPath]()` in development as it is `eager:false`
+      : metaGlobComponents[componentPath]; // We need to directly access the `metaGlobComponents[componentPath]` expression in preview/production as it is `eager:true`
+    componentCodeSig.value = isDev
+      ? await rawComponents[componentPath]()
+      : rawComponents[componentPath];
   });
 
   useStyles$(styles);
+
   return (
     <Tabs
       {...props}
@@ -67,13 +66,16 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
           Code
         </Tab>
       </TabList>
-      <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-xl border-[1.5px] bg-slate-200 bg-slate-800  p-4 dark:bg-slate-900 md:p-12">
+      <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-xl border-[1.5px] bg-slate-200 bg-slate-800 p-4 dark:bg-slate-900 md:p-12">
         <section class="flex flex-col items-center">
-          {Component.value && <Component.value />}
+          {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
         </section>
       </TabPanel>
       <TabPanel class="border-qwikui-blue-300 dark:border-qwikui-purple-200 relative rounded-b-xl border-[1.5px]">
-        <Highlight class="rounded-b-xl rounded-t-none" code={ComponentRaw.value || ''} />
+        <Highlight
+          class="rounded-b-xl rounded-t-none"
+          code={componentCodeSig.value || ''}
+        />
       </TabPanel>
     </Tabs>
   );
