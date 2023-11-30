@@ -26,13 +26,12 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/kit-fluffy/**/*.{ts,tsx,js,jsx}"]
       }
     },
-
     "storybook": {
       "executor": "@nx/storybook:storybook",
       "options": {
