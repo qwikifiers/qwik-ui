@@ -14,7 +14,7 @@ export default component$(() => {
         id="hero-id"
         class="shadow-dark-medium rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1"
       >
-        Popover
+        My Hero!
       </Popover>
     </>
   );

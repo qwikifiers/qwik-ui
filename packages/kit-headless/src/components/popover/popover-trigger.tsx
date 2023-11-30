@@ -1,6 +1,8 @@
 import { QwikIntrinsicElements } from '@builder.io/qwik';
 import { Slot, component$, useSignal, $ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
+import { polyStyles } from './utils';
+import './polyfill/popover.js';
 
 /**
  * A Trigger toggles a Popover given by targetId.
@@ -47,8 +49,6 @@ const loadPolyfill$ = $(async () => {
   document.__QUI_POPOVER_PF__ = true;
 
   // Run the polyfill and get the CSS
-  await import('@oddbird/popover-polyfill');
-  const { polyStyles } = await import('./utils');
 
   // Inject the polyfill CSS into head BEFORE everything else so that users can override it without important or inline
   const styleNode = document.createElement('style');
@@ -59,10 +59,8 @@ const loadPolyfill$ = $(async () => {
   // Emit custom event to indicate polyfill load
   document.dispatchEvent(new CustomEvent('quipoppolyloaded'));
 
-  // Now load floating ui
-
   // Give the popovers some time to re-render
-  // await new Promise((r) => setTimeout(r, 50));
+  // await new Promise((r) => setTimeout(r, 100));
 });
 
 type PopoverTriggerProps = {
@@ -90,13 +88,21 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
           rest.onClick$,
           $(async () => {
             // TODO floating ui
+            console.log('clicked');
             if (didClickSig.value) return;
             didClickSig.value = true;
+
             await loadPolyfill$();
-            document
-              .querySelectorAll(`#${popovertarget}`)
-              // @ts-expect-error bad types
-              .forEach((e) => e.togglePopover());
+            /* 
+              TODO: REMOVE THIS
+
+              We had this before, so it could toggle on first click (it doesn't). I believe this is because it does not prefetch the polyfill code.
+            */
+            const myPopover = document.querySelector(`#${popovertarget}`);
+            // @ts-expect-error bad types
+            await myPopover.togglePopover();
+
+            // togglePopover method does not exist on first click
           }),
         ]}
       >

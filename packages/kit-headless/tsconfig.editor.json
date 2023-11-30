@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "src/components/popover/polyfill/popover.js"],
   "compilerOptions": {
     "types": ["node", "jest", "@testing-library/jest-dom", "@testing-library/cypress"]
   }
