@@ -58,9 +58,6 @@ const loadPolyfill$ = $(async () => {
 
   // Emit custom event to indicate polyfill load
   document.dispatchEvent(new CustomEvent('quipoppolyloaded'));
-
-  // Give the popovers some time to re-render
-  // await new Promise((r) => setTimeout(r, 100));
 });
 
 type PopoverTriggerProps = {
@@ -88,21 +85,13 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
           rest.onClick$,
           $(async () => {
             // TODO floating ui
-            console.log('clicked');
             if (didClickSig.value) return;
             didClickSig.value = true;
 
             await loadPolyfill$();
-            /* 
-              TODO: REMOVE THIS
-
-              We had this before, so it could toggle on first click (it doesn't). I believe this is because it does not prefetch the polyfill code.
-            */
             const myPopover = document.querySelector(`#${popovertarget}`);
             // @ts-expect-error bad types
             await myPopover.togglePopover();
-
-            // togglePopover method does not exist on first click
           }),
         ]}
       >

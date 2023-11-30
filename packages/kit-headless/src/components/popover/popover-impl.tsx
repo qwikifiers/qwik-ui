@@ -145,8 +145,6 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         ref={popoverRef}
         onToggle$={(e) => {
           const popover = popoverRef.value!;
-          // @ts-expect-error bad types
-          console.log('toggled!', e.newState === 'open');
           if (props.transition && props.entryAnimation) {
             isPopoverOpenSig.value
               ? popover.classList.add(props.entryAnimation)
