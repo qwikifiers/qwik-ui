@@ -1,7 +1,6 @@
 import { QwikIntrinsicElements } from '@builder.io/qwik';
 import { Slot, component$, useSignal, $ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
-import { polyStyles } from './utils';
 import './polyfill/popover.js';
 
 /**
@@ -41,6 +40,7 @@ const isSupported =
   typeof HTMLElement !== 'undefined' &&
   typeof HTMLElement.prototype === 'object' &&
   'popover' in HTMLElement.prototype;
+
 const loadPolyfill$ = $(async () => {
   if (document.__QUI_POPOVER_PF__) return;
   console.log('POLYFILL:', !isSupported);
@@ -48,16 +48,9 @@ const loadPolyfill$ = $(async () => {
 
   document.__QUI_POPOVER_PF__ = true;
 
-  // Run the polyfill and get the CSS
-
-  // Inject the polyfill CSS into head BEFORE everything else so that users can override it without important or inline
-  const styleNode = document.createElement('style');
-  styleNode.setAttribute('data-qwik-ui-popover-polyfill', '');
-  styleNode.textContent = polyStyles;
-  document.head.insertBefore(styleNode, document.head.firstChild);
-
   // Emit custom event to indicate polyfill load
   document.dispatchEvent(new CustomEvent('quipoppolyloaded'));
+  console.log('inside polyfill!');
 });
 
 type PopoverTriggerProps = {
