@@ -61,6 +61,7 @@
     "update-utils-version": {
       "executor": "nx:run-commands",
       "options": {
+        "parallel": false,
         "command": "pnpm update.version"
       }
     },

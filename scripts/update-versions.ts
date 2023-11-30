@@ -1,6 +1,7 @@
 import { readFile as fsReadFile, writeFile as fsWriteFile } from 'node:fs';
 
-import { join } from 'node:path';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 import { promisify } from 'util';
 
 export const readFile = /*#__PURE__*/ promisify(fsReadFile);
@@ -19,7 +20,8 @@ export async function writePackageJson(pkgJsonDir: string, pkgJson: any) {
 }
 
 async function updateUtilsVersion() {
-  const distPackagesDir = join('dist', 'packages');
+  const currentDir = dirname(fileURLToPath(import.meta.url));
+  const distPackagesDir = join(currentDir, '../', 'dist', 'packages');
   const utilsPkgJson = await readPackageJson(join(distPackagesDir, 'utils'));
   const kitHeadlessPkgJson = await readPackageJson(join(distPackagesDir, 'kit-headless'));
 
