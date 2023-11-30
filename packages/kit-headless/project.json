@@ -51,7 +51,17 @@
         "noVerify": true,
         "push": true,
         "releaseAs": "patch",
-        "postTargets": ["headless:publish", "headless:push-to-github"]
+        "postTargets": [
+          "headless:update-utils-version",
+          "headless:publish",
+          "headless:push-to-github"
+        ]
+      }
+    },
+    "update-utils-version": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm update.version"
       }
     },
     "publish": {
@@ -65,7 +75,7 @@
       "options": {
         "tag": "${tag}",
         "notes": "${notes}",
-        "title": "@qwik-ui/kit-headless@${version}"
+        "title": "@qwik-ui/headless@${version}"
       }
     },
     "storybook": {
@@ -86,7 +96,7 @@
       "options": {
         "uiFramework": "@storybook/html",
         "configDir": "packages/kit-headless/.storybook",
-        "outputDir": "dist/storybook/headless"
+        "outputDir": "dist/storybook/kit-headless"
       },
       "configurations": {
         "ci": {
