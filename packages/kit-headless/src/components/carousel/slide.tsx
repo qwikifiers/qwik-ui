@@ -45,6 +45,11 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
     <div
       window:onPointerUp$={(e) => {
         console.log('Pointer up');
+
+        if (!context.isDraggingSig.value) {
+          return;
+        }
+
         context.isDraggingSig.value = false;
 
         if (!context.containerRef.value || !slideRef.value) {

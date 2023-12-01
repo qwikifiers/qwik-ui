@@ -12,7 +12,6 @@ export const CarouselPrev = component$((props: CarouselButtonProps) => {
       disabled={context.currentIndexSig.value === 0}
       onClick$={() => {
         context.currentIndexSig.value--;
-
         context.transitionDurationSig.value = 625;
       }}
     >
