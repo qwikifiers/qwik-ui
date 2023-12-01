@@ -1,26 +1,23 @@
-import {
-  component$,
-  QwikIntrinsicElements,
-  Slot,
-  useContext,
-  useSignal,
-} from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements, Slot, useContext } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
-import { getContainerTranslateX } from './utils';
 
 type CarouselViewportProps = QwikIntrinsicElements['div'];
 
 export const CarouselView = component$((props: CarouselViewportProps) => {
   const context = useContext(CarouselContextId);
-  const initialX = useSignal<number>(0);
 
   return (
     <div
       onPointerDown$={(e) => {
-        initialX.value = e.clientX;
+        context.initialX.value = e.clientX;
+        if (context.containerRef.value) {
+          const style = window.getComputedStyle(context.containerRef.value);
+          const matrix = new DOMMatrix(style.transform);
+          context.initialTransformX.value = matrix.m41;
 
-        console.log('Pointer down');
-        context.isDraggingSig.value = true;
+          console.log('Pointer down');
+          context.isDraggingSig.value = true;
+        }
       }}
       window:onPointerMove$={(e) => {
         if (context.isDraggingSig.value) {
@@ -28,10 +25,9 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
             return;
           }
 
-          context.slideOffsetSig.value = getContainerTranslateX(
-            context.containerRef.value,
-            e,
-          );
+          const deltaX = e.clientX - context.initialX.value;
+
+          context.slideOffsetSig.value = context.initialTransformX.value + deltaX;
         }
       }}
       ref={context.viewportRef}

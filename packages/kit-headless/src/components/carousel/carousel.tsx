@@ -30,6 +30,8 @@ export const Carousel = component$(
     const viewportRef = useSignal<HTMLDivElement>();
     const containerRef = useSignal<HTMLDivElement>();
     const isDraggingSig = useSignal<boolean>(false);
+    const initialX = useSignal<number>(0);
+    const initialTransformX = useSignal<number>(0);
 
     const context: CarouselContext = {
       slideOffsetSig,
@@ -40,6 +42,8 @@ export const Carousel = component$(
       containerRef,
       spaceBetweenSlides,
       isDraggingSig,
+      initialX,
+      initialTransformX,
     };
 
     useContextProvider(CarouselContextId, context);

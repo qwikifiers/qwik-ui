@@ -7,7 +7,6 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
-import { getContainerTranslateX } from './utils';
 
 export type CarouselSlideProps = QwikIntrinsicElements['div'];
 
@@ -24,7 +23,8 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
     return;
   });
 
-  useTask$(() => {
+  useTask$(({ track }) => {
+    track(() => context.currentIndexSig.value);
     if (localIndexSig.value === context.currentIndexSig.value && slideRef.value) {
       context.slideOffsetSig.value = slideRef.value.offsetLeft * -1;
     }
@@ -51,7 +51,9 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
           return;
         }
 
-        const containerTranslateX = getContainerTranslateX(context.containerRef.value, e);
+        const deltaX = e.clientX - context.initialX.value;
+
+        const containerTranslateX = context.initialTransformX.value + deltaX;
         const absContainerTranslateX = Math.abs(containerTranslateX);
 
         if (!context.viewportRef.value) {
@@ -77,7 +79,6 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
             this is how it can "snap" back to the previous slide
           */
           context.slideOffsetSig.value = slideRef.value.offsetLeft * -1;
-          console.log(context.currentIndexSig.value);
 
           context.transitionDurationSig.value = 300;
         }

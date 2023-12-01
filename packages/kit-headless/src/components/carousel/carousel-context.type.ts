@@ -22,4 +22,6 @@ export interface CarouselContext {
 
   // dragging
   isDraggingSig: Signal<boolean>;
+  initialX: Signal<number>;
+  initialTransformX: Signal<number>;
 }
