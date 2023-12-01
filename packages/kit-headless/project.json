@@ -39,6 +39,7 @@
         "releaseAs": "patch"
       }
     },
+
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
@@ -51,20 +52,10 @@
         "noVerify": true,
         "push": true,
         "releaseAs": "patch",
-        "postTargets": [
-          "headless:update-utils-version",
-          "headless:publish",
-          "headless:push-to-github"
-        ]
+        "postTargets": ["headless:publish", "headless:push-to-github"]
       }
     },
-    "update-utils-version": {
-      "executor": "nx:run-commands",
-      "options": {
-        "parallel": false,
-        "command": "pnpm update.version"
-      }
-    },
+
     "publish": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {

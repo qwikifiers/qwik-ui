@@ -51,6 +51,7 @@
     "publish": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
+        "noBuild": true,
         "access": "public"
       }
     },
