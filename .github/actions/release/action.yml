@@ -19,13 +19,13 @@ runs:
       shell: bash
       run: npm whoami
 
-    - name: Build Headless Kit
-      shell: bash
-      run: npx nx build headless
+    # - name: Build Headless Kit
+    #   shell: bash
+    #   run: npx nx build headless
 
-    - name: Replace utils version in package.json
-      shell: bash
-      run: pnpm update.version
+    # - name: Replace utils version in package.json
+    #   shell: bash
+    #   run: pnpm update.version
 
     - name: Version
       env:

@@ -52,7 +52,20 @@
         "noVerify": true,
         "push": true,
         "releaseAs": "patch",
-        "postTargets": ["headless:publish", "headless:push-to-github"]
+        "postTargets": [
+          "headless:build",
+          "headless:update-utils-version",
+          "headless:publish",
+          "headless:push-to-github"
+        ]
+      }
+    },
+
+    "update-utils-version": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false,
+        "command": "pnpm update.version"
       }
     },
 
