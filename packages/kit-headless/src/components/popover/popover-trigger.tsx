@@ -25,7 +25,7 @@ import './polyfill/popover.js';
  * 5. add popovertarget attribute to button and remove onClick$
  *
  *
- * DONT USE onToggle, do use onQuiPopPolyEvent - can only ever run when the polyfill has to run, so never runs on support browsers
+ * DONT USE onToggle, do use onPopPolyLoad$ - can only ever run when the polyfill has to run, so never runs on support browsers
  */
 
 declare global {
@@ -35,25 +35,26 @@ declare global {
   }
 }
 
-const isSupported =
-  !isServer &&
+/*
+  TODO: Get Right condition for this: (wrong currently)
+
+  const isSupported =
   typeof HTMLElement !== 'undefined' &&
   typeof HTMLElement.prototype === 'object' &&
   'popover' in HTMLElement.prototype;
+*/
 
-const loadPolyfill$ = $(async (popovertarget: string) => {
+const loadPolyfill$ = $(async () => {
   if (document.__QUI_POPOVER_PF__) return;
-  console.log('POLYFILL:', !isSupported);
+
+  /* TODO: Get correct polyfill conditional */
+  // console.log('POLYFILL:', !isSupported);
   // if (isSupported) return;
 
   document.__QUI_POPOVER_PF__ = true;
 
-  const myPopover = document.querySelector(`#${popovertarget}`);
-
-  if (!myPopover) return;
-
   // Emit custom event to indicate polyfill load
-  myPopover.dispatchEvent(new CustomEvent('quipoppolyloaded'));
+  document.dispatchEvent(new CustomEvent('poppolyload'));
   console.log('inside polyfill!');
 });
 
@@ -66,12 +67,7 @@ type PopoverTriggerProps = {
 export const PopoverTrigger = component$<PopoverTriggerProps>(
   ({ popovertarget, ...rest }: PopoverTriggerProps) => {
     const didClickSig = useSignal<boolean>(!isServer);
-
-    if (!isServer) {
-      console.log('rendering Trigger in client');
-      // only run when rendering fresh on the client
-      // loadPolyfill$();
-    }
+    const hasPolyfillLoadedSig = useSignal<boolean>(false);
 
     return (
       <button
@@ -81,11 +77,17 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
         onClick$={[
           rest.onClick$,
           $(async () => {
-            // TODO floating ui
             if (didClickSig.value) return;
             didClickSig.value = true;
 
-            await loadPolyfill$(popovertarget);
+            console.log('click!');
+
+            if (!hasPolyfillLoadedSig.value) {
+              await loadPolyfill$();
+              hasPolyfillLoadedSig.value = true;
+            }
+
+            // TODO: floating ui
           }),
         ]}
       >

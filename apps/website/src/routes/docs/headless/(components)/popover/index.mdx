@@ -30,7 +30,7 @@ This is particularly useful for displaying additional information or options wit
 
 <ShowExample example="inspect" />
 
-> An example use case for a popover, is preventing overflow issues within your UI. The popover API guarantees that your content remains above the rest of the page.
+{/* > An example use case for a popover, is preventing overflow issues within your UI. The popover API guarantees that your content remains above the rest of the page.
 
 Most importantly, this API is a foundation for other headless components. Qwik UI is one of the first *(if not the first)* headless libraries to align with the specification. The content inside of Qwik UI popovers are also natively resumable.
 
@@ -219,28 +219,28 @@ If Flip is enabled, it will provide a gutter space for both the top and bottom.
 
 Styles can be added normally like any other component in Qwik UI, such as adding a class. The Popover API however, exposes the `[popover]` and `:popover-open` attribute and pseudo-class selectors which can be used to style both the open and closed states.
 
-From an earlier section, we learned that the `:popover-open` psuedo-class cannot be polyfilled, and so a class is added instead.
+From an earlier section, we learned that the `:popover-open` psuedo-class cannot be polyfilled, and so a class is added instead. */}
 
-<CodeExample>
+{/* <CodeExample> */}
   ```tsx
-  [popover] {
-  /* Make the popover a grid */
-  display: grid;
-  }
+  // [popover] {
+  // /* Make the popover a grid */
+  // display: grid;
+  // }
 
-  [popover]:not(:popover-open) {
-    /* Make sure to hide it unless open */
-    display: none;
-  }
+  // [popover]:not(:popover-open) {
+  //   /* Make sure to hide it unless open */
+  //   display: none;
+  // }
 
-  /* Duplicate for polyfill browsers */
-  [popover]:not(.\:popover-open) {
-    display: none;
-  }
+  // /* Duplicate for polyfill browsers */
+  // [popover]:not(.\:popover-open) {
+  //   display: none;
+  // }
   ```
-</CodeExample>
+{/* </CodeExample> */}
 
-If Tailwind is the framework of choice, then styles can be added using the [arbitrary variant syntax](https://tailwindcss.com/docs/hover-focus-and-other-states#using-arbitrary-variants) or [@apply](https://tailwindcss.com/docs/reusing-styles#extracting-classes-with-apply) command. Below is an example of styling with `[popover]` as an arbitrary variant.
+{/* If Tailwind is the framework of choice, then styles can be added using the [arbitrary variant syntax](https://tailwindcss.com/docs/hover-focus-and-other-states#using-arbitrary-variants) or [@apply](https://tailwindcss.com/docs/reusing-styles#extracting-classes-with-apply) command. Below is an example of styling with `[popover]` as an arbitrary variant.
 
 <ShowExample example="styling" />
 
@@ -264,8 +264,9 @@ To use an animation declaration, add the `animation` prop on the popover along w
 
 - The `entryAnimation` prop determines what class is added when the listbox is **opened**.
 
-- The `exitAnimation` prop determines what class is added when the listbox is **closed**.
+- The `exitAnimation` prop determines what class is added when the listbox is **closed**. */}
 
+{/* 
 Here's the CSS imported from the example:
 <CodeExample>
   ```css
@@ -333,7 +334,7 @@ Automatically places the listbox based on available space. **You must set flip t
 
 <div class="bg-red-200 dark:bg-red-900 p-4 lg:p-6 rounded-xl dark:border-[#F3F3F3] border-[#333333] shadow-light-medium dark:shadow-dark-medium">
   **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the placement but with different strategies. Using both can result in a continuous reset loop as they try to override each other's work.
-</div>
+</div> */}
 
 
 
