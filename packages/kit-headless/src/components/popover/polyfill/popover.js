@@ -26,7 +26,6 @@ function queuePopoverToggleEventTask(element, oldState, newState) {
 }
 
 // src/popover-helpers.ts
-var ShadowRoot = globalThis.ShadowRoot || function () {};
 var HTMLDialogElement = globalThis.HTMLDialogElement || function () {};
 var topLayerElements = /* @__PURE__ */ new WeakMap();
 var autoPopoverList = /* @__PURE__ */ new WeakMap();
@@ -111,7 +110,6 @@ function nearestInclusiveOpenPopover(node) {
       return node;
     }
     node = node.parentElement || getRootNode(node);
-    if (node instanceof ShadowRoot) node = node.host;
     if (node instanceof Document) return;
   }
 }
@@ -120,7 +118,6 @@ function nearestInclusiveTargetPopoverForInvoker(node) {
     const nodePopover = node.popoverTargetElement;
     if (nodePopover instanceof HTMLElement) return nodePopover;
     node = node.parentElement || getRootNode(node);
-    if (node instanceof ShadowRoot) node = node.host;
     if (node instanceof Document) return;
   }
 }
@@ -150,7 +147,7 @@ function topMostPopoverAncestor(newPopover) {
   return topMostPopoverAncestor2;
 }
 function isFocusable(focusTarget) {
-  if (focusTarget.hidden || focusTarget instanceof ShadowRoot) return false;
+  if (focusTarget.hidden) return false;
   if (
     focusTarget instanceof HTMLButtonElement ||
     focusTarget instanceof HTMLInputElement ||
@@ -171,13 +168,7 @@ function isFocusable(focusTarget) {
   return typeof focusTarget.tabIndex === 'number' && focusTarget.tabIndex !== -1;
 }
 function focusDelegate(focusTarget) {
-  if (focusTarget.shadowRoot && focusTarget.shadowRoot.delegatesFocus !== true) {
-    return null;
-  }
   let whereToLook = focusTarget;
-  if (whereToLook.shadowRoot) {
-    whereToLook = whereToLook.shadowRoot;
-  }
   let autoFocusDelegate = whereToLook.querySelector('[autofocus]');
   if (autoFocusDelegate) {
     return autoFocusDelegate;
@@ -383,7 +374,6 @@ function setInvokerAriaExpanded(el, force = false) {
 }
 
 // src/popover.ts
-var ShadowRoot2 = globalThis.ShadowRoot || function () {};
 function isSupported() {
   return (
     typeof HTMLElement !== 'undefined' &&
@@ -542,21 +532,6 @@ function apply() {
       },
     },
   });
-  const originalAttachShadow = Element.prototype.attachShadow;
-  if (originalAttachShadow) {
-    Object.defineProperties(Element.prototype, {
-      attachShadow: {
-        enumerable: true,
-        configurable: true,
-        writable: true,
-        value(options) {
-          const shadowRoot = originalAttachShadow.call(this, options);
-          injectStyles(shadowRoot);
-          return shadowRoot;
-        },
-      },
-    });
-  }
   const originalAttachInternals = HTMLElement.prototype.attachInternals;
   if (originalAttachInternals) {
     Object.defineProperties(HTMLElement.prototype, {
@@ -566,9 +541,6 @@ function apply() {
         writable: true,
         value() {
           const internals = originalAttachInternals.call(this);
-          if (internals.shadowRoot) {
-            injectStyles(internals.shadowRoot);
-          }
           return internals;
         },
       },
@@ -618,7 +590,7 @@ function apply() {
           }
           const root = getRootNode(this);
           const idref = this.getAttribute('popovertarget');
-          if ((root instanceof Document || root instanceof ShadowRoot2) && idref) {
+          if (root instanceof Document && idref) {
             return root.getElementById(idref) || null;
           }
           return null;
@@ -643,11 +615,11 @@ function apply() {
   const handleInvokerActivation = (event) => {
     if (!event.isTrusted) return;
     const target = event.composedPath()[0];
-    if (!(target instanceof Element) || target?.shadowRoot) {
+    if (!(target instanceof Element)) {
       return;
     }
     const root = getRootNode(target);
-    if (!(root instanceof ShadowRoot2 || root instanceof Document)) {
+    if (!(root instanceof Document)) {
       return;
     }
     const invoker = target.closest('[popovertargetaction],[popovertarget]');
