@@ -13,7 +13,8 @@
       "cache": true
     },
     "build": {
-      "cache": true
+      "cache": true,
+      "dependsOn": ["^build"]
     },
     "e2e": {
       "cache": true
