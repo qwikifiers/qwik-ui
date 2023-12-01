@@ -24,9 +24,7 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
     return;
   });
 
-  useTask$(({ track }) => {
-    track(() => context.currentIndexSig.value);
-
+  useTask$(() => {
     if (localIndexSig.value === context.currentIndexSig.value && slideRef.value) {
       context.slideOffsetSig.value = slideRef.value.offsetLeft * -1;
     }
@@ -38,7 +36,9 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
     Perhaps a bind?
 
     */
-    context.transitionDurationSig.value = 625;
+    setTimeout(() => {
+      context.transitionDurationSig.value = 625;
+    }, 0);
   });
 
   return (
