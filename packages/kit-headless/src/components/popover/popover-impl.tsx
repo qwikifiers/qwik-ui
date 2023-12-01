@@ -114,7 +114,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         }
       : {};
 
-  useTask$(({ track, cleanup }) => {
+  useTask$(async ({ track, cleanup }) => {
     if (!track(() => shouldTeleportSig.value)) return;
 
     let polyfillContainer: HTMLDivElement | null = document.querySelector(
@@ -133,6 +133,9 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
       cleanup(() => popoverRef.value && baseRef.value?.appendChild(popoverRef.value));
     }
+
+    // @ts-expect-error bad types
+    await popoverRef.value.togglePopover();
   });
 
   return (
@@ -165,7 +168,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
           props.onToggle$?.(e);
         }}
         // This gets called when the polyfill loads and we need to pop out
-        document:onQuipoppolyloaded$={() => {
+        onQuipoppolyloaded$={() => {
           console.log('I run in popoly!');
           // prevents animation flickers across browsers
           // if (props.animation && props.entryAnimation) {

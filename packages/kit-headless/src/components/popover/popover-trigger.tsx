@@ -41,15 +41,19 @@ const isSupported =
   typeof HTMLElement.prototype === 'object' &&
   'popover' in HTMLElement.prototype;
 
-const loadPolyfill$ = $(async () => {
+const loadPolyfill$ = $(async (popovertarget: string) => {
   if (document.__QUI_POPOVER_PF__) return;
   console.log('POLYFILL:', !isSupported);
-  if (isSupported) return;
+  // if (isSupported) return;
 
   document.__QUI_POPOVER_PF__ = true;
 
+  const myPopover = document.querySelector(`#${popovertarget}`);
+
+  if (!myPopover) return;
+
   // Emit custom event to indicate polyfill load
-  document.dispatchEvent(new CustomEvent('quipoppolyloaded'));
+  myPopover.dispatchEvent(new CustomEvent('quipoppolyloaded'));
   console.log('inside polyfill!');
 });
 
@@ -66,7 +70,7 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
     if (!isServer) {
       console.log('rendering Trigger in client');
       // only run when rendering fresh on the client
-      loadPolyfill$();
+      // loadPolyfill$();
     }
 
     return (
@@ -81,10 +85,7 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
             if (didClickSig.value) return;
             didClickSig.value = true;
 
-            await loadPolyfill$();
-            const myPopover = document.querySelector(`#${popovertarget}`);
-            // @ts-expect-error bad types
-            await myPopover.togglePopover();
+            await loadPolyfill$(popovertarget);
           }),
         ]}
       >
