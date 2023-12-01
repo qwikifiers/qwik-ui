@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Qwik UI Utils",
   "publishConfig": {
     "access": "public"
