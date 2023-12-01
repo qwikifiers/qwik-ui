@@ -1,7 +1,8 @@
 import { QwikIntrinsicElements } from '@builder.io/qwik';
 import { Slot, component$, useSignal, $ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
-import './polyfill/popover.js';
+// import './polyfill/popover.js';
+// import { isSupported } from './polyfill/popover.js';
 
 /**
  * A Trigger toggles a Popover given by targetId.
@@ -35,14 +36,11 @@ declare global {
   }
 }
 
-/*
-  TODO: Get Right condition for this: (wrong currently)
-
-  const isSupported =
+/* NEEDS TO RUN BEFORE POLYFILL LOAD, ALSO ONLY DYNAMIC IMPORT */
+const isSupported =
   typeof HTMLElement !== 'undefined' &&
   typeof HTMLElement.prototype === 'object' &&
   'popover' in HTMLElement.prototype;
-*/
 
 const loadPolyfill$ = $(async () => {
   if (document.__QUI_POPOVER_PF__) return;
@@ -52,6 +50,8 @@ const loadPolyfill$ = $(async () => {
   // if (isSupported) return;
 
   document.__QUI_POPOVER_PF__ = true;
+
+  await import('@oddbird/popover-polyfill');
 
   // Emit custom event to indicate polyfill load
   document.dispatchEvent(new CustomEvent('poppolyload'));
@@ -82,7 +82,9 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
 
             console.log('click!');
 
-            if (!hasPolyfillLoadedSig.value) {
+            console.log(isSupported);
+
+            if (!hasPolyfillLoadedSig.value && !isSupported) {
               await loadPolyfill$();
               hasPolyfillLoadedSig.value = true;
             }
