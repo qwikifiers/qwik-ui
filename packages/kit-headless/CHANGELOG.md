@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.21](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.20...headless-0.1.21) (2023-12-01)
+
+
+
 ## [0.1.20](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.19...headless-0.1.20) (2023-11-30)
 
 
