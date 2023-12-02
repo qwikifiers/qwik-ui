@@ -1,8 +1,5 @@
-import { QwikIntrinsicElements } from '@builder.io/qwik';
+import { QwikIntrinsicElements, useOnDocument } from '@builder.io/qwik';
 import { Slot, component$, useSignal, $ } from '@builder.io/qwik';
-import { isServer } from '@builder.io/qwik/build';
-// import './polyfill/popover.js';
-// import { isSupported } from './polyfill/popover.js';
 
 /**
  * A Trigger toggles a Popover given by targetId.
@@ -20,7 +17,7 @@ import { isServer } from '@builder.io/qwik/build';
  * 1. User clicks trigger after SSR
  * 2. onClick$ checks if polyfill needed
  *   - await polyfill
- *   - send quiPopoverPoly event (new custom event) => all Popover components render and pop out but stay hidden
+ *   - send onPopPoly event (new custom event) => all Popover components render and pop out but stay hidden
  * 3. Load floating ui
  * 4. Call .showPopover() on the popovertarget
  * 5. add popovertarget attribute to button and remove onClick$
@@ -29,13 +26,6 @@ import { isServer } from '@builder.io/qwik/build';
  * DONT USE onToggle, do use onPopPolyLoad$ - can only ever run when the polyfill has to run, so never runs on support browsers
  */
 
-declare global {
-  interface Document {
-    /** We needed the polyfill */
-    __QUI_POPOVER_PF__?: true;
-  }
-}
-
 /* NEEDS TO RUN BEFORE POLYFILL LOAD, ALSO ONLY DYNAMIC IMPORT */
 const isSupported =
   typeof HTMLElement !== 'undefined' &&
@@ -43,19 +33,10 @@ const isSupported =
   'popover' in HTMLElement.prototype;
 
 const loadPolyfill$ = $(async () => {
-  if (document.__QUI_POPOVER_PF__) return;
-
-  /* TODO: Get correct polyfill conditional */
-  // console.log('POLYFILL:', !isSupported);
-  // if (isSupported) return;
-
-  document.__QUI_POPOVER_PF__ = true;
-
   await import('@oddbird/popover-polyfill');
 
   // Emit custom event to indicate polyfill load
   document.dispatchEvent(new CustomEvent('poppolyload'));
-  console.log('inside polyfill!');
 });
 
 type PopoverTriggerProps = {
@@ -66,20 +47,38 @@ type PopoverTriggerProps = {
 
 export const PopoverTrigger = component$<PopoverTriggerProps>(
   ({ popovertarget, ...rest }: PopoverTriggerProps) => {
-    const didClickSig = useSignal<boolean>(!isServer);
     const hasPolyfillLoadedSig = useSignal<boolean>(false);
+    const didClickSig = useSignal<boolean>(false);
+
+    // event is created after teleported properly
+    useOnDocument(
+      'showpopover',
+      $(() => {
+        if (!didClickSig.value) return;
+
+        const popover = document.querySelector(`#${popovertarget}`);
+
+        if (!popover) return;
+
+        // calls code in here twice for some reason, we think it's because of the client re-render, but it still works
+
+        // so it only runs once on first click
+        if (!popover.classList.contains(':popover-open')) {
+          // @ts-ignore
+          popover.showPopover();
+          console.log('inside the showpopover doc');
+        }
+      }),
+    );
 
     return (
       <button
         {...rest}
         // @ts-expect-error bad types
-        popovertarget={didClickSig.value ? popovertarget : null}
+        popovertarget={popovertarget}
         onClick$={[
           rest.onClick$,
           $(async () => {
-            if (didClickSig.value) return;
-            didClickSig.value = true;
-
             console.log('click!');
 
             console.log(isSupported);
@@ -89,7 +88,7 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
               hasPolyfillLoadedSig.value = true;
             }
 
-            // TODO: floating ui
+            didClickSig.value = true;
           }),
         ]}
       >

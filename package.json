@@ -140,7 +140,7 @@
   ],
   "dependencies": {
     "@fontsource-variable/inter": "5.0.8",
-    "@oddbird/popover-polyfill": "0.3.5",
+    "@oddbird/popover-polyfill": "0.3.6",
     "tslib": "^2.6.2"
   },
   "nx": {

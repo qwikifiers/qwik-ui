@@ -7,11 +7,11 @@ import {
   type Signal,
   type ClassList,
   createContextId,
+  useTask$,
 } from '@builder.io/qwik';
 
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
-import { useTask$ } from '@builder.io/qwik';
 
 export type PopoverImplProps = {
   id: string;
@@ -52,17 +52,20 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
   /** have we rendered on the client yet? 0: no, 1: force, 2: yes */
   const hasRenderedOnClientSig = useSignal(isServer ? 0 : 2);
-  const shouldTeleportSig = useSignal(false);
+  const teleportSig = useSignal(false);
 
   // This forces a re-render on each popover instance when the signal changes
   if (hasRenderedOnClientSig.value === 1) {
-    console.log('I re-rendered on client!');
+    console.log('I RERENDER!');
     // Now run the task again after we force-rendered the contex
-    setTimeout(() => (shouldTeleportSig.value = true), 0);
+    setTimeout(() => (teleportSig.value = true), 0);
   }
 
   useTask$(async ({ track, cleanup }) => {
-    if (!track(() => shouldTeleportSig.value)) return;
+    track(() => teleportSig.value);
+    console.log('inside task');
+
+    if (isServer) return;
 
     let polyfillContainer: HTMLDivElement | null = document.querySelector(
       'div[data-qwik-ui-popover-polyfill]',
@@ -80,13 +83,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
       polyfillContainer.appendChild(popoverRef.value);
 
-      const triggerElement = document.querySelector(`[popovertarget="${props.id}"]`);
-
-      // if (triggerElement.popovertarget !== popoverRef.value)
-
-      if (triggerElement) {
-        popoverRef.value.showPopover();
-      }
+      document.dispatchEvent(new CustomEvent('showpopover'));
 
       cleanup(
         () =>
@@ -121,8 +118,6 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       }}
       // This gets called when the polyfill loads and we need to pop out
       document:onPopPolyLoad$={() => {
-        console.log('I run in popoly!');
-
         if (hasRenderedOnClientSig.value === 0) {
           // Force re-render and wait for teleport signal
           hasRenderedOnClientSig.value = 1;
