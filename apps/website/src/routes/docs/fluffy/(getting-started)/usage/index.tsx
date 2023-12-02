@@ -13,5 +13,5 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'QwikUI Usage'
+  title: 'QwikUI Usage',
 };

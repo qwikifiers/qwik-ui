@@ -1,0 +1,310 @@
+---
+title: Qwik UI | Accordion
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.headless.Accordion} />
+
+# Accordion
+
+A stacked set of interactive headings which reveal or hide their associated content.
+
+<Showcase name="hero" />
+
+Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
+
+##### ✨ Features
+
+- Full keyboard navigation
+- Single or Multi Accordion
+- Controlled or uncontrolled
+- Animatable, dynamic, and resumable
+
+<div class="mb-6 flex flex-col gap-2">
+[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/accordion)
+
+[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
+
+[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/accordion/index.mdx>)
+
+</div>
+
+> Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. While these widgets can be used without JavaScript, they come with their own accessibility drawbacks.
+
+## Building blocks
+
+```tsx
+import { component$ } from '@builder.io/qwik';
+import {
+  AccordionRoot,
+  AccordionItem,
+  AccordionHeader,
+  AccordionTrigger,
+  AccordionContent,
+} from '@qwik-ui/headless';
+
+export default component$(() => {
+  return (
+    <AccordionRoot>
+      <AccordionItem>
+        <AccordionHeader>
+          <AccordionTrigger>Title</AccordionTrigger>
+        </AccordionHeader>
+        <AccordionContent>Content</AccordionContent>
+      </AccordionItem>
+    </AccordionRoot>
+  );
+});
+```
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'AccordionRoot',
+      description: 'The root container for the accordion.',
+    },
+    {
+      name: 'AccordionItem',
+      description: `An item inside of the root. It contains the item's heading, trigger, and content.`,
+    },
+    {
+      name: 'AccordionHeader',
+      description: `An HTML Heading Element. The default is set to h3, can be changed with the as prop.`,
+    },
+    {
+      name: 'AccordionTrigger',
+      description: `Toggles the corresponding content when clicked or activated. It should be placed within the AccordionHeader component.`,
+    },
+    {
+      name: 'AccordionContent',
+      description: `Contains the content associated with an item when clicking on its respective trigger.`,
+    },
+  ]}
+/>
+
+## Multiple items
+
+<Showcase name="multi" />
+
+### Animations
+
+The previous two examples make use of the **animated** prop. This prop allows you to use the `transition` and `animation` properties without the content immediately closing. In the future, there will be native browser support for transitioning display.
+
+If you're curious about how the accordion is animated, you can use a built-in Qwik UI variable called **--qwikui-accordion-content-height**.
+
+The variable calculates the content height behind the scenes, so that you can use this variable in your keyframes. Out of the box, you can use the `accordion-open` and `accordion-close` keyframes in your project. These use an `animation` declaration on the height property.
+
+> The animation above makes use of the overflow hidden declaration. You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
+
+## Non-collapsible
+
+<Showcase name="non-collapsible" />
+
+By default, the <strong>collapsible</strong> prop is set to true. You can revert this behavior by setting it to false in the Accordion Root component.
+
+## Disabled
+
+<Showcase name="disabled" />
+
+When disabling an accordion trigger, you're adding the default disabled browser behavior, along with removing the element from the focus order.
+
+Any disabled elements will be skipped over when using tab or the `Up Arrow` and `Down Arrow` keys. You can do this by adding the **disabled** prop on any trigger.
+
+## Default Value
+
+<Showcase name="default-value" />
+
+You can make the accordion items uncontrolled by adding the **defaultValue** prop on the items. This will open an accordion item without user interaction, and can be used on both type single and multi accordions.
+
+> Keep in mind: if you're using `behavior="single"` with multiple defaultValue accordion items, the last item will be the one that opens. You may experience flickering behavior as well.
+
+## Custom Heading Label
+
+<Showcase name="custom-heading" />
+
+By default, when using the `AccordionHeader` component, it's rendered as an `h3` tag. You can render your heading of choice by using the **as** prop.
+
+## Selected Index
+
+<Showcase name="selected-index" />
+
+`onSelectedIndexChange$` will keep track of the current selected index. It can be useful for when you want to programmatically change something based on a user's interaction.
+
+## Focused Index
+
+<Showcase name="focused-index" />
+
+`onFocusIndexChange$` will keep track of the current focused index. It can be useful for when you want to programmatically change something based on what the user focuses.
+
+> When a user clicks a trigger, they are also focusing it, which is worth keeping in mind.
+
+## Dynamic
+
+<Showcase name="dynamic" />
+
+You can embrace reactivity, using signals, stores, and however else you'd like to use the Accordion with dynamic behavior.
+
+When an Accordion Item is removed, a [Visible Task](https://qwik.builder.io/docs/components/tasks/#usevisibletask) runs that will clean up the DOM node in the browser, ensuring that you stay clear of race condition or memory leak issues.
+
+> You can add or remove something at any index and the focus order will adhere to the DOM hierarchy!
+
+<div class="my-4">
+  If you'd prefer to add your own <strong>id</strong> to the Accordion Item with dynamic
+  behavior, you can add the `id` prop to the Accordion Item. This can be useful when you'd
+  like the id value to be sync with your custom logic.
+</div>
+
+By default, the Accordion Item has a locally scoped id with Qwik's `useId` hook. All children elements will be prefixed by its respective item id, followed by a dash and the element. For example, `{id}-trigger`.
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable keyDescriptors={
+[
+  {
+    keyTitle: 'Tab',
+    description: 'Moves focus to the next focusable trigger.',
+  },
+  {
+    keyTitle: 'Shift + Tab',
+    description: 'Moves focus to the previous focusable trigger.',
+  },
+  {
+    keyTitle: 'Space / Enter',
+    description: 'Expand or collapse the Accordion Trigger.',
+  },
+  {
+    keyTitle: 'Up Arrow',
+    description: 'When focus is on an accordion trigger, it will move to the previous one, or the last if at the top.'
+  },
+  {
+    keyTitle: 'Down Arrow',
+    description: 'When focus is on an accordion trigger, it will move to the next one, or the first if at the bottom.'
+  },
+  {
+    keyTitle: 'Home',
+    description: 'When on an Accordion Trigger, Moves focus to the first Accordion Trigger.',
+  },
+  {
+    keyTitle: 'End',
+    description: 'When on an Accordion Trigger, Moves focus to the last Accordion Trigger.',
+  },
+
+]
+}/>
+
+## API
+
+### Accordion Root
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'behavior',
+      type: 'string',
+      description:
+        'Determines whether the Accordion will open one or multiple items at a time.',
+    },
+    {
+      name: 'collapsible',
+      type: 'boolean',
+      description: 'Will allow the accordion to collapse items if set to true.',
+    },
+    {
+      name: 'animated',
+      type: 'boolean',
+      description:
+        'Allows the trigger to close using the onAnimationEnd$ and onTransitionEnd$ event handlers.',
+    },
+    {
+      name: 'onSelectedIndexChange$',
+      type: 'function',
+      info: 'PropFunction<(index: number) => void>',
+      description:
+        'An event hook that gets notified whenever the selected index changes.',
+    },
+    {
+      name: 'onFocusIndexChange$',
+      type: 'function',
+      info: 'PropFunction<(index: number) => void>',
+      description: 'An event hook that gets notified whenever the focus index changes.',
+    },
+  ]}
+/>
+
+### Accordion Item
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'id',
+      type: 'string',
+      description:
+        'Allows the consumer to supply their own id attribute for the item and its descendants.',
+    },
+    {
+      name: 'defaultValue',
+      type: 'boolean',
+      description: 'Determines whether the Accordion Item will open by default.',
+    },
+  ]}
+/>
+
+### Accordion Header
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'as',
+      type: 'union',
+      info: `'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'`,
+      description: 'Sets the heading tag of the Accordion Header (Rendered HTML)',
+    },
+  ]}
+/>
+
+### Common Built-in Props
+
+Thanks to `QwikIntrinsicAttributes` , you can use most if not all normal JSX props and handlers on the semantically correlated component. Here are some of the most common ones:
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes you can apply',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      description: 'CSS styles you can apply',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Disables the element',
+    },
+    {
+      name: 'onClick$',
+      type: 'function',
+      info: 'PropFunction<() => void>',
+      description: 'A custom click handler that executes when the element is clicked.',
+    },
+    {
+      name: 'onKeyDown$',
+      type: 'function',
+      info: 'PropFunction<() => void>',
+      description: 'A custom click handler that executes when the key is pressed down.',
+    },
+    {
+      name: 'onFocus$',
+      type: 'function',
+      info: 'PropFunction<() => void>',
+      description: 'A custom click handler that executes when element is focused.',
+    },
+  ]}
+/>

@@ -9,7 +9,7 @@ import {
   useSignal,
   useVisibleTask$,
 } from '@builder.io/qwik';
-import { OmitSignalClass } from '@qwik-ui/type-utils';
+import { OmitSignalClass } from '@qwik-ui/utils';
 
 export const getPercentage = (value: number, min = 0, max = 100) => {
   return ((value - min) * 100) / (max - min);

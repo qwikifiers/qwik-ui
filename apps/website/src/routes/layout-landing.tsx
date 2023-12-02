@@ -1,10 +1,9 @@
 import { component$, Slot, useContext, useVisibleTask$ } from '@builder.io/qwik';
-import { OLD_APP_STATE_CONTEXT_ID } from '../constants';
-import Header from './_components/header/header';
-
-import { useAppState } from '../_state/use-app-state';
-import { Footer } from './_components/footer/footer';
-import { DocsNavigation } from './docs/_components/navigation-docs/navigation-docs';
+import { OLD_APP_STATE_CONTEXT_ID } from '~/constants';
+import Header from '~/components/header/header';
+import { useAppState } from '~/_state/use-app-state';
+import { Footer } from '~/components/footer/footer';
+import { DocsNavigation } from '~/components/navigation-docs/navigation-docs';
 
 export default component$(() => {
   // useStyles$(globalStyles);

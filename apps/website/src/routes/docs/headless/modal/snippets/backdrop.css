@@ -1,0 +1,8 @@
+/* class we add to <Modal /> */
+.my-backdrop::backdrop {
+  /* changing background */
+  background: rgba(0, 0, 0, 0.4);
+
+  /* providing multiple filters */
+  backdrop-filter: grayscale(90%) blur(10px);
+}

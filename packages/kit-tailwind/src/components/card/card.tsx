@@ -1,6 +1,6 @@
 import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
 import { Card as HeadlessCard } from '@qwik-ui/headless';
-import type { OmitSignalClass } from '@qwik-ui/type-utils';
+import type { OmitSignalClass } from '@qwik-ui/utils';
 
 export type CardProps = OmitSignalClass<HTMLAttributes<HTMLElement>>;
 

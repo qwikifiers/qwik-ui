@@ -8,7 +8,7 @@
   "main": "./lib/index.qwik.cjs",
   "qwik": "./lib/index.qwik.mjs",
   "module": "./lib/index.qwik.mjs",
-  "types": "./qwik-ui/packages/kit-material/src/index.d.ts",
+  "types": "./packages/kit-material/src/index.d.ts",
   "type": "module",
   "exports": {
     ".": {

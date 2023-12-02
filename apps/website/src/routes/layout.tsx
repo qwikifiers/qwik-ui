@@ -1,20 +1,22 @@
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 import { ContentMenu, useContent } from '@builder.io/qwik-city';
 import { QwikUIProvider } from '@qwik-ui/headless';
-import { ComponentsStatusesMap, statusByComponent } from '../_state/component-statuses';
-import { KitName } from '../_state/kit-name.type';
-import { useAppState } from '../_state/use-app-state';
-import Header from './_components/header/header';
+import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
+import { KitName } from '~/_state/kit-name.type';
+import { useAppState } from '~/_state/use-app-state';
+import Header from '~/components/header/header';
 import docsStyles from './docs.css?inline';
 import {
   DocsNavigation,
   LinkGroup,
   LinkProps,
-} from './docs/_components/navigation-docs/navigation-docs';
+} from '~/components/navigation-docs/navigation-docs';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
 import '@fontsource-variable/inter';
+import { MDXProvider } from '~/_state/MDXProvider';
+import { components } from '~/components/mdx-components';
 
 export default component$(() => {
   useStyles$(prismStyles);
@@ -27,12 +29,16 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <QwikUIProvider>
-        <div class="mt-20 flex">
-          <DocsNavigation linksGroups={menuItemsGroups} />
-          <main class="docs">
-            <Slot />
-          </main>
-        </div>
+        <MDXProvider components={components}>
+          <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl grid">
+            <DocsNavigation linksGroups={menuItemsGroups} />
+            <main class="docs [grid-area:main]">
+              <Slot />
+            </main>
+            {/* future table of contents */}
+            <div class="hidden [grid-area:toc]"></div>
+          </div>
+        </MDXProvider>
       </QwikUIProvider>
       <footer></footer>
     </>

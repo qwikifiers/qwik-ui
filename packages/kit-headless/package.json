@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/headless",
-  "version": "0.1.15",
+  "version": "0.1.17",
   "description": "Qwik UI headless components library",
   "publishConfig": {
     "access": "public"
@@ -8,7 +8,7 @@
   "main": "./index.qwik.cjs",
   "qwik": "./index.qwik.mjs",
   "module": "./index.qwik.mjs",
-  "types": "./qwik-ui/packages/kit-headless/src/index.d.ts",
+  "types": "./index.qwik.d.ts",
   "type": "module",
   "exports": {
     ".": {
@@ -22,11 +22,14 @@
   "private": false,
   "scripts": {},
   "peerDependencies": {
-    "@builder.io/qwik": ">1.2.11"
+    "@builder.io/qwik": ">=1.2.19"
   },
   "dependencies": {
-    "@floating-ui/dom": "1.0.10",
+    "@qwik-ui/utils": "workspace:*",
+    "@floating-ui/dom": "^1.0.10",
+    "body-scroll-lock": "^4.0.0-beta.0",
     "country-list-json": "^1.1.0",
+    "focus-trap": "^7.5.3",
     "libphonenumber-js": "^1.10.43"
   }
 }

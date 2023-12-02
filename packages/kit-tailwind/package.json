@@ -7,7 +7,7 @@
   },
   "main": "./index.qwik.cjs",
   "qwik": "./index.qwik.mjs",
-  "types": "./qwik-ui/packages/kit-tailwind/src/index.d.ts",
+  "types": "./packages/kit-tailwind/src/index.d.ts",
   "module": "./index.qwik.mjs",
   "type": "module",
   "exports": {
@@ -33,9 +33,9 @@
     "qwik": "qwik"
   },
   "dependencies": {
-    "daisyui": "^2.50.1"
+    "daisyui": "^3.6.4"
   },
   "peerDependencies": {
-    "@builder.io/qwik": ">1.2.11"
+    "@builder.io/qwik": "^1.2.11"
   }
 }

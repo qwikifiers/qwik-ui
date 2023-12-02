@@ -1,15 +1,15 @@
 import {
   $,
-  component$,
-  createContextId,
   QwikIntrinsicElements,
   Slot,
+  component$,
+  createContextId,
   useContext,
   useContextProvider,
-  useStylesScoped$,
   useId,
+  useStylesScoped$,
 } from '@builder.io/qwik';
-import { useOrdinal } from '@qwik-ui/shared';
+import { useOrdinal } from '@qwik-ui/utils';
 
 import stylesButtons from './styles/buttons.css?inline';
 import stylesControl from './styles/control.css?inline';

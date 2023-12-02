@@ -1,0 +1,59 @@
+.my-animation::backdrop {
+  background: hsla(0, 0%, 0%, 0.5);
+}
+
+.my-animation.modal-showing {
+  animation: modalOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
+}
+
+.my-animation.modal-showing::backdrop {
+  animation: modalFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
+}
+
+.my-animation.modal-closing {
+  animation: modalClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
+}
+
+.my-animation.modal-closing::backdrop {
+  animation: modalFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
+}
+
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+    transform: scale(150%);
+  }
+  to {
+    opacity: 1;
+    transform: scale(100%);
+  }
+}
+
+@keyframes modalClose {
+  from {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-200%);
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

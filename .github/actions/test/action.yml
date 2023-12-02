@@ -33,7 +33,7 @@ runs:
     - name: Run Cypress component tests
       uses: cypress-io/github-action@v5
       with:
-        command: 'pnpm test:headless:ci'
+        command: 'pnpm test.headless.ci'
 
     # - name: Publish to Chromatic
     #   uses: chromaui/action@v1
@@ -66,7 +66,6 @@ runs:
     - name: Lint PR
       if: github.event_name == 'pull_request'
       shell: bash
-      run: pnpm danger ci --use-github-checks --failOnErrors
-      working-directory: packages/bots
+      run: pnpm danger ci --use-github-checks --failOnErrors -d .dangerfile.ts
       env:
         DANGER_GITHUB_API_TOKEN: ${{ inputs.github_token }}

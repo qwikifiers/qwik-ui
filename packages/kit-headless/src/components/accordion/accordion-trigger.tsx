@@ -121,18 +121,22 @@ export const AccordionTrigger = component$(
         aria-disabled={disabled}
         data-trigger-id={triggerId}
         data-state={isTriggerExpandedSig.value ? 'open' : 'closed'}
-        onClick$={[
-          $(() => {
-            selectedTriggerIdSig.value = triggerId;
+        onClick$={
+          disabled
+            ? []
+            : [
+                $(() => {
+                  selectedTriggerIdSig.value = triggerId;
 
-            setSelectedTriggerIndexSig$();
+                  setSelectedTriggerIndexSig$();
 
-            collapsible
-              ? (isTriggerExpandedSig.value = !isTriggerExpandedSig.value)
-              : (isTriggerExpandedSig.value = true);
-          }),
-          props.onClick$,
-        ]}
+                  collapsible
+                    ? (isTriggerExpandedSig.value = !isTriggerExpandedSig.value)
+                    : (isTriggerExpandedSig.value = true);
+                }),
+                props.onClick$,
+              ]
+        }
         aria-expanded={isTriggerExpandedSig.value}
         aria-controls={contentId}
         onKeyDown$={[

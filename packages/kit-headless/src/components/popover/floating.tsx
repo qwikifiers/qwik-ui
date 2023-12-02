@@ -8,7 +8,6 @@ import {
   type Signal,
   Slot,
 } from '@builder.io/qwik';
-import { OmitSignalClass } from '@qwik-ui/type-utils';
 import {
   ReferenceElement,
   autoUpdate,
@@ -19,6 +18,7 @@ import {
   autoPlacement as _autoPlacement,
   hide as _hide,
 } from '@floating-ui/dom';
+import { OmitSignalClass } from '@qwik-ui/utils';
 
 declare global {
   interface Document {
