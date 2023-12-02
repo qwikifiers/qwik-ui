@@ -12,8 +12,6 @@ export type SelectListBoxProps = QwikIntrinsicElements['ul'];
 
 export const SelectListBox = component$((props: SelectListBoxProps) => {
   const indexDiffSignal = useSignal<number | undefined>(undefined);
-  const listBoxRefSignal = useSignal<HTMLElement>();
-  const selectContextSignal = useContext(SelectContextId);
   const prevTimeoutSignal = useSignal<undefined | NodeJS.Timeout>(undefined);
   const inputStrgSignal = useSignal('');
   const fullStrgSearchFailedSignal = useSignal(false);
