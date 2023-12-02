@@ -30,6 +30,7 @@ export default defineConfig({
       'Cache-Control': 'public, max-age=600',
     },
   },
+  // @ts-ignore
   test: {
     globals: true,
     cache: {

@@ -14,6 +14,7 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
   const context = useContext(CarouselContextId);
   const slideRef = useSignal<HTMLDivElement | undefined>();
   const localIndexSig = useSignal<number | null>(null);
+  const initialDragTransformX = useSignal<number>(0);
 
   useTask$(() => {
     // local index
@@ -46,19 +47,23 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
       window:onPointerUp$={(e) => {
         console.log('Pointer up');
 
-        if (!context.isDraggingSig.value) {
-          return;
-        }
-
         context.isDraggingSig.value = false;
 
         if (!context.containerRef.value || !slideRef.value) {
           return;
         }
 
+        /*
+          TODO: figure out why a separate DOMMatrix is why dragging and the buttons work properly.
+
+        */
+        const style = window.getComputedStyle(context.containerRef.value);
+        const matrix = new DOMMatrix(style.transform);
+        initialDragTransformX.value = matrix.m41;
+
         const deltaX = e.clientX - context.initialX.value;
 
-        const containerTranslateX = context.initialTransformX.value + deltaX;
+        const containerTranslateX = initialDragTransformX.value + deltaX;
         const absContainerTranslateX = Math.abs(containerTranslateX);
 
         if (!context.viewportRef.value) {
