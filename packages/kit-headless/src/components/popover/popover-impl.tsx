@@ -79,7 +79,9 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
     if (popoverRef.value) {
       // user passed in popover ref (context, state, etc.)
-      if (props.popoverRef) props.popoverRef.value = popoverRef.value;
+      if (props.popoverRef) {
+        props.popoverRef.value = popoverRef.value;
+      }
 
       polyfillContainer.appendChild(popoverRef.value);
 

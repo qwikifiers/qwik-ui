@@ -3,7 +3,7 @@ import { PopoverImpl } from './popover-impl';
 import {
   type QwikIntrinsicElements,
   component$,
-  useVisibleTask$,
+  useTask$,
   useSignal,
   type Signal,
   Slot,
@@ -81,7 +81,7 @@ export const FloatingPopover = component$(
     const popoverRef = props.popoverRef || myRef;
 
     // sets floating UI config
-    useVisibleTask$(({ track, cleanup }) => {
+    useTask$(({ track, cleanup }) => {
       const anchor = track(() => anchorRef?.value);
       const popover = track(() => popoverRef.value);
       if (!popover || !anchor) return;

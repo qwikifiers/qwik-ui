@@ -1,0 +1,52 @@
+[36m[vite-plugin-static-copy][39m [32mCollected 1 items.[39m
+There isn't currently a way of setting the device scale factor in Cypress when running headed electron so we disable the image regression commands.
+
+  ❗️ [35mExpect significant performance loss in development.[39m
+  ❗️ [35mDisabling the browser's cache results in waterfall requests.[39m
+[0mGET /__/ [32m200 [0m6.615 ms - -[0m
+[0mGET /__/assets/index-525dc2a5.css [32m200 [0m8.945 ms - -[0m
+[0mGET /__/assets/polyfills-006e5e5b.js [32m200 [0m13.488 ms - -[0m
+[0mGET /__/assets/index-5bbbdf93.js [32m200 [0m8.955 ms - -[0m
+[0mGET /__cypress/runner/cypress_runner.css [32m200 [0m3.486 ms - -[0m
+[0mGET /__/assets/Specs-e9240807.js [32m200 [0m12.159 ms - 523[0m
+[0mGET /__/assets/route-block-c0a8bdd8.js [32m200 [0m12.776 ms - 45[0m
+[0mGET /__/assets/TrackedBanner.vue_vue_type_script_setup_true_lang-e138f485.js [32m200 [0m11.494 ms - -[0m
+[0mGET /__/assets/InlineCodeFragment-63f519c9.css [32m200 [0m15.275 ms - 310[0m
+[0mGET /__/assets/Index-f90bad12.css [32m200 [0m17.629 ms - -[0m
+[0mGET /__/assets/InlineCodeFragment.vue_vue_type_script_setup_true_lang-3df588b3.js [32m200 [0m13.978 ms - -[0m
+[0mGET /__/assets/Index-6801d669.js [32m200 [0m13.139 ms - -[0m
+[0mGET /__/assets/box-open_x48-24d4c3b5.js [32m200 [0m19.851 ms - -[0m
+[0mGET /__/assets/SpecPatterns.vue_vue_type_script_setup_true_lang-cb3162d7.js [32m200 [0m19.142 ms - -[0m
+[0mGET /__/assets/graphql-9afecfe5.js [32m200 [0m6.536 ms - 535[0m
+[0mGET /__/assets/SpecNameDisplay.vue_vue_type_script_setup_true_lang-62774501.js [32m200 [0m5.367 ms - -[0m
+[0mGET /__/assets/PromoHeader.vue_vue_type_script_setup_true_lang-9e5a68a5.js [32m200 [0m4.557 ms - -[0m
+[0mGET /__/assets/settings_x16-ee6bba77.js [32m200 [0m3.198 ms - -[0m
+[0mGET /__/assets/cypress_s-29af549a.png [32m200 [0m6.234 ms - 4425[0m
+[0mGET /__cypress/runner/cypress_runner.js [32m200 [0m4.143 ms - -[0m
+[0mGET /__/assets/electron-fb07f5cc.svg [32m200 [0m2.666 ms - -[0m
+[0mGET /__/assets/chrome-98045c79.svg [32m200 [0m3.524 ms - -[0m
+[0mGET /__cypress/runner/mobxreact.cjs.production.min.js.map [33m404 [0m0.792 ms - 136[0m
+[0mGET /__/assets/Switch.vue_vue_type_script_setup_true_lang-fd5801ac.js [32m200 [0m2.069 ms - -[0m
+[0mGET /__/assets/refresh_x16-b98f3218.js [32m200 [0m1.993 ms - -[0m
+[0mGET /__/assets/Runner-d26b5796.css [32m200 [0m2.082 ms - -[0m
+[0mGET /__/assets/Runner-7ab89adf.js [32m200 [0m2.631 ms - -[0m
+[0mGET /__cypress/iframes/index.html?specPath=/home/jackshelton/dev/open-source/qwik-ui/packages/kit-headless/src/components/accordion/accordion.spec.tsx [32m200 [0m53.656 ms - -[0m
+[0mGET /__cypress/src/cypress/support/component.ts [32m200 [0m222.034 ms - -[0m
+[0mGET /__cypress/src/@fs/home/jackshelton/dev/open-source/qwik-ui/packages/kit-headless/src/components/accordion/accordion.spec.tsx [32m200 [0m220.773 ms - -[0m
+[0mGET /__cypress/src/cypress/support/component.ts [36m304 [0m44.751 ms - -[0m
+[0mGET /__cypress/src/node_modules/.vite/deps/@frsource_cypress-plugin-visual-regression-diff.js?v=b2e8e74e [32m200 [0m16.315 ms - -[0m
+[0mGET /__cypress/src/node_modules/.vite/deps/cypress-ct-qwik.js?v=b2e8e74e [32m200 [0m14.832 ms - -[0m
+[0mGET /__cypress/src/node_modules/.vite/deps/cypress-axe.js?v=b2e8e74e [32m200 [0m41.167 ms - -[0m
+[0mGET /__cypress/src/cypress/support/commands.ts [32m200 [0m30.270 ms - -[0m
+[0mGET /__cypress/src/node_modules/.vite/deps/chunk-GFT2G5UO.js?v=b2e8e74e [32m200 [0m74.184 ms - -[0m
+[0mGET /__cypress/src/@fs/home/jackshelton/dev/open-source/qwik-ui/node_modules/.pnpm/@builder.io+qwik@1.2.19_@types+node@20.5.7_sass@1.66.1_undici@5.28.1/node_modules/@builder.io/qwik/loader/index.mjs?v=b2e8e74e [32m200 [0m116.057 ms - -[0m
+[0mGET /__cypress/src/node_modules/.vite/deps/cypress-real-events.js?v=b2e8e74e [32m200 [0m85.943 ms - -[0m
+[0mGET /__cypress/src/node_modules/.vite/deps/axe-core.js?v=b2e8e74e [32m200 [0m69.227 ms - -[0m
+[0mGET /__cypress/src/node_modules/.vite/deps/@testing-library_cypress_add-commands.js?v=b2e8e74e [32m200 [0m109.074 ms - -[0m
+[0mGET /__cypress/src/@fs/home/jackshelton/dev/open-source/qwik-ui/node_modules/.pnpm/@builder.io+qwik@1.2.19_@types+node@20.5.7_sass@1.66.1_undici@5.28.1/node_modules/@builder.io/qwik/core.mjs?v=b2e8e74e [32m200 [0m91.942 ms - -[0m
+[0mGET /__cypress/src/@vite/client [32m200 [0m14.563 ms - -[0m
+[0mGET /__cypress/src/@builder.io/qwik/build [32m200 [0m15.579 ms - -[0m
+[2m2:28:02 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcypress/support/commands.ts[22m
+[2m2:28:02 PM[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[2m2:28:02 PM[22m [36m[1m[vite][22m[39m server restarted.
+[36m[vite-plugin-static-copy][39m [32mCollected 1 items.[39m

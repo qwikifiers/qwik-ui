@@ -1,0 +1,24 @@
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+
+  ❗️ [35mExpect significant performance loss in development.[39m
+  ❗️ [35mDisabling the browser's cache results in waterfall requests.[39m
+
+[35m🌼 daisyUI 3.6.4[0m [0mhttps://daisyui.com
+╰╮
+ ╰─ [32m✔︎[0m [2m[ [0m2[2m ][0m themes are enabled. You can add more themes or make your own theme:
+      https://daisyui.com/docs/themes
+
+[32m    ❤︎ Support daisyUI[0m: https://opencollective.com/daisyui[0m
+
+
+[35m🌼 daisyUI 3.6.4[0m [0mhttps://daisyui.com
+╰╮
+ ╰─ [32m✔︎[0m [2m[ [0m2[2m ][0m themes are enabled. You can add more themes or make your own theme:
+      https://daisyui.com/docs/themes
+
+[32m    ❤︎ Support daisyUI[0m: https://opencollective.com/daisyui[0m
+
+[2m4:52:43 PM[22m [36m[1m[vite][22m[39m [32m✨ new dependencies optimized: [33m@floating-ui/dom, clipboard-copy[32m[39m
+[2m4:52:43 PM[22m [36m[1m[vite][22m[39m [32m✨ new dependencies optimized: [33mbody-scroll-lock, country-list-json, tailwind-merge, focus-trap, libphonenumber-js[32m[39m
+[2m4:52:43 PM[22m [36m[1m[vite][22m[39m [32m✨ optimized dependencies changed. reloading[39m

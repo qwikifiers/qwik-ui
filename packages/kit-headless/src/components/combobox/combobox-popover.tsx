@@ -11,16 +11,17 @@ export const ComboboxPopover = component$(
     const popoverId = `${context.localId}-popover`;
 
     /* REMEMBER, whenever an option is selected or onMouseDown$ the listbox is closed, and the popover should sync to that */
-    useTask$(function syncPopoverStateTask({ track }) {
+    useTask$(async ({ track }) => {
       track(() => context.isListboxOpenSig.value);
+      track(() => context.popoverRef.value);
 
-      if (!context.popoverRef.value) {
-        return;
+      console.log('LISTBOX OPEN: ', context.isListboxOpenSig.value);
+
+      if (context.isListboxOpenSig.value) {
+        context.popoverRef.value?.showPopover();
+      } else {
+        context.popoverRef.value?.hidePopover();
       }
-
-      context.isListboxOpenSig.value
-        ? context.popoverRef.value.showPopover()
-        : context.popoverRef.value.hidePopover();
     });
 
     return (
