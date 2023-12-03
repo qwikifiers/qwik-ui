@@ -4,6 +4,7 @@ import { isBrowser } from '@builder.io/qwik/build';
 
 type PopoverTriggerProps = {
   popovertarget: string;
+  disableClickInitPopover: boolean;
   // TODO anchor for floatingui
   // TODO toggle? on/off?
 } & QwikIntrinsicElements['button'];
@@ -87,7 +88,7 @@ export function usePopover(popovertarget: string) {
 }
 
 export const PopoverTrigger = component$<PopoverTriggerProps>(
-  ({ popovertarget, ...rest }: PopoverTriggerProps) => {
+  ({ popovertarget, disableClickInitPopover = false, ...rest }: PopoverTriggerProps) => {
     const { initPopover$ } = usePopover(popovertarget);
 
     return (
@@ -97,9 +98,11 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
         popovertarget={popovertarget}
         onClick$={[
           rest.onClick$,
-          $(() => {
-            initPopover$();
-          }),
+          !disableClickInitPopover
+            ? $(() => {
+                initPopover$();
+              })
+            : undefined,
         ]}
       >
         <Slot />

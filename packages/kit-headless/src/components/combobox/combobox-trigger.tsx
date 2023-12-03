@@ -18,12 +18,13 @@ export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
   return (
     <PopoverTrigger
       {...props}
+      disableClickInitPopover={true}
       ref={context.triggerRef}
-      onMouseDown$={[
+      onClick$={[
         $(() => {
           context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
         }),
-        props.onMouseDown$,
+        props.onClick$,
       ]}
       tabIndex={-1}
       aria-haspopup="listbox"
