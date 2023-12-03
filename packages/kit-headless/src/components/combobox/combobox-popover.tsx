@@ -1,5 +1,5 @@
 import { component$, useContext, Slot, useTask$ } from '@builder.io/qwik';
-import { Popover } from '../popover';
+import { Popover, usePopover } from '../popover';
 
 import ComboboxContextId from './combobox-context-id';
 import { FloatingProps } from '../popover/floating';
@@ -9,6 +9,7 @@ export const ComboboxPopover = component$(
   (props: Partial<FloatingProps & PopoverImplProps>) => {
     const context = useContext(ComboboxContextId);
     const popoverId = `${context.localId}-popover`;
+    const { initPopover$ } = usePopover(popoverId);
 
     /* REMEMBER, whenever an option is selected or onMouseDown$ the listbox is closed, and the popover should sync to that */
     useTask$(async ({ track }) => {
@@ -18,6 +19,7 @@ export const ComboboxPopover = component$(
       console.log('LISTBOX OPEN: ', context.isListboxOpenSig.value);
 
       if (context.isListboxOpenSig.value) {
+        await initPopover$();
         context.popoverRef.value?.showPopover();
       } else {
         context.popoverRef.value?.hidePopover();
