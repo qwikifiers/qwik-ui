@@ -15,13 +15,11 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
   const prevTimeoutSignal = useSignal<undefined | NodeJS.Timeout>(undefined);
   const inputStrgSignal = useSignal('');
   const fullStrgSearchFailedSignal = useSignal(false);
-  const listBoxRef = useSignal<HTMLElement>();
-  const selectContext = useContext(SelectContextId);
-  selectContext.listBoxRefSig = listBoxRef;
+  const context = useContext(SelectContextId);
 
   useVisibleTask$(function setKeyHandler({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
-      const availableOptions = selectContext.optionsStore.filter(
+      const availableOptions = context.optionsStore.filter(
         (option) => !(option?.getAttribute('aria-disabled') === 'true'),
       );
       const target = e.target as HTMLElement;
@@ -53,16 +51,12 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         }
       }
 
-      if (prevTimeoutSignal.value === undefined) {
-        prevTimeoutSignal.value = setTimeout(() => {
-          inputStrgSignal.value = '';
-        }, 500);
-      } else {
-        clearTimeout(prevTimeoutSignal.value);
-        prevTimeoutSignal.value = setTimeout(() => {
-          inputStrgSignal.value = '';
-        }, 500);
-      }
+      clearTimeout(prevTimeoutSignal.value);
+
+      prevTimeoutSignal.value = setTimeout(() => {
+        inputStrgSignal.value = '';
+      }, 500);
+
       const searchFirstCharOnly =
         inputStrgSignal.value.length < 1 || fullStrgSearchFailedSignal.value;
       if (searchFirstCharOnly) {
@@ -104,34 +98,34 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
           return e.textContent!.toLowerCase();
         });
         const searchStrg = inputStrgSignal.value + e.key.toLowerCase();
-        const firstPossibleOption = strgOptions.findIndex((e) => {
+        const firstPossibleOptIndex = strgOptions.findIndex((e) => {
           const size = searchStrg.length;
           return e.substring(0, size) === searchStrg;
         });
-        if (firstPossibleOption !== -1) {
-          availableOptions[firstPossibleOption].focus();
+        if (firstPossibleOptIndex !== -1) {
+          availableOptions[firstPossibleOptIndex].focus();
           inputStrgSignal.value = searchStrg;
-          indexDiffSignal.value = firstPossibleOption + 1;
+          indexDiffSignal.value = firstPossibleOptIndex + 1;
         } else {
           clearTimeout(prevTimeoutSignal.value);
           fullStrgSearchFailedSignal.value = true;
         }
       }
     }
-    listBoxRef.value?.addEventListener('keydown', keyHandler);
+    context.listboxRef.value?.addEventListener('keydown', keyHandler);
     cleanup(() => {
-      listBoxRef.value?.removeEventListener('keydown', keyHandler);
+      context.listboxRef.value?.removeEventListener('keydown', keyHandler);
     });
   });
 
   return (
     <ul
-      ref={listBoxRef}
+      ref={context.listboxRef}
       role="listbox"
       tabIndex={0}
-      hidden={!selectContext.isListboxHiddenSig.value}
+      hidden={!context.isListboxHiddenSig.value}
       style={`
-        display: ${selectContext.isOpenSig.value ? 'block' : 'none'};
+        display: ${context.isOpenSig.value ? 'block' : 'none'};
         position: absolute;
         z-index: 1;
         ${props.style}
