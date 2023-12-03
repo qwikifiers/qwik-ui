@@ -15,6 +15,7 @@ import {
   getNextEnabledOptionIndex,
   getPrevEnabledOptionIndex,
 } from './utils';
+import { usePopover } from '../popover';
 
 export type ComboboxInputProps = {
   disableOnBlur?: boolean;
@@ -26,6 +27,8 @@ export const ComboboxInput = component$(
     ...props
   }: ComboboxInputProps) => {
     const context = useContext(ComboboxContextId as ContextId<ComboboxContext<O>>);
+    const triggerId = `${context.localId}-trigger`;
+    const { initPopover$ } = usePopover(triggerId);
 
     const inputId = props.id || `${context.localId}-input`;
     const listboxId = `${context.localId}-listbox`;
@@ -149,7 +152,7 @@ export const ComboboxInput = component$(
         }
         aria-controls={listboxId}
         value={context.inputValueSig.value}
-        onInput$={[onInputBehavior$, props.onInput$]}
+        onInput$={[onInputBehavior$, props.onInput$, initPopover$]}
         onBlur$={[
           $(() => {
             disableOnBlur ? null : (context.isListboxOpenSig.value = false);
