@@ -13,7 +13,7 @@ export type SelectTriggerProps = QwikIntrinsicElements['button'];
 export const SelectTrigger = component$((props: SelectTriggerProps) => {
   const selectContext = useContext(SelectContextId);
   const triggerRef = useSignal<HTMLElement>();
-  selectContext.triggerRefSig = triggerRef;
+  selectContext.triggerRef = triggerRef;
 
   useVisibleTask$(function setClickHandler({ cleanup }) {
     function clickHandler(e: Event) {
