@@ -9,7 +9,7 @@ type PopoverTriggerProps = {
 
 export function usePopover(popovertarget: string) {
   const hasPolyfillLoadedSig = useSignal<boolean>(false);
-  const didClickSig = useSignal<boolean>(false);
+  const didInteractSig = useSignal<boolean>(false);
 
   const loadPolyfill$ = $(async () => {
     await import('@oddbird/popover-polyfill');
@@ -27,14 +27,14 @@ export function usePopover(popovertarget: string) {
       await loadPolyfill$();
       hasPolyfillLoadedSig.value = true;
     }
-    didClickSig.value = true;
+    didInteractSig.value = true;
   });
 
   // event is created after teleported properly
   useOnDocument(
     'showpopover',
     $(() => {
-      if (!didClickSig.value) return;
+      if (!didInteractSig.value) return;
 
       const popover = document.querySelector(`#${popovertarget}`);
 
