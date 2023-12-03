@@ -15,9 +15,8 @@ export const ComboboxPopover = component$(
     /* REMEMBER, whenever an option is selected or onMouseDown$ the listbox is closed, and the popover should sync to that */
     useTask$(async ({ track }) => {
       track(() => context.isListboxOpenSig.value);
-      track(() => context.popoverRef.value);
 
-      console.log('POPOVER REF:', context.popoverRef.value);
+      console.log('LISTBOX OPEN?: ', context.isListboxOpenSig.value);
 
       if (context.isListboxOpenSig.value) {
         await initPopover$();

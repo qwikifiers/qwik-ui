@@ -10,8 +10,12 @@ type PopoverTriggerProps = {
 
 export function usePopover(popovertarget: string) {
   const hasPolyfillLoadedSig = useSignal<boolean>(false);
-  const didInteractSig = useSignal<boolean>(false);
   const isSupportedSig = useSignal<boolean>(false);
+
+  const didInteractSig = useSignal<boolean>(false);
+  const popoverSig = useSignal<HTMLElement | null>(null);
+
+  const hookExecutedSig = useSignal<boolean>(false);
 
   const loadPolyfill$ = $(async () => {
     await import('@oddbird/popover-polyfill');
@@ -26,7 +30,6 @@ export function usePopover(popovertarget: string) {
       'popover' in HTMLElement.prototype;
 
     isSupportedSig.value = isSupported;
-    console.log('INSIDE HERE: ', isSupportedSig.value);
 
     if (!hasPolyfillLoadedSig.value && !isSupported) {
       await loadPolyfill$();
@@ -38,18 +41,26 @@ export function usePopover(popovertarget: string) {
   useTask$(({ track }) => {
     track(() => didInteractSig.value);
 
-    if (isBrowser && isSupportedSig.value) {
-      const popover = document.getElementById(popovertarget);
+    if (!isBrowser) return;
+
+    // get popover
+    if (!popoverSig.value) {
+      popoverSig.value = document.getElementById(popovertarget);
+    }
+
+    // so it only runs once on click for supported browsers
+    if (isSupportedSig.value) {
+      const popover = popoverSig.value;
 
       if (!popover) return;
-
-      console.log('inside interact task: ', popover);
-      console.log('popover id: ', popovertarget);
 
       if (popover && popover.hasAttribute('popover')) {
         popover.showPopover();
       }
     }
+
+    console.log('HOOK EXECUTED');
+    hookExecutedSig.value = true;
   });
 
   // event is created after teleported properly
@@ -58,7 +69,7 @@ export function usePopover(popovertarget: string) {
     $(() => {
       if (!didInteractSig.value) return;
 
-      const popover = document.querySelector(`#${popovertarget}`);
+      const popover = popoverSig.value;
 
       if (!popover) return;
 
@@ -72,12 +83,12 @@ export function usePopover(popovertarget: string) {
     }),
   );
 
-  return { initPopover$, isSupportedSig };
+  return { initPopover$ };
 }
 
 export const PopoverTrigger = component$<PopoverTriggerProps>(
   ({ popovertarget, ...rest }: PopoverTriggerProps) => {
-    const { initPopover$, isSupportedSig } = usePopover(popovertarget);
+    const { initPopover$ } = usePopover(popovertarget);
 
     return (
       <button
@@ -87,7 +98,6 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
         onClick$={[
           rest.onClick$,
           $(() => {
-            console.log('isSupported: ', isSupportedSig.value);
             initPopover$();
           }),
         ]}

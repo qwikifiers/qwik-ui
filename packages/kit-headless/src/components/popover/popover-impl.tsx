@@ -53,21 +53,12 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   /** have we rendered on the client yet? 0: no, 1: force, 2: yes */
   const hasRenderedOnClientSig = useSignal(isServer ? 0 : 2);
   const teleportSig = useSignal(false);
-  const isToggledSig = useSignal(false);
 
   // This forces a re-render on each popover instance when the signal changes
   if (hasRenderedOnClientSig.value === 1) {
     // Now run the task again after we force-rendered the contex
     setTimeout(() => (teleportSig.value = true), 0);
   }
-
-  useTask$(({ track }) => {
-    track(() => isToggledSig.value);
-
-    if (props.popoverRef) {
-      props.popoverRef.value = popoverRef.value;
-    }
-  });
 
   useTask$(async ({ track, cleanup }) => {
     track(() => teleportSig.value);
@@ -104,7 +95,10 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
       ref={popoverRef}
       onToggle$={(e) => {
-        isToggledSig.value = true;
+        if (props.popoverRef) {
+          props.popoverRef.value = popoverRef.value;
+        }
+
         if (!popoverRef.value) return;
 
         const popover = popoverRef.value;
