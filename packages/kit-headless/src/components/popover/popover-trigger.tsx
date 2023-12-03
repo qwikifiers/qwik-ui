@@ -1,5 +1,6 @@
-import { QwikIntrinsicElements, useOnDocument } from '@builder.io/qwik';
+import { QwikIntrinsicElements, useOnDocument, useTask$ } from '@builder.io/qwik';
 import { Slot, component$, useSignal, $ } from '@builder.io/qwik';
+import { isBrowser } from '@builder.io/qwik/build';
 
 type PopoverTriggerProps = {
   popovertarget: string;
@@ -10,6 +11,7 @@ type PopoverTriggerProps = {
 export function usePopover(popovertarget: string) {
   const hasPolyfillLoadedSig = useSignal<boolean>(false);
   const didInteractSig = useSignal<boolean>(false);
+  const isSupportedSig = useSignal<boolean>(false);
 
   const loadPolyfill$ = $(async () => {
     await import('@oddbird/popover-polyfill');
@@ -23,11 +25,31 @@ export function usePopover(popovertarget: string) {
       typeof HTMLElement.prototype === 'object' &&
       'popover' in HTMLElement.prototype;
 
+    isSupportedSig.value = isSupported;
+    console.log('INSIDE HERE: ', isSupportedSig.value);
+
     if (!hasPolyfillLoadedSig.value && !isSupported) {
       await loadPolyfill$();
       hasPolyfillLoadedSig.value = true;
     }
     didInteractSig.value = true;
+  });
+
+  useTask$(({ track }) => {
+    track(() => didInteractSig.value);
+
+    if (isBrowser && isSupportedSig.value) {
+      const popover = document.getElementById(popovertarget);
+
+      if (!popover) return;
+
+      console.log('inside interact task: ', popover);
+      console.log('popover id: ', popovertarget);
+
+      if (popover && popover.hasAttribute('popover')) {
+        popover.showPopover();
+      }
+    }
   });
 
   // event is created after teleported properly
@@ -46,24 +68,29 @@ export function usePopover(popovertarget: string) {
       if (!popover.classList.contains(':popover-open')) {
         // @ts-ignore
         popover.showPopover();
-        console.log('inside the showpopover doc');
       }
     }),
   );
 
-  return { initPopover$ };
+  return { initPopover$, isSupportedSig };
 }
 
 export const PopoverTrigger = component$<PopoverTriggerProps>(
   ({ popovertarget, ...rest }: PopoverTriggerProps) => {
-    const { initPopover$ } = usePopover(popovertarget);
+    const { initPopover$, isSupportedSig } = usePopover(popovertarget);
 
     return (
       <button
         {...rest}
         // @ts-expect-error bad types
         popovertarget={popovertarget}
-        onClick$={[rest.onClick$, $(() => initPopover$())]}
+        onClick$={[
+          rest.onClick$,
+          $(() => {
+            console.log('isSupported: ', isSupportedSig.value);
+            initPopover$();
+          }),
+        ]}
       >
         <Slot />
       </button>

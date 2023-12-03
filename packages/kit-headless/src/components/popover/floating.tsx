@@ -86,6 +86,8 @@ export const FloatingPopover = component$(
       const popover = track(() => popoverRef.value);
       if (!popover || !anchor) return;
 
+      console.log('INSIDE FLOATING: ', popoverRef.value);
+
       const updatePosition = async () => {
         const middleware = [
           _offset(gutter),

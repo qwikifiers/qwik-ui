@@ -4,10 +4,10 @@ import {
   useSignal,
   useStyles$,
   useContext,
+  useTask$,
   type Signal,
   type ClassList,
   createContextId,
-  useTask$,
 } from '@builder.io/qwik';
 
 import { isServer } from '@builder.io/qwik/build';
@@ -53,17 +53,24 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   /** have we rendered on the client yet? 0: no, 1: force, 2: yes */
   const hasRenderedOnClientSig = useSignal(isServer ? 0 : 2);
   const teleportSig = useSignal(false);
+  const isToggledSig = useSignal(false);
 
   // This forces a re-render on each popover instance when the signal changes
   if (hasRenderedOnClientSig.value === 1) {
-    console.log('I RERENDER!');
     // Now run the task again after we force-rendered the contex
     setTimeout(() => (teleportSig.value = true), 0);
   }
 
+  useTask$(({ track }) => {
+    track(() => isToggledSig.value);
+
+    if (props.popoverRef) {
+      props.popoverRef.value = popoverRef.value;
+    }
+  });
+
   useTask$(async ({ track, cleanup }) => {
     track(() => teleportSig.value);
-    console.log('inside task');
 
     if (isServer) return;
 
@@ -78,11 +85,6 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
     }
 
     if (popoverRef.value) {
-      // user passed in popover ref (context, state, etc.)
-      if (props.popoverRef) {
-        props.popoverRef.value = popoverRef.value;
-      }
-
       polyfillContainer.appendChild(popoverRef.value);
 
       document.dispatchEvent(new CustomEvent('showpopover'));
@@ -102,6 +104,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
       ref={popoverRef}
       onToggle$={(e) => {
+        isToggledSig.value = true;
         if (!popoverRef.value) return;
 
         const popover = popoverRef.value;
