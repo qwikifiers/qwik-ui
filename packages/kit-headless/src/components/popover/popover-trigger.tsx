@@ -8,12 +8,6 @@ type PopoverTriggerProps = {
 } & QwikIntrinsicElements['button'];
 
 export function usePopover(popovertarget: string) {
-  /* NEEDS TO RUN BEFORE POLYFILL LOAD, ALSO ONLY DYNAMIC IMPORT */
-  const isSupported =
-    typeof HTMLElement !== 'undefined' &&
-    typeof HTMLElement.prototype === 'object' &&
-    'popover' in HTMLElement.prototype;
-
   const hasPolyfillLoadedSig = useSignal<boolean>(false);
   const didClickSig = useSignal<boolean>(false);
 
@@ -23,6 +17,12 @@ export function usePopover(popovertarget: string) {
   });
 
   const initPopover$ = $(async () => {
+    /* needs to run before poly load */
+    const isSupported =
+      typeof HTMLElement !== 'undefined' &&
+      typeof HTMLElement.prototype === 'object' &&
+      'popover' in HTMLElement.prototype;
+
     if (!hasPolyfillLoadedSig.value && !isSupported) {
       await loadPolyfill$();
       hasPolyfillLoadedSig.value = true;
