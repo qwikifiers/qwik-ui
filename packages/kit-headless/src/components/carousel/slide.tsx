@@ -5,8 +5,10 @@ import {
   useContext,
   useTask$,
   useSignal,
+  $,
 } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
+import { isServer } from '@builder.io/qwik/build';
 
 export type CarouselSlideProps = QwikIntrinsicElements['div'];
 
@@ -16,12 +18,70 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
   const localIndexSig = useSignal<number | null>(null);
   const initialDragTransformX = useSignal<number>(0);
 
+  const handlePointerUp$ = $((e: PointerEvent) => {
+    console.log('Pointer up');
+
+    context.isDraggingSig.value = false;
+
+    if (!context.containerRef.value || !slideRef.value) {
+      return;
+    }
+
+    /*
+      TODO: figure out why a separate DOMMatrix is why dragging and the buttons work properly.
+
+    */
+    const style = window.getComputedStyle(context.containerRef.value);
+    const matrix = new DOMMatrix(style.transform);
+    initialDragTransformX.value = matrix.m41;
+
+    const deltaX = e.clientX - context.initialX.value;
+
+    const containerTranslateX = initialDragTransformX.value + deltaX;
+    const absContainerTranslateX = Math.abs(containerTranslateX);
+
+    if (!context.viewportRef.value) {
+      return;
+    }
+
+    const slideRightEdgePos =
+      slideRef.value.offsetLeft + slideRef.value.offsetWidth + context.spaceBetweenSlides;
+
+    const halfViewportWidth = context.viewportRef.value.offsetWidth / 2;
+
+    const isWithinBounds =
+      absContainerTranslateX > slideRef.value.offsetLeft - halfViewportWidth &&
+      absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
+
+    if (isWithinBounds) {
+      context.currentIndexSig.value = localIndexSig.value || 0;
+
+      /*
+        we update here when mouse released (not when slide changes)
+        this is how it can "snap" back to the previous slide
+      */
+      context.slideOffsetSig.value = slideRef.value.offsetLeft * -1;
+
+      context.transitionDurationSig.value = 300;
+    }
+  });
+
   useTask$(() => {
     // local index
     localIndexSig.value = context.numSlidesSig.value;
     context.numSlidesSig.value++;
 
     return;
+  });
+
+  useTask$(({ track }) => {
+    track(() => context.isDraggingSig.value);
+
+    if (isServer) return;
+
+    context.isDraggingSig.value
+      ? window.addEventListener('pointerup', handlePointerUp$)
+      : window.removeEventListener('pointerup', handlePointerUp$);
   });
 
   useTask$(({ track }) => {
@@ -44,55 +104,6 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
 
   return (
     <div
-      window:onPointerUp$={(e) => {
-        console.log('Pointer up');
-
-        context.isDraggingSig.value = false;
-
-        if (!context.containerRef.value || !slideRef.value) {
-          return;
-        }
-
-        /*
-          TODO: figure out why a separate DOMMatrix is why dragging and the buttons work properly.
-
-        */
-        const style = window.getComputedStyle(context.containerRef.value);
-        const matrix = new DOMMatrix(style.transform);
-        initialDragTransformX.value = matrix.m41;
-
-        const deltaX = e.clientX - context.initialX.value;
-
-        const containerTranslateX = initialDragTransformX.value + deltaX;
-        const absContainerTranslateX = Math.abs(containerTranslateX);
-
-        if (!context.viewportRef.value) {
-          return;
-        }
-
-        const slideRightEdgePos =
-          slideRef.value.offsetLeft +
-          slideRef.value.offsetWidth +
-          context.spaceBetweenSlides;
-
-        const halfViewportWidth = context.viewportRef.value.offsetWidth / 2;
-
-        const isWithinBounds =
-          absContainerTranslateX > slideRef.value.offsetLeft - halfViewportWidth &&
-          absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
-
-        if (isWithinBounds) {
-          context.currentIndexSig.value = localIndexSig.value || 0;
-
-          /*
-            we update here when mouse released (not when slide changes)
-            this is how it can "snap" back to the previous slide
-          */
-          context.slideOffsetSig.value = slideRef.value.offsetLeft * -1;
-
-          context.transitionDurationSig.value = 300;
-        }
-      }}
       style={{ marginRight: `${context.spaceBetweenSlides}px` }}
       ref={slideRef}
       {...props}

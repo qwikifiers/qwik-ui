@@ -13,6 +13,8 @@ export const CarouselNext = component$((props: CarouselButtonProps) => {
       disabled={context.currentIndexSig.value + 1 === context.numSlidesSig.value}
       onClick$={() => {
         context.currentIndexSig.value++;
+
+        console.log(context.currentIndexSig.value);
         context.transitionDurationSig.value = 625;
       }}
     >
