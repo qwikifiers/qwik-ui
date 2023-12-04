@@ -30,8 +30,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
     rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
   return (
     <nav
-      class={`fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px] border-slate-200
-              bg-white pb-6 [grid-area:nav] dark:border-slate-800 dark:bg-slate-900  lg:w-80
+      class={`fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px] pb-6 [grid-area:nav] lg:w-80
               ${rootStore.isSidebarOpened ? 'w-100 flex' : 'hidden lg:flex'} `}
     >
       <ul class="show mt-8 flex flex-col gap-2 pl-12 lg:hidden">
@@ -60,21 +59,20 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
         return (
           <>
             <div class="px-6 pt-8">
-              <h2 class="bg-qwikui-blue-600 dark:bg-qwikui-purple-800 shadow-dark-low dark:shadow-dark-high border-qwikui-blue-100 dark:border-qwikui-purple-100 text-outline-lg mb-4 rounded-lg border-2 px-4 py-1 text-3xl font-bold  text-white lg:text-lg">
-                {group.name}
-              </h2>
+              <h2 class="lg:text-md mb-2 px-4 py-1 font-bold">{group.name}</h2>
+              <hr class="mb-4 border" />
               <ul class="flex flex-col gap-2">
                 {group.children?.map((link) => {
                   const isLinkActive = location.url.pathname === link.href;
                   return (
                     <li key={link.name + link.href}>
                       <a
-                        class={`transition-color ease-step flex items-center rounded-lg px-4 py-2 text-xl text-slate-600 duration-300 hover:bg-slate-100 hover:text-slate-950
-                          focus:text-slate-950 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white dark:focus:text-white lg:text-sm ${
-                            isLinkActive
-                              ? 'font-bold !text-slate-950 dark:!text-white'
-                              : ''
-                          }`}
+                        class={`transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground  flex items-center rounded-lg px-4 py-2 text-xl duration-300
+                           lg:text-sm ${
+                             isLinkActive
+                               ? 'bg-accent text-accent-foreground font-bold'
+                               : 'text-muted-foreground font-medium'
+                           }`}
                         href={link.href}
                       >
                         <div class="flex w-full flex-row gap-2">

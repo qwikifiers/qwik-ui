@@ -3,10 +3,8 @@ import {
   QwikIntrinsicElements,
   component$,
   useSignal,
-  useStyles$,
   useTask$,
 } from '@builder.io/qwik';
-import styles from './showcase.css?inline';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
@@ -50,32 +48,27 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
       : rawComponents[componentPath];
   });
 
-  useStyles$(styles);
-
   return (
     <Tabs
       {...props}
-      class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-xl text-white lg:mx-[-32px]"
-      selectedClassName="previewCodeExampleSelectedTab"
+      class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-xl lg:mx-[-32px]"
+      selectedClassName="bg-accent text-accent-foreground border rounded-xl font-medium"
     >
-      <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 flex rounded-t-xl border-[1.5px] border-b-0 text-white">
-        <Tab class="hover:bg-qwikui-blue-500 dark:hover:bg-qwikui-purple-600 text-outline-lg rounded-tl-[.625rem] px-4 py-2">
+      <TabList class=" flex rounded-t-xl border border-b-0 p-2">
+        <Tab class="hover:bg-accent hover:text-accent-foreground mr-2 rounded-xl border px-2 py-1 hover:font-medium">
           Preview
         </Tab>
-        <Tab class="hover:bg-qwikui-blue-500 dark:hover:bg-qwikui-purple-600 text-outline-lg px-4 py-2">
+        <Tab class="hover:bg-accent hover:text-accent-foreground mr-2 rounded-xl border px-2 py-1 hover:font-medium">
           Code
         </Tab>
       </TabList>
-      <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-xl border-[1.5px] bg-slate-200 bg-slate-800 p-4 dark:bg-slate-900 md:p-12">
+      <TabPanel class="shadow-light-medium dark:shadow-dark-medium rounded-b-xl border bg-slate-800 p-4 dark:bg-slate-900 md:p-12">
         <section class="flex flex-col items-center">
           {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
         </section>
       </TabPanel>
-      <TabPanel class="border-qwikui-blue-300 dark:border-qwikui-purple-200 relative rounded-b-xl border-[1.5px]">
-        <Highlight
-          class="rounded-b-xl rounded-t-none"
-          code={componentCodeSig.value || ''}
-        />
+      <TabPanel class="relative rounded-b-xl border">
+        <Highlight class="rounded-t-none" code={componentCodeSig.value || ''} />
       </TabPanel>
     </Tabs>
   );

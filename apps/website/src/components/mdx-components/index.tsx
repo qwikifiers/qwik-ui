@@ -20,14 +20,15 @@ export const components: Record<string, any> = {
       <div class="code-example relative mx-[-24px] max-h-[31.25rem] rounded-b-xl bg-[#1D232A] lg:mx-[-32px]">
         <CodeCopy
           class={[
-            'copy-btn-bg-dark absolute right-4 top-4 bg-slate-200 text-white hover:bg-slate-600 hover:text-white',
+            'absolute right-4 top-4 border-2 bg-slate-800 text-slate-50 hover:bg-slate-700 hover:text-slate-50',
           ]}
           code={__rawString__}
         />
         <div
           {...props}
+          style={''} // required to override shiki's
           class={[
-            'tab-size code-example-gradient max-h-[31.25rem] max-w-full overflow-auto rounded-xl bg-slate-800 p-6 text-sm dark:bg-slate-800',
+            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl border bg-gradient-to-b from-slate-900 to-slate-800  p-6 text-sm',
             props.class,
           ]}
         >
@@ -36,6 +37,13 @@ export const components: Record<string, any> = {
           </pre>
         </div>
       </div>
+    );
+  }),
+  code: component$<QwikIntrinsicElements['code']>(() => {
+    return (
+      <code>
+        <Slot />
+      </code>
     );
   }),
   AnatomyTable,

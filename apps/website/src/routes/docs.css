@@ -23,7 +23,7 @@
     }
 
     h2 {
-      @apply mb-8 mt-20 scroll-mt-32 border-b-[1px] border-slate-300 pb-2 text-2xl font-extrabold dark:border-slate-700;
+      @apply mb-8 mt-20 scroll-mt-32 border-b-[1px] pb-2 text-2xl font-extrabold;
     }
 
     h3 {
@@ -39,7 +39,7 @@
     }
 
     blockquote {
-      @apply from-qwikui-blue-800 to-qwikui-blue-900 shadow-light-medium dark:shadow-dark-medium dark:from-qwikui-purple-800 dark:to-qwikui-purple-900 border-qwikui-blue-200 dark:border-qwikui-purple-200 my-4 rounded-xl border-[2px] bg-gradient-to-b p-4 text-white lg:p-6;
+      @apply border-primary shadow-light-medium dark:shadow-dark-medium my-4 rounded-xl border-[2px] bg-gradient-to-b p-4 lg:p-6;
     }
 
     ul {
@@ -52,28 +52,11 @@
   }
 
   a {
-    @apply border-qwikui-blue-600 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] pb-[1.5px] font-semibold transition transition-colors duration-300;
+    @apply border-primary ease-step hover:border-primary/60 border-b font-semibold transition-colors duration-300;
   }
 
   p code {
-    @apply shadow-dark-low dark:shadow-dark-low  rounded-md border-[1px] border-b-2 border-slate-700 bg-slate-100 px-2 py-[2px] dark:border-slate-400 dark:bg-slate-700;
-  }
-
-  blockquote p code {
-    @apply border-slate-700 text-slate-800 dark:border-slate-800 dark:bg-slate-50;
-  }
-
-  /* adds sufficient padding to the table items / API Component */
-  td article {
-    @apply mb-0 pb-4 pt-4;
-  }
-
-  td p {
-    @apply mb-0;
-  }
-
-  blockquote a {
-    @apply border-qwikui-blue-200 hover:border-qwikui-blue-100 dark:border-qwikui-purple-100 dark:hover:border-qwikui-purple-200;
+    @apply shadow-dark-low dark:shadow-dark-low bg-muted border-border rounded border-b px-2 py-[2px];
   }
 
   ol li {

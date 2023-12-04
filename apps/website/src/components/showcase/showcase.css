@@ -1,9 +1,0 @@
-.dark .previewCodeExampleSelectedTab {
-  background-color: var(--qwikui-purple-600);
-  font-weight: 600;
-}
-
-.previewCodeExampleSelectedTab {
-  background-color: var(--qwikui-blue-500);
-  font-weight: 600;
-}

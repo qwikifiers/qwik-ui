@@ -34,7 +34,7 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   });
 
   return (
-    <div class="shadow-3xl shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-6 rounded-xl border-2 border-slate-200 dark:border-slate-400 lg:mx-[-32px]">
+    <div class="shadow-3xl shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-6 rounded-xl border lg:mx-[-32px]">
       <Highlight code={codeSnippetSig.value || ''} />
     </div>
   );

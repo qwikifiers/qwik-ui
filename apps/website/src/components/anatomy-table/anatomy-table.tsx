@@ -13,25 +13,27 @@ type AnatomyTableProps = {
 export const AnatomyTable = component$(
   ({ firstColumnLabel = 'Component', propDescriptors }: AnatomyTableProps) => {
     return (
-      <div class="overflow-auto">
-        <table class="w-full max-w-full text-left">
-          <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
-            <tr class="text-slate-950 dark:text-white">
-              <td class="whitespace-nowrap py-2 pl-4 text-sm font-[700] font-medium sm:pl-0">
+      <div class="prose prose-sm overflow-auto">
+        <table class="mb-6 w-full min-w-[540px] text-left sm:min-w-full">
+          <tbody class="divide-y">
+            <tr class="text-foreground">
+              <td class="w-2/6 whitespace-nowrap p-2 text-base font-semibold sm:pl-0">
                 {firstColumnLabel}
               </td>
-              <td class="whitespace-nowrap py-2 text-sm font-[600]">Description</td>
+              <td class="w-4/6 whitespace-nowrap p-2 text-base font-semibold sm:pl-0">
+                Description
+              </td>
             </tr>
             {propDescriptors?.map((propDescriptor) => {
               return (
                 <tr key={propDescriptor.name}>
                   <td class="align-center py-3 pl-2 pr-2 sm:pl-0 md:align-baseline">
-                    <code class="border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500 mr-6 rounded-md rounded-md border-[1px] border-b-[2px] px-2 py-[2px] font-[400] text-slate-950">
+                    <code class="border-primary text-accent-foreground mr-6 rounded border-[1px] border-b-2">
                       {propDescriptor.name}
                     </code>
                   </td>
                   <td class="py-3 align-baseline">
-                    <div class="prose prose-sm prose-docs-table">
+                    <div class="prose-docs-table">
                       <p>{propDescriptor.description}</p>
                     </div>
                   </td>
