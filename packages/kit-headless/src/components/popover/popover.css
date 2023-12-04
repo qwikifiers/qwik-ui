@@ -1,11 +1,3 @@
-/* This applies when popover is supported */
-@supports selector(:popover-open) {
-  /* Hide the polyfill div so it doesn't fire */
-  /* [data-qui-popover-pf] {
-    display: none;
-  } */
-}
-
 /* This only applies when popover isn't supported */
 @supports not selector(:popover-open) {
   /* The polyfill adds this class when popped out */
@@ -14,9 +6,13 @@
   }
 }
 
-.animating {
+.popover-closing {
   display: block !important;
 }
+
+/* .popover-closing[popover]:not(:popover-open):not(dialog[open]) {
+  display: block;
+} */
 
 /* Popover Presets: TODO figure out specificity to make this easier for user to override */
 .listbox {

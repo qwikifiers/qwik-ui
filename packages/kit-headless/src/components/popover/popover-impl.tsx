@@ -12,6 +12,7 @@ import {
 
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
+import { supportShowAnimation, supportClosingAnimation } from './utils';
 
 export type PopoverImplProps = {
   id: string;
@@ -94,6 +95,21 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       // @ts-expect-error bad types
       popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
       ref={popoverRef}
+      onBeforeToggle$={(e) => {
+        if (!popoverRef.value) return;
+
+        setTimeout(() => {
+          // @ts-ignore
+          if (e.newState === 'open' && popoverRef.value) {
+            supportShowAnimation(popoverRef.value);
+          }
+        }, 5);
+
+        // @ts-ignore
+        if (e.newState === 'closed') {
+          supportClosingAnimation(popoverRef.value);
+        }
+      }}
       onToggle$={(e) => {
         if (props.popoverRef) {
           props.popoverRef.value = popoverRef.value;
@@ -101,15 +117,12 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
         if (!popoverRef.value) return;
 
-        const popover = popoverRef.value;
-
         // move opened polyfill popovers are always above the other
         if (
-          popover.classList.contains(':popover-open') &&
-          popover.parentElement &&
-          !popover.classList.contains('animating')
+          popoverRef.value.classList.contains(':popover-open') &&
+          popoverRef.value.parentElement
         ) {
-          popover.parentElement.appendChild(popover);
+          popoverRef.value.parentElement.appendChild(popoverRef.value);
         }
 
         // @ts-expect-error bad types

@@ -4,9 +4,7 @@ import { isBrowser } from '@builder.io/qwik/build';
 
 type PopoverTriggerProps = {
   popovertarget: string;
-  disableClickInitPopover: boolean;
-  // TODO anchor for floatingui
-  // TODO toggle? on/off?
+  disableClickInitPopover?: boolean;
 } & QwikIntrinsicElements['button'];
 
 export function usePopover(popovertarget: string) {

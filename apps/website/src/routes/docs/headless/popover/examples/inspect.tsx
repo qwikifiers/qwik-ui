@@ -1,7 +1,31 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Popover, PopoverTrigger } from '@qwik-ui/headless';
 
 export default component$(() => {
+  useStyles$(`
+  .my-animation.popover-showing {
+    animation: popoverFadeIn 300ms ease;
+  }
+
+  .my-animation.popover-closing {
+    animation: popoverFadeOut 300ms ease;
+  }
+
+    @keyframes popoverFadeIn
+    from {
+      opacity: 0;
+    } to {
+      opacity: 1;
+    }
+    
+    @keyframes popoverFadeOut
+    from {
+      opacity: 1;
+    } to {
+      opacity: 0;
+    }
+  `);
+
   return (
     <>
       <PopoverTrigger
