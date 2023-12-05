@@ -17,8 +17,8 @@ export default component$(() => {
         color: #ffffff; 
         width: 250px;
         max-width: 500px;
-        border-color: 1px;
-        border: 3px solid #713f12;
+        border: 1px solid #4B5563;
+        background-color: #4B5563;
     }
 
     .accordion-trigger {
@@ -29,13 +29,13 @@ export default component$(() => {
         justify-content: space-between;
         padding: 0.5rem 1rem;
         text-align: left;
-        border-bottom: 2px solid #713f12;
-        background: #854d0e;
+        border-bottom: 1px solid #374151;
+        background-color: #4B5563;
         transition: background-color 200ms ease;
     }
 
     .accordion-trigger:hover {
-        background-color: #a16207;
+        background-color: #374151;
       }
       
       .accordion-trigger.rounded-t-sm {
@@ -66,6 +66,7 @@ export default component$(() => {
 
       .accordion-content {
         overflow: hidden;
+        background-color: #1F2937;
       }
 
       .accordion-slide[data-state='open'] {
@@ -77,8 +78,13 @@ export default component$(() => {
       }
 
       .accordion-content p {
-        background: #422006;
-        padding: 0.5rem 1rem ;
+        background: #1F2937;
+        padding: 0.5rem 1rem;
+      }
+      
+      .accordion-item:last-of-type .accordion-content {
+        border-bottom-left-radius: 0.275rem;
+        border-bottom-right-radius: 0.275rem;
       }
 
       .tom-headline {
@@ -92,7 +98,7 @@ export default component$(() => {
       <h2 class="tom-headline">Tom's bookshelf</h2>
       <AccordionRoot animated enhance={true} class="accordion-root">
         {dogs.map((item, index) => (
-          <AccordionItem key={index}>
+          <AccordionItem class="accordion-item" key={index}>
             <AccordionHeader as="h3">
               <AccordionTrigger
                 class={`accordion-trigger group ${index === 0 ? 'rounded-t-sm' : ''} ${
