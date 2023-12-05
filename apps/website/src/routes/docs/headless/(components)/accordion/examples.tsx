@@ -678,7 +678,7 @@ export const DynamicAccordion = component$(
   },
 );
 
-export function SVG(props: QwikIntrinsicElements['svg'], key: string) {
+export function SVG(props: QwikIntrinsicElements['svg']) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

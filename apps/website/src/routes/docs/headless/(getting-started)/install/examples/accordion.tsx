@@ -12,7 +12,7 @@ export default component$(() => {
     <AccordionRoot>
       <AccordionItem>
         <AccordionHeader>
-          <AccordionTrigger>Title</AccordionTrigger>
+          <AccordionTrigger>Click on me!</AccordionTrigger>
         </AccordionHeader>
         <AccordionContent>Content</AccordionContent>
       </AccordionItem>
