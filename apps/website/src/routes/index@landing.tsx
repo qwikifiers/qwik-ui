@@ -9,12 +9,18 @@ export default component$(() => {
   return (
     <div class="flex flex-col gap-8">
       <h1 class="text-center text-3xl font-bold leading-normal lg:text-5xl">
-        <span class="text-primary font-[900] tracking-wide">Qwik</span>{' '}
-        <span class="text-secondary font-[900] tracking-wide">UI</span>
+        <span class="text-qwikui-blue-500 dark:text-qwikui-purple-400 font-[900] tracking-wide">
+          Qwik
+        </span>{' '}
+        <span class="text-qwikui-purple-400 dark:text-qwikui-blue-500  font-[900] tracking-wide">
+          UI
+        </span>
       </h1>
       <h2 class="text-center text-2xl font-bold leading-normal lg:text-4xl">
         The world's fastest loading UI components <br />
-        <span class="text-primary leading-normal">automatically optimized for you</span>
+        <span class="text-qwikui-blue-500 dark:text-qwikui-purple-400  leading-normal">
+          automatically optimized for you
+        </span>
       </h2>
       <p class="text-center text-xl font-medium lg:text-2xl">
         Choose a kit and start building the future{' '}

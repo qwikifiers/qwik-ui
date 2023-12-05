@@ -11,6 +11,10 @@ export default component$(() => {
         <p class="bg-secondary text-secondary-foreground hover:bg-secondary/90">
           Secondary
         </p>
+        <p class="text-primary focus:ring-ring hover:ring-ring rounded-full border-2 px-2 font-bold hover:ring focus:ring">
+          Primary
+        </p>
+        <p class="text-primary font-bold">Secondary</p>
         <p class="bg-muted text-muted-foreground">Muted</p>
         <p class="bg-accent text-accent-foreground">Accent</p>
         <p class="bg-destructive text-destructive-foreground">Destructive</p>
