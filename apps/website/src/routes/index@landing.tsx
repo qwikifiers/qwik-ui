@@ -33,7 +33,7 @@ export default component$(() => {
               alt={`fluffy kit`}
               class="h-64 w-full rounded-t-sm object-cover"
             />
-            <CardBody class={`border-t-2 px-8 py-6`}>
+            <CardBody class={`border-t- px-8 py-6`}>
               <CardTitle class="flex justify-between text-xl font-bold">
                 <span>Headless Qwik Components</span>
               </CardTitle>
@@ -59,7 +59,7 @@ export default component$(() => {
                 alt={`fluffy kit`}
                 class="h-64 rounded-t-sm object-cover"
               />
-              <CardBody class={`border-t-2 bg-transparent px-8 py-6`}>
+              <CardBody class={`border-t- bg-transparent px-8 py-6`}>
                 <CardTitle class="flex items-center justify-between text-xl font-bold">
                   <span>Fluffy (Styled) Qwik Components</span>
                 </CardTitle>

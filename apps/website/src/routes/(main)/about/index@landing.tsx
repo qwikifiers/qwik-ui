@@ -9,7 +9,7 @@ export default component$(() => {
         <p class="mb-16 text-lg">
           Qwik UI is the first ever component library for the revolutionary Qwik web
           framework. Developed by leading members of the Qwik community,{' '}
-          <mark class="bg-transparent text-purple-500 dark:text-purple-300">
+          <mark class="text-primary bg-transparent">
             including members from the Qwik team
           </mark>
           , Qwik UI offers an open-source solution for building instant loading and
@@ -19,10 +19,7 @@ export default component$(() => {
         <h2 class="mb-4 text-2xl font-semibold">Designed for Developers</h2>
         <p class="mb-16 text-lg">
           Qwik UI is built for developers who want to harness the power of Qwik's
-          innovative{' '}
-          <mark class="bg-transparent text-purple-500 dark:text-purple-300">
-            JavaScript Streaming
-          </mark>{' '}
+          innovative <mark class="text-primary bg-transparent">JavaScript Streaming</mark>{' '}
           technology to create highly performant web applications with minimal effort.
           Whether you're working on an e-commerce platform, a dashboard or any scale
           application, Qwik UI provides the components and tools you need to deliver a
@@ -36,11 +33,11 @@ export default component$(() => {
           Qwik's instant loading capabilities offer a significant advantage for e-commerce
           and other search engine-facing applications. By ensuring the highest Core Web
           Vitals scores, Qwik UI not only{' '}
-          <mark class="bg-transparent text-purple-500 dark:text-purple-300">
+          <mark class="text-primary bg-transparent">
             delivers an amazing user experience
           </mark>{' '}
           but also helps{' '}
-          <mark class="bg-transparent text-purple-500 dark:text-purple-300">
+          <mark class="text-primary bg-transparent">
             improve your site's search engine rankings
           </mark>
           . Stand out from the competition with a web application that loads instantly,
@@ -51,7 +48,7 @@ export default component$(() => {
         <p class="mb-16 text-lg">
           In addition to performance and SEO advantages, Qwik UI components are designed
           with accessibility in mind.{' '}
-          <mark class="bg-transparent text-purple-500 dark:text-purple-300">
+          <mark class="text-primary bg-transparent">
             We believe in creating inclusive web experiences
           </mark>{' '}
           that cater to users of all abilities, and our components are built to adhere to
@@ -61,11 +58,9 @@ export default component$(() => {
         <p class="mb-16 text-lg">
           Qwik UI is an open-source project, which means that it's freely available for
           developers to use and contribute to. By fostering a{' '}
-          <mark class="bg-transparent text-purple-500 dark:text-purple-300">
-            community-driven approach
-          </mark>
-          , we aim to continuously improve and expand the capabilities of Qwik UI, making
-          it the go-to component library for developers working the Qwik framework.
+          <mark class="text-primary bg-transparent">community-driven approach</mark>, we
+          aim to continuously improve and expand the capabilities of Qwik UI, making it
+          the go-to component library for developers working the Qwik framework.
         </p>
         <p class="mb-16 text-lg">
           Join us in our mission to revolutionize web development and create instant
