@@ -21,6 +21,7 @@ export const ConfettiButton = component$(() => {
             const y = rect.top / window.innerHeight;
 
             await confetti({
+              colors: ['#02B9FC', '#B57DFC'],
               origin: {
                 x,
                 y,

@@ -7,6 +7,9 @@ import accordionCode from './examples/accordion?raw';
 import QwikCityAccordionComponent from './examples/qwik-city-accordion';
 import qwikCityAccordionCode from './examples/qwik-city-accordion?raw';
 
+import AstroAccordionComponent from './examples/astro-accordion';
+import astroAccordionCode from './examples/astro-accordion?raw';
+
 import buildingBlocksCode from './examples/building-blocks?raw';
 import tsConfigCode from './examples/astro-tsconfig.json?raw';
 import { PreviewCodeExampleTabs } from '../../../_components/preview-code-example/preview-code-example-tabs';
@@ -26,6 +29,10 @@ export const installExamples: Record<string, Example> = {
   qwikCityAccordion: {
     component: <QwikCityAccordionComponent />,
     code: qwikCityAccordionCode,
+  },
+  astroAccordion: {
+    component: <AstroAccordionComponent />,
+    code: astroAccordionCode,
   },
 };
 
