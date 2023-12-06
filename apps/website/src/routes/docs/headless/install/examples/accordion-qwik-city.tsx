@@ -19,7 +19,7 @@ export default component$(() => {
     <AccordionRoot
       animated
       enhance={true}
-      class="box-border w-[250px] max-w-[500px] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white"
+      class="box-border w-[250px] max-w-[500px] rounded-sm border-[1px] border-slate-500 bg-slate-600 text-white"
     >
       {cats.map((item, index) => (
         <AccordionItem class="w-full" key={index}>
@@ -31,7 +31,7 @@ export default component$(() => {
                 index === cats.length - 1
                   ? 'rounded-b-sm border-b-[0px]'
                   : 'border-b-[1px]'
-              } border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800`}
+              } border-slate-500 bg-slate-600 px-4 py-2 text-left hover:bg-slate-700`}
             >
               <span>favorite cat {index + 1}</span>
               <span class="pl-2">
