@@ -2,7 +2,7 @@
 title: Qwik UI | Introduction
 ---
 
-import HeadlessArt from './public/images/qwik-ui-headless-hero.webp?jsx';
+import HeadlessArt from '/public/images/qwik-ui-headless-hero.webp?jsx';
 import { Note } from '~/components/note/note';
 import {
   AccordionRoot,
@@ -17,9 +17,9 @@ import { AllContributors } from '~/components/all-contributors/all-contributors'
 
 # Introduction
 
-<p class="mt-[-8px] text-lg font-semibold text-slate-600 dark:text-slate-500">
+<div class="mb-4 mt-[-8px] text-xl font-semibold text-slate-600 dark:text-slate-500">
   An open source component set optimized to work with Qwik
-</p>
+</div>
 
 Qwik UI Headless Kit provides a complete set of totally customizable components with built-in structure, behavior, and state. This library serves as a foundation of your design system, providing the missing or non-existent functionality from native solutions.
 
@@ -54,7 +54,9 @@ This means that Qwik UI can operate with any meta-framework that supports Qwik, 
 
 Qwik values HTML as the source of truth, and this principle extends to Qwik UI components. We appreciate and adopt the excellent work done by the [Open UI Group](https://open-ui.org/) when appropriate.
 
-<HeadlessArt class="dark:shadow-dark-high shadow-dark-low rounded-lg border-2 border-white" />
+<div class="mx-[-24px] mx-[-32px]">
+  <HeadlessArt class="dark:shadow-dark-high shadow-dark-low rounded-lg border-2 border-white" />
+</div>
 
 <br />{' '}
 
@@ -76,7 +78,7 @@ Qwik UI is a headless library, and comes with zero or very minimal styling. This
 
 This is in contrast to styled libraries such as Bootstrap or Material UI, where [styles often need to be stripped](https://www.smashingmagazine.com/2022/05/you-dont-need-ui-framework/) in order to be custom.
 
-<CodeSnippet name="headless-css" />
+<CodeSnippet name="headless-css.css" />
 
 ### Accessible at its core
 
@@ -116,9 +118,9 @@ Qwik UI is for the community, by the community. An open source project that woul
 >
     <AccordionItem>
         <AccordionHeader as="h3">
-            <AccordionTrigger class="text-md group flex min-h-[44px] w-full items-center justify-between border-slate-200 dark:border-slate-800 border-b-[1px] text-left">
+            <AccordionTrigger class="text-md group flex min-h-[44px] w-full items-center justify-between border-slate-200 dark:border-slate-800 border-b-[1px] text-left py-4">
                 **What kind of support or resources are available if I encounter issues with Qwik UI?**
-                <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transfor" />
+                <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transfor min-w-[1rem]" />
             </AccordionTrigger>
         </AccordionHeader>
         <AccordionContent class=" overflow-hidden text-slate-700 dark:text-slate-200">
@@ -133,9 +135,9 @@ Qwik UI is for the community, by the community. An open source project that woul
     </AccordionItem>
     <AccordionItem>
         <AccordionHeader as="h3">
-            <AccordionTrigger class="text-md group flex min-h-[44px] w-full items-center justify-between border-slate-200 dark:border-slate-800 border-b-[1px] text-left">
+            <AccordionTrigger class="text-md group flex min-h-[44px] w-full items-center justify-between border-slate-200 dark:border-slate-800 border-b-[1px] text-left py-4">
                 **How can I contribute to the project?**
-                <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transfor" />
+                <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transfor min-w-[1rem]" />
             </AccordionTrigger>
         </AccordionHeader>
         <AccordionContent class=" overflow-hidden text-slate-700 dark:text-slate-200">
@@ -150,9 +152,9 @@ Qwik UI is for the community, by the community. An open source project that woul
     </AccordionItem>
     <AccordionItem>
         <AccordionHeader as="h3">
-            <AccordionTrigger class="text-md group flex min-h-[44px] w-full items-center justify-between text-left">
+            <AccordionTrigger class="text-md group flex min-h-[44px] w-full items-center justify-between text-left py-4">
                 **How can I migrate my existing application to use Qwik UI?**
-                <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transfor" />
+                <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transfor min-w-[1rem]" />
             </AccordionTrigger>
         </AccordionHeader>
         <AccordionContent class="animation-1 overflow-hidden text-slate-700 dark:text-slate-200 border-t-[1px] border-slate-200 dark:border-slate-800">

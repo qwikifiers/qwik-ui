@@ -12,10 +12,10 @@ export const FeatureList = component$((props: FeatureListProps) => {
         return (
           <li
             key={descriptor}
-            class="flex w-full list-none items-center justify-between gap-x-2 gap-y-4 border-b-[1px] border-slate-200 py-2 dark:border-slate-800"
+            class="flex w-full list-none items-center gap-x-2 gap-y-4 border-b-[1px] border-slate-200 py-2 dark:border-slate-800"
           >
-            {descriptor}
             <CheckIcon class="min-w-[21px]" />
+            {descriptor}
           </li>
         );
       })}

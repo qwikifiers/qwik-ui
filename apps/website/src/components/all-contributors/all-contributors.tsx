@@ -1,16 +1,40 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 
 export const AllContributors = component$(() => {
+  useStyles$(`
+    .image-container img {
+      min-width: 100px;
+      overflow-wrap: break-word;
+    }
+
+    @media (max-width: 600px) {
+      tr {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      td {
+        flex: 0 0 50%;
+        max-width: 50%; 
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  `);
+
   return (
-    <div class="overflow-auto">
+    <div class="image-container overflow-auto">
       <table>
         <tbody>
           <tr>
             <td align="center" valign="top" width="14.28%">
               <a href="https://hirez.io/?utm_source=github&utm_medium=link&utm_campaign=qwik-ui">
                 <img
+                  height="460"
                   src="https://avatars1.githubusercontent.com/u/1430726?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Shai Reznik"
                 />
                 <br />
@@ -56,8 +80,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="http://www.gilfink.net">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/1590253?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Gil Fink"
                 />
                 <br />
@@ -100,8 +125,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://it.linkedin.com/in/giorgio-boa">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/35845425?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Giorgio Boa"
                 />
                 <br />
@@ -141,8 +167,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/reemardelarosa">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/4918140?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="John Reemar Dela Rosa"
                 />
                 <br />
@@ -158,8 +185,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/nnelgxorz">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/9634080?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Glenn Becker"
                 />
                 <br />
@@ -199,8 +227,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/michalmw">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/10683327?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Michał Wójcik"
                 />
                 <br />
@@ -225,8 +254,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/shiroinegai">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/88586552?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Shiroi Negai"
                 />
                 <br />
@@ -259,8 +289,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="http://www.fabiobiondi.io">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/1772083?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Fabio Biondi"
                 />
                 <br />
@@ -282,8 +313,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/Obvio">
                 <img
+                  height="180"
                   src="https://avatars.githubusercontent.com/u/300232?v=4?s=100"
-                  width="100px;"
+                  width="180"
                   alt="Obvio"
                 />
                 <br />
@@ -320,8 +352,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://leonardomontini.dev/">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/7253929?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Leonardo Montini"
                 />
                 <br />
@@ -346,8 +379,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://itai.netlify.app/">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/37772742?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Itai Mizlish"
                 />
                 <br />
@@ -372,8 +406,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="http://www.luisbeqja.com">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/75300376?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Luis Beqja"
                 />
                 <br />
@@ -392,8 +427,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://www.riccardovettore.dev">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/108279675?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Riccardo Vettore"
                 />
                 <br />
@@ -412,8 +448,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/KenAKAFrosty">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/90424167?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Ken aka Frosty"
                 />
                 <br />
@@ -440,8 +477,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://developers.italia.it">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/11008116?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Alessandro Sebastiani"
                 />
                 <br />
@@ -472,8 +510,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://wahyufebrianto.vercel.app">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/38874570?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Wahyu Febrianto"
                 />
                 <br />
@@ -498,8 +537,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/dmitry-stepanenko">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/33101123?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Dmitriy Stepanenko"
                 />
                 <br />
@@ -515,8 +555,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://yishay-hazan.netlify.app">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/50710472?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Yishay Hazan"
                 />
                 <br />
@@ -535,8 +576,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/rossellamascia">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/42215075?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Rossella Mascia"
                 />
                 <br />
@@ -555,8 +597,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://ssd7.vercel.app">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/80447788?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Sai Srikar Dumpeti"
                 />
                 <br />
@@ -575,8 +618,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/tleperou">
                 <img
+                  height="350"
                   src="https://avatars.githubusercontent.com/u/8383972?v=4?s=100"
-                  width="100px;"
+                  width="350"
                   alt="Thomas Lepérou"
                 />
                 <br />
@@ -603,8 +647,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/PatrykGodlewski">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/81991100?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Patryk Godlewski"
                 />
                 <br />
@@ -629,8 +674,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/pranit-yawalkar">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/64571514?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Pranit Yawalkar"
                 />
                 <br />
@@ -655,8 +701,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/gederer">
                 <img
+                  height="453"
                   src="https://avatars.githubusercontent.com/u/705111?v=4?s=100"
-                  width="100px;"
+                  width="453"
                   alt="Greg Ederer"
                 />
                 <br />
@@ -675,8 +722,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://naor.dev">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/6171622?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Naor Peled"
                 />
                 <br />
@@ -701,8 +749,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/igalklebanov">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/14938291?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Igal Klebanov"
                 />
                 <br />
@@ -727,8 +776,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/thejackshelton">
                 <img
+                  height="400"
                   src="https://avatars.githubusercontent.com/u/104264123?v=4?s=100"
-                  width="100px;"
+                  width="400"
                   alt="Jack Shelton"
                 />
                 <br />
@@ -753,8 +803,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/vasucp1207">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/85363195?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Vasu Singh"
                 />
                 <br />
@@ -775,8 +826,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/wmertens">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/54934?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Wout Mertens"
                 />
                 <br />
@@ -813,8 +865,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="http://zankel-engineering.de">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/43412711?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Zankel-Engineering"
                 />
                 <br />
@@ -848,8 +901,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/adamgen">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/7424209?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Adam"
                 />
                 <br />
@@ -874,8 +928,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/gparlakov">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/3482199?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Georgi Parlakov"
                 />
                 <br />
@@ -903,8 +958,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://www.linkedin.com/in/noeliadonato">
                 <img
+                  height="400"
                   src="https://avatars.githubusercontent.com/u/7875216?v=4?s=100"
-                  width="100px;"
+                  width="400"
                   alt="Noelia"
                 />
                 <br />
@@ -929,8 +985,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://ueuie.dev">
                 <img
+                  height="400"
                   src="https://avatars.githubusercontent.com/u/65486851?v=4?s=100"
-                  width="100px;"
+                  width="400"
                   alt="Alex Tocar"
                 />
                 <br />
@@ -955,8 +1012,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="http://maieulchevalier.com">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/45822175?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="Maïeul"
                 />
                 <br />
@@ -983,8 +1041,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://github.com/TheMcnafaha">
                 <img
+                  height="460"
                   src="https://avatars.githubusercontent.com/u/102767512?v=4?s=100"
-                  width="100px;"
+                  width="460"
                   alt="TheMcnafaha"
                 />
                 <br />
@@ -1009,8 +1068,9 @@ export const AllContributors = component$(() => {
             <td align="center" valign="top" width="14.28%">
               <a href="https://ilteoood.xyz/">
                 <img
+                  height="434"
                   src="https://avatars.githubusercontent.com/u/6383527?v=4?s=100"
-                  width="100px;"
+                  width="434"
                   alt="Matteo Pietro Dazzi"
                 />
                 <br />

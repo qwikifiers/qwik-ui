@@ -22,12 +22,7 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
 
   // Determine the file extension if not specified
   const fileExtension =
-    name.endsWith('.tsx') ||
-    name.endsWith('.ts') ||
-    name.endsWith('.css') ||
-    name.endsWith('.json')
-      ? ''
-      : '.tsx';
+    name.endsWith('.tsx') || name.endsWith('.ts') || name.endsWith('.css') ? '' : '.tsx';
   const snippetPath = `/src/routes${location.url.pathname}snippets/${name}${fileExtension}`;
 
   const codeSnippetSig = useSignal<string>();
@@ -39,7 +34,7 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   });
 
   return (
-    <div class="shadow-3xl shadow-light-medium dark:shadow-dark-medium mb-6 rounded-xl border-2 border-slate-200 dark:border-slate-400">
+    <div class="shadow-3xl shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-6 rounded-xl border-2 border-slate-200 dark:border-slate-400 lg:mx-[-32px]">
       <Highlight code={codeSnippetSig.value || ''} />
     </div>
   );

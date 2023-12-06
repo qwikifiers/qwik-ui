@@ -3,6 +3,8 @@ title: Qwik UI | Accordion
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
+import { FeatureList } from '~/components/feature-list/feature-list';
+import { Note } from '~/components/note/note';
 
 <StatusBanner status={statusByComponent.headless.Accordion} />
 
@@ -14,12 +16,14 @@ A stacked set of interactive headings which reveal or hide their associated cont
 
 Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
 
-##### ✨ Features
-
-- Full keyboard navigation
-- Single or Multi Accordion
-- Controlled or uncontrolled
-- Animatable, dynamic, and resumable
+<FeatureList
+  features={[
+    'Full keyboard navigation',
+    'Single or Multi Accordion',
+    'Controlled or uncontrolled',
+    'Animatable, dynamic, and resumable',
+  ]}
+/>
 
 <div class="mb-6 flex flex-col gap-2">
 [View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/accordion)
@@ -30,33 +34,16 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 
 </div>
 
-> Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. While these widgets can be used without JavaScript, they come with their own accessibility drawbacks.
+<Note status="info"> 
+**Why not just use the details & summary tags?**
+
+Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. While these widgets can be used without JavaScript, they come with [their own accessibility drawbacks](https://www.scottohara.me/blog/2022/09/12/details-summary.html).
+
+</Note>
 
 ## Building blocks
 
-```tsx
-import { component$ } from '@builder.io/qwik';
-import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
-  AccordionContent,
-} from '@qwik-ui/headless';
-
-export default component$(() => {
-  return (
-    <AccordionRoot>
-      <AccordionItem>
-        <AccordionHeader>
-          <AccordionTrigger>Title</AccordionTrigger>
-        </AccordionHeader>
-        <AccordionContent>Content</AccordionContent>
-      </AccordionItem>
-    </AccordionRoot>
-  );
-});
-```
+<CodeSnippet name="building-blocks.tsx" />
 
 ### 🎨 Anatomy
 
@@ -97,7 +84,11 @@ If you're curious about how the accordion is animated, you can use a built-in Qw
 
 The variable calculates the content height behind the scenes, so that you can use this variable in your keyframes. Out of the box, you can use the `accordion-open` and `accordion-close` keyframes in your project. These use an `animation` declaration on the height property.
 
-> The animation above makes use of the overflow hidden declaration. You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
+<Note status="info">
+  {' '}
+  The animation above makes use of the overflow hidden declaration. You can also check out
+  this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
+</Note>
 
 ## Non-collapsible
 
@@ -119,7 +110,12 @@ Any disabled elements will be skipped over when using tab or the `Up Arrow` and 
 
 You can make the accordion items uncontrolled by adding the **defaultValue** prop on the items. This will open an accordion item without user interaction, and can be used on both type single and multi accordions.
 
-> Keep in mind: if you're using `behavior="single"` with multiple defaultValue accordion items, the last item will be the one that opens. You may experience flickering behavior as well.
+<Note status="warning">
+**Don't try to open multiple items with single mode!**
+
+If you're using `behavior="single"` with multiple defaultValue accordion items, the last item will be the one that opens. You may experience flickering behavior as well.
+
+</Note>
 
 ## Custom Heading Label
 
@@ -139,7 +135,11 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
 
 `onFocusIndexChange$` will keep track of the current focused index. It can be useful for when you want to programmatically change something based on what the user focuses.
 
-> When a user clicks a trigger, they are also focusing it, which is worth keeping in mind.
+<Note status="info">
+  {' '}
+  When a user clicks a trigger, they are also focusing it, which is worth keeping in mind when
+  using this custom event.
+</Note>
 
 ## Dynamic
 
@@ -149,7 +149,10 @@ You can embrace reactivity, using signals, stores, and however else you'd like t
 
 When an Accordion Item is removed, a [Visible Task](https://qwik.builder.io/docs/components/tasks/#usevisibletask) runs that will clean up the DOM node in the browser, ensuring that you stay clear of race condition or memory leak issues.
 
-> You can add or remove something at any index and the focus order will adhere to the DOM hierarchy!
+<Note status="info">
+  {' '}
+  You can add or remove something at any index and the focus order will adhere to the DOM hierarchy!
+</Note>
 
 <div class="my-4">
   If you'd prefer to add your own <strong>id</strong> to the Accordion Item with dynamic
