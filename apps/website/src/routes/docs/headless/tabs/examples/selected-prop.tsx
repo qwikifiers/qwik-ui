@@ -11,9 +11,9 @@ export default component$(() => {
 
         <Tabs>
           <TabList>
-            <Tab>Maria Ahlefeldt</Tab>
-            <Tab selected>Carl Andersen</Tab>
-            <Tab>Ida Henriette da Fonseca</Tab>
+            <Tab>Maria</Tab>
+            <Tab selected>Carl</Tab>
+            <Tab>Ida</Tab>
           </TabList>
           <TabPanel>
             <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>

@@ -1,31 +1,23 @@
 .tabs-example [role='tab'] {
-  width: 205px;
-  background: var(--qwikui-slate-500);
-  color: white;
+  width: 175px;
+  background: hsl(var(--muted));
+  font-weight: 500;
 }
 
 .tabs-example [role='tab'][disabled] {
-  color: var(--qwikui-slate-400);
-  background: var(--qwikui-slate-600);
+  color: hsl(var(--muted-foreground));
 }
 
 .tabs-example [role='tab'].selected {
-  background: var(--qwikui-slate-950);
-  color: white;
+  background: hsl(var(--background));
 }
 
 .tabs-example [role='tablist'] {
   border: 1px solid;
-  color: white;
   margin-bottom: 1rem;
 }
 
 .tabs-example h3 {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: white;
-}
-
-.tabs-example [role='tabpanel'] {
-  color: white;
 }
