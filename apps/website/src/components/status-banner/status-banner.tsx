@@ -69,12 +69,12 @@ function getBackgroundByStatus(status?: ComponentStatus) {
     case ComponentStatus.Ready:
       return 'bg-green-300';
     case ComponentStatus.Beta:
-      return 'border border-primary bg-gradient-to-br from-primary to-primary/90';
+      return 'border border-primary bg-gradient-to-br from-primary to-primary/90 text-primary-foreground';
     case ComponentStatus.Draft:
-      return 'border';
+      return 'border bg-muted';
     case ComponentStatus.Planned:
     default:
-      return 'border bg-muted';
+      return 'border';
   }
 }
 
