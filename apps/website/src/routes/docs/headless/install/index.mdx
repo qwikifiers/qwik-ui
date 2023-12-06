@@ -2,15 +2,13 @@
 title: 'Qwik UI - Installation'
 ---
 
-import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import QwikLogo from '~/components/icons/QwikLogo.tsx';
 import AstroLogo from '~/components/icons/AstroLogo.tsx';
 import { Note } from '~/components/note/note.tsx';
-import qwikCityCLI from '/public/images/qwik-city-cli.webp';
-import astroCLI from '/public/images/astro-cli.webp';
-import qwikdevAstroCLI from '/public/images/qwikdev-astro-cli.webp';
+import qwikCityCLI from '/images/qwik-city-cli.webp';
+import astroCLI from '/images/astro-cli.webp';
+import qwikdevAstroCLI from '/images/qwikdev-astro-cli.webp';
 import { ConfettiButton } from './confetti-button';
-import { CodeCopy } from '~/components/code-copy/code-copy';
 
 export const packages = {
   npm: 'npm install @qwik-ui/headless',
@@ -45,15 +43,15 @@ Install Qwik UI with your choice of package manager below:
 
     ## Meta-framework guides
 
-    <div class="flex flex-col gap-4 md:flex-row mx-[-24px] lg:mx-[-32px]">
+    <div class="flex flex-col gap-4 md:flex-row mx-6 lg:mx-8">
         <a class="flex-1 border-none" href="#qwik-city">
-            <span class="p-8 dark:bg-slate-800 rounded-lg gap-4 flex  bg-slate-100 border-slate-200 flex-col items-center border-[1px] dark:border-slate-700 dark:hover:bg-slate-900 transition duration-300 ease-step hover:bg-white">
+            <span class="p-8 rounded-lg gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
             <QwikLogo class="max-w-[100px] max-h-[100px]" />
             <span class="text-lg font-bold">Qwik City</span>
             </span>
         </a>
         <a class="flex-1 border-none" href="#astro">
-            <span class="p-8 dark:bg-slate-800 rounded-lg gap-4 flex  bg-slate-100 border-slate-200 flex-col items-center border-[1px] dark:border-slate-700 dark:hover:bg-slate-900 transition duration-300 ease-step hover:bg-white">
+            <span class="p-8 rounded-lg gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
                 <AstroLogo class="max-w-[100px] max-h-[100px]" />
                 <span class="text-lg font-bold">Astro</span>
             </span>
@@ -80,14 +78,14 @@ Install Qwik UI with your choice of package manager below:
 
     Let's select the `empty app` option in the CLI to keep it simple. And remember, choosing the dad joke is not optional - it's mandatory! We have a highly sophisticated Dad Joke Detection System (DJDS) in place, so we'll know if you didn't!
 
-    <div class="mx-[-24px] lg:mx-[-32px]">
-        <img src={qwikCityCLI} class="block max-w-full rounded-md mb-6 border-qwikui-purple-200" />
+    <div class="mx-6 lg:mx-8">
+        <img src={qwikCityCLI} class="block max-w-full rounded-md mb-6 border" />
     </div>
 
     Below is the Qwik City project structure. Inside of the `src` directory, let's create a new folder called `accordion`. Then, a file named **`accordion.tsx`** inside of `src/components`.
 
-    <div class="whitespace-pre-wrap bg-[#ECDDFD] dark:bg-[#0C2944] mx-[-24px] lg:mx-[-32px] px-5 py-4 lg:px-[28px] text-slate-700 dark:text-slate-300 border-[1px] border-qwikui-purple-600 rounded-lg dark:border-qwikui-blue-600 mb-6 lg:mb-12">
-        <strong class="text-slate-950 dark:text-white">Qwik City files</strong>
+    <div class="whitespace-pre-wrap bg-secondary/20 -mx-6 lg:-mx-8 px-5 py-4 lg:px-7 border border-secondary rounded-lg mb-6 lg:mb-12">
+        <strong>Qwik City files</strong>
         ├─ .eslintignore
         ├─ .eslintrc.cjs
         ├─ .gitignore
@@ -99,10 +97,10 @@ Install Qwik UI with your choice of package manager below:
         │  ├─ favicon.svg
         │  ├─ manifest.json
         │  └─ robots.txt
-        ├─ <strong class="text-slate-950 dark:text-white">src</strong>
-        │  ├─ <strong class="text-slate-950 dark:text-white">components</strong>
-        │  │  └─ <strong class="text-slate-950 dark:text-white">accordion</strong>
-        │  │     └─ <strong class="text-slate-950 dark:text-white">accordion.tsx</strong>
+        ├─ <strong>src</strong>
+        │  ├─ <strong>components</strong>
+        │  │  └─ <strong>accordion</strong>
+        │  │     └─ <strong>accordion.tsx</strong>
         │  │  └─ router-head
         │  │     └─ router-head.tsx
         │  ├─ entry.dev.tsx
@@ -143,8 +141,8 @@ Install Qwik UI with your choice of package manager below:
 
     Add a relative path for your project, and select the `empty` option in the CLI.
 
-    <div class="mx-[-24px] lg:mx-[-32px]">
-        <img src={astroCLI} class="block max-w-full rounded-md mb-6 border-qwikui-purple-200" />
+    <div class="mx-6 lg:mx-8">
+        <img src={astroCLI} class="block max-w-full rounded-md mb-6 border" />
     </div>
 
     Next, let's add the [@qwikdev/astro](https://www.npmjs.com/package/@qwikdev/astro) integration. This integration allows us to leverage resumability and Qwik components inside of Astro.
@@ -153,8 +151,8 @@ Install Qwik UI with your choice of package manager below:
 
     <InstallSnippet packages={qwikAstroCliPackages} />
 
-    <div class="mx-[-24px] lg:mx-[-32px]">
-        <img src={qwikdevAstroCLI} class="block max-w-full rounded-md mb-6 border-qwikui-purple-200" />
+    <div class="mx-6 lg:mx-8">
+        <img src={qwikdevAstroCLI} class="block max-w-full rounded-md mb-6 border" />
     </div>
 
     Then, let's make sure we use Qwik as our main **jsxImportSource** in `tsconfig.json`. Otherwise, it will not get the proper Qwik types.
@@ -173,8 +171,8 @@ Install Qwik UI with your choice of package manager below:
 
     Below is the project structure with this in place.
 
-    <div class="whitespace-pre-wrap bg-[#ECDDFD] dark:bg-[#0C2944] mx-[-24px] lg:mx-[-32px] px-5 py-4 lg:px-[28px] text-slate-700 dark:text-slate-300 border-[1px] border-qwikui-purple-600 rounded-lg dark:border-qwikui-blue-600 mb-6 lg:mb-12">
-        <strong class="text-slate-950 dark:text-white">Astro files</strong>
+    <div class="whitespace-pre-wrap bg-secondary/20 -mx-6 lg:-mx-8 px-5 py-4 lg:px-7 border border-secondary rounded-lg mb-6 lg:mb-12">
+        <strong>Astro files</strong>
         ├─ .gitignore
         ├─ README.md
         ├─ astro.config.mjs
@@ -185,9 +183,9 @@ Install Qwik UI with your choice of package manager below:
         ├─ src
         │  ├─ env.d.ts
         │  └─ pages
-        │     ├─ <strong class="text-slate-950 dark:text-white">components</strong>
-        │     │  └─ <strong class="text-slate-950 dark:text-white">accordion</strong>
-        │     │     └─ <strong class="text-slate-950 dark:text-white">accordion.tsx</strong>
+        │     ├─ <strong>components</strong>
+        │     │  └─ <strong>accordion</strong>
+        │     │     └─ <strong>accordion.tsx</strong>
         │     └─ index.astro
         └─ tsconfig.json
     </div>
