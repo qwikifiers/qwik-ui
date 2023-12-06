@@ -33,30 +33,29 @@ export type InstallSnippetProps = {
 export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => {
   return (
     <Tabs
-      class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-lg text-white lg:mx-[-32px]"
+      class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-xl lg:mx-[-32px]"
       behavior="manual"
     >
-      <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 flex rounded-t-lg border-[1.5px] border-b-0 text-white">
+      <TabList class=" flex rounded-t-xl border border-b-0 p-2">
         {Object.keys(packages).map((key, index) => (
           <Tab
             key={index}
-            class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color aria-selected:bg-qwikui-blue-500 dark:aria-selected:bg-qwikui-purple-600  min-h-[44px] px-[28px] py-2 transition first-of-type:rounded-tl-[.325rem] aria-selected:font-bold"
+            class="hover:bg-accent hover:text-accent-foreground mr-2 rounded-xl border px-2 py-1 hover:font-medium"
           >
             {key}
           </Tab>
         ))}
       </TabList>
-      {Object.entries(packages).map(([key, value], index) => (
+      {Object.entries(packages).map(([, value], index) => (
         <TabPanel
           key={index}
-          class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-lg border-[1.5px] bg-slate-200 bg-slate-800 px-[28px] py-6 dark:bg-slate-900"
+          class="shadow-light-medium dark:shadow-dark-medium rounded-b-lg border-[1.5px] bg-slate-800 px-4 py-6 text-white dark:bg-slate-900"
         >
           <div class="flex items-center justify-between">
             {value}
             <CodeCopy
               code={value}
               class="p-4 hover:bg-slate-700 dark:hover:bg-slate-800"
-              icon={true}
             />
           </div>
         </TabPanel>

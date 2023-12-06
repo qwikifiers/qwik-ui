@@ -18,10 +18,10 @@ export const components: Record<string, any> = {
     >
   >(({ __rawString__, ...props }) => {
     return (
-      <div class="code-example relative mx-[-24px] max-h-[31.25rem] rounded-b-xl bg-[#1D232A] lg:mx-[-32px]">
+      <div class="code-example relative mx-6 max-h-[31.25rem] rounded-xl bg-[#1D232A] lg:mx-8">
         <CodeCopy
           class={[
-            'absolute right-4 top-4 border-2 bg-slate-800 text-slate-50 hover:bg-slate-700 hover:text-slate-50',
+            'absolute right-4 top-4 border-2 text-slate-50 hover:bg-slate-800 hover:text-slate-50',
           ]}
           code={__rawString__}
         />
