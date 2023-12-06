@@ -4,7 +4,7 @@ import { PreviewCodeExampleProps } from './preview-code-example-props.type';
 
 export const PreviewCodeExampleVertical = component$((props: PreviewCodeExampleProps) => {
   return (
-    <div class="dark:border-qwikui-purple-200 shadow-light-medium dark:shadow-dark-medium flex w-full flex-col rounded-xl border-[1.5px] border-solid border-slate-200">
+    <div class="dark:border-qwikui-purple-200 shadow-light-medium dark:shadow-dark-medium mx-[-24px] flex flex-col rounded-xl border-[1.5px] border-solid border-slate-200 lg:mx-[-32px]">
       <h3 class=" flex rounded-t-xl text-white"></h3>
       <section class="rounded-t-xl bg-slate-50 p-4 dark:bg-slate-800">
         <Slot name="actualComponent" />

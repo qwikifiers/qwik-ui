@@ -8,6 +8,11 @@
     this should not affect the styles inside of the tabpanel
     A.K.A the components
   */
+
+  table a {
+    @apply border-none;
+  }
+
   & > {
     p {
       @apply mb-6;
@@ -18,7 +23,7 @@
     }
 
     h2 {
-      @apply mb-8 mt-20 border-b-[1px] border-slate-300 pb-2 text-2xl font-extrabold dark:border-slate-700;
+      @apply mb-8 mt-20 scroll-mt-32 border-b-[1px] border-slate-300 pb-2 text-2xl font-extrabold dark:border-slate-700;
     }
 
     h3 {
@@ -47,11 +52,7 @@
   }
 
   a {
-    @apply border-qwikui-blue-500 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] font-semibold transition-colors duration-300;
-  }
-
-  code {
-    @apply bg-transparent;
+    @apply border-qwikui-blue-600 dark:border-qwikui-purple-400 ease-step hover:border-qwikui-blue-600 border-b-[1.5px] pb-[1.5px] font-semibold transition transition-colors duration-300;
   }
 
   p code {

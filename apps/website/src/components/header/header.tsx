@@ -64,7 +64,7 @@ export default component$(
     return (
       <header
         class={[
-          `sticky top-0 z-20 flex h-20 w-full items-center gap-8 border-b-[1px] border-slate-200 bg-white  p-4 dark:border-slate-800 dark:bg-slate-900 md:h-20`,
+          `xs:gap-8 sticky top-0 z-20 flex h-20 w-full items-center gap-6 border-b-[1px] border-slate-200 bg-white  p-4 dark:border-slate-800 dark:bg-slate-900 md:h-20`,
           `shadow-light-low dark:shadow-dark-medium`,
           rootStore.isSidebarOpened
             ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
@@ -81,7 +81,10 @@ export default component$(
             <div data-tip="Qwik-UI Version" class="mr-auto">
               <div class="ml-2 flex flex-row gap-1 text-xs md:mt-1 md:flex-col md:text-sm">
                 <span> {kitSignal.value?.name} Kit </span>
-                <span> v.{kitSignal.value?.version} </span>
+                <span>
+                  {' '}
+                  <span>v{kitSignal.value?.version}</span>{' '}
+                </span>
               </div>
             </div>
           )}

@@ -129,10 +129,6 @@
     "vitest": "^0.34.3",
     "wrangler": "^3.11.0"
   },
-  "dependencies": {
-    "@fontsource-variable/inter": "5.0.8",
-    "tslib": "^2.6.2"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
@@ -143,6 +139,12 @@
     "qwik ui components",
     "components library"
   ],
+  "dependencies": {
+    "@fontsource-variable/inter": "5.0.8",
+    "canvas-confetti": "1.9.2",
+    "shiki": "0.14.5",
+    "tslib": "^2.6.2"
+  },
   "nx": {
     "includedScripts": []
   }

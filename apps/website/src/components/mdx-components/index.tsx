@@ -17,7 +17,7 @@ export const components: Record<string, any> = {
     >
   >(({ __rawString__, ...props }) => {
     return (
-      <div class="code-example relative max-h-[31.25rem] rounded-b-xl">
+      <div class="code-example relative mx-[-24px] max-h-[31.25rem] rounded-b-xl bg-[#1D232A] lg:mx-[-32px]">
         <CodeCopy
           class={[
             'copy-btn-bg-dark absolute right-4 top-4 bg-slate-200 text-white hover:bg-slate-600 hover:text-white',

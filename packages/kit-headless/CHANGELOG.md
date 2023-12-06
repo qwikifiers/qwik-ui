@@ -4,126 +4,105 @@ This file was generated using [@jscutlery/semver](https://github.com/jscutlery/s
 
 ## [0.1.22](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.21...headless-0.1.22) (2023-12-01)
 
-
-
 ## [0.1.21](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.20...headless-0.1.21) (2023-12-01)
-
-
 
 ## [0.1.20](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.19...headless-0.1.20) (2023-11-30)
 
-
-
 ## [0.1.19](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.18...headless-0.1.19) (2023-11-30)
-
-
 
 ## [0.1.18](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.17...headless-0.1.18) (2023-11-30)
 
-
 ### Bug Fixes
 
-* **accordion:** disabled in safari ([cfe5083](https://github.com/qwikifiers/qwik-ui/commit/cfe5083c8d3ddc23338a1527f946f54eae0c2231))
-* combobox test ([#480](https://github.com/qwikifiers/qwik-ui/issues/480)) ([166093c](https://github.com/qwikifiers/qwik-ui/commit/166093c39d9f6d076094b986fc2a1a1f7feba7c1))
-* **dialog:a11y:** replce role=button with section element ([74a9b55](https://github.com/qwikifiers/qwik-ui/commit/74a9b556c7ba6e1f0a530304364bba969a63d6c9))
-* **dialog:** close dialog on backdrop click ([ea5ba0e](https://github.com/qwikifiers/qwik-ui/commit/ea5ba0e5cc356ddb0800987e421a713261f42894))
-* **dialog:** export dialog from headless library ([8e85362](https://github.com/qwikifiers/qwik-ui/commit/8e8536232e3657c87599e7c1beac882320b7aa8c))
-* **dialog:** lock scrolling when dialog is opened ([cf6783e](https://github.com/qwikifiers/qwik-ui/commit/cf6783e138d6282be5f67b1937f4409ac3ad67bd))
-* **dialog:** resolve lint-error concerning scope ([7713ed1](https://github.com/qwikifiers/qwik-ui/commit/7713ed18a5ec83aaecbfeae12db6807b7c0447cb))
-* **docs:** animation support, fixed scrollbar flickering across the board ([3ab1824](https://github.com/qwikifiers/qwik-ui/commit/3ab1824813135e2a88c6c4c1978638d8056acb9f))
-* **modal:** animations events are now properly cleaned up ([40cd056](https://github.com/qwikifiers/qwik-ui/commit/40cd056e9add2e08f4fe633bf14ced2dbc7b5d0a))
-* **modal:** avoid accidantal close clicking the edges of the modal ([bb4b582](https://github.com/qwikifiers/qwik-ui/commit/bb4b5821947c29597ae6046a4457787eba4a38c3))
-* **modal:** avoid closing when label is clicked ([87fce3e](https://github.com/qwikifiers/qwik-ui/commit/87fce3edf47f3cf78344e9786307169c700d73e0))
-* **modal:** correct calculation of boundingClientRect ([95f9676](https://github.com/qwikifiers/qwik-ui/commit/95f9676c09ad1e7be0f608acffccc04052c5de57))
-* **modal:** deactivate focus-trap before close ([a802ef2](https://github.com/qwikifiers/qwik-ui/commit/a802ef2f87cd51b82dfb0d997b49871dc6146d90))
-* **modal:** deactivate FocusTrap once ([38e8b03](https://github.com/qwikifiers/qwik-ui/commit/38e8b0355303993e6a86e5064d89aa3b21f1eff1))
-* **modal:** fixing scrollbar flickers ([426bf48](https://github.com/qwikifiers/qwik-ui/commit/426bf48f356597f9eda60c48f80c5caa94de9807))
-* **modal:** get modal to work again ([d3219bd](https://github.com/qwikifiers/qwik-ui/commit/d3219bdf88e0df4051c4864ba984908bb94d5c24))
-* **modal:** prevent closing from being executed twice ([5ebf5d9](https://github.com/qwikifiers/qwik-ui/commit/5ebf5d9555426e8c0a04a5a2dd53b505347222f9))
-* **modal:** remove focus logic since it works out-of-the-box ([cb81d11](https://github.com/qwikifiers/qwik-ui/commit/cb81d1125e921b59bc314df5318f3565c4af17cb))
-* **modal:** remove modal-closing when no animation is applied ([d18ca00](https://github.com/qwikifiers/qwik-ui/commit/d18ca0042f06eb4bdff1cd50db2a1f266bf61b69))
-* **modal:** remove modal-opening after animation is finished ([884a0df](https://github.com/qwikifiers/qwik-ui/commit/884a0df1febec21df108fbc0a51067fdca15f390))
-* **modal:** scroll flicker ([20946a9](https://github.com/qwikifiers/qwik-ui/commit/20946a939a1a7e8f64ffc96389bce0f77c12b878))
-* **modal:** scrollbar flicker, copy button goes back to normal state ([fc3f0cf](https://github.com/qwikifiers/qwik-ui/commit/fc3f0cf87f4d9b62a57979080eee357edf743a19))
-* **modal:** stop calling closing in task-clean-up ([faddf1a](https://github.com/qwikifiers/qwik-ui/commit/faddf1a138996d5d93c07a41b894e4531a59f061))
-* **modal:** tolerate if no tabbable elements are inside the modal ([81ee5d2](https://github.com/qwikifiers/qwik-ui/commit/81ee5d2148a96bf9873dd1454031ba77b5c38c14))
-* **modal:** transition was using the wrong event, fixed ([10360be](https://github.com/qwikifiers/qwik-ui/commit/10360be87794568b66a3474f586c3f92a2c2ee15))
-* **modal:** type errors preventing preview build ([34f86bb](https://github.com/qwikifiers/qwik-ui/commit/34f86bb88183d5a7c231c145cedf3f3d1d2dddd0))
-* pagination ([#499](https://github.com/qwikifiers/qwik-ui/issues/499)) ([1b040d9](https://github.com/qwikifiers/qwik-ui/commit/1b040d903edb564cf955bb2f1a9587b50567ce81))
-* **pagination:** add disable attribute and remove pointer event none ([c6b3cde](https://github.com/qwikifiers/qwik-ui/commit/c6b3cde205102f601db6a596c6e2de3800b01754))
-* **pagination:** moved signal update inside useTask ([fd0965e](https://github.com/qwikifiers/qwik-ui/commit/fd0965e11ca21ed34729bd12fbeba8f13c6d9e8e))
-* **pagination:** remove implicit role button ([2476236](https://github.com/qwikifiers/qwik-ui/commit/24762369b47bfad46ddc04b95c64cf9cce609203))
-* **pagination:** remove implicit role=navigation ([8294b37](https://github.com/qwikifiers/qwik-ui/commit/8294b37e6c19c09584b1654dd117f0bc5a74997f))
-* **pagination:** remove useTask ([c083445](https://github.com/qwikifiers/qwik-ui/commit/c08344575be7eac1c9ae722e67d9cd551f55ea7f))
-* **pagination:** use relative path in import ([9b2d1da](https://github.com/qwikifiers/qwik-ui/commit/9b2d1da861f00f6649765e0106115db8d850a824))
-* **repo:** various target and dependency updates ([03851a9](https://github.com/qwikifiers/qwik-ui/commit/03851a9ff8320dcecc26b11ba21893d2181c20ca))
-* **typos:** minor typo correction in comments ([2f6646a](https://github.com/qwikifiers/qwik-ui/commit/2f6646a941b883521445285644137fd808fc196c))
-* **vite.config.ts:** remove external rollupOptions ([50c5abb](https://github.com/qwikifiers/qwik-ui/commit/50c5abb651fce8412014f9c025a5f6000488076e)), closes [#473](https://github.com/qwikifiers/qwik-ui/issues/473)
-
+- **accordion:** disabled in safari ([cfe5083](https://github.com/qwikifiers/qwik-ui/commit/cfe5083c8d3ddc23338a1527f946f54eae0c2231))
+- combobox test ([#480](https://github.com/qwikifiers/qwik-ui/issues/480)) ([166093c](https://github.com/qwikifiers/qwik-ui/commit/166093c39d9f6d076094b986fc2a1a1f7feba7c1))
+- **dialog:a11y:** replce role=button with section element ([74a9b55](https://github.com/qwikifiers/qwik-ui/commit/74a9b556c7ba6e1f0a530304364bba969a63d6c9))
+- **dialog:** close dialog on backdrop click ([ea5ba0e](https://github.com/qwikifiers/qwik-ui/commit/ea5ba0e5cc356ddb0800987e421a713261f42894))
+- **dialog:** export dialog from headless library ([8e85362](https://github.com/qwikifiers/qwik-ui/commit/8e8536232e3657c87599e7c1beac882320b7aa8c))
+- **dialog:** lock scrolling when dialog is opened ([cf6783e](https://github.com/qwikifiers/qwik-ui/commit/cf6783e138d6282be5f67b1937f4409ac3ad67bd))
+- **dialog:** resolve lint-error concerning scope ([7713ed1](https://github.com/qwikifiers/qwik-ui/commit/7713ed18a5ec83aaecbfeae12db6807b7c0447cb))
+- **docs:** animation support, fixed scrollbar flickering across the board ([3ab1824](https://github.com/qwikifiers/qwik-ui/commit/3ab1824813135e2a88c6c4c1978638d8056acb9f))
+- **modal:** animations events are now properly cleaned up ([40cd056](https://github.com/qwikifiers/qwik-ui/commit/40cd056e9add2e08f4fe633bf14ced2dbc7b5d0a))
+- **modal:** avoid accidantal close clicking the edges of the modal ([bb4b582](https://github.com/qwikifiers/qwik-ui/commit/bb4b5821947c29597ae6046a4457787eba4a38c3))
+- **modal:** avoid closing when label is clicked ([87fce3e](https://github.com/qwikifiers/qwik-ui/commit/87fce3edf47f3cf78344e9786307169c700d73e0))
+- **modal:** correct calculation of boundingClientRect ([95f9676](https://github.com/qwikifiers/qwik-ui/commit/95f9676c09ad1e7be0f608acffccc04052c5de57))
+- **modal:** deactivate focus-trap before close ([a802ef2](https://github.com/qwikifiers/qwik-ui/commit/a802ef2f87cd51b82dfb0d997b49871dc6146d90))
+- **modal:** deactivate FocusTrap once ([38e8b03](https://github.com/qwikifiers/qwik-ui/commit/38e8b0355303993e6a86e5064d89aa3b21f1eff1))
+- **modal:** fixing scrollbar flickers ([426bf48](https://github.com/qwikifiers/qwik-ui/commit/426bf48f356597f9eda60c48f80c5caa94de9807))
+- **modal:** get modal to work again ([d3219bd](https://github.com/qwikifiers/qwik-ui/commit/d3219bdf88e0df4051c4864ba984908bb94d5c24))
+- **modal:** prevent closing from being executed twice ([5ebf5d9](https://github.com/qwikifiers/qwik-ui/commit/5ebf5d9555426e8c0a04a5a2dd53b505347222f9))
+- **modal:** remove focus logic since it works out-of-the-box ([cb81d11](https://github.com/qwikifiers/qwik-ui/commit/cb81d1125e921b59bc314df5318f3565c4af17cb))
+- **modal:** remove modal-closing when no animation is applied ([d18ca00](https://github.com/qwikifiers/qwik-ui/commit/d18ca0042f06eb4bdff1cd50db2a1f266bf61b69))
+- **modal:** remove modal-opening after animation is finished ([884a0df](https://github.com/qwikifiers/qwik-ui/commit/884a0df1febec21df108fbc0a51067fdca15f390))
+- **modal:** scroll flicker ([20946a9](https://github.com/qwikifiers/qwik-ui/commit/20946a939a1a7e8f64ffc96389bce0f77c12b878))
+- **modal:** scrollbar flicker, copy button goes back to normal state ([fc3f0cf](https://github.com/qwikifiers/qwik-ui/commit/fc3f0cf87f4d9b62a57979080eee357edf743a19))
+- **modal:** stop calling closing in task-clean-up ([faddf1a](https://github.com/qwikifiers/qwik-ui/commit/faddf1a138996d5d93c07a41b894e4531a59f061))
+- **modal:** tolerate if no tabbable elements are inside the modal ([81ee5d2](https://github.com/qwikifiers/qwik-ui/commit/81ee5d2148a96bf9873dd1454031ba77b5c38c14))
+- **modal:** transition was using the wrong event, fixed ([10360be](https://github.com/qwikifiers/qwik-ui/commit/10360be87794568b66a3474f586c3f92a2c2ee15))
+- **modal:** type errors preventing preview build ([34f86bb](https://github.com/qwikifiers/qwik-ui/commit/34f86bb88183d5a7c231c145cedf3f3d1d2dddd0))
+- pagination ([#499](https://github.com/qwikifiers/qwik-ui/issues/499)) ([1b040d9](https://github.com/qwikifiers/qwik-ui/commit/1b040d903edb564cf955bb2f1a9587b50567ce81))
+- **pagination:** add disable attribute and remove pointer event none ([c6b3cde](https://github.com/qwikifiers/qwik-ui/commit/c6b3cde205102f601db6a596c6e2de3800b01754))
+- **pagination:** moved signal update inside useTask ([fd0965e](https://github.com/qwikifiers/qwik-ui/commit/fd0965e11ca21ed34729bd12fbeba8f13c6d9e8e))
+- **pagination:** remove implicit role button ([2476236](https://github.com/qwikifiers/qwik-ui/commit/24762369b47bfad46ddc04b95c64cf9cce609203))
+- **pagination:** remove implicit role=navigation ([8294b37](https://github.com/qwikifiers/qwik-ui/commit/8294b37e6c19c09584b1654dd117f0bc5a74997f))
+- **pagination:** remove useTask ([c083445](https://github.com/qwikifiers/qwik-ui/commit/c08344575be7eac1c9ae722e67d9cd551f55ea7f))
+- **pagination:** use relative path in import ([9b2d1da](https://github.com/qwikifiers/qwik-ui/commit/9b2d1da861f00f6649765e0106115db8d850a824))
+- **repo:** various target and dependency updates ([03851a9](https://github.com/qwikifiers/qwik-ui/commit/03851a9ff8320dcecc26b11ba21893d2181c20ca))
+- **typos:** minor typo correction in comments ([2f6646a](https://github.com/qwikifiers/qwik-ui/commit/2f6646a941b883521445285644137fd808fc196c))
+- **vite.config.ts:** remove external rollupOptions ([50c5abb](https://github.com/qwikifiers/qwik-ui/commit/50c5abb651fce8412014f9c025a5f6000488076e)), closes [#473](https://github.com/qwikifiers/qwik-ui/issues/473)
 
 ### Features
 
-* **dialog:** add ContentText ([017164a](https://github.com/qwikifiers/qwik-ui/commit/017164a5b0eca3c427120eb39e65cee158c5014f))
-* **dialog:** add dialog ([36fdfec](https://github.com/qwikifiers/qwik-ui/commit/36fdfec88c39ddef2253af961363ed408ecf9d4c))
-* **dialog:** add Dialog.Actions ([253fd58](https://github.com/qwikifiers/qwik-ui/commit/253fd5848b9ecd19595e5591e1499bc7307c97b5))
-* **dialog:** add Dialog.Title ([61ace39](https://github.com/qwikifiers/qwik-ui/commit/61ace39bd7ffa6597364f80d50a8f9620959f949))
-* **dialog:** add Example for tailwind dialog ([584fc0e](https://github.com/qwikifiers/qwik-ui/commit/584fc0e9075add00e8be78b23e0d5edea2443bf1))
-* **dialog:** all dialog overrides are passed via Dialog.Root ([64997dc](https://github.com/qwikifiers/qwik-ui/commit/64997dcf1093685f4b0323bee8f0116def335222))
-* **dialog:** expose props of Dialog.Root ([cb578e4](https://github.com/qwikifiers/qwik-ui/commit/cb578e43aa7d28381c0ad2a145a9374ec285e208))
-* **dialog:** expose public API via ref ([9aba660](https://github.com/qwikifiers/qwik-ui/commit/9aba660131e9e8ff2698c7a570c6dde968d3b346))
-* **dialog:** introduce Dialog.Trigger & Dialog.Portal ([bfc48a7](https://github.com/qwikifiers/qwik-ui/commit/bfc48a7f376fbba25b5849c0ae4bd0bf920284fc))
-* **dialog:** make tailwind example work ([2c93081](https://github.com/qwikifiers/qwik-ui/commit/2c930811ab5630019191decd79eb2a79df8a36bd))
-* **dialog:** position Dialog.ContentTitle sticky ([6d4ffc2](https://github.com/qwikifiers/qwik-ui/commit/6d4ffc21c34dc6b63b43436e587960048ca4428e))
-* **dialog:** stop passing through every dialog-property ([0591394](https://github.com/qwikifiers/qwik-ui/commit/05913942e1582951116f26bba220ce5f9c67cd42))
-* **dialog:** support full-screen mode ([a8470ed](https://github.com/qwikifiers/qwik-ui/commit/a8470ed2fb582895504a5ef8afd2d6f1d7d6fb7c))
-* **focus trapping:** adding focus trapping to the modal, executes when open, cleans up when closes ([456240c](https://github.com/qwikifiers/qwik-ui/commit/456240ce1d89032063e6d4fce6a2e46f0b50bf6a))
-* **focus-trap:** setup skeleton ([4d4f4b5](https://github.com/qwikifiers/qwik-ui/commit/4d4f4b5eba7f4bbfa3e99cea7f2abd264149b1fe))
-* **modal:** allow disabling close on backdrop-click ([70c88cc](https://github.com/qwikifiers/qwik-ui/commit/70c88cceae4162965318ea53170e0f5af18c1007))
-* **modal:** allow styling ModalContent ([a849cd8](https://github.com/qwikifiers/qwik-ui/commit/a849cd84706c088e05cf04f5d818b25d4a4cf556))
-* **modal:** clean up focus-trap ([98a3f4d](https://github.com/qwikifiers/qwik-ui/commit/98a3f4d792f27982a015c7e16b3c8255ed59e831))
-* **modal:** export public API ([c737fce](https://github.com/qwikifiers/qwik-ui/commit/c737fce43d8876e3ee6db7b2d76a8322a0727549))
-* **modal:** hero example changed, fixed copy button and border radius issue, semantic markup ([831dd89](https://github.com/qwikifiers/qwik-ui/commit/831dd89ec3538642fef75412a659c002da91897f))
-* **modal:** introduce trigger, close and portal ([0270e0f](https://github.com/qwikifiers/qwik-ui/commit/0270e0f0a6a8170c84a4bd2874e8e54d3c8f0a42))
-* **modal:** remove "show" & "bind:closeOnBackdropClick" ([d0dc878](https://github.com/qwikifiers/qwik-ui/commit/d0dc8782344284b73dc62cc98df831de4cfa5f41))
-* **modal:** remove fullScreen property ([be52fc2](https://github.com/qwikifiers/qwik-ui/commit/be52fc26228f2d7f08893b6e4bb9be8e5edc232f))
-* **modal:** require bind:show ([99ae628](https://github.com/qwikifiers/qwik-ui/commit/99ae6284ce69c0687a6321817e121cd5cab3395f))
-* **modal:** transition support, fixed type errors in spec ([0da3e6b](https://github.com/qwikifiers/qwik-ui/commit/0da3e6b84f1738cb6e1804df8f2205c041ab4995))
-* **modal:** use signals instead of exposing functions ([6ffa690](https://github.com/qwikifiers/qwik-ui/commit/6ffa6904951683f8282e92f6332a6b34f03ebeef))
-* **pagination:** add algorithm for dynamic button generation ([79a0683](https://github.com/qwikifiers/qwik-ui/commit/79a0683f07b9cd8f6e977429b319020fd5fc5a31))
-* **pagination:** add disable feature and improve doc ([e05014a](https://github.com/qwikifiers/qwik-ui/commit/e05014adf0de341a9bb8a0afbb0da7e30d3eeeef))
-* **pagination:** allow to hide next and previous buttons ([ee8b639](https://github.com/qwikifiers/qwik-ui/commit/ee8b63966d0b741c78c753b2aeead9a55ab4de3c))
-* **pagination:** support custom labels ([cf9e79e](https://github.com/qwikifiers/qwik-ui/commit/cf9e79ea0a27ad517ef6afb6ef78b3fa3bafa9c6))
-* **tailwind:dialog:** add full-screen example ([03a6d1f](https://github.com/qwikifiers/qwik-ui/commit/03a6d1f87adb431ece1202c0528a99a7b6b7a84b))
-* **tailwind:dialog:** add scrolling content example ([03f3120](https://github.com/qwikifiers/qwik-ui/commit/03f3120b76fe1afbd4a899ef38a5f92070a5036e))
-
+- **dialog:** add ContentText ([017164a](https://github.com/qwikifiers/qwik-ui/commit/017164a5b0eca3c427120eb39e65cee158c5014f))
+- **dialog:** add dialog ([36fdfec](https://github.com/qwikifiers/qwik-ui/commit/36fdfec88c39ddef2253af961363ed408ecf9d4c))
+- **dialog:** add Dialog.Actions ([253fd58](https://github.com/qwikifiers/qwik-ui/commit/253fd5848b9ecd19595e5591e1499bc7307c97b5))
+- **dialog:** add Dialog.Title ([61ace39](https://github.com/qwikifiers/qwik-ui/commit/61ace39bd7ffa6597364f80d50a8f9620959f949))
+- **dialog:** add Example for tailwind dialog ([584fc0e](https://github.com/qwikifiers/qwik-ui/commit/584fc0e9075add00e8be78b23e0d5edea2443bf1))
+- **dialog:** all dialog overrides are passed via Dialog.Root ([64997dc](https://github.com/qwikifiers/qwik-ui/commit/64997dcf1093685f4b0323bee8f0116def335222))
+- **dialog:** expose props of Dialog.Root ([cb578e4](https://github.com/qwikifiers/qwik-ui/commit/cb578e43aa7d28381c0ad2a145a9374ec285e208))
+- **dialog:** expose public API via ref ([9aba660](https://github.com/qwikifiers/qwik-ui/commit/9aba660131e9e8ff2698c7a570c6dde968d3b346))
+- **dialog:** introduce Dialog.Trigger & Dialog.Portal ([bfc48a7](https://github.com/qwikifiers/qwik-ui/commit/bfc48a7f376fbba25b5849c0ae4bd0bf920284fc))
+- **dialog:** make tailwind example work ([2c93081](https://github.com/qwikifiers/qwik-ui/commit/2c930811ab5630019191decd79eb2a79df8a36bd))
+- **dialog:** position Dialog.ContentTitle sticky ([6d4ffc2](https://github.com/qwikifiers/qwik-ui/commit/6d4ffc21c34dc6b63b43436e587960048ca4428e))
+- **dialog:** stop passing through every dialog-property ([0591394](https://github.com/qwikifiers/qwik-ui/commit/05913942e1582951116f26bba220ce5f9c67cd42))
+- **dialog:** support full-screen mode ([a8470ed](https://github.com/qwikifiers/qwik-ui/commit/a8470ed2fb582895504a5ef8afd2d6f1d7d6fb7c))
+- **focus trapping:** adding focus trapping to the modal, executes when open, cleans up when closes ([456240c](https://github.com/qwikifiers/qwik-ui/commit/456240ce1d89032063e6d4fce6a2e46f0b50bf6a))
+- **focus-trap:** setup skeleton ([4d4f4b5](https://github.com/qwikifiers/qwik-ui/commit/4d4f4b5eba7f4bbfa3e99cea7f2abd264149b1fe))
+- **modal:** allow disabling close on backdrop-click ([70c88cc](https://github.com/qwikifiers/qwik-ui/commit/70c88cceae4162965318ea53170e0f5af18c1007))
+- **modal:** allow styling ModalContent ([a849cd8](https://github.com/qwikifiers/qwik-ui/commit/a849cd84706c088e05cf04f5d818b25d4a4cf556))
+- **modal:** clean up focus-trap ([98a3f4d](https://github.com/qwikifiers/qwik-ui/commit/98a3f4d792f27982a015c7e16b3c8255ed59e831))
+- **modal:** export public API ([c737fce](https://github.com/qwikifiers/qwik-ui/commit/c737fce43d8876e3ee6db7b2d76a8322a0727549))
+- **modal:** hero example changed, fixed copy button and border radius issue, semantic markup ([831dd89](https://github.com/qwikifiers/qwik-ui/commit/831dd89ec3538642fef75412a659c002da91897f))
+- **modal:** introduce trigger, close and portal ([0270e0f](https://github.com/qwikifiers/qwik-ui/commit/0270e0f0a6a8170c84a4bd2874e8e54d3c8f0a42))
+- **modal:** remove "show" & "bind:closeOnBackdropClick" ([d0dc878](https://github.com/qwikifiers/qwik-ui/commit/d0dc8782344284b73dc62cc98df831de4cfa5f41))
+- **modal:** remove fullScreen property ([be52fc2](https://github.com/qwikifiers/qwik-ui/commit/be52fc26228f2d7f08893b6e4bb9be8e5edc232f))
+- **modal:** require bind:show ([99ae628](https://github.com/qwikifiers/qwik-ui/commit/99ae6284ce69c0687a6321817e121cd5cab3395f))
+- **modal:** transition support, fixed type errors in spec ([0da3e6b](https://github.com/qwikifiers/qwik-ui/commit/0da3e6b84f1738cb6e1804df8f2205c041ab4995))
+- **modal:** use signals instead of exposing functions ([6ffa690](https://github.com/qwikifiers/qwik-ui/commit/6ffa6904951683f8282e92f6332a6b34f03ebeef))
+- **pagination:** add algorithm for dynamic button generation ([79a0683](https://github.com/qwikifiers/qwik-ui/commit/79a0683f07b9cd8f6e977429b319020fd5fc5a31))
+- **pagination:** add disable feature and improve doc ([e05014a](https://github.com/qwikifiers/qwik-ui/commit/e05014adf0de341a9bb8a0afbb0da7e30d3eeeef))
+- **pagination:** allow to hide next and previous buttons ([ee8b639](https://github.com/qwikifiers/qwik-ui/commit/ee8b63966d0b741c78c753b2aeead9a55ab4de3c))
+- **pagination:** support custom labels ([cf9e79e](https://github.com/qwikifiers/qwik-ui/commit/cf9e79ea0a27ad517ef6afb6ef78b3fa3bafa9c6))
+- **tailwind:dialog:** add full-screen example ([03a6d1f](https://github.com/qwikifiers/qwik-ui/commit/03a6d1f87adb431ece1202c0528a99a7b6b7a84b))
+- **tailwind:dialog:** add scrolling content example ([03f3120](https://github.com/qwikifiers/qwik-ui/commit/03f3120b76fe1afbd4a899ef38a5f92070a5036e))
 
 ### Reverts
 
-* Revert "refactor(modal): remove ESC-handler" ([4a453a8](https://github.com/qwikifiers/qwik-ui/commit/4a453a87ccb37743d05978ea0c0b55da31f9d643))
-
-
+- Revert "refactor(modal): remove ESC-handler" ([4a453a8](https://github.com/qwikifiers/qwik-ui/commit/4a453a87ccb37743d05978ea0c0b55da31f9d643))
 
 ## [0.1.17](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.16...headless-0.1.17) (2023-10-03)
 
-
-
 ## [0.1.16](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.15...headless-0.1.16) (2023-09-26)
-
 
 ### Bug Fixes
 
-* **types:** types no longer under qwik-ui/ ([5afc917](https://github.com/qwikifiers/qwik-ui/commit/5afc9174b015c576b05caa72266e0ff38ab73031)), closes [#396](https://github.com/qwikifiers/qwik-ui/issues/396)
-
-
+- **types:** types no longer under qwik-ui/ ([5afc917](https://github.com/qwikifiers/qwik-ui/commit/5afc9174b015c576b05caa72266e0ff38ab73031)), closes [#396](https://github.com/qwikifiers/qwik-ui/issues/396)
 
 ## [0.1.15](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.14...headless-0.1.15) (2023-09-22)
 
-
 ### Bug Fixes
 
-* **bump qwik dep version:** bump qwik peer dep in packages ([10fc5ed](https://github.com/qwikifiers/qwik-ui/commit/10fc5edf7398792c84e22fdb78f19425462a6718)), closes [#396](https://github.com/qwikifiers/qwik-ui/issues/396)
-
-
+- **bump qwik dep version:** bump qwik peer dep in packages ([10fc5ed](https://github.com/qwikifiers/qwik-ui/commit/10fc5edf7398792c84e22fdb78f19425462a6718)), closes [#396](https://github.com/qwikifiers/qwik-ui/issues/396)
 
 ## [0.1.14](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.13...headless-0.1.14) (2023-09-19)
 
