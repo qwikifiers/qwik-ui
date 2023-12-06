@@ -25,7 +25,7 @@
 //   render: (args) => (
 //     <>
 //       <AccordionRoot class="accordion">
-//         <AccordionItem class="px-4 py-2 disabled:cursor-not-allowed disabled:text-gray-400 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border-[1px]">
+//         <AccordionItem class="px-4 py-2 disabled:cursor-not-allowed disabled:text-gray-400 w-full hover:bg-slate-300 dark:hover:bg-gray-800 border-slate-200 dark:border-gray-600 border">
 //           <AccordionTrigger>Item 1</AccordionTrigger>
 //           <AccordionContent>
 //             <p class="bg-slate-200 dark:bg-gray-900 p-4">
@@ -33,7 +33,7 @@
 //             </p>
 //           </AccordionContent>
 //         </AccordionItem>
-//         <AccordionItem>
+//         <AccordionItem class="border-b">
 //           <AccordionTrigger>Item 2</AccordionTrigger>
 //           <AccordionContent>
 //             <p class="bg-slate-200 dark:bg-gray-900 p-4">
@@ -41,7 +41,7 @@
 //             </p>
 //           </AccordionContent>
 //         </AccordionItem>
-//         <AccordionItem>
+//         <AccordionItem class="border-b">
 //           <AccordionTrigger>Item 3</AccordionTrigger>
 //           <AccordionContent>
 //             <p class="bg-slate-200 dark:bg-gray-900 p-4">

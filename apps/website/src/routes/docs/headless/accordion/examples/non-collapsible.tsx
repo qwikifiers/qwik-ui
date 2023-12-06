@@ -13,14 +13,10 @@ export default component$(() => {
   return (
     <>
       <div class="flex w-full justify-center">
-        <AccordionRoot
-          animated
-          collapsible={false}
-          class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white"
-        >
-          <AccordionItem>
+        <AccordionRoot animated collapsible={false} class="w-[min(400px,_100%)]">
+          <AccordionItem class="border-b">
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between  rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm  py-4 text-left hover:underline">
                 <span>How do I turn off collapsing?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -28,15 +24,15 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
-              <p class="bg-slate-900 p-4 ">
+              <p class="py-4 pt-0">
                 You can turn it off by setting the <strong>collapsible</strong> prop to
                 false.
               </p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem class="border-b">
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
                 <span>Can it be dynamic?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -44,14 +40,12 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
-              <p class="bg-slate-900 p-4">
-                Yes, there's a dynamic section further below.
-              </p>
+              <p class="py-4 pt-0">Yes, there's a dynamic section further below.</p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem class="border-b">
             <h3>
-              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline aria-expanded:rounded-none">
                 <span>Can I reactively change stuff?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
@@ -59,7 +53,7 @@ export default component$(() => {
               </AccordionTrigger>
             </h3>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
-              <p class="border-t-[1px] border-slate-600 bg-slate-900 p-4">
+              <p class="py-4 pt-0">
                 Of course! You can also use the onFocusIndexChange$ and
                 onSelectedIndexChange$ custom events.
               </p>

@@ -11,10 +11,10 @@ export default component$(() => {
   return (
     <>
       <div class="flex w-full justify-center">
-        <AccordionRoot class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-slate-600 bg-slate-700 text-white">
-          <AccordionItem>
+        <AccordionRoot class="w-[min(400px,_100%)]">
+          <AccordionItem class="border-b">
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
                 <span>Not open by default.</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -24,12 +24,12 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="bg-slate-900 p-4 ">I wasn't open by default!</p>
+              <p class="py-4 pt-0">I wasn't open by default!</p>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem defaultValue>
             <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between border-b-[1px] border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
                 <span>I'm open!</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -39,15 +39,15 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="bg-slate-900 p-4">
+              <p class="py-4 pt-0">
                 You can open me by default by putting the <strong>defaultValue</strong>{' '}
                 prop on the Accordion Item.
               </p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem class="border-b">
             <h3>
-              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 px-4 py-2 text-left hover:bg-slate-800 aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline aria-expanded:rounded-none">
                 <span>Not open by default.</span>
                 <span class="flex pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -57,9 +57,7 @@ export default component$(() => {
               </AccordionTrigger>
             </h3>
             <AccordionContent>
-              <p class="border-t-[1px] border-slate-600 bg-slate-900 p-4">
-                I wasn't open by default!
-              </p>
+              <p class="py-4 pt-0">I wasn't open by default!</p>
             </AccordionContent>
           </AccordionItem>
         </AccordionRoot>

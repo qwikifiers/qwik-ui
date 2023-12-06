@@ -18,19 +18,19 @@ const ThreeItemAccordion = component$(
   ({ behavior, collapsible, ...props }: AccordionProps) => {
     return (
       <AccordionRoot behavior={behavior} collapsible={collapsible} {...props}>
-        <AccordionItem>
+        <AccordionItem class="border-b">
           <AccordionTrigger>Trigger 1</AccordionTrigger>
           <AccordionContent>
             <p>Content 1</p>
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem>
+        <AccordionItem class="border-b">
           <AccordionTrigger>Trigger 2</AccordionTrigger>
           <AccordionContent>
             <p>Content 2</p>
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem>
+        <AccordionItem class="border-b">
           <AccordionTrigger>Trigger 3</AccordionTrigger>
           <AccordionContent>
             <p>Content 3</p>
@@ -216,7 +216,7 @@ describe('Prop Behavior', () => {
   const DefaultValueAccordion = component$(() => {
     return (
       <AccordionRoot>
-        <AccordionItem>
+        <AccordionItem class="border-b">
           <AccordionTrigger>Trigger 1</AccordionTrigger>
           <AccordionContent>Content 1</AccordionContent>
         </AccordionItem>
@@ -253,7 +253,7 @@ describe('Prop Behavior', () => {
   const HeaderAccordion = component$(() => {
     return (
       <AccordionRoot>
-        <AccordionItem>
+        <AccordionItem class="border-b">
           <AccordionHeader as="h4">
             <AccordionTrigger>Trigger 1</AccordionTrigger>
             <AccordionContent>Content 1</AccordionContent>
@@ -287,25 +287,25 @@ describe('Disabled', () => {
     ({ behavior, collapsible, ...props }: AccordionProps) => {
       return (
         <AccordionRoot behavior={behavior} collapsible={collapsible} {...props}>
-          <AccordionItem>
+          <AccordionItem class="border-b">
             <AccordionTrigger>Trigger 1</AccordionTrigger>
             <AccordionContent>
               <p>Content 1</p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem class="border-b">
             <AccordionTrigger disabled>Trigger 2</AccordionTrigger>
             <AccordionContent>
               <p>Content 2</p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem class="border-b">
             <AccordionTrigger>Trigger 3</AccordionTrigger>
             <AccordionContent>
               <p>Content 3</p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem class="border-b">
             <AccordionTrigger>Trigger 4</AccordionTrigger>
             <AccordionContent>
               <p>Content 4</p>

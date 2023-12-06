@@ -62,7 +62,7 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
           Code
         </Tab>
       </TabList>
-      <TabPanel class="shadow-light-medium dark:shadow-dark-medium rounded-b-xl border bg-slate-800 p-4 dark:bg-slate-900 md:p-12">
+      <TabPanel class="shadow-light-medium dark:shadow-dark-medium rounded-b-xl border p-8 md:p-24">
         <section class="flex flex-col items-center">
           {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
         </section>

@@ -23,7 +23,9 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>DISCLAIMER:</strong> This component is in{' '}
-          <span class={`rounded-lg px-2 tracking-wide ${getClassByStatus(status)}`}>
+          <span
+            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(status)}`}
+          >
             {status}
           </span>{' '}
           status. That means that it is ready for production, but the API might change.

@@ -12,11 +12,11 @@ export function getClassByStatus(status: ComponentStatus) {
     case ComponentStatus.Ready:
       return 'text-green-900 bg-green-300 tracking-wide';
     case ComponentStatus.Beta:
-      return 'border border-primary tracking-wide bg-background text-foreground';
+      return 'border border-primary-foreground tracking-wide bg-primary text-primary-foreground font-bold';
     case ComponentStatus.Draft:
-      return ' border  tracking-wide bg-background text-foreground';
+      return ' border  tracking-wide ';
     case ComponentStatus.Planned:
-      return ' border tracking-wide bg-accent text-accent-foreground';
+      return ' border tracking-wide';
     default:
       return null;
   }

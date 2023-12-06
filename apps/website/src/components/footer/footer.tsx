@@ -4,7 +4,7 @@ import { DiscordIcon } from '../icons/discord';
 
 export const Footer = component$(() => {
   return (
-    <footer class="border-t-[1px]">
+    <footer class="border-t">
       <div class="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
           <div class="px-5 py-2">
