@@ -71,7 +71,7 @@ function getBackgroundByStatus(status?: ComponentStatus) {
     case ComponentStatus.Beta:
       return 'border border-primary bg-gradient-to-br from-primary to-primary/90 text-primary-foreground';
     case ComponentStatus.Draft:
-      return 'border bg-muted';
+      return 'border bg-destructive text-destructive-foreground';
     case ComponentStatus.Planned:
     default:
       return 'border';
@@ -112,7 +112,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
         class={`${getBackgroundByStatus(
           props.status,
-        )} normal-state text-primary-foreground shadow-light-medium dark:shadow-dark-medium relative mx-[-24px] rounded-xl border px-6 py-4 md:flex-row md:items-center lg:mx-[-32px]`}
+        )} normal-state shadow-light-medium dark:shadow-dark-medium relative mx-[-24px] rounded-xl border px-6 py-4 md:flex-row md:items-center lg:mx-[-32px]`}
         style={{ marginBottom: `${marginBottom}px` }}
       >
         <span class="pr-2">{getMessageByStatus(props.status)}</span>
