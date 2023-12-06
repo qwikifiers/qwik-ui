@@ -13,7 +13,7 @@ export default component$(() => {
     <>
       <div>
         <SelectRoot>
-          <SelectTrigger class="group peer flex items-center justify-between rounded-md border-[1px] border-slate-600 bg-slate-800 p-4 px-8">
+          <SelectTrigger class="group peer flex items-center justify-between rounded-md border border-slate-600 bg-slate-800 p-4 px-8">
             <SelectValue placeholder="Home" class="text-white" />
             <SelectMarker class="h-6 w-6">
               <svg
@@ -29,7 +29,7 @@ export default component$(() => {
               </svg>
             </SelectMarker>
           </SelectTrigger>
-          <SelectListBox class="mt-2 rounded-md border-[1px] border-slate-600 bg-slate-800 text-white">
+          <SelectListBox class="mt-2 rounded-md border border-slate-600 bg-slate-800 text-white">
             <SelectOption
               optionValue="Orders"
               class="rounded-t-md p-4 hover:bg-slate-700 focus:bg-slate-700"

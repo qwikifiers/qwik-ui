@@ -17,7 +17,7 @@ export const Accordion = component$(() => {
         <AccordionTrigger class="w-full border-b bg-violet-50 px-4 py-2 text-left hover:bg-violet-100  dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-800">
           Can I add headings inside the accordion?
         </AccordionTrigger>
-        <AccordionContent class="">
+        <AccordionContent>
           <p class="bg-violet-200 p-4 dark:bg-gray-900">
             Yes, if you wrap a heading around the trigger, screen readers will announce it
             properly.

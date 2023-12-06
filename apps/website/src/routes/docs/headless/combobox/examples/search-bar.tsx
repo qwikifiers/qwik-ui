@@ -45,11 +45,11 @@ export default component$(() => {
       class="w-fit"
       options={components}
     >
-      <ComboboxLabel class="text-white">Qwik UI ⚡</ComboboxLabel>
-      <ComboboxControl class="relative rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
+      <ComboboxLabel>Qwik UI ⚡</ComboboxLabel>
+      <ComboboxControl class="relative rounded-sm border">
         <ComboboxInput
           onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
-          class="px-d2 w-44 bg-slate-900 pl-6 pr-6 text-white placeholder:text-slate-500"
+          class="px-d2 bg-background placeholder:text-muted-foreground w-44 pl-6 pr-6"
           onKeyDown$={(e) => {
             if (e.key === 'Enter') {
               const inputElement = e.target as HTMLInputElement;
@@ -77,7 +77,7 @@ export default component$(() => {
       <ComboboxPortal>
         <ComboboxListbox
           gutter={8}
-          class="w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-1 py-2"
+          class="bg-background w-44 rounded-sm border px-1 py-2"
           hide="escaped"
           optionRenderer$={(option: ResolvedOption, index: number) => {
             const searchOption = option.option as MyComponents;
@@ -88,7 +88,7 @@ export default component$(() => {
               >
                 <ComboboxOption
                   key={option.key}
-                  class="group flex items-start justify-between gap-4 rounded-sm border-2  border-transparent px-2 text-white hover:bg-slate-500 aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
+                  class="hover:bg-accent group flex items-start justify-between gap-4 rounded-sm  border-2 border-transparent px-2"
                   index={index}
                   resolved={option}
                 >
@@ -117,7 +117,7 @@ export function SearchIcon(props: QwikIntrinsicElements['svg'], key: string) {
       key={key}
     >
       <path
-        fill="white"
+        fill="currentColor"
         d="m228.24 219.76l-51.38-51.38a86.15 86.15 0 1 0-8.48 8.48l51.38 51.38a6 6 0 0 0 8.48-8.48ZM38 112a74 74 0 1 1 74 74a74.09 74.09 0 0 1-74-74Z"
       ></path>
     </svg>
@@ -135,7 +135,7 @@ export function ClearIcon(props: QwikIntrinsicElements['svg'], key: string) {
       key={key}
     >
       <path
-        fill="white"
+        fill="currentColor"
         d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm37.66 130.34a8 8 0 0 1-11.32 11.32L128 139.31l-26.34 26.35a8 8 0 0 1-11.32-11.32L116.69 128l-26.35-26.34a8 8 0 0 1 11.32-11.32L128 116.69l26.34-26.35a8 8 0 0 1 11.32 11.32L139.31 128Z"
       ></path>
     </svg>

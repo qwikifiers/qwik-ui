@@ -28,10 +28,10 @@ export default component$(() => {
           options={shiftExample}
           bind:isListboxOpenSig={isListboxOpenSig}
         >
-          <ComboboxLabel class=" font-semibold text-white">Fruits 🍓</ComboboxLabel>
-          <ComboboxControl class="relative flex items-center rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
+          <ComboboxLabel class=" font-semibold">Fruits 🍓</ComboboxLabel>
+          <ComboboxControl class="relative flex items-center rounded-sm border">
             <ComboboxInput
-              class="px-d2 w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
+              class="px-d2 bg-background placeholder:text-muted-foreground w-44 px-2 pr-6"
               placeholder="Papaya"
             />
             <ComboboxTrigger class="group absolute right-0 h-6 w-6">
@@ -39,7 +39,7 @@ export default component$(() => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
-                class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
+                class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
                 stroke-linecap="round"
                 stroke-width="2"
                 stroke-linejoin="round"
@@ -53,14 +53,14 @@ export default component$(() => {
               optionRenderer$={(option: ResolvedOption, index: number) => (
                 <ComboboxOption
                   key={option.key}
-                  class="group rounded-sm border-2 border-transparent px-2 text-white hover:bg-slate-500  aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
+                  class="hover:bg-accent group rounded-sm border-2 border-transparent px-2"
                   index={index}
                   resolved={option}
                 >
                   {option.label}
                 </ComboboxOption>
               )}
-              class="left:0 top:0 absolute w-fit rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
+              class="left:0 top:0 absolute w-fit rounded-sm border px-4 py-2"
             />
           </ComboboxPortal>
         </Combobox>
