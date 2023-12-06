@@ -9,7 +9,6 @@ export * from './components/checkbox/checkbox';
 export * from './components/collapse/collapse';
 export * from './components/drawer/drawer';
 export * from './components/navigation-bar/navigation-bar';
-export * from './components/pagination/pagination';
 export * from './components/popover/popover';
 export * from './components/progress/progress';
 export * from './components/rating/rating';

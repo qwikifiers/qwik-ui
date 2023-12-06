@@ -11,6 +11,6 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "src/routes/docs/headless/(getting-started)/introduction/index.mdx"
+    "src/routes/docs/headless/introduction/index.mdx"
   ]
 }

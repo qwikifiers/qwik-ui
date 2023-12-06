@@ -1,0 +1,47 @@
+---
+title: Qwik UI | Separator
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.headless.Separator} />
+
+# Separator
+
+A separator separates and distinguishes sections of content or groups of menuitems
+
+<Showcase name="hero" />
+
+Qwik UI's Separator implementation follows [WAI-Aria separator role requirements](https://www.w3.org/TR/wai-aria-1.2/#separator). This separator is static and should not be used for interactivity.
+
+##### ✨ Features
+
+- Supports both horizontal and vertical orientation
+
+<div class="mb-6 flex flex-col gap-2">
+  [View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/separator)
+
+[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
+
+[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/separator/index.mdx>)
+
+</div>
+
+## API
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'orientation',
+      type: 'enum',
+      info: '"horizontal" | "vertical"',
+      description: 'The orientation of the separator. Defaults to horizontal.',
+    },
+    {
+      name: 'decorative',
+      type: 'boolean',
+      description:
+        'Indicates that the element is purely decorative and should not be included in the accessibility tree.',
+    },
+  ]}
+/>

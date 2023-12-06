@@ -6,6 +6,7 @@
 dist
 node_modules
 coverage
-**/*.mdx
 discussion
 pnpm-lock.yaml
+
+/.nx/cache

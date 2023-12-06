@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/utils",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "description": "Qwik UI Utils",
   "publishConfig": {
     "access": "public"
@@ -9,7 +9,13 @@
     "tailwind-merge": "^1.14.0"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.mjs",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./index.cjs"
+    }
+  },
+  "main": "./index.cjs",
+  "module": "./index.js",
   "typings": "./index.d.ts"
 }

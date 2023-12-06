@@ -20,7 +20,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/utils/**/*.ts"]
@@ -45,12 +45,13 @@
         "noVerify": true,
         "push": true,
         "releaseAs": "patch",
-        "postTargets": ["utils:publish", "utils:push-to-github"]
+        "postTargets": ["utils:build", "utils:publish", "utils:push-to-github"]
       }
     },
     "publish": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
+        "noBuild": true,
         "access": "public"
       }
     },

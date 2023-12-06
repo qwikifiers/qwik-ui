@@ -20,31 +20,31 @@ export type SelectRootProps = {
 } & QwikIntrinsicElements['div'];
 
 export const SelectRoot = component$((props: SelectRootProps) => {
-  const rootRefSig = useSignal<HTMLElement>();
+  const rootRef = useSignal<HTMLElement>();
   const optionsStore = useStore([]);
   const selectedOptionSig = useSignal('');
   const isOpenSig = useSignal(false);
-  const triggerRefSig = useSignal<HTMLElement>();
-  const listBoxRefSig = useSignal<HTMLElement>();
+  const triggerRef = useSignal<HTMLElement>();
+  const listboxRef = useSignal<HTMLElement>();
   const isListboxHiddenSig = useSignal(true);
 
-  const selectContext: SelectContext = {
+  const context: SelectContext = {
     optionsStore,
     selectedOptionSig,
     isOpenSig,
-    triggerRefSig,
-    listBoxRefSig,
+    triggerRef,
+    listboxRef,
     isListboxHiddenSig,
   };
 
-  useContextProvider(SelectContextId, selectContext);
+  useContextProvider(SelectContextId, context);
 
   useOnDocument(
     'click',
     $((e) => {
       const target = e.target as HTMLElement;
-      if (selectContext.isOpenSig.value === true && !rootRefSig.value?.contains(target)) {
-        selectContext.isOpenSig.value = false;
+      if (context.isOpenSig.value === true && !rootRef.value?.contains(target)) {
+        context.isOpenSig.value = false;
       }
     }),
   );
@@ -53,12 +53,12 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     function keyHandler(e: KeyboardEvent) {
       e.preventDefault();
       if (e.key === 'Escape') {
-        selectContext.isOpenSig.value = false;
+        context.isOpenSig.value = false;
       }
     }
-    rootRefSig.value?.addEventListener('keydown', keyHandler);
+    rootRef.value?.addEventListener('keydown', keyHandler);
     cleanup(() => {
-      rootRefSig.value?.removeEventListener('keydown', keyHandler);
+      rootRef.value?.removeEventListener('keydown', keyHandler);
     });
   });
 
@@ -75,9 +75,9 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   });
 
   useVisibleTask$(async function toggleSelectListBox({ track }) {
-    const trigger = track(() => selectContext.triggerRefSig.value);
-    const listBox = track(() => selectContext.listBoxRefSig.value);
-    const expanded = track(() => selectContext.isOpenSig.value);
+    const trigger = track(() => context.triggerRef.value);
+    const listBox = track(() => context.listboxRef.value);
+    const expanded = track(() => context.isOpenSig.value);
 
     if (!trigger || !listBox) return;
 
@@ -96,18 +96,18 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   });
 
   useVisibleTask$(function collectOptions({ track }) {
-    const listBox = track(() => selectContext.listBoxRefSig.value);
+    const listBox = track(() => context.listboxRef.value);
 
     if (listBox) {
       const collectedOptions = Array.from(
         listBox.querySelectorAll('[role="option"]'),
       ) as HTMLElement[];
-      selectContext.optionsStore.push(...collectedOptions);
+      context.optionsStore.push(...collectedOptions);
     }
   });
 
   return (
-    <div ref={rootRefSig} {...props}>
+    <div ref={rootRef} {...props}>
       <Slot />
       {props.required ? (
         <VisuallyHidden>

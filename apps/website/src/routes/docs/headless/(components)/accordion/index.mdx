@@ -27,11 +27,11 @@ import { KeyboardInteractionTable } from '../../../_components/keyboard-interact
 import { APITable } from '../../../_components/api-table/api-table';
 import { AnatomyTable } from '../../../_components/anatomy-table/anatomy-table';
 import { StatusBanner } from '../../../_components/status-banner/status-banner';
-import {statusByComponent} from '../../../../../_state/component-statuses';
-import { FeatureList } from '../../../_components/feature-list/feature-list'
+import { statusByComponent } from '../../../../../_state/component-statuses';
+import { FeatureList } from '../../../_components/feature-list/feature-list';
 import { Note } from '../../../_components/note/note.tsx';
- 
-<StatusBanner status={statusByComponent.headless.Accordion}/> 
+
+<StatusBanner status={statusByComponent.headless.Accordion} />;
 
 # Accordion
 
@@ -53,8 +53,8 @@ A stacked set of interactive headings which reveal or hide their associated cont
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          Yes, if you wrap the AccordionHeader component around the trigger,
-          screen readers will announce it properly.
+          Yes, if you wrap the AccordionHeader component around the trigger, screen
+          readers will announce it properly.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -85,8 +85,8 @@ A stacked set of interactive headings which reveal or hide their associated cont
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          You can do that by setting the <strong>behavior</strong> prop to
-          "multi" on the Accordion
+          You can do that by setting the <strong>behavior</strong> prop to "multi" on the
+          Accordion
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -98,7 +98,14 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 
 ## Features
 
-<FeatureList features={['Full keyboard navigation', 'Single or Multi Accordion', 'Controlled or uncontrolled', 'Animatable, dynamic, and resumable']} />
+<FeatureList
+  features={[
+    'Full keyboard navigation',
+    'Single or Multi Accordion',
+    'Controlled or uncontrolled',
+    'Animatable, dynamic, and resumable',
+  ]}
+/>
 
 <div class="mb-6 mt-10 flex flex-col gap-2">
 [View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/accordion)
@@ -113,7 +120,8 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 **Why not just use the details & summary tags?**
 
 Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. While these widgets can be used without JavaScript, they come with [their own accessibility drawbacks](https://www.scottohara.me/blog/2022/09/12/details-summary.html).
-</Note> 
+
+</Note>
 
 ## Building blocks
 
@@ -128,21 +136,22 @@ Rather than using the `details` and `summary` tags as disclosure widgets, we use
     AccordionContent 
   } from '@qwik-ui/headless';
 
-  export default component$(() => {
-    return (
-      <AccordionRoot>
-        <AccordionItem>
-          <AccordionHeader>
-            <AccordionTrigger>Title</AccordionTrigger>
-          </AccordionHeader>
-          <AccordionContent>Content</AccordionContent>
-        </AccordionItem>
-      </AccordionRoot>
-    )
-  });
-  ```
+export default component$(() => {
+return (
+<AccordionRoot>
+<AccordionItem>
+<AccordionHeader>
+<AccordionTrigger>Title</AccordionTrigger>
+</AccordionHeader>
+<AccordionContent>Content</AccordionContent>
+</AccordionItem>
+</AccordionRoot>
+)
+});
 
-  </CodeExample>
+````
+
+</CodeExample>
 
 {' '}
 <br />
@@ -150,28 +159,28 @@ Rather than using the `details` and `summary` tags as disclosure widgets, we use
 
 {' '}
 <AnatomyTable
-  propDescriptors={[
-    {
-      name: 'AccordionRoot',
-      description: 'The root container for the accordion.',
-    },
-    {
-      name: 'AccordionItem',
-      description: `An item inside of the root. It contains the item's heading, trigger, and content.`,
-    },
-    {
-      name: 'AccordionHeader',
-      description: `An HTML Heading Element. The default is set to h3, can be changed with the as prop.`,
-    },
-    {
-      name: 'AccordionTrigger',
-      description: `Toggles the corresponding content when clicked or activated. It should be placed within the AccordionHeader component.`,
-    },
-    {
-      name: 'AccordionContent',
-      description: `Contains the content associated with an item when clicking on its respective trigger.`,
-    },
-  ]}
+propDescriptors={[
+  {
+    name: 'AccordionRoot',
+    description: 'The root container for the accordion.',
+  },
+  {
+    name: 'AccordionItem',
+    description: `An item inside of the root. It contains the item's heading, trigger, and content.`,
+  },
+  {
+    name: 'AccordionHeader',
+    description: `An HTML Heading Element. The default is set to h3, can be changed with the as prop.`,
+  },
+  {
+    name: 'AccordionTrigger',
+    description: `Toggles the corresponding content when clicked or activated. It should be placed within the AccordionHeader component.`,
+  },
+  {
+    name: 'AccordionContent',
+    description: `Contains the content associated with an item when clicking on its respective trigger.`,
+  },
+]}
 />
 
 <br />
@@ -179,59 +188,60 @@ Rather than using the `details` and `summary` tags as disclosure widgets, we use
 ## Multiple items
 
 <MultiAccordion>
-  ```tsx
-  <AccordionRoot behavior="mutli" class="accordion-wrapper" animated>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>Can I style content based on the trigger state?</span>
-          <span>
-            <p class="plus-styles">+</p>
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          100%. The trigger has a [data-state] selector that can be styled when equal to the open or closed values. 
-                
-          For example, [data-state="open"]
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>What about applying attributes?</span>
-          <span>
-            <p class="plus-styles">+</p>
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          It's typed using QwikIntrinsicElements, meaning you can treat it like
-          an element!
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionHeader>
-        <AccordionTrigger class="accordion-trigger">
-          <span>How about using event handlers?</span>
-          <span>
-            <p class="plus-styles">+</p>
-          </span>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <p>
-          You can use onClick$, onKeyDown$, any handlers you'd normally use with
-          Qwik!
-        </p>
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
-  ```
+```tsx
+<AccordionRoot behavior="mutli" class="accordion-wrapper" animated>
+  <AccordionItem>
+    <AccordionHeader>
+      <AccordionTrigger class="accordion-trigger">
+        <span>Can I style content based on the trigger state?</span>
+        <span>
+          <p class="plus-styles">+</p>
+        </span>
+      </AccordionTrigger>
+    </AccordionHeader>
+    <AccordionContent class="accordion-content">
+      <p>
+        100%. The trigger has a [data-state] selector that can be styled when equal to the open or closed values.
+
+        For example, [data-state="open"]
+      </p>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem>
+    <AccordionHeader>
+      <AccordionTrigger class="accordion-trigger">
+        <span>What about applying attributes?</span>
+        <span>
+          <p class="plus-styles">+</p>
+        </span>
+      </AccordionTrigger>
+    </AccordionHeader>
+    <AccordionContent class="accordion-content">
+      <p>
+        It's typed using QwikIntrinsicElements, meaning you can treat it like
+        an element!
+      </p>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem>
+    <AccordionHeader>
+      <AccordionTrigger class="accordion-trigger">
+        <span>How about using event handlers?</span>
+        <span>
+          <p class="plus-styles">+</p>
+        </span>
+      </AccordionTrigger>
+    </AccordionHeader>
+    <AccordionContent class="accordion-content">
+      <p>
+        You can use onClick$, onKeyDown$, any handlers you'd normally use with
+        Qwik!
+      </p>
+    </AccordionContent>
+  </AccordionItem>
+</AccordionRoot>
+````
+
 </MultiAccordion>
 
 ### Animations
@@ -242,7 +252,11 @@ If you're curious about how the accordion is animated, you can use a built-in Qw
 
 The variable calculates the content height behind the scenes, so that you can use this variable in your keyframes. Out of the box, you can use the `accordion-open` and `accordion-close` keyframes in your project. These use an `animation` declaration on the height property.
 
-<Note status="info"> The animation above makes use of the overflow hidden declaration. You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.</Note>
+<Note status="info">
+  {' '}
+  The animation above makes use of the overflow hidden declaration. You can also check out
+  this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
+</Note>
 
 ## Non-collapsible
 
@@ -286,8 +300,8 @@ The variable calculates the content height behind the scenes, so that you can us
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          Of course! You can also use the onFocusIndexChange$ and
-          onSelectedIndexChange$ custom events.
+          Of course! You can also use the onFocusIndexChange$ and onSelectedIndexChange$
+          custom events.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -313,8 +327,7 @@ By default, the <strong>collapsible</strong> prop is set to true. You can revert
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          Hey, I'm enabled! This is because I don't use the disabled prop on the
-          trigger.
+          Hey, I'm enabled! This is because I don't use the disabled prop on the trigger.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -329,8 +342,7 @@ By default, the <strong>collapsible</strong> prop is set to true. You can revert
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          Hey, I'm enabled! This is because I don't use the disabled prop on the
-          trigger.
+          Hey, I'm enabled! This is because I don't use the disabled prop on the trigger.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -384,8 +396,8 @@ Any disabled elements will be skipped over when using tab or the `Up Arrow` and 
       </AccordionHeader>
       <AccordionContent class="accordion-content">
         <p>
-          You can open me by default by putting the defaultValue prop on the
-          Accordion Item.
+          You can open me by default by putting the defaultValue prop on the Accordion
+          Item.
         </p>
       </AccordionContent>
     </AccordionItem>
@@ -412,6 +424,7 @@ You can make the accordion items uncontrolled by adding the **defaultValue** pro
 **Don't try to open multiple items with single mode!**
 
 If you're using `behavior="single"` with multiple defaultValue accordion items, the last item will be the one that opens. You may experience flickering behavior as well.
+
 </Note>
 
 ## Custom Heading Label
@@ -586,7 +599,11 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
 
 `onFocusIndexChange$` will keep track of the current focused index. It can be useful for when you want to programmatically change something based on what the user focuses.
 
-<Note status="info"> When a user clicks a trigger, they are also focusing it, which is worth keeping in mind when using this custom event.</Note>
+<Note status="info">
+  {' '}
+  When a user clicks a trigger, they are also focusing it, which is worth keeping in mind when
+  using this custom event.
+</Note>
 
 ## Dynamic
 
@@ -601,7 +618,7 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
     // start off with some items
     const items = [];
     const newItem = { label: 'New Item', id: Math.random() };
-    
+
     for(let i = 0; i < itemsLength; i++) {
       items.push({
           label: `Original Item ${i + 1}`,
@@ -615,9 +632,9 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
     <div>
       <label>
         <input bind:value={itemIndexToAdd} />
-        <span>Index to Add</span> 
+        <span>Index to Add</span>
       </label>
-      
+
       <label>
         <input bind:value={itemIndexToDelete} />
         <span>Index to Delete</span>
@@ -661,7 +678,9 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
       </button>
     </div>
     )}
-  );
+
+);
+
 ```
 </DynamicAccordion>
 

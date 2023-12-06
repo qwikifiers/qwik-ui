@@ -1,4 +1,4 @@
-import { tcva, type AddVariantPropsTo } from '@/packages/utils/src';
+import { tcva, type AddVariantPropsTo } from '@qwik-ui/utils';
 import { Slot, component$ } from '@builder.io/qwik';
 
 export const buttonVariants = tcva(

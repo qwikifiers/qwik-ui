@@ -140,24 +140,10 @@
     border: 0.35rem solid transparent;
   }
 
-  .code-example-gradient {
-    background: linear-gradient(
-      to bottom,
-      var(--qwikui-slate-900),
-      var(--qwikui-slate-800)
-    );
-  }
-  .dark .code-example-gradient {
-    background: linear-gradient(
-      to bottom,
-      var(--qwikui-slate-800),
-      var(--qwikui-slate-900)
-    );
-  }
-
-  /* no horizontal overflow on code examples */
+  /* no horizontal overflow on code snippets */
   .tab-size pre {
     white-space: pre-wrap;
+    background: transparent !important;
   }
 
   .note-link a {
