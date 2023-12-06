@@ -7,6 +7,7 @@ import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard
 import { CodeCopy } from '../code-copy/code-copy';
 import { Showcase } from '../showcase/showcase';
 import { CodeSnippet } from '../code-snippet/code-snippet';
+import { InstallSnippet } from '../install-snippet/install-snippet';
 
 export const components: Record<string, any> = {
   pre: component$<
@@ -52,4 +53,5 @@ export const components: Record<string, any> = {
   StatusBanner,
   Showcase,
   CodeSnippet,
+  InstallSnippet,
 };
