@@ -31,7 +31,7 @@ export default component$(() => {
         bind:highlightedIndexSig={highlightedIndexSig}
       >
         <ComboboxControl class="relative flex items-center rounded-sm border">
-          <ComboboxInput class="px-d2 placeholder:text-muted-foreground w-fit px-2 pr-6" />
+          <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground w-fit px-2 pr-6" />
           <ComboboxTrigger class="group absolute right-0 h-6 w-6">
             <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
           </ComboboxTrigger>
@@ -45,7 +45,7 @@ export default component$(() => {
             optionRenderer$={(option: ResolvedOption, index: number) => (
               <ComboboxOption
                 key={option.key}
-                class="hover:bg-accent group rounded-sm border-2 border-transparent px-2"
+                class="aria-selected:bg-accent group cursor-pointer rounded-sm px-2"
                 index={index}
                 resolved={option}
               >
