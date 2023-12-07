@@ -70,9 +70,7 @@ export type TabInfo = {
 // unchanged so signals keep working
 export const Tabs: FunctionComponent<TabsProps> = (props) => {
   const { children: myChildren, tabClass, panelClass, ...rest } = props;
-  const childrenToProcess = (
-    Array.isArray(myChildren) ? [...myChildren] : [myChildren]
-  ) as JSXNode[];
+  const childrenToProcess = Array.isArray(myChildren) ? [...myChildren] : [myChildren];
   let tabListComponent: JSXNode | undefined;
   const tabComponents: JSXNode[] = [];
   const panelComponents: JSXNode[] = [];
@@ -82,7 +80,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
 
   // Extract the Tab related components from the children
   while (childrenToProcess.length) {
-    const child = childrenToProcess.shift();
+    const child = childrenToProcess.shift() as JSXNode;
     if (!child) {
       continue;
     }
@@ -111,12 +109,12 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
         break;
       }
       case TabPanel: {
-        const { label, selected } = child.props;
+        const { label, selected } = child.props as TabPanelProps;
         // The consumer must provide a key if they change the order
         const matchedTabComponent = tabComponents[panelIndex];
         const tabIdFromTabMaybe =
-          matchedTabComponent?.props.tabId || matchedTabComponent?.key;
-        const tabId = tabIdFromTabMaybe || child.key || `${panelIndex}`;
+          (matchedTabComponent?.props as TabProps).tabId || matchedTabComponent?.key;
+        const tabId: string = tabIdFromTabMaybe || child.key || `${panelIndex}`;
 
         if (label) {
           tabComponents.push(<Tab>{label}</Tab>);
@@ -136,6 +134,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
         tabInfoList.push({
           tabId,
           index: panelIndex,
+          tabProps: {},
           panelProps: child.props,
         } as TabInfo);
         panelIndex++;
@@ -165,7 +164,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
     ) {
       tab.props.disabled = tabInfoList[index].panelProps.disabled;
     }
-    tabInfoList[index].tabProps = tab.props;
+    tabInfoList[index].tabProps = tab.props as TabProps;
   });
 
   if (tabListComponent) {

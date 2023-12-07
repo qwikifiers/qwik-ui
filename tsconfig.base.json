@@ -19,7 +19,6 @@
       "@qwik-ui/headless": ["packages/kit-headless/src/index.ts"],
       "@qwik-ui/material": ["packages/kit-material/src/index.ts"],
       "@qwik-ui/primitives": ["packages/primitives/src/index.ts"],
-      "@qwik-ui/shared": ["packages/shared/src/index.ts"],
       "@qwik-ui/tailwind": ["packages/kit-tailwind/src/index.ts"],
       "@qwik-ui/utils": ["packages/utils/src/index.ts"],
       "~/*": ["apps/website/src/*"]
