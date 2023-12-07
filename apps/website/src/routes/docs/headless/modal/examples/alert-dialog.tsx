@@ -31,7 +31,7 @@ export default component$(() => {
             Cancel
           </button>
           <button
-            class="rounded-sm border border-none bg-red-200 px-4 py-[10px] text-red-900 outline-none focus-visible:outline-red-700"
+            class="bg-destructive focus:ring-destructive text-destructive-foreground focus-visible:destructive-foreground/90 rounded-sm border border-none px-4 py-[10px] outline-none focus:ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             onClick$={() => (showSig.value = false)}
           >
             Delete
