@@ -1,17 +1,17 @@
 import {
   $,
-  component$,
   Slot,
+  component$,
   useContextProvider,
   useSignal,
   useTask$,
-  type QwikIntrinsicElements,
-  type PropFunction,
   useVisibleTask$,
+  type PropFunction,
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
-import { type AccordionRootContext } from './accordion-context.type';
 import { accordionRootContextId } from './accordion-context-id';
+import { type AccordionRootContext } from './accordion-context.type';
 
 export type AccordionRootProps = {
   behavior?: 'single' | 'multi';
@@ -40,6 +40,7 @@ export const AccordionRoot = component$(
 
     useTask$(({ track }) => {
       track(() => currSelectedTriggerIndexSig.value);
+
       if (onSelectedIndexChange$) {
         onSelectedIndexChange$(currSelectedTriggerIndexSig.value);
       }
