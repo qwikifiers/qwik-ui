@@ -9,7 +9,7 @@ export default component$(() => {
     <>
       <div class="tabs-example mr-auto">
         <h3>Danish Composers</h3>
-        <h4 class="text-white">(Hover over the tabs)</h4>
+        <h4>(Hover over the tabs)</h4>
         <Tabs behavior="automatic">
           <TabList>
             <Tab>Maria</Tab>

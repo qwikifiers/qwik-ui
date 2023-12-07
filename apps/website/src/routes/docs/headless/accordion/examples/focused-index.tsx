@@ -74,9 +74,7 @@ export default component$(() => {
           </AccordionItem>
         </AccordionRoot>
 
-        <p class="text-white">
-          Focused Index: {focusedIndexSig.value === -1 ? 'X' : focusedIndexSig.value}
-        </p>
+        <p>Focused Index: {focusedIndexSig.value === -1 ? 'X' : focusedIndexSig.value}</p>
       </div>
     </>
   );

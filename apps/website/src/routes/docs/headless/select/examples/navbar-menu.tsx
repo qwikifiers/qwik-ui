@@ -13,15 +13,15 @@ export default component$(() => {
     <>
       <div>
         <SelectRoot>
-          <SelectTrigger class="group peer flex items-center justify-between rounded-md border border-slate-600 bg-slate-800 p-4 px-8">
-            <SelectValue placeholder="Home" class="text-white" />
+          <SelectTrigger class="group peer flex items-center justify-between rounded-md border p-4 px-8">
+            <SelectValue placeholder="Home" />
             <SelectMarker class="h-6 w-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke-width="2"
-                class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
+                class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
@@ -29,22 +29,22 @@ export default component$(() => {
               </svg>
             </SelectMarker>
           </SelectTrigger>
-          <SelectListBox class="mt-2 rounded-md border border-slate-600 bg-slate-800 text-white">
+          <SelectListBox class="bg-background mt-2 rounded-md border">
             <SelectOption
               optionValue="Orders"
-              class="rounded-t-md p-4 hover:bg-slate-700 focus:bg-slate-700"
+              class="hover:bg-accent focus:bg-accent rounded-t-md p-4"
             >
               Orders
             </SelectOption>
             <SelectOption
               optionValue="Settings"
-              class="p-4 hover:bg-slate-700 focus:bg-slate-700"
+              class="hover:bg-accent focus:bg-accent p-4"
             >
               Settings
             </SelectOption>
             <SelectOption
               optionValue="Contact us"
-              class="rounded-b-md p-4 hover:bg-slate-700 focus:bg-slate-700"
+              class="hover:bg-accent focus:bg-accent rounded-b-md p-4"
             >
               Contact us
             </SelectOption>

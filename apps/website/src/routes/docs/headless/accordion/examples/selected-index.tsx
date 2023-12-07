@@ -73,7 +73,7 @@ export default component$(() => {
           </AccordionItem>
         </AccordionRoot>
 
-        <p class="text-white">
+        <p>
           Selected Index: {selectedIndexSig.value === -1 ? 'X' : selectedIndexSig.value}
         </p>
       </div>
