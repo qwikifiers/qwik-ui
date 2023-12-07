@@ -59,7 +59,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
         return (
           <>
             <div class="px-6 pt-8">
-              <h2 class="mb-2 border-b p-2 font-bold lg:text-lg">{group.name}</h2>
+              <h2 class="mb-2 border-b-2 p-2 font-bold lg:text-lg">{group.name}</h2>
               <ul class="flex flex-col gap-2">
                 {group.children?.map((link) => {
                   const isLinkActive = location.url.pathname === link.href;

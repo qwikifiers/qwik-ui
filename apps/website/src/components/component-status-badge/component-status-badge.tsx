@@ -16,7 +16,7 @@ export function getClassByStatus(status: ComponentStatus) {
     case ComponentStatus.Draft:
       return 'border tracking-wide bg-muted text-foreground';
     case ComponentStatus.Planned:
-      return 'border tracking-wide bg-white text-black';
+      return 'text-white bg-slate-600 dark:bg-slate-500 border tracking-wide';
     default:
       return null;
   }
