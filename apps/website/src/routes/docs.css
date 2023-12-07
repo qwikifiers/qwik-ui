@@ -3,52 +3,8 @@
     @apply mx-auto w-full max-w-[85ch] overflow-hidden px-8 py-8 lg:px-16;
   }
 
-  /*
-    Styles that are direct descendents of .docs
-    this should not affect the styles inside of the tabpanel
-    A.K.A the components
-  */
-
   table a {
     @apply border-none;
-  }
-
-  & > {
-    p {
-      @apply mb-6;
-    }
-
-    h1 {
-      @apply mb-6 pt-6 text-3xl font-extrabold md:text-5xl;
-    }
-
-    h2 {
-      @apply mb-8 mt-20 scroll-mt-32 border-b-[1px] pb-2 text-2xl font-extrabold;
-    }
-
-    h3 {
-      @apply mb-6 mt-8 text-xl font-semibold;
-    }
-
-    h4 {
-      @apply mb-4 mt-6 text-lg font-medium;
-    }
-
-    h5 {
-      @apply text-base font-[700];
-    }
-
-    blockquote {
-      @apply border-primary shadow-light-medium dark:shadow-dark-medium my-4 rounded-xl border-[2px] bg-gradient-to-b p-4 lg:p-6;
-    }
-
-    ul {
-      @apply mb-4 list-disc px-6 font-medium;
-    }
-
-    li {
-      @apply py-2;
-    }
   }
 
   a {

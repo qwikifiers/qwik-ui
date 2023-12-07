@@ -34,12 +34,7 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 
 </div>
 
-<Note status="info"> 
-**Why not just use the details & summary tags?**
-
-Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. While these widgets can be used without JavaScript, they come with [their own accessibility drawbacks](https://www.scottohara.me/blog/2022/09/12/details-summary.html).
-
-</Note>
+> Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. While these widgets can be used without JavaScript, they come with [their own accessibility drawbacks](https://www.scottohara.me/blog/2022/09/12/details-summary.html).
 
 ## Building blocks
 
@@ -84,11 +79,7 @@ If you're curious about how the accordion is animated, you can use a built-in Qw
 
 The variable calculates the content height behind the scenes, so that you can use this variable in your keyframes. Out of the box, you can use the `accordion-open` and `accordion-close` keyframes in your project. These use an `animation` declaration on the height property.
 
-<Note status="info">
-  {' '}
-  The animation above makes use of the overflow hidden declaration. You can also check out
-  this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
-</Note>
+> The animation above makes use of the overflow hidden declaration. You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
 
 ## Non-collapsible
 
@@ -135,11 +126,7 @@ By default, when using the `AccordionHeader` component, it's rendered as an `h3`
 
 `onFocusIndexChange$` will keep track of the current focused index. It can be useful for when you want to programmatically change something based on what the user focuses.
 
-<Note status="info">
-  {' '}
-  When a user clicks a trigger, they are also focusing it, which is worth keeping in mind when
-  using this custom event.
-</Note>
+> When a user clicks a trigger, they are also focusing it, which is worth keeping in mind when using this custom event.
 
 ## Dynamic
 
@@ -149,10 +136,7 @@ You can embrace reactivity, using signals, stores, and however else you'd like t
 
 When an Accordion Item is removed, a [Visible Task](https://qwik.builder.io/docs/components/tasks/#usevisibletask) runs that will clean up the DOM node in the browser, ensuring that you stay clear of race condition or memory leak issues.
 
-<Note status="info">
-  {' '}
-  You can add or remove something at any index and the focus order will adhere to the DOM hierarchy!
-</Note>
+> You can add or remove something at any index and the focus order will adhere to the DOM hierarchy!
 
 <div class="my-4">
   If you'd prefer to add your own <strong>id</strong> to the Accordion Item with dynamic

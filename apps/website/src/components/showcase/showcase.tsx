@@ -15,7 +15,7 @@ import { Highlight } from '../highlight/highlight';
 // /src/routes/docs/components/fluffy/modal/examples/hero.tsx
 // /src/routes/docs/components/headless/modal/examples/hero.tsx
 
-const metaGlobComponents: any = import.meta.glob(
+const metaGlobComponents: Record<string, any> = import.meta.glob(
   '/src/routes/docs/**/**/examples/*.tsx',
   {
     import: 'default',
@@ -23,10 +23,13 @@ const metaGlobComponents: any = import.meta.glob(
   },
 );
 
-const rawComponents: any = import.meta.glob('/src/routes/docs/**/**/examples/*.tsx', {
-  as: 'raw',
-  eager: isDev ? false : true,
-});
+const rawComponents: Record<string, any> = import.meta.glob(
+  '/src/routes/docs/**/**/examples/*.tsx',
+  {
+    as: 'raw',
+    eager: isDev ? false : true,
+  },
+);
 
 type ShowcaseProps = QwikIntrinsicElements['div'] & {
   name?: string;
