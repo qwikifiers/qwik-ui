@@ -14,9 +14,9 @@ export function getClassByStatus(status: ComponentStatus) {
     case ComponentStatus.Beta:
       return 'border border-primary-foreground tracking-wide bg-primary text-primary-foreground';
     case ComponentStatus.Draft:
-      return ' border  tracking-wide bg-muted text-foreground';
+      return 'border tracking-wide bg-muted text-foreground';
     case ComponentStatus.Planned:
-      return ' border tracking-wide';
+      return 'border tracking-wide bg-white text-black';
     default:
       return null;
   }

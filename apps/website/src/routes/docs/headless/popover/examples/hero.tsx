@@ -7,9 +7,9 @@ export default component$(() => {
       <div>
         <Popover placement="top">
           <PopoverContent>
-            <div class="bg-slate-500 p-4 text-white">Hi, I'm the content</div>
+            <div class="bg-accent text-accent-foreground p-4">Hi, I'm the content</div>
           </PopoverContent>
-          <PopoverTrigger class="text-white">Click on me</PopoverTrigger>
+          <PopoverTrigger>Click on me</PopoverTrigger>
         </Popover>
       </div>
     </>

@@ -66,7 +66,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
                   return (
                     <li key={link.name + link.href}>
                       <a
-                        class={`transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground  flex items-center rounded-lg px-4 py-2 text-xl duration-300
+                        class={`transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center rounded-lg px-4 py-2 text-xl duration-300
                            lg:text-sm ${
                              isLinkActive
                                ? 'bg-accent text-accent-foreground font-bold'
