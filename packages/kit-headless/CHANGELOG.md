@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.23](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.22...headless-0.1.23) (2023-12-07)
+
+
+### Bug Fixes
+
+* **docs:** add install / related docs / merge with main ([bb1b62c](https://github.com/qwikifiers/qwik-ui/commit/bb1b62cd87d376858fd706e9b5344603be87127c))
+* **select-listbox:** removed unused code ([96ee780](https://github.com/qwikifiers/qwik-ui/commit/96ee7808a1983a7360a84e15cbb7b6463ff5b9e7))
+
+
+### Features
+
+* **select-listbox:** added print char spec ([72eb7dd](https://github.com/qwikifiers/qwik-ui/commit/72eb7ddac7a68e8a169000a5b8a16dfab08231a1))
+
+
+
 ## [0.1.22](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.21...headless-0.1.22) (2023-12-01)
 
 ## [0.1.21](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.20...headless-0.1.21) (2023-12-01)
