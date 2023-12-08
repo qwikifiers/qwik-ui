@@ -2,7 +2,7 @@
 title: Qwik UI | Modal
 ---
 
-import ImgTestImage from '/public/images/test-image.png?jsx';
+import testImage from '/images/test-image.png';
 
 import { statusByComponent } from '~/_state/component-statuses';
 
@@ -99,7 +99,7 @@ Custom signal binds are like a remote control for components, controlling states
 
 ## The Top Layer
 
-<ImgTestImage class="mb-6 rounded-xl" />
+<image src={testImage} class="mb-6 rounded-xl" />
 
 In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues.
 
