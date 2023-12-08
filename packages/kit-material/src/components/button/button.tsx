@@ -12,7 +12,7 @@ export type MaterialButtonProps = {
 export type ButtonProps = HTMLButtonProps & MaterialButtonProps;
 
 export const Button = component$((props: ButtonProps) => {
-  const { class: classNames, disabled, floating, flat, size = 'medium', ...rest } = props;
+  const { disabled, floating, flat, size = 'medium', ...rest } = props;
 
   return (
     <button
