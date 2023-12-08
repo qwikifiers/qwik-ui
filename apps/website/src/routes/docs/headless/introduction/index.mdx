@@ -26,10 +26,9 @@ Qwik UI Headless Kit provides a complete set of totally customizable components 
 It gives you, the developer, more time to focus on what matters most, building your awesome app! Apply your favorite styling technology, CSS-in-JS, Tailwind CSS, or whatever floats your boat. Add just a few _ad hoc_ styles or implement a full-on design system, Qwik UI Headless makes it easy.
 
 <Note status="warning">
-**Woah, why is there a 0 by the version?**
-
-Qwik UI is in its beta phase - it's like a roller coaster, thrilling and full of surprises! **Expect new features and some breaking changes** until we reach version 1.0. So, buckle up and enjoy the ride. 🏍️
-
+  Qwik UI is in its **beta** phase - it's like a roller coaster, thrilling and full of
+  surprises! Expect new features and some breaking changes until we reach version 1.0. So,
+  buckle up and enjoy the ride. 🏍️
 </Note>
 
 ## Vision
@@ -108,60 +107,47 @@ Qwik UI is for the community, by the community. An open source project that woul
 
 ## FAQ
 
-<AccordionRoot
-    enhance={true}
-    class="box-border w-full text-slate-950 dark:text-white mb-6"
->
-    <AccordionItem>
-        <AccordionHeader as="h3">
-            <AccordionTrigger class="text-md group flex min-h-[44px] w-full items-center justify-between border-slate-200 dark:border-slate-800 border-b-[1px] text-left py-4">
-                **What kind of support or resources are available if I encounter issues with Qwik UI?**
-                <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transfor min-w-[1rem]" />
-            </AccordionTrigger>
+<AccordionRoot animated enhance={true}>
+    <AccordionItem class="border-b">
+    <AccordionHeader as="h3">
+        <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
+            <span class="font-medium">What kind of support or resources are available if I encounter issues with Qwik UI?</span>
+            <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform min-w-[1rem]" />              </AccordionTrigger>
         </AccordionHeader>
-        <AccordionContent class=" overflow-hidden text-slate-700 dark:text-slate-200">
-            <div class="py-4">
-            <div class="pb-4">
-                If you stumble into any problems, [create an issue](https://github.com/qwikifiers/qwik-ui/issues) on the Qwik UI repository.
-            </div>
-
+    <AccordionContent class="accordion-animation-1 overflow-hidden">
+        <div class="pb-4">
+            If you stumble into any problems, [create an issue](https://github.com/qwikifiers/qwik-ui/issues) on the Qwik UI repository.
             We also have a [discord community](https://discord.gg/PVWUUejrez) with a Qwik UI channel where you can raise any concerns, propose ideas, or chat all things Qwik UI 😊
-            </div>
-        </AccordionContent>
+        </div>
+    </AccordionContent>
     </AccordionItem>
-    <AccordionItem>
-        <AccordionHeader as="h3">
-            <AccordionTrigger class="text-md group flex min-h-[44px] w-full items-center justify-between border-slate-200 dark:border-slate-800 border-b-[1px] text-left py-4">
-                **How can I contribute to the project?**
-                <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transfor min-w-[1rem]" />
-            </AccordionTrigger>
-        </AccordionHeader>
-        <AccordionContent class=" overflow-hidden text-slate-700 dark:text-slate-200">
-            <div class="py-4">
-                We provide a [contributing](/docs/headless/contributing) guide to help get familiar with the repository.
-
-                <div class="pt-4">
-                    Additionally, we offer a quick start [setup guide](https://github.com/qwikifiers/qwik-ui/blob/main/CONTRIBUTING.md) and a section dedicated to advanced resources below the Components navigation.
-                </div>
-            </div>
-        </AccordionContent>
+    <AccordionItem class="border-b">
+    <AccordionHeader as="h3">
+        <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
+        <span class="font-medium">How can I contribute to the project?</span>
+        <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform min-w-[1rem]" />
+        </AccordionTrigger>
+    </AccordionHeader>
+    <AccordionContent class="accordion-animation-1 overflow-hidden">
+        <div class="pb-4">
+            We provide a [contributing](/docs/headless/contributing) guide to help get familiar with the repository.
+            Additionally, we offer a quick start [setup guide](https://github.com/qwikifiers/qwik-ui/blob/main/CONTRIBUTING.md) and a section dedicated to advanced resources below the Components navigation.
+        </div>
+    </AccordionContent>
     </AccordionItem>
-    <AccordionItem>
-        <AccordionHeader as="h3">
-            <AccordionTrigger class="text-md group flex min-h-[44px] w-full items-center justify-between text-left py-4">
-                **How can I migrate my existing application to use Qwik UI?**
-                <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transfor min-w-[1rem]" />
-            </AccordionTrigger>
-        </AccordionHeader>
-        <AccordionContent class="animation-1 overflow-hidden text-slate-700 dark:text-slate-200 border-t-[1px] border-slate-200 dark:border-slate-800">
-            <div class="py-4">
-                If you're using `Qwik-React`, `Qwik-Angular`, `@qwikdev/astro`, we suggest incrementally adding Qwik UI components to your application.
-
-                <div class="pt-4">
-                    Qwik, built as a microfrontend, allows you to incrementally integrate Qwik UI components into your existing application. This approach reduces migration risk and complexity, letting you leverage Qwik UI's benefits at your own pace.
-                </div>
-            </div>
-        </AccordionContent>
+    <AccordionItem class="border-b">
+    <AccordionHeader as="h3">
+        <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline aria-expanded:rounded-none">
+        <span class="font-medium">How can I migrate my existing application to use Qwik UI?</span>
+        <CollapsibleIcon class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform min-w-[1rem]" />
+        </AccordionTrigger>
+    </AccordionHeader>
+    <AccordionContent class="accordion-animation-1 overflow-hidden">
+        <div class="pb-4">
+            If you're using `Qwik-React`, `Qwik-Angular`, `@qwikdev/astro`, we suggest incrementally adding Qwik UI components to your application.
+            Qwik, built as a microfrontend, allows you to incrementally integrate Qwik UI components into your existing application. This approach reduces migration risk and complexity, letting you leverage Qwik UI's benefits at your own pace.
+        </div> 
+    </AccordionContent>
     </AccordionItem>
 
 </AccordionRoot>

@@ -24,7 +24,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">I wasn't open by default!</p>
+              <p class="pb-4">I wasn't open by default!</p>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem defaultValue>
@@ -39,7 +39,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 You can open me by default by putting the <strong>defaultValue</strong>{' '}
                 prop on the Accordion Item.
               </p>
@@ -57,7 +57,7 @@ export default component$(() => {
               </AccordionTrigger>
             </h3>
             <AccordionContent>
-              <p class="py-4 pt-0">I wasn't open by default!</p>
+              <p class="pb-4">I wasn't open by default!</p>
             </AccordionContent>
           </AccordionItem>
         </AccordionRoot>

@@ -31,7 +31,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 Absolutely! You can reach out to us in the Qwikifiers discord.
               </p>
             </AccordionContent>
@@ -48,7 +48,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 According to the 2023 <strong>stack overflow survey</strong>, it's close
                 to the amount of people learning Remix already!
               </p>
@@ -66,9 +66,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">
-                A group of active contributors in the Qwik ecosystem!
-              </p>
+              <p class="pb-4">A group of active contributors in the Qwik ecosystem!</p>
             </AccordionContent>
           </AccordionItem>
         </AccordionRoot>

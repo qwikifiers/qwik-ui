@@ -24,7 +24,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 You can turn it off by setting the <strong>collapsible</strong> prop to
                 false.
               </p>
@@ -40,7 +40,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
-              <p class="py-4 pt-0">Yes, there's a dynamic section further below.</p>
+              <p class="pb-4">Yes, there's a dynamic section further below.</p>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem class="border-b">
@@ -53,7 +53,7 @@ export default component$(() => {
               </AccordionTrigger>
             </h3>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 Of course! You can also use the onFocusIndexChange$ and
                 onSelectedIndexChange$ custom events.
               </p>

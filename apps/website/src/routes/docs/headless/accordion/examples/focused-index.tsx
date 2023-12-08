@@ -31,7 +31,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 Yes! Since 1.0 back in May, Qwik apps are great for production.
               </p>
             </AccordionContent>
@@ -48,7 +48,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 Because you're doing less work! Thanks to resumability we execute
                 JavaScript on interaction.
               </p>
@@ -66,7 +66,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 Check out Qwik-React! It allows you to partially hydrate React components
                 into your Qwik app.
               </p>

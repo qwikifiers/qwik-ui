@@ -24,7 +24,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">My Heading is an h4!</p>
+              <p class="pb-4">My Heading is an h4!</p>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem class="border-b">
@@ -39,7 +39,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">My Heading is an h5!</p>
+              <p class="pb-4">My Heading is an h5!</p>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem class="border-b">
@@ -54,7 +54,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">My Heading is an h6!</p>
+              <p class="pb-4">My Heading is an h6!</p>
             </AccordionContent>
           </AccordionItem>
         </AccordionRoot>

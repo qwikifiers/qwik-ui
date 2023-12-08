@@ -25,7 +25,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 Hey, I'm enabled! This is because I don't use the{' '}
                 <strong>disabled</strong> prop on the trigger.
               </p>
@@ -43,7 +43,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 Hey, I'm enabled! This is because I don't use the{' '}
                 <strong>disabled</strong> prop on the trigger.
               </p>
@@ -69,7 +69,7 @@ export default component$(() => {
               </AccordionTrigger>
             </h3>
             <AccordionContent>
-              <p class="py-4 pt-0">You shouldn't be able to see this!</p>
+              <p class="pb-4">You shouldn't be able to see this!</p>
             </AccordionContent>
           </AccordionItem>
         </AccordionRoot>

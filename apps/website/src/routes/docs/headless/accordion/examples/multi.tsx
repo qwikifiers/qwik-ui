@@ -23,7 +23,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 100%. The trigger has a <strong>[data-state]</strong> selector that can be
                 styled when equal to the <strong>open</strong> or <strong>closed</strong>{' '}
                 values.
@@ -43,7 +43,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 It's typed using <strong>QwikIntrinsicElements</strong>, meaning you can
                 treat it like an element!
               </p>
@@ -59,7 +59,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
-              <p class="py-4 pt-0">
+              <p class="pb-4">
                 You can use onClick$, onKeyDown$, any handlers you'd normally use with
                 Qwik!
               </p>
