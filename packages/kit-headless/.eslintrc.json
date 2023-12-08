@@ -1,5 +1,6 @@
 {
   "rules": {
+    "qwik/valid-lexical-scope": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       // allow unused vars starting with _
@@ -28,7 +29,7 @@
     }
   },
   "plugins": ["@typescript-eslint"],
-  "ignorePatterns": ["!**/*", "**/.storybook/*"],
+  "ignorePatterns": ["!**/*", "cypress.config.ts", "**/.storybook/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
