@@ -2,7 +2,7 @@ import { component$, useSignal } from '@builder.io/qwik';
 import { Toggle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
-  const page = useSignal(5);
+  // const page = useSignal(5);
   const pages = useSignal(10);
 
   const showFirstButton = useSignal(true);
@@ -65,7 +65,7 @@ export default component$(() => {
             }}
             value={pages.value}
             onChange$={(e) => {
-              pages.value = Number(e.target.value);
+              pages.value = Number((e.target as HTMLInputElement).value);
             }}
           />
         </label>
@@ -81,7 +81,7 @@ export default component$(() => {
             }}
             value={siblingCount.value}
             onChange$={(e) => {
-              siblingCount.value = Number(e.target.value);
+              siblingCount.value = Number((e.target as HTMLInputElement).value);
             }}
           />
         </label>
@@ -97,7 +97,7 @@ export default component$(() => {
             }}
             value={boundaryCount.value}
             onChange$={(e) => {
-              boundaryCount.value = Number(e.target.value);
+              boundaryCount.value = Number((e.target as HTMLInputElement).value);
             }}
           />
         </label>

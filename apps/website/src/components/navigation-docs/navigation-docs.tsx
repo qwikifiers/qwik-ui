@@ -30,7 +30,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
     rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
   return (
     <nav
-      class={`fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px] pb-6 [grid-area:nav] lg:w-80
+      class={`bg-background fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px] pb-6 [grid-area:nav] lg:w-80
               ${rootStore.isSidebarOpened ? 'w-100 flex' : 'hidden lg:flex'} `}
     >
       <ul class="show mt-8 flex flex-col gap-2 pl-12 lg:hidden">

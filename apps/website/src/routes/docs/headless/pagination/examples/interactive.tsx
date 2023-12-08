@@ -1,4 +1,4 @@
-import { component$, useSignal, Slot, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
 import { Pagination } from '@qwik-ui/headless';
 import { Toggle } from '@qwik-ui/tailwind';
 import styles from '../index.css?inline';
@@ -51,7 +51,7 @@ export default component$(() => {
             }}
             value={totalPages.value}
             onChange$={(e) => {
-              totalPages.value = Number(e.target.value);
+              totalPages.value = Number((e.target as HTMLInputElement).value);
             }}
           />
         </label>
@@ -67,7 +67,7 @@ export default component$(() => {
             }}
             value={siblingCount.value}
             onChange$={(e) => {
-              siblingCount.value = Number(e.target.value);
+              siblingCount.value = Number((e.target as HTMLInputElement).value);
             }}
           />
         </label>

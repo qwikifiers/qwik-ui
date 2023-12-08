@@ -40,6 +40,7 @@ export const Radio = component$((props: RadioProps) => {
   const { variants } = daisyConfig;
 
   return (
+    /* @ts-expect-error ignore because deprecated */
     <HeadlessRadio
       {...rest}
       type="radio"
