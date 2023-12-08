@@ -8,6 +8,7 @@ import { Highlight } from '../highlight/highlight';
 // /src/routes/docs/components/fluffy/modal/snippets/building-blocks.tsx
 // /src/routes/docs/components/headless/modal/snippets/building-blocks.tsx
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const codeSnippets: any = import.meta.glob('/src/routes/docs/**/**/snippets/*', {
   as: 'raw',
   eager: isDev ? false : true,
