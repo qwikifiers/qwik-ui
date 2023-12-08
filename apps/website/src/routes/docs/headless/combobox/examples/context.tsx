@@ -47,7 +47,7 @@ export const ContextChild = component$(() => {
             <ComboboxOption
               index={index}
               resolved={option}
-              class="hover:bg-accent group rounded-sm border-2 border-transparent px-2"
+              class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent group flex justify-between rounded-sm border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
             >
               <span class="duration-350 block transition-transform group-aria-selected:translate-x-[3px]">
                 <span>{option.label}</span>

@@ -68,7 +68,7 @@ export default component$(() => {
               return (
                 <ComboboxOption
                   key={option.key}
-                  class="hover:bg-accent group flex justify-between rounded-sm border-2 border-transparent  px-2 aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
+                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent group flex justify-between rounded-sm border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
                   index={index}
                   resolved={option}
                   onMouseEnter$={() => {
