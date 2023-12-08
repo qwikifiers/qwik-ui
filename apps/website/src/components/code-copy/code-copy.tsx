@@ -7,11 +7,10 @@ import { twMerge } from 'tailwind-merge';
 
 export type CodeCopyProps = OmitSignalClass<QwikIntrinsicElements['button']> & {
   code?: string;
-  icon?: boolean;
 };
 
 export const CodeCopy = component$(
-  ({ icon = false, code = '', class: outsideClass, ...restOfProps }: CodeCopyProps) => {
+  ({ code = '', class: outsideClass, ...restOfProps }: CodeCopyProps) => {
     const copied = useSignal(false);
 
     return (
@@ -31,8 +30,7 @@ export const CodeCopy = component$(
           }, 4000);
         }}
       >
-        {!icon && (!copied.value ? 'Copy' : 'Copied!')}
-        {icon && (!copied.value ? <CopyIcon /> : <ClipboardCheck />)}
+        {!copied.value ? <CopyIcon /> : <ClipboardCheck />}
       </Button>
     );
   },

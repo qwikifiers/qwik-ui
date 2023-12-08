@@ -25,7 +25,7 @@ export default component$(() => {
             optionValue="🚀 Qwik"
             class="px-1 leading-loose hover:bg-gray-300"
           />
-          <SelectGroup class="">
+          <SelectGroup>
             <SelectLabel class="block px-1 leading-loose">Fruits</SelectLabel>
             {[
               { value: '🍎 Apple', disabled: false },

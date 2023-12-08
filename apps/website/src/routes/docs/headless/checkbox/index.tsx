@@ -39,7 +39,7 @@ export default component$(() => {
       </fieldset>
 
       <h1>Size</h1>
-      <fieldset class="">
+      <fieldset>
         <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
         <Checkbox.Root disabled checked class="qui-checkbox-md checkbox-margin-right" />
         <Checkbox.Root disabled checked class="qui-checkbox-lg" />

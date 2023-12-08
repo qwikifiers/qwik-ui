@@ -41,7 +41,7 @@ export const Example01 = component$(() => {
             <AutocompleteLabel class=" font-semibold text-[#333333] dark:text-white">
               Personal Trainers ⚡
             </AutocompleteLabel>
-            <AutocompleteControl class="relative flex items-center rounded-sm border-[1px] border-[#7d95b3] bg-[#1f2532]">
+            <AutocompleteControl class="relative flex items-center rounded-sm border border-[#7d95b3] bg-[#1f2532]">
               <AutocompleteInput class="w-44 bg-inherit px-2 pr-6 text-white" />
               <AutocompleteTrigger class="group absolute right-0 h-6 w-6">
                 <svg
@@ -57,7 +57,7 @@ export const Example01 = component$(() => {
                 </svg>
               </AutocompleteTrigger>
             </AutocompleteControl>
-            <AutocompleteListbox class="mt-2 w-full rounded-sm border-[1px] border-[#7d95b3] bg-[#1f2532] px-4 py-2 text-white">
+            <AutocompleteListbox class="mt-2 w-full rounded-sm border border-[#7d95b3] bg-[#1f2532] px-4 py-2 text-white">
               {trainersSig.value.map((trainer) => (
                 <AutocompleteOption
                   optionValue={trainer}

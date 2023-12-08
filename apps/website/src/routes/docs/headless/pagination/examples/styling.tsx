@@ -15,10 +15,10 @@ export default component$(() => {
         onPageChange$={(page) => {
           selectedPage.value = page;
         }}
-        class="border-2 border-white p-2"
-        defaultClass="border-2 border-sky-400 p-4"
-        selectedClass="border-2 border-red-500 bg-red-500 p-4"
-        dividerClass="p-4"
+        class="border-foreground border p-2"
+        defaultClass="border border-primary p-4"
+        selectedClass="border bg-destructive p-4"
+        dividerClass="bg-muted p-4"
       />
 
       <Pagination
@@ -27,10 +27,10 @@ export default component$(() => {
         onPageChange$={(page) => {
           selectedPage.value = page;
         }}
-        class="border-2 border-white p-2"
-        defaultClass="bg-cyan-400 w-8 h-8"
-        selectedClass="bg-red-500 w-8 h-8"
-        dividerClass="bg-red-300 h-8 px-2"
+        class="border-foreground border p-2"
+        defaultClass="bg-primary w-8 h-8"
+        selectedClass="bg-destructive w-8 h-8"
+        dividerClass="bg-muted h-8 px-2"
       />
 
       <Pagination
@@ -39,7 +39,7 @@ export default component$(() => {
         onPageChange$={(page) => {
           selectedPage.value = page;
         }}
-        class="flex flex-col items-center gap-2 border border-sky-500"
+        class="border-primary flex flex-col items-center gap-2 border"
         defaultClass=""
         selectedClass=""
         dividerClass=""

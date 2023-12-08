@@ -63,8 +63,6 @@ If you are not using context inside the portal children, this will not be an iss
 
 ### 🎨 Anatomy
 
-{' '}
-
 <AnatomyTable
   propDescriptors={[
     {
@@ -219,7 +217,7 @@ In the previous docs examples, we use the gutter property on the listbox. Gutter
 
 If Flip is enabled, it will provide a gutter space for both the top and bottom.
 
-### Animations <span class="ml-2 text-red-400 dark:text-red-500 text-base px-2 bg-red-100 rounded-md shadow-light-low dark:shadow-dark-medium border-b-2 border-[1px] border-red-200 dark:border-red-400">WIP</span>
+### Animations <span class="ml-2 text-red-400 dark:text-red-500 text-base px-2 bg-red-100 rounded-md shadow-light-low dark:shadow-dark-medium border-b-2 border border-red-200 dark:border-red-400">WIP</span>
 
 We're still currently working to figure out animating things conditionally with portals. Would be open to some contributions on this!
 
@@ -578,11 +576,9 @@ The Combobox component API provides a set of properties that allow you to custom
 
 ## Additional Examples
 
-<div class="shadow-light-medium dark:shadow-dark-medium rounded-xl bg-gradient-to-b from-orange-700 to-orange-800 p-4 text-white dark:from-red-700 dark:to-red-800 lg:p-6">
-  **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both
-  manipulate the placement but with different strategies. Using both can result in a
-  continuous reset loop as they try to override each other's work.
-</div>
+> **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both
+> manipulate the placement but with different strategies. Using both can result in a
+> continuous reset loop as they try to override each other's work.
 
 ### Auto Placement
 

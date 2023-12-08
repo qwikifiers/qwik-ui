@@ -32,11 +32,11 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
 
   return (
     <>
-      <div class="flex w-full flex-col items-center text-white">
+      <div class="flex w-full flex-col items-center">
         <div class="flex gap-4">
           <label class="mb-4 flex flex-col-reverse items-center text-center">
             <input
-              class="max-w-[50px] rounded-md bg-slate-700 px-2"
+              class="bg-accent max-w-[50px] rounded-md px-2"
               type="text"
               bind:value={itemIndexToAdd}
             />
@@ -45,7 +45,7 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
 
           <label class="mb-4 flex flex-col-reverse items-center text-center">
             <input
-              class="max-w-[50px] rounded-md bg-slate-700 px-2"
+              class="bg-accent max-w-[50px] rounded-md px-2"
               type="text"
               bind:value={itemIndexToDelete}
             />
@@ -53,18 +53,16 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
           </label>
         </div>
 
-        <AccordionRoot class="box-border w-[min(400px,_100%)] rounded-sm border-[1px] border-t-0 border-slate-600 bg-slate-700 text-white">
+        <AccordionRoot class="w-[min(400px,_100%)]">
           {itemStore.map(({ label, id }, index) => {
             return (
-              <AccordionItem id={`${id}`} key={id}>
+              <AccordionItem id={`${id}`} key={id} class="border-b">
                 <AccordionHeader>
-                  <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm border-t-[1px] border-slate-600 border-slate-600 bg-slate-700 px-4 py-2 text-left hover:bg-slate-800">
+                  <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
                     {label}
                   </AccordionTrigger>
                 </AccordionHeader>
-                <AccordionContent class="border-t-[1px] border-slate-600 bg-slate-900 p-4">
-                  index: {index}
-                </AccordionContent>
+                <AccordionContent class="py-4 pt-0">index: {index}</AccordionContent>
               </AccordionItem>
             );
           })}

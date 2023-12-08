@@ -334,7 +334,7 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
 
 // This helper function is separate so that it doesn't have to be a QRL
 // and it doesn't result in race conditions between tasks
-// We were seeing tabId signal task running before updateSignals when it was a QRL
+// We were seeing tabId signal task running before updateSignals when it QRL
 export const syncSelectedStateSignals = (
   tabsInfoList: TabInfo[],
   selectedIndexSig: Signal<number | undefined>,

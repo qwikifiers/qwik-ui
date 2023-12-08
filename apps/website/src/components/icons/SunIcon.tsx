@@ -3,7 +3,7 @@ export const SunIcon = () => (
     viewBox="0 0 20 20"
     fill="none"
     aria-hidden="true"
-    class="h-10 w-10 rounded-xl stroke-black p-1 hover:bg-gray-100"
+    class="hover:bg-accent h-10 w-10 rounded-xl stroke-black p-1"
   >
     <path d="M12.5 10a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
     <path
