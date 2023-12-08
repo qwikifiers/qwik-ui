@@ -4,9 +4,9 @@ title: 'Qwik UI - Installation'
 
 import QwikLogo from '~/components/icons/QwikLogo.tsx';
 import AstroLogo from '~/components/icons/AstroLogo.tsx';
-import QwikCityCLI from '~/media/qwik-city-cli.webp?jsx';
-import AstroCLI from '~/media/astro-cli.webp?jsx';
-import QwikdevAstroCLI from '~/media/qwikdev-astro-cli.webp?jsx';
+import qwikCityCLI from '/images/qwik-city-cli.webp';
+import astroCLI from '/images/astro-cli.webp';
+import qwikdevAstroCLI from '/images/qwikdev-astro-cli.webp';
 import { ConfettiButton } from './confetti-button';
 
 export const packages = {
@@ -78,7 +78,7 @@ Install Qwik UI with your choice of package manager below:
     Let's select the `empty app` option in the CLI to keep it simple. And remember, choosing the dad joke is not optional - it's mandatory! We have a highly sophisticated Dad Joke Detection System (DJDS) in place, so we'll know if you didn't!
 
     <div class="-mx-6 lg:-mx-8">
-        <QwikCityCLI class="block max-w-full rounded-md mb-6 border" />
+        <image src={qwikCityCLI} class="block max-w-full rounded-md mb-6 border" />
     </div>
 
     Below is the Qwik City project structure. Inside of the `src` directory, let's create a new folder called `accordion`. Then, a file named **`accordion.tsx`** inside of `src/components`.
@@ -138,7 +138,7 @@ Install Qwik UI with your choice of package manager below:
     Add a relative path for your project, and select the `empty` option in the CLI.
 
     <div class="-mx-6 lg:-mx-8">
-        <AstroCLI class="block max-w-full rounded-md mb-6 border" />
+        <image src={astroCLI} class="block max-w-full rounded-md mb-6 border" />
     </div>
 
     Next, let's add the [@qwikdev/astro](https://www.npmjs.com/package/@qwikdev/astro) integration. This integration allows us to leverage resumability and Qwik components inside of Astro.
@@ -148,7 +148,7 @@ Install Qwik UI with your choice of package manager below:
     <InstallSnippet packages={qwikAstroCliPackages} />
 
     <div class="-mx-6 lg:-mx-8">
-        <QwikdevAstroCLI class="block max-w-full rounded-md mb-6 border" />
+        <image src={qwikdevAstroCLI} class="block max-w-full rounded-md mb-6 border" />
     </div>
 
     Then, let's make sure we use Qwik as our main **jsxImportSource** in `tsconfig.json`. Otherwise, it will not get the proper Qwik types.
