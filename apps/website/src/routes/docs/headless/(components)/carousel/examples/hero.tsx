@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
 
 import {
   Carousel,
@@ -7,6 +7,7 @@ import {
   CarouselSlide,
   CarouselView,
   CarouselContainer,
+  CarouselPagination,
 } from '@qwik-ui/headless';
 
 export default component$(() => {
@@ -29,10 +30,9 @@ export default component$(() => {
 
   useStyles$(`
     .qwikui-carousel {
-      --slide-spacing: 0rem;
       --slide-size: 100%;
-      --slide-height: 19rem;
-      padding: 1.6rem;
+      --slide-height: 5rem;
+      aspect-ratio: 2 / 1;
     }
 
     .qwikui-container {
@@ -48,10 +48,9 @@ export default component$(() => {
     .qwikui-slide {
       flex: 0 0 var(--slide-size);
       min-width: 0;
-      padding-left: var(--slide-spacing);
       position: relative;
-      padding-top: 16px;
-      padding-bottom: 16px;
+      /* padding-top: 16px;
+      padding-bottom: 16px; */
       user-select: none;
       transition-property: transform;
     }
@@ -80,9 +79,27 @@ export default component$(() => {
         </div>
         <CarouselView class="bg-slate-500">
           <CarouselContainer class="qwikui-container">
+            <CarouselSlide class="qwikui-slide bg-yellow-600">
+              <img
+                draggable={false}
+                class="select-none"
+                width="600"
+                height="309"
+                src="https://upload.wikimedia.org/wikipedia/commons/6/62/Big_and_little_dog.jpg"
+              />
+            </CarouselSlide>
+            <CarouselSlide class="qwikui-slide bg-orange-400">
+              <img
+                draggable={false}
+                class="select-none"
+                width="208"
+                height="300"
+                src="https://upload.wikimedia.org/wikipedia/commons/b/be/Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG"
+              />
+            </CarouselSlide>
             {slides.map((content) => (
               <CarouselSlide
-                class="qwikui-slide noselect bg-white text-black"
+                class="qwikui-slide select-none bg-white text-black"
                 key={content}
               >
                 {content}
@@ -91,24 +108,21 @@ export default component$(() => {
           </CarouselContainer>
         </CarouselView>
         <div>
-          {bulletLetters.map((letter, index) => (
-            <span
-              key={letter + '-' + index}
-              class="mr-2 bg-slate-700 p-2 data-[current-slide]:bg-slate-800"
-              onClick$={() => {
-                currentIndexSig.value = 3;
-                console.log('activeIndex', currentIndexSig.value);
-              }}
-            >
-              {letter}
-            </span>
-          ))}
-          {/* <CarouselPagination
+          <CarouselPagination
             renderBullet$={$((i: number) => {
-              return <span>{bulletLetters[i]}</span>;
+              return (
+                <div
+                  class={`cursor-pointer ${
+                    currentIndexSig.value === i ? 'underline' : ''
+                  }`}
+                  onClick$={() => (currentIndexSig.value = i)}
+                >
+                  {i < bulletLetters.length ? bulletLetters[i] : i + 1}
+                </div>
+              );
             })}
-            class="mr-2 bg-slate-700 p-2 data-[current-slide]:bg-slate-800"
-          /> */}
+            class="flex gap-1 bg-slate-700 p-2 data-[current-slide]:bg-slate-800"
+          />
         </div>
       </Carousel>
       <button
