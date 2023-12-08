@@ -35,6 +35,7 @@ export const Slider = component$(
     const { variants } = daisyConfig;
 
     return (
+      /* @ts-expect-error ignore because deprecated */
       <HeadlessSlider
         {...rest}
         style={`

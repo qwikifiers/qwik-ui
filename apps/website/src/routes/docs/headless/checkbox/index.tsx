@@ -16,7 +16,7 @@ export default component$(() => {
           id="test"
           name="test"
           value="test"
-          onChange={$(() => console.log('clicked'))}
+          onChange$={$(() => console.log('clicked'))}
           class="checkbox-secondary checkbox-margin-right"
         />
         test

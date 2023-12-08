@@ -46,7 +46,7 @@ export const Note = component$<NoteProps>(({ status, ...props }) => {
     <aside
       class={`${getBackgroundByStatus(
         status ?? NoteStatus.Info,
-      )} note-link relative mx-[-24px] px-5 py-4 lg:mx-[-32px] lg:px-8 lg:pt-6`}
+      )} note-link relative mx-[-24px] px-5 py-4 lg:mx-[-32px] lg:px-8 lg:py-6 `}
     >
       <div class="absolute left-[-17.5px] top-[-17.5px] hidden h-8 w-8 rounded-full bg-white dark:bg-slate-900 lg:block">
         <div class="flex h-8 w-8 items-center justify-center ">

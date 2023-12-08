@@ -28,6 +28,7 @@ export const Progress = component$((props: ProgressProps) => {
   const { variants } = daisyConfig;
 
   return (
+    /* @ts-expect-error ignore because deprecated */
     <HeadlessProgress
       {...rest}
       value={value}

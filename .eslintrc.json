@@ -6,6 +6,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "qwik/no-use-visible-task": ["off"],
         "@nx/enforce-module-boundaries": [
           "error",
           {

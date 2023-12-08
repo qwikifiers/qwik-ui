@@ -15,7 +15,7 @@ export const components: Record<string, any> = {
       <p
         {...props}
         class={[
-          ' mb-6',
+          'mb-6 last:mb-0',
           (props.class as Signal<string>)?.value ?? (props.class as string),
         ]}
       >
@@ -127,7 +127,7 @@ export const components: Record<string, any> = {
     }
   >(({ __rawString__, ...props }) => {
     return (
-      <div class="code-example relative mx-6 max-h-[31.25rem] rounded-xl bg-slate-900 lg:mx-8">
+      <div class="code-example relative -mx-6 max-h-[31.25rem] rounded-xl bg-slate-900 lg:-mx-8">
         <CodeCopy
           class={[
             'absolute right-4 top-4 border-2 text-slate-50 hover:bg-slate-800 hover:text-slate-50',

@@ -93,6 +93,9 @@ export const buttonVariants = tcva(
 
 export type ButtonProps = AddVariantPropsTo<'button', typeof buttonVariants>;
 
+/*
+  TODO: FIX COMPLEX TYPES HERE. They have changed as of 1.3, preventing the preview
+*/
 export const Button = component$<ButtonProps>(
   ({ intent, size, look, shape, state, animation, class: classList, ...restOfProps }) => {
     const twOptimizedClassesString = buttonVariants({
@@ -106,6 +109,7 @@ export const Button = component$<ButtonProps>(
     });
 
     return (
+      // @ts-expect-error complex types here, need to change
       <button class={twOptimizedClassesString} {...restOfProps}>
         <Slot />
       </button>

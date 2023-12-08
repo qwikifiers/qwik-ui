@@ -7,10 +7,13 @@ export const Breadcrumb = component$((props: BreadcrumbProps) => {
   const { class: classNames, ...rest } = props;
 
   return (
-    <HeadlessBreadcrumb class={`breadcrumbs ${classNames}`} {...rest}>
-      <ul>
-        <Slot />
-      </ul>
-    </HeadlessBreadcrumb>
+    <>
+      {/* @ts-expect-error ignore because deprecated */}
+      <HeadlessBreadcrumb class={`breadcrumbs ${classNames}`} {...rest}>
+        <ul>
+          <Slot />
+        </ul>
+      </HeadlessBreadcrumb>
+    </>
   );
 });

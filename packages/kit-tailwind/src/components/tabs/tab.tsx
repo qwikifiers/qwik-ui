@@ -10,8 +10,8 @@ export type TabProps = {
 
 export const Tab = component$(({ isBordered, isLifted, ...props }: TabProps) => {
   return (
+    /* @ts-expect-error ignore because deprecated */
     <HeadlessTab
-      onClick$={props.onClick$}
       class={`tab ${isBordered ? 'tab-bordered' : ''} ${isLifted ? 'tab-lifted' : ''}`}
       selectedClassName="tab-active"
       {...props}
