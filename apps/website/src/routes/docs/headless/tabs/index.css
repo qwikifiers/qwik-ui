@@ -1,15 +1,16 @@
 .tabs-example [role='tab'] {
   width: 175px;
   background: hsl(var(--muted));
-  font-weight: 500;
 }
 
 .tabs-example [role='tab'][disabled] {
   color: hsl(var(--muted-foreground));
+  font-weight: 400;
 }
 
 .tabs-example [role='tab'].selected {
   background: hsl(var(--background));
+  font-weight: 600;
 }
 
 .tabs-example [role='tablist'] {
