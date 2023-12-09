@@ -9,6 +9,7 @@ import { CodeSnippet } from '../code-snippet/code-snippet';
 import { InstallSnippet } from '../install-snippet/install-snippet';
 import { Note } from '../note/note';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const components: Record<string, any> = {
   p: component$<QwikIntrinsicElements['p']>(({ ...props }) => {
     return (

@@ -15,6 +15,7 @@ import { Highlight } from '../highlight/highlight';
 // /src/routes/docs/components/fluffy/modal/examples/hero.tsx
 // /src/routes/docs/components/headless/modal/examples/hero.tsx
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const metaGlobComponents: Record<string, any> = import.meta.glob(
   '/src/routes/docs/**/**/examples/*.tsx',
   {
@@ -23,6 +24,7 @@ const metaGlobComponents: Record<string, any> = import.meta.glob(
   },
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const rawComponents: Record<string, any> = import.meta.glob(
   '/src/routes/docs/**/**/examples/*.tsx',
   {
@@ -39,6 +41,7 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   const location = useLocation();
   const componentPath = `/src/routes${location.url.pathname}examples/${name}.tsx`;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const MetaGlobComponentSig = useSignal<Component<any>>();
   const componentCodeSig = useSignal<string>();
 
