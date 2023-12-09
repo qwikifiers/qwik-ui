@@ -12,23 +12,23 @@ export default component$(() => {
     .bottom-sheet::backdrop {
       background: hsla(0, 0%, 0%, 0.5);
     }
-    
+
     .bottom-sheet.modal-showing {
       animation: bottomSheetOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-    
+
     .bottom-sheet.modal-showing::backdrop {
       animation: sheetFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-    
+
     .bottom-sheet.modal-closing {
       animation: bottomSheetClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-    
+
     .bottom-sheet.modal-closing::backdrop {
       animation: sheetFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-    
+
     @keyframes bottomSheetOpen {
       from {
         opacity: 0;
@@ -39,7 +39,7 @@ export default component$(() => {
         transform: translateY(0%);
       }
     }
-    
+
     @keyframes bottomSheetClose {
       from {
         opacity: 1;
@@ -50,7 +50,7 @@ export default component$(() => {
         transform: translateY(100%);
       }
     }
-    
+
     @keyframes sheetFadeIn {
       from {
         opacity: 0;
@@ -59,7 +59,7 @@ export default component$(() => {
         opacity: 1;
       }
     }
-    
+
     @keyframes sheetFadeOut {
       from {
         opacity: 1;
@@ -68,7 +68,7 @@ export default component$(() => {
         opacity: 0;
       }
     }
-    
+
     `);
 
   return (
@@ -92,7 +92,7 @@ export default component$(() => {
           <p class="mb-4 leading-5">
             You can update your profile here. Hit the save button when finished.
           </p>
-          <fieldset class="mb-1 flex items-baseline justify-between">
+          <div class="mb-1 flex items-baseline justify-between">
             <label for="name">Name</label>
             <input
               class="bg-background text-foreground mt-2 rounded-sm px-4 py-[10px]"
@@ -100,8 +100,8 @@ export default component$(() => {
               type="text"
               placeholder="John Doe"
             />
-          </fieldset>
-          <fieldset class="flex items-baseline justify-between">
+          </div>
+          <div class="flex items-baseline justify-between">
             <label for="email">Email</label>
             <input
               class="bg-background text-foreground mt-2 rounded-sm px-4 py-3"
@@ -109,7 +109,7 @@ export default component$(() => {
               type="text"
               placeholder="johndoe@gmail.com"
             />
-          </fieldset>
+          </div>
         </ModalContent>
         <ModalFooter class="flex justify-end gap-4">
           <button

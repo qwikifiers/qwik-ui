@@ -22,7 +22,7 @@ export default component$(() => {
     .my-transition.modal-showing, .my-transition.modal-showing::backdrop {
         opacity: 1;
     }
-    
+
     .my-transition.modal-closing, .my-transition.modal-closing::backdrop {
         opacity: 0;
     }
@@ -49,7 +49,7 @@ export default component$(() => {
           <p class="mb-4 leading-5">
             You can update your profile here. Hit the save button when finished.
           </p>
-          <fieldset class="mb-1 flex items-baseline justify-between">
+          <div class="mb-1 flex items-baseline justify-between">
             <label for="name">Name</label>
             <input
               class="bg-background text-foreground mt-2 rounded-sm px-4 py-[10px]"
@@ -57,8 +57,8 @@ export default component$(() => {
               type="text"
               placeholder="John Doe"
             />
-          </fieldset>
-          <fieldset class="flex items-baseline justify-between">
+          </div>
+          <div class="flex items-baseline justify-between">
             <label for="email">Email</label>
             <input
               class="bg-background text-foreground mt-2 rounded-sm px-4 py-3"
@@ -66,7 +66,7 @@ export default component$(() => {
               type="text"
               placeholder="johndoe@gmail.com"
             />
-          </fieldset>
+          </div>
         </ModalContent>
         <ModalFooter class="flex justify-end gap-4">
           <button
