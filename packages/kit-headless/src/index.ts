@@ -1,7 +1,4 @@
 export * from './components/accordion/';
-export * from './components/autocomplete';
-export * from './components/autocomplete/';
-export * from './components/autocomplete/autocomplete-root';
 export * from './components/badge/badge';
 export * from './components/breadcrumb';
 export * from './components/button-group/button-group';
