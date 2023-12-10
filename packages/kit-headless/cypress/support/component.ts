@@ -12,7 +12,6 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-import '@frsource/cypress-plugin-visual-regression-diff';
 import { addQwikLoader, mount } from 'cypress-ct-qwik';
 
 addQwikLoader();

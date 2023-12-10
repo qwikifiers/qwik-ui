@@ -29,7 +29,6 @@ export default component$(() => {
   return (
     <>
       <PopoverTrigger
-        //@ts-ignore
         popovertarget="inspect-id"
         class="rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
       >

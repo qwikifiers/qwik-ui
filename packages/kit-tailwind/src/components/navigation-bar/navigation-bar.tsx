@@ -8,6 +8,7 @@ export const NavigationBar = component$((props: HTMLNavigationBarProps) => {
   const { class: className, ...rest } = props;
 
   return (
+    /* @ts-expect-error ignore because deprecated */
     <HeadlessNavigationBar class={['navbar', className]} {...rest}>
       <div class="navbar-start">
         <Slot name="navbar-left" />

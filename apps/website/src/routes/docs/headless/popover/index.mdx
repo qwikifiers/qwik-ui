@@ -3,68 +3,182 @@ title: Qwik UI | Popover
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
+import { Note } from '~/components/note/note';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
 
 # Popover
 
-A popover is an element that displays a modal with content when the user clicks or hovers on a trigger element.
+A non-modal primitive with overlays that open and close around a DOM element.
 
 <Showcase name="hero" />
 
-{/* ## Building blocks */}
+The Qwik UI Popover component is designed to align with the [HTML Popover API Specification](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API). As of now, native support for this API is around `63%`. To ensure consistent behavior across all browsers, Qwik UI provides a `polyfill` for browsers that do not support the API natively.
 
-{/* <CodeSnippet name="building-blocks" /> */}
+## What is a Popover?
 
-## Examples
+A popover is a **non-modal** UI element that creates overlays around a DOM element. Non-modal meaning the rest of the page can be interacted with while the popover is shown.
 
-### Positioning the popover's content (on top)
+This is particularly useful for displaying additional information or options without navigating away from the current context. It is also a **native replacement for [portals](https://qwik.builder.io/docs/cookbook/portal/#portal)**, which are commonly used in other JavaScript frameworks.
 
 <Showcase name="inspect" />
 
-<Showcase name="flip" />
+> An example use case for a popover, is preventing overflow issues within your UI. The popover API guarantees that your content remains above the rest of the page.
 
-## API
+Most importantly, this API is a foundation for other headless components. Qwik UI is one of the first _(if not the first)_ headless libraries to align with the specification. The content inside of Qwik UI popovers are also natively resumable.
 
-### Popover
+## Versatile use cases <span class="ml-2 text-red-400 dark:text-red-400 text-base px-2 bg-red-100 rounded-md shadow-light-low dark:shadow-dark-medium border-b-2 border-[1px] border-red-200 dark:border-red-300">WIP</span>
 
-<APITable
+Here are a couple of example components where the Popover API can be used. Including other parts of Qwik UI headless. Throughout the documentation, we will show the Combobox being used as an example.
+
+{' '}
+
+<AnatomyTable
   propDescriptors={[
     {
-      name: 'placement',
-      type:"enum",
-      info: '"top" | "right" | "bottom" | "left" | "top-start" | "top-end" | "right-start" | "right-end" | "bottom-start" | "bottom-end" | "left-start" | "left-end"',
-      description: 'The side where to show the popover.',
-    },
-    {
-      name: 'triggerEvent',
-      type: 'enum',
-      info: '"click" | "mouseOver"',
-      description: 'Popover is opened when trigger is clicked or mouse overed.',
-    },
-    {
-      name: 'offset',
-      type: 'number',
-      description: 'Offset between trigger and content.',
-    },
-    {
-      name: 'isOpen',
-      type: 'boolean',
+      name: 'Combobox',
       description:
-        'Open or close the popover when popover is controlled by the parent.',
+        'A text input that allows users to fill in values from a predefined list.',
     },
     {
-      name: 'disableClickOutSide',
-      type: 'boolean',
-      description: 'When true the popover is not closed when click outside.',
+      name: 'Select',
+      description: 'A dropdown menu that allows users to choose one value from a list.',
     },
     {
-      name: 'onUpdate$',
-      type: 'function',
-      info: 'PropFunction<(isOpen: boolean) => void>',
-
-      description: 'Notify a state update to the parent.',
+      name: 'Context Menu',
+      description: 'A menu that appears upon user interaction, such as right-clicking.',
     },
-
-]}
+    {
+      name: 'Tooltip',
+      description:
+        'A text label that appears when a user hovers, focuses, or touches an element.',
+    },
+    {
+      name: 'Toast',
+      description:
+        'A small message that shows up temporarily to give the user some feedback.',
+    },
+    {
+      name: 'Dropdown Menu',
+      description:
+        'A list of options that appears below a button, that users can select from.',
+    },
+    {
+      name: 'Hover Card',
+      description: 'A card that appears when a user hovers over an element.',
+    },
+    {
+      name: 'Menubar',
+      description: 'A horizontal menu with clickable items.',
+    },
+  ]}
 />
+
+## Styling
+
+<Note status="warning">
+  While this component handles most of the complexity under the hood, there are some minor
+  caveats that should be kept in mind when consuming the popover.
+</Note>
+
+### Psuedo Selectors
+
+#### :popover-open
+
+In the context of a native popover, the `:popover-open` pseudo selector is used when the popover is open. However, pseudo selectors can't be polyfilled within CSS.
+
+As a result, the polyfill adds the `.popover-open` CSS class. This means an open popover on unsupported browsers will have `class=":popover-open"` in the DOM.
+
+A separate declaration is needed to select popovers in all browsers.
+
+```css
+/* unsupported */
+.\popover-open {
+  background: red;
+}
+
+/* supported */
+:popover-open {
+  background: red;
+}
+```
+
+> We add a backslash in order to escape the `:` character in CSS. Using `:popover-open` in an unsupported browser results in an invalid selector.
+
+## Popovertarget
+
+To add a popover trigger, it can be done similar to the native API, using the `popovertarget` attribute along with the corresponding popover id. This includes being used on **native button elements**, but it can be leveraged as a prop as well.
+
+```tsx
+// Opens when trigger is clicked, with a matching id to popovertarget
+<PopoverTrigger popovertarget="get-20-off">Get 20% off your next order!</PopoverTrigger>
+
+// Native API:  Adding popover here is the same as popover="auto"
+<button popovertarget="get-20-off" popover>Get 20% off your next order!</button>
+```
+
+> This can be used to trigger popups anywhere in the component tree!
+
+## The popover attribute
+
+A popover can be set to either `auto` (the default setting) or `manual`. What we've seen so far have been **auto** popovers.
+
+Qwik UI adds the popover attribute for you under the hood.
+
+```tsx
+// Qwik UI
+<Popover id="my-id">"Auto vs Manual Popovers: A Qwik Guide to Playing Hide and Seek!"</Popover>
+
+// Native API:  Adding popover here is the same as popover="auto"
+<div id="my-id" popover>"Auto vs Manual Popovers: A Qwik Guide to Playing Hide and Seek!"</div>
+```
+
+### Auto
+
+<Showcase name="auto" />
+
+An auto popover will automatically hide when you click outside of it and typically only one can be shown at a time.
+
+### Manual
+
+<Showcase name="manual" />
+
+On the other hand, a `manual` popover needs to be manually hidden, such as toggling the button or programmatically, and allows for scenarios like nested popovers in menus.
+
+<Showcase name="flip" />
+
+### Popover Methods
+
+There are two methods for showing and hiding popovers manually in JavaScript. The `showPopover` and `hidePopover` methods.
+
+For example, here is programmatic behavior syncing the popover state with the listbox in the `Combobox` component.
+
+```tsx
+useTask$(function syncPopoverStateTask({ track }) {
+  track(() => context.isListboxOpenSig.value);
+
+  if (!context.popoverRef.value) {
+    return;
+  }
+
+  context.isListboxOpenSig.value
+    ? context.popoverRef.value.showPopover()
+    : context.popoverRef.value.hidePopover();
+});
+```
+
+## Floating Behavior
+
+To use the popover API with floating elements, you can add the `floating={true}` prop to the Popover component. This API enables the use of JavaScript to dynamically position the listbox using the `top` & `left` absolute properties.
+
+To float an element, it must have an anchored element to latch onto. This can be done with the `anchorRef` prop.
+
+### AnchorRef Prop
+
+<Showcase name="anchor-ref" />
+
+### Floating Prop
+
+This API is purposely opt-in / incremental. At some point JavaScript will not be needed here thanks to the CSS Anchor API that is currently experimental.
+
+We chose not to use an Anchor polyfill here due to the difference in bundle size compared to a JavaScript implementation.

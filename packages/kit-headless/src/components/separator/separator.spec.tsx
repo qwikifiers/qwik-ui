@@ -51,6 +51,7 @@ describe('Critical Functionality', () => {
 
   it('GIVEN invalid orientation prop THEN console.warn is called', () => {
     const consoleSpy = cy.spy(console, 'warn');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     cy.mount(<Separator orientation={'invalid' as any} />);
 
     cy.wrap(consoleSpy).should('have.been.calledWithMatch', /Invalid prop 'orientation'/);

@@ -22,6 +22,10 @@ This element is used to create a drop-down list, it's often used in a form, to c
 
 <Showcase name="navbar-menu" />
 
+### EXAMPLE: Fruit Picker
+
+<Showcase name="fruits" />
+
 ## Accessibility
 
 ### Keyboard interaction
@@ -55,6 +59,21 @@ This element is used to create a drop-down list, it's often used in a form, to c
     {
       keyTitle: 'ArrowUp',
       description: 'To select the previous `SelectOption`.',
+    },
+    {
+      keyTitle: 'Single character',
+      description:
+        'Hover on the first `SelectOption` whose starting character  matches the key pressed. ',
+    },
+    {
+      keyTitle: 'Repeated character',
+      description:
+        'Hover though all available `SelectOptions` whose starting character  matches the keys pressed.',
+    },
+    {
+      keyTitle: 'Quickly typed characters',
+      description:
+        'Hover on the the first `SelectOption`, from absolute top to absulote bottom, that matches the full string of keys typed.',
     },
   ]}
 />

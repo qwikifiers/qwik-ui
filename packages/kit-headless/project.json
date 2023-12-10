@@ -26,7 +26,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/kit-headless/**/*.{ts,tsx,js,jsx}"]
@@ -39,6 +39,7 @@
         "releaseAs": "patch"
       }
     },
+
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
@@ -51,12 +52,27 @@
         "noVerify": true,
         "push": true,
         "releaseAs": "patch",
-        "postTargets": ["headless:publish", "headless:push-to-github"]
+        "postTargets": [
+          "headless:build",
+          "headless:update-utils-version",
+          "headless:publish",
+          "headless:push-to-github"
+        ]
       }
     },
+
+    "update-utils-version": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false,
+        "command": "pnpm update.version"
+      }
+    },
+
     "publish": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
+        "noBuild": true,
         "access": "public"
       }
     },
@@ -65,7 +81,7 @@
       "options": {
         "tag": "${tag}",
         "notes": "${notes}",
-        "title": "@qwik-ui/kit-headless@${version}"
+        "title": "@qwik-ui/headless@${version}"
       }
     },
     "storybook": {
@@ -86,7 +102,7 @@
       "options": {
         "uiFramework": "@storybook/html",
         "configDir": "packages/kit-headless/.storybook",
-        "outputDir": "dist/storybook/headless"
+        "outputDir": "dist/storybook/kit-headless"
       },
       "configurations": {
         "ci": {

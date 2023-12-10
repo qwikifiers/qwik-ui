@@ -1,22 +1,5 @@
 {
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e",
-          "build-storybook",
-          "component-test"
-        ],
-        "accessToken": "MzViMzc1MGQtMDQyNi00N2E3LTliMmYtYWI4ZGIxYWJjYzE3fHJlYWQtd3JpdGU="
-      }
-    }
-  },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "qwik-ui",
   "affected": {
     "defaultBase": "main"
   },
@@ -26,10 +9,26 @@
   },
   "targetDefaults": {
     "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "cache": true
     },
-    "test": {
-      "inputs": ["default", "^default"]
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"]
+    },
+    "e2e": {
+      "cache": true
+    },
+    "build-storybook": {
+      "cache": true
+    },
+    "component-test": {
+      "cache": true
+    },
+    "@nx/vite:test": {
+      "inputs": ["default", "^default"],
+      "cache": true
     }
-  }
+  },
+  "nxCloudAccessToken": "MzViMzc1MGQtMDQyNi00N2E3LTliMmYtYWI4ZGIxYWJjYzE3fHJlYWQtd3JpdGU="
 }

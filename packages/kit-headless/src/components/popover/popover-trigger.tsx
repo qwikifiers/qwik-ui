@@ -76,7 +76,6 @@ export function usePopover(popovertarget: string) {
 
       // so it only runs once on first click
       if (!popover.classList.contains(':popover-open')) {
-        // @ts-ignore
         popover.showPopover();
       }
     }),

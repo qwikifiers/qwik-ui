@@ -1,0 +1,200 @@
+---
+title: 'Qwik UI - Installation'
+---
+
+import QwikLogo from '~/components/icons/QwikLogo.tsx';
+import AstroLogo from '~/components/icons/AstroLogo.tsx';
+import qwikCityCLI from '../../../../../public/images/qwik-city-cli.webp';
+import astroCLI from '../../../../../public/images/astro-cli.webp';
+import qwikdevAstroCLI from '../../../../../public/images/qwikdev-astro-cli.webp';
+import { ConfettiButton } from './confetti-button';
+
+export const packages = {
+  npm: 'npm install @qwik-ui/headless',
+  yarn: 'yarn add @qwik-ui/headless',
+  pnpm: 'pnpm add @qwik-ui/headless',
+};
+
+export const qwikCityPackages = {
+  npm: 'npm create qwik@latest',
+  yarn: 'yarn create qwik',
+  pnpm: 'pnpm create qwik@latest',
+  bun: 'bun create qwik@latest',
+};
+
+export const astroPackages = {
+  npm: 'npm create astro@latest',
+  yarn: 'yarn create astro',
+  pnpm: 'pnpm create astro@latest',
+};
+
+export const qwikAstroCliPackages = {
+  npm: 'npx astro add @qwikdev/astro',
+  yarn: 'yarn astro add @qwikdev/astro',
+  pnpm: 'pnpm astro add @qwikdev/astro',
+};
+
+# Installation
+
+Install Qwik UI with your choice of package manager below:
+
+<InstallSnippet packages={packages} />
+
+    ## Meta-framework guides
+
+    <div class="flex flex-col gap-4 md:flex-row mx-6 lg:mx-8">
+        <a class="flex-1 border-none" href="#qwik-city">
+            <span class="p-8 rounded-lg gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
+            <QwikLogo class="max-w-[100px] max-h-[100px]" />
+            <span class="text-lg font-bold">Qwik City</span>
+            </span>
+        </a>
+        <a class="flex-1 border-none" href="#astro">
+            <span class="p-8 rounded-lg gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
+                <AstroLogo class="max-w-[100px] max-h-[100px]" />
+                <span class="text-lg font-bold">Astro</span>
+            </span>
+        </a>
+    </div>
+
+    ## Building Blocks
+
+    Each component includes a `building blocks` section, which provides a barebones example of the component. This can be used as a starting point for implementing the component from scratch.
+
+    Below is an example of the `Accordion` component's building block:
+
+    <CodeSnippet name="building-blocks" />
+
+    We will use this example as a Qwik UI component in each guide.
+
+    ## Qwik City
+
+    To create a Qwik city app, run the following command:
+
+<InstallSnippet packages={qwikCityPackages} />
+
+    > For a more in-depth installation, or if you'd like to use a different package manager, follow the guide in the [Qwik docs](https://qwik.builder.io/docs/getting-started/#create-an-app-using-the-cli)
+
+    Let's select the `empty app` option in the CLI to keep it simple. And remember, choosing the dad joke is not optional - it's mandatory! We have a highly sophisticated Dad Joke Detection System (DJDS) in place, so we'll know if you didn't!
+
+    <div class="-mx-6 lg:-mx-8">
+        <img src={qwikCityCLI} class="block max-w-full rounded-md mb-6 border" />
+    </div>
+
+    Below is the Qwik City project structure. Inside of the `src` directory, let's create a new folder called `accordion`. Then, a file named **`accordion.tsx`** inside of `src/components`.
+
+    <div class="whitespace-pre-wrap bg-secondary/20 -mx-6 lg:-mx-8 px-5 py-4 lg:px-7 border border-secondary rounded-lg mb-6 lg:mb-12">
+        <strong>Qwik City files</strong>
+        ├─ .eslintignore
+        ├─ .eslintrc.cjs
+        ├─ .gitignore
+        ├─ .prettierignore
+        ├─ README.md
+        ├─ package-lock.json
+        ├─ package.json
+        ├─ public
+        │  ├─ favicon.svg
+        │  ├─ manifest.json
+        │  └─ robots.txt
+        ├─ <strong>src</strong>
+        │  ├─ <strong>components</strong>
+        │  │  └─ <strong>accordion</strong>
+        │  │     └─ <strong>accordion.tsx</strong>
+        │  │  └─ router-head
+        │  │     └─ router-head.tsx
+        │  ├─ entry.dev.tsx
+        │  ├─ entry.preview.tsx
+        │  ├─ entry.ssr.tsx
+        │  ├─ global.css
+        │  ├─ root.tsx
+        │  └─ routes
+        │     ├─ index.tsx
+        │     ├─ layout.tsx
+        │     └─ service-worker.ts
+        ├─ tsconfig.json
+        └─ vite.config.ts
+    </div>
+
+    Now, to create a component, you can simply copy/paste the code from the building blocks section, or the snippet provided in the code tab below 👇
+
+    <Showcase name="accordion" />
+
+    Hooray! We've now added our **first** Qwik UI component in Qwik City. It includes a starting point where the accordion functionality and aria behavior is added for us.
+
+    <ConfettiButton />
+
+    Let's add a few styles to make the component stand out more, we'll use `Tailwind CSS` as a styling solution.
+
+    <Showcase name="accordion-qwik-city" />
+
+    > Here's a Qwik City [project example repository](https://github.com/thejackshelton/qwik-ui-scratch) with the content from above. Feel free to clone it and play with it.
+
+    ## Astro
+
+    To set up an Astro application, add the following command in the terminal:
+
+    <InstallSnippet packages={astroPackages} />
+
+    Add a relative path for your project, and select the `empty` option in the CLI.
+
+    <div class="-mx-6 lg:-mx-8">
+        <img src={astroCLI} class="block max-w-full rounded-md mb-6 border" />
+    </div>
+
+    Next, let's add the [@qwikdev/astro](https://www.npmjs.com/package/@qwikdev/astro) integration. This integration allows us to leverage resumability and Qwik components inside of Astro.
+
+    Run the following command in the terminal:
+
+    <InstallSnippet packages={qwikAstroCliPackages} />
+
+    <div class="-mx-6 lg:-mx-8">
+        <img src={qwikdevAstroCLI} class="block max-w-full rounded-md mb-6 border" />
+    </div>
+
+    Then, let's make sure we use Qwik as our main **jsxImportSource** in `tsconfig.json`. Otherwise, it will not get the proper Qwik types.
+
+    ```json
+    {
+        "extends": "astro/tsconfigs/strict",
+        "compilerOptions": {
+            "jsx": "react-jsx",
+            "jsxImportSource": "@builder.io/qwik"
+        }
+    }
+    ```
+
+    <br/>
+    Under the `src` directory, let's create a folder called `components`. Similar to the Qwik City guide, we'll create a folder named `accordion`, and a file named **`accordion.tsx`**.
+
+    Below is the project structure with this in place.
+
+    <div class="whitespace-pre-wrap bg-secondary/20 -mx-6 lg:-mx-8 px-5 py-4 lg:px-7 border border-secondary rounded-lg mb-6 lg:mb-12">
+        <strong>Astro files</strong>
+        ├─ .gitignore
+        ├─ README.md
+        ├─ astro.config.mjs
+        ├─ package-lock.json
+        ├─ package.json
+        ├─ public
+        │  └─ favicon.svg
+        ├─ src
+        │  ├─ env.d.ts
+        │  └─ pages
+        │     ├─ <strong>components</strong>
+        │     │  └─ <strong>accordion</strong>
+        │     │     └─ <strong>accordion.tsx</strong>
+        │     └─ index.astro
+        └─ tsconfig.json
+    </div>
+
+    Once again, let's copy our `building-blocks` example from above.
+
+    <CodeSnippet name="building-blocks" />
+
+    <Showcase name="accordion" />
+
+    And we'll spice it up a bit using some vanilla CSS.
+
+    <Showcase name="astro-accordion" />
+
+    > Here's an Astro [project example repository](https://github.com/thejackshelton/qwik-ui-astro-scratch) with the content from above. Feel free to clone it and play with it.

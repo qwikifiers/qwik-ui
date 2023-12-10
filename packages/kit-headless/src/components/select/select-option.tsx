@@ -5,7 +5,6 @@ import {
   useSignal,
   useVisibleTask$,
 } from '@builder.io/qwik';
-import { OptionProps } from '../autocomplete';
 import SelectContextId from './select-context-id';
 
 import { KeyCode } from '../../utils/key-code.type';
@@ -18,8 +17,8 @@ export type SelectOptionProps = {
 
 export const selectOptionPreventedKeys = [KeyCode.ArrowDown, KeyCode.ArrowUp];
 
-export const SelectOption = component$(
-  ({ disabled, optionValue, ...props }: OptionProps) => {
+export const SelectOption = component$<SelectOptionProps>(
+  ({ disabled, optionValue, ...props }) => {
     const selectContext = useContext(SelectContextId);
     const optionRef = useSignal<HTMLElement>();
 

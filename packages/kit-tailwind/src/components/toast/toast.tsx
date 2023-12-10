@@ -46,6 +46,7 @@ export const Toast = component$(
           classNames,
         ]}
       >
+        {/* @ts-expect-error ignore because deprecated */}
         <HeadlessToast label={label} class={['alert', variants[variant]]} {...rest} />
       </div>
     );

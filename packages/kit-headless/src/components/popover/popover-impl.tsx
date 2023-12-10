@@ -16,7 +16,7 @@ import { supportShowAnimation, supportClosingAnimation } from './utils';
 
 export type PopoverImplProps = {
   id: string;
-  popover?: 'manual' | 'auto' | true;
+  popover?: string | null | undefined;
   class?: ClassList;
   popoverRef?: Signal<HTMLElement | undefined>;
   manual?: boolean;
@@ -92,20 +92,17 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   return (
     <div
       {...props}
-      // @ts-expect-error bad types
       popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
       ref={popoverRef}
-      onBeforeToggle$={(e) => {
+      onBeforeToggle$={(e: ToggleEvent) => {
         if (!popoverRef.value) return;
 
         setTimeout(() => {
-          // @ts-ignore
           if (e.newState === 'open' && popoverRef.value) {
             supportShowAnimation(popoverRef.value);
           }
         }, 5);
 
-        // @ts-ignore
         if (e.newState === 'closed') {
           supportClosingAnimation(popoverRef.value);
         }

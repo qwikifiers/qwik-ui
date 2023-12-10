@@ -11,16 +11,14 @@ type APITableProps = {
 export const APITable = component$(({ propDescriptors }: APITableProps) => {
   return (
     <div class="overflow-auto">
-      <table class="mb-6 w-full min-w-[540px] border-b border-slate-200 text-left dark:border-slate-800 sm:min-w-full">
-        <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
-          <tr class="w-1/4 dark:text-white ">
-            <th class="w-1/6 whitespace-nowrap py-2 pl-4 text-base font-[600] font-medium text-slate-700 dark:text-slate-300 sm:pl-0">
+      <table class="mb-6 w-full min-w-[540px] border-b text-left sm:min-w-full">
+        <tbody class="divide-y">
+          <tr class="w-1/4">
+            <th class="w-1/6 whitespace-nowrap py-2 pl-4 text-base font-semibold sm:pl-0">
               Prop
             </th>
-            <th class="w-1/6 whitespace-nowrap py-2 text-base font-[600] text-slate-700 dark:text-slate-300">
-              Type
-            </th>
-            <th class="w-2/3 whitespace-nowrap p-2 text-base font-[600] text-slate-700 dark:text-slate-300">
+            <th class="w-1/6 whitespace-nowrap py-2 text-base font-semibold">Type</th>
+            <th class="w-2/3 whitespace-nowrap p-2 text-base font-semibold">
               Description
             </th>
           </tr>
@@ -28,13 +26,13 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
             return (
               <tr key={propDescriptor.name}>
                 <td class="prose prose-sm py-3 pl-4 sm:pl-0 ">
-                  <code class="border-qwikui-blue-500 bg-qwikui-blue-50 dark:bg-qwikui-purple-100 dark:border-qwikui-purple-500 mr-6 rounded-md border-[1px] border-b-[2px] font-[400] text-slate-950">
+                  <code class="border-primary mr-6 rounded-md border border-b-[2px]">
                     {propDescriptor.name}
                   </code>
                 </td>
                 <td class="py-3">
                   <span class="flex items-center">
-                    <code class="rounded-md border-[1px] border-b-2 border-slate-700 bg-slate-100 px-2 dark:border-slate-400 dark:bg-slate-700">
+                    <code class="rounded-md border border-b-2 px-2">
                       {propDescriptor.type}
                     </code>
                     {propDescriptor.info && (

@@ -1,10 +1,10 @@
 import { ClassList } from '@builder.io/qwik';
 
-export const isArray = (v: any): v is any[] => {
+export const isArray = (v: unknown): v is unknown[] => {
   return Array.isArray(v);
 };
 
-export const isString = (v: any): v is string => {
+export const isString = (v: unknown): v is string => {
   return typeof v === 'string';
 };
 

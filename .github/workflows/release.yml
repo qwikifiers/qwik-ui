@@ -35,6 +35,10 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Build Headless Kit
+        shell: bash
+        run: npx nx build headless
+
       - name: Release
         uses: ./.github/actions/release
         with:

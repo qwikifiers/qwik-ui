@@ -1,7 +1,5 @@
 import { component$ } from '@builder.io/qwik';
 import {
-  SelectGroup,
-  SelectLabel,
   SelectListBox,
   SelectMarker,
   SelectOption,
@@ -11,20 +9,26 @@ import {
 } from '@qwik-ui/headless';
 
 export default component$(() => {
+  const fruitArray = [
+    { value: 'Apple 🍎', disabled: false },
+    { value: 'Banana 🍌', disabled: false },
+    { value: 'Cherry 🍒', disabled: false },
+    { value: 'Dragonfruit 🐲', disabled: true },
+  ];
+
   return (
     <>
       <div>
         <SelectRoot>
-          <SelectLabel class="ml-2 font-semibold text-white">Qwik Fruits</SelectLabel>
-          <SelectTrigger class="group peer flex items-center justify-between rounded-md border-[1px] border-slate-600 bg-slate-800 p-4 px-8">
-            <SelectValue placeholder="Select a fruit! 🍹" class="text-white" />
+          <SelectTrigger class="group peer flex items-center justify-between rounded-md border p-4 px-8">
+            <SelectValue placeholder="Select a fruit! 🍹" />
             <SelectMarker class="h-6 w-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke-width="2"
-                class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
+                class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
@@ -32,33 +36,25 @@ export default component$(() => {
               </svg>
             </SelectMarker>
           </SelectTrigger>
-          <SelectListBox class="mt-2 rounded-md border-[1px] border-slate-600 bg-slate-800 text-white">
+          <SelectListBox class="bg-background mt-2 rounded-md border">
             <SelectOption
-              optionValue="🚀 Qwik"
-              class="p-4 hover:bg-slate-700 focus:bg-slate-700"
+              optionValue="Qwik 🚀 "
+              class="hover:bg-accent focus:bg-accent p-4"
             >
-              🚀 Qwik
+              Qwik 🚀
             </SelectOption>
-            <SelectGroup class="p-4">
-              <SelectLabel class="p-4">Fruits</SelectLabel>
-              {[
-                { value: '🍎 Apple', disabled: false },
-                { value: '🍌 Banana', disabled: false },
-                { value: '🍒 Cherry', disabled: false },
-                { value: '🐲 Dragonfruit', disabled: true },
-              ].map((option) => {
-                return (
-                  <SelectOption
-                    key={option.value}
-                    optionValue={option.value}
-                    disabled={option.disabled}
-                    class="rounded-sm p-4 hover:bg-slate-700 focus:bg-slate-700 aria-disabled:cursor-not-allowed aria-disabled:text-red-500"
-                  >
-                    {option.value}
-                  </SelectOption>
-                );
-              })}
-            </SelectGroup>
+            {fruitArray.map((option) => {
+              return (
+                <SelectOption
+                  key={option.value}
+                  optionValue={option.value.toString()}
+                  disabled={option.disabled}
+                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:bg-muted rounded-sm p-4 aria-disabled:cursor-not-allowed"
+                >
+                  {option.value}
+                </SelectOption>
+              );
+            })}
           </SelectListBox>
         </SelectRoot>
       </div>

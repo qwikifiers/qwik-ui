@@ -24,7 +24,7 @@ export type CheckboxProps = QwikIntrinsicElements['input'] & {
   id?: string;
   value?: string;
   tabIndex?: number;
-  onChange?: PropFunction<
+  onChange$?: PropFunction<
     (event: QwikChangeEvent<HTMLInputElement>, element: HTMLInputElement) => void
   >;
 };
@@ -38,7 +38,7 @@ export const Root = component$(
     id,
     value,
     tabIndex,
-    onChange,
+    onChange$,
     ...props
   }: CheckboxProps) => {
     return (
@@ -54,8 +54,8 @@ export const Root = component$(
         value={value}
         tabIndex={tabIndex}
         onChange$={(event, element) => {
-          if (onChange) {
-            onChange(event, element);
+          if (onChange$) {
+            onChange$(event, element);
           }
         }}
         {...props}
