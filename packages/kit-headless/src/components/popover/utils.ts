@@ -1,8 +1,14 @@
 /**
  * Adds CSS-Class to support popover-opening-animation
  */
-export function supportShowAnimation(popover: HTMLElement) {
+export function supportShowAnimation(popover: HTMLElement, isPolyfill: boolean) {
+  popover.classList.remove('popover-closing');
   popover.classList.add('popover-showing');
+
+  if (isPolyfill) {
+    /* to support tooltips that enter quickly */
+    popover.classList.add(':popover-open');
+  }
 }
 
 /**
@@ -11,6 +17,7 @@ export function supportShowAnimation(popover: HTMLElement) {
  * export function supportClosingAnimation(popover: HTMLElement, afterAnimate: () => void) {
  */
 export function supportClosingAnimation(popover: HTMLElement) {
+  console.log('Closing animation:', popover.classList.contains('popover-showing'));
   popover.classList.remove('popover-showing');
   popover.classList.add('popover-closing');
 
@@ -27,8 +34,10 @@ export function supportClosingAnimation(popover: HTMLElement) {
   if (animationDuration !== '0s') {
     popover.addEventListener('animationend', runAnimationEnd, { once: true });
   } else if (transitionDuration !== '0s') {
+    console.log('inside transition');
     popover.addEventListener('transitionend', runTransitionEnd, { once: true });
   } else {
+    console.log('I RAN!');
     popover.classList.remove('popover-closing');
   }
 }

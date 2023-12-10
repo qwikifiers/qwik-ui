@@ -14,12 +14,12 @@ export default component$(() => {
         <PopoverTrigger
           ref={buttonRef}
           disableClickInitPopover
-          onMouseEnter$={() => {
+          onPointerEnter$={() => {
             initPopover$();
-            myPopoverRef.value?.togglePopover();
+            myPopoverRef.value?.showPopover();
           }}
-          onMouseLeave$={() => {
-            myPopoverRef.value?.togglePopover();
+          onPointerLeave$={() => {
+            myPopoverRef.value?.hidePopover();
           }}
           popoverTargetAction="show"
           popovertarget="anchor-ref-id"
@@ -36,7 +36,7 @@ export default component$(() => {
         placement="top"
         gutter={4}
         id="anchor-ref-id"
-        class="listbox shadow-dark-low rounded-md border-2 border-slate-300 bg-slate-800 !p-4 text-white"
+        class="my-transition listbox shadow-dark-low rounded-md border-2 border-slate-300 bg-slate-800 !p-4 text-white"
       >
         I am anchored to the trigger!
       </Popover>

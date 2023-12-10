@@ -14,8 +14,6 @@ export function usePopover(popovertarget: string) {
   const didInteractSig = useSignal<boolean>(false);
   const popoverSig = useSignal<HTMLElement | null>(null);
 
-  const hookExecutedSig = useSignal<boolean>(false);
-
   const loadPolyfill$ = $(async () => {
     await import('@oddbird/popover-polyfill');
     document.dispatchEvent(new CustomEvent('poppolyload'));
@@ -54,12 +52,10 @@ export function usePopover(popovertarget: string) {
       if (!popover) return;
 
       if (popover && popover.hasAttribute('popover')) {
+        /* opens manual on any event */
         popover.showPopover();
       }
     }
-
-    console.log('HOOK EXECUTED');
-    hookExecutedSig.value = true;
   });
 
   // event is created after teleported properly

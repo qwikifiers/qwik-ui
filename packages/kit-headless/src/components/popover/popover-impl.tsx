@@ -50,6 +50,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
   const beforeTeleportParentRef = useSignal<HTMLElement | undefined>(undefined);
   const popoverRef = useSignal<HTMLElement | undefined>(undefined);
+  const isPolyfillSig = useSignal<boolean>(false);
 
   /** have we rendered on the client yet? 0: no, 1: force, 2: yes */
   const hasRenderedOnClientSig = useSignal(isServer ? 0 : 2);
@@ -65,6 +66,8 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
     track(() => teleportSig.value);
 
     if (isServer) return;
+
+    isPolyfillSig.value = true;
 
     let polyfillContainer: HTMLDivElement | null = document.querySelector(
       'div[data-qwik-ui-popover-polyfill]',
@@ -97,9 +100,11 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       onBeforeToggle$={(e: ToggleEvent) => {
         if (!popoverRef.value) return;
 
+        console.log(e.newState);
+
         setTimeout(() => {
           if (e.newState === 'open' && popoverRef.value) {
-            supportShowAnimation(popoverRef.value);
+            supportShowAnimation(popoverRef.value, isPolyfillSig.value);
           }
         }, 5);
 
@@ -107,7 +112,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
           supportClosingAnimation(popoverRef.value);
         }
       }}
-      onToggle$={(e) => {
+      onToggle$={(e: ToggleEvent) => {
         if (props.popoverRef) {
           props.popoverRef.value = popoverRef.value;
         }
