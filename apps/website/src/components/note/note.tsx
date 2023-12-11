@@ -3,7 +3,6 @@ import { component$, Slot, QwikIntrinsicElements } from '@builder.io/qwik';
 export enum NoteStatus {
   Info = 'info',
   Warning = 'warning',
-  Success = 'success',
   Caution = 'caution',
 }
 
@@ -14,30 +13,27 @@ export interface NoteProps {
 function getIconByStatus(status?: NoteStatus) {
   switch (status) {
     case NoteStatus.Info:
-      return <InfoIcon class="text-qwikui-purple-500 dark:text-qwikui-blue-700" />;
+      return <InfoIcon class="text-secondary" />;
     case NoteStatus.Warning:
       return <WarningIcon class="text-yellow-500" />;
-    case NoteStatus.Success:
-      return <SuccessIcon class="text-green-500 dark:text-green-600" />;
     case NoteStatus.Caution:
-      return <CautionIcon class="text-red-600 dark:text-red-700" />;
+      return <CautionIcon class="text-destructive" />;
+
     default:
-      return <InfoIcon class="text-qwikui-purple-500 dark:text-qwikui-blue-700" />;
+      return <InfoIcon class="text-secondary" />;
   }
 }
 
 function getBackgroundByStatus(status?: NoteStatus) {
   switch (status) {
     case NoteStatus.Info:
-      return 'bg-[#ECDDFD] border-qwikui-purple-500 dark:bg-[#0C2944] border-l-2 dark:border-qwikui-blue-700 mb-4 rounded-lg block';
+      return 'bg-secondary/20 border-secondary border-l-2 mb-4 rounded-lg block';
     case NoteStatus.Warning:
       return 'bg-[#FBF0CD] dark:bg-[#3B3623] border-yellow-500 border-l-2 dark:border-yellow-500 mb-4 rounded-lg block';
-    case NoteStatus.Success:
-      return 'dark:bg-[#103331] bg-[#D2F4DF] border-green-500 border-l-2 dark:border-green-600 mb-4 rounded-lg block';
     case NoteStatus.Caution:
-      return 'bg-[#F8D3D3] border-red-600 dark:bg-[#311727] border-l-2 dark:border-red-700 mb-4 rounded-lg block';
+      return 'bg-destructive/20 border-desctructive border-l-2 mb-4 rounded-lg block';
     default:
-      return 'dark:bg-[#0C2944] border-l-2 dark:border-qwikui-blue-700 mb-4 rounded-lg block';
+      return 'bg-secondary/20 border-secondary border-l-2 mb-4 rounded-lg block';
   }
 }
 
@@ -91,24 +87,6 @@ export function WarningIcon(props: QwikIntrinsicElements['svg'], key: string) {
       <g fill="currentColor">
         <path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96Z" opacity=".2"></path>
         <path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88Zm-8-80V80a8 8 0 0 1 16 0v56a8 8 0 0 1-16 0Zm20 36a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z"></path>
-      </g>
-    </svg>
-  );
-}
-
-export function SuccessIcon(props: QwikIntrinsicElements['svg'], key: string) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 256 256"
-      {...props}
-      key={key}
-    >
-      <g fill="currentColor">
-        <path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96Z" opacity=".2"></path>
-        <path d="M173.66 98.34a8 8 0 0 1 0 11.32l-56 56a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L112 148.69l50.34-50.35a8 8 0 0 1 11.32 0ZM232 128A104 104 0 1 1 128 24a104.11 104.11 0 0 1 104 104Zm-16 0a88 88 0 1 0-88 88a88.1 88.1 0 0 0 88-88Z"></path>
       </g>
     </svg>
   );
