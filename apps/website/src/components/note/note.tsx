@@ -29,7 +29,7 @@ function getBackgroundByStatus(status?: NoteStatus) {
     case NoteStatus.Info:
       return 'bg-secondary/20 border-secondary border-l-2 mb-4 rounded-lg block';
     case NoteStatus.Warning:
-      return 'bg-[#FBF0CD] dark:bg-[#3B3623] border-yellow-500 border-l-2 dark:border-yellow-500 mb-4 rounded-lg block';
+      return 'bg-yellow-500/20 border-yellow-500 border-l-2 mb-4 rounded-lg block';
     case NoteStatus.Caution:
       return 'bg-destructive/20 border-desctructive border-l-2 mb-4 rounded-lg block';
     default:
