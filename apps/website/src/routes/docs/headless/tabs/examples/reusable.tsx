@@ -25,7 +25,8 @@ const CustomTabList = component$<TabListProps>(() => {
 const CustomTab = component$<TabProps>(({ ...props }) => {
   return (
     <Tab {...props}>
-      <span class="text-red-500">Custom</span> <Slot />
+      <span class="text-red-500">Custom</span>
+      <Slot />
     </Tab>
   );
 });
@@ -33,7 +34,8 @@ const CustomTab = component$<TabProps>(({ ...props }) => {
 const CustomTabPanel = component$<TabPanelProps>(({ ...props }) => {
   return (
     <TabPanel {...props}>
-      <span class="text-red-500">Description:</span> <Slot />
+      <span class="text-red-500">Description:</span>
+      <Slot />
     </TabPanel>
   );
 });
