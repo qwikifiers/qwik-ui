@@ -159,9 +159,10 @@ export const components: Record<string, any> = {
   }),
   AnatomyTable,
   APITable,
-  KeyboardInteractionTable,
-  StatusBanner,
-  Showcase,
   CodeSnippet,
+  KeyboardInteractionTable,
   InstallSnippet,
+  Note,
+  Showcase,
+  StatusBanner,
 };
