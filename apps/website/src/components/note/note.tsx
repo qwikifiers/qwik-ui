@@ -31,7 +31,7 @@ function getBackgroundByStatus(status?: NoteStatus) {
     case NoteStatus.Warning:
       return 'bg-yellow-500/20 border-yellow-500 border-l-2 mb-4 rounded-lg block';
     case NoteStatus.Caution:
-      return 'bg-destructive/20 border-desctructive border-l-2 mb-4 rounded-lg block';
+      return 'bg-destructive/20 border-destructive border-l-2 mb-4 rounded-lg block';
     default:
       return 'bg-secondary/20 border-secondary border-l-2 mb-4 rounded-lg block';
   }
@@ -103,11 +103,8 @@ export function CautionIcon(props: QwikIntrinsicElements['svg'], key: string) {
       key={key}
     >
       <g fill="currentColor">
-        <path
-          d="M195.88 195.88a96 96 0 0 1-135.76 0L195.88 60.12a96 96 0 0 1 0 135.76Z"
-          opacity=".2"
-        ></path>
-        <path d="M201.54 54.46A104 104 0 0 0 54.46 201.54A104 104 0 0 0 201.54 54.46ZM65.78 65.77a88.08 88.08 0 0 1 118.52-5.38L60.38 184.31a88 88 0 0 1 5.4-118.54Zm124.44 124.46a88.1 88.1 0 0 1-118.52 5.38L195.62 71.69a88 88 0 0 1-5.4 118.54Z"></path>
+        <path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96Z" opacity=".2"></path>
+        <path d="M165.66 101.66L139.31 128l26.35 26.34a8 8 0 0 1-11.32 11.32L128 139.31l-26.34 26.35a8 8 0 0 1-11.32-11.32L116.69 128l-26.35-26.34a8 8 0 0 1 11.32-11.32L128 116.69l26.34-26.35a8 8 0 0 1 11.32 11.32ZM232 128A104 104 0 1 1 128 24a104.11 104.11 0 0 1 104 104Zm-16 0a88 88 0 1 0-88 88a88.1 88.1 0 0 0 88-88Z"></path>
       </g>
     </svg>
   );
