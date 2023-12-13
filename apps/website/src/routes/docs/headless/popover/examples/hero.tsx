@@ -9,11 +9,11 @@ export default component$(() => {
     opacity: 0;
   }
 
-  .my-transition.popover-showing {
+  .popover-showing {
     opacity: 1;
   }
 
-  .my-transition.popover-closing {
+  .popover-closing {
     opacity: 0;
   }
   `);

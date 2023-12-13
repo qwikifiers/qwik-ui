@@ -46,7 +46,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Dialog: ComponentStatus.Planned,
     Modal: ComponentStatus.Beta,
     Pagination: ComponentStatus.Draft,
-    Popover: ComponentStatus.Draft,
+    Popover: ComponentStatus.Beta,
     Select: ComponentStatus.Draft,
     Separator: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,

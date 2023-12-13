@@ -4,6 +4,7 @@ title: Qwik UI | Popover
 
 import { statusByComponent } from '~/_state/component-statuses';
 import { Note } from '~/components/note/note';
+import { FeatureList } from '~/components/feature-list/feature-list';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
 
@@ -13,7 +14,18 @@ A non-modal primitive with overlays that open and close around a DOM element.
 
 <Showcase name="hero" />
 
-The Qwik UI Popover component is designed to align with the [HTML Popover API Specification](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API). As of now, native support for this API is around `63%`. To ensure consistent behavior across all browsers, Qwik UI provides a `polyfill` for browsers that do not support the API natively.
+<FeatureList
+  features={[
+    `"Early" access to MDN's native popover API`,
+    'Support across all browsers',
+    'Resumable / Lazily executes code on interaction',
+    'Top Layer behavior',
+    'Opt-in floating behavior',
+    'Portal polyfill works across meta-frameworks',
+  ]}
+/>
+
+The Qwik UI Popover component is designed to align with the [HTML Popover API Specification](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API). As of now, native support for this API is around `72%`. To ensure consistent behavior across all browsers, Qwik UI provides a `polyfill` for browsers that do not support the API natively.
 
 ## What is a Popover?
 
@@ -105,6 +117,38 @@ A separate declaration is needed to select popovers in all browsers.
 
 > We add a backslash in order to escape the `:` character in CSS. Using `:popover-open` in an unsupported browser results in an invalid selector.
 
+### Cross-browser Animations
+
+Entry and exit animations have often been a frustrating experience. Especially trying to animate between `display: none`, a discrete property.
+
+Until recently, discrete properties were not animatable. Luckily, there's [new properties to CSS](https://developer.chrome.com/blog/entry-exit-animations) that solve this problem.
+
+The browser support for these is similar to support of the popover API. That said, the Qwik UI team has done an awesome job of managing animations on polyfill browsers for you using the `popover-showing` and `popover-closing` classes.
+
+```css
+.my-transition {
+  transition: opacity 0.5s, display 0.5s, overlay 0.5s;
+
+  /* on new-line so the declaration is valid in all browsers */
+  transition-behavior: allow-discrete;
+
+  /* starting style for all browsers */
+  opacity: 0;
+}
+
+.popover-showing {
+  opacity: 1;
+}
+
+.popover-closing {
+  opacity: 0;
+}
+```
+
+Above is an example of a transition that works across browsers. The `allow-discrete` property allows us to transition both display and overlay. Overlay is a property that allows us to transition top-layer behavior.
+
+> In the rare case of a browser supporting the popover API, but not the overlay property, the element functionality is the same but does not transition.
+
 ## Popovertarget
 
 To add a popover trigger, it can be done similar to the native API, using the `popovertarget` attribute along with the corresponding popover id.
@@ -169,7 +213,7 @@ useTask$(function syncPopoverStateTask({ track }) {
 
 To use the popover API with floating elements, you can add the `floating={true}` prop to the Popover component. This API enables the use of JavaScript to dynamically position the listbox using the `top` & `left` absolute properties.
 
-> Setting `floating={true}` will add 8-10 or so kb, we currently use javascript to float items, and have tried to make it as minimal and incremental as possible for the upcoming anchor API.
+> Enabling the `floating={true}` property will introduce a slight increase in code size, as we currently utilize JavaScript to implement floating items. We've strived to keep it as minimal as possible, but powerful in building complex components in anticipation of the forthcoming anchor API.
 
 To float an element, it must have an anchored element to latch onto. This can be done with the `anchorRef` prop.
 
