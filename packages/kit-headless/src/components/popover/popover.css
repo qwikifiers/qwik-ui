@@ -10,10 +10,6 @@
   display: block !important;
 }
 
-/* .popover-closing[popover]:not(:popover-open):not(dialog[open]) {
-  display: block;
-} */
-
 /* Popover Presets: TODO figure out specificity to make this easier for user to override */
 .listbox {
   --listbox-margin: unset;

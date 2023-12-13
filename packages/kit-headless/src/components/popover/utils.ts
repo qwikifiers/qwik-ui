@@ -1,14 +1,9 @@
 /**
  * Adds CSS-Class to support popover-opening-animation
  */
-export function supportShowAnimation(popover: HTMLElement, isPolyfill: boolean) {
+export function supportShowAnimation(popover: HTMLElement) {
   popover.classList.remove('popover-closing');
   popover.classList.add('popover-showing');
-
-  if (isPolyfill) {
-    /* to support tooltips that enter quickly */
-    popover.classList.add(':popover-open');
-  }
 }
 
 /**

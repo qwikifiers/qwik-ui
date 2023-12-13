@@ -3,23 +3,19 @@ import { Popover, PopoverTrigger } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(`
-    .my-transition {
-      transition: opacity 0.5s, display 0.5s allow-discrete, overlay 0.5s allow-discrete;
-    }
+  .my-transition {
+    transition: opacity 0.5s, display 0.5s, overlay 0.5s;
+    transition-behavior: allow-discrete;
+    opacity: 0;
+  }
 
-    @supports not selector(:popover-open) {
-      .my-transition {
-        transition: opacity 0.5s;
-      }
-    }
+  .my-transition.popover-showing {
+    opacity: 1;
+  }
 
-    .my-transition.popover-showing {
-      opacity: 1;
-    }
-
-    .my-transition.popover-closing {
-      opacity: 0;
-    }
+  .my-transition.popover-closing {
+    opacity: 0;
+  }
   `);
 
   return (
