@@ -7,7 +7,7 @@ export default component$(() => {
       <div>
         <Popover placement="top">
           <PopoverContent>
-            <div class="bg-accent text-accent-foreground p-4">
+            <div class="bg-slate-400 p-4 text-slate-950">
               Hi, I'm the content, but now on top
             </div>
           </PopoverContent>

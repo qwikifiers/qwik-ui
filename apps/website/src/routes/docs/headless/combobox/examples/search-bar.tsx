@@ -49,7 +49,7 @@ export default component$(() => {
       <ComboboxControl class="relative rounded-sm border">
         <ComboboxInput
           onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
-          class="px-d2 bg-background placeholder:text-muted-foreground w-44 pl-6 pr-6"
+          class="px-d2 w-44 bg-slate-950 pl-6 pr-6 text-slate-50 placeholder:text-slate-500"
           onKeyDown$={(e) => {
             if (e.key === 'Enter') {
               const inputElement = e.target as HTMLInputElement;
@@ -77,7 +77,7 @@ export default component$(() => {
       <ComboboxPortal>
         <ComboboxListbox
           gutter={8}
-          class="bg-background w-44 rounded-sm border px-1 py-2"
+          class="w-44 rounded-sm border bg-slate-950 px-1 py-2 text-slate-50"
           hide="escaped"
           optionRenderer$={(option: ResolvedOption, index: number) => {
             const searchOption = option.option as MyComponents;
@@ -88,7 +88,7 @@ export default component$(() => {
               >
                 <ComboboxOption
                   key={option.key}
-                  class="hover:bg-accent group flex items-start justify-between gap-4 rounded-sm  border-2 border-transparent px-2"
+                  class="group flex items-start justify-between gap-4 rounded-sm border-2  border-transparent px-2 hover:bg-slate-400"
                   index={index}
                   resolved={option}
                 >

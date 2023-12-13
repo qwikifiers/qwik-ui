@@ -28,7 +28,7 @@ export default component$(() => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke-width="2"
-                class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
+                class="stroke-slate-50 transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
@@ -36,10 +36,10 @@ export default component$(() => {
               </svg>
             </SelectMarker>
           </SelectTrigger>
-          <SelectListBox class="bg-background mt-2 rounded-md border">
+          <SelectListBox class="mt-2 rounded-md border bg-slate-950 text-slate-50">
             <SelectOption
               optionValue="Qwik 🚀 "
-              class="hover:bg-accent focus:bg-accent p-4"
+              class="p-4 hover:bg-slate-400 focus:bg-slate-400"
             >
               Qwik 🚀
             </SelectOption>
@@ -49,7 +49,7 @@ export default component$(() => {
                   key={option.value}
                   optionValue={option.value.toString()}
                   disabled={option.disabled}
-                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:bg-muted rounded-sm p-4 aria-disabled:cursor-not-allowed"
+                  class="rounded-sm p-4 hover:bg-slate-400 aria-disabled:cursor-not-allowed aria-disabled:bg-slate-300 aria-disabled:text-slate-500"
                 >
                   {option.value}
                 </SelectOption>

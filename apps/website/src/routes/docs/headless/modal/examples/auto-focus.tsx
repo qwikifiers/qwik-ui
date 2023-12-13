@@ -14,7 +14,7 @@ export default component$(() => {
       </button>
       <Modal
         bind:show={showSig}
-        class="shadow-dark-medium bg-background text-foreground max-w-[25rem] rounded-md p-[28px] backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
+        class="shadow-dark-medium max-w-[25rem] rounded-md bg-slate-950 p-[28px] text-slate-50 text-slate-50 backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>
@@ -26,7 +26,7 @@ export default component$(() => {
           <div class="mb-1 flex items-baseline justify-between">
             <label for="name">Name</label>
             <input
-              class="bg-background text-foreground mt-2 rounded-sm px-4 py-[10px]"
+              class="mt-2 rounded-sm bg-slate-950 px-4 py-[10px] text-slate-50 text-slate-50"
               id="name"
               type="text"
               placeholder="John Doe"
@@ -36,7 +36,7 @@ export default component$(() => {
             <label for="email">Email</label>
             <input
               autoFocus
-              class="bg-background text-foreground mt-2 rounded-sm px-4 py-3"
+              class="mt-2 rounded-sm bg-slate-950 px-4 py-3 text-slate-50 text-slate-50"
               id="email"
               type="text"
               placeholder="johndoe@gmail.com"
@@ -45,13 +45,13 @@ export default component$(() => {
         </ModalContent>
         <ModalFooter class="flex justify-end gap-4">
           <button
-            class="bg-muted text-muted-foreground focus:ring-ring ring-offset-background focus-visible:ring-ring hover:bg-accent/90 hover:text-accent-foreground rounded-sm border border-none px-4 py-[10px] outline-none transition-colors focus:ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            class="rounded-sm border border-none bg-slate-300 px-4 py-[10px] text-slate-50 text-slate-500 outline-none ring-offset-slate-950 transition-colors hover:bg-slate-200 hover:text-slate-950 focus:ring focus:ring-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
             onClick$={() => (showSig.value = false)}
           >
             Cancel
           </button>
           <button
-            class="bg-primary text-primary-foreground focus:ring-ring ring-offset-background focus-visible:ring-ring hover:bg-primary/90 rounded-sm border border-none px-4 py-[10px] outline-none transition-colors focus:ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            class="rounded-sm border border-none bg-slate-600 px-4 py-[10px] text-slate-50 text-slate-50 outline-none ring-offset-slate-950 transition-colors hover:bg-slate-500 focus:ring focus:ring-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
             onClick$={() => (showSig.value = false)}
           >
             Save Changes
