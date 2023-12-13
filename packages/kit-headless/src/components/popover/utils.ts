@@ -17,7 +17,6 @@ export function supportShowAnimation(popover: HTMLElement, isPolyfill: boolean) 
  * export function supportClosingAnimation(popover: HTMLElement, afterAnimate: () => void) {
  */
 export function supportClosingAnimation(popover: HTMLElement) {
-  console.log('Closing animation:', popover.classList.contains('popover-showing'));
   popover.classList.remove('popover-showing');
   popover.classList.add('popover-closing');
 

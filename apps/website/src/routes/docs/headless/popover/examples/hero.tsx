@@ -4,7 +4,13 @@ import { Popover, PopoverTrigger } from '@qwik-ui/headless';
 export default component$(() => {
   useStyles$(`
     .my-transition {
-      transition: 300ms opacity ease;
+      transition: opacity 0.5s, display 0.5s allow-discrete, overlay 0.5s allow-discrete;
+    }
+
+    @supports not selector(:popover-open) {
+      .my-transition {
+        transition: opacity 0.5s;
+      }
     }
 
     .my-transition.popover-showing {
