@@ -13,11 +13,11 @@ import {
 } from '@builder.io/qwik';
 import { KeyCode } from '../../utils/key-code.type';
 import { Behavior } from './behavior.type';
-import { Tab, TabProps } from './tab';
-import { TabPanel, TabPanelProps } from './tab-panel';
+import { Tab as InternalTab, TabProps } from './tab';
+import { TabPanel as InternalTabPanel, TabPanelProps } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
-import { TabList } from './tabs-list';
+import { TabList as InternalTabList } from './tabs-list';
 
 /**
  * TABS TODOs
@@ -56,6 +56,9 @@ export type TabsProps = {
   'bind:selectedTabId'?: Signal<string | undefined>;
   tabClass?: QwikIntrinsicElements['div']['class'];
   panelClass?: QwikIntrinsicElements['div']['class'];
+  TabList?: typeof InternalTabList;
+  Tab?: typeof InternalTab;
+  TabPanel?: typeof InternalTabPanel;
 } & QwikIntrinsicElements['div'];
 
 export type TabInfo = {
@@ -69,8 +72,21 @@ export type TabInfo = {
 // standard structure. It must take care to retain the props objects
 // unchanged so signals keep working
 export const Tabs: FunctionComponent<TabsProps> = (props) => {
-  const { children: myChildren, tabClass, panelClass, ...rest } = props;
-  const childrenToProcess = Array.isArray(myChildren) ? [...myChildren] : [myChildren];
+  const {
+    children,
+    tabClass,
+    panelClass,
+    TabList: UserTabList,
+    Tab: UserTab,
+    TabPanel: UserTabPanel,
+    ...rest
+  } = props;
+
+  const TabList = UserTabList ? UserTabList : InternalTabList;
+  const Tab = UserTab ? UserTab : InternalTab;
+  const TabPanel = UserTabPanel ? UserTabPanel : InternalTabPanel;
+
+  const childrenToProcess = Array.isArray(children) ? [...children] : [children];
   let tabListComponent: JSXNode | undefined;
   const tabComponents: JSXNode[] = [];
   const panelComponents: JSXNode[] = [];

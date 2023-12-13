@@ -1,8 +1,8 @@
-import { $, component$, useSignal, useStore } from '@builder.io/qwik';
-import { Tab } from './tab';
-import { TabPanel } from './tab-panel';
+import { $, Slot, component$, useSignal, useStore } from '@builder.io/qwik';
 import { Tabs } from './tabs';
-import { TabList } from './tabs-list';
+import { TabList, TabListProps } from './tabs-list';
+import { Tab, TabProps } from './tab';
+import { TabPanel, TabPanelProps } from './tab-panel';
 
 describe('Tabs', () => {
   it('INIT', () => {
@@ -760,6 +760,64 @@ describe('Tabs', () => {
       cy.get('[role="tab"]').should('have.length', 3);
 
       cy.findByRole('tabpanel').should('contain', 'Panel 3');
+
+      cy.findByRole('tab', { name: /Tab 2/i }).click();
+
+      cy.findByRole('tabpanel').should('contain', 'Panel 2');
+
+      cy.findByRole('tablist').should('exist');
+    });
+  });
+
+  describe('User-defined reusable TabList/Tab/TabPanel components', () => {
+    const CustomTabList = component$<TabListProps>(() => {
+      return (
+        <TabList>
+          <Slot />
+        </TabList>
+      );
+    });
+
+    const CustomTab = component$<TabProps>(({ ...props }) => {
+      return (
+        <Tab {...props}>
+          <Slot />
+        </Tab>
+      );
+    });
+
+    const CustomTabPanel = component$<TabPanelProps>(({ ...props }) => {
+      return (
+        <TabPanel {...props}>
+          <Slot />
+        </TabPanel>
+      );
+    });
+
+    const CustomThreeTabsComponent = component$(() => {
+      return (
+        <>
+          <Tabs TabList={CustomTabList} Tab={CustomTab} TabPanel={CustomTabPanel}>
+            <CustomTabList>
+              <CustomTab>Tab 1</CustomTab>
+              <CustomTab>Tab 2</CustomTab>
+              <CustomTab>Tab 3</CustomTab>
+            </CustomTabList>
+            <CustomTabPanel>Panel 1</CustomTabPanel>
+            <CustomTabPanel>Panel 2</CustomTabPanel>
+            <CustomTabPanel>Panel 3</CustomTabPanel>
+          </Tabs>
+        </>
+      );
+    });
+    it(`GIVEN a user-defined TabList to Tabs
+        WHEN clicking the middle Tab
+        THEN render the middle panel`, () => {
+      cy.mount(<CustomThreeTabsComponent />);
+
+      cy.get('[role="tab"]').should('have.length', 3);
+
+      cy.findByRole('tabpanel').should('contain', 'Panel 1');
 
       cy.findByRole('tab', { name: /Tab 2/i }).click();
 
