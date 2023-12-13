@@ -5,7 +5,7 @@
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
   "editor.codeActionsOnSave": {
-    "source.removeUnusedImports": true
+    "source.removeUnusedImports": "explicit"
   },
   "githubPullRequests.remotes": [
     "upstream"

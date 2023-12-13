@@ -5,17 +5,23 @@ import {
   useContext,
   $,
   useSignal,
+  useTask$,
 } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
 
 type CarouselViewportProps = QwikIntrinsicElements['div'];
 
+import { isServer } from '@builder.io/qwik/build';
+
 export const CarouselView = component$((props: CarouselViewportProps) => {
   const context = useContext(CarouselContextId);
+  const newWidthSig = useSignal<number>();
+  const hasResizeObserverSig = useSignal<boolean>(false);
+  const checkWidth = useSignal<string>();
 
-  const lastViewportWidth = useSignal(0);
+  // const lastViewportWidth = useSignal(0);
 
-  /* 
+  /*
 
     1. native CSS solution
 
@@ -67,6 +73,43 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
   //   }),
   // );
 
+  const onResize$ = $(() => {
+    if (!hasResizeObserverSig.value) {
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.contentBoxSize) {
+            newWidthSig.value = entry.borderBoxSize[0].inlineSize;
+            console.log(newWidthSig.value);
+          }
+        }
+      });
+
+      if (context.viewportRef.value) {
+        resizeObserver.observe(context.viewportRef.value);
+      }
+
+      hasResizeObserverSig.value = true;
+    }
+
+    return newWidthSig.value;
+  });
+
+  useTask$(({ track }) => {
+    track(() => checkWidth.value);
+
+    if (isServer) return;
+
+    onResize$();
+  });
+
+  useTask$(({ track }) => {
+    track(() => checkWidth.value);
+
+    if (isServer) return;
+
+    checkWidth.value = context.viewportRef.value?.style.width;
+  });
+
   const handlePointerMove$ = $((e: PointerEvent) => {
     if (context.isDraggingSig.value) {
       if (!context.containerRef.value) {
@@ -115,7 +158,7 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
         window.removeEventListener('pointermove', handlePointerMove$)
       }
       ref={context.viewportRef}
-      style={{ overflow: 'hidden', position: 'relative' }}
+      style={{ overflowX: 'visible', position: 'relative' }}
       onTransitionEnd$={() => (context.transitionDurationSig.value = 0)}
       {...props}
     >

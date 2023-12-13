@@ -57,8 +57,6 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
       absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
 
     if (isWithinBounds) {
-      context.currentIndexSig.value = localIndexSig.value || 0;
-
       context.transitionDurationSig.value = 300;
 
       /*
@@ -129,6 +127,51 @@ export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
 
   return (
     <div
+      /*
+        TODO: reduce the amount of window pointermove events happening here, all we want to do is update the 
+        slide when dragging.
+      */
+      window:onPointerMove$={() => {
+        if (!context.containerRef.value || !slideRef.value) {
+          return;
+        }
+
+        /*
+          TODO: figure out why a separate DOMMatrix is why dragging and the buttons work properly.
+        */
+        const style = window.getComputedStyle(context.containerRef.value);
+        const matrix = new DOMMatrix(style.transform);
+
+        const containerTranslateX = matrix.m41;
+        // How far to the left the slides container is shifted.
+        const absContainerTranslateX = Math.abs(containerTranslateX);
+
+        if (!context.viewportRef.value) {
+          return;
+        }
+
+        // How far the left edge of this slide is from the left of the slides container.
+        const slideSlideContainerLeftOffset = slideRef.value.offsetLeft;
+        // How far the right edge of this slide is from the left of the slides container
+        // (includes space between slide).
+        const slideRightEdgePos =
+          slideSlideContainerLeftOffset +
+          slideRef.value.offsetWidth +
+          context.spaceBetweenSlides;
+
+        const carouselViewportWidth = context.viewportRef.value.offsetWidth;
+        const halfViewportWidth = carouselViewportWidth / 2;
+
+        const isWithinBounds =
+          absContainerTranslateX > slideSlideContainerLeftOffset - halfViewportWidth &&
+          absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
+
+        if (isWithinBounds) {
+          context.currentIndexSig.value = localIndexSig.value || 0;
+        }
+
+        console.log('CURR INDEX: ', context.currentIndexSig.value);
+      }}
       style={{ marginRight: `${context.spaceBetweenSlides}px` }}
       ref={slideRef}
       {...props}
