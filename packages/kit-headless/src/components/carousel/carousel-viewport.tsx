@@ -130,6 +130,52 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
       // TODO: fix bug where pointer down before the animation ends (slow move)
 
       context.slideOffsetSig.value = containerLeftOffset;
+
+      /* --- */
+
+      /* TODO: Optimize this by checking prev and next of current slides first */
+      for (let i = 0; i < context.slideRefsArray.value.length; i++) {
+        const slideRef = context.slideRefsArray.value[i];
+
+        if (!context.containerRef.value || !slideRef.value) {
+          return;
+        }
+
+        /*
+            TODO: figure out why a separate DOMMatrix is why dragging and the buttons work properly.
+          */
+        const style = window.getComputedStyle(context.containerRef.value);
+        const matrix = new DOMMatrix(style.transform);
+
+        const containerTranslateX = matrix.m41;
+        // How far to the left the slides container is shifted.
+        const absContainerTranslateX = Math.abs(containerTranslateX);
+
+        if (!context.viewportRef.value) {
+          return;
+        }
+
+        // How far the left edge of this slide is from the left of the slides container.
+        const slideSlideContainerLeftOffset = slideRef.value.offsetLeft;
+        // How far the right edge of this slide is from the left of the slides container
+        // (includes space between slide).
+        const slideRightEdgePos =
+          slideSlideContainerLeftOffset +
+          slideRef.value.offsetWidth +
+          context.spaceBetweenSlides;
+
+        const carouselViewportWidth = context.viewportRef.value.offsetWidth;
+        const halfViewportWidth = carouselViewportWidth / 2;
+
+        const isWithinBounds =
+          absContainerTranslateX > slideSlideContainerLeftOffset - halfViewportWidth &&
+          absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
+
+        if (isWithinBounds) {
+          context.currentIndexSig.value = i || 0;
+          break;
+        }
+      }
     }
   });
 
@@ -152,6 +198,10 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
         }
 
         window.addEventListener('pointermove', handlePointerMove$);
+
+        console.log(
+          context.slideRefsArray.value.map((slideRef) => slideRef.value.innerText),
+        );
       }}
       /* removes pointer move event from pointer up created in slide.tsx */
       window:onPointerUp$={() =>
