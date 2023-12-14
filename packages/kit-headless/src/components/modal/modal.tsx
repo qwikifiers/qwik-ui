@@ -21,9 +21,10 @@ import {
   wasModalBackdropClicked,
 } from './modal-behavior';
 
-import { disableBodyScroll } from 'body-scroll-lock';
+import { disableBodyScroll } from 'body-scroll-lock-upgrade';
 
 import styles from './modal.css?inline';
+import { isServer } from '@builder.io/qwik/build';
 
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
@@ -36,6 +37,7 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 export const Modal = component$((props: ModalProps) => {
   useStyles$(styles);
   const modalRefSig = useSignal<HTMLDialogElement>();
+  const scrollPositionSig = useSignal<number>(0);
 
   const { 'bind:show': showSig } = props;
 
@@ -54,8 +56,13 @@ export const Modal = component$((props: ModalProps) => {
     );
 
     if (isOpen) {
+      // HACK: keep modal scroll position in place with iOS
+      const storedRequestAnimationFrame = window.requestAnimationFrame;
+      window.requestAnimationFrame = () => 42;
+
       showModal(modal);
       disableBodyScroll(modal, { reserveScrollBarGap: true });
+      window.requestAnimationFrame = storedRequestAnimationFrame;
       props.onShow$?.();
       activateFocusTrap(focusTrap);
     } else {
@@ -66,6 +73,14 @@ export const Modal = component$((props: ModalProps) => {
     cleanup(() => {
       deactivateFocusTrap(focusTrap);
     });
+  });
+
+  useTask$(({ track }) => {
+    track(() => scrollPositionSig.value);
+
+    if (isServer) return;
+
+    document.documentElement.scrollTop = scrollPositionSig.value;
   });
 
   const closeOnBackdropClick$ = $((event: QwikMouseEvent) => {

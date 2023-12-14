@@ -72,7 +72,6 @@
     "all-contributors-cli": "^6.26.1",
     "autoprefixer": "^10.4.15",
     "axe-core": "^4.7.2",
-    "body-scroll-lock": "4.0.0-beta.0",
     "chromatic": "^6.24.1",
     "clipboard-copy": "4.0.1",
     "commitizen": "^4.3.0",
@@ -140,7 +139,9 @@
   ],
   "dependencies": {
     "@fontsource-variable/inter": "5.0.8",
+    "body-scroll-lock-upgrade": "1.1.0",
     "canvas-confetti": "1.9.2",
+    "install": "0.13.0",
     "shiki": "0.14.5",
     "tslib": "^2.6.2"
   },

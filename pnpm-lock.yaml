@@ -11,9 +11,15 @@ importers:
       '@fontsource-variable/inter':
         specifier: 5.0.8
         version: 5.0.8
+      body-scroll-lock-upgrade:
+        specifier: 1.1.0
+        version: 1.1.0
       canvas-confetti:
         specifier: 1.9.2
         version: 1.9.2
+      install:
+        specifier: 0.13.0
+        version: 0.13.0
       shiki:
         specifier: 0.14.5
         version: 0.14.5
@@ -150,9 +156,6 @@ importers:
       axe-core:
         specifier: ^4.7.2
         version: 4.7.2
-      body-scroll-lock:
-        specifier: 4.0.0-beta.0
-        version: 4.0.0-beta.0
       chromatic:
         specifier: ^6.24.1
         version: 6.24.1
@@ -9120,8 +9123,13 @@ packages:
       - supports-color
     dev: true
 
+  /body-scroll-lock-upgrade@1.1.0:
+    resolution: {integrity: sha512-nnfVAS+tB7CS9RaksuHVTpgHWHF7fE/ptIBJnwZrMqImIvWJF1OGcLnMpBhC6qhkx9oelvyxmWXwmIJXCV98Sw==}
+    dev: false
+
   /body-scroll-lock@4.0.0-beta.0:
     resolution: {integrity: sha512-a7tP5+0Mw3YlUJcGAKUqIBkYYGlYxk2fnCasq/FUph1hadxlTRjF+gAcZksxANnaMnALjxEddmSi/H3OR8ugcQ==}
+    dev: false
 
   /boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
@@ -13541,6 +13549,11 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
     dev: true
+
+  /install@0.13.0:
+    resolution: {integrity: sha512-zDml/jzr2PKU9I8J/xyZBQn8rPCAY//UOYNmR01XwNwyfhEWObo2SWfSl1+0tm1u6PhxLwDnfsT/6jB7OUxqFA==}
+    engines: {node: '>= 0.10'}
+    dev: false
 
   /internal-slot@1.0.5:
     resolution: {integrity: sha512-Y+R5hJrzs52QCG2laLn4udYVnxsfny9CpOhNhUvk/SSSVyF6T27FzRbF0sroPidSu3X8oEAkOn2K804mjpt6UQ==}

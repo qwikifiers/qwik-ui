@@ -5,7 +5,7 @@ export type WidthState = {
   width: number | null;
 };
 
-import { clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { clearAllBodyScrollLocks } from 'body-scroll-lock-upgrade';
 
 /**
  * Traps the focus of the given Modal
