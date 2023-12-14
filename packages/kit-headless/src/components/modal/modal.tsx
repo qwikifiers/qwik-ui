@@ -49,11 +49,11 @@ export const Modal = component$((props: ModalProps) => {
 
     const focusTrap = trapFocus(modal);
 
-    window.addEventListener(
-      'keydown',
-      overrideNativeDialogEscapeBehaviorWith(() => (showSig.value = false)),
-      { once: true },
-    );
+    const escapeKeyListener = overrideNativeDialogEscapeBehaviorWith(() => {
+      showSig.value = false;
+    });
+
+    window.addEventListener('keydown', escapeKeyListener);
 
     if (isOpen) {
       // HACK: keep modal scroll position in place with iOS
@@ -72,6 +72,7 @@ export const Modal = component$((props: ModalProps) => {
 
     cleanup(() => {
       deactivateFocusTrap(focusTrap);
+      window.removeEventListener('keydown', escapeKeyListener);
     });
   });
 
