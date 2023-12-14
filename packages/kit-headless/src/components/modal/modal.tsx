@@ -2,7 +2,6 @@ import {
   $,
   QRL,
   QwikIntrinsicElements,
-  QwikMouseEvent,
   Signal,
   Slot,
   component$,
@@ -24,7 +23,6 @@ import {
 import { disableBodyScroll } from 'body-scroll-lock-upgrade';
 
 import styles from './modal.css?inline';
-import { isServer } from '@builder.io/qwik/build';
 
 export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
   onShow$?: QRL<() => void>;
@@ -37,7 +35,6 @@ export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
 export const Modal = component$((props: ModalProps) => {
   useStyles$(styles);
   const modalRefSig = useSignal<HTMLDialogElement>();
-  const scrollPositionSig = useSignal<number>(0);
 
   const { 'bind:show': showSig } = props;
 
@@ -76,15 +73,7 @@ export const Modal = component$((props: ModalProps) => {
     });
   });
 
-  useTask$(({ track }) => {
-    track(() => scrollPositionSig.value);
-
-    if (isServer) return;
-
-    document.documentElement.scrollTop = scrollPositionSig.value;
-  });
-
-  const closeOnBackdropClick$ = $((event: QwikMouseEvent) => {
+  const closeOnBackdropClick$ = $((event: MouseEvent) => {
     if (props.alert === true || props.closeOnBackdropClick === false) {
       return;
     }

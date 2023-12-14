@@ -1,4 +1,3 @@
-import { QwikMouseEvent } from '@builder.io/qwik';
 import { FocusTrap, createFocusTrap } from 'focus-trap';
 
 export type WidthState = {
@@ -54,7 +53,7 @@ export async function closeModal(modal: HTMLDialogElement) {
  */
 export function wasModalBackdropClicked(
   modal: HTMLDialogElement | undefined,
-  clickEvent: QwikMouseEvent,
+  clickEvent: MouseEvent,
 ): boolean {
   if (!modal) {
     return false;
