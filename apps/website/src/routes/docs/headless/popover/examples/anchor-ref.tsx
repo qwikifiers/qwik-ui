@@ -4,7 +4,7 @@ import { usePopover } from '@qwik-ui/headless';
 
 export default component$(() => {
   const buttonRef = useSignal<HTMLButtonElement>();
-  const { initPopover$ } = usePopover(`anchor-ref-id`);
+  const { showPopover, hidePopover } = usePopover(`anchor-ref-id`);
   const myPopoverRef = useSignal<HTMLElement>();
 
   return (
@@ -15,11 +15,11 @@ export default component$(() => {
           ref={buttonRef}
           disableClickInitPopover
           onPointerEnter$={() => {
-            initPopover$();
-            myPopoverRef.value?.showPopover();
+            showPopover();
+            console.log('in pointer!');
           }}
           onPointerLeave$={() => {
-            myPopoverRef.value?.hidePopover();
+            hidePopover();
           }}
           popoverTargetAction="show"
           popovertarget="anchor-ref-id"

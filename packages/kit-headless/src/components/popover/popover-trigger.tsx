@@ -1,5 +1,12 @@
-import { QwikIntrinsicElements, useOnDocument, useTask$ } from '@builder.io/qwik';
-import { Slot, component$, useSignal, $ } from '@builder.io/qwik';
+import {
+  QwikIntrinsicElements,
+  useOnDocument,
+  useTask$,
+  Slot,
+  component$,
+  useSignal,
+  $,
+} from '@builder.io/qwik';
 import { isBrowser } from '@builder.io/qwik/build';
 
 type PopoverTriggerProps = {
@@ -47,13 +54,11 @@ export function usePopover(popovertarget: string) {
 
     // so it only runs once on click for supported browsers
     if (isSupportedSig.value) {
-      const popover = popoverSig.value;
+      if (!popoverSig.value) return;
 
-      if (!popover) return;
-
-      if (popover && popover.hasAttribute('popover')) {
+      if (popoverSig.value && popoverSig.value.hasAttribute('popover')) {
         /* opens manual on any event */
-        popover.showPopover();
+        popoverSig.value.showPopover();
       }
     }
   });
@@ -64,20 +69,39 @@ export function usePopover(popovertarget: string) {
     $(() => {
       if (!didInteractSig.value) return;
 
-      const popover = popoverSig.value;
-
-      if (!popover) return;
+      if (!popoverSig.value) return;
 
       // calls code in here twice for some reason, we think it's because of the client re-render, but it still works
 
       // so it only runs once on first click
-      if (!popover.classList.contains(':popover-open')) {
-        popover.showPopover();
+      if (!popoverSig.value.classList.contains(':popover-open')) {
+        popoverSig.value.showPopover();
       }
     }),
   );
 
-  return { initPopover$ };
+  const showPopover = $(async () => {
+    if (!didInteractSig.value) {
+      await initPopover$();
+    }
+    popoverSig.value?.showPopover();
+  });
+
+  const togglePopover = $(async () => {
+    if (!didInteractSig.value) {
+      await initPopover$();
+    }
+    popoverSig.value?.togglePopover();
+  });
+
+  const hidePopover = $(async () => {
+    if (!didInteractSig.value) {
+      await initPopover$();
+    }
+    popoverSig.value?.hidePopover();
+  });
+
+  return { showPopover, togglePopover, hidePopover, initPopover$ };
 }
 
 export const PopoverTrigger = component$<PopoverTriggerProps>(
@@ -92,8 +116,8 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
         onClick$={[
           rest.onClick$,
           !disableClickInitPopover
-            ? $(() => {
-                initPopover$();
+            ? $(async () => {
+                await initPopover$();
               })
             : undefined,
         ]}
