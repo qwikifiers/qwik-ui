@@ -1,5 +1,5 @@
-import { tcva, type AddVariantPropsTo } from '@qwik-ui/utils';
-import { Slot, component$ } from '@builder.io/qwik';
+import { Slot, component$, QwikIntrinsicElements } from '@builder.io/qwik';
+import { tcva, VariantProps } from '@qwik-ui/utils';
 
 export const buttonVariants = tcva(
   `inline-flex items-center justify-center
@@ -91,26 +91,24 @@ export const buttonVariants = tcva(
   },
 );
 
-export type ButtonProps = AddVariantPropsTo<'button', typeof buttonVariants>;
+export type ButtonProps = QwikIntrinsicElements['button'] &
+  VariantProps<typeof buttonVariants>;
 
-/*
-  TODO: FIX COMPLEX TYPES HERE. They have changed as of 1.3, preventing the preview
-*/
 export const Button = component$<ButtonProps>(
-  ({ intent, size, look, shape, state, animation, class: classList, ...restOfProps }) => {
-    const twOptimizedClassesString = buttonVariants({
-      intent,
-      size,
-      look,
-      shape,
-      state,
-      animation,
-      class: classList,
-    });
-
+  ({ intent, size, look, shape, state, animation, ...props }) => {
     return (
-      // @ts-expect-error complex types here, need to change
-      <button class={twOptimizedClassesString} {...restOfProps}>
+      <button
+        class={buttonVariants({
+          intent,
+          size,
+          look,
+          shape,
+          state,
+          animation,
+          class: props.class,
+        })}
+        {...props}
+      >
         <Slot />
       </button>
     );
