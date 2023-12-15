@@ -5,6 +5,7 @@ title: Qwik UI | Popover
 import { statusByComponent } from '~/_state/component-statuses';
 import { Note } from '~/components/note/note';
 import { FeatureList } from '~/components/feature-list/feature-list';
+import { APITable } from '~/components/api-table/api-table';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
 
@@ -207,12 +208,12 @@ We can also enable programmatic behavior with popovers. Qwik UI provides several
       description: 'Opens the popover.',
     },
     {
-      name: 'togglePopover()',
-      description: 'Toggles the popover between the open and closed state.',
-    },
-    {
       name: 'hidePopover()',
       description: 'Closes the popover.',
+    },
+    {
+      name: 'togglePopover()',
+      description: 'Toggles the popover between the open and closed state.',
     },
   ]}
 />

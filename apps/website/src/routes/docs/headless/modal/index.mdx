@@ -7,6 +7,7 @@ import testImage from '../../../../../public/images/test-image.png';
 import { statusByComponent } from '~/_state/component-statuses';
 
 <StatusBanner status={statusByComponent.headless.Modal} />
+import {FeatureList} from '~/components/feature-list/feature-list';
 
 # Modal
 
@@ -31,14 +32,18 @@ Modals are used when an important choice needs to be made in the application. Th
 
 ## ✨ Features
 
-- Follows the WAI ARIA Dialog & Alertdialog design patterns.
-- Managed focus order
-- Scroll locking
-- Closes on escape
-- Toggle backdrop dismiss
-- Animation support
-- Transition support
-- Backdrop animations
+<FeatureList
+  features={[
+    'Follows the WAI ARIA Dialog & Alertdialog design patterns.',
+    'Managed focus order',
+    'Scroll locking',
+    'Closes on escape',
+    'Toggle backdrop dismiss',
+    'Animation support',
+    'Transition support',
+    'Backdrop animations',
+  ]}
+/>
 
 ## Building Blocks
 

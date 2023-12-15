@@ -17,9 +17,6 @@ export default component$(() => {
         Focus me and press the 'o' key!
       </button>
       <Popover
-        onBeforeToggle$={() => {
-          console.log('I before toggle!');
-        }}
         id="programmatic-id"
         class="shadow-dark-medium rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 opacity-0"
       >

@@ -3,6 +3,7 @@ title: Qwik UI | Combobox
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
+import { FeatureList } from '~/components/feature-list/feature-list';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
@@ -25,14 +26,18 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 ## ✨ Features
 
-- Full WAI-Aria compliance
-- Full keyboard navigation
-- Custom Autocomplete behavior
-- Custom filter functionality
-- Controlled or uncontrolled
-- Supports disabled options
-- Custom signal binds
-- Animatable, dynamic, and resumable
+<FeatureList
+  features={[
+    'Full WAI-Aria compliance',
+    'Full keyboard navigation',
+    'Custom Autocomplete behavior',
+    'Custom filter functionality',
+    'Controlled or uncontrolled',
+    'Supports disabled options',
+    'Custom signal binds',
+    'Animatable, dynamic, and resumable',
+  ]}
+/>
 
 <br />
 
@@ -181,18 +186,6 @@ The Qwik UI Combobox uses the `onBlur$ event` on the input to close the listbox 
 This can get tedious if certain custom behavior needs to be added, or the listbox needs to be inspected in the dev tools.
 
 To disable this behavior, set `disableOnBlur={true}` on the Input.
-
-## **Configuring the Listbox**
-
-The `ComboboxListbox` component is designed for positioning elements that float and facilitating interactions with them. The listbox is highly configurable, here are some example use cases:
-
-### Placement
-
-To set the default position of the listbox, you can use the `placement` prop. In the example below, we've set placement to top. When the user opens the listbox, it will be above the input.
-
-<Showcase name="placement" />
-
-The default placement is **bottom**.
 
 ## Customizing State Signals
 
@@ -407,22 +400,9 @@ The Combobox component API provides a set of properties that allow you to custom
   ]}
 />
 
-### ComboboxPortal
+### ComboboxPopover
 
-<APITable
-  propDescriptors={[
-    {
-      name: 'elementToTeleport',
-      type: 'JSXNode',
-      description: 'The children to be rendered inside the portal.',
-    },
-    {
-      name: 'contextIds',
-      type: 'Array<string>',
-      description: 'An array of context ids to be passed to the portal.',
-    },
-  ]}
-/>
+The Combobox Popover is a wrapper of [Qwik UI's popover component](../../../docs/headless/popover/). You can view the full API table at the bottom of the popover page.
 
 ### ComboboxListbox
 
