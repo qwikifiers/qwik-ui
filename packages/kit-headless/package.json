@@ -30,6 +30,7 @@
     "body-scroll-lock-upgrade": "1.1.0",
     "country-list-json": "^1.1.0",
     "focus-trap": "^7.5.3",
-    "libphonenumber-js": "^1.10.43"
+    "libphonenumber-js": "^1.10.43",
+    "@oddbird/popover-polyfill": "0.3.7"
   }
 }
