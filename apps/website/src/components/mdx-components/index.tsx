@@ -8,6 +8,7 @@ import { Showcase } from '../showcase/showcase';
 import { CodeSnippet } from '../code-snippet/code-snippet';
 import { InstallSnippet } from '../install-snippet/install-snippet';
 import { Note } from '../note/note';
+import { twMerge } from 'tailwind-merge';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const components: Record<string, any> = {
@@ -16,8 +17,10 @@ export const components: Record<string, any> = {
       <p
         {...props}
         class={[
-          'mb-6 last:mb-0',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
+          twMerge(
+            'mb-6 last:mb-0',
+            (props.class as Signal<string>)?.value ?? (props.class as string),
+          ),
         ]}
       >
         <Slot />
@@ -29,8 +32,10 @@ export const components: Record<string, any> = {
       <h1
         {...props}
         class={[
-          'mb-6 pt-6 text-3xl font-extrabold md:text-5xl',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
+          twMerge(
+            'mb-6 pt-6 text-3xl font-extrabold md:text-5xl',
+            (props.class as Signal<string>)?.value ?? (props.class as string),
+          ),
         ]}
       >
         <Slot />
@@ -42,8 +47,10 @@ export const components: Record<string, any> = {
       <h2
         {...props}
         class={[
-          'mb-8 mt-20 scroll-mt-32 border-b-[1px] pb-2 text-2xl font-extrabold',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
+          twMerge(
+            'mb-8 mt-20 scroll-mt-32 border-b-[1px] pb-2 text-2xl font-extrabold',
+            (props.class as Signal<string>)?.value ?? (props.class as string),
+          ),
         ]}
       >
         <Slot />
@@ -55,8 +62,10 @@ export const components: Record<string, any> = {
       <h3
         {...props}
         class={[
-          'mb-6 mt-8 text-xl font-semibold',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
+          twMerge(
+            'mb-6 mt-8 text-xl font-semibold',
+            (props.class as Signal<string>)?.value ?? (props.class as string),
+          ),
         ]}
       >
         <Slot />
@@ -68,8 +77,10 @@ export const components: Record<string, any> = {
       <h4
         {...props}
         class={[
-          'mb-4 mt-6 text-lg font-medium',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
+          twMerge(
+            'mb-4 mt-6 text-lg font-medium',
+            (props.class as Signal<string>)?.value ?? (props.class as string),
+          ),
         ]}
       >
         <Slot />
@@ -81,8 +92,10 @@ export const components: Record<string, any> = {
       <h5
         {...props}
         class={[
-          'text-base font-[700]',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
+          twMerge(
+            'text-base font-[700]',
+            (props.class as Signal<string>)?.value ?? (props.class as string),
+          ),
         ]}
       >
         <Slot />
@@ -101,8 +114,10 @@ export const components: Record<string, any> = {
       <ul
         {...props}
         class={[
-          'mb-4 list-disc px-6 font-medium',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
+          twMerge(
+            'mb-4 list-disc px-6 font-medium',
+            (props.class as Signal<string>)?.value ?? (props.class as string),
+          ),
         ]}
       >
         <Slot />
@@ -114,8 +129,10 @@ export const components: Record<string, any> = {
       <li
         {...props}
         class={[
-          'py-2',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
+          twMerge(
+            'py-2',
+            (props.class as Signal<string>)?.value ?? (props.class as string),
+          ),
         ]}
       >
         <Slot />
@@ -128,20 +145,22 @@ export const components: Record<string, any> = {
     }
   >(({ __rawString__, ...props }) => {
     return (
-      <div class="code-example relative -mx-6 mb-6 max-h-[31.25rem] rounded-xl bg-slate-900 lg:-mx-8 lg:mb-8">
+      <div
+        class={[
+          twMerge(
+            'code-example relative -mx-6 max-h-[31.25rem] rounded-xl bg-slate-900 lg:-mx-8',
+            (props.class as Signal<string>)?.value ?? (props.class as string),
+          ),
+        ]}
+      >
         <CodeCopy
-          class={[
-            'absolute right-4 top-4 border-2 text-slate-50 hover:bg-slate-800 hover:text-slate-50',
-          ]}
+          class="absolute right-4 top-4 border-2 text-slate-50 hover:bg-slate-800 hover:text-slate-50"
           code={__rawString__}
         />
         <div
           {...props}
           style={''} // required to override shiki's
-          class={[
-            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl border bg-gradient-to-b from-slate-900 to-slate-800  p-6 text-sm',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
-          ]}
+          class="tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm"
         >
           <pre>
             <Slot />
@@ -159,9 +178,10 @@ export const components: Record<string, any> = {
   }),
   AnatomyTable,
   APITable,
-  KeyboardInteractionTable,
-  StatusBanner,
-  Showcase,
   CodeSnippet,
   InstallSnippet,
+  KeyboardInteractionTable,
+  Note,
+  StatusBanner,
+  Showcase,
 };
