@@ -27,6 +27,49 @@ A non-modal primitive with overlays that open and close around a DOM element.
 
 The Qwik UI Popover component is designed to align with the [HTML Popover API Specification](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API). As of now, native support for this API is around `72%`. To ensure consistent behavior across all browsers, Qwik UI provides a `polyfill` for browsers that do not support the API natively.
 
+<div class="flex flex-col gap-2">
+  <div>
+    [View Source Code
+    ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/popover)
+  </div>
+  <div>[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)</div>
+  <div>
+    [Edit This Page
+    🗒️](https://github.com/qwikifiers/qwik-ui/blob/main/apps/website/src/routes/docs/headless/popover/index.mdx)
+  </div>
+</div>
+
+## Building blocks
+
+```tsx
+import { component$, useStyles$ } from '@builder.io/qwik';
+import { Popover, PopoverTrigger } from '@qwik-ui/headless';
+
+export default component$(() => {
+  return (
+    <>
+      <PopoverTrigger popovertarget="building-blocks">Inside Trigger</PopoverTrigger>
+      <Popover id="building-blocks">Inside Popover</Popover>
+    </>
+  );
+});
+```
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'PopoverTrigger',
+      description: 'An HTML Button component that opens the popover when clicked.',
+    },
+    {
+      name: 'Popover',
+      description: `An HTML Element that is above other content on the page.`,
+    },
+  ]}
+/>
+
 ## What is a Popover?
 
 A popover is a **non-modal** UI element that creates overlays around a DOM element. Non-modal meaning the rest of the page can be interacted with while the popover is shown.
