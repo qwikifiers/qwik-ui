@@ -27,7 +27,7 @@
   "dependencies": {
     "@qwik-ui/utils": "workspace:*",
     "@floating-ui/dom": "^1.0.10",
-    "body-scroll-lock": "^4.0.0-beta.0",
+    "body-scroll-lock-upgrade": "1.1.0",
     "country-list-json": "^1.1.0",
     "focus-trap": "^7.5.3",
     "libphonenumber-js": "^1.10.43"
