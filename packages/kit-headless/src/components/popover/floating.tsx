@@ -133,7 +133,7 @@ export const FloatingPopover = component$(
     });
 
     return (
-      <PopoverImpl {...props} popoverRef={popoverRef}>
+      <PopoverImpl {...props} ref={popoverRef}>
         <Slot />
       </PopoverImpl>
     );

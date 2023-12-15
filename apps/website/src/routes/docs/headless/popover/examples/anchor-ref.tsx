@@ -3,20 +3,19 @@ import { Popover, PopoverTrigger } from '@qwik-ui/headless';
 import { usePopover } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const buttonRef = useSignal<HTMLButtonElement>();
   const { showPopover, hidePopover } = usePopover(`anchor-ref-id`);
-  const myPopoverRef = useSignal<HTMLElement>();
+  const triggerRef = useSignal<HTMLButtonElement>();
+  const popoverRef = useSignal<HTMLElement>();
 
   return (
     <>
-      <div>
-        We're using popover target action on the trigger.{' '}
+      <div class="flex flex-col items-center justify-center gap-2">
+        <p>I'm a mini tooltip!</p>
         <PopoverTrigger
-          ref={buttonRef}
+          ref={triggerRef}
           disableClickInitPopover
           onPointerEnter$={() => {
             showPopover();
-            console.log('in pointer!');
           }}
           onPointerLeave$={() => {
             hidePopover();
@@ -25,13 +24,13 @@ export default component$(() => {
           popovertarget="anchor-ref-id"
           class="rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
         >
-          Popover Trigger
+          Hover over me
         </PopoverTrigger>
       </div>
 
       <Popover
-        anchorRef={buttonRef}
-        popoverRef={myPopoverRef}
+        ref={popoverRef}
+        anchorRef={triggerRef}
         floating={true}
         placement="top"
         gutter={4}

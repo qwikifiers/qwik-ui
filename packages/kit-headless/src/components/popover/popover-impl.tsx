@@ -5,6 +5,7 @@ import {
   useStyles$,
   useContext,
   useTask$,
+  $,
   type Signal,
   type ClassList,
   createContextId,
@@ -18,7 +19,7 @@ export type PopoverImplProps = {
   id: string;
   popover?: string | null | undefined;
   class?: ClassList;
-  popoverRef?: Signal<HTMLElement | undefined>;
+  ref?: Signal<HTMLElement | undefined>;
   manual?: boolean;
   entryAnimation?: string;
   exitAnimation?: string;
@@ -48,7 +49,6 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   // We must inject some minimal hiding CSS while the polyfill loads, and the preset class
   useStyles$(popoverStyles);
 
-  const beforeTeleportParentRef = useSignal<HTMLElement | undefined>(undefined);
   const popoverRef = useSignal<HTMLElement | undefined>(undefined);
   const isPolyfillSig = useSignal<boolean>(false);
 
@@ -84,11 +84,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
       document.dispatchEvent(new CustomEvent('showpopover'));
 
-      cleanup(
-        () =>
-          popoverRef.value &&
-          beforeTeleportParentRef.value?.appendChild(popoverRef.value),
-      );
+      cleanup(() => popoverRef.value);
     }
   });
 
@@ -97,39 +93,44 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       {...props}
       popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
       ref={popoverRef}
-      onBeforeToggle$={(e: ToggleEvent) => {
-        if (!popoverRef.value) return;
+      onBeforeToggle$={[
+        $((e: ToggleEvent) => {
+          if (!popoverRef.value) return;
 
-        console.log(e.newState);
+          console.log(e.newState);
 
-        setTimeout(() => {
-          if (e.newState === 'open' && popoverRef.value) {
-            supportShowAnimation(popoverRef.value);
+          setTimeout(() => {
+            if (e.newState === 'open' && popoverRef.value) {
+              supportShowAnimation(popoverRef.value);
+            }
+          }, 5);
+
+          if (e.newState === 'closed') {
+            supportClosingAnimation(popoverRef.value);
           }
-        }, 5);
-
-        if (e.newState === 'closed') {
-          supportClosingAnimation(popoverRef.value);
-        }
-      }}
-      onToggle$={(e: ToggleEvent) => {
-        if (props.popoverRef) {
-          props.popoverRef.value = popoverRef.value;
-        }
-
-        if (!popoverRef.value) return;
-
-        // move opened polyfill popovers are always above the other
-        if (
-          popoverRef.value.classList.contains(':popover-open') &&
-          popoverRef.value.parentElement
-        ) {
-          popoverRef.value.parentElement.appendChild(popoverRef.value);
-        }
-
+        }),
         // @ts-expect-error bad types
-        props.onToggle$?.(e);
-      }}
+        props.onBeforeToggle$,
+      ]}
+      onToggle$={[
+        $(() => {
+          if (props.ref) {
+            props.ref.value = popoverRef.value;
+          }
+
+          if (!popoverRef.value) return;
+
+          // move opened polyfill popovers are always above the other
+          if (
+            popoverRef.value.classList.contains(':popover-open') &&
+            popoverRef.value.parentElement
+          ) {
+            popoverRef.value.parentElement.appendChild(popoverRef.value);
+          }
+        }),
+        // @ts-expect-error bad types
+        props.onToggle$,
+      ]}
       // This gets called when the polyfill loads and we need to pop out
       document:onPopPolyLoad$={() => {
         if (hasRenderedOnClientSig.value === 0) {

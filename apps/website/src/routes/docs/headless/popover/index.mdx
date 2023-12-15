@@ -19,9 +19,8 @@ A non-modal primitive with overlays that open and close around a DOM element.
     `"Early" access to MDN's native popover API`,
     'Support across all browsers',
     'Resumable / Lazily executes code on interaction',
-    'Top Layer behavior',
-    'Opt-in floating behavior',
-    'Portal polyfill works across meta-frameworks',
+    'UI is placed above everything else.',
+    'stick or float elements to other elements, similar to the upcoming Anchor API.',
   ]}
 />
 
@@ -38,6 +37,8 @@ This is particularly useful for displaying additional information or options wit
 > An example use case for a popover, is preventing overflow issues within your UI. The popover API guarantees that your content remains above the rest of the page.
 
 Most importantly, this API is a foundation for other headless components. Qwik UI is one of the first _(if not the first)_ headless libraries to align with the specification. The content inside of Qwik UI popovers are also natively resumable.
+
+Even if a popover is in the HTML Tree, its children will not execute unless resumed.
 
 ## Versatile use cases <span class="ml-2 text-red-400 dark:text-red-400 text-base px-2 bg-red-100 rounded-md shadow-light-low dark:shadow-dark-medium border-b-2 border-[1px] border-red-200 dark:border-red-300">WIP</span>
 
@@ -119,7 +120,7 @@ A separate declaration is needed to select popovers in all browsers.
 
 ### Cross-browser Animations
 
-Entry and exit animations have often been a frustrating experience. Especially trying to animate between `display: none`, a discrete property.
+Entry and exit animations have often been a frustrating experience in web development. Especially trying to animate between `display: none`, a discrete property.
 
 Until recently, discrete properties were not animatable. Luckily, there's [new properties to CSS](https://developer.chrome.com/blog/entry-exit-animations) that solve this problem.
 
@@ -189,27 +190,59 @@ An auto popover will automatically hide when you click outside of it and typical
 
 On the other hand, a `manual` popover needs to be manually hidden, such as toggling the button or programmatically, and allows for scenarios like nested popovers in menus.
 
-### Popover Methods
+We can add a manual popover by adding the `popover="manual"` prop, or `manual` shorthand.
 
-There are two methods for showing and hiding popovers manually in JavaScript. The `showPopover` and `hidePopover` methods.
+> Notice that the last opened popover is always above the other!
 
-For example, here is programmatic behavior syncing the popover state with the listbox in the `Combobox` component.
+## Programmatic Behavior
+
+<Showcase name="programmatic" />
+
+We can also enable programmatic behavior with popovers. Qwik UI provides several functions you can use to control this behavior.
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'showPopover()',
+      description: 'Opens the popover.',
+    },
+    {
+      name: 'togglePopover()',
+      description: 'Toggles the popover between the open and closed state.',
+    },
+    {
+      name: 'hidePopover()',
+      description: 'Closes the popover.',
+    },
+  ]}
+/>
+
+We can access them anywhere by importing the `usePopover` hook. We also need to pass in the **popover id or popovertarget string** to usePopover, which will find the popover we intend to perform an action on.
+
+For example, here is programmatic behavior syncing the popover state with the listbox in Qwik UI's `Combobox` component.
 
 ```tsx
-useTask$(function syncPopoverStateTask({ track }) {
+// near the top of the component
+const { showPopover, hidePopover } = usePopover(popoverId);
+
+useTask$(async ({ track }) => {
   track(() => context.isListboxOpenSig.value);
 
-  if (!context.popoverRef.value) {
-    return;
-  }
+  if (isServer) return;
 
-  context.isListboxOpenSig.value
-    ? context.popoverRef.value.showPopover()
-    : context.popoverRef.value.hidePopover();
+  if (context.isListboxOpenSig.value) {
+    showPopover();
+  } else {
+    hidePopover();
+  }
 });
 ```
 
+> In the native spec, these are methods, although we want to ensure the polyfill loads on interaction, rather than page load with a proxy.
+
 ## Floating Behavior
+
+<Showcase name="floating-intro" />
 
 To use the popover API with floating elements, you can add the `floating={true}` prop to the Popover component. This API enables the use of JavaScript to dynamically position the listbox using the `top` & `left` absolute properties.
 
@@ -238,12 +271,12 @@ For the following examples, we'll be using the Combobox component. `ComboboxPopo
 ```tsx
 <Popover
   {...props}
-  manual
   id={popoverId}
+  ref={context.popoverRef}
+  manual
   floating={true}
-  // passing in a custom ref for programmatic behavior
+  // "stick" to the input
   anchorRef={context.inputRef}
-  popoverRef={context.popoverRef}
   class="listbox"
 >
   <Slot />
@@ -255,8 +288,6 @@ For the following examples, we'll be using the Combobox component. `ComboboxPopo
 To set the default position of the listbox, you can use the `placement` prop. In the example below, we've set placement to top. When the user opens the listbox, it will be above the input.
 
 <Showcase name="placement" />
-
-The example above sets the `placement` prop to `top`. The default placement is **bottom**.
 
 ### Flip
 
@@ -301,21 +332,44 @@ If Tailwind is the framework of choice, then styles can be added using the [arbi
 
 > The arbitrary variant can be customized/abstracted even further by [adding a variant](https://tailwindcss.com/docs/plugins#adding-variants) as a plugin in the tailwind config.
 
+### Listbox preset
+
+By default, the popover API comes with built-in styles, including fixed behavior, margin, the list goes on.
+
+There are times when we want to override this behavior. An example being when we want an absolutely positioned listbox.
+
+To do that, we can add the `listbox` class to the popover component.
+
+If you need to override any of the listbox properties, use the following CSS variables:
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'margin',
+      description: '--listbox-margin',
+    },
+    {
+      name: 'padding',
+      description: '--listbox-padding',
+    },
+    {
+      name: 'border',
+      description: '--listbox-border',
+    },
+    {
+      name: 'overflow',
+      description: '--listbox-overflow',
+    },
+    {
+      name: 'position',
+      description: '--listbox-position',
+    },
+  ]}
+/>
+
+> Another option is to use the `!important` syntax to override any of the CSS variable values.
+
 ## Animations
-
-### The problem
-
-Currently, native animation support for the popover API is [not quite there yet](https://open-ui.org/components/popover.research.explainer/#animation-of-popovers). Part of this has to do with the native API managing the popover state and adding the `display: none` declaration.
-
-This declaration is `unanimatable`, meaning you cannot animate to or from display none at this time. With that said, we currently have a way to animate popovers using a clever trick under the hood.
-
-> There are [new properties to CSS](https://developer.chrome.com/blog/entry-exit-animations) that aim to fix this problem, but regardless we need to be able to support all browsers.
-
-### Custom animation support
-
-Regardless of native support, animations need support in polyfill browsers too, and so we've provided a way for you to use both `animation` and `transition` declarations in your `Popover` component for **all browsers**.
-
-### Animation declarations
 
 <Showcase name="listbox-animation" />
 
@@ -358,8 +412,6 @@ Here's the CSS imported from the example:
 > These classes also apply to transition declarations as well. Below is an example of that use case.
 
 ### Transition declarations
-
-<Showcase name="animation" />
 
 Transitions use the same classes for entry and exit animations. Those being `.popover-showing` and `.popover-closing`. They are explained move in the section above.
 
