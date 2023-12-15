@@ -14,14 +14,14 @@ export default component$(() => {
     <>
       <div class="flex w-full flex-col items-center gap-4">
         <AccordionRoot
-          class="w-[min(400px,_100%)]"
+          class="w-[min(400px,_100%)] bg-slate-950 text-slate-50"
           onFocusIndexChange$={(index) => {
             focusedIndexSig.value = index;
           }}
         >
-          <AccordionItem class="border-b">
+          <AccordionItem class="border-b border-slate-950">
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
+              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm bg-slate-700 p-4  text-left hover:underline">
                 <span>Is Qwik Production Ready?</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -31,14 +31,14 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="pb-4">
+              <p class=" bg-slate-950 p-4">
                 Yes! Since 1.0 back in May, Qwik apps are great for production.
               </p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem class="border-b">
+          <AccordionItem class="border-b border-slate-950">
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
+              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 p-4  text-left hover:underline">
                 <span>Why is Qwik so fast?</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -48,15 +48,15 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="pb-4">
+              <p class=" bg-slate-950 p-4">
                 Because you're doing less work! Thanks to resumability we execute
                 JavaScript on interaction.
               </p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem class="border-b">
+          <AccordionItem class="border-b border-slate-950">
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 p-4  text-left hover:underline aria-expanded:rounded-none">
                 <span>What if I want to use React?</span>
                 <span class="flex pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -66,7 +66,7 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="pb-4">
+              <p class=" bg-slate-950 p-4">
                 Check out Qwik-React! It allows you to partially hydrate React components
                 into your Qwik app.
               </p>
