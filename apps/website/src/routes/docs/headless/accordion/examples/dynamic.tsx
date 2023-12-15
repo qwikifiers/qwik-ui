@@ -53,16 +53,20 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
           </label>
         </div>
 
-        <AccordionRoot class="w-[min(400px,_100%)]">
+        <AccordionRoot class="w-[min(400px,_100%)] text-slate-50">
           {itemStore.map(({ label, id }, index) => {
+            const firstItem = index === 0;
+            const className = firstItem
+              ? 'bg-slate-700 p-4 group flex w-full items-center justify-between rounded-t-sm  text-left hover:underline'
+              : 'bg-slate-700 p-4 group flex w-full items-center justify-between   text-left hover:underline';
             return (
-              <AccordionItem id={`${id}`} key={id} class="border-b">
+              <AccordionItem id={`${id}`} key={id} class="border-b border-slate-950">
                 <AccordionHeader>
-                  <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
-                    {label}
-                  </AccordionTrigger>
+                  <AccordionTrigger class={className}>{label}</AccordionTrigger>
                 </AccordionHeader>
-                <AccordionContent class="py-4 pt-0">index: {index}</AccordionContent>
+                <AccordionContent class="bg-slate-950 p-4">
+                  index: {index}
+                </AccordionContent>
               </AccordionItem>
             );
           })}
