@@ -85,8 +85,7 @@ export const FloatingPopover = component$(
       const anchor = track(() => anchorRef?.value);
       const popover = track(() => popoverRef.value);
       if (!popover || !anchor) return;
-
-      console.log('INSIDE FLOATING: ', popoverRef.value);
+      popover.hidden = false;
 
       const updatePosition = async () => {
         const middleware = [
@@ -108,7 +107,6 @@ export const FloatingPopover = component$(
             // ensures no exit animation when anchor is hidden.
             popover.hidden = true;
           } else {
-            popover.hidden = false;
             Object.assign(popover.style, {
               left: `${x}px`,
               top: `${y}px`,
@@ -133,7 +131,7 @@ export const FloatingPopover = component$(
     });
 
     return (
-      <PopoverImpl {...props} ref={popoverRef}>
+      <PopoverImpl hidden={true} {...props} ref={popoverRef}>
         <Slot />
       </PopoverImpl>
     );

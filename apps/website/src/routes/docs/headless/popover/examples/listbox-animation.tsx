@@ -28,10 +28,10 @@ export default component$(() => {
   
   @keyframes fadeOut {
     from {
-      opacity: 0;
+      opacity: 1;
     }
     to {
-      opacity: 1;
+      opacity: 0;
     }
   }
   

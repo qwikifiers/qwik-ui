@@ -12,7 +12,6 @@ import {
 } from '@qwik-ui/headless';
 
 import { component$ } from '@builder.io/qwik';
-import './hero.css';
 
 export default component$(() => {
   const objectExample = [

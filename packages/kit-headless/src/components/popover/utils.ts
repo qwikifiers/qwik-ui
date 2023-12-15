@@ -11,7 +11,7 @@ export function supportShowAnimation(popover: HTMLElement, isPolyfill: boolean) 
       setTimeout(() => {
         popover.classList.add('popover-showing');
         popover.classList.remove('popover-closing');
-      }, 5);
+      }, 10);
     } else {
       popover.classList.add('popover-showing');
       popover.classList.remove('popover-closing');
