@@ -1,9 +1,25 @@
 /**
  * Adds CSS-Class to support popover-opening-animation
  */
-export function supportShowAnimation(popover: HTMLElement) {
-  popover.classList.remove('popover-closing');
-  popover.classList.add('popover-showing');
+export function supportShowAnimation(popover: HTMLElement, isPolyfill: boolean) {
+  const { transitionDuration } = getComputedStyle(popover);
+
+  if (isPolyfill) {
+    // polyfill needs a bit of extra time to execute
+    if (transitionDuration !== '0s') {
+      setTimeout(() => {
+        popover.classList.add('popover-showing');
+        popover.classList.remove('popover-closing');
+      }, 5);
+    } else {
+      console.log('running!');
+      popover.classList.add('popover-showing');
+      popover.classList.remove('popover-closing');
+    }
+  } else {
+    popover.classList.add('popover-showing');
+    popover.classList.remove('popover-closing');
+  }
 }
 
 /**

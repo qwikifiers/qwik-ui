@@ -201,18 +201,21 @@ We can add a manual popover by adding the `popover="manual"` prop, or `manual` s
 
 We can also enable programmatic behavior with popovers. Qwik UI provides several functions you can use to control this behavior.
 
-<AnatomyTable
+<APITable
   propDescriptors={[
     {
       name: 'showPopover()',
+      type: 'QRL',
       description: 'Opens the popover.',
     },
     {
       name: 'hidePopover()',
+      type: 'QRL',
       description: 'Closes the popover.',
     },
     {
       name: 'togglePopover()',
+      type: 'QRL',
       description: 'Toggles the popover between the open and closed state.',
     },
   ]}
@@ -344,6 +347,7 @@ To do that, we can add the `listbox` class to the popover component.
 If you need to override any of the listbox properties, use the following CSS variables:
 
 <AnatomyTable
+  firstColumnLabel="Property"
   propDescriptors={[
     {
       name: 'margin',
@@ -401,11 +405,11 @@ Here's the CSS imported from the example:
   }
 }
 
-.animate-in {
+.popover-showing {
   animation: fadeIn both 500ms ease;
 }
 
-.animate-out {
+.popover-closing {
   animation: fadeOut both 500ms ease;
 }
 ```
@@ -414,7 +418,7 @@ Here's the CSS imported from the example:
 
 ### Transition declarations
 
-Transitions use the same classes for entry and exit animations. Those being `.popover-showing` and `.popover-closing`. They are explained move in the section above.
+Transitions use the same classes for entry and exit animations. Those being `.popover-showing` and `.popover-closing`. They are explained more in the `Caveats` section.
 
 > The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) is another native solution that aims to solve animating between states. Support is currently in around **~70%** of browsers.
 
@@ -430,7 +434,22 @@ To read more about the popover API you can check it out on:
 
 ## Backdrops
 
-<Showcase name="backdrop" />
+Supported browsers provide a `::backdrop` pseudo element. For those looking to add a backdrop, the modal component might be a better option, as it provides more browser support for backdrops.
+
+A backdrop across all browsers in the popover is possible too, but it requires a bit of extra work on the consumer side.
+
+```tsx
+/* I style this as if it is the backdrop */
+<Popover id="my-backdrop">
+  <div class="wrap">
+    <div class="content">
+      <Slot />
+    </div>
+  </div>
+</Popover>
+```
+
+That said, if browser support is not a priority, feel free to use the native `::backdrop`. They are still supported in every major browser.
 
 ## Additional Examples
 
@@ -445,3 +464,135 @@ Automatically places the listbox based on available space. **You must set flip t
   placement but with different strategies. Using both can result in a continuous reset
   loop as they try to override each other's work.
 </Note>
+
+### Popover
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'id',
+      type: 'string',
+      description: `Popover's id. Should match the popover target.`,
+    },
+    {
+      name: 'popover',
+      type: 'union',
+      description:
+        'Defines the popover behavior, can be auto or manual. Default is auto.',
+    },
+    {
+      name: 'manual',
+      type: 'boolean',
+      description:
+        'A manual popover needs to be manually hidden, such as toggling the button or programmatically.',
+    },
+    {
+      name: 'floating',
+      type: 'boolean',
+      description: 'Enables extra JavaScript behavior for floating elements.',
+    },
+    {
+      name: 'anchorRef',
+      type: 'Signal',
+      description: 'Signal reference that can be passed for floating behavior.',
+    },
+    {
+      name: 'flip',
+      type: 'boolean',
+      description:
+        'Flips the placement of the popover when it starts to collide with the boundaries.',
+    },
+    {
+      name: 'gutter',
+      type: 'number',
+      description: 'The space between the floating element and the anchored element.',
+    },
+    {
+      name: 'placement',
+      type: 'union',
+      info: ` | 'top'
+    | 'top-start'
+    | 'top-end'
+    | 'right'
+    | 'right-start'
+    | 'right-end'
+    | 'bottom'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'left'
+    | 'left-start'
+    | 'left-end';`,
+      description:
+        'Flips the placement of the popover when it starts to collide with the boundaries.',
+    },
+    {
+      name: 'autoPlacement',
+      type: 'boolean',
+      description: 'Automatically places the listbox based on available space.',
+    },
+    {
+      name: '[popover]',
+      type: 'selector',
+      description: 'Selects the popover on all browsers.',
+    },
+    {
+      name: ':popover-open',
+      type: 'selector',
+      description: 'Native supported pseudo element when the popover is open.',
+    },
+    {
+      name: '.popover-open',
+      type: 'class',
+      description: 'Polyfill class added to style unsupported browsers.',
+    },
+    {
+      name: '.popover-showing',
+      type: 'class',
+      description: 'Class to animate entry behavior.',
+    },
+    {
+      name: '.popover-closing',
+      type: 'class',
+      description: 'Class to animate close behavior.',
+    },
+    {
+      name: 'listbox',
+      type: 'class',
+      description: 'Class to add to the popover component for listbox behavior.',
+    },
+  ]}
+/>
+
+### Popover Trigger
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'popovertarget',
+      type: 'union',
+      description: 'Accepts a string that matches the id of the popover.',
+    },
+  ]}
+/>
+
+### usePopover hook
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'showPopover()',
+      type: 'QRL',
+      description: 'Opens the popover.',
+    },
+    {
+      name: 'hidePopover()',
+      type: 'QRL',
+      description: 'Closes the popover.',
+    },
+    {
+      name: 'togglePopover()',
+      type: 'QRL',
+      description: 'Toggles the popover between the open and closed state.',
+    },
+  ]}
+/>

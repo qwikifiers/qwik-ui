@@ -99,11 +99,9 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
           console.log(e.newState);
 
-          setTimeout(() => {
-            if (e.newState === 'open' && popoverRef.value) {
-              supportShowAnimation(popoverRef.value);
-            }
-          }, 5);
+          if (e.newState === 'open' && popoverRef.value) {
+            supportShowAnimation(popoverRef.value, isPolyfillSig.value);
+          }
 
           if (e.newState === 'closed') {
             supportClosingAnimation(popoverRef.value);

@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   Combobox,
   ComboboxLabel,
@@ -15,6 +15,35 @@ import './animation.css';
 
 export default component$(() => {
   const isListboxOpenSig = useSignal(false);
+
+  useStyles$(`
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .listbox-animation.popover-showing {
+    animation: fadeIn both 500ms ease;
+  }
+  
+  .listbox-animation.popover-closing {
+    animation: fadeOut both 500ms ease;
+  }
+  
+  `);
 
   const animationExample = [
     'Red',
@@ -58,7 +87,7 @@ export default component$(() => {
           </svg>
         </ComboboxTrigger>
       </ComboboxControl>
-      <ComboboxPopover gutter={8}>
+      <ComboboxPopover class="listbox-animation" gutter={8}>
         <ComboboxListbox
           class={`w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2`}
           optionRenderer$={(option: ResolvedOption, index: number) => (
