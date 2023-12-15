@@ -14,14 +14,14 @@ export default component$(() => {
     <>
       <div class="flex w-full flex-col items-center gap-4">
         <AccordionRoot
-          class="w-[min(400px,_100%)]"
+          class="w-[min(400px,_100%)] bg-slate-950 text-slate-50"
           onSelectedIndexChange$={(index) => {
             selectedIndexSig.value = index;
           }}
         >
-          <AccordionItem class="border-b">
+          <AccordionItem class="border-b border-slate-950">
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
+              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm bg-slate-700 p-4  text-left hover:underline">
                 <span>Can I contribute to Qwik UI?</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -31,14 +31,14 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="pb-4">
+              <p class=" bg-slate-950 p-4">
                 Absolutely! You can reach out to us in the Qwikifiers discord.
               </p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem class="border-b">
+          <AccordionItem class="border-b border-slate-950">
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
+              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 p-4  text-left hover:underline">
                 <span>How many people are learning Qwik?</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -48,15 +48,15 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="pb-4">
+              <p class=" bg-slate-950 p-4">
                 According to the 2023 <strong>stack overflow survey</strong>, it's close
                 to the amount of people learning Remix already!
               </p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem class="border-b">
+          <AccordionItem class="border-b border-slate-950">
             <AccordionHeader>
-              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline aria-expanded:rounded-none">
+              <AccordionTrigger class="group flex w-full items-center justify-between bg-slate-700 p-4  text-left hover:underline aria-expanded:rounded-none">
                 <span>What's the Qwikifiers discord?</span>
                 <span class="flex pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
@@ -66,7 +66,9 @@ export default component$(() => {
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent>
-              <p class="pb-4">A group of active contributors in the Qwik ecosystem!</p>
+              <p class=" bg-slate-950 p-4">
+                A group of active contributors in the Qwik ecosystem!
+              </p>
             </AccordionContent>
           </AccordionItem>
         </AccordionRoot>
