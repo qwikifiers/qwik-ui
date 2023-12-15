@@ -11,6 +11,9 @@ importers:
       '@fontsource-variable/inter':
         specifier: 5.0.8
         version: 5.0.8
+      '@oddbird/popover-polyfill':
+        specifier: 0.3.7
+        version: 0.3.7
       canvas-confetti:
         specifier: 1.9.2
         version: 1.9.2
@@ -5189,6 +5192,10 @@ packages:
     dependencies:
       '@octokit/openapi-types': 12.11.0
     dev: true
+
+  /@oddbird/popover-polyfill@0.3.7:
+    resolution: {integrity: sha512-WNthEIPPXnFQkumLby6yVxhyOcA/GtMnlByHwEglMO9WZckoaqidnpLp2JFzAh2RDOZxn+Xt3ffSMKId9cPjOQ==}
+    dev: false
 
   /@parcel/watcher@2.0.4:
     resolution: {integrity: sha512-cTDi+FUDBIUOBKEtj+nhiJ71AZVlkAsQFuGQTun5tV9mwQBQgZvhCzG+URPQc8myeN32yRVZEfVAPCs1RW+Jvg==}

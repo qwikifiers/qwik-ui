@@ -1,0 +1,26 @@
+/* This only applies when popover isn't supported */
+@supports not selector(:popover-open) {
+  /* The polyfill adds this class when popped out */
+  [popover]:not(.\:popover-open) {
+    display: none;
+  }
+}
+
+.popover-closing {
+  display: block !important;
+}
+
+/* Popover Presets: TODO figure out specificity to make this easier for user to override */
+.listbox {
+  --listbox-margin: unset;
+  --listbox-padding: unset;
+  --listbox-border: unset;
+  --listbox-overflow: unset;
+  --listbox-position: absolute;
+
+  margin: var(--listbox-margin);
+  padding: var(--listbox-padding);
+  border: var(--listbox-border);
+  overflow: var(--listbox-overflow);
+  position: var(--listbox-position);
+}

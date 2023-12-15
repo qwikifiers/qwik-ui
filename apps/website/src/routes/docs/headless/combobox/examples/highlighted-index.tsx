@@ -5,7 +5,7 @@ import {
   ComboboxInput,
   ComboboxListbox,
   ComboboxOption,
-  ComboboxPortal,
+  ComboboxPopover,
   ComboboxTrigger,
   ResolvedOption,
 } from '@qwik-ui/headless';
@@ -36,12 +36,9 @@ export default component$(() => {
             <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
           </ComboboxTrigger>
         </ComboboxControl>
-        <ComboboxPortal>
+        <ComboboxPopover hide="escaped" gutter={8} size={true}>
           <ComboboxListbox
-            gutter={8}
-            size={true}
-            class="bg-background w-fit rounded-sm border px-4 py-2"
-            hide="escaped"
+            class="w-fit rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
             optionRenderer$={(option: ResolvedOption, index: number) => (
               <ComboboxOption
                 key={option.key}
@@ -53,7 +50,7 @@ export default component$(() => {
               </ComboboxOption>
             )}
           />
-        </ComboboxPortal>
+        </ComboboxPopover>
       </Combobox>
     </>
   );

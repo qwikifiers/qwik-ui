@@ -64,7 +64,7 @@ export const Label = component$((props: LabelProps) => {
  *
  */
 
-type HintProps = QwikIntrinsicElements['small'];
+type HintProps = QwikIntrinsicElements['div'];
 
 export const Hint = component$((props: HintProps) => {
   const context = useContext(inputContext);

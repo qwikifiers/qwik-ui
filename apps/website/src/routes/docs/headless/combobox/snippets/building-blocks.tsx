@@ -5,7 +5,7 @@ import {
   ComboboxControl,
   ComboboxInput,
   ComboboxTrigger,
-  ComboboxPortal,
+  ComboboxPopover,
   ComboboxListbox,
   ComboboxOption,
   ResolvedOption,
@@ -21,7 +21,7 @@ export default component$(() => {
         <ComboboxInput />
         <ComboboxTrigger>Opens Listbox</ComboboxTrigger>
       </ComboboxControl>
-      <ComboboxPortal>
+      <ComboboxPopover>
         <ComboboxListbox
           optionRenderer$={(option: ResolvedOption, index: number) => (
             <ComboboxOption index={index} resolved={option}>
@@ -29,7 +29,7 @@ export default component$(() => {
             </ComboboxOption>
           )}
         />
-      </ComboboxPortal>
+      </ComboboxPopover>
     </Combobox>
   );
 });

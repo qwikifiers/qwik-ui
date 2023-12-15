@@ -138,6 +138,7 @@
   ],
   "dependencies": {
     "@fontsource-variable/inter": "5.0.8",
+    "@oddbird/popover-polyfill": "0.3.7",
     "canvas-confetti": "1.9.2",
     "shiki": "0.14.5",
     "tslib": "^2.6.2"

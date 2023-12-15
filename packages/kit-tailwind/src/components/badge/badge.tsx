@@ -1,10 +1,10 @@
-import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 
-export interface TailwindBadgeProps extends HTMLAttributes<HTMLElement> {
+export type TailwindBadgeProps = QwikIntrinsicElements['div'] & {
   variant?: TailwindBadgeVariants;
   size?: TailwindBadgeSizes;
   outline?: boolean;
-}
+};
 
 export type TailwindBadgeVariants =
   | 'primary'

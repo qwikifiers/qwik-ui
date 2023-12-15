@@ -7,6 +7,7 @@ import testImage from '../../../../../public/images/test-image.png';
 import { statusByComponent } from '~/_state/component-statuses';
 
 <StatusBanner status={statusByComponent.headless.Modal} />
+import {FeatureList} from '~/components/feature-list/feature-list';
 
 # Modal
 
@@ -16,7 +17,7 @@ A window overlaid on either the primary window or another dialog window. Modal c
 
 The modal makes use of the HTML `dialog` element, which is supported in [every major browser](https://caniuse.com/?search=dialog).
 
-> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/) _(in progress)_. In the near future, Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
+> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/). Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
 
 Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed.
 
@@ -31,14 +32,18 @@ Modals are used when an important choice needs to be made in the application. Th
 
 ## ✨ Features
 
-- Follows the WAI ARIA Dialog & Alertdialog design patterns.
-- Managed focus order
-- Scroll locking
-- Closes on escape
-- Toggle backdrop dismiss
-- Animation support
-- Transition support
-- Backdrop animations
+<FeatureList
+  features={[
+    'Follows the WAI ARIA Dialog & Alertdialog design patterns.',
+    'Managed focus order',
+    'Scroll locking',
+    'Closes on escape',
+    'Toggle backdrop dismiss',
+    'Animation support',
+    'Transition support',
+    'Backdrop animations',
+  ]}
+/>
 
 ## Building Blocks
 

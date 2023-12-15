@@ -1,18 +1,49 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   Combobox,
   ComboboxLabel,
   ComboboxControl,
   ComboboxInput,
   ComboboxTrigger,
-  ComboboxPortal,
+  ComboboxPopover,
   ComboboxListbox,
   ComboboxOption,
   ResolvedOption,
 } from '@qwik-ui/headless';
 
+import './animation.css';
+
 export default component$(() => {
   const isListboxOpenSig = useSignal(false);
+
+  useStyles$(`
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .listbox-animation.popover-showing {
+    animation: fadeIn both 500ms ease;
+  }
+  
+  .listbox-animation.popover-closing {
+    animation: fadeOut both 500ms ease;
+  }
+  
+  `);
 
   const animationExample = [
     'Red',
@@ -35,11 +66,11 @@ export default component$(() => {
       }
       bind:isListboxOpenSig={isListboxOpenSig}
     >
-      <ComboboxLabel class=" font-semibold">Streets 🛣️</ComboboxLabel>
-      <ComboboxControl class="relative flex items-center rounded-sm border">
+      <ComboboxLabel class=" font-semibold text-white">Streets 🛣️</ComboboxLabel>
+      <ComboboxControl class="relative flex items-center rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
         <ComboboxInput
           disableOnBlur={true}
-          class="px-d2 bg-background placeholder:text-muted-foreground w-44 px-2 pr-6"
+          class="px-d2 w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
           placeholder="Wallaby Rd."
         />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6">
@@ -48,7 +79,7 @@ export default component$(() => {
             viewBox="0 0 24 24"
             fill="none"
             stroke-width="2"
-            class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
+            class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
             stroke-linecap="round"
             stroke-linejoin="round"
           >
@@ -56,16 +87,13 @@ export default component$(() => {
           </svg>
         </ComboboxTrigger>
       </ComboboxControl>
-      <ComboboxPortal>
+      <ComboboxPopover class="listbox-animation" gutter={8}>
         <ComboboxListbox
-          gutter={8}
-          class={`w-44 rounded-sm border px-4 py-2 transition-opacity duration-[500ms] ${
-            isListboxOpenSig.value ? 'opacity-100' : 'opacity-0'
-          }`}
+          class={`w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2`}
           optionRenderer$={(option: ResolvedOption, index: number) => (
             <ComboboxOption
               key={option.key}
-              class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent group flex justify-between rounded-sm border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
+              class="group rounded-sm border-2 border-transparent px-2 text-white hover:bg-slate-500  aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
               index={index}
               resolved={option}
             >
@@ -73,7 +101,7 @@ export default component$(() => {
             </ComboboxOption>
           )}
         />
-      </ComboboxPortal>
+      </ComboboxPopover>
     </Combobox>
   );
 });

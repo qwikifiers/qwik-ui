@@ -44,7 +44,7 @@ export const ComboboxOption = component$(
         {...props}
         id={optionId}
         ref={optionRef}
-        tabIndex={0}
+        tabIndex={-1}
         role="option"
         aria-selected={isHighlightedSig.value}
         aria-disabled={resolved.disabled}

@@ -1,0 +1,19 @@
+/* needed for unsupported browsers */
+.backdrop.\:popover-open::before {
+  content: '';
+  position: fixed;
+  inset: 0px;
+  z-index: -1;
+  pointer-events: none;
+  background-color: hsla(0, 0%, 0%, 0.5);
+}
+
+/* supported browsers */
+.backdrop:popover-open::before {
+  content: '';
+  position: fixed;
+  inset: 0px;
+  z-index: -1;
+  pointer-events: none;
+  background-color: hsla(0, 0%, 0%, 0.5);
+}

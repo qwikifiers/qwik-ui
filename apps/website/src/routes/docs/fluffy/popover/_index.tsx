@@ -1,14 +1,13 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Popover, PopoverContent, PopoverTrigger } from '@qwik-ui/headless';
 
-import { Button, Card, CardBody, CardTitle } from '@qwik-ui/tailwind';
+import { Card, CardBody, CardTitle } from '@qwik-ui/tailwind';
 
 export default component$(() => {
   const controlledPopover = useSignal<boolean>(true);
 
   return (
     <>
-      <h2>This is the documentation for the Popover</h2>
+      {/* <h2>This is the documentation for the Popover</h2>
 
       <h1 class="mt-8">Examples</h1>
       <Popover placement="top">
@@ -165,7 +164,7 @@ export default component$(() => {
 
       <Button onClick$={() => (controlledPopover.value = true)}>
         OPEN THE POPOVER ABOVE
-      </Button>
+      </Button> */}
     </>
   );
 });

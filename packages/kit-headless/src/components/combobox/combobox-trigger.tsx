@@ -6,6 +6,8 @@ import {
   type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
+import { VisuallyHidden } from '../../utils/visually-hidden';
+import { PopoverTrigger } from '../popover';
 
 export type ComboboxTriggerProps = QwikIntrinsicElements['button'];
 
@@ -14,24 +16,27 @@ export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
   const listboxId = `${context.localId}-listbox`;
 
   return (
-    <>
-      <button
-        {...props}
-        ref={context.triggerRef}
-        onMouseDown$={[
-          $(() => {
-            context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
-          }),
-          props.onMouseDown$,
-        ]}
-        tabIndex={-1}
-        aria-haspopup="listbox"
-        aria-controls={listboxId}
-        aria-expanded={context.isListboxOpenSig.value}
-        aria-label="Show suggestions"
-      >
-        <Slot />
-      </button>
-    </>
+    <PopoverTrigger
+      {...props}
+      disableClickInitPopover={true}
+      ref={context.triggerRef}
+      onClick$={[
+        $(() => {
+          context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
+        }),
+        props.onClick$,
+      ]}
+      tabIndex={-1}
+      aria-haspopup="listbox"
+      aria-controls={listboxId}
+      popovertarget={listboxId}
+      aria-expanded={context.isListboxOpenSig.value}
+    >
+      <VisuallyHidden>
+        Toggle list of
+        {context.labelRef.value ? context.labelRef.value?.innerText : 'options'}
+      </VisuallyHidden>
+      <Slot />
+    </PopoverTrigger>
   );
 });
