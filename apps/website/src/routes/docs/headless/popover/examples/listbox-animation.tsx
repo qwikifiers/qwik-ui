@@ -69,8 +69,7 @@ export default component$(() => {
       <ComboboxLabel class=" font-semibold text-white">Streets 🛣️</ComboboxLabel>
       <ComboboxControl class="relative flex items-center rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
         <ComboboxInput
-          disableOnBlur={true}
-          class="px-d2 w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
+          class="px-d2 w-44 rounded-sm bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
           placeholder="Wallaby Rd."
         />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6">

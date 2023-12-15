@@ -49,7 +49,7 @@ export default component$(() => {
       <ComboboxControl class="relative rounded-sm border">
         <ComboboxInput
           onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
-          class="px-d2 bg-background placeholder:text-muted-foreground w-44 pl-6 pr-6"
+          class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm pl-6 pr-6"
           onKeyDown$={(e) => {
             if (e.key === 'Enter') {
               const inputElement = e.target as HTMLInputElement;

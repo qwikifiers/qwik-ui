@@ -494,20 +494,6 @@ A backdrop across all browsers in the popover is possible too, but it requires a
 
 That said, if browser support is not a priority, feel free to use the native `::backdrop`. They are still supported in every major browser.
 
-## Additional Examples
-
-### Auto Placement
-
-Automatically places the listbox based on available space. **You must set flip to false before using it.** This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
-
-<Showcase name="auto-placement" />
-
-<Note status="caution">
-  You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the
-  placement but with different strategies. Using both can result in a continuous reset
-  loop as they try to override each other's work.
-</Note>
-
 ### Popover
 
 <APITable
@@ -639,3 +625,17 @@ Automatically places the listbox based on available space. **You must set flip t
     },
   ]}
 />
+
+## Additional Examples
+
+### Auto Placement
+
+Automatically places the listbox based on available space. **You must set flip to false before using it.** This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
+
+<Showcase name="auto-placement" />
+
+<Note status="caution">
+  You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the
+  placement but with different strategies. Using both can result in a continuous reset
+  loop as they try to override each other's work.
+</Note>

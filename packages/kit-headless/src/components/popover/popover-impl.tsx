@@ -97,8 +97,6 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         $((e: ToggleEvent) => {
           if (!popoverRef.value) return;
 
-          console.log(e.newState);
-
           if (e.newState === 'open' && popoverRef.value) {
             supportShowAnimation(popoverRef.value, isPolyfillSig.value);
           }

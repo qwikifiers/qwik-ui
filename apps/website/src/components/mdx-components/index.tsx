@@ -146,9 +146,10 @@ export const components: Record<string, any> = {
   >(({ __rawString__, ...props }) => {
     return (
       <div
+        {...props}
         class={[
           twMerge(
-            'code-example relative -mx-6 max-h-[31.25rem] rounded-xl bg-slate-900 lg:-mx-8',
+            'code-example relative -mx-6 mb-6 max-h-[31.25rem] rounded-xl bg-slate-900 lg:-mx-8',
             (props.class as Signal<string>)?.value ?? (props.class as string),
           ),
         ]}
@@ -158,7 +159,6 @@ export const components: Record<string, any> = {
           code={__rawString__}
         />
         <div
-          {...props}
           style={''} // required to override shiki's
           class="tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm"
         >
@@ -171,7 +171,7 @@ export const components: Record<string, any> = {
   }),
   code: component$<QwikIntrinsicElements['code']>(() => {
     return (
-      <code>
+      <code class="whitespace-pre-wrap">
         <Slot />
       </code>
     );
