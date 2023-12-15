@@ -5,6 +5,7 @@ export function supportShowAnimation(popover: HTMLElement, isPolyfill: boolean) 
   const { transitionDuration } = getComputedStyle(popover);
 
   if (isPolyfill) {
+    console.log('polyfill run!');
     // polyfill needs a bit of extra time to execute
     if (transitionDuration !== '0s') {
       setTimeout(() => {
@@ -12,13 +13,19 @@ export function supportShowAnimation(popover: HTMLElement, isPolyfill: boolean) 
         popover.classList.remove('popover-closing');
       }, 5);
     } else {
-      console.log('running!');
       popover.classList.add('popover-showing');
       popover.classList.remove('popover-closing');
     }
   } else {
-    popover.classList.add('popover-showing');
-    popover.classList.remove('popover-closing');
+    if (transitionDuration !== '0s') {
+      setTimeout(() => {
+        popover.classList.add('popover-showing');
+        popover.classList.remove('popover-closing');
+      }, 5);
+    } else {
+      popover.classList.add('popover-showing');
+      popover.classList.remove('popover-closing');
+    }
   }
 }
 
@@ -44,10 +51,8 @@ export function supportClosingAnimation(popover: HTMLElement) {
   if (animationDuration !== '0s') {
     popover.addEventListener('animationend', runAnimationEnd, { once: true });
   } else if (transitionDuration !== '0s') {
-    console.log('inside transition');
     popover.addEventListener('transitionend', runTransitionEnd, { once: true });
   } else {
-    console.log('I RAN!');
     popover.classList.remove('popover-closing');
   }
 }

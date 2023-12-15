@@ -37,7 +37,7 @@ export default component$(() => {
       >
         <ComboboxLabel class="text-white">Positions</ComboboxLabel>
         <ComboboxControl class="relative mt-2 flex items-center rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
-          <ComboboxInput class="px-d2 w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500" />
+          <ComboboxInput class="px-d2 w-44 rounded-sm bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500" />
           <ComboboxTrigger class="group absolute right-0 h-6 w-6">
             <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
           </ComboboxTrigger>

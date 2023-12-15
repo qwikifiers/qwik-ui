@@ -35,7 +35,7 @@ export default component$(() => {
         >
           <ComboboxControl class="relative flex items-center rounded-sm border">
             <ComboboxInput
-              class="px-d2 placeholder:text-muted-foreground w-fit px-2 pr-6"
+              class="px-d2 placeholder:text-muted-foreground w-fit rounded-sm px-2 pr-6"
               onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
             />
             <ComboboxTrigger class="group absolute right-0 h-6 w-6">

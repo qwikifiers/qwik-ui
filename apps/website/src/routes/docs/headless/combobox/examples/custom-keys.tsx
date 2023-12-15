@@ -53,7 +53,7 @@ export default component$(() => {
       >
         <ComboboxLabel class=" font-semibold">Pokemon 🦏</ComboboxLabel>
         <ComboboxControl class="relative flex items-center rounded-sm border">
-          <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground w-44 px-2 pr-6" />
+          <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm px-2 pr-6" />
           <ComboboxTrigger class="group absolute right-0 h-6 w-6">
             <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
           </ComboboxTrigger>

@@ -34,7 +34,7 @@ export default component$(() => {
       </ComboboxLabel>
       <ComboboxControl class="relative flex items-center rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
         <ComboboxInput
-          class="px-d2 w-fit bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
+          class="px-d2 w-fit rounded-sm bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
           placeholder="Wallaby Rd."
         />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6 bg-transparent">
