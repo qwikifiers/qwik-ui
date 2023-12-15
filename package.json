@@ -140,9 +140,7 @@
     "@fontsource-variable/inter": "5.0.8",
     "canvas-confetti": "1.9.2",
     "shiki": "0.14.5",
-    "tslib": "^2.6.2"
-  },
-  "optionalDependencies": {
+    "tslib": "^2.6.2",
     "@img/sharp-linux-x64": "^0.33.0"
   },
   "nx": {
