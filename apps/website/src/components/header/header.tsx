@@ -106,7 +106,12 @@ export default component$(
         </nav>
 
         <button type="button" aria-label="Toggle dark mode" onClick$={toggleDarkMode}>
-          {rootStore.mode === 'dark' ? <MoonIcon /> : <SunIcon />}
+          <div class="hidden dark:block">
+            <MoonIcon />
+          </div>
+          <div class="block dark:hidden ">
+            <SunIcon />
+          </div>
         </button>
         <a
           target="_blank"
