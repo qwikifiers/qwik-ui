@@ -4,7 +4,46 @@
   "sourceRoot": "packages/kit-fluffy/src",
   "projectType": "library",
   "targets": {
+    "build-bin": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+
+      "options": {
+        "main": "packages/kit-fluffy/bin/index.ts",
+        "outputPath": "dist/packages/kit-fluffy",
+        "tsConfig": "packages/kit-fluffy/tsconfig.bin.json"
+      }
+    },
+    "build-generators": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+
+      "options": {
+        "main": "packages/kit-fluffy/generators/index.ts",
+        "outputPath": "dist/packages/kit-fluffy",
+        "tsConfig": "packages/kit-fluffy/tsconfig.lib.json",
+        "assets": [
+          "packages/kit-fluffy/*.md",
+          {
+            "input": "./packages/kit-fluffy/src",
+            "glob": "**/*.(ts|tsx)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/kit-fluffy",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/kit-fluffy",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
     "build": {
+      "dependsOn": ["build-bin"],
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",

@@ -1,0 +1,10 @@
+{
+  "generators": {
+    "preset": {
+      "factory": "./src/generators/init/init-generator",
+      "schema": "./src/generators/init/schema.json",
+      "description": "Init a new qwik-ui cli environment",
+      "x-use-standalone-layout": true
+    }
+  }
+}
