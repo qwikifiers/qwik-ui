@@ -4,7 +4,7 @@ import {
   useSignal,
   useStylesScoped$,
 } from '@builder.io/qwik';
-import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
+import { ComponentStatus } from '~/_state/component-status.type';
 import { getClassByStatus } from '../component-status-badge/component-status-badge';
 
 export interface StatusBannerProps {

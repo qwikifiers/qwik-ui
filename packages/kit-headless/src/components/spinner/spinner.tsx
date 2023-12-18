@@ -22,7 +22,7 @@ export const Spinner = component$((props: SpinnerProps) => {
   useStylesScoped$(styles);
   return (
     <div class={`spinner-container ${classNames}`} style={style}>
-      <svg part="base" class="spinner" role="spinner">
+      <svg class="spinner" role="spinner">
         <circle
           class="track"
           r={`calc(0.5em - ${width}/2)`}

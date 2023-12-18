@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   QwikIntrinsicElements,
-  Signal,
   Slot,
   component$,
   useComputed$,
@@ -43,10 +42,6 @@ export const TabPanel = component$(
         aria-labelledby={fullTabElementId}
         role="tabpanel"
         tabIndex={0}
-        class={[
-          (props.class as Signal<string>)?.value ?? (props.class as string),
-          (_extraClass as Signal<string>)?.value ?? (_extraClass as string),
-        ]}
         hidden={!isSelectedSig.value}
       >
         <Slot />

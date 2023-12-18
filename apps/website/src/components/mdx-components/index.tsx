@@ -1,4 +1,4 @@
-import { QwikIntrinsicElements, Signal, Slot, component$ } from '@builder.io/qwik';
+import { QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
 import { StatusBanner } from '../status-banner/status-banner';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
@@ -8,21 +8,13 @@ import { Showcase } from '../showcase/showcase';
 import { CodeSnippet } from '../code-snippet/code-snippet';
 import { InstallSnippet } from '../install-snippet/install-snippet';
 import { Note } from '../note/note';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@qwik-ui/utils';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const components: Record<string, any> = {
   p: component$<QwikIntrinsicElements['p']>(({ ...props }) => {
     return (
-      <p
-        {...props}
-        class={[
-          twMerge(
-            'mb-6 last:mb-0',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
-          ),
-        ]}
-      >
+      <p {...props} class={[cn('mb-6 last:mb-0', props.class)]}>
         <Slot />
       </p>
     );
@@ -31,12 +23,7 @@ export const components: Record<string, any> = {
     return (
       <h1
         {...props}
-        class={[
-          twMerge(
-            'mb-6 pt-6 text-3xl font-extrabold md:text-5xl',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
-          ),
-        ]}
+        class={[cn('mb-6 pt-6 text-3xl font-extrabold md:text-5xl', props.class)]}
       >
         <Slot />
       </h1>
@@ -47,9 +34,9 @@ export const components: Record<string, any> = {
       <h2
         {...props}
         class={[
-          twMerge(
+          cn(
             'mb-8 mt-20 scroll-mt-32 border-b-[1px] pb-2 text-2xl font-extrabold',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
+            props.class,
           ),
         ]}
       >
@@ -59,45 +46,21 @@ export const components: Record<string, any> = {
   }),
   h3: component$<QwikIntrinsicElements['h3']>(({ ...props }) => {
     return (
-      <h3
-        {...props}
-        class={[
-          twMerge(
-            'mb-6 mt-8 text-xl font-semibold',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
-          ),
-        ]}
-      >
+      <h3 {...props} class={[cn('mb-6 mt-8 text-xl font-semibold', props.class)]}>
         <Slot />
       </h3>
     );
   }),
   h4: component$<QwikIntrinsicElements['h4']>(({ ...props }) => {
     return (
-      <h4
-        {...props}
-        class={[
-          twMerge(
-            'mb-4 mt-6 text-lg font-medium',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
-          ),
-        ]}
-      >
+      <h4 {...props} class={[cn('mb-4 mt-6 text-lg font-medium', props.class)]}>
         <Slot />
       </h4>
     );
   }),
   h5: component$<QwikIntrinsicElements['h5']>(({ ...props }) => {
     return (
-      <h5
-        {...props}
-        class={[
-          twMerge(
-            'text-base font-[700]',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
-          ),
-        ]}
-      >
+      <h5 {...props} class={[cn('text-base font-[700]', props.class)]}>
         <Slot />
       </h5>
     );
@@ -111,30 +74,14 @@ export const components: Record<string, any> = {
   }),
   ul: component$<QwikIntrinsicElements['ul']>(({ ...props }) => {
     return (
-      <ul
-        {...props}
-        class={[
-          twMerge(
-            'mb-4 list-disc px-6 font-medium',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
-          ),
-        ]}
-      >
+      <ul {...props} class={[cn('mb-4 list-disc px-6 font-medium', props.class)]}>
         <Slot />
       </ul>
     );
   }),
   li: component$<QwikIntrinsicElements['li']>(({ ...props }) => {
     return (
-      <li
-        {...props}
-        class={[
-          twMerge(
-            'py-2',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
-          ),
-        ]}
-      >
+      <li {...props} class={[cn('py-2', props.class)]}>
         <Slot />
       </li>
     );
@@ -148,9 +95,9 @@ export const components: Record<string, any> = {
       <div
         {...props}
         class={[
-          twMerge(
+          cn(
             'code-example relative -mx-6 mb-6 max-h-[31.25rem] rounded-xl bg-slate-900 lg:-mx-8',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
+            props.class,
           ),
         ]}
       >
