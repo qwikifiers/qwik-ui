@@ -111,7 +111,7 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
     return (
       <button
         {...rest}
-        // @ts-expect-error
+        // @ts-expect-error bad types
         popovertarget={popovertarget}
         onClick$={[
           rest.onClick$,
