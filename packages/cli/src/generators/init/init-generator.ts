@@ -18,8 +18,6 @@ export async function initGenerator(tree: Tree, options: InitGeneratorSchema) {
   options.projectRoot ||= '/';
   options.styledKit ||= StyledKit.FLUFFY;
   options.componentsRoot ||= 'src/_components/ui';
-  // options.rootCssPath ||= 'src/global.css';
-  // options.tailwindConfigPath ||= 'tailwind.config.js';
 
   const fullConfigPath = joinPathFragments(options.projectRoot, QWIK_UI_CONFIG_FILENAME);
 
@@ -28,8 +26,6 @@ export async function initGenerator(tree: Tree, options: InitGeneratorSchema) {
     JSON.stringify({
       componentsRoot: options.componentsRoot,
       styledKit: options.styledKit,
-      rootCssPath: options.rootCssPath,
-      tailwindConfigPath: options.tailwindConfigPath,
     }),
   );
 

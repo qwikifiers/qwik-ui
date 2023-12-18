@@ -14,12 +14,6 @@
   },
   "generators": "./generators.json",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./index.qwik.mjs",
-      "require": "./index.qwik.cjs"
-    }
-  },
   "engines": {
     "node": ">=16.0.0"
   },

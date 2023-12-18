@@ -1,9 +1,4 @@
-import { StyledKit } from './styled-kit.enum';
-
-export interface InitGeneratorSchema {
+import type { QwikUIConfig } from '../../../types/qwik-ui-config.type';
+export interface InitGeneratorSchema extends QwikUIConfig {
   projectRoot?: string;
-  rootCssPath?: string;
-  tailwindConfigPath?: string;
-  styledKit?: StyledKit;
-  componentsRoot?: string;
 }

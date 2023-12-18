@@ -32,33 +32,76 @@ import {
   spinner,
   text,
 } from '@clack/prompts';
-import { workspaceRoot } from '@nx/devkit';
+import { getPackageManagerCommand, readJsonFile, workspaceRoot } from '@nx/devkit';
+import { execSync } from 'child_process';
+import { existsSync } from 'fs';
 import { green, red } from 'kleur/colors';
+import yargs from 'yargs';
 import { styledPackagesMap } from '../src/generators';
 import { StyledKit } from '../src/generators/init/styled-kit.enum';
+import { QwikUIConfig } from '../types/qwik-ui-config.type';
+
+interface Args {
+  [x: string]: unknown;
+  command?: string;
+}
+
+const COMMANDS = ['init', 'add'];
+const listOfCommands = COMMANDS.join(', ');
 
 async function main() {
+  const args = yargs(process.argv.slice(2)).strict().demandCommand(1).options({
+    component: {},
+  });
+  console.log('args', args.command);
+
   const command = process.argv[2]; // TODO: use libraries like yargs or enquirer to set your workspace name
   if (!command) {
-    log.error(
+    exitWithError(
       `A command is missing, please choose one of the following commands: ${green(
-        'init',
+        listOfCommands,
       )}`,
     );
-    cancel();
-    process.exit(1);
   }
 
-  intro('🐨 Fluffy');
+  intro('🐨 Qwik UI');
 
   if (command === 'init') {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const nxVersion = require('../package.json').dependencies['@nx/devkit'];
+    await handleInit();
+  } else if (command === 'add') {
+    await handleAdd();
+  } else {
+    exitWithError(
+      `Invalid command: ${red(command)}
+Please choose one of the following commands: ${green(listOfCommands)}`,
+    );
+  }
+  outro('Successfully initialized fluffy');
+}
 
-    log.info(`Version: ${nxVersion}`);
+main();
 
-    // TODO: CHECK IF NX.JSON EXISTS
+function exitWithError(message: string) {
+  log.error(message);
+  cancel();
+  process.exit(1);
+}
 
+export function getCwd(): string {
+  return process.env.INIT_CWD?.startsWith(workspaceRoot)
+    ? process.env.INIT_CWD
+    : process.cwd();
+}
+
+async function handleInit() {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const nxVersion = require('../package.json').dependencies['@nx/devkit'];
+
+  log.info(`Version: ${nxVersion}`);
+
+  if (existsSync('nx.json')) {
+    log.info('seems like nx.json already exists. cool!');
+  } else {
     const haveNxInstalled = cancelable(
       await confirm({
         message: 'Do you already have Nx installed? (required)',
@@ -69,32 +112,52 @@ async function main() {
     if (!haveNxInstalled) {
       const initSpinner = spinner();
       initSpinner.start('Installing Nx...');
-      // execSync(`npx --yes nx@${nxVersion} init --interactive false`, {
-      //   stdio: [0, 1, 2],
-      // });
+      execSync(`npx --yes nx@${nxVersion} init --interactive false`, {
+        stdio: [0, 1, 2],
+      });
       initSpinner.stop('Installed Nx!');
     }
     log.success('nx init done');
+  }
 
-    const projectRoot = cancelable(
-      await text({
-        message: 'Specify the root of the project (leave empty for "/")',
-      }),
-    );
+  const projectRoot = cancelable(
+    await text({
+      message: 'Specify the root of the project (leave empty for "/")',
+    }),
+  );
 
-    const selectedStyledKit = cancelable(
-      await select({
-        message: 'What is your preferred styled kit?',
+  const tailwindConfigPath = await collectFileLocationFromUser({
+    message: 'Your tailwind config file location',
+    errorMessageName: 'Tailwind config file',
+    initialValue: './tailwind.config.js',
+  });
 
-        options: [
-          { label: 'Fluffy', value: StyledKit.FLUFFY },
-          { label: 'Minimal', value: StyledKit.MINIMAL },
-        ],
-        initialValue: 'fluffy',
-      }),
-    );
+  const rootCssPath = await collectFileLocationFromUser({
+    message: 'Your global css file location (where you defined your tailwind directives)',
+    errorMessageName: 'Global css file',
+    initialValue: 'src/global.css',
+  });
 
-    /*
+  const uiComponentsPath = cancelable(
+    await text({
+      message: 'UI components folder',
+      initialValue: 'src/_components/ui',
+    }),
+  );
+
+  const selectedStyledKit = cancelable(
+    await select({
+      message: 'What is your preferred styled kit?',
+
+      options: [
+        { label: 'Fluffy', value: StyledKit.FLUFFY },
+        { label: 'Minimal', value: StyledKit.MINIMAL },
+      ],
+      initialValue: 'fluffy',
+    }),
+  );
+
+  /*
       
       1. Collect options from user
         * Project root (default: root /)
@@ -103,66 +166,84 @@ async function main() {
 
     */
 
-    // CREATE CONFIG FILE
-    // execSync(
-    //   `${getPackageManagerCommand().exec} nx g @qwik-ui/cli:init --interactive false`,
-    //   {
-    //     stdio: [0, 1, 2],
-    //   },
-    // );
+  // CREATE CONFIG FILE
+  execSync(
+    `${
+      getPackageManagerCommand().exec
+    } nx g @qwik-ui/cli:init --interactive false --project-root=${projectRoot} --ui-components-path=${uiComponentsPath} --styled-kit=${selectedStyledKit}`,
+    {
+      stdio: [0, 1, 2],
+    },
+  );
 
-    // INSTALL STYLED KIT
-    const styledPackage = styledPackagesMap[selectedStyledKit];
+  // INSTALL STYLED KIT
+  const styledPackage = styledPackagesMap[selectedStyledKit];
 
-    // execSync(`${getPackageManagerCommand().add} ${styledPackage}@latest`, {
-    //   stdio: [0, 1, 2],
-    // });
+  execSync(`${getPackageManagerCommand().add} ${styledPackage}@latest`, {
+    stdio: [0, 1, 2],
+  });
 
-    // SETUP TAILWIND
-    // execSync(
-    //   `${
-    //     getPackageManagerCommand().exec
-    //   } nx g ${styledPackage}:setup-tailwind --interactive false`,
-    //   {
-    //     stdio: [0, 1, 2],
-    //   },
-    // );
+  // SETUP TAILWIND
+  execSync(
+    `${
+      getPackageManagerCommand().exec
+    } nx g ${styledPackage}:setup-tailwind --interactive false --tailwind-config-path=${tailwindConfigPath} --root-css-path=${rootCssPath}`,
+    {
+      stdio: [0, 1, 2],
+    },
+  );
+}
 
-    // RUN ADD COMMAND
-  } else if (command === 'add') {
-    /*
+async function handleAdd() {
+  /*
       Collect options from user (which components to generate)
       run the generator with the options as arguments 
       (in the generator, have a map of dependencies per component type to install)
     */
-    // CHOOSE COMPONENTS TO ADD
-    // GENERATE COMPONENTS
-    // execSync(
-    //   `${
-    //     getPackageManagerCommand().exec
-    //   } nx g ${styledPackage}:component --interactive false`,
-    //   {
-    //     stdio: [0, 1, 2],
-    //   },
-    // );
-  } else {
-    log.error(
-      `Invalid command: ${red(command)}
-Please choose one of the following commands: ${green('init')}`,
-    );
-    cancel();
-    process.exit(1);
-  }
 
-  outro('Successfully initialized');
+  // READ CONFIG FILE TO GET OPTIONS
+  // WRAP LOGIC INTO A FUNCTION THAT ACCEPTS PARAMS SO IT COULD RUN FROM INIT AS WELL
+
+  // CHOOSE COMPONENTS TO ADD
+
+  if (!existsSync('qwik-ui.config.json')) {
+    exitWithError(
+      `qwik-ui.config.json not found, please run ${green('qwik-ui init')} first`,
+    );
+  }
+  const config = await readJsonFile<QwikUIConfig>('qwik-ui.config.json');
+  const styledPackage = styledPackagesMap[config.styledKit];
+
+  // GENERATE COMPONENTS
+  execSync(
+    `${
+      getPackageManagerCommand().exec
+    } nx g ${styledPackage}:component --interactive false`,
+    {
+      stdio: [0, 1, 2],
+    },
+  );
 }
 
-main();
+interface FilePromptInfo {
+  message: string;
+  errorMessageName: string;
+  initialValue?: string;
+}
 
-export function getCwd(): string {
-  return process.env.INIT_CWD?.startsWith(workspaceRoot)
-    ? process.env.INIT_CWD
-    : process.cwd();
+async function collectFileLocationFromUser(config: FilePromptInfo) {
+  const filePath = cancelable(
+    await text({
+      message: config.message,
+      initialValue: config.initialValue,
+    }),
+  );
+
+  if (!existsSync(filePath)) {
+    log.error(`${config.errorMessageName} not found at ${filePath}, want to try again?`);
+    return collectFileLocationFromUser({ ...config, initialValue: filePath });
+  }
+  return filePath;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
