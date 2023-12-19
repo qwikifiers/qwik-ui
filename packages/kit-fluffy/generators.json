@@ -1,9 +1,14 @@
 {
   "generators": {
-    "add": {
-      "factory": "./generators/add/generator",
-      "schema": "./generators/add/schema.json",
-      "description": "add generator"
+    "setup-tailwind": {
+      "factory": "./generators/setup-tailwind/generator",
+      "schema": "./generators/setup-tailwind/schema.json",
+      "description": "Setup Tailwind config generator"
+    },
+    "component": {
+      "factory": "./generators/component/generator",
+      "schema": "./generators/component/schema.json",
+      "description": "component generator"
     }
   }
 }

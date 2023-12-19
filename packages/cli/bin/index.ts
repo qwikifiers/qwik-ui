@@ -27,16 +27,18 @@ import {
   intro,
   isCancel,
   log,
+  multiselect,
   outro,
   select,
   spinner,
   text,
 } from '@clack/prompts';
 import { getPackageManagerCommand, readJsonFile, workspaceRoot } from '@nx/devkit';
+
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
-import { green, red } from 'kleur/colors';
-import yargs from 'yargs';
+import { bold, green, red } from 'kleur/colors';
+import yargs, { type CommandModule } from 'yargs';
 import { styledPackagesMap } from '../src/generators';
 import { StyledKit } from '../src/generators/init/styled-kit.enum';
 import { QwikUIConfig } from '../types/qwik-ui-config.type';
@@ -49,9 +51,7 @@ main();
 async function main() {
   console.clear();
 
-  const args = yargs(process.argv.slice(2))
-    .strict()
-    .command('$0 [command] ', 'the default command', (yargs) => withOptions);
+  const command = process.argv[2];
 
   if (!command) {
     exitWithError(
@@ -89,67 +89,105 @@ export function getCwd(): string {
 }
 
 async function handleInit() {
+  const InitCommand: CommandModule = {
+    command: 'init',
+    describe: 'Initialize Qwik UI',
+    builder: (yargs) =>
+      yargs
+        .option('projectRoot', {
+          description: 'The root of the project (default: "/")',
+          type: 'string',
+        })
+        .option('styledKit', {
+          description: 'Preferred styled kit',
+          type: 'string',
+          choices: [StyledKit.FLUFFY, StyledKit.MINIMAL],
+        })
+        .option('uiComponentsPath', {
+          description: 'Generated components folder',
+          type: 'string',
+        })
+        .option('rootCssPath', {
+          description:
+            'Global css file location (where you defined your tailwind directives)',
+          type: 'string',
+        }),
+    handler: () => {},
+  };
+
+  const args = await parseCommands(InitCommand);
+
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   await installNx();
 
-  const projectRoot = cancelable(
-    await text({
-      message: 'Specify the root of the project (leave empty for "/")',
-    }),
-  );
+  interface InitConfig {
+    projectRoot?: string;
+    styledKit?: StyledKit;
+    uiComponentsPath?: string;
+    rootCssPath?: string;
+  }
 
-  const tailwindConfigPath = await collectFileLocationFromUser({
-    message: 'Your tailwind config file location',
-    errorMessageName: 'Tailwind config file',
-    initialValue: './tailwind.config.js',
-  });
+  const config: InitConfig = {
+    projectRoot: args['projectRoot'] as string,
+    styledKit: args['styledKit'] as StyledKit,
+    uiComponentsPath: args['uiComponentsPath'] as string,
+    rootCssPath: args['rootCssPath'] as string,
+  };
 
-  const rootCssPath = await collectFileLocationFromUser({
-    message: 'Your global css file location (where you defined your tailwind directives)',
-    errorMessageName: 'Global css file',
-    initialValue: 'src/global.css',
-  });
+  if (!config.projectRoot) {
+    config.projectRoot = cancelable(
+      await text({
+        message: 'Specify the root of the project (leave empty for "/")',
+      }),
+    );
+  }
 
-  const uiComponentsPath = cancelable(
-    await text({
-      message: 'UI components folder',
-      initialValue: 'src/_components/ui',
-    }),
-  );
+  if (!config.styledKit) {
+    config.styledKit = cancelable(
+      await select({
+        message: 'What is your preferred styled kit?',
 
-  const selectedStyledKit = cancelable(
-    await select({
-      message: 'What is your preferred styled kit?',
+        options: [
+          { label: 'Fluffy', value: StyledKit.FLUFFY },
+          { label: 'Minimal', value: StyledKit.MINIMAL },
+        ],
+        initialValue: 'fluffy',
+      }),
+    );
+  }
 
-      options: [
-        { label: 'Fluffy', value: StyledKit.FLUFFY },
-        { label: 'Minimal', value: StyledKit.MINIMAL },
-      ],
-      initialValue: 'fluffy',
-    }),
-  );
+  if (!config.uiComponentsPath) {
+    config.uiComponentsPath = cancelable(
+      await text({
+        message: 'UI components folder',
+        initialValue: 'src/_components/ui',
+      }),
+    );
+  }
 
-  /*
-      
-      1. Collect options from user
-        * Project root (default: root /)
-        * tailwind config location (default: ./tailwind.config.js)
-        * global css location (default: ./src/global.css)
-
-    */
+  if (!config.rootCssPath) {
+    config.rootCssPath = await collectFileLocationFromUser({
+      message:
+        'Your global css file location (where you defined your tailwind directives)',
+      errorMessageName: 'Global css file',
+      initialValue: 'src/global.css',
+    });
+  }
 
   // CREATE CONFIG FILE
   execSync(
     `${
       getPackageManagerCommand().exec
-    } nx g @qwik-ui/cli:init --interactive false --project-root=${projectRoot} --ui-components-path=${uiComponentsPath} --styled-kit=${selectedStyledKit}`,
+    } nx g @qwik-ui/cli:init --interactive false --project-root=${
+      config.projectRoot
+    } --ui-components-path=${config.uiComponentsPath} --styled-kit=${config.styledKit}`,
     {
       stdio: [0, 1, 2],
     },
   );
 
   // INSTALL STYLED KIT
-  const styledPackage = styledPackagesMap[selectedStyledKit];
+  const styledPackage = styledPackagesMap[config.styledKit];
 
   execSync(`${getPackageManagerCommand().add} ${styledPackage}@latest`, {
     stdio: [0, 1, 2],
@@ -159,7 +197,9 @@ async function handleInit() {
   execSync(
     `${
       getPackageManagerCommand().exec
-    } nx g ${styledPackage}:setup-tailwind --interactive false --tailwind-config-path=${tailwindConfigPath} --root-css-path=${rootCssPath}`,
+    } nx g ${styledPackage}:setup-tailwind --interactive false --project-root=${
+      config.projectRoot
+    }  --root-css-path=${config.rootCssPath}`,
     {
       stdio: [0, 1, 2],
     },
@@ -167,6 +207,7 @@ async function handleInit() {
 }
 
 async function installNx() {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const nxVersion = require('../package.json').dependencies['@nx/devkit'];
 
   if (existsSync('nx.json')) {
@@ -192,17 +233,6 @@ async function installNx() {
 }
 
 async function handleAdd() {
-  /*
-      Collect options from user (which components to generate)
-      run the generator with the options as arguments 
-      (in the generator, have a map of dependencies per component type to install)
-    */
-
-  // READ CONFIG FILE TO GET OPTIONS
-  // WRAP LOGIC INTO A FUNCTION THAT ACCEPTS PARAMS SO IT COULD RUN FROM INIT AS WELL
-
-  // CHOOSE COMPONENTS TO ADD
-
   if (!existsSync('qwik-ui.config.json')) {
     exitWithError(
       `qwik-ui.config.json not found, please run ${green('qwik-ui init')} first`,
@@ -211,15 +241,79 @@ async function handleAdd() {
   const config = await readJsonFile<QwikUIConfig>('qwik-ui.config.json');
   const styledPackage = styledPackagesMap[config.styledKit];
 
+  // read config file to collect components and add to description below
+
+  const componentsJsonPath = require.resolve(`${styledPackage}/components.json`);
+  const components = readJsonFile<{
+    [key: string]: {
+      files: string[];
+    };
+  }>(componentsJsonPath);
+
+  const possibleComponents = Object.keys(components);
+
+  const AddCommand: CommandModule = {
+    command: 'add <components>',
+    describe: 'Add components to your project',
+    builder: (yargs) =>
+      yargs
+        .positional('components', {
+          description: `Choose which components to add
+Options: [${possibleComponents.join(', ')}]`,
+          type: 'string',
+          coerce: (components) => components.split(',').map((c) => c.trim()),
+        })
+        .option('projectRoot', {
+          description: 'The root of the project (default: "/")',
+          type: 'string',
+          default: '/',
+        }),
+    handler: () => {},
+  };
+
+  const args = parseCommands(AddCommand);
+
+  let componentsToAdd = args['components'] as string[];
+  if (!componentsToAdd) {
+    componentsToAdd = cancelable(
+      await multiselect({
+        message: `Choose which components to add`,
+        options: possibleComponents.map((c) => ({
+          label: capitalizeFirstLetter(c),
+          value: c,
+        })),
+      }),
+    );
+  }
+  /*
+     
+      run the generator with the options as arguments 
+      (in the generator, have a map of dependencies per component type to install)
+    */
+
+  // CHOOSE COMPONENTS TO ADD
+
   // GENERATE COMPONENTS
   execSync(
     `${
       getPackageManagerCommand().exec
-    } nx g ${styledPackage}:component --interactive false`,
+    } nx g ${styledPackage}:component ${possibleComponents.join(
+      ',',
+    )} --interactive false`,
     {
       stdio: [0, 1, 2],
     },
   );
+}
+
+function parseCommands(command: CommandModule) {
+  return yargs(process.argv.slice(2))
+    .strict()
+    .scriptName('qwik-ui')
+    .usage(bold('Usage: $0 <command> [options]'))
+    .demandCommand(1)
+    .command(command)
+    .help().argv;
 }
 
 interface FilePromptInfo {
@@ -250,4 +344,8 @@ function cancelable(result: any) {
     process.exit(0);
   }
   return result;
+}
+
+function capitalizeFirstLetter(word: string) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }

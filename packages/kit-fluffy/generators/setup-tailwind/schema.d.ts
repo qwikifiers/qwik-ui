@@ -1,9 +1,4 @@
-import { StyledKit } from './styled-kit.enum';
-
-export interface InitGeneratorSchema {
+export interface SetupTailwindGeneratorSchema {
   projectRoot?: string;
   rootCssPath?: string;
-  tailwindConfigPath?: string;
-  styledKit?: StyledKit;
-  componentsRoot?: string;
 }

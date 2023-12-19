@@ -27,6 +27,7 @@ import {
   intro,
   isCancel,
   log,
+  multiselect,
   outro,
   select,
   spinner,
@@ -35,7 +36,7 @@ import {
 import { getPackageManagerCommand, readJsonFile, workspaceRoot } from '@nx/devkit';
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
-import { green, red } from 'kleur/colors';
+import { bold, green, red } from 'kleur/colors';
 import yargs from 'yargs';
 import { styledPackagesMap } from '../src/generators';
 import { StyledKit } from '../src/generators/init/styled-kit.enum';
@@ -50,12 +51,66 @@ const COMMANDS = ['init', 'add'];
 const listOfCommands = COMMANDS.join(', ');
 
 async function main() {
-  const args = yargs(process.argv.slice(2)).strict().demandCommand(1).options({
-    component: {},
-  });
-  console.log('args', args.command);
+  const possibleComponents = [
+    'button',
+    'input',
+    'checkbox',
+    'radio',
+    'select',
+    'textarea',
+  ];
 
-  const command = process.argv[2]; // TODO: use libraries like yargs or enquirer to set your workspace name
+  const componentsToAdd = cancelable(
+    await multiselect({
+      message: `Choose which components to add`,
+      options: possibleComponents.map((c) => ({
+        label: capitalizeFirstLetter(c),
+        value: c,
+      })),
+    }),
+  );
+
+  console.log('componentsToAdd', componentsToAdd);
+
+  const command = process.argv[2];
+  const args = yargs(process.argv.slice(2))
+    .strict()
+    .scriptName('qwik-ui')
+    .usage(bold('Usage: $0 <command> [options]'))
+    .demandCommand(1)
+    .command('init', 'Initialize Qwik UI', (yargs) =>
+      yargs
+        .positional('components', {
+          description: 'Choose which components to add',
+          type: 'string',
+          coerce: (components) => components.split(',').map((c) => c.trim()),
+        })
+        .option('projectRoot', {
+          description: 'The root of the project (default: "/")',
+          type: 'string',
+          default: '/',
+        })
+        .option('styledKit', {
+          description: 'What is your preferred styled kit',
+          type: 'string',
+          default: StyledKit.FLUFFY,
+        }),
+    )
+    .command('add <components>', 'Add components to your project', (yargs) =>
+      yargs
+        .positional('components', {
+          description: 'Choose which components to add',
+          type: 'string',
+          coerce: (components) => components.split(',').map((c) => c.trim()),
+        })
+        .option('projectRoot', {
+          description: 'The root of the project (default: "/")',
+          type: 'string',
+          default: '/',
+        }),
+    )
+    .help().argv;
+
   if (!command) {
     exitWithError(
       `A command is missing, please choose one of the following commands: ${green(
@@ -253,4 +308,8 @@ function cancelable(result: any) {
     process.exit(0);
   }
   return result;
+}
+
+function capitalizeFirstLetter(word: string) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }

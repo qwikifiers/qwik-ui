@@ -38,7 +38,7 @@
       }
     },
 
-    "test": {
+    "test-generators": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
