@@ -1,5 +1,5 @@
-import { Tree, formatFiles, joinPathFragments } from '@nx/devkit';
-import { existsSync, readFileSync } from 'fs';
+import { Tree, formatFiles, joinPathFragments, workspaceRoot } from '@nx/devkit';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 import { SetupTailwindGeneratorSchema } from './schema';
 
@@ -9,6 +9,59 @@ export async function setupTailwindGenerator(
 ) {
   const globalCssPath = options.rootCssPath ?? 'src/global.css';
 
+  options.projectRoot = options.projectRoot ?? '';
+
+  updateTailwindConfig(tree, options.projectRoot);
+
+  updateRootCss(tree, globalCssPath);
+
+  await formatFiles(tree);
+}
+
+function updateTailwindConfig(tree: Tree, projectRoot: string) {
+  const tailwindConfigPath = getTailwindConfigPath(tree, projectRoot, workspaceRoot);
+
+  if (!tailwindConfigPath) {
+    throw new Error('Could not find a tailwind config file');
+  }
+
+  const tailwindConfigContent = tree.read(tailwindConfigPath, 'utf-8');
+
+  if (!tailwindConfigContent) {
+    throw new Error('Could not read the tailwind config file');
+  }
+
+  const tailwindConfigTemplatePath = joinPathFragments(
+    __dirname,
+    '..',
+    '..',
+    'src',
+    'templates',
+    'tailwind.extend._template',
+  );
+
+  const cssVarsTemplate = readFileSync(tailwindConfigTemplatePath, 'utf-8');
+
+  const extendKeyword = /\bextend:\s*\{/;
+
+  const match = tailwindConfigContent.match(extendKeyword);
+  console.log('**** MATCH', match);
+  if (!match || !match.index) {
+    throw new Error('Could not find the "extend" property in your tailwind config file');
+  }
+
+  if (match && match.index) {
+    const startIndex = match.index + match[0].length;
+    const modifiedTailwindConfigContent =
+      tailwindConfigContent.slice(0, startIndex) +
+      cssVarsTemplate +
+      tailwindConfigContent.slice(startIndex);
+
+    tree.write(tailwindConfigPath, modifiedTailwindConfigContent);
+  }
+}
+
+function updateRootCss(tree: Tree, globalCssPath: string) {
   const rootCssContent = tree.read(globalCssPath, 'utf-8');
 
   const tailwindUtilsDirective = '@tailwind utilities;';
@@ -44,12 +97,11 @@ export async function setupTailwindGenerator(
   `;
 
   tree.write(globalCssPath, updatedGlobalCssContent);
-
-  await formatFiles(tree);
 }
 
 // CREDIT FOR CODE: Nx Angular plugin
 function getTailwindConfigPath(
+  tree: Tree,
   projectRoot: string,
   workspaceRoot: string,
 ): string | undefined {
@@ -64,7 +116,7 @@ function getTailwindConfigPath(
   for (const basePath of [projectRoot, workspaceRoot]) {
     for (const configFile of tailwindConfigFiles) {
       const fullPath = join(basePath, configFile);
-      if (existsSync(fullPath)) {
+      if (tree.read(fullPath)) {
         return fullPath;
       }
     }

@@ -76,9 +76,7 @@ html {
 
       /** @type {import('tailwindcss').Config} */
       module.exports = {
-        content: [
-          join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
-        ],
+        content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
         darkMode: 'class',
         theme: {
           screens: {
@@ -90,16 +88,13 @@ html {
           },
           important: true,
           extend: {
-            fontFamily: {
-              sans: ['Inter Variable', 'sans-serif'],
-            },
             colors: {
               border: 'hsl(var(--color-border) / <alpha-value>)',
               input: 'hsl(var(--color-input) / <alpha-value>)',
               ring: 'hsl(var(--color-ring) / <alpha-value>)',
               background: 'hsl(var(--color-background) / <alpha-value>)',
               foreground: 'hsl(var(--color-foreground) / <alpha-value>)',
-      
+
               primary: {
                 DEFAULT: 'hsl(var(--color-primary) / <alpha-value>)',
                 foreground: 'hsl(var(--color-primary-foreground) / <alpha-value>)',
@@ -118,7 +113,8 @@ html {
               },
               destructive: {
                 DEFAULT: 'hsl(var(--color-destructive) / <alpha-value>)',
-                foreground: 'hsl(var(--color-destructive-foreground) / <alpha-value>)',
+                foreground:
+                  'hsl(var(--color-destructive-foreground) / <alpha-value>)',
               },
               popover: {
                 DEFAULT: 'hsl(var(--color-popover) / <alpha-value>)',
@@ -134,9 +130,14 @@ html {
               md: 'calc(var(--border-radius) - 2px)',
               sm: 'calc(var(--border-radius) - 4px)',
             },
+            fontFamily: {
+              sans: ['Inter Variable', 'sans-serif'],
+            },
           },
         },
-      };"`);
+      };
+      "
+    `);
 
     const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
 
