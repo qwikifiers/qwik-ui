@@ -244,13 +244,22 @@ async function handleAdd() {
   // read config file to collect components and add to description below
 
   const componentsJsonPath = require.resolve(`${styledPackage}/components.json`);
-  const components = readJsonFile<{
-    [key: string]: {
+  const componentsJson = readJsonFile<{
+    componentsRoot: string;
+    components: {
+      name: string;
+      type: string;
+      componentFolder: string;
       files: string[];
-    };
+    }[];
   }>(componentsJsonPath);
 
-  const possibleComponents = Object.keys(components);
+  const possibleComponents = componentsJson.components;
+  const possibleComponentNames = componentsJson.components.map((c) => c.name);
+  const componentsMap = componentsJson.components.reduce((acc, curr) => {
+    acc[curr.name] = curr;
+    return acc;
+  }, {} as Record<string, (typeof componentsJson.components)[0]>);
 
   const AddCommand: CommandModule = {
     command: 'add <components>',
@@ -259,9 +268,9 @@ async function handleAdd() {
       yargs
         .positional('components', {
           description: `Choose which components to add
-Options: [${possibleComponents.join(', ')}]`,
+Options: [${possibleComponentNames.join(', ')}]`,
           type: 'string',
-          coerce: (components) => components.split(',').map((c) => c.trim()),
+          coerce: (components) => componentTypesFromString(components),
         })
         .option('projectRoot', {
           description: 'The root of the project (default: "/")',
@@ -271,6 +280,12 @@ Options: [${possibleComponents.join(', ')}]`,
     handler: () => {},
   };
 
+  function componentTypesFromString(components: string) {
+    return components.split(',').map((c) => {
+      return componentsMap[c.trim()].type;
+    });
+  }
+
   const args = parseCommands(AddCommand);
 
   let componentsToAdd = args['components'] as string[];
@@ -279,8 +294,8 @@ Options: [${possibleComponents.join(', ')}]`,
       await multiselect({
         message: `Choose which components to add`,
         options: possibleComponents.map((c) => ({
-          label: capitalizeFirstLetter(c),
-          value: c,
+          label: c.name,
+          value: c.type,
         })),
       }),
     );
@@ -297,9 +312,7 @@ Options: [${possibleComponents.join(', ')}]`,
   execSync(
     `${
       getPackageManagerCommand().exec
-    } nx g ${styledPackage}:component ${possibleComponents.join(
-      ',',
-    )} --interactive false`,
+    } nx g ${styledPackage}:component ${componentsToAdd.join(',')} --interactive false`,
     {
       stdio: [0, 1, 2],
     },

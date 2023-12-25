@@ -1,5 +1,11 @@
 {
-  "Button": {
-    "files": ["src/components/button/button.tsx"]
-  }
+  "componentsRoot": "src/components",
+  "components": [
+    {
+      "displayName": "Button",
+      "type": "button",
+      "componentFolder": "button",
+      "files": ["button.tsx"]
+    }
+  ]
 }

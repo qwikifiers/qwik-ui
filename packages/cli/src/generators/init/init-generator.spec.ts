@@ -1,6 +1,5 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 
-import { readJson } from '@nx/devkit';
 import { QWIK_UI_CONFIG_FILENAME, initGenerator } from './init-generator';
 import * as installStyleKitModule from './install-styled-kit';
 import { InitGeneratorSchema } from './schema';
@@ -29,9 +28,8 @@ describe('init generator', () => {
 
     await initGenerator(tree, options);
 
-    expect(tree.exists('qwik-ui.config.json')).toBeTruthy();
     const expectedContents = tree.read(QWIK_UI_CONFIG_FILENAME, 'utf-8');
-    readJson(tree, QWIK_UI_CONFIG_FILENAME);
+
     expect(expectedContents).toMatchInlineSnapshot(`
       "{
         \\"componentsRoot\\": \\"src/_components/ui\\",
@@ -69,9 +67,6 @@ describe('init generator', () => {
 
   /*
   CHALLENGES TO SOLVE:
-  - use init generator for vars and tailwind config templates inside of fluffy
-  - run specific "init" generator for the selected styled kit
-  - modify tailwind config
   - run "add" generator right after init (use the yargs to know which one)
 
   */

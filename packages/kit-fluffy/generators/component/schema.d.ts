@@ -1,3 +1,3 @@
-export interface AddGeneratorSchema {
-  name: string;
+export interface ComponentGeneratorSchema {
+  type?: string;
 }
