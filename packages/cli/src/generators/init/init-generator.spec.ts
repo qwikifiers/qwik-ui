@@ -32,7 +32,7 @@ describe('init generator', () => {
 
     expect(expectedContents).toMatchInlineSnapshot(`
       "{
-        \\"componentsRoot\\": \\"src/_components/ui\\",
+        \\"componentsRoot\\": \\"src/components/ui\\",
         \\"styledKit\\": \\"fluffy\\",
         \\"rootCssPath\\": \\"src/global.css\\",
         \\"tailwindConfigPath\\": \\"tailwind.config.js\\"

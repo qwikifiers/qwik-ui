@@ -1,26 +1,5 @@
 #!/usr/bin/env node
 
-/*
-STEPS
-
-1. Check for the "init" command
-
-  1. Check if nx is present (package.json? nx.json?)
-
-  2. If it isn't present, run nx@latest init
-
-  3. IF it is present (or after installation), run the rest of the init command
-
-  4. Ask questions about component locations etc (css vars?)
-
-  5. create the necessary files
-
-2. Check for the "add" command
-
-  2.1 run the correct generator
-
-*/
-
 import {
   cancel,
   confirm,
@@ -39,7 +18,7 @@ import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 import { bold, green, red } from 'kleur/colors';
 import yargs, { type CommandModule } from 'yargs';
-import { styledPackagesMap } from '../src/generators';
+import { QWIK_UI_CONFIG_FILENAME, styledPackagesMap } from '../src/generators';
 import { StyledKit } from '../src/generators/init/styled-kit.enum';
 import { QwikUIConfig } from '../types/qwik-ui-config.type';
 
@@ -73,7 +52,7 @@ async function main() {
 Please choose one of the following commands: ${green(listOfCommands)}`,
     );
   }
-  outro('Successfully initialized fluffy');
+  outro('Successfully initialized Qwik UI! 🎉');
 }
 
 async function handleInit() {
@@ -106,7 +85,7 @@ async function handleInit() {
   const args = await parseCommands(InitCommand);
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  await installNx();
+  await installNxIfNeeded();
 
   interface InitConfig {
     projectRoot?: string;
@@ -126,6 +105,7 @@ async function handleInit() {
     config.projectRoot = cancelable(
       await text({
         message: 'Specify the root of the project (leave empty for "/")',
+        initialValue: '/',
       }),
     );
   }
@@ -148,7 +128,7 @@ async function handleInit() {
     config.uiComponentsPath = cancelable(
       await text({
         message: 'UI components folder',
-        initialValue: 'src/_components/ui',
+        initialValue: 'src/components/ui',
       }),
     );
   }
@@ -162,6 +142,25 @@ async function handleInit() {
     });
   }
 
+  // INSTALL TAILWIND IF NEEDED
+  const tailwindInstalled = cancelable(
+    await confirm({
+      message: 'Do you already have Tailwind installed? (required)',
+      initialValue: true,
+    }),
+  );
+
+  if (!tailwindInstalled) {
+    execSync(`${getPackageManagerCommand().exec} qwik add tailwind`, {
+      stdio: 'inherit',
+    });
+  }
+
+  // ADD QWIK UI CLI TO DEPENDENCIES
+  execSync(`${getPackageManagerCommand().add} qwik-ui@latest`, {
+    stdio: 'inherit',
+  });
+
   // CREATE CONFIG FILE
   execSync(
     `${
@@ -170,7 +169,7 @@ async function handleInit() {
       config.projectRoot
     } --ui-components-path=${config.uiComponentsPath} --styled-kit=${config.styledKit}`,
     {
-      stdio: [0, 1, 2],
+      stdio: 'inherit',
     },
   );
 
@@ -178,7 +177,7 @@ async function handleInit() {
   const styledPackage = styledPackagesMap[config.styledKit];
 
   execSync(`${getPackageManagerCommand().add} ${styledPackage}@latest`, {
-    stdio: [0, 1, 2],
+    stdio: 'inherit',
   });
 
   // SETUP TAILWIND
@@ -189,44 +188,50 @@ async function handleInit() {
       config.projectRoot
     }  --root-css-path=${config.rootCssPath}`,
     {
-      stdio: [0, 1, 2],
+      stdio: 'inherit',
     },
   );
+
+  handleAdd(config.projectRoot);
 }
 
-async function installNx() {
+async function installNxIfNeeded() {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const nxVersion = require('../package.json').dependencies['@nx/devkit'];
+  // const nxVersion = require('../package.json').dependencies['@nx/devkit'];
 
   if (existsSync('nx.json')) {
     log.info('seems like nx.json already exists. cool!');
   } else {
-    const haveNxInstalled = cancelable(
-      await confirm({
-        message: 'Do you already have Nx installed? (required)',
-        initialValue: false,
-      }),
-    );
+    // const haveNxInstalled = cancelable(
+    //   await confirm({
+    //     message: 'Do you already have Nx installed? (required)',
+    //     initialValue: false,
+    //   }),
+    // );
 
-    if (!haveNxInstalled) {
-      const initSpinner = spinner();
-      initSpinner.start('Installing Nx...');
-      execSync(`npx --yes nx@${nxVersion} init --interactive false`, {
-        stdio: [0, 1, 2],
-      });
-      initSpinner.stop('Installed Nx!');
-    }
-    log.success('nx init done');
+    // if (!haveNxInstalled) {
+    const initSpinner = spinner();
+    log.info('Installing Nx...');
+    initSpinner.start('Installing Nx...');
+    execSync(`${getPackageManagerCommand().add} nx@latest`, {
+      stdio: 'inherit',
+    });
+    execSync(`${getPackageManagerCommand().exec} nx init --interactive false`, {
+      stdio: 'inherit',
+    });
+    initSpinner.stop('Installed Nx!');
   }
+  log.success('nx init done');
+  // }
 }
 
-async function handleAdd() {
-  if (!existsSync('qwik-ui.config.json')) {
+async function handleAdd(projectRoot?: string) {
+  if (!existsSync(QWIK_UI_CONFIG_FILENAME)) {
     exitWithError(
-      `qwik-ui.config.json not found, please run ${green('qwik-ui init')} first`,
+      `${QWIK_UI_CONFIG_FILENAME} not found, please run ${green('qwik-ui init')} first`,
     );
   }
-  const config = await readJsonFile<QwikUIConfig>('qwik-ui.config.json');
+  const config = await readJsonFile<QwikUIConfig>(QWIK_UI_CONFIG_FILENAME);
   const styledPackage = styledPackagesMap[config.styledKit];
 
   // read config file to collect components and add to description below
@@ -235,7 +240,7 @@ async function handleAdd() {
   const componentsJson = readJsonFile<{
     componentsRoot: string;
     components: {
-      name: string;
+      displayName: string;
       type: string;
       componentFolder: string;
       files: string[];
@@ -243,14 +248,15 @@ async function handleAdd() {
   }>(componentsJsonPath);
 
   const possibleComponents = componentsJson.components;
-  const possibleComponentNames = componentsJson.components.map((c) => c.name);
+  const possibleComponentNames = componentsJson.components.map((c) => c.displayName);
   const componentsMap = componentsJson.components.reduce((acc, curr) => {
-    acc[curr.name] = curr;
+    acc[curr.displayName] = curr;
     return acc;
   }, {} as Record<string, (typeof componentsJson.components)[0]>);
 
   const AddCommand: CommandModule = {
     command: 'add <components>',
+
     describe: 'Add components to your project',
     builder: (yargs) =>
       yargs
@@ -263,7 +269,6 @@ Options: [${possibleComponentNames.join(', ')}]`,
         .option('projectRoot', {
           description: 'The root of the project (default: "/")',
           type: 'string',
-          default: '/',
         }),
     handler: () => {},
   };
@@ -276,33 +281,39 @@ Options: [${possibleComponentNames.join(', ')}]`,
 
   const args = parseCommands(AddCommand);
 
+  if (!projectRoot && !args['projectRoot']) {
+    projectRoot = cancelable(
+      await text({
+        message: 'Specify the root of the project (leave empty for "/")',
+        initialValue: '/',
+      }),
+    );
+  }
+
+  // CHOOSE COMPONENTS TO ADD
+
   let componentsToAdd = args['components'] as string[];
   if (!componentsToAdd) {
     componentsToAdd = cancelable(
       await multiselect({
         message: `Choose which components to add`,
         options: possibleComponents.map((c) => ({
-          label: c.name,
+          label: c.displayName,
           value: c.type,
         })),
       }),
     );
   }
-  /*
-     
-      run the generator with the options as arguments 
-      (in the generator, have a map of dependencies per component type to install)
-    */
-
-  // CHOOSE COMPONENTS TO ADD
 
   // GENERATE COMPONENTS
   execSync(
     `${
       getPackageManagerCommand().exec
-    } nx g ${styledPackage}:component ${componentsToAdd.join(',')} --interactive false`,
+    } nx g ${styledPackage}:component ${componentsToAdd.join(
+      ',',
+    )} --interactive false --project-root=${projectRoot}`,
     {
-      stdio: [0, 1, 2],
+      stdio: 'inherit',
     },
   );
 }

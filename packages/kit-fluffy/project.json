@@ -1,33 +1,42 @@
 {
   "name": "fluffy",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/kit-fluffy/src",
+  "sourceRoot": "packages/kit-fluffy/src/generators",
   "projectType": "library",
   "targets": {
-    "build-bin": {
+    "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
-
       "options": {
-        "main": "packages/kit-fluffy/bin/index.ts",
+        "main": "packages/kit-fluffy/src/generators/index.ts",
         "outputPath": "dist/packages/kit-fluffy",
-        "tsConfig": "packages/kit-fluffy/tsconfig.bin.json"
-      }
-    },
-    "build-generators": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "dependsOn": ["build-bin"],
-      "options": {
-        "main": "packages/kit-fluffy/generators/index.ts",
-        "outputPath": "dist/packages/kit-fluffy",
-        "tsConfig": "packages/kit-fluffy/tsconfig.lib.json",
+        "tsConfig": "packages/kit-fluffy/tsconfig.generators.json",
         "assets": [
           "packages/kit-fluffy/*.md",
           {
-            "input": "./packages/kit-fluffy/src",
+            "input": "./packages/kit-fluffy/src/components",
             "glob": "**/*.(ts|tsx)",
-            "output": "./src"
+            "output": "./src/components"
+          },
+          {
+            "input": "./packages/kit-fluffy/src/templates",
+            "glob": "**/*.*",
+            "output": "./src/templates"
+          },
+          {
+            "input": "./packages/kit-fluffy/src/generators",
+            "glob": "**/!(*.ts)",
+            "output": "./src/generators"
+          },
+          {
+            "input": "./packages/kit-fluffy/src/generators",
+            "glob": "**/*.d.ts",
+            "output": "./src/generators"
+          },
+          {
+            "input": "./packages/kit-fluffy",
+            "glob": "components.json",
+            "output": "."
           },
           {
             "input": "./packages/kit-fluffy",
@@ -42,8 +51,7 @@
         ]
       }
     },
-    "build": {
-      "dependsOn": ["build-bin"],
+    "build-components": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",

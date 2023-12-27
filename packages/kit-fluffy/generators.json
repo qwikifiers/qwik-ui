@@ -1,14 +1,14 @@
 {
   "generators": {
     "setup-tailwind": {
-      "factory": "./generators/setup-tailwind/generator",
-      "schema": "./generators/setup-tailwind/schema.json",
+      "factory": "./src/generators/setup-tailwind/setup-tailwind-generator",
+      "schema": "./src/generators/setup-tailwind/schema.json",
       "description": "Setup Tailwind config generator"
     },
     "component": {
-      "factory": "./generators/component/generator",
-      "schema": "./generators/component/schema.json",
-      "description": "component generator"
+      "factory": "./src/generators/component/component-generator",
+      "schema": "./src/generators/component/schema.json",
+      "description": "Component generator"
     }
   }
 }

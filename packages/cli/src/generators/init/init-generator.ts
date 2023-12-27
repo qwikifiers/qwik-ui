@@ -17,7 +17,7 @@ export async function initGenerator(tree: Tree, options: InitGeneratorSchema) {
 
   options.projectRoot ||= '/';
   options.styledKit ||= StyledKit.FLUFFY;
-  options.componentsRoot ||= 'src/_components/ui';
+  options.componentsRoot ||= 'src/components/ui';
 
   const fullConfigPath = joinPathFragments(options.projectRoot, QWIK_UI_CONFIG_FILENAME);
 

@@ -35,7 +35,6 @@ function updateTailwindConfig(tree: Tree, projectRoot: string) {
     __dirname,
     '..',
     '..',
-    'src',
     'templates',
     'tailwind.extend._template',
   );
@@ -45,7 +44,7 @@ function updateTailwindConfig(tree: Tree, projectRoot: string) {
   const extendKeyword = /\bextend:\s*\{/;
 
   const match = tailwindConfigContent.match(extendKeyword);
-  console.log('**** MATCH', match);
+
   if (!match || !match.index) {
     throw new Error('Could not find the "extend" property in your tailwind config file');
   }
@@ -85,7 +84,6 @@ function updateRootCss(tree: Tree, globalCssPath: string) {
     __dirname,
     '..',
     '..',
-    'src',
     'templates',
     'root.css_template',
   );
@@ -124,3 +122,5 @@ function getTailwindConfigPath(
 
   return undefined;
 }
+
+export default setupTailwindGenerator;
