@@ -24,15 +24,29 @@ describe('Component generator', () => {
   }
 
   test(`
-    GIVEN empty workspace
+    GIVEN workspace with a config file
     WHEN generating a button
-    THEN it should place the proper button files in the right place`, async () => {
+    THEN it should create the button file in the right place`, async () => {
     const { tree, options } = setupWorkspace();
 
-    options.type = 'button';
+    options.types = 'button';
 
     await componentGenerator(tree, options);
 
     expect(tree.exists(`${DEFAULT_COMPONENTS_LOCATION}/button/button.tsx`)).toBeTruthy();
+  });
+
+  test(`
+    GIVEN workspace with a config file
+    WHEN generating a button and an input
+    THEN it should create the button and input files in the right place`, async () => {
+    const { tree, options } = setupWorkspace();
+
+    options.types = 'button, input';
+
+    await componentGenerator(tree, options);
+
+    expect(tree.exists(`${DEFAULT_COMPONENTS_LOCATION}/button/button.tsx`)).toBeTruthy();
+    expect(tree.exists(`${DEFAULT_COMPONENTS_LOCATION}/input/input.tsx`)).toBeTruthy();
   });
 });

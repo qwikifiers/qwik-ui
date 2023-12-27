@@ -4,15 +4,15 @@
   "title": "",
   "type": "object",
   "properties": {
-    "name": {
+    "types": {
       "type": "string",
       "description": "",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use?"
+      "x-prompt": "Which components would you like to generate?"
     }
   },
-  "required": ["name"]
+  "required": ["types"]
 }

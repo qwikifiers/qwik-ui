@@ -1,3 +1,3 @@
 export interface ComponentGeneratorSchema {
-  type?: string;
+  types?: string;
 }

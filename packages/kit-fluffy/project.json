@@ -17,7 +17,7 @@
     "build-generators": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
-
+      "dependsOn": ["build-bin"],
       "options": {
         "main": "packages/kit-fluffy/generators/index.ts",
         "outputPath": "dist/packages/kit-fluffy",

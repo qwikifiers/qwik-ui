@@ -76,18 +76,6 @@ Please choose one of the following commands: ${green(listOfCommands)}`,
   outro('Successfully initialized fluffy');
 }
 
-function exitWithError(message: string) {
-  log.error(message);
-  cancel();
-  process.exit(1);
-}
-
-export function getCwd(): string {
-  return process.env.INIT_CWD?.startsWith(workspaceRoot)
-    ? process.env.INIT_CWD
-    : process.cwd();
-}
-
 async function handleInit() {
   const InitCommand: CommandModule = {
     command: 'init',
@@ -178,7 +166,7 @@ async function handleInit() {
   execSync(
     `${
       getPackageManagerCommand().exec
-    } nx g @qwik-ui/cli:init --interactive false --project-root=${
+    } nx g qwik-ui:init --interactive false --project-root=${
       config.projectRoot
     } --ui-components-path=${config.uiComponentsPath} --styled-kit=${config.styledKit}`,
     {
@@ -359,6 +347,18 @@ function cancelable(result: any) {
   return result;
 }
 
-function capitalizeFirstLetter(word: string) {
-  return word.charAt(0).toUpperCase() + word.slice(1);
+// function capitalizeFirstLetter(word: string) {
+//   return word.charAt(0).toUpperCase() + word.slice(1);
+// }
+
+function exitWithError(message: string) {
+  log.error(message);
+  cancel();
+  process.exit(1);
+}
+
+export function getCwd(): string {
+  return process.env.INIT_CWD?.startsWith(workspaceRoot)
+    ? process.env.INIT_CWD
+    : process.cwd();
 }

@@ -8,8 +8,8 @@ export const QWIK_UI_CONFIG_FILENAME = 'qwik-ui.config.json';
 export async function componentGenerator(tree: Tree, options: ComponentGeneratorSchema) {
   const configContent = tree.read(QWIK_UI_CONFIG_FILENAME, 'utf-8');
 
-  if (!options.type) {
-    throw new Error('You must specify a component type');
+  if (!options.types) {
+    throw new Error('You must specify at least one component type');
   }
   if (!configContent) {
     throw new Error(`Could not find ${QWIK_UI_CONFIG_FILENAME}`);
@@ -38,16 +38,16 @@ export async function componentGenerator(tree: Tree, options: ComponentGenerator
 
   const componentTypes = componentsJson.components.map((component) => component.type);
 
-  if (componentTypes.indexOf(options.type) === -1) {
-    throw new Error(`${options.type} is not a registered component.
+  if (componentTypes.indexOf(options.types) === -1) {
+    throw new Error(`${options.types} is not a registered component.
 Please file an issue if you want it to be implemented.`);
   }
 
   const selectedComponent = componentsJson.components.find(
-    (component) => component.type === options.type,
+    (component) => component.type === options.types,
   );
   if (!selectedComponent) {
-    throw new Error(`Could not find ${options.type} in ${componentsJsonPath}`);
+    throw new Error(`Could not find ${options.types} in ${componentsJsonPath}`);
   }
 
   selectedComponent.files.forEach((file: string) => {
