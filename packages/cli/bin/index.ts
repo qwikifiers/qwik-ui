@@ -44,6 +44,7 @@ async function main() {
 
   if (command === 'init') {
     await handleInit();
+    log.success('Successfully initialized Qwik UI! 🎉');
   } else if (command === 'add') {
     await handleAdd();
   } else {
@@ -52,7 +53,7 @@ async function main() {
 Please choose one of the following commands: ${green(listOfCommands)}`,
     );
   }
-  outro('Successfully initialized Qwik UI! 🎉');
+  outro('Done! 💪');
 }
 
 async function handleInit() {
@@ -192,7 +193,7 @@ async function handleInit() {
     },
   );
 
-  handleAdd(config.projectRoot);
+  await handleAdd(config.projectRoot);
 }
 
 async function installNxIfNeeded() {
@@ -254,6 +255,7 @@ async function handleAdd(projectRoot?: string) {
     return acc;
   }, {} as Record<string, (typeof componentsJson.components)[0]>);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const AddCommand: CommandModule = {
     command: 'add <components>',
 
@@ -279,7 +281,9 @@ Options: [${possibleComponentNames.join(', ')}]`,
     });
   }
 
-  const args = parseCommands(AddCommand);
+  // const args = parseCommands(AddCommand);
+
+  const args = {};
 
   if (!projectRoot && !args['projectRoot']) {
     projectRoot = cancelable(
@@ -316,6 +320,8 @@ Options: [${possibleComponentNames.join(', ')}]`,
       stdio: 'inherit',
     },
   );
+
+  log.success(`Successfully added ${componentsToAdd.join(',')} to your project! 🎉`);
 }
 
 function parseCommands(command: CommandModule) {

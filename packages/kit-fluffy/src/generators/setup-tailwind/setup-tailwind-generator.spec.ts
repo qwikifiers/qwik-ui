@@ -222,7 +222,5 @@ html {
       }
       "
     `);
-
-    expect(true).toEqual(true);
   });
 });

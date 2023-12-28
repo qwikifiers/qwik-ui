@@ -7,7 +7,6 @@
     "build-bin": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
-
       "options": {
         "main": "packages/cli/bin/index.ts",
         "outputPath": "dist/packages/cli",
@@ -16,8 +15,8 @@
     },
     "build": {
       "executor": "@nx/js:tsc",
+      "dependsOn": ["build-bin"],
       "outputs": ["{options.outputPath}"],
-
       "options": {
         "main": "packages/cli/src/generators/index.ts",
         "outputPath": "dist/packages/cli",

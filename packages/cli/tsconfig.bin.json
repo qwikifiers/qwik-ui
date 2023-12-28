@@ -11,5 +11,5 @@
     "types": ["node"]
   },
   "exclude": [],
-  "include": ["../cli/bin/**/*.ts"]
+  "include": ["bin/**/*.ts"]
 }
