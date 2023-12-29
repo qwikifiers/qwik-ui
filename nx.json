@@ -12,6 +12,9 @@
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true
     },
+    "build-bin": {
+      "cache": true
+    },
     "build": {
       "cache": true,
       "dependsOn": ["^build"]

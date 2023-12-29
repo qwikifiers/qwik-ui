@@ -16,7 +16,7 @@ import { getPackageManagerCommand, readJsonFile, workspaceRoot } from '@nx/devki
 
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
-import { bold, green, red } from 'kleur/colors';
+import { bold, cyan, green, red } from 'kleur/colors';
 import yargs, { type CommandModule } from 'yargs';
 import { QWIK_UI_CONFIG_FILENAME, styledPackagesMap } from '../src/generators';
 import { StyledKit } from '../src/generators/init/styled-kit.enum';
@@ -114,7 +114,7 @@ async function handleInit() {
   if (!config.styledKit) {
     config.styledKit = cancelable(
       await select({
-        message: 'What is your preferred styled kit?',
+        message: cyan('What is your preferred styled kit?'),
 
         options: [
           { label: 'Fluffy', value: StyledKit.FLUFFY },
@@ -128,7 +128,7 @@ async function handleInit() {
   if (!config.uiComponentsPath) {
     config.uiComponentsPath = cancelable(
       await text({
-        message: 'UI components folder',
+        message: cyan('UI components folder'),
         initialValue: 'src/components/ui',
       }),
     );
@@ -136,8 +136,9 @@ async function handleInit() {
 
   if (!config.rootCssPath) {
     config.rootCssPath = await collectFileLocationFromUser({
-      message:
+      message: cyan(
         'Your global css file location (where you defined your tailwind directives)',
+      ),
       errorMessageName: 'Global css file',
       initialValue: 'src/global.css',
     });
@@ -146,11 +147,12 @@ async function handleInit() {
   // INSTALL TAILWIND IF NEEDED
   const tailwindInstalled = cancelable(
     await confirm({
-      message: 'Do you already have Tailwind installed? (required)',
+      message: cyan('Do you already have Tailwind installed? (required)'),
       initialValue: true,
     }),
   );
 
+  // TODO: Add "cwd" with the project root, and see if we can skip the interactive question from qwik cli
   if (!tailwindInstalled) {
     execSync(`${getPackageManagerCommand().exec} qwik add tailwind`, {
       stdio: 'inherit',
@@ -158,7 +160,7 @@ async function handleInit() {
   }
 
   // ADD QWIK UI CLI TO DEPENDENCIES
-  execSync(`${getPackageManagerCommand().add} qwik-ui@latest`, {
+  execSync(`${getPackageManagerCommand().addDev} qwik-ui@latest`, {
     stdio: 'inherit',
   });
 
@@ -177,7 +179,7 @@ async function handleInit() {
   // INSTALL STYLED KIT
   const styledPackage = styledPackagesMap[config.styledKit];
 
-  execSync(`${getPackageManagerCommand().add} ${styledPackage}@latest`, {
+  execSync(`${getPackageManagerCommand().addDev} ${styledPackage}@latest`, {
     stdio: 'inherit',
   });
 
@@ -214,7 +216,7 @@ async function installNxIfNeeded() {
     const initSpinner = spinner();
     log.info('Installing Nx...');
     initSpinner.start('Installing Nx...');
-    execSync(`${getPackageManagerCommand().add} nx@latest`, {
+    execSync(`${getPackageManagerCommand().addDev} nx@latest`, {
       stdio: 'inherit',
     });
     execSync(`${getPackageManagerCommand().exec} nx init --interactive false`, {
@@ -251,13 +253,13 @@ async function handleAdd(projectRoot?: string) {
   const possibleComponents = componentsJson.components;
   const possibleComponentNames = componentsJson.components.map((c) => c.displayName);
   const componentsMap = componentsJson.components.reduce((acc, curr) => {
-    acc[curr.displayName] = curr;
+    acc[curr.type] = curr;
     return acc;
   }, {} as Record<string, (typeof componentsJson.components)[0]>);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const AddCommand: CommandModule = {
-    command: 'add <components>',
+    command: 'add [components]',
 
     describe: 'Add components to your project',
     builder: (yargs) =>
@@ -271,6 +273,7 @@ Options: [${possibleComponentNames.join(', ')}]`,
         .option('projectRoot', {
           description: 'The root of the project (default: "/")',
           type: 'string',
+          default: '/',
         }),
     handler: () => {},
   };
@@ -281,14 +284,12 @@ Options: [${possibleComponentNames.join(', ')}]`,
     });
   }
 
-  // const args = parseCommands(AddCommand);
-
-  const args = {};
+  const args = parseCommands(AddCommand);
 
   if (!projectRoot && !args['projectRoot']) {
     projectRoot = cancelable(
       await text({
-        message: 'Specify the root of the project (leave empty for "/")',
+        message: cyan('Specify the root of the project (leave empty for "/")'),
         initialValue: '/',
       }),
     );
@@ -300,7 +301,7 @@ Options: [${possibleComponentNames.join(', ')}]`,
   if (!componentsToAdd) {
     componentsToAdd = cancelable(
       await multiselect({
-        message: `Choose which components to add`,
+        message: cyan(`Choose which components to add`),
         options: possibleComponents.map((c) => ({
           label: c.displayName,
           value: c.type,
