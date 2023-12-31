@@ -18,8 +18,11 @@ import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 import { bold, cyan, green, red } from 'kleur/colors';
 import yargs, { type CommandModule } from 'yargs';
-import { QWIK_UI_CONFIG_FILENAME, styledPackagesMap } from '../src/generators';
-import { StyledKit } from '../src/generators/init/styled-kit.enum';
+import {
+  COMPONENTS_REGISTRY_FILENAME,
+  QWIK_UI_CONFIG_FILENAME,
+} from '../src/_shared/config-filenames';
+import { StyledKit, styledPackagesMap } from '../src/_shared/styled-kits';
 import { QwikUIConfig } from '../types/qwik-ui-config.type';
 
 const COMMANDS = ['init', 'add'];
@@ -187,7 +190,7 @@ async function handleInit() {
   execSync(
     `${
       getPackageManagerCommand().exec
-    } nx g ${styledPackage}:setup-tailwind --interactive false --project-root=${
+    } nx g qwik-ui:setup-tailwind --interactive false --project-root=${
       config.projectRoot
     }  --root-css-path=${config.rootCssPath}`,
     {
@@ -239,7 +242,9 @@ async function handleAdd(projectRoot?: string) {
 
   // read config file to collect components and add to description below
 
-  const componentsJsonPath = require.resolve(`${styledPackage}/components.json`);
+  const componentsJsonPath = require.resolve(
+    `${styledPackage}/${COMPONENTS_REGISTRY_FILENAME}`,
+  );
   const componentsJson = readJsonFile<{
     componentsRoot: string;
     components: {
@@ -312,9 +317,7 @@ Options: [${possibleComponentNames.join(', ')}]`,
 
   // GENERATE COMPONENTS
   execSync(
-    `${
-      getPackageManagerCommand().exec
-    } nx g ${styledPackage}:component ${componentsToAdd.join(
+    `${getPackageManagerCommand().exec} nx g qwik-ui:component ${componentsToAdd.join(
       ',',
     )} --interactive false --project-root=${projectRoot}`,
     {

@@ -1,24 +1,35 @@
 import { Tree, formatFiles, joinPathFragments, workspaceRoot } from '@nx/devkit';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { QWIK_UI_CONFIG_FILENAME } from '../../_shared/config-filenames';
+import { getKitRoot } from '../../_shared/styled-kits';
 import { SetupTailwindGeneratorSchema } from './schema';
 
 export async function setupTailwindGenerator(
   tree: Tree,
   options: SetupTailwindGeneratorSchema,
 ) {
+  const configContent = tree.read(QWIK_UI_CONFIG_FILENAME, 'utf-8');
+
+  if (!configContent) {
+    throw new Error(`Could not find ${QWIK_UI_CONFIG_FILENAME}, please run "init" first`);
+  }
+
+  const config = JSON.parse(configContent);
+  const kitRoot = getKitRoot(config.styledKit);
+
   const globalCssPath = options.rootCssPath ?? 'src/global.css';
 
   options.projectRoot = options.projectRoot ?? '';
 
-  updateTailwindConfig(tree, options.projectRoot);
+  updateTailwindConfig(tree, options.projectRoot, kitRoot);
 
-  updateRootCss(tree, globalCssPath);
+  updateRootCss(tree, globalCssPath, kitRoot);
 
   await formatFiles(tree);
 }
 
-function updateTailwindConfig(tree: Tree, projectRoot: string) {
+function updateTailwindConfig(tree: Tree, projectRoot: string, kitRoot: string) {
   const tailwindConfigPath = getTailwindConfigPath(tree, projectRoot, workspaceRoot);
 
   if (!tailwindConfigPath) {
@@ -32,9 +43,8 @@ function updateTailwindConfig(tree: Tree, projectRoot: string) {
   }
 
   const tailwindConfigTemplatePath = joinPathFragments(
-    __dirname,
-    '..',
-    '..',
+    kitRoot,
+    'src',
     'templates',
     'tailwind.extend._template',
   );
@@ -60,7 +70,7 @@ function updateTailwindConfig(tree: Tree, projectRoot: string) {
   }
 }
 
-function updateRootCss(tree: Tree, globalCssPath: string) {
+function updateRootCss(tree: Tree, globalCssPath: string, kitRoot: string) {
   const rootCssContent = tree.read(globalCssPath, 'utf-8');
 
   const tailwindUtilsDirective = '@tailwind utilities;';
@@ -81,9 +91,8 @@ function updateRootCss(tree: Tree, globalCssPath: string) {
   );
 
   const pathToGlobalCssTemplate = joinPathFragments(
-    __dirname,
-    '..',
-    '..',
+    kitRoot,
+    'src',
     'templates',
     'root.css_template',
   );

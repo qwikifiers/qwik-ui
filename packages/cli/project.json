@@ -15,7 +15,7 @@
     },
     "build": {
       "executor": "@nx/js:tsc",
-      "inputs": ["{projectRoot}/bin/**/*"],
+      "inputs": ["{projectRoot}/bin/**/*", "{projectRoot}/src/**/*"],
       "dependsOn": ["build-bin"],
       "outputs": ["{options.outputPath}"],
       "options": {

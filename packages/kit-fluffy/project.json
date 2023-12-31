@@ -1,14 +1,13 @@
 {
   "name": "fluffy",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/kit-fluffy/src/generators",
+  "sourceRoot": "packages/kit-fluffy/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "main": "packages/kit-fluffy/src/generators/index.ts",
         "outputPath": "dist/packages/kit-fluffy",
         "tsConfig": "packages/kit-fluffy/tsconfig.generators.json",
         "assets": [
@@ -24,28 +23,8 @@
             "output": "./src/templates"
           },
           {
-            "input": "./packages/kit-fluffy/src/generators",
-            "glob": "**/!(*.ts)",
-            "output": "./src/generators"
-          },
-          {
-            "input": "./packages/kit-fluffy/src/generators",
-            "glob": "**/*.d.ts",
-            "output": "./src/generators"
-          },
-          {
             "input": "./packages/kit-fluffy",
-            "glob": "components.json",
-            "output": "."
-          },
-          {
-            "input": "./packages/kit-fluffy",
-            "glob": "generators.json",
-            "output": "."
-          },
-          {
-            "input": "./packages/kit-fluffy",
-            "glob": "executors.json",
+            "glob": "components-registry.json",
             "output": "."
           }
         ]

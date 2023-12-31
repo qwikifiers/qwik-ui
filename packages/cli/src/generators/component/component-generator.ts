@@ -1,9 +1,12 @@
 import { formatFiles, joinPathFragments, readJsonFile, Tree } from '@nx/devkit';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import {
+  COMPONENTS_REGISTRY_FILENAME,
+  QWIK_UI_CONFIG_FILENAME,
+} from '../../_shared/config-filenames';
+import { getKitRoot } from '../../_shared/styled-kits';
 import { ComponentGeneratorSchema } from './schema';
-
-export const QWIK_UI_CONFIG_FILENAME = 'qwik-ui.config.json';
 
 interface ComponentConfig {
   displayName: string;
@@ -30,9 +33,9 @@ export async function componentGenerator(tree: Tree, options: ComponentGenerator
     throw new Error(`Could not find componentsRoot in ${QWIK_UI_CONFIG_FILENAME}`);
   }
 
-  const kitRoot = joinPathFragments(__dirname, '..', '..', '..');
+  const kitRoot = getKitRoot(config.styledKit);
 
-  const componentsJsonPath = join(kitRoot, 'components.json');
+  const componentsJsonPath = join(kitRoot, COMPONENTS_REGISTRY_FILENAME);
 
   const componentsRegistry = readJsonFile<{
     componentsRoot: string;

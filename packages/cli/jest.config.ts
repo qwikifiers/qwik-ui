@@ -11,6 +11,7 @@ export default {
       },
     ],
   },
+  restoreMocks: true,
   testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/cli',

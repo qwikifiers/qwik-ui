@@ -1,5 +1,6 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import componentGenerator, { QWIK_UI_CONFIG_FILENAME } from './component-generator';
+import { QWIK_UI_CONFIG_FILENAME } from '../../_shared/config-filenames';
+import componentGenerator from './component-generator';
 import { ComponentGeneratorSchema } from './schema';
 
 const DEFAULT_COMPONENTS_LOCATION = 'src/components/ui';
