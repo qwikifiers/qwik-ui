@@ -47,7 +47,13 @@
         ]
       }
     },
-
+    "publish": {
+      "dependsOn": ["build"],
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
+      }
+    },
     "test-generators": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
@@ -67,5 +73,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": ["fluffy"]
 }

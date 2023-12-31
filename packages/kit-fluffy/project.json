@@ -8,6 +8,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "main": "src/index.ts",
         "outputPath": "dist/packages/kit-fluffy",
         "tsConfig": "packages/kit-fluffy/tsconfig.generators.json",
         "assets": [
@@ -91,6 +92,13 @@
         }
       }
     },
+    "publish": {
+      "dependsOn": ["build"],
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
+      }
+    },
     "disabling-publish-for-now": {
       "version": {
         "executor": "@jscutlery/semver:version",
@@ -112,12 +120,7 @@
           "postTargets": ["fluffy:publish", "fluffy:push-to-github"]
         }
       },
-      "publish": {
-        "executor": "ngx-deploy-npm:deploy",
-        "options": {
-          "access": "public"
-        }
-      },
+
       "push-to-github": {
         "executor": "@jscutlery/semver:github",
         "options": {
@@ -128,5 +131,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": ["headless"]
 }

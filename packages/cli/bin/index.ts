@@ -82,7 +82,25 @@ async function handleInit() {
           description:
             'Global css file location (where you defined your tailwind directives)',
           type: 'string',
+        })
+        .option('installTailwind', {
+          description: 'Skip tailwind confirmation',
+          type: 'boolean',
+          default: false,
+          hidden: true,
+        })
+        .option('e2e', {
+          description: 'Install styled packages tagged as e2e for tests',
+          type: 'boolean',
+          default: false,
+          hidden: true,
+        })
+        .option('components', {
+          description: 'components to auto install',
+          type: 'string',
+          hidden: true,
         }),
+
     handler: () => {},
   };
 
@@ -148,18 +166,25 @@ async function handleInit() {
   }
 
   // INSTALL TAILWIND IF NEEDED
-  const tailwindInstalled = cancelable(
-    await confirm({
-      message: cyan('Do you already have Tailwind installed? (required)'),
-      initialValue: true,
-    }),
-  );
+  let installTailwind = args['installTailwind'] as boolean;
+
+  if (!installTailwind) {
+    installTailwind = cancelable(
+      await confirm({
+        message: cyan('Would you like to instal Tailwind? (required)'),
+        initialValue: false,
+      }),
+    );
+  }
 
   // TODO: Add "cwd" with the project root, and see if we can skip the interactive question from qwik cli
-  if (!tailwindInstalled) {
-    execSync(`${getPackageManagerCommand().exec} qwik add tailwind`, {
-      stdio: 'inherit',
-    });
+  if (installTailwind) {
+    execSync(
+      `${getPackageManagerCommand().exec} qwik add tailwind --skipConfirmation=true`,
+      {
+        stdio: 'inherit',
+      },
+    );
   }
 
   // ADD QWIK UI CLI TO DEPENDENCIES
@@ -182,7 +207,9 @@ async function handleInit() {
   // INSTALL STYLED KIT
   const styledPackage = styledPackagesMap[config.styledKit];
 
-  execSync(`${getPackageManagerCommand().addDev} ${styledPackage}@latest`, {
+  const packageTag = args['e2e'] ? 'e2e' : 'latest';
+
+  execSync(`${getPackageManagerCommand().addDev} ${styledPackage}@${packageTag}`, {
     stdio: 'inherit',
   });
 
@@ -198,7 +225,7 @@ async function handleInit() {
     },
   );
 
-  await handleAdd(config.projectRoot);
+  await handleAdd(config.projectRoot, args['components'] as string);
 }
 
 async function installNxIfNeeded() {
@@ -231,7 +258,7 @@ async function installNxIfNeeded() {
   // }
 }
 
-async function handleAdd(projectRoot?: string) {
+async function handleAdd(projectRoot?: string, componentsFromInit?: string) {
   if (!existsSync(QWIK_UI_CONFIG_FILENAME)) {
     exitWithError(
       `${QWIK_UI_CONFIG_FILENAME} not found, please run ${green('qwik-ui init')} first`,
@@ -301,8 +328,16 @@ Options: [${possibleComponentNames.join(', ')}]`,
   }
 
   // CHOOSE COMPONENTS TO ADD
+  let componentsToAdd;
 
-  let componentsToAdd = args['components'] as string[];
+  if (componentsFromInit) {
+    componentsToAdd = componentsFromInit.split(',');
+  }
+
+  if (!componentsToAdd) {
+    componentsToAdd = args['components'] as string[];
+  }
+
   if (!componentsToAdd) {
     componentsToAdd = cancelable(
       await multiselect({
@@ -330,6 +365,10 @@ Options: [${possibleComponentNames.join(', ')}]`,
 
 function parseCommands(command: CommandModule) {
   return yargs(process.argv.slice(2))
+    .parserConfiguration({
+      'strip-dashed': true,
+      'dot-notation': false,
+    })
     .strict()
     .scriptName('qwik-ui')
     .usage(bold('Usage: $0 <command> [options]'))
