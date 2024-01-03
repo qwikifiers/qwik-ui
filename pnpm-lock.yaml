@@ -25,11 +25,11 @@ importers:
         version: 2.6.2
     devDependencies:
       '@builder.io/qwik':
-        specifier: ^1.3.0
-        version: 1.3.0(@types/node@20.5.7)(sass@1.66.1)(undici@5.23.0)
+        specifier: ^1.3.2
+        version: 1.3.2(@types/node@20.5.7)(sass@1.66.1)(undici@5.23.0)
       '@builder.io/qwik-city':
-        specifier: ^1.3.0
-        version: 1.3.0(@types/node@20.5.7)(sass@1.66.1)
+        specifier: ^1.3.2
+        version: 1.3.2(@types/node@20.5.7)(sass@1.66.1)
       '@builder.io/vite-plugin-macro':
         specifier: ~0.0.7
         version: 0.0.7(@types/node@20.5.7)(sass@1.66.1)
@@ -191,7 +191,7 @@ importers:
         version: 1.4.0(axe-core@4.7.2)(cypress@13.0.0)
       cypress-ct-qwik:
         specifier: 0.3.0
-        version: 0.3.0(@builder.io/qwik@1.3.0)(cypress@13.0.0)
+        version: 0.3.0(@builder.io/qwik@1.3.2)(cypress@13.0.0)
       cypress-real-events:
         specifier: 1.10.3
         version: 1.10.3(cypress@13.0.0)
@@ -214,8 +214,8 @@ importers:
         specifier: ^2.14.0
         version: 2.14.0(eslint@8.48.0)
       eslint-plugin-qwik:
-        specifier: ^1.3.0
-        version: 1.3.0(eslint@8.48.0)
+        specifier: ^1.3.2
+        version: 1.3.2(eslint@8.48.0)
       eslint-plugin-storybook:
         specifier: ^0.6.13
         version: 0.6.13(eslint@8.48.0)(typescript@5.2.2)
@@ -281,7 +281,7 @@ importers:
         version: 7.4.0
       storybook-framework-qwik:
         specifier: ^0.2.3
-        version: 0.2.3(@builder.io/qwik@1.3.0)(@types/node@20.5.7)(sass@1.66.1)(typescript@5.2.2)(vite@5.0.4)
+        version: 0.2.3(@builder.io/qwik@1.3.2)(@types/node@20.5.7)(sass@1.66.1)(typescript@5.2.2)(vite@5.0.4)
       tailwind-merge:
         specifier: ^1.14.0
         version: 1.14.0
@@ -362,15 +362,9 @@ importers:
       '@builder.io/qwik':
         specifier: ^1.1.0
         version: 1.2.19(@types/node@20.5.7)(sass@1.66.1)(undici@5.28.1)
-      '@clack/prompts':
-        specifier: ^0.7.0
-        version: 0.7.0
       '@nx/devkit':
         specifier: 17.1.3
         version: 17.1.3(nx@17.1.3)
-      kleur:
-        specifier: ^4.1.5
-        version: 4.1.5
     devDependencies:
       '@builder.io/vite-plugin-macro':
         specifier: ~0.0.7
@@ -1899,8 +1893,8 @@ packages:
       types-pkg-json: 1.2.1
     dev: true
 
-  /@builder.io/qwik-city@1.3.0(@types/node@20.5.7)(sass@1.66.1):
-    resolution: {integrity: sha512-HG/Hl5M9e9X2DKa6mQhju9ITHMmiKJl4h3imA3cHt6+LK8Kc1F6/PFDn7B3MzDTCOqnSELeMJFD48RHfUiP8vg==}
+  /@builder.io/qwik-city@1.3.2(@types/node@20.5.7)(sass@1.66.1):
+    resolution: {integrity: sha512-NLb/vtAgbPB+4B5PqotWQ2CLTgfwRSGKyVMO/YckpffDAFJJ3I0362Blcik5BVM6Ana4ztMSk59vqGYAD1pB3A==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     dependencies:
       '@mdx-js/mdx': 2.3.0
@@ -1944,26 +1938,6 @@ packages:
       - terser
     dev: false
 
-  /@builder.io/qwik@1.3.0(@types/node@20.5.7)(sass@1.66.1)(undici@5.23.0):
-    resolution: {integrity: sha512-EZD6qmkihtM2yFhX22ZCkQLbgL8IeIS572NDoCLRSLeHzO2lm+AACQGwJw5IRXZfDXz/3hm36rzzJRzZdJ6q3g==}
-    engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
-    hasBin: true
-    peerDependencies:
-      undici: ^5.14.0
-    dependencies:
-      csstype: 3.1.2
-      undici: 5.23.0
-      vite: 5.0.4(@types/node@20.5.7)(sass@1.66.1)
-    transitivePeerDependencies:
-      - '@types/node'
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - terser
-    dev: true
-
   /@builder.io/qwik@1.3.0(@types/node@20.5.7)(sass@1.66.1)(undici@5.28.1):
     resolution: {integrity: sha512-EZD6qmkihtM2yFhX22ZCkQLbgL8IeIS572NDoCLRSLeHzO2lm+AACQGwJw5IRXZfDXz/3hm36rzzJRzZdJ6q3g==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
@@ -1983,6 +1957,26 @@ packages:
       - sugarss
       - terser
     dev: false
+
+  /@builder.io/qwik@1.3.2(@types/node@20.5.7)(sass@1.66.1)(undici@5.23.0):
+    resolution: {integrity: sha512-Y0radqz2taB///VMtHVaCElT5wa7g2UbF2TfWpQuSu6qmDqJXLqoyi1xlWG+P0nN6TQcNijou+0MId4wd+03sg==}
+    engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
+    hasBin: true
+    peerDependencies:
+      undici: ^5.14.0
+    dependencies:
+      csstype: 3.1.2
+      undici: 5.23.0
+      vite: 5.0.4(@types/node@20.5.7)(sass@1.66.1)
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - sass
+      - stylus
+      - sugarss
+      - terser
+    dev: true
 
   /@builder.io/vite-plugin-macro@0.0.7(@types/node@20.5.7)(sass@1.66.1):
     resolution: {integrity: sha512-tDdYnRtkxtZ3KRZMdUAetwEXPYQLQWIMtvbFY9klVKQII1P3IooAobByqNiHPy8W0EcLe8ZDVq2cK8z8RNtiHQ==}
@@ -5729,7 +5723,7 @@ packages:
       rxjs: 7.8.1
       tmp: 0.2.1
       tslib: 2.6.2
-      yargs: 17.6.2
+      yargs: 17.7.2
       yargs-parser: 21.1.1
     transitivePeerDependencies:
       - '@swc-node/register'
@@ -11076,13 +11070,13 @@ packages:
       cypress: 13.0.0
     dev: true
 
-  /cypress-ct-qwik@0.3.0(@builder.io/qwik@1.3.0)(cypress@13.0.0):
+  /cypress-ct-qwik@0.3.0(@builder.io/qwik@1.3.2)(cypress@13.0.0):
     resolution: {integrity: sha512-S1PcR6BbZMHprTYmYvYcZODNFy+WOQewUIWCGRA2ruq4H6I2zJSVLy0VxynKuxgSx3OKp5GYUIXSTmdxkTdk4Q==}
     peerDependencies:
       '@builder.io/qwik': '>0.23.0'
       cypress: '>=12.8.1'
     dependencies:
-      '@builder.io/qwik': 1.3.0(@types/node@20.5.7)(sass@1.66.1)(undici@5.23.0)
+      '@builder.io/qwik': 1.3.2(@types/node@20.5.7)(sass@1.66.1)(undici@5.23.0)
       '@cypress/mount-utils': 4.0.0
       cypress: 13.0.0
     dev: true
@@ -12428,8 +12422,8 @@ packages:
       globals: 13.20.0
     dev: true
 
-  /eslint-plugin-qwik@1.3.0(eslint@8.48.0):
-    resolution: {integrity: sha512-m+NKC534QfRUrnzob4iG+vyJDYsNVT9bP7bTMT9U3FNY92YodMop4ryTOpt4Ja3XL/+6V2UTd3B/VnVRNCwKsA==}
+  /eslint-plugin-qwik@1.3.2(eslint@8.48.0):
+    resolution: {integrity: sha512-1HzM3B1fo0JeHZgX0z9LVBOVUY4qAlKPHCPT6pDR7GImBvPBpShTKb5OH2vfhS//d1p87WvYg4DEyfnG8fb5vg==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     peerDependencies:
       eslint: ^8.45.0
@@ -18349,7 +18343,7 @@ packages:
       tsconfig-paths: 4.1.2
       tslib: 2.6.2
       v8-compile-cache: 2.3.0
-      yargs: 17.6.2
+      yargs: 17.7.2
       yargs-parser: 21.1.1
     optionalDependencies:
       '@nx/nx-darwin-arm64': 16.1.0
@@ -21083,19 +21077,19 @@ packages:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
     dev: true
 
-  /storybook-framework-qwik@0.2.3(@builder.io/qwik@1.3.0)(@types/node@20.5.7)(sass@1.66.1)(typescript@5.2.2)(vite@5.0.4):
+  /storybook-framework-qwik@0.2.3(@builder.io/qwik@1.3.2)(@types/node@20.5.7)(sass@1.66.1)(typescript@5.2.2)(vite@5.0.4):
     resolution: {integrity: sha512-JCfjqGdC+9f/ClfO0tN1YFdDByJBiU+uIl5vGHvn6QPwwVBCk/lwU7HKS3UHHL3fIX9Vd4k4RvVSdk7+ZSvgTA==}
     engines: {node: ^14.18 || >=16}
     peerDependencies:
       '@builder.io/qwik': '>=0.15.2'
     dependencies:
-      '@builder.io/qwik': 1.3.0(@types/node@20.5.7)(sass@1.66.1)(undici@5.23.0)
+      '@builder.io/qwik': 1.3.2(@types/node@20.5.7)(sass@1.66.1)(undici@5.23.0)
       '@storybook/builder-vite': 7.4.0(typescript@5.2.2)(vite@5.0.4)
       '@storybook/docs-tools': 7.4.0
       magic-string: 0.30.3
       react-docgen-typescript: 2.2.2(typescript@5.2.2)
     optionalDependencies:
-      '@builder.io/qwik-city': 1.3.0(@types/node@20.5.7)(sass@1.66.1)
+      '@builder.io/qwik-city': 1.3.2(@types/node@20.5.7)(sass@1.66.1)
     transitivePeerDependencies:
       - '@preact/preset-vite'
       - '@types/node'
@@ -23512,7 +23506,6 @@ packages:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
-    dev: false
 
   /yauzl@2.10.0:
     resolution: {integrity: sha512-p4a9I6X6nu6IhoGmBqAcbJy1mlC4j27vEPZX9F4L4/vZT3Lyq1VkFHw/V/PUcB9Buo+DG3iHkT0x3Qya58zc3g==}
