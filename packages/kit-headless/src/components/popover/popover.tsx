@@ -4,18 +4,18 @@ import { PopoverImpl } from './popover-impl';
 import { PopoverImplProps } from './popover-impl';
 import { FloatingProps } from './floating';
 
-type PopoverProps = (
-  | {
-      floating?: false | undefined;
-      anchorRef: never;
-    }
-  | ({ floating?: true } & FloatingProps)
-) &
-  PopoverImplProps;
+type PopoverProps = PopoverImplProps &
+  (
+    | {
+        floating?: false | undefined;
+        anchorRef: never;
+      }
+    | ({ floating?: true } & FloatingProps)
+  );
 
 /* This component determines whether the popover needs floating behavior, a common example where it doesn't, would be a toast. */
-export const Popover = component$(
-  ({ floating, anchorRef, ref, ...props }: PopoverProps) => {
+export const Popover = component$<PopoverProps>(
+  ({ floating, anchorRef, ref, ...props }) => {
     if (floating) {
       if (!anchorRef) {
         throw new Error(

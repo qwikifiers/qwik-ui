@@ -1,8 +1,8 @@
 import { component$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
-import { KitName } from 'apps/website/src/_state/kit-name.type';
-import { useAppState } from 'apps/website/src/_state/use-app-state';
+import { ComponentStatus } from '~/_state/component-status.type';
+import { KitName } from '~/_state/kit-name.type';
+import { useAppState } from '~/_state/use-app-state';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
 import { useSelectedKit } from '../../routes/docs/use-selected-kit';
 

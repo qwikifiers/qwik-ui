@@ -21,21 +21,21 @@ export default component$(() => {
           name="two"
           value="first"
           checked
-          onChange$={(e) => {
+          onChange$={(e: any) => {
             radioValue.value = (e.target as HTMLInputElement).value;
           }}
         />
         <Radio
           name="two"
           value="second"
-          onChange$={(e) => {
+          onChange$={(e: any) => {
             radioValue.value = (e.target as HTMLInputElement).value;
           }}
         />
         <Radio
           name="two"
           value="third"
-          onChange$={(e) => {
+          onChange$={(e: any) => {
             radioValue.value = (e.target as HTMLInputElement).value;
           }}
         />

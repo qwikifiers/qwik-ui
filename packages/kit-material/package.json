@@ -35,6 +35,5 @@
     "release": "np",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
-  },
-  "dependencies": {}
+  }
 }
