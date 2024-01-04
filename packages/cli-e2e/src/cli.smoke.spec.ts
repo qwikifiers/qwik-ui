@@ -1,17 +1,21 @@
 import { execSync } from 'child_process';
 import { existsSync, mkdirSync, rmSync } from 'fs';
-import { dirname, join } from 'path';
+import { join } from 'path';
 
 describe('Qwik UI CLI Smoke test', () => {
   let projectDirectory: string;
+  let tempDirectory: string;
 
   beforeAll(() => {
-    projectDirectory = createTestQwikProject();
+    const { projectDirectory: projDir, tempDir } = createTestQwikProject();
+
+    projectDirectory = projDir;
+    tempDirectory = tempDir;
   });
 
   afterAll(() => {
     // Cleanup the test project
-    rmSync(projectDirectory, {
+    rmSync(tempDirectory, {
       recursive: true,
       force: true,
     });
@@ -19,10 +23,11 @@ describe('Qwik UI CLI Smoke test', () => {
 
   it('should be installed and add the button file', () => {
     execSync(
-      'npx -y init qwik-ui@e2e init --e2e --projectRoot / --styledKit "fluffy" --uiComponentsPath "src/components/ui" --rootCssPath "src/global.css" --installTailwind --components=button',
+      'npx -y qwik-ui@0.0.0-e2e init --e2e --projectRoot / --styledKit "fluffy" --uiComponentsPath "src/components/ui" --rootCssPath "src/global.css" --installTailwind --components=button',
       {
         cwd: projectDirectory,
         stdio: 'inherit',
+        env: process.env,
       },
     );
     const buttonIsInTheRightPlace = existsSync(
@@ -38,23 +43,28 @@ describe('Qwik UI CLI Smoke test', () => {
  */
 function createTestQwikProject() {
   const projectName = 'test-qwik-project';
-  const projectDirectory = join(process.cwd(), 'tmp', projectName);
+  const tempDir = join('/tmp', 'tmp-qwik-ui-cli-e2e');
 
   // Ensure projectDirectory is empty
-  rmSync(projectDirectory, {
+  rmSync(tempDir, {
     recursive: true,
     force: true,
   });
-  mkdirSync(dirname(projectDirectory), {
+  mkdirSync(tempDir, {
     recursive: true,
   });
 
-  execSync(`pnpm create qwik@latest `, {
-    cwd: dirname(projectDirectory),
+  execSync(`pnpm create qwik@latest basic ${projectName}`, {
+    cwd: tempDir,
     stdio: 'inherit',
     env: process.env,
   });
-  console.log(`Created test project in "${projectDirectory}"`);
+  console.log(`Created test project in "${tempDir}"`);
 
-  return projectDirectory;
+  const projectDirectory = join(tempDir, projectName);
+
+  return {
+    projectDirectory,
+    tempDir,
+  };
 }
