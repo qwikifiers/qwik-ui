@@ -1,7 +1,6 @@
 import {
   $,
   QwikIntrinsicElements,
-  Signal,
   Slot,
   component$,
   useComputed$,
@@ -85,10 +84,7 @@ export const Tab = component$<TabProps>(({ selectedClassName, tabId, ...props })
       onMouseEnter$={[selectIfAutomatic$, props.onMouseEnter$]}
       aria-selected={isSelectedSig.value}
       tabIndex={isSelectedSig.value ? 0 : -1}
-      class={[
-        (props.class as Signal<string>)?.value ?? (props.class as string),
-        classNamesSig.value,
-      ]}
+      class={[props.class, classNamesSig.value]}
       onClick$={[$(() => contextService.selectTab$(tabId!)), props.onClick$]}
     >
       <Slot />

@@ -17,7 +17,7 @@ import { supportShowAnimation, supportClosingAnimation } from './utils';
 
 export type PopoverImplProps = {
   id: string;
-  popover?: string | null | undefined;
+  popover?: 'manual' | 'auto';
   class?: ClassList;
   ref?: Signal<HTMLElement | undefined>;
   manual?: boolean;

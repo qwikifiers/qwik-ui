@@ -50,7 +50,7 @@ export default component$(() => {
         <ComboboxInput
           onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
           class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm pl-6 pr-6"
-          onKeyDown$={(e: any) => {
+          onKeyDown$={(e: KeyboardEvent) => {
             if (e.key === 'Enter') {
               const inputElement = e.target as HTMLInputElement;
               window.location.href = `${docsPrefix}/${inputElement.value.toLowerCase()}`;
