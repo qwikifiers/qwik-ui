@@ -10,7 +10,6 @@ export const ComboboxPopover = component$(
   (props: Partial<FloatingProps & PopoverImplProps>) => {
     const context = useContext(ComboboxContextId);
     const customPopoverId = useId();
-    console.log('customPopoverId:', customPopoverId);
     const { showPopover, hidePopover } = usePopover(customPopoverId);
 
     /* REMEMBER, whenever an option is selected or onMouseDown$ the listbox is closed, and the popover should sync to that */
