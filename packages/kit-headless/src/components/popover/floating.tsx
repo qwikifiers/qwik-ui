@@ -18,14 +18,13 @@ import {
   autoPlacement as _autoPlacement,
   hide as _hide,
 } from '@floating-ui/dom';
-import { OmitSignalClass } from '@qwik-ui/utils';
 
 declare global {
   interface Document {
     __NEEDS_POPOVER__?: true;
   }
   interface HTMLDivElement {
-    popover?: 'manual' | 'auto' | true;
+    popover?: 'manual' | 'auto';
   }
 }
 
@@ -59,7 +58,7 @@ export type FloatingProps = {
   hide?: 'referenceHidden' | 'escaped';
   inline?: boolean;
   transform?: string;
-} & OmitSignalClass<QwikIntrinsicElements['div']>;
+} & QwikIntrinsicElements['div'];
 
 export const FloatingPopover = component$(
   ({
