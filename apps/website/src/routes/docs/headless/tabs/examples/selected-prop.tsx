@@ -11,18 +11,18 @@ export default component$(() => {
 
         <Tabs>
           <TabList>
-            <Tab>Maria Ahlefeldt</Tab>
-            <Tab selected>Carl Andersen</Tab>
-            <Tab>Ida Henriette da Fonseca</Tab>
+            <Tab>Maria</Tab>
+            <Tab selected>Carl</Tab>
+            <Tab>Ida</Tab>
           </TabList>
           <TabPanel>
-            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) was a ...</p>
+            <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) ...</p>
           </TabPanel>
           <TabPanel>
-            <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) was a ...</p>
+            <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) ...</p>
           </TabPanel>
           <TabPanel>
-            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) was a ...</p>
+            <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) ...</p>
           </TabPanel>
         </Tabs>
       </div>

@@ -288,10 +288,10 @@ export const InputPhone = component$(
           ))}
         </select>
         <input
+          type="text"
           {...props}
           ref={inputRefSignal}
           placeholder={placeholder}
-          type="text"
           value={outputSignal.value}
           onInput$={[
             $((_: Event, { value }: HTMLInputElement) => {

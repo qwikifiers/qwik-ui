@@ -1,8 +1,5 @@
-import { InputHTMLAttributes, QwikIntrinsicElements } from '@builder.io/qwik';
-import { JSX } from '@builder.io/qwik/jsx-runtime';
+import { QwikIntrinsicElements, component$ } from '@builder.io/qwik';
 
 export type RadioProps = QwikIntrinsicElements['input'];
 
-export const Radio: (props: InputHTMLAttributes<HTMLInputElement>) => JSX.Element = (
-  props,
-) => <input {...props} type="radio" />;
+export const Radio = component$<RadioProps>((props) => <input type="radio" {...props} />);

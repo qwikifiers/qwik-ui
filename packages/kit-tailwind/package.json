@@ -32,9 +32,6 @@
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
   },
-  "dependencies": {
-    "daisyui": "^3.6.4"
-  },
   "peerDependencies": {
     "@builder.io/qwik": "^1.2.11"
   }

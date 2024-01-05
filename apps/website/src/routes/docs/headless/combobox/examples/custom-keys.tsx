@@ -6,7 +6,7 @@ import {
   ComboboxLabel,
   ComboboxListbox,
   ComboboxOption,
-  ComboboxPortal,
+  ComboboxPopover,
   ComboboxTrigger,
   ResolvedOption,
 } from '@qwik-ui/headless';
@@ -40,7 +40,7 @@ export default component$(() => {
   return (
     <div class="relative">
       {isPokemonCaught.value && (
-        <p class="shadow-dark-medium absolute w-full translate-x-[-105%] rounded-md border-2 border-slate-400 bg-slate-800 p-4 text-white">
+        <p class="shadow-dark-medium bg-background absolute w-full translate-x-[-105%] rounded-md border-2 p-4">
           You've already caught this pokemon!
         </p>
       )}
@@ -51,24 +51,22 @@ export default component$(() => {
         optionLabelKey="pokemon"
         optionDisabledKey="isPokemonCaught"
       >
-        <ComboboxLabel class=" font-semibold text-white">Pokemon 🦏</ComboboxLabel>
-        <ComboboxControl class="relative flex items-center rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
-          <ComboboxInput class="px-d2 w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500" />
+        <ComboboxLabel class=" font-semibold">Pokemon 🦏</ComboboxLabel>
+        <ComboboxControl class="relative flex items-center rounded-sm border">
+          <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm px-2 pr-6" />
           <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-            <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
+            <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
           </ComboboxTrigger>
         </ComboboxControl>
-        <ComboboxPortal>
+        <ComboboxPopover flip={true} gutter={8}>
           <ComboboxListbox
-            flip={true}
-            gutter={8}
             class="w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
             optionRenderer$={(option: ResolvedOption, index: number) => {
               const pokemonOption = option.option as Pokemon;
               return (
                 <ComboboxOption
                   key={option.key}
-                  class="group flex justify-between rounded-sm border-2 border-transparent px-2  text-white hover:bg-slate-500 aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
+                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent group flex justify-between rounded-sm border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
                   index={index}
                   resolved={option}
                   onMouseEnter$={() => {
@@ -86,7 +84,7 @@ export default component$(() => {
               );
             }}
           />
-        </ComboboxPortal>
+        </ComboboxPopover>
       </Combobox>
     </div>
   );

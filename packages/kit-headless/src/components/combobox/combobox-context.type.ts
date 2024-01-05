@@ -10,8 +10,9 @@ export interface ComboboxContext<O extends Option = Option> {
   localId: string;
   labelRef: Signal<HTMLLabelElement | undefined>;
   listboxRef: Signal<HTMLUListElement | undefined>;
-  inputRef: Signal<HTMLInputElement | undefined>;
   triggerRef: Signal<HTMLButtonElement | undefined>;
+  inputRef: Signal<HTMLInputElement | undefined>;
+  popoverRef: Signal<HTMLElement | undefined>;
 
   //uncontrolled state
   defaultLabel?: string;

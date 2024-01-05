@@ -1,6 +1,5 @@
 /// <reference types="vitest" />
 import { qwikVite } from '@builder.io/qwik/optimizer';
-import { macroPlugin } from '@builder.io/vite-plugin-macro';
 import { join } from 'path';
 import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
@@ -52,6 +51,7 @@ export default defineConfig({
       external: [],
     },
   },
+  // @ts-ignore
   test: {
     globals: true,
     cache: {

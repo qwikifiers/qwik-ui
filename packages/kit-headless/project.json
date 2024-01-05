@@ -61,6 +61,21 @@
       }
     },
 
+    "version-publish-minor": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "noVerify": true,
+        "push": true,
+        "releaseAs": "minor",
+        "postTargets": [
+          "headless:build",
+          "headless:update-utils-version",
+          "headless:publish",
+          "headless:push-to-github"
+        ]
+      }
+    },
+
     "update-utils-version": {
       "executor": "nx:run-commands",
       "options": {

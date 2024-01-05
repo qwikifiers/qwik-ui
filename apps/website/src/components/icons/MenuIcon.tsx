@@ -2,7 +2,7 @@ export const MenuIcon = () => (
   <svg
     viewBox="0 0 10 9"
     fill="none"
-    strokeLinecap="round"
+    stroke-linecap="round"
     aria-hidden="true"
     class="h-6 w-6 stroke-black hover:bg-gray-100 dark:stroke-white dark:hover:bg-slate-600"
   >

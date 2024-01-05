@@ -1,0 +1,46 @@
+name: Release Minor
+
+on:
+  - workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node_version: [16, 18, 20, 21]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          node_version: ${{ matrix.node_version }}
+
+      - name: Test
+        uses: ./.github/actions/test
+        with:
+          codecov_token: ${{ secrets.CODECOV_TOKEN }}
+
+  release:
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/main'
+
+    needs: [test]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build Headless Kit
+        shell: bash
+        run: npx nx build headless
+
+      - name: Release
+        uses: ./.github/actions/release-minor
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          npm_token: ${{ secrets.NPM_TOKEN }}

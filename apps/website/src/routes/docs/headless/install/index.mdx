@@ -2,15 +2,12 @@
 title: 'Qwik UI - Installation'
 ---
 
-import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import QwikLogo from '~/components/icons/QwikLogo.tsx';
 import AstroLogo from '~/components/icons/AstroLogo.tsx';
-import { Note } from '~/components/note/note.tsx';
-import qwikCityCLI from '/public/images/qwik-city-cli.webp';
-import astroCLI from '/public/images/astro-cli.webp';
-import qwikdevAstroCLI from '/public/images/qwikdev-astro-cli.webp';
+import qwikCityCLI from '../../../../../public/images/qwik-city-cli.webp';
+import astroCLI from '../../../../../public/images/astro-cli.webp';
+import qwikdevAstroCLI from '../../../../../public/images/qwikdev-astro-cli.webp';
 import { ConfettiButton } from './confetti-button';
-import { CodeCopy } from '~/components/code-copy/code-copy';
 
 export const packages = {
   npm: 'npm install @qwik-ui/headless',
@@ -41,38 +38,19 @@ export const qwikAstroCliPackages = {
 
 Install Qwik UI with your choice of package manager below:
 
-       <Tabs
-        class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-lg lg:mx-[-32px] text-white"
-        behavior="manual"
-    >
-    <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 flex rounded-t-lg border-[1.5px] border-b-0 text-white">
-        {Object.keys(packages).map((key, index) => (
-            <Tab key={index} class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color min-h-[44px] first-of-type:rounded-tl-[.325rem]  px-[28px] py-2 transition aria-selected:bg-qwikui-blue-500 dark:aria-selected:bg-qwikui-purple-600 aria-selected:font-bold">
-                {key}
-            </Tab>
-        ))}
-    </TabList>
-        {Object.entries(packages).map(([key, value], index) => (
-            <TabPanel key={index} class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-lg border-[1.5px] bg-slate-200 bg-slate-800 py-6 dark:bg-slate-900 px-[28px]">
-                <div class="flex items-center justify-between">
-                    {value}
-                    <CodeCopy code={value} class="hover:bg-slate-700 dark:hover:bg-slate-800 p-4" icon={true} />
-                </div>
-            </TabPanel>
-        ))}
-    </Tabs>
+<InstallSnippet packages={packages} />
 
     ## Meta-framework guides
 
-    <div class="flex flex-col gap-4 md:flex-row mx-[-24px] lg:mx-[-32px]">
+    <div class="flex flex-col gap-4 md:flex-row mx-6 lg:mx-8">
         <a class="flex-1 border-none" href="#qwik-city">
-            <span class="p-8 dark:bg-slate-800 rounded-lg gap-4 flex  bg-slate-100 border-slate-200 flex-col items-center border-[1px] dark:border-slate-700 dark:hover:bg-slate-900 transition duration-300 ease-step hover:bg-white">
+            <span class="p-8 rounded-lg gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
             <QwikLogo class="max-w-[100px] max-h-[100px]" />
             <span class="text-lg font-bold">Qwik City</span>
             </span>
         </a>
         <a class="flex-1 border-none" href="#astro">
-            <span class="p-8 dark:bg-slate-800 rounded-lg gap-4 flex  bg-slate-100 border-slate-200 flex-col items-center border-[1px] dark:border-slate-700 dark:hover:bg-slate-900 transition duration-300 ease-step hover:bg-white">
+            <span class="p-8 rounded-lg gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
                 <AstroLogo class="max-w-[100px] max-h-[100px]" />
                 <span class="text-lg font-bold">Astro</span>
             </span>
@@ -93,51 +71,20 @@ Install Qwik UI with your choice of package manager below:
 
     To create a Qwik city app, run the following command:
 
-{' '}
+<InstallSnippet packages={qwikCityPackages} />
 
-<Tabs
-  class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-lg text-white lg:mx-[-32px]"
-  behavior="manual"
->
-  <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 flex rounded-t-lg border-[1.5px] border-b-0 text-white">
-    {Object.keys(qwikCityPackages).map((key, index) => (
-      <Tab
-        key={index}
-        class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color aria-selected:bg-qwikui-blue-500 dark:aria-selected:bg-qwikui-purple-600  min-h-[44px] px-[28px] py-2 transition first-of-type:rounded-tl-[.325rem] aria-selected:font-bold"
-      >
-        {key}
-      </Tab>
-    ))}
-  </TabList>
-  {Object.entries(qwikCityPackages).map(([key, value], index) => (
-    <TabPanel
-      key={index}
-      class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-lg border-[1.5px] bg-slate-200 bg-slate-800 px-[28px] py-6 dark:bg-slate-900"
-    >
-      <div class="flex items-center justify-between">
-        {value}
-        <CodeCopy
-          code={value}
-          class="p-4 hover:bg-slate-700 dark:hover:bg-slate-800"
-          icon={true}
-        />
-      </div>
-    </TabPanel>
-  ))}
-</Tabs>
-
-    <Note status="info">For a more in-depth installation, or if you'd like to use a different package manager, follow the guide in the [Qwik docs](https://qwik.builder.io/docs/getting-started/#create-an-app-using-the-cli)</Note>
+    > For a more in-depth installation, or if you'd like to use a different package manager, follow the guide in the [Qwik docs](https://qwik.builder.io/docs/getting-started/#create-an-app-using-the-cli)
 
     Let's select the `empty app` option in the CLI to keep it simple. And remember, choosing the dad joke is not optional - it's mandatory! We have a highly sophisticated Dad Joke Detection System (DJDS) in place, so we'll know if you didn't!
 
-    <div class="mx-[-24px] lg:mx-[-32px]">
-        <img src={qwikCityCLI} class="block max-w-full rounded-md mb-6 border-qwikui-purple-200" />
+    <div class="-mx-6 lg:-mx-8">
+        <img src={qwikCityCLI} class="block max-w-full rounded-md mb-6 border" />
     </div>
 
     Below is the Qwik City project structure. Inside of the `src` directory, let's create a new folder called `accordion`. Then, a file named **`accordion.tsx`** inside of `src/components`.
 
-    <div class="whitespace-pre-wrap bg-[#ECDDFD] dark:bg-[#0C2944] mx-[-24px] lg:mx-[-32px] px-5 py-4 lg:px-[28px] text-slate-700 dark:text-slate-300 border-[1px] border-qwikui-purple-600 rounded-lg dark:border-qwikui-blue-600 mb-6 lg:mb-12">
-        <strong class="text-slate-950 dark:text-white">Qwik City files</strong>
+    <div class="whitespace-pre-wrap bg-secondary/20 -mx-6 lg:-mx-8 px-5 py-4 lg:px-7 border border-secondary rounded-lg mb-6 lg:mb-12">
+        <strong>Qwik City files</strong>
         ├─ .eslintignore
         ├─ .eslintrc.cjs
         ├─ .gitignore
@@ -149,10 +96,10 @@ Install Qwik UI with your choice of package manager below:
         │  ├─ favicon.svg
         │  ├─ manifest.json
         │  └─ robots.txt
-        ├─ <strong class="text-slate-950 dark:text-white">src</strong>
-        │  ├─ <strong class="text-slate-950 dark:text-white">components</strong>
-        │  │  └─ <strong class="text-slate-950 dark:text-white">accordion</strong>
-        │  │     └─ <strong class="text-slate-950 dark:text-white">accordion.tsx</strong>
+        ├─ <strong>src</strong>
+        │  ├─ <strong>components</strong>
+        │  │  └─ <strong>accordion</strong>
+        │  │     └─ <strong>accordion.tsx</strong>
         │  │  └─ router-head
         │  │     └─ router-head.tsx
         │  ├─ entry.dev.tsx
@@ -168,8 +115,7 @@ Install Qwik UI with your choice of package manager below:
         └─ vite.config.ts
     </div>
 
-    Now let's copy our accordion code example from the building blocks section:
-    <CodeSnippet name="building-blocks" />
+    Now, to create a component, you can simply copy/paste the code from the building blocks section, or the snippet provided in the code tab below 👇
 
     <Showcase name="accordion" />
 
@@ -181,68 +127,28 @@ Install Qwik UI with your choice of package manager below:
 
     <Showcase name="accordion-qwik-city" />
 
-    <Note status="info">
-        Here's a Qwik City [project example repository](https://github.com/thejackshelton/qwik-ui-scratch) with the content from above. Feel free to clone it and play with it.
-    </Note>
+    > Here's a Qwik City [project example repository](https://github.com/thejackshelton/qwik-ui-scratch) with the content from above. Feel free to clone it and play with it.
 
     ## Astro
 
     To set up an Astro application, add the following command in the terminal:
 
-     <Tabs
-        class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-lg lg:mx-[-32px] text-white"
-        behavior="manual"
-    >
-    <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 flex rounded-t-lg border-[1.5px] border-b-0 text-white">
-        {Object.keys(astroPackages).map((key, index) => (
-            <Tab key={index} class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color min-h-[44px] first-of-type:rounded-tl-[.325rem]  px-[28px] py-2 transition aria-selected:bg-qwikui-blue-500 dark:aria-selected:bg-qwikui-purple-600 aria-selected:font-bold">
-                {key}
-            </Tab>
-        ))}
-    </TabList>
-        {Object.entries(astroPackages).map(([key, value], index) => (
-            <TabPanel key={index} class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-lg border-[1.5px] bg-slate-200 bg-slate-800 py-6 dark:bg-slate-900 px-[28px]">
-                <div class="flex items-center justify-between">
-                    {value}
-                    <CodeCopy code={value} class="hover:bg-slate-700 dark:hover:bg-slate-800 p-4" icon={true} />
-                </div>
-            </TabPanel>
-        ))}
-    </Tabs>
+    <InstallSnippet packages={astroPackages} />
 
     Add a relative path for your project, and select the `empty` option in the CLI.
 
-    <div class="mx-[-24px] lg:mx-[-32px]">
-        <img src={astroCLI} class="block max-w-full rounded-md mb-6 border-qwikui-purple-200" />
+    <div class="-mx-6 lg:-mx-8">
+        <img src={astroCLI} class="block max-w-full rounded-md mb-6 border" />
     </div>
 
     Next, let's add the [@qwikdev/astro](https://www.npmjs.com/package/@qwikdev/astro) integration. This integration allows us to leverage resumability and Qwik components inside of Astro.
 
     Run the following command in the terminal:
 
-    <Tabs
-        class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-lg lg:mx-[-32px] text-white"
-        behavior="manual"
-    >
-    <TabList class="bg-qwikui-blue-700 dark:bg-qwikui-purple-800 border-qwikui-blue-300 dark:border-qwikui-purple-200 flex rounded-t-lg border-[1.5px] border-b-0 text-white">
-        {Object.keys(qwikAstroCliPackages).map((key, index) => (
-            <Tab key={index} class="hover:bg-qwikui-blue-600 dark:hover:bg-qwikui-purple-500 text-outline-lg ease-step transition-color min-h-[44px] first-of-type:rounded-tl-[.325rem]  px-[28px] py-2 transition aria-selected:bg-qwikui-blue-500 dark:aria-selected:bg-qwikui-purple-600 aria-selected:font-bold">
-                {key}
-            </Tab>
-        ))}
-    </TabList>
-        {Object.entries(qwikAstroCliPackages).map(([key, value], index) => (
-            <TabPanel key={index} class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-lg border-[1.5px] bg-slate-200 bg-slate-800 py-6 dark:bg-slate-900 px-[28px]">
-                <div class="flex items-center justify-between">
-                    {value}
-                    <CodeCopy code={value} class="hover:bg-slate-700 dark:hover:bg-slate-800 p-4" icon={true} />
-                </div>
-            </TabPanel>
-        ))}
-    </Tabs>
+    <InstallSnippet packages={qwikAstroCliPackages} />
 
-    <div class="mx-[-24px] lg:mx-[-32px]">
-        <img src={qwikdevAstroCLI} class="block max-w-full rounded-md mb-6 border-qwikui-purple-200" />
+    <div class="-mx-6 lg:-mx-8">
+        <img src={qwikdevAstroCLI} class="block max-w-full rounded-md mb-6 border" />
     </div>
 
     Then, let's make sure we use Qwik as our main **jsxImportSource** in `tsconfig.json`. Otherwise, it will not get the proper Qwik types.
@@ -257,12 +163,13 @@ Install Qwik UI with your choice of package manager below:
     }
     ```
 
+    <br/>
     Under the `src` directory, let's create a folder called `components`. Similar to the Qwik City guide, we'll create a folder named `accordion`, and a file named **`accordion.tsx`**.
 
     Below is the project structure with this in place.
 
-    <div class="whitespace-pre-wrap bg-[#ECDDFD] dark:bg-[#0C2944] mx-[-24px] lg:mx-[-32px] px-5 py-4 lg:px-[28px] text-slate-700 dark:text-slate-300 border-[1px] border-qwikui-purple-600 rounded-lg dark:border-qwikui-blue-600 mb-6 lg:mb-12">
-        <strong class="text-slate-950 dark:text-white">Astro files</strong>
+    <div class="whitespace-pre-wrap bg-secondary/20 -mx-6 lg:-mx-8 px-5 py-4 lg:px-7 border border-secondary rounded-lg mb-6 lg:mb-12">
+        <strong>Astro files</strong>
         ├─ .gitignore
         ├─ README.md
         ├─ astro.config.mjs
@@ -273,22 +180,21 @@ Install Qwik UI with your choice of package manager below:
         ├─ src
         │  ├─ env.d.ts
         │  └─ pages
-        │     ├─ <strong class="text-slate-950 dark:text-white">components</strong>
-        │     │  └─ <strong class="text-slate-950 dark:text-white">accordion</strong>
-        │     │     └─ <strong class="text-slate-950 dark:text-white">accordion.tsx</strong>
+        │     ├─ <strong>components</strong>
+        │     │  └─ <strong>accordion</strong>
+        │     │     └─ <strong>accordion.tsx</strong>
         │     └─ index.astro
         └─ tsconfig.json
     </div>
 
     Once again, let's copy our `building-blocks` example from above.
+
     <CodeSnippet name="building-blocks" />
 
-    {/* <Showcase name="accordion" /> */}
+    <Showcase name="accordion" />
 
     And we'll spice it up a bit using some vanilla CSS.
 
     <Showcase name="astro-accordion" />
 
-    <Note status="info">
-        Here's an Astro [project example repository](https://github.com/thejackshelton/qwik-ui-astro-scratch) with the content from above. Feel free to clone it and play with it.
-    </Note>
+    > Here's an Astro [project example repository](https://github.com/thejackshelton/qwik-ui-astro-scratch) with the content from above. Feel free to clone it and play with it.

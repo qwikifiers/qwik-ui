@@ -8,7 +8,7 @@ import {
 import { OmitSignalClass } from '@qwik-ui/utils';
 import { CodeCopy } from '../code-copy/code-copy';
 
-export type HighlightProps = OmitSignalClass<QwikIntrinsicElements['pre']> & {
+export type HighlightProps = OmitSignalClass<QwikIntrinsicElements['div']> & {
   code: string;
   copyCodeClass?: ClassList;
   language?: 'tsx' | 'html' | 'css';
@@ -29,6 +29,7 @@ export const Highlight = component$(
 
     useVisibleTask$(
       async function createHighlightedCode() {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const highlighter = await (window as any).shikiji;
         let modifiedCode: string = code;
 
@@ -58,7 +59,7 @@ export const Highlight = component$(
       <div class="code-example relative max-h-[31.25rem] rounded-b-xl">
         <CodeCopy
           class={[
-            'copy-btn-bg-dark absolute right-4 top-4 bg-slate-200 text-white hover:bg-slate-600 hover:text-white',
+            'absolute right-4 top-4 text-white hover:bg-slate-800 hover:text-white',
             copyCodeClass,
           ]}
           code={code}
@@ -66,7 +67,7 @@ export const Highlight = component$(
         <div
           {...props}
           class={[
-            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl bg-slate-800 p-6 text-sm dark:bg-slate-900',
+            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm',
             props.class,
           ]}
         >

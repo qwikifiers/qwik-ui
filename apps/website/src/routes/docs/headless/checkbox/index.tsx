@@ -16,7 +16,7 @@ export default component$(() => {
           id="test"
           name="test"
           value="test"
-          onChange={$(() => console.log('clicked'))}
+          onChange$={$(() => console.log('clicked'))}
           class="checkbox-secondary checkbox-margin-right"
         />
         test
@@ -39,7 +39,7 @@ export default component$(() => {
       </fieldset>
 
       <h1>Size</h1>
-      <fieldset class="">
+      <fieldset>
         <Checkbox.Root disabled checked class="qui-checkbox-sm checkbox-margin-right" />
         <Checkbox.Root disabled checked class="qui-checkbox-md checkbox-margin-right" />
         <Checkbox.Root disabled checked class="qui-checkbox-lg" />

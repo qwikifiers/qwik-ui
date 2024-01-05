@@ -11,8 +11,7 @@ export default defineConfig({
   plugins: [
     dts({
       entryRoot: 'src',
-      tsConfigFilePath: path.join(__dirname, 'tsconfig.lib.json'),
-      skipDiagnostics: true,
+      tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
 
     viteTsConfigPaths({
@@ -45,14 +44,5 @@ export default defineConfig({
       // External packages that should not be bundled into your library.
       external: [],
     },
-  },
-
-  test: {
-    globals: true,
-    cache: {
-      dir: '../../node_modules/.vitest',
-    },
-    environment: 'node',
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
   },
 });

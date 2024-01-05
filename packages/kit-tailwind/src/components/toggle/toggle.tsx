@@ -4,10 +4,10 @@ import {
   ToggleProps as HeadlessToggleProps,
 } from '@qwik-ui/primitives';
 
-export interface ToggleProps extends HeadlessToggleProps {
+export type ToggleProps = HeadlessToggleProps & {
   class?: string;
   label?: string;
-}
+};
 
 export const Toggle = component$(({ label, ...props }: ToggleProps) => {
   return (

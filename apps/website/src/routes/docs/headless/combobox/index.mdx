@@ -3,6 +3,7 @@ title: Qwik UI | Combobox
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
+import { FeatureList } from '~/components/feature-list/feature-list';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
@@ -25,14 +26,18 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 ## ✨ Features
 
-- Full WAI-Aria compliance
-- Full keyboard navigation
-- Custom Autocomplete behavior
-- Custom filter functionality
-- Controlled or uncontrolled
-- Supports disabled options
-- Custom signal binds
-- Animatable, dynamic, and resumable
+<FeatureList
+  features={[
+    'Full WAI-Aria compliance',
+    'Full keyboard navigation',
+    'Custom Autocomplete behavior',
+    'Custom filter functionality',
+    'Controlled or uncontrolled',
+    'Supports disabled options',
+    'Custom signal binds',
+    'Animatable, dynamic, and resumable',
+  ]}
+/>
 
 <br />
 
@@ -62,8 +67,6 @@ If you are not using context inside the portal children, this will not be an iss
 <CodeSnippet name="building-blocks" />
 
 ### 🎨 Anatomy
-
-{' '}
 
 <AnatomyTable
   propDescriptors={[
@@ -183,49 +186,6 @@ The Qwik UI Combobox uses the `onBlur$ event` on the input to close the listbox 
 This can get tedious if certain custom behavior needs to be added, or the listbox needs to be inspected in the dev tools.
 
 To disable this behavior, set `disableOnBlur={true}` on the Input.
-
-## **Configuring the Listbox**
-
-The `ComboboxListbox` component is designed for positioning elements that float and facilitating interactions with them. The listbox is highly configurable, here are some example use cases:
-
-### Placement
-
-To set the default position of the listbox, you can use the `placement` prop. In the example below, we've set placement to top. When the user opens the listbox, it will be above the input.
-
-<Showcase name="placement" />
-
-The default placement is **bottom**.
-
-### Flip
-
-Allows the listbox to flip its position based on available space. It's enabled by default, but can be disabled by adding `flip={false}` on the listbox.
-
-<Showcase name="flip" />
-  
-{
-/* commented out for now
-#### Shift
-  
-Enables the listbox to shift its position to prevent overflow.
-
-<ShiftExample>```tsx ```</ShiftExample>
-*/ }
-
-### Gutter
-
-In the previous docs examples, we use the gutter property on the listbox. Gutter is the space between the input and the floating element.
-
-<Showcase name="gutter" />
-
-If Flip is enabled, it will provide a gutter space for both the top and bottom.
-
-### Animations <span class="ml-2 text-red-400 dark:text-red-500 text-base px-2 bg-red-100 rounded-md shadow-light-low dark:shadow-dark-medium border-b-2 border-[1px] border-red-200 dark:border-red-400">WIP</span>
-
-We're still currently working to figure out animating things conditionally with portals. Would be open to some contributions on this!
-
-<Showcase name="animation" />
-
-An idea here might be having an `isComboboxAnimatingSig` and changing that value based on the `onAnimationStart$` and `onAnimationEnd$` events before closing or opening the portal.
 
 ## Customizing State Signals
 
@@ -440,22 +400,9 @@ The Combobox component API provides a set of properties that allow you to custom
   ]}
 />
 
-### ComboboxPortal
+### ComboboxPopover
 
-<APITable
-  propDescriptors={[
-    {
-      name: 'elementToTeleport',
-      type: 'JSXNode',
-      description: 'The children to be rendered inside the portal.',
-    },
-    {
-      name: 'contextIds',
-      type: 'Array<string>',
-      description: 'An array of context ids to be passed to the portal.',
-    },
-  ]}
-/>
+The Combobox Popover is a wrapper of [Qwik UI's popover component](../../../docs/headless/popover/). You can view the full API table at the bottom of the popover page.
 
 ### ComboboxListbox
 
@@ -575,17 +522,3 @@ The Combobox component API provides a set of properties that allow you to custom
     },
   ]}
 />
-
-## Additional Examples
-
-<div class="shadow-light-medium dark:shadow-dark-medium rounded-xl bg-gradient-to-b from-orange-700 to-orange-800 p-4 text-white dark:from-red-700 dark:to-red-800 lg:p-6">
-  **NOTE:** You cannot use **flip** and **autoPlacement** at the same time. They both
-  manipulate the placement but with different strategies. Using both can result in a
-  continuous reset loop as they try to override each other's work.
-</div>
-
-### Auto Placement
-
-Automatically places the listbox based on available space. **You must set flip to false before using it.** This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
-
-<Showcase name="auto-placement" />

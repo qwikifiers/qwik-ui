@@ -130,10 +130,10 @@ export const ComboboxInput = component$(
 
     return (
       <input
+        type="text"
         {...props}
         id={inputId || props.id}
         ref={context.inputRef}
-        type="text"
         role="combobox"
         aria-expanded={context.isListboxOpenSig.value}
         aria-haspopup="listbox"

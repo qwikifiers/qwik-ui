@@ -1,11 +1,10 @@
-import { QwikMouseEvent } from '@builder.io/qwik';
 import { FocusTrap, createFocusTrap } from 'focus-trap';
 
 export type WidthState = {
   width: number | null;
 };
 
-import { clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { clearAllBodyScrollLocks } from 'body-scroll-lock-upgrade';
 
 /**
  * Traps the focus of the given Modal
@@ -54,7 +53,7 @@ export async function closeModal(modal: HTMLDialogElement) {
  */
 export function wasModalBackdropClicked(
   modal: HTMLDialogElement | undefined,
-  clickEvent: QwikMouseEvent,
+  clickEvent: MouseEvent,
 ): boolean {
   if (!modal) {
     return false;

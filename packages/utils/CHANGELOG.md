@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.1.0](https://github.com/qwikifiers/qwik-ui/compare/utils-0.0.3...utils-0.1.0) (2023-12-16)
+
+### Bug Fixes
+
+- **docs:** add install / related docs / merge with main ([bb1b62c](https://github.com/qwikifiers/qwik-ui/commit/bb1b62cd87d376858fd706e9b5344603be87127c))
+- **everything:** fix 1.3 craziness ([0b20d97](https://github.com/qwikifiers/qwik-ui/commit/0b20d97af41f75bc7e1215391fd1c202ee8a9366))
+
 ## [0.0.3](https://github.com/qwikifiers/qwik-ui/compare/utils-0.0.2...utils-0.0.3) (2023-12-01)
 
 ## [0.0.2](https://github.com/qwikifiers/qwik-ui/compare/utils-0.0.1...utils-0.0.2) (2023-12-01)

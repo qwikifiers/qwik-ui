@@ -17,7 +17,7 @@ export default defineConfig(async () => {
     if (highlighter) {
       return highlighter;
     }
-    highlighter = await getHighlighter({ theme: 'css-variables' });
+    highlighter = await getHighlighter({ theme: 'poimandres' });
     return highlighter;
   }
   return {

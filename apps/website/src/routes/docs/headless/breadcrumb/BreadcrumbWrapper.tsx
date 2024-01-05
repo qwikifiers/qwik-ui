@@ -1,9 +1,9 @@
-import { component$, HTMLAttributes, Slot, useStyles$ } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements, Slot, useStyles$ } from '@builder.io/qwik';
 import style from './BreadcrumbWrapper.css?inline';
 
-interface BreadcrumbWrapperProps extends HTMLAttributes<HTMLElement> {
+type BreadcrumbWrapperProps = QwikIntrinsicElements['div'] & {
   title?: string;
-}
+};
 
 export default component$(({ title, ...rest }: BreadcrumbWrapperProps) => {
   useStyles$(style);

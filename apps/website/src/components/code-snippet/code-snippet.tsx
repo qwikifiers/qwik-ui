@@ -8,6 +8,7 @@ import { Highlight } from '../highlight/highlight';
 // /src/routes/docs/components/fluffy/modal/snippets/building-blocks.tsx
 // /src/routes/docs/components/headless/modal/snippets/building-blocks.tsx
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const codeSnippets: any = import.meta.glob('/src/routes/docs/**/**/snippets/*', {
   as: 'raw',
   eager: isDev ? false : true,
@@ -34,7 +35,7 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   });
 
   return (
-    <div class="shadow-3xl shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-6 rounded-xl border-2 border-slate-200 dark:border-slate-400 lg:mx-[-32px]">
+    <div class="shadow-3xl shadow-light-medium dark:shadow-dark-medium -mx-6 mb-6 rounded-xl border lg:-mx-8">
       <Highlight code={codeSnippetSig.value || ''} />
     </div>
   );

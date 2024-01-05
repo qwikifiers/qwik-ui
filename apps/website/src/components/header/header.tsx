@@ -3,8 +3,8 @@ import { $, component$, useComputed$ } from '@builder.io/qwik';
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { useLocation } from '@builder.io/qwik-city';
-import { KitName } from 'apps/website/src/_state/kit-name.type';
-import { useAppState } from 'apps/website/src/_state/use-app-state';
+import { KitName } from '~/_state/kit-name.type';
+import { useAppState } from '~/_state/use-app-state';
 import { version as fluffyVersion } from '../../../../../packages/kit-fluffy/package.json';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
@@ -27,18 +27,14 @@ export default component$(
 
     const isRouteActive = (href: string) => {
       const isLinkActive = location.url.pathname.startsWith(href);
-      return `text-slate-600 dark:text-slate-400 hover:text-slate-950 focus:text-slate-950 dark:hover:text-white dark:focus:text-white
-        transition-color ease-step duration-300 ${
-          isLinkActive ? 'font-bold !text-slate-950 dark:!text-white' : ''
-        }`;
+      return `
+        transition-color ease-step duration-300 ${isLinkActive ? 'font-bold' : ''}`;
     };
 
     const isDocsActive = (baseHref: string) => {
       const isLinkActive = location.url.pathname.startsWith(baseHref);
-      return `text-slate-600 dark:text-slate-400 hover:text-slate-950 focus:text-slate-950 dark:hover:text-white dark:focus:text-white
-        transition-color ease-step duration-300 ${
-          isLinkActive ? 'font-bold !text-slate-950 dark:!text-white' : ''
-        }`;
+      return `
+        transition-color ease-step duration-300 ${isLinkActive ? 'font-bold' : ''}`;
     };
 
     const kitSignal = useComputed$(() => {
@@ -60,15 +56,12 @@ export default component$(
       rootStore.mode = rootStore.mode === 'light' ? 'dark' : 'light';
     });
 
-    // we can add back the header animation if you'd like. Maybe something springy with motion?
     return (
       <header
         class={[
-          `xs:gap-8 sticky top-0 z-20 flex h-20 w-full items-center gap-6 border-b-[1px] border-slate-200 bg-white  p-4 dark:border-slate-800 dark:bg-slate-900 md:h-20`,
+          `bg-background xs:gap-8 sticky top-0 z-20 flex h-20 w-full items-center gap-6 border-b-[1px] p-4 md:h-20`,
           `shadow-light-low dark:shadow-dark-medium`,
-          rootStore.isSidebarOpened
-            ? 'bg-blue-200 brightness-75 dark:bg-indigo-900'
-            : 'bg-[var(--color-bg)]',
+          rootStore.isSidebarOpened ? '' : 'bg-[var(--color-bg)]',
           showBottomBorder ? `shadow-light-low dark:shadow-dark-medium` : ``,
         ]}
       >
@@ -113,7 +106,12 @@ export default component$(
         </nav>
 
         <button type="button" aria-label="Toggle dark mode" onClick$={toggleDarkMode}>
-          {rootStore.mode === 'dark' ? <MoonIcon /> : <SunIcon />}
+          <div class="hidden dark:block">
+            <MoonIcon />
+          </div>
+          <div class="block dark:hidden ">
+            <SunIcon />
+          </div>
         </button>
         <a
           target="_blank"

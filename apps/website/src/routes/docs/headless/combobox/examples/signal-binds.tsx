@@ -5,7 +5,7 @@ import {
   ComboboxInput,
   ComboboxListbox,
   ComboboxOption,
-  ComboboxPortal,
+  ComboboxPopover,
   ComboboxTrigger,
   ResolvedOption,
 } from '@qwik-ui/headless';
@@ -25,7 +25,7 @@ export default component$(() => {
 
   return (
     <>
-      <p class="text-center text-white">I love signals! 🗼</p>
+      <p class="text-center">I love signals! 🗼</p>
       <div>
         <Combobox
           class="w-fit"
@@ -33,24 +33,22 @@ export default component$(() => {
           bind:isListboxOpenSig={isListboxOpenSig}
           bind:highlightedIndexSig={highlightedIndexSig}
         >
-          <ComboboxControl class="relative flex items-center rounded-sm border-[1px] border-slate-400 bg-[#1f2532]">
+          <ComboboxControl class="relative flex items-center rounded-sm border">
             <ComboboxInput
-              class="px-d2 w-fit bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
+              class="px-d2 placeholder:text-muted-foreground w-fit rounded-sm px-2 pr-6"
               onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
             />
             <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-              <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
+              <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
             </ComboboxTrigger>
           </ComboboxControl>
-          <ComboboxPortal>
+          <ComboboxPopover hide="escaped" gutter={8}>
             <ComboboxListbox
-              gutter={8}
               class="w-fit rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
-              hide="escaped"
               optionRenderer$={(option: ResolvedOption, index: number) => (
                 <ComboboxOption
                   key={option.key}
-                  class="group rounded-sm border-2 border-transparent px-2 text-white hover:bg-slate-500  aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
+                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent group flex justify-between rounded-sm border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
                   index={index}
                   resolved={option}
                 >
@@ -58,7 +56,7 @@ export default component$(() => {
                 </ComboboxOption>
               )}
             />
-          </ComboboxPortal>
+          </ComboboxPopover>
         </Combobox>
       </div>
     </>

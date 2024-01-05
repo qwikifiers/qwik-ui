@@ -1,42 +1,36 @@
-import { stringifyClassList } from '@qwik-ui/utils';
-import { QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
+import { cn } from '@qwik-ui/utils';
+import { PropsOf, QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/fluffy';
-import { OmitSignalClass } from '@qwik-ui/utils';
 import copy from 'clipboard-copy';
-import { twMerge } from 'tailwind-merge';
 
-export type CodeCopyProps = OmitSignalClass<QwikIntrinsicElements['button']> & {
+export type CodeCopyProps = PropsOf<typeof Button> & {
   code?: string;
-  icon?: boolean;
 };
 
-export const CodeCopy = component$(
-  ({ icon = false, code = '', class: outsideClass, ...restOfProps }: CodeCopyProps) => {
-    const copied = useSignal(false);
+export const CodeCopy = component$(({ code = '', class: outsideClass, ...props }) => {
+  const copied = useSignal(false);
 
-    return (
-      <Button
-        look="ghost"
-        intent="basic"
-        animation={!copied.value ? 'bouncy' : 'none'}
-        {...restOfProps}
-        title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
-        class={twMerge(stringifyClassList(outsideClass))}
-        onClick$={async () => {
-          await copy(code);
-          copied.value = true;
+  return (
+    <Button
+      look="ghost"
+      intent="basic"
+      animation={!copied.value ? 'bouncy' : 'none'}
+      {...props}
+      title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
+      class={cn(outsideClass)}
+      onClick$={async () => {
+        await copy(code);
+        copied.value = true;
 
-          setTimeout(() => {
-            copied.value = false;
-          }, 4000);
-        }}
-      >
-        {!icon && (!copied.value ? 'Copy' : 'Copied!')}
-        {icon && (!copied.value ? <CopyIcon /> : <ClipboardCheck />)}
-      </Button>
-    );
-  },
-);
+        setTimeout(() => {
+          copied.value = false;
+        }, 4000);
+      }}
+    >
+      {!copied.value ? <CopyIcon /> : <ClipboardCheck />}
+    </Button>
+  );
+});
 
 export function CopyIcon(props: QwikIntrinsicElements['svg'], key: string) {
   return (
