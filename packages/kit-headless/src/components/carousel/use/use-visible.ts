@@ -33,6 +33,7 @@ export const useVisible = (ref: Signal<HTMLElement | undefined>) => {
     return { start, end };
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async function trackActiveItems() {
     const map = new Map<Element, boolean | undefined>();
     getElements(ref).forEach((element) => map.set(element, undefined));

@@ -83,6 +83,7 @@ export const AccordionTrigger = component$(
       }
     });
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(function navigateTriggerVisibleTask({ cleanup }) {
       if (!triggerElement) {
         return;
@@ -105,6 +106,7 @@ export const AccordionTrigger = component$(
       });
     });
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(
       function cleanupTriggersTask({ cleanup }) {
         cleanup(() => {

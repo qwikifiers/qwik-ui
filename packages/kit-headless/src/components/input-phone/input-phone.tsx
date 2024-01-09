@@ -166,6 +166,7 @@ export const InputPhone = component$(
     /**
      * Emit the InputPhone's on initial render
      */
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(() => {
       handleCountryChange(countrySignal.value);
       handleNumberChange(outputSignal.value);

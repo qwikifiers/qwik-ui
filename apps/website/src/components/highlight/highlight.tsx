@@ -27,6 +27,7 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(
       async function createHighlightedCode() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

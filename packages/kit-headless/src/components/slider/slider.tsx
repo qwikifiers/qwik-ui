@@ -55,11 +55,13 @@ export const Slider = component$(
       percentage: percentageSignal,
     };
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(async ({ track }) => {
       track(() => rootPositionRef);
       contextService.positionX.value = rootPositionRef.value?.getBoundingClientRect().x;
     });
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(async ({ track }) => {
       const newValue = track(() => sliderValue.value);
       if (onChange$) {

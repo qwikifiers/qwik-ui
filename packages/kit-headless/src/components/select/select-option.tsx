@@ -22,6 +22,7 @@ export const SelectOption = component$<SelectOptionProps>(
     const selectContext = useContext(SelectContextId);
     const optionRef = useSignal<HTMLElement>();
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(function setKeyHandler({ cleanup }) {
       function keyHandler(e: KeyboardEvent) {
         const target = e.target as HTMLElement;

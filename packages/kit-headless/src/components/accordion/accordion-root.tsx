@@ -6,7 +6,6 @@ import {
   useSignal,
   useTask$,
   useVisibleTask$,
-  type PropFunction,
   type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
@@ -18,8 +17,8 @@ export type AccordionRootProps = {
   animated?: boolean;
   enhance?: boolean;
   collapsible?: boolean;
-  onSelectedIndexChange$?: PropFunction<(index: number) => void>;
-  onFocusIndexChange$?: PropFunction<(index: number) => void>;
+  onSelectedIndexChange$?: (index: number) => void;
+  onFocusIndexChange$?: (index: number) => void;
 } & QwikIntrinsicElements['div'];
 
 export const AccordionRoot = component$(
@@ -103,6 +102,7 @@ export const AccordionRoot = component$(
     });
 
     // takes a role call of its children (reactive b/c it's a signal)
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(function reIndexTriggers() {
       updateTriggers$();
     });

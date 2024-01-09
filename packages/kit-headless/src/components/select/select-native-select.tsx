@@ -9,6 +9,7 @@ export const NativeSelect = component$(
     const selectContext = useContext(SelectContextId);
     const ref = useSignal<HTMLElement>();
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(function populateNativeSelect({ track }) {
       const options = track(() => selectContext.optionsStore);
 

@@ -38,6 +38,7 @@ export default component$(() => {
 
   useContextProvider(APP_STATE_CONTEXT_ID, appState);
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
     const userStoredTheme = localStorage.getItem(THEME_STORAGE_KEY);
     if (userStoredTheme) {

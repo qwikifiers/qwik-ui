@@ -15,6 +15,7 @@ export const SelectTrigger = component$((props: SelectTriggerProps) => {
   const triggerRef = useSignal<HTMLElement>();
   selectContext.triggerRef = triggerRef;
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(function setClickHandler({ cleanup }) {
     function clickHandler(e: Event) {
       e.preventDefault();
@@ -26,6 +27,7 @@ export const SelectTrigger = component$((props: SelectTriggerProps) => {
     });
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(function setKeyHandler({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
       if (e.key === 'Home' || e.key === 'End') {

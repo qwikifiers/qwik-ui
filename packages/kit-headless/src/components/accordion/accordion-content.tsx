@@ -70,6 +70,7 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
   });
 
   /* calculates height of the content container based on children */
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(function calculateHeightVisibleTask({ track }) {
     if (animated === false) {
       return;

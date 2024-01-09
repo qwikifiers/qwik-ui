@@ -49,6 +49,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     }),
   );
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(function setKeyHandler({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
       e.preventDefault();
@@ -74,6 +75,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     });
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async function toggleSelectListBox({ track }) {
     const trigger = track(() => context.triggerRef.value);
     const listBox = track(() => context.listboxRef.value);
@@ -95,6 +97,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     }
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(function collectOptions({ track }) {
     const listBox = track(() => context.listboxRef.value);
 
