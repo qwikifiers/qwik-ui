@@ -6,7 +6,7 @@ export * from './components/card';
 export * as Carousel from './components/carousel/carousel';
 export * from './components/carousel/use';
 export * as Checkbox from './components/checkbox/checkbox';
-export * from './components/collapse/collapse';
+export * from './components/collapsible';
 export * from './components/combobox';
 export * from './components/combobox/';
 export * from './components/modal';
