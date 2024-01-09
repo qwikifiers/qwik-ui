@@ -6,11 +6,11 @@ import {
   useComputed$,
   useContext,
   useSignal,
-  useVisibleTask$,
+  sync$,
 } from '@builder.io/qwik';
-import { KeyCode } from '../../utils/key-code.type';
 import { TAB_PANEL_ID_PREFIX } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
+import { KeyCode } from '../../utils/key-code.type';
 
 export const TAB_ID_PREFIX = '_tab_';
 
@@ -20,17 +20,6 @@ export type TabProps = QwikIntrinsicElements['button'] & {
   selectedClassName?: string;
   tabId?: string;
 };
-
-const preventedKeys = [
-  KeyCode.Home,
-  KeyCode.End,
-  KeyCode.PageDown,
-  KeyCode.PageUp,
-  KeyCode.ArrowDown,
-  KeyCode.ArrowUp,
-  KeyCode.ArrowLeft,
-  KeyCode.ArrowRight,
-];
 
 export const Tab = component$<TabProps>(({ selectedClassName, tabId, ...props }) => {
   const contextService = useContext(tabsContextId);
@@ -46,20 +35,6 @@ export const Tab = component$<TabProps>(({ selectedClassName, tabId, ...props })
 
   const isSelectedSig = useComputed$(() => {
     return contextService.selectedTabIdSig.value === tabId;
-  });
-
-  useVisibleTask$(function preventDefaultOnKeysVisibleTask({ cleanup }) {
-    function handler(event: KeyboardEvent) {
-      if (preventedKeys.includes(event.key as KeyCode)) {
-        event.preventDefault();
-      }
-      contextService.onTabKeyDown$(event.key as KeyCode, tabId!);
-    }
-    // TODO put the listener on TabList
-    elementRefSig.value?.addEventListener('keydown', handler);
-    cleanup(() => {
-      elementRefSig.value?.removeEventListener('keydown', handler);
-    });
   });
 
   const selectIfAutomatic$ = $(() => {
@@ -86,6 +61,27 @@ export const Tab = component$<TabProps>(({ selectedClassName, tabId, ...props })
       tabIndex={isSelectedSig.value ? 0 : -1}
       class={[props.class, classNamesSig.value]}
       onClick$={[$(() => contextService.selectTab$(tabId!)), props.onClick$]}
+      onKeyDown$={[
+        /* KeyCode cannot be used here. */
+        sync$((e: KeyboardEvent): void => {
+          const keys = [
+            'Home',
+            'End',
+            'PageDown',
+            'PageUp',
+            'ArrowDown',
+            'ArrowUp',
+            'ArrowLeft',
+            'ArrowRight',
+          ];
+
+          if (keys.includes(e.key)) {
+            e.preventDefault();
+          }
+        }),
+        $((e) => contextService.onTabKeyDown$(e.key as KeyCode, tabId!)),
+        props.onKeyDown$,
+      ]}
     >
       <Slot />
     </button>
