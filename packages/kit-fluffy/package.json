@@ -33,6 +33,8 @@
     "@builder.io/qwik": "^1.1.0"
   },
   "dependencies": {
+    "@qwik-ui/headless": "0.2.1",
+    "@qwik-ui/utils": "0.1.1",
     "@nx/devkit": "17.1.3"
   },
   "devDependencies": {
