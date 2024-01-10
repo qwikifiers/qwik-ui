@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "ES2017",
+    "module": "CommonJS",
+    "sourceMap": false,
+    "noEmit": false,
+
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"]
+  },
+  "exclude": [],
+  "include": ["bin/**/*.ts"]
+}

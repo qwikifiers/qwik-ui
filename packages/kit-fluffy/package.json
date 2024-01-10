@@ -9,13 +9,8 @@
   "qwik": "./index.qwik.mjs",
   "types": "./packages/kit-fluffy/src/index.d.ts",
   "module": "./index.qwik.mjs",
+  "generators": "./generators.json",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./index.qwik.mjs",
-      "require": "./index.qwik.cjs"
-    }
-  },
   "engines": {
     "node": ">=16.0.0"
   },
@@ -36,6 +31,9 @@
   },
   "peerDependencies": {
     "@builder.io/qwik": "^1.1.0"
+  },
+  "dependencies": {
+    "@nx/devkit": "17.1.3"
   },
   "devDependencies": {
     "@builder.io/vite-plugin-macro": "~0.0.7"

@@ -36,7 +36,9 @@
       "executor": "@jscutlery/semver:version",
       "options": {
         "dryRun": true,
-        "releaseAs": "patch"
+        "trackDeps": true,
+        "noVerify": true,
+        "skipCommit": true
       }
     },
 

@@ -1,8 +1,10 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["node", "vite/client"]
+    "declaration": true,
+    "module": "commonjs",
+    "types": ["node"]
   },
   "files": [],
   "exclude": [
@@ -20,5 +22,5 @@
     "**/*.spec.tsx",
     "**/*.spec.ts"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "postcss.config.cjs"]
+  "include": ["src/generators/*.ts"]
 }

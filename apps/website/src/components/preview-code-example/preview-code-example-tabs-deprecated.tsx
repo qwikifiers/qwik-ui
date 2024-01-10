@@ -27,7 +27,7 @@ export const PreviewCodeExampleTabsDeprecated = component$((props: { code?: stri
           Code
         </Tab>
       </TabList>
-      <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-xl border-[1.5px] bg-slate-200 bg-slate-800  p-4 dark:bg-slate-900 md:p-12">
+      <TabPanel class="shadow-light-medium dark:shadow-dark-medium border-qwikui-blue-300 dark:border-qwikui-purple-200 rounded-b-xl border-[1.5px] bg-slate-200 bg-slate-800  p-4 md:p-12 dark:bg-slate-900">
         <section class="flex flex-col items-center">
           <Slot name="actualComponent" />
         </section>
