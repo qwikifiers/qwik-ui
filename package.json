@@ -8,7 +8,7 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "build.changelog-formatter": "tsc .changeset/changelog-github-custom.ts",
+    "build.changelog-formatter": "tsc .changeset/changelog-github-custom.ts && mv .changeset/changelog-github-custom.js .changeset/changelog-github-custom.cjs",
     "build": "nx build website",
     "build.cloudflare": "nx build-cloudflare website",
     "build.headless": "nx build headless",
