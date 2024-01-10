@@ -2,7 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import {
   Toggle as HeadlessToggle,
   ToggleProps as HeadlessToggleProps,
-} from '@qwik-ui/primitives';
+} from '@qwik-ui/headless';
 
 export type ToggleProps = HeadlessToggleProps & {
   class?: string;
