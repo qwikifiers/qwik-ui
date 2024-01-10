@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Badge } from '@qwik-ui/tailwind';
+import { Badge } from '@qwik-ui/fluffy';
 import { ComponentStatus } from '~/_state/component-status.type';
 import { tooltipByStatus } from '~/_state/status-tooltips';
 
