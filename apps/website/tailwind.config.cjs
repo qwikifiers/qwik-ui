@@ -7,12 +7,7 @@ module.exports = {
     join(__dirname, '../../packages/kit-tailwind/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-fluffy/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
-  plugins: [require('daisyui')],
   darkMode: 'class',
-  daisyui: {
-    themes: ['light', 'dark'],
-    base: true,
-  },
   theme: {
     screens: {
       sm: '640px',

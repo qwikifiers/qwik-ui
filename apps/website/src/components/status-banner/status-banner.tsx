@@ -1,11 +1,7 @@
-import {
-  QwikIntrinsicElements,
-  component$,
-  useSignal,
-  useStylesScoped$,
-} from '@builder.io/qwik';
+import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
 import { ComponentStatus } from '~/_state/component-status.type';
 import { getClassByStatus } from '../component-status-badge/component-status-badge';
+import { Badge } from '@qwik-ui/fluffy';
 
 export interface StatusBannerProps {
   status?: ComponentStatus;
@@ -13,36 +9,21 @@ export interface StatusBannerProps {
 
 function getMessageByStatus(status?: ComponentStatus) {
   switch (status) {
-    case ComponentStatus.Ready:
-      return (
-        <>
-          This component is <strong>Production Ready</strong>
-        </>
-      );
     case ComponentStatus.Beta:
       return (
         <>
           <strong>DISCLAIMER:</strong> This component is in{' '}
-          <span
-            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(status)}`}
-          >
-            {status}
-          </span>{' '}
-          status. That means that it is ready for production, but the API might change.
+          <Badge variant={getClassByStatus(status)}>{status}</Badge> status. That means
+          that it is ready for production, but the API might change.
         </>
       );
     case ComponentStatus.Draft:
       return (
         <>
           <strong>WARNING:</strong> This component is in{' '}
-          <span
-            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(status)}`}
-          >
-            {status}
-          </span>{' '}
-          status. This means that it is still in development and may have bugs or missing
-          features. It is not intended to be used in production. You may use it for
-          testing purposes.
+          <Badge variant={getClassByStatus(status)}>{status}</Badge> status. This means
+          that it is still in development and may have bugs or missing features. It is not
+          intended to be used in production. You may use it for testing purposes.
         </>
       );
     case ComponentStatus.Planned:
@@ -50,13 +31,9 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>WARNING:</strong> This component is in{' '}
-          <span
-            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(
-              status || ComponentStatus.Planned,
-            )}`}
-          >
+          <Badge variant={getClassByStatus(status || ComponentStatus.Planned)}>
             {status}
-          </span>{' '}
+          </Badge>{' '}
           status. That means that it is in our backlog and we might have started working
           on it, but it is not under active development.
         </>
@@ -66,15 +43,13 @@ function getMessageByStatus(status?: ComponentStatus) {
 
 function getBackgroundByStatus(status?: ComponentStatus) {
   switch (status) {
-    case ComponentStatus.Ready:
-      return 'bg-green-300';
     case ComponentStatus.Beta:
-      return 'border border-primary';
+      return 'border border-secondary';
     case ComponentStatus.Draft:
-      return 'border';
+      return 'border border-primary';
     case ComponentStatus.Planned:
     default:
-      return 'border';
+      return 'border border-foreground';
   }
 }
 
@@ -136,7 +111,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
   );
 });
 
-export function EpCircleCloseFilled(props: QwikIntrinsicElements['svg'], key: string) {
+export function EpCircleCloseFilled() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

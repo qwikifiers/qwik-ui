@@ -4,6 +4,7 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+<<<<<<< HEAD
 importers:
 
   .:
@@ -410,6 +411,344 @@ importers:
   packages/primitives: {}
 
   packages/utils: {}
+=======
+dependencies:
+  '@fontsource-variable/inter':
+    specifier: 5.0.8
+    version: 5.0.8
+  '@oddbird/popover-polyfill':
+    specifier: 0.3.7
+    version: 0.3.7
+  body-scroll-lock-upgrade:
+    specifier: 1.1.0
+    version: 1.1.0
+  canvas-confetti:
+    specifier: 1.9.2
+    version: 1.9.2
+  class-variance-authority:
+    specifier: 0.7.0
+    version: 0.7.0
+  clsx:
+    specifier: 2.0.0
+    version: 2.0.0
+  tslib:
+    specifier: ^2.6.2
+    version: 2.6.2
+
+devDependencies:
+  '@builder.io/qwik':
+    specifier: ^1.3.2
+    version: 1.3.2(@types/node@20.10.6)(sass@1.69.7)(undici@5.28.2)
+  '@builder.io/qwik-city':
+    specifier: ^1.3.2
+    version: 1.3.2(@types/node@20.10.6)(sass@1.69.7)
+  '@builder.io/vite-plugin-macro':
+    specifier: ~0.0.7
+    version: 0.0.7(@types/node@20.10.6)(sass@1.69.7)
+  '@clack/prompts':
+    specifier: ^0.7.0
+    version: 0.7.0
+  '@commitlint/cli':
+    specifier: ^17.7.1
+    version: 17.8.1(@swc/core@1.3.102)
+  '@commitlint/config-angular':
+    specifier: ^17.7.0
+    version: 17.8.1
+  '@commitlint/config-conventional':
+    specifier: ^17.7.0
+    version: 17.8.1
+  '@cypress/code-coverage':
+    specifier: ^3.11.0
+    version: 3.12.17(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(babel-loader@9.1.3)(cypress@13.6.2)(webpack@5.89.0)
+  '@cypress/vite-dev-server':
+    specifier: ^5.0.6
+    version: 5.0.7
+  '@floating-ui/core':
+    specifier: 1.4.1
+    version: 1.4.1
+  '@floating-ui/dom':
+    specifier: ^1.5.1
+    version: 1.5.3
+  '@img/sharp-linux-x64':
+    specifier: ^0.33.0
+    version: 0.33.1
+  '@jscutlery/semver':
+    specifier: ^4.2.0
+    version: 4.2.0(@nx/devkit@17.1.3)
+  '@k11r/nx-cloudflare-wrangler':
+    specifier: 2.7.1
+    version: 2.7.1(@nx/devkit@17.1.3)(@nx/node@17.2.8)(esbuild@0.19.11)(tslib@2.6.2)(wrangler@3.22.3)
+  '@nx/cypress':
+    specifier: 17.1.3
+    version: 17.1.3(@swc/core@1.3.102)(@types/node@20.10.6)(cypress@13.6.2)(eslint@8.56.0)(nx@17.1.3)(typescript@5.3.3)(verdaccio@5.29.0)
+  '@nx/devkit':
+    specifier: 17.1.3
+    version: 17.1.3(nx@17.1.3)
+  '@nx/eslint':
+    specifier: 17.1.3
+    version: 17.1.3(@swc/core@1.3.102)(@types/node@20.10.6)(eslint@8.56.0)(nx@17.1.3)(verdaccio@5.29.0)
+  '@nx/eslint-plugin':
+    specifier: 17.1.3
+    version: 17.1.3(@swc/core@1.3.102)(@types/node@20.10.6)(@typescript-eslint/parser@6.13.1)(eslint-config-prettier@9.0.0)(eslint@8.56.0)(nx@17.1.3)(typescript@5.3.3)(verdaccio@5.29.0)
+  '@nx/jest':
+    specifier: 17.1.3
+    version: 17.1.3(@swc/core@1.3.102)(@types/node@20.10.6)(nx@17.1.3)(ts-node@10.9.1)(typescript@5.3.3)(verdaccio@5.29.0)
+  '@nx/js':
+    specifier: 17.1.3
+    version: 17.1.3(@swc/core@1.3.102)(@types/node@20.10.6)(nx@17.1.3)(typescript@5.3.3)(verdaccio@5.29.0)
+  '@nx/plugin':
+    specifier: 17.2.3
+    version: 17.2.3(@swc/core@1.3.102)(@types/node@20.10.6)(eslint@8.56.0)(nx@17.1.3)(ts-node@10.9.1)(typescript@5.3.3)(verdaccio@5.29.0)
+  '@nx/storybook':
+    specifier: 17.1.3
+    version: 17.1.3(@swc/core@1.3.102)(@types/node@20.10.6)(cypress@13.6.2)(eslint@8.56.0)(nx@17.1.3)(typescript@5.3.3)(verdaccio@5.29.0)
+  '@nx/vite':
+    specifier: 17.1.3
+    version: 17.1.3(@swc/core@1.3.102)(@types/node@20.10.6)(nx@17.1.3)(typescript@5.3.3)(verdaccio@5.29.0)(vite@5.0.11)(vitest@0.34.6)
+  '@nx/workspace':
+    specifier: 17.1.3
+    version: 17.1.3(@swc/core@1.3.102)
+  '@storybook/addon-a11y':
+    specifier: 7.6.0
+    version: 7.6.0
+  '@storybook/addon-coverage':
+    specifier: ^0.0.9
+    version: 0.0.9
+  '@storybook/addon-essentials':
+    specifier: 7.6.0
+    version: 7.6.0(react-dom@18.2.0)(react@18.2.0)
+  '@storybook/addon-interactions':
+    specifier: 7.6.0
+    version: 7.6.0
+  '@storybook/addon-links':
+    specifier: 7.6.0
+    version: 7.6.0(react@18.2.0)
+  '@storybook/blocks':
+    specifier: ^7.4.0
+    version: 7.6.7(react-dom@18.2.0)(react@18.2.0)
+  '@storybook/builder-vite':
+    specifier: ^7.4.0
+    version: 7.6.7(typescript@5.3.3)(vite@5.0.11)
+  '@storybook/html':
+    specifier: ^7.4.0
+    version: 7.6.7(@babel/core@7.23.7)
+  '@storybook/html-vite':
+    specifier: ^7.4.0
+    version: 7.6.7(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(vite@5.0.11)
+  '@storybook/jest':
+    specifier: 0.2.3
+    version: 0.2.3(jest@29.7.0)(vitest@0.34.6)
+  '@storybook/test-runner':
+    specifier: 0.13.0
+    version: 0.13.0(@types/node@20.10.6)(ts-node@10.9.1)
+  '@storybook/testing-library':
+    specifier: 0.2.2
+    version: 0.2.2
+  '@testing-library/cypress':
+    specifier: 9.0.0
+    version: 9.0.0(cypress@13.6.2)
+  '@types/eslint':
+    specifier: ^8.44.2
+    version: 8.56.1
+  '@types/estree-jsx':
+    specifier: ^1.0.3
+    version: 1.0.3
+  '@types/jest':
+    specifier: ^29.4.0
+    version: 29.5.11
+  '@types/node':
+    specifier: ^20.5.7
+    version: 20.10.6
+  '@typescript-eslint/eslint-plugin':
+    specifier: 6.13.1
+    version: 6.13.1(@typescript-eslint/parser@6.13.1)(eslint@8.56.0)(typescript@5.3.3)
+  '@typescript-eslint/parser':
+    specifier: 6.13.1
+    version: 6.13.1(eslint@8.56.0)(typescript@5.3.3)
+  '@vitest/coverage-v8':
+    specifier: ^0.34.3
+    version: 0.34.6(vitest@0.34.6)
+  '@vitest/ui':
+    specifier: ^0.34.3
+    version: 0.34.7(vitest@0.34.6)
+  all-contributors-cli:
+    specifier: ^6.26.1
+    version: 6.26.1
+  autoprefixer:
+    specifier: ^10.4.15
+    version: 10.4.16(postcss@8.4.33)
+  axe-core:
+    specifier: ^4.7.2
+    version: 4.8.3
+  chromatic:
+    specifier: ^6.24.1
+    version: 6.24.1
+  clipboard-copy:
+    specifier: 4.0.1
+    version: 4.0.1
+  commitizen:
+    specifier: ^4.3.0
+    version: 4.3.0(@types/node@20.10.6)(typescript@5.3.3)
+  commitlint:
+    specifier: ^17.7.1
+    version: 17.8.1(@swc/core@1.3.102)
+  cypress:
+    specifier: ^13.0.0
+    version: 13.6.2
+  cypress-axe:
+    specifier: 1.4.0
+    version: 1.4.0(axe-core@4.8.3)(cypress@13.6.2)
+  cypress-ct-qwik:
+    specifier: 0.3.0
+    version: 0.3.0(@builder.io/qwik@1.3.2)(cypress@13.6.2)
+  cypress-real-events:
+    specifier: 1.10.3
+    version: 1.10.3(cypress@13.6.2)
+  cz-conventional-changelog:
+    specifier: ^3.3.0
+    version: 3.3.0(@types/node@20.10.6)(typescript@5.3.3)
+  danger:
+    specifier: ^11.2.8
+    version: 11.3.1
+  eslint:
+    specifier: ^8.48.0
+    version: 8.56.0
+  eslint-config-prettier:
+    specifier: 9.0.0
+    version: 9.0.0(eslint@8.56.0)
+  eslint-plugin-cypress:
+    specifier: ^2.14.0
+    version: 2.15.1(eslint@8.56.0)
+  eslint-plugin-qwik:
+    specifier: ^1.3.2
+    version: 1.3.2(eslint@8.56.0)
+  eslint-plugin-storybook:
+    specifier: ^0.6.13
+    version: 0.6.15(eslint@8.56.0)(typescript@5.3.3)
+  focus-trap:
+    specifier: 7.5.3
+    version: 7.5.3
+  husky:
+    specifier: ^8.0.3
+    version: 8.0.3
+  jest:
+    specifier: ^29.4.1
+    version: 29.7.0(@types/node@20.10.6)(ts-node@10.9.1)
+  jest-environment-jsdom:
+    specifier: ^29.4.1
+    version: 29.7.0
+  jsdom:
+    specifier: 22.1.0
+    version: 22.1.0
+  kleur:
+    specifier: ^4.1.5
+    version: 4.1.5
+  ngx-deploy-npm:
+    specifier: ^7.0.1
+    version: 7.1.0(@nx/devkit@17.1.3)(tslib@2.6.2)
+  node-fetch:
+    specifier: ^3.3.2
+    version: 3.3.2
+  np:
+    specifier: ^8.0.4
+    version: 8.0.4(typescript@5.3.3)
+  nx:
+    specifier: 17.1.3
+    version: 17.1.3(@swc/core@1.3.102)
+  postcss:
+    specifier: ^8.4.29
+    version: 8.4.33
+  prettier:
+    specifier: ^2.8.8
+    version: 2.8.8
+  prettier-plugin-tailwindcss:
+    specifier: 0.4.1
+    version: 0.4.1(prettier@2.8.8)
+  pretty-quick:
+    specifier: ^3.1.3
+    version: 3.1.3(prettier@2.8.8)
+  qwik-nx:
+    specifier: ^1.0.8
+    version: 1.1.1(@swc/core@1.3.102)(@types/node@20.10.6)(eslint@8.56.0)(nx@17.1.3)(typescript@5.3.3)(verdaccio@5.29.0)(vite@5.0.11)(vitest@0.34.6)
+  react:
+    specifier: 18.2.0
+    version: 18.2.0
+  react-dom:
+    specifier: 18.2.0
+    version: 18.2.0(react@18.2.0)
+  rehype-pretty-code:
+    specifier: ^0.10.2
+    version: 0.10.2(shiki@0.14.5)
+  sass:
+    specifier: ^1.66.1
+    version: 1.69.7
+  shiki:
+    specifier: 0.14.5
+    version: 0.14.5
+  storybook:
+    specifier: ^7.4.0
+    version: 7.6.7
+  storybook-framework-qwik:
+    specifier: ^0.2.3
+    version: 0.2.5(@builder.io/qwik@1.3.2)(@types/node@20.10.6)(sass@1.69.7)(typescript@5.3.3)(vite@5.0.11)
+  tailwind-merge:
+    specifier: ^1.14.0
+    version: 1.14.0
+  tailwindcss:
+    specifier: ^3.3.3
+    version: 3.4.0(ts-node@10.9.1)
+  ts-jest:
+    specifier: ^29.1.0
+    version: 29.1.1(@babel/core@7.23.7)(esbuild@0.19.11)(jest@29.7.0)(typescript@5.3.3)
+  ts-node:
+    specifier: 10.9.1
+    version: 10.9.1(@swc/core@1.3.102)(@types/node@20.10.6)(typescript@5.3.3)
+  tsm:
+    specifier: 2.3.0
+    version: 2.3.0
+  typescript:
+    specifier: ^5.2.2
+    version: 5.3.3
+  undici:
+    specifier: ^5.23.0
+    version: 5.28.2
+  unified:
+    specifier: ^10.1.2
+    version: 10.1.2
+  unist-util-visit:
+    specifier: ^5.0.0
+    version: 5.0.0
+  verdaccio:
+    specifier: ^5.0.4
+    version: 5.29.0(typanion@3.14.0)
+  vite:
+    specifier: ^5.0.4
+    version: 5.0.11(@types/node@20.10.6)(sass@1.69.7)
+  vite-plugin-dts:
+    specifier: ^3.5.3
+    version: 3.7.0(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
+  vite-plugin-eslint:
+    specifier: ^1.8.1
+    version: 1.8.1(eslint@8.56.0)(vite@5.0.11)
+  vite-plugin-inspect:
+    specifier: 0.7.38
+    version: 0.7.38(vite@5.0.11)
+  vite-plugin-static-copy:
+    specifier: 0.17.0
+    version: 0.17.0(vite@5.0.11)
+  vite-tsconfig-paths:
+    specifier: 4.2.0
+    version: 4.2.0(typescript@5.3.3)(vite@5.0.11)
+  vitest:
+    specifier: ^0.34.3
+    version: 0.34.6(@vitest/ui@0.34.7)(jsdom@22.1.0)(sass@1.69.7)
+  wrangler:
+    specifier: ^3.11.0
+    version: 3.22.3
+  yargs:
+    specifier: 17.7.2
+    version: 17.7.2
+>>>>>>> 931dc43d (docs(badges): refactor badges to use fluffy)
 
 packages:
 
@@ -3149,7 +3488,7 @@ packages:
 
   /@fontsource-variable/inter@5.0.8:
     resolution: {integrity: sha512-WkYfFNccmEIeL2fNg0mYeLWqOoB7xD8MFxFRc4IwbSP2o8ZaBt36v5aW4by4MyrgGRMNk7uNi5LbvYKq6clPjw==}
-    dev: true
+    dev: false
 
   /@gitbeaker/core@35.8.1:
     resolution: {integrity: sha512-KBrDykVKSmU9Q9Gly8KeHOgdc0lZSa435srECxuO0FGqqBcUQ82hPqUc13YFkkdOI9T1JRA3qSFajg8ds0mZKA==}
@@ -3318,7 +3657,6 @@ packages:
     engines: {glibc: '>=2.26', node: ^18.17.0 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0', yarn: '>=3.2.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
     requiresBuild: true
     optionalDependencies:
       '@img/sharp-libvips-linux-arm64': 1.0.0
@@ -3330,7 +3668,6 @@ packages:
     engines: {glibc: '>=2.28', node: ^18.17.0 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0', yarn: '>=3.2.0'}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
     requiresBuild: true
     optionalDependencies:
       '@img/sharp-libvips-linux-arm': 1.0.0
@@ -3342,7 +3679,6 @@ packages:
     engines: {glibc: '>=2.28', node: ^18.17.0 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0', yarn: '>=3.2.0'}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
     requiresBuild: true
     optionalDependencies:
       '@img/sharp-libvips-linux-s390x': 1.0.0
@@ -3354,6 +3690,7 @@ packages:
     engines: {glibc: '>=2.26', node: ^18.17.0 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0', yarn: '>=3.2.0'}
     cpu: [x64]
     os: [linux]
+    requiresBuild: true
     optionalDependencies:
       '@img/sharp-libvips-linux-x64': 1.0.0
     dev: true
@@ -3363,7 +3700,6 @@ packages:
     engines: {musl: '>=1.2.2', node: ^18.17.0 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0', yarn: '>=3.2.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
     requiresBuild: true
     optionalDependencies:
       '@img/sharp-libvips-linuxmusl-arm64': 1.0.0
@@ -3375,7 +3711,6 @@ packages:
     engines: {musl: '>=1.2.2', node: ^18.17.0 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0', yarn: '>=3.2.0'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
     requiresBuild: true
     optionalDependencies:
       '@img/sharp-libvips-linuxmusl-x64': 1.0.0
@@ -5599,7 +5934,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -5609,7 +5943,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
     requiresBuild: true
     optional: true
 
@@ -5618,7 +5951,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -5637,7 +5969,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -5647,7 +5978,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
     requiresBuild: true
     optional: true
 
@@ -5656,7 +5986,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -5675,7 +6004,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -5685,7 +6013,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
     requiresBuild: true
     optional: true
 
@@ -5694,7 +6021,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -5713,7 +6039,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -5723,7 +6048,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
     requiresBuild: true
     optional: true
 
@@ -5732,7 +6056,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -6102,7 +6425,7 @@ packages:
 
   /@oddbird/popover-polyfill@0.3.7:
     resolution: {integrity: sha512-WNthEIPPXnFQkumLby6yVxhyOcA/GtMnlByHwEglMO9WZckoaqidnpLp2JFzAh2RDOZxn+Xt3ffSMKId9cPjOQ==}
-    dev: true
+    dev: false
 
   /@parcel/watcher@2.0.4:
     resolution: {integrity: sha512-cTDi+FUDBIUOBKEtj+nhiJ71AZVlkAsQFuGQTun5tV9mwQBQgZvhCzG+URPQc8myeN32yRVZEfVAPCs1RW+Jvg==}
@@ -10203,7 +10526,7 @@ packages:
 
   /body-scroll-lock-upgrade@1.1.0:
     resolution: {integrity: sha512-nnfVAS+tB7CS9RaksuHVTpgHWHF7fE/ptIBJnwZrMqImIvWJF1OGcLnMpBhC6qhkx9oelvyxmWXwmIJXCV98Sw==}
-    dev: true
+    dev: false
 
   /boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
@@ -10458,7 +10781,7 @@ packages:
 
   /canvas-confetti@1.9.2:
     resolution: {integrity: sha512-6Xi7aHHzKwxZsem4mCKoqP6YwUG3HamaHHAlz1hTNQPCqXhARFpSXnkC9TWlahHY5CG6hSL5XexNjxK8irVErg==}
-    dev: true
+    dev: false
 
   /capnp-ts@0.7.0:
     resolution: {integrity: sha512-XKxXAC3HVPv7r674zP0VC3RTXz+/JKhfyw94ljvF80yynK6VkTnqE3jMuN8b3dUVmmc43TjyxjW4KTsmB3c86g==}
@@ -10623,7 +10946,7 @@ packages:
     resolution: {integrity: sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==}
     dependencies:
       clsx: 2.0.0
-    dev: true
+    dev: false
 
   /clean-stack@2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
@@ -10754,7 +11077,7 @@ packages:
   /clsx@2.0.0:
     resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
     engines: {node: '>=6'}
-    dev: true
+    dev: false
 
   /co@4.6.0:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
@@ -10802,10 +11125,6 @@ packages:
     dependencies:
       color-convert: 2.0.1
       color-string: 1.9.1
-    dev: true
-
-  /colord@2.9.3:
-    resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
     dev: true
 
   /colorette@2.0.20:
@@ -11282,10 +11601,6 @@ packages:
       typescript: 5.3.3
     dev: true
 
-  /country-list-json@1.1.0:
-    resolution: {integrity: sha512-9a6sGBVXq3rXmZlddQQIjk0ZAk/pfBwVMUU1zJczWtIG4VcfUKp8HDSMteK1bBZVznE7+wWVg6kntxtzDBjvPQ==}
-    dev: true
-
   /create-jest@29.7.0(@types/node@20.10.6)(ts-node@10.9.1):
     resolution: {integrity: sha512-Adz2bdH0Vq3F53KEMJOoftQFutWCukm6J24wbPWRO4k1kMY7gS7ds/uoJkNuV8wDCtWWnuwGcJwpWcih+zEW1Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -11356,13 +11671,6 @@ packages:
       domhandler: 5.0.3
       domutils: 3.1.0
       nth-check: 2.1.1
-    dev: true
-
-  /css-selector-tokenizer@0.8.0:
-    resolution: {integrity: sha512-Jd6Ig3/pe62/qe5SBPTN8h8LeUg/pT4lLgtavPf7updwwHpvFzxvOQBHYj2LZDMjUnBzgvIUSjRcf6oT5HzHFg==}
-    dependencies:
-      cssesc: 3.0.0
-      fastparse: 1.1.2
     dev: true
 
   /css-tree@2.2.1:
@@ -11554,19 +11862,6 @@ packages:
     transitivePeerDependencies:
       - '@types/node'
       - typescript
-    dev: true
-
-  /daisyui@3.9.4(ts-node@10.9.1):
-    resolution: {integrity: sha512-fvi2RGH4YV617/6DntOVGcOugOPym9jTGWW2XySb5ZpvdWO4L7bEG77VHirrnbRUEWvIEVXkBpxUz2KFj0rVnA==}
-    engines: {node: '>=16.9.0'}
-    dependencies:
-      colord: 2.9.3
-      css-selector-tokenizer: 0.8.0
-      postcss: 8.4.33
-      postcss-js: 4.0.1(postcss@8.4.33)
-      tailwindcss: 3.4.0(ts-node@10.9.1)
-    transitivePeerDependencies:
-      - ts-node
     dev: true
 
   /danger@11.3.1:
@@ -13216,10 +13511,6 @@ packages:
 
   /fast-safe-stringify@2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
-    dev: true
-
-  /fastparse@1.1.2:
-    resolution: {integrity: sha512-483XLLxTVIwWK3QTrMGRqUfUpoOs/0hbQrl2oz4J0pAcm3A3bu84wxTFqGqkJzewCLdME38xJLJAxBABfQT8sQ==}
     dev: true
 
   /fastq@1.16.0:
@@ -16470,10 +16761,6 @@ packages:
 
   /li@1.3.0:
     resolution: {integrity: sha512-z34TU6GlMram52Tss5mt1m//ifRIpKH5Dqm7yUVOdHI+BQCs9qGPHFaCUTIzsWX7edN30aa2WrPwR7IO10FHaw==}
-    dev: true
-
-  /libphonenumber-js@1.10.53:
-    resolution: {integrity: sha512-sDTnnqlWK4vH4AlDQuswz3n4Hx7bIQWTpIcScJX+Sp7St3LXHmfiax/ZFfyYxHmkdCvydOLSuvtAO/XpXiSySw==}
     dev: true
 
   /lilconfig@2.1.0:
