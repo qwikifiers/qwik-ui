@@ -23,9 +23,9 @@ const accordionPreventedKeys = [
   KeyCode.ArrowUp,
 ];
 
-export type AccordionTriggerProps = {
+export type AccordionTriggerProps = PropsOf<'button'> & {
   disabled?: boolean;
-} & PropsOf<'button'>;
+};
 
 export const AccordionTrigger = component$(
   ({ disabled, ...props }: AccordionTriggerProps) => {

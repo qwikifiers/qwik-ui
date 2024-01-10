@@ -43,7 +43,7 @@ import { TabList as InternalTabList } from './tabs-list';
   *
  */
 
-export type TabsProps = {
+export type TabsProps = PropsOf<'div'> & {
   behavior?: Behavior;
   selectedTabId?: string;
   selectedIndex?: number;
@@ -59,7 +59,7 @@ export type TabsProps = {
   TabList?: typeof InternalTabList;
   Tab?: typeof InternalTab;
   TabPanel?: typeof InternalTabPanel;
-} & PropsOf<'div'>;
+};
 
 export type TabInfo = {
   tabId: string;

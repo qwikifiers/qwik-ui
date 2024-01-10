@@ -15,9 +15,9 @@ import SelectContextId from './select-context-id';
 import { SelectContext } from './select-context.type';
 import { NativeSelect } from './select-native-select';
 
-export type SelectRootProps = {
+export type SelectRootProps = PropsOf<'div'> & {
   required?: boolean;
-} & PropsOf<'div'>;
+};
 
 export const SelectRoot = component$((props: SelectRootProps) => {
   const rootRef = useSignal<HTMLElement>();

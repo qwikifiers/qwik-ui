@@ -11,9 +11,9 @@ import { accordionItemContextId } from './accordion-context-id';
 
 import { type AccordionItemContext } from './accordion-context.type';
 
-export type AccordionItemProps = {
+export type AccordionItemProps = PropsOf<'div'> & {
   defaultValue?: boolean;
-} & PropsOf<'div'>;
+};
 
 export const AccordionItem = component$(
   ({ defaultValue = false, id, ...props }: AccordionItemProps) => {

@@ -23,7 +23,7 @@ interface SliderContextService {
 
 export const sliderContext = createContextId<SliderContextService>('slider');
 
-export type SliderProps = QwikIntrinsicElements['div'] & {
+export type SliderProps = PropsOf<'div'> & {
   value: number;
   min: number;
   max: number;

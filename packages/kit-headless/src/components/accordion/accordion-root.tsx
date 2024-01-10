@@ -12,14 +12,14 @@ import {
 import { accordionRootContextId } from './accordion-context-id';
 import { type AccordionRootContext } from './accordion-context.type';
 
-export type AccordionRootProps = {
+export type AccordionRootProps = PropsOf<'div'> & {
   behavior?: 'single' | 'multi';
   animated?: boolean;
   enhance?: boolean;
   collapsible?: boolean;
   onSelectedIndexChange$?: (index: number) => void;
   onFocusIndexChange$?: (index: number) => void;
-} & PropsOf<'div'>;
+};
 
 export const AccordionRoot = component$(
   ({

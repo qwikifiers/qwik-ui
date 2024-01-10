@@ -5,10 +5,9 @@ import {
   useSignal,
   useVisibleTask$,
 } from '@builder.io/qwik';
-import { OmitSignalClass } from '@qwik-ui/utils';
 import { CodeCopy } from '../code-copy/code-copy';
 
-export type HighlightProps = OmitSignalClass<PropsOf<'div'>> & {
+export type HighlightProps = PropsOf<'div'> & {
   code: string;
   copyCodeClass?: ClassList;
   language?: 'tsx' | 'html' | 'css';

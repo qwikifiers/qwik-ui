@@ -10,10 +10,10 @@ import SelectContextId from './select-context-id';
 import { KeyCode } from '../../utils/key-code.type';
 import { Slot } from '@builder.io/qwik';
 
-export type SelectOptionProps = {
+export type SelectOptionProps = PropsOf<'li'> & {
   disabled?: boolean;
   optionValue: string;
-} & PropsOf<'li'>;
+};
 
 export const selectOptionPreventedKeys = [KeyCode.ArrowDown, KeyCode.ArrowUp];
 

@@ -16,9 +16,9 @@ import {
   getPrevEnabledOptionIndex,
 } from './utils';
 
-export type ComboboxInputProps = {
+export type ComboboxInputProps = PropsOf<'input'> & {
   disableOnBlur?: boolean;
-} & PropsOf<'input'>;
+};
 
 export const ComboboxInput = component$(
   <O extends Option = Option>({

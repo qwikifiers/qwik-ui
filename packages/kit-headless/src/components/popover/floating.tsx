@@ -28,7 +28,7 @@ declare global {
   }
 }
 
-export type FloatingProps = {
+export type FloatingProps = PropsOf<'div'> & {
   id: string;
   anchorRef?: Signal<HTMLElement | undefined>;
   popoverRef?: Signal<HTMLElement | undefined>;
@@ -58,7 +58,7 @@ export type FloatingProps = {
   hide?: 'referenceHidden' | 'escaped';
   inline?: boolean;
   transform?: string;
-} & PropsOf<'div'>;
+};
 
 export const FloatingPopover = component$(
   ({

@@ -28,7 +28,7 @@ export type ResolvedOption<
   lcLabel?: string;
 };
 
-export type ComboboxProps<O extends Option = Option> = {
+export type ComboboxProps<O extends Option = Option> = PropsOf<'div'> & {
   // user's source of truth
   options: O[];
   filter$?: QRL<
@@ -48,7 +48,7 @@ export type ComboboxProps<O extends Option = Option> = {
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
   'bind:inputValueSig'?: Signal<string>;
   'bind:highlightedIndexSig'?: Signal<number>;
-} & PropsOf<'div'>;
+};
 
 export const Combobox = component$(
   <O extends Option = Option>(props: ComboboxProps<O>) => {

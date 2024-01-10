@@ -7,11 +7,11 @@ import type { ComboboxContext, Option } from './combobox-context.type';
 import { ResolvedOption } from './combobox';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
-export type ComboboxListboxProps<O extends Option = Option> = {
+export type ComboboxListboxProps<O extends Option = Option> = PropsOf<'ul'> & {
   optionRenderer$?: QRL<
     (resolved: ResolvedOption<O>, filteredIndex: number) => JSX.Element
   >;
-} & PropsOf<'ul'>;
+};
 
 export const ComboboxListbox = component$(
   <O extends Option = Option>({ optionRenderer$, ...props }: ComboboxListboxProps<O>) => {

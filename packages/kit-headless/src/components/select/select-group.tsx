@@ -1,8 +1,8 @@
 import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
-export type SelectGroupProps = {
+export type SelectGroupProps = PropsOf<'div'> & {
   disabled?: boolean;
-} & PropsOf<'div'>;
+};
 
 export const SelectGroup = component$(({ disabled, ...props }: SelectGroupProps) => {
   return (
