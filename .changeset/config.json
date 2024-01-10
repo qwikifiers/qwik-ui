@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": ["./changelog-github-custom.js", { "repo": "hirezio/test-release" }],
+  "changelog": ["./changelog-github-custom.cjs", { "repo": "hirezio/test-release" }],
   "commit": false,
   "fixed": [],
   "linked": [],
