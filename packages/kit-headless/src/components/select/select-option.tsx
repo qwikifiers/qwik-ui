@@ -1,6 +1,6 @@
 import {
+  PropsOf,
   component$,
-  QwikIntrinsicElements,
   useContext,
   useSignal,
   useVisibleTask$,
@@ -13,7 +13,7 @@ import { Slot } from '@builder.io/qwik';
 export type SelectOptionProps = {
   disabled?: boolean;
   optionValue: string;
-} & QwikIntrinsicElements['li'];
+} & PropsOf<'li'>;
 
 export const selectOptionPreventedKeys = [KeyCode.ArrowDown, KeyCode.ArrowUp];
 

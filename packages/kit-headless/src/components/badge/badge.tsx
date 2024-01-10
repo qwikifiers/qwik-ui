@@ -1,6 +1,6 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
-export type BadgeProps = QwikIntrinsicElements['div'];
+export type BadgeProps = PropsOf<'div'>;
 
 export const Badge = component$((props: BadgeProps) => {
   return (

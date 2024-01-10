@@ -1,14 +1,9 @@
-import {
-  component$,
-  Slot,
-  useContext,
-  type QwikIntrinsicElements,
-} from '@builder.io/qwik';
+import { component$, PropsOf, Slot, useContext } from '@builder.io/qwik';
 import { accordionItemContextId } from './accordion-context-id';
 
 type HeadingUnion = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-export type AccordionHeaderProps = QwikIntrinsicElements[HeadingUnion] & {
+export type AccordionHeaderProps = PropsOf<HeadingUnion> & {
   as?: HeadingUnion;
 };
 

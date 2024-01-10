@@ -1,11 +1,10 @@
-import { QwikIntrinsicElements } from '@builder.io/qwik';
-import { component$, useComputed$ } from '@builder.io/qwik';
+import { PropsOf, component$, useComputed$ } from '@builder.io/qwik';
 
 const ORIENTATIONS = ['horizontal', 'vertical'] as const;
 
 type Orientation = (typeof ORIENTATIONS)[number];
 
-type QwikDiv = QwikIntrinsicElements['div'];
+type QwikDiv = PropsOf<'div'>;
 
 export interface SeparatorProps extends QwikDiv {
   /**

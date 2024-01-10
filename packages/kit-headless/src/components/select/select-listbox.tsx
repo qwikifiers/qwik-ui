@@ -1,13 +1,7 @@
-import {
-  component$,
-  QwikIntrinsicElements,
-  Slot,
-  useContext,
-  useSignal,
-} from '@builder.io/qwik';
+import { component$, PropsOf, Slot, useContext, useSignal } from '@builder.io/qwik';
 import SelectContextId from './select-context-id';
 
-export type SelectListBoxProps = QwikIntrinsicElements['ul'];
+export type SelectListBoxProps = PropsOf<'ul'>;
 
 export const SelectListBox = component$((props: SelectListBoxProps) => {
   const indexDiffSignal = useSignal<number | undefined>(undefined);

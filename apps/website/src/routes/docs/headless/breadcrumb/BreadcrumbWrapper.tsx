@@ -1,7 +1,7 @@
-import { component$, QwikIntrinsicElements, Slot, useStyles$ } from '@builder.io/qwik';
+import { component$, PropsOf, Slot, useStyles$ } from '@builder.io/qwik';
 import style from './BreadcrumbWrapper.css?inline';
 
-type BreadcrumbWrapperProps = QwikIntrinsicElements['div'] & {
+type BreadcrumbWrapperProps = PropsOf<'div'> & {
   title?: string;
 };
 

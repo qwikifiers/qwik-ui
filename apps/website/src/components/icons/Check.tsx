@@ -1,6 +1,6 @@
-import { QwikIntrinsicElements } from '@builder.io/qwik';
+import { PropsOf } from '@builder.io/qwik';
 
-export function CheckIcon(props: QwikIntrinsicElements['svg'], key: string) {
+export function CheckIcon(props: PropsOf<'svg'>, key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

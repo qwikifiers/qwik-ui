@@ -6,8 +6,8 @@ import {
   useTask$,
   useVisibleTask$,
   $,
-  type QwikIntrinsicElements,
   type QwikKeyboardEvent,
+  PropsOf,
 } from '@builder.io/qwik';
 
 import { accordionItemContextId, accordionRootContextId } from './accordion-context-id';
@@ -25,7 +25,7 @@ const accordionPreventedKeys = [
 
 export type AccordionTriggerProps = {
   disabled?: boolean;
-} & QwikIntrinsicElements['button'];
+} & PropsOf<'button'>;
 
 export const AccordionTrigger = component$(
   ({ disabled, ...props }: AccordionTriggerProps) => {

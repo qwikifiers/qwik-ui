@@ -1,10 +1,10 @@
 import {
+  PropsOf,
   Slot,
   component$,
   useContextProvider,
   useId,
   useSignal,
-  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
 import { accordionItemContextId } from './accordion-context-id';
@@ -13,7 +13,7 @@ import { type AccordionItemContext } from './accordion-context.type';
 
 export type AccordionItemProps = {
   defaultValue?: boolean;
-} & QwikIntrinsicElements['div'];
+} & PropsOf<'div'>;
 
 export const AccordionItem = component$(
   ({ defaultValue = false, id, ...props }: AccordionItemProps) => {

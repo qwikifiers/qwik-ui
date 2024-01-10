@@ -1,6 +1,6 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
-export type NavigationBarProps = QwikIntrinsicElements['div'];
+export type NavigationBarProps = PropsOf<'div'>;
 
 export const NavigationBar = component$((props: NavigationBarProps) => {
   return (

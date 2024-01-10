@@ -1,6 +1,6 @@
 import {
   component$,
-  QwikIntrinsicElements,
+  PropsOf,
   Slot,
   useContext,
   useSignal,
@@ -8,7 +8,7 @@ import {
 } from '@builder.io/qwik';
 import SelectContextId from './select-context-id';
 
-export type SelectTriggerProps = QwikIntrinsicElements['button'];
+export type SelectTriggerProps = PropsOf<'button'>;
 
 export const SelectTrigger = component$((props: SelectTriggerProps) => {
   const selectContext = useContext(SelectContextId);

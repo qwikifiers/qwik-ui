@@ -1,7 +1,7 @@
 import {
   $,
   component$,
-  QwikIntrinsicElements,
+  PropsOf,
   Slot,
   useContextProvider,
   useOnDocument,
@@ -17,7 +17,7 @@ import { NativeSelect } from './select-native-select';
 
 export type SelectRootProps = {
   required?: boolean;
-} & QwikIntrinsicElements['div'];
+} & PropsOf<'div'>;
 
 export const SelectRoot = component$((props: SelectRootProps) => {
   const rootRef = useSignal<HTMLElement>();

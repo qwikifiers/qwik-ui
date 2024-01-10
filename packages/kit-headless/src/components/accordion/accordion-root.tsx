@@ -1,12 +1,12 @@
 import {
   $,
+  PropsOf,
   Slot,
   component$,
   useContextProvider,
   useSignal,
   useTask$,
   useVisibleTask$,
-  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
 import { accordionRootContextId } from './accordion-context-id';
@@ -19,7 +19,7 @@ export type AccordionRootProps = {
   collapsible?: boolean;
   onSelectedIndexChange$?: (index: number) => void;
   onFocusIndexChange$?: (index: number) => void;
-} & QwikIntrinsicElements['div'];
+} & PropsOf<'div'>;
 
 export const AccordionRoot = component$(
   ({

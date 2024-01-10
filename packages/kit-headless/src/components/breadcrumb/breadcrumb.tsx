@@ -1,12 +1,7 @@
-import {
-  component$,
-  QwikIntrinsicElements,
-  Slot,
-  useStylesScoped$,
-} from '@builder.io/qwik';
+import { component$, PropsOf, Slot, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './breadcrumb.css?inline';
 
-export type BreadcrumbProps = QwikIntrinsicElements['div'];
+export type BreadcrumbProps = PropsOf<'div'>;
 
 export const Breadcrumb = component$((props: BreadcrumbProps) => {
   useStylesScoped$(styles);

@@ -1,6 +1,6 @@
 import {
   $,
-  QwikIntrinsicElements,
+  PropsOf,
   Slot,
   component$,
   useComputed$,
@@ -14,7 +14,7 @@ import { KeyCode } from '../../utils/key-code.type';
 
 export const TAB_ID_PREFIX = '_tab_';
 
-export type TabProps = QwikIntrinsicElements['button'] & {
+export type TabProps = PropsOf<'button'> & {
   disabled?: boolean;
   selected?: boolean;
   selectedClassName?: string;

@@ -1,15 +1,9 @@
-import {
-  Slot,
-  component$,
-  useContext,
-  $,
-  type QwikIntrinsicElements,
-} from '@builder.io/qwik';
+import { Slot, component$, useContext, $, PropsOf } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 import { PopoverTrigger } from '../popover';
 
-export type ComboboxTriggerProps = QwikIntrinsicElements['button'];
+export type ComboboxTriggerProps = PropsOf<'button'>;
 
 export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
   const context = useContext(ComboboxContextId);

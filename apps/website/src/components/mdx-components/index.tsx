@@ -1,4 +1,4 @@
-import { QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { StatusBanner } from '../status-banner/status-banner';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
@@ -12,14 +12,14 @@ import { cn } from '@qwik-ui/utils';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const components: Record<string, any> = {
-  p: component$<QwikIntrinsicElements['p']>(({ ...props }) => {
+  p: component$<PropsOf<'p'>>(({ ...props }) => {
     return (
       <p {...props} class={[cn('mb-6 last:mb-0', props.class)]}>
         <Slot />
       </p>
     );
   }),
-  h1: component$<QwikIntrinsicElements['h1']>(({ ...props }) => {
+  h1: component$<PropsOf<'h1'>>(({ ...props }) => {
     return (
       <h1
         {...props}
@@ -29,7 +29,7 @@ export const components: Record<string, any> = {
       </h1>
     );
   }),
-  h2: component$<QwikIntrinsicElements['h2']>(({ ...props }) => {
+  h2: component$<PropsOf<'h2'>>(({ ...props }) => {
     return (
       <h2
         {...props}
@@ -44,21 +44,21 @@ export const components: Record<string, any> = {
       </h2>
     );
   }),
-  h3: component$<QwikIntrinsicElements['h3']>(({ ...props }) => {
+  h3: component$<PropsOf<'h3'>>(({ ...props }) => {
     return (
       <h3 {...props} class={[cn('mb-6 mt-8 text-xl font-semibold', props.class)]}>
         <Slot />
       </h3>
     );
   }),
-  h4: component$<QwikIntrinsicElements['h4']>(({ ...props }) => {
+  h4: component$<PropsOf<'h4'>>(({ ...props }) => {
     return (
       <h4 {...props} class={[cn('mb-4 mt-6 text-lg font-medium', props.class)]}>
         <Slot />
       </h4>
     );
   }),
-  h5: component$<QwikIntrinsicElements['h5']>(({ ...props }) => {
+  h5: component$<PropsOf<'h5'>>(({ ...props }) => {
     return (
       <h5 {...props} class={[cn('text-base font-[700]', props.class)]}>
         <Slot />
@@ -72,14 +72,14 @@ export const components: Record<string, any> = {
       </Note>
     );
   }),
-  ul: component$<QwikIntrinsicElements['ul']>(({ ...props }) => {
+  ul: component$<PropsOf<'ul'>>(({ ...props }) => {
     return (
       <ul {...props} class={[cn('mb-4 list-disc px-6 font-medium', props.class)]}>
         <Slot />
       </ul>
     );
   }),
-  li: component$<QwikIntrinsicElements['li']>(({ ...props }) => {
+  li: component$<PropsOf<'li'>>(({ ...props }) => {
     return (
       <li {...props} class={[cn('py-2', props.class)]}>
         <Slot />
@@ -87,7 +87,7 @@ export const components: Record<string, any> = {
     );
   }),
   pre: component$<
-    QwikIntrinsicElements['div'] & {
+    PropsOf<'div'> & {
       __rawString__?: string;
     }
   >(({ __rawString__, ...props }) => {
@@ -116,7 +116,7 @@ export const components: Record<string, any> = {
       </div>
     );
   }),
-  code: component$<QwikIntrinsicElements['code']>(() => {
+  code: component$<PropsOf<'code'>>(() => {
     return (
       <code class="whitespace-pre-wrap">
         <Slot />

@@ -1,10 +1,4 @@
-import {
-  Component,
-  QwikIntrinsicElements,
-  component$,
-  useSignal,
-  useTask$,
-} from '@builder.io/qwik';
+import { Component, PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
@@ -33,7 +27,7 @@ const rawComponents: Record<string, any> = import.meta.glob(
   },
 );
 
-type ShowcaseProps = QwikIntrinsicElements['div'] & {
+type ShowcaseProps = PropsOf<'div'> & {
   name?: string;
 };
 

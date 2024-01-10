@@ -1,6 +1,6 @@
-import { component$, useSignal, QwikIntrinsicElements } from '@builder.io/qwik';
+import { PropsOf, component$, useSignal } from '@builder.io/qwik';
 
-export type ToggleProps = QwikIntrinsicElements['input'] & {
+export type ToggleProps = PropsOf<'input'> & {
   disabled?: boolean;
   pressed?: boolean;
   defaultPressed?: boolean;

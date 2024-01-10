@@ -1,7 +1,7 @@
 import {
   $,
+  PropsOf,
   QRL,
-  QwikIntrinsicElements,
   Signal,
   Slot,
   component$,
@@ -24,7 +24,7 @@ import { disableBodyScroll } from 'body-scroll-lock-upgrade';
 
 import styles from './modal.css?inline';
 
-export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
+export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
   onShow$?: QRL<() => void>;
   onClose$?: QRL<() => void>;
   'bind:show': Signal<boolean>;

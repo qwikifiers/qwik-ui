@@ -1,6 +1,6 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
-type CardBodyProps = QwikIntrinsicElements['div'];
+type CardBodyProps = PropsOf<'div'>;
 
 export const CardBody = component$((props: CardBodyProps) => {
   return (

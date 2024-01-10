@@ -1,5 +1,5 @@
 import { cn } from '@qwik-ui/utils';
-import { PropsOf, QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
+import { PropsOf, component$, useSignal } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/fluffy';
 import copy from 'clipboard-copy';
 
@@ -32,7 +32,7 @@ export const CodeCopy = component$(({ code = '', class: outsideClass, ...props }
   );
 });
 
-export function CopyIcon(props: QwikIntrinsicElements['svg'], key: string) {
+export function CopyIcon(props: PropsOf<'svg'>, key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ export function CopyIcon(props: QwikIntrinsicElements['svg'], key: string) {
   );
 }
 
-export function ClipboardCheck(props: QwikIntrinsicElements['svg'], key: string) {
+export function ClipboardCheck(props: PropsOf<'svg'>, key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

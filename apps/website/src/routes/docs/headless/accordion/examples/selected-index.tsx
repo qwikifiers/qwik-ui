@@ -15,7 +15,7 @@ export default component$(() => {
       <div class="flex w-full flex-col items-center gap-4">
         <AccordionRoot
           class="w-[min(400px,_100%)]"
-          onSelectedIndexChange$={(index) => {
+          onSelectedIndexChange$={(index: number) => {
             selectedIndexSig.value = index;
           }}
         >

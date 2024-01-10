@@ -1,9 +1,4 @@
-import {
-  component$,
-  useContext,
-  type QwikIntrinsicElements,
-  QRL,
-} from '@builder.io/qwik';
+import { component$, useContext, QRL, PropsOf } from '@builder.io/qwik';
 
 import { JSX } from '@builder.io/qwik/jsx-runtime';
 
@@ -16,7 +11,7 @@ export type ComboboxListboxProps<O extends Option = Option> = {
   optionRenderer$?: QRL<
     (resolved: ResolvedOption<O>, filteredIndex: number) => JSX.Element
   >;
-} & QwikIntrinsicElements['ul'];
+} & PropsOf<'ul'>;
 
 export const ComboboxListbox = component$(
   <O extends Option = Option>({ optionRenderer$, ...props }: ComboboxListboxProps<O>) => {

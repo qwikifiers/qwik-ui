@@ -1,7 +1,6 @@
 import {
   $,
   JSXNode,
-  QwikIntrinsicElements,
   Signal,
   Slot,
   component$,
@@ -10,6 +9,7 @@ import {
   useSignal,
   useTask$,
   type FunctionComponent,
+  PropsOf,
 } from '@builder.io/qwik';
 import { KeyCode } from '../../utils/key-code.type';
 import { Behavior } from './behavior.type';
@@ -54,12 +54,12 @@ export type TabsProps = {
   onSelectedTabIdChange$?: (tabId: string) => void;
   'bind:selectedIndex'?: Signal<number | undefined>;
   'bind:selectedTabId'?: Signal<string | undefined>;
-  tabClass?: QwikIntrinsicElements['div']['class'];
-  panelClass?: QwikIntrinsicElements['div']['class'];
+  tabClass?: PropsOf<'div'>['class'];
+  panelClass?: PropsOf<'div'>['class'];
   TabList?: typeof InternalTabList;
   Tab?: typeof InternalTab;
   TabPanel?: typeof InternalTabPanel;
-} & QwikIntrinsicElements['div'];
+} & PropsOf<'div'>;
 
 export type TabInfo = {
   tabId: string;

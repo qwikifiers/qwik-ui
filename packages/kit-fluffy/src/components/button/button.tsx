@@ -1,4 +1,4 @@
-import { QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
@@ -92,8 +92,7 @@ export const buttonVariants = cva(
   },
 );
 
-export type ButtonProps = QwikIntrinsicElements['button'] &
-  VariantProps<typeof buttonVariants>;
+export type ButtonProps = PropsOf<'button'> & VariantProps<typeof buttonVariants>;
 
 export const Button = component$<ButtonProps>(
   ({ intent, size, look, shape, state, animation, ...props }) => {

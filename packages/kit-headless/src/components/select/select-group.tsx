@@ -1,8 +1,8 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
 export type SelectGroupProps = {
   disabled?: boolean;
-} & QwikIntrinsicElements['div'];
+} & PropsOf<'div'>;
 
 export const SelectGroup = component$(({ disabled, ...props }: SelectGroupProps) => {
   return (

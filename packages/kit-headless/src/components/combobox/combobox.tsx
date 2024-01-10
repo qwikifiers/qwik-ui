@@ -7,9 +7,9 @@ import {
   useSignal,
   useTask$,
   type QRL,
-  type QwikIntrinsicElements,
   type Signal,
   type ContextId,
+  PropsOf,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
@@ -48,7 +48,7 @@ export type ComboboxProps<O extends Option = Option> = {
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
   'bind:inputValueSig'?: Signal<string>;
   'bind:highlightedIndexSig'?: Signal<number>;
-} & QwikIntrinsicElements['div'];
+} & PropsOf<'div'>;
 
 export const Combobox = component$(
   <O extends Option = Option>(props: ComboboxProps<O>) => {

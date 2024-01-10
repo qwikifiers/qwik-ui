@@ -1,6 +1,6 @@
 import {
   ClassList,
-  QwikIntrinsicElements,
+  PropsOf,
   component$,
   useSignal,
   useVisibleTask$,
@@ -8,7 +8,7 @@ import {
 import { OmitSignalClass } from '@qwik-ui/utils';
 import { CodeCopy } from '../code-copy/code-copy';
 
-export type HighlightProps = OmitSignalClass<QwikIntrinsicElements['div']> & {
+export type HighlightProps = OmitSignalClass<PropsOf<'div'>> & {
   code: string;
   copyCodeClass?: ClassList;
   language?: 'tsx' | 'html' | 'css';

@@ -1,8 +1,7 @@
-import { JSXChildren } from '@builder.io/qwik';
+import { JSXChildren, PropsOf } from '@builder.io/qwik';
 import { type ActionStore, Form } from '@builder.io/qwik-city';
-import { QwikIntrinsicElements } from '@builder.io/qwik';
 
-export type ActionButtonProps = QwikIntrinsicElements['button'] & {
+export type ActionButtonProps = PropsOf<'button'> & {
   action: ActionStore<unknown, unknown>;
   children: JSXChildren;
   params?: Record<string, null>;

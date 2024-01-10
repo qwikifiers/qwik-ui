@@ -1,6 +1,5 @@
 import {
   PropFunction,
-  QwikIntrinsicElements,
   Signal,
   Slot,
   component$,

@@ -1,7 +1,7 @@
-import { QwikIntrinsicElements } from '@builder.io/qwik';
+import { PropsOf } from '@builder.io/qwik';
 import { JSX } from '@builder.io/qwik/jsx-runtime';
 
-export type ToastProps = QwikIntrinsicElements['div'] & {
+export type ToastProps = PropsOf<'div'> & {
   label?: string;
 };
 
