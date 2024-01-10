@@ -47,6 +47,22 @@
         ]
       }
     },
+    "version-dry": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "dryRun": true,
+        "trackDeps": true,
+        "noVerify": true,
+        "skipCommit": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "trackDeps": true,
+        "noVerify": true
+      }
+    },
     "publish": {
       "dependsOn": ["build"],
       "executor": "ngx-deploy-npm:deploy",

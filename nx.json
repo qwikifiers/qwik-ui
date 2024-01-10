@@ -7,10 +7,20 @@
     "appsDir": "apps",
     "libsDir": "packages"
   },
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "currentVersionResolver": "disk"
+      }
+    }
+  },
   "targetDefaults": {
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true
+    },
+    "version-dry": {
+      "dependsOn": ["^version-dry"]
     },
     "build-bin": {
       "cache": true

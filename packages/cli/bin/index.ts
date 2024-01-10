@@ -249,6 +249,7 @@ async function installNxIfNeeded() {
     execSync(`${getPackageManagerCommand().addDev} nx@latest`, {
       stdio: 'inherit',
     });
+    // TODO: Just add "nx: {} " to package.json and see if it still works
     execSync(`${getPackageManagerCommand().exec} nx init --interactive false`, {
       stdio: 'inherit',
     });
