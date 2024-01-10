@@ -1,6 +1,7 @@
 import {
   component$,
   QwikIntrinsicElements,
+  useComputed$,
   useContext,
   useSignal,
   useVisibleTask$,
@@ -22,7 +23,20 @@ export const SelectOption = component$<SelectOptionProps>(
     const selectContext = useContext(SelectContextId);
     const optionRef = useSignal<HTMLElement>();
 
-    useVisibleTask$(function setKeyHandler({ cleanup }) {
+    // const lol = selectContext.optionsStore.find(optionRef.value);
+    // const isHighlightedSig = useComputed$(
+    //   // eslint-disable-next-line qwik/valid-lexical-scope
+    //   () => !disabled && selectContext.ariaSelectedIndex.value === index,
+    // );
+    const neoE = useSignal(optionRef.value);
+    const neoIndex = useComputed$(() => {
+      console.log('helo meme ');
+      return selectContext.ariaSelectedIndex.value;
+    });
+    console.log('fav index ', neoIndex.value);
+
+    useVisibleTask$(function setKeyHandler({ cleanup, track }) {
+      // console.log(' post my option2 ', optionRef.value, index, isAriaSelected);
       function keyHandler(e: KeyboardEvent) {
         const target = e.target as HTMLElement;
         if (selectOptionPreventedKeys.includes(e.key as KeyCode)) {
@@ -55,7 +69,10 @@ export const SelectOption = component$<SelectOptionProps>(
         role="option"
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
-        aria-selected={optionValue === selectContext.selectedOptionSig.value}
+        aria-selected={
+          selectContext.optionsStore.indexOf(optionRef.value) ===
+          selectContext.ariaSelectedIndex.value
+        }
         data-option-value={optionValue}
         onClick$={() => {
           if (!disabled) {

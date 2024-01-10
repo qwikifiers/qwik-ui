@@ -6,6 +6,7 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 import SelectContextId from './select-context-id';
+import { getNextEnabledOptionIndex } from '../combobox/utils';
 
 export type SelectListBoxProps = QwikIntrinsicElements['ul'];
 
@@ -14,16 +15,15 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
   const prevTimeoutSignal = useSignal<undefined | NodeJS.Timeout>(undefined);
   const inputStrgSignal = useSignal('');
   const fullStrgSearchFailedSignal = useSignal(false);
-  const context = useContext(SelectContextId);
-
+  const selectContext = useContext(SelectContextId);
   return (
     <ul
-      ref={context.listboxRef}
+      ref={selectContext.listboxRef}
       role="listbox"
       tabIndex={0}
-      hidden={!context.isListboxHiddenSig.value}
+      hidden={!selectContext.isListboxHiddenSig.value}
       style={`
-        display: ${context.isOpenSig.value ? 'block' : 'none'};
+        display: ${selectContext.isOpenSig.value ? 'block' : 'none'};
         position: absolute;
         z-index: 1;
         ${props.style}
@@ -33,7 +33,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         console.log(e.key);
         console.log('do i run on server???');
 
-        const availableOptions = context.optionsStore.filter(
+        const availableOptions = selectContext.optionsStore.filter(
           (option) => !(option?.getAttribute('aria-disabled') === 'true'),
         );
         const target = e.target as HTMLElement;
@@ -50,18 +50,28 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         }
 
         if (e.key === 'ArrowDown') {
+          const nextEnabledOptionIndex = getNextEnabledOptionIndex(
+            selectContext.ariaSelectedIndex.value,
+            { value: availableOptions },
+          );
+          console.log(
+            'im next ',
+            nextEnabledOptionIndex,
+            selectContext.ariaSelectedIndex.value,
+          );
+          selectContext.ariaSelectedIndex.value = nextEnabledOptionIndex;
           if (currentIndex === availableOptions.length - 1) {
-            availableOptions[0]?.focus();
+            // availableOptions[0]?.focus();
           } else {
-            availableOptions[currentIndex + 1]?.focus();
+            // availableOptions[currentIndex + 1]?.focus();
           }
         }
 
         if (e.key === 'ArrowUp') {
           if (currentIndex <= 0) {
-            availableOptions[availableOptions.length - 1]?.focus();
+            // availableOptions[availableOptions.length - 1]?.focus();
           } else {
-            availableOptions[currentIndex - 1]?.focus();
+            // availableOptions[currentIndex - 1]?.focus();
           }
         }
 

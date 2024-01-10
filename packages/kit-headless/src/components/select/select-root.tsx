@@ -14,6 +14,7 @@ import { VisuallyHidden } from '../../utils/visually-hidden';
 import SelectContextId from './select-context-id';
 import { SelectContext } from './select-context.type';
 import { NativeSelect } from './select-native-select';
+import { useContext } from 'react';
 
 export type SelectRootProps = {
   required?: boolean;
@@ -27,6 +28,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   const triggerRef = useSignal<HTMLElement>();
   const listboxRef = useSignal<HTMLElement>();
   const isListboxHiddenSig = useSignal(true);
+  const ariaSelectedIndex = useSignal<number>(-1);
 
   const context: SelectContext = {
     optionsStore,
@@ -35,10 +37,10 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     triggerRef,
     listboxRef,
     isListboxHiddenSig,
+    ariaSelectedIndex,
   };
 
   useContextProvider(SelectContextId, context);
-
   useOnDocument(
     'click',
     $((e) => {
