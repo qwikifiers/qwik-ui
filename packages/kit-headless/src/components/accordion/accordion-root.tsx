@@ -1,5 +1,6 @@
 import {
   $,
+  PropFunction,
   PropsOf,
   Slot,
   component$,
@@ -17,8 +18,8 @@ export type AccordionRootProps = PropsOf<'div'> & {
   animated?: boolean;
   enhance?: boolean;
   collapsible?: boolean;
-  onSelectedIndexChange$?: (index: number) => void;
-  onFocusIndexChange$?: (index: number) => void;
+  onSelectedIndexChange$?: PropFunction<(index: number) => void>;
+  onFocusIndexChange$?: PropFunction<(index: number) => void>;
 };
 
 export const AccordionRoot = component$(

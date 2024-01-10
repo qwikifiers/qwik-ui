@@ -1,5 +1,6 @@
 import {
   PropFunction,
+  PropsOf,
   Signal,
   Slot,
   component$,

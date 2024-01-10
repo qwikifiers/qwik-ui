@@ -18,7 +18,6 @@ const badgeVariants = cva(
     },
     defaultVariants: {
       variant: 'primary',
->>>>>>> b63f2453 (docs(badges): refactor badges to use fluffy)
     },
   },
 );
@@ -34,4 +33,3 @@ const Badge = component$<BadgeProps>(({ variant, ...props }) => {
 });
 
 export { Badge, badgeVariants };
->>>>>>> b63f2453 (docs(badges): refactor badges to use fluffy)

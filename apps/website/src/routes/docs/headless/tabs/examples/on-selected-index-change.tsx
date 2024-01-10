@@ -10,7 +10,7 @@ export default component$(() => {
       <div class="tabs-example mr-auto">
         <h3>Danish Composers</h3>
         <Tabs
-          onSelectedIndexChange$={(index: number) => {
+          onSelectedIndexChange$={(index) => {
             selectedIndexSig.value = index;
           }}
         >
