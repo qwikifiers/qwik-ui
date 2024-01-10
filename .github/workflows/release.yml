@@ -1,7 +1,9 @@
 name: Release
 
 on:
-  - workflow_dispatch
+  push:
+    branches:
+      - main
 
 jobs:
   test:
@@ -35,12 +37,23 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Build Headless Kit
-        shell: bash
-        run: npx nx build headless
+      # - name: Build Headless Kit
+      #   shell: bash
+      #   run: npx nx build headless
 
-      - name: Release
-        uses: ./.github/actions/release
+      # - name: Release
+      #   uses: ./.github/actions/release
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     npm_token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          npm_token: ${{ secrets.NPM_TOKEN }}
+          version: pnpm changeset.version
+          publish: pnpm run release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

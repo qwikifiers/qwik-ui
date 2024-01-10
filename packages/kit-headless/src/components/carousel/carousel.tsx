@@ -9,7 +9,7 @@ import {
   useId,
   useStylesScoped$,
 } from '@builder.io/qwik';
-import { useOrdinal } from '@qwik-ui/utils';
+import { useOrdinal } from '../../utils/use-ordinal';
 
 import stylesButtons from './styles/buttons.css?inline';
 import stylesControl from './styles/control.css?inline';
