@@ -78,7 +78,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
           //   // availableOptions[currentIndex - 1]?.focus();
           // }
         }
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' || e.key === ' ') {
           selectContext.isOpenSig.value = false;
           const idx = selectContext.ariaSelectedIndex.value;
           if (idx === -1) {
