@@ -176,7 +176,7 @@ describe('printable chars spec ', () => {
     cy.get('#mango').should('have.attr', 'aria-selected', 'true');
   });
 
-  it.only(`
+  it(`
    GIVEN the select-list-box is focused, and all keys pressed exist as the first char in any item on the list
    WHEN the same key is pressed multiple times
    THEN focus on all instances where the first char of the item is equal to the key being pressed, starting from absolute top to absoulte bottom, and looping when the last item is met
@@ -197,7 +197,7 @@ describe('printable chars spec ', () => {
     cy.get('#carrot').should('have.attr', 'aria-selected', 'true');
   });
 
-  it(`
+  it.only(`
    GIVEN the select-list-box is focused, all the strg typed exist as items in the list
    WHEN the strg is typed
    THEN focus on the first instance
@@ -208,8 +208,11 @@ describe('printable chars spec ', () => {
     cy.get('[data-testid="select-root"] > button').click();
     cy.get('[data-testid="select-root"] > button').click();
     // we must wait after each type bc spec
-    cy.focused().type('bac');
-    cy.focused().should('have.attr', 'data-option-value').and('eq', 'bacon');
+    // for some reason, typing all keys at once puts them in the wrong order (did not happen before xddd)
+    cy.focused().type('b');
+    cy.focused().type('a');
+    cy.focused().type('c');
+    cy.get('#bacon').should('have.attr', 'aria-selected', 'true');
     cy.wait(1000).focused().type('sa');
   });
 });

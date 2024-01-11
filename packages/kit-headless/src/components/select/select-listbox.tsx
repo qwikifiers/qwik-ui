@@ -140,6 +140,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
             return e.textContent!.toLowerCase();
           });
           const searchStrg = inputStrgSignal.value + e.key.toLowerCase();
+          console.log('over her ', searchStrg);
           const firstPossibleOptIndex = strgOptions.findIndex((e) => {
             const size = searchStrg.length;
             return e.substring(0, size) === searchStrg;
