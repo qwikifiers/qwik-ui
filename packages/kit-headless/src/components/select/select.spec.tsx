@@ -43,7 +43,11 @@ const BasicSelect = component$(() => {
                 {options.map(
                   (option, index) =>
                     option.type === group && (
-                      <SelectOption optionValue={option.name} key={index}>
+                      <SelectOption
+                        optionValue={option.name}
+                        key={index}
+                        id={option.name}
+                      >
                         {option.name}
                       </SelectOption>
                     ),
@@ -145,6 +149,7 @@ describe('Select', () => {
   });
 });
 
+// FYI, you cannot see visual effect bc i havent set up the css lol
 describe('printable chars spec ', () => {
   it(`
    GIVEN the select-list-box is focused, and all keys pressed exist as the first char in any item on the list
@@ -159,17 +164,19 @@ describe('printable chars spec ', () => {
     cy.get('[data-testid="select-root"] > button').click();
     cy.get('[data-testid="select-root"] > button').click();
     cy.focused().type('z');
-    cy.focused().should('have.attr', 'data-option-value').and('eq', 'zucchini');
+    console.log(cy.get('#zucchini'));
+
+    cy.get('#zucchini').should('have.attr', 'aria-selected', 'true');
     // we must wait after each type bc spec (500ms before searching by char)
     cy.wait(1000).focused().type('a');
-    cy.focused().should('have.attr', 'data-option-value').and('eq', 'apple');
+    cy.get('#apple').should('have.attr', 'aria-selected', 'true');
     cy.wait(1000).focused().type('c');
-    cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
+    cy.get('#carrot').should('have.attr', 'aria-selected', 'true');
     cy.wait(1000).focused().type('m');
-    cy.focused().should('have.attr', 'data-option-value').and('eq', 'mango');
+    cy.get('#mango').should('have.attr', 'aria-selected', 'true');
   });
 
-  it(`
+  it.only(`
    GIVEN the select-list-box is focused, and all keys pressed exist as the first char in any item on the list
    WHEN the same key is pressed multiple times
    THEN focus on all instances where the first char of the item is equal to the key being pressed, starting from absolute top to absoulte bottom, and looping when the last item is met
@@ -181,13 +188,13 @@ describe('printable chars spec ', () => {
     cy.get('[data-testid="select-root"] > button').click();
     // we must wait after each type bc spec (500ms before searching by char)
     cy.wait(1000).focused().type('c');
-    cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
+    cy.get('#carrot').should('have.attr', 'aria-selected', 'true');
     cy.wait(1000).focused().type('c');
-    cy.focused().should('have.attr', 'data-option-value').and('eq', 'cucumber');
+    cy.get('#cucumber').should('have.attr', 'aria-selected', 'true');
     cy.wait(1000).focused().type('c');
-    cy.focused().should('have.attr', 'data-option-value').and('eq', 'chicken');
+    cy.get('#chicken').should('have.attr', 'aria-selected', 'true');
     cy.wait(1000).focused().type('c');
-    cy.focused().should('have.attr', 'data-option-value').and('eq', 'carrot');
+    cy.get('#carrot').should('have.attr', 'aria-selected', 'true');
   });
 
   it(`

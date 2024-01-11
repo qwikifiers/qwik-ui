@@ -121,7 +121,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
                 const repeatIndex = nextChars.indexOf(currentChar);
                 if (repeatIndex !== -1) {
                   const nextIndex = repeatIndex + indexDiffSignal.value;
-                  selectContext.ariaSelectedIndex.value = charIndex;
+                  selectContext.ariaSelectedIndex.value = nextIndex;
                   indexDiffSignal.value = nextIndex + 1;
                 } else {
                   selectContext.ariaSelectedIndex.value = charIndex;
