@@ -159,15 +159,6 @@
     "qwik ui components",
     "components library"
   ],
-  "dependencies": {
-    "@fontsource-variable/inter": "5.0.8",
-    "@oddbird/popover-polyfill": "0.3.7",
-    "body-scroll-lock-upgrade": "1.1.0",
-    "canvas-confetti": "1.9.2",
-    "class-variance-authority": "0.7.0",
-    "clsx": "2.0.0",
-    "tslib": "^2.6.2"
-  },
   "nx": {
     "includedScripts": []
   }
