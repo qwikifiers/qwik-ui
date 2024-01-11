@@ -35,34 +35,6 @@ export const SelectOption = component$<SelectOptionProps>(
     });
     console.log('fav index ', neoIndex.value);
 
-    useVisibleTask$(function setKeyHandler({ cleanup, track }) {
-      // console.log(' post my option2 ', optionRef.value, index, isAriaSelected);
-      function keyHandler(e: KeyboardEvent) {
-        const target = e.target as HTMLElement;
-        if (selectOptionPreventedKeys.includes(e.key as KeyCode)) {
-          e.preventDefault();
-        }
-
-        if (!disabled && e.key === 'Tab' && target.dataset.optionValue === optionValue) {
-          selectContext.selectedOptionSig.value = optionValue;
-          selectContext.isOpenSig.value = false;
-        }
-
-        if (
-          !disabled &&
-          (e.key === 'Enter' || e.key === ' ') &&
-          target.dataset.optionValue === optionValue
-        ) {
-          selectContext.selectedOptionSig.value = optionValue;
-          selectContext.isOpenSig.value = false;
-        }
-      }
-      optionRef.value?.addEventListener('keydown', keyHandler);
-      cleanup(() => {
-        optionRef.value?.removeEventListener('keydown', keyHandler);
-      });
-    });
-
     return (
       <li
         ref={optionRef}

@@ -30,9 +30,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
       `}
       class={props.class}
       onKeyDown$={(e) => {
-        console.log(e.key);
-        console.log('do i run on server???');
-
+        console.log('this le key ', e.key, selectContext.isOpenSig.value);
         const availableOptions = selectContext.optionsStore.filter(
           (option) => !(option?.getAttribute('aria-disabled') === 'true'),
         );
@@ -74,7 +72,13 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
             // availableOptions[currentIndex - 1]?.focus();
           }
         }
-
+        if (e.key === 'Enter') {
+          selectContext.isOpenSig.value = false;
+          const idx = selectContext.ariaSelectedIndex.value;
+          const strg = selectContext.optionsStore[idx].innerText;
+          selectContext.selectedOptionSig.value = strg;
+          return;
+        }
         clearTimeout(prevTimeoutSignal.value);
 
         prevTimeoutSignal.value = setTimeout(() => {
