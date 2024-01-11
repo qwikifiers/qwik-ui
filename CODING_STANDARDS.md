@@ -107,7 +107,7 @@ return (
 ## Example of headless button customization with Tailwind
 
 ```tsx
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
 import { Button as HeadlessButton, ButtonProps as ButtonHeadlessProps } from '@qwik-ui/headless';
 
 type TailwindButtonProps = { size?: 'sm' | 'md', ... };
