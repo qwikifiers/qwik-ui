@@ -1,10 +1,14 @@
 # Changelog
 
+## 0.2.0
+
+### Minor Changes
+
+- Removed `useOrdinal` (by [@shairez](https://github.com/shairez) in [`4043d29`](https://github.com/qwikifiers/qwik-ui/commit/4043d29dcc39b03f16c79d659da592af3fbeafeb))
+
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
 ## [0.1.1](https://github.com/qwikifiers/qwik-ui/compare/utils-0.1.0...utils-0.1.1) (2024-01-09)
-
-
 
 # [0.1.0](https://github.com/qwikifiers/qwik-ui/compare/utils-0.0.3...utils-0.1.0) (2023-12-16)
 
