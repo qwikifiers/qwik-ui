@@ -6,7 +6,7 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 import SelectContextId from './select-context-id';
-import { getNextEnabledOptionIndex } from '../combobox/utils';
+import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from '../combobox/utils';
 
 export type SelectListBoxProps = QwikIntrinsicElements['ul'];
 
@@ -66,11 +66,17 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         }
 
         if (e.key === 'ArrowUp') {
-          if (currentIndex <= 0) {
-            // availableOptions[availableOptions.length - 1]?.focus();
-          } else {
-            // availableOptions[currentIndex - 1]?.focus();
-          }
+          const prevEnabledOptionIndex = getPrevEnabledOptionIndex(
+            selectContext.ariaSelectedIndex.value,
+            { value: availableOptions },
+          );
+          selectContext.ariaSelectedIndex.value = prevEnabledOptionIndex;
+
+          // if (currentIndex <= 0) {
+          //   // availableOptions[availableOptions.length - 1]?.focus();
+          // } else {
+          //   // availableOptions[currentIndex - 1]?.focus();
+          // }
         }
         if (e.key === 'Enter') {
           selectContext.isOpenSig.value = false;
