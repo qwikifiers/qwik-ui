@@ -111,7 +111,8 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
           const charIndex = charOptions.indexOf(currentChar);
           if (charIndex !== -1) {
             if (indexDiffSignal.value === undefined) {
-              availableOptions[charIndex].focus();
+              // availableOptions[charIndex].focus();
+              selectContext.ariaSelectedIndex.value = charIndex;
               indexDiffSignal.value = charIndex + 1;
             } else {
               const isRepeat = charOptions[indexDiffSignal.value - 1] === currentChar;
@@ -120,14 +121,14 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
                 const repeatIndex = nextChars.indexOf(currentChar);
                 if (repeatIndex !== -1) {
                   const nextIndex = repeatIndex + indexDiffSignal.value;
-                  availableOptions[nextIndex].focus();
+                  selectContext.ariaSelectedIndex.value = charIndex;
                   indexDiffSignal.value = nextIndex + 1;
                 } else {
-                  availableOptions[charIndex].focus();
+                  selectContext.ariaSelectedIndex.value = charIndex;
                   indexDiffSignal.value = charIndex + 1;
                 }
               } else {
-                availableOptions[charIndex].focus();
+                selectContext.ariaSelectedIndex.value = charIndex;
                 // bc char has changed, user is typing  a new strg
                 fullStrgSearchFailedSignal.value = false;
                 indexDiffSignal.value = charIndex + 1;
@@ -144,7 +145,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
             return e.substring(0, size) === searchStrg;
           });
           if (firstPossibleOptIndex !== -1) {
-            availableOptions[firstPossibleOptIndex].focus();
+            selectContext.ariaSelectedIndex.value = firstPossibleOptIndex;
             inputStrgSignal.value = searchStrg;
             indexDiffSignal.value = firstPossibleOptIndex + 1;
           } else {
