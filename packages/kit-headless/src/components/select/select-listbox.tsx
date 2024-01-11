@@ -75,6 +75,13 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         if (e.key === 'Enter') {
           selectContext.isOpenSig.value = false;
           const idx = selectContext.ariaSelectedIndex.value;
+          if (idx === -1) {
+            console.log('im a undefined');
+            selectContext.isOpenSig.value = false;
+            return;
+          }
+          console.log('idk man ', selectContext.optionsStore.length, idx);
+
           const strg = selectContext.optionsStore[idx].innerText;
           selectContext.selectedOptionSig.value = strg;
           return;
