@@ -6,6 +6,7 @@ import {
   useVisibleTask$,
 } from '@builder.io/qwik';
 import { CodeCopy } from '../code-copy/code-copy';
+import { codeToHtml } from 'shikiji';
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
@@ -29,8 +30,6 @@ export const Highlight = component$(
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(
       async function createHighlightedCode() {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const highlighter = await (window as any).shikiji;
         let modifiedCode: string = code;
 
         let partsOfCode = modifiedCode.split(splitCommentStart);
@@ -43,7 +42,7 @@ export const Highlight = component$(
           modifiedCode = partsOfCode[0];
         }
 
-        const str = await highlighter.codeToHtml(modifiedCode, {
+        const str = await codeToHtml(modifiedCode, {
           lang: language,
           themes: {
             light: 'poimandres',
