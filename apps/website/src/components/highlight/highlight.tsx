@@ -30,8 +30,6 @@ export const Highlight = component$(
 
     useVisibleTask$(
       async function createHighlightedCode() {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const highlighter = await (window as any).shikiji;
         let modifiedCode: string = code;
 
         let partsOfCode = modifiedCode.split(splitCommentStart);
