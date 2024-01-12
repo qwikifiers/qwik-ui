@@ -31,7 +31,7 @@ export const SelectOption = component$<SelectOptionProps>(
     const neoE = useSignal(optionRef.value);
     const neoIndex = useComputed$(() => {
       console.log('helo meme ');
-      return selectContext.ariaSelectedIndex.value;
+      return selectContext.ariaSelectedIndexSig.value;
     });
     console.log('fav index ', neoIndex.value);
 
@@ -43,7 +43,7 @@ export const SelectOption = component$<SelectOptionProps>(
         aria-disabled={disabled}
         aria-selected={
           selectContext.optionsStore.indexOf(optionRef.value) ===
-          selectContext.ariaSelectedIndex.value
+          selectContext.ariaSelectedIndexSig.value
         }
         data-option-value={optionValue}
         onClick$={() => {

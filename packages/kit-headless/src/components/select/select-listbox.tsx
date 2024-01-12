@@ -58,15 +58,15 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
 
         if (e.key === 'ArrowDown') {
           const nextEnabledOptionIndex = getNextEnabledOptionIndexFromDisabledArr(
-            selectContext.ariaSelectedIndex.value,
+            selectContext.ariaSelectedIndexSig.value,
             disabledArr,
           );
           console.log(
             'im next ',
             nextEnabledOptionIndex,
-            selectContext.ariaSelectedIndex.value,
+            selectContext.ariaSelectedIndexSig.value,
           );
-          selectContext.ariaSelectedIndex.value = nextEnabledOptionIndex;
+          selectContext.ariaSelectedIndexSig.value = nextEnabledOptionIndex;
           if (currentIndex === availableOptions.length - 1) {
             // availableOptions[0]?.focus();
           } else {
@@ -76,10 +76,10 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
 
         if (e.key === 'ArrowUp') {
           const prevEnabledOptionIndex = getPrevEnabledOptionIndexFromDisabledArr(
-            selectContext.ariaSelectedIndex.value,
+            selectContext.ariaSelectedIndexSig.value,
             disabledArr,
           );
-          selectContext.ariaSelectedIndex.value = prevEnabledOptionIndex;
+          selectContext.ariaSelectedIndexSig.value = prevEnabledOptionIndex;
 
           // if (currentIndex <= 0) {
           //   // availableOptions[availableOptions.length - 1]?.focus();
@@ -87,9 +87,17 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
           //   // availableOptions[currentIndex - 1]?.focus();
           // }
         }
+        if (e.key === 'Home') {
+          const firstIndex = disabledArr.findIndex((e) => e.disabled === false);
+          selectContext.ariaSelectedIndexSig.value = firstIndex;
+        }
+        if (e.key === 'End') {
+          const firstIndex = disabledArr.findLastIndex((e) => e.disabled === false);
+          selectContext.ariaSelectedIndexSig.value = firstIndex;
+        }
         if (e.key === 'Enter' || e.key === ' ') {
           selectContext.isOpenSig.value = false;
-          const idx = selectContext.ariaSelectedIndex.value;
+          const idx = selectContext.ariaSelectedIndexSig.value;
           if (idx === -1) {
             console.log('im a undefined');
             selectContext.isOpenSig.value = false;
@@ -121,7 +129,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
           if (charIndex !== -1) {
             if (indexDiffSignal.value === undefined) {
               // availableOptions[charIndex].focus();
-              selectContext.ariaSelectedIndex.value = charIndex;
+              selectContext.ariaSelectedIndexSig.value = charIndex;
               indexDiffSignal.value = charIndex + 1;
             } else {
               const isRepeat = charOptions[indexDiffSignal.value - 1] === currentChar;
@@ -130,14 +138,14 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
                 const repeatIndex = nextChars.indexOf(currentChar);
                 if (repeatIndex !== -1) {
                   const nextIndex = repeatIndex + indexDiffSignal.value;
-                  selectContext.ariaSelectedIndex.value = nextIndex;
+                  selectContext.ariaSelectedIndexSig.value = nextIndex;
                   indexDiffSignal.value = nextIndex + 1;
                 } else {
-                  selectContext.ariaSelectedIndex.value = charIndex;
+                  selectContext.ariaSelectedIndexSig.value = charIndex;
                   indexDiffSignal.value = charIndex + 1;
                 }
               } else {
-                selectContext.ariaSelectedIndex.value = charIndex;
+                selectContext.ariaSelectedIndexSig.value = charIndex;
                 // bc char has changed, user is typing  a new strg
                 fullStrgSearchFailedSignal.value = false;
                 indexDiffSignal.value = charIndex + 1;
@@ -155,7 +163,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
             return e.substring(0, size) === searchStrg;
           });
           if (firstPossibleOptIndex !== -1) {
-            selectContext.ariaSelectedIndex.value = firstPossibleOptIndex;
+            selectContext.ariaSelectedIndexSig.value = firstPossibleOptIndex;
             inputStrgSignal.value = searchStrg;
             indexDiffSignal.value = firstPossibleOptIndex + 1;
           } else {

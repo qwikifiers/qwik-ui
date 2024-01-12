@@ -7,5 +7,5 @@ export type SelectContext = {
   triggerRef: Signal<HTMLElement | undefined>;
   listboxRef: Signal<HTMLElement | undefined>;
   isListboxHiddenSig: Signal<boolean>;
-  ariaSelectedIndex: Signal<number>;
+  ariaSelectedIndexSig: Signal<number>;
 };

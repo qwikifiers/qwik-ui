@@ -37,7 +37,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
     triggerRef,
     listboxRef,
     isListboxHiddenSig,
-    ariaSelectedIndex,
+    ariaSelectedIndexSig: ariaSelectedIndex,
   };
 
   useContextProvider(SelectContextId, context);
