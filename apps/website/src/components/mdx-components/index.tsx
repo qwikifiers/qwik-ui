@@ -95,20 +95,11 @@ export const components: Record<string, any> = {
       <div
         {...props}
         class={[
-          cn(
-            'code-example relative -mx-6 mb-6 max-h-[31.25rem] rounded-xl bg-slate-900 lg:-mx-8',
-            props.class,
-          ),
+          cn('relative -mx-6 mb-6 max-h-[31.25rem] rounded-xl lg:-mx-8', props.class),
         ]}
       >
-        <CodeCopy
-          class="absolute right-4 top-4 border-2 text-slate-50 hover:bg-slate-800 hover:text-slate-50"
-          code={__rawString__}
-        />
-        <div
-          style={''} // required to override shiki's
-          class="tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm"
-        >
+        <CodeCopy class="absolute right-4 top-4" code={__rawString__} />
+        <div class="max-h-[31.25rem] max-w-full overflow-auto rounded-xl border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm">
           <pre>
             <Slot />
           </pre>

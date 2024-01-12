@@ -5,21 +5,10 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
 
-import { getHighlighter, type Highlighter } from 'shiki';
-
-let highlighter: Highlighter;
-
 export default defineConfig(async () => {
   const { default: rehypePrettyCode } = await import('rehype-pretty-code');
   const { visit } = await import('unist-util-visit');
 
-  async function getOrCreateHighlighter() {
-    if (highlighter) {
-      return highlighter;
-    }
-    highlighter = await getHighlighter({ theme: 'poimandres' });
-    return highlighter;
-  }
   return {
     plugins: [
       qwikNxVite(),
@@ -31,6 +20,7 @@ export default defineConfig(async () => {
         },
         mdx: {
           providerImportSource: '~/_state/MDXProvider',
+          // @ts-ignore
           recmaPlugins: [recmaProvideComponents],
           rehypePlugins: [
             () => (tree) => {
@@ -46,9 +36,10 @@ export default defineConfig(async () => {
               });
             },
             [
+              // @ts-ignore
               rehypePrettyCode,
               {
-                getHighlighter: getOrCreateHighlighter,
+                theme: 'poimandres',
                 onVisitLine(node: any) {
                   // Prevent lines from collapsing in `display: grid` mode, and allow empty
                   // lines to be copy/pasted

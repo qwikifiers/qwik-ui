@@ -7,6 +7,7 @@ import {
 } from '@builder.io/qwik';
 import { OmitSignalClass } from '@qwik-ui/utils';
 import { CodeCopy } from '../code-copy/code-copy';
+import { codeToHtml } from 'shikiji';
 
 export type HighlightProps = OmitSignalClass<QwikIntrinsicElements['div']> & {
   code: string;
@@ -29,8 +30,6 @@ export const Highlight = component$(
 
     useVisibleTask$(
       async function createHighlightedCode() {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const highlighter = await (window as any).shikiji;
         let modifiedCode: string = code;
 
         let partsOfCode = modifiedCode.split(splitCommentStart);
@@ -43,7 +42,7 @@ export const Highlight = component$(
           modifiedCode = partsOfCode[0];
         }
 
-        const str = await highlighter.codeToHtml(modifiedCode, {
+        const str = await codeToHtml(modifiedCode, {
           lang: language,
           themes: {
             light: 'poimandres',
