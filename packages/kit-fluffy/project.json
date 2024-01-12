@@ -91,46 +91,6 @@
           "quiet": true
         }
       }
-    },
-    "version-dry": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "dryRun": true,
-        "trackDeps": true,
-        "noVerify": true,
-        "skipCommit": true,
-        "skipProjectChangelog": true
-      }
-    },
-    "publish": {
-      "dependsOn": ["build"],
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "access": "public"
-      }
-    },
-    "disabling-publish-for-now": {
-      "version": {
-        "executor": "@jscutlery/semver:version",
-        "options": {}
-      },
-      "version-publish": {
-        "executor": "@jscutlery/semver:version",
-        "options": {
-          "noVerify": true,
-          "push": true,
-          "releaseAs": "patch",
-          "postTargets": ["fluffy:publish", "fluffy:push-to-github"]
-        }
-      },
-      "push-to-github": {
-        "executor": "@jscutlery/semver:github",
-        "options": {
-          "title": "@qwik-ui/kit-fluffy@${version}",
-          "tag": "${tag}",
-          "notes": "${notes}"
-        }
-      }
     }
   },
   "tags": [],
