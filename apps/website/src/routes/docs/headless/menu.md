@@ -9,6 +9,7 @@
 ## Components
 
 - [Accordion](/docs/headless/accordion)
+- [Collapsible](/docs/headless/collapsible)
 - [Combobox](/docs/headless/combobox)
 - [Modal](/docs/headless/modal)
 - [Pagination](/docs/headless/pagination)

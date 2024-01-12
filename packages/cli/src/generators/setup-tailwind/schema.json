@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "Preset",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "projectRoot": {
+      "type": "string",
+      "description": "The root directory you want the config file to be created in.",
+      "x-prompt": "Which project do you ?"
+    },
+
+    "rootCssPath": {
+      "type": "string",
+      "description": "The root css file where you declare all the tailwind related directives",
+      "x-prompt": "Where is you root/global css file located?"
+    }
+  },
+  "required": []
+}

@@ -5,6 +5,33 @@
   "projectType": "library",
   "targets": {
     "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "main": "src/index.ts",
+        "outputPath": "dist/packages/kit-fluffy",
+        "tsConfig": "packages/kit-fluffy/tsconfig.generators.json",
+        "assets": [
+          "packages/kit-fluffy/*.md",
+          {
+            "input": "./packages/kit-fluffy/src/components",
+            "glob": "**/*.(ts|tsx)",
+            "output": "./src/components"
+          },
+          {
+            "input": "./packages/kit-fluffy/src/templates",
+            "glob": "**/*.*",
+            "output": "./src/templates"
+          },
+          {
+            "input": "./packages/kit-fluffy",
+            "glob": "components-registry.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "build-components": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
@@ -23,6 +50,13 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "passWithNoTests": true
+      }
+    },
+    "test-generators": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/kit-fluffy/jest.config.ts"
       }
     },
     "lint": {
@@ -58,17 +92,27 @@
         }
       }
     },
+    "version-dry": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "dryRun": true,
+        "trackDeps": true,
+        "noVerify": true,
+        "skipCommit": true,
+        "skipProjectChangelog": true
+      }
+    },
+    "publish": {
+      "dependsOn": ["build"],
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
+      }
+    },
     "disabling-publish-for-now": {
       "version": {
         "executor": "@jscutlery/semver:version",
         "options": {}
-      },
-      "version-dry": {
-        "executor": "@jscutlery/semver:version",
-        "options": {
-          "dryRun": true,
-          "releaseAs": "patch"
-        }
       },
       "version-publish": {
         "executor": "@jscutlery/semver:version",
@@ -77,12 +121,6 @@
           "push": true,
           "releaseAs": "patch",
           "postTargets": ["fluffy:publish", "fluffy:push-to-github"]
-        }
-      },
-      "publish": {
-        "executor": "ngx-deploy-npm:deploy",
-        "options": {
-          "access": "public"
         }
       },
       "push-to-github": {
@@ -95,5 +133,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": ["headless"]
 }

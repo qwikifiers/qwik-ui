@@ -42,6 +42,7 @@ export const statusByComponent: ComponentKitsStatuses = {
   headless: {
     Accordion: ComponentStatus.Beta,
     Carousel: ComponentStatus.Planned,
+    Collapsible: ComponentStatus.Draft,
     Combobox: ComponentStatus.Beta,
     Dialog: ComponentStatus.Planned,
     Modal: ComponentStatus.Beta,
