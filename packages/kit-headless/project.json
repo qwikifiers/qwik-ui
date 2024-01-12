@@ -32,75 +32,7 @@
         "lintFilePatterns": ["packages/kit-headless/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "version-dry": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "dryRun": true,
-        "trackDeps": true,
-        "noVerify": true,
-        "skipCommit": true
-      }
-    },
 
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "releaseAs": "patch"
-      }
-    },
-    "version-publish": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "noVerify": true,
-        "push": true,
-        "releaseAs": "patch",
-        "postTargets": [
-          "headless:build",
-          "headless:update-utils-version",
-          "headless:publish",
-          "headless:push-to-github"
-        ]
-      }
-    },
-
-    "version-publish-minor": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "noVerify": true,
-        "push": true,
-        "releaseAs": "minor",
-        "postTargets": [
-          "headless:build",
-          "headless:update-utils-version",
-          "headless:publish",
-          "headless:push-to-github"
-        ]
-      }
-    },
-
-    "update-utils-version": {
-      "executor": "nx:run-commands",
-      "options": {
-        "parallel": false,
-        "command": "pnpm update.version"
-      }
-    },
-
-    "publish": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "noBuild": true,
-        "access": "public"
-      }
-    },
-    "push-to-github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "tag": "${tag}",
-        "notes": "${notes}",
-        "title": "@qwik-ui/headless@${version}"
-      }
-    },
     "storybook": {
       "executor": "@nx/storybook:storybook",
       "options": {

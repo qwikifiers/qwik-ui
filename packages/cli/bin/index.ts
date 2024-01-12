@@ -9,13 +9,17 @@ import {
   multiselect,
   outro,
   select,
-  spinner,
   text,
 } from '@clack/prompts';
-import { getPackageManagerCommand, readJsonFile, workspaceRoot } from '@nx/devkit';
+import {
+  getPackageManagerCommand,
+  readJsonFile,
+  workspaceRoot,
+  writeJsonFile,
+} from '@nx/devkit';
 
 import { execSync } from 'child_process';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { bold, cyan, green, red } from 'kleur/colors';
 import yargs, { type CommandModule } from 'yargs';
 import {
@@ -188,6 +192,7 @@ async function handleInit() {
   }
 
   // ADD QWIK UI CLI TO DEPENDENCIES
+  log.info('Adding qwik-ui cli to package.json...');
   execSync(`${getPackageManagerCommand().addDev} qwik-ui@latest`, {
     stdio: 'inherit',
   });
@@ -209,6 +214,7 @@ async function handleInit() {
 
   const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
+  log.info(`Installing ${styledPackage}...`);
   execSync(`${getPackageManagerCommand().addDev} ${styledPackage}@${packageTag}`, {
     stdio: 'inherit',
   });
@@ -225,38 +231,35 @@ async function handleInit() {
     },
   );
 
-  await handleAdd(config.projectRoot, args['components'] as string);
+  log.info('Tailwind configured.');
 }
 
 async function installNxIfNeeded() {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  // const nxVersion = require('../package.json').dependencies['@nx/devkit'];
-
   if (existsSync('nx.json')) {
     log.info('seems like nx.json already exists. cool!');
   } else {
-    // const haveNxInstalled = cancelable(
-    //   await confirm({
-    //     message: 'Do you already have Nx installed? (required)',
-    //     initialValue: false,
-    //   }),
-    // );
-
-    // if (!haveNxInstalled) {
-    const initSpinner = spinner();
     log.info('Installing Nx...');
-    initSpinner.start('Installing Nx...');
+
     execSync(`${getPackageManagerCommand().addDev} nx@latest`, {
       stdio: 'inherit',
     });
-    // TODO: Just add "nx: {} " to package.json and see if it still works
-    execSync(`${getPackageManagerCommand().exec} nx init --interactive false`, {
-      stdio: 'inherit',
-    });
-    initSpinner.stop('Installed Nx!');
+
+    const packageJson = await readJsonFile('package.json');
+    packageJson['nx'] = {};
+    await writeJsonFile('package.json', packageJson);
+
+    const ignorePath = '.gitignore';
+    try {
+      let contents = readFileSync(ignorePath, 'utf-8');
+      if (!contents.includes('.nx/cache')) {
+        contents = [contents, '', '.nx/cache'].join('\n');
+        writeFileSync(ignorePath, contents, 'utf-8');
+      }
+    } catch {
+      /* empty */
+    }
   }
   log.success('nx init done');
-  // }
 }
 
 async function handleAdd(projectRoot?: string, componentsFromInit?: string) {
