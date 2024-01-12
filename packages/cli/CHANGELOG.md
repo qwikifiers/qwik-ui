@@ -1,5 +1,12 @@
 # qwik-ui
 
+## 0.0.4
+
+### Patch Changes
+
+- Removed the generated `nx.json` after `qwik-ui init` command. (by [@shairez](https://github.com/shairez) in [#598](https://github.com/qwikifiers/qwik-ui/pull/598))
+  Apparently, only an empty `nx: {}` in the package.json is enough.
+
 ## 0.0.3
 
 ### Patch Changes
