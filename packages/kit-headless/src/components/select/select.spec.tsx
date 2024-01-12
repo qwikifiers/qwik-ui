@@ -197,7 +197,7 @@ describe('printable chars spec ', () => {
     cy.get('#carrot').should('have.attr', 'aria-selected', 'true');
   });
 
-  it.only(`
+  it(`
    GIVEN the select-list-box is focused, all the strg typed exist as items in the list
    WHEN the strg is typed
    THEN focus on the first instance
