@@ -6,13 +6,11 @@ export interface StatusBadgeProps {
   status: ComponentStatus;
 }
 
-export function getClassByStatus(status: ComponentStatus) {
+export function getVariantByStatus(status: ComponentStatus) {
   switch (status) {
     case ComponentStatus.Beta:
-      return 'secondary';
-    case ComponentStatus.Draft:
       return 'primary';
-    case ComponentStatus.Planned:
+    case ComponentStatus.Draft:
       return 'outline';
     default:
       return null;
@@ -20,5 +18,5 @@ export function getClassByStatus(status: ComponentStatus) {
 }
 
 export const StatusBadge = component$<StatusBadgeProps>(({ status }) => {
-  return <Badge variant={getClassByStatus(status)}>{status}</Badge>;
+  return <Badge variant={getVariantByStatus(status)}>{status}</Badge>;
 });

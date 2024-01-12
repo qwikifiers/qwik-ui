@@ -28,9 +28,11 @@ export const AnatomyTable = component$(
               return (
                 <tr key={propDescriptor.name}>
                   <td class="align-center py-3 pl-2 pr-2 sm:pl-0 md:align-baseline">
-                    <code class="border-primary text-accent-foreground mr-6 rounded border border-b-2">
-                      {propDescriptor.name}
-                    </code>
+                    <div class="flex items-center gap-2">
+                      <code class="border-primary text-accent-foreground mr-6 rounded border border-b-2 px-2">
+                        {propDescriptor.name}
+                      </code>
+                    </div>
                   </td>
                   <td class="py-3 align-baseline">
                     <div class="prose-docs-table">

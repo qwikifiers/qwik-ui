@@ -1,7 +1,8 @@
 import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
 import { ComponentStatus } from '~/_state/component-status.type';
-import { getClassByStatus } from '../component-status-badge/component-status-badge';
+import { getVariantByStatus } from '../component-status-badge/component-status-badge';
 import { Badge } from '@qwik-ui/fluffy';
+import { cn } from '@qwik-ui/utils';
 
 export interface StatusBannerProps {
   status?: ComponentStatus;
@@ -13,47 +14,39 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>DISCLAIMER:</strong> This component is in{' '}
-          <Badge variant={getClassByStatus(status)}>{status}</Badge> status. That means
-          that it is ready for production, but the API might change.
+          <Badge variant={getVariantByStatus(status)} class="text-sm">
+            {status}
+          </Badge>{' '}
+          status. That means that it is ready for production, but the API might change.
         </>
       );
     case ComponentStatus.Draft:
       return (
         <>
           <strong>WARNING:</strong> This component is in{' '}
-          <Badge variant={getClassByStatus(status)}>{status}</Badge> status. This means
-          that it is still in development and may have bugs or missing features. It is not
-          intended to be used in production. You may use it for testing purposes.
-        </>
-      );
-    case ComponentStatus.Planned:
-    default:
-      return (
-        <>
-          <strong>WARNING:</strong> This component is in{' '}
-          <Badge variant={getClassByStatus(status || ComponentStatus.Planned)}>
+          <Badge variant={getVariantByStatus(status)} class="text-sm">
             {status}
           </Badge>{' '}
-          status. That means that it is in our backlog and we might have started working
-          on it, but it is not under active development.
+          status. This means that it is still in development and may have bugs or missing
+          features. It is not intended to be used in production. You may use it for
+          testing purposes.
         </>
       );
+    default:
+      return <></>;
   }
 }
 
 function getBackgroundByStatus(status?: ComponentStatus) {
   switch (status) {
     case ComponentStatus.Beta:
-      return 'border border-secondary';
-    case ComponentStatus.Draft:
       return 'border border-primary';
-    case ComponentStatus.Planned:
-    default:
-      return 'border border-foreground';
+    case ComponentStatus.Draft:
+      return 'border';
   }
 }
 
-export const StatusBanner = component$((props: StatusBannerProps) => {
+export const StatusBanner = component$(({ status }: StatusBannerProps) => {
   const ref = useSignal<HTMLElement | undefined>();
   const isBannerClosedSig = useSignal(false);
   const marginBottom = 64;
@@ -85,12 +78,13 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
         ref={ref}
         hidden={isBannerClosedSig.value}
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
-        class={`${getBackgroundByStatus(
-          props.status,
-        )} normal-state shadow-light-medium dark:shadow-dark-medium relative mx-[-24px] rounded-xl border-2 px-8 py-6 md:flex-row md:items-center lg:mx-[-32px]`}
+        class={cn(
+          getBackgroundByStatus(status),
+          'normal-state shadow-light-medium dark:shadow-dark-medium relative mx-[-24px] rounded-xl border-2 px-8 py-6 md:flex-row md:items-center lg:mx-[-32px]',
+        )}
         style={{ marginBottom: `${marginBottom}px` }}
       >
-        <span class="pr-2">{getMessageByStatus(props.status)}</span>
+        <span class="pr-2">{getMessageByStatus(status)}</span>
         <button
           aria-label="close status banner"
           onClick$={() => {
