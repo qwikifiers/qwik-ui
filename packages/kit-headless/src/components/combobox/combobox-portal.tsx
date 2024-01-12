@@ -48,6 +48,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
 
   const closePortalSig = useSignal<QRL<() => void>>();
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async function openOrCloseListBox({ track }) {
     track(() => comboboxContext.isListboxOpenSig.value);
     track(() => contextPairsSig.value);
@@ -64,6 +65,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
     }
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async function cleanupTeleportedElement({ cleanup }) {
     cleanup(async () => {
       if (closePortalSig.value) {

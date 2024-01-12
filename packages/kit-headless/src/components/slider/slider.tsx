@@ -1,6 +1,6 @@
 import {
   PropFunction,
-  QwikIntrinsicElements,
+  PropsOf,
   Signal,
   Slot,
   component$,
@@ -24,7 +24,7 @@ interface SliderContextService {
 
 export const sliderContext = createContextId<SliderContextService>('slider');
 
-export type SliderProps = QwikIntrinsicElements['div'] & {
+export type SliderProps = PropsOf<'div'> & {
   value: number;
   min: number;
   max: number;
@@ -55,11 +55,13 @@ export const Slider = component$(
       percentage: percentageSignal,
     };
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(async ({ track }) => {
       track(() => rootPositionRef);
       contextService.positionX.value = rootPositionRef.value?.getBoundingClientRect().x;
     });
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(async ({ track }) => {
       const newValue = track(() => sliderValue.value);
       if (onChange$) {

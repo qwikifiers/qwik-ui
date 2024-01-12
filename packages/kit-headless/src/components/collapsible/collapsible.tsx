@@ -6,13 +6,13 @@ import {
   useSignal,
   $,
   type Signal,
-  type QwikIntrinsicElements,
+  PropsOf,
 } from '@builder.io/qwik';
 import { collapsibleContextId } from './collapsible-context-id';
 import { type CollapsibleContext } from './collapsible-context.type';
 import { getHiddenHeight } from '../../utils/get-hidden-height';
 
-export type CollapsibleProps = QwikIntrinsicElements['div'] & {
+export type CollapsibleProps = PropsOf<'div'> & {
   defaultOpen?: boolean | undefined;
   id?: string;
   'bind:isOpen'?: Signal<boolean | undefined>;

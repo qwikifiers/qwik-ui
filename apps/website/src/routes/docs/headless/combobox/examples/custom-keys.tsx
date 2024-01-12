@@ -33,6 +33,7 @@ export default component$(() => {
 
   const isPokemonCaught = useSignal(false);
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => isPokemonCaught.value);
   });

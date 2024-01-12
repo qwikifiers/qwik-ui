@@ -1,12 +1,12 @@
 import {
   PropFunction,
+  PropsOf,
   QwikChangeEvent,
-  QwikIntrinsicElements,
   Slot,
   component$,
 } from '@builder.io/qwik';
 
-export type LabelProps = QwikIntrinsicElements['label'];
+export type LabelProps = PropsOf<'label'>;
 
 export const Label = component$(({ ...props }: LabelProps) => {
   return (
@@ -16,7 +16,7 @@ export const Label = component$(({ ...props }: LabelProps) => {
   );
 });
 
-export type CheckboxProps = QwikIntrinsicElements['input'] & {
+export type CheckboxProps = PropsOf<'input'> & {
   checked?: boolean;
   disabled?: boolean;
   name?: string;

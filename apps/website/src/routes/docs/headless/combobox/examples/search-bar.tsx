@@ -10,7 +10,7 @@ import {
   ResolvedOption,
 } from '@qwik-ui/headless';
 
-import { QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
+import { PropsOf, component$, useSignal } from '@builder.io/qwik';
 import { statusByComponent } from '~/_state/component-statuses';
 import { StatusBadge } from '~/components/component-status-badge/component-status-badge';
 
@@ -104,7 +104,7 @@ export default component$(() => {
   );
 });
 
-export function SearchIcon(props: QwikIntrinsicElements['svg'], key: string) {
+export function SearchIcon(props: PropsOf<'svg'>, key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +122,7 @@ export function SearchIcon(props: QwikIntrinsicElements['svg'], key: string) {
   );
 }
 
-export function ClearIcon(props: QwikIntrinsicElements['svg'], key: string) {
+export function ClearIcon(props: PropsOf<'svg'>, key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

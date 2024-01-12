@@ -5,8 +5,8 @@ import {
   useSignal,
   useTask$,
   type QwikKeyboardEvent,
-  type QwikIntrinsicElements,
   type ContextId,
+  PropsOf,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
@@ -16,9 +16,9 @@ import {
   getPrevEnabledOptionIndex,
 } from './utils';
 
-export type ComboboxInputProps = {
+export type ComboboxInputProps = PropsOf<'input'> & {
   disableOnBlur?: boolean;
-} & QwikIntrinsicElements['input'];
+};
 
 export const ComboboxInput = component$(
   <O extends Option = Option>({

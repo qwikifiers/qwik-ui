@@ -1,6 +1,6 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
-export type SelectMarkerProps = QwikIntrinsicElements['span'];
+export type SelectMarkerProps = PropsOf<'span'>;
 
 export const SelectMarker = component$((props: SelectMarkerProps) => {
   return (

@@ -1,6 +1,6 @@
 import {
+  PropsOf,
   component$,
-  QwikIntrinsicElements,
   useContext,
   useSignal,
   useVisibleTask$,
@@ -10,10 +10,10 @@ import SelectContextId from './select-context-id';
 import { KeyCode } from '../../utils/key-code.type';
 import { Slot } from '@builder.io/qwik';
 
-export type SelectOptionProps = {
+export type SelectOptionProps = PropsOf<'li'> & {
   disabled?: boolean;
   optionValue: string;
-} & QwikIntrinsicElements['li'];
+};
 
 export const selectOptionPreventedKeys = [KeyCode.ArrowDown, KeyCode.ArrowUp];
 
@@ -22,6 +22,7 @@ export const SelectOption = component$<SelectOptionProps>(
     const selectContext = useContext(SelectContextId);
     const optionRef = useSignal<HTMLElement>();
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(function setKeyHandler({ cleanup }) {
       function keyHandler(e: KeyboardEvent) {
         const target = e.target as HTMLElement;

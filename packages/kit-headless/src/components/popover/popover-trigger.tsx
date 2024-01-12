@@ -1,18 +1,18 @@
 import {
-  QwikIntrinsicElements,
   useOnDocument,
   useTask$,
   Slot,
   component$,
   useSignal,
   $,
+  PropsOf,
 } from '@builder.io/qwik';
 import { isBrowser } from '@builder.io/qwik/build';
 
 type PopoverTriggerProps = {
   popovertarget: string;
   disableClickInitPopover?: boolean;
-} & QwikIntrinsicElements['button'];
+} & PropsOf<'button'>;
 
 export function usePopover(popovertarget: string) {
   const hasPolyfillLoadedSig = useSignal<boolean>(false);

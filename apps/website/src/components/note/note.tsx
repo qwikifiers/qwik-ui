@@ -1,4 +1,4 @@
-import { component$, Slot, QwikIntrinsicElements } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
 export enum NoteStatus {
   Info = 'info',
@@ -56,7 +56,7 @@ export const Note = component$<NoteProps>(({ status, ...props }) => {
   );
 });
 
-export function InfoIcon(props: QwikIntrinsicElements['svg'], key: string) {
+export function InfoIcon(props: PropsOf<'svg'>, key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ export function InfoIcon(props: QwikIntrinsicElements['svg'], key: string) {
   );
 }
 
-export function WarningIcon(props: QwikIntrinsicElements['svg'], key: string) {
+export function WarningIcon(props: PropsOf<'svg'>, key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ export function WarningIcon(props: QwikIntrinsicElements['svg'], key: string) {
   );
 }
 
-export function CautionIcon(props: QwikIntrinsicElements['svg'], key: string) {
+export function CautionIcon(props: PropsOf<'svg'>, key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

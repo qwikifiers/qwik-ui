@@ -1,10 +1,10 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 import { JSX } from '@builder.io/qwik/jsx-runtime';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
-type ComboboxIcon = {
+type ComboboxIcon = PropsOf<'svg'> & {
   svg?: JSX.Element;
-} & QwikIntrinsicElements['svg'];
+};
 
 export const ComboboxIcon = component$<ComboboxIcon>(({ svg, ...iconProps }) => {
   if (svg) {

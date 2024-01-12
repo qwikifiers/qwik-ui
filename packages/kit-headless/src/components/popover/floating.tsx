@@ -1,12 +1,12 @@
 import { PopoverImpl } from './popover-impl';
 
 import {
-  type QwikIntrinsicElements,
   component$,
   useTask$,
   useSignal,
   type Signal,
   Slot,
+  PropsOf,
 } from '@builder.io/qwik';
 import {
   ReferenceElement,
@@ -28,7 +28,7 @@ declare global {
   }
 }
 
-export type FloatingProps = {
+export type FloatingProps = PropsOf<'div'> & {
   id: string;
   anchorRef?: Signal<HTMLElement | undefined>;
   popoverRef?: Signal<HTMLElement | undefined>;
@@ -58,7 +58,7 @@ export type FloatingProps = {
   hide?: 'referenceHidden' | 'escaped';
   inline?: boolean;
   transform?: string;
-} & QwikIntrinsicElements['div'];
+};
 
 export const FloatingPopover = component$(
   ({

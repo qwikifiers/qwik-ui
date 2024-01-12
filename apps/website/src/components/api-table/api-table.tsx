@@ -26,10 +26,12 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
           {propDescriptors?.map((propDescriptor) => {
             return (
               <tr key={propDescriptor.name}>
-                <td class="prose prose-sm py-3 pl-4 sm:pl-0 ">
-                  <code class="border-primary mr-6 rounded-md border border-b-[2px]">
-                    {propDescriptor.name}
-                  </code>
+                <td class="py-3 pl-4 sm:pl-0">
+                  <div class="flex items-center gap-2">
+                    <code class="border-primary mr-6 rounded-md border border-b-[2px] px-2">
+                      {propDescriptor.name}
+                    </code>
+                  </div>
                 </td>
                 <td class="py-3">
                   <div class="flex items-center gap-2">

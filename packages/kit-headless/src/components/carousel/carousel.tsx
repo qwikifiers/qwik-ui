@@ -1,6 +1,6 @@
 import {
   $,
-  QwikIntrinsicElements,
+  PropsOf,
   Slot,
   component$,
   createContextId,
@@ -23,7 +23,7 @@ export const useCarouselProvider = (state: CarouselContext) => {
 
 export const carouselContext = createContextId<CarouselContext>('carousel-root');
 
-type RootProps = QwikIntrinsicElements['div'] & {
+type RootProps = PropsOf<'div'> & {
   use?: CarouselContext;
 };
 
@@ -39,7 +39,7 @@ export const Root = component$(({ use, ...props }: RootProps) => {
   );
 });
 
-type ButtonProps = QwikIntrinsicElements['button'] & {
+type ButtonProps = PropsOf<'button'> & {
   label?: string;
 };
 
@@ -78,7 +78,7 @@ export const ButtonPrevious = component$(
   },
 );
 
-type ItemsProps = QwikIntrinsicElements['ul'];
+type ItemsProps = PropsOf<'ul'>;
 
 export const Items = component$((props: ItemsProps) => {
   useStylesScoped$(stylesItems);
@@ -91,7 +91,7 @@ export const Items = component$((props: ItemsProps) => {
   );
 });
 
-type ItemProps = QwikIntrinsicElements['li'] & {
+type ItemProps = PropsOf<'li'> & {
   label: string;
   index: number;
 };
@@ -117,7 +117,7 @@ type ControlContext = {
   id: string;
 };
 
-type ControlsProps = QwikIntrinsicElements['nav'];
+type ControlsProps = PropsOf<'nav'>;
 
 export const controlContext = createContextId<ControlContext>('carousel-control-root');
 
@@ -130,7 +130,7 @@ export const Controls = component$((props: ControlsProps) => {
   return <nav {...props}>{pages.ranges.value && <Slot />}</nav>;
 });
 
-type ControlProps = QwikIntrinsicElements['div'] & {
+type ControlProps = PropsOf<'div'> & {
   index: number;
   label?: string;
 };

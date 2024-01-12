@@ -115,6 +115,7 @@ export const useItems = (
     active.isLast.value = index + 1 === getCount(ref);
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     total.value = getCount(ref);
     scrollAt(active.current.value);

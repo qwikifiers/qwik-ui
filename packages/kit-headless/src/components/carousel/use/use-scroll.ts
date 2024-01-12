@@ -66,6 +66,7 @@ export const useScroll = (
     to(index);
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     to(items.active.current.value);
   });

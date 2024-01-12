@@ -1,6 +1,6 @@
-import { type QwikIntrinsicElements } from '@builder.io/qwik';
+import { PropsOf } from '@builder.io/qwik';
 
-export function CollapsibleIcon(props: QwikIntrinsicElements['svg']) {
+export function CollapsibleIcon(props: PropsOf<'svg'>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

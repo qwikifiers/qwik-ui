@@ -1,12 +1,7 @@
-import {
-  component$,
-  QwikIntrinsicElements,
-  Slot,
-  useStylesScoped$,
-} from '@builder.io/qwik';
+import { component$, PropsOf, Slot, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './breadcrumb-item.css?inline';
 
-export type BreadcrumbItemProps = QwikIntrinsicElements['div'] & {
+export type BreadcrumbItemProps = PropsOf<'div'> & {
   divider?: string;
 };
 

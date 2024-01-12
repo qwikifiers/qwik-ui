@@ -1,4 +1,4 @@
-import { PropFunction, QwikIntrinsicElements } from '@builder.io/qwik';
+import { PropFunction, PropsOf } from '@builder.io/qwik';
 
 export interface PaginationCoreProps {
   selectedPage: number;
@@ -33,4 +33,4 @@ type ArrowLabels = {
 export type PaginationProps = PaginationCoreProps &
   PaginationStyling &
   PaginationConfig &
-  QwikIntrinsicElements['nav'];
+  PropsOf<'nav'>;

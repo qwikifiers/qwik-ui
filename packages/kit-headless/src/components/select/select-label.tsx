@@ -1,6 +1,6 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
-export type SelectLabelProps = QwikIntrinsicElements['label'];
+export type SelectLabelProps = PropsOf<'label'>;
 
 export const SelectLabel = component$((props: SelectLabelProps) => {
   return (

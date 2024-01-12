@@ -1,26 +1,26 @@
 import {
   $,
+  PropFunction,
+  PropsOf,
   Slot,
   component$,
   useContextProvider,
   useSignal,
   useTask$,
   useVisibleTask$,
-  type PropFunction,
-  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
 import { accordionRootContextId } from './accordion-context-id';
 import { type AccordionRootContext } from './accordion-context.type';
 
-export type AccordionRootProps = {
+export type AccordionRootProps = PropsOf<'div'> & {
   behavior?: 'single' | 'multi';
   animated?: boolean;
   enhance?: boolean;
   collapsible?: boolean;
   onSelectedIndexChange$?: PropFunction<(index: number) => void>;
   onFocusIndexChange$?: PropFunction<(index: number) => void>;
-} & QwikIntrinsicElements['div'];
+};
 
 export const AccordionRoot = component$(
   ({
@@ -103,6 +103,7 @@ export const AccordionRoot = component$(
     });
 
     // takes a role call of its children (reactive b/c it's a signal)
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(function reIndexTriggers() {
       updateTriggers$();
     });

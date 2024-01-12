@@ -113,6 +113,7 @@ export const usePages = (ref: Signal<HTMLElement | undefined>, params: Params): 
     scrollAt(ranges.value.at(current.value + 1)?.[0] || 0);
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => computePages());
   useOnWindow('resize', computePages);
 

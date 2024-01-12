@@ -33,10 +33,10 @@
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-    --primary: 263 50% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 199 100% 41%;
-    --secondary-foreground: 210 40% 100%;
+    --primary: 199 90% 35%;
+    --primary-foreground: 210 40% 100%;
+    --secondary: 263 50% 55%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 222 22% 23%;
     --muted-foreground: 255 5% 80%;
     --accent: 222 22% 23%;

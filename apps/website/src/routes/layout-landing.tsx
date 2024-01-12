@@ -6,10 +6,10 @@ import { Footer } from '~/components/footer/footer';
 import { DocsNavigation } from '~/components/navigation-docs/navigation-docs';
 
 export default component$(() => {
-  // useStyles$(globalStyles);
-
   const state = useContext(OLD_APP_STATE_CONTEXT_ID);
   const rootStore = useAppState();
+
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     state.darkMode = localStorage.getItem('theme') === 'dark';
   });

@@ -1,15 +1,15 @@
 import {
-  type QwikIntrinsicElements,
   Slot,
   component$,
   useContext,
   useSignal,
   $,
   useTask$,
+  PropsOf,
 } from '@builder.io/qwik';
 import { collapsibleContextId } from './collapsible-context-id';
 
-export type CollapsibleContentProps = QwikIntrinsicElements['div'];
+export type CollapsibleContentProps = PropsOf<'div'>;
 
 export const CollapsibleContent = component$((props: CollapsibleContentProps) => {
   const context = useContext(collapsibleContextId);

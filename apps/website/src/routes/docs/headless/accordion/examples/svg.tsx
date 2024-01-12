@@ -1,6 +1,6 @@
-import { QwikIntrinsicElements } from '@builder.io/qwik';
+import { PropsOf } from '@builder.io/qwik';
 
-export default function SVG(props: QwikIntrinsicElements['svg']) {
+export default function SVG(props: PropsOf<'svg'>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

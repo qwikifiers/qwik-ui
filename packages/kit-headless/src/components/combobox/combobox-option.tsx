@@ -1,20 +1,20 @@
 import {
-  QwikIntrinsicElements,
   Slot,
   component$,
   useComputed$,
   useContext,
   useSignal,
   $,
+  PropsOf,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 
 import { ResolvedOption } from './combobox';
 
-export type ComboboxOptionProps = {
+export type ComboboxOptionProps = PropsOf<'li'> & {
   index: number;
   resolved: ResolvedOption;
-} & QwikIntrinsicElements['li'];
+};
 
 export const ComboboxOption = component$(
   // remove non-li props from props
