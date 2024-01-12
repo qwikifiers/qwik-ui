@@ -7,6 +7,10 @@ import {
 } from '@builder.io/qwik';
 import SelectContextId from './select-context-id';
 import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from '../combobox/utils';
+import {
+  getNextEnabledOptionIndexFromDisabledArr,
+  getPrevEnabledOptionIndexFromDisabledArr,
+} from './utils';
 
 export type SelectListBoxProps = QwikIntrinsicElements['ul'];
 
@@ -34,6 +38,11 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         const availableOptions = selectContext.optionsStore.filter(
           (option) => !(option?.getAttribute('aria-disabled') === 'true'),
         );
+        const disabledArr = selectContext.optionsStore.map((e) => {
+          return { disabled: e.getAttribute('aria-disabled') === 'true' };
+        });
+        console.log('le opts ', disabledArr);
+
         const target = e.target as HTMLElement;
         const currentIndex = availableOptions.indexOf(target);
 
@@ -48,9 +57,9 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         }
 
         if (e.key === 'ArrowDown') {
-          const nextEnabledOptionIndex = getNextEnabledOptionIndex(
+          const nextEnabledOptionIndex = getNextEnabledOptionIndexFromDisabledArr(
             selectContext.ariaSelectedIndex.value,
-            { value: availableOptions },
+            disabledArr,
           );
           console.log(
             'im next ',
@@ -66,9 +75,9 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
         }
 
         if (e.key === 'ArrowUp') {
-          const prevEnabledOptionIndex = getPrevEnabledOptionIndex(
+          const prevEnabledOptionIndex = getPrevEnabledOptionIndexFromDisabledArr(
             selectContext.ariaSelectedIndex.value,
-            { value: availableOptions },
+            disabledArr,
           );
           selectContext.ariaSelectedIndex.value = prevEnabledOptionIndex;
 
