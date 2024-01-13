@@ -41,27 +41,6 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 <br />
 
-> In Beta, we're currently supporting the **`Autocomplete`** configuration. We aim to support other combobox configurations according to our [roadmap](https://github.com/qwikifiers/qwik-ui/issues/405)
-
-<br />
-
-The Combobox component makes use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal). A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.
-
-<CodeSnippet name="qwik-ui-provider" />
-
-## **Context Caveats**
-
-Portals are still currently in **Beta**, as a result, you may experience an issue using your own context to pass data into the portal children.
-
-If you do experience any context related issues, add the following **contextIds** prop to the **ComboboxPortal** component.
-
-<CodeSnippet name="context-ids" />
-
-It takes in an array of string context id's as a prop. We also have a live example below with context.
-If you are not using context inside the portal children, this will not be an issue.
-
-<br />
-
 ## Building blocks
 
 <CodeSnippet name="building-blocks" />
@@ -91,8 +70,8 @@ If you are not using context inside the portal children, this will not be an iss
       description: `A button that toggles the corresponding listbox when clicked.`,
     },
     {
-      name: 'ComboboxPortal',
-      description: `A portal component that teleports the children outside its parent when the listbox state is open.`,
+      name: 'ComboboxPopover',
+      description: `A Popover component that teleports the children outside its parent when the listbox state is open.`,
     },
     {
       name: 'ComboboxListbox',
@@ -191,29 +170,34 @@ To disable this behavior, set `disableOnBlur={true}` on the Input.
 
 The Combobox component allows you to customize its state signals. This can be useful if you want to control or observe these states externally.
 
-This involves creating a signal and passing it in using the [bind syntax](https://qwik.builder.io/docs/components/rendering/#bind-attribute), such as in the Qwik docs.
+In reality it is a signal prop, we prefer using this syntax, because we believe it is familiar to Qwik developers with the [bind syntax](https://qwik.builder.io/docs/components/rendering/#bind-attribute).
 
 <APITable
   propDescriptors={[
     {
-      name: 'bind:isListboxOpenSig',
+      name: 'bind:inputValue',
+      type: 'Signal',
+      description: 'Controls the current value of the input.',
+    },
+    {
+      name: 'bind:selectedIndex',
+      type: 'Signal',
+      description: 'Controls the selected option index.',
+    },
+    {
+      name: 'bind:isListboxOpen',
       type: 'Signal',
       description: 'Controls the open state of the listbox.',
     },
     {
-      name: 'bind:isInputFocusedSig',
+      name: 'bind:isInputFocused',
       type: 'Signal',
       description: 'Controls the focus state of the input.',
     },
     {
-      name: 'bind:highlightedIndexSig',
+      name: 'bind:highlightedIndex',
       type: 'Signal',
       description: 'Controls which option is highlighted.',
-    },
-    {
-      name: 'bind:inputValueSig',
-      type: 'Signal',
-      description: 'Controls the current value of the input.',
     },
   ]}
 />
@@ -319,22 +303,27 @@ The Combobox component API provides a set of properties that allow you to custom
       description: 'The default label for the combobox.',
     },
     {
-      name: 'bind:isListboxOpenSig',
+      name: 'bind:selectedIndex',
+      type: `Signal<number>`,
+      description: 'A signal for the selected option index.',
+    },
+    {
+      name: 'bind:isListboxOpen',
       type: `Signal<boolean>`,
       description: 'A signal for the open state of the listbox.',
     },
     {
-      name: 'bind:isInputFocusedSig',
+      name: 'bind:isInputFocused',
       type: 'Signal<boolean>',
       description: 'A signal for the focus state of the input.',
     },
     {
-      name: 'bind:inputValueSig',
+      name: 'bind:inputValue',
       type: 'Signal<string>',
       description: 'A signal for the current value of the input.',
     },
     {
-      name: 'bind:highlightedIndexSig',
+      name: 'bind:highlightedIndex',
       type: 'Signal<number>',
       description: 'A signal for the highlighted option index.',
     },

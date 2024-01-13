@@ -11,9 +11,11 @@ import {
   ComboboxPopover,
 } from '@qwik-ui/headless';
 
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 
 export default component$(() => {
+  const selectedOptionIndexSig = useSignal<number>(-1);
+
   const objectExample = [
     { testValue: 'alice', testLabel: 'Alice', disabled: true },
     { testValue: 'joana', testLabel: 'Joana', disabled: true },
@@ -40,20 +42,21 @@ export default component$(() => {
       optionLabelKey="testLabel"
       optionDisabledKey="disabled"
       class="relative"
+      bind:selectedIndex={selectedOptionIndexSig}
     >
       <ComboboxLabel class="font-semibold">Personal Trainers ⚡</ComboboxLabel>
       <ComboboxControl class="relative flex items-center rounded-sm border">
         <ComboboxInput
           placeholder="Jim"
-          class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm px-2 pr-6"
+          class="px-d2 rounded-sm bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-400"
         />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-          <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
+          <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
         </ComboboxTrigger>
       </ComboboxControl>
-      <ComboboxPopover gutter={8}>
+      <ComboboxPopover class="rounded-sm" gutter={8}>
         <ComboboxListbox
-          class="w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
+          class="rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
           optionRenderer$={(option: ResolvedOption, index: number) => {
             const myData = option.option as MyData;
             return (
@@ -61,11 +64,10 @@ export default component$(() => {
                 key={option.key}
                 resolved={option}
                 index={index}
-                class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent group flex justify-between rounded-sm border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
+                class="aria-disabled:text-muted-foreground data-[highlighted]:border-border group flex justify-between gap-4 rounded-sm border border-transparent px-2 text-white aria-disabled:font-light aria-disabled:hover:border-slate-500 data-[highlighted]:cursor-pointer data-[highlighted]:bg-slate-800"
               >
-                <span class="duration-350 block transition-transform group-aria-selected:translate-x-[3px]">
-                  {myData.testLabel}
-                </span>
+                <span>{myData.testLabel}</span>
+                {selectedOptionIndexSig.value === index && <span>Selected</span>}
               </ComboboxOption>
             );
           }}
