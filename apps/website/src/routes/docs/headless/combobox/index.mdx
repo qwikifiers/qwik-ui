@@ -41,27 +41,6 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 
 <br />
 
-> In Beta, we're currently supporting the **`Autocomplete`** configuration. We aim to support other combobox configurations according to our [roadmap](https://github.com/qwikifiers/qwik-ui/issues/405)
-
-<br />
-
-The Combobox component makes use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal). A basic use case for a portal is to prevent overflow issues in your UI. To support portals in Qwik UI, please add the following around your layout.tsx.
-
-<CodeSnippet name="qwik-ui-provider" />
-
-## **Context Caveats**
-
-Portals are still currently in **Beta**, as a result, you may experience an issue using your own context to pass data into the portal children.
-
-If you do experience any context related issues, add the following **contextIds** prop to the **ComboboxPortal** component.
-
-<CodeSnippet name="context-ids" />
-
-It takes in an array of string context id's as a prop. We also have a live example below with context.
-If you are not using context inside the portal children, this will not be an issue.
-
-<br />
-
 ## Building blocks
 
 <CodeSnippet name="building-blocks" />
