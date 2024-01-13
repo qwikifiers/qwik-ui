@@ -39,7 +39,7 @@ export const SelectOption = component$<SelectOptionProps>(
       <li
         ref={optionRef}
         role="option"
-        tabIndex={disabled ? -1 : 0}
+        tabIndex={-1}
         aria-disabled={disabled}
         aria-selected={
           selectContext.optionsStore.indexOf(optionRef.value) ===

@@ -24,7 +24,7 @@ export const SelectListBox = component$((props: SelectListBoxProps) => {
     <ul
       ref={selectContext.listboxRef}
       role="listbox"
-      tabIndex={0}
+      tabIndex={-1}
       hidden={!selectContext.isListboxHiddenSig.value}
       style={`
         display: ${selectContext.isOpenSig.value ? 'block' : 'none'};
