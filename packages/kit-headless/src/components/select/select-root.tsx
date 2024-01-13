@@ -109,7 +109,7 @@ export const SelectRoot = component$((props: SelectRootProps) => {
   });
 
   return (
-    <div ref={rootRef} {...props}>
+    <div {...props}>
       <Slot />
       {props.required ? (
         <VisuallyHidden>
