@@ -83,13 +83,14 @@ export const SelectRoot = component$((props: SelectRootProps) => {
 
     if (!trigger || !listBox) return;
 
+    // This whole needs to be replaced with a focusin & focusout event
     if (expanded === true) {
       // Will fix this visibility workaround asap.
       listBox.style.visibility = 'hidden';
       await updatePosition$(trigger, listBox);
       listBox.style.visibility = 'visible';
       isListboxHiddenSig.value = false;
-      listBox?.focus();
+      // listBox?.focus();
     }
 
     if (expanded === false) {
