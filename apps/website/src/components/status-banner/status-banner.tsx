@@ -1,11 +1,8 @@
-import {
-  QwikIntrinsicElements,
-  component$,
-  useSignal,
-  useStylesScoped$,
-} from '@builder.io/qwik';
-import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
-import { getClassByStatus } from '../component-status-badge/component-status-badge';
+import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
+import { ComponentStatus } from '~/_state/component-status.type';
+import { getVariantByStatus } from '../component-status-badge/component-status-badge';
+import { Badge } from '@qwik-ui/fluffy';
+import { cn } from '@qwik-ui/utils';
 
 export interface StatusBannerProps {
   status?: ComponentStatus;
@@ -13,21 +10,13 @@ export interface StatusBannerProps {
 
 function getMessageByStatus(status?: ComponentStatus) {
   switch (status) {
-    case ComponentStatus.Ready:
-      return (
-        <>
-          This component is <strong>Production Ready</strong>
-        </>
-      );
     case ComponentStatus.Beta:
       return (
         <>
           <strong>DISCLAIMER:</strong> This component is in{' '}
-          <span
-            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(status)}`}
-          >
+          <Badge variant={getVariantByStatus(status)} class="text-sm">
             {status}
-          </span>{' '}
+          </Badge>{' '}
           status. That means that it is ready for production, but the API might change.
         </>
       );
@@ -35,50 +24,29 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>WARNING:</strong> This component is in{' '}
-          <span
-            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(status)}`}
-          >
+          <Badge variant={getVariantByStatus(status)} class="text-sm">
             {status}
-          </span>{' '}
+          </Badge>{' '}
           status. This means that it is still in development and may have bugs or missing
           features. It is not intended to be used in production. You may use it for
           testing purposes.
         </>
       );
-    case ComponentStatus.Planned:
     default:
-      return (
-        <>
-          <strong>WARNING:</strong> This component is in{' '}
-          <span
-            class={`rounded-lg px-2 font-bold tracking-wide ${getClassByStatus(
-              status || ComponentStatus.Planned,
-            )}`}
-          >
-            {status}
-          </span>{' '}
-          status. That means that it is in our backlog and we might have started working
-          on it, but it is not under active development.
-        </>
-      );
+      return <></>;
   }
 }
 
 function getBackgroundByStatus(status?: ComponentStatus) {
   switch (status) {
-    case ComponentStatus.Ready:
-      return 'bg-green-300';
     case ComponentStatus.Beta:
       return 'border border-primary';
     case ComponentStatus.Draft:
       return 'border';
-    case ComponentStatus.Planned:
-    default:
-      return 'border';
   }
 }
 
-export const StatusBanner = component$((props: StatusBannerProps) => {
+export const StatusBanner = component$(({ status }: StatusBannerProps) => {
   const ref = useSignal<HTMLElement | undefined>();
   const isBannerClosedSig = useSignal(false);
   const marginBottom = 64;
@@ -110,12 +78,13 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
         ref={ref}
         hidden={isBannerClosedSig.value}
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
-        class={`${getBackgroundByStatus(
-          props.status,
-        )} normal-state shadow-light-medium dark:shadow-dark-medium relative mx-[-24px] rounded-xl border-2 px-8 py-6 md:flex-row md:items-center lg:mx-[-32px]`}
+        class={cn(
+          getBackgroundByStatus(status),
+          'normal-state shadow-light-medium dark:shadow-dark-medium relative mx-[-24px] rounded-xl border-2 px-8 py-6 md:flex-row md:items-center lg:mx-[-32px]',
+        )}
         style={{ marginBottom: `${marginBottom}px` }}
       >
-        <span class="pr-2">{getMessageByStatus(props.status)}</span>
+        <span class="pr-2">{getMessageByStatus(status)}</span>
         <button
           aria-label="close status banner"
           onClick$={() => {
@@ -136,7 +105,7 @@ export const StatusBanner = component$((props: StatusBannerProps) => {
   );
 });
 
-export function EpCircleCloseFilled(props: QwikIntrinsicElements['svg'], key: string) {
+export function EpCircleCloseFilled() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

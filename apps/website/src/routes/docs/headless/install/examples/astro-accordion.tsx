@@ -1,4 +1,4 @@
-import { QwikIntrinsicElements, component$, useStyles$ } from '@builder.io/qwik';
+import { PropsOf, component$, useStyles$ } from '@builder.io/qwik';
 import {
   AccordionRoot,
   AccordionItem,
@@ -121,7 +121,7 @@ export default component$(() => {
   );
 });
 
-export function SVG(props: QwikIntrinsicElements['svg']) {
+export function SVG(props: PropsOf<'svg'>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

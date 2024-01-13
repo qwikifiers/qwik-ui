@@ -1,8 +1,8 @@
 import { component$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import { ComponentStatus } from 'apps/website/src/_state/component-status.type';
-import { KitName } from 'apps/website/src/_state/kit-name.type';
-import { useAppState } from 'apps/website/src/_state/use-app-state';
+import { ComponentStatus } from '~/_state/component-status.type';
+import { KitName } from '~/_state/kit-name.type';
+import { useAppState } from '~/_state/use-app-state';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
 import { useSelectedKit } from '../../routes/docs/use-selected-kit';
 
@@ -26,7 +26,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
   const location = useLocation();
   const rootStore = useAppState();
   const selectedKitSig = useSelectedKit();
-  const linkStyles = `px-4 py-2 -ml-4 mr-8 text-xl lg:text-sm flex items-center 
+  const linkStyles = `px-4 py-2 -ml-4 mr-8 text-xl lg:text-sm flex items-center
     rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
   return (
     <nav
@@ -34,25 +34,23 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
               ${rootStore.isSidebarOpened ? 'w-100 flex' : 'hidden lg:flex'} `}
     >
       <ul class="show mt-8 flex flex-col gap-2 pl-12 lg:hidden">
-        <li class={linkStyles}>
-          <a href="/about">About</a>
-        </li>
+        <a href="/about">
+          <li class={linkStyles}>About</li>
+        </a>
         {selectedKitSig.value !== KitName.HEADLESS && (
-          <li class={linkStyles}>
-            <a href="/docs/headless/introduction">Headless Kit</a>
-          </li>
+          <a href="/docs/headless/introduction">
+            <li class={linkStyles}>Headless Kit</li>
+          </a>
         )}
         {rootStore.featureFlags?.showFluffy &&
           selectedKitSig.value !== KitName.FLUFFY && (
-            <li class={linkStyles}>
-              <a href="/docs/fluffy/introduction">Styled Kit</a>
-            </li>
+            <a href="/docs/fluffy/introduction">
+              <li class={linkStyles}>Styled Kit</li>
+            </a>
           )}
-        <li class={linkStyles}>
-          <a href="https://discord.gg/PVWUUejrez" target="_blank">
-            Community
-          </a>
-        </li>
+        <a href="https://discord.gg/PVWUUejrez" target="_blank">
+          <li class={linkStyles}>Community</li>
+        </a>
         {/* <a href="/contact">Contact</a> */}
       </ul>
       {linksGroups?.map((group) => {

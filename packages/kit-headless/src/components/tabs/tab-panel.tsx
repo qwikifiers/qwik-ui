@@ -1,26 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import {
-  QwikIntrinsicElements,
-  Signal,
-  Slot,
-  component$,
-  useComputed$,
-  useContext,
-} from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useComputed$, useContext } from '@builder.io/qwik';
 import { TAB_ID_PREFIX } from './tab';
 import { tabsContextId } from './tabs-context-id';
 
 export type TabPanelProps = {
   /** Optional tab contents. */
-  label?: QwikIntrinsicElements['div']['children'];
+  label?: PropsOf<'div'>['children'];
   selected?: boolean;
   disabled?: boolean;
 
   /** @deprecated Internal use only */
   _tabId?: string;
   /** @deprecated Internal use only */
-  _extraClass?: QwikIntrinsicElements['div']['class'];
-} & QwikIntrinsicElements['div'];
+  _extraClass?: PropsOf<'div'>['class'];
+} & PropsOf<'div'>;
 
 export const TAB_PANEL_ID_PREFIX = '_tabpanel_';
 
@@ -43,10 +36,6 @@ export const TabPanel = component$(
         aria-labelledby={fullTabElementId}
         role="tabpanel"
         tabIndex={0}
-        class={[
-          (props.class as Signal<string>)?.value ?? (props.class as string),
-          (_extraClass as Signal<string>)?.value ?? (_extraClass as string),
-        ]}
         hidden={!isSelectedSig.value}
       >
         <Slot />

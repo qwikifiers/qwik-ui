@@ -76,6 +76,7 @@ export const Tooltip = component$(
       }),
     );
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(({ track }) => {
       const state = track(() => stateSignal.value);
       if (state === 'unpositioned') {

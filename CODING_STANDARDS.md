@@ -50,14 +50,14 @@ export type TooltipProps = {
 };
 ```
 
-Note: if you want to include the HTML attributes, you can use the `QwikIntrinsicElements` type from `@builder.io/qwik` package and extend it with the [intersection type](https://www.typescriptlang.org/docs/handbook/2/objects.html#intersection-types).
+Note: if you want to include the HTML attributes, you can use the `PropsOf` type.
 
 Example:
 
 ```ts
-import { QwikIntrinsicElements } from '@builder.io/qwik';
+import { PropsOf } from '@builder.io/qwik';
 
-export type TooltipProps = QwikIntrinsicElements['div'] & {
+export type TooltipProps = PropsOf<'div'> & {
   tip: string;
   type?: ColorTypes;
   position?: Positions;
@@ -107,7 +107,7 @@ return (
 ## Example of headless button customization with Tailwind
 
 ```tsx
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
 import { Button as HeadlessButton, ButtonProps as ButtonHeadlessProps } from '@qwik-ui/headless';
 
 type TailwindButtonProps = { size?: 'sm' | 'md', ... };

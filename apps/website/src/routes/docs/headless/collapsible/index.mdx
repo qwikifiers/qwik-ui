@@ -1,0 +1,96 @@
+import { statusByComponent } from '~/_state/component-statuses';
+import { FeatureList } from '~/components/feature-list/feature-list';
+import { Note } from '~/components/note/note';
+
+<StatusBanner status={statusByComponent.headless.Collapsible} />
+
+# Collapsible
+
+An interactive component which expands/collapses a panel.
+
+<Showcase name="hero" />
+
+Follows the WAI-ARIA disclosure pattern.
+
+<FeatureList
+  features={[
+    'Can open by default on SSR (without waking up the component!)',
+    'Does not execute until interaction (including programmatically)',
+    'Does not use any visible tasks',
+    'Automatic animation detection (deprecating the `animated` prop)',
+    `Provides a bind:isOpen prop so that users can open or close it however they'd like (controlled)`,
+    'A `defaultOpen` prop to open it by default (uncontrolled)',
+    'Style based on data states. `initial`, `open`, or `closed`',
+  ]}
+/>
+
+## Jack's bug watch 🔎:
+
+<strong style={{ color: 'red' }}>BUG:</strong> Refresh the page and click on programmatic toggle.
+The animation does not work.
+
+<Showcase name="programmatic" />
+
+<strong style={{ color: 'red' }}>BUG:</strong> resize the window after closing and opening
+the collapsible. (content height does not resize)
+
+<Showcase name="no-animation" />
+
+<strong style={{ color: 'red' }}>BUG:</strong> watch the animation. Issue explained further
+below.
+
+<Showcase name="padding" />
+
+## Hey Qwik developers!
+
+Qwik UI is already on the path to a library that gives you the features you know and love with other headless libraries (hopefully more functionality), with the performance of _just_ grabbing html on the page.
+
+To work towards this, I have been working on a new primitive to rebuild the accordion from the ground up. (which currently uses visible tasks)
+
+<Note status="warning">
+  Unfortunately, I don't have the time right now to complete it, but we are _basically
+  80%_ there. Would really appreciate some help on this. It still needs tests (many of
+  which can be taken from the accordion).
+</Note>
+
+It is a collapsible or [disclosure component](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/), similar to native html's `details & summary` tags. Unfortunately, the accessibility for these native elements is very flaky, and thus, this component is needed.
+
+Not only does it benefit this component, but also the performance of the accordion (which would be built on top of this).
+
+### What I'd like to add:
+
+<FeatureList
+  features={[
+    'An `onOpenChange$` prop function that runs when the collapsible has opened or closed',
+  ]}
+/>
+
+## There are two minor bugs:
+
+### **BUG #1:**
+
+We currently detect automatic animations with the `getComputedStyle` API. Unfortunately, this is on the client, and so we do not get an animation if:
+
+- was loaded on SSR **AND** open by default
+
+I was however, able to make it work when clicking the actual button's trigger with a 1ms setTimeout inside the `handleClick$`, but it is still a problem with programmatic behavior.
+
+We need to figure out how to detect the animation with SSR **OR** use a different way of animating. I briefly tried using `requestAnimationFrame` as an alternative.
+
+> My current thoughts are, setting it as an animated collapsible on the server, but then setting it back to false on the client when resumed if it does not have an animation (the current logic for that does not work)
+
+[where the issue is](https://github.com/thejackshelton/collapsible/blob/main/src/components/collapsible/collapsible-content.tsx#L27)
+
+### **BUG #2:**
+
+If you close and open the collapsible again, try resizing the window, notice that the container does not adjust its height to match its content.
+
+[where the issue is](https://github.com/thejackshelton/collapsible/blob/main/src/components/collapsible/collapsible-trigger.tsx#L16)
+
+> You can see visuals of the problems [on discord here.](https://discord.com/channels/990511757091033108/1040763063533588562/1193628593088106496)
+
+The overall component is relatively small, around 250 lines of code.
+
+### **BUG #3:**
+
+Padding currently breaks height animations. This is because the padding is applied to the content, and the content is animated. This causes the content to animate from the padding, which is not the desired effect. :facepalm

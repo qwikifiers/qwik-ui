@@ -1,6 +1,6 @@
-import { component$, HTMLAttributes, QwikIntrinsicElements } from '@builder.io/qwik';
+import { component$, HTMLAttributes, PropsOf } from '@builder.io/qwik';
 
-export type HTMLImgProps = QwikIntrinsicElements['img'];
+export type HTMLImgProps = PropsOf<'img'>;
 
 type CardImageProps = HTMLAttributes<HTMLElement> & HTMLImgProps;
 

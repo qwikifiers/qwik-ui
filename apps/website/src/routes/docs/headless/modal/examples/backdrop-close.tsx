@@ -1,4 +1,4 @@
-import { type QwikIntrinsicElements, component$, useSignal } from '@builder.io/qwik';
+import { PropsOf, component$, useSignal } from '@builder.io/qwik';
 import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
 
 export default component$(() => {
@@ -68,7 +68,7 @@ export default component$(() => {
   );
 });
 
-export function CloseIcon(props: QwikIntrinsicElements['svg'], key: string) {
+export function CloseIcon(props: PropsOf<'svg'>, key: string) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props} key={key}>
       <path

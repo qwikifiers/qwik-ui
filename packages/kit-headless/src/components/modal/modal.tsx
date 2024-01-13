@@ -1,8 +1,7 @@
 import {
   $,
+  PropsOf,
   QRL,
-  QwikIntrinsicElements,
-  QwikMouseEvent,
   Signal,
   Slot,
   component$,
@@ -21,11 +20,11 @@ import {
   wasModalBackdropClicked,
 } from './modal-behavior';
 
-import { disableBodyScroll } from 'body-scroll-lock';
+import { disableBodyScroll } from 'body-scroll-lock-upgrade';
 
 import styles from './modal.css?inline';
 
-export type ModalProps = Omit<QwikIntrinsicElements['dialog'], 'open'> & {
+export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
   onShow$?: QRL<() => void>;
   onClose$?: QRL<() => void>;
   'bind:show': Signal<boolean>;
@@ -47,15 +46,20 @@ export const Modal = component$((props: ModalProps) => {
 
     const focusTrap = trapFocus(modal);
 
-    window.addEventListener(
-      'keydown',
-      overrideNativeDialogEscapeBehaviorWith(() => (showSig.value = false)),
-      { once: true },
-    );
+    const escapeKeyListener = overrideNativeDialogEscapeBehaviorWith(() => {
+      showSig.value = false;
+    });
+
+    window.addEventListener('keydown', escapeKeyListener);
 
     if (isOpen) {
+      // HACK: keep modal scroll position in place with iOS
+      const storedRequestAnimationFrame = window.requestAnimationFrame;
+      window.requestAnimationFrame = () => 42;
+
       showModal(modal);
       disableBodyScroll(modal, { reserveScrollBarGap: true });
+      window.requestAnimationFrame = storedRequestAnimationFrame;
       props.onShow$?.();
       activateFocusTrap(focusTrap);
     } else {
@@ -65,10 +69,11 @@ export const Modal = component$((props: ModalProps) => {
 
     cleanup(() => {
       deactivateFocusTrap(focusTrap);
+      window.removeEventListener('keydown', escapeKeyListener);
     });
   });
 
-  const closeOnBackdropClick$ = $((event: QwikMouseEvent) => {
+  const closeOnBackdropClick$ = $((event: MouseEvent) => {
     if (props.alert === true || props.closeOnBackdropClick === false) {
       return;
     }

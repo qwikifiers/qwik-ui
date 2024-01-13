@@ -44,7 +44,7 @@ Get your URL by from here 👇
 - Create a new branch locally in your fork's repo
 
 ```shell
-git checkout -b my-fix-branch main
+git checkout -b pr-my-fix-branch main
 ```
 
 ### 4. Run the library
@@ -101,37 +101,54 @@ pnpm test.headless --skip-nx-cache
 
 This will set up the Cypress component testing GUI. Please refer to official Cypress [documentation](https://docs.cypress.io/guides/overview/why-cypress) for further assistance.
 
-### 6. Commit your changes using commitizen:
+### 6. Added a "changeset"
 
-Instead of `git commit` use the following command:
+**6.1.** Run the following command to create a changeset:
 
 ```shell
-pnpm commit
+pnpm changeset
 ```
 
-Or if you prefer to keep your git workflow, you can install commitizen globally:
+**6.2.** Choose the packages that should be included in the changeset
+
+**6.3** Choose the specific packages for each type of change
+
+(hit `Enter` if you need to skip to the next option)
+
+- `major` for breaking changes
+- `minor` for new features
+- `patch` for bug fixes
+
+**6.4.** Prefix your change title with one of these:
+
+- `FEAT:` or `feat:` for features
+- `FIX:` or `fix:` for bug fixes
+- `DOCS` or `docs:` for documentation
+
+**6.5.** Modify the created MD file
+
+After you the `changeset` command runs, a new MD file will be created under the `.changeset` folder.
+ד
+Please modify this file to include a descriptive message of the changes you made.
+
+You can even add code examples if you need do, to describe a new feature for example. (pun intended 😉)
+
+The prefix and this elaborated description will be used to create the changelog files and release notes, so please give them love. 💗😊
+
+---
+
+#### ❓ "What if my PR is not a significant change?"
+
+If you made small changes like fixing typos, CI config, prettier, etc, you can run `pnpm changeset add --empty` to generate an empty changeset file to document
+your changes.
+
+---
+
+### 7. Commit and push your branch to GitHub:
 
 ```shell
-pnpm install -g commitizen
-```
-
-And run it with:
-
-```shell
-git cz
-```
-
-It will then ask you a bunch of questions.
-
-This will create a descriptive commit message that follows the
-[Angular commit message convention](#commit-message-format).
-
-This allows us to keep meaningful release notes / CHANGELOG automatically.
-
-### 7. Push your branch to GitHub:
-
-```shell
-git push origin my-fix-branch
+git commit -m "Your descriptive message of the change"
+git push origin pr-my-fix-branch
 ```
 
 ### 8. Create a PR
@@ -152,11 +169,11 @@ Make sure you check the following checkbox "Allow edits from maintainers" -
 pnpm test.headless --skip-nx-cache
 ```
 
-- Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
+- Merge the `main` branch if your branch is out of date
 
   ```shell
-  git rebase main -i
-  git push -f
+  git merge main
+  git push
   ```
 
 ### 9. Sign the CLA
@@ -178,7 +195,7 @@ After your pull request is merged, you can safely delete your branch and pull th
 - Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:
 
   ```shell
-  git push origin --delete my-fix-branch
+  git push origin --delete pr-my-fix-branch
   ```
 
 - Check out the `main` branch:
@@ -190,7 +207,7 @@ After your pull request is merged, you can safely delete your branch and pull th
 - Delete the local branch:
 
   ```shell
-  git branch -D my-fix-branch
+  git branch -D pr-my-fix-branch
   ```
 
 - Update your `main` with the latest upstream version:

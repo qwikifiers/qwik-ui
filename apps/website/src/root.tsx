@@ -38,6 +38,7 @@ export default component$(() => {
 
   useContextProvider(APP_STATE_CONTEXT_ID, appState);
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
     const userStoredTheme = localStorage.getItem(THEME_STORAGE_KEY);
     if (userStoredTheme) {
@@ -63,14 +64,6 @@ export default component$(() => {
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
-        <script
-          type="module"
-          dangerouslySetInnerHTML={
-            /*javascript*/ `
-            window.shikiji = import('https://esm.sh/shikiji@0.5.0');
-        `
-          }
-        />
       </head>
       <body
         lang="en"

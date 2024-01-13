@@ -1,4 +1,4 @@
-import { QwikIntrinsicElements, component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
 import { Highlight } from '../highlight/highlight';
@@ -14,7 +14,7 @@ const codeSnippets: any = import.meta.glob('/src/routes/docs/**/**/snippets/*', 
   eager: isDev ? false : true,
 });
 
-type CodeSnippetProps = QwikIntrinsicElements['div'] & {
+type CodeSnippetProps = PropsOf<'div'> & {
   name: string;
 };
 

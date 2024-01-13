@@ -9,6 +9,7 @@
 ## Components
 
 - [Accordion](/docs/headless/accordion)
+- [Collapsible](/docs/headless/collapsible)
 - [Combobox](/docs/headless/combobox)
 - [Modal](/docs/headless/modal)
 - [Pagination](/docs/headless/pagination)
@@ -16,5 +17,4 @@
 - [Select](/docs/headless/select)
 - [Separator](/docs/headless/separator)
 - [Tabs](/docs/headless/tabs)
-- [Toggle](/docs/headless/toggle)
 - [Tooltip](/docs/headless/tooltip)

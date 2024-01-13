@@ -1,4 +1,4 @@
-import { QwikIntrinsicElements, Signal, Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { StatusBanner } from '../status-banner/status-banner';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
@@ -8,83 +8,59 @@ import { Showcase } from '../showcase/showcase';
 import { CodeSnippet } from '../code-snippet/code-snippet';
 import { InstallSnippet } from '../install-snippet/install-snippet';
 import { Note } from '../note/note';
+import { cn } from '@qwik-ui/utils';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const components: Record<string, any> = {
-  p: component$<QwikIntrinsicElements['p']>(({ ...props }) => {
+  p: component$<PropsOf<'p'>>(({ ...props }) => {
     return (
-      <p
-        {...props}
-        class={[
-          'mb-6 last:mb-0',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
-        ]}
-      >
+      <p {...props} class={[cn('mb-6 last:mb-0', props.class)]}>
         <Slot />
       </p>
     );
   }),
-  h1: component$<QwikIntrinsicElements['h1']>(({ ...props }) => {
+  h1: component$<PropsOf<'h1'>>(({ ...props }) => {
     return (
       <h1
         {...props}
-        class={[
-          'mb-6 pt-6 text-3xl font-extrabold md:text-5xl',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
-        ]}
+        class={[cn('mb-6 pt-6 text-3xl font-extrabold md:text-5xl', props.class)]}
       >
         <Slot />
       </h1>
     );
   }),
-  h2: component$<QwikIntrinsicElements['h2']>(({ ...props }) => {
+  h2: component$<PropsOf<'h2'>>(({ ...props }) => {
     return (
       <h2
         {...props}
         class={[
-          'mb-8 mt-20 scroll-mt-32 border-b-[1px] pb-2 text-2xl font-extrabold',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
+          cn(
+            'mb-8 mt-20 scroll-mt-32 border-b-[1px] pb-2 text-2xl font-extrabold',
+            props.class,
+          ),
         ]}
       >
         <Slot />
       </h2>
     );
   }),
-  h3: component$<QwikIntrinsicElements['h3']>(({ ...props }) => {
+  h3: component$<PropsOf<'h3'>>(({ ...props }) => {
     return (
-      <h3
-        {...props}
-        class={[
-          'mb-6 mt-8 text-xl font-semibold',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
-        ]}
-      >
+      <h3 {...props} class={[cn('mb-6 mt-8 text-xl font-semibold', props.class)]}>
         <Slot />
       </h3>
     );
   }),
-  h4: component$<QwikIntrinsicElements['h4']>(({ ...props }) => {
+  h4: component$<PropsOf<'h4'>>(({ ...props }) => {
     return (
-      <h4
-        {...props}
-        class={[
-          'mb-4 mt-6 text-lg font-medium',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
-        ]}
-      >
+      <h4 {...props} class={[cn('mb-4 mt-6 text-lg font-medium', props.class)]}>
         <Slot />
       </h4>
     );
   }),
-  h5: component$<QwikIntrinsicElements['h5']>(({ ...props }) => {
+  h5: component$<PropsOf<'h5'>>(({ ...props }) => {
     return (
-      <h5
-        {...props}
-        class={[
-          'text-base font-[700]',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
-        ]}
-      >
+      <h5 {...props} class={[cn('text-base font-[700]', props.class)]}>
         <Slot />
       </h5>
     );
@@ -96,53 +72,34 @@ export const components: Record<string, any> = {
       </Note>
     );
   }),
-  ul: component$<QwikIntrinsicElements['ul']>(({ ...props }) => {
+  ul: component$<PropsOf<'ul'>>(({ ...props }) => {
     return (
-      <ul
-        {...props}
-        class={[
-          'mb-4 list-disc px-6 font-medium',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
-        ]}
-      >
+      <ul {...props} class={[cn('mb-4 list-disc px-6 font-medium', props.class)]}>
         <Slot />
       </ul>
     );
   }),
-  li: component$<QwikIntrinsicElements['li']>(({ ...props }) => {
+  li: component$<PropsOf<'li'>>(({ ...props }) => {
     return (
-      <li
-        {...props}
-        class={[
-          'py-2',
-          (props.class as Signal<string>)?.value ?? (props.class as string),
-        ]}
-      >
+      <li {...props} class={[cn('py-2', props.class)]}>
         <Slot />
       </li>
     );
   }),
   pre: component$<
-    QwikIntrinsicElements['div'] & {
+    PropsOf<'div'> & {
       __rawString__?: string;
     }
   >(({ __rawString__, ...props }) => {
     return (
-      <div class="code-example relative -mx-6 max-h-[31.25rem] rounded-xl bg-slate-900 lg:-mx-8">
-        <CodeCopy
-          class={[
-            'absolute right-4 top-4 border-2 text-slate-50 hover:bg-slate-800 hover:text-slate-50',
-          ]}
-          code={__rawString__}
-        />
-        <div
-          {...props}
-          style={''} // required to override shiki's
-          class={[
-            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl border bg-gradient-to-b from-slate-900 to-slate-800  p-6 text-sm',
-            (props.class as Signal<string>)?.value ?? (props.class as string),
-          ]}
-        >
+      <div
+        {...props}
+        class={[
+          cn('relative -mx-6 mb-6 max-h-[31.25rem] rounded-xl lg:-mx-8', props.class),
+        ]}
+      >
+        <CodeCopy class="absolute right-4 top-4" code={__rawString__} />
+        <div class="max-h-[31.25rem] max-w-full overflow-auto rounded-xl border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm">
           <pre>
             <Slot />
           </pre>
@@ -150,9 +107,9 @@ export const components: Record<string, any> = {
       </div>
     );
   }),
-  code: component$<QwikIntrinsicElements['code']>(() => {
+  code: component$<PropsOf<'code'>>(() => {
     return (
-      <code>
+      <code class="whitespace-pre-wrap">
         <Slot />
       </code>
     );

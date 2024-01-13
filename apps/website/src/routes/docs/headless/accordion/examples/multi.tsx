@@ -44,8 +44,8 @@ export default component$(() => {
             </AccordionHeader>
             <AccordionContent class="accordion-animation-1 overflow-hidden">
               <p class="pb-4">
-                It's typed using <strong>QwikIntrinsicElements</strong>, meaning you can
-                treat it like an element!
+                It's typed using <strong>PropsOf</strong>, meaning you can treat it like
+                an element!
               </p>
             </AccordionContent>
           </AccordionItem>

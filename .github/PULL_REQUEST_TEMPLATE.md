@@ -3,25 +3,16 @@
 - [ ] Feature / enhancement
 - [ ] Bug
 - [ ] Docs / tests
+- [ ] Other
 
-# Description
+# Why is it needed?
 
-Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
-
-# Use cases and why
-
-<!-- Actual / expected behavior if it's a bug -->
-
-- 1. One use case
-- 2. Another use case
-
-# Screenshots/Demo
-
-<!-- Add your screenshots here -->
+<!-- Please link to an issue or describe why did you create this PR -->
 
 # Checklist:
 
 - [ ] My code follows the [developer guidelines of this project](https://github.com/qwikifiers/qwik-ui/blob/main/CONTRIBUTING.md)
 - [ ] I have performed a self-review of my own code
-- [ ] I have made corresponding changes to the documentation
+- [ ] I have ran `pnpm changeset` and documented my changes
+- [ ] I have add necessary docs (if needed)
 - [ ] Added new tests to cover the fix / functionality

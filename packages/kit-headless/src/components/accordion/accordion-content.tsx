@@ -7,12 +7,12 @@ import {
   useTask$,
   $,
   useVisibleTask$,
-  type QwikIntrinsicElements,
+  PropsOf,
 } from '@builder.io/qwik';
 
 import { accordionItemContextId, accordionRootContextId } from './accordion-context-id';
 
-export type ContentProps = QwikIntrinsicElements['div'];
+export type ContentProps = PropsOf<'div'>;
 
 export const AccordionContent = component$(({ ...props }: ContentProps) => {
   const contextService = useContext(accordionRootContextId);
@@ -70,6 +70,7 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
   });
 
   /* calculates height of the content container based on children */
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(function calculateHeightVisibleTask({ track }) {
     if (animated === false) {
       return;

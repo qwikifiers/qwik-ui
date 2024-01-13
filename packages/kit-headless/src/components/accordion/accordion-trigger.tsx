@@ -6,8 +6,8 @@ import {
   useTask$,
   useVisibleTask$,
   $,
-  type QwikIntrinsicElements,
   type QwikKeyboardEvent,
+  PropsOf,
 } from '@builder.io/qwik';
 
 import { accordionItemContextId, accordionRootContextId } from './accordion-context-id';
@@ -23,9 +23,9 @@ const accordionPreventedKeys = [
   KeyCode.ArrowUp,
 ];
 
-export type AccordionTriggerProps = {
+export type AccordionTriggerProps = PropsOf<'button'> & {
   disabled?: boolean;
-} & QwikIntrinsicElements['button'];
+};
 
 export const AccordionTrigger = component$(
   ({ disabled, ...props }: AccordionTriggerProps) => {
@@ -83,6 +83,7 @@ export const AccordionTrigger = component$(
       }
     });
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(function navigateTriggerVisibleTask({ cleanup }) {
       if (!triggerElement) {
         return;
@@ -105,6 +106,7 @@ export const AccordionTrigger = component$(
       });
     });
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(
       function cleanupTriggersTask({ cleanup }) {
         cleanup(() => {

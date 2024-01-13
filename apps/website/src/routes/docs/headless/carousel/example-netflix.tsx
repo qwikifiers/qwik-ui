@@ -1,11 +1,5 @@
-import {
-  $,
-  QwikIntrinsicElements,
-  component$,
-  useSignal,
-  useStylesScoped$,
-} from '@builder.io/qwik';
-import { Carousel, useCarousel, CarouselContext } from '@qwik-ui/headless';
+import { $, PropsOf, component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
+import { Carousel, CarouselContext, useCarousel } from '@qwik-ui/headless';
 import styles from './example-netflix.css?inline';
 
 const { Item, Items, Root, IconNext, IconPrevious, IconChevronLeft, IconChevronRight } =
@@ -59,7 +53,7 @@ export const ExampleNetflix = component$(() => {
   );
 });
 
-type NavigationProps = QwikIntrinsicElements['nav'] & {
+type NavigationProps = PropsOf<'nav'> & {
   carousel: CarouselContext;
 };
 

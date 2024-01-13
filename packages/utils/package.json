@@ -1,12 +1,9 @@
 {
   "name": "@qwik-ui/utils",
-  "version": "0.0.3",
+  "version": "0.2.0",
   "description": "Qwik UI Utils",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "tailwind-merge": "^1.14.0"
   },
   "type": "module",
   "exports": {

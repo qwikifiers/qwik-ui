@@ -25,43 +25,6 @@
       "options": {
         "lintFilePatterns": ["packages/utils/**/*.ts"]
       }
-    },
-    "version-dry": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "dryRun": true,
-        "releaseAs": "patch"
-      }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "releaseAs": "patch"
-      }
-    },
-    "version-publish": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "noVerify": true,
-        "push": true,
-        "releaseAs": "patch",
-        "postTargets": ["utils:build", "utils:publish", "utils:push-to-github"]
-      }
-    },
-    "publish": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "noBuild": true,
-        "access": "public"
-      }
-    },
-    "push-to-github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "tag": "${tag}",
-        "notes": "${notes}",
-        "title": "@qwik-ui/utils@${version}"
-      }
     }
   },
   "tags": []

@@ -28,7 +28,7 @@ runs:
         version: 7
 
     - name: Use Node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node_version }}
         # This doesn't just set the registry url, but also sets

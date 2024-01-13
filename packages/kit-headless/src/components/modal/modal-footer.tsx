@@ -1,6 +1,6 @@
-import { QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 
-export const ModalFooter = component$((props: QwikIntrinsicElements['footer']) => {
+export const ModalFooter = component$((props: PropsOf<'footer'>) => {
   return (
     <footer {...props}>
       <Slot />

@@ -1,6 +1,6 @@
 import {
   component$,
-  QwikIntrinsicElements,
+  PropsOf,
   Slot,
   useContext,
   useSignal,
@@ -8,13 +8,14 @@ import {
 } from '@builder.io/qwik';
 import SelectContextId from './select-context-id';
 
-export type SelectTriggerProps = QwikIntrinsicElements['button'];
+export type SelectTriggerProps = PropsOf<'button'>;
 
 export const SelectTrigger = component$((props: SelectTriggerProps) => {
   const selectContext = useContext(SelectContextId);
   const triggerRef = useSignal<HTMLElement>();
   selectContext.triggerRef = triggerRef;
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(function setClickHandler({ cleanup }) {
     function clickHandler(e: Event) {
       e.preventDefault();
@@ -26,6 +27,7 @@ export const SelectTrigger = component$((props: SelectTriggerProps) => {
     });
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(function setKeyHandler({ cleanup }) {
     function keyHandler(e: KeyboardEvent) {
       if (e.key === 'Home' || e.key === 'End') {

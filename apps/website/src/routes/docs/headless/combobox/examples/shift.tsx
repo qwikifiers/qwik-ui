@@ -5,7 +5,7 @@ import {
   ComboboxLabel,
   ComboboxListbox,
   ComboboxOption,
-  ComboboxPortal,
+  ComboboxPopover,
   ComboboxTrigger,
   ResolvedOption,
 } from '@qwik-ui/headless';
@@ -31,7 +31,7 @@ export default component$(() => {
           <ComboboxLabel class=" font-semibold">Fruits 🍓</ComboboxLabel>
           <ComboboxControl class="relative flex items-center rounded-sm border">
             <ComboboxInput
-              class="px-d2 bg-background placeholder:text-muted-foreground w-44 px-2 pr-6"
+              class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm px-2 pr-6"
               placeholder="Papaya"
             />
             <ComboboxTrigger class="group absolute right-0 h-6 w-6">
@@ -48,7 +48,7 @@ export default component$(() => {
               </svg>
             </ComboboxTrigger>
           </ComboboxControl>
-          <ComboboxPortal>
+          <ComboboxPopover>
             <ComboboxListbox
               optionRenderer$={(option: ResolvedOption, index: number) => (
                 <ComboboxOption
@@ -62,7 +62,7 @@ export default component$(() => {
               )}
               class="left:0 top:0 absolute w-fit rounded-sm border px-4 py-2"
             />
-          </ComboboxPortal>
+          </ComboboxPopover>
         </Combobox>
       </div>
     </div>

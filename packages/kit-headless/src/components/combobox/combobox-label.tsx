@@ -1,12 +1,7 @@
-import {
-  Slot,
-  component$,
-  useContext,
-  type QwikIntrinsicElements,
-} from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 
-export type ComboboxLabelProps = QwikIntrinsicElements['label'];
+export type ComboboxLabelProps = PropsOf<'label'>;
 
 export const ComboboxLabel = component$((props: ComboboxLabelProps) => {
   const context = useContext(ComboboxContextId);

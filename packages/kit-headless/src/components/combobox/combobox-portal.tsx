@@ -14,6 +14,9 @@ import {
 import { ContextPair, openPortalContextId } from '../qwik-ui-provider';
 import ComboboxContextId from './combobox-context-id';
 
+/**
+ * @deprecated This component is deprecated and has been replaced with `ComboboxPopover`. It will be removed in future versions.
+ */
 export const ComboboxPortal: FunctionComponent<{
   children: JSXNode;
   contextIds?: ComboboxPortalProps['contextIds'];
@@ -45,6 +48,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
 
   const closePortalSig = useSignal<QRL<() => void>>();
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async function openOrCloseListBox({ track }) {
     track(() => comboboxContext.isListboxOpenSig.value);
     track(() => contextPairsSig.value);
@@ -61,6 +65,7 @@ export const ComboboxPortalImpl = component$((props: ComboboxPortalProps) => {
     }
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async function cleanupTeleportedElement({ cleanup }) {
     cleanup(async () => {
       if (closePortalSig.value) {

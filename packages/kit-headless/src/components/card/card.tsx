@@ -1,6 +1,6 @@
-import { component$, HTMLAttributes, Slot } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
-export type CardProps = HTMLAttributes<HTMLElement>;
+export type CardProps = PropsOf<'div'>;
 
 export const Card = component$((props: CardProps) => {
   return (

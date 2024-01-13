@@ -58,6 +58,7 @@ export const Menu = component$((props: MenuProps) => {
 
   useContextProvider(quiMenuContext, menuContextService);
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => isExpanded.value);
     if (!isExpanded.value) {
@@ -66,6 +67,7 @@ export const Menu = component$((props: MenuProps) => {
     }
   });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     const options = container.value?.querySelectorAll<HTMLElement>('button');
     if (options?.length) {

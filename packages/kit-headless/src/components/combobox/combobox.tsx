@@ -7,9 +7,9 @@ import {
   useSignal,
   useTask$,
   type QRL,
-  type QwikIntrinsicElements,
   type Signal,
   type ContextId,
+  PropsOf,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
@@ -28,7 +28,7 @@ export type ResolvedOption<
   lcLabel?: string;
 };
 
-export type ComboboxProps<O extends Option = Option> = {
+export type ComboboxProps<O extends Option = Option> = PropsOf<'div'> & {
   // user's source of truth
   options: O[];
   filter$?: QRL<
@@ -48,7 +48,7 @@ export type ComboboxProps<O extends Option = Option> = {
   'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
   'bind:inputValueSig'?: Signal<string>;
   'bind:highlightedIndexSig'?: Signal<number>;
-} & QwikIntrinsicElements['div'];
+};
 
 export const Combobox = component$(
   <O extends Option = Option>(props: ComboboxProps<O>) => {
@@ -126,6 +126,7 @@ export const Combobox = component$(
     const labelRef = useSignal<HTMLLabelElement>();
     const listboxRef = useSignal<HTMLUListElement>();
     const inputRef = useSignal<HTMLInputElement>();
+    const popoverRef = useSignal<HTMLElement>();
 
     const triggerRef = useSignal<HTMLButtonElement>();
 
@@ -150,6 +151,7 @@ export const Combobox = component$(
       inputValueSig,
       labelRef,
       inputRef,
+      popoverRef,
       localId,
       triggerRef,
       listboxRef,

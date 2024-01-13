@@ -6,6 +6,7 @@
   },
   "files": [],
   "exclude": [
+    "jest.config.ts",
     "**/*.stories.ts",
     "**/*.stories.js",
     "**/*.stories.tsx",

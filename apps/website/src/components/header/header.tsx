@@ -3,8 +3,8 @@ import { $, component$, useComputed$ } from '@builder.io/qwik';
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { useLocation } from '@builder.io/qwik-city';
-import { KitName } from 'apps/website/src/_state/kit-name.type';
-import { useAppState } from 'apps/website/src/_state/use-app-state';
+import { KitName } from '~/_state/kit-name.type';
+import { useAppState } from '~/_state/use-app-state';
 import { version as fluffyVersion } from '../../../../../packages/kit-fluffy/package.json';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
@@ -106,7 +106,12 @@ export default component$(
         </nav>
 
         <button type="button" aria-label="Toggle dark mode" onClick$={toggleDarkMode}>
-          {rootStore.mode === 'dark' ? <MoonIcon /> : <SunIcon />}
+          <div class="hidden dark:block">
+            <MoonIcon />
+          </div>
+          <div class="block dark:hidden ">
+            <SunIcon />
+          </div>
         </button>
         <a
           target="_blank"

@@ -1,6 +1,6 @@
-import { QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 
-export const ModalContent = component$((props: QwikIntrinsicElements['div']) => {
+export const ModalContent = component$((props: PropsOf<'div'>) => {
   return (
     <div {...props}>
       <Slot />
