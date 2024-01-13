@@ -99,6 +99,19 @@ describe('Critical Functionality', () => {
     cy.get('button').click().should('have.attr', 'aria-expanded', 'true');
   });
 
+  it.only(`GIVEN a Combobox component with a trigger
+      WHEN a trigger is clicked, the listbox is open, and the first open clicked
+      THEN the first option should be selected
+  `, () => {
+    cy.mount(<StringCombobox />);
+
+    cy.get('button').click();
+
+    cy.get('li').first().click();
+
+    cy.get('li').first().should('have.attr', 'aria-selected');
+  });
+
   it(`GIVEN a Combobox component with an open listbox and trigger
       WHEN the trigger is clicked,
       THEN the listbox should close`, () => {
@@ -235,11 +248,7 @@ describe('Default Label', () => {
 
     cy.get('input').should('have.value', 'Jabuticaba').type(`{downarrow}`);
 
-    cy.findByRole('option', { name: 'Jabuticaba' }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.get('[data-highlighted]').should('have.text', 'Jabuticaba');
   });
 });
 
@@ -265,7 +274,7 @@ describe('Keyboard Navigation', () => {
 
     cy.get('input').type(`{downarrow}`).type(`{home}`);
 
-    cy.get('li').first().should('have.attr', 'aria-selected', 'true');
+    cy.get('li').first().should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with a focused option inside a listbox,
@@ -275,7 +284,7 @@ describe('Keyboard Navigation', () => {
 
     cy.get('input').type(`{downarrow}`).type(`{end}`);
 
-    cy.get('li').last().should('have.attr', 'aria-selected', 'true');
+    cy.get('li').last().should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component and selected text in an input field,
@@ -302,7 +311,7 @@ describe('Keyboard Navigation', () => {
     cy.get('input').type(`{downarrow}`).type(`{downarrow}`);
 
     // grabs the 2nd element because the index is 1
-    cy.get('li').filter(':visible').eq(1).should('have.attr', 'aria-selected', 'true');
+    cy.get('li').filter(':visible').eq(1).should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and multiple filtered options
@@ -314,7 +323,7 @@ describe('Keyboard Navigation', () => {
 
     cy.findByRole('listbox');
 
-    cy.get('li').filter(':visible').first().should('have.attr', 'aria-selected', 'true');
+    cy.get('li').filter(':visible').first().should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and multiple filtered options
@@ -326,7 +335,7 @@ describe('Keyboard Navigation', () => {
 
     cy.findByRole('listbox');
 
-    cy.get('li').filter(':visible').last().should('have.attr', 'aria-selected', 'true');
+    cy.get('li').filter(':visible').last().should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and multiple filtered options
@@ -338,7 +347,7 @@ describe('Keyboard Navigation', () => {
 
     cy.findByRole('listbox');
 
-    cy.get('li').filter(':visible').first().should('have.attr', 'aria-selected', 'true');
+    cy.get('li').filter(':visible').first().should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and multiple filtered options
@@ -352,7 +361,7 @@ describe('Keyboard Navigation', () => {
 
     cy.get('input').type(`{downarrow}`);
 
-    cy.get('li').filter(':visible').first().should('have.attr', 'aria-selected', 'true');
+    cy.get('li').filter(':visible').first().should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and an option is in focus,
@@ -493,11 +502,7 @@ describe('Disabled & Object Combobox', () => {
 
     cy.get('input').type(`{downarrow}`);
 
-    cy.findByRole('option', { name: `Malcolm` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Malcolm` }).should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and disabled options,
@@ -507,11 +512,7 @@ describe('Disabled & Object Combobox', () => {
 
     cy.get('input').type(`{downarrow}`).type(`{uparrow}`);
 
-    cy.findByRole('option', { name: `Mark` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Mark` }).should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and disabled options,
@@ -523,11 +524,7 @@ describe('Disabled & Object Combobox', () => {
 
     cy.get('input').type(`{home}`);
 
-    cy.findByRole('option', { name: `Malcolm` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Malcolm` }).should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and disabled options,
@@ -539,11 +536,7 @@ describe('Disabled & Object Combobox', () => {
 
     cy.get('input').type(`{end}`);
 
-    cy.findByRole('option', { name: `Mark` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Mark` }).should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and disabled options,
@@ -556,11 +549,7 @@ describe('Disabled & Object Combobox', () => {
 
     cy.get('input').type(`{downarrow}`);
 
-    cy.findByRole('option', { name: `Brian` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Brian` }).should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and disabled options,
@@ -575,11 +564,7 @@ describe('Disabled & Object Combobox', () => {
 
     cy.get('input').type(`{uparrow}`);
 
-    cy.findByRole('option', { name: `Malcolm` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Malcolm` }).should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and disabled options,
@@ -595,19 +580,11 @@ describe('Disabled & Object Combobox', () => {
       .type(`{downarrow}`)
       .type(`{downarrow}`);
 
-    cy.findByRole('option', { name: `Randy` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Randy` }).should('have.attr', 'data-highlighted');
 
     cy.get('input').type(`{downarrow}`);
 
-    cy.findByRole('option', { name: `Mark` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Mark` }).should('have.attr', 'data-highlighted');
   });
 
   it(`GIVEN a Combobox component with an open listbox and disabled options,
@@ -623,26 +600,14 @@ describe('Disabled & Object Combobox', () => {
       .type(`{downarrow}`)
       .type(`{downarrow}`);
 
-    cy.findByRole('option', { name: `Randy` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Randy` }).should('have.attr', 'data-highlighted');
 
     cy.get('input').type(`{downarrow}`);
 
-    cy.findByRole('option', { name: `Mark` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Mark` }).should('have.attr', 'data-highlighted');
 
     cy.get('input').type(`{uparrow}`);
 
-    cy.findByRole('option', { name: `Randy` }).should(
-      'have.attr',
-      'aria-selected',
-      'true',
-    );
+    cy.findByRole('option', { name: `Randy` }).should('have.attr', 'data-highlighted');
   });
 });

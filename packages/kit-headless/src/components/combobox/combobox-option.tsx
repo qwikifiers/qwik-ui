@@ -23,18 +23,18 @@ export const ComboboxOption = component$(
     const optionId = `${context.localId}-${resolved.key}`;
 
     const isHighlightedSig = useComputed$(
-      // eslint-disable-next-line qwik/valid-lexical-scope
       () => !resolved.disabled && context.highlightedIndexSig.value === index,
     );
 
     const onClickBehavior$ = $(() => {
-      // eslint-disable-next-line qwik/valid-lexical-scope
       if (!context.inputRef.value || resolved.disabled) {
         return;
       }
 
       (context.inputRef.value.value = context.filteredOptionsSig.value[index]?.label),
         (context.isListboxOpenSig.value = false);
+
+      context.selectedOptionIndexSig.value = index;
     });
 
     const optionRef = useSignal<HTMLLIElement>();
@@ -46,7 +46,9 @@ export const ComboboxOption = component$(
         ref={optionRef}
         tabIndex={-1}
         role="option"
-        aria-selected={isHighlightedSig.value}
+        data-highlighted={isHighlightedSig.value}
+        aria-selected={index === context.selectedOptionIndexSig.value}
+        data-selected={index === context.selectedOptionIndexSig.value}
         aria-disabled={resolved.disabled}
         data-disabled={resolved.disabled}
         onClick$={[onClickBehavior$, props.onClick$]}

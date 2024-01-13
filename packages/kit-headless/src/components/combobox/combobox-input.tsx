@@ -4,7 +4,6 @@ import {
   useContext,
   useSignal,
   useTask$,
-  type QwikKeyboardEvent,
   type ContextId,
   PropsOf,
 } from '@builder.io/qwik';
@@ -43,7 +42,7 @@ export const ComboboxInput = component$(
       context.inputValueSig.value = inputElement.value;
     });
 
-    const onKeydownBehavior$ = $((e: QwikKeyboardEvent) => {
+    const onKeydownBehavior$ = $((e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') {
         if (context.isListboxOpenSig.value) {
           const nextEnabledOptionIndex = getNextEnabledOptionIndex(
@@ -73,6 +72,7 @@ export const ComboboxInput = component$(
 
       if (e.key === 'Enter') {
         context.isListboxOpenSig.value = false;
+        context.selectedOptionIndexSig.value = context.highlightedIndexSig.value;
 
         // if they somehow manage to highlight a disabled option (bug)
         if (
