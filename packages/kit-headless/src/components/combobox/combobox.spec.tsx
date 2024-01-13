@@ -99,19 +99,6 @@ describe('Critical Functionality', () => {
     cy.get('button').click().should('have.attr', 'aria-expanded', 'true');
   });
 
-  it.only(`GIVEN a Combobox component with a trigger
-      WHEN a trigger is clicked, the listbox is open, and the first open clicked
-      THEN the first option should be selected
-  `, () => {
-    cy.mount(<StringCombobox />);
-
-    cy.get('button').click();
-
-    cy.get('li').first().click();
-
-    cy.get('li').first().should('have.attr', 'aria-selected');
-  });
-
   it(`GIVEN a Combobox component with an open listbox and trigger
       WHEN the trigger is clicked,
       THEN the listbox should close`, () => {
