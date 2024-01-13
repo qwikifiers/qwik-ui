@@ -8,7 +8,6 @@ export * from './components/carousel/use';
 export * as Checkbox from './components/checkbox/checkbox';
 export * from './components/collapsible';
 export * from './components/combobox';
-export * from './components/combobox/';
 export * from './components/modal';
 export * from './components/drawer';
 export * from './components/menu/menu';
