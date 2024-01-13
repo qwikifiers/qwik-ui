@@ -132,8 +132,8 @@ export const Combobox = component$(
 
     const triggerRef = useSignal<HTMLButtonElement>();
 
-    const defaultSelectedOptionIndexSig = useSignal<number>(-1);
-    const selectedOptionIndexSig = givenSelectedIndexSig || defaultSelectedOptionIndexSig;
+    const defaultSelectedIndexSig = useSignal<number>(-1);
+    const selectedIndexSig = givenSelectedIndexSig || defaultSelectedIndexSig;
 
     const defaultListboxOpenSig = useSignal<boolean | undefined>(false);
     const isListboxOpenSig = givenListboxOpenSig || defaultListboxOpenSig;
@@ -161,7 +161,7 @@ export const Combobox = component$(
       isInputFocusedSig,
       isListboxOpenSig,
       highlightedIndexSig,
-      selectedOptionIndexSig,
+      selectedIndexSig: selectedIndexSig,
       defaultLabel,
       optionValueKey,
       optionLabelKey,

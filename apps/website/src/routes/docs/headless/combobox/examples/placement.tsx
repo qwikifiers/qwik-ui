@@ -33,7 +33,7 @@ export default component$(() => {
         class="w-fit"
         options={placementExample}
         optionDisabledKey="myDisabledKey"
-        bind:inputValueSig={inputValueSig}
+        bind:inputValue={inputValueSig}
       >
         <ComboboxLabel>Positions</ComboboxLabel>
         <ComboboxControl class="relative mt-2 flex items-center rounded-sm border">

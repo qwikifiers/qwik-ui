@@ -72,7 +72,7 @@ export const ComboboxInput = component$(
 
       if (e.key === 'Enter') {
         context.isListboxOpenSig.value = false;
-        context.selectedOptionIndexSig.value = context.highlightedIndexSig.value;
+        context.selectedIndexSig.value = context.highlightedIndexSig.value;
 
         // if they somehow manage to highlight a disabled option (bug)
         if (

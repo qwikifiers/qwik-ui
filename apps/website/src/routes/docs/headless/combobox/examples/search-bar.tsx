@@ -38,9 +38,9 @@ export default component$(() => {
 
   return (
     <Combobox
-      bind:inputValueSig={inputValueSig}
-      bind:highlightedIndexSig={highlightedIndexSig}
-      bind:isListboxOpenSig={isListboxOpenSig}
+      bind:inputValue={inputValueSig}
+      bind:highlightedIndex={highlightedIndexSig}
+      bind:isListboxOpen={isListboxOpenSig}
       optionValueKey="component"
       class="w-fit"
       options={components}

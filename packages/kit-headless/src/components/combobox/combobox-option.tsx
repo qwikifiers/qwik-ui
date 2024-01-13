@@ -34,7 +34,7 @@ export const ComboboxOption = component$(
       (context.inputRef.value.value = context.filteredOptionsSig.value[index]?.label),
         (context.isListboxOpenSig.value = false);
 
-      context.selectedOptionIndexSig.value = index;
+      context.selectedIndexSig.value = index;
     });
 
     const optionRef = useSignal<HTMLLIElement>();
@@ -47,8 +47,8 @@ export const ComboboxOption = component$(
         tabIndex={-1}
         role="option"
         data-highlighted={isHighlightedSig.value}
-        aria-selected={index === context.selectedOptionIndexSig.value}
-        data-selected={index === context.selectedOptionIndexSig.value}
+        aria-selected={index === context.selectedIndexSig.value}
+        data-selected={index === context.selectedIndexSig.value}
         aria-disabled={resolved.disabled}
         data-disabled={resolved.disabled}
         onClick$={[onClickBehavior$, props.onClick$]}

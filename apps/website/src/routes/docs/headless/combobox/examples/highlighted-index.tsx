@@ -28,7 +28,7 @@ export default component$(() => {
       <Combobox
         class="w-fit"
         options={highlightedExample}
-        bind:highlightedIndexSig={highlightedIndexSig}
+        bind:highlightedIndex={highlightedIndexSig}
       >
         <ComboboxControl class="relative flex items-center rounded-sm border">
           <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground w-fit rounded-sm px-2 pr-6" />
