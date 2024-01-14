@@ -33,7 +33,7 @@ export type InstallSnippetProps = {
 export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => {
   return (
     <Tabs
-      class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-xl lg:mx-[-32px]"
+      class="shadow-light-medium dark:shadow-dark-medium mb-12 rounded-xl"
       behavior="manual"
     >
       <TabList class=" flex rounded-t-xl border border-b-0 p-2">

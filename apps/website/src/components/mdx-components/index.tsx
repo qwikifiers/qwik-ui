@@ -1,14 +1,14 @@
 import { PropsOf, Slot, component$ } from '@builder.io/qwik';
-import { StatusBanner } from '../status-banner/status-banner';
+import { cn } from '@qwik-ui/utils';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
-import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard-interaction-table';
 import { CodeCopy } from '../code-copy/code-copy';
-import { Showcase } from '../showcase/showcase';
 import { CodeSnippet } from '../code-snippet/code-snippet';
 import { InstallSnippet } from '../install-snippet/install-snippet';
+import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard-interaction-table';
 import { Note } from '../note/note';
-import { cn } from '@qwik-ui/utils';
+import { Showcase } from '../showcase/showcase';
+import { StatusBanner } from '../status-banner/status-banner';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const components: Record<string, any> = {
@@ -94,9 +94,7 @@ export const components: Record<string, any> = {
     return (
       <div
         {...props}
-        class={[
-          cn('relative -mx-6 mb-6 max-h-[31.25rem] rounded-xl lg:-mx-8', props.class),
-        ]}
+        class={[cn('relative  mb-6 max-h-[31.25rem] rounded-xl', props.class)]}
       >
         <CodeCopy class="absolute right-4 top-4" code={__rawString__} />
         <div class="max-h-[31.25rem] max-w-full overflow-auto rounded-xl border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm">

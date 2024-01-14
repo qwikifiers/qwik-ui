@@ -1,34 +1,13 @@
 import { Component, PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
-import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
+import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { Highlight } from '../highlight/highlight';
-
-// The below `/src/routes/docs/**/**/examples/*.tsx` patterns are here so that import.meta.glob works both for fluffy and headless routes.
-// For example:
-// /src/routes/docs/components/fluffy/modal/examples/hero.tsx
-// /src/routes/docs/components/headless/modal/examples/hero.tsx
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const metaGlobComponents: Record<string, any> = import.meta.glob(
-  '/src/routes/docs/**/**/examples/*.tsx',
-  {
-    import: 'default',
-    eager: isDev ? false : true,
-  },
-);
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const rawComponents: Record<string, any> = import.meta.glob(
-  '/src/routes/docs/**/**/examples/*.tsx',
-  {
-    as: 'raw',
-    eager: isDev ? false : true,
-  },
-);
+import { metaGlobComponents, rawComponents } from './component-impots';
 
 type ShowcaseProps = PropsOf<'div'> & {
   name?: string;
+  vertical?: boolean;
 };
 
 export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
@@ -48,17 +27,17 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
       : rawComponents[componentPath];
   });
 
-  return (
+  return !props.vertical ? (
     <Tabs
       {...props}
-      class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-xl lg:mx-[-32px]"
-      selectedClassName="bg-accent text-accent-foreground border rounded-xl font-medium"
+      class="shadow-light-medium dark:shadow-dark-medium mb-12 rounded-xl "
+      selectedClassName="bg-primary hover:bg-primary text-primary-foreground hover:text-primary-foreground  border-t-1 font-medium "
     >
-      <TabList class=" flex rounded-t-xl border border-b-0 p-2">
-        <Tab class="hover:bg-accent hover:text-accent-foreground mr-2 rounded-xl border px-2 py-1 hover:font-medium">
+      <TabList class="bg-accent flex rounded-t-xl border border-b-0">
+        <Tab class="hover:bg-primary/90 hover:text-primary-foreground rounded-tl-xl px-3 py-2   ">
           Preview
         </Tab>
-        <Tab class="hover:bg-accent hover:text-accent-foreground mr-2 rounded-xl border px-2 py-1 hover:font-medium">
+        <Tab class="hover:bg-primary/90 hover:text-primary-foreground px-3 py-2 ">
           Code
         </Tab>
       </TabList>
@@ -71,5 +50,16 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
         <Highlight class="rounded-t-none" code={componentCodeSig.value || ''} />
       </TabPanel>
     </Tabs>
+  ) : (
+    <div>
+      <section class="shadow-light-medium dark:shadow-dark-medium flex flex-col items-center rounded-t-xl border p-8">
+        {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
+      </section>
+
+      <Highlight
+        class="shadow-light-medium dark:shadow-dark-medium rounded-none rounded-b-xl border p-8"
+        code={componentCodeSig.value || ''}
+      />
+    </div>
   );
 });
