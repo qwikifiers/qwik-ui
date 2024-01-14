@@ -1,0 +1,42 @@
+{
+  "name": "@qwik-ui/simple",
+  "version": "0.0.1",
+  "description": "Qwik UI components library with simple styles",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./index.qwik.cjs",
+  "qwik": "./index.qwik.mjs",
+  "types": "./packages/kit-simple/src/index.d.ts",
+  "module": "./index.qwik.mjs",
+  "generators": "./generators.json",
+  "type": "module",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "private": false,
+  "scripts": {
+    "build": "qwik build",
+    "build-storybook": "storybook build",
+    "build.lib": "vite build --mode lib",
+    "build.types": "tsc --emitDeclarationOnly",
+    "dev": "vite --mode ssr",
+    "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
+    "fmt": "prettier --write .",
+    "fmt.check": "prettier --check .",
+    "release": "np",
+    "start": "vite --open --mode ssr",
+    "storybook": "storybook dev -p 6006",
+    "qwik": "qwik"
+  },
+  "peerDependencies": {
+    "@builder.io/qwik": "^1.1.0"
+  },
+  "dependencies": {
+    "@qwik-ui/headless": "0.2.1",
+    "@qwik-ui/utils": "0.2.0"
+  },
+  "devDependencies": {
+    "@builder.io/vite-plugin-macro": "~0.0.7"
+  }
+}
