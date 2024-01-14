@@ -14,7 +14,6 @@ export * from './components/menu/menu';
 export * from './components/navigation-bar/navigation-bar';
 export * from './components/pagination/pagination';
 export * from './components/popover';
-export * from './components/qwik-ui-provider/qwik-ui-provider';
 export * from './components/rating/rating';
 export * from './components/select';
 export * from './components/separator/separator';

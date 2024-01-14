@@ -6,12 +6,10 @@ import {
   ComboboxLabel,
   ComboboxListbox,
   ComboboxOption,
-  ComboboxPortal,
   ComboboxTrigger,
   ResolvedOption,
 } from './index';
 
-import { QwikUIProvider } from '../qwik-ui-provider';
 import './combobox-test.css';
 import createFakeFruitsList from './combobox.faketory';
 
@@ -24,51 +22,47 @@ const StringCombobox = component$(({ defaultLabel, ...props }: StringCombobox) =
 
   return (
     <>
-      <QwikUIProvider>
-        <Combobox
-          options={fruits}
-          defaultLabel={defaultLabel && defaultLabel}
-          filter$={(value: string, options) =>
-            options.filter(({ option }) => {
-              return option.toLowerCase().includes(value.toLowerCase());
-            })
-          }
-          {...props}
-        >
-          <ComboboxLabel>Fruits</ComboboxLabel>
-          <ComboboxControl style={{ display: 'flex' }}>
-            <ComboboxInput />
-            <ComboboxTrigger data-testid="trigger">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="20px"
-                style="stroke: black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </ComboboxTrigger>
-          </ComboboxControl>
-          <ComboboxPortal>
-            <ComboboxListbox
-              style={{ width: 'fit-content' }}
-              optionRenderer$={(resolved: ResolvedOption, index: number) => (
-                <ComboboxOption
-                  key={resolved.key}
-                  class="group rounded-sm border-2 border-transparent  px-2 hover:bg-[#496080] aria-selected:border-[#abbbce] aria-selected:bg-[#496080]"
-                  index={index}
-                  resolved={resolved}
-                >
-                  {resolved.label}
-                </ComboboxOption>
-              )}
-            />
-          </ComboboxPortal>
-        </Combobox>
-      </QwikUIProvider>
+      <Combobox
+        options={fruits}
+        defaultLabel={defaultLabel && defaultLabel}
+        filter$={(value: string, options) =>
+          options.filter(({ option }) => {
+            return option.toLowerCase().includes(value.toLowerCase());
+          })
+        }
+        {...props}
+      >
+        <ComboboxLabel>Fruits</ComboboxLabel>
+        <ComboboxControl style={{ display: 'flex' }}>
+          <ComboboxInput />
+          <ComboboxTrigger data-testid="trigger">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="20px"
+              style="stroke: black"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </ComboboxTrigger>
+        </ComboboxControl>
+        <ComboboxListbox
+          style={{ width: 'fit-content' }}
+          optionRenderer$={(resolved: ResolvedOption, index: number) => (
+            <ComboboxOption
+              key={resolved.key}
+              class="group rounded-sm border-2 border-transparent  px-2 hover:bg-[#496080] aria-selected:border-[#abbbce] aria-selected:bg-[#496080]"
+              index={index}
+              resolved={resolved}
+            >
+              {resolved.label}
+            </ComboboxOption>
+          )}
+        />
+      </Combobox>
     </>
   );
 });
@@ -394,53 +388,49 @@ const DisabledCombobox = component$(() => {
 
   return (
     <>
-      <QwikUIProvider>
-        <Combobox
-          options={objectExample}
-          filter$={(value: string, options) =>
-            options.filter(({ option }) => {
-              return option.testLabel.toLowerCase().includes(value.toLowerCase());
-            })
-          }
-          optionLabelKey="testLabel"
-          optionValueKey="testValue"
-          optionDisabledKey="disabled"
-        >
-          <ComboboxLabel>Fruits</ComboboxLabel>
-          <ComboboxControl style={{ display: 'flex' }}>
-            <ComboboxInput />
-            <ComboboxTrigger data-testid="trigger">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="20px"
-                style="stroke: black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </ComboboxTrigger>
-          </ComboboxControl>
-          <ComboboxPortal>
-            <ComboboxListbox
-              style={{ width: 'fit-content' }}
-              optionRenderer$={(resolved: ResolvedOption, index: number) => (
-                <ComboboxOption
-                  key={resolved.key}
-                  class="group rounded-sm border-2 border-transparent  px-2 hover:bg-[#496080] aria-selected:border-[#abbbce] aria-selected:bg-[#496080]"
-                  index={index}
-                  resolved={resolved}
-                  style={{ color: resolved.disabled ? 'gray' : undefined }}
-                >
-                  {resolved.label}
-                </ComboboxOption>
-              )}
-            />
-          </ComboboxPortal>
-        </Combobox>
-      </QwikUIProvider>
+      <Combobox
+        options={objectExample}
+        filter$={(value: string, options) =>
+          options.filter(({ option }) => {
+            return option.testLabel.toLowerCase().includes(value.toLowerCase());
+          })
+        }
+        optionLabelKey="testLabel"
+        optionValueKey="testValue"
+        optionDisabledKey="disabled"
+      >
+        <ComboboxLabel>Fruits</ComboboxLabel>
+        <ComboboxControl style={{ display: 'flex' }}>
+          <ComboboxInput />
+          <ComboboxTrigger data-testid="trigger">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="20px"
+              style="stroke: black"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </ComboboxTrigger>
+        </ComboboxControl>
+        <ComboboxListbox
+          style={{ width: 'fit-content' }}
+          optionRenderer$={(resolved: ResolvedOption, index: number) => (
+            <ComboboxOption
+              key={resolved.key}
+              class="group rounded-sm border-2 border-transparent  px-2 hover:bg-[#496080] aria-selected:border-[#abbbce] aria-selected:bg-[#496080]"
+              index={index}
+              resolved={resolved}
+              style={{ color: resolved.disabled ? 'gray' : undefined }}
+            >
+              {resolved.label}
+            </ComboboxOption>
+          )}
+        />
+      </Combobox>
     </>
   );
 });
