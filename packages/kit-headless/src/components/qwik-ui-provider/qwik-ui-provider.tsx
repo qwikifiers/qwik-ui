@@ -12,7 +12,7 @@ import {
   type Signal,
   Fragment,
 } from '@builder.io/qwik';
-import { type JSXNode } from '@builder.io/qwik/jsx-runtime';
+import { type JSXNode } from '@builder.io/qwik';
 
 // Define public API for opening up Portals
 export const openPortalContextId =

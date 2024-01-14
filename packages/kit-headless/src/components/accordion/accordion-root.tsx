@@ -1,7 +1,7 @@
 import {
   $,
-  PropFunction,
   PropsOf,
+  QRL,
   Slot,
   component$,
   useContextProvider,
@@ -18,8 +18,8 @@ export type AccordionRootProps = PropsOf<'div'> & {
   animated?: boolean;
   enhance?: boolean;
   collapsible?: boolean;
-  onSelectedIndexChange$?: PropFunction<(index: number) => void>;
-  onFocusIndexChange$?: PropFunction<(index: number) => void>;
+  onSelectedIndexChange$?: QRL<(index: number) => void>;
+  onFocusIndexChange$?: QRL<(index: number) => void>;
 };
 
 export const AccordionRoot = component$(
