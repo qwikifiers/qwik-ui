@@ -7,6 +7,5 @@ export * from './combobox-input';
 export * from './combobox-trigger';
 export * from './combobox-listbox';
 export * from './combobox-option';
-export * from './combobox-portal';
 export * from './combobox-icon';
 export * from './combobox-popover';
