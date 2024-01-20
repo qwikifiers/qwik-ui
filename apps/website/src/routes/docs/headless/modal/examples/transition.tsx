@@ -29,13 +29,13 @@ export default component$(() => {
         onClick$={() => {
           showSig.value = true;
         }}
-        class="hover:bg-accent/80 rounded-md border px-3 py-2"
+        class="hover:bg-accent/80 rounded-sm border px-3 py-2"
       >
         Open Modal
       </button>
       <Modal
         bind:show={showSig}
-        class="my-transition shadow-dark-medium bg-background text-foreground max-w-[25rem] rounded-md p-[28px]"
+        class="my-transition shadow-dark-medium bg-background text-foreground max-w-[25rem] rounded-sm p-[28px]"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>

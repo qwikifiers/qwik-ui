@@ -8,14 +8,14 @@ export default component$(() => {
     <>
       <button
         onClick$={() => (showSig.value = true)}
-        class="hover:bg-accent/80 rounded-md border px-3 py-2"
+        class="hover:bg-accent/80 rounded-sm border px-3 py-2"
       >
         Deactivate
       </button>
       <Modal
         alert
         bind:show={showSig}
-        class="shadow-dark-medium bg-background text-foreground max-w-[25rem] rounded-md p-[28px] backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
+        class="shadow-dark-medium bg-background text-foreground max-w-[25rem] rounded-sm p-[28px] backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
         <ModalHeader>
           <h2 class="mb-2 text-lg font-bold">Deactive Account</h2>

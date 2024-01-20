@@ -10,18 +10,18 @@ export default component$(() => {
         <span class="w-fit">
           <strong>@thejackshelton</strong> starred 3 repositories
         </span>
-        <CollapsibleTrigger class="mx-2 mr-0 rounded-md bg-slate-700 p-1 text-white shadow-lg dark:bg-slate-800">
+        <CollapsibleTrigger class="mx-2 mr-0 rounded-sm bg-slate-700 p-1 text-white shadow-lg dark:bg-slate-800">
           <DoubleChevron class="size-4" />
         </CollapsibleTrigger>
       </div>
-      <div class="mx-2 mb-2 rounded-md bg-slate-700 p-2 text-white shadow-md dark:bg-slate-800">
+      <div class="mx-2 mb-2 rounded-sm bg-slate-700 p-2 text-white shadow-md dark:bg-slate-800">
         @qwik-ui/headless
       </div>
       <CollapsibleContent class="animation">
-        <div class="mx-2 mb-2 rounded-md bg-slate-700 p-2 text-white shadow-md dark:bg-slate-800">
+        <div class="mx-2 mb-2 rounded-sm bg-slate-700 p-2 text-white shadow-md dark:bg-slate-800">
           @builder.io/qwik
         </div>
-        <div class="mx-2 rounded-md bg-slate-700 p-2 text-white shadow-md dark:bg-slate-800">
+        <div class="mx-2 rounded-sm bg-slate-700 p-2 text-white shadow-md dark:bg-slate-800">
           @qwikdev/astro
         </div>
         <div class="p-2"></div>

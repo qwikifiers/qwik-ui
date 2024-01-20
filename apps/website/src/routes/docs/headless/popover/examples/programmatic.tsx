@@ -7,7 +7,7 @@ export default component$(() => {
     <>
       <button
         preventdefault:click
-        class="rounded-md border-2 border-slate-400 bg-slate-800 px-3 py-1 text-white"
+        class="rounded-sm border-2 border-slate-400 bg-slate-800 px-3 py-1 text-white"
         onKeyDown$={(e) => {
           if (e.key === 'o') {
             togglePopover();
@@ -18,7 +18,7 @@ export default component$(() => {
       </button>
       <Popover
         id="programmatic-id"
-        class="shadow-dark-medium rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 opacity-0"
+        class="shadow-dark-medium rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1 opacity-0"
       >
         I was programmatically opened!
       </Popover>

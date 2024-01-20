@@ -32,12 +32,12 @@ export type InstallSnippetProps = {
 };
 export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => {
   return (
-    <Tabs class="mb-12 rounded-xl shadow-lg" behavior="manual">
+    <Tabs class="mb-12 rounded-md shadow-lg" behavior="manual">
       <TabList class=" flex rounded-t-xl border border-b-0 p-2">
         {Object.keys(packages).map((key, index) => (
           <Tab
             key={index}
-            class="hover:bg-accent hover:text-accent-foreground mr-2 rounded-xl border px-2 py-1 hover:font-medium"
+            class="hover:bg-accent hover:text-accent-foreground mr-2 rounded-md border px-2 py-1 hover:font-medium"
           >
             {key}
           </Tab>

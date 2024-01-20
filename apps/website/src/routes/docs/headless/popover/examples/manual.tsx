@@ -13,7 +13,7 @@ export default component$(() => {
         <>
           <PopoverTrigger
             popovertarget={popover.id}
-            class="mb-4 rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
+            class="mb-4 rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
           >
             Popover Trigger {index + 1}
           </PopoverTrigger>
@@ -21,7 +21,7 @@ export default component$(() => {
           <Popover
             manual
             id={popover.id}
-            class="shadow-dark-medium py- rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1"
+            class="shadow-dark-medium py- rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1"
             style={{ top: `${index * 20}px` }}
           >
             {popover.content}

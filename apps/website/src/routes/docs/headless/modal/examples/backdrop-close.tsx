@@ -8,14 +8,14 @@ export default component$(() => {
     <>
       <button
         onClick$={() => (showSig.value = true)}
-        class="hover:bg-accent/80 rounded-md border px-3 py-2"
+        class="hover:bg-accent/80 rounded-sm border px-3 py-2"
       >
         Open Modal
       </button>
       <Modal
         closeOnBackdropClick={false}
         bind:show={showSig}
-        class="shadow-dark-medium my-backdrop bg-background text-foreground max-w-[25rem] rounded-md p-[28px]"
+        class="shadow-dark-medium my-backdrop bg-background text-foreground max-w-[25rem] rounded-sm p-[28px]"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>

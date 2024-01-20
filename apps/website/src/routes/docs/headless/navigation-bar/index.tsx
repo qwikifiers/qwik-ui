@@ -12,7 +12,7 @@ export default component$(() => {
       <div class="mt-4 flex flex-col gap-8">
         <h2>Basic Example</h2>
 
-        <NavigationBar class="navigation-bar bg-base-100 flex w-full items-center rounded-lg">
+        <NavigationBar class="navigation-bar bg-base-100 flex w-full items-center rounded-md">
           <div class="navigation-bar__start flex">
             <a href="#" class="btn btn-ghost text-xl normal-case ">
               tailwindUI

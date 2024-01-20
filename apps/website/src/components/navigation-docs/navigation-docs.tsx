@@ -27,7 +27,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
   const rootStore = useAppState();
   const selectedKitSig = useSelectedKit();
   const linkStyles = `px-4 py-2 -ml-4 mr-8 text-xl lg:text-sm flex items-center
-    rounded-lg hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
+    rounded-md hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
   return (
     <nav
       class={`bg-background fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px] pb-6 [grid-area:nav] lg:w-80
@@ -64,7 +64,7 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
                   return (
                     <li key={link.name + link.href}>
                       <a
-                        class={`transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center rounded-lg px-4 py-2 text-xl duration-300
+                        class={`transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center rounded-md px-4 py-2 text-xl duration-300
                            lg:text-sm ${
                              isLinkActive
                                ? 'bg-accent text-accent-foreground font-bold'

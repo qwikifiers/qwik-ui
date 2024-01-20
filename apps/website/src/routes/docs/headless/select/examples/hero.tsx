@@ -20,7 +20,7 @@ export default component$(() => {
     <>
       <div>
         <SelectRoot>
-          <SelectTrigger class="group peer flex items-center justify-between rounded-md border p-4 px-8">
+          <SelectTrigger class="group peer flex items-center justify-between rounded-sm border p-4 px-8">
             <SelectValue placeholder="Select a fruit! 🍹" />
             <SelectMarker class="h-6 w-6">
               <svg
@@ -36,7 +36,7 @@ export default component$(() => {
               </svg>
             </SelectMarker>
           </SelectTrigger>
-          <SelectListBox class="bg-background mt-2 rounded-md border">
+          <SelectListBox class="bg-background mt-2 rounded-sm border">
             <SelectOption
               optionValue="Qwik 🚀 "
               class="hover:bg-accent focus:bg-accent p-4"
