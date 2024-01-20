@@ -8,7 +8,7 @@ export default component$(() => {
         <Tooltip
           offset={8}
           content="I'm a tooltip!"
-          class="shadow-dark-medium rounded-md border-2 p-4"
+          class="shadow-dark-medium rounded-sm border-2 p-4"
         >
           <span>Hover over me!</span>
         </Tooltip>

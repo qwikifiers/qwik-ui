@@ -27,10 +27,10 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
   const rootStore = useAppState();
   const selectedKitSig = useSelectedKit();
   const linkStyles = `px-4 py-2 -ml-4 mr-8 text-xl lg:text-sm flex items-center
-    rounded-md hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
+    rounded-sm hover:bg-[var(--qwik-light-blue)] dark:hover:bg-[var(--qwik-dark-purple)]`;
   return (
     <nav
-      class={`bg-background fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r-[1px] pb-6 [grid-area:nav] lg:w-80
+      class={`bg-background fixed inset-0 top-20 z-10 flex-col gap-4 overflow-y-auto border-r pb-6 [grid-area:nav] lg:w-80
               ${rootStore.isSidebarOpened ? 'w-100 flex' : 'hidden lg:flex'} `}
     >
       <ul class="show mt-8 flex flex-col gap-2 pl-12 lg:hidden">
@@ -64,15 +64,15 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
                   return (
                     <li key={link.name + link.href}>
                       <a
-                        class={`transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center rounded-md px-4 py-2 text-xl duration-300
+                        class={`transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center rounded-sm px-4 py-2 text-xl duration-300
                            lg:text-sm ${
                              isLinkActive
                                ? 'bg-accent text-accent-foreground font-bold'
-                               : 'text-muted-foreground font-medium'
+                               : ''
                            }`}
                         href={link.href}
                       >
-                        <div class="flex w-full flex-row gap-2">
+                        <div class="flex w-full items-center gap-2">
                           <div class="w-48">{link.name}</div>
                           <div class="flex-auto">
                             {link.status && <StatusBadge status={link.status} />}

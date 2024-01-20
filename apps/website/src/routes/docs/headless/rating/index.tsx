@@ -29,5 +29,5 @@ export default component$(() => {
 export const MyStarIcon = component$(() => <>💩</>);
 export const MyHeartIcon = component$(() => <div class="text-4xl text-red-500">♥️</div>);
 export const MyComponentIcon = component$(() => (
-  <div class="m-1 flex h-8 w-8 items-center justify-center rounded-md bg-green-400 p-1" />
+  <div class="m-1 flex h-8 w-8 items-center justify-center rounded-sm bg-green-400 p-1" />
 ));

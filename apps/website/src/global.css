@@ -91,30 +91,65 @@
     --primary-foreground: 187 0% 100%;
     --secondary: 263 74% 63%;
     --secondary-foreground: 263 0% 100%;
-    --warning: 0 70% 50%;
-    --warning-foreground: 187 40% 98%;
-    --alert: 0 70% 50%;
-    --alert-foreground: 187 40% 98%;
-    --success: 0 70% 50%;
-    --success-foreground: 187 40% 98%;
+    --warning: 42 100% 53%;
+    --warning-foreground: 0 0% 100%;
+    --alert: 0 80% 54%;
+    --alert-foreground: 0 0% 100%;
+    --success: 120 70% 30%;
+    --success-foreground: 0 0% 100%;
     --card: 0 0% 100%;
     --card-foreground: 197 84% 0%;
     --input: 190 11% 67%;
     --ring: 197 100% 43%;
     --border: 217 0% 0%;
+    /* shapes */
     --border-radius: 0rem;
+    --border-width: 4px;
+    --shadow-sm: -2px 3px 0px 0 rgba(0, 0, 0, 1);
+    --shadow: 4px 5px 0px 0 rgba(0, 0, 0, 1);
+    --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-xl: 8px 10px 0px 0px rgba(0, 0, 0, 1), -2px -2px 2px 0px rgba(0, 0, 0, 1);
+    --shadow-2xl: 12px 12px 0px 0px rgba(0, 0, 0, 1), -4px -4px 2px 0px rgba(0, 0, 0, 1);
+    --shadow-inner: inset 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  }
+
+  .dark {
+    /* colors */
+    --background: 0 0% 100%;
+    --foreground: 197 84% 0%;
+    --muted: 187 0% 96%;
+    --muted-foreground: 190 5% 33%;
+    --accent: 187 0% 96%;
+    --accent-foreground: 197 33% 0%;
+    --primary: 199 100% 41%;
+    --primary-foreground: 187 0% 100%;
+    --secondary: 263 74% 63%;
+    --secondary-foreground: 263 0% 100%;
+    --warning: 42 100% 53%;
+    --warning-foreground: 0 0% 100%;
+    --alert: 0 80% 54%;
+    --alert-foreground: 0 0% 100%;
+    --success: 120 70% 30%;
+    --success-foreground: 0 0% 100%;
+    --card: 0 0% 100%;
+    --card-foreground: 197 84% 0%;
+    --input: 190 11% 67%;
+    --ring: 197 100% 43%;
+    --border: 190 11% 67%;
+    /* shapes */
+    --border-radius: 1rem;
     --border-width: 1px;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
   }
 
-  /* TODO: move into another theme */
-  .dark {
+  /* .dark {
     --background: 222 47% 11%;
     --foreground: 263 40% 98%;
     --card: 222 47% 11%;
@@ -131,11 +166,11 @@
     --accent-foreground: 250 40% 99%;
     --destructive: 0 64% 44%;
     --destructive-foreground: 250 40% 98%;
-    --border: 217 0% 0%;
     --input: 217 18% 33%;
     --ring: 270 50% 56%;
+    --border: 217 18% 33%;
     --border-radius: 1rem;
-    --border-width: 2px;
+    --border-width: 1px;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
@@ -143,20 +178,10 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
-  }
+  } */
 }
 
 @layer components {
-  /* global */
-  .border-preset-radius {
-    @apply rounded-none;
-  }
-  .border-preset-width {
-    @apply border;
-  }
-  .preset-shadow {
-    @apply [shadow:4px_4px_0_0_#000000];
-  }
   /* per component */
   button.preset-animation {
     @apply transition active:scale-90;

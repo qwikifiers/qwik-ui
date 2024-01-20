@@ -30,34 +30,34 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   return !props.vertical ? (
     <Tabs
       {...props}
-      class="mb-12 rounded-md shadow-lg "
+      class="mb-12 rounded-sm shadow-lg "
       selectedClassName="bg-primary hover:bg-primary text-primary-foreground hover:text-primary-foreground  border-t-1 font-medium "
     >
-      <TabList class="bg-accent flex rounded-t-md border border-b-0">
-        <Tab class="hover:bg-primary/90 hover:text-primary-foreground rounded-tl-md px-3 py-2   ">
+      <TabList class="bg-accent flex rounded-t-sm border border-b-0">
+        <Tab class="hover:bg-primary/90 hover:text-primary-foreground rounded-tl-sm px-3 py-2   ">
           Preview
         </Tab>
         <Tab class="hover:bg-primary/90 hover:text-primary-foreground px-3 py-2 ">
           Code
         </Tab>
       </TabList>
-      <TabPanel class="rounded-b-md border p-8 shadow-lg md:p-24">
+      <TabPanel class="rounded-b-sm border p-8 shadow-lg md:p-24">
         <section class="flex flex-col items-center">
           {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
         </section>
       </TabPanel>
-      <TabPanel class="relative rounded-b-md border">
+      <TabPanel class="relative rounded-b-sm border">
         <Highlight class="rounded-t-none" code={componentCodeSig.value || ''} />
       </TabPanel>
     </Tabs>
   ) : (
     <div>
-      <section class="flex flex-col items-center rounded-t-md border p-8 shadow-lg">
+      <section class="flex flex-col items-center rounded-t-sm border p-8 shadow-lg">
         {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
       </section>
 
       <Highlight
-        class="rounded-none rounded-b-md border p-8 shadow-lg"
+        class="rounded-none rounded-b-sm border p-8 shadow-lg"
         code={componentCodeSig.value || ''}
       />
     </div>

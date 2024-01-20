@@ -6,6 +6,7 @@ module.exports = {
     join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-tailwind/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-fluffy/src/**/*.{js,ts,jsx,tsx,mdx}'),
+    join(__dirname, '../../packages/kit-simple/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
   darkMode: 'class',
   theme: {
@@ -97,9 +98,17 @@ module.exports = {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+        warning: {
+          DEFAULT: 'hsl(var(--warning))',
+          foreground: 'hsl(var(--warning-foreground))',
+        },
+        alert: {
+          DEFAULT: 'hsl(var(--alert))',
+          foreground: 'hsl(var(--alert-foreground))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',

@@ -19,7 +19,7 @@ const TabList = component$<TabListProps>((props) => {
     <QwikUITabList
       {...props}
       class={cn(
-        'bg-muted text-muted-foreground inline-flex h-9 items-center justify-center rounded-md p-1',
+        'bg-muted text-muted-foreground inline-flex h-9 items-center justify-center rounded-sm p-1',
         props.class,
       )}
     >
