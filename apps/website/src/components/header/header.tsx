@@ -59,10 +59,10 @@ export default component$(
     return (
       <header
         class={[
-          `bg-background xs:gap-8 sticky top-0 z-20 flex h-20 w-full items-center gap-6 border-b-[1px] p-4 md:h-20`,
-          `shadow-light-low dark:shadow-dark-medium`,
+          `bg-background xs:gap-8 sticky top-0 z-20 flex h-20 w-full items-center gap-6 border-b p-4 shadow-sm md:h-20`,
+          `shadow-md`,
           rootStore.isSidebarOpened ? '' : 'bg-[var(--color-bg)]',
-          showBottomBorder ? `shadow-light-low dark:shadow-dark-medium` : ``,
+          showBottomBorder ? `shadow-md` : ``,
         ]}
       >
         <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">

@@ -2,30 +2,118 @@
 @tailwind base;
 @tailwind utilities;
 
+/* @layer base {
+  :root {
+    --neutral-50: #f6f7f9;
+    --neutral-100: #eceef2;
+    --neutral-200: #d5d9e2;
+    --neutral-300: #b1bbc8;
+    --neutral-400: #8695aa;
+    --neutral-500: #64748b;
+    --neutral-600: #526077;
+    --neutral-700: #434e61;
+    --neutral-800: #3a4252;
+    --neutral-900: #343a46;
+    --neutral-950: #23272e;
+    --primary-50: #effaff;
+    --primary-100: #def3ff;
+    --primary-200: #b6eaff;
+    --primary-300: #76dbff;
+    --primary-400: #2dcaff;
+    --primary-500: #02b9fc;
+    --primary-600: #0090d2;
+    --primary-700: #0073aa;
+    --primary-800: #00618c;
+    --primary-900: #075073;
+    --primary-950: #04334d;
+    --secondary-50: #f9f5ff;
+    --secondary-100: #f2e8ff;
+    --secondary-200: #e7d6fe;
+    --secondary-300: #d4b5fd;
+    --secondary-400: #b985fb;
+    --secondary-500: #9f57f5;
+    --secondary-600: #8935e8;
+    --secondary-700: #7424cc;
+    --secondary-800: #6423a6;
+    --secondary-900: #521d86;
+    --secondary-950: #360863;
+    --warning-50: #fefde8;
+    --warning-100: #fffcc2;
+    --warning-200: #fff687;
+    --warning-300: #ffe943;
+    --warning-400: #ffd60a;
+    --warning-500: #efbe03;
+    --warning-600: #ce9300;
+    --warning-700: #a46804;
+    --warning-800: #88510b;
+    --warning-900: #734210;
+    --warning-950: #432205;
+    --danger-50: #fdf3f3;
+    --danger-100: #fbe5e5;
+    --danger-200: #f8d0d0;
+    --danger-300: #f3aeae;
+    --danger-400: #e98080;
+    --danger-500: #dc5757;
+    --danger-600: #c83a3a;
+    --danger-700: #a82d2d;
+    --danger-800: #8b2929;
+    --danger-900: #742828;
+    --danger-950: #3d1010;
+    --success-green-50: #f1fcf4;
+    --success-green-100: #defae7;
+    --success-green-200: #bef4cf;
+    --success-green-300: #8ce9aa;
+    --success-green-400: #52d67d;
+    --success-green-500: #2bbc5a;
+    --success-green-600: #1e9b47;
+    --success-green-700: #1b7a3a;
+    --success-green-800: #1a6132;
+    --success-green-900: #164b29;
+    --success-green-950: #072c15;
+    
+    
+    --radius: 0.5rem;
+    --width: 2px;
+    --shadow: 0 0 0 1px hsl(var(--neutral))
+  }
+} */
+
 @layer base {
   :root {
+    /* colors */
     --background: 0 0% 100%;
     --foreground: 197 84% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 197 84% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 197 84% 0%;
-    --primary: 199 100% 41%;
-    --primary-foreground: 187 0% 100%;
-    --secondary: 263 74% 63%;
-    --secondary-foreground: 263 0% 100%;
     --muted: 187 0% 96%;
     --muted-foreground: 190 5% 33%;
     --accent: 187 0% 96%;
     --accent-foreground: 197 33% 0%;
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 187 40% 98%;
-    --border: 190 11% 67%;
+    --primary: 199 100% 41%;
+    --primary-foreground: 187 0% 100%;
+    --secondary: 263 74% 63%;
+    --secondary-foreground: 263 0% 100%;
+    --warning: 0 70% 50%;
+    --warning-foreground: 187 40% 98%;
+    --alert: 0 70% 50%;
+    --alert-foreground: 187 40% 98%;
+    --success: 0 70% 50%;
+    --success-foreground: 187 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 197 84% 0%;
     --input: 190 11% 67%;
     --ring: 197 100% 43%;
-    --radius: 0.5rem;
+    --border: 217 0% 0%;
+    --border-radius: 0rem;
+    --border-width: 1px;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   }
 
+  /* TODO: move into another theme */
   .dark {
     --background: 222 47% 11%;
     --foreground: 263 40% 98%;
@@ -43,9 +131,41 @@
     --accent-foreground: 250 40% 99%;
     --destructive: 0 64% 44%;
     --destructive-foreground: 250 40% 98%;
-    --border: 217 18% 33%;
+    --border: 217 0% 0%;
     --input: 217 18% 33%;
     --ring: 270 50% 56%;
+    --border-radius: 1rem;
+    --border-width: 2px;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  }
+}
+
+@layer components {
+  /* global */
+  .border-preset-radius {
+    @apply rounded-none;
+  }
+  .border-preset-width {
+    @apply border;
+  }
+  .preset-shadow {
+    @apply [shadow:4px_4px_0_0_#000000];
+  }
+  /* per component */
+  button.preset-animation {
+    @apply transition active:scale-90;
+  }
+  button.preset-animation:hover {
+    @apply;
+  }
+  input.animation {
+    @apply transition active:scale-90;
   }
 }
 

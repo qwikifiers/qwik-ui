@@ -35,7 +35,7 @@ export default component$(() => {
         placement="top"
         gutter={4}
         id="anchor-ref-id"
-        class="my-transition listbox shadow-dark-low rounded-md border-2 border-slate-300 bg-slate-800 !p-4 text-white"
+        class="my-transition listbox rounded-md border-2 border-slate-300 bg-slate-800 !p-4 text-white shadow-md"
       >
         I am anchored to the trigger!
       </Popover>

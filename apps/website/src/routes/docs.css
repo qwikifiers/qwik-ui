@@ -12,7 +12,7 @@
   }
 
   p code {
-    @apply shadow-dark-low dark:shadow-dark-low bg-muted border-border rounded border-b px-2 py-[2px];
+    @apply bg-muted border-border rounded border-b px-2 py-[2px] shadow-md;
   }
 
   ol li {

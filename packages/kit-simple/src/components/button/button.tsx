@@ -1,120 +1,85 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { component$, type QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
-import { VariantProps, cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-export const buttonVariants = cva(
-  `inline-flex items-center justify-center
-  text-sm font-medium ring-offset-background transition-colors
-  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
-  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`,
+const buttonVariants = cva(
+  [
+    'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+    'animation',
+  ],
   {
     variants: {
-      intent: {
-        basic: `text-foreground font-semibold py-2 px-4 border border-gray-300 
-           rounded hover:bg-accent hover:text-accent-foreground`,
-        primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/80',
+      color: {
+        primary: '',
+        secondary: '',
+        warning: '',
+        success: '',
+        danger: '',
       },
-      look: {
-        link: `border-transparent bg-transparent text-foreground 
-               hover:underline hover:bg-transparent shadow-none outline-current`,
-        ghost:
-          'border-transparent bg-transparent border hover:bg-accent hover:text-accent-foreground',
-        outline: 'bg-transparent border  hover:bg-accent  hover:text-accent-foreground',
-      },
-      shape: {
-        rounded: 'rounded',
-        circular: 'w-20 h-20 rounded-full',
-        square: 'w-20 h-20',
-      },
-      state: {
-        enabled: '',
-        active: 'bg-primary/90 text-white font-semibold py-2 px-4',
-        disabled:
-          'bg-gray-300 text-gray-500 font-semibold py-2 px-4 rounded pointer-events-none cursor-not-allowed',
-      },
-      animation: {
-        none: '',
-        bouncy: 'transition active:scale-90',
+      variant: {
+        solid: '',
+        subtle: '',
+        outline:
+          'border bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        sm: 'h-8 rounded-md px-3',
-        md: 'h-10 px-4 py-2',
-        lg: 'h-12 rounded-md px-8 text-lg',
+        xs: 'px-2 py-1.5 text-xs',
+        sm: 'px-2.5 py-2 text-sm',
+        md: 'px-4 py-3',
+        lg: ' px-8 py-4 text-lg',
         icon: 'h-10 w-10',
       },
     },
     defaultVariants: {
-      state: 'enabled',
-      intent: 'primary',
-      shape: 'rounded',
+      color: 'primary',
       size: 'md',
-      animation: 'bouncy',
+      variant: 'solid',
     },
     compoundVariants: [
       {
-        intent: 'primary',
-        look: ['outline', 'ghost'],
-        class: 'text-primary hover:text-primary dark:filter dark:brightness-200',
+        variant: 'solid',
+        color: 'primary',
+        class: 'bg-primary text-primary-foregorund hover:bg-primary/90',
       },
       {
-        intent: 'secondary',
-        look: ['outline', 'ghost'],
-        class: 'text-secondary hover:text-secondary dark:filter dark:brightness-200',
+        variant: 'solid',
+        color: 'secondary',
+        class: 'bg-secondary text-secondary-foregorund hover:bg-secondary/90',
       },
       {
-        intent: 'danger',
-        look: ['outline', 'ghost'],
-        class: 'text-destructive hover:text-destructive dark:filter dark:brightness-200',
+        variant: 'solid',
+        color: 'danger',
+        class: 'bg-destructive text-destructive-foregorund hover:bg-destructive/90',
       },
       {
-        intent: 'primary',
-        look: ['outline'],
-        class: 'border-primary',
+        variant: 'outline',
+        color: 'primary',
+        class: 'text-primary hover:text-primary-foreground border-primary',
       },
       {
-        intent: 'secondary',
-        look: ['outline'],
-        class: 'border-secondary',
+        variant: 'outline',
+        color: 'secondary',
+        class: 'text-secondary hover:text-secondary-foreground border-secondary',
       },
       {
-        intent: 'danger',
-        look: ['outline'],
-        class: 'border-destructive',
-      },
-      {
-        intent: 'basic',
-        look: ['outline'],
-        class: 'border-foreground',
+        variant: 'outline',
+        color: 'danger',
+        class: 'text-destructive hover:text-destructive-foreground border-destructive',
       },
     ],
   },
 );
 
-export type ButtonProps = PropsOf<'button'> & VariantProps<typeof buttonVariants>;
+type ButtonProps = QwikIntrinsicElements['button'] & VariantProps<typeof buttonVariants>;
 
-export const Button = component$<ButtonProps>(
-  ({ intent, size, look, shape, state, animation, ...props }) => {
-    return (
-      <button
-        class={cn(
-          buttonVariants({
-            intent,
-            size,
-            look,
-            shape,
-            state,
-            animation,
-          }),
-          props.class,
-        )}
-        {...props}
-      >
-        <Slot />
-      </button>
-    );
-  },
-);
+const Button = component$<ButtonProps>(({ variant, size, ...props }) => {
+  return (
+    <button {...props} class={cn(buttonVariants({ variant, size }), props.class)}>
+      <Slot />
+    </button>
+  );
+});
 
-export default Button;
+export { Button, buttonVariants };

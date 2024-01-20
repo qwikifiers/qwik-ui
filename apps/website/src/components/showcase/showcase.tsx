@@ -30,7 +30,7 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   return !props.vertical ? (
     <Tabs
       {...props}
-      class="shadow-light-medium dark:shadow-dark-medium mb-12 rounded-xl "
+      class="mb-12 rounded-xl shadow-lg "
       selectedClassName="bg-primary hover:bg-primary text-primary-foreground hover:text-primary-foreground  border-t-1 font-medium "
     >
       <TabList class="bg-accent flex rounded-t-xl border border-b-0">
@@ -41,7 +41,7 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
           Code
         </Tab>
       </TabList>
-      <TabPanel class="shadow-light-medium dark:shadow-dark-medium rounded-b-xl border p-8 md:p-24">
+      <TabPanel class="rounded-b-xl border p-8 shadow-lg md:p-24">
         <section class="flex flex-col items-center">
           {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
         </section>
@@ -52,12 +52,12 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
     </Tabs>
   ) : (
     <div>
-      <section class="shadow-light-medium dark:shadow-dark-medium flex flex-col items-center rounded-t-xl border p-8">
+      <section class="flex flex-col items-center rounded-t-xl border p-8 shadow-lg">
         {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
       </section>
 
       <Highlight
-        class="shadow-light-medium dark:shadow-dark-medium rounded-none rounded-b-xl border p-8"
+        class="rounded-none rounded-b-xl border p-8 shadow-lg"
         code={componentCodeSig.value || ''}
       />
     </div>

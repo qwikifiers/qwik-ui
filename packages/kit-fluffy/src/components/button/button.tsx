@@ -21,7 +21,7 @@ export const buttonVariants = cva(
                hover:underline hover:bg-transparent shadow-none outline-current`,
         ghost:
           'border-transparent bg-transparent border hover:bg-accent hover:text-accent-foreground',
-        outline: 'bg-transparent border  hover:bg-accent  hover:text-accent-foreground',
+        outline: 'bg-transparent border hover:bg-accent hover:text-accent-foreground',
       },
       shape: {
         rounded: 'rounded',

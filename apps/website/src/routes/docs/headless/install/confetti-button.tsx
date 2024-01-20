@@ -28,7 +28,7 @@ export const ConfettiButton = component$(() => {
               },
             });
           }}
-          class="shadow-dark-low z-1 relative h-[44px] rounded-lg bg-slate-700 px-3 font-bold text-white dark:bg-slate-600"
+          class="z-1 relative h-[44px] rounded-lg bg-slate-700 px-3 font-bold text-white shadow-md dark:bg-slate-600"
           id="add-confetti-button"
         >
           Woohoo! 🎉

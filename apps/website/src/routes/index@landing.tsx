@@ -29,7 +29,7 @@ export default component$(() => {
       <div class="mt-4 flex flex-wrap justify-center justify-items-center gap-14">
         <a
           href={`/docs/headless/introduction`}
-          class="ease-step shadow-light-medium dark:shadow-dark-high relative block rounded-b-xl rounded-t-md border-2 outline-1 duration-150 hover:scale-[1.025] focus:scale-[1.025]"
+          class="ease-step relative block rounded-b-xl rounded-t-md border-2 shadow-lg outline-1 duration-150 hover:scale-[1.025] focus:scale-[1.025]"
         >
           <Card class="max-w-[450px]">
             <CardImage
@@ -54,8 +54,8 @@ export default component$(() => {
         {featureFlags?.showFluffy && (
           <a
             href={`/docs/fluffy/introduction`}
-            class="ease-step shadow-light-medium dark:shadow-dark-high relative block
-          rounded-b-xl rounded-t-md border-2 duration-150 hover:scale-[1.025] focus:scale-[1.025]"
+            class="ease-step relative block rounded-b-xl
+          rounded-t-md border-2 shadow-lg duration-150 hover:scale-[1.025] focus:scale-[1.025]"
           >
             <Card class="max-w-[450px] overflow-hidden">
               <CardImage
