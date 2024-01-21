@@ -6,7 +6,9 @@ export const buttonVariants = cva(
   `inline-flex items-center justify-center
   text-sm font-medium ring-offset-background transition-colors
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
-  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`,
+  focus-visible:ring-offset-2 disabled:opacity-50
+  disabled:bg-gray-300 disabled:text-gray-500 disabled:font-semibold disabled:py-2
+  disabled:px-4 disabled:rounded disabled:pointer-events-none disabled:cursor-not-allowed`,
   {
     variants: {
       intent: {
@@ -28,12 +30,6 @@ export const buttonVariants = cva(
         circular: 'w-20 h-20 rounded-full',
         square: 'w-20 h-20',
       },
-      state: {
-        enabled: '',
-        active: 'bg-primary/90 text-white font-semibold py-2 px-4',
-        disabled:
-          'bg-gray-300 text-gray-500 font-semibold py-2 px-4 rounded pointer-events-none cursor-not-allowed',
-      },
       animation: {
         none: '',
         bouncy: 'transition active:scale-90',
@@ -46,7 +42,6 @@ export const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      state: 'enabled',
       intent: 'primary',
       shape: 'rounded',
       size: 'md',
@@ -95,7 +90,7 @@ export const buttonVariants = cva(
 export type ButtonProps = PropsOf<'button'> & VariantProps<typeof buttonVariants>;
 
 export const Button = component$<ButtonProps>(
-  ({ intent, size, look, shape, state, animation, ...props }) => {
+  ({ intent, size, look, shape, animation, ...props }) => {
     return (
       <button
         class={cn(
@@ -104,7 +99,6 @@ export const Button = component$<ButtonProps>(
             size,
             look,
             shape,
-            state,
             animation,
           }),
           props.class,
