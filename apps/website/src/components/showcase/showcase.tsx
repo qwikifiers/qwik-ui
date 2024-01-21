@@ -3,7 +3,7 @@ import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { Highlight } from '../highlight/highlight';
-import { metaGlobComponents, rawComponents } from './component-impots';
+import { metaGlobComponents, rawComponents } from './component-imports';
 
 type ShowcaseProps = PropsOf<'div'> & {
   name?: string;
@@ -57,7 +57,7 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
       </section>
 
       <Highlight
-        class="shadow-light-medium dark:shadow-dark-medium rounded-none rounded-b-xl border p-8"
+        class="shadow-light-medium dark:shadow-dark-medium rounded-b-xl rounded-t-none border p-8"
         code={componentCodeSig.value || ''}
       />
     </div>
