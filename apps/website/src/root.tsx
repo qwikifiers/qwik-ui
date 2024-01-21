@@ -1,4 +1,10 @@
-import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
+import {
+  component$,
+  useContextProvider,
+  useStore,
+  useStyles$,
+  useVisibleTask$,
+} from '@builder.io/qwik';
 import {
   QwikCityProvider,
   RouterOutlet,
@@ -7,7 +13,7 @@ import {
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
-import { useCSSTheme } from './_state/use-css-theme';
+import { THEME_STORAGE_KEY, useCSSTheme } from './_state/use-css-theme';
 import { OLD_APP_STATE_CONTEXT_ID } from './constants';
 import globalStyles from './global.css?inline';
 import { OldAppState } from './types';
@@ -31,6 +37,18 @@ export default component$(() => {
   });
 
   useContextProvider(APP_STATE_CONTEXT_ID, appState);
+
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(async () => {
+    const userStoredTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    if (userStoredTheme) {
+      appState.mode = userStoredTheme === 'dark' ? 'dark' : 'light';
+    } else {
+      appState.mode = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+    }
+  });
 
   // TODO: remove this old state once refactored
   const state = useStore<OldAppState>({

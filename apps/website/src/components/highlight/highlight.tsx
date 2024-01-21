@@ -55,7 +55,7 @@ export const Highlight = component$(
     );
 
     return (
-      <div class="code-example relative max-h-[31.25rem] rounded-b-xl">
+      <div class="code-example relative max-h-[31.25rem] rounded-b-sm">
         <CodeCopy
           class={[
             'absolute right-4 top-4 text-white hover:bg-slate-800 hover:text-white',
@@ -66,7 +66,7 @@ export const Highlight = component$(
         <div
           {...props}
           class={[
-            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-sm bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm',
+            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-b-sm bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm',
             props.class,
           ]}
         >

@@ -296,6 +296,9 @@ importers:
       tailwindcss:
         specifier: ^3.3.3
         version: 3.4.0(ts-node@10.9.1)
+      theme-change:
+        specifier: 2.5.0
+        version: 2.5.0
       ts-jest:
         specifier: ^29.1.0
         version: 29.1.1(@babel/core@7.23.7)(esbuild@0.19.11)(jest@29.7.0)(typescript@5.3.3)
@@ -20856,6 +20859,10 @@ packages:
 
   /text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
+    dev: true
+
+  /theme-change@2.5.0:
+    resolution: {integrity: sha512-B/UdsgdHAGhSKHTAQnxg/etN0RaMDpehuJmZIjLMDVJ6DGIliRHGD6pODi1CXLQAN9GV0GSyB3G6yCuK05PkPQ==}
     dev: true
 
   /thenify-all@1.6.0:
