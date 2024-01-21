@@ -1,18 +1,11 @@
-import { component$, Slot, useContext, useVisibleTask$ } from '@builder.io/qwik';
-import { OLD_APP_STATE_CONTEXT_ID } from '~/constants';
+import { component$, Slot } from '@builder.io/qwik';
 import Header from '~/components/header/header';
 import { useAppState } from '~/_state/use-app-state';
 import { Footer } from '~/components/footer/footer';
 import { DocsNavigation } from '~/components/navigation-docs/navigation-docs';
 
 export default component$(() => {
-  const state = useContext(OLD_APP_STATE_CONTEXT_ID);
   const rootStore = useAppState();
-
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    state.darkMode = localStorage.getItem('theme') === 'dark';
-  });
 
   return (
     <>

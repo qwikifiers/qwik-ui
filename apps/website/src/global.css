@@ -91,7 +91,7 @@
     --primary-foreground: 187 0% 100%;
     --secondary: 263 74% 63%;
     --secondary-foreground: 263 0% 100%;
-    --warning: 42 100% 53%;
+    --warning: 39 90% 50%;
     --warning-foreground: 0 0% 100%;
     --alert: 0 80% 54%;
     --alert-foreground: 0 0% 100%;
@@ -114,7 +114,7 @@
     --shadow-inner: inset 2px 2px 0px 0px rgba(0, 0, 0, 1);
   }
 
-  .dark {
+  .brutalist {
     /* colors */
     --background: 0 0% 100%;
     --foreground: 197 84% 0%;
@@ -149,7 +149,7 @@
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
   }
 
-  /* .dark {
+  .dark {
     --background: 222 47% 11%;
     --foreground: 263 40% 98%;
     --card: 222 47% 11%;
@@ -178,7 +178,7 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
-  } */
+  }
 }
 
 @layer components {
@@ -315,63 +315,12 @@
   --qwikui-slate-800: #1e293b;
   --qwikui-slate-900: #0f172a;
   --qwikui-slate-950: #020617;
-
-  /* light themed shadows */
-  --light-shadow-color: 0deg 0% 63%;
-  --light-shadow-elevation-low: 0.3px 0.5px 0.7px hsl(var(--light-shadow-color) / 0.34),
-    0.4px 0.8px 1px -1.2px hsl(var(--light-shadow-color) / 0.34),
-    1px 2px 2.5px -2.5px hsl(var(--light-shadow-color) / 0.34);
-  --light-shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--light-shadow-color) / 0.36),
-    0.8px 1.6px 2px -0.8px hsl(var(--light-shadow-color) / 0.36),
-    2.1px 4.1px 5.2px -1.7px hsl(var(--light-shadow-color) / 0.36),
-    5px 10px 12.6px -2.5px hsl(var(--light-shadow-color) / 0.36);
-  --light-shadow-elevation-high: 0.3px 0.5px 0.7px hsl(var(--light-shadow-color) / 0.3),
-    1.3px 2.6px 3.3px -0.3px hsl(var(--light-shadow-color) / 0.3),
-    2.4px 4.8px 6px -0.6px hsl(var(--light-shadow-color) / 0.3),
-    3.7px 7.5px 9.4px -0.9px hsl(var(--light-shadow-color) / 0.3),
-    5.7px 11.3px 14.2px -1.2px hsl(var(--light-shadow-color) / 0.3),
-    8.5px 16.9px 21.3px -1.6px hsl(var(--light-shadow-color) / 0.3),
-    12.4px 24.9px 31.3px -1.9px hsl(var(--light-shadow-color) / 0.3),
-    17.8px 35.7px 44.9px -2.2px hsl(var(--light-shadow-color) / 0.3),
-    25px 50px 62.9px -2.5px hsl(var(--light-shadow-color) / 0.3);
-
-  /* dark themed shadows */
-  --dark-shadow-color: 218deg 49% 7%;
-  --dark-shadow-elevation-low: 0.4px 0.6px 0.8px hsl(var(--dark-shadow-color) / 0.34),
-    0.7px 1px 1.4px -1.2px hsl(var(--dark-shadow-color) / 0.34),
-    1.7px 2.5px 3.4px -2.5px hsl(var(--dark-shadow-color) / 0.34);
-  --dark-shadow-elevation-medium: 0.4px 0.6px 0.8px hsl(var(--dark-shadow-color) / 0.36),
-    1.4px 2px 2.7px -0.8px hsl(var(--dark-shadow-color) / 0.36),
-    3.5px 5.1px 7px -1.7px hsl(var(--dark-shadow-color) / 0.36),
-    8.6px 12.3px 16.9px -2.5px hsl(var(--dark-shadow-color) / 0.36);
-  --dark-shadow-elevation-high: 0.4px 0.6px 0.8px hsl(var(--dark-shadow-color) / 0.3),
-    2.3px 3.2px 4.4px -0.3px hsl(var(--dark-shadow-color) / 0.3),
-    4.1px 5.8px 8px -0.6px hsl(var(--dark-shadow-color) / 0.3),
-    6.4px 9.2px 12.6px -0.9px hsl(var(--dark-shadow-color) / 0.3),
-    9.8px 13.9px 19.1px -1.2px hsl(var(--dark-shadow-color) / 0.3),
-    14.6px 20.8px 28.6px -1.6px hsl(var(--dark-shadow-color) / 0.3),
-    21.4px 30.6px 42px -1.9px hsl(var(--dark-shadow-color) / 0.3),
-    30.8px 43.9px 60.3px -2.2px hsl(var(--dark-shadow-color) / 0.3),
-    43.1px 61.5px 84.5px -2.5px hsl(var(--dark-shadow-color) / 0.3);
-}
-
-.light {
-  --bg: rgb(255, 255, 255);
-  --text: var(--qwikui-slate-950);
-}
-
-.dark {
-  --bg: var(--qwikui-slate-800);
-  --text: #fff;
 }
 
 html {
   height: 100%;
   min-height: 100%;
   scroll-behavior: smooth;
-
-  background-color: var(--bg) !important;
-  color: var(--text) !important;
 }
 
 body {
