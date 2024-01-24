@@ -233,10 +233,11 @@ export default component$(() => {
               })}
             </div>
           </div>
-
           <div>
-            <label class="mb-1 mt-8 block font-medium">High Contrast</label>
-            <button
+            <label class="mb-1 mt-8 block font-medium">Contrast</label>
+            High Contrast{' '}
+            <input
+              type="checkbox"
               onClick$={async () => {
                 themeStore.contrast =
                   themeStore.contrast === 'high-contrast'
@@ -246,9 +247,21 @@ export default component$(() => {
                 console.log(themeStore.contrast);
                 setTheme(await themeStoreToThemeClasses());
               }}
-            >
-              test
-            </button>
+            />
+          </div>
+
+          <div>
+            <label class="mb-1 mt-8 block font-medium">Contrast</label>
+            Dark Mode{' '}
+            <input
+              type="checkbox"
+              onClick$={async () => {
+                themeStore.mode = themeStore.mode === 'light' ? 'dark' : 'light';
+
+                console.log(themeStore.mode);
+                setTheme(await themeStoreToThemeClasses());
+              }}
+            />
           </div>
           {/* TODO: move into a Modal */}
           {/* <pre>

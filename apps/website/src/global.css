@@ -26,7 +26,7 @@
   }
 
   .brutalist {
-    --border-width: 2px;
+    --border-width: 4px;
     --shadow-sm: -2px 3px 0px 0 rgba(0, 0, 0, 1);
     --shadow: 4px 5px 0px 0 rgba(0, 0, 0, 1);
     --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
@@ -115,6 +115,7 @@
     --ring: 270 50% 56%;
   }
 
+  /* specificity hack */
   .light.high-contrast.high-contrast {
     --foreground: 0 0% 0%;
     --card-foreground: 0 0% 0%;
@@ -129,15 +130,16 @@
     --ring: 0 0% 0%;
   }
 
+  /* specificity hack */
   .dark.high-contrast.high-contrast {
     --foreground: 0 0% 100%;
     --card-foreground: 0 0% 100%;
     --popover-foreground: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
-    --secondary-foreground: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --secondary-foreground: 0 0% 100%;
     --muted-foreground: 0 0% 100%;
     --accent-foreground: 0 0% 100%;
-    --destructive-foreground: 0 0% 0%;
+    --destructive-foreground: 0 0% 100%;
     --border: 0 0% 100%;
     --input: 0 0% 100%;
     --ring: 0 0% 100%;
