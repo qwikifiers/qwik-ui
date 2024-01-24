@@ -12,7 +12,7 @@ export default component$(() => {
       </PopoverTrigger>
       {/* slate gets overrided */}
       <Popover
-        class="shadow-dark-medium rounded-sm border-2 border-red-200 bg-slate-600 px-3 py-1 [&[popover]]:bg-red-900"
+        class="rounded-sm border-2 border-red-200 bg-slate-600 px-3 py-1 shadow-md [&[popover]]:bg-red-900"
         id="styling-id"
       >
         Popover

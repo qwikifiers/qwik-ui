@@ -16,6 +16,7 @@ import { Logo } from '../icons/logo';
 import { useSelectedKit } from '~/routes/docs/use-selected-kit';
 
 import { useTheme } from 'qwik-themes';
+import MakeItYours from '../make-it-yours/make-it-yours';
 
 export interface HeaderProps {
   showVersion?: boolean;
@@ -101,11 +102,11 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         </a>
         {/* <a href="/contact">Contact</a> */}
       </nav>
-      {theme}
+      <MakeItYours />
       <button
         type="button"
         aria-label="Toggle dark mode"
-        onClick$={() => (theme === 'light' ? setTheme('brutalist') : setTheme('dark'))}
+        onClick$={() => (theme === 'light' ? setTheme('dark') : setTheme('light'))}
       >
         <div class="hidden dark:block">
           <MoonIcon />

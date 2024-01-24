@@ -41,7 +41,7 @@ export default component$(() => {
   return (
     <div class="relative">
       {isPokemonCaught.value && (
-        <p class="shadow-dark-medium bg-background absolute w-full translate-x-[-105%] rounded-sm border-2 p-4">
+        <p class="bg-background absolute w-full translate-x-[-105%] rounded-sm border-2 p-4 shadow-md">
           You've already caught this pokemon!
         </p>
       )}

@@ -20,7 +20,7 @@ export default component$(() => {
 
           <Popover
             id={popover.id}
-            class="shadow-dark-medium py- rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1"
+            class="py- rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1 shadow-md"
             style={{ top: `${index * 20}px` }}
           >
             {popover.content}

@@ -16,7 +16,7 @@ export default component$(() => {
       </button>
       <Modal
         bind:show={showSig}
-        class="shadow-dark-medium my-backdrop bg-background text-foreground max-w-[25rem] rounded-sm p-[28px]"
+        class="my-backdrop bg-background text-foreground max-w-[25rem] rounded-sm p-[28px] shadow-md"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>

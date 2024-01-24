@@ -13,7 +13,7 @@ export default component$(() => {
       </PopoverTrigger>
       <Popover
         id="example-id"
-        class="shadow-dark-medium rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1"
+        class="rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1 shadow-md"
       >
         Popover
       </Popover>

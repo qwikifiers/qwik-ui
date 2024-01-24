@@ -18,7 +18,7 @@ export default component$(() => {
       </button>
       <Popover
         id="programmatic-id"
-        class="shadow-dark-medium rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1 opacity-0"
+        class="rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1 opacity-0 shadow-md"
       >
         I was programmatically opened!
       </Popover>

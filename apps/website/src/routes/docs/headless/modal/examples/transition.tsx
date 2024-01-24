@@ -35,7 +35,7 @@ export default component$(() => {
       </button>
       <Modal
         bind:show={showSig}
-        class="my-transition shadow-dark-medium bg-background text-foreground max-w-[25rem] rounded-sm p-[28px]"
+        class="my-transition bg-background text-foreground max-w-[25rem] rounded-sm p-[28px] shadow-md"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>

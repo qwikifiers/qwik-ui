@@ -1,7 +1,7 @@
-import { component$, Slot, useContext, $, useOnWindow } from '@builder.io/qwik';
+import { component$, Slot, useContext, $, useOnWindow, PropsOf } from '@builder.io/qwik';
 import { collapsibleContextId } from './collapsible-context-id';
 
-export const CollapsibleTrigger = component$((props) => {
+export const CollapsibleTrigger = component$<PropsOf<'button'>>((props) => {
   const context = useContext(collapsibleContextId);
   const contentId = `${context.itemId}-content`;
 

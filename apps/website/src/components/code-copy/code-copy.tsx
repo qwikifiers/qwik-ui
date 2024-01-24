@@ -7,36 +7,38 @@ export type CodeCopyProps = PropsOf<typeof Button> & {
   code?: string;
 };
 
-export const CodeCopy = component$(({ code = '', class: outsideClass, ...props }) => {
-  const copied = useSignal(false);
+export const CodeCopy = component$<CodeCopyProps>(
+  ({ code = '', class: outsideClass, ...props }) => {
+    const copied = useSignal(false);
 
-  return (
-    <Button
-      {...props}
-      look="ghost"
-      intent="basic"
-      animation={'none'}
-      title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
-      class={cn(outsideClass)}
-      onClick$={async () => {
-        await copy(code);
-        copied.value = true;
+    return (
+      <Button
+        {...props}
+        look="ghost"
+        intent="basic"
+        animation={'none'}
+        title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
+        class={cn(outsideClass)}
+        onClick$={async () => {
+          await copy(code);
+          copied.value = true;
 
-        setTimeout(() => {
-          copied.value = false;
-        }, 4000);
-      }}
-    >
-      {!copied.value ? (
-        <CopyIcon />
-      ) : (
-        <div class="flex gap-1">
-          copied <ClipboardCheck />
-        </div>
-      )}
-    </Button>
-  );
-});
+          setTimeout(() => {
+            copied.value = false;
+          }, 4000);
+        }}
+      >
+        {!copied.value ? (
+          <CopyIcon />
+        ) : (
+          <div class="flex gap-1">
+            copied <ClipboardCheck />
+          </div>
+        )}
+      </Button>
+    );
+  },
+);
 
 export function CopyIcon(props: PropsOf<'svg'> & { color?: string }, key: string) {
   return (

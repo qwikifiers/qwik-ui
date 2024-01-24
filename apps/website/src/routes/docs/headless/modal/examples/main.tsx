@@ -15,7 +15,7 @@ export default component$(() => {
       <Modal
         bind:show={showSig}
         /* animation snippet in the animation section */
-        class="my-animation shadow-dark-medium bg-background text-foreground max-w-[25rem] rounded-sm p-[28px] backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
+        class="my-animation bg-background text-foreground max-w-[25rem] rounded-sm p-[28px] shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>

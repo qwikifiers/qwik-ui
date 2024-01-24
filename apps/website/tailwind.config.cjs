@@ -139,7 +139,6 @@ module.exports = {
         4: 'calc(var(--border-width) + 4px)',
         8: 'calc(var(--border-width) + 8px)',
       },
-      // brutalist shadows
       boxShadow: {
         sm: 'var(--shadow-sm)',
         DEFAULT: 'var(--shadow)',

@@ -44,7 +44,20 @@ export default component$(() => {
           'overflow-y-hidden': appState.isSidebarOpened,
         }}
       >
-        <ThemeProvider attribute="class" themes={['light', 'brutalist', 'dark']}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          disableTransitionOnChange
+          themes={[
+            'simple',
+            'brutalist',
+            'skeuomorphic',
+            'light',
+            'dark',
+            'zinc',
+            'high-contrast',
+          ]}
+        >
           <RouterOutlet />
         </ThemeProvider>
       </body>
