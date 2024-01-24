@@ -10,7 +10,7 @@ import {
 export const MDXContext = createContextId<Components>('MDXContext');
 
 export interface Components {
-  [tag: string]: Component<any>;
+  [tag: string]: Component<unknown>;
 }
 
 /**

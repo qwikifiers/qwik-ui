@@ -11,6 +11,13 @@ import globalStyles from './global.css?inline';
 import { RouterHead } from './components/router-head/router-head';
 
 import { ThemeProvider } from 'qwik-themes';
+import {
+  borderRadiusOptions,
+  colorThemeOptions,
+  contrastOptions,
+  modeOptions,
+  styleOptions,
+} from './_state/make-it-yours';
 
 export default component$(() => {
   /**
@@ -49,13 +56,11 @@ export default component$(() => {
           defaultTheme="system"
           disableTransitionOnChange
           themes={[
-            'simple',
-            'brutalist',
-            'skeuomorphic',
-            'light',
-            'dark',
-            'zinc',
-            'high-contrast',
+            ...modeOptions,
+            ...styleOptions,
+            ...colorThemeOptions,
+            ...borderRadiusOptions,
+            ...contrastOptions,
           ]}
         >
           <RouterOutlet />

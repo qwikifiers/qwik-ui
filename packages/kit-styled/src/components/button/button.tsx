@@ -16,7 +16,7 @@ const buttonVariants = cva(
       },
       look: {
         solid: 'shadow focus-visible:ring-offset-1',
-        outline: 'bg-background border hover:bg-accent',
+        outline: 'bg-background text-foreground border hover:bg-accent',
         ghost: 'bg-transparent text-accent-foreground hover:bg-accent',
         link: 'bg-transparent text-primary underline-offset-4 hover:underline hover:bg-transparent',
       },
@@ -33,23 +33,6 @@ const buttonVariants = cva(
       size: 'md',
       look: 'solid',
     },
-    compoundVariants: [
-      {
-        look: 'outline',
-        color: 'primary',
-        class: 'text-primary',
-      },
-      {
-        look: 'outline',
-        color: 'secondary',
-        class: 'text-secondary',
-      },
-      {
-        look: 'outline',
-        color: 'alert',
-        class: 'text-alert',
-      },
-    ],
   },
 );
 
