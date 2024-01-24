@@ -1,114 +1,66 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
-import { VariantProps, cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-export const buttonVariants = cva(
-  `inline-flex items-center justify-center
-  text-sm font-medium ring-offset-background transition-colors
-  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
-  focus-visible:ring-offset-2 disabled:opacity-50
-  disabled:bg-gray-300 disabled:text-gray-500 disabled:font-semibold disabled:py-2
-  disabled:px-4 disabled:rounded disabled:pointer-events-none disabled:cursor-not-allowed`,
+const buttonVariants = cva(
+  'inline-flex items-center justify-center text-sm font-medium rounded-sm qwik-ui-animation disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1',
   {
     variants: {
-      intent: {
-        basic: `text-foreground font-semibold py-2 px-4 border border-gray-300 
-           rounded hover:bg-accent hover:text-accent-foreground`,
-        primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/80',
+      color: {
+        primary:
+          'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/80',
+        secondary:
+          'bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:ring-secondary/80',
+        alert:
+          'bg-alert text-alert-foreground hover:bg-alert/90 focus-visible:ring-alert/80',
       },
       look: {
-        link: `border-transparent bg-transparent text-foreground 
-               hover:underline hover:bg-transparent shadow-none outline-current`,
-        ghost:
-          'border-transparent bg-transparent border hover:bg-accent hover:text-accent-foreground',
-        outline: 'bg-transparent border  hover:bg-accent  hover:text-accent-foreground',
-      },
-      shape: {
-        rounded: 'rounded',
-        circular: 'w-20 h-20 rounded-full',
-        square: 'w-20 h-20',
-      },
-      animation: {
-        none: '',
-        bouncy: 'transition active:scale-90',
+        solid: 'shadow focus-visible:ring-offset-1',
+        outline: 'bg-background border hover:bg-accent',
+        ghost: 'bg-transparent text-accent-foreground hover:bg-accent',
+        link: 'bg-transparent text-primary underline-offset-4 hover:underline hover:bg-transparent',
       },
       size: {
-        sm: 'h-8 rounded-md px-3',
-        md: 'h-10 px-4 py-2',
-        lg: 'h-12 rounded-md px-8 text-lg',
+        xs: 'px-2 py-1.5 text-xs',
+        sm: 'px-2.5 py-2 text-sm',
+        md: 'px-4 py-3',
+        lg: ' px-8 py-4 text-lg',
         icon: 'h-10 w-10',
       },
     },
     defaultVariants: {
-      intent: 'primary',
-      shape: 'rounded',
+      color: 'primary',
       size: 'md',
-      animation: 'bouncy',
+      look: 'solid',
     },
     compoundVariants: [
       {
-        intent: 'primary',
-        look: ['outline', 'ghost'],
-        class: 'text-primary hover:text-primary dark:filter dark:brightness-200',
+        look: 'outline',
+        color: 'primary',
+        class: 'text-primary',
       },
       {
-        intent: 'secondary',
-        look: ['outline', 'ghost'],
-        class: 'text-secondary hover:text-secondary dark:filter dark:brightness-200',
+        look: 'outline',
+        color: 'secondary',
+        class: 'text-secondary',
       },
       {
-        intent: 'danger',
-        look: ['outline', 'ghost'],
-        class: 'text-destructive hover:text-destructive dark:filter dark:brightness-200',
-      },
-      {
-        intent: 'primary',
-        look: ['outline'],
-        class: 'border-primary',
-      },
-      {
-        intent: 'secondary',
-        look: ['outline'],
-        class: 'border-secondary',
-      },
-      {
-        intent: 'danger',
-        look: ['outline'],
-        class: 'border-destructive',
-      },
-      {
-        intent: 'basic',
-        look: ['outline'],
-        class: 'border-foreground',
+        look: 'outline',
+        color: 'alert',
+        class: 'text-alert',
       },
     ],
   },
 );
 
-export type ButtonProps = PropsOf<'button'> & VariantProps<typeof buttonVariants>;
+type ButtonProps = PropsOf<'button'> & VariantProps<typeof buttonVariants>;
 
-export const Button = component$<ButtonProps>(
-  ({ intent, size, look, shape, animation, ...props }) => {
-    return (
-      <button
-        class={cn(
-          buttonVariants({
-            intent,
-            size,
-            look,
-            shape,
-            animation,
-          }),
-          props.class,
-        )}
-        {...props}
-      >
-        <Slot />
-      </button>
-    );
-  },
-);
+const Button = component$<ButtonProps>(({ color, size, look, ...props }) => {
+  return (
+    <button {...props} class={cn(buttonVariants({ color, size, look }), props.class)}>
+      <Slot />
+    </button>
+  );
+});
 
-export default Button;
+export { Button, buttonVariants };
