@@ -1,5 +1,5 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { QWIK_UI_CONFIG_FILENAME } from '../../_shared/config-filenames';
+import { StyledTheme } from '../../_shared/styled-theme.enum';
 import { SetupTailwindGeneratorSchema } from './schema';
 import { setupTailwindGenerator } from './setup-tailwind-generator';
 
@@ -7,13 +7,6 @@ describe('Setup Tailwind generator', () => {
   function setupWithProperFiles() {
     const options: SetupTailwindGeneratorSchema = {};
     const tree = createTreeWithEmptyWorkspace();
-
-    tree.write(
-      QWIK_UI_CONFIG_FILENAME,
-      JSON.stringify({
-        styledKit: 'fluffy',
-      }),
-    );
 
     tree.write(
       'src/global.css',
@@ -74,6 +67,7 @@ html {
     const { tree, options } = setupWithProperFiles();
 
     options.rootCssPath = 'src/global.css';
+    options.styledTheme = StyledTheme.FLUFFY;
 
     await setupTailwindGenerator(tree, options);
 
