@@ -133,7 +133,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
         const tabId: string = tabIdFromTabMaybe || child.key || `${panelIndex}`;
 
         if (label) {
-          tabComponents.push(<Tab>{label}</Tab>);
+          tabComponents.push((<Tab>{label}</Tab>) as JSXNode<typeof Tab>);
         }
         if (selected) {
           selectedIndex = panelIndex;
@@ -188,7 +188,7 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
     tabListComponent.props.children = tabComponents;
   } else {
     // Creating it as <TabList /> and adding children later doesn't work
-    tabListComponent = <TabList>{tabComponents}</TabList>;
+    tabListComponent = (<TabList>{tabComponents}</TabList>) as JSXNode<typeof TabList>;
   }
 
   if (typeof selectedIndex === 'number') {
