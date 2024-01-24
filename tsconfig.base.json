@@ -17,6 +17,7 @@
     "paths": {
       "~/*": ["apps/website/src/*"],
       "@qwik-ui/fluffy": ["packages/kit-fluffy/src/index.ts"],
+      "@qwik-ui/styled": ["packages/kit-styled/src/index.ts"],
       "@qwik-ui/headless": ["packages/kit-headless/src/index.ts"],
       "@qwik-ui/utils": ["packages/utils/src/index.ts"]
     }

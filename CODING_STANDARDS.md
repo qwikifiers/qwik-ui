@@ -64,7 +64,7 @@ export type TooltipProps = PropsOf<'div'> & {
 };
 ```
 
-For **Fluffy, Material and other components variations**, you can define the new props in a new type, named with the component name and the variation as prefix. For example:
+For the **styled** components, you can define the new props in a new type, named with the component name and the variation as prefix. For example:
 
 ```ts
 type TailwindTooltipProps = {
