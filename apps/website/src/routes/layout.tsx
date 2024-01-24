@@ -5,12 +5,12 @@ import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-sta
 import { KitName } from '~/_state/kit-name.type';
 import { useAppState } from '~/_state/use-app-state';
 import Header from '~/components/header/header';
-import docsStyles from './docs.css?inline';
 import {
   DocsNavigation,
   LinkGroup,
   LinkProps,
 } from '~/components/navigation-docs/navigation-docs';
+import docsStyles from './docs.css?inline';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
@@ -57,8 +57,8 @@ function useKitMenuItems() {
     );
   }
 
-  if (selectedKitSig.value === KitName.FLUFFY) {
-    menuItemsGroups = decorateMenuItemsWithBadges(menu?.items, statusByComponent.fluffy);
+  if (selectedKitSig.value === KitName.STYLED) {
+    menuItemsGroups = decorateMenuItemsWithBadges(menu?.items, statusByComponent.styled);
   }
 
   return {

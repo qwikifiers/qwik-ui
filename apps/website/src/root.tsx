@@ -7,8 +7,8 @@ import {
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
-import globalStyles from './global.css?inline';
 import { RouterHead } from './components/router-head/router-head';
+import globalStyles from './global.css?inline';
 
 import { ThemeProvider } from 'qwik-themes';
 import {
@@ -31,7 +31,7 @@ export default component$(() => {
   const appState = useStore<AppState>({
     isSidebarOpened: false,
     featureFlags: {
-      showFluffy: import.meta.env.DEV,
+      showStyled: import.meta.env.DEV,
     },
   });
 

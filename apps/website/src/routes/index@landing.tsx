@@ -36,7 +36,7 @@ export default component$(() => {
               src={`/images/qwik-ui-headless-hero.webp`}
               width="611"
               height="408"
-              alt={`fluffy kit`}
+              alt={`styled kit`}
               class="h-64 w-full rounded-t-sm object-cover"
             />
             <CardBody class={`border-t- px-8 py-6`}>
@@ -51,9 +51,9 @@ export default component$(() => {
             </CardBody>
           </Card>
         </a>
-        {featureFlags?.showFluffy && (
+        {featureFlags?.showStyled && (
           <a
-            href={`/docs/fluffy/introduction`}
+            href={`/docs/styled/introduction`}
             class="ease-step relative block rounded-b-xl
           rounded-t-md border-2 shadow-lg duration-150 hover:scale-[1.025] focus:scale-[1.025]"
           >
@@ -62,12 +62,12 @@ export default component$(() => {
                 src={`/images/qwik-ui-fluffy-creature-screen.webp`}
                 width="611"
                 height="408"
-                alt={`fluffy kit`}
+                alt={`styled kit`}
                 class="h-64 rounded-t-sm object-cover"
               />
               <CardBody class={`border-t- bg-transparent px-8 py-6`}>
                 <CardTitle class="flex items-center justify-between text-xl font-bold">
-                  <span>Fluffy (Styled) Qwik Components</span>
+                  <span>Styled Qwik Components</span>
                 </CardTitle>
                 <p class="mt-2 leading-normal">
                   A collection of beautifully crafted, <strong>copy paste</strong> Qwik

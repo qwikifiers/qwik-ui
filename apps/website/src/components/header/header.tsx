@@ -6,14 +6,14 @@ import { useLocation } from '@builder.io/qwik-city';
 import { KitName } from '~/_state/kit-name.type';
 import { useAppState } from '~/_state/use-app-state';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { version as fluffyVersion } from '../../../../../packages/kit-fluffy/package.json';
+import { useSelectedKit } from '~/routes/docs/use-selected-kit';
+import { version as styledKitVersion } from '../../../../../packages/kit-styled/package.json';
 import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
 import { MenuIcon } from '../icons/MenuIcon';
 import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
 import { Logo } from '../icons/logo';
-import { useSelectedKit } from '~/routes/docs/use-selected-kit';
 
 import { useTheme } from 'qwik-themes';
 import MakeItYours from '../make-it-yours/make-it-yours';
@@ -47,10 +47,10 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         version: headlessVersion,
       };
     }
-    if (selectedKitSig.value === KitName.FLUFFY) {
+    if (selectedKitSig.value === KitName.STYLED) {
       return {
-        name: 'Fluffy',
-        version: fluffyVersion,
+        name: 'Styled',
+        version: styledKitVersion,
       };
     }
   });
@@ -88,9 +88,9 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         <a class={isDocsActive('/docs/headless/')} href="/docs/headless/introduction">
           Headless Kit
         </a>
-        {rootStore.featureFlags?.showFluffy && (
-          <a class={isDocsActive('/docs/fluffy/')} href="/docs/fluffy/introduction">
-            Fluffy (styled) Kit
+        {rootStore.featureFlags?.showStyled && (
+          <a class={isDocsActive('/docs/styled/')} href="/docs/styled/introduction">
+            Styled Kit
           </a>
         )}
         <a

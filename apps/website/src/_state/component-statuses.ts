@@ -5,12 +5,12 @@ export interface ComponentsStatusesMap {
 }
 
 export type ComponentKitsStatuses = {
-  fluffy: ComponentsStatusesMap;
+  styled: ComponentsStatusesMap;
   headless: ComponentsStatusesMap;
 };
 
 export const statusByComponent: ComponentKitsStatuses = {
-  fluffy: {
+  styled: {
     Badge: ComponentStatus.Beta,
     Button: ComponentStatus.Beta,
     Pagination: ComponentStatus.Draft,

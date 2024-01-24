@@ -1,7 +1,7 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { Card, CardBody, CardImage, CardTitle } from '@qwik-ui/headless';
 export interface Kit {
-  kit: 'headless' | 'fluffy';
+  kit: 'headless' | 'styled';
 }
 export default component$(({ kit }: Kit) => {
   return (

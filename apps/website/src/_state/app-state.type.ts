@@ -1,6 +1,6 @@
 export interface AppState {
   isSidebarOpened: boolean;
   featureFlags?: {
-    showFluffy?: boolean;
+    showStyled?: boolean;
   };
 }

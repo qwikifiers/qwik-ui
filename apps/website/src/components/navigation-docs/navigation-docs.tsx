@@ -3,8 +3,8 @@ import { useLocation } from '@builder.io/qwik-city';
 import { ComponentStatus } from '~/_state/component-status.type';
 import { KitName } from '~/_state/kit-name.type';
 import { useAppState } from '~/_state/use-app-state';
-import { StatusBadge } from '../component-status-badge/component-status-badge';
 import { useSelectedKit } from '../../routes/docs/use-selected-kit';
+import { StatusBadge } from '../component-status-badge/component-status-badge';
 
 export interface LinkGroup {
   name: string;
@@ -42,9 +42,9 @@ export const DocsNavigation = component$(({ linksGroups }: DocsNavigationProps) 
             <li class={linkStyles}>Headless Kit</li>
           </a>
         )}
-        {rootStore.featureFlags?.showFluffy &&
-          selectedKitSig.value !== KitName.FLUFFY && (
-            <a href="/docs/fluffy/introduction">
+        {rootStore.featureFlags?.showStyled &&
+          selectedKitSig.value !== KitName.STYLED && (
+            <a href="/docs/styled/introduction">
               <li class={linkStyles}>Styled Kit</li>
             </a>
           )}

@@ -23,7 +23,7 @@ describe('Qwik UI CLI Smoke test', () => {
 
   it('should be installed and add the button file', () => {
     execSync(
-      'npx -y qwik-ui@0.0.0-e2e init --e2e --projectRoot / --styledKit "fluffy" --uiComponentsPath "src/components/ui" --rootCssPath "src/global.css" --installTailwind --components=button',
+      'npx -y qwik-ui@0.0.0-e2e init --e2e --projectRoot / --styledTheme "fluffy" --uiComponentsPath "src/components/ui" --rootCssPath "src/global.css" --installTailwind --components=button',
       {
         cwd: projectDirectory,
         stdio: 'inherit',
