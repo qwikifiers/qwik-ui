@@ -5,7 +5,7 @@ import {
   COMPONENTS_REGISTRY_FILENAME,
   QWIK_UI_CONFIG_FILENAME,
 } from '../../_shared/config-filenames';
-import { getKitRoot } from '../../_shared/styled-kits';
+import { getKitRoot } from '../../_shared/get-kit-root';
 import { ComponentGeneratorSchema } from './schema';
 
 interface ComponentConfig {
@@ -33,7 +33,7 @@ export async function componentGenerator(tree: Tree, options: ComponentGenerator
     throw new Error(`Could not find componentsRoot in ${QWIK_UI_CONFIG_FILENAME}`);
   }
 
-  const kitRoot = getKitRoot(config.styledKit);
+  const kitRoot = getKitRoot();
 
   const componentsJsonPath = join(kitRoot, COMPONENTS_REGISTRY_FILENAME);
 

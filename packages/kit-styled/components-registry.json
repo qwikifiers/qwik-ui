@@ -1,0 +1,17 @@
+{
+  "componentsRoot": "src/components",
+  "components": [
+    {
+      "displayName": "Button",
+      "type": "button",
+      "componentFolder": "button",
+      "files": ["button.tsx"]
+    },
+    {
+      "displayName": "Input",
+      "type": "input",
+      "componentFolder": "input",
+      "files": ["input.tsx"]
+    }
+  ]
+}

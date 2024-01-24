@@ -3,7 +3,7 @@ import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
 import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
 import { Highlight } from '../highlight/highlight';
-import { metaGlobComponents, rawComponents } from './component-impots';
+import { metaGlobComponents, rawComponents } from './component-imports';
 
 type ShowcaseProps = PropsOf<'div'> & {
   name?: string;

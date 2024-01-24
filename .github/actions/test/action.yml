@@ -44,10 +44,6 @@ runs:
     #     storybookBuildDir: dist/storybook/headless
     #     zip: true
 
-    # - name: Build the fluffy kit
-    #   shell: bash
-    #   run: npx nx build fluffy
-
     # - name: Build
     #   shell: bash
     #   run: npx nx affected:build --base=last-release --exclude=website

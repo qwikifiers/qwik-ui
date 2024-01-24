@@ -63,7 +63,7 @@ pnpm dev
 
 - Visit the URL printed in the console and you'll have a page opened with the suite of widgets.
 
-- Once you made some changes in either package (`headless` or `fluffy`) or the documentation website (`apps/website`), you will see them immediately reflected on the page.
+- Once you made some changes in either package (`headless` or `styled`) or the documentation website (`apps/website`), you will see them immediately reflected on the page.
 
 Below is a list of other commands that you might find useful:
 

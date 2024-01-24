@@ -26,11 +26,11 @@ import {
   COMPONENTS_REGISTRY_FILENAME,
   QWIK_UI_CONFIG_FILENAME,
 } from '../src/_shared/config-filenames';
-import { StyledKit, styledPackagesMap } from '../src/_shared/styled-kits';
-import { QwikUIConfig } from '../types/qwik-ui-config.type';
+import { StyledTheme } from '../src/_shared/styled-theme.enum';
 
 const COMMANDS = ['init', 'add'];
 const listOfCommands = COMMANDS.join(', ');
+const styledPackage = '@qwik-ui/styled';
 
 main();
 
@@ -76,7 +76,7 @@ async function handleInit() {
         .option('styledKit', {
           description: 'Preferred styled kit',
           type: 'string',
-          choices: [StyledKit.FLUFFY, StyledKit.MINIMAL],
+          choices: [StyledTheme.FLUFFY, StyledTheme.MINIMAL],
         })
         .option('uiComponentsPath', {
           description: 'Generated components folder',
@@ -115,14 +115,14 @@ async function handleInit() {
 
   interface InitConfig {
     projectRoot?: string;
-    styledKit?: StyledKit;
+    styledKit?: StyledTheme;
     uiComponentsPath?: string;
     rootCssPath?: string;
   }
 
   const config: InitConfig = {
     projectRoot: args['projectRoot'] as string,
-    styledKit: args['styledKit'] as StyledKit,
+    styledKit: args['styledKit'] as StyledTheme,
     uiComponentsPath: args['uiComponentsPath'] as string,
     rootCssPath: args['rootCssPath'] as string,
   };
@@ -142,8 +142,8 @@ async function handleInit() {
         message: cyan('What is your preferred styled kit?'),
 
         options: [
-          { label: 'Fluffy', value: StyledKit.FLUFFY },
-          { label: 'Minimal', value: StyledKit.MINIMAL },
+          { label: 'Fluffy', value: StyledTheme.FLUFFY },
+          { label: 'Minimal', value: StyledTheme.MINIMAL },
         ],
         initialValue: 'fluffy',
       }),
@@ -210,7 +210,6 @@ async function handleInit() {
   );
 
   // INSTALL STYLED KIT
-  const styledPackage = styledPackagesMap[config.styledKit];
 
   const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
@@ -268,8 +267,7 @@ async function handleAdd(projectRoot?: string, componentsFromInit?: string) {
       `${QWIK_UI_CONFIG_FILENAME} not found, please run ${green('qwik-ui init')} first`,
     );
   }
-  const config = await readJsonFile<QwikUIConfig>(QWIK_UI_CONFIG_FILENAME);
-  const styledPackage = styledPackagesMap[config.styledKit];
+  // const config = await readJsonFile<QwikUIConfig>(QWIK_UI_CONFIG_FILENAME);
 
   // read config file to collect components and add to description below
 

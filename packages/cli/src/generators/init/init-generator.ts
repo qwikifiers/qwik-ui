@@ -1,6 +1,5 @@
 import { Tree, formatFiles, joinPathFragments } from '@nx/devkit';
 import { QWIK_UI_CONFIG_FILENAME } from '../../_shared/config-filenames';
-import { StyledKit } from '../../_shared/styled-kits';
 import { InitGeneratorSchema } from './schema';
 
 export async function initGenerator(tree: Tree, options: InitGeneratorSchema) {
@@ -10,7 +9,6 @@ export async function initGenerator(tree: Tree, options: InitGeneratorSchema) {
   }
 
   options.projectRoot ||= '/';
-  options.styledKit ||= StyledKit.FLUFFY;
   options.componentsRoot ||= 'src/components/ui';
 
   const fullConfigPath = joinPathFragments(options.projectRoot, QWIK_UI_CONFIG_FILENAME);
@@ -19,7 +17,6 @@ export async function initGenerator(tree: Tree, options: InitGeneratorSchema) {
     fullConfigPath,
     JSON.stringify({
       componentsRoot: options.componentsRoot,
-      styledKit: options.styledKit,
     }),
   );
 
