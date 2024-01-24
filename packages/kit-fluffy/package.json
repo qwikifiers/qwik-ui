@@ -30,7 +30,7 @@
     "qwik": "qwik"
   },
   "peerDependencies": {
-    "@builder.io/qwik": "^1.1.0"
+    "@builder.io/qwik": "^1.4.0"
   },
   "dependencies": {
     "@qwik-ui/headless": "0.2.1",
