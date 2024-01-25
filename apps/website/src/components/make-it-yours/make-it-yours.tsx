@@ -168,7 +168,7 @@ export default component$(() => {
           >
             <option value={'simple'}>Simple</option>
             <option value={'brutalist'}>Brutalist</option>
-            <option value={'skeuomorphic'}>Skeuomorphic</option>
+            <option value={'neumorphic'}>Neumorphic</option>
           </select>
 
           <label class="mb-1 mt-8 block font-medium">Color Theme</label>

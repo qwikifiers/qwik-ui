@@ -1,6 +1,6 @@
 export interface Theme {
   mode: 'light' | 'dark';
-  style: 'simple' | 'brutalist' | 'neoskeuomorphic';
+  style: 'simple' | 'brutalist' | 'neumorphic';
   colorTheme:
     | 'slate'
     | 'gray'
@@ -38,7 +38,7 @@ export const colorThemeOptions: Theme['colorTheme'][] = [
   'rose',
 ];
 
-export const styleOptions: Theme['style'][] = ['simple', 'brutalist', 'neoskeuomorphic'];
+export const styleOptions: Theme['style'][] = ['simple', 'brutalist', 'neumorphic'];
 
 export const borderRadiusOptions: Theme['borderRadius'][] = [
   'border-radius-0',
