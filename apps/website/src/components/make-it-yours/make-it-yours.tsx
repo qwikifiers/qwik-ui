@@ -9,33 +9,34 @@ import {
 import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
-import { LuCheck, LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
+import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
 import { useTheme } from 'qwik-themes';
 import { Theme, borderRadiusOptions, colorThemeOptions } from '~/_state/make-it-yours';
 import globalCSS from '~/global.css?raw';
 
 export default component$(() => {
   useStyles$(`
-    .sheet::backdrop {
-      background: hsla(0, 0%, 0%, 0.5);
+    .make-it-yours::backdrop {
+      background: rgba(0,0,0,0.05);
+
     }
   
-    .sheet.modal-showing {
+    .make-it-yours.modal-showing {
       animation: sheetOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
   
-    .sheet.modal-showing::backdrop {
+    .make-it-yours.modal-showing::backdrop {
       animation: sheetFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
   
-    .sheet.modal-closing {
+    .make-it-yours.modal-closing {
       animation: sheetClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
   
-    .sheet.modal-closing::backdrop {
+    .make-it-yours.modal-closing::backdrop {
       animation: sheetFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-  
+
     @keyframes sheetOpen {
       from {
         opacity: 0;
@@ -75,7 +76,6 @@ export default component$(() => {
         opacity: 0;
       }
     }
-  
     `);
 
   const showSig = useSignal(false);
@@ -125,7 +125,7 @@ export default component$(() => {
   const themeStore = useStore<Theme>({
     mode: 'light',
     style: 'simple',
-    colorTheme: 'zinc',
+    colorTheme: 'cyan-500',
     contrast: 'low-contrast',
     borderRadius: 'border-radius-0',
   });
@@ -152,7 +152,7 @@ export default component$(() => {
       </button>
       <Modal
         bind:show={showSig}
-        class="sheet bg-background text-foreground mr-0 h-screen max-w-96 rounded-sm border-0 p-8 shadow-md backdrop:backdrop-brightness-100"
+        class="make-it-yours bg-background text-foreground mr-0 h-screen max-w-96 rounded-sm border-0 p-8 shadow-md"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>
@@ -172,40 +172,114 @@ export default component$(() => {
           </select>
 
           <label class="mb-1 mt-8 block font-medium">Color Theme</label>
-          <div class="grid grid-cols-3 gap-2">
+          <div class="grid grid-cols-[repeat(17,1fr)] gap-[2px]">
             {colorThemeOptions.map((colorTheme) => {
               const isActive = themeStore.colorTheme === colorTheme;
               return (
                 <Button
                   key={colorTheme}
                   look="outline"
-                  size="xs"
+                  size="icon"
                   onClick$={async () => {
                     themeStore.colorTheme = colorTheme;
+                    console.log('colorTheme', colorTheme);
                     setTheme(await themeStoreToThemeClasses());
                   }}
-                  class={cn('justify-start', isActive && 'border-primary border-2')}
+                  class={cn(
+                    'flex h-4 w-4 items-center justify-center rounded-none',
+                    isActive && 'border-primary border-2',
+                  )}
                 >
                   <span
                     class={cn(
-                      'mr-1 flex h-5 w-5 shrink-0 -translate-x-1 items-center justify-center rounded-full',
-                      colorTheme === 'slate' && 'bg-slate-500',
-                      colorTheme === 'gray' && 'bg-gray-500',
-                      colorTheme === 'zinc' && 'bg-zinc-500',
-                      colorTheme === 'neutral' && 'bg-neutral-500',
-                      colorTheme === 'stone' && 'bg-stone-500',
-                      colorTheme === 'red' && 'bg-red-500',
-                      colorTheme === 'orange' && 'bg-orange-500',
-                      colorTheme === 'yellow' && 'bg-yellow-500',
-                      colorTheme === 'green' && 'bg-green-500',
-                      colorTheme === 'blue' && 'bg-blue-500',
-                      colorTheme === 'violet' && 'bg-violet-500',
-                      colorTheme === 'rose' && 'bg-rose-500',
+                      'flex h-3 w-3 shrink-0 rounded-none',
+                      colorTheme === 'red-300' && 'bg-red-300',
+                      colorTheme === 'orange-300' && 'bg-orange-300',
+                      colorTheme === 'amber-300' && 'bg-amber-300',
+                      colorTheme === 'yellow-300' && 'bg-yellow-300',
+                      colorTheme === 'lime-300' && 'bg-lime-300',
+                      colorTheme === 'green-300' && 'bg-green-300',
+                      colorTheme === 'emerald-300' && 'bg-emerald-300',
+                      colorTheme === 'teal-300' && 'bg-teal-300',
+                      colorTheme === 'cyan-300' && 'bg-cyan-300',
+                      colorTheme === 'sky-300' && 'bg-sky-300',
+                      colorTheme === 'blue-300' && 'bg-blue-300',
+                      colorTheme === 'indigo-300' && 'bg-indigo-300',
+                      colorTheme === 'violet-300' && 'bg-violet-300',
+                      colorTheme === 'purple-300' && 'bg-purple-300',
+                      colorTheme === 'fuchsia-300' && 'bg-fuchsia-300',
+                      colorTheme === 'pink-300' && 'bg-pink-300',
+                      colorTheme === 'rose-300' && 'bg-rose-300',
+                      colorTheme === 'red-400' && 'bg-red-400',
+                      colorTheme === 'orange-400' && 'bg-orange-400',
+                      colorTheme === 'amber-400' && 'bg-amber-400',
+                      colorTheme === 'yellow-400' && 'bg-yellow-400',
+                      colorTheme === 'lime-400' && 'bg-lime-400',
+                      colorTheme === 'green-400' && 'bg-green-400',
+                      colorTheme === 'emerald-400' && 'bg-emerald-400',
+                      colorTheme === 'teal-400' && 'bg-teal-400',
+                      colorTheme === 'cyan-400' && 'bg-cyan-400',
+                      colorTheme === 'sky-400' && 'bg-sky-400',
+                      colorTheme === 'blue-400' && 'bg-blue-400',
+                      colorTheme === 'indigo-400' && 'bg-indigo-400',
+                      colorTheme === 'violet-400' && 'bg-violet-400',
+                      colorTheme === 'purple-400' && 'bg-purple-400',
+                      colorTheme === 'fuchsia-400' && 'bg-fuchsia-400',
+                      colorTheme === 'pink-400' && 'bg-pink-400',
+                      colorTheme === 'rose-400' && 'bg-rose-400',
+                      colorTheme === 'red-500' && 'bg-red-500',
+                      colorTheme === 'orange-500' && 'bg-orange-500',
+                      colorTheme === 'amber-500' && 'bg-amber-500',
+                      colorTheme === 'yellow-500' && 'bg-yellow-500',
+                      colorTheme === 'lime-500' && 'bg-lime-500',
+                      colorTheme === 'green-500' && 'bg-green-500',
+                      colorTheme === 'emerald-500' && 'bg-emerald-500',
+                      colorTheme === 'teal-500' && 'bg-teal-500',
+                      colorTheme === 'cyan-500' && 'bg-cyan-500',
+                      colorTheme === 'sky-500' && 'bg-sky-500',
+                      colorTheme === 'blue-500' && 'bg-blue-500',
+                      colorTheme === 'indigo-500' && 'bg-indigo-500',
+                      colorTheme === 'violet-500' && 'bg-violet-500',
+                      colorTheme === 'purple-500' && 'bg-purple-500',
+                      colorTheme === 'fuchsia-500' && 'bg-fuchsia-500',
+                      colorTheme === 'pink-500' && 'bg-pink-500',
+                      colorTheme === 'rose-500' && 'bg-rose-500',
+                      colorTheme === 'red-600' && 'bg-red-600',
+                      colorTheme === 'orange-600' && 'bg-orange-600',
+                      colorTheme === 'amber-600' && 'bg-amber-600',
+                      colorTheme === 'yellow-600' && 'bg-yellow-600',
+                      colorTheme === 'lime-600' && 'bg-lime-600',
+                      colorTheme === 'green-600' && 'bg-green-600',
+                      colorTheme === 'emerald-600' && 'bg-emerald-600',
+                      colorTheme === 'teal-600' && 'bg-teal-600',
+                      colorTheme === 'cyan-600' && 'bg-cyan-600',
+                      colorTheme === 'sky-600' && 'bg-sky-600',
+                      colorTheme === 'blue-600' && 'bg-blue-600',
+                      colorTheme === 'indigo-600' && 'bg-indigo-600',
+                      colorTheme === 'violet-600' && 'bg-violet-600',
+                      colorTheme === 'purple-600' && 'bg-purple-600',
+                      colorTheme === 'fuchsia-600' && 'bg-fuchsia-600',
+                      colorTheme === 'pink-600' && 'bg-pink-600',
+                      colorTheme === 'rose-600' && 'bg-rose-600',
+                      colorTheme === 'red-700' && 'bg-red-700',
+                      colorTheme === 'orange-700' && 'bg-orange-700',
+                      colorTheme === 'amber-700' && 'bg-amber-700',
+                      colorTheme === 'yellow-700' && 'bg-yellow-700',
+                      colorTheme === 'lime-700' && 'bg-lime-700',
+                      colorTheme === 'green-700' && 'bg-green-700',
+                      colorTheme === 'emerald-700' && 'bg-emerald-700',
+                      colorTheme === 'teal-700' && 'bg-teal-700',
+                      colorTheme === 'cyan-700' && 'bg-cyan-700',
+                      colorTheme === 'sky-700' && 'bg-sky-700',
+                      colorTheme === 'blue-700' && 'bg-blue-700',
+                      colorTheme === 'indigo-700' && 'bg-indigo-700',
+                      colorTheme === 'violet-700' && 'bg-violet-700',
+                      colorTheme === 'purple-700' && 'bg-purple-700',
+                      colorTheme === 'fuchsia-700' && 'bg-fuchsia-700',
+                      colorTheme === 'pink-700' && 'bg-pink-700',
+                      colorTheme === 'rose-700' && 'bg-rose-700',
                     )}
-                  >
-                    {isActive && <LuCheck class="h-4 w-4 text-white" />}
-                  </span>
-                  {colorTheme}
+                  />
                 </Button>
               );
             })}
