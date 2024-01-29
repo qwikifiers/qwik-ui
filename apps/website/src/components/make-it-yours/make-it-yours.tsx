@@ -152,7 +152,7 @@ export default component$(() => {
       </button>
       <Modal
         bind:show={showSig}
-        class="make-it-yours bg-background text-foreground mr-0 h-screen max-w-96 rounded-sm border-0 p-8 shadow-md"
+        class="make-it-yours bg-background text-foreground mr-0 h-screen max-w-lg rounded-sm border-0 p-8 shadow-md"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>
@@ -172,13 +172,13 @@ export default component$(() => {
           </select>
 
           <label class="mb-1 mt-8 block font-medium">Color Theme</label>
-          <div class="grid grid-cols-[repeat(22,1fr)] gap-[2px]">
+          <div class="grid grid-cols-[repeat(22,1fr)]">
             {colorThemeOptions.map((colorTheme) => {
               const isActive = themeStore.colorTheme === colorTheme;
               return (
                 <Button
                   key={colorTheme}
-                  look="outline"
+                  look="ghost"
                   size="icon"
                   onClick$={async () => {
                     themeStore.colorTheme = colorTheme;
