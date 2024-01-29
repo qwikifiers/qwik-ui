@@ -134,6 +134,14 @@
 
   /* use colors from colors.ts */
 
+  .red-100 {
+    --primary: 0 93.3% 94.1%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .red-200 {
+    --primary: 0 96.3% 89.4%;
+    --primary-foreground: 0 0% 100%;
+  }
   .red-300 {
     --primary: 0 93.5% 81.8%;
     --primary-foreground: 0 0% 0%;
@@ -144,7 +152,7 @@
   }
   .red-500 {
     --primary: 0 84.2% 60.2%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .red-600 {
     --primary: 0 72.2% 50.6%;
@@ -154,11 +162,23 @@
     --primary: 0 73.7% 41.8%;
     --primary-foreground: 0 0% 100%;
   }
+  .red-800 {
+    --primary: 0 70% 35.3%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .red-900 {
+    --primary: 0 62.8% 30.6%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .red-100.light,
+  .red-200.light,
   .red-300.light,
   .red-400.light,
   .red-500.light,
   .red-600.light,
-  .red-700.light {
+  .red-700.light,
+  .red-800.light,
+  .red-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -177,11 +197,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .red-100.dark,
+  .red-200.dark,
   .red-300.dark,
   .red-400.dark,
   .red-500.dark,
   .red-600.dark,
-  .red-700.dark {
+  .red-700.dark,
+  .red-800.dark,
+  .red-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -201,6 +225,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .orange-100 {
+    --primary: 34.3 100% 91.8%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .orange-200 {
+    --primary: 32.1 97.7% 83.1%;
+    --primary-foreground: 0 0% 0%;
+  }
   .orange-300 {
     --primary: 30.7 97.2% 72.4%;
     --primary-foreground: 0 0% 0%;
@@ -211,7 +243,7 @@
   }
   .orange-500 {
     --primary: 24.6 95% 53.1%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .orange-600 {
     --primary: 20.5 90.2% 48.2%;
@@ -221,11 +253,23 @@
     --primary: 17.5 88.3% 40.4%;
     --primary-foreground: 0 0% 100%;
   }
+  .orange-800 {
+    --primary: 15 79.1% 33.7%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .orange-900 {
+    --primary: 15.3 74.6% 27.8%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .orange-100.light,
+  .orange-200.light,
   .orange-300.light,
   .orange-400.light,
   .orange-500.light,
   .orange-600.light,
-  .orange-700.light {
+  .orange-700.light,
+  .orange-800.light,
+  .orange-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -244,11 +288,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .orange-100.dark,
+  .orange-200.dark,
   .orange-300.dark,
   .orange-400.dark,
   .orange-500.dark,
   .orange-600.dark,
-  .orange-700.dark {
+  .orange-700.dark,
+  .orange-800.dark,
+  .orange-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -268,6 +316,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .amber-100 {
+    --primary: 48 96.5% 88.8%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .amber-200 {
+    --primary: 48 96.6% 76.7%;
+    --primary-foreground: 0 0% 0%;
+  }
   .amber-300 {
     --primary: 45.9 96.7% 64.5%;
     --primary-foreground: 0 0% 0%;
@@ -278,7 +334,7 @@
   }
   .amber-500 {
     --primary: 37.7 92.1% 50.2%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .amber-600 {
     --primary: 32.1 94.6% 43.7%;
@@ -288,11 +344,24 @@
     --primary: 26 90.5% 37.1%;
     --primary-foreground: 0 0% 100%;
   }
+  .amber-800 {
+    --primary: 22.7 82.5% 31.4%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .amber-900 {
+    --primary: 21.7 77.8% 26.5%;
+    --primary-foreground: 0 0% 100%;
+  }
+
+  .amber-100.light,
+  .amber-200.light,
   .amber-300.light,
   .amber-400.light,
   .amber-500.light,
   .amber-600.light,
-  .amber-700.light {
+  .amber-700.light,
+  .amber-800.light,
+  .amber-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -311,11 +380,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .amber-100.dark,
+  .amber-200.dark,
   .amber-300.dark,
   .amber-400.dark,
   .amber-500.dark,
   .amber-600.dark,
-  .amber-700.dark {
+  .amber-700.dark,
+  .amber-800.dark,
+  .amber-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -335,6 +408,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .yellow-100 {
+    --primary: 54.9 96.7% 88%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .yellow-200 {
+    --primary: 52.8 98.3% 76.9%;
+    --primary-foreground: 0 0% 0%;
+  }
   .yellow-300 {
     --primary: 50.4 97.8% 63.5%;
     --primary-foreground: 0 0% 0%;
@@ -345,7 +426,7 @@
   }
   .yellow-500 {
     --primary: 45.4 93.4% 47.5%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .yellow-600 {
     --primary: 40.6 96.1% 40.4%;
@@ -355,11 +436,23 @@
     --primary: 35.5 91.7% 32.9%;
     --primary-foreground: 0 0% 100%;
   }
+  .yellow-800 {
+    --primary: 31.8 81% 28.8%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .yellow-900 {
+    --primary: 28.4 72.5% 25.7%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .yellow-100.light,
+  .yellow-200.light,
   .yellow-300.light,
   .yellow-400.light,
   .yellow-500.light,
   .yellow-600.light,
-  .yellow-700.light {
+  .yellow-700.light,
+  .yellow-800.light,
+  .yellow-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -378,11 +471,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .yellow-100.dark,
+  .yellow-200.dark,
   .yellow-300.dark,
   .yellow-400.dark,
   .yellow-500.dark,
   .yellow-600.dark,
-  .yellow-700.dark {
+  .yellow-700.dark,
+  .yellow-800.dark,
+  .yellow-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -402,6 +499,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .lime-100 {
+    --primary: 79.6 89.1% 89.2%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .lime-200 {
+    --primary: 80.9 88.5% 79.6%;
+    --primary-foreground: 0 0% 0%;
+  }
   .lime-300 {
     --primary: 82 84.5% 67.1%;
     --primary-foreground: 0 0% 0%;
@@ -412,7 +517,7 @@
   }
   .lime-500 {
     --primary: 83.7 80.5% 44.3%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .lime-600 {
     --primary: 84.8 85.2% 34.5%;
@@ -422,11 +527,23 @@
     --primary: 85.9 78.4% 27.3%;
     --primary-foreground: 0 0% 100%;
   }
+  .lime-800 {
+    --primary: 86.3 69% 22.7%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .lime-900 {
+    --primary: 87.6 61.2% 20.2%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .lime-100.light,
+  .lime-200.light,
   .lime-300.light,
   .lime-400.light,
   .lime-500.light,
   .lime-600.light,
-  .lime-700.light {
+  .lime-700.light,
+  .lime-800.light,
+  .lime-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -445,11 +562,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .lime-100.dark,
+  .lime-200.dark,
   .lime-300.dark,
   .lime-400.dark,
   .lime-500.dark,
   .lime-600.dark,
-  .lime-700.dark {
+  .lime-700.dark,
+  .lime-800.dark,
+  .lime-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -469,6 +590,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .green-100 {
+    --primary: 140.6 84.2% 92.5%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .green-200 {
+    --primary: 141 78.9% 85.1%;
+    --primary-foreground: 0 0% 0%;
+  }
   .green-300 {
     --primary: 141.7 76.6% 73.1%;
     --primary-foreground: 0 0% 0%;
@@ -479,7 +608,7 @@
   }
   .green-500 {
     --primary: 142.1 70.6% 45.3%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .green-600 {
     --primary: 142.1 76.2% 36.3%;
@@ -489,11 +618,23 @@
     --primary: 142.4 71.8% 29.2%;
     --primary-foreground: 0 0% 100%;
   }
+  .green-800 {
+    --primary: 142.8 64.2% 24.1%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .green-900 {
+    --primary: 143.8 61.2% 20.2%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .green-100.light,
+  .green-200.light,
   .green-300.light,
   .green-400.light,
   .green-500.light,
   .green-600.light,
-  .green-700.light {
+  .green-700.light,
+  .green-800.light,
+  .green-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -512,11 +653,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .green-100.dark,
+  .green-200.dark,
   .green-300.dark,
   .green-400.dark,
   .green-500.dark,
   .green-600.dark,
-  .green-700.dark {
+  .green-700.dark,
+  .green-800.dark,
+  .green-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -536,6 +681,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .emerald-100 {
+    --primary: 149.3 80.4% 90%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .emerald-200 {
+    --primary: 152.4 76% 80.4%;
+    --primary-foreground: 0 0% 0%;
+  }
   .emerald-300 {
     --primary: 156.2 71.6% 66.9%;
     --primary-foreground: 0 0% 0%;
@@ -556,11 +709,23 @@
     --primary: 162.9 93.5% 24.3%;
     --primary-foreground: 0 0% 100%;
   }
+  .emerald-800 {
+    --primary: 163.1 88.1% 19.8%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .emerald-900 {
+    --primary: 164.2 85.7% 16.5%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .emerald-100.light,
+  .emerald-200.light,
   .emerald-300.light,
   .emerald-400.light,
   .emerald-500.light,
   .emerald-600.light,
-  .emerald-700.light {
+  .emerald-700.light,
+  .emerald-800.light,
+  .emerald-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -579,11 +744,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .emerald-100.dark,
+  .emerald-200.dark,
   .emerald-300.dark,
   .emerald-400.dark,
   .emerald-500.dark,
   .emerald-600.dark,
-  .emerald-700.dark {
+  .emerald-700.dark,
+  .emerald-800.dark,
+  .emerald-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -603,6 +772,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .teal-100 {
+    --primary: 167.2 85.5% 89.2%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .teal-200 {
+    --primary: 168.4 83.8% 78.2%;
+    --primary-foreground: 0 0% 0%;
+  }
   .teal-300 {
     --primary: 170.6 76.9% 64.3%;
     --primary-foreground: 0 0% 0%;
@@ -623,11 +800,23 @@
     --primary: 175.3 77.4% 26.1%;
     --primary-foreground: 0 0% 100%;
   }
+  .teal-800 {
+    --primary: 176.1 69.4% 21.8%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .teal-900 {
+    --primary: 175.9 60.8% 19%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .teal-100.light,
+  .teal-200.light,
   .teal-300.light,
   .teal-400.light,
   .teal-500.light,
   .teal-600.light,
-  .teal-700.light {
+  .teal-700.light,
+  .teal-800.light,
+  .teal-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -646,11 +835,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .teal-100.dark,
+  .teal-200.dark,
   .teal-300.dark,
   .teal-400.dark,
   .teal-500.dark,
   .teal-600.dark,
-  .teal-700.dark {
+  .teal-700.dark,
+  .teal-800.dark,
+  .teal-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -670,6 +863,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .cyan-100 {
+    --primary: 185.1 95.9% 90.4%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .cyan-200 {
+    --primary: 186.2 93.5% 81.8%;
+    --primary-foreground: 0 0% 0%;
+  }
   .cyan-300 {
     --primary: 187 92.4% 69%;
     --primary-foreground: 0 0% 0%;
@@ -690,11 +891,23 @@
     --primary: 192.9 82.3% 31%;
     --primary-foreground: 0 0% 100%;
   }
+  .cyan-800 {
+    --primary: 194.4 69.6% 27.1%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .cyan-900 {
+    --primary: 196.4 63.6% 23.7%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .cyan-100.light,
+  .cyan-200.light,
   .cyan-300.light,
   .cyan-400.light,
   .cyan-500.light,
   .cyan-600.light,
-  .cyan-700.light {
+  .cyan-700.light,
+  .cyan-800.light,
+  .cyan-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -713,11 +926,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .cyan-100.dark,
+  .cyan-200.dark,
   .cyan-300.dark,
   .cyan-400.dark,
   .cyan-500.dark,
   .cyan-600.dark,
-  .cyan-700.dark {
+  .cyan-700.dark,
+  .cyan-800.dark,
+  .cyan-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -737,6 +954,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .sky-100 {
+    --primary: 204 93.8% 93.7%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .sky-200 {
+    --primary: 200.6 94.4% 86.1%;
+    --primary-foreground: 0 0% 0%;
+  }
   .sky-300 {
     --primary: 199.4 95.5% 73.9%;
     --primary-foreground: 0 0% 0%;
@@ -747,7 +972,7 @@
   }
   .sky-500 {
     --primary: 198.6 88.7% 48.4%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .sky-600 {
     --primary: 200.4 98% 39.4%;
@@ -757,11 +982,23 @@
     --primary: 201.3 96.3% 32.2%;
     --primary-foreground: 0 0% 100%;
   }
+  .sky-800 {
+    --primary: 201 90% 27.5%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .sky-900 {
+    --primary: 202 80.3% 23.9%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .sky-100.light,
+  .sky-200.light,
   .sky-300.light,
   .sky-400.light,
   .sky-500.light,
   .sky-600.light,
-  .sky-700.light {
+  .sky-700.light,
+  .sky-800.light,
+  .sky-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -780,11 +1017,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .sky-100.dark,
+  .sky-200.dark,
   .sky-300.dark,
   .sky-400.dark,
   .sky-500.dark,
   .sky-600.dark,
-  .sky-700.dark {
+  .sky-700.dark,
+  .sky-800.dark,
+  .sky-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -804,6 +1045,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .blue-100 {
+    --primary: 214.3 94.6% 92.7%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .blue-200 {
+    --primary: 213.3 96.9% 87.3%;
+    --primary-foreground: 0 0% 0%;
+  }
   .blue-300 {
     --primary: 211.7 96.4% 78.4%;
     --primary-foreground: 0 0% 0%;
@@ -814,7 +1063,7 @@
   }
   .blue-500 {
     --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .blue-600 {
     --primary: 221.2 83.2% 53.3%;
@@ -824,11 +1073,24 @@
     --primary: 224.3 76.3% 48%;
     --primary-foreground: 0 0% 100%;
   }
+  .blue-800 {
+    --primary: 225.9 70.7% 40.2%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .blue-900 {
+    --primary: 224.4 64.3% 32.9%;
+    --primary-foreground: 0 0% 100%;
+  }
+
+  .blue-100.light,
+  .blue-200.light,
   .blue-300.light,
   .blue-400.light,
   .blue-500.light,
   .blue-600.light,
-  .blue-700.light {
+  .blue-700.light,
+  .blue-800.light,
+  .blue-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -847,11 +1109,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .blue-100.dark,
+  .blue-200.dark,
   .blue-300.dark,
   .blue-400.dark,
   .blue-500.dark,
   .blue-600.dark,
-  .blue-700.dark {
+  .blue-700.dark,
+  .blue-800.dark,
+  .blue-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -871,6 +1137,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .indigo-100 {
+    --primary: 226.5 100% 93.9%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .indigo-200 {
+    --primary: 228 96.5% 88.8%;
+    --primary-foreground: 0 0% 0%;
+  }
   .indigo-300 {
     --primary: 229.7 93.5% 81.8%;
     --primary-foreground: 0 0% 0%;
@@ -881,7 +1155,7 @@
   }
   .indigo-500 {
     --primary: 238.7 83.5% 66.7%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .indigo-600 {
     --primary: 243.4 75.4% 58.6%;
@@ -891,11 +1165,23 @@
     --primary: 244.5 57.9% 50.6%;
     --primary-foreground: 0 0% 100%;
   }
+  .indigo-800 {
+    --primary: 243.7 54.5% 41.4%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .indigo-900 {
+    --primary: 242.2 47.4% 34.3%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .indigo-100.light,
+  .indigo-200.light,
   .indigo-300.light,
   .indigo-400.light,
   .indigo-500.light,
   .indigo-600.light,
-  .indigo-700.light {
+  .indigo-700.light,
+  .indigo-800.light,
+  .indigo-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -914,11 +1200,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .indigo-100.dark,
+  .indigo-200.dark,
   .indigo-300.dark,
   .indigo-400.dark,
   .indigo-500.dark,
   .indigo-600.dark,
-  .indigo-700.dark {
+  .indigo-700.dark,
+  .indigo-800.dark,
+  .indigo-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -938,6 +1228,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .violet-100 {
+    --primary: 251.4 91.3% 95.5%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .violet-200 {
+    --primary: 250.5 95.2% 91.8%;
+    --primary-foreground: 0 0% 0%;
+  }
   .violet-300 {
     --primary: 252.5 94.7% 85.1%;
     --primary-foreground: 0 0% 0%;
@@ -948,7 +1246,7 @@
   }
   .violet-500 {
     --primary: 258.3 89.5% 66.3%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .violet-600 {
     --primary: 262.1 83.3% 57.8%;
@@ -958,11 +1256,23 @@
     --primary: 263.4 70% 50.4%;
     --primary-foreground: 0 0% 100%;
   }
+  .violet-800 {
+    --primary: 263.4 69.3% 42.2%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .violet-900 {
+    --primary: 263.5 67.4% 34.9%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .violet-100.light,
+  .violet-200.light,
   .violet-300.light,
   .violet-400.light,
   .violet-500.light,
   .violet-600.light,
-  .violet-700.light {
+  .violet-700.light,
+  .violet-800.light,
+  .violet-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -981,11 +1291,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .violet-100.dark,
+  .violet-200.dark,
   .violet-300.dark,
   .violet-400.dark,
   .violet-500.dark,
   .violet-600.dark,
-  .violet-700.dark {
+  .violet-700.dark,
+  .violet-800.dark,
+  .violet-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -1005,6 +1319,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .purple-100 {
+    --primary: 268.7 100% 95.5%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .purple-200 {
+    --primary: 268.6 100% 91.8%;
+    --primary-foreground: 0 0% 0%;
+  }
   .purple-300 {
     --primary: 269.2 97.4% 85.1%;
     --primary-foreground: 0 0% 0%;
@@ -1015,7 +1337,7 @@
   }
   .purple-500 {
     --primary: 270.7 91% 65.1%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .purple-600 {
     --primary: 271.5 81.3% 55.9%;
@@ -1025,11 +1347,23 @@
     --primary: 272.1 71.7% 47.1%;
     --primary-foreground: 0 0% 100%;
   }
+  .purple-800 {
+    --primary: 272.9 67.2% 39.4%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .purple-900 {
+    --primary: 273.6 65.6% 32%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .purple-100.light,
+  .purple-200.light,
   .purple-300.light,
   .purple-400.light,
   .purple-500.light,
   .purple-600.light,
-  .purple-700.light {
+  .purple-700.light,
+  .purple-800.light,
+  .purple-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -1048,11 +1382,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .purple-100.dark,
+  .purple-200.dark,
   .purple-300.dark,
   .purple-400.dark,
   .purple-500.dark,
   .purple-600.dark,
-  .purple-700.dark {
+  .purple-700.dark,
+  .purple-800.dark,
+  .purple-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -1072,6 +1410,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .fuchsia-100 {
+    --primary: 287 100% 95.5%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .fuchsia-200 {
+    --primary: 288.3 95.8% 90.6%;
+    --primary-foreground: 0 0% 0%;
+  }
   .fuchsia-300 {
     --primary: 291.1 93.1% 82.9%;
     --primary-foreground: 0 0% 0%;
@@ -1082,7 +1428,7 @@
   }
   .fuchsia-500 {
     --primary: 292.2 84.1% 60.6%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .fuchsia-600 {
     --primary: 293.4 69.5% 48.8%;
@@ -1092,11 +1438,23 @@
     --primary: 294.7 72.4% 39.8%;
     --primary-foreground: 0 0% 100%;
   }
+  .fuchsia-800 {
+    --primary: 295.4 70.2% 32.9%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .fuchsia-900 {
+    --primary: 296.7 63.6% 28%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .fuchsia-100.light,
+  .fuchsia-200.light,
   .fuchsia-300.light,
   .fuchsia-400.light,
   .fuchsia-500.light,
   .fuchsia-600.light,
-  .fuchsia-700.light {
+  .fuchsia-700.light,
+  .fuchsia-800.light,
+  .fuchsia-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -1115,11 +1473,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .fuchsia-100.dark,
+  .fuchsia-200.dark,
   .fuchsia-300.dark,
   .fuchsia-400.dark,
   .fuchsia-500.dark,
   .fuchsia-600.dark,
-  .fuchsia-700.dark {
+  .fuchsia-700.dark,
+  .fuchsia-800.dark,
+  .fuchsia-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -1139,6 +1501,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .pink-100 {
+    --primary: 325.7 77.8% 94.7%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .pink-200 {
+    --primary: 325.9 84.6% 89.8%;
+    --primary-foreground: 0 0% 0%;
+  }
   .pink-300 {
     --primary: 327.4 87.1% 81.8%;
     --primary-foreground: 0 0% 0%;
@@ -1149,7 +1519,7 @@
   }
   .pink-500 {
     --primary: 330.4 81.2% 60.4%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .pink-600 {
     --primary: 333.3 71.4% 50.6%;
@@ -1159,11 +1529,23 @@
     --primary: 335.1 77.6% 42%;
     --primary-foreground: 0 0% 100%;
   }
+  .pink-800 {
+    --primary: 335.8 74.4% 35.3%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .pink-900 {
+    --primary: 335.9 69% 30.4%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .pink-100.light,
+  .pink-200.light,
   .pink-300.light,
   .pink-400.light,
   .pink-500.light,
   .pink-600.light,
-  .pink-700.light {
+  .pink-700.light,
+  .pink-800.light,
+  .pink-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -1182,11 +1564,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .pink-100.dark,
+  .pink-200.dark,
   .pink-300.dark,
   .pink-400.dark,
   .pink-500.dark,
   .pink-600.dark,
-  .pink-700.dark {
+  .pink-700.dark,
+  .pink-800.dark,
+  .pink-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -1206,6 +1592,14 @@
     --ring: 346.8 77.2% 49.8%;
   }
 
+  .rose-100 {
+    --primary: 355.6 100% 94.7%;
+    --primary-foreground: 0 0% 0%;
+  }
+  .rose-200 {
+    --primary: 352.7 96.1% 90%;
+    --primary-foreground: 0 0% 0%;
+  }
   .rose-300 {
     --primary: 352.6 95.7% 81.8%;
     --primary-foreground: 0 0% 0%;
@@ -1216,7 +1610,7 @@
   }
   .rose-500 {
     --primary: 349.7 89.2% 60.2%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .rose-600 {
     --primary: 346.8 77.2% 49.8%;
@@ -1226,11 +1620,23 @@
     --primary: 345.3 82.7% 40.8%;
     --primary-foreground: 0 0% 100%;
   }
+  .rose-800 {
+    --primary: 343.4 79.7% 34.7%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .rose-900 {
+    --primary: 341.5 75.5% 30.4%;
+    --primary-foreground: 0 0% 100%;
+  }
+  .rose-100.light,
+  .rose-200.light,
   .rose-300.light,
   .rose-400.light,
   .rose-500.light,
   .rose-600.light,
-  .rose-700.light {
+  .rose-700.light,
+  .rose-800.light,
+  .rose-900.light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --muted: 240 4.8% 95.9%;
@@ -1249,11 +1655,15 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 346.8 77.2% 49.8%;
   }
+  .rose-100.dark,
+  .rose-200.dark,
   .rose-300.dark,
   .rose-400.dark,
   .rose-500.dark,
   .rose-600.dark,
-  .rose-700.dark {
+  .rose-700.dark,
+  .rose-800.dark,
+  .rose-900.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
