@@ -1,29 +1,30 @@
 export interface Theme {
   mode: 'light' | 'dark';
   style: 'simple' | 'brutalist' | 'neumorphic';
-  colorTheme: // | 'slate-100'
-  // | 'gray-100'
-  // | 'zinc-100'
-  // | 'neutral-100'
-  // | 'stone-100'
-  // | 'red-100'
-  // | 'orange-100'
-  // | 'amber-100'
-  // | 'yellow-100'
-  // | 'lime-100'
-  // | 'green-100'
-  // | 'emerald-100'
-  // | 'teal-100'
-  // | 'cyan-100'
-  // | 'sky-100'
-  // | 'blue-100'
-  // | 'indigo-100'
-  // | 'violet-100'
-  // | 'purple-100'
-  // | 'fuchsia-100'
-  // | 'pink-100'
-  // | 'rose-100'
-  | 'slate-200'
+  colorTheme:
+    | 'slate-100'
+    | 'gray-100'
+    | 'zinc-100'
+    | 'neutral-100'
+    | 'stone-100'
+    | 'red-100'
+    | 'orange-100'
+    | 'amber-100'
+    | 'yellow-100'
+    | 'lime-100'
+    | 'green-100'
+    | 'emerald-100'
+    | 'teal-100'
+    | 'cyan-100'
+    | 'sky-100'
+    | 'blue-100'
+    | 'indigo-100'
+    | 'violet-100'
+    | 'purple-100'
+    | 'fuchsia-100'
+    | 'pink-100'
+    | 'rose-100'
+    | 'slate-200'
     | 'gray-200'
     | 'zinc-200'
     | 'neutral-200'
@@ -154,51 +155,51 @@ export interface Theme {
     | 'purple-700'
     | 'fuchsia-700'
     | 'pink-700'
-    | 'rose-700';
-  // | 'slate-800'
-  // | 'gray-800'
-  // | 'zinc-800'
-  // | 'neutral-800'
-  // | 'stone-800'
-  // | 'red-800'
-  // | 'orange-800'
-  // | 'amber-800'
-  // | 'yellow-800'
-  // | 'lime-800'
-  // | 'green-800'
-  // | 'emerald-800'
-  // | 'teal-800'
-  // | 'cyan-800'
-  // | 'sky-800'
-  // | 'blue-800'
-  // | 'indigo-800'
-  // | 'violet-800'
-  // | 'purple-800'
-  // | 'fuchsia-800'
-  // | 'pink-800'
-  // | 'rose-800';
-  // | 'slate-900'
-  // | 'gray-900'
-  // | 'zinc-900'
-  // | 'neutral-900'
-  // | 'stone-900'
-  // | 'red-900'
-  // | 'orange-900'
-  // | 'amber-900'
-  // | 'yellow-900'
-  // | 'lime-900'
-  // | 'green-900'
-  // | 'emerald-900'
-  // | 'teal-900'
-  // | 'cyan-900'
-  // | 'sky-900'
-  // | 'blue-900'
-  // | 'indigo-900'
-  // | 'violet-900'
-  // | 'purple-900'
-  // | 'fuchsia-900'
-  // | 'pink-900'
-  // | 'rose-900';
+    | 'rose-700'
+    | 'slate-800'
+    | 'gray-800'
+    | 'zinc-800'
+    | 'neutral-800'
+    | 'stone-800'
+    | 'red-800'
+    | 'orange-800'
+    | 'amber-800'
+    | 'yellow-800'
+    | 'lime-800'
+    | 'green-800'
+    | 'emerald-800'
+    | 'teal-800'
+    | 'cyan-800'
+    | 'sky-800'
+    | 'blue-800'
+    | 'indigo-800'
+    | 'violet-800'
+    | 'purple-800'
+    | 'fuchsia-800'
+    | 'pink-800'
+    | 'rose-800'
+    | 'slate-900'
+    | 'gray-900'
+    | 'zinc-900'
+    | 'neutral-900'
+    | 'stone-900'
+    | 'red-900'
+    | 'orange-900'
+    | 'amber-900'
+    | 'yellow-900'
+    | 'lime-900'
+    | 'green-900'
+    | 'emerald-900'
+    | 'teal-900'
+    | 'cyan-900'
+    | 'sky-900'
+    | 'blue-900'
+    | 'indigo-900'
+    | 'violet-900'
+    | 'purple-900'
+    | 'fuchsia-900'
+    | 'pink-900'
+    | 'rose-900';
 
   contrast: 'low-contrast' | 'high-contrast';
   borderRadius:
@@ -210,28 +211,28 @@ export interface Theme {
 }
 
 export const colorThemeOptions: Theme['colorTheme'][] = [
-  // 'slate-100',
-  // 'gray-100',
-  // 'zinc-100',
-  // 'neutral-100',
-  // 'stone-100',
-  // 'red-100',
-  // 'orange-100',
-  // 'amber-100',
-  // 'yellow-100',
-  // 'lime-100',
-  // 'green-100',
-  // 'emerald-100',
-  // 'teal-100',
-  // 'cyan-100',
-  // 'sky-100',
-  // 'blue-100',
-  // 'indigo-100',
-  // 'violet-100',
-  // 'purple-100',
-  // 'fuchsia-100',
-  // 'pink-100',
-  // 'rose-100',
+  'slate-100',
+  'gray-100',
+  'zinc-100',
+  'neutral-100',
+  'stone-100',
+  'red-100',
+  'orange-100',
+  'amber-100',
+  'yellow-100',
+  'lime-100',
+  'green-100',
+  'emerald-100',
+  'teal-100',
+  'cyan-100',
+  'sky-100',
+  'blue-100',
+  'indigo-100',
+  'violet-100',
+  'purple-100',
+  'fuchsia-100',
+  'pink-100',
+  'rose-100',
 
   'slate-200',
   'gray-200',
@@ -371,51 +372,51 @@ export const colorThemeOptions: Theme['colorTheme'][] = [
   'pink-700',
   'rose-700',
 
-  // 'slate-800',
-  // 'gray-800',
-  // 'zinc-800',
-  // 'neutral-800',
-  // 'stone-800',
-  // 'red-800',
-  // 'orange-800',
-  // 'amber-800',
-  // 'yellow-800',
-  // 'lime-800',
-  // 'green-800',
-  // 'emerald-800',
-  // 'teal-800',
-  // 'cyan-800',
-  // 'sky-800',
-  // 'blue-800',
-  // 'indigo-800',
-  // 'violet-800',
-  // 'purple-800',
-  // 'fuchsia-800',
-  // 'pink-800',
-  // 'rose-800',
+  'slate-800',
+  'gray-800',
+  'zinc-800',
+  'neutral-800',
+  'stone-800',
+  'red-800',
+  'orange-800',
+  'amber-800',
+  'yellow-800',
+  'lime-800',
+  'green-800',
+  'emerald-800',
+  'teal-800',
+  'cyan-800',
+  'sky-800',
+  'blue-800',
+  'indigo-800',
+  'violet-800',
+  'purple-800',
+  'fuchsia-800',
+  'pink-800',
+  'rose-800',
 
-  // 'slate-900',
-  // 'gray-900',
-  // 'zinc-900',
-  // 'neutral-900',
-  // 'stone-900',
-  // 'red-900',
-  // 'orange-900',
-  // 'amber-900',
-  // 'yellow-900',
-  // 'lime-900',
-  // 'green-900',
-  // 'emerald-900',
-  // 'teal-900',
-  // 'cyan-900',
-  // 'sky-900',
-  // 'blue-900',
-  // 'indigo-900',
-  // 'violet-900',
-  // 'purple-900',
-  // 'fuchsia-900',
-  // 'pink-900',
-  // 'rose-900',
+  'slate-900',
+  'gray-900',
+  'zinc-900',
+  'neutral-900',
+  'stone-900',
+  'red-900',
+  'orange-900',
+  'amber-900',
+  'yellow-900',
+  'lime-900',
+  'green-900',
+  'emerald-900',
+  'teal-900',
+  'cyan-900',
+  'sky-900',
+  'blue-900',
+  'indigo-900',
+  'violet-900',
+  'purple-900',
+  'fuchsia-900',
+  'pink-900',
+  'rose-900',
 ];
 
 export const styleOptions: Theme['style'][] = ['simple', 'brutalist', 'neumorphic'];

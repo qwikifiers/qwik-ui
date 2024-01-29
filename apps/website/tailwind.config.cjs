@@ -125,6 +125,9 @@ module.exports = {
         },
       },
       borderRadius: {
+        // RFC we could add a 'rounded-base' utility class to start at 0, so that it's still possible to use 'rounded-none'.
+        // This means using something non-standard that developers would have to learn. Although it's not much and should be intuitive- and not knowing it doesn't break the tailwind design tokens system.
+        base: 'var(--border-radius)',
         sm: 'calc(var(--border-radius) + 0.125rem)',
         DEFAULT: 'calc(var(--border-radius) + 0.25rem)',
         md: 'calc(var(--border-radius) + 0.375rem)',
