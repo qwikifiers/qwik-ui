@@ -58,27 +58,22 @@ const AccordionItem = component$<AccordionItemProps>((props) => {
   );
 });
 
-const AccordionHeader = component$<AccordionHeaderProps>((props) => {
+const AccordionTrigger = component$<
+  AccordionTriggerProps & { header?: AccordionHeaderProps['as'] }
+>(({ header = 'h3', ...props }) => {
   return (
-    <QwikUIAccordionHeader {...props} class={cn('flex', props.class)}>
-      <Slot />
+    <QwikUIAccordionHeader as={header} class="flex">
+      <QwikUIAccordionTrigger
+        {...props}
+        class={cn(
+          'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
+          props.class,
+        )}
+      >
+        <Slot />
+        <LuChevronDown class="text-muted-foreground h-4 w-4 shrink-0 transition-transform duration-200" />
+      </QwikUIAccordionTrigger>
     </QwikUIAccordionHeader>
-  );
-});
-
-const AccordionTrigger = component$<AccordionTriggerProps>(({ ...props }) => {
-  return (
-    // RFC: shadcn wraps AccordionTigger with AccordionHeader here. I think it's better to keep the API similar to headless so that Accordions can change their Headers to a different html tag with the 'as' prop on a per Accordion basis.
-    <QwikUIAccordionTrigger
-      {...props}
-      class={cn(
-        'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
-        props.class,
-      )}
-    >
-      <Slot />
-      <LuChevronDown class="text-muted-foreground h-4 w-4 shrink-0 transition-transform duration-200" />
-    </QwikUIAccordionTrigger>
   );
 });
 
@@ -98,4 +93,4 @@ const AccordionContent = component$<AccordionItemProps>((props) => {
   );
 });
 
-export { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };
