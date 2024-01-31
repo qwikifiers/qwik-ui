@@ -134,10 +134,12 @@
 
   /* use colors from colors.ts */
 
-  .slate-100 {
+  .slate-100,
+  .slate-900.dark {
     --primary: 210 40% 96.1%;
   }
-  .slate-200 {
+  .slate-200,
+  .slate-800.dark {
     --primary: 214.3 31.8% 91.4%;
   }
   .slate-300 {
@@ -164,7 +166,9 @@
   .slate-100,
   .slate-200,
   .slate-300,
-  .slate-400 {
+  .slate-400,
+  .slate-800.dark,
+  .slate-900.dark {
     --primary-foreground: 0 0% 0%;
   }
   .slate-500,
@@ -229,10 +233,12 @@
     --ring: 212.7 26.8% 83.9;
   }
 
-  .gray-100 {
+  .gray-100,
+  .gray-900.dark {
     --primary: 220 14.3% 95.9%;
   }
-  .gray-200 {
+  .gray-200,
+  .gray-800.dark {
     --primary: 220 13% 91%;
   }
   .gray-300 {
@@ -259,7 +265,9 @@
   .gray-100,
   .gray-200,
   .gray-300,
-  .gray-400 {
+  .gray-400,
+  .gray-800.dark,
+  .gray-900.dark {
     --primary-foreground: 0 0% 0%;
   }
   .gray-500,
@@ -324,10 +332,12 @@
     --ring: 216 12.2% 83.9%;
   }
 
-  .zinc-100 {
+  .zinc-100,
+  .zinc-900.dark {
     --primary: 240 4.8% 95.9%;
   }
-  .zinc-200 {
+  .zinc-200,
+  .zinc-800.dark {
     --primary: 240 5.9% 90%;
   }
   .zinc-300 {
@@ -354,7 +364,9 @@
   .zinc-100,
   .zinc-200,
   .zinc-300,
-  .zinc-400 {
+  .zinc-400,
+  .zinc-800.dark,
+  .zinc-900.dark {
     --primary-foreground: 0 0% 0%;
   }
   .zinc-500,
@@ -419,10 +431,12 @@
     --ring: 240 4.9% 83.9%;
   }
 
-  .neutral-100 {
+  .neutral-100,
+  .neutral-900.dark {
     --primary: 0 0% 96.1%;
   }
-  .neutral-200 {
+  .neutral-200,
+  .neutral-900.dark {
     --primary: 0 0% 89.8%;
   }
   .neutral-300 {
@@ -449,7 +463,9 @@
   .neutral-100,
   .neutral-200,
   .neutral-300,
-  .neutral-400 {
+  .neutral-400,
+  .neutral-800.dark,
+  .neutral-900.dark {
     --primary-foreground: 0 0% 0%;
   }
   .neutral-500,
@@ -514,10 +530,12 @@
     --ring: 0 0% 83.1%;
   }
 
-  .stone-100 {
+  .stone-100,
+  .stone-900.dark {
     --primary: 60 4.8% 95.9%;
   }
-  .stone-200 {
+  .stone-200,
+  .stone-900.dark {
     --primary: 20 5.9% 90%;
   }
   .stone-300 {
@@ -544,7 +562,9 @@
   .stone-100,
   .stone-200,
   .stone-300,
-  .stone-400 {
+  .stone-400,
+  .stone-800.dark,
+  .stone-900.dark {
     --primary-foreground: 0 0% 0%;
   }
   .stone-500,
