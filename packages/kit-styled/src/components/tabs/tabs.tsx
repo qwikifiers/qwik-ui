@@ -1,17 +1,23 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import {
-  Tabs as QwikUITabs,
-  TabList as QwikUITabList,
   Tab as QwikUITab,
+  TabList as QwikUITabList,
   TabPanel as QwikUITabPanel,
-  type TabProps,
-  type TabPanelProps,
+  Tabs as QwikUITabs,
   type TabListProps,
+  type TabPanelProps,
+  type TabProps,
   type TabsProps,
 } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
+
 const Tabs = (props: TabsProps) => (
-  <QwikUITabs {...props} TabList={TabList} Tab={Tab} TabPanel={TabPanel} />
+  <QwikUITabs
+    {...props}
+    tabListComponent={TabList}
+    tabComponent={Tab}
+    tabPanelComponent={TabPanel}
+  />
 );
 
 const TabList = component$<TabListProps>((props) => {
@@ -56,4 +62,4 @@ const TabPanel = component$<TabPanelProps>((props) => {
   );
 });
 
-export { Tabs, TabList, Tab, TabPanel };
+export { Tab, TabList, TabPanel, Tabs };

@@ -57,9 +57,10 @@ export type TabsProps = PropsOf<'div'> & {
   'bind:selectedTabId'?: Signal<string | undefined>;
   tabClass?: PropsOf<'div'>['class'];
   panelClass?: PropsOf<'div'>['class'];
-  TabList?: typeof InternalTabList;
-  Tab?: typeof InternalTab;
-  TabPanel?: typeof InternalTabPanel;
+
+  tabListComponent?: typeof InternalTabList;
+  tabComponent?: typeof InternalTab;
+  tabPanelComponent?: typeof InternalTabPanel;
 };
 
 export type TabInfo = {
@@ -77,9 +78,9 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
     children,
     tabClass,
     panelClass,
-    TabList: UserTabList,
-    Tab: UserTab,
-    TabPanel: UserTabPanel,
+    tabListComponent: UserTabList,
+    tabComponent: UserTab,
+    tabPanelComponent: UserTabPanel,
     ...rest
   } = props;
 

@@ -93,7 +93,12 @@ By consequence, the Tabs component needs to be aware of its children. If you wan
 
 ```tsx
 const CustomTabs = (props: TabsProps) => (
-  <Tabs {...props} TabList={CustomTabList} Tab={CustomTab} TabPanel={CustomTabPanel} />
+  <Tabs
+    {...props}
+    tabListComponent={CustomTabList}
+    tabComponent={CustomTab}
+    tabPanelComponent={CustomTabPanel}
+  />
 );
 ```
 

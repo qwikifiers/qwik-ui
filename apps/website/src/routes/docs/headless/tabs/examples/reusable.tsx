@@ -11,7 +11,12 @@ import {
 } from '@qwik-ui/headless';
 
 const CustomTabs = (props: TabsProps) => (
-  <Tabs {...props} TabList={CustomTabList} Tab={CustomTab} TabPanel={CustomTabPanel} />
+  <Tabs
+    {...props}
+    tabListComponent={CustomTabList}
+    tabComponent={CustomTab}
+    tabPanelComponent={CustomTabPanel}
+  />
 );
 
 const CustomTabList = component$<TabListProps>(() => {
