@@ -1,26 +1,54 @@
 import { component$, Slot } from '@builder.io/qwik';
 
 import {
-  AccordionRoot as QwikUIAccordionRoot,
-  AccordionItem as QwikUIAccordionItem,
-  AccordionHeader as QwikUIAccordionHeader,
-  AccordionTrigger as QwikUIAccordionTrigger,
   AccordionContent as QwikUIAccordionContent,
-  type AccordionItemProps,
-  type AccordionTriggerProps,
+  AccordionHeader as QwikUIAccordionHeader,
+  AccordionItem as QwikUIAccordionItem,
+  AccordionRoot as QwikUIAccordionRoot,
+  AccordionTrigger as QwikUIAccordionTrigger,
   type AccordionHeaderProps,
+  type AccordionItemProps,
   type AccordionRootProps,
+  type AccordionTriggerProps,
 } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
 import { LuChevronDown } from '@qwikest/icons/lucide';
 
+/* TODO:
+
+  * Implement 2 variants - "light", "bordered" (and "Splitted"?)
+  * Implement shorthand version in headless and provide custom components ability
+  * Ask Jack about the "Header" / "Trigger" separation
+
+  RFC: Verbose API vs Simpler API
+      
+*/
+
 const Accordion = component$<AccordionRootProps>((props) => (
-  // RFC: shadcn's AccordionRoot is animated by default, which is probably what most apps will want so I think it makes sense. Remember, this can be changed for the apps that don't want this behavior by default.
   <QwikUIAccordionRoot animated {...props} class={props.class}>
     <Slot />
   </QwikUIAccordionRoot>
 ));
+
+/*
+
+  <Accordion>
+    <AccordionItem label="">Bla bla</AccordionItem>
+    <AccordionItem label="My Stuff">Bla bla</AccordionItem>
+  </Accordion>
+
+  <Accordion>
+    <AccordionItem>
+      <AccordionHeader>My Stuff</AccordionHeader>
+      <AccordionContent> Bla bla</AccordionContent>
+     </AccordionItem>
+    <AccordionItem label="My Stuff"> Bla bla</AccordionItem>
+  </Accordion>
+
+*/
+
+// -------- Verbose version
 
 const AccordionItem = component$<AccordionItemProps>((props) => {
   return (
@@ -70,4 +98,4 @@ const AccordionContent = component$<AccordionItemProps>((props) => {
   );
 });
 
-export { Accordion, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent };
+export { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger };
