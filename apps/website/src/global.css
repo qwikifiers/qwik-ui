@@ -36,15 +36,39 @@
     --shadow-inner: inset 2px 2px 0px 0px rgba(0, 0, 0, 1);
   }
 
-  .neoskeuomorphic {
-    --border-width: 1px; /* Light, subtle borders */
-    --shadow-sm: 0 2px 2px -1px rgba(0, 0, 0, 0.2); /* Soft, small shadow */
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2); /* Default soft shadow */
-    --shadow-md: 0 6px 8px -2px rgba(0, 0, 0, 0.2); /* Medium, softer shadow */
-    --shadow-lg: 0 8px 10px -2px rgba(0, 0, 0, 0.2); /* Larger, soft shadow */
-    --shadow-xl: 0 10px 20px -3px rgba(0, 0, 0, 0.2); /* Extra large, soft shadow */
-    --shadow-2xl: 0 15px 25px -5px rgba(0, 0, 0, 0.2); /* Very large, soft shadow */
-    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
+  .neumorphic.neumorphic.light {
+    --border-width: 1px;
+    --background: 0 0% 96%;
+    --shadow-sm: 4px 4px 8px #cfcfd0, -4px -4px 8px #ffffff,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+    --shadow: 5px 5px 10px #cfcfd0, -5px -5px 10px #ffffff,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+    --shadow-md: 6px 6px 12px #cfcfd0, -6px -6px 12px #ffffff,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+    --shadow-lg: 10px 10px 20px #cfcfd0, -10px -10px 20px #ffffff,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+    --shadow-xl: 15px 15px 30px #cfcfd0, -15px -15px 30px #ffffff,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+    --shadow-2xl: 20px 20px 40px #cfcfd0, -20px -20px 40px #ffffff,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
+  }
+
+  .neumorphic.neumorphic.dark {
+    --border-width: 1px;
+    --shadow-sm: 5px 5px 9px #000, -5px -5px 9px #27272a,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(180, 180, 180, 0.5);
+    --shadow: 6px 6px 12px #000, -6px -6px 12px #27272a,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(180, 180, 180, 0.5);
+    --shadow-md: 8px 8px 15px #000, -8px -8px 15px #27272a,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(180, 180, 180, 0.5);
+    --shadow-lg: 10px 10px 21px #000, -10px -10px 21px #27272a,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(180, 180, 180, 0.5);
+    --shadow-xl: 15px 15px 30px #000, -15px -15px 30px #27272a,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(180, 180, 180, 0.5);
+    --shadow-2xl: 20px 20px 40px #000, -20px -20px 40px #27272a,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(180, 180, 180, 0.5);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
   }
 
   .border-radius-0 {
@@ -68,7 +92,7 @@
   }
 
   .light {
-    --background: 197 100% 100%;
+    --background: 0 0% 100%;
     --foreground: 197 84% 0%;
     --muted: 187 0% 96%;
     --muted-foreground: 190 5% 33%;
@@ -231,6 +255,9 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --ring: 212.7 26.8% 83.9;
+  }
+  .neumorphic {
+    --background: 222.2 47.4% 11.2%;
   }
 
   .gray-100,
@@ -436,7 +463,7 @@
     --primary: 0 0% 96.1%;
   }
   .neutral-200,
-  .neutral-900.dark {
+  .neutral-800.dark {
     --primary: 0 0% 89.8%;
   }
   .neutral-300 {
@@ -535,7 +562,7 @@
     --primary: 60 4.8% 95.9%;
   }
   .stone-200,
-  .stone-900.dark {
+  .stone-800.dark {
     --primary: 20 5.9% 90%;
   }
   .stone-300 {
