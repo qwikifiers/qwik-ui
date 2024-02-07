@@ -12,7 +12,7 @@
     "build": "nx build website",
     "build.cloudflare": "nx build-cloudflare website",
     "build.headless": "nx build headless",
-    "changeset": "changeset",
+    "change": "changeset",
     "changeset.version": "changeset version && pnpm install --no-frozen-lockfile && git add --all",
     "dev": "nx serve website",
     "format.fix": "pretty-quick --staged",
