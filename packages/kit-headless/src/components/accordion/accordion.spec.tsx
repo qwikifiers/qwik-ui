@@ -1,10 +1,10 @@
 import { component$, useStore } from '@builder.io/qwik';
 import {
-  AccordionRoot,
-  AccordionItem,
   AccordionContent,
-  AccordionTrigger,
   AccordionHeader,
+  AccordionItem,
+  AccordionRoot,
+  AccordionTrigger,
 } from './index';
 
 import './accordion-cypress.css';
@@ -479,3 +479,25 @@ describe('Dynamic', () => {
     cy.findAllByRole('button').eq(2).should('have.focus');
   });
 });
+
+// describe('shorthand syntax', () => {
+//   const ShorthandAccordion = component$(() => {
+//     return (
+//       <Accordion>
+//         <AccordionItem label="Trigger 1">Content 1</AccordionItem>
+//         <AccordionItem label="Trigger 2">Content 2</AccordionItem>
+//       </Accordion>
+//     );
+//   });
+
+//   it(`GIVEN 2 accordion items
+//       WHEN clicking the 2nd item's trigger
+//       THEN render the 2nd item's content
+// `, () => {
+//     cy.mount(<ShorthandAccordion />);
+
+//     cy.findByRole('button', { name: /Trigger 2/i }).click();
+
+//     cy.findByRole('region').should('contain', 'Content 2');
+//   });
+// });
