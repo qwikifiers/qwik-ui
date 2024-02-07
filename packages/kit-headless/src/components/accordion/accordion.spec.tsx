@@ -1,5 +1,6 @@
 import { component$, useStore } from '@builder.io/qwik';
 import {
+  Accordion,
   AccordionContent,
   AccordionHeader,
   AccordionItem,
@@ -480,24 +481,28 @@ describe('Dynamic', () => {
   });
 });
 
-// describe('shorthand syntax', () => {
-//   const ShorthandAccordion = component$(() => {
-//     return (
-//       <Accordion>
-//         <AccordionItem label="Trigger 1">Content 1</AccordionItem>
-//         <AccordionItem label="Trigger 2">Content 2</AccordionItem>
-//       </Accordion>
-//     );
-//   });
+describe('shorthand syntax', () => {
+  const ShorthandAccordion = component$(() => {
+    return (
+      <Accordion>
+        <AccordionItem label="Trigger 1">Content 1</AccordionItem>
+        <AccordionItem label="Trigger 2">Content 2</AccordionItem>
+        <AccordionItem>
+          <AccordionTrigger>Trigger 3</AccordionTrigger>
+          <AccordionContent>Content 3</AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    );
+  });
 
-//   it(`GIVEN 2 accordion items
-//       WHEN clicking the 2nd item's trigger
-//       THEN render the 2nd item's content
-// `, () => {
-//     cy.mount(<ShorthandAccordion />);
+  it(`GIVEN 2 accordion items
+      WHEN clicking the 2nd item's trigger
+      THEN render the 2nd item's content
+`, () => {
+    cy.mount(<ShorthandAccordion />);
 
-//     cy.findByRole('button', { name: /Trigger 2/i }).click();
+    cy.findByRole('button', { name: /Trigger 2/i }).click();
 
-//     cy.findByRole('region').should('contain', 'Content 2');
-//   });
-// });
+    cy.findByRole('region').should('contain', 'Content 2');
+  });
+});

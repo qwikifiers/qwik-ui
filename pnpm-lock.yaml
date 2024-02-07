@@ -399,6 +399,22 @@ importers:
         specifier: ~0.0.7
         version: 0.0.7(@types/node@20.11.5)(sass@1.70.0)
 
+  packages/kit-styled:
+    dependencies:
+      '@builder.io/qwik':
+        specifier: ^1.1.0
+        version: 1.4.0(@types/node@20.11.5)(sass@1.70.0)(undici@5.28.2)
+      '@qwik-ui/headless':
+        specifier: 0.2.1
+        version: link:../kit-headless
+      '@qwik-ui/utils':
+        specifier: 0.2.0
+        version: link:../utils
+    devDependencies:
+      '@builder.io/vite-plugin-macro':
+        specifier: ~0.0.7
+        version: 0.0.7(@types/node@20.11.5)(sass@1.70.0)
+
   packages/utils: {}
 
 packages:
