@@ -97,7 +97,11 @@ export const components: Record<string, any> = {
         class={[cn('relative  mb-6 max-h-[31.25rem] rounded-sm', props.class)]}
       >
         <CodeCopy class="absolute right-4 top-4" code={__rawString__} />
-        <div class="max-h-[31.25rem] max-w-full overflow-auto rounded-sm border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm">
+        <div
+          class={cn(
+            'max-h-[31.25rem] max-w-full overflow-auto rounded-sm border bg-gradient-to-b p-6 text-sm',
+          )}
+        >
           <pre>
             <Slot />
           </pre>

@@ -18,9 +18,9 @@ const buttonVariants = cva(
       },
       look: {
         solid: 'shadow focus-visible:ring-offset-1',
-        outline: 'bg-background text-foreground border hover:bg-accent',
+        outline: 'shadow-sm bg-background text-foreground border hover:bg-accent',
         ghost: 'bg-transparent text-accent-foreground hover:bg-accent',
-        link: 'bg-transparent text-primary underline-offset-4 hover:underline hover:bg-transparent',
+        link: 'bg-transparent text-foreground underline underline-offset-4 hover:text-foreground/80 hover:bg-transparent',
       },
       size: {
         xs: 'px-2 py-1.5 text-xs',

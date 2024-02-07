@@ -1,205 +1,206 @@
 export interface Theme {
   mode: 'light' | 'dark';
   style: 'simple' | 'brutalist' | 'neumorphic';
-  colorTheme:
-    | 'slate-100'
-    | 'gray-100'
-    | 'zinc-100'
-    | 'neutral-100'
-    | 'stone-100'
-    | 'red-100'
-    | 'orange-100'
-    | 'amber-100'
-    | 'yellow-100'
-    | 'lime-100'
-    | 'green-100'
-    | 'emerald-100'
-    | 'teal-100'
-    | 'cyan-100'
-    | 'sky-100'
-    | 'blue-100'
-    | 'indigo-100'
-    | 'violet-100'
-    | 'purple-100'
-    | 'fuchsia-100'
-    | 'pink-100'
-    | 'rose-100'
-    | 'slate-200'
-    | 'gray-200'
-    | 'zinc-200'
-    | 'neutral-200'
-    | 'stone-200'
-    | 'red-200'
-    | 'orange-200'
-    | 'amber-200'
-    | 'yellow-200'
-    | 'lime-200'
-    | 'green-200'
-    | 'emerald-200'
-    | 'teal-200'
-    | 'cyan-200'
-    | 'sky-200'
-    | 'blue-200'
-    | 'indigo-200'
-    | 'violet-200'
-    | 'purple-200'
-    | 'fuchsia-200'
-    | 'pink-200'
-    | 'rose-200'
-    | 'slate-300'
-    | 'gray-300'
-    | 'zinc-300'
-    | 'neutral-300'
-    | 'stone-300'
-    | 'red-300'
-    | 'orange-300'
-    | 'amber-300'
-    | 'yellow-300'
-    | 'lime-300'
-    | 'green-300'
-    | 'emerald-300'
-    | 'teal-300'
-    | 'cyan-300'
-    | 'sky-300'
-    | 'blue-300'
-    | 'indigo-300'
-    | 'violet-300'
-    | 'purple-300'
-    | 'fuchsia-300'
-    | 'pink-300'
-    | 'rose-300'
-    | 'slate-400'
-    | 'gray-400'
-    | 'zinc-400'
-    | 'neutral-400'
-    | 'stone-400'
-    | 'red-400'
-    | 'orange-400'
-    | 'amber-400'
-    | 'yellow-400'
-    | 'lime-400'
-    | 'green-400'
-    | 'emerald-400'
-    | 'teal-400'
-    | 'cyan-400'
-    | 'sky-400'
-    | 'blue-400'
-    | 'indigo-400'
-    | 'violet-400'
-    | 'purple-400'
-    | 'fuchsia-400'
-    | 'pink-400'
-    | 'rose-400'
-    | 'slate-500'
-    | 'gray-500'
-    | 'zinc-500'
-    | 'neutral-500'
-    | 'stone-500'
-    | 'red-500'
-    | 'orange-500'
-    | 'amber-500'
-    | 'yellow-500'
-    | 'lime-500'
-    | 'green-500'
-    | 'emerald-500'
-    | 'teal-500'
-    | 'cyan-500'
-    | 'sky-500'
-    | 'blue-500'
-    | 'indigo-500'
-    | 'violet-500'
-    | 'purple-500'
-    | 'fuchsia-500'
-    | 'pink-500'
-    | 'rose-500'
-    | 'slate-600'
-    | 'gray-600'
-    | 'zinc-600'
-    | 'neutral-600'
-    | 'stone-600'
-    | 'red-600'
-    | 'orange-600'
-    | 'amber-600'
-    | 'yellow-600'
-    | 'lime-600'
-    | 'green-600'
-    | 'emerald-600'
-    | 'teal-600'
-    | 'cyan-600'
-    | 'sky-600'
-    | 'blue-600'
-    | 'indigo-600'
-    | 'violet-600'
-    | 'purple-600'
-    | 'fuchsia-600'
-    | 'pink-600'
-    | 'rose-600'
-    | 'slate-700'
-    | 'gray-700'
-    | 'zinc-700'
-    | 'neutral-700'
-    | 'stone-700'
-    | 'red-700'
-    | 'orange-700'
-    | 'amber-700'
-    | 'yellow-700'
-    | 'lime-700'
-    | 'green-700'
-    | 'emerald-700'
-    | 'teal-700'
-    | 'cyan-700'
-    | 'sky-700'
-    | 'blue-700'
-    | 'indigo-700'
-    | 'violet-700'
-    | 'purple-700'
-    | 'fuchsia-700'
-    | 'pink-700'
-    | 'rose-700'
-    | 'slate-800'
-    | 'gray-800'
-    | 'zinc-800'
-    | 'neutral-800'
-    | 'stone-800'
-    | 'red-800'
-    | 'orange-800'
-    | 'amber-800'
-    | 'yellow-800'
-    | 'lime-800'
-    | 'green-800'
-    | 'emerald-800'
-    | 'teal-800'
-    | 'cyan-800'
-    | 'sky-800'
-    | 'blue-800'
-    | 'indigo-800'
-    | 'violet-800'
-    | 'purple-800'
-    | 'fuchsia-800'
-    | 'pink-800'
-    | 'rose-800'
-    | 'slate-900'
-    | 'gray-900'
-    | 'zinc-900'
-    | 'neutral-900'
-    | 'stone-900'
-    | 'red-900'
-    | 'orange-900'
-    | 'amber-900'
-    | 'yellow-900'
-    | 'lime-900'
-    | 'green-900'
-    | 'emerald-900'
-    | 'teal-900'
-    | 'cyan-900'
-    | 'sky-900'
-    | 'blue-900'
-    | 'indigo-900'
-    | 'violet-900'
-    | 'purple-900'
-    | 'fuchsia-900'
-    | 'pink-900'
-    | 'rose-900';
+  base: 'base-slate' | 'base-gray' | 'base-zinc' | 'base-neutral' | 'base-stone';
+  primary:
+    | 'primary-slate-100'
+    | 'primary-gray-100'
+    | 'primary-zinc-100'
+    | 'primary-neutral-100'
+    | 'primary-stone-100'
+    | 'primary-red-100'
+    | 'primary-orange-100'
+    | 'primary-amber-100'
+    | 'primary-yellow-100'
+    | 'primary-lime-100'
+    | 'primary-green-100'
+    | 'primary-emerald-100'
+    | 'primary-teal-100'
+    | 'primary-cyan-100'
+    | 'primary-sky-100'
+    | 'primary-blue-100'
+    | 'primary-indigo-100'
+    | 'primary-violet-100'
+    | 'primary-purple-100'
+    | 'primary-fuchsia-100'
+    | 'primary-pink-100'
+    | 'primary-rose-100'
+    | 'primary-slate-200'
+    | 'primary-gray-200'
+    | 'primary-zinc-200'
+    | 'primary-neutral-200'
+    | 'primary-stone-200'
+    | 'primary-red-200'
+    | 'primary-orange-200'
+    | 'primary-amber-200'
+    | 'primary-yellow-200'
+    | 'primary-lime-200'
+    | 'primary-green-200'
+    | 'primary-emerald-200'
+    | 'primary-teal-200'
+    | 'primary-cyan-200'
+    | 'primary-sky-200'
+    | 'primary-blue-200'
+    | 'primary-indigo-200'
+    | 'primary-violet-200'
+    | 'primary-purple-200'
+    | 'primary-fuchsia-200'
+    | 'primary-pink-200'
+    | 'primary-rose-200'
+    | 'primary-slate-300'
+    | 'primary-gray-300'
+    | 'primary-zinc-300'
+    | 'primary-neutral-300'
+    | 'primary-stone-300'
+    | 'primary-red-300'
+    | 'primary-orange-300'
+    | 'primary-amber-300'
+    | 'primary-yellow-300'
+    | 'primary-lime-300'
+    | 'primary-green-300'
+    | 'primary-emerald-300'
+    | 'primary-teal-300'
+    | 'primary-cyan-300'
+    | 'primary-sky-300'
+    | 'primary-blue-300'
+    | 'primary-indigo-300'
+    | 'primary-violet-300'
+    | 'primary-purple-300'
+    | 'primary-fuchsia-300'
+    | 'primary-pink-300'
+    | 'primary-rose-300'
+    | 'primary-slate-400'
+    | 'primary-gray-400'
+    | 'primary-zinc-400'
+    | 'primary-neutral-400'
+    | 'primary-stone-400'
+    | 'primary-red-400'
+    | 'primary-orange-400'
+    | 'primary-amber-400'
+    | 'primary-yellow-400'
+    | 'primary-lime-400'
+    | 'primary-green-400'
+    | 'primary-emerald-400'
+    | 'primary-teal-400'
+    | 'primary-cyan-400'
+    | 'primary-sky-400'
+    | 'primary-blue-400'
+    | 'primary-indigo-400'
+    | 'primary-violet-400'
+    | 'primary-purple-400'
+    | 'primary-fuchsia-400'
+    | 'primary-pink-400'
+    | 'primary-rose-400'
+    | 'primary-slate-500'
+    | 'primary-gray-500'
+    | 'primary-zinc-500'
+    | 'primary-neutral-500'
+    | 'primary-stone-500'
+    | 'primary-red-500'
+    | 'primary-orange-500'
+    | 'primary-amber-500'
+    | 'primary-yellow-500'
+    | 'primary-lime-500'
+    | 'primary-green-500'
+    | 'primary-emerald-500'
+    | 'primary-teal-500'
+    | 'primary-cyan-500'
+    | 'primary-sky-500'
+    | 'primary-blue-500'
+    | 'primary-indigo-500'
+    | 'primary-violet-500'
+    | 'primary-purple-500'
+    | 'primary-fuchsia-500'
+    | 'primary-pink-500'
+    | 'primary-rose-500'
+    | 'primary-slate-600'
+    | 'primary-gray-600'
+    | 'primary-zinc-600'
+    | 'primary-neutral-600'
+    | 'primary-stone-600'
+    | 'primary-red-600'
+    | 'primary-orange-600'
+    | 'primary-amber-600'
+    | 'primary-yellow-600'
+    | 'primary-lime-600'
+    | 'primary-green-600'
+    | 'primary-emerald-600'
+    | 'primary-teal-600'
+    | 'primary-cyan-600'
+    | 'primary-sky-600'
+    | 'primary-blue-600'
+    | 'primary-indigo-600'
+    | 'primary-violet-600'
+    | 'primary-purple-600'
+    | 'primary-fuchsia-600'
+    | 'primary-pink-600'
+    | 'primary-rose-600'
+    | 'primary-slate-700'
+    | 'primary-gray-700'
+    | 'primary-zinc-700'
+    | 'primary-neutral-700'
+    | 'primary-stone-700'
+    | 'primary-red-700'
+    | 'primary-orange-700'
+    | 'primary-amber-700'
+    | 'primary-yellow-700'
+    | 'primary-lime-700'
+    | 'primary-green-700'
+    | 'primary-emerald-700'
+    | 'primary-teal-700'
+    | 'primary-cyan-700'
+    | 'primary-sky-700'
+    | 'primary-blue-700'
+    | 'primary-indigo-700'
+    | 'primary-violet-700'
+    | 'primary-purple-700'
+    | 'primary-fuchsia-700'
+    | 'primary-pink-700'
+    | 'primary-rose-700'
+    | 'primary-slate-800'
+    | 'primary-gray-800'
+    | 'primary-zinc-800'
+    | 'primary-neutral-800'
+    | 'primary-stone-800'
+    | 'primary-red-800'
+    | 'primary-orange-800'
+    | 'primary-amber-800'
+    | 'primary-yellow-800'
+    | 'primary-lime-800'
+    | 'primary-green-800'
+    | 'primary-emerald-800'
+    | 'primary-teal-800'
+    | 'primary-cyan-800'
+    | 'primary-sky-800'
+    | 'primary-blue-800'
+    | 'primary-indigo-800'
+    | 'primary-violet-800'
+    | 'primary-purple-800'
+    | 'primary-fuchsia-800'
+    | 'primary-pink-800'
+    | 'primary-rose-800'
+    | 'primary-slate-900'
+    | 'primary-gray-900'
+    | 'primary-zinc-900'
+    | 'primary-neutral-900'
+    | 'primary-stone-900'
+    | 'primary-red-900'
+    | 'primary-orange-900'
+    | 'primary-amber-900'
+    | 'primary-yellow-900'
+    | 'primary-lime-900'
+    | 'primary-green-900'
+    | 'primary-emerald-900'
+    | 'primary-teal-900'
+    | 'primary-cyan-900'
+    | 'primary-sky-900'
+    | 'primary-blue-900'
+    | 'primary-indigo-900'
+    | 'primary-violet-900'
+    | 'primary-purple-900'
+    | 'primary-fuchsia-900'
+    | 'primary-pink-900'
+    | 'primary-rose-900';
 
   contrast: 'low-contrast' | 'high-contrast';
   borderRadius:
@@ -210,213 +211,221 @@ export interface Theme {
     | 'border-radius-1';
 }
 
-export const colorThemeOptions: Theme['colorTheme'][] = [
-  'slate-100',
-  'gray-100',
-  'zinc-100',
-  'neutral-100',
-  'stone-100',
-  'red-100',
-  'orange-100',
-  'amber-100',
-  'yellow-100',
-  'lime-100',
-  'green-100',
-  'emerald-100',
-  'teal-100',
-  'cyan-100',
-  'sky-100',
-  'blue-100',
-  'indigo-100',
-  'violet-100',
-  'purple-100',
-  'fuchsia-100',
-  'pink-100',
-  'rose-100',
+export const baseOptions: Theme['base'][] = [
+  'base-slate',
+  'base-gray',
+  'base-zinc',
+  'base-neutral',
+  'base-stone',
+];
 
-  'slate-200',
-  'gray-200',
-  'zinc-200',
-  'neutral-200',
-  'stone-200',
-  'red-200',
-  'orange-200',
-  'amber-200',
-  'yellow-200',
-  'lime-200',
-  'green-200',
-  'emerald-200',
-  'teal-200',
-  'cyan-200',
-  'sky-200',
-  'blue-200',
-  'indigo-200',
-  'violet-200',
-  'purple-200',
-  'fuchsia-200',
-  'pink-200',
-  'rose-200',
+export const primaryOptions: Theme['primary'][] = [
+  'primary-slate-100',
+  'primary-gray-100',
+  'primary-zinc-100',
+  'primary-neutral-100',
+  'primary-stone-100',
+  'primary-red-100',
+  'primary-orange-100',
+  'primary-amber-100',
+  'primary-yellow-100',
+  'primary-lime-100',
+  'primary-green-100',
+  'primary-emerald-100',
+  'primary-teal-100',
+  'primary-cyan-100',
+  'primary-sky-100',
+  'primary-blue-100',
+  'primary-indigo-100',
+  'primary-violet-100',
+  'primary-purple-100',
+  'primary-fuchsia-100',
+  'primary-pink-100',
+  'primary-rose-100',
 
-  'slate-300',
-  'gray-300',
-  'zinc-300',
-  'neutral-300',
-  'stone-300',
-  'red-300',
-  'orange-300',
-  'amber-300',
-  'yellow-300',
-  'lime-300',
-  'green-300',
-  'emerald-300',
-  'teal-300',
-  'cyan-300',
-  'sky-300',
-  'blue-300',
-  'indigo-300',
-  'violet-300',
-  'purple-300',
-  'fuchsia-300',
-  'pink-300',
-  'rose-300',
+  'primary-slate-200',
+  'primary-gray-200',
+  'primary-zinc-200',
+  'primary-neutral-200',
+  'primary-stone-200',
+  'primary-red-200',
+  'primary-orange-200',
+  'primary-amber-200',
+  'primary-yellow-200',
+  'primary-lime-200',
+  'primary-green-200',
+  'primary-emerald-200',
+  'primary-teal-200',
+  'primary-cyan-200',
+  'primary-sky-200',
+  'primary-blue-200',
+  'primary-indigo-200',
+  'primary-violet-200',
+  'primary-purple-200',
+  'primary-fuchsia-200',
+  'primary-pink-200',
+  'primary-rose-200',
 
-  'slate-400',
-  'gray-400',
-  'zinc-400',
-  'neutral-400',
-  'stone-400',
-  'red-400',
-  'orange-400',
-  'amber-400',
-  'yellow-400',
-  'lime-400',
-  'green-400',
-  'emerald-400',
-  'teal-400',
-  'cyan-400',
-  'sky-400',
-  'blue-400',
-  'indigo-400',
-  'violet-400',
-  'purple-400',
-  'fuchsia-400',
-  'pink-400',
-  'rose-400',
+  'primary-slate-300',
+  'primary-gray-300',
+  'primary-zinc-300',
+  'primary-neutral-300',
+  'primary-stone-300',
+  'primary-red-300',
+  'primary-orange-300',
+  'primary-amber-300',
+  'primary-yellow-300',
+  'primary-lime-300',
+  'primary-green-300',
+  'primary-emerald-300',
+  'primary-teal-300',
+  'primary-cyan-300',
+  'primary-sky-300',
+  'primary-blue-300',
+  'primary-indigo-300',
+  'primary-violet-300',
+  'primary-purple-300',
+  'primary-fuchsia-300',
+  'primary-pink-300',
+  'primary-rose-300',
 
-  'slate-500',
-  'gray-500',
-  'zinc-500',
-  'neutral-500',
-  'stone-500',
-  'red-500',
-  'orange-500',
-  'amber-500',
-  'yellow-500',
-  'lime-500',
-  'green-500',
-  'emerald-500',
-  'teal-500',
-  'cyan-500',
-  'sky-500',
-  'blue-500',
-  'indigo-500',
-  'violet-500',
-  'purple-500',
-  'fuchsia-500',
-  'pink-500',
-  'rose-500',
+  'primary-slate-400',
+  'primary-gray-400',
+  'primary-zinc-400',
+  'primary-neutral-400',
+  'primary-stone-400',
+  'primary-red-400',
+  'primary-orange-400',
+  'primary-amber-400',
+  'primary-yellow-400',
+  'primary-lime-400',
+  'primary-green-400',
+  'primary-emerald-400',
+  'primary-teal-400',
+  'primary-cyan-400',
+  'primary-sky-400',
+  'primary-blue-400',
+  'primary-indigo-400',
+  'primary-violet-400',
+  'primary-purple-400',
+  'primary-fuchsia-400',
+  'primary-pink-400',
+  'primary-rose-400',
 
-  'slate-600',
-  'gray-600',
-  'zinc-600',
-  'neutral-600',
-  'stone-600',
-  'red-600',
-  'orange-600',
-  'amber-600',
-  'yellow-600',
-  'lime-600',
-  'green-600',
-  'emerald-600',
-  'teal-600',
-  'cyan-600',
-  'sky-600',
-  'blue-600',
-  'indigo-600',
-  'violet-600',
-  'purple-600',
-  'fuchsia-600',
-  'pink-600',
-  'rose-600',
+  'primary-slate-500',
+  'primary-gray-500',
+  'primary-zinc-500',
+  'primary-neutral-500',
+  'primary-stone-500',
+  'primary-red-500',
+  'primary-orange-500',
+  'primary-amber-500',
+  'primary-yellow-500',
+  'primary-lime-500',
+  'primary-green-500',
+  'primary-emerald-500',
+  'primary-teal-500',
+  'primary-cyan-500',
+  'primary-sky-500',
+  'primary-blue-500',
+  'primary-indigo-500',
+  'primary-violet-500',
+  'primary-purple-500',
+  'primary-fuchsia-500',
+  'primary-pink-500',
+  'primary-rose-500',
 
-  'slate-700',
-  'gray-700',
-  'zinc-700',
-  'neutral-700',
-  'stone-700',
-  'red-700',
-  'orange-700',
-  'amber-700',
-  'yellow-700',
-  'lime-700',
-  'green-700',
-  'emerald-700',
-  'teal-700',
-  'cyan-700',
-  'sky-700',
-  'blue-700',
-  'indigo-700',
-  'violet-700',
-  'purple-700',
-  'fuchsia-700',
-  'pink-700',
-  'rose-700',
+  'primary-slate-600',
+  'primary-gray-600',
+  'primary-zinc-600',
+  'primary-neutral-600',
+  'primary-stone-600',
+  'primary-red-600',
+  'primary-orange-600',
+  'primary-amber-600',
+  'primary-yellow-600',
+  'primary-lime-600',
+  'primary-green-600',
+  'primary-emerald-600',
+  'primary-teal-600',
+  'primary-cyan-600',
+  'primary-sky-600',
+  'primary-blue-600',
+  'primary-indigo-600',
+  'primary-violet-600',
+  'primary-purple-600',
+  'primary-fuchsia-600',
+  'primary-pink-600',
+  'primary-rose-600',
 
-  'slate-800',
-  'gray-800',
-  'zinc-800',
-  'neutral-800',
-  'stone-800',
-  'red-800',
-  'orange-800',
-  'amber-800',
-  'yellow-800',
-  'lime-800',
-  'green-800',
-  'emerald-800',
-  'teal-800',
-  'cyan-800',
-  'sky-800',
-  'blue-800',
-  'indigo-800',
-  'violet-800',
-  'purple-800',
-  'fuchsia-800',
-  'pink-800',
-  'rose-800',
+  'primary-slate-700',
+  'primary-gray-700',
+  'primary-zinc-700',
+  'primary-neutral-700',
+  'primary-stone-700',
+  'primary-red-700',
+  'primary-orange-700',
+  'primary-amber-700',
+  'primary-yellow-700',
+  'primary-lime-700',
+  'primary-green-700',
+  'primary-emerald-700',
+  'primary-teal-700',
+  'primary-cyan-700',
+  'primary-sky-700',
+  'primary-blue-700',
+  'primary-indigo-700',
+  'primary-violet-700',
+  'primary-purple-700',
+  'primary-fuchsia-700',
+  'primary-pink-700',
+  'primary-rose-700',
 
-  'slate-900',
-  'gray-900',
-  'zinc-900',
-  'neutral-900',
-  'stone-900',
-  'red-900',
-  'orange-900',
-  'amber-900',
-  'yellow-900',
-  'lime-900',
-  'green-900',
-  'emerald-900',
-  'teal-900',
-  'cyan-900',
-  'sky-900',
-  'blue-900',
-  'indigo-900',
-  'violet-900',
-  'purple-900',
-  'fuchsia-900',
-  'pink-900',
-  'rose-900',
+  'primary-slate-800',
+  'primary-gray-800',
+  'primary-zinc-800',
+  'primary-neutral-800',
+  'primary-stone-800',
+  'primary-red-800',
+  'primary-orange-800',
+  'primary-amber-800',
+  'primary-yellow-800',
+  'primary-lime-800',
+  'primary-green-800',
+  'primary-emerald-800',
+  'primary-teal-800',
+  'primary-cyan-800',
+  'primary-sky-800',
+  'primary-blue-800',
+  'primary-indigo-800',
+  'primary-violet-800',
+  'primary-purple-800',
+  'primary-fuchsia-800',
+  'primary-pink-800',
+  'primary-rose-800',
+
+  'primary-slate-900',
+  'primary-gray-900',
+  'primary-zinc-900',
+  'primary-neutral-900',
+  'primary-stone-900',
+  'primary-red-900',
+  'primary-orange-900',
+  'primary-amber-900',
+  'primary-yellow-900',
+  'primary-lime-900',
+  'primary-green-900',
+  'primary-emerald-900',
+  'primary-teal-900',
+  'primary-cyan-900',
+  'primary-sky-900',
+  'primary-blue-900',
+  'primary-indigo-900',
+  'primary-violet-900',
+  'primary-purple-900',
+  'primary-fuchsia-900',
+  'primary-pink-900',
+  'primary-rose-900',
 ];
 
 export const styleOptions: Theme['style'][] = ['simple', 'brutalist', 'neumorphic'];
