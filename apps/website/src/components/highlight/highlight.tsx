@@ -7,6 +7,7 @@ import {
 } from '@builder.io/qwik';
 import { CodeCopy } from '../code-copy/code-copy';
 import { codeToHtml } from 'shikiji';
+import { cn } from '@qwik-ui/utils';
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
@@ -65,10 +66,10 @@ export const Highlight = component$(
         />
         <div
           {...props}
-          class={[
+          class={cn(
             'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-b-sm bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm',
             props.class,
-          ]}
+          )}
         >
           <div dangerouslySetInnerHTML={codeSig.value} />
         </div>

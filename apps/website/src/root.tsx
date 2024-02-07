@@ -12,10 +12,11 @@ import globalStyles from './global.css?inline';
 
 import { ThemeProvider } from 'qwik-themes';
 import {
+  baseOptions,
   borderRadiusOptions,
-  colorThemeOptions,
   contrastOptions,
   modeOptions,
+  primaryOptions,
   styleOptions,
 } from './_state/make-it-yours';
 
@@ -58,7 +59,8 @@ export default component$(() => {
           themes={[
             ...modeOptions,
             ...styleOptions,
-            ...colorThemeOptions,
+            ...baseOptions,
+            ...primaryOptions,
             ...borderRadiusOptions,
             ...contrastOptions,
           ]}
