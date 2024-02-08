@@ -38,29 +38,47 @@
 
   .neumorphic.neumorphic.light {
     --border-width: 1px;
-    --background: 240 5.9% 90%;
+    --background: 240 4.9% 83.9%;
     --foreground: 240 5.9% 10%;
     --border: 240 5.9% 70%;
-    --shadow-sm: 3px 3px 6px #c2c2c4, -3px -3px 6px #ffffff;
-    --shadow: 4px 4px 8px #c2c2c4, -4px -4px 8px #ffffff;
-    --shadow-md: 5px 5px 10px #c2c2c4, -5px -5px 10px #ffffff;
-    --shadow-lg: 6px 6px 12px #c2c2c4, -6px -6px 12px #ffffff;
-    --shadow-xl: 8px 8px 15px #c2c2c4, -8px -8px 15px #ffffff;
-    --shadow-2xl: 10px 10px 20px #c2c2c4, -10px -10px 20px #ffffff;
+    --shadow-sm: 3px 3px 6px #bbbbbe, -3px -3px 6px #ededf2,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+
+    --shadow: 4px 4px 8px #bbbbbe, -4px -4px 8px #ededf2,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+
+    --shadow-md: 5px 5px 10px #bbbbbe, -5px -5px 10px #ededf2,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+
+    --shadow-lg: 6px 6px 12px #bbbbbe, -6px -6px 12px #ededf2,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+
+    --shadow-xl: 8px 8px 15px #bbbbbe, -8px -8px 15px #ededf2,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+
+    --shadow-2xl: 10px 10px 20px #bbbbbe, -10px -10px 20px #ededf2,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
   }
 
   .neumorphic.neumorphic.dark {
     --border-width: 1px;
-    --background: 240 3.7% 15.9%;
+    --background: 240 5.3% 26.1%;
     --foreground: 240 5.9% 90%;
     --border: 240 5.9% 30%;
-    --shadow-sm: 3px 3px 6px #212124, -3px -3px 6px #2d2d30;
-    --shadow: 4px 4px 8px #212124, -4px -4px 8px #2d2d30;
-    --shadow-md: 5px 5px 10px #212124, -5px -5px 10px #2d2d30;
-    --shadow-lg: 6px 6px 12px #212124, -6px -6px 12px #2d2d30;
-    --shadow-xl: 8px 8px 15px #212124, -8px -8px 15px #2d2d30;
-    --shadow-2xl: 10px 10px 20px #212124, -10px -10px 20px #2d2d30;
+    --shadow-sm: 3px 3px 6px #2c2c31, -3px -3px 6px #52525b,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
+    --shadow: 4px 4px 8px #2c2c31, -4px -4px 8px #52525b,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
+    --shadow-md: 5px 5px 10px #2c2c31, -5px -5px 10px #52525b,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
+    --shadow-lg: 6px 6px 12px #2c2c31, -6px -6px 12px #52525b,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
+    --shadow-xl: 8px 8px 15px #2c2c31, -8px -8px 15px #52525b,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
+    --shadow-2xl: 10px 10px 20px #2c2c31, -10px -10px 20px #52525b,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
   }
 

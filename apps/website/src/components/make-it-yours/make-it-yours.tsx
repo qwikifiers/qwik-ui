@@ -1,8 +1,8 @@
 import {
   $,
   component$,
+  useComputed$,
   useSignal,
-  useStore,
   useStyles$,
   useVisibleTask$,
 } from '@builder.io/qwik';
@@ -11,12 +11,7 @@ import { Button } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
 import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
 import { useTheme } from 'qwik-themes';
-import {
-  Theme,
-  borderRadiusOptions,
-  baseOptions,
-  primaryOptions,
-} from '~/_state/make-it-yours';
+import { borderRadiusOptions, baseOptions, primaryOptions } from '~/_state/make-it-yours';
 import globalCSS from '~/global.css?raw';
 
 export default component$(() => {
@@ -127,22 +122,28 @@ export default component$(() => {
     extractedClasses.value = formattedCSS;
   });
 
-  const themeStore = useStore<Theme>({
-    mode: 'light',
-    style: 'simple',
-    base: 'base-slate',
-    primary: 'primary-cyan-600',
-    contrast: 'low-contrast',
-    borderRadius: 'border-radius-0',
+  useVisibleTask$(() => {
+    console.log('theme', theme);
+  });
+
+  const themeComputedObject = useComputed$(() => {
+    const themeArray = Array.isArray(theme) ? theme : theme?.split(' ');
+
+    return {
+      mode: themeArray ? themeArray[0] : 'light',
+      style: themeArray ? themeArray[1] : 'simple',
+      base: themeArray ? themeArray[2] : 'base-slate',
+      primary: themeArray ? themeArray[3] : 'primary-cyan-600',
+      contrast: themeArray ? themeArray[4] : 'low-contrast',
+      borderRadius: themeArray ? themeArray[5] : 'border-radius-0',
+    };
   });
 
   const themeStoreToThemeClasses = $(() => {
-    const { mode, style, base, primary, contrast, borderRadius } = themeStore;
-    return [mode, style, base, primary, contrast, borderRadius].filter(
-      (value) => value !== 'low-contrast',
-    );
+    const { mode, style, base, primary, contrast, borderRadius } =
+      themeComputedObject.value;
+    return [mode, style, base, primary, contrast, borderRadius];
   });
-
   return (
     <section>
       <button
@@ -167,8 +168,9 @@ export default component$(() => {
           <label class="mb-1 block font-medium">Preset</label>
           <select
             class="bg-background h-12 min-w-80 rounded-sm border p-2"
+            value={themeComputedObject.value.style}
             onChange$={async (e, el) => {
-              themeStore.style = el.value as Theme['style'];
+              themeComputedObject.value.style = el.value;
               setTheme(await themeStoreToThemeClasses());
             }}
           >
@@ -180,7 +182,7 @@ export default component$(() => {
           <label class="mb-1 mt-8 block font-medium">Base</label>
           <div class="flex">
             {baseOptions.map((base) => {
-              const isActive = themeStore.base === base;
+              const isActive = themeComputedObject.value.base === base;
 
               return (
                 <Button
@@ -188,12 +190,12 @@ export default component$(() => {
                   look="ghost"
                   size="icon"
                   onClick$={async () => {
-                    themeStore.base = base;
+                    themeComputedObject.value.base = base;
                     setTheme(await themeStoreToThemeClasses());
                   }}
                   class={cn(
                     'flex h-4 w-4 items-center justify-center rounded-none',
-                    isActive && 'border-base border-2',
+                    isActive && 'border-primary border-2',
                   )}
                 >
                   <span
@@ -214,7 +216,7 @@ export default component$(() => {
           <label class="mb-1 mt-8 block font-medium">Primary</label>
           <div class="grid grid-cols-[repeat(22,1fr)]">
             {primaryOptions.map((primary) => {
-              const isActive = themeStore.primary === primary;
+              const isActive = themeComputedObject.value.primary === primary;
 
               if (
                 primary.includes('slate-100') ||
@@ -236,9 +238,7 @@ export default component$(() => {
                   look="ghost"
                   size="icon"
                   onClick$={async () => {
-                    themeStore.primary = primary;
-                    console.log('theme', theme?.includes('dark'));
-                    console.log('primary', primary);
+                    themeComputedObject.value.primary = primary;
                     setTheme(await themeStoreToThemeClasses());
                   }}
                   class={cn(
@@ -485,14 +485,14 @@ export default component$(() => {
             <label class="mb-1 mt-8 block font-medium">Radius</label>
             <div class="grid grid-cols-3 gap-2">
               {borderRadiusOptions.map((borderRadius) => {
-                const isActive = themeStore.borderRadius === borderRadius;
+                const isActive = themeComputedObject.value.borderRadius === borderRadius;
                 return (
                   <Button
                     key={borderRadius}
                     look="outline"
                     size="xs"
                     onClick$={async () => {
-                      themeStore.borderRadius = borderRadius;
+                      themeComputedObject.value.borderRadius = borderRadius;
                       setTheme(await themeStoreToThemeClasses());
                     }}
                     class={cn('justify-start', isActive && 'border-primary border-2')}
@@ -508,13 +508,14 @@ export default component$(() => {
             High Contrast{' '}
             <input
               type="checkbox"
+              checked={themeComputedObject.value.contrast === 'high-contrast'}
               onClick$={async () => {
-                themeStore.contrast =
-                  themeStore.contrast === 'high-contrast'
+                themeComputedObject.value.contrast =
+                  themeComputedObject.value.contrast === 'high-contrast'
                     ? 'low-contrast'
                     : 'high-contrast';
 
-                console.log(themeStore.contrast);
+                console.log(themeComputedObject.value.contrast);
                 setTheme(await themeStoreToThemeClasses());
               }}
             />
@@ -525,10 +526,12 @@ export default component$(() => {
             Dark Mode{' '}
             <input
               type="checkbox"
+              checked={themeComputedObject.value.mode === 'dark'}
               onClick$={async () => {
-                themeStore.mode = themeStore.mode === 'light' ? 'dark' : 'light';
+                themeComputedObject.value.mode =
+                  themeComputedObject.value.mode === 'light' ? 'dark' : 'light';
 
-                console.log(themeStore.mode);
+                console.log(themeComputedObject.value.mode);
                 setTheme(await themeStoreToThemeClasses());
               }}
             />
