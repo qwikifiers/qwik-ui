@@ -195,7 +195,7 @@ export default component$(() => {
                   }}
                   class={cn(
                     'flex h-4 w-4 items-center justify-center rounded-none',
-                    isActive && 'border-primary border-2',
+                    isActive && 'border-ring border-2',
                   )}
                 >
                   <span
@@ -243,7 +243,7 @@ export default component$(() => {
                   }}
                   class={cn(
                     'flex h-4 w-4 items-center justify-center rounded-none',
-                    isActive && 'border-primary border-2',
+                    isActive && 'border-ring border-2',
                   )}
                 >
                   {(primary?.includes('slate-800') ||
@@ -495,7 +495,7 @@ export default component$(() => {
                       themeComputedObject.value.borderRadius = borderRadius;
                       setTheme(await themeStoreToThemeClasses());
                     }}
-                    class={cn('justify-start', isActive && 'border-primary border-2')}
+                    class={cn('justify-start', isActive && 'border-ring border-2')}
                   >
                     {borderRadius}
                   </Button>
