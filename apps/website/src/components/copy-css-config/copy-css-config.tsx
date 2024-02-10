@@ -60,7 +60,7 @@ export default component$(() => {
         <ModalContent class="mb-2 pb-4 pt-2">
           <div>
             <pre>
-              <code>{globalCSS}</code>
+              <code>{extractedClasses.value}</code>
             </pre>
           </div>
         </ModalContent>
