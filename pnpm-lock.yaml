@@ -287,6 +287,9 @@ importers:
       shikiji:
         specifier: 0.9.18
         version: 0.9.18
+      specificity:
+        specifier: 1.0.0
+        version: 1.0.0
       storybook:
         specifier: ^7.4.0
         version: 7.6.10
@@ -20248,6 +20251,12 @@ packages:
 
   /spdx-license-ids@3.0.16:
     resolution: {integrity: sha512-eWN+LnM3GR6gPu35WxNgbGl8rmY1AEmoMDvL/QD6zYmPWgywxWqJWNdLGT+ke8dKNWrcYgYjPpG5gbTfghP8rw==}
+    dev: true
+
+  /specificity@1.0.0:
+    resolution: {integrity: sha512-nCtHb5/MTfZ1D36EpLLz03AcUf1v+PxWFFieW4O721MaJUo/anSMckB94Ylj5VQPrjdlx+4BXcKD+s1N0yT+ww==}
+    dependencies:
+      css-tree: 2.3.1
     dev: true
 
   /split-on-first@1.1.0:

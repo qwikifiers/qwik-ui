@@ -1,10 +1,11 @@
 import { $, component$, useSignal } from '@builder.io/qwik';
-import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
+import { Modal, ModalContent, ModalHeader } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/styled';
 import { LuX } from '@qwikest/icons/lucide';
 import { useTheme } from 'qwik-themes';
 import { Theme } from 'qwik-themes/lib-types/lib/types';
 import globalCSS from '~/global.css?raw';
+import { calculate, compare } from 'specificity';
 
 export default component$(() => {
   const showSig = useSignal(false);
@@ -24,7 +25,6 @@ export default component$(() => {
 
       // Extract the content between the start and end markers
       let extractedCSS = globalCSS.substring(startIndex, endIndex).trim();
-      console.log('extractedCSS: ', extractedCSS);
 
       // Remove all CSS comments
       extractedCSS = extractedCSS.replace(/\/\*[\s\S]*?\*\//g, '').trim();
@@ -49,7 +49,6 @@ export default component$(() => {
 
         // Split class names by ',' in case multiple classes are defined together.
         const classKeysArray = classKeys.split(',').map((name) => name.trim()); // Remove leading '.' from class names.
-        console.log('classNamesArray: ', classKeysArray);
 
         // Process CSS properties into a key-value map.
         const properties = classValues
@@ -123,6 +122,33 @@ export default component$(() => {
       return result;
     }
 
+    function sortObjClassesBySpecificity(
+      classes: Record<string, Record<string, string>>,
+    ) {
+      // Convert the classes object to an array of [className, classStyles] pairs
+      const classNames = Object.keys(classes);
+
+      // Sort the array based on the specificity of className
+      const sortedClassNames = classNames.sort((a, b) => {
+        // Calculate specificity for each class name (a[0] and b[0] are the class names)
+
+        const specificityA = calculate(a);
+        const specificityB = calculate(b);
+        return compare(specificityA, specificityB);
+      });
+
+      // Convert the sorted array back to an object
+      const sortedObjClasses = sortedClassNames.reduce(
+        (obj: Record<string, Record<string, string>>, className) => {
+          obj[className] = classes[className];
+          return obj;
+        },
+        {},
+      );
+
+      return sortedObjClasses;
+    }
+
     type ObjTheme = {
       root: Record<string, string>;
       dark: Record<string, string>;
@@ -138,29 +164,90 @@ export default component$(() => {
     }): ObjTheme {
       if (!theme) throw new Error('No theme provided');
 
-      console.log('objRootClasses: ', objRootClasses[`.base-slate`]);
+      console.log('theme: ', theme);
+
+      // Sort classes by specificity
+      const sortedObjRootClasses = sortObjClassesBySpecificity(objRootClasses);
+      const sortedObjDarkClasses = sortObjClassesBySpecificity(objDarkClasses);
+
+      console.log('sortedObjRootClasses: ', sortedObjRootClasses);
 
       const themeClasses: string[] = Array.isArray(theme) ? theme : theme?.split(' ');
       let rootOutput: Record<string, string> = {};
       let darkOutput: Record<string, string> = {};
 
-      themeClasses.forEach((themeClass) => {
-        if (objRootClasses[`.${themeClass}`]) {
-          rootOutput = { ...rootOutput, ...objRootClasses[`.${themeClass}`] };
-        }
+      // For root classes
+      Object.entries(sortedObjRootClasses).forEach(([key, value]) => {
+        console.log('sortedObjRootClasses', key, value);
+        themeClasses.forEach((themeClass) => {
+          // Modify this to check if the key ends with the class name, accounting for specificity
+          if (key.includes(`.${themeClass}`)) {
+            rootOutput = { ...rootOutput, ...value };
+          }
+        });
       });
 
-      themeClasses.forEach((themeClass) => {
-        if (objDarkClasses[`.${themeClass}`]) {
-          darkOutput = { ...darkOutput, ...objDarkClasses[`.${themeClass}`] };
-        }
+      // For dark classes
+      Object.entries(sortedObjDarkClasses).forEach(([key, value]) => {
+        themeClasses.forEach((themeClass) => {
+          // Similar logic for dark classes
+          if (key.includes(`.${themeClass}`)) {
+            darkOutput = { ...darkOutput, ...value };
+          }
+        });
       });
-      console.log('rootOutput: ', rootOutput);
-      console.log('darkOutput: ', darkOutput);
 
       return {
         root: rootOutput,
         dark: darkOutput,
+      };
+    }
+
+    function reorderThemeObject(themeObject: ObjTheme) {
+      const order = [
+        '--background',
+        '--foreground',
+        '--muted',
+        '--muted-foreground',
+        '--popover',
+        '--popover-foreground',
+        '--card',
+        '--card-foreground',
+        '--border',
+        '--input',
+        '--primary',
+        '--primary-foreground',
+        '--secondary',
+        '--secondary-foreground',
+        '--accent',
+        '--accent-foreground',
+        '--alert',
+        '--alert-foreground',
+        '--ring',
+        '--border-width',
+        '--border-radius',
+        '--shadow-sm',
+        '--shadow',
+        '--shadow-md',
+        '--shadow-lg',
+        '--shadow-xl',
+        '--shadow-2xl',
+        '--shadow-inner',
+      ];
+
+      function reorderObject(obj: Record<string, string>) {
+        const ordered: Record<string, string> = {};
+        order.forEach((key) => {
+          if (key in obj) {
+            ordered[key] = obj[key];
+          }
+        });
+        return ordered;
+      }
+
+      return {
+        root: reorderObject(themeObject.root),
+        dark: reorderObject(themeObject.dark),
       };
     }
 
@@ -184,20 +271,16 @@ export default component$(() => {
 
     // Parse the CSS to get the variables
     const objClasses = cssClassesToObj(cssClasses);
-    console.log('themes: ', objClasses);
 
     // Example usage with the cssThemeToObjectTheme function output
     const objDarkClasses = applyDarkOverrides(objClasses);
-    console.log('objDarkClasses:', objDarkClasses);
     const objRootClasses = removeDarkClasses(objClasses);
-    console.log('objRootClasses: ', objRootClasses);
 
     // Build the theme CSS
-    const objectTheme = generateObjThemeOutput({ theme, objRootClasses, objDarkClasses });
-    console.log('objectTheme', objectTheme);
+    const objTheme = generateObjThemeOutput({ theme, objRootClasses, objDarkClasses });
+    const orderedObjTheme = reorderThemeObject(objTheme);
 
-    cssThemeOutput.value = objThemeToCSSThemeOutput(objectTheme);
-    console.log('cssThemeOutput: ', cssThemeOutput.value);
+    cssThemeOutput.value = objThemeToCSSThemeOutput(orderedObjTheme);
   });
 
   return (
@@ -212,7 +295,7 @@ export default component$(() => {
       </Button>
       <Modal
         bind:show={showSig}
-        class="my-animation bg-background text-foreground max-w-2xl rounded-sm p-8 shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
+        class="my-animation bg-background text-foreground max-w-2xl overflow-x-hidden rounded-sm p-8 shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Copy config</h2>
@@ -225,20 +308,6 @@ export default component$(() => {
             </pre>
           </div>
         </ModalContent>
-        <ModalFooter class="flex justify-end gap-4">
-          <button
-            class="bg-muted text-muted-foreground focus:ring-ring ring-offset-background focus-visible:ring-ring hover:bg-accent/90 hover:text-accent-foreground rounded-sm border border-none px-4 py-[10px] outline-none transition-colors focus:ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-            onClick$={() => (showSig.value = false)}
-          >
-            Cancel
-          </button>
-          <button
-            class="bg-primary text-primary-foreground focus:ring-ring ring-offset-background focus-visible:ring-ring hover:bg-primary/90 rounded-sm border border-none px-4 py-[10px] outline-none transition-colors focus:ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-            onClick$={() => (showSig.value = false)}
-          >
-            Save Changes
-          </button>
-        </ModalFooter>
         <button
           onClick$={() => (showSig.value = false)}
           class="absolute right-6 top-[26px]"

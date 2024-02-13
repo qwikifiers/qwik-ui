@@ -127,6 +127,7 @@
     "rehype-pretty-code": "^0.10.2",
     "sass": "^1.66.1",
     "shikiji": "0.9.18",
+    "specificity": "1.0.0",
     "storybook": "^7.4.0",
     "storybook-framework-qwik": "^0.2.3",
     "tailwind-merge": "^1.14.0",
