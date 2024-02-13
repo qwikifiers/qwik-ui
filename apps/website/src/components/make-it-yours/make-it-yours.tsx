@@ -119,6 +119,7 @@ export default component$(() => {
         </div>
       </button>
       <Modal
+        closeOnBackdropClick={false}
         bind:show={showSig}
         class="make-it-yours bg-background text-foreground mr-0 h-screen max-w-lg rounded-sm border-0 p-8 shadow-md"
       >
