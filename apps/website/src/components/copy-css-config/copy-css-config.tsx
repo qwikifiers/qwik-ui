@@ -122,6 +122,7 @@ export default component$(() => {
       return result;
     }
 
+    // Sort objects props by specificity to automatically apply specificity to the output
     function sortObjClassesBySpecificity(
       classes: Record<string, Record<string, string>>,
     ) {
@@ -130,8 +131,7 @@ export default component$(() => {
 
       // Sort the array based on the specificity of className
       const sortedClassNames = classNames.sort((a, b) => {
-        // Calculate specificity for each class name (a[0] and b[0] are the class names)
-
+        // using 'specificity' npm package
         const specificityA = calculate(a);
         const specificityB = calculate(b);
         return compare(specificityA, specificityB);
@@ -299,7 +299,10 @@ export default component$(() => {
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Copy config</h2>
-          <p>Copy the config below into your own codebase</p>
+          <p>
+            Copy and paste the following code into your global.css file to apply the
+            styles.
+          </p>
         </ModalHeader>
         <ModalContent class="mb-2 pb-4 pt-2">
           <div>
