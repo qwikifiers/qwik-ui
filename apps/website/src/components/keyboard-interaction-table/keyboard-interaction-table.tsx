@@ -42,7 +42,7 @@ export const KBInteractionTableRow = component$(
     return (
       <tr class="border-b">
         <td class="py-4">
-          <kbd class="border-primary inline-block w-max rounded-sm border border-b-[2px] px-2 capitalize">
+          <kbd class="border-primary rounded-base inline-block w-max border border-b-[2px] px-2 capitalize">
             {keyTitle}
           </kbd>
         </td>

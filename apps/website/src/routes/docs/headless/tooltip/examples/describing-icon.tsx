@@ -8,7 +8,7 @@ export default component$(() => {
       <div>
         <Tooltip
           content="Clicking this icon takes you to Qwik UI's GitHub repository!"
-          class="rounded-sm bg-slate-200 p-4 dark:bg-gray-900"
+          class="rounded-base bg-slate-200 p-4 dark:bg-gray-900"
         >
           <a href="https://github.com/qwikifiers/qwik-ui" class="mx-auto">
             <GitHubIcon />

@@ -46,10 +46,10 @@ export default component$(() => {
       options={components}
     >
       <ComboboxLabel>Qwik UI ⚡</ComboboxLabel>
-      <ComboboxControl class="relative rounded-sm border">
+      <ComboboxControl class="rounded-base relative border">
         <ComboboxInput
           onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
-          class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm pl-6 pr-6"
+          class="px-d2 bg-background placeholder:text-muted-foreground rounded-base w-44 pl-6 pr-6"
           onKeyDown$={(e: KeyboardEvent) => {
             if (e.key === 'Enter') {
               const inputElement = e.target as HTMLInputElement;
@@ -76,7 +76,7 @@ export default component$(() => {
       </ComboboxControl>
       <ComboboxPopover gutter={8} hide="escaped">
         <ComboboxListbox
-          class="w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-1 py-2"
+          class="rounded-base w-44 border-[1px] border-slate-400 bg-slate-900 px-1 py-2"
           optionRenderer$={(option: ResolvedOption, index: number) => {
             const searchOption = option.option as MyComponents;
             return (
@@ -86,7 +86,7 @@ export default component$(() => {
               >
                 <ComboboxOption
                   key={option.key}
-                  class="hover:bg-accent group flex items-start justify-between gap-4 rounded-sm  border-2 border-transparent px-2"
+                  class="hover:bg-accent rounded-base group flex items-start justify-between gap-4  border-2 border-transparent px-2"
                   index={index}
                   resolved={option}
                 >

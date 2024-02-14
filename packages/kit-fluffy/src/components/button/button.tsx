@@ -8,12 +8,12 @@ export const buttonVariants = cva(
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
   focus-visible:ring-offset-2 disabled:opacity-50
   disabled:bg-gray-300 disabled:text-gray-500 disabled:font-semibold disabled:py-2
-  disabled:px-4 disabled:rounded disabled:pointer-events-none disabled:cursor-not-allowed`,
+  disabled:px-4 disabled:rounded-sm disabled:pointer-events-none disabled:cursor-not-allowed`,
   {
     variants: {
       intent: {
         basic: `text-foreground font-semibold py-2 px-4 border border-gray-300 
-           rounded hover:bg-accent hover:text-accent-foreground`,
+           rounded-sm hover:bg-accent hover:text-accent-foreground`,
         primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/80',
@@ -26,7 +26,7 @@ export const buttonVariants = cva(
         outline: 'bg-transparent border hover:bg-accent hover:text-accent-foreground',
       },
       shape: {
-        rounded: 'rounded',
+        rounded: 'rounded-sm',
         circular: 'w-20 h-20 rounded-full',
         square: 'w-20 h-20',
       },
@@ -35,15 +35,15 @@ export const buttonVariants = cva(
         bouncy: 'transition active:scale-90',
       },
       size: {
-        sm: 'h-8 rounded-sm px-3',
+        sm: 'h-8 rounded-base px-3',
         md: 'h-10 px-4 py-2',
-        lg: 'h-12 rounded-sm px-8 text-lg',
+        lg: 'h-12 rounded-base px-8 text-lg',
         icon: 'h-10 w-10',
       },
     },
     defaultVariants: {
       intent: 'primary',
-      shape: 'rounded',
+      shape: 'rounded-sm',
       size: 'md',
       animation: 'bouncy',
     },

@@ -22,13 +22,13 @@ export default component$(() => {
     <>
       <PopoverTrigger
         popovertarget="hero-id"
-        class="rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
+        class="rounded-base border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
       >
         Popover Trigger
       </PopoverTrigger>
       <Popover
         id="hero-id"
-        class="my-transition rounded-sm border-2 border-slate-300 bg-slate-800 px-3 py-1 opacity-0 shadow-md"
+        class="my-transition rounded-base border-2 border-slate-300 bg-slate-800 px-3 py-1 opacity-0 shadow-md"
       >
         My Hero!
       </Popover>

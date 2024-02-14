@@ -111,7 +111,7 @@ export default component$(() => {
         onClick$={() => {
           showSig.value = true;
         }}
-        class="hover:bg-accent/80 rounded-sm border px-3 py-2"
+        class="hover:bg-accent/80 rounded-base border px-3 py-2"
       >
         <div class="flex justify-center">
           <LuSlidersHorizontal class="mr-3 h-6 w-6" />
@@ -121,7 +121,7 @@ export default component$(() => {
       <Modal
         closeOnBackdropClick={false}
         bind:show={showSig}
-        class="make-it-yours bg-background text-foreground mr-0 h-screen max-w-lg rounded-sm border-0 p-8 shadow-md"
+        class="make-it-yours bg-background text-foreground rounded-base mr-0 h-screen max-w-lg border-0 p-8 shadow-md"
       >
         <div class="flex h-full flex-col justify-between">
           <div>
@@ -131,7 +131,7 @@ export default component$(() => {
             <ModalContent class="mb-2 py-4">
               <label class="mb-1 block font-medium">Preset</label>
               <select
-                class="bg-background h-12 min-w-80 rounded-sm border p-2"
+                class="bg-background rounded-base h-12 min-w-80 border p-2"
                 value={themeComputedObject.value.style}
                 onChange$={async (e, el) => {
                   themeComputedObject.value.style = el.value;

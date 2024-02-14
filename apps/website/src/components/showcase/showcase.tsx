@@ -28,7 +28,7 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   });
 
   return (
-    <div class="mb-12 rounded-sm shadow-lg">
+    <div class="rounded-base mb-12 shadow-lg">
       {!props.vertical ? (
         <Tabs
           {...props}

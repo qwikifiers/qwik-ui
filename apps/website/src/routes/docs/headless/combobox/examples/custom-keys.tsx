@@ -41,7 +41,7 @@ export default component$(() => {
   return (
     <div class="relative">
       {isPokemonCaught.value && (
-        <p class="bg-background absolute w-full translate-x-[-105%] rounded-sm border-2 p-4 shadow-md">
+        <p class="bg-background rounded-base absolute w-full translate-x-[-105%] border-2 p-4 shadow-md">
           You've already caught this pokemon!
         </p>
       )}
@@ -53,21 +53,21 @@ export default component$(() => {
         optionDisabledKey="isPokemonCaught"
       >
         <ComboboxLabel class=" font-semibold">Pokemon 🦏</ComboboxLabel>
-        <ComboboxControl class="relative flex items-center rounded-sm border">
-          <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm px-2 pr-6" />
+        <ComboboxControl class="rounded-base relative flex items-center border">
+          <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground rounded-base w-44 px-2 pr-6" />
           <ComboboxTrigger class="group absolute right-0 h-6 w-6">
             <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
           </ComboboxTrigger>
         </ComboboxControl>
         <ComboboxPopover flip={true} gutter={8}>
           <ComboboxListbox
-            class="w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
+            class="rounded-base w-44 border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
             optionRenderer$={(option: ResolvedOption, index: number) => {
               const pokemonOption = option.option as Pokemon;
               return (
                 <ComboboxOption
                   key={option.key}
-                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent group flex justify-between rounded-sm border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
+                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent rounded-base group flex justify-between border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
                   index={index}
                   resolved={option}
                   onMouseEnter$={() => {

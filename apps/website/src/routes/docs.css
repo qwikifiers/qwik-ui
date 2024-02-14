@@ -12,7 +12,7 @@
   }
 
   p code {
-    @apply bg-muted border-border rounded border-b px-2 py-[2px] shadow-md;
+    @apply bg-muted border-border rounded-sm border-b px-2 py-[2px] shadow-md;
   }
 
   ol li {

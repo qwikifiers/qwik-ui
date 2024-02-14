@@ -62,9 +62,9 @@ export const InfoPopup = component$((props: InfoProps) => {
         placement="top"
         gutter={4}
         id={popoverTableId}
-        class="fade-info listbox rounded-sm bg-transparent"
+        class="fade-info listbox rounded-base bg-transparent"
       >
-        <div class="bg-qwikui-blue-50 text-md border-qwikui-blue-500 dark:border-qwikui-purple-500  dark:bg-qwikui-purple-100 bg-primary mb-2 max-w-xs rounded-sm  border-[1px] border-b-2 px-3 py-2 font-[500] text-slate-950 shadow-lg sm:w-max">
+        <div class="bg-qwikui-blue-50 text-md border-qwikui-blue-500 dark:border-qwikui-purple-500  dark:bg-qwikui-purple-100 bg-primary rounded-base mb-2 max-w-xs  border-[1px] border-b-2 px-3 py-2 font-[500] text-slate-950 shadow-lg sm:w-max">
           {props.info}
         </div>
       </Popover>

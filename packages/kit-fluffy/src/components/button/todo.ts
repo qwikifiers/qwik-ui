@@ -12,7 +12,7 @@
       * SIZES
         * sm, md, lg, xl, 2xl
       * SHAPE
-        * Square / rounded / circular
+        * Square / rounded-sm / circular
         * 
       * ANIMATION
         * None

@@ -295,7 +295,7 @@ export default component$(() => {
       </Button>
       <Modal
         bind:show={showSig}
-        class="my-animation bg-background text-foreground max-w-2xl overflow-x-hidden rounded-sm p-8 shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
+        class="my-animation bg-background text-foreground rounded-base max-w-2xl overflow-x-hidden p-8 shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Copy config</h2>

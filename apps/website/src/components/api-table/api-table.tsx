@@ -28,14 +28,14 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
               <tr key={propDescriptor.name}>
                 <td class="py-3 pl-4 sm:pl-0">
                   <div class="flex items-center gap-2">
-                    <code class="border-primary mr-6 rounded-sm border border-b-[2px] px-2">
+                    <code class="border-primary rounded-base mr-6 border border-b-[2px] px-2">
                       {propDescriptor.name}
                     </code>
                   </div>
                 </td>
                 <td class="py-3">
                   <div class="flex items-center gap-2">
-                    <code class="rounded-sm border border-b-2 px-2">
+                    <code class="rounded-base border border-b-2 px-2">
                       {propDescriptor.type}
                     </code>
                     {propDescriptor.info && <InfoPopup info={propDescriptor.info} />}
