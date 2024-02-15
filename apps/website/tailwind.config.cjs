@@ -1,6 +1,11 @@
 const { join } = require('path');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
+
+// RFC maiieul: I have added -base utility modifiers to start to have a good default specific to each utility based in each style.
+// This means using something non-standard that developers would have to learn. Although it's not much and should be intuitive- and not knowing it doesn't break the tailwind design tokens system.
+
 module.exports = {
   content: [
     join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
@@ -8,6 +13,15 @@ module.exports = {
     join(__dirname, '../../packages/kit-fluffy/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-simple/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-styled/src/**/*.{js,ts,jsx,tsx,mdx}'),
+  ],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.press': {
+          transform: 'var(--transform-press)',
+        },
+      });
+    }),
   ],
   darkMode: 'class',
   theme: {
@@ -117,8 +131,6 @@ module.exports = {
         },
       },
       borderRadius: {
-        // RFC we could add a 'rounded-base' utility class to start at 0, so that it's still possible to use 'rounded-none'.
-        // This means using something non-standard that developers would have to learn. Although it's not much and should be intuitive- and not knowing it doesn't break the tailwind design tokens system.
         base: 'var(--border-radius)',
         sm: 'calc(var(--border-radius) + 0.125rem)',
         DEFAULT: 'calc(var(--border-radius) + 0.25rem)',
@@ -136,6 +148,7 @@ module.exports = {
         8: 'calc(var(--border-width) + 8px)',
       },
       boxShadow: {
+        base: 'var(--shadow-base)',
         sm: 'var(--shadow-sm)',
         DEFAULT: 'var(--shadow)',
         md: 'var(--shadow-md)',

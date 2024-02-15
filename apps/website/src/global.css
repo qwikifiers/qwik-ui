@@ -68,17 +68,20 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
+    --transform-press: scale(0.95);
   }
 
   .brutalist {
     --border-width: 4px;
-    --shadow-sm: -2px 3px 0px 0 rgba(0, 0, 0, 1);
-    --shadow: 4px 5px 0px 0 rgba(0, 0, 0, 1);
-    --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-xl: 8px 10px 0px 0px rgba(0, 0, 0, 1), -2px -2px 2px 0px rgba(0, 0, 0, 1);
-    --shadow-2xl: 12px 12px 0px 0px rgba(0, 0, 0, 1), -4px -4px 2px 0px rgba(0, 0, 0, 1);
+    --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
+    --shadow-sm: 3px 4px 0px 0 rgba(0, 0, 0, 1);
+    --shadow: 4px 5px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-md: 6px 7px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-lg: 8px 9px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-xl: 12px 13px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-2xl: 15px 16px 0px 0px rgba(0, 0, 0, 1);
     --shadow-inner: inset 2px 2px 0px 0px rgba(0, 0, 0, 1);
+    --transform-press: translate(4px, 5px);
   }
 
   .neumorphic.neumorphic {
@@ -86,6 +89,8 @@
     --background: 240 4.9% 83.9%;
     --foreground: 240 5.9% 10%;
     --border: 240 5.9% 70%;
+    --shadow-base: -3px -3px 6px #bbbbbe, 3px 3px 6px #ededf2,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow-sm: 3px 3px 6px #bbbbbe, -3px -3px 6px #ededf2,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow: 4px 4px 8px #bbbbbe, -4px -4px 8px #ededf2,
@@ -99,6 +104,7 @@
     --shadow-2xl: 10px 10px 20px #bbbbbe, -10px -10px 20px #ededf2,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
+    --transform-press: scale(0.95);
   }
 
   .dark.neumorphic.neumorphic {
@@ -106,6 +112,8 @@
     --background: 240 5.3% 26.1%;
     --foreground: 240 5.9% 90%;
     --border: 240 5.9% 30%;
+    --shadow-base: -3px -3px 6px #2c2c31, 3px 3px 6px #52525b,
+      inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
     --shadow-sm: 3px 3px 6px #2c2c31, -3px -3px 6px #52525b,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
     --shadow: 4px 4px 8px #2c2c31, -4px -4px 8px #52525b,
@@ -119,6 +127,7 @@
     --shadow-2xl: 10px 10px 20px #2c2c31, -10px -10px 20px #52525b,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
+    --transform-press: scale(0.95);
   }
 
   .border-radius-0 {
@@ -1179,17 +1188,6 @@
     --primary-foreground: 0 0% 100%;
   }
   /* CSS PARSER: END - DO NOT REMOVE */
-}
-
-@layer components {
-  /* per component */
-  button.qwik-ui-animation,
-  a.qwik-ui-animation {
-    @apply transition active:scale-90;
-  }
-  input.qwik-ui-animation {
-    @apply transition active:scale-125;
-  }
 }
 
 @layer base {

@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 // TODO: Create a RFC of the variants and explaining the thought process behind them
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center text-sm font-medium rounded qwik-ui-animation disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1',
+  'inline-flex items-center justify-center text-sm font-medium rounded disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1',
   {
     variants: {
       color: {
@@ -17,8 +17,10 @@ const buttonVariants = cva(
           'bg-alert text-alert-foreground hover:bg-alert/90 focus-visible:ring-alert/80',
       },
       look: {
-        solid: 'shadow focus-visible:ring-offset-1',
-        outline: 'shadow bg-background text-foreground border hover:bg-accent',
+        solid:
+          'shadow-sm transition-all active:press active:shadow-base focus-visible:ring-offset-1',
+        outline:
+          'shadow-sm transition-all active:press active:shadow-base bg-background text-foreground border hover:bg-accent',
         ghost: 'bg-transparent text-accent-foreground hover:bg-accent',
         link: 'bg-transparent text-foreground underline underline-offset-4 hover:text-foreground/80 hover:bg-transparent',
       },

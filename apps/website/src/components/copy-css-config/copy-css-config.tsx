@@ -233,6 +233,7 @@ export default component$(() => {
         '--shadow-xl',
         '--shadow-2xl',
         '--shadow-inner',
+        '--transform-press',
       ];
 
       function reorderObject(obj: Record<string, string>) {

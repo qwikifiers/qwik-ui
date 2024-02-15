@@ -55,7 +55,6 @@ export default component$(() => {
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
-          disableTransitionOnChange
           themes={[
             ...modeOptions,
             ...styleOptions,
