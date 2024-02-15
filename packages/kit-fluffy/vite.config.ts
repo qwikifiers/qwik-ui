@@ -36,6 +36,9 @@ export default defineConfig({
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
+    outDir: '../../dist/packages/kit-fluffy',
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     target: 'es2020',
     lib: {
       // Could also be a dictionary or array of multiple entry points.
@@ -53,6 +56,7 @@ export default defineConfig({
   },
   // @ts-ignore
   test: {
+    reporters: ['default'],
     globals: true,
     cache: {
       dir: '../../node_modules/.vitest',

@@ -2,55 +2,41 @@
   "migrations": [
     {
       "cli": "nx",
-      "version": "17.0.0-beta.1",
-      "description": "Updates the default cache directory to .nx/cache",
-      "implementation": "./src/migrations/update-17-0-0/move-cache-directory",
+      "version": "17.3.0-beta.6",
+      "description": "Updates the nx wrapper.",
+      "implementation": "./src/migrations/update-17-3-0/update-nxw",
       "package": "nx",
-      "name": "17.0.0-move-cache-directory"
+      "name": "17.3.0-update-nx-wrapper"
     },
     {
       "cli": "nx",
-      "version": "17.0.0-beta.3",
-      "description": "Use minimal config for tasksRunnerOptions",
-      "implementation": "./src/migrations/update-17-0-0/use-minimal-config-for-tasks-runner-options",
+      "version": "18.0.0-beta.2",
+      "description": "Updates .env to disabled adding plugins when generating projects in an existing Nx workspace",
+      "implementation": "./src/migrations/update-18-0-0/disable-crystal-for-existing-workspaces",
+      "x-repair-skip": true,
       "package": "nx",
-      "name": "17.0.0-use-minimal-config-for-tasks-runner-options"
+      "name": "18.0.0-disable-adding-plugins-for-existing-workspaces"
     },
     {
-      "version": "17.0.0-rc.1",
-      "description": "Migration for v17.0.0-rc.1",
-      "implementation": "./src/migrations/update-17-0-0/rm-default-collection-npm-scope",
-      "package": "nx",
-      "name": "rm-default-collection-npm-scope"
-    },
-    {
-      "version": "17.1.0-beta.2",
-      "description": "Move target defaults",
-      "implementation": "./src/migrations/update-17-1-0/move-target-defaults",
+      "version": "17.2.0-beta.10",
+      "description": "Update vite config.",
+      "implementation": "./src/migrations/update-17-2-0/update-vite-config",
       "package": "@nx/vite",
-      "name": "move-target-defaults"
+      "name": "update-vite-config"
     },
     {
-      "cli": "nx",
-      "version": "17.0.2",
-      "description": "Remove deprecated build options",
-      "implementation": "./src/migrations/update-17-0-0/remove-deprecated-build-options",
-      "package": "@nx/js",
-      "name": "update-17-0-0-remove-deprecated-build-options"
-    },
-    {
-      "version": "17.0.0-beta.7",
-      "description": "update-17-0-0-rename-to-eslint",
-      "implementation": "./src/migrations/update-17-0-0-rename-to-eslint/update-17-0-0-rename-to-eslint",
+      "version": "17.2.0-beta.0",
+      "description": "Simplify eslintFilePatterns",
+      "implementation": "./src/migrations/update-17-2-0/simplify-eslint-patterns",
       "package": "@nx/eslint",
-      "name": "update-17-0-0-rename-to-eslint"
+      "name": "simplify-eslint-patterns"
     },
     {
-      "version": "17.1.0-beta.1",
-      "description": "Updates for @typescript-utils/utils v6.9.1+",
-      "implementation": "./src/migrations/update-17-1-0/update-typescript-eslint",
+      "version": "17.2.9",
+      "description": "Move executor options to target defaults",
+      "implementation": "./src/migrations/update-17-2-9/move-options-to-target-defaults",
       "package": "@nx/eslint",
-      "name": "update-typescript-eslint"
+      "name": "move-options-to-target-defaults"
     }
   ]
 }

@@ -14,14 +14,16 @@
       }
     }
   },
+  "plugins": [
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "ciTargetName": "e2e-ci",
+        "targetName": "e2e"
+      }
+    }
+  ],
   "targetDefaults": {
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
-      "cache": true
-    },
-    "version-dry": {
-      "dependsOn": ["^version-dry"]
-    },
     "build-bin": {
       "cache": true
     },
@@ -40,6 +42,10 @@
     },
     "@nx/vite:test": {
       "inputs": ["default", "^default"],
+      "cache": true
+    },
+    "@nx/eslint:lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true
     }
   },
