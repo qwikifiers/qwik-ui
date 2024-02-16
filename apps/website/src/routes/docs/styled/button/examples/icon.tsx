@@ -1,12 +1,11 @@
 import { component$ } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/styled';
+import { LuGithub } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   return (
-    <>
-      <Button size="sm">Button</Button>
-      <Button>Button</Button>
-      <Button size="lg">Button</Button>
-    </>
+    <Button size="icon">
+      <LuGithub />
+    </Button>
   );
 });

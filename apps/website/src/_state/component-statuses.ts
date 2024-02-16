@@ -11,8 +11,9 @@ export type ComponentKitsStatuses = {
 
 export const statusByComponent: ComponentKitsStatuses = {
   styled: {
-    Badge: ComponentStatus.Beta,
-    Button: ComponentStatus.Beta,
+    Badge: ComponentStatus.Draft,
+    Button: ComponentStatus.Draft,
+    Card: ComponentStatus.Draft,
     Pagination: ComponentStatus.Draft,
   },
   headless: {

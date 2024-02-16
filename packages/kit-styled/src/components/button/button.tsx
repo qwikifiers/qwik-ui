@@ -8,21 +8,17 @@ const buttonVariants = cva(
   'inline-flex items-center justify-center text-sm font-medium rounded disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1',
   {
     variants: {
-      color: {
-        primary:
-          'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/80',
-        secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:ring-secondary/80',
-        alert:
-          'bg-alert text-alert-foreground hover:bg-alert/90 focus-visible:ring-alert/80',
-      },
       look: {
-        solid:
-          'shadow-sm transition-all active:press active:shadow-base focus-visible:ring-offset-1',
+        primary:
+          'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/80 shadow-sm transition-all active:press active:shadow-base focus-visible:ring-offset-1',
+        secondary:
+          'bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:ring-secondary/80 shadow-sm transition-all active:press active:shadow-base focus-visible:ring-offset-1',
+        alert:
+          'bg-alert text-alert-foreground hover:bg-alert/90 focus-visible:ring-alert/80 shadow-sm transition-all active:press active:shadow-base focus-visible:ring-offset-1',
         outline:
           'shadow-sm transition-all active:press active:shadow-base bg-background text-foreground border hover:bg-accent',
-        ghost: 'bg-transparent text-accent-foreground hover:bg-accent',
-        link: 'bg-transparent text-foreground underline underline-offset-4 hover:text-foreground/80 hover:bg-transparent',
+        ghost: 'text-accent-foreground hover:bg-accent',
+        link: 'text-foreground hover:underline hover:underline-offset-2 hover:text-foreground/80 hover:bg-transparent',
       },
       size: {
         sm: 'px-2 h-8 py-1.5 text-sm',
@@ -32,18 +28,17 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      color: 'primary',
+      look: 'primary',
       size: 'md',
-      look: 'solid',
     },
   },
 );
 
 type ButtonProps = PropsOf<'button'> & VariantProps<typeof buttonVariants>;
 
-const Button = component$<ButtonProps>(({ color, size, look, ...props }) => {
+const Button = component$<ButtonProps>(({ size, look, ...props }) => {
   return (
-    <button {...props} class={cn(buttonVariants({ color, size, look }), props.class)}>
+    <button {...props} class={cn(buttonVariants({ size, look }), props.class)}>
       <Slot />
     </button>
   );

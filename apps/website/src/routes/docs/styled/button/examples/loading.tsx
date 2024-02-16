@@ -1,11 +1,11 @@
 import { component$ } from '@builder.io/qwik';
 import { Button } from '@qwik-ui/styled';
-import { LuMail } from '@qwikest/icons/lucide';
+import { LuLoader2 } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   return (
-    <Button>
-      <LuMail class="mr-2" /> Login with Email
+    <Button disabled>
+      <LuLoader2 class="mr-2 h-5 w-5 animate-spin" /> Login with Email
     </Button>
   );
 });

@@ -1,4 +1,4 @@
-# Fluffy Kit Docs
+# Styled Kit Docs
 
 ## Getting Started
 
@@ -10,4 +10,5 @@
 
 - [Badge](/docs/styled/badge)
 - [Button](/docs/styled/button)
+- [Card](/docs/styled/card)
 - [Pagination](/docs/styled/pagination)

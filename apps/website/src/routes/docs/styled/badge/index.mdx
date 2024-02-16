@@ -4,8 +4,32 @@ title: Qwik UI | Styled Badge Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+<StatusBanner status={statusByComponent.styled.Badge} />
+
 # Badge
 
-The Qwik UI Styled Badge is a small but joyful shoutout, highlighting what's new or important, while adding a dash of fun to the serious business of attention.
+Displays a badge or a component that looks like a badge.
 
-<StatusBanner status={statusByComponent.styled.Badge} />
+## Installation
+
+```sh
+qwik-ui add badge
+```
+
+## Examples
+
+### Primary
+
+<Showcase name="primary" vertical />
+
+### Secondary
+
+<Showcase name="secondary" vertical />
+
+### Alert
+
+<Showcase name="alert" vertical />
+
+### Outline
+
+<Showcase name="outline" vertical />
