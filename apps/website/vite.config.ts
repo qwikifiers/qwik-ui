@@ -10,6 +10,14 @@ export default defineConfig(async () => {
   const { visit } = await import('unist-util-visit');
 
   return {
+    root: __dirname,
+    build: {
+      outDir: '../../dist/apps/website',
+      reportCompressedSize: true,
+      commonjsOptions: {
+        transformMixedEsModules: true,
+      },
+    },
     plugins: [
       qwikNxVite(),
       qwikCity({
@@ -100,14 +108,6 @@ export default defineConfig(async () => {
       headers: {
         'Cache-Control': 'public, max-age=600',
       },
-    },
-    test: {
-      globals: true,
-      cache: {
-        dir: '../../node_modules/.vitest',
-      },
-      environment: 'node',
-      include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     },
   };
 });

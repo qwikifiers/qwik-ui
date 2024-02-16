@@ -3,6 +3,7 @@ import {
   Component,
   component$,
   PropFunction,
+  QRL,
   Slot,
   useId,
   useStore,
@@ -14,7 +15,7 @@ export type RatingProps = {
   value?: number;
   total?: number;
   icon?: Component<object>;
-  onChange$?: PropFunction<(index: number) => void>;
+  onChange$?: QRL<(index: number) => void>;
 };
 
 export const Rating = component$((props: RatingProps) => {

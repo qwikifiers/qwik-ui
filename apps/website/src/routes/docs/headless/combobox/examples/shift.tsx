@@ -26,7 +26,7 @@ export default component$(() => {
         <Combobox
           class="w-fit"
           options={shiftExample}
-          bind:isListboxOpenSig={isListboxOpenSig}
+          bind:isListboxOpen={isListboxOpenSig}
         >
           <ComboboxLabel class=" font-semibold">Fruits 🍓</ComboboxLabel>
           <ComboboxControl class="rounded-base relative flex items-center border">

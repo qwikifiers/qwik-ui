@@ -1,9 +1,9 @@
-import { PropFunction, PropsOf } from '@builder.io/qwik';
+import { PropsOf, QRL } from '@builder.io/qwik';
 
 export interface PaginationCoreProps {
   selectedPage: number;
   totalPages: number;
-  onPageChange$: PropFunction<(page: number) => void>;
+  onPageChange$: QRL<(page: number) => void>;
 }
 
 export type PaginationStyling = {

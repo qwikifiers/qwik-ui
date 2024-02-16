@@ -27,7 +27,7 @@ export default component$(() => {
           return option.toLowerCase().startsWith(value.toLowerCase());
         })
       }
-      bind:isListboxOpenSig={isListboxOpenSig}
+      bind:isListboxOpen={isListboxOpenSig}
     >
       <ComboboxLabel class=" mb-2 block font-semibold text-white">
         I open a floating element!

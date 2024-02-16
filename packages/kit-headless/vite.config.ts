@@ -9,7 +9,19 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
 
-const { dependencies = {}, peerDependencies = {} } = pkg as any;
+const {
+  dependencies = {
+    root: __dirname,
+    build: {
+      outDir: '../../dist/packages/kit-headless',
+      reportCompressedSize: true,
+      commonjsOptions: {
+        transformMixedEsModules: true,
+      },
+    },
+  },
+  peerDependencies = {},
+} = pkg as any;
 const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
 const excludeAll = (obj: any) => Object.keys(obj).map(makeRegex);
 
@@ -66,10 +78,10 @@ export default defineConfig({
         ...excludeAll(dependencies),
         ...excludeAll(peerDependencies),
       ],
-      output: {
-        preserveModules: true,
-        preserveModulesRoot: 'packages/kit-headless/src',
-      },
+      // output: {
+      //   preserveModules: true,
+      //   preserveModulesRoot: 'packages/kit-headless/src',
+      // },
     },
   },
 });

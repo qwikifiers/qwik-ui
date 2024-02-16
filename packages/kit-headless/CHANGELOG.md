@@ -1,20 +1,24 @@
 # Changelog
 
+## 0.2.2
+
+### Patch Changes
+
+- bind syntax Sig suffix removed, new bind:selectedIndex prop, bug fixes (by [@thejackshelton](https://github.com/thejackshelton) in [#602](https://github.com/qwikifiers/qwik-ui/pull/602))
+
+- updated to Qwik 1.4.0 (by [@shairez](https://github.com/shairez) in [#607](https://github.com/qwikifiers/qwik-ui/pull/607))
+
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
 ## [0.2.1](https://github.com/qwikifiers/qwik-ui/compare/headless-0.2.0...headless-0.2.1) (2024-01-09)
 
-
 ### Bug Fixes
 
-* **ts-ignore:** use ts-expect-error instead ([46690f7](https://github.com/qwikifiers/qwik-ui/commit/46690f77ae7d5ccbad7a374dc5280f9764faf271))
-
+- **ts-ignore:** use ts-expect-error instead ([46690f7](https://github.com/qwikifiers/qwik-ui/commit/46690f77ae7d5ccbad7a374dc5280f9764faf271))
 
 ### Features
 
-* **collapsible:** new collapsible component ([0166e80](https://github.com/qwikifiers/qwik-ui/commit/0166e8026550fa7ea9b91184df3bc79f58b95455))
-
-
+- **collapsible:** new collapsible component ([0166e80](https://github.com/qwikifiers/qwik-ui/commit/0166e8026550fa7ea9b91184df3bc79f58b95455))
 
 # [0.2.0](https://github.com/qwikifiers/qwik-ui/compare/headless-0.1.23...headless-0.2.0) (2023-12-16)
 

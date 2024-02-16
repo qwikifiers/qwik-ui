@@ -11,7 +11,7 @@ export default component$(() => {
       <h3>Basic Example </h3>
       <Rating />
       <h3>OnChange event </h3>
-      <Rating onChange$={(idx) => window.alert(idx)} />
+      <Rating onChange$={(index) => window.alert(index)} />
       <h3>Custom Icons </h3>
       <Rating icon={MyStarIcon} />
       <Rating icon={MyHeartIcon} />️

@@ -1,6 +1,6 @@
 import {
-  PropFunction,
   PropsOf,
+  QRL,
   Signal,
   Slot,
   component$,
@@ -28,7 +28,7 @@ export type SliderProps = PropsOf<'div'> & {
   value: number;
   min: number;
   max: number;
-  onChange$?: PropFunction<(value: number) => void>;
+  onChange$?: QRL<(value: number) => void>;
 };
 
 export const Slider = component$(

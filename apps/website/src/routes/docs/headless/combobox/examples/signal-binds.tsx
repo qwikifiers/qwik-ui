@@ -30,8 +30,8 @@ export default component$(() => {
         <Combobox
           class="w-fit"
           options={signalsExample}
-          bind:isListboxOpenSig={isListboxOpenSig}
-          bind:highlightedIndexSig={highlightedIndexSig}
+          bind:isListboxOpen={isListboxOpenSig}
+          bind:highlightedIndex={highlightedIndexSig}
         >
           <ComboboxControl class="rounded-base relative flex items-center border">
             <ComboboxInput

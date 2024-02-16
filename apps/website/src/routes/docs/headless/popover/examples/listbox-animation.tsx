@@ -64,7 +64,7 @@ export default component$(() => {
           return option.toLowerCase().startsWith(value.toLowerCase());
         })
       }
-      bind:isListboxOpenSig={isListboxOpenSig}
+      bind:isListboxOpen={isListboxOpenSig}
     >
       <ComboboxLabel class=" font-semibold text-white">Streets 🛣️</ComboboxLabel>
       <ComboboxControl class="rounded-base relative flex items-center border-[1px] border-slate-400 bg-[#1f2532]">

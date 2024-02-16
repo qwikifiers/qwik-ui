@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/fluffy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Qwik UI components library with styles",
   "publishConfig": {
     "access": "public"
@@ -30,6 +30,14 @@
     "qwik": "qwik"
   },
   "peerDependencies": {
-    "@builder.io/qwik": "^1.3.4"
+    "@builder.io/qwik": "^1.4.0"
+  },
+  "dependencies": {
+    "@qwik-ui/headless": "0.2.2",
+    "@qwik-ui/utils": "0.2.0",
+    "@nx/devkit": "17.1.3"
+  },
+  "devDependencies": {
+    "@builder.io/vite-plugin-macro": "~0.0.7"
   }
 }

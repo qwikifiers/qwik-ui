@@ -44,19 +44,21 @@ export type ComboboxProps<O extends Option = Option> = PropsOf<'div'> & {
   defaultLabel?: string;
 
   // signal binds
-  'bind:isListboxOpenSig'?: Signal<boolean | undefined>;
-  'bind:isInputFocusedSig'?: Signal<boolean | undefined>;
-  'bind:inputValueSig'?: Signal<string>;
-  'bind:highlightedIndexSig'?: Signal<number>;
+  'bind:isListboxOpen'?: Signal<boolean | undefined>;
+  'bind:isInputFocused'?: Signal<boolean | undefined>;
+  'bind:inputValue'?: Signal<string>;
+  'bind:highlightedIndex'?: Signal<number>;
+  'bind:selectedIndex'?: Signal<number>;
 };
 
 export const Combobox = component$(
   <O extends Option = Option>(props: ComboboxProps<O>) => {
     const {
-      'bind:isListboxOpenSig': givenListboxOpenSig,
-      'bind:isInputFocusedSig': givenInputFocusedSig,
-      'bind:inputValueSig': givenInputValueSig,
-      'bind:highlightedIndexSig': givenHighlightedIndexSig,
+      'bind:isListboxOpen': givenListboxOpenSig,
+      'bind:isInputFocused': givenInputFocusedSig,
+      'bind:inputValue': givenInputValueSig,
+      'bind:highlightedIndex': givenHighlightedIndexSig,
+      'bind:selectedIndex': givenSelectedIndexSig,
       options,
       defaultLabel = '',
       optionValueKey = 'value',
@@ -130,7 +132,8 @@ export const Combobox = component$(
 
     const triggerRef = useSignal<HTMLButtonElement>();
 
-    const selectedOptionIndexSig = useSignal<number>(-1);
+    const defaultSelectedIndexSig = useSignal<number>(-1);
+    const selectedIndexSig = givenSelectedIndexSig || defaultSelectedIndexSig;
 
     const defaultListboxOpenSig = useSignal<boolean | undefined>(false);
     const isListboxOpenSig = givenListboxOpenSig || defaultListboxOpenSig;
@@ -158,7 +161,7 @@ export const Combobox = component$(
       isInputFocusedSig,
       isListboxOpenSig,
       highlightedIndexSig,
-      selectedOptionIndexSig,
+      selectedIndexSig: selectedIndexSig,
       defaultLabel,
       optionValueKey,
       optionLabelKey,

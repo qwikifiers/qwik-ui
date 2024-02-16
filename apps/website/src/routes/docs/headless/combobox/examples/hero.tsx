@@ -6,14 +6,16 @@ import {
   ComboboxLabel,
   ComboboxListbox,
   ComboboxOption,
+  ComboboxPopover,
   ComboboxTrigger,
   ResolvedOption,
-  ComboboxPopover,
 } from '@qwik-ui/headless';
 
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 
 export default component$(() => {
+  const selectedOptionIndexSig = useSignal<number>(-1);
+
   const objectExample = [
     { testValue: 'alice', testLabel: 'Alice', disabled: true },
     { testValue: 'joana', testLabel: 'Joana', disabled: true },
@@ -40,6 +42,7 @@ export default component$(() => {
       optionLabelKey="testLabel"
       optionDisabledKey="disabled"
       class="relative"
+      bind:selectedIndex={selectedOptionIndexSig}
     >
       <ComboboxLabel class="font-semibold">Personal Trainers ⚡</ComboboxLabel>
       <ComboboxControl class="rounded-base relative flex items-center border">
@@ -48,10 +51,10 @@ export default component$(() => {
           class="px-d2 bg-background placeholder:text-muted-foreground rounded-base w-44 px-2 pr-6"
         />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-          <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
+          <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
         </ComboboxTrigger>
       </ComboboxControl>
-      <ComboboxPopover gutter={8}>
+      <ComboboxPopover class="rounded-sm" gutter={8}>
         <ComboboxListbox
           class="rounded-base w-44 border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
           optionRenderer$={(option: ResolvedOption, index: number) => {
@@ -63,9 +66,8 @@ export default component$(() => {
                 index={index}
                 class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent rounded-base group flex justify-between border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
               >
-                <span class="duration-350 block transition-transform group-aria-selected:translate-x-[3px]">
-                  {myData.testLabel}
-                </span>
+                <span>{myData.testLabel}</span>
+                {selectedOptionIndexSig.value === index && <span>Selected</span>}
               </ComboboxOption>
             );
           }}

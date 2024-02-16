@@ -26,7 +26,7 @@ export const buttonVariants = cva(
         outline: 'bg-transparent border hover:bg-accent hover:text-accent-foreground',
       },
       shape: {
-        rounded: 'rounded-sm',
+        rounded: 'rounded',
         circular: 'w-20 h-20 rounded-full',
         square: 'w-20 h-20',
       },
