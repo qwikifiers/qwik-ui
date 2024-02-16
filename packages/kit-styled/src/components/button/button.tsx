@@ -25,10 +25,9 @@ const buttonVariants = cva(
         link: 'bg-transparent text-foreground underline underline-offset-4 hover:text-foreground/80 hover:bg-transparent',
       },
       size: {
-        xs: 'px-2 py-1.5 text-xs',
-        sm: 'px-2.5 py-2 text-sm',
-        md: 'px-4 py-3',
-        lg: ' px-8 py-4 text-lg',
+        sm: 'px-2 h-8 py-1.5 text-sm',
+        md: 'px-4 h-12 py-3 text-base',
+        lg: ' px-8 h-16 py-4 text-lg',
         icon: 'h-10 w-10',
       },
     },
