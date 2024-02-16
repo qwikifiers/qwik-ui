@@ -1,6 +1,6 @@
 import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
 import { Pagination } from '@qwik-ui/headless';
-import { Toggle } from '@qwik-ui/fluffy';
+import { Toggle } from '@qwik-ui/styled';
 import styles from '../index.css?inline';
 
 export default component$(() => {

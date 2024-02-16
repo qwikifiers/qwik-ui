@@ -1,8 +1,8 @@
 import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
+import { Badge } from '@qwik-ui/styled';
+import { cn } from '@qwik-ui/utils';
 import { ComponentStatus } from '~/_state/component-status.type';
 import { getVariantByStatus } from '../component-status-badge/component-status-badge';
-import { Badge } from '@qwik-ui/fluffy';
-import { cn } from '@qwik-ui/utils';
 
 export interface StatusBannerProps {
   status?: ComponentStatus;
@@ -14,7 +14,7 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>DISCLAIMER:</strong> This component is in{' '}
-          <Badge variant={getVariantByStatus(status)} class="text-sm">
+          <Badge look={getVariantByStatus(status)} class="text-sm">
             {status}
           </Badge>{' '}
           status. That means that it is ready for production, but the API might change.
@@ -24,7 +24,7 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>WARNING:</strong> This component is in{' '}
-          <Badge variant={getVariantByStatus(status)} class="text-sm">
+          <Badge look={getVariantByStatus(status)} class="text-sm">
             {status}
           </Badge>{' '}
           status. This means that it is still in development and may have bugs or missing

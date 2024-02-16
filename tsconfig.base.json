@@ -15,9 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@qwik-ui/fluffy": ["packages/kit-fluffy/src/index.ts"],
       "@qwik-ui/styled": ["packages/kit-styled/src/index.ts"],
-      "@qwik-ui/simple": ["packages/kit-simple/src/index.ts"],
       "@qwik-ui/headless": ["packages/kit-headless/src/index.ts"],
       "@qwik-ui/utils": ["packages/utils/src/index.ts"],
       "~/*": ["apps/website/src/*"]
