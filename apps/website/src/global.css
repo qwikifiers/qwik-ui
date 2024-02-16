@@ -380,7 +380,7 @@
   }
   .primary-slate-400 {
     --primary: 215 20.2% 65.1%;
-    --primary-foreground: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
   }
   .primary-slate-500 {
     --primary: 215.4 16.3% 46.9%;
@@ -419,7 +419,7 @@
   }
   .primary-gray-400 {
     --primary: 217.9 10.6% 64.9%;
-    --primary-foreground: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
   }
   .primary-gray-500 {
     --primary: 220 8.9% 46.1%;
@@ -458,7 +458,7 @@
   }
   .primary-zinc-400 {
     --primary: 240 5% 64.9%;
-    --primary-foreground: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
   }
   .primary-zinc-500 {
     --primary: 240 3.8% 46.1%;
@@ -497,7 +497,7 @@
   }
   .primary-neutral-400 {
     --primary: 0 0% 63.9%;
-    --primary-foreground: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
   }
   .primary-neutral-500 {
     --primary: 0 0% 45.1%;
@@ -536,7 +536,7 @@
   }
   .primary-stone-400 {
     --primary: 24 5.4% 63.9%;
-    --primary-foreground: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
   }
   .primary-stone-500 {
     --primary: 25 5.3% 44.7%;
@@ -573,7 +573,7 @@
   }
   .primary-red-400 {
     --primary: 0 90.6% 70.8%;
-    --primary-foreground: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
   }
   .primary-red-500 {
     --primary: 0 84.2% 60.2%;
