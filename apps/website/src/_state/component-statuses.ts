@@ -14,6 +14,8 @@ export const statusByComponent: ComponentKitsStatuses = {
     Badge: ComponentStatus.Draft,
     Button: ComponentStatus.Draft,
     Card: ComponentStatus.Draft,
+    Label: ComponentStatus.Draft,
+    Input: ComponentStatus.Draft,
     Pagination: ComponentStatus.Draft,
   },
   headless: {

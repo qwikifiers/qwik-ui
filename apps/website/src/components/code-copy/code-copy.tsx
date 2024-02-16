@@ -15,8 +15,6 @@ export const CodeCopy = component$<CodeCopyProps>(
       <Button
         {...props}
         look="ghost"
-        intent="basic"
-        animation={'none'}
         title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
         class={cn(outsideClass)}
         onClick$={async () => {

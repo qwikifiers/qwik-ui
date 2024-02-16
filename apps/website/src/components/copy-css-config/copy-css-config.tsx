@@ -272,16 +272,22 @@ export default component$(() => {
 
     // Parse the CSS to get the variables
     const objClasses = cssClassesToObj(cssClasses);
+    console.log('objClasses: ', objClasses);
 
     // Example usage with the cssThemeToObjectTheme function output
     const objDarkClasses = applyDarkOverrides(objClasses);
+    console.log('objDarkClasses: ', objDarkClasses);
     const objRootClasses = removeDarkClasses(objClasses);
+    console.log('objRootClasses: ', objRootClasses);
 
     // Build the theme CSS
     const objTheme = generateObjThemeOutput({ theme, objRootClasses, objDarkClasses });
+    console.log('objTheme: ', objTheme);
     const orderedObjTheme = reorderThemeObject(objTheme);
+    console.log('orderedObjTheme: ', orderedObjTheme);
 
     cssThemeOutput.value = objThemeToCSSThemeOutput(orderedObjTheme);
+    console.log('cssThemeOutput: ', cssThemeOutput.value);
   });
 
   return (

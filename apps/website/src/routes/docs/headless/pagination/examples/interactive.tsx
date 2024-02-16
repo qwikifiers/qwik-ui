@@ -77,7 +77,6 @@ export default component$(() => {
           onClick$={() => {
             hideNextButton.value = !hideNextButton.value;
           }}
-          label="hideNextButton"
         />
 
         <Toggle
@@ -85,7 +84,6 @@ export default component$(() => {
           onClick$={() => {
             hidePrevButton.value = !hidePrevButton.value;
           }}
-          label="hidePrevButton"
         />
       </div>
     </div>
