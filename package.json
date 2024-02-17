@@ -61,8 +61,8 @@
     "@nx/vite": "18.0.4",
     "@nx/workspace": "18.0.4",
     "@oddbird/popover-polyfill": "0.3.7",
-    "@qwikest/icons": "0.0.13",
     "@playwright/test": "^1.36.0",
+    "@qwikest/icons": "0.0.13",
     "@storybook/addon-a11y": "7.6.0",
     "@storybook/addon-coverage": "^0.0.9",
     "@storybook/addon-essentials": "7.6.0",
@@ -165,6 +165,5 @@
   ],
   "nx": {
     "includedScripts": []
-  },
-  "dependencies": {}
+  }
 }

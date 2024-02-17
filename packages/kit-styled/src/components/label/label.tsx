@@ -8,7 +8,7 @@ export const Label = component$<LabelProps>((props) => {
     <label
       {...props}
       class={cn(
-        'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+        'font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
         props.class,
       )}
     >

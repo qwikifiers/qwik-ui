@@ -94,9 +94,12 @@ export const components: Record<string, any> = {
     return (
       <div
         {...props}
-        class={[cn('rounded-base  relative mb-6 max-h-[31.25rem]', props.class)]}
+        class={[cn('rounded-base relative mb-6 max-h-[31.25rem]', props.class)]}
       >
-        <CodeCopy class="absolute right-4 top-4" code={__rawString__} />
+        <CodeCopy
+          class="absolute right-3 top-3 text-white hover:bg-slate-800 hover:text-white"
+          code={__rawString__}
+        />
         <div
           class={cn(
             'rounded-base max-h-[31.25rem] max-w-full overflow-auto border bg-gradient-to-b p-6 text-sm',

@@ -388,7 +388,7 @@
   }
   .primary-slate-400 {
     --primary: 215 20.2% 65.1%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-slate-500 {
     --primary: 215.4 16.3% 46.9%;
@@ -427,7 +427,7 @@
   }
   .primary-gray-400 {
     --primary: 217.9 10.6% 64.9%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-gray-500 {
     --primary: 220 8.9% 46.1%;
@@ -466,7 +466,7 @@
   }
   .primary-zinc-400 {
     --primary: 240 5% 64.9%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-zinc-500 {
     --primary: 240 3.8% 46.1%;
@@ -505,7 +505,7 @@
   }
   .primary-neutral-400 {
     --primary: 0 0% 63.9%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-neutral-500 {
     --primary: 0 0% 45.1%;
@@ -544,7 +544,7 @@
   }
   .primary-stone-400 {
     --primary: 24 5.4% 63.9%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-stone-500 {
     --primary: 25 5.3% 44.7%;
@@ -581,7 +581,7 @@
   }
   .primary-red-400 {
     --primary: 0 90.6% 70.8%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-red-500 {
     --primary: 0 84.2% 60.2%;
@@ -622,7 +622,7 @@
   }
   .primary-orange-500 {
     --primary: 24.6 95% 53.1%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-orange-600 {
     --primary: 20.5 90.2% 48.2%;
@@ -659,7 +659,7 @@
   }
   .primary-amber-500 {
     --primary: 37.7 92.1% 50.2%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-amber-600 {
     --primary: 32.1 94.6% 43.7%;
@@ -696,10 +696,10 @@
   }
   .primary-yellow-500 {
     --primary: 45.4 93.4% 47.5%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-yellow-600 {
-    --primary: 40.6 96.1% 40.4%;
+    --primary: 40.6 96.1% 39.4%;
     --primary-foreground: 0 0% 100%;
   }
   .primary-yellow-700 {
@@ -733,7 +733,7 @@
   }
   .primary-lime-500 {
     --primary: 83.7 80.5% 44.3%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-lime-600 {
     --primary: 84.8 85.2% 34.5%;
@@ -770,7 +770,7 @@
   }
   .primary-green-500 {
     --primary: 142.1 70.6% 45.3%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-green-600 {
     --primary: 142.1 76.2% 36.3%;
@@ -807,7 +807,7 @@
   }
   .primary-emerald-500 {
     --primary: 160.1 84.1% 39.4%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-emerald-600 {
     --primary: 161.4 93.5% 30.4%;
@@ -844,7 +844,7 @@
   }
   .primary-teal-500 {
     --primary: 173.4 80.4% 40%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-teal-600 {
     --primary: 174.7 83.9% 31.6%;
@@ -881,7 +881,7 @@
   }
   .primary-cyan-500 {
     --primary: 188.7 94.5% 42.7%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-cyan-600 {
     --primary: 191.6 91.4% 36.5%;
@@ -918,7 +918,7 @@
   }
   .primary-sky-500 {
     --primary: 198.6 88.7% 48.4%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
   }
   .primary-sky-600 {
     --primary: 200.4 98% 39.4%;

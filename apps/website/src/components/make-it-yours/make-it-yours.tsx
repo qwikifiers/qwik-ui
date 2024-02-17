@@ -449,7 +449,7 @@ export default component$(() => {
 
               <div>
                 <label class="mb-1 mt-8 block font-medium">Radius</label>
-                <div class="flex flex-col">
+                <div class="flex flex-col space-y-2">
                   {borderRadiusOptions.map((borderRadius) => {
                     const isActive =
                       themeComputedObject.value.borderRadius === borderRadius;
@@ -461,7 +461,7 @@ export default component$(() => {
                           themeComputedObject.value.borderRadius = borderRadius;
                           setTheme(await themeStoreToThemeClasses());
                         }}
-                        class={cn(isActive && 'border-ring border-2')}
+                        class={cn(isActive && 'border-ring mb-2')}
                       >
                         {borderRadius}
                       </Button>

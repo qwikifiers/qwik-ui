@@ -53,7 +53,7 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
         </Tabs>
       ) : (
         <div>
-          <section class="flex items-center justify-center space-x-6 rounded-t-sm border p-8">
+          <section class="flex justify-center space-x-6 rounded-t-sm border p-8">
             {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
           </section>
           <Highlight
