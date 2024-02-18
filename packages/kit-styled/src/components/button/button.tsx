@@ -5,16 +5,16 @@ import { cva, type VariantProps } from 'class-variance-authority';
 // TODO: Create a RFC of the variants and explaining the thought process behind them
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center text-sm font-medium rounded disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1',
+  'inline-flex items-center justify-center text-sm font-medium rounded disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-1',
   {
     variants: {
       look: {
         primary:
-          'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/80 shadow-sm transition-all active:press active:shadow-base focus-visible:ring-offset-1',
+          'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm transition-all active:press active:shadow-base border',
         secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:ring-secondary/80 shadow-sm transition-all active:press active:shadow-base focus-visible:ring-offset-1',
+          'bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-sm transition-all active:press active:shadow-base border',
         alert:
-          'bg-alert text-alert-foreground hover:bg-alert/90 focus-visible:ring-alert/80 shadow-sm transition-all active:press active:shadow-base focus-visible:ring-offset-1',
+          'bg-alert text-alert-foreground hover:bg-alert/90 shadow-sm transition-all active:press active:shadow-base border',
         outline:
           'shadow-sm transition-all active:press active:shadow-base bg-background text-foreground border hover:bg-accent',
         ghost: 'text-accent-foreground hover:bg-accent',
