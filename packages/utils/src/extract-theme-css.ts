@@ -1,8 +1,7 @@
 import { Theme } from 'qwik-themes/lib-types/lib/types';
 import { calculate, compare } from 'specificity';
-import globalCSS from '~/global.css?raw';
 
-export const outputCSSConfig = (theme: Theme) => {
+export const extractThemeCSS = (theme: Theme, globalCSS: string) => {
   const cssClasses = extractCssClasses(globalCSS);
 
   // Parse the CSS to get the variables

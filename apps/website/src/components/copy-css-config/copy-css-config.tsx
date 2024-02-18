@@ -1,9 +1,10 @@
 import { $, component$, useSignal } from '@builder.io/qwik';
 import { Modal, ModalContent, ModalHeader } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/styled';
+import { extractThemeCSS } from '@qwik-ui/utils';
 import { LuX } from '@qwikest/icons/lucide';
 import { useTheme } from 'qwik-themes';
-import { outputCSSConfig } from './output-css-config';
+import globalCSS from '~/global.css?raw';
 
 export default component$(() => {
   const showSig = useSignal(false);
@@ -13,8 +14,8 @@ export default component$(() => {
   const { theme } = useTheme();
 
   const generateCSSThemeOutput = $(async () => {
-    const output = outputCSSConfig(theme);
-    cssThemeOutput.value = output;
+    const cssRules = extractThemeCSS(theme, globalCSS);
+    cssThemeOutput.value = cssRules;
   });
 
   return (
