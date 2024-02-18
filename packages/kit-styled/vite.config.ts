@@ -8,15 +8,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [
-    // macroPlugin({
-    //   filter: (ident, id) => {
-    //     return (
-    //       id.includes('/styled-system/') &&
-    //       !id.includes('/jsx') &&
-    //       (id.startsWith('.') || id.startsWith('~'))
-    //     );
-    //   },
-    // }),
     qwikNxVite(),
     qwikVite({
       vendorRoots: [join(__dirname, '../kit-headless/src')],
