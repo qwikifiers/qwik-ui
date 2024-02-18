@@ -4,8 +4,35 @@ title: Qwik UI | Styled Tabs Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+<StatusBanner status={statusByComponent.styled.Tabs} />
+
 # Tabs
 
-We know, it's a bummer showing ALL of the Panels in one place, but that's why we have the Qwik UI Styled Tabs component!
+A set of layered sections of content—known as tab panels—that are displayed one at a time.
 
-<StatusBanner status={statusByComponent.styled.Accordion} />
+<Showcase name="hero" />
+
+## Installation
+
+```sh
+qwik-ui add tabs
+```
+
+## Usage
+
+```tsx
+import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/styled';
+```
+
+```tsx
+<Tabs>
+  <TabList>
+    <Tab>Tab 1</Tab>
+    <Tab>Tab 2</Tab>
+    <Tab>Tab 3</Tab>
+  </TabList>
+  <TabPanel>Panel 1</TabPanel>
+  <TabPanel>Panel 2</TabPanel>
+  <TabPanel>Panel 3</TabPanel>
+</Tabs>
+```

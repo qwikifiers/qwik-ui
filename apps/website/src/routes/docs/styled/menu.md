@@ -16,3 +16,4 @@
 - [Input](/docs/styled/input)
 - [Label](/docs/styled/label)
 - [Pagination](/docs/styled/pagination)
+- [Tabs](/docs/styled/tabs)

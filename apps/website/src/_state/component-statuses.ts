@@ -19,6 +19,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Label: ComponentStatus.Draft,
     Input: ComponentStatus.Draft,
     Pagination: ComponentStatus.Draft,
+    Tabs: ComponentStatus.Beta,
   },
   headless: {
     Accordion: ComponentStatus.Beta,
