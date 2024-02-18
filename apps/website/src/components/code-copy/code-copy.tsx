@@ -30,7 +30,7 @@ export const CodeCopy = component$<CodeCopyProps>(
           <CopyIcon />
         ) : (
           <div class="flex gap-1">
-            copied <ClipboardCheck />
+            <ClipboardCheck />
           </div>
         )}
       </Button>
