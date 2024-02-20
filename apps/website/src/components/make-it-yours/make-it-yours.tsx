@@ -88,8 +88,6 @@ export default component$(() => {
 
   const themeComputedObject = useComputed$(() => {
     const themeArray = Array.isArray(theme) ? theme : theme?.split(' ');
-    console.log('themeArray', themeArray);
-
     return {
       mode: themeArray?.[0] || 'light',
       style: themeArray?.[1] || 'simple',

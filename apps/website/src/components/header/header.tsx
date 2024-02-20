@@ -106,7 +106,9 @@ export default component$(({ showVersion = false }: HeaderProps) => {
       <button
         type="button"
         aria-label="Toggle dark mode"
-        onClick$={() => (theme === 'light' ? setTheme('dark') : setTheme('light'))}
+        onClick$={() => {
+          theme?.includes('light') ? setTheme('dark simple') : setTheme('light simple');
+        }}
       >
         <div class="hidden dark:block">
           <MoonIcon />

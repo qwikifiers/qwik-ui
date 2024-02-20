@@ -229,6 +229,7 @@ function reorderThemeObject(themeObject: ObjTheme) {
     '--ring',
     '--border-width',
     '--border-radius',
+    '--shadow-base',
     '--shadow-sm',
     '--shadow',
     '--shadow-md',

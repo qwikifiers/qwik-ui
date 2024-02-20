@@ -54,7 +54,6 @@ export default component$(() => {
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
           themes={[
             ...modeOptions,
             ...styleOptions,
