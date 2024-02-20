@@ -23,10 +23,10 @@
     --popover-foreground: 197 84% 0%;
     --accent: 187 0% 96%;
     --accent-foreground: 197 33% 0%;
-    --primary: 199 100% 41%;
-    --primary-foreground: 187 0% 100%;
-    --secondary: 263 74% 63%;
-    --secondary-foreground: 263 0% 100%;
+    --primary: 197 98% 52%;
+    --primary-foreground: 187 0% 0%;
+    --secondary: 266 96% 74%;
+    --secondary-foreground: 287 0% 0%;
     --alert: 0 85% 56%;
     --alert-foreground: 0 0% 100%;
     --card: 0 0% 100%;
@@ -43,10 +43,10 @@
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-    --primary: 199 90% 35%;
-    --primary-foreground: 210 40% 100%;
-    --secondary: 263 50% 55%;
-    --secondary-foreground: 0 0% 100%;
+    --primary: 197 98% 52%;
+    --primary-foreground: 196 0% 0%;
+    --secondary: 266 96% 74%;
+    --secondary-foreground: 0 0% 0%;
     --muted: 222 22% 23%;
     --muted-foreground: 255 5% 80%;
     --accent: 222 22% 23%;
@@ -67,11 +67,27 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
-    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
     --transform-press: scale(0.95);
   }
 
-  .brutalist {
+  .brutalist.brutalist {
+    --border-width: 4px;
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 0 0% 0%;
+    --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
+    --shadow-sm: 3px 4px 0px 0 rgba(0, 0, 0, 1);
+    --shadow: 4px 5px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-md: 6px 7px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-lg: 8px 9px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-xl: 12px 13px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-2xl: 15px 16px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-inner: inset 2px 2px 0px 0px rgba(0, 0, 0, 0);
+    --transform-press: translate(4px, 5px);
+  }
+
+  .dark.brutalist.brutalist {
     --border-width: 4px;
     --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
     --shadow-sm: 3px 4px 0px 0 rgba(0, 0, 0, 1);
@@ -80,35 +96,35 @@
     --shadow-lg: 8px 9px 0px 0px rgba(0, 0, 0, 1);
     --shadow-xl: 12px 13px 0px 0px rgba(0, 0, 0, 1);
     --shadow-2xl: 15px 16px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-inner: inset 2px 2px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
     --transform-press: translate(4px, 5px);
   }
 
   .neumorphic.neumorphic {
     --border-width: 1px;
-    --background: 240 4.9% 83.9%;
+    --background: 0 0 88%;
     --foreground: 240 5.9% 10%;
-    --popover: 240 4.9% 83.9%;
+    --popover: 0 0 88%;
     --popover-foreground: 240 5.9% 10%;
-    --card: 240 4.9% 83.9%;
+    --card: 0 0 88%;
     --card-foreground: 240 5.9% 10%;
-    --border: 240 5.9% 80%;
+    --border: 0 0% 88%;
     --ring: 222.2 47.4% 80.2%;
-    --shadow-base: -3px -3px 6px #bbbbbe, 3px 3px 6px #ededf2,
+    --shadow-base: -3px -3px 6px #bebebe, 3px 3px 6px #ffffff,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-sm: 3px 3px 6px #bbbbbe, -3px -3px 6px #ededf2,
+    --shadow-sm: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow: 4px 4px 8px #bbbbbe, -4px -4px 8px #ededf2,
+    --shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-md: 5px 5px 10px #bbbbbe, -5px -5px 10px #ededf2,
+    --shadow-md: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-lg: 6px 6px 12px #bbbbbe, -6px -6px 12px #ededf2,
+    --shadow-lg: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-xl: 8px 8px 15px #bbbbbe, -8px -8px 15px #ededf2,
+    --shadow-xl: 8px 8px 15px #bebebe, -8px -8px 15px #ffffff,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-2xl: 10px 10px 20px #bbbbbe, -10px -10px 20px #ededf2,
+    --shadow-2xl: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
+    --shadow-inner: inset 4px 4px 8px #bebebe, inset -2px -2px 4px #ffffff;
     --transform-press: scale(0.95);
   }
 
@@ -116,10 +132,10 @@
     --border-width: 1px;
     --background: 240 5.3% 26.1%;
     --foreground: 240 5.9% 90%;
-    --popover: 240 4.9% 83.9%;
-    --popover-foreground: 240 5.9% 10%;
-    --card: 240 4.9% 83.9%;
-    --card-foreground: 240 5.9% 10%;
+    --popover: 240 5.3% 26.1%;
+    --popover-foreground: 240 5.9% 90%;
+    --card: 240 5.3% 26.1%;
+    --card-foreground: 240 5.9% 90%;
     --border: 240 5.9% 20%;
     --ring: 222.2 47.4% 20.2%;
 
@@ -137,7 +153,7 @@
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
     --shadow-2xl: 10px 10px 20px #2c2c31, -10px -10px 20px #52525b,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
-    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 1);
+    --shadow-inner: inset 2px 2px 4px #2c2c31, inset -2px -2px 4px #52525b;
     --transform-press: scale(0.95);
   }
 
@@ -159,23 +175,6 @@
 
   .border-radius-1 {
     --border-radius: 1rem;
-  }
-
-  /* specificity hack */
-  .high-contrast.high-contrast {
-    --foreground: 0 0% 0%;
-    --border: 0 0% 0%;
-    --input: 0 0% 0%;
-    --ring: 0 0% 0%;
-  }
-
-  /* specificity hack */
-  .dark.high-contrast.high-contrast {
-    --foreground: 0 0% 100%;
-    --card-foreground: 0 0% 100%;
-    --border: 0 0% 100%;
-    --input: 0 0% 100%;
-    --ring: 0 0% 100%;
   }
 
   /* use colors from colors.ts */
@@ -1237,7 +1236,7 @@
   }
 
   .dark *::-webkit-scrollbar-track {
-    background: var(--qwikui-slate-950);
+    background: transparent;
     border-left: 1px solid var(--qwikui-slate-800);
   }
 
@@ -1247,17 +1246,9 @@
   }
 
   .code-example *::-webkit-scrollbar-thumb {
-    background: var(--qwikui-slate-400);
-    border-radius: 0.5rem;
-    background-clip: padding-box;
-    border: 0.35rem solid transparent;
-  }
-
-  .code-example *::-webkit-scrollbar-thumb:hover {
     background: var(--qwikui-slate-500);
     border-radius: 0.5rem;
     background-clip: padding-box;
-    border: 0.35rem solid transparent;
   }
 
   /* no horizontal overflow on code snippets */
@@ -1276,16 +1267,7 @@
 }
 
 :root {
-  --qwik-dark-blue: #006ce9;
-  --qwik-light-blue: #18b6f6;
-  --qwik-light-purple: #ac7ff4;
-  --qwik-dark-purple: #713fc2;
-  --dark-color-bg: rgb(30 41 59);
-  --dark-color-text: rgb(203 213 225);
-  --light-color-bg: rgb(203 213 225);
-  --light-color-text: #333;
-
-  /* primary colors */
+  /* primary colors - try using primary and secondary instead */
   --qwikui-purple-50: #f9f5ff;
   --qwikui-purple-100: #f2e8ff;
   --qwikui-purple-200: #e7d6fe;
@@ -1310,7 +1292,7 @@
   --qwikui-blue-900: #075073;
   --qwikui-blue-950: #04334d;
 
-  /* neutrals */
+  /* neutrals - for internal use */
   --qwikui-slate-50: #f8fafc;
   --qwikui-slate-100: #f1f5f9;
   --qwikui-slate-200: #e2e8f0;
@@ -1335,22 +1317,6 @@ body {
   font-family: 'Inter Variable', sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-  line-height: 1.2;
-}
-
-p,
-ul,
-ol {
-  line-height: 1.75;
-}
-
 /* Utilities layer for animations. The current arbitrary & docs tailwind animation guidelines are not maintainable long term. 
   It would make more sense to supply the user with the animation declaration in the docs.
 */
@@ -1361,88 +1327,5 @@ ol {
 
   .accordion-animation-1[data-state='closed'] {
     animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-close;
-  }
-
-  .text-outline-lg {
-    text-shadow: 1.6px 0.6px 0 var(--qwikui-blue-800),
-      -0.6px -0.6px 0 var(--qwikui-blue-800), 0.6px -0.6px 0 var(--qwikui-blue-800),
-      -0.6px 0.6px 0 var(--qwikui-blue-800), 0.6px 0.6px 0 var(--qwikui-blue-800);
-  }
-
-  .dark .text-outline-lg {
-    text-shadow: 1.2px 1.2px 0 var(--qwikui-purple-900),
-      -0.6px -0.6px 0 var(--qwikui-purple-900), 0.6px -0.6px 0 var(--qwikui-purple-900),
-      -0.6px 0.6px 0 var(--qwikui-purple-900), 0.6px 0.6px 0 var(--qwikui-purple-900);
-  }
-
-  .text-outline-beta {
-    text-shadow: 1.5px 0.5px 0 var(--qwikui-blue-800),
-      -0.5px -0.5px 0 var(--qwikui-blue-800), 0.5px -0.5px 0 var(--qwikui-blue-800),
-      -0.5px 0.5px 0 var(--qwikui-blue-800), 0.5px 0.5px 0 var(--qwikui-blue-800);
-  }
-
-  .dark .text-outline-beta {
-    text-shadow: 1.5px 0.5px 0 var(--qwikui-purple-800),
-      -0.5px -0.5px 0 var(--qwikui-purple-800), 0.5px -0.5px 0 var(--qwikui-purple-800),
-      -0.5px 0.5px 0 var(--qwikui-purple-800), 0.5px 0.5px 0 var(--qwikui-purple-800);
-  }
-
-  .text-outline-draft {
-    text-shadow: 1.5px 0.5px 0 var(--qwikui-slate-900),
-      -0.5px -0.5px 0 var(--qwikui-slate-900), 0.5px -0.5px 0 var(--qwikui-slate-900),
-      -0.5px 0.5px 0 var(--qwikui-slate-900), 0.5px 0.5px 0 var(--qwikui-slate-900);
-  }
-  .dark .text-outline-draft {
-    text-shadow: 1.5px 0.5px 0 var(--qwikui-slate-950),
-      -0.5px -0.5px 0 var(--qwikui-slate-950), 0.5px -0.5px 0 var(--qwikui-slate-950),
-      -0.5px 0.5px 0 var(--qwikui-slate-950), 0.5px 0.5px 0 var(--qwikui-slate-950);
-  }
-
-  .text-outline-planned {
-    text-shadow: 1.5px 0.5px 0 var(--qwikui-slate-500),
-      -0.5px -0.5px 0 var(--qwikui-slate-500), 0.5px -0.5px 0 var(--qwikui-slate-500),
-      -0.5px 0.5px 0 var(--qwikui-slate-500), 0.5px 0.5px 0 var(--qwikui-slate-500);
-  }
-
-  .dark .text-outline-planned {
-    text-shadow: 1.5px 0.5px 0 var(--qwikui-slate-500),
-      -0.4px -0.4px 0 var(--qwikui-slate-500), 0.4px -0.4px 0 var(--qwikui-slate-500),
-      -0.4px 0.4px 0 var(--qwikui-slate-500), 0.4px 0.4px 0 var(--qwikui-slate-500);
-  }
-
-  .text-outline-blue-title {
-    text-shadow: 1.2px 1.2px 0 var(--qwikui-blue-800),
-      -0.6px -0.6px 0 var(--qwikui-blue-800), 0.6px -0.6px 0 var(--qwikui-blue-800),
-      -0.6px 0.6px 0 var(--qwikui-blue-800), 0.6px 0.6px 0 var(--qwikui-blue-800);
-  }
-
-  .text-outline-purple-title {
-    text-shadow: 1.2px 1.2px 0 var(--qwikui-purple-900),
-      -0.6px -0.6px 0 var(--qwikui-purple-900), 0.6px -0.6px 0 var(--qwikui-purple-900),
-      -0.6px 0.6px 0 var(--qwikui-purple-900), 0.6px 0.6px 0 var(--qwikui-purple-900);
-  }
-
-  .dark .text-outline-blue-title {
-    text-shadow: 1.2px 1.2px 0 var(--qwikui-blue-700),
-      -0.8px -0.8px 0 var(--qwikui-blue-700), 0.8px -0.8px 0 var(--qwikui-blue-700),
-      -0.8px 0.8px 0 var(--qwikui-blue-700), 0.8px 0.8px 0 var(--qwikui-blue-700);
-  }
-
-  .dark .text-outline-purple-title {
-    text-shadow: 1.2px 1.2px 0 var(--qwikui-purple-700),
-      -0.8px -0.8px 0 var(--qwikui-purple-700), 0.8px -0.8px 0 var(--qwikui-purple-700),
-      -0.8px 0.8px 0 var(--qwikui-purple-700), 0.8px 0.8px 0 var(--qwikui-purple-700);
-  }
-
-  .setup-grid-areas {
-    grid-template-areas: 'nav main toc';
-  }
-
-  .copy-btn-bg-dark {
-    background: hsla(215, 25%, 27%, 0.9);
-  }
-
-  .copy-btn-bg-light {
-    background: hsla(214, 32%, 91%, 0.9);
   }
 }
