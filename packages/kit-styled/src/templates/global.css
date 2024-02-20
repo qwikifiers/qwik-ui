@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --border-width: 1px;
+    --border-width: 0px;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
@@ -31,9 +31,9 @@
     --alert-foreground: 0 0% 100%;
     --card: 0 0% 100%;
     --card-foreground: 197 84% 0%;
-    --input: 190 11% 67%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
     --ring: 197 100% 43%;
-    --border: 217 0% 0%;
   }
 
   .dark {
@@ -53,16 +53,16 @@
     --accent-foreground: 250 40% 99%;
     --alert: 0 64% 44%;
     --alert-foreground: 250 40% 98%;
-    --border: 217 18% 33%;
-    --input: 217 18% 33%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
     --ring: 270 50% 56%;
   }
 
   /* CSS PARSER: START - DO NOT REMOVE */
   .simple {
-    --border-width: 1px;
+    --border-width: 0px;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -72,7 +72,7 @@
   }
 
   .brutalist.brutalist {
-    --border-width: 4px;
+    --border-width: 3px;
     --border: 0 0% 0%;
     --input: 0 0% 0%;
     --ring: 0 0% 0%;
@@ -88,7 +88,7 @@
   }
 
   .dark.brutalist.brutalist {
-    --border-width: 4px;
+    --border-width: 3px;
     --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
     --shadow-sm: 3px 4px 0px 0 rgba(0, 0, 0, 1);
     --shadow: 4px 5px 0px 0px rgba(0, 0, 0, 1);
@@ -101,14 +101,14 @@
   }
 
   .neumorphic.neumorphic {
-    --border-width: 1px;
+    --border-width: 0px;
     --background: 0 0 88%;
     --foreground: 240 5.9% 10%;
     --popover: 0 0 88%;
     --popover-foreground: 240 5.9% 10%;
     --card: 0 0 88%;
     --card-foreground: 240 5.9% 10%;
-    --border: 0 0% 88%;
+    --border: 0 0% 80%;
     --ring: 222.2 47.4% 80.2%;
     --shadow-base: -3px -3px 6px #bebebe, 3px 3px 6px #ffffff,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
@@ -129,7 +129,7 @@
   }
 
   .dark.neumorphic.neumorphic {
-    --border-width: 1px;
+    --border-width: 0px;
     --background: 240 5.3% 26.1%;
     --foreground: 240 5.9% 90%;
     --popover: 240 5.3% 26.1%;
@@ -138,7 +138,6 @@
     --card-foreground: 240 5.9% 90%;
     --border: 240 5.9% 20%;
     --ring: 222.2 47.4% 20.2%;
-
     --shadow-base: -3px -3px 6px #2c2c31, 3px 3px 6px #52525b,
       inset 1px 1px 2px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(120, 120, 120, 0.5);
     --shadow-sm: 3px 3px 6px #2c2c31, -3px -3px 6px #52525b,
