@@ -39,7 +39,7 @@ const Tab = component$<TabProps>((props) => {
     <QwikUITab
       {...props}
       class={cn(
-        'ring-offset-background focus-visible:ring-ring data-[state=selected]:bg-background data-[state=selected]:text-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-2 font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=selected]:border',
+        'ring-offset-background focus-visible:ring-ring data-[state=selected]:bg-background data-[state=selected]:text-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-2 font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=selected]:border data-[state=selected]:shadow-inner',
         props.class,
       )}
     >
