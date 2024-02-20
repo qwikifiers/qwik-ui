@@ -8,7 +8,7 @@
   }
 
   a {
-    @apply border-primary ease-step hover:border-primary/60 border-b font-semibold transition-colors duration-300;
+    @apply ease-step font-semibold underline underline-offset-2 transition-colors duration-300 hover:opacity-90;
   }
 
   p code {
