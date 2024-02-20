@@ -94,7 +94,9 @@ export const components: Record<string, any> = {
     return (
       <div
         {...props}
-        class={[cn('rounded-base relative mb-6 max-h-[31.25rem]', props.class)]}
+        class={[
+          cn('code-example rounded-base relative mb-6 max-h-[31.25rem]', props.class),
+        ]}
       >
         <CodeCopy
           class="absolute right-3 top-3 text-white hover:bg-slate-800 hover:text-white"

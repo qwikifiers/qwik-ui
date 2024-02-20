@@ -26,13 +26,13 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <MDXProvider components={components}>
-        <div class="setup-grid-areas lg:grid-cols-custom-lg 2xl:grid-cols-custom-2xl grid">
+        <div class="flex max-w-7xl justify-center space-x-96">
           <DocsNavigation linksGroups={menuItemsGroups} />
-          <main class="docs [grid-area:main]">
+          <main class="docs">
             <Slot />
           </main>
           {/* future table of contents */}
-          <div class="hidden [grid-area:toc]"></div>
+          <div class="hidden"></div>
         </div>
       </MDXProvider>
       <footer></footer>
