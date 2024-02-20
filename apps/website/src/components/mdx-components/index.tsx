@@ -60,7 +60,7 @@ export const components: Record<string, any> = {
   }),
   h5: component$<PropsOf<'h5'>>(({ ...props }) => {
     return (
-      <h5 {...props} class={[cn('text-base font-[700]', props.class)]}>
+      <h5 {...props} class={[cn('text-base font-normal', props.class)]}>
         <Slot />
       </h5>
     );

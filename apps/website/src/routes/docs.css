@@ -8,7 +8,7 @@
   }
 
   a {
-    @apply ease-step font-semibold underline underline-offset-2 transition-colors duration-300 hover:opacity-90;
+    @apply ease-step font-semibold underline underline-offset-4 transition-colors duration-300 hover:opacity-90;
   }
 
   p code {
