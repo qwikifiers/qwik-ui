@@ -36,7 +36,7 @@ export default component$(() => {
             linksGroups={menuItemsGroups}
             class=" bg-background sticky top-16 hidden h-[calc(100vh-64px)] max-w-80 overflow-auto lg:flex"
           />
-          <main class="docs max-w-3xl 2xl:max-w-4xl">
+          <main class="docs w-full max-w-3xl 2xl:max-w-4xl">
             <Slot />
           </main>
           <div class="hidden text-sm xl:block">
