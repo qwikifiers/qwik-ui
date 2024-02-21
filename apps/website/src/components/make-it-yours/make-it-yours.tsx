@@ -4,7 +4,7 @@ import { Button } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
 import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
 import { useTheme } from 'qwik-themes';
-import { borderRadiusOptions, baseOptions, primaryOptions } from '~/_state/make-it-yours';
+import { baseOptions, borderRadiusOptions, primaryOptions } from '~/_state/make-it-yours';
 import CopyCssConfig from '../copy-css-config/copy-css-config';
 
 export default component$(() => {
