@@ -14,7 +14,6 @@ import { ThemeProvider } from 'qwik-themes';
 import {
   baseOptions,
   borderRadiusOptions,
-  contrastOptions,
   modeOptions,
   primaryOptions,
   styleOptions,
@@ -60,7 +59,6 @@ export default component$(() => {
             ...baseOptions,
             ...primaryOptions,
             ...borderRadiusOptions,
-            ...contrastOptions,
           ]}
         >
           <RouterOutlet />

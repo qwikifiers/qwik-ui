@@ -225,6 +225,4 @@ export const borderRadiusOptions = [
   'border-radius-1',
 ];
 
-export const contrastOptions = ['high-contrast', 'low-contrast'];
-
 export const modeOptions = ['light', 'dark'];
