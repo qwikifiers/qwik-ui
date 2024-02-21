@@ -25,6 +25,7 @@ module.exports = {
   ],
   // ROOT-END
   darkMode: 'class',
+
   theme: {
     important: true,
     extend: {

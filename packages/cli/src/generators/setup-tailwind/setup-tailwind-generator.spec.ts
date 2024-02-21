@@ -24,7 +24,7 @@ html {
     );
 
     tree.write(
-      'tailwind.config.js',
+      'tailwind.config.cjs',
       `
     const { join } = require('path');
 
@@ -71,13 +71,22 @@ html {
 
     await setupTailwindGenerator(tree, options);
 
-    const updatedTailwindConfigContent = tree.read('tailwind.config.js', 'utf-8');
+    const updatedTailwindConfigContent = tree.read('tailwind.config.cjs', 'utf-8');
 
     expect(updatedTailwindConfigContent).toMatchInlineSnapshot(`
       "const { join } = require('path');
 
       /** @type {import('tailwindcss').Config} */
       module.exports = {
+        plugins: [
+          plugin(function ({ addUtilities }) {
+            addUtilities({
+              '.press': {
+                transform: 'var(--transform-press)',
+              },
+            });
+          }),
+        ],
         content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
         darkMode: 'class',
         theme: {
@@ -91,46 +100,63 @@ html {
           important: true,
           extend: {
             colors: {
-              border: 'hsl(var(--color-border) / <alpha-value>)',
-              input: 'hsl(var(--color-input) / <alpha-value>)',
-              ring: 'hsl(var(--color-ring) / <alpha-value>)',
-              background: 'hsl(var(--color-background) / <alpha-value>)',
-              foreground: 'hsl(var(--color-foreground) / <alpha-value>)',
-
+              border: 'hsl(var(--border))',
+              input: 'hsl(var(--input))',
+              ring: 'hsl(var(--ring))',
+              background: 'hsl(var(--background))',
+              foreground: 'hsl(var(--foreground))',
               primary: {
-                DEFAULT: 'hsl(var(--color-primary) / <alpha-value>)',
-                foreground: 'hsl(var(--color-primary-foreground) / <alpha-value>)',
+                DEFAULT: 'hsl(var(--primary))',
+                foreground: 'hsl(var(--primary-foreground))',
               },
               secondary: {
-                DEFAULT: 'hsl(var(--color-secondary) / <alpha-value>)',
-                foreground: 'hsl(var(--color-secondary-foreground) / <alpha-value>)',
+                DEFAULT: 'hsl(var(--secondary))',
+                foreground: 'hsl(var(--secondary-foreground))',
               },
-              accent: {
-                DEFAULT: 'hsl(var(--color-accent) / <alpha-value>)',
-                foreground: 'hsl(var(--color-accent-foreground) / <alpha-value>)',
+              alert: {
+                DEFAULT: 'hsl(var(--alert))',
+                foreground: 'hsl(var(--alert-foreground))',
               },
               muted: {
-                DEFAULT: 'hsl(var(--color-muted) / <alpha-value>)',
-                foreground: 'hsl(var(--color-muted-foreground) / <alpha-value>)',
+                DEFAULT: 'hsl(var(--muted))',
+                foreground: 'hsl(var(--muted-foreground))',
               },
-              destructive: {
-                DEFAULT: 'hsl(var(--color-destructive) / <alpha-value>)',
-                foreground:
-                  'hsl(var(--color-destructive-foreground) / <alpha-value>)',
-              },
-              popover: {
-                DEFAULT: 'hsl(var(--color-popover) / <alpha-value>)',
-                foreground: 'hsl(var(--color-popover-foreground) / <alpha-value>)',
+              accent: {
+                DEFAULT: 'hsl(var(--accent))',
+                foreground: 'hsl(var(--accent-foreground))',
               },
               card: {
-                DEFAULT: 'hsl(var(--color-card) / <alpha-value>)',
-                foreground: 'hsl(var(--color-card-foreground) / <alpha-value>)',
+                DEFAULT: 'hsl(var(--card))',
+                foreground: 'hsl(var(--card-foreground))',
               },
             },
             borderRadius: {
-              lg: 'var(--border-radius)',
-              md: 'calc(var(--border-radius) - 2px)',
-              sm: 'calc(var(--border-radius) - 4px)',
+              base: 'var(--border-radius)',
+              sm: 'calc(var(--border-radius) + 0.125rem)',
+              DEFAULT: 'calc(var(--border-radius) + 0.25rem)',
+              md: 'calc(var(--border-radius) + 0.375rem)',
+              lg: 'calc(var(--border-radius) + 0.5rem)',
+              xl: 'calc(var(--border-radius) + 0.75rem)',
+              '2xl': 'calc(var(--border-radius) + 1rem)',
+              '3xl': 'calc(var(--border-radius) + 1.5rem)',
+              preset: 'var(--border-radius)',
+            },
+            borderWidth: {
+              base: 'var(--border-width)',
+              DEFAULT: 'calc(var(--border-width) + 1px)',
+              2: 'calc(var(--border-width) + 2px)',
+              4: 'calc(var(--border-width) + 4px)',
+              8: 'calc(var(--border-width) + 8px)',
+            },
+            boxShadow: {
+              base: 'var(--shadow-base)',
+              sm: 'var(--shadow-sm)',
+              DEFAULT: 'var(--shadow)',
+              md: 'var(--shadow-md)',
+              lg: 'var(--shadow-lg)',
+              xl: 'var(--shadow-xl)',
+              '2xl': 'var(--shadow-2xl)',
+              inner: 'var(--shadow-inner)',
             },
             fontFamily: {
               sans: ['Inter Variable', 'sans-serif'],

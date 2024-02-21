@@ -12,6 +12,9 @@
     "tslib": "^2.3.0",
     "yargs": "17.7.2"
   },
+  "devDependencies": {
+    "@qwik-ui/styled": "workspace:*"
+  },
   "type": "commonjs",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",

@@ -41,28 +41,74 @@ function updateTailwindConfig(tree: Tree, projectRoot: string, kitRoot: string) 
     kitRoot,
     'src',
     'templates',
-    'tailwind.extend._template',
+    'tailwind.config.cjs',
   );
 
-  const cssVarsTemplate = readFileSync(tailwindConfigTemplatePath, 'utf-8');
+  const tailwindTemplate = readFileSync(tailwindConfigTemplatePath, 'utf-8');
+
+  const rootTemplate = extractBetweenComments(
+    tailwindTemplate,
+    '// ROOT-START',
+    '// ROOT-END',
+  );
+  const extendTemplate = extractBetweenComments(
+    tailwindTemplate,
+    '// EXTEND-START',
+    '// EXTEND-END',
+  );
+
+  const moduleExportsRegex = /\bmodule\.exports\s*=\s*\{/;
+
+  let modifiedTailwindConfigContent = insertAfter(
+    moduleExportsRegex,
+    tailwindConfigContent,
+    rootTemplate,
+    'module.exports',
+  );
 
   const extendKeyword = /\bextend:\s*\{/;
 
-  const match = tailwindConfigContent.match(extendKeyword);
+  modifiedTailwindConfigContent = insertAfter(
+    extendKeyword,
+    modifiedTailwindConfigContent,
+    extendTemplate,
+    'extend',
+  );
+
+  tree.write(tailwindConfigPath, modifiedTailwindConfigContent);
+}
+
+function insertAfter(
+  regex: RegExp,
+  content: string,
+  toInsert: string,
+  errorTitle: string,
+) {
+  const match = content.match(regex);
 
   if (!match || !match.index) {
-    throw new Error('Could not find the "extend" property in your tailwind config file');
+    throw new Error(
+      `Could not find the "${errorTitle}" property in your tailwind config file`,
+    );
   }
 
   if (match && match.index) {
     const startIndex = match.index + match[0].length;
     const modifiedTailwindConfigContent =
-      tailwindConfigContent.slice(0, startIndex) +
-      cssVarsTemplate +
-      tailwindConfigContent.slice(startIndex);
+      content.slice(0, startIndex) + toInsert + content.slice(startIndex);
 
-    tree.write(tailwindConfigPath, modifiedTailwindConfigContent);
+    return modifiedTailwindConfigContent;
   }
+}
+
+function extractBetweenComments(
+  content: string,
+  startComment: string,
+  endComment: string,
+): string {
+  const startIndex = content.indexOf(startComment) + startComment.length;
+  const endIndex = content.indexOf(endComment);
+  return content.substring(startIndex, endIndex).trim();
 }
 
 function updateRootCss(
