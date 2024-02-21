@@ -1,11 +1,4 @@
-import {
-  $,
-  component$,
-  useComputed$,
-  useSignal,
-  useStyles$,
-  useVisibleTask$,
-} from '@builder.io/qwik';
+import { $, component$, useComputed$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
@@ -81,10 +74,6 @@ export default component$(() => {
   const showSig = useSignal(false);
 
   const { theme, setTheme } = useTheme();
-
-  useVisibleTask$(() => {
-    console.log('theme', theme);
-  });
 
   const themeComputedObject = useComputed$(() => {
     const themeArray = Array.isArray(theme) ? theme : theme?.split(' ');
@@ -467,33 +456,14 @@ export default component$(() => {
                   })}
                 </div>
               </div>
-              <div>
-                <label class="mb-1 mt-8 block font-medium">Contrast</label>
-                High Contrast{' '}
-                <input
-                  type="checkbox"
-                  checked={themeComputedObject.value.contrast === 'high-contrast'}
-                  onClick$={async () => {
-                    themeComputedObject.value.contrast =
-                      themeComputedObject.value.contrast === 'high-contrast'
-                        ? 'low-contrast'
-                        : 'high-contrast';
-
-                    console.log(themeComputedObject.value.contrast);
-                    setTheme(await themeStoreToThemeClasses());
-                  }}
-                />
-              </div>
-
-              <div>
-                <label class="mb-1 mt-8 block font-medium">Contrast</label>
+              <div class="mt-8">
                 Dark Mode{' '}
                 <input
                   type="checkbox"
                   checked={themeComputedObject.value.mode === 'dark'}
                   onClick$={async () => {
                     themeComputedObject.value.mode =
-                      themeComputedObject.value.mode === 'light' ? 'dark' : 'light';
+                      themeComputedObject.value.mode.includes('light') ? 'dark' : 'light';
 
                     console.log(themeComputedObject.value.mode);
                     setTheme(await themeStoreToThemeClasses());
