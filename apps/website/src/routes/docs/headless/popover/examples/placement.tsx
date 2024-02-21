@@ -39,7 +39,7 @@ export default component$(() => {
         <ComboboxControl class="rounded-base relative mt-2 flex items-center border-[1px] border-slate-400 bg-[#1f2532]">
           <ComboboxInput class="px-d2 rounded-base w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500" />
           <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-            <ComboboxIcon class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
+            <ComboboxIcon class="stroke-white transition-transform duration-500 group-aria-expanded:-rotate-180" />
           </ComboboxTrigger>
         </ComboboxControl>
         <ComboboxPopover gutter={8} placement="top">

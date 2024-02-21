@@ -43,7 +43,7 @@ export default component$(() => {
             viewBox="0 0 24 24"
             fill="none"
             stroke-width="2"
-            class="stroke-white transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
+            class="stroke-white transition-transform duration-500 group-aria-expanded:-rotate-180"
             stroke-linecap="round"
             stroke-linejoin="round"
           >

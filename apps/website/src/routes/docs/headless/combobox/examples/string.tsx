@@ -48,7 +48,7 @@ export default component$(() => {
           placeholder="Papaya"
         />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-          <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
+          <ComboboxIcon class="stroke-foreground transition-transform duration-500 group-aria-expanded:-rotate-180" />
         </ComboboxTrigger>
       </ComboboxControl>
       <ComboboxPopover gutter={8}>

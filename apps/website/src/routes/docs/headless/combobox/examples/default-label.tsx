@@ -22,7 +22,7 @@ export default component$(() => {
       <ComboboxControl class="rounded-base relative border">
         <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground rounded-base w-44 px-2 pr-6" />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-          <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
+          <ComboboxIcon class="stroke-foreground transition-transform duration-500 group-aria-expanded:-rotate-180" />
         </ComboboxTrigger>
       </ComboboxControl>
       <ComboboxPopover gutter={8} hide="escaped">
