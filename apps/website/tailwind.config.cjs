@@ -15,10 +15,17 @@ module.exports = {
   ],
   // ROOT-START
   plugins: [
+    require('tailwindcss-animate'),
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
+        },
+        '.appear': {
+          opacity: 1,
+        },
+        '.disappear': {
+          opacity: 0,
         },
       });
     }),
