@@ -102,7 +102,7 @@ export default component$(() => {
       >
         <div class="flex justify-center">
           <LuSlidersHorizontal class="mr-3 h-6 w-6" />
-          Make it yours
+          <span class="hidden sm:block">Make it yours</span>
         </div>
       </button>
       <Modal
