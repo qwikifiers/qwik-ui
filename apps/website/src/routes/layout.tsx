@@ -1,3 +1,4 @@
+/* eslint-disable qwik/no-react-props */
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 import { ContentMenu, useContent } from '@builder.io/qwik-city';
 import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
@@ -15,8 +16,12 @@ import prismStyles from './prism.css?inline';
 import '@fontsource-variable/inter';
 import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
+import { DashboardTableOfContents } from '~/components/toc/toc';
+import { ScrollArea } from '@qwik-ui/styled';
 
 export default component$(() => {
+  const { headings } = useContent();
+
   useStyles$(prismStyles);
   useStyles$(docsStyles);
 
@@ -26,13 +31,23 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <MDXProvider components={components}>
-        <div class="flex max-w-7xl justify-center space-x-96">
-          <DocsNavigation linksGroups={menuItemsGroups} />
-          <main class="docs">
+        <div class="relative flex justify-between space-x-10 2xl:justify-center 2xl:space-x-20">
+          <DocsNavigation
+            linksGroups={menuItemsGroups}
+            class=" bg-background sticky top-16 hidden h-[calc(100vh-64px)] max-w-80 overflow-auto lg:flex"
+          />
+          <main class="docs max-w-3xl 2xl:max-w-4xl">
             <Slot />
           </main>
-          {/* future table of contents */}
-          <div class="hidden"></div>
+          <div class="hidden text-sm xl:block">
+            <div class="sticky top-16 -mt-10 mr-8 pt-4">
+              <ScrollArea className="pb-10">
+                <div class="sticky top-16 -mt-10 h-[calc(100vh-64px)] py-12">
+                  <DashboardTableOfContents headings={headings ? headings : []} />
+                </div>
+              </ScrollArea>
+            </div>
+          </div>
         </div>
       </MDXProvider>
       <footer></footer>
@@ -40,7 +55,7 @@ export default component$(() => {
   );
 });
 
-function useKitMenuItems() {
+export function useKitMenuItems() {
   const selectedKitSig = useSelectedKit();
   const { menu } = useContent();
   let menuItemsGroups: LinkGroup[] | undefined = [];
