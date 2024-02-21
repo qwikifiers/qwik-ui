@@ -173,7 +173,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
           type="button"
           aria-label="Toggle dark mode"
           onClick$={() => {
-            theme?.includes('light') ? setTheme('dark simple') : setTheme('light simple');
+            theme?.includes('light') ? setTheme('dark') : setTheme('light');
           }}
         >
           <div class="hidden dark:block">
