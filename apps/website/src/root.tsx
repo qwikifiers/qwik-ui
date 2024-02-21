@@ -29,7 +29,6 @@ export default component$(() => {
   useStyles$(globalStyles);
 
   const appState = useStore<AppState>({
-    isSidebarOpened: false,
     featureFlags: {
       showStyled: import.meta.env.DEV,
     },
@@ -45,12 +44,7 @@ export default component$(() => {
         <RouterHead />
         <ServiceWorkerRegister />
       </head>
-      <body
-        lang="en"
-        class={{
-          'overflow-y-hidden': appState.isSidebarOpened,
-        }}
-      >
+      <body lang="en">
         <ThemeProvider
           attribute="class"
           themes={[
