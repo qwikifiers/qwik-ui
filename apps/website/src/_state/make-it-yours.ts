@@ -34,11 +34,11 @@ export const primaryOptions = createPrimaryColors();
 function createPrimaryColors() {
   const colorValues = Object.values(Color);
 
-  const primaryColors = [];
-  for (const color of colorValues) {
-    for (let i = 100; i <= 900; i += 100) {
-      primaryColors.push(`primary-${color}-${i}`);
+  const primaryColorsByLightness = [];
+  for (let i = 100; i <= 900; i += 100) {
+    for (const color of colorValues) {
+      primaryColorsByLightness.push(`primary-${color}-${i}`);
     }
   }
-  return primaryColors;
+  return primaryColorsByLightness;
 }
