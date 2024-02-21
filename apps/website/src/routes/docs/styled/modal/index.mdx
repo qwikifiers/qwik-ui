@@ -1,0 +1,53 @@
+---
+title: Qwik UI | Styled Input Component
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.styled.Input} />
+
+# Input
+
+Displays a form input field or a component that looks like an input field.
+
+<Showcase name="hero" />
+
+## Installation
+
+```sh
+qwik-ui add modal
+```
+
+## Usage
+
+```tsx
+import {
+  Button,
+  Modal,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalTrigger,
+  ModalWrapper,
+} from '@qwik-ui/styled';
+```
+
+```tsx
+<ModalWrapper>
+  <ModalTrigger>
+    <Button>Open modal</Button>
+  </ModalTrigger>
+  <Modal>
+    <ModalHeader>
+      <h2 class="text-lg font-bold">Edit Profile</h2>
+      <p class="text-sm font-light">
+        Make changes to your profile here. Click save when you're done.
+      </p>
+    </ModalHeader>
+    <ModalContent>Your content</ModalContent>
+    <ModalFooter>
+      <Button>Save</Button>
+    </ModalFooter>
+  </Modal>
+</ModalWrapper>
+```

@@ -15,5 +15,6 @@
 - [Checkbox](/docs/styled/checkbox)
 - [Input](/docs/styled/input)
 - [Label](/docs/styled/label)
+- [Modal](/docs/styled/modal)
 - [Pagination](/docs/styled/pagination)
 - [Tabs](/docs/styled/tabs)

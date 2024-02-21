@@ -13,10 +13,17 @@ module.exports = {
     join(__dirname, '../../packages/kit-styled/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
   plugins: [
+    require('tailwindcss-animate'),
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
+        },
+        '.appear': {
+          opacity: 1,
+        },
+        '.disappear': {
+          opacity: 0,
         },
       });
     }),

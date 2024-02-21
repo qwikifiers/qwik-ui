@@ -4,6 +4,7 @@ import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
+import { qwikReact } from '@builder.io/qwik-react/vite';
 
 export default defineConfig(async () => {
   const { default: rehypePrettyCode } = await import('rehype-pretty-code');
@@ -96,6 +97,7 @@ export default defineConfig(async () => {
           outDir: '../../dist/apps/website/server',
         },
       }),
+      qwikReact(),
       tsconfigPaths({ root: '../../' }),
     ],
     server: {
