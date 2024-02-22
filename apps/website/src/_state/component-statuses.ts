@@ -21,6 +21,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Label: ComponentStatus.Draft,
     Modal: ComponentStatus.Draft,
     Pagination: ComponentStatus.Draft,
+    Popover: ComponentStatus.Draft,
     Tabs: ComponentStatus.Beta,
   },
   headless: {
