@@ -1,6 +1,5 @@
 {
   "extends": [
-    "plugin:playwright/recommended",
     "../../.eslintrc.json",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -28,10 +27,6 @@
     },
     {
       "files": ["*.js", "*.jsx"],
-      "rules": {}
-    },
-    {
-      "files": ["e2e/**/*.{ts,js,tsx,jsx}"],
       "rules": {}
     }
   ]
