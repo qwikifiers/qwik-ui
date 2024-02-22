@@ -14,16 +14,12 @@
       }
     }
   },
-  "plugins": [
-    {
-      "plugin": "@nx/playwright/plugin",
-      "options": {
-        "ciTargetName": "e2e-ci",
-        "targetName": "e2e"
-      }
-    }
-  ],
+
   "targetDefaults": {
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "cache": true
+    },
     "build-bin": {
       "cache": true
     },
