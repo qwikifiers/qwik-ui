@@ -1,4 +1,4 @@
-import { BorderRadius, Color, Contrast, Mode, ThemeStyle } from '@qwik-ui/utils';
+import { BorderRadius, Color, Mode, ThemeStyle } from '@qwik-ui/utils';
 
 export const baseOptions = [
   Color.SLATE,
@@ -20,11 +20,6 @@ export const borderRadiusOptions: BorderRadius[] = [
   BorderRadius.BORDER_RADIUS_050,
   BorderRadius.BORDER_RADIUS_075,
   BorderRadius.BORDER_RADIUS_1,
-];
-
-export const contrastOptions: Contrast[] = [
-  Contrast.HIGH_CONTRAST,
-  Contrast.LOW_CONTRAST,
 ];
 
 export const modeOptions: Mode[] = [Mode.LIGHT, Mode.DARK];
