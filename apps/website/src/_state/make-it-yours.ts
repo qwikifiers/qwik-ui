@@ -15,11 +15,11 @@ export const styleOptions: ThemeStyle[] = [
 ];
 
 export const borderRadiusOptions: BorderRadius[] = [
-  BorderRadius.BORDER_RADIUS_0,
-  BorderRadius.BORDER_RADIUS_025,
-  BorderRadius.BORDER_RADIUS_050,
-  BorderRadius.BORDER_RADIUS_075,
-  BorderRadius.BORDER_RADIUS_1,
+  'border-radius-0',
+  'border-radius-025',
+  'border-radius-050',
+  'border-radius-075',
+  'border-radius-1',
 ];
 
 export const modeOptions: Mode[] = [Mode.LIGHT, Mode.DARK];
