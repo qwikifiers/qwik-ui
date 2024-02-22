@@ -1,0 +1,115 @@
+import {
+  Combobox as QwikUICombobox,
+  ComboboxControl as QwikUIComboboxControl,
+  ComboboxIcon as QwikUIComboboxIcon,
+  ComboboxInput as QwikUIComboboxInput,
+  ComboboxLabel as QwikUIComboboxLabel,
+  ComboboxListbox as QwikUIComboboxListbox,
+  ComboboxOption as QwikUIComboboxOption,
+  ComboboxPopover as QwikUIComboboxPopover,
+  ComboboxTrigger as QwikUIComboboxTrigger,
+} from '@qwik-ui/headless';
+
+import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { cn } from '@qwik-ui/utils';
+
+export const Combobox = component$<PropsOf<typeof QwikUICombobox>>((props) => {
+  return (
+    <QwikUICombobox
+      {...props}
+      class={cn(
+        'bg-popover text-popover-foreground flex h-full w-48 flex-col overflow-hidden rounded-md',
+        props.class,
+      )}
+    >
+      <Slot />
+    </QwikUICombobox>
+  );
+});
+
+export const ComboboxLabel = component$<PropsOf<typeof QwikUIComboboxLabel>>(
+  ({ ...props }) => {
+    return (
+      <QwikUIComboboxLabel {...props} class={cn('text-sm', props.class)}>
+        <Slot />
+      </QwikUIComboboxLabel>
+    );
+  },
+);
+
+export const ComboboxControl = component$<PropsOf<typeof QwikUIComboboxControl>>(
+  (props) => {
+    return (
+      <QwikUIComboboxControl
+        {...props}
+        class={cn('rounded-base relative flex items-center border', props.class)}
+      >
+        <Slot />
+      </QwikUIComboboxControl>
+    );
+  },
+);
+
+export const ComboboxInput = component$<PropsOf<typeof QwikUIComboboxInput>>((props) => {
+  return (
+    <QwikUIComboboxInput
+      {...props}
+      class={cn(
+        'placeholder:text-muted-foreground border-input flex h-10 w-full rounded-md border bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50',
+        props.class,
+      )}
+    />
+  );
+});
+
+export const ComboboxTrigger = component$<PropsOf<typeof QwikUIComboboxTrigger>>(
+  ({ ...props }) => {
+    return (
+      <QwikUIComboboxTrigger
+        {...props}
+        class={cn('group absolute right-0 h-6 w-6', props.class)}
+      >
+        <QwikUIComboboxIcon class="stroke-foreground transition-transform duration-500 group-aria-expanded:-rotate-180" />
+      </QwikUIComboboxTrigger>
+    );
+  },
+);
+
+export const ComboboxPopover = component$<PropsOf<typeof QwikUIComboboxPopover>>(
+  (props) => {
+    return (
+      <QwikUIComboboxPopover {...props} class={cn('', props.class)}>
+        <Slot />
+      </QwikUIComboboxPopover>
+    );
+  },
+);
+
+export const ComboboxListbox = component$<PropsOf<typeof QwikUIComboboxListbox>>(
+  ({ ...props }) => {
+    return (
+      <QwikUIComboboxListbox
+        {...props}
+        class={cn('rounded-base w-48 border px-4 py-2', props.class)}
+      >
+        <Slot />
+      </QwikUIComboboxListbox>
+    );
+  },
+);
+
+export const ComboboxOption = component$<PropsOf<typeof QwikUIComboboxOption>>(
+  ({ ...props }) => {
+    return (
+      <QwikUIComboboxOption
+        {...props}
+        class={cn(
+          'hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent rounded-base group flex justify-between border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer',
+          props.class,
+        )}
+      >
+        <Slot />
+      </QwikUIComboboxOption>
+    );
+  },
+);

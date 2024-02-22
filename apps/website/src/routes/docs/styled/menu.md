@@ -13,6 +13,7 @@
 - [Button](/docs/styled/button)
 - [Card](/docs/styled/card)
 - [Checkbox](/docs/styled/checkbox)
+- [Combobox](/docs/styled/combobox)
 - [Input](/docs/styled/input)
 - [Label](/docs/styled/label)
 - [Modal](/docs/styled/modal)
