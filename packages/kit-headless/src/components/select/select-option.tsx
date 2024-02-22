@@ -1,79 +1,67 @@
 import {
-  PropsOf,
   component$,
+  Slot,
+  type PropsOf,
   useContext,
+  useTask$,
   useSignal,
-  useVisibleTask$,
+  $,
 } from '@builder.io/qwik';
-import SelectContextId from './select-context-id';
+import SelectContextId from './select-context';
 
-import { KeyCode } from '../../utils/key-code.type';
-import { Slot } from '@builder.io/qwik';
-
-export type SelectOptionProps = PropsOf<'li'> & {
+type SelectOptionProps = PropsOf<'li'> & {
+  index?: number;
   disabled?: boolean;
-  optionValue: string;
 };
 
-export const selectOptionPreventedKeys = [KeyCode.ArrowDown, KeyCode.ArrowUp];
+export const SelectOption = component$<SelectOptionProps>((props) => {
+  /* look at select-inline on how we get the index. */
+  const { index, disabled, ...rest } = props;
+  const context = useContext(SelectContextId);
+  const optionRef = useSignal<HTMLLIElement>();
+  const localIndexSig = useSignal<number | null>(null);
 
-export const SelectOption = component$<SelectOptionProps>(
-  ({ disabled, optionValue, ...props }) => {
-    const selectContext = useContext(SelectContextId);
-    const optionRef = useSignal<HTMLElement>();
+  const isHighlighted = !disabled && context.highlightedIndexSig.value === index;
+  const isSelected = !disabled && context.selectedIndexSig.value === index;
 
-    // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(function setKeyHandler({ cleanup }) {
-      function keyHandler(e: KeyboardEvent) {
-        const target = e.target as HTMLElement;
-        if (selectOptionPreventedKeys.includes(e.key as KeyCode)) {
-          e.preventDefault();
-        }
+  useTask$(function getIndexTask() {
+    if (index === undefined)
+      throw Error('Qwik UI: Select component option cannot find its proper index.');
 
-        if (!disabled && e.key === 'Tab' && target.dataset.optionValue === optionValue) {
-          selectContext.selectedOptionSig.value = optionValue;
-          selectContext.isOpenSig.value = false;
-        }
+    localIndexSig.value = index;
 
-        if (
-          !disabled &&
-          (e.key === 'Enter' || e.key === ' ') &&
-          target.dataset.optionValue === optionValue
-        ) {
-          selectContext.selectedOptionSig.value = optionValue;
-          selectContext.isOpenSig.value = false;
-        }
-      }
-      optionRef.value?.addEventListener('keydown', keyHandler);
-      cleanup(() => {
-        optionRef.value?.removeEventListener('keydown', keyHandler);
-      });
-    });
+    context.optionRefsArray.value[index] = optionRef;
+  });
 
-    return (
-      <li
-        ref={optionRef}
-        role="option"
-        tabIndex={disabled ? -1 : 0}
-        aria-disabled={disabled}
-        aria-selected={optionValue === selectContext.selectedOptionSig.value}
-        data-option-value={optionValue}
-        onClick$={() => {
-          if (!disabled) {
-            selectContext.selectedOptionSig.value = optionValue;
-            selectContext.isOpenSig.value = false;
-          }
-        }}
-        onMouseEnter$={(e) => {
-          if (!disabled) {
-            const target = e.target as HTMLElement;
-            target.focus();
-          }
-        }}
-        {...props}
-      >
-        <Slot />
-      </li>
-    );
-  },
-);
+  const handleClick$ = $(() => {
+    if (disabled) return;
+
+    context.selectedIndexSig.value = localIndexSig.value;
+    context.isListboxOpenSig.value = false;
+  });
+
+  const handlePointerOver$ = $(() => {
+    if (disabled) return;
+
+    if (localIndexSig.value !== null) {
+      context.highlightedIndexSig.value = localIndexSig.value;
+    }
+  });
+
+  return (
+    <li
+      {...rest}
+      onClick$={[handleClick$, props.onClick$]}
+      onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
+      ref={optionRef}
+      tabIndex={-1}
+      aria-selected={isSelected}
+      data-selected={isSelected}
+      data-highlighted={isHighlighted}
+      data-disabled={disabled}
+      role="option"
+    >
+      <Slot />
+    </li>
+  );
+});
