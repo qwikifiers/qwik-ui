@@ -16,6 +16,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Button: ComponentStatus.Draft,
     Card: ComponentStatus.Draft,
     Checkbox: ComponentStatus.Draft,
+    Combobox: ComponentStatus.Draft,
     Input: ComponentStatus.Draft,
     Label: ComponentStatus.Draft,
     Modal: ComponentStatus.Draft,
