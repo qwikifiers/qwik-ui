@@ -1,29 +1,19 @@
 import { component$ } from '@builder.io/qwik';
 import {
-  SelectRoot,
-  SelectLabel,
+  Select,
   SelectTrigger,
-  SelectValue,
-  SelectMarker,
-  SelectListBox,
+  SelectListbox,
   SelectOption,
-  SelectGroup,
+  SelectPopover,
 } from '@qwik-ui/headless';
 
 export default component$(() => (
-  <SelectRoot>
-    <SelectLabel>Content</SelectLabel>
-    <SelectTrigger>
-      <SelectValue>Content</SelectValue>
-      <SelectMarker />
-    </SelectTrigger>
-    <SelectListBox>
-      <SelectGroup>
-        <SelectLabel>Options</SelectLabel>
-        <SelectOption optionValue="value">value</SelectOption>
-        <SelectOption optionValue="value">value</SelectOption>
-        <SelectOption optionValue="value">value</SelectOption>
-      </SelectGroup>
-    </SelectListBox>
-  </SelectRoot>
+  <Select>
+    <SelectTrigger>Trigger</SelectTrigger>
+    <SelectPopover>
+      <SelectListbox>
+        <SelectOption>option</SelectOption>
+      </SelectListbox>
+    </SelectPopover>
+  </Select>
 ));
