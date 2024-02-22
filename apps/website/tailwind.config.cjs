@@ -79,7 +79,6 @@ module.exports = {
         xl: 'calc(var(--border-radius) + 0.75rem)',
         '2xl': 'calc(var(--border-radius) + 1rem)',
         '3xl': 'calc(var(--border-radius) + 1.5rem)',
-        preset: 'var(--border-radius)',
       },
       borderWidth: {
         base: 'var(--border-width)',
