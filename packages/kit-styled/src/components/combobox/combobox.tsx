@@ -90,7 +90,7 @@ export const ComboboxListbox = component$<PropsOf<typeof QwikUIComboboxListbox>>
     return (
       <QwikUIComboboxListbox
         {...props}
-        class={cn('rounded-base w-48 border px-4 py-2', props.class)}
+        class={cn('rounded-base bg-background w-48 border p-2', props.class)}
       >
         <Slot />
       </QwikUIComboboxListbox>
@@ -104,7 +104,7 @@ export const ComboboxOption = component$<PropsOf<typeof QwikUIComboboxOption>>(
       <QwikUIComboboxOption
         {...props}
         class={cn(
-          'hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent rounded-base group flex justify-between border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer',
+          'aria-disabled:text-muted-foreground data-[highlighted]:bg-accent text-foreground group flex justify-between gap-4 rounded-sm px-2 aria-disabled:font-light data-[highlighted]:cursor-pointer',
           props.class,
         )}
       >
