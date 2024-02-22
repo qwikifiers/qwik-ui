@@ -73,7 +73,7 @@ importers:
         version: 17.1.3(@swc/core@1.3.103)(@types/node@20.11.19)(nx@17.1.3)(typescript@5.3.3)(verdaccio@5.29.0)
       '@nx/playwright':
         specifier: 17.1.3
-        version: 17.1.3(@swc/core@1.3.103)(@types/node@20.11.19)(eslint@8.48.0)(nx@17.1.3)(verdaccio@5.29.0)
+        version: 17.1.3(@playwright/test@1.41.2)(@swc/core@1.3.103)(@types/node@20.11.19)(eslint@8.48.0)(nx@17.1.3)(verdaccio@5.29.0)
       '@nx/plugin':
         specifier: 17.2.3
         version: 17.2.3(@swc/core@1.3.103)(@types/node@20.11.19)(eslint@8.48.0)(nx@17.1.3)(ts-node@10.9.1)(typescript@5.3.3)(verdaccio@5.29.0)
@@ -89,6 +89,9 @@ importers:
       '@oddbird/popover-polyfill':
         specifier: 0.3.7
         version: 0.3.7
+      '@playwright/test':
+        specifier: ^1.36.0
+        version: 1.41.2
       '@storybook/addon-a11y':
         specifier: 7.6.0
         version: 7.6.0
@@ -215,6 +218,9 @@ importers:
       eslint-plugin-cypress:
         specifier: ^2.14.0
         version: 2.15.1(eslint@8.48.0)
+      eslint-plugin-playwright:
+        specifier: ^0.15.3
+        version: 0.15.3(eslint@8.48.0)
       eslint-plugin-qwik:
         specifier: ^1.4.0
         version: 1.4.0(eslint@8.48.0)
@@ -5756,7 +5762,7 @@ packages:
     dev: true
     optional: true
 
-  /@nx/playwright@17.1.3(@swc/core@1.3.103)(@types/node@20.11.19)(eslint@8.48.0)(nx@17.1.3)(verdaccio@5.29.0):
+  /@nx/playwright@17.1.3(@playwright/test@1.41.2)(@swc/core@1.3.103)(@types/node@20.11.19)(eslint@8.48.0)(nx@17.1.3)(verdaccio@5.29.0):
     resolution: {integrity: sha512-1vgTByL3L4QdWBLHruZ7Dgn8DBu7R5KqlWRis09v0buo+D4pPYJ/5xoT1eCAU99ydI+pRlPF+bv7EmunEgoP7w==}
     peerDependencies:
       '@playwright/test': ^1.36.0
@@ -5766,6 +5772,7 @@ packages:
     dependencies:
       '@nx/devkit': 17.1.3(nx@17.1.3)
       '@nx/eslint': 17.1.3(@swc/core@1.3.103)(@types/node@20.11.19)(eslint@8.48.0)(nx@17.1.3)(verdaccio@5.29.0)
+      '@playwright/test': 1.41.2
       tslib: 2.6.2
     transitivePeerDependencies:
       - '@babel/traverse'
@@ -6110,6 +6117,14 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@playwright/test@1.41.2:
+    resolution: {integrity: sha512-qQB9h7KbibJzrDpkXkYvsmiDJK14FULCCZgEcoe2AvFAS64oCirWTwzTlAYEbKaRxWs5TFesE1Na6izMv3HfGg==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      playwright: 1.41.2
+    dev: true
 
   /@pnpm/config.env-replace@1.1.0:
     resolution: {integrity: sha512-htyl8TWnKL7K/ESFa1oW2UB5lVDxuF5DpM7tBi6Hu2LNL3mWkIzNLG6N4zoCUP1lCKNxWy/3iu8mS8MvToGd6w==}
@@ -12463,6 +12478,18 @@ packages:
       globals: 13.24.0
     dev: true
 
+  /eslint-plugin-playwright@0.15.3(eslint@8.48.0):
+    resolution: {integrity: sha512-LQMW5y0DLK5Fnpya7JR1oAYL2/7Y9wDiYw6VZqlKqcRGSgjbVKNqxraphk7ra1U3Bb5EK444xMgUlQPbMg2M1g==}
+    peerDependencies:
+      eslint: '>=7'
+      eslint-plugin-jest: '>=25'
+    peerDependenciesMeta:
+      eslint-plugin-jest:
+        optional: true
+    dependencies:
+      eslint: 8.48.0
+    dev: true
+
   /eslint-plugin-qwik@1.4.0(eslint@8.48.0):
     resolution: {integrity: sha512-xp9TiNnROUq+DwL3FLmlNoMrVRuJvuQbCDyC0YBVADVXl1vVOk35WRw2q8INJAqu6YOpp59SseLKy1XOSmImIg==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
@@ -18628,12 +18655,28 @@ packages:
     hasBin: true
     dev: true
 
+  /playwright-core@1.41.2:
+    resolution: {integrity: sha512-VaTvwCA4Y8kxEe+kfm2+uUUw5Lubf38RxF7FpBxLPmGe5sdNkSg5e3ChEigaGrX7qdqT3pt2m/98LiyvU2x6CA==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dev: true
+
   /playwright@1.40.1:
     resolution: {integrity: sha512-2eHI7IioIpQ0bS1Ovg/HszsN/XKNwEG1kbzSDDmADpclKc7CyqkHw7Mg2JCz/bbCxg25QUPcjksoMW7JcIFQmw==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
       playwright-core: 1.40.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /playwright@1.41.2:
+    resolution: {integrity: sha512-v0bOa6H2GJChDL8pAeLa/LZC4feoAMbSQm1/jF/ySsWWoaNItvrMP7GEkvEEFyCTUYKMxjQKaTSg5up7nR6/8A==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      playwright-core: 1.41.2
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
