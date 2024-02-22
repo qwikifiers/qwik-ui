@@ -82,15 +82,13 @@ export default component$(() => {
       style: themeArray?.[1] || 'simple',
       base: themeArray?.[2] || 'base-slate',
       primary: themeArray?.[3] || 'primary-cyan-600',
-      contrast: themeArray?.[4] || 'low-contrast',
-      borderRadius: themeArray?.[5] || 'border-radius-0',
+      borderRadius: themeArray?.[4] || 'border-radius-0',
     };
   });
 
   const themeStoreToThemeClasses = $(() => {
-    const { mode, style, base, primary, contrast, borderRadius } =
-      themeComputedObject.value;
-    return [mode, style, base, primary, contrast, borderRadius];
+    const { mode, style, base, primary, borderRadius } = themeComputedObject.value;
+    return [mode, style, base, primary, borderRadius];
   });
   return (
     <section>
