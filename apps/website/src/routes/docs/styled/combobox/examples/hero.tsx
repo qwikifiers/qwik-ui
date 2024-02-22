@@ -10,6 +10,7 @@ import {
   ComboboxPopover,
   ComboboxTrigger,
 } from '@qwik-ui/styled';
+import { LuCheck } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   const selectedOptionIndexSig = useSignal<number>(-1);
@@ -53,7 +54,7 @@ export default component$(() => {
             return (
               <ComboboxOption key={option.key} resolved={option} index={index}>
                 <span>{myData.testLabel}</span>
-                {selectedOptionIndexSig.value === index && <span>Selected</span>}
+                {selectedOptionIndexSig.value === index && <LuCheck />}
               </ComboboxOption>
             );
           }}
