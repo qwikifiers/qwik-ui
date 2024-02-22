@@ -31,8 +31,8 @@ export const DocsNavigation = component$(
     const linkStyles =
       'px-4 py-2 -ml-4 mr-8 text-xl lg:text-sm flex items-center rounded-base';
     return (
-      <nav {...props} class={cn('flex-col gap-4 bg-red-200 pb-6', props.class)}>
-        <ul class="show mt-8 flex flex-col gap-2 pl-12">
+      <nav {...props} class={cn('flex-col gap-4 pb-6', props.class)}>
+        <ul class="mt-8 flex flex-col gap-2 pl-12">
           <a href="/about">
             <li class={linkStyles}>About</li>
           </a>
@@ -71,11 +71,9 @@ export const DocsNavigation = component$(
                            }`}
                           href={link.href}
                         >
-                          <div class="flex w-full items-center">
-                            <div class="w-40">{link.name}</div>
-                            <div class="flex-auto">
-                              {link.status && <StatusBadge status={link.status} />}
-                            </div>
+                          <div class="flex w-full items-center justify-between">
+                            <div>{link.name}</div>
+                            {link.status && <StatusBadge status={link.status} />}
                           </div>
                         </a>
                       </li>

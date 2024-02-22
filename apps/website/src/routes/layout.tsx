@@ -34,12 +34,12 @@ export default component$(() => {
         <div class="relative flex justify-between space-x-10 2xl:justify-center 2xl:space-x-20">
           <DocsNavigation
             linksGroups={menuItemsGroups}
-            class=" bg-background sticky top-16 hidden h-[calc(100vh-64px)] max-w-80 overflow-auto lg:flex"
+            class=" bg-background sticky top-16 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:block"
           />
-          <main class="docs w-full max-w-3xl 2xl:max-w-4xl">
+          <main class="docs w-full max-w-4xl">
             <Slot />
           </main>
-          <div class="hidden text-sm xl:block">
+          <div class="hidden min-w-64 text-sm xl:block">
             <div class="sticky top-16 -mt-10 mr-8 pt-4">
               <ScrollArea className="pb-10">
                 <div class="sticky top-16 -mt-10 h-[calc(100vh-64px)] py-12">
