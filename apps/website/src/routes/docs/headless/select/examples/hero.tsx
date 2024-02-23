@@ -11,7 +11,6 @@ export default component$(() => {
         class="hidden"
         style={{ padding: '0px', margin: '0px', listStyle: 'none' }}
       >
-        <SelectOption disabled>My option</SelectOption>
         {usersSig.value.map((user) => (
           <SelectOption key={user}>{user}</SelectOption>
         ))}
