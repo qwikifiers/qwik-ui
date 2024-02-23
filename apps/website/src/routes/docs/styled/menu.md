@@ -20,3 +20,4 @@
 - [Popover](/docs/styled/popover)
 - [Separator](/docs/styled/separator)
 - [Tabs](/docs/styled/tabs)
+- [Textarea](/docs/styled/textarea)

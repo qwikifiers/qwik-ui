@@ -1220,7 +1220,8 @@
     background-color: var(--qwikui-slate-500);
     border-radius: 0.5rem;
     background-clip: padding-box;
-    border: 0.3rem solid transparent;
+    border-left: 0.3rem solid transparent;
+    border-right: 0.3rem solid transparent;
   }
 
   *::-webkit-scrollbar-corner {
@@ -1228,7 +1229,7 @@
   }
 
   *::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: transparent;
     border-left: 1px solid var(--qwikui-slate-300);
   }
 
@@ -1239,11 +1240,12 @@
   .dark *::-webkit-scrollbar-track {
     background: transparent;
     border-left: 1px solid var(--qwikui-slate-800);
+    border-right: 1px solid var(--qwikui-slate-800);
   }
 
   .code-example *::-webkit-scrollbar-track {
     background: transparent;
-    border-left: 0px;
+    border: 0px;
   }
 
   .code-example *::-webkit-scrollbar-thumb {

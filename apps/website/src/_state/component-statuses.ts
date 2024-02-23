@@ -24,6 +24,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Popover: ComponentStatus.Draft,
     Separator: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
+    Textarea: ComponentStatus.Draft,
   },
   headless: {
     Accordion: ComponentStatus.Beta,
