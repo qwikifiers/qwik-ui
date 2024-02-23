@@ -4,8 +4,42 @@ title: Qwik UI | Styled Alert Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+<StatusBanner status={statusByComponent.styled.Alert} />
+
 # Alert
 
-In a digital landscape of gentle nudges, the Qwik UI Styled alert pops with a playful flair, ensuring every crucial whisper finds its audience effortlessly.
+Displays a callout for user attention.
 
-<StatusBanner status={statusByComponent.styled.Alert} />
+<Showcase name="hero" />
+
+## Installation
+
+```sh
+qwik-ui add alert
+```
+
+## Usage
+
+```tsx
+import { Alert, AlertDescription, AlertTitle } from '@qwik-ui/styled';
+```
+
+```tsx
+<Alert>
+  <Terminal className="h-4 w-4" />
+  <AlertTitle>Heads up!</AlertTitle>
+  <AlertDescription>
+    You can add components and dependencies to your app using the cli.
+  </AlertDescription>
+</Alert>
+```
+
+## Examples
+
+### Alert
+
+<Showcase name="alert" vertical />
+
+### Primary
+
+<Showcase name="primary" vertical />

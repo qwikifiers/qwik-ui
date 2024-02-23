@@ -1,4 +1,5 @@
 export * from './components/accordion/accordion';
+export * from './components/alert/alert';
 export * from './components/badge/badge';
 export * from './components/button/button';
 export * from './components/card/card';

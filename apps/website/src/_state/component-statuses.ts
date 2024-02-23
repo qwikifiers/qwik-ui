@@ -12,6 +12,7 @@ export type ComponentKitsStatuses = {
 export const statusByComponent: ComponentKitsStatuses = {
   styled: {
     Accordion: ComponentStatus.Beta,
+    Alert: ComponentStatus.Beta,
     Badge: ComponentStatus.Beta,
     Button: ComponentStatus.Beta,
     Card: ComponentStatus.Beta,
