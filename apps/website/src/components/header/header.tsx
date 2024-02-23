@@ -22,6 +22,7 @@ import { useAppState } from '~/_state/use-app-state';
 import { LuX } from '@qwikest/icons/lucide';
 import { DocsNavigation } from '../navigation-docs/navigation-docs';
 import { useKitMenuItems } from '~/routes/layout';
+import { cn } from '@qwik-ui/utils';
 
 export interface HeaderProps {
   showVersion?: boolean;
@@ -128,7 +129,12 @@ export default component$(({ showVersion = false }: HeaderProps) => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div class="bg-background sticky top-0 z-10 flex h-16 justify-center border-b">
+    <div
+      class={cn(
+        'bg-background sticky top-0 z-10 flex h-16 justify-center border-b',
+        theme?.includes('brutalist') && 'border-b-2',
+      )}
+    >
       <header class="xs:gap-8 flex w-full max-w-screen-2xl items-center gap-6">
         <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">
           <a href="/" aria-label="Qwik UI Logo" class="lg:ml-8">
