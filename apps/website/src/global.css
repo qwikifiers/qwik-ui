@@ -74,17 +74,17 @@
   }
 
   .brutalist.brutalist {
-    --border-width: 3px;
+    --border-width: 2px;
     --border: 0 0% 0%;
     --input: 0 0% 0%;
     --ring: 0 0% 0%;
     --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
-    --shadow-sm: 4px 5px 0px 0 rgba(0, 0, 0, 1);
-    --shadow: 5px 6px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-md: 7px 8px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-lg: 9px 10px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-xl: 14px 15px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-2xl: 17px 18px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-sm: 4px 4px 0px 0 rgba(0, 0, 0, 1);
+    --shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-md: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-xl: 11px 11px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-2xl: 13px 13px 0px 0px rgba(0, 0, 0, 1);
     --shadow-inner: inset 2px 2px 0px 0px rgba(0, 0, 0, 0);
     --transform-press: translate(4px, 5px);
   }
