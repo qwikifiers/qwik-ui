@@ -9,6 +9,7 @@ export * from './components/label/label';
 export * from './components/modal/modal';
 export * from './components/popover/popover';
 export * from './components/separator/separator';
+export * from './components/skeleton/skeleton';
 export * from './components/tabs/tabs';
 export * from './components/textarea/textarea';
 export * from './components/toggle/toggle';

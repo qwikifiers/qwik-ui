@@ -19,5 +19,6 @@
 - [Modal](/docs/styled/modal)
 - [Popover](/docs/styled/popover)
 - [Separator](/docs/styled/separator)
+- [Skeleton](/docs/styled/skeleton)
 - [Tabs](/docs/styled/tabs)
 - [Textarea](/docs/styled/textarea)
