@@ -18,4 +18,8 @@
   ol li {
     @apply my-4;
   }
+
+  img {
+    @apply my-4 block rounded-lg md:my-8;
+  }
 }

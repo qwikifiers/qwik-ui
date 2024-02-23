@@ -9,19 +9,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
 
-const {
-  dependencies = {
-    root: __dirname,
-    build: {
-      outDir: '../../dist/packages/kit-headless',
-      reportCompressedSize: true,
-      commonjsOptions: {
-        transformMixedEsModules: true,
-      },
-    },
-  },
-  peerDependencies = {},
-} = pkg as any;
+const { dependencies = {}, peerDependencies = {} } = pkg as any;
 const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
 const excludeAll = (obj: any) => Object.keys(obj).map(makeRegex);
 

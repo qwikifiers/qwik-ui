@@ -11,14 +11,6 @@ export default defineConfig(async () => {
   const { visit } = await import('unist-util-visit');
 
   return {
-    root: __dirname,
-    build: {
-      outDir: '../../dist/apps/website',
-      reportCompressedSize: true,
-      commonjsOptions: {
-        transformMixedEsModules: true,
-      },
-    },
     plugins: [
       qwikNxVite(),
       qwikCity({
