@@ -6,11 +6,8 @@ export default component$(() => {
 
   return (
     <Select>
-      <SelectTrigger>Trigger</SelectTrigger>
-      <SelectListbox
-        class="hidden"
-        style={{ padding: '0px', margin: '0px', listStyle: 'none' }}
-      >
+      <SelectTrigger class="min-w-40 bg-slate-700 py-2" />
+      <SelectListbox class="absolute min-w-40 bg-slate-800 px-3 py-2">
         {usersSig.value.map((user) => (
           <SelectOption key={user}>{user}</SelectOption>
         ))}

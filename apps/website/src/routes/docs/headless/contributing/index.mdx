@@ -104,11 +104,80 @@ Tests ensure we can sleep sound at night and know that our component behavior is
 - get the test passing by adding said feature!
 - enjoy life when refactoring 🏝️
 
-We currently use [playwright](https://playwright.dev/docs/intro) for testing.
+We strongly recommend TDD development for the headless library, and we are currently in the process of a playwright integration.
 
-> We also currently have a few cypress tests that we are migrating over to playwright.
+Currently, the component testing integration for Qwik & Playwright is in development, and we are using e2e tests for the time being. That said, most tests should be very easy to migrate later on.
 
-Shai also has a testing course that Qwik UI contributors get access to for the price of **FREE**! Don't hesitate to reach out.
+#### Getting started w/ testing
+
+Here's an example way of getting a testid of the `Hero` select docs example, without affecting any visible markup.
+
+```tsx
+<div data-testid="select-hero-test">
+  <Showcase name="hero" />
+</div>
+```
+
+Then, we get our testDriver, you can think of it as reusable code we use throughout the test. For example, in the Select component we constantly grab the listbox, trigger, etc.
+
+```tsx
+export function selectTestDriver<T extends DriverLocator>(locator: T) {
+  const getRoot = () => {
+    return locator.getByRole('combobox');
+  };
+
+  return {
+    ...locator,
+    locator,
+    getRoot,
+    getListbox() {
+      return getRoot().getByRole('listbox');
+    },
+    getTrigger() {
+      return getRoot().getByRole('button');
+    },
+  };
+}
+```
+
+Now we can write some tests:
+
+```tsx
+test(`GIVEN a basic select
+  WHEN clicking on the trigger
+  THEN open up the listbox`, async ({ page }) => {
+  await page.goto('/docs/headless/select');
+
+  const testDriver = selectTestDriver(page.getByTestId('select-hero-test'));
+
+  const { getListbox, getTrigger } = testDriver;
+
+  await getTrigger().click();
+
+  await expect(getListbox()).toBeVisible();
+});
+
+test(`GIVEN a basic select
+  WHEN focusing the trigger and hitting enter
+  THEN open up the listbox`, async ({ page }) => {
+  await page.goto('/docs/headless/select');
+
+  const testDriver = selectTestDriver(page.getByTestId('select-hero-test'));
+
+  const { getListbox, getTrigger } = testDriver;
+
+  await getTrigger().focus();
+  await page.keyboard.press('Enter');
+
+  await expect(getListbox()).toBeVisible();
+});
+```
+
+To run the tests, use the `nx e2e website` command. You can also do `--ui` to open the UI mode (which is pretty awesome!)
+
+> This example is in `spec.select.tsx` in the e2e folder of the website.
+
+Once we've added a failing test with what we expect, we can now go ahead and implement the feature for that!
 
 ## Docs
 
