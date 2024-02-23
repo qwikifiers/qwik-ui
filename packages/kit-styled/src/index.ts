@@ -8,6 +8,7 @@ export * from './components/input/input';
 export * from './components/label/label';
 export * from './components/modal/modal';
 export * from './components/popover/popover';
+export * from './components/separator/separator';
 export * from './components/tabs/tabs';
 export * from './components/toggle/toggle';
 export * from './components/scroll-area/scroll-area-qwikified';

@@ -19,4 +19,5 @@
 - [Modal](/docs/styled/modal)
 - [Pagination](/docs/styled/pagination)
 - [Popover](/docs/styled/popover)
+- [Separator](/docs/styled/separator)
 - [Tabs](/docs/styled/tabs)

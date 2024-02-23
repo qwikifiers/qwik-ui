@@ -22,6 +22,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Modal: ComponentStatus.Draft,
     Pagination: ComponentStatus.Draft,
     Popover: ComponentStatus.Draft,
+    Separator: ComponentStatus.Draft,
     Tabs: ComponentStatus.Beta,
   },
   headless: {
