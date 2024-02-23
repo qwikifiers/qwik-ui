@@ -12,17 +12,17 @@ export type ComponentKitsStatuses = {
 export const statusByComponent: ComponentKitsStatuses = {
   styled: {
     Accordion: ComponentStatus.Beta,
-    Badge: ComponentStatus.Draft,
-    Button: ComponentStatus.Draft,
-    Card: ComponentStatus.Draft,
+    Badge: ComponentStatus.Beta,
+    Button: ComponentStatus.Beta,
+    Card: ComponentStatus.Beta,
     Checkbox: ComponentStatus.Draft,
     Combobox: ComponentStatus.Draft,
     Input: ComponentStatus.Draft,
-    Label: ComponentStatus.Draft,
+    Label: ComponentStatus.Beta,
     Modal: ComponentStatus.Draft,
     Pagination: ComponentStatus.Draft,
     Popover: ComponentStatus.Draft,
-    Separator: ComponentStatus.Draft,
+    Separator: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
   },
   headless: {
