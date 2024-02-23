@@ -52,7 +52,8 @@ export const SelectImpl = component$<SelectProps>((props) => {
     <div
       role="combobox"
       ref={rootRef}
-      data-state={context.isListboxOpenSig.value ? 'open' : 'closed'}
+      data-open={context.isListboxOpenSig.value ? '' : undefined}
+      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       {...props}
     >
       <Slot />

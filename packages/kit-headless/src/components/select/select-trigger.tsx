@@ -166,7 +166,8 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       onClick$={[handleClick$, props.onClick$]}
       aria-expanded={context.isListboxOpenSig.value}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
-      data-state={context.isListboxOpenSig.value ? 'open' : 'closed'}
+      data-open={context.isListboxOpenSig.value ? '' : undefined}
+      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       class="bg-slate-800 p-2 text-white"
     >
       <Slot />
