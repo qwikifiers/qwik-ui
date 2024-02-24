@@ -47,7 +47,7 @@
         ]
       }
     },
-    "test-generators": {
+    "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
@@ -57,7 +57,9 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
-      "options": { "lintFilePatterns": ["apps/website-e2e/**/*.{js,ts}"] }
+      "options": {
+        "lintFilePatterns": ["packages/cli/**/*.{js,ts}"]
+      }
     }
   },
   "tags": [],

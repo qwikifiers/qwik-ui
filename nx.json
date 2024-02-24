@@ -14,7 +14,6 @@
       }
     }
   },
-
   "targetDefaults": {
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
@@ -25,7 +24,8 @@
     },
     "build": {
       "cache": true,
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     },
     "e2e": {
       "cache": true
@@ -45,5 +45,10 @@
       "cache": true
     }
   },
-  "nxCloudAccessToken": "MzViMzc1MGQtMDQyNi00N2E3LTliMmYtYWI4ZGIxYWJjYzE3fHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "MzViMzc1MGQtMDQyNi00N2E3LTliMmYtYWI4ZGIxYWJjYzE3fHJlYWQtd3JpdGU=",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [],
+    "production": ["default"]
+  }
 }

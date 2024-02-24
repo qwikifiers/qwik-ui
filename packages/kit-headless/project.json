@@ -28,7 +28,9 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
-      "options": { "lintFilePatterns": ["apps/website-e2e/**/*.{js,ts}"] }
+      "options": {
+        "lintFilePatterns": ["packages/headless/**/*.{js,ts}"]
+      }
     },
     "storybook": {
       "executor": "@nx/storybook:storybook",

@@ -1,5 +1,5 @@
-/// <reference types="vitest" />
 import { qwikVite } from '@builder.io/qwik/optimizer';
+import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { join } from 'path';
 import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
@@ -16,6 +16,7 @@ export default defineConfig({
     dts({
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
     }),
+    nxViteTsPaths(),
   ],
   server: {
     fs: {
@@ -44,14 +45,12 @@ export default defineConfig({
   },
   // @ts-ignore
   test: {
-    globals: true,
-    cache: {
-      dir: '../../node_modules/.vitest',
-    },
-    environment: 'node',
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     coverage: {
       reportsDirectory: '../../coverage/packages/kit-styled',
     },
+    globals: true,
+    cache: { dir: '../../node_modules/.vitest' },
+    environment: 'node',
+    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
   },
 });

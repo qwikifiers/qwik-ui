@@ -23,7 +23,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["../../coverage/apps/website"],
+      "outputs": ["coverage/apps/website"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/apps/website"
