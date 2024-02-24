@@ -110,7 +110,7 @@ Currently, the component testing integration for Qwik & Playwright is in develop
 
 #### Getting started w/ testing
 
-Here's an example way of getting a testid of the `Hero` select docs example, without affecting any visible markup.
+Here's an example way of getting a testid of the `Hero` select docs example in `index.mdx`, without affecting any visible markup.
 
 ```tsx
 <div data-testid="select-hero-test">
@@ -121,6 +121,10 @@ Here's an example way of getting a testid of the `Hero` select docs example, wit
 Then, we get our testDriver, you can think of it as reusable code we use throughout the test. For example, in the Select component we constantly grab the listbox, trigger, etc.
 
 ```tsx
+import { Locator, Page } from '@playwright/test';
+
+export type DriverLocator = Locator | Page;
+
 export function selectTestDriver<T extends DriverLocator>(locator: T) {
   const getRoot = () => {
     return locator.getByRole('combobox');
@@ -136,6 +140,10 @@ export function selectTestDriver<T extends DriverLocator>(locator: T) {
     getTrigger() {
       return getRoot().getByRole('button');
     },
+    // get all options
+    getOptions() {
+      return getRoot().getByRole('option').all();
+    },
   };
 }
 ```
@@ -143,41 +151,52 @@ export function selectTestDriver<T extends DriverLocator>(locator: T) {
 Now we can write some tests:
 
 ```tsx
-test(`GIVEN a basic select
-  WHEN clicking on the trigger
-  THEN open up the listbox`, async ({ page }) => {
+import { test, expect } from '@playwright/test';
+import { selectTestDriver } from './select.driver';
+
+test.beforeEach(async ({ page }) => {
   await page.goto('/docs/headless/select');
-
-  const testDriver = selectTestDriver(page.getByTestId('select-hero-test'));
-
-  const { getListbox, getTrigger } = testDriver;
-
-  await getTrigger().click();
-
-  await expect(getListbox()).toBeVisible();
 });
 
-test(`GIVEN a basic select
-  WHEN focusing the trigger and hitting enter
-  THEN open up the listbox`, async ({ page }) => {
-  await page.goto('/docs/headless/select');
+test.describe('critical functionality', () => {
+  test(`GIVEN a basic select
+        WHEN clicking on the trigger
+        THEN open up the listbox
+        AND aria-expanded should be true`, async ({ page }) => {
+    const testDriver = selectTestDriver(page.getByTestId('select-hero-test'));
 
-  const testDriver = selectTestDriver(page.getByTestId('select-hero-test'));
+    const { getListbox, getTrigger } = testDriver;
 
-  const { getListbox, getTrigger } = testDriver;
+    await getTrigger().click();
 
-  await getTrigger().focus();
-  await page.keyboard.press('Enter');
+    await expect(getListbox()).toBeVisible();
+    await expect(getTrigger()).toHaveAttribute('aria-expanded', 'true');
+  });
 
-  await expect(getListbox()).toBeVisible();
+  test(`GIVEN a basic select
+        WHEN focusing the trigger and hitting enter
+        THEN open up the listbox
+        AND aria-expanded should be true`, async ({ page }) => {
+    const testDriver = selectTestDriver(page.getByTestId('select-hero-test'));
+
+    const { getListbox, getTrigger } = testDriver;
+
+    await getTrigger().focus();
+    await page.keyboard.press('Enter');
+
+    await expect(getListbox()).toBeVisible();
+    await expect(getTrigger()).toHaveAttribute('aria-expanded', 'true');
+  });
 });
 ```
 
-To run the tests, use the `nx e2e website` command. You can also do `--ui` to open the UI mode (which is pretty awesome!)
+To run the tests, use the `pnpm playwright` (only in my branch) command, or the `nx e2e website` longform. You can also do `--ui` to open the UI mode (which is pretty awesome!)
 
-> This example is in `spec.select.tsx` in the e2e folder of the website.
+> This example is in `spec.select.tsx` in the `src/components/select` folder of the website.
 
 Once we've added a failing test with what we expect, we can now go ahead and implement the feature for that!
+
+Heads up, I (Jack) am also relatively new to playwright myself 😅. I'm guessing there is a way to not need the testDriver to be consumed on each test. Feel free to experiment!
 
 ## Docs
 

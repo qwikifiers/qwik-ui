@@ -40,15 +40,11 @@ What do they all have in common? How do people use them? What are the most impor
 
     ### State
 
-    name: bind:selected
+    name: bind:value
     type: Signal
     description: controlled selected value, manages the selected option.
 
-    name: defaultSelected
-    type: boolean
-    description: uncontrolled selected value, sets the initial selected option.
-
-    name: onSelectedChange$
+    name: onChange$
     type: PropFunction
     description: function called when the selected value changes.
 
