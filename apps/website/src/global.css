@@ -1332,3 +1332,10 @@ body {
     animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-close;
   }
 }
+
+/* Not used yet - could be used for the colored text on the landing page when the make-it-yours color is too bright in light mode or too dim in dark mode */
+@layer components {
+  .text-outlined {
+    @apply [text-shadow:-1px_0_black,_0_1px_black,_1px_0_black,_0_-1px_black] dark:[text-shadow:-1px_0_white,_0_1px_white,_1px_0_white,_0_-1px_white];
+  }
+}
