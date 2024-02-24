@@ -90,7 +90,7 @@ importers:
         specifier: 0.3.7
         version: 0.3.7
       '@playwright/test':
-        specifier: ^1.36.0
+        specifier: ^1.41.2
         version: 1.41.2
       '@storybook/addon-a11y':
         specifier: 7.6.0
@@ -219,8 +219,8 @@ importers:
         specifier: ^2.14.0
         version: 2.15.1(eslint@8.48.0)
       eslint-plugin-playwright:
-        specifier: ^0.15.3
-        version: 0.15.3(eslint@8.48.0)
+        specifier: ^1.3.0
+        version: 1.3.0(eslint@8.48.0)
       eslint-plugin-qwik:
         specifier: ^1.4.0
         version: 1.4.0(eslint@8.48.0)
@@ -12478,16 +12478,18 @@ packages:
       globals: 13.24.0
     dev: true
 
-  /eslint-plugin-playwright@0.15.3(eslint@8.48.0):
-    resolution: {integrity: sha512-LQMW5y0DLK5Fnpya7JR1oAYL2/7Y9wDiYw6VZqlKqcRGSgjbVKNqxraphk7ra1U3Bb5EK444xMgUlQPbMg2M1g==}
+  /eslint-plugin-playwright@1.3.0(eslint@8.48.0):
+    resolution: {integrity: sha512-/Q4ke5Qux4GWq7uGkgisuTerDWDWZWV8oED6E3aMfGfcmvsZVhHryF32xr5baDjwt5x4Zj1hoeakj4WYv1jF2g==}
+    engines: {node: '>=16.6.0'}
     peerDependencies:
-      eslint: '>=7'
+      eslint: '>=8.40.0'
       eslint-plugin-jest: '>=25'
     peerDependenciesMeta:
       eslint-plugin-jest:
         optional: true
     dependencies:
       eslint: 8.48.0
+      globals: 13.24.0
     dev: true
 
   /eslint-plugin-qwik@1.4.0(eslint@8.48.0):
