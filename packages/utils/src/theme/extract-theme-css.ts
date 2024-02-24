@@ -1,15 +1,17 @@
 import { Theme } from 'qwik-themes/lib-types/lib/types';
 import { calculate, compare } from 'specificity';
+import { extractBetweenComments } from './extract-between-comments';
 
 export const extractThemeCSS = (theme: Theme, globalCSS: string) => {
-  const cssClasses = extractCssClasses(globalCSS);
+  const cssClasses = extractRelevantCSS(globalCSS);
 
   // Parse the CSS to get the variables
-  const objClasses = cssClassesToObj(cssClasses);
-
+  const classesMap = createClassesMap(cssClasses);
+  // console.log('classesMap', classesMap);
   // Example usage with the cssThemeToObjectTheme function output
-  const objDarkClasses = applyDarkOverrides(objClasses);
-  const objRootClasses = removeDarkClasses(objClasses);
+  const objDarkClasses = applyDarkOverrides(classesMap);
+  // console.log('objDarkClasses', objDarkClasses);
+  const objRootClasses = removeDarkClasses(classesMap);
 
   // Build the theme CSS
   const objTheme = generateObjThemeOutput({ theme, objRootClasses, objDarkClasses });
@@ -20,16 +22,11 @@ export const extractThemeCSS = (theme: Theme, globalCSS: string) => {
   return output;
 };
 
-function extractCssClasses(cssContent: string) {
+function extractRelevantCSS(cssContent: string) {
   const startMarker = '/* CSS PARSER: START - DO NOT REMOVE */';
   const endMarker = '/* CSS PARSER: END - DO NOT REMOVE */';
 
-  // Find the indexes of the start and end markers
-  const startIndex = cssContent.indexOf(startMarker) + startMarker.length;
-  const endIndex = cssContent.indexOf(endMarker);
-
-  // Extract the content between the start and end markers
-  let extractedCSS = cssContent.substring(startIndex, endIndex).trim();
+  let extractedCSS = extractBetweenComments(cssContent, startMarker, endMarker);
 
   // Remove all CSS comments
   extractedCSS = extractedCSS.replace(/\/\*[\s\S]*?\*\//g, '').trim();
@@ -37,8 +34,8 @@ function extractCssClasses(cssContent: string) {
   return extractedCSS;
 }
 
-function cssClassesToObj(css: string): Record<string, Record<string, string>> {
-  const objectThemingClasses: Record<string, Record<string, string>> = {};
+function createClassesMap(css: string): Record<string, Record<string, string>> {
+  const classesMap: Record<string, Record<string, string>> = {};
 
   // Split the CSS string by '}' to separate class blocks, filtering out empty strings.
   const classBlocks = css.split('}').filter((block) => block.trim() !== '');
@@ -68,14 +65,14 @@ function cssClassesToObj(css: string): Record<string, Record<string, string>> {
 
     // Assign properties to each class name found.
     classKeysArray.forEach((className) => {
-      if (!objectThemingClasses[className]) {
-        objectThemingClasses[className] = {};
+      if (!classesMap[className]) {
+        classesMap[className] = {};
       }
-      Object.assign(objectThemingClasses[className], properties);
+      Object.assign(classesMap[className], properties);
     });
   });
 
-  return objectThemingClasses;
+  return classesMap;
 }
 
 function removeDarkClasses(
@@ -100,7 +97,6 @@ function applyDarkOverrides(
 ): Record<string, Record<string, string>> {
   const result: Record<string, Record<string, string>> = {};
 
-  // Iterate over all classes in the input
   Object.keys(classes).forEach((className) => {
     // Check if this class is a dark theme override
     if (className.includes('.dark')) {
@@ -125,6 +121,58 @@ function applyDarkOverrides(
   });
 
   return result;
+}
+
+type ThemeMap = {
+  root: Record<string, string>;
+  dark: Record<string, string>;
+};
+
+type GenerateThemeProps = {
+  theme: Theme;
+  objRootClasses: Record<string, Record<string, string>>;
+  objDarkClasses: Record<string, Record<string, string>>;
+};
+
+function generateObjThemeOutput({
+  theme,
+  objRootClasses,
+  objDarkClasses,
+}: GenerateThemeProps): ThemeMap {
+  if (!theme) throw new Error('No theme provided');
+
+  // Sort classes by specificity
+  const sortedObjRootClasses = sortObjClassesBySpecificity(objRootClasses);
+  const sortedObjDarkClasses = sortObjClassesBySpecificity(objDarkClasses);
+
+  const themeClasses: string[] = Array.isArray(theme) ? theme : theme?.split(' ');
+  let rootOutput: Record<string, string> = {};
+  let darkOutput: Record<string, string> = {};
+
+  // For root classes
+  Object.entries(sortedObjRootClasses).forEach(([key, value]) => {
+    themeClasses.forEach((themeClass) => {
+      // Modify this to check if the key ends with the class name, accounting for specificity
+      if (key.includes(`.${themeClass}`)) {
+        rootOutput = { ...rootOutput, ...value };
+      }
+    });
+  });
+
+  // For dark classes
+  Object.entries(sortedObjDarkClasses).forEach(([key, value]) => {
+    themeClasses.forEach((themeClass) => {
+      // Similar logic for dark classes
+      if (key.includes(`.${themeClass}`)) {
+        darkOutput = { ...darkOutput, ...value };
+      }
+    });
+  });
+
+  return {
+    root: rootOutput,
+    dark: darkOutput,
+  };
 }
 
 // Sort objects props by specificity to automatically apply specificity to the output
@@ -152,61 +200,7 @@ function sortObjClassesBySpecificity(classes: Record<string, Record<string, stri
   return sortedObjClasses;
 }
 
-type ObjTheme = {
-  root: Record<string, string>;
-  dark: Record<string, string>;
-};
-function generateObjThemeOutput({
-  theme,
-  objRootClasses,
-  objDarkClasses,
-}: {
-  theme: Theme;
-  objRootClasses: Record<string, Record<string, string>>;
-  objDarkClasses: Record<string, Record<string, string>>;
-}): ObjTheme {
-  if (!theme) throw new Error('No theme provided');
-
-  console.log('theme: ', theme);
-
-  // Sort classes by specificity
-  const sortedObjRootClasses = sortObjClassesBySpecificity(objRootClasses);
-  const sortedObjDarkClasses = sortObjClassesBySpecificity(objDarkClasses);
-
-  console.log('sortedObjRootClasses: ', sortedObjRootClasses);
-
-  const themeClasses: string[] = Array.isArray(theme) ? theme : theme?.split(' ');
-  let rootOutput: Record<string, string> = {};
-  let darkOutput: Record<string, string> = {};
-
-  // For root classes
-  Object.entries(sortedObjRootClasses).forEach(([key, value]) => {
-    console.log('sortedObjRootClasses', key, value);
-    themeClasses.forEach((themeClass) => {
-      // Modify this to check if the key ends with the class name, accounting for specificity
-      if (key.includes(`.${themeClass}`)) {
-        rootOutput = { ...rootOutput, ...value };
-      }
-    });
-  });
-
-  // For dark classes
-  Object.entries(sortedObjDarkClasses).forEach(([key, value]) => {
-    themeClasses.forEach((themeClass) => {
-      // Similar logic for dark classes
-      if (key.includes(`.${themeClass}`)) {
-        darkOutput = { ...darkOutput, ...value };
-      }
-    });
-  });
-
-  return {
-    root: rootOutput,
-    dark: darkOutput,
-  };
-}
-
-function reorderThemeObject(themeObject: ObjTheme) {
+function reorderThemeObject(themeObject: ThemeMap) {
   const order = [
     '--background',
     '--foreground',
@@ -256,7 +250,7 @@ function reorderThemeObject(themeObject: ObjTheme) {
   };
 }
 
-function objThemeToCSSThemeOutput(themeObject: ObjTheme) {
+function objThemeToCSSThemeOutput(themeObject: ThemeMap) {
   let cssOutput = `@layer base {\n`;
 
   // Iterate over each theme (e.g., 'root', 'dark')

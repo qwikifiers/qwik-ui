@@ -1,8 +1,14 @@
 import { Tree, formatFiles, joinPathFragments, workspaceRoot } from '@nx/devkit';
+import {
+  Color,
+  ThemeStyle,
+  extractBetweenComments,
+  extractThemeCSS,
+  type ThemeConfig,
+} from '@qwik-ui/utils';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { getKitRoot } from '../../_shared/get-kit-root';
-import { StyledTheme } from '../../_shared/styled-theme.enum';
 import { SetupTailwindGeneratorSchema } from './schema';
 
 export async function setupTailwindGenerator(
@@ -15,11 +21,19 @@ export async function setupTailwindGenerator(
 
   options.projectRoot = options.projectRoot ?? '';
 
-  options.styledTheme = options.styledTheme ?? StyledTheme.FLUFFY;
+  options.style = options.style ?? ThemeStyle.SIMPLE;
+  options.primaryColor = options.primaryColor ?? Color.CYAN + '-600';
+  options.primaryColor = 'primary-' + options.primaryColor;
+
+  options.borderRadius = options.borderRadius ?? 'border-radius-dot-25';
 
   updateTailwindConfig(tree, options.projectRoot, kitRoot);
 
-  updateRootCss(tree, globalCssPath, kitRoot, options.styledTheme);
+  updateRootCss(tree, globalCssPath, kitRoot, {
+    style: options.style,
+    primaryColor: options.primaryColor,
+    borderRadius: options.borderRadius,
+  });
 
   await formatFiles(tree);
 }
@@ -101,22 +115,14 @@ function insertAfter(
   }
 }
 
-function extractBetweenComments(
-  content: string,
-  startComment: string,
-  endComment: string,
-): string {
-  const startIndex = content.indexOf(startComment) + startComment.length;
-  const endIndex = content.indexOf(endComment);
-  return content.substring(startIndex, endIndex).trim();
-}
-
 function updateRootCss(
   tree: Tree,
   globalCssPath: string,
   kitRoot: string,
-  styledTheme: string,
+  themeConfig: ThemeConfig,
 ) {
+  themeConfig.baseColor = 'base-' + Color.NEUTRAL;
+
   const rootCssContent = tree.read(globalCssPath, 'utf-8');
 
   const tailwindUtilsDirective = '@tailwind utilities;';
@@ -136,17 +142,22 @@ function updateRootCss(
     rootCssContent.length,
   );
 
+  const themeStr = `${themeConfig.style} ${themeConfig.baseColor} ${themeConfig.primaryColor} ${themeConfig.borderRadius}`;
+
   const pathToGlobalCssTemplate = joinPathFragments(
     kitRoot,
     'src',
     'templates',
-    'themes',
-    styledTheme + '.css_template',
+    'global.css',
   );
+
   const rootCssTemplate = readFileSync(pathToGlobalCssTemplate, 'utf-8');
+
+  const cssVarsContent = extractThemeCSS(themeStr, rootCssTemplate);
+
   const updatedGlobalCssContent = `
   ${firstPart}
-  ${rootCssTemplate}
+  ${cssVarsContent}
   ${secondPart}
   `;
 

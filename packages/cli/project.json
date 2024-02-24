@@ -48,10 +48,17 @@
       }
     },
     "test": {
+      "dependsOn": ["copy-global-css"],
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/cli/jest.config.ts"
+      }
+    },
+    "copy-global-css": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cp apps/website/src/global.css packages/kit-styled/src/templates"
       }
     },
     "lint": {

@@ -16,9 +16,9 @@ export const styleOptions: ThemeStyle[] = [
 
 export const borderRadiusOptions: BorderRadius[] = [
   'border-radius-0',
-  'border-radius-025',
-  'border-radius-050',
-  'border-radius-075',
+  'border-radius-dot-25',
+  'border-radius-dot-50',
+  'border-radius-dot-75',
   'border-radius-1',
 ];
 

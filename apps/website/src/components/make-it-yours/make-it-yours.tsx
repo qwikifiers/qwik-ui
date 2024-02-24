@@ -75,7 +75,7 @@ export default component$(() => {
 
   const { theme, setTheme } = useTheme();
 
-  const themeComputedObject = useComputed$(() => {
+  const themeComputedObjectSig = useComputed$(() => {
     const themeArray = Array.isArray(theme) ? theme : theme?.split(' ');
     return {
       mode: themeArray?.[0] || 'light',
@@ -86,8 +86,8 @@ export default component$(() => {
     };
   });
 
-  const themeStoreToThemeClasses = $(() => {
-    const { mode, style, base, primary, borderRadius } = themeComputedObject.value;
+  const themeStoreToThemeClasses$ = $(() => {
+    const { mode, style, base, primary, borderRadius } = themeComputedObjectSig.value;
     return [mode, style, base, primary, borderRadius];
   });
   return (
@@ -117,11 +117,11 @@ export default component$(() => {
               <label class="mb-1 block font-medium">Preset</label>
               <select
                 class="bg-background rounded-base h-12 min-w-80 border p-2"
-                value={themeComputedObject.value.style}
+                value={themeComputedObjectSig.value.style}
                 onChange$={async (e, el) => {
-                  themeComputedObject.value.style = el.value;
-                  console.log('themeComputedObject.value', themeComputedObject.value);
-                  setTheme(await themeStoreToThemeClasses());
+                  themeComputedObjectSig.value.style = el.value;
+                  console.log('themeComputedObject.value', themeComputedObjectSig.value);
+                  setTheme(await themeStoreToThemeClasses$());
                 }}
               >
                 <option value={'simple'}>Simple</option>
@@ -132,7 +132,7 @@ export default component$(() => {
               <label class="mb-1 mt-8 block font-medium">Base</label>
               <div class="flex">
                 {baseOptions.map((base) => {
-                  const isActive = themeComputedObject.value.base === base;
+                  const isActive = themeComputedObjectSig.value.base === base;
 
                   return (
                     <Button
@@ -140,9 +140,9 @@ export default component$(() => {
                       look="ghost"
                       size="icon"
                       onClick$={async () => {
-                        themeComputedObject.value.base = base;
+                        themeComputedObjectSig.value.base = base;
 
-                        setTheme(await themeStoreToThemeClasses());
+                        setTheme(await themeStoreToThemeClasses$());
                       }}
                       class={cn(
                         'flex h-4 w-4 items-center justify-center rounded-none',
@@ -167,7 +167,7 @@ export default component$(() => {
               <label class="mb-1 mt-8 block font-medium">Primary</label>
               <div class="grid grid-cols-[repeat(22,1fr)]">
                 {primaryOptions.map((primary) => {
-                  const isActive = themeComputedObject.value.primary === primary;
+                  const isActive = themeComputedObjectSig.value.primary === primary;
 
                   if (
                     primary.includes('slate-100') ||
@@ -189,8 +189,8 @@ export default component$(() => {
                       look="ghost"
                       size="icon"
                       onClick$={async () => {
-                        themeComputedObject.value.primary = primary;
-                        setTheme(await themeStoreToThemeClasses());
+                        themeComputedObjectSig.value.primary = primary;
+                        setTheme(await themeStoreToThemeClasses$());
                       }}
                       class={cn(
                         'flex h-4 w-4 items-center justify-center rounded-none',
@@ -437,14 +437,14 @@ export default component$(() => {
                 <div class="flex flex-col space-y-2">
                   {borderRadiusOptions.map((borderRadius) => {
                     const isActive =
-                      themeComputedObject.value.borderRadius === borderRadius;
+                      themeComputedObjectSig.value.borderRadius === borderRadius;
                     return (
                       <Button
                         key={borderRadius}
                         look="outline"
                         onClick$={async () => {
-                          themeComputedObject.value.borderRadius = borderRadius;
-                          setTheme(await themeStoreToThemeClasses());
+                          themeComputedObjectSig.value.borderRadius = borderRadius;
+                          setTheme(await themeStoreToThemeClasses$());
                         }}
                         class={cn(isActive && 'border-ring mb-2')}
                       >
@@ -458,13 +458,15 @@ export default component$(() => {
                 Dark Mode{' '}
                 <input
                   type="checkbox"
-                  checked={themeComputedObject.value.mode === 'dark'}
+                  checked={themeComputedObjectSig.value.mode === 'dark'}
                   onClick$={async () => {
-                    themeComputedObject.value.mode =
-                      themeComputedObject.value.mode.includes('light') ? 'dark' : 'light';
+                    themeComputedObjectSig.value.mode =
+                      themeComputedObjectSig.value.mode.includes('light')
+                        ? 'dark'
+                        : 'light';
 
-                    console.log(themeComputedObject.value.mode);
-                    setTheme(await themeStoreToThemeClasses());
+                    console.log(themeComputedObjectSig.value.mode);
+                    setTheme(await themeStoreToThemeClasses$());
                   }}
                 />
               </div>

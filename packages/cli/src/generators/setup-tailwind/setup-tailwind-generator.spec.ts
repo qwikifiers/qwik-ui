@@ -1,5 +1,5 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { StyledTheme } from '../../_shared/styled-theme.enum';
+import { ThemeStyle } from '@qwik-ui/utils';
 import { SetupTailwindGeneratorSchema } from './schema';
 import { setupTailwindGenerator } from './setup-tailwind-generator';
 
@@ -61,13 +61,12 @@ html {
   }
 
   test(`
-    GIVEN global.css and tailwind config exist
-    WHEN running the generator
-    THEN it should add the proper config to both files`, async () => {
+  GIVEN global.css and tailwind config exist
+  WHEN running the generator
+  THEN it should generate the proper tailwind config values`, async () => {
     const { tree, options } = setupWithProperFiles();
 
     options.rootCssPath = 'src/global.css';
-    options.styledTheme = StyledTheme.FLUFFY;
 
     await setupTailwindGenerator(tree, options);
 
@@ -166,6 +165,16 @@ html {
       };
       "
     `);
+  });
+
+  test(`
+    GIVEN no options are passed
+    THEN it should generate "simple" style with primary color "cyan-600", base color "neutral" and border-radios 0.25`, async () => {
+    const { tree, options } = setupWithProperFiles();
+
+    options.rootCssPath = 'src/global.css';
+
+    await setupTailwindGenerator(tree, options);
 
     const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
 
@@ -175,69 +184,169 @@ html {
       @tailwind utilities;
       @layer base {
         :root {
-          --color-background: 0 0% 100%;
-          --color-foreground: 263 84% 5%;
-
-          --color-primary: 263 56% 52%;
-          --color-primary-foreground: 0 0% 100%;
-
-          --color-secondary: 202 91% 52%;
-          --color-secondary-foreground: 0 0% 100%;
-
-          --color-muted: 210 40% 96%;
-          --color-muted-foreground: 263 16% 47%;
-
-          --color-accent: 0 0% 89%;
-          --color-accent-foreground: 263 47% 11%;
-
-          --color-destructive: 0 84% 60%;
-          --color-destructive-foreground: 263 0% 100%;
-
-          --color-card: 0 0% 100%;
-          --color-card-foreground: 263 84% 5%;
-
-          --color-popover: 0 0% 100%;
-          --color-popover-foreground: 263 84% 5%;
-
-          --color-border: 263 32% 91%;
-
-          --color-input: 263 32% 91%;
-
-          --color-ring: 263 18% 61%;
-
-          --border-radius: 0.375rem;
+          --background: 0 0% 100%;
+          --foreground: 0 0% 9%;
+          --muted: 0 0% 96.1%;
+          --muted-foreground: 0 0% 45.1%;
+          --popover: 0 0% 100%;
+          --popover-foreground: 0 0% 9%;
+          --card: 0 0% 100%;
+          --card-foreground: 0 0% 9%;
+          --border: 0 0% 89.8%;
+          --input: 0 0% 89.8%;
+          --primary: 191.6 91.4% 36.5%;
+          --primary-foreground: 0 0% 100%;
+          --secondary: 0 0% 83.1%;
+          --secondary-foreground: 0 0% 9%;
+          --accent: 0 0% 96.1%;
+          --accent-foreground: 0 0% 9%;
+          --alert: 0 84.2% 60.2%;
+          --alert-foreground: 0 0% 98%;
+          --ring: 0 0% 9%;
+          --border-width: 0px;
+          --border-radius: 0.25rem;
+          --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+          --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+          --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+          --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -2px rgba(0, 0, 0, 0.1);
+          --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -4px rgba(0, 0, 0, 0.1);
+          --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 8px 10px -6px rgba(0, 0, 0, 0.1);
+          --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
+          --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
+          --transform-press: scale(0.95);
         }
-
         .dark {
-          --color-background: 222 47% 11%;
-          --color-foreground: 263 40% 98%;
+          --background: 0 0% 9%;
+          --foreground: 0 0% 98%;
+          --muted: 0 0% 14.9%;
+          --muted-foreground: 0 0% 63.9%;
+          --popover: 0 0% 9%;
+          --popover-foreground: 0 0% 98%;
+          --card: 0 0% 9%;
+          --card-foreground: 0 0% 98%;
+          --border: 0 0% 14.9%;
+          --input: 0 0% 14.9%;
+          --primary: 191.6 91.4% 36.5%;
+          --primary-foreground: 0 0% 100%;
+          --secondary: 0 0% 25.1%;
+          --secondary-foreground: 0 0% 98%;
+          --accent: 0 0% 14.9%;
+          --accent-foreground: 0 0% 98%;
+          --alert: 0 84.2% 60.2%;
+          --alert-foreground: 0 0% 98%;
+          --ring: 0 0% 83.1%;
+          --border-width: 0px;
+          --border-radius: 0.25rem;
+          --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+          --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+          --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+          --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -2px rgba(0, 0, 0, 0.1);
+          --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -4px rgba(0, 0, 0, 0.1);
+          --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 8px 10px -6px rgba(0, 0, 0, 0.1);
+          --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
+          --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
+          --transform-press: scale(0.95);
+        }
+      }
 
-          --color-primary: 263 70% 58%;
-          --color-primary-foreground: 190 40% 98%;
+      html {
+        height: 100%;
+        min-height: 100%;
+        scroll-behavior: smooth;
+        background-color: var(--color-bg) !important;
+        color: var(--color-text) !important;
+      }
+      "
+    `);
+  });
+  test(`
+    GIVEN style is "brutalist" and primary color is "red-600" and border-radios is 1
+    THEN it should generate the correct theme`, async () => {
+    const { tree, options } = setupWithProperFiles();
 
-          --color-secondary: 202 97% 55%;
-          --color-secondary-foreground: 190 40% 98%;
+    options.rootCssPath = 'src/global.css';
+    options.borderRadius = 'border-radius-1';
+    options.primaryColor = 'red-600';
+    options.style = ThemeStyle.BRUTALIST;
 
-          --color-muted: 218 32.6% 17.5%;
-          --color-muted-foreground: 263 20.2% 65.1%;
+    await setupTailwindGenerator(tree, options);
 
-          --color-accent: 0 0% 23%;
-          --color-accent-foreground: 263 40% 98%;
+    const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
 
-          --color-destructive: 0 70% 40%;
-          --color-destructive-foreground: 263 40% 98%;
-
-          --color-card: 263 84% 4.9%;
-          --color-card-foreground: 263 40% 98%;
-
-          --color-popover: 263 84% 4.9%;
-          --color-popover-foreground: 263 40% 98%;
-
-          --color-border: 263 32.6% 17.5%;
-
-          --color-input: 263 32.6% 17.5%;
-
-          --color-ring: 263 26.8% 83.9%;
+    expect(updatedGlobalCssContent).toMatchInlineSnapshot(`
+      "@tailwind components;
+      @tailwind base;
+      @tailwind utilities;
+      @layer base {
+        :root {
+          --background: 0 0% 100%;
+          --foreground: 0 0% 9%;
+          --muted: 0 0% 96.1%;
+          --muted-foreground: 0 0% 45.1%;
+          --popover: 0 0% 100%;
+          --popover-foreground: 0 0% 9%;
+          --card: 0 0% 100%;
+          --card-foreground: 0 0% 9%;
+          --border: 0 0% 0%;
+          --input: 0 0% 0%;
+          --primary: 0 72.2% 50.6%;
+          --primary-foreground: 0 0% 100%;
+          --secondary: 0 0% 83.1%;
+          --secondary-foreground: 0 0% 9%;
+          --accent: 0 0% 96.1%;
+          --accent-foreground: 0 0% 9%;
+          --alert: 0 84.2% 60.2%;
+          --alert-foreground: 0 0% 98%;
+          --ring: 0 0% 0%;
+          --border-width: 2px;
+          --border-radius: 1rem;
+          --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
+          --shadow-sm: 4px 4px 0px 0 rgba(0, 0, 0, 1);
+          --shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-md: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-xl: 11px 11px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-2xl: 13px 13px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-inner: inset 2px 2px 0px 0px rgba(0, 0, 0, 0);
+          --transform-press: translate(4px, 4px);
+        }
+        .dark {
+          --background: 0 0% 9%;
+          --foreground: 0 0% 98%;
+          --muted: 0 0% 14.9%;
+          --muted-foreground: 0 0% 63.9%;
+          --popover: 0 0% 9%;
+          --popover-foreground: 0 0% 98%;
+          --card: 0 0% 9%;
+          --card-foreground: 0 0% 98%;
+          --border: 0 0% 0%;
+          --input: 0 0% 0%;
+          --primary: 0 72.2% 50.6%;
+          --primary-foreground: 0 0% 100%;
+          --secondary: 0 0% 25.1%;
+          --secondary-foreground: 0 0% 98%;
+          --accent: 0 0% 14.9%;
+          --accent-foreground: 0 0% 98%;
+          --alert: 0 84.2% 60.2%;
+          --alert-foreground: 0 0% 98%;
+          --ring: 0 0% 0%;
+          --border-width: 3px;
+          --border-radius: 1rem;
+          --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
+          --shadow-sm: 4px 4px 0px 0 rgba(0, 0, 0, 1);
+          --shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-md: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-xl: 11px 11px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-2xl: 13px 13px 0px 0px rgba(0, 0, 0, 1);
+          --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
+          --transform-press: translate(4px, 4px);
         }
       }
 

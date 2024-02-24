@@ -162,15 +162,15 @@
     --border-radius: 0;
   }
 
-  .border-radius-025 {
+  .border-radius-dot-25 {
     --border-radius: 0.25rem;
   }
 
-  .border-radius-050 {
+  .border-radius-dot-50 {
     --border-radius: 0.5rem;
   }
 
-  .border-radius-075 {
+  .border-radius-dot-75 {
     --border-radius: 0.75rem;
   }
 
