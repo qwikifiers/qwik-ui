@@ -23,6 +23,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Modal: ComponentStatus.Draft,
     Pagination: ComponentStatus.Draft,
     Popover: ComponentStatus.Draft,
+    RadioGroup: ComponentStatus.Draft,
     Separator: ComponentStatus.Beta,
     Skeleton: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
