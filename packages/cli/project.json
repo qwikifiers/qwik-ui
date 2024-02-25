@@ -6,8 +6,10 @@
   "targets": {
     "build-bin": {
       "executor": "@nx/js:tsc",
+
       "outputs": ["{options.outputPath}"],
       "options": {
+        "rootDir": ".",
         "main": "packages/cli/bin/index.ts",
         "outputPath": "dist/packages/cli",
         "tsConfig": "packages/cli/tsconfig.bin.json"

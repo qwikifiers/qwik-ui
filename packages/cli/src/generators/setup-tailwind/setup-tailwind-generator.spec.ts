@@ -3,6 +3,48 @@ import { ThemeStyle } from '@qwik-ui/utils';
 import { SetupTailwindGeneratorSchema } from './schema';
 import { setupTailwindGenerator } from './setup-tailwind-generator';
 
+const tailwindConfigContent = `
+content: [
+  join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
+],
+darkMode: 'class',
+theme: {
+  screens: {
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px',
+    '2xl': '1536px',
+  },
+  important: true,
+  extend: {
+    fontFamily: {
+      sans: ['Inter Variable', 'sans-serif'],
+    },
+  },
+},
+`;
+
+function wrapWithCommonJs(content: string) {
+  return `
+const { join } = require('path');
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  ${content}
+};
+  `;
+}
+
+function wrapWithEsm(content: string) {
+  return `
+/** @type {import('tailwindcss').Config} */
+export default {
+  ${content}
+};
+  `;
+}
+
 describe('Setup Tailwind generator', () => {
   function setupWithProperFiles() {
     const options: SetupTailwindGeneratorSchema = {};
@@ -23,36 +65,7 @@ html {
 }`,
     );
 
-    tree.write(
-      'tailwind.config.cjs',
-      `
-    const { join } = require('path');
-
-    /** @type {import('tailwindcss').Config} */
-    module.exports = {
-      content: [
-        join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
-      ],
-      darkMode: 'class',
-      theme: {
-        screens: {
-          sm: '640px',
-          md: '768px',
-          lg: '1024px',
-          xl: '1280px',
-          '2xl': '1536px',
-        },
-        important: true,
-        extend: {
-          fontFamily: {
-            sans: ['Inter Variable', 'sans-serif'],
-          },
-        },
-      },
-    };
-
-    `,
-    );
+    tree.write('tailwind.config.cjs', wrapWithCommonJs(tailwindConfigContent));
 
     return {
       tree,
@@ -61,8 +74,7 @@ html {
   }
 
   test(`
-  GIVEN global.css and tailwind config exist
-  WHEN running the generator
+  GIVEN global.css and tailwind config exist in commonjs format
   THEN it should generate the proper tailwind config values`, async () => {
     const { tree, options } = setupWithProperFiles();
 
@@ -86,6 +98,114 @@ html {
             });
           }),
         ],
+
+        content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
+        darkMode: 'class',
+        theme: {
+          screens: {
+            sm: '640px',
+            md: '768px',
+            lg: '1024px',
+            xl: '1280px',
+            '2xl': '1536px',
+          },
+          important: true,
+          extend: {
+            colors: {
+              border: 'hsl(var(--border))',
+              input: 'hsl(var(--input))',
+              ring: 'hsl(var(--ring))',
+              background: 'hsl(var(--background))',
+              foreground: 'hsl(var(--foreground))',
+              primary: {
+                DEFAULT: 'hsl(var(--primary))',
+                foreground: 'hsl(var(--primary-foreground))',
+              },
+              secondary: {
+                DEFAULT: 'hsl(var(--secondary))',
+                foreground: 'hsl(var(--secondary-foreground))',
+              },
+              alert: {
+                DEFAULT: 'hsl(var(--alert))',
+                foreground: 'hsl(var(--alert-foreground))',
+              },
+              muted: {
+                DEFAULT: 'hsl(var(--muted))',
+                foreground: 'hsl(var(--muted-foreground))',
+              },
+              accent: {
+                DEFAULT: 'hsl(var(--accent))',
+                foreground: 'hsl(var(--accent-foreground))',
+              },
+              card: {
+                DEFAULT: 'hsl(var(--card))',
+                foreground: 'hsl(var(--card-foreground))',
+              },
+            },
+            borderRadius: {
+              base: 'var(--border-radius)',
+              sm: 'calc(var(--border-radius) + 0.125rem)',
+              DEFAULT: 'calc(var(--border-radius) + 0.25rem)',
+              md: 'calc(var(--border-radius) + 0.375rem)',
+              lg: 'calc(var(--border-radius) + 0.5rem)',
+              xl: 'calc(var(--border-radius) + 0.75rem)',
+              '2xl': 'calc(var(--border-radius) + 1rem)',
+              '3xl': 'calc(var(--border-radius) + 1.5rem)',
+              preset: 'var(--border-radius)',
+            },
+            borderWidth: {
+              base: 'var(--border-width)',
+              DEFAULT: 'calc(var(--border-width) + 1px)',
+              2: 'calc(var(--border-width) + 2px)',
+              4: 'calc(var(--border-width) + 4px)',
+              8: 'calc(var(--border-width) + 8px)',
+            },
+            boxShadow: {
+              base: 'var(--shadow-base)',
+              sm: 'var(--shadow-sm)',
+              DEFAULT: 'var(--shadow)',
+              md: 'var(--shadow-md)',
+              lg: 'var(--shadow-lg)',
+              xl: 'var(--shadow-xl)',
+              '2xl': 'var(--shadow-2xl)',
+              inner: 'var(--shadow-inner)',
+            },
+            fontFamily: {
+              sans: ['Inter Variable', 'sans-serif'],
+            },
+          },
+        },
+      };
+      "
+    `);
+  });
+
+  test(`
+  GIVEN tailwind config exist in esm format
+  WHEN running the generator
+  THEN it should generate the proper tailwind config values`, async () => {
+    const { tree, options } = setupWithProperFiles();
+    tree.write('tailwind.config.js', wrapWithEsm(tailwindConfigContent));
+
+    options.rootCssPath = 'src/global.css';
+
+    await setupTailwindGenerator(tree, options);
+
+    const updatedTailwindConfigContent = tree.read('tailwind.config.js', 'utf-8');
+
+    expect(updatedTailwindConfigContent).toMatchInlineSnapshot(`
+      "/** @type {import('tailwindcss').Config} */
+      export default {
+        plugins: [
+          plugin(function ({ addUtilities }) {
+            addUtilities({
+              '.press': {
+                transform: 'var(--transform-press)',
+              },
+            });
+          }),
+        ],
+
         content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
         darkMode: 'class',
         theme: {

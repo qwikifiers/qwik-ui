@@ -71,45 +71,70 @@ function updateTailwindConfig(tree: Tree, projectRoot: string, kitRoot: string) 
     '// EXTEND-END',
   );
 
-  const moduleExportsRegex = /\bmodule\.exports\s*=\s*\{/;
+  const commonJsModuleExportsRegex = /\bmodule\.exports\s*=\s*\{/;
+  const esmModuleExportsRegex = /\bexport\s*default\s*\{/;
+  let modifiedTailwindConfigContent;
 
-  let modifiedTailwindConfigContent = insertAfter(
-    moduleExportsRegex,
-    tailwindConfigContent,
-    rootTemplate,
-    'module.exports',
-  );
+  modifiedTailwindConfigContent = insertAfter({
+    whatToFind: commonJsModuleExportsRegex,
+    content: tailwindConfigContent,
+    whatToInsert: rootTemplate,
+    shouldThrow: false,
+  });
+
+  // if the result is undefined that means that
+  // it didn't find the `module.exports` string
+  if (!modifiedTailwindConfigContent) {
+    modifiedTailwindConfigContent = insertAfter({
+      whatToFind: esmModuleExportsRegex,
+      content: tailwindConfigContent,
+      whatToInsert: rootTemplate,
+      shouldThrow: true,
+      errorTitle: '"module.exports" or "export default"',
+    });
+  }
 
   const extendKeyword = /\bextend:\s*\{/;
 
-  modifiedTailwindConfigContent = insertAfter(
-    extendKeyword,
-    modifiedTailwindConfigContent,
-    extendTemplate,
-    'extend',
-  );
+  modifiedTailwindConfigContent = insertAfter({
+    whatToFind: extendKeyword,
+    content: modifiedTailwindConfigContent,
+    whatToInsert: extendTemplate,
+    shouldThrow: true,
+    errorTitle: 'extend',
+  });
 
   tree.write(tailwindConfigPath, modifiedTailwindConfigContent);
 }
 
-function insertAfter(
-  regex: RegExp,
-  content: string,
-  toInsert: string,
-  errorTitle: string,
-) {
-  const match = content.match(regex);
+type InsertAfterConfig = {
+  whatToFind: RegExp;
+  content: string;
+  whatToInsert: string;
+  shouldThrow?: boolean;
+  errorTitle?: string;
+};
+
+function insertAfter({
+  whatToFind,
+  content,
+  whatToInsert,
+  shouldThrow,
+  errorTitle,
+}: InsertAfterConfig) {
+  const match = content.match(whatToFind);
 
   if (!match || !match.index) {
-    throw new Error(
-      `Could not find the "${errorTitle}" property in your tailwind config file`,
-    );
+    if (shouldThrow) {
+      throw new Error(`Could not find the "${errorTitle}" in your tailwind config file`);
+    }
+    return;
   }
 
   if (match && match.index) {
     const startIndex = match.index + match[0].length;
     const modifiedTailwindConfigContent =
-      content.slice(0, startIndex) + toInsert + content.slice(startIndex);
+      content.slice(0, startIndex) + whatToInsert + content.slice(startIndex);
 
     return modifiedTailwindConfigContent;
   }
