@@ -2,7 +2,7 @@ import { Locator, Page } from '@playwright/test';
 
 export type DriverLocator = Locator | Page;
 
-export function selectTestDriver<T extends DriverLocator>(locator: T) {
+export function createTestDriver<T extends DriverLocator>(locator: T) {
   const getRoot = () => {
     return locator.getByRole('combobox');
   };

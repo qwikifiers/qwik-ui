@@ -13,7 +13,9 @@ What do they all have in common? How do people use them? What are the most impor
 ## Anatomy:
 
     <Select>
-        <SelectTrigger />
+        <SelectTrigger>
+            <SelectValue>
+        </SelectTrigger>
         <SelectPopover>
             <SelectListbox>
                 <SelectOption />
@@ -39,6 +41,10 @@ What do they all have in common? How do people use them? What are the most impor
 ## Props:
 
     ### State
+
+    name: value
+    type: string
+    description: uncontrolled select value
 
     name: bind:value
     type: Signal
@@ -82,7 +88,7 @@ What do they all have in common? How do people use them? What are the most impor
 
 ## Keyboard Interactions:
 
-    key: Space;
+    key: Space
     description: Pressing space opens the select menu and highlights the chosen option. If an option is highlighted, pressing space selects it.
 
     key: Enter

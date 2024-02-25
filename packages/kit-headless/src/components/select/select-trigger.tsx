@@ -1,11 +1,21 @@
 import { component$, type PropsOf, useContext, sync$, $ } from '@builder.io/qwik';
 import SelectContextId from './select-context';
+import { getNextEnabledOptionIndex } from './utils';
+
+export type OptionsType = {
+  element: HTMLLIElement;
+  isDisabled: boolean;
+}[];
 
 type SelectTriggerProps = PropsOf<'button'>;
 export type DisabledArr = Array<{ disabled: boolean }>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
+  const openKeys = ['ArrowUp', 'ArrowDown'];
+  const closedKeys = [`Escape`];
+  const initialIndex = context.highlightedIndexSig.value === -1;
 
+  // Both the space and enter keys run with handleClick$
   const handleClick$ = $(() => {
     context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
   });
@@ -17,12 +27,57 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
   });
 
+  const handleKeyDown$ = $((e: KeyboardEvent) => {
+    const shouldOpen = !context.isListboxOpenSig.value && openKeys.includes(e.key);
+    const shouldClose = context.isListboxOpenSig.value && closedKeys.includes(e.key);
+
+    const options: OptionsType = context.optionRefsArray.value.map((option) => {
+      if (option.value === undefined) {
+        throw new Error('Qwik UI: internal select option is undefined');
+      }
+
+      const isDisabled = option.value.hasAttribute('disabled');
+
+      return { element: option.value, isDisabled };
+    });
+
+    if (shouldOpen) {
+      context.isListboxOpenSig.value = true;
+    }
+
+    if (shouldClose) {
+      context.isListboxOpenSig.value = false;
+    }
+
+    if (initialIndex) {
+      context.highlightedIndexSig.value++;
+      return;
+    }
+
+    if (e.key === 'Home') {
+      context.highlightedIndexSig.value = 0;
+    }
+
+    if (e.key === 'End') {
+      context.highlightedIndexSig.value = context.optionRefsArray.value.length - 1;
+    }
+
+    if (context.isListboxOpenSig.value) {
+      if (e.key === 'ArrowDown') {
+        context.highlightedIndexSig.value = getNextEnabledOptionIndex(
+          context.highlightedIndexSig.value,
+          options,
+        );
+      }
+    }
+  });
+
   return (
     <button
       {...props}
       ref={context.triggerRef}
       onClick$={[handleClick$, props.onClick$]}
-      onKeyDown$={[handleKeyDownSync$, props.onKeyDown$]}
+      onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}

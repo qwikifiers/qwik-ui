@@ -9,7 +9,7 @@ import {
 } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 
-type SelectOptionProps = PropsOf<'li'> & {
+export type SelectOptionProps = PropsOf<'li'> & {
   index?: number;
   disabled?: boolean;
 };
