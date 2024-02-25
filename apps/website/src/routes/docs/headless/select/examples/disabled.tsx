@@ -13,7 +13,7 @@ export default component$(() => {
           <SelectOption
             class="border-dashed border-blue-400 data-[highlighted]:border-2"
             key={user}
-            disabled={index === 0 ? true : false}
+            disabled={index === 0 || index === usersSig.value.length - 1 ? true : false}
           >
             {user}
           </SelectOption>

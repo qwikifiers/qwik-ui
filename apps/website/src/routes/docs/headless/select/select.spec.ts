@@ -236,12 +236,56 @@ test.describe('Keyboard Behavior', () => {
     await getTrigger().press('ArrowDown');
     await expect(options[1]).toHaveAttribute('data-highlighted');
   });
+
+  test(`GIVEN an open hero select
+  WHEN the third option is highlighted and the up arrow key is pressed
+  THEN the second option should have data-highlighted`, async ({ page }) => {
+    const { getTrigger, getListbox, getOptions } = await setup(page, 'select-hero-test');
+
+    await getTrigger().focus();
+    await getTrigger().press('Enter');
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+
+    // third option highlighted
+    const options = await getOptions();
+    await expect(options[0]).toHaveAttribute('data-highlighted');
+    await getTrigger().press('ArrowDown');
+    await getTrigger().press('ArrowDown');
+
+    await getTrigger().press('ArrowUp');
+    await expect(options[1]).toHaveAttribute('data-highlighted');
+  });
+
+  test(`GIVEN an open hero select
+        WHEN the listbox is closed with a chosen option 
+        AND the down arrow key is pressed
+        THEN the data-highlighted option should not change on re-open`, async ({
+    page,
+  }) => {
+    const { getTrigger, getListbox, getOptions } = await setup(page, 'select-hero-test');
+
+    await getTrigger().focus();
+    await getTrigger().press('Enter');
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+
+    // second option highlighted
+    const options = await getOptions();
+    await getTrigger().press('ArrowDown');
+    await expect(options[1]).toHaveAttribute('data-highlighted');
+    await getTrigger().press('Enter');
+    await expect(getListbox()).toBeHidden();
+
+    await getTrigger().press('ArrowDown');
+    await expect(options[1]).toHaveAttribute('data-highlighted');
+  });
 });
 
 test.describe('disabled', () => {
   test(`GIVEN an open hero select with the first option disabled
         WHEN clicking the disabled option
-        It should be disabled`, async ({ page }) => {
+        It should have aria-disabled`, async ({ page }) => {
     const { getTrigger, getListbox, getOptions } = await setup(
       page,
       'select-disabled-test',
@@ -258,7 +302,26 @@ test.describe('disabled', () => {
     await expect(options[0]).toBeDisabled();
   });
 
-  test(`GIVEN an open hero select by the enter key
+  test(`GIVEN an open disable select with the first option disabled
+        WHEN clicking the disabled option
+        THEN the listbox should stay open`, async ({ page }) => {
+    const { getTrigger, getListbox, getOptions } = await setup(
+      page,
+      'select-disabled-test',
+    );
+
+    await getTrigger().focus();
+    await getTrigger().press('Enter');
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+
+    const options = await getOptions();
+    // eslint-disable-next-line playwright/no-force-option
+    await options[0].click({ force: true });
+    await expect(getListbox()).toBeVisible();
+  });
+
+  test(`GIVEN an open disabled select
         WHEN first option is disabled
         THEN the second option should have data-highlighted`, async ({ page }) => {
     const { getTrigger, getListbox, getOptions } = await setup(
@@ -272,5 +335,22 @@ test.describe('disabled', () => {
     await expect(getListbox()).toBeVisible();
     const options = await getOptions();
     await expect(options[1]).toHaveAttribute('data-highlighted');
+  });
+
+  test(`GIVEN an open disabled select
+        WHEN the last option is disabled and the end key is pressed
+        THEN the second last index should have data-highlighted`, async ({ page }) => {
+    const { getTrigger, getListbox, getOptions } = await setup(
+      page,
+      'select-disabled-test',
+    );
+
+    await getTrigger().focus();
+    await getTrigger().press('ArrowDown');
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+    await getTrigger().press('End');
+    const options = await getOptions();
+    await expect(options[options.length - 2]).toHaveAttribute('data-highlighted');
   });
 });

@@ -1,6 +1,6 @@
 import { component$, type PropsOf, useContext, sync$, $ } from '@builder.io/qwik';
 import SelectContextId from './select-context';
-import { getNextEnabledOptionIndex } from './utils';
+import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from './utils';
 
 export type OptionsType = {
   element: HTMLLIElement;
@@ -49,23 +49,30 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (e.key === 'Home') {
-      context.highlightedIndexSig.value = 0;
+      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, options);
     }
 
     if (e.key === 'End') {
-      context.highlightedIndexSig.value = context.optionRefsArray.value.length - 1;
+      const lastEnabledOptionIndex = getPrevEnabledOptionIndex(options.length, options);
+      context.highlightedIndexSig.value = lastEnabledOptionIndex;
     }
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
       context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, options);
-      console.log(context.highlightedIndexSig.value);
       return;
     }
 
-    if (context.isListboxOpenSig.value) {
+    if (context.isListboxOpenSig.value && !shouldOpen) {
       if (e.key === 'ArrowDown') {
         context.highlightedIndexSig.value = getNextEnabledOptionIndex(
+          context.highlightedIndexSig.value,
+          options,
+        );
+      }
+
+      if (e.key === 'ArrowUp') {
+        context.highlightedIndexSig.value = getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
           options,
         );
