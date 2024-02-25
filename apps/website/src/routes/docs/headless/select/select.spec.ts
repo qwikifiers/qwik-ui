@@ -237,3 +237,40 @@ test.describe('Keyboard Behavior', () => {
     await expect(options[1]).toHaveAttribute('data-highlighted');
   });
 });
+
+test.describe('disabled', () => {
+  test(`GIVEN an open hero select with the first option disabled
+        WHEN clicking the disabled option
+        It should be disabled`, async ({ page }) => {
+    const { getTrigger, getListbox, getOptions } = await setup(
+      page,
+      'select-disabled-test',
+    );
+
+    await getTrigger().focus();
+    await getTrigger().press('Enter');
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+
+    await getTrigger().focus();
+    await getTrigger().press('ArrowDown');
+    const options = await getOptions();
+    await expect(options[0]).toBeDisabled();
+  });
+
+  test(`GIVEN an open hero select by the enter key
+        WHEN first option is disabled
+        THEN the second option should have data-highlighted`, async ({ page }) => {
+    const { getTrigger, getListbox, getOptions } = await setup(
+      page,
+      'select-disabled-test',
+    );
+
+    await getTrigger().focus();
+    await getTrigger().press('ArrowDown');
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+    const options = await getOptions();
+    await expect(options[1]).toHaveAttribute('data-highlighted');
+  });
+});

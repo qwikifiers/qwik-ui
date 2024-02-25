@@ -56,6 +56,7 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
       ref={optionRef}
       tabIndex={-1}
       aria-selected={isSelected}
+      aria-disabled={disabled === true ? 'true' : 'false'}
       data-selected={isSelected ? '' : undefined}
       data-highlighted={isHighlighted ? '' : undefined}
       data-disabled={disabled ? '' : undefined}

@@ -15,7 +15,7 @@ export type SelectContext = {
   selectedOptionRef: Signal<HTMLLIElement | null>;
 
   // core state
-  highlightedIndexSig: Signal<number>;
+  highlightedIndexSig: Signal<number | null>;
   isListboxOpenSig: Signal<boolean>;
   selectedIndexSig: Signal<number | null>;
 };

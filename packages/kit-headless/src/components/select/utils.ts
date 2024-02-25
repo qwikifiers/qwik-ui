@@ -6,7 +6,7 @@ export const getNextEnabledOptionIndex = (index: number, options: OptionsType) =
   const opts = options;
   const len = opts.length;
 
-  while (opts[(currentIndex + offset) % len]?.isDisabled) {
+  while (opts[(currentIndex + offset) % len].isDisabled) {
     offset++;
     if (offset + currentIndex > len - 1) {
       currentIndex = 0;

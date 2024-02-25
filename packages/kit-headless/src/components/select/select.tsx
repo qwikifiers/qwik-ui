@@ -25,7 +25,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
   const selectedIndexSig = useSignal<number | null>(null);
   const selectedOptionRef = useSignal<HTMLLIElement | null>(null);
   const isListboxOpenSig = useSignal<boolean>(false);
-  const highlightedIndexSig = useSignal<number>(-1);
+  const highlightedIndexSig = useSignal<number | null>(null);
 
   useTask$(function deriveSelectedRef({ track }) {
     track(() => selectedIndexSig.value);

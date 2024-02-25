@@ -13,7 +13,6 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
   const openKeys = ['ArrowUp', 'ArrowDown'];
   const closedKeys = [`Escape`];
-  // const initialIndex = context.highlightedIndexSig.value === -1;
 
   // Both the space and enter keys run with handleClick$
   const handleClick$ = $(() => {
@@ -36,7 +35,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         throw new Error('Qwik UI: internal select option is undefined');
       }
 
-      const isDisabled = option.value.hasAttribute('disabled');
+      const isDisabled = option.value.ariaDisabled === 'true';
 
       return { element: option.value, isDisabled };
     });
@@ -51,17 +50,16 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
     if (e.key === 'Home') {
       context.highlightedIndexSig.value = 0;
-      console.log('Highlighted index: ', context.highlightedIndexSig.value);
-      return;
     }
 
     if (e.key === 'End') {
       context.highlightedIndexSig.value = context.optionRefsArray.value.length - 1;
-      return;
     }
 
-    if (context.highlightedIndexSig.value === -1) {
-      context.highlightedIndexSig.value++;
+    /** When initially opening the listbox, we want to grab the first enabled option index */
+    if (context.highlightedIndexSig.value === null) {
+      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, options);
+      console.log(context.highlightedIndexSig.value);
       return;
     }
 
