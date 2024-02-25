@@ -13,7 +13,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
   const openKeys = ['ArrowUp', 'ArrowDown'];
   const closedKeys = [`Escape`];
-  const initialIndex = context.highlightedIndexSig.value === -1;
+  // const initialIndex = context.highlightedIndexSig.value === -1;
 
   // Both the space and enter keys run with handleClick$
   const handleClick$ = $(() => {
@@ -49,17 +49,20 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       context.isListboxOpenSig.value = false;
     }
 
-    if (initialIndex) {
-      context.highlightedIndexSig.value++;
-      return;
-    }
-
     if (e.key === 'Home') {
       context.highlightedIndexSig.value = 0;
+      console.log('Highlighted index: ', context.highlightedIndexSig.value);
+      return;
     }
 
     if (e.key === 'End') {
       context.highlightedIndexSig.value = context.optionRefsArray.value.length - 1;
+      return;
+    }
+
+    if (context.highlightedIndexSig.value === -1) {
+      context.highlightedIndexSig.value++;
+      return;
     }
 
     if (context.isListboxOpenSig.value) {
