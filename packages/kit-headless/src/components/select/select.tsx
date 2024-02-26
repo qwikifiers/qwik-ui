@@ -14,7 +14,7 @@ export type SelectProps = PropsOf<'div'> & {
   value?: string;
 
   // when a value is passed, we check if it's an actual option value, and get its index at pre-render time.
-  valuePropIndex: number;
+  valuePropIndex?: number;
 };
 
 /* root component in select-inline.tsx */
@@ -31,7 +31,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
   const selectedIndexSig = useSignal<number | null>(null);
   const selectedOptionRef = useSignal<HTMLLIElement | null>(null);
   const isListboxOpenSig = useSignal<boolean>(false);
-  const highlightedIndexSig = useSignal<number | null>(props.valuePropIndex);
+  const highlightedIndexSig = useSignal<number | null>(props.valuePropIndex ?? null);
 
   useTask$(function deriveSelectedRef({ track }) {
     track(() => selectedIndexSig.value);

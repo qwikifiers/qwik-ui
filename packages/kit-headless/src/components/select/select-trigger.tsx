@@ -31,6 +31,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     const shouldOpen = !context.isListboxOpenSig.value && openKeys.includes(e.key);
     const shouldClose = context.isListboxOpenSig.value && closedKeys.includes(e.key);
 
+    // TODO: refactor with data grabbed from inline component
     const options: OptionsType = context.optionRefsArray.value.map((option) => {
       if (option.value === undefined) {
         throw new Error('Qwik UI: internal select option is undefined');

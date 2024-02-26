@@ -508,15 +508,15 @@ test.describe('Props', () => {
     await expect(await getValue()).toEqual('Jessie');
   });
 
-  // test(`GIVEN an uncontrolled select with a value prop on the root component
-  //       WHEN the value data matches the fourth option
-  //       THEN the fourth option should have aria-selected set to true`, async ({
-  //   page,
-  // }) => {
-  //   const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
+  test(`GIVEN an uncontrolled select with a value prop on the root component
+        WHEN the value data matches the fourth option
+        THEN the fourth option should have data-highlighted set to true`, async ({
+    page,
+  }) => {
+    const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
 
-  //   await expect(await getValue()).toEqual('Jessie');
-  //   const options = await getOptions();
-  //   await expect(await options[3]).toBeSelected();
-  // });
+    await expect(await getValue()).toEqual('Jessie');
+    const options = await getOptions();
+    await expect(await options[3]).toHaveAttribute('data-highlighted');
+  });
 });

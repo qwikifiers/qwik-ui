@@ -10,7 +10,7 @@ import { SelectOption } from './select-option';
 export const Select: FunctionComponent<SelectProps> = (props) => {
   const { children: myChildren, ...rest } = props;
   let valuePropIndex = 0;
-
+  const isDisabledArr = [];
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
   ) as Array<JSXNode>;
@@ -49,11 +49,17 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
         if (child.props.children === props.value) {
           valuePropIndex = currentIndex;
         }
-
+        isDisabledArr.push(child.props.disabled);
         currentIndex++;
       }
     }
   }
+
+  // TODO: will have problems if all options are disabled
+  if (isDisabledArr[valuePropIndex] === true) {
+    valuePropIndex = isDisabledArr.findIndex((isDisabled) => isDisabled === false);
+  }
+
   return (
     <SelectImpl {...rest} valuePropIndex={valuePropIndex}>
       {props.children}
