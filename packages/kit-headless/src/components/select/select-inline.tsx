@@ -55,9 +55,13 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
     }
   }
 
-  // TODO: will have problems if all options are disabled
   if (isDisabledArr[valuePropIndex] === true) {
     valuePropIndex = isDisabledArr.findIndex((isDisabled) => isDisabled === false);
+    if (valuePropIndex === -1) {
+      throw new Error(
+        `Qwik UI: it appears you've disabled every option in the select. Was that intentional?`,
+      );
+    }
   }
 
   return (
