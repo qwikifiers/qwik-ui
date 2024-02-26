@@ -12,18 +12,18 @@ export const Input = component$<InputProps>(
     'bind:value': valueSig,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     'bind:checked': checkedSig,
-    ...restOfProps
+    ...props
   }) => {
     return (
       <>
         <input
-          {...restOfProps}
-          bind:value={valueSig}
+          {...props}
           aria-errormessage={`${name}-error`}
           aria-invalid={!!error}
+          bind:value={valueSig}
           class={cn(
-            'rounded-base border-input placeholder:text-muted-foreground focus-visible:ring-ring flex h-12 w-full border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50',
-            restOfProps.class,
+            'rounded-base border-input placeholder:text-muted-foreground focus-visible:ring-ring bg-background text-foreground file:text-foreground flex h-12 w-full border px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50',
+            props.class,
           )}
           id={name}
         />
