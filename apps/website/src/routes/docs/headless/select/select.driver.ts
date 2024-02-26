@@ -19,8 +19,8 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     return getRoot().getByRole('option', { includeHidden: true }).all();
   };
 
-  const getValue = () => {
-    return getTrigger().locator('[data-value]').textContent();
+  const getValue = async () => {
+    return await getTrigger().locator('[data-value]').textContent();
   };
 
   const openListbox = async (key: OpenKeys | 'click') => {

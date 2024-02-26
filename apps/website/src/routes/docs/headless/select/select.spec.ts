@@ -79,10 +79,11 @@ test.describe('Mouse Behavior', () => {
     await openListbox('click');
 
     const options = await getOptions();
+    const thirdOptStr = await options[2].textContent();
     await options[2].click();
 
     await expect(options[2]).toHaveAttribute('aria-selected', 'true');
-    expect(options[2].textContent()).toEqual(getValue());
+    expect(thirdOptStr).toEqual(await getValue());
   });
 });
 
@@ -369,7 +370,7 @@ test.describe('Keyboard Behavior', () => {
           AND the Enter key is pressed
           THEN option value should be the selected value
           AND should have an aria-selected of true`, async ({ page }) => {
-      const { getTrigger, getOptions, getValue, openListbox } = await setup(
+      const { getTrigger, getOptions, getValue, getListbox, openListbox } = await setup(
         page,
         'select-hero-test',
       );
@@ -381,9 +382,10 @@ test.describe('Keyboard Behavior', () => {
       const optStr = await options[0].textContent();
       await getTrigger().press('Enter');
 
-      console.log(optStr);
-      console.log(await getValue());
-      expect(optStr).toEqual(await getValue());
+      // seems we need to await for the listbox to be hidden, otherwise the getValue does not update. ¯\_(ツ)_/¯
+      await expect(getListbox()).toBeHidden();
+      const value = await getValue();
+      expect(optStr).toEqual(value);
     });
 
     test(`GIVEN an open hero select
@@ -405,6 +407,26 @@ test.describe('Keyboard Behavior', () => {
       await getTrigger().press('Space');
       await expect(getListbox()).toBeHidden();
       await expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    test(`GIVEN an open hero select
+          WHEN an option has data-highlighted
+          AND the Space key is pressed
+          THEN option value should be the selected value
+          AND should have an aria-selected of true`, async ({ page }) => {
+      const { getTrigger, getOptions, getValue, openListbox } = await setup(
+        page,
+        'select-hero-test',
+      );
+
+      await openListbox('Space');
+
+      const options = await getOptions();
+      await expect(options[0]).toHaveAttribute('data-highlighted');
+      const optStr = await options[0].textContent();
+      await getTrigger().press('Space');
+
+      expect(optStr).toEqual(await getValue());
     });
   });
 });
