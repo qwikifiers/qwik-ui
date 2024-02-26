@@ -60,10 +60,10 @@ function updateTailwindConfig(tree: Tree, projectRoot: string, kitRoot: string) 
 
   const tailwindTemplate = readFileSync(tailwindConfigTemplatePath, 'utf-8');
 
-  const rootTemplate = extractBetweenComments(
+  const pluginTemplate = extractBetweenComments(
     tailwindTemplate,
-    '// ROOT-START',
-    '// ROOT-END',
+    '// PLUGIN-START',
+    '// PLUGIN-END',
   );
   const extendTemplate = extractBetweenComments(
     tailwindTemplate,
@@ -71,34 +71,16 @@ function updateTailwindConfig(tree: Tree, projectRoot: string, kitRoot: string) 
     '// EXTEND-END',
   );
 
-  const commonJsModuleExportsRegex = /\bmodule\.exports\s*=\s*\{/;
-  const esmModuleExportsRegex = /\bexport\s*default\s*\{/;
-  let modifiedTailwindConfigContent;
-
-  modifiedTailwindConfigContent = insertAfter({
-    whatToFind: commonJsModuleExportsRegex,
-    content: tailwindConfigContent,
-    whatToInsert: rootTemplate,
-    shouldThrow: false,
-  });
-
-  // if the result is undefined that means that
-  // it didn't find the `module.exports` string
-  if (!modifiedTailwindConfigContent) {
-    modifiedTailwindConfigContent = insertAfter({
-      whatToFind: esmModuleExportsRegex,
-      content: tailwindConfigContent,
-      whatToInsert: rootTemplate,
-      shouldThrow: true,
-      errorTitle: '"module.exports" or "export default"',
-    });
-  }
+  let modifiedTailwindConfigContent = addPluginToConfig(
+    pluginTemplate,
+    tailwindConfigContent,
+  );
 
   const extendKeyword = /\bextend:\s*\{/;
 
   modifiedTailwindConfigContent = insertAfter({
     whatToFind: extendKeyword,
-    content: modifiedTailwindConfigContent,
+    whereToFindIt: modifiedTailwindConfigContent,
     whatToInsert: extendTemplate,
     shouldThrow: true,
     errorTitle: 'extend',
@@ -107,9 +89,61 @@ function updateTailwindConfig(tree: Tree, projectRoot: string, kitRoot: string) 
   tree.write(tailwindConfigPath, modifiedTailwindConfigContent);
 }
 
+function addPluginToConfig(pluginTemplate: string, tailwindConfigContent: string) {
+  let modifiedTailwindConfigContent;
+  const commonJsModuleExportsRegex = /\bmodule\.exports\s*=\s*\{/;
+  const isESM = !commonJsModuleExportsRegex.test(tailwindConfigContent);
+
+  const esmModuleExportsRegex = /\bexport\s*default\s*\{/;
+  const pluginsKeyword = /\bplugins:\s*\[/;
+
+  modifiedTailwindConfigContent = insertAfter({
+    whatToFind: pluginsKeyword,
+    whereToFindIt: tailwindConfigContent,
+    whatToInsert: pluginTemplate,
+    shouldThrow: false,
+  });
+
+  if (modifiedTailwindConfigContent) {
+    return addPluginImportStatement(modifiedTailwindConfigContent, isESM);
+  }
+
+  pluginTemplate = `plugins: [\n${pluginTemplate}\n  ],\n`;
+
+  modifiedTailwindConfigContent = insertAfter({
+    whatToFind: commonJsModuleExportsRegex,
+    whereToFindIt: tailwindConfigContent,
+    whatToInsert: pluginTemplate,
+    shouldThrow: false,
+  });
+
+  // if the result is undefined that means that
+  // it didn't find the `module.exports` string
+  if (!modifiedTailwindConfigContent) {
+    modifiedTailwindConfigContent = insertAfter({
+      whatToFind: esmModuleExportsRegex,
+      whereToFindIt: tailwindConfigContent,
+      whatToInsert: pluginTemplate,
+      shouldThrow: true,
+      errorTitle: '"module.exports" or "export default"',
+    });
+  }
+
+  return addPluginImportStatement(modifiedTailwindConfigContent, isESM);
+}
+
+function addPluginImportStatement(content: string, isESM = false) {
+  if (isESM) {
+    return `import plugin from 'tailwindcss/plugin';
+${content}`;
+  }
+  return `const plugin = require('tailwindcss/plugin');
+${content}`;
+}
+
 type InsertAfterConfig = {
   whatToFind: RegExp;
-  content: string;
+  whereToFindIt: string;
   whatToInsert: string;
   shouldThrow?: boolean;
   errorTitle?: string;
@@ -117,7 +151,7 @@ type InsertAfterConfig = {
 
 function insertAfter({
   whatToFind,
-  content,
+  whereToFindIt: content,
   whatToInsert,
   shouldThrow,
   errorTitle,

@@ -13,9 +13,10 @@ module.exports = {
     join(__dirname, '../../packages/kit-tailwind/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-styled/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
-  // ROOT-START
+
   plugins: [
     require('tailwindcss-animate'),
+    // PLUGIN-START
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.press': {
@@ -29,8 +30,9 @@ module.exports = {
         },
       });
     }),
+    // PLUGIN-END
   ],
-  // ROOT-END
+
   darkMode: 'class',
   theme: {
     important: true,

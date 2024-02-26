@@ -58,7 +58,7 @@ describe('Setup Tailwind generator', () => {
 
 html {
   height: 100%;
-  min-height: 100%;
+  min-height: 100%; 
   scroll-behavior: smooth;
   background-color: var(--color-bg) !important;
   color: var(--color-text) !important;
@@ -85,7 +85,9 @@ html {
     const updatedTailwindConfigContent = tree.read('tailwind.config.cjs', 'utf-8');
 
     expect(updatedTailwindConfigContent).toMatchInlineSnapshot(`
-      "const { join } = require('path');
+      "const plugin = require('tailwindcss/plugin');
+      
+      const { join } = require('path');
 
       /** @type {import('tailwindcss').Config} */
       module.exports = {
@@ -94,6 +96,12 @@ html {
             addUtilities({
               '.press': {
                 transform: 'var(--transform-press)',
+              },
+              '.appear': {
+                opacity: 1,
+              },
+              '.disappear': {
+                opacity: 0,
               },
             });
           }),
@@ -151,7 +159,6 @@ html {
               xl: 'calc(var(--border-radius) + 0.75rem)',
               '2xl': 'calc(var(--border-radius) + 1rem)',
               '3xl': 'calc(var(--border-radius) + 1.5rem)',
-              preset: 'var(--border-radius)',
             },
             borderWidth: {
               base: 'var(--border-width)',
@@ -194,13 +201,21 @@ html {
     const updatedTailwindConfigContent = tree.read('tailwind.config.js', 'utf-8');
 
     expect(updatedTailwindConfigContent).toMatchInlineSnapshot(`
-      "/** @type {import('tailwindcss').Config} */
+      "import plugin from 'tailwindcss/plugin';
+
+      /** @type {import('tailwindcss').Config} */
       export default {
         plugins: [
           plugin(function ({ addUtilities }) {
             addUtilities({
               '.press': {
                 transform: 'var(--transform-press)',
+              },
+              '.appear': {
+                opacity: 1,
+              },
+              '.disappear': {
+                opacity: 0,
               },
             });
           }),
@@ -258,7 +273,119 @@ html {
               xl: 'calc(var(--border-radius) + 0.75rem)',
               '2xl': 'calc(var(--border-radius) + 1rem)',
               '3xl': 'calc(var(--border-radius) + 1.5rem)',
-              preset: 'var(--border-radius)',
+            },
+            borderWidth: {
+              base: 'var(--border-width)',
+              DEFAULT: 'calc(var(--border-width) + 1px)',
+              2: 'calc(var(--border-width) + 2px)',
+              4: 'calc(var(--border-width) + 4px)',
+              8: 'calc(var(--border-width) + 8px)',
+            },
+            boxShadow: {
+              base: 'var(--shadow-base)',
+              sm: 'var(--shadow-sm)',
+              DEFAULT: 'var(--shadow)',
+              md: 'var(--shadow-md)',
+              lg: 'var(--shadow-lg)',
+              xl: 'var(--shadow-xl)',
+              '2xl': 'var(--shadow-2xl)',
+              inner: 'var(--shadow-inner)',
+            },
+            fontFamily: {
+              sans: ['Inter Variable', 'sans-serif'],
+            },
+          },
+        },
+      };
+      "
+    `);
+  });
+  test(`
+  GIVEN tailwind config has already a plugins array
+  THEN it should add the plugin with the right plugin and import`, async () => {
+    const { tree, options } = setupWithProperFiles();
+    const tailwindConfig = wrapWithEsm(`plugins: [somePlugin],${tailwindConfigContent}`);
+    tree.write('tailwind.config.js', tailwindConfig);
+
+    options.rootCssPath = 'src/global.css';
+
+    await setupTailwindGenerator(tree, options);
+
+    const updatedTailwindConfigContent = tree.read('tailwind.config.js', 'utf-8');
+
+    expect(updatedTailwindConfigContent).toMatchInlineSnapshot(`
+      "import plugin from 'tailwindcss/plugin';
+      
+      /** @type {import('tailwindcss').Config} */
+      export default {
+        plugins: [
+          plugin(function ({ addUtilities }) {
+            addUtilities({
+              '.press': {
+                transform: 'var(--transform-press)',
+              },
+              '.appear': {
+                opacity: 1,
+              },
+              '.disappear': {
+                opacity: 0,
+              },
+            });
+          }),
+          somePlugin,
+        ],
+        content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
+        darkMode: 'class',
+        theme: {
+          screens: {
+            sm: '640px',
+            md: '768px',
+            lg: '1024px',
+            xl: '1280px',
+            '2xl': '1536px',
+          },
+          important: true,
+          extend: {
+            colors: {
+              border: 'hsl(var(--border))',
+              input: 'hsl(var(--input))',
+              ring: 'hsl(var(--ring))',
+              background: 'hsl(var(--background))',
+              foreground: 'hsl(var(--foreground))',
+              primary: {
+                DEFAULT: 'hsl(var(--primary))',
+                foreground: 'hsl(var(--primary-foreground))',
+              },
+              secondary: {
+                DEFAULT: 'hsl(var(--secondary))',
+                foreground: 'hsl(var(--secondary-foreground))',
+              },
+              alert: {
+                DEFAULT: 'hsl(var(--alert))',
+                foreground: 'hsl(var(--alert-foreground))',
+              },
+              muted: {
+                DEFAULT: 'hsl(var(--muted))',
+                foreground: 'hsl(var(--muted-foreground))',
+              },
+              accent: {
+                DEFAULT: 'hsl(var(--accent))',
+                foreground: 'hsl(var(--accent-foreground))',
+              },
+              card: {
+                DEFAULT: 'hsl(var(--card))',
+                foreground: 'hsl(var(--card-foreground))',
+              },
+            },
+            borderRadius: {
+              base: 'var(--border-radius)',
+              sm: 'calc(var(--border-radius) + 0.125rem)',
+              DEFAULT: 'calc(var(--border-radius) + 0.25rem)',
+              md: 'calc(var(--border-radius) + 0.375rem)',
+              lg: 'calc(var(--border-radius) + 0.5rem)',
+              xl: 'calc(var(--border-radius) + 0.75rem)',
+              '2xl': 'calc(var(--border-radius) + 1rem)',
+              '3xl': 'calc(var(--border-radius) + 1.5rem)',
             },
             borderWidth: {
               base: 'var(--border-width)',

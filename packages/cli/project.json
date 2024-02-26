@@ -60,7 +60,10 @@
     "copy-global-css": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "cp apps/website/src/global.css packages/kit-styled/src/templates"
+        "commands": [
+          "cp apps/website/tailwind.config.cjs packages/kit-styled/src/templates",
+          "cp apps/website/src/global.css packages/kit-styled/src/templates"
+        ]
       }
     },
     "lint": {

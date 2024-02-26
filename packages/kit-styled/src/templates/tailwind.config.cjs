@@ -13,19 +13,27 @@ module.exports = {
     join(__dirname, '../../packages/kit-tailwind/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-styled/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
-  // ROOT-START
+
   plugins: [
+    require('tailwindcss-animate'),
+    // PLUGIN-START
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
         },
+        '.appear': {
+          opacity: 1,
+        },
+        '.disappear': {
+          opacity: 0,
+        },
       });
     }),
+    // PLUGIN-END
   ],
-  // ROOT-END
-  darkMode: 'class',
 
+  darkMode: 'class',
   theme: {
     important: true,
     extend: {
@@ -73,7 +81,6 @@ module.exports = {
         xl: 'calc(var(--border-radius) + 0.75rem)',
         '2xl': 'calc(var(--border-radius) + 1rem)',
         '3xl': 'calc(var(--border-radius) + 1.5rem)',
-        preset: 'var(--border-radius)',
       },
       borderWidth: {
         base: 'var(--border-width)',
