@@ -1,15 +1,9 @@
 import { component$, type PropsOf, useContext, sync$, $, Slot } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from './utils';
-
-export type OptionsType = {
-  element: HTMLLIElement;
-  isDisabled: boolean;
-}[];
 export type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
 
 type SelectTriggerProps = PropsOf<'button'>;
-export type DisabledArr = Array<{ disabled: boolean }>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
   const openKeys = ['ArrowUp', 'ArrowDown'];
@@ -30,17 +24,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const handleKeyDown$ = $((e: KeyboardEvent) => {
     const shouldOpen = !context.isListboxOpenSig.value && openKeys.includes(e.key);
     const shouldClose = context.isListboxOpenSig.value && closedKeys.includes(e.key);
-
-    // TODO: refactor with data grabbed from inline component
-    const options: OptionsType = context.optionRefsArray.value.map((option) => {
-      if (option.value === undefined) {
-        throw new Error('Qwik UI: internal select option is undefined');
-      }
-
-      const isDisabled = option.value.ariaDisabled === 'true';
-
-      return { element: option.value, isDisabled };
-    });
+    if (!context.options) return;
 
     if (shouldOpen) {
       context.isListboxOpenSig.value = true;
@@ -51,17 +35,20 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (e.key === 'Home') {
-      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, options);
+      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, context.options);
     }
 
     if (e.key === 'End') {
-      const lastEnabledOptionIndex = getPrevEnabledOptionIndex(options.length, options);
+      const lastEnabledOptionIndex = getPrevEnabledOptionIndex(
+        context.options.length,
+        context.options,
+      );
       context.highlightedIndexSig.value = lastEnabledOptionIndex;
     }
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
-      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, options);
+      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, context.options);
       return;
     }
 
@@ -69,14 +56,14 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       if (e.key === 'ArrowDown') {
         context.highlightedIndexSig.value = getNextEnabledOptionIndex(
           context.highlightedIndexSig.value,
-          options,
+          context.options,
         );
       }
 
       if (e.key === 'ArrowUp') {
         context.highlightedIndexSig.value = getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
-          options,
+          context.options,
         );
       }
 

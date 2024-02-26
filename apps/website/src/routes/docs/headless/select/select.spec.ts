@@ -383,6 +383,7 @@ test.describe('Keyboard Behavior', () => {
       await getTrigger().press('Enter');
 
       const value = await getValue();
+      console.log(value);
       expect(optStr).toEqual(value);
     });
 
