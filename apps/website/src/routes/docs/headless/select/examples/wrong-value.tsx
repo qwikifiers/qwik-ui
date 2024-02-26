@@ -14,7 +14,7 @@ export default component$(() => {
     <>
       <Select value="Jessi" class="relative min-w-40">
         <SelectTrigger class="w-full border-2 border-dashed border-red-400">
-          <SelectValue placeholder="Select an option" />
+          <SelectValue placeholder="wrong value placeholder" />
         </SelectTrigger>
         <SelectListbox class="absolute w-full border-2 border-dashed border-green-400 bg-slate-900 p-2">
           {usersSig.value.map((user) => (

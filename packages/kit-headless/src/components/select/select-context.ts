@@ -12,8 +12,6 @@ export type SelectContext = {
   triggerRef: Signal<HTMLButtonElement | undefined>;
   popoverRef: Signal<HTMLElement | undefined>;
   listboxRef: Signal<HTMLUListElement | undefined>;
-  optionRefsArray: Signal<Array<Signal<HTMLLIElement | undefined>>>;
-  selectedOptionRef: Signal<HTMLLIElement | null>;
 
   // core state
   options: Opt[] | undefined;

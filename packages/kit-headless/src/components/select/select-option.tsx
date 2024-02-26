@@ -35,8 +35,6 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
       throw Error('Qwik UI: Select component option cannot find its proper index.');
 
     localIndexSig.value = index;
-
-    context.optionRefsArray.value[index] = optionRef;
   });
 
   const handleClick$ = $(() => {
