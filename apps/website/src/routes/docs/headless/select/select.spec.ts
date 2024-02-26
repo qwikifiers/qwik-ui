@@ -5,7 +5,7 @@ async function setup(page: Page, selector: string) {
 
   const driver = createTestDriver(page.getByTestId(selector));
 
-  const { getListbox, getTrigger, getOptions, getValue } = driver;
+  const { getListbox, getTrigger, getOptions, getValue, openListbox } = driver;
 
   return {
     driver,
@@ -13,6 +13,7 @@ async function setup(page: Page, selector: string) {
     getTrigger,
     getOptions,
     getValue,
+    openListbox,
   };
 }
 
@@ -31,11 +32,9 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN a hero select with an open listbox 
         WHEN the trigger is clicked
         THEN close the listbox AND aria-expanded should be false`, async ({ page }) => {
-    const { getTrigger, getListbox } = await setup(page, 'select-hero-test');
+    const { getTrigger, getListbox, openListbox } = await setup(page, 'select-hero-test');
 
-    await getTrigger().click();
-    // should be open initially
-    await expect(getListbox()).toBeVisible();
+    await openListbox('click');
 
     await getTrigger().click();
     await expect(getListbox()).toBeHidden();
@@ -45,11 +44,12 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN a hero select with an open listbox 
         WHEN an option is clicked
         THEN close the listbox AND aria-expanded should be false`, async ({ page }) => {
-    const { getTrigger, getListbox, getOptions } = await setup(page, 'select-hero-test');
+    const { getTrigger, getListbox, getOptions, openListbox } = await setup(
+      page,
+      'select-hero-test',
+    );
 
-    await getTrigger().click();
-    // should be open initially
-    await expect(getListbox()).toBeVisible();
+    await openListbox('click');
 
     const options = await getOptions();
     options[0].click();
@@ -61,11 +61,9 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN a hero select with an open listbox 
         WHEN the 2nd option is clicked
         THEN the 2nd option should have aria-selected`, async ({ page }) => {
-    const { getTrigger, getListbox, getOptions } = await setup(page, 'select-hero-test');
+    const { getOptions, openListbox } = await setup(page, 'select-hero-test');
 
-    await getTrigger().click();
-    // should be open initially
-    await expect(getListbox()).toBeVisible();
+    await openListbox('click');
 
     const options = await getOptions();
     options[1].click();
@@ -76,14 +74,9 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN a hero select with an open listbox 
         WHEN the 3rd option is clicked
         THEN the 3rd option should be the selected value`, async ({ page }) => {
-    const { getTrigger, getListbox, getOptions, getValue } = await setup(
-      page,
-      'select-hero-test',
-    );
+    const { getOptions, getValue, openListbox } = await setup(page, 'select-hero-test');
 
-    await getTrigger().click();
-    // should be open initially
-    await expect(getListbox()).toBeVisible();
+    await openListbox('click');
 
     const options = await getOptions();
     await options[2].click();
@@ -110,11 +103,12 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN a hero select with an open listbox
     WHEN focusing the trigger and hitting enter
     THEN close the listbox AND aria-expanded should be false`, async ({ page }) => {
-      const { getTrigger, getListbox } = await setup(page, 'select-hero-test');
+      const { getTrigger, getListbox, openListbox } = await setup(
+        page,
+        'select-hero-test',
+      );
 
-      await getTrigger().click();
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('click');
 
       await getTrigger().focus();
       await getTrigger().press('Enter');
@@ -137,12 +131,12 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN a hero select with an open listbox
         WHEN pressing the space key
         THEN close listbox AND aria-expanded should be false`, async ({ page }) => {
-      const { getTrigger, getListbox } = await setup(page, 'select-hero-test');
+      const { getTrigger, getListbox, openListbox } = await setup(
+        page,
+        'select-hero-test',
+      );
 
-      await getTrigger().focus();
-      await getTrigger().press('Space');
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('Space');
 
       await getTrigger().focus();
       await getTrigger().press('Space');
@@ -164,11 +158,12 @@ test.describe('Keyboard Behavior', () => {
         WHEN pressing the escape key
         THEN the listbox should close 
         AND aria-expanded should be false`, async ({ page }) => {
-      const { getTrigger, getListbox } = await setup(page, 'select-hero-test');
+      const { getTrigger, getListbox, openListbox } = await setup(
+        page,
+        'select-hero-test',
+      );
 
-      await getTrigger().click();
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('click');
 
       await getTrigger().focus();
       await getTrigger().press('Escape');
@@ -249,14 +244,12 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN an open hero select
         WHEN pressing the end key
         THEN the last option should have data-highlighted`, async ({ page }) => {
-      const { getTrigger, getListbox, getOptions } = await setup(
+      const { getTrigger, getOptions, openListbox } = await setup(
         page,
         'select-hero-test',
       );
 
-      await getTrigger().click();
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('click');
 
       await getTrigger().focus();
       await getTrigger().press('End');
@@ -269,14 +262,12 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN an open hero select
         WHEN pressing the home key after the end key
         THEN the first option should have data-highlighted`, async ({ page }) => {
-      const { getTrigger, getListbox, getOptions } = await setup(
+      const { getTrigger, getOptions, openListbox } = await setup(
         page,
         'select-hero-test',
       );
 
-      await getTrigger().click();
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('click');
 
       // to last index
       await getTrigger().focus();
@@ -293,15 +284,12 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN an open hero select
   WHEN the first option is highlighted and the down arrow key is pressed
   THEN the second option should have data-highlighted`, async ({ page }) => {
-      const { getTrigger, getListbox, getOptions } = await setup(
+      const { getTrigger, getOptions, openListbox } = await setup(
         page,
         'select-hero-test',
       );
 
-      await getTrigger().focus();
-      await getTrigger().press('Enter');
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('Enter');
 
       // first index highlighted
       const options = await getOptions();
@@ -315,15 +303,12 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN an open hero select
   WHEN the third option is highlighted and the up arrow key is pressed
   THEN the second option should have data-highlighted`, async ({ page }) => {
-      const { getTrigger, getListbox, getOptions } = await setup(
+      const { getTrigger, getOptions, openListbox } = await setup(
         page,
         'select-hero-test',
       );
 
-      await getTrigger().focus();
-      await getTrigger().press('Enter');
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('Enter');
 
       const options = await getOptions();
       await expect(options[0]).toHaveAttribute('data-highlighted');
@@ -339,15 +324,12 @@ test.describe('Keyboard Behavior', () => {
           THEN the data-highlighted option should not change on re-open`, async ({
       page,
     }) => {
-      const { getTrigger, getListbox, getOptions } = await setup(
+      const { getTrigger, getListbox, getOptions, openListbox } = await setup(
         page,
         'select-hero-test',
       );
 
-      await getTrigger().focus();
-      await getTrigger().press('Enter');
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('Enter');
 
       // second option highlighted
       const options = await getOptions();
@@ -368,15 +350,12 @@ test.describe('Keyboard Behavior', () => {
           THEN the listbox should be closed and aria-expanded false`, async ({
       page,
     }) => {
-      const { getTrigger, getListbox, getOptions } = await setup(
+      const { getTrigger, getListbox, getOptions, openListbox } = await setup(
         page,
         'select-hero-test',
       );
 
-      await getTrigger().focus();
-      await getTrigger().press('Enter');
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('Enter');
 
       const options = await getOptions();
       await expect(options[0]).toHaveAttribute('data-highlighted');
@@ -390,15 +369,12 @@ test.describe('Keyboard Behavior', () => {
           AND the Enter key is pressed
           THEN option value should be the selected value
           AND should have an aria-selected of true`, async ({ page }) => {
-      const { getTrigger, getListbox, getOptions, getValue } = await setup(
+      const { getTrigger, getOptions, getValue, openListbox } = await setup(
         page,
         'select-hero-test',
       );
 
-      await getTrigger().focus();
-      await getTrigger().press('Enter');
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('Enter');
 
       const options = await getOptions();
       await expect(options[0]).toHaveAttribute('data-highlighted');
@@ -416,15 +392,12 @@ test.describe('Keyboard Behavior', () => {
           THEN the listbox should be closed and aria-expanded false`, async ({
       page,
     }) => {
-      const { getTrigger, getListbox, getOptions } = await setup(
+      const { getTrigger, getListbox, getOptions, openListbox } = await setup(
         page,
         'select-hero-test',
       );
 
-      await getTrigger().focus();
-      await getTrigger().press('Space');
-      // should be open initially
-      await expect(getListbox()).toBeVisible();
+      await openListbox('Space');
 
       // second option highlighted
       const options = await getOptions();
@@ -440,15 +413,12 @@ test.describe('Disabled', () => {
   test(`GIVEN an open disabled select with the first option disabled
         WHEN clicking the disabled option
         It should have aria-disabled`, async ({ page }) => {
-    const { getTrigger, getListbox, getOptions } = await setup(
+    const { getTrigger, getOptions, openListbox } = await setup(
       page,
       'select-disabled-test',
     );
 
-    await getTrigger().focus();
-    await getTrigger().press('Enter');
-    // should be open initially
-    await expect(getListbox()).toBeVisible();
+    await openListbox('Enter');
 
     await getTrigger().focus();
     await getTrigger().press('ArrowDown');
@@ -459,15 +429,12 @@ test.describe('Disabled', () => {
   test(`GIVEN an open disabled select with the first option disabled
         WHEN clicking the disabled option
         THEN the listbox should stay open`, async ({ page }) => {
-    const { getTrigger, getListbox, getOptions } = await setup(
+    const { getListbox, getOptions, openListbox } = await setup(
       page,
       'select-disabled-test',
     );
 
-    await getTrigger().focus();
-    await getTrigger().press('Enter');
-    // should be open initially
-    await expect(getListbox()).toBeVisible();
+    await openListbox('Enter');
 
     const options = await getOptions();
     // eslint-disable-next-line playwright/no-force-option
@@ -478,15 +445,9 @@ test.describe('Disabled', () => {
   test(`GIVEN an open disabled select
         WHEN first option is disabled
         THEN the second option should have data-highlighted`, async ({ page }) => {
-    const { getTrigger, getListbox, getOptions } = await setup(
-      page,
-      'select-disabled-test',
-    );
+    const { getOptions, openListbox } = await setup(page, 'select-disabled-test');
 
-    await getTrigger().focus();
-    await getTrigger().press('ArrowDown');
-    // should be open initially
-    await expect(getListbox()).toBeVisible();
+    await openListbox('ArrowDown');
     const options = await getOptions();
     await expect(options[1]).toHaveAttribute('data-highlighted');
   });
@@ -494,15 +455,12 @@ test.describe('Disabled', () => {
   test(`GIVEN an open disabled select
         WHEN the last option is disabled and the end key is pressed
         THEN the second last index should have data-highlighted`, async ({ page }) => {
-    const { getTrigger, getListbox, getOptions } = await setup(
+    const { getTrigger, getOptions, openListbox } = await setup(
       page,
       'select-disabled-test',
     );
 
-    await getTrigger().focus();
-    await getTrigger().press('ArrowDown');
-    // should be open initially
-    await expect(getListbox()).toBeVisible();
+    await openListbox('ArrowDown');
     await getTrigger().press('End');
     const options = await getOptions();
     await expect(options[options.length - 2]).toHaveAttribute('data-highlighted');

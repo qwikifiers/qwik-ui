@@ -6,6 +6,7 @@ export type OptionsType = {
   element: HTMLLIElement;
   isDisabled: boolean;
 }[];
+export type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
 
 type SelectTriggerProps = PropsOf<'button'>;
 export type DisabledArr = Array<{ disabled: boolean }>;

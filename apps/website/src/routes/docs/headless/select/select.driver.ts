@@ -1,5 +1,5 @@
-import { Locator, Page } from '@playwright/test';
-
+import { Locator, Page, expect } from '@playwright/test';
+import { type OpenKeys } from '@qwik-ui/headless';
 export type DriverLocator = Locator | Page;
 
 export function createTestDriver<T extends DriverLocator>(locator: T) {
@@ -23,6 +23,19 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     return getTrigger().locator('[data-value]').textContent();
   };
 
+  const openListbox = async (key: OpenKeys | 'click') => {
+    await getTrigger().focus();
+
+    if (key !== 'click') {
+      await getTrigger().press(key);
+    } else {
+      await getTrigger().click();
+    }
+
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+  };
+
   return {
     ...locator,
     locator,
@@ -31,5 +44,6 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     getListbox,
     getOptions,
     getValue,
+    openListbox,
   };
 }
