@@ -7,19 +7,29 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     return locator.getByRole('combobox');
   };
 
+  const getTrigger = () => {
+    return getRoot().getByRole('button');
+  };
+
+  const getListbox = () => {
+    return getRoot().getByRole('listbox');
+  };
+
+  const getOptions = () => {
+    return getRoot().getByRole('option', { includeHidden: true }).all();
+  };
+
+  const getValue = () => {
+    return getTrigger().locator('[data-value]').textContent();
+  };
+
   return {
     ...locator,
     locator,
     getRoot,
-    getListbox() {
-      return getRoot().getByRole('listbox');
-    },
-    getTrigger() {
-      return getRoot().getByRole('button');
-    },
-    // get all options
-    getOptions() {
-      return getRoot().getByRole('option').all();
-    },
+    getTrigger,
+    getListbox,
+    getOptions,
+    getValue,
   };
 }

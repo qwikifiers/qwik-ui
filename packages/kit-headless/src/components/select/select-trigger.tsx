@@ -1,4 +1,4 @@
-import { component$, type PropsOf, useContext, sync$, $ } from '@builder.io/qwik';
+import { component$, type PropsOf, useContext, sync$, $, Slot } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from './utils';
 
@@ -77,6 +77,11 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
           options,
         );
       }
+
+      // select options
+      if (e.key === 'Enter' || e.key === ' ') {
+        context.selectedIndexSig.value = context.highlightedIndexSig.value;
+      }
     }
   });
 
@@ -90,7 +95,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}
     >
-      {context.selectedOptionRef.value?.textContent ?? 'Select an option'}
+      <Slot />
     </button>
   );
 });

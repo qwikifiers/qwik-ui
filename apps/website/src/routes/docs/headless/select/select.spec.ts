@@ -5,13 +5,14 @@ async function setup(page: Page, selector: string) {
 
   const driver = createTestDriver(page.getByTestId(selector));
 
-  const { getListbox, getTrigger, getOptions } = driver;
+  const { getListbox, getTrigger, getOptions, getValue } = driver;
 
   return {
     driver,
     getListbox,
     getTrigger,
     getOptions,
+    getValue,
   };
 }
 
@@ -39,6 +40,56 @@ test.describe('Mouse Behavior', () => {
     await getTrigger().click();
     await expect(getListbox()).toBeHidden();
     await expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test(`GIVEN a hero select with an open listbox 
+        WHEN an option is clicked
+        THEN close the listbox AND aria-expanded should be false`, async ({ page }) => {
+    const { getTrigger, getListbox, getOptions } = await setup(page, 'select-hero-test');
+
+    await getTrigger().click();
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+
+    const options = await getOptions();
+    options[0].click();
+
+    await expect(getListbox()).toBeHidden();
+    await expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test(`GIVEN a hero select with an open listbox 
+        WHEN the 2nd option is clicked
+        THEN the 2nd option should have aria-selected`, async ({ page }) => {
+    const { getTrigger, getListbox, getOptions } = await setup(page, 'select-hero-test');
+
+    await getTrigger().click();
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+
+    const options = await getOptions();
+    options[1].click();
+
+    await expect(options[1]).toHaveAttribute('aria-selected', 'true');
+  });
+
+  test(`GIVEN a hero select with an open listbox 
+        WHEN the 3rd option is clicked
+        THEN the 3rd option should be the selected value`, async ({ page }) => {
+    const { getTrigger, getListbox, getOptions, getValue } = await setup(
+      page,
+      'select-hero-test',
+    );
+
+    await getTrigger().click();
+    // should be open initially
+    await expect(getListbox()).toBeVisible();
+
+    const options = await getOptions();
+    await options[2].click();
+
+    await expect(options[2]).toHaveAttribute('aria-selected', 'true');
+    expect(options[2].textContent()).toEqual(getValue());
   });
 });
 
@@ -274,7 +325,6 @@ test.describe('Keyboard Behavior', () => {
       // should be open initially
       await expect(getListbox()).toBeVisible();
 
-      // third option highlighted
       const options = await getOptions();
       await expect(options[0]).toHaveAttribute('data-highlighted');
       await getTrigger().press('ArrowDown');
@@ -284,10 +334,9 @@ test.describe('Keyboard Behavior', () => {
       await expect(options[1]).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an open hero select
-        WHEN the listbox is closed with a chosen option 
-        AND the down arrow key is pressed
-        THEN the data-highlighted option should not change on re-open`, async ({
+    test(`GIVEN a hero select with a chosen option
+          AND the down arrow key is pressed
+          THEN the data-highlighted option should not change on re-open`, async ({
       page,
     }) => {
       const { getTrigger, getListbox, getOptions } = await setup(
@@ -311,9 +360,83 @@ test.describe('Keyboard Behavior', () => {
       await expect(options[1]).toHaveAttribute('data-highlighted');
     });
   });
+
+  test.describe('selecting options', () => {
+    test(`GIVEN an open hero select
+          WHEN an option has data-highlighted
+          AND the Enter key is pressed
+          THEN the listbox should be closed and aria-expanded false`, async ({
+      page,
+    }) => {
+      const { getTrigger, getListbox, getOptions } = await setup(
+        page,
+        'select-hero-test',
+      );
+
+      await getTrigger().focus();
+      await getTrigger().press('Enter');
+      // should be open initially
+      await expect(getListbox()).toBeVisible();
+
+      const options = await getOptions();
+      await expect(options[0]).toHaveAttribute('data-highlighted');
+      await getTrigger().press('Enter');
+      await expect(getListbox()).toBeHidden();
+      await expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    test(`GIVEN an open hero select
+          WHEN an option has data-highlighted
+          AND the Enter key is pressed
+          THEN option value should be the selected value
+          AND should have an aria-selected of true`, async ({ page }) => {
+      const { getTrigger, getListbox, getOptions, getValue } = await setup(
+        page,
+        'select-hero-test',
+      );
+
+      await getTrigger().focus();
+      await getTrigger().press('Enter');
+      // should be open initially
+      await expect(getListbox()).toBeVisible();
+
+      const options = await getOptions();
+      await expect(options[0]).toHaveAttribute('data-highlighted');
+      const optStr = await options[0].textContent();
+      await getTrigger().press('Enter');
+
+      console.log(optStr);
+      console.log(await getValue());
+      expect(optStr).toEqual(await getValue());
+    });
+
+    test(`GIVEN an open hero select
+          WHEN an option has data-highlighted
+          AND the Space key is pressed
+          THEN the listbox should be closed and aria-expanded false`, async ({
+      page,
+    }) => {
+      const { getTrigger, getListbox, getOptions } = await setup(
+        page,
+        'select-hero-test',
+      );
+
+      await getTrigger().focus();
+      await getTrigger().press('Space');
+      // should be open initially
+      await expect(getListbox()).toBeVisible();
+
+      // second option highlighted
+      const options = await getOptions();
+      await expect(options[0]).toHaveAttribute('data-highlighted');
+      await getTrigger().press('Space');
+      await expect(getListbox()).toBeHidden();
+      await expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
+    });
+  });
 });
 
-test.describe('disabled', () => {
+test.describe('Disabled', () => {
   test(`GIVEN an open disabled select with the first option disabled
         WHEN clicking the disabled option
         It should have aria-disabled`, async ({ page }) => {
