@@ -14,7 +14,7 @@ export type Opt = {
 */
 export const Select: FunctionComponent<SelectProps> = (props) => {
   const { children: myChildren, ...rest } = props;
-  let valuePropIndex = 0;
+  let valuePropIndex = null;
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
   ) as Array<JSXNode>;
@@ -74,7 +74,8 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
     }
   }
   const isDisabledArr = opts.map((opt) => opt.isDisabled);
-  if (isDisabledArr[valuePropIndex] === true) {
+
+  if (valuePropIndex !== null && isDisabledArr[valuePropIndex] === true) {
     valuePropIndex = isDisabledArr.findIndex((isDisabled) => isDisabled === false);
     if (valuePropIndex === -1) {
       throw new Error(

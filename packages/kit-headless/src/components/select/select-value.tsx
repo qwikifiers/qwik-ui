@@ -10,10 +10,14 @@ export const SelectValue = component$((props: SelectValueProps) => {
   const context = useContext(SelectContextId);
   if (!context.options) return;
 
-  const selectedOptStr = context.options[context.selectedIndexSig.value!].value;
+  const selectedOptStr =
+    context.selectedIndexSig.value !== null
+      ? context.options[context.selectedIndexSig.value].value
+      : props.placeholder;
+
   return (
     <span data-value {...props}>
-      {selectedOptStr ?? context.value ?? props.placeholder}
+      {selectedOptStr}
     </span>
   );
 });
