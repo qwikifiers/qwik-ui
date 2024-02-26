@@ -8,6 +8,12 @@
       "files": ["accordion.tsx"]
     },
     {
+      "displayName": "Avatar",
+      "type": "avatar",
+      "componentFolder": "avatar",
+      "files": ["avatar.tsx"]
+    },
+    {
       "displayName": "Alert",
       "type": "alert",
       "componentFolder": "alert",

@@ -9,6 +9,7 @@
 ## Components
 
 - [Accordion](/docs/styled/accordion)
+- [Avatar](/docs/styled/avatar)
 - [Alert](/docs/styled/alert)
 - [Badge](/docs/styled/badge)
 - [Button](/docs/styled/button)
