@@ -20,7 +20,12 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
   };
 
   const getValue = async () => {
-    return await getTrigger().locator('[data-value]').textContent();
+    // annoyingly, it seems we need to check if the listbox is hidden in playwright, or else the value does not update
+    await expect(getListbox()).toBeHidden();
+
+    return await getTrigger()
+      .locator('[data-value]', { includeHidden: true })
+      .textContent();
   };
 
   const openListbox = async (key: OpenKeys | 'click') => {

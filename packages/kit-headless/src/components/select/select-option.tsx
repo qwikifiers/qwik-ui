@@ -6,6 +6,7 @@ import {
   useTask$,
   useSignal,
   $,
+  useComputed$,
 } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 
@@ -21,8 +22,13 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const optionRef = useSignal<HTMLLIElement>();
   const localIndexSig = useSignal<number | null>(null);
 
-  const isHighlighted = !disabled && context.highlightedIndexSig.value === index;
-  const isSelected = !disabled && context.selectedIndexSig.value === index;
+  const isSelectedSig = useComputed$(() => {
+    return !disabled && context.selectedIndexSig.value === index;
+  });
+
+  const isHighlightedSig = useComputed$(() => {
+    return !disabled && context.highlightedIndexSig.value === index;
+  });
 
   useTask$(function getIndexTask() {
     if (index === undefined)
@@ -55,10 +61,10 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
       onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
       ref={optionRef}
       tabIndex={-1}
-      aria-selected={isSelected}
+      aria-selected={isSelectedSig.value}
       aria-disabled={disabled === true ? 'true' : 'false'}
-      data-selected={isSelected ? '' : undefined}
-      data-highlighted={isHighlighted ? '' : undefined}
+      data-selected={isSelectedSig.value ? '' : undefined}
+      data-highlighted={isHighlightedSig.value ? '' : undefined}
       data-disabled={disabled ? '' : undefined}
       role="option"
     >

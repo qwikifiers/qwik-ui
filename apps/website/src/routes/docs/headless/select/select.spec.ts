@@ -370,7 +370,7 @@ test.describe('Keyboard Behavior', () => {
           AND the Enter key is pressed
           THEN option value should be the selected value
           AND should have an aria-selected of true`, async ({ page }) => {
-      const { getTrigger, getOptions, getValue, getListbox, openListbox } = await setup(
+      const { getTrigger, getOptions, getValue, openListbox } = await setup(
         page,
         'select-hero-test',
       );
@@ -382,8 +382,6 @@ test.describe('Keyboard Behavior', () => {
       const optStr = await options[0].textContent();
       await getTrigger().press('Enter');
 
-      // seems we need to await for the listbox to be hidden, otherwise the getValue does not update. ¯\_(ツ)_/¯
-      await expect(getListbox()).toBeHidden();
       const value = await getValue();
       expect(optStr).toEqual(value);
     });
@@ -487,4 +485,38 @@ test.describe('Disabled', () => {
     const options = await getOptions();
     await expect(options[options.length - 2]).toHaveAttribute('data-highlighted');
   });
+});
+
+test.describe('Props', () => {
+  test(`GIVEN a basic select
+        WHEN there is a placeholder
+        THEN the placeholder should be presented instead of a selected value`, async ({
+    page,
+  }) => {
+    const { getValue } = await setup(page, 'select-hero-test');
+
+    await expect(await getValue()).toEqual('Select an option');
+  });
+
+  test(`GIVEN an uncontrolled select with a value prop on the root component
+        WHEN the value data matches the fourth option
+        THEN the selected value should be the data passed to the value prop`, async ({
+    page,
+  }) => {
+    const { getValue } = await setup(page, 'select-uncontrolled-test');
+
+    await expect(await getValue()).toEqual('Jessie');
+  });
+
+  // test(`GIVEN an uncontrolled select with a value prop on the root component
+  //       WHEN the value data matches the fourth option
+  //       THEN the fourth option should have aria-selected set to true`, async ({
+  //   page,
+  // }) => {
+  //   const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
+
+  //   await expect(await getValue()).toEqual('Jessie');
+  //   const options = await getOptions();
+  //   await expect(await options[3]).toBeSelected();
+  // });
 });

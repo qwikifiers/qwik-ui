@@ -9,6 +9,7 @@ import { SelectOption } from './select-option';
 */
 export const Select: FunctionComponent<SelectProps> = (props) => {
   const { children: myChildren, ...rest } = props;
+  let valuePropIndex = 0;
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
@@ -45,9 +46,17 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
       }
       case SelectOption: {
         child.props.index = currentIndex;
+        if (child.props.children === props.value) {
+          valuePropIndex = currentIndex;
+        }
+
         currentIndex++;
       }
     }
   }
-  return <SelectImpl {...rest}>{props.children}</SelectImpl>;
+  return (
+    <SelectImpl {...rest} valuePropIndex={valuePropIndex}>
+      {props.children}
+    </SelectImpl>
+  );
 };

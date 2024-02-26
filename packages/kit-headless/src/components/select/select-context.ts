@@ -18,4 +18,5 @@ export type SelectContext = {
   highlightedIndexSig: Signal<number | null>;
   isListboxOpenSig: Signal<boolean>;
   selectedIndexSig: Signal<number | null>;
+  value: string | undefined;
 };

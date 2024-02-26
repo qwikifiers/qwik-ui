@@ -2,15 +2,17 @@ import { component$, useContext, type PropsOf } from '@builder.io/qwik';
 
 import SelectContextId from './select-context';
 
-type SelectValueProps = PropsOf<'span'>;
+type SelectValueProps = PropsOf<'span'> & {
+  placeholder: string;
+};
 
 export const SelectValue = component$((props: SelectValueProps) => {
   const context = useContext(SelectContextId);
-  context;
+  const selectedOptStr = context.selectedOptionRef.value?.textContent;
 
   return (
     <span data-value {...props}>
-      {context.selectedOptionRef.value?.textContent ?? 'Select an option'}
+      {selectedOptStr ?? context.value ?? props.placeholder}
     </span>
   );
 });

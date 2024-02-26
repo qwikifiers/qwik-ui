@@ -62,6 +62,10 @@ What do they all have in common? How do people use them? What are the most impor
 
     ### Behavior
 
+    name: placeholder
+    type: string
+    description: sets a placeholder instead of a selected value.
+
     name: disabled
     type: boolean
     description: When true, the option is disabled.

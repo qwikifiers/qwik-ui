@@ -10,7 +10,12 @@ import {
 import { type SelectContext } from './select-context';
 import SelectContextId from './select-context';
 
-export type SelectProps = PropsOf<'div'>;
+export type SelectProps = PropsOf<'div'> & {
+  value?: string;
+
+  // when a value is passed, we check if it's an actual option value, and get its index at pre-render time.
+  valuePropIndex: number;
+};
 
 /* root component in select-inline.tsx */
 export const SelectImpl = component$<SelectProps>((props) => {
@@ -20,12 +25,13 @@ export const SelectImpl = component$<SelectProps>((props) => {
   const popoverRef = useSignal<HTMLElement>();
   const listboxRef = useSignal<HTMLUListElement>();
   const optionRefsArray = useSignal<Signal<HTMLLIElement>[]>([]);
+  const value = props.value;
 
   // core state
   const selectedIndexSig = useSignal<number | null>(null);
   const selectedOptionRef = useSignal<HTMLLIElement | null>(null);
   const isListboxOpenSig = useSignal<boolean>(false);
-  const highlightedIndexSig = useSignal<number | null>(null);
+  const highlightedIndexSig = useSignal<number | null>(props.valuePropIndex);
 
   useTask$(function deriveSelectedRef({ track }) {
     track(() => selectedIndexSig.value);
@@ -44,6 +50,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
     highlightedIndexSig,
     isListboxOpenSig,
     selectedIndexSig,
+    value,
   };
 
   useContextProvider(SelectContextId, context);
