@@ -30,7 +30,6 @@
     "story.build.headless": "nx build-storybook headless",
     "story.headless": "nx storybook headless",
     "test.cli": "nx test cli",
-    "test.utils": "nx test utils",
     "test.headless": "nx component-test headless",
     "test.headless.ci": "nx component-test-ci headless",
     "test.utils": "nx test utils"
