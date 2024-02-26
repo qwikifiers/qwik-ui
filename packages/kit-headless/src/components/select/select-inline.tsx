@@ -84,13 +84,6 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
     }
   }
 
-  // const isMatch = opts[valuePropIndex].value === props.value;
-
-  // if (!isMatch && props.value) {
-  //   const obj = opts[valuePropIndex];
-  //   obj.value = '';
-  //   opts[valuePropIndex] = obj;
-  // }
   return (
     <SelectImpl {...rest} _valuePropIndex={valuePropIndex} _options={opts}>
       {props.children}
