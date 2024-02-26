@@ -11,7 +11,7 @@ export default component$(() => {
   const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
 
   return (
-    <Select value="Jessi" class="relative min-w-40">
+    <Select value="Jessie" class="relative min-w-40">
       <SelectTrigger class="w-full border-2 border-dashed border-red-400">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
