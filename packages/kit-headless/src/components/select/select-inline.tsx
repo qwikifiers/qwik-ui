@@ -84,7 +84,7 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
   }
 
   return (
-    <SelectImpl {...rest} _valuePropIndex={valuePropIndex}>
+    <SelectImpl {...rest} _valuePropIndex={valuePropIndex} _options={opts}>
       {props.children}
     </SelectImpl>
   );

@@ -1,6 +1,6 @@
-import { OptionsType } from './select-trigger';
+import { type Opt } from './select-inline';
 
-export const getNextEnabledOptionIndex = (index: number, options: OptionsType) => {
+export const getNextEnabledOptionIndex = (index: number, options: Opt[]) => {
   let offset = 1;
   let currentIndex = index;
   const opts = options;
@@ -21,7 +21,7 @@ export const getNextEnabledOptionIndex = (index: number, options: OptionsType) =
   return (currentIndex + offset) % len;
 };
 
-export const getPrevEnabledOptionIndex = (index: number, options: OptionsType) => {
+export const getPrevEnabledOptionIndex = (index: number, options: Opt[]) => {
   let offset = 1;
   let currentIndex = index;
   const opts = options;
