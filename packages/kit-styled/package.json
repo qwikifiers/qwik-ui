@@ -5,10 +5,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./index.qwik.cjs",
-  "qwik": "./index.qwik.mjs",
+  "main": "./src/index.ts",
   "types": "./packages/kit-styled/src/index.d.ts",
-  "module": "./index.qwik.mjs",
   "generators": "./generators.json",
   "type": "module",
   "engines": {
@@ -32,7 +30,7 @@
   "peerDependencies": {
     "@builder.io/qwik": "^1.1.0"
   },
-  "dependencies": {
+  "devDependencies": {
     "@qwik-ui/headless": "0.2.1",
     "@qwik-ui/utils": "0.2.0"
   }

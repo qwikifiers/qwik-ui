@@ -32,6 +32,8 @@ import {
 const COMMANDS = ['init', 'add'];
 const listOfCommands = COMMANDS.join(', ');
 const styledPackage = '@qwik-ui/styled';
+const headlessPackage = '@qwik-ui/headless';
+const utilsPackage = '@qwik-ui/utils';
 
 main();
 
@@ -132,7 +134,7 @@ async function handleInit() {
   if (!config.projectRoot) {
     config.projectRoot = cancelable(
       await text({
-        message: 'Specify the root of the project (leave empty for "/")',
+        message: cyan('Specify the root of the project (leave empty for "/")'),
         initialValue: '/',
       }),
     );
@@ -316,10 +318,15 @@ async function handleInit() {
 
   const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
-  log.info(`Installing ${styledPackage}...`);
-  execSync(`${getPackageManagerCommand().addDev} ${styledPackage}@${packageTag}`, {
-    stdio: 'inherit',
-  });
+  log.info(`Installing ${styledPackage}, ${headlessPackage} and ${utilsPackage}...`);
+  execSync(
+    `${
+      getPackageManagerCommand().addDev
+    } ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag}`,
+    {
+      stdio: 'inherit',
+    },
+  );
 
   // SETUP TAILWIND
   execSync(
