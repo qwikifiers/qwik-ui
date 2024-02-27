@@ -11,14 +11,13 @@ export default component$(() => {
   useStyles$(`
     .make-it-yours::backdrop {
       background: rgba(0,0,0,0.02);
-
     }
   
-    .make-it-yours.modal-showing {
+    .make-it-yours {
       animation: sheetOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
   
-    .make-it-yours.modal-showing::backdrop {
+    .make-it-yours::backdrop {
       animation: sheetFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
   

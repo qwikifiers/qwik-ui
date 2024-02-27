@@ -8,11 +8,11 @@ export default component$(() => {
       background: hsla(0, 0%, 0%, 0.5);
     }
 
-    .bottom-sheet.modal-showing {
+    .bottom-sheet {
       animation: bottomSheetOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
 
-    .bottom-sheet.modal-showing::backdrop {
+    .bottom-sheet::backdrop {
       animation: sheetFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
 

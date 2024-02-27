@@ -35,11 +35,11 @@ export default component$(({ showVersion = false }: HeaderProps) => {
       background: rgba(0,0,0,0.02);
     }
   
-    .sidebar-mobile.modal-showing {
+    .sidebar-mobile {
       animation: sidebarOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
   
-    .sidebar-mobile.modal-showing::backdrop {
+    .sidebar-mobile::backdrop {
       animation: sidebarFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
   

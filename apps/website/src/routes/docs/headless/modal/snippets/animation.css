@@ -2,11 +2,11 @@
   background: hsla(0, 0%, 0%, 0.5);
 }
 
-.my-animation.modal-showing {
+.my-animation {
   animation: modalOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
-.my-animation.modal-showing::backdrop {
+.my-animation::backdrop {
   animation: modalFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
