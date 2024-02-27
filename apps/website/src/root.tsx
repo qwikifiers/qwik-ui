@@ -30,7 +30,8 @@ export default component$(() => {
 
   const appState = useStore<AppState>({
     featureFlags: {
-      showStyled: import.meta.env.DEV,
+      // showStyled: import.meta.env.DEV,
+      showStyled: true,
     },
   });
 
