@@ -204,7 +204,7 @@ importers:
         specifier: 4.0.1
         version: 4.0.1
       clsx:
-        specifier: 2.0.0
+        specifier: ^2.0.0
         version: 2.0.0
       commitizen:
         specifier: ^4.3.0
@@ -300,7 +300,7 @@ importers:
         specifier: ^1.0.8
         version: 1.1.1(@swc-node/register@1.6.8)(@swc/core@1.3.103)(@types/node@20.11.20)(eslint@8.48.0)(nx@17.1.3)(typescript@5.3.3)(verdaccio@5.29.0)(vite@5.0.4)(vitest@0.34.6)
       qwik-themes:
-        specifier: 0.2.0
+        specifier: ^0.2.0
         version: 0.2.0
       react:
         specifier: 18.2.0
@@ -318,7 +318,7 @@ importers:
         specifier: 0.9.18
         version: 0.9.18
       specificity:
-        specifier: 1.0.0
+        specifier: ^1.0.0
         version: 1.0.0
       storybook:
         specifier: ^7.4.0
@@ -433,7 +433,20 @@ importers:
         specifier: 0.2.1
         version: link:../utils
 
-  packages/utils: {}
+  packages/utils:
+    dependencies:
+      clsx:
+        specifier: ^2.0.0
+        version: 2.0.0
+      qwik-themes:
+        specifier: ^0.2.0
+        version: 0.2.0
+      specificity:
+        specifier: ^1.0.0
+        version: 1.0.0
+      tailwind-merge:
+        specifier: ^1.14.0
+        version: 1.14.0
 
 packages:
 
@@ -10911,7 +10924,6 @@ packages:
   /clsx@2.0.0:
     resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
     engines: {node: '>=6'}
-    dev: true
 
   /co@4.6.0:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
@@ -11520,7 +11532,6 @@ packages:
     dependencies:
       mdn-data: 2.0.30
       source-map-js: 1.0.2
-    dev: true
 
   /css-what@6.1.0:
     resolution: {integrity: sha512-HTUrgRJ7r4dsZKU6GjmpfRK1O76h97Z8MfS1G0FozR+oF2kG6Vfe8JE6zwrkbxigziPHinCJ+gCPjA9EaBDtRw==}
@@ -17007,7 +17018,6 @@ packages:
 
   /mdn-data@2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
-    dev: true
 
   /media-typer@0.3.0:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
@@ -19316,7 +19326,6 @@ packages:
   /qwik-themes@0.2.0:
     resolution: {integrity: sha512-lwqDGD6Z+IpX/vOJh2SuzWBmafYM4+6cbASGJNkdfR6jfaCJm6iKvHRGrom0xDvdTO3G9w+rnaSkN0hrkSL69w==}
     engines: {node: '>=18.0.0'}
-    dev: true
 
   /ramda@0.29.0:
     resolution: {integrity: sha512-BBea6L67bYLtdbOqfp8f58fPMqEwx0doL+pAi8TZyp2YWz8R9G8z9x75CZI8W+ftqhFHCpEX2cRnUUXK130iKA==}
@@ -20512,7 +20521,6 @@ packages:
     resolution: {integrity: sha512-nCtHb5/MTfZ1D36EpLLz03AcUf1v+PxWFFieW4O721MaJUo/anSMckB94Ylj5VQPrjdlx+4BXcKD+s1N0yT+ww==}
     dependencies:
       css-tree: 2.3.1
-    dev: true
 
   /split-on-first@1.1.0:
     resolution: {integrity: sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==}
@@ -20941,7 +20949,6 @@ packages:
 
   /tailwind-merge@1.14.0:
     resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
-    dev: true
 
   /tailwindcss-animate@1.0.7(tailwindcss@3.4.1):
     resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}

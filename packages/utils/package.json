@@ -5,6 +5,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "tailwind-merge": "^1.14.0",
+    "clsx": "^2.0.0",
+    "specificity": "^1.0.0",
+    "qwik-themes": "^0.2.0"
+  },
   "type": "module",
   "exports": {
     ".": {
