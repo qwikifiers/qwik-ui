@@ -84,6 +84,17 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
     }
   }
 
+  // console warning if a consumer's passed in value does not match an option
+  if (props.value) {
+    const valueMatch = opts.some((opt) => opt.value === props.value);
+
+    if (!valueMatch) {
+      console.error(
+        `Qwik UI: the provided option value "${props.value}" does not match any of the option values in the Select.`,
+      );
+    }
+  }
+
   return (
     <SelectImpl {...rest} _valuePropIndex={valuePropIndex} _options={opts}>
       {props.children}
