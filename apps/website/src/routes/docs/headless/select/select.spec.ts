@@ -171,6 +171,21 @@ test.describe('Keyboard Behavior', () => {
       await expect(getListbox()).toBeHidden();
       await expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
+
+    test(`GIVEN a hero select with an opened listbox
+          WHEN focusing something outside of the hero select's trigger
+          THEN the listbox should close
+          AND aria-expanded should be false`, async ({ page }) => {
+      const { getTrigger, getListbox, openListbox } = await setup(
+        page,
+        'select-hero-test',
+      );
+
+      await openListbox('Enter');
+      await getTrigger().press('Tab');
+      await expect(getListbox()).toBeHidden();
+      await expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
+    });
   });
 
   test.describe('data-highlighted navigation', () => {

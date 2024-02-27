@@ -74,12 +74,17 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
   });
 
+  const handleBlur$ = $(() => {
+    context.isListboxOpenSig.value = false;
+  });
+
   return (
     <button
       {...props}
       ref={context.triggerRef}
       onClick$={[handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
+      onBlur$={[handleBlur$, props.onBlur$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}
