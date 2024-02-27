@@ -53,7 +53,7 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
         const isString = typeof child.props.children === 'string';
         if (!isString) {
           throw new Error(
-            `Qwik UI: Select option value passed was not a string. It was an ${typeof child
+            `Qwik UI: Select option value passed was not a string. It was a ${typeof child
               .props.children}.`,
           );
         }

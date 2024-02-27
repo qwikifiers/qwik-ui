@@ -26,13 +26,12 @@ export const SelectImpl = component$<SelectProps>((props) => {
   const triggerRef = useSignal<HTMLButtonElement>();
   const popoverRef = useSignal<HTMLElement>();
   const listboxRef = useSignal<HTMLUListElement>();
-  const value = props.value;
   const options = props._options;
 
   // core state
   const selectedIndexSig = useSignal<number | null>(props._valuePropIndex ?? null);
-  const isListboxOpenSig = useSignal<boolean>(false);
   const highlightedIndexSig = useSignal<number | null>(props._valuePropIndex ?? null);
+  const isListboxOpenSig = useSignal<boolean>(false);
 
   const context: SelectContext = {
     triggerRef,
@@ -42,7 +41,6 @@ export const SelectImpl = component$<SelectProps>((props) => {
     highlightedIndexSig,
     isListboxOpenSig,
     selectedIndexSig,
-    value,
   };
 
   useContextProvider(SelectContextId, context);

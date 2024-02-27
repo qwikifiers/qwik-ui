@@ -515,33 +515,65 @@ test.describe('Props', () => {
     await expect(await getValue()).toEqual('Select an option');
   });
 
-  test(`GIVEN an uncontrolled select with a value prop on the root component
+  test.describe('uncontrolled', () => {
+    test(`GIVEN an uncontrolled select with a value prop on the root component
         WHEN the value data matches the fourth option
         THEN the selected value should be the data passed to the value prop`, async ({
-    page,
-  }) => {
-    const { getValue } = await setup(page, 'select-uncontrolled-test');
+      page,
+    }) => {
+      const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
 
-    await expect(await getValue()).toEqual('Jessie');
-  });
+      const options = await getOptions();
 
-  test(`GIVEN an uncontrolled select with a value prop on the root component
-        WHEN the value data matches the fourth option
+      expect(await getValue()).toEqual(await options[3].textContent());
+    });
+
+    test(`GIVEN an uncontrolled select with a value prop on the root component
+        WHEN the value prop data matches the fourth option
         THEN the fourth option should have data-highlighted set to true`, async ({
-    page,
-  }) => {
-    const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
+      page,
+    }) => {
+      const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
 
-    expect(await getValue()).toEqual('Jessie');
-    const options = await getOptions();
-    await expect(options[3]).toHaveAttribute('data-highlighted');
+      const options = await getOptions();
+      expect(await getValue()).toEqual(await options[3].textContent());
+      await expect(options[3]).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN an uncontrolled select with a value prop on the root component
+        WHEN the value prop data matches the fourth option
+        THEN the fourth option should have aria-selected set to true`, async ({
+      page,
+    }) => {
+      const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
+
+      const options = await getOptions();
+      expect(await getValue()).toEqual(await options[3].textContent());
+      await expect(options[3]).toHaveAttribute('aria-selected', 'true');
+    });
+
+    test(`GIVEN an uncontrolled select with a value prop on the root component
+        WHEN the value data does NOT match any option
+        THEN fallback to the placeholder`, async ({ page }) => {
+      const { getValue } = await setup(page, 'select-wrong-value-test');
+
+      /** 
+       we also currently give a console warning in the terminal if an option does not match. Ideally, I would like to have a union type of options, and it gives an error if there is no matching option
+    */
+      expect(await getValue()).toEqual('wrong value placeholder');
+    });
   });
 
-  // test(`GIVEN an uncontrolled select with a value prop on the root component
-  //       WHEN the value data does NOT match any option
-  //       THEN throw an error`, async ({ page }) => {
-  //   const { getValue } = await setup(page, 'select-wrong-value-test');
+  // test.describe('controlled', () => {
+  //   test(`GIVEN a controlled select with a bind:value prop on the root component
+  //       WHEN the signal data matches the second option
+  //       THEN the selected value should be the data passed to the value prop`, async ({
+  //     page,
+  //   }) => {
+  //     const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
 
-  //   expect(await getValue()).toEqual('Jessi');
+  //     const options = await getOptions();
+  //     expect(await getValue()).toEqual(await options[1].textContent());
+  //   });
   // });
 });
