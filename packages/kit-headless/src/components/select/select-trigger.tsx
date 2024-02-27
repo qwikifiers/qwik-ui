@@ -74,8 +74,14 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
   });
 
-  const handleBlur$ = $(() => {
-    context.isListboxOpenSig.value = false;
+  const handleBlur$ = $((event: FocusEvent) => {
+    const focusOutsideListbox = !context.listboxRef.value?.contains(
+      event.relatedTarget as Element,
+    );
+
+    if (focusOutsideListbox) {
+      context.isListboxOpenSig.value = false;
+    }
   });
 
   return (
