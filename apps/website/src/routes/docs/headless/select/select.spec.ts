@@ -536,6 +536,35 @@ test.describe('Props', () => {
     await expect(await getValue()).toEqual('Select an option');
   });
 
+  test(`GIVEN a select with an onChange$ prop
+        WHEN the select value changes
+        THEN the placeholder should be presented instead of a selected value`, async ({
+    page,
+  }) => {
+    const { openListbox, getOptions, getRoot } = await setup(page, 'select-change-test');
+
+    await openListbox('click');
+
+    const options = await getOptions();
+    await options[3].click();
+
+    const sibling = getRoot().locator('+ p');
+    await expect(sibling).toHaveText('You have changed 1 times');
+  });
+
+  test(`GIVEN a select with an onOpenChange$ prop
+        WHEN the select value changes
+        THEN the placeholder should be presented instead of a selected value`, async ({
+    page,
+  }) => {
+    const { getRoot, openListbox } = await setup(page, 'select-open-change-test');
+
+    await openListbox('click');
+
+    const sibling = getRoot().locator('+ p');
+    await expect(sibling).toHaveText('The listbox opened and closed 1 time(s)');
+  });
+
   test.describe('uncontrolled', () => {
     test(`GIVEN an uncontrolled select with a value prop on the root component
           WHEN the value data matches the fourth option
@@ -586,7 +615,7 @@ test.describe('Props', () => {
   test.describe('controlled', () => {
     test(`GIVEN a controlled select with a bind:value prop on the root component
           WHEN the signal data matches the second option
-          THEN the selected value should be the data passed to the value prop`, async ({
+          THEN the selected value should be the data passed to the bind:value prop`, async ({
       page,
     }) => {
       const { getValue, getOptions } = await setup(page, 'select-controlled-test');
