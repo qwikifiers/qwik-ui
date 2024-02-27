@@ -1,5 +1,20 @@
 # qwik-ui
 
+## 0.1.0
+
+### Minor Changes
+
+- added support for tailwind config in ESM format (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+
+### Patch Changes
+
+- ✨ changed to `kit-styled` (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+
+  Now the cli will only install `kit-styled` and generate the css variables according to which theme you choose.
+
+- Updated dependencies [[`31dcec7`](https://github.com/qwikifiers/qwik-ui/commit/31dcec7ce266b3840f79a57ce303e1b71d6fab02)]:
+  - @qwik-ui/utils@0.2.1
+
 ## 0.0.4
 
 ### Patch Changes
