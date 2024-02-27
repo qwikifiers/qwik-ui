@@ -13,6 +13,6 @@
 
 - [ ] My code follows the [developer guidelines of this project](https://github.com/qwikifiers/qwik-ui/blob/main/CONTRIBUTING.md)
 - [ ] I have performed a self-review of my own code
-- [ ] I have ran `pnpm changeset` and documented my changes
+- [ ] I have ran `pnpm change` and documented my changes
 - [ ] I have add necessary docs (if needed)
 - [ ] Added new tests to cover the fix / functionality

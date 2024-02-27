@@ -22,7 +22,7 @@ export default component$(() => {
           }}
           popoverTargetAction="show"
           popovertarget="anchor-ref-id"
-          class="rounded-md border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
+          class="rounded-base border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
         >
           Hover over me
         </PopoverTrigger>
@@ -35,7 +35,7 @@ export default component$(() => {
         placement="top"
         gutter={4}
         id="anchor-ref-id"
-        class="my-transition listbox shadow-dark-low rounded-md border-2 border-slate-300 bg-slate-800 !p-4 text-white"
+        class="my-transition listbox rounded-base border-2 border-slate-300 bg-slate-800 !p-4 text-white shadow-md"
       >
         I am anchored to the trigger!
       </Popover>

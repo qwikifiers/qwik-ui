@@ -1,18 +1,14 @@
 .docs {
-  & {
-    @apply mx-auto w-full max-w-[85ch] overflow-hidden px-8 py-8 lg:px-16;
-  }
-
   table a {
     @apply border-none;
   }
 
   a {
-    @apply border-primary ease-step hover:border-primary/60 border-b font-semibold transition-colors duration-300;
+    @apply ease-step font-semibold underline underline-offset-4 transition-colors duration-300 hover:opacity-90;
   }
 
   p code {
-    @apply shadow-dark-low dark:shadow-dark-low bg-muted border-border rounded border-b px-2 py-[2px];
+    @apply bg-muted rounded-sm border-b-2 px-2 py-0.5;
   }
 
   ol li {

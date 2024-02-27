@@ -34,19 +34,19 @@ export default component$(() => {
   return (
     <Combobox class="w-fit" options={disabledExample} optionDisabledKey="myDisabledKey">
       <ComboboxLabel class=" font-semibold">Disabled ⛔</ComboboxLabel>
-      <ComboboxControl class="relative flex items-center rounded-sm border">
-        <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm px-2 pr-6" />
+      <ComboboxControl class="rounded-base relative flex items-center border">
+        <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground rounded-base w-44 px-2 pr-6" />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-          <ComboboxIcon class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180" />
+          <ComboboxIcon class="stroke-foreground transition-transform duration-500 group-aria-expanded:-rotate-180" />
         </ComboboxTrigger>
       </ComboboxControl>
       <ComboboxPopover flip={true} gutter={8}>
         <ComboboxListbox
-          class="w-44 rounded-sm border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
+          class="rounded-base w-44 border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
           optionRenderer$={(option: ResolvedOption, index: number) => (
             <ComboboxOption
               key={option.key}
-              class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent group flex justify-between rounded-sm border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
+              class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent rounded-base group flex justify-between border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
               index={index}
               resolved={option}
             >

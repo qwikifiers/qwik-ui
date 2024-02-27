@@ -13,7 +13,7 @@ export default component$(() => {
         <CollapsibleContent class="animation">I am the content 1!</CollapsibleContent>
       </Collapsible>
       <button
-        class="rounded-md bg-slate-500 px-2 py-3 text-white"
+        class="rounded-base bg-slate-500 px-2 py-3 text-white"
         onClick$={() => {
           openSig.value = !openSig.value;
         }}

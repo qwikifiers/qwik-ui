@@ -29,9 +29,9 @@ export default component$(() => {
           bind:isListboxOpen={isListboxOpenSig}
         >
           <ComboboxLabel class=" font-semibold">Fruits 🍓</ComboboxLabel>
-          <ComboboxControl class="relative flex items-center rounded-sm border">
+          <ComboboxControl class="rounded-base relative flex items-center border">
             <ComboboxInput
-              class="px-d2 bg-background placeholder:text-muted-foreground w-44 rounded-sm px-2 pr-6"
+              class="px-d2 bg-background placeholder:text-muted-foreground rounded-base w-44 px-2 pr-6"
               placeholder="Papaya"
             />
             <ComboboxTrigger class="group absolute right-0 h-6 w-6">
@@ -39,7 +39,7 @@ export default component$(() => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
-                class="stroke-foreground transition-transform duration-[450ms] group-aria-expanded:-rotate-180"
+                class="stroke-foreground transition-transform duration-500 group-aria-expanded:-rotate-180"
                 stroke-linecap="round"
                 stroke-width="2"
                 stroke-linejoin="round"
@@ -53,14 +53,14 @@ export default component$(() => {
               optionRenderer$={(option: ResolvedOption, index: number) => (
                 <ComboboxOption
                   key={option.key}
-                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent group flex justify-between rounded-sm border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
+                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent rounded-base group flex justify-between border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
                   index={index}
                   resolved={option}
                 >
                   {option.label}
                 </ComboboxOption>
               )}
-              class="left:0 top:0 absolute w-fit rounded-sm border px-4 py-2"
+              class="left:0 top:0 rounded-base absolute w-fit border px-4 py-2"
             />
           </ComboboxPopover>
         </Combobox>

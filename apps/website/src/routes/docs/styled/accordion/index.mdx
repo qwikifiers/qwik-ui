@@ -1,0 +1,59 @@
+---
+title: Qwik UI | Styled Accordion Component
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.styled.Accordion} />
+
+# Accordion
+
+A vertically stacked set of interactive headings that each reveal a section of content.
+
+<Showcase name="hero" />
+
+## Installation
+
+### 1. Run the following command
+
+```sh
+qwik-ui add accordion
+```
+
+### 2. Update your 'tailwind.config.cjs'
+
+Add the following animations to your tailwind.config.js file:
+
+```tsx
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  theme: {
+    extend: {
+      animation: {
+        'accordion-down': '0.2s ease-out 0s 1 normal forwards accordion-open',
+        'accordion-up': '0.2s ease-out 0s 1 normal forwards accordion-close',
+      },
+    },
+  },
+};
+```
+
+## Usage
+
+```tsx
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+```
+
+```tsx
+<Accordion behavior="single" collapsible class="w-full">
+  <AccordionItem id="item-1">
+    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+    <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
+  </AccordionItem>
+</Accordion>
+```

@@ -32,15 +32,12 @@ export type InstallSnippetProps = {
 };
 export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => {
   return (
-    <Tabs
-      class="shadow-light-medium dark:shadow-dark-medium mx-[-24px] mb-12 rounded-xl lg:mx-[-32px]"
-      behavior="manual"
-    >
+    <Tabs class="rounded-base mb-12 shadow-lg" behavior="manual">
       <TabList class=" flex rounded-t-xl border border-b-0 p-2">
         {Object.keys(packages).map((key, index) => (
           <Tab
             key={index}
-            class="hover:bg-accent hover:text-accent-foreground mr-2 rounded-xl border px-2 py-1 hover:font-medium"
+            class="hover:bg-accent hover:text-accent-foreground rounded-base mr-2 border px-2 py-1 hover:font-medium"
           >
             {key}
           </Tab>
@@ -49,7 +46,7 @@ export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => 
       {Object.entries(packages).map(([, value], index) => (
         <TabPanel
           key={index}
-          class="shadow-light-medium dark:shadow-dark-medium rounded-b-lg border-[1.5px] bg-slate-800 px-4 py-6 text-white dark:bg-slate-900"
+          class="rounded-b-lg border-[1.5px] bg-slate-800 px-4 py-6 text-white shadow-lg dark:bg-slate-900"
         >
           <div class="flex items-center justify-between">
             {value}

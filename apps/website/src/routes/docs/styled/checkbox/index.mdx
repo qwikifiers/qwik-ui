@@ -1,0 +1,33 @@
+---
+title: Qwik UI | Styled Checkbox Component
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.styled.Checkbox} />
+
+# Checkbox
+
+A control that allows the user to toggle between checked and not checked.
+
+> The current implementation of the styled checkbox uses the native html `<input type="checkbox" />` element. We intend to introduce a headless checkbox with intermediary states and better handling of colors, animations, etc. in the future. In the meantime, this native element is still better than nothing 🙃.
+
+<br />
+
+<Showcase name="hero" />
+
+## Installation
+
+```sh
+qwik-ui add checkbox
+```
+
+## Examples
+
+### With Text
+
+<Showcase name="with-text" vertical />
+
+### Disabled
+
+<Showcase name="disabled" vertical />

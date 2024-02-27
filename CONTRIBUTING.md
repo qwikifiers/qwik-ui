@@ -63,7 +63,7 @@ pnpm dev
 
 - Visit the URL printed in the console and you'll have a page opened with the suite of widgets.
 
-- Once you made some changes in either package (`headless` or `fluffy`) or the documentation website (`apps/website`), you will see them immediately reflected on the page.
+- Once you made some changes in either package (`headless` or `styled`) or the documentation website (`apps/website`), you will see them immediately reflected on the page.
 
 Below is a list of other commands that you might find useful:
 
@@ -106,7 +106,7 @@ This will set up the Cypress component testing GUI. Please refer to official Cyp
 **6.1.** Run the following command to create a changeset:
 
 ```shell
-pnpm changeset
+pnpm change
 ```
 
 **6.2.** Choose the packages that should be included in the changeset
@@ -127,7 +127,7 @@ pnpm changeset
 
 **6.5.** Modify the created MD file
 
-After you the `changeset` command runs, a new MD file will be created under the `.changeset` folder.
+After the `change` command runs, a new MD file will be created under the `.changeset` folder.
 ד
 Please modify this file to include a descriptive message of the changes you made.
 
@@ -139,7 +139,7 @@ The prefix and this elaborated description will be used to create the changelog 
 
 #### ❓ "What if my PR is not a significant change?"
 
-If you made small changes like fixing typos, CI config, prettier, etc, you can run `pnpm changeset add --empty` to generate an empty changeset file to document
+If you made small changes like fixing typos, CI config, prettier, etc, you can run `pnpm change add --empty` to generate an empty changeset file to document
 your changes.
 
 ---

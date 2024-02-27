@@ -1,0 +1,101 @@
+{
+  "componentsRoot": "src/components",
+  "components": [
+    {
+      "displayName": "Accordion",
+      "type": "accordion",
+      "componentFolder": "accordion",
+      "files": ["accordion.tsx"]
+    },
+    {
+      "displayName": "Avatar",
+      "type": "avatar",
+      "componentFolder": "avatar",
+      "files": ["avatar.tsx"]
+    },
+    {
+      "displayName": "Alert",
+      "type": "alert",
+      "componentFolder": "alert",
+      "files": ["alert.tsx"]
+    },
+    {
+      "displayName": "Badge",
+      "type": "badge",
+      "componentFolder": "badge",
+      "files": ["badge.tsx"]
+    },
+    {
+      "displayName": "Button",
+      "type": "button",
+      "componentFolder": "button",
+      "files": ["button.tsx"]
+    },
+    {
+      "displayName": "Card",
+      "type": "card",
+      "componentFolder": "card",
+      "files": ["card.tsx"]
+    },
+    {
+      "displayName": "Checkbox",
+      "type": "checkbox",
+      "componentFolder": "checkbox",
+      "files": ["checkbox.tsx"]
+    },
+    {
+      "displayName": "Combobox",
+      "type": "combobox",
+      "componentFolder": "combobox",
+      "files": ["combobox.tsx"]
+    },
+    {
+      "displayName": "Label",
+      "type": "label",
+      "componentFolder": "label",
+      "files": ["label.tsx"]
+    },
+    {
+      "displayName": "Modal",
+      "type": "modal",
+      "componentFolder": "modal",
+      "files": ["modal.tsx"]
+    },
+    {
+      "displayName": "Popover",
+      "type": "popover",
+      "componentFolder": "popover",
+      "files": ["popover.tsx"]
+    },
+    {
+      "displayName": "Radio Group",
+      "type": "radio-group",
+      "componentFolder": "radio-group",
+      "files": ["radio-group.tsx"]
+    },
+    {
+      "displayName": "Separator",
+      "type": "separator",
+      "componentFolder": "separator",
+      "files": ["separator.tsx"]
+    },
+    {
+      "displayName": "Skeleton",
+      "type": "skeleton",
+      "componentFolder": "skeleton",
+      "files": ["skeleton.tsx"]
+    },
+    {
+      "displayName": "Tabs",
+      "type": "tabs",
+      "componentFolder": "tabs",
+      "files": ["tabs.tsx"]
+    },
+    {
+      "displayName": "Textarea",
+      "type": "textarea",
+      "componentFolder": "textarea",
+      "files": ["textarea.tsx"]
+    }
+  ]
+}

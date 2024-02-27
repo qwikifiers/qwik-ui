@@ -3,9 +3,9 @@ import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
 import { Highlight } from '../highlight/highlight';
 
-// The below `/src/routes/docs/**/**/snippets/*.tsx` pattern is here so that import.meta.glob works both for fluffy and headless routes.
+// The below `/src/routes/docs/**/**/snippets/*.tsx` pattern is here so that import.meta.glob works both for styled and headless routes.
 // For example:
-// /src/routes/docs/components/fluffy/modal/snippets/building-blocks.tsx
+// /src/routes/docs/components/styled/modal/snippets/building-blocks.tsx
 // /src/routes/docs/components/headless/modal/snippets/building-blocks.tsx
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,7 +35,7 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   });
 
   return (
-    <div class="shadow-3xl shadow-light-medium dark:shadow-dark-medium -mx-6 mb-6 rounded-xl border lg:-mx-8">
+    <div class="shadow-3xl rounded-base mb-6 border shadow-lg">
       <Highlight code={codeSnippetSig.value || ''} />
     </div>
   );

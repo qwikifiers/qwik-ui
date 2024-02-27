@@ -11,6 +11,7 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "src/routes/docs/headless/introduction/index.mdx"
+    "src/routes/docs/headless/introduction/index.mdx",
+    "tailwind.config.cjs"
   ]
 }

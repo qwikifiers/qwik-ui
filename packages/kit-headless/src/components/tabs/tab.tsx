@@ -55,6 +55,7 @@ export const Tab = component$<TabProps>(({ selectedClassName, tabId, ...props })
       aria-controls={fullPanelElementId}
       ref={elementRefSig}
       aria-disabled={props.disabled}
+      data-state={isSelectedSig.value ? 'selected' : 'unselected'}
       onFocus$={[selectIfAutomatic$, props.onFocus$]}
       onMouseEnter$={[selectIfAutomatic$, props.onMouseEnter$]}
       aria-selected={isSelectedSig.value}

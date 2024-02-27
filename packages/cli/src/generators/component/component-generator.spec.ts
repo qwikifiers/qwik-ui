@@ -14,7 +14,6 @@ describe('Component generator', () => {
       QWIK_UI_CONFIG_FILENAME,
       JSON.stringify({
         componentsRoot: DEFAULT_COMPONENTS_LOCATION,
-        styledKit: 'fluffy',
       }),
     );
 

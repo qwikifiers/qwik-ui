@@ -1,4 +1,5 @@
 import {
+  JSXChildren,
   PropsOf,
   Slot,
   component$,
@@ -13,6 +14,7 @@ import { type AccordionItemContext } from './accordion-context.type';
 
 export type AccordionItemProps = PropsOf<'div'> & {
   defaultValue?: boolean;
+  label?: string | JSXChildren;
 };
 
 export const AccordionItem = component$(

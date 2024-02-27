@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Badge } from '@qwik-ui/fluffy';
+import { Badge } from '@qwik-ui/styled';
 import { ComponentStatus } from '~/_state/component-status.type';
 
 export interface StatusBadgeProps {
@@ -18,5 +18,5 @@ export function getVariantByStatus(status: ComponentStatus) {
 }
 
 export const StatusBadge = component$<StatusBadgeProps>(({ status }) => {
-  return <Badge variant={getVariantByStatus(status)}>{status}</Badge>;
+  return <Badge look={getVariantByStatus(status)}>{status}</Badge>;
 });

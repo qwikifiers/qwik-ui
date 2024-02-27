@@ -7,6 +7,7 @@ import {
 } from '@builder.io/qwik';
 import { CodeCopy } from '../code-copy/code-copy';
 import { codeToHtml } from 'shikiji';
+import { cn } from '@qwik-ui/utils';
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
@@ -55,20 +56,20 @@ export const Highlight = component$(
     );
 
     return (
-      <div class="code-example relative max-h-[31.25rem] rounded-b-xl">
+      <div class="code-example relative max-h-[31.25rem] rounded-b-sm">
         <CodeCopy
           class={[
-            'absolute right-4 top-4 text-white hover:bg-slate-800 hover:text-white',
+            'absolute right-3 top-3 text-white hover:bg-slate-800 hover:text-white',
             copyCodeClass,
           ]}
           code={code}
         />
         <div
           {...props}
-          class={[
-            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-xl bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm',
+          class={cn(
+            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-sm bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm',
             props.class,
-          ]}
+          )}
         >
           <div dangerouslySetInnerHTML={codeSig.value} />
         </div>

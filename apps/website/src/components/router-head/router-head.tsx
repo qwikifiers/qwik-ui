@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik';
 import { useDocumentHead, useLocation } from '@builder.io/qwik-city';
-import { CSSThemeScript } from './css-theme-script';
 
 /**
  * The RouterHead component is placed inside of the document `<head>` element.
@@ -35,8 +34,6 @@ export const RouterHead = component$(() => {
       {head.styles.map((s, i) => (
         <style key={i} {...s.props} dangerouslySetInnerHTML={s.style} />
       ))}
-
-      <CSSThemeScript />
     </>
   );
 });

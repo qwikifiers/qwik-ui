@@ -44,13 +44,13 @@ Install Qwik UI with your choice of package manager below:
 
     <div class="flex flex-col gap-4 md:flex-row mx-6 lg:mx-8">
         <a class="flex-1 border-none" href="#qwik-city">
-            <span class="p-8 rounded-lg gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
+            <span class="p-8 rounded-base gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
             <QwikLogo class="max-w-[100px] max-h-[100px]" />
             <span class="text-lg font-bold">Qwik City</span>
             </span>
         </a>
         <a class="flex-1 border-none" href="#astro">
-            <span class="p-8 rounded-lg gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
+            <span class="p-8 rounded-base gap-4 flex flex-col items-center border transition duration-300 ease-step hover:bg-accent">
                 <AstroLogo class="max-w-[100px] max-h-[100px]" />
                 <span class="text-lg font-bold">Astro</span>
             </span>
@@ -77,13 +77,13 @@ Install Qwik UI with your choice of package manager below:
 
     Let's select the `empty app` option in the CLI to keep it simple. And remember, choosing the dad joke is not optional - it's mandatory! We have a highly sophisticated Dad Joke Detection System (DJDS) in place, so we'll know if you didn't!
 
-    <div class="-mx-6 lg:-mx-8">
-        <img src={qwikCityCLI} class="block max-w-full rounded-md mb-6 border" />
+    <div class="">
+        <img src={qwikCityCLI} class="block max-w-full rounded-base mb-6 border" />
     </div>
 
     Below is the Qwik City project structure. Inside of the `src` directory, let's create a new folder called `accordion`. Then, a file named **`accordion.tsx`** inside of `src/components`.
 
-    <div class="whitespace-pre-wrap bg-secondary/20 -mx-6 lg:-mx-8 px-5 py-4 lg:px-7 border border-secondary rounded-lg mb-6 lg:mb-12">
+    <div class="whitespace-pre-wrap bg-secondary/20  px-5 py-4 lg:px-7 border border-secondary rounded-base mb-6 lg:mb-12">
         <strong>Qwik City files</strong>
         ├─ .eslintignore
         ├─ .eslintrc.cjs
@@ -137,8 +137,8 @@ Install Qwik UI with your choice of package manager below:
 
     Add a relative path for your project, and select the `empty` option in the CLI.
 
-    <div class="-mx-6 lg:-mx-8">
-        <img src={astroCLI} class="block max-w-full rounded-md mb-6 border" />
+    <div class="">
+        <img src={astroCLI} class="block max-w-full rounded-base mb-6 border" />
     </div>
 
     Next, let's add the [@qwikdev/astro](https://www.npmjs.com/package/@qwikdev/astro) integration. This integration allows us to leverage resumability and Qwik components inside of Astro.
@@ -147,8 +147,8 @@ Install Qwik UI with your choice of package manager below:
 
     <InstallSnippet packages={qwikAstroCliPackages} />
 
-    <div class="-mx-6 lg:-mx-8">
-        <img src={qwikdevAstroCLI} class="block max-w-full rounded-md mb-6 border" />
+    <div class="">
+        <img src={qwikdevAstroCLI} class="block max-w-full rounded-base mb-6 border" />
     </div>
 
     Then, let's make sure we use Qwik as our main **jsxImportSource** in `tsconfig.json`. Otherwise, it will not get the proper Qwik types.
@@ -168,7 +168,7 @@ Install Qwik UI with your choice of package manager below:
 
     Below is the project structure with this in place.
 
-    <div class="whitespace-pre-wrap bg-secondary/20 -mx-6 lg:-mx-8 px-5 py-4 lg:px-7 border border-secondary rounded-lg mb-6 lg:mb-12">
+    <div class="whitespace-pre-wrap bg-secondary/20  px-5 py-4 lg:px-7 border border-secondary rounded-base mb-6 lg:mb-12">
         <strong>Astro files</strong>
         ├─ .gitignore
         ├─ README.md

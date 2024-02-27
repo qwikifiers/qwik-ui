@@ -1,5 +1,5 @@
 export enum KitName {
   HEADLESS = 'headless',
-  FLUFFY = 'fluffy',
+  STYLED = 'styled',
   NO_KIT = 'no-kit',
 }

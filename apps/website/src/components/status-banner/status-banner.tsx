@@ -1,8 +1,9 @@
 import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
+import { Badge } from '@qwik-ui/styled';
+import { cn } from '@qwik-ui/utils';
 import { ComponentStatus } from '~/_state/component-status.type';
 import { getVariantByStatus } from '../component-status-badge/component-status-badge';
-import { Badge } from '@qwik-ui/fluffy';
-import { cn } from '@qwik-ui/utils';
+import { LuX } from '@qwikest/icons/lucide';
 
 export interface StatusBannerProps {
   status?: ComponentStatus;
@@ -14,7 +15,7 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>DISCLAIMER:</strong> This component is in{' '}
-          <Badge variant={getVariantByStatus(status)} class="text-sm">
+          <Badge look={getVariantByStatus(status)} class="text-sm">
             {status}
           </Badge>{' '}
           status. That means that it is ready for production, but the API might change.
@@ -24,7 +25,7 @@ function getMessageByStatus(status?: ComponentStatus) {
       return (
         <>
           <strong>WARNING:</strong> This component is in{' '}
-          <Badge variant={getVariantByStatus(status)} class="text-sm">
+          <Badge look={getVariantByStatus(status)} class="text-sm">
             {status}
           </Badge>{' '}
           status. This means that it is still in development and may have bugs or missing
@@ -80,7 +81,7 @@ export const StatusBanner = component$(({ status }: StatusBannerProps) => {
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
         class={cn(
           getBackgroundByStatus(status),
-          'normal-state shadow-light-medium dark:shadow-dark-medium relative mx-[-24px] rounded-xl border-2 px-8 py-6 md:flex-row md:items-center lg:mx-[-32px]',
+          'normal-state rounded-base relative border-2 px-8 py-6 md:flex-row md:items-center 2xl:-mx-8',
         )}
         style={{ marginBottom: `${marginBottom}px` }}
       >
@@ -98,28 +99,9 @@ export const StatusBanner = component$(({ status }: StatusBannerProps) => {
           }}
           class="absolute right-2 top-2 scale-150"
         >
-          <EpCircleCloseFilled />
+          <LuX class="size-3" />
         </button>
       </div>
     </>
   );
 });
-
-export function EpCircleCloseFilled() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="h-4 w-4"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="m15 9-6 6" />
-      <path d="m9 9 6 6" />
-    </svg>
-  );
-}

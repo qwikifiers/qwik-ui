@@ -1,5 +1,5 @@
 .tabs-example [role='tab'] {
-  width: 175px;
+  width: 148px;
   background: hsl(var(--muted));
 }
 
@@ -8,7 +8,7 @@
   font-weight: 400;
 }
 
-.tabs-example [role='tab'].selected {
+.tabs-example [role='tab'][data-state='selected'] {
   background: hsl(var(--background));
   font-weight: 600;
 }

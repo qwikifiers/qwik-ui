@@ -10,8 +10,8 @@ export const useSelectedKit = () => {
       return KitName.HEADLESS;
     }
 
-    if (url.pathname.indexOf('fluffy') !== -1) {
-      return KitName.FLUFFY;
+    if (url.pathname.indexOf('styled') !== -1) {
+      return KitName.STYLED;
     }
 
     return KitName.NO_KIT;

@@ -1,6 +1,7 @@
 import {
   $,
   JSXNode,
+  PropsOf,
   Signal,
   Slot,
   component$,
@@ -9,10 +10,10 @@ import {
   useSignal,
   useTask$,
   type FunctionComponent,
-  PropsOf,
 } from '@builder.io/qwik';
 import { KeyCode } from '../../utils/key-code.type';
 import { Behavior } from './behavior.type';
+import { findNextEnabledTab, findPrevEnabledTab, getEnabledTab } from './get-enabled-tab';
 import { Tab as InternalTab, TabProps } from './tab';
 import { TabPanel as InternalTabPanel, TabPanelProps } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
@@ -56,9 +57,10 @@ export type TabsProps = PropsOf<'div'> & {
   'bind:selectedTabId'?: Signal<string | undefined>;
   tabClass?: PropsOf<'div'>['class'];
   panelClass?: PropsOf<'div'>['class'];
-  TabList?: typeof InternalTabList;
-  Tab?: typeof InternalTab;
-  TabPanel?: typeof InternalTabPanel;
+
+  tabListComponent?: typeof InternalTabList;
+  tabComponent?: typeof InternalTab;
+  tabPanelComponent?: typeof InternalTabPanel;
 };
 
 export type TabInfo = {
@@ -76,9 +78,9 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
     children,
     tabClass,
     panelClass,
-    TabList: UserTabList,
-    Tab: UserTab,
-    TabPanel: UserTabPanel,
+    tabListComponent: UserTabList,
+    tabComponent: UserTab,
+    tabPanelComponent: UserTabPanel,
     ...rest
   } = props;
 
@@ -228,7 +230,7 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
   const selectedTabIdSig = givenTabIdSig || initialSelectedTabIdSig;
 
   useTask$(function syncTabsTask({ track }) {
-    // Possible optimizer bug: tracking only works with props.tabs
+    // Possible optimizer bug: tracking only works with props.tabs (and not with destructuring from props)
     // TODO: Write a test in Qwik optimizer to prove this bug
     const tabInfoList = track(() => props.tabInfoList);
     const tabId = selectedTabIdSig.value;
@@ -308,12 +310,16 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
       (!vertical && key === KeyCode.ArrowRight) ||
       (vertical && key === KeyCode.ArrowDown)
     ) {
-      tabInfo = findNextEnabledTab(props.tabInfoList, currentFocusedTabIndex + 1, true);
+      tabInfo = findNextEnabledTab(props.tabInfoList, currentFocusedTabIndex + 1, {
+        wrap: true,
+      });
     } else if (
       (!vertical && key === KeyCode.ArrowLeft) ||
       (vertical && key === KeyCode.ArrowUp)
     ) {
-      tabInfo = findPrevEnabledTab(props.tabInfoList, currentFocusedTabIndex, true);
+      tabInfo = findPrevEnabledTab(props.tabInfoList, currentFocusedTabIndex, {
+        wrap: true,
+      });
     } else if (key === KeyCode.Home || key === KeyCode.PageUp) {
       tabInfo = findNextEnabledTab(props.tabInfoList, 0);
     } else if (key === KeyCode.End || key === KeyCode.PageDown) {
@@ -380,56 +386,3 @@ export const syncSelectedStateSignals = (
     selectedTabIdSig.value = tab.tabId;
   }
 };
-
-export const getEnabledTab = (tabInfoList: TabInfo[], index: number) =>
-  findNextEnabledTab(tabInfoList, index) || findPrevEnabledTab(tabInfoList, index);
-
-// Find an enabled tab including the index
-export const findNextEnabledTab = (
-  tabsInfo: TabInfo[],
-  index: number,
-  wrap?: boolean,
-) => {
-  let info;
-  for (let i = Math.max(0, index); i < tabsInfo.length; i++) {
-    info = tabsInfo[i];
-    if (!isDisabled(info)) {
-      return info;
-    }
-  }
-  if (wrap) {
-    for (let i = 0; i < index; i++) {
-      info = tabsInfo[i];
-      if (!isDisabled(info)) {
-        return info;
-      }
-    }
-  }
-  return;
-};
-
-// Find an enabled tab before the index
-export const findPrevEnabledTab = (
-  tabsInfo: TabInfo[],
-  index: number,
-  wrap?: boolean,
-) => {
-  let info;
-  for (let i = Math.min(tabsInfo.length, index) - 1; i >= 0; i--) {
-    info = tabsInfo[i];
-    if (!isDisabled(info)) {
-      return info;
-    }
-  }
-  if (wrap) {
-    for (let i = tabsInfo.length - 1; i > index; i--) {
-      info = tabsInfo[i];
-      if (!isDisabled(info)) {
-        return info;
-      }
-    }
-  }
-  return;
-};
-
-export const isDisabled = (tabInfo: TabInfo) => tabInfo.tabProps.disabled;

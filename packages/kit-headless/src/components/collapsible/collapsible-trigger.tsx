@@ -1,4 +1,4 @@
-import { component$, Slot, useContext, $, useOnWindow, PropsOf } from '@builder.io/qwik';
+import { $, PropsOf, Slot, component$, useContext, useOnWindow } from '@builder.io/qwik';
 import { collapsibleContextId } from './collapsible-context-id';
 
 export const CollapsibleTrigger = component$<PropsOf<'button'>>(

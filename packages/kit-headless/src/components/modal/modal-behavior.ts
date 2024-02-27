@@ -45,7 +45,7 @@ export async function showModal(modal: HTMLDialogElement) {
  * Calls the given callback that is executed after the Modal has been closed.
  */
 export async function closeModal(modal: HTMLDialogElement) {
-  supportClosingAnimation(modal, () => modal.close());
+  supportClosingAnimation(modal);
 }
 
 /**
@@ -74,7 +74,6 @@ export function overrideNativeDialogEscapeBehaviorWith(continuation: () => void)
   return function handleKeydown(e: KeyboardEvent) {
     if (e.key === 'Escape') {
       e.preventDefault();
-
       continuation();
     }
   };
@@ -91,34 +90,37 @@ export function supportShowAnimation(modal: HTMLDialogElement) {
  * Listens for animation/transition events in order to
  * remove Animation-CSS-Classes after animation/transition ended.
  */
-export function supportClosingAnimation(
-  modal: HTMLDialogElement,
-  afterAnimate: () => void,
-) {
+export function supportClosingAnimation(modal: HTMLDialogElement) {
   modal.classList.remove('modal-showing');
   modal.classList.add('modal-closing');
 
   const { animationDuration, transitionDuration } = getComputedStyle(modal);
 
-  const runAnimationEnd = () => {
-    modal.classList.remove('modal-closing');
-    clearAllBodyScrollLocks();
-    afterAnimate();
-  };
-
-  const runTransitionEnd = () => {
-    modal.classList.remove('modal-closing');
-    clearAllBodyScrollLocks();
-    afterAnimate();
-  };
-
   if (animationDuration !== '0s') {
-    modal.addEventListener('animationend', runAnimationEnd, { once: true });
-  } else if (transitionDuration !== '0s') {
-    modal.addEventListener('transitionend', runTransitionEnd, { once: true });
-  } else {
+    modal.addEventListener(
+      'animationend',
+      () => {
+        modal.classList.remove('modal-closing');
+        clearAllBodyScrollLocks();
+        modal.close();
+      },
+      { once: true },
+    );
+  }
+  if (transitionDuration !== '0s') {
+    modal.addEventListener(
+      'transitionend',
+      () => {
+        modal.classList.remove('modal-closing');
+        clearAllBodyScrollLocks();
+        modal.close();
+      },
+      { once: true },
+    );
+  }
+  if (animationDuration === '0s' && transitionDuration === '0s') {
     modal.classList.remove('modal-closing');
     clearAllBodyScrollLocks();
-    afterAnimate();
+    modal.close();
   }
 }

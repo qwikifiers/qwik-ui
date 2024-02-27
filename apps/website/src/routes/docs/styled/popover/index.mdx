@@ -1,0 +1,30 @@
+---
+title: Qwik UI | Styled Popover Component
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.styled.Popover} />
+
+# Popover
+
+A non-modal primitive with overlays that open and close around a DOM element.
+
+<Showcase name="hero" />
+
+## Installation
+
+```sh
+qwik-ui add popover
+```
+
+## Usage
+
+```tsx
+import { Popover, PopoverTrigger } from '@qwik-ui/styled';
+```
+
+```tsx
+<PopoverTrigger>Open Trigger</PopoverTrigger>
+<Popover>Place your content here.</Popover>
+```

@@ -13,27 +13,27 @@ export interface NoteProps {
 function getIconByStatus(status?: NoteStatus) {
   switch (status) {
     case NoteStatus.Info:
-      return <InfoIcon class="text-secondary" />;
+      return <InfoIcon class="text-primary" />;
     case NoteStatus.Warning:
-      return <WarningIcon class="text-yellow-500" />;
+      return <WarningIcon class="text-yellow-400" />;
     case NoteStatus.Caution:
       return <CautionIcon class="text-destructive" />;
 
     default:
-      return <InfoIcon class="text-secondary" />;
+      return <InfoIcon class="text-primary" />;
   }
 }
 
 function getBackgroundByStatus(status?: NoteStatus) {
   switch (status) {
     case NoteStatus.Info:
-      return 'bg-secondary/20 border-secondary border-l-2 mb-4 rounded-lg block';
+      return 'bg-primary/30 border-primary border-l-2 mb-4 rounded-base block';
     case NoteStatus.Warning:
-      return 'bg-yellow-500/20 border-yellow-500 border-l-2 mb-4 rounded-lg block';
+      return 'bg-yellow-400/30 border-yellow-400 border-l-2 mb-4 rounded-base block';
     case NoteStatus.Caution:
-      return 'bg-destructive/20 border-destructive border-l-2 mb-4 rounded-lg block';
+      return 'bg-destructive/30 border-destructive border-l-2 mb-4 rounded-base block';
     default:
-      return 'bg-secondary/20 border-secondary border-l-2 mb-4 rounded-lg block';
+      return 'bg-primary/30 border-primary border-l-2 mb-4 rounded-base block';
   }
 }
 
@@ -42,7 +42,7 @@ export const Note = component$<NoteProps>(({ status, ...props }) => {
     <aside
       class={`${getBackgroundByStatus(
         status ?? NoteStatus.Info,
-      )} note-link relative mx-[-24px] px-5 py-4 lg:mx-[-32px] lg:px-8 lg:py-6 `}
+      )} note-link relative px-5 py-4  lg:px-8 lg:py-6 `}
     >
       <div class="absolute left-[-17.5px] top-[-17.5px] hidden h-8 w-8 rounded-full bg-white lg:block dark:bg-slate-900">
         <div class="flex h-8 w-8 items-center justify-center ">

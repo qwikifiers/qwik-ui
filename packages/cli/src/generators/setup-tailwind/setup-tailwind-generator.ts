@@ -1,30 +1,39 @@
 import { Tree, formatFiles, joinPathFragments, workspaceRoot } from '@nx/devkit';
+import {
+  Color,
+  ThemeStyle,
+  extractBetweenComments,
+  extractThemeCSS,
+  type ThemeConfig,
+} from '@qwik-ui/utils';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { QWIK_UI_CONFIG_FILENAME } from '../../_shared/config-filenames';
-import { getKitRoot } from '../../_shared/styled-kits';
+import { getKitRoot } from '../../_shared/get-kit-root';
 import { SetupTailwindGeneratorSchema } from './schema';
 
 export async function setupTailwindGenerator(
   tree: Tree,
   options: SetupTailwindGeneratorSchema,
 ) {
-  const configContent = tree.read(QWIK_UI_CONFIG_FILENAME, 'utf-8');
-
-  if (!configContent) {
-    throw new Error(`Could not find ${QWIK_UI_CONFIG_FILENAME}, please run "init" first`);
-  }
-
-  const config = JSON.parse(configContent);
-  const kitRoot = getKitRoot(config.styledKit);
+  const kitRoot = getKitRoot();
 
   const globalCssPath = options.rootCssPath ?? 'src/global.css';
 
   options.projectRoot = options.projectRoot ?? '';
 
+  options.style = options.style ?? ThemeStyle.SIMPLE;
+  options.primaryColor = options.primaryColor ?? Color.CYAN + '-600';
+  options.primaryColor = 'primary-' + options.primaryColor;
+
+  options.borderRadius = options.borderRadius ?? 'border-radius-dot-25';
+
   updateTailwindConfig(tree, options.projectRoot, kitRoot);
 
-  updateRootCss(tree, globalCssPath, kitRoot);
+  updateRootCss(tree, globalCssPath, kitRoot, {
+    style: options.style,
+    primaryColor: options.primaryColor,
+    borderRadius: options.borderRadius,
+  });
 
   await formatFiles(tree);
 }
@@ -46,31 +55,133 @@ function updateTailwindConfig(tree: Tree, projectRoot: string, kitRoot: string) 
     kitRoot,
     'src',
     'templates',
-    'tailwind.extend._template',
+    'tailwind.config.cjs',
   );
 
-  const cssVarsTemplate = readFileSync(tailwindConfigTemplatePath, 'utf-8');
+  const tailwindTemplate = readFileSync(tailwindConfigTemplatePath, 'utf-8');
+
+  const pluginTemplate = extractBetweenComments(
+    tailwindTemplate,
+    '// PLUGIN-START',
+    '// PLUGIN-END',
+  );
+  const extendTemplate = extractBetweenComments(
+    tailwindTemplate,
+    '// EXTEND-START',
+    '// EXTEND-END',
+  );
+
+  let modifiedTailwindConfigContent = addPluginToConfig(
+    pluginTemplate,
+    tailwindConfigContent,
+  );
 
   const extendKeyword = /\bextend:\s*\{/;
 
-  const match = tailwindConfigContent.match(extendKeyword);
+  modifiedTailwindConfigContent = insertAfter({
+    whatToFind: extendKeyword,
+    whereToFindIt: modifiedTailwindConfigContent,
+    whatToInsert: extendTemplate,
+    shouldThrow: true,
+    errorTitle: 'extend',
+  });
+
+  tree.write(tailwindConfigPath, modifiedTailwindConfigContent);
+}
+
+function addPluginToConfig(pluginTemplate: string, tailwindConfigContent: string) {
+  let modifiedTailwindConfigContent;
+  const commonJsModuleExportsRegex = /\bmodule\.exports\s*=\s*\{/;
+  const isESM = !commonJsModuleExportsRegex.test(tailwindConfigContent);
+
+  const esmModuleExportsRegex = /\bexport\s*default\s*\{/;
+  const pluginsKeyword = /\bplugins:\s*\[/;
+
+  modifiedTailwindConfigContent = insertAfter({
+    whatToFind: pluginsKeyword,
+    whereToFindIt: tailwindConfigContent,
+    whatToInsert: pluginTemplate,
+    shouldThrow: false,
+  });
+
+  if (modifiedTailwindConfigContent) {
+    return addPluginImportStatement(modifiedTailwindConfigContent, isESM);
+  }
+
+  pluginTemplate = `plugins: [\n${pluginTemplate}\n  ],\n`;
+
+  modifiedTailwindConfigContent = insertAfter({
+    whatToFind: commonJsModuleExportsRegex,
+    whereToFindIt: tailwindConfigContent,
+    whatToInsert: pluginTemplate,
+    shouldThrow: false,
+  });
+
+  // if the result is undefined that means that
+  // it didn't find the `module.exports` string
+  if (!modifiedTailwindConfigContent) {
+    modifiedTailwindConfigContent = insertAfter({
+      whatToFind: esmModuleExportsRegex,
+      whereToFindIt: tailwindConfigContent,
+      whatToInsert: pluginTemplate,
+      shouldThrow: true,
+      errorTitle: '"module.exports" or "export default"',
+    });
+  }
+
+  return addPluginImportStatement(modifiedTailwindConfigContent, isESM);
+}
+
+function addPluginImportStatement(content: string, isESM = false) {
+  if (isESM) {
+    return `import plugin from 'tailwindcss/plugin';
+${content}`;
+  }
+  return `const plugin = require('tailwindcss/plugin');
+${content}`;
+}
+
+type InsertAfterConfig = {
+  whatToFind: RegExp;
+  whereToFindIt: string;
+  whatToInsert: string;
+  shouldThrow?: boolean;
+  errorTitle?: string;
+};
+
+function insertAfter({
+  whatToFind,
+  whereToFindIt: content,
+  whatToInsert,
+  shouldThrow,
+  errorTitle,
+}: InsertAfterConfig) {
+  const match = content.match(whatToFind);
 
   if (!match || !match.index) {
-    throw new Error('Could not find the "extend" property in your tailwind config file');
+    if (shouldThrow) {
+      throw new Error(`Could not find the "${errorTitle}" in your tailwind config file`);
+    }
+    return;
   }
 
   if (match && match.index) {
     const startIndex = match.index + match[0].length;
     const modifiedTailwindConfigContent =
-      tailwindConfigContent.slice(0, startIndex) +
-      cssVarsTemplate +
-      tailwindConfigContent.slice(startIndex);
+      content.slice(0, startIndex) + whatToInsert + content.slice(startIndex);
 
-    tree.write(tailwindConfigPath, modifiedTailwindConfigContent);
+    return modifiedTailwindConfigContent;
   }
 }
 
-function updateRootCss(tree: Tree, globalCssPath: string, kitRoot: string) {
+function updateRootCss(
+  tree: Tree,
+  globalCssPath: string,
+  kitRoot: string,
+  themeConfig: ThemeConfig,
+) {
+  themeConfig.baseColor = 'base-' + Color.NEUTRAL;
+
   const rootCssContent = tree.read(globalCssPath, 'utf-8');
 
   const tailwindUtilsDirective = '@tailwind utilities;';
@@ -90,16 +201,22 @@ function updateRootCss(tree: Tree, globalCssPath: string, kitRoot: string) {
     rootCssContent.length,
   );
 
+  const themeStr = `${themeConfig.style} ${themeConfig.baseColor} ${themeConfig.primaryColor} ${themeConfig.borderRadius}`;
+
   const pathToGlobalCssTemplate = joinPathFragments(
     kitRoot,
     'src',
     'templates',
-    'root.css_template',
+    'global.css',
   );
+
   const rootCssTemplate = readFileSync(pathToGlobalCssTemplate, 'utf-8');
+
+  const cssVarsContent = extractThemeCSS(themeStr, rootCssTemplate);
+
   const updatedGlobalCssContent = `
   ${firstPart}
-  ${rootCssTemplate}
+  ${cssVarsContent}
   ${secondPart}
   `;
 

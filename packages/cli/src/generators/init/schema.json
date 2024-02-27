@@ -19,25 +19,6 @@
       "description": "The root css file where you declare all the tailwind related directives",
       "x-prompt": "Where is you root/global css file located?"
     },
-    "styledKit": {
-      "type": "string",
-      "description": "Styled Kit",
-      "x-prompt": {
-        "message": "Which styled kit of style would you like to install?",
-        "type": "list",
-        "items": [
-          {
-            "value": "fluffy",
-            "label": "Fluffy - the full styled kit"
-          },
-          {
-            "value": "minimal",
-            "label": "Minimal - the bare minimum styled kit"
-          }
-        ],
-        "default:": "fluffy"
-      }
-    },
     "componentsRoot": {
       "type": "string",
       "description": "Path to the components folder",

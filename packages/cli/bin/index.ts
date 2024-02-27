@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-empty-function */
 
 import {
   cancel,
@@ -18,19 +19,21 @@ import {
   writeJsonFile,
 } from '@nx/devkit';
 
+import { Color, ThemeStyle, type BorderRadius, type ThemeConfig } from '@qwik-ui/utils';
+import { bgRgb, bold, cyan, green, red } from 'ansis';
 import { execSync } from 'child_process';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { bold, cyan, green, red } from 'kleur/colors';
 import yargs, { type CommandModule } from 'yargs';
 import {
   COMPONENTS_REGISTRY_FILENAME,
   QWIK_UI_CONFIG_FILENAME,
 } from '../src/_shared/config-filenames';
-import { StyledKit, styledPackagesMap } from '../src/_shared/styled-kits';
-import { QwikUIConfig } from '../types/qwik-ui-config.type';
 
 const COMMANDS = ['init', 'add'];
 const listOfCommands = COMMANDS.join(', ');
+const styledPackage = '@qwik-ui/styled';
+const headlessPackage = '@qwik-ui/headless';
+const utilsPackage = '@qwik-ui/utils';
 
 main();
 
@@ -73,11 +76,6 @@ async function handleInit() {
           description: 'The root of the project (default: "/")',
           type: 'string',
         })
-        .option('styledKit', {
-          description: 'Preferred styled kit',
-          type: 'string',
-          choices: [StyledKit.FLUFFY, StyledKit.MINIMAL],
-        })
         .option('uiComponentsPath', {
           description: 'Generated components folder',
           type: 'string',
@@ -92,6 +90,11 @@ async function handleInit() {
           type: 'boolean',
           default: false,
           hidden: true,
+        })
+        .option('style', {
+          description: 'Theme style',
+          type: 'string',
+          choices: [ThemeStyle.SIMPLE, ThemeStyle.BRUTALIST, ThemeStyle.NEUMORPHIC],
         })
         .option('e2e', {
           description: 'Install styled packages tagged as e2e for tests',
@@ -113,39 +116,26 @@ async function handleInit() {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   await installNxIfNeeded();
 
-  interface InitConfig {
+  interface InitConfig extends ThemeConfig {
     projectRoot?: string;
-    styledKit?: StyledKit;
     uiComponentsPath?: string;
     rootCssPath?: string;
   }
 
   const config: InitConfig = {
     projectRoot: args['projectRoot'] as string,
-    styledKit: args['styledKit'] as StyledKit,
     uiComponentsPath: args['uiComponentsPath'] as string,
     rootCssPath: args['rootCssPath'] as string,
+    style: args['style'] as ThemeStyle,
+    primaryColor: args['primaryColor'] as string,
+    borderRadius: args['borderRadius'] as BorderRadius,
   };
 
   if (!config.projectRoot) {
     config.projectRoot = cancelable(
       await text({
-        message: 'Specify the root of the project (leave empty for "/")',
+        message: cyan('Specify the root of the project (leave empty for "/")'),
         initialValue: '/',
-      }),
-    );
-  }
-
-  if (!config.styledKit) {
-    config.styledKit = cancelable(
-      await select({
-        message: cyan('What is your preferred styled kit?'),
-
-        options: [
-          { label: 'Fluffy', value: StyledKit.FLUFFY },
-          { label: 'Minimal', value: StyledKit.MINIMAL },
-        ],
-        initialValue: 'fluffy',
       }),
     );
   }
@@ -203,21 +193,140 @@ async function handleInit() {
       getPackageManagerCommand().exec
     } nx g qwik-ui:init --interactive false --project-root=${
       config.projectRoot
-    } --ui-components-path=${config.uiComponentsPath} --styled-kit=${config.styledKit}`,
+    } --ui-components-path=${config.uiComponentsPath}`,
     {
       stdio: 'inherit',
     },
   );
 
+  let shouldCustomize = false;
+  if (!config.style && !config.primaryColor && !config.borderRadius) {
+    shouldCustomize = cancelable(
+      await confirm({
+        message: cyan('Would you like to customize the theme?'),
+        initialValue: false,
+      }),
+    );
+  }
+
+  if (!shouldCustomize) {
+    config.style ||= ThemeStyle.SIMPLE;
+    config.primaryColor ||= Color.CYAN + '-600';
+    config.borderRadius ||= 'border-radius-0';
+  } else {
+    if (!config.style) {
+      config.style = cancelable(
+        await select({
+          message: cyan('Choose a style for your theme'),
+
+          options: [
+            { label: 'Simple', value: ThemeStyle.SIMPLE },
+            { label: 'Brutalist', value: ThemeStyle.BRUTALIST },
+            { label: 'Neumorphic', value: ThemeStyle.NEUMORPHIC },
+          ],
+          initialValue: 'simple',
+        }),
+      );
+    }
+
+    if (!config.primaryColor) {
+      config.primaryColor = cancelable(
+        await select({
+          message: cyan('Choose a primary color'),
+          initialValue: Color.CYAN + '-600',
+          options: [
+            {
+              label: bold`${bgRgb(220, 38, 38)`   `} ${capitalizeFirstLetter(
+                Color.RED,
+              )} `,
+              hint: Color.RED + '-600',
+              value: Color.RED + '-600',
+            }, // 600
+            {
+              label: bold`${bgRgb(234, 88, 12)`   `} ${capitalizeFirstLetter(
+                Color.ORANGE,
+              )} `, // 600
+              hint: Color.ORANGE + '-600',
+              value: Color.ORANGE + '-600',
+            },
+            {
+              label: bold`${bgRgb(250, 204, 21)`   `} ${capitalizeFirstLetter(
+                Color.YELLOW,
+              )} `, // 400
+              hint: Color.YELLOW + '-400',
+              value: Color.YELLOW + '-400',
+            },
+            {
+              label: bold`${bgRgb(22, 163, 74)`   `} ${capitalizeFirstLetter(
+                Color.GREEN,
+              )} `, // 600
+              hint: Color.GREEN + '-600',
+              value: Color.GREEN + '-600',
+            },
+            {
+              label: bold`${bgRgb(6, 182, 212)`   `} ${capitalizeFirstLetter(
+                Color.CYAN,
+              )} `, // 600
+              hint: Color.CYAN + '-600',
+              value: Color.CYAN + '-600',
+            },
+            {
+              label: bold`${bgRgb(37, 99, 235)`   `} ${capitalizeFirstLetter(
+                Color.BLUE,
+              )} `, // 600
+              hint: Color.BLUE + '-600',
+              value: Color.BLUE + '-600',
+            },
+            {
+              label: bold`${bgRgb(147, 51, 234)`   `} ${capitalizeFirstLetter(
+                Color.PURPLE,
+              )} `, // 600
+              hint: Color.PURPLE + '-600',
+              value: Color.PURPLE + '-600',
+            },
+            {
+              label: bold`${bgRgb(219, 39, 119)`   `} ${capitalizeFirstLetter(
+                Color.PINK,
+              )} `, // 600
+              hint: Color.PINK + '-600',
+              value: Color.PINK + '-600',
+            },
+          ],
+        }),
+      );
+    }
+
+    if (!config.borderRadius) {
+      config.borderRadius = cancelable(
+        await select({
+          message: cyan('Choose a border radius'),
+
+          options: [
+            { label: '0', hint: 'No border radius', value: 'border-radius-0' },
+            { label: '0.25', value: 'border-radius-dot-25' },
+            { label: '0.5', value: 'border-radius-dot-50' },
+            { label: '0.75', value: 'border-radius-dot-75' },
+            { label: '1', value: 'border-radius-1' },
+          ],
+          initialValue: 'border-radius-0',
+        }),
+      );
+    }
+  }
+
   // INSTALL STYLED KIT
-  const styledPackage = styledPackagesMap[config.styledKit];
 
   const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
-  log.info(`Installing ${styledPackage}...`);
-  execSync(`${getPackageManagerCommand().addDev} ${styledPackage}@${packageTag}`, {
-    stdio: 'inherit',
-  });
+  log.info(`Installing ${styledPackage}, ${headlessPackage} and ${utilsPackage}...`);
+  execSync(
+    `${
+      getPackageManagerCommand().addDev
+    } ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag}`,
+    {
+      stdio: 'inherit',
+    },
+  );
 
   // SETUP TAILWIND
   execSync(
@@ -225,13 +334,14 @@ async function handleInit() {
       getPackageManagerCommand().exec
     } nx g qwik-ui:setup-tailwind --interactive false --project-root=${
       config.projectRoot
-    }  --root-css-path=${config.rootCssPath}`,
+    }  --root-css-path=${config.rootCssPath} --style=${config.style}`,
     {
       stdio: 'inherit',
     },
   );
 
   log.info('Tailwind configured.');
+  log.info('If you want to customize your theme further, check out https://qwikui.com');
 }
 
 async function installNxIfNeeded() {
@@ -268,8 +378,7 @@ async function handleAdd(projectRoot?: string, componentsFromInit?: string) {
       `${QWIK_UI_CONFIG_FILENAME} not found, please run ${green('qwik-ui init')} first`,
     );
   }
-  const config = await readJsonFile<QwikUIConfig>(QWIK_UI_CONFIG_FILENAME);
-  const styledPackage = styledPackagesMap[config.styledKit];
+  // const config = await readJsonFile<QwikUIConfig>(QWIK_UI_CONFIG_FILENAME);
 
   // read config file to collect components and add to description below
 
@@ -411,9 +520,9 @@ function cancelable(result: any) {
   return result;
 }
 
-// function capitalizeFirstLetter(word: string) {
-//   return word.charAt(0).toUpperCase() + word.slice(1);
-// }
+function capitalizeFirstLetter(word: string) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
 
 function exitWithError(message: string) {
   log.error(message);

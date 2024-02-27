@@ -1,6 +1,6 @@
 import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
 import { Pagination } from '@qwik-ui/headless';
-import { Toggle } from '@qwik-ui/fluffy';
+import { Toggle } from '@qwik-ui/styled';
 import styles from '../index.css?inline';
 
 export default component$(() => {
@@ -77,7 +77,6 @@ export default component$(() => {
           onClick$={() => {
             hideNextButton.value = !hideNextButton.value;
           }}
-          label="hideNextButton"
         />
 
         <Toggle
@@ -85,7 +84,6 @@ export default component$(() => {
           onClick$={() => {
             hidePrevButton.value = !hidePrevButton.value;
           }}
-          label="hidePrevButton"
         />
       </div>
     </div>

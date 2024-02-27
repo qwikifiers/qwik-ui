@@ -1,8 +1,8 @@
 import { $, Slot, component$, useSignal, useStore } from '@builder.io/qwik';
-import { Tabs } from './tabs';
-import { TabList, TabListProps } from './tabs-list';
 import { Tab, TabProps } from './tab';
 import { TabPanel, TabPanelProps } from './tab-panel';
+import { Tabs } from './tabs';
+import { TabList, TabListProps } from './tabs-list';
 
 describe('Tabs', () => {
   it('INIT', () => {
@@ -797,7 +797,11 @@ describe('Tabs', () => {
     const CustomThreeTabsComponent = component$(() => {
       return (
         <>
-          <Tabs TabList={CustomTabList} Tab={CustomTab} TabPanel={CustomTabPanel}>
+          <Tabs
+            tabListComponent={CustomTabList}
+            tabComponent={CustomTab}
+            tabPanelComponent={CustomTabPanel}
+          >
             <CustomTabList>
               <CustomTab>Tab 1</CustomTab>
               <CustomTab>Tab 2</CustomTab>

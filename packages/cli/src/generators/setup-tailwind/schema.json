@@ -14,6 +14,68 @@
       "type": "string",
       "description": "The root css file where you declare all the tailwind related directives",
       "x-prompt": "Where is you root/global css file located?"
+    },
+    "style": {
+      "type": "string",
+      "description": "The style of the theme you want to use",
+      "x-prompt": {
+        "message": "Which style would you like to use?",
+        "type": "list",
+        "items": [
+          {
+            "value": "simple",
+            "label": "Simple"
+          },
+          {
+            "value": "brutalist",
+            "label": "Brutalist"
+          },
+          {
+            "value": "neumorphic",
+            "label": "Neumorphic"
+          }
+        ],
+        "default:": "simple"
+      }
+    },
+    "primaryColor": {
+      "type": "string",
+      "description": "The primary color for your theme",
+      "x-prompt": {
+        "message": "What is your primary color?",
+        "default:": "cyan-600"
+      }
+    },
+    "borderRadius": {
+      "type": "string",
+      "description": "The border radius for your components",
+      "x-prompt": {
+        "message": "What is the border radius?",
+        "default:": "border-radius-dot-25",
+        "type": "list",
+        "items": [
+          {
+            "value": "border-radius-0",
+            "label": "0"
+          },
+          {
+            "value": "border-radius-dot-25",
+            "label": "0.25"
+          },
+          {
+            "value": "border-radius-dot-50",
+            "label": "0.5"
+          },
+          {
+            "value": "border-radius-dot-75",
+            "label": "0.75"
+          },
+          {
+            "value": "border-radius-1",
+            "label": "1"
+          }
+        ]
+      }
     }
   },
   "required": []

@@ -1,0 +1,29 @@
+---
+title: Qwik UI | Styled Label Component
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.styled.Label} />
+
+# Label
+
+Renders an accessible label associated with controls.
+
+<Showcase name="hero" />
+
+## Installation
+
+```sh
+qwik-ui add label
+```
+
+## Usage
+
+```tsx
+import { Label } from '@/components/ui/label';
+```
+
+```tsx
+<Label htmlFor="email">Your email address</Label>
+```

@@ -1,10 +1,11 @@
 import { component$, useStore } from '@builder.io/qwik';
 import {
-  AccordionRoot,
-  AccordionItem,
+  Accordion,
   AccordionContent,
-  AccordionTrigger,
   AccordionHeader,
+  AccordionItem,
+  AccordionRoot,
+  AccordionTrigger,
 } from './index';
 
 import './accordion-cypress.css';
@@ -477,5 +478,31 @@ describe('Dynamic', () => {
     cy.findAllByRole('button').eq(0).focus().type(`{downArrow}`);
     cy.findAllByRole('button').eq(1).focus().type(`{downArrow}`);
     cy.findAllByRole('button').eq(2).should('have.focus');
+  });
+});
+
+describe('shorthand syntax', () => {
+  const ShorthandAccordion = component$(() => {
+    return (
+      <Accordion>
+        <AccordionItem label="Trigger 1">Content 1</AccordionItem>
+        <AccordionItem label="Trigger 2">Content 2</AccordionItem>
+        <AccordionItem>
+          <AccordionTrigger>Trigger 3</AccordionTrigger>
+          <AccordionContent>Content 3</AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    );
+  });
+
+  it(`GIVEN 2 accordion items
+      WHEN clicking the 2nd item's trigger
+      THEN render the 2nd item's content
+`, () => {
+    cy.mount(<ShorthandAccordion />);
+
+    cy.findByRole('button', { name: /Trigger 2/i }).click();
+
+    cy.findByRole('region').should('contain', 'Content 2');
   });
 });
