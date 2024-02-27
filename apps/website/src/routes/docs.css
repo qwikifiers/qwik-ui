@@ -1,8 +1,4 @@
 .docs {
-  & {
-    @apply overflow-hidden px-8 py-8;
-  }
-
   table a {
     @apply border-none;
   }

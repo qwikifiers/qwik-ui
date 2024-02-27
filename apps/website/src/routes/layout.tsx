@@ -31,12 +31,12 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <MDXProvider components={components}>
-        <div class="relative flex justify-between space-x-10 2xl:justify-center 2xl:space-x-20">
+        <div class="flex justify-around lg:justify-around lg:space-x-10 2xl:justify-center 2xl:space-x-24">
           <DocsNavigation
             linksGroups={menuItemsGroups}
-            class=" bg-background sticky top-16 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:block"
+            class=" sticky top-16 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:flex"
           />
-          <main class="docs w-full max-w-3xl">
+          <main class="w-full max-w-3xl px-4 py-8 sm:px-8">
             <Slot />
           </main>
           <div class="hidden min-w-64 text-sm xl:block">
