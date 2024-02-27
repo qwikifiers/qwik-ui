@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'kit-styled',
   preset: '../../jest.preset.cjs',

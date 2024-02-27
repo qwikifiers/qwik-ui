@@ -20,5 +20,12 @@
     "**/*.spec.tsx",
     "**/*.spec.ts"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "postcss.config.cjs"]
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "jest.config.ts",
+    "postcss.config.cjs"
+  ]
 }
