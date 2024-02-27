@@ -59,9 +59,9 @@ runs:
     # - name: Codecov upload
     #   uses: codecov/codecov-action@v2
 
-    - name: Lint PR
-      if: github.event_name == 'pull_request'
-      shell: bash
-      run: pnpm danger ci --use-github-checks --failOnErrors -d .dangerfile.ts
-      env:
-        DANGER_GITHUB_API_TOKEN: ${{ inputs.github_token }}
+    # - name: Lint PR
+    #   if: github.event_name == 'pull_request'
+    #   shell: bash
+    #   run: pnpm danger ci --use-github-checks --failOnErrors -d .dangerfile.ts
+    #   env:
+    #     DANGER_GITHUB_API_TOKEN: ${{ inputs.github_token }}

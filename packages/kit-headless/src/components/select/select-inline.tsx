@@ -3,18 +3,24 @@ import { SelectImpl, type SelectProps } from './select';
 import { SelectListbox } from './select-listbox';
 import { SelectOption } from './select-option';
 
+export type Opt = {
+  isDisabled: boolean;
+  value: string;
+};
+
 /*
     This is an inline component. We create an inline component to get the proper indexes with CSR. See issue #4757 
     for more information.
 */
 export const Select: FunctionComponent<SelectProps> = (props) => {
   const { children: myChildren, ...rest } = props;
-
+  let valuePropIndex = null;
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
   ) as Array<JSXNode>;
 
   let currentIndex = 0;
+  const opts: Opt[] = [];
 
   while (childrenToProcess.length) {
     const child = childrenToProcess.shift();
@@ -44,10 +50,43 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
         break;
       }
       case SelectOption: {
+        const isString = typeof child.props.children === 'string';
+        if (!isString) {
+          throw new Error(
+            `Qwik UI: Select option value passed was not a string. It was an ${typeof child
+              .props.children}.`,
+          );
+        }
         child.props.index = currentIndex;
+        const opt: Opt = {
+          isDisabled: child.props.disabled === true,
+          value: child.props.children as string,
+        };
+
+        opts.push(opt);
+
+        if (child.props.children === props.value) {
+          valuePropIndex = currentIndex;
+        }
+
         currentIndex++;
       }
     }
   }
-  return <SelectImpl {...rest}>{props.children}</SelectImpl>;
+  const isDisabledArr = opts.map((opt) => opt.isDisabled);
+
+  if (valuePropIndex !== null && isDisabledArr[valuePropIndex] === true) {
+    valuePropIndex = isDisabledArr.findIndex((isDisabled) => isDisabled === false);
+    if (valuePropIndex === -1) {
+      throw new Error(
+        `Qwik UI: it appears you've disabled every option in the select. Was that intentional? 🤨`,
+      );
+    }
+  }
+
+  return (
+    <SelectImpl {...rest} _valuePropIndex={valuePropIndex} _options={opts}>
+      {props.children}
+    </SelectImpl>
+  );
 };

@@ -1,6 +1,7 @@
 import { type Signal } from '@builder.io/qwik';
 
 import { createContextId } from '@builder.io/qwik';
+import { Opt } from './select-inline';
 
 const SelectContextId = createContextId<SelectContext>('Select');
 
@@ -11,11 +12,11 @@ export type SelectContext = {
   triggerRef: Signal<HTMLButtonElement | undefined>;
   popoverRef: Signal<HTMLElement | undefined>;
   listboxRef: Signal<HTMLUListElement | undefined>;
-  optionRefsArray: Signal<Array<Signal<HTMLLIElement | undefined>>>;
-  selectedOptionRef: Signal<HTMLLIElement | null>;
 
   // core state
-  highlightedIndexSig: Signal<number>;
+  options: Opt[] | undefined;
+  highlightedIndexSig: Signal<number | null>;
   isListboxOpenSig: Signal<boolean>;
   selectedIndexSig: Signal<number | null>;
+  value: string | undefined;
 };

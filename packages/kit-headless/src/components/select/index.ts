@@ -4,4 +4,4 @@ export * from './select-listbox';
 export * from './select-option';
 export * from './select-popover';
 export * from './select-trigger';
-export * from './use-select';
+export * from './select-value';
