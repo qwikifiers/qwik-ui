@@ -517,8 +517,8 @@ test.describe('Props', () => {
 
   test.describe('uncontrolled', () => {
     test(`GIVEN an uncontrolled select with a value prop on the root component
-        WHEN the value data matches the fourth option
-        THEN the selected value should be the data passed to the value prop`, async ({
+          WHEN the value data matches the fourth option
+          THEN the selected value should be the data passed to the value prop`, async ({
       page,
     }) => {
       const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
@@ -529,10 +529,8 @@ test.describe('Props', () => {
     });
 
     test(`GIVEN an uncontrolled select with a value prop on the root component
-        WHEN the value prop data matches the fourth option
-        THEN the fourth option should have data-highlighted set to true`, async ({
-      page,
-    }) => {
+          WHEN the value prop data matches the fourth option
+          THEN the fourth option should have data-highlighted`, async ({ page }) => {
       const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
 
       const options = await getOptions();
@@ -541,8 +539,8 @@ test.describe('Props', () => {
     });
 
     test(`GIVEN an uncontrolled select with a value prop on the root component
-        WHEN the value prop data matches the fourth option
-        THEN the fourth option should have aria-selected set to true`, async ({
+          WHEN the value prop data matches the fourth option
+          THEN the fourth option should have aria-selected set to true`, async ({
       page,
     }) => {
       const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
@@ -553,8 +551,8 @@ test.describe('Props', () => {
     });
 
     test(`GIVEN an uncontrolled select with a value prop on the root component
-        WHEN the value data does NOT match any option
-        THEN fallback to the placeholder`, async ({ page }) => {
+          WHEN the value data does NOT match any option
+          THEN fallback to the placeholder`, async ({ page }) => {
       const { getValue } = await setup(page, 'select-wrong-value-test');
 
       /** 
@@ -564,16 +562,40 @@ test.describe('Props', () => {
     });
   });
 
-  // test.describe('controlled', () => {
-  //   test(`GIVEN a controlled select with a bind:value prop on the root component
-  //       WHEN the signal data matches the second option
-  //       THEN the selected value should be the data passed to the value prop`, async ({
-  //     page,
-  //   }) => {
-  //     const { getValue, getOptions } = await setup(page, 'select-uncontrolled-test');
+  test.describe('controlled', () => {
+    test(`GIVEN a controlled select with a bind:value prop on the root component
+          WHEN the signal data matches the second option
+          THEN the selected value should be the data passed to the value prop`, async ({
+      page,
+    }) => {
+      const { getValue, getOptions } = await setup(page, 'select-controlled-test');
 
-  //     const options = await getOptions();
-  //     expect(await getValue()).toEqual(await options[1].textContent());
-  //   });
-  // });
+      const options = await getOptions();
+      expect(await getValue()).toEqual(await options[1].textContent());
+    });
+
+    test(`GIVEN a controlled select with a bind:value prop on the root component
+          WHEN the signal data matches the second option
+          THEN the selected value should should have data-highlighted`, async ({
+      page,
+    }) => {
+      const { getValue, getOptions } = await setup(page, 'select-controlled-test');
+
+      const options = await getOptions();
+      expect(await getValue()).toEqual(await options[1].textContent());
+      await expect(options[1]).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN an controlled select with a bind:value prop on the root component
+          WHEN the signal data matches the second option
+          THEN the second option should have aria-selected set to true`, async ({
+      page,
+    }) => {
+      const { getValue, getOptions } = await setup(page, 'select-controlled-test');
+
+      const options = await getOptions();
+      expect(await getValue()).toEqual(await options[1].textContent());
+      await expect(options[1]).toHaveAttribute('aria-selected', 'true');
+    });
+  });
 });
