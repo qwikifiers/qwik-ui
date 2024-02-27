@@ -10,7 +10,7 @@ import CopyCssConfig from '../copy-css-config/copy-css-config';
 export default component$(() => {
   useStyles$(`
     .make-it-yours::backdrop {
-      background: rgba(0,0,0,0.02);
+      background: rgba(0,0,0,0.1);
     }
   
     .make-it-yours {
