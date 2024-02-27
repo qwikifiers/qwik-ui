@@ -50,7 +50,7 @@ export const components: Record<string, any> = {
     return (
       <h3
         {...props}
-        class={[cn('mb-6 mt-8 scroll-mt-32 text-xl font-semibold', props.class)]}
+        class={[cn('mb-6 mt-8 scroll-mt-20 text-xl font-semibold', props.class)]}
       >
         <Slot />
       </h3>
