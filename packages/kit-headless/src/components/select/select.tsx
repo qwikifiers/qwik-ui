@@ -6,6 +6,7 @@ import {
   useContextProvider,
   Signal,
   useTask$,
+  useComputed$,
 } from '@builder.io/qwik';
 import { type SelectContext } from './select-context';
 import SelectContextId from './select-context';
@@ -30,8 +31,15 @@ export const SelectImpl = component$<SelectProps>((props) => {
   const popoverRef = useSignal<HTMLElement>();
   const listboxRef = useSignal<HTMLUListElement>();
 
-  const options = props._options;
-  const optionsIndex = new Map(options.map((option, index) => [option.value, index]));
+  /**
+   * Updates the options when the options change
+   * (for example, when a new option is added)
+   **/
+  const optionsSig = useComputed$(() => props._options);
+
+  const optionsIndexMap = new Map(
+    optionsSig.value?.map((option, index) => [option.value, index]),
+  );
 
   // core state
   const selectedIndexSig = useSignal<number | null>(props._valuePropIndex ?? null);
@@ -40,9 +48,10 @@ export const SelectImpl = component$<SelectProps>((props) => {
 
   // Maps are apparently great for this index accessing. Will learn more about them this week and refactor this to have a more consistent API and eliminate redundancy / duplication.
   useTask$(({ track }) => {
-    const bindValue = track(() => props['bind:value']?.value);
+    const controlledValue = track(() => props['bind:value']?.value);
+    if (!controlledValue) return;
 
-    const matchingIndex = optionsIndex.get(bindValue) ?? -1;
+    const matchingIndex = optionsIndexMap.get(controlledValue) ?? -1;
     if (matchingIndex !== -1) {
       selectedIndexSig.value = matchingIndex;
       highlightedIndexSig.value = matchingIndex;
@@ -53,7 +62,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
     triggerRef,
     popoverRef,
     listboxRef,
-    options,
+    optionsSig,
     highlightedIndexSig,
     isListboxOpenSig,
     selectedIndexSig,

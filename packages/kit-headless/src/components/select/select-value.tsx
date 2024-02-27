@@ -8,11 +8,11 @@ type SelectValueProps = PropsOf<'span'> & {
 
 export const SelectValue = component$((props: SelectValueProps) => {
   const context = useContext(SelectContextId);
-  if (!context.options) return;
+  if (!context.optionsSig.value) return;
 
   const selectedOptStr =
     context.selectedIndexSig.value !== null
-      ? context.options[context.selectedIndexSig.value].value
+      ? context.optionsSig.value[context.selectedIndexSig.value].value
       : props.placeholder;
 
   return (

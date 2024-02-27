@@ -5,10 +5,11 @@ async function setup(page: Page, selector: string) {
 
   const driver = createTestDriver(page.getByTestId(selector));
 
-  const { getListbox, getTrigger, getOptions, getValue, openListbox } = driver;
+  const { getRoot, getListbox, getTrigger, getOptions, getValue, openListbox } = driver;
 
   return {
     driver,
+    getRoot,
     getListbox,
     getTrigger,
     getOptions,
@@ -84,6 +85,26 @@ test.describe('Mouse Behavior', () => {
 
     await expect(options[2]).toHaveAttribute('aria-selected', 'true');
     expect(thirdOptStr).toEqual(await getValue());
+  });
+
+  test(`GIVEN a select
+        WHEN adding new users and selecting a new user
+        THEN the new user should be the selected value`, async ({ page }) => {
+    const { getRoot, getOptions, openListbox, getValue } = await setup(
+      page,
+      'select-add-users-test',
+    );
+
+    const sibling = getRoot().locator('+ button');
+
+    await expect(sibling).toHaveText('Add Users');
+    await sibling.click();
+
+    await openListbox('click');
+    const options = await getOptions();
+    await expect(options[7]).toHaveText('Bob');
+    await options[7].click();
+    expect(await getValue()).toEqual(await options[7].textContent());
   });
 });
 

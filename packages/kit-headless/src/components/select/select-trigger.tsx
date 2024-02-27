@@ -24,7 +24,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const handleKeyDown$ = $((e: KeyboardEvent) => {
     const shouldOpen = !context.isListboxOpenSig.value && openKeys.includes(e.key);
     const shouldClose = context.isListboxOpenSig.value && closedKeys.includes(e.key);
-    if (!context.options) return;
+    if (!context.optionsSig.value) return;
 
     if (shouldOpen) {
       context.isListboxOpenSig.value = true;
@@ -35,20 +35,26 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (e.key === 'Home') {
-      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, context.options);
+      context.highlightedIndexSig.value = getNextEnabledOptionIndex(
+        -1,
+        context.optionsSig.value,
+      );
     }
 
     if (e.key === 'End') {
       const lastEnabledOptionIndex = getPrevEnabledOptionIndex(
-        context.options.length,
-        context.options,
+        context.optionsSig.value.length,
+        context.optionsSig.value,
       );
       context.highlightedIndexSig.value = lastEnabledOptionIndex;
     }
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
-      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, context.options);
+      context.highlightedIndexSig.value = getNextEnabledOptionIndex(
+        -1,
+        context.optionsSig.value,
+      );
       return;
     }
 
@@ -56,14 +62,14 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       if (e.key === 'ArrowDown') {
         context.highlightedIndexSig.value = getNextEnabledOptionIndex(
           context.highlightedIndexSig.value,
-          context.options,
+          context.optionsSig.value,
         );
       }
 
       if (e.key === 'ArrowUp') {
         context.highlightedIndexSig.value = getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
-          context.options,
+          context.optionsSig.value,
         );
       }
 
