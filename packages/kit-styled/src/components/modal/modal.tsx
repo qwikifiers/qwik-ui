@@ -34,7 +34,7 @@ export const Modal = component$(() => {
 
   return (
     <QwikUIModal
-      class="bg-background text-foreground rounded-base data-open:appear data-closed:disappear backdrop:data-open:appear backdrop:data-closed:disappear max-w-sm p-6 shadow-md transition-all duration-300 backdrop:backdrop-blur-sm backdrop:transition-all backdrop:duration-300"
+      class="bg-background text-foreground rounded-base data-[state=open]:appear data-[state=closed]:disappear backdrop:data-[state=open]:appear backdrop:data-[state=closed]:disappear max-w-sm p-6 shadow-md transition-all duration-300 backdrop:backdrop-blur-sm backdrop:transition-all backdrop:duration-300"
       bind:show={showSig}
     >
       <Slot />
