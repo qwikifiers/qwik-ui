@@ -1,5 +1,47 @@
 # Changelog
 
+## 0.3.0
+
+### Minor Changes
+
+- Renamed customized tab components (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+
+### Patch Changes
+
+- FEAT(headless): Add data-state selected to Tab component (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+
+- Added a new contributing guide in the docs! /docs/headless/contributing (by [@thejackshelton](https://github.com/thejackshelton) in [#618](https://github.com/qwikifiers/qwik-ui/pull/618))
+
+- fix(headless modal): simplify supportClosingAnimation if/else chain -> fixes some concurrency issues (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+
+- ✨ added shorthand syntax for Accordion (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+
+  Now you can do:
+
+  ```tsx
+  <Accordion>
+    <AccordionItem label="Trigger 1">Content 1</AccordionItem>
+    <AccordionItem label="Trigger 2">Content 2</AccordionItem>
+  </Accordion>
+  ```
+
+  And it will get translated to:
+
+  ```tsx
+  <AccordionRoot>
+    <AccordionItem>
+      <AccordionTrigger>Trigger 1</AccordionTrigger>
+      <AccordionContent>Content 1</AccordionContent>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionTrigger>Trigger 2</AccordionTrigger>
+      <AccordionContent>Content 2</AccordionContent>
+    </AccordionItem>
+  </AccordionRoot>
+  ```
+
+- feat(headless modal): add data-state (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+
 ## 0.2.2
 
 ### Patch Changes
