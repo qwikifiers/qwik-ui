@@ -8,11 +8,11 @@
 
 ### Patch Changes
 
-- FEAT(headless): Add data-state selected to Tab component (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+- ✨ Add data-state selected to Tab component (by [@maiieul](https://github.com/maiieul) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
 
-- Added a new contributing guide in the docs! /docs/headless/contributing (by [@thejackshelton](https://github.com/thejackshelton) in [#618](https://github.com/qwikifiers/qwik-ui/pull/618))
+- 📃 Added a new contributing guide in the docs! /docs/headless/contributing (by [@thejackshelton](https://github.com/thejackshelton) in [#618](https://github.com/qwikifiers/qwik-ui/pull/618))
 
-- fix(headless modal): simplify supportClosingAnimation if/else chain -> fixes some concurrency issues (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+- 🐞🩹 modal: simplify supportClosingAnimation if/else chain -> fixes some concurrency issues (by [@maiieul](https://github.com/maiieul) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
 
 - ✨ added shorthand syntax for Accordion (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
 
@@ -40,7 +40,7 @@
   </AccordionRoot>
   ```
 
-- feat(headless modal): add data-state (by [@shairez](https://github.com/shairez) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
+- feat(headless modal): add data-state (by [@maiieul](https://github.com/maiieul) in [#604](https://github.com/qwikifiers/qwik-ui/pull/604))
 
 ## 0.2.2
 
