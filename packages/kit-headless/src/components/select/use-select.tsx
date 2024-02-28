@@ -25,23 +25,30 @@ export function useTypeahead() {
       // First opens the listbox if it is not already displayed and then moves visual focus to the first option that matches the typed character.
       const singleInputChar = key.toLowerCase();
 
-      const charIndex = firstCharOptionsSig.value.indexOf(singleInputChar);
+      // index the first time we see the same character
+      const firstCharIndex = firstCharOptionsSig.value.indexOf(singleInputChar);
 
-      if (charIndex === -1 || charIndex === undefined) {
+      if (firstCharIndex === -1 || firstCharIndex === undefined) {
         return null;
       }
       if (indexDiffSig.value === undefined) {
-        indexDiffSig.value = charIndex + 1;
-        context.highlightedIndexSig.value = charIndex;
+        indexDiffSig.value = firstCharIndex + 1;
+        context.highlightedIndexSig.value = firstCharIndex;
         return;
       }
 
       // If the same character is typed in succession, visual focus cycles among the options starting with that character.
-      const isRepeatedChar = firstCharOptionsSig.value[indexDiffSig.value - 1] === key;
+
+      const prevIndex = indexDiffSig.value - 1;
+
+      const isRepeatedChar = firstCharOptionsSig.value[prevIndex] === key;
 
       if (isRepeatedChar) {
-        const nextChars = firstCharOptionsSig.value.slice(indexDiffSig.value);
-        const repeatIndex = nextChars.indexOf(key);
+        // Slices the options' first characters from indexDiffSig.value for finding the next matching character.
+        const nextCharSearch = firstCharOptionsSig.value.slice(indexDiffSig.value);
+
+        // index the next time we could see the same character
+        const repeatIndex = nextCharSearch.indexOf(key);
         console.log('me first ', repeatIndex, indexDiffSig.value);
         if (repeatIndex !== -1) {
           const nextIndex = repeatIndex + indexDiffSig.value;
@@ -51,10 +58,11 @@ export function useTypeahead() {
           console.log('me repeats ', nextIndex, indexDiffSig.value);
           return;
         }
+        // actual magical return
         return;
       }
-      indexDiffSig.value = charIndex + 1;
-      context.highlightedIndexSig.value = charIndex;
+      indexDiffSig.value = firstCharIndex + 1;
+      context.highlightedIndexSig.value = firstCharIndex;
 
       return;
     });
@@ -82,9 +90,7 @@ export function useTypeahead() {
       firstCharOnly$();
       return;
     }
-    // const firstCharOptionsSig = useComputed$(() => {
-    //   return context.optionsSig.value.map((opt) => opt.value.slice(0, 1).toLowerCase());
-    // });
+
     multipleChars$();
   });
 
