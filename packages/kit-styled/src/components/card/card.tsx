@@ -5,10 +5,7 @@ const Card = component$<PropsOf<'div'>>((props) => {
   return (
     <div
       {...props}
-      class={cn(
-        'bg-card text-card-foreground rounded-base border-base shadow',
-        props.class,
-      )}
+      class={cn('bg-card text-card-foreground rounded-base border shadow', props.class)}
     >
       <Slot />
     </div>
