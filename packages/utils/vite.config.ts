@@ -5,6 +5,11 @@ import * as path from 'path';
 import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
+import pkg from './package.json';
+
+const { dependencies = {}, peerDependencies = {} } = pkg as any;
+const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
+const excludeAll = (obj: any) => Object.keys(obj).map(makeRegex);
 
 export default defineConfig({
   test: {
@@ -54,7 +59,11 @@ export default defineConfig({
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: [],
+      external: [
+        /^node:.*/,
+        ...excludeAll(dependencies),
+        ...excludeAll(peerDependencies),
+      ],
     },
   },
 });
