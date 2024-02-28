@@ -17,7 +17,14 @@ import {
   modeOptions,
   primaryOptions,
   styleOptions,
+  fontOptions,
 } from './_state/make-it-yours';
+
+import '@fontsource-variable/inter';
+import '@fontsource/ibm-plex-mono';
+import '@fontsource/source-serif-pro';
+import '@fontsource/londrina-shadow';
+import '@fontsource/rubik-doodle-shadow';
 
 export default component$(() => {
   /**
@@ -50,6 +57,7 @@ export default component$(() => {
           attribute="class"
           themes={[
             ...modeOptions,
+            ...fontOptions,
             ...styleOptions,
             ...baseOptions,
             ...primaryOptions,

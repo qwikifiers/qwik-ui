@@ -13,7 +13,6 @@ module.exports = {
     join(__dirname, '../../packages/kit-tailwind/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-styled/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
-
   plugins: [
     require('tailwindcss-animate'),
     // PLUGIN-START
@@ -32,13 +31,25 @@ module.exports = {
     }),
     // PLUGIN-END
   ],
-
   darkMode: 'class',
+  safelist: [
+    'font-sans',
+    'font-serif',
+    'font-mono',
+    'font-source-serif-pro',
+    'font-ibm-plex-mono',
+    'font-londrina-shadow',
+    'font-rubik-doodle-shadow',
+  ],
   theme: {
     important: true,
     extend: {
       fontFamily: {
         sans: ['Inter Variable', 'sans-serif'],
+        'source-serif-pro': ['Source Serif Pro', 'serif'],
+        'ibm-plex-mono': ['IBM Plex Mono', 'monospace'],
+        'londrina-shadow': ['Londrina Shadow', 'cursive'],
+        'rubik-doodle-shadow': ['Rubik Doodle Shadow', 'monospace'],
       },
       // EXTEND-START
       colors: {

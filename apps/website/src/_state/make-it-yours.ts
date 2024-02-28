@@ -1,4 +1,4 @@
-import { BorderRadius, Color, Mode, ThemeStyle } from '@qwik-ui/utils';
+import { BorderRadius, Color, Mode, ThemeStyle, Font } from '@qwik-ui/utils';
 
 export const baseOptions = [
   Color.SLATE,
@@ -7,6 +7,15 @@ export const baseOptions = [
   Color.NEUTRAL,
   Color.STONE,
 ].map((color) => `base-${color}`);
+
+export const fontOptions: Font[] = [
+  Font.SANS,
+  Font.SERIF,
+  Font.MONO,
+  Font.SOURCE_SERIF_PRO,
+  Font.LONDRA_SHADOW,
+  Font.RUBIK_DOODLE_SHADOW,
+];
 
 export const styleOptions: ThemeStyle[] = [
   ThemeStyle.SIMPLE,

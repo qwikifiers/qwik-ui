@@ -4,6 +4,7 @@ export * from './theme/border-radius.type';
 export * from './theme/color.enum';
 export * from './theme/extract-between-comments';
 export * from './theme/extract-theme-css';
+export * from './theme/font.enum';
 export * from './theme/mode.enum';
 export * from './theme/theme-config.type';
 export * from './theme/theme-style.enum';

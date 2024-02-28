@@ -13,7 +13,6 @@ import docsStyles from './docs.css?inline';
 import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
-import '@fontsource-variable/inter';
 import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
