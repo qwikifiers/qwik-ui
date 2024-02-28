@@ -3,7 +3,6 @@ import { cn } from '@qwik-ui/utils';
 import { useTheme } from 'qwik-themes';
 
 export const Logo = component$<PropsOf<'svg'>>(({ ...props }) => {
-  const { theme } = useTheme();
   return (
     <svg
       {...props}
