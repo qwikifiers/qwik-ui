@@ -6,6 +6,7 @@ export function useTypeahead() {
   const inputStrSig = useSignal('');
   const indexDiffSig = useSignal<number | undefined>(undefined);
   const prevTimeoutSig = useSignal<undefined | NodeJS.Timeout>(undefined);
+  console.log(inputStrSig.value, indexDiffSig.value, prevTimeoutSig.value);
 
   const firstCharOptionsSig = useComputed$(() => {
     return context.optionsSig.value.map((opt) => opt.value.slice(0, 1).toLowerCase());
@@ -41,11 +42,14 @@ export function useTypeahead() {
       if (isRepeatedChar) {
         const nextChars = firstCharOptionsSig.value.slice(indexDiffSig.value);
         const repeatIndex = nextChars.indexOf(key);
+        console.log('me first ', repeatIndex, indexDiffSig.value);
         if (repeatIndex !== -1) {
           const nextIndex = repeatIndex + indexDiffSig.value;
 
           context.highlightedIndexSig.value = nextIndex;
           indexDiffSig.value = nextIndex + 1;
+          console.log('me repeats ', nextIndex, indexDiffSig.value);
+          return;
         }
         return;
       }
@@ -56,12 +60,12 @@ export function useTypeahead() {
     });
 
     const multipleChars$ = $(() => {
-      console.log('im running');
       // If multiple keys are typed in quick succession, visual focus moves to the first option that matches the full string.
       clearTimeout(prevTimeoutSig.value);
       prevTimeoutSig.value = setTimeout(() => {
         inputStrSig.value = '';
       }, 1000);
+
       const firstPossibleOpt = fullStrOptionsSig.value.findIndex((str) => {
         const size = inputStrSig.value.length;
         return str.substring(0, size) === inputStrSig.value;
@@ -70,12 +74,13 @@ export function useTypeahead() {
         context.highlightedIndexSig.value = firstPossibleOpt;
         return;
       }
-      inputStrSig.value = '';
+      inputStrSig.value = key;
       firstCharOnly$();
     });
 
     if (inputStrSig.value.length === 1) {
       firstCharOnly$();
+      return;
     }
     // const firstCharOptionsSig = useComputed$(() => {
     //   return context.optionsSig.value.map((opt) => opt.value.slice(0, 1).toLowerCase());

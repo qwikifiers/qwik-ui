@@ -30,7 +30,7 @@ test.describe('Mouse Behavior', () => {
     await expect(getTrigger()).toHaveAttribute('aria-expanded', 'true');
   });
 
-  test(`GIVEN a hero select with an open listbox 
+  test(`GIVEN a hero select with an open listbox
         WHEN the trigger is clicked
         THEN close the listbox AND aria-expanded should be false`, async ({ page }) => {
     const { getTrigger, getListbox, openListbox } = await setup(page, 'select-hero-test');
@@ -42,7 +42,7 @@ test.describe('Mouse Behavior', () => {
     await expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
   });
 
-  test(`GIVEN a hero select with an open listbox 
+  test(`GIVEN a hero select with an open listbox
         WHEN an option is clicked
         THEN close the listbox AND aria-expanded should be false`, async ({ page }) => {
     const { getTrigger, getListbox, getOptions, openListbox } = await setup(
@@ -59,7 +59,7 @@ test.describe('Mouse Behavior', () => {
     await expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
   });
 
-  test(`GIVEN a hero select with an open listbox 
+  test(`GIVEN a hero select with an open listbox
         WHEN the 2nd option is clicked
         THEN the 2nd option should have aria-selected`, async ({ page }) => {
     const { getOptions, openListbox } = await setup(page, 'select-hero-test');
@@ -72,7 +72,7 @@ test.describe('Mouse Behavior', () => {
     await expect(options[1]).toHaveAttribute('aria-selected', 'true');
   });
 
-  test(`GIVEN a hero select with an open listbox 
+  test(`GIVEN a hero select with an open listbox
         WHEN the 3rd option is clicked
         THEN the 3rd option should be the selected value`, async ({ page }) => {
     const { getOptions, getValue, openListbox } = await setup(page, 'select-hero-test');
@@ -178,7 +178,7 @@ test.describe('Keyboard Behavior', () => {
 
     test(`GIVEN a hero select with an opened listbox
         WHEN pressing the escape key
-        THEN the listbox should close 
+        THEN the listbox should close
         AND aria-expanded should be false`, async ({ page }) => {
       const { getTrigger, getListbox, openListbox } = await setup(
         page,
@@ -212,7 +212,7 @@ test.describe('Keyboard Behavior', () => {
   test.describe('data-highlighted navigation', () => {
     test(`GIVEN a hero select
         WHEN pressing the down arrow key
-        THEN open up the listbox 
+        THEN open up the listbox
         AND the first option should have data-highlighted`, async ({ page }) => {
       const { getTrigger, getListbox, getOptions } = await setup(
         page,
@@ -229,7 +229,7 @@ test.describe('Keyboard Behavior', () => {
 
     test(`GIVEN a hero select
         WHEN pressing the enter key
-        THEN open up the listbox 
+        THEN open up the listbox
         AND the first option should have data-highlighted`, async ({ page }) => {
       const { getTrigger, getListbox, getOptions } = await setup(
         page,
@@ -246,7 +246,7 @@ test.describe('Keyboard Behavior', () => {
 
     test(`GIVEN a hero select
         WHEN pressing the space key
-        THEN open up the listbox 
+        THEN open up the listbox
         AND the first option should have data-highlighted`, async ({ page }) => {
       const { getTrigger, getListbox, getOptions } = await setup(
         page,
@@ -263,7 +263,7 @@ test.describe('Keyboard Behavior', () => {
 
     test(`GIVEN a hero select
         WHEN pressing the up arrow
-        THEN open up the listbox 
+        THEN open up the listbox
         AND the first option should have data-highlighted`, async ({ page }) => {
       const { getTrigger, getListbox, getOptions } = await setup(
         page,
@@ -497,7 +497,7 @@ test.describe('Keyboard Behavior', () => {
     });
 
     test(`GIVEN an open select with a typeahead support
-          WHEN the user types in the letters "jjt" 
+          WHEN the user types in the letters "jjt"
           THEN the first option starting with the letter "t" should have data-highlighted`, async ({
       page,
     }) => {
@@ -522,8 +522,8 @@ test.describe('Keyboard Behavior', () => {
         'select-typeahead-test',
       );
       await openListbox('ArrowDown');
-      await getTrigger().pressSequentially('a', { delay: 1250 });
-      await getTrigger().pressSequentially('je', { delay: 250 });
+      await getTrigger().pressSequentially('a', { delay: 1500 });
+      await getTrigger().pressSequentially('je', { delay: 100 });
       const highlightedOpt = getRoot().locator('[data-highlighted]');
       await expect(highlightedOpt).toContainText('jessie', { ignoreCase: true });
     });
@@ -682,7 +682,7 @@ test.describe('Props', () => {
           THEN fallback to the placeholder`, async ({ page }) => {
       const { getValue } = await setup(page, 'select-wrong-value-test');
 
-      /** 
+      /**
        we also currently give a console warning in the terminal if an option does not match. Ideally, I would like to have a union type of options, and it gives an error if there is no matching option
     */
       expect(await getValue()).toEqual('wrong value placeholder');
