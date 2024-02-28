@@ -6,7 +6,6 @@
   "targets": {
     "build-bin": {
       "executor": "@nx/js:tsc",
-
       "outputs": ["{options.outputPath}"],
       "options": {
         "rootDir": ".",
