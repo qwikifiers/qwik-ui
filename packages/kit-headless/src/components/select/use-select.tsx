@@ -10,6 +10,9 @@ export function useTypeahead() {
   const firstCharOptionsSig = useComputed$(() => {
     return context.optionsSig.value.map((opt) => opt.value.slice(0, 1).toLowerCase());
   });
+  const fullStrOptionsSig = useComputed$(() => {
+    return context.optionsSig.value.map((opt) => opt.value.toLowerCase());
+  });
 
   const typeahead$ = $((key: string): void => {
     inputStrSig.value += key;
@@ -18,8 +21,6 @@ export function useTypeahead() {
     }
 
     const firstCharOnly$ = $(() => {
-      console.log('herehrere');
-
       // First opens the listbox if it is not already displayed and then moves visual focus to the first option that matches the typed character.
       const singleInputChar = key.toLowerCase();
 
@@ -55,12 +56,22 @@ export function useTypeahead() {
     });
 
     const multipleChars$ = $(() => {
-      console.log(inputStrSig.value);
+      console.log('im running');
       // If multiple keys are typed in quick succession, visual focus moves to the first option that matches the full string.
       clearTimeout(prevTimeoutSig.value);
       prevTimeoutSig.value = setTimeout(() => {
         inputStrSig.value = '';
       }, 1000);
+      const firstPossibleOpt = fullStrOptionsSig.value.findIndex((str) => {
+        const size = inputStrSig.value.length;
+        return str.substring(0, size) === inputStrSig.value;
+      });
+      if (firstPossibleOpt !== -1) {
+        context.highlightedIndexSig.value = firstPossibleOpt;
+        return;
+      }
+      inputStrSig.value = '';
+      firstCharOnly$();
     });
 
     if (inputStrSig.value.length === 1) {
