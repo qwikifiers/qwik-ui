@@ -375,11 +375,13 @@
     --ring: 24 5.7% 82.9%;
   }
 
-  .primary-slate-100 {
+  .primary-slate-100,
+  .dark.primary-slate-900 {
     --primary: 210 40% 96.1%;
     --primary-foreground: 0 0% 0%;
   }
-  .primary-slate-200 {
+  .primary-slate-200,
+  .dark.primary-slate-800 {
     --primary: 214.3 31.8% 91.4%;
     --primary-foreground: 0 0% 0%;
   }
@@ -412,11 +414,13 @@
     --primary-foreground: 0 0% 100%;
   }
 
-  .primary-gray-100 {
+  .primary-gray-100,
+  .dark.primary-gray-900 {
     --primary: 220 14.3% 95.9%;
     --primary-foreground: 0 0% 0%;
   }
-  .primary-gray-200 {
+  .primary-gray-200,
+  .dark.primary-gray-800 {
     --primary: 220 13% 91%;
     --primary-foreground: 0 0% 0%;
   }
@@ -449,11 +453,13 @@
     --primary-foreground: 0 0% 100%;
   }
 
-  .primary-zinc-100 {
+  .primary-zinc-100,
+  .dark.primary-zinc-900 {
     --primary: 240 4.8% 95.9%;
     --primary-foreground: 0 0% 0%;
   }
-  .primary-zinc-200 {
+  .primary-zinc-200,
+  .dark.primary-zinc-800 {
     --primary: 240 5.9% 90%;
     --primary-foreground: 0 0% 0%;
   }
@@ -486,11 +492,13 @@
     --primary-foreground: 0 0% 100%;
   }
 
-  .primary-neutral-100 {
+  .primary-neutral-100,
+  .dark.primary-neutral-900 {
     --primary: 0 0% 96.1%;
     --primary-foreground: 0 0% 0%;
   }
-  .primary-neutral-200 {
+  .primary-neutral-200,
+  .dark.primary-neutral-800 {
     --primary: 0 0% 89.8%;
     --primary-foreground: 0 0% 0%;
   }
@@ -523,11 +531,13 @@
     --primary-foreground: 0 0% 100%;
   }
 
-  .primary-stone-100 {
+  .primary-stone-100,
+  .dark.primary-stone-900 {
     --primary: 60 4.8% 95.9%;
     --primary-foreground: 0 0% 0%;
   }
-  .primary-stone-200 {
+  .primary-stone-200,
+  .dark.primary-stone-800 {
     --primary: 20 5.9% 90%;
     --primary-foreground: 0 0% 0%;
   }
@@ -1307,7 +1317,6 @@ html {
 
 body {
   min-height: 100%;
-  font-family: 'Inter Variable', sans-serif;
 }
 
 /* Utilities layer for animations. The current arbitrary & docs tailwind animation guidelines are not maintainable long term. 

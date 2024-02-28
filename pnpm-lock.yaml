@@ -47,6 +47,123 @@ importers:
       '@fontsource-variable/inter':
         specifier: 5.0.8
         version: 5.0.8
+      '@fontsource/audiowide':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/blackout-midnight':
+        specifier: 5.0.7
+        version: 5.0.7
+      '@fontsource/blackout-two-am':
+        specifier: 5.0.7
+        version: 5.0.7
+      '@fontsource/bungee-inline':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/bungee-shade':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/cinzel-decorative':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/codystar':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/creepster':
+        specifier: 5.0.8
+        version: 5.0.8
+      '@fontsource/eater':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/flow-block':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/flow-circular':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/hachi-maru-pop':
+        specifier: 5.0.17
+        version: 5.0.17
+      '@fontsource/ibm-plex-mono':
+        specifier: 5.0.8
+        version: 5.0.8
+      '@fontsource/indie-flower':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/libre-barcode-39':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/linefont':
+        specifier: 5.0.7
+        version: 5.0.7
+      '@fontsource/londrina-shadow':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/major-mono-display':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/megrim':
+        specifier: 5.0.8
+        version: 5.0.8
+      '@fontsource/monofett':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/nosifer':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/noto-color-emoji':
+        specifier: 5.0.23
+        version: 5.0.23
+      '@fontsource/orbitron':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/pixelify-sans':
+        specifier: 5.0.1
+        version: 5.0.1
+      '@fontsource/playpen-sans':
+        specifier: 5.0.2
+        version: 5.0.2
+      '@fontsource/press-start-2p':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/rampart-one':
+        specifier: 5.0.17
+        version: 5.0.17
+      '@fontsource/redacted':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/redacted-script':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/roboto':
+        specifier: 5.0.8
+        version: 5.0.8
+      '@fontsource/rubik-doodle-shadow':
+        specifier: 5.0.1
+        version: 5.0.1
+      '@fontsource/shadows-into-light':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/shantell-sans':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/silkscreen':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/slackey':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/source-serif-pro':
+        specifier: 5.0.8
+        version: 5.0.8
+      '@fontsource/tourney':
+        specifier: 5.0.18
+        version: 5.0.18
+      '@fontsource/vt323':
+        specifier: 5.0.8
+        version: 5.0.8
+      '@fontsource/wavefont':
+        specifier: 5.0.11
+        version: 5.0.11
       '@img/sharp-linux-x64':
         specifier: ^0.33.0
         version: 0.33.2
@@ -3188,6 +3305,162 @@ packages:
 
   /@fontsource-variable/inter@5.0.8:
     resolution: {integrity: sha512-WkYfFNccmEIeL2fNg0mYeLWqOoB7xD8MFxFRc4IwbSP2o8ZaBt36v5aW4by4MyrgGRMNk7uNi5LbvYKq6clPjw==}
+    dev: true
+
+  /@fontsource/audiowide@5.0.18:
+    resolution: {integrity: sha512-X9rm2Guo5Uyfqc4tln14vzu/vX60GRIrv0rMtMj9uhlpAlVCC//nmix4B4gnnwneSZYqvJ+LKO/eaONYF5DsXQ==}
+    dev: true
+
+  /@fontsource/blackout-midnight@5.0.7:
+    resolution: {integrity: sha512-ZIvqtdGL1gtMWz3zgg++Npw+7rY9Di5YsfzAS6tYFIaaI/Bz6CQ6bCTMyS/DWXfSXBdCiATpVTE9xrOUZlDkZg==}
+    dev: true
+
+  /@fontsource/blackout-two-am@5.0.7:
+    resolution: {integrity: sha512-ivVO9Yw4Sy1ptbHjLE69cwR+P0X7INzPho2kfZ9xszmYHDNO1JOsUpmfGHNnSd7O4BPnMAYPQBJ6wuzSa9e4IQ==}
+    dev: true
+
+  /@fontsource/bungee-inline@5.0.18:
+    resolution: {integrity: sha512-92nr4aD90LKDiNoThmLhD7vu3VfdJww1K6mzQVBwmtF7Ljy6AK7u0hKzFxJQQeBRirYRM6JndPgufr0pEYwftw==}
+    dev: true
+
+  /@fontsource/bungee-shade@5.0.18:
+    resolution: {integrity: sha512-UnOPxX1gJlNbrIUg74JV4251tl/rzOCbMAxdmscyEv6g/WccOk29rm3ONPxjtNxNWoWMd8rbvfl+NMFUnizUoQ==}
+    dev: true
+
+  /@fontsource/cinzel-decorative@5.0.18:
+    resolution: {integrity: sha512-MsZz4f/P3IuTMqHeh9RMgpwm+3/CKb9c7YxKasHf3PCUFpGrVjLNbW1eNlDBsCu7zR3lFdtGsBoeDD+9AyCl1Q==}
+    dev: true
+
+  /@fontsource/codystar@5.0.18:
+    resolution: {integrity: sha512-2HBF+SpcgQB9cbCZXHGd+Cx57TLqM4K/2eamKDVusJwUPvRhPmBOva8TlTGWToW8x/gWP509HwEFUOfhb0tNpg==}
+    dev: true
+
+  /@fontsource/creepster@5.0.8:
+    resolution: {integrity: sha512-ufLV3H2y2ER2bjeu/nyJTcs6hBCId56j9oCN/hxrLEGen1zcOb0rzh+GFzDUr5OcXd3KCg5wNLA8Y68aq8/9LA==}
+    dev: true
+
+  /@fontsource/eater@5.0.18:
+    resolution: {integrity: sha512-+q5BAlkEea1zJe1V40k0OJe5rkNNikKN9QlJgvAF93qlp2/e955KUZIvTeQkcTRIG8nZN3fJ+e3aotY5PmOyeA==}
+    dev: true
+
+  /@fontsource/flow-block@5.0.18:
+    resolution: {integrity: sha512-KIovXFr8OeZGFOxEavKE8dXn/KLn7igrLoi5ZP5PVUAEMsasAVIiKv4D6tAKYFnGGT4Lz7jSJPMepT0K+0IFOw==}
+    dev: true
+
+  /@fontsource/flow-circular@5.0.18:
+    resolution: {integrity: sha512-b1COTrIHOuAu5oQdCe1Lsci7Dxz03LpZ0TafRPfsGuywtWuatgyCikGCKwHtkkVmiEOwMZat8qV3I1xwDCJExw==}
+    dev: true
+
+  /@fontsource/hachi-maru-pop@5.0.17:
+    resolution: {integrity: sha512-9wFETcLfvRMxJYxy32HZ+1IDglsZ4OZ6SlDsMn4xi389S14bbUk3umXyTWhqlawz++jFsSVCfvifO4FwAi2VnQ==}
+    dev: true
+
+  /@fontsource/ibm-plex-mono@5.0.8:
+    resolution: {integrity: sha512-AoR7K2YtlGKy3LApyLYjqjyz0o8XtkRvbB/juMsGSGNayBBAly140ykZls+VxcXjZSLQpp2RyxKo6lYOuHPmUw==}
+    dev: true
+
+  /@fontsource/indie-flower@5.0.18:
+    resolution: {integrity: sha512-1e+er9IyiOWuNiEV2J0Mq7sZt/shptz7qkfah+/Edm/gdFzB3lWTTLY2LMUlh2NTMq+XvoWwvdScDhMpZLCeqg==}
+    dev: true
+
+  /@fontsource/libre-barcode-39@5.0.18:
+    resolution: {integrity: sha512-Wi5ph+AE1qF25BbucVN47in7/7Va3xEnD0UExOJ0eG+V85TMXQaPzgx3KIJCIwTY8bDGlRE2LsGL1XrjP+XVLQ==}
+    dev: true
+
+  /@fontsource/linefont@5.0.7:
+    resolution: {integrity: sha512-TpuH0wvbd7fVXhSVrpskttS1puXk+WvA3rXX1N1nEeo48W7UIjLe1gcH9FkYCXhALPM3uZBeFvl+BPdLMD5qLg==}
+    dev: true
+
+  /@fontsource/londrina-shadow@5.0.18:
+    resolution: {integrity: sha512-U2jbcu5HaNlCs3Nc9GJgjPGhKd9wyzhlj1zVsDusmHyTXgI2yWAoYcEfwoy1VqCcWkJeXtRaFT42R6nNvg/zEQ==}
+    dev: true
+
+  /@fontsource/major-mono-display@5.0.18:
+    resolution: {integrity: sha512-SJvjpGJX4eAefCjWCCTX512VOL6lPlT64okKIV3NGh5NOAP/a0LqzDWMOT8dZ77zkpHhpXAqZxmMlmSTtrNGbA==}
+    dev: true
+
+  /@fontsource/megrim@5.0.8:
+    resolution: {integrity: sha512-hG/Cw8GVeeG695EZbiV8RJs1leg1NavTf6OQO/7F0x2Pqq/nuVMFk9kMfVQVdQO31OviUskyiemXqs0KFlKAeg==}
+    dev: true
+
+  /@fontsource/monofett@5.0.18:
+    resolution: {integrity: sha512-rq4sIPutHh8689kogZ23CZV8kKzDiWPbFlaMlnK+JGdzNvU/6dPlFd5a90iuRunxsbWwp9HZlRleGsWvNnC/4Q==}
+    dev: true
+
+  /@fontsource/nosifer@5.0.18:
+    resolution: {integrity: sha512-7OtjFPOX1t3Y72Q/R5Jo8CoYSPSX+CLUx1CER1FmCG0RJLY0HQguf/Gu8r3f5qMoXqX1cFofT1G8zCwM8c0hsA==}
+    dev: true
+
+  /@fontsource/noto-color-emoji@5.0.23:
+    resolution: {integrity: sha512-A9JMorLXCyY1AZFObupuERznSftCe4IOoabQwyX7RJj/Lu/QEzFHH7YzvC/nwngZEqLc9gxbVE/vxpqa40XPBA==}
+    dev: true
+
+  /@fontsource/orbitron@5.0.18:
+    resolution: {integrity: sha512-wWBZbGQuMa9l2QnwZiPVDupkxQedNxhWlcrEUsCZL5U5apMyAg1JQZBJXn6vppwqSe5NR39l0IepfUGhr7h12A==}
+    dev: true
+
+  /@fontsource/pixelify-sans@5.0.1:
+    resolution: {integrity: sha512-neNQO0naTZAOCc7nwJL9XKXEAUEOI40ECEO8tylN64+QqmAKsip17RRhMWASlW045RC52uI9bgSIn8D036kyaA==}
+    dev: true
+
+  /@fontsource/playpen-sans@5.0.2:
+    resolution: {integrity: sha512-9HvXxBuruYYd8vkX9Qd7OorrC0UsIuQGBJkfOAUYYLsTq3zf6u/PrF0h00tZwnWlVlMOXl14R79a43uHrvxZ9Q==}
+    dev: true
+
+  /@fontsource/press-start-2p@5.0.18:
+    resolution: {integrity: sha512-6ILWQdS1+qowlQiJYKhlmoUwAd3cHBnPRaO0QtRsSfCxoLqEqDZ0QpdcpokNBHWn4DYy75ZkVB8Sjk630ZwnUg==}
+    dev: true
+
+  /@fontsource/rampart-one@5.0.17:
+    resolution: {integrity: sha512-vnKaFvjvwE6JFffet6pi32s2qJR1YIzNFF26EUv4zUSqyvr/mf01xaloxDTxjKJbhIioyqrXYSJKSfaZq0qeqA==}
+    dev: true
+
+  /@fontsource/redacted-script@5.0.18:
+    resolution: {integrity: sha512-tkDsOm6jQdwrnOYp9opHwjdHDQCWL8pGfNHyc/cFsEz1fkx6z0eRQGLte1loWgXFk0Ee7etAxaIfFUjVbFloVA==}
+    dev: true
+
+  /@fontsource/redacted@5.0.18:
+    resolution: {integrity: sha512-M00Ao7pMAOc5na0trGloOGJrjo/1k0KmlCkmxCZDKeUlCGGsFNHPO12Xo1zoRgjSiguPmyWvCh8jLjT90Ym/9w==}
+    dev: true
+
+  /@fontsource/roboto@5.0.8:
+    resolution: {integrity: sha512-XxPltXs5R31D6UZeLIV1td3wTXU3jzd3f2DLsXI8tytMGBkIsGcc9sIyiupRtA8y73HAhuSCeweOoBqf6DbWCA==}
+    dev: true
+
+  /@fontsource/rubik-doodle-shadow@5.0.1:
+    resolution: {integrity: sha512-AttEWNXqO9DmGbz5jNNX8/RL4Aab8hG/Bw0KjkbaEx50Yvo4Tnmnfqhc2aZvWD7K36tYLj39nJEytw0BI4E2tQ==}
+    dev: true
+
+  /@fontsource/shadows-into-light@5.0.18:
+    resolution: {integrity: sha512-dXHfaBdcrtfq2yRw/Ia8d6rK8KQofyMhafnKxJ30QZgy6+OZUJRxgdZjgeT4c3JNfbIXVvb7e+cndJdsEJj1Jw==}
+    dev: true
+
+  /@fontsource/shantell-sans@5.0.18:
+    resolution: {integrity: sha512-T6jS/3LbveMrcGBd+A5W3ZTbE0AVzDUB6a6k2CGOnFCiC1ZwRdapQGtxJgYmaNA2+YzkekJXczqW7S1/ZhsgCQ==}
+    dev: true
+
+  /@fontsource/silkscreen@5.0.18:
+    resolution: {integrity: sha512-++hQ8DVxtREntWU3EAx7Omwv7eLkHOUOZJJa006N/PEeDSTwP5eNVys1GwZlOXg6w9NcV5Z3xw8bNDyo/c/E4Q==}
+    dev: true
+
+  /@fontsource/slackey@5.0.18:
+    resolution: {integrity: sha512-TCWD+hkpYeg94+HvIlmmTjF5mIsGbNZUcA7vw67He/ROFAbh5UZWXmkvDaxItv9iF4pJid889aJaAsHlZiSL4A==}
+    dev: true
+
+  /@fontsource/source-serif-pro@5.0.8:
+    resolution: {integrity: sha512-bb8bza+aBp6Wpz1LOXaQ9YSwMc/wNpk3hniENCPoBMMwsn9LQaJU0kKnJSSIi+ld1t7aH4jbh+mHQHN1zLfZ3A==}
+    dev: true
+
+  /@fontsource/tourney@5.0.18:
+    resolution: {integrity: sha512-BelYTZY3WUJD2KLzijHKvOIol+GkAmB0RsfS7HsgddxjtsFBzJf4iXGMTAthu+iJoEH3WSDvjtmtteO7zHIrhA==}
+    dev: true
+
+  /@fontsource/vt323@5.0.8:
+    resolution: {integrity: sha512-WU1qtqHObNqH2Tq6NmzwpO2Gyu3E4nqEOdrSMs0j9mwtRRSHf9FeM+iYVdbA1rhJDDZSw0ZSZakGAZxOJNTTdw==}
+    dev: true
+
+  /@fontsource/wavefont@5.0.11:
+    resolution: {integrity: sha512-i/V845Vo6S6PHmeZZ/LLMn2fsc+/ButxQCI7astw0QbnKWN0zmxEWuosxl8Y7KgU/16+PWCIa3cIsJbq0WaLaQ==}
     dev: true
 
   /@gitbeaker/core@35.8.1:
