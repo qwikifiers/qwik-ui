@@ -17,9 +17,9 @@ export function useTypeahead() {
       return;
     }
 
-    inputStrSig.value += key;
-
     const firstCharOnly$ = $(() => {
+      console.log('herehrere');
+
       // First opens the listbox if it is not already displayed and then moves visual focus to the first option that matches the typed character.
       const singleInputChar = key.toLowerCase();
 
@@ -56,15 +56,17 @@ export function useTypeahead() {
 
     const multipleChars$ = $(() => {
       console.log(inputStrSig.value);
-
       // If multiple keys are typed in quick succession, visual focus moves to the first option that matches the full string.
       clearTimeout(prevTimeoutSig.value);
       prevTimeoutSig.value = setTimeout(() => {
         inputStrSig.value = '';
       }, 1000);
     });
+    //
+    if (inputStrSig.value.length === 1) {
+      firstCharOnly$();
+    }
 
-    firstCharOnly$();
     multipleChars$();
   });
 
