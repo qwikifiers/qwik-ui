@@ -177,7 +177,10 @@ export default component$(() => {
                         themeComputedObjectSig.value.primary = primary;
                         setTheme(await themeStoreToThemeClasses$());
                       }}
-                      class={cn('flex h-4 w-4 items-center justify-center rounded-none')}
+                      class={cn(
+                        'flex h-4 w-4 items-center justify-center rounded-none',
+                        isActive && 'border-ring border-2',
+                      )}
                     >
                       {(primary === 'primary-slate-900' ||
                         primary === 'primary-gray-900' ||
@@ -190,7 +193,6 @@ export default component$(() => {
                         <span
                           class={cn(
                             'flex h-3 w-3 shrink-0 rounded-none',
-                            isActive && 'border-ring border-2',
                             primary === 'primary-slate-100' && 'bg-slate-100',
                             primary === 'primary-gray-100' && 'bg-gray-100',
                             primary === 'primary-zinc-100' && 'bg-zinc-100',
