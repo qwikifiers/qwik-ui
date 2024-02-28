@@ -50,6 +50,12 @@
       "files": ["combobox.tsx"]
     },
     {
+      "displayName": "Input",
+      "type": "input",
+      "componentFolder": "input",
+      "files": ["input.tsx"]
+    },
+    {
       "displayName": "Label",
       "type": "label",
       "componentFolder": "label",

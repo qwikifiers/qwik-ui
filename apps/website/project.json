@@ -21,14 +21,6 @@
         "buildTarget": "website:build"
       }
     },
-    "test": {
-      "executor": "@nx/vite:test",
-      "outputs": ["coverage/apps/website"],
-      "options": {
-        "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/apps/website"
-      }
-    },
     "serve": {
       "executor": "@nx/vite:dev-server",
       "options": {
