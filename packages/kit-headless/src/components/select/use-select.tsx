@@ -27,7 +27,6 @@ export function useTypeahead() {
         return null;
       }
       if (indexDiffSig.value === undefined) {
-        console.log('Is key length 1?', charIndex);
         indexDiffSig.value = charIndex + 1;
         context.highlightedIndexSig.value = charIndex;
         return;
@@ -45,9 +44,16 @@ export function useTypeahead() {
           context.highlightedIndexSig.value = nextIndex;
           indexDiffSig.value = nextIndex + 1;
         }
+        return;
       }
+      indexDiffSig.value = charIndex + 1;
+      context.highlightedIndexSig.value = charIndex;
 
       return;
+    });
+
+    const multipleChars$ = $(() => {
+      // If multiple keys are typed in quick succession, visual focus moves to the first option that matches the full string.
     });
 
     firstCharOnly$();
