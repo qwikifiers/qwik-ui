@@ -5,12 +5,14 @@ export function useTypeahead() {
   const context = useContext(SelectContextId);
   const inputStrSig = useSignal('');
   const indexDiffSig = useSignal<number | undefined>(undefined);
+  const prevTimeoutSig = useSignal<undefined | NodeJS.Timeout>(undefined);
 
   const firstCharOptionsSig = useComputed$(() => {
     return context.optionsSig.value.map((opt) => opt.value.slice(0, 1).toLowerCase());
   });
 
   const typeahead$ = $((key: string): void => {
+    inputStrSig.value += key;
     if (key.length > 1) {
       return;
     }
@@ -53,10 +55,17 @@ export function useTypeahead() {
     });
 
     const multipleChars$ = $(() => {
+      console.log(inputStrSig.value);
+
       // If multiple keys are typed in quick succession, visual focus moves to the first option that matches the full string.
+      clearTimeout(prevTimeoutSig.value);
+      prevTimeoutSig.value = setTimeout(() => {
+        inputStrSig.value = '';
+      }, 1000);
     });
 
     firstCharOnly$();
+    multipleChars$();
   });
 
   return { typeahead$ };
