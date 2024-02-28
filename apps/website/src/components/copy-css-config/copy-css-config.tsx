@@ -14,8 +14,11 @@ export default component$(() => {
   const { theme } = useTheme();
 
   const generateCSSThemeOutput = $(async () => {
+    console.log('theme', theme);
     const cssRules = extractThemeCSS(
-      'border-radius-0 simple primary-green-600 light base-slate',
+      theme === 'dark' || theme === 'light'
+        ? 'border-radius-0 simple primary-cyan-600 light base-slate'
+        : theme,
       globalCSS,
     );
     cssThemeOutput.value = cssRules;

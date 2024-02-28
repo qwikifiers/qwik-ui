@@ -10,7 +10,7 @@ import CopyCssConfig from '../copy-css-config/copy-css-config';
 export default component$(() => {
   useStyles$(`
     .make-it-yours::backdrop {
-      background: rgba(0,0,0,0.1);
+      background: rgba(0,0,0,0.05);
     }
   
     .make-it-yours {
@@ -105,7 +105,7 @@ export default component$(() => {
       <Modal
         closeOnBackdropClick={false}
         bind:show={showSig}
-        class="make-it-yours bg-background text-foreground rounded-base mr-0 h-screen max-w-lg border-0 p-8 shadow-md"
+        class="make-it-yours bg-background text-foreground rounded-l-base mr-0 h-screen max-w-lg border-y border-l p-8 shadow-md"
       >
         <div class="flex h-full flex-col justify-between">
           <div>
@@ -168,20 +168,6 @@ export default component$(() => {
                 {primaryOptions.map((primary) => {
                   const isActive = themeComputedObjectSig.value.primary === primary;
 
-                  if (
-                    primary.includes('slate-100') ||
-                    primary.includes('gray-100') ||
-                    primary.includes('zinc-100') ||
-                    primary.includes('neutral-100') ||
-                    primary.includes('stone-100') ||
-                    primary.includes('slate-200') ||
-                    primary.includes('gray-200') ||
-                    primary.includes('zinc-200') ||
-                    primary.includes('neutral-200') ||
-                    primary.includes('stone-200')
-                  )
-                    return <span key={primary}></span>;
-
                   return (
                     <Button
                       key={primary}
@@ -196,37 +182,22 @@ export default component$(() => {
                         isActive && 'border-ring border-2',
                       )}
                     >
-                      {(primary?.includes('slate-800') ||
-                        primary?.includes('gray-800') ||
-                        primary?.includes('zinc-800') ||
-                        primary?.includes('neutral-800') ||
-                        primary?.includes('stone-800') ||
-                        primary?.includes('slate-900') ||
-                        primary?.includes('gray-900') ||
-                        primary?.includes('zinc-900') ||
-                        primary?.includes('neutral-900') ||
-                        primary?.includes('stone-900')) &&
+                      {(primary === 'primary-slate-900' ||
+                        primary === 'primary-gray-900' ||
+                        primary === 'primary-zinc-900' ||
+                        primary === 'primary-neutral-900' ||
+                        primary === 'primary-stone-900') &&
                       theme?.includes('dark') ? (
-                        <span
-                          class={cn(
-                            'flex h-3 w-3 shrink-0 rounded-none',
-                            primary === 'primary-slate-900' && 'bg-slate-100',
-                            primary === 'primary-gray-900' && 'bg-gray-100',
-                            primary === 'primary-zinc-900' && 'bg-zinc-100',
-                            primary === 'primary-neutral-900' && 'bg-neutral-100',
-                            primary === 'primary-stone-900' && 'bg-stone-100',
-                            primary === 'primary-slate-800' && 'bg-slate-200',
-                            primary === 'primary-gray-800' && 'bg-gray-200',
-                            primary === 'primary-zinc-800' && 'bg-zinc-200',
-                            primary === 'primary-neutral-800' && 'bg-neutral-200',
-                            primary === 'primary-stone-800' && 'bg-stone-200',
-                          )}
-                        />
+                        <span class={cn('flex h-3 w-3 shrink-0 rounded-none')} />
                       ) : (
                         <span
                           class={cn(
                             'flex h-3 w-3 shrink-0 rounded-none',
-
+                            primary === 'primary-slate-100' && 'bg-slate-100',
+                            primary === 'primary-gray-100' && 'bg-gray-100',
+                            primary === 'primary-zinc-100' && 'bg-zinc-100',
+                            primary === 'primary-neutral-100' && 'bg-neutral-100',
+                            primary === 'primary-stone-100' && 'bg-stone-100',
                             primary === 'primary-red-100' && 'bg-red-100',
                             primary === 'primary-orange-100' && 'bg-orange-100',
                             primary === 'primary-amber-100' && 'bg-amber-100',
@@ -245,6 +216,11 @@ export default component$(() => {
                             primary === 'primary-pink-100' && 'bg-pink-100',
                             primary === 'primary-rose-100' && 'bg-rose-100',
 
+                            primary === 'primary-slate-200' && 'bg-slate-200',
+                            primary === 'primary-gray-200' && 'bg-gray-200',
+                            primary === 'primary-zinc-200' && 'bg-zinc-200',
+                            primary === 'primary-neutral-200' && 'bg-neutral-200',
+                            primary === 'primary-stone-200' && 'bg-stone-200',
                             primary === 'primary-red-200' && 'bg-red-200',
                             primary === 'primary-orange-200' && 'bg-orange-200',
                             primary === 'primary-amber-200' && 'bg-amber-200',
@@ -383,6 +359,11 @@ export default component$(() => {
                             primary === 'primary-zinc-800' && 'bg-zinc-800',
                             primary === 'primary-neutral-800' && 'bg-neutral-800',
                             primary === 'primary-stone-800' && 'bg-stone-800',
+                            primary === 'primary-slate-800' && 'bg-slate-800',
+                            primary === 'primary-gray-800' && 'bg-gray-800',
+                            primary === 'primary-zinc-800' && 'bg-zinc-800',
+                            primary === 'primary-neutral-800' && 'bg-neutral-800',
+                            primary === 'primary-stone-800' && 'bg-stone-800',
                             primary === 'primary-red-800' && 'bg-red-800',
                             primary === 'primary-orange-800' && 'bg-orange-800',
                             primary === 'primary-amber-800' && 'bg-amber-800',
@@ -401,6 +382,11 @@ export default component$(() => {
                             primary === 'primary-pink-800' && 'bg-pink-800',
                             primary === 'primary-rose-800' && 'bg-rose-800',
 
+                            primary === 'primary-slate-900' && 'bg-slate-900',
+                            primary === 'primary-gray-900' && 'bg-gray-900',
+                            primary === 'primary-zinc-900' && 'bg-zinc-900',
+                            primary === 'primary-neutral-900' && 'bg-neutral-900',
+                            primary === 'primary-stone-900' && 'bg-stone-900',
                             primary === 'primary-slate-900' && 'bg-slate-900',
                             primary === 'primary-gray-900' && 'bg-gray-900',
                             primary === 'primary-zinc-900' && 'bg-zinc-900',

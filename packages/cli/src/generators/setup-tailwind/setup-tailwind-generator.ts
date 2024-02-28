@@ -25,7 +25,7 @@ export async function setupTailwindGenerator(
   options.primaryColor = options.primaryColor ?? Color.CYAN + '-600';
   options.primaryColor = 'primary-' + options.primaryColor;
 
-  options.borderRadius = options.borderRadius ?? 'border-radius-dot-25';
+  options.borderRadius = options.borderRadius ?? 'border-radius-0';
 
   updateTailwindConfig(tree, options.projectRoot, kitRoot);
 
@@ -180,7 +180,7 @@ function updateRootCss(
   kitRoot: string,
   themeConfig: ThemeConfig,
 ) {
-  themeConfig.baseColor = 'base-' + Color.NEUTRAL;
+  themeConfig.baseColor = 'base-' + Color.SLATE;
 
   const rootCssContent = tree.read(globalCssPath, 'utf-8');
 
