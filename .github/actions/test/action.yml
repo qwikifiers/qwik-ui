@@ -20,17 +20,21 @@ runs:
 
     - name: Lint
       shell: bash
-      run: npx nx affected:lint --base=last-release --exclude=website
+      run: npx nx run-many -t lint --exclude website # --base=last-release  <- add that back after fix
 
-    - name: Build Headless Kit
+    - name: Build packages
       shell: bash
-      run: npx nx build headless
+      run: npx nx run-many -t build --exclude website # --base=last-release  <- add that back
 
     # - name: Build storybook
     #   shell: bash
     #   run: npx nx build-storybook headless
 
-    - name: Run Cypress component tests
+    - name: Test all except headless
+      shell: bash
+      run: npx nx run-many -t test # --base=last-release <- add that back
+
+    - name: Test Headless
       uses: cypress-io/github-action@v5
       with:
         command: 'pnpm test.headless.ci'
@@ -47,10 +51,6 @@ runs:
     # - name: Build
     #   shell: bash
     #   run: npx nx affected:build --base=last-release --exclude=website
-
-    # - name: Test
-    #   shell: bash
-    #   run: npx nx affected --target=test --base=last-release
 
     # - name: E2E Tests
     #   shell: bash
