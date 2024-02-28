@@ -62,11 +62,13 @@ export function useTypeahead() {
         inputStrSig.value = '';
       }, 1000);
     });
-    //
+
     if (inputStrSig.value.length === 1) {
       firstCharOnly$();
     }
-
+    // const firstCharOptionsSig = useComputed$(() => {
+    //   return context.optionsSig.value.map((opt) => opt.value.slice(0, 1).toLowerCase());
+    // });
     multipleChars$();
   });
 

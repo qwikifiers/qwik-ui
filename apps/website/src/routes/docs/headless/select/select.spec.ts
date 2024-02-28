@@ -491,7 +491,7 @@ test.describe('Keyboard Behavior', () => {
         'select-typeahead-test',
       );
       await openListbox('ArrowDown');
-      await getTrigger().pressSequentially('jj', { delay: 250 });
+      await getTrigger().pressSequentially('jj', { delay: 1250 });
       const highlightedOpt = getRoot().locator('[data-highlighted]');
       await expect(highlightedOpt).toContainText('jessie', { ignoreCase: true });
     });
@@ -506,9 +506,26 @@ test.describe('Keyboard Behavior', () => {
         'select-typeahead-test',
       );
       await openListbox('ArrowDown');
-      await getTrigger().pressSequentially('jjt', { delay: 250 });
+      await getTrigger().pressSequentially('jjt', { delay: 1250 });
       const highlightedOpt = getRoot().locator('[data-highlighted]');
       await expect(highlightedOpt).toContainText('tim', { ignoreCase: true });
+    });
+
+    test(`GIVEN an open select with typeahead support and multiple characters
+          WHEN the user types in the letter "a"
+          AND waits a bit, then types in the letter "je"
+          THEN the first option starting with "je" should have data-highlighted`, async ({
+      page,
+    }) => {
+      const { getRoot, getTrigger, openListbox } = await setup(
+        page,
+        'select-typeahead-test',
+      );
+      await openListbox('ArrowDown');
+      await getTrigger().pressSequentially('a', { delay: 1250 });
+      await getTrigger().pressSequentially('je', { delay: 250 });
+      const highlightedOpt = getRoot().locator('[data-highlighted]');
+      await expect(highlightedOpt).toContainText('jessie', { ignoreCase: true });
     });
   });
 });
