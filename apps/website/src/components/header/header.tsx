@@ -137,7 +137,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
     >
       <header class="xs:gap-8 flex w-full max-w-screen-2xl items-center gap-6">
         <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">
-          <a href="/" aria-label="Qwik UI Logo" class="text-outlined lg:ml-8">
+          <a href="/" aria-label="Qwik UI Logo" class="lg:ml-8">
             <LogoWithBorders />
           </a>
           {showVersion && (
