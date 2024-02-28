@@ -1,6 +1,7 @@
 import { component$, type PropsOf, useContext, sync$, $, Slot } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from './utils';
+import { useTypeahead } from './use-select';
 export type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
 
 type SelectTriggerProps = PropsOf<'button'>;
@@ -8,6 +9,8 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
   const openKeys = ['ArrowUp', 'ArrowDown'];
   const closedKeys = [`Escape`];
+
+  const { typeahead$ } = useTypeahead();
 
   // Both the space and enter keys run with handleClick$
   const handleClick$ = $(() => {
@@ -77,6 +80,8 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       if (e.key === 'Enter' || e.key === ' ') {
         context.selectedIndexSig.value = context.highlightedIndexSig.value;
       }
+
+      typeahead$(e.key);
     }
   });
 
