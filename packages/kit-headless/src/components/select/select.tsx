@@ -40,7 +40,12 @@ export const SelectImpl = component$<SelectProps>((props) => {
    * Updates the options when the options change
    * (for example, when a new option is added)
    **/
-  const optionsSig = useComputed$(() => props._options);
+  const optionsSig = useComputed$(() => {
+    if (props._options === undefined || props._options.length === 0) {
+      return [];
+    }
+    return props._options;
+  });
 
   const optionsIndexMap = new Map(
     optionsSig.value?.map((option, index) => [option.value, index]),

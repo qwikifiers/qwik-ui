@@ -14,7 +14,7 @@ export type SelectContext = {
   listboxRef: Signal<HTMLUListElement | undefined>;
 
   // core state
-  optionsSig: Signal<Opt[] | undefined>;
+  optionsSig: Signal<Opt[]>;
   highlightedIndexSig: Signal<number | null>;
   isListboxOpenSig: Signal<boolean>;
   selectedIndexSig: Signal<number | null>;

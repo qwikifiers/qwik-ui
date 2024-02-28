@@ -467,8 +467,8 @@ test.describe('Keyboard Behavior', () => {
 
   test.describe('typeahead', () => {
     test(`GIVEN an open select with a typeahead support
-          WHEN the user types in the letter "r"
-          THEN the first option starting with the letter "r" should have data-highlighted`, async ({
+          WHEN the user types in the letter "j"
+          THEN the first option starting with the letter "j" should have data-highlighted`, async ({
       page,
     }) => {
       const { getRoot, getTrigger, openListbox } = await setup(
@@ -479,6 +479,21 @@ test.describe('Keyboard Behavior', () => {
       await getTrigger().pressSequentially('j', { delay: 250 });
       const highlightedOpt = getRoot().locator('[data-highlighted]');
       await expect(highlightedOpt).toContainText('j', { ignoreCase: true });
+    });
+
+    test(`GIVEN an open select with a typeahead support
+          WHEN the user types in the letter "j" twice
+          THEN the second option starting with the letter "j" should have data-highlighted`, async ({
+      page,
+    }) => {
+      const { getRoot, getTrigger, openListbox } = await setup(
+        page,
+        'select-typeahead-test',
+      );
+      await openListbox('ArrowDown');
+      await getTrigger().pressSequentially('jj', { delay: 250 });
+      const highlightedOpt = getRoot().locator('[data-highlighted]');
+      await expect(highlightedOpt).toContainText('jessie', { ignoreCase: true });
     });
   });
 });
