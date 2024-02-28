@@ -13,7 +13,7 @@ import { GitHubIcon } from '../icons/GitHubIcon';
 import { MenuIcon } from '../icons/MenuIcon';
 import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
-import { Logo } from '../icons/logo';
+import { LogoWithBorders } from '../icons/logo';
 
 import { useTheme } from 'qwik-themes';
 import MakeItYours from '../make-it-yours/make-it-yours';
@@ -137,8 +137,8 @@ export default component$(({ showVersion = false }: HeaderProps) => {
     >
       <header class="xs:gap-8 flex w-full max-w-screen-2xl items-center gap-6">
         <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">
-          <a href="/" aria-label="Qwik UI Logo" class="lg:ml-8">
-            <Logo />
+          <a href="/" aria-label="Qwik UI Logo" class="text-outlined lg:ml-8">
+            <LogoWithBorders />
           </a>
           {showVersion && (
             <div data-tip="Qwik-UI Version" class="mr-auto">

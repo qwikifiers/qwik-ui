@@ -30,7 +30,7 @@ function createPrimaryColors() {
   const colorValues = Object.values(Color);
 
   const primaryColorsByLightness = [];
-  for (let i = 300; i <= 900; i += 100) {
+  for (let i = 100; i <= 900; i += 100) {
     for (const color of colorValues) {
       primaryColorsByLightness.push(`primary-${color}-${i}`);
     }
