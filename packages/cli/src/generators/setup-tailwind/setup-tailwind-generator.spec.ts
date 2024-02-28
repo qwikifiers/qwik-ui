@@ -583,7 +583,7 @@ html {
           --alert: 0 84.2% 60.2%;
           --alert-foreground: 210 40% 98%;
           --ring: 0 0% 0%;
-          --border-width: 3px;
+          --border-width: 2px;
           --border-radius: 1rem;
           --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
           --shadow-sm: 4px 4px 0px 0 rgba(0, 0, 0, 1);
