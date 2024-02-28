@@ -540,6 +540,21 @@ test.describe('Keyboard Behavior', () => {
       const highlightedOpt = getRoot().locator('[data-highlighted]');
       await expect(highlightedOpt).toContainText('abby', { ignoreCase: true });
     });
+
+    test(`GIVEN an open select with typeahead support and repeated characters
+          WHEN the user types in a letter three times
+          THEN the data-highlighted value should cycle through the options`, async ({
+      page,
+    }) => {
+      const { getRoot, getTrigger, openListbox } = await setup(
+        page,
+        'select-typeahead-test',
+      );
+      await openListbox('ArrowDown');
+      await getTrigger().pressSequentially('jjj', { delay: 1250 });
+      const highlightedOpt = getRoot().locator('[data-highlighted]');
+      await expect(highlightedOpt).toContainText('jim', { ignoreCase: true });
+    });
   });
 });
 

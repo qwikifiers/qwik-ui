@@ -6,7 +6,6 @@ export function useTypeahead() {
   const inputStrSig = useSignal('');
   const indexDiffSig = useSignal<number | undefined>(undefined);
   const prevTimeoutSig = useSignal<undefined | NodeJS.Timeout>(undefined);
-  console.log(inputStrSig.value, indexDiffSig.value, prevTimeoutSig.value);
 
   const firstCharOptionsSig = useComputed$(() => {
     return context.optionsSig.value.map((opt) => opt.value.slice(0, 1).toLowerCase());
@@ -49,16 +48,16 @@ export function useTypeahead() {
 
         // index the next time we could see the same character
         const repeatIndex = nextCharSearch.indexOf(key);
-        console.log('me first ', repeatIndex, indexDiffSig.value);
         if (repeatIndex !== -1) {
           const nextIndex = repeatIndex + indexDiffSig.value;
 
           context.highlightedIndexSig.value = nextIndex;
           indexDiffSig.value = nextIndex + 1;
-          console.log('me repeats ', nextIndex, indexDiffSig.value);
           return;
         }
-        // actual magical return
+
+        indexDiffSig.value = undefined;
+        context.highlightedIndexSig.value = firstCharIndex;
         return;
       }
       indexDiffSig.value = firstCharIndex + 1;
