@@ -105,9 +105,9 @@ export default component$(() => {
       <Modal
         closeOnBackdropClick={false}
         bind:show={showSig}
-        class="make-it-yours bg-background text-foreground rounded-l-base mr-0 h-screen max-w-lg border-y border-l p-8 shadow-md"
+        class="make-it-yours bg-background text-foreground rounded-l-base mr-0 h-screen max-w-sm border-y border-l p-8 shadow-md sm:w-full"
       >
-        <div class="flex h-full flex-col justify-between">
+        <div class="flex h-full flex-col items-center justify-center">
           <div>
             <ModalHeader>
               <h2 class="text-lg font-bold">Edit Profile</h2>
@@ -115,7 +115,7 @@ export default component$(() => {
             <ModalContent class="mb-2 py-4">
               <label class="mb-1 block font-medium">Preset</label>
               <select
-                class="bg-background rounded-base h-12 min-w-80 border p-2"
+                class="bg-background rounded-base h-12 w-full border p-2"
                 value={themeComputedObjectSig.value.style}
                 onChange$={async (e, el) => {
                   themeComputedObjectSig.value.style = el.value;
@@ -144,13 +144,13 @@ export default component$(() => {
                         setTheme(await themeStoreToThemeClasses$());
                       }}
                       class={cn(
-                        'flex h-4 w-4 items-center justify-center rounded-none',
+                        'flex h-3 w-3 items-center justify-center rounded-none',
                         isActive && 'border-ring border-2',
                       )}
                     >
                       <span
                         class={cn(
-                          'flex h-3 w-3 shrink-0 rounded-none',
+                          'flex h-[10px] w-[10px] shrink-0 rounded-none',
                           base === 'base-slate' && 'bg-slate-500',
                           base === 'base-gray' && 'bg-gray-500',
                           base === 'base-neutral' && 'bg-neutral-500',
@@ -164,9 +164,24 @@ export default component$(() => {
               </div>
 
               <label class="mb-1 mt-8 block font-medium">Primary</label>
-              <div class="grid grid-cols-[repeat(22,1fr)]">
+              <div class="grid grid-cols-[repeat(22,0fr)]">
                 {primaryOptions.map((primary) => {
                   const isActive = themeComputedObjectSig.value.primary === primary;
+
+                  if (
+                    primary.includes('slate-100') ||
+                    primary.includes('gray-100') ||
+                    primary.includes('zinc-100') ||
+                    primary.includes('neutral-100') ||
+                    primary.includes('stone-100') ||
+                    primary.includes('slate-200') ||
+                    primary.includes('gray-200') ||
+                    primary.includes('zinc-200') ||
+                    primary.includes('neutral-200') ||
+                    primary.includes('stone-200')
+                  ) {
+                    return <span key={primary}></span>;
+                  }
 
                   return (
                     <Button
@@ -178,21 +193,40 @@ export default component$(() => {
                         setTheme(await themeStoreToThemeClasses$());
                       }}
                       class={cn(
-                        'flex h-4 w-4 items-center justify-center rounded-none',
-                        isActive && 'border-ring border-2',
+                        'h-3 w-3 rounded-none',
+                        isActive && 'border-ring border-[1px]',
                       )}
                     >
-                      {(primary === 'primary-slate-900' ||
+                      {(primary === 'primary-slate-800' ||
+                        primary === 'primary-gray-800' ||
+                        primary === 'primary-zinc-800' ||
+                        primary === 'primary-neutral-800' ||
+                        primary === 'primary-stone-800' ||
+                        primary === 'primary-slate-900' ||
                         primary === 'primary-gray-900' ||
                         primary === 'primary-zinc-900' ||
                         primary === 'primary-neutral-900' ||
                         primary === 'primary-stone-900') &&
                       theme?.includes('dark') ? (
-                        <span class={cn('flex h-3 w-3 shrink-0 rounded-none')} />
+                        <span
+                          class={cn(
+                            'flex h-[10px] w-[10px] shrink-0 rounded-none',
+                            primary === 'primary-slate-800' && 'bg-slate-200',
+                            primary === 'primary-gray-800' && 'bg-gray-200',
+                            primary === 'primary-zinc-800' && 'bg-zinc-200',
+                            primary === 'primary-neutral-800' && 'bg-neutral-200',
+                            primary === 'primary-stone-800' && 'bg-stone-200',
+                            primary === 'primary-slate-900' && 'bg-slate-100',
+                            primary === 'primary-gray-900' && 'bg-gray-100',
+                            primary === 'primary-zinc-900' && 'bg-zinc-100',
+                            primary === 'primary-neutral-900' && 'bg-neutral-100',
+                            primary === 'primary-stone-900' && 'bg-stone-100',
+                          )}
+                        />
                       ) : (
                         <span
                           class={cn(
-                            'flex h-3 w-3 shrink-0 rounded-none',
+                            'flex h-[10px] w-[10px] shrink-0 rounded-none',
                             primary === 'primary-slate-100' && 'bg-slate-100',
                             primary === 'primary-gray-100' && 'bg-gray-100',
                             primary === 'primary-zinc-100' && 'bg-zinc-100',
@@ -457,18 +491,14 @@ export default component$(() => {
               </div>
             </ModalContent>
           </div>
-          <div>
-            <ModalFooter class="flex justify-end gap-4">
-              <CopyCssConfig />
-            </ModalFooter>
-            <button
-              onClick$={() => (showSig.value = false)}
-              class="absolute right-6 top-[26px]"
-            >
-              <LuX class="h-8 w-8" />
-            </button>
-          </div>
         </div>
+
+        <ModalFooter class="flex justify-end gap-4">
+          <CopyCssConfig />
+        </ModalFooter>
+        <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-7">
+          <LuX class="h-8 w-8" />
+        </button>
       </Modal>
     </section>
   );
