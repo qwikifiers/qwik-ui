@@ -90,7 +90,7 @@
   }
 
   .dark.brutalist.brutalist {
-    --border-width: 3px;
+    --border-width: 2px;
     --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
     --shadow-sm: 4px 4px 0px 0 rgba(0, 0, 0, 1);
     --shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
