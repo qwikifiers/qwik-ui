@@ -135,14 +135,15 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         theme?.includes('brutalist') && 'border-b-2',
       )}
     >
-      <header class="xs:gap-8 flex w-full max-w-screen-2xl items-center gap-6">
-        <section class="mr-auto flex flex-col gap-1 md:flex-row md:gap-8">
+      <header class="flex w-full max-w-screen-2xl items-center justify-between">
+        <div class="block sm:hidden" />
+        <section class="xs:flex xs:items-center mr-auto hidden">
           <a href="/" aria-label="Qwik UI Logo" class="lg:ml-8">
             <LogoWithBorders />
           </a>
           {showVersion && (
             <div data-tip="Qwik-UI Version" class="mr-auto">
-              <div class="ml-2 flex flex-row gap-1 text-xs md:mt-1 md:flex-col md:text-sm">
+              <div class="ml-4 hidden text-xs sm:flex sm:flex-col md:mt-1 md:text-sm">
                 <span> {kitSignal.value?.name} Kit </span>
                 <span>
                   {' '}
@@ -153,84 +154,86 @@ export default component$(({ showVersion = false }: HeaderProps) => {
           )}
         </section>
 
-        <nav class="hidden gap-4 lg:flex">
-          <a class={isRouteActive('/about')} href="/about">
-            About
-          </a>
-          <a class={isDocsActive('/docs/headless/')} href="/docs/headless/introduction">
-            Headless Kit
-          </a>
-          {rootStore.featureFlags?.showStyled && (
-            <a class={isDocsActive('/docs/styled/')} href="/docs/styled/introduction">
-              Styled Kit
+        <div class="xs:space-x-6 mr-4 flex items-center space-x-6">
+          <nav class="hidden gap-4 lg:flex">
+            <a class={isRouteActive('/about')} href="/about">
+              About
             </a>
-          )}
-          <a
-            class={isRouteActive('https://discord.gg/PVWUUejrez')}
-            href="https://discord.gg/PVWUUejrez"
-            target="_blank"
-          >
-            Community
-          </a>
-          {/* <a href="/contact">Contact</a> */}
-        </nav>
-        <MakeItYours />
-        <button
-          type="button"
-          aria-label="Toggle dark mode"
-          onClick$={() => {
-            theme?.includes('light') ? setTheme('dark') : setTheme('light');
-          }}
-        >
-          <div class="hidden dark:block">
-            <MoonIcon />
-          </div>
-          <div class="block dark:hidden">
-            <SunIcon />
-          </div>
-        </button>
-        <a
-          target="_blank"
-          href="https://github.com/qwikifiers/qwik-ui"
-          aria-label="Qwik-UI GitHub repository"
-          class="sm:mr-8"
-        >
-          <GitHubIcon />
-        </a>
-        <button
-          type="button"
-          aria-label="Toggle navigation"
-          onClick$={() => {
-            isSidebarOpenedSig.value = !isSidebarOpenedSig.value;
-          }}
-          class="mr-4 block lg:hidden"
-        >
-          {isSidebarOpenedSig.value ? <CloseIcon /> : <MenuIcon />}
-        </button>
-        <Modal
-          bind:show={isSidebarOpenedSig}
-          class="sidebar-mobile bg-background text-foreground rounded-base ml-0 mr-auto h-screen max-w-lg border-0 p-8 shadow-md"
-        >
-          <ModalHeader>
-            <h2 class="text-lg font-bold">Copy config</h2>
-            <p>
-              Copy and paste the following code into your global.css file to apply the
-              styles.
-            </p>
-          </ModalHeader>
-          <ModalContent class="mb-2 pb-4 pt-2">
-            <DocsNavigation
-              linksGroups={menuItemsGroups}
-              class="bg-background  max-w-80 overflow-auto"
-            />
-          </ModalContent>
+            <a class={isDocsActive('/docs/headless/')} href="/docs/headless/introduction">
+              Headless Kit
+            </a>
+            {rootStore.featureFlags?.showStyled && (
+              <a class={isDocsActive('/docs/styled/')} href="/docs/styled/introduction">
+                Styled Kit
+              </a>
+            )}
+            <a
+              class={isRouteActive('https://discord.gg/PVWUUejrez')}
+              href="https://discord.gg/PVWUUejrez"
+              target="_blank"
+            >
+              Community
+            </a>
+            {/* <a href="/contact">Contact</a> */}
+          </nav>
+          <MakeItYours />
           <button
-            onClick$={() => (isSidebarOpenedSig.value = false)}
-            class="absolute right-6 top-[26px]"
+            type="button"
+            aria-label="Toggle dark mode"
+            onClick$={() => {
+              theme?.includes('light') ? setTheme('dark') : setTheme('light');
+            }}
           >
-            <LuX class="h-8 w-8" />
+            <div class="hidden dark:block">
+              <MoonIcon />
+            </div>
+            <div class="block dark:hidden">
+              <SunIcon />
+            </div>
           </button>
-        </Modal>
+          <a
+            target="_blank"
+            href="https://github.com/qwikifiers/qwik-ui"
+            aria-label="Qwik-UI GitHub repository"
+            class="sm:mr-8"
+          >
+            <GitHubIcon />
+          </a>
+          <button
+            type="button"
+            aria-label="Toggle navigation"
+            onClick$={() => {
+              isSidebarOpenedSig.value = !isSidebarOpenedSig.value;
+            }}
+            class="mr-4 block lg:hidden"
+          >
+            {isSidebarOpenedSig.value ? <CloseIcon /> : <MenuIcon />}
+          </button>
+          <Modal
+            bind:show={isSidebarOpenedSig}
+            class="sidebar-mobile bg-background text-foreground rounded-base ml-0 mr-auto h-screen max-w-lg border-0 p-8 shadow-md"
+          >
+            <ModalHeader>
+              <h2 class="text-lg font-bold">Copy config</h2>
+              <p>
+                Copy and paste the following code into your global.css file to apply the
+                styles.
+              </p>
+            </ModalHeader>
+            <ModalContent class="mb-2 pb-4 pt-2">
+              <DocsNavigation
+                linksGroups={menuItemsGroups}
+                class="bg-background  max-w-80 overflow-auto"
+              />
+            </ModalContent>
+            <button
+              onClick$={() => (isSidebarOpenedSig.value = false)}
+              class="absolute right-6 top-[26px]"
+            >
+              <LuX class="h-8 w-8" />
+            </button>
+          </Modal>
+        </div>
       </header>
     </div>
   );

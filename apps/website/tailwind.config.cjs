@@ -51,6 +51,9 @@ module.exports = {
         'londrina-shadow': ['Londrina Shadow', 'cursive'],
         'rubik-doodle-shadow': ['Rubik Doodle Shadow', 'monospace'],
       },
+      screens: {
+        xs: '480px',
+      },
       // EXTEND-START
       colors: {
         border: 'hsl(var(--border))',
