@@ -6,6 +6,7 @@ import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
 import { useTheme } from 'qwik-themes';
 import { baseOptions, borderRadiusOptions, primaryOptions } from '~/_state/make-it-yours';
 import CopyCssConfig from '../copy-css-config/copy-css-config';
+import { useAppState } from '~/_state/use-app-state';
 
 export default component$(() => {
   useStyles$(`
@@ -71,6 +72,7 @@ export default component$(() => {
     `);
 
   const showSig = useSignal(false);
+  const rootStore = useAppState();
 
   const { theme, setTheme } = useTheme();
 
@@ -135,7 +137,9 @@ export default component$(() => {
           >
             <option value={'simple'}>Simple</option>
             <option value={'brutalist'}>Brutalist</option>
-            <option value={'neumorphic'}>Neumorphic</option>
+            {rootStore.featureFlags?.showNeumorphic && (
+              <option value={'neumorphic'}>Neumorphic</option>
+            )}
           </select>
 
           <label class="mb-1 mt-8 block font-medium">Base</label>
