@@ -9,6 +9,7 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import SelectContextId from './select-context';
+import { isServer } from '@builder.io/qwik/build';
 
 export type SelectOptionProps = PropsOf<'li'> & {
   index?: number;
@@ -49,6 +50,36 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
 
     if (localIndexSig.value !== null) {
       context.highlightedIndexSig.value = localIndexSig.value;
+    }
+  });
+
+  useTask$(function scrollableTask({ track, cleanup }) {
+    track(() => context.highlightedIndexSig.value);
+
+    if (isServer) return;
+
+    let observer: IntersectionObserver;
+
+    const checkVisibility = (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+
+      // if the option is not visible, scroll it into view
+      if (isHighlightedSig.value && !entry.isIntersecting) {
+        optionRef.value?.scrollIntoView(context.scrollOptions);
+      }
+    };
+
+    cleanup(() => observer?.disconnect());
+
+    if (typeof window !== 'undefined') {
+      observer = new IntersectionObserver(checkVisibility, {
+        root: context.listboxRef.value,
+        threshold: 1.0,
+      });
+
+      if (optionRef.value) {
+        observer.observe(optionRef.value);
+      }
     }
   });
 

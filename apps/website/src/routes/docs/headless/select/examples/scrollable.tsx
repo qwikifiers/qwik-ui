@@ -10,15 +10,15 @@ import {
 } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Abby']);
-  const animalsSig = useSignal<string[]>(['Dog', 'Cat', 'Bird']);
+  const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
+  const animalsSig = useSignal<string[]>(['Dog', 'Cat', 'Bird', 'Fish', 'Snake']);
 
   return (
     <Select class="relative min-w-40">
       <SelectTrigger class="w-full border-2 border-dashed border-red-400">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
-      <SelectListbox class="absolute z-10 w-full border-2 border-dashed border-green-400 bg-slate-900 p-2">
+      <SelectListbox class="absolute z-10 max-h-60 w-full overflow-y-auto border-2 border-dashed border-green-400 bg-slate-900 p-2">
         <SelectGroup>
           <SelectLabel class="text-sm text-slate-400">People</SelectLabel>
           {usersSig.value.map((user) => (

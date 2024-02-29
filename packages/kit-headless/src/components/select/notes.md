@@ -35,7 +35,7 @@ What do they all have in common? How do people use them? What are the most impor
     - [x] Grouped options
     - [x] Typeahead support (user typing / filter)
     - [ ] RTL support
-    - [ ] Scrollable
+    - [x] Scrollable
     - [ ] Aria (controls, roles, etc)
 
 ## Props:

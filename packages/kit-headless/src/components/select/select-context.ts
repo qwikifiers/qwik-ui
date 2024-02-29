@@ -19,6 +19,9 @@ export type SelectContext = {
   highlightedIndexSig: Signal<number | null>;
   isListboxOpenSig: Signal<boolean>;
   selectedIndexSig: Signal<number | null>;
+
+  // user configurable
+  scrollOptions?: ScrollIntoViewOptions;
 };
 
 export const groupContextId = createContextId<GroupContext>('Select-Group');

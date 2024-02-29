@@ -569,6 +569,21 @@ test.describe('Keyboard Behavior', () => {
       await expect(highlightedOpt).toContainText('dog', { ignoreCase: true });
     });
   });
+
+  test(`GIVEN an open select with multiple groups and a scrollable listbox
+        AND the last option is not visible
+        WHEN the end key is pressed
+        THEN the last option should be visible`, async ({ page }) => {
+    const { getTrigger, getRoot, openListbox } = await setup(page, 'select-scroll-test');
+
+    await openListbox('Enter');
+
+    await getTrigger().focus();
+    await getTrigger().press('End');
+    const lastOption = getRoot().getByRole('option', { includeHidden: false }).last();
+
+    await expect(lastOption).toBeInViewport();
+  });
 });
 
 test.describe('Disabled', () => {

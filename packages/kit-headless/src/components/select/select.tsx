@@ -26,6 +26,8 @@ export type SelectProps = PropsOf<'div'> & {
 
   onChange$?: QRL<() => void>;
   onOpenChange$?: QRL<() => void>;
+
+  scrollOptions?: ScrollIntoViewOptions;
 };
 
 /* root component in select-inline.tsx */
@@ -56,6 +58,10 @@ export const SelectImpl = component$<SelectProps>((props) => {
   const selectedIndexSig = useSignal<number | null>(props._valuePropIndex ?? null);
   const highlightedIndexSig = useSignal<number | null>(props._valuePropIndex ?? null);
   const isListboxOpenSig = useSignal<boolean>(false);
+  const scrollOptions = props.scrollOptions ?? {
+    behavior: 'instant',
+    block: 'nearest',
+  };
 
   // Maps are apparently great for this index accessing. Will learn more about them this week and refactor this to have a more consistent API and eliminate redundancy / duplication.
   useTask$(function controlledValueTask({ track }) {
@@ -93,6 +99,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
     highlightedIndexSig,
     isListboxOpenSig,
     selectedIndexSig,
+    scrollOptions,
   };
 
   useContextProvider(SelectContextId, context);
