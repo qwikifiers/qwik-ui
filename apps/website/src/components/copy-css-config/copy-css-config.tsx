@@ -1,4 +1,4 @@
-import { $, component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import { Modal, ModalContent, ModalHeader } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/styled';
 import { extractThemeCSS } from '@qwik-ui/utils';
@@ -13,23 +13,17 @@ export default component$(() => {
 
   const { theme } = useTheme();
 
-  const generateCSSThemeOutput = $(async () => {
-    console.log('theme', theme);
-    const cssRules = extractThemeCSS(
-      theme === 'dark' || theme === 'light'
-        ? 'border-radius-0 simple primary-cyan-600 light base-slate'
-        : theme,
-      globalCSS,
-    );
-    cssThemeOutput.value = cssRules;
-  });
-
   return (
     <>
       <Button
         onClick$={() => {
           showSig.value = true;
-          generateCSSThemeOutput();
+          cssThemeOutput.value = extractThemeCSS(
+            theme === 'dark' || theme === 'light'
+              ? 'border-radius-0 simple primary-cyan-600 light base-slate'
+              : theme,
+            globalCSS,
+          );
         }}
       >
         Copy code
