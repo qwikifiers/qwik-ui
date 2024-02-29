@@ -23,6 +23,7 @@ import { LuX } from '@qwikest/icons/lucide';
 import { DocsNavigation } from '../navigation-docs/navigation-docs';
 import { useKitMenuItems } from '~/routes/layout';
 import { cn } from '@qwik-ui/utils';
+import { DiscordIcon } from '../icons/discord';
 
 export interface HeaderProps {
   showVersion?: boolean;
@@ -138,12 +139,12 @@ export default component$(({ showVersion = false }: HeaderProps) => {
       <header class="flex w-full max-w-screen-2xl items-center justify-between">
         <div class="block sm:hidden" />
         <section class="xs:flex xs:items-center mr-auto hidden">
-          <a href="/" aria-label="Qwik UI Logo" class="lg:ml-8">
+          <a href="/" aria-label="Qwik UI Logo" class="ml-8">
             <LogoWithBorders />
           </a>
           {showVersion && (
             <div data-tip="Qwik-UI Version" class="mr-auto">
-              <div class="ml-4 hidden text-xs sm:flex sm:flex-col md:mt-1 md:text-sm">
+              <div class="ml-4 hidden text-xs sm:flex-col md:flex">
                 <span> {kitSignal.value?.name} Kit </span>
                 <span>
                   {' '}
@@ -154,11 +155,8 @@ export default component$(({ showVersion = false }: HeaderProps) => {
           )}
         </section>
 
-        <div class="xs:space-x-6 mr-4 flex items-center space-x-6">
+        <div class="xs:space-x-8 mr-4 flex items-center space-x-6">
           <nav class="hidden gap-4 lg:flex">
-            <a class={isRouteActive('/about')} href="/about">
-              About
-            </a>
             <a class={isDocsActive('/docs/headless/')} href="/docs/headless/introduction">
               Headless Kit
             </a>
@@ -167,16 +165,23 @@ export default component$(({ showVersion = false }: HeaderProps) => {
                 Styled Kit
               </a>
             )}
-            <a
-              class={isRouteActive('https://discord.gg/PVWUUejrez')}
-              href="https://discord.gg/PVWUUejrez"
-              target="_blank"
-            >
-              Community
-            </a>
-            {/* <a href="/contact">Contact</a> */}
           </nav>
           <MakeItYours />
+          <a
+            class={isRouteActive('https://discord.gg/PVWUUejrez')}
+            href="https://discord.gg/PVWUUejrez"
+            target="_blank"
+          >
+            <DiscordIcon />
+          </a>
+          <a
+            target="_blank"
+            href="https://github.com/qwikifiers/qwik-ui"
+            aria-label="Qwik-UI GitHub repository"
+            class="sm:mr-8"
+          >
+            <GitHubIcon />
+          </a>
           <button
             type="button"
             aria-label="Toggle dark mode"
@@ -191,14 +196,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
               <SunIcon />
             </div>
           </button>
-          <a
-            target="_blank"
-            href="https://github.com/qwikifiers/qwik-ui"
-            aria-label="Qwik-UI GitHub repository"
-            class="sm:mr-8"
-          >
-            <GitHubIcon />
-          </a>
+
           <button
             type="button"
             aria-label="Toggle navigation"
