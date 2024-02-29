@@ -12,11 +12,21 @@ export type SelectContext = {
   triggerRef: Signal<HTMLButtonElement | undefined>;
   popoverRef: Signal<HTMLElement | undefined>;
   listboxRef: Signal<HTMLUListElement | undefined>;
+  groupRef: Signal<HTMLDivElement | undefined>;
 
   // core state
-  options: Opt[] | undefined;
+  optionsSig: Signal<Opt[]>;
   highlightedIndexSig: Signal<number | null>;
   isListboxOpenSig: Signal<boolean>;
   selectedIndexSig: Signal<number | null>;
-  value: string | undefined;
+
+  // user configurable
+  scrollOptions?: ScrollIntoViewOptions;
+  loop: boolean;
+};
+
+export const groupContextId = createContextId<GroupContext>('Select-Group');
+
+export type GroupContext = {
+  labelId: string;
 };

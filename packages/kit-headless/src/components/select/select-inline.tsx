@@ -2,6 +2,7 @@ import { type JSXNode, type FunctionComponent } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select';
 import { SelectListbox } from './select-listbox';
 import { SelectOption } from './select-option';
+import { SelectGroup } from './select-group';
 
 export type Opt = {
   isDisabled: boolean;
@@ -49,11 +50,18 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
         childrenToProcess.unshift(...listboxChildren);
         break;
       }
+      case SelectGroup: {
+        const listboxChildren = Array.isArray(child.props.children)
+          ? [...child.props.children]
+          : [child.props.children];
+        childrenToProcess.unshift(...listboxChildren);
+        break;
+      }
       case SelectOption: {
         const isString = typeof child.props.children === 'string';
         if (!isString) {
           throw new Error(
-            `Qwik UI: Select option value passed was not a string. It was an ${typeof child
+            `Qwik UI: Select option value passed was not a string. It was a ${typeof child
               .props.children}.`,
           );
         }
@@ -80,6 +88,17 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
     if (valuePropIndex === -1) {
       throw new Error(
         `Qwik UI: it appears you've disabled every option in the select. Was that intentional? 🤨`,
+      );
+    }
+  }
+
+  // console warning if a consumer's passed in value does not match an option
+  if (props.value) {
+    const valueMatch = opts.some((opt) => opt.value === props.value);
+
+    if (!valueMatch) {
+      console.error(
+        `Qwik UI: the provided option value "${props.value}" does not match any of the option values in the Select.`,
       );
     }
   }
