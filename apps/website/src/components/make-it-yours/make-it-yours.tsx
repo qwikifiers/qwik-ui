@@ -465,7 +465,7 @@ export default component$(() => {
 
           <div>
             <label class="mb-1 mt-8 block font-medium">Radius</label>
-            <div class="flex flex-col space-y-2">
+            <div class="flex space-x-3">
               {borderRadiusOptions.map((borderRadius) => {
                 const isActive =
                   themeComputedObjectSig.value.borderRadius === borderRadius;
@@ -477,9 +477,13 @@ export default component$(() => {
                       themeComputedObjectSig.value.borderRadius = borderRadius;
                       setTheme(await themeStoreToThemeClasses$());
                     }}
-                    class={cn(isActive && 'border-ring mb-2')}
+                    class={cn('w-12', isActive && 'border-ring mb-2')}
                   >
-                    {borderRadius}
+                    {borderRadius === 'border-radius-0' && 0}
+                    {borderRadius === 'border-radius-dot-25' && '.25'}
+                    {borderRadius === 'border-radius-dot-50' && '.5'}
+                    {borderRadius === 'border-radius-dot-75' && '.75'}
+                    {borderRadius === 'border-radius-1' && 1}
                   </Button>
                 );
               })}
