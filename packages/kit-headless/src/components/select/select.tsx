@@ -28,6 +28,7 @@ export type SelectProps = PropsOf<'div'> & {
   onOpenChange$?: QRL<() => void>;
 
   scrollOptions?: ScrollIntoViewOptions;
+  loop?: boolean;
 };
 
 /* root component in select-inline.tsx */
@@ -38,6 +39,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
   const popoverRef = useSignal<HTMLElement>();
   const listboxRef = useSignal<HTMLUListElement>();
   const groupRef = useSignal<HTMLDivElement>();
+  const loop = props.loop ?? false;
 
   /**
    * Updates the options when the options change
@@ -100,6 +102,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
     isListboxOpenSig,
     selectedIndexSig,
     scrollOptions,
+    loop,
   };
 
   useContextProvider(SelectContextId, context);

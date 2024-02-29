@@ -22,6 +22,7 @@ export type SelectContext = {
 
   // user configurable
   scrollOptions?: ScrollIntoViewOptions;
+  loop: boolean;
 };
 
 export const groupContextId = createContextId<GroupContext>('Select-Group');

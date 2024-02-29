@@ -623,6 +623,196 @@ test.describe('Keyboard Behavior', () => {
     });
   });
 
+  test.describe('looping', () => {
+    test.describe('loop disabled', () => {
+      test(`GIVEN an open basic select
+          AND the last option is data-highlighted
+          WHEN the down key is pressed
+          THEN data-highlighted should stay on the last option`, async ({ page }) => {
+        const { getTrigger, getOptions, openListbox } = await setup(
+          page,
+          'select-hero-test',
+        );
+
+        // initially last option is highlighted
+        await openListbox('Enter');
+        await getTrigger().focus();
+        await getTrigger().press('End');
+        const options = await getOptions();
+        await expect(options[options.length - 1]).toHaveAttribute('data-highlighted');
+
+        await getTrigger().focus();
+        await getTrigger().press('ArrowDown');
+        await expect(options[options.length - 1]).toHaveAttribute('data-highlighted');
+      });
+
+      test(`GIVEN an open basic select
+          AND the first option is data-highlighted
+          WHEN the up arrow key is pressed
+          THEN data-highlighted should stay on the first option`, async ({ page }) => {
+        const { getTrigger, getOptions, openListbox } = await setup(
+          page,
+          'select-hero-test',
+        );
+
+        await openListbox('Enter');
+        const options = await getOptions();
+        await expect(options[0]).toHaveAttribute('data-highlighted');
+        await getTrigger().focus();
+        await getTrigger().press('ArrowUp');
+        await expect(options[0]).toHaveAttribute('data-highlighted');
+      });
+
+      test(`GIVEN a closed basic select
+          AND the last option is selected
+          WHEN the right arrow key is pressed
+          THEN it should stay on the last option`, async ({ page }) => {
+        const { getTrigger, getOptions, getListbox, openListbox } = await setup(
+          page,
+          'select-hero-test',
+        );
+
+        // initially last option is highlighted & listbox closed
+        await openListbox('Enter');
+        await getTrigger().focus();
+        await getTrigger().press('End');
+        const options = await getOptions();
+        await expect(options[options.length - 1]).toHaveAttribute('data-highlighted');
+        await getTrigger().press('Enter');
+        await expect(options[options.length - 1]).toHaveAttribute(
+          'aria-selected',
+          'true',
+        );
+        await expect(getListbox()).toBeHidden();
+
+        await getTrigger().focus();
+        await getTrigger().press('ArrowRight');
+        await expect(options[options.length - 1]).toHaveAttribute('data-highlighted');
+        await expect(options[options.length - 1]).toHaveAttribute(
+          'aria-selected',
+          'true',
+        );
+      });
+
+      test(`GIVEN a closed basic select
+          AND the first option is selected
+          WHEN the left arrow key is pressed
+          THEN it should stay on the first option`, async ({ page }) => {
+        const { getTrigger, getOptions, getListbox, openListbox } = await setup(
+          page,
+          'select-hero-test',
+        );
+
+        // initially first option is highlighted & listbox closed
+        await openListbox('Enter');
+        await getTrigger().focus();
+        await getTrigger().press('Enter');
+        const options = await getOptions();
+        await expect(options[0]).toHaveAttribute('data-highlighted');
+        await expect(options[0]).toHaveAttribute('aria-selected', 'true');
+        await expect(getListbox()).toBeHidden();
+
+        await getTrigger().focus();
+        await getTrigger().press('ArrowLeft');
+        await expect(options[0]).toHaveAttribute('data-highlighted');
+        await expect(options[0]).toHaveAttribute('aria-selected', 'true');
+      });
+    });
+
+    test.describe('loop enabled', () => {
+      test(`GIVEN an open select with loop enabled
+            AND the last option is data-highlighted
+            WHEN the down arrow key is pressed
+            THEN the first option should have data-highlighted`, async ({ page }) => {
+        const { getTrigger, getOptions, openListbox } = await setup(
+          page,
+          'select-loop-test',
+        );
+
+        // initially last option is highlighted
+        await openListbox('Enter');
+        await getTrigger().focus();
+        await getTrigger().press('End');
+        const options = await getOptions();
+        await expect(options[options.length - 1]).toHaveAttribute('data-highlighted');
+
+        await getTrigger().focus();
+        await getTrigger().press('ArrowDown');
+        await expect(options[0]).toHaveAttribute('data-highlighted');
+      });
+
+      test(`GIVEN an open select with loop enabled
+            AND the first option is data-highlighted
+            WHEN the up arrow key is pressed
+            THEN the last option should have data-highlighted`, async ({ page }) => {
+        const { getTrigger, getOptions, openListbox } = await setup(
+          page,
+          'select-loop-test',
+        );
+
+        // initially last option is highlighted
+        await openListbox('Enter');
+        const options = await getOptions();
+        await expect(options[0]).toHaveAttribute('data-highlighted');
+
+        await getTrigger().focus();
+        await getTrigger().press('ArrowUp');
+        await expect(options[options.length - 1]).toHaveAttribute('data-highlighted');
+      });
+
+      test(`GIVEN a closed select with loop enabled
+            AND the last option is selected
+            WHEN the right arrow key is pressed
+            THEN it should loop to the first option`, async ({ page }) => {
+        const { getTrigger, getOptions, openListbox } = await setup(
+          page,
+          'select-loop-test',
+        );
+
+        // initially last option is highlighted
+        await openListbox('Enter');
+        await getTrigger().focus();
+        await getTrigger().press('End');
+        await getTrigger().press('Enter');
+        const options = await getOptions();
+        await expect(options[options.length - 1]).toHaveAttribute(
+          'aria-selected',
+          'true',
+        );
+
+        await getTrigger().focus();
+        await getTrigger().press('ArrowRight');
+        await expect(options[0]).toHaveAttribute('data-highlighted');
+        await expect(options[0]).toHaveAttribute('aria-selected', 'true');
+      });
+
+      test(`GIVEN a closed select with loop enabled
+            AND the first option is selected
+            WHEN the right arrow key is pressed
+            THEN it should loop to the first option`, async ({ page }) => {
+        const { getTrigger, getOptions, openListbox } = await setup(
+          page,
+          'select-loop-test',
+        );
+
+        // initially select first option
+        await openListbox('Enter');
+        await getTrigger().focus();
+        await getTrigger().press('Enter');
+        const options = await getOptions();
+        await expect(options[0]).toHaveAttribute('aria-selected', 'true');
+
+        await getTrigger().focus();
+        await getTrigger().press('ArrowLeft');
+        await expect(options[options.length - 1]).toHaveAttribute('data-highlighted');
+        await expect(options[options.length - 1]).toHaveAttribute(
+          'aria-selected',
+          'true',
+        );
+      });
+    });
+  });
+
   test(`GIVEN an open select with multiple groups and a scrollable listbox
         AND the last option is not visible
         WHEN the end key is pressed

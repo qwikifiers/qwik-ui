@@ -2,7 +2,6 @@ import { component$, type PropsOf, useContext, sync$, $, Slot } from '@builder.i
 import SelectContextId from './select-context';
 import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from './utils';
 import { useTypeahead } from './use-select';
-export type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
 
 type SelectTriggerProps = PropsOf<'button'>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
@@ -50,6 +49,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       context.highlightedIndexSig.value = getNextEnabledOptionIndex(
         -1,
         context.optionsSig.value,
+        context.loop,
       );
     }
 
@@ -57,6 +57,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       const lastEnabledOptionIndex = getPrevEnabledOptionIndex(
         context.optionsSig.value.length,
         context.optionsSig.value,
+        context.loop,
       );
       context.highlightedIndexSig.value = lastEnabledOptionIndex;
     }
@@ -66,6 +67,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         context.selectedIndexSig.value = getNextEnabledOptionIndex(
           -1,
           context.optionsSig.value,
+          context.loop,
         );
 
         context.highlightedIndexSig.value = context.selectedIndexSig.value;
@@ -76,6 +78,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         context.selectedIndexSig.value = getNextEnabledOptionIndex(
           context.selectedIndexSig.value!,
           context.optionsSig.value,
+          context.loop,
         );
 
         context.highlightedIndexSig.value = context.selectedIndexSig.value;
@@ -85,6 +88,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         context.selectedIndexSig.value = getPrevEnabledOptionIndex(
           context.optionsSig.value.length,
           context.optionsSig.value,
+          context.loop,
         );
 
         context.highlightedIndexSig.value = context.selectedIndexSig.value;
@@ -95,6 +99,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         context.selectedIndexSig.value = getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
           context.optionsSig.value,
+          context.loop,
         );
 
         context.highlightedIndexSig.value = context.selectedIndexSig.value;
@@ -106,15 +111,25 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       context.highlightedIndexSig.value = getNextEnabledOptionIndex(
         -1,
         context.optionsSig.value,
+        context.loop,
       );
       return;
     }
 
     if (context.isListboxOpenSig.value && !shouldOpen) {
+      console.log('heyyy');
+      // select options
+      if (e.key === 'Enter' || e.key === ' ') {
+        context.selectedIndexSig.value = context.highlightedIndexSig.value;
+        console.log('selectedIndex', context.selectedIndexSig.value);
+        console.log('highlightedIndex', context.highlightedIndexSig.value);
+      }
+
       if (e.key === 'ArrowDown') {
         context.highlightedIndexSig.value = getNextEnabledOptionIndex(
           context.highlightedIndexSig.value,
           context.optionsSig.value,
+          context.loop,
         );
       }
 
@@ -122,12 +137,8 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         context.highlightedIndexSig.value = getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
           context.optionsSig.value,
+          context.loop,
         );
-      }
-
-      // select options
-      if (e.key === 'Enter' || e.key === ' ') {
-        context.selectedIndexSig.value = context.highlightedIndexSig.value;
       }
 
       typeahead$(e.key);
