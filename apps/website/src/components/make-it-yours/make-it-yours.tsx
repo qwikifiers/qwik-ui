@@ -509,7 +509,13 @@ export default component$(() => {
           </div>
         </ModalContent>
 
-        <ModalFooter class=" flex w-full justify-end gap-4">
+        <ModalFooter class=" flex w-full justify-between gap-4">
+          <Button
+            look="ghost"
+            onClick$={() => setTheme(theme?.includes('dark') ? 'dark' : 'light')}
+          >
+            Reset
+          </Button>
           <CopyCssConfig />
         </ModalFooter>
         <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-7">
