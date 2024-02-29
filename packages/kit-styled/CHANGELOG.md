@@ -1,5 +1,13 @@
 # @qwik-ui/styled
 
+## 0.0.3
+
+### Patch Changes
+
+- REFACTOR minor class fixes on the styled Card and Tabs (by [@maiieul](https://github.com/maiieul) in [#625](https://github.com/qwikifiers/qwik-ui/pull/625))
+
+- FIX added input to registry (by [@shairez](https://github.com/shairez) in [`cbe6087`](https://github.com/qwikifiers/qwik-ui/commit/cbe608795c5a8d4498d09b0e3266d4d2db9acde3))
+
 ## 0.0.2
 
 ### Patch Changes
