@@ -110,22 +110,30 @@
     --popover-foreground: 240 5.9% 10%;
     --card: 0 0 88%;
     --card-foreground: 240 5.9% 10%;
-    --border: 0 0% 80%;
-    --ring: 222.2 47.4% 80.2%;
-    --shadow-base: -3px -3px 6px #bebebe, 3px 3px 6px #ffffff, inset 1px 1px 2px #bebebe,
+    --border: 0 0% 80.2%;
+    --ring: 0 0% 80.2%;
+    --input: 0 0% 80.2%;
+    --shadow-base: -3px -3px 6px #bebebe, 3px 3px 6px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-sm: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow-sm: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-md: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow-md: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-lg: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow-lg: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-xl: 8px 8px 15px #bebebe, -8px -8px 15px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow-xl: 8px 8px 15px #bebebe, -8px -8px 15px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow-2xl: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff,
-      inset 1px 1px 2px #bebebe, inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
+      inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow-inner: inset 4px 4px 8px #bebebe, inset -2px -2px 4px #ffffff;
     --transform-press: scale(0.95);
   }
