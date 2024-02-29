@@ -2,6 +2,7 @@ import { type JSXNode, type FunctionComponent } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select';
 import { SelectListbox } from './select-listbox';
 import { SelectOption } from './select-option';
+import { SelectGroup } from './select-group';
 
 export type Opt = {
   isDisabled: boolean;
@@ -43,6 +44,13 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
       //     break;
       //   }
       case SelectListbox: {
+        const listboxChildren = Array.isArray(child.props.children)
+          ? [...child.props.children]
+          : [child.props.children];
+        childrenToProcess.unshift(...listboxChildren);
+        break;
+      }
+      case SelectGroup: {
         const listboxChildren = Array.isArray(child.props.children)
           ? [...child.props.children]
           : [child.props.children];

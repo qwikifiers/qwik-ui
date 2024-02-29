@@ -35,6 +35,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
   const triggerRef = useSignal<HTMLButtonElement>();
   const popoverRef = useSignal<HTMLElement>();
   const listboxRef = useSignal<HTMLUListElement>();
+  const groupRef = useSignal<HTMLDivElement>();
 
   /**
    * Updates the options when the options change
@@ -87,6 +88,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
     triggerRef,
     popoverRef,
     listboxRef,
+    groupRef,
     optionsSig,
     highlightedIndexSig,
     isListboxOpenSig,

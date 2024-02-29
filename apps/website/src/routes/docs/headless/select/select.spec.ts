@@ -555,6 +555,19 @@ test.describe('Keyboard Behavior', () => {
       const highlightedOpt = getRoot().locator('[data-highlighted]');
       await expect(highlightedOpt).toContainText('jim', { ignoreCase: true });
     });
+
+    test(`GIVEN an open select with typeahead support and grouped options
+          WHEN the user types a letter matching an option in one group
+          AND the user types a letter matching an option in another group
+          THEN the data-highlighted value should switch groups`, async ({ page }) => {
+      const { getRoot, getTrigger, openListbox } = await setup(page, 'select-group-test');
+      await openListbox('ArrowDown');
+      await getTrigger().press('j');
+      const highlightedOpt = getRoot().locator('[data-highlighted]');
+      await expect(highlightedOpt).toContainText('Jim', { ignoreCase: true });
+      await getTrigger().press('d');
+      await expect(highlightedOpt).toContainText('dog', { ignoreCase: true });
+    });
   });
 });
 
@@ -614,6 +627,42 @@ test.describe('Disabled', () => {
     await getTrigger().press('End');
     const options = await getOptions();
     await expect(options[options.length - 2]).toHaveAttribute('data-highlighted');
+  });
+
+  test(`GIVEN an open disabled select
+        WHEN the second option is highlighted and the down arrow key is pressed
+        AND the first and third options are disabled
+        THEN the fourth option should be highlighted`, async ({ page }) => {
+    const { getTrigger, getOptions, openListbox } = await setup(
+      page,
+      'select-disabled-test',
+    );
+
+    await openListbox('ArrowDown');
+    const options = await getOptions();
+    await expect(options[1]).toHaveAttribute('data-highlighted');
+    await getTrigger().press('ArrowDown');
+    await expect(options[3]).toHaveAttribute('data-highlighted');
+  });
+
+  test(`GIVEN an open disabled select
+        WHEN the fourth is highlighted and the up key is pressed
+        AND the first and third options are disabled
+        THEN the second option should be highlighted`, async ({ page }) => {
+    const { getTrigger, getOptions, openListbox } = await setup(
+      page,
+      'select-disabled-test',
+    );
+
+    // initially the fourh option is highlighted
+    await openListbox('ArrowDown');
+    const options = await getOptions();
+    await expect(options[1]).toHaveAttribute('data-highlighted');
+    await getTrigger().press('ArrowDown');
+    await expect(options[3]).toHaveAttribute('data-highlighted');
+
+    await getTrigger().press('ArrowUp');
+    await expect(options[1]).toHaveAttribute('data-highlighted');
   });
 });
 
@@ -739,5 +788,19 @@ test.describe('Props', () => {
       expect(await getValue()).toEqual(await options[1].textContent());
       await expect(options[1]).toHaveAttribute('aria-selected', 'true');
     });
+  });
+});
+
+test.describe('A11y', () => {
+  test(`GIVEN a select with a group
+        WHEN the user adds a new group
+        THEN the group should have an aria-labelledby attribute
+        AND its associated label`, async ({ page }) => {
+    const { getRoot, openListbox } = await setup(page, 'select-group-test');
+    await openListbox('ArrowDown');
+    const labelId = await getRoot().getByRole('listitem').first().getAttribute('id');
+    const group = getRoot().getByRole('group').first();
+
+    await expect(group).toHaveAttribute('aria-labelledby', labelId!);
   });
 });

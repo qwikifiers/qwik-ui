@@ -8,7 +8,15 @@ import {
 } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
+  const usersSig = useSignal<string[]>([
+    'Tim',
+    'Ryan',
+    'Jim',
+    'Bobbie',
+    'Joan',
+    'Jessie',
+    'Abby',
+  ]);
 
   return (
     <Select class="relative min-w-40">
@@ -21,7 +29,11 @@ export default component$(() => {
           <SelectOption
             class="border-dashed border-blue-400 data-[highlighted]:border-2 data-[disabled]:bg-slate-600 data-[disabled]:opacity-30"
             key={user}
-            disabled={index === 0 || index === usersSig.value.length - 1 ? true : false}
+            disabled={
+              index === 0 || index === 2 || index === usersSig.value.length - 1
+                ? true
+                : false
+            }
           >
             {user}
           </SelectOption>
