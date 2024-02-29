@@ -29,11 +29,13 @@ What do they all have in common? How do people use them? What are the most impor
 ## Features:
 
     - [x] Single Select
+    - [x] Single Select Keyboard Interactions
     - [ ] Multi Select
+    - [ ] Multi Select Keyboard Interactions
     - [x] Controlled or uncontrolled
-    - [ ] Keyboard Interactions
     - [x] Grouped options
     - [x] Typeahead support (user typing / filter)
+    - [x] Looping
     - [ ] RTL support
     - [x] Scrollable
     - [ ] Aria (controls, roles, etc)
