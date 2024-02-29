@@ -95,17 +95,18 @@ export default component$(() => {
   });
   return (
     <section>
-      <button
+      <Button
+        look="outline"
         onClick$={() => {
           showSig.value = true;
         }}
         class="hover:bg-accent/80 rounded-base border px-3 py-2"
       >
         <div class="flex justify-center">
-          <LuSlidersHorizontal class="mr-3 h-6 w-6" />
+          <LuSlidersHorizontal class="h-6 w-6 sm:mr-3" />
           <span class="hidden sm:block">Make it yours</span>
         </div>
-      </button>
+      </Button>
       <Modal
         closeOnBackdropClick={false}
         bind:show={showSig}
