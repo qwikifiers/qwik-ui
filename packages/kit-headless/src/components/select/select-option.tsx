@@ -38,21 +38,6 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
     localIndexSig.value = index;
   });
 
-  const handleClick$ = $(() => {
-    if (disabled) return;
-
-    context.selectedIndexSig.value = localIndexSig.value;
-    context.isListboxOpenSig.value = false;
-  });
-
-  const handlePointerOver$ = $(() => {
-    if (disabled) return;
-
-    if (localIndexSig.value !== null) {
-      context.highlightedIndexSig.value = localIndexSig.value;
-    }
-  });
-
   useTask$(function scrollableTask({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
 
@@ -80,6 +65,21 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
       if (optionRef.value) {
         observer.observe(optionRef.value);
       }
+    }
+  });
+
+  const handleClick$ = $(() => {
+    if (disabled) return;
+
+    context.selectedIndexSig.value = localIndexSig.value;
+    context.isListboxOpenSig.value = false;
+  });
+
+  const handlePointerOver$ = $(() => {
+    if (disabled) return;
+
+    if (localIndexSig.value !== null) {
+      context.highlightedIndexSig.value = localIndexSig.value;
     }
   });
 

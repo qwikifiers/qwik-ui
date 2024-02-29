@@ -12,11 +12,7 @@ export default component$(() => {
 
   return (
     <>
-      <Select
-        onChange$={$(() => console.log('Changed!'))}
-        bind:value={selectedVal}
-        class="relative min-w-40"
-      >
+      <Select bind:value={selectedVal} class="relative min-w-40">
         <SelectTrigger class="w-full border-2 border-dashed border-red-400">
           <SelectValue placeholder="Select an option" />
         </SelectTrigger>

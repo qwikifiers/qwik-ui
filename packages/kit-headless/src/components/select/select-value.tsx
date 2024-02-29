@@ -1,4 +1,4 @@
-import { component$, useContext, type PropsOf } from '@builder.io/qwik';
+import { component$, useContext, type PropsOf, useComputed$ } from '@builder.io/qwik';
 
 import SelectContextId from './select-context';
 
@@ -10,14 +10,17 @@ export const SelectValue = component$((props: SelectValueProps) => {
   const context = useContext(SelectContextId);
   if (!context.optionsSig.value) return;
 
-  const selectedOptStr =
-    context.selectedIndexSig.value !== null
-      ? context.optionsSig.value[context.selectedIndexSig.value].value
-      : props.placeholder;
+  const displayStrSig = useComputed$(() => {
+    if (context.selectedIndexSig.value !== null) {
+      return context.optionsSig.value[context.selectedIndexSig.value].value;
+    } else {
+      return props.placeholder;
+    }
+  });
 
   return (
     <span data-value {...props}>
-      {selectedOptStr}
+      {displayStrSig.value}
     </span>
   );
 });

@@ -463,6 +463,59 @@ test.describe('Keyboard Behavior', () => {
 
       expect(optStr).toEqual(await getValue());
     });
+
+    test(`GIVEN a basic select
+          WHEN pressing the right arrow key
+          AND the placeholder is the selected value
+          THEN select the first enabled option
+          AND the first enabled option should have aria-selected`, async ({ page }) => {
+      const { getTrigger, getOptions, getValue } = await setup(page, 'select-hero-test');
+
+      const options = await getOptions();
+      await getTrigger().focus();
+      await getTrigger().press('ArrowRight', { delay: 250 });
+
+      expect(await getValue()).toEqual(await options[0].textContent());
+      await expect(options[0]).toHaveAttribute('aria-selected', 'true');
+      await expect(options[0]).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN a basic select
+          WHEN pressing the right arrow key
+          AND there is a selected value
+          THEN select the next enabled option
+          AND the next enabled option should have aria-selected`, async ({ page }) => {
+      const { getTrigger, getOptions, getValue } = await setup(page, 'select-hero-test');
+
+      const options = await getOptions();
+      await getTrigger().focus();
+      await getTrigger().press('ArrowRight', { delay: 250 });
+      await getTrigger().press('ArrowRight', { delay: 250 });
+
+      expect(await getValue()).toEqual(await options[1].textContent());
+      await expect(options[1]).toHaveAttribute('aria-selected', 'true');
+      await expect(options[1]).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN a basic select
+          WHEN pressing the left arrow key
+          AND there is a selected value
+          THEN select the previous enabled option
+          AND the previous enabled option should have 
+          aria-selected & data-highlighted`, async ({ page }) => {
+      const { getTrigger, getOptions, getValue } = await setup(page, 'select-hero-test');
+
+      // get initial selected value
+      const options = await getOptions();
+      await getTrigger().focus();
+      await getTrigger().press('ArrowRight', { delay: 250 });
+      await getTrigger().press('ArrowRight', { delay: 250 });
+
+      await getTrigger().press('ArrowLeft', { delay: 250 });
+      expect(await getValue()).toEqual(await options[0].textContent());
+      await expect(options[0]).toHaveAttribute('aria-selected', 'true');
+      await expect(options[0]).toHaveAttribute('data-highlighted');
+    });
   });
 
   test.describe('typeahead', () => {

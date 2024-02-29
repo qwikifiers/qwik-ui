@@ -18,7 +18,16 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   });
 
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
-    const keys = ['ArrowUp', 'ArrowDown', 'Home', 'End', 'PageDown', 'PageUp'];
+    const keys = [
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowRight',
+      'ArrowLeft',
+      'Home',
+      'End',
+      'PageDown',
+      'PageUp',
+    ];
     if (keys.includes(e.key)) {
       e.preventDefault();
     }
@@ -50,6 +59,46 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         context.optionsSig.value,
       );
       context.highlightedIndexSig.value = lastEnabledOptionIndex;
+    }
+
+    if (!context.isListboxOpenSig.value) {
+      if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
+        context.selectedIndexSig.value = getNextEnabledOptionIndex(
+          -1,
+          context.optionsSig.value,
+        );
+
+        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+        return;
+      }
+
+      if (e.key === 'ArrowRight' && context.highlightedIndexSig.value !== null) {
+        context.selectedIndexSig.value = getNextEnabledOptionIndex(
+          context.selectedIndexSig.value!,
+          context.optionsSig.value,
+        );
+
+        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+      }
+
+      if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {
+        context.selectedIndexSig.value = getPrevEnabledOptionIndex(
+          context.optionsSig.value.length,
+          context.optionsSig.value,
+        );
+
+        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+        return;
+      }
+
+      if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value !== null) {
+        context.selectedIndexSig.value = getPrevEnabledOptionIndex(
+          context.highlightedIndexSig.value,
+          context.optionsSig.value,
+        );
+
+        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+      }
     }
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
