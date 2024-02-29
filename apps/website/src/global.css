@@ -147,7 +147,8 @@
     --card: 240 5.3% 26.1%;
     --card-foreground: 240 5.9% 90%;
     --border: 240 5.9% 20%;
-    --ring: 222.2 47.4% 20.2%;
+    --ring: 240 5.9% 20%;
+    --input: 240 5.9% 20%;
     --shadow-base: -3px -3px 6px #2c2c31, 3px 3px 6px #52525b, inset 1px 1px 2px #2c2c31,
       inset -1px -1px 2px #52525b;
     --shadow-sm: 3px 3px 6px #2c2c31, -3px -3px 6px #52525b, inset 1px 1px 2px #2c2c31,
