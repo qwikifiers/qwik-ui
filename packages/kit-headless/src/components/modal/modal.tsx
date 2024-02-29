@@ -89,6 +89,11 @@ export const Modal = component$((props: ModalProps) => {
       data-state={showSig.value ? 'open' : 'closed'}
       role={props.alert === true ? 'alertdialog' : 'dialog'}
       ref={modalRefSig}
+      onKeyDown$={(event) => {
+        if (event.key === 'Escape') {
+          showSig.value = false;
+        }
+      }}
       onClick$={(event) => closeOnBackdropClick$(event)}
     >
       <Slot />
