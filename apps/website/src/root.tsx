@@ -55,6 +55,7 @@ export default component$(() => {
       <body lang="en">
         <ThemeProvider
           attribute="class"
+          enableSystem={false}
           themes={[
             ...modeOptions,
             ...fontOptions,

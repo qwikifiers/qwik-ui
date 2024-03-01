@@ -130,15 +130,10 @@ export default component$(({ showVersion = false }: HeaderProps) => {
   const { theme, setTheme } = useTheme();
 
   const switchLightDark = $((input: string | string[]): string | string[] | undefined => {
-    const switchWord = (word: string): string => {
-      if (word.includes('light')) {
-        return word.replace('light', 'dark');
-      } else if (word.includes('dark')) {
-        return word.replace('dark', 'light');
-      }
-      return word;
-    };
-
+    const switchWord = (word: string): string =>
+      word.includes('light')
+        ? word.replace('light', 'dark')
+        : word.replace('dark', 'light');
     if (typeof input === 'string') {
       return switchWord(input);
     } else if (Array.isArray(input)) {
