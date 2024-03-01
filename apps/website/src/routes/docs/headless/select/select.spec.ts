@@ -106,6 +106,17 @@ test.describe('Mouse Behavior', () => {
     await options[7].click();
     expect(await getValue()).toEqual(await options[7].textContent());
   });
+
+  // if we want to add focusing the trigger on blur
+  // test(`GIVEN a basic select
+  //       WHEN the listbox is open and the blur event is triggered
+  //       THEN focus should go back to the trigger`, async ({ page }) => {
+  //   const { getTrigger, openListbox } = await setup(page, 'select-hero-test');
+
+  //   await openListbox('click');
+  //   await getTrigger().blur();
+  //   await expect(getTrigger()).toBeFocused();
+  // });
 });
 
 test.describe('Keyboard Behavior', () => {
