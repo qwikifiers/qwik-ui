@@ -1,4 +1,5 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import styles from './select.css?inline';
 import {
   Select,
   SelectListbox,
@@ -10,33 +11,28 @@ import {
 } from '@qwik-ui/headless';
 
 export default component$(() => {
+  useStyles$(styles);
   const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
   const animalsSig = useSignal<string[]>(['Dog', 'Cat', 'Bird', 'Fish', 'Snake']);
 
   return (
-    <Select class="relative min-w-40">
-      <SelectTrigger class="w-full border-2 border-dashed border-red-400">
+    <Select class="select">
+      <SelectTrigger class="select-trigger">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
-      <SelectListbox class="absolute z-10 max-h-60 w-full overflow-y-auto border-2 border-dashed border-green-400 bg-slate-900 p-2">
+      <SelectListbox class="select-listbox select-max-height">
         <SelectGroup>
-          <SelectLabel class="text-sm text-slate-400">People</SelectLabel>
+          <SelectLabel class="select-label">People</SelectLabel>
           {usersSig.value.map((user) => (
-            <SelectOption
-              class="border-dashed border-blue-400 data-[highlighted]:border-2"
-              key={user}
-            >
+            <SelectOption class="select-option" key={user}>
               {user}
             </SelectOption>
           ))}
         </SelectGroup>
         <SelectGroup>
-          <SelectLabel class="text-sm text-slate-400">Animals</SelectLabel>
+          <SelectLabel class="select-label">Animals</SelectLabel>
           {animalsSig.value.map((animal) => (
-            <SelectOption
-              class="border-dashed border-blue-400 data-[highlighted]:border-2"
-              key={animal}
-            >
+            <SelectOption class="select-option" key={animal}>
               {animal}
             </SelectOption>
           ))}

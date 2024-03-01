@@ -473,7 +473,7 @@ test.describe('Keyboard Behavior', () => {
 
       const options = await getOptions();
       await getTrigger().focus();
-      await getTrigger().press('ArrowRight', { delay: 250 });
+      await getTrigger().press('ArrowRight', { delay: 500 });
 
       expect(await getValue()).toEqual(await options[0].textContent());
       await expect(options[0]).toHaveAttribute('aria-selected', 'true');
@@ -489,8 +489,8 @@ test.describe('Keyboard Behavior', () => {
 
       const options = await getOptions();
       await getTrigger().focus();
-      await getTrigger().press('ArrowRight', { delay: 250 });
-      await getTrigger().press('ArrowRight', { delay: 250 });
+      await getTrigger().press('ArrowRight', { delay: 500 });
+      await getTrigger().press('ArrowRight', { delay: 500 });
 
       expect(await getValue()).toEqual(await options[1].textContent());
       await expect(options[1]).toHaveAttribute('aria-selected', 'true');

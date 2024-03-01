@@ -1,0 +1,42 @@
+.select {
+  position: relative;
+  min-width: 10rem;
+}
+
+.select-trigger {
+  width: 100%;
+  border: 2px dashed hsla(var(--primary) / 1);
+  border-radius: calc(var(--border-radius) / 2);
+}
+
+.select-listbox {
+  position: absolute;
+  width: 100%;
+  background-color: hsl(var(--background));
+  padding: 0.5rem;
+  border: 2px dashed hsla(var(--foreground) / 0.6);
+  border-radius: calc(var(--border-radius) / 2);
+  z-index: 9999;
+}
+
+.select-label {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: hsla(var(--foreground) / 0.8);
+  padding-top: 0.5rem;
+}
+
+.select-max-height {
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+[data-highlighted] {
+  outline: 2px dashed hsla(var(--primary) / 1);
+  border-radius: calc(var(--border-radius) / 2);
+}
+
+[data-disabled] {
+  opacity: 0.6;
+  background: hsl(var(--foreground) / 0.05);
+}
