@@ -1,4 +1,4 @@
-import { component$, useComputed$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { $, component$, useComputed$, useSignal, useStyles$ } from '@builder.io/qwik';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -129,6 +129,23 @@ export default component$(({ showVersion = false }: HeaderProps) => {
 
   const { theme, setTheme } = useTheme();
 
+  const switchLightDark = $((input: string | string[]): string | string[] | undefined => {
+    const switchWord = (word: string): string => {
+      if (word.includes('light')) {
+        return word.replace('light', 'dark');
+      } else if (word.includes('dark')) {
+        return word.replace('dark', 'light');
+      }
+      return word;
+    };
+
+    if (typeof input === 'string') {
+      return switchWord(input);
+    } else if (Array.isArray(input)) {
+      return input.map((item) => switchWord(item));
+    }
+  });
+
   return (
     <div
       class={cn(
@@ -185,9 +202,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
           <button
             type="button"
             aria-label="Toggle dark mode"
-            onClick$={() => {
-              theme?.includes('light') ? setTheme('dark') : setTheme('light');
-            }}
+            onClick$={async () => setTheme(await switchLightDark(theme || 'light'))}
           >
             <div class="hidden dark:block">
               <MoonIcon />
