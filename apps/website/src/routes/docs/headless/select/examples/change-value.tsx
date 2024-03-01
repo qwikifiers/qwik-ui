@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, $, useStyles$ } from '@builder.io/qwik';
 import styles from './select.css?inline';
 import {
   Select,
@@ -7,16 +7,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@qwik-ui/headless';
-
 export default component$(() => {
   useStyles$(styles);
   const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
+  const counterSig = useSignal(0);
+
+  const handleChange$ = $((): void => {
+    counterSig.value++;
+  });
 
   return (
     <>
-      <Select value="Jessi" class="select">
+      <Select onChange$={handleChange$} class="select">
         <SelectTrigger class="select-trigger">
-          <SelectValue placeholder="wrong value placeholder" />
+          <SelectValue placeholder="Select an option" />
         </SelectTrigger>
         <SelectListbox class="select-listbox">
           {usersSig.value.map((user) => (
@@ -26,6 +30,7 @@ export default component$(() => {
           ))}
         </SelectListbox>
       </Select>
+      <p>You have changed {counterSig.value} times</p>
     </>
   );
 });

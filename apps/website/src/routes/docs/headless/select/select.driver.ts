@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { type OpenKeys } from '@qwik-ui/headless';
+type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
 export type DriverLocator = Locator | Page;
 
 export function createTestDriver<T extends DriverLocator>(locator: T) {

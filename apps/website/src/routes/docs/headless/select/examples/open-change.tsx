@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, $, useStyles$ } from '@builder.io/qwik';
 import styles from './select.css?inline';
 import {
   Select,
@@ -7,16 +7,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@qwik-ui/headless';
-
 export default component$(() => {
   useStyles$(styles);
   const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
+  const openChangeSig = useSignal(0);
+
+  const handleOpenChange$ = $((): void => {
+    openChangeSig.value++;
+  });
 
   return (
     <>
-      <Select value="Jessi" class="select">
+      <Select onOpenChange$={handleOpenChange$} class="select">
         <SelectTrigger class="select-trigger">
-          <SelectValue placeholder="wrong value placeholder" />
+          <SelectValue placeholder="Select an option" />
         </SelectTrigger>
         <SelectListbox class="select-listbox">
           {usersSig.value.map((user) => (
@@ -26,6 +30,7 @@ export default component$(() => {
           ))}
         </SelectListbox>
       </Select>
+      <p>The listbox opened and closed {openChangeSig.value} time(s)</p>
     </>
   );
 });

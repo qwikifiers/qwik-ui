@@ -1,7 +1,7 @@
 import { component$, type PropsOf, useContext, sync$, $, Slot } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from './utils';
-export type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
+import { useTypeahead } from './use-select';
 
 type SelectTriggerProps = PropsOf<'button'>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
@@ -9,13 +9,24 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const openKeys = ['ArrowUp', 'ArrowDown'];
   const closedKeys = [`Escape`];
 
+  const { typeahead$ } = useTypeahead();
+
   // Both the space and enter keys run with handleClick$
   const handleClick$ = $(() => {
     context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
   });
 
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
-    const keys = ['ArrowUp', 'ArrowDown', 'Home', 'End', 'PageDown', 'PageUp'];
+    const keys = [
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowRight',
+      'ArrowLeft',
+      'Home',
+      'End',
+      'PageDown',
+      'PageUp',
+    ];
     if (keys.includes(e.key)) {
       e.preventDefault();
     }
@@ -24,7 +35,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const handleKeyDown$ = $((e: KeyboardEvent) => {
     const shouldOpen = !context.isListboxOpenSig.value && openKeys.includes(e.key);
     const shouldClose = context.isListboxOpenSig.value && closedKeys.includes(e.key);
-    if (!context.options) return;
+    if (!context.optionsSig.value) return;
 
     if (shouldOpen) {
       context.isListboxOpenSig.value = true;
@@ -35,42 +46,112 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (e.key === 'Home') {
-      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, context.options);
+      context.highlightedIndexSig.value = getNextEnabledOptionIndex(
+        -1,
+        context.optionsSig.value,
+        context.loop,
+      );
     }
 
     if (e.key === 'End') {
       const lastEnabledOptionIndex = getPrevEnabledOptionIndex(
-        context.options.length,
-        context.options,
+        context.optionsSig.value.length,
+        context.optionsSig.value,
+        context.loop,
       );
       context.highlightedIndexSig.value = lastEnabledOptionIndex;
     }
 
+    if (!context.isListboxOpenSig.value) {
+      if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
+        context.selectedIndexSig.value = getNextEnabledOptionIndex(
+          -1,
+          context.optionsSig.value,
+          context.loop,
+        );
+
+        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+        return;
+      }
+
+      if (e.key === 'ArrowRight' && context.highlightedIndexSig.value !== null) {
+        context.selectedIndexSig.value = getNextEnabledOptionIndex(
+          context.selectedIndexSig.value!,
+          context.optionsSig.value,
+          context.loop,
+        );
+
+        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+      }
+
+      if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {
+        context.selectedIndexSig.value = getPrevEnabledOptionIndex(
+          context.optionsSig.value.length,
+          context.optionsSig.value,
+          context.loop,
+        );
+
+        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+        return;
+      }
+
+      if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value !== null) {
+        context.selectedIndexSig.value = getPrevEnabledOptionIndex(
+          context.highlightedIndexSig.value,
+          context.optionsSig.value,
+          context.loop,
+        );
+
+        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+      }
+    }
+
     /** When initially opening the listbox, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
-      context.highlightedIndexSig.value = getNextEnabledOptionIndex(-1, context.options);
+      context.highlightedIndexSig.value = getNextEnabledOptionIndex(
+        -1,
+        context.optionsSig.value,
+        context.loop,
+      );
       return;
     }
 
     if (context.isListboxOpenSig.value && !shouldOpen) {
+      console.log('heyyy');
+      // select options
+      if (e.key === 'Enter' || e.key === ' ') {
+        context.selectedIndexSig.value = context.highlightedIndexSig.value;
+        console.log('selectedIndex', context.selectedIndexSig.value);
+        console.log('highlightedIndex', context.highlightedIndexSig.value);
+      }
+
       if (e.key === 'ArrowDown') {
         context.highlightedIndexSig.value = getNextEnabledOptionIndex(
           context.highlightedIndexSig.value,
-          context.options,
+          context.optionsSig.value,
+          context.loop,
         );
       }
 
       if (e.key === 'ArrowUp') {
         context.highlightedIndexSig.value = getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
-          context.options,
+          context.optionsSig.value,
+          context.loop,
         );
       }
 
-      // select options
-      if (e.key === 'Enter' || e.key === ' ') {
-        context.selectedIndexSig.value = context.highlightedIndexSig.value;
-      }
+      typeahead$(e.key);
+    }
+  });
+
+  const handleBlur$ = $((event: FocusEvent) => {
+    const focusOutsideListbox = !context.listboxRef.value?.contains(
+      event.relatedTarget as Element,
+    );
+
+    if (focusOutsideListbox) {
+      context.isListboxOpenSig.value = false;
     }
   });
 
@@ -80,6 +161,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       ref={context.triggerRef}
       onClick$={[handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
+      onBlur$={[handleBlur$, props.onBlur$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}

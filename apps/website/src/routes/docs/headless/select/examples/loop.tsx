@@ -13,7 +13,7 @@ export default component$(() => {
   const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
 
   return (
-    <Select class="select">
+    <Select loop={true} class="select">
       <SelectTrigger class="select-trigger">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>

@@ -19,8 +19,7 @@ What do they all have in common? How do people use them? What are the most impor
         <SelectPopover>
             <SelectListbox>
                 <SelectOption />
-                <SelectGroup>
-                    <SelectLabel />
+                <SelectGroup label="">
                     <SelectOption />
                 </SelectGroup>
             </SelectListbox>
@@ -29,14 +28,17 @@ What do they all have in common? How do people use them? What are the most impor
 
 ## Features:
 
-    - Single Select
-    - Multi Select
-    - Controlled or uncontrolled
-    - Keyboard Interactions
-    - Grouped options
-    - Typeahead support (user typing / filter)
-    - RTL support
-    - Scrollable
+    - [x] Single Select
+    - [x] Single Select Keyboard Interactions
+    - [ ] Multi Select
+    - [ ] Multi Select Keyboard Interactions
+    - [x] Controlled or uncontrolled
+    - [x] Grouped options
+    - [x] Typeahead support (user typing / filter)
+    - [x] Looping
+    - [ ] RTL support
+    - [x] Scrollable
+    - [ ] Aria (controls, roles, etc)
 
 ## Props:
 
