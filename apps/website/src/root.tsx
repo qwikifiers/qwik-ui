@@ -37,8 +37,8 @@ export default component$(() => {
 
   const appState = useStore<AppState>({
     featureFlags: {
-      // showStyled: import.meta.env.DEV,
       showStyled: true,
+      showNeumorphic: import.meta.env.DEV,
     },
   });
 
@@ -55,6 +55,7 @@ export default component$(() => {
       <body lang="en">
         <ThemeProvider
           attribute="class"
+          enableSystem={false}
           themes={[
             ...modeOptions,
             ...fontOptions,

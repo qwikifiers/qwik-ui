@@ -6,6 +6,7 @@ import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
 import { useTheme } from 'qwik-themes';
 import { baseOptions, borderRadiusOptions, primaryOptions } from '~/_state/make-it-yours';
 import CopyCssConfig from '../copy-css-config/copy-css-config';
+import { useAppState } from '~/_state/use-app-state';
 
 export default component$(() => {
   useStyles$(`
@@ -71,6 +72,7 @@ export default component$(() => {
     `);
 
   const showSig = useSignal(false);
+  const rootStore = useAppState();
 
   const { theme, setTheme } = useTheme();
 
@@ -93,17 +95,18 @@ export default component$(() => {
   });
   return (
     <section>
-      <button
+      <Button
+        look="outline"
         onClick$={() => {
           showSig.value = true;
         }}
         class="hover:bg-accent/80 rounded-base border px-3 py-2"
       >
         <div class="flex justify-center">
-          <LuSlidersHorizontal class="mr-3 h-6 w-6" />
+          <LuSlidersHorizontal class="h-6 w-6 sm:mr-3" />
           <span class="hidden sm:block">Make it yours</span>
         </div>
-      </button>
+      </Button>
       <Modal
         closeOnBackdropClick={false}
         bind:show={showSig}
@@ -135,7 +138,9 @@ export default component$(() => {
           >
             <option value={'simple'}>Simple</option>
             <option value={'brutalist'}>Brutalist</option>
-            <option value={'neumorphic'}>Neumorphic</option>
+            {rootStore.featureFlags?.showNeumorphic && (
+              <option value={'neumorphic'}>Neumorphic</option>
+            )}
           </select>
 
           <label class="mb-1 mt-8 block font-medium">Base</label>
@@ -465,7 +470,7 @@ export default component$(() => {
 
           <div>
             <label class="mb-1 mt-8 block font-medium">Radius</label>
-            <div class="flex flex-col space-y-2">
+            <div class="flex space-x-3">
               {borderRadiusOptions.map((borderRadius) => {
                 const isActive =
                   themeComputedObjectSig.value.borderRadius === borderRadius;
@@ -477,9 +482,13 @@ export default component$(() => {
                       themeComputedObjectSig.value.borderRadius = borderRadius;
                       setTheme(await themeStoreToThemeClasses$());
                     }}
-                    class={cn(isActive && 'border-ring mb-2')}
+                    class={cn('w-12', isActive && 'border-ring mb-2')}
                   >
-                    {borderRadius}
+                    {borderRadius === 'border-radius-0' && 0}
+                    {borderRadius === 'border-radius-dot-25' && '.25'}
+                    {borderRadius === 'border-radius-dot-50' && '.5'}
+                    {borderRadius === 'border-radius-dot-75' && '.75'}
+                    {borderRadius === 'border-radius-1' && 1}
                   </Button>
                 );
               })}
@@ -501,7 +510,13 @@ export default component$(() => {
           </div>
         </ModalContent>
 
-        <ModalFooter class=" flex w-full justify-end gap-4">
+        <ModalFooter class=" flex w-full justify-between gap-4">
+          <Button
+            look="ghost"
+            onClick$={() => setTheme(theme?.includes('dark') ? 'dark' : 'light')}
+          >
+            Reset
+          </Button>
           <CopyCssConfig />
         </ModalFooter>
         <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-7">

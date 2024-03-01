@@ -17,46 +17,46 @@
 
   .light {
     --background: 0 0% 100%;
-    --foreground: 197 84% 0%;
-    --muted: 187 0% 96%;
-    --muted-foreground: 190 5% 33%;
+    --foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 197 84% 0%;
-    --accent: 187 0% 96%;
-    --accent-foreground: 197 33% 0%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
     --primary: 197 98% 52%;
     --primary-foreground: 187 0% 0%;
     --secondary: 266 96% 74%;
     --secondary-foreground: 287 0% 0%;
-    --alert: 0 85% 56%;
-    --alert-foreground: 0 0% 100%;
-    --card: 0 0% 100%;
-    --card-foreground: 197 84% 0%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 197 100% 43%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --alert: 0 84.2% 60.2%;
+    --alert-foreground: 210 40% 98%;
+    --ring: 222.2 47.4% 11.2%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 263 40% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
     --primary: 197 98% 52%;
     --primary-foreground: 196 0% 0%;
     --secondary: 266 96% 74%;
     --secondary-foreground: 0 0% 0%;
-    --muted: 222 22% 23%;
-    --muted-foreground: 255 5% 80%;
-    --accent: 222 22% 23%;
-    --accent-foreground: 250 40% 99%;
-    --alert: 0 64% 44%;
-    --alert-foreground: 250 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 270 50% 56%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --alert: 0 84.2% 60.2%;
+    --alert-foreground: 210 40% 98%;
+    --ring: 212.7 26.8% 83.9;
   }
 
   /* CSS PARSER: START - DO NOT REMOVE */
@@ -110,22 +110,30 @@
     --popover-foreground: 240 5.9% 10%;
     --card: 0 0 88%;
     --card-foreground: 240 5.9% 10%;
-    --border: 0 0% 80%;
-    --ring: 222.2 47.4% 80.2%;
-    --shadow-base: -3px -3px 6px #bebebe, 3px 3px 6px #ffffff, inset 1px 1px 2px #bebebe,
+    --border: 0 0% 80.2%;
+    --ring: 0 0% 80.2%;
+    --input: 0 0% 80.2%;
+    --shadow-base: -3px -3px 6px #bebebe, 3px 3px 6px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-sm: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow-sm: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-md: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow-md: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-lg: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow-lg: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow-xl: 8px 8px 15px #bebebe, -8px -8px 15px #ffffff, inset 1px 1px 2px #bebebe,
+    --shadow-xl: 8px 8px 15px #bebebe, -8px -8px 15px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow-2xl: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff,
-      inset 1px 1px 2px #bebebe, inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
+      inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow-inner: inset 4px 4px 8px #bebebe, inset -2px -2px 4px #ffffff;
     --transform-press: scale(0.95);
   }
@@ -139,7 +147,8 @@
     --card: 240 5.3% 26.1%;
     --card-foreground: 240 5.9% 90%;
     --border: 240 5.9% 20%;
-    --ring: 222.2 47.4% 20.2%;
+    --ring: 240 5.9% 20%;
+    --input: 240 5.9% 20%;
     --shadow-base: -3px -3px 6px #2c2c31, 3px 3px 6px #52525b, inset 1px 1px 2px #2c2c31,
       inset -1px -1px 2px #52525b;
     --shadow-sm: 3px 3px 6px #2c2c31, -3px -3px 6px #52525b, inset 1px 1px 2px #2c2c31,
@@ -1335,6 +1344,6 @@ body {
 /* Not used yet - could be used for the colored text on the landing page when the make-it-yours color is too bright in light mode or too dim in dark mode */
 @layer components {
   .text-outlined {
-    @apply [text-shadow:-1px_0_#aaa,_0_1px_#aaa,_1px_0_#aaa,_0_-1px_#aaa] dark:[text-shadow:-1px_0_#777,_0_1px_#777,_1px_0_#777,_0_-1px_#777];
+    @apply [text-shadow:-1px_0_#aaa,_0_1px_#aaa,_1px_0_#aaa,_0_-1px_#aaa] dark:[text-shadow:-1px_0_#888,_0_1px_#888,_1px_0_#888,_0_-1px_#888];
   }
 }
