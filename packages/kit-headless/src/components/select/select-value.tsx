@@ -12,7 +12,7 @@ export const SelectValue = component$((props: SelectValueProps) => {
 
   const displayStrSig = useComputed$(() => {
     if (context.selectedIndexSig.value !== null) {
-      return context.optionsSig.value[context.selectedIndexSig.value].value;
+      return context.optionsSig.value[context.selectedIndexSig.value].displayValue;
     } else {
       return props.placeholder;
     }

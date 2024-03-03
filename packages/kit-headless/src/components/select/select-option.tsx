@@ -14,6 +14,7 @@ import SelectContextId from './select-context';
 export type SelectOptionProps = PropsOf<'li'> & {
   index?: number;
   disabled?: boolean;
+  value?: string;
 };
 
 export const SelectOption = component$<SelectOptionProps>((props) => {
@@ -23,6 +24,8 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const optionRef = useSignal<HTMLLIElement>();
   const localIndexSig = useSignal<number | null>(null);
   const optionId = `${context.localId}-${index}`;
+
+  console.log('value: ', props.value);
 
   const isSelectedSig = useComputed$(() => {
     return !disabled && context.selectedIndexSig.value === index;

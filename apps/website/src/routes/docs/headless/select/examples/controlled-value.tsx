@@ -16,7 +16,6 @@ export default component$(() => {
     <>
       <Select
         onChange$={$((value: string) => {
-          console.log('value: ', value);
           selected.value = value;
         })}
         bind:value={selected}
@@ -26,14 +25,14 @@ export default component$(() => {
           <SelectValue placeholder="Select an option" />
         </SelectTrigger>
         <SelectListbox class="select-listbox">
-          {users.map((user) => (
-            <SelectOption class="select-option" key={user}>
+          {users.map((user, index) => (
+            <SelectOption value={index.toString()} class="select-option" key={user}>
               {user}
             </SelectOption>
           ))}
         </SelectListbox>
       </Select>
-      <p>Your favorite user is: {selected.value}</p>
+      <button onClick$={$(() => (selected.value = '4'))}>Change to Abby</button>
     </>
   );
 });

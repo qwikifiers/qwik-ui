@@ -7,6 +7,7 @@ import { SelectGroup } from './select-group';
 export type Opt = {
   isDisabled: boolean;
   value: string;
+  displayValue?: string;
 };
 
 /*
@@ -65,15 +66,22 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
               .props.children}.`,
           );
         }
+
         child.props.index = currentIndex;
+        const isDisabled = child.props.disabled === true;
+        const value = (
+          child.props.value ? child.props.value : child.props.children
+        ) as string;
+
         const opt: Opt = {
-          isDisabled: child.props.disabled === true,
-          value: child.props.children as string,
+          isDisabled,
+          value,
+          displayValue: child.props.children as string,
         };
 
         opts.push(opt);
 
-        if (child.props.children === props.value) {
+        if (value === props.value) {
           valuePropIndex = currentIndex;
         }
 
