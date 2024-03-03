@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './select.driver';
 async function setup(page: Page, selector: string) {
   await page.goto('/docs/headless/select');
@@ -1071,5 +1071,50 @@ test.describe('A11y', () => {
     const group = getRoot().getByRole('group').first();
 
     await expect(group).toHaveAttribute('aria-labelledby', labelId!);
+  });
+
+  test(`GIVEN an open hero select with aria-activedescendent
+        WHEN the listbox is opened and the down arrow key is pressed
+        THEN aria-activedescendent should be the id of the second option`, async ({
+    page,
+  }) => {
+    const { getTrigger, getRoot, openListbox, getOptions } = await setup(
+      page,
+      'select-hero-test',
+    );
+    await openListbox('ArrowDown');
+    await getTrigger().focus();
+    await getTrigger().press('ArrowDown');
+    const options = await getOptions();
+    const secondOptionId = await options[1].getAttribute('id');
+
+    await expect(getRoot()).toHaveAttribute('aria-activedescendant', `${secondOptionId}`);
+  });
+
+  test(`GIVEN an open hero select with aria-activedescendent
+        WHEN the listbox is closed
+        THEN aria-activedescendent should be an empty string`, async ({ page }) => {
+    const { getTrigger, getRoot, openListbox, getListbox } = await setup(
+      page,
+      'select-hero-test',
+    );
+    await openListbox('ArrowDown');
+    await getTrigger().focus();
+    await getTrigger().press('Enter');
+    await expect(getListbox()).toBeHidden();
+
+    await expect(getRoot()).toHaveAttribute('aria-activedescendant', '');
+  });
+
+  test(`GIVEN a hero select with aria-controls
+        WHEN the select renders
+        THEN the root's aria-controls should be equal to the ID of the listbox`, async ({
+    page,
+  }) => {
+    const { getRoot, getListbox, openListbox } = await setup(page, 'select-hero-test');
+    await openListbox('Enter');
+    const listboxId = await getListbox().getAttribute('id');
+
+    await expect(getRoot()).toHaveAttribute('aria-controls', `${listboxId}`);
   });
 });

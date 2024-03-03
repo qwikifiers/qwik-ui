@@ -1,5 +1,4 @@
-import { component$, useSignal, $, useStyles$ } from '@builder.io/qwik';
-import styles from './select.css?inline';
+import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
   SelectListbox,
@@ -7,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@qwik-ui/headless';
+import styles from './select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);

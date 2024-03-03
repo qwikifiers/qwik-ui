@@ -51,3 +51,13 @@ export const getPrevEnabledOptionIndex = (
 
   return index;
 };
+
+export const getActiveDescendant = (index: number, options: Opt[], localId: string) => {
+  const option = options[index];
+
+  if (index === -1 || option?.isDisabled) {
+    return '';
+  }
+
+  return `${localId}-${index}`;
+};
