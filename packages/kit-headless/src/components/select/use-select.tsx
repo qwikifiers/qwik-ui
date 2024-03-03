@@ -8,10 +8,12 @@ export function useTypeahead() {
   const prevTimeoutSig = useSignal<undefined | NodeJS.Timeout>(undefined);
 
   const firstCharOptionsSig = useComputed$(() => {
-    return context.optionsSig.value.map((opt) => opt.value.slice(0, 1).toLowerCase());
+    return context.optionsSig.value.map((opt) =>
+      opt.displayValue?.slice(0, 1).toLowerCase(),
+    );
   });
   const fullStrOptionsSig = useComputed$(() => {
-    return context.optionsSig.value.map((opt) => opt.value.toLowerCase());
+    return context.optionsSig.value.map((opt) => opt.displayValue?.toLowerCase());
   });
 
   const typeahead$ = $((key: string): void => {
@@ -75,7 +77,7 @@ export function useTypeahead() {
 
       const firstPossibleOpt = fullStrOptionsSig.value.findIndex((str) => {
         const size = inputStrSig.value.length;
-        return str.substring(0, size) === inputStrSig.value;
+        return str?.substring(0, size) === inputStrSig.value;
       });
       if (firstPossibleOpt !== -1) {
         context.highlightedIndexSig.value = firstPossibleOpt;

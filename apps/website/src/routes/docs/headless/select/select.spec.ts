@@ -117,6 +117,20 @@ test.describe('Mouse Behavior', () => {
   //   await getTrigger().blur();
   //   await expect(getTrigger()).toBeFocused();
   // });
+
+  test(`GIVEN an open hero select
+        WHEN clikcking on the group label
+        THEN the listbox should remain open`, async ({ page }) => {
+    const { getRoot, openListbox, getListbox } = await setup(page, 'select-group-test');
+
+    await openListbox('click');
+
+    const label = getRoot().getByRole('listitem').first();
+
+    await expect(label).toBeVisible();
+    await label.click();
+    await expect(getListbox()).toBeVisible();
+  });
 });
 
 test.describe('Keyboard Behavior', () => {
@@ -1056,6 +1070,40 @@ test.describe('Props', () => {
       const options = await getOptions();
       expect(await getValue()).toEqual(await options[1].textContent());
       await expect(options[1]).toHaveAttribute('aria-selected', 'true');
+    });
+  });
+
+  test.describe('option value', () => {
+    test(`GIVEN a select with distinct display and option values
+          WHEN the 2nd option is selected
+          THEN the selected value matches the 2nd option's value`, async ({ page }) => {
+      const { openListbox, getTrigger, getRoot } = await setup(
+        page,
+        'select-option-value-test',
+      );
+
+      await openListbox('Enter');
+      const changeStr = getRoot().locator('+ p');
+      await expect(changeStr).toContainText('The selected value is: null');
+      await getTrigger().focus();
+      await getTrigger().press('ArrowDown');
+      await getTrigger().press('Enter');
+
+      await expect(changeStr).toContainText('The selected value is: 1');
+    });
+
+    test(`GIVEN a select with distinct display and option values
+          WHEN a controlled value is set to the 5th option
+          THEN the selected value matches the 5th option's value`, async ({ page }) => {
+      const { getTrigger, getRoot, getOptions } = await setup(
+        page,
+        'select-controlled-value-test',
+      );
+
+      await expect(getTrigger()).toHaveText('Select an option');
+      await getRoot().locator('+ button').click();
+      const options = await getOptions();
+      await expect(getTrigger()).toHaveText(`${await options[4].textContent()}`);
     });
   });
 });

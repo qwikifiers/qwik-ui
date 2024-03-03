@@ -8,12 +8,13 @@ import {
   useTask$,
   type PropsOf,
 } from '@builder.io/qwik';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer, isBrowser } from '@builder.io/qwik/build';
 import SelectContextId from './select-context';
 
 export type SelectOptionProps = PropsOf<'li'> & {
   index?: number;
   disabled?: boolean;
+  value?: string;
 };
 
 export const SelectOption = component$<SelectOptionProps>((props) => {
@@ -23,6 +24,8 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const optionRef = useSignal<HTMLLIElement>();
   const localIndexSig = useSignal<number | null>(null);
   const optionId = `${context.localId}-${index}`;
+
+  console.log('value: ', props.value);
 
   const isSelectedSig = useComputed$(() => {
     return !disabled && context.selectedIndexSig.value === index;
@@ -57,7 +60,7 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
 
     cleanup(() => observer?.disconnect());
 
-    if (typeof window !== 'undefined') {
+    if (isBrowser) {
       observer = new IntersectionObserver(checkVisibility, {
         root: context.listboxRef.value,
         threshold: 1.0,
