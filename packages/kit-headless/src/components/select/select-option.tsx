@@ -1,15 +1,15 @@
 import {
-  component$,
-  Slot,
-  type PropsOf,
-  useContext,
-  useTask$,
-  useSignal,
   $,
+  Slot,
+  component$,
   useComputed$,
+  useContext,
+  useSignal,
+  useTask$,
+  type PropsOf,
 } from '@builder.io/qwik';
-import SelectContextId from './select-context';
 import { isServer } from '@builder.io/qwik/build';
+import SelectContextId from './select-context';
 
 export type SelectOptionProps = PropsOf<'li'> & {
   index?: number;
@@ -22,6 +22,7 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const context = useContext(SelectContextId);
   const optionRef = useSignal<HTMLLIElement>();
   const localIndexSig = useSignal<number | null>(null);
+  const optionId = `${context.localId}-${index}`;
 
   const isSelectedSig = useComputed$(() => {
     return !disabled && context.selectedIndexSig.value === index;
@@ -86,6 +87,7 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   return (
     <li
       {...rest}
+      id={optionId}
       onClick$={[handleClick$, props.onClick$]}
       onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
       ref={optionRef}

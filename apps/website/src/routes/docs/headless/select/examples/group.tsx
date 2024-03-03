@@ -1,19 +1,19 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import styles from './select.css?inline';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
+  SelectGroup,
+  SelectLabel,
   SelectListbox,
   SelectOption,
   SelectTrigger,
   SelectValue,
-  SelectGroup,
-  SelectLabel,
 } from '@qwik-ui/headless';
+import styles from './select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
-  const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Abby']);
-  const animalsSig = useSignal<string[]>(['Dog', 'Cat', 'Bird']);
+  const users = ['Tim', 'Ryan', 'Jim', 'Abby'];
+  const animals = ['Dog', 'Cat', 'Bird'];
 
   return (
     <Select class="select">
@@ -23,7 +23,7 @@ export default component$(() => {
       <SelectListbox class="select-listbox">
         <SelectGroup>
           <SelectLabel class="select-label">People</SelectLabel>
-          {usersSig.value.map((user) => (
+          {users.map((user) => (
             <SelectOption class="select-option" key={user}>
               {user}
             </SelectOption>
@@ -31,7 +31,7 @@ export default component$(() => {
         </SelectGroup>
         <SelectGroup>
           <SelectLabel class="select-label">Animals</SelectLabel>
-          {animalsSig.value.map((animal) => (
+          {animals.map((animal) => (
             <SelectOption class="select-option" key={animal}>
               {animal}
             </SelectOption>

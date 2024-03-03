@@ -15,6 +15,7 @@ export type SelectContext = {
   groupRef: Signal<HTMLDivElement | undefined>;
 
   // core state
+  localId: string;
   optionsSig: Signal<Opt[]>;
   highlightedIndexSig: Signal<number | null>;
   isListboxOpenSig: Signal<boolean>;

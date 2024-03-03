@@ -8,9 +8,11 @@ export const SelectListbox = component$<SelectListboxProps>((props) => {
   useStyles$(styles);
 
   const context = useContext(SelectContextId);
+  const listboxId = `${context.localId}-listbox`;
   return (
     <ul
       {...props}
+      id={listboxId}
       role="listbox"
       ref={context.listboxRef}
       data-open={context.isListboxOpenSig.value ? '' : undefined}

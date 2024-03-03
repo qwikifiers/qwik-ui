@@ -8,13 +8,15 @@ import {
   useTask$,
   useComputed$,
   type QRL,
+  useId,
 } from '@builder.io/qwik';
 import { type SelectContext } from './select-context';
 import SelectContextId from './select-context';
 import { Opt } from './select-inline';
 import { isBrowser } from '@builder.io/qwik/build';
+import { getActiveDescendant } from './utils';
 
-export type SelectProps = PropsOf<'div'> & {
+export type SelectProps = Omit<PropsOf<'div'>, 'onChange$'> & {
   value?: string;
   'bind:value'?: Signal<string>;
 
@@ -24,7 +26,7 @@ export type SelectProps = PropsOf<'div'> & {
   // when a value is passed, we check if it's an actual option value, and get its index at pre-render time.
   _valuePropIndex?: number | null;
 
-  onChange$?: QRL<() => void>;
+  onChange$?: QRL<(value: string) => void>;
   onOpenChange$?: QRL<() => void>;
 
   scrollOptions?: ScrollIntoViewOptions;
@@ -40,6 +42,8 @@ export const SelectImpl = component$<SelectProps>((props) => {
   const listboxRef = useSignal<HTMLUListElement>();
   const groupRef = useSignal<HTMLDivElement>();
   const loop = props.loop ?? false;
+  const localId = useId();
+  const listboxId = `${localId}-listbox`;
 
   /**
    * Updates the options when the options change
@@ -79,8 +83,8 @@ export const SelectImpl = component$<SelectProps>((props) => {
 
   useTask$(async function onChangeTask({ track }) {
     track(() => selectedIndexSig.value);
-    if (isBrowser) {
-      await props.onChange$?.();
+    if (isBrowser && selectedIndexSig.value !== null) {
+      await props.onChange$?.(optionsSig.value[selectedIndexSig.value!].value);
     }
   });
 
@@ -98,6 +102,7 @@ export const SelectImpl = component$<SelectProps>((props) => {
     listboxRef,
     groupRef,
     optionsSig,
+    localId,
     highlightedIndexSig,
     isListboxOpenSig,
     selectedIndexSig,
@@ -108,14 +113,29 @@ export const SelectImpl = component$<SelectProps>((props) => {
   useContextProvider(SelectContextId, context);
 
   return (
-    <div
-      role="combobox"
-      ref={rootRef}
-      data-open={context.isListboxOpenSig.value ? '' : undefined}
-      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-      {...props}
-    >
-      <Slot />
-    </div>
+    <>
+      {/* @ts-expect-error Qwik expects onChange$ types */}
+      <div
+        role="combobox"
+        ref={rootRef}
+        data-open={context.isListboxOpenSig.value ? '' : undefined}
+        data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+        aria-activedescendant={
+          context.isListboxOpenSig.value
+            ? getActiveDescendant(
+                context.highlightedIndexSig.value ?? -1,
+                context.optionsSig.value,
+                context.localId,
+              )
+            : ''
+        }
+        aria-controls={listboxId}
+        aria-expanded={context.isListboxOpenSig.value}
+        aria-haspopup="listbox"
+        {...props}
+      >
+        <Slot />
+      </div>
+    </>
   );
 });

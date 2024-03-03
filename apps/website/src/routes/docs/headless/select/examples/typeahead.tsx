@@ -1,5 +1,4 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import styles from './select.css?inline';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
   SelectListbox,
@@ -7,10 +6,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@qwik-ui/headless';
+import styles from './select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
-  const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
+  const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
 
   return (
     <Select class="select">
@@ -18,7 +18,7 @@ export default component$(() => {
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
       <SelectListbox class="select-listbox">
-        {usersSig.value.map((user) => (
+        {users.map((user) => (
           <SelectOption class="select-option" key={user}>
             {user}
           </SelectOption>
