@@ -8,7 +8,7 @@ import {
   useTask$,
   type PropsOf,
 } from '@builder.io/qwik';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer, isBrowser } from '@builder.io/qwik/build';
 import SelectContextId from './select-context';
 
 export type SelectOptionProps = PropsOf<'li'> & {
@@ -57,7 +57,7 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
 
     cleanup(() => observer?.disconnect());
 
-    if (typeof window !== 'undefined') {
+    if (isBrowser) {
       observer = new IntersectionObserver(checkVisibility, {
         root: context.listboxRef.value,
         threshold: 1.0,

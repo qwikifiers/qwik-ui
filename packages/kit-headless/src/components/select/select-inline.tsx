@@ -1,4 +1,4 @@
-import { type JSXNode, type FunctionComponent } from '@builder.io/qwik';
+import { type JSXNode, Component } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select';
 import { SelectListbox } from './select-listbox';
 import { SelectOption } from './select-option';
@@ -13,7 +13,7 @@ export type Opt = {
     This is an inline component. We create an inline component to get the proper indexes with CSR. See issue #4757 
     for more information.
 */
-export const Select: FunctionComponent<SelectProps> = (props) => {
+export const Select: Component<SelectProps> = (props: SelectProps) => {
   const { children: myChildren, ...rest } = props;
   let valuePropIndex = null;
   const childrenToProcess = (

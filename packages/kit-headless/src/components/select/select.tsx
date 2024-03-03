@@ -16,7 +16,7 @@ import { Opt } from './select-inline';
 import { isBrowser } from '@builder.io/qwik/build';
 import { getActiveDescendant } from './utils';
 
-export type SelectProps = Omit<PropsOf<'div'>, 'onChange$'> & {
+export type SelectProps = PropsOf<'div'> & {
   value?: string;
   'bind:value'?: Signal<string>;
 
@@ -34,7 +34,7 @@ export type SelectProps = Omit<PropsOf<'div'>, 'onChange$'> & {
 };
 
 /* root component in select-inline.tsx */
-export const SelectImpl = component$<SelectProps>((props) => {
+export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
   // refs
   const rootRef = useSignal<HTMLDivElement>();
   const triggerRef = useSignal<HTMLButtonElement>();
@@ -113,29 +113,26 @@ export const SelectImpl = component$<SelectProps>((props) => {
   useContextProvider(SelectContextId, context);
 
   return (
-    <>
-      {/* @ts-expect-error Qwik expects onChange$ types */}
-      <div
-        role="combobox"
-        ref={rootRef}
-        data-open={context.isListboxOpenSig.value ? '' : undefined}
-        data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-        aria-activedescendant={
-          context.isListboxOpenSig.value
-            ? getActiveDescendant(
-                context.highlightedIndexSig.value ?? -1,
-                context.optionsSig.value,
-                context.localId,
-              )
-            : ''
-        }
-        aria-controls={listboxId}
-        aria-expanded={context.isListboxOpenSig.value}
-        aria-haspopup="listbox"
-        {...props}
-      >
-        <Slot />
-      </div>
-    </>
+    <div
+      role="combobox"
+      ref={rootRef}
+      data-open={context.isListboxOpenSig.value ? '' : undefined}
+      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+      aria-activedescendant={
+        context.isListboxOpenSig.value
+          ? getActiveDescendant(
+              context.highlightedIndexSig.value ?? -1,
+              context.optionsSig.value,
+              context.localId,
+            )
+          : ''
+      }
+      aria-controls={listboxId}
+      aria-expanded={context.isListboxOpenSig.value}
+      aria-haspopup="listbox"
+      {...props}
+    >
+      <Slot />
+    </div>
   );
 });

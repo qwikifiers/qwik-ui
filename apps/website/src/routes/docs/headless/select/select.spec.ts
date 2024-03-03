@@ -117,6 +117,20 @@ test.describe('Mouse Behavior', () => {
   //   await getTrigger().blur();
   //   await expect(getTrigger()).toBeFocused();
   // });
+
+  test(`GIVEN an open hero select
+        WHEN clikcking on the group label
+        THEN the listbox should remain open`, async ({ page }) => {
+    const { getRoot, openListbox, getListbox } = await setup(page, 'select-group-test');
+
+    await openListbox('click');
+
+    const label = getRoot().getByRole('listitem').first();
+
+    await expect(label).toBeVisible();
+    await label.click();
+    await expect(getListbox()).toBeVisible();
+  });
 });
 
 test.describe('Keyboard Behavior', () => {

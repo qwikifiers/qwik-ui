@@ -117,7 +117,10 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (context.isListboxOpenSig.value && !shouldOpen) {
-      console.log('heyyy');
+      if (e.key === 'Tab') {
+        context.isListboxOpenSig.value = false;
+      }
+
       // select options
       if (e.key === 'Enter' || e.key === ' ') {
         context.selectedIndexSig.value = context.highlightedIndexSig.value;
@@ -145,26 +148,16 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
   });
 
-  const handleBlur$ = $((event: FocusEvent) => {
-    const focusOutsideListbox = !context.listboxRef.value?.contains(
-      event.relatedTarget as Element,
-    );
-
-    if (focusOutsideListbox) {
-      context.isListboxOpenSig.value = false;
-    }
-  });
-
   return (
     <button
       {...props}
       ref={context.triggerRef}
       onClick$={[handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
-      onBlur$={[handleBlur$, props.onBlur$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}
+      preventdefault:blur
     >
       <Slot />
     </button>

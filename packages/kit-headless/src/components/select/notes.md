@@ -62,6 +62,7 @@ resource: https://joshwayne.com/posts/the-problem-with-dropdowns/
     - [x] Typeahead support (user typing / filter)
     - [x] Looping
     - [ ] RTL support
+    - [ ] Form support
     - [x] Scrollable
     - [x] Aria (controls, roles, etc)
 
