@@ -16,7 +16,6 @@ export default component$(() => {
     <>
       <Select
         onChange$={$((value: string) => {
-          console.log('value: ', value);
           selected.value = value;
         })}
         bind:value={selected}

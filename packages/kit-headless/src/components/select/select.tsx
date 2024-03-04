@@ -35,7 +35,15 @@ export type SelectProps = PropsOf<'div'> & {
 
 /* root component in select-inline.tsx */
 export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
-  const { _options, onChange$, onOpenChange$, ...rest } = props;
+  const {
+    _options,
+    _valuePropIndex: givenValuePropIndex,
+    onChange$,
+    onOpenChange$,
+    scrollOptions: givenScrollOptions,
+    loop: givenLoop,
+    ...rest
+  } = props;
 
   // refs
   const rootRef = useSignal<HTMLDivElement>();
@@ -43,7 +51,7 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
   const popoverRef = useSignal<HTMLElement>();
   const listboxRef = useSignal<HTMLUListElement>();
   const groupRef = useSignal<HTMLDivElement>();
-  const loop = rest.loop ?? false;
+  const loop = givenLoop ?? false;
   const localId = useId();
   const listboxId = `${localId}-listbox`;
 
@@ -63,10 +71,10 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
   );
 
   // core state
-  const selectedIndexSig = useSignal<number | null>(rest._valuePropIndex ?? null);
-  const highlightedIndexSig = useSignal<number | null>(rest._valuePropIndex ?? null);
+  const selectedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
+  const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
   const isListboxOpenSig = useSignal<boolean>(false);
-  const scrollOptions = rest.scrollOptions ?? {
+  const scrollOptions = givenScrollOptions ?? {
     behavior: 'instant',
     block: 'nearest',
   };
@@ -86,7 +94,7 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
   useTask$(async function onChangeTask({ track }) {
     track(() => selectedIndexSig.value);
     if (isBrowser && selectedIndexSig.value !== null) {
-      await onChange$?.(optionsSig.value[selectedIndexSig.value!].value);
+      await onChange$?.(optionsSig.value[selectedIndexSig.value].value);
     }
   });
 

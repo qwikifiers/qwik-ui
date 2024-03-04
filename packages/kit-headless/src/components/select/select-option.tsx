@@ -25,8 +25,6 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const localIndexSig = useSignal<number | null>(null);
   const optionId = `${context.localId}-${index}`;
 
-  console.log('value: ', props.value);
-
   const isSelectedSig = useComputed$(() => {
     return !disabled && context.selectedIndexSig.value === index;
   });

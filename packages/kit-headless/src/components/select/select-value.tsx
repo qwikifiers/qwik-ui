@@ -7,6 +7,8 @@ type SelectValueProps = PropsOf<'span'> & {
 };
 
 export const SelectValue = component$((props: SelectValueProps) => {
+  const { placeholder, ...rest } = props;
+
   const context = useContext(SelectContextId);
   if (!context.optionsSig.value) return;
 
@@ -14,12 +16,12 @@ export const SelectValue = component$((props: SelectValueProps) => {
     if (context.selectedIndexSig.value !== null) {
       return context.optionsSig.value[context.selectedIndexSig.value].displayValue;
     } else {
-      return props.placeholder;
+      return placeholder;
     }
   });
 
   return (
-    <span data-value {...props}>
+    <span data-value {...rest}>
       {displayStrSig.value}
     </span>
   );

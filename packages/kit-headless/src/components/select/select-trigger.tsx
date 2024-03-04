@@ -124,8 +124,6 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       // select options
       if (e.key === 'Enter' || e.key === ' ') {
         context.selectedIndexSig.value = context.highlightedIndexSig.value;
-        console.log('selectedIndex', context.selectedIndexSig.value);
-        console.log('highlightedIndex', context.highlightedIndexSig.value);
       }
 
       if (e.key === 'ArrowDown') {
