@@ -33,6 +33,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   });
 
   const handleKeyDown$ = $((e: KeyboardEvent) => {
+    typeahead$(e.key);
     const shouldOpen = !context.isListboxOpenSig.value && openKeys.includes(e.key);
     const shouldClose = context.isListboxOpenSig.value && closedKeys.includes(e.key);
     if (!context.optionsSig.value) return;
@@ -141,8 +142,6 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
           context.loop,
         );
       }
-
-      typeahead$(e.key);
     }
   });
 

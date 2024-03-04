@@ -2,6 +2,7 @@ What do we absolutely need? I am talking about the bare minimum, but powerful fu
 
 Inspiration:
 
+- React Aria
 - Radix UI
 - Kobalte UI
 - Melt UI
