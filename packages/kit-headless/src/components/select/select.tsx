@@ -35,13 +35,15 @@ export type SelectProps = PropsOf<'div'> & {
 
 /* root component in select-inline.tsx */
 export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
+  const { _options, ...rest } = props;
+
   // refs
   const rootRef = useSignal<HTMLDivElement>();
   const triggerRef = useSignal<HTMLButtonElement>();
   const popoverRef = useSignal<HTMLElement>();
   const listboxRef = useSignal<HTMLUListElement>();
   const groupRef = useSignal<HTMLDivElement>();
-  const loop = props.loop ?? false;
+  const loop = rest.loop ?? false;
   const localId = useId();
   const listboxId = `${localId}-listbox`;
 
@@ -50,10 +52,10 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
    * (for example, when a new option is added)
    **/
   const optionsSig = useComputed$(() => {
-    if (props._options === undefined || props._options.length === 0) {
+    if (_options === undefined || _options.length === 0) {
       return [];
     }
-    return props._options;
+    return _options;
   });
 
   const optionsIndexMap = new Map(
@@ -61,10 +63,10 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
   );
 
   // core state
-  const selectedIndexSig = useSignal<number | null>(props._valuePropIndex ?? null);
-  const highlightedIndexSig = useSignal<number | null>(props._valuePropIndex ?? null);
+  const selectedIndexSig = useSignal<number | null>(rest._valuePropIndex ?? null);
+  const highlightedIndexSig = useSignal<number | null>(rest._valuePropIndex ?? null);
   const isListboxOpenSig = useSignal<boolean>(false);
-  const scrollOptions = props.scrollOptions ?? {
+  const scrollOptions = rest.scrollOptions ?? {
     behavior: 'instant',
     block: 'nearest',
   };
@@ -84,7 +86,7 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
   useTask$(async function onChangeTask({ track }) {
     track(() => selectedIndexSig.value);
     if (isBrowser && selectedIndexSig.value !== null) {
-      await props.onChange$?.(optionsSig.value[selectedIndexSig.value!].value);
+      await rest.onChange$?.(optionsSig.value[selectedIndexSig.value!].value);
     }
   });
 
@@ -92,7 +94,7 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
     track(() => isListboxOpenSig.value);
 
     if (isBrowser) {
-      props.onOpenChange$?.();
+      rest.onOpenChange$?.();
     }
   });
 
@@ -130,7 +132,7 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
       aria-controls={listboxId}
       aria-expanded={context.isListboxOpenSig.value}
       aria-haspopup="listbox"
-      {...props}
+      {...rest}
     >
       <Slot />
     </div>
