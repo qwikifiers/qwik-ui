@@ -27,7 +27,7 @@ export type SelectProps = PropsOf<'div'> & {
   _valuePropIndex?: number | null;
 
   onChange$?: QRL<(value: string) => void>;
-  onOpenChange$?: QRL<() => void>;
+  onOpenChange$?: QRL<(open: boolean) => void>;
 
   scrollOptions?: ScrollIntoViewOptions;
   loop?: boolean;
@@ -35,7 +35,7 @@ export type SelectProps = PropsOf<'div'> & {
 
 /* root component in select-inline.tsx */
 export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
-  const { _options, ...rest } = props;
+  const { _options, onChange$, onOpenChange$, ...rest } = props;
 
   // refs
   const rootRef = useSignal<HTMLDivElement>();
@@ -86,7 +86,7 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
   useTask$(async function onChangeTask({ track }) {
     track(() => selectedIndexSig.value);
     if (isBrowser && selectedIndexSig.value !== null) {
-      await rest.onChange$?.(optionsSig.value[selectedIndexSig.value!].value);
+      await onChange$?.(optionsSig.value[selectedIndexSig.value!].value);
     }
   });
 
@@ -94,7 +94,7 @@ export const SelectImpl = component$<SelectProps>((props: SelectProps) => {
     track(() => isListboxOpenSig.value);
 
     if (isBrowser) {
-      rest.onOpenChange$?.();
+      onOpenChange$?.(isListboxOpenSig.value);
     }
   });
 
