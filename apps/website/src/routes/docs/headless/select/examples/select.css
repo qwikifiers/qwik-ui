@@ -1,6 +1,10 @@
+:root {
+  --select-width: 12rem;
+}
+
 .select {
   position: relative;
-  min-width: 10rem;
+  min-width: var(--select-width);
 }
 
 .select-trigger {
@@ -9,14 +13,20 @@
   border-radius: calc(var(--border-radius) / 2);
 }
 
+.select-popover {
+  width: 100%;
+  max-width: var(--select-width);
+}
+
 .select-listbox {
-  position: absolute;
   width: 100%;
   background-color: hsl(var(--background));
   padding: 0.5rem;
   border: 2px dashed hsla(var(--foreground) / 0.6);
   border-radius: calc(var(--border-radius) / 2);
   z-index: 9999;
+  max-width: var(--select-width);
+  color: hsl(var(--foreground));
 }
 
 .select-label {

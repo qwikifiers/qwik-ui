@@ -64,6 +64,7 @@ resource: https://joshwayne.com/posts/the-problem-with-dropdowns/
     - [x] Looping
     - [ ] RTL support
     - [ ] Form support
+    - [x] Top Layer
     - [x] Scrollable
     - [x] Aria (controls, roles, etc)
 

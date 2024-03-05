@@ -3,6 +3,7 @@ import { SelectImpl, type SelectProps } from './select';
 import { SelectListbox } from './select-listbox';
 import { SelectOption } from './select-option';
 import { SelectGroup } from './select-group';
+import { SelectPopover } from './select-popover';
 
 export type Opt = {
   isDisabled: boolean;
@@ -37,13 +38,13 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
     }
 
     switch (child.type) {
-      //   case SelectPopover: {
-      //     const popoverChildren = Array.isArray(child.props.children)
-      //       ? [...child.props.children]
-      //       : [child.props.children];
-      //     childrenToProcess.unshift(...popoverChildren);
-      //     break;
-      //   }
+      case SelectPopover: {
+        const popoverChildren = Array.isArray(child.props.children)
+          ? [...child.props.children]
+          : [child.props.children];
+        childrenToProcess.unshift(...popoverChildren);
+        break;
+      }
       case SelectListbox: {
         const listboxChildren = Array.isArray(child.props.children)
           ? [...child.props.children]

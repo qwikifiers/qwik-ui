@@ -1,15 +1,18 @@
 import { component$ } from '@builder.io/qwik';
 import {
   Select,
+  SelectPopover,
   SelectTrigger,
+  SelectValue,
   SelectListbox,
   SelectOption,
-  SelectPopover,
 } from '@qwik-ui/headless';
 
 export default component$(() => (
   <Select>
-    <SelectTrigger>Trigger</SelectTrigger>
+    <SelectTrigger>
+      <SelectValue>Selected Value</SelectValue>
+    </SelectTrigger>
     <SelectPopover>
       <SelectListbox>
         <SelectOption>option</SelectOption>

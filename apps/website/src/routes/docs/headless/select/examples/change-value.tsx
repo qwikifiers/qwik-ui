@@ -1,6 +1,7 @@
 import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
+  SelectPopover,
   SelectListbox,
   SelectOption,
   SelectTrigger,
@@ -22,13 +23,15 @@ export default component$(() => {
         <SelectTrigger class="select-trigger">
           <SelectValue placeholder="Select an option" />
         </SelectTrigger>
-        <SelectListbox class="select-listbox">
-          {users.map((user) => (
-            <SelectOption class="select-option" key={user}>
-              {user}
-            </SelectOption>
-          ))}
-        </SelectListbox>
+        <SelectPopover class="select-popover">
+          <SelectListbox class="select-listbox">
+            {users.map((user) => (
+              <SelectOption class="select-option" key={user}>
+                {user}
+              </SelectOption>
+            ))}
+          </SelectListbox>
+        </SelectPopover>
       </Select>
       <p>You have changed {counter.value} times</p>
     </>
