@@ -3,6 +3,9 @@ import { component$, useContext, type PropsOf, useComputed$ } from '@builder.io/
 import SelectContextId from './select-context';
 
 type SelectValueProps = PropsOf<'span'> & {
+  /**
+   * Optional text displayed when no option is selected.
+   */
   placeholder?: string;
 };
 

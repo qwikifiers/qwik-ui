@@ -12,32 +12,37 @@ import { isServer, isBrowser } from '@builder.io/qwik/build';
 import SelectContextId from './select-context';
 
 export type SelectOptionProps = PropsOf<'li'> & {
-  index?: number;
+  /** Internal index we get from the inline component. Please see select-inline.tsx */
+  _index?: number;
+
+  /** If true, option is not selectable or focusable. */
   disabled?: boolean;
+
+  /** Selected value associated with the option. */
   value?: string;
 };
 
 export const SelectOption = component$<SelectOptionProps>((props) => {
   /* look at select-inline on how we get the index. */
-  const { index, disabled, ...rest } = props;
+  const { _index, disabled, ...rest } = props;
   const context = useContext(SelectContextId);
   const optionRef = useSignal<HTMLLIElement>();
   const localIndexSig = useSignal<number | null>(null);
-  const optionId = `${context.localId}-${index}`;
+  const optionId = `${context.localId}-${_index}`;
 
   const isSelectedSig = useComputed$(() => {
-    return !disabled && context.selectedIndexSig.value === index;
+    return !disabled && context.selectedIndexSig.value === _index;
   });
 
   const isHighlightedSig = useComputed$(() => {
-    return !disabled && context.highlightedIndexSig.value === index;
+    return !disabled && context.highlightedIndexSig.value === _index;
   });
 
   useTask$(function getIndexTask() {
-    if (index === undefined)
+    if (_index === undefined)
       throw Error('Qwik UI: Select component option cannot find its proper index.');
 
-    localIndexSig.value = index;
+    localIndexSig.value = _index;
   });
 
   useTask$(function scrollableTask({ track, cleanup }) {

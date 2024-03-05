@@ -67,7 +67,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
           );
         }
 
-        child.props.index = currentIndex;
+        child.props._index = currentIndex;
         const isDisabled = child.props.disabled === true;
         const value = (
           child.props.value ? child.props.value : child.props.children

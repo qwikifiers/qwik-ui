@@ -67,9 +67,14 @@ resource: https://joshwayne.com/posts/the-problem-with-dropdowns/
     - [x] Scrollable
     - [x] Aria (controls, roles, etc)
 
+    Nice to haves:
+    - [ ] Example using modular forms with validation
+
 ## Props:
 
     ### State
+
+    #### Root:
 
     name: value
     type: string
@@ -87,17 +92,13 @@ resource: https://joshwayne.com/posts/the-problem-with-dropdowns/
     type: PropFunction
     description: function called when the listbox opens or closes.
 
-    ---
-
-    ### Behavior
-
-    name: placeholder
-    type: string
-    description: sets a placeholder instead of a selected value.
-
     name: disabled
     type: boolean
-    description: When true, the option is disabled.
+    description: disables the select
+
+    name: required
+    type: boolean
+    description: Ensure the user selects an option, as well as custom client and server-side validation.
 
     name: multiple
     type: boolean
@@ -106,6 +107,24 @@ resource: https://joshwayne.com/posts/the-problem-with-dropdowns/
     name: loop
     type: boolean
     description: Determines if focus cycles from the last option back to the first, or vice versa.
+
+    ---
+
+    ### Select Value:
+
+    name: placeholder
+    type: string
+    description: sets a placeholder instead of a selected value.
+
+    ### Select Option:
+
+    name: value
+    type: string
+    description: Give the select a value other than what is displayed in the option.
+
+    name: disabled
+    type: boolean
+    description: When true, the option is disabled.
 
     ---
 

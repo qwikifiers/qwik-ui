@@ -17,19 +17,41 @@ import { isBrowser } from '@builder.io/qwik/build';
 import { getActiveDescendant } from './utils';
 
 export type SelectProps = PropsOf<'div'> & {
+  /** The initial selected value (uncontrolled). */
   value?: string;
+
+  /** A signal that contains the current selected value (controlled). */
   'bind:value'?: Signal<string>;
 
-  // our source of truth for the options. We get this at pre-render time in the inline component, that way we do not need textContent, etc.
+  /** Our source of truth for the options. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
+   **/
   _options?: Opt[];
 
-  // when a value is passed, we check if it's an actual option value, and get its index at pre-render time.
+  /** When a value is passed, we check if it's an actual option value, and get its index at pre-render time.
+   **/
   _valuePropIndex?: number | null;
 
+  /**
+   * QRL handler that runs when a select value changes.
+   * @param value The new value as a string.
+   */
   onChange$?: QRL<(value: string) => void>;
+
+  /**
+   * QRL handler that runs when the listbox opens or closes.
+   * @param open The new state of the listbox.
+   *
+   */
   onOpenChange$?: QRL<(open: boolean) => void>;
 
+  /**
+   *  The native scrollIntoView method is used to scroll the options into view when the user highlights an option. This allows customization of the scroll behavior.
+   */
   scrollOptions?: ScrollIntoViewOptions;
+
+  /**
+   *  Enables looped behavior when the user navigates through the options using the arrow keys.
+   */
   loop?: boolean;
 };
 
