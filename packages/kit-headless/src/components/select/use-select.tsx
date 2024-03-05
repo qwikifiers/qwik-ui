@@ -35,6 +35,11 @@ export function useTypeahead() {
       if (indexDiffSig.value === undefined) {
         indexDiffSig.value = firstCharIndex + 1;
         context.highlightedIndexSig.value = firstCharIndex;
+
+        if (!context.isListboxOpenSig.value) {
+          context.selectedIndexSig.value = firstCharIndex;
+        }
+
         return;
       }
 
@@ -54,16 +59,25 @@ export function useTypeahead() {
           const nextIndex = repeatIndex + indexDiffSig.value;
 
           context.highlightedIndexSig.value = nextIndex;
+          if (!context.isListboxOpenSig.value) {
+            context.selectedIndexSig.value = nextIndex;
+          }
           indexDiffSig.value = nextIndex + 1;
           return;
         }
 
         indexDiffSig.value = undefined;
         context.highlightedIndexSig.value = firstCharIndex;
+        if (!context.isListboxOpenSig.value) {
+          context.selectedIndexSig.value = firstCharIndex;
+        }
         return;
       }
       indexDiffSig.value = firstCharIndex + 1;
       context.highlightedIndexSig.value = firstCharIndex;
+      if (!context.isListboxOpenSig.value) {
+        context.selectedIndexSig.value = firstCharIndex;
+      }
 
       return;
     });
@@ -81,6 +95,9 @@ export function useTypeahead() {
       });
       if (firstPossibleOpt !== -1) {
         context.highlightedIndexSig.value = firstPossibleOpt;
+        if (!context.isListboxOpenSig.value) {
+          context.selectedIndexSig.value = firstPossibleOpt;
+        }
         return;
       }
       inputStrSig.value = key;

@@ -444,7 +444,6 @@ test.describe('Keyboard Behavior', () => {
       await getTrigger().press('Enter');
 
       const value = await getValue();
-      console.log(value);
       expect(optStr).toEqual(value);
     });
 
@@ -645,6 +644,30 @@ test.describe('Keyboard Behavior', () => {
       await expect(highlightedOpt).toContainText('Jim', { ignoreCase: true });
       await getTrigger().press('d');
       await expect(highlightedOpt).toContainText('dog', { ignoreCase: true });
+    });
+
+    test(`GIVEN a closed select with typeahead support
+          WHEN the user types a letter matching an option
+          THEN the display value should first matching option`, async ({ page }) => {
+      const { getTrigger } = await setup(page, 'select-hero-test');
+      await getTrigger().focus();
+      await getTrigger().press('j');
+      await expect(getTrigger()).toHaveText('Jim');
+    });
+
+    test(`GIVEN a closed select with typeahead support
+          WHEN the user types a letter matching an option
+          THEN the first matching option should be selected`, async ({ page }) => {
+      // ideally want to refactor this so that even if the test example is changed, the test will still pass, getting it more programmatically.
+      const { getRoot, getTrigger } = await setup(page, 'select-hero-test');
+      await getTrigger().focus();
+      await getTrigger().press('j');
+      const firstJOption = getRoot().getByRole('option', {
+        name: 'Jim',
+        includeHidden: true,
+      });
+      await expect(firstJOption).toHaveAttribute('aria-selected', 'true');
+      await expect(firstJOption).toHaveAttribute('data-highlighted');
     });
   });
 

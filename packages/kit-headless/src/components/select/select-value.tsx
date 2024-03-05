@@ -3,10 +3,15 @@ import { component$, useContext, type PropsOf, useComputed$ } from '@builder.io/
 import SelectContextId from './select-context';
 
 type SelectValueProps = PropsOf<'span'> & {
+  /**
+   * Optional text displayed when no option is selected.
+   */
   placeholder?: string;
 };
 
 export const SelectValue = component$((props: SelectValueProps) => {
+  const { placeholder, ...rest } = props;
+
   const context = useContext(SelectContextId);
   if (!context.optionsSig.value) return;
 
@@ -14,12 +19,12 @@ export const SelectValue = component$((props: SelectValueProps) => {
     if (context.selectedIndexSig.value !== null) {
       return context.optionsSig.value[context.selectedIndexSig.value].displayValue;
     } else {
-      return props.placeholder;
+      return placeholder;
     }
   });
 
   return (
-    <span data-value {...props}>
+    <span data-value {...rest}>
       {displayStrSig.value}
     </span>
   );

@@ -84,6 +84,7 @@ export const FloatingPopover = component$(
       const anchor = track(() => anchorRef?.value);
       const popover = track(() => popoverRef.value);
       if (!popover || !anchor) return;
+
       popover.hidden = false;
 
       const updatePosition = async () => {
@@ -101,17 +102,11 @@ export const FloatingPopover = component$(
         }).then((resolvedData) => {
           const { x, y } = resolvedData;
 
-          // checks if anchor is hidden in DOM
-          if (anchor.offsetParent === null) {
-            // ensures no exit animation when anchor is hidden.
-            popover.hidden = true;
-          } else {
-            Object.assign(popover.style, {
-              left: `${x}px`,
-              top: `${y}px`,
-              transform,
-            });
-          }
+          Object.assign(popover.style, {
+            left: `${x}px`,
+            top: `${y}px`,
+            transform,
+          });
         });
       };
 

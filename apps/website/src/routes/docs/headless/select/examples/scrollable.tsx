@@ -1,6 +1,7 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
+  SelectPopover,
   SelectGroup,
   SelectLabel,
   SelectListbox,
@@ -20,24 +21,26 @@ export default component$(() => {
       <SelectTrigger class="select-trigger">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
-      <SelectListbox class="select-listbox select-max-height">
-        <SelectGroup>
-          <SelectLabel class="select-label">People</SelectLabel>
-          {users.map((user) => (
-            <SelectOption class="select-option" key={user}>
-              {user}
-            </SelectOption>
-          ))}
-        </SelectGroup>
-        <SelectGroup>
-          <SelectLabel class="select-label">Animals</SelectLabel>
-          {animals.map((animal) => (
-            <SelectOption class="select-option" key={animal}>
-              {animal}
-            </SelectOption>
-          ))}
-        </SelectGroup>
-      </SelectListbox>
+      <SelectPopover class="select-popover">
+        <SelectListbox class="select-listbox select-max-height">
+          <SelectGroup>
+            <SelectLabel class="select-label">People</SelectLabel>
+            {users.map((user) => (
+              <SelectOption class="select-option" key={user}>
+                {user}
+              </SelectOption>
+            ))}
+          </SelectGroup>
+          <SelectGroup>
+            <SelectLabel class="select-label">Animals</SelectLabel>
+            {animals.map((animal) => (
+              <SelectOption class="select-option" key={animal}>
+                {animal}
+              </SelectOption>
+            ))}
+          </SelectGroup>
+        </SelectListbox>
+      </SelectPopover>
     </Select>
   );
 });
