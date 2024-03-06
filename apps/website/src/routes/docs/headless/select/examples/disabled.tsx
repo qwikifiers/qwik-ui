@@ -23,7 +23,6 @@ export default component$(() => {
         <SelectListbox class="select-listbox">
           {users.map((user, index) => (
             <SelectOption
-              class="select-option"
               key={user}
               disabled={
                 index === 0 || index === 2 || index === users.length - 1 ? true : false

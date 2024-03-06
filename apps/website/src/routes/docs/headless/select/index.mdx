@@ -2,6 +2,7 @@
 title: Qwik UI | Select
 ---
 
+import { FeatureList } from '~/components/feature-list/feature-list';
 import { statusByComponent } from '~/_state/component-statuses';
 
 <StatusBanner status={statusByComponent.headless.Select} />
@@ -10,92 +11,347 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 Reveals a list of options to choose from, often triggered by a button.
 
-## Hero
-
 <div data-testid="select-hero-test">
   <Showcase name="hero" />
 </div>
 
-## Disabled
+## ✨ Features
 
-<div data-testid="select-disabled-test">
-  <Showcase name="disabled" />
-</div>
+<FeatureList
+  features={[
+    'Accessible as a button that shows a list, following web a11y standards.',
+    'Support for single selection',
+    'Controlled or uncontrolled',
+    'Disabled option support',
+    'Stop focus management via the Tab key',
+    'Grouped options support',
+    'Looping support',
+    'Support for custom scroll behavior',
+    'Listbox UI is placed above everything else. (SelectPopover)',
+    'Custom Positioning (SelectPopover)',
+    'Option selection and focus management by typing (typeahead)',
+    'Keyboard support for option navigation via arrow keys and focus management',
+    'Automatic focus management for first and last options',
+    'Supports a custom placeholder',
+  ]}
+  roadmap={[
+    'Opt-in native form support via a visually hidden select',
+    'RTL support',
+    'Multiple Selection and its respective keyboard interactions',
+  ]}
+/>
 
-## Uncontrolled
+> Missing a feature? Check out the [contributing guide](../../../docs/headless/contributing) and we'd be happy to review any relevant issues or PR's. Feel free to work on any of the features listed above.
 
-<div data-testid="select-uncontrolled-test">
-  <Showcase name="uncontrolled" />
-</div>
+## Building blocks
 
-## Wrong Value
+<CodeSnippet name="building-blocks" />
 
-<div data-testid="select-wrong-value-test">
-  <Showcase name="wrong-value" />
-</div>
+### 🎨 Anatomy
 
-## Controlled
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Select',
+      description: 'The root container for the Select component.',
+    },
+    {
+      name: 'SelectTrigger',
+      description:
+        'A button or similar control that opens the select menu when interacted with.',
+    },
+    {
+      name: 'SelectValue',
+      description: 'Displays the currently selected value.',
+    },
+    {
+      name: 'SelectPopover',
+      description:
+        'A wrapper of the Qwik UI Popover component places its content above everything else.',
+    },
+    {
+      name: 'SelectListbox',
+      description: 'An unordered list that displays selectable options.',
+    },
+    {
+      name: 'SelectOption',
+      description: 'A selectable option within the SelectListbox.',
+    },
+    {
+      name: 'SelectGroup',
+      description: 'Groups related options within the SelectListbox.',
+    },
+  ]}
+/>
 
-<div data-testid="select-controlled-test">
-  <Showcase name="controlled" />
-</div>
+## Why use a headless select?
 
-## Passing a value
+The native `<select>` HTML element encounters significant obstacles in terms of styling flexibility, consistency across different browsers, and delivering a seamless user experience.
+
+### Native select pain points
+
+- **Styling Limitations**: Customizing the appearance of a native select element is notoriously difficult, leading to inconsistent designs across different platforms.
+- **Multiselect Complexity**: The native multiselect feature is not intuitive, especially for non-technical users, as it requires the use of control or command keys to select multiple options.
+- **Limited Typeahead Support**: Native select elements offer minimal support for finding options by typing, making it harder for users to quickly find options.
+- **Inconsistent Behavior**: There's a lack of consistency in behavior and styling of the select element across different browsers and devices.
+
+### Native effort
+
+The [Open UI group](https://open-ui.org/components/selectlist/) has been working towards filling in some of these gaps with a new HTML element called `selectlist`.
+
+It is still not supported by any major browsers, and there is still an ongoing debate about its future, including a possible attribute to the select element to fix some of the problems instead.
+
+### Philosophy
+
+Qwik UI's Select component is designed to solve these pain points out of the box, along with a focus on accessibility and usability.
+
+It intends to feel like a native select element, providing intuitive APIs and behavior.
+
+## Passing data
+
+The select component accepts data similar to the native select element. Option data can be passed in directly to `<SelectOption />`.
+
+### Basic example
+
+<Showcase name="string" />
+
+By default, the content inside of the `<SelectOption />` component is the option value.
+
+### Mapping over data
+
+<Showcase name="hero" />
+
+You are in full control of how the data is rendered. Map over the data, or render the options however you like.
+
+> Maybe the options are out of order and you want to sort them? Programmatically update them directly in the JSX? You can do that!
+
+### Object example
+
+<Showcase name="object" />
+
+> In a case like the above example, where the display value can get cluttered, you may want to provide a `value` prop to the `<SelectOption />` component. We will refer to this in the next section.
+
+### Passing a distinct value
 
 <div data-testid="select-option-value-test">
   <Showcase name="option-value" />
 </div>
 
-## Controlled + The value prop
+Sometimes we want to display one thing to the user, but pass another value to the option.
 
-<div data-testid="select-controlled-value-test">
-  <Showcase name="controlled-value" />
-</div>
+By adding the `value` prop to the `<SelectOption />` component, we can pass a distinct value to the select component.
 
-## Adding Users
+> A common use case is to select a user's unique account id, rather than their name.
 
-<div data-testid="select-add-users-test">
-  <Showcase name="add-users" />
-</div>
-
-## onChange$
+### Handling selection changes
 
 <div data-testid="select-change-test">
   <Showcase name="change-value" />
 </div>
 
-## onOpenChange$
+We can listen to changes in the selected value by using the `onChange$` prop. It provides an argument that is the new selected value.
 
-<div data-testid="select-open-change-test">
-  <Showcase name="open-change" />
+The above example increments a count when the user selects a new option.
+
+## Component state
+
+We can select an initial uncontrolled value by passing the `value` prop to the `<Select />` root component.
+
+### Uncontrolled
+
+<div data-testid="select-uncontrolled-test">
+  <Showcase name="uncontrolled" />
 </div>
 
-## Typeahead
+The above example passes one of the option values "Jessie" as the initial value. As a result, the matching value is selected and focused.
+
+> The `value` prop in Qwik is similar to a `defaultValue` prop in other frameworks. For controlled values, we use signals and the bind syntax.
+
+### Controlled
+
+We can select a controlled value by passing the `bind:value` prop to the `<Select />` root component.
+
+<div data-testid="select-controlled-test">
+  <Showcase name="controlled" />
+</div>
+
+`bind:value` is a signal prop, it allows us to programmatically control the selected value of the select component.
+
+> Signal props enables two-way data binding efficiently without the common issues of change detection in other frameworks.
+
+### Programmatic changes
+
+To combine some of our previous knowledge, let's use the `onChange$` handler and `bind:value` prop in tandem.
+
+<div data-testid="select-controlled-value-test">
+  <Showcase name="controlled-value" />
+</div>
+
+In the above example, we can programmatically change the selected value by clicking on the "Change to Abby" button.
+
+This allows us to update the signal value and trigger the `onChange$` handler.
+
+### Disabled options
+
+<div data-testid="select-disabled-test">
+  <Showcase name="disabled" />
+</div>
+
+Options can be disabled by adding the `disabled` prop to the `<SelectOption />` component.
+
+Disabled options are not selectable or focusable. They are also skipped when using the arrow keys to navigate through the options.
+
+### Dynamically adding users
+
+A common use case is the addition of options dynamically. For example, an infinite scrolling list of users.
+
+<div data-testid="select-add-users-test">
+  <Showcase name="add-users" />
+</div>
+
+Clicking the `Add Users` button adds a couple new users mapped to the list. Taking this further, we could grab more data from the server and add it to the list, or even hitting a database to get more users.
+
+## Menu behavior
+
+### Typeahead
+
+The select offers a typeahead feature that allows users to quickly find options by typing.
 
 <div data-testid="select-typeahead-test">
   <Showcase name="typeahead" />
 </div>
 
-## Grouped Options
+It reduces the need to scroll through the available options. Typeahead is particularly handy for expected data sets, such as a list of countries.
 
-<div data-testid="select-group-test">
-  <Showcase name="group" />
+> The ability to select options without the listbox open is also useful for those using screen readers.
+
+### Handling listbox open / close
+
+We may want to handle the open / close of the listbox. For example, we may want to show a loading indicator when the listbox is open.
+
+<div data-testid="select-open-change-test">
+  <Showcase name="open-change" />
 </div>
 
-## Scrolling
+To do that, we can use the `onOpenChange$` prop. A parameter is passed to the handler, which is a boolean indicating whether the listbox is open or closed.
 
-<div data-testid="select-scroll-test">
-  <Showcase name="scrollable" />
-</div>
+### Looping
 
-> Qwik UI does not provide virtual scrolling. However, we have found a [Qwik community member's package](https://github.com/literalpie/qwik-virtual-scroll) that has an implementation of virtual scrolling for Qwik based on [Tanstack Virtual](https://github.com/TanStack/virtual).
-
-## Looping
+To loop through the options, we can use the `loop` boolean prop on the `<Select />` root component.
 
 <div data-testid="select-loop-test">
   <Showcase name="loop" />
 </div>
 
-## Building blocks
+- Pressing the down arrow key will move focus to the first option in the list.
 
-<CodeSnippet name="building-blocks" />
+- Pressing the up arrow key will move focus to the last option in the list.
+
+### Grouped options
+
+<div data-testid="select-group-test">
+  <Showcase name="group" />
+</div>
+
+The `<SelectGroup />` and `<SelectLabel />` components are used to group and label options.
+
+Wrap the options in a group, add a Label, and you're good to go!
+
+### Scrolling
+
+Because focus remains on the select trigger when the listbox is open, it's important to handle scrolling in the listbox.
+
+<div data-testid="select-scroll-test">
+  <Showcase name="scrollable" />
+</div>
+
+The native `scrollIntoView` method is used to scroll the options into view when the user highlights an option.
+
+To customize the scroll behavior, add the `scrollOptions` prop to the `<Select />` root component.
+
+> Qwik UI does not provide virtual scrolling. However, we have found a [Qwik community member's package](https://github.com/literalpie/qwik-virtual-scroll) that has an implementation of virtual scrolling for Qwik based on [Tanstack Virtual](https://github.com/TanStack/virtual).
+
+## Placeholder
+
+We can provide a custom placeholder to the `<SelectValue />` component by adding the `placeholder` prop.
+
+<div data-testid="select-wrong-value-test">
+  <Showcase name="wrong-value" />
+</div>
+
+When a value is not selected, the placeholder is displayed. The example above shows a placeholder fallback when the value is not selected.
+
+The consumer misspelled the the value, and so the fallback is displayed.
+
+> Side note: would appreciate some help on TypeScript to make misspelled option values a thing of the past. Ideally, a union of the user's passed in options.
+
+## API
+
+### Select (Root)
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'value',
+      type: 'string',
+      description: 'Uncontrolled select value.',
+    },
+    {
+      name: 'bind:value',
+      type: 'signal',
+      description: 'Controlled selected value, manages the selected option.',
+      info: 'string',
+    },
+    {
+      name: 'onChange$',
+      type: 'QRL',
+      description: 'Function called when the selected value changes.',
+      info: 'QRL<(value: string) => void>',
+    },
+    {
+      name: 'onOpenChange$',
+      type: 'QRL',
+      description: 'Function called when the listbox opens or closes.',
+      info: 'QRL<(open: boolean) => void>',
+    },
+    {
+      name: 'loop',
+      type: 'boolean',
+      description:
+        'Determines if focus cycles from the last option back to the first, or vice versa.',
+    },
+  ]}
+/>
+
+### Select Value
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'placeholder',
+      type: 'string',
+      description: 'Sets a placeholder instead of a selected value.',
+    },
+  ]}
+/>
+
+### Select Popover
+
+`SelectPopover` is a wrapper of the [Popover](../../../docs/headless/popover/) component, and has the Same API's.
+
+### Select Option:
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'value',
+      type: 'string',
+      description: 'Give the select a value other than what is displayed in the option.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, the option is disabled.',
+    },
+  ]}
+/>

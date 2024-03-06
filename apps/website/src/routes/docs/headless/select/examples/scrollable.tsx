@@ -34,9 +34,7 @@ export default component$(() => {
           <SelectGroup>
             <SelectLabel class="select-label">Animals</SelectLabel>
             {animals.map((animal) => (
-              <SelectOption class="select-option" key={animal}>
-                {animal}
-              </SelectOption>
+              <SelectOption key={animal}>{animal}</SelectOption>
             ))}
           </SelectGroup>
         </SelectListbox>

@@ -28,9 +28,7 @@ export default component$(() => {
         <SelectPopover class="select-popover">
           <SelectListbox class="select-listbox">
             {users.map((user) => (
-              <SelectOption class="select-option" key={user}>
-                {user}
-              </SelectOption>
+              <SelectOption key={user}>{user}</SelectOption>
             ))}
           </SelectListbox>
         </SelectPopover>

@@ -11,7 +11,6 @@ import styles from './select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
-  const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
 
   return (
     <Select class="select">
@@ -20,9 +19,8 @@ export default component$(() => {
       </SelectTrigger>
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox">
-          {users.map((user) => (
-            <SelectOption key={user}>{user}</SelectOption>
-          ))}
+          <SelectOption>Option 1</SelectOption>
+          <SelectOption>Option 2</SelectOption>
         </SelectListbox>
       </SelectPopover>
     </Select>

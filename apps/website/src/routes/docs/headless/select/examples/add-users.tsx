@@ -11,8 +11,8 @@ import styles from './select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
-  const usersSig = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
-  const hasAddedUsersSig = useSignal<boolean>(false);
+  const users = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
+  const hasAddededUsers = useSignal<boolean>(false);
 
   return (
     <>
@@ -22,19 +22,17 @@ export default component$(() => {
         </SelectTrigger>
         <SelectPopover class="select-popover">
           <SelectListbox class="select-listbox">
-            {usersSig.value.map((user) => (
-              <SelectOption class="select-option" key={user}>
-                {user}
-              </SelectOption>
+            {users.value.map((user) => (
+              <SelectOption key={user}>{user}</SelectOption>
             ))}
           </SelectListbox>
         </SelectPopover>
       </Select>
       <button
         onClick$={$(() => {
-          if (!hasAddedUsersSig.value) {
-            usersSig.value = [...usersSig.value, 'John', 'Jane', 'Bob'];
-            hasAddedUsersSig.value = true;
+          if (!hasAddededUsers.value) {
+            users.value = [...users.value, 'John', 'Jane', 'Bob'];
+            hasAddededUsers.value = true;
           }
         })}
       >
