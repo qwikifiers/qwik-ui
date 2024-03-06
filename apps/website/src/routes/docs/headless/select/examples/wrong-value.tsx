@@ -14,21 +14,17 @@ export default component$(() => {
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
 
   return (
-    <>
-      <Select value="Jessi" class="select">
-        <SelectTrigger class="select-trigger">
-          <SelectValue placeholder="wrong value placeholder" />
-        </SelectTrigger>
-        <SelectPopover class="select-popover">
-          <SelectListbox class="select-listbox">
-            {users.map((user) => (
-              <SelectOption class="select-option" key={user}>
-                {user}
-              </SelectOption>
-            ))}
-          </SelectListbox>
-        </SelectPopover>
-      </Select>
-    </>
+    <Select value="Jessi" class="select">
+      <SelectTrigger class="select-trigger">
+        <SelectValue placeholder="wrong value placeholder" />
+      </SelectTrigger>
+      <SelectPopover class="select-popover">
+        <SelectListbox class="select-listbox">
+          {users.map((user) => (
+            <SelectOption key={user}>{user}</SelectOption>
+          ))}
+        </SelectListbox>
+      </SelectPopover>
+    </Select>
   );
 });

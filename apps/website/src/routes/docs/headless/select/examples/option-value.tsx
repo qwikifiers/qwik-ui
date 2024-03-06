@@ -33,7 +33,7 @@ export default component$(() => {
         <SelectPopover class="select-popover">
           <SelectListbox class="select-listbox">
             {users.map((user) => (
-              <SelectOption value={user.id} class="select-option" key={user.id}>
+              <SelectOption value={user.id} key={user.id}>
                 {user.label}
               </SelectOption>
             ))}

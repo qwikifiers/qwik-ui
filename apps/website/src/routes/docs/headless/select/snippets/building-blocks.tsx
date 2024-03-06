@@ -3,6 +3,8 @@ import {
   Select,
   SelectPopover,
   SelectTrigger,
+  SelectGroup,
+  SelectLabel,
   SelectValue,
   SelectListbox,
   SelectOption,
@@ -11,11 +13,18 @@ import {
 export default component$(() => (
   <Select>
     <SelectTrigger>
-      <SelectValue>Selected Value</SelectValue>
+      <SelectValue>selected value</SelectValue>
     </SelectTrigger>
+
     <SelectPopover>
       <SelectListbox>
-        <SelectOption>option</SelectOption>
+        <SelectOption>regular option</SelectOption>
+
+        {/* optional */}
+        <SelectGroup>
+          <SelectLabel>group label</SelectLabel>
+          <SelectOption>group option</SelectOption>
+        </SelectGroup>
       </SelectListbox>
     </SelectPopover>
   </Select>

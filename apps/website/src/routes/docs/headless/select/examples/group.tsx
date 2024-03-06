@@ -26,9 +26,7 @@ export default component$(() => {
           <SelectGroup>
             <SelectLabel class="select-label">People</SelectLabel>
             {users.map((user) => (
-              <SelectOption class="select-option" key={user}>
-                {user}
-              </SelectOption>
+              <SelectOption key={user}>{user}</SelectOption>
             ))}
           </SelectGroup>
           <SelectGroup>
