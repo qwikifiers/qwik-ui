@@ -157,7 +157,7 @@ The above example increments a count when the user selects a new option.
 
 We can select an initial uncontrolled value by passing the `value` prop to the `<Select />` root component.
 
-### Uncontrolled
+### Uncontrolled / Initial value
 
 <div data-testid="select-uncontrolled-test">
   <Showcase name="uncontrolled" />
@@ -167,9 +167,9 @@ The above example passes one of the option values "Jessie" as the initial value.
 
 > The `value` prop in Qwik is similar to a `defaultValue` prop in other frameworks. For controlled values, we use signals and the bind syntax.
 
-### Controlled
+### Controlled / Reactive value
 
-We can select a controlled value by passing the `bind:value` prop to the `<Select />` root component.
+We can pass reactive state by using the `bind:value` prop to the `<Select />` root component.
 
 <div data-testid="select-controlled-test">
   <Showcase name="controlled" />

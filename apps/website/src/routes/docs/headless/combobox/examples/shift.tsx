@@ -18,7 +18,7 @@ export default component$(() => {
 
   return (
     <div
-      class="relative flex h-[10rem] w-full flex-col items-center gap-4"
+      class="flex h-[10rem] w-full flex-col items-center gap-4"
       style={{ overflow: 'auto', width: '100%' }}
     >
       <div class="h-[1px] w-[2000px]"></div>

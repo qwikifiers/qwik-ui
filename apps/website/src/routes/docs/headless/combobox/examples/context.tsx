@@ -30,7 +30,7 @@ export const ContextChild = component$(() => {
   const animals = useContext(AnimalContext);
 
   return (
-    <Combobox options={animals} class="relative">
+    <Combobox options={animals}>
       <ComboboxLabel class=" font-semibold">Animals 🐖</ComboboxLabel>
       <ComboboxControl class="rounded-base relative flex items-center border">
         <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground w-44 px-2 pr-6" />

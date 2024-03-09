@@ -80,7 +80,7 @@ export const FloatingPopover = component$(
     const popoverRef = props.popoverRef || myRef;
 
     // sets floating UI config
-    useTask$(({ track, cleanup }) => {
+    useTask$(async ({ track, cleanup }) => {
       const anchor = track(() => anchorRef?.value);
       const popover = track(() => popoverRef.value);
       if (!popover || !anchor) return;
@@ -99,7 +99,7 @@ export const FloatingPopover = component$(
         await computePosition(anchor as ReferenceElement, popover, {
           placement,
           middleware,
-        }).then((resolvedData) => {
+        }).then(async (resolvedData) => {
           const { x, y } = resolvedData;
 
           Object.assign(popover.style, {
