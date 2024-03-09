@@ -1,4 +1,4 @@
-import { component$, useContext, Slot, useTask$, useId } from '@builder.io/qwik';
+import { component$, useContext, Slot, useTask$ } from '@builder.io/qwik';
 import { Popover, usePopover } from '../popover';
 
 import SelectContextId from './select-context';
@@ -9,8 +9,8 @@ import { isServer } from '@builder.io/qwik/build';
 export const SelectPopover = component$(
   (props: Partial<FloatingProps & PopoverImplProps>) => {
     const context = useContext(SelectContextId);
-    const customPopoverId = useId();
-    const { showPopover, hidePopover } = usePopover(customPopoverId);
+    const popoverId = `${context.localId}-popover`;
+    const { showPopover, hidePopover } = usePopover(popoverId);
 
     useTask$(async ({ track }) => {
       track(() => context.isListboxOpenSig.value);
@@ -18,16 +18,16 @@ export const SelectPopover = component$(
       if (isServer) return;
 
       if (context.isListboxOpenSig.value) {
-        showPopover();
+        await showPopover();
       } else {
-        hidePopover();
+        await hidePopover();
       }
     });
 
     return (
       <Popover
         {...props}
-        id={customPopoverId}
+        id={popoverId}
         floating={true}
         anchorRef={context.triggerRef}
         ref={context.popoverRef}

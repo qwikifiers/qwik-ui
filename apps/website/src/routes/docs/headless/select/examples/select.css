@@ -3,7 +3,6 @@
 }
 
 .select {
-  position: relative;
   min-width: var(--select-width);
 }
 
@@ -11,6 +10,7 @@
   width: 100%;
   border: 2px dashed hsla(var(--primary) / 1);
   border-radius: calc(var(--border-radius) / 2);
+  height: 44px;
 }
 
 .select-popover {

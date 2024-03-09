@@ -40,7 +40,7 @@ export default component$(() => {
         })
       }
     >
-      <ComboboxLabel class=" font-semibold">Countries 🚩</ComboboxLabel>
+      <ComboboxLabel class="font-semibold">Countries 🚩</ComboboxLabel>
       <ComboboxControl class="rounded-base relative flex items-center border">
         <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground rounded-base w-44 px-2 pr-6" />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6">

@@ -41,7 +41,6 @@ export default component$(() => {
       optionValueKey="testValue"
       optionLabelKey="testLabel"
       optionDisabledKey="disabled"
-      class="relative"
       bind:selectedIndex={selectedOptionIndexSig}
     >
       <ComboboxLabel class="font-semibold">Personal Trainers ⚡</ComboboxLabel>
