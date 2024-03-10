@@ -52,7 +52,6 @@ export const Logo = component$<PropsOf<'svg'>>(({ ...props }) => {
           d="M 1266.5,270.5 C 1311.17,270.5 1355.83,270.5 1400.5,270.5C 1400.5,378.167 1400.5,485.833 1400.5,593.5C 1355.83,593.5 1311.17,593.5 1266.5,593.5C 1266.5,485.833 1266.5,378.167 1266.5,270.5 Z"
         />
       </g>
-      <path class="fill-secondary" d="M1266.5 270.5h134v323h-134v-323Z" />
     </svg>
   );
 });
@@ -73,7 +72,7 @@ export const LogoWithBorders = component$<PropsOf<'svg'>>(({ ...props }) => {
       clip-rule="evenodd"
     >
       <g
-        class={cn(theme?.includes('light') ? 'stroke-black' : 'stroke-white')}
+        class={cn(theme?.includes('light') ? 'stroke-[#bbb]' : 'stroke-white')}
         stroke-width="4"
         fill="none"
       >
@@ -113,7 +112,6 @@ export const LogoWithBorders = component$<PropsOf<'svg'>>(({ ...props }) => {
             d="M 1266.5,270.5 C 1311.17,270.5 1355.83,270.5 1400.5,270.5C 1400.5,378.167 1400.5,485.833 1400.5,593.5C 1355.83,593.5 1311.17,593.5 1266.5,593.5C 1266.5,485.833 1266.5,378.167 1266.5,270.5 Z"
           />
         </g>
-        <path class="fill-secondary" d="M1266.5 270.5h134v323h-134v-323Z" />
       </g>
     </svg>
   );
