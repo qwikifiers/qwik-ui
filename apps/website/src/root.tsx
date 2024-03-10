@@ -11,20 +11,20 @@ import { RouterHead } from './components/router-head/router-head';
 import globalStyles from './global.css?inline';
 
 import { ThemeProvider } from 'qwik-themes';
-import {
-  baseOptions,
-  borderRadiusOptions,
-  modeOptions,
-  primaryOptions,
-  styleOptions,
-  fontOptions,
-} from './_state/make-it-yours';
 
 import '@fontsource-variable/inter';
 import '@fontsource/ibm-plex-mono';
 import '@fontsource/source-serif-pro';
 import '@fontsource/londrina-shadow';
 import '@fontsource/rubik-doodle-shadow';
+import {
+  ThemeBaseColor,
+  ThemeBorderRadius,
+  ThemeFont,
+  ThemeMode,
+  ThemePrimaryColor,
+  ThemeStyle,
+} from '@qwik-ui/utils';
 
 export default component$(() => {
   /**
@@ -57,12 +57,12 @@ export default component$(() => {
           attribute="class"
           enableSystem={false}
           themes={[
-            ...modeOptions,
-            ...fontOptions,
-            ...styleOptions,
-            ...baseOptions,
-            ...primaryOptions,
-            ...borderRadiusOptions,
+            ...Object.values(ThemeFont),
+            ...Object.values(ThemeMode),
+            ...Object.values(ThemeStyle),
+            ...Object.values(ThemeBaseColor),
+            ...Object.values(ThemePrimaryColor),
+            ...Object.values(ThemeBorderRadius),
           ]}
         >
           <RouterOutlet />
