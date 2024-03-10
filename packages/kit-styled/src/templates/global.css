@@ -1344,6 +1344,6 @@ body {
 /* Not used yet - could be used for the colored text on the landing page when the make-it-yours color is too bright in light mode or too dim in dark mode */
 @layer components {
   .text-outlined {
-    @apply [text-shadow:-1px_0_#aaa,_0_1px_#aaa,_1px_0_#aaa,_0_-1px_#aaa] dark:[text-shadow:-1px_0_#888,_0_1px_#888,_1px_0_#888,_0_-1px_#888];
+    @apply [text-shadow:-1px_0_#bbb,_0_1px_#bbb,_1px_0_#bbb,_0_-1px_#bbb] dark:[text-shadow:-1px_0_#777,_0_1px_#777,_1px_0_#777,_0_-1px_#777];
   }
 }
