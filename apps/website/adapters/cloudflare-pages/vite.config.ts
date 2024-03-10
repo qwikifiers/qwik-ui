@@ -16,9 +16,9 @@ export default extendConfig(baseConfig, () => {
     },
     plugins: [
       cloudflarePagesAdapter({
-        // ssg: {
-        //   include: ['/*'],
-        // }
+        ssg: {
+          include: ['/*'],
+        },
       }),
     ],
   };
