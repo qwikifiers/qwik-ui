@@ -176,9 +176,9 @@
     "qwik-themes": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "rehype-pretty-code": "^0.10.2",
+    "rehype-pretty-code": "^0.13.0",
     "sass": "^1.66.1",
-    "shikiji": "0.9.18",
+    "shiki": "1.1.7",
     "specificity": "^1.0.0",
     "storybook": "^7.4.0",
     "storybook-framework-qwik": "^0.2.3",
@@ -215,6 +215,5 @@
   ],
   "nx": {
     "includedScripts": []
-  },
-  "dependencies": {}
+  }
 }
