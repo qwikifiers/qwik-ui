@@ -1,12 +1,6 @@
-import {
-  ClassList,
-  PropsOf,
-  component$,
-  useSignal,
-  useVisibleTask$,
-} from '@builder.io/qwik';
+import { ClassList, PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { CodeCopy } from '../code-copy/code-copy';
-import { codeToHtml } from 'shikiji';
+import { codeToHtml } from 'shiki';
 import { cn } from '@qwik-ui/utils';
 
 export type HighlightProps = PropsOf<'div'> & {
@@ -29,31 +23,28 @@ export const Highlight = component$(
     const codeSig = useSignal('');
 
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(
-      async function createHighlightedCode() {
-        let modifiedCode: string = code;
+    useTask$(async function createHighlightedCode() {
+      let modifiedCode: string = code;
 
-        let partsOfCode = modifiedCode.split(splitCommentStart);
-        if (partsOfCode.length > 1) {
-          modifiedCode = partsOfCode[1];
-        }
+      let partsOfCode = modifiedCode.split(splitCommentStart);
+      if (partsOfCode.length > 1) {
+        modifiedCode = partsOfCode[1];
+      }
 
-        partsOfCode = modifiedCode.split(splitCommentEnd);
-        if (partsOfCode.length > 1) {
-          modifiedCode = partsOfCode[0];
-        }
+      partsOfCode = modifiedCode.split(splitCommentEnd);
+      if (partsOfCode.length > 1) {
+        modifiedCode = partsOfCode[0];
+      }
 
-        const str = await codeToHtml(modifiedCode, {
-          lang: language,
-          themes: {
-            light: 'poimandres',
-            dark: 'poimandres',
-          },
-        });
-        codeSig.value = str.toString();
-      },
-      { strategy: 'document-idle' },
-    );
+      const str = await codeToHtml(modifiedCode, {
+        lang: language,
+        themes: {
+          light: 'poimandres',
+          dark: 'poimandres',
+        },
+      });
+      codeSig.value = str.toString();
+    });
 
     return (
       <div class="code-example relative max-h-[31.25rem] rounded-b-sm">
