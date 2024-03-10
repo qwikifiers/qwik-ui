@@ -72,7 +72,7 @@ export const LogoWithBorders = component$<PropsOf<'svg'>>(({ ...props }) => {
       clip-rule="evenodd"
     >
       <g
-        class={cn(theme?.includes('light') ? 'stroke-[#bbb]' : 'stroke-white')}
+        class={cn(theme?.includes('light') ? 'stroke-black' : 'stroke-white')}
         stroke-width="4"
         fill="none"
       >
