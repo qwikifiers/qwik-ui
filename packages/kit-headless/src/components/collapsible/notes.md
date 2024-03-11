@@ -49,5 +49,4 @@ A disclosure widget allows content to be shown or hidden, enhancing accessibilit
 
 ## Downsides:
 
-- Requires careful implementation to ensure accessibility standards are met.
 - Dynamic content loading can introduce complexity in maintaining state and accessibility.
