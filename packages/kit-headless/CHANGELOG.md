@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.2
+
+### Patch Changes
+
+- 🐞🩹 proper type exports in package.json (by [@thejackshelton](https://github.com/thejackshelton) in [#645](https://github.com/qwikifiers/qwik-ui/pull/645))
+
 ## 0.3.1
 
 ### Patch Changes
