@@ -8,10 +8,11 @@
   "main": "./index.qwik.cjs",
   "qwik": "./index.qwik.mjs",
   "module": "./index.qwik.mjs",
-  "types": "./index.qwik.d.ts",
+  "types": "./index.d.ts",
   "type": "module",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.qwik.mjs",
       "require": "./index.qwik.cjs"
     }
@@ -20,8 +21,8 @@
     "node": ">=16.0.0"
   },
   "private": false,
-  "scripts": {},
   "peerDependencies": {
     "@builder.io/qwik": "^1.4.0"
-  }
+  },
+  "scripts": {}
 }
