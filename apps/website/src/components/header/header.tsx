@@ -31,7 +31,7 @@ export interface HeaderProps {
 export default component$(({ showVersion = false }: HeaderProps) => {
   useStyles$(`
     .sidebar-mobile::backdrop {
-      background: rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.5);
     }
   
     .sidebar-mobile {
