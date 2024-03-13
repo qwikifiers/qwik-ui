@@ -81,6 +81,10 @@ Reveals a list of options to choose from, often triggered by a button.
       name: 'SelectGroup',
       description: 'Groups related options within the SelectListbox.',
     },
+    {
+      name: 'SelectLabel',
+      description: 'A label for the SelectGroup.',
+    },
   ]}
 />
 
@@ -285,7 +289,53 @@ The consumer misspelled the the value, and so the fallback is displayed.
 
 > Side note: would appreciate some help on TypeScript to make misspelled option values a thing of the past. Ideally, a union of the user's passed in options.
 
+## Example CSS
+
+Every code example uses the following CSS:
+
+<CodeSnippet name="select.css" />
+
+Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
+
 ## API
+
+### Data Attributes
+
+`Select`, `SelectTrigger`, `SelectValue`, `SelectPopover`, and `SelectListbox` all have data attributes for opening and closing the listbox.
+
+<AnatomyTable
+  firstColumnLabel="Attribute"
+  propDescriptors={[
+    {
+      name: 'data-open',
+      description: 'If the listbox is open (Boolean).',
+    },
+    {
+      name: 'data-closed',
+      description: 'If the listbox is closed (Boolean).',
+    },
+  ]}
+/>
+
+`SelectOption` has the following data attributes:
+
+<AnatomyTable
+  firstColumnLabel="Attribute"
+  propDescriptors={[
+    {
+      name: 'data-selected',
+      description: 'If the option is selected. (Boolean)',
+    },
+    {
+      name: 'data-highlighted',
+      description: 'If the option is highlighted. (Boolean)',
+    },
+    {
+      name: 'data-disabled',
+      description: 'If option is disabled. (Boolean)',
+    },
+  ]}
+/>
 
 ### Select (Root)
 

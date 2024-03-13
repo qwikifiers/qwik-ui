@@ -15,7 +15,7 @@
     "change": "changeset",
     "changeset.version": "changeset version && pnpm install --no-frozen-lockfile && git add --all",
     "dev": "nx serve website",
-    "test.docs": "nx e2e website",
+    "dev.ct": "nx serve component-tests",
     "format.fix": "pretty-quick --staged",
     "link.dist": "cd dist/packages/kit-headless && pnpm link --global",
     "lint": "nx affected:lint",
@@ -32,6 +32,7 @@
     "story.headless": "nx storybook headless",
     "test.cli": "nx test cli",
     "test.headless": "nx component-test headless",
+    "test.pw.headless": "nx e2e headless",
     "test.headless.ci": "nx component-test-ci headless",
     "test.utils": "nx test utils"
   },
@@ -193,7 +194,7 @@
     "unified": "^11.0.4",
     "unist-util-visit": "^5.0.0",
     "verdaccio": "^5.0.4",
-    "vite": "5.0.4",
+    "vite": "^5.1.6",
     "vite-plugin-dts": "^3.5.3",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-inspect": "0.7.38",
@@ -215,5 +216,6 @@
   ],
   "nx": {
     "includedScripts": []
-  }
+  },
+  "dependencies": {}
 }

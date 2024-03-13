@@ -1,8 +1,9 @@
+import { workspaceRoot } from '@nx/devkit';
 import { nxE2EPreset } from '@nx/playwright/preset';
 import { defineConfig, devices } from '@playwright/test';
+import { fileURLToPath } from 'url';
 
-import { workspaceRoot } from '@nx/devkit';
-
+const __filename = fileURLToPath(import.meta.url);
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://localhost:5173';
 
@@ -17,6 +18,8 @@ const baseURL = process.env['BASE_URL'] || 'http://localhost:5173';
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
+  testMatch: '**/*.test.ts',
+  timeout: 30000,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL,
@@ -25,11 +28,11 @@ export default defineConfig({
   },
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm dev',
+    command: 'pnpm dev.ct',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     cwd: workspaceRoot,
-    // timeout: 120000,
+    timeout: 120000,
   },
   projects: [
     {

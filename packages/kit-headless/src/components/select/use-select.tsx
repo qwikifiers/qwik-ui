@@ -12,9 +12,6 @@ export function useTypeahead() {
       opt.displayValue?.slice(0, 1).toLowerCase(),
     );
   });
-  const fullStrOptionsSig = useComputed$(() => {
-    return context.optionsSig.value.map((opt) => opt.displayValue?.toLowerCase());
-  });
 
   const typeahead$ = $((key: string): void => {
     inputStrSig.value += key;
@@ -89,9 +86,10 @@ export function useTypeahead() {
         inputStrSig.value = '';
       }, 1000);
 
-      const firstPossibleOpt = fullStrOptionsSig.value.findIndex((str) => {
+      const firstPossibleOpt = context.optionsSig.value.findIndex((opt) => {
         const size = inputStrSig.value.length;
-        return str?.substring(0, size) === inputStrSig.value;
+        const optStr = opt.displayValue?.toLowerCase();
+        return optStr?.substring(0, size) === inputStrSig.value;
       });
       if (firstPossibleOpt !== -1) {
         context.highlightedIndexSig.value = firstPossibleOpt;

@@ -1,18 +1,18 @@
 import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
-  SelectPopover,
   SelectListbox,
   SelectOption,
+  SelectPopover,
   SelectTrigger,
   SelectValue,
 } from '@qwik-ui/headless';
-import styles from './select.css?inline';
+import styles from '../snippets/select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
   const users = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
-  const hasAddededUsers = useSignal<boolean>(false);
+  const hasAddedUsers = useSignal<boolean>(false);
 
   return (
     <>
@@ -30,9 +30,9 @@ export default component$(() => {
       </Select>
       <button
         onClick$={$(() => {
-          if (!hasAddededUsers.value) {
+          if (!hasAddedUsers.value) {
             users.value = [...users.value, 'John', 'Jane', 'Bob'];
-            hasAddededUsers.value = true;
+            hasAddedUsers.value = true;
           }
         })}
       >

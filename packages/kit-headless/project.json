@@ -79,6 +79,13 @@
           "pluginVisualRegressionCleanupUnusedImages": false
         }
       }
+    },
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/packages/kit-headless"],
+      "options": {
+        "config": "packages/kit-headless/playwright.config.ts"
+      }
     }
   },
   "tags": []

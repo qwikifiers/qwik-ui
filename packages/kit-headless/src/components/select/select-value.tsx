@@ -24,7 +24,12 @@ export const SelectValue = component$((props: SelectValueProps) => {
   });
 
   return (
-    <span data-value {...rest}>
+    <span
+      data-open={context.isListboxOpenSig.value ? '' : undefined}
+      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+      data-value
+      {...rest}
+    >
       {displayStrSig.value}
     </span>
   );
