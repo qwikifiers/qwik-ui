@@ -1,8 +1,7 @@
 /* eslint-disable qwik/no-react-props */
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
-import { ContentMenu, useContent } from '@builder.io/qwik-city';
+import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
 import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
-import { KitName } from '~/_state/kit-name.type';
 import Header from '~/components/header/header';
 import {
   DocsNavigation,
@@ -10,7 +9,6 @@ import {
   LinkProps,
 } from '~/components/navigation-docs/navigation-docs';
 import docsStyles from './docs.css?inline';
-import { useSelectedKit } from './docs/use-selected-kit';
 import prismStyles from './prism.css?inline';
 
 import { MDXProvider } from '~/_state/MDXProvider';
@@ -55,18 +53,18 @@ export default component$(() => {
 });
 
 export function useKitMenuItems() {
-  const selectedKitSig = useSelectedKit();
+  const location = useLocation();
   const { menu } = useContent();
   let menuItemsGroups: LinkGroup[] | undefined = [];
 
-  if (selectedKitSig.value === KitName.HEADLESS) {
+  if (location.url.pathname.startsWith('/docs/headless')) {
     menuItemsGroups = decorateMenuItemsWithBadges(
       menu?.items,
       statusByComponent.headless,
     );
   }
 
-  if (selectedKitSig.value === KitName.STYLED) {
+  if (location.url.pathname.startsWith('/docs/styled')) {
     menuItemsGroups = decorateMenuItemsWithBadges(menu?.items, statusByComponent.styled);
   }
 

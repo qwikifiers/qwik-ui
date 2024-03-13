@@ -3,9 +3,7 @@ import { $, component$, useComputed$, useSignal, useStyles$ } from '@builder.io/
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { useLocation } from '@builder.io/qwik-city';
-import { KitName } from '~/_state/kit-name.type';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { useSelectedKit } from '~/routes/docs/use-selected-kit';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as styledKitVersion } from '../../../../../packages/kit-styled/package.json';
 import { CloseIcon } from '../icons/CloseIcon';
@@ -97,7 +95,6 @@ export default component$(({ showVersion = false }: HeaderProps) => {
 
   const rootStore = useAppState();
   const isSidebarOpenedSig = useSignal(false);
-  const selectedKitSig = useSelectedKit();
   const location = useLocation();
 
   const isRouteActive = (href: string) => {
@@ -113,13 +110,13 @@ export default component$(({ showVersion = false }: HeaderProps) => {
   };
 
   const kitSignal = useComputed$(() => {
-    if (selectedKitSig.value === KitName.HEADLESS) {
+    if (location.url.pathname.startsWith('/docs/headless')) {
       return {
         name: 'Headless',
         version: headlessVersion,
       };
     }
-    if (selectedKitSig.value === KitName.STYLED) {
+    if (location.url.pathname.startsWith('/docs/styled')) {
       return {
         name: 'Styled',
         version: styledKitVersion,
