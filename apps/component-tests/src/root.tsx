@@ -6,7 +6,7 @@ import {
 } from '@builder.io/qwik-city';
 import { RouterHead } from './components/router-head/router-head';
 
-import globalStyles from './src/global.css?inline';
+import globalStyles from './global.css?inline';
 
 export default component$(() => {
   /**
@@ -15,7 +15,6 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
-  console.log('globalStyles', globalStyles);
   useStyles$(globalStyles);
 
   return (
