@@ -29,15 +29,15 @@ export const DocsNavigation = component$(
           return (
             <>
               <div class="px-6 pt-8">
-                <h2 class="mb-2 border-b-2 p-2 font-bold lg:text-lg">{group.name}</h2>
+                <h2 class="mb-2 border-b-2 p-2 text-lg font-bold">{group.name}</h2>
                 <ul class="flex flex-col gap-2">
                   {group.children?.map((link) => {
                     const isLinkActive = location.url.pathname === link.href;
                     return (
                       <li key={link.name + link.href}>
                         <a
-                          class={`transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-base flex items-center px-4 py-2 text-xl duration-300
-                           lg:text-sm ${
+                          class={`transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-base flex items-center px-4 py-2 text-sm
+                           duration-300 ${
                              isLinkActive
                                ? 'bg-accent text-accent-foreground font-bold'
                                : ''
