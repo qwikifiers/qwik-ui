@@ -45,7 +45,9 @@ resource: https://joshwayne.com/posts/the-problem-with-dropdowns/
         <SelectPopover>
             <SelectListbox>
                 <SelectOption />
-                <SelectGroup label="">
+
+                <SelectGroup>
+                    <SelectLabel>Label</SelectLabel>
                     <SelectOption />
                 </SelectGroup>
             </SelectListbox>
