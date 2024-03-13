@@ -470,7 +470,7 @@ export default component$(() => {
 
           <div>
             <label class="mb-1 mt-8 block font-medium">Radius</label>
-            <div class="flex space-x-3">
+            <div class="flex h-12 space-x-3">
               {borderRadiusOptions.map((borderRadius) => {
                 const isActive =
                   themeComputedObjectSig.value.borderRadius === borderRadius;
