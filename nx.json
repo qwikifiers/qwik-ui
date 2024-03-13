@@ -43,12 +43,19 @@
     "@nx/eslint:lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true
+    },
+    "test": {
+      "inputs": ["default", "^production"]
     }
   },
   "nxCloudAccessToken": "MzViMzc1MGQtMDQyNi00N2E3LTliMmYtYWI4ZGIxYWJjYzE3fHJlYWQtd3JpdGU=",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [],
-    "production": ["default"]
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json"
+    ]
   }
 }
