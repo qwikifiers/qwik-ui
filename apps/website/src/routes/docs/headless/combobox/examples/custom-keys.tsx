@@ -11,7 +11,7 @@ import {
   ResolvedOption,
 } from '@qwik-ui/headless';
 
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 
 export default component$(() => {
   type Pokemon = {
@@ -33,15 +33,10 @@ export default component$(() => {
 
   const isPokemonCaught = useSignal(false);
 
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(({ track }) => {
-    track(() => isPokemonCaught.value);
-  });
-
   return (
     <div>
       {isPokemonCaught.value && (
-        <p class="bg-background rounded-base absolute w-full translate-x-[-105%] border-2 p-4 shadow-md">
+        <p class="bg-background rounded-base absolute max-w-[180px] translate-y-[-105%] border-2 p-4 shadow-md">
           You've already caught this pokemon!
         </p>
       )}
