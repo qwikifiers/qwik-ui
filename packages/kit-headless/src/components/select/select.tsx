@@ -32,6 +32,14 @@ export type SelectProps = PropsOf<'div'> & {
 
   /** A signal that contains the current selected value (controlled). */
   'bind:value'?: Signal<string>;
+};
+
+export type SelectProps = PropsOf<'div'> & {
+  /** The initial selected value (uncontrolled). */
+  value?: string;
+
+  /** A signal that contains the current selected value (controlled). */
+  'bind:value'?: Signal<string>;
 
   /**
    * QRL handler that runs when a select value changes.
@@ -69,7 +77,27 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       loop: givenLoop,
       ...rest
     } = props;
+export const SelectImpl = component$<SelectProps & InternalSelectProps>(
+  (props: SelectProps & InternalSelectProps) => {
+    const {
+      _options,
+      _valuePropIndex: givenValuePropIndex,
+      onChange$,
+      onOpenChange$,
+      scrollOptions: givenScrollOptions,
+      loop: givenLoop,
+      ...rest
+    } = props;
 
+    // refs
+    const rootRef = useSignal<HTMLDivElement>();
+    const triggerRef = useSignal<HTMLButtonElement>();
+    const popoverRef = useSignal<HTMLElement>();
+    const listboxRef = useSignal<HTMLUListElement>();
+    const groupRef = useSignal<HTMLDivElement>();
+    const loop = givenLoop ?? false;
+    const localId = useId();
+    const listboxId = `${localId}-listbox`;
     // refs
     const rootRef = useSignal<HTMLDivElement>();
     const triggerRef = useSignal<HTMLButtonElement>();
@@ -90,11 +118,32 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       }
       return _options;
     });
+    /**
+     * Updates the options when the options change
+     * (for example, when a new option is added)
+     **/
+    const optionsSig = useComputed$(() => {
+      if (_options === undefined || _options.length === 0) {
+        return [];
+      }
+      return _options;
+    });
 
     const optionsIndexMap = new Map(
       optionsSig.value?.map((option, index) => [option.value, index]),
     );
+    const optionsIndexMap = new Map(
+      optionsSig.value?.map((option, index) => [option.value, index]),
+    );
 
+    // core state
+    const selectedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
+    const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
+    const isListboxOpenSig = useSignal<boolean>(false);
+    const scrollOptions = givenScrollOptions ?? {
+      behavior: 'instant',
+      block: 'nearest',
+    };
     // core state
     const selectedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
     const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
@@ -152,9 +201,6 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
         ref={rootRef}
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-        aria-controls={listboxId}
-        aria-expanded={context.isListboxOpenSig.value}
-        aria-haspopup="listbox"
         aria-activedescendant={
           context.isListboxOpenSig.value
             ? getActiveDescendant(
@@ -164,6 +210,9 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
               )
             : ''
         }
+        aria-controls={listboxId}
+        aria-expanded={context.isListboxOpenSig.value}
+        aria-haspopup="listbox"
         {...rest}
       >
         <Slot />
