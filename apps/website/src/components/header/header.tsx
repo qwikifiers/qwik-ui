@@ -1,4 +1,11 @@
-import { $, component$, useComputed$, useSignal, useStyles$ } from '@builder.io/qwik';
+import {
+  $,
+  PropsOf,
+  component$,
+  useComputed$,
+  useSignal,
+  useStyles$,
+} from '@builder.io/qwik';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -22,6 +29,7 @@ import { DocsNavigation } from '../navigation-docs/navigation-docs';
 import { useKitMenuItems } from '~/routes/layout';
 import { cn } from '@qwik-ui/utils';
 import { DiscordIcon } from '../icons/discord';
+import { Button, buttonVariants } from '@qwik-ui/styled';
 
 export interface HeaderProps {
   showVersion?: boolean;
@@ -97,12 +105,6 @@ export default component$(({ showVersion = false }: HeaderProps) => {
   const isSidebarOpenedSig = useSignal(false);
   const location = useLocation();
 
-  const isRouteActive = (href: string) => {
-    const isLinkActive = location.url.pathname.startsWith(href);
-    return `
-        transition-color ease-step duration-300 ${isLinkActive ? 'font-bold' : ''}`;
-  };
-
   const isDocsActive = (baseHref: string) => {
     const isLinkActive = location.url.pathname.startsWith(baseHref);
     return `
@@ -124,19 +126,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
     }
   });
 
-  const { theme, setTheme } = useTheme();
-
-  const switchLightDark = $((input: string | string[]): string | string[] | undefined => {
-    const switchWord = (word: string): string =>
-      word.includes('light')
-        ? word.replace('light', 'dark')
-        : word.replace('dark', 'light');
-    if (typeof input === 'string') {
-      return switchWord(input);
-    } else if (Array.isArray(input)) {
-      return input.map((item) => switchWord(item));
-    }
-  });
+  const { theme } = useTheme();
 
   return (
     <>
@@ -159,72 +149,38 @@ export default component$(({ showVersion = false }: HeaderProps) => {
             )}
           </section>
 
-          <div class={cn('xs:space-x-8 mr-4 flex items-center space-x-4')}>
-            <a
-              class={cn(
-                isDocsActive('/docs/headless/'),
-                location.url.pathname.startsWith('/docs/headless') && 'hidden sm:block',
-                !location.url.pathname.startsWith('/docs/headless') &&
-                  !location.url.pathname.startsWith('/docs/styled') &&
-                  'hidden md:block',
-              )}
-              href="/docs/headless/introduction"
-            >
-              Headless kit
-            </a>
-
-            {rootStore.featureFlags?.showStyled && (
+          <div class="mr-4 flex items-center space-x-4">
+            <div class="flex items-center space-x-4 text-sm">
               <a
-                class={cn(
-                  isDocsActive('/docs/styled/'),
-                  location.url.pathname.startsWith('/docs/styled') && 'hidden sm:block',
-                  !location.url.pathname.startsWith('/docs/headless') &&
-                    !location.url.pathname.startsWith('/docs/styled') &&
-                    'hidden md:block',
-                )}
-                href="/docs/styled/introduction"
+                class={isDocsActive('/docs/headless/')}
+                href="/docs/headless/introduction"
               >
-                Styled kit
+                Headless
               </a>
-            )}
-            <MakeItYours />
-            <a
-              class={isRouteActive('https://discord.gg/PVWUUejrez')}
-              href="https://discord.gg/PVWUUejrez"
-              target="_blank"
-            >
-              <DiscordIcon />
-            </a>
-            <a
-              target="_blank"
-              href="https://github.com/qwikifiers/qwik-ui"
-              aria-label="Qwik-UI GitHub repository"
-            >
-              <GitHubIcon />
-            </a>
-            <button
-              type="button"
-              aria-label="Toggle dark mode"
-              onClick$={async () => setTheme(await switchLightDark(theme || 'light'))}
-            >
-              <div class="hidden dark:block">
-                <MoonIcon />
-              </div>
-              <div class="block dark:hidden">
-                <SunIcon />
-              </div>
-            </button>
-
-            <button
-              type="button"
-              aria-label="Toggle navigation"
-              onClick$={() => {
-                isSidebarOpenedSig.value = !isSidebarOpenedSig.value;
-              }}
-              class="mr-4 block lg:hidden"
-            >
-              {isSidebarOpenedSig.value ? <CloseIcon /> : <MenuIcon />}
-            </button>
+              {rootStore.featureFlags?.showStyled && (
+                <a class={isDocsActive('/docs/styled/')} href="/docs/styled/introduction">
+                  Styled
+                </a>
+              )}
+            </div>
+            <div class="flex items-center space-x-1">
+              <MakeItYours class="xs:flex mr-3 hidden lg:h-10" />
+              <DiscordIconLink class="xs:flex hidden" />
+              <GithubIconLink class="xs:flex hidden" />
+              <DarkModeToggle class="xs:flex hidden" />
+              <Button
+                type="button"
+                aria-label="Toggle navigation"
+                onClick$={() => {
+                  isSidebarOpenedSig.value = !isSidebarOpenedSig.value;
+                }}
+                size="icon"
+                look="ghost"
+                class="flex lg:hidden"
+              >
+                {isSidebarOpenedSig.value ? <CloseIcon /> : <MenuIcon />}
+              </Button>
+            </div>
           </div>
         </header>
       </div>
@@ -233,6 +189,12 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         class="sidebar-mobile bg-background text-foreground rounded-base ml-0 mr-auto h-screen min-w-80 max-w-lg border-0 p-8 shadow-md"
       >
         <ModalHeader>
+          <div class="xs:hidden mb-16 flex space-x-2">
+            <DarkModeToggle />
+            <DiscordIconLink />
+            <GithubIconLink />
+            <MakeItYours withText={false} />
+          </div>
           <h2 class="text-lg font-bold">
             {(() => {
               const { pathname } = location.url;
@@ -260,5 +222,62 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         </button>
       </Modal>
     </>
+  );
+});
+
+const DiscordIconLink = component$<PropsOf<'a'>>(({ ...props }) => {
+  return (
+    <a
+      href="https://discord.gg/PVWUUejrez"
+      target="_blank"
+      class={cn(buttonVariants({ size: 'icon', look: 'ghost' }), props.class)}
+    >
+      <DiscordIcon />
+    </a>
+  );
+});
+
+const GithubIconLink = component$<PropsOf<'a'>>(({ ...props }) => {
+  return (
+    <a
+      target="_blank"
+      href="https://github.com/qwikifiers/qwik-ui"
+      aria-label="Qwik-UI GitHub repository"
+      class={cn(buttonVariants({ size: 'icon', look: 'ghost' }), props.class)}
+    >
+      <GitHubIcon />
+    </a>
+  );
+});
+
+const DarkModeToggle = component$<PropsOf<'button'>>(({ ...props }) => {
+  const { theme, setTheme } = useTheme();
+  const switchLightDark = $((input: string | string[]): string | string[] | undefined => {
+    const switchWord = (word: string): string =>
+      word.includes('light')
+        ? word.replace('light', 'dark')
+        : word.replace('dark', 'light');
+    if (typeof input === 'string') {
+      return switchWord(input);
+    } else if (Array.isArray(input)) {
+      return input.map((item) => switchWord(item));
+    }
+  });
+  return (
+    <Button
+      {...props}
+      type="button"
+      aria-label="Toggle dark mode"
+      size="icon"
+      look="ghost"
+      onClick$={async () => setTheme(await switchLightDark(theme || 'light'))}
+    >
+      <div class="hidden dark:block">
+        <MoonIcon />
+      </div>
+      <div class="block dark:hidden">
+        <SunIcon />
+      </div>
+    </Button>
   );
 });
