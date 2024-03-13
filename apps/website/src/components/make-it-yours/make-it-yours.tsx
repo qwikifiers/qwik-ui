@@ -94,7 +94,7 @@ export default component$(() => {
     return [font, mode, style, base, primary, borderRadius];
   });
   return (
-    <section>
+    <section class="hidden sm:block">
       <Button
         look="outline"
         onClick$={() => {
@@ -103,8 +103,8 @@ export default component$(() => {
         class="hover:bg-accent/80 rounded-base border px-3 py-2"
       >
         <div class="flex justify-center">
-          <LuSlidersHorizontal class="h-6 w-6 sm:mr-3" />
-          <span class="hidden sm:block">Make it yours</span>
+          <LuSlidersHorizontal class="h-6 w-6 lg:mr-3" />
+          <span class="hidden lg:block">Make it yours</span>
         </div>
       </Button>
       <Modal

@@ -33,7 +33,7 @@ export interface HeaderProps {
 export default component$(({ showVersion = false }: HeaderProps) => {
   useStyles$(`
     .sidebar-mobile::backdrop {
-      background: rgba(0,0,0,0.02);
+      background: rgba(0,0,0,0.2);
     }
   
     .sidebar-mobile {
@@ -142,107 +142,126 @@ export default component$(({ showVersion = false }: HeaderProps) => {
   });
 
   return (
-    <div
-      class={cn(
-        'bg-background sticky top-0 z-10 flex h-16 justify-center border-b',
-        theme?.includes('brutalist') && 'border-b-2',
-      )}
-    >
-      <header class="flex w-full max-w-screen-2xl items-center justify-between">
-        <div class="block sm:hidden" />
-        <section class="xs:flex xs:items-center mr-auto hidden">
-          <a href="/" aria-label="Qwik UI Logo" class="ml-8">
-            <LogoWithBorders />
-          </a>
-          {showVersion && (
-            <div data-tip="Qwik-UI Version" class="mr-auto">
-              <div class="ml-4 hidden text-xs sm:flex-col md:flex">
-                <span> {kitSignal.value?.name} Kit </span>
-                <span>
-                  {' '}
-                  <span>v{kitSignal.value?.version}</span>{' '}
-                </span>
-              </div>
-            </div>
-          )}
-        </section>
-
-        <div class="xs:space-x-8 mr-4 flex items-center space-x-6">
-          <nav class="hidden gap-4 lg:flex">
-            <a class={isDocsActive('/docs/headless/')} href="/docs/headless/introduction">
-              Headless Kit
+    <>
+      <div
+        class={cn(
+          'bg-background sticky top-0 z-10 flex h-16 justify-center border-b',
+          theme?.includes('brutalist') && 'border-b-2',
+        )}
+      >
+        <header class="flex w-full max-w-screen-2xl items-center justify-between">
+          <div class="block md:hidden" />
+          <section class=" hidden md:flex md:items-center">
+            <a href="/" aria-label="Qwik UI Logo" class="ml-8">
+              <LogoWithBorders />
             </a>
+            {showVersion && (
+              <div class="ml-4 hidden text-xs lg:flex">
+                {kitSignal.value?.name + ' ' + kitSignal.value?.version}
+              </div>
+            )}
+          </section>
+
+          <div class={cn('xs:space-x-8 mr-4 flex items-center space-x-4')}>
+            <a
+              class={cn(
+                isDocsActive('/docs/headless/'),
+                location.url.pathname.startsWith('/docs/headless') && 'hidden sm:block',
+                !location.url.pathname.startsWith('/docs/headless') &&
+                  !location.url.pathname.startsWith('/docs/styled') &&
+                  'hidden md:block',
+              )}
+              href="/docs/headless/introduction"
+            >
+              Headless kit
+            </a>
+
             {rootStore.featureFlags?.showStyled && (
-              <a class={isDocsActive('/docs/styled/')} href="/docs/styled/introduction">
-                Styled Kit
+              <a
+                class={cn(
+                  isDocsActive('/docs/styled/'),
+                  location.url.pathname.startsWith('/docs/styled') && 'hidden sm:block',
+                  !location.url.pathname.startsWith('/docs/headless') &&
+                    !location.url.pathname.startsWith('/docs/styled') &&
+                    'hidden md:block',
+                )}
+                href="/docs/styled/introduction"
+              >
+                Styled kit
               </a>
             )}
-          </nav>
-          <MakeItYours />
-          <a
-            class={isRouteActive('https://discord.gg/PVWUUejrez')}
-            href="https://discord.gg/PVWUUejrez"
-            target="_blank"
-          >
-            <DiscordIcon />
-          </a>
-          <a
-            target="_blank"
-            href="https://github.com/qwikifiers/qwik-ui"
-            aria-label="Qwik-UI GitHub repository"
-            class="sm:mr-8"
-          >
-            <GitHubIcon />
-          </a>
-          <button
-            type="button"
-            aria-label="Toggle dark mode"
-            onClick$={async () => setTheme(await switchLightDark(theme || 'light'))}
-          >
-            <div class="hidden dark:block">
-              <MoonIcon />
-            </div>
-            <div class="block dark:hidden">
-              <SunIcon />
-            </div>
-          </button>
-
-          <button
-            type="button"
-            aria-label="Toggle navigation"
-            onClick$={() => {
-              isSidebarOpenedSig.value = !isSidebarOpenedSig.value;
-            }}
-            class="mr-4 block lg:hidden"
-          >
-            {isSidebarOpenedSig.value ? <CloseIcon /> : <MenuIcon />}
-          </button>
-          <Modal
-            bind:show={isSidebarOpenedSig}
-            class="sidebar-mobile bg-background text-foreground rounded-base ml-0 mr-auto h-screen max-w-lg border-0 p-8 shadow-md"
-          >
-            <ModalHeader>
-              <h2 class="text-lg font-bold">Copy config</h2>
-              <p>
-                Copy and paste the following code into your global.css file to apply the
-                styles.
-              </p>
-            </ModalHeader>
-            <ModalContent class="mb-2 pb-4 pt-2">
-              <DocsNavigation
-                linksGroups={menuItemsGroups}
-                class="bg-background  max-w-80 overflow-auto"
-              />
-            </ModalContent>
-            <button
-              onClick$={() => (isSidebarOpenedSig.value = false)}
-              class="absolute right-6 top-[26px]"
+            <MakeItYours />
+            <a
+              class={isRouteActive('https://discord.gg/PVWUUejrez')}
+              href="https://discord.gg/PVWUUejrez"
+              target="_blank"
             >
-              <LuX class="h-8 w-8" />
+              <DiscordIcon />
+            </a>
+            <a
+              target="_blank"
+              href="https://github.com/qwikifiers/qwik-ui"
+              aria-label="Qwik-UI GitHub repository"
+            >
+              <GitHubIcon />
+            </a>
+            <button
+              type="button"
+              aria-label="Toggle dark mode"
+              onClick$={async () => setTheme(await switchLightDark(theme || 'light'))}
+            >
+              <div class="hidden dark:block">
+                <MoonIcon />
+              </div>
+              <div class="block dark:hidden">
+                <SunIcon />
+              </div>
             </button>
-          </Modal>
-        </div>
-      </header>
-    </div>
+
+            <button
+              type="button"
+              aria-label="Toggle navigation"
+              onClick$={() => {
+                isSidebarOpenedSig.value = !isSidebarOpenedSig.value;
+              }}
+              class="mr-4 block lg:hidden"
+            >
+              {isSidebarOpenedSig.value ? <CloseIcon /> : <MenuIcon />}
+            </button>
+          </div>
+        </header>
+      </div>
+      <Modal
+        bind:show={isSidebarOpenedSig}
+        class="sidebar-mobile bg-background text-foreground rounded-base ml-0 mr-auto h-screen min-w-80 max-w-lg border-0 p-8 shadow-md"
+      >
+        <ModalHeader>
+          <h2 class="text-lg font-bold">
+            {(() => {
+              const { pathname } = location.url;
+              if (pathname.startsWith('/docs/headless')) {
+                return 'Headless kit';
+              }
+              if (pathname.startsWith('/docs/styled')) {
+                return 'Styled kit';
+              }
+              return 'Qwik UI';
+            })()}
+          </h2>
+        </ModalHeader>
+        <ModalContent class="mb-2 pb-4 pt-2">
+          <DocsNavigation
+            linksGroups={menuItemsGroups}
+            class="bg-background max-w-80 overflow-auto"
+          />
+        </ModalContent>
+        <button
+          onClick$={() => (isSidebarOpenedSig.value = false)}
+          class="absolute right-6 top-[26px]"
+        >
+          <LuX class="h-8 w-8" />
+        </button>
+      </Modal>
+    </>
   );
 });
