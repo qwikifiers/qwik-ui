@@ -123,7 +123,6 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
 
     useTask$(function onOpenChangeTask({ track }) {
       track(() => isListboxOpenSig.value);
-
       if (isBrowser) {
         onOpenChange$?.(isListboxOpenSig.value);
       }
@@ -151,6 +150,9 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
         ref={rootRef}
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+        aria-controls={listboxId}
+        aria-expanded={context.isListboxOpenSig.value}
+        aria-haspopup="listbox"
         aria-activedescendant={
           context.isListboxOpenSig.value
             ? getActiveDescendant(
@@ -160,9 +162,6 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
               )
             : ''
         }
-        aria-controls={listboxId}
-        aria-expanded={context.isListboxOpenSig.value}
-        aria-haspopup="listbox"
         {...rest}
       >
         <Slot />
