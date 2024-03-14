@@ -45,7 +45,9 @@ resource: https://joshwayne.com/posts/the-problem-with-dropdowns/
         <SelectPopover>
             <SelectListbox>
                 <SelectOption />
-                <SelectGroup label="">
+
+                <SelectGroup>
+                    <SelectLabel>Label</SelectLabel>
                     <SelectOption />
                 </SelectGroup>
             </SelectListbox>
@@ -155,7 +157,3 @@ resource: https://joshwayne.com/posts/the-problem-with-dropdowns/
 
     key: Escape
     description: Pressing Escape closes the select menu. The trigger is then focused.
-
-Downsides of our inline component approach:
-
-Much like the native select's drawback, we have a "fixed structure", an expected DOM hierarchy that limits customization. It also throws an error if that hierarchy is not followed.

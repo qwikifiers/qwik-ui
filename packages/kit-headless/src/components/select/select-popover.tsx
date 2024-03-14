@@ -33,7 +33,8 @@ export const SelectPopover = component$(
         ref={context.popoverRef}
         class={['listbox', props.class]}
         manual
-        data-state={context.isListboxOpenSig.value ? 'open' : 'closed'}
+        data-open={context.isListboxOpenSig.value ? '' : undefined}
+        data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       >
         <Slot />
       </Popover>

@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@qwik-ui/headless';
-import styles from './select.css?inline';
+import styles from '../snippets/select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
