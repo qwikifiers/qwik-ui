@@ -1,14 +1,15 @@
 import {
   component$,
   useStyles$,
+  useTask$,
   Slot,
   type PropsOf,
   useContext,
-  useOnDocument,
   $,
 } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import styles from './select.css?inline';
+import { isServer } from '@builder.io/qwik/build';
 
 type SelectListboxProps = PropsOf<'ul'>;
 
@@ -43,7 +44,20 @@ export const SelectListbox = component$<SelectListboxProps>((props) => {
     }
   });
 
-  useOnDocument('pointerdown', handleDismiss$);
+  // Dismiss code should only matter when the listbox is open
+  useTask$(({ track, cleanup }) => {
+    track(() => context.isListboxOpenSig.value);
+
+    if (isServer) return;
+
+    if (context.isListboxOpenSig.value) {
+      window.addEventListener('pointerdown', handleDismiss$);
+    }
+
+    cleanup(() => {
+      window.removeEventListener('pointerdown', handleDismiss$);
+    });
+  });
 
   return (
     <ul

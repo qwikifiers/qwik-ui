@@ -9,7 +9,7 @@ export type Opt = {
 };
 
 /*
-    This is an inline component. We create an inline component to get the proper indexes with CSR. See issue #4757 
+    This is an inline component. An example use case of an inline component to get the proper indexes with CSR. See issue #4757 
     for more information.
 */
 export const Select: Component<SelectProps> = (props: SelectProps) => {

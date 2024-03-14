@@ -104,19 +104,17 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       block: 'nearest',
     };
 
-    // Maps are apparently great for this index accessing. Will learn more about them this week and refactor this to have a more consistent API and eliminate redundancy / duplication.
-    useTask$(function controlledValueTask({ track }) {
-      const controlledValue = track(() => props['bind:value']?.value);
-      if (!controlledValue) return;
+    // we use a map here to efficiently access the matching index of the signal value
+    useTask$(function reactiveValueTask({ track }) {
+      const signalValue = track(() => props['bind:value']?.value);
+      if (!signalValue) return;
 
-      const matchingIndex = optionsIndexMap.get(controlledValue) ?? -1;
+      const matchingIndex = optionsIndexMap.get(signalValue) ?? -1;
       if (matchingIndex !== -1) {
         selectedIndexSig.value = matchingIndex;
         highlightedIndexSig.value = matchingIndex;
       }
     });
-
-    // onChange$
 
     useTask$(async function onChangeTask({ track }) {
       track(() => selectedIndexSig.value);
@@ -127,7 +125,6 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
 
     useTask$(function onOpenChangeTask({ track }) {
       track(() => isListboxOpenSig.value);
-
       if (isBrowser) {
         onOpenChange$?.(isListboxOpenSig.value);
       }
@@ -155,6 +152,9 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
         ref={rootRef}
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+        aria-controls={listboxId}
+        aria-expanded={context.isListboxOpenSig.value}
+        aria-haspopup="listbox"
         aria-activedescendant={
           context.isListboxOpenSig.value
             ? getActiveDescendant(
@@ -164,9 +164,6 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
               )
             : ''
         }
-        aria-controls={listboxId}
-        aria-expanded={context.isListboxOpenSig.value}
-        aria-haspopup="listbox"
         {...rest}
       >
         <Slot />
