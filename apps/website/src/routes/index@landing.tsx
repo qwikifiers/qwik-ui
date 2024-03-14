@@ -1,11 +1,48 @@
 import { component$ } from '@builder.io/qwik';
-import { type DocumentHead } from '@builder.io/qwik-city';
-import { Card, CardBody, CardImage, CardTitle } from '@qwik-ui/headless';
-import { useAppState } from '../_state/use-app-state';
+import { DocumentHead } from '@builder.io/qwik-city';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardImage,
+  CardTitle,
+} from '@qwik-ui/styled';
+import { cn } from '@qwik-ui/utils';
+
+const whyHeadless = [
+  {
+    emoji: '🧑‍🎨',
+    description: 'Create your own components from scratch',
+  },
+  {
+    emoji: '⛓️‍💥',
+    description:
+      'Use with vanilla CSS, SASS, TailwindCSS, UnoCSS, PandaCSS, or whateverCSS',
+  },
+  {
+    emoji: '🧑‍🎓',
+    description:
+      'Learn about the headless APIs, accessibility, and the future of the web',
+  },
+];
+
+const whyStyled = [
+  {
+    emoji: '😌',
+    description: 'Start with well-designed, easy to customize presets',
+  },
+  {
+    emoji: '👏',
+    description: 'Avoid code duplication thanks to cva variants',
+  },
+  {
+    emoji: '💫',
+    description: "Change your entire app's style & theme at the click of a button",
+  },
+];
 
 export default component$(() => {
-  const { featureFlags } = useAppState();
-
   return (
     <div class="flex flex-col gap-8">
       <h1 class="text-center text-3xl font-bold leading-normal lg:text-5xl">
@@ -23,56 +60,66 @@ export default component$(() => {
         <span class="hue-rotate-[150deg]">⚡</span>
       </p>
       <div class="mt-4 flex flex-wrap justify-center justify-items-center gap-14">
-        <a
-          href={`/docs/headless/introduction`}
-          class="ease-step relative block rounded-b-xl rounded-t-md border-2 shadow-lg outline-1 duration-150 hover:scale-[1.025] focus:scale-[1.025]"
-        >
-          <Card class="max-w-[450px]">
+        <a href={`/docs/headless/introduction`}>
+          <Card
+            class={cn(
+              'ease-step relative block w-full max-w-md rounded-lg shadow-lg outline-1 duration-150 hover:scale-[1.025] focus:scale-[1.025]',
+            )}
+          >
             <CardImage
               src={`/images/qwik-ui-headless-hero.webp`}
-              width="611"
-              height="408"
+              width="300"
+              height="300"
               alt={`styled kit`}
-              class="h-64 w-full rounded-t-sm"
+              class="h-64 rounded-t-sm"
             />
-            <CardBody class={`border-t- px-8 py-6`}>
-              <CardTitle class="flex justify-between text-xl font-bold">
-                <span>Headless Qwik Components</span>
-              </CardTitle>
-              <p class="mt-2 leading-normal">
-                Qwik components which are{' '}
-                <strong>unstyled, accessible, and open-source</strong>, designed for
-                creating high-quality web applications and design systems.
-              </p>
-            </CardBody>
+            <CardHeader>
+              <CardTitle class="text-xl">Headless</CardTitle>
+              <CardDescription class="text-lg">
+                A headless component library of unstyled, accessible, and resumable
+                components for the most creative minds.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul>
+                {whyHeadless.map((pro, index) => (
+                  <li key={index} class="mb-5 grid grid-cols-[25px_1fr] items-start">
+                    {pro.emoji}
+                    <p class="font-medium">{pro.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
           </Card>
         </a>
-        {featureFlags?.showStyled && (
-          <a
-            href={`/docs/styled/introduction`}
-            class="ease-step relative block rounded-b-xl
-          rounded-t-md border-2 shadow-lg duration-150 hover:scale-[1.025] focus:scale-[1.025]"
-          >
-            <Card class="max-w-[450px] overflow-hidden">
-              <CardImage
-                src={`/images/qwik-ui-fluffy-creature-screen.webp`}
-                width="611"
-                height="408"
-                alt={`styled kit`}
-                class="h-64 rounded-t-sm"
-              />
-              <CardBody class={`border-t- bg-transparent px-8 py-6`}>
-                <CardTitle class="flex items-center justify-between text-xl font-bold">
-                  <span>Styled Qwik Components</span>
-                </CardTitle>
-                <p class="mt-2 leading-normal">
-                  A collection of beautifully crafted, <strong>copy paste</strong> Qwik
-                  components that can be integrated into your applications with ease.
-                </p>
-              </CardBody>
-            </Card>
-          </a>
-        )}
+        <a href={`/docs/headless/introduction`}>
+          <Card class="ease-step relative block w-full max-w-md rounded-lg shadow-lg outline-1 duration-150 hover:scale-[1.025] focus:scale-[1.025]">
+            <CardImage
+              src={`/images/qwik-ui-fluffy-creature-screen.webp`}
+              width="300"
+              height="300"
+              alt={`styled kit`}
+              class="h-64 rounded-t-sm"
+            />
+            <CardHeader>
+              <CardTitle class="text-xl">Styled</CardTitle>
+              <CardDescription class="text-lg">
+                A fully customizable design system of copy-paste, reusable, styled
+                components built on top of headless.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul>
+                {whyStyled.map((pro, index) => (
+                  <li key={index} class="mb-5 grid grid-cols-[25px_1fr] items-start">
+                    {pro.emoji}
+                    <p class="font-medium">{pro.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        </a>
       </div>
     </div>
   );
