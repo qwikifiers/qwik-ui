@@ -1,9 +1,6 @@
 import { type JSXNode, Component } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select';
-import { SelectListbox } from './select-listbox';
 import { SelectOption } from './select-option';
-import { SelectGroup } from './select-group';
-import { SelectPopover } from './select-popover';
 
 export type Opt = {
   isDisabled: boolean;
@@ -17,13 +14,13 @@ export type Opt = {
 */
 export const Select: Component<SelectProps> = (props: SelectProps) => {
   const { children: myChildren, ...rest } = props;
+  const opts: Opt[] = [];
+  let currentIndex = 0;
   let valuePropIndex = null;
+
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
   ) as Array<JSXNode>;
-
-  let currentIndex = 0;
-  const opts: Opt[] = [];
 
   while (childrenToProcess.length) {
     const child = childrenToProcess.shift();
@@ -38,27 +35,6 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
     }
 
     switch (child.type) {
-      case SelectPopover: {
-        const popoverChildren = Array.isArray(child.props.children)
-          ? [...child.props.children]
-          : [child.props.children];
-        childrenToProcess.unshift(...popoverChildren);
-        break;
-      }
-      case SelectListbox: {
-        const listboxChildren = Array.isArray(child.props.children)
-          ? [...child.props.children]
-          : [child.props.children];
-        childrenToProcess.unshift(...listboxChildren);
-        break;
-      }
-      case SelectGroup: {
-        const listboxChildren = Array.isArray(child.props.children)
-          ? [...child.props.children]
-          : [child.props.children];
-        childrenToProcess.unshift(...listboxChildren);
-        break;
-      }
       case SelectOption: {
         const isString = typeof child.props.children === 'string';
         if (!isString) {
@@ -70,6 +46,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
 
         child.props._index = currentIndex;
         const isDisabled = child.props.disabled === true;
+        // distinct value, or the display value is the same as the value
         const value = (
           child.props.value ? child.props.value : child.props.children
         ) as string;
@@ -82,22 +59,35 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
 
         opts.push(opt);
 
+        // if the current option value is equal to the initial value
         if (value === props.value) {
           valuePropIndex = currentIndex;
         }
 
         currentIndex++;
+        break;
       }
-    }
-  }
-  const isDisabledArr = opts.map((opt) => opt.isDisabled);
 
-  if (valuePropIndex !== null && isDisabledArr[valuePropIndex] === true) {
-    valuePropIndex = isDisabledArr.findIndex((isDisabled) => isDisabled === false);
-    if (valuePropIndex === -1) {
-      throw new Error(
-        `Qwik UI: it appears you've disabled every option in the select. Was that intentional? 🤨`,
-      );
+      default: {
+        // Qwik components
+        if (child && child.props) {
+          const componentChildren = Array.isArray(child.props.children)
+            ? [...child.props.children]
+            : [child.props.children];
+          childrenToProcess.unshift(...componentChildren);
+        }
+
+        // regular JSX nodes
+        if (typeof child.type === 'string' && child.children !== undefined) {
+          const nodeChildren = Array.isArray(child.children)
+            ? [...child.children]
+            : [child.children];
+
+          childrenToProcess.unshift(...(nodeChildren as JSXNode[]));
+        }
+
+        break;
+      }
     }
   }
 

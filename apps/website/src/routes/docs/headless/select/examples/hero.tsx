@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@qwik-ui/headless';
-import styles from './select.css?inline';
+import styles from '../snippets/select.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
@@ -21,7 +21,9 @@ export default component$(() => {
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox">
           {users.map((user) => (
-            <SelectOption key={user}>{user}</SelectOption>
+            <div key={user}>
+              <SelectOption>{user}</SelectOption>
+            </div>
           ))}
         </SelectListbox>
       </SelectPopover>
