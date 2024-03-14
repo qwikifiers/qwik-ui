@@ -55,4 +55,19 @@ const CardFooter = component$<PropsOf<'div'>>(({ ...props }) => {
   );
 });
 
-export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter };
+// Experimental API
+const CardImage = component$<PropsOf<'img'>>(({ ...props }) => {
+  return (
+    <img {...props} class={cn('aspect-square h-full w-full object-cover', props.class)} />
+  );
+});
+
+export {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+  CardImage,
+};
