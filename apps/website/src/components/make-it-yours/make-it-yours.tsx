@@ -116,7 +116,7 @@ export default component$<PropsOf<typeof Button>>(() => {
       <Modal
         closeOnBackdropClick={false}
         bind:show={showSig}
-        class="make-it-yours bg-background text-foreground  rounded-l-base fixed bottom-[50%] right-0 top-[50%] mr-0 h-screen max-w-sm border-y border-l p-12 shadow-md sm:w-full"
+        class="make-it-yours bg-background text-foreground rounded-l-base  fixed bottom-[50%] right-0 top-[50%] mr-0 h-screen max-w-sm border-y border-l px-4 py-8 shadow-md sm:w-full"
       >
         <ModalHeader class="flex w-full">
           <h2 class="justify-self-start text-lg font-bold">Edit Profile</h2>
@@ -521,7 +521,7 @@ export default component$<PropsOf<typeof Button>>(() => {
           </Button>
           <CopyCssConfig />
         </ModalFooter>
-        <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-7">
+        <button onClick$={() => (showSig.value = false)} class="absolute right-4 top-5">
           <LuX class="h-8 w-8" />
         </button>
       </Modal>
