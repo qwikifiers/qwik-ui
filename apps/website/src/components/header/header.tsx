@@ -5,6 +5,7 @@ import {
   useComputed$,
   useSignal,
   useStyles$,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
@@ -18,11 +19,11 @@ import { GitHubIcon } from '../icons/GitHubIcon';
 import { MenuIcon } from '../icons/MenuIcon';
 import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
-import { LogoWithBorders } from '../icons/logo';
+import { LogoIcon, LogoWithBorders } from '../icons/logo';
 
 import { useTheme } from 'qwik-themes';
 import MakeItYours from '../make-it-yours/make-it-yours';
-import { Modal, ModalContent, ModalHeader } from '@qwik-ui/headless';
+import { Modal, ModalContent } from '@qwik-ui/headless';
 import { useAppState } from '~/_state/use-app-state';
 import { LuX } from '@qwikest/icons/lucide';
 import { DocsNavigation } from '../navigation-docs/navigation-docs';
@@ -61,7 +62,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
     @keyframes sidebarOpen {
       from {
         opacity: 0;
-        transform: translateX(-100%);
+        transform: translateX(100%);
       }
       to {
         opacity: 1;
@@ -76,7 +77,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
       }
       to {
         opacity: 0;
-        transform: translateX(-100%);
+        transform: translateX(100%);
       }
     }
   
@@ -100,6 +101,10 @@ export default component$(({ showVersion = false }: HeaderProps) => {
     `);
 
   const { menuItemsGroups } = useKitMenuItems();
+
+  useVisibleTask$(() => {
+    console.log('menuItemsGroups', menuItemsGroups);
+  });
 
   const rootStore = useAppState();
   const isSidebarOpenedSig = useSignal(false);
@@ -137,20 +142,23 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         )}
       >
         <header class="flex w-full max-w-screen-2xl items-center justify-between">
-          <div class="block md:hidden" />
-          <section class=" hidden md:flex md:items-center">
-            <a href="/" aria-label="Qwik UI Logo" class="ml-8">
-              <LogoWithBorders />
+          <section class="flex items-center justify-start">
+            <a href="/" aria-label="Qwik UI Logo" class="ml-4">
+              <LogoWithBorders class="hidden sm:block" />
+              <LogoIcon class="block sm:hidden" />
             </a>
             {showVersion && (
-              <div class="ml-4 hidden text-xs lg:flex">
+              <div class="ml-4 hidden text-xs md:flex">
                 {kitSignal.value?.name + ' ' + kitSignal.value?.version}
               </div>
             )}
           </section>
 
-          <div class="mr-4 flex items-center space-x-4">
-            <div class="flex items-center space-x-4 text-sm">
+          <div class="mr-4 flex items-center">
+            <div class="mr-6 hidden items-center space-x-8 text-sm lg:flex">
+              <a class={isDocsActive('/about/')} href="/about">
+                About
+              </a>
               <a
                 class={isDocsActive('/docs/headless/')}
                 href="/docs/headless/introduction"
@@ -163,11 +171,24 @@ export default component$(({ showVersion = false }: HeaderProps) => {
                 </a>
               )}
             </div>
-            <div class="flex items-center space-x-1">
-              <MakeItYours class="xs:flex mr-3 hidden lg:h-10" />
-              <DiscordIconLink class="xs:flex hidden" />
-              <GithubIconLink class="xs:flex hidden" />
-              <DarkModeToggle class="xs:flex hidden" />
+            <div class="xs:space-x-4 flex items-center space-x-1">
+              <MakeItYours />
+              <a
+                href="https://discord.gg/PVWUUejrez"
+                target="_blank"
+                class={cn(buttonVariants({ size: 'icon', look: 'ghost' }))}
+              >
+                <DiscordIcon />
+              </a>
+              <a
+                target="_blank"
+                href="https://github.com/qwikifiers/qwik-ui"
+                aria-label="Qwik-UI GitHub repository"
+                class={cn(buttonVariants({ size: 'icon', look: 'ghost' }))}
+              >
+                <GitHubIcon />
+              </a>
+              <DarkModeToggle />
               <Button
                 type="button"
                 aria-label="Toggle navigation"
@@ -186,35 +207,18 @@ export default component$(({ showVersion = false }: HeaderProps) => {
       </div>
       <Modal
         bind:show={isSidebarOpenedSig}
-        class="sidebar-mobile bg-background text-foreground rounded-base ml-0 mr-auto h-screen min-w-80 max-w-lg border-0 p-8 shadow-md"
+        class="sidebar-mobile bg-background text-foreground rounded-base ml-auto mr-0 h-screen w-full min-w-80 max-w-sm border-0 p-8 shadow-md"
       >
-        <ModalHeader>
-          <div class="xs:hidden mb-16 flex space-x-2">
-            <DarkModeToggle />
-            <DiscordIconLink />
-            <GithubIconLink />
-            <MakeItYours withText={false} />
-          </div>
-          <h2 class="text-lg font-bold">
-            {(() => {
-              const { pathname } = location.url;
-              if (pathname.startsWith('/docs/headless')) {
-                return 'Headless kit';
-              }
-              if (pathname.startsWith('/docs/styled')) {
-                return 'Styled kit';
-              }
-              return 'Qwik UI';
-            })()}
-          </h2>
-        </ModalHeader>
         <ModalContent class="mb-2 pb-4 pt-2">
           <DocsNavigation
-            linksGroups={menuItemsGroups}
+            linksGroups={
+              menuItemsGroups && menuItemsGroups.length > 0 ? menuItemsGroups : undefined
+            }
             class="bg-background max-w-80 overflow-auto"
           />
         </ModalContent>
         <button
+          autoFocus
           onClick$={() => (isSidebarOpenedSig.value = false)}
           class="absolute right-6 top-[26px]"
         >
@@ -222,31 +226,6 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         </button>
       </Modal>
     </>
-  );
-});
-
-const DiscordIconLink = component$<PropsOf<'a'>>(({ ...props }) => {
-  return (
-    <a
-      href="https://discord.gg/PVWUUejrez"
-      target="_blank"
-      class={cn(buttonVariants({ size: 'icon', look: 'ghost' }), props.class)}
-    >
-      <DiscordIcon />
-    </a>
-  );
-});
-
-const GithubIconLink = component$<PropsOf<'a'>>(({ ...props }) => {
-  return (
-    <a
-      target="_blank"
-      href="https://github.com/qwikifiers/qwik-ui"
-      aria-label="Qwik-UI GitHub repository"
-      class={cn(buttonVariants({ size: 'icon', look: 'ghost' }), props.class)}
-    >
-      <GitHubIcon />
-    </a>
   );
 });
 

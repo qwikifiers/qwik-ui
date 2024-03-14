@@ -1,5 +1,11 @@
 # Headless Kit Docs
 
+## Qwik UI
+
+- [About](/about)
+- [Headless kit](/docs/headless/introduction)
+- [Styled kit](/docs/styled/introduction)
+
 ## Getting Started
 
 - [Introduction](/docs/headless/introduction)
