@@ -17,7 +17,11 @@ export const Footer = component$(() => {
               Headless Kit
             </a>
           </div>
-
+          <div class="px-5 py-2">
+            <a href="/docs/styled/introduction" class="hover:text-muted-foreground">
+              Styled Kit
+            </a>
+          </div>
           <div class="px-5 py-2">
             <a
               href="https://discord.gg/PVWUUejrez"
