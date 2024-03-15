@@ -98,21 +98,16 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN a select
         WHEN adding new users and selecting a new user
         THEN the new user should be the selected value`, async ({ page }) => {
-    const { getRoot, getOptionAt, openListbox, getValue } = await setup(
-      page,
-      'add-users',
-    );
+    const { getOptionAt, openListbox, getValue } = await setup(page, 'add-users');
 
-    const sibling = getRoot().locator('+ button');
-
-    await expect(sibling).toHaveText('Add Users');
-    await sibling.click();
+    await page.getByRole('button', { name: 'Add Users' }).click();
 
     await openListbox('click');
-    const option = await getOptionAt(7);
+    const option = getOptionAt(7);
     await expect(option).toHaveText('Bob');
+    const expectedValue = await option.textContent();
     await option.click();
-    expect(await getValue()).toEqual(await option.textContent());
+    expect(await getValue()).toEqual(expectedValue);
   });
 
   // if we want to add focusing the trigger on blur
