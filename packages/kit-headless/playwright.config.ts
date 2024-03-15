@@ -28,11 +28,11 @@ export default defineConfig({
   },
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm dev',
+    command: 'pnpm dev.ct',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     cwd: workspaceRoot,
-    // timeout: 120000,
+    timeout: 120000,
   },
   projects: [
     {
