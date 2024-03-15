@@ -149,7 +149,8 @@ export default component$(({ showVersion = false }: HeaderProps) => {
             </a>
             {showVersion && (
               <div class="ml-4 hidden text-xs md:flex">
-                {kitSignal.value?.name + ' ' + kitSignal.value?.version}
+                {kitSignal.value?.name &&
+                  kitSignal.value?.name + ' ' + kitSignal.value?.version}
               </div>
             )}
           </section>

@@ -27,7 +27,9 @@ export default component$(() => {
       <MDXProvider components={components}>
         <div class="flex justify-around lg:justify-around 2xl:justify-center 2xl:space-x-16">
           <DocsNavigation
-            linksGroups={menuItemsGroups}
+            linksGroups={
+              menuItemsGroups && menuItemsGroups.length > 0 ? menuItemsGroups : undefined
+            }
             class="sticky top-16 ml-4 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:flex 2xl:ml-0"
           />
           <main class="w-full px-2 py-8 sm:px-8 lg:px-16 2xl:max-w-4xl">
