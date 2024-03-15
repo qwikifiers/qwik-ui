@@ -158,6 +158,9 @@ export default component$(({ showVersion = false }: HeaderProps) => {
             <div class="mr-6 hidden items-center space-x-8 text-sm lg:flex">
               <a class={isDocsActive('/about/')} href="/about">
                 About
+              </a>{' '}
+              <a class={isDocsActive('/contributing/')} href="/contributing">
+                Contributing
               </a>
               <a
                 class={isDocsActive('/docs/headless/')}
