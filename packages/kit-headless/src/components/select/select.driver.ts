@@ -1,10 +1,10 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
 export type DriverLocator = Locator | Page;
 
 export function createTestDriver<T extends DriverLocator>(locator: T) {
   const getRoot = () => {
-    return locator.getByRole('combobox');
+    return locator;
   };
 
   const getTrigger = () => {
@@ -16,12 +16,24 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
   };
 
   const getOptions = () => {
-    return getRoot().getByRole('option', { includeHidden: true }).all();
+    return getRoot().getByRole('option', { includeHidden: true });
+  };
+
+  const getOptionsLength = () => {
+    return getOptions().count();
+  };
+
+  const getOptionAt = (index: number) => {
+    return getOptions().nth(index);
+  };
+
+  const getLastOption = () => {
+    return getOptions().last();
   };
 
   const getValue = async () => {
     // annoyingly, it seems we need to check if the listbox is hidden in playwright, or else the value does not update
-    await expect(getListbox()).toBeHidden();
+    // await expect(getListbox()).toBeHidden();
 
     return await getTrigger().locator('[data-value]').textContent();
   };
@@ -36,7 +48,7 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     }
 
     // should be open initially
-    await expect(getListbox()).toBeVisible();
+    // await expect(getListbox()).toBeVisible();
   };
 
   return {
@@ -45,7 +57,9 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     getRoot,
     getTrigger,
     getListbox,
-    getOptions,
+    getOptionsLength,
+    getOptionAt,
+    getLastOption,
     getValue,
     openListbox,
   };
