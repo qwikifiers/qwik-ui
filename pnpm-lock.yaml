@@ -218,6 +218,9 @@ importers:
       '@radix-ui/react-scroll-area':
         specifier: 1.0.5
         version: 1.0.5(@types/react-dom@18.0.11)(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
+      '@shikijs/transformers':
+        specifier: 1.1.7
+        version: 1.1.7
       '@storybook/addon-a11y':
         specifier: 7.6.0
         version: 7.6.0
@@ -7275,6 +7278,12 @@ packages:
 
   /@shikijs/core@1.1.7:
     resolution: {integrity: sha512-gTYLUIuD1UbZp/11qozD3fWpUTuMqPSf3svDMMrL0UmlGU7D9dPw/V1FonwAorCUJBltaaESxq90jrSjQyGixg==}
+    dev: true
+
+  /@shikijs/transformers@1.1.7:
+    resolution: {integrity: sha512-lXz011ao4+rvweps/9h3CchBfzb1U5OtP5D51Tqc9lQYdLblWMIxQxH6Ybe1GeGINcEVM4goMyPrI0JvlIp4UQ==}
+    dependencies:
+      shiki: 1.1.7
     dev: true
 
   /@sideway/address@4.1.4:
