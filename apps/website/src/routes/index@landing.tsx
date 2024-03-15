@@ -30,15 +30,15 @@ const whyHeadless = [
 const whyStyled = [
   {
     emoji: '😌',
-    description: 'Start with well-designed, easy to customize presets',
-  },
-  {
-    emoji: '👏',
-    description: 'Avoid code duplication thanks to cva variants',
+    description: 'Start with good defaults',
   },
   {
     emoji: '💫',
     description: "Change your entire app's style & theme at the click of a button",
+  },
+  {
+    emoji: '👏',
+    description: 'Avoid code duplication thanks to cva variants',
   },
 ];
 
