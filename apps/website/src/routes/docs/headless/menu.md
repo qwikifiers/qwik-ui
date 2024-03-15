@@ -3,6 +3,7 @@
 ## Qwik UI
 
 - [About](/about)
+- [Contributing](/contributing)
 - [Headless kit](/docs/headless/introduction)
 - [Styled kit](/docs/styled/introduction)
 
@@ -10,7 +11,6 @@
 
 - [Introduction](/docs/headless/introduction)
 - [Installation](/docs/headless/install)
-- [Contributing](/docs/headless/contributing)
 
 ## Components
 
