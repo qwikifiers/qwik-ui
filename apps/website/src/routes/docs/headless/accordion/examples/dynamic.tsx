@@ -53,7 +53,7 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
           </label>
         </div>
 
-        <AccordionRoot class="w-[min(400px,_100%)]">
+        <AccordionRoot>
           {itemStore.map(({ label, id }, index) => {
             return (
               <AccordionItem id={`${id}`} key={id} class="border-b">
