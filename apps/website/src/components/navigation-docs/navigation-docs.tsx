@@ -1,4 +1,4 @@
-import { PropsOf, component$, useVisibleTask$ } from '@builder.io/qwik';
+import { PropsOf, component$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import { ComponentStatus } from '~/_state/component-status.type';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
@@ -22,7 +22,7 @@ export type DocsNavigationProps = PropsOf<'nav'> & {
 
 const defaultLinksGroups: LinkGroup[] = [
   {
-    name: 'Overview',
+    name: 'Qwik UI',
     children: [
       {
         name: 'About',
@@ -44,14 +44,11 @@ export const DocsNavigation = component$(
   ({ linksGroups = defaultLinksGroups, ...props }: DocsNavigationProps) => {
     const location = useLocation();
 
-    useVisibleTask$(() => {
-      console.log('linksGroups', linksGroups);
-    });
     return (
       <nav {...props} class={cn('flex-col gap-4 pb-6', props.class)}>
         {linksGroups?.map((group) => {
           return (
-            <div class="pt-8" key={group.name}>
+            <div class="px-6 pt-8" key={group.name}>
               <h2 class="mb-2 border-b-2 p-2 text-lg font-bold">{group.name}</h2>
               <ul class="flex flex-col gap-2">
                 {group.children?.map((link) => {
