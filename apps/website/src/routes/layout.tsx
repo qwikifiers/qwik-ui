@@ -9,8 +9,6 @@ import {
   LinkProps,
 } from '~/components/navigation-docs/navigation-docs';
 import docsStyles from './docs.css?inline';
-import prismStyles from './prism.css?inline';
-
 import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
@@ -19,7 +17,6 @@ import { ScrollArea } from '@qwik-ui/styled';
 export default component$(() => {
   const { headings } = useContent();
 
-  useStyles$(prismStyles);
   useStyles$(docsStyles);
 
   const { menuItemsGroups } = useKitMenuItems();
