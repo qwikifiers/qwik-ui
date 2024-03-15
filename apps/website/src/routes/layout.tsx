@@ -30,7 +30,7 @@ export default component$(() => {
             linksGroups={menuItemsGroups}
             class="sticky top-16 ml-4 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:flex 2xl:ml-0"
           />
-          <main class="px-2 py-8 sm:px-8 lg:px-16 2xl:max-w-4xl">
+          <main class="w-full px-2 py-8 sm:px-8 lg:px-16 2xl:max-w-4xl">
             <Slot />
           </main>
           <div class="hidden w-64 min-w-64 text-sm xl:block">
