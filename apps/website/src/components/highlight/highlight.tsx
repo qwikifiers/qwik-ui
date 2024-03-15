@@ -47,7 +47,7 @@ export const Highlight = component$(
     });
 
     return (
-      <div class="code-example relative max-h-[31.25rem] rounded-b-sm">
+      <div class="code-example relative max-h-[31.25rem]">
         <CodeCopy
           class={[
             'absolute right-3 top-3 text-white hover:bg-slate-800 hover:text-white',
