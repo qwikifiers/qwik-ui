@@ -23,7 +23,7 @@ const whyHeadless = [
   {
     emoji: '🧑‍🎓',
     description:
-      'Learn about the headless APIs, accessibility, and the future of the web',
+      'Learn about the headless APIs, accessibility, and the html/css features to come',
   },
 ];
 
