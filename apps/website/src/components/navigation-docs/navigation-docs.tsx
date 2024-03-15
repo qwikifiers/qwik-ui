@@ -26,15 +26,19 @@ const defaultLinksGroups: LinkGroup[] = [
     children: [
       {
         name: 'About',
-        href: '/about',
+        href: '/about/',
+      },
+      {
+        name: 'Contributing',
+        href: '/contributing/',
       },
       {
         name: 'Headless Kit',
-        href: '/docs/headless/introduction',
+        href: '/docs/headless/introduction/',
       },
       {
         name: 'Styled Kit',
-        href: '/docs/styled/introduction',
+        href: '/docs/styled/introduction/',
       },
     ],
   },
