@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
 export type DriverLocator = Locator | Page;
 
@@ -45,6 +45,9 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     } else {
       await getTrigger().click();
     }
+
+    // Needed because Playwright doesn't wait for the listbox to be visible
+    await expect(getListbox()).toBeVisible();
   };
 
   return {

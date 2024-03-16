@@ -354,14 +354,14 @@ test.describe('Keyboard Behavior', () => {
       await openListbox('Enter');
 
       // second option highlighted
-      const option = await getOptionAt(1);
+
       await getTrigger().press('ArrowDown');
-      await expect(option).toHaveAttribute('data-highlighted');
+      await expect(getOptionAt(1)).toHaveAttribute('data-highlighted');
       await getTrigger().press('Enter');
       await expect(getListbox()).toBeHidden();
 
       await getTrigger().press('ArrowDown');
-      await expect(option).toHaveAttribute('data-highlighted');
+      await expect(getOptionAt(1)).toHaveAttribute('data-highlighted');
     });
   });
 
@@ -686,6 +686,7 @@ test.describe('Keyboard Behavior', () => {
 
         // initially first option is highlighted & listbox closed
         await openListbox('Enter');
+        await expect(getListbox()).toBeVisible();
         await getTrigger().focus();
         await getTrigger().press('Enter');
 
@@ -744,13 +745,18 @@ test.describe('Keyboard Behavior', () => {
             AND the last option is selected
             WHEN the right arrow key is pressed
             THEN it should loop to the first option`, async ({ page }) => {
-        const { getTrigger, getHiddenOptionAt, openListbox } = await setup(page, 'loop');
+        const { getTrigger, getHiddenOptionAt, openListbox, getListbox } = await setup(
+          page,
+          'loop',
+        );
 
         // initially last option is highlighted
         await openListbox('Enter');
         await getTrigger().focus();
         await getTrigger().press('End');
         await getTrigger().press('Enter');
+
+        await expect(getListbox()).toBeHidden();
 
         await expect(getHiddenOptionAt('last')).toHaveAttribute('aria-selected', 'true');
 
@@ -764,12 +770,17 @@ test.describe('Keyboard Behavior', () => {
             AND the first option is selected
             WHEN the right arrow key is pressed
             THEN it should loop to the first option`, async ({ page }) => {
-        const { getTrigger, getHiddenOptionAt, openListbox } = await setup(page, 'loop');
+        const { getTrigger, getHiddenOptionAt, openListbox, getListbox } = await setup(
+          page,
+          'loop',
+        );
 
         // initially select first option
         await openListbox('Enter');
         await getTrigger().focus();
         await getTrigger().press('Enter');
+
+        await expect(getListbox()).toBeHidden();
 
         await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
 
@@ -785,15 +796,17 @@ test.describe('Keyboard Behavior', () => {
         AND the last option is not visible
         WHEN the end key is pressed
         THEN the last option should be visible`, async ({ page }) => {
-    const { getTrigger, getRoot, openListbox } = await setup(page, 'scrollable');
+    const { getTrigger, getListbox, getOptionAt, openListbox } = await setup(
+      page,
+      'scrollable',
+    );
 
     await openListbox('Enter');
 
     await getTrigger().focus();
     await getTrigger().press('End');
-    const lastOption = getRoot().getByRole('option', { includeHidden: false }).last();
 
-    await expect(lastOption).toBeInViewport();
+    await expect(getOptionAt('last')).toBeInViewport();
   });
 });
 

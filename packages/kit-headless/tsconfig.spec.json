@@ -14,15 +14,11 @@
     "vite.config.ts",
     "src/**/*.cy.ts",
     "src/**/*.cy.tsx",
-    "src/**/*.test.ts",
     "src/**/*.spec.ts",
-    "src/**/*.test.tsx",
     "src/**/*.spec.tsx",
-    "src/**/*.test.js",
     "src/**/*.spec.js",
-    "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
     "src/**/*.d.ts"
   ],
-  "exclude": ["**/*.stories.tsx", "**/*.stories.ts", "**/*.stories.js"]
+  "exclude": ["**/*.stories.tsx", "**/*.stories.ts", "**/*.stories.js", "**/*.driver.ts"]
 }
