@@ -441,11 +441,11 @@ test.describe('Keyboard Behavior', () => {
       await expect(getValueElement()).toHaveText(expectedValue!);
     });
 
-    test(`GIVEN a basic select
-          WHEN pressing the right arrow key
-          AND the placeholder is the selected value
-          THEN select the first enabled option
-          AND the first enabled option should have aria-selected`, async ({ page }) => {
+    test(`GIVEN an already selected item
+          WHEN pressing the right arrow key once
+          THEN the first enabled option should be selected and have aria-selected`, async ({
+      page,
+    }) => {
       const { getTrigger, getHiddenOptionAt, getValueElement } = await setup(
         page,
         'hero',
@@ -453,18 +453,18 @@ test.describe('Keyboard Behavior', () => {
 
       const firstItemValue = await getHiddenOptionAt(0).textContent();
       await getTrigger().focus();
-      await getTrigger().press('ArrowRight', { delay: 500 });
+      await getTrigger().press('ArrowRight');
 
       expect(getValueElement()).toHaveText(firstItemValue!);
       await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
       await expect(getHiddenOptionAt(0)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN a basic select
-          WHEN pressing the right arrow key
-          AND there is a selected value
-          THEN select the next enabled option
-          AND the next enabled option should have aria-selected`, async ({ page }) => {
+    test(`GIVEN an already selected item
+          WHEN pressing the right arrow key twice
+          THEN the first enabled option should be selected and have aria-selected`, async ({
+      page,
+    }) => {
       const { getTrigger, getHiddenOptionAt, getValueElement } = await setup(
         page,
         'hero',
@@ -472,20 +472,19 @@ test.describe('Keyboard Behavior', () => {
 
       const secondItemValue = await getHiddenOptionAt(1).textContent();
       await getTrigger().focus();
-      await getTrigger().press('ArrowRight', { delay: 500 });
-      await getTrigger().press('ArrowRight', { delay: 500 });
+      await getTrigger().press('ArrowRight');
+      await getTrigger().press('ArrowRight');
 
       expect(getValueElement()).toHaveText(secondItemValue!);
       await expect(getHiddenOptionAt(1)).toHaveAttribute('aria-selected', 'true');
       await expect(getHiddenOptionAt(1)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN a basic select
+    test(`GIVEN the second item is selected
           WHEN pressing the left arrow key
-          AND there is a selected value
-          THEN select the previous enabled option
-          AND the previous enabled option should have 
-          aria-selected & data-highlighted`, async ({ page }) => {
+          THEN the first item should be selected and have aria-selected & data-highlighted`, async ({
+      page,
+    }) => {
       const { getTrigger, getHiddenOptionAt, getValueElement } = await setup(
         page,
         'hero',
@@ -494,10 +493,10 @@ test.describe('Keyboard Behavior', () => {
       // get initial selected value
       const firstItemValue = await getHiddenOptionAt(0).textContent();
       await getTrigger().focus();
-      await getTrigger().press('ArrowRight', { delay: 250 });
-      await getTrigger().press('ArrowRight', { delay: 250 });
+      await getTrigger().press('ArrowRight');
+      await getTrigger().press('ArrowRight');
 
-      await getTrigger().press('ArrowLeft', { delay: 250 });
+      await getTrigger().press('ArrowLeft');
       expect(await getValueElement()).toHaveText(firstItemValue!);
       await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
       await expect(getHiddenOptionAt(0)).toHaveAttribute('data-highlighted');
@@ -512,7 +511,7 @@ test.describe('Keyboard Behavior', () => {
     }) => {
       const { getRoot, getTrigger, openListbox } = await setup(page, 'typeahead');
       await openListbox('ArrowDown');
-      await getTrigger().pressSequentially('j', { delay: 250 });
+      await getTrigger().pressSequentially('j');
       const highlightedOpt = getRoot().locator('[data-highlighted]');
       await expect(highlightedOpt).toContainText('j', { ignoreCase: true });
     });
@@ -796,10 +795,7 @@ test.describe('Keyboard Behavior', () => {
         AND the last option is not visible
         WHEN the end key is pressed
         THEN the last option should be visible`, async ({ page }) => {
-    const { getTrigger, getListbox, getOptionAt, openListbox } = await setup(
-      page,
-      'scrollable',
-    );
+    const { getTrigger, getOptionAt, openListbox } = await setup(page, 'scrollable');
 
     await openListbox('Enter');
 
