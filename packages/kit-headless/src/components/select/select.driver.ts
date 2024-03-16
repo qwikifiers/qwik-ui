@@ -15,27 +15,26 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     return getRoot().getByRole('listbox');
   };
 
-  const getOptions = () => {
-    return getRoot().getByRole('option');
+  const getOptions = (evenIfHidden?: boolean) => {
+    return getRoot().getByRole('option', { includeHidden: evenIfHidden });
   };
 
   const getOptionsLength = () => {
     return getOptions().count();
   };
 
-  const getOptionAt = (index: number) => {
+  const getOptionAt = (index: number | 'last') => {
+    if (index === 'last') return getOptions().last();
     return getOptions().nth(index);
   };
 
-  const getLastOption = () => {
-    return getOptions().last();
+  const getHiddenOptionAt = (index: number | 'last') => {
+    if (index === 'last') return getOptions(true).last();
+    return getOptions(true).nth(index);
   };
 
-  const getValue = async () => {
-    // annoyingly, it seems we need to check if the listbox is hidden in playwright, or else the value does not update
-    await getListbox().isHidden();
-
-    return await getTrigger().locator('[data-value]').textContent();
+  const getValueElement = () => {
+    return getTrigger().locator('[data-value]');
   };
 
   const openListbox = async (key: OpenKeys | 'click') => {
@@ -46,9 +45,6 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     } else {
       await getTrigger().click();
     }
-
-    // should be open initially
-    // await expect(getListbox()).toBeVisible();
   };
 
   return {
@@ -59,8 +55,8 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     getListbox,
     getOptionsLength,
     getOptionAt,
-    getLastOption,
-    getValue,
+    getHiddenOptionAt,
+    getValueElement,
     openListbox,
   };
 }
