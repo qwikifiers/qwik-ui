@@ -33,11 +33,11 @@ const defaultLinksGroups: LinkGroup[] = [
         href: '/contributing/',
       },
       {
-        name: 'Headless Kit',
+        name: 'Headless',
         href: '/docs/headless/introduction/',
       },
       {
-        name: 'Styled Kit',
+        name: 'Styled',
         href: '/docs/styled/introduction/',
       },
     ],

@@ -4,8 +4,8 @@
 
 - [About](/about)
 - [Contributing](/contributing)
-- [Headless kit](/docs/headless/introduction)
-- [Styled kit](/docs/styled/introduction)
+- [Headless](/docs/headless/introduction)
+- [Styled](/docs/styled/introduction)
 
 ## Getting Started
 
