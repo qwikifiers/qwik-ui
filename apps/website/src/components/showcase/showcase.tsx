@@ -19,6 +19,7 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   const componentCodeSig = useSignal<string>();
 
   useTask$(async () => {
+    // eslint-disable-next-line qwik/valid-lexical-scope
     MetaGlobComponentSig.value = isDev
       ? await metaGlobComponents[componentPath]() // We need to call `await metaGlobComponents[componentPath]()` in development as it is `eager:false`
       : metaGlobComponents[componentPath]; // We need to directly access the `metaGlobComponents[componentPath]` expression in preview/production as it is `eager:true`
