@@ -74,7 +74,7 @@ export const LogoWithBorders = component$<PropsOf<'svg'>>(({ ...props }) => {
     >
       <g
         class={cn(theme?.includes('light') ? 'stroke-black' : 'stroke-white')}
-        stroke-width="4"
+        stroke-width="8"
         fill="none"
       >
         <g>
@@ -132,7 +132,7 @@ export const LogoIcon = component$<PropsOf<'svg'>>(({ ...props }) => {
     >
       <g
         class={cn(theme?.includes('light') ? 'stroke-black' : 'stroke-white')}
-        stroke-width="4"
+        stroke-width="8"
         fill="none"
       >
         <path
