@@ -17,7 +17,6 @@
     "../**/*.spec.tsx",
     "../**/*.spec.js",
     "../**/*.spec.jsx",
-    "../**/*.d.ts",
-    "../src/components/select/select.test.ts"
+    "../**/*.d.ts"
   ]
 }

@@ -80,6 +80,13 @@
       "options": {
         "command": "npx nx run website:build:production"
       }
+    },
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/website"],
+      "options": {
+        "config": "apps/website/playwright.config.ts"
+      }
     }
   },
   "tags": []

@@ -17,8 +17,7 @@
     "**/*.cy.jsx",
     "**/*.spec.jsx",
     "**/*.spec.tsx",
-    "**/*.spec.ts",
-    "**/*.driver.ts"
+    "**/*.spec.ts"
   ],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }
