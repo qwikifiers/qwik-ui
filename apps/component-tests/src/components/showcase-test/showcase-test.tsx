@@ -14,7 +14,8 @@ export const ShowcaseTest = component$(() => {
   useTask$(async () => {
     // eslint-disable-next-line qwik/valid-lexical-scope
     MetaGlobComponentSig.value = isDev
-      ? // @ts-ignore
+      ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         await metaGlobComponents[componentPath]() // We need to call `await metaGlobComponents[componentPath]()` in development as it is `eager:false`
       : metaGlobComponents[componentPath]; // We need to directly access the `metaGlobComponents[componentPath]` expression in preview/production as it is `eager:true`
   });
