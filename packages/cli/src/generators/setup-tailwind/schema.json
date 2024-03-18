@@ -29,10 +29,6 @@
           {
             "value": "brutalist",
             "label": "Brutalist"
-          },
-          {
-            "value": "neumorphic",
-            "label": "Neumorphic"
           }
         ],
         "default:": "simple"
