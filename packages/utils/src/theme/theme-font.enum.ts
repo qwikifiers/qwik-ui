@@ -1,4 +1,4 @@
-export enum Font {
+export enum ThemeFont {
   MONO = 'font-mono',
   SANS = 'font-sans',
   SERIF = 'font-serif',

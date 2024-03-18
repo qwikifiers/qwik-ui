@@ -1,4 +1,4 @@
-export enum BaseColor {
+export enum ThemeBaseColor {
   SLATE = 'base-slate',
   GRAY = 'base-gray',
   ZINC = 'base-zinc',

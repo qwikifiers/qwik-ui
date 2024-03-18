@@ -19,7 +19,12 @@ import {
   writeJsonFile,
 } from '@nx/devkit';
 
-import { Color, ThemeStyle, type BorderRadius, type ThemeConfig } from '@qwik-ui/utils';
+import {
+  ThemePrimaryColor,
+  ThemeStyle,
+  ThemeBorderRadius,
+  ThemeConfig,
+} from '@qwik-ui/utils';
 import { bgRgb, bold, cyan, green, red } from 'ansis';
 import { execSync } from 'child_process';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
@@ -127,8 +132,8 @@ async function handleInit() {
     uiComponentsPath: args['uiComponentsPath'] as string,
     rootCssPath: args['rootCssPath'] as string,
     style: args['style'] as ThemeStyle,
-    primaryColor: args['primaryColor'] as string,
-    borderRadius: args['borderRadius'] as BorderRadius,
+    primaryColor: args['primaryColor'] as ThemePrimaryColor,
+    borderRadius: args['borderRadius'] as ThemeBorderRadius,
   };
 
   if (!config.projectRoot) {
@@ -211,8 +216,8 @@ async function handleInit() {
 
   if (!shouldCustomize) {
     config.style ||= ThemeStyle.SIMPLE;
-    config.primaryColor ||= Color.CYAN + '-600';
-    config.borderRadius ||= 'border-radius-0';
+    config.primaryColor ||= ThemePrimaryColor.CYAN600;
+    config.borderRadius ||= ThemeBorderRadius['BORDER-RADIUS-0'];
   } else {
     if (!config.style) {
       config.style = cancelable(
@@ -224,7 +229,7 @@ async function handleInit() {
             { label: 'Brutalist', value: ThemeStyle.BRUTALIST },
             { label: 'Neumorphic', value: ThemeStyle.NEUMORPHIC },
           ],
-          initialValue: 'simple',
+          initialValue: ThemeStyle.SIMPLE,
         }),
       );
     }
@@ -233,63 +238,51 @@ async function handleInit() {
       config.primaryColor = cancelable(
         await select({
           message: cyan('Choose a primary color'),
-          initialValue: Color.CYAN + '-600',
+          initialValue: ThemePrimaryColor.CYAN600,
           options: [
             {
-              label: bold`${bgRgb(220, 38, 38)`   `} ${capitalizeFirstLetter(
-                Color.RED,
-              )} `,
-              hint: Color.RED + '-600',
-              value: Color.RED + '-600',
-            }, // 600
+              label: bold`${bgRgb(220, 38, 38)`   `} ${capitalizeFirstLetter('Red')} `,
+              hint: ThemePrimaryColor.RED600,
+              value: ThemePrimaryColor.RED600,
+            },
             {
-              label: bold`${bgRgb(234, 88, 12)`   `} ${capitalizeFirstLetter(
-                Color.ORANGE,
-              )} `, // 600
-              hint: Color.ORANGE + '-600',
-              value: Color.ORANGE + '-600',
+              label: bold`${bgRgb(234, 88, 12)`   `} ${capitalizeFirstLetter('Orange')} `,
+              hint: ThemePrimaryColor.ORANGE600,
+              value: ThemePrimaryColor.ORANGE600,
             },
             {
               label: bold`${bgRgb(250, 204, 21)`   `} ${capitalizeFirstLetter(
-                Color.YELLOW,
-              )} `, // 400
-              hint: Color.YELLOW + '-400',
-              value: Color.YELLOW + '-400',
+                'Yellow',
+              )} `,
+              hint: ThemePrimaryColor.YELLOW400,
+              value: ThemePrimaryColor.YELLOW400,
             },
             {
-              label: bold`${bgRgb(22, 163, 74)`   `} ${capitalizeFirstLetter(
-                Color.GREEN,
-              )} `, // 600
-              hint: Color.GREEN + '-600',
-              value: Color.GREEN + '-600',
+              label: bold`${bgRgb(22, 163, 74)`   `} ${capitalizeFirstLetter('Green')} `,
+              hint: ThemePrimaryColor.GREEN600,
+              value: ThemePrimaryColor.GREEN600,
             },
             {
-              label: bold`${bgRgb(6, 182, 212)`   `} ${capitalizeFirstLetter(
-                Color.CYAN,
-              )} `, // 600
-              hint: Color.CYAN + '-600',
-              value: Color.CYAN + '-600',
+              label: bold`${bgRgb(6, 182, 212)`   `} ${capitalizeFirstLetter('Cyan')} `,
+              hint: ThemePrimaryColor.CYAN600,
+              value: ThemePrimaryColor.CYAN600,
             },
             {
-              label: bold`${bgRgb(37, 99, 235)`   `} ${capitalizeFirstLetter(
-                Color.BLUE,
-              )} `, // 600
-              hint: Color.BLUE + '-600',
-              value: Color.BLUE + '-600',
+              label: bold`${bgRgb(37, 99, 235)`   `} ${capitalizeFirstLetter('Blue')} `,
+              hint: ThemePrimaryColor.BLUE600,
+              value: ThemePrimaryColor.BLUE600,
             },
             {
               label: bold`${bgRgb(147, 51, 234)`   `} ${capitalizeFirstLetter(
-                Color.PURPLE,
-              )} `, // 600
-              hint: Color.PURPLE + '-600',
-              value: Color.PURPLE + '-600',
+                'Purple',
+              )} `,
+              hint: ThemePrimaryColor.PURPLE600,
+              value: ThemePrimaryColor.PURPLE600,
             },
             {
-              label: bold`${bgRgb(219, 39, 119)`   `} ${capitalizeFirstLetter(
-                Color.PINK,
-              )} `, // 600
-              hint: Color.PINK + '-600',
-              value: Color.PINK + '-600',
+              label: bold`${bgRgb(219, 39, 119)`   `} ${capitalizeFirstLetter('Pink')} `,
+              hint: ThemePrimaryColor.PINK600,
+              value: ThemePrimaryColor.PINK600,
             },
           ],
         }),
