@@ -21,25 +21,6 @@ const Accordion = component$<AccordionRootProps>((props) => (
   </QwikUIAccordionRoot>
 ));
 
-/*
-
-  <Accordion>
-    <AccordionItem label="">Bla bla</AccordionItem>
-    <AccordionItem label="My Stuff">Bla bla</AccordionItem>
-  </Accordion>
-
-  <Accordion>
-    <AccordionItem>
-      <AccordionHeader>My Stuff</AccordionHeader>
-      <AccordionContent> Bla bla</AccordionContent>
-     </AccordionItem>
-    <AccordionItem label="My Stuff"> Bla bla</AccordionItem>
-  </Accordion>
-
-*/
-
-// -------- Verbose version
-
 const AccordionItem = component$<AccordionItemProps>((props) => {
   return (
     <QwikUIAccordionItem {...props} class={cn('border-b', props.class)}>
