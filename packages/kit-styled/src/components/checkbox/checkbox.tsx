@@ -1,9 +1,7 @@
-import { component$, type QwikIntrinsicElements } from '@builder.io/qwik';
+import { PropsOf, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 
-type CheckboxProps = QwikIntrinsicElements['input'];
-
-const Checkbox = component$<CheckboxProps>(({ name, ...props }) => {
+export const Checkbox = component$<PropsOf<'input'>>(({ name, ...props }) => {
   return (
     <input
       type="checkbox"
@@ -17,5 +15,3 @@ const Checkbox = component$<CheckboxProps>(({ name, ...props }) => {
     />
   );
 });
-
-export { Checkbox };

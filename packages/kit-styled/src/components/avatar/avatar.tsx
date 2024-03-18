@@ -1,7 +1,7 @@
 import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 
-const Avatar = component$<PropsOf<'div'>>(({ ...props }) => {
+export const Avatar = component$<PropsOf<'div'>>(({ ...props }) => {
   return (
     <div
       {...props}
@@ -15,11 +15,11 @@ const Avatar = component$<PropsOf<'div'>>(({ ...props }) => {
   );
 });
 
-const AvatarImage = component$<PropsOf<'img'>>(({ ...props }) => (
+export const AvatarImage = component$<PropsOf<'img'>>(({ ...props }) => (
   <img {...props} class={cn('aspect-square h-full w-full', props.class)} />
 ));
 
-const AvatarFallback = component$<PropsOf<'div'>>(({ ...props }) => {
+export const AvatarFallback = component$<PropsOf<'div'>>(({ ...props }) => {
   return (
     <div
       {...props}
@@ -32,5 +32,3 @@ const AvatarFallback = component$<PropsOf<'div'>>(({ ...props }) => {
     </div>
   );
 });
-
-export { Avatar, AvatarImage, AvatarFallback };

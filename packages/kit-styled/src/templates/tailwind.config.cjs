@@ -3,10 +3,6 @@ const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 
-// RFC maiieul: I have added -base utility modifiers to start to have a good default specific to each utility based in each style.
-// This means using something non-standard that developers would have to learn.
-// Although it's not much and should be intuitive- and not knowing it doesn't break the tailwind design tokens system.
-
 module.exports = {
   content: [
     join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
@@ -84,6 +80,10 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
       },
       borderRadius: {
