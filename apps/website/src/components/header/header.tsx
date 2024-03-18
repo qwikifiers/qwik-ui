@@ -5,7 +5,6 @@ import {
   useComputed$,
   useSignal,
   useStyles$,
-  useVisibleTask$,
 } from '@builder.io/qwik';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
@@ -102,10 +101,6 @@ export default component$(({ showVersion = false }: HeaderProps) => {
 
   const { menuItemsGroups } = useKitMenuItems();
 
-  useVisibleTask$(() => {
-    console.log('menuItemsGroups', menuItemsGroups);
-  });
-
   const rootStore = useAppState();
   const isSidebarOpenedSig = useSignal(false);
   const location = useLocation();
@@ -157,12 +152,6 @@ export default component$(({ showVersion = false }: HeaderProps) => {
 
           <div class="mr-4 flex items-center">
             <div class="mr-6 hidden items-center space-x-8 text-sm lg:flex">
-              <a class={isDocsActive('/about/')} href="/about">
-                About
-              </a>{' '}
-              <a class={isDocsActive('/contributing/')} href="/contributing">
-                Contributing
-              </a>
               <a
                 class={isDocsActive('/docs/headless/')}
                 href="/docs/headless/introduction"
