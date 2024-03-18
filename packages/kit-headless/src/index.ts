@@ -3,6 +3,7 @@ export * from './components/badge/badge';
 export * from './components/breadcrumb';
 export * from './components/button-group/button-group';
 export * from './components/card';
+export * from './components/carousel';
 export * as Checkbox from './components/checkbox/checkbox';
 export * from './components/collapsible';
 export * from './components/combobox';

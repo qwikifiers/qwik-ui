@@ -1,0 +1,63 @@
+.carousel {
+  --slide-size: 100%;
+  --slide-height: 5rem;
+  height: 100%;
+  max-width: 500px;
+  overflow: hidden;
+}
+
+.carousel-container {
+  backface-visibility: hidden;
+  display: flex;
+  touch-action: pan-y;
+  margin-left: calc(var(--slide-spacing) * -1);
+  transition-property: transform;
+  transition-timing-function: ease;
+  overflow-x: visible;
+  padding-block: 0.5rem;
+}
+
+.carousel-slide {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  position: relative;
+  user-select: none;
+  transition-property: transform;
+  border: 2px dotted hsl(var(--primary));
+  pointer-events: none;
+}
+
+.carousel-pagination {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px dotted hsl(var(--foreground));
+}
+
+.carousel-buttons {
+  display: flex;
+  justify-content: space-between;
+  border: 2px dotted hsl(var(--accent));
+}
+
+.carousel-buttons button[aria-disabled='true'] {
+  opacity: 0.5;
+}
+
+.carousel-buttons button {
+  border: 2px dotted hsl(var(--foreground));
+  padding: 0.5rem;
+}
+
+.carousel-img {
+  pointer-events: none;
+}
+
+.carousel-pagination-bullet {
+  cursor: pointer;
+  padding-inline: 0.5rem;
+}
+
+.pagination-underline {
+  outline: 2px dotted hsl(var(--primary));
+}

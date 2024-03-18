@@ -1,0 +1,45 @@
+import { statusByComponent } from '~/_state/component-statuses';
+import { FeatureList } from '~/components/feature-list/feature-list';
+import { Note } from '~/components/note/note';
+
+<StatusBanner status={statusByComponent.headless.Carousel} />
+
+# Carousel
+
+A control that displays a set of content in a scrolling container.
+
+<Showcase name="hero" />
+
+## ✨ Features
+
+<FeatureList
+  features={[
+    'Mobile Swiping',
+    'Draggable',
+    'Dynamic Slide Offsetting',
+    'Transition Duration Control',
+    'Pagination',
+    'Navigate via Prev/Next buttons',
+  ]}
+  roadmap={[
+    'Tests',
+    'Documentation',
+    'Fix for the "snapping" behavior when going pass the last slide',
+    'A refactor of the API (for example, conventions like the select)',
+    'Remove additional styles to the headless component',
+  ]}
+/>
+
+> Want to speed up the process of getting this component ready for production? Check out the [contributing guide](/docs/headless/contributing)!
+
+### What's different to Swiper JS or Embla Carousel?
+
+This component initially started as a wrapper around Swiper JS, but has since been rewritten natively in Qwik! It's a automatically optimized and a lightweight solution.
+
+This component also intends to be more accessible with a powerful API.
+
+### Why is there styles currently directly in headless?
+
+The component itself does include headless logic, but also uses the flex layout algorithm, and is in sort of a "gray" zone betweeen styled / unstyled.
+
+In the future, we would prefer a polished headless component (devoid of styles for most part).
