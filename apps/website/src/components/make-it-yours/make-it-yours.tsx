@@ -1,4 +1,11 @@
-import { $, component$, useComputed$, useSignal, useStyles$ } from '@builder.io/qwik';
+import {
+  $,
+  PropsOf,
+  component$,
+  useComputed$,
+  useSignal,
+  useStyles$,
+} from '@builder.io/qwik';
 import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/styled';
 import {
@@ -17,7 +24,7 @@ import { useTheme } from 'qwik-themes';
 import CopyCssConfig from '../copy-css-config/copy-css-config';
 import { useAppState } from '~/_state/use-app-state';
 
-export default component$(() => {
+export default component$<PropsOf<typeof Button>>(() => {
   useStyles$(`
     .make-it-yours::backdrop {
       background: rgba(0,0,0,0.05);
@@ -125,23 +132,22 @@ export default component$(() => {
     return [font, mode, style, baseColor, primaryColor, borderRadius].join(' ');
   });
   return (
-    <section>
+    <div>
       <Button
+        size="sm"
         look="outline"
+        class="flex sm:mr-2 sm:h-10"
         onClick$={() => {
           showSig.value = true;
         }}
-        class="hover:bg-accent/80 rounded-base border px-3 py-2"
       >
-        <div class="flex justify-center">
-          <LuSlidersHorizontal class="h-6 w-6 sm:mr-3" />
-          <span class="hidden sm:block">Make it yours</span>
-        </div>
+        <LuSlidersHorizontal class={cn('h-4 w-4 sm:mr-3')} />
+        <span class={cn('hidden', 'sm:block')}>Make it yours</span>
       </Button>
       <Modal
         closeOnBackdropClick={false}
         bind:show={showSig}
-        class="make-it-yours bg-background text-foreground  rounded-l-base fixed bottom-[50%] right-0 top-[50%] mr-0 h-screen max-w-sm border-y border-l p-12 shadow-md sm:w-full"
+        class="make-it-yours bg-background text-foreground rounded-l-base  fixed bottom-[50%] right-0 top-[50%] mr-0 h-screen max-w-sm border-y border-l px-4 py-8 shadow-md sm:w-full"
       >
         <ModalHeader class="flex w-full">
           <h2 class="justify-self-start text-lg font-bold">Edit Profile</h2>
@@ -152,7 +158,6 @@ export default component$(() => {
             class="bg-background rounded-base h-12 w-full border p-2"
             value={themeComputedObjectSig.value.style}
             onChange$={async (e, el) => {
-              console.log('el.value', el.value);
               if (el.value === 'simple') {
                 themeComputedObjectSig.value.font = ThemeFont.SANS;
               }
@@ -163,7 +168,6 @@ export default component$(() => {
                 themeComputedObjectSig.value.font = ThemeFont.SANS;
               }
               themeComputedObjectSig.value.style = el.value;
-              console.log('themeComputedObject.value', themeComputedObjectSig.value);
               setTheme(await themeStoreToThemeClasses$());
             }}
           >
@@ -502,7 +506,7 @@ export default component$(() => {
 
           <div>
             <label class="mb-1 mt-8 block font-medium">Radius</label>
-            <div class="flex space-x-3">
+            <div class="flex h-12 space-x-3">
               {Object.values(ThemeBorderRadius).map((borderRadius: string) => {
                 const isActive =
                   themeComputedObjectSig.value.borderRadius === borderRadius;
@@ -551,10 +555,10 @@ export default component$(() => {
           </Button>
           <CopyCssConfig />
         </ModalFooter>
-        <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-7">
+        <button onClick$={() => (showSig.value = false)} class="absolute right-4 top-5">
           <LuX class="h-8 w-8" />
         </button>
       </Modal>
-    </section>
+    </div>
   );
 });

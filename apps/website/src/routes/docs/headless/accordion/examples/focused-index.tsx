@@ -14,7 +14,6 @@ export default component$(() => {
     <>
       <div class="flex w-full flex-col items-center gap-4">
         <AccordionRoot
-          class="w-[min(400px,_100%)]"
           onFocusIndexChange$={(index: number) => {
             focusedIndexSig.value = index;
           }}

@@ -14,12 +14,12 @@ import {
 } from '@qwik-ui/headless';
 
 import { CollapsibleIcon } from '~/components/icons/CollapsibleIcon.tsx';
-import { AllContributors } from '~/components/all-contributors/all-contributors';
 
-# Introduction
+# Headless kit
 
-<div class="mb-4 mt-[-8px] text-xl font-semibold text-slate-600 dark:text-slate-500">
-  An open source component set optimized to work with Qwik
+<div class="text-muted-foreground mb-4 mt-[-8px] text-xl font-semibold">
+  A headless component library of unstyled, accessible, and resumable components for the
+  most creative minds.
 </div>
 
 Qwik UI Headless Kit provides a complete set of totally customizable components with built-in structure, behavior, and state. This library serves as a foundation of your design system, providing the missing or non-existent functionality from native solutions.
@@ -53,12 +53,6 @@ This means that Qwik UI can operate with any meta-framework that supports Qwik, 
 ### Embracing native first
 
 Qwik values HTML as the source of truth, and this principle extends to Qwik UI components. We appreciate and adopt the excellent work done by the [Open UI Group](https://open-ui.org/) when appropriate.
-
-<div class="mx-[-24px] lg:mx-[-32px]">
-  <img src={headlessHero} class="rounded-base border-2 border-white shadow-md" />
-</div>
-
-<br />
 
 This approach also encompasses future native APIs. Users of Qwik UI might find themselves using components that can be gradually adopted into the native specification. This implies that, eventually, these custom patterns might not need any JavaScript.
 
@@ -106,12 +100,6 @@ One of the benefits of Qwik is its ability to create performant applications wit
   ]}
 />
 
-## Community Driven
-
-Qwik UI is for the community, by the community. An open source project that would not be where it is without the awesome work of its contributors.
-
-<AllContributors />
-
 ## FAQ
 
 <AccordionRoot animated enhance={true}>
@@ -153,7 +141,7 @@ Qwik UI is for the community, by the community. An open source project that woul
         <div class="pb-4">
             If you're using `Qwik-React`, `Qwik-Angular`, `@qwikdev/astro`, we suggest incrementally adding Qwik UI components to your application.
             Qwik, built as a microfrontend, allows you to incrementally integrate Qwik UI components into your existing application. This approach reduces migration risk and complexity, letting you leverage Qwik UI's benefits at your own pace.
-        </div> 
+        </div>
     </AccordionContent>
     </AccordionItem>
 

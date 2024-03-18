@@ -1,10 +1,15 @@
 # Headless Kit Docs
 
+## Qwik UI
+
+- [Contributing](/contributing)
+- [Headless](/docs/headless/introduction)
+- [Styled](/docs/styled/introduction)
+
 ## Getting Started
 
 - [Introduction](/docs/headless/introduction)
 - [Installation](/docs/headless/install)
-- [Contributing](/docs/headless/contributing)
 
 ## Components
 

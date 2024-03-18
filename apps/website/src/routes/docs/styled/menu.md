@@ -1,10 +1,15 @@
 # Styled Kit Docs
 
+## Qwik UI
+
+- [Contributing](/contributing)
+- [Headless](/docs/headless/introduction)
+- [Styled](/docs/styled/introduction)
+
 ## Getting Started
 
 - [Introduction](/docs/styled/introduction)
 - [Installation](/docs/styled/install)
-- [Contributing](/docs/styled/contributing)
 
 ## Components
 

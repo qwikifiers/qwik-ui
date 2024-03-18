@@ -1,8 +1,7 @@
 /* eslint-disable qwik/no-react-props */
 import { Slot, component$, useStyles$ } from '@builder.io/qwik';
-import { ContentMenu, useContent } from '@builder.io/qwik-city';
+import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
 import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
-import { KitName } from '~/_state/kit-name.type';
 import Header from '~/components/header/header';
 import {
   DocsNavigation,
@@ -10,9 +9,6 @@ import {
   LinkProps,
 } from '~/components/navigation-docs/navigation-docs';
 import docsStyles from './docs.css?inline';
-import { useSelectedKit } from './docs/use-selected-kit';
-import prismStyles from './prism.css?inline';
-
 import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
@@ -21,7 +17,6 @@ import { ScrollArea } from '@qwik-ui/styled';
 export default component$(() => {
   const { headings } = useContent();
 
-  useStyles$(prismStyles);
   useStyles$(docsStyles);
 
   const { menuItemsGroups } = useKitMenuItems();
@@ -30,12 +25,14 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <MDXProvider components={components}>
-        <div class="flex justify-around lg:justify-around lg:space-x-10 2xl:justify-center 2xl:space-x-24">
+        <div class="flex justify-around lg:justify-around 2xl:justify-center 2xl:space-x-16">
           <DocsNavigation
-            linksGroups={menuItemsGroups}
-            class=" sticky top-16 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:flex"
+            linksGroups={
+              menuItemsGroups && menuItemsGroups.length > 0 ? menuItemsGroups : undefined
+            }
+            class="sticky top-16 ml-4 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:flex 2xl:ml-0"
           />
-          <main class="w-full max-w-3xl px-4 py-8 sm:px-8">
+          <main class="w-full px-2 py-8 sm:px-8 lg:px-16 2xl:max-w-4xl">
             <Slot />
           </main>
           <div class="hidden w-64 min-w-64 text-sm xl:block">
@@ -55,24 +52,22 @@ export default component$(() => {
 });
 
 export function useKitMenuItems() {
-  const selectedKitSig = useSelectedKit();
+  const location = useLocation();
   const { menu } = useContent();
   let menuItemsGroups: LinkGroup[] | undefined = [];
 
-  if (selectedKitSig.value === KitName.HEADLESS) {
+  if (location.url.pathname.startsWith('/docs/headless')) {
     menuItemsGroups = decorateMenuItemsWithBadges(
       menu?.items,
       statusByComponent.headless,
     );
   }
 
-  if (selectedKitSig.value === KitName.STYLED) {
+  if (location.url.pathname.startsWith('/docs/styled')) {
     menuItemsGroups = decorateMenuItemsWithBadges(menu?.items, statusByComponent.styled);
   }
 
-  return {
-    menuItemsGroups,
-  };
+  return { menuItemsGroups };
 }
 
 function decorateMenuItemsWithBadges(

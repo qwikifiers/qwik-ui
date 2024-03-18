@@ -11,7 +11,7 @@ export default component$(() => {
   return (
     <>
       <div class="flex w-full justify-center">
-        <AccordionRoot class="w-[min(400px,_100%)]">
+        <AccordionRoot>
           <AccordionItem class="border-b">
             <AccordionHeader as="h4">
               <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">

@@ -17,7 +17,7 @@ import {
 
 export default component$(() => {
   return (
-    <Tabs class="w-[400px]">
+    <Tabs class="max-w-[400px]">
       <TabList class="grid w-full grid-cols-2">
         <Tab>Account</Tab>
         <Tab>Password</Tab>

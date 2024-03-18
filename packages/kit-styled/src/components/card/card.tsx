@@ -54,3 +54,8 @@ export const CardFooter = component$<PropsOf<'div'>>(({ ...props }) => {
     </div>
   );
 });
+
+// Experimental API
+export const CardImage = component$<PropsOf<'img'>>(({ ...props }) => {
+  return <img {...props} class={cn('w-full object-cover', props.class)} />;
+});

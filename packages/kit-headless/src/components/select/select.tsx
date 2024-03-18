@@ -1,14 +1,14 @@
 import {
   component$,
   Slot,
-  type PropsOf,
   useSignal,
   useContextProvider,
-  Signal,
   useTask$,
   useComputed$,
   type QRL,
   useId,
+  PropsOf,
+  Signal,
 } from '@builder.io/qwik';
 import { type SelectContext } from './select-context';
 import SelectContextId from './select-context';
