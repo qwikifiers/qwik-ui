@@ -2,7 +2,6 @@
 
 ## Qwik UI
 
-- [About](/about)
 - [Contributing](/contributing)
 - [Headless](/docs/headless/introduction)
 - [Styled](/docs/styled/introduction)

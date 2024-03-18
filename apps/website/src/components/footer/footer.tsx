@@ -8,11 +8,6 @@ export const Footer = component$(() => {
       <div class="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
           <div class="px-5 py-2">
-            <a href="/about" class="hover:text-muted-foreground">
-              About
-            </a>
-          </div>
-          <div class="px-5 py-2">
             <a href="/docs/headless/introduction" class="hover:text-muted-foreground">
               Headless Kit
             </a>
