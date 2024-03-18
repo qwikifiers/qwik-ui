@@ -5,7 +5,7 @@ type TextareaProps = PropsOf<'textarea'> & {
   error?: string;
 };
 
-const Textarea = component$<TextareaProps>(({ name, error, ...props }) => {
+export const Textarea = component$<TextareaProps>(({ name, error, ...props }) => {
   return (
     <>
       <textarea
@@ -19,5 +19,3 @@ const Textarea = component$<TextareaProps>(({ name, error, ...props }) => {
     </>
   );
 });
-
-export { Textarea };

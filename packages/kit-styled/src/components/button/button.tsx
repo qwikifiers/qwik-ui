@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 // TODO: Create a RFC of the variants and explaining the thought process behind them
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   'inline-flex items-center justify-center text-sm font-medium rounded disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-1',
   {
     variants: {
@@ -36,12 +36,10 @@ const buttonVariants = cva(
 
 type ButtonProps = PropsOf<'button'> & VariantProps<typeof buttonVariants>;
 
-const Button = component$<ButtonProps>(({ size, look, ...props }) => {
+export const Button = component$<ButtonProps>(({ size, look, ...props }) => {
   return (
     <button {...props} class={cn(buttonVariants({ size, look }), props.class)}>
       <Slot />
     </button>
   );
 });
-
-export { Button, buttonVariants };

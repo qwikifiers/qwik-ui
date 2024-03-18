@@ -1,7 +1,7 @@
 import { component$, type PropsOf, Slot } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 
-const Card = component$<PropsOf<'div'>>((props) => {
+export const Card = component$<PropsOf<'div'>>((props) => {
   return (
     <div
       {...props}
@@ -15,7 +15,7 @@ const Card = component$<PropsOf<'div'>>((props) => {
   );
 });
 
-const CardHeader = component$<PropsOf<'div'>>((props) => {
+export const CardHeader = component$<PropsOf<'div'>>((props) => {
   return (
     <div {...props} class={cn('flex flex-col space-y-1.5 p-6', props.class)}>
       <Slot />
@@ -23,7 +23,7 @@ const CardHeader = component$<PropsOf<'div'>>((props) => {
   );
 });
 
-const CardTitle = component$<PropsOf<'h3'>>((props) => {
+export const CardTitle = component$<PropsOf<'h3'>>((props) => {
   return (
     <h3 {...props} class={cn('font-semibold leading-none tracking-tight', props.class)}>
       <Slot />
@@ -31,7 +31,7 @@ const CardTitle = component$<PropsOf<'h3'>>((props) => {
   );
 });
 
-const CardDescription = component$<PropsOf<'p'>>((props) => {
+export const CardDescription = component$<PropsOf<'p'>>((props) => {
   return (
     <p {...props} class={cn('text-muted-foreground text-sm', props.class)}>
       <Slot />
@@ -39,7 +39,7 @@ const CardDescription = component$<PropsOf<'p'>>((props) => {
   );
 });
 
-const CardContent = component$<PropsOf<'div'>>((props) => {
+export const CardContent = component$<PropsOf<'div'>>((props) => {
   return (
     <div {...props} class={cn('p-6 pt-0', props.class)}>
       <Slot />
@@ -47,7 +47,7 @@ const CardContent = component$<PropsOf<'div'>>((props) => {
   );
 });
 
-const CardFooter = component$<PropsOf<'div'>>(({ ...props }) => {
+export const CardFooter = component$<PropsOf<'div'>>(({ ...props }) => {
   return (
     <div {...props} class={cn('flex items-center p-6 pt-0', props.class)}>
       <Slot />
@@ -56,16 +56,6 @@ const CardFooter = component$<PropsOf<'div'>>(({ ...props }) => {
 });
 
 // Experimental API
-const CardImage = component$<PropsOf<'img'>>(({ ...props }) => {
+export const CardImage = component$<PropsOf<'img'>>(({ ...props }) => {
   return <img {...props} class={cn('w-full object-cover', props.class)} />;
 });
-
-export {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-  CardImage,
-};

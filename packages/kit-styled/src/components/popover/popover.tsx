@@ -1,9 +1,11 @@
 import { PropsOf, Slot, component$, useStyles$ } from '@builder.io/qwik';
 import {
-  Popover as QwikUIPopover,
   PopoverTrigger as QwikUIPopoverTrigger,
+  Popover as QwikUIPopover,
 } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
+
+export const PopoverTrigger = QwikUIPopoverTrigger;
 
 export const Popover = component$<PropsOf<typeof QwikUIPopover>>(
   ({ floating, ...props }) => {
@@ -37,5 +39,3 @@ export const Popover = component$<PropsOf<typeof QwikUIPopover>>(
     );
   },
 );
-
-export const PopoverTrigger = QwikUIPopoverTrigger;
