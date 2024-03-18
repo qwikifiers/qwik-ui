@@ -1,5 +1,5 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { ThemeStyle } from '@qwik-ui/utils';
+import { ThemeBorderRadius, ThemePrimaryColor, ThemeStyle } from '@qwik-ui/utils';
 import { SetupTailwindGeneratorSchema } from './schema';
 import { setupTailwindGenerator } from './setup-tailwind-generator';
 
@@ -416,7 +416,7 @@ html {
 
   test(`
     GIVEN no options are passed
-    THEN it should generate "simple" style with primary color "cyan-600", base color "slate" and border-radios 0`, async () => {
+    THEN it should generate "simple" style with primary color "cyan-600", base color "slate" and border-radius 0`, async () => {
     const { tree, options } = setupWithProperFiles();
 
     options.rootCssPath = 'src/global.css';
@@ -443,8 +443,8 @@ html {
           --input: 214.3 31.8% 91.4%;
           --primary: 191.6 91.4% 36.5%;
           --primary-foreground: 0 0% 100%;
-          --secondary: 222.2 47.4% 11.2%;
-          --secondary-foreground: 0 0% 100%;
+          --secondary: 214.3 31.8% 91.4%;
+          --secondary-foreground: 0 0% 0%;
           --accent: 210 40% 96.1%;
           --accent-foreground: 222.2 47.4% 11.2%;
           --alert: 0 84.2% 60.2%;
@@ -478,7 +478,7 @@ html {
           --input: 217.2 32.6% 17.5%;
           --primary: 191.6 91.4% 36.5%;
           --primary-foreground: 0 0% 100%;
-          --secondary: 210 40% 96.1%;
+          --secondary: 214.3 31.8% 91.4%;
           --secondary-foreground: 0 0% 0%;
           --accent: 217.2 32.6% 17.5%;
           --accent-foreground: 210 40% 98%;
@@ -513,13 +513,13 @@ html {
     `);
   });
   test(`
-    GIVEN style is "brutalist" and primary color is "red-600" and border-radios is 1
+    GIVEN style is "brutalist" and primary color is "red-600" and border-radius is 1
     THEN it should generate the correct theme`, async () => {
     const { tree, options } = setupWithProperFiles();
 
     options.rootCssPath = 'src/global.css';
-    options.borderRadius = 'border-radius-1';
-    options.primaryColor = 'red-600';
+    options.borderRadius = ThemeBorderRadius['BORDER-RADIUS-1'];
+    options.primaryColor = ThemePrimaryColor.RED600;
     options.style = ThemeStyle.BRUTALIST;
 
     await setupTailwindGenerator(tree, options);
@@ -544,8 +544,8 @@ html {
           --input: 0 0% 0%;
           --primary: 0 72.2% 50.6%;
           --primary-foreground: 0 0% 100%;
-          --secondary: 222.2 47.4% 11.2%;
-          --secondary-foreground: 0 0% 100%;
+          --secondary: 214.3 31.8% 91.4%;
+          --secondary-foreground: 0 0% 0%;
           --accent: 210 40% 96.1%;
           --accent-foreground: 222.2 47.4% 11.2%;
           --alert: 0 84.2% 60.2%;
@@ -576,7 +576,7 @@ html {
           --input: 0 0% 0%;
           --primary: 0 72.2% 50.6%;
           --primary-foreground: 0 0% 100%;
-          --secondary: 210 40% 96.1%;
+          --secondary: 214.3 31.8% 91.4%;
           --secondary-foreground: 0 0% 0%;
           --accent: 217.2 32.6% 17.5%;
           --accent-foreground: 210 40% 98%;

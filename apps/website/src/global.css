@@ -200,8 +200,8 @@
     --card-foreground: 222.2 47.4% 11.2%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 214.3 31.8% 91.4%;
+    --secondary-foreground: 0 0% 0%;
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --alert: 0 84.2% 60.2%;
@@ -219,7 +219,7 @@
     --card-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --secondary: 210 40% 96.1%;
+    --secondary: 214.3 31.8% 91.4%;
     --secondary-foreground: 0 0% 0%;
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
@@ -239,8 +239,8 @@
     --card-foreground: 220.9 39.3% 11%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --secondary: 220.9 39.3% 11%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 220 13% 91%;
+    --secondary-foreground: 0 0% 0%;
     --accent: 220 14.3% 95.9%;
     --accent-foreground: 220.9 39.3% 11%;
     --alert: 0 84.2% 60.2%;
@@ -258,7 +258,7 @@
     --card-foreground: 210 20% 98%;
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
-    --secondary: 220 14.3% 95.9%;
+    --secondary: 220 13% 91%;
     --secondary-foreground: 0 0% 0%;
     --accent: 215 27.9% 16.9%;
     --accent-foreground: 210 20% 98%;
@@ -278,8 +278,8 @@
     --card-foreground: 240 5.9% 10%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --secondary: 240 5.9% 10%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 240 5.9% 90%;
+    --secondary-foreground: 0 0% 0%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
     --alert: 0 84.2% 60.2%;
@@ -297,7 +297,7 @@
     --card-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --secondary: 240 4.8% 95.9%;
+    --secondary: 240 5.9% 90%;
     --secondary-foreground: 0 0% 0%;
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
@@ -317,8 +317,8 @@
     --card-foreground: 0 0% 9%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
-    --secondary: 0 0% 9%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 89.8%;
+    --secondary-foreground: 0 0% 0%;
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
     --alert: 0 84.2% 60.2%;
@@ -336,7 +336,7 @@
     --card-foreground: 0 0% 98%;
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
-    --secondary: 0 0% 96.1%;
+    --secondary: 0 0% 89.8%;
     --secondary-foreground: 0 0% 0%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
@@ -356,8 +356,8 @@
     --card-foreground: 24 9.8% 10%;
     --border: 20 5.9% 90%;
     --input: 20 5.9% 90%;
-    --secondary: 24 9.8% 10%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 20 5.9% 90%;
+    --secondary-foreground: 0 0% 0%;
     --accent: 60 4.8% 95.9%;
     --accent-foreground: 24 9.8% 10%;
     --alert: 0 84.2% 60.2%;
@@ -375,7 +375,7 @@
     --card-foreground: 60 9.1% 97.8%;
     --border: 12 6.5% 15.1%;
     --input: 12 6.5% 15.1%;
-    --secondary: 60 4.8% 95.9%;
+    --secondary: 20 5.9% 90%;
     --secondary-foreground: 0 0% 0%;
     --accent: 12 6.5% 15.1%;
     --accent-foreground: 60 9.1% 97.8%;
@@ -1344,6 +1344,6 @@ body {
 /* Not used yet - could be used for the colored text on the landing page when the make-it-yours color is too bright in light mode or too dim in dark mode */
 @layer components {
   .text-outlined {
-    @apply [text-shadow:-1px_0_#aaa,_0_1px_#aaa,_1px_0_#aaa,_0_-1px_#aaa] dark:[text-shadow:-1px_0_#888,_0_1px_#888,_1px_0_#888,_0_-1px_#888];
+    @apply [text-shadow:-1px_0_#bbb,_0_1px_#bbb,_1px_0_#bbb,_0_-1px_#bbb] dark:[text-shadow:-1px_0_#777,_0_1px_#777,_1px_0_#777,_0_-1px_#777];
   }
 }

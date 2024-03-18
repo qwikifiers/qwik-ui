@@ -10,7 +10,7 @@ export default component$(() => {
     <div class="flex flex-col gap-8">
       <h1 class="text-center text-3xl font-bold leading-normal lg:text-5xl">
         <span class="text-primary text-outlined font-black tracking-wide">Qwik</span>{' '}
-        <span class="text-secondary font-black tracking-wide">UI</span>
+        <span class="text-secondary text-outlined font-black tracking-wide">UI</span>
       </h1>
       <h2 class="text-center text-2xl font-bold leading-normal lg:text-4xl">
         The world's fastest loading UI components <br />
