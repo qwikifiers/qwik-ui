@@ -1,4 +1,4 @@
-import { component$, Slot } from '@builder.io/qwik';
+import { component$, Slot, PropsOf } from '@builder.io/qwik';
 
 import {
   AccordionContent as QwikUIAccordionContent,
@@ -6,22 +6,18 @@ import {
   AccordionItem as QwikUIAccordionItem,
   AccordionRoot as QwikUIAccordionRoot,
   AccordionTrigger as QwikUIAccordionTrigger,
-  type AccordionHeaderProps,
-  type AccordionItemProps,
-  type AccordionRootProps,
-  type AccordionTriggerProps,
 } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
 import { LuChevronDown } from '@qwikest/icons/lucide';
 
-const Accordion = component$<AccordionRootProps>((props) => (
+export const Accordion = component$<PropsOf<typeof QwikUIAccordionRoot>>((props) => (
   <QwikUIAccordionRoot animated {...props} class={props.class}>
     <Slot />
   </QwikUIAccordionRoot>
 ));
 
-const AccordionItem = component$<AccordionItemProps>((props) => {
+export const AccordionItem = component$<PropsOf<typeof QwikUIAccordionItem>>((props) => {
   return (
     <QwikUIAccordionItem {...props} class={cn('border-b', props.class)}>
       <Slot />
@@ -29,8 +25,10 @@ const AccordionItem = component$<AccordionItemProps>((props) => {
   );
 });
 
-const AccordionTrigger = component$<
-  AccordionTriggerProps & { header?: AccordionHeaderProps['as'] }
+export const AccordionTrigger = component$<
+  PropsOf<typeof QwikUIAccordionTrigger> & {
+    header?: PropsOf<typeof QwikUIAccordionHeader>['as'];
+  }
 >(({ header = 'h3', ...props }) => {
   return (
     <QwikUIAccordionHeader as={header} class="flex">
@@ -48,20 +46,20 @@ const AccordionTrigger = component$<
   );
 });
 
-const AccordionContent = component$<AccordionItemProps>((props) => {
-  return (
-    <QwikUIAccordionContent
-      {...props}
-      class={cn(
-        'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm',
-        props.class,
-      )}
-    >
-      <div class="pb-4 pt-0">
-        <Slot />
-      </div>
-    </QwikUIAccordionContent>
-  );
-});
-
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };
+export const AccordionContent = component$<PropsOf<typeof QwikUIAccordionContent>>(
+  (props) => {
+    return (
+      <QwikUIAccordionContent
+        {...props}
+        class={cn(
+          'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm',
+          props.class,
+        )}
+      >
+        <div class="pb-4 pt-0">
+          <Slot />
+        </div>
+      </QwikUIAccordionContent>
+    );
+  },
+);

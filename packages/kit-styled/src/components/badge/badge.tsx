@@ -2,7 +2,7 @@ import { component$, PropsOf, Slot } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const badgeVariants = cva(
+export const badgeVariants = cva(
   'inline-flex items-center rounded-sm px-2.5 py-0.5 text-xs font-semibold transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
   {
     variants: {
@@ -21,12 +21,10 @@ const badgeVariants = cva(
 
 export type BadgeProps = PropsOf<'div'> & VariantProps<typeof badgeVariants>;
 
-const Badge = component$<BadgeProps>(({ look, ...props }) => {
+export const Badge = component$<BadgeProps>(({ look, ...props }) => {
   return (
     <div {...props} class={cn(badgeVariants({ look }), props.class)}>
       <Slot />
     </div>
   );
 });
-
-export { Badge, badgeVariants };

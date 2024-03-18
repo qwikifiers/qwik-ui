@@ -11,7 +11,7 @@ import {
 } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
-const Tabs = (props: TabsProps) => (
+export const Tabs = (props: TabsProps) => (
   <QwikUITabs
     {...props}
     tabListComponent={TabList}
@@ -20,7 +20,7 @@ const Tabs = (props: TabsProps) => (
   />
 );
 
-const TabList = component$<TabListProps>((props) => {
+export const TabList = component$<TabListProps>((props) => {
   return (
     <QwikUITabList
       {...props}
@@ -34,7 +34,7 @@ const TabList = component$<TabListProps>((props) => {
   );
 });
 
-const Tab = component$<TabProps>((props) => {
+export const Tab = component$<TabProps>((props) => {
   return (
     <QwikUITab
       {...props}
@@ -48,7 +48,7 @@ const Tab = component$<TabProps>((props) => {
   );
 });
 
-const TabPanel = component$<TabPanelProps>((props) => {
+export const TabPanel = component$<TabPanelProps>((props) => {
   return (
     <QwikUITabPanel
       {...props}
@@ -61,5 +61,3 @@ const TabPanel = component$<TabPanelProps>((props) => {
     </QwikUITabPanel>
   );
 });
-
-export { Tab, TabList, TabPanel, Tabs };
