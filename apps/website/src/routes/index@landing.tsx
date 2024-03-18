@@ -3,6 +3,7 @@ import { DocumentHead } from '@builder.io/qwik-city';
 import { Card, CardDescription, CardHeader, CardImage, CardTitle } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
 
+// Keeping these so that we can integrate them later when refactoring the landing page to be more professional
 // const whyHeadless = [
 //   {
 //     emoji: '🧑‍🎨',
