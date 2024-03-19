@@ -58,7 +58,11 @@ export const DocsNavigation = component$(
                       <a
                         class={cn(
                           'transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-base flex items-center px-4 py-2 text-sm duration-300',
-                          isLinkActive
+                          isLinkActive ||
+                            (location.url.pathname?.startsWith('/docs/headless/') &&
+                              link.name === 'Headless') ||
+                            (location.url.pathname?.startsWith('/docs/styled/') &&
+                              link.name === 'Styled')
                             ? 'bg-accent text-accent-foreground font-bold'
                             : '',
                         )}

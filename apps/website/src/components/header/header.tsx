@@ -154,12 +154,15 @@ export default component$(({ showVersion = false }: HeaderProps) => {
             <div class="mr-6 hidden items-center space-x-8 text-sm lg:flex">
               <a
                 class={isDocsActive('/docs/headless/')}
-                href="/docs/headless/introduction"
+                href="/docs/headless/introduction/"
               >
                 Headless
               </a>
               {rootStore.featureFlags?.showStyled && (
-                <a class={isDocsActive('/docs/styled/')} href="/docs/styled/introduction">
+                <a
+                  class={isDocsActive('/docs/styled/')}
+                  href="/docs/styled/introduction/"
+                >
                   Styled
                 </a>
               )}

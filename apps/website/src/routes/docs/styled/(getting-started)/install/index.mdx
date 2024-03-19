@@ -4,144 +4,212 @@ title: 'Qwik UI | Styled Kit - Installation'
 
 # Using the Styled Kit
 
-## Step 1: Install the Headless Kit
+## CLI
 
-To get started with the Styled Kit for Qwik UI, you first need to install the headless package:
+## Step 0: Skip everthing below, just use the cli 🚀
 
-```tsx
-pnpm i -D @qwik-ui/headless
+Simply run the following command:
+
+```zsh
+npx qwik-ui init
 ```
 
-## Step 2: Add CSS variables
+## Manual installation
 
-Then you need to add the CSS variables to your root CSS file:
+### Step 1: Install the Headless Kit and qwikest icons
+
+To get started with the Styled Kit for Qwik UI, you first need to install the headless package and qwikest icons:
+
+```zsh
+pnpm i -D @qwik-ui/headless @qwikest/icons
+```
+
+### Step 2: copy/paste your theme config
+
+Click on "make it yours" -> choose your favorite color theme and style -> copy/paste the css-variables config to your global css file.
+
+For example, we use the following config by default on the Qwik UI docs:
 
 ```css
 @layer base {
   :root {
-    --color-background: 0 0% 100%;
-    --color-foreground: 263 84% 5%;
-
-    --color-primary: 263 56% 52%;
-    --color-primary-foreground: 0 0% 100%;
-
-    --color-secondary: 202 91% 52%;
-    --color-secondary-foreground: 0 0% 100%;
-
-    --color-muted: 210 40% 96%;
-    --color-muted-foreground: 263 16% 47%;
-
-    --color-accent: 0 0% 89%;
-    --color-accent-foreground: 263 47% 11%;
-
-    --color-destructive: 0 84% 60%;
-    --color-destructive-foreground: 263 0% 100%;
-
-    --color-card: 0 0% 100%;
-    --color-card-foreground: 263 84% 5%;
-
-    --color-popover: 0 0% 100%;
-    --color-popover-foreground: 263 84% 5%;
-
-    --color-border: 263 32% 91%;
-
-    --color-input: 263 32% 91%;
-
-    --color-ring: 263 18% 61%;
-
-    --border-radius: 0.375rem;
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --primary: 191.6 91.4% 36.5%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214.3 31.8% 91.4%;
+    --secondary-foreground: 0 0% 0%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --alert: 0 84.2% 60.2%;
+    --alert-foreground: 210 40% 98%;
+    --ring: 222.2 47.4% 11.2%;
+    --border-width: 0px;
+    --border-radius: 0;
+    --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
+    --transform-press: scale(0.95);
   }
-
   .dark {
-    --color-background: 222 47% 11%;
-    --color-foreground: 263 40% 98%;
-
-    --color-primary: 263 70% 58%;
-    --color-primary-foreground: 190 40% 98%;
-
-    --color-secondary: 202 97% 55%;
-    --color-secondary-foreground: 190 40% 98%;
-
-    --color-muted: 218 32.6% 17.5%;
-    --color-muted-foreground: 263 20.2% 65.1%;
-
-    --color-accent: 0 0% 23%;
-    --color-accent-foreground: 263 40% 98%;
-
-    --color-destructive: 0 70% 40%;
-    --color-destructive-foreground: 263 40% 98%;
-
-    --color-card: 263 84% 4.9%;
-    --color-card-foreground: 263 40% 98%;
-
-    --color-popover: 263 84% 4.9%;
-    --color-popover-foreground: 263 40% 98%;
-
-    --color-border: 263 32.6% 17.5%;
-
-    --color-input: 263 32.6% 17.5%;
-
-    --color-ring: 263 26.8% 83.9%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --primary: 191.6 91.4% 36.5%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214.3 31.8% 91.4%;
+    --secondary-foreground: 0 0% 0%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --alert: 0 84.2% 60.2%;
+    --alert-foreground: 210 40% 98%;
+    --ring: 212.7 26.8% 83.9;
+    --border-width: 0px;
+    --border-radius: 0;
+    --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
+    --transform-press: scale(0.95);
   }
 }
 ```
 
-## Step 3: Modify your tailwind.config.js file
+### Step 3: Modify your tailwind.config.js file
 
 Finally, you need to modify your `tailwind.config.js` file:
 
 ```tsx
-/** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
 
+const { join } = require('path');
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.press': {
+          transform: 'var(--transform-press)',
+        },
+        '.appear': {
+          opacity: 1,
+        },
+        '.disappear': {
+          opacity: 0,
+        },
+      });
+    }),
+  ],
+
+  content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
   darkMode: 'class',
   theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
+    important: true,
     extend: {
       colors: {
-        border: 'hsl(var(--color-border) / <alpha-value>)',
-        input: 'hsl(var(--color-input) / <alpha-value>)',
-        ring: 'hsl(var(--color-ring) / <alpha-value>)',
-        background: 'hsl(var(--color-background) / <alpha-value>)',
-        foreground: 'hsl(var(--color-foreground) / <alpha-value>)',
-
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--color-primary) / <alpha-value>)',
-          foreground: 'hsl(var(--color-primary-foreground) / <alpha-value>)',
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--color-secondary) / <alpha-value>)',
-          foreground: 'hsl(var(--color-secondary-foreground) / <alpha-value>)',
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
-        accent: {
-          DEFAULT: 'hsl(var(--color-accent) / <alpha-value>)',
-          foreground: 'hsl(var(--color-accent-foreground) / <alpha-value>)',
+        alert: {
+          DEFAULT: 'hsl(var(--alert))',
+          foreground: 'hsl(var(--alert-foreground))',
         },
         muted: {
-          DEFAULT: 'hsl(var(--color-muted) / <alpha-value>)',
-          foreground: 'hsl(var(--color-muted-foreground) / <alpha-value>)',
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
         },
-        destructive: {
-          DEFAULT: 'hsl(var(--color-destructive) / <alpha-value>)',
-          foreground: 'hsl(var(--color-destructive-foreground) / <alpha-value>)',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--color-popover) / <alpha-value>)',
-          foreground: 'hsl(var(--color-popover-foreground) / <alpha-value>)',
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
         },
         card: {
-          DEFAULT: 'hsl(var(--color-card) / <alpha-value>)',
-          foreground: 'hsl(var(--color-card-foreground) / <alpha-value>)',
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
       },
       borderRadius: {
-        lg: 'var(--border-radius)',
-        md: 'calc(var(--border-radius) - 2px)',
-        sm: 'calc(var(--border-radius) - 4px)',
+        base: 'var(--border-radius)',
+        sm: 'calc(var(--border-radius) + 0.125rem)',
+        DEFAULT: 'calc(var(--border-radius) + 0.25rem)',
+        md: 'calc(var(--border-radius) + 0.375rem)',
+        lg: 'calc(var(--border-radius) + 0.5rem)',
+        xl: 'calc(var(--border-radius) + 0.75rem)',
+        '2xl': 'calc(var(--border-radius) + 1rem)',
+        '3xl': 'calc(var(--border-radius) + 1.5rem)',
+      },
+      borderWidth: {
+        base: 'var(--border-width)',
+        DEFAULT: 'calc(var(--border-width) + 1px)',
+        2: 'calc(var(--border-width) + 2px)',
+        4: 'calc(var(--border-width) + 4px)',
+        8: 'calc(var(--border-width) + 8px)',
+      },
+      boxShadow: {
+        base: 'var(--shadow-base)',
+        sm: 'var(--shadow-sm)',
+        DEFAULT: 'var(--shadow)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
+        xl: 'var(--shadow-xl)',
+        '2xl': 'var(--shadow-2xl)',
+        inner: 'var(--shadow-inner)',
+      },
+      fontFamily: {
+        sans: ['Inter Variable', 'sans-serif'],
       },
     },
   },
 };
 ```
 
-Now you can start building beautiful Qwik websites.
-Choose from each of the ready made components and read their installation instructions.
+This might seem like a lot of configuration, but we believe it to be worth it as it is what allows changing styles and themes at the click of a button.
+
+### Step 4: Find the components you need in the docs and copy/paste them into your project
+
+You will find the components code in their corresponding link in the docs.
