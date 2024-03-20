@@ -132,7 +132,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
     <>
       <div
         class={cn(
-          'bg-background sticky top-0 z-10 flex h-16 justify-center border-b',
+          'sticky top-0 z-10 flex h-16 justify-center border-b bg-background',
           theme?.includes('brutalist') && 'border-b-2',
         )}
       >
@@ -167,7 +167,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
                 </a>
               )}
             </div>
-            <div class="xs:space-x-4 flex items-center space-x-1">
+            <div class="flex items-center space-x-1 xs:space-x-4">
               <MakeItYours />
               <a
                 href="https://discord.gg/PVWUUejrez"
@@ -203,14 +203,14 @@ export default component$(({ showVersion = false }: HeaderProps) => {
       </div>
       <Modal
         bind:show={isSidebarOpenedSig}
-        class="sidebar-mobile bg-background text-foreground rounded-base ml-auto mr-0 h-screen w-full min-w-80 max-w-sm border-0 p-8 shadow-md"
+        class="sidebar-mobile ml-auto mr-0 h-screen w-full min-w-80 max-w-sm rounded-base border-0 bg-background p-8 text-foreground shadow-md"
       >
         <ModalContent class="mb-2 pb-4 pt-2">
           <DocsNavigation
             linksGroups={
               menuItemsGroups && menuItemsGroups.length > 0 ? menuItemsGroups : undefined
             }
-            class="bg-background max-w-80 overflow-auto"
+            class="max-w-80 overflow-auto bg-background"
           />
         </ModalContent>
         <button

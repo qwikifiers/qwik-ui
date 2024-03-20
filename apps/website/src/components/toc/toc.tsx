@@ -76,9 +76,9 @@ const Tree = component$<TreeProps>(({ headings, level = 1, activeItem }) => {
               href={`#${heading.id}`}
               class={cn(
                 heading.level > 2 ? 'ml-4' : null,
-                'hover:text-foreground inline-block no-underline transition-colors',
+                'inline-block no-underline transition-colors hover:text-foreground',
                 heading.id === `${activeItem}`
-                  ? 'text-foreground font-medium'
+                  ? 'font-medium text-foreground'
                   : 'text-muted-foreground',
               )}
             >

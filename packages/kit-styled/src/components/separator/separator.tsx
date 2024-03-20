@@ -11,7 +11,7 @@ export const Separator = component$<PropsOf<typeof QwikUISeparator>>(
           decorative={decorative}
           orientation={orientation}
           class={cn(
-            'bg-border shrink-0',
+            'shrink-0 bg-border',
             orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px',
             props.class,
           )}

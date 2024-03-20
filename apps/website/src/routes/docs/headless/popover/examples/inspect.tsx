@@ -36,7 +36,7 @@ export default component$(() => {
       </PopoverTrigger>
       <Popover
         id="inspect-id"
-        class="rounded-base max-w-[20rem] border-2 border-slate-300 bg-slate-800 p-4 shadow-md"
+        class="max-w-[20rem] rounded-base border-2 border-slate-300 bg-slate-800 p-4 shadow-md"
       >
         <p class="leading-5">
           I'm in the <strong>:top-layer</strong> pseudo element on supported browsers like

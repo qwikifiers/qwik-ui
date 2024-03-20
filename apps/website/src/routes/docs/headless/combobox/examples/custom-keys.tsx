@@ -36,7 +36,7 @@ export default component$(() => {
   return (
     <div>
       {isPokemonCaught.value && (
-        <p class="bg-background rounded-base absolute max-w-[180px] translate-y-[-105%] border-2 p-4 shadow-md">
+        <p class="absolute max-w-[180px] translate-y-[-105%] rounded-base border-2 bg-background p-4 shadow-md">
           You've already caught this pokemon!
         </p>
       )}
@@ -48,21 +48,21 @@ export default component$(() => {
         optionDisabledKey="isPokemonCaught"
       >
         <ComboboxLabel class=" font-semibold">Pokemon 🦏</ComboboxLabel>
-        <ComboboxControl class="rounded-base relative flex items-center border">
-          <ComboboxInput class="px-d2 bg-background placeholder:text-muted-foreground rounded-base w-44 px-2 pr-6" />
+        <ComboboxControl class="relative flex items-center rounded-base border">
+          <ComboboxInput class="px-d2 w-44 rounded-base bg-background px-2 pr-6 placeholder:text-muted-foreground" />
           <ComboboxTrigger class="group absolute right-0 h-6 w-6">
             <ComboboxIcon class="stroke-foreground transition-transform duration-500 group-aria-expanded:-rotate-180" />
           </ComboboxTrigger>
         </ComboboxControl>
         <ComboboxPopover flip={true} gutter={8}>
           <ComboboxListbox
-            class="rounded-base w-44 border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
+            class="w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
             optionRenderer$={(option: ResolvedOption, index: number) => {
               const pokemonOption = option.option as Pokemon;
               return (
                 <ComboboxOption
                   key={option.key}
-                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent rounded-base group flex justify-between border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
+                  class="group flex justify-between rounded-base border border-transparent px-2 hover:bg-accent aria-disabled:font-light aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:cursor-pointer aria-selected:border-border aria-selected:bg-accent"
                   index={index}
                   resolved={option}
                   onMouseEnter$={() => {

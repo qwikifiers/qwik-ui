@@ -51,7 +51,7 @@ export const Footer = component$(() => {
             target="_blank"
             href="https://github.com/qwikifiers/qwik-ui"
             aria-label="Qwik-UI GitHub repository"
-            class="hover:text-accent-foreground text-muted-foreground"
+            class="text-muted-foreground hover:text-accent-foreground"
           >
             <GitHubIcon />
           </a>
@@ -59,7 +59,7 @@ export const Footer = component$(() => {
             target="_blank"
             href="https://discord.gg/PVWUUejrez"
             aria-label="Qwik-UI Discord server"
-            class="hover:text-accent-foreground text-muted-foreground"
+            class="text-muted-foreground hover:text-accent-foreground"
           >
             <DiscordIcon />
           </a>

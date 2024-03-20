@@ -10,7 +10,7 @@ export default component$(() => {
           <Label for="terms">Accept terms and conditions</Label>
         </div>
       </div>
-      <p class="text-muted-foreground ml-6 text-sm">
+      <p class="ml-6 text-sm text-muted-foreground">
         Decide whether you want to appear available or not in search results.
       </p>
     </div>

@@ -29,9 +29,9 @@ export default component$(() => {
           bind:isListboxOpen={isListboxOpenSig}
         >
           <ComboboxLabel class=" font-semibold">Fruits 🍓</ComboboxLabel>
-          <ComboboxControl class="rounded-base relative flex items-center border">
+          <ComboboxControl class="relative flex items-center rounded-base border">
             <ComboboxInput
-              class="px-d2 bg-background placeholder:text-muted-foreground rounded-base w-44 px-2 pr-6"
+              class="px-d2 w-44 rounded-base bg-background px-2 pr-6 placeholder:text-muted-foreground"
               placeholder="Papaya"
             />
             <ComboboxTrigger class="group absolute right-0 h-6 w-6">
@@ -53,14 +53,14 @@ export default component$(() => {
               optionRenderer$={(option: ResolvedOption, index: number) => (
                 <ComboboxOption
                   key={option.key}
-                  class="hover:bg-accent aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:border-border aria-selected:bg-accent rounded-base group flex justify-between border border-transparent px-2 aria-disabled:font-light aria-selected:cursor-pointer"
+                  class="group flex justify-between rounded-base border border-transparent px-2 hover:bg-accent aria-disabled:font-light aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:cursor-pointer aria-selected:border-border aria-selected:bg-accent"
                   index={index}
                   resolved={option}
                 >
                   {option.label}
                 </ComboboxOption>
               )}
-              class="left:0 top:0 rounded-base absolute w-fit border px-4 py-2"
+              class="left:0 top:0 absolute w-fit rounded-base border px-4 py-2"
             />
           </ComboboxPopover>
         </Combobox>

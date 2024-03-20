@@ -100,7 +100,7 @@ export const components: Record<string, any> = {
       <div
         {...props}
         class={[
-          cn('code-example rounded-base relative mb-6 max-h-[31.25rem]', props.class),
+          cn('code-example relative mb-6 max-h-[31.25rem] rounded-base', props.class),
         ]}
       >
         <CodeCopy
@@ -109,7 +109,7 @@ export const components: Record<string, any> = {
         />
         <div
           class={cn(
-            'rounded-base max-h-[31.25rem] max-w-full overflow-auto border bg-gradient-to-b p-6 text-sm',
+            'max-h-[31.25rem] max-w-full overflow-auto rounded-base border bg-gradient-to-b p-6 text-sm',
           )}
         >
           <pre>

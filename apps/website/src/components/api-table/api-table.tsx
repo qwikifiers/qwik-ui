@@ -28,7 +28,7 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
               <tr key={propDescriptor.name}>
                 <td class="py-3 pl-4 sm:pl-0">
                   <div class="flex items-center gap-2">
-                    <code class="border-primary rounded-base mr-6 border border-b-[2px] px-2">
+                    <code class="mr-6 rounded-base border border-b-[2px] border-primary px-2">
                       {propDescriptor.name}
                     </code>
                   </div>
