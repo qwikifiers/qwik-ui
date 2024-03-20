@@ -35,11 +35,11 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
           {...props}
           selectedClassName="bg-primary hover:bg-primary text-primary-foreground hover:text-primary-foreground border-t-1 font-medium "
         >
-          <TabList class="bg-accent flex rounded-t-lg border border-b-0">
-            <Tab class="hover:bg-primary/90 hover:text-primary-foreground rounded-tl-md px-3 py-2">
+          <TabList class="flex rounded-t-lg border border-b-0 bg-accent">
+            <Tab class="rounded-tl-md px-3 py-2 hover:bg-primary/90 hover:text-primary-foreground">
               Preview
             </Tab>
-            <Tab class="hover:bg-primary/90 hover:text-primary-foreground px-3 py-2">
+            <Tab class="px-3 py-2 hover:bg-primary/90 hover:text-primary-foreground">
               Code
             </Tab>
           </TabList>

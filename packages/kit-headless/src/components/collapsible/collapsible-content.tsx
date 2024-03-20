@@ -57,8 +57,8 @@ export const CollapsibleContent = component$((props: CollapsibleContentProps) =>
         context.initialStateSig.value
           ? 'initial'
           : context.isOpenSig.value
-          ? 'open'
-          : 'closed'
+            ? 'open'
+            : 'closed'
       }
       onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
       onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}

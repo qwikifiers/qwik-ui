@@ -1,8 +1,9 @@
 {
   "git.pullTags": false,
-  "conventionalCommits.scopes": ["styled", "headless", "docs"],
+"conventionalCommits.scopes": ["styled", "headless", "docs"],
   "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
   "editor.codeActionsOnSave": {
     "source.removeUnusedImports": "explicit"

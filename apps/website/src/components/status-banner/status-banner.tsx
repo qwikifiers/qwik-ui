@@ -81,7 +81,7 @@ export const StatusBanner = component$(({ status }: StatusBannerProps) => {
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
         class={cn(
           getBackgroundByStatus(status),
-          'normal-state rounded-base relative border-2 px-8 py-6 md:flex-row md:items-center 2xl:-mx-8',
+          'normal-state relative rounded-base border-2 px-8 py-6 md:flex-row md:items-center 2xl:-mx-8',
         )}
         style={{ marginBottom: `${marginBottom}px` }}
       >

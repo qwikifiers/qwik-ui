@@ -72,8 +72,8 @@ export const Collapsible = component$((props: CollapsibleProps) => {
         context.initialStateSig.value
           ? 'initial'
           : context.isOpenSig.value
-          ? 'open'
-          : 'closed'
+            ? 'open'
+            : 'closed'
       }
       {...rest}
     >

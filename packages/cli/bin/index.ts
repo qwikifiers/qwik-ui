@@ -390,10 +390,13 @@ async function handleAdd(projectRoot?: string, componentsFromInit?: string) {
 
   const possibleComponents = componentsJson.components;
   const possibleComponentNames = componentsJson.components.map((c) => c.displayName);
-  const componentsMap = componentsJson.components.reduce((acc, curr) => {
-    acc[curr.type] = curr;
-    return acc;
-  }, {} as Record<string, (typeof componentsJson.components)[0]>);
+  const componentsMap = componentsJson.components.reduce(
+    (acc, curr) => {
+      acc[curr.type] = curr;
+      return acc;
+    },
+    {} as Record<string, (typeof componentsJson.components)[0]>,
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const AddCommand: CommandModule = {

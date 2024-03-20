@@ -3,6 +3,6 @@ import { cn } from '@qwik-ui/utils';
 
 export const Skeleton = component$<PropsOf<'div'>>(({ ...props }) => {
   return (
-    <div {...props} class={cn('bg-foreground/10 animate-pulse rounded', props.class)} />
+    <div {...props} class={cn('animate-pulse rounded bg-foreground/10', props.class)} />
   );
 });

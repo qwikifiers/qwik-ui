@@ -5,25 +5,25 @@ import { cva, type VariantProps } from 'class-variance-authority';
 // TODO: Create a RFC of the variants and explaining the thought process behind them
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center text-sm font-medium rounded disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-1',
+  'inline-flex items-center justify-center rounded text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       look: {
         primary:
-          'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm transition-all duration-100 active:press active:shadow-base border-base',
+          'border-base bg-primary text-primary-foreground shadow-sm transition-all duration-100 hover:bg-primary/90 active:shadow-base active:press',
         secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-sm transition-all duration-100 active:press active:shadow-base border-base',
+          'border-base bg-secondary text-secondary-foreground shadow-sm transition-all duration-100 hover:bg-secondary/90 active:shadow-base active:press',
         alert:
-          'bg-alert text-alert-foreground hover:bg-alert/90 shadow-sm transition-all duration-100 active:press active:shadow-base border-base',
+          'border-base bg-alert text-alert-foreground shadow-sm transition-all duration-100 hover:bg-alert/90 active:shadow-base active:press',
         outline:
-          'shadow-sm transition-all duration-100 active:press active:shadow-base bg-background text-foreground border hover:bg-accent',
+          'border bg-background text-foreground shadow-sm transition-all duration-100 hover:bg-accent active:shadow-base active:press',
         ghost: 'text-accent-foreground hover:bg-accent',
-        link: 'text-foreground hover:underline hover:underline-offset-2 hover:text-foreground/80 hover:bg-transparent',
+        link: 'text-foreground hover:bg-transparent hover:text-foreground/80 hover:underline hover:underline-offset-2',
       },
       size: {
-        sm: 'px-2 h-8 py-1.5 text-sm',
-        md: 'px-4 h-12 py-3 text-base',
-        lg: ' px-8 h-16 py-4 text-lg',
+        sm: 'h-8 px-2 py-1.5 text-sm',
+        md: 'h-12 px-4 py-3 text-base',
+        lg: ' h-16 px-8 py-4 text-lg',
         icon: 'h-10 w-10',
       },
     },

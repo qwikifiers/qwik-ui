@@ -24,7 +24,7 @@ export const AvatarFallback = component$<PropsOf<'div'>>(({ ...props }) => {
     <div
       {...props}
       class={cn(
-        'bg-muted absolute -z-10 flex h-full w-full items-center justify-center rounded-full',
+        'absolute -z-10 flex h-full w-full items-center justify-center rounded-full bg-muted',
         props.class,
       )}
     >

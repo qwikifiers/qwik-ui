@@ -147,7 +147,7 @@ export default component$<PropsOf<typeof Button>>(() => {
       <Modal
         closeOnBackdropClick={false}
         bind:show={showSig}
-        class="make-it-yours bg-background text-foreground rounded-l-base  fixed bottom-[50%] right-0 top-[50%] mr-0 h-screen max-w-sm border-y border-l px-4 py-8 shadow-md sm:w-full"
+        class="make-it-yours fixed bottom-[50%] right-0  top-[50%] mr-0 h-screen max-w-sm rounded-l-base border-y border-l bg-background px-4 py-8 text-foreground shadow-md sm:w-full"
       >
         <ModalHeader class="flex w-full">
           <h2 class="justify-self-start text-lg font-bold">Edit Profile</h2>
@@ -155,7 +155,7 @@ export default component$<PropsOf<typeof Button>>(() => {
         <ModalContent class="mb-2 mt-8 py-4">
           <label class="mb-1 block font-medium">Preset</label>
           <select
-            class="bg-background rounded-base h-12 w-full border p-2"
+            class="h-12 w-full rounded-base border bg-background p-2"
             value={themeComputedObjectSig.value.style}
             onChange$={async (e, el) => {
               if (el.value === 'simple') {
@@ -195,7 +195,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                   }}
                   class={cn(
                     'flex h-3 w-3 items-center justify-center rounded-none',
-                    isActive && 'border-ring border-2',
+                    isActive && 'border-2 border-ring',
                   )}
                 >
                   <span
@@ -246,7 +246,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                     }}
                     class={cn(
                       'h-3 w-3 rounded-none',
-                      isActive && 'border-ring border-[1px]',
+                      isActive && 'border-[1px] border-ring',
                     )}
                   >
                     {(primaryColor === 'primary-slate-800' ||
@@ -518,7 +518,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                       themeComputedObjectSig.value.borderRadius = borderRadius;
                       setTheme(await themeStoreToThemeClasses$());
                     }}
-                    class={cn('w-12', isActive && 'border-ring mb-2')}
+                    class={cn('w-12', isActive && 'mb-2 border-ring')}
                   >
                     {borderRadius === 'border-radius-0' && 0}
                     {borderRadius === 'border-radius-dot-25' && '.25'}

@@ -24,8 +24,8 @@ export const CollapsibleTrigger = component$<PropsOf<'button'>>(
           context.initialStateSig.value
             ? 'initial'
             : context.isOpenSig.value
-            ? 'open'
-            : 'closed'
+              ? 'open'
+              : 'closed'
         }
         aria-expanded={context.isOpenSig.value}
         aria-controls={context.isOpenSig.value ? contentId : undefined}

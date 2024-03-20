@@ -29,7 +29,7 @@ export const AnatomyTable = component$(
                 <tr key={propDescriptor.name}>
                   <td class="align-center py-3 pl-2 pr-2 sm:pl-0 md:align-baseline">
                     <div class="flex items-center gap-2">
-                      <code class="border-primary text-accent-foreground mr-6 rounded-sm border border-b-2 px-2">
+                      <code class="mr-6 rounded-sm border border-b-2 border-primary px-2 text-accent-foreground">
                         {propDescriptor.name}
                       </code>
                     </div>

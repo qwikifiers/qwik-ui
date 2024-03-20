@@ -36,7 +36,7 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
         <div class="flex gap-4">
           <label class="mb-4 flex flex-col-reverse items-center text-center">
             <input
-              class="bg-accent rounded-base max-w-[50px] px-2"
+              class="max-w-[50px] rounded-base bg-accent px-2"
               type="text"
               bind:value={itemIndexToAdd}
             />
@@ -45,7 +45,7 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
 
           <label class="mb-4 flex flex-col-reverse items-center text-center">
             <input
-              class="bg-accent rounded-base max-w-[50px] px-2"
+              class="max-w-[50px] rounded-base bg-accent px-2"
               type="text"
               bind:value={itemIndexToDelete}
             />

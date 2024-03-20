@@ -19,7 +19,7 @@ export default component$(() => {
     <AccordionRoot
       animated
       enhance={true}
-      class="rounded-base box-border w-[250px] max-w-[500px] border border-slate-500 bg-slate-600 text-white"
+      class="box-border w-[250px] max-w-[500px] rounded-base border border-slate-500 bg-slate-600 text-white"
     >
       {cats.map((item, index) => (
         <AccordionItem class="w-full" key={index}>

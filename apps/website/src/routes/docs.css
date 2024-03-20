@@ -4,11 +4,11 @@
   }
 
   a {
-    @apply ease-step font-semibold underline underline-offset-4 transition-colors duration-300 hover:opacity-90;
+    @apply font-semibold underline underline-offset-4 transition-colors duration-300 ease-step hover:opacity-90;
   }
 
   p code {
-    @apply bg-muted rounded-sm border-b-2 px-2 py-0.5;
+    @apply rounded-sm border-b-2 bg-muted px-2 py-0.5;
   }
 
   ol li {

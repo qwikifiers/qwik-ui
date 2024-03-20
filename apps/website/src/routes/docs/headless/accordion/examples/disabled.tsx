@@ -53,7 +53,7 @@ export default component$(() => {
             <h3>
               <AccordionTrigger
                 disabled
-                class="hover:bg-accent/50 group flex w-full items-center justify-between py-4 text-left aria-disabled:cursor-not-allowed aria-expanded:rounded-none"
+                class="group flex w-full items-center justify-between py-4 text-left hover:bg-accent/50 aria-disabled:cursor-not-allowed aria-expanded:rounded-none"
               >
                 <span>
                   I'm{' '}

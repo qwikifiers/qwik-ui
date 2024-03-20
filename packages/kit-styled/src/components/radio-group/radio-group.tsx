@@ -15,7 +15,7 @@ export const RadioGroupItem = component$<PropsOf<'input'>>(({ ...props }) => {
       type="radio"
       {...props}
       class={cn(
-        'accent-primary h-4 w-4 disabled:cursor-not-allowed disabled:opacity-50',
+        'h-4 w-4 accent-primary disabled:cursor-not-allowed disabled:opacity-50',
         props.class,
       )}
     />
