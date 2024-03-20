@@ -16,6 +16,7 @@
     "changeset.version": "changeset version && pnpm install --no-frozen-lockfile && git add --all",
     "dev": "nx serve website",
     "dev.ct": "nx serve component-tests",
+    "format.all": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html,css,scss}\"",
     "format.fix": "pretty-quick --staged",
     "link.dist": "cd dist/packages/kit-headless && pnpm link --global",
     "lint": "nx affected:lint",
