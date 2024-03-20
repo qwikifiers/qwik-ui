@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@axe-core/playwright':
+        specifier: 4.8.5
+        version: 4.8.5(playwright-core@1.41.2)
       '@builder.io/qwik':
         specifier: ^1.4.0
         version: 1.4.0(@types/node@20.11.20)(sass@1.69.7)(undici@5.28.2)
@@ -601,6 +604,15 @@ packages:
     hasBin: true
     dependencies:
       default-browser-id: 3.0.0
+    dev: true
+
+  /@axe-core/playwright@4.8.5(playwright-core@1.41.2):
+    resolution: {integrity: sha512-GFdXXAEn9uk0Vyzgl2eEP+VwvgGzas0YSnacoJ/0U237G83zWZ1PhbP/RDymm0cqevoA+xRjMo+ONzh9Q711nw==}
+    peerDependencies:
+      playwright-core: '>= 1.0.0'
+    dependencies:
+      axe-core: 4.8.4
+      playwright-core: 1.41.2
     dev: true
 
   /@babel/code-frame@7.23.5:
@@ -10348,6 +10360,11 @@ packages:
 
   /axe-core@4.8.3:
     resolution: {integrity: sha512-d5ZQHPSPkF9Tw+yfyDcRoUOc4g/8UloJJe5J8m4L5+c7AtDdjDLRxew/knnI4CxvtdxEUVgWz4x3OIQUIFiMfw==}
+    engines: {node: '>=4'}
+    dev: true
+
+  /axe-core@4.8.4:
+    resolution: {integrity: sha512-CZLSKisu/bhJ2awW4kJndluz2HLZYIHh5Uy1+ZwDRkJi69811xgIXXfdU9HSLX0Th+ILrHj8qfL/5wzamsFtQg==}
     engines: {node: '>=4'}
     dev: true
 

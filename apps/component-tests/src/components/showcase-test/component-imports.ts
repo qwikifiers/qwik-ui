@@ -15,7 +15,7 @@ function createMetaGlobComponents() {
     },
   );
 
-  const newThing: Record<string, unknown> = {};
+  const componentsMap: Record<string, unknown> = {};
 
   for (const key in metaGlobComponents) {
     const component = metaGlobComponents[key];
@@ -23,12 +23,12 @@ function createMetaGlobComponents() {
     if (component) {
       const componentName = key.split('routes/docs/')[1];
       if (componentName) {
-        newThing[componentName] = component;
+        componentsMap[componentName] = component;
       }
     }
   }
 
-  return newThing;
+  return componentsMap;
 }
 
 export const metaGlobComponents = createMetaGlobComponents();
