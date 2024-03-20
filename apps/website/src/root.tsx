@@ -13,10 +13,6 @@ import globalStyles from './global.css?inline';
 import { ThemeProvider } from 'qwik-themes';
 
 import '@fontsource-variable/inter';
-import '@fontsource/ibm-plex-mono';
-import '@fontsource/source-serif-pro';
-import '@fontsource/londrina-shadow';
-import '@fontsource/rubik-doodle-shadow';
 import {
   ThemeBaseColor,
   ThemeBorderRadius,
