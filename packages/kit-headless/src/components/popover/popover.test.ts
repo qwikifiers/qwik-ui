@@ -21,12 +21,12 @@ test('@Visual diff', async ({ page }) => {
 });
 
 test.describe('Mouse Behavior', () => {
-  test(`GIVEN a popover
+  test(`GIVEN a closed popover
         WHEN clicking on the trigger
         THEN the popover should be opened `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
-
     await expect(d.getPopover()).toBeHidden();
+
     await d.getTrigger().click();
 
     await expect(d.getPopover()).toBeVisible();

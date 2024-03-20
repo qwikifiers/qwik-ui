@@ -2,9 +2,9 @@ import { expect, type Locator, type Page } from '@playwright/test';
 type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
 export type DriverLocator = Locator | Page;
 
-export function createTestDriver<T extends DriverLocator>(locator: T) {
+export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getRoot = () => {
-    return locator;
+    return rootLocator;
   };
 
   const getTrigger = () => {
@@ -15,12 +15,12 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     return getRoot().getByRole('listbox');
   };
 
-  const getOptions = (evenIfHidden?: boolean) => {
-    return getRoot().getByRole('option', { includeHidden: evenIfHidden });
+  const getOptions = (options?: { evenIfHidden?: boolean }) => {
+    return getRoot().getByRole('option', { includeHidden: options?.evenIfHidden });
   };
 
-  const getOptionsLength = () => {
-    return getOptions().count();
+  const getOptionsLength = async (options?: { evenIfHidden?: boolean }) => {
+    return getOptions({ evenIfHidden: options?.evenIfHidden }).count();
   };
 
   const getOptionAt = (index: number | 'last') => {
@@ -29,8 +29,8 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
   };
 
   const getHiddenOptionAt = (index: number | 'last') => {
-    if (index === 'last') return getOptions(true).last();
-    return getOptions(true).nth(index);
+    if (index === 'last') return getOptions({ evenIfHidden: true }).last();
+    return getOptions({ evenIfHidden: true }).nth(index);
   };
 
   const getValueElement = () => {
@@ -51,11 +51,12 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
   };
 
   return {
-    ...locator,
-    locator,
+    ...rootLocator,
+    locator: rootLocator,
     getRoot,
     getTrigger,
     getListbox,
+    getOptions,
     getOptionsLength,
     getOptionAt,
     getHiddenOptionAt,
