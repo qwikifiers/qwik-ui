@@ -36,8 +36,15 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'chromium',
+      name: 'logic',
       use: { ...devices['Desktop Chrome'] },
+      grepInvert: /@Visual.*/,
+    },
+
+    {
+      name: 'visual',
+      use: { ...devices['Desktop Chrome'] },
+      grep: /@Visual.*/,
     },
 
     // {

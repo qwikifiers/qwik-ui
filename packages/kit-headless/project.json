@@ -84,7 +84,16 @@
       "executor": "@nx/playwright:playwright",
       "outputs": ["{workspaceRoot}/dist/.playwright/packages/kit-headless"],
       "options": {
-        "config": "packages/kit-headless/playwright.config.ts"
+        "config": "packages/kit-headless/playwright.config.ts",
+        "project": ["logic"]
+      }
+    },
+    "visual-test": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/packages/kit-headless"],
+      "options": {
+        "config": "packages/kit-headless/playwright.config.ts",
+        "project": ["visual"]
       }
     }
   },

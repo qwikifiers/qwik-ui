@@ -1,19 +1,18 @@
 import {
-  component$,
-  Slot,
-  useSignal,
-  useContextProvider,
-  useTask$,
-  useComputed$,
-  type QRL,
-  useId,
   PropsOf,
   Signal,
+  Slot,
+  component$,
+  useComputed$,
+  useContextProvider,
+  useId,
+  useSignal,
+  useTask$,
+  type QRL,
 } from '@builder.io/qwik';
-import { type SelectContext } from './select-context';
-import SelectContextId from './select-context';
-import { Opt } from './select-inline';
 import { isBrowser } from '@builder.io/qwik/build';
+import SelectContextId, { type SelectContext } from './select-context';
+import { Opt } from './select-inline';
 import { getActiveDescendant } from './utils';
 
 export type InternalSelectProps = {

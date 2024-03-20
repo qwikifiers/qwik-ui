@@ -1,7 +1,7 @@
-import { component$, type PropsOf, useContext, sync$, $, Slot } from '@builder.io/qwik';
+import { $, Slot, component$, sync$, useContext, type PropsOf } from '@builder.io/qwik';
 import SelectContextId from './select-context';
-import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from './utils';
 import { useTypeahead } from './use-select';
+import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from './utils';
 
 type SelectTriggerProps = PropsOf<'button'>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {

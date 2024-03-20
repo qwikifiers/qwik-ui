@@ -33,15 +33,18 @@
     "story.headless": "nx storybook headless",
     "test.cli": "nx test cli",
     "test.headless": "nx component-test headless",
+    "test.visual.headless": "nx visual-test headless",
     "test.pw.headless": "nx e2e headless",
+    "test.pw.headless.ci": "nx e2e headless",
     "test.headless.ci": "nx component-test-ci headless",
     "test.utils": "nx test utils"
   },
   "packageManager": "pnpm@8.7.0",
   "devDependencies": {
-    "@builder.io/qwik": "^1.5.1",
-    "@builder.io/qwik-city": "^1.5.1",
-    "@builder.io/qwik-react": "0.5.4",
+    "@axe-core/playwright": "4.8.5",
+    "@builder.io/qwik": "^1.4.0",
+    "@builder.io/qwik-city": "^1.4.0",
+    "@builder.io/qwik-react": "0.5.3",
     "@builder.io/vite-plugin-macro": "~0.0.7",
     "@changesets/cli": "2.27.1",
     "@changesets/get-github-info": "0.6.0",
@@ -179,6 +182,5 @@
   ],
   "nx": {
     "includedScripts": []
-  },
-  "dependencies": {}
+  }
 }
