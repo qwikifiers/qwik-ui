@@ -1,9 +1,9 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
-  SelectPopover,
   SelectListbox,
   SelectOption,
+  SelectPopover,
   SelectTrigger,
   SelectValue,
 } from '@qwik-ui/headless';
@@ -14,7 +14,7 @@ export default component$(() => {
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
 
   return (
-    <Select class="select">
+    <Select class="select" aria-label="hero">
       <SelectTrigger class="select-trigger">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>

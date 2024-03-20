@@ -1,5 +1,7 @@
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './select.driver';
+
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/select/${exampleName}`);
 
@@ -123,7 +125,7 @@ test.describe('Mouse Behavior', () => {
   // });
 
   test(`GIVEN an open hero select
-        WHEN clikcking on the group label
+        WHEN clicking on the group label
         THEN the listbox should remain open`, async ({ page }) => {
     const { getRoot, openListbox, getListbox } = await setup(page, 'group');
 
@@ -229,7 +231,7 @@ test.describe('Keyboard Behavior', () => {
   test.describe('data-highlighted navigation', () => {
     test(`GIVEN a hero select
         WHEN pressing the down arrow key
-        THEN open up the listbox
+        THEN the listbox should be opened
         AND the first option should have data-highlighted`, async ({ page }) => {
       const { getTrigger, getListbox, getOptionAt } = await setup(page, 'hero');
 
@@ -366,10 +368,9 @@ test.describe('Keyboard Behavior', () => {
   });
 
   test.describe('selecting options', () => {
-    test(`GIVEN an open hero select
-          WHEN an option has data-highlighted
-          AND the Enter key is pressed
-          THEN the listbox should be closed and aria-expanded false`, async ({
+    test(`GIVEN an opened hero select with the first option highlighted
+          WHEN the Enter key is pressed
+          THEN the listbox should be closed and aria-expanded should be false`, async ({
       page,
     }) => {
       const { getTrigger, getListbox, getOptionAt, openListbox } = await setup(
@@ -491,13 +492,14 @@ test.describe('Keyboard Behavior', () => {
       );
 
       // get initial selected value
-      const firstItemValue = await getHiddenOptionAt(0).textContent();
+      // const firstItemValue = await getHiddenOptionAt(0).textContent();
       await getTrigger().focus();
       await getTrigger().press('ArrowRight');
+      await expect(getValueElement()).toHaveText('Tim');
       await getTrigger().press('ArrowRight');
 
       await getTrigger().press('ArrowLeft');
-      expect(await getValueElement()).toHaveText(firstItemValue!);
+      await expect(getValueElement()).toHaveText('Tim');
       await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
       await expect(getHiddenOptionAt(0)).toHaveAttribute('data-highlighted');
     });
@@ -1002,7 +1004,26 @@ test.describe('Props', () => {
   });
 });
 
+/** TODO: add docs telling people how to add an aria-label to the root component. (accessible name) */
 test.describe('A11y', () => {
+  test('Axe Validation Test', async ({ page }) => {
+    const { openListbox } = await setup(page, 'hero');
+
+    const initialResults = await new AxeBuilder({ page })
+      .include('[role="combobox"]')
+      .analyze();
+
+    expect(initialResults.violations).toEqual([]);
+
+    await openListbox('click');
+
+    const afterClickResults = await new AxeBuilder({ page })
+      .include('[role="combobox"]')
+      .analyze();
+
+    expect(afterClickResults.violations).toEqual([]);
+  });
+
   test(`GIVEN a select with a group
         WHEN the user adds a new group
         THEN the group should have an aria-labelledby attribute

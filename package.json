@@ -32,12 +32,15 @@
     "story.headless": "nx storybook headless",
     "test.cli": "nx test cli",
     "test.headless": "nx component-test headless",
+    "test.visual.headless": "nx visual-test headless",
     "test.pw.headless": "nx e2e headless",
+    "test.pw.headless.ci": "nx e2e headless",
     "test.headless.ci": "nx component-test-ci headless",
     "test.utils": "nx test utils"
   },
   "packageManager": "pnpm@8.7.0",
   "devDependencies": {
+    "@axe-core/playwright": "4.8.5",
     "@builder.io/qwik": "^1.4.0",
     "@builder.io/qwik-city": "^1.4.0",
     "@builder.io/qwik-react": "0.5.3",
@@ -217,6 +220,5 @@
   ],
   "nx": {
     "includedScripts": []
-  },
-  "dependencies": {}
+  }
 }
