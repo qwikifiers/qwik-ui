@@ -1,7 +1,8 @@
 import { ClassList, PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { CodeCopy } from '../code-copy/code-copy';
-import { codeToHtml } from 'shiki';
+import { getHighlighterCore } from 'shiki';
 import { cn } from '@qwik-ui/utils';
+import getWasm from 'shiki/wasm';
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
@@ -36,7 +37,20 @@ export const Highlight = component$(
         modifiedCode = partsOfCode[0];
       }
 
-      const str = await codeToHtml(modifiedCode, {
+      const highlighter = await getHighlighterCore({
+        themes: [
+          // or a dynamic import if you want to do chunk splitting
+          import('shiki/themes/poimandres.mjs'),
+        ],
+        langs: [
+          import('shiki/langs/html.mjs'),
+          import('shiki/langs/tsx.mjs'),
+          import('shiki/langs/css.mjs'),
+        ],
+        loadWasm: getWasm,
+      });
+
+      const str = highlighter.codeToHtml(modifiedCode, {
         lang: language,
         themes: {
           light: 'poimandres',
