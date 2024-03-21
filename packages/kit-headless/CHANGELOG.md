@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.3
+
+### Patch Changes
+
+- 🐞🩹 select component now has a flexible hierarchy (by [@thejackshelton](https://github.com/thejackshelton) in [#659](https://github.com/qwikifiers/qwik-ui/pull/659))
+
+- ✨ carousel hits draft status! (by [@thejackshelton](https://github.com/thejackshelton) in [#649](https://github.com/qwikifiers/qwik-ui/pull/649))
+
 ## 0.3.2
 
 ### Patch Changes
