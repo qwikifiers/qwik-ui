@@ -1,5 +1,11 @@
 # @qwik-ui/styled
 
+## 0.0.4
+
+### Patch Changes
+
+- FEAT add experimental styled card image (by [@maiieul](https://github.com/maiieul) in [#651](https://github.com/qwikifiers/qwik-ui/pull/651))
+
 ## 0.0.3
 
 ### Patch Changes
