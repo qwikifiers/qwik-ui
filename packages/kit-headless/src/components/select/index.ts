@@ -7,3 +7,4 @@ export * from './select-trigger';
 export * from './select-value';
 export * from './select-group';
 export * from './select-label';
+export * from './hidden-select';

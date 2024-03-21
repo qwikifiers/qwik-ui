@@ -6,6 +6,7 @@ export type Opt = {
   isDisabled: boolean;
   value: string;
   displayValue?: string;
+  index: number;
 };
 
 /*
@@ -55,6 +56,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
           isDisabled,
           value,
           displayValue: child.props.children as string,
+          index: currentIndex,
         };
 
         opts.push(opt);
@@ -69,21 +71,11 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
       }
 
       default: {
-        // Qwik components
-        if (child && child.props) {
-          const componentChildren = Array.isArray(child.props.children)
-            ? [...child.props.children]
-            : [child.props.children];
-          childrenToProcess.unshift(...componentChildren);
-        }
-
-        // regular JSX nodes
-        if (typeof child.type === 'string' && child.children !== undefined) {
-          const nodeChildren = Array.isArray(child.children)
+        if (child) {
+          const anyChildren = Array.isArray(child.children)
             ? [...child.children]
             : [child.children];
-
-          childrenToProcess.unshift(...(nodeChildren as JSXNode[]));
+          childrenToProcess.unshift(...(anyChildren as JSXNode[]));
         }
 
         break;
