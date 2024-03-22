@@ -1,65 +1,24 @@
 import {
-  PropFunction,
   PropsOf,
-  QwikChangeEvent,
+  Signal,
   Slot,
   component$,
+  useContextProvider,
+  useSignal,
 } from '@builder.io/qwik';
+import { CheckboxContext } from './context-id';
 
-export type LabelProps = PropsOf<'label'>;
+export type CheckboxProps = {
+  checkBoxSig?: Signal<boolean>;
+} & PropsOf<'div'>;
 
-export const Label = component$(({ ...props }: LabelProps) => {
+export const MyCheckbox = component$<CheckboxProps>((props) => {
+  const defaultSig = useSignal(true);
+  const appliedSig = props.checkBoxSig ?? defaultSig;
+  useContextProvider(CheckboxContext, appliedSig);
   return (
-    <label {...props}>
+    <div role="checkbox" aria-checked={`${appliedSig.value}`} {...props}>
       <Slot />
-    </label>
+    </div>
   );
 });
-
-export type CheckboxProps = PropsOf<'input'> & {
-  checked?: boolean;
-  disabled?: boolean;
-  name?: string;
-  ariaLabel?: string;
-  id?: string;
-  value?: string;
-  tabIndex?: number;
-  onChange$?: PropFunction<
-    (event: QwikChangeEvent<HTMLInputElement>, element: HTMLInputElement) => void
-  >;
-};
-
-export const Root = component$(
-  ({
-    checked,
-    disabled,
-    name,
-    ariaLabel,
-    id,
-    value,
-    tabIndex,
-    onChange$,
-    ...props
-  }: CheckboxProps) => {
-    return (
-      <input
-        type="checkbox"
-        role="checkbox"
-        checked={checked}
-        disabled={disabled}
-        name={name}
-        id={id}
-        aria-label={ariaLabel}
-        aria-checked={checked}
-        value={value}
-        tabIndex={tabIndex}
-        onChange$={(event, element) => {
-          if (onChange$) {
-            onChange$(event, element);
-          }
-        }}
-        {...props}
-      />
-    );
-  },
-);
