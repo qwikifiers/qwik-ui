@@ -15,22 +15,24 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().getByRole('listbox');
   };
 
-  const getOptions = (options?: { evenIfHidden?: boolean }) => {
-    return getRoot().getByRole('option', { includeHidden: options?.evenIfHidden });
+  // we use data-option so that it doesn't grab native select options.
+  const getOptions = () => {
+    return getRoot().locator('[data-option]');
   };
 
-  const getOptionsLength = async (options?: { evenIfHidden?: boolean }) => {
-    return getOptions({ evenIfHidden: options?.evenIfHidden }).count();
+  const getOptionsLength = async () => {
+    return getOptions().count();
   };
 
   const getOptionAt = (index: number | 'last') => {
     if (index === 'last') return getOptions().last();
     return getOptions().nth(index);
+    //
   };
 
   const getHiddenOptionAt = (index: number | 'last') => {
-    if (index === 'last') return getOptions({ evenIfHidden: true }).last();
-    return getOptions({ evenIfHidden: true }).nth(index);
+    if (index === 'last') return getOptions().last();
+    return getOptions().nth(index);
   };
 
   const getValueElement = () => {
