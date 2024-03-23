@@ -35,7 +35,7 @@ export default component$(() => {
         >
           <ComboboxControl class="rounded-base relative flex items-center border">
             <ComboboxInput
-              class="px-d2 placeholder:text-muted-foreground rounded-base w-fit px-2 pr-6"
+              class="px-d2 placeholder:text-muted-foreground bg-background rounded-base w-fit px-2 pr-6"
               onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
             />
             <ComboboxTrigger class="group absolute right-0 h-6 w-6">
@@ -44,7 +44,7 @@ export default component$(() => {
           </ComboboxControl>
           <ComboboxPopover hide="escaped" gutter={8}>
             <ComboboxListbox
-              class="rounded-base w-fit border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
+              class="rounded-base w-fit border-[1px] border-slate-400 px-4 py-2 dark:bg-slate-900 dark:text-white"
               optionRenderer$={(option: ResolvedOption, index: number) => (
                 <ComboboxOption
                   key={option.key}
