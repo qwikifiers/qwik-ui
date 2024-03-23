@@ -55,7 +55,7 @@ export default component$(() => {
       </ComboboxControl>
       <ComboboxPopover class="rounded-sm" gutter={8}>
         <ComboboxListbox
-          class="rounded-base w-44 border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
+          class="rounded-base w-44 border-[1px] border-slate-400 px-4 py-2 dark:bg-slate-900 dark:text-white"
           optionRenderer$={(option: ResolvedOption, index: number) => {
             const myData = option.option as MyData;
             return (
