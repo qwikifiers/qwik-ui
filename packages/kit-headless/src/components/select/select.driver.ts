@@ -27,7 +27,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getOptionAt = (index: number | 'last') => {
     if (index === 'last') return getOptions().last();
     return getOptions().nth(index);
-    //
   };
 
   const getHiddenOptionAt = (index: number | 'last') => {
