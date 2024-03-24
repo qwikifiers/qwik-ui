@@ -1,26 +1,3 @@
----
-title: Qwik UI | Styled Breadcrumb Component
----
-
-import { statusByComponent } from '~/_state/component-statuses';
-
-<StatusBanner status={statusByComponent.styled.Breadcrumb} />
-
-# Breadcrumb
-
-Displays the path to the current resource using a hierarchy of links.
-
-<Showcase name="primary" />
-
-## Installation
-
-### Run the following cli command or copy/paste the component code into your project
-
-```sh
-qwik-ui add breadcrumb
-```
-
-```tsx
 import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { LuChevronRight } from '@qwikest/icons/lucide';
@@ -105,28 +82,3 @@ export {
   BreadcrumbSeparator,
   BreadcrumbPage,
 };
-```
-
-## Usage
-
-```tsx
-import { Breadcrumb } from '@qwik-ui/styled';
-```
-
-```tsx
-<Breadcrumb>
-  <BreadcrumbList>
-    <BreadcrumbItem>
-      <BreadcrumbLink href="/">Home</BreadcrumbLink>
-    </BreadcrumbItem>
-    <BreadcrumbSeparator />
-    <BreadcrumbItem>
-      <BreadcrumbLink href="/">Components</BreadcrumbLink>
-    </BreadcrumbItem>
-    <BreadcrumbSeparator />
-    <BreadcrumbItem>
-      <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-    </BreadcrumbItem>
-  </BreadcrumbList>
-</Breadcrumb>
-```

@@ -14,9 +14,10 @@
 ## Components
 
 - [Accordion](/docs/styled/accordion)
-- [Avatar](/docs/styled/avatar)
 - [Alert](/docs/styled/alert)
+- [Avatar](/docs/styled/avatar)
 - [Badge](/docs/styled/badge)
+- [Breadcrumb](/docs/styled/breadcrumb)
 - [Button](/docs/styled/button)
 - [Card](/docs/styled/card)
 - [Checkbox](/docs/styled/checkbox)
