@@ -20,7 +20,6 @@ export default component$(() => {
           class="h-full w-full bg-slate-700"
           style={{
             transform: `translateX(-${100 - progress.value}%)`,
-            transition: 'transform 0.3s',
           }}
         />
       </Progress.Root>
