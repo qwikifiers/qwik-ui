@@ -1,0 +1,66 @@
+---
+title: Qwik UI | Styled Avatar Component
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.styled.Sonner} />
+
+# Sonner
+
+An opinionated toast component for Qwik.
+
+<Showcase name="hero" />
+
+## Installation
+
+### Run the following cli command or copy/paste the component code into your project
+
+```sh
+qwik-ui add sonner
+```
+
+### Add the Toaster component
+
+src/root.tsx
+
+```tsx
+import { Toaster } from './components/ui/sonner/sonner';
+
+import { component$ } from '@builder.io/qwik';
+import {
+  QwikCityProvider,
+  RouterOutlet,
+  ServiceWorkerRegister,
+} from '@builder.io/qwik-city';
+import { RouterHead } from './components/router-head/router-head';
+
+import './global.css';
+
+export default component$(() => {
+  return (
+    <QwikCityProvider>
+      <head>
+        <meta charSet="utf-8" />
+        <link rel="manifest" href="/manifest.json" />
+        <RouterHead />
+      </head>
+      <body lang="en">
+        <RouterOutlet />
+        <ServiceWorkerRegister />
+        <Toaster /> /* Add the Toaster Component /*
+      </body>
+    </QwikCityProvider>
+  );
+});
+```
+
+## Usage
+
+```tsx
+import { toast } from 'qwik-sonner';
+```
+
+```tsx
+toast('Event has been created.');
+```

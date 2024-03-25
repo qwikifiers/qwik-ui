@@ -12,7 +12,7 @@ import docsStyles from './docs.css?inline';
 import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
-import { ScrollArea } from '@qwik-ui/styled';
+import { ScrollArea, Toaster } from '@qwik-ui/styled';
 
 export default component$(() => {
   const { headings } = useContent();
@@ -46,6 +46,7 @@ export default component$(() => {
           </div>
         </div>
       </MDXProvider>
+      <Toaster />
       <footer></footer>
     </>
   );

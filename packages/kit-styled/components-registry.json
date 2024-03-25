@@ -92,6 +92,12 @@
       "files": ["skeleton.tsx"]
     },
     {
+      "displayName": "Sonner",
+      "type": "sonner",
+      "componentFolder": "sonner",
+      "files": ["sonner.tsx"]
+    },
+    {
       "displayName": "Tabs",
       "type": "tabs",
       "componentFolder": "tabs",

@@ -1,5 +1,8 @@
 {
   "name": "@qwik-ui/website",
   "description": "The Qwik UI Website",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "qwik-sonner": "0.2.2"
+  }
 }

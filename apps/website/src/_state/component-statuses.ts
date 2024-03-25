@@ -27,6 +27,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     RadioGroup: ComponentStatus.Draft,
     Separator: ComponentStatus.Beta,
     Skeleton: ComponentStatus.Beta,
+    Sonner: ComponentStatus.Draft,
     Tabs: ComponentStatus.Beta,
     Textarea: ComponentStatus.Draft,
   },
