@@ -4,9 +4,63 @@ title: Qwik UI | Styled Toast Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+<StatusBanner status={statusByComponent.styled.Toast} />
+
 # Toast
 
-Nothing like a smell of breakfast in the morning. That's why we like the Qwik UI Styled toast component.
-It will make your app look delicious while keeping your users informed, like on what they can have for desert! nom nom nom...
+A succinct message that is displayed temporarily.
 
-<StatusBanner status={statusByComponent.styled.Toast} />
+<Showcase name="hero" />
+
+## Installation
+
+### Run the following cli command or copy/paste the component code into your project
+
+```sh
+qwik-ui add toast
+```
+
+### Add the Toaster component
+
+src/root.tsx
+
+```tsx
+import { Toaster } from './components/ui/toast/toast';
+
+import { component$ } from '@builder.io/qwik';
+import {
+  QwikCityProvider,
+  RouterOutlet,
+  ServiceWorkerRegister,
+} from '@builder.io/qwik-city';
+import { RouterHead } from './components/router-head/router-head';
+
+import './global.css';
+
+export default component$(() => {
+  return (
+    <QwikCityProvider>
+      <head>
+        <meta charSet="utf-8" />
+        <link rel="manifest" href="/manifest.json" />
+        <RouterHead />
+      </head>
+      <body lang="en">
+        <RouterOutlet />
+        <ServiceWorkerRegister />
+        <Toaster /> /* Add the Toaster Component /*
+      </body>
+    </QwikCityProvider>
+  );
+});
+```
+
+## Usage
+
+```tsx
+import { toast } from 'qwik-sonner';
+```
+
+```tsx
+toast('Event has been created.');
+```

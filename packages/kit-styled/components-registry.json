@@ -92,10 +92,10 @@
       "files": ["skeleton.tsx"]
     },
     {
-      "displayName": "Sonner",
-      "type": "sonner",
-      "componentFolder": "sonner",
-      "files": ["sonner.tsx"]
+      "displayName": "Toast",
+      "type": "toast",
+      "componentFolder": "toast",
+      "files": ["toast.tsx"]
     },
     {
       "displayName": "Tabs",

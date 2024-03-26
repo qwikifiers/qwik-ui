@@ -7,7 +7,6 @@ export default component$(() => {
     <div>
       <Button
         onClick$={() => {
-          console.log('clicked');
           toast('Event has been created', {
             description: 'Sunday, December 03, 2023 at 9:00 AM',
             action: {
