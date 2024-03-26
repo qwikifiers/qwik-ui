@@ -9,15 +9,22 @@ import {
 import { ProgressContext } from './progress-context';
 
 type ProgressProps = {
+  /** Maximum value of the progress bar.**/
   max?: number;
+
+  /** Current value of the progress bar. **/
   value?: number;
+
+  /** Callback to get the label for the current value. **/
   getValueLabel?(value: number, max: number): string;
 };
 
 type ProgressElement = PropsOf<'div'>;
+
+/** Default max value for progress bar **/
 const DEFAULT_MAX = 100;
 
-export const Root = component$<ProgressProps & ProgressElement>((props) => {
+export const Progress = component$<ProgressProps & ProgressElement>((props) => {
   const {
     max: mapProp,
     value: valueProp,
@@ -38,7 +45,8 @@ export const Root = component$<ProgressProps & ProgressElement>((props) => {
       aria-valuenow={isNumber(value) ? value : undefined}
       aria-valuetext={valueLabel}
       role="progressbar"
-      data-state={getProgressState(value, max)}
+      title="progress-bar"
+      data-progress={getProgressState(value, max)}
       data-value={value ?? undefined}
       data-max={max}
       {...progressProps}
