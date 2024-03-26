@@ -15,6 +15,7 @@ export const CollapsibleContent = component$((props: CollapsibleContentProps) =>
   const context = useContext(collapsibleContextId);
   const isHiddenSig = useSignal<boolean>(false);
   const isAnimatedSig = useSignal<boolean>(false);
+  const contentId = `${context.itemId}-content`;
 
   const hideContent$ = $(() => {
     if (!context.isOpenSig.value) {
@@ -53,6 +54,8 @@ export const CollapsibleContent = component$((props: CollapsibleContentProps) =>
     <div
       {...props}
       ref={context.contentRef}
+      id={contentId}
+      data-collapsible-content
       data-state={
         context.initialStateSig.value
           ? 'initial'
@@ -64,7 +67,9 @@ export const CollapsibleContent = component$((props: CollapsibleContentProps) =>
       onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
       hidden={isAnimatedSig.value ? isHiddenSig.value : !context.isOpenSig.value}
     >
-      <Slot />
+      <div ref={context.contentChildRef}>
+        <Slot />
+      </div>
     </div>
   );
 });

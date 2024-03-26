@@ -6,6 +6,7 @@ export interface CollapsibleContext {
   defaultOpen: boolean | undefined;
   triggerRef: Signal<HTMLButtonElement | undefined>;
   contentRef: Signal<HTMLElement | undefined>;
+  contentChildRef: Signal<HTMLElement | undefined>;
   contentHeightSig: Signal<number | null>;
   initialStateSig: Signal<boolean>;
   getContentDimensions$: QRL<() => void>;

@@ -28,7 +28,7 @@ export const CollapsibleTrigger = component$<PropsOf<'button'>>(
             : 'closed'
         }
         aria-expanded={context.isOpenSig.value}
-        aria-controls={context.isOpenSig.value ? contentId : undefined}
+        aria-controls={contentId}
         onClick$={[context.getContentDimensions$, handleClick$, onClick$]}
       >
         <Slot />

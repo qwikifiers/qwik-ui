@@ -10,7 +10,9 @@ export default component$(() => {
       <p>state: {openSig.value ? 'true' : 'false'}</p>
       <Collapsible bind:isOpen={openSig}>
         <CollapsibleTrigger>I am trigger 1!</CollapsibleTrigger>
-        <CollapsibleContent class="animation">I am the content 1!</CollapsibleContent>
+        <CollapsibleContent class="collapsible-content">
+          I am the content 1!
+        </CollapsibleContent>
       </Collapsible>
       <button
         class="rounded-base bg-slate-500 px-2 py-3 text-white"

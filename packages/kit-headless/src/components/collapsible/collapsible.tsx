@@ -26,6 +26,7 @@ export const Collapsible = component$((props: CollapsibleProps) => {
 
   const triggerRef = useSignal<HTMLButtonElement>();
   const contentRef = useSignal<HTMLElement>();
+  const contentChildRef = useSignal<HTMLElement>();
   const initialStateSig = useSignal<boolean>(true);
 
   const contentHeightSig = useSignal<number | null>(null);
@@ -34,16 +35,27 @@ export const Collapsible = component$((props: CollapsibleProps) => {
   const itemId = id || localId;
 
   const getContentDimensions$ = $(() => {
-    if (!contentRef.value) {
+    if (!contentRef.value || !contentChildRef.value) {
       throw new Error(
         'Qwik UI: There is no reference to the collapsible content element. Make sure to wrap the content in a <CollapsibleContent> component.',
       );
     }
 
-    const height = getHiddenHeight(contentRef.value);
+    const { padding, border } = window.getComputedStyle(contentRef.value);
 
-    if (height !== 0) {
-      contentHeightSig.value = height;
+    // the animation breaks when padding is set, because the height is not initially 0.
+    if (padding !== '0px') {
+      contentRef.value.style.padding = '0';
+      contentChildRef.value.style.padding = padding;
+    }
+
+    if (!border.includes('0px')) {
+      contentRef.value.style.borderWidth = '0';
+      contentChildRef.value.style.border = border;
+    }
+
+    if (contentHeightSig.value === null) {
+      contentHeightSig.value = getHiddenHeight(contentRef.value);
     }
 
     contentRef.value.style.setProperty(
@@ -58,6 +70,7 @@ export const Collapsible = component$((props: CollapsibleProps) => {
     defaultOpen,
     triggerRef,
     contentRef,
+    contentChildRef,
     contentHeightSig,
     initialStateSig,
     getContentDimensions$,
@@ -67,6 +80,7 @@ export const Collapsible = component$((props: CollapsibleProps) => {
 
   return (
     <div
+      data-collapsible
       id={itemId}
       data-state={
         context.initialStateSig.value
