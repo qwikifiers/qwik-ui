@@ -1,14 +1,14 @@
 export type ProgressState = 'indeterminate' | 'complete' | 'loading';
 
-export function isNumber(value: any): value is number {
+export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
 }
 
-export function isValidMaxNumber(max: any): max is number {
+export function isValidMaxNumber(max: unknown): max is number {
   return isNumber(max) && !isNaN(max) && max > 0;
 }
 
-export function isValidValueNumber(value: any, max: number): value is number {
+export function isValidValueNumber(value: unknown, max: number): value is number {
   return isNumber(value) && !isNaN(value) && value <= max && value >= 0;
 }
 
