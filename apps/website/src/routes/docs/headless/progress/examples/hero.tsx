@@ -1,28 +1,20 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
-import * as Progress from '@qwik-ui/headless';
+import { component$, useStyles$ } from '@builder.io/qwik';
+import { Progress, ProgressIndicator } from '@qwik-ui/headless';
+import styles from '../snippets/progress.css?inline';
 
 export default component$(() => {
-  const progress = useSignal(30);
+  useStyles$(styles);
 
-  useVisibleTask$(() => {
-    setTimeout(() => {
-      progress.value = 50;
-    }, 1000);
-  });
+  const progress = 30;
 
   return (
-    <>
-      <Progress.Root
-        value={progress.value}
-        class="h-7 w-full overflow-hidden rounded-full bg-gray-100"
-      >
-        <Progress.Indicator
-          class="h-full w-full bg-slate-700"
-          style={{
-            transform: `translateX(-${100 - progress.value}%)`,
-          }}
-        />
-      </Progress.Root>
-    </>
+    <Progress value={progress} class="progress">
+      <ProgressIndicator
+        class="progress-indicator"
+        style={{
+          transform: `translateX(-${100 - progress}%)`,
+        }}
+      />
+    </Progress>
   );
 });
