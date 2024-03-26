@@ -33,12 +33,12 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN a hero select
         WHEN clicking on the trigger
         THEN open up the listbox AND aria-expanded should be true`, async ({ page }) => {
-    const { getTrigger, getListbox } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'hero');
 
-    await getTrigger().click();
+    await d.getTrigger().click();
 
-    await expect(getListbox()).toBeVisible();
-    await expect(getTrigger()).toHaveAttribute('aria-expanded', 'true');
+    await expect(d.getListbox()).toBeVisible();
+    await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
   });
 
   test(`GIVEN a hero select with an open listbox
@@ -101,16 +101,18 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN a select
         WHEN adding new users and selecting a new user
         THEN the new user should be the selected value`, async ({ page }) => {
-    const { getValueElement, getOptionAt, openListbox } = await setup(page, 'add-users');
+    const { driver: d } = await setup(page, 'add-users');
 
     await page.getByRole('button', { name: 'Add Users' }).click();
 
-    await openListbox('click');
+    await expect(d.getOptions()).toHaveCount(8);
+
+    await d.openListbox('click');
     const expectedValue = 'Bob';
 
-    await expect(getOptionAt(7)).toHaveText(expectedValue);
-    await getOptionAt(7).click();
-    await expect(getValueElement()).toHaveText(expectedValue);
+    await expect(d.getOptionAt(7)).toHaveText(expectedValue);
+    await d.getOptionAt(7).click();
+    await expect(d.getValueElement()).toHaveText(expectedValue);
   });
 
   // if we want to add focusing the trigger on blur
@@ -606,11 +608,9 @@ test.describe('Keyboard Behavior', () => {
       // ideally want to refactor this so that even if the test example is changed, the test will still pass, getting it more programmatically.
       const { getRoot, getTrigger } = await setup(page, 'hero');
       await getTrigger().focus();
-      await getTrigger().press('j');
-      const firstJOption = getRoot().getByRole('option', {
-        name: 'Jim',
-        includeHidden: true,
-      });
+      const char = 'j';
+      await getTrigger().press(char);
+      const firstJOption = getRoot().locator('li', { hasText: char }).nth(0);
       await expect(firstJOption).toHaveAttribute('aria-selected', 'true');
       await expect(firstJOption).toHaveAttribute('data-highlighted');
     });

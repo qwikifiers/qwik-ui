@@ -2,9 +2,9 @@ import { expect, type Locator, type Page } from '@playwright/test';
 type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
 export type DriverLocator = Locator | Page;
 
-export function createTestDriver<T extends DriverLocator>(locator: T) {
+export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getRoot = () => {
-    return locator;
+    return rootLocator;
   };
 
   const getTrigger = () => {
@@ -15,11 +15,12 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     return getRoot().getByRole('listbox');
   };
 
-  const getOptions = (evenIfHidden?: boolean) => {
-    return getRoot().getByRole('option', { includeHidden: evenIfHidden });
+  // we use data-option so that it doesn't grab native select options.
+  const getOptions = () => {
+    return getRoot().locator('[data-option]');
   };
 
-  const getOptionsLength = () => {
+  const getOptionsLength = async () => {
     return getOptions().count();
   };
 
@@ -29,8 +30,8 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
   };
 
   const getHiddenOptionAt = (index: number | 'last') => {
-    if (index === 'last') return getOptions(true).last();
-    return getOptions(true).nth(index);
+    if (index === 'last') return getOptions().last();
+    return getOptions().nth(index);
   };
 
   const getValueElement = () => {
@@ -51,11 +52,12 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
   };
 
   return {
-    ...locator,
-    locator,
+    ...rootLocator,
+    locator: rootLocator,
     getRoot,
     getTrigger,
     getListbox,
+    getOptions,
     getOptionsLength,
     getOptionAt,
     getHiddenOptionAt,

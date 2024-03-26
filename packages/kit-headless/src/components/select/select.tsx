@@ -3,17 +3,18 @@ import {
   Signal,
   Slot,
   component$,
-  useComputed$,
-  useContextProvider,
-  useId,
   useSignal,
+  useContextProvider,
   useTask$,
   type QRL,
+  useId,
+  useComputed$,
 } from '@builder.io/qwik';
 import { isBrowser } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
 import { Opt } from './select-inline';
 import { getActiveDescendant } from './utils';
+import { HiddenSelect } from './hidden-select';
 
 export type InternalSelectProps = {
   /** Our source of truth for the options. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
@@ -54,6 +55,21 @@ export type SelectProps = PropsOf<'div'> & {
    *  Enables looped behavior when the user navigates through the options using the arrow keys.
    */
   loop?: boolean;
+
+  /**
+   * The name of the select element, used when submitting an HTML form. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#name).
+   */
+  name?: string;
+
+  /**
+   * Specifies that the user must select a value before submitting the form. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#required).
+   */
+  required?: boolean;
+
+  /**
+   * If `true`, prevents the user from interacting with the select.
+   */
+  disabled?: boolean;
 };
 
 /* root component in select-inline.tsx */
@@ -66,6 +82,9 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       onOpenChange$,
       scrollOptions: givenScrollOptions,
       loop: givenLoop,
+      name,
+      required,
+      disabled,
       ...rest
     } = props;
 
@@ -166,6 +185,12 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
         {...rest}
       >
         <Slot />
+        <HiddenSelect
+          options={_options}
+          name={name}
+          required={required}
+          disabled={disabled}
+        />
       </div>
     );
   },
