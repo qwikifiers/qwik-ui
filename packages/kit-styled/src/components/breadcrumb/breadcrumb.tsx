@@ -16,7 +16,7 @@ const BreadcrumbList = component$<BreadcrumbListProps>((props) => {
   return (
     <ol
       class={cn(
-        'text-muted-foreground flex flex-wrap items-center gap-1.5 break-words text-sm sm:gap-2.5',
+        ' flex flex-wrap items-center gap-1.5 break-words text-sm sm:gap-2.5',
         props.class,
       )}
       {...props}
@@ -39,7 +39,13 @@ type BreadcrumbLinkProps = PropsOf<'a'> & { asChild?: boolean };
 const BreadcrumbLink = component$<BreadcrumbLinkProps>((props) => {
   const Comp = props.asChild ? Slot : 'a';
   return (
-    <Comp class={cn('hover:text-foreground transition-colors', props.class)} {...props}>
+    <Comp
+      class={cn(
+        'text-muted-foreground hover:text-foreground transition-colors',
+        props.class,
+      )}
+      {...props}
+    >
       {!props.asChild && <Slot />}
     </Comp>
   );
@@ -48,13 +54,8 @@ const BreadcrumbLink = component$<BreadcrumbLinkProps>((props) => {
 type BreadcrumbSeparatorProps = PropsOf<'li'>;
 const BreadcrumbSeparator = component$<BreadcrumbSeparatorProps>((props) => {
   return (
-    <li
-      role="presentation"
-      aria-hidden="true"
-      class={cn('[&>svg]:size-3.5', props.class)}
-      {...props}
-    >
-      <LuChevronRight />
+    <li role="presentation" aria-hidden="true" {...props}>
+      <LuChevronRight class="stroke-muted-foreground size-3.5 stroke-2" />
     </li>
   );
 });
