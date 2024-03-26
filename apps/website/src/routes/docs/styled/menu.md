@@ -25,6 +25,7 @@
 - [Label](/docs/styled/label)
 - [Modal](/docs/styled/modal)
 - [Popover](/docs/styled/popover)
+- [Progress](/docs/styled/progress)
 - [RadioGroup](/docs/styled/radio-group)
 - [Separator](/docs/styled/separator)
 - [Skeleton](/docs/styled/skeleton)

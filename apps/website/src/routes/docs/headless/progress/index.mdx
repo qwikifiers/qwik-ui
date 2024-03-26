@@ -1,0 +1,88 @@
+---
+title: Qwik UI | Progress
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+import { FeatureList } from '~/components/feature-list/feature-list';
+import { Note } from '~/components/note/note';
+
+<StatusBanner status={statusByComponent.headless.Progress} />
+
+# Progress
+
+Displays a progress bar related to a task.
+
+<Showcase name="hero" />
+
+Qwik UI's Progress implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/meter) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
+
+<FeatureList
+  features={['Provides context for assistive technology to read the progress of a task.']}
+/>
+
+<div class="mb-6 flex flex-col gap-2">
+[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/progress)
+
+[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
+
+[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/progress/index.mdx>)
+
+</div>
+
+## Building blocks
+
+```tsx
+import { component$ } from '@builder.io/qwik';
+import { Progress, ProgressIndicator } from '@qwik-ui/headless';
+
+export default component$(() => {
+  const progress = 30;
+
+  return (
+    <Progress value={progress} class="progress">
+      <ProgressIndicator
+        class="progress-indicator"
+        style={{
+          transform: `translateX(-${100 - progress}%)`,
+        }}
+      />
+    </Progress>
+  );
+});
+```
+
+## Accessibility
+
+Adheres to the [progressbar role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/meter/).
+
+## API
+
+### Root
+
+Contains all of the progress parts.
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the Progress.',
+    },
+    {
+      name: 'value',
+      type: 'number',
+      description: 'The progress value.',
+    },
+    {
+      name: 'max',
+      type: 'number',
+      description: 'The maximum progress value',
+    },
+    {
+      name: 'getValueLabel',
+      type: 'function',
+      description:
+        'A function to get the accessible label text representing the current value in a human-readable format. If not provided, the value label will be read as the numeric value as a percentage of the max value.',
+    },
+  ]}
+/>
