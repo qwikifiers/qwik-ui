@@ -48,23 +48,26 @@ An interactive component which expands/collapses a panel.
 
 ## Why use a headless collapsible?
 
-## Animation
+One of the most common questions: _"why not use the native `details` and `summary` HTML elements?"_.
 
-<Showcase name="animation" />
+As much as we love the native elements, they come with a couple of problems:
 
-Follows the WAI-ARIA disclosure pattern.
+### Native element pain points
 
 <FeatureList
-  features={[
-    'Can open by default on SSR (without waking up the component!)',
-    'Does not execute until interaction (including programmatically)',
-    'Does not use any visible tasks',
-    'Automatic animation detection (deprecating the `animated` prop)',
-    `Provides a bind:isOpen prop so that users can open or close it however they'd like (controlled)`,
-    'A `defaultOpen` prop to open it by default (uncontrolled)',
-    'Style based on data states. `initial`, `open`, or `closed`',
+  issues={[
+    'Inconsistent accessibility and browser support',
+    'Inconsistent screen reader support',
+    'Hierarchy and DOM structure restrictions',
+    'Lack of full programmatic control',
   ]}
 />
+
+> To read more about the reasons for implementing an ARIA disclosure widget, check out [Scott O'Hara's article](https://www.scottohara.me/blog/2022/09/12/details-summary.html), as well as the [interactive elements](https://html.spec.whatwg.org/multipage/interactive-elements.html#interactive-elements) section of the HTML spec.
+
+## Animating the content
+
+<Showcase name="animation" />
 
 ## Jack's bug watch 🔎:
 
