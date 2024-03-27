@@ -15,6 +15,7 @@ export * from './components/progress/progress';
 export * from './components/radio-group/radio-group';
 export * from './components/separator/separator';
 export * from './components/skeleton/skeleton';
+export * from './components/toast/toast';
 export * from './components/tabs/tabs';
 export * from './components/textarea/textarea';
 export * from './components/toggle/toggle';

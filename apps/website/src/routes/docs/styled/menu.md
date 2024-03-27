@@ -30,5 +30,6 @@
 - [RadioGroup](/docs/styled/radio-group)
 - [Separator](/docs/styled/separator)
 - [Skeleton](/docs/styled/skeleton)
+- [Toast](/docs/styled/toast)
 - [Tabs](/docs/styled/tabs)
 - [Textarea](/docs/styled/textarea)

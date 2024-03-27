@@ -98,6 +98,12 @@
       "files": ["skeleton.tsx"]
     },
     {
+      "displayName": "Toast",
+      "type": "toast",
+      "componentFolder": "toast",
+      "files": ["toast.tsx"]
+    },
+    {
       "displayName": "Tabs",
       "type": "tabs",
       "componentFolder": "tabs",

@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@qwik-ui/headless": "0.3.3",
-    "@qwik-ui/utils": "0.2.1"
+    "@qwik-ui/utils": "0.2.1",
+    "qwik-sonner": "0.2.2"
   }
 }
