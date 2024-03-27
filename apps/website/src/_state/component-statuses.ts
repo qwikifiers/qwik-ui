@@ -15,6 +15,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Avatar: ComponentStatus.Draft,
     Alert: ComponentStatus.Beta,
     Badge: ComponentStatus.Beta,
+    Breadcrumb: ComponentStatus.Draft,
     Button: ComponentStatus.Beta,
     Card: ComponentStatus.Beta,
     Checkbox: ComponentStatus.Draft,

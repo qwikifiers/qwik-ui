@@ -181,6 +181,12 @@ html {
               '2xl': 'var(--shadow-2xl)',
               inner: 'var(--shadow-inner)',
             },
+            strokeWidth: {
+              0: '0',
+              base: 'var(--stroke-width)',
+              1: 'calc(var(--stroke-width) + 1px)',
+              2: 'calc(var(--stroke-width) + 2px)',
+            },
             fontFamily: {
               sans: ['Inter Variable', 'sans-serif'],
             },
@@ -299,6 +305,12 @@ html {
               '2xl': 'var(--shadow-2xl)',
               inner: 'var(--shadow-inner)',
             },
+            strokeWidth: {
+              0: '0',
+              base: 'var(--stroke-width)',
+              1: 'calc(var(--stroke-width) + 1px)',
+              2: 'calc(var(--stroke-width) + 2px)',
+            },
             fontFamily: {
               sans: ['Inter Variable', 'sans-serif'],
             },
@@ -415,6 +427,12 @@ html {
               xl: 'var(--shadow-xl)',
               '2xl': 'var(--shadow-2xl)',
               inner: 'var(--shadow-inner)',
+            },
+            strokeWidth: {
+              0: '0',
+              base: 'var(--stroke-width)',
+              1: 'calc(var(--stroke-width) + 1px)',
+              2: 'calc(var(--stroke-width) + 2px)',
             },
             fontFamily: {
               sans: ['Inter Variable', 'sans-serif'],
