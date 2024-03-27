@@ -11,6 +11,7 @@ export * from './components/modal';
 export * from './components/drawer';
 export * from './components/navigation-bar/navigation-bar';
 export * from './components/pagination/pagination';
+export * from './components/progress';
 export * from './components/popover';
 export * from './components/rating/rating';
 export * from './components/select';

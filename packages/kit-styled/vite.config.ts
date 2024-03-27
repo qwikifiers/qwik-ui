@@ -28,7 +28,7 @@ export default defineConfig({
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
-    target: 'es2020',
+    target: 'es2022',
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',

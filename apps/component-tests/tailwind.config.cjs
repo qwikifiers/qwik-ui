@@ -113,6 +113,12 @@ module.exports = {
         '2xl': 'var(--shadow-2xl)',
         inner: 'var(--shadow-inner)',
       },
+      strokeWidth: {
+        0: '0',
+        base: 'var(--stroke-width)',
+        1: 'calc(var(--stroke-width) + 1px)',
+        2: 'calc(var(--stroke-width) + 2px)',
+      },
       // EXTEND-END
       animation: {
         'accordion-down': '0.2s ease-out 0s 1 normal forwards accordion-open',
