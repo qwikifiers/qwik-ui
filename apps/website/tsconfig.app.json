@@ -5,13 +5,6 @@
     "outDir": "../../dist/out-tsc"
   },
   "files": [],
-  "exclude": [],
-  "include": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/routes/docs/headless/introduction/index.mdx",
-    "tailwind.config.cjs"
-  ]
+  "exclude": ["tailwind.config.cjs"],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }
