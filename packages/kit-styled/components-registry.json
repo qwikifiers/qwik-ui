@@ -26,6 +26,12 @@
       "files": ["badge.tsx"]
     },
     {
+      "displayName": "Breadcrumb",
+      "type": "breadcrumb",
+      "componentFolder": "breadcrumb",
+      "files": ["breadcrumb.tsx"]
+    },
+    {
       "displayName": "Button",
       "type": "button",
       "componentFolder": "button",

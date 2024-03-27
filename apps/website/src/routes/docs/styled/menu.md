@@ -14,9 +14,10 @@
 ## Components
 
 - [Accordion](/docs/styled/accordion)
-- [Avatar](/docs/styled/avatar)
 - [Alert](/docs/styled/alert)
+- [Avatar](/docs/styled/avatar)
 - [Badge](/docs/styled/badge)
+- [Breadcrumb](/docs/styled/breadcrumb)
 - [Button](/docs/styled/button)
 - [Card](/docs/styled/card)
 - [Checkbox](/docs/styled/checkbox)
@@ -25,6 +26,7 @@
 - [Label](/docs/styled/label)
 - [Modal](/docs/styled/modal)
 - [Popover](/docs/styled/popover)
+- [Progress](/docs/styled/progress)
 - [RadioGroup](/docs/styled/radio-group)
 - [Separator](/docs/styled/separator)
 - [Skeleton](/docs/styled/skeleton)
