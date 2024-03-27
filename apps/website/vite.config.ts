@@ -99,6 +99,9 @@ export default defineConfig(async () => {
         allow: ['../../'],
       },
     },
+    build: {
+      target: 'es2022',
+    },
     preview: {
       headers: {
         'Cache-Control': 'public, max-age=600',
