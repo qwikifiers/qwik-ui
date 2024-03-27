@@ -12,7 +12,7 @@ export default component$(() => {
         <span>Trigger</span>
         <SVG />
       </CollapsibleTrigger>
-      <CollapsibleContent class="test-animation collapsible-content">
+      <CollapsibleContent class="collapsible-content collapsible-content-outline ">
         Content
       </CollapsibleContent>
     </Collapsible>

@@ -41,19 +41,6 @@ export const Collapsible = component$((props: CollapsibleProps) => {
       );
     }
 
-    const { padding, border } = window.getComputedStyle(contentRef.value);
-
-    // the animation breaks when padding is set, because the height is not initially 0.
-    if (padding !== '0px') {
-      contentRef.value.style.padding = '0';
-      contentChildRef.value.style.padding = padding;
-    }
-
-    if (!border.includes('0px')) {
-      contentRef.value.style.borderWidth = '0';
-      contentChildRef.value.style.border = border;
-    }
-
     if (contentHeightSig.value === null) {
       contentHeightSig.value = getHiddenHeight(contentRef.value);
     }

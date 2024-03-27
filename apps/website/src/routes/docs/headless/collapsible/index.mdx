@@ -1,6 +1,7 @@
 import { statusByComponent } from '~/_state/component-statuses';
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { Note } from '~/components/note/note';
+import { AnatomyTable } from '~/components/anatomy-table/anatomy-table';
 
 <StatusBanner status={statusByComponent.headless.Collapsible} />
 
@@ -8,9 +9,44 @@ import { Note } from '~/components/note/note';
 
 An interactive component which expands/collapses a panel.
 
-<div data-testid="collapsible-hero-test">
-  <Showcase name="hero" />
-</div>
+<Showcase name="hero" />
+
+## ✨ Features
+
+<FeatureList
+  features={[
+    'Accessible as a button that shows content, following web a11y standards.',
+    'Full keyboard navigation',
+    'Controlled or uncontrolled',
+    'Initial open state does not wake up the component',
+    'Executes on interaction or programmatically',
+  ]}
+/>
+
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Collapsible',
+      description: 'The root container for the Collapsible component.',
+    },
+    {
+      name: 'CollapsibleTrigger',
+      description: 'A button that opens the Collapsible content when interacted with.',
+    },
+    {
+      name: 'CollapsibleContent',
+      description: 'Contains the content associated with a Collapsible.',
+    },
+  ]}
+/>
+
+## Why use a headless collapsible?
 
 ## Animation
 
