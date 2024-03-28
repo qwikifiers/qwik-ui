@@ -3,10 +3,10 @@ import { CheckboxIndicator } from 'packages/kit-headless/src/components/checkbox
 import { MyCheckbox } from 'packages/kit-headless/src/components/checkbox/checkbox';
 
 export default component$(() => {
-  const userSig = useSignal(true);
   return (
     <>
-      <MyCheckbox class="bg-slate-900 text-white" checkBoxSig={userSig}>
+      <p>I'm the default checkbox!!!</p>
+      <MyCheckbox class="bg-slate-900 text-white">
         <div class="flex items-center gap-3">
           <CheckboxIndicator class="w-fit bg-slate-600">
             <img
@@ -19,7 +19,6 @@ export default component$(() => {
           <p>No other stuff is needed here</p>
         </div>
       </MyCheckbox>
-      <div>{`${userSig.value}`}</div>
     </>
   );
 });
