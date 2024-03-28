@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.4
+
+### Patch Changes
+
+- ✨ collapsible hits beta! (by [@thejackshelton](https://github.com/thejackshelton) in [#669](https://github.com/qwikifiers/qwik-ui/pull/669))
+
+- fixed dark mode for combobox and added basic a11y test (by [@cwoolum](https://github.com/cwoolum) in [#662](https://github.com/qwikifiers/qwik-ui/pull/662))
+
 ## 0.3.3
 
 ### Patch Changes
