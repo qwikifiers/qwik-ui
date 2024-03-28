@@ -58,3 +58,24 @@ test.describe('single checkbox behavior', () => {
     await expect(getIcon()).toBeVisible();
   });
 });
+test.describe('checklist behavior', () => {
+  test(`GIVEN a checklist with checkboxes
+        WHEN the elements render
+        THEN the checklist should be a <ul> with  <li>s of checkboxes, all wrapped around a div with a role and aria-labeledby attributes`, async ({
+    page,
+  }) => {
+    const exampleName = 'list';
+    const { getRoot, getIcon } = await setup(page, exampleName);
+  });
+  // test(`GIVEN a checklist with a fist checkbox's value as false
+  //       WHEN the first checkbox is focused and the spacebar is pressed
+  //       IT should have its icon visible`, async ({ page }) => {
+  //   const exampleName = 'default';
+  //   const { getRoot, getIcon } = await setup(page, exampleName);
+  //   await expect(getIcon()).toBeHidden();
+  //   await getRoot().focus();
+  //   await getRoot().press(' ');
+  //   await expect(getRoot()).toHaveAttribute('aria-checked', 'false');
+  //   await expect(getIcon()).toBeVisible();
+  // });
+});
