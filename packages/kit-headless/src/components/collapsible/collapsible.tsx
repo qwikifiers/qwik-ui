@@ -20,10 +20,18 @@ export type CollapsibleProps = PropsOf<'div'> & {
   open?: boolean | undefined;
   'bind:open'?: Signal<boolean>;
   onOpenChange$?: QRL<(open: boolean) => void>;
+  disabled?: boolean;
 };
 
 export const Collapsible = component$((props: CollapsibleProps) => {
-  const { onOpenChange$, 'bind:open': givenIsOpenSig, id, open, ...rest } = props;
+  const {
+    disabled,
+    onOpenChange$,
+    'bind:open': givenIsOpenSig,
+    id,
+    open,
+    ...rest
+  } = props;
 
   const defaultOpenSig = useSignal<boolean>(open ?? false);
   const isOpenSig = givenIsOpenSig ?? defaultOpenSig;
@@ -70,14 +78,16 @@ export const Collapsible = component$((props: CollapsibleProps) => {
     contentRef,
     contentHeightSig,
     getContentDimensions$,
+    disabled,
   };
 
   useContextProvider(collapsibleContextId, context);
 
   return (
     <div
-      data-collapsible
       id={itemId}
+      data-collapsible
+      data-disabled={context.disabled ? '' : undefined}
       data-open={context.isOpenSig.value ? '' : undefined}
       data-closed={!context.isOpenSig.value ? '' : undefined}
       {...rest}

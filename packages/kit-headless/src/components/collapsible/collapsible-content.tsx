@@ -27,7 +27,7 @@ export const CollapsibleContent = component$((props: CollapsibleContentProps) =>
     }
   });
 
-  /* detects if the content is animating */
+  /* detects if the content is animating. on the server everything is "animatable", we then filter out the animations on the client. */
   useTask$(async function automaticAnimations({ track }) {
     track(() => context.isOpenSig.value);
 
@@ -68,6 +68,7 @@ export const CollapsibleContent = component$((props: CollapsibleContentProps) =>
       ref={context.contentRef}
       id={contentId}
       data-collapsible-content
+      data-disabled={context.disabled ? '' : undefined}
       data-open={!initialRenderSig.value && context.isOpenSig.value ? '' : undefined}
       data-closed={!context.isOpenSig.value ? '' : undefined}
       onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}

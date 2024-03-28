@@ -12,6 +12,10 @@
   align-items: center;
 }
 
+.collapsible-trigger[data-disabled] {
+  opacity: 0.3;
+}
+
 .collapsible-trigger[data-open] svg {
   transform: rotate(180deg);
 }

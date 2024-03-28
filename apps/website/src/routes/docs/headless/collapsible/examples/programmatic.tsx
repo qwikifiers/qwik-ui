@@ -1,6 +1,6 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@qwik-ui/headless';
-import styles from './collapsible.css?inline';
+import styles from '../snippets/collapsible.css?inline';
 
 export default component$(() => {
   useStyles$(styles);

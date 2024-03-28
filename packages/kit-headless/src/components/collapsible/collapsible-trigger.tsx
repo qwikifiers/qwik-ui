@@ -16,6 +16,8 @@ export const CollapsibleTrigger = component$<PropsOf<'button'>>(
       <button
         {...props}
         ref={context.triggerRef}
+        disabled={context.disabled}
+        data-disabled={context.disabled ? '' : undefined}
         data-open={context.isOpenSig.value ? '' : undefined}
         data-closed={!context.isOpenSig.value ? '' : undefined}
         aria-expanded={context.isOpenSig.value}
