@@ -8,7 +8,7 @@
 
 .select-trigger {
   width: 100%;
-  border: 2px dashed hsla(var(--primary) / 1);
+  border: 2px dotted hsla(var(--primary) / 1);
   border-radius: calc(var(--border-radius) / 2);
   height: 44px;
 }
@@ -22,7 +22,7 @@
   width: 100%;
   background-color: hsl(var(--background));
   padding: 0.5rem;
-  border: 2px dashed hsla(var(--foreground) / 0.6);
+  border: 2px dotted hsla(var(--foreground) / 0.6);
   border-radius: calc(var(--border-radius) / 2);
   max-width: var(--select-width);
   color: hsl(var(--foreground));
@@ -41,7 +41,7 @@
 }
 
 [data-highlighted] {
-  outline: 2px dashed hsla(var(--primary) / 1);
+  outline: 2px dotted hsla(var(--primary) / 1);
   border-radius: calc(var(--border-radius) / 2);
 }
 
