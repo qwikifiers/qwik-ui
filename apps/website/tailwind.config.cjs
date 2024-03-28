@@ -9,6 +9,7 @@ module.exports = {
     join(__dirname, '../website/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-styled/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-headless/src/**/*.{js,ts,jsx,tsx,mdx}'),
+    join(__dirname, '../../packages/kit-headless/src/**/*.test.*.{js,ts,jsx,tsx,mdx}'),
   ],
   plugins: [
     require('tailwindcss-animate'),
