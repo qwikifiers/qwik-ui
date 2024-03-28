@@ -2,22 +2,22 @@ import {
   Signal,
   component$,
   useContext,
-  useContextProvider,
-  $,
-  useSignal,
   PropsOf,
   Slot,
-  sync$,
+  useComputed$,
+  useSignal,
+  useTask$,
 } from '@builder.io/qwik';
 import { CheckboxContext } from './context-id';
+import { get } from 'cypress/types/lodash';
 
 export type CheckboxIndicatorProps = {} & PropsOf<'div'>;
 
 export const CheckboxIndicator = component$<CheckboxIndicatorProps>((props) => {
-  function getClass(boolSig: Signal<boolean>) {
+  function getClass(bool: boolean) {
     console.log('chanign lol');
 
-    if (boolSig.value) {
+    if (bool) {
       const className = 'block';
       return className;
     }
@@ -25,20 +25,13 @@ export const CheckboxIndicator = component$<CheckboxIndicatorProps>((props) => {
     return className;
   }
   const checkSig = useContext(CheckboxContext);
-  const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
-    if (e.key === ' ') {
-      e.preventDefault();
-    }
-  });
-  const handleKeyDown$ = $((e: KeyboardEvent) => {
-    if (e.key === ' ') {
-      checkSig.value = !checkSig.value;
-    }
-  });
-  const appliedClass = getClass(checkSig);
+  getClass(checkSig.value);
+  // const classSig = useComputed$(() => {
+  //   return getClass(checkSig.value);
+  // });
   return (
-    <div {...props} tabIndex={0} onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}>
-      <div class={appliedClass}>
+    <div {...props}>
+      <div class={checkSig.value ? 'visible' : 'invisible'}>
         <Slot />
       </div>
     </div>
