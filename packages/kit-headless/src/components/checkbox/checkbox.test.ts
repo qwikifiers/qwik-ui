@@ -35,7 +35,7 @@ test.describe('single checkbox behavior', () => {
       await expect(getRoot()).toHaveAttribute('aria-checked', 'false');
     });
 
-  test.only(`GIVEN a checkbox with a user sig value of true
+  test(`GIVEN a checkbox with a user sig value of true
         WHEN the checkbox is focused and the spacebar is pressed
         IT should have its icon hidden`, async ({ page }) => {
     const exampleName = 'hero';
@@ -45,5 +45,16 @@ test.describe('single checkbox behavior', () => {
     await getRoot().press(' ');
     await expect(getRoot()).toHaveAttribute('aria-checked', 'false');
     await expect(getIcon()).toBeHidden();
+  });
+  test(`GIVEN a default checkbox with a default sig value of false
+        WHEN the checkbox is focused and the spacebar is pressed
+        IT should have its icon visible`, async ({ page }) => {
+    const exampleName = 'default';
+    const { getRoot, getIcon } = await setup(page, exampleName);
+    await expect(getIcon()).toBeHidden();
+    await getRoot().focus();
+    await getRoot().press(' ');
+    await expect(getRoot()).toHaveAttribute('aria-checked', 'false');
+    await expect(getIcon()).toBeVisible();
   });
 });
