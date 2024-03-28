@@ -92,10 +92,14 @@ The native `<select>` HTML element encounters significant obstacles in terms of 
 
 ### Native select pain points
 
-- **Styling Limitations**: Customizing the appearance of a native select element is notoriously difficult, leading to inconsistent designs across different platforms.
-- **Multiselect Complexity**: The native multiselect feature is not intuitive, especially for non-technical users, as it requires the use of control or command keys to select multiple options.
-- **Limited Typeahead Support**: Native select elements offer minimal support for finding options by typing, making it harder for users to quickly find options.
-- **Inconsistent Behavior**: There's a lack of consistency in behavior and styling of the select element across different browsers and devices.
+<FeatureList
+  issues={[
+    'Styling Limitations',
+    'Multiselect Complexity',
+    'Limited Typeahead Support',
+    'Inconsistent Behavior across browsers and devices',
+  ]}
+/>
 
 ### Native effort
 
@@ -264,14 +268,6 @@ The consumer misspelled the the value, and so the fallback is displayed.
 ## Forms
 
 <Showcase name="form" />
-
-## Example CSS
-
-Every code example uses the following CSS:
-
-<CodeSnippet name="select.css" />
-
-Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
 
 ## Example CSS
 
