@@ -19,6 +19,7 @@ An interactive component which expands/collapses a panel.
     'Full keyboard navigation',
     'Controlled or uncontrolled',
     'Initial open state does not wake up the component',
+    'Automatic animation detection',
     'Executes on interaction or programmatically',
   ]}
 />
@@ -69,73 +70,24 @@ As much as we love the native elements, they come with a couple of problems:
 
 <Showcase name="animation" />
 
-## Jack's bug watch 🔎:
+### Why does padding or border break the animation?
 
-<strong style={{ color: 'red' }}>BUG:</strong> Refresh the page and click on programmatic toggle.
-The animation does not work.
+Padding or border applied to `CollapsibleContent` breaks height animations. This is because the content height has changed.
+
+To fix this, add a child element to the content, and set the padding or border on that element.
+
+> Rather than dealing with this under the hood, we thought it'd be appropriate to keep style management as simple as possible. Let us know if you have a better solution!
+
+## Component State
+
+### Uncontrolled / Initial value
+
+<Showcase name="open" />
+
+### Controlled / Reactive value
 
 <Showcase name="programmatic" />
 
-<strong style={{ color: 'red' }}>BUG:</strong> resize the window after closing and opening
-the collapsible. (content height does not resize)
+### Handling open / close
 
-<Showcase name="no-animation" />
-
-<strong style={{ color: 'red' }}>BUG:</strong> watch the animation. Issue explained further
-below.
-
-<Showcase name="padding" />
-
-## Hey Qwik developers!
-
-Qwik UI is already on the path to a library that gives you the features you know and love with other headless libraries (hopefully more functionality), with the performance of _just_ grabbing html on the page.
-
-To work towards this, I have been working on a new primitive to rebuild the accordion from the ground up. (which currently uses visible tasks)
-
-<Note status="warning">
-  Unfortunately, I don't have the time right now to complete it, but we are _basically
-  80%_ there. Would really appreciate some help on this. It still needs tests (many of
-  which can be taken from the accordion).
-</Note>
-
-It is a collapsible or [disclosure component](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/), similar to native html's `details & summary` tags. Unfortunately, the accessibility for these native elements is very flaky, and thus, this component is needed.
-
-Not only does it benefit this component, but also the performance of the accordion (which would be built on top of this).
-
-### What I'd like to add:
-
-<FeatureList
-  features={[
-    'An `onOpenChange$` prop function that runs when the collapsible has opened or closed',
-  ]}
-/>
-
-## There are two minor bugs:
-
-### **BUG #1:**
-
-We currently detect automatic animations with the `getComputedStyle` API. Unfortunately, this is on the client, and so we do not get an animation if:
-
-- was loaded on SSR **AND** open by default
-
-I was however, able to make it work when clicking the actual button's trigger with a 1ms setTimeout inside the `handleClick$`, but it is still a problem with programmatic behavior.
-
-We need to figure out how to detect the animation with SSR **OR** use a different way of animating. I briefly tried using `requestAnimationFrame` as an alternative.
-
-> My current thoughts are, setting it as an animated collapsible on the server, but then setting it back to false on the client when resumed if it does not have an animation (the current logic for that does not work)
-
-[where the issue is](https://github.com/thejackshelton/collapsible/blob/main/src/components/collapsible/collapsible-content.tsx#L27)
-
-### **BUG #2:**
-
-If you close and open the collapsible again, try resizing the window, notice that the container does not adjust its height to match its content.
-
-[where the issue is](https://github.com/thejackshelton/collapsible/blob/main/src/components/collapsible/collapsible-trigger.tsx#L16)
-
-> You can see visuals of the problems [on discord here.](https://discord.com/channels/990511757091033108/1040763063533588562/1193628593088106496)
-
-The overall component is relatively small, around 250 lines of code.
-
-### **BUG #3:**
-
-Padding currently breaks height animations. This is because the padding is applied to the content, and the content is animated. This causes the content to animate from the padding, which is not the desired effect. :facepalm
+<Showcase name="open-change" />

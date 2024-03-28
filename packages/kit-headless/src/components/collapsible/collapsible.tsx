@@ -6,36 +6,46 @@ import {
   useSignal,
   $,
   type Signal,
-  PropsOf,
+  type PropsOf,
+  type QRL,
+  useTask$,
 } from '@builder.io/qwik';
 import { collapsibleContextId } from './collapsible-context-id';
 import { type CollapsibleContext } from './collapsible-context.type';
 import { getHiddenHeight } from '../../utils/get-hidden-height';
+import { isBrowser } from '@builder.io/qwik/build';
 
 export type CollapsibleProps = PropsOf<'div'> & {
-  defaultOpen?: boolean | undefined;
   id?: string;
-  'bind:isOpen'?: Signal<boolean | undefined>;
+  open?: boolean | undefined;
+  'bind:open'?: Signal<boolean>;
+  onOpenChange$?: QRL<(open: boolean) => void>;
 };
 
 export const Collapsible = component$((props: CollapsibleProps) => {
-  const { 'bind:isOpen': givenIsOpenSig, id, defaultOpen, ...rest } = props;
+  const { onOpenChange$, 'bind:open': givenIsOpenSig, id, open, ...rest } = props;
 
-  const defaultOpenSig = useSignal<boolean>(defaultOpen ?? false);
+  const defaultOpenSig = useSignal<boolean>(open ?? false);
   const isOpenSig = givenIsOpenSig ?? defaultOpenSig;
 
   const triggerRef = useSignal<HTMLButtonElement>();
   const contentRef = useSignal<HTMLElement>();
-  const contentChildRef = useSignal<HTMLElement>();
-  const initialStateSig = useSignal<boolean>(true);
 
   const contentHeightSig = useSignal<number | null>(null);
 
   const localId = useId();
   const itemId = id || localId;
 
+  useTask$(function onOpenChangeTask({ track }) {
+    track(() => isOpenSig.value);
+
+    if (isBrowser) {
+      onOpenChange$?.(isOpenSig.value);
+    }
+  });
+
   const getContentDimensions$ = $(() => {
-    if (!contentRef.value || !contentChildRef.value) {
+    if (!contentRef.value) {
       throw new Error(
         'Qwik UI: There is no reference to the collapsible content element. Make sure to wrap the content in a <CollapsibleContent> component.',
       );
@@ -45,21 +55,20 @@ export const Collapsible = component$((props: CollapsibleProps) => {
       contentHeightSig.value = getHiddenHeight(contentRef.value);
     }
 
-    contentRef.value.style.setProperty(
-      '--qwikui-collapsible-content-height',
-      `${contentHeightSig.value}px`,
-    );
+    if (contentHeightSig.value !== 0) {
+      contentRef.value.style.setProperty(
+        '--qwikui-collapsible-content-height',
+        `${contentHeightSig.value}px`,
+      );
+    }
   });
 
   const context: CollapsibleContext = {
     isOpenSig,
     itemId,
-    defaultOpen,
     triggerRef,
     contentRef,
-    contentChildRef,
     contentHeightSig,
-    initialStateSig,
     getContentDimensions$,
   };
 
@@ -69,13 +78,8 @@ export const Collapsible = component$((props: CollapsibleProps) => {
     <div
       data-collapsible
       id={itemId}
-      data-state={
-        context.initialStateSig.value
-          ? 'initial'
-          : context.isOpenSig.value
-          ? 'open'
-          : 'closed'
-      }
+      data-open={context.isOpenSig.value ? '' : undefined}
+      data-closed={!context.isOpenSig.value ? '' : undefined}
       {...rest}
     >
       <Slot />

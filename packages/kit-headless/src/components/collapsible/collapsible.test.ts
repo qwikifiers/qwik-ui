@@ -104,3 +104,30 @@ test.describe('Aria', () => {
     await expect(d.getTrigger()).toHaveAttribute('aria-controls', `${contentId}`);
   });
 });
+
+test.describe('Animations', () => {
+  test(`GIVEN an animatable collapsible
+        WHEN clicking on the trigger
+        THEN the content should open`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'animation');
+
+    await d.getTrigger().focus();
+    await d.getTrigger().click();
+    await d.waitForAnimationEnd('[data-collapsible-content]');
+    await expect(d.getContent()).toBeVisible();
+  });
+
+  test(`GIVEN an open animatable collapsible
+        WHEN clicking on the trigger
+        THEN the content should close`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'animation');
+    await d.openCollapsible('click');
+
+    await d.getTrigger().focus();
+    await d.getTrigger().click();
+    await d.waitForAnimationEnd('[data-collapsible-content]');
+    await expect(d.getContent()).toBeHidden();
+  });
+});
+
+test.describe('Content resizing', () => {});

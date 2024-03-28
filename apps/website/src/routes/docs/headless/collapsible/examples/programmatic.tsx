@@ -1,27 +1,29 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@qwik-ui/headless';
-import './collapsible.css';
+import styles from './collapsible.css?inline';
 
 export default component$(() => {
-  const openSig = useSignal<boolean>(true);
+  useStyles$(styles);
+  const isOpen = useSignal<boolean>(true);
 
   return (
-    <div>
-      <p>state: {openSig.value ? 'true' : 'false'}</p>
-      <Collapsible bind:isOpen={openSig}>
-        <CollapsibleTrigger>I am trigger 1!</CollapsibleTrigger>
+    <>
+      <input
+        style={{ width: '20px', height: '20px', accentColor: 'hsl(var(--primary))' }}
+        type="checkbox"
+        bind:checked={isOpen}
+      />
+
+      <p>
+        is open: <strong>{isOpen.value ? 'true' : 'false'}</strong>
+      </p>
+
+      <Collapsible class="collapsible" bind:open={isOpen}>
+        <CollapsibleTrigger class="collapsible-trigger">Trigger</CollapsibleTrigger>
         <CollapsibleContent class="collapsible-content">
-          I am the content 1!
+          <p class="collapsible-content-outline">Content</p>
         </CollapsibleContent>
       </Collapsible>
-      <button
-        class="rounded-base bg-slate-500 px-2 py-3 text-white"
-        onClick$={() => {
-          openSig.value = !openSig.value;
-        }}
-      >
-        Programmatic toggle
-      </button>
-    </div>
+    </>
   );
 });

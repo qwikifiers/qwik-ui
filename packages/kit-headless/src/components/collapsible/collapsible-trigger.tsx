@@ -6,12 +6,8 @@ export const CollapsibleTrigger = component$<PropsOf<'button'>>(
     const context = useContext(collapsibleContextId);
     const contentId = `${context.itemId}-content`;
 
-    const handleClick$ = $(async () => {
-      setTimeout(() => {
-        context.isOpenSig.value = !context.isOpenSig.value;
-      }, 1);
-
-      context.initialStateSig.value = false;
+    const handleClick$ = $(() => {
+      context.isOpenSig.value = !context.isOpenSig.value;
     });
 
     useOnWindow('resize', context.getContentDimensions$);
@@ -20,13 +16,8 @@ export const CollapsibleTrigger = component$<PropsOf<'button'>>(
       <button
         {...props}
         ref={context.triggerRef}
-        data-state={
-          context.initialStateSig.value
-            ? 'initial'
-            : context.isOpenSig.value
-            ? 'open'
-            : 'closed'
-        }
+        data-open={context.isOpenSig.value ? '' : undefined}
+        data-closed={!context.isOpenSig.value ? '' : undefined}
         aria-expanded={context.isOpenSig.value}
         aria-controls={contentId}
         onClick$={[context.getContentDimensions$, handleClick$, onClick$]}

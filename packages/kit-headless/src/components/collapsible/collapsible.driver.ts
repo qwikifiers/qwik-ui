@@ -2,9 +2,9 @@ import { Locator, expect, Page } from '@playwright/test';
 type OpenKeys = 'Space' | 'Enter';
 export type DriverLocator = Locator | Page;
 
-export function createTestDriver<T extends DriverLocator>(locator: T) {
+export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getRoot = () => {
-    return locator.locator('[data-collapsible]');
+    return rootLocator.locator('[data-collapsible]');
   };
 
   const getTrigger = () => {
@@ -28,12 +28,25 @@ export function createTestDriver<T extends DriverLocator>(locator: T) {
     await expect(getContent()).toBeVisible();
   };
 
+  /**
+   * Wait for all animations within the given element and subtrees to finish
+   * See: https://github.com/microsoft/playwright/issues/15660#issuecomment-1184911658
+   */
+  function waitForAnimationEnd(selector: string) {
+    return getRoot()
+      .locator(selector)
+      .evaluate((element) =>
+        Promise.all(element.getAnimations().map((animation) => animation.finished)),
+      );
+  }
+
   return {
-    ...locator,
-    locator,
+    ...rootLocator,
+    locator: rootLocator,
     getRoot,
     getTrigger,
     getContent,
     openCollapsible,
+    waitForAnimationEnd,
   };
 }

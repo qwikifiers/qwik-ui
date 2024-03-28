@@ -11,10 +11,14 @@ import { collapsibleContextId } from './collapsible-context-id';
 
 export type CollapsibleContentProps = PropsOf<'div'>;
 
+import { isServer } from '@builder.io/qwik/build';
+
 export const CollapsibleContent = component$((props: CollapsibleContentProps) => {
   const context = useContext(collapsibleContextId);
-  const isHiddenSig = useSignal<boolean>(false);
-  const isAnimatedSig = useSignal<boolean>(false);
+  const isHiddenSig = useSignal<boolean>(!context.isOpenSig.value);
+  // check if it's initially "animatable"
+  const isAnimatedSig = useSignal<boolean>(true);
+  const initialRenderSig = useSignal<boolean>(true);
   const contentId = `${context.itemId}-content`;
 
   const hideContent$ = $(() => {
@@ -27,27 +31,35 @@ export const CollapsibleContent = component$((props: CollapsibleContentProps) =>
   useTask$(async function automaticAnimations({ track }) {
     track(() => context.isOpenSig.value);
 
-    if (!context.contentRef.value) return;
+    if (isServer) {
+      return;
+    }
 
     await context.getContentDimensions$();
 
-    /* check if there's a transition or animation */
-    const { animationDuration, transitionDuration } = getComputedStyle(
-      context.contentRef.value,
-    );
+    /* check if there's a transition or animation, we set a timeout for the initial render */
+    setTimeout(() => {
+      const { animationDuration, transitionDuration } = getComputedStyle(
+        context.contentRef.value!,
+      );
 
-    if (animationDuration !== '0s') {
-      console.log(animationDuration);
-      isAnimatedSig.value = true;
-    } else if (transitionDuration !== '0s') {
-      isAnimatedSig.value = true;
-    }
+      // don't animate if initially open
+      if (
+        animationDuration === '0s' &&
+        transitionDuration === '0s' &&
+        !initialRenderSig.value
+      ) {
+        isAnimatedSig.value = false;
+      } else {
+        isAnimatedSig.value = true;
+      }
+    }, 15);
 
     if (context.isOpenSig.value) {
       isHiddenSig.value = false;
     }
 
-    context.initialStateSig.value = false;
+    initialRenderSig.value = false;
   });
 
   return (
@@ -56,20 +68,13 @@ export const CollapsibleContent = component$((props: CollapsibleContentProps) =>
       ref={context.contentRef}
       id={contentId}
       data-collapsible-content
-      data-state={
-        context.initialStateSig.value
-          ? 'initial'
-          : context.isOpenSig.value
-          ? 'open'
-          : 'closed'
-      }
+      data-open={!initialRenderSig.value && context.isOpenSig.value ? '' : undefined}
+      data-closed={!context.isOpenSig.value ? '' : undefined}
       onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
       onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
       hidden={isAnimatedSig.value ? isHiddenSig.value : !context.isOpenSig.value}
     >
-      <div ref={context.contentChildRef}>
-        <Slot />
-      </div>
+      <Slot />
     </div>
   );
 });
