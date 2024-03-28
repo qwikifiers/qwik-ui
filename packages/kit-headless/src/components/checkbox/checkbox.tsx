@@ -15,7 +15,7 @@ export type CheckboxProps = {
 } & PropsOf<'div'>;
 
 export const MyCheckbox = component$<CheckboxProps>((props) => {
-  const defaultSig = useSignal(true);
+  const defaultSig = useSignal(false);
   const appliedSig = props.checkBoxSig ?? defaultSig;
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
