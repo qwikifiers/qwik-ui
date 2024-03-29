@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/styled",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Qwik UI components library with styles",
   "publishConfig": {
     "access": "public"
@@ -18,7 +18,7 @@
     "@builder.io/qwik": "^1.1.0"
   },
   "devDependencies": {
-    "@qwik-ui/headless": "0.3.3",
+    "@qwik-ui/headless": "0.3.4",
     "@qwik-ui/utils": "0.2.1"
   }
 }
