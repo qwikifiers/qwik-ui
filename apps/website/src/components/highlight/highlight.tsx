@@ -1,7 +1,16 @@
-import { ClassList, PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
+import {
+  ClassList,
+  PropsOf,
+  component$,
+  useSignal,
+  useTask$,
+  useVisibleTask$,
+  $,
+} from '@builder.io/qwik';
 import { CodeCopy } from '../code-copy/code-copy';
 import { getHighlighterCore } from 'shiki';
 import { cn } from '@qwik-ui/utils';
+import { isDev } from '@builder.io/qwik/build';
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
@@ -22,8 +31,7 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
-    // eslint-disable-next-line qwik/no-use-visible-task
-    useTask$(async function createHighlightedCode() {
+    const addShiki$ = $(async () => {
       let modifiedCode: string = code;
 
       let partsOfCode = modifiedCode.split(splitCommentStart);
@@ -58,6 +66,22 @@ export const Highlight = component$(
       });
       codeSig.value = str.toString();
     });
+
+    useTask$(async function createHighlightedCode() {
+      if (!isDev) {
+        await addShiki$();
+      }
+    });
+
+    // eslint-disable-next-line qwik/no-use-visible-task
+    useVisibleTask$(
+      async () => {
+        if (isDev) {
+          await addShiki$();
+        }
+      },
+      { strategy: 'document-ready' },
+    );
 
     return (
       <div class="code-example relative max-h-[31.25rem]">

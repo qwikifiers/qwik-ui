@@ -84,9 +84,17 @@ This is because the content is rendered on the server. Animations applied to `da
 
 We can pass reactive state by using the bind:open prop to the `<Collapsible />` component.
 
+<Showcase name="bind-open" />
+
+bind:open is a signal prop, and allows us to pass in our own signal to control the expanded state of the collapsible.
+
+### Programmatic changes
+
+Now that we have a controlled state, we can programmatically change the state of the collapsible by changing the value of the signal.
+
 <Showcase name="programmatic" />
 
-bind:open is a signal prop, it allows us to programmatically control the expanded state of the collapsible.
+The example above toggles the expanded state of the collapsible by changing the value of the `isOpen` signal when the checkbox is clicked.
 
 ### Handling open / close
 
@@ -135,6 +143,21 @@ To fix this, add a child element to the content, and set the padding or border o
 Every code example uses the following CSS:
 
 Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
+
+## Keyboard Interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: `When focus is on the trigger, open or close the collapsible.`,
+    },
+    {
+      keyTitle: 'Enter',
+      description: `When focus is on the trigger open or close the collapsible.`,
+    },
+  ]}
+/>
 
 ## API
 
