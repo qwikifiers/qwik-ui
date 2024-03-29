@@ -10,14 +10,18 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getIcon = () => {
     return getRoot().getByRole('img');
   };
-  // const toggleCheckBox = async () => {
-  //   await getRoot().focus();
-  //   await getRoot().press(' ');
-  // };
+  const getCheckList = async () => {
+    return getRoot().getByRole('group');
+  };
+  const getCheckbox = () => {
+    return getRoot().getByRole('checkbox');
+  };
   return {
     ...rootLocator,
     locator: rootLocator,
     getRoot,
     getIcon,
+    getCheckList,
+    getCheckbox,
   };
 }
