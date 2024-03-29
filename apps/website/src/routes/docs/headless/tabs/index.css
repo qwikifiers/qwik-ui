@@ -1,3 +1,7 @@
+.tabs-example {
+  width: 100%;
+}
+
 .tabs-example [role='tab'] {
   width: 148px;
   background: hsl(var(--muted));
@@ -16,6 +20,7 @@
 .tabs-example [role='tablist'] {
   border: 1px solid;
   margin-bottom: 1rem;
+  max-width: fit-content;
 }
 
 .tabs-example h3 {
