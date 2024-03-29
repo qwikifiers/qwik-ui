@@ -42,8 +42,8 @@ test.describe('Mouse Behavior', () => {
 
     await expect(d.getPopover()).toBeVisible();
 
-    await page.click('body', { position: { x: 0, y: 0 } });
-    await page.click('body', { position: { x: 0, y: 0 } });
+    const outsideDiv = page.locator('#content-outside-of-popover');
+    await outsideDiv.click();
 
     await expect(d.getPopover()).toBeHidden();
   });
