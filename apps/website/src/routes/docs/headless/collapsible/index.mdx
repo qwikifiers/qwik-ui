@@ -120,7 +120,11 @@ Padding or border applied to `CollapsibleContent` breaks our keyframe animation 
 
 To fix this, add a child element to the content, and set the padding or border on that element.
 
-<CodeSnippet name="content-child" />
+```tsx
+<CollapsibleContent class="collapsible-animation collapsible-content">
+  <p class="collapsible-content-outline">Content</p>
+</CollapsibleContent>
+```
 
 > Rather than dealing with this under the hood, we thought it'd be appropriate to keep style management as simple as possible. Let us know if you have a better solution!
 
