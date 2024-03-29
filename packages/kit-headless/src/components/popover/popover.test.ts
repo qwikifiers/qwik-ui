@@ -53,10 +53,10 @@ test.describe('Mouse Behavior', () => {
   THEN the first popover should close and the second one appear`, async ({ page }) => {
     const { driver: d } = await setup(page, 'auto');
     //ask shai: is it good to use nth here???
-    const firstPopOver = d.getPopover().nth(0);
+    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
+
     const firstPopoverTrigger = d.getTrigger().nth(0);
 
-    const secondPopOver = d.getPopover().nth(1);
     const secondPopoverTrigger = d.getTrigger().nth(1);
 
     await expect(firstPopOver).toBeHidden();
@@ -69,6 +69,47 @@ test.describe('Mouse Behavior', () => {
     await expect(secondPopOver).toBeVisible();
 
     await expect(firstPopOver).toBeHidden();
+  });
+
+  test(`GIVEN a pair of manual popovers
+  WHEN clicking the first trigger on the page and then clicking the second trigger
+  THEN then both popovers should be opened`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'manual');
+
+    //ask shai: is it good to use nth here???
+    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
+
+    const firstPopoverTrigger = d.getTrigger().nth(0);
+
+    const secondPopoverTrigger = d.getTrigger().nth(1);
+
+    await expect(firstPopOver).toBeHidden();
+    await expect(secondPopOver).toBeHidden();
+
+    await firstPopoverTrigger.click();
+    await secondPopoverTrigger.click();
+
+    await expect(firstPopOver).toBeVisible();
+    await expect(secondPopOver).toBeVisible();
+  });
+
+  test(`GIVEN a pair of manual opened popovers
+  WHEN clicking the first trigger on the page and then clicking the second trigger
+  THEN then both popovers should be opened`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'manual');
+
+    //ask shai: is it good to use nth here???
+    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
+    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
+
+    await expect(firstPopOver).toBeHidden();
+    await expect(secondPopOver).toBeHidden();
+
+    await firstPopoverTrigger.click();
+    await secondPopoverTrigger.click();
+
+    await expect(firstPopOver).toBeVisible();
+    await expect(secondPopOver).toBeVisible();
   });
 });
 
