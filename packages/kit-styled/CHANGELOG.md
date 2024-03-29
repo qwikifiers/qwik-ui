@@ -1,5 +1,11 @@
 # @qwik-ui/styled
 
+## 0.0.5
+
+### Patch Changes
+
+- FEAT add styled breadcrumbs component (draft) (by [@ditadi](https://github.com/ditadi) in [#665](https://github.com/qwikifiers/qwik-ui/pull/665))
+
 ## 0.0.4
 
 ### Patch Changes
