@@ -10,11 +10,16 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getIcon = () => {
     return getRoot().getByRole('img');
   };
-  const getCheckList = async () => {
+  const getCheckList = () => {
     return getRoot().getByRole('group');
   };
-  const getCheckbox = () => {
-    return getRoot().getByRole('checkbox');
+  const getULCheckList = () => {
+    // note: filter method is always relative to the original locator not document root despite using root
+    const ul = getCheckList().filter({ has: rootLocator.locator('css=ul') });
+    return ul;
+  };
+  const getNthCheckbox = (nth = 0) => {
+    return getRoot().getByRole('checkbox').nth(nth);
   };
   return {
     ...rootLocator,
@@ -22,6 +27,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getRoot,
     getIcon,
     getCheckList,
-    getCheckbox,
+    getNthCheckbox,
+    getULCheckList,
   };
 }

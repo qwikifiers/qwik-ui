@@ -6,13 +6,14 @@ async function setup(page: Page, exampleName: string) {
 
   const driver = createTestDriver(page);
 
-  const { getCheckbox, getIcon, getCheckList } = driver;
+  const { getNthCheckbox, getIcon, getCheckList, getULCheckList } = driver;
 
   return {
     driver,
-    getCheckbox,
+    getNthCheckbox,
     getIcon,
     getCheckList,
+    getULCheckList,
   };
 }
 
@@ -21,41 +22,41 @@ test.describe('single checkbox behavior', () => {
         WHEN the checkbox renders
         IT should have aria-checked as true`, async ({ page }) => {
     const exampleName = 'hero';
-    const { getCheckbox } = await setup(page, exampleName);
-    await expect(getCheckbox()).toBeVisible();
-    await expect(getCheckbox()).toHaveAttribute('aria-checked', 'true');
+    const { getNthCheckbox } = await setup(page, exampleName);
+    await expect(getNthCheckbox()).toBeVisible();
+    await expect(getNthCheckbox()).toHaveAttribute('aria-checked', 'true');
   }),
     test(`GIVEN a checkbox with a user sig value of true
         WHEN the checkbox is focused and the spacebar is pressed
         IT should have aria-checked as false`, async ({ page }) => {
       const exampleName = 'hero';
-      const { getCheckbox } = await setup(page, exampleName);
-      await expect(getCheckbox()).toBeVisible();
-      await getCheckbox().focus();
-      await getCheckbox().press(' ');
-      await expect(getCheckbox()).toHaveAttribute('aria-checked', 'false');
+      const { getNthCheckbox } = await setup(page, exampleName);
+      await expect(getNthCheckbox()).toBeVisible();
+      await getNthCheckbox().focus();
+      await getNthCheckbox().press(' ');
+      await expect(getNthCheckbox()).toHaveAttribute('aria-checked', 'false');
     });
 
   test(`GIVEN a checkbox with a user sig value of true
         WHEN the checkbox is focused and the spacebar is pressed
         IT should have its icon hidden`, async ({ page }) => {
     const exampleName = 'hero';
-    const { getCheckbox, getIcon } = await setup(page, exampleName);
+    const { getNthCheckbox, getIcon } = await setup(page, exampleName);
     await expect(getIcon()).toBeVisible();
-    await getCheckbox().focus();
-    await getCheckbox().press(' ');
-    await expect(getCheckbox()).toHaveAttribute('aria-checked', 'false');
+    await getNthCheckbox().focus();
+    await getNthCheckbox().press(' ');
+    await expect(getNthCheckbox()).toHaveAttribute('aria-checked', 'false');
     await expect(getIcon()).toBeHidden();
   });
   test(`GIVEN a default checkbox with a default sig value of false
         WHEN the checkbox is focused and the spacebar is pressed
         IT should have its icon visible`, async ({ page }) => {
     const exampleName = 'default';
-    const { getCheckbox, getIcon } = await setup(page, exampleName);
+    const { getNthCheckbox, getIcon } = await setup(page, exampleName);
     await expect(getIcon()).toBeHidden();
-    await getCheckbox().focus();
-    await getCheckbox().press(' ');
-    await expect(getCheckbox()).toHaveAttribute('aria-checked', 'false');
+    await getNthCheckbox().focus();
+    await getNthCheckbox().press(' ');
+    await expect(getNthCheckbox()).toHaveAttribute('aria-checked', 'false');
     await expect(getIcon()).toBeVisible();
   });
 });
@@ -66,21 +67,22 @@ test.describe.only('checklist behavior', () => {
     page,
   }) => {
     const exampleName = 'list';
-    const { getCheckList, getCheckbox } = await setup(page, exampleName);
-    await expect(page.getByRole('group')).toBeVisible();
-    await expect(
-      page.getByRole('group').filter({ has: page.locator('ul') }),
-    ).toBeVisible();
+    const { getCheckList, getNthCheckbox, getULCheckList } = await setup(
+      page,
+      exampleName,
+    );
+    await expect(getCheckList()).toBeVisible();
+    await expect(getULCheckList()).toBeVisible();
   });
   // test(`GIVEN a checklist with a fist checkbox's value as false
   //       WHEN the first checkbox is focused and the spacebar is pressed
   //       IT should have its icon visible`, async ({ page }) => {
   //   const exampleName = 'default';
-  //   const { getCheckbox, getIcon } = await setup(page, exampleName);
+  //   const { getNthCheckbox, getIcon } = await setup(page, exampleName);
   //   await expect(getIcon()).toBeHidden();
-  //   await getCheckbox().focus();
-  //   await getCheckbox().press(' ');
-  //   await expect(getCheckbox()).toHaveAttribute('aria-checked', 'false');
+  //   await getNthCheckbox().focus();
+  //   await getNthCheckbox().press(' ');
+  //   await expect(getNthCheckbox()).toHaveAttribute('aria-checked', 'false');
   //   await expect(getIcon()).toBeVisible();
   // });
 });
