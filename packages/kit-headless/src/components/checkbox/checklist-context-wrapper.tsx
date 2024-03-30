@@ -8,7 +8,7 @@ import {
   $,
   useSignal,
 } from '@builder.io/qwik';
-import { CheckListContext, CheckboxContext } from './context-id';
+import { ArrSigs, CheckListContext, CheckboxContext } from './context-id';
 
 export type CheckListContextWrapperProps = {
   ariaLabeledBy: string;
@@ -17,8 +17,10 @@ export type CheckListContextWrapperProps = {
 
 export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
   (props) => {
-    const helpme = useSignal([]);
-    useContextProvider(CheckListContext, helpme);
+    const helpme: ArrSigs = [];
+    // this sig vals should be a prop
+    const mehelp = useSignal(false);
+    useContextProvider(CheckListContext, { checkboxes: helpme, checklistSig: mehelp });
     return (
       <div role="group" aria-labelledby={props.ariaLabeledBy}>
         <Slot />
