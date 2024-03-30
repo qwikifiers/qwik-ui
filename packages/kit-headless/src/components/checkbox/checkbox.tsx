@@ -24,14 +24,13 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
   const lol = props._useCheckListContext ? useContext(CheckListContext) : undefined;
   const defaultSig = useSignal(false);
   const hell = lol !== undefined && props.checkList;
-  const appliedSig = hell
-    ? useSignal(lol.value.every((sig) => sig.value === true))
-    : props.checkBoxSig ?? defaultSig;
+  const appliedSig = hell ? lol.checklistSig : props.checkBoxSig ?? defaultSig;
   useTask$(() => {
-    if (lol) {
+    // TODO: refactor to "add to context function thingy"
+    if (lol && !props.checkList) {
       // now i can say that there's one good application for object identity
-      if (!lol.value.some((e) => e === appliedSig)) {
-        lol.value = [...lol.value, appliedSig];
+      if (!lol.checkboxes.some((e) => e === appliedSig)) {
+        lol.checkboxes = [...lol.checkboxes, appliedSig];
       }
     }
   });
@@ -54,7 +53,7 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
       {...props}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
     >
-      <p>Lol: {lol?.value.toString()} </p>
+      <p>Lol: {lol?.checkboxes.toString()} </p>
       <Slot />
     </div>
   );
