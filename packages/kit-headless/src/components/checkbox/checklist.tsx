@@ -39,7 +39,6 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
       }
 
       default: {
-        console.log('oh now');
         if (child) {
           const anyChildren = Array.isArray(child.children)
             ? [...child.children]
@@ -51,7 +50,6 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
       }
     }
   }
-  console.log(hellSigs);
 
   return (
     <>

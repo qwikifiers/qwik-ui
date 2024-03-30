@@ -27,12 +27,14 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
   const appliedSig = hell
     ? useSignal(lol.value.every((sig) => sig.value === true))
     : props.checkBoxSig ?? defaultSig;
-  if (lol) {
-    // now i can say that there's one good application for object identity
-    if (!lol.value.some((e) => e === appliedSig)) {
-      lol.value = [...lol.value, appliedSig];
+  useTask$(() => {
+    if (lol) {
+      // now i can say that there's one good application for object identity
+      if (!lol.value.some((e) => e === appliedSig)) {
+        lol.value = [...lol.value, appliedSig];
+      }
     }
-  }
+  });
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
