@@ -56,7 +56,10 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
   return (
     <>
       {checkArr.length}
-      <ChecklistContextWrapper ariaLabeledBy={props.ariaLabeledBy}>
+      <ChecklistContextWrapper
+        ariaLabeledBy={props.ariaLabeledBy}
+        arrSize={hellSigs.length}
+      >
         <ul class={props.class}>
           {checkArr.map((checkbox) => (
             <li>{checkbox}</li>
