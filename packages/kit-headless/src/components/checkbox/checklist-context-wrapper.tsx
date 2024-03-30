@@ -12,11 +12,13 @@ import { CheckListContext, CheckboxContext } from './context-id';
 
 export type CheckListContextWrapperProps = {
   ariaLabeledBy: string;
+  arrSize: number;
 } & PropsOf<'div'>;
 
 export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
   (props) => {
-    useContextProvider(CheckListContext, []);
+    const helpme = useSignal([]);
+    useContextProvider(CheckListContext, helpme);
     return (
       <div role="group" aria-labelledby={props.ariaLabeledBy}>
         <Slot />

@@ -9,6 +9,7 @@ import {
   $,
   useSignal,
   useVisibleTask$,
+  useTask$,
 } from '@builder.io/qwik';
 import { CheckListContext, CheckboxContext } from './context-id';
 
@@ -19,13 +20,17 @@ export type CheckboxProps = {
 } & PropsOf<'div'>;
 
 export const MyCheckbox = component$<CheckboxProps>((props) => {
-  const defaultSig = useSignal(false);
-  const appliedSig = props.checkBoxSig ?? defaultSig;
+  // all the sig stuff should be refactored into a fancy hook
   const lol = props._useCheckListContext ? useContext(CheckListContext) : undefined;
+  const defaultSig = useSignal(false);
+  const hell = lol !== undefined && props.checkList;
+  const appliedSig = hell
+    ? useSignal(lol.value.every((sig) => sig.value === true))
+    : props.checkBoxSig ?? defaultSig;
   if (lol) {
     // now i can say that there's one good application for object identity
-    if (!lol.some((e) => e === appliedSig)) {
-      lol.push(appliedSig);
+    if (!lol.value.some((e) => e === appliedSig)) {
+      lol.value = [...lol.value, appliedSig];
     }
   }
   useContextProvider(CheckboxContext, appliedSig);
@@ -47,7 +52,7 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
       {...props}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
     >
-      <p>Lol: {lol?.toString()} </p>
+      <p>Lol: {lol?.value.toString()} </p>
       <Slot />
     </div>
   );
