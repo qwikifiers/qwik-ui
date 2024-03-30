@@ -1,5 +1,6 @@
-import { type JSXNode, Component, PropsOf } from '@builder.io/qwik';
-import { CheckboxProps, MyCheckbox } from './checkbox';
+import { type JSXNode, Component, PropsOf, Signal } from '@builder.io/qwik';
+import { MyCheckbox } from './checkbox';
+import { ChecklistContextWrapper } from './checklist-context-wrapper';
 
 type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
 // type CheckBoxes=
@@ -9,6 +10,7 @@ type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
 */
 export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
   const checkArr: JSXNode[] = [];
+  const hellSigs = [];
   const { children: myChildren, ...rest } = props;
 
   const childrenToProcess = (
@@ -29,7 +31,12 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
 
     switch (child.type) {
       case MyCheckbox: {
+        const bestChild = child.props;
+        const fme = Object.assign(bestChild, { _useCheckListContext: true });
+        console.log('besto tsuttff \n ', bestChild, 'ist bigger, its better: \n', fme);
+
         checkArr.push(child);
+        hellSigs.push(child.props);
         break;
       }
 
@@ -46,17 +53,18 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
       }
     }
   }
+  console.log(hellSigs);
 
   return (
     <>
       {checkArr.length}
-      <div role="group" aria-labelledby={props.ariaLabeledBy}>
+      <ChecklistContextWrapper ariaLabeledBy={props.ariaLabeledBy}>
         <ul class={props.class}>
           {checkArr.map((checkbox) => (
             <li>{checkbox}</li>
           ))}
         </ul>
-      </div>
+      </ChecklistContextWrapper>
     </>
   );
 };
