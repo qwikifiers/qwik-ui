@@ -16,7 +16,7 @@ export type CheckListContextWrapperProps = {
 
 export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
   (props) => {
-    useContextProvider(CheckListContext, { value: 'working' });
+    useContextProvider(CheckListContext, []);
     return (
       <div role="group" aria-labelledby={props.ariaLabeledBy}>
         <Slot />
