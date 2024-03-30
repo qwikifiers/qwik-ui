@@ -7,6 +7,15 @@ export default component$(() => {
     <>
       <h3 id="test123">Pick a cat</h3>
       <CheckList class="flex flex-col gap-3" ariaLabeledBy="test123">
+        <MyCheckbox
+          class="flex items-center gap-3 bg-slate-900 p-2 text-white"
+          checkList={true}
+        >
+          <CheckboxIndicator class=" flex w-[80px] justify-center bg-white p-3">
+            ✅
+          </CheckboxIndicator>
+          <p>Controlls all</p>
+        </MyCheckbox>
         <MyCheckbox class="flex items-center gap-3 bg-slate-900 pr-2 text-white">
           <CheckboxIndicator class="w-fit bg-slate-600">
             <img

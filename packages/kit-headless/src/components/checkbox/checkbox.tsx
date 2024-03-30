@@ -5,18 +5,22 @@ import {
   component$,
   sync$,
   useContextProvider,
+  useContext,
   $,
   useSignal,
 } from '@builder.io/qwik';
-import { CheckboxContext } from './context-id';
+import { CheckListContext, CheckboxContext } from './context-id';
 
 export type CheckboxProps = {
   checkBoxSig?: Signal<boolean>;
+  checkList?: boolean;
+  _useCheckListContext?: boolean;
 } & PropsOf<'div'>;
 
 export const MyCheckbox = component$<CheckboxProps>((props) => {
   const defaultSig = useSignal(false);
   const appliedSig = props.checkBoxSig ?? defaultSig;
+  const lol = props._useCheckListContext ? useContext(CheckListContext) : undefined;
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
@@ -36,6 +40,7 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
       {...props}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
     >
+      <p>Lol: {lol?.value} </p>
       <Slot />
     </div>
   );
