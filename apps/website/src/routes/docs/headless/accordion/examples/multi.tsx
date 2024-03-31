@@ -12,7 +12,7 @@ export default component$(() => {
   return (
     <>
       <div class="flex w-full justify-center">
-        <AccordionRoot collapsible animated behavior="multi">
+        <AccordionRoot class="w-full" collapsible animated behavior="multi">
           <AccordionItem class="border-b">
             <AccordionHeader as="h3">
               <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm  py-4 text-left hover:underline">

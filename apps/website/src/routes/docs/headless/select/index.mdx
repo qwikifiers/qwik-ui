@@ -265,10 +265,6 @@ The consumer misspelled the the value, and so the fallback is displayed.
 
 > Side note: would appreciate some help on TypeScript to make misspelled option values a thing of the past. Ideally, a union of the user's passed in options.
 
-## Forms
-
-<Showcase name="form" />
-
 ## Example CSS
 
 Every code example uses the following CSS:
@@ -276,6 +272,49 @@ Every code example uses the following CSS:
 <CodeSnippet name="select.css" />
 
 Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
+
+## Keyboard Interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: `Opens the menu and selects a highlighted option.`,
+    },
+    {
+      keyTitle: 'Enter',
+      description: `Opens the menu and selects a highlighted option.`,
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: `Opens the menu or moves focus down.`,
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: `Opens the menu or moves focus up.`,
+    },
+    {
+      keyTitle: 'Home',
+      description: `When focus is on an item, moves focus to first item.`,
+    },
+    {
+      keyTitle: 'End',
+      description: `When focus is on an item, moves focus to last item.`,
+    },
+    {
+      keyTitle: 'ArrowRight',
+      description: `When focus is on the trigger, change the selection to the next item.`,
+    },
+    {
+      keyTitle: 'ArrowLeft',
+      description: `When focus is on the trigger, change the selection to the previous item.`,
+    },
+    {
+      keyTitle: 'Esc',
+      description: `Closes the select and moves focus to the trigger.`,
+    },
+  ]}
+/>
 
 ## API
 
