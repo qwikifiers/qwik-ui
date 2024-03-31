@@ -26,15 +26,6 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
   const defaultSig = useSignal(false);
   const hell = lol !== undefined && props.checkList;
   const appliedSig = hell ? lol.checklistSig : props.checkBoxSig ?? defaultSig;
-  useTask$(() => {
-    // TODO: refactor to "add to context function thingy"
-    if (lol && !props.checkList) {
-      // now i can say that there's one good application for object identity
-      if (!lol.checkboxes.value.some((e) => e === appliedSig)) {
-        lol.checkboxes.value = [...lol.checkboxes.value, appliedSig as Signal<boolean>];
-      }
-    }
-  });
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
@@ -47,18 +38,23 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
     }
   });
   useTask$(({ track }) => {
-    if (!props._useCheckListContext || lol?.checkboxes === undefined) {
-      return;
-    }
     track(() => {
       appliedSig.value;
     });
 
-    console.log('om the besto');
+    // TODO: refactor to "add to context function thingy"
+    if (lol && !props.checkList) {
+      // now i can say that there's one good application for object identity
+      if (!lol.checkboxes.value.some((e) => e === appliedSig)) {
+        lol.checkboxes.value = [...lol.checkboxes.value, appliedSig as Signal<boolean>];
+      }
+    }
+    if (lol?.checkboxes === undefined || props.checkList) {
+      return;
+    }
     const boolArr = lol?.checkboxes.value.map((e) => e.value);
     const newVal = getTriBool(boolArr);
     lol.checklistSig.value = newVal;
-    console.log('new val: ', newVal, boolArr);
   });
   return (
     <div
