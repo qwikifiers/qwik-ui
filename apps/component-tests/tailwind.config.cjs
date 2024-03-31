@@ -6,7 +6,7 @@ const plugin = require('tailwindcss/plugin');
 module.exports = {
   content: [
     join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
-    join(__dirname, '../website/src/**/*.{js,ts,jsx,tsx,mdx}'),
+    join(__dirname, '../../packages/kit-tailwind/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-styled/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../packages/kit-headless/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
@@ -113,6 +113,12 @@ module.exports = {
         xl: 'var(--shadow-xl)',
         '2xl': 'var(--shadow-2xl)',
         inner: 'var(--shadow-inner)',
+      },
+      strokeWidth: {
+        0: '0',
+        base: 'var(--stroke-width)',
+        1: 'calc(var(--stroke-width) + 1px)',
+        2: 'calc(var(--stroke-width) + 2px)',
       },
       // EXTEND-END
       animation: {

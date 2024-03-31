@@ -38,7 +38,7 @@ export default component$(() => {
         </ComboboxControl>
         <ComboboxPopover hide="escaped" gutter={8} size={true}>
           <ComboboxListbox
-            class="rounded-base w-fit border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
+            class="rounded-base w-fit border-[1px] border-slate-400 px-4 py-2 dark:bg-slate-900 dark:text-white"
             optionRenderer$={(option: ResolvedOption, index: number) => (
               <ComboboxOption
                 key={option.key}

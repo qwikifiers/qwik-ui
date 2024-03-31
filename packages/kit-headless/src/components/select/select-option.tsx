@@ -103,6 +103,7 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
       data-selected={isSelectedSig.value ? '' : undefined}
       data-highlighted={isHighlightedSig.value ? '' : undefined}
       data-disabled={disabled ? '' : undefined}
+      data-option
       role="option"
     >
       <Slot />

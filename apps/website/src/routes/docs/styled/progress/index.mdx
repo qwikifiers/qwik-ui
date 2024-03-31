@@ -4,8 +4,50 @@ title: Qwik UI | Styled Progress Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+<StatusBanner status={statusByComponent.styled.Progress} />
+
 # Progress
 
-The Qwik UI Styled progress component is your digital cheerleader, celebrating each step forward with flashy colors and a positive attitude!
+Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 
-<StatusBanner status={statusByComponent.styled.Progress} />
+<Showcase name="hero" />
+
+## Installation
+
+### Run the following cli command or copy/paste the component code into your project
+
+```sh
+qwik-ui add progress
+```
+
+```tsx
+import { cn } from '@qwik-ui/utils';
+import {
+  Progress as QwikUIProgress,
+  ProgressIndicator as QwikUIProgressIndicator,
+} from '@qwik-ui/headless';
+import { PropsOf, component$ } from '@builder.io/qwik';
+
+export const Progress = component$<PropsOf<typeof QwikUIProgress>>((props) => {
+  return (
+    <QwikUIProgress
+      class={cn('bg-secondary relative h-4 w-full overflow-hidden rounded', props?.class)}
+    >
+      <QwikUIProgressIndicator
+        class="bg-primary h-full w-full flex-1 transition-all"
+        style={{ transform: `translateX(-${100 - (props.value || 0)}%)` }}
+      />
+    </QwikUIProgress>
+  );
+});
+```
+
+## Usage
+
+```tsx
+import { Progress } from '@qwik-ui/styled';
+```
+
+```tsx
+<Progress value={30} />
+```

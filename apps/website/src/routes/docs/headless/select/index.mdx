@@ -11,9 +11,7 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 Reveals a list of options to choose from, often triggered by a button.
 
-<div data-testid="select-hero-test">
-  <Showcase name="hero" />
-</div>
+<Showcase name="hero" />
 
 ## ✨ Features
 
@@ -94,10 +92,14 @@ The native `<select>` HTML element encounters significant obstacles in terms of 
 
 ### Native select pain points
 
-- **Styling Limitations**: Customizing the appearance of a native select element is notoriously difficult, leading to inconsistent designs across different platforms.
-- **Multiselect Complexity**: The native multiselect feature is not intuitive, especially for non-technical users, as it requires the use of control or command keys to select multiple options.
-- **Limited Typeahead Support**: Native select elements offer minimal support for finding options by typing, making it harder for users to quickly find options.
-- **Inconsistent Behavior**: There's a lack of consistency in behavior and styling of the select element across different browsers and devices.
+<FeatureList
+  issues={[
+    'Styling Limitations',
+    'Multiselect Complexity',
+    'Limited Typeahead Support',
+    'Inconsistent Behavior across browsers and devices',
+  ]}
+/>
 
 ### Native effort
 
@@ -137,9 +139,7 @@ You are in full control of how the data is rendered. Map over the data, or rende
 
 ### Passing a distinct value
 
-<div data-testid="select-option-value-test">
-  <Showcase name="option-value" />
-</div>
+<Showcase name="option-value" />
 
 Sometimes we want to display one thing to the user, but pass another value to the option.
 
@@ -149,9 +149,7 @@ By adding the `value` prop to the `<SelectOption />` component, we can pass a di
 
 ### Handling selection changes
 
-<div data-testid="select-change-test">
-  <Showcase name="change-value" />
-</div>
+<Showcase name="change-value" />
 
 We can listen to changes in the selected value by using the `onChange$` prop. It provides an argument that is the new selected value.
 
@@ -163,9 +161,7 @@ We can select an initial uncontrolled value by passing the `value` prop to the `
 
 ### Uncontrolled / Initial value
 
-<div data-testid="select-uncontrolled-test">
-  <Showcase name="uncontrolled" />
-</div>
+<Showcase name="uncontrolled" />
 
 The above example passes one of the option values "Jessie" as the initial value. As a result, the matching value is selected and focused.
 
@@ -175,9 +171,7 @@ The above example passes one of the option values "Jessie" as the initial value.
 
 We can pass reactive state by using the `bind:value` prop to the `<Select />` root component.
 
-<div data-testid="select-controlled-test">
-  <Showcase name="controlled" />
-</div>
+<Showcase name="controlled" />
 
 `bind:value` is a signal prop, it allows us to programmatically control the selected value of the select component.
 
@@ -187,9 +181,7 @@ We can pass reactive state by using the `bind:value` prop to the `<Select />` ro
 
 To combine some of our previous knowledge, let's use the `onChange$` handler and `bind:value` prop in tandem.
 
-<div data-testid="select-controlled-value-test">
-  <Showcase name="controlled-value" />
-</div>
+<Showcase name="controlled-value" />
 
 In the above example, we can programmatically change the selected value by clicking on the "Change to Abby" button.
 
@@ -197,9 +189,7 @@ This allows us to update the signal value and trigger the `onChange$` handler.
 
 ### Disabled options
 
-<div data-testid="select-disabled-test">
-  <Showcase name="disabled" />
-</div>
+<Showcase name="disabled" />
 
 Options can be disabled by adding the `disabled` prop to the `<SelectOption />` component.
 
@@ -209,9 +199,7 @@ Disabled options are not selectable or focusable. They are also skipped when usi
 
 A common use case is the addition of options dynamically. For example, an infinite scrolling list of users.
 
-<div data-testid="select-add-users-test">
-  <Showcase name="add-users" />
-</div>
+<Showcase name="add-users" />
 
 Clicking the `Add Users` button adds a couple new users mapped to the list. Taking this further, we could grab more data from the server and add it to the list, or even hitting a database to get more users.
 
@@ -221,9 +209,7 @@ Clicking the `Add Users` button adds a couple new users mapped to the list. Taki
 
 The select offers a typeahead feature that allows users to quickly find options by typing.
 
-<div data-testid="select-typeahead-test">
-  <Showcase name="typeahead" />
-</div>
+<Showcase name="typeahead" />
 
 It reduces the need to scroll through the available options. Typeahead is particularly handy for expected data sets, such as a list of countries.
 
@@ -233,9 +219,7 @@ It reduces the need to scroll through the available options. Typeahead is partic
 
 We may want to handle the open / close of the listbox. For example, we may want to show a loading indicator when the listbox is open.
 
-<div data-testid="select-open-change-test">
-  <Showcase name="open-change" />
-</div>
+<Showcase name="open-change" />
 
 To do that, we can use the `onOpenChange$` prop. A parameter is passed to the handler, which is a boolean indicating whether the listbox is open or closed.
 
@@ -243,9 +227,7 @@ To do that, we can use the `onOpenChange$` prop. A parameter is passed to the ha
 
 To loop through the options, we can use the `loop` boolean prop on the `<Select />` root component.
 
-<div data-testid="select-loop-test">
-  <Showcase name="loop" />
-</div>
+<Showcase name="loop" />
 
 - Pressing the down arrow key will move focus to the first option in the list.
 
@@ -253,9 +235,7 @@ To loop through the options, we can use the `loop` boolean prop on the `<Select 
 
 ### Grouped options
 
-<div data-testid="select-group-test">
-  <Showcase name="group" />
-</div>
+<Showcase name="group" />
 
 The `<SelectGroup />` and `<SelectLabel />` components are used to group and label options.
 
@@ -265,9 +245,7 @@ Wrap the options in a group, add a Label, and you're good to go!
 
 Because focus remains on the select trigger when the listbox is open, it's important to handle scrolling in the listbox.
 
-<div data-testid="select-scroll-test">
-  <Showcase name="scrollable" />
-</div>
+<Showcase name="scrollable" />
 
 The native `scrollIntoView` method is used to scroll the options into view when the user highlights an option.
 
@@ -279,9 +257,7 @@ To customize the scroll behavior, add the `scrollOptions` prop to the `<Select /
 
 We can provide a custom placeholder to the `<SelectValue />` component by adding the `placeholder` prop.
 
-<div data-testid="select-wrong-value-test">
-  <Showcase name="wrong-value" />
-</div>
+<Showcase name="wrong-value" />
 
 When a value is not selected, the placeholder is displayed. The example above shows a placeholder fallback when the value is not selected.
 
@@ -297,13 +273,48 @@ Every code example uses the following CSS:
 
 Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
 
-## Example CSS
+## Keyboard Interaction
 
-Every code example uses the following CSS:
-
-<CodeSnippet name="select.css" />
-
-Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: `Opens the menu and selects a highlighted option.`,
+    },
+    {
+      keyTitle: 'Enter',
+      description: `Opens the menu and selects a highlighted option.`,
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: `Opens the menu or moves focus down.`,
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: `Opens the menu or moves focus up.`,
+    },
+    {
+      keyTitle: 'Home',
+      description: `When focus is on an item, moves focus to first item.`,
+    },
+    {
+      keyTitle: 'End',
+      description: `When focus is on an item, moves focus to last item.`,
+    },
+    {
+      keyTitle: 'ArrowRight',
+      description: `When focus is on the trigger, change the selection to the next item.`,
+    },
+    {
+      keyTitle: 'ArrowLeft',
+      description: `When focus is on the trigger, change the selection to the previous item.`,
+    },
+    {
+      keyTitle: 'Esc',
+      description: `Closes the select and moves focus to the trigger.`,
+    },
+  ]}
+/>
 
 ## API
 

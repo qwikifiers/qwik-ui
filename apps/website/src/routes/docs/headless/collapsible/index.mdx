@@ -1,6 +1,7 @@
 import { statusByComponent } from '~/_state/component-statuses';
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { Note } from '~/components/note/note';
+import { AnatomyTable } from '~/components/anatomy-table/anatomy-table';
 
 <StatusBanner status={statusByComponent.headless.Collapsible} />
 
@@ -10,87 +11,203 @@ An interactive component which expands/collapses a panel.
 
 <Showcase name="hero" />
 
-Follows the WAI-ARIA disclosure pattern.
+## ✨ Features
 
 <FeatureList
   features={[
-    'Can open by default on SSR (without waking up the component!)',
-    'Does not execute until interaction (including programmatically)',
-    'Does not use any visible tasks',
-    'Automatic animation detection (deprecating the `animated` prop)',
-    `Provides a bind:isOpen prop so that users can open or close it however they'd like (controlled)`,
-    'A `defaultOpen` prop to open it by default (uncontrolled)',
-    'Style based on data states. `initial`, `open`, or `closed`',
+    'Accessible as a button that shows content, following web a11y standards.',
+    'Full keyboard navigation',
+    'Controlled or uncontrolled',
+    'Initial open state does not wake up the component',
+    'Automatic entry/exit animation detection',
+    'Executes on interaction or programmatically',
   ]}
 />
 
-## Jack's bug watch 🔎:
+## Building blocks
 
-<strong style={{ color: 'red' }}>BUG:</strong> Refresh the page and click on programmatic toggle.
-The animation does not work.
+<CodeSnippet name="building-blocks" />
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Collapsible',
+      description: 'The root container for the Collapsible component.',
+    },
+    {
+      name: 'CollapsibleTrigger',
+      description: 'A button that opens the Collapsible content when interacted with.',
+    },
+    {
+      name: 'CollapsibleContent',
+      description: 'Contains the content associated with a Collapsible.',
+    },
+  ]}
+/>
+
+## Why use a headless collapsible?
+
+One of the most common questions: _"why not use the native `details` and `summary` HTML elements?"_.
+
+As much as we love the native elements, they come with a couple of problems:
+
+### Native element pain points
+
+<FeatureList
+  issues={[
+    'Inconsistent accessibility and browser support',
+    'Inconsistent screen reader support',
+    'Hierarchy and DOM structure restrictions',
+    'Lack of full programmatic control',
+  ]}
+/>
+
+> To read more about the reasons for implementing an ARIA disclosure widget, check out [Scott O'Hara's article](https://www.scottohara.me/blog/2022/09/12/details-summary.html), as well as the [interactive elements](https://html.spec.whatwg.org/multipage/interactive-elements.html#interactive-elements) section of the HTML spec.
+
+## Component State
+
+### Uncontrolled / Initial value
+
+We can select an initial uncontrolled value by passing the `open` prop to the `<Collapsible />` component.
+
+<Showcase name="open" />
+
+The above example expands the collapsible by default. Something to notice, is there isn't any layout shift when refreshing the page.
+
+This is because the content is rendered on the server. Animations applied to `data-open` take effect after the initial render to prevent layout shift.
+
+> Thanks to Qwik's JavaScript Streaming behavior, we can have open state components without even resuming them!
+
+### Controlled / Reactive value
+
+We can pass reactive state by using the bind:open prop to the `<Collapsible />` component.
+
+<Showcase name="bind-open" />
+
+bind:open is a signal prop, and allows us to pass in our own signal to control the expanded state of the collapsible.
+
+### Programmatic changes
+
+Now that we have a controlled state, we can programmatically change the state of the collapsible by changing the value of the signal.
 
 <Showcase name="programmatic" />
 
-<strong style={{ color: 'red' }}>BUG:</strong> resize the window after closing and opening
-the collapsible. (content height does not resize)
+The example above toggles the expanded state of the collapsible by changing the value of the `isOpen` signal when the checkbox is clicked.
 
-<Showcase name="no-animation" />
+### Handling open / close
 
-<strong style={{ color: 'red' }}>BUG:</strong> watch the animation. Issue explained further
-below.
+We may want to handle the open / close of the collapsible. For example, we may want execute some code when the collapsible is opened or closed.
 
-<Showcase name="padding" />
+<Showcase name="open-change" />
 
-## Hey Qwik developers!
+To do that, we can use the onOpenChange$ prop. A parameter is passed to the handler, which is a boolean indicating whether the collapsible is open or closed.
 
-Qwik UI is already on the path to a library that gives you the features you know and love with other headless libraries (hopefully more functionality), with the performance of _just_ grabbing html on the page.
+### Disabled collapsible
 
-To work towards this, I have been working on a new primitive to rebuild the accordion from the ground up. (which currently uses visible tasks)
+<Showcase name="disabled" />
 
-<Note status="warning">
-  Unfortunately, I don't have the time right now to complete it, but we are _basically
-  80%_ there. Would really appreciate some help on this. It still needs tests (many of
-  which can be taken from the accordion).
-</Note>
+The collapsible can be disabled by adding the `disabled` prop to the `<Collapsible />` component.
 
-It is a collapsible or [disclosure component](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/), similar to native html's `details & summary` tags. Unfortunately, the accessibility for these native elements is very flaky, and thus, this component is needed.
+## Animating the content
 
-Not only does it benefit this component, but also the performance of the accordion (which would be built on top of this).
+To animate the height of the content, we can use a keyframe animation on the height property.
 
-### What I'd like to add:
+<Showcase name="animation" />
 
-<FeatureList
-  features={[
-    'An `onOpenChange$` prop function that runs when the collapsible has opened or closed',
+### Height animation
+
+By default, the `--qwikui-collapsible-content-height` CSS variable will automatically be set to the height of the content.
+
+<CodeSnippet name="animation.css" />
+
+### Why does padding or border break the animation?
+
+Padding or border applied to `CollapsibleContent` breaks our keyframe animation above. This is because the content height has changed.
+
+To fix this, add a child element to the content, and set the padding or border on that element.
+
+```tsx
+<CollapsibleContent class="collapsible-animation collapsible-content">
+  <p class="collapsible-content-outline">Content</p>
+</CollapsibleContent>
+```
+
+> Rather than dealing with this under the hood, we thought it'd be appropriate to keep style management as simple as possible. Let us know if you have a better solution!
+
+## Example CSS
+
+<CodeSnippet name="collapsible.css" />
+
+Every code example uses the following CSS:
+
+Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
+
+## Keyboard Interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: `When focus is on the trigger, open or close the collapsible.`,
+    },
+    {
+      keyTitle: 'Enter',
+      description: `When focus is on the trigger open or close the collapsible.`,
+    },
   ]}
 />
 
-## There are two minor bugs:
+## API
 
-### **BUG #1:**
+### Data Attributes
 
-We currently detect automatic animations with the `getComputedStyle` API. Unfortunately, this is on the client, and so we do not get an animation if:
+`Collapsible`, `CollapsibleTrigger`, and `CollapsibleContent` all have the following data attributes that are used to track state:
 
-- was loaded on SSR **AND** open by default
+<AnatomyTable
+  firstColumnLabel="Attribute"
+  propDescriptors={[
+    {
+      name: 'data-open',
+      description: 'If the collapsible is open (Boolean).',
+    },
+    {
+      name: 'data-closed',
+      description: 'If the collapsible is closed (Boolean).',
+    },
+    {
+      name: 'data-disabled',
+      description: 'If the collapsible is disabled (Boolean).',
+    },
+  ]}
+/>
 
-I was however, able to make it work when clicking the actual button's trigger with a 1ms setTimeout inside the `handleClick$`, but it is still a problem with programmatic behavior.
+### Collapsible (Root)
 
-We need to figure out how to detect the animation with SSR **OR** use a different way of animating. I briefly tried using `requestAnimationFrame` as an alternative.
-
-> My current thoughts are, setting it as an animated collapsible on the server, but then setting it back to false on the client when resumed if it does not have an animation (the current logic for that does not work)
-
-[where the issue is](https://github.com/thejackshelton/collapsible/blob/main/src/components/collapsible/collapsible-content.tsx#L27)
-
-### **BUG #2:**
-
-If you close and open the collapsible again, try resizing the window, notice that the container does not adjust its height to match its content.
-
-[where the issue is](https://github.com/thejackshelton/collapsible/blob/main/src/components/collapsible/collapsible-trigger.tsx#L16)
-
-> You can see visuals of the problems [on discord here.](https://discord.com/channels/990511757091033108/1040763063533588562/1193628593088106496)
-
-The overall component is relatively small, around 250 lines of code.
-
-### **BUG #3:**
-
-Padding currently breaks height animations. This is because the padding is applied to the content, and the content is animated. This causes the content to animate from the padding, which is not the desired effect. :facepalm
+<APITable
+  propDescriptors={[
+    {
+      name: 'open',
+      type: 'boolean',
+      description: 'Uncontrolled initial expanded value.',
+    },
+    {
+      name: 'bind:open',
+      type: 'signal',
+      description: 'Controlled expanded value, manages the collapsible content.',
+      info: 'boolean',
+    },
+    {
+      name: 'onOpenChange$',
+      type: 'QRL',
+      description: 'Function called when the collapsible opens or closes.',
+      info: 'QRL<(open: boolean) => void>',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Disables the collapsible when true.',
+    },
+  ]}
+/>

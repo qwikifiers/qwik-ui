@@ -1,0 +1,13 @@
+.progress {
+  height: 1.75rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: calc(var(--border-radius) / 2);
+  background-color: hsl(var(--foreground));
+}
+
+.progress-indicator {
+  height: 100%;
+  width: 100%;
+  background-color: hsl(var(--primary));
+}

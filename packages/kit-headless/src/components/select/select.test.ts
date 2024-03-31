@@ -105,7 +105,7 @@ test.describe('Mouse Behavior', () => {
 
     await page.getByRole('button', { name: 'Add Users' }).click();
 
-    await expect(d.getOptions({ evenIfHidden: true })).toHaveCount(8);
+    await expect(d.getOptions()).toHaveCount(8);
 
     await d.openListbox('click');
     const expectedValue = 'Bob';
@@ -608,11 +608,9 @@ test.describe('Keyboard Behavior', () => {
       // ideally want to refactor this so that even if the test example is changed, the test will still pass, getting it more programmatically.
       const { getRoot, getTrigger } = await setup(page, 'hero');
       await getTrigger().focus();
-      await getTrigger().press('j');
-      const firstJOption = getRoot().getByRole('option', {
-        name: 'Jim',
-        includeHidden: true,
-      });
+      const char = 'j';
+      await getTrigger().press(char);
+      const firstJOption = getRoot().locator('li', { hasText: char }).nth(0);
       await expect(firstJOption).toHaveAttribute('aria-selected', 'true');
       await expect(firstJOption).toHaveAttribute('data-highlighted');
     });
