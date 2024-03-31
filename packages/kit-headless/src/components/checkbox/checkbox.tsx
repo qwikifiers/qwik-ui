@@ -12,7 +12,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 import { CheckListContext, CheckboxContext } from './context-id';
-import { getTriBool } from './checklist-context-wrapper';
+import { TriBool, getTriBool } from './checklist-context-wrapper';
 
 export type CheckboxProps = {
   checkBoxSig?: Signal<boolean>;
@@ -21,11 +21,35 @@ export type CheckboxProps = {
 } & PropsOf<'div'>;
 
 export const MyCheckbox = component$<CheckboxProps>((props) => {
+  // this is done to avoid consumers dealing with two types checkboxes, could go in different files
+  if (props.checkList) {
+    return (
+      <TriStateCheckbox {...props}>
+        <Slot />
+      </TriStateCheckbox>
+    );
+  }
+  return (
+    <TwoStateCheckbox {...props}>
+      <Slot />
+    </TwoStateCheckbox>
+  );
+});
+
+function getAriaChecked(triBool: TriBool): 'mixed' | 'true' | 'false' {
+  if (triBool === 'indeterminate') {
+    return 'mixed';
+  }
+  return `${triBool === true}`;
+}
+
+export const TwoStateCheckbox = component$<CheckboxProps>((props) => {
   // all the sig stuff should be refactored into a fancy hook
-  const lol = props._useCheckListContext ? useContext(CheckListContext) : undefined;
+  const checklistContext = props._useCheckListContext
+    ? useContext(CheckListContext)
+    : undefined;
   const defaultSig = useSignal(false);
-  const hell = lol !== undefined && props.checkList;
-  const appliedSig = hell ? lol.checklistSig : props.checkBoxSig ?? defaultSig;
+  const appliedSig = props.checkBoxSig ?? defaultSig;
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
@@ -37,32 +61,65 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
       appliedSig.value = !appliedSig.value;
     }
   });
+  // TODO: refactor to usetask code into fancy hook thingy
   useTask$(({ track }) => {
+    if (checklistContext?.checkboxes === undefined) {
+      return;
+    }
     track(() => {
       appliedSig.value;
     });
 
-    // TODO: refactor to "add to context function thingy"
-    if (lol && !props.checkList) {
+    if (checklistContext) {
       // now i can say that there's one good application for object identity
-      if (!lol.checkboxes.value.some((e) => e === appliedSig)) {
-        lol.checkboxes.value = [...lol.checkboxes.value, appliedSig as Signal<boolean>];
+      if (!checklistContext.checkboxes.value.some((e) => e === appliedSig)) {
+        checklistContext.checkboxes.value = [
+          ...checklistContext.checkboxes.value,
+          appliedSig,
+        ];
       }
     }
-    if (lol?.checkboxes === undefined || props.checkList) {
-      return;
-    }
-    const boolArr = lol?.checkboxes.value.map((e) => e.value);
+    const boolArr = checklistContext?.checkboxes.value.map((e) => e.value);
     const newVal = getTriBool(boolArr);
-    lol.checklistSig.value = newVal;
+    checklistContext.checklistSig.value = newVal;
   });
   return (
     <div
       tabIndex={0}
       role="checkbox"
-      aria-checked={`${appliedSig.value === true}`}
+      aria-checked={getAriaChecked(appliedSig.value)}
       {...props}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
+    >
+      <p>Lol: {`${appliedSig.value}`} </p>
+      <Slot />
+    </div>
+  );
+});
+
+export const TriStateCheckbox = component$<CheckboxProps>((props) => {
+  // all the sig stuff should be refactored into a fancy hook
+  const checklistContext = useContext(CheckListContext);
+  const appliedSig = checklistContext.checklistSig;
+  useContextProvider(CheckboxContext, appliedSig);
+  const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+    if (e.key === ' ') {
+      e.preventDefault();
+    }
+  });
+  const handleKeyDown$ = $((e: KeyboardEvent) => {
+    if (e.key === ' ') {
+      appliedSig.value = !appliedSig.value;
+    }
+  });
+  return (
+    <div
+      tabIndex={0}
+      role="checkbox"
+      aria-checked={getAriaChecked(appliedSig.value)}
+      {...props}
+      onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
+      aria-controls="here lol"
     >
       <p>Lol: {`${appliedSig.value}`} </p>
       <Slot />
