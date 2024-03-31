@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './checkbox.driver';
-
+import { getTriBool } from './checklist-context-wrapper';
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/checkbox/${exampleName}`);
 
@@ -74,6 +74,18 @@ test.describe('checklist behavior', () => {
     await expect(getCheckList()).toHaveAttribute('aria-labelledby', 'test123');
     await expect(getChecklistUL()).toBeVisible();
     await expect(getChecklistLIs()).toBeVisible();
+  });
+
+  test(`GIVEN a tri boolean function
+WHEN it recieves an array of booleans
+IT should return the correct tri bool
+`, async ({ page }) => {
+    const indeterminateArr = [true, true, false];
+    const trueArr = [true, true, true];
+    const falseArr = [false, false, false];
+    expect(getTriBool(indeterminateArr)).toBe('indeterminate');
+    expect(getTriBool(trueArr)).toBe(true);
+    expect(getTriBool(falseArr)).toBe(false);
   });
   // test(`GIVEN a checklist with a fist checkbox's value as false
   //       WHEN the first checkbox is focused and the spacebar is pressed

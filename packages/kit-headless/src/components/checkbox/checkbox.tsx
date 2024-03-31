@@ -12,6 +12,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 import { CheckListContext, CheckboxContext } from './context-id';
+import { getTriBool } from './checklist-context-wrapper';
 
 export type CheckboxProps = {
   checkBoxSig?: Signal<boolean>;
@@ -29,8 +30,8 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
     // TODO: refactor to "add to context function thingy"
     if (lol && !props.checkList) {
       // now i can say that there's one good application for object identity
-      if (!lol.checkboxes.some((e) => e === appliedSig)) {
-        lol.checkboxes = [...lol.checkboxes, appliedSig];
+      if (!lol.checkboxes.value.some((e) => e === appliedSig)) {
+        lol.checkboxes.value = [...lol.checkboxes.value, appliedSig as Signal<boolean>];
       }
     }
   });
@@ -45,15 +46,29 @@ export const MyCheckbox = component$<CheckboxProps>((props) => {
       appliedSig.value = !appliedSig.value;
     }
   });
+  useTask$(({ track }) => {
+    if (!props._useCheckListContext || lol?.checkboxes === undefined) {
+      return;
+    }
+    track(() => {
+      appliedSig.value;
+    });
+
+    console.log('om the besto');
+    const boolArr = lol?.checkboxes.value.map((e) => e.value);
+    const newVal = getTriBool(boolArr);
+    lol.checklistSig.value = newVal;
+    console.log('new val: ', newVal, boolArr);
+  });
   return (
     <div
       tabIndex={0}
       role="checkbox"
-      aria-checked={`${appliedSig.value}`}
+      aria-checked={`${appliedSig.value === true}`}
       {...props}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
     >
-      <p>Lol: {lol?.checkboxes.toString()} </p>
+      <p>Lol: {`${appliedSig.value}`} </p>
       <Slot />
     </div>
   );
