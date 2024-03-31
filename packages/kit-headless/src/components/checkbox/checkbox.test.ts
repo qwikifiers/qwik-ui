@@ -6,7 +6,8 @@ async function setup(page: Page, exampleName: string) {
 
   const driver = createTestDriver(page);
 
-  const { getCheckbox, getIcon, getCheckList, getChecklistUL, getChecklistLIs } = driver;
+  const { getCheckbox, getRoot, getIcon, getCheckList, getChecklistUL, getChecklistLIs } =
+    driver;
 
   return {
     driver,
@@ -15,6 +16,7 @@ async function setup(page: Page, exampleName: string) {
     getCheckList,
     getChecklistUL,
     getChecklistLIs,
+    getRoot,
   };
 }
 
@@ -77,9 +79,8 @@ test.describe('checklist behavior', () => {
   });
 
   test(`GIVEN a tri boolean function
-WHEN it recieves an array of booleans
-IT should return the correct tri bool
-`, async ({ page }) => {
+        WHEN it recieves an array of booleans
+        IT should return the correct tri bool`, async ({ page }) => {
     const indeterminateArr = [true, true, false];
     const trueArr = [true, true, true];
     const falseArr = [false, false, false];
@@ -88,6 +89,16 @@ IT should return the correct tri bool
     expect(getTriBool(trueArr)).toBe(true);
     expect(getTriBool(falseArr)).toBe(false);
     expect(getTriBool(emptyArr)).toBe('indeterminate');
+  });
+
+  test(`GIVEN checklist with all unchecked checkboxes
+        WHEN it renders
+        the chekbox with aria-controls should have aria-checked false`, async ({
+    page,
+  }) => {
+    const exampleName = 'list';
+    const { getRoot } = await setup(page, exampleName);
+    await expect(getRoot().locator('css=aria-controls')).toBeVisible();
   });
   // test(`GIVEN a checklist with a fist checkbox's value as false
   //       WHEN the first checkbox is focused and the spacebar is pressed

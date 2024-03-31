@@ -53,7 +53,6 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
       }
     }
   }
-  console.log(boolArr);
 
   return (
     <>
