@@ -1,6 +1,6 @@
 import { type JSXNode, Component, PropsOf, Signal } from '@builder.io/qwik';
 import { MyCheckbox } from './checkbox';
-import { ChecklistContextWrapper } from './checklist-context-wrapper';
+import { ChecklistContextWrapper, getTriBool } from './checklist-context-wrapper';
 
 type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
 // type CheckBoxes=
@@ -11,6 +11,7 @@ type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
 export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
   const checkArr: JSXNode[] = [];
   const hellSigs = [];
+  const boolArr: boolean[] = [];
   const { children: myChildren, ...rest } = props;
 
   const childrenToProcess = (
@@ -35,6 +36,8 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
         Object.assign(child.props, { _useCheckListContext: true });
         checkArr.push(child);
         hellSigs.push(child.props);
+        // this need to be changed to account for user sigs
+        boolArr.push(false);
         break;
       }
 
@@ -50,6 +53,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
       }
     }
   }
+  console.log(boolArr);
 
   return (
     <>
@@ -57,6 +61,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
       <ChecklistContextWrapper
         ariaLabeledBy={props.ariaLabeledBy}
         arrSize={hellSigs.length}
+        initialTriBool={getTriBool(boolArr)}
       >
         <ul class={props.class}>
           {checkArr.map((checkbox) => (

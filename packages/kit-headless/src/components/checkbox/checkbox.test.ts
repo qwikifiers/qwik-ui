@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './checkbox.driver';
-import { getTriBool } from './checklist-context-wrapper';
+import { TriBool, getTriBool } from './checklist-context-wrapper';
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/checkbox/${exampleName}`);
 
@@ -83,9 +83,11 @@ IT should return the correct tri bool
     const indeterminateArr = [true, true, false];
     const trueArr = [true, true, true];
     const falseArr = [false, false, false];
+    const emptyArr: boolean[] = [];
     expect(getTriBool(indeterminateArr)).toBe('indeterminate');
     expect(getTriBool(trueArr)).toBe(true);
     expect(getTriBool(falseArr)).toBe(false);
+    expect(getTriBool(emptyArr)).toBe('indeterminate');
   });
   // test(`GIVEN a checklist with a fist checkbox's value as false
   //       WHEN the first checkbox is focused and the spacebar is pressed
