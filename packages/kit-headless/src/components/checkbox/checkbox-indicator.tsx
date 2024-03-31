@@ -8,7 +8,7 @@ export const CheckboxIndicator = component$<CheckboxIndicatorProps>((props) => {
   return (
     // flaky test bc class is not always applied
     <div {...props}>
-      <div class={checkSig.value ? 'visible' : 'invisible'}>
+      <div class={checkSig.value === true ? 'visible' : 'invisible'}>
         <Slot />
       </div>
     </div>
