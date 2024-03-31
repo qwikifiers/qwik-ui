@@ -11,10 +11,12 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import { ArrSigs, CheckListContext, CheckboxContext } from './context-id';
+import { boolean } from 'yargs';
 
 export type CheckListContextWrapperProps = {
   ariaLabeledBy: string;
   arrSize: number;
+  initialTriBool: TriBool;
 } & PropsOf<'div'>;
 
 export type TriBool = boolean | 'indeterminate';
@@ -22,7 +24,7 @@ export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
   (props) => {
     const helpme = useSignal([]);
     // this sig vals should be a prop
-    const mehelp = useSignal<TriBool>(false);
+    const mehelp = useSignal<TriBool>(props.initialTriBool);
     const obj = { checkboxes: helpme, checklistSig: mehelp };
     useContextProvider(CheckListContext, obj);
     useTask$(({ track }) => {
@@ -41,6 +43,9 @@ export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
 );
 
 export function getTriBool(boolArr: Boolean[]): TriBool {
+  if (boolArr.length === 0) {
+    return 'indeterminate';
+  }
   if (boolArr.every((e) => e === true)) {
     return true;
   }
