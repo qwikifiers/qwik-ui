@@ -25,6 +25,9 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getCheckbox = () => {
     return getRoot().getByRole('checkbox');
   };
+  const getTriCheckbox = () => {
+    return getRoot().locator('css=[aria-controls]');
+  };
   return {
     ...rootLocator,
     locator: rootLocator,
@@ -34,5 +37,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getCheckbox,
     getChecklistUL,
     getChecklistLIs,
+    getTriCheckbox,
   };
 }
