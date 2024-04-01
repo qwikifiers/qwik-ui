@@ -6,8 +6,15 @@ async function setup(page: Page, exampleName: string) {
 
   const driver = createTestDriver(page);
 
-  const { getCheckbox, getRoot, getIcon, getCheckList, getChecklistUL, getChecklistLIs } =
-    driver;
+  const {
+    getCheckbox,
+    getTriCheckbox,
+    getRoot,
+    getIcon,
+    getCheckList,
+    getChecklistUL,
+    getChecklistLIs,
+  } = driver;
 
   return {
     driver,
@@ -16,6 +23,7 @@ async function setup(page: Page, exampleName: string) {
     getCheckList,
     getChecklistUL,
     getChecklistLIs,
+    getTriCheckbox,
     getRoot,
   };
 }
@@ -97,8 +105,8 @@ test.describe('checklist behavior', () => {
     page,
   }) => {
     const exampleName = 'list';
-    const { getRoot } = await setup(page, exampleName);
-    await expect(getRoot().locator('css=aria-controls')).toBeVisible();
+    const { getTriCheckbox } = await setup(page, exampleName);
+    await expect(getTriCheckbox()).toBeVisible();
   });
   // test(`GIVEN a checklist with a fist checkbox's value as false
   //       WHEN the first checkbox is focused and the spacebar is pressed
