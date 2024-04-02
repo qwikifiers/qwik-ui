@@ -4,7 +4,7 @@ import styles from '../snippets/collapsible.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
-  const isOpen = useSignal<boolean>(true);
+  const isOpen = useSignal<boolean>(false);
 
   return (
     <>
