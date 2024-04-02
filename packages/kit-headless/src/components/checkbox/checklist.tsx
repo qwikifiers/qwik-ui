@@ -33,6 +33,14 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
     switch (child.type) {
       case MyCheckbox: {
         // the next line is not very clear, but you can think of it as arr.push() for objs (mutates)
+        // if (child.props.checkList) {
+        //   console.log('IM RIGFI');
+        //
+        //   Object.assign(child.props, { _useCheckListContext: true });
+        // } else {
+        //   Object.assign(child.props, { _useCheckListContext: true, id: 'rigth here' });
+        //   console.log(child.props);
+        // }
         Object.assign(child.props, { _useCheckListContext: true });
         checkArr.push(child);
         hellSigs.push(child.props);

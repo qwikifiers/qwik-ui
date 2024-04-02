@@ -22,6 +22,9 @@ export type CheckboxProps = {
 
 export const MyCheckbox = component$<CheckboxProps>((props) => {
   // this is done to avoid consumers dealing with two types checkboxes, could go in different files
+  if (props._useCheckListContext && !props.checkList) {
+    console.log('using chechlist');
+  }
   if (props.checkList) {
     return (
       <TriStateCheckbox {...props}>
@@ -50,6 +53,7 @@ export const TwoStateCheckbox = component$<CheckboxProps>((props) => {
     : undefined;
   const defaultSig = useSignal(false);
   const appliedSig = props.checkBoxSig ?? defaultSig;
+  const checklistID = useSignal<string | undefined>(undefined);
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
@@ -73,6 +77,10 @@ export const TwoStateCheckbox = component$<CheckboxProps>((props) => {
     if (checklistContext) {
       // now i can say that there's one good application for object identity
       if (!checklistContext.checkboxes.value.some((e) => e === appliedSig)) {
+        const currIndex = checklistContext.checkboxes.value.length;
+        console.log(currIndex);
+        console.log(checklistContext.idArr[currIndex]);
+        checklistID.value = checklistContext.idArr[currIndex];
         checklistContext.checkboxes.value = [
           ...checklistContext.checkboxes.value,
           appliedSig,
@@ -90,6 +98,7 @@ export const TwoStateCheckbox = component$<CheckboxProps>((props) => {
       aria-checked={getAriaChecked(appliedSig.value)}
       {...props}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
+      id={checklistID.value}
     >
       <p>Lol: {`${appliedSig.value}`} </p>
       <Slot />
@@ -102,6 +111,7 @@ export const TriStateCheckbox = component$<CheckboxProps>((props) => {
   const checklistContext = useContext(CheckListContext);
   const childCheckboxes = checklistContext.checkboxes;
   const appliedSig = checklistContext.checklistSig;
+  const ariaControlsStrg = checklistContext.idArr.reduce((p, c) => p + ' ' + c);
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
@@ -124,11 +134,10 @@ export const TriStateCheckbox = component$<CheckboxProps>((props) => {
       tabIndex={0}
       role="checkbox"
       aria-checked={getAriaChecked(appliedSig.value)}
-      {...props}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
-      aria-controls="here lol"
+      aria-controls={ariaControlsStrg}
+      {...props}
     >
-      <p>Lol: {`${appliedSig.value}`} </p>
       <Slot />
     </div>
   );

@@ -1,17 +1,13 @@
 import {
   PropsOf,
-  Signal,
   Slot,
+  useId,
   component$,
-  sync$,
   useContextProvider,
-  $,
   useSignal,
   useTask$,
-  useComputed$,
 } from '@builder.io/qwik';
 import { ArrSigs, CheckListContext, CheckboxContext } from './context-id';
-import { boolean } from 'yargs';
 
 export type CheckListContextWrapperProps = {
   ariaLabeledBy: string;
@@ -23,9 +19,14 @@ export type TriBool = boolean | 'indeterminate';
 export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
   (props) => {
     const helpme = useSignal([]);
+    const idArr: string[] = [];
     // this sig vals should be a prop
     const mehelp = useSignal<TriBool>(props.initialTriBool);
-    const obj = { checkboxes: helpme, checklistSig: mehelp };
+    for (let index = 0; index < props.arrSize - 1; index++) {
+      const uniqId = useId();
+      idArr.push(uniqId);
+    }
+    const obj = { checkboxes: helpme, checklistSig: mehelp, idArr };
     useContextProvider(CheckListContext, obj);
     useTask$(({ track }) => {
       track(() => {
@@ -35,7 +36,7 @@ export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
     });
     return (
       <div role="group" aria-labelledby={props.ariaLabeledBy}>
-        <p>Lokk at me: {`${123}`}</p>
+        <p>Lokk at me: {idArr.toString()}</p>
         <Slot />
       </div>
     );

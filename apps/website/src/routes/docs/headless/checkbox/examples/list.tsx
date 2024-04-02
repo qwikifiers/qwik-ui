@@ -10,7 +10,6 @@ export default component$(() => {
         <MyCheckbox
           class="flex items-center gap-3 bg-slate-900 p-2 text-white"
           checkList={true}
-          aria-controls="here"
         >
           <CheckboxIndicator class=" flex w-[80px] justify-center bg-white p-3">
             ✅

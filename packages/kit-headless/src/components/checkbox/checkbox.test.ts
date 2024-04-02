@@ -164,4 +164,30 @@ test.describe('checklist behavior', () => {
     await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'false');
     await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'false');
   });
+  test(`GIVEN checklist with checkboxes
+        WHEN the values of aria-controls are search
+        IT should always return an ordered, valid, non-duplicate, checkboxes`, async ({
+    page,
+  }) => {
+    const exampleName = 'list';
+    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+    await expect(getTriCheckbox()).toHaveAttribute('aria-controls');
+    const magic = await getTriCheckbox().getAttribute('aria-controls');
+    expect(magic).not.toBe(null);
+    const idArr = magic.split(' ');
+    expect(isUniqArr(idArr)).toBe(true);
+    for (let index = 0; index < idArr.length; index++) {
+      const elementId = idArr[index];
+      const PosCheckbox = page.locator(`#${elementId}`);
+      await expect(PosCheckbox).toBeVisible();
+      const role = await PosCheckbox.getAttribute('role');
+      await expect(role).toBe('checkbox');
+    }
+  });
 });
+
+//TODO: create util file
+function isUniqArr(arr: string[]) {
+  const singleInstances = new Set(arr);
+  return arr.length === singleInstances.size;
+}
