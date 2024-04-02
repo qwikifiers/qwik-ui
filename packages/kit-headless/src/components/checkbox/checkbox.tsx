@@ -100,6 +100,7 @@ export const TwoStateCheckbox = component$<CheckboxProps>((props) => {
 export const TriStateCheckbox = component$<CheckboxProps>((props) => {
   // all the sig stuff should be refactored into a fancy hook
   const checklistContext = useContext(CheckListContext);
+  const childCheckboxes = checklistContext.checkboxes;
   const appliedSig = checklistContext.checklistSig;
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
@@ -109,7 +110,13 @@ export const TriStateCheckbox = component$<CheckboxProps>((props) => {
   });
   const handleKeyDown$ = $((e: KeyboardEvent) => {
     if (e.key === ' ') {
-      appliedSig.value = !appliedSig.value;
+      if (appliedSig.value !== true) {
+        appliedSig.value = true;
+        childCheckboxes.value.forEach((sig) => (sig.value = true));
+        return;
+      }
+      appliedSig.value = false;
+      childCheckboxes.value.forEach((sig) => (sig.value = false));
     }
   });
   return (
