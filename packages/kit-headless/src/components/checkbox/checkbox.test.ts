@@ -107,16 +107,30 @@ test.describe('checklist behavior', () => {
     const exampleName = 'list';
     const { getTriCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toBeVisible();
+    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
   });
-  // test(`GIVEN a checklist with a fist checkbox's value as false
-  //       WHEN the first checkbox is focused and the spacebar is pressed
-  //       IT should have its icon visible`, async ({ page }) => {
-  //   const exampleName = 'default';
-  //   const { getCheckbox, getIcon } = await setup(page, exampleName);
-  //   await expect(getIcon()).toBeHidden();
-  //   await getCheckbox().focus();
-  //   await getCheckbox().press(' ');
-  //   await expect(getCheckbox()).toHaveAttribute('aria-checked', 'false');
-  //   await expect(getIcon()).toBeVisible();
-  // });
+  test(`GIVEN checklist with all unchecked checkboxes
+        WHEN the first checkbox is checked
+        the chekbox with aria-controls should have aria-checked mixed`, async ({
+    page,
+  }) => {
+    const exampleName = 'list';
+    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+    await expect(getTriCheckbox()).toBeVisible();
+    await getCheckbox().nth(1).press(' ');
+    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
+  });
+
+  test(`GIVEN checklist with all unchecked checkboxes
+        WHEN all checkboxes are checked
+        the chekbox with aria-controls should have aria-checked true`, async ({
+    page,
+  }) => {
+    const exampleName = 'list';
+    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+    await expect(getTriCheckbox()).toBeVisible();
+    await getCheckbox().nth(1).press(' ');
+    await getCheckbox().nth(2).press(' ');
+    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+  });
 });
