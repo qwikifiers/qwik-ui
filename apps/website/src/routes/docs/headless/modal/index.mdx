@@ -154,6 +154,20 @@ This means that if a user is navigating through the modal using the Tab key, rea
 
 > Focus locking behavior is provided by default in Qwik UI. If you encounter any use cases that require customized focus lock behavior, please [submit an issue](https://github.com/qwikifiers/qwik-ui/issues) on our GitHub repository.
 
+## Stripped Styles
+
+As a headless library, we intentionally try not to add any styles to the components.
+
+However, because Qwik UI builds on top of native solutions when they are well-supported, feasible, and performant, some of the widgets may inclue browser user-agent styles.
+
+These styles can be unintuitive tricky to debug. Which has been the case with Qwik UI's own docs site. As a result, we have stripped these styles from the Modal component.
+
+<CodeSnippet name="stripped-styles.css" />
+
+While in most cases, this would be up to a consumer's CSS reset to solve, in this case we are **stripping** the max-width and max-height styles on the dialog element under the hood.
+
+This is done in a separate layer so that styles are easily overridable in consumer facing applications.
+
 ## Animations
 
 Animating things to display none has historically been a significant challenge on the web. This is because display none is a `discrete` property, and is **unanimatable**.
