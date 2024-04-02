@@ -54,10 +54,7 @@ test.describe('Mouse Behavior', () => {
     const { driver: d } = await setup(page, 'auto');
     //ask shai: is it good to use nth here???
     const [firstPopOver, secondPopOver] = await d.getAllPopovers();
-
-    const firstPopoverTrigger = d.getTrigger().nth(0);
-
-    const secondPopoverTrigger = d.getTrigger().nth(1);
+    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
 
     await expect(firstPopOver).toBeHidden();
     await expect(secondPopOver).toBeHidden();
@@ -78,10 +75,7 @@ test.describe('Mouse Behavior', () => {
 
     //ask shai: is it good to use nth here???
     const [firstPopOver, secondPopOver] = await d.getAllPopovers();
-
-    const firstPopoverTrigger = d.getTrigger().nth(0);
-
-    const secondPopoverTrigger = d.getTrigger().nth(1);
+    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
 
     await expect(firstPopOver).toBeHidden();
     await expect(secondPopOver).toBeHidden();
@@ -95,21 +89,26 @@ test.describe('Mouse Behavior', () => {
 
   test(`GIVEN a pair of manual opened popovers
   WHEN clicking the first trigger on the page and then clicking the second trigger
-  THEN then both popovers should be opened`, async ({ page }) => {
+  THEN then both popovers should be closed`, async ({ page }) => {
     const { driver: d } = await setup(page, 'manual');
 
-    //ask shai: is it good to use nth here???
     const [firstPopOver, secondPopOver] = await d.getAllPopovers();
     const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
 
-    await expect(firstPopOver).toBeHidden();
-    await expect(secondPopOver).toBeHidden();
-
+    // Arrange
     await firstPopoverTrigger.click();
     await secondPopoverTrigger.click();
 
     await expect(firstPopOver).toBeVisible();
     await expect(secondPopOver).toBeVisible();
+
+    // Act
+    await firstPopoverTrigger.click();
+    await secondPopoverTrigger.click();
+
+    // Assert
+    await expect(firstPopOver).toBeHidden();
+    await expect(secondPopOver).toBeHidden();
   });
 });
 
@@ -133,11 +132,8 @@ test.describe('Keyboard Behavior', () => {
   THEN the first popover should close and the second one appear`, async ({ page }) => {
     const { driver: d } = await setup(page, 'auto');
     //ask shai: is it good to use nth here???
-    const firstPopOver = d.getPopover().nth(0);
-    const firstPopoverTrigger = d.getTrigger().nth(0);
-
-    const secondPopOver = d.getPopover().nth(1);
-    const secondPopoverTrigger = d.getTrigger().nth(1);
+    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
+    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
 
     await expect(firstPopOver).toBeHidden();
     await expect(secondPopOver).toBeHidden();
@@ -152,5 +148,90 @@ test.describe('Keyboard Behavior', () => {
     await expect(secondPopOver).toBeVisible();
 
     await expect(firstPopOver).toBeHidden();
+  });
+
+  test(`GIVEN a pair of manual popovers
+  WHEN clicking the first trigger on the page and then clicking the second trigger
+  THEN then both popovers should be opened`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'manual');
+
+    //ask shai: is it good to use nth here???
+    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
+    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
+
+    await expect(firstPopOver).toBeHidden();
+    await expect(secondPopOver).toBeHidden();
+
+    await firstPopoverTrigger.focus();
+    await firstPopoverTrigger.press('Enter');
+
+    await secondPopoverTrigger.focus();
+    await secondPopoverTrigger.press('Enter');
+
+    await expect(firstPopOver).toBeVisible();
+    await expect(secondPopOver).toBeVisible();
+  });
+
+  test(`GIVEN a pair of manual opened popovers
+  WHEN clicking the first trigger on the page and then clicking the second trigger
+  THEN then both popovers should be closed`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'manual');
+
+    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
+    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
+
+    // Arrange
+    await firstPopoverTrigger.focus();
+    await firstPopoverTrigger.press('Enter');
+
+    await secondPopoverTrigger.focus();
+    await secondPopoverTrigger.press('Enter');
+
+    await expect(firstPopOver).toBeVisible();
+    await expect(secondPopOver).toBeVisible();
+
+    // Act
+    await secondPopoverTrigger.press('Enter');
+
+    await firstPopoverTrigger.focus();
+    await firstPopoverTrigger.press('Enter');
+
+    // Assert
+    await expect(firstPopOver).toBeHidden();
+    await expect(secondPopOver).toBeHidden();
+  });
+
+  test(`GIVEN a programmatic popover
+  WHEN focusing the button on the page and then typing 'o'
+  THEN the popover should open`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'programmatic');
+
+    const popover = d.getPopover();
+    const programmaticButtonTrigger = d.getProgrammaticButtonTrigger();
+
+    await expect(popover).toBeHidden();
+
+    await programmaticButtonTrigger.focus();
+    await programmaticButtonTrigger.press('o');
+
+    await expect(popover).toBeVisible();
+  });
+
+  test(`GIVEN an open programmatic popover
+  WHEN focusing the button on the page and then typing 'o'
+  THEN the popover should close`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'programmatic');
+
+    const popover = d.getPopover();
+    const programmaticButtonTrigger = d.getProgrammaticButtonTrigger();
+
+    await programmaticButtonTrigger.focus();
+    await programmaticButtonTrigger.press('o');
+
+    await expect(popover).toBeVisible();
+
+    await programmaticButtonTrigger.press('o');
+
+    await expect(popover).toBeHidden();
   });
 });

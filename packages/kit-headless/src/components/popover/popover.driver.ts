@@ -19,6 +19,10 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getTrigger().all();
   };
 
+  const getProgrammaticButtonTrigger = () => {
+    return rootLocator.locator('button');
+  };
+
   return {
     ...rootLocator,
     locator: rootLocator,
@@ -26,5 +30,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getAllPopovers,
     getTrigger,
     getAllTriggers,
+    getProgrammaticButtonTrigger,
   };
 }
