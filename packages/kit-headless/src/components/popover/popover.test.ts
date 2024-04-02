@@ -110,6 +110,24 @@ test.describe('Mouse Behavior', () => {
     await expect(firstPopOver).toBeHidden();
     await expect(secondPopOver).toBeHidden();
   });
+
+  test(`GIVEN a combobox with placement set to top
+  WHEN opening the combobox
+  THEN the popover should appear above the trigger`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'placement');
+
+    const popover = d.getPopover();
+    const trigger = d.getTrigger();
+
+    await trigger.click();
+
+    await expect(popover).toBeVisible();
+
+    const popoverBoundingBox = await popover.boundingBox();
+    const triggerBoundingBox = await trigger.boundingBox();
+
+    expect(popoverBoundingBox?.y).toBeLessThan(triggerBoundingBox?.y ?? 0);
+  });
 });
 
 test.describe('Keyboard Behavior', () => {
@@ -233,5 +251,24 @@ test.describe('Keyboard Behavior', () => {
     await programmaticButtonTrigger.press('o');
 
     await expect(popover).toBeHidden();
+  });
+
+  test(`GIVEN a combobox with placement set to top
+  WHEN opening the combobox using the keyboard
+  THEN the popover should appear above the trigger`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'placement');
+
+    const popover = d.getPopover();
+    const trigger = d.getTrigger();
+
+    await trigger.focus();
+    await trigger.press('Enter');
+
+    await expect(popover).toBeVisible();
+
+    const popoverBoundingBox = await popover.boundingBox();
+    const triggerBoundingBox = await trigger.boundingBox();
+
+    expect(popoverBoundingBox?.y).toBeLessThan(triggerBoundingBox?.y ?? 0);
   });
 });
