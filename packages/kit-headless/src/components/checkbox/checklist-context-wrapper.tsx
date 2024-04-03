@@ -32,7 +32,6 @@ export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
       track(() => {
         return obj.checkboxes;
       });
-      console.log('here buddy');
     });
     return (
       <div role="group" aria-labelledby={props.ariaLabeledBy}>

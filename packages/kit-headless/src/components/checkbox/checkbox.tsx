@@ -138,6 +138,7 @@ export const TriStateCheckbox = component$<CheckboxProps>((props) => {
       aria-controls={ariaControlsStrg}
       {...props}
     >
+      <p>IS: {getAriaChecked(appliedSig.value)}</p>
       <Slot />
     </div>
   );
