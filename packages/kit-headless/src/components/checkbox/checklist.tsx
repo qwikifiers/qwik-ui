@@ -38,6 +38,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
         hellSigs.push(child.props);
         console.log(child.props.checkBoxSig);
 
+        // TODO: fix this if hell by making fn
         if (!child.props.checkList) {
           if (child.props.checkBoxSig && child.props.checkBoxSig.untrackedValue) {
             boolArr.push(child.props.checkBoxSig.untrackedValue);
@@ -46,7 +47,6 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
           }
         }
 
-        // this need to be changed to account for user sigs
         break;
       }
 

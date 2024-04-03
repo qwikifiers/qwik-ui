@@ -203,6 +203,13 @@ test(`GIVEN a controlled checklist with two true checkboxes
   const { getTriCheckbox } = await setup(page, exampleName);
   await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
 });
+test(`GIVEN a controlled checklist with two false checkboxes
+        WHEN it renders
+        IT should have aria-checked true`, async ({ page }) => {
+  const exampleName = 'controlled-list-falses';
+  const { getTriCheckbox } = await setup(page, exampleName);
+  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
+});
 //TODO: create util file
 function isUniqArr(arr: string[]) {
   const singleInstances = new Set(arr);
