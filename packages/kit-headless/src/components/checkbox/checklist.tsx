@@ -37,7 +37,6 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
         checkArr.push(child);
         hellSigs.push(child.props);
         console.log(child.props.checkBoxSig);
-
         // TODO: fix this if hell by making fn
         if (!child.props.checkList) {
           if (child.props.checkBoxSig && child.props.checkBoxSig.untrackedValue) {
@@ -62,6 +61,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
       }
     }
   }
+  console.log(boolArr);
 
   return (
     <>
