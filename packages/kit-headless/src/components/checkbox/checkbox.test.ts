@@ -187,7 +187,7 @@ test.describe('uncontrolled checklist behavior', () => {
 });
 
 test.describe('controlled checklist behavior', () => {
-  test(`GIVEN a controlled checklist with one server side checkbox of false and one checkbox of true
+  test(`GIVEN a controlled checklist with one default checkbox and a controlled checkbox of true
         WHEN it renders
         IT should have aria-checked mixed`, async ({ page }) => {
     const exampleName = 'controlled-list';
@@ -196,6 +196,13 @@ test.describe('controlled checklist behavior', () => {
   });
 });
 
+test(`GIVEN a controlled checklist with two true checkboxes
+        WHEN it renders
+        IT should have aria-checked true`, async ({ page }) => {
+  const exampleName = 'controlled-list-trues';
+  const { getTriCheckbox } = await setup(page, exampleName);
+  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+});
 //TODO: create util file
 function isUniqArr(arr: string[]) {
   const singleInstances = new Set(arr);
