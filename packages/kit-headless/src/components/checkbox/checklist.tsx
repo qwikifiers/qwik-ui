@@ -14,6 +14,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
   const hellSigs = [];
   let checklistCheckbox = undefined;
   const boolArr: boolean[] = [];
+  const checklistChilds: JSXNode[] = [];
   const { children: myChildren, ...rest } = props;
 
   const childrenToProcess = (
@@ -39,6 +40,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
         checkArr.push(child);
         // TODO: fix this if hell by making fn
         if (!child.props.checkList) {
+          checklistChilds.push(child);
           if (child.props.checkBoxSig && child.props.checkBoxSig.untrackedValue) {
             boolArr.push(child.props.checkBoxSig.untrackedValue);
             hellSigs.push(child.checkBoxSig);
@@ -70,7 +72,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
     );
   }
   if (checklistCheckbox.props.checkBoxSig) {
-    checkArr.forEach((checkbox) => {
+    checklistChilds.forEach((checkbox) => {
       Object.assign(checkbox.props, { _overWriteCheckbox: true });
     });
     // TODO: add code for controlled stuff
