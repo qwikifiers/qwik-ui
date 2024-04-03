@@ -58,7 +58,7 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
     : undefined;
   const defaultSig = useSignal(false);
   const appliedSig = props.checkBoxSig ?? defaultSig;
-  const checklistID = useSignal<string | undefined>(undefined);
+  const checklistID = useSignal<string | undefined>(props.id);
   const checkboxOverWrite = useSignal<undefined | boolean>(props._overWriteCheckbox);
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
@@ -91,7 +91,12 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
         const currIndex = checklistContext.checkboxes.value.length;
         console.log(currIndex);
         console.log(checklistContext.idArr[currIndex]);
-        checklistID.value = checklistContext.idArr[currIndex];
+        // TODO: refactor id to not run on wrapper but after conditional
+        if (checklistID.value === undefined) {
+          checklistID.value = checklistContext.idArr[currIndex];
+        } else {
+          checklistContext.idArr[currIndex] = checklistID.value;
+        }
         checklistContext.checkboxes.value = [
           ...checklistContext.checkboxes.value,
           appliedSig,
@@ -123,11 +128,10 @@ export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
   const childCheckboxes = checklistContext.checkboxes;
   const appliedSig = props.checkBoxSig ?? checklistContext.checklistSig;
   const ariaControlsStrg = checklistContext.idArr.reduce((p, c) => p + ' ' + c);
-  const checkboxOverWrite = useSignal<undefined | boolean>(props._overWriteCheckbox);
   useContextProvider(CheckboxContext, appliedSig);
   useTask$(() => {});
 
-  // im not enterily sure, but the if statement only runs once
+  // im not enterily sure why, but the if statement only runs once
   if (props.checkBoxSig !== undefined) {
     checklistContext.checklistSig = props.checkBoxSig;
   }
