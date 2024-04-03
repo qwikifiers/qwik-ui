@@ -14,13 +14,18 @@ import {
 import { CheckListContext, CheckboxContext } from './context-id';
 import { TriBool, getTriBool } from './checklist-context-wrapper';
 
-export type CheckboxProps = {
+export type TriStateCheckboxProps = {
   checkBoxSig?: Signal<boolean>;
   checkList?: boolean;
   _useCheckListContext?: boolean;
+  _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
-
-export const MyCheckbox = component$<CheckboxProps>((props) => {
+type TwoStateCheckboxProps = {
+  checkBoxSig?: Signal<boolean>;
+  _useCheckListContext?: boolean;
+  _overWriteCheckbox?: boolean;
+} & PropsOf<'div'>;
+export const MyCheckbox = component$<TriStateCheckboxProps>((props) => {
   // this is done to avoid consumers dealing with two types checkboxes, could go in different files
   if (props._useCheckListContext && !props.checkList) {
     console.log('using chechlist');
@@ -46,7 +51,7 @@ function getAriaChecked(triBool: TriBool): 'mixed' | 'true' | 'false' {
   return `${triBool === true}`;
 }
 
-export const TwoStateCheckbox = component$<CheckboxProps>((props) => {
+export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
   // all the sig stuff should be refactored into a fancy hook
   const checklistContext = props._useCheckListContext
     ? useContext(CheckListContext)
@@ -54,6 +59,7 @@ export const TwoStateCheckbox = component$<CheckboxProps>((props) => {
   const defaultSig = useSignal(false);
   const appliedSig = props.checkBoxSig ?? defaultSig;
   const checklistID = useSignal<string | undefined>(undefined);
+  const checkboxOverWrite = useSignal<undefined | boolean>(props._overWriteCheckbox);
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
@@ -69,6 +75,11 @@ export const TwoStateCheckbox = component$<CheckboxProps>((props) => {
   useTask$(({ track }) => {
     if (checklistContext?.checkboxes === undefined) {
       return;
+    }
+    if (checkboxOverWrite.value !== undefined) {
+      console.log('CHANGE ME LOL');
+      appliedSig.value = checkboxOverWrite.value;
+      checkboxOverWrite.value = undefined;
     }
     track(() => {
       appliedSig.value;
@@ -106,13 +117,19 @@ export const TwoStateCheckbox = component$<CheckboxProps>((props) => {
   );
 });
 
-export const TriStateCheckbox = component$<CheckboxProps>((props) => {
+export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
   // all the sig stuff should be refactored into a fancy hook
   const checklistContext = useContext(CheckListContext);
   const childCheckboxes = checklistContext.checkboxes;
   const appliedSig = checklistContext.checklistSig;
   const ariaControlsStrg = checklistContext.idArr.reduce((p, c) => p + ' ' + c);
+  const checkboxOverWrite = useSignal<undefined | boolean>(props._overWriteCheckbox);
   useContextProvider(CheckboxContext, appliedSig);
+  if (checkboxOverWrite.value !== undefined) {
+    console.log('CHANGE ME LOL');
+    appliedSig.value = checkboxOverWrite.value;
+    checkboxOverWrite.value = undefined;
+  }
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
       e.preventDefault();

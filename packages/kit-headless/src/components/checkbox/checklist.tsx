@@ -1,6 +1,7 @@
 import { type JSXNode, Component, PropsOf, Signal } from '@builder.io/qwik';
 import { MyCheckbox } from './checkbox';
 import { ChecklistContextWrapper, getTriBool } from './checklist-context-wrapper';
+import { Checkbox } from '@qwik-ui/headless';
 
 type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
 // type CheckBoxes=
@@ -36,7 +37,6 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
         // the next line is not very clear, but you can think of it as arr.push() for objs (mutates)
         Object.assign(child.props, { _useCheckListContext: true });
         checkArr.push(child);
-        console.log(child.props.checkBoxSig);
         // TODO: fix this if hell by making fn
         if (!child.props.checkList) {
           if (child.props.checkBoxSig && child.props.checkBoxSig.untrackedValue) {
@@ -64,14 +64,15 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
       }
     }
   }
-  console.log(checklistCheckbox);
   if (checklistCheckbox === undefined) {
     throw Error(
       "QWIKUI: checklist doesn't have a checkbox. Did you give the atribute to *checklist* to any of the checkboxes inside the checklist?",
     );
   }
   if (checklistCheckbox.props.checkBoxSig) {
-    console.log(hellSigs);
+    checkArr.forEach((checkbox) => {
+      Object.assign(checkbox.props, { _overWriteCheckbox: true });
+    });
     // TODO: add code for controlled stuff
     // for (let index = 0; index < hellSigs.length; index++) {
     //   const element = array[index];
