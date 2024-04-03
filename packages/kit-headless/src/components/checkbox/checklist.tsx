@@ -36,10 +36,14 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
         Object.assign(child.props, { _useCheckListContext: true });
         checkArr.push(child);
         hellSigs.push(child.props);
-        if (child.props.checkBoxSig && child.props.checkBoxSig.untrackedValue) {
-          boolArr.push(child.props.checkBoxSig.untrackedValue);
-        } else {
-          boolArr.push(false);
+        console.log(child.props.checkBoxSig);
+
+        if (!child.props.checkList) {
+          if (child.props.checkBoxSig && child.props.checkBoxSig.untrackedValue) {
+            boolArr.push(child.props.checkBoxSig.untrackedValue);
+          } else {
+            boolArr.push(false);
+          }
         }
 
         // this need to be changed to account for user sigs
