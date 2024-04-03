@@ -1,0 +1,64 @@
+---
+title: Qwik UI | Progress
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+import { FeatureList } from '~/components/feature-list/feature-list';
+import { Note } from '~/components/note/note';
+
+<StatusBanner status={statusByComponent.headless.Label} />
+
+# Label
+
+Renders an accessible label associated with controls.
+
+<Showcase name="hero" />
+
+### Features
+
+<FeatureList
+  features={[
+    'Text selection is prevented when double clicking label.',
+    'Supports nested controls.',
+  ]}
+/>
+
+<div class="mb-6 flex flex-col gap-2">
+[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/label)
+
+[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
+
+[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/label/index.mdx>)
+
+</div>
+
+## Building blocks
+
+```tsx
+import { component$, useStyles$ } from '@builder.io/qwik';
+import { Label } from '@qwik-ui/headless';
+
+export default component$(() => {
+  return (
+    <div>
+      <Label for="firstName">First name</Label>
+      <input type="text" id="firstName" placeholder="John Doe" />
+    </div>
+  );
+});
+```
+
+## Accessibility
+
+This component is based on the native label element, it will automatically apply the correct labelling when wrapping controls or using the for attribute. For your own custom controls to work correctly, ensure they use native elements such as button or input as a base.
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Label',
+      description: 'The root container for the label',
+    },
+  ]}
+/>

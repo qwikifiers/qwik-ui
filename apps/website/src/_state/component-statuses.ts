@@ -37,6 +37,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Carousel: ComponentStatus.Draft,
     Collapsible: ComponentStatus.Draft,
     Combobox: ComponentStatus.Beta,
+    Label: ComponentStatus.Draft,
     Modal: ComponentStatus.Beta,
     Pagination: ComponentStatus.Draft,
     Popover: ComponentStatus.Beta,

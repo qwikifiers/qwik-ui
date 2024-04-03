@@ -57,7 +57,37 @@ Adheres to the [progressbar role requirements](https://www.w3.org/WAI/ARIA/apg/p
 
 ## API
 
-### Root
+### Progress
+
+Contains all of the progress parts.
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'class',
+      type: 'string',
+      description: 'CSS classes to apply to the Progress.',
+    },
+    {
+      name: 'value',
+      type: 'number',
+      description: 'The progress value.',
+    },
+    {
+      name: 'max',
+      type: 'number',
+      description: 'The maximum progress value',
+    },
+    {
+      name: 'getValueLabel',
+      type: 'function',
+      description:
+        'A function to get the accessible label text representing the current value in a human-readable format. If not provided, the value label will be read as the numeric value as a percentage of the max value.',
+    },
+  ]}
+/>
+
+### Progress Indicator
 
 Contains all of the progress parts.
 

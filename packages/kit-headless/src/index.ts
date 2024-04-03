@@ -7,6 +7,7 @@ export * from './components/carousel';
 export * as Checkbox from './components/checkbox/checkbox';
 export * from './components/collapsible';
 export * from './components/combobox';
+export * from './components/label';
 export * from './components/modal';
 export * from './components/drawer';
 export * from './components/navigation-bar/navigation-bar';
