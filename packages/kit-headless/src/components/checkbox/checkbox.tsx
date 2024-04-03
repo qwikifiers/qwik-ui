@@ -121,14 +121,15 @@ export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
   // all the sig stuff should be refactored into a fancy hook
   const checklistContext = useContext(CheckListContext);
   const childCheckboxes = checklistContext.checkboxes;
-  const appliedSig = checklistContext.checklistSig;
+  const appliedSig = props.checkBoxSig ?? checklistContext.checklistSig;
   const ariaControlsStrg = checklistContext.idArr.reduce((p, c) => p + ' ' + c);
   const checkboxOverWrite = useSignal<undefined | boolean>(props._overWriteCheckbox);
   useContextProvider(CheckboxContext, appliedSig);
-  if (checkboxOverWrite.value !== undefined) {
-    console.log('CHANGE ME LOL');
-    appliedSig.value = checkboxOverWrite.value;
-    checkboxOverWrite.value = undefined;
+  useTask$(() => {});
+
+  // im not enterily sure, but the if statement only runs once
+  if (props.checkBoxSig !== undefined) {
+    checklistContext.checklistSig = props.checkBoxSig;
   }
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
