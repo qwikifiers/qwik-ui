@@ -10,8 +10,7 @@ import { Note } from '../note/note';
 import { Showcase } from '../showcase/showcase';
 import { StatusBanner } from '../status-banner/status-banner';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const components: Record<string, any> = {
+export const components: Record<string, Component> = {
   p: component$<PropsOf<'p'>>(({ ...props }) => {
     return (
       <p {...props} class={[cn('mb-6 last:mb-0', props.class)]}>
