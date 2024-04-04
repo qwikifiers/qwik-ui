@@ -3,6 +3,7 @@ title: Qwik UI | Styled Accordion Component
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
+import { Highlight } from '../../../../components/highlight/highlight';
 
 <StatusBanner status={statusByComponent.styled.Accordion} />
 
@@ -16,112 +17,22 @@ A vertically stacked set of interactive headings that each reveal a section of c
 
 ### 1. Run the following cli command or copy/paste the component code into your project
 
-```sh
-qwik-ui add accordion
-```
+<CodeSnippet name="install.tsx" />
 
-```tsx
-import { component$, Slot, PropsOf } from '@builder.io/qwik';
+{" "}
 
-import {
-  AccordionContent as QwikUIAccordionContent,
-  AccordionHeader as QwikUIAccordionHeader,
-  AccordionItem as QwikUIAccordionItem,
-  AccordionRoot as QwikUIAccordionRoot,
-  AccordionTrigger as QwikUIAccordionTrigger,
-} from '@qwik-ui/headless';
-import { cn } from '@qwik-ui/utils';
-
-import { LuChevronDown } from '@qwikest/icons/lucide';
-
-export const Accordion = component$<PropsOf<typeof QwikUIAccordionRoot>>((props) => (
-  <QwikUIAccordionRoot animated {...props} class={props.class}>
-    <Slot />
-  </QwikUIAccordionRoot>
-));
-
-export const AccordionItem = component$<PropsOf<typeof QwikUIAccordionItem>>((props) => {
-  return (
-    <QwikUIAccordionItem {...props} class={cn('border-b', props.class)}>
-      <Slot />
-    </QwikUIAccordionItem>
-  );
-});
-
-export const AccordionTrigger = component$<
-  PropsOf<typeof QwikUIAccordionTrigger> & {
-    header?: PropsOf<typeof QwikUIAccordionHeader>['as'];
-  }
->(({ header = 'h3', ...props }) => {
-  return (
-    <QwikUIAccordionHeader as={header} class="flex">
-      <QwikUIAccordionTrigger
-        {...props}
-        class={cn(
-          'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
-          props.class,
-        )}
-      >
-        <Slot />
-        <LuChevronDown class="text-muted-foreground h-4 w-4 shrink-0 transition-transform duration-200" />
-      </QwikUIAccordionTrigger>
-    </QwikUIAccordionHeader>
-  );
-});
-
-export const AccordionContent = component$<PropsOf<typeof QwikUIAccordionContent>>(
-  (props) => {
-    return (
-      <QwikUIAccordionContent
-        {...props}
-        class={cn(
-          'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm',
-          props.class,
-        )}
-      >
-        <div class="pb-4 pt-0">
-          <Slot />
-        </div>
-      </QwikUIAccordionContent>
-    );
-  },
-);
-```
+<CodeSnippet name="example-accordion.tsx" />
 
 ### 2. Update your 'tailwind.config.cjs'
 
 Add the following animations to your tailwind.config.js file:
 
-```tsx
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  theme: {
-    extend: {
-      animation: {
-        'accordion-down': '0.2s ease-out 0s 1 normal forwards accordion-open',
-        'accordion-up': '0.2s ease-out 0s 1 normal forwards accordion-close',
-      },
-    },
-  },
-};
-```
+<CodeSnippet name="example-config.tsx" />
 
 ## Usage
 
-```tsx
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-```
+<CodeSnippet name="example-import.tsx" />
 
-```tsx
-<Accordion behavior="single" collapsible class="w-full">
-  <AccordionItem id="item-1">
-    <AccordionTrigger>Is it accessible?</AccordionTrigger>
-    <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
-  </AccordionItem>
-</Accordion>
-```
+{" "}
+
+<CodeSnippet name="example-accordiond.tsx" />

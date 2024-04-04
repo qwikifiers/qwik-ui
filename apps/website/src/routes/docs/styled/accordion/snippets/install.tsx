@@ -1,0 +1,1 @@
+qwik-ui add accordion
