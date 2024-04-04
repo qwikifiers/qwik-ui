@@ -11,7 +11,7 @@ type FeatureListProps = {
 
 export const FeatureList = component$((props: FeatureListProps) => {
   return (
-    <ul class="mb-12 mt-[-16px] !px-0">
+    <ul class="mb-12 mt-6 !px-0">
       {props.features && (
         <>
           {props.features.map((descriptor) => {
