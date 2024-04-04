@@ -1,12 +1,13 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { Label } from '@qwik-ui/headless';
-import styles from './label.css?inline';
+import styles from '../snippets/label.css?inline';
 
 export default component$(() => {
-  useStyles$(styles);
+  useStylesScoped$(styles);
 
   return (
     <div
+      class="label-container"
       style={{
         display: 'flex',
         padding: '0 20px',
@@ -14,18 +15,11 @@ export default component$(() => {
         gap: 15,
         alignItems: 'center',
       }}
-      data-testid="root"
     >
-      <Label class="LabelRoot" for="firstName" data-testid="label">
+      <Label class="label" for="firstName">
         First name
       </Label>
-      <input
-        class="Input"
-        type="text"
-        id="firstName"
-        placeholder="John Doe"
-        data-testid="input"
-      />
+      <input class="input" type="text" id="firstName" placeholder="John Doe" />
     </div>
   );
 });

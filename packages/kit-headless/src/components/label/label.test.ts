@@ -3,32 +3,38 @@ import { createTestDriver } from './label.driver';
 
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/label/${exampleName}`);
-  const driver = createTestDriver(page.getByTestId('root'));
-  const { getLabel, getForElement } = driver;
+  const driver = createTestDriver(page);
 
-  return { driver, getLabel, getForElement };
+  return { driver };
 }
 
-test.describe('Label usaged', () => {
-  test('should have a label', async ({ page }) => {
-    const { getLabel } = await setup(page, 'hero');
-    await expect(getLabel()).toBeVisible();
+test.describe('Label usage', () => {
+  test(`GIVEN a label
+        WHEN a label is rendered
+        THEN it should be visible
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await expect(d.getLabel()).toBeVisible();
   });
 
-  test('should focus on for', async ({ page }) => {
-    const { getLabel, getForElement } = await setup(page, 'hero');
-    const label = getLabel();
-    const forElement = getForElement();
+  test(`GIVEN a label and an input
+        WHEN the label is clicked
+        THEN the input should be focused
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
-    await label.click();
-    await expect(forElement).toBeFocused();
+    await d.getLabel().click();
+    await expect(d.getInput()).toBeFocused();
   });
 
-  test('should not select the text on label', async ({ page }) => {
-    const { getLabel } = await setup(page, 'hero');
-    const label = getLabel();
+  test(`GIVEN a label
+        WHEN the label is double clicked
+        THEN the label text should not be selected
+    `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
-    await label.dblclick();
+    await d.getLabel().dblclick();
     const selection = await page.evaluate(() => window.getSelection()?.toString());
     expect(selection).toBeFalsy();
   });

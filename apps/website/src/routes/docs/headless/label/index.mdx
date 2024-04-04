@@ -14,7 +14,11 @@ Renders an accessible label associated with controls.
 
 <Showcase name="hero" />
 
-### Features
+This component is based on the native label element, it will automatically apply the correct labelling when wrapping controls or using the for attribute.
+
+For your own custom controls to work correctly, ensure they use native elements such as button or input as a base.
+
+## ✨ Features
 
 <FeatureList
   features={[
@@ -23,34 +27,9 @@ Renders an accessible label associated with controls.
   ]}
 />
 
-<div class="mb-6 flex flex-col gap-2">
-[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/label)
-
-[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
-
-[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/label/index.mdx>)
-
-</div>
-
 ## Building blocks
 
-```tsx
-import { component$, useStyles$ } from '@builder.io/qwik';
-import { Label } from '@qwik-ui/headless';
-
-export default component$(() => {
-  return (
-    <div>
-      <Label for="firstName">First name</Label>
-      <input type="text" id="firstName" placeholder="John Doe" />
-    </div>
-  );
-});
-```
-
-## Accessibility
-
-This component is based on the native label element, it will automatically apply the correct labelling when wrapping controls or using the for attribute. For your own custom controls to work correctly, ensure they use native elements such as button or input as a base.
+<CodeSnippet name="building-blocks" />
 
 ### 🎨 Anatomy
 
@@ -62,3 +41,15 @@ This component is based on the native label element, it will automatically apply
     },
   ]}
 />
+
+## Why use a headless label?
+
+The Qwik UI headless label component keeps focus on the input when double clicking.
+
+The native behavior will try to select and focus the text of the label. This is often times not the desired behavior.
+
+{/* Not caught up to main, but would have an issues prop here from FeatureList */}
+
+## Example CSS
+
+<CodeSnippet name="label.css" />

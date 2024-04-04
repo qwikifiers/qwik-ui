@@ -3,14 +3,14 @@ input {
   all: unset;
 }
 
-.LabelRoot {
+.label-container {
   font-size: 15px;
   font-weight: 500;
   line-height: 35px;
-  color: black;
+  color: hsl(var(--foreground));
 }
 
-.Input {
+input {
   width: 200px;
   display: inline-flex;
   align-items: center;
@@ -20,13 +20,15 @@ input {
   height: 35px;
   font-size: 15px;
   line-height: 1;
-  background-color: white;
-  box-shadow: 0 0 0 1px black;
+  background-color: hsl(var(--background));
+  box-shadow: 0 0 0 1px hsl(var(--foreground));
 }
-.Input:focus {
-  box-shadow: 0 0 0 2px black;
+
+input:focus {
+  box-shadow: 0 0 0 2px hsl(var(--foreground));
 }
-.Input::selection {
+
+input::selection {
   background-color: var(--black-a9);
   color: white;
 }
