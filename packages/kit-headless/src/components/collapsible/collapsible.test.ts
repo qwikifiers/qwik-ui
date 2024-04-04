@@ -189,3 +189,43 @@ test.describe('Disabled', () => {
     await expect(d.getContent()).toBeHidden();
   });
 });
+
+test.describe('CSR', () => {
+  test(`GIVEN a collapsible
+        WHEN it is client-side rendered
+        THEN the collapsible trigger should be visible
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'csr');
+
+    await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
+    await expect(d.getTrigger()).toBeVisible();
+  });
+
+  test(`GIVEN a CSR collapsible
+        WHEN the trigger is clicked
+        THEN the collapsible should be opened
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'csr');
+
+    await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
+    await expect(d.getTrigger()).toBeVisible();
+
+    await d.getTrigger().click();
+    await expect(d.getContent()).toBeVisible();
+  });
+
+  test(`GIVEN an open CSR collapsible
+        WHEN the trigger is clicked
+        THEN the collapsible should be closed
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'csr');
+
+    await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
+    await expect(d.getTrigger()).toBeVisible();
+
+    await d.openCollapsible('click');
+    await d.getTrigger().click();
+
+    await expect(d.getContent()).toBeHidden();
+  });
+});
