@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik';
-import {} from '@qwik-ui/headless';
 
 type AnatomyTableProps = {
   firstColumnLabel?: string;
@@ -13,14 +12,14 @@ type AnatomyTableProps = {
 export const AnatomyTable = component$(
   ({ firstColumnLabel = 'Component', propDescriptors }: AnatomyTableProps) => {
     return (
-      <div class="prose prose-sm overflow-auto">
+      <div class="overflow-auto">
         <table class="mb-6 w-full min-w-[540px] text-left sm:min-w-full">
           <tbody class="divide-y">
             <tr class="text-foreground">
-              <td class="w-2/6 whitespace-nowrap p-2 text-base font-semibold sm:pl-0">
+              <td class="w-2/6 whitespace-nowrap p-2 font-semibold sm:pl-0">
                 {firstColumnLabel}
               </td>
-              <td class="w-4/6 whitespace-nowrap p-2 text-base font-semibold sm:pl-0">
+              <td class="w-4/6 whitespace-nowrap p-2 font-semibold sm:pl-0">
                 Description
               </td>
             </tr>
@@ -35,7 +34,7 @@ export const AnatomyTable = component$(
                     </div>
                   </td>
                   <td class="py-3 align-baseline">
-                    <div class="prose-docs-table">
+                    <div class="">
                       <p>{propDescriptor.description}</p>
                     </div>
                   </td>
