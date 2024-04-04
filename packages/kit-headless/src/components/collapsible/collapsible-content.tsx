@@ -35,7 +35,9 @@ export const CollapsibleContent = component$((props: CollapsibleContentProps) =>
       return;
     }
 
-    await context.getContentDimensions$();
+    if (context.isOpenSig.value) {
+      await context.getContentDimensions$();
+    }
 
     /* check if there's a transition or animation, we set a timeout for the initial render */
     setTimeout(() => {

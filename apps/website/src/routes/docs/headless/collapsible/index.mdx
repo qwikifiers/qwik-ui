@@ -136,6 +136,14 @@ To fix this, add a child element to the content, and set the padding or border o
 
 > Rather than dealing with this under the hood, we thought it'd be appropriate to keep style management as simple as possible. Let us know if you have a better solution!
 
+## CSR
+
+The collapsible can be rendered both server-side or client-side, same with the rest of the components.
+
+<Showcase name="csr" />
+
+The main difference, is there is no server to client handoff. This can be useful if you're navigating via SPA.
+
 ## Example CSS
 
 <CodeSnippet name="collapsible.css" />
