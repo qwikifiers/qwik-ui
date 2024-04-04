@@ -1,9 +1,10 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { Component, PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
 import { CodeCopy } from '../code-copy/code-copy';
 import { CodeSnippet } from '../code-snippet/code-snippet';
+import { FeatureList } from '../feature-list/feature-list';
 import { InstallSnippet } from '../install-snippet/install-snippet';
 import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard-interaction-table';
 import { Note } from '../note/note';
@@ -42,7 +43,7 @@ export const components: Record<string, Component> = {
         {...props}
         class={[
           cn(
-            'mb-8 mt-20 scroll-mt-32 border-b-[1px] pb-2 text-2xl font-extrabold',
+            'mb-8 mt-20 scroll-mt-32 border-b-2 pb-2 text-2xl font-extrabold',
             props.class,
           ),
         ]}
@@ -139,6 +140,7 @@ export const components: Record<string, Component> = {
   AnatomyTable,
   APITable,
   CodeSnippet,
+  FeatureList,
   InstallSnippet,
   KeyboardInteractionTable,
   Note,
