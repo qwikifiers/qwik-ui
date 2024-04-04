@@ -12,7 +12,7 @@ import { cn } from '@qwik-ui/utils';
 import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export const Accordion = component$<PropsOf<typeof QwikUIAccordionRoot>>((props) => (
-  <QwikUIAccordionRoot animated {...props} class={props.class}>
+  <QwikUIAccordionRoot animated {...props}>
     <Slot />
   </QwikUIAccordionRoot>
 ));
