@@ -166,9 +166,7 @@ test.describe('uncontrolled checklist behavior', () => {
   });
   test(`GIVEN checklist with checkboxes
         WHEN the values of aria-controls are search
-        IT should always return an ordered, valid, non-duplicate, checkboxes`, async ({
-    page,
-  }) => {
+        IT should always return a valid, non-duplicate, checkboxes`, async ({ page }) => {
     const exampleName = 'list';
     const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toHaveAttribute('aria-controls');
@@ -218,7 +216,50 @@ test(`GIVEN a controlled checklist with mixed checkboxes
   const { getTriCheckbox } = await setup(page, exampleName);
   await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
 });
+
+test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+        WHEN the checklist renders
+        IT shoud have aria-checked true`, async ({ page }) => {
+  const exampleName = 'controlled-list-true';
+  const { getTriCheckbox } = await setup(page, exampleName);
+  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+});
+test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+      WHEN the checklist renders
+      ALL its child checkboxes should have aria-checked true`, async ({ page }) => {
+  const exampleName = 'controlled-list-true';
+  const { getCheckbox } = await setup(page, exampleName);
+  const allCheckboxes = await getCheckbox().all();
+  for (let index = 0; index < allCheckboxes.length; index++) {
+    const checkbox = allCheckboxes[index];
+    await expect(checkbox).toHaveAttribute('aria-checked', 'true');
+  }
+});
+
+// TODO: change api to not use indeterminate and used mixed instead
+test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+      WHEN a child checkbox is unchecked
+      THEN the checklist signal should have aria-checked mixed`, async ({ page }) => {
+  const exampleName = 'controlled-list-true';
+  const { getCheckbox, getTriCheckbox } = await setup(page, exampleName);
+  const firstCheckbox = page.locator('#first-checkbox-child');
+  await firstCheckbox.press(' ');
+  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
+});
+
+test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+      WHEN all child checkbox are unchecked
+      THEN the checklist signal should have aria-checked false`, async ({ page }) => {
+  const exampleName = 'controlled-list-true';
+  const { getCheckbox, getTriCheckbox } = await setup(page, exampleName);
+  const allCheckboxes = await getCheckbox().all();
+  await page.locator('#child-1').press(' ');
+  await page.locator('#child-2').press(' ');
+  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
+});
 //TODO: create util file
+//TODO: add test for user-given ids and other passed props
+//TODO: add click
 function isUniqArr(arr: string[]) {
   const singleInstances = new Set(arr);
   return arr.length === singleInstances.size;
