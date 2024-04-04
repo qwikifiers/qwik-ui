@@ -91,25 +91,18 @@ export const components: Record<string, any> = {
       </li>
     );
   }),
-  pre: component$<
-    PropsOf<'div'> & {
-      __rawString__?: string;
-    }
-  >(({ __rawString__, ...props }) => {
+  pre: component$<{
+    __rawString__?: string;
+  }>(({ __rawString__ }) => {
     return (
-      <div
-        {...props}
-        class={[
-          cn('code-example relative mb-6 max-h-[31.25rem] rounded-base', props.class),
-        ]}
-      >
+      <div class="code-example relative mb-6 max-h-[31.25rem] rounded-base">
         <CodeCopy
-          class="absolute right-3 top-3 text-white hover:bg-slate-800 hover:text-white"
+          class="absolute right-3 top-3 text-white hover:text-white"
           code={__rawString__}
         />
         <div
           class={cn(
-            'max-h-[31.25rem] max-w-full overflow-auto rounded-base border bg-gradient-to-b p-6 text-sm',
+            'max-h-[31.25rem] max-w-full overflow-y-auto rounded-base border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
           )}
         >
           <pre>
