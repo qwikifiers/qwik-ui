@@ -75,6 +75,20 @@ export const components: Record<string, Component> = {
       </h5>
     );
   }),
+  a: component$<PropsOf<'a'>>(({ ...props }) => {
+    return (
+      <a
+        {...props}
+        class={[
+          cn('font-semibold underline underline-offset-4 hover:opacity-90', props.class),
+        ]}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Slot />
+      </a>
+    );
+  }),
   blockquote: component$(() => {
     return (
       <Note>
