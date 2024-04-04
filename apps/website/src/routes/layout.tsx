@@ -27,15 +27,15 @@ export default component$(() => {
             linksGroups={
               menuItemsGroups && menuItemsGroups.length > 0 ? menuItemsGroups : undefined
             }
-            class="sticky top-16 mx-4 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:flex 2xl:ml-0"
+            class="sticky top-16 mr-4 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:flex 2xl:ml-0"
           />
           <MDXProvider components={components}>
-            <main class="w-full px-3 py-8">
+            <main class="w-full max-w-screen-md px-4 py-8">
               <Slot />
             </main>
           </MDXProvider>
-          <div class="hidden w-72 min-w-64 text-sm xl:block">
-            <div class="sticky top-16 mx-8 -mt-10 pt-4">
+          <div class="mx-6 hidden w-72 min-w-64 text-sm xl:block">
+            <div class="sticky top-16 pt-4">
               <ScrollArea className="pb-10">
                 <div class="sticky top-16 -mt-10 h-[calc(100vh-64px)] py-12">
                   <DashboardTableOfContents headings={headings ? headings : []} />
