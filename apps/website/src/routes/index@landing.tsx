@@ -97,8 +97,8 @@ export default component$(() => {
             <CardHeader>
               <CardTitle class="text-xl">Styled</CardTitle>
               <CardDescription class="text-lg">
-                A fully customizable design system of copy-paste, reusable, styled
-                components built on top of headless.
+                A design system of copy-paste, reusable, styled components built on top of
+                headless. Easy to use, easy to customize.
               </CardDescription>
             </CardHeader>
             {/* <CardContent>
