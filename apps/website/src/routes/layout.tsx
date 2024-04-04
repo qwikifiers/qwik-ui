@@ -34,7 +34,7 @@ export default component$(() => {
               <Slot />
             </main>
           </MDXProvider>
-          <div class="mx-6 hidden w-72 min-w-64 text-sm xl:block">
+          <div class="mx-6 hidden w-60 min-w-48 text-sm xl:block">
             <div class="sticky top-16 pt-4">
               <ScrollArea className="pb-10">
                 <div class="sticky top-16 -mt-10 h-[calc(100vh-64px)] py-12">
