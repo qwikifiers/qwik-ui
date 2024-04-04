@@ -1,5 +1,5 @@
 /* eslint-disable qwik/no-react-props */
-import { Slot, component$, useStyles$ } from '@builder.io/qwik';
+import { Slot, component$ } from '@builder.io/qwik';
 import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
 import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
 import Header from '~/components/header/header';
@@ -8,7 +8,6 @@ import {
   LinkGroup,
   LinkProps,
 } from '~/components/navigation-docs/navigation-docs';
-import docsStyles from './docs.css?inline';
 import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
@@ -17,26 +16,26 @@ import { ScrollArea } from '@qwik-ui/styled';
 export default component$(() => {
   const { headings } = useContent();
 
-  useStyles$(docsStyles);
-
   const { menuItemsGroups } = useKitMenuItems();
 
   return (
     <>
       <Header showBottomBorder={true} showVersion={true} />
-      <MDXProvider components={components}>
-        <div class="flex justify-around lg:justify-around 2xl:justify-center 2xl:space-x-16">
+      <div class="flex justify-center">
+        <div class="flex w-full max-w-screen-2xl justify-center lg:justify-around xl:justify-between 2xl:space-x-16">
           <DocsNavigation
             linksGroups={
               menuItemsGroups && menuItemsGroups.length > 0 ? menuItemsGroups : undefined
             }
-            class="sticky top-16 ml-4 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:flex 2xl:ml-0"
+            class="sticky top-16 mx-4 hidden h-[calc(100vh-64px)] min-w-72 overflow-auto lg:flex 2xl:ml-0"
           />
-          <main class="w-full px-2 py-8 sm:px-8 lg:px-16 2xl:max-w-4xl">
-            <Slot />
-          </main>
-          <div class="hidden w-64 min-w-64 text-sm xl:block">
-            <div class="sticky top-16 -mt-10 mr-8 pt-4">
+          <MDXProvider components={components}>
+            <main class="w-full px-3 py-8">
+              <Slot />
+            </main>
+          </MDXProvider>
+          <div class="hidden w-72 min-w-64 text-sm xl:block">
+            <div class="sticky top-16 mx-8 -mt-10 pt-4">
               <ScrollArea className="pb-10">
                 <div class="sticky top-16 -mt-10 h-[calc(100vh-64px)] py-12">
                   <DashboardTableOfContents headings={headings ? headings : []} />
@@ -45,8 +44,8 @@ export default component$(() => {
             </div>
           </div>
         </div>
-      </MDXProvider>
-      <footer></footer>
+        <footer></footer>
+      </div>
     </>
   );
 });
