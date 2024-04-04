@@ -46,7 +46,7 @@ export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => 
       {Object.entries(packages).map(([, value], index) => (
         <TabPanel
           key={index}
-          class="rounded-b-lg border-[1.5px] bg-slate-800 px-4 py-6 text-white shadow-lg dark:bg-slate-900"
+          class="rounded-b-lg border-[1.5px]  bg-gradient-to-b from-slate-900 to-slate-800 px-4 py-6 text-white shadow-lg dark:from-background dark:to-accent/50"
         >
           <div class="flex items-center justify-between">
             {value}
