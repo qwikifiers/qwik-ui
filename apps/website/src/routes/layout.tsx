@@ -36,7 +36,7 @@ export default component$(() => {
           </MDXProvider>
           <div class="mx-6 hidden w-60 min-w-48 text-sm xl:block">
             <div class="sticky top-16 pt-4">
-              <ScrollArea className="pb-10">
+              <ScrollArea>
                 <div class="sticky top-16 -mt-10 h-[calc(100vh-64px)] py-12">
                   <DashboardTableOfContents headings={headings ? headings : []} />
                 </div>
