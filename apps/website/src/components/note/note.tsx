@@ -1,14 +1,15 @@
 import { component$, PropsOf, Slot } from '@builder.io/qwik';
+import { cn } from '@qwik-ui/utils';
 
 export enum NoteStatus {
   Info = 'info',
   Warning = 'warning',
-  Caution = 'caution',
+  Alert = 'alert',
 }
 
-export interface NoteProps {
+export type NoteProps = {
   status?: NoteStatus;
-}
+};
 
 function getIconByStatus(status?: NoteStatus) {
   switch (status) {
@@ -16,8 +17,8 @@ function getIconByStatus(status?: NoteStatus) {
       return <InfoIcon class="text-primary" />;
     case NoteStatus.Warning:
       return <WarningIcon class="text-yellow-400" />;
-    case NoteStatus.Caution:
-      return <CautionIcon class="text-destructive" />;
+    case NoteStatus.Alert:
+      return <AlertIcon class="text-alert" />;
 
     default:
       return <InfoIcon class="text-primary" />;
@@ -30,26 +31,27 @@ function getBackgroundByStatus(status?: NoteStatus) {
       return 'bg-primary/30 border-primary border-l-2 mb-4 rounded-base block';
     case NoteStatus.Warning:
       return 'bg-yellow-400/30 border-yellow-400 border-l-2 mb-4 rounded-base block';
-    case NoteStatus.Caution:
-      return 'bg-destructive/30 border-destructive border-l-2 mb-4 rounded-base block';
+    case NoteStatus.Alert:
+      return 'bg-alert/30 border-alert border-l-2 mb-4 rounded-base block';
     default:
       return 'bg-primary/30 border-primary border-l-2 mb-4 rounded-base block';
   }
 }
 
-export const Note = component$<NoteProps>(({ status, ...props }) => {
+export const Note = component$<NoteProps>(({ status }) => {
   return (
     <aside
-      class={`${getBackgroundByStatus(
-        status ?? NoteStatus.Info,
-      )} note-link relative px-5 py-4  lg:px-8 lg:py-6 `}
+      class={cn(
+        getBackgroundByStatus(status ?? NoteStatus.Info),
+        'note-link relative mx-2 my-12 px-5 py-4 lg:px-8 lg:py-6',
+      )}
     >
       <div class="absolute left-[-17.5px] top-[-17.5px] hidden h-8 w-8 rounded-full bg-white dark:bg-slate-900 lg:block">
         <div class="flex h-8 w-8 items-center justify-center ">
           {getIconByStatus(status ?? NoteStatus.Info)}
         </div>
       </div>
-      <blockquote {...props}>
+      <blockquote>
         <Slot />
       </blockquote>
     </aside>
@@ -92,7 +94,7 @@ export function WarningIcon(props: PropsOf<'svg'>, key: string) {
   );
 }
 
-export function CautionIcon(props: PropsOf<'svg'>, key: string) {
+export function AlertIcon(props: PropsOf<'svg'>, key: string) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
