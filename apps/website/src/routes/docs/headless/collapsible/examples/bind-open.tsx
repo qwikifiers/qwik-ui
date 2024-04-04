@@ -8,12 +8,6 @@ export default component$(() => {
 
   return (
     <>
-      <input
-        style={{ width: '20px', height: '20px', accentColor: 'hsl(var(--primary))' }}
-        type="checkbox"
-        bind:checked={isOpen}
-      />
-
       <p>
         is open: <strong>{isOpen.value ? 'true' : 'false'}</strong>
       </p>

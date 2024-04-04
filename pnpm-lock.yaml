@@ -534,7 +534,7 @@ importers:
         version: 17.7.2
     devDependencies:
       '@qwik-ui/styled':
-        specifier: 0.0.4
+        specifier: 0.0.5
         version: link:../kit-styled
 
   packages/kit-headless:
@@ -550,7 +550,7 @@ importers:
         version: 1.4.0(@types/node@20.11.20)(sass@1.69.7)(undici@5.28.2)
     devDependencies:
       '@qwik-ui/headless':
-        specifier: 0.3.3
+        specifier: 0.3.4
         version: link:../kit-headless
       '@qwik-ui/utils':
         specifier: 0.2.1

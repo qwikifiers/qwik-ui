@@ -10,10 +10,10 @@ export default component$(() => {
     <Collapsible class="collapsible">
       <CollapsibleTrigger class="collapsible-trigger">
         <span>Trigger</span>
-        <SVG />
+        <SVG class="collapsible-transition" />
       </CollapsibleTrigger>
-      <CollapsibleContent class="collapsible-content collapsible-content-outline ">
-        Content
+      <CollapsibleContent class="collapsible-animation collapsible-content">
+        <p class="collapsible-content-outline">Content</p>
       </CollapsibleContent>
     </Collapsible>
   );

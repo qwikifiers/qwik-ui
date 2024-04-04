@@ -92,10 +92,14 @@ The native `<select>` HTML element encounters significant obstacles in terms of 
 
 ### Native select pain points
 
-- **Styling Limitations**: Customizing the appearance of a native select element is notoriously difficult, leading to inconsistent designs across different platforms.
-- **Multiselect Complexity**: The native multiselect feature is not intuitive, especially for non-technical users, as it requires the use of control or command keys to select multiple options.
-- **Limited Typeahead Support**: Native select elements offer minimal support for finding options by typing, making it harder for users to quickly find options.
-- **Inconsistent Behavior**: There's a lack of consistency in behavior and styling of the select element across different browsers and devices.
+<FeatureList
+  issues={[
+    'Styling Limitations',
+    'Multiselect Complexity',
+    'Limited Typeahead Support',
+    'Inconsistent Behavior across browsers and devices',
+  ]}
+/>
 
 ### Native effort
 
@@ -261,10 +265,6 @@ The consumer misspelled the the value, and so the fallback is displayed.
 
 > Side note: would appreciate some help on TypeScript to make misspelled option values a thing of the past. Ideally, a union of the user's passed in options.
 
-## Forms
-
-<Showcase name="form" />
-
 ## Example CSS
 
 Every code example uses the following CSS:
@@ -273,13 +273,48 @@ Every code example uses the following CSS:
 
 Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
 
-## Example CSS
+## Keyboard Interaction
 
-Every code example uses the following CSS:
-
-<CodeSnippet name="select.css" />
-
-Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: `Opens the menu and selects a highlighted option.`,
+    },
+    {
+      keyTitle: 'Enter',
+      description: `Opens the menu and selects a highlighted option.`,
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: `Opens the menu or moves focus down.`,
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: `Opens the menu or moves focus up.`,
+    },
+    {
+      keyTitle: 'Home',
+      description: `When focus is on an item, moves focus to first item.`,
+    },
+    {
+      keyTitle: 'End',
+      description: `When focus is on an item, moves focus to last item.`,
+    },
+    {
+      keyTitle: 'ArrowRight',
+      description: `When focus is on the trigger, change the selection to the next item.`,
+    },
+    {
+      keyTitle: 'ArrowLeft',
+      description: `When focus is on the trigger, change the selection to the previous item.`,
+    },
+    {
+      keyTitle: 'Esc',
+      description: `Closes the select and moves focus to the trigger.`,
+    },
+  ]}
+/>
 
 ## API
 

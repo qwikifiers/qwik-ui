@@ -7,7 +7,7 @@ export default component$(() => {
   useStyles$(styles);
 
   return (
-    <Collapsible class="collapsible">
+    <Collapsible class="collapsible" disabled>
       <CollapsibleTrigger class="collapsible-trigger">
         <span>Trigger</span>
         <SVG />
