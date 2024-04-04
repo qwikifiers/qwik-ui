@@ -25,6 +25,13 @@ export const components: Record<string, Component> = {
       </p>
     );
   }),
+  a: component$<PropsOf<'a'>>(({ ...props }) => {
+    return (
+      <a {...props} class={[cn('text-primary', props.class)]}>
+        <Slot />
+      </a>
+    );
+  }),
   h1: component$<PropsOf<'h1'>>(({ ...props }) => {
     return (
       <h1

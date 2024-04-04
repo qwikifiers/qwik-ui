@@ -104,7 +104,7 @@ Custom signal binds are like a remote control for components, controlling states
 
 ## The Top Layer
 
-<image src={testImage} class="rounded-base mb-6" />
+<image src={testImage} class="mb-6 rounded-base" />
 
 In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues.
 
@@ -153,6 +153,20 @@ Qwik UI incorporates a feature known as focus locking, which confines the focus 
 This means that if a user is navigating through the modal using the Tab key, reaching the last focusable element and pressing Tab again will cycle the focus back to the first focusable element within the modal.
 
 > Focus locking behavior is provided by default in Qwik UI. If you encounter any use cases that require customized focus lock behavior, please [submit an issue](https://github.com/qwikifiers/qwik-ui/issues) on our GitHub repository.
+
+## Stripped Styles
+
+As a headless library, we intentionally try not to add any styles to the components.
+
+However, because Qwik UI builds on top of native solutions when they are well-supported, feasible, and performant, some of the widgets may inclue browser user-agent styles.
+
+These styles can be unintuitive tricky to debug. Which has been the case with Qwik UI's own docs site. As a result, we have stripped these styles from the Modal component.
+
+<CodeSnippet name="stripped-styles.css" />
+
+While in most cases, this would be up to a consumer's CSS reset to solve, in this case we are **stripping** the max-width and max-height styles on the dialog element under the hood.
+
+This is done in a separate layer so that styles are easily overridable in consumer facing applications.
 
 ## Animations
 

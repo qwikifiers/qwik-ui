@@ -9,7 +9,25 @@ title: 'Qwik UI | Styled Kit - Installation'
 Simply run the following command:
 
 ```zsh
-npx qwik-ui init
+pnpm dlx qwik-ui init
+```
+
+(or "**npx qwik-ui init**" if you prefer npm)
+
+This will help you install tailwind, create a `qwik-ui.config.json` file and modify your root/global css and tailwind config files with the necessary Qwik UI design system variables and values ([see below](#manual-installation))
+
+### Generating components using the CLI
+
+When you want to add a component you can run:
+
+```zsh
+pnpm qwik-ui add
+```
+
+Or if you know a specific component you want to add, let's say "`input`", you can run:
+
+```zsh
+pnpm qwik-ui add input
 ```
 
 ## Manual installation
