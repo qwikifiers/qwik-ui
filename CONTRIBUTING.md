@@ -82,13 +82,13 @@ pnpm preview
 - Build the Cloudfare version of the qwik-ui documentation
 
 ```shell
-pnpm build.clouflare
+pnpm build.cloudflare
 ```
 
 - Preview the Cloudfare build of the qwik-ui documentation (no HMR)
 
 ```shell
-pnpm preview.clouflare
+pnpm preview.cloudflare
 ```
 
 ### 5. Make sure you add / modify tests
