@@ -31,6 +31,11 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
+    useVisibleTask$(({ track }) => {
+      track(() => codeSig.value);
+      console.log('codeSig changed: ', codeSig.value);
+    });
+
     const addShiki$ = $(async () => {
       let modifiedCode: string = code;
 
@@ -67,7 +72,8 @@ export const Highlight = component$(
       codeSig.value = str.toString();
     });
 
-    useTask$(async function createHighlightedCode() {
+    useTask$(async ({ track }) => {
+      track(() => code);
       if (!isDev) {
         await addShiki$();
       }
@@ -75,7 +81,8 @@ export const Highlight = component$(
 
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(
-      async () => {
+      async ({ track }) => {
+        track(() => code);
         if (isDev) {
           await addShiki$();
         }
