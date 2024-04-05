@@ -191,12 +191,6 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
           required={required}
           disabled={disabled}
         />
-        <HiddenSelect
-          options={_options}
-          name={name}
-          required={required}
-          disabled={disabled}
-        />
       </div>
     );
   },
