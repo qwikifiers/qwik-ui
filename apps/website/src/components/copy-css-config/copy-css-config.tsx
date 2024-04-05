@@ -31,7 +31,7 @@ export default component$(() => {
       </Button>
       <Modal
         bind:show={showSig}
-        class="my-animation h-[650px] max-w-2xl overflow-x-hidden rounded-base p-8 shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
+        class="my-animation h-[650px] max-w-2xl overflow-x-hidden rounded-base bg-background p-8 text-foreground shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
         <ModalHeader>
           <h2 class="mb-2 text-lg font-bold">Copy config</h2>
@@ -41,12 +41,9 @@ export default component$(() => {
           </p>
         </ModalHeader>
         <ModalContent>
-          <Highlight code={cssThemeOutput.value} language="css" />
+          <Highlight code={cssThemeOutput.value} language="css" class="border" />
         </ModalContent>
-        <button
-          onClick$={() => (showSig.value = false)}
-          class="absolute right-6 top-[26px]"
-        >
+        <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-7">
           <LuX class="h-8 w-8" />
         </button>
       </Modal>
