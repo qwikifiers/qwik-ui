@@ -72,15 +72,12 @@ export const Highlight = component$(
     });
 
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(
-      async ({ track }) => {
-        track(() => code);
-        if (isDev) {
-          await addShiki$();
-        }
-      },
-      { strategy: 'intersection-observer' },
-    );
+    useVisibleTask$(async ({ track }) => {
+      track(() => code);
+      if (isDev) {
+        await addShiki$();
+      }
+    });
 
     return (
       <div class="code-example relative max-h-[31.25rem] rounded-base">
