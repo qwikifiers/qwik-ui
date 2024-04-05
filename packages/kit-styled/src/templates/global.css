@@ -1221,7 +1221,15 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-sans text-foreground;
+  }
+
+  p code {
+    @apply rounded-sm border-b-2 bg-accent px-2 py-0.5;
+  }
+
+  pre code {
+    @apply whitespace-pre-wrap;
   }
 
   *::-webkit-scrollbar {
