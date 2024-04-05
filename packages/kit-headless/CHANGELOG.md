@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.5
+
+### Patch Changes
+
+- refactor: strip browser user agent styles relating to max-width (by [@thejackshelton](https://github.com/thejackshelton) in [#676](https://github.com/qwikifiers/qwik-ui/pull/676))
+
+- 🐞🩹 collapsible renders correctly on CSR (by [@thejackshelton](https://github.com/thejackshelton) in [#681](https://github.com/qwikifiers/qwik-ui/pull/681))
+
+- ✨ headless label hits draft status! (by [@thejackshelton](https://github.com/thejackshelton) in [#688](https://github.com/qwikifiers/qwik-ui/pull/688))
+
 ## 0.3.4
 
 ### Patch Changes
