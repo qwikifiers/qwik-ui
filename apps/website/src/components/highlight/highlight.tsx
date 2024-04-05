@@ -11,6 +11,10 @@ import { CodeCopy } from '../code-copy/code-copy';
 import { getHighlighterCore } from 'shiki';
 import { cn } from '@qwik-ui/utils';
 import { isDev } from '@builder.io/qwik/build';
+import poimandres from 'shiki/themes/poimandres.mjs';
+import html from 'shiki/langs/html.mjs';
+import css from 'shiki/langs/css.mjs';
+import tsx from 'shiki/langs/tsx.mjs';
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
@@ -31,11 +35,6 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
-    useVisibleTask$(({ track }) => {
-      track(() => codeSig.value);
-      console.log('codeSig changed: ', codeSig.value);
-    });
-
     const addShiki$ = $(async () => {
       let modifiedCode: string = code;
 
@@ -50,15 +49,8 @@ export const Highlight = component$(
       }
 
       const highlighter = await getHighlighterCore({
-        themes: [
-          // or a dynamic import if you want to do chunk splitting
-          import('shiki/themes/poimandres.mjs'),
-        ],
-        langs: [
-          import('shiki/langs/html.mjs'),
-          import('shiki/langs/tsx.mjs'),
-          import('shiki/langs/css.mjs'),
-        ],
+        themes: [poimandres],
+        langs: [html, css, tsx],
         loadWasm: import('shiki/wasm'),
       });
 
@@ -87,7 +79,7 @@ export const Highlight = component$(
           await addShiki$();
         }
       },
-      { strategy: 'document-ready' },
+      { strategy: 'intersection-observer' },
     );
 
     return (
