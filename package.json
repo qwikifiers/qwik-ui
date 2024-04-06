@@ -42,8 +42,8 @@
   "packageManager": "pnpm@8.7.0",
   "devDependencies": {
     "@axe-core/playwright": "4.8.5",
-    "@builder.io/qwik": "^1.4.0",
-    "@builder.io/qwik-city": "^1.4.0",
+    "@builder.io/qwik": "^1.5.1",
+    "@builder.io/qwik-city": "^1.5.1",
     "@builder.io/qwik-react": "0.5.3",
     "@builder.io/vite-plugin-macro": "~0.0.7",
     "@changesets/cli": "2.27.1",
