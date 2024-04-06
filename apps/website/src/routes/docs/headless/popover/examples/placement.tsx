@@ -10,7 +10,7 @@ export default component$(() => {
   return (
     <>
       <div class="flex flex-col items-center justify-center gap-2">
-        <p>I'm a mini tooltip!</p>
+        <p>popover on the right ⤵️</p>
         <PopoverTrigger
           ref={triggerRef}
           disableClickInitPopover
