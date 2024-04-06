@@ -433,7 +433,7 @@ importers:
         version: 1.4.0(@types/node@20.11.20)(sass@1.69.7)(undici@5.28.2)
     devDependencies:
       '@qwik-ui/headless':
-        specifier: 0.3.4
+        specifier: 0.3.5
         version: link:../kit-headless
       '@qwik-ui/utils':
         specifier: 0.2.1

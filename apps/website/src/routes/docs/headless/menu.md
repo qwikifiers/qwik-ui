@@ -17,6 +17,7 @@
 - [Carousel](/docs/headless/carousel)
 - [Collapsible](/docs/headless/collapsible)
 - [Combobox](/docs/headless/combobox)
+- [Label](/docs/headless/label)
 - [Modal](/docs/headless/modal)
 - [Pagination](/docs/headless/pagination)
 - [Popover](/docs/headless/popover)

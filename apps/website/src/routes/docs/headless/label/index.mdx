@@ -1,0 +1,55 @@
+---
+title: Qwik UI | Progress
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+import { FeatureList } from '~/components/feature-list/feature-list';
+import { Note } from '~/components/note/note';
+
+<StatusBanner status={statusByComponent.headless.Label} />
+
+# Label
+
+Renders an accessible label associated with controls.
+
+<Showcase name="hero" />
+
+This component is based on the native label element, it will automatically apply the correct labelling when wrapping controls or using the for attribute.
+
+For your own custom controls to work correctly, ensure they use native elements such as button or input as a base.
+
+## ✨ Features
+
+<FeatureList
+  features={[
+    'Text selection is prevented when double clicking label.',
+    'Supports nested controls.',
+  ]}
+/>
+
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Label',
+      description: 'The root container for the label',
+    },
+  ]}
+/>
+
+## Why use a headless label?
+
+The Qwik UI headless label component keeps focus on the input when double clicking.
+
+The native behavior will try to select and focus the text of the label. This is often times not the desired behavior.
+
+{/* Not caught up to main, but would have an issues prop here from FeatureList */}
+
+## Example CSS
+
+<CodeSnippet name="label.css" />
