@@ -1,0 +1,37 @@
+:root {
+  --select-width: 12rem;
+}
+
+.popover-trigger {
+  border-radius: var(--border-radius);
+  border: 2px dotted hsla(var(--primary));
+  background-color: hsl(var(--popover));
+  color: hsl(var(--foreground));
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.popover {
+  border-radius: var(--border-radius);
+  border: 2px dotted hsla(var(--primary));
+  background-color: hsl(var(--popover));
+  color: hsl(var(--foreground));
+  padding: 0.5rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition:
+    opacity 0.5s,
+    display 0.5s,
+    overlay 0.5s;
+  transition-behavior: allow-discrete;
+  opacity: 0;
+}
+
+.popover-showing {
+  opacity: 1;
+}
+
+.popover-closing {
+  opacity: 0;
+}
