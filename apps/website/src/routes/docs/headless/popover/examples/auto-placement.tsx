@@ -1,62 +1,36 @@
-import { component$ } from '@builder.io/qwik';
-import {
-  Combobox,
-  ComboboxControl,
-  ComboboxInput,
-  ComboboxTrigger,
-  ComboboxPopover,
-  ComboboxListbox,
-  ComboboxOption,
-  ResolvedOption,
-  ComboboxIcon,
-} from '@qwik-ui/headless';
+import { component$, useSignal } from '@builder.io/qwik';
+import { Popover, PopoverTrigger } from '@qwik-ui/headless';
 
 export default component$(() => {
-  type AutoPlacementExample = {
-    value: string;
-    label: string;
-  };
-
-  const autoPlacementExample: Array<AutoPlacementExample> = [
-    { value: '0', label: 'Audi 🚗' },
-    { value: '1', label: 'BMW 🚙' },
-    { value: '2', label: 'Mercedes 🚕' },
-    { value: '3', label: 'Tesla 🚓' },
-  ];
+  const triggerRef = useSignal<HTMLButtonElement>();
+  const popoverRef = useSignal<HTMLElement>();
 
   return (
     <>
-      <div class="flex h-[10rem] flex-col items-center justify-center">
-        <p class="text-center text-white">My Car Collection 🚘</p>
-        <Combobox
-          class="w-fit"
-          options={autoPlacementExample}
-          optionDisabledKey="myDisabledKey"
+      <div class="flex flex-col items-center justify-center gap-2">
+        <p>auto placed on scroll 📜</p>
+        <PopoverTrigger
+          ref={triggerRef}
+          popoverTargetAction="show"
+          popovertarget="auto-placement-id"
+          class="popover-trigger"
         >
-          <ComboboxControl class="relative mt-2 flex items-center rounded-base border-[1px] border-slate-400 bg-[#1f2532]">
-            <ComboboxInput class="px-d2 h-[44px] w-44 rounded-base bg-slate-900 px-4 pr-6 text-white placeholder:text-slate-500" />
-            <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-              <ComboboxIcon class="stroke-white transition-transform duration-500 group-aria-expanded:-rotate-180" />
-            </ComboboxTrigger>
-          </ComboboxControl>
-          <ComboboxPopover flip={false} autoPlacement={true} gutter={8}>
-            <ComboboxListbox
-              class="w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
-              optionRenderer$={(option: ResolvedOption, index: number) => (
-                <ComboboxOption
-                  key={option.key}
-                  class="group rounded-base border-2 border-transparent px-2 text-white hover:bg-slate-500  aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
-                  index={index}
-                  resolved={option}
-                >
-                  {option.label}
-                </ComboboxOption>
-              )}
-            />
-          </ComboboxPopover>
-        </Combobox>
+          Click me
+        </PopoverTrigger>
       </div>
-      <div class="h-[1px] w-[calc(100%+200px)]"></div>
+
+      <Popover
+        ref={popoverRef}
+        anchorRef={triggerRef}
+        floating={true}
+        flip={false}
+        autoPlacement
+        gutter={4}
+        id="auto-placement-id"
+        class="popover listbox !p-4"
+      >
+        I am anchored to the trigger!
+      </Popover>
     </>
   );
 });
