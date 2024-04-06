@@ -40,7 +40,8 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getPopover()).toBeHidden();
     await d.getTrigger().click();
 
-    await expect(d.getPopover()).toBeVisible();
+    // If I use `toBeVisible` here, the test fails that the `toBeHidden` check below????
+    await expect(d.getPopover()).toHaveCSS('opacity', '1');
 
     const outsideDiv = page.locator('#content-outside-of-popover');
     await outsideDiv.click();
@@ -102,9 +103,11 @@ test.describe('Mouse Behavior', () => {
     await expect(firstPopOver).toBeVisible();
     await expect(secondPopOver).toBeVisible();
 
-    // Act
-    await firstPopoverTrigger.click();
-    await secondPopoverTrigger.click();
+    // Need to be explicit about where we're clicking. By default
+    // the click action tries to click the center of the element
+    // but in this case, the popover is covering it.
+    await firstPopoverTrigger.click({ position: { x: 1, y: 1 } });
+    await secondPopoverTrigger.click({ position: { x: 1, y: 1 } });
 
     // Assert
     await expect(firstPopOver).toBeHidden();
@@ -191,7 +194,7 @@ test.describe('Keyboard Behavior', () => {
   });
 
   test(`GIVEN a pair of manual opened popovers
-  WHEN clicking the first trigger on the page and then clicking the second trigger
+  WHEN activating the first trigger on the page and then activating the second trigger
   THEN then both popovers should be closed`, async ({ page }) => {
     const { driver: d } = await setup(page, 'manual');
 

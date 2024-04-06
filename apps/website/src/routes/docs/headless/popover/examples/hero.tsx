@@ -9,7 +9,10 @@ export default component$(() => {
       <Popover id="hero-id" class="popover">
         My Hero!
       </Popover>
-      <div id="content-outside-of-popover"></div>
+      <div
+        id="content-outside-of-popover"
+        style={{ width: '10px', height: '10px' }}
+      ></div>
     </>
   );
 });
