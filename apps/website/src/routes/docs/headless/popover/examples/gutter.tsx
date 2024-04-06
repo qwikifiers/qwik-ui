@@ -1,66 +1,35 @@
-import {
-  Combobox,
-  ComboboxControl,
-  ComboboxIcon,
-  ComboboxInput,
-  ComboboxLabel,
-  ComboboxListbox,
-  ComboboxOption,
-  ComboboxPopover,
-  ComboboxTrigger,
-  ResolvedOption,
-} from '@qwik-ui/headless';
-
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
+import { Popover, PopoverTrigger } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const streets = [
-    'Baker Street',
-    'Fleet Street',
-    'Wall Street',
-    'Broadway',
-    'Sunset Boulevard',
-    'Rodeo Drive',
-    'Abbey Road',
-  ];
+  const triggerRef = useSignal<HTMLButtonElement>();
+  const popoverRef = useSignal<HTMLElement>();
 
   return (
-    <Combobox
-      class="w-fit"
-      options={streets}
-      filter$={(value: string, options) =>
-        options.filter(({ option }) => {
-          return option.toLowerCase().startsWith(value.toLowerCase());
-        })
-      }
-    >
-      <ComboboxLabel class="w-44 font-semibold text-white">
-        I'm between gutters!
-      </ComboboxLabel>
-      <ComboboxControl class="relative flex items-center rounded-base border-[1px] border-slate-400 bg-[#1f2532]">
-        <ComboboxInput
-          class="px-d2 w-44 rounded-base bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
-          placeholder="Wallaby Rd."
-        />
-        <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-          <ComboboxIcon class="stroke-white transition-transform duration-500 group-aria-expanded:-rotate-180" />
-        </ComboboxTrigger>
-      </ComboboxControl>
-      <ComboboxPopover gutter={24}>
-        <ComboboxListbox
-          class="w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
-          optionRenderer$={(option: ResolvedOption, index: number) => (
-            <ComboboxOption
-              key={option.key}
-              class="group rounded-base border-2 border-transparent px-2 text-white hover:bg-slate-500  aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
-              index={index}
-              resolved={option}
-            >
-              {option.label}
-            </ComboboxOption>
-          )}
-        />
-      </ComboboxPopover>
-    </Combobox>
+    <>
+      <div class="flex flex-col items-center justify-center gap-2">
+        <p>gutter of 40px!</p>
+        <PopoverTrigger
+          ref={triggerRef}
+          popoverTargetAction="show"
+          popovertarget="gutter-id"
+          class="popover-trigger"
+        >
+          Click me
+        </PopoverTrigger>
+      </div>
+
+      <Popover
+        ref={popoverRef}
+        anchorRef={triggerRef}
+        floating={true}
+        placement="top"
+        gutter={40}
+        id="gutter-id"
+        class="popover listbox !p-4"
+      >
+        I am anchored to the trigger!
+      </Popover>
+    </>
   );
 });
