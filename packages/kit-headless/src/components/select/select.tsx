@@ -1,19 +1,18 @@
 import {
-  component$,
+  PropsOf,
+  Signal,
   Slot,
-  type PropsOf,
+  component$,
   useSignal,
   useContextProvider,
-  Signal,
   useTask$,
-  useComputed$,
   type QRL,
   useId,
+  useComputed$,
 } from '@builder.io/qwik';
-import { type SelectContext } from './select-context';
-import SelectContextId from './select-context';
-import { Opt } from './select-inline';
 import { isBrowser } from '@builder.io/qwik/build';
+import SelectContextId, { type SelectContext } from './select-context';
+import { Opt } from './select-inline';
 import { getActiveDescendant } from './utils';
 import { HiddenSelect } from './hidden-select';
 

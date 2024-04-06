@@ -1,6 +1,8 @@
 import { component$ } from '@builder.io/qwik';
 import { GitHubIcon } from '../icons/GitHubIcon';
 import { DiscordIcon } from '../icons/discord';
+import { cn } from '@qwik-ui/utils';
+import { buttonVariants } from '@qwik-ui/styled';
 
 export const Footer = component$(() => {
   return (
@@ -8,12 +10,18 @@ export const Footer = component$(() => {
       <div class="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
           <div class="px-5 py-2">
-            <a href="/docs/headless/introduction" class="hover:text-muted-foreground">
+            <a
+              href="/docs/headless/introduction"
+              class={cn(buttonVariants({ look: 'link' }))}
+            >
               Headless Kit
             </a>
           </div>
           <div class="px-5 py-2">
-            <a href="/docs/styled/introduction" class="hover:text-muted-foreground">
+            <a
+              href="/docs/styled/introduction"
+              class={cn(buttonVariants({ look: 'link' }))}
+            >
               Styled Kit
             </a>
           </div>
@@ -21,7 +29,7 @@ export const Footer = component$(() => {
             <a
               href="https://discord.gg/PVWUUejrez"
               target="_blank"
-              class="hover:text-muted-foreground"
+              class={cn(buttonVariants({ look: 'link' }))}
             >
               Community
             </a>
@@ -31,7 +39,7 @@ export const Footer = component$(() => {
             <a
               href="https://www.w3.org/standards/webdesign/accessibility"
               target="_blank"
-              class="hover:text-muted-foreground"
+              class={cn(buttonVariants({ look: 'link' }))}
             >
               Accessibility
             </a>
@@ -40,7 +48,7 @@ export const Footer = component$(() => {
             <a
               href="https://qwik.builder.io/docs"
               target="_blank"
-              class="hover:text-muted-foreground"
+              class={cn(buttonVariants({ look: 'link' }))}
             >
               Qwik Documentation
             </a>
@@ -51,7 +59,7 @@ export const Footer = component$(() => {
             target="_blank"
             href="https://github.com/qwikifiers/qwik-ui"
             aria-label="Qwik-UI GitHub repository"
-            class="hover:text-accent-foreground text-muted-foreground"
+            class="text-muted-foreground hover:text-accent-foreground"
           >
             <GitHubIcon />
           </a>
@@ -59,7 +67,7 @@ export const Footer = component$(() => {
             target="_blank"
             href="https://discord.gg/PVWUUejrez"
             aria-label="Qwik-UI Discord server"
-            class="hover:text-accent-foreground text-muted-foreground"
+            class="text-muted-foreground hover:text-accent-foreground"
           >
             <DiscordIcon />
           </a>

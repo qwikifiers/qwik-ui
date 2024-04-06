@@ -41,7 +41,7 @@ const BreadcrumbLink = component$<BreadcrumbLinkProps>((props) => {
   return (
     <Comp
       class={cn(
-        'text-muted-foreground hover:text-foreground transition-colors',
+        'text-muted-foreground transition-colors hover:text-foreground',
         props.class,
       )}
       {...props}
@@ -55,7 +55,7 @@ type BreadcrumbSeparatorProps = PropsOf<'li'>;
 const BreadcrumbSeparator = component$<BreadcrumbSeparatorProps>((props) => {
   return (
     <li role="presentation" aria-hidden="true" {...props}>
-      <LuChevronRight class="stroke-muted-foreground size-3.5 stroke-2" />
+      <LuChevronRight class="size-3.5 stroke-muted-foreground stroke-2" />
     </li>
   );
 });
@@ -67,7 +67,7 @@ const BreadcrumbPage = component$<BreadcrumbPageProps>((props) => {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      class={cn('text-foreground font-normal', props.class)}
+      class={cn('font-normal text-foreground', props.class)}
       {...props}
     >
       <Slot />

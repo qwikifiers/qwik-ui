@@ -18,7 +18,7 @@ export const Combobox = component$<PropsOf<typeof QwikUICombobox>>((props) => {
     <QwikUICombobox
       {...props}
       class={cn(
-        'bg-popover text-popover-foreground flex h-full w-48 flex-col overflow-hidden',
+        'flex h-full w-48 flex-col overflow-hidden bg-popover text-popover-foreground',
         props.class,
       )}
     >
@@ -42,7 +42,7 @@ export const ComboboxControl = component$<PropsOf<typeof QwikUIComboboxControl>>
     return (
       <QwikUIComboboxControl
         {...props}
-        class={cn('rounded-base relative flex items-center ', props.class)}
+        class={cn('relative flex items-center rounded-base ', props.class)}
       >
         <Slot />
       </QwikUIComboboxControl>
@@ -55,7 +55,7 @@ export const ComboboxInput = component$<PropsOf<typeof QwikUIComboboxInput>>((pr
     <QwikUIComboboxInput
       {...props}
       class={cn(
-        'placeholder:text-muted-foreground border-input flex h-10 w-full rounded-md border bg-transparent py-3 pl-2 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-10 w-full rounded-md border border-input bg-transparent py-3 pl-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
         props.class,
       )}
     />
@@ -90,7 +90,7 @@ export const ComboboxListbox = component$<PropsOf<typeof QwikUIComboboxListbox>>
     return (
       <QwikUIComboboxListbox
         {...props}
-        class={cn('rounded-base bg-background w-48 border p-2', props.class)}
+        class={cn('w-48 rounded-base border bg-background p-2', props.class)}
       >
         <Slot />
       </QwikUIComboboxListbox>
@@ -104,7 +104,7 @@ export const ComboboxOption = component$<PropsOf<typeof QwikUIComboboxOption>>(
       <QwikUIComboboxOption
         {...props}
         class={cn(
-          'aria-disabled:text-muted-foreground data-[highlighted]:bg-accent text-foreground group flex justify-between gap-4 rounded-sm px-2 aria-disabled:font-light data-[highlighted]:cursor-pointer',
+          'group flex justify-between gap-4 rounded-sm px-2 text-foreground aria-disabled:font-light aria-disabled:text-muted-foreground data-[highlighted]:cursor-pointer data-[highlighted]:bg-accent',
           props.class,
         )}
       >

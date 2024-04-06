@@ -31,10 +31,10 @@ import { PropsOf, component$ } from '@builder.io/qwik';
 export const Progress = component$<PropsOf<typeof QwikUIProgress>>((props) => {
   return (
     <QwikUIProgress
-      class={cn('bg-secondary relative h-4 w-full overflow-hidden rounded', props?.class)}
+      class={cn('relative h-4 w-full overflow-hidden rounded bg-secondary', props?.class)}
     >
       <QwikUIProgressIndicator
-        class="bg-primary h-full w-full flex-1 transition-all"
+        class="h-full w-full flex-1 bg-primary transition-all"
         style={{ transform: `translateX(-${100 - (props.value || 0)}%)` }}
       />
     </QwikUIProgress>

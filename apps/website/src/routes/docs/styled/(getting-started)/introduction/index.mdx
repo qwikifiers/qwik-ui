@@ -6,24 +6,19 @@ import FluffyCreatureScreen from '../../../../../../public/images/qwik-ui-fluffy
 
 # Styled Kit
 
-<div class="text-muted-foreground mb-4 mt-[-8px] text-xl font-semibold">
-  A fully customizable design system of copy-paste, reusable, styled components built on
-  top of headless.
-</div>
+Inspired by [Shadcn UI](https://ui.shadcn.com/), the styled kit is an innovative collection of pre-designed, fully customizable, and easy-to-reuse copy-paste components built with [Tailwind](https://tailwindcss.com), [cva](https://cva.style/docs) and css variables on top of the Qwik UI headless components.
 
-Inspired by [Shadcn UI](https://ui.shadcn.com/), the Styled kit is an innovative collection of pre-designed, fully customizable, and easy-to-reuse copy-paste components built with [Tailwind](https://tailwindcss.com), [cva](https://cva.style/docs) and css variables.
-
-We believe the flexibility and constraints of tailwind utility classes (with all the available tooling around tailwind), the reusability and simplicity of cva variants, and the ease of customization of css variables, are currently the best options for starting out with a good design system that can grow with you as your brand evolves and solidifies itself.
+We believe the flexibility and constraints of tailwind utility classes (with all the available tooling for tailwind), the reusability and simplicity of cva variants, and the ease of customization of css variables, are currently the best options for starting out with a good design system that can grow with you as your brand evolves and solidifies itself.
 
 ## Start with good defaults
 
-If you've ever tried to create a design system from scratch, you should know how hard it is to find the right balance. How many variants should the button component have? Should we have 3 sizes, 4 sizes, 10? Should we include an "outline" variant? Should we allow composing "outline" variants with "color" variants or should the outline count as a sort of color?
+If you've ever tried to create a design system from scratch, you should know how hard it is to find the right balance. How many variants should the button component have? Should it have 3, 4 or 10 sizes? Should it have an "outline" variant? How do we compose variants together?
 
-If this feels confusing, don't worry. We consider those questions for each and every component to make sure that they're not only as easy as possible to use, but can also be used for a completely different style without having to change the code (e.g. from 'simple' to 'brutalist') 👀.
+If this feels confusing, don't worry. We carefully take these questions into account for each and every Qwik UI component to make sure that they're not only as easy as possible to use, but can also be used for a completely different style without having to change components code (e.g. from 'simple' to 'brutalist').
 
 ## Change your entire app's style & theme at the click of a button
 
-Check out our "make it yours" button ↗️ and see how easy it is to completely change the entire design of your app. Simply copy the css-variables config to your global css file and you're ready to go.
+Check out our "make it yours" button and see how easy it is to completely change the entire design of your app. Simply copy the css-variables config to your global css file and you're ready to go.
 
 Thanks to the super powers of copy/paste, you can start with well designed defaults but get away from them as your design system needs to evolve. Simply remove the code that you don't like and add the pieces that you need whenever you want.
 
@@ -31,4 +26,4 @@ Thanks to the super powers of copy/paste, you can start with well designed defau
 
 A good design system is a system where all the variations of a component are defined within a single source of truth to represent all the possibilities within the constraints of the brand's identity. - [Maïeul Chevalier](https://x.com/maiieul)
 
-The styled kit makes use of cva variants to allow for easy composition and avoid code duplication. No ButtonSmall, ButtonMedium, ButtonLarge, ButtonPrimary, ButtonSecondary, ButtonSmallPrimary, ButtonMediumPrimary, ButtonLargePrimary, ButtonSmallSecondary, ButtonMediumSecondary, ButtonLargeSecondary ... 💀, but instead just one `Button` with variants as props. Isn't `<Button size="sm">` much better?
+The styled kit makes use of cva variants to allow for easy composition and avoid code duplication. No ButtonSmall, ButtonMedium, ButtonLarge, ButtonPrimary, ButtonSecondary, ButtonSmallPrimary, ButtonMediumPrimary, ButtonLargePrimary, ButtonSmallSecondary, ButtonMediumSecondary, ButtonLargeSecondary ... 💀, but just one `Button` with variants as props. Isn't `<Button size="sm">` much better?

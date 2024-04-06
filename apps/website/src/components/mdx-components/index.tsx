@@ -1,29 +1,28 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { Component, PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
 import { CodeCopy } from '../code-copy/code-copy';
 import { CodeSnippet } from '../code-snippet/code-snippet';
+import { FeatureList } from '../feature-list/feature-list';
 import { InstallSnippet } from '../install-snippet/install-snippet';
 import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard-interaction-table';
 import { Note } from '../note/note';
 import { Showcase } from '../showcase/showcase';
 import { StatusBanner } from '../status-banner/status-banner';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@qwik-ui/styled';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const components: Record<string, any> = {
+export const components: Record<string, Component> = {
   p: component$<PropsOf<'p'>>(({ ...props }) => {
     return (
       <p {...props} class={[cn('mb-6 last:mb-0', props.class)]}>
         <Slot />
       </p>
-    );
-  }),
-  a: component$<PropsOf<'a'>>(({ ...props }) => {
-    return (
-      <a {...props} class={[cn('text-primary', props.class)]}>
-        <Slot />
-      </a>
     );
   }),
   h1: component$<PropsOf<'h1'>>(({ ...props }) => {
@@ -44,7 +43,7 @@ export const components: Record<string, any> = {
         {...props}
         class={[
           cn(
-            'mb-8 mt-20 scroll-mt-32 border-b-[1px] pb-2 text-2xl font-extrabold',
+            'mb-8 mt-20 scroll-mt-32 border-b-2 pb-2 text-2xl font-extrabold',
             props.class,
           ),
         ]}
@@ -77,6 +76,20 @@ export const components: Record<string, any> = {
       </h5>
     );
   }),
+  a: component$<PropsOf<'a'>>(({ ...props }) => {
+    return (
+      <a
+        {...props}
+        class={[
+          cn('font-semibold underline underline-offset-4 hover:opacity-90', props.class),
+        ]}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Slot />
+      </a>
+    );
+  }),
   blockquote: component$(() => {
     return (
       <Note>
@@ -98,25 +111,18 @@ export const components: Record<string, any> = {
       </li>
     );
   }),
-  pre: component$<
-    PropsOf<'div'> & {
-      __rawString__?: string;
-    }
-  >(({ __rawString__, ...props }) => {
+  pre: component$<{
+    __rawString__?: string;
+  }>(({ __rawString__ }) => {
     return (
-      <div
-        {...props}
-        class={[
-          cn('code-example rounded-base relative mb-6 max-h-[31.25rem]', props.class),
-        ]}
-      >
+      <div class="code-example relative mb-6 max-h-[31.25rem] rounded-base">
         <CodeCopy
-          class="absolute right-3 top-3 text-white hover:bg-slate-800 hover:text-white"
+          class="absolute right-3 top-3 text-white hover:text-white"
           code={__rawString__}
         />
         <div
           class={cn(
-            'rounded-base max-h-[31.25rem] max-w-full overflow-auto border bg-gradient-to-b p-6 text-sm',
+            'max-h-[31.25rem] max-w-full overflow-y-auto rounded-base border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
           )}
         >
           <pre>
@@ -126,16 +132,15 @@ export const components: Record<string, any> = {
       </div>
     );
   }),
-  code: component$<PropsOf<'code'>>(() => {
-    return (
-      <code class="whitespace-pre-wrap">
-        <Slot />
-      </code>
-    );
-  }),
+
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
   AnatomyTable,
   APITable,
   CodeSnippet,
+  FeatureList,
   InstallSnippet,
   KeyboardInteractionTable,
   Note,

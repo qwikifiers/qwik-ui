@@ -2,17 +2,17 @@
   @apply flex gap-3;
 }
 .pagination-btn {
-  @apply rounded-base h-8 !cursor-pointer bg-white px-3 text-center text-black hover:bg-slate-200;
+  @apply h-8 !cursor-pointer rounded-base bg-white px-3 text-center text-black hover:bg-slate-200;
 }
 
 .pagination-selected-btn {
-  @apply rounded-base pointer-events-none  h-8 bg-slate-500 text-black;
+  @apply pointer-events-none h-8  rounded-base bg-slate-500 text-black;
 }
 
 .pagination-divider {
-  @apply rounded-base h-8 w-8 text-white;
+  @apply h-8 w-8 rounded-base text-white;
 }
 
 .prevNextButtons {
-  @apply rounded-base h-8 !cursor-pointer bg-white px-2 text-black hover:bg-slate-200 disabled:pointer-events-none disabled:opacity-30;
+  @apply h-8 !cursor-pointer rounded-base bg-white px-2 text-black hover:bg-slate-200 disabled:pointer-events-none disabled:opacity-30;
 }

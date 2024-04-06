@@ -39,7 +39,7 @@ const BreadcrumbList = component$<BreadcrumbListProps>((props) => {
   return (
     <ol
       class={cn(
-        'text-muted-foreground flex flex-wrap items-center gap-1.5 break-words text-sm sm:gap-2.5',
+        'flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5',
         props.class,
       )}
       {...props}
@@ -62,7 +62,7 @@ type BreadcrumbLinkProps = PropsOf<'a'> & { asChild?: boolean };
 const BreadcrumbLink = component$<BreadcrumbLinkProps>((props) => {
   const Comp = props.asChild ? Slot : 'a';
   return (
-    <Comp class={cn('hover:text-foreground transition-colors', props.class)} {...props}>
+    <Comp class={cn('transition-colors hover:text-foreground', props.class)} {...props}>
       {!props.asChild && <Slot />}
     </Comp>
   );
@@ -89,7 +89,7 @@ const BreadcrumbPage = component$<BreadcrumbPageProps>((props) => {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      class={cn('text-foreground font-normal', props.class)}
+      class={cn('font-normal text-foreground', props.class)}
       {...props}
     >
       <Slot />

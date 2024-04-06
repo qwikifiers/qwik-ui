@@ -40,13 +40,13 @@ export default component$(() => {
   return (
     <div class="flex flex-col items-center gap-8 py-24">
       <h1 class="text-center text-4xl leading-normal lg:text-5xl">
-        <span class="text-primary font-extrabold tracking-wide">Qwik</span>{' '}
-        <span class="text-secondary font-extrabold tracking-wide">UI</span>
+        <span class="font-extrabold tracking-wide text-primary">Qwik</span>{' '}
+        <span class="font-extrabold tracking-wide text-secondary">UI</span>
       </h1>
       <h2 class="text-center text-xl font-bold leading-normal lg:text-3xl">
         Headless & styled copy-paste components
         <br />
-        <span class="text-primary leading-normal">automatically optimized for you</span>
+        <span class="leading-normal text-primary">automatically optimized for you</span>
       </h2>
       <p class="text-center text-lg lg:text-xl">
         Choose a kit and start building the future{' '}
@@ -56,7 +56,7 @@ export default component$(() => {
         <a href={`/docs/headless/introduction`}>
           <Card
             class={cn(
-              'ease-step relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 hover:scale-[1.025] focus:scale-[1.025]',
+              'relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 ease-step hover:scale-[1.025] focus:scale-[1.025]',
             )}
           >
             <CardImage
@@ -86,7 +86,7 @@ export default component$(() => {
           </Card>
         </a>
         <a href={`/docs/styled/introduction`}>
-          <Card class="ease-step relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 hover:scale-[1.025] focus:scale-[1.025]">
+          <Card class="relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 ease-step hover:scale-[1.025] focus:scale-[1.025]">
             <CardImage
               src={`/images/qwik-ui-fluffy-creature-screen.webp`}
               width="300"
@@ -97,8 +97,8 @@ export default component$(() => {
             <CardHeader>
               <CardTitle class="text-xl">Styled</CardTitle>
               <CardDescription class="text-lg">
-                A fully customizable design system of copy-paste, reusable, styled
-                components built on top of headless.
+                A design system of copy-paste, reusable, styled components built on top of
+                headless. Easy to use, easy to customize.
               </CardDescription>
             </CardHeader>
             {/* <CardContent>

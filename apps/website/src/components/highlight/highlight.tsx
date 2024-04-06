@@ -11,6 +11,10 @@ import { CodeCopy } from '../code-copy/code-copy';
 import { getHighlighterCore } from 'shiki';
 import { cn } from '@qwik-ui/utils';
 import { isDev } from '@builder.io/qwik/build';
+import poimandres from 'shiki/themes/poimandres.mjs';
+import html from 'shiki/langs/html.mjs';
+import css from 'shiki/langs/css.mjs';
+import tsx from 'shiki/langs/tsx.mjs';
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
@@ -45,15 +49,8 @@ export const Highlight = component$(
       }
 
       const highlighter = await getHighlighterCore({
-        themes: [
-          // or a dynamic import if you want to do chunk splitting
-          import('shiki/themes/poimandres.mjs'),
-        ],
-        langs: [
-          import('shiki/langs/html.mjs'),
-          import('shiki/langs/tsx.mjs'),
-          import('shiki/langs/css.mjs'),
-        ],
+        themes: [poimandres],
+        langs: [html, css, tsx],
         loadWasm: import('shiki/wasm'),
       });
 
@@ -67,24 +64,23 @@ export const Highlight = component$(
       codeSig.value = str.toString();
     });
 
-    useTask$(async function createHighlightedCode() {
+    useTask$(async ({ track }) => {
+      track(() => code);
       if (!isDev) {
         await addShiki$();
       }
     });
 
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(
-      async () => {
-        if (isDev) {
-          await addShiki$();
-        }
-      },
-      { strategy: 'document-ready' },
-    );
+    useVisibleTask$(async ({ track }) => {
+      track(() => code);
+      if (isDev) {
+        await addShiki$();
+      }
+    });
 
     return (
-      <div class="code-example relative max-h-[31.25rem]">
+      <div class="code-example relative max-h-[31.25rem] rounded-base">
         <CodeCopy
           class={[
             'absolute right-3 top-3 text-white hover:bg-slate-800 hover:text-white',
@@ -95,7 +91,7 @@ export const Highlight = component$(
         <div
           {...props}
           class={cn(
-            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-sm bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm',
+            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-sm bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
             props.class,
           )}
         >

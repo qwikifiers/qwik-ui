@@ -67,9 +67,9 @@ export default component$(() => {
       bind:isListboxOpen={isListboxOpenSig}
     >
       <ComboboxLabel class=" font-semibold text-white">Streets 🛣️</ComboboxLabel>
-      <ComboboxControl class="rounded-base relative flex items-center border-[1px] border-slate-400 bg-[#1f2532]">
+      <ComboboxControl class="relative flex items-center rounded-base border-[1px] border-slate-400 bg-[#1f2532]">
         <ComboboxInput
-          class="px-d2 rounded-base w-44 bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
+          class="px-d2 w-44 rounded-base bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500"
           placeholder="Wallaby Rd."
         />
         <ComboboxTrigger class="group absolute right-0 h-6 w-6">
@@ -88,11 +88,11 @@ export default component$(() => {
       </ComboboxControl>
       <ComboboxPopover class="listbox-animation" gutter={8}>
         <ComboboxListbox
-          class={`rounded-base w-44 border-[1px] border-slate-400 bg-slate-900 px-4 py-2`}
+          class={`w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-4 py-2`}
           optionRenderer$={(option: ResolvedOption, index: number) => (
             <ComboboxOption
               key={option.key}
-              class="rounded-base group border-2 border-transparent px-2 text-white hover:bg-slate-500  aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
+              class="group rounded-base border-2 border-transparent px-2 text-white hover:bg-slate-500  aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
               index={index}
               resolved={option}
             >

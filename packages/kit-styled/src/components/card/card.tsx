@@ -6,7 +6,7 @@ export const Card = component$<PropsOf<'div'>>((props) => {
     <div
       {...props}
       class={cn(
-        'bg-card text-card-foreground rounded-base border shadow-sm',
+        'rounded-base border bg-card text-card-foreground shadow-sm',
         props.class,
       )}
     >
@@ -33,7 +33,7 @@ export const CardTitle = component$<PropsOf<'h3'>>((props) => {
 
 export const CardDescription = component$<PropsOf<'p'>>((props) => {
   return (
-    <p {...props} class={cn('text-muted-foreground text-sm', props.class)}>
+    <p {...props} class={cn('text-sm text-muted-foreground', props.class)}>
       <Slot />
     </p>
   );

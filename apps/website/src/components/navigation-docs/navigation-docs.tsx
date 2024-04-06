@@ -3,6 +3,7 @@ import { useLocation } from '@builder.io/qwik-city';
 import { ComponentStatus } from '~/_state/component-status.type';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
 import { cn } from '@qwik-ui/utils';
+import { buttonVariants } from '@qwik-ui/styled';
 
 export interface LinkGroup {
   name: string;
@@ -57,13 +58,14 @@ export const DocsNavigation = component$(
                     <li key={link.name + link.href}>
                       <a
                         class={cn(
-                          'transition-color ease-step hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-base flex items-center px-4 py-2 text-sm duration-300',
+                          buttonVariants({ look: 'ghost' }),
+                          'flex h-10 items-center rounded-base font-sans',
                           isLinkActive ||
                             (location.url.pathname?.startsWith('/docs/headless/') &&
                               link.name === 'Headless') ||
                             (location.url.pathname?.startsWith('/docs/styled/') &&
                               link.name === 'Styled')
-                            ? 'bg-accent text-accent-foreground font-bold'
+                            ? 'bg-accent font-bold text-accent-foreground'
                             : '',
                         )}
                         href={link.href}

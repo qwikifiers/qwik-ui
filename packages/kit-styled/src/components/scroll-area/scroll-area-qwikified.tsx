@@ -42,7 +42,7 @@ const ReactScrollBar = React.forwardRef<
   >
     <ScrollAreaPrimitive.ScrollAreaThumb
       className={cn(
-        'bg-border relative rounded-full',
+        'relative rounded-full bg-foreground/30',
         orientation === 'vertical' && 'flex-1',
       )}
     />

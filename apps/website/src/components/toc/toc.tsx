@@ -1,4 +1,5 @@
 import {
+  $,
   QwikIntrinsicElements,
   component$,
   useSignal,
@@ -18,7 +19,7 @@ export const DashboardTableOfContents = component$(
 
     return (
       <div class="space-y-2">
-        <p class="font-medium">On This Page</p>
+        <div class="font-medium">On This Page</div>
         <Tree headings={headings} activeItem={activeHeading.value} />
       </div>
     );
@@ -29,16 +30,15 @@ const useActiveItem = (itemIds: string[]) => {
   const activeId = useSignal<string>();
 
   useVisibleTask$(({ cleanup }) => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            activeId.value = entry.target.id;
-          }
-        });
-      },
-      { rootMargin: `0% 0% -80% 0%` },
-    );
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          console.log('entry: ', entry.isIntersecting, entry.target.id);
+          activeId.value = entry.target.id;
+        }
+      });
+    });
+    console.log('observer: ', observer);
 
     itemIds.forEach((id) => {
       const element = document.getElementById(id);
@@ -67,6 +67,7 @@ type TreeProps = QwikIntrinsicElements['ul'] & {
 };
 
 const Tree = component$<TreeProps>(({ headings, level = 1, activeItem }) => {
+  console.log('level: ', level);
   return headings.length > 0 && level < 3 ? (
     <ul class={cn('m-0 list-none', { 'pl-4': level !== 1 })}>
       {headings.map((heading) => {
@@ -74,11 +75,22 @@ const Tree = component$<TreeProps>(({ headings, level = 1, activeItem }) => {
           <li key={heading.id} class={cn('mt-0 pt-2')}>
             <a
               href={`#${heading.id}`}
+              onClick$={[
+                $(() => {
+                  const element = document.getElementById(heading.id);
+                  if (element) {
+                    const navbarHeight = 90;
+                    const elementPosition =
+                      element.getBoundingClientRect().top + window.scrollY - navbarHeight;
+                    window.scrollTo({ top: elementPosition, behavior: 'auto' });
+                  }
+                }),
+              ]}
               class={cn(
                 heading.level > 2 ? 'ml-4' : null,
-                'hover:text-foreground inline-block no-underline transition-colors',
+                'inline-block no-underline transition-colors hover:text-foreground',
                 heading.id === `${activeItem}`
-                  ? 'text-foreground font-medium'
+                  ? 'font-medium text-foreground'
                   : 'text-muted-foreground',
               )}
             >

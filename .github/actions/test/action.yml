@@ -33,6 +33,8 @@ runs:
     - name: Test all except headless
       shell: bash
       run: npx nx run-many -t test # --base=last-release <- add that back
+      env:
+        NODE_OPTIONS: --experimental-vm-modules
 
     - name: Test Headless
       uses: cypress-io/github-action@v5
