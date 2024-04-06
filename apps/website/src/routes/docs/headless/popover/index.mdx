@@ -170,7 +170,10 @@ The browser support for these is similar to support of the popover API. That sai
 
 ```css
 .my-transition {
-  transition: opacity 0.5s, display 0.5s, overlay 0.5s;
+  transition:
+    opacity 0.5s,
+    display 0.5s,
+    overlay 0.5s;
 
   /* on new-line so the declaration is valid in all browsers */
   transition-behavior: allow-discrete;
@@ -287,25 +290,13 @@ useTask$(async ({ track }) => {
 
 ## Floating Behavior
 
-<Showcase name="floating-intro" />
+<Showcase name="floating" />
 
 To use the popover API with floating elements, you can add the `floating={true}` prop to the Popover component. This API enables the use of JavaScript to dynamically position the listbox using the `top` & `left` absolute properties.
 
 > Enabling the `floating={true}` property will introduce a slight increase in code size, as we currently utilize JavaScript to implement floating items. We've strived to keep it as minimal as possible, but powerful in building complex components in anticipation of the forthcoming anchor API.
 
 To float an element, it must have an anchored element to latch onto. This can be done with the `anchorRef` prop.
-
-Below is a mini tooltip implementation enabled by anchor behavior. Keep in mind, this is not accessible, but an example of how this API can be used. We strongly suggest using the Qwik UI Tooltip component.
-
-### AnchorRef Prop
-
-<Showcase name="anchor-ref" />
-
-### Floating Prop
-
-This API is purposely opt-in / incremental. At some point JavaScript will not be needed here at all, and so we want to ensure a smooth migration path when that becomes widely supported.
-
-We chose not to use an Anchor polyfill here due to the difference in bundle size compared to a JavaScript implementation.
 
 ## **Configuring the Listbox**
 
