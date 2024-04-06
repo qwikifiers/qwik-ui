@@ -18,7 +18,7 @@ export const Popover = component$<PopoverProps>((props) => {
     }
 
     return (
-      <FloatingPopover ref={ref} anchorRef={anchorRef} {...rest}>
+      <FloatingPopover data-floating ref={ref} anchorRef={anchorRef} {...rest}>
         <Slot />
       </FloatingPopover>
     );

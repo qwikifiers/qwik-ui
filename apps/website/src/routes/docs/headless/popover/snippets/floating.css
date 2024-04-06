@@ -1,0 +1,9 @@
+@layer qwik-ui {
+  [data-floating] {
+    margin: unset;
+    padding: unset;
+    border: unset;
+    overflow: unset;
+    position: absolute;
+  }
+}

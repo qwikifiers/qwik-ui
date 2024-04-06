@@ -172,7 +172,10 @@ The browser support for these is similar to support of the popover API. That sai
 
 ```css
 .my-transition {
-  transition: opacity 0.5s, display 0.5s, overlay 0.5s;
+  transition:
+    opacity 0.5s,
+    display 0.5s,
+    overlay 0.5s;
 
   /* on new-line so the declaration is valid in all browsers */
   transition-behavior: allow-discrete;
@@ -324,7 +327,6 @@ For the following examples, we'll be using the Combobox component. `ComboboxPopo
   floating={true}
   // "stick" to the input
   anchorRef={context.inputRef}
-  class="listbox"
 >
   <Slot />
 </Popover>
@@ -379,43 +381,17 @@ If Tailwind is the framework of choice, then styles can be added using the [arbi
 
 > The arbitrary variant can be customized/abstracted even further by [adding a variant](https://tailwindcss.com/docs/plugins#adding-variants) as a plugin in the tailwind config.
 
-### Listbox preset
+### Floating preset
 
-By default, the popover API comes with built-in styles, including fixed behavior, margin, the list goes on.
+By default, the popover API comes with built-in user agent styles, including fixed behavior, margin, the list goes on.
 
-There are times when we want to override this behavior. An example being when we want an absolutely positioned listbox.
+There are times when we want to override this behavior. An example being when we want floating behavior.
 
-To do that, we can add the `listbox` class to the popover component.
+Qwik UI strips the following styles when in floating mode:
 
-If you need to override any of the listbox properties, use the following CSS variables:
+<CodeSnippet name="floating.css" />
 
-<AnatomyTable
-  firstColumnLabel="Property"
-  propDescriptors={[
-    {
-      name: 'margin',
-      description: '--listbox-margin',
-    },
-    {
-      name: 'padding',
-      description: '--listbox-padding',
-    },
-    {
-      name: 'border',
-      description: '--listbox-border',
-    },
-    {
-      name: 'overflow',
-      description: '--listbox-overflow',
-    },
-    {
-      name: 'position',
-      description: '--listbox-position',
-    },
-  ]}
-/>
-
-> Another option is to use the `!important` syntax to override any of the CSS variable values.
+We put it under an `@layer` so that it can be easily overridden when adding your own styles.
 
 ## Animations
 
