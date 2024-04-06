@@ -131,6 +131,29 @@ test.describe('Mouse Behavior', () => {
 
     expect(popoverBoundingBox?.y).toBeLessThan(triggerBoundingBox?.y ?? 0);
   });
+
+  test(`GIVEN a combobox with a gutter configured
+  WHEN opening the combobox
+  THEN the popover should be spaced 24px from the combobox`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'gutter');
+
+    const popover = d.getPopover();
+    const trigger = d.getTrigger();
+
+    await trigger.click();
+
+    await expect(popover).toBeVisible();
+
+    const popoverBoundingBox = await popover.boundingBox();
+    const triggerBoundingBox = await trigger.boundingBox();
+
+    console.log(triggerBoundingBox, popoverBoundingBox);
+
+    const triggerBottomAbsolutePosition =
+      (triggerBoundingBox?.y ?? 0) + (triggerBoundingBox?.height ?? 0);
+
+    expect((popoverBoundingBox?.y ?? 0) - triggerBottomAbsolutePosition).toBe(24);
+  });
 });
 
 test.describe('Keyboard Behavior', () => {
