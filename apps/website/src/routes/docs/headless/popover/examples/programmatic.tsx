@@ -1,13 +1,12 @@
 import { component$ } from '@builder.io/qwik';
 import { Popover, usePopover } from '@qwik-ui/headless';
-
+import { Button } from '@qwik-ui/styled';
 export default component$(() => {
   const { togglePopover } = usePopover(`programmatic-id`);
   return (
     <>
-      <button
+      <Button
         preventdefault:click
-        class="rounded-base border-2 border-slate-400 bg-slate-800 px-3 py-1 text-white"
         onKeyDown$={(e) => {
           if (e.key === 'o') {
             togglePopover();
@@ -15,11 +14,8 @@ export default component$(() => {
         }}
       >
         Focus me and press the 'o' key!
-      </button>
-      <Popover
-        id="programmatic-id"
-        class="rounded-base border-2 border-slate-300 bg-slate-800 px-3 py-1 opacity-0 shadow-md"
-      >
+      </Button>
+      <Popover id="programmatic-id" class="popover">
         I was programmatically opened!
       </Popover>
     </>
