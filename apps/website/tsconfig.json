@@ -26,5 +26,5 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  "include": ["src", "../../packages/kit-headless/src/components/select/select.test.ts"]
+  "include": ["src", "vite.config.ts"]
 }
