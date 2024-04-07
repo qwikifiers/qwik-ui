@@ -8,7 +8,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getIcon = () => {
-    return getRoot().getByRole('img');
+    return getRoot().locator('#indicator');
   };
   const getCheckList = () => {
     return getRoot().getByRole('group');

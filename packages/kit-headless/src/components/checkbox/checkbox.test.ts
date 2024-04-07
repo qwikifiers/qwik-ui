@@ -242,7 +242,7 @@ test(`GIVEN a controlled checklist with a checklist signal of true and default c
       THEN the checklist signal should have aria-checked mixed`, async ({ page }) => {
   const exampleName = 'controlled-list-true';
   const { getCheckbox, getTriCheckbox } = await setup(page, exampleName);
-  const firstCheckbox = page.locator('#first-checkbox-child');
+  const firstCheckbox = page.locator('#child-1');
   await firstCheckbox.press(' ');
   await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
 });

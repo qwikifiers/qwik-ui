@@ -22,27 +22,13 @@ export default component$(() => {
           checkBoxSig={firstUserSig}
           class="flex items-center gap-3 bg-slate-900 pr-2 text-white"
         >
-          <CheckboxIndicator class="w-fit bg-slate-600">
-            <img
-              src="https://cataas.com/cat?width=80&height=80"
-              alt="cat"
-              width={80}
-              height={80}
-            />
-          </CheckboxIndicator>
+          <CheckboxIndicator class="w-fit bg-slate-600">✅</CheckboxIndicator>
           <p>No other stuff is needed here</p>
         </MyCheckbox>
 
         <MyCheckbox checkBoxSig={secondUserSig} class="bg-slate-900 text-white">
           <div class="flex items-center gap-3">
-            <CheckboxIndicator class="w-fit bg-slate-600">
-              <img
-                src="https://cataas.com/cat?width=80&height=80"
-                alt="cat"
-                width={80}
-                height={80}
-              />
-            </CheckboxIndicator>
+            <CheckboxIndicator class="w-fit bg-slate-600">✅</CheckboxIndicator>
             <p>No other stuff is needed here</p>
           </div>
         </MyCheckbox>
