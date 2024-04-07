@@ -539,7 +539,6 @@ export default component$<PropsOf<typeof Button>>(() => {
                 themeComputedObjectSig.value.mode =
                   themeComputedObjectSig.value.mode?.includes('light') ? 'dark' : 'light';
 
-                console.log(themeComputedObjectSig.value.mode);
                 setTheme(await themeStoreToThemeClasses$());
               }}
             />

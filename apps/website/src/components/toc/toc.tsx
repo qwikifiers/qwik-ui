@@ -33,12 +33,10 @@ const useActiveItem = (itemIds: string[]) => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log('entry: ', entry.isIntersecting, entry.target.id);
           activeId.value = entry.target.id;
         }
       });
     });
-    console.log('observer: ', observer);
 
     itemIds.forEach((id) => {
       const element = document.getElementById(id);
@@ -67,7 +65,6 @@ type TreeProps = QwikIntrinsicElements['ul'] & {
 };
 
 const Tree = component$<TreeProps>(({ headings, level = 1, activeItem }) => {
-  console.log('level: ', level);
   return headings.length > 0 && level < 3 ? (
     <ul class={cn('m-0 list-none', { 'pl-4': level !== 1 })}>
       {headings.map((heading) => {
