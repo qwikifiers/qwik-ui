@@ -7,8 +7,11 @@ export default component$(() => {
       <PopoverTrigger popovertarget="styling-id" class="popover-trigger">
         Popover Trigger
       </PopoverTrigger>
-      {/* popover bacground-color gets overrided */}
-      <Popover class="popover [&[popover]]:bg-primary" id="styling-id">
+      {/* popover background-color gets overrided */}
+      <Popover
+        class="popover [&[popover]]: [&[popover]]:border-accent [&[popover]]:bg-primary [&[popover]]:text-background"
+        id="styling-id"
+      >
         Popover
       </Popover>
     </>

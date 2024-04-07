@@ -9,7 +9,7 @@ export default component$(() => {
 
   return (
     <>
-      <div class="flex flex-col items-center justify-center gap-2">
+      <div class="popover-container">
         <p>I'm a mini tooltip!</p>
         <PopoverTrigger
           ref={triggerRef}
@@ -35,7 +35,7 @@ export default component$(() => {
         placement="top"
         gutter={4}
         id="floating-id"
-        class="popover listbox !p-4"
+        class="popover"
       >
         I am anchored to the trigger!
       </Popover>

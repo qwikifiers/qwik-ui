@@ -1,11 +1,15 @@
-:root {
-  --select-width: 12rem;
+.popover-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .popover-trigger {
   border-radius: var(--border-radius);
-  border: 2px dotted hsla(var(--primary));
-  background-color: hsl(var(--popover));
+  border: 2px dotted hsla(var(--foreground));
+  background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   padding: 0.5rem;
   margin-bottom: 0.5rem;
@@ -20,18 +24,64 @@
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.popover-transition {
+  opacity: 0;
   transition:
     opacity 0.5s,
     display 0.5s,
     overlay 0.5s;
   transition-behavior: allow-discrete;
-  opacity: 0;
 }
 
-.popover-showing {
+.popover-transition.popover-showing {
   opacity: 1;
 }
 
-.popover-closing {
+.popover-transition.popover-closing {
   opacity: 0;
+}
+
+.popover-animation {
+  transform: scale(0);
+}
+
+.popover-animation.popover-showing {
+  animation: popover-grow 0.5s ease-in-out forwards;
+}
+
+.popover-animation.popover-closing {
+  animation: popover-shrink 0.4s ease-in-out forwards;
+}
+
+.popover-invoker {
+  border-radius: var(--border-radius);
+  border: 2px dotted hsla(var(--border));
+  background-color: hsl(var(--popover));
+  color: hsl(var(--foreground));
+  padding: 0.5rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+@keyframes popover-shrink {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0);
+  }
+}
+
+@keyframes popover-grow {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }

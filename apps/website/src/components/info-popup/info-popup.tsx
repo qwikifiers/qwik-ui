@@ -17,11 +17,11 @@ export const InfoPopup = component$((props: InfoProps) => {
     opacity: 0;
   }
   
-  .popover-showing {
+  .fade-info.popover-showing {
     opacity: 1;
   }
   
-  .popover-closing {
+  .fade-info.popover-closing {
     opacity: 0;
   }  
   `);

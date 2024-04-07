@@ -3,18 +3,20 @@ import { Popover, PopoverTrigger } from '@qwik-ui/headless';
 export default component$(() => {
   return (
     <>
-      <PopoverTrigger popovertarget="auto-1" class="popover-trigger">
-        Popover Trigger 1
-      </PopoverTrigger>
-      <Popover id="auto-1" class="popover">
-        Popover 1
-      </Popover>
-      <PopoverTrigger popovertarget="auto-2" class="popover-trigger">
-        Popover Trigger 2
-      </PopoverTrigger>
-      <Popover id="auto-2" class="popover" style={{ top: '100px' }}>
-        Popover 2
-      </Popover>
+      {[0, 1].map((i) => (
+        <>
+          <PopoverTrigger popovertarget={`auto-${i}`} class="popover-trigger">
+            Popover Trigger {i + 1}
+          </PopoverTrigger>
+          <Popover
+            style={{ top: i === 1 ? '25px' : '0' }}
+            id={`auto-${i}`}
+            class="popover"
+          >
+            Popover {i + 1}
+          </Popover>
+        </>
+      ))}
     </>
   );
 });

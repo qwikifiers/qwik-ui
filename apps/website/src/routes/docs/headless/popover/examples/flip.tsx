@@ -7,7 +7,7 @@ export default component$(() => {
 
   return (
     <>
-      <div class="flex flex-col items-center justify-center gap-2">
+      <div class="popover-container">
         <p>auto placed on scroll 📜</p>
         <PopoverTrigger
           ref={triggerRef}
@@ -26,7 +26,7 @@ export default component$(() => {
         flip
         gutter={4}
         id="popover-id"
-        class="popover listbox !p-4"
+        class="popover"
       >
         I am anchored to the trigger!
       </Popover>

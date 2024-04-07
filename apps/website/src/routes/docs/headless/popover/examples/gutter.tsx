@@ -7,11 +7,10 @@ export default component$(() => {
 
   return (
     <>
-      <div class="flex flex-col items-center justify-center gap-2">
+      <div class="popover-container">
         <p>gutter of 40px!</p>
         <PopoverTrigger
           ref={triggerRef}
-          popoverTargetAction="show"
           popovertarget="gutter-id"
           class="popover-trigger"
         >
@@ -26,7 +25,7 @@ export default component$(() => {
         placement="top"
         gutter={40}
         id="gutter-id"
-        class="popover listbox !p-4"
+        class="popover"
       >
         I am anchored to the trigger!
       </Popover>
