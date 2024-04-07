@@ -13,7 +13,7 @@ export const CodeCopy = component$<CodeCopyProps>(({ code = '', ...props }) => {
   return (
     <Button
       {...props}
-      look="ghost"
+      look="link"
       title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
       class={cn(props.class)}
       onClick$={async () => {
