@@ -25,7 +25,7 @@ export const CardHeader = component$<PropsOf<'div'>>((props) => {
 
 export const CardTitle = component$<PropsOf<'h3'>>((props) => {
   return (
-    <h3 {...props} class={cn('font-semibold leading-none tracking-tight', props.class)}>
+    <h3 {...props} class={cn('font-medium leading-none tracking-tight', props.class)}>
       <Slot />
     </h3>
   );

@@ -20,3 +20,14 @@
     position: absolute;
   }
 }
+
+/** override the polyfill's layer, which gets dynamically imported later on. */
+@layer popover-polyfill {
+  [data-floating] {
+    margin: unset;
+    padding: unset;
+    border: unset;
+    overflow: unset;
+    position: absolute;
+  }
+}

@@ -3,11 +3,11 @@ import { Popover, PopoverTrigger } from '@qwik-ui/headless';
 export default component$(() => {
   return (
     <>
-      <PopoverTrigger popovertarget="hero-id" class="popover-trigger">
+      <PopoverTrigger popovertarget="transition-id" class="popover-trigger">
         Popover Trigger
       </PopoverTrigger>
-      <Popover id="hero-id" class="popover">
-        My Hero!
+      <Popover id="transition-id" class="popover popover-transition">
+        I'm a popover!
       </Popover>
     </>
   );

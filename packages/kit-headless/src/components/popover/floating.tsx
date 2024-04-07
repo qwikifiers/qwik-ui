@@ -15,7 +15,6 @@ import {
   offset as _offset,
   flip as _flip,
   shift as _shift,
-  autoPlacement as _autoPlacement,
   hide as _hide,
 } from '@floating-ui/dom';
 
@@ -54,7 +53,6 @@ export type FloatingProps = PropsOf<'div'> & {
   shift?: boolean;
   flip?: boolean;
   size?: boolean;
-  autoPlacement?: boolean;
   hide?: 'referenceHidden' | 'escaped';
   inline?: boolean;
   transform?: string;
@@ -68,7 +66,6 @@ export const FloatingPopover = component$(
     placement = 'bottom',
     shift,
     hide,
-    autoPlacement = false,
     ancestorScroll = true,
     ancestorResize = true,
     elementResize = true,
@@ -93,7 +90,6 @@ export const FloatingPopover = component$(
           _hide({ strategy: hide }),
           flip && _flip(),
           shift && _shift(),
-          autoPlacement && _autoPlacement(),
         ];
 
         await computePosition(anchor as ReferenceElement, popover, {

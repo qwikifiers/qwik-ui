@@ -1,30 +1,20 @@
 import { component$ } from '@builder.io/qwik';
 import { Popover, PopoverTrigger } from '@qwik-ui/headless';
-
 export default component$(() => {
-  const myPopovers = [
-    { id: 'manual-1', content: 'Popover 1' },
-    { id: 'manual-2', content: 'Popover 2' },
-  ];
-
   return (
     <>
-      {myPopovers.map((popover, index) => (
+      {[0, 1].map((i) => (
         <>
-          <PopoverTrigger
-            popovertarget={popover.id}
-            class="mb-4 rounded-base border-2 border-slate-300 bg-slate-800 px-3 py-1 text-white"
-          >
-            Popover Trigger {index + 1}
+          <PopoverTrigger popovertarget={`manual-${i}`} class="popover-trigger">
+            Popover Trigger {i + 1}
           </PopoverTrigger>
-
           <Popover
+            style={{ top: i === 1 ? '25px' : '0' }}
             manual
-            id={popover.id}
-            class="py- rounded-base border-2 border-slate-300 bg-slate-800 px-3 py-1 shadow-md"
-            style={{ top: `${index * 20}px` }}
+            id={`manual-${i}`}
+            class="popover"
           >
-            {popover.content}
+            Popover {i + 1}
           </Popover>
         </>
       ))}

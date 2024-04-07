@@ -1,63 +1,44 @@
-import {
-  Combobox,
-  ComboboxControl,
-  ComboboxIcon,
-  ComboboxInput,
-  ComboboxLabel,
-  ComboboxListbox,
-  ComboboxOption,
-  ComboboxPopover,
-  ComboboxTrigger,
-  ResolvedOption,
-} from '@qwik-ui/headless';
-
 import { component$, useSignal } from '@builder.io/qwik';
+import { Popover, PopoverTrigger } from '@qwik-ui/headless';
+import { usePopover } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const inputValueSig = useSignal('');
-  type PlacementExample = {
-    value: string;
-    label: string;
-  };
-
-  const placementExample: Array<PlacementExample> = [
-    { value: '0', label: 'Up' },
-    { value: '1', label: 'Down' },
-    { value: '2', label: 'Left' },
-    { value: '3', label: 'Right' },
-  ];
+  const { showPopover, hidePopover } = usePopover(`placement-id`);
+  const triggerRef = useSignal<HTMLButtonElement>();
+  const popoverRef = useSignal<HTMLElement>();
 
   return (
     <>
-      <Combobox
-        class="w-fit"
-        options={placementExample}
-        optionDisabledKey="myDisabledKey"
-        bind:inputValue={inputValueSig}
+      <div class="popover-container">
+        <p>popover on the right ⤵️</p>
+        <PopoverTrigger
+          ref={triggerRef}
+          disableClickInitPopover
+          onPointerEnter$={() => {
+            showPopover();
+          }}
+          onPointerLeave$={() => {
+            hidePopover();
+          }}
+          popoverTargetAction="show"
+          popovertarget="placement-id"
+          class="popover-trigger"
+        >
+          Hover over me
+        </PopoverTrigger>
+      </div>
+
+      <Popover
+        ref={popoverRef}
+        anchorRef={triggerRef}
+        floating={true}
+        placement="right"
+        gutter={4}
+        id="placement-id"
+        class="popover"
       >
-        <ComboboxLabel class="text-white">Positions</ComboboxLabel>
-        <ComboboxControl class="relative mt-2 flex items-center rounded-base border-[1px] border-slate-400 bg-[#1f2532]">
-          <ComboboxInput class="px-d2 w-44 rounded-base bg-slate-900 px-2 pr-6 text-white placeholder:text-slate-500" />
-          <ComboboxTrigger class="group absolute right-0 h-6 w-6">
-            <ComboboxIcon class="stroke-white transition-transform duration-500 group-aria-expanded:-rotate-180" />
-          </ComboboxTrigger>
-        </ComboboxControl>
-        <ComboboxPopover gutter={8} placement="top">
-          <ComboboxListbox
-            class="w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
-            optionRenderer$={(option: ResolvedOption, index: number) => (
-              <ComboboxOption
-                key={option.key}
-                class="group rounded-base border-2 border-transparent px-2 text-white hover:bg-slate-500  aria-disabled:text-slate-600 aria-disabled:hover:bg-slate-700 aria-selected:border-slate-200 aria-selected:bg-slate-500"
-                index={index}
-                resolved={option}
-              >
-                {option.label}
-              </ComboboxOption>
-            )}
-          />
-        </ComboboxPopover>
-      </Combobox>
+        I am anchored to the trigger!
+      </Popover>
     </>
   );
 });

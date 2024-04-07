@@ -3,9 +3,7 @@ title: Qwik UI | Popover
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
-import { Note } from '~/components/note/note';
-import { FeatureList } from '~/components/feature-list/feature-list';
-import { APITable } from '~/components/api-table/api-table';
+import styles from './snippets/popover.css';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
 
@@ -138,7 +136,7 @@ Here are a couple of example components where the Popover API can be used. Inclu
   caveats that should be kept in mind when consuming the popover.
 </Note>
 
-### Psuedo Selectors
+### Pseudo Selectors
 
 #### :popover-open
 
@@ -292,25 +290,13 @@ useTask$(async ({ track }) => {
 
 ## Floating Behavior
 
-<Showcase name="floating-intro" />
+<Showcase name="floating" />
 
 To use the popover API with floating elements, you can add the `floating={true}` prop to the Popover component. This API enables the use of JavaScript to dynamically position the listbox using the `top` & `left` absolute properties.
 
 > Enabling the `floating={true}` property will introduce a slight increase in code size, as we currently utilize JavaScript to implement floating items. We've strived to keep it as minimal as possible, but powerful in building complex components in anticipation of the forthcoming anchor API.
 
 To float an element, it must have an anchored element to latch onto. This can be done with the `anchorRef` prop.
-
-Below is a mini tooltip implementation enabled by anchor behavior. Keep in mind, this is not accessible, but an example of how this API can be used. We strongly suggest using the Qwik UI Tooltip component.
-
-### AnchorRef Prop
-
-<Showcase name="anchor-ref" />
-
-### Floating Prop
-
-This API is purposely opt-in / incremental. At some point JavaScript will not be needed here at all, and so we want to ensure a smooth migration path when that becomes widely supported.
-
-We chose not to use an Anchor polyfill here due to the difference in bundle size compared to a JavaScript implementation.
 
 ## **Configuring the Listbox**
 
@@ -350,13 +336,11 @@ In the previous docs examples, we use the gutter property on the listbox. Gutter
 
 <Showcase name="gutter" />
 
-> In this case, that is the listbox or unordered list, and the input element. If Flip is enabled, it will provide a gutter space for both the top and bottom.
-
 ## Styling
 
 Styles can be added normally like any other component in Qwik UI, such as adding a class. The Popover API however, exposes the `[popover]` and `:popover-open` attribute and pseudo-class selectors which can be used to style both the open and closed states.
 
-From an earlier section, we learned that the `:popover-open` psuedo-class cannot be polyfilled, and so a class is added instead.
+From an earlier section, we learned that the `:popover-open` pseudo-class cannot be polyfilled, and so a class is added instead.
 
 ```tsx
 [popover] {
@@ -393,9 +377,11 @@ Qwik UI strips the following styles when in floating mode:
 
 We put it under an `@layer` so that it can be easily overridden when adding your own styles.
 
+> `data-floating` is a data attribute that gets added to the popover when you set the floating prop to true.
+
 ## Animations
 
-<Showcase name="listbox-animation" />
+<Showcase name="animation" />
 
 To use an animation, add the following CSS classes to the component.
 
@@ -406,30 +392,36 @@ To use an animation, add the following CSS classes to the component.
 Here's the CSS imported from the example:
 
 ```css
-@keyframes fadeIn {
+.popover-animation {
+  transform: scale(0);
+}
+
+.popover-animation.popover-showing {
+  animation: popover-grow 0.5s ease-in-out forwards;
+}
+
+.popover-animation.popover-closing {
+  animation: popover-shrink 0.4s ease-in-out forwards;
+}
+
+@keyframes popover-shrink {
   from {
-    opacity: 0;
+    transform: scale(1);
   }
+
   to {
-    opacity: 1;
+    transform: scale(0);
   }
 }
 
-@keyframes fadeOut {
+@keyframes popover-grow {
   from {
-    opacity: 0;
+    transform: scale(0);
   }
+
   to {
-    opacity: 1;
+    transform: scale(1);
   }
-}
-
-.popover-showing {
-  animation: fadeIn both 500ms ease;
-}
-
-.popover-closing {
-  animation: fadeOut both 500ms ease;
 }
 ```
 
@@ -439,7 +431,30 @@ Here's the CSS imported from the example:
 
 Transitions use the same classes for entry and exit animations. Those being `.popover-showing` and `.popover-closing`. They are explained more in the `Caveats` section.
 
-> The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) is another native solution that aims to solve animating between states. Support is currently in around **~70%** of browsers.
+<Showcase name="transition" />
+
+> The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) is another native solution that aims to solve animating between states. Support is currently in around **~71%** of browsers.
+
+CSS from the example:
+
+```css
+.popover-transition {
+  opacity: 0;
+  transition:
+    opacity 0.5s,
+    display 0.5s,
+    overlay 0.5s;
+  transition-behavior: allow-discrete;
+}
+
+.popover-transition.popover-showing {
+  opacity: 1;
+}
+
+.popover-transition.popover-closing {
+  opacity: 0;
+}
+```
 
 ## Additional References
 
@@ -531,11 +546,6 @@ That said, if browser support is not a priority, feel free to use the native `::
         'Flips the placement of the popover when it starts to collide with the boundaries.',
     },
     {
-      name: 'autoPlacement',
-      type: 'boolean',
-      description: 'Automatically places the listbox based on available space.',
-    },
-    {
       name: '[popover]',
       type: 'selector',
       description: 'Selects the popover on all browsers.',
@@ -559,11 +569,6 @@ That said, if browser support is not a priority, feel free to use the native `::
       name: '.popover-closing',
       type: 'class',
       description: 'Class to animate close behavior.',
-    },
-    {
-      name: 'listbox',
-      type: 'class',
-      description: 'Class to add to the popover component for listbox behavior.',
     },
   ]}
 />
@@ -601,17 +606,3 @@ That said, if browser support is not a priority, feel free to use the native `::
     },
   ]}
 />
-
-## Additional Examples
-
-### Auto Placement
-
-Automatically places the listbox based on available space. **You must set flip to false before using it.** This comes in handy when you're unsure about the optimal placement for the floating element, or if you prefer not to set it manually.
-
-<Showcase name="auto-placement" />
-
-<Note status="alert">
-  You cannot use **flip** and **autoPlacement** at the same time. They both manipulate the
-  placement but with different strategies. Using both can result in a continuous reset
-  loop as they try to override each other's work.
-</Note>

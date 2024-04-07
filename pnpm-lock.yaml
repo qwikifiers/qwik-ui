@@ -93,8 +93,8 @@ importers:
         specifier: 17.1.3
         version: 17.1.3(@swc-node/register@1.6.8)(@swc/core@1.3.103)
       '@oddbird/popover-polyfill':
-        specifier: 0.3.7
-        version: 0.3.7
+        specifier: 0.4.1
+        version: 0.4.1
       '@playwright/test':
         specifier: ^1.41.2
         version: 1.41.2
@@ -6177,8 +6177,8 @@ packages:
       '@octokit/openapi-types': 12.11.0
     dev: true
 
-  /@oddbird/popover-polyfill@0.3.7:
-    resolution: {integrity: sha512-WNthEIPPXnFQkumLby6yVxhyOcA/GtMnlByHwEglMO9WZckoaqidnpLp2JFzAh2RDOZxn+Xt3ffSMKId9cPjOQ==}
+  /@oddbird/popover-polyfill@0.4.1:
+    resolution: {integrity: sha512-1MBMy92urkxoIy3qQecs6DzSgtVg9WElUhPXZ7GejqH8AmoakP6uMZGO1vyf0Cf9dBujqb0C+cXyZTTBLHWs0A==}
     dev: true
 
   /@parcel/watcher@2.0.4:
