@@ -116,10 +116,7 @@ export const components: Record<string, Component> = {
   }>(({ __rawString__ }) => {
     return (
       <div class="code-example relative mb-6 max-h-[31.25rem] rounded-base">
-        <CodeCopy
-          class="absolute right-3 top-3 text-white hover:text-white"
-          code={__rawString__}
-        />
+        <CodeCopy class="absolute right-3 top-3" code={__rawString__} />
         <div
           class={cn(
             'max-h-[31.25rem] max-w-full overflow-y-auto rounded-base border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
@@ -132,7 +129,6 @@ export const components: Record<string, Component> = {
       </div>
     );
   }),
-
   Accordion,
   AccordionItem,
   AccordionTrigger,
