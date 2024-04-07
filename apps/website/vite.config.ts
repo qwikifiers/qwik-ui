@@ -21,7 +21,6 @@ export default defineConfig(async () => {
         },
         mdx: {
           providerImportSource: '~/_state/MDXProvider',
-          // @ts-ignore
           recmaPlugins: [recmaProvideComponents],
           rehypePlugins: [
             () => (tree) => {
@@ -31,48 +30,26 @@ export default defineConfig(async () => {
                   if (codeEl.tagName !== 'code') {
                     return;
                   }
-
                   node.__rawString__ = codeEl.children?.[0].value;
                 }
               });
             },
             [
-              // @ts-ignore
               rehypePrettyCode,
               {
                 theme: 'poimandres',
-                onVisitLine(node: any) {
-                  // Prevent lines from collapsing in `display: grid` mode, and allow empty
-                  // lines to be copy/pasted
-                  if (node.children.length === 0) {
-                    node.children = [{ type: 'text', value: ' ' }];
-                  }
-                },
-                onVisitHighlightedLine(node: any) {
-                  // Each line node by default has `class="line"`.
-                  if (node.properties.className) {
-                    node.properties.className.push('line--highlighted');
-                  }
-                },
-                onVisitHighlightedWord(node: any) {
-                  if (node.properties.className) {
-                    node.properties.className = ['word--highlighted'];
-                  }
-                },
               },
             ],
             () => (tree) => {
               visit(tree, (node) => {
-                if (node?.type === 'element' && node?.tagName === 'div') {
-                  if (!('data-rehype-pretty-code-fragment' in node.properties)) {
+                if (node?.type === 'element' && node?.tagName === 'figure') {
+                  if (!('data-rehype-pretty-code-figure' in node.properties)) {
                     return;
                   }
-
                   const preElement = node.children.at(-1);
                   if (preElement.tagName !== 'pre') {
                     return;
                   }
-
                   preElement.properties['__rawString__'] = node.__rawString__;
                 }
               });
