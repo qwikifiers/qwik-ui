@@ -192,71 +192,82 @@ test.describe('controlled checklist behavior', () => {
     const { getTriCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
   });
-});
 
-test(`GIVEN a controlled checklist with two true checkboxes
+  test(`GIVEN a controlled checklist with two true checkboxes
         WHEN it renders
         IT should have aria-checked true`, async ({ page }) => {
-  const exampleName = 'controlled-list-trues';
-  const { getTriCheckbox } = await setup(page, exampleName);
-  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
-});
-test(`GIVEN a controlled checklist with two false checkboxes
+    const exampleName = 'controlled-list-trues';
+    const { getTriCheckbox } = await setup(page, exampleName);
+    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+  });
+  test(`GIVEN a controlled checklist with two false checkboxes
         WHEN it renders
         IT should have aria-checked true`, async ({ page }) => {
-  const exampleName = 'controlled-list-falses';
-  const { getTriCheckbox } = await setup(page, exampleName);
-  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
-});
+    const exampleName = 'controlled-list-falses';
+    const { getTriCheckbox } = await setup(page, exampleName);
+    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
+  });
 
-test(`GIVEN a controlled checklist with mixed checkboxes
+  test(`GIVEN a controlled checklist with mixed checkboxes
         WHEN it renders
         IT should have aria-checked mixed`, async ({ page }) => {
-  const exampleName = 'controlled-list-mixed';
-  const { getTriCheckbox } = await setup(page, exampleName);
-  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
-});
+    const exampleName = 'controlled-list-mixed';
+    const { getTriCheckbox } = await setup(page, exampleName);
+    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
+  });
 
-test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+  test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
         WHEN the checklist renders
         IT shoud have aria-checked true`, async ({ page }) => {
-  const exampleName = 'controlled-list-true';
-  const { getTriCheckbox } = await setup(page, exampleName);
-  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
-});
-test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+    const exampleName = 'controlled-list-true';
+    const { getTriCheckbox } = await setup(page, exampleName);
+    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+  });
+  test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
       WHEN the checklist renders
       ALL its child checkboxes should have aria-checked true`, async ({ page }) => {
-  const exampleName = 'controlled-list-true';
-  const { getCheckbox } = await setup(page, exampleName);
-  const allCheckboxes = await getCheckbox().all();
-  for (let index = 0; index < allCheckboxes.length; index++) {
-    const checkbox = allCheckboxes[index];
-    await expect(checkbox).toHaveAttribute('aria-checked', 'true');
-  }
-});
+    const exampleName = 'controlled-list-true';
+    const { getCheckbox } = await setup(page, exampleName);
+    const allCheckboxes = await getCheckbox().all();
+    for (let index = 0; index < allCheckboxes.length; index++) {
+      const checkbox = allCheckboxes[index];
+      await expect(checkbox).toHaveAttribute('aria-checked', 'true');
+    }
+  });
 
-// TODO: change api to not use indeterminate and used mixed instead
-test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+  // TODO: change api to not use indeterminate and used mixed instead
+  test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
       WHEN a child checkbox is unchecked
       THEN the checklist signal should have aria-checked mixed`, async ({ page }) => {
-  const exampleName = 'controlled-list-true';
-  const { getCheckbox, getTriCheckbox } = await setup(page, exampleName);
-  const firstCheckbox = page.locator('#child-1');
-  await firstCheckbox.press(' ');
-  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
-});
+    const exampleName = 'controlled-list-true';
+    const { getCheckbox, getTriCheckbox } = await setup(page, exampleName);
+    const firstCheckbox = page.locator('#child-1');
+    await firstCheckbox.press(' ');
+    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
+  });
 
-test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+  test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
       WHEN all child checkbox are unchecked
       THEN the checklist signal should have aria-checked false`, async ({ page }) => {
-  const exampleName = 'controlled-list-true';
-  const { getCheckbox, getTriCheckbox } = await setup(page, exampleName);
-  const allCheckboxes = await getCheckbox().all();
-  await page.locator('#child-1').press(' ');
-  await page.locator('#child-2').press(' ');
-  await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
+    const exampleName = 'controlled-list-true';
+    const { getCheckbox, getTriCheckbox } = await setup(page, exampleName);
+    const allCheckboxes = await getCheckbox().all();
+    await page.locator('#child-1').press(' ');
+    await page.locator('#child-2').press(' ');
+    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
+  });
+  test(`GIVEN a controlled checklist with every checkbox having a defined ID
+        WHEN it renders
+        ALL IDs should be present/rendered`, async ({ page }) => {
+    await setup(page, 'props-ids-list');
+    const hardCodedIds = ['checklist', 'child-1', 'child-2'];
+    for (let index = 0; index < hardCodedIds.length; index++) {
+      const id = hardCodedIds[index];
+      await expect(page.locator(`#${id}`)).toBeVisible();
+    }
+  });
 });
+
 //TODO: create util file
 //TODO: add test for user-given ids and other passed props
 //TODO: add click
