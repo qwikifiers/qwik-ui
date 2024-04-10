@@ -266,6 +266,16 @@ test.describe('controlled checklist behavior', () => {
       await expect(page.locator(`#${id}`)).toBeVisible();
     }
   });
+
+  test(`GIVEN a controlled checklist with every checkbox having a defined ID
+        WHEN it renders
+        THEN all IDs should be present in the aria-controls`, async ({ page }) => {
+    const { getTriCheckbox } = await setup(page, 'props-ids-list');
+    const hardChildren = ['child-1', 'child-2'];
+    const magic = await getTriCheckbox().getAttribute('aria-controls');
+    const twin = magic?.split(' ');
+    expect(hardChildren).toStrictEqual(twin);
+  });
 });
 
 //TODO: create util file

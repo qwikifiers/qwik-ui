@@ -14,6 +14,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
   const hellSigs = [];
   let checklistCheckbox = undefined;
   const boolArr: boolean[] = [];
+  const idArr: Array<false | string> = [];
   const checklistChilds: JSXNode[] = [];
   const { children: myChildren, ...rest } = props;
 
@@ -35,12 +36,19 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
 
     switch (child.type) {
       case MyCheckbox: {
-        // the next line is not very clear, but you can think of it as arr.push() for objs (mutates)
+        // FYI: Obj.assign mutates
         Object.assign(child.props, { _useCheckListContext: true });
         checkArr.push(child);
         // TODO: fix this if hell by making fn
         if (!child.props.checkList) {
           checklistChilds.push(child);
+          console.log('fav id: ', child.props.id);
+          if (child.props.id != undefined) {
+            console.log('fav id: ', child.props.id);
+            idArr.push(child.props.id as string);
+          } else {
+            idArr.push(false);
+          }
           if (child.props.checkBoxSig && child.props.checkBoxSig.untrackedValue) {
             boolArr.push(child.props.checkBoxSig.untrackedValue);
             hellSigs.push(child.checkBoxSig);
@@ -81,6 +89,8 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
     //
     // }
   }
+  console.log('fav idArr: ', idArr);
+
   return (
     <>
       {checkArr.length}
@@ -88,6 +98,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
         ariaLabeledBy={props.ariaLabeledBy}
         arrSize={boolArr.length}
         initialTriBool={getTriBool(boolArr)}
+        idArr={idArr}
       >
         <ul class={props.class}>
           {checkArr.map((checkbox) => (

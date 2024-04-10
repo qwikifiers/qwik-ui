@@ -12,6 +12,7 @@ import { ArrSigs, CheckListContext, CheckboxContext } from './context-id';
 export type CheckListContextWrapperProps = {
   ariaLabeledBy: string;
   arrSize: number;
+  idArr: Array<false | string>;
   initialTriBool: TriBool;
 } & PropsOf<'div'>;
 
@@ -23,6 +24,11 @@ export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
     // this sig vals should be a prop
     const mehelp = useSignal<TriBool>(props.initialTriBool);
     for (let index = 0; index < props.arrSize; index++) {
+      if (props.idArr[index] != false) {
+        idArr.push(props.idArr[index] as string);
+        continue;
+      }
+
       const uniqId = useId();
       idArr.push(uniqId);
     }
