@@ -73,7 +73,7 @@ pnpm dev.ct
 
 - This mode is a lot more barebones and requires more background knowledge to use effectively, so keep the folling things in mind:
 
-- 1. Familirize yourself with the following directory structure:
+- Familirize yourself with the following directory structure:
 
 ```shell
 apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/
@@ -81,7 +81,7 @@ apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/
 
 - This is the _only place_ where you can add files. So if you wanted to add a select component to the headless kit, you would add all your files to this directory: apps/website/src/routes/docs/headless/select/examples/hero.tsx
 
-- 2. Follow the component test server's URL structure
+- Follow the component test server's URL structure
 - The default message on the "home page" of the dev server is a reminder of how to use the address bar to actually view the file you want. By default it would have this structure:
 
 ```shell
