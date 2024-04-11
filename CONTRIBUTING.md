@@ -137,6 +137,12 @@ pnpm test.pw.headless --skip-nx-cache
 pnpm test.pw.headless --skip-nx-cache --ui
 ```
 
+Keep in mind that currently all tests use playwrigth and use the follwing naming convention:
+
+```shell
+component.test.ts
+```
+
 ### 6. Added a "changeset"
 
 **6.1.** Run the following command to create a changeset:
