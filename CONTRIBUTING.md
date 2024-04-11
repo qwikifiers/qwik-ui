@@ -79,23 +79,25 @@ pnpm dev.ct
 apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/
 ```
 
-- This is the _only place_ where you can add files. So if you wanted to add a select component to the headless kit, you would add all your files to this directory:
+- This is the _only place_ where you can add files. So if you wanted to add an example called 'hero' to the headless select component, that file needs to have the following structure:
 
 ```shell
 apps/website/src/routes/docs/headless/select/examples/hero.tsx
 ```
 
-- Remenber to follow the component test server's URL structure. The default message on the "home page" of the dev server is a reminder of how to use the address bar to actually view the file you want. By default it would have this structure:
+- Remenber to follow the component test server's URL structure. The default message on the "home page" of the dev server is a reminder of how to use the address bar to view the file you want. By default it would have this structure:
 
 ```shell
-http://localhost:5173/[KIT]/[COMPONENT]/[EXAMPLE]
+http://localhost:5173/[KIT]/[COMPONENT]/[FILE]
 ```
 
 - So if you wanted to see the hero example for the headless select you would go here:
 
 ```shell
-http://localhost:5173/headless/select/hero/
+http://localhost:5173/headless/select/hero
 ```
+
+- TLDR: any file in 'apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/[FILE]' is served on '/[KIT]/[COMPONENT]/[FILE]'
 
 Below is a list of other commands that you might find useful:
 
@@ -125,13 +127,15 @@ pnpm preview.cloudflare
 
 ### 5. Make sure you add / modify tests
 
-Run either command to make sure there aren't any errors.
+Run either command to make sure there aren't any errors. Both commands run the Playwrigth tests, but the second one will open Playwrigth in [UI mode](https://playwright.dev/docs/test-ui-mode)
 
 ```shell
-pnpm test.headless --skip-nx-cache
+pnpm test.pw.headless --skip-nx-cache
 ```
 
-This will set up the Cypress component testing GUI. Please refer to official Cypress [documentation](https://docs.cypress.io/guides/overview/why-cypress) for further assistance.
+```shell
+pnpm test.pw.headless --skip-nx-cache --ui
+```
 
 ### 6. Added a "changeset"
 
