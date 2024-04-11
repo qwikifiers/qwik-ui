@@ -65,7 +65,7 @@ pnpm dev
 
 - Once you made some changes in either package (`headless` or `styled`) or the documentation website (`apps/website`), you will see them immediately reflected on the page.
 
-- Alternitavely, if your only goal is to add a new component, or add new tests to an already exisiting component, you can run the component test server for significant speed gains:
+- Alternitavely, if your only goal is to add a new component, or add new tests to an already exisiting component, you can run the component test server for significant speed improvements:
 
 ```shell
 pnpm dev.ct
