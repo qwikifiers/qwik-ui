@@ -65,6 +65,35 @@ pnpm dev
 
 - Once you made some changes in either package (`headless` or `styled`) or the documentation website (`apps/website`), you will see them immediately reflected on the page.
 
+- Alternitavely, if your only goal is to add a new component, or add new tests to an already exisiting component, you can run the component test server for significant speed gains:
+
+```shell
+pnpm dev.ct
+```
+
+- This mode is a lot more barebones and requires more background knowledge to use effectively, so keep the folling things in mind:
+
+- 1. Familirize yourself with the following directory structure:
+
+```shell
+apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/
+```
+
+- This is the _only place_ where you can add files. So if you wanted to add a select component to the headless kit, you would add all your files to this directory: apps/website/src/routes/docs/headless/select/examples/hero.tsx
+
+- 2. Follow the component test server's URL structure
+- The default message on the "home page" of the dev server is a reminder of how to use the address bar to actually view the file you want. By default it would have this structure:
+
+```shell
+http://localhost:5173/[KIT]/[COMPONENT]/[EXAMPLE]
+```
+
+- So if you wanted to see the hero example for the headless select you would go here:
+
+```shell
+http://localhost:5173/headless/select/hero/
+```
+
 Below is a list of other commands that you might find useful:
 
 - Build the qwik-ui documentation:
