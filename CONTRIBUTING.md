@@ -127,7 +127,7 @@ pnpm preview.cloudflare
 
 ### 5. Make sure you add / modify tests
 
-Run either command to make sure there aren't any errors. Both commands run the Playwrigth tests, but the second one will open Playwrigth in [UI mode](https://playwright.dev/docs/test-ui-mode)
+Run either command to make sure there aren't any errors. Both commands run the Playwright tests, but the second one will open Playwright in [UI mode](https://playwright.dev/docs/test-ui-mode)
 
 ```shell
 pnpm test.pw.headless --skip-nx-cache
@@ -137,7 +137,7 @@ pnpm test.pw.headless --skip-nx-cache
 pnpm test.pw.headless --skip-nx-cache --ui
 ```
 
-Keep in mind that currently all tests use playwrigth and use the follwing naming convention:
+Keep in mind that currently all tests use Playwright and use the follwing naming convention:
 
 ```shell
 component.test.ts
@@ -208,7 +208,7 @@ Make sure you check the following checkbox "Allow edits from maintainers" -
 - Re-run the tests to ensure tests are still passing:
 
 ```shell
-pnpm test.headless --skip-nx-cache
+pnpm test.pw.headless --skip-nx-cache
 ```
 
 - Merge the `main` branch if your branch is out of date
