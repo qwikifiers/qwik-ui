@@ -79,10 +79,13 @@ pnpm dev.ct
 apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/
 ```
 
-- This is the _only place_ where you can add files. So if you wanted to add a select component to the headless kit, you would add all your files to this directory: apps/website/src/routes/docs/headless/select/examples/hero.tsx
+- This is the _only place_ where you can add files. So if you wanted to add a select component to the headless kit, you would add all your files to this directory:
 
-- Follow the component test server's URL structure
-- The default message on the "home page" of the dev server is a reminder of how to use the address bar to actually view the file you want. By default it would have this structure:
+```shell
+apps/website/src/routes/docs/headless/select/examples/hero.tsx
+```
+
+- Remenber to follow the component test server's URL structure. The default message on the "home page" of the dev server is a reminder of how to use the address bar to actually view the file you want. By default it would have this structure:
 
 ```shell
 http://localhost:5173/[KIT]/[COMPONENT]/[EXAMPLE]
