@@ -27,7 +27,7 @@ Discussing the design up front helps to ensure that we're ready to accept your w
 
 ### 3. Fork this repo and create a branch.
 
-- Hit the "Fork" button (top-right of the github repository).
+- Hit the "Fork" button (top-right of the GitHub repository).
 
 ![image](https://user-images.githubusercontent.com/1430726/95460679-ec014400-097d-11eb-9a7a-93e0262d37d9.png)
 
@@ -65,15 +65,15 @@ pnpm dev
 
 - Once you made some changes in either package (`headless` or `styled`) or the documentation website (`apps/website`), you will see them immediately reflected on the page.
 
-- Alternitavely, if your only goal is to add a new component, or add new tests to an already exisiting component, you can run the component test server for significant speed improvements:
+Alternatively, if your only goal is to add a new component, or add new tests to an already existing component, you can run the component test server for significant speed improvements:
 
 ```shell
 pnpm dev.ct
 ```
 
-- This mode is a lot more barebones and requires more background knowledge to use effectively, so keep the folling things in mind:
+This mode is a lot more bare bones and requires more background knowledge to use effectively, so keep the following things in mind:
 
-- Familirize yourself with the following directory structure:
+- Familiarize yourself with the following directory structure:
 
 ```shell
 apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/
@@ -85,7 +85,7 @@ apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/
 apps/website/src/routes/docs/headless/select/examples/hero.tsx
 ```
 
-- Remenber to follow the component test server's URL structure. The default message on the "home page" of the dev server is a reminder of how to use the address bar to view the file you want. By default it would have this structure:
+- Remember to follow the component test server's URL structure. The default message on the "home page" of the dev server is a reminder of how to use the address bar to view the file you want. By default it would have this structure:
 
 ```shell
 http://localhost:5173/[KIT]/[COMPONENT]/[FILE]
@@ -137,7 +137,7 @@ pnpm test.pw.headless --skip-nx-cache
 pnpm test.pw.headless --skip-nx-cache --ui
 ```
 
-Keep in mind that currently all tests use Playwright and use the follwing naming convention:
+Keep in mind that currently all tests use Playwright and use the following naming convention:
 
 ```shell
 component.test.ts
@@ -170,7 +170,7 @@ pnpm change
 **6.5.** Modify the created MD file
 
 After the `change` command runs, a new MD file will be created under the `.changeset` folder.
-ד
+
 Please modify this file to include a descriptive message of the changes you made.
 
 You can even add code examples if you need do, to describe a new feature for example. (pun intended 😉)
