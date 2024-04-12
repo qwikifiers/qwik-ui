@@ -1,7 +1,6 @@
-import { type JSXNode, Component, PropsOf, Signal } from '@builder.io/qwik';
-import { MyCheckbox } from './checkbox';
+import { type JSXNode, Component, PropsOf } from '@builder.io/qwik';
+import { MyCheckbox, TriStateCheckboxProps, TwoStateCheckboxProps } from './checkbox';
 import { ChecklistContextWrapper, getTriBool } from './checklist-context-wrapper';
-import { Checkbox } from '@qwik-ui/headless';
 
 type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
 // type CheckBoxes=
@@ -36,22 +35,24 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
 
     switch (child.type) {
       case MyCheckbox: {
+        const typedProps = child.props as TriStateCheckboxProps;
         // FYI: Obj.assign mutates
-        Object.assign(child.props, { _useCheckListContext: true });
+        Object.assign(typedProps, { _useCheckListContext: true });
         checkArr.push(child);
         // TODO: fix this if hell by making fn
-        if (!child.props.checkList) {
+        if (!typedProps.checkList) {
           checklistChilds.push(child);
-          console.log('fav id: ', child.props.id);
-          if (child.props.id != undefined) {
-            console.log('fav id: ', child.props.id);
-            idArr.push(child.props.id as string);
+          console.log('fav id: ', typedProps.id);
+          if (typedProps.id != undefined) {
+            console.log('fav id: ', typedProps.id);
+            idArr.push(typedProps.id as string);
           } else {
             idArr.push(false);
           }
-          if (child.props.checkBoxSig && child.props.checkBoxSig.untrackedValue) {
-            boolArr.push(child.props.checkBoxSig.untrackedValue);
-            hellSigs.push(child.checkBoxSig);
+          if (typedProps.checkBoxSig && typedProps.checkBoxSig.value) {
+            console.log('current value here magial ', typedProps.checkBoxSig.value);
+            boolArr.push(typedProps.checkBoxSig.value);
+            hellSigs.push(typedProps.checkBoxSig);
           } else {
             boolArr.push(false);
           }

@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './checkbox.driver';
-import { TriBool, getTriBool } from './checklist-context-wrapper';
+import { getTriBool } from './checklist-context-wrapper';
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/checkbox/${exampleName}`);
 
@@ -77,9 +77,7 @@ test.describe('uncontrolled checklist behavior', () => {
         THEN the checklist should be a <ul> with  <li>s of checkboxes, all wrapped around a div with a role and aria-labeledby attributes`, async ({
     page,
   }) => {
-    const exampleName = 'list';
-    const { getIcon, getCheckList, getCheckbox, getChecklistUL, getChecklistLIs } =
-      await setup(page, exampleName);
+    const { getCheckList, getChecklistUL, getChecklistLIs } = await setup(page, 'list');
     await expect(getCheckList()).toBeVisible();
     await expect(getCheckList()).toHaveAttribute('aria-labelledby', 'test123');
     await expect(getChecklistUL()).toBeVisible();
@@ -88,7 +86,7 @@ test.describe('uncontrolled checklist behavior', () => {
 
   test(`GIVEN a tri boolean function
         WHEN it recieves an array of booleans
-        IT should return the correct tri bool`, async ({ page }) => {
+        IT should return the correct tri bool`, async () => {
     const indeterminateArr = [true, true, false];
     const trueArr = [true, true, true];
     const falseArr = [false, false, false];
@@ -167,8 +165,7 @@ test.describe('uncontrolled checklist behavior', () => {
   test(`GIVEN checklist with checkboxes
         WHEN the values of aria-controls are search
         IT should always return a valid, non-duplicate, checkboxes`, async ({ page }) => {
-    const exampleName = 'list';
-    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+    const { getTriCheckbox } = await setup(page, 'list');
     await expect(getTriCheckbox()).toHaveAttribute('aria-controls');
     const magic = await getTriCheckbox().getAttribute('aria-controls');
     expect(magic).not.toBe(null);
@@ -240,7 +237,7 @@ test.describe('controlled checklist behavior', () => {
       WHEN a child checkbox is unchecked
       THEN the checklist signal should have aria-checked mixed`, async ({ page }) => {
     const exampleName = 'controlled-list-true';
-    const { getCheckbox, getTriCheckbox } = await setup(page, exampleName);
+    const { getTriCheckbox } = await setup(page, exampleName);
     const firstCheckbox = page.locator('#child-1');
     await firstCheckbox.press(' ');
     await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
@@ -250,8 +247,7 @@ test.describe('controlled checklist behavior', () => {
       WHEN all child checkbox are unchecked
       THEN the checklist signal should have aria-checked false`, async ({ page }) => {
     const exampleName = 'controlled-list-true';
-    const { getCheckbox, getTriCheckbox } = await setup(page, exampleName);
-    const allCheckboxes = await getCheckbox().all();
+    const { getTriCheckbox } = await setup(page, exampleName);
     await page.locator('#child-1').press(' ');
     await page.locator('#child-2').press(' ');
     await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');

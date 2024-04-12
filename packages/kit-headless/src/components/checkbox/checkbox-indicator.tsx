@@ -1,4 +1,4 @@
-import { Signal, component$, useContext, PropsOf, Slot } from '@builder.io/qwik';
+import { component$, useContext, PropsOf, Slot } from '@builder.io/qwik';
 import { CheckboxContext } from './context-id';
 
 export type CheckboxIndicatorProps = {} & PropsOf<'div'>;

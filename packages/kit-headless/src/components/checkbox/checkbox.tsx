@@ -8,7 +8,6 @@ import {
   useContext,
   $,
   useSignal,
-  useVisibleTask$,
   useTask$,
 } from '@builder.io/qwik';
 import { CheckListContext, CheckboxContext } from './context-id';
@@ -20,7 +19,7 @@ export type TriStateCheckboxProps = {
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
-type TwoStateCheckboxProps = {
+export type TwoStateCheckboxProps = {
   checkBoxSig?: Signal<boolean>;
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;

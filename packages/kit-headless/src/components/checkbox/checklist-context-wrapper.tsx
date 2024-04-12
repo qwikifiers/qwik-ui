@@ -7,7 +7,7 @@ import {
   useSignal,
   useTask$,
 } from '@builder.io/qwik';
-import { ArrSigs, CheckListContext, CheckboxContext } from './context-id';
+import { CheckListContext } from './context-id';
 
 export type CheckListContextWrapperProps = {
   ariaLabeledBy: string;
