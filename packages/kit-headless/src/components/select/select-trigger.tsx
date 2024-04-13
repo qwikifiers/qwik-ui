@@ -1,11 +1,11 @@
 import { $, Slot, component$, sync$, useContext, type PropsOf } from '@builder.io/qwik';
 import SelectContextId from './select-context';
-import { useTypeahead } from './use-select';
-import { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } from './utils';
+import { useSelect, useTypeahead } from './use-select';
 
 type SelectTriggerProps = PropsOf<'button'>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
+  const { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } = useSelect();
   const openKeys = ['ArrowUp', 'ArrowDown'];
   const closedKeys = [`Escape`];
 
@@ -32,7 +32,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
   });
 
-  const handleKeyDown$ = $((e: KeyboardEvent) => {
+  const handleKeyDown$ = $(async (e: KeyboardEvent) => {
     typeahead$(e.key);
     const shouldOpen = !context.isListboxOpenSig.value && openKeys.includes(e.key);
     const shouldClose = context.isListboxOpenSig.value && closedKeys.includes(e.key);
@@ -47,7 +47,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (e.key === 'Home') {
-      context.highlightedIndexSig.value = getNextEnabledOptionIndex(
+      context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
         -1,
         context.optionsSig.value,
         context.loop,
@@ -55,7 +55,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (e.key === 'End') {
-      const lastEnabledOptionIndex = getPrevEnabledOptionIndex(
+      const lastEnabledOptionIndex = await getPrevEnabledOptionIndex(
         context.optionsSig.value.length,
         context.optionsSig.value,
         context.loop,
@@ -65,7 +65,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
     if (!context.isListboxOpenSig.value) {
       if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
-        context.selectedIndexSig.value = getNextEnabledOptionIndex(
+        context.selectedIndexSig.value = await getNextEnabledOptionIndex(
           -1,
           context.optionsSig.value,
           context.loop,
@@ -76,17 +76,19 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       }
 
       if (e.key === 'ArrowRight' && context.highlightedIndexSig.value !== null) {
-        context.selectedIndexSig.value = getNextEnabledOptionIndex(
+        context.selectedIndexSig.value = await getNextEnabledOptionIndex(
           context.selectedIndexSig.value!,
           context.optionsSig.value,
           context.loop,
         );
 
+        console.log('selectedIndex', context.selectedIndexSig.value);
+
         context.highlightedIndexSig.value = context.selectedIndexSig.value;
       }
 
       if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {
-        context.selectedIndexSig.value = getPrevEnabledOptionIndex(
+        context.selectedIndexSig.value = await getPrevEnabledOptionIndex(
           context.optionsSig.value.length,
           context.optionsSig.value,
           context.loop,
@@ -97,7 +99,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       }
 
       if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value !== null) {
-        context.selectedIndexSig.value = getPrevEnabledOptionIndex(
+        context.selectedIndexSig.value = await getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
           context.optionsSig.value,
           context.loop,
@@ -109,7 +111,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
-      context.highlightedIndexSig.value = getNextEnabledOptionIndex(
+      context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
         -1,
         context.optionsSig.value,
         context.loop,
@@ -128,7 +130,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       }
 
       if (e.key === 'ArrowDown') {
-        context.highlightedIndexSig.value = getNextEnabledOptionIndex(
+        context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
           context.highlightedIndexSig.value,
           context.optionsSig.value,
           context.loop,
@@ -136,7 +138,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       }
 
       if (e.key === 'ArrowUp') {
-        context.highlightedIndexSig.value = getPrevEnabledOptionIndex(
+        context.highlightedIndexSig.value = await getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
           context.optionsSig.value,
           context.loop,
