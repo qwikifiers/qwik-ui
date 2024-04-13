@@ -2,7 +2,6 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
 import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
-import Header from '~/components/header/header';
 import {
   DocsNavigation,
   LinkGroup,
@@ -20,7 +19,7 @@ export default component$(() => {
 
   return (
     <>
-      <Header showBottomBorder={true} showVersion={true} />
+      {/* <Header showBottomBorder={true} showVersion={true} /> */}
       <div class="flex justify-center">
         <div class="flex w-full max-w-screen-2xl justify-center lg:justify-around xl:justify-between 2xl:space-x-16">
           <DocsNavigation

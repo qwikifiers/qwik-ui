@@ -1,0 +1,16 @@
+.modal,
+.modal-trigger {
+  padding: 0.5rem;
+  border-radius: calc(var(--border-radius));
+}
+
+.modal-trigger {
+  width: 100%;
+  border: 2px dotted hsla(var(--foreground));
+  height: 44px;
+  width: fit-content;
+}
+
+.modal {
+  border: 2px dotted hsla(var(--primary));
+}

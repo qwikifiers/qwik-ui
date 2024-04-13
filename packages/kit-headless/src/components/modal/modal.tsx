@@ -9,6 +9,7 @@ import {
   useStyles$,
   useTask$,
 } from '@builder.io/qwik';
+import { ModalTitle } from './modal-title';
 
 import {
   activateFocusTrap,
@@ -96,6 +97,7 @@ export const Modal = component$((props: ModalProps) => {
       }}
       onClick$={(event) => closeOnBackdropClick$(event)}
     >
+      {props.title ? <ModalTitle>{props.title}</ModalTitle> : null}
       <Slot />
     </dialog>
   );
