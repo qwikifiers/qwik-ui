@@ -27,7 +27,7 @@ Discussing the design up front helps to ensure that we're ready to accept your w
 
 ### 3. Fork this repo and create a branch.
 
-- Hit the "Fork" button (top-right of the github repository).
+- Hit the "Fork" button (top-right of the GitHub repository).
 
 ![image](https://user-images.githubusercontent.com/1430726/95460679-ec014400-097d-11eb-9a7a-93e0262d37d9.png)
 
@@ -65,6 +65,40 @@ pnpm dev
 
 - Once you made some changes in either package (`headless` or `styled`) or the documentation website (`apps/website`), you will see them immediately reflected on the page.
 
+Alternatively, if your only goal is to add a new component, or add new tests to an already existing component, you can run the component test server for significant speed improvements:
+
+```shell
+pnpm dev.ct
+```
+
+This mode is a lot more bare bones and requires more background knowledge to use effectively, so keep the following things in mind:
+
+- Familiarize yourself with the following directory structure:
+
+```shell
+apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/
+```
+
+- This is the _only place_ where you can add files. So if you wanted to add an example called 'hero' to the headless select component, that file needs to have the following structure:
+
+```shell
+apps/website/src/routes/docs/headless/select/examples/hero.tsx
+```
+
+- Remember to follow the component test server's URL structure. The default message on the "home page" of the dev server is a reminder of how to use the address bar to view the file you want. By default it would have this structure:
+
+```shell
+http://localhost:5173/[KIT]/[COMPONENT]/[FILE]
+```
+
+- So if you wanted to see the hero example for the headless select you would go here:
+
+```shell
+http://localhost:5173/headless/select/hero
+```
+
+- TLDR: any file in 'apps/website/src/routes/docs/[KIT]/[COMPONENT]/examples/[FILE]' is served on '/[KIT]/[COMPONENT]/[FILE]'
+
 Below is a list of other commands that you might find useful:
 
 - Build the qwik-ui documentation:
@@ -93,13 +127,21 @@ pnpm preview.cloudflare
 
 ### 5. Make sure you add / modify tests
 
-Run either command to make sure there aren't any errors.
+Run either command to make sure there aren't any errors. Both commands run the Playwright tests, but the second one will open Playwright in [UI mode](https://playwright.dev/docs/test-ui-mode)
 
 ```shell
-pnpm test.headless --skip-nx-cache
+pnpm test.pw.headless --skip-nx-cache
 ```
 
-This will set up the Cypress component testing GUI. Please refer to official Cypress [documentation](https://docs.cypress.io/guides/overview/why-cypress) for further assistance.
+```shell
+pnpm test.pw.headless --skip-nx-cache --ui
+```
+
+Keep in mind that currently all tests use Playwright and use the following naming convention:
+
+```shell
+component.test.ts
+```
 
 ### 6. Added a "changeset"
 
@@ -128,7 +170,7 @@ pnpm change
 **6.5.** Modify the created MD file
 
 After the `change` command runs, a new MD file will be created under the `.changeset` folder.
-ד
+
 Please modify this file to include a descriptive message of the changes you made.
 
 You can even add code examples if you need do, to describe a new feature for example. (pun intended 😉)
@@ -166,7 +208,7 @@ Make sure you check the following checkbox "Allow edits from maintainers" -
 - Re-run the tests to ensure tests are still passing:
 
 ```shell
-pnpm test.headless --skip-nx-cache
+pnpm test.pw.headless --skip-nx-cache
 ```
 
 - Merge the `main` branch if your branch is out of date
