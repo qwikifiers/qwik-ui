@@ -4,7 +4,7 @@ export type WidthState = {
   width: number | null;
 };
 
-import { clearAllBodyScrollLocks } from 'body-scroll-lock-upgrade';
+import { enableBodyScroll } from 'body-scroll-lock-upgrade';
 
 /**
  * Traps the focus of the given Modal
@@ -101,7 +101,7 @@ export function supportClosingAnimation(modal: HTMLDialogElement) {
       'animationend',
       () => {
         modal.classList.remove('modal-closing');
-        clearAllBodyScrollLocks();
+        enableBodyScroll(modal);
         modal.close();
       },
       { once: true },
@@ -112,7 +112,7 @@ export function supportClosingAnimation(modal: HTMLDialogElement) {
       'transitionend',
       () => {
         modal.classList.remove('modal-closing');
-        clearAllBodyScrollLocks();
+        enableBodyScroll(modal);
         modal.close();
       },
       { once: true },
@@ -120,7 +120,7 @@ export function supportClosingAnimation(modal: HTMLDialogElement) {
   }
   if (animationDuration === '0s' && transitionDuration === '0s') {
     modal.classList.remove('modal-closing');
-    clearAllBodyScrollLocks();
+    enableBodyScroll(modal);
     modal.close();
   }
 }

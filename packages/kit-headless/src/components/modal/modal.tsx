@@ -90,8 +90,8 @@ export const Modal = component$((props: ModalProps) => {
       data-state={showSig.value ? 'open' : 'closed'}
       role={props.alert === true ? 'alertdialog' : 'dialog'}
       ref={modalRefSig}
-      onKeyDown$={(event) => {
-        if (event.key === 'Escape') {
+      onKeyDown$={(e) => {
+        if (e.key === 'Escape') {
           showSig.value = false;
         }
       }}
