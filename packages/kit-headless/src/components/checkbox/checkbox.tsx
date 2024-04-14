@@ -101,6 +101,7 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
   (props) => {
     // this code is duplicate bcs you cant use conditionals on hooks (checklistContext could be undefined)
     // this has room for improvement: remove most of the code duplivation
+    // making this a wrapper over the simpler component or using hooks
     const checklistContext = useContext(CheckListContext);
     const defaultSig = useSignal(false);
     const appliedSig = props.checkBoxSig ?? defaultSig;
