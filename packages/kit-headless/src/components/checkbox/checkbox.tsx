@@ -106,8 +106,8 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
     const defaultSig = useSignal(false);
     const appliedSig = props.checkBoxSig ?? defaultSig;
     const checklistID = useSignal<string | undefined>(props.id);
-    // huh???
-    const checkboxOverWrite = useSignal<undefined | boolean>(props._overWriteCheckbox);
+    // makes sure that the checklist's value is the same as its child
+    const syncToChecklist = useSignal<undefined | boolean>(props._overWriteCheckbox);
     useContextProvider(CheckboxContext, appliedSig);
     const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
       if (e.key === ' ') {
@@ -124,32 +124,31 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
     useTask$(({ track }) => {
       console.log('overwrite: ', props._overWriteCheckbox, appliedSig.value);
 
-      if (checkboxOverWrite.value !== undefined) {
+      if (syncToChecklist.value !== undefined) {
         console.log('change here ');
-        appliedSig.value = checkboxOverWrite.value;
-        checkboxOverWrite.value = undefined;
+        appliedSig.value = syncToChecklist.value;
+        syncToChecklist.value = undefined;
       }
       track(() => {
         appliedSig.value;
       });
 
-      if (checklistContext) {
-        // now i can say that there's one good application for object identity
-        if (!checklistContext.checkboxes.value.some((e) => e === appliedSig)) {
-          const currIndex = checklistContext.checkboxes.value.length;
-          console.log('INSERTING ', checklistContext.idArr[currIndex]);
-          // TODO: refactor id to not run on wrapper but after conditional
-          if (checklistID.value === undefined) {
-            checklistID.value = checklistContext.idArr[currIndex];
-          } else {
-            checklistContext.idArr[currIndex] = checklistID.value;
-          }
-          checklistContext.checkboxes.value = [
-            ...checklistContext.checkboxes.value,
-            appliedSig,
-          ];
+      // now i can say that there's one good application for object identity
+      if (!checklistContext.checkboxes.value.some((e) => e === appliedSig)) {
+        const currIndex = checklistContext.checkboxes.value.length;
+        console.log('INSERTING ', checklistContext.idArr[currIndex]);
+        // TODO: refactor id to not run on wrapper but after conditional
+        if (checklistID.value === undefined) {
+          checklistID.value = checklistContext.idArr[currIndex];
+        } else {
+          checklistContext.idArr[currIndex] = checklistID.value;
         }
+        checklistContext.checkboxes.value = [
+          ...checklistContext.checkboxes.value,
+          appliedSig,
+        ];
       }
+
       const boolArr = checklistContext?.checkboxes.value.map((e) => e.value);
       const newVal = getTriBool(boolArr);
       checklistContext.checklistSig.value = newVal;
