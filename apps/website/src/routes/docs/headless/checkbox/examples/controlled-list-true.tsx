@@ -31,7 +31,7 @@ export default component$(() => {
         <MyCheckbox id="child-2" class="bg-slate-900 text-white">
           <div class="flex items-center gap-3">
             <CheckboxIndicator class="w-fit bg-slate-600">✅</CheckboxIndicator>
-            <p>No other stuff is needed here</p>
+            <p>Im a true.tsx</p>
           </div>
         </MyCheckbox>
       </CheckList>

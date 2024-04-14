@@ -12,6 +12,7 @@ import {
 } from '@builder.io/qwik';
 import { CheckListContext, CheckboxContext } from './context-id';
 import { TriBool, getTriBool } from './checklist-context-wrapper';
+import { log } from 'console';
 
 export type TriStateCheckboxProps = {
   checkBoxSig?: Signal<boolean>;
@@ -20,6 +21,12 @@ export type TriStateCheckboxProps = {
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
 export type TwoStateCheckboxProps = {
+  checkBoxSig?: Signal<boolean>;
+  _useCheckListContext?: boolean;
+  _overWriteCheckbox?: boolean;
+} & PropsOf<'div'>;
+
+export type ChecklistTwoStateCheckboxProps = {
   checkBoxSig?: Signal<boolean>;
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;
@@ -34,6 +41,14 @@ export const MyCheckbox = component$<TriStateCheckboxProps>((props) => {
       <TriStateCheckbox {...props}>
         <Slot />
       </TriStateCheckbox>
+    );
+  }
+  if (props._useCheckListContext) {
+    console.log('using checklist checkbox');
+    return (
+      <ChecklistTwoStateCheckbox {...props}>
+        <Slot />
+      </ChecklistTwoStateCheckbox>
     );
   }
   return (
@@ -52,12 +67,10 @@ function getAriaChecked(triBool: TriBool): 'mixed' | 'true' | 'false' {
 
 export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
   // all the sig stuff should be refactored into a fancy hook
-  const checklistContext = props._useCheckListContext
-    ? useContext(CheckListContext)
-    : undefined;
   const defaultSig = useSignal(false);
   const appliedSig = props.checkBoxSig ?? defaultSig;
   const checklistID = useSignal<string | undefined>(props.id);
+  // huh???
   const checkboxOverWrite = useSignal<undefined | boolean>(props._overWriteCheckbox);
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
@@ -72,9 +85,6 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
   });
   // TODO: refactor to usetask code into fancy hook thingy
   useTask$(({ track }) => {
-    if (checklistContext?.checkboxes === undefined) {
-      return;
-    }
     if (checkboxOverWrite.value !== undefined) {
       console.log('CHANGE ME LOL');
       appliedSig.value = checkboxOverWrite.value;
@@ -83,28 +93,6 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
     track(() => {
       appliedSig.value;
     });
-
-    if (checklistContext) {
-      // now i can say that there's one good application for object identity
-      if (!checklistContext.checkboxes.value.some((e) => e === appliedSig)) {
-        const currIndex = checklistContext.checkboxes.value.length;
-        console.log(currIndex);
-        console.log(checklistContext.idArr[currIndex]);
-        // TODO: refactor id to not run on wrapper but after conditional
-        if (checklistID.value === undefined) {
-          checklistID.value = checklistContext.idArr[currIndex];
-        } else {
-          checklistContext.idArr[currIndex] = checklistID.value;
-        }
-        checklistContext.checkboxes.value = [
-          ...checklistContext.checkboxes.value,
-          appliedSig,
-        ];
-      }
-    }
-    const boolArr = checklistContext?.checkboxes.value.map((e) => e.value);
-    const newVal = getTriBool(boolArr);
-    checklistContext.checklistSig.value = newVal;
   });
   return (
     <div
@@ -120,6 +108,78 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
     </div>
   );
 });
+
+export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxProps>(
+  (props) => {
+    // this code is duplicate bcs you cant use conditionals on hooks (checklistContext could be undefined)
+    // this has room for improvement: remove most of the code duplivation
+    const checklistContext = useContext(CheckListContext);
+    const defaultSig = useSignal(false);
+    const appliedSig = props.checkBoxSig ?? defaultSig;
+    const checklistID = useSignal<string | undefined>(props.id);
+    // huh???
+    const checkboxOverWrite = useSignal<undefined | boolean>(props._overWriteCheckbox);
+    useContextProvider(CheckboxContext, appliedSig);
+    const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+      if (e.key === ' ') {
+        e.preventDefault();
+      }
+    });
+    const handleKeyDown$ = $((e: KeyboardEvent) => {
+      if (e.key === ' ') {
+        appliedSig.value = !appliedSig.value;
+      }
+    });
+
+    // TODO: refactor to usetask code into fancy hook thingy
+    useTask$(({ track }) => {
+      console.log('overwrite: ', props._overWriteCheckbox, appliedSig.value);
+
+      if (checkboxOverWrite.value !== undefined) {
+        console.log('change here ');
+        appliedSig.value = checkboxOverWrite.value;
+        checkboxOverWrite.value = undefined;
+      }
+      track(() => {
+        appliedSig.value;
+      });
+
+      if (checklistContext) {
+        // now i can say that there's one good application for object identity
+        if (!checklistContext.checkboxes.value.some((e) => e === appliedSig)) {
+          const currIndex = checklistContext.checkboxes.value.length;
+          console.log('INSERTING ', checklistContext.idArr[currIndex]);
+          // TODO: refactor id to not run on wrapper but after conditional
+          if (checklistID.value === undefined) {
+            checklistID.value = checklistContext.idArr[currIndex];
+          } else {
+            checklistContext.idArr[currIndex] = checklistID.value;
+          }
+          checklistContext.checkboxes.value = [
+            ...checklistContext.checkboxes.value,
+            appliedSig,
+          ];
+        }
+      }
+      const boolArr = checklistContext?.checkboxes.value.map((e) => e.value);
+      const newVal = getTriBool(boolArr);
+      checklistContext.checklistSig.value = newVal;
+    });
+    return (
+      <div
+        tabIndex={0}
+        role="checkbox"
+        aria-checked={getAriaChecked(appliedSig.value)}
+        {...props}
+        onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
+        id={checklistID.value}
+      >
+        <p>Lol: {`${appliedSig.value}`} </p>
+        <Slot />
+      </div>
+    );
+  },
+);
 
 export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
   // all the sig stuff should be refactored into a fancy hook
