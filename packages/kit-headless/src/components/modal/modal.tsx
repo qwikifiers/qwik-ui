@@ -76,9 +76,13 @@ export const Modal = component$((props: ModalProps) => {
   });
 
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
-    const keys = [' ', 'Enter', 'Escape'];
+    const keys = [' ', 'Enter'];
 
     if (e.target instanceof HTMLDialogElement && keys.includes(e.key)) {
+      e.preventDefault();
+    }
+
+    if (e.key === 'Escape') {
       e.preventDefault();
     }
   });
