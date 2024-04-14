@@ -48,7 +48,7 @@ export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
   },
 );
 
-export function getTriBool(boolArr: Boolean[]): TriBool {
+export function getTriBool(boolArr: boolean[]): TriBool {
   if (boolArr.length === 0) {
     return 'indeterminate';
   }

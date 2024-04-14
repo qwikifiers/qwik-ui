@@ -1,5 +1,5 @@
 import { type JSXNode, Component, PropsOf } from '@builder.io/qwik';
-import { MyCheckbox, TriStateCheckboxProps, TwoStateCheckboxProps } from './checkbox';
+import { MyCheckbox, TriStateCheckboxProps } from './checkbox';
 import { ChecklistContextWrapper, getTriBool } from './checklist-context-wrapper';
 
 type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
@@ -15,7 +15,7 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
   const boolArr: boolean[] = [];
   const idArr: Array<false | string> = [];
   const checklistChilds: JSXNode[] = [];
-  const { children: myChildren, ...rest } = props;
+  const { children: myChildren } = props;
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
@@ -102,8 +102,8 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
         idArr={idArr}
       >
         <ul class={props.class}>
-          {checkArr.map((checkbox) => (
-            <li>{checkbox}</li>
+          {checkArr.map((checkbox, i) => (
+            <li key={i}>{checkbox}</li>
           ))}
         </ul>
       </ChecklistContextWrapper>
