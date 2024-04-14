@@ -53,7 +53,7 @@ openCloseExamples.forEach((example) => {
       await expect(d.getModal()).toBeVisible();
     });
 
-    test(`GIVEN a ${example} open modal
+    test(`GIVEN a ${example} open modalb n
           WHEN clicking the backdrop
           THEN close the modal`, async ({ page }) => {
       const { driver: d } = await setup(page, example);
@@ -63,7 +63,7 @@ openCloseExamples.forEach((example) => {
       await expect(d.getModal()).toBeVisible();
 
       // click top left corner
-      await d.getModal().click({ position: { x: 0, y: 0 } });
+      await page.mouse.click(0, 0);
       await expect(d.getModal()).toBeHidden();
     });
   });
@@ -83,57 +83,58 @@ openCloseExamples.forEach((example) => {
 });
 
 test.describe('Scroll locking', () => {
-  test(`GIVEN a modal and page with a vertical scrollbar
+  test(`GIVEN a modal
         WHEN the modal is opened
-        THEN the page's scrollbar is hidden`, async ({ page }) => {
+        THEN the body should have overflow hidden`, async ({ page }) => {
     const { driver: d } = await setup(page, 'scroll-lock');
 
     expect(
       await page.evaluate(() => {
         const { overflow } = getComputedStyle(document.body);
-        return overflow === 'visible';
+        return overflow === 'hidden';
       }),
-    ).toBe(true);
+    ).toBe(false);
 
     await d.openModal();
 
     expect(
       await page.evaluate(() => {
         const { overflow } = getComputedStyle(document.body);
-        return overflow === 'visible';
+        return overflow === 'hidden';
       }),
-    ).toBe(false);
+    ).toBe(true);
   });
 
-  test(`GIVEN an open modal that is scroll locked
+  test(`GIVEN an open modal that has overflow hidden on the body
         WHEN the modal is closed
-        THEN the page's scrollbar shoud be visible`, async ({ page }) => {
+        THEN the body should not have overflow hidden`, async ({ page }) => {
     const { driver: d } = await setup(page, 'scroll-lock');
 
     expect(
       await page.evaluate(() => {
         const { overflow } = getComputedStyle(document.body);
-        return overflow === 'visible';
+        return overflow === 'hidden';
       }),
-    ).toBe(true);
+    ).toBe(false);
 
     await d.openModal();
 
     expect(
       await page.evaluate(() => {
         const { overflow } = getComputedStyle(document.body);
-        return overflow === 'visible';
+        return overflow === 'hidden';
       }),
-    ).toBe(false);
+    ).toBe(true);
 
     await d.getTrigger().press('Escape');
+    await expect(d.getModal()).toBeHidden();
 
     expect(
       await page.evaluate(() => {
         const { overflow } = getComputedStyle(document.body);
-        return overflow === 'visible';
+        return overflow === 'hidden';
       }),
-    ).toBe(true);
+    ).toBe(false);
   });
 
   test(`GIVEN two open modals, one nested inside the other
@@ -150,14 +151,14 @@ test.describe('Scroll locking', () => {
     expect(
       await page.evaluate(() => {
         const { overflow } = getComputedStyle(document.body);
-        return overflow === 'visible';
+        return overflow === 'hidden';
       }),
-    ).toBe(false);
+    ).toBe(true);
   });
 
   test(`GIVEN two open modals, one nested inside the other
         WHEN the nested modal's backdrop is clicked
-        THEN the page's scrollbar shoud remain hidden`, async ({ page }) => {
+        THEN the body should still have overflow hidden`, async ({ page }) => {
     const { driver: d } = await setup(page, 'nested');
 
     await d.openModal();
@@ -166,23 +167,20 @@ test.describe('Scroll locking', () => {
     await expect(page.getByRole('dialog').nth(1)).toBeVisible();
     await expect(page.getByRole('dialog').nth(1)).toHaveText('Nested Modal Content');
 
-    await page
-      .getByRole('dialog')
-      .nth(1)
-      .click({ position: { x: 0, y: 0 } });
+    await page.mouse.click(0, 0);
 
     expect(
       await page.evaluate(() => {
         const { overflow } = getComputedStyle(document.body);
-        return overflow === 'visible';
+        return overflow === 'hidden';
       }),
-    ).toBe(false);
+    ).toBe(true);
   });
 });
 
 test.describe('Focus Trap', () => {
   test(`GIVEN a modal with focusable elements inside
-        WHEN the mdoal is opened
+        WHEN the modal is opened
         THEN focus should go to the first focusable element`, async ({ page }) => {
     const { driver: d } = await setup(page, 'focus-trap');
 
@@ -222,10 +220,37 @@ test.describe('Nested Modals', () => {
     await expect(page.getByRole('dialog').nth(1)).toBeVisible();
     await expect(page.getByRole('dialog').nth(1)).toHaveText('Nested Modal Content');
 
-    await page
-      .getByRole('dialog')
-      .nth(1)
-      .click({ position: { x: 0, y: 0 } });
+    await page.mouse.click(0, 0);
+
+    await expect(page.getByRole('dialog').nth(1)).toBeHidden();
+    await expect(d.getModal()).toBeVisible();
+  });
+
+  test(`GIVEN two open modals, one nested inside the other
+  WHEN the enter key is pressed on the nested modal trigger
+  THEN the second modal should be opened`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'nested');
+
+    await d.openModal();
+    const insideButton = page.getByRole('button', { name: 'Nested Modal Trigger' });
+
+    await insideButton.press('Enter');
+
+    await expect(page.getByRole('dialog').nth(1)).toBeVisible();
+  });
+
+  test(`GIVEN two open modals, one nested inside the other
+  WHEN the escape key is pressed
+  THEN the first modal should remain open`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'nested');
+
+    await d.openModal();
+
+    await page.getByRole('button', { name: 'Nested Modal Trigger' }).click();
+    await expect(page.getByRole('dialog').nth(1)).toBeVisible();
+    await expect(page.getByRole('dialog').nth(1)).toHaveText('Nested Modal Content');
+
+    await page.keyboard.press('Escape');
 
     await expect(page.getByRole('dialog').nth(1)).toBeHidden();
     await expect(d.getModal()).toBeVisible();
