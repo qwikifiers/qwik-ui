@@ -70,8 +70,6 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
   const defaultSig = useSignal(false);
   const appliedSig = props.checkBoxSig ?? defaultSig;
   const checklistID = useSignal<string | undefined>(props.id);
-  // huh???
-  const checkboxOverWrite = useSignal<undefined | boolean>(props._overWriteCheckbox);
   useContextProvider(CheckboxContext, appliedSig);
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
@@ -84,16 +82,6 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
     }
   });
   // TODO: refactor to usetask code into fancy hook thingy
-  useTask$(({ track }) => {
-    if (checkboxOverWrite.value !== undefined) {
-      console.log('CHANGE ME LOL');
-      appliedSig.value = checkboxOverWrite.value;
-      checkboxOverWrite.value = undefined;
-    }
-    track(() => {
-      appliedSig.value;
-    });
-  });
   return (
     <div
       tabIndex={0}
