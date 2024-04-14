@@ -23,13 +23,14 @@ export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
     const idArr: string[] = [];
     // this sig vals should be a prop
     const mehelp = useSignal<TriBool>(props.initialTriBool);
+    const id = useId();
     for (let index = 0; index < props.arrSize; index++) {
       if (props.idArr[index] != false) {
         idArr.push(props.idArr[index] as string);
         continue;
       }
 
-      const uniqId = useId();
+      const uniqId = id + index.toString();
       idArr.push(uniqId);
     }
     const obj = { checkboxes: helpme, checklistSig: mehelp, idArr };
