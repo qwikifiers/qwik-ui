@@ -9,7 +9,11 @@ import {
   useStyles$,
   useTask$,
   sync$,
+  useId,
+  useContextProvider,
 } from '@builder.io/qwik';
+
+import { ModalContext, modalContextId } from './modal-context';
 
 import styles from './modal.css?inline';
 import { useModal } from './use-modal';
@@ -34,6 +38,7 @@ export const Modal = component$((props: ModalProps) => {
   } = useModal();
 
   const modalRef = useSignal<HTMLDialogElement>();
+  const localId = useId();
 
   const { 'bind:show': showSig } = props;
 
@@ -97,9 +102,18 @@ export const Modal = component$((props: ModalProps) => {
     }
   });
 
+  const context: ModalContext = {
+    localId,
+  };
+
+  useContextProvider(modalContextId, context);
+
   return (
     <dialog
       {...props}
+      id={`${localId}-root`}
+      aria-labelledby={`${localId}-title`}
+      aria-describedby={`${localId}-description`}
       data-state={showSig.value ? 'open' : 'closed'}
       role={props.alert === true ? 'alertdialog' : 'dialog'}
       ref={modalRef}

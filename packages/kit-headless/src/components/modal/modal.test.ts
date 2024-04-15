@@ -256,3 +256,31 @@ test.describe('Nested Modals', () => {
     await expect(d.getModal()).toBeVisible();
   });
 });
+
+test.describe('A11y', () => {
+  test(`GIVEN a modal
+        WHEN the modal is rendered
+        THEN it should have an accessible name`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await d.openModal();
+
+    const titleId = await d.getTitle().getAttribute('id');
+
+    await expect(d.getModal()).toHaveAttribute('aria-labelledby', `${titleId}`);
+  });
+
+  test(`GIVEN a modal
+        WHEN an optional description is added
+        THEN the modal's aria-describedby should point to the description`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await d.openModal();
+
+    const descriptionId = await d.getDescription().getAttribute('id');
+
+    await expect(d.getModal()).toHaveAttribute('aria-describedby', `${descriptionId}`);
+  });
+});

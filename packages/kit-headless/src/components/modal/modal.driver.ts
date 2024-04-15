@@ -8,7 +8,15 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getTrigger = () => {
-    return rootLocator.getByRole('button');
+    return rootLocator.getByRole('button', { name: 'Open Modal' });
+  };
+
+  const getTitle = () => {
+    return rootLocator.getByRole('heading');
+  };
+
+  const getDescription = () => {
+    return rootLocator.getByRole('paragraph');
   };
 
   const openModal = async () => {
@@ -24,5 +32,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getModal,
     getTrigger,
     openModal,
+    getTitle,
+    getDescription,
   };
 }
