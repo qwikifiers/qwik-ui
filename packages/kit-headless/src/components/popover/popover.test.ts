@@ -154,9 +154,87 @@ test.describe('Mouse Behavior', () => {
 
     expect((popoverBoundingBox?.y ?? 0) - triggerBottomAbsolutePosition).toBe(24);
   });
+
+  // test(`GIVEN a combobox with a flip configured
+  // WHEN scrolling the page
+  // THEN the popover flip to the opposite end once space runs out`, async ({ page }) => {
+  //   const { driver: d } = await setup(page, 'flip');
+
+  //   const popover = d.getPopover();
+  //   const trigger = d.getTrigger();
+
+  //   // Introduce artificial spacing
+  //   await trigger.evaluate((element) => (element.style.top = '800px'));
+
+  //   await trigger.click();
+
+  //   await expect(popover).toBeVisible();
+
+  //   const popoverBoundingBox = await popover.boundingBox();
+  //   const triggerBoundingBox = await trigger.boundingBox();
+
+  //   console.log(triggerBoundingBox, popoverBoundingBox);
+
+  //   const triggerBottomAbsolutePosition =
+  //     (triggerBoundingBox?.y ?? 0) + (triggerBoundingBox?.height ?? 0);
+
+  //   expect((popoverBoundingBox?.y ?? 0) - triggerBottomAbsolutePosition).toBe(24);
+  // });
 });
 
 test.describe('Keyboard Behavior', () => {
+  for (const key of ['Enter', 'Space']) {
+    test(`GIVEN a closed hero popover
+    WHEN focusing on the button and pressing the '${key}' key
+    THEN the popover should open`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+      await expect(d.getPopover()).toBeHidden();
+
+      await d.getTrigger().focus();
+      await d.getTrigger().press(key);
+
+      await expect(d.getPopover()).toBeVisible();
+    });
+
+    test(`GIVEN a open hero popover
+    WHEN focusing on the button and pressing the '${key}' key
+    THEN the popover should close`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      // Open the popover
+      await d.getTrigger().focus();
+      await d.getTrigger().press(key);
+
+      await expect(d.getPopover()).toBeVisible();
+
+      await d.getTrigger().blur();
+
+      // Close the popover
+      await d.getTrigger().focus();
+      await d.getTrigger().press(key);
+
+      await expect(d.getPopover()).toBeHidden();
+    });
+  }
+
+  test(`GIVEN a open hero popover
+  WHEN focusing on the button and pressing the 'Escape' key
+  THEN the popover should close and the trigger be focused`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // Open the popover
+    await d.getTrigger().focus();
+    await d.getTrigger().press('Enter');
+
+    await expect(d.getPopover()).toBeVisible();
+
+    // Close the popover
+    page.keyboard.press('Escape');
+
+    await expect(d.getPopover()).toBeHidden();
+    await expect(d.getTrigger()).toBeFocused();
+  });
+
   test(`GIVEN a programmatic popover with a programmatic trigger
   WHEN focusing on the button and pressing the 'o' key
   THEN the popover should open`, async ({ page }) => {
@@ -170,12 +248,11 @@ test.describe('Keyboard Behavior', () => {
 
     await expect(d.getPopover()).toBeVisible();
   });
-
   test(`GIVEN an open auto popover
   WHEN the first trigger open and the focus changes to the second popover
   THEN the first popover should close and the second one appear`, async ({ page }) => {
     const { driver: d } = await setup(page, 'auto');
-    //ask shai: is it good to use nth here???
+
     const [firstPopOver, secondPopOver] = await d.getAllPopovers();
     const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
 
@@ -199,7 +276,6 @@ test.describe('Keyboard Behavior', () => {
   THEN then both popovers should be opened`, async ({ page }) => {
     const { driver: d } = await setup(page, 'manual');
 
-    //ask shai: is it good to use nth here???
     const [firstPopOver, secondPopOver] = await d.getAllPopovers();
     const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
 
