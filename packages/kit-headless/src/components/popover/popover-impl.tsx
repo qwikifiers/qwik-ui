@@ -55,6 +55,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
   /** have we rendered on the client yet? 0: no, 1: force, 2: yes */
   const hasRenderedOnClientSig = useSignal(isServer ? 0 : 2);
   const teleportSig = useSignal(false);
+  const hasTopLayerAncestorSig = useSignal(false);
 
   // This forces a re-render on each popover instance when the signal changes
   if (hasRenderedOnClientSig.value === 1) {
@@ -69,6 +70,19 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
 
     isPolyfillSig.value = true;
 
+    const findTopLayerAncestor$ = $((element: HTMLElement | null): HTMLElement | null => {
+      while (element?.parentElement) {
+        if (
+          element.parentElement?.tagName === 'DIALOG' ||
+          element.parentElement?.hasAttribute('popover')
+        ) {
+          return element.parentElement;
+        }
+        element = element.parentElement;
+      }
+      return null;
+    });
+
     let polyfillContainer: HTMLDivElement | null = document.querySelector(
       'div[data-qwik-ui-popover-polyfill]',
     );
@@ -80,7 +94,13 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
     }
 
     if (popoverRef.value) {
-      polyfillContainer.appendChild(popoverRef.value);
+      const topLayerAncestor = await findTopLayerAncestor$(popoverRef.value!);
+
+      if (topLayerAncestor === null) {
+        polyfillContainer.appendChild(popoverRef.value);
+      } else {
+        hasTopLayerAncestorSig.value = true;
+      }
 
       document.dispatchEvent(new CustomEvent('showpopover'));
 
@@ -119,7 +139,8 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
           // move opened polyfill popovers are always above the other
           if (
             popoverRef.value.classList.contains(':popover-open') &&
-            popoverRef.value.parentElement
+            popoverRef.value.parentElement &&
+            !hasTopLayerAncestorSig.value
           ) {
             popoverRef.value.parentElement.appendChild(popoverRef.value);
           }

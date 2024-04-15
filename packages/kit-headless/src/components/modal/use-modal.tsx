@@ -50,7 +50,6 @@ export function useModal() {
     if (animationDuration === '0s' && transitionDuration === '0s') {
       modal.classList.remove('modal-closing');
       enableBodyScroll(modal);
-      console.log('modal closed: ', modal);
       modal.close();
     }
   });

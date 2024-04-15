@@ -1,3 +1,6 @@
+// TODO: fix the setTimeouts
+// TODO: move this file into the usePopover hook
+
 /**
  * Adds CSS-Class to support popover-opening-animation
  */
@@ -5,7 +8,6 @@ export function supportShowAnimation(popover: HTMLElement, isPolyfill: boolean) 
   const { transitionDuration } = getComputedStyle(popover);
 
   if (isPolyfill) {
-    console.log('polyfill run!');
     // polyfill needs a bit of extra time to execute
     if (transitionDuration !== '0s') {
       setTimeout(() => {

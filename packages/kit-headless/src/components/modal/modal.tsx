@@ -63,14 +63,17 @@ export const Modal = component$((props: ModalProps) => {
     });
   });
 
-  const closeOnBackdropClick$ = $(async (event: MouseEvent) => {
+  const closeOnBackdropClick$ = $(async (e: MouseEvent) => {
     if (props.alert === true || props.closeOnBackdropClick === false) {
       return;
     }
 
-    console.log('CLICK BACKDROP', event);
+    // We do not want to close elements that dangle outside of the modal
+    if (!(e.target instanceof HTMLDialogElement)) {
+      return;
+    }
 
-    if (await wasModalBackdropClicked(modalRef.value, event)) {
+    if (await wasModalBackdropClicked(modalRef.value, e)) {
       showSig.value = false;
     }
   });
