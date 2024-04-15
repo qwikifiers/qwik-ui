@@ -49,12 +49,11 @@ Make it difficult to style a dialog element full-screen, which has led to some c
 ```tsx
 <Modal.Root>
   <Modal.Trigger>Trigger</Modal.Trigger>
-  <Modal.Content>
-    {' '}
+  <Modal.Panel>
     {/*  This is the current <Modal /> */}
     <Modal.Title>Edit Profile</Modal.Title>
     <Modal.Description>You can update your profile here.</Modal.Description>
-  </Modal.Content>
+  </Modal.Panel>
 </Modal.Root>
 ```
 
