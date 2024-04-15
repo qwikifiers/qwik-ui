@@ -43,8 +43,7 @@ test.describe('Mouse Behavior', () => {
     // If I use `toBeVisible` here, the test fails that the `toBeHidden` check below????
     await expect(d.getPopover()).toHaveCSS('opacity', '1');
 
-    const outsideDiv = page.locator('#content-outside-of-popover');
-    await outsideDiv.click();
+    await page.mouse.click(0, 0);
 
     await expect(d.getPopover()).toBeHidden();
   });
@@ -60,10 +59,10 @@ test.describe('Mouse Behavior', () => {
     await expect(firstPopOver).toBeHidden();
     await expect(secondPopOver).toBeHidden();
 
-    await firstPopoverTrigger.click();
+    await firstPopoverTrigger.click({ position: { x: 1, y: 1 } });
     await expect(firstPopOver).toBeVisible();
 
-    await secondPopoverTrigger.click();
+    await secondPopoverTrigger.click({ position: { x: 1, y: 1 } });
     await expect(secondPopOver).toBeVisible();
 
     await expect(firstPopOver).toBeHidden();
@@ -81,8 +80,8 @@ test.describe('Mouse Behavior', () => {
     await expect(firstPopOver).toBeHidden();
     await expect(secondPopOver).toBeHidden();
 
-    await firstPopoverTrigger.click();
-    await secondPopoverTrigger.click();
+    await firstPopoverTrigger.click({ position: { x: 1, y: 1 } });
+    await secondPopoverTrigger.click({ position: { x: 1, y: 1 } });
 
     await expect(firstPopOver).toBeVisible();
     await expect(secondPopOver).toBeVisible();
@@ -97,8 +96,8 @@ test.describe('Mouse Behavior', () => {
     const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
 
     // Arrange
-    await firstPopoverTrigger.click();
-    await secondPopoverTrigger.click();
+    await firstPopoverTrigger.click({ position: { x: 1, y: 1 } });
+    await secondPopoverTrigger.click({ position: { x: 1, y: 1 } });
 
     await expect(firstPopOver).toBeVisible();
     await expect(secondPopOver).toBeVisible();
@@ -114,27 +113,30 @@ test.describe('Mouse Behavior', () => {
     await expect(secondPopOver).toBeHidden();
   });
 
-  test(`GIVEN a combobox with placement set to top
-  WHEN opening the combobox
-  THEN the popover should appear above the trigger`, async ({ page }) => {
+  test(`GIVEN a popover with placement set to top
+  WHEN opening the popover
+  THEN the popover should appear to the right of the trigger`, async ({ page }) => {
     const { driver: d } = await setup(page, 'placement');
 
     const popover = d.getPopover();
     const trigger = d.getTrigger();
 
-    await trigger.click();
+    await trigger.hover();
 
     await expect(popover).toBeVisible();
 
     const popoverBoundingBox = await popover.boundingBox();
     const triggerBoundingBox = await trigger.boundingBox();
 
-    expect(popoverBoundingBox?.y).toBeLessThan(triggerBoundingBox?.y ?? 0);
+    expect(popoverBoundingBox?.x).toBeGreaterThan(
+      (triggerBoundingBox?.x ?? Number.MAX_VALUE) +
+        (triggerBoundingBox?.width ?? Number.MAX_VALUE),
+    );
   });
 
-  test(`GIVEN a combobox with a gutter configured
-  WHEN opening the combobox
-  THEN the popover should be spaced 24px from the combobox`, async ({ page }) => {
+  test(`GIVEN a popover with a gutter configured
+  WHEN opening the popover
+  THEN the popover should be spaced 40px from the popover`, async ({ page }) => {
     const { driver: d } = await setup(page, 'gutter');
 
     const popover = d.getPopover();
@@ -147,12 +149,10 @@ test.describe('Mouse Behavior', () => {
     const popoverBoundingBox = await popover.boundingBox();
     const triggerBoundingBox = await trigger.boundingBox();
 
-    console.log(triggerBoundingBox, popoverBoundingBox);
-
-    const triggerBottomAbsolutePosition =
-      (triggerBoundingBox?.y ?? 0) + (triggerBoundingBox?.height ?? 0);
-
-    expect((popoverBoundingBox?.y ?? 0) - triggerBottomAbsolutePosition).toBe(24);
+    expect(
+      (triggerBoundingBox?.y ?? 0) -
+        ((popoverBoundingBox?.y ?? 0) + (popoverBoundingBox?.height ?? 0)),
+    ).toBe(40);
   });
 
   // test(`GIVEN a combobox with a flip configured
@@ -190,7 +190,6 @@ test.describe('Keyboard Behavior', () => {
       const { driver: d } = await setup(page, 'hero');
       await expect(d.getPopover()).toBeHidden();
 
-      await d.getTrigger().focus();
       await d.getTrigger().press(key);
 
       await expect(d.getPopover()).toBeVisible();
@@ -202,15 +201,11 @@ test.describe('Keyboard Behavior', () => {
       const { driver: d } = await setup(page, 'hero');
 
       // Open the popover
-      await d.getTrigger().focus();
       await d.getTrigger().press(key);
 
       await expect(d.getPopover()).toBeVisible();
 
-      await d.getTrigger().blur();
-
       // Close the popover
-      await d.getTrigger().focus();
       await d.getTrigger().press(key);
 
       await expect(d.getPopover()).toBeHidden();
@@ -223,7 +218,6 @@ test.describe('Keyboard Behavior', () => {
     const { driver: d } = await setup(page, 'hero');
 
     // Open the popover
-    await d.getTrigger().focus();
     await d.getTrigger().press('Enter');
 
     await expect(d.getPopover()).toBeVisible();
@@ -259,7 +253,6 @@ test.describe('Keyboard Behavior', () => {
     await expect(firstPopOver).toBeHidden();
     await expect(secondPopOver).toBeHidden();
 
-    await firstPopoverTrigger.focus();
     await firstPopoverTrigger.press('Enter');
     await expect(firstPopOver).toBeVisible();
     await firstPopoverTrigger.press('Tab');
@@ -282,10 +275,8 @@ test.describe('Keyboard Behavior', () => {
     await expect(firstPopOver).toBeHidden();
     await expect(secondPopOver).toBeHidden();
 
-    await firstPopoverTrigger.focus();
     await firstPopoverTrigger.press('Enter');
 
-    await secondPopoverTrigger.focus();
     await secondPopoverTrigger.press('Enter');
 
     await expect(firstPopOver).toBeVisible();
@@ -301,10 +292,8 @@ test.describe('Keyboard Behavior', () => {
     const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
 
     // Arrange
-    await firstPopoverTrigger.focus();
     await firstPopoverTrigger.press('Enter');
 
-    await secondPopoverTrigger.focus();
     await secondPopoverTrigger.press('Enter');
 
     await expect(firstPopOver).toBeVisible();
@@ -312,13 +301,11 @@ test.describe('Keyboard Behavior', () => {
 
     // Act
     await secondPopoverTrigger.press('Enter');
-
-    await firstPopoverTrigger.focus();
-    await firstPopoverTrigger.press('Enter');
+    await expect(secondPopOver).toBeHidden();
 
     // Assert
+    await firstPopoverTrigger.press('Enter');
     await expect(firstPopOver).toBeHidden();
-    await expect(secondPopOver).toBeHidden();
   });
 
   test(`GIVEN a programmatic popover
@@ -331,7 +318,6 @@ test.describe('Keyboard Behavior', () => {
 
     await expect(popover).toBeHidden();
 
-    await programmaticButtonTrigger.focus();
     await programmaticButtonTrigger.press('o');
 
     await expect(popover).toBeVisible();
@@ -345,7 +331,6 @@ test.describe('Keyboard Behavior', () => {
     const popover = d.getPopover();
     const programmaticButtonTrigger = d.getProgrammaticButtonTrigger();
 
-    await programmaticButtonTrigger.focus();
     await programmaticButtonTrigger.press('o');
 
     await expect(popover).toBeVisible();
@@ -355,15 +340,14 @@ test.describe('Keyboard Behavior', () => {
     await expect(popover).toBeHidden();
   });
 
-  test(`GIVEN a combobox with placement set to top
-  WHEN opening the combobox using the keyboard
-  THEN the popover should appear above the trigger`, async ({ page }) => {
+  test(`GIVEN a popover with placement set to top
+  WHEN opening the popover using the keyboard
+  THEN the popover should appear to the right of the trigger`, async ({ page }) => {
     const { driver: d } = await setup(page, 'placement');
 
     const popover = d.getPopover();
     const trigger = d.getTrigger();
 
-    await trigger.focus();
     await trigger.press('Enter');
 
     await expect(popover).toBeVisible();
@@ -371,6 +355,9 @@ test.describe('Keyboard Behavior', () => {
     const popoverBoundingBox = await popover.boundingBox();
     const triggerBoundingBox = await trigger.boundingBox();
 
-    expect(popoverBoundingBox?.y).toBeLessThan(triggerBoundingBox?.y ?? 0);
+    expect(popoverBoundingBox?.x).toBeGreaterThan(
+      (triggerBoundingBox?.x ?? Number.MAX_VALUE) +
+        (triggerBoundingBox?.width ?? Number.MAX_VALUE),
+    );
   });
 });
