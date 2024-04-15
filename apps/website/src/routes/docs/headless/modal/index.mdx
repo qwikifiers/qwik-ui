@@ -49,16 +49,12 @@ Modals are used when an important choice needs to be made in the application. Th
       description: 'The root component that contains the dialog element.',
     },
     {
-      name: 'ModalHeader',
-      description: 'A semantic header element that titles the modal.',
+      name: 'ModalTitle',
+      description: 'An accessible name for the modal.',
     },
     {
-      name: 'ModalContent',
-      description: `The main content of the modal.`,
-    },
-    {
-      name: 'ModalFooter',
-      description: `A semantic footer element used to contain menu action buttons.`,
+      name: 'ModalDescription',
+      description: `An optional accessible description for the modal.`,
     },
   ]}
 />
@@ -171,21 +167,19 @@ Qwik UI automatically detects any `animation` or `transition` declarations under
 
 <Showcase name="transition" />
 
-To add an transition, use the `modal-showing` and `modal-closing` css classes. Above is a snippet where we transition both the modal and backdrop's opacity.
+To add an transition, use the `data-open`, `data-closing` and `data-closed` data attributes. Above is a snippet where we transition both the modal and backdrop's opacity.
 
 ### Adding an animation
 
 <Showcase name="animatable" />
 
-To add an animation, it's the same as with transitions, using the `modal-showing` and `modal-closing` css classes. Below is a snippet of the animation example above.
-
-<CodeSnippet name="animation.css" />
+To add an animation, it's the same as with transitions, using the `data-open` and `data-closing` data attributes. Below is a snippet of the animation example above.
 
 ### Backdrop animations
 
 Backdrop animations have also made significant progress in the last year, with support provided in over half of the major browsers, and close to 70% of users.
 
-To add a backdrop animation, make sure to use the `::backdrop` pseudo selector to the end of the `modal-closing` or `modal-opening` classes.
+To add a backdrop animation, make sure to use the `::backdrop` pseudo selector to the end of the `data-closing` or `data-open` classes.
 
 > Firefox currently does not support backdrop animations. The fallback for browsers that do not support animated backdrops is the same as a non-animated backdrop.
 
@@ -203,9 +197,19 @@ Sheets are a type of modal/overlay used to provide temporary access to important
 
 Bottom sheets are more prevalent in mobile applications, usually to simplify UI. That said, feel free to use them wherever fits best!
 
+### Animations / Transitions CSS
+
+<CodeSnippet name="animation.css" />
+
 ## Open on page load
 
 There might come a time where a modal is needed open as soon as the page loads. Unfortunately, to create modals a client-side API is currently needed regardless of implementation.
+
+## Example CSS
+
+The example for the CSS used in all of the examples above can be found below.
+
+<CodeSnippet name="modal.css" />
 
 ### SSR dilemma
 
@@ -279,14 +283,19 @@ The current solution across framework ecosystems, is to open the Modal eagerly o
       description: 'An event hook that gets notified whenever the modal shows up.',
     },
     {
-      name: '.modal-showing',
-      type: 'CSS',
-      description: 'A CSS class used for entry animations.',
+      name: 'data-open',
+      type: 'attribute',
+      description: 'A data attribute used for styling open modals and entry animations.',
     },
     {
-      name: '.modal-closing',
-      type: 'CSS',
-      description: 'A CSS class used for exit animations.',
+      name: 'data-closing',
+      type: 'attribute',
+      description: 'A data attribute used for exit animations.',
+    },
+    {
+      name: 'data-closed',
+      type: 'attribute',
+      description: 'A data attribute used for closed modals.',
     },
   ]}
 />

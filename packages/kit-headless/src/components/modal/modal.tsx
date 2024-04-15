@@ -114,7 +114,10 @@ export const Modal = component$((props: ModalProps) => {
       id={`${localId}-root`}
       aria-labelledby={`${localId}-title`}
       aria-describedby={`${localId}-description`}
+      // TODO: deprecate data-state in favor of data-open, data-closing, and data-closed
       data-state={showSig.value ? 'open' : 'closed'}
+      data-open={showSig.value && ''}
+      data-closed={!showSig.value && ''}
       role={props.alert === true ? 'alertdialog' : 'dialog'}
       ref={modalRef}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}

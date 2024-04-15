@@ -9,18 +9,11 @@ import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock-upgrade';
 
 export function useModal() {
   /**
-   * Adds CSS-Class to support modal-opening-animation
-   */
-  const supportShowAnimation = $((modal: HTMLDialogElement) => {
-    modal.classList.add('modal-showing');
-  });
-
-  /**
    * Listens for animation/transition events in order to
    * remove Animation-CSS-Classes after animation/transition ended.
    */
   const supportClosingAnimation = $((modal: HTMLDialogElement) => {
-    modal.classList.remove('modal-showing');
+    modal.dataset.closing = '';
     modal.classList.add('modal-closing');
 
     const { animationDuration, transitionDuration } = getComputedStyle(modal);
@@ -29,6 +22,7 @@ export function useModal() {
       modal.addEventListener(
         'animationend',
         () => {
+          delete modal.dataset.closing;
           modal.classList.remove('modal-closing');
           enableBodyScroll(modal);
           modal.close();
@@ -40,6 +34,7 @@ export function useModal() {
       modal.addEventListener(
         'transitionend',
         () => {
+          delete modal.dataset.closing;
           modal.classList.remove('modal-closing');
           enableBodyScroll(modal);
           modal.close();
@@ -48,6 +43,7 @@ export function useModal() {
       );
     }
     if (animationDuration === '0s' && transitionDuration === '0s') {
+      delete modal.dataset.closing;
       modal.classList.remove('modal-closing');
       enableBodyScroll(modal);
       modal.close();
@@ -85,7 +81,6 @@ export function useModal() {
   const showModal = $(async (modal: HTMLDialogElement) => {
     disableBodyScroll(modal, { reserveScrollBarGap: true });
     modal.showModal();
-    await supportShowAnimation(modal);
   });
 
   /**
@@ -132,7 +127,6 @@ export function useModal() {
     showModal,
     closeModal,
     wasModalBackdropClicked,
-    supportShowAnimation,
     supportClosingAnimation,
   };
 }

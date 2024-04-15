@@ -2,24 +2,38 @@
   --modal-animation: forwards cubic-bezier(0.6, 0.6, 0, 1);
 }
 
-.modal-animation::backdrop {
-  background: hsla(0, 0%, 0%, 0.5);
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.modal-animation {
-  animation: modalOpen 0.75s var(--modal-animation);
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
-.modal-animation::backdrop {
+.modal-animation::backdrop,
+.sheet::backdrop,
+.bottom-sheet::backdrop {
   animation: modalFadeIn 0.75s var(--modal-animation);
 }
 
-.modal-animation.modal-closing {
-  animation: modalClose 0.35s var(--modal-animation);
+.modal-animation[data-closing]::backdrop,
+.sheet[data-closing]::backdrop,
+.bottom-sheet[data-closing]::backdrop {
+  animation: modalFadeOut 0.35s var(--modal-animation);
 }
 
-.modal-animation.modal-closing::backdrop {
-  animation: modalFadeOut 0.35s var(--modal-animation);
+.modal-animation::backdrop {
+  background: hsla(0, 0%, 0%, 0.5);
 }
 
 @keyframes modalOpen {
@@ -44,53 +58,12 @@
   }
 }
 
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.modal-animation {
+  animation: modalOpen 0.75s var(--modal-animation);
 }
 
-@keyframes modalFadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-.sheet::backdrop {
-  background: hsla(0, 0%, 0%, 0.5);
-}
-
-.sheet {
-  right: 0;
-  margin-right: 0;
-  height: 100vh;
-  animation: sheetOpen 0.75s var(--modal-animation);
-}
-
-.sheet::backdrop {
-  animation: modalFadeIn 0.75s var(--modal-animation);
-}
-
-.sheet.modal-closing {
-  animation: sheetClose 0.35s var(--modal-animation);
-}
-
-.sheet.modal-closing::backdrop {
-  animation: modalFadeOut 0.35s var(--modal-animation);
-}
-
-.sheet.bottom-sheet {
-  right: revert;
-  margin-right: revert;
-  height: auto;
-  bottom: 0;
-  margin-bottom: 0;
+.modal-animation[data-closing] {
+  animation: modalClose 0.35s var(--modal-animation);
 }
 
 @keyframes sheetOpen {
@@ -113,4 +86,62 @@
     opacity: 0;
     transform: translateX(100%);
   }
+}
+
+.sheet::backdrop {
+  background: hsla(0, 0%, 0%, 0.5);
+}
+
+.sheet {
+  right: 0;
+  margin-right: 0;
+  height: 100vh;
+  animation: sheetOpen 0.75s var(--modal-animation);
+}
+
+.sheet[data-closing] {
+  animation: sheetClose 0.35s var(--modal-animation);
+}
+
+@keyframes bottomSheetOpen {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes bottomSheetClose {
+  from {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+.bottom-sheet {
+  height: auto;
+  top: unset;
+  bottom: 0;
+  margin-bottom: 0;
+  animation: bottomSheetOpen 0.75s var(--modal-animation);
+}
+
+.bottom-sheet[data-closing] {
+  animation: bottomSheetClose 0.35s var(--modal-animation);
+}
+
+.modal-transition {
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+
+.modal-transition[data-open] {
+  opacity: 1;
 }
