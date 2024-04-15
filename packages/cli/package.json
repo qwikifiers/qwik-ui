@@ -14,7 +14,7 @@
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@qwik-ui/styled": "0.0.5"
+    "@qwik-ui/styled": "0.0.6"
   },
   "type": "commonjs",
   "main": "./src/index.js",

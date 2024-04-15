@@ -1,5 +1,11 @@
 # @qwik-ui/styled
 
+## 0.0.6
+
+### Patch Changes
+
+- refactor change CardTitle font-weight to medium (by [@maiieul](https://github.com/maiieul) in [#693](https://github.com/qwikifiers/qwik-ui/pull/693))
+
 ## 0.0.5
 
 ### Patch Changes
