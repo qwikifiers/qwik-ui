@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './modal.driver';
+import AxeBuilder from '@axe-core/playwright';
 
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/modal/${exampleName}`);
@@ -10,26 +11,6 @@ async function setup(page: Page, exampleName: string) {
     driver,
   };
 }
-
-// test.describe('a11y', () => {
-//   test('Axe Validation Test', async ({ page }) => {
-//     const { driver: d } = await setup(page, 'hero');
-
-//     const initialResults = await new AxeBuilder({ page })
-//       .include('[role="dialog"]')
-//       .analyze();
-
-//     expect(initialResults.violations).toEqual([]);
-
-//     await d.openModal();
-
-//     const afterClickResults = await new AxeBuilder({ page })
-//       .include('[role="dialog"]')
-//       .analyze();
-
-//     expect(afterClickResults.violations).toEqual([]);
-//   });
-// });
 
 const openCloseExamples = ['hero', 'animatable'];
 
@@ -258,6 +239,24 @@ test.describe('Nested Modals', () => {
 });
 
 test.describe('A11y', () => {
+  test('Axe Validation Test', async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    const initialResults = await new AxeBuilder({ page })
+      .include('[role="dialog"]')
+      .analyze();
+
+    expect(initialResults.violations).toEqual([]);
+
+    await d.openModal();
+
+    const afterClickResults = await new AxeBuilder({ page })
+      .include('[role="dialog"]')
+      .analyze();
+
+    expect(afterClickResults.violations).toEqual([]);
+  });
+
   test(`GIVEN a modal
         WHEN the modal is rendered
         THEN it should have an accessible name`, async ({ page }) => {

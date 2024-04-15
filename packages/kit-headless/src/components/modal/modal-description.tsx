@@ -1,13 +1,15 @@
-import { Slot, component$, useContext } from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
 import { modalContextId } from './modal-context';
 
-export const ModalDescription = component$(() => {
+export type ModalDescriptionProps = PropsOf<'p'>;
+
+export const ModalDescription = component$((props: ModalDescriptionProps) => {
   const context = useContext(modalContextId);
 
   const descriptionId = `${context.localId}-description`;
 
   return (
-    <p id={descriptionId}>
+    <p id={descriptionId} {...props}>
       <Slot />
     </p>
   );

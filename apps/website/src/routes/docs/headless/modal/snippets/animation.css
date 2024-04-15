@@ -1,21 +1,25 @@
-.my-animation::backdrop {
+:root {
+  --modal-animation: forwards cubic-bezier(0.6, 0.6, 0, 1);
+}
+
+.modal-animation::backdrop {
   background: hsla(0, 0%, 0%, 0.5);
 }
 
-.my-animation {
-  animation: modalOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
+.modal-animation {
+  animation: modalOpen 0.75s var(--modal-animation);
 }
 
-.my-animation::backdrop {
-  animation: modalFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
+.modal-animation::backdrop {
+  animation: modalFadeIn 0.75s var(--modal-animation);
 }
 
-.my-animation.modal-closing {
-  animation: modalClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
+.modal-animation.modal-closing {
+  animation: modalClose 0.35s var(--modal-animation);
 }
 
-.my-animation.modal-closing::backdrop {
-  animation: modalFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
+.modal-animation.modal-closing::backdrop {
+  animation: modalFadeOut 0.35s var(--modal-animation);
 }
 
 @keyframes modalOpen {
@@ -55,5 +59,58 @@
   }
   to {
     opacity: 0;
+  }
+}
+
+.sheet::backdrop {
+  background: hsla(0, 0%, 0%, 0.5);
+}
+
+.sheet {
+  right: 0;
+  margin-right: 0;
+  height: 100vh;
+  animation: sheetOpen 0.75s var(--modal-animation);
+}
+
+.sheet::backdrop {
+  animation: modalFadeIn 0.75s var(--modal-animation);
+}
+
+.sheet.modal-closing {
+  animation: sheetClose 0.35s var(--modal-animation);
+}
+
+.sheet.modal-closing::backdrop {
+  animation: modalFadeOut 0.35s var(--modal-animation);
+}
+
+.sheet.bottom-sheet {
+  right: revert;
+  margin-right: revert;
+  height: auto;
+  bottom: 0;
+  margin-bottom: 0;
+}
+
+@keyframes sheetOpen {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes sheetClose {
+  from {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
   }
 }

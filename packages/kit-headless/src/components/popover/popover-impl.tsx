@@ -140,6 +140,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
           if (
             popoverRef.value.classList.contains(':popover-open') &&
             popoverRef.value.parentElement &&
+            // TODO: Get the top layer ancestor popovers to be above the other when the next one is opened.
             !hasTopLayerAncestorSig.value
           ) {
             popoverRef.value.parentElement.appendChild(popoverRef.value);

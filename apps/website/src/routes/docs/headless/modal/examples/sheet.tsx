@@ -1,132 +1,36 @@
 import { PropsOf, component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
+import { Label, Modal, ModalDescription, ModalTitle } from '@qwik-ui/headless';
+import styles from '../snippets/animation.css?inline';
 
 export default component$(() => {
-  const showSig = useSignal(false);
-  useStyles$(`
-  .sheet::backdrop {
-    background: hsla(0, 0%, 0%, 0.5);
-  }
-
-  .sheet {
-    animation: sheetOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
-  }
-
-  .sheet::backdrop {
-    animation: sheetFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
-  }
-
-  .sheet.modal-closing {
-    animation: sheetClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
-  }
-
-  .sheet.modal-closing::backdrop {
-    animation: sheetFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
-  }
-
-  @keyframes sheetOpen {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0%);
-    }
-  }
-
-  @keyframes sheetClose {
-    from {
-      opacity: 1;
-      transform: translateX(0%);
-    }
-    to {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-  }
-
-  @keyframes sheetFadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes sheetFadeOut {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-
-  `);
+  useStyles$(styles);
+  const isOpen = useSignal(false);
 
   return (
     <>
-      <button
-        onClick$={() => {
-          showSig.value = true;
-        }}
-        class="rounded-base border px-3 py-2 hover:bg-accent/80"
-      >
-        Open Modal
-      </button>
-      <Modal
-        bind:show={showSig}
-        class="sheet fixed bottom-[50%] right-0 top-[50%] mr-0 h-[80vh] max-w-[25rem] rounded-base border-0 bg-background p-[28px] text-foreground shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
-      >
-        <ModalHeader>
-          <h2 class="text-lg font-bold">Edit Profile</h2>
-        </ModalHeader>
-        <ModalContent class="mb-2 py-4">
-          <p class="mb-4 leading-5">
-            You can update your profile here. Hit the save button when finished.
-          </p>
-          <div class="mb-1 flex items-baseline justify-between">
-            <label for="name">Name</label>
-            <input
-              class="mt-2 rounded-base bg-background px-4 py-[10px] text-foreground"
-              id="name"
-              type="text"
-              placeholder="John Doe"
-            />
-          </div>
-          <div class="flex items-baseline justify-between">
-            <label for="email">Email</label>
-            <input
-              class="mt-2 rounded-base bg-background px-4 py-3 text-foreground"
-              id="email"
-              type="text"
-              placeholder="johndoe@gmail.com"
-            />
-          </div>
-        </ModalContent>
-        <ModalFooter class="flex justify-end gap-4">
-          <button
-            class="rounded-base border border-none bg-muted px-4 py-[10px] text-muted-foreground outline-none ring-offset-background transition-colors hover:bg-accent/90 hover:text-accent-foreground focus:ring focus:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            onClick$={() => (showSig.value = false)}
-          >
-            Cancel
-          </button>
-          <button
-            class="rounded-base border border-none bg-primary px-4 py-[10px] text-primary-foreground outline-none ring-offset-background transition-colors hover:bg-primary/90 focus:ring focus:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            onClick$={() => (showSig.value = false)}
-          >
-            Save Changes
-          </button>
-        </ModalFooter>
-        <button
-          onClick$={() => (showSig.value = false)}
-          class="absolute right-6 top-[26px]"
-        >
-          <CloseIcon class="h-8 w-8" />
+      <div class="modal-container">
+        <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
+          Open Modal
         </button>
-      </Modal>
+        <Modal class="modal sheet" bind:show={isOpen}>
+          <ModalTitle>Edit Profile</ModalTitle>
+          <ModalDescription>
+            You can update your profile here. Hit the save button when finished.
+          </ModalDescription>
+          <Label>
+            Name
+            <input type="text" placeholder="John Doe" />
+          </Label>
+          <Label>
+            Email
+            <input type="text" placeholder="johndoe@gmail.com" />
+          </Label>
+          <footer>
+            <button onClick$={() => (isOpen.value = false)}>Cancel</button>
+            <button onClick$={() => (isOpen.value = false)}>Save Changes</button>
+          </footer>
+        </Modal>
+      </div>
     </>
   );
 });

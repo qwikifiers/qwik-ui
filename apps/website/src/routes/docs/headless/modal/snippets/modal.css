@@ -1,10 +1,10 @@
 .modal,
 .modal-trigger {
-  padding: 0.5rem;
   border-radius: calc(var(--border-radius));
 }
 
 .modal-trigger {
+  padding: 0.5rem;
   width: 100%;
   border: 2px dotted hsla(var(--foreground));
   height: 44px;
@@ -12,5 +12,88 @@
 }
 
 .modal {
+  padding: 1rem;
+  gap: 0.5rem;
   border: 2px dotted hsla(var(--primary));
+  color: hsla(var(--foreground));
+  background-color: hsl(var(--background));
+  max-width: 28rem;
+  overflow: hidden;
+}
+
+.modal::backdrop {
+  backdrop-filter: blur(3px) brightness(50%);
+}
+
+.modal > * {
+  padding-block: 0.5rem;
+}
+
+.modal input {
+  margin-bottom: 1rem;
+  border-radius: calc(var(--border-radius));
+  background: hsla(var(--foreground) / 0.05);
+}
+
+.modal h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  padding: 0;
+}
+
+.modal input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: calc(var(--border-radius));
+  border: 2px dotted hsla(var(--ring));
+}
+
+.modal footer {
+  padding-top: 0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.modal button {
+  padding: 0.5rem;
+  border-radius: calc(var(--border-radius));
+  border: 2px dotted hsla(var(--muted));
+}
+
+.modal button:first-of-type {
+  border-color: hsla(var(--foreground));
+}
+
+.modal button:last-of-type {
+  border-color: hsla(var(--primary));
+}
+
+.modal-backdrop::backdrop {
+  /* changing background */
+  background: rgba(0, 0, 0, 0.4);
+
+  /* providing multiple filters */
+  backdrop-filter: grayscale(90%) blur(10px);
+}
+
+.modal .modal-close {
+  position: absolute;
+  top: 0;
+  right: 0.5rem;
+  transform: scale(3) rotate(45deg);
+  border: none;
+  outline: none;
+}
+
+/* some css fun here lol */
+.modal .modal-close:focus-visible::after {
+  content: '';
+  position: absolute;
+  left: 0.35rem;
+  right: 0.55rem;
+  top: 0.7rem;
+  bottom: 0.7rem;
+  border: 1px solid hsla(var(--foreground));
+  transform: rotate(-45deg);
+  pointer-events: none;
 }

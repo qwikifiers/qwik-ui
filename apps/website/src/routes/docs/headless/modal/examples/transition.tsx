@@ -5,20 +5,20 @@ import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless
 export default component$(() => {
   const showSig = useSignal(false);
   useStyles$(`
-    .my-transition::backdrop {
+    .modal-transition::backdrop {
         background: rgba(0,0,0,0.5);
     }
 
-    .my-transition, .my-transition::backdrop {
+    .modal-transition, .modal-transition::backdrop {
         opacity: 0;
         transition: opacity 300ms ease;
     }
 
-    .my-transition, .my-transition::backdrop {
+    .modal-transition, .modal-transition::backdrop {
         opacity: 1;
     }
 
-    .my-transition.modal-closing, .my-transition.modal-closing::backdrop {
+    .modal-transition.modal-closing, .modal-transition.modal-closing::backdrop {
         opacity: 0;
     }
   `);
@@ -35,7 +35,7 @@ export default component$(() => {
       </button>
       <Modal
         bind:show={showSig}
-        class="my-transition max-w-[25rem] rounded-base bg-background p-[28px] text-foreground shadow-md"
+        class="modal-transition max-w-[25rem] rounded-base bg-background p-[28px] text-foreground shadow-md"
       >
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>
