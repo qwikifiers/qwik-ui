@@ -46,7 +46,7 @@ export const DocsNavigation = component$(
     const location = useLocation();
 
     return (
-      <nav {...props} class={cn('flex-col gap-4 pb-6', props.class)}>
+      <nav {...props} class={cn('navigation-docs flex-col gap-4 pb-6', props.class)}>
         {linksGroups?.map((group) => {
           return (
             <div class="px-6 pt-8" key={group.name}>

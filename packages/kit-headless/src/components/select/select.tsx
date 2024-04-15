@@ -13,8 +13,8 @@ import {
 import { isBrowser } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
 import { Opt } from './select-inline';
-import { getActiveDescendant } from './utils';
 import { HiddenSelect } from './hidden-select';
+import { useSelect } from './use-select';
 
 export type InternalSelectProps = {
   /** Our source of truth for the options. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
@@ -88,6 +88,8 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       ...rest
     } = props;
 
+    const { getActiveDescendant } = useSelect();
+
     // refs
     const rootRef = useSignal<HTMLDivElement>();
     const triggerRef = useSignal<HTMLButtonElement>();
@@ -148,6 +150,18 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       }
     });
 
+    const activeDescendantSig = useComputed$(() => {
+      if (isListboxOpenSig.value) {
+        return getActiveDescendant(
+          highlightedIndexSig.value ?? -1,
+          optionsSig.value,
+          localId,
+        );
+      } else {
+        return '';
+      }
+    });
+
     const context: SelectContext = {
       triggerRef,
       popoverRef,
@@ -173,15 +187,7 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
         aria-controls={listboxId}
         aria-expanded={context.isListboxOpenSig.value}
         aria-haspopup="listbox"
-        aria-activedescendant={
-          context.isListboxOpenSig.value
-            ? getActiveDescendant(
-                context.highlightedIndexSig.value ?? -1,
-                context.optionsSig.value,
-                context.localId,
-              )
-            : ''
-        }
+        aria-activedescendant={activeDescendantSig.value}
         {...rest}
       >
         <Slot />

@@ -13,22 +13,13 @@ import {FeatureList} from '~/components/feature-list/feature-list';
 
 A window overlaid on either the primary window or another dialog window. Modal content is placed in the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer), rendering the underneath content as [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) / non-interactive.
 
-<Showcase name="main" />
+<Showcase name="hero" />
 
 The modal makes use of the HTML `dialog` element, which is supported in [every major browser](https://caniuse.com/?search=dialog).
 
 > For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/). Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
 
 Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed.
-
-<div class="mb-6 flex flex-col gap-2">
-[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/modal)
-
-[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
-
-[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/modal/index.mdx>)
-
-</div>
 
 ## ✨ Features
 
@@ -58,23 +49,19 @@ Modals are used when an important choice needs to be made in the application. Th
       description: 'The root component that contains the dialog element.',
     },
     {
-      name: 'ModalHeader',
-      description: 'A semantic header element that titles the modal.',
+      name: 'ModalTitle',
+      description: 'An accessible name for the modal.',
     },
     {
-      name: 'ModalContent',
-      description: `The main content of the modal.`,
-    },
-    {
-      name: 'ModalFooter',
-      description: `A semantic footer element used to contain menu action buttons.`,
+      name: 'ModalDescription',
+      description: `An optional accessible description for the modal.`,
     },
   ]}
 />
 
 ## Dialog extendability
 
-<Showcase name="inspect" />
+<Showcase name="hero" />
 
 The Qwik UI Modal component is built on top of the `dialog` element. To see additional capabilities of the dialog, take a look at the [offical MDN page](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog).
 
@@ -92,7 +79,7 @@ Above is an example of the `autofocus` attribute, used to focus the 2nd input wh
 
 To open or close the modal, we can use `bind:show`, a custom signal bind that leverages the [bind](https://qwik.builder.io/docs/components/rendering/#bind-attribute) syntax in Qwik.
 
-<Showcase name="inspect" />
+<Showcase name="hero" />
 
 `showSig` is a signal that we pass into our Modal component to customize when the modal can be open or closed.
 
@@ -122,9 +109,7 @@ By default, the `dialog` element comes with a subtle backdrop, below is a snippe
 
 <Showcase name="backdrop" />
 
-Styling a [backdrop in Tailwind](https://tailwindcss.com/docs/backdrop-blur) can be done using the `:backdrop` selector.
-
-<Showcase name="main" />
+> Styling a [backdrop in Tailwind](https://tailwindcss.com/docs/backdrop-blur) can be done using the `backdrop` prefix.
 
 ## Dismissing Modals via Backdrop
 
@@ -148,7 +133,7 @@ Alertdialogs do not allow the backdrop to be closed when clicked, regardless of 
 
 Qwik UI incorporates a feature known as focus locking, which confines the focus within the modal component when it is open.
 
-<Showcase name="inspect" />
+<Showcase name="hero" />
 
 This means that if a user is navigating through the modal using the Tab key, reaching the last focusable element and pressing Tab again will cycle the focus back to the first focusable element within the modal.
 
@@ -182,21 +167,19 @@ Qwik UI automatically detects any `animation` or `transition` declarations under
 
 <Showcase name="transition" />
 
-To add an transition, use the `modal-showing` and `modal-closing` css classes. Above is a snippet where we transition both the modal and backdrop's opacity.
+To add an transition, use the `data-open`, `data-closing` and `data-closed` data attributes. Above is a snippet where we transition both the modal and backdrop's opacity.
 
 ### Adding an animation
 
-<Showcase name="animation" />
+<Showcase name="animatable" />
 
-To add an animation, it's the same as with transitions, using the `modal-showing` and `modal-closing` css classes. Below is a snippet of the animation example above.
-
-<CodeSnippet name="animation.css" />
+To add an animation, it's the same as with transitions, using the `data-open` and `data-closing` data attributes. Below is a snippet of the animation example above.
 
 ### Backdrop animations
 
 Backdrop animations have also made significant progress in the last year, with support provided in over half of the major browsers, and close to 70% of users.
 
-To add a backdrop animation, make sure to use the `::backdrop` pseudo selector to the end of the `modal-closing` or `modal-opening` classes.
+To add a backdrop animation, make sure to use the `::backdrop` pseudo selector to the end of the `data-closing` or `data-open` classes.
 
 > Firefox currently does not support backdrop animations. The fallback for browsers that do not support animated backdrops is the same as a non-animated backdrop.
 
@@ -214,9 +197,19 @@ Sheets are a type of modal/overlay used to provide temporary access to important
 
 Bottom sheets are more prevalent in mobile applications, usually to simplify UI. That said, feel free to use them wherever fits best!
 
+### Animations / Transitions CSS
+
+<CodeSnippet name="animation.css" />
+
 ## Open on page load
 
 There might come a time where a modal is needed open as soon as the page loads. Unfortunately, to create modals a client-side API is currently needed regardless of implementation.
+
+## Example CSS
+
+The example for the CSS used in all of the examples above can be found below.
+
+<CodeSnippet name="modal.css" />
 
 ### SSR dilemma
 
@@ -290,14 +283,19 @@ The current solution across framework ecosystems, is to open the Modal eagerly o
       description: 'An event hook that gets notified whenever the modal shows up.',
     },
     {
-      name: '.modal-showing',
-      type: 'CSS',
-      description: 'A CSS class used for entry animations.',
+      name: 'data-open',
+      type: 'attribute',
+      description: 'A data attribute used for styling open modals and entry animations.',
     },
     {
-      name: '.modal-closing',
-      type: 'CSS',
-      description: 'A CSS class used for exit animations.',
+      name: 'data-closing',
+      type: 'attribute',
+      description: 'A data attribute used for exit animations.',
+    },
+    {
+      name: 'data-closed',
+      type: 'attribute',
+      description: 'A data attribute used for closed modals.',
     },
   ]}
 />

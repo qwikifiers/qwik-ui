@@ -2,7 +2,6 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
 import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
-import Header from '~/components/header/header';
 import {
   DocsNavigation,
   LinkGroup,
@@ -12,6 +11,7 @@ import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
 import { ScrollArea } from '@qwik-ui/styled';
+import Header from '~/components/header/header';
 
 export default component$(() => {
   const { headings } = useContent();

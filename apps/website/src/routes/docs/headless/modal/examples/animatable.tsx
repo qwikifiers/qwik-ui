@@ -11,7 +11,7 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
-      <Modal class="modal modal-transition" bind:show={isOpen}>
+      <Modal class="modal modal-animation" bind:show={isOpen}>
         <ModalTitle>Edit Profile</ModalTitle>
         <ModalDescription>
           You can update your profile here. Hit the save button when finished.

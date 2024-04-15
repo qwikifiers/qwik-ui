@@ -8,21 +8,15 @@ import {
   useSignal,
   useStyles$,
   useTask$,
+  sync$,
+  useId,
+  useContextProvider,
 } from '@builder.io/qwik';
 
-import {
-  activateFocusTrap,
-  closeModal,
-  deactivateFocusTrap,
-  overrideNativeDialogEscapeBehaviorWith,
-  showModal,
-  trapFocus,
-  wasModalBackdropClicked,
-} from './modal-behavior';
-
-import { disableBodyScroll } from 'body-scroll-lock-upgrade';
+import { ModalContext, modalContextId } from './modal-context';
 
 import styles from './modal.css?inline';
+import { useModal } from './use-modal';
 
 export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
   onShow$?: QRL<() => void>;
@@ -34,67 +28,103 @@ export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
 
 export const Modal = component$((props: ModalProps) => {
   useStyles$(styles);
-  const modalRefSig = useSignal<HTMLDialogElement>();
+  const {
+    activateFocusTrap,
+    closeModal,
+    deactivateFocusTrap,
+    showModal,
+    trapFocus,
+    wasModalBackdropClicked,
+  } = useModal();
+
+  const modalRef = useSignal<HTMLDialogElement>();
+  const localId = useId();
 
   const { 'bind:show': showSig } = props;
 
   useTask$(async function toggleModal({ track, cleanup }) {
     const isOpen = track(() => showSig.value);
-    const modal = modalRefSig.value;
 
-    if (!modal) return;
+    if (!modalRef.value) return;
 
-    const focusTrap = trapFocus(modal);
-
-    const escapeKeyListener = overrideNativeDialogEscapeBehaviorWith(() => {
-      showSig.value = false;
-    });
-
-    window.addEventListener('keydown', escapeKeyListener);
+    const focusTrap = await trapFocus(modalRef.value);
 
     if (isOpen) {
       // HACK: keep modal scroll position in place with iOS
       const storedRequestAnimationFrame = window.requestAnimationFrame;
       window.requestAnimationFrame = () => 42;
 
-      showModal(modal);
-      disableBodyScroll(modal, { reserveScrollBarGap: true });
+      await showModal(modalRef.value);
       window.requestAnimationFrame = storedRequestAnimationFrame;
-      props.onShow$?.();
+      await props.onShow$?.();
       activateFocusTrap(focusTrap);
     } else {
-      closeModal(modal);
-      props.onClose$?.();
+      await closeModal(modalRef.value);
+      await props.onClose$?.();
     }
 
-    cleanup(() => {
-      deactivateFocusTrap(focusTrap);
-      window.removeEventListener('keydown', escapeKeyListener);
+    cleanup(async () => {
+      await deactivateFocusTrap(focusTrap);
     });
   });
 
-  const closeOnBackdropClick$ = $((event: MouseEvent) => {
+  const closeOnBackdropClick$ = $(async (e: MouseEvent) => {
     if (props.alert === true || props.closeOnBackdropClick === false) {
       return;
     }
 
-    if (wasModalBackdropClicked(modalRefSig.value, event)) {
+    // We do not want to close elements that dangle outside of the modal
+    if (!(e.target instanceof HTMLDialogElement)) {
+      return;
+    }
+
+    if (await wasModalBackdropClicked(modalRef.value, e)) {
       showSig.value = false;
     }
   });
 
+  const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+    const keys = [' ', 'Enter'];
+
+    if (e.target instanceof HTMLDialogElement && keys.includes(e.key)) {
+      e.preventDefault();
+    }
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+    }
+  });
+
+  const handleKeyDown$ = $((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      showSig.value = false;
+      e.stopPropagation();
+    }
+  });
+
+  const context: ModalContext = {
+    localId,
+  };
+
+  useContextProvider(modalContextId, context);
+
   return (
     <dialog
       {...props}
+      id={`${localId}-root`}
+      aria-labelledby={`${localId}-title`}
+      aria-describedby={`${localId}-description`}
+      // TODO: deprecate data-state in favor of data-open, data-closing, and data-closed
       data-state={showSig.value ? 'open' : 'closed'}
+      data-open={showSig.value && ''}
+      data-closed={!showSig.value && ''}
       role={props.alert === true ? 'alertdialog' : 'dialog'}
-      ref={modalRefSig}
-      onKeyDown$={(event) => {
-        if (event.key === 'Escape') {
-          showSig.value = false;
-        }
+      ref={modalRef}
+      onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
+      onClick$={async (e) => {
+        e.stopPropagation();
+        await closeOnBackdropClick$(e);
       }}
-      onClick$={(event) => closeOnBackdropClick$(event)}
     >
       <Slot />
     </dialog>

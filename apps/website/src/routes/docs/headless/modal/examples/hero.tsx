@@ -1,6 +1,6 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Modal, ModalTitle, ModalDescription, Label } from '@qwik-ui/headless';
-import styles from '../snippets/animation.css?inline';
+import styles from '../snippets/modal.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
@@ -11,7 +11,7 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
-      <Modal class="modal modal-transition" bind:show={isOpen}>
+      <Modal class="modal" bind:show={isOpen}>
         <ModalTitle>Edit Profile</ModalTitle>
         <ModalDescription>
           You can update your profile here. Hit the save button when finished.

@@ -1,5 +1,4 @@
-/* class we add to <Modal /> */
-.my-backdrop::backdrop {
+.modal-backdrop::backdrop {
   /* changing background */
   background: rgba(0, 0, 0, 0.4);
 

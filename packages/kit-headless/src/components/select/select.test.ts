@@ -444,7 +444,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(getValueElement()).toHaveText(expectedValue!);
     });
 
-    test(`GIVEN an already selected item
+    test(`GIVEN no selected item and a placeholder
           WHEN pressing the right arrow key once
           THEN the first enabled option should be selected and have aria-selected`, async ({
       page,
@@ -463,24 +463,23 @@ test.describe('Keyboard Behavior', () => {
       await expect(getHiddenOptionAt(0)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an already selected item
+    test(`GIVEN no selected item and a placeholder
           WHEN pressing the right arrow key twice
           THEN the first enabled option should be selected and have aria-selected`, async ({
       page,
     }) => {
-      const { getTrigger, getHiddenOptionAt, getValueElement } = await setup(
-        page,
-        'hero',
-      );
+      const { driver: d } = await setup(page, 'hero');
 
-      const secondItemValue = await getHiddenOptionAt(1).textContent();
-      await getTrigger().focus();
-      await getTrigger().press('ArrowRight');
-      await getTrigger().press('ArrowRight');
+      const firstItemValue = await d.getHiddenOptionAt(0).textContent();
+      const secondItemValue = await d.getHiddenOptionAt(1).textContent();
 
-      expect(getValueElement()).toHaveText(secondItemValue!);
-      await expect(getHiddenOptionAt(1)).toHaveAttribute('aria-selected', 'true');
-      await expect(getHiddenOptionAt(1)).toHaveAttribute('data-highlighted');
+      await d.getTrigger().press('ArrowRight');
+      await expect(d.getValueElement()).toHaveText(firstItemValue!);
+      await d.getTrigger().press('ArrowRight');
+
+      await expect(d.getValueElement()).toHaveText(secondItemValue!);
+      await expect(d.getHiddenOptionAt(1)).toHaveAttribute('aria-selected', 'true');
+      await expect(d.getHiddenOptionAt(1)).toHaveAttribute('data-highlighted');
     });
 
     test(`GIVEN the second item is selected
