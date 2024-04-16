@@ -1,7 +1,9 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import { CheckboxIndicator } from 'packages/kit-headless/src/components/checkbox/checkbox-indicator';
-import { MyCheckbox } from 'packages/kit-headless/src/components/checkbox/checkbox';
-import { CheckList } from 'packages/kit-headless/src/components/checkbox/checklist';
+import {
+  CheckboxIndicator,
+  MyCheckbox,
+  CheckList,
+} from 'packages/kit-headless/src/components/checkbox/index';
 // this test basically ensures that the sig passed to the checklist controlls trumps all its children
 export default component$(() => {
   const checklistSig = useSignal(true);
@@ -15,9 +17,17 @@ export default component$(() => {
           checkBoxSig={checklistSig}
           id="checklist"
         >
-          <CheckboxIndicator class=" flex w-[80px] justify-center bg-white p-3">
-            ✅
-          </CheckboxIndicator>
+          {checklistSig.value === true && (
+            <CheckboxIndicator class=" flex w-[80px] justify-center bg-white p-3">
+              ✅
+            </CheckboxIndicator>
+          )}
+
+          {checklistSig.value === false && (
+            <CheckboxIndicator class=" flex w-[80px] justify-center bg-white p-3">
+              :)
+            </CheckboxIndicator>
+          )}
           <p>Controlls all</p>
         </MyCheckbox>
         <MyCheckbox
