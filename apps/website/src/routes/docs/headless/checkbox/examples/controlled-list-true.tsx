@@ -2,6 +2,7 @@ import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   CheckboxIndicator,
   MyCheckbox,
+  ChecklistIndicator,
   CheckList,
 } from 'packages/kit-headless/src/components/checkbox/index';
 // this test basically ensures that the sig passed to the checklist controlls trumps all its children
@@ -17,17 +18,11 @@ export default component$(() => {
           checkBoxSig={checklistSig}
           id="checklist"
         >
-          {checklistSig.value === true && (
-            <CheckboxIndicator class=" flex w-[80px] justify-center bg-white p-3">
-              ✅
-            </CheckboxIndicator>
-          )}
+          <ChecklistIndicator>
+            <div q:slot="checkbox">Work</div>
 
-          {checklistSig.value === false && (
-            <CheckboxIndicator class=" flex w-[80px] justify-center bg-white p-3">
-              :)
-            </CheckboxIndicator>
-          )}
+            <div q:slot="checklist">please</div>
+          </ChecklistIndicator>
           <p>Controlls all</p>
         </MyCheckbox>
         <MyCheckbox

@@ -12,7 +12,6 @@ import {
 } from '@builder.io/qwik';
 import { CheckListContext, CheckboxContext } from './context-id';
 import { TriBool, getTriBool } from './checklist-context-wrapper';
-
 export type TriStateCheckboxProps = {
   checkBoxSig?: Signal<boolean>;
   checkList?: boolean;

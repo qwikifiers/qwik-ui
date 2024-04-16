@@ -7,14 +7,17 @@ export const ChecklistIndicator = component$<ChecklistIndicatorProps>((props) =>
   const checkSig = useContext(CheckboxContext);
   return (
     <>
-      <div {...props}>
+      {checkSig.value === true && (
         <div class={checkSig.value === true ? 'visible' : 'invisible'}>
           <Slot name="checkbox" />
         </div>
-      </div>
-      <div class={checkSig.value === true ? 'visible' : 'invisible'}>
-        <Slot name="checklist" />
-      </div>
+      )}
+
+      {checkSig.value === 'indeterminate' && (
+        <div class={checkSig.value === 'indeterminate' ? 'visible' : 'invisible'}>
+          <Slot name="checklist" />
+        </div>
+      )}
     </>
   );
 });
