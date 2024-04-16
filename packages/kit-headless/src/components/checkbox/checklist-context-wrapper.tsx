@@ -42,7 +42,6 @@ export const ChecklistContextWrapper = component$<CheckListContextWrapperProps>(
     });
     return (
       <div role="group" aria-labelledby={props.ariaLabeledBy}>
-        <p>Lokk at me: {idArr.toString()}</p>
         <Slot />
       </div>
     );

@@ -89,7 +89,6 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
       id={checklistID.value}
     >
-      <p>Lol: {`${appliedSig.value}`} </p>
       <Slot />
     </div>
   );
@@ -160,7 +159,6 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
         onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
         id={checklistID.value}
       >
-        <p>Lol: {`${appliedSig.value}`} </p>
         <Slot />
       </div>
     );
@@ -205,7 +203,6 @@ export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
       aria-controls={ariaControlsStrg}
       {...props}
     >
-      <p>IS: {getAriaChecked(appliedSig.value)}</p>
       <Slot />
     </div>
   );
