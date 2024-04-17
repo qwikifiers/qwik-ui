@@ -386,6 +386,29 @@ test.describe('mouse behavior', () => {
       }
     });
   });
+
+  test.describe('controlled checklist behavior', () => {
+    // TODO: change api to not use indeterminate and used mixed instead
+    test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+      WHEN a child checkbox is unchecked
+      THEN the checklist signal should have aria-checked mixed`, async ({ page }) => {
+      const exampleName = 'test-controlled-list-true';
+      const { getTriCheckbox } = await setup(page, exampleName);
+      const firstCheckbox = page.locator('#child-1');
+      await firstCheckbox.click();
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
+    });
+
+    test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
+      WHEN all child checkbox are unchecked
+      THEN the checklist signal should have aria-checked false`, async ({ page }) => {
+      const exampleName = 'test-controlled-list-true';
+      const { getTriCheckbox } = await setup(page, exampleName);
+      await page.locator('#child-1').click();
+      await page.locator('#child-2').click();
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
+    });
+  });
 });
 //TODO: create util file
 //TODO: add click
