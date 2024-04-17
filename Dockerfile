@@ -5,6 +5,7 @@ WORKDIR /dev
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
+RUN npm i -g pnpm
 RUN pnpm install --frozen-lockfile
 
 RUN pnpm playwright install --with-deps
