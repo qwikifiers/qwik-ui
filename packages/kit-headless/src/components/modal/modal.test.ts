@@ -69,21 +69,11 @@ test.describe('Scroll locking', () => {
         THEN the body should have overflow hidden`, async ({ page }) => {
     const { driver: d } = await setup(page, 'scroll-lock');
 
-    expect(
-      await page.evaluate(() => {
-        const { overflow } = getComputedStyle(document.body);
-        return overflow === 'hidden';
-      }),
-    ).toBe(false);
+    await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
 
     await d.openModal();
 
-    expect(
-      await page.evaluate(() => {
-        const { overflow } = getComputedStyle(document.body);
-        return overflow === 'hidden';
-      }),
-    ).toBe(true);
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
   });
 
   test(`GIVEN an open modal that has overflow hidden on the body
@@ -100,22 +90,12 @@ test.describe('Scroll locking', () => {
 
     await d.openModal();
 
-    expect(
-      await page.evaluate(() => {
-        const { overflow } = getComputedStyle(document.body);
-        return overflow === 'hidden';
-      }),
-    ).toBe(true);
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
 
     await d.getTrigger().press('Escape');
     await expect(d.getModal()).toBeHidden();
 
-    expect(
-      await page.evaluate(() => {
-        const { overflow } = getComputedStyle(document.body);
-        return overflow === 'hidden';
-      }),
-    ).toBe(false);
+    await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
   });
 
   test(`GIVEN two open modals, one nested inside the other
