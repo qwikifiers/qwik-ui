@@ -7,7 +7,7 @@ export default component$(() => {
   const isOpen = useSignal(false);
 
   return (
-    <div style={{ height: '200vh' }}>
+    <div>
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
