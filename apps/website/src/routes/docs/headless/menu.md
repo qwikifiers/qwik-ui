@@ -13,6 +13,7 @@
 
 ## Components
 
+- [Missing a component?](/docs/headless/missing)
 - [Accordion](/docs/headless/accordion)
 - [Carousel](/docs/headless/carousel)
 - [Collapsible](/docs/headless/collapsible)
