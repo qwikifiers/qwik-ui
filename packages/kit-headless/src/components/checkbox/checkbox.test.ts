@@ -278,7 +278,7 @@ test.describe('keyboard behavior', () => {
     });
   });
 });
-test.describe.only('mouse behavior', () => {
+test.describe('mouse behavior', () => {
   test.describe('single checkbox behavior', () => {
     test(`GIVEN a checkbox with a user sig value of true
         WHEN the checkbox is clicked
@@ -311,10 +311,85 @@ test.describe.only('mouse behavior', () => {
       await expect(getIcon()).toBeVisible();
     });
   });
+
+  test.describe('uncontrolled checklist behavior', () => {
+    test.only(`GIVEN checklist with all unchecked checkboxes
+        WHEN the first child checkbox is clicked
+        the chekbox with aria-controls should have aria-checked mixed`, async ({
+      page,
+    }) => {
+      const exampleName = 'test-list';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toBeVisible();
+      await getCheckbox().nth(1).click();
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
+    });
+
+    test(`GIVEN checklist with all unchecked checkboxes
+        WHEN all checkboxes are checked
+        the chekbox with aria-controls should have aria-checked true`, async ({
+      page,
+    }) => {
+      const exampleName = 'test-list';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toBeVisible();
+      await getCheckbox().nth(1).press(' ');
+      await getCheckbox().nth(2).press(' ');
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+    });
+
+    test(`GIVEN checklist with all unchecked checkboxes
+        WHEN the checklist's checkbox is checked
+        THEN  all chekboxes should have aria-checked true`, async ({ page }) => {
+      const exampleName = 'test-list';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toBeVisible();
+      await getTriCheckbox().press(' ');
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
+    });
+
+    // TODO: reme two part of test by adding new test file
+    test(`GIVEN checklist with all unchecked checkboxes
+        WHEN the checklist's checkbox is checked twice
+        THEN  all chekboxes should go from aria-checked true to aria-checkded false`, async ({
+      page,
+    }) => {
+      const exampleName = 'test-list';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toBeVisible();
+      await getTriCheckbox().press(' ');
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
+      await getTriCheckbox().press(' ');
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
+      await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'false');
+      await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'false');
+    });
+    test(`GIVEN checklist with checkboxes
+        WHEN the values of aria-controls are search
+        IT should always return a valid, non-duplicate, checkboxes`, async ({ page }) => {
+      const { getTriCheckbox } = await setup(page, 'test-list');
+      await expect(getTriCheckbox()).toHaveAttribute('aria-controls');
+      const magic = await getTriCheckbox().getAttribute('aria-controls');
+      expect(magic).not.toBe(null);
+      const idArr = magic!.split(' ');
+      expect(isUniqArr(idArr)).toBe(true);
+      for (let index = 0; index < idArr.length; index++) {
+        const elementId = idArr[index];
+        const PosCheckbox = page.locator(`#${elementId}`);
+        await expect(PosCheckbox).toBeVisible();
+        const role = await PosCheckbox.getAttribute('role');
+        expect(role).toBe('checkbox');
+      }
+    });
+  });
 });
 //TODO: create util file
-//TODO: add test for user-given ids and other passed props
 //TODO: add click
+//TODO: refactor to use ids instead of nths since its test-only now
 function isUniqArr(arr: string[]) {
   const singleInstances = new Set(arr);
   return arr.length === singleInstances.size;

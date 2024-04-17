@@ -24,6 +24,9 @@ export type TwoStateCheckboxProps = {
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
 
+type CheckboxBehaviorProps = {
+  checkboxSig: Signal<boolean>;
+} & PropsOf<'div'>;
 export type ChecklistTwoStateCheckboxProps = {
   checkBoxSig?: Signal<boolean>;
   _useCheckListContext?: boolean;
@@ -85,17 +88,16 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
   });
   // TODO: refactor to usetask code into fancy hook thingy
   return (
-    <div
+    <CheckboxBehavior
+      checkboxSig={appliedSig}
       tabIndex={0}
       role="checkbox"
       aria-checked={getAriaChecked(appliedSig.value)}
       {...props}
-      onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
-      onClick$={handleClick}
       id={checklistID.value}
     >
       <Slot />
-    </div>
+    </CheckboxBehavior>
   );
 });
 
@@ -207,6 +209,36 @@ export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
       aria-controls={ariaControlsStrg}
       {...props}
+    >
+      <Slot />
+    </div>
+  );
+});
+
+const CheckboxBehavior = component$<CheckboxBehaviorProps>((props) => {
+  const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+    if (e.key === ' ') {
+      e.preventDefault();
+    }
+  });
+  // this logic is duplicared thrice, make into hook pls
+  const handleClick = $(() => {
+    props.checkboxSig.value = !props.checkboxSig.value;
+  });
+  const handleKeyDown$ = $((e: KeyboardEvent) => {
+    if (e.key === ' ') {
+      props.checkboxSig.value = !props.checkboxSig.value;
+    }
+  });
+  // TODO: refactor to usetask code into fancy hook thingy
+  return (
+    <div
+      tabIndex={0}
+      role="checkbox"
+      aria-checked={getAriaChecked(props.checkboxSig.value)}
+      {...props}
+      onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
+      onClick$={handleClick}
     >
       <Slot />
     </div>
