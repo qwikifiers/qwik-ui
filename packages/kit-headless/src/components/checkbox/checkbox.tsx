@@ -24,7 +24,7 @@ export type TwoStateCheckboxProps = {
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
 
-type CheckboxBehaviorProps = {
+type TwoStateCheckboxBehaviorProps = {
   checkboxSig: Signal<boolean>;
 } & PropsOf<'div'>;
 export type ChecklistTwoStateCheckboxProps = {
@@ -72,23 +72,8 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
   const appliedSig = props.checkBoxSig ?? defaultSig;
   const checklistID = useSignal<string | undefined>(props.id);
   useContextProvider(CheckboxContext, appliedSig);
-  const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
-    if (e.key === ' ') {
-      e.preventDefault();
-    }
-  });
-  // this logic is duplicared thrice, make into hook pls
-  const handleClick = $(() => {
-    appliedSig.value = !appliedSig.value;
-  });
-  const handleKeyDown$ = $((e: KeyboardEvent) => {
-    if (e.key === ' ') {
-      appliedSig.value = !appliedSig.value;
-    }
-  });
-  // TODO: refactor to usetask code into fancy hook thingy
   return (
-    <CheckboxBehavior
+    <TwoStateCheckboxBehavior
       checkboxSig={appliedSig}
       tabIndex={0}
       role="checkbox"
@@ -97,7 +82,7 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
       id={checklistID.value}
     >
       <Slot />
-    </CheckboxBehavior>
+    </TwoStateCheckboxBehavior>
   );
 });
 
@@ -113,18 +98,6 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
     // makes sure that the checklist's value is the same as its child
     const syncToChecklist = useSignal<undefined | boolean>(props._overWriteCheckbox);
     useContextProvider(CheckboxContext, appliedSig);
-    const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
-      if (e.key === ' ') {
-        e.preventDefault();
-      }
-    });
-    const handleKeyDown$ = $((e: KeyboardEvent) => {
-      if (e.key === ' ') {
-        appliedSig.value = !appliedSig.value;
-      }
-    });
-
-    // TODO: refactor to usetask code into fancy hook thingy
     useTask$(({ track }) => {
       console.log('overwrite: ', props._overWriteCheckbox, appliedSig.value);
 
@@ -158,16 +131,16 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
       checklistContext.checklistSig.value = newVal;
     });
     return (
-      <div
+      <TwoStateCheckboxBehavior
+        {...props}
         tabIndex={0}
         role="checkbox"
         aria-checked={getAriaChecked(appliedSig.value)}
-        {...props}
-        onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
         id={checklistID.value}
+        checkboxSig={appliedSig}
       >
         <Slot />
-      </div>
+      </TwoStateCheckboxBehavior>
     );
   },
 );
@@ -215,7 +188,7 @@ export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
   );
 });
 
-const CheckboxBehavior = component$<CheckboxBehaviorProps>((props) => {
+const TwoStateCheckboxBehavior = component$<TwoStateCheckboxBehaviorProps>((props) => {
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
       e.preventDefault();
