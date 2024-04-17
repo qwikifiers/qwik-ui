@@ -158,6 +158,16 @@ export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
   if (props.checkBoxSig !== undefined) {
     checklistContext.checklistSig = props.checkBoxSig;
   }
+
+  const changeChecklistSig = $(() => {
+    if (appliedSig.value !== true) {
+      appliedSig.value = true;
+      childCheckboxes.value.forEach((sig) => (sig.value = true));
+      return;
+    }
+    appliedSig.value = false;
+    childCheckboxes.value.forEach((sig) => (sig.value = false));
+  });
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     if (e.key === ' ') {
       e.preventDefault();
@@ -165,15 +175,13 @@ export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
   });
   const handleKeyDown$ = $((e: KeyboardEvent) => {
     if (e.key === ' ') {
-      if (appliedSig.value !== true) {
-        appliedSig.value = true;
-        childCheckboxes.value.forEach((sig) => (sig.value = true));
-        return;
-      }
-      appliedSig.value = false;
-      childCheckboxes.value.forEach((sig) => (sig.value = false));
+      changeChecklistSig();
     }
   });
+  const handleClick$ = $(() => {
+    changeChecklistSig();
+  });
+
   return (
     <div
       tabIndex={0}
@@ -181,6 +189,7 @@ export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
       aria-checked={getAriaChecked(appliedSig.value)}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
       aria-controls={ariaControlsStrg}
+      onClick$={[handleClick$]}
       {...props}
     >
       <Slot />

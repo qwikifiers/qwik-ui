@@ -313,7 +313,7 @@ test.describe('mouse behavior', () => {
   });
 
   test.describe('uncontrolled checklist behavior', () => {
-    test.only(`GIVEN checklist with all unchecked checkboxes
+    test(`GIVEN checklist with all unchecked checkboxes
         WHEN the first child checkbox is clicked
         the chekbox with aria-controls should have aria-checked mixed`, async ({
       page,
@@ -333,8 +333,8 @@ test.describe('mouse behavior', () => {
       const exampleName = 'test-list';
       const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
       await expect(getTriCheckbox()).toBeVisible();
-      await getCheckbox().nth(1).press(' ');
-      await getCheckbox().nth(2).press(' ');
+      await getCheckbox().nth(1).click();
+      await getCheckbox().nth(2).click();
       await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
     });
 
@@ -344,7 +344,7 @@ test.describe('mouse behavior', () => {
       const exampleName = 'test-list';
       const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
       await expect(getTriCheckbox()).toBeVisible();
-      await getTriCheckbox().press(' ');
+      await getTriCheckbox().click();
       await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
       await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
       await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
@@ -359,11 +359,11 @@ test.describe('mouse behavior', () => {
       const exampleName = 'test-list';
       const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
       await expect(getTriCheckbox()).toBeVisible();
-      await getTriCheckbox().press(' ');
+      await getTriCheckbox().click();
       await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
       await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
       await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
-      await getTriCheckbox().press(' ');
+      await getTriCheckbox().click();
       await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
       await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'false');
       await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'false');
