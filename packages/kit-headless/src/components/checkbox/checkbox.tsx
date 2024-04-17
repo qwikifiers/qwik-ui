@@ -74,6 +74,10 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
       e.preventDefault();
     }
   });
+  // this logic is duplicared thrice, make into hook pls
+  const handleClick = $(() => {
+    appliedSig.value = !appliedSig.value;
+  });
   const handleKeyDown$ = $((e: KeyboardEvent) => {
     if (e.key === ' ') {
       appliedSig.value = !appliedSig.value;
@@ -87,6 +91,7 @@ export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
       aria-checked={getAriaChecked(appliedSig.value)}
       {...props}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
+      onClick$={handleClick}
       id={checklistID.value}
     >
       <Slot />
