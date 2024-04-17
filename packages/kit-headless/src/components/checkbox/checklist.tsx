@@ -84,11 +84,6 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
     checklistChilds.forEach((checkbox) => {
       Object.assign(checkbox.props, { _overWriteCheckbox: true });
     });
-    // TODO: add code for controlled stuff
-    // for (let index = 0; index < hellSigs.length; index++) {
-    //   const element = array[index];
-    //
-    // }
   }
   console.log('fav idArr: ', idArr);
 
@@ -110,3 +105,4 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
     </>
   );
 };
+// TODO: deprecate ariaLabelledBy

@@ -7,7 +7,7 @@ export default component$(() => {
         <CheckboxIndicator class="flex h-[25px] w-[25px] items-center justify-center bg-slate-600">
           ✅
         </CheckboxIndicator>
-        No other stuff is needed here
+        Accept item
       </MyCheckbox>
     </>
   );

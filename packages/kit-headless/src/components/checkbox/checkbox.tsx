@@ -150,7 +150,10 @@ export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
   const checklistContext = useContext(CheckListContext);
   const childCheckboxes = checklistContext.checkboxes;
   const appliedSig = props.checkBoxSig ?? checklistContext.checklistSig;
-  const ariaControlsStrg = checklistContext.idArr.reduce((p, c) => p + ' ' + c);
+  const ariaControlsStrg =
+    checklistContext.idArr.length === 0
+      ? ''
+      : checklistContext.idArr.reduce((p, c) => p + ' ' + c);
   useContextProvider(CheckboxContext, appliedSig);
   useTask$(() => {});
 
