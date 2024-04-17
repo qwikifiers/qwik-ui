@@ -19,9 +19,13 @@ export default component$(() => {
           id="checklist"
         >
           <ChecklistIndicator class="w-fit">
-            <div q:slot="checkbox">✅</div>
+            <div q:slot="checkbox" id="true-img">
+              ✅
+            </div>
 
-            <div q:slot="checklist">➖</div>
+            <div q:slot="checklist" id="mixed-img">
+              ➖
+            </div>
           </ChecklistIndicator>
           <p>Controlls all</p>
         </MyCheckbox>

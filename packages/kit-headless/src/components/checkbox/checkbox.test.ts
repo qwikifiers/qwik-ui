@@ -28,6 +28,38 @@ async function setup(page: Page, exampleName: string) {
   };
 }
 
+test.describe('render behavior', () => {
+  test.describe('checklist', () => {
+    test(`GIVEN a mixed checklist
+        WHEN the checklist renders
+        IT should render the mixed img
+        AND not the true img`, async ({ page }) => {
+      const exampleName = 'test-controlled-list-mixed';
+      await setup(page, exampleName);
+      await expect(page.locator('#mixed-img')).toBeVisible();
+      await expect(page.locator('#true-img')).toBeHidden();
+    });
+
+    test(`GIVEN an all-checked checklist
+        WHEN the checklist renders
+        IT should  render the true img
+        AND not the mixed img`, async ({ page }) => {
+      const exampleName = 'test-controlled-list-true';
+      await setup(page, exampleName);
+      await expect(page.locator('#true-img')).toBeVisible();
+      await expect(page.locator('#mixed-img')).toBeHidden();
+    });
+
+    test(`GIVEN an all-unchecked checklist
+        WHEN the checklist renders
+        IT should  render the true img and the mixed img`, async ({ page }) => {
+      const exampleName = 'test-controlled-list-false';
+      await setup(page, exampleName);
+      await expect(page.locator('#true-img')).toBeHidden();
+      await expect(page.locator('#mixed-img')).toBeHidden();
+    });
+  });
+});
 test.describe('keyboard behavior', () => {
   test.describe('single checkbox behavior', () => {
     test(`GIVEN a checkbox with a user sig value of true
