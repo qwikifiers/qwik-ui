@@ -45,6 +45,9 @@ export default defineConfig({
       name: 'visual',
       use: { ...devices['Desktop Chrome'] },
       grep: /@Visual.*/,
+      expect: {
+        toHaveScreenshot: {},
+      },
     },
 
     // {
