@@ -6,7 +6,7 @@ export default component$(() => {
   return (
     <>
       <p>I'm the default checkbox!!!</p>
-      <MyCheckbox class="bg-slate-900 text-white">
+      <MyCheckbox class=" text-white">
         <div class="flex items-center gap-3">
           <CheckboxIndicator class="w-fit bg-slate-600">
             <p id="indicator">✅</p>
