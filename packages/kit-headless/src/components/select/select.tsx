@@ -30,8 +30,11 @@ export type SelectProps = PropsOf<'div'> & {
   /** The initial selected value (uncontrolled). */
   value?: string;
 
-  /** A signal that contains the current selected value (controlled). */
+  /** A signal that controls the current selected value (controlled). */
   'bind:value'?: Signal<string>;
+
+  /** A signal that controls the current open state (controlled). */
+  'bind:open'?: Signal<boolean>;
 
   /**
    * QRL handler that runs when a select value changes.
@@ -134,6 +137,12 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
         selectedIndexSig.value = matchingIndex;
         highlightedIndexSig.value = matchingIndex;
       }
+    });
+
+    useTask$(function reactiveOpenTask({ track }) {
+      const signalValue = track(() => props['bind:open']?.value);
+
+      isListboxOpenSig.value = signalValue ?? isListboxOpenSig.value;
     });
 
     useTask$(async function onChangeTask({ track }) {

@@ -173,9 +173,13 @@ We can pass reactive state by using the `bind:value` prop to the `<Select />` ro
 
 <Showcase name="controlled" />
 
-`bind:value` is a signal prop, it allows us to programmatically control the selected value of the select component.
+`bind:value` is a signal prop, it allows us to reactively control the selected value of the select component.
 
 > Signal props enables two-way data binding efficiently without the common issues of change detection in other frameworks.
+
+We can also reactively control the open state of the select component by using the `bind:open` signal prop.
+
+<Showcase name="bind-open" />
 
 ### Programmatic changes
 
