@@ -972,6 +972,18 @@ test.describe('Props', () => {
       await expect(getHiddenOptionAt(1)).toHaveAttribute('data-highlighted');
       await expect(getHiddenOptionAt(1)).toHaveAttribute('aria-selected', 'true');
     });
+
+    test(`GIVEN a controlled closed select with a bind:open prop on the root component
+    WHEN the bind:open signal changes to true
+    THEN the listbox should open to reflect the new signal value`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'bind-open');
+
+      await expect(d.getListbox()).toBeHidden();
+
+      page.getByRole('button', { name: 'Toggle open state' }).click();
+
+      await expect(d.getListbox()).toBeVisible();
+    });
   });
 
   test.describe('option value', () => {
