@@ -1,11 +1,15 @@
 FROM mcr.microsoft.com/playwright:v1.43.0-jammy
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 WORKDIR /dev
 
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
-RUN npm i -g pnpm
+#RUN npm i -g pnpm
 RUN pnpm install --frozen-lockfile
 
 RUN pnpm playwright install --with-deps
