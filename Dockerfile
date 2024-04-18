@@ -4,7 +4,7 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-WORKDIR /dev
+WORKDIR /opt
 
 COPY package.json ./
 COPY pnpm-lock.yaml ./
@@ -18,4 +18,4 @@ COPY packages/kit-headless ./packages/kit-headless
 COPY packages/kit-styled ./packages/kit-styled
 COPY apps/component-tests ./packages/component-tests
 
-CMD ["pnpm", "test.pw.visual-headless"]
+CMD ["pnpm", "test.visual.headless"]

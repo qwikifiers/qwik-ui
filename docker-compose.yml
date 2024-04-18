@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     image: playwright-tests
     volumes:
-      - ./packages:/dev/packages
+      - ./packages:/opt/packages
     ports:
       - '5713:5713'
-    working_dir: /dev
+    # working_dir: /dev
