@@ -20,6 +20,7 @@ export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
   testMatch: '**/*.test.ts',
   timeout: 30000,
+  reporter: [['line']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL,
@@ -45,6 +46,7 @@ export default defineConfig({
       name: 'visual',
       use: { ...devices['Desktop Chrome'] },
       grep: /@Visual.*/,
+
       expect: {
         toHaveScreenshot: {},
       },

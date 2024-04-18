@@ -20,3 +20,9 @@ build/
 # Ignore version control files
 .git/
 .gitignore
+
+cypress
+cla-signs
+.verdaccio
+.storybook
+logs

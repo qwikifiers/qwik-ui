@@ -9,13 +9,15 @@ WORKDIR /opt
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
-#RUN npm i -g pnpm
 RUN pnpm install --frozen-lockfile
 
 RUN pnpm playwright install --with-deps
 
 COPY packages/kit-headless ./packages/kit-headless
 COPY packages/kit-styled ./packages/kit-styled
-COPY apps/component-tests ./packages/component-tests
+COPY apps/component-tests ./apps/component-tests
+COPY . .
 
-CMD ["pnpm", "test.visual.headless"]
+#ENV DEBUG="pw:browser"
+#ENV NX_VERBOSE_LOGGING=true
+CMD ["pnpm", "test.headless.visual"]

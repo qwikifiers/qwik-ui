@@ -41,6 +41,10 @@ runs:
       with:
         command: 'pnpm test.headless.ci'
 
+    - name: Run Visual Tests
+      shell: bash
+      run: 'pnpm test.headless.visual'
+
     # - name: Publish to Chromatic
     #   uses: chromaui/action@v1
     #   # Chromatic GitHub Action options
