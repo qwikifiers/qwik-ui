@@ -1,14 +1,14 @@
-import { Slot, component$, useContext, useId, useTask$ } from '@builder.io/qwik';
+import { component$, useContext, Slot, useTask$, useId } from '@builder.io/qwik';
 import { Popover, usePopover } from '../popover';
-import comboboxContextId from './combobox-context';
 
-import { isServer } from '@builder.io/qwik/build';
+import ComboboxContextId from './combobox-context-id';
 import { FloatingProps } from '../popover/floating';
 import { PopoverImplProps } from '../popover/popover-impl';
+import { isServer } from '@builder.io/qwik/build';
 
 export const ComboboxPopover = component$(
   (props: Partial<FloatingProps & PopoverImplProps>) => {
-    const context = useContext(comboboxContextId);
+    const context = useContext(ComboboxContextId);
     const customPopoverId = useId();
     const { showPopover, hidePopover } = usePopover(customPopoverId);
 
@@ -32,6 +32,7 @@ export const ComboboxPopover = component$(
         floating={true}
         anchorRef={context.inputRef}
         ref={context.popoverRef}
+        class={['listbox', props.class]}
         manual
       >
         <Slot />

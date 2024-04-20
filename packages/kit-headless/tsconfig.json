@@ -1,6 +1,10 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "*": ["./src/*"]
+    },
     "allowJs": true,
     "target": "ES2017",
     "module": "ES2022",
@@ -22,6 +26,7 @@
   },
   "files": [],
   "include": [],
+  "exclude": ["node_modules"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

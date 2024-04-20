@@ -1,4 +1,5 @@
 import {
+  PropsOf,
   Slot,
   component$,
   useComputed$,
@@ -6,10 +7,9 @@ import {
   useId,
   useSignal,
   useTask$,
+  type ContextId,
   type QRL,
   type Signal,
-  type ContextId,
-  PropsOf,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
@@ -51,7 +51,7 @@ export type ComboboxProps<O extends Option = Option> = PropsOf<'div'> & {
   'bind:selectedIndex'?: Signal<number>;
 };
 
-export const Combobox = component$(
+export const ComboboxRoot = component$(
   <O extends Option = Option>(props: ComboboxProps<O>) => {
     const {
       'bind:isListboxOpen': givenListboxOpenSig,
@@ -171,7 +171,7 @@ export const Combobox = component$(
     useContextProvider(ComboboxContextId as ContextId<ComboboxContext<O>>, context);
 
     return (
-      <div {...rest}>
+      <div data-combobox {...rest}>
         <Slot />
       </div>
     );
