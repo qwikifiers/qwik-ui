@@ -21,6 +21,7 @@ export function usePopover(popovertarget: string) {
   const didInteractSig = useSignal<boolean>(false);
   const popoverSig = useSignal<HTMLElement | null>(null);
   const initialClickSig = useSignal<boolean>(false);
+  const isCSRSig = useSignal<boolean>(false);
 
   const loadPolyfill$ = $(async () => {
     await import('@oddbird/popover-polyfill');
@@ -43,6 +44,12 @@ export function usePopover(popovertarget: string) {
     didInteractSig.value = true;
   });
 
+  useTask$(() => {
+    if (isBrowser) {
+      isCSRSig.value = true;
+    }
+  });
+
   useTask$(async ({ track }) => {
     track(() => didInteractSig.value);
 
@@ -52,7 +59,7 @@ export function usePopover(popovertarget: string) {
     if (!popoverSig.value) {
       popoverSig.value = document.getElementById(popovertarget);
 
-      if (!initialClickSig.value) {
+      if (!initialClickSig.value && !isCSRSig.value) {
         popoverSig.value?.showPopover();
       }
     }
