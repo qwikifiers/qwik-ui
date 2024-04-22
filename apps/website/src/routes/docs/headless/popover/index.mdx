@@ -23,9 +23,17 @@ A non-modal primitive with overlays that open and close around a DOM element.
   ]}
 />
 
+<Note status="warning">
+  You are about to see a fixed scrolling popover. Yes, this behavior is intended. It is
+  part of the native popover API! If you want to anchor items, there is a floating section
+  that covers this behavior.
+</Note>
+
+<Showcase name="basic" />
+
 The Qwik UI Popover component is designed to align with the [HTML Popover API Specification](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API). As of now, native support for this API is around `82.5%`, and in almost every browser.
 
-To ensure consistent behavior across all browsers, Qwik UI provides a `polyfill` for browser versions that do not support the API natively.
+To ensure consistent behavior across all browsers, Qwik UI provides a `polyfill` with feature parity for browser versions that do not support the API natively.
 
 <div class="flex flex-col gap-2">
   <div>
@@ -296,7 +304,9 @@ useTask$(async ({ track }) => {
 
 To use the popover API with floating elements, you can add the `floating={true}` prop to the Popover component. This API enables the use of JavaScript to dynamically position the listbox using the `top` & `left` absolute properties.
 
-> Enabling the `floating={true}` property will introduce a slight increase in code size, as we currently utilize JavaScript to implement floating items. We've strived to keep it as minimal as possible, but powerful in building complex components in anticipation of the forthcoming anchor API.
+Enabling the `floating={true}` property will introduce a slight increase in code size, as we currently utilize JavaScript to implement floating items. We've strived to keep it as minimal as possible, but powerful in building complex components.
+
+> Once the native anchor API is available in all browsers, you can remove the floating prop and use CSS instead! Smaller bundle size for the win!
 
 To float an element, it must have an anchored element to latch onto. This can be done with the `anchorRef` prop.
 

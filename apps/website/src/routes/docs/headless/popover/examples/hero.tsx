@@ -1,13 +1,22 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import { Popover, PopoverTrigger } from '@qwik-ui/headless';
+
 export default component$(() => {
+  const triggerRef = useSignal<HTMLButtonElement>();
+
   return (
     <>
-      <PopoverTrigger popovertarget="hero-id" class="popover-trigger">
-        Popover Trigger
+      <PopoverTrigger ref={triggerRef} popovertarget="popover-id" class="popover-trigger">
+        Click me
       </PopoverTrigger>
-      <Popover id="hero-id" class="popover">
-        My Hero!
+      <Popover
+        anchorRef={triggerRef}
+        floating={true}
+        gutter={4}
+        id="popover-id"
+        class="popover"
+      >
+        I am anchored to the popover trigger!
       </Popover>
     </>
   );
