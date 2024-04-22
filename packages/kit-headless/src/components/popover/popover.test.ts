@@ -21,7 +21,7 @@ test('@Visual diff', async ({ page }) => {
 });
 
 test.describe('Mouse Behavior', () => {
-  test(`GIVEN a closed hero popover
+  test(`GIVEN a closed popover
         WHEN clicking on the trigger
         THEN the popover should be opened `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
@@ -32,7 +32,7 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getPopover()).toBeVisible();
   });
 
-  test(`GIVEN an open hero popover
+  test(`GIVEN an open popover
         WHEN clicking elsewhere on the page
         THEN the popover should close`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
@@ -40,32 +40,33 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getPopover()).toBeHidden();
     await d.getTrigger().click();
 
-    // If I use `toBeVisible` here, the test fails that the `toBeHidden` check below????
-    await expect(d.getPopover()).toHaveCSS('opacity', '1');
+    await expect(d.getPopover()).toBeVisible();
 
     await page.mouse.click(0, 0);
 
     await expect(d.getPopover()).toBeHidden();
   });
 
-  test(`GIVEN an open auto popover
+  test(`GIVEN an open popover
   WHEN clicking the first trigger on the page and then clicking the second trigger
   THEN the first popover should close and the second one appear`, async ({ page }) => {
     const { driver: d } = await setup(page, 'auto');
-    //ask shai: is it good to use nth here???
-    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
-    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
 
-    await expect(firstPopOver).toBeHidden();
-    await expect(secondPopOver).toBeHidden();
+    const firstPopover = d.getPopover().nth(0);
+    const secondPopover = d.getPopover().nth(1);
+    const firstTrigger = d.getTrigger().nth(0);
+    const secondTrigger = d.getTrigger().nth(1);
 
-    await firstPopoverTrigger.click({ position: { x: 1, y: 1 } });
-    await expect(firstPopOver).toBeVisible();
+    await expect(firstPopover).toBeHidden();
+    await expect(secondPopover).toBeHidden();
 
-    await secondPopoverTrigger.click({ position: { x: 1, y: 1 } });
-    await expect(secondPopOver).toBeVisible();
+    await firstTrigger.click({ position: { x: 1, y: 1 } });
+    await expect(firstPopover).toBeVisible();
 
-    await expect(firstPopOver).toBeHidden();
+    await secondTrigger.click({ position: { x: 1, y: 1 } });
+    await expect(secondPopover).toBeVisible();
+
+    await expect(firstPopover).toBeHidden();
   });
 
   test(`GIVEN a pair of manual popovers
@@ -73,18 +74,19 @@ test.describe('Mouse Behavior', () => {
   THEN then both popovers should be opened`, async ({ page }) => {
     const { driver: d } = await setup(page, 'manual');
 
-    //ask shai: is it good to use nth here???
-    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
-    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
+    const firstPopover = d.getPopover().nth(0);
+    const secondPopover = d.getPopover().nth(1);
+    const firstTrigger = d.getTrigger().nth(0);
+    const secondTrigger = d.getTrigger().nth(1);
 
-    await expect(firstPopOver).toBeHidden();
-    await expect(secondPopOver).toBeHidden();
+    await expect(firstPopover).toBeHidden();
+    await expect(secondPopover).toBeHidden();
 
-    await firstPopoverTrigger.click({ position: { x: 1, y: 1 } });
-    await secondPopoverTrigger.click({ position: { x: 1, y: 1 } });
+    await firstTrigger.click({ position: { x: 1, y: 1 } });
+    await secondTrigger.click({ position: { x: 1, y: 1 } });
 
-    await expect(firstPopOver).toBeVisible();
-    await expect(secondPopOver).toBeVisible();
+    await expect(firstPopover).toBeVisible();
+    await expect(secondPopover).toBeVisible();
   });
 
   test(`GIVEN a pair of manual opened popovers
@@ -92,30 +94,28 @@ test.describe('Mouse Behavior', () => {
   THEN then both popovers should be closed`, async ({ page }) => {
     const { driver: d } = await setup(page, 'manual');
 
-    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
-    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
+    const firstPopover = d.getPopover().nth(0);
+    const secondPopover = d.getPopover().nth(1);
+    const firstTrigger = d.getTrigger().nth(0);
+    const secondTrigger = d.getTrigger().nth(1);
 
-    // Arrange
-    await firstPopoverTrigger.click({ position: { x: 1, y: 1 } });
-    await secondPopoverTrigger.click({ position: { x: 1, y: 1 } });
-
-    await expect(firstPopOver).toBeVisible();
-    await expect(secondPopOver).toBeVisible();
+    await d.openPopover('click', 0);
+    await d.openPopover('click', 1);
 
     // Need to be explicit about where we're clicking. By default
     // the click action tries to click the center of the element
     // but in this case, the popover is covering it.
-    await firstPopoverTrigger.click({ position: { x: 1, y: 1 } });
-    await secondPopoverTrigger.click({ position: { x: 1, y: 1 } });
+    await firstTrigger.click({ position: { x: 1, y: 1 } });
+    await secondTrigger.click({ position: { x: 1, y: 1 } });
 
     // Assert
-    await expect(firstPopOver).toBeHidden();
-    await expect(secondPopOver).toBeHidden();
+    await expect(firstPopover).toBeHidden();
+    await expect(secondPopover).toBeHidden();
   });
 
-  test(`GIVEN a popover with placement set to top
-  WHEN opening the popover
-  THEN the popover should appear to the right of the trigger`, async ({ page }) => {
+  test(`GIVEN a popover with placement set to right
+        WHEN hovering over the popover
+        THEN the popover should appear to the right of the trigger`, async ({ page }) => {
     const { driver: d } = await setup(page, 'placement');
 
     const popover = d.getPopover();
@@ -128,10 +128,11 @@ test.describe('Mouse Behavior', () => {
     const popoverBoundingBox = await popover.boundingBox();
     const triggerBoundingBox = await trigger.boundingBox();
 
-    expect(popoverBoundingBox?.x).toBeGreaterThan(
+    const triggerRightEdge =
       (triggerBoundingBox?.x ?? Number.MAX_VALUE) +
-        (triggerBoundingBox?.width ?? Number.MAX_VALUE),
-    );
+      (triggerBoundingBox?.width ?? Number.MAX_VALUE);
+
+    expect(popoverBoundingBox?.x).toBeGreaterThan(triggerRightEdge);
   });
 
   test(`GIVEN a popover with a gutter configured
@@ -149,10 +150,10 @@ test.describe('Mouse Behavior', () => {
     const popoverBoundingBox = await popover.boundingBox();
     const triggerBoundingBox = await trigger.boundingBox();
 
-    expect(
+    const gutterSpace =
       (triggerBoundingBox?.y ?? 0) -
-        ((popoverBoundingBox?.y ?? 0) + (popoverBoundingBox?.height ?? 0)),
-    ).toBe(40);
+      ((popoverBoundingBox?.y ?? 0) + (popoverBoundingBox?.height ?? 0));
+    expect(gutterSpace).toBe(40);
   });
 
   // test(`GIVEN a combobox with a flip configured

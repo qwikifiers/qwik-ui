@@ -1,6 +1,8 @@
-import { type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 export type DriverLocator = Locator | Page;
+
+type OpenKeys = 'Enter' | 'Space';
 
 export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getPopover = () => {
@@ -9,6 +11,21 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
 
   const getTrigger = () => {
     return rootLocator.locator('[popovertarget]');
+  };
+
+  const openPopover = async (key: OpenKeys | 'click', index?: number) => {
+    const action = key === 'click' ? 'click' : 'press';
+    const trigger = index !== undefined ? getTrigger().nth(index) : getTrigger();
+    const popover = index !== undefined ? getPopover().nth(index) : getPopover();
+
+    if (action === 'click') {
+      await trigger.click({ position: { x: 1, y: 1 } }); // Modified line
+    } else {
+      await trigger.press(key);
+    }
+
+    // Needed because Playwright doesn't wait for the listbox to be visible
+    await expect(popover).toBeVisible();
   };
 
   const getAllPopovers = () => {
@@ -30,6 +47,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getAllPopovers,
     getTrigger,
     getAllTriggers,
+    openPopover,
     getProgrammaticButtonTrigger,
   };
 }
