@@ -20,6 +20,7 @@ export function usePopover(popovertarget: string) {
 
   const didInteractSig = useSignal<boolean>(false);
   const popoverSig = useSignal<HTMLElement | null>(null);
+  const initialClickSig = useSignal<boolean>(false);
 
   const loadPolyfill$ = $(async () => {
     await import('@oddbird/popover-polyfill');
@@ -42,7 +43,7 @@ export function usePopover(popovertarget: string) {
     didInteractSig.value = true;
   });
 
-  useTask$(({ track }) => {
+  useTask$(async ({ track }) => {
     track(() => didInteractSig.value);
 
     if (!isBrowser) return;
@@ -50,22 +51,16 @@ export function usePopover(popovertarget: string) {
     // get popover
     if (!popoverSig.value) {
       popoverSig.value = document.getElementById(popovertarget);
-    }
 
-    // so it only runs once on click for supported browsers
-    if (isSupportedSig.value) {
-      if (!popoverSig.value) return;
-
-      if (popoverSig.value && popoverSig.value.hasAttribute('popover')) {
-        /* opens manual on any event */
-        popoverSig.value.showPopover();
+      if (!initialClickSig.value) {
+        popoverSig.value?.showPopover();
       }
     }
   });
 
   // event is created after teleported properly
   useOnDocument(
-    'showpopover',
+    'showpopoverpoly',
     $(() => {
       if (!didInteractSig.value) return;
 
@@ -74,7 +69,10 @@ export function usePopover(popovertarget: string) {
       // calls code in here twice for some reason, we think it's because of the client re-render, but it still works
 
       // so it only runs once on first click
-      if (!popoverSig.value.classList.contains(':popover-open')) {
+      if (
+        !popoverSig.value.classList.contains(':popover-open') &&
+        !isSupportedSig.value
+      ) {
         popoverSig.value.showPopover();
       }
     }),
@@ -101,12 +99,12 @@ export function usePopover(popovertarget: string) {
     popoverSig.value?.hidePopover();
   });
 
-  return { showPopover, togglePopover, hidePopover, initPopover$ };
+  return { showPopover, togglePopover, hidePopover, initPopover$, initialClickSig };
 }
 
 export const PopoverTrigger = component$<PopoverTriggerProps>(
   ({ popovertarget, disableClickInitPopover = false, ...rest }: PopoverTriggerProps) => {
-    const { initPopover$ } = usePopover(popovertarget);
+    const { initPopover$, initialClickSig } = usePopover(popovertarget);
 
     return (
       <button
@@ -116,6 +114,7 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
           rest.onClick$,
           !disableClickInitPopover
             ? $(async () => {
+                initialClickSig.value = true;
                 await initPopover$();
               })
             : undefined,

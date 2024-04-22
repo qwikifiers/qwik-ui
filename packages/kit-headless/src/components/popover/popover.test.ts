@@ -236,9 +236,14 @@ test.describe('Keyboard Behavior', () => {
 
     await expect(d.getPopover()).toBeHidden();
 
+    const programmaticTrigger = page.getByRole('button', {
+      name: "Focus me and press the 'o'",
+    });
+
     // Using `page` here because driver is scoped to the popover
-    await page.getByRole('button', { name: "Focus me and press the 'o'" }).focus();
-    await page.keyboard.type('o');
+    await expect(programmaticTrigger).toBeVisible();
+    await programmaticTrigger.focus();
+    await programmaticTrigger.press('o');
 
     await expect(d.getPopover()).toBeVisible();
   });

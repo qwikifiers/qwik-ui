@@ -7,9 +7,9 @@ export default component$(() => {
       <button
         class="popover-invoker"
         preventdefault:click
-        onKeyDown$={(e) => {
+        onKeyDown$={async (e) => {
           if (e.key === 'o') {
-            togglePopover();
+            await togglePopover();
           }
         }}
       >

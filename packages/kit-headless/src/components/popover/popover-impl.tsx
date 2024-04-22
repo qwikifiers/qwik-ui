@@ -102,7 +102,7 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
         hasTopLayerAncestorSig.value = true;
       }
 
-      document.dispatchEvent(new CustomEvent('showpopover'));
+      document.dispatchEvent(new CustomEvent('showpopoverpoly'));
 
       cleanup(() => popoverRef.value);
     }
