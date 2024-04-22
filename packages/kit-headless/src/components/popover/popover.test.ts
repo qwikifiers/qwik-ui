@@ -12,7 +12,7 @@ async function setup(page: Page, exampleName: string) {
 }
 
 test('@Visual diff', async ({ page }) => {
-  const { driver: d } = await setup(page, 'hero');
+  const { driver: d } = await setup(page, 'basic');
   await expect(page).toHaveScreenshot('closed popover.png');
 
   await d.getTrigger().click();
@@ -24,7 +24,7 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN a closed popover
         WHEN clicking on the trigger
         THEN the popover should be opened `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'basic');
     await expect(d.getPopover()).toBeHidden();
 
     await d.getTrigger().click();
@@ -35,7 +35,7 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN an open popover
         WHEN clicking elsewhere on the page
         THEN the popover should close`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'basic');
 
     await expect(d.getPopover()).toBeHidden();
     await d.getTrigger().click();
@@ -188,7 +188,7 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN a closed popover
           WHEN focusing on the button and pressing the '${key}' key
           THEN the popover should open`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'basic');
       await expect(d.getPopover()).toBeHidden();
 
       await d.getTrigger().press(key);
@@ -198,7 +198,7 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN an open popover
           WHEN focusing on the button and pressing the '${key}' key
           THEN the popover should close`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'basic');
 
       // Open the popover
       await d.openPopover(key);
@@ -211,7 +211,7 @@ test.describe('Keyboard Behavior', () => {
   test(`GIVEN an open popover
         WHEN focusing on the button and pressing the 'Escape' key
         THEN the popover should close and the trigger be focused`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'basic');
 
     // Open the popover
     await d.openPopover('Enter');
