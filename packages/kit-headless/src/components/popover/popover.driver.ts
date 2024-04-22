@@ -2,7 +2,7 @@ import { expect, type Locator, type Page } from '@playwright/test';
 
 export type DriverLocator = Locator | Page;
 
-type OpenKeys = 'Enter' | 'Space';
+export type PopoverOpenKeys = 'Enter' | 'Space';
 
 export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getPopover = () => {
@@ -13,7 +13,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return rootLocator.locator('[popovertarget]');
   };
 
-  const openPopover = async (key: OpenKeys | 'click', index?: number) => {
+  const openPopover = async (key: PopoverOpenKeys | 'click', index?: number) => {
     const action = key === 'click' ? 'click' : 'press';
     const trigger = index !== undefined ? getTrigger().nth(index) : getTrigger();
     const popover = index !== undefined ? getPopover().nth(index) : getPopover();

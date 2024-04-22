@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { createTestDriver } from './popover.driver';
+import { PopoverOpenKeys, createTestDriver } from './popover.driver';
 
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/popover/${exampleName}`);
@@ -184,44 +184,37 @@ test.describe('Mouse Behavior', () => {
 });
 
 test.describe('Keyboard Behavior', () => {
-  for (const key of ['Enter', 'Space']) {
-    test(`GIVEN a closed hero popover
-    WHEN focusing on the button and pressing the '${key}' key
-    THEN the popover should open`, async ({ page }) => {
+  for (const key of ['Enter', 'Space'] as PopoverOpenKeys[]) {
+    test(`GIVEN a closed popover
+          WHEN focusing on the button and pressing the '${key}' key
+          THEN the popover should open`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
       await expect(d.getPopover()).toBeHidden();
 
       await d.getTrigger().press(key);
-
       await expect(d.getPopover()).toBeVisible();
     });
 
-    test(`GIVEN a open hero popover
-    WHEN focusing on the button and pressing the '${key}' key
-    THEN the popover should close`, async ({ page }) => {
+    test(`GIVEN an open popover
+          WHEN focusing on the button and pressing the '${key}' key
+          THEN the popover should close`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
       // Open the popover
+      await d.openPopover(key);
+
       await d.getTrigger().press(key);
-
-      await expect(d.getPopover()).toBeVisible();
-
-      // Close the popover
-      await d.getTrigger().press(key);
-
       await expect(d.getPopover()).toBeHidden();
     });
   }
 
-  test(`GIVEN a open hero popover
-  WHEN focusing on the button and pressing the 'Escape' key
-  THEN the popover should close and the trigger be focused`, async ({ page }) => {
+  test(`GIVEN an open popover
+        WHEN focusing on the button and pressing the 'Escape' key
+        THEN the popover should close and the trigger be focused`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
     // Open the popover
-    await d.getTrigger().press('Enter');
-
-    await expect(d.getPopover()).toBeVisible();
+    await d.openPopover('Enter');
 
     // Close the popover
     page.keyboard.press('Escape');
@@ -230,9 +223,9 @@ test.describe('Keyboard Behavior', () => {
     await expect(d.getTrigger()).toBeFocused();
   });
 
-  test(`GIVEN a programmatic popover with a programmatic trigger
-  WHEN focusing on the button and pressing the 'o' key
-  THEN the popover should open`, async ({ page }) => {
+  test(`GIVEN a popover
+        WHEN focusing on the button and pressing the 'o' key
+        THEN the popover should be programmatically opened`, async ({ page }) => {
     const { driver: d } = await setup(page, 'programmatic');
 
     await expect(d.getPopover()).toBeHidden();
@@ -249,25 +242,28 @@ test.describe('Keyboard Behavior', () => {
     await expect(d.getPopover()).toBeVisible();
   });
   test(`GIVEN an open auto popover
-  WHEN the first trigger open and the focus changes to the second popover
-  THEN the first popover should close and the second one appear`, async ({ page }) => {
+        WHEN the first trigger opens 
+        AND the focus changes to the second popover
+        THEN the first popover should close and the second one appear`, async ({
+    page,
+  }) => {
     const { driver: d } = await setup(page, 'auto');
 
-    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
-    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
+    const firstPopover = d.getPopover().nth(0);
+    const secondPopover = d.getPopover().nth(1);
+    const firstTrigger = d.getTrigger().nth(0);
+    const secondTrigger = d.getTrigger().nth(1);
 
-    await expect(firstPopOver).toBeHidden();
-    await expect(secondPopOver).toBeHidden();
+    await expect(firstPopover).toBeHidden();
+    await expect(secondPopover).toBeHidden();
 
-    await firstPopoverTrigger.press('Enter');
-    await expect(firstPopOver).toBeVisible();
-    await firstPopoverTrigger.press('Tab');
-    await expect(secondPopoverTrigger).toBeFocused();
+    await d.openPopover('Enter', 0);
+    await firstTrigger.press('Tab');
 
-    await secondPopoverTrigger.press('Enter');
-    await expect(secondPopOver).toBeVisible();
+    await expect(secondTrigger).toBeFocused();
+    await d.openPopover('Enter', 1);
 
-    await expect(firstPopOver).toBeHidden();
+    await expect(firstPopover).toBeHidden();
   });
 
   test(`GIVEN a pair of manual popovers
@@ -275,18 +271,8 @@ test.describe('Keyboard Behavior', () => {
   THEN then both popovers should be opened`, async ({ page }) => {
     const { driver: d } = await setup(page, 'manual');
 
-    const [firstPopOver, secondPopOver] = await d.getAllPopovers();
-    const [firstPopoverTrigger, secondPopoverTrigger] = await d.getAllTriggers();
-
-    await expect(firstPopOver).toBeHidden();
-    await expect(secondPopOver).toBeHidden();
-
-    await firstPopoverTrigger.press('Enter');
-
-    await secondPopoverTrigger.press('Enter');
-
-    await expect(firstPopOver).toBeVisible();
-    await expect(secondPopOver).toBeVisible();
+    await d.openPopover('click', 0);
+    await d.openPopover('click', 1);
   });
 
   test(`GIVEN a pair of manual opened popovers
