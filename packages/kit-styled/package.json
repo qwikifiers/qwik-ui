@@ -18,7 +18,7 @@
     "@builder.io/qwik": "^1.1.0"
   },
   "devDependencies": {
-    "@qwik-ui/headless": "0.3.6",
+    "@qwik-ui/headless": "0.3.7",
     "@qwik-ui/utils": "0.2.1"
   }
 }

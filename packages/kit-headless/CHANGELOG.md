@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.7
+
+### Patch Changes
+
+- 🐞🩹 race condition in the popover when programmatically opening on supported browsers (by [@thejackshelton](https://github.com/thejackshelton) in [#716](https://github.com/qwikifiers/qwik-ui/pull/716))
+
+- ✨ Adding the bind:open signal prop to the select component can now reactively control the select listbox open state (by [@thejackshelton](https://github.com/thejackshelton) in [#707](https://github.com/qwikifiers/qwik-ui/pull/707))
+
 ## 0.3.6
 
 ### Patch Changes
