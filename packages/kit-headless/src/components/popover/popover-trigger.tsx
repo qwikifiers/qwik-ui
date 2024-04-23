@@ -50,7 +50,7 @@ export function usePopover(popovertarget: string) {
     }
   });
 
-  useTask$(async ({ track }) => {
+  useTask$(({ track }) => {
     track(() => didInteractSig.value);
 
     if (!isBrowser) return;
@@ -58,9 +58,15 @@ export function usePopover(popovertarget: string) {
     // get popover
     if (!popoverSig.value) {
       popoverSig.value = document.getElementById(popovertarget);
+    }
+
+    // so it only runs once on click for supported browsers
+    if (isSupportedSig.value) {
+      if (!popoverSig.value) return;
 
       if (!initialClickSig.value && !isCSRSig.value) {
-        popoverSig.value?.showPopover();
+        /* opens manual on any event */
+        popoverSig.value.showPopover();
       }
     }
   });
@@ -76,10 +82,7 @@ export function usePopover(popovertarget: string) {
       // calls code in here twice for some reason, we think it's because of the client re-render, but it still works
 
       // so it only runs once on first click
-      if (
-        !popoverSig.value.classList.contains(':popover-open') &&
-        !isSupportedSig.value
-      ) {
+      if (!popoverSig.value.classList.contains(':popover-open')) {
         popoverSig.value.showPopover();
       }
     }),
