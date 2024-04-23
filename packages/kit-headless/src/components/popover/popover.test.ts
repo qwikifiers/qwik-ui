@@ -62,6 +62,19 @@ test.describe('Mouse Behavior', () => {
     await expect(secondPopover).toBeVisible();
   });
 
+  test(`GIVEN an open manual popover
+        WHEN clicking elsewhere on the page
+        THEN the popover should remain open`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'manual');
+
+    // initial open
+    await d.openPopover('click', 0);
+
+    await page.mouse.click(0, 0);
+
+    await expect(d.getPopover().nth(0)).toBeVisible();
+  });
+
   test(`GIVEN a pair of manual popovers
         WHEN clicking the first trigger on the page
         AND then clicking the second trigger
@@ -318,4 +331,44 @@ test.describe('Keyboard Behavior', () => {
         (triggerBoundingBox?.width ?? Number.MAX_VALUE),
     );
   });
+});
+
+test.describe('Programmatic', () => {
+  // test(`GIVEN a programmatic popover
+  //       WHEN the showPopover function is called
+  //       THEN the popover should be open`, async ({ page }) => {
+  //   const { driver: d } = await setup(page, 'show');
+  //   await expect(d.getPopover()).toBeHidden();
+  //   const programmaticTrigger = page.getByRole('button', { name: 'show popover' });
+  //   await programmaticTrigger.click();
+  //   await expect(d.getPopover()).toBeVisible();
+  // });
+  // test(`GIVEN an open programmatic popover
+  // WHEN the hidePopover function is called
+  // THEN the popover should be hidden`, async ({ page }) => {
+  //   const { driver: d } = await setup(page, 'hide');
+  //   const programmaticTrigger = page.getByRole('button', { name: 'hide popover' });
+  //   // initial open
+  //   await d.openPopover('click');
+  //   await programmaticTrigger.click({ position: { x: 0, y: 0 } });
+  //   await expect(d.getPopover()).toBeHidden();
+  // });
+  // test(`GIVEN a programmatic popover
+  //       WHEN the togglePopover function is called
+  //       THEN the popover should be open`, async ({ page }) => {
+  //   const { driver: d } = await setup(page, 'toggle');
+  //   const programmaticTrigger = page.getByRole('button', { name: 'toggle popover' });
+  //   await programmaticTrigger.click();
+  //   await expect(d.getPopover()).toBeVisible();
+  // });
+  // test(`GIVEN an open programmatic popover
+  // WHEN the togglePopover function is called
+  // THEN the popover should be closed`, async ({ page }) => {
+  //   const { driver: d } = await setup(page, 'toggle');
+  //   const programmaticTrigger = page.getByRole('button', { name: 'toggle popover' });
+  //   await programmaticTrigger.click();
+  //   await expect(d.getPopover()).toBeVisible();
+  //   await programmaticTrigger.click();
+  //   await expect(d.getPopover()).toBeHidden();
+  // });
 });

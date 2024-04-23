@@ -6,14 +6,14 @@ export default component$(() => {
 
   return (
     <>
-      <PopoverTrigger ref={triggerRef} popovertarget="popover-id" class="popover-trigger">
+      <PopoverTrigger ref={triggerRef} popovertarget="hero-id" class="popover-trigger">
         Click me
       </PopoverTrigger>
       <Popover
         anchorRef={triggerRef}
         floating={true}
         gutter={4}
-        id="popover-id"
+        id="hero-id"
         class="popover"
       >
         I am anchored to the popover trigger!
