@@ -21,6 +21,7 @@ export function usePopover(popovertarget: string) {
   const didInteractSig = useSignal<boolean>(false);
   const popoverSig = useSignal<HTMLElement | null>(null);
   const initialClickSig = useSignal<boolean>(false);
+  const isCSRSig = useSignal<boolean>(false);
 
   const loadPolyfill$ = $(async () => {
     await import('@oddbird/popover-polyfill');
@@ -43,7 +44,13 @@ export function usePopover(popovertarget: string) {
     didInteractSig.value = true;
   });
 
-  useTask$(async ({ track }) => {
+  useTask$(() => {
+    if (isBrowser) {
+      isCSRSig.value = true;
+    }
+  });
+
+  useTask$(({ track }) => {
     track(() => didInteractSig.value);
 
     if (!isBrowser) return;
@@ -51,9 +58,15 @@ export function usePopover(popovertarget: string) {
     // get popover
     if (!popoverSig.value) {
       popoverSig.value = document.getElementById(popovertarget);
+    }
 
-      if (!initialClickSig.value) {
-        popoverSig.value?.showPopover();
+    // so it only runs once on click for supported browsers
+    if (isSupportedSig.value) {
+      if (!popoverSig.value) return;
+
+      if (!initialClickSig.value && !isCSRSig.value) {
+        /* opens manual on any event */
+        popoverSig.value.showPopover();
       }
     }
   });
@@ -69,10 +82,7 @@ export function usePopover(popovertarget: string) {
       // calls code in here twice for some reason, we think it's because of the client re-render, but it still works
 
       // so it only runs once on first click
-      if (
-        !popoverSig.value.classList.contains(':popover-open') &&
-        !isSupportedSig.value
-      ) {
+      if (!popoverSig.value.classList.contains(':popover-open')) {
         popoverSig.value.showPopover();
       }
     }),
