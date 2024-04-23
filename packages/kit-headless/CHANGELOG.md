@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.8
+
+### Patch Changes
+
+- 🐞🩹 popover opening immediately in CSR (by [@thejackshelton](https://github.com/thejackshelton) in [#717](https://github.com/qwikifiers/qwik-ui/pull/717))
+
+- 🐞🩹 regression with popover polyfill executing unnecessary code (by [@thejackshelton](https://github.com/thejackshelton) in [#717](https://github.com/qwikifiers/qwik-ui/pull/717))
+
 ## 0.3.7
 
 ### Patch Changes
