@@ -17,13 +17,7 @@ export default component$(() => {
   return (
     <Select multiple bind:value={selected} class="select">
       <SelectTrigger class="select-trigger">
-        <SelectValue>
-          {selected.value.map((user, index) => (
-            <span key={user}>
-              {index === selected.value.length - 1 ? user : `${user}, `}
-            </span>
-          ))}
-        </SelectValue>
+        <SelectValue>{selected.value}</SelectValue>
       </SelectTrigger>
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox">
