@@ -19,7 +19,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
   const opts: Opt[] = [];
   let currentIndex = 0;
   let valuePropIndex = null;
-  let isLabelNeeded = false;
+  let label = false;
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
@@ -73,7 +73,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
       }
 
       case SelectLabel: {
-        isLabelNeeded = true;
+        label = true;
         break;
       }
 
@@ -102,12 +102,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
   }
 
   return (
-    <SelectImpl
-      {...rest}
-      isLabelNeeded={isLabelNeeded}
-      _valuePropIndex={valuePropIndex}
-      _options={opts}
-    >
+    <SelectImpl {...rest} _label={label} _valuePropIndex={valuePropIndex} _options={opts}>
       {props.children}
     </SelectImpl>
   );

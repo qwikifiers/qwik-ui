@@ -8,6 +8,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } = useSelect();
   const openKeys = ['ArrowUp', 'ArrowDown'];
   const closedKeys = [`Escape`];
+  const labelId = `${context.localId}-label`;
 
   const { typeahead$ } = useTypeahead();
 
@@ -166,6 +167,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}
+      aria-labelledby={labelId}
       preventdefault:blur
     >
       <Slot />

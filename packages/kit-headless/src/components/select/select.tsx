@@ -79,7 +79,7 @@ export type SelectProps = PropsOf<'div'> & {
    */
   multiple?: boolean;
 
-  isLabelNeeded?: boolean;
+  _label?: boolean;
 };
 
 /* root component in select-inline.tsx */
@@ -96,7 +96,7 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       required,
       disabled,
       multiple = false,
-      isLabelNeeded,
+      _label,
       ...rest
     } = props;
 
@@ -225,7 +225,7 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
         aria-expanded={context.isListboxOpenSig.value}
         aria-haspopup="listbox"
         aria-activedescendant={activeDescendantSig.value}
-        aria-labelledby={isLabelNeeded ? labelId : valueId}
+        aria-labelledby={_label ? labelId : valueId}
         {...rest}
       >
         <Slot />
