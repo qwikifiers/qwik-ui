@@ -16,7 +16,9 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   // we use data-option so that it doesn't grab native select options.
-  const getOptions = () => {
+  const getOptions = (hidden?: 'hidden') => {
+    if (hidden === 'hidden') return getRoot().locator('[data-option]:hidden');
+
     return getRoot().locator('[data-option]');
   };
 
@@ -30,7 +32,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getHiddenOptionAt = (index: number | 'last') => {
-    if (index === 'last') return getOptions().last();
+    if (index === 'last') return getOptions('hidden').last();
     return getOptions().nth(index);
   };
 

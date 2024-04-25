@@ -64,6 +64,8 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (!context.isListboxOpenSig.value) {
+      if (context.multiple) return;
+
       if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
         const firstIndex = await getNextEnabledOptionIndex(
           -1,
