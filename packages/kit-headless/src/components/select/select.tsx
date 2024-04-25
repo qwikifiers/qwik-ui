@@ -78,6 +78,8 @@ export type SelectProps = PropsOf<'div'> & {
    * If `true`, allows multiple selections.
    */
   multiple?: boolean;
+
+  isLabelNeeded?: boolean;
 };
 
 /* root component in select-inline.tsx */
@@ -94,6 +96,7 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       required,
       disabled,
       multiple = false,
+      isLabelNeeded,
       ...rest
     } = props;
 
@@ -104,10 +107,15 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
     const triggerRef = useSignal<HTMLButtonElement>();
     const popoverRef = useSignal<HTMLElement>();
     const listboxRef = useSignal<HTMLUListElement>();
+    const labelRef = useSignal<HTMLDivElement>();
     const groupRef = useSignal<HTMLDivElement>();
     const loop = givenLoop ?? false;
+
+    // ids
     const localId = useId();
     const listboxId = `${localId}-listbox`;
+    const labelId = `${localId}-label`;
+    const valueId = `${localId}-value`;
 
     /**
      * Updates the options when the options change
@@ -193,6 +201,7 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       triggerRef,
       popoverRef,
       listboxRef,
+      labelRef,
       groupRef,
       optionsSig,
       localId,
@@ -216,6 +225,7 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
         aria-expanded={context.isListboxOpenSig.value}
         aria-haspopup="listbox"
         aria-activedescendant={activeDescendantSig.value}
+        aria-labelledby={isLabelNeeded ? labelId : valueId}
         {...rest}
       >
         <Slot />

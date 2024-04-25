@@ -159,6 +159,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   return (
     <button
       {...props}
+      id={`${context.localId}-trigger`}
       ref={context.triggerRef}
       onClick$={[handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}

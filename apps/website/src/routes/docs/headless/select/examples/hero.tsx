@@ -1,6 +1,7 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
+  SelectLabel,
   SelectListbox,
   SelectOption,
   SelectPopover,
@@ -15,6 +16,7 @@ export default component$(() => {
 
   return (
     <Select class="select">
+      <SelectLabel>Logged in users</SelectLabel>
       <SelectTrigger class="select-trigger">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>

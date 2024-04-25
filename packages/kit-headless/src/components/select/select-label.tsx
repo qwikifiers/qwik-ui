@@ -6,7 +6,7 @@ export const SelectLabel = component$((props: PropsOf<'div'>) => {
   const labelId = `${context.localId}-label`;
 
   return (
-    <div id={labelId} {...props}>
+    <div ref={context.labelRef} id={labelId} {...props}>
       <Slot />
     </div>
   );

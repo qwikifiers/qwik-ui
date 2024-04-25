@@ -17,8 +17,8 @@ type SelectValueProps = PropsOf<'span'> & {
 
 export const SelectValue = component$((props: SelectValueProps) => {
   const { placeholder, ...rest } = props;
-
   const context = useContext(SelectContextId);
+  const valueId = `${context.localId}-value`;
   if (!context.optionsSig.value) return;
 
   const displayStrSig = useComputed$(() => {
@@ -35,6 +35,7 @@ export const SelectValue = component$((props: SelectValueProps) => {
 
   return (
     <span
+      id={valueId}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       data-value

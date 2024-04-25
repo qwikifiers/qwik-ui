@@ -1,6 +1,7 @@
 import { type JSXNode, Component } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select';
 import { SelectOption } from './select-option';
+import { SelectLabel } from './select-label';
 
 export type Opt = {
   isDisabled: boolean;
@@ -18,6 +19,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
   const opts: Opt[] = [];
   let currentIndex = 0;
   let valuePropIndex = null;
+  let isLabelNeeded = false;
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
@@ -70,6 +72,11 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
         break;
       }
 
+      case SelectLabel: {
+        isLabelNeeded = true;
+        break;
+      }
+
       default: {
         if (child) {
           const anyChildren = Array.isArray(child.children)
@@ -95,7 +102,12 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
   }
 
   return (
-    <SelectImpl {...rest} _valuePropIndex={valuePropIndex} _options={opts}>
+    <SelectImpl
+      {...rest}
+      isLabelNeeded={isLabelNeeded}
+      _valuePropIndex={valuePropIndex}
+      _options={opts}
+    >
       {props.children}
     </SelectImpl>
   );

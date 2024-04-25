@@ -13,6 +13,7 @@ export type SelectContext = {
   popoverRef: Signal<HTMLElement | undefined>;
   listboxRef: Signal<HTMLUListElement | undefined>;
   groupRef: Signal<HTMLDivElement | undefined>;
+  labelRef: Signal<HTMLDivElement | undefined>;
 
   // core state
   localId: string;
