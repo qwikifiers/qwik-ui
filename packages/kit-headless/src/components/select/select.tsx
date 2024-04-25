@@ -24,6 +24,9 @@ export type InternalSelectProps = {
   /** When a value is passed, we check if it's an actual option value, and get its index at pre-render time.
    **/
   _valuePropIndex?: number | null;
+
+  /** Checks if the consumer added the label in their JSX */
+  _label?: boolean;
 };
 
 export type SelectProps = PropsOf<'div'> & {
@@ -78,8 +81,6 @@ export type SelectProps = PropsOf<'div'> & {
    * If `true`, allows multiple selections.
    */
   multiple?: boolean;
-
-  _label?: boolean;
 };
 
 /* root component in select-inline.tsx */
