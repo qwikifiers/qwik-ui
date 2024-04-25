@@ -97,7 +97,7 @@ export function useTypeahead() {
         context.highlightedIndexSig.value = firstCharIndex;
 
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexSig.value = firstCharIndex;
+          context.selectedIndexesSig.value = [firstCharIndex];
         }
 
         return;
@@ -120,7 +120,7 @@ export function useTypeahead() {
 
           context.highlightedIndexSig.value = nextIndex;
           if (!context.isListboxOpenSig.value) {
-            context.selectedIndexSig.value = nextIndex;
+            context.selectedIndexesSig.value = [nextIndex];
           }
           indexDiffSig.value = nextIndex + 1;
           return;
@@ -129,14 +129,14 @@ export function useTypeahead() {
         indexDiffSig.value = undefined;
         context.highlightedIndexSig.value = firstCharIndex;
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexSig.value = firstCharIndex;
+          context.selectedIndexesSig.value = [firstCharIndex];
         }
         return;
       }
       indexDiffSig.value = firstCharIndex + 1;
       context.highlightedIndexSig.value = firstCharIndex;
       if (!context.isListboxOpenSig.value) {
-        context.selectedIndexSig.value = firstCharIndex;
+        context.selectedIndexesSig.value = [firstCharIndex];
       }
 
       return;
@@ -157,7 +157,7 @@ export function useTypeahead() {
       if (firstPossibleOpt !== -1) {
         context.highlightedIndexSig.value = firstPossibleOpt;
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexSig.value = firstPossibleOpt;
+          context.selectedIndexesSig.value = [firstPossibleOpt];
         }
         return;
       }

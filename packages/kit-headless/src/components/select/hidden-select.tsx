@@ -55,7 +55,7 @@ export const HiddenSelect = component$(
               {options?.map((opt: Opt) => (
                 <option
                   value={opt.value}
-                  selected={context.selectedIndexSig.value === opt.index}
+                  selected={context.selectedIndexesSig.value.includes(opt.index)}
                   key={opt.value}
                 >
                   {opt.displayValue}

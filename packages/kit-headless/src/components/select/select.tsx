@@ -73,6 +73,11 @@ export type SelectProps = PropsOf<'div'> & {
    * If `true`, prevents the user from interacting with the select.
    */
   disabled?: boolean;
+
+  /**
+   * If `true`, allows multiple selections.
+   */
+  multiple?: boolean;
 };
 
 /* root component in select-inline.tsx */
@@ -88,6 +93,7 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       name,
       required,
       disabled,
+      multiple = false,
       ...rest
     } = props;
 
@@ -119,7 +125,9 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
     );
 
     // core state
-    const selectedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
+    const selectedIndexesSig = useSignal<Array<number | null>>([
+      givenValuePropIndex ?? null,
+    ]);
     const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
     const isListboxOpenSig = useSignal<boolean>(false);
     const scrollOptions = givenScrollOptions ?? {
@@ -134,7 +142,7 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
 
       const matchingIndex = optionsIndexMap.get(signalValue) ?? -1;
       if (matchingIndex !== -1) {
-        selectedIndexSig.value = matchingIndex;
+        selectedIndexesSig.value = [matchingIndex];
         highlightedIndexSig.value = matchingIndex;
       }
     });
@@ -146,9 +154,10 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
     });
 
     useTask$(async function onChangeTask({ track }) {
-      track(() => selectedIndexSig.value);
-      if (isBrowser && selectedIndexSig.value !== null) {
-        await onChange$?.(optionsSig.value[selectedIndexSig.value].value);
+      track(() => selectedIndexesSig.value);
+      const firstOption = selectedIndexesSig.value[0];
+      if (isBrowser && firstOption !== null) {
+        await onChange$?.(optionsSig.value[firstOption].value);
       }
     });
 
@@ -179,10 +188,11 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
       optionsSig,
       localId,
       highlightedIndexSig,
-      selectedIndexSig,
+      selectedIndexesSig,
       isListboxOpenSig,
       scrollOptions,
       loop,
+      multiple,
     };
 
     useContextProvider(SelectContextId, context);

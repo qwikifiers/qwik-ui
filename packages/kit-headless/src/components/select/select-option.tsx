@@ -31,7 +31,8 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const optionId = `${context.localId}-${_index}`;
 
   const isSelectedSig = useComputed$(() => {
-    return !disabled && context.selectedIndexSig.value === _index;
+    const index = _index ?? null;
+    return !disabled && context.selectedIndexesSig.value.includes(index);
   });
 
   const isHighlightedSig = useComputed$(() => {
@@ -78,7 +79,10 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const handleClick$ = $(() => {
     if (disabled) return;
 
-    context.selectedIndexSig.value = localIndexSig.value;
+    context.selectedIndexesSig.value = [localIndexSig.value];
+
+    if (context.multiple) return;
+
     context.isListboxOpenSig.value = false;
   });
 
