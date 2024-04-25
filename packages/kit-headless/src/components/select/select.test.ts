@@ -7,15 +7,8 @@ async function setup(page: Page, exampleName: string) {
 
   const driver = createTestDriver(page.getByRole('combobox'));
 
-  const {
-    getRoot,
-    getListbox,
-    getTrigger,
-    getHiddenOptionAt,
-    getOptionAt,
-    getValueElement,
-    openListbox,
-  } = driver;
+  const { getRoot, getListbox, getTrigger, getOptionAt, getValueElement, openListbox } =
+    driver;
 
   return {
     driver,
@@ -23,7 +16,6 @@ async function setup(page: Page, exampleName: string) {
     getListbox,
     getTrigger,
     getOptionAt,
-    getHiddenOptionAt,
     getValueElement,
     openListbox,
   };
@@ -1084,5 +1076,17 @@ test.describe('Multiple Selection', () => {
     await d.getOptionAt(0).click();
     await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
     await expect(d.getListbox()).toBeVisible();
+  });
+
+  test(`GIVEN a multi select
+        WHEN clicking one option
+        AND another option
+        THEN both options should be selected`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple');
+    await d.openListbox('click');
+    await d.getOptionAt(0).click();
+    await d.getOptionAt(1).click();
+    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+    await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
   });
 });

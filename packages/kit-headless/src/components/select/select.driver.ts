@@ -31,11 +31,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getOptions().nth(index);
   };
 
-  const getHiddenOptionAt = (index: number | 'last') => {
-    if (index === 'last') return getOptions('hidden').last();
-    return getOptions().nth(index);
-  };
-
   const getValueElement = () => {
     return getTrigger().locator('[data-value]');
   };
@@ -62,7 +57,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getOptions,
     getOptionsLength,
     getOptionAt,
-    getHiddenOptionAt,
     getValueElement,
     openListbox,
   };

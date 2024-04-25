@@ -79,7 +79,14 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const handleClick$ = $(() => {
     if (disabled) return;
 
-    context.selectedIndexesSig.value = [localIndexSig.value];
+    if (context.multiple) {
+      context.selectedIndexesSig.value = [
+        ...context.selectedIndexesSig.value,
+        localIndexSig.value,
+      ];
+    } else {
+      context.selectedIndexesSig.value = [localIndexSig.value];
+    }
 
     if (context.multiple) return;
 
