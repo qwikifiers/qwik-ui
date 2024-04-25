@@ -29,12 +29,14 @@ export type InternalSelectProps = {
   _label?: boolean;
 };
 
-export type SelectProps = PropsOf<'div'> & {
+type TMultiple<M> = M extends true ? string[] : string;
+
+export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
   /** The initial selected value (uncontrolled). */
-  value?: string;
+  value?: TMultiple<M>;
 
   /** A signal that controls the current selected value (controlled). */
-  'bind:value'?: Signal<string>;
+  'bind:value'?: Signal<TMultiple<M>>;
 
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
@@ -80,12 +82,12 @@ export type SelectProps = PropsOf<'div'> & {
   /**
    * If `true`, allows multiple selections.
    */
-  multiple?: boolean;
+  multiple?: M;
 };
 
 /* root component in select-inline.tsx */
-export const SelectImpl = component$<SelectProps & InternalSelectProps>(
-  (props: SelectProps & InternalSelectProps) => {
+export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>(
+  (props: SelectProps<boolean> & InternalSelectProps) => {
     const {
       _options,
       _valuePropIndex: givenValuePropIndex,
@@ -148,20 +150,27 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
     useTask$(function reactiveValueTask({ track }) {
       const signalValue = track(() => props['bind:value']?.value);
       if (!signalValue) return;
+      if (!props['bind:value'] || !props['bind:value'].value) return;
 
-      const matchingIndex = optionsIndexMap.get(signalValue) ?? -1;
-      if (matchingIndex !== -1) {
-        selectedIndexesSig.value = [matchingIndex];
-        highlightedIndexSig.value = matchingIndex;
-      }
+      if (Array.isArray(signalValue)) {
+        const matchingIndexes = signalValue.map(
+          (value) => optionsIndexMap.get(value) ?? -1,
+        );
 
-      // update the consumer's bind:value signal
-      if (props['bind:value']?.value) {
-        const selectedIndex = selectedIndexesSig.value[0];
-        const selectedValue = selectedIndex
-          ? optionsSig.value[selectedIndex].value
-          : props['bind:value'].value;
-        props['bind:value'].value = selectedValue;
+        selectedIndexesSig.value = matchingIndexes;
+        console.log('selectedIndexes', selectedIndexesSig.value);
+
+        if (matchingIndexes.length > 0) {
+          const lastIndex = matchingIndexes[matchingIndexes.length - 1];
+          highlightedIndexSig.value = matchingIndexes[lastIndex];
+        }
+      } else {
+        const matchingIndex = optionsIndexMap.get(signalValue) ?? -1;
+        if (matchingIndex !== -1) {
+          selectedIndexesSig.value = [matchingIndex];
+          highlightedIndexSig.value = matchingIndex;
+          props['bind:value'].value = optionsSig.value[matchingIndex].value;
+        }
       }
     });
 

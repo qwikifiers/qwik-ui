@@ -15,13 +15,7 @@ export default component$(() => {
 
   return (
     <>
-      <Select
-        onChange$={$((value: string) => {
-          selected.value = value;
-        })}
-        bind:value={selected}
-        class="select"
-      >
+      <Select bind:value={selected} class="select">
         <SelectTrigger class="select-trigger">
           <SelectValue placeholder="Select an option" />
         </SelectTrigger>

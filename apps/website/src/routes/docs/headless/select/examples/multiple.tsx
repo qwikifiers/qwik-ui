@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
   SelectListbox,
@@ -12,11 +12,18 @@ import styles from '../snippets/select.css?inline';
 export default component$(() => {
   useStyles$(styles);
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
+  const selected = useSignal<string[]>([]);
 
   return (
-    <Select multiple class="select">
+    <Select multiple bind:value={selected} class="select">
       <SelectTrigger class="select-trigger">
-        <SelectValue />
+        <SelectValue>
+          {selected.value.map((user, index) => (
+            <span key={user}>
+              {index === selected.value.length - 1 ? user : `${user}, `}
+            </span>
+          ))}
+        </SelectValue>
       </SelectTrigger>
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox">
