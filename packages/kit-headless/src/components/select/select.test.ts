@@ -7,15 +7,8 @@ async function setup(page: Page, exampleName: string) {
 
   const driver = createTestDriver(page.getByRole('combobox'));
 
-  const {
-    getRoot,
-    getListbox,
-    getTrigger,
-    getOptionAt,
-    getHiddenOptionAt,
-    getValueElement,
-    openListbox,
-  } = driver;
+  const { getRoot, getListbox, getTrigger, getOptionAt, getValueElement, openListbox } =
+    driver;
 
   return {
     driver,
@@ -23,7 +16,6 @@ async function setup(page: Page, exampleName: string) {
     getListbox,
     getTrigger,
     getOptionAt,
-    getHiddenOptionAt,
     getValueElement,
     openListbox,
   };
@@ -72,29 +64,26 @@ test.describe('Mouse Behavior', () => {
   test(`GIVEN a hero select with an open listbox
         WHEN the 2nd option is clicked
         THEN the 2nd option should have aria-selected`, async ({ page }) => {
-    const { getOptionAt, getHiddenOptionAt, openListbox } = await setup(page, 'hero');
+    const { getOptionAt, openListbox } = await setup(page, 'hero');
 
     await openListbox('click');
 
     await getOptionAt(1).click();
 
-    await expect(getHiddenOptionAt(1)).toHaveAttribute('aria-selected', 'true');
+    await expect(getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
   });
 
   test(`GIVEN a hero select with an open listbox
         WHEN the 3rd option is clicked
         THEN the 3rd option should be the selected value`, async ({ page }) => {
-    const { getOptionAt, getHiddenOptionAt, getValueElement, openListbox } = await setup(
-      page,
-      'hero',
-    );
+    const { getOptionAt, getValueElement, openListbox } = await setup(page, 'hero');
 
     await openListbox('click');
 
     const thirdOptStr = await getOptionAt(2).textContent();
     await getOptionAt(2).click();
 
-    await expect(getHiddenOptionAt(2)).toHaveAttribute('aria-selected', 'true');
+    await expect(getOptionAt(2)).toHaveAttribute('aria-selected', 'true');
     await expect(getValueElement()).toHaveText(thirdOptStr!);
   });
 
@@ -449,18 +438,15 @@ test.describe('Keyboard Behavior', () => {
           THEN the first enabled option should be selected and have aria-selected`, async ({
       page,
     }) => {
-      const { getTrigger, getHiddenOptionAt, getValueElement } = await setup(
-        page,
-        'hero',
-      );
+      const { getTrigger, getOptionAt, getValueElement } = await setup(page, 'hero');
 
-      const firstItemValue = await getHiddenOptionAt(0).textContent();
+      const firstItemValue = await getOptionAt(0).textContent();
       await getTrigger().focus();
       await getTrigger().press('ArrowRight');
 
       expect(getValueElement()).toHaveText(firstItemValue!);
-      await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
-      await expect(getHiddenOptionAt(0)).toHaveAttribute('data-highlighted');
+      await expect(getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+      await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
     });
 
     test(`GIVEN no selected item and a placeholder
@@ -470,16 +456,16 @@ test.describe('Keyboard Behavior', () => {
     }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      const firstItemValue = await d.getHiddenOptionAt(0).textContent();
-      const secondItemValue = await d.getHiddenOptionAt(1).textContent();
+      const firstItemValue = await d.getOptionAt(0).textContent();
+      const secondItemValue = await d.getOptionAt(1).textContent();
 
       await d.getTrigger().press('ArrowRight');
       await expect(d.getValueElement()).toHaveText(firstItemValue!);
       await d.getTrigger().press('ArrowRight');
 
       await expect(d.getValueElement()).toHaveText(secondItemValue!);
-      await expect(d.getHiddenOptionAt(1)).toHaveAttribute('aria-selected', 'true');
-      await expect(d.getHiddenOptionAt(1)).toHaveAttribute('data-highlighted');
+      await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
+      await expect(d.getOptionAt(1)).toHaveAttribute('data-highlighted');
     });
 
     test(`GIVEN the second item is selected
@@ -487,13 +473,10 @@ test.describe('Keyboard Behavior', () => {
           THEN the first item should be selected and have aria-selected & data-highlighted`, async ({
       page,
     }) => {
-      const { getTrigger, getHiddenOptionAt, getValueElement } = await setup(
-        page,
-        'hero',
-      );
+      const { getTrigger, getOptionAt, getValueElement } = await setup(page, 'hero');
 
       // get initial selected value
-      // const firstItemValue = await getHiddenOptionAt(0).textContent();
+      // const firstItemValue = await getOptionAt(0).textContent();
       await getTrigger().focus();
       await getTrigger().press('ArrowRight');
       await expect(getValueElement()).toHaveText('Tim');
@@ -501,8 +484,8 @@ test.describe('Keyboard Behavior', () => {
 
       await getTrigger().press('ArrowLeft');
       await expect(getValueElement()).toHaveText('Tim');
-      await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
-      await expect(getHiddenOptionAt(0)).toHaveAttribute('data-highlighted');
+      await expect(getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+      await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
     });
   });
 
@@ -654,7 +637,7 @@ test.describe('Keyboard Behavior', () => {
           AND the last option is selected
           WHEN the right arrow key is pressed
           THEN it should stay on the last option`, async ({ page }) => {
-        const { getTrigger, getHiddenOptionAt, getListbox, openListbox } = await setup(
+        const { getTrigger, getOptionAt, getListbox, openListbox } = await setup(
           page,
           'hero',
         );
@@ -664,22 +647,22 @@ test.describe('Keyboard Behavior', () => {
         await getTrigger().focus();
         await getTrigger().press('End');
 
-        await expect(getHiddenOptionAt('last')).toHaveAttribute('data-highlighted');
+        await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
         await getTrigger().press('Enter');
-        await expect(getHiddenOptionAt('last')).toHaveAttribute('aria-selected', 'true');
+        await expect(getOptionAt('last')).toHaveAttribute('aria-selected', 'true');
         await expect(getListbox()).toBeHidden();
 
         await getTrigger().focus();
         await getTrigger().press('ArrowRight');
-        await expect(getHiddenOptionAt('last')).toHaveAttribute('data-highlighted');
-        await expect(getHiddenOptionAt('last')).toHaveAttribute('aria-selected', 'true');
+        await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
+        await expect(getOptionAt('last')).toHaveAttribute('aria-selected', 'true');
       });
 
       test(`GIVEN a closed basic select
           AND the first option is selected
           WHEN the left arrow key is pressed
           THEN it should stay on the first option`, async ({ page }) => {
-        const { getTrigger, getHiddenOptionAt, getListbox, openListbox } = await setup(
+        const { getTrigger, getOptionAt, getListbox, openListbox } = await setup(
           page,
           'hero',
         );
@@ -690,14 +673,14 @@ test.describe('Keyboard Behavior', () => {
         await getTrigger().focus();
         await getTrigger().press('Enter');
 
-        await expect(getHiddenOptionAt(0)).toHaveAttribute('data-highlighted');
-        await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+        await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
+        await expect(getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
         await expect(getListbox()).toBeHidden();
 
         await getTrigger().focus();
         await getTrigger().press('ArrowLeft');
-        await expect(getHiddenOptionAt(0)).toHaveAttribute('data-highlighted');
-        await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+        await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
+        await expect(getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
       });
     });
 
@@ -706,17 +689,14 @@ test.describe('Keyboard Behavior', () => {
             AND the last option is data-highlighted
             WHEN the down arrow key is pressed
             THEN the first option should have data-highlighted`, async ({ page }) => {
-        const { getTrigger, getOptionAt, getHiddenOptionAt, openListbox } = await setup(
-          page,
-          'loop',
-        );
+        const { getTrigger, getOptionAt, openListbox } = await setup(page, 'loop');
 
         // initially last option is highlighted
         await openListbox('Enter');
         await getTrigger().focus();
         await getTrigger().press('End');
 
-        await expect(getHiddenOptionAt('last')).toHaveAttribute('data-highlighted');
+        await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
 
         await getTrigger().focus();
         await getTrigger().press('ArrowDown');
@@ -727,10 +707,7 @@ test.describe('Keyboard Behavior', () => {
             AND the first option is data-highlighted
             WHEN the up arrow key is pressed
             THEN the last option should have data-highlighted`, async ({ page }) => {
-        const { getTrigger, getOptionAt, getHiddenOptionAt, openListbox } = await setup(
-          page,
-          'loop',
-        );
+        const { getTrigger, getOptionAt, openListbox } = await setup(page, 'loop');
 
         // initially last option is highlighted
         await openListbox('Enter');
@@ -738,14 +715,14 @@ test.describe('Keyboard Behavior', () => {
 
         await getTrigger().focus();
         await getTrigger().press('ArrowUp');
-        await expect(getHiddenOptionAt('last')).toHaveAttribute('data-highlighted');
+        await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
       });
 
       test(`GIVEN a closed select with loop enabled
             AND the last option is selected
             WHEN the right arrow key is pressed
             THEN it should loop to the first option`, async ({ page }) => {
-        const { getTrigger, getHiddenOptionAt, openListbox, getListbox } = await setup(
+        const { getTrigger, getOptionAt, openListbox, getListbox } = await setup(
           page,
           'loop',
         );
@@ -758,19 +735,19 @@ test.describe('Keyboard Behavior', () => {
 
         await expect(getListbox()).toBeHidden();
 
-        await expect(getHiddenOptionAt('last')).toHaveAttribute('aria-selected', 'true');
+        await expect(getOptionAt('last')).toHaveAttribute('aria-selected', 'true');
 
         await getTrigger().focus();
         await getTrigger().press('ArrowRight');
-        await expect(getHiddenOptionAt(0)).toHaveAttribute('data-highlighted');
-        await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+        await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
+        await expect(getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
       });
 
       test(`GIVEN a closed select with loop enabled
             AND the first option is selected
             WHEN the right arrow key is pressed
             THEN it should loop to the first option`, async ({ page }) => {
-        const { getTrigger, getHiddenOptionAt, openListbox, getListbox } = await setup(
+        const { getTrigger, getOptionAt, openListbox, getListbox } = await setup(
           page,
           'loop',
         );
@@ -782,12 +759,12 @@ test.describe('Keyboard Behavior', () => {
 
         await expect(getListbox()).toBeHidden();
 
-        await expect(getHiddenOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+        await expect(getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
 
         await getTrigger().focus();
         await getTrigger().press('ArrowLeft');
-        await expect(getHiddenOptionAt('last')).toHaveAttribute('data-highlighted');
-        await expect(getHiddenOptionAt('last')).toHaveAttribute('aria-selected', 'true');
+        await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
+        await expect(getOptionAt('last')).toHaveAttribute('aria-selected', 'true');
       });
     });
   });
@@ -937,13 +914,13 @@ test.describe('Props', () => {
           THEN the selected value should be the data passed to the value prop
           AND the fourth option should have data-highlighted
           AND aria-selected set to true`, async ({ page }) => {
-      const { getValueElement, getHiddenOptionAt } = await setup(page, 'uncontrolled');
+      const { getValueElement, getOptionAt } = await setup(page, 'uncontrolled');
 
-      const expectedValue = await getHiddenOptionAt(3).textContent();
+      const expectedValue = await getOptionAt(3).textContent();
 
       await expect(getValueElement()).toHaveText(expectedValue!);
-      await expect(getHiddenOptionAt(3)).toHaveAttribute('data-highlighted');
-      await expect(getHiddenOptionAt(3)).toHaveAttribute('aria-selected', 'true');
+      await expect(getOptionAt(3)).toHaveAttribute('data-highlighted');
+      await expect(getOptionAt(3)).toHaveAttribute('aria-selected', 'true');
     });
 
     test(`GIVEN an uncontrolled select with a value prop on the root component
@@ -964,13 +941,13 @@ test.describe('Props', () => {
           THEN the selected value should be the data passed to the bind:value prop
           AND should should have data-highlighted
           AND aria-selected set to true`, async ({ page }) => {
-      const { getValueElement, getHiddenOptionAt } = await setup(page, 'controlled');
+      const { getValueElement, getOptionAt } = await setup(page, 'controlled');
 
-      const expectedValue = await getHiddenOptionAt(1).textContent();
+      const expectedValue = await getOptionAt(1).textContent();
 
       await expect(getValueElement()).toContainText(expectedValue!);
-      await expect(getHiddenOptionAt(1)).toHaveAttribute('data-highlighted');
-      await expect(getHiddenOptionAt(1)).toHaveAttribute('aria-selected', 'true');
+      await expect(getOptionAt(1)).toHaveAttribute('data-highlighted');
+      await expect(getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
     });
 
     test(`GIVEN a controlled closed select with a bind:open prop on the root component
@@ -1011,6 +988,27 @@ test.describe('Props', () => {
       await page.getByRole('button', { name: 'Change to Abby' }).click();
 
       await expect(getTrigger()).toHaveText(`Abby`);
+    });
+
+    test(`GIVEN a select with distinct display and option values
+          WHEN the 5th option is selected
+          AND it clicks another option
+          AND it goes back to the 5th option programmatically
+          THEN the bind:value signal should update to reflect the 5th option's value`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'controlled-value');
+
+      await expect(d.getTrigger()).toHaveText('Select an option');
+      // setup
+      await page.getByRole('button', { name: 'Change to Abby' }).click();
+      await expect(d.getTrigger()).toHaveText(`Abby`);
+
+      await d.openListbox('click');
+      await d.getOptionAt(1).click();
+      await expect(d.getTrigger()).toHaveText(`Ryan`);
+      await page.getByRole('button', { name: 'Change to Abby' }).click();
+      await expect(d.getTrigger()).toHaveText(`Abby`);
     });
   });
 });
@@ -1086,5 +1084,56 @@ test.describe('A11y', () => {
     const listboxId = await getListbox().getAttribute('id');
 
     await expect(getRoot()).toHaveAttribute('aria-controls', `${listboxId}`);
+  });
+});
+
+test.describe('Multiple Selection', () => {
+  test(`GIVEN a multi select
+        WHEN clicking an option
+        THEN the option should be selected
+        AND the listbox should remain open`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple');
+    await d.openListbox('click');
+    await d.getOptionAt(0).click();
+    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+    await expect(d.getListbox()).toBeVisible();
+  });
+
+  test(`GIVEN a multi select
+        WHEN clicking one option
+        AND another option
+        THEN both options should be selected`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple');
+    await d.openListbox('click');
+    await d.getOptionAt(0).click();
+    await d.getOptionAt(1).click();
+    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+    await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
+  });
+
+  test(`GIVEN a multi select
+        WHEN clicking one option
+        AND hitting the escape key
+        THEN both listbox should close`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple');
+    await d.openListbox('click');
+    await d.getOptionAt(0).click();
+    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+    await d.getTrigger().press('Escape');
+    await expect(d.getListbox()).toBeHidden();
+  });
+
+  test(`GIVEN a multi select
+        WHEN clicking one option
+        AND clicking another option
+        THEN the selected value should contain both options`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple');
+    await d.openListbox('click');
+    await d.getOptionAt(0).click();
+    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+    await d.getOptionAt(1).click();
+    await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
+
+    await expect(d.getValueElement()).toHaveText('Tim, Ryan');
   });
 });

@@ -1,4 +1,5 @@
 export * from './select';
+export * from './select-label';
 export * from './select-inline';
 export * from './select-listbox';
 export * from './select-option';
@@ -6,5 +7,5 @@ export * from './select-popover';
 export * from './select-trigger';
 export * from './select-value';
 export * from './select-group';
-export * from './select-label';
+export * from './select-group-label';
 export * from './hidden-select';

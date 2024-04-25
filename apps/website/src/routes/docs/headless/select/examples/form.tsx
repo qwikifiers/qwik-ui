@@ -15,7 +15,7 @@ export default component$(() => {
 
   return (
     <form preventdefault:submit>
-      <Select required class="select" aria-label="hero">
+      <Select required class="select">
         <SelectTrigger class="select-trigger">
           <SelectValue placeholder="Select an option" />
         </SelectTrigger>

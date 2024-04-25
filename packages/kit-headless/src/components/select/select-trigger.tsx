@@ -8,6 +8,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } = useSelect();
   const openKeys = ['ArrowUp', 'ArrowDown'];
   const closedKeys = [`Escape`];
+  const labelId = `${context.localId}-label`;
 
   const { typeahead$ } = useTypeahead();
 
@@ -64,48 +65,57 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (!context.isListboxOpenSig.value) {
+      if (context.multiple) return;
+
       if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
-        context.selectedIndexSig.value = await getNextEnabledOptionIndex(
+        const firstIndex = await getNextEnabledOptionIndex(
           -1,
           context.optionsSig.value,
           context.loop,
         );
+        context.selectedIndexesSig.value = [firstIndex];
 
-        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
         return;
       }
 
       if (e.key === 'ArrowRight' && context.highlightedIndexSig.value !== null) {
-        context.selectedIndexSig.value = await getNextEnabledOptionIndex(
-          context.selectedIndexSig.value!,
+        const nextIndex = await getNextEnabledOptionIndex(
+          context.selectedIndexesSig.value[0]!,
           context.optionsSig.value,
           context.loop,
         );
 
-        console.log('selectedIndex', context.selectedIndexSig.value);
+        context.selectedIndexesSig.value = [nextIndex];
 
-        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+        console.log('selectedIndex', context.selectedIndexesSig.value);
+
+        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
       }
 
       if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {
-        context.selectedIndexSig.value = await getPrevEnabledOptionIndex(
+        const lastIndex = await getPrevEnabledOptionIndex(
           context.optionsSig.value.length,
           context.optionsSig.value,
           context.loop,
         );
 
-        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+        context.selectedIndexesSig.value = [lastIndex];
+
+        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
         return;
       }
 
       if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value !== null) {
-        context.selectedIndexSig.value = await getPrevEnabledOptionIndex(
+        const prevIndex = await getPrevEnabledOptionIndex(
           context.highlightedIndexSig.value,
           context.optionsSig.value,
           context.loop,
         );
 
-        context.highlightedIndexSig.value = context.selectedIndexSig.value;
+        context.selectedIndexesSig.value = [prevIndex];
+
+        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
       }
     }
 
@@ -126,7 +136,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
       // select options
       if (e.key === 'Enter' || e.key === ' ') {
-        context.selectedIndexSig.value = context.highlightedIndexSig.value;
+        context.selectedIndexesSig.value = [context.highlightedIndexSig.value];
       }
 
       if (e.key === 'ArrowDown') {
@@ -150,12 +160,14 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   return (
     <button
       {...props}
+      id={`${context.localId}-trigger`}
       ref={context.triggerRef}
       onClick$={[handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}
+      aria-labelledby={labelId}
       preventdefault:blur
     >
       <Slot />

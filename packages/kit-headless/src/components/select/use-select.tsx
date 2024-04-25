@@ -1,4 +1,4 @@
-import { useContext, useSignal, $, useComputed$ } from '@builder.io/qwik';
+import { useContext, useSignal, $, useComputed$, Signal } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import { Opt } from './select-inline';
 
@@ -7,6 +7,14 @@ import { Opt } from './select-inline';
  * This is because outside of the component$ boundary Qwik core wakes up.
  */
 export function useSelect() {
+  const addUniqueIndex = $(
+    (selectedIndexesSig: Signal<Array<number | null>>, index: number | null) => {
+      if (index !== null && !selectedIndexesSig.value.includes(index)) {
+        selectedIndexesSig.value = [...selectedIndexesSig.value, index];
+      }
+    },
+  );
+
   const getNextEnabledOptionIndex = $((index: number, options: Opt[], loop: boolean) => {
     let offset = 1;
     const len = options.length;
@@ -61,7 +69,12 @@ export function useSelect() {
     return `${localId}-${index}`;
   });
 
-  return { getNextEnabledOptionIndex, getPrevEnabledOptionIndex, getActiveDescendant };
+  return {
+    getNextEnabledOptionIndex,
+    getPrevEnabledOptionIndex,
+    getActiveDescendant,
+    addUniqueIndex,
+  };
 }
 
 export function useTypeahead() {
@@ -97,7 +110,7 @@ export function useTypeahead() {
         context.highlightedIndexSig.value = firstCharIndex;
 
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexSig.value = firstCharIndex;
+          context.selectedIndexesSig.value = [firstCharIndex];
         }
 
         return;
@@ -120,7 +133,7 @@ export function useTypeahead() {
 
           context.highlightedIndexSig.value = nextIndex;
           if (!context.isListboxOpenSig.value) {
-            context.selectedIndexSig.value = nextIndex;
+            context.selectedIndexesSig.value = [nextIndex];
           }
           indexDiffSig.value = nextIndex + 1;
           return;
@@ -129,14 +142,14 @@ export function useTypeahead() {
         indexDiffSig.value = undefined;
         context.highlightedIndexSig.value = firstCharIndex;
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexSig.value = firstCharIndex;
+          context.selectedIndexesSig.value = [firstCharIndex];
         }
         return;
       }
       indexDiffSig.value = firstCharIndex + 1;
       context.highlightedIndexSig.value = firstCharIndex;
       if (!context.isListboxOpenSig.value) {
-        context.selectedIndexSig.value = firstCharIndex;
+        context.selectedIndexesSig.value = [firstCharIndex];
       }
 
       return;
@@ -157,7 +170,7 @@ export function useTypeahead() {
       if (firstPossibleOpt !== -1) {
         context.highlightedIndexSig.value = firstPossibleOpt;
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexSig.value = firstPossibleOpt;
+          context.selectedIndexesSig.value = [firstPossibleOpt];
         }
         return;
       }

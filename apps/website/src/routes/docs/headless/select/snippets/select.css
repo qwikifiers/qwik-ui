@@ -28,7 +28,7 @@
   color: hsl(var(--foreground));
 }
 
-.select-label {
+.select-group-label {
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: hsla(var(--foreground) / 0.8);

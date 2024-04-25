@@ -11,13 +11,17 @@ type SelectValueProps = PropsOf<'span'> & {
 
 export const SelectValue = component$((props: SelectValueProps) => {
   const { placeholder, ...rest } = props;
-
   const context = useContext(SelectContextId);
+  const valueId = `${context.localId}-value`;
   if (!context.optionsSig.value) return;
 
   const displayStrSig = useComputed$(() => {
-    if (context.selectedIndexSig.value !== null) {
-      return context.optionsSig.value[context.selectedIndexSig.value].displayValue;
+    if (context.multiple) {
+      return `${context.selectedIndexesSig.value}`;
+    }
+
+    if (context.selectedIndexesSig.value[0] !== null) {
+      return context.optionsSig.value[context.selectedIndexesSig.value[0]].displayValue;
     } else {
       return placeholder;
     }
@@ -25,6 +29,7 @@ export const SelectValue = component$((props: SelectValueProps) => {
 
   return (
     <span
+      id={valueId}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       data-value

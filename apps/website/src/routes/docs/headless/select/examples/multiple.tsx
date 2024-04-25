@@ -1,7 +1,6 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
-  SelectLabel,
   SelectListbox,
   SelectOption,
   SelectPopover,
@@ -13,12 +12,12 @@ import styles from '../snippets/select.css?inline';
 export default component$(() => {
   useStyles$(styles);
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
+  const selected = useSignal<string[]>([]);
 
   return (
-    <Select class="select">
-      <SelectLabel>Logged in users</SelectLabel>
+    <Select multiple bind:value={selected} class="select">
       <SelectTrigger class="select-trigger">
-        <SelectValue placeholder="Select an option" />
+        <SelectValue>{selected.value}</SelectValue>
       </SelectTrigger>
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox">

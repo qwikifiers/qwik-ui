@@ -10,6 +10,7 @@ import {
 } from '@builder.io/qwik';
 import { isServer, isBrowser } from '@builder.io/qwik/build';
 import SelectContextId from './select-context';
+import { useSelect } from './use-select';
 
 export type SelectOptionProps = PropsOf<'li'> & {
   /** Internal index we get from the inline component. Please see select-inline.tsx */
@@ -30,8 +31,11 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const localIndexSig = useSignal<number | null>(null);
   const optionId = `${context.localId}-${_index}`;
 
+  const { addUniqueIndex } = useSelect();
+
   const isSelectedSig = useComputed$(() => {
-    return !disabled && context.selectedIndexSig.value === _index;
+    const index = _index ?? null;
+    return !disabled && context.selectedIndexesSig.value.includes(index);
   });
 
   const isHighlightedSig = useComputed$(() => {
@@ -78,8 +82,12 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const handleClick$ = $(() => {
     if (disabled) return;
 
-    context.selectedIndexSig.value = localIndexSig.value;
-    context.isListboxOpenSig.value = false;
+    if (context.multiple) {
+      addUniqueIndex(context.selectedIndexesSig, localIndexSig.value);
+    } else {
+      context.selectedIndexesSig.value = [localIndexSig.value];
+      context.isListboxOpenSig.value = false;
+    }
   });
 
   const handlePointerOver$ = $(() => {
