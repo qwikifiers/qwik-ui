@@ -30,5 +30,5 @@ export type SelectContext = {
 export const groupContextId = createContextId<GroupContext>('Select-Group');
 
 export type GroupContext = {
-  labelId: string;
+  groupLabelId: string;
 };

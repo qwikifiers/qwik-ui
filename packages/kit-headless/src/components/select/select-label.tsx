@@ -1,14 +1,13 @@
 import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
-import { groupContextId } from './select-context';
+import SelectContextId from './select-context';
 
-type SelectLabelProps = PropsOf<'li'>;
-
-export const SelectLabel = component$<SelectLabelProps>((props) => {
-  const groupContext = useContext(groupContextId);
+export const SelectLabel = component$((props: PropsOf<'div'>) => {
+  const context = useContext(SelectContextId);
+  const labelId = `${context.localId}-label`;
 
   return (
-    <li id={groupContext.labelId} {...props}>
+    <div id={labelId} {...props}>
       <Slot />
-    </li>
+    </div>
   );
 });

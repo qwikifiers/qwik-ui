@@ -17,7 +17,7 @@ export default component$(() => {
   return (
     <>
       <button onClick$={() => (isOpen.value = true)}>Toggle open state</button>
-      <Select bind:open={isOpen} class="select" aria-label="hero">
+      <Select bind:open={isOpen} class="select">
         <SelectTrigger class="select-trigger">
           <SelectValue placeholder="Select an option" />
         </SelectTrigger>

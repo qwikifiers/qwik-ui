@@ -14,7 +14,7 @@ export default component$(() => {
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
 
   return (
-    <Select class="select" aria-label="hero">
+    <Select class="select">
       <SelectTrigger class="select-trigger">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>

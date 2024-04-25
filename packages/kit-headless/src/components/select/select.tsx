@@ -145,6 +145,15 @@ export const SelectImpl = component$<SelectProps & InternalSelectProps>(
         selectedIndexesSig.value = [matchingIndex];
         highlightedIndexSig.value = matchingIndex;
       }
+
+      // update the consumer's bind:value signal
+      if (props['bind:value']?.value) {
+        const selectedIndex = selectedIndexesSig.value[0];
+        const selectedValue = selectedIndex
+          ? optionsSig.value[selectedIndex].value
+          : props['bind:value'].value;
+        props['bind:value'].value = selectedValue;
+      }
     });
 
     useTask$(function reactiveOpenTask({ track }) {

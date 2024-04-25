@@ -4,7 +4,7 @@ import {
   SelectPopover,
   SelectTrigger,
   SelectGroup,
-  SelectLabel,
+  SelectGroupLabel,
   SelectValue,
   SelectListbox,
   SelectOption,
@@ -22,7 +22,7 @@ export default component$(() => (
 
         {/* optional */}
         <SelectGroup>
-          <SelectLabel>group label</SelectLabel>
+          <SelectGroupLabel>group label</SelectGroupLabel>
           <SelectOption>group option</SelectOption>
         </SelectGroup>
       </SelectListbox>

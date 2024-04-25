@@ -1089,4 +1089,16 @@ test.describe('Multiple Selection', () => {
     await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
     await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
   });
+
+  test(`GIVEN a multi select
+        WHEN clicking one option
+        AND hitting the escape key
+        THEN both listbox should close`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple');
+    await d.openListbox('click');
+    await d.getOptionAt(0).click();
+    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+    await d.getTrigger().press('Escape');
+    await expect(d.getListbox()).toBeHidden();
+  });
 });

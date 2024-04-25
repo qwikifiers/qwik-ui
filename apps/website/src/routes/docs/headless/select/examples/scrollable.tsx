@@ -3,7 +3,7 @@ import {
   Select,
   SelectPopover,
   SelectGroup,
-  SelectLabel,
+  SelectGroupLabel,
   SelectListbox,
   SelectOption,
   SelectTrigger,
@@ -24,7 +24,7 @@ export default component$(() => {
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox select-max-height">
           <SelectGroup>
-            <SelectLabel class="select-label">People</SelectLabel>
+            <SelectGroupLabel class="select-label">People</SelectGroupLabel>
             {users.map((user) => (
               <SelectOption class="select-option" key={user}>
                 {user}
@@ -32,7 +32,7 @@ export default component$(() => {
             ))}
           </SelectGroup>
           <SelectGroup>
-            <SelectLabel class="select-label">Animals</SelectLabel>
+            <SelectGroupLabel class="select-label">Animals</SelectGroupLabel>
             {animals.map((animal) => (
               <SelectOption key={animal}>{animal}</SelectOption>
             ))}

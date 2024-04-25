@@ -3,7 +3,7 @@ import {
   Select,
   SelectPopover,
   SelectGroup,
-  SelectLabel,
+  SelectGroupLabel,
   SelectListbox,
   SelectOption,
   SelectTrigger,
@@ -24,13 +24,13 @@ export default component$(() => {
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox">
           <SelectGroup>
-            <SelectLabel class="select-label">People</SelectLabel>
+            <SelectGroupLabel class="select-label">People</SelectGroupLabel>
             {users.map((user) => (
               <SelectOption key={user}>{user}</SelectOption>
             ))}
           </SelectGroup>
           <SelectGroup>
-            <SelectLabel class="select-label">Animals</SelectLabel>
+            <SelectGroupLabel class="select-group-label">Animals</SelectGroupLabel>
             {animals.map((animal) => (
               <SelectOption class="select-option" key={animal}>
                 {animal}
