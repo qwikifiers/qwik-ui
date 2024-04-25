@@ -989,6 +989,27 @@ test.describe('Props', () => {
 
       await expect(getTrigger()).toHaveText(`Abby`);
     });
+
+    test(`GIVEN a select with distinct display and option values
+          WHEN the 5th option is selected
+          AND it clicks another option
+          AND it goes back to the 5th option programmatically
+          THEN the bind:value signal should update to reflect the 5th option's value`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'controlled-value');
+
+      await expect(d.getTrigger()).toHaveText('Select an option');
+      // setup
+      await page.getByRole('button', { name: 'Change to Abby' }).click();
+      await expect(d.getTrigger()).toHaveText(`Abby`);
+
+      await d.openListbox('click');
+      await d.getOptionAt(1).click();
+      await expect(d.getTrigger()).toHaveText(`Ryan`);
+      await page.getByRole('button', { name: 'Change to Abby' }).click();
+      await expect(d.getTrigger()).toHaveText(`Abby`);
+    });
   });
 });
 

@@ -10,7 +10,7 @@ import {
   useId,
   useComputed$,
 } from '@builder.io/qwik';
-import { isBrowser } from '@builder.io/qwik/build';
+import { isBrowser, isServer } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
 import { Opt } from './select-inline';
 import { HiddenSelect } from './hidden-select';
@@ -131,10 +131,6 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       return _options;
     });
 
-    const optionsIndexMap = new Map(
-      optionsSig.value?.map((option, index) => [option.value, index]),
-    );
-
     // core state
     const selectedIndexesSig = useSignal<Array<number | null>>([
       givenValuePropIndex ?? null,
@@ -146,31 +142,24 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       block: 'nearest',
     };
 
-    // we use a map here to efficiently access the matching index of the signal value
+    const optionsIndexMap = useComputed$(() => {
+      return new Map(optionsSig.value?.map((option, index) => [option.value, index]));
+    });
+
     useTask$(function reactiveValueTask({ track }) {
       const signalValue = track(() => props['bind:value']?.value);
       if (!signalValue) return;
-      if (!props['bind:value'] || !props['bind:value'].value) return;
 
-      if (Array.isArray(signalValue)) {
-        const matchingIndexes = signalValue.map(
-          (value) => optionsIndexMap.get(value) ?? -1,
-        );
+      const values = Array.isArray(signalValue) ? signalValue : [signalValue];
 
-        selectedIndexesSig.value = matchingIndexes;
-        console.log('selectedIndexes', selectedIndexesSig.value);
+      const matchingIndexes = values.map(
+        (value) => optionsIndexMap.value.get(value) ?? null,
+      );
 
-        if (matchingIndexes.length > 0) {
-          const lastIndex = matchingIndexes[matchingIndexes.length - 1];
-          highlightedIndexSig.value = matchingIndexes[lastIndex];
-        }
-      } else {
-        const matchingIndex = optionsIndexMap.get(signalValue) ?? -1;
-        if (matchingIndex !== -1) {
-          selectedIndexesSig.value = [matchingIndex];
-          highlightedIndexSig.value = matchingIndex;
-          props['bind:value'].value = optionsSig.value[matchingIndex].value;
-        }
+      if (matchingIndexes) {
+        selectedIndexesSig.value = matchingIndexes.filter((index) => index !== -1);
+
+        highlightedIndexSig.value = matchingIndexes[0];
       }
     });
 
@@ -186,6 +175,11 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       if (isBrowser && firstOption !== null) {
         await onChange$?.(optionsSig.value[firstOption].value);
       }
+
+      if (!props['bind:value'] || !props['bind:value'].value) return;
+      if (firstOption === null) return;
+      if (isServer) return;
+      props['bind:value'].value = optionsSig.value[firstOption].value;
     });
 
     useTask$(function onOpenChangeTask({ track }) {
