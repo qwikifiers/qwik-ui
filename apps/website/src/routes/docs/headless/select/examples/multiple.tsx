@@ -17,7 +17,7 @@ export default component$(() => {
   return (
     <Select multiple bind:value={selected} class="select">
       <SelectTrigger class="select-trigger">
-        <SelectValue>{selected.value}</SelectValue>
+        <SelectValue>{selected.value.join(', ')}</SelectValue>
       </SelectTrigger>
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox">
