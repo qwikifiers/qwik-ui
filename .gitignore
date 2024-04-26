@@ -60,6 +60,7 @@ coverage
 /libpeerconnection.log
 testem.log
 /typings
+packages/kit-headless/browsers/chrome/*
 
 # System Files
 .DS_Store

@@ -1,11 +1,33 @@
 import { workspaceRoot } from '@nx/devkit';
 import { nxE2EPreset } from '@nx/playwright/preset';
 import { defineConfig, devices } from '@playwright/test';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import os from 'os';
 
 const __filename = fileURLToPath(import.meta.url);
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://localhost:5173';
+
+const dirName = dirname(__filename);
+
+const currentPlatform = os.platform();
+
+let binaryPath;
+
+switch (currentPlatform) {
+  case 'darwin':
+    binaryPath = './browsers/chrome/113/chrome-darwin/Chromium.app';
+    break;
+  case 'win32':
+    binaryPath = './browsers/chrome/113/chrome-win32/chrome.exe';
+    break;
+  case 'linux':
+    binaryPath = './browsers/chrome/113/chrome-linux/chrome';
+    break;
+  default:
+    throw new Error('Cannot install Chrome 13 on unknown platform');
+}
 
 /**
  * Read environment variables from file.
@@ -39,6 +61,16 @@ export default defineConfig({
       name: 'logic',
       use: { ...devices['Desktop Chrome'] },
       grepInvert: /@Visual.*/,
+    },
+
+    {
+      name: 'popover-chrome-113',
+      use: {
+        launchOptions: {
+          executablePath: path.resolve(dirName, binaryPath),
+        },
+      },
+      grep: /popover/,
     },
 
     {
