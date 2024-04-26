@@ -147,10 +147,12 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     });
 
     useTask$(function reactiveValueTask({ track }) {
-      const signalValue = track(() => props['bind:value']?.value);
-      if (!signalValue) return;
+      track(() => props['bind:value']?.value);
+      if (!props['bind:value']) return;
 
-      const values = Array.isArray(signalValue) ? signalValue : [signalValue];
+      const values = Array.isArray(props['bind:value']?.value)
+        ? props['bind:value']?.value
+        : [props['bind:value']?.value];
 
       const matchingIndexes = values.map(
         (value) => optionsIndexMap.value.get(value) ?? null,
@@ -159,7 +161,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       if (matchingIndexes) {
         selectedIndexesSig.value = matchingIndexes.filter((index) => index !== -1);
 
-        highlightedIndexSig.value = matchingIndexes[0];
+        highlightedIndexSig.value = matchingIndexes[matchingIndexes.length - 1];
       }
     });
 
@@ -177,9 +179,16 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       }
 
       if (!props['bind:value'] || !props['bind:value'].value) return;
-      if (firstOption === null) return;
       if (isServer) return;
-      props['bind:value'].value = optionsSig.value[firstOption].value;
+
+      const newValue = multiple
+        ? selectedIndexesSig.value.map((index) => optionsSig.value[index!].value)
+        : optionsSig.value[firstOption!]?.value;
+
+      if (JSON.stringify(props['bind:value'].value) !== JSON.stringify(newValue)) {
+        props['bind:value'].value = newValue;
+        console.log('Updated bind:value:', newValue);
+      }
     });
 
     useTask$(function onOpenChangeTask({ track }) {
