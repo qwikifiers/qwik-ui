@@ -2,6 +2,7 @@ import { type JSXNode, Component } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select';
 import { SelectOption } from './select-option';
 import { SelectLabel } from './select-label';
+import { SelectIndicator } from './select-indicator';
 
 export type Opt = {
   isDisabled: boolean;
@@ -74,6 +75,16 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
 
       case SelectLabel: {
         label = true;
+        break;
+      }
+
+      case SelectIndicator: {
+        /**
+         * so that the indicator can know which option it is associated with.
+         * otherwise we'd need a different API, such as a parent SelectOption, and the current <SelectOption /> would become <SelectOptionLabel />
+         * */
+        const indicatorIndex = currentIndex;
+        child.props._indicatorIndex = indicatorIndex;
         break;
       }
 

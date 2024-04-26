@@ -9,3 +9,4 @@ export * from './select-value';
 export * from './select-group';
 export * from './select-group-label';
 export * from './hidden-select';
+export * from './select-indicator';
