@@ -209,9 +209,15 @@ Clicking the `Add Users` button adds a couple new users mapped to the list. Taki
 
 ### Multiple selections
 
+Sometimes we want to allow the user to select multiple pre-defined options. We can do that by setting the `multiple` prop to `true`.
+
 <Showcase name="multiple" />
 
-The `multiple` prop allows the user to select multiple options.
+Something to be aware of, is the `<SelectValue />` component will now display whatever you put inside of it.
+
+This can be used in unison with the `bind:value` prop for more customization. For example, a pill component that displays the selected values.
+
+<Showcase name="multiple-pill" />
 
 ## Menu behavior
 
