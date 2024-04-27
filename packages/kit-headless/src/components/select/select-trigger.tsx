@@ -6,8 +6,6 @@ type SelectTriggerProps = PropsOf<'button'>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
   const { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } = useSelect();
-  const openKeys = ['ArrowUp', 'ArrowDown'];
-  const closedKeys = [`Escape`];
   const labelId = `${context.localId}-label`;
 
   const { typeahead$ } = useTypeahead();
@@ -39,37 +37,60 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   });
 
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
-    typeahead$(e.key);
-    const shouldOpen = !context.isListboxOpenSig.value && openKeys.includes(e.key);
-    const shouldClose = context.isListboxOpenSig.value && closedKeys.includes(e.key);
     if (!context.optionsSig.value) return;
+    typeahead$(e.key);
 
-    if (shouldOpen) {
-      context.isListboxOpenSig.value = true;
-    }
+    if (context.isListboxOpenSig.value) {
+      // select options
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (context.multiple) {
+          toggleIndex$(context.selectedIndexesSig, context.highlightedIndexSig.value);
+        } else {
+          context.selectedIndexesSig.value = [context.highlightedIndexSig.value];
+        }
+      }
 
-    if (shouldClose) {
-      context.isListboxOpenSig.value = false;
-    }
+      if (e.key === 'ArrowDown') {
+        context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
+          context.highlightedIndexSig.value!,
+          context.optionsSig.value,
+          context.loop,
+        );
+      }
 
-    if (e.key === 'Home') {
-      context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
-        -1,
-        context.optionsSig.value,
-        context.loop,
-      );
-    }
+      if (e.key === 'ArrowUp') {
+        context.highlightedIndexSig.value = await getPrevEnabledOptionIndex(
+          context.highlightedIndexSig.value!,
+          context.optionsSig.value,
+          context.loop,
+        );
+      }
 
-    if (e.key === 'End') {
-      const lastEnabledOptionIndex = await getPrevEnabledOptionIndex(
-        context.optionsSig.value.length,
-        context.optionsSig.value,
-        context.loop,
-      );
-      context.highlightedIndexSig.value = lastEnabledOptionIndex;
-    }
+      if (e.key === 'Home') {
+        context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
+          -1,
+          context.optionsSig.value,
+          context.loop,
+        );
+      }
 
-    if (!context.isListboxOpenSig.value) {
+      if (e.key === 'End') {
+        const lastEnabledOptionIndex = await getPrevEnabledOptionIndex(
+          context.optionsSig.value.length,
+          context.optionsSig.value,
+          context.loop,
+        );
+        context.highlightedIndexSig.value = lastEnabledOptionIndex;
+      }
+
+      if (e.key === 'Tab' || e.key === 'Escape') {
+        context.isListboxOpenSig.value = false;
+      }
+    } else {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        context.isListboxOpenSig.value = true;
+      }
+
       if (context.multiple) return;
 
       if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
@@ -130,37 +151,6 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         context.loop,
       );
       return;
-    }
-
-    if (context.isListboxOpenSig.value && !shouldOpen) {
-      if (e.key === 'Tab') {
-        context.isListboxOpenSig.value = false;
-      }
-
-      // select options
-      if (e.key === 'Enter' || e.key === ' ') {
-        if (context.multiple) {
-          toggleIndex$(context.selectedIndexesSig, context.highlightedIndexSig.value);
-        } else {
-          context.selectedIndexesSig.value = [context.highlightedIndexSig.value];
-        }
-      }
-
-      if (e.key === 'ArrowDown') {
-        context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
-          context.highlightedIndexSig.value,
-          context.optionsSig.value,
-          context.loop,
-        );
-      }
-
-      if (e.key === 'ArrowUp') {
-        context.highlightedIndexSig.value = await getPrevEnabledOptionIndex(
-          context.highlightedIndexSig.value,
-          context.optionsSig.value,
-          context.loop,
-        );
-      }
     }
   });
 
