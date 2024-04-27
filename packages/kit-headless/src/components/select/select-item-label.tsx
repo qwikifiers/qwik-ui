@@ -4,7 +4,7 @@ type SelectOptionLabelProps = PropsOf<'span'>;
 
 export const SelectItemLabel = component$((props: SelectOptionLabelProps) => {
   return (
-    <span {...props}>
+    <span tabIndex={-1} {...props}>
       <Slot />
     </span>
   );

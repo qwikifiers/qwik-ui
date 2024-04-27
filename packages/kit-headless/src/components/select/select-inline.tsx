@@ -1,8 +1,8 @@
 import { type JSXNode, Component } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select';
-import { SelectItem } from './select-option';
+import { SelectItem } from './select-item';
 import { SelectLabel } from './select-label';
-import { SelectItemLabel } from './select-option-label';
+import { SelectItemLabel } from './select-item-label';
 
 export type Opt = {
   value: string;

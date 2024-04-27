@@ -6,6 +6,6 @@ export { SelectPopover as Popover } from './select-popover';
 export { SelectListbox as Listbox } from './select-listbox';
 export { SelectGroup as Group } from './select-group';
 export { SelectGroupLabel as GroupLabel } from './select-group-label';
-export { SelectItem as Item } from './select-option';
-export { SelectItemLabel as ItemLabel } from './select-option-label';
+export { SelectItem as Item } from './select-item';
+export { SelectItemLabel as ItemLabel } from './select-item-label';
 export { SelectItemIndicator as ItemIndicator } from './select-item-indicator';

@@ -11,6 +11,11 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const labelId = `${context.localId}-label`;
 
   const { typeahead$ } = useTypeahead();
+  const { toggleIndex$ } = useSelect();
+
+  const handleClickSync$ = sync$((e: MouseEvent) => {
+    e.preventDefault();
+  });
 
   // Both the space and enter keys run with handleClick$
   const handleClick$ = $(() => {
@@ -134,7 +139,11 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
       // select options
       if (e.key === 'Enter' || e.key === ' ') {
-        context.selectedIndexesSig.value = [context.highlightedIndexSig.value];
+        if (context.multiple) {
+          toggleIndex$(context.selectedIndexesSig, context.highlightedIndexSig.value);
+        } else {
+          context.selectedIndexesSig.value = [context.highlightedIndexSig.value];
+        }
       }
 
       if (e.key === 'ArrowDown') {
@@ -160,7 +169,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       {...props}
       id={`${context.localId}-trigger`}
       ref={context.triggerRef}
-      onClick$={[handleClick$, props.onClick$]}
+      onClick$={[handleClickSync$, handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}

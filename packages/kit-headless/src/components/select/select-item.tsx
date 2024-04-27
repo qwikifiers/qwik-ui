@@ -35,7 +35,7 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
   const localIndexSig = useSignal<number | null>(null);
   const optionId = `${context.localId}-${_index}`;
 
-  const { addUniqueIndex } = useSelect();
+  const { toggleIndex$ } = useSelect();
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -87,7 +87,7 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
     if (disabled) return;
 
     if (context.multiple) {
-      addUniqueIndex(context.selectedIndexesSig, localIndexSig.value);
+      toggleIndex$(context.selectedIndexesSig, localIndexSig.value);
     } else {
       context.selectedIndexesSig.value = [localIndexSig.value];
       context.isListboxOpenSig.value = false;

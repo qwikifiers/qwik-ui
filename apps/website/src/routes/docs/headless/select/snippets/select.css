@@ -40,6 +40,10 @@
   align-items: center;
 }
 
+.select-item span {
+  user-select: none;
+}
+
 .select-item svg {
   margin-inline-end: 0.25rem;
 }

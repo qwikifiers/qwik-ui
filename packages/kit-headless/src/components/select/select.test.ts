@@ -1077,52 +1077,84 @@ test.describe('A11y', () => {
 });
 
 test.describe('Multiple Selection', () => {
-  test(`GIVEN a multi select
+  test.describe('mouse behavior', () => {
+    test(`GIVEN a multi select
         WHEN clicking an option
         THEN the option should be selected
         AND the listbox should remain open`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'multiple');
-    await d.openListbox('click');
-    await d.getOptionAt(0).click();
-    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
-    await expect(d.getListbox()).toBeVisible();
-  });
+      const { driver: d } = await setup(page, 'multiple');
+      await d.openListbox('click');
+      await d.getOptionAt(0).click();
+      await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+      await expect(d.getListbox()).toBeVisible();
+    });
 
-  test(`GIVEN a multi select
+    test(`GIVEN a multi select
         WHEN clicking one option
         AND another option
         THEN both options should be selected`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'multiple');
-    await d.openListbox('click');
-    await d.getOptionAt(0).click();
-    await d.getOptionAt(1).click();
-    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
-    await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
-  });
+      const { driver: d } = await setup(page, 'multiple');
+      await d.openListbox('click');
+      await d.getOptionAt(0).click();
+      await d.getOptionAt(1).click();
+      await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+      await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
+    });
 
-  test(`GIVEN a multi select
-        WHEN clicking one option
-        AND hitting the escape key
-        THEN both listbox should close`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'multiple');
-    await d.openListbox('click');
-    await d.getOptionAt(0).click();
-    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
-    await d.getTrigger().press('Escape');
-    await expect(d.getListbox()).toBeHidden();
-  });
+    test(`GIVEN a multi select
+          WHEN clicking one option
+          AND clicking the same option again
+          THEN it should toggle between selected and unselected`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'multiple');
+      await d.openListbox('click');
+      await d.getOptionAt(0).click();
+      await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+      await d.getOptionAt(0).click();
+      await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'false');
+    });
 
-  test(`GIVEN a multi select
+    test(`GIVEN a multi select
         WHEN clicking one option
         AND clicking another option
         THEN the selected value should contain both options`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'multiple');
-    await d.openListbox('click');
-    await d.getOptionAt(0).click();
-    await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
-    await d.getOptionAt(1).click();
-    await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
+      const { driver: d } = await setup(page, 'multiple');
+      await d.openListbox('click');
+      await d.getOptionAt(0).click();
+      await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+      await d.getOptionAt(1).click();
+      await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
 
-    await expect(d.getValueElement()).toHaveText('Tim, Ryan');
+      await expect(d.getValueElement()).toHaveText('Tim, Ryan');
+    });
+  });
+
+  test.describe('keyboard behavior', () => {
+    for (const key of ['Enter', 'Space']) {
+      test(`GIVEN an open multi select
+            WHEN pressing the ${key} key
+            AND pressing the ${key} key again
+            THEN the selected option should toggle between selected and unselected`, async ({
+        page,
+      }) => {
+        const { driver: d } = await setup(page, 'multiple');
+        await d.openListbox('click');
+        await d.getOptionAt(0).press(key);
+        await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+        await d.getOptionAt(0).press(key);
+        await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'false');
+      });
+    }
+
+    test(`GIVEN a multi select
+        WHEN selecting an option
+        AND hitting the escape key
+        THEN both listbox should close`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'multiple');
+      await d.openListbox('click');
+      await d.getOptionAt(0).click();
+      await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+      await d.getTrigger().press('Escape');
+      await expect(d.getListbox()).toBeHidden();
+    });
   });
 });

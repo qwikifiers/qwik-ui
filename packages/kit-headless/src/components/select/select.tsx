@@ -166,7 +166,8 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       if (matchingIndexes) {
         selectedIndexesSig.value = matchingIndexes.filter((index) => index !== -1);
 
-        highlightedIndexSig.value = matchingIndexes[matchingIndexes.length - 1];
+        if (multiple) return;
+        highlightedIndexSig.value = matchingIndexes[0];
       }
     });
 
