@@ -1137,10 +1137,10 @@ test.describe('Multiple Selection', () => {
         page,
       }) => {
         const { driver: d } = await setup(page, 'multiple');
-        await d.openListbox('click');
-        await d.getOptionAt(0).press(key);
+        await d.openListbox('Enter');
+        await d.getTrigger().press(key);
         await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
-        await d.getOptionAt(0).press(key);
+        await d.getTrigger().press(key);
         await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'false');
       });
     }

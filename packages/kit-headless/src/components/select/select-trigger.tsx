@@ -30,6 +30,8 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       'End',
       'PageDown',
       'PageUp',
+      'Enter',
+      ' ',
     ];
     if (keys.includes(e.key)) {
       e.preventDefault();
@@ -91,55 +93,63 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         context.isListboxOpenSig.value = true;
       }
 
-      if (context.multiple) return;
+      if (!context.multiple) {
+        if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
+          const firstIndex = await getNextEnabledOptionIndex(
+            -1,
+            context.optionsSig.value,
+            context.loop,
+          );
+          context.selectedIndexesSig.value = [firstIndex];
 
-      if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
-        const firstIndex = await getNextEnabledOptionIndex(
-          -1,
-          context.optionsSig.value,
-          context.loop,
-        );
-        context.selectedIndexesSig.value = [firstIndex];
+          context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+          return;
+        }
 
-        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
-        return;
+        if (e.key === 'ArrowRight' && context.highlightedIndexSig.value !== null) {
+          const nextIndex = await getNextEnabledOptionIndex(
+            context.selectedIndexesSig.value[0]!,
+            context.optionsSig.value,
+            context.loop,
+          );
+
+          context.selectedIndexesSig.value = [nextIndex];
+
+          context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+        }
+
+        if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {
+          const lastIndex = await getPrevEnabledOptionIndex(
+            context.optionsSig.value.length,
+            context.optionsSig.value,
+            context.loop,
+          );
+
+          context.selectedIndexesSig.value = [lastIndex];
+
+          context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+          return;
+        }
+
+        if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value !== null) {
+          const prevIndex = await getPrevEnabledOptionIndex(
+            context.highlightedIndexSig.value,
+            context.optionsSig.value,
+            context.loop,
+          );
+
+          context.selectedIndexesSig.value = [prevIndex];
+
+          context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+        }
       }
+    }
 
-      if (e.key === 'ArrowRight' && context.highlightedIndexSig.value !== null) {
-        const nextIndex = await getNextEnabledOptionIndex(
-          context.selectedIndexesSig.value[0]!,
-          context.optionsSig.value,
-          context.loop,
-        );
-
-        context.selectedIndexesSig.value = [nextIndex];
-
-        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
-      }
-
-      if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {
-        const lastIndex = await getPrevEnabledOptionIndex(
-          context.optionsSig.value.length,
-          context.optionsSig.value,
-          context.loop,
-        );
-
-        context.selectedIndexesSig.value = [lastIndex];
-
-        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
-        return;
-      }
-
-      if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value !== null) {
-        const prevIndex = await getPrevEnabledOptionIndex(
-          context.highlightedIndexSig.value,
-          context.optionsSig.value,
-          context.loop,
-        );
-
-        context.selectedIndexesSig.value = [prevIndex];
-
-        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+    if (e.key === 'Enter' || e.key === ' ') {
+      if (context.multiple) {
+        context.isListboxOpenSig.value = true;
+      } else {
+        context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
       }
     }
 
