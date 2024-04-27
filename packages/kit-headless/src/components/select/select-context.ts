@@ -33,3 +33,10 @@ export const groupContextId = createContextId<GroupContext>('Select-Group');
 export type GroupContext = {
   groupLabelId: string;
 };
+
+export const selectOptionContextId =
+  createContextId<SelectOptionContext>('Select-Option');
+
+export type SelectOptionContext = {
+  isSelectedSig: Signal<boolean>;
+};

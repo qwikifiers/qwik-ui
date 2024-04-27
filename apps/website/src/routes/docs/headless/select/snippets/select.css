@@ -34,6 +34,16 @@
   color: hsl(var(--foreground));
 }
 
+.select-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select-option svg {
+  margin-inline-end: 0.25rem;
+}
+
 .select-group-label {
   font-size: 0.875rem;
   line-height: 1.25rem;

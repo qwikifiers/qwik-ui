@@ -7,9 +7,13 @@ import {
   useSignal,
   useTask$,
   type PropsOf,
+  useContextProvider,
 } from '@builder.io/qwik';
 import { isServer, isBrowser } from '@builder.io/qwik/build';
-import SelectContextId from './select-context';
+import SelectContextId, {
+  SelectOptionContext,
+  selectOptionContextId,
+} from './select-context';
 import { useSelect } from './use-select';
 
 export type SelectOptionProps = PropsOf<'li'> & {
@@ -97,6 +101,12 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
       context.highlightedIndexSig.value = localIndexSig.value;
     }
   });
+
+  const selectContext: SelectOptionContext = {
+    isSelectedSig,
+  };
+
+  useContextProvider(selectOptionContextId, selectContext);
 
   return (
     <li
