@@ -88,6 +88,12 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       if (e.key === 'Tab' || e.key === 'Escape') {
         context.isListboxOpenSig.value = false;
       }
+
+      if (context.multiple) {
+        if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && e.shiftKey) {
+          toggleIndex$(context.selectedIndexesSig, context.highlightedIndexSig.value);
+        }
+      }
     } else {
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         context.isListboxOpenSig.value = true;
