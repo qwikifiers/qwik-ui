@@ -8,6 +8,7 @@ import {
   SelectOption,
   SelectTrigger,
   SelectValue,
+  SelectOptionLabel,
 } from '@qwik-ui/headless';
 import styles from '../snippets/select.css?inline';
 
@@ -26,14 +27,16 @@ export default component$(() => {
           <SelectGroup>
             <SelectGroupLabel class="select-label">People</SelectGroupLabel>
             {users.map((user) => (
-              <SelectOption key={user}>{user}</SelectOption>
+              <SelectOption key={user}>
+                <SelectOptionLabel>{user}</SelectOptionLabel>
+              </SelectOption>
             ))}
           </SelectGroup>
           <SelectGroup>
             <SelectGroupLabel class="select-group-label">Animals</SelectGroupLabel>
             {animals.map((animal) => (
               <SelectOption class="select-option" key={animal}>
-                {animal}
+                <SelectOptionLabel>{animal}</SelectOptionLabel>
               </SelectOption>
             ))}
           </SelectGroup>

@@ -56,6 +56,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
     }
 
     if (e.key === 'End') {
+      console.log('OPTIONS', context.optionsSig.value);
       const lastEnabledOptionIndex = await getPrevEnabledOptionIndex(
         context.optionsSig.value.length,
         context.optionsSig.value,

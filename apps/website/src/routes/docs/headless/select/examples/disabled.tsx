@@ -6,6 +6,7 @@ import {
   SelectOption,
   SelectTrigger,
   SelectValue,
+  SelectOptionLabel,
 } from '@qwik-ui/headless';
 import styles from '../snippets/select.css?inline';
 
@@ -28,7 +29,7 @@ export default component$(() => {
                 index === 0 || index === 2 || index === users.length - 1 ? true : false
               }
             >
-              {user}
+              <SelectOptionLabel>{user}</SelectOptionLabel>
             </SelectOption>
           ))}
         </SelectListbox>

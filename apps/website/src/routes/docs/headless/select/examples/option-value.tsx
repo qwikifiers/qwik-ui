@@ -6,6 +6,7 @@ import {
   SelectOption,
   SelectTrigger,
   SelectValue,
+  SelectOptionLabel,
 } from '@qwik-ui/headless';
 import styles from '../snippets/select.css?inline';
 export default component$(() => {
@@ -34,7 +35,7 @@ export default component$(() => {
           <SelectListbox class="select-listbox">
             {users.map((user) => (
               <SelectOption value={user.id} key={user.id}>
-                {user.label}
+                <SelectOptionLabel>{user.label}</SelectOptionLabel>
               </SelectOption>
             ))}
           </SelectListbox>

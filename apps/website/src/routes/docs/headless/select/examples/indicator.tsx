@@ -5,6 +5,7 @@ import {
   SelectLabel,
   SelectListbox,
   SelectOption,
+  SelectOptionLabel,
   SelectPopover,
   SelectTrigger,
   SelectValue,
@@ -25,12 +26,12 @@ export default component$(() => {
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox">
           {users.map((user) => (
-            <>
-              <SelectOption key={user}>{user}</SelectOption>
+            <SelectOption key={user}>
+              <SelectOptionLabel>{user}</SelectOptionLabel>
               <SelectIndicator>
                 <LuCheck />
               </SelectIndicator>
-            </>
+            </SelectOption>
           ))}
         </SelectListbox>
       </SelectPopover>

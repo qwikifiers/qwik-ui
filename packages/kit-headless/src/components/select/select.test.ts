@@ -914,13 +914,13 @@ test.describe('Props', () => {
           THEN the selected value should be the data passed to the value prop
           AND the fourth option should have data-highlighted
           AND aria-selected set to true`, async ({ page }) => {
-      const { getValueElement, getOptionAt } = await setup(page, 'uncontrolled');
+      const { driver: d } = await setup(page, 'uncontrolled');
 
-      const expectedValue = await getOptionAt(3).textContent();
+      const expectedValue = await d.getOptionAt(3).textContent();
 
-      await expect(getValueElement()).toHaveText(expectedValue!);
-      await expect(getOptionAt(3)).toHaveAttribute('data-highlighted');
-      await expect(getOptionAt(3)).toHaveAttribute('aria-selected', 'true');
+      await expect(d.getValueElement()).toHaveText(expectedValue!);
+      await expect(d.getOptionAt(3)).toHaveAttribute('data-highlighted');
+      await expect(d.getOptionAt(3)).toHaveAttribute('aria-selected', 'true');
     });
 
     test(`GIVEN an uncontrolled select with a value prop on the root component

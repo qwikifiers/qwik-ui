@@ -2,13 +2,13 @@ import { type JSXNode, Component } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select';
 import { SelectOption } from './select-option';
 import { SelectLabel } from './select-label';
-import { SelectIndicator } from './select-indicator';
+import { SelectOptionLabel } from './select-option-label';
 
 export type Opt = {
-  isDisabled: boolean;
   value: string;
   displayValue?: string;
   index: number;
+  isDisabled: boolean;
 };
 
 /*
@@ -18,9 +18,14 @@ export type Opt = {
 export const Select: Component<SelectProps> = (props: SelectProps) => {
   const { children: myChildren, ...rest } = props;
   const opts: Opt[] = [];
-  let currentIndex = 0;
+  let currOptIndex = 0;
+  let givenOptValue = null;
+
+  // used for finding the initial value's index
   let valuePropIndex = null;
-  let label = false;
+
+  let isLabelNeeded = false;
+  let isOptDisabled = false;
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
@@ -39,52 +44,63 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
     }
 
     switch (child.type) {
+      case SelectLabel: {
+        isLabelNeeded = true;
+        break;
+      }
+
       case SelectOption: {
-        const isString = typeof child.props.children === 'string';
-        if (!isString) {
-          throw new Error(
-            `Qwik UI: Select option value passed was not a string. It was a ${typeof child
-              .props.children}.`,
-          );
+        // get the index of the current option
+        child.props._index = currOptIndex;
+        currOptIndex++;
+
+        isOptDisabled = child.props.disabled === true;
+
+        if (child.props.value) {
+          givenOptValue = child.props.value;
         }
 
-        child.props._index = currentIndex;
-        const isDisabled = child.props.disabled === true;
+        // the default case isn't handled here, so we need to process the children to get to the label component
+        if (child.props.children) {
+          const childChildren = Array.isArray(child.props.children)
+            ? [...child.props.children]
+            : [child.props.children];
+          childrenToProcess.unshift(...childChildren);
+        }
+
+        break;
+      }
+
+      case SelectOptionLabel: {
         // distinct value, or the display value is the same as the value
         const value = (
-          child.props.value ? child.props.value : child.props.children
+          givenOptValue !== null ? givenOptValue : child.props.children
         ) as string;
 
         const opt: Opt = {
-          isDisabled,
           value,
           displayValue: child.props.children as string,
-          index: currentIndex,
+          index: currOptIndex,
+          isDisabled: isOptDisabled,
         };
 
         opts.push(opt);
 
         // if the current option value is equal to the initial value
         if (value === props.value) {
-          valuePropIndex = currentIndex;
+          // minus one because it is incremented already in SelectOption
+          valuePropIndex = currOptIndex - 1;
         }
 
-        currentIndex++;
-        break;
-      }
+        const isString = typeof child.props.children === 'string';
 
-      case SelectLabel: {
-        label = true;
-        break;
-      }
+        if (!isString) {
+          throw new Error(
+            `Qwik UI: Select option label passed was not a string. It was a ${typeof child
+              .props.children}.`,
+          );
+        }
 
-      case SelectIndicator: {
-        /**
-         * so that the indicator can know which option it is associated with.
-         * otherwise we'd need a different API, such as a parent SelectOption, and the current <SelectOption /> would become <SelectOptionLabel />
-         * */
-        const indicatorIndex = currentIndex;
-        child.props._indicatorIndex = indicatorIndex;
         break;
       }
 
@@ -113,7 +129,12 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
   }
 
   return (
-    <SelectImpl {...rest} _label={label} _valuePropIndex={valuePropIndex} _options={opts}>
+    <SelectImpl
+      {...rest}
+      _label={isLabelNeeded}
+      _valuePropIndex={valuePropIndex}
+      _options={opts}
+    >
       {props.children}
     </SelectImpl>
   );
