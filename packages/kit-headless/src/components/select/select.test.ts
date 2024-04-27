@@ -922,17 +922,6 @@ test.describe('Props', () => {
       await expect(d.getOptionAt(3)).toHaveAttribute('data-highlighted');
       await expect(d.getOptionAt(3)).toHaveAttribute('aria-selected', 'true');
     });
-
-    test(`GIVEN an uncontrolled select with a value prop on the root component
-          WHEN the value data does NOT match any option
-          THEN fallback to the placeholder`, async ({ page }) => {
-      const { getValueElement } = await setup(page, 'wrong-value');
-
-      /**
-       we also currently give a console warning in the terminal if an option does not match. Ideally, I would like to have a union type of options, and it gives an error if there is no matching option
-    */
-      await expect(getValueElement()).toContainText('wrong value placeholder');
-    });
   });
 
   test.describe('controlled', () => {

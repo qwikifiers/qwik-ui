@@ -34,13 +34,13 @@
   color: hsl(var(--foreground));
 }
 
-.select-option {
+.select-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.select-option svg {
+.select-item svg {
   margin-inline-end: 0.25rem;
 }
 

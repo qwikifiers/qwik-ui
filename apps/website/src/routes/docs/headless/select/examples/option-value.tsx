@@ -1,14 +1,6 @@
 import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import {
-  Select,
-  SelectPopover,
-  SelectListbox,
-  SelectOption,
-  SelectTrigger,
-  SelectValue,
-  SelectOptionLabel,
-} from '@qwik-ui/headless';
-import styles from '../snippets/select.css?inline';
+import { Select } from '@qwik-ui/headless';
+
 export default component$(() => {
   useStyles$(styles);
   const users = [
@@ -27,21 +19,25 @@ export default component$(() => {
 
   return (
     <>
-      <Select onChange$={handleChange$} class="select">
-        <SelectTrigger class="select-trigger">
-          <SelectValue placeholder="Select an option" />
-        </SelectTrigger>
-        <SelectPopover class="select-popover">
-          <SelectListbox class="select-listbox">
+      <Select.Root onChange$={handleChange$} class="select">
+        <Select.Label>Logged in users</Select.Label>
+        <Select.Trigger class="select-trigger">
+          <Select.Value placeholder="Select an option" />
+        </Select.Trigger>
+        <Select.Popover class="select-popover">
+          <Select.Listbox class="select-listbox">
             {users.map((user) => (
-              <SelectOption value={user.id} key={user.id}>
-                <SelectOptionLabel>{user.label}</SelectOptionLabel>
-              </SelectOption>
+              <Select.Item value={user.id} key={user.id}>
+                <Select.ItemLabel>{user.label}</Select.ItemLabel>
+              </Select.Item>
             ))}
-          </SelectListbox>
-        </SelectPopover>
-      </Select>
+          </Select.Listbox>
+        </Select.Popover>
+      </Select.Root>
       <p>The selected value is: {selected.value ?? 'null'}</p>
     </>
   );
 });
+
+// internal
+import styles from '../snippets/select.css?inline';

@@ -1,14 +1,5 @@
 import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import {
-  Select,
-  SelectListbox,
-  SelectOption,
-  SelectOptionLabel,
-  SelectPopover,
-  SelectTrigger,
-  SelectValue,
-} from '@qwik-ui/headless';
-import styles from '../snippets/select.css?inline';
+import { Select } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(styles);
@@ -17,20 +8,21 @@ export default component$(() => {
 
   return (
     <>
-      <Select class="select">
-        <SelectTrigger class="select-trigger">
-          <SelectValue placeholder="Select an option" />
-        </SelectTrigger>
-        <SelectPopover class="select-popover">
-          <SelectListbox class="select-listbox">
+      <Select.Root class="select">
+        <Select.Label>Logged in users</Select.Label>
+        <Select.Trigger class="select-trigger">
+          <Select.Value placeholder="Select an option" />
+        </Select.Trigger>
+        <Select.Popover class="select-popover">
+          <Select.Listbox class="select-listbox">
             {users.value.map((user) => (
-              <SelectOption key={user}>
-                <SelectOptionLabel>{user}</SelectOptionLabel>
-              </SelectOption>
+              <Select.Item key={user}>
+                <Select.ItemLabel>{user}</Select.ItemLabel>
+              </Select.Item>
             ))}
-          </SelectListbox>
-        </SelectPopover>
-      </Select>
+          </Select.Listbox>
+        </Select.Popover>
+      </Select.Root>
       <button
         onClick$={$(() => {
           if (!hasAddedUsers.value) {
@@ -44,3 +36,6 @@ export default component$(() => {
     </>
   );
 });
+
+// internal
+import styles from '../snippets/select.css?inline';

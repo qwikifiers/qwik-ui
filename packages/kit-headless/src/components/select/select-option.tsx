@@ -27,7 +27,7 @@ export type SelectOptionProps = PropsOf<'li'> & {
   value?: string;
 };
 
-export const SelectOption = component$<SelectOptionProps>((props) => {
+export const SelectItem = component$<SelectOptionProps>((props) => {
   /* look at select-inline on how we get the index. */
   const { _index, disabled, ...rest } = props;
   const context = useContext(SelectContextId);

@@ -1,15 +1,6 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import {
-  Select,
-  SelectListbox,
-  SelectOption,
-  SelectOptionLabel,
-  SelectPopover,
-  SelectTrigger,
-  SelectValue,
-} from '@qwik-ui/headless';
-import { LuX } from '@qwikest/icons/lucide';
-import styles from '../snippets/select.css?inline';
+import { Select } from '@qwik-ui/headless';
+import { LuCheck, LuX } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
@@ -17,9 +8,10 @@ export default component$(() => {
   const selected = useSignal<string[]>([]);
 
   return (
-    <Select multiple bind:value={selected} class="select">
-      <SelectTrigger class="select-trigger">
-        <SelectValue>
+    <Select.Root multiple bind:value={selected} class="select">
+      <Select.Label>Logged in users</Select.Label>
+      <Select.Trigger class="select-trigger">
+        <Select.Value>
           {selected.value.map((opt) => (
             <span class="select-pill" key={opt}>
               {opt}
@@ -34,17 +26,23 @@ export default component$(() => {
               </span>
             </span>
           ))}
-        </SelectValue>
-      </SelectTrigger>
-      <SelectPopover class="select-popover">
-        <SelectListbox class="select-listbox">
+        </Select.Value>
+      </Select.Trigger>
+      <Select.Popover class="select-popover">
+        <Select.Listbox class="select-listbox">
           {users.map((user) => (
-            <SelectOption key={user}>
-              <SelectOptionLabel>{user}</SelectOptionLabel>
-            </SelectOption>
+            <Select.Item class="select-item" key={user}>
+              <Select.ItemLabel>{user}</Select.ItemLabel>
+              <Select.ItemIndicator>
+                <LuCheck />
+              </Select.ItemIndicator>
+            </Select.Item>
           ))}
-        </SelectListbox>
-      </SelectPopover>
-    </Select>
+        </Select.Listbox>
+      </Select.Popover>
+    </Select.Root>
   );
 });
+
+// internal
+import styles from '../snippets/select.css?inline';

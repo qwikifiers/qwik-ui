@@ -1,8 +1,8 @@
 import { type JSXNode, Component } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select';
-import { SelectOption } from './select-option';
+import { SelectItem } from './select-option';
 import { SelectLabel } from './select-label';
-import { SelectOptionLabel } from './select-option-label';
+import { SelectItemLabel } from './select-option-label';
 
 export type Opt = {
   value: string;
@@ -15,7 +15,7 @@ export type Opt = {
     This is an inline component. An example use case of an inline component to get the proper indexes with CSR. See issue #4757 
     for more information.
 */
-export const Select: Component<SelectProps> = (props: SelectProps) => {
+export const SelectRoot: Component<SelectProps> = (props: SelectProps) => {
   const { children: myChildren, ...rest } = props;
   const opts: Opt[] = [];
   let currOptIndex = 0;
@@ -49,7 +49,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
         break;
       }
 
-      case SelectOption: {
+      case SelectItem: {
         // get the index of the current option
         child.props._index = currOptIndex;
         currOptIndex++;
@@ -71,7 +71,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
         break;
       }
 
-      case SelectOptionLabel: {
+      case SelectItemLabel: {
         // distinct value, or the display value is the same as the value
         const value = (
           givenOptValue !== null ? givenOptValue : child.props.children
@@ -102,7 +102,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
 
         if (!isString) {
           throw new Error(
-            `Qwik UI: Select option label passed was not a string. It was a ${typeof child
+            `Qwik UI: select item label passed was not a string. It was a ${typeof child
               .props.children}.`,
           );
         }

@@ -1,39 +1,34 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
-import {
-  Select,
-  SelectPopover,
-  SelectListbox,
-  SelectOption,
-  SelectTrigger,
-  SelectValue,
-  SelectOptionLabel,
-} from '@qwik-ui/headless';
-import styles from '../snippets/select.css?inline';
+import { Select } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(styles);
   const users = ['Tim', 'Ryan', 'Jim', 'Bobbie', 'Joan', 'Jessie', 'Abby'];
 
   return (
-    <Select class="select">
+    <Select.Root class="select">
       <p>This one is the disabled</p>
-      <SelectTrigger class="select-trigger">
-        <SelectValue placeholder="Select an option" />
-      </SelectTrigger>
-      <SelectPopover class="select-popover">
-        <SelectListbox class="select-listbox">
+      <Select.Label>Logged in users</Select.Label>
+      <Select.Trigger class="select-trigger">
+        <Select.Value placeholder="Select an option" />
+      </Select.Trigger>
+      <Select.Popover class="select-popover">
+        <Select.Listbox class="select-listbox">
           {users.map((user, index) => (
-            <SelectOption
+            <Select.Item
               key={user}
               disabled={
                 index === 0 || index === 2 || index === users.length - 1 ? true : false
               }
             >
-              <SelectOptionLabel>{user}</SelectOptionLabel>
-            </SelectOption>
+              <Select.ItemLabel>{user}</Select.ItemLabel>
+            </Select.Item>
           ))}
-        </SelectListbox>
-      </SelectPopover>
-    </Select>
+        </Select.Listbox>
+      </Select.Popover>
+    </Select.Root>
   );
 });
+
+// internal
+import styles from '../snippets/select.css?inline';

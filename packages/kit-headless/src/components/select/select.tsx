@@ -192,7 +192,6 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
       if (JSON.stringify(props['bind:value'].value) !== JSON.stringify(newValue)) {
         props['bind:value'].value = newValue;
-        console.log('Updated bind:value:', newValue);
       }
     });
 

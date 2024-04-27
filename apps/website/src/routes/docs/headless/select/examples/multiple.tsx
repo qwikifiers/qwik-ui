@@ -1,15 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import {
-  Select,
-  SelectIndicator,
-  SelectListbox,
-  SelectOption,
-  SelectOptionLabel,
-  SelectPopover,
-  SelectTrigger,
-  SelectValue,
-} from '@qwik-ui/headless';
-import styles from '../snippets/select.css?inline';
+import { Select } from '@qwik-ui/headless';
 import { LuCheck } from '@qwikest/icons/lucide';
 
 export default component$(() => {
@@ -18,22 +8,25 @@ export default component$(() => {
   const selected = useSignal<string[]>([]);
 
   return (
-    <Select multiple bind:value={selected} class="select">
-      <SelectTrigger class="select-trigger">
-        <SelectValue>{selected.value.join(', ')}</SelectValue>
-      </SelectTrigger>
-      <SelectPopover class="select-popover">
-        <SelectListbox class="select-listbox">
+    <Select.Root multiple bind:value={selected} class="select">
+      <Select.Trigger class="select-trigger">
+        <Select.Value>{selected.value.join(', ')}</Select.Value>
+      </Select.Trigger>
+      <Select.Popover class="select-popover">
+        <Select.Listbox class="select-listbox">
           {users.map((user) => (
-            <SelectOption class="select-option" key={user}>
-              <SelectOptionLabel>{user}</SelectOptionLabel>
-              <SelectIndicator>
+            <Select.Item class="select-item" key={user}>
+              <Select.ItemLabel>{user}</Select.ItemLabel>
+              <Select.ItemIndicator>
                 <LuCheck />
-              </SelectIndicator>
-            </SelectOption>
+              </Select.ItemIndicator>
+            </Select.Item>
           ))}
-        </SelectListbox>
-      </SelectPopover>
-    </Select>
+        </Select.Listbox>
+      </Select.Popover>
+    </Select.Root>
   );
 });
+
+// internal
+import styles from '../snippets/select.css?inline';
