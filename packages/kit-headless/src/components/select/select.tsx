@@ -31,10 +31,15 @@ export type InternalSelectProps = {
 
 type TMultiple<M> = M extends true ? string[] : string;
 
-export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
-  /** The initial selected value (uncontrolled). */
-  value?: TMultiple<M>;
+/**
+ *  Value sets an initial value for the select. If multiple is true, value is disabled
+ *
+ */
+type TMultiValue =
+  | { multiple: true; value?: never }
+  | { multiple?: false; value?: string };
 
+export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
   /** A signal that controls the current selected value (controlled). */
   'bind:value'?: Signal<TMultiple<M>>;
 
@@ -83,7 +88,7 @@ export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
    * If `true`, allows multiple selections.
    */
   multiple?: M;
-};
+} & TMultiValue;
 
 /* root component in select-inline.tsx */
 export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>(

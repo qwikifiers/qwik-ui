@@ -86,6 +86,12 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
 
         opts.push(opt);
 
+        if (props.value && props.multiple) {
+          throw new Error(
+            `Qwik UI: When in multiple selection mode, the value prop is disabled. Use the bind:value prop's initial signal value instead.`,
+          );
+        }
+
         // if the current option value is equal to the initial value
         if (value === props.value) {
           // minus one because it is incremented already in SelectOption
@@ -122,7 +128,7 @@ export const Select: Component<SelectProps> = (props: SelectProps) => {
     const valueMatch = opts.some((opt) => opt.value === props.value);
 
     if (!valueMatch) {
-      console.error(
+      throw new Error(
         `Qwik UI: the provided option value "${props.value}" does not match any of the option values in the Select.`,
       );
     }

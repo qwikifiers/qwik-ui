@@ -227,6 +227,16 @@ This can be used in unison with the `bind:value` prop for more customization. Fo
 
 <Showcase name="multiple-pill" />
 
+The above example shows the selected values which can be filtered by clicking on the cancel icon.
+
+<Note status="warning">
+  When in multiple selection mode, the `value` prop on `<Select.Root />` is disabled, and the initial value of
+  the `bind:value` signal should be used for an initial value instead.
+
+This is because it is harder to customize the individual selected display values when in multiple selection mode.
+
+</Note>
+
 ## Menu behavior
 
 ### Typeahead
@@ -281,13 +291,9 @@ To customize the scroll behavior, add the `scrollOptions` prop to the `<Select /
 
 We can provide a custom placeholder to the `<SelectValue />` component by adding the `placeholder` prop.
 
-<Showcase name="wrong-value" />
+<Showcase name="hero" />
 
-When a value is not selected, the placeholder is displayed. The example above shows a placeholder fallback when the value is not selected.
-
-The consumer misspelled the the value, and so the fallback is displayed.
-
-> Side note: would appreciate some help on TypeScript to make misspelled option values a thing of the past. Ideally, a union of the user's passed in options.
+When a value is not selected, the placeholder is displayed.
 
 ## Example CSS
 

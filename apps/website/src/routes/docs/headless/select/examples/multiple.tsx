@@ -1,6 +1,7 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   Select,
+  SelectIndicator,
   SelectListbox,
   SelectOption,
   SelectOptionLabel,
@@ -9,6 +10,7 @@ import {
   SelectValue,
 } from '@qwik-ui/headless';
 import styles from '../snippets/select.css?inline';
+import { LuCheck } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
@@ -23,8 +25,11 @@ export default component$(() => {
       <SelectPopover class="select-popover">
         <SelectListbox class="select-listbox">
           {users.map((user) => (
-            <SelectOption key={user}>
+            <SelectOption class="select-option" key={user}>
               <SelectOptionLabel>{user}</SelectOptionLabel>
+              <SelectIndicator>
+                <LuCheck />
+              </SelectIndicator>
             </SelectOption>
           ))}
         </SelectListbox>
