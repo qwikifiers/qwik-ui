@@ -17,7 +17,8 @@ let binaryPath;
 
 switch (currentPlatform) {
   case 'darwin':
-    binaryPath = './browsers/chrome/113/chrome-darwin/Chromium.app';
+    binaryPath =
+      './browsers/chrome/113/chrome-darwin/Chromium.app/Contents/MacOS/Chromium';
     break;
   case 'win32':
     binaryPath = './browsers/chrome/113/chrome-win32/chrome.exe';
