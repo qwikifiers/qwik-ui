@@ -1,12 +1,10 @@
 import { component$, useStore } from '@builder.io/qwik';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionHeader,
-  AccordionItem,
-  AccordionRoot,
-  AccordionTrigger,
-} from './index';
+import { AccordionRoot } from './accordion-root';
+import { AccordionItem } from './accordion-item';
+import { AccordionTrigger } from './accordion-trigger';
+import { AccordionContent } from './accordion-content';
+import { AccordionHeader } from './accordion-header';
+import { Accordion } from './accordion';
 
 import './accordion-cypress.css';
 

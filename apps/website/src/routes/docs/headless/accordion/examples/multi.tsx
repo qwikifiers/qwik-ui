@@ -1,28 +1,22 @@
 import { component$ } from '@builder.io/qwik';
-import {
-  AccordionContent,
-  AccordionHeader,
-  AccordionItem,
-  AccordionRoot,
-  AccordionTrigger,
-} from '@qwik-ui/headless';
+import { Accordion } from '@qwik-ui/headless';
 import SVG from './svg';
 
 export default component$(() => {
   return (
     <>
       <div class="flex w-full justify-center">
-        <AccordionRoot class="w-full" collapsible animated behavior="multi">
-          <AccordionItem class="border-b">
-            <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm  py-4 text-left hover:underline">
+        <Accordion.Root class="w-full" collapsible animated behavior="multi">
+          <Accordion.Item class="border-b">
+            <Accordion.Header as="h3">
+              <Accordion.Trigger class="group flex w-full items-center justify-between rounded-t-sm  py-4 text-left hover:underline">
                 <span>Can I style based on the trigger state?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
                 </span>
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionContent class="accordion-animation-1 overflow-hidden">
+              </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Content class="accordion-animation-1 overflow-hidden">
               <p class="pb-4">
                 100%. The trigger has a <strong>[data-state]</strong> selector that can be
                 styled when equal to the <strong>open</strong> or <strong>closed</strong>{' '}
@@ -31,41 +25,41 @@ export default component$(() => {
                 <br />
                 For example, [data-state="open"]
               </p>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem class="border-b">
-            <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
+            </Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item class="border-b">
+            <Accordion.Header as="h3">
+              <Accordion.Trigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
                 <span>What about applying attributes?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
                 </span>
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionContent class="accordion-animation-1 overflow-hidden">
+              </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Content class="accordion-animation-1 overflow-hidden">
               <p class="pb-4">
                 It's typed using <strong>PropsOf</strong>, meaning you can treat it like
                 an element!
               </p>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem class="border-b">
-            <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline aria-expanded:rounded-none">
+            </Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item class="border-b">
+            <Accordion.Header as="h3">
+              <Accordion.Trigger class="group flex w-full items-center justify-between py-4 text-left hover:underline aria-expanded:rounded-none">
                 <span>How about using event handlers?</span>
                 <span class="pl-2">
                   <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
                 </span>
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionContent class="accordion-animation-1 overflow-hidden">
+              </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Content class="accordion-animation-1 overflow-hidden">
               <p class="pb-4">
                 You can use onClick$, onKeyDown$, any handlers you'd normally use with
                 Qwik!
               </p>
-            </AccordionContent>
-          </AccordionItem>
-        </AccordionRoot>
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>
       </div>
     </>
   );

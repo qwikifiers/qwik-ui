@@ -1,11 +1,5 @@
 import { PropsOf, component$ } from '@builder.io/qwik';
-import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
-  AccordionContent,
-} from '@qwik-ui/headless';
+import { Accordion } from '@qwik-ui/headless';
 
 export default component$(() => {
   const cats = [
@@ -16,15 +10,15 @@ export default component$(() => {
   ];
 
   return (
-    <AccordionRoot
+    <Accordion.Root
       animated
       enhance={true}
       class="box-border w-[250px] max-w-[500px] rounded-base border border-slate-500 bg-slate-600 text-white"
     >
       {cats.map((item, index) => (
-        <AccordionItem class="w-full" key={index}>
-          <AccordionHeader as="h3">
-            <AccordionTrigger
+        <Accordion.Item class="w-full" key={index}>
+          <Accordion.Header as="h3">
+            <Accordion.Trigger
               class={`group flex min-h-[44px] w-full items-center justify-between ${
                 index === 0 ? 'rounded-t-sm' : ''
               } ${
@@ -37,14 +31,14 @@ export default component$(() => {
               <span class="pl-2">
                 <SVG class="ease transition-transform duration-500 group-aria-expanded:rotate-180 group-aria-expanded:transform" />
               </span>
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionContent class="accordion-animation-1 overflow-hidden">
+            </Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content class="accordion-animation-1 overflow-hidden">
             <p class="bg-slate-900 p-4 ">{item}</p>
-          </AccordionContent>
-        </AccordionItem>
+          </Accordion.Content>
+        </Accordion.Item>
       ))}
-    </AccordionRoot>
+    </Accordion.Root>
   );
 });
 
