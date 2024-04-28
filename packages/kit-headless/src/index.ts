@@ -15,7 +15,7 @@ export * from './components/pagination/pagination';
 export * from './components/progress';
 export * from './components/popover';
 export * from './components/rating/rating';
-export * from './components/select';
+export * as Select from './components/select';
 export * from './components/separator/separator';
 export * from './components/spinner/spinner';
 export * from './components/tabs';

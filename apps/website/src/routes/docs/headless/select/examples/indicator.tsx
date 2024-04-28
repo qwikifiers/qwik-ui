@@ -1,27 +1,25 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import { Select } from '@qwik-ui/headless';
+import { LuCheck } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
-  const users = ['Tim', 'Ryan', 'Jim', 'Bobbie', 'Joan', 'Jessie', 'Abby'];
+  const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
 
   return (
     <Select.Root class="select">
-      <p>This one is the disabled</p>
       <Select.Label>Logged in users</Select.Label>
       <Select.Trigger class="select-trigger">
         <Select.Value placeholder="Select an option" />
       </Select.Trigger>
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox">
-          {users.map((user, index) => (
-            <Select.Item
-              key={user}
-              disabled={
-                index === 0 || index === 2 || index === users.length - 1 ? true : false
-              }
-            >
+          {users.map((user) => (
+            <Select.Item key={user}>
               <Select.ItemLabel>{user}</Select.ItemLabel>
+              <Select.ItemIndicator>
+                <LuCheck />
+              </Select.ItemIndicator>
             </Select.Item>
           ))}
         </Select.Listbox>

@@ -3,36 +3,38 @@ import { Select } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(styles);
-  const users = useSignal<string[]>(['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby']);
-  const hasAddedUsers = useSignal<boolean>(false);
+  const users = [
+    { id: '0', label: 'Tim' },
+    { id: '1', label: 'Ryan' },
+    { id: '2', label: 'Jim' },
+    { id: '3', label: 'Jessie' },
+    { id: '4', label: 'Abby' },
+  ];
+
+  const selected = useSignal<string | null>(null);
+
+  const handleChange$ = $((value: string) => {
+    selected.value = value;
+  });
 
   return (
     <>
-      <Select.Root class="select">
+      <Select.Root onChange$={handleChange$} class="select">
         <Select.Label>Logged in users</Select.Label>
         <Select.Trigger class="select-trigger">
           <Select.Value placeholder="Select an option" />
         </Select.Trigger>
         <Select.Popover class="select-popover">
           <Select.Listbox class="select-listbox">
-            {users.value.map((user) => (
-              <Select.Item key={user}>
-                <Select.ItemLabel>{user}</Select.ItemLabel>
+            {users.map((user) => (
+              <Select.Item value={user.id} key={user.id}>
+                <Select.ItemLabel>{user.label}</Select.ItemLabel>
               </Select.Item>
             ))}
           </Select.Listbox>
         </Select.Popover>
       </Select.Root>
-      <button
-        onClick$={$(() => {
-          if (!hasAddedUsers.value) {
-            users.value = [...users.value, 'John', 'Jane', 'Bob'];
-            hasAddedUsers.value = true;
-          }
-        })}
-      >
-        Add Users
-      </button>
+      <p>The selected value is: {selected.value ?? 'null'}</p>
     </>
   );
 });

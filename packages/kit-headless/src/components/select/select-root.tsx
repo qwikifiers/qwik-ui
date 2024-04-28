@@ -13,7 +13,6 @@ import {
 import { isBrowser, isServer } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
 import { Opt } from './select-inline';
-import { HiddenSelect } from './hidden-select';
 import { useSelect } from './use-select';
 
 export type InternalSelectProps = {
@@ -31,15 +30,23 @@ export type InternalSelectProps = {
 
 type TMultiple<M> = M extends true ? string[] : string;
 
-export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
-  /** The initial selected value (uncontrolled). */
-  value?: TMultiple<M>;
+/**
+ *  Value sets an initial value for the select. If multiple is true, value is disabled
+ *
+ */
+type TMultiValue =
+  | { multiple: true; value?: never }
+  | { multiple?: false; value?: string };
 
+export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
   /** A signal that controls the current selected value (controlled). */
   'bind:value'?: Signal<TMultiple<M>>;
 
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  'bind:display'?: Signal<TMultiple<M>>;
 
   /**
    * QRL handler that runs when a select value changes.
@@ -83,7 +90,7 @@ export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
    * If `true`, allows multiple selections.
    */
   multiple?: M;
-};
+} & TMultiValue;
 
 /* root component in select-inline.tsx */
 export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>(
@@ -95,15 +102,10 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       onOpenChange$,
       scrollOptions: givenScrollOptions,
       loop: givenLoop,
-      name,
-      required,
-      disabled,
       multiple = false,
       _label,
       ...rest
     } = props;
-
-    const { getActiveDescendant } = useSelect();
 
     // refs
     const rootRef = useSignal<HTMLDivElement>();
@@ -142,15 +144,23 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       block: 'nearest',
     };
 
+    const displayValuesSig = useComputed$(() => {
+      return selectedIndexesSig.value.map(
+        (index) => optionsSig.value[index!]?.displayValue,
+      );
+    });
+
     const optionsIndexMap = useComputed$(() => {
       return new Map(optionsSig.value?.map((option, index) => [option.value, index]));
     });
 
     useTask$(function reactiveValueTask({ track }) {
-      const signalValue = track(() => props['bind:value']?.value);
-      if (!signalValue) return;
+      track(() => props['bind:value']?.value);
+      if (!props['bind:value']) return;
 
-      const values = Array.isArray(signalValue) ? signalValue : [signalValue];
+      const values = Array.isArray(props['bind:value']?.value)
+        ? props['bind:value']?.value
+        : [props['bind:value']?.value];
 
       const matchingIndexes = values.map(
         (value) => optionsIndexMap.value.get(value) ?? null,
@@ -159,6 +169,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       if (matchingIndexes) {
         selectedIndexesSig.value = matchingIndexes.filter((index) => index !== -1);
 
+        if (multiple) return;
         highlightedIndexSig.value = matchingIndexes[0];
       }
     });
@@ -169,35 +180,42 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       isListboxOpenSig.value = signalValue ?? isListboxOpenSig.value;
     });
 
-    useTask$(async function onChangeTask({ track }) {
+    useTask$(async function updateConsumerPropsTask({ track }) {
       track(() => selectedIndexesSig.value);
+
+      if (isServer) return;
+
+      // onChange$ logic
       const firstOption = selectedIndexesSig.value[0];
       if (isBrowser && firstOption !== null) {
         await onChange$?.(optionsSig.value[firstOption].value);
       }
 
-      if (!props['bind:value'] || !props['bind:value'].value) return;
-      if (firstOption === null) return;
-      if (isServer) return;
-      props['bind:value'].value = optionsSig.value[firstOption].value;
+      // sync the user's given signal when an option is selected
+      if (!props['bind:value'] || !props['bind:value'].value) {
+        // DO NOTHING FOR TYPES TO WORK
+      } else {
+        const newValue = multiple
+          ? selectedIndexesSig.value.map((index) => optionsSig.value[index!].value)
+          : optionsSig.value[firstOption!]?.value;
+
+        if (JSON.stringify(props['bind:value'].value) !== JSON.stringify(newValue)) {
+          props['bind:value'].value = newValue;
+        }
+      }
+
+      // sync the user's given signal for the display value
+      if (props['bind:display']) {
+        props['bind:display'].value = displayValuesSig.value.filter(
+          (value): value is string => value !== undefined,
+        );
+      }
     });
 
     useTask$(function onOpenChangeTask({ track }) {
       track(() => isListboxOpenSig.value);
       if (isBrowser) {
         onOpenChange$?.(isListboxOpenSig.value);
-      }
-    });
-
-    const activeDescendantSig = useComputed$(() => {
-      if (isListboxOpenSig.value) {
-        return getActiveDescendant(
-          highlightedIndexSig.value ?? -1,
-          optionsSig.value,
-          localId,
-        );
-      } else {
-        return '';
       }
     });
 
@@ -217,6 +235,20 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       multiple,
     };
 
+    const { getActiveDescendant } = useSelect();
+
+    const activeDescendantSig = useComputed$(() => {
+      if (isListboxOpenSig.value) {
+        return getActiveDescendant(
+          highlightedIndexSig.value ?? -1,
+          optionsSig.value,
+          localId,
+        );
+      } else {
+        return '';
+      }
+    });
+
     useContextProvider(SelectContextId, context);
 
     return (
@@ -230,15 +262,10 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
         aria-haspopup="listbox"
         aria-activedescendant={activeDescendantSig.value}
         aria-labelledby={_label ? labelId : valueId}
+        aria-multiselectable={context.multiple ? 'true' : undefined}
         {...rest}
       >
         <Slot />
-        <HiddenSelect
-          options={_options}
-          name={name}
-          required={required}
-          disabled={disabled}
-        />
       </div>
     );
   },

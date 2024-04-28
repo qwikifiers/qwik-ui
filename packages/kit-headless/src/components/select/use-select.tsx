@@ -7,10 +7,31 @@ import { Opt } from './select-inline';
  * This is because outside of the component$ boundary Qwik core wakes up.
  */
 export function useSelect() {
-  const addUniqueIndex = $(
-    (selectedIndexesSig: Signal<Array<number | null>>, index: number | null) => {
-      if (index !== null && !selectedIndexesSig.value.includes(index)) {
-        selectedIndexesSig.value = [...selectedIndexesSig.value, index];
+  const toggleIndex$ = $(
+    async (
+      selectedIndexesSig: Signal<Array<number | null>>,
+      index: number | null,
+      optionsSig: Readonly<Signal<Opt[]>>,
+    ) => {
+      if (index === null) return;
+
+      // Check if the current index is disabled, and if so, find the next enabled index
+      const currentOption = optionsSig.value[index];
+      const enabledIndex =
+        currentOption && currentOption.isDisabled
+          ? await getNextEnabledOptionIndex(index, optionsSig.value, true)
+          : index;
+
+      const currentIndex = selectedIndexesSig.value.indexOf(enabledIndex);
+      if (currentIndex === -1) {
+        // Index not found, add it
+        selectedIndexesSig.value = [...selectedIndexesSig.value, enabledIndex];
+      } else {
+        // Index found, remove it
+        selectedIndexesSig.value = [
+          ...selectedIndexesSig.value.slice(0, currentIndex),
+          ...selectedIndexesSig.value.slice(currentIndex + 1),
+        ];
       }
     },
   );
@@ -73,7 +94,7 @@ export function useSelect() {
     getNextEnabledOptionIndex,
     getPrevEnabledOptionIndex,
     getActiveDescendant,
-    addUniqueIndex,
+    toggleIndex$,
   };
 }
 

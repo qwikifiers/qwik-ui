@@ -7,9 +7,13 @@ import {
   useSignal,
   useTask$,
   type PropsOf,
+  useContextProvider,
 } from '@builder.io/qwik';
 import { isServer, isBrowser } from '@builder.io/qwik/build';
-import SelectContextId from './select-context';
+import SelectContextId, {
+  SelectOptionContext,
+  selectOptionContextId,
+} from './select-context';
 import { useSelect } from './use-select';
 
 export type SelectOptionProps = PropsOf<'li'> & {
@@ -23,7 +27,7 @@ export type SelectOptionProps = PropsOf<'li'> & {
   value?: string;
 };
 
-export const SelectOption = component$<SelectOptionProps>((props) => {
+export const SelectItem = component$<SelectOptionProps>((props) => {
   /* look at select-inline on how we get the index. */
   const { _index, disabled, ...rest } = props;
   const context = useContext(SelectContextId);
@@ -31,7 +35,7 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
   const localIndexSig = useSignal<number | null>(null);
   const optionId = `${context.localId}-${_index}`;
 
-  const { addUniqueIndex } = useSelect();
+  const { toggleIndex$ } = useSelect();
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -83,7 +87,10 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
     if (disabled) return;
 
     if (context.multiple) {
-      addUniqueIndex(context.selectedIndexesSig, localIndexSig.value);
+      toggleIndex$(context.selectedIndexesSig, localIndexSig.value, context.optionsSig);
+
+      // keep focus so that when pressing escape, the listbox closes even when clicking.
+      context.triggerRef.value?.focus();
     } else {
       context.selectedIndexesSig.value = [localIndexSig.value];
       context.isListboxOpenSig.value = false;
@@ -97,6 +104,12 @@ export const SelectOption = component$<SelectOptionProps>((props) => {
       context.highlightedIndexSig.value = localIndexSig.value;
     }
   });
+
+  const selectContext: SelectOptionContext = {
+    isSelectedSig,
+  };
+
+  useContextProvider(selectOptionContextId, selectContext);
 
   return (
     <li

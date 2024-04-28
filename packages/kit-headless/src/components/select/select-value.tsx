@@ -1,4 +1,10 @@
-import { component$, useContext, type PropsOf, useComputed$ } from '@builder.io/qwik';
+import {
+  component$,
+  useContext,
+  type PropsOf,
+  useComputed$,
+  Slot,
+} from '@builder.io/qwik';
 
 import SelectContextId from './select-context';
 
@@ -17,7 +23,7 @@ export const SelectValue = component$((props: SelectValueProps) => {
 
   const displayStrSig = useComputed$(() => {
     if (context.multiple) {
-      return `${context.selectedIndexesSig.value}`;
+      return <Slot />;
     }
 
     if (context.selectedIndexesSig.value[0] !== null) {

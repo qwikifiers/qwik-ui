@@ -1,15 +1,5 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
-import {
-  Select,
-  SelectPopover,
-  SelectGroup,
-  SelectGroupLabel,
-  SelectListbox,
-  SelectOption,
-  SelectTrigger,
-  SelectValue,
-} from '@qwik-ui/headless';
-import styles from '../snippets/select.css?inline';
+import { Select } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(styles);
@@ -17,28 +7,33 @@ export default component$(() => {
   const animals = ['Dog', 'Cat', 'Bird'];
 
   return (
-    <Select class="select">
-      <SelectTrigger class="select-trigger">
-        <SelectValue placeholder="Select an option" />
-      </SelectTrigger>
-      <SelectPopover class="select-popover">
-        <SelectListbox class="select-listbox">
-          <SelectGroup>
-            <SelectGroupLabel class="select-label">People</SelectGroupLabel>
+    <Select.Root class="select">
+      <Select.Trigger class="select-trigger">
+        <Select.Value placeholder="Select an option" />
+      </Select.Trigger>
+      <Select.Popover class="select-popover">
+        <Select.Listbox class="select-listbox">
+          <Select.Group>
+            <Select.GroupLabel class="select-label">People</Select.GroupLabel>
             {users.map((user) => (
-              <SelectOption key={user}>{user}</SelectOption>
+              <Select.Item key={user}>
+                <Select.ItemLabel>{user}</Select.ItemLabel>
+              </Select.Item>
             ))}
-          </SelectGroup>
-          <SelectGroup>
-            <SelectGroupLabel class="select-group-label">Animals</SelectGroupLabel>
+          </Select.Group>
+          <Select.Group>
+            <Select.GroupLabel class="select-group-label">Animals</Select.GroupLabel>
             {animals.map((animal) => (
-              <SelectOption class="select-option" key={animal}>
-                {animal}
-              </SelectOption>
+              <Select.Item key={animal}>
+                <Select.ItemLabel>{animal}</Select.ItemLabel>
+              </Select.Item>
             ))}
-          </SelectGroup>
-        </SelectListbox>
-      </SelectPopover>
-    </Select>
+          </Select.Group>
+        </Select.Listbox>
+      </Select.Popover>
+    </Select.Root>
   );
 });
+
+// internal
+import styles from '../snippets/select.css?inline';

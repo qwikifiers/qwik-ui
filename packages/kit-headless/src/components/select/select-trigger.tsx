@@ -5,12 +5,15 @@ import { useSelect, useTypeahead } from './use-select';
 type SelectTriggerProps = PropsOf<'button'>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
-  const { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } = useSelect();
-  const openKeys = ['ArrowUp', 'ArrowDown'];
-  const closedKeys = [`Escape`];
+  const { toggleIndex$, getNextEnabledOptionIndex, getPrevEnabledOptionIndex } =
+    useSelect();
   const labelId = `${context.localId}-label`;
 
   const { typeahead$ } = useTypeahead();
+
+  const handleClickSync$ = sync$((e: MouseEvent) => {
+    e.preventDefault();
+  });
 
   // Both the space and enter keys run with handleClick$
   const handleClick$ = $(() => {
@@ -27,6 +30,8 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       'End',
       'PageDown',
       'PageUp',
+      'Enter',
+      ' ',
     ];
     if (keys.includes(e.key)) {
       e.preventDefault();
@@ -34,88 +39,138 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   });
 
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
-    typeahead$(e.key);
-    const shouldOpen = !context.isListboxOpenSig.value && openKeys.includes(e.key);
-    const shouldClose = context.isListboxOpenSig.value && closedKeys.includes(e.key);
     if (!context.optionsSig.value) return;
+    typeahead$(e.key);
 
-    if (shouldOpen) {
-      context.isListboxOpenSig.value = true;
-    }
+    if (context.isListboxOpenSig.value) {
+      // select options
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (context.multiple) {
+          toggleIndex$(
+            context.selectedIndexesSig,
+            context.highlightedIndexSig.value,
+            context.optionsSig,
+          );
+        } else {
+          context.selectedIndexesSig.value = [context.highlightedIndexSig.value];
+        }
+      }
 
-    if (shouldClose) {
-      context.isListboxOpenSig.value = false;
-    }
+      if (e.key === 'ArrowDown') {
+        context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
+          context.highlightedIndexSig.value!,
+          context.optionsSig.value,
+          context.loop,
+        );
+      }
 
-    if (e.key === 'Home') {
-      context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
-        -1,
-        context.optionsSig.value,
-        context.loop,
-      );
-    }
+      if (e.key === 'ArrowUp') {
+        context.highlightedIndexSig.value = await getPrevEnabledOptionIndex(
+          context.highlightedIndexSig.value!,
+          context.optionsSig.value,
+          context.loop,
+        );
+      }
 
-    if (e.key === 'End') {
-      const lastEnabledOptionIndex = await getPrevEnabledOptionIndex(
-        context.optionsSig.value.length,
-        context.optionsSig.value,
-        context.loop,
-      );
-      context.highlightedIndexSig.value = lastEnabledOptionIndex;
-    }
-
-    if (!context.isListboxOpenSig.value) {
-      if (context.multiple) return;
-
-      if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
-        const firstIndex = await getNextEnabledOptionIndex(
+      if (e.key === 'Home') {
+        context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
           -1,
           context.optionsSig.value,
           context.loop,
         );
-        context.selectedIndexesSig.value = [firstIndex];
-
-        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
-        return;
       }
 
-      if (e.key === 'ArrowRight' && context.highlightedIndexSig.value !== null) {
-        const nextIndex = await getNextEnabledOptionIndex(
-          context.selectedIndexesSig.value[0]!,
-          context.optionsSig.value,
-          context.loop,
-        );
-
-        context.selectedIndexesSig.value = [nextIndex];
-
-        console.log('selectedIndex', context.selectedIndexesSig.value);
-
-        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
-      }
-
-      if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {
-        const lastIndex = await getPrevEnabledOptionIndex(
+      if (e.key === 'End') {
+        const lastEnabledOptionIndex = await getPrevEnabledOptionIndex(
           context.optionsSig.value.length,
           context.optionsSig.value,
           context.loop,
         );
-
-        context.selectedIndexesSig.value = [lastIndex];
-
-        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
-        return;
+        context.highlightedIndexSig.value = lastEnabledOptionIndex;
       }
 
-      if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value !== null) {
-        const prevIndex = await getPrevEnabledOptionIndex(
-          context.highlightedIndexSig.value,
-          context.optionsSig.value,
-          context.loop,
-        );
+      if (e.key === 'Tab' || e.key === 'Escape') {
+        context.isListboxOpenSig.value = false;
+      }
 
-        context.selectedIndexesSig.value = [prevIndex];
+      if (context.multiple) {
+        if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && e.shiftKey) {
+          toggleIndex$(
+            context.selectedIndexesSig,
+            context.highlightedIndexSig.value,
+            context.optionsSig,
+          );
+        }
 
-        context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+        if (e.key === 'a' && e.ctrlKey) {
+          const allEnabledIndexes = context.optionsSig.value
+            .map((option, index) => (option.isDisabled ? null : index))
+            .filter((index) => index !== null);
+          context.selectedIndexesSig.value = allEnabledIndexes;
+        }
+      }
+    } else {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        context.isListboxOpenSig.value = true;
+      }
+
+      if (!context.multiple) {
+        if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
+          const firstIndex = await getNextEnabledOptionIndex(
+            -1,
+            context.optionsSig.value,
+            context.loop,
+          );
+          context.selectedIndexesSig.value = [firstIndex];
+
+          context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+          return;
+        }
+
+        if (e.key === 'ArrowRight' && context.highlightedIndexSig.value !== null) {
+          const nextIndex = await getNextEnabledOptionIndex(
+            context.selectedIndexesSig.value[0]!,
+            context.optionsSig.value,
+            context.loop,
+          );
+
+          context.selectedIndexesSig.value = [nextIndex];
+
+          context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+        }
+
+        if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {
+          const lastIndex = await getPrevEnabledOptionIndex(
+            context.optionsSig.value.length,
+            context.optionsSig.value,
+            context.loop,
+          );
+
+          context.selectedIndexesSig.value = [lastIndex];
+
+          context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+          return;
+        }
+
+        if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value !== null) {
+          const prevIndex = await getPrevEnabledOptionIndex(
+            context.highlightedIndexSig.value,
+            context.optionsSig.value,
+            context.loop,
+          );
+
+          context.selectedIndexesSig.value = [prevIndex];
+
+          context.highlightedIndexSig.value = context.selectedIndexesSig.value[0];
+        }
+      }
+    }
+
+    if (e.key === 'Enter' || e.key === ' ') {
+      if (context.multiple) {
+        context.isListboxOpenSig.value = true;
+      } else {
+        context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
       }
     }
 
@@ -128,33 +183,6 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       );
       return;
     }
-
-    if (context.isListboxOpenSig.value && !shouldOpen) {
-      if (e.key === 'Tab') {
-        context.isListboxOpenSig.value = false;
-      }
-
-      // select options
-      if (e.key === 'Enter' || e.key === ' ') {
-        context.selectedIndexesSig.value = [context.highlightedIndexSig.value];
-      }
-
-      if (e.key === 'ArrowDown') {
-        context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
-          context.highlightedIndexSig.value,
-          context.optionsSig.value,
-          context.loop,
-        );
-      }
-
-      if (e.key === 'ArrowUp') {
-        context.highlightedIndexSig.value = await getPrevEnabledOptionIndex(
-          context.highlightedIndexSig.value,
-          context.optionsSig.value,
-          context.loop,
-        );
-      }
-    }
   });
 
   return (
@@ -162,7 +190,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       {...props}
       id={`${context.localId}-trigger`}
       ref={context.triggerRef}
-      onClick$={[handleClick$, props.onClick$]}
+      onClick$={[handleClickSync$, handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
