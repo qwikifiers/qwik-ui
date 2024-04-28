@@ -1,57 +1,51 @@
 import { component$ } from '@builder.io/qwik';
-import {
-  AccordionContent,
-  AccordionHeader,
-  AccordionItem,
-  AccordionRoot,
-  AccordionTrigger,
-} from '@qwik-ui/headless';
+import { Accordion } from '@qwik-ui/headless';
 
 // disabled
 export default component$(() => {
   return (
     <>
       <div class="flex w-full justify-center">
-        <AccordionRoot class="w-full">
-          <AccordionItem class="border-b">
-            <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
+        <Accordion.Root class="w-full">
+          <Accordion.Item class="border-b">
+            <Accordion.Header as="h3">
+              <Accordion.Trigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
                 <span>I'm enabled!</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
                     +
                   </p>
                 </span>
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionContent>
+              </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Content>
               <p class="pb-4">
                 Hey, I'm enabled! This is because I don't use the{' '}
                 <strong>disabled</strong> prop on the trigger.
               </p>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem class="border-b">
-            <AccordionHeader as="h3">
-              <AccordionTrigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
+            </Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item class="border-b">
+            <Accordion.Header as="h3">
+              <Accordion.Trigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
                 <span>I'm enabled!</span>
                 <span class="pl-2">
                   <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
                     +
                   </p>
                 </span>
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionContent>
+              </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Content>
               <p class="pb-4">
                 Hey, I'm enabled! This is because I don't use the{' '}
                 <strong>disabled</strong> prop on the trigger.
               </p>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem class="border-b">
+            </Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item class="border-b">
             <h3>
-              <AccordionTrigger
+              <Accordion.Trigger
                 disabled
                 class="group flex w-full items-center justify-between py-4 text-left hover:bg-accent/50 aria-disabled:cursor-not-allowed aria-expanded:rounded-none"
               >
@@ -66,13 +60,13 @@ export default component$(() => {
                     +
                   </p>
                 </span>
-              </AccordionTrigger>
+              </Accordion.Trigger>
             </h3>
-            <AccordionContent>
+            <Accordion.Content>
               <p class="pb-4">You shouldn't be able to see this!</p>
-            </AccordionContent>
-          </AccordionItem>
-        </AccordionRoot>
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>
       </div>
     </>
   );

@@ -1,11 +1,5 @@
 import { PropsOf, component$, useStyles$ } from '@builder.io/qwik';
-import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
-  AccordionContent,
-} from '@qwik-ui/headless';
+import { Accordion } from '@qwik-ui/headless';
 
 export default component$(() => {
   const dogs = ['Othello', 'The Hobbit', 'Dune', 'The Giver'];
@@ -96,11 +90,11 @@ export default component$(() => {
   return (
     <>
       <h2 class="tom-headline">Tom's bookshelf</h2>
-      <AccordionRoot animated enhance={true} class="accordion-root">
+      <Accordion.Root animated enhance={true} class="accordion-root">
         {dogs.map((item, index) => (
-          <AccordionItem class="accordion-item" key={index}>
-            <AccordionHeader as="h3">
-              <AccordionTrigger
+          <Accordion.Item class="accordion-item" key={index}>
+            <Accordion.Header as="h3">
+              <Accordion.Trigger
                 class={`accordion-trigger group ${index === 0 ? 'rounded-t-sm' : ''} ${
                   index === dogs.length - 1 ? 'rounded-b-sm border-b-0' : ''
                 }`}
@@ -109,14 +103,14 @@ export default component$(() => {
                 <span style={{ paddingLeft: '8px' }}>
                   <SVG />
                 </span>
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionContent class="accordion-slide accordion-content">
+              </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Content class="accordion-slide accordion-content">
               <p>{item}</p>
-            </AccordionContent>
-          </AccordionItem>
+            </Accordion.Content>
+          </Accordion.Item>
         ))}
-      </AccordionRoot>
+      </Accordion.Root>
     </>
   );
 });

@@ -42,23 +42,23 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
 <AnatomyTable
   propDescriptors={[
     {
-      name: 'AccordionRoot',
+      name: 'Accordion.Root',
       description: 'The root container for the accordion.',
     },
     {
-      name: 'AccordionItem',
+      name: 'Accordion.Item',
       description: `An item inside of the root. It contains the item's heading, trigger, and content.`,
     },
     {
-      name: 'AccordionHeader',
+      name: 'Accordion.Header',
       description: `An HTML Heading Element. The default is set to h3, can be changed with the as prop.`,
     },
     {
-      name: 'AccordionTrigger',
-      description: `Toggles the corresponding content when clicked or activated. It should be placed within the AccordionHeader component.`,
+      name: 'Accordion.Trigger',
+      description: `Toggles the corresponding content when clicked or activated. It should be placed within the Accordion.Header component.`,
     },
     {
-      name: 'AccordionContent',
+      name: 'Accordion.Content',
       description: `Contains the content associated with an item when clicking on its respective trigger.`,
     },
   ]}
@@ -109,7 +109,7 @@ If you're using `behavior="single"` with multiple defaultValue accordion items, 
 
 <Showcase name="custom-heading" />
 
-By default, when using the `AccordionHeader` component, it's rendered as an `h3` tag. You can render your heading of choice by using the **as** prop.
+By default, when using the `Accordion.Header` component, it's rendered as an `h3` tag. You can render your heading of choice by using the **as** prop.
 
 ## Selected Index
 

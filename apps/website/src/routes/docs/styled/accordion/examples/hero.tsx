@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import {
-  Accordion,
+  AccordionRoot,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
@@ -8,7 +8,7 @@ import {
 
 export default component$(() => {
   return (
-    <Accordion behavior="single" collapsible class="w-full">
+    <AccordionRoot behavior="single" collapsible class="w-full">
       <AccordionItem id="item-1">
         <AccordionTrigger>Is it accessible?</AccordionTrigger>
         <AccordionContent>
@@ -28,6 +28,6 @@ export default component$(() => {
           Yes. It's animated by default, but you can disable it if you prefer.
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
   );
 });

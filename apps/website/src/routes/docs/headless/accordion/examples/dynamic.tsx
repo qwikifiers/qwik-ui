@@ -1,11 +1,5 @@
 import { component$, useSignal, useStore } from '@builder.io/qwik';
-import {
-  AccordionContent,
-  AccordionHeader,
-  AccordionItem,
-  AccordionRoot,
-  AccordionTrigger,
-} from '@qwik-ui/headless';
+import { Accordion } from '@qwik-ui/headless';
 
 interface DynamicAccordionProps {
   itemIndexToDelete?: number;
@@ -53,20 +47,20 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
           </label>
         </div>
 
-        <AccordionRoot class="w-full">
+        <Accordion.Root class="w-full">
           {itemStore.map(({ label, id }, index) => {
             return (
-              <AccordionItem id={`${id}`} key={id} class="border-b">
-                <AccordionHeader>
-                  <AccordionTrigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
+              <Accordion.Item id={`${id}`} key={id} class="border-b">
+                <Accordion.Header>
+                  <Accordion.Trigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
                     {label}
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionContent class="py-4 pt-0">index: {index}</AccordionContent>
-              </AccordionItem>
+                  </Accordion.Trigger>
+                </Accordion.Header>
+                <Accordion.Content class="py-4 pt-0">index: {index}</Accordion.Content>
+              </Accordion.Item>
             );
           })}
-        </AccordionRoot>
+        </Accordion.Root>
         <div class="flex gap-2 md:gap-4">
           <button
             style={{ color: 'green', marginTop: '1rem' }}

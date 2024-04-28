@@ -1,8 +1,5 @@
-export * from './accordion';
-export * from './accordion-content';
-export * from './accordion-context-id';
-export * from './accordion-context.type';
-export * from './accordion-header';
-export * from './accordion-item';
-export * from './accordion-root';
-export * from './accordion-trigger';
+export { AccordionRoot as Root } from './accordion-root';
+export { AccordionHeader as Header } from './accordion-header';
+export { AccordionItem as Item } from './accordion-item';
+export { AccordionTrigger as Trigger } from './accordion-trigger';
+export { AccordionContent as Content } from './accordion-content';
