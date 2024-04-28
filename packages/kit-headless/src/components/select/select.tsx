@@ -13,7 +13,6 @@ import {
 import { isBrowser, isServer } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
 import { Opt } from './select-inline';
-import { HiddenSelect } from './hidden-select';
 import { useSelect } from './use-select';
 
 export type InternalSelectProps = {
@@ -100,15 +99,10 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       onOpenChange$,
       scrollOptions: givenScrollOptions,
       loop: givenLoop,
-      name,
-      required,
-      disabled,
       multiple = false,
       _label,
       ...rest
     } = props;
-
-    const { getActiveDescendant } = useSelect();
 
     // refs
     const rootRef = useSignal<HTMLDivElement>();
@@ -203,18 +197,6 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       }
     });
 
-    const activeDescendantSig = useComputed$(() => {
-      if (isListboxOpenSig.value) {
-        return getActiveDescendant(
-          highlightedIndexSig.value ?? -1,
-          optionsSig.value,
-          localId,
-        );
-      } else {
-        return '';
-      }
-    });
-
     const context: SelectContext = {
       triggerRef,
       popoverRef,
@@ -230,6 +212,20 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       loop,
       multiple,
     };
+
+    const { getActiveDescendant } = useSelect(context);
+
+    const activeDescendantSig = useComputed$(() => {
+      if (isListboxOpenSig.value) {
+        return getActiveDescendant(
+          highlightedIndexSig.value ?? -1,
+          optionsSig.value,
+          localId,
+        );
+      } else {
+        return '';
+      }
+    });
 
     useContextProvider(SelectContextId, context);
 
@@ -247,12 +243,6 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
         {...rest}
       >
         <Slot />
-        <HiddenSelect
-          options={_options}
-          name={name}
-          required={required}
-          disabled={disabled}
-        />
       </div>
     );
   },

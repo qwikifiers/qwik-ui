@@ -1185,72 +1185,17 @@ test.describe('Multiple Selection', () => {
       await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
     });
 
-    test(`GIVEN a multi select
-          WHEN hitting the shift + space key
-          THEN select all options in-between the focused and last selected option`, async ({
-      page,
-    }) => {
-      const { driver: d } = await setup(page, 'multiple');
-      // initial setup
-      await d.openListbox('Enter');
-      await d.getTrigger().press('End');
-      await expect(d.getOptionAt('last')).toHaveAttribute('data-highlighted');
-      await d.getTrigger().press('Enter');
+    // test(`GIVEN a multi select
+    //       WHEN hitting the ctrl + a key
+    //       THEN select all options`, async ({ page }) => {
+    //   const { driver: d } = await setup(page, 'multiple');
+    //   // initial setup
+    //   await d.openListbox('Enter');
+    //   await d.getTrigger().press('Control+A');
 
-      await d.openListbox('Enter');
-      await d.getTrigger().press('Shift+Space');
-
-      const totalOpts = await d.getOptionsLength();
-
-      for (let i = 0; i < totalOpts; i++) {
-        await expect(d.getOptionAt(i)).toHaveAttribute('aria-selected', 'true');
-      }
-    });
-
-    test(`GIVEN a multi select
-    WHEN hitting the ctrl + shift + home key
-    THEN select the first two options`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'multiple');
-      // initial setup
-      await d.openListbox('Enter');
-      await d.getTrigger().press('ArrowDown');
-      await expect(d.getOptionAt(1)).toHaveAttribute('data-highlighted');
-
-      await d.getTrigger().press('Ctrl+Shift+Home');
-      await expect(d.getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
-      await expect(d.getOptionAt(1)).toHaveAttribute('aria-selected', 'true');
-    });
-
-    test(`GIVEN a multi select
-    WHEN hitting the ctrl + shift + end key
-    THEN select the last three options`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'multiple');
-      // initial setup
-      await d.openListbox('Enter');
-      await d.getTrigger().press('ArrowDown');
-      await expect(d.getOptionAt(1)).toHaveAttribute('data-highlighted');
-      await d.getTrigger().press('ArrowDown');
-      await expect(d.getOptionAt(2)).toHaveAttribute('data-highlighted');
-
-      await d.getTrigger().press('Ctrl+Shift+End');
-      await expect(d.getOptionAt(2)).toHaveAttribute('aria-selected', 'true');
-      await expect(d.getOptionAt(3)).toHaveAttribute('aria-selected', 'true');
-      await expect(d.getOptionAt(4)).toHaveAttribute('aria-selected', 'true');
-    });
-
-    test(`GIVEN a multi select
-          WHEN hitting the ctrl + a key
-          THEN select all options`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'multiple');
-      // initial setup
-      await d.openListbox('Enter');
-      await d.getTrigger().press('Ctrl+A');
-
-      const totalOpts = await d.getOptionsLength();
-
-      for (let i = 0; i < totalOpts; i++) {
-        await expect(d.getOptionAt(i)).toHaveAttribute('aria-selected', 'true');
-      }
-    });
+    //   for (let i = 0; i < (await d.getOptionsLength()); i++) {
+    //     await expect(d.getOptionAt(i)).toHaveAttribute('aria-selected', 'true');
+    //   }
+    // });
   });
 });

@@ -10,7 +10,9 @@ export default component$(() => {
   return (
     <Select.Root multiple bind:value={selected} class="select">
       <Select.Trigger class="select-trigger">
-        <Select.Value>{selected.value.join(', ')}</Select.Value>
+        <Select.Value>
+          {selected.value.length > 0 ? selected.value.join(', ') : 'Select an option'}
+        </Select.Value>
       </Select.Trigger>
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox">

@@ -5,11 +5,11 @@ import { useSelect, useTypeahead } from './use-select';
 type SelectTriggerProps = PropsOf<'button'>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
-  const { getNextEnabledOptionIndex, getPrevEnabledOptionIndex } = useSelect();
+  const { toggleIndex$, getNextEnabledOptionIndex, getPrevEnabledOptionIndex } =
+    useSelect(context);
   const labelId = `${context.localId}-label`;
 
   const { typeahead$ } = useTypeahead();
-  const { toggleIndex$ } = useSelect();
 
   const handleClickSync$ = sync$((e: MouseEvent) => {
     e.preventDefault();
@@ -92,6 +92,13 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       if (context.multiple) {
         if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && e.shiftKey) {
           toggleIndex$(context.selectedIndexesSig, context.highlightedIndexSig.value);
+        }
+
+        if (e.key === 'a' && e.ctrlKey) {
+          const allEnabledIndexes = context.optionsSig.value
+            .map((option, index) => (option.isDisabled ? null : index))
+            .filter((index) => index !== null);
+          context.selectedIndexesSig.value = allEnabledIndexes;
         }
       }
     } else {

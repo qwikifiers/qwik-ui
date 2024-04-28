@@ -35,7 +35,7 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
   const localIndexSig = useSignal<number | null>(null);
   const optionId = `${context.localId}-${_index}`;
 
-  const { toggleIndex$ } = useSelect();
+  const { toggleIndex$ } = useSelect(context);
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -88,6 +88,9 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
 
     if (context.multiple) {
       toggleIndex$(context.selectedIndexesSig, localIndexSig.value);
+
+      // keep focus so that when pressing escape, the listbox closes even when clicking.
+      context.triggerRef.value?.focus();
     } else {
       context.selectedIndexesSig.value = [localIndexSig.value];
       context.isListboxOpenSig.value = false;
