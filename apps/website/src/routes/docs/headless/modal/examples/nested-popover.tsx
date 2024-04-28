@@ -1,13 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import {
-  Modal,
-  Select,
-  SelectPopover,
-  SelectListbox,
-  SelectOption,
-  SelectTrigger,
-  SelectValue,
-} from '@qwik-ui/headless';
+import { Modal, Select } from '@qwik-ui/headless';
 import styles from '../snippets/modal.css?inline';
 
 export default component$(() => {
@@ -21,17 +13,22 @@ export default component$(() => {
       </button>
       <Modal class="modal" bind:show={isOpen}>
         Modal Content
-        <Select class="select">
-          <SelectTrigger class="select-trigger">
-            <SelectValue placeholder="Select an option" />
-          </SelectTrigger>
-          <SelectPopover class="select-popover">
-            <SelectListbox class="select-listbox">
-              <SelectOption>Option 1</SelectOption>
-              <SelectOption>Option 2</SelectOption>
-            </SelectListbox>
-          </SelectPopover>
-        </Select>
+        <Select.Root class="select">
+          <Select.Label>Logged in users</Select.Label>
+          <Select.Trigger class="select-trigger">
+            <Select.Value placeholder="Select an option" />
+          </Select.Trigger>
+          <Select.Popover class="select-popover">
+            <Select.Listbox class="select-listbox">
+              <Select.Item>
+                <Select.ItemLabel>Option 1</Select.ItemLabel>
+              </Select.Item>
+              <Select.Item>
+                <Select.ItemLabel>Option 2</Select.ItemLabel>
+              </Select.Item>
+            </Select.Listbox>
+          </Select.Popover>
+        </Select.Root>
       </Modal>
     </>
   );

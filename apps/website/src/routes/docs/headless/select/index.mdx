@@ -9,7 +9,7 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 # Select
 
-Reveals a list of options to choose from, often triggered by a button.
+Reveals a list of items to choose from, often triggered by a button.
 
 <Showcase name="hero" />
 
@@ -19,24 +19,21 @@ Reveals a list of options to choose from, often triggered by a button.
   features={[
     'Accessible as a button that shows a list, following web a11y standards.',
     'Support for single selection',
+    'Support for multi selection',
     'Controlled or uncontrolled',
-    'Disabled option support',
+    'Disabled item support',
     'Stop focus management via the Tab key',
-    'Grouped options support',
+    'Grouped items support',
     'Looping support',
     'Support for custom scroll behavior',
-    'Listbox UI is placed above everything else. (SelectPopover)',
-    'Custom Positioning (SelectPopover)',
-    'Option selection and focus management by typing (typeahead)',
-    'Keyboard support for option navigation via arrow keys and focus management',
-    'Automatic focus management for first and last options',
+    'Listbox UI is placed above everything else. (Select.Popover)',
+    'Custom Positioning (Select.Popover)',
+    'item selection and focus management by typing (typeahead)',
+    'Keyboard support for item navigation via arrow keys and focus management',
+    'Automatic focus management for first and last items',
     'Supports a custom placeholder',
   ]}
-  roadmap={[
-    'Opt-in native form support via a visually hidden select',
-    'RTL support',
-    'Multiple Selection and its respective keyboard interactions',
-  ]}
+  roadmap={['Opt-in native form support via a visually hidden select', 'RTL support']}
 />
 
 > Missing a feature? Check out the [contributing guide](../../../docs/headless/contributing) and we'd be happy to review any relevant issues or PR's. Feel free to work on any of the features listed above.
@@ -50,38 +47,46 @@ Reveals a list of options to choose from, often triggered by a button.
 <AnatomyTable
   propDescriptors={[
     {
-      name: 'Select',
+      name: 'Select.Label',
+      description: 'A label for the Select.Group.',
+    },
+    {
+      name: 'Select.Root',
       description: 'The root container for the Select component.',
     },
     {
-      name: 'SelectTrigger',
+      name: 'Select.Trigger',
       description:
         'A button or similar control that opens the select menu when interacted with.',
     },
     {
-      name: 'SelectValue',
+      name: 'Select.Value',
       description: 'Displays the currently selected value.',
     },
     {
-      name: 'SelectPopover',
+      name: 'Select.Popover',
       description:
         'A wrapper of the Qwik UI Popover component places its content above everything else.',
     },
     {
-      name: 'SelectListbox',
-      description: 'An unordered list that displays selectable options.',
+      name: 'Select.Listbox',
+      description: 'An unordered list that displays selectable items.',
     },
     {
-      name: 'SelectOption',
-      description: 'A selectable option within the SelectListbox.',
+      name: 'Select.Item',
+      description: 'A selectable item within the SelectListbox.',
     },
     {
-      name: 'SelectGroup',
-      description: 'Groups related options within the SelectListbox.',
+      name: 'Select.ItemLabel',
+      description: `The item's label. If there is no value prop, this is the item's value.`,
     },
     {
-      name: 'SelectLabel',
-      description: 'A label for the SelectGroup.',
+      name: 'Select.ItemIndicator',
+      description: `Allows you to render an icon or other visual element that is displayed next to the item's label whenever an item is selected.`,
+    },
+    {
+      name: 'Select.Group',
+      description: 'Groups related items within the Select.Listbox.',
     },
   ]}
 />
@@ -111,17 +116,17 @@ It is still not supported by any major browsers, and there is still an ongoing d
 
 Qwik UI's Select component is designed to solve these pain points out of the box, along with a focus on accessibility and usability.
 
-It intends to feel like a native select element, providing intuitive APIs and behavior.
+It intends to provide intuitive APIs and behavior.
 
 ## Passing data
 
-The select component accepts data similar to the native select element. Option data can be passed in directly to `<SelectOption />`.
+The select component accepts data similar to the native select element. Item data can be passed in directly to `<Select.ItemLabel />`.
 
 ### Basic example
 
 <Showcase name="string" />
 
-By default, the content inside of the `<SelectOption />` component is the option value.
+By default, the content inside of the `<Select.ItemLabel />` component is the option value.
 
 ### Mapping over data
 
@@ -342,6 +347,39 @@ Some CSS variables are specific to the docs, feel free to plug in your own value
     {
       keyTitle: 'Esc',
       description: `Closes the select and moves focus to the trigger.`,
+    },
+  ]}
+/>
+
+### Multi Select
+
+When in multi select mode, additional keyboard interactions are available.
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: `Toggles the selection of the highlighted option without closing the menu.`,
+    },
+    {
+      keyTitle: 'Enter',
+      description: `Toggles the selection of the highlighted option without closing the menu.`,
+    },
+    {
+      keyTitle: 'Shift + ArrowDown',
+      description: `Extends the selection from the current focus to the next item.`,
+    },
+    {
+      keyTitle: 'Shift + ArrowUp',
+      description: `Extends the selection from the current focus to the previous item.`,
+    },
+    {
+      keyTitle: 'Ctrl + A',
+      description: `Selects all items in the list.`,
+    },
+    {
+      keyTitle: 'Esc',
+      description: `Closes the menu and moves focus back to the trigger.`,
     },
   ]}
 />

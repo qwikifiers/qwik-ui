@@ -1,5 +1,5 @@
 import { type JSXNode, Component } from '@builder.io/qwik';
-import { SelectImpl, type SelectProps } from './select';
+import { SelectImpl, type SelectProps } from './select-root';
 import { SelectItem } from './select-item';
 import { SelectLabel } from './select-label';
 import { SelectItemLabel } from './select-item-label';
