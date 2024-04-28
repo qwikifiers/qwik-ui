@@ -10,6 +10,9 @@
   "module": "./index.qwik.mjs",
   "types": "./index.d.ts",
   "type": "module",
+  "scripts": {
+    "setup.chrome.113": "npx tsx ./scripts/prepare-chrome-113.ts"
+  },
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -24,5 +27,7 @@
   "peerDependencies": {
     "@builder.io/qwik": "^1.4.0"
   },
-  "scripts": {}
+  "devDependencies": {
+    "tsx": "4.7.2"
+  }
 }
