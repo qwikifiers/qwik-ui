@@ -6,7 +6,7 @@ type SelectTriggerProps = PropsOf<'button'>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
   const { toggleIndex$, getNextEnabledOptionIndex, getPrevEnabledOptionIndex } =
-    useSelect(context);
+    useSelect();
   const labelId = `${context.localId}-label`;
 
   const { typeahead$ } = useTypeahead();
@@ -46,7 +46,11 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       // select options
       if (e.key === 'Enter' || e.key === ' ') {
         if (context.multiple) {
-          toggleIndex$(context.selectedIndexesSig, context.highlightedIndexSig.value);
+          toggleIndex$(
+            context.selectedIndexesSig,
+            context.highlightedIndexSig.value,
+            context.optionsSig,
+          );
         } else {
           context.selectedIndexesSig.value = [context.highlightedIndexSig.value];
         }
@@ -91,7 +95,11 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
       if (context.multiple) {
         if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && e.shiftKey) {
-          toggleIndex$(context.selectedIndexesSig, context.highlightedIndexSig.value);
+          toggleIndex$(
+            context.selectedIndexesSig,
+            context.highlightedIndexSig.value,
+            context.optionsSig,
+          );
         }
 
         if (e.key === 'a' && e.ctrlKey) {

@@ -5,19 +5,19 @@ import { LuCheck, LuX } from '@qwikest/icons/lucide';
 export default component$(() => {
   useStyles$(styles);
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
-  const selected = useSignal<string[]>([]);
+  const display = useSignal<string[]>([]);
 
   return (
-    <Select.Root multiple bind:value={selected} class="select">
+    <Select.Root multiple bind:display={display} class="select">
       <Select.Label>Logged in users</Select.Label>
       <Select.Trigger class="select-trigger">
         <Select.Value>
-          {selected.value.map((opt) => (
+          {display.value.map((opt) => (
             <span class="select-pill" key={opt}>
               {opt}
               <span
                 onClick$={() =>
-                  (selected.value = selected.value.filter(
+                  (display.value = display.value?.filter(
                     (selectedOpt) => selectedOpt !== opt,
                   ))
                 }

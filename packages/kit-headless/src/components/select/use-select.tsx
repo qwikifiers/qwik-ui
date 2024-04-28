@@ -1,21 +1,25 @@
 import { useContext, useSignal, $, useComputed$, Signal } from '@builder.io/qwik';
-import SelectContextId, { SelectContext } from './select-context';
+import SelectContextId from './select-context';
 import { Opt } from './select-inline';
 
 /**
  * Helper functions go inside of hooks.
  * This is because outside of the component$ boundary Qwik core wakes up.
  */
-export function useSelect(context: SelectContext) {
+export function useSelect() {
   const toggleIndex$ = $(
-    async (selectedIndexesSig: Signal<Array<number | null>>, index: number | null) => {
+    async (
+      selectedIndexesSig: Signal<Array<number | null>>,
+      index: number | null,
+      optionsSig: Readonly<Signal<Opt[]>>,
+    ) => {
       if (index === null) return;
 
       // Check if the current index is disabled, and if so, find the next enabled index
-      const currentOption = context.optionsSig.value[index];
+      const currentOption = optionsSig.value[index];
       const enabledIndex =
         currentOption && currentOption.isDisabled
-          ? await getNextEnabledOptionIndex(index, context.optionsSig.value, true)
+          ? await getNextEnabledOptionIndex(index, optionsSig.value, true)
           : index;
 
       const currentIndex = selectedIndexesSig.value.indexOf(enabledIndex);

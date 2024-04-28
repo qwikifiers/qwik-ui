@@ -45,6 +45,9 @@ export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  'bind:display'?: Signal<TMultiple<M>>;
+
   /**
    * QRL handler that runs when a select value changes.
    * @param value The new value as a string.
@@ -141,6 +144,12 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       block: 'nearest',
     };
 
+    const displayValuesSig = useComputed$(() => {
+      return selectedIndexesSig.value.map(
+        (index) => optionsSig.value[index!]?.displayValue,
+      );
+    });
+
     const optionsIndexMap = useComputed$(() => {
       return new Map(optionsSig.value?.map((option, index) => [option.value, index]));
     });
@@ -171,22 +180,35 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       isListboxOpenSig.value = signalValue ?? isListboxOpenSig.value;
     });
 
-    useTask$(async function onChangeTask({ track }) {
+    useTask$(async function updateConsumerPropsTask({ track }) {
       track(() => selectedIndexesSig.value);
+
+      if (isServer) return;
+
+      // onChange$ logic
       const firstOption = selectedIndexesSig.value[0];
       if (isBrowser && firstOption !== null) {
         await onChange$?.(optionsSig.value[firstOption].value);
       }
 
-      if (!props['bind:value'] || !props['bind:value'].value) return;
-      if (isServer) return;
+      // sync the user's given signal when an option is selected
+      if (!props['bind:value'] || !props['bind:value'].value) {
+        // DO NOTHING FOR TYPES TO WORK
+      } else {
+        const newValue = multiple
+          ? selectedIndexesSig.value.map((index) => optionsSig.value[index!].value)
+          : optionsSig.value[firstOption!]?.value;
 
-      const newValue = multiple
-        ? selectedIndexesSig.value.map((index) => optionsSig.value[index!].value)
-        : optionsSig.value[firstOption!]?.value;
+        if (JSON.stringify(props['bind:value'].value) !== JSON.stringify(newValue)) {
+          props['bind:value'].value = newValue;
+        }
+      }
 
-      if (JSON.stringify(props['bind:value'].value) !== JSON.stringify(newValue)) {
-        props['bind:value'].value = newValue;
+      // sync the user's given signal for the display value
+      if (props['bind:display']) {
+        props['bind:display'].value = displayValuesSig.value.filter(
+          (value): value is string => value !== undefined,
+        );
       }
     });
 
@@ -213,7 +235,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       multiple,
     };
 
-    const { getActiveDescendant } = useSelect(context);
+    const { getActiveDescendant } = useSelect();
 
     const activeDescendantSig = useComputed$(() => {
       if (isListboxOpenSig.value) {
