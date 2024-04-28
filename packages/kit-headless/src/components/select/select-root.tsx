@@ -262,6 +262,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
         aria-haspopup="listbox"
         aria-activedescendant={activeDescendantSig.value}
         aria-labelledby={_label ? labelId : valueId}
+        aria-multiselectable={context.multiple ? 'true' : undefined}
         {...rest}
       >
         <Slot />

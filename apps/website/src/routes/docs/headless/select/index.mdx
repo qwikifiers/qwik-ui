@@ -9,7 +9,7 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 # Select
 
-Reveals a list of items to choose from, often triggered by a button.
+A control that allows the user to select multiple predefined items from a listbox.
 
 <Showcase name="hero" />
 
@@ -17,10 +17,8 @@ Reveals a list of items to choose from, often triggered by a button.
 
 <FeatureList
   features={[
-    'Accessible as a button that shows a list, following web a11y standards.',
-    'Support for single selection',
-    'Support for multi selection',
-    'Controlled or uncontrolled',
+    'Supports single and multiple selection',
+    'Supports reactive and initial value changes',
     'Disabled item support',
     'Stop focus management via the Tab key',
     'Grouped items support',
@@ -30,7 +28,7 @@ Reveals a list of items to choose from, often triggered by a button.
     'Custom Positioning (Select.Popover)',
     'item selection and focus management by typing (typeahead)',
     'Keyboard support for item navigation via arrow keys and focus management',
-    'Automatic focus management for first and last items',
+    'Automatic focus management for both selection modes.',
     'Supports a custom placeholder',
   ]}
   roadmap={['Opt-in native form support via a visually hidden select', 'RTL support']}
@@ -47,12 +45,13 @@ Reveals a list of items to choose from, often triggered by a button.
 <AnatomyTable
   propDescriptors={[
     {
-      name: 'Select.Label',
-      description: 'A label for the Select.Group.',
-    },
-    {
       name: 'Select.Root',
       description: 'The root container for the Select component.',
+    },
+    {
+      name: 'Select.Label',
+      description:
+        'A label that computes the accessible name of the select. If not present, the display value is used instead.',
     },
     {
       name: 'Select.Trigger',
@@ -66,15 +65,15 @@ Reveals a list of items to choose from, often triggered by a button.
     {
       name: 'Select.Popover',
       description:
-        'A wrapper of the Qwik UI Popover component places its content above everything else.',
+        'A wrapper of the Qwik UI Popover component. It places its content above everything else.',
     },
     {
       name: 'Select.Listbox',
-      description: 'An unordered list that displays selectable items.',
+      description: 'A list that displays selectable items.',
     },
     {
       name: 'Select.Item',
-      description: 'A selectable item within the SelectListbox.',
+      description: 'A selectable item within the Select.Listbox.',
     },
     {
       name: 'Select.ItemLabel',
@@ -87,6 +86,10 @@ Reveals a list of items to choose from, often triggered by a button.
     {
       name: 'Select.Group',
       description: 'Groups related items within the Select.Listbox.',
+    },
+    {
+      name: 'Select.GroupLabel',
+      description: 'A label that computes the accessible name of the group.',
     },
   ]}
 />
@@ -126,29 +129,29 @@ The select component accepts data similar to the native select element. Item dat
 
 <Showcase name="string" />
 
-By default, the content inside of the `<Select.ItemLabel />` component is the option value.
+By default, the content inside of the `<Select.ItemLabel />` component is the item's value.
 
 ### Mapping over data
 
 <Showcase name="hero" />
 
-You are in full control of how the data is rendered. Map over the data, or render the options however you like.
+You are in full control of how the data is rendered. Map over the data, or render the items however you like.
 
-> Maybe the options are out of order and you want to sort them? Programmatically update them directly in the JSX? You can do that!
+> Maybe the items are out of order and you want to sort them? Programmatically update them directly in the JSX? You can do that!
 
 ### Object example
 
 <Showcase name="object" />
 
-> In a case like the above example, where the display value can get cluttered, you may want to provide a `value` prop to the `<SelectOption />` component. We will refer to this in the next section.
+> In a case like the above example, where the display value can get cluttered, you may want to provide a `value` prop to the `<Select.Item />` component. We will refer to this in the next section.
 
 ### Passing a distinct value
 
-<Showcase name="option-value" />
+<Showcase name="item-value" />
 
-Sometimes we want to display one thing to the user, but pass another value to the option.
+Sometimes we want to display one thing to the user, but pass another value to the item.
 
-By adding the `value` prop to the `<SelectOption />` component, we can pass a distinct value to the select component.
+By adding the `value` prop to the `<Select.Item />` component, we can pass a distinct value to the select component.
 
 > A common use case is to select a user's unique account id, rather than their name.
 
@@ -158,23 +161,23 @@ By adding the `value` prop to the `<SelectOption />` component, we can pass a di
 
 We can listen to changes in the selected value by using the `onChange$` prop. It provides an argument that is the new selected value.
 
-The above example increments a count when the user selects a new option.
+The above example increments a count when the user selects a new item.
 
 ## Component state
 
-We can select an initial uncontrolled value by passing the `value` prop to the `<Select />` root component.
+We can select an initial uncontrolled value by passing the `value` prop to the `<Select.Root />` component.
 
 ### Uncontrolled / Initial value
 
 <Showcase name="uncontrolled" />
 
-The above example passes one of the option values "Jessie" as the initial value. As a result, the matching value is selected and focused.
+The above example passes one of the item values "Jessie" as the initial value. As a result, the matching value is selected and focused.
 
 > The `value` prop in Qwik is similar to a `defaultValue` prop in other frameworks. For controlled values, we use signals and the bind syntax.
 
 ### Controlled / Reactive value
 
-We can pass reactive state by using the `bind:value` prop to the `<Select />` root component.
+We can pass reactive state by using the `bind:value` prop to the `<Select.Root />` component.
 
 <Showcase name="controlled" />
 
@@ -188,47 +191,49 @@ We can also reactively control the open state of the select component by using t
 
 ### Programmatic changes
 
-To combine some of our previous knowledge, let's use the `onChange$` handler and `bind:value` prop in tandem.
+We can also programmatically change the selected value by changing the value of the signal.
 
 <Showcase name="controlled-value" />
 
-In the above example, we can programmatically change the selected value by clicking on the "Change to Abby" button.
+In the above example, we've changed the selected value by clicking on the "Change to Abby" button.
 
-This allows us to update the signal value and trigger the `onChange$` handler.
-
-### Disabled options
+### Disabled items
 
 <Showcase name="disabled" />
 
-Options can be disabled by adding the `disabled` prop to the `<SelectOption />` component.
+Items can be disabled by adding the `disabled` prop to the `<Select.Item />` component.
 
-Disabled options are not selectable or focusable. They are also skipped when using the arrow keys to navigate through the options.
+Disabled items are not selectable or focusable. They are also skipped when using the arrow keys to navigate through the items.
 
 ### Dynamically adding users
 
-A common use case is the addition of options dynamically. For example, an infinite scrolling list of users.
+A common use case is the addition of items dynamically. For example, an infinite scrolling list of users.
 
 <Showcase name="add-users" />
 
 Clicking the `Add Users` button adds a couple new users mapped to the list. Taking this further, we could grab more data from the server and add it to the list, or even hitting a database to get more users.
 
-### Option Indicators
+### Item Indicators
 
 <Showcase name="indicator" />
 
-We can add an indicator to the selected option by adding the `<SelectIndicator />` component to the `<SelectOption />` component.
+We can add an indicator to the selected item by adding the `<Select.ItemIndicator />` component inside the `<Select.Item />` component.
 
-This is useful for indicating the selected option in a list of options.
+This is useful for indicating the selected item in a list of items.
 
 ### Multiple selections
 
-Sometimes we want to allow the user to select multiple pre-defined options. We can do that by setting the `multiple` prop to `true`.
+Sometimes we want to allow the user to select multiple pre-defined items at a time. We can do that by setting the `multiple` prop to `true`.
 
 <Showcase name="multiple" />
 
-Something to be aware of, is the `<SelectValue />` component will now display whatever you put inside of it.
+If we want to configure the multiple display values, we can use the `bind:display` signal.
 
-This can be used in unison with the `bind:value` prop for more customization. For example, a pill component that displays the selected values.
+Something to be aware of, is the `<Select.Value />` component will now display whatever you put inside of it.
+
+> Under the hood, Qwik UI updates the `bind:display` signal with the latest display values.
+
+Taking this a step further, one could combine the `bind:value` and `bind:display` props together to create a custom widget that displays the selected values in a list of pills.
 
 <Showcase name="multiple-pill" />
 
@@ -242,17 +247,19 @@ This is because it is harder to customize the individual selected display values
 
 </Note>
 
+> Signals passed using the bind syntax can also be tracked in tasks, updated, and all the other goodies you know and love with signals in Qwik.
+
 ## Menu behavior
 
 ### Typeahead
 
-The select offers a typeahead feature that allows users to quickly find options by typing.
+The select offers a typeahead feature that allows users to quickly find items by typing.
 
 <Showcase name="typeahead" />
 
-It reduces the need to scroll through the available options. Typeahead is particularly handy for expected data sets, such as a list of countries.
+It reduces the need to scroll through the available items. Typeahead is particularly handy for expected data sets, such as a list of countries.
 
-> The ability to select options without the listbox open is also useful for those using screen readers.
+> The ability to select items without the listbox open is also useful for those using screen readers.
 
 ### Handling listbox open / close
 
@@ -264,21 +271,21 @@ To do that, we can use the `onOpenChange$` prop. A parameter is passed to the ha
 
 ### Looping
 
-To loop through the options, we can use the `loop` boolean prop on the `<Select />` root component.
+To loop through the items, we can use the `loop` boolean prop on the `<Select.Root />` component.
 
 <Showcase name="loop" />
 
-- Pressing the down arrow key will move focus to the first option in the list.
+- Pressing the down arrow key will move focus to the first item in the list.
 
-- Pressing the up arrow key will move focus to the last option in the list.
+- Pressing the up arrow key will move focus to the last item in the list.
 
-### Grouped options
+### Grouped items
 
 <Showcase name="group" />
 
-The `<SelectGroup />` and `<SelectLabel />` components are used to group and label options.
+The `<Select.Group />` and `<Select.GroupLabel />` components are used to group and provide an accessible name to the Grouped items.
 
-Wrap the options in a group, add a Label, and you're good to go!
+Wrap the items in a group, add a Label, and you're good to go!
 
 ### Scrolling
 
@@ -286,19 +293,21 @@ Because focus remains on the select trigger when the listbox is open, it's impor
 
 <Showcase name="scrollable" />
 
-The native `scrollIntoView` method is used to scroll the options into view when the user highlights an option.
+The native `scrollIntoView` method is used to scroll the itemss into view when the user highlights an items.
 
-To customize the scroll behavior, add the `scrollOptions` prop to the `<Select />` root component.
+To customize the scroll behavior, add the `scrollOptions` prop to the `<Select.Root />` component.
 
 > Qwik UI does not provide virtual scrolling. However, we have found a [Qwik community member's package](https://github.com/literalpie/qwik-virtual-scroll) that has an implementation of virtual scrolling for Qwik based on [Tanstack Virtual](https://github.com/TanStack/virtual).
 
 ## Placeholder
 
-We can provide a custom placeholder to the `<SelectValue />` component by adding the `placeholder` prop.
+We can provide a custom placeholder to the `<Select.Value />` component by adding the `placeholder` prop.
 
 <Showcase name="hero" />
 
 When a value is not selected, the placeholder is displayed.
+
+> The `placeholder` prop is only used when the `multiple` prop is set to `false`.
 
 ## Example CSS
 
@@ -314,11 +323,11 @@ Some CSS variables are specific to the docs, feel free to plug in your own value
   keyDescriptors={[
     {
       keyTitle: 'Space',
-      description: `Opens the menu and selects a highlighted option.`,
+      description: `Opens the menu and selects a highlighted item.`,
     },
     {
       keyTitle: 'Enter',
-      description: `Opens the menu and selects a highlighted option.`,
+      description: `Opens the menu and selects a highlighted item.`,
     },
     {
       keyTitle: 'ArrowDown',
@@ -359,11 +368,11 @@ When in multi select mode, additional keyboard interactions are available.
   keyDescriptors={[
     {
       keyTitle: 'Space',
-      description: `Toggles the selection of the highlighted option without closing the menu.`,
+      description: `Toggles the selection of the highlighted item without closing the menu.`,
     },
     {
       keyTitle: 'Enter',
-      description: `Toggles the selection of the highlighted option without closing the menu.`,
+      description: `Toggles the selection of the highlighted item without closing the menu.`,
     },
     {
       keyTitle: 'Shift + ArrowDown',
@@ -388,7 +397,7 @@ When in multi select mode, additional keyboard interactions are available.
 
 ### Data Attributes
 
-`Select`, `SelectTrigger`, `SelectValue`, `SelectPopover`, and `SelectListbox` all have data attributes that are used to track state.
+`Select`, `Select.Trigger`, `Select.Value`, `Select.Popover`, and `Select.Listbox` all have data attributes that are used to track state.
 
 <AnatomyTable
   firstColumnLabel="Attribute"
@@ -404,27 +413,27 @@ When in multi select mode, additional keyboard interactions are available.
   ]}
 />
 
-`SelectOption` has the following data attributes:
+`Select.Item` has the following data attributes:
 
 <AnatomyTable
   firstColumnLabel="Attribute"
   propDescriptors={[
     {
       name: 'data-selected',
-      description: 'If the option is selected. (Boolean)',
+      description: 'If the item is selected. (Boolean)',
     },
     {
       name: 'data-highlighted',
-      description: 'If the option is highlighted. (Boolean)',
+      description: 'If the item is highlighted. (Boolean)',
     },
     {
       name: 'data-disabled',
-      description: 'If option is disabled. (Boolean)',
+      description: 'If item is disabled. (Boolean)',
     },
   ]}
 />
 
-### Select (Root)
+### Select.Root
 
 <APITable
   propDescriptors={[
@@ -436,7 +445,13 @@ When in multi select mode, additional keyboard interactions are available.
     {
       name: 'bind:value',
       type: 'signal',
-      description: 'Controlled selected value, manages the selected option.',
+      description: 'Controlled selected value, manages the selected item.',
+      info: 'string',
+    },
+    {
+      name: 'bind:display',
+      type: 'signal',
+      description: 'Controlled display value, manages the display items.',
       info: 'string',
     },
     {
@@ -455,12 +470,12 @@ When in multi select mode, additional keyboard interactions are available.
       name: 'loop',
       type: 'boolean',
       description:
-        'Determines if focus cycles from the last option back to the first, or vice versa.',
+        'Determines if focus cycles from the last item back to the first, or vice versa.',
     },
   ]}
 />
 
-### Select Value
+### Select.Value
 
 <APITable
   propDescriptors={[
@@ -472,23 +487,23 @@ When in multi select mode, additional keyboard interactions are available.
   ]}
 />
 
-### Select Popover
+### Select.Popover
 
-`SelectPopover` is a wrapper of the [Popover](../../../docs/headless/popover/) component, and has the Same API's.
+`Select.Popover` is a wrapper of the [Popover](../../../docs/headless/popover/) component, and has the Same API's.
 
-### Select Option:
+### Select.Item:
 
 <APITable
   propDescriptors={[
     {
       name: 'value',
       type: 'string',
-      description: 'Give the select a value other than what is displayed in the option.',
+      description: 'Give the select a value other than what is displayed in the item.',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: 'When true, the option is disabled.',
+      description: 'When true, the item is disabled.',
     },
   ]}
 />

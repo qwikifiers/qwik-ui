@@ -956,7 +956,7 @@ test.describe('Props', () => {
     test(`GIVEN a select with distinct display and option values
           WHEN the 2nd option is selected
           THEN the selected value matches the 2nd option's value`, async ({ page }) => {
-      const { openListbox, getTrigger } = await setup(page, 'option-value');
+      const { openListbox, getTrigger } = await setup(page, 'item-value');
 
       await openListbox('Enter');
 

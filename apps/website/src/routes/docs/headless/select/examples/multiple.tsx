@@ -5,14 +5,12 @@ import { LuCheck } from '@qwikest/icons/lucide';
 export default component$(() => {
   useStyles$(styles);
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
-  const displaySig = useSignal<string[]>([]);
+  const display = useSignal<string[]>([]);
 
   return (
-    <Select.Root bind:display={displaySig} multiple class="select">
+    <Select.Root bind:display={display} multiple class="select">
       <Select.Trigger class="select-trigger">
-        <Select.Value>
-          {displaySig.value.length > 0 ? displaySig.value.join(', ') : 'Select an option'}
-        </Select.Value>
+        <Select.Value>{display.value.join(', ')}</Select.Value>
       </Select.Trigger>
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox">
