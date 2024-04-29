@@ -113,7 +113,13 @@ export function usePopover(customId?: string) {
     popoverSig.value?.hidePopover();
   });
 
-  return { showPopover, togglePopover, hidePopover, initPopover$, initialClickSig };
+  return {
+    showPopover,
+    togglePopover,
+    hidePopover,
+    initPopover$,
+    initialClickSig,
+  };
 }
 
 export const PopoverTrigger = component$<PopoverTriggerProps>(

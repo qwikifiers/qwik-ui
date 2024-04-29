@@ -22,7 +22,11 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
 
     if (isServer) return;
 
-    const anchor = context.triggerRef?.value;
+    console.log('running!');
+
+    const anchor = context.anchorRef?.value
+      ? context.anchorRef.value
+      : context.triggerRef?.value;
     const popover = context.panelRef?.value;
 
     if (!popover || !anchor) return;

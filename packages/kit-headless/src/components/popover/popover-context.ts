@@ -11,6 +11,7 @@ export type PopoverContext = {
   localId: string;
   manual?: boolean;
   hover?: boolean;
+  anchorRef?: Signal<HTMLElement | undefined>;
 
   // refs
   panelRef?: Signal<HTMLElement | undefined>;

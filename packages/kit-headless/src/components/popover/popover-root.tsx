@@ -16,6 +16,7 @@ export type PopoverRootProps = {
   hover?: boolean;
   id?: string;
   'bind:panel'?: Signal<HTMLElement | undefined>;
+  anchorRef?: Signal<HTMLElement | undefined>;
 };
 
 export type FloatingProps = {
@@ -54,6 +55,7 @@ type PopoverProps = PopoverRootProps & {
 export const PopoverRoot = component$((props: PopoverProps) => {
   const {
     id,
+    anchorRef,
     floating = true,
     manual,
     hover = false,
@@ -83,6 +85,7 @@ export const PopoverRoot = component$((props: PopoverProps) => {
   const rootId = `${compId}-root`;
 
   const context: PopoverContext = {
+    anchorRef,
     compId,
     floating,
     hover,
