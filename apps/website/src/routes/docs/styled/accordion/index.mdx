@@ -22,12 +22,14 @@ qwik-ui add accordion
 
 ```tsx
 import { component$, Slot, PropsOf } from '@builder.io/qwik';
+
 import { Accordion } from '@qwik-ui/headless';
-import { LuChevronDown } from '@qwikest/icons/lucide';
 import { cn } from '@qwik-ui/utils';
 
+import { LuChevronDown } from '@qwikest/icons/lucide';
+
 export const AccordionRoot = component$<PropsOf<typeof Accordion.Root>>((props) => (
-  <Accordion.Root animated {...props} class={props.class}>
+  <Accordion.Root animated {...props}>
     <Slot />
   </Accordion.Root>
 ));
@@ -41,8 +43,8 @@ export const AccordionItem = component$<PropsOf<typeof Accordion.Item>>((props) 
 });
 
 export const AccordionTrigger = component$<
-  PropsOf<typeof AccordionTrigger> & {
-    header?: PropsOf<typeof AccordionHeader>['as'];
+  PropsOf<typeof Accordion.Trigger> & {
+    header?: PropsOf<typeof Accordion.Header>['as'];
   }
 >(({ header = 'h3', ...props }) => {
   return (
@@ -61,7 +63,7 @@ export const AccordionTrigger = component$<
   );
 });
 
-export const AccordionContent = component$<PropsOf<typeof AccordionContent>>((props) => {
+export const AccordionContent = component$<PropsOf<typeof Accordion.Content>>((props) => {
   return (
     <Accordion.Content
       {...props}

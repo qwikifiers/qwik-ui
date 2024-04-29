@@ -1,5 +1,5 @@
 import { component$, useId, useSignal, useStyles$ } from '@builder.io/qwik';
-import { Popover, PopoverTrigger } from '@qwik-ui/headless';
+import { Popover } from '@qwik-ui/headless';
 
 type InfoProps = {
   info: string;
@@ -27,8 +27,8 @@ export const InfoPopup = component$((props: InfoProps) => {
   `);
 
   return (
-    <>
-      <PopoverTrigger
+    <Popover.Root>
+      <Popover.Trigger
         ref={triggerRef}
         popoverTargetAction="show"
         popovertarget={popoverTableId}
@@ -52,9 +52,9 @@ export const InfoPopup = component$((props: InfoProps) => {
             ></path>
           </svg>
         </div>
-      </PopoverTrigger>
+      </Popover.Trigger>
 
-      <Popover
+      <Popover.Panel
         ref={popoverRef}
         anchorRef={triggerRef}
         floating={true}
@@ -67,7 +67,7 @@ export const InfoPopup = component$((props: InfoProps) => {
         <div class="text-md mb-2 max-w-xs rounded-base border border-b-2 border-border bg-popover px-3 py-2 font-[500] text-foreground shadow-lg sm:w-max">
           {props.info}
         </div>
-      </Popover>
-    </>
+      </Popover.Panel>
+    </Popover.Root>
   );
 });

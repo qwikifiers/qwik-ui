@@ -1,12 +1,19 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Input, Label, Popover, PopoverTrigger, buttonVariants } from '@qwik-ui/styled';
+import {
+  Input,
+  Label,
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverPanel,
+  buttonVariants,
+} from '@qwik-ui/styled';
 
 export default component$(() => {
   const triggerRef = useSignal<HTMLButtonElement>();
   const popoverRef = useSignal<HTMLElement>();
 
   return (
-    <>
+    <PopoverRoot>
       <PopoverTrigger
         ref={triggerRef}
         class={buttonVariants({ look: 'outline' })}
@@ -14,7 +21,7 @@ export default component$(() => {
       >
         Open popover
       </PopoverTrigger>
-      <Popover
+      <PopoverPanel
         flip={false}
         gutter={8}
         ref={popoverRef}
@@ -47,7 +54,7 @@ export default component$(() => {
             </div>
           </div>
         </div>
-      </Popover>
-    </>
+      </PopoverPanel>
+    </PopoverRoot>
   );
 });

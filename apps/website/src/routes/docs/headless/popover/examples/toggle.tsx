@@ -4,11 +4,11 @@ export default component$(() => {
   const { togglePopover } = usePopover(`toggle-id`);
 
   return (
-    <>
+    <Popover.Root>
       <button onClick$={() => togglePopover()}>toggle popover</button>
-      <Popover id="toggle-id" class="popover">
+      <Popover.Panel id="toggle-id" class="popover">
         My Hero!
-      </Popover>
-    </>
+      </Popover.Panel>
+    </Popover.Root>
   );
 });

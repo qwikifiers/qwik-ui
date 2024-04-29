@@ -1,5 +1,5 @@
 import { component$, useContext, Slot, useTask$ } from '@builder.io/qwik';
-import { Popover, usePopover } from '../popover';
+import { PopoverPanel, usePopover } from '../popover';
 
 import SelectContextId from './select-context';
 import { type FloatingProps } from '../popover/floating';
@@ -25,7 +25,7 @@ export const SelectPopover = component$(
     });
 
     return (
-      <Popover
+      <PopoverPanel
         {...props}
         id={popoverId}
         floating={true}
@@ -37,7 +37,7 @@ export const SelectPopover = component$(
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       >
         <Slot />
-      </Popover>
+      </PopoverPanel>
     );
   },
 );

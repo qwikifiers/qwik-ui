@@ -1,13 +1,6 @@
-import { PopoverImpl } from './popover-impl';
+import { PopoverPanelImpl } from './popover-panel-impl';
 
-import {
-  component$,
-  useTask$,
-  useSignal,
-  type Signal,
-  Slot,
-  PropsOf,
-} from '@builder.io/qwik';
+import { component$, useTask$, Slot, PropsOf, useContext } from '@builder.io/qwik';
 import {
   ReferenceElement,
   autoUpdate,
@@ -16,114 +9,68 @@ import {
   flip as _flip,
   shift as _shift,
   hide as _hide,
+  Placement,
 } from '@floating-ui/dom';
+import { popoverContextId } from './popover-context';
 
-declare global {
-  interface Document {
-    __NEEDS_POPOVER__?: true;
-  }
-  interface HTMLDivElement {
-    popover?: 'manual' | 'auto';
-  }
-}
+export const FloatingPopover = component$((props: PropsOf<'div'>) => {
+  const context = useContext(popoverContextId);
 
-export type FloatingProps = PropsOf<'div'> & {
-  id: string;
-  anchorRef?: Signal<HTMLElement | undefined>;
-  popoverRef?: Signal<HTMLElement | undefined>;
-  placement?:
-    | 'top'
-    | 'top-start'
-    | 'top-end'
-    | 'right'
-    | 'right-start'
-    | 'right-end'
-    | 'bottom'
-    | 'bottom-start'
-    | 'bottom-end'
-    | 'left'
-    | 'left-start'
-    | 'left-end';
-  ancestorScroll?: boolean;
-  ancestorResize?: boolean;
-  elementResize?: boolean;
-  layoutShift?: boolean;
-  animationFrame?: boolean;
-  gutter?: number;
-  shift?: boolean;
-  flip?: boolean;
-  size?: boolean;
-  hide?: 'referenceHidden' | 'escaped';
-  inline?: boolean;
-  transform?: string;
-};
+  // sets floating UI config
+  useTask$(async ({ track, cleanup }) => {
+    track(() => context.isOpenSig.value);
 
-export const FloatingPopover = component$(
-  ({
-    anchorRef,
-    gutter,
-    flip = true,
-    placement = 'bottom',
-    shift,
-    hide,
-    ancestorScroll = true,
-    ancestorResize = true,
-    elementResize = true,
-    animationFrame = false,
-    transform,
-    ...props
-  }: FloatingProps) => {
-    const myRef = useSignal<HTMLElement | undefined>();
-    const popoverRef = props.popoverRef || myRef;
+    const anchor = context.triggerRef?.value;
+    const popover = context.panelRef?.value;
 
-    // sets floating UI config
-    useTask$(async ({ track, cleanup }) => {
-      const anchor = track(() => anchorRef?.value);
-      const popover = track(() => popoverRef.value);
-      if (!popover || !anchor) return;
+    if (!popover || !anchor) return;
 
-      popover.hidden = false;
+    const updatePosition = async () => {
+      const middleware = [
+        _offset(context.gutter),
+        _hide({ strategy: context.hide }),
+        context.flip && _flip(),
+        context.shift && _shift(),
+      ];
 
-      const updatePosition = async () => {
-        const middleware = [
-          _offset(gutter),
-          _hide({ strategy: hide }),
-          flip && _flip(),
-          shift && _shift(),
-        ];
+      let placement;
+      if (typeof context.floating === 'boolean') {
+        placement = 'bottom';
+      } else {
+        placement = context.floating;
+      }
 
-        await computePosition(anchor as ReferenceElement, popover, {
-          placement,
-          middleware,
-        }).then(async (resolvedData) => {
-          const { x, y } = resolvedData;
+      if (context.panelRef?.value) {
+        // ensures there is no brief flash of the popover before its placement
+        context.panelRef.value.hidden = false;
+      }
 
-          Object.assign(popover.style, {
-            left: `${x}px`,
-            top: `${y}px`,
-            transform,
-          });
+      await computePosition(anchor as ReferenceElement, popover, {
+        placement: placement as Placement,
+        middleware,
+      }).then(async (resolvedData) => {
+        const { x, y } = resolvedData;
+
+        Object.assign(popover.style, {
+          left: `${x}px`,
+          top: `${y}px`,
+          transform: context.transform,
         });
-      };
+      });
+    };
 
-      const cleanupFunc = autoUpdate(
-        anchor as ReferenceElement,
-        popover,
-        updatePosition,
-        {
-          ancestorScroll,
-          ancestorResize,
-          elementResize,
-          animationFrame,
-        },
-      );
-      cleanup(cleanupFunc);
+    const cleanupFunc = autoUpdate(anchor as ReferenceElement, popover, updatePosition, {
+      ancestorScroll: context.ancestorScroll,
+      ancestorResize: context.ancestorResize,
+      elementResize: context.elementResize,
+      animationFrame: context.animationFrame,
     });
+    cleanup(cleanupFunc);
+  });
 
-    return (
-      <PopoverImpl hidden={true} {...props} ref={popoverRef}>
-        <Slot />
-      </PopoverImpl>
-    );
-  },
-);
+  return (
+    <PopoverPanelImpl hidden={true} {...props}>
+      <Slot />
+    </PopoverPanelImpl>
+  );
+});

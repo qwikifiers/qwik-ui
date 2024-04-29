@@ -51,12 +51,12 @@ To ensure consistent behavior across all browsers, Qwik UI provides a `polyfill`
 
 ```tsx
 import { component$, useStyles$ } from '@builder.io/qwik';
-import { Popover, PopoverTrigger } from '@qwik-ui/headless';
+import { Popover, Popover.Trigger } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (
     <>
-      <PopoverTrigger popovertarget="building-blocks">Inside Trigger</PopoverTrigger>
+      <Popover.Trigger popovertarget="building-blocks">Inside Trigger</Popover.Trigger>
       <Popover id="building-blocks">Inside Popover</Popover>
     </>
   );
@@ -68,7 +68,7 @@ export default component$(() => {
 <AnatomyTable
   propDescriptors={[
     {
-      name: 'PopoverTrigger',
+      name: 'Popover.Trigger',
       description: 'An HTML Button component that opens the popover when clicked.',
     },
     {
@@ -211,7 +211,7 @@ To add a popover trigger, it can be done similar to the native API, using the `p
 
 ```tsx
 // Opens when trigger is clicked, with a matching id to popovertarget
-<PopoverTrigger popovertarget="get-20-off">Get 20% off your next order!</PopoverTrigger>
+<Popover.Trigger popovertarget="get-20-off">Get 20% off your next order!</Popover.Trigger>
 
 // Native API:  popovertarget is an invoker
 <button popovertarget="get-20-off">Get 20% off your next order!</button>

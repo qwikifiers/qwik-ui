@@ -1,5 +1,5 @@
 import { component$, useContext, Slot, useTask$, useId } from '@builder.io/qwik';
-import { Popover, usePopover } from '../popover';
+import { PopoverPanel, usePopover } from '../popover';
 
 import ComboboxContextId from './combobox-context-id';
 import { FloatingProps } from '../popover/floating';
@@ -26,7 +26,7 @@ export const ComboboxPopover = component$(
     });
 
     return (
-      <Popover
+      <PopoverPanel
         {...props}
         id={customPopoverId}
         floating={true}
@@ -36,7 +36,7 @@ export const ComboboxPopover = component$(
         manual
       >
         <Slot />
-      </Popover>
+      </PopoverPanel>
     );
   },
 );

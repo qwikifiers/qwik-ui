@@ -1,19 +1,19 @@
 import { component$ } from '@builder.io/qwik';
-import { Popover, PopoverTrigger } from '@qwik-ui/headless';
+import { Popover } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (
-    <>
-      <PopoverTrigger popovertarget="styling-id" class="popover-trigger">
+    <Popover.Root>
+      <Popover.Trigger popovertarget="styling-id" class="popover-trigger">
         Popover Trigger
-      </PopoverTrigger>
+      </Popover.Trigger>
       {/* popover background-color gets overrided */}
-      <Popover
+      <Popover.Panel
         class="popover [&[popover]]: [&[popover]]:border-accent [&[popover]]:bg-primary [&[popover]]:text-background"
         id="styling-id"
       >
         Popover
-      </Popover>
-    </>
+      </Popover.Panel>
+    </Popover.Root>
   );
 });

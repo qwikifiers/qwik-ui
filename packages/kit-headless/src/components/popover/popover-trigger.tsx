@@ -6,15 +6,17 @@ import {
   useSignal,
   $,
   PropsOf,
+  useContext,
 } from '@builder.io/qwik';
 import { isBrowser } from '@builder.io/qwik/build';
+import { popoverContextId } from './popover-context';
 
 type PopoverTriggerProps = {
-  popovertarget: string;
+  popovertarget?: string;
   disableClickInitPopover?: boolean;
 } & PropsOf<'button'>;
 
-export function usePopover(popovertarget: string) {
+export function usePopover(customId?: string) {
   const hasPolyfillLoadedSig = useSignal<boolean>(false);
   const isSupportedSig = useSignal<boolean>(false);
 
@@ -24,8 +26,13 @@ export function usePopover(popovertarget: string) {
   const isCSRSig = useSignal<boolean>(false);
 
   const loadPolyfill$ = $(async () => {
-    await import('@oddbird/popover-polyfill');
     document.dispatchEvent(new CustomEvent('poppolyload'));
+  });
+
+  useTask$(() => {
+    if (isBrowser) {
+      isCSRSig.value = true;
+    }
   });
 
   const initPopover$ = $(async () => {
@@ -39,96 +46,120 @@ export function usePopover(popovertarget: string) {
 
     if (!hasPolyfillLoadedSig.value && !isSupported) {
       await loadPolyfill$();
-      hasPolyfillLoadedSig.value = true;
-    }
-    didInteractSig.value = true;
-  });
-
-  useTask$(() => {
-    if (isBrowser) {
-      isCSRSig.value = true;
-    }
-  });
-
-  useTask$(({ track }) => {
-    track(() => didInteractSig.value);
-
-    if (!isBrowser) return;
-
-    // get popover
-    if (!popoverSig.value) {
-      popoverSig.value = document.getElementById(popovertarget);
     }
 
-    // so it only runs once on click for supported browsers
-    if (isSupportedSig.value) {
-      if (!popoverSig.value) return;
-
-      if (!initialClickSig.value && !isCSRSig.value) {
-        /* opens manual on any event */
-        popoverSig.value.showPopover();
+    if (!didInteractSig.value) {
+      if (popoverSig.value === null) {
+        popoverSig.value = document.getElementById(`${customId}-panel`);
       }
+
+      didInteractSig.value = true;
     }
+
+    return popoverSig.value;
   });
 
   // event is created after teleported properly
   useOnDocument(
     'showpopoverpoly',
-    $(() => {
+    $(async () => {
       if (!didInteractSig.value) return;
 
-      if (!popoverSig.value) return;
+      // make sure to load the polyfill after the client re-render
+      await import('@oddbird/popover-polyfill');
 
-      // calls code in here twice for some reason, we think it's because of the client re-render, but it still works
-
-      // so it only runs once on first click
-      if (!popoverSig.value.classList.contains(':popover-open')) {
-        popoverSig.value.showPopover();
-      }
+      hasPolyfillLoadedSig.value = true;
     }),
   );
 
   const showPopover = $(async () => {
-    if (!didInteractSig.value) {
-      await initPopover$();
+    const popover = await initPopover$();
+
+    if (!isSupportedSig.value) {
+      // Wait until the polyfill has been loaded if necessary
+      while (!hasPolyfillLoadedSig.value) {
+        await new Promise((resolve) => setTimeout(resolve, 10)); // Poll every 10ms
+      }
     }
-    popoverSig.value?.showPopover();
+
+    if (popover && 'showPopover' in popover) {
+      popover.showPopover();
+    }
   });
 
   const togglePopover = $(async () => {
-    if (!didInteractSig.value) {
-      await initPopover$();
+    const popover = await initPopover$();
+
+    if (!isSupportedSig.value) {
+      // Wait until the polyfill has been loaded if necessary
+      while (!hasPolyfillLoadedSig.value) {
+        await new Promise((resolve) => setTimeout(resolve, 10)); // Poll every 10ms
+      }
     }
-    popoverSig.value?.togglePopover();
+
+    if (popover) {
+      popover.togglePopover();
+    }
   });
 
   const hidePopover = $(async () => {
-    if (!didInteractSig.value) {
-      await initPopover$();
+    const popover = await initPopover$();
+
+    if (!isSupportedSig.value) {
+      // Wait until the polyfill has been loaded if necessary
+      while (!hasPolyfillLoadedSig.value) {
+        await new Promise((resolve) => setTimeout(resolve, 10)); // Poll every 10ms
+      }
     }
-    popoverSig.value?.hidePopover();
+
+    if (popover) {
+      popover.hidePopover();
+    }
   });
 
   return { showPopover, togglePopover, hidePopover, initPopover$, initialClickSig };
 }
 
 export const PopoverTrigger = component$<PopoverTriggerProps>(
-  ({ popovertarget, disableClickInitPopover = false, ...rest }: PopoverTriggerProps) => {
-    const { initPopover$, initialClickSig } = usePopover(popovertarget);
+  (props: PopoverTriggerProps) => {
+    const context = useContext(popoverContextId);
+
+    const triggerId = `${context.id}-trigger`;
+    const panelId = `${context.id}-panel`;
+
+    const { initPopover$, initialClickSig, showPopover, hidePopover } = usePopover(
+      context.id,
+    );
+
+    const handleClick$ = $(async () => {
+      if (context.hover) return;
+
+      initialClickSig.value = true;
+      await initPopover$();
+    });
+
+    const handlePointerOver$ = $(async () => {
+      if (!context.hover) return;
+
+      await showPopover();
+    });
+
+    const handlePointerOut$ = $(async () => {
+      if (!context.hover) return;
+
+      await hidePopover();
+    });
 
     return (
       <button
-        {...rest}
-        popovertarget={popovertarget}
-        onClick$={[
-          rest.onClick$,
-          !disableClickInitPopover
-            ? $(async () => {
-                initialClickSig.value = true;
-                await initPopover$();
-              })
-            : undefined,
-        ]}
+        {...props}
+        ref={context.triggerRef}
+        id={triggerId}
+        popovertarget={panelId}
+        onClick$={[handleClick$, props.onClick$]}
+        onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
+        onPointerOut$={[handlePointerOut$, props.onPointerOut$]}
+        popoverTargetAction={context.hover ? 'show' : undefined}
       >
         <Slot />
       </button>

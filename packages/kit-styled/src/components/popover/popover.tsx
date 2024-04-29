@@ -1,13 +1,12 @@
 import { PropsOf, Slot, component$, useStyles$ } from '@builder.io/qwik';
-import {
-  PopoverTrigger as QwikUIPopoverTrigger,
-  Popover as QwikUIPopover,
-} from '@qwik-ui/headless';
+import { Popover } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
-export const PopoverTrigger = QwikUIPopoverTrigger;
+export const PopoverRoot = Popover.Root;
 
-export const Popover = component$<PropsOf<typeof QwikUIPopover>>(
+export const PopoverTrigger = Popover.Trigger;
+
+export const PopoverPanel = component$<PropsOf<typeof Popover.Panel>>(
   ({ floating, ...props }) => {
     useStyles$(`
     .my-transition {
@@ -25,7 +24,7 @@ export const Popover = component$<PropsOf<typeof QwikUIPopover>>(
     `);
 
     return (
-      <QwikUIPopover
+      <Popover.Panel
         {...props}
         floating={floating}
         class={cn(
@@ -35,7 +34,7 @@ export const Popover = component$<PropsOf<typeof QwikUIPopover>>(
         )}
       >
         <Slot />
-      </QwikUIPopover>
+      </Popover.Panel>
     );
   },
 );

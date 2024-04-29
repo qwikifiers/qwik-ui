@@ -6,29 +6,18 @@ import {
   useContext,
   useTask$,
   $,
-  type Signal,
-  type ClassList,
   createContextId,
+  PropsOf,
+  CorrectedToggleEvent,
 } from '@builder.io/qwik';
 
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
 import { supportShowAnimation, supportClosingAnimation } from './utils';
-
-export type PopoverImplProps = {
-  id: string;
-  popover?: 'manual' | 'auto';
-  class?: ClassList;
-  ref?: Signal<HTMLElement | undefined>;
-  manual?: boolean;
-  entryAnimation?: string;
-  exitAnimation?: string;
-  animation?: boolean;
-  transition?: boolean;
-};
+import { popoverContextId } from './popover-context';
 
 // We don't need a provider, that way we connect all context to the root
-const ensureContextId = createContextId('qui-popover');
+const ensureContextId = createContextId('qui-popover-null-context');
 
 /**
  *
@@ -45,11 +34,12 @@ export const EnsuredContext = component$(() => {
   return null;
 });
 
-export const PopoverImpl = component$<PopoverImplProps>((props) => {
+export const PopoverPanelImpl = component$((props: PropsOf<'div'>) => {
+  const context = useContext(popoverContextId);
+  const panelId = `${context.id}-panel`;
+
   // We must inject some minimal hiding CSS while the polyfill loads, and the preset class
   useStyles$(popoverStyles);
-
-  const popoverRef = useSignal<HTMLElement | undefined>(undefined);
   const isPolyfillSig = useSignal<boolean>(false);
 
   /** have we rendered on the client yet? 0: no, 1: force, 2: yes */
@@ -93,60 +83,60 @@ export const PopoverImpl = component$<PopoverImplProps>((props) => {
       document.body.appendChild(polyfillContainer);
     }
 
-    if (popoverRef.value) {
-      const topLayerAncestor = await findTopLayerAncestor$(popoverRef.value!);
+    if (context.panelRef?.value) {
+      const topLayerAncestor = await findTopLayerAncestor$(context.panelRef.value!);
 
       if (topLayerAncestor === null) {
-        polyfillContainer.appendChild(popoverRef.value);
+        polyfillContainer.appendChild(context.panelRef.value);
       } else {
         hasTopLayerAncestorSig.value = true;
       }
 
       document.dispatchEvent(new CustomEvent('showpopoverpoly'));
 
-      cleanup(() => popoverRef.value);
+      cleanup(() => context.panelRef?.value);
     }
   });
 
   return (
     <div
       {...props}
-      popover={props.manual || props.popover === 'manual' ? 'manual' : 'auto'}
-      ref={popoverRef}
+      id={panelId}
+      popover={
+        (context.manual && 'manual') || props.popover === 'manual'
+          ? 'manual'
+          : 'auto' || 'auto'
+      }
+      ref={context.panelRef}
       onBeforeToggle$={[
-        $((e: ToggleEvent) => {
-          if (!popoverRef.value) return;
+        $((e) => {
+          if (!context.panelRef?.value) return;
 
-          if (e.newState === 'open' && popoverRef.value) {
-            supportShowAnimation(popoverRef.value, isPolyfillSig.value);
+          if (e.newState === 'open' && context.panelRef.value) {
+            supportShowAnimation(context.panelRef.value, isPolyfillSig.value);
           }
-
           if (e.newState === 'closed') {
-            supportClosingAnimation(popoverRef.value);
+            supportClosingAnimation(context.panelRef.value);
           }
         }),
-        // @ts-expect-error bad types
         props.onBeforeToggle$,
       ]}
       onToggle$={[
-        $(() => {
-          if (props.ref) {
-            props.ref.value = popoverRef.value;
-          }
+        $((e: CorrectedToggleEvent) => {
+          context.isOpenSig.value = e.newState === 'open';
 
-          if (!popoverRef.value) return;
+          if (!context.panelRef?.value) return;
 
           // move opened polyfill popovers are always above the other
           if (
-            popoverRef.value.classList.contains(':popover-open') &&
-            popoverRef.value.parentElement &&
+            context.panelRef?.value.classList.contains(':popover-open') &&
+            context.panelRef?.value.parentElement &&
             // TODO: Get the top layer ancestor popovers to be above the other when the next one is opened.
             !hasTopLayerAncestorSig.value
           ) {
-            popoverRef.value.parentElement.appendChild(popoverRef.value);
+            context.panelRef.value.parentElement.appendChild(context.panelRef.value);
           }
         }),
-        // @ts-expect-error bad types
         props.onToggle$,
       ]}
       // This gets called when the polyfill loads and we need to pop out

@@ -4,11 +4,11 @@ export default component$(() => {
   const { showPopover } = usePopover(`show-id`);
 
   return (
-    <>
+    <Popover.Root>
       <button onClick$={() => showPopover()}>show popover</button>
-      <Popover id="show-id" class="popover">
+      <Popover.Panel id="show-id" class="popover">
         My Hero!
-      </Popover>
-    </>
+      </Popover.Panel>
+    </Popover.Root>
   );
 });
