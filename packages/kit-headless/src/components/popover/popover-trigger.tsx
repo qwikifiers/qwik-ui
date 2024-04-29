@@ -24,6 +24,7 @@ export function usePopover(customId?: string) {
   const popoverSig = useSignal<HTMLElement | null>(null);
   const initialClickSig = useSignal<boolean>(false);
   const isCSRSig = useSignal<boolean>(false);
+  const panelRef = useSignal<HTMLElement | undefined>();
 
   const loadPolyfill$ = $(async () => {
     document.dispatchEvent(new CustomEvent('poppolyload'));
@@ -54,6 +55,7 @@ export function usePopover(customId?: string) {
       }
 
       didInteractSig.value = true;
+      document.dispatchEvent(new CustomEvent('getpopover', { detail: panelRef }));
     }
 
     return popoverSig.value;
@@ -73,7 +75,7 @@ export function usePopover(customId?: string) {
   );
 
   const showPopover = $(async () => {
-    const popover = await initPopover$();
+    await initPopover$();
 
     if (!isSupportedSig.value) {
       // Wait until the polyfill has been loaded if necessary
@@ -82,13 +84,11 @@ export function usePopover(customId?: string) {
       }
     }
 
-    if (popover && 'showPopover' in popover) {
-      popover.showPopover();
-    }
+    popoverSig.value?.showPopover();
   });
 
   const togglePopover = $(async () => {
-    const popover = await initPopover$();
+    await initPopover$();
 
     if (!isSupportedSig.value) {
       // Wait until the polyfill has been loaded if necessary
@@ -97,13 +97,11 @@ export function usePopover(customId?: string) {
       }
     }
 
-    if (popover) {
-      popover.togglePopover();
-    }
+    popoverSig.value?.togglePopover();
   });
 
   const hidePopover = $(async () => {
-    const popover = await initPopover$();
+    await initPopover$();
 
     if (!isSupportedSig.value) {
       // Wait until the polyfill has been loaded if necessary
@@ -112,9 +110,7 @@ export function usePopover(customId?: string) {
       }
     }
 
-    if (popover) {
-      popover.hidePopover();
-    }
+    popoverSig.value?.hidePopover();
   });
 
   return { showPopover, togglePopover, hidePopover, initPopover$, initialClickSig };
@@ -124,11 +120,11 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
   (props: PopoverTriggerProps) => {
     const context = useContext(popoverContextId);
 
-    const triggerId = `${context.id}-trigger`;
-    const panelId = `${context.id}-panel`;
+    const triggerId = `${context.compId}-trigger`;
+    const panelId = `${context.compId}-panel`;
 
     const { initPopover$, initialClickSig, showPopover, hidePopover } = usePopover(
-      context.id,
+      context.compId,
     );
 
     const handleClick$ = $(async () => {

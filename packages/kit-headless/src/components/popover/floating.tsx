@@ -12,13 +12,15 @@ import {
   Placement,
 } from '@floating-ui/dom';
 import { popoverContextId } from './popover-context';
+import { isServer } from '@builder.io/qwik/build';
 
 export const FloatingPopover = component$((props: PropsOf<'div'>) => {
   const context = useContext(popoverContextId);
-
   // sets floating UI config
   useTask$(async ({ track, cleanup }) => {
     track(() => context.isOpenSig.value);
+
+    if (isServer) return;
 
     const anchor = context.triggerRef?.value;
     const popover = context.panelRef?.value;
@@ -40,9 +42,9 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
         placement = context.floating;
       }
 
-      if (context.panelRef?.value) {
+      if (popover) {
         // ensures there is no brief flash of the popover before its placement
-        context.panelRef.value.hidden = false;
+        popover.hidden = false;
       }
 
       await computePosition(anchor as ReferenceElement, popover, {
@@ -69,7 +71,7 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
   });
 
   return (
-    <PopoverPanelImpl hidden={true} {...props}>
+    <PopoverPanelImpl ref={context.panelRef} hidden={true} {...props}>
       <Slot />
     </PopoverPanelImpl>
   );

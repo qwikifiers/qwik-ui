@@ -5,13 +5,12 @@ export const popoverContextId = createContextId<PopoverContext>('qui-popover');
 
 export type PopoverContext = {
   // core state
-  id: string;
+  compId: string;
   isOpenSig: Signal<boolean>;
   floating?: boolean | TPlacement;
   localId: string;
   manual?: boolean;
   hover?: boolean;
-  popoverPolyInitSig: Signal<boolean>;
 
   // refs
   panelRef?: Signal<HTMLElement | undefined>;

@@ -36,7 +36,7 @@ export const EnsuredContext = component$(() => {
 
 export const PopoverPanelImpl = component$((props: PropsOf<'div'>) => {
   const context = useContext(popoverContextId);
-  const panelId = `${context.id}-panel`;
+  const panelId = `${context.compId}-panel`;
 
   // We must inject some minimal hiding CSS while the polyfill loads, and the preset class
   useStyles$(popoverStyles);
@@ -102,12 +102,12 @@ export const PopoverPanelImpl = component$((props: PropsOf<'div'>) => {
     <div
       {...props}
       id={panelId}
+      ref={props.ref}
       popover={
         (context.manual && 'manual') || props.popover === 'manual'
           ? 'manual'
           : 'auto' || 'auto'
       }
-      ref={context.panelRef}
       onBeforeToggle$={[
         $((e) => {
           if (!context.panelRef?.value) return;

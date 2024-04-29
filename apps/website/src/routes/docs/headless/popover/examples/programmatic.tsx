@@ -1,16 +1,17 @@
 import { component$ } from '@builder.io/qwik';
 import { Popover, usePopover } from '@qwik-ui/headless';
 export default component$(() => {
-  const { togglePopover } = usePopover(`programmatic-id`);
+  const popoverId = 'programmatic-id';
+  const { showPopover } = usePopover(popoverId);
 
   return (
-    <Popover.Root id="programmatic-id">
+    <Popover.Root manual id={popoverId}>
       <button
         class="popover-invoker"
         preventdefault:click
         onKeyDown$={async (e) => {
           if (e.key === 'o') {
-            await togglePopover();
+            await showPopover();
           }
         }}
       >

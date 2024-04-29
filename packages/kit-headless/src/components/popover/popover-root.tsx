@@ -53,12 +53,12 @@ type PopoverProps = PopoverRootProps & {
 
 export const PopoverRoot = component$((props: PopoverProps) => {
   const {
+    id,
     floating = true,
     manual,
     hover = false,
     gutter,
     flip = true,
-    'bind:panel': givenPanelRef,
     shift,
     hide,
     ancestorScroll = true,
@@ -71,27 +71,24 @@ export const PopoverRoot = component$((props: PopoverProps) => {
 
   // refs
   const rootRef = useSignal<HTMLElement | undefined>();
-  const defaultPanelRef = useSignal<HTMLElement | undefined>();
-  const panelRef = givenPanelRef ?? defaultPanelRef;
+  const panelRef = useSignal<HTMLElement | undefined>();
   const triggerRef = useSignal<HTMLElement | undefined>();
-  const popoverPolyInitSig = useSignal(false);
 
   // state
   const isOpenSig = useSignal(false);
 
   // id's
   const localId = useId();
-  const id = props.id ?? localId;
-  const rootId = `${id}-root`;
+  const compId = id ?? localId;
+  const rootId = `${compId}-root`;
 
   const context: PopoverContext = {
-    id,
+    compId,
     floating,
     hover,
     panelRef,
     triggerRef,
     isOpenSig,
-    popoverPolyInitSig,
     localId,
     manual,
     gutter,
