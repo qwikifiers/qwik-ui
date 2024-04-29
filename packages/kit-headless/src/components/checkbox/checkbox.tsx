@@ -32,7 +32,7 @@ export type ChecklistTwoStateCheckboxProps = {
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
-export const MyCheckbox = component$<TriStateCheckboxProps>((props) => {
+export const Checkbox = component$<TriStateCheckboxProps>((props) => {
   // this is done to avoid consumers dealing with two types checkboxes, could go in different files
   if (props._useCheckListContext && !props.checkList) {
     console.log('using chechlist');

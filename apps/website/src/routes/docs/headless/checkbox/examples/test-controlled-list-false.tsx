@@ -1,7 +1,7 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
   CheckboxIndicator,
-  MyCheckbox,
+  Checkbox,
   ChecklistIndicator,
   CheckList,
 } from 'packages/kit-headless/src/components/checkbox/index';
@@ -13,7 +13,7 @@ export default component$(() => {
     <>
       <h3 id="test123">Pick a cat</h3>
       <CheckList class="flex flex-col gap-3" ariaLabeledBy="test123">
-        <MyCheckbox
+        <Checkbox
           class="flex items-center gap-3 bg-slate-900  text-white"
           checkList={true}
           checkBoxSig={checklistSig}
@@ -29,21 +29,21 @@ export default component$(() => {
             </div>
           </ChecklistIndicator>
           <p>Controlls all</p>
-        </MyCheckbox>
-        <MyCheckbox
+        </Checkbox>
+        <Checkbox
           id="child-1"
           class="flex items-center gap-3 bg-slate-900 pr-2 text-white"
         >
           <CheckboxIndicator class="w-fit bg-slate-600">✅</CheckboxIndicator>
           <p>No other stuff is needed here</p>
-        </MyCheckbox>
+        </Checkbox>
 
-        <MyCheckbox id="child-2" class="bg-slate-900 text-white">
+        <Checkbox id="child-2" class="bg-slate-900 text-white">
           <div class="flex items-center gap-3">
             <CheckboxIndicator class="w-fit bg-slate-600">✅</CheckboxIndicator>
             <p>Im a true.tsx</p>
           </div>
-        </MyCheckbox>
+        </Checkbox>
       </CheckList>
       <p>You signal is: </p>
       <p id="signal-to-text">{`${checklistSig.value}`}</p>

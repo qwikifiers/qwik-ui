@@ -1,6 +1,6 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import {
-  MyCheckbox,
+  Checkbox,
   CheckboxIndicator,
   CheckList,
   ChecklistIndicator,
@@ -13,7 +13,7 @@ export default component$(() => {
     <>
       <h3 id="pizza-toppings">Pizza toppings</h3>
       <CheckList ariaLabeledBy="pizza-toppings" class="flex flex-col gap-4">
-        <MyCheckbox
+        <Checkbox
           class="flex items-center gap-3 border-2 border-black  p-2"
           checkList={true}
         >
@@ -27,16 +27,16 @@ export default component$(() => {
             </div>
           </ChecklistIndicator>
           Pick all toppings
-        </MyCheckbox>
+        </Checkbox>
 
         {toppingNames.map((name, i) => {
           return (
-            <MyCheckbox class="ml-8 flex items-center gap-3 border-2  border-black p-2">
+            <Checkbox class="ml-8 flex items-center gap-3 border-2  border-black p-2">
               <CheckboxIndicator class="flex h-[25px] w-[25px] items-center justify-center bg-slate-600">
                 {toppingImages[i]}
               </CheckboxIndicator>
               {name}
-            </MyCheckbox>
+            </Checkbox>
           );
         })}
       </CheckList>
