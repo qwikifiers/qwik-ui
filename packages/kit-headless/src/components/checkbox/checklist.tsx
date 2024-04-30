@@ -89,7 +89,6 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
 
   return (
     <>
-      {checkArr.length}
       <ChecklistContextWrapper
         ariaLabeledBy={props.ariaLabeledBy}
         arrSize={boolArr.length}

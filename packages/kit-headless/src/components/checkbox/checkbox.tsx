@@ -12,7 +12,7 @@ import {
 } from '@builder.io/qwik';
 import { CheckListContext, CheckboxContext } from './context-id';
 import { TriBool, getTriBool } from './checklist-context-wrapper';
-export type TriStateCheckboxProps = {
+export type MixedStateCheckboxProps = {
   checkBoxSig?: Signal<boolean>;
   checkList?: boolean;
   _useCheckListContext?: boolean;
@@ -32,16 +32,16 @@ export type ChecklistTwoStateCheckboxProps = {
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
-export const Checkbox = component$<TriStateCheckboxProps>((props) => {
+export const Checkbox = component$<MixedStateCheckboxProps>((props) => {
   // this is done to avoid consumers dealing with two types checkboxes, could go in different files
   if (props._useCheckListContext && !props.checkList) {
     console.log('using chechlist');
   }
   if (props.checkList) {
     return (
-      <TriStateCheckbox {...props}>
+      <MixedStateCheckbox {...props}>
         <Slot />
-      </TriStateCheckbox>
+      </MixedStateCheckbox>
     );
   }
   if (props._useCheckListContext) {
@@ -145,7 +145,7 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
   },
 );
 
-export const TriStateCheckbox = component$<TriStateCheckboxProps>((props) => {
+export const MixedStateCheckbox = component$<MixedStateCheckboxProps>((props) => {
   // all the sig stuff should be refactored into a fancy hook
   const checklistContext = useContext(CheckListContext);
   const childCheckboxes = checklistContext.checkboxes;
