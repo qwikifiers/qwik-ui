@@ -21,10 +21,8 @@ export function usePopover(customId?: string) {
   const isSupportedSig = useSignal<boolean>(false);
 
   const didInteractSig = useSignal<boolean>(false);
-  const popoverSig = useSignal<HTMLElement | null>(null);
-  const initialClickSig = useSignal<boolean>(false);
+  const programmaticRef = useSignal<HTMLElement | null>(null);
   const isCSRSig = useSignal<boolean>(false);
-  const panelRef = useSignal<HTMLElement | undefined>();
 
   const loadPolyfill$ = $(async () => {
     document.dispatchEvent(new CustomEvent('poppolyload'));
@@ -50,15 +48,15 @@ export function usePopover(customId?: string) {
     }
 
     if (!didInteractSig.value) {
-      if (popoverSig.value === null) {
-        popoverSig.value = document.getElementById(`${customId}-panel`);
+      if (programmaticRef.value === null) {
+        programmaticRef.value = document.getElementById(`${customId}-panel`);
       }
 
+      // only opens the popover that is interacted with
       didInteractSig.value = true;
-      document.dispatchEvent(new CustomEvent('getpopover', { detail: panelRef }));
     }
 
-    return popoverSig.value;
+    return programmaticRef.value;
   });
 
   // event is created after teleported properly
@@ -84,7 +82,7 @@ export function usePopover(customId?: string) {
       }
     }
 
-    popoverSig.value?.showPopover();
+    programmaticRef.value?.showPopover();
   });
 
   const togglePopover = $(async () => {
@@ -97,7 +95,7 @@ export function usePopover(customId?: string) {
       }
     }
 
-    popoverSig.value?.togglePopover();
+    programmaticRef.value?.togglePopover();
   });
 
   const hidePopover = $(async () => {
@@ -110,7 +108,7 @@ export function usePopover(customId?: string) {
       }
     }
 
-    popoverSig.value?.hidePopover();
+    programmaticRef.value?.hidePopover();
   });
 
   return {
@@ -118,7 +116,8 @@ export function usePopover(customId?: string) {
     togglePopover,
     hidePopover,
     initPopover$,
-    initialClickSig,
+    hasPolyfillLoadedSig,
+    isSupportedSig,
   };
 }
 
@@ -129,15 +128,27 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
     const triggerId = `${context.compId}-trigger`;
     const panelId = `${context.compId}-panel`;
 
-    const { initPopover$, initialClickSig, showPopover, hidePopover } = usePopover(
-      context.compId,
-    );
+    const {
+      initPopover$,
+      showPopover,
+      hidePopover,
+      hasPolyfillLoadedSig,
+      isSupportedSig,
+    } = usePopover(context.compId);
 
     const handleClick$ = $(async () => {
       if (context.hover) return;
 
-      initialClickSig.value = true;
+      if (isSupportedSig.value) return;
+
       await initPopover$();
+
+      while (!hasPolyfillLoadedSig.value) {
+        await new Promise((resolve) => setTimeout(resolve, 10)); // Poll every 10ms
+      }
+
+      // for the first click, we need to programmatically open the popover. The spec toggles the popover on click anyways.
+      context.panelRef?.value?.togglePopover();
     });
 
     const handlePointerOver$ = $(async () => {
