@@ -9,56 +9,38 @@ import styles from './snippets/popover.css';
 
 # Popover
 
-A non-modal primitive with overlays that open and close around a DOM element.
+A popup that goes above other content on the page. You can still interact with the rest of the page while the popover is open.
 
 <Showcase name="hero" />
 
 <FeatureList
   features={[
-    `"Early" access to MDN's native popover API`,
-    'Support across all browsers',
-    'Resumable / Lazily executes code on interaction',
-    'UI is placed above everything else.',
-    'stick or float elements to other elements, similar to the upcoming Anchor API.',
+    `In the Top Layer (above the rest of the page)`,
+    'Built on top of the native popover API specification',
+    'Polyfill for unsupported browsers',
+    'Executes code on interaction',
+    'Float and position the popover',
   ]}
 />
 
-<Note status="warning">
-  You are about to see a fixed scrolling popover. Yes, this behavior is intended. It is
-  part of the native popover API! If you want to anchor items, there is a floating section
-  that covers this behavior.
-</Note>
-
 <Showcase name="basic" />
 
-The Qwik UI Popover component is designed to align with the [HTML Popover API Specification](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API). As of now, native support for this API is around `82.5%`, and in almost every browser.
+The Qwik UI Popover component is built on top of the [Native Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API). Support is in every browser, and will increase over time.
 
-To ensure consistent behavior across all browsers, Qwik UI provides a `polyfill` with feature parity for browser versions that do not support the API natively.
-
-<div class="flex flex-col gap-2">
-  <div>
-    [View Source Code
-    ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/popover)
-  </div>
-  <div>[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)</div>
-  <div>
-    [Edit This Page
-    🗒️](https://github.com/qwikifiers/qwik-ui/blob/main/apps/website/src/routes/docs/headless/popover/index.mdx)
-  </div>
-</div>
+While we wait for support though, Qwik UI uses a polyfill under the hood for you, so that you can use the component in all browsers.
 
 ## Building blocks
 
 ```tsx
-import { component$, useStyles$ } from '@builder.io/qwik';
-import { Popover, Popover.Trigger } from '@qwik-ui/headless';
+import { component$ } from '@builder.io/qwik';
+import { Popover } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (
-    <>
-      <Popover.Trigger popovertarget="building-blocks">Inside Trigger</Popover.Trigger>
-      <Popover id="building-blocks">Inside Popover</Popover>
-    </>
+    <Popover.Root>
+      <Popover.Trigger>Trigger</Popover.Trigger>
+      <Popover.Panel>Panel</Popover.Panel>
+    </Popover.Root>
   );
 });
 ```
@@ -68,11 +50,15 @@ export default component$(() => {
 <AnatomyTable
   propDescriptors={[
     {
-      name: 'Popover.Trigger',
-      description: 'An HTML Button component that opens the popover when clicked.',
+      name: 'Popover.Root',
+      description: 'The parent container for the popover trigger and panel.',
     },
     {
-      name: 'Popover',
+      name: 'Popover.Trigger',
+      description: 'A button that opens the popover when interacted with.',
+    },
+    {
+      name: 'Popover.Panel',
       description: `An HTML Element that is above other content on the page.`,
     },
   ]}
@@ -82,19 +68,19 @@ export default component$(() => {
 
 A popover is a **non-modal** UI element that creates overlays around a DOM element. Non-modal meaning the rest of the page can be interacted with while the popover is shown.
 
-This is particularly useful for displaying additional information or options without navigating away from the current context. It is also a **native replacement for [portals](https://qwik.builder.io/docs/cookbook/portal/#portal)**, which are commonly used in other JavaScript frameworks.
+It's great for displaying additional information or options without navigating away from the current context.
 
 <Showcase name="inspect" />
 
-> An example use case for a popover, is preventing overflow issues within your UI. The popover API guarantees that your content remains above the rest of the page.
+> It is the web's native solution to [portals](https://qwik.builder.io/docs/cookbook/portal/#portal), which are commonly used in other JavaScript frameworks.
 
-Most importantly, this API is a foundation for other headless components. Qwik UI is one of the first _(if not the first)_ headless libraries to align with the specification. The content inside of Qwik UI popovers are also natively resumable.
+### When would I use a popover?
 
-Even if a popover is in the HTML Tree, its children will not execute unless resumed.
+It can help prevent overflow issues within your UI, and make sure your content is above everything. The popover component guarantees that your items in the panel remains above the rest of the page.
 
-## Versatile use cases <span class="ml-2 text-red-400 dark:text-red-400 text-base px-2 bg-red-100 rounded-base shadow-md border-b-2 border-[1px] border-red-200 dark:border-red-300">WIP</span>
+> Many other Qwik UI headless components use the Qwik UI Popover.
 
-Here are a couple of example components where the Popover API can be used. Including other parts of Qwik UI headless. Throughout the documentation, we will show the Combobox being used as an example.
+## Use case examples
 
 {' '}
 
@@ -132,43 +118,24 @@ Here are a couple of example components where the Popover API can be used. Inclu
       name: 'Hover Card',
       description: 'A card that appears when a user hovers over an element.',
     },
-    {
-      name: 'Menubar',
-      description: 'A horizontal menu with clickable items.',
-    },
   ]}
 />
 
 ## Caveats
 
 <Note status="warning">
-  While this component handles most of the complexity under the hood, there are some minor
-  caveats that should be kept in mind when consuming the popover.
+  While we handle most of the hard stuff, there is some details that should be considered.
 </Note>
 
-### Pseudo Selectors
+### Styling open popovers
 
-#### :popover-open
-
-In the context of a native popover, the `:popover-open` pseudo selector is used when the popover is open. However, pseudo selectors can't be polyfilled within CSS.
-
-As a result, the polyfill adds the `.popover-open` CSS class. This means an open popover on unsupported browsers will have `class=":popover-open"` in the DOM.
-
-A separate declaration is needed to select popovers in all browsers.
-
-```css
-/* unsupported */
-.\popover-open {
-  background: red;
-}
-
-/* supported */
-:popover-open {
-  background: red;
+```tsx
+.popover-panel[data-open] {
+  background: green;
 }
 ```
 
-> We add a backslash in order to escape the `:` character in CSS. Using `:popover-open` in an unsupported browser results in an invalid selector.
+Use the `data-open` attribute on the `<Popover.Panel>` component to specifically style the popup when it's open on all browsers.
 
 ### Cross-browser Animations
 
@@ -205,55 +172,29 @@ Above is an example of a transition that works across browsers. The `allow-discr
 
 > In the rare case of a browser supporting the popover API, but not the overlay property, the element functionality is the same but does not transition.
 
-## Popovertarget
-
-To add a popover trigger, it can be done similar to the native API, using the `popovertarget` attribute along with the corresponding popover id.
-
-```tsx
-// Opens when trigger is clicked, with a matching id to popovertarget
-<Popover.Trigger popovertarget="get-20-off">Get 20% off your next order!</Popover.Trigger>
-
-// Native API:  popovertarget is an invoker
-<button popovertarget="get-20-off">Get 20% off your next order!</button>
-```
-
-> This can be used to trigger popups anywhere in the component tree!
-
-## The popover attribute
-
-A popover can be set to either `auto` (the default setting) or `manual`. What we've seen so far have been **auto** popovers.
-
-Qwik UI adds the popover attribute for you under the hood.
-
-```tsx
-// Qwik UI
-<Popover id="my-id">"Auto vs Manual Popovers: A Qwik Guide to Playing Hide and Seek!"</Popover>
-
-// Native API:  Adding popover here is the same as popover="auto"
-<div id="my-id" popover>"Auto vs Manual Popovers: A Qwik Guide to Playing Hide and Seek!"</div>
-```
+## Popover modes
 
 ### Auto
+
+By default, a popover is auto.
 
 <Showcase name="auto" />
 
 An auto popover will automatically hide when you click outside of it and typically only one can be shown at a time.
 
+Auto popovers dismiss when clicking outside of them and pressing the escape key. There can also only be one auto popover open at a time.
+
 ### Manual
+
+A manual popover gives you more control over the popup.
 
 <Showcase name="manual" />
 
-On the other hand, a `manual` popover needs to be manually hidden, such as toggling the button or programmatically, and allows for scenarios like nested popovers in menus.
-
-We can add a manual popover by adding the `popover="manual"` prop, or `manual` shorthand.
-
-> Notice that the last opened popover is always above the other!
+Manual popovers do not dismiss unless you click on the `<Popover.Trigger>` or programmatically close them.
 
 ## Programmatic Behavior
 
-<Showcase name="programmatic" />
-
-We can also enable programmatic behavior with popovers. Qwik UI provides several functions you can use to control this behavior.
+To programmatically open the `Popover.Panel`, Qwik UI provides a couple functions from the `usePopover` hook.
 
 <APITable
   propDescriptors={[
@@ -270,17 +211,19 @@ We can also enable programmatic behavior with popovers. Qwik UI provides several
     {
       name: 'togglePopover()',
       type: 'QRL',
-      description: 'Toggles the popover between the open and closed state.',
+      description: 'Toggles the popover between the open and closed.',
     },
   ]}
 />
 
-We can access them anywhere by importing the `usePopover` hook. We also need to pass in the **popover id or popovertarget string** to usePopover, which will find the popover we intend to perform an action on.
+<Showcase name="programmatic" />
 
-For example, here is programmatic behavior syncing the popover state with the listbox in Qwik UI's `Combobox` component.
+We can control where the popover is floating by using the `bind:anchor` prop. We pass it a signal, and use that signal as the anchor's `ref`.
+
+Then, make sure to add an ID to the `<Popover.Root>` component. This ID must match the ID provided to `usePopover`.
 
 ```tsx
-// near the top of the component
+// a more advanced use case
 const { showPopover, hidePopover } = usePopover(popoverId);
 
 useTask$(async ({ track }) => {
@@ -296,51 +239,63 @@ useTask$(async ({ track }) => {
 });
 ```
 
-> In the native spec, these are methods, although we want to ensure the polyfill loads on interaction, rather than page load with a proxy.
+Above is an example of how we programmatically open and close the popover in the Qwik UI Select component.
+
+> In the native spec, these are methods, although we want to ensure code executes on interaction in all browsers, including the polyfill.
 
 ## Floating Behavior
 
+By default, the Qwik UI Popover will float below the trigger component.
+
 <Showcase name="floating" />
 
-To use the popover API with floating elements, you can add the `floating={true}` prop to the Popover component. This API enables the use of JavaScript to dynamically position the listbox using the `top` & `left` absolute properties.
+To make a popover float, we use JavaScript to choose where the popover should be positioned.
 
-Enabling the `floating={true}` property will introduce a slight increase in code size, as we currently utilize JavaScript to implement floating items. We've strived to keep it as minimal as possible, but powerful in building complex components.
+Floating mode makes the bundle a bit bigger. We try to keep the API small but still powerful.
 
-> Once the native anchor API is available in all browsers, you can remove the floating prop and use CSS instead! Smaller bundle size for the win!
+### Opt out of the floating library
 
-To float an element, it must have an anchored element to latch onto. This can be done with the `anchorRef` prop.
+We can opt out of the floating library by setting `floating={false}` on the `<Popover.Root>`.
 
-## **Configuring the Listbox**
+Instead, the popover will be fixed position, and you can use CSS to position it.
 
-The `Popover` component is designed for positioning elements that float and facilitating interactions with them.
+> When all browsers support the CSS anchor API, you can get floating behavior in pure CSS! Shaving off some size.
 
-For the following examples, we'll be using the Combobox component. `ComboboxPopover` is merely a wrapper of the Popover component. Under the hood, it looks something like this:
+## Configuration
 
-```tsx
-<Popover
-  {...props}
-  id={popoverId}
-  ref={context.popoverRef}
-  manual
-  floating={true}
-  // "stick" to the input
-  anchorRef={context.inputRef}
->
-  <Slot />
-</Popover>
-```
+The `Popover.Root` component is designed for positioning elements that float and facilitating interactions with them.
 
-### Placement
+### Hover
 
-To set the default position of the listbox, you can use the `placement` prop. In the example below, we've set placement to top. When the user opens the listbox, it will be above the input.
+If we'd like to show the `Popover.Panel` on hover, we can use the `hover` prop.
+
+<Showcase name="hover" />
+
+### Custom Floating Position
+
+By default, popovers will float below the trigger component.
+
+When setting `floating` on the root, you can customize the position of the popover.
 
 <Showcase name="placement" />
 
+Above we have set the `floating` prop to `right`, and so the `<Popover.Panel>` will be positioned to the right of the trigger.
+
+#### Start & End
+
+This also includes moving things to specific corners of the anchor.
+
+<Showcase name="corners" />
+
+You can suffix the direction with `-start` or `-end` to move the popover to the start or end of the anchor.
+
 ### Flip
 
-Allows the listbox to flip its position based on available space. It's enabled by default, but can be disabled by adding `flip={false}` on the listbox.
+Enabled by default, we can use the `flip` prop to flip its position based on the available space in the viewport.
 
 <Showcase name="flip" />
+
+To disable flipping, set `flip={false}` on the `<Popover.Root>`.
 
 ### Gutter
 
@@ -350,26 +305,7 @@ In the previous docs examples, we use the gutter property on the listbox. Gutter
 
 ## Styling
 
-Styles can be added normally like any other component in Qwik UI, such as adding a class. The Popover API however, exposes the `[popover]` and `:popover-open` attribute and pseudo-class selectors which can be used to style both the open and closed states.
-
-From an earlier section, we learned that the `:popover-open` pseudo-class cannot be polyfilled, and so a class is added instead.
-
-```tsx
-[popover] {
-/* Make the popover a grid */
-display: grid;
-}
-
-[popover]:not(:popover-open) {
-  /* Make sure to hide it unless open */
-  display: none;
-}
-
-/* Duplicate for polyfill browsers */
-[popover]:not(.\:popover-open) {
-  display: none;
-}
-```
+Styles can be added normally like any other component in Qwik UI, such as adding a class. The Popover API however, exposes the `[popover]` attribute.
 
 If Tailwind is the framework of choice, then styles can be added using the [arbitrary variant syntax](https://tailwindcss.com/docs/hover-focus-and-other-states#using-arbitrary-variants) or [@apply](https://tailwindcss.com/docs/reusing-styles#extracting-classes-with-apply) command. Below is an example of styling with `[popover]` as an arbitrary variant.
 
@@ -379,7 +315,7 @@ If Tailwind is the framework of choice, then styles can be added using the [arbi
 
 ### Floating preset
 
-By default, the popover API comes with built-in user agent styles, including fixed behavior, margin, the list goes on.
+By default, the popover API comes with built-in browser styles, including fixed behavior, margin, the list goes on.
 
 There are times when we want to override this behavior. An example being when we want floating behavior.
 
@@ -470,32 +406,13 @@ CSS from the example:
 
 ## Additional References
 
-Qwik UI aims to be in line with the standard whenever possible. Our goal is to give Qwik developers the proper tooling when it comes to creating accessible & complex web applications.
+Qwik UI aims to be in line with the standard whenever possible. Our goal is to empower Qwik developers to create amazing experiences for their users.
 
 To read more about the popover API you can check it out on:
 
 - [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 - [Open UI Proposal](https://open-ui.org/components/popover.research.explainer/)
 - [What is the top layer?](https://developer.chrome.com/blog/what-is-the-top-layer/)
-
-## Backdrops
-
-Supported browsers provide a `::backdrop` pseudo element. For those looking to add a backdrop, the modal component might be a better option, as it provides more browser support for backdrops.
-
-A backdrop across all browsers in the popover is possible too, but it requires a bit of extra work on the consumer side.
-
-```tsx
-/* I style this as if it is the backdrop */
-<Popover id="my-backdrop">
-  <div class="wrap">
-    <div class="content">
-      <Slot />
-    </div>
-  </div>
-</Popover>
-```
-
-That said, if browser support is not a priority, feel free to use the native `::backdrop`. They are still supported in every major browser.
 
 ### Popover
 

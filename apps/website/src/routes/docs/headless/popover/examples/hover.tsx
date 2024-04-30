@@ -3,12 +3,10 @@ import { Popover } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (
-    <Popover.Root floating="top" gutter={40}>
+    <Popover.Root hover floating="top" gutter={4}>
       <div class="popover-container">
-        <p>gutter of 40px!</p>
-        <Popover.Trigger popovertarget="gutter-id" class="popover-trigger">
-          Click me
-        </Popover.Trigger>
+        <p>I'm a mini tooltip!</p>
+        <Popover.Trigger class="popover-trigger">Hover over me</Popover.Trigger>
       </div>
 
       <Popover.Panel class="popover-panel">I am anchored to the trigger!</Popover.Panel>

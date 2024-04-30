@@ -20,7 +20,7 @@ export default component$(() => {
       >
         Focus me and press the 'o' key!
       </button>
-      <Popover.Panel class="popover popover-programmatic">
+      <Popover.Panel class="popover-panel popover-programmatic">
         I'm a programmatically opened popover!
       </Popover.Panel>
     </Popover.Root>

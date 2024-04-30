@@ -15,7 +15,7 @@
   margin-bottom: 0.5rem;
 }
 
-.popover {
+.popover-panel {
   border-radius: var(--border-radius);
   border: 2px dotted hsla(var(--primary));
   background-color: hsl(var(--popover));

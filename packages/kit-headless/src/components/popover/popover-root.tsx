@@ -31,6 +31,7 @@ export type FloatingProps = {
   hide?: 'referenceHidden' | 'escaped';
   inline?: boolean;
   transform?: string;
+  arrow?: boolean;
 };
 
 export type TPlacement =
@@ -62,6 +63,7 @@ export const PopoverRoot = component$((props: PopoverProps) => {
     flip = true,
     shift,
     hide,
+    arrow,
     ancestorScroll = true,
     ancestorResize = true,
     elementResize = true,
@@ -75,6 +77,7 @@ export const PopoverRoot = component$((props: PopoverProps) => {
   const rootRef = useSignal<HTMLElement | undefined>();
   const panelRef = useSignal<HTMLElement | undefined>();
   const triggerRef = useSignal<HTMLElement | undefined>();
+  const arrowRef = useSignal<HTMLElement | undefined>();
 
   // state
   const isOpenSig = useSignal(false);
@@ -91,9 +94,11 @@ export const PopoverRoot = component$((props: PopoverProps) => {
     hover,
     panelRef,
     triggerRef,
+    arrowRef,
     isOpenSig,
     localId,
     manual,
+    arrow,
     gutter,
     flip,
     shift,

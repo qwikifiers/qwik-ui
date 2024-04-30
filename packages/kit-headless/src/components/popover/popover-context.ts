@@ -16,6 +16,7 @@ export type PopoverContext = {
   // refs
   panelRef?: Signal<HTMLElement | undefined>;
   triggerRef?: Signal<HTMLElement | undefined>;
+  arrowRef?: Signal<HTMLElement | undefined>;
 
   // floating props
   ancestorScroll?: boolean;
@@ -27,6 +28,7 @@ export type PopoverContext = {
   shift?: boolean;
   flip?: boolean;
   size?: boolean;
+  arrow?: boolean;
   hide?: 'referenceHidden' | 'escaped';
   inline?: boolean;
   transform?: string;

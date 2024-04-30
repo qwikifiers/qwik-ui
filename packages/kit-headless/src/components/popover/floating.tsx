@@ -9,6 +9,7 @@ import {
   flip as _flip,
   shift as _shift,
   hide as _hide,
+  arrow as _arrow,
   Placement,
 } from '@floating-ui/dom';
 import { popoverContextId } from './popover-context';
@@ -37,6 +38,11 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
         _hide({ strategy: context.hide }),
         context.flip && _flip(),
         context.shift && _shift(),
+        context.arrow &&
+          _arrow({
+            padding: 0,
+            element: context.arrowRef?.value as Element,
+          }),
       ];
 
       let placement;
@@ -62,6 +68,15 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
           top: `${y}px`,
           transform: context.transform,
         });
+
+        if (resolvedData.middlewareData.arrow && context.arrowRef?.value) {
+          const { x, y } = resolvedData.middlewareData.arrow;
+
+          Object.assign(context.arrowRef.value.style, {
+            left: x != null ? `${x}px` : '',
+            top: y != null ? `${y}px` : '',
+          });
+        }
       });
     };
 

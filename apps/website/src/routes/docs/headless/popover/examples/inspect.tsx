@@ -5,7 +5,7 @@ export default component$(() => {
   return (
     <Popover.Root>
       <Popover.Trigger class="popover-trigger">Inspect the popover!</Popover.Trigger>
-      <Popover.Panel class="popover">
+      <Popover.Panel class="popover-panel">
         <p>
           I'm in the <strong>:top-layer</strong> pseudo element on supported browsers like
           chrome.

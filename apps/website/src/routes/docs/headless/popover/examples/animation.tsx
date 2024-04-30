@@ -4,7 +4,9 @@ export default component$(() => {
   return (
     <Popover.Root>
       <Popover.Trigger class="popover-trigger">Popover Trigger</Popover.Trigger>
-      <Popover.Panel class="popover popover-animation">I'm a popover!</Popover.Panel>
+      <Popover.Panel class="popover-panel popover-animation">
+        I'm a popover!
+      </Popover.Panel>
     </Popover.Root>
   );
 });

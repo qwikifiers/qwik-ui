@@ -103,6 +103,8 @@ export const PopoverPanelImpl = component$((props: PropsOf<'div'>) => {
       {...props}
       id={panelId}
       ref={props.ref}
+      data-open={context.isOpenSig.value ? '' : undefined}
+      data-closed={!context.isOpenSig.value ? '' : undefined}
       popover={
         (context.manual && 'manual') || props.popover === 'manual'
           ? 'manual'
