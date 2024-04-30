@@ -1,43 +1,33 @@
-import { component$, useContext, Slot, useTask$ } from '@builder.io/qwik';
-import { PopoverPanel, usePopover } from '../popover';
+import { component$, useContext, Slot, useTask$, PropsOf } from '@builder.io/qwik';
+import { usePopover } from '../popover/popover-trigger';
+import { PopoverPanel } from '../popover/popover-panel';
 
 import SelectContextId from './select-context';
-import { type FloatingProps } from '../popover/floating';
-import { type PopoverImplProps } from '../popover/popover-impl';
 import { isServer } from '@builder.io/qwik/build';
 
-export const SelectPopover = component$(
-  (props: Partial<FloatingProps & PopoverImplProps>) => {
-    const context = useContext(SelectContextId);
-    const popoverId = `${context.localId}-popover`;
-    const { showPopover, hidePopover } = usePopover(popoverId);
+export const SelectPopover = component$((props: PropsOf<'div'>) => {
+  const context = useContext(SelectContextId);
+  const { showPopover, hidePopover } = usePopover(context.localId);
 
-    useTask$(async ({ track }) => {
-      track(() => context.isListboxOpenSig.value);
+  useTask$(async ({ track }) => {
+    track(() => context.isListboxOpenSig.value);
 
-      if (isServer) return;
+    if (isServer) return;
 
-      if (context.isListboxOpenSig.value) {
-        await showPopover();
-      } else {
-        await hidePopover();
-      }
-    });
+    if (context.isListboxOpenSig.value) {
+      await showPopover();
+    } else {
+      await hidePopover();
+    }
+  });
 
-    return (
-      <PopoverPanel
-        {...props}
-        id={popoverId}
-        floating={true}
-        anchorRef={context.triggerRef}
-        ref={context.popoverRef}
-        class={['listbox', props.class]}
-        manual
-        data-open={context.isListboxOpenSig.value ? '' : undefined}
-        data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-      >
-        <Slot />
-      </PopoverPanel>
-    );
-  },
-);
+  return (
+    <PopoverPanel
+      data-open={context.isListboxOpenSig.value ? '' : undefined}
+      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+      {...props}
+    >
+      <Slot />
+    </PopoverPanel>
+  );
+});

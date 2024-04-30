@@ -14,6 +14,7 @@ import { isBrowser, isServer } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
 import { Opt } from './select-inline';
 import { useSelect } from './use-select';
+import { PopoverRoot } from '../popover/popover-root';
 
 export type InternalSelectProps = {
   /** Our source of truth for the options. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
@@ -265,7 +266,9 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
         aria-multiselectable={context.multiple ? 'true' : undefined}
         {...rest}
       >
-        <Slot />
+        <PopoverRoot bind:anchor={context.triggerRef} manual id={localId}>
+          <Slot />
+        </PopoverRoot>
       </div>
     );
   },
