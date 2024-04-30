@@ -15,8 +15,7 @@ export type PopoverRootProps = {
   floating?: boolean | TPlacement;
   hover?: boolean;
   id?: string;
-  'bind:panel'?: Signal<HTMLElement | undefined>;
-  anchorRef?: Signal<HTMLElement | undefined>;
+  'bind:anchor'?: Signal<HTMLElement | undefined>;
 };
 
 export type FloatingProps = {
@@ -55,7 +54,7 @@ type PopoverProps = PopoverRootProps & {
 export const PopoverRoot = component$((props: PopoverProps) => {
   const {
     id,
-    anchorRef,
+    'bind:anchor': givenPanelRef,
     floating = true,
     manual,
     hover = false,
@@ -72,6 +71,7 @@ export const PopoverRoot = component$((props: PopoverProps) => {
   } = props;
 
   // refs
+  const anchorRef = givenPanelRef;
   const rootRef = useSignal<HTMLElement | undefined>();
   const panelRef = useSignal<HTMLElement | undefined>();
   const triggerRef = useSignal<HTMLElement | undefined>();

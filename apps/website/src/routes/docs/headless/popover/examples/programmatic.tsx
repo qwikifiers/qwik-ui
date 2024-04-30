@@ -6,7 +6,7 @@ export default component$(() => {
   const { togglePopover } = usePopover(popoverId);
 
   return (
-    <Popover.Root anchorRef={anchorRef} manual id={popoverId}>
+    <Popover.Root manual bind:anchor={anchorRef} id={popoverId}>
       <button
         ref={anchorRef}
         class="popover-invoker"
