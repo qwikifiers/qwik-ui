@@ -6,7 +6,8 @@ export default component$(() => {
   const { togglePopover } = usePopover(popoverId);
 
   return (
-    <Popover.Root manual bind:anchor={anchorRef} id={popoverId}>
+    <Popover.Root id={popoverId} bind:anchor={anchorRef} manual>
+      {/* can be anywhere as long as ref is set */}
       <button
         ref={anchorRef}
         class="popover-invoker"
@@ -19,7 +20,9 @@ export default component$(() => {
       >
         Focus me and press the 'o' key!
       </button>
-      <Popover.Panel class="popover">I was programmatically opened!</Popover.Panel>
+      <Popover.Panel class="popover popover-programmatic">
+        I'm a programmatically opened popover!
+      </Popover.Panel>
     </Popover.Root>
   );
 });

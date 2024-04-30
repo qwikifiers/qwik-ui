@@ -85,3 +85,8 @@
     transform: scale(1);
   }
 }
+
+.popover-programmatic {
+  max-width: 15.5rem;
+  text-align: center;
+}
