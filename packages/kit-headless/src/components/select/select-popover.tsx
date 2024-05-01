@@ -4,10 +4,13 @@ import { PopoverPanel } from '../popover/popover-panel';
 
 import SelectContextId from './select-context';
 import { isServer } from '@builder.io/qwik/build';
+import { PopoverRoot } from '../popover/popover-root';
 
-export const SelectPopover = component$((props: PropsOf<'div'>) => {
+export const SelectPopover = component$<PropsOf<typeof PopoverRoot>>((props) => {
   const context = useContext(SelectContextId);
   const { showPopover, hidePopover } = usePopover(context.localId);
+
+  const { floating, flip, hover, gutter, ...rest } = props;
 
   useTask$(async ({ track }) => {
     track(() => context.isListboxOpenSig.value);
@@ -22,12 +25,22 @@ export const SelectPopover = component$((props: PropsOf<'div'>) => {
   });
 
   return (
-    <PopoverPanel
-      data-open={context.isListboxOpenSig.value ? '' : undefined}
-      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-      {...props}
+    <PopoverRoot
+      floating={floating}
+      flip={flip}
+      hover={hover}
+      gutter={gutter}
+      bind:anchor={context.triggerRef}
+      manual
+      id={context.localId}
     >
-      <Slot />
-    </PopoverPanel>
+      <PopoverPanel
+        data-open={context.isListboxOpenSig.value ? '' : undefined}
+        data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+        {...rest}
+      >
+        <Slot />
+      </PopoverPanel>
+    </PopoverRoot>
   );
 });

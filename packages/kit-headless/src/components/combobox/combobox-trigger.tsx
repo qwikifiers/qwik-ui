@@ -1,7 +1,6 @@
 import { Slot, component$, useContext, $, PropsOf } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 import { VisuallyHidden } from '../../utils/visually-hidden';
-import { PopoverTrigger } from '../popover';
 
 export type ComboboxTriggerProps = PropsOf<'button'>;
 
@@ -10,9 +9,8 @@ export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
   const listboxId = `${context.localId}-listbox`;
 
   return (
-    <PopoverTrigger
+    <button
       {...props}
-      disableClickInitPopover={true}
       ref={context.triggerRef}
       onClick$={[
         $(() => {
@@ -31,6 +29,6 @@ export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
         {context.labelRef.value ? context.labelRef.value?.innerText : 'options'}
       </VisuallyHidden>
       <Slot />
-    </PopoverTrigger>
+    </button>
   );
 });
