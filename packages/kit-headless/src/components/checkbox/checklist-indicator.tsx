@@ -1,13 +1,14 @@
 import { component$, useContext, PropsOf, Slot } from '@builder.io/qwik';
 import { CheckListContext } from './context-id';
+import { props } from 'cypress/types/bluebird';
 
 export type ChecklistIndicatorProps = PropsOf<'div'>;
 
-export const ChecklistIndicator = component$<ChecklistIndicatorProps>(() => {
+export const ChecklistIndicator = component$<ChecklistIndicatorProps>((props) => {
   const { checklistSig } = useContext(CheckListContext);
   // weird comparions, but it gets the right behavior
   return (
-    <>
+    <div {...props}>
       {checklistSig.value === true && (
         <div class={checklistSig.value === true ? 'visible' : 'invisible'}>
           <Slot name="checkbox" />
@@ -25,6 +26,6 @@ export const ChecklistIndicator = component$<ChecklistIndicatorProps>(() => {
           <Slot name="checklist" />
         </div>
       )}
-    </>
+    </div>
   );
 });
