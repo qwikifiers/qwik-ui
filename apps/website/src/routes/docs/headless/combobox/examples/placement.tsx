@@ -42,7 +42,7 @@ export default component$(() => {
             <ComboboxIcon class="stroke-foreground transition-transform duration-500 group-aria-expanded:-rotate-180" />
           </ComboboxTrigger>
         </ComboboxControl>
-        <ComboboxPopover gutter={8} placement="top">
+        <ComboboxPopover gutter={8} floating="top">
           <ComboboxListbox
             class="w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
             optionRenderer$={(option: ResolvedOption, index: number) => (
