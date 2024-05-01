@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import {
   Input,
   Label,
@@ -9,48 +9,41 @@ import {
 } from '@qwik-ui/styled';
 
 export default component$(() => {
-  const triggerRef = useSignal<HTMLButtonElement>();
-  const popoverRef = useSignal<HTMLElement>();
-
   return (
-    <PopoverRoot>
-      <PopoverTrigger
-        ref={triggerRef}
-        class={buttonVariants({ look: 'outline' })}
-        popovertarget="hero-id"
-      >
+    <PopoverRoot flip={false} gutter={8}>
+      <PopoverTrigger class={buttonVariants({ look: 'outline' })}>
         Open popover
       </PopoverTrigger>
-      <PopoverPanel
-        flip={false}
-        gutter={8}
-        ref={popoverRef}
-        anchorRef={triggerRef}
-        floating={true}
-        placement="bottom"
-        id="hero-id"
-      >
+      <PopoverPanel>
         <div class="grid gap-4">
           <div class="space-y-2">
             <h4 class="font-medium leading-none">Dimensions</h4>
             <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
           </div>
           <div class="grid gap-2">
-            <div class="grid grid-cols-3 items-center gap-4">
-              <Label for="width">Width</Label>
-              <Input id="width" value="100%" class="col-span-2 h-8" />
+            <div class="grid grid-cols-5 items-center gap-4">
+              <Label class="col-span-2" for="width">
+                Width
+              </Label>
+              <Input name="width" value="100%" class="col-span-3 h-8" />
             </div>
-            <div class="grid grid-cols-3 items-center gap-4">
-              <Label for="maxWidth">Max. width</Label>
-              <Input id="maxWidth" value="300px" class="col-span-2 h-8" />
+            <div class="grid grid-cols-5 items-center gap-4">
+              <Label class="col-span-2" for="maxWidth">
+                Max. width
+              </Label>
+              <Input name="maxWidth" value="300px" class="col-span-3 h-8" />
             </div>
-            <div class="grid grid-cols-3 items-center gap-4">
-              <Label for="height">Height</Label>
-              <Input id="height" value="25px" class="col-span-2 h-8" />
+            <div class="grid grid-cols-5 items-center gap-4">
+              <Label class="col-span-2" for="height">
+                Height
+              </Label>
+              <Input name="height" value="25px" class="col-span-3 h-8" />
             </div>
-            <div class="grid grid-cols-3 items-center gap-4">
-              <Label for="maxHeight">Max. height</Label>
-              <Input id="maxHeight" value="none" class="col-span-2 h-8" />
+            <div class="grid grid-cols-5 items-center gap-4">
+              <Label class="col-span-2" for="maxHeight">
+                Max. height
+              </Label>
+              <Input name="maxHeight" value="none" class="col-span-3 h-8" />
             </div>
           </div>
         </div>

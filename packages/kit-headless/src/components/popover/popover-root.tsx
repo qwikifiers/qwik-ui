@@ -1,4 +1,5 @@
 import {
+  PropsOf,
   Signal,
   Slot,
   component$,
@@ -48,9 +49,10 @@ export type TPlacement =
   | 'left-start'
   | 'left-end';
 
-type PopoverProps = PopoverRootProps & {
+export type PopoverProps = PopoverRootProps & {
   floating?: boolean | TPlacement;
-} & FloatingProps;
+} & FloatingProps &
+  PropsOf<'div'>;
 
 export const PopoverRoot = component$((props: PopoverProps) => {
   const {

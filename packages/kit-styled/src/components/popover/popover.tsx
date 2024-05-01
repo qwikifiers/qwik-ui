@@ -2,9 +2,9 @@ import { PropsOf, Slot, component$, useStyles$ } from '@builder.io/qwik';
 import { Popover } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
-export const PopoverRoot = component$(() => {
+export const PopoverRoot = component$<PropsOf<typeof Popover.Root>>(({ ...props }) => {
   return (
-    <Popover.Root gutter={8}>
+    <Popover.Root {...props}>
       <Slot />
     </Popover.Root>
   );
