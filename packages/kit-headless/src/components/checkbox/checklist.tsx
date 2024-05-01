@@ -1,5 +1,5 @@
 import { type JSXNode, Component, PropsOf } from '@builder.io/qwik';
-import { Checkbox, TriStateCheckboxProps } from './checkbox';
+import { Checkbox, type MixedStateCheckboxProps } from './checkbox';
 import { ChecklistContextWrapper, getTriBool } from './checklist-context-wrapper';
 
 type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
@@ -35,22 +35,20 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
 
     switch (child.type) {
       case Checkbox: {
-        const typedProps = child.props as TriStateCheckboxProps;
+        const typedProps = child.props as MixedStateCheckboxProps;
         // FYI: Obj.assign mutates
         Object.assign(typedProps, { _useCheckListContext: true });
         checkArr.push(child);
         // TODO: fix this if hell by making fn
         if (!typedProps.checkList) {
           checklistChilds.push(child);
-          console.log('fav id: ', typedProps.id);
+
           if (typedProps.id != undefined) {
-            console.log('fav id: ', typedProps.id);
             idArr.push(typedProps.id as string);
           } else {
             idArr.push(false);
           }
           if (typedProps.checkBoxSig && typedProps.checkBoxSig.value) {
-            console.log('current value here magial ', typedProps.checkBoxSig.value);
             boolArr.push(typedProps.checkBoxSig.value);
             hellSigs.push(typedProps.checkBoxSig);
           } else {
@@ -85,7 +83,6 @@ export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
       Object.assign(checkbox.props, { _overWriteCheckbox: true });
     });
   }
-  console.log('fav idArr: ', idArr);
 
   return (
     <>

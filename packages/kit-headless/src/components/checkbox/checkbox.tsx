@@ -35,7 +35,6 @@ export type ChecklistTwoStateCheckboxProps = {
 export const Checkbox = component$<MixedStateCheckboxProps>((props) => {
   // this is done to avoid consumers dealing with two types checkboxes, could go in different files
   if (props._useCheckListContext && !props.checkList) {
-    console.log('using chechlist');
   }
   if (props.checkList) {
     return (
@@ -45,7 +44,6 @@ export const Checkbox = component$<MixedStateCheckboxProps>((props) => {
     );
   }
   if (props._useCheckListContext) {
-    console.log('using checklist checkbox');
     return (
       <ChecklistTwoStateCheckbox {...props}>
         <Slot />
@@ -99,10 +97,7 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
     const syncToChecklist = useSignal<undefined | boolean>(props._overWriteCheckbox);
     useContextProvider(CheckboxContext, appliedSig);
     useTask$(({ track }) => {
-      console.log('overwrite: ', props._overWriteCheckbox, appliedSig.value);
-
       if (syncToChecklist.value !== undefined) {
-        console.log('change here ');
         appliedSig.value = syncToChecklist.value;
         syncToChecklist.value = undefined;
       }
@@ -113,7 +108,7 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
       // now i can say that there's one good application for object identity
       if (!checklistContext.checkboxes.value.some((e) => e === appliedSig)) {
         const currIndex = checklistContext.checkboxes.value.length;
-        console.log('INSERTING ', checklistContext.idArr[currIndex]);
+
         // TODO: refactor id to not run on wrapper but after conditional
         if (checklistID.value === undefined) {
           checklistID.value = checklistContext.idArr[currIndex];
