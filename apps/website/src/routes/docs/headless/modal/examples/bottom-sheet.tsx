@@ -13,10 +13,10 @@ export default component$(() => {
           Open Modal
         </button>
         <Modal class="modal bottom-sheet" bind:show={isOpen}>
-          <ModalTitle>Edit Profile</ModalTitle>
-          <ModalDescription>
+          <Modal.Title>Edit Profile</Modal.Title>
+          <Modal.Description>
             You can update your profile here. Hit the save button when finished.
-          </ModalDescription>
+          </Modal.Description>
           <Label>
             Name
             <input type="text" placeholder="John Doe" />

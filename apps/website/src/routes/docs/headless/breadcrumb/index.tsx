@@ -34,46 +34,46 @@ export default component$(() => {
     <div>
       <h2>This is the documentation for the Breadcrumb</h2>
 
-      <BreadcrumbWrapper title="Breadcrumb Example">
+      <Breadcrumb.Wrapper title="Breadcrumb Example">
         <Breadcrumb>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
-            <BreadcrumbItem key={index}>{itemBreadcrumb.name}</BreadcrumbItem>
+            <Breadcrumb.Item key={index}>{itemBreadcrumb.name}</Breadcrumb.Item>
           ))}
         </Breadcrumb>
-      </BreadcrumbWrapper>
+      </Breadcrumb.Wrapper>
 
-      <BreadcrumbWrapper title="Breadcrumb with Icon Example">
+      <Breadcrumb.Wrapper title="Breadcrumb with Icon Example">
         <Breadcrumb>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
-            <BreadcrumbItem key={index}>
+            <Breadcrumb.Item key={index}>
               <a href={`${itemBreadcrumb.path}`} class="breadcrumb-item">
                 <PathIcon />
                 <span>{itemBreadcrumb.name}</span>
               </a>
-            </BreadcrumbItem>
+            </Breadcrumb.Item>
           ))}
         </Breadcrumb>
-      </BreadcrumbWrapper>
+      </Breadcrumb.Wrapper>
 
-      <BreadcrumbWrapper title="Breadcrumb with Active Example">
+      <Breadcrumb.Wrapper title="Breadcrumb with Active Example">
         <Breadcrumb>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
-            <BreadcrumbItem
+            <Breadcrumb.Item
               key={index}
               class={
                 itemBreadcrumb.path === url.pathname ? 'breadcrumb-item--active' : ''
               }
             >
               {itemBreadcrumb.name}
-            </BreadcrumbItem>
+            </Breadcrumb.Item>
           ))}
         </Breadcrumb>
-      </BreadcrumbWrapper>
+      </Breadcrumb.Wrapper>
 
-      <BreadcrumbWrapper style={{ marginTop: '1rem' }}>
+      <Breadcrumb.Wrapper style={{ marginTop: '1rem' }}>
         <Breadcrumb>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
-            <BreadcrumbItem key={index}>
+            <Breadcrumb.Item key={index}>
               <a
                 href={`${itemBreadcrumb.path}`}
                 class={`breadcrumb-item ${
@@ -83,22 +83,22 @@ export default component$(() => {
                 <PathIcon />
                 <span>{itemBreadcrumb.name}</span>
               </a>
-            </BreadcrumbItem>
+            </Breadcrumb.Item>
           ))}
         </Breadcrumb>
-      </BreadcrumbWrapper>
+      </Breadcrumb.Wrapper>
 
-      <BreadcrumbWrapper title="Breadcrumb with Custom Divider Example">
+      <Breadcrumb.Wrapper title="Breadcrumb with Custom Divider Example">
         <Breadcrumb>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
-            <BreadcrumbItem key={index} divider="→">
+            <Breadcrumb.Item key={index} divider="→">
               <a href={`${itemBreadcrumb.path}`} class="breadcrumb-item--hovered">
                 <span>{itemBreadcrumb.name}</span>
               </a>
-            </BreadcrumbItem>
+            </Breadcrumb.Item>
           ))}
         </Breadcrumb>
-      </BreadcrumbWrapper>
+      </Breadcrumb.Wrapper>
     </div>
   );
 });

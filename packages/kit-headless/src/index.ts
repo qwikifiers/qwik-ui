@@ -1,3 +1,5 @@
+import { Progress } from './components/progress';
+
 export * as Accordion from './components/accordion/';
 export * from './components/badge/badge';
 export * from './components/breadcrumb';
@@ -17,6 +19,7 @@ export * as Popover from './components/popover';
 export { usePopover } from './components/popover/popover-trigger';
 export * from './components/rating/rating';
 export * as Select from './components/select';
+export * as Progress from './components/progress';
 export * from './components/separator/separator';
 export * from './components/spinner/spinner';
 export * from './components/tabs';

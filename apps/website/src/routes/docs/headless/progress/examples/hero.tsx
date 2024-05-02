@@ -1,5 +1,5 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
-import { Progress, ProgressIndicator } from '@qwik-ui/headless';
+import { Progress } from '@qwik-ui/headless';
 import styles from '../snippets/progress.css?inline';
 
 export default component$(() => {
@@ -8,13 +8,13 @@ export default component$(() => {
   const progress = 30;
 
   return (
-    <Progress value={progress} class="progress">
-      <ProgressIndicator
+    <Progress.Root value={progress} class="progress">
+      <Progress.Indicator
         class="progress-indicator"
         style={{
           transform: `translateX(-${100 - progress}%)`,
         }}
       />
-    </Progress>
+    </Progress.Root>
   );
 });

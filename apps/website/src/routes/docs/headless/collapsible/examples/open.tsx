@@ -8,13 +8,13 @@ export default component$(() => {
 
   return (
     <Collapsible class="collapsible" open>
-      <CollapsibleTrigger class="collapsible-trigger">
+      <Collapsible.Trigger class="collapsible-trigger">
         <span>Trigger</span>
         <SVG />
-      </CollapsibleTrigger>
-      <CollapsibleContent class="collapsible-content collapsible-content-outline ">
+      </Collapsible.Trigger>
+      <Collapsible.Content class="collapsible-content collapsible-content-outline ">
         Content
-      </CollapsibleContent>
+      </Collapsible.Content>
     </Collapsible>
   );
 });

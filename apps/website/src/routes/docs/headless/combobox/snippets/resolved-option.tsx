@@ -3,11 +3,11 @@ import { ComboboxOption, ComboboxListbox, type ResolvedOption } from '@qwik-ui/h
 
 export default component$(() => {
   return (
-    <ComboboxListbox
+    <Combobox.Listbox
       optionRenderer$={(option: ResolvedOption, index: number) => (
-        <ComboboxOption key={option.key} index={index} resolved={option}>
+        <Combobox.Option key={option.key} index={index} resolved={option}>
           {option.label}
-        </ComboboxOption>
+        </Combobox.Option>
       )}
     />
   );

@@ -45,9 +45,9 @@ export default component$(() => {
       class="w-fit"
       options={components}
     >
-      <ComboboxLabel>Qwik UI ⚡</ComboboxLabel>
-      <ComboboxControl class="relative rounded-base border">
-        <ComboboxInput
+      <Combobox.Label>Qwik UI ⚡</Combobox.Label>
+      <Combobox.Control class="relative rounded-base border">
+        <Combobox.Input
           onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
           class="px-d2 w-44 rounded-base bg-background pl-6 pr-6 placeholder:text-muted-foreground"
           onKeyDown$={(e: KeyboardEvent) => {
@@ -57,9 +57,9 @@ export default component$(() => {
             }
           }}
         />
-        <ComboboxTrigger class="group absolute left-[4px] h-6 w-6">
+        <Combobox.Trigger class="group absolute left-[4px] h-6 w-6">
           <SearchIcon />
-        </ComboboxTrigger>
+        </Combobox.Trigger>
         {inputValueSig.value.length > 0 && (
           // give separate id if two triggers
           <button
@@ -73,9 +73,9 @@ export default component$(() => {
             <ClearIcon class="h-4 w-4" />
           </button>
         )}
-      </ComboboxControl>
-      <ComboboxPopover gutter={8} hide="escaped">
-        <ComboboxListbox
+      </Combobox.Control>
+      <Combobox.Popover gutter={8} hide="escaped">
+        <Combobox.Listbox
           class="w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-1 py-2"
           optionRenderer$={(option: ResolvedOption, index: number) => {
             const searchOption = option.option as MyComponents;
@@ -84,7 +84,7 @@ export default component$(() => {
                 href={`${docsPrefix}/${searchOption.component}`}
                 aria-label={option.label}
               >
-                <ComboboxOption
+                <Combobox.Option
                   key={option.key}
                   class="group flex items-start justify-between gap-4 rounded-base border-2  border-transparent px-2 hover:bg-accent"
                   index={index}
@@ -94,12 +94,12 @@ export default component$(() => {
                   <span class="scale-[0.9]">
                     <StatusBadge status={statusByComponent.headless[option.label]} />
                   </span>
-                </ComboboxOption>
+                </Combobox.Option>
               </a>
             );
           }}
         />
-      </ComboboxPopover>
+      </Combobox.Popover>
     </Combobox>
   );
 });

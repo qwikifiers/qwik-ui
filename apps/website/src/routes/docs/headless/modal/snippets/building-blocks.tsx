@@ -6,8 +6,8 @@ export default component$(() => {
 
   return (
     <Modal bind:show={isOpen}>
-      <ModalTitle>Accessible Name</ModalTitle>
-      <ModalDescription>Optional Description</ModalDescription>
+      <Modal.Title>Accessible Name</Modal.Title>
+      <Modal.Description>Optional Description</Modal.Description>
       {/* other content */}
     </Modal>
   );

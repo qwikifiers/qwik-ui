@@ -10,10 +10,10 @@ export default component$(() => {
         Deactivate
       </button>
       <Modal alert class="modal" bind:show={showSig}>
-        <ModalTitle>Deactive Account</ModalTitle>
-        <ModalDescription>
+        <Modal.Title>Deactive Account</Modal.Title>
+        <Modal.Description>
           Are you sure you want to deactivate your account?
-        </ModalDescription>
+        </Modal.Description>
         <footer>
           <button onClick$={() => (showSig.value = false)}>Cancel</button>
           <button onClick$={() => (showSig.value = false)}>Delete</button>

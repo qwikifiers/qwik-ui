@@ -6,15 +6,15 @@ export default component$(() => {
     <>
       <h2>This is the documentation for the Drawer</h2>
       <Drawer class="drawer">
-        <DrawerTrigger>
+        <Drawer.Trigger>
           <input id="my-drawer" type="checkbox" class="drawer-toggle" />
           <div class="drawer-content">
             <label for="my-drawer" class="btn btn-primary drawer-button">
               Open drawer
             </label>
           </div>
-        </DrawerTrigger>
-        <DrawerContent class="drawer-side">
+        </Drawer.Trigger>
+        <Drawer.Content class="drawer-side">
           <label for="my-drawer" class="drawer-overlay"></label>
           <ul class="menu bg-base-100 text-base-content w-80 p-4">
             <li>
@@ -33,7 +33,7 @@ export default component$(() => {
               </a>
             </li>
           </ul>
-        </DrawerContent>
+        </Drawer.Content>
       </Drawer>
     </>
   );

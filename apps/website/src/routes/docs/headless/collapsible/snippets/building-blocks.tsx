@@ -3,7 +3,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@qwik-ui/he
 
 export default component$(() => (
   <Collapsible>
-    <CollapsibleTrigger>Button</CollapsibleTrigger>
-    <CollapsibleContent>Content</CollapsibleContent>
+    <Collapsible.Trigger>Button</Collapsible.Trigger>
+    <Collapsible.Content>Content</Collapsible.Content>
   </Collapsible>
 ));

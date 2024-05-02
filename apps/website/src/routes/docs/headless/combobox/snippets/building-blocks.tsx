@@ -16,20 +16,20 @@ export default component$(() => {
 
   return (
     <Combobox options={data}>
-      <ComboboxLabel>Label Element</ComboboxLabel>
-      <ComboboxControl>
-        <ComboboxInput />
-        <ComboboxTrigger>Opens Listbox</ComboboxTrigger>
-      </ComboboxControl>
-      <ComboboxPopover>
-        <ComboboxListbox
+      <Combobox.Label>Label Element</Combobox.Label>
+      <Combobox.Control>
+        <Combobox.Input />
+        <Combobox.Trigger>Opens Listbox</Combobox.Trigger>
+      </Combobox.Control>
+      <Combobox.Popover>
+        <Combobox.Listbox
           optionRenderer$={(option: ResolvedOption, index: number) => (
-            <ComboboxOption index={index} resolved={option}>
+            <Combobox.Option index={index} resolved={option}>
               Option Label
-            </ComboboxOption>
+            </Combobox.Option>
           )}
         />
-      </ComboboxPopover>
+      </Combobox.Popover>
     </Combobox>
   );
 });

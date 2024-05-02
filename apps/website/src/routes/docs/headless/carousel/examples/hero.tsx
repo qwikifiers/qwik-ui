@@ -107,13 +107,13 @@ export default component$(() => {
       class="carousel"
     >
       <div class="carousel-buttons">
-        <CarouselPrev class="prev-button">Prev</CarouselPrev>
-        <CarouselNext class="next-button">Next</CarouselNext>
+        <Carousel.Prev class="prev-button">Prev</Carousel.Prev>
+        <Carousel.Next class="next-button">Next</Carousel.Next>
       </div>
-      <CarouselView>
-        <CarouselContainer class="carousel-container">
+      <Carousel.View>
+        <Carousel.Container class="carousel-container">
           {slideImageMetadata.map((data) => (
-            <CarouselSlide key={data.id} class="carousel-slide">
+            <Carousel.Slide key={data.id} class="carousel-slide">
               <img
                 class="carousel-img"
                 width="640"
@@ -121,12 +121,12 @@ export default component$(() => {
                 src={`https://picsum.photos/id/${data.id}/640/320`}
                 alt={data.author}
               />
-            </CarouselSlide>
+            </Carousel.Slide>
           ))}
-        </CarouselContainer>
-      </CarouselView>
+        </Carousel.Container>
+      </Carousel.View>
       <div>
-        <CarouselPagination
+        <Carousel.Pagination
           class="carousel-pagination"
           renderBullet$={$((i: number) => {
             return (

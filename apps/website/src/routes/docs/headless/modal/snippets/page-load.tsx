@@ -14,8 +14,8 @@ export default component$(() => {
 
   return (
     <Modal bind:show={showSig}>
-      <ModalTitle />
-      <ModalDescription />
+      <Modal.Title />
+      <Modal.Description />
       {/* other content */}
     </Modal>
   );

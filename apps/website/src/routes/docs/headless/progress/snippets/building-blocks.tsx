@@ -6,7 +6,7 @@ export default component$(() => {
 
   return (
     <Progress value={progress} class="progress">
-      <ProgressIndicator
+      <Progress.Indicator
         class="progress-indicator"
         style={{
           transform: `translateX(-${100 - progress}%)`,

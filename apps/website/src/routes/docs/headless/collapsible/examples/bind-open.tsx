@@ -13,10 +13,10 @@ export default component$(() => {
       </p>
 
       <Collapsible class="collapsible" bind:open={isOpen}>
-        <CollapsibleTrigger class="collapsible-trigger">Trigger</CollapsibleTrigger>
-        <CollapsibleContent class="collapsible-content">
+        <Collapsible.Trigger class="collapsible-trigger">Trigger</Collapsible.Trigger>
+        <Collapsible.Content class="collapsible-content">
           <p class="collapsible-content-outline">Content</p>
-        </CollapsibleContent>
+        </Collapsible.Content>
       </Collapsible>
     </>
   );
