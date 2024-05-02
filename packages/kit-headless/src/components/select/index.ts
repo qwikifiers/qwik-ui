@@ -1,7 +1,7 @@
 export { SelectRoot as Root } from './select-inline';
 export { SelectLabel as Label } from './select-label';
 export { SelectTrigger as Trigger } from './select-trigger';
-export { SelectValue as Value } from './select-value';
+export { SelectDisplayText as DisplayText } from './select-display-text';
 export { SelectPopover as Popover } from './select-popover';
 export { SelectListbox as Listbox } from './select-listbox';
 export { SelectGroup as Group } from './select-group';

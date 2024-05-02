@@ -9,10 +9,10 @@ export default component$(() => {
   const selected = useSignal<string[]>(['Jim']);
 
   return (
-    <Select.Root multiple bind:display={display} bind:value={selected} class="select">
+    <Select.Root multiple bind:displayText={display} bind:value={selected} class="select">
       <Select.Label>Logged in users</Select.Label>
       <Select.Trigger class="select-trigger">
-        <Select.Value>
+        <Select.DisplayText>
           {display.value.map((opt) => (
             <span class="select-pill" key={opt}>
               {opt}
@@ -27,7 +27,7 @@ export default component$(() => {
               </span>
             </span>
           ))}
-        </Select.Value>
+        </Select.DisplayText>
       </Select.Trigger>
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox">

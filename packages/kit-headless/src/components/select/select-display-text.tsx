@@ -15,7 +15,7 @@ type SelectValueProps = PropsOf<'span'> & {
   placeholder?: string;
 };
 
-export const SelectValue = component$((props: SelectValueProps) => {
+export const SelectDisplayText = component$((props: SelectValueProps) => {
   const { placeholder, ...rest } = props;
   const context = useContext(SelectContextId);
   const valueId = `${context.localId}-value`;

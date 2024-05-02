@@ -46,7 +46,7 @@ export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
   'bind:open'?: Signal<boolean>;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  'bind:display'?: Signal<TMultiple<M>>;
+  'bind:displayText'?: Signal<TMultiple<M>>;
 
   /**
    * QRL handler that runs when a select value changes.
@@ -208,8 +208,8 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       }
 
       // sync the user's given signal for the display value
-      if (props['bind:display']) {
-        props['bind:display'].value = displayValuesSig.value.filter(
+      if (props['bind:displayText']) {
+        props['bind:displayText'].value = displayValuesSig.value.filter(
           (value): value is string => value !== undefined,
         );
       }

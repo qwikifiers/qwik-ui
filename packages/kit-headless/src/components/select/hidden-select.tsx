@@ -35,7 +35,7 @@ export type SelectDataProps = {
 
 export const HiddenSelect = component$(
   (props: AriaHiddenSelectProps & SelectDataProps) => {
-    const { label, autoComplete } = props;
+    const { label, autoComplete, ...rest } = props;
     const context = useContext(SelectContextId);
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
@@ -52,6 +52,7 @@ export const HiddenSelect = component$(
                 disabled={context.disabled}
                 required={context.required}
                 name={context.name}
+                {...rest}
                 style={{ height: '1px' }}
               >
                 <option />
