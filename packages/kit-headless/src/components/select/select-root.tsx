@@ -264,6 +264,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
         ref={rootRef}
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+        data-disabled={context.disabled}
         aria-controls={listboxId}
         aria-expanded={context.isListboxOpenSig.value}
         aria-haspopup="listbox"

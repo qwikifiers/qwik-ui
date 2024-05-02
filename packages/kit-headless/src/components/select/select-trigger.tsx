@@ -196,6 +196,8 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}
       aria-labelledby={labelId}
+      disabled={context.disabled}
+      data-disabled={context.disabled}
       preventdefault:blur
     >
       <Slot />

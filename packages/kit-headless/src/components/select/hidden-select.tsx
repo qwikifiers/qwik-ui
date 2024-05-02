@@ -9,6 +9,7 @@
 import { component$, useContext } from '@builder.io/qwik';
 import { Opt } from './select-inline';
 import SelectContextId from './select-context';
+import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type AriaHiddenSelectProps = {
   /**
@@ -34,36 +35,39 @@ export type SelectDataProps = {
 
 export const HiddenSelect = component$(
   (props: AriaHiddenSelectProps & SelectDataProps) => {
-    const { label, autoComplete, required, disabled } = props;
+    const { label, autoComplete } = props;
     const context = useContext(SelectContextId);
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
     return (
       context.name && (
-        <div aria-hidden="true">
-          <label>
-            {label}
-            <select
-              multiple={context.multiple}
-              tabIndex={-1}
-              autocomplete={autoComplete}
-              disabled={disabled}
-              required={required}
-              name={context.name}
-            >
-              <option />
-              {context.optionsSig.value?.map((opt: Opt) => (
-                <option
-                  value={opt.value}
-                  selected={context.selectedIndexesSig.value.includes(opt.index - 1)}
-                  key={opt.index}
-                >
-                  {opt.displayValue}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
+        <VisuallyHidden>
+          <div aria-hidden="true">
+            <label>
+              {label}
+              <select
+                multiple={context.multiple}
+                tabIndex={-1}
+                autocomplete={autoComplete}
+                disabled={context.disabled}
+                required={context.required}
+                name={context.name}
+                style={{ height: '1px' }}
+              >
+                <option />
+                {context.optionsSig.value?.map((opt: Opt) => (
+                  <option
+                    value={opt.value}
+                    selected={context.selectedIndexesSig.value.includes(opt.index - 1)}
+                    key={opt.index}
+                  >
+                    {opt.displayValue}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </VisuallyHidden>
       )
     );
   },
