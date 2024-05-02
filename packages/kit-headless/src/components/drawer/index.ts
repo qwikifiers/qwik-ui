@@ -1,3 +1,3 @@
-export * from './drawer';
-export * from './drawer-content';
-export * from './drawer-trigger';
+export { Drawer as Root } from './drawer';
+export { DrawerContent as Content } from './drawer-content';
+export { DrawerTrigger as Trigger } from './drawer-trigger';

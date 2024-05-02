@@ -11,7 +11,7 @@ export * from './components/collapsible';
 export * from './components/combobox';
 export * from './components/label';
 export * as Modal from './components/modal';
-export * from './components/drawer';
+export * as Drawer from './components/drawer';
 export * from './components/navigation-bar/navigation-bar';
 export * from './components/pagination/pagination';
 export * as Popover from './components/popover';

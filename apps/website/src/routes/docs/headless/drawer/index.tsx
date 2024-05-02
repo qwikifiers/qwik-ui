@@ -1,11 +1,11 @@
 import { component$ } from '@builder.io/qwik';
-import { Drawer, DrawerContent, DrawerTrigger } from '@qwik-ui/headless';
+import { Drawer } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (
     <>
       <h2>This is the documentation for the Drawer</h2>
-      <Drawer class="drawer">
+      <Drawer.Root class="drawer">
         <Drawer.Trigger>
           <input id="my-drawer" type="checkbox" class="drawer-toggle" />
           <div class="drawer-content">
@@ -34,7 +34,7 @@ export default component$(() => {
             </li>
           </ul>
         </Drawer.Content>
-      </Drawer>
+      </Drawer.Root>
     </>
   );
 });
