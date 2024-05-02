@@ -1,7 +1,7 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import { Breadcrumb, BreadcrumbItem } from '@qwik-ui/headless';
-import BreadcrumbWrapper from './BreadcrumbWrapper';
+import { Breadcrumb } from '@qwik-ui/headless';
+import { BreadcrumWrapper } from './BreadcrumbWrapper';
 import PathIcon from './PathIcon';
 import style from './index.css?inline';
 
@@ -34,16 +34,16 @@ export default component$(() => {
     <div>
       <h2>This is the documentation for the Breadcrumb</h2>
 
-      <Breadcrumb.Wrapper title="Breadcrumb Example">
-        <Breadcrumb>
+      <BreadcrumWrapper title="Breadcrumb Example">
+        <Breadcrumb.Root>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
             <Breadcrumb.Item key={index}>{itemBreadcrumb.name}</Breadcrumb.Item>
           ))}
-        </Breadcrumb>
-      </Breadcrumb.Wrapper>
+        </Breadcrumb.Root>
+      </BreadcrumWrapper>
 
-      <Breadcrumb.Wrapper title="Breadcrumb with Icon Example">
-        <Breadcrumb>
+      <BreadcrumWrapper title="Breadcrumb with Icon Example">
+        <Breadcrumb.Root>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
             <Breadcrumb.Item key={index}>
               <a href={`${itemBreadcrumb.path}`} class="breadcrumb-item">
@@ -52,11 +52,11 @@ export default component$(() => {
               </a>
             </Breadcrumb.Item>
           ))}
-        </Breadcrumb>
-      </Breadcrumb.Wrapper>
+        </Breadcrumb.Root>
+      </BreadcrumWrapper>
 
-      <Breadcrumb.Wrapper title="Breadcrumb with Active Example">
-        <Breadcrumb>
+      <BreadcrumWrapper title="Breadcrumb with Active Example">
+        <Breadcrumb.Root>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
             <Breadcrumb.Item
               key={index}
@@ -67,11 +67,11 @@ export default component$(() => {
               {itemBreadcrumb.name}
             </Breadcrumb.Item>
           ))}
-        </Breadcrumb>
-      </Breadcrumb.Wrapper>
+        </Breadcrumb.Root>
+      </BreadcrumWrapper>
 
-      <Breadcrumb.Wrapper style={{ marginTop: '1rem' }}>
-        <Breadcrumb>
+      <BreadcrumWrapper style={{ marginTop: '1rem' }}>
+        <Breadcrumb.Root>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
             <Breadcrumb.Item key={index}>
               <a
@@ -85,11 +85,11 @@ export default component$(() => {
               </a>
             </Breadcrumb.Item>
           ))}
-        </Breadcrumb>
-      </Breadcrumb.Wrapper>
+        </Breadcrumb.Root>
+      </BreadcrumWrapper>
 
-      <Breadcrumb.Wrapper title="Breadcrumb with Custom Divider Example">
-        <Breadcrumb>
+      <BreadcrumWrapper title="Breadcrumb with Custom Divider Example">
+        <Breadcrumb.Root>
           {breadcrumbPath.map((itemBreadcrumb, index) => (
             <Breadcrumb.Item key={index} divider="→">
               <a href={`${itemBreadcrumb.path}`} class="breadcrumb-item--hovered">
@@ -97,8 +97,8 @@ export default component$(() => {
               </a>
             </Breadcrumb.Item>
           ))}
-        </Breadcrumb>
-      </Breadcrumb.Wrapper>
+        </Breadcrumb.Root>
+      </BreadcrumWrapper>
     </div>
   );
 });

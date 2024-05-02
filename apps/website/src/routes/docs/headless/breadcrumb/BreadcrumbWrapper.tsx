@@ -5,15 +5,17 @@ type BreadcrumbWrapperProps = PropsOf<'div'> & {
   title?: string;
 };
 
-export default component$(({ title, ...rest }: BreadcrumbWrapperProps) => {
-  useStyles$(style);
+export const BreadcrumWrapper = component$(
+  ({ title, ...rest }: BreadcrumbWrapperProps) => {
+    useStyles$(style);
 
-  return (
-    <div {...rest}>
-      {title && <h1 class="wrapper__title">{title}</h1>}
-      <div class="wrapper__content">
-        <Slot />
+    return (
+      <div {...rest}>
+        {title && <h1 class="wrapper__title">{title}</h1>}
+        <div class="wrapper__content">
+          <Slot />
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
