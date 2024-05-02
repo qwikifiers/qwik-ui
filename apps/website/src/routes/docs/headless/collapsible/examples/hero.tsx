@@ -1,5 +1,5 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@qwik-ui/headless';
+import { Collapsible } from '@qwik-ui/headless';
 import styles from '../snippets/collapsible.css?inline';
 import SVG from './svg';
 
@@ -7,7 +7,7 @@ export default component$(() => {
   useStyles$(styles);
 
   return (
-    <Collapsible class="collapsible">
+    <Collapsible.Root class="collapsible">
       <Collapsible.Trigger class="collapsible-trigger">
         <span>Trigger</span>
         <SVG />
@@ -15,6 +15,6 @@ export default component$(() => {
       <Collapsible.Content class="collapsible-content collapsible-content-outline ">
         Content
       </Collapsible.Content>
-    </Collapsible>
+    </Collapsible.Root>
   );
 });

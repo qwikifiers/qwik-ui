@@ -5,7 +5,7 @@ export * from './components/button-group/button-group';
 export * from './components/card';
 export * from './components/carousel';
 export * as Checkbox from './components/checkbox/checkbox';
-export * from './components/collapsible';
+export * as Collapsible from './components/collapsible';
 export * as Combobox from './components/combobox';
 export { type ResolvedOption } from './components/combobox';
 export * from './components/label';
