@@ -9,7 +9,6 @@
 import { component$, useContext } from '@builder.io/qwik';
 import { Opt } from './select-inline';
 import SelectContextId from './select-context';
-import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type AriaHiddenSelectProps = {
   /**
@@ -30,33 +29,34 @@ export type AriaHiddenSelectProps = {
 };
 
 export type SelectDataProps = {
-  options: Opt[] | undefined;
+  options?: Opt[] | undefined;
 };
 
 export const HiddenSelect = component$(
   (props: AriaHiddenSelectProps & SelectDataProps) => {
-    const { label, options, autoComplete, name, required, disabled } = props;
+    const { label, autoComplete, required, disabled } = props;
     const context = useContext(SelectContextId);
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
     return (
-      <VisuallyHidden>
+      context.name && (
         <div aria-hidden="true">
           <label>
             {label}
             <select
+              multiple={context.multiple}
               tabIndex={-1}
               autocomplete={autoComplete}
               disabled={disabled}
               required={required}
-              name={name}
+              name={context.name}
             >
               <option />
-              {options?.map((opt: Opt) => (
+              {context.optionsSig.value?.map((opt: Opt) => (
                 <option
                   value={opt.value}
-                  selected={context.selectedIndexesSig.value.includes(opt.index)}
-                  key={opt.value}
+                  selected={context.selectedIndexesSig.value.includes(opt.index - 1)}
+                  key={opt.index}
                 >
                   {opt.displayValue}
                 </option>
@@ -64,7 +64,7 @@ export const HiddenSelect = component$(
             </select>
           </label>
         </div>
-      </VisuallyHidden>
+      )
     );
   },
 );

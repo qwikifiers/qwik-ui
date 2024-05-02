@@ -14,6 +14,7 @@ import { isBrowser, isServer } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
 import { Opt } from './select-inline';
 import { useSelect } from './use-select';
+import { HiddenSelect } from './hidden-select';
 
 export type InternalSelectProps = {
   /** Our source of truth for the options. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
@@ -104,6 +105,9 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       loop: givenLoop,
       multiple = false,
       _label,
+      name,
+      required,
+      disabled,
       ...rest
     } = props;
 
@@ -233,6 +237,9 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       scrollOptions,
       loop,
       multiple,
+      name,
+      required,
+      disabled,
     };
 
     const { getActiveDescendant } = useSelect();
@@ -266,6 +273,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
         {...rest}
       >
         <Slot />
+        <HiddenSelect />
       </div>
     );
   },

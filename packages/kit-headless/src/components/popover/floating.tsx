@@ -23,8 +23,6 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
 
     if (isServer) return;
 
-    console.log('running!');
-
     const anchor = context.anchorRef?.value
       ? context.anchorRef.value
       : context.triggerRef?.value;

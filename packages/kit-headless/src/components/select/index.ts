@@ -9,3 +9,4 @@ export { SelectGroupLabel as GroupLabel } from './select-group-label';
 export { SelectItem as Item } from './select-item';
 export { SelectItemLabel as ItemLabel } from './select-item-label';
 export { SelectItemIndicator as ItemIndicator } from './select-item-indicator';
+export { HiddenSelect } from './hidden-select';

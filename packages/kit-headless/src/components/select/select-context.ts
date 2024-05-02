@@ -26,6 +26,21 @@ export type SelectContext = {
   scrollOptions?: ScrollIntoViewOptions;
   loop: boolean;
   multiple: boolean | undefined;
+
+  /**
+   * The name of the select element, used when submitting an HTML form. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#name).
+   */
+  name?: string;
+
+  /**
+   * Specifies that the user must select a value before submitting the form. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#required).
+   */
+  required?: boolean;
+
+  /**
+   * If `true`, prevents the user from interacting with the select.
+   */
+  disabled?: boolean;
 };
 
 export const groupContextId = createContextId<GroupContext>('Select-Group');
