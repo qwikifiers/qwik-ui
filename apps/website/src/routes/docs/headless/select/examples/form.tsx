@@ -1,5 +1,6 @@
 import { component$, useStyles$, $, useSignal } from '@builder.io/qwik';
 import { Select } from '@qwik-ui/headless';
+import { LuCheck } from '@qwikest/icons/lucide';
 
 type FormData = Record<string, FormDataEntryValue[]>;
 
@@ -33,11 +34,15 @@ export default component$(() => {
           <Select.Trigger class="select-trigger">
             <Select.Value>{displaySig.value.join(', ')}</Select.Value>
           </Select.Trigger>
+          <Select.HiddenSelect />
           <Select.Popover class="select-popover">
             <Select.Listbox class="select-listbox">
               {users.map((user) => (
-                <Select.Item key={user}>
+                <Select.Item class="select-item" key={user}>
                   <Select.ItemLabel>{user}</Select.ItemLabel>
+                  <Select.ItemIndicator>
+                    <LuCheck />
+                  </Select.ItemIndicator>
                 </Select.Item>
               ))}
             </Select.Listbox>
