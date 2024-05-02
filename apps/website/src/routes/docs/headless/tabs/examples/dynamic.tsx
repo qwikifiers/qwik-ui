@@ -8,7 +8,7 @@ export default component$(() => {
   return (
     <>
       <div class="tabs-example mr-auto">
-        <Tabs>
+        <Tabs.Root>
           <TabList>
             {tabsState.map((tab) => (
               <Tab key={tab}>{tab}</Tab>
@@ -17,7 +17,7 @@ export default component$(() => {
           {tabsState.map((tab) => (
             <TabPanel key={tab}>{tab} Panel</TabPanel>
           ))}
-        </Tabs>
+        </Tabs.Root>
 
         <button
           class="mt-4 font-bold text-red-600"

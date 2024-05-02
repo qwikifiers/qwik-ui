@@ -17,7 +17,7 @@ export default component$(() => {
   const names = ['Jim', 'Joanna', 'John', 'Jessica'];
 
   return (
-    <Combobox class="w-fit" defaultLabel={names[2]} options={names}>
+    <Combobox.Root class="w-fit" defaultLabel={names[2]} options={names}>
       <Combobox.Label>Default Label</Combobox.Label>
       <Combobox.Control class="relative rounded-base border">
         <Combobox.Input class="px-d2 w-44 rounded-base bg-background px-2 pr-6 placeholder:text-muted-foreground" />
@@ -40,6 +40,6 @@ export default component$(() => {
           )}
         />
       </Combobox.Popover>
-    </Combobox>
+    </Combobox.Root>
   );
 });

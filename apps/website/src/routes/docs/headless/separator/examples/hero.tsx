@@ -10,21 +10,21 @@ export default component$(() => {
             <h1 class="text-lg">Qwik UI Headless</h1>
             <p class="text-sm">Accessible, Unstyled Qwik UI Components</p>
           </div>
-          <Separator orientation="horizontal" class="my-1 h-px bg-foreground" />
+          <Separator.Root orientation="horizontal" class="my-1 h-px bg-foreground" />
           <menu class="flex gap-2">
             <li>
               <a class="border-none" href="/docs/headless/introduction/">
                 Introduction
               </a>
             </li>
-            <Separator orientation="vertical" class="mx-1 w-px bg-foreground" />
+            <Separator.Root orientation="vertical" class="mx-1 w-px bg-foreground" />
             <li>
               {' '}
               <a class="border-none" href="/docs/headless/install/">
                 Installation
               </a>
             </li>
-            <Separator orientation="vertical" class="mx-1 w-px bg-foreground" />
+            <Separator.Root orientation="vertical" class="mx-1 w-px bg-foreground" />
             <li>
               <a class="border-none" href="/docs/headless/contributing/">
                 Contributing

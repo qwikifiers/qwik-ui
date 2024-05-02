@@ -12,7 +12,7 @@ export default component$(() => {
 
       <h1>Spinner Example</h1>
 
-      <Spinner />
+      <Spinner.Root />
 
       <h1>Size</h1>
       <p>
@@ -21,23 +21,23 @@ export default component$(() => {
         below.
       </p>
 
-      <Spinner />
-      <Spinner style="font-size: 2rem" />
-      <Spinner style="font-size: 3rem" />
+      <Spinner.Root />
+      <Spinner.Root style="font-size: 2rem" />
+      <Spinner.Root style="font-size: 3rem" />
 
       <h1>Track Width</h1>
       <p>
         The width of the Spinner track can be changed by the property <b>width</b>.
       </p>
 
-      <Spinner style="font-size: 3rem" width="10px" />
+      <Spinner.Root style="font-size: 3rem" width="10px" />
 
       <h1>Color</h1>
       <p>
         The colors of Spinner can be changed by the properties <b>indicatorColor</b> and{' '}
         <b>trackColor</b>.
       </p>
-      <Spinner
+      <Spinner.Root
         style="font-size: 3rem"
         width="10px"
         indicatorColor="darkblue"
@@ -48,7 +48,7 @@ export default component$(() => {
       <p>
         The speed of the Spinner can be changed by the property <b>speed</b>.
       </p>
-      <Spinner style="font-size: 3rem" speed="5s" />
+      <Spinner.Root style="font-size: 3rem" speed="5s" />
     </>
   );
 });

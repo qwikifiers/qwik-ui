@@ -9,7 +9,7 @@ export default component$(() => {
 
   return (
     <div class="mt-4 flex flex-col gap-6">
-      <Pagination
+      <Pagination.Root
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
         disabled

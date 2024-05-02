@@ -13,10 +13,10 @@ export default component$(() => {
   // );
 
   return (
-    <Modal bind:show={showSig}>
+    <Modal.Root bind:show={showSig}>
       <Modal.Title />
       <Modal.Description />
       {/* other content */}
-    </Modal>
+    </Modal.Root>
   );
 });

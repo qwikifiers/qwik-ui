@@ -27,7 +27,7 @@ export default component$(() => {
   ];
 
   return (
-    <Combobox class="w-fit" options={objectExample}>
+    <Combobox.Root class="w-fit" options={objectExample}>
       <Combobox.Label class=" font-semibold">Jedi ⚔️</Combobox.Label>
       <Combobox.Control class="relative flex items-center rounded-base border">
         <Combobox.Input class="px-d2 w-44 rounded-base bg-background px-2 pr-6 placeholder:text-muted-foreground" />
@@ -50,6 +50,6 @@ export default component$(() => {
           )}
         />
       </Combobox.Popover>
-    </Combobox>
+    </Combobox.Root>
   );
 });

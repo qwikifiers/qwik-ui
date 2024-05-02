@@ -13,7 +13,7 @@ export default component$(() => {
         Render Collapsible
       </button>
       {isCollapsibleRendered.value && (
-        <Collapsible class="collapsible">
+        <Collapsible.Root class="collapsible">
           <Collapsible.Trigger class="collapsible-trigger">
             <span>Trigger</span>
             <SVG />
@@ -21,7 +21,7 @@ export default component$(() => {
           <Collapsible.Content class="collapsible-content collapsible-content-outline ">
             Content
           </Collapsible.Content>
-        </Collapsible>
+        </Collapsible.Root>
       )}
     </>
   );

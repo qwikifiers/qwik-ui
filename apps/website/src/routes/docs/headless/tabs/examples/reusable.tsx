@@ -11,7 +11,7 @@ import {
 } from '@qwik-ui/headless';
 
 const CustomTabs = (props: TabsProps) => (
-  <Tabs
+  <Tabs.Root
     {...props}
     tabListComponent={CustomTabList}
     tabComponent={CustomTab}
@@ -48,7 +48,7 @@ const CustomTabPanel = component$<TabPanelProps>(({ ...props }) => {
 export default component$(() => {
   return (
     <div class="tabs-example mr-auto">
-      <CustomTabs>
+      <CustomTabs.Root>
         <CustomTabList>
           <CustomTab>Tab 1</CustomTab>
           <CustomTab>Tab 2</CustomTab>
@@ -63,7 +63,7 @@ export default component$(() => {
         <CustomTabPanel>
           <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) ...</p>
         </CustomTabPanel>
-      </CustomTabs>
+      </CustomTabs.Root>
     </div>
   );
 });

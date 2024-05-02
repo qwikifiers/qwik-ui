@@ -9,7 +9,7 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (showSig.value = true)}>
         Deactivate
       </button>
-      <Modal alert class="modal" bind:show={showSig}>
+      <Modal.Root alert class="modal" bind:show={showSig}>
         <Modal.Title>Deactive Account</Modal.Title>
         <Modal.Description>
           Are you sure you want to deactivate your account?
@@ -21,7 +21,7 @@ export default component$(() => {
         <button class="modal-close" onClick$={() => (showSig.value = false)}>
           +
         </button>
-      </Modal>
+      </Modal.Root>
     </>
   );
 });

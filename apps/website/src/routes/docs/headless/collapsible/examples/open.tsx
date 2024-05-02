@@ -7,7 +7,7 @@ export default component$(() => {
   useStyles$(styles);
 
   return (
-    <Collapsible class="collapsible" open>
+    <Collapsible.Root class="collapsible" open>
       <Collapsible.Trigger class="collapsible-trigger">
         <span>Trigger</span>
         <SVG />
@@ -15,6 +15,6 @@ export default component$(() => {
       <Collapsible.Content class="collapsible-content collapsible-content-outline ">
         Content
       </Collapsible.Content>
-    </Collapsible>
+    </Collapsible.Root>
   );
 });

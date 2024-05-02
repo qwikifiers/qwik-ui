@@ -27,7 +27,7 @@ export default component$(() => {
     <>
       <p class="text-center">I love signals! 🗼</p>
       <div>
-        <Combobox
+        <Combobox.Root
           class="w-fit"
           options={signalsExample}
           bind:isListboxOpen={isListboxOpenSig}
@@ -57,7 +57,7 @@ export default component$(() => {
               )}
             />
           </Combobox.Popover>
-        </Combobox>
+        </Combobox.Root>
       </div>
     </>
   );

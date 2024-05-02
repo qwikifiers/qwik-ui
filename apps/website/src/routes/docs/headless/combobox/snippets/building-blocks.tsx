@@ -15,7 +15,7 @@ export default component$(() => {
   const data = ['a', 'b', 'c'];
 
   return (
-    <Combobox options={data}>
+    <Combobox.Root options={data}>
       <Combobox.Label>Label Element</Combobox.Label>
       <Combobox.Control>
         <Combobox.Input />
@@ -30,6 +30,6 @@ export default component$(() => {
           )}
         />
       </Combobox.Popover>
-    </Combobox>
+    </Combobox.Root>
   );
 });

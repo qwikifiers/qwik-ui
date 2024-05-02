@@ -23,7 +23,7 @@ export default component$(() => {
     >
       <div class="h-[1px] w-[2000px]"></div>
       <div class="flex justify-center">
-        <Combobox
+        <Combobox.Root
           class="w-fit"
           options={shiftExample}
           bind:isListboxOpen={isListboxOpenSig}
@@ -63,7 +63,7 @@ export default component$(() => {
               class="left:0 top:0 absolute w-fit rounded-base border px-4 py-2"
             />
           </Combobox.Popover>
-        </Combobox>
+        </Combobox.Root>
       </div>
     </div>
   );

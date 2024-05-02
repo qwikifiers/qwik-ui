@@ -4,7 +4,7 @@ import { Toggle } from '@qwik-ui/headless';
 export default component$(() => {
   return (
     <>
-      <Toggle pressed onClick$={$(() => console.log('Toggle'))} />
+      <Toggle.Root pressed onClick$={$(() => console.log('Toggle'))} />
     </>
   );
 });

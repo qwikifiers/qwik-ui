@@ -33,7 +33,7 @@ export default component$(() => {
   return (
     <>
       <p class="text-center">☝️ Scroll up and down with me open! 👇</p>
-      <Combobox
+      <Combobox.Root
         class="w-fit"
         options={fruits}
         filter$={(value: string, options) =>
@@ -63,7 +63,7 @@ export default component$(() => {
             )}
           />
         </Combobox.Popover>
-      </Combobox>
+      </Combobox.Root>
     </>
   );
 });

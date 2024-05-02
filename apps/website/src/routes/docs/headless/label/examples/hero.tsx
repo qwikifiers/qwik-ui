@@ -16,9 +16,9 @@ export default component$(() => {
         alignItems: 'center',
       }}
     >
-      <Label class="label" for="firstName">
+      <Label.Root class="label" for="firstName">
         First name
-      </Label>
+      </Label.Root>
       <input class="input" type="text" id="firstName" placeholder="John Doe" />
     </div>
   );

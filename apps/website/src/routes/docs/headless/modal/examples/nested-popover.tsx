@@ -11,7 +11,7 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
-      <Modal class="modal" bind:show={isOpen}>
+      <Modal.Root class="modal" bind:show={isOpen}>
         Modal Content
         <Select.Root class="select">
           <Select.Label>Logged in users</Select.Label>
@@ -29,7 +29,7 @@ export default component$(() => {
             </Select.Listbox>
           </Select.Popover>
         </Select.Root>
-      </Modal>
+      </Modal.Root>
     </>
   );
 });

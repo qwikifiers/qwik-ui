@@ -19,7 +19,7 @@ export default component$(() => {
         count: <strong> {count.value}</strong>
       </p>
 
-      <Collapsible class="collapsible" onOpenChange$={handleOpenChange$}>
+      <Collapsible.Root class="collapsible" onOpenChange$={handleOpenChange$}>
         <Collapsible.Trigger class="collapsible-trigger">
           <span>Trigger</span>
           <SVG />
@@ -27,7 +27,7 @@ export default component$(() => {
         <Collapsible.Content class="collapsible-content collapsible-content-outline ">
           Content
         </Collapsible.Content>
-      </Collapsible>
+      </Collapsible.Root>
     </>
   );
 });

@@ -8,7 +8,7 @@ export default component$(() => {
     <>
       <div class="tabs-example mr-auto w-full">
         <h3>Dad jokes</h3>
-        <Tabs>
+        <Tabs.Root>
           <TabList>
             <Tab
               style={{ width: '125px' }}
@@ -25,7 +25,7 @@ export default component$(() => {
           <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
           <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
           <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
-        </Tabs>
+        </Tabs.Root>
       </div>
     </>
   );

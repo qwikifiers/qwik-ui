@@ -29,7 +29,7 @@ export default component$(() => {
 
   return (
     <>
-      <Combobox
+      <Combobox.Root
         class="w-fit"
         options={placementExample}
         optionDisabledKey="myDisabledKey"
@@ -57,7 +57,7 @@ export default component$(() => {
             )}
           />
         </Combobox.Popover>
-      </Combobox>
+      </Combobox.Root>
     </>
   );
 });

@@ -25,7 +25,7 @@ export default component$(() => {
   return (
     <>
       <p class="text-center">Third option highlighted! 🚨</p>
-      <Combobox
+      <Combobox.Root
         class="w-fit"
         options={highlightedExample}
         bind:highlightedIndex={highlightedIndexSig}
@@ -51,7 +51,7 @@ export default component$(() => {
             )}
           />
         </Combobox.Popover>
-      </Combobox>
+      </Combobox.Root>
     </>
   );
 });

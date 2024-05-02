@@ -9,7 +9,7 @@ export default component$(() => {
     <>
       <div class="tabs-example mr-auto">
         <h3>Danish Composers</h3>
-        <Tabs
+        <Tabs.Root
           onSelectedIndexChange$={(index) => {
             selectedIndexSig.value = index;
           }}
@@ -28,7 +28,7 @@ export default component$(() => {
           <TabPanel>
             <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) ...</p>
           </TabPanel>
-        </Tabs>
+        </Tabs.Root>
 
         <p class="mt-4 text-white">Selected Index: {selectedIndexSig.value}</p>
       </div>

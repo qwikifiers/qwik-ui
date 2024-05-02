@@ -8,7 +8,7 @@ export default component$(() => {
     <>
       <div class="tabs-example">
         <h3>Danish Composers</h3>
-        <Tabs behavior="automatic">
+        <Tabs.Root behavior="automatic">
           <TabList>
             <Tab>Maria</Tab>
             <Tab>Carl</Tab>
@@ -23,7 +23,7 @@ export default component$(() => {
           <TabPanel>
             <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) ...</p>
           </TabPanel>
-        </Tabs>
+        </Tabs.Root>
       </div>
     </>
   );

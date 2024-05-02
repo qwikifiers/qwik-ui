@@ -9,7 +9,7 @@ export default component$(() => {
     <>
       <div class="tabs-example mr-auto">
         <h3>Danish Composers</h3>
-        <Tabs bind:selectedTabId={selectedTabIdSig}>
+        <Tabs.Root bind:selectedTabId={selectedTabIdSig}>
           <TabList>
             <Tab tabId="Maria">Maria</Tab>
             <Tab tabId="Carl">Carl</Tab>
@@ -24,7 +24,7 @@ export default component$(() => {
           <TabPanel>
             <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) ...</p>
           </TabPanel>
-        </Tabs>
+        </Tabs.Root>
         <p class="mt-4 text-white">
           <strong>Selected Tab Id</strong>: {selectedTabIdSig.value}
         </p>

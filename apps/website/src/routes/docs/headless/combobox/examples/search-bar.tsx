@@ -37,7 +37,7 @@ export default component$(() => {
   ];
 
   return (
-    <Combobox
+    <Combobox.Root
       bind:inputValue={inputValueSig}
       bind:highlightedIndex={highlightedIndexSig}
       bind:isListboxOpen={isListboxOpenSig}
@@ -100,7 +100,7 @@ export default component$(() => {
           }}
         />
       </Combobox.Popover>
-    </Combobox>
+    </Combobox.Root>
   );
 });
 

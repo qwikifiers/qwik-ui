@@ -9,7 +9,7 @@ export default component$(() => {
       <div class="tabs-example mr-auto">
         <h3>Danish Composers</h3>
         <h4 class="mb-4">(Hover over the tabs - they should not be selected)</h4>
-        <Tabs behavior="manual">
+        <Tabs.Root behavior="manual">
           <TabList>
             <Tab>Maria</Tab>
             <Tab>Carl</Tab>
@@ -24,7 +24,7 @@ export default component$(() => {
           <TabPanel>
             <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) ...</p>
           </TabPanel>
-        </Tabs>
+        </Tabs.Root>
       </div>
     </>
   );

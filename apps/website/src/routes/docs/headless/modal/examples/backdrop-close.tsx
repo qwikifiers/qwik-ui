@@ -11,7 +11,7 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
-      <Modal closeOnBackdropClick={false} class="modal" bind:show={isOpen}>
+      <Modal.Root closeOnBackdropClick={false} class="modal" bind:show={isOpen}>
         <Modal.Title>Edit Profile</Modal.Title>
         <Modal.Description>
           You can update your profile here. Hit the save button when finished.
@@ -28,7 +28,7 @@ export default component$(() => {
           <button onClick$={() => (isOpen.value = false)}>Cancel</button>
           <button onClick$={() => (isOpen.value = false)}>Save Changes</button>
         </footer>
-      </Modal>
+      </Modal.Root>
     </div>
   );
 });

@@ -40,7 +40,7 @@ export default component$(() => {
           You've already caught this pokemon!
         </p>
       )}
-      <Combobox
+      <Combobox.Root
         class="w-fit"
         options={pokemonExample}
         optionValueKey="pokedex"
@@ -81,7 +81,7 @@ export default component$(() => {
             }}
           />
         </Combobox.Popover>
-      </Combobox>
+      </Combobox.Root>
     </div>
   );
 });

@@ -27,7 +27,7 @@ export default component$(() => {
   return (
     <div class="flex flex-col items-center">
       <p class="text-center">I have blur disabled! Inspect me in the dev tools.</p>
-      <Combobox
+      <Combobox.Root
         class="w-fit"
         options={planets}
         filter$={(value: string, options) =>
@@ -60,7 +60,7 @@ export default component$(() => {
             )}
           />
         </Combobox.Popover>
-      </Combobox>
+      </Combobox.Root>
     </div>
   );
 });

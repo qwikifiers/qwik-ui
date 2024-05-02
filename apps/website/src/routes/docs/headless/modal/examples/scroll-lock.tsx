@@ -11,9 +11,9 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
-      <Modal class="modal" bind:show={isOpen}>
+      <Modal.Root class="modal" bind:show={isOpen}>
         Modal Content
-      </Modal>
+      </Modal.Root>
     </div>
   );
 });

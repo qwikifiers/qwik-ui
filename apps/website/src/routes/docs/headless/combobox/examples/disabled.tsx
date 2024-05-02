@@ -32,7 +32,11 @@ export default component$(() => {
   ];
 
   return (
-    <Combobox class="w-fit" options={disabledExample} optionDisabledKey="myDisabledKey">
+    <Combobox.Root
+      class="w-fit"
+      options={disabledExample}
+      optionDisabledKey="myDisabledKey"
+    >
       <Combobox.Label class=" font-semibold">Disabled ⛔</Combobox.Label>
       <Combobox.Control class="relative flex items-center rounded-base border">
         <Combobox.Input class="px-d2 w-44 rounded-base bg-background px-2 pr-6 placeholder:text-muted-foreground" />
@@ -55,6 +59,6 @@ export default component$(() => {
           )}
         />
       </Combobox.Popover>
-    </Combobox>
+    </Combobox.Root>
   );
 });
