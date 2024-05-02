@@ -1,14 +1,6 @@
 import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
 
-import {
-  Carousel,
-  CarouselNext,
-  CarouselPrev,
-  CarouselSlide,
-  CarouselView,
-  CarouselContainer,
-  CarouselPagination,
-} from '@qwik-ui/headless';
+import { Carousel } from '@qwik-ui/headless';
 import carouselStyles from './carousel.css?inline';
 
 export default component$(() => {
@@ -101,7 +93,7 @@ export default component$(() => {
   ];
 
   return (
-    <Carousel
+    <Carousel.Root
       bind:currSlideIndex={currentIndexSig}
       spaceBetweenSlides={30}
       class="carousel"
@@ -142,6 +134,6 @@ export default component$(() => {
           })}
         />
       </div>
-    </Carousel>
+    </Carousel.Root>
   );
 });
