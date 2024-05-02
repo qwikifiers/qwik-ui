@@ -1,15 +1,4 @@
-import {
-  Combobox,
-  ComboboxControl,
-  ComboboxIcon,
-  ComboboxInput,
-  ComboboxLabel,
-  ComboboxListbox,
-  ComboboxOption,
-  ComboboxPopover,
-  ComboboxTrigger,
-  ResolvedOption,
-} from '@qwik-ui/headless';
+import { Combobox, type ResolvedOption } from '@qwik-ui/headless';
 
 import { component$, useSignal } from '@builder.io/qwik';
 
@@ -36,7 +25,7 @@ export default component$(() => {
   };
 
   return (
-    <Combobox
+    <Combobox.Root
       options={objectExample}
       optionValueKey="testValue"
       optionLabelKey="testLabel"
@@ -72,6 +61,6 @@ export default component$(() => {
           }}
         />
       </Combobox.Popover>
-    </Combobox>
+    </Combobox.Root>
   );
 });

@@ -1,5 +1,3 @@
-import { Progress } from './components/progress';
-
 export * as Accordion from './components/accordion/';
 export * from './components/badge/badge';
 export * from './components/breadcrumb';
@@ -8,7 +6,8 @@ export * from './components/card';
 export * from './components/carousel';
 export * as Checkbox from './components/checkbox/checkbox';
 export * from './components/collapsible';
-export * from './components/combobox';
+export * as Combobox from './components/combobox';
+export { type ResolvedOption } from './components/combobox';
 export * from './components/label';
 export * as Modal from './components/modal';
 export * as Drawer from './components/drawer';
