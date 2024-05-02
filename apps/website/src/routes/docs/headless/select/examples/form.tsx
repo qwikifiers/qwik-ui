@@ -8,15 +8,17 @@ export default component$(() => {
 
   const handleSubmit$ = $(async (e: SubmitEvent) => {
     console.log('submitted!');
+
     const formData = new FormData(e.target as HTMLFormElement);
-    const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
   });
 
   return (
     <form preventdefault:submit method="post" onSubmit$={handleSubmit$}>
       <Select.Root
-        name="tesdt"
+        name="form-example"
         bind:display={displaySig}
         multiple
         required
