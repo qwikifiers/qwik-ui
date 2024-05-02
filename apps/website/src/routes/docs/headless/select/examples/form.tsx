@@ -1,45 +1,57 @@
 import { component$, useStyles$, $, useSignal } from '@builder.io/qwik';
 import { Select } from '@qwik-ui/headless';
 
+type FormData = Record<string, FormDataEntryValue[]>;
+
 export default component$(() => {
   useStyles$(styles);
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
   const displaySig = useSignal<string[]>([]);
 
-  const handleSubmit$ = $(async (e: SubmitEvent) => {
-    console.log('submitted!');
+  const submittedData = useSignal<FormData | null>(null);
+  const formName = 'my-example-name!';
 
-    const formData = new FormData(e.target as HTMLFormElement);
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+  const handleSubmit$ = $(async (_: SubmitEvent, form: HTMLFormElement) => {
+    const formData = new FormData(form);
+
+    // multi-select example. (Don't use getAll for single)
+    const entries = formData.getAll(formName);
+    submittedData.value = { [formName]: entries };
   });
 
   return (
-    <form preventdefault:submit method="post" onSubmit$={handleSubmit$}>
-      <Select.Root
-        name="form-example"
-        bind:display={displaySig}
-        multiple
-        required
-        class="select"
-      >
-        <Select.Label>Logged in users</Select.Label>
-        <Select.Trigger class="select-trigger">
-          <Select.Value>{displaySig.value.join(', ')}</Select.Value>
-        </Select.Trigger>
-        <Select.Popover class="select-popover">
-          <Select.Listbox class="select-listbox">
-            {users.map((user, index) => (
-              <Select.Item value={index.toString()} key={user}>
-                <Select.ItemLabel>{user}</Select.ItemLabel>
-              </Select.Item>
-            ))}
-          </Select.Listbox>
-        </Select.Popover>
-      </Select.Root>
-      <button type="submit">Submit my form!</button>
-    </form>
+    <>
+      <form preventdefault:submit onSubmit$={handleSubmit$}>
+        <Select.Root
+          name={formName}
+          bind:display={displaySig}
+          multiple
+          required
+          class="select"
+        >
+          <Select.Label>Logged in users</Select.Label>
+          <Select.Trigger class="select-trigger">
+            <Select.Value>{displaySig.value.join(', ')}</Select.Value>
+          </Select.Trigger>
+          <Select.Popover class="select-popover">
+            <Select.Listbox class="select-listbox">
+              {users.map((user) => (
+                <Select.Item key={user}>
+                  <Select.ItemLabel>{user}</Select.ItemLabel>
+                </Select.Item>
+              ))}
+            </Select.Listbox>
+          </Select.Popover>
+        </Select.Root>
+        <button type="submit">Submit my form!</button>
+      </form>
+      {submittedData.value && (
+        <>
+          <strong>You submitted:</strong>
+          <code>{JSON.stringify(submittedData.value)}</code>
+        </>
+      )}
+    </>
   );
 });
 
