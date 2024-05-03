@@ -48,12 +48,14 @@ export default component$(() => {
           type="string"
           validate={[required<string>('Make sure to select an option')]}
         >
-          {(field, props) => (
-            <>
-              <Select.HiddenSelect {...props} />
-              {field.error && <div style={{ color: '#D2122E' }}>{field.error}</div>}
-            </>
-          )}
+          {(field, props) => {
+            return (
+              <>
+                <Select.HiddenNativeSelect {...props} />
+                {field.error && <div style={{ color: '#D2122E' }}>{field.error}</div>}
+              </>
+            );
+          }}
         </Field>
       </Select.Root>
       <button type="submit">Submit my form!</button>

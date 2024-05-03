@@ -1,14 +1,7 @@
-/*!
- * Portions of this file are based on code from react-spectrum.
- * Apache License Version 2.0, Copyright 2020 Adobe.
- *
- * Credits to the React Spectrum team:
- * https://github.com/adobe/react-spectrum/blob/5c1920e50d4b2b80c826ca91aff55c97350bf9f9/packages/@react-aria/select/src/HiddenSelect.tsx
- */
-
-import { component$, useContext } from '@builder.io/qwik';
+import { PropsOf, component$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
 import { Opt } from './select-inline';
 import SelectContextId from './select-context';
+import { isServer } from '@builder.io/qwik/build';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type AriaHiddenSelectProps = {
@@ -33,10 +26,26 @@ export type SelectDataProps = {
   options?: Opt[] | undefined;
 };
 
-export const HiddenSelect = component$(
-  (props: AriaHiddenSelectProps & SelectDataProps) => {
-    const { label, autoComplete, ...rest } = props;
+export const HiddenNativeSelect = component$(
+  (props: AriaHiddenSelectProps & SelectDataProps & PropsOf<'select'>) => {
+    const { label, autoComplete, ref, ...rest } = props;
     const context = useContext(SelectContextId);
+
+    // modular forms does something with refs, doesn't seem we need it, and it overrides the ref we define here.
+    ref;
+
+    const nativeSelectRef = useSignal<HTMLSelectElement>();
+
+    useTask$(({ track }) => {
+      track(() => context.selectedIndexesSig.value);
+
+      if (isServer) return;
+
+      if (!nativeSelectRef.value) return;
+
+      const inputEvent = new Event('input', { bubbles: false });
+      nativeSelectRef.value.dispatchEvent(inputEvent);
+    });
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
     return (
@@ -45,14 +54,16 @@ export const HiddenSelect = component$(
           <label>
             {label}
             <select
+              ref={nativeSelectRef}
               multiple={context.multiple}
               tabIndex={-1}
               autocomplete={autoComplete}
               disabled={context.disabled}
               required={context.required}
               name={context.name}
-              {...rest}
+              // height is determined by its children
               style={{ height: '1px' }}
+              {...rest}
             >
               <option />
               {context.optionsSig.value?.map((opt: Opt) => (

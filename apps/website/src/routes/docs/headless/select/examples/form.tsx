@@ -31,10 +31,10 @@ export default component$(() => {
           class="select"
         >
           <Select.Label>Logged in users</Select.Label>
+          <Select.HiddenNativeSelect />
           <Select.Trigger class="select-trigger">
             <Select.DisplayText>{displayText.value.join(', ')}</Select.DisplayText>
           </Select.Trigger>
-          <Select.HiddenSelect />
           <Select.Popover class="select-popover">
             <Select.Listbox class="select-listbox">
               {users.map((user) => (

@@ -117,6 +117,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     const listboxRef = useSignal<HTMLUListElement>();
     const labelRef = useSignal<HTMLDivElement>();
     const groupRef = useSignal<HTMLDivElement>();
+    const nativeSelectRef = useSignal<HTMLSelectElement>();
     const loop = givenLoop ?? false;
 
     // ids
@@ -223,6 +224,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     });
 
     const context: SelectContext = {
+      nativeSelectRef,
       triggerRef,
       popoverRef,
       listboxRef,

@@ -14,6 +14,7 @@ export type SelectContext = {
   listboxRef: Signal<HTMLUListElement | undefined>;
   groupRef: Signal<HTMLDivElement | undefined>;
   labelRef: Signal<HTMLDivElement | undefined>;
+  nativeSelectRef: Signal<HTMLSelectElement | undefined>;
 
   // core state
   localId: string;
