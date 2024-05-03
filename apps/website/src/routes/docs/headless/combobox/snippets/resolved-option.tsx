@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { ComboboxOption, ComboboxListbox, type ResolvedOption } from '@qwik-ui/headless';
+import { Combobox } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (

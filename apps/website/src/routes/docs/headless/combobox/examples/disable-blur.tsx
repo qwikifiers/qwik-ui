@@ -1,14 +1,4 @@
-import {
-  Combobox,
-  ComboboxControl,
-  ComboboxIcon,
-  ComboboxInput,
-  ComboboxListbox,
-  ComboboxOption,
-  ComboboxPopover,
-  ComboboxTrigger,
-  ResolvedOption,
-} from '@qwik-ui/headless';
+import { Combobox } from '@qwik-ui/headless';
 
 import { component$ } from '@builder.io/qwik';
 

@@ -1,14 +1,4 @@
-import {
-  Combobox,
-  ComboboxControl,
-  ComboboxInput,
-  ComboboxLabel,
-  ComboboxListbox,
-  ComboboxOption,
-  ComboboxPopover,
-  ComboboxTrigger,
-  ResolvedOption,
-} from '@qwik-ui/headless';
+import { Combobox } from '@qwik-ui/headless';
 
 import { PropsOf, component$, useSignal } from '@builder.io/qwik';
 import { statusByComponent } from '~/_state/component-statuses';

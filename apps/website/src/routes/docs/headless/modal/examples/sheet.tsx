@@ -1,5 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import { Label, Modal, ModalDescription, ModalTitle } from '@qwik-ui/headless';
+import { Modal } from '@qwik-ui/headless';
 import styles from '../snippets/animation.css?inline';
 
 export default component$(() => {

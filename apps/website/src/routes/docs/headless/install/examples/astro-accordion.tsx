@@ -1,5 +1,5 @@
 import { PropsOf, component$, useStyles$ } from '@builder.io/qwik';
-import { Accordion } from '@qwik-ui/headless';
+import { Install } from '@qwik-ui/headless';
 
 export default component$(() => {
   const dogs = ['Othello', 'The Hobbit', 'Dune', 'The Giver'];

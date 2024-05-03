@@ -17,7 +17,17 @@ for number in $STARTS; do
 done
 PREFIX=$(cut -d "/" -f 7 <<< $FILE)
 FORMATTED=${PREFIX^}
-echo $LSTART $END $FILE $FORMATTED
+# ex $FILE << EOT
+# $LSTART,${END}d
+# 1r import { $FORMATTED } from '@qwik-ui/headless'
+# w
+# EOT
+HELL="${LSTART},${END}d"
+HELL2="${LSTART}i import { $FORMATTED } from '@qwik-ui/headless'"
+$(xargs sed  -i "$HELL" <<< $FILE)
+$(xargs sed -i "$HELL2" <<< $FILE)
+ # echo "$HELL2"
+
 done
 # echo $(xargs sed -i -r "s/(<\/?[A-Z][a-z]*)([A-Z])/\1.\2/g" <<< $JSX)
 #

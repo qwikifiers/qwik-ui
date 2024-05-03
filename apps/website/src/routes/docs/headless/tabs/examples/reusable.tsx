@@ -1,14 +1,5 @@
 import { Slot, component$ } from '@builder.io/qwik';
-import {
-  Tab,
-  TabList,
-  TabListProps,
-  TabPanel,
-  TabPanelProps,
-  TabProps,
-  Tabs,
-  TabsProps,
-} from '@qwik-ui/headless';
+import { Tabs } from '@qwik-ui/headless';
 
 const CustomTabs = (props: TabsProps) => (
   <Tabs.Root

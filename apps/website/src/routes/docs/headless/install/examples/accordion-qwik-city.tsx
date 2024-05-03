@@ -1,5 +1,5 @@
 import { PropsOf, component$ } from '@builder.io/qwik';
-import { Accordion } from '@qwik-ui/headless';
+import { Install } from '@qwik-ui/headless';
 
 export default component$(() => {
   const cats = [

@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Progress, ProgressIndicator } from '@qwik-ui/headless';
+import { Progress } from '@qwik-ui/headless';
 
 export default component$(() => {
   const progress = 30;

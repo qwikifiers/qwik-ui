@@ -1,5 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
+import { Tabs } from '@qwik-ui/headless';
 import styles from '.././index.css?inline';
 
 export default component$(() => {

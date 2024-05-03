@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { TabPanel, Tabs } from '@qwik-ui/headless';
+import { Tabs } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (

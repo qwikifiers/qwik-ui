@@ -1,5 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import { Modal, ModalTitle, ModalDescription, Label } from '@qwik-ui/headless';
+import { Modal } from '@qwik-ui/headless';
 import styles from '../snippets/modal.css?inline';
 
 export default component$(() => {
