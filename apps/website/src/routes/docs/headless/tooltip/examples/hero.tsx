@@ -5,13 +5,13 @@ export default component$(() => {
   return (
     <>
       <div>
-        <Tooltip.Root
+        <Tooltip
           offset={8}
           content="I'm a tooltip!"
           class="rounded-base border-2 p-4 shadow-md"
         >
           <span>Hover over me!</span>
-        </Tooltip.Root>
+        </Tooltip>
       </div>
     </>
   );

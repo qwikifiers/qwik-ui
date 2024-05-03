@@ -185,5 +185,8 @@
   ],
   "nx": {
     "includedScripts": []
+  },
+  "dependencies": {
+    "@modular-forms/qwik": "0.24.0"
   }
 }

@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Popover } from '@qwik-ui/headless';
+import { Popover, usePopover } from '@qwik-ui/headless';
 export default component$(() => {
   const popoverId = 'programmatic-id';
   const anchorRef = useSignal<HTMLElement | undefined>();

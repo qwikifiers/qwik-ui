@@ -9,7 +9,7 @@ export default component$(() => {
 
   return (
     <div class="mt-4 flex flex-col gap-6">
-      <Pagination.Root
+      <Pagination
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
         onPageChange$={(page) => {
@@ -21,7 +21,7 @@ export default component$(() => {
         dividerClass="bg-muted p-4"
       />
 
-      <Pagination.Root
+      <Pagination
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
         onPageChange$={(page) => {
@@ -33,7 +33,7 @@ export default component$(() => {
         dividerClass="bg-muted h-8 px-2"
       />
 
-      <Pagination.Root
+      <Pagination
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
         onPageChange$={(page) => {

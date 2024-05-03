@@ -10,20 +10,20 @@ export default component$(() => {
         <h3>Danish Composers</h3>
 
         <Tabs.Root>
-          <TabList>
-            <Tab>Maria</Tab>
-            <Tab selected>Carl</Tab>
-            <Tab>Ida</Tab>
-          </TabList>
-          <TabPanel>
+          <Tabs.List>
+            <Tabs.Tab>Maria</Tabs.Tab>
+            <Tabs.Tab selected>Carl</Tabs.Tab>
+            <Tabs.Tab>Ida</Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel>
             <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) ...</p>
-          </TabPanel>
-          <TabPanel>
+          </Tabs.Panel>
+          <Tabs.Panel>
             <p>Carl Joachim Andersen (29 April 1847 - 7 May 1909) ...</p>
-          </TabPanel>
-          <TabPanel>
+          </Tabs.Panel>
+          <Tabs.Panel>
             <p>Ida Henriette da Fonseca (July 27, 1802 - July 6, 1858) ...</p>
-          </TabPanel>
+          </Tabs.Panel>
         </Tabs.Root>
       </div>
     </>

@@ -4,6 +4,8 @@ title: Qwik UI | Select
 
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { statusByComponent } from '~/_state/component-statuses';
+import { useSelectFormLoader } from './examples/validation.tsx';
+export { useSelectFormLoader } from './examples/validation.tsx';
 
 <StatusBanner status={statusByComponent.headless.Select} />
 
@@ -170,6 +172,10 @@ To use the select in a form, we provide a visually hidden native select element 
 <Showcase name="form" />
 
 The native select element is created when a form name has been given to `<Select.Root />`
+
+### Validation
+
+<Showcase name="validation" />
 
 Above is an example of submitting a multi-select form.
 

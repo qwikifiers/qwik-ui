@@ -9,19 +9,19 @@ export default component$(() => {
     <div class="mt-2 flex flex-col gap-3">
       <h2>This is the documentation for the Rating</h2>
       <h3>Basic Example </h3>
-      <Rating.Root />
+      <Rating />
       <h3>OnChange event </h3>
-      <Rating.Root onChange$={(index) => window.alert(index)} />
+      <Rating onChange$={(index) => window.alert(index)} />
       <h3>Custom Icons </h3>
-      <Rating.Root icon={MyStarIcon} />
-      <Rating.Root icon={MyHeartIcon} />️
-      <Rating.Root icon={MyComponentIcon} />
+      <Rating icon={MyStarIcon} />
+      <Rating icon={MyHeartIcon} />️
+      <Rating icon={MyComponentIcon} />
       <h3>Custom Length </h3>
-      <Rating.Root total={3} />
-      <Rating.Root total={10} />
+      <Rating total={3} />
+      <Rating total={10} />
       <h3>Default Values </h3>
-      <Rating.Root value={2} total={3} />
-      <Rating.Root value={3} total={10} />
+      <Rating value={2} total={3} />
+      <Rating value={3} total={10} />
     </div>
   );
 });

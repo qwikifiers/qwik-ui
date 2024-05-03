@@ -19,25 +19,25 @@ export default component$(() => {
 
       <h1>Badge Example</h1>
 
-      <Badge.Root class="badge">badge</Badge.Root>
+      <Badge class="badge">badge</Badge>
 
       <h1>Color</h1>
 
       <div class="container">
-        <Badge.Root class="badge">neutral</Badge.Root>
-        <Badge.Root class="badge" style="background-color: lightblue">
+        <Badge class="badge">neutral</Badge>
+        <Badge class="badge" style="background-color: lightblue">
           lightblue
-        </Badge.Root>
+        </Badge>
       </div>
 
       <h1>Badge sizes</h1>
-      <Badge.Root class="badge badge-lg">Badge lg</Badge.Root>
+      <Badge class="badge badge-lg">Badge lg</Badge>
 
       <h1>Empty badge</h1>
-      <Badge.Root class="badge" />
+      <Badge class="badge" />
 
       <h1>Badge with state colors</h1>
-      <Badge.Root class="badge">
+      <Badge class="badge">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <path
             stroke-linecap="round"
@@ -47,12 +47,12 @@ export default component$(() => {
           ></path>
         </svg>
         info
-      </Badge.Root>
+      </Badge>
 
       <h1>Badge in a text</h1>
       <h2>
         Heading
-        <Badge.Root class="badge">NEW</Badge.Root>
+        <Badge class="badge">NEW</Badge>
       </h2>
     </>
   );

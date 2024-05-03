@@ -9,22 +9,24 @@ export default component$(() => {
       <div class="tabs-example mr-auto w-full">
         <h3>Dad jokes</h3>
         <Tabs.Root>
-          <TabList>
-            <Tab
+          <Tabs.List>
+            <Tabs.Tab
               style={{ width: '125px' }}
               class="aria-disabled:cursor-not-allowed"
               disabled={true}
             >
               Disabled Tab
-            </Tab>
-            <Tab style={{ width: '125px' }}>Joke 2</Tab>
-            <Tab style={{ width: '125px' }}>Joke 3</Tab>
-            <Tab style={{ width: '125px' }}>Joke 4</Tab>
-          </TabList>
-          <TabPanel>"What did the coffee report to the police", " A mugging."</TabPanel>
-          <TabPanel>"What's brown and sticky", " A stick."</TabPanel>
-          <TabPanel>"How do the trees get on the internet?", "They log on."</TabPanel>
-          <TabPanel>"What did the fish say when he hit the wall", " Dam."</TabPanel>
+            </Tabs.Tab>
+            <Tabs.Tab style={{ width: '125px' }}>Joke 2</Tabs.Tab>
+            <Tabs.Tab style={{ width: '125px' }}>Joke 3</Tabs.Tab>
+            <Tabs.Tab style={{ width: '125px' }}>Joke 4</Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel>
+            "What did the coffee report to the police", " A mugging."
+          </Tabs.Panel>
+          <Tabs.Panel>"What's brown and sticky", " A stick."</Tabs.Panel>
+          <Tabs.Panel>"How do the trees get on the internet?", "They log on."</Tabs.Panel>
+          <Tabs.Panel>"What did the fish say when he hit the wall", " Dam."</Tabs.Panel>
         </Tabs.Root>
       </div>
     </>

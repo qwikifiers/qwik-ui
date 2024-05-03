@@ -3,5 +3,5 @@ import { Toggle } from '@qwik-ui/headless';
 
 export default component$(() => {
   const toggleChecked = useSignal(false);
-  return <Toggle.Root pressed={toggleChecked.value} />;
+  return <Toggle pressed={toggleChecked.value} />;
 });

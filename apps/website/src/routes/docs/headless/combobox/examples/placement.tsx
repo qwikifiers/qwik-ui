@@ -1,4 +1,4 @@
-import { Combobox } from '@qwik-ui/headless';
+import { Combobox, ResolvedOption } from '@qwik-ui/headless';
 
 import { component$, useSignal } from '@builder.io/qwik';
 
@@ -31,7 +31,7 @@ export default component$(() => {
             <Combobox.Icon class="stroke-foreground transition-transform duration-500 group-aria-expanded:-rotate-180" />
           </Combobox.Trigger>
         </Combobox.Control>
-        <Combobox.Popover gutter={8} placement="top">
+        <Combobox.Popover gutter={8} floating="top">
           <Combobox.Listbox
             class="w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
             optionRenderer$={(option: ResolvedOption, index: number) => (

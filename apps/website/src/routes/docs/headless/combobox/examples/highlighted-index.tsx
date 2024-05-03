@@ -1,4 +1,4 @@
-import { Combobox } from '@qwik-ui/headless';
+import { Combobox, ResolvedOption } from '@qwik-ui/headless';
 
 import { component$, useSignal } from '@builder.io/qwik';
 

@@ -9,13 +9,13 @@ export default component$(() => {
     <>
       <div class="tabs-example mr-auto">
         <Tabs.Root>
-          <TabList>
+          <Tabs.List>
             {tabsState.map((tab) => (
-              <Tab key={tab}>{tab}</Tab>
+              <Tabs.Tab key={tab}>{tab}</Tabs.Tab>
             ))}
-          </TabList>
+          </Tabs.List>
           {tabsState.map((tab) => (
-            <TabPanel key={tab}>{tab} Panel</TabPanel>
+            <Tabs.Panel key={tab}>{tab} Panel</Tabs.Panel>
           ))}
         </Tabs.Root>
 

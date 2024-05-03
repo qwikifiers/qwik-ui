@@ -40,36 +40,34 @@ export const HiddenSelect = component$(
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
     return (
-      context.name && (
-        <VisuallyHidden>
-          <div aria-hidden="true">
-            <label>
-              {label}
-              <select
-                multiple={context.multiple}
-                tabIndex={-1}
-                autocomplete={autoComplete}
-                disabled={context.disabled}
-                required={context.required}
-                name={context.name}
-                {...rest}
-                style={{ height: '1px' }}
-              >
-                <option />
-                {context.optionsSig.value?.map((opt: Opt) => (
-                  <option
-                    value={opt.value}
-                    selected={context.selectedIndexesSig.value.includes(opt.index - 1)}
-                    key={opt.index}
-                  >
-                    {opt.displayValue}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </VisuallyHidden>
-      )
+      <VisuallyHidden>
+        <div aria-hidden="true">
+          <label>
+            {label}
+            <select
+              multiple={context.multiple}
+              tabIndex={-1}
+              autocomplete={autoComplete}
+              disabled={context.disabled}
+              required={context.required}
+              name={context.name}
+              {...rest}
+              style={{ height: '1px' }}
+            >
+              <option />
+              {context.optionsSig.value?.map((opt: Opt) => (
+                <option
+                  value={opt.value}
+                  selected={context.selectedIndexesSig.value.includes(opt.index - 1)}
+                  key={opt.index}
+                >
+                  {opt.displayValue}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      </VisuallyHidden>
     );
   },
 );

@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
+import { Tabs } from '@qwik-ui/headless';
 import { CodeCopy } from '../code-copy/code-copy';
 
 export const packages = {
@@ -32,19 +32,19 @@ export type InstallSnippetProps = {
 };
 export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => {
   return (
-    <Tabs class="mb-12 rounded-base shadow-lg" behavior="manual">
-      <TabList class=" flex rounded-t-xl border border-b-0 p-2">
+    <Tabs.Root class="mb-12 rounded-base shadow-lg" behavior="manual">
+      <Tabs.List class=" flex rounded-t-xl border border-b-0 p-2">
         {Object.keys(packages).map((key, index) => (
-          <Tab
+          <Tabs.Tab
             key={index}
             class="mr-2 rounded-base border px-2 py-1 hover:bg-accent hover:font-medium hover:text-accent-foreground"
           >
             {key}
-          </Tab>
+          </Tabs.Tab>
         ))}
-      </TabList>
+      </Tabs.List>
       {Object.entries(packages).map(([, value], index) => (
-        <TabPanel
+        <Tabs.Panel
           key={index}
           class="rounded-b-lg border-[1.5px]  bg-gradient-to-b from-slate-900 to-slate-800 px-4 py-6 text-white shadow-lg dark:from-background dark:to-accent/50"
         >
@@ -55,8 +55,8 @@ export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => 
               class="p-4 hover:bg-slate-700 dark:hover:bg-slate-800"
             />
           </div>
-        </TabPanel>
+        </Tabs.Panel>
       ))}
-    </Tabs>
+    </Tabs.Root>
   );
 });

@@ -9,20 +9,20 @@ import {
   CardTitle,
   Input,
   Label,
+  TabsRoot,
+  TabsList,
+  TabsPanel,
   Tab,
-  TabList,
-  TabPanel,
-  Tabs,
 } from '@qwik-ui/styled';
 
 export default component$(() => {
   return (
-    <Tabs class="max-w-[400px]">
-      <TabList class="grid w-full grid-cols-2">
+    <TabsRoot class="max-w-[400px]">
+      <TabsList class="grid w-full grid-cols-2">
         <Tab>Account</Tab>
         <Tab>Password</Tab>
-      </TabList>
-      <TabPanel>
+      </TabsList>
+      <TabsPanel>
         <Card>
           <CardHeader>
             <CardTitle>Account</CardTitle>
@@ -44,8 +44,8 @@ export default component$(() => {
             <Button>Save changes</Button>
           </CardFooter>
         </Card>
-      </TabPanel>
-      <TabPanel>
+      </TabsPanel>
+      <TabsPanel>
         <Card>
           <CardHeader>
             <CardTitle>Password</CardTitle>
@@ -67,7 +67,7 @@ export default component$(() => {
             <Button>Save password</Button>
           </CardFooter>
         </Card>
-      </TabPanel>
-    </Tabs>
+      </TabsPanel>
+    </TabsRoot>
   );
 });
