@@ -1,5 +1,5 @@
 import { type JSXNode, Component, PropsOf } from '@builder.io/qwik';
-import { Checkbox, type MixedStateCheckboxProps } from '../checkbox/checkbox';
+import { CheckboxRoot, type MixedStateCheckboxProps } from '../checkbox/checkbox';
 import { ChecklistContextWrapper, getTriBool } from './checklist-context-wrapper';
 
 type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
@@ -34,7 +34,7 @@ export const Checklist: Component<CheckListProps> = (props: CheckListProps) => {
     }
 
     switch (child.type) {
-      case Checkbox: {
+      case CheckboxRoot: {
         const typedProps = child.props as MixedStateCheckboxProps;
         // FYI: Obj.assign mutates
         Object.assign(typedProps, { _useCheckListContext: true });
