@@ -1,8 +1,8 @@
 import { type JSXNode, Component } from '@builder.io/qwik';
 import { SelectImpl, type SelectProps } from './select-root';
-import { SelectItem } from './select-item';
-import { SelectLabel } from './select-label';
-import { SelectItemLabel } from './select-item-label';
+import { SelectItem as InternalSelectItem } from './select-item';
+import { SelectLabel as InternalSelectLabel } from './select-label';
+import { SelectItemLabel as InternalSelectItemLabel } from './select-item-label';
 
 export type Opt = {
   value: string;
@@ -11,15 +11,33 @@ export type Opt = {
   isDisabled: boolean;
 };
 
+type InlineCompProps = {
+  selectLabelComponent?: typeof InternalSelectLabel;
+  selectItemComponent?: typeof InternalSelectItem;
+  selectItemLabelComponent?: typeof InternalSelectItemLabel;
+};
+
 /*
     This is an inline component. An example use case of an inline component to get the proper indexes with CSR. See issue #4757 
     for more information.
 */
-export const SelectRoot: Component<SelectProps> = (props: SelectProps) => {
-  const { children: myChildren, ...rest } = props;
+export const SelectRoot: Component<SelectProps & InlineCompProps> = (
+  props: SelectProps & InlineCompProps,
+) => {
+  const {
+    children: myChildren,
+    selectLabelComponent: UserLabel,
+    selectItemComponent: UserItem,
+    selectItemLabelComponent: UserItemLabel,
+    ...rest
+  } = props;
   const opts: Opt[] = [];
   let currOptIndex = 0;
   let givenOptValue = null;
+
+  const SelectLabel = UserLabel ?? InternalSelectLabel;
+  const SelectItem = UserItem ?? InternalSelectItem;
+  const SelectItemLabel = UserItemLabel ?? InternalSelectItemLabel;
 
   // used for finding the initial value's index
   let valuePropIndex = null;

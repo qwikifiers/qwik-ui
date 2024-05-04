@@ -41,10 +41,8 @@ export const HiddenNativeSelect = component$(
 
       if (isServer) return;
 
-      if (!nativeSelectRef.value) return;
-
       const inputEvent = new Event('input', { bubbles: false });
-      nativeSelectRef.value.dispatchEvent(inputEvent);
+      nativeSelectRef.value?.dispatchEvent(inputEvent);
     });
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
