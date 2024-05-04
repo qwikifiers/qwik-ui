@@ -6,14 +6,14 @@ export default component$(() => {
   return (
     <>
       <p>I'm the default checkbox!!!</p>
-      <Checkbox class=" text-white">
+      <Checkbox.Root class=" text-white">
         <div class="flex items-center gap-3">
           <CheckboxIndicator class="w-fit bg-slate-600">
             <p id="indicator">✅</p>
           </CheckboxIndicator>
           <p>No other stuff is needed here</p>
         </div>
-      </Checkbox>
+      </Checkbox.Root>
     </>
   );
 });

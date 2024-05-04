@@ -1,14 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import {
-  Select,
-  SelectPopover,
-  SelectTrigger,
-  SelectGroup,
-  SelectLabel,
-  SelectValue,
-  SelectListbox,
-  SelectOption,
-} from '@qwik-ui/headless';
+import { Checkbox } from '@qwik-ui/headless';
 
 export default component$(() => (
   <Select>

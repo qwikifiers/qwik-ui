@@ -9,7 +9,7 @@ export default component$(() => {
     <>
       <h3 id="test123">Pick a cat</h3>
       <CheckList class="flex flex-col gap-3" ariaLabeledBy="test123">
-        <Checkbox
+        <Checkbox.Root
           class="flex items-center gap-3 bg-slate-900 p-2 text-white"
           checkList={true}
           id="checklist"
@@ -18,22 +18,22 @@ export default component$(() => {
             ✅
           </CheckboxIndicator>
           <p>Controlls all</p>
-        </Checkbox>
-        <Checkbox
+        </Checkbox.Root>
+        <Checkbox.Root
           id="child-1"
           checkBoxSig={firstUserSig}
           class="flex items-center gap-3 bg-slate-900 pr-2 text-white"
         >
           <CheckboxIndicator class="w-fit bg-slate-600">✅</CheckboxIndicator>
           <p>First Child</p>
-        </Checkbox>
+        </Checkbox.Root>
 
-        <Checkbox id="child-2" class="bg-slate-900 text-white">
+        <Checkbox.Root id="child-2" class="bg-slate-900 text-white">
           <div class="flex items-center gap-3">
             <CheckboxIndicator class="w-fit bg-slate-600">✅</CheckboxIndicator>
             <p>Second child</p>
           </div>
-        </Checkbox>
+        </Checkbox.Root>
       </CheckList>
     </>
   );
