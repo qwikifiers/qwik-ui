@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './checkbox.driver';
-import { getTriBool } from './checklist-context-wrapper';
+import { getTriBool } from '../checklist/checklist-context-wrapper';
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/checkbox/${exampleName}`);
 

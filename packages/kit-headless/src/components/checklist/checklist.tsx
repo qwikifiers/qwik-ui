@@ -1,5 +1,5 @@
 import { type JSXNode, Component, PropsOf } from '@builder.io/qwik';
-import { Checkbox, type MixedStateCheckboxProps } from './checkbox';
+import { Checkbox, type MixedStateCheckboxProps } from '../checkbox/checkbox';
 import { ChecklistContextWrapper, getTriBool } from './checklist-context-wrapper';
 
 type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
@@ -8,7 +8,7 @@ type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
     This is an inline component. An example use case of an inline component to get the proper indexes with CSR. See issue #4757
     for more information.
 */
-export const CheckList: Component<CheckListProps> = (props: CheckListProps) => {
+export const Checklist: Component<CheckListProps> = (props: CheckListProps) => {
   const checkArr: JSXNode[] = [];
   const hellSigs = [];
   let checklistCheckbox = undefined;

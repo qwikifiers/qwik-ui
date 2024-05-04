@@ -1,6 +1,3 @@
-export * from './checkbox';
-export * from './checkbox-indicator';
-export * from './checklist-context-wrapper';
-export * from './checklist-indicator';
-export * from './checklist';
+export { Checkbox as Root } from './checkbox';
+export { CheckboxIndicator as Indicator } from './checkbox-indicator';
 export * from './context-id';
