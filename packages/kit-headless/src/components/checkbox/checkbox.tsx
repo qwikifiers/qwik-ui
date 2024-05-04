@@ -11,7 +11,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 import { CheckListContext, CheckboxContext } from './context-id';
-import { TriBool, getTriBool } from './checklist-context-wrapper';
+import { TriBool, getTriBool } from '../checklist/checklist-context-wrapper';
 export type MixedStateCheckboxProps = {
   checkBoxSig?: Signal<boolean>;
   checkList?: boolean;
@@ -32,7 +32,7 @@ export type ChecklistTwoStateCheckboxProps = {
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
-export const Checkbox = component$<MixedStateCheckboxProps>((props) => {
+export const CheckboxRoot = component$<MixedStateCheckboxProps>((props) => {
   // this is done to avoid consumers dealing with two types checkboxes, could go in different files
   if (props._useCheckListContext && !props.checkList) {
   }

@@ -1,11 +1,11 @@
+export * as Checkbox from './components/checkbox';
+export * as Checklist from './components/checklist/checklist';
 export * as Accordion from './components/accordion/';
 export * as Carousel from './components/carousel';
 export * as Collapsible from './components/collapsible';
 export * as Combobox from './components/combobox';
 export { type ResolvedOption } from './components/combobox';
 export * from './components/carousel';
-export * as Checkbox from './components/checkbox/checkbox';
-export * as Checklist from './components/checklist/checklist';
 export * as Modal from './components/modal';
 export { Pagination } from './components/pagination';
 export * as Popover from './components/popover';
