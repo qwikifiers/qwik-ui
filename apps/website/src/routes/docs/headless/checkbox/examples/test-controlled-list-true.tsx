@@ -18,7 +18,7 @@ export default component$(() => {
           checkBoxSig={checklistSig}
           id="checklist"
         >
-          <ChecklistIndicator class="w-fit">
+          <Checklist.Indicator class="w-fit">
             <div q:slot="checkbox" id="true-img">
               ✅
             </div>
@@ -26,7 +26,7 @@ export default component$(() => {
             <div q:slot="checklist" id="mixed-img">
               ➖
             </div>
-          </ChecklistIndicator>
+          </Checklist.Indicator>
           <p>Controlls all</p>
         </Checkbox.Root>
         <Checkbox.Root

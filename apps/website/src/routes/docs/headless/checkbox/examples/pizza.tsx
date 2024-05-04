@@ -11,7 +11,7 @@ export default component$(() => {
           class="flex items-center gap-3 border-2 border-black  p-2"
           checkList={true}
         >
-          <ChecklistIndicator class="flex h-[25px] w-[25px] items-center justify-center bg-slate-600">
+          <Checklist.Indicator class="flex h-[25px] w-[25px] items-center justify-center bg-slate-600">
             <div q:slot="checkbox" id="true-img">
               🍕
             </div>
@@ -19,7 +19,7 @@ export default component$(() => {
             <div q:slot="checklist" id="mixed-img">
               ➖
             </div>
-          </ChecklistIndicator>
+          </Checklist.Indicator>
           Pick all toppings
         </Checkbox.Root>
 

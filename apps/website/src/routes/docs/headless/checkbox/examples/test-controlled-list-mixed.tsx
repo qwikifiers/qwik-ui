@@ -14,7 +14,7 @@ export default component$(() => {
           class="flex items-center gap-3 bg-slate-900 p-2 text-white"
           checkList={true}
         >
-          <ChecklistIndicator class="w-fit">
+          <Checklist.Indicator class="w-fit">
             <div q:slot="checkbox" id="true-img">
               ✅
             </div>
@@ -22,7 +22,7 @@ export default component$(() => {
             <div q:slot="checklist" id="mixed-img">
               ➖
             </div>
-          </ChecklistIndicator>
+          </Checklist.Indicator>
           <p>Controlls all</p>
         </Checkbox.Root>
         <Checkbox.Root
