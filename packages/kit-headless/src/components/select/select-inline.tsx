@@ -4,13 +4,6 @@ import { SelectItem as InternalSelectItem } from './select-item';
 import { SelectLabel as InternalSelectLabel } from './select-label';
 import { SelectItemLabel as InternalSelectItemLabel } from './select-item-label';
 
-export type Opt = {
-  value: string;
-  displayValue?: string;
-  index: number;
-  isDisabled: boolean;
-};
-
 type InlineCompProps = {
   selectLabelComponent?: typeof InternalSelectLabel;
   selectItemComponent?: typeof InternalSelectItem;
@@ -31,19 +24,22 @@ export const SelectRoot: Component<SelectProps & InlineCompProps> = (
     selectItemLabelComponent: UserItemLabel,
     ...rest
   } = props;
-  const opts: Opt[] = [];
-  let currOptIndex = 0;
-  let givenOptValue = null;
 
+  /**
+   * When creating reusable component pieces, SelectRoot needs to know the    existence of these components. See the styled tabs for as an example.
+   **/
   const SelectLabel = UserLabel ?? InternalSelectLabel;
   const SelectItem = UserItem ?? InternalSelectItem;
   const SelectItemLabel = UserItemLabel ?? InternalSelectItemLabel;
 
-  // used for finding the initial value's index
-  let valuePropIndex = null;
+  // source of truth
+  const itemsMap = new Map();
+  let currItemIndex = 0;
+  let isItemDisabled = false;
+  let givenItemValue = null;
 
+  let valuePropIndex = null;
   let isLabelNeeded = false;
-  let isOptDisabled = false;
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
@@ -69,13 +65,12 @@ export const SelectRoot: Component<SelectProps & InlineCompProps> = (
 
       case SelectItem: {
         // get the index of the current option
-        child.props._index = currOptIndex;
-        currOptIndex++;
+        child.props._index = currItemIndex;
 
-        isOptDisabled = child.props.disabled === true;
+        isItemDisabled = child.props.disabled === true;
 
         if (child.props.value) {
-          givenOptValue = child.props.value;
+          givenItemValue = child.props.value;
         }
 
         // the default case isn't handled here, so we need to process the children to get to the label component
@@ -90,19 +85,12 @@ export const SelectRoot: Component<SelectProps & InlineCompProps> = (
       }
 
       case SelectItemLabel: {
+        const displayValue = child.props.children as string;
+
         // distinct value, or the display value is the same as the value
-        const value = (
-          givenOptValue !== null ? givenOptValue : child.props.children
-        ) as string;
+        const value = (givenItemValue !== null ? givenItemValue : displayValue) as string;
 
-        const opt: Opt = {
-          value,
-          displayValue: child.props.children as string,
-          index: currOptIndex,
-          isDisabled: isOptDisabled,
-        };
-
-        opts.push(opt);
+        itemsMap.set(currItemIndex, { value, displayValue, disabled: isItemDisabled });
 
         if (props.value && props.multiple) {
           throw new Error(
@@ -113,7 +101,7 @@ export const SelectRoot: Component<SelectProps & InlineCompProps> = (
         // if the current option value is equal to the initial value
         if (value === props.value) {
           // minus one because it is incremented already in SelectOption
-          valuePropIndex = currOptIndex - 1;
+          valuePropIndex = currItemIndex;
         }
 
         const isString = typeof child.props.children === 'string';
@@ -124,6 +112,9 @@ export const SelectRoot: Component<SelectProps & InlineCompProps> = (
               .props.children}.`,
           );
         }
+
+        // increment after processing children
+        currItemIndex++;
 
         break;
       }
@@ -142,12 +133,17 @@ export const SelectRoot: Component<SelectProps & InlineCompProps> = (
   }
 
   // console warning if a consumer's passed in value does not match an option
-  if (props.value) {
-    const valueMatch = opts.some((opt) => opt.value === props.value);
+  let valueMatch = false;
+  if (props.value !== undefined) {
+    for (const item of itemsMap.values()) {
+      if (!props.value.includes(item.value)) {
+        valueMatch = false;
+      }
+    }
 
     if (!valueMatch) {
       throw new Error(
-        `Qwik UI: the provided option value "${props.value}" does not match any of the option values in the Select.`,
+        `Qwik UI: a provided option value "${props.value}" does not match any of the option values in the Select.`,
       );
     }
   }
@@ -157,7 +153,7 @@ export const SelectRoot: Component<SelectProps & InlineCompProps> = (
       {...rest}
       _label={isLabelNeeded}
       _valuePropIndex={valuePropIndex}
-      _options={opts}
+      _itemsMap={itemsMap}
     >
       {props.children}
     </SelectImpl>

@@ -19,15 +19,15 @@ export const SelectDisplayText = component$((props: SelectValueProps) => {
   const { placeholder, ...rest } = props;
   const context = useContext(SelectContextId);
   const valueId = `${context.localId}-value`;
-  if (!context.optionsSig.value) return;
 
   const displayStrSig = useComputed$(() => {
     if (context.multiple) {
+      // for more customization when multiple is true
       return <Slot />;
     }
 
-    if (context.selectedIndexesSig.value[0] !== null) {
-      return context.optionsSig.value[context.selectedIndexesSig.value[0]].displayValue;
+    if (context.selectedDisplayValuesSig.value.length > 0) {
+      return context.selectedDisplayValuesSig.value;
     } else {
       return placeholder;
     }

@@ -8,27 +8,32 @@ import {
   useTask$,
   type QRL,
   useId,
+  $,
   useComputed$,
 } from '@builder.io/qwik';
 import { isBrowser, isServer } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
-import { Opt } from './select-inline';
 import { useSelect } from './use-select';
 
-export type InternalSelectProps = {
-  /** Our source of truth for the options. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
-   **/
-  _options?: Opt[];
+export type TOptionsMap = Map<
+  number,
+  { value: string; displayValue: string; disabled: boolean }
+>;
 
-  /** When a value is passed, we check if it's an actual option value, and get its index at pre-render time.
+export type InternalSelectProps = {
+  /** When a value is passed, we check if it's an actual item value, and get its index at pre-render time.
    **/
   _valuePropIndex?: number | null;
 
   /** Checks if the consumer added the label in their JSX */
   _label?: boolean;
+
+  /** Our source of truth for the items. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
+   **/
+  _itemsMap: TOptionsMap;
 };
 
-type TMultiple<M> = M extends true ? string[] : string;
+export type TMultiple<M> = M extends true ? string[] : string;
 
 /**
  *  Value sets an initial value for the select. If multiple is true, value is disabled
@@ -52,7 +57,7 @@ export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
    * QRL handler that runs when a select value changes.
    * @param value The new value as a string.
    */
-  onChange$?: QRL<(value: string) => void>;
+  onChange$?: QRL<(value: TMultiple<M>) => void>;
 
   /**
    * QRL handler that runs when the listbox opens or closes.
@@ -96,7 +101,7 @@ export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
 export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>(
   (props: SelectProps<boolean> & InternalSelectProps) => {
     const {
-      _options,
+      _itemsMap,
       _valuePropIndex: givenValuePropIndex,
       onChange$,
       onOpenChange$,
@@ -117,7 +122,6 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     const listboxRef = useSignal<HTMLUListElement>();
     const labelRef = useSignal<HTMLDivElement>();
     const groupRef = useSignal<HTMLDivElement>();
-    const nativeSelectRef = useSignal<HTMLSelectElement>();
     const loop = givenLoop ?? false;
 
     // ids
@@ -126,21 +130,15 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     const labelId = `${localId}-label`;
     const valueId = `${localId}-value`;
 
-    /**
-     * Updates the options when the options change
-     * (for example, when a new option is added)
-     **/
-    const optionsSig = useComputed$(() => {
-      if (_options === undefined || _options.length === 0) {
-        return [];
-      }
-      return _options;
+    // source of truth
+    const itemsMapSig = useComputed$(() => {
+      return _itemsMap;
     });
 
-    // core state
-    const selectedIndexesSig = useSignal<Array<number | null>>([
-      givenValuePropIndex ?? null,
-    ]);
+    const selectedIndexSetSig = useSignal<Set<number>>(
+      new Set([givenValuePropIndex ?? -1]),
+    );
+
     const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
     const isListboxOpenSig = useSignal<boolean>(false);
     const scrollOptions = givenScrollOptions ?? {
@@ -148,71 +146,72 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       block: 'nearest',
     };
 
-    const displayValuesSig = useComputed$(() => {
-      return selectedIndexesSig.value.map(
-        (index) => optionsSig.value[index!]?.displayValue,
-      );
-    });
+    useTask$(function reactiveUserValue({ track }) {
+      const bindValueSig = props['bind:value'];
+      if (!bindValueSig) return;
+      track(() => bindValueSig.value);
 
-    const optionsIndexMap = useComputed$(() => {
-      return new Map(optionsSig.value?.map((option, index) => [option.value, index]));
-    });
-
-    useTask$(function reactiveValueTask({ track }) {
-      track(() => props['bind:value']?.value);
-      if (!props['bind:value']) return;
-
-      const values = Array.isArray(props['bind:value']?.value)
-        ? props['bind:value']?.value
-        : [props['bind:value']?.value];
-
-      const matchingIndexes = values.map(
-        (value) => optionsIndexMap.value.get(value) ?? null,
-      );
-
-      if (matchingIndexes) {
-        selectedIndexesSig.value = matchingIndexes.filter((index) => index !== -1);
-
-        if (multiple) return;
-        highlightedIndexSig.value = matchingIndexes[0];
+      for (const [index, item] of itemsMapSig.value) {
+        if (bindValueSig.value.includes(item.value)) {
+          selectedIndexSetSig.value.add(index);
+        }
       }
     });
 
-    useTask$(function reactiveOpenTask({ track }) {
-      const signalValue = track(() => props['bind:open']?.value);
+    useTask$(function reactiveUserOpen({ track }) {
+      const bindOpenSig = props['bind:open'];
+      if (!bindOpenSig) return;
+      track(() => bindOpenSig.value);
 
-      isListboxOpenSig.value = signalValue ?? isListboxOpenSig.value;
+      isListboxOpenSig.value = bindOpenSig.value ?? isListboxOpenSig.value;
     });
 
-    useTask$(async function updateConsumerPropsTask({ track }) {
-      track(() => selectedIndexesSig.value);
+    const extractedStrOrArrFromMap = $((propertyType: 'value' | 'displayValue') => {
+      const values = [];
+      for (const index of selectedIndexSetSig.value) {
+        const item = itemsMapSig.value.get(index);
+
+        if (item) {
+          values.push(item[propertyType]);
+        }
+      }
+
+      return values.length === 1 ? values[0] : values;
+    });
+
+    const selectedValuesSig = useComputed$(async () => {
+      return await extractedStrOrArrFromMap('value');
+    });
+
+    const selectedDisplayValuesSig = useComputed$(async () => {
+      return await extractedStrOrArrFromMap('displayValue');
+    });
+
+    useTask$(async function updateConsumerProps({ track }) {
+      const bindValueSig = props['bind:value'];
+      const bindDisplayTextSig = props['bind:displayText'];
+      track(() => selectedIndexSetSig.value);
 
       if (isServer) return;
 
-      // onChange$ logic
-      const firstOption = selectedIndexesSig.value[0];
-      if (isBrowser && firstOption !== null) {
-        await onChange$?.(optionsSig.value[firstOption].value);
+      if (isBrowser) {
+        if (!selectedValuesSig.value) return;
+
+        await onChange$?.(selectedValuesSig.value);
       }
 
       // sync the user's given signal when an option is selected
-      if (!props['bind:value'] || !props['bind:value'].value) {
-        // DO NOTHING FOR TYPES TO WORK
-      } else {
-        const newValue = multiple
-          ? selectedIndexesSig.value.map((index) => optionsSig.value[index!].value)
-          : optionsSig.value[firstOption!]?.value;
-
-        if (JSON.stringify(props['bind:value'].value) !== JSON.stringify(newValue)) {
-          props['bind:value'].value = newValue;
+      if (bindValueSig && bindValueSig.value) {
+        const currUserSigValues = JSON.stringify(bindValueSig.value);
+        const newUserSigValues = JSON.stringify(selectedValuesSig.value);
+        if (currUserSigValues !== newUserSigValues) {
+          bindValueSig.value = selectedValuesSig.value;
         }
       }
 
       // sync the user's given signal for the display value
-      if (props['bind:displayText']) {
-        props['bind:displayText'].value = displayValuesSig.value.filter(
-          (value): value is string => value !== undefined,
-        );
+      if (bindDisplayTextSig) {
+        bindDisplayTextSig.value = selectedDisplayValuesSig.value;
       }
     });
 
@@ -224,16 +223,17 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     });
 
     const context: SelectContext = {
-      nativeSelectRef,
+      itemsMapSig,
       triggerRef,
       popoverRef,
       listboxRef,
       labelRef,
       groupRef,
-      optionsSig,
       localId,
       highlightedIndexSig,
-      selectedIndexesSig,
+      selectedIndexSetSig,
+      selectedValuesSig,
+      selectedDisplayValuesSig,
       isListboxOpenSig,
       scrollOptions,
       loop,
@@ -243,21 +243,17 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       disabled,
     };
 
+    useContextProvider(SelectContextId, context);
+
     const { getActiveDescendant } = useSelect();
 
     const activeDescendantSig = useComputed$(() => {
       if (isListboxOpenSig.value) {
-        return getActiveDescendant(
-          highlightedIndexSig.value ?? -1,
-          optionsSig.value,
-          localId,
-        );
+        return getActiveDescendant(highlightedIndexSig.value ?? -1);
       } else {
         return '';
       }
     });
-
-    useContextProvider(SelectContextId, context);
 
     return (
       <div

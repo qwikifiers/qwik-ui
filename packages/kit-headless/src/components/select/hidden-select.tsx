@@ -36,11 +36,12 @@ export const HiddenNativeSelect = component$(
 
     const nativeSelectRef = useSignal<HTMLSelectElement>();
 
-    useTask$(({ track }) => {
-      track(() => context.selectedIndexesSig.value);
+    useTask$(function modularFormsValidation({ track }) {
+      track(() => context.selectedIndexSetSig.value);
 
       if (isServer) return;
 
+      // modular forms expects the input event fired after interaction
       const inputEvent = new Event('input', { bubbles: false });
       nativeSelectRef.value?.dispatchEvent(inputEvent);
     });
@@ -67,7 +68,7 @@ export const HiddenNativeSelect = component$(
               {context.optionsSig.value?.map((opt: Opt) => (
                 <option
                   value={opt.value}
-                  selected={context.selectedIndexesSig.value.includes(opt.index - 1)}
+                  selected={context.selectedIndexSetSig.value.has()}
                   key={opt.index}
                 >
                   {opt.displayValue}

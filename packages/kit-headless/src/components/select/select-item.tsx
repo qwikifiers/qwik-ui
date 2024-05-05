@@ -39,7 +39,7 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
-    return !disabled && context.selectedIndexesSig.value.includes(index);
+    return !disabled && context.selectedIndexSetSig.value.has(index!);
   });
 
   const isHighlightedSig = useComputed$(() => {
@@ -84,15 +84,15 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
   });
 
   const handleClick$ = $(() => {
-    if (disabled) return;
+    if (disabled || localIndexSig.value === null) return;
 
     if (context.multiple) {
-      toggleIndex$(context.selectedIndexesSig, localIndexSig.value, context.optionsSig);
+      toggleIndex$(context.selectedIndexSetSig, localIndexSig.value, context.itemsMapSig);
 
       // keep focus so that when pressing escape, the listbox closes even when clicking.
       context.triggerRef.value?.focus();
     } else {
-      context.selectedIndexesSig.value = [localIndexSig.value];
+      context.selectedIndexSetSig.value = new Set([localIndexSig.value]);
       context.isListboxOpenSig.value = false;
     }
   });
