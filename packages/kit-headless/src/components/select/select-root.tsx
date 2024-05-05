@@ -42,7 +42,20 @@ type TMultiValue =
   | { multiple: true; value?: never }
   | { multiple?: false; value?: string };
 
-export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
+type TStringOrArray =
+  | {
+      multiple?: true;
+      onChange$?: QRL<(value: string[]) => void>;
+    }
+  | {
+      multiple?: false;
+      onChange$?: QRL<(value: string) => void>;
+    };
+
+export type SelectProps<M extends boolean = boolean> = Omit<
+  PropsOf<'div'>,
+  'onChange$'
+> & {
   /** A signal that controls the current selected value (controlled). */
   'bind:value'?: Signal<TMultiple<M>>;
 
@@ -57,7 +70,6 @@ export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
    * @param value The new value as a string.
    */
   onChange$?: QRL<(value: TMultiple<M>) => void>;
-
   /**
    * QRL handler that runs when the listbox opens or closes.
    * @param open The new state of the listbox.
@@ -94,7 +106,8 @@ export type SelectProps<M extends boolean = boolean> = PropsOf<'div'> & {
    * If `true`, allows multiple selections.
    */
   multiple?: M;
-} & TMultiValue;
+} & TMultiValue &
+  TStringOrArray;
 
 /* root component in select-inline.tsx */
 export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>(
@@ -225,7 +238,9 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       const currValue = await extractedStrOrArrFromMap$('value');
       const currDisplayValue = await extractedStrOrArrFromMap$('displayValue');
 
-      await onChange$?.(currValue);
+      if (onChange$) {
+        await onChange$(currValue);
+      }
 
       // sync the user's given signal when an option is selected
       if (bindValueSig && bindValueSig.value) {

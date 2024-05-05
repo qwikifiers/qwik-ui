@@ -26,38 +26,36 @@ export default component$(() => {
 
   return (
     <Form onSubmit$={handleSubmit$}>
-      <Select.Root class="select" required>
-        <Select.Label>Logged in users</Select.Label>
-        <Select.Trigger class="select-trigger">
-          <Select.DisplayText placeholder="Select an option" />
-        </Select.Trigger>
-        <Select.Popover class="select-popover">
-          <Select.Listbox class="select-listbox">
-            {users.map((user) => (
-              <Select.Item class="select-item" key={user}>
-                <Select.ItemLabel>{user}</Select.ItemLabel>
-                <Select.ItemIndicator>
-                  <LuCheck />
-                </Select.ItemIndicator>
-              </Select.Item>
-            ))}
-          </Select.Listbox>
-        </Select.Popover>
-        <Field
-          name="firstName"
-          type="string"
-          validate={[required<string>('Make sure to select an option')]}
-        >
-          {(field, props) => {
-            return (
-              <>
-                <Select.HiddenNativeSelect {...props} />
-                {field.error && <div style={{ color: '#D2122E' }}>{field.error}</div>}
-              </>
-            );
-          }}
-        </Field>
-      </Select.Root>
+      <Field
+        name="firstName"
+        type="string"
+        validate={[required<string>('Make sure to select an option')]}
+      >
+        {(field, props) => {
+          return (
+            <Select.Root class="select" required>
+              <Select.HiddenNativeSelect {...props} />
+              <Select.Label>Logged in users</Select.Label>
+              <Select.Trigger class="select-trigger">
+                <Select.DisplayText placeholder="Select an option" />
+              </Select.Trigger>
+              {field.error && <div style={{ color: '#D2122E' }}>{field.error}</div>}
+              <Select.Popover class="select-popover">
+                <Select.Listbox class="select-listbox">
+                  {users.map((user) => (
+                    <Select.Item class="select-item" key={user}>
+                      <Select.ItemLabel>{user}</Select.ItemLabel>
+                      <Select.ItemIndicator>
+                        <LuCheck />
+                      </Select.ItemIndicator>
+                    </Select.Item>
+                  ))}
+                </Select.Listbox>
+              </Select.Popover>
+            </Select.Root>
+          );
+        }}
+      </Field>
       <button type="submit">Submit my form!</button>
     </Form>
   );

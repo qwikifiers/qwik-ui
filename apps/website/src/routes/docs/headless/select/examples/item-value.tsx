@@ -13,7 +13,7 @@ export default component$(() => {
 
   const selected = useSignal<string | null>(null);
 
-  const handleChange$ = $((value) => {
+  const handleChange$ = $((value: string) => {
     selected.value = value;
   });
 
@@ -27,7 +27,7 @@ export default component$(() => {
         <Select.Popover class="select-popover">
           <Select.Listbox class="select-listbox">
             {users.map((user) => (
-              <Select.Item value={`${user.id}-test`} key={user.id}>
+              <Select.Item value={user.id} key={user.id}>
                 <Select.ItemLabel>{user.label}</Select.ItemLabel>
               </Select.Item>
             ))}

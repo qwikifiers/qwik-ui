@@ -48,7 +48,13 @@ export const HiddenNativeSelect = component$(
           <label>
             {label}
             <select
-              ref={nativeSelectRef}
+              onFocus$={() => context.triggerRef.value?.focus()}
+              ref={(element: HTMLSelectElement) => {
+                nativeSelectRef.value = element;
+
+                // @ts-expect-error ref
+                ref?.(element);
+              }}
               multiple={context.multiple}
               tabIndex={-1}
               autocomplete={autoComplete}
