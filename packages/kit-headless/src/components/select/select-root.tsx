@@ -152,7 +152,9 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     );
 
     const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
+
     const isListboxOpenSig = useSignal<boolean>(false);
+    const initialLoadSig = useSignal<boolean>(true);
     const scrollOptions = givenScrollOptions ?? {
       behavior: 'instant',
       block: 'nearest',
@@ -197,10 +199,11 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
             selectedIndexSetSig.value = new Set([index]);
           }
 
-          // TODO: figure out how to get highlight initial controlled index for CSR only
-          if (isServer) {
+          if (initialLoadSig.value) {
+            // for both SSR and CSR, we need to set the initial index
             context.highlightedIndexSig.value = index;
           }
+          initialLoadSig.value = false;
         }
       }
     });
@@ -238,7 +241,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       const currValue = await extractedStrOrArrFromMap$('value');
       const currDisplayValue = await extractedStrOrArrFromMap$('displayValue');
 
-      if (onChange$) {
+      if (onChange$ && selectedIndexSetSig.value.size > 0) {
         await onChange$(currValue);
       }
 
