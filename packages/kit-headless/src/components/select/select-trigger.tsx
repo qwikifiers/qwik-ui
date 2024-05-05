@@ -41,6 +41,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
     if (!context.itemsMapSig.value) return;
+
     typeahead$(e.key);
 
     if (context.isListboxOpenSig.value) {
@@ -49,9 +50,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         if (context.multiple) {
           await selectionManager$(context.highlightedIndexSig.value, 'toggle');
         } else {
-          context.selectedIndexSetSig.value = new Set([
-            context.highlightedIndexSig.value!,
-          ]);
+          await selectionManager$(context.highlightedIndexSig.value, 'add');
         }
       }
 
@@ -104,7 +103,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       if (!context.multiple) {
         if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
           const firstIndex = await getNextEnabledItemIndex$(-1);
-          context.selectedIndexSetSig.value = new Set([firstIndex!]);
+          await selectionManager$(firstIndex, 'add');
           context.highlightedIndexSig.value = firstIndex;
           return;
         }
@@ -115,8 +114,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
             .next().value;
 
           const nextIndex = await getNextEnabledItemIndex$(firstSelectedIndex);
-
-          context.selectedIndexSetSig.value = new Set([nextIndex]);
+          await selectionManager$(nextIndex, 'add');
           context.highlightedIndexSig.value = nextIndex;
         }
 
@@ -125,7 +123,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
             context.itemsMapSig.value.size,
           );
 
-          context.selectedIndexSetSig.value = new Set([lastIndex]);
+          await selectionManager$(lastIndex, 'add');
           context.highlightedIndexSig.value = context.selectedIndexSetSig.value
             .values()
             .next().value;
@@ -137,7 +135,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
             context.highlightedIndexSig.value,
           );
 
-          context.selectedIndexSetSig.value = new Set([prevIndex]);
+          await selectionManager$(prevIndex, 'add');
           context.highlightedIndexSig.value = context.selectedIndexSetSig.value
             .values()
             .next().value;
