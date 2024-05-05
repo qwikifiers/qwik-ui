@@ -1,7 +1,7 @@
 import { type Signal } from '@builder.io/qwik';
 
 import { createContextId } from '@builder.io/qwik';
-import { TOptionsMap } from './select-root';
+import { TItemsMap } from './select-root';
 
 const SelectContextId = createContextId<SelectContext>('Select');
 
@@ -16,9 +16,10 @@ export type SelectContext = {
   labelRef: Signal<HTMLDivElement | undefined>;
 
   // core state
-  itemsMapSig: Readonly<Signal<TOptionsMap>>;
+  itemsMapSig: Readonly<Signal<TItemsMap>>;
   selectedIndexSetSig: Signal<Set<number>>;
   highlightedIndexSig: Signal<number | null>;
+  currDisplayValueSig: Signal<string | string[] | undefined>;
   isListboxOpenSig: Signal<boolean>;
   localId: string;
 

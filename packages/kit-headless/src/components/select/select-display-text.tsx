@@ -21,7 +21,7 @@ export const SelectDisplayText = component$((props: SelectValueProps) => {
   const context = useContext(SelectContextId);
   const valueId = `${context.localId}-value`;
 
-  const { extractedStrOrArrFromMap } = useSelect();
+  const { extractedStrOrArrFromMap$ } = useSelect();
 
   const displayStrSig = useComputed$(async () => {
     if (context.multiple) {
@@ -29,8 +29,7 @@ export const SelectDisplayText = component$((props: SelectValueProps) => {
       return <Slot />;
     }
 
-    const currDisplayValue = await extractedStrOrArrFromMap('displayValue');
-    console.log(currDisplayValue);
+    const currDisplayValue = await extractedStrOrArrFromMap$('displayValue');
 
     if (currDisplayValue.length > 0) {
       return currDisplayValue;

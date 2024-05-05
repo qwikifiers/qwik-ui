@@ -14,7 +14,7 @@ import { isBrowser, isServer } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
 import { useSelect } from './use-select';
 
-export type TOptionsMap = Map<
+export type TItemsMap = Map<
   number,
   { value: string; displayValue: string; disabled: boolean }
 >;
@@ -29,7 +29,7 @@ export type InternalSelectProps = {
 
   /** Our source of truth for the items. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
    **/
-  _itemsMap: TOptionsMap;
+  _itemsMap: TItemsMap;
 };
 
 export type TMultiple<M> = M extends true ? string[] : string;
@@ -145,8 +145,11 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       block: 'nearest',
     };
 
+    const currDisplayValueSig = useSignal<string | string[]>();
+
     const context: SelectContext = {
       itemsMapSig,
+      currDisplayValueSig,
       triggerRef,
       popoverRef,
       listboxRef,
@@ -166,7 +169,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
     useContextProvider(SelectContextId, context);
 
-    const { getActiveDescendant, extractedStrOrArrFromMap } = useSelect();
+    const { getActiveDescendant$, extractedStrOrArrFromMap$ } = useSelect();
 
     useTask$(function reactiveUserValue({ track }) {
       const bindValueSig = props['bind:value'];
@@ -181,8 +184,9 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
             selectedIndexSetSig.value = new Set([index]);
           }
 
-          if (selectedIndexSetSig.value.has(index)) {
-            highlightedIndexSig.value = index;
+          // TODO: figure out how to get highlight initial controlled index for CSR only
+          if (isServer) {
+            context.highlightedIndexSig.value = index;
           }
         }
       }
@@ -205,7 +209,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
     const activeDescendantSig = useComputed$(() => {
       if (isListboxOpenSig.value) {
-        return getActiveDescendant(highlightedIndexSig.value ?? -1);
+        return getActiveDescendant$(highlightedIndexSig.value ?? -1);
       } else {
         return '';
       }
@@ -218,8 +222,8 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
       if (isServer) return;
 
-      const currValue = await extractedStrOrArrFromMap('value');
-      const currDisplayValue = await extractedStrOrArrFromMap('displayValue');
+      const currValue = await extractedStrOrArrFromMap$('value');
+      const currDisplayValue = await extractedStrOrArrFromMap$('displayValue');
 
       await onChange$?.(currValue);
 
@@ -234,8 +238,12 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       }
 
       // sync the user's given signal for the display value
-      if (bindDisplayTextSig) {
-        bindDisplayTextSig.value = currDisplayValue;
+      if (bindDisplayTextSig && currDisplayValue) {
+        if (typeof currDisplayValue === 'string') {
+          bindDisplayTextSig.value = [currDisplayValue];
+        } else {
+          bindDisplayTextSig.value = currDisplayValue;
+        }
       }
     });
 

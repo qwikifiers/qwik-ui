@@ -1,6 +1,5 @@
-import { useContext, useSignal, $, useComputed$, Signal } from '@builder.io/qwik';
+import { useContext, useSignal, $, useComputed$ } from '@builder.io/qwik';
 import SelectContextId from './select-context';
-import { TOptionsMap } from './select-root';
 
 /**
  * Helper functions go inside of hooks.
@@ -9,29 +8,43 @@ import { TOptionsMap } from './select-root';
 export function useSelect() {
   const context = useContext(SelectContextId);
 
-  const toggleIndex$ = $(
-    async (
-      selectedIndexSetSig: Signal<Set<number>>,
-      index: number | null,
-      itemsMapSig: Signal<TOptionsMap>,
-    ) => {
-      if (index === null) return;
+  const selectionManager$ = $(async (index: number | null, action: 'add' | 'toggle') => {
+    if (index === null) return;
 
-      // Check if the current index is disabled, and if so, find the next enabled index
-      const currItem = itemsMapSig.value.get(index);
+    // Check if the current index is disabled, and if so, find the next enabled index
+    const currItem = context.itemsMapSig.value.get(index);
 
-      const enabledIndex =
-        currItem && currItem.disabled ? await getNextEnabledOptionIndex(index) : index;
+    const enabledIndex =
+      currItem && currItem.disabled ? await getNextEnabledItemIndex$(index) : index;
 
-      if (selectedIndexSetSig.value.has(enabledIndex)) {
-        selectedIndexSetSig.value.delete(enabledIndex);
+    if (action === 'add') {
+      if (context.multiple) {
+        context.selectedIndexSetSig.value = new Set([
+          ...context.selectedIndexSetSig.value,
+          index,
+        ]);
       } else {
-        selectedIndexSetSig.value.add(enabledIndex);
+        context.selectedIndexSetSig.value = new Set([index]);
       }
-    },
-  );
+    }
 
-  const getNextEnabledOptionIndex = $((index: number) => {
+    if (action === 'toggle') {
+      if (context.selectedIndexSetSig.value.has(enabledIndex)) {
+        context.selectedIndexSetSig.value = new Set(
+          [...context.selectedIndexSetSig.value].filter(
+            (selectedIndex) => selectedIndex !== enabledIndex,
+          ),
+        );
+      } else {
+        context.selectedIndexSetSig.value = new Set([
+          ...context.selectedIndexSetSig.value,
+          enabledIndex,
+        ]);
+      }
+    }
+  });
+
+  const getNextEnabledItemIndex$ = $((index: number) => {
     let offset = 1;
     const len = context.itemsMapSig.value.size;
 
@@ -53,7 +66,7 @@ export function useSelect() {
     return index;
   });
 
-  const getPrevEnabledOptionIndex = $((index: number) => {
+  const getPrevEnabledItemIndex$ = $((index: number) => {
     let offset = 1;
     const len = context.itemsMapSig.value.size;
 
@@ -75,7 +88,7 @@ export function useSelect() {
     return index;
   });
 
-  const getActiveDescendant = $((index: number) => {
+  const getActiveDescendant$ = $((index: number) => {
     if (index === -1 || context.itemsMapSig.value.get(index)?.disabled) {
       return '';
     }
@@ -83,7 +96,7 @@ export function useSelect() {
     return `${context.localId}-${index}`;
   });
 
-  const extractedStrOrArrFromMap = $((propertyType: 'value' | 'displayValue') => {
+  const extractedStrOrArrFromMap$ = $((propertyType: 'value' | 'displayValue') => {
     const values = [];
 
     for (const index of context.selectedIndexSetSig.value) {
@@ -98,11 +111,11 @@ export function useSelect() {
   });
 
   return {
-    getNextEnabledOptionIndex,
-    getPrevEnabledOptionIndex,
-    getActiveDescendant,
-    toggleIndex$,
-    extractedStrOrArrFromMap,
+    getNextEnabledItemIndex$,
+    getPrevEnabledItemIndex$,
+    getActiveDescendant$,
+    selectionManager$,
+    extractedStrOrArrFromMap$,
   };
 }
 
@@ -113,8 +126,8 @@ export function useTypeahead() {
   const prevTimeoutSig = useSignal<undefined | NodeJS.Timeout>(undefined);
 
   const firstCharItemSig = useComputed$(() => {
-    return Array.from(context.itemsMapSig.value.values()).map((opt) =>
-      opt.displayValue?.slice(0, 1).toLowerCase(),
+    return Array.from(context.itemsMapSig.value.values()).map((item) =>
+      item.displayValue?.slice(0, 1).toLowerCase(),
     );
   });
 

@@ -35,7 +35,7 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
   const localIndexSig = useSignal<number | null>(null);
   const optionId = `${context.localId}-${_index}`;
 
-  const { toggleIndex$ } = useSelect();
+  const { selectionManager$ } = useSelect();
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -83,11 +83,11 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
     }
   });
 
-  const handleClick$ = $(() => {
+  const handleClick$ = $(async () => {
     if (disabled || localIndexSig.value === null) return;
 
     if (context.multiple) {
-      toggleIndex$(context.selectedIndexSetSig, localIndexSig.value, context.itemsMapSig);
+      await selectionManager$(localIndexSig.value, 'toggle');
 
       // keep focus so that when pressing escape, the listbox closes even when clicking.
       context.triggerRef.value?.focus();

@@ -5,7 +5,7 @@ import { useSelect, useTypeahead } from './use-select';
 type SelectTriggerProps = PropsOf<'button'>;
 export const SelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
-  const { toggleIndex$, getNextEnabledOptionIndex, getPrevEnabledOptionIndex } =
+  const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
     useSelect();
   const labelId = `${context.localId}-label`;
   const descriptionId = `${context.localId}-description`;
@@ -47,11 +47,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       // select options
       if (e.key === 'Enter' || e.key === ' ') {
         if (context.multiple) {
-          toggleIndex$(
-            context.selectedIndexSetSig,
-            context.highlightedIndexSig.value,
-            context.itemsMapSig,
-          );
+          await selectionManager$(context.highlightedIndexSig.value, 'toggle');
         } else {
           context.selectedIndexSetSig.value = new Set([
             context.highlightedIndexSig.value!,
@@ -60,23 +56,23 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
       }
 
       if (e.key === 'ArrowDown') {
-        context.highlightedIndexSig.value = await getNextEnabledOptionIndex(
+        context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
           context.highlightedIndexSig.value!,
         );
       }
 
       if (e.key === 'ArrowUp') {
-        context.highlightedIndexSig.value = await getPrevEnabledOptionIndex(
+        context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
           context.highlightedIndexSig.value!,
         );
       }
 
       if (e.key === 'Home') {
-        context.highlightedIndexSig.value = await getNextEnabledOptionIndex(-1);
+        context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
       }
 
       if (e.key === 'End') {
-        const lastEnabledOptionIndex = await getPrevEnabledOptionIndex(
+        const lastEnabledOptionIndex = await getPrevEnabledItemIndex$(
           context.itemsMapSig.value.size,
         );
         context.highlightedIndexSig.value = lastEnabledOptionIndex;
@@ -88,18 +84,14 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
       if (context.multiple) {
         if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && e.shiftKey) {
-          toggleIndex$(
-            context.selectedIndexSetSig,
-            context.highlightedIndexSig.value,
-            context.itemsMapSig,
-          );
+          await selectionManager$(context.highlightedIndexSig.value, 'toggle');
         }
 
         if (e.key === 'a' && e.ctrlKey) {
           context.selectedIndexSetSig.value.clear();
           for (const [index, item] of context.itemsMapSig.value) {
             if (!item.disabled) {
-              context.selectedIndexSetSig.value.add(index);
+              await selectionManager$(index, 'add');
             }
           }
         }
@@ -111,7 +103,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
       if (!context.multiple) {
         if (e.key === 'ArrowRight' && context.highlightedIndexSig.value === null) {
-          const firstIndex = await getNextEnabledOptionIndex(-1);
+          const firstIndex = await getNextEnabledItemIndex$(-1);
           context.selectedIndexSetSig.value = new Set([firstIndex!]);
           context.highlightedIndexSig.value = firstIndex;
           return;
@@ -122,14 +114,14 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
             .values()
             .next().value;
 
-          const nextIndex = await getNextEnabledOptionIndex(firstSelectedIndex);
+          const nextIndex = await getNextEnabledItemIndex$(firstSelectedIndex);
 
           context.selectedIndexSetSig.value = new Set([nextIndex]);
           context.highlightedIndexSig.value = nextIndex;
         }
 
         if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {
-          const lastIndex = await getPrevEnabledOptionIndex(
+          const lastIndex = await getPrevEnabledItemIndex$(
             context.itemsMapSig.value.size,
           );
 
@@ -141,7 +133,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
         }
 
         if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value !== null) {
-          const prevIndex = await getPrevEnabledOptionIndex(
+          const prevIndex = await getPrevEnabledItemIndex$(
             context.highlightedIndexSig.value,
           );
 
@@ -163,7 +155,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
-      context.highlightedIndexSig.value = await getNextEnabledOptionIndex(-1);
+      context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
       return;
     }
   });
