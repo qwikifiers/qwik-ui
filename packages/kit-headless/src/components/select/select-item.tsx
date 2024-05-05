@@ -11,29 +11,29 @@ import {
 } from '@builder.io/qwik';
 import { isServer, isBrowser } from '@builder.io/qwik/build';
 import SelectContextId, {
-  SelectOptionContext,
-  selectOptionContextId,
+  SelectItemContext,
+  selectItemContextId,
 } from './select-context';
 import { useSelect } from './use-select';
 
-export type SelectOptionProps = PropsOf<'li'> & {
+export type SelectItemProps = PropsOf<'li'> & {
   /** Internal index we get from the inline component. Please see select-inline.tsx */
   _index?: number;
 
-  /** If true, option is not selectable or focusable. */
+  /** If true, item is not selectable or focusable. */
   disabled?: boolean;
 
-  /** Selected value associated with the option. */
+  /** Selected value associated with the item. */
   value?: string;
 };
 
-export const SelectItem = component$<SelectOptionProps>((props) => {
+export const SelectItem = component$<SelectItemProps>((props) => {
   /* look at select-inline on how we get the index. */
   const { _index, disabled, ...rest } = props;
   const context = useContext(SelectContextId);
-  const optionRef = useSignal<HTMLLIElement>();
+  const itemRef = useSignal<HTMLLIElement>();
   const localIndexSig = useSignal<number | null>(null);
-  const optionId = `${context.localId}-${_index}`;
+  const itemId = `${context.localId}-${_index}`;
 
   const { selectionManager$ } = useSelect();
 
@@ -48,7 +48,7 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
 
   useTask$(function getIndexTask() {
     if (_index === undefined)
-      throw Error('Qwik UI: Select component option cannot find its proper index.');
+      throw Error('Qwik UI: Select component item cannot find its proper index.');
 
     localIndexSig.value = _index;
   });
@@ -63,9 +63,9 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
     const checkVisibility = (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries;
 
-      // if the option is not visible, scroll it into view
+      // if the is not visible, scroll it into view
       if (isHighlightedSig.value && !entry.isIntersecting) {
-        optionRef.value?.scrollIntoView(context.scrollOptions);
+        itemRef.value?.scrollIntoView(context.scrollOptions);
       }
     };
 
@@ -77,8 +77,8 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
         threshold: 1.0,
       });
 
-      if (optionRef.value) {
-        observer.observe(optionRef.value);
+      if (itemRef.value) {
+        observer.observe(itemRef.value);
       }
     }
   });
@@ -92,7 +92,7 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
       // keep focus so that when pressing escape, the listbox closes even when clicking.
       context.triggerRef.value?.focus();
     } else {
-      context.selectedIndexSetSig.value = new Set([localIndexSig.value]);
+      await selectionManager$(localIndexSig.value, 'add');
       context.isListboxOpenSig.value = false;
     }
   });
@@ -105,26 +105,26 @@ export const SelectItem = component$<SelectOptionProps>((props) => {
     }
   });
 
-  const selectContext: SelectOptionContext = {
+  const selectContext: SelectItemContext = {
     isSelectedSig,
   };
 
-  useContextProvider(selectOptionContextId, selectContext);
+  useContextProvider(selectItemContextId, selectContext);
 
   return (
     <li
       {...rest}
-      id={optionId}
+      id={itemId}
       onClick$={[handleClick$, props.onClick$]}
       onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
-      ref={optionRef}
+      ref={itemRef}
       tabIndex={-1}
       aria-selected={isSelectedSig.value}
       aria-disabled={disabled === true ? 'true' : 'false'}
       data-selected={isSelectedSig.value ? '' : undefined}
       data-highlighted={isHighlightedSig.value ? '' : undefined}
       data-disabled={disabled ? '' : undefined}
-      data-option
+      data-item
       role="option"
     >
       <Slot />
