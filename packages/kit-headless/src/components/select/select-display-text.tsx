@@ -7,6 +7,7 @@ import {
 } from '@builder.io/qwik';
 
 import SelectContextId from './select-context';
+import { useSelect } from './use-select';
 
 type SelectValueProps = PropsOf<'span'> & {
   /**
@@ -20,14 +21,19 @@ export const SelectDisplayText = component$((props: SelectValueProps) => {
   const context = useContext(SelectContextId);
   const valueId = `${context.localId}-value`;
 
-  const displayStrSig = useComputed$(() => {
+  const { extractedStrOrArrFromMap } = useSelect();
+
+  const displayStrSig = useComputed$(async () => {
     if (context.multiple) {
       // for more customization when multiple is true
       return <Slot />;
     }
 
-    if (context.selectedDisplayValuesSig.value.length > 0) {
-      return context.selectedDisplayValuesSig.value;
+    const currDisplayValue = await extractedStrOrArrFromMap('displayValue');
+    console.log(currDisplayValue);
+
+    if (currDisplayValue.length > 0) {
+      return currDisplayValue;
     } else {
       return placeholder;
     }

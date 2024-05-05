@@ -1,13 +1,13 @@
 import { type Signal } from '@builder.io/qwik';
 
 import { createContextId } from '@builder.io/qwik';
-import { TMultiple, TOptionsMap } from './select-root';
+import { TOptionsMap } from './select-root';
 
 const SelectContextId = createContextId<SelectContext>('Select');
 
 export default SelectContextId;
 
-export type SelectContext<M extends boolean = boolean> = {
+export type SelectContext = {
   // refs
   triggerRef: Signal<HTMLButtonElement | undefined>;
   popoverRef: Signal<HTMLElement | undefined>;
@@ -21,8 +21,6 @@ export type SelectContext<M extends boolean = boolean> = {
   highlightedIndexSig: Signal<number | null>;
   isListboxOpenSig: Signal<boolean>;
   localId: string;
-  selectedValuesSig: Readonly<Signal<TMultiple<M>>>;
-  selectedDisplayValuesSig: Readonly<Signal<TMultiple<M>>>;
 
   // user configurable
   scrollOptions?: ScrollIntoViewOptions;

@@ -1,5 +1,4 @@
 import { PropsOf, component$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
-import { Opt } from './select-inline';
 import SelectContextId from './select-context';
 import { isServer } from '@builder.io/qwik/build';
 import { VisuallyHidden } from '../../utils/visually-hidden';
@@ -22,12 +21,8 @@ export type AriaHiddenSelectProps = {
   required?: boolean;
 };
 
-export type SelectDataProps = {
-  options?: Opt[] | undefined;
-};
-
 export const HiddenNativeSelect = component$(
-  (props: AriaHiddenSelectProps & SelectDataProps & PropsOf<'select'>) => {
+  (props: AriaHiddenSelectProps & PropsOf<'select'>) => {
     const { label, autoComplete, ref, ...rest } = props;
     const context = useContext(SelectContextId);
 
@@ -65,13 +60,13 @@ export const HiddenNativeSelect = component$(
               {...rest}
             >
               <option />
-              {context.optionsSig.value?.map((opt: Opt) => (
+              {Array.from(context.itemsMapSig.value.entries()).map(([index, item]) => (
                 <option
-                  value={opt.value}
-                  selected={context.selectedIndexSetSig.value.has()}
-                  key={opt.index}
+                  value={item.value}
+                  selected={context.selectedIndexSetSig.value.has(index)}
+                  key={item.value}
                 >
-                  {opt.displayValue}
+                  {item.displayValue}
                 </option>
               ))}
             </select>

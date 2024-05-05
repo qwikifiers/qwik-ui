@@ -133,20 +133,21 @@ export const SelectRoot: Component<SelectProps & InlineCompProps> = (
   }
 
   // console warning if a consumer's passed in value does not match an option
-  let valueMatch = false;
-  if (props.value !== undefined) {
-    for (const item of itemsMap.values()) {
-      if (!props.value.includes(item.value)) {
-        valueMatch = false;
-      }
-    }
+  // let valueMatch = true;
+  // if (props.value !== undefined) {
+  //   for (const item of itemsMap.values()) {
+  //     if (!props.value.includes(item.value)) {
+  //       console.log(props.value.includes(item.value));
+  //       valueMatch = false;
+  //     }
+  //   }
 
-    if (!valueMatch) {
-      throw new Error(
-        `Qwik UI: a provided option value "${props.value}" does not match any of the option values in the Select.`,
-      );
-    }
-  }
+  //   if (!valueMatch) {
+  //     throw new Error(
+  //       `Qwik UI: a provided option value "${props.value}" does not match any of the option values in the Select.`,
+  //     );
+  //   }
+  // }
 
   return (
     <SelectImpl

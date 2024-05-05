@@ -8,7 +8,6 @@ import {
   useTask$,
   type QRL,
   useId,
-  $,
   useComputed$,
 } from '@builder.io/qwik';
 import { isBrowser, isServer } from '@builder.io/qwik/build';
@@ -136,7 +135,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     });
 
     const selectedIndexSetSig = useSignal<Set<number>>(
-      new Set([givenValuePropIndex ?? -1]),
+      new Set(givenValuePropIndex ? [givenValuePropIndex] : []),
     );
 
     const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
@@ -146,6 +145,29 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       block: 'nearest',
     };
 
+    const context: SelectContext = {
+      itemsMapSig,
+      triggerRef,
+      popoverRef,
+      listboxRef,
+      labelRef,
+      groupRef,
+      localId,
+      highlightedIndexSig,
+      selectedIndexSetSig,
+      isListboxOpenSig,
+      scrollOptions,
+      loop,
+      multiple,
+      name,
+      required,
+      disabled,
+    };
+
+    useContextProvider(SelectContextId, context);
+
+    const { getActiveDescendant, extractedStrOrArrFromMap } = useSelect();
+
     useTask$(function reactiveUserValue({ track }) {
       const bindValueSig = props['bind:value'];
       if (!bindValueSig) return;
@@ -153,7 +175,15 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
       for (const [index, item] of itemsMapSig.value) {
         if (bindValueSig.value.includes(item.value)) {
-          selectedIndexSetSig.value.add(index);
+          if (multiple) {
+            selectedIndexSetSig.value = new Set([...selectedIndexSetSig.value, index]);
+          } else {
+            selectedIndexSetSig.value = new Set([index]);
+          }
+
+          if (selectedIndexSetSig.value.has(index)) {
+            highlightedIndexSig.value = index;
+          }
         }
       }
     });
@@ -166,25 +196,19 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       isListboxOpenSig.value = bindOpenSig.value ?? isListboxOpenSig.value;
     });
 
-    const extractedStrOrArrFromMap = $((propertyType: 'value' | 'displayValue') => {
-      const values = [];
-      for (const index of selectedIndexSetSig.value) {
-        const item = itemsMapSig.value.get(index);
-
-        if (item) {
-          values.push(item[propertyType]);
-        }
+    useTask$(function onOpenChangeTask({ track }) {
+      track(() => isListboxOpenSig.value);
+      if (isBrowser) {
+        onOpenChange$?.(isListboxOpenSig.value);
       }
-
-      return values.length === 1 ? values[0] : values;
     });
 
-    const selectedValuesSig = useComputed$(async () => {
-      return await extractedStrOrArrFromMap('value');
-    });
-
-    const selectedDisplayValuesSig = useComputed$(async () => {
-      return await extractedStrOrArrFromMap('displayValue');
+    const activeDescendantSig = useComputed$(() => {
+      if (isListboxOpenSig.value) {
+        return getActiveDescendant(highlightedIndexSig.value ?? -1);
+      } else {
+        return '';
+      }
     });
 
     useTask$(async function updateConsumerProps({ track }) {
@@ -194,64 +218,24 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
       if (isServer) return;
 
-      if (isBrowser) {
-        if (!selectedValuesSig.value) return;
+      const currValue = await extractedStrOrArrFromMap('value');
+      const currDisplayValue = await extractedStrOrArrFromMap('displayValue');
 
-        await onChange$?.(selectedValuesSig.value);
-      }
+      await onChange$?.(currValue);
 
       // sync the user's given signal when an option is selected
       if (bindValueSig && bindValueSig.value) {
         const currUserSigValues = JSON.stringify(bindValueSig.value);
-        const newUserSigValues = JSON.stringify(selectedValuesSig.value);
+        const newUserSigValues = JSON.stringify(currValue);
+
         if (currUserSigValues !== newUserSigValues) {
-          bindValueSig.value = selectedValuesSig.value;
+          bindValueSig.value = currValue;
         }
       }
 
       // sync the user's given signal for the display value
       if (bindDisplayTextSig) {
-        bindDisplayTextSig.value = selectedDisplayValuesSig.value;
-      }
-    });
-
-    useTask$(function onOpenChangeTask({ track }) {
-      track(() => isListboxOpenSig.value);
-      if (isBrowser) {
-        onOpenChange$?.(isListboxOpenSig.value);
-      }
-    });
-
-    const context: SelectContext = {
-      itemsMapSig,
-      triggerRef,
-      popoverRef,
-      listboxRef,
-      labelRef,
-      groupRef,
-      localId,
-      highlightedIndexSig,
-      selectedIndexSetSig,
-      selectedValuesSig,
-      selectedDisplayValuesSig,
-      isListboxOpenSig,
-      scrollOptions,
-      loop,
-      multiple,
-      name,
-      required,
-      disabled,
-    };
-
-    useContextProvider(SelectContextId, context);
-
-    const { getActiveDescendant } = useSelect();
-
-    const activeDescendantSig = useComputed$(() => {
-      if (isListboxOpenSig.value) {
-        return getActiveDescendant(highlightedIndexSig.value ?? -1);
-      } else {
-        return '';
+        bindDisplayTextSig.value = currDisplayValue;
       }
     });
 

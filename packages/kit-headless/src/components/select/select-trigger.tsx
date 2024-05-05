@@ -125,7 +125,7 @@ export const SelectTrigger = component$<SelectTriggerProps>((props) => {
           const nextIndex = await getNextEnabledOptionIndex(firstSelectedIndex);
 
           context.selectedIndexSetSig.value = new Set([nextIndex]);
-          context.highlightedIndexSig.value = firstSelectedIndex;
+          context.highlightedIndexSig.value = nextIndex;
         }
 
         if (e.key === 'ArrowLeft' && context.highlightedIndexSig.value === null) {

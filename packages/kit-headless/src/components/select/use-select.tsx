@@ -83,11 +83,26 @@ export function useSelect() {
     return `${context.localId}-${index}`;
   });
 
+  const extractedStrOrArrFromMap = $((propertyType: 'value' | 'displayValue') => {
+    const values = [];
+
+    for (const index of context.selectedIndexSetSig.value) {
+      const item = context.itemsMapSig.value.get(index);
+
+      if (item) {
+        values.push(item[propertyType]);
+      }
+    }
+
+    return values.length === 1 ? values[0] : values;
+  });
+
   return {
     getNextEnabledOptionIndex,
     getPrevEnabledOptionIndex,
     getActiveDescendant,
     toggleIndex$,
+    extractedStrOrArrFromMap,
   };
 }
 
