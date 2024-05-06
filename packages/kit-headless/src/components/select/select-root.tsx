@@ -10,7 +10,6 @@ import {
   useId,
   useComputed$,
 } from '@builder.io/qwik';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
 import SelectContextId, { type SelectContext } from './select-context';
 import { useSelect } from './use-select';
 
@@ -154,7 +153,6 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
 
     const isListboxOpenSig = useSignal<boolean>(false);
-    const initialLoadSig = useSignal<boolean>(true);
     const scrollOptions = givenScrollOptions ?? {
       behavior: 'instant',
       block: 'nearest',
@@ -187,20 +185,17 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
     const { getActiveDescendant$, extractedStrOrArrFromMap$, selectionManager$ } =
       useSelect();
 
-    useTask$(function reactiveUserValue({ track }) {
+    useTask$(async function reactiveUserValue({ track }) {
       const bindValueSig = props['bind:value'];
       if (!bindValueSig) return;
       track(() => bindValueSig.value);
 
       for (const [index, item] of itemsMapSig.value) {
         if (bindValueSig.value.includes(item.value)) {
-          selectionManager$(index, 'add');
+          await selectionManager$(index, 'add');
 
-          if (initialLoadSig.value) {
-            // for both SSR and CSR, we need to set the initial index
-            context.highlightedIndexSig.value = index;
-          }
-          initialLoadSig.value = false;
+          // for both SSR and CSR, we need to set the initial index
+          context.highlightedIndexSig.value = index;
         }
       }
     });
@@ -215,9 +210,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
     useTask$(function onOpenChangeTask({ track }) {
       track(() => isListboxOpenSig.value);
-      if (isBrowser) {
-        onOpenChange$?.(isListboxOpenSig.value);
-      }
+      onOpenChange$?.(isListboxOpenSig.value);
     });
 
     const activeDescendantSig = useComputed$(() => {
@@ -232,8 +225,6 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       const bindValueSig = props['bind:value'];
       const bindDisplayTextSig = props['bind:displayText'];
       track(() => selectedIndexSetSig.value);
-
-      if (isServer) return;
 
       const currValue = await extractedStrOrArrFromMap$('value');
       const currDisplayValue = await extractedStrOrArrFromMap$('displayValue');

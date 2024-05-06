@@ -51,8 +51,7 @@ export const HiddenNativeSelect = component$(
               onFocus$={() => context.triggerRef.value?.focus()}
               ref={(element: HTMLSelectElement) => {
                 nativeSelectRef.value = element;
-
-                // @ts-expect-error ref
+                // @ts-expect-error modular forms ref function
                 ref?.(element);
               }}
               multiple={context.multiple}

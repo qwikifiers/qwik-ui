@@ -11,16 +11,19 @@ import { PopoverPanel } from '../popover/popover-panel';
 
 import SelectContextId from './select-context';
 import { PopoverRoot } from '../popover/popover-root';
+import { isServer } from '@builder.io/qwik/build';
 
 export const SelectPopover = component$<PropsOf<typeof PopoverRoot>>((props) => {
   const context = useContext(SelectContextId);
   const { showPopover, hidePopover } = usePopover(context.localId);
-  const initialLoadSig = useSignal<boolean>(true);
 
   const { floating, flip, hover, gutter, ...rest } = props;
+  const initialLoadSig = useSignal<boolean>(true);
 
   useTask$(async ({ track }) => {
     track(() => context.isListboxOpenSig.value);
+
+    if (isServer) return;
 
     if (!initialLoadSig.value) {
       if (context.isListboxOpenSig.value) {
@@ -29,7 +32,9 @@ export const SelectPopover = component$<PropsOf<typeof PopoverRoot>>((props) => 
         await hidePopover();
       }
     }
+  });
 
+  useTask$(() => {
     initialLoadSig.value = false;
   });
 

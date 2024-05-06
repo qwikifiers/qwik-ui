@@ -124,6 +124,7 @@ export function useTypeahead() {
   const inputStrSig = useSignal('');
   const indexDiffSig = useSignal<number | undefined>(undefined);
   const prevTimeoutSig = useSignal<undefined | NodeJS.Timeout>(undefined);
+  const { selectionManager$ } = useSelect();
 
   const firstCharItemSig = useComputed$(() => {
     return Array.from(context.itemsMapSig.value.values()).map((item) =>
@@ -131,13 +132,13 @@ export function useTypeahead() {
     );
   });
 
-  const typeahead$ = $((key: string): void => {
+  const typeahead$ = $(async (key: string): Promise<void> => {
     inputStrSig.value += key;
     if (key.length > 1) {
       return;
     }
 
-    const firstCharOnly$ = $(() => {
+    const firstCharOnly$ = $(async () => {
       // First opens the listbox if it is not already displayed and then moves visual focus to the first option that matches the typed character.
       const singleInputChar = key.toLowerCase();
 
@@ -152,7 +153,7 @@ export function useTypeahead() {
         context.highlightedIndexSig.value = firstCharIndex;
 
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexSetSig.value = new Set([firstCharIndex]);
+          await selectionManager$(firstCharIndex, 'add');
         }
 
         return;
@@ -175,7 +176,7 @@ export function useTypeahead() {
 
           context.highlightedIndexSig.value = nextIndex;
           if (!context.isListboxOpenSig.value) {
-            context.selectedIndexSetSig.value = new Set([nextIndex]);
+            await selectionManager$(nextIndex, 'add');
           }
           indexDiffSig.value = nextIndex + 1;
           return;
@@ -184,20 +185,20 @@ export function useTypeahead() {
         indexDiffSig.value = undefined;
         context.highlightedIndexSig.value = firstCharIndex;
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexSetSig.value = new Set([firstCharIndex]);
+          await selectionManager$(firstCharIndex, 'add');
         }
         return;
       }
       indexDiffSig.value = firstCharIndex + 1;
       context.highlightedIndexSig.value = firstCharIndex;
       if (!context.isListboxOpenSig.value) {
-        context.selectedIndexSetSig.value = new Set([firstCharIndex]);
+        await selectionManager$(firstCharIndex, 'add');
       }
 
       return;
     });
 
-    const multipleChars$ = $(() => {
+    const multipleChars$ = $(async () => {
       // If multiple keys are typed in quick succession, visual focus moves to the first option that matches the full string.
       clearTimeout(prevTimeoutSig.value);
       prevTimeoutSig.value = setTimeout(() => {
@@ -219,7 +220,7 @@ export function useTypeahead() {
       if (firstPossibleOpt !== -1) {
         context.highlightedIndexSig.value = firstPossibleOpt;
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexSetSig.value = new Set([firstPossibleOpt]);
+          await selectionManager$(firstPossibleOpt, 'add');
         }
         return;
       }
