@@ -6,6 +6,7 @@ import {
   useTask$,
   type ContextId,
   PropsOf,
+  sync$,
 } from '@builder.io/qwik';
 import ComboboxContextId from './combobox-context-id';
 import type { ComboboxContext, Option } from './combobox-context.type';
@@ -107,6 +108,12 @@ export const ComboboxInput = component$(
       }
     });
 
+    const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+      }
+    });
+
     // checks if a defaultLabel has been set on the input
     useTask$(function isLabelNeededTask() {
       if (!context.inputRef.value || !context.defaultLabel) {
@@ -156,7 +163,7 @@ export const ComboboxInput = component$(
           }),
           props.onBlur$,
         ]}
-        onKeyDown$={[onKeydownBehavior$, props.onKeyDown$]}
+        onKeyDown$={[handleKeyDownSync$, onKeydownBehavior$, props.onKeyDown$]}
       />
     );
   },

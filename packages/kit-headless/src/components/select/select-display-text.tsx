@@ -15,21 +15,23 @@ type SelectValueProps = PropsOf<'span'> & {
   placeholder?: string;
 };
 
-export const SelectValue = component$((props: SelectValueProps) => {
+export const SelectDisplayText = component$((props: SelectValueProps) => {
   const { placeholder, ...rest } = props;
   const context = useContext(SelectContextId);
   const valueId = `${context.localId}-value`;
-  if (!context.optionsSig.value) return;
 
-  const displayStrSig = useComputed$(() => {
+  const displayStrSig = useComputed$(async () => {
     if (context.multiple) {
+      // for more customization when multiple is true
       return <Slot />;
     }
 
-    if (context.selectedIndexesSig.value[0] !== null) {
-      return context.optionsSig.value[context.selectedIndexesSig.value[0]].displayValue;
-    } else {
+    if (context.selectedIndexSetSig.value.size === 0) {
       return placeholder;
+    } else {
+      return context.multiple
+        ? context.currDisplayValueSig.value
+        : context.currDisplayValueSig.value?.[0] ?? placeholder;
     }
   });
 

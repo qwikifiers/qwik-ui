@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Modal, ModalDescription, ModalTitle } from '@qwik-ui/headless';
+import { Modal } from '@qwik-ui/headless';
 
 export default component$(() => {
   const showSig = useSignal(false);
@@ -13,10 +13,10 @@ export default component$(() => {
   // );
 
   return (
-    <Modal bind:show={showSig}>
-      <ModalTitle />
-      <ModalDescription />
+    <Modal.Root bind:show={showSig}>
+      <Modal.Title />
+      <Modal.Description />
       {/* other content */}
-    </Modal>
+    </Modal.Root>
   );
 });

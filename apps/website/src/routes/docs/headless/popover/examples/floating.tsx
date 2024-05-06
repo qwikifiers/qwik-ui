@@ -1,44 +1,11 @@
-import { component$, useSignal } from '@builder.io/qwik';
-import { Popover, PopoverTrigger } from '@qwik-ui/headless';
-import { usePopover } from '@qwik-ui/headless';
+import { component$ } from '@builder.io/qwik';
+import { Popover } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const { showPopover, hidePopover } = usePopover(`floating-id`);
-  const triggerRef = useSignal<HTMLButtonElement>();
-  const popoverRef = useSignal<HTMLElement>();
-
   return (
-    <>
-      <div class="popover-container">
-        <p>I'm a mini tooltip!</p>
-        <PopoverTrigger
-          ref={triggerRef}
-          disableClickInitPopover
-          onPointerEnter$={() => {
-            showPopover();
-          }}
-          onPointerLeave$={() => {
-            hidePopover();
-          }}
-          popoverTargetAction="show"
-          popovertarget="floating-id"
-          class="popover-trigger"
-        >
-          Hover over me
-        </PopoverTrigger>
-      </div>
-
-      <Popover
-        ref={popoverRef}
-        anchorRef={triggerRef}
-        floating={true}
-        placement="top"
-        gutter={4}
-        id="floating-id"
-        class="popover"
-      >
-        I am anchored to the trigger!
-      </Popover>
-    </>
+    <Popover.Root gutter={4}>
+      <Popover.Trigger class="popover-trigger">Click me</Popover.Trigger>
+      <Popover.Panel class="popover-panel">I am anchored to the trigger!</Popover.Panel>
+    </Popover.Root>
   );
 });

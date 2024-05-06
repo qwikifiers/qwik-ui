@@ -10,12 +10,12 @@ export default component$(() => {
     <Select.Root class="select">
       <Select.Label>Logged in users</Select.Label>
       <Select.Trigger class="select-trigger">
-        <Select.Value placeholder="Select an option" />
+        <Select.DisplayText placeholder="Select an option" />
       </Select.Trigger>
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox">
           {users.map((user) => (
-            <Select.Item key={user}>
+            <Select.Item class="select-item" key={user}>
               <Select.ItemLabel>{user}</Select.ItemLabel>
               <Select.ItemIndicator>
                 <LuCheck />

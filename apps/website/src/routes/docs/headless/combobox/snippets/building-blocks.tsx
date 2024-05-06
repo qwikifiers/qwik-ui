@@ -1,35 +1,25 @@
 import { component$ } from '@builder.io/qwik';
-import {
-  Combobox,
-  ComboboxLabel,
-  ComboboxControl,
-  ComboboxInput,
-  ComboboxTrigger,
-  ComboboxPopover,
-  ComboboxListbox,
-  ComboboxOption,
-  ResolvedOption,
-} from '@qwik-ui/headless';
+import { Combobox, ResolvedOption } from '@qwik-ui/headless';
 
 export default component$(() => {
   const data = ['a', 'b', 'c'];
 
   return (
-    <Combobox options={data}>
-      <ComboboxLabel>Label Element</ComboboxLabel>
-      <ComboboxControl>
-        <ComboboxInput />
-        <ComboboxTrigger>Opens Listbox</ComboboxTrigger>
-      </ComboboxControl>
-      <ComboboxPopover>
-        <ComboboxListbox
+    <Combobox.Root options={data}>
+      <Combobox.Label>Label Element</Combobox.Label>
+      <Combobox.Control>
+        <Combobox.Input />
+        <Combobox.Trigger>Opens Listbox</Combobox.Trigger>
+      </Combobox.Control>
+      <Combobox.Popover>
+        <Combobox.Listbox
           optionRenderer$={(option: ResolvedOption, index: number) => (
-            <ComboboxOption index={index} resolved={option}>
+            <Combobox.Option index={index} resolved={option}>
               Option Label
-            </ComboboxOption>
+            </Combobox.Option>
           )}
         />
-      </ComboboxPopover>
-    </Combobox>
+      </Combobox.Popover>
+    </Combobox.Root>
   );
 });

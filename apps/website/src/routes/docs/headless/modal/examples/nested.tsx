@@ -11,10 +11,10 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
-      <Modal class="modal" bind:show={isOpen}>
+      <Modal.Root class="modal" bind:show={isOpen}>
         Modal Content
         <NestedModal />
-      </Modal>
+      </Modal.Root>
     </>
   );
 });
@@ -28,9 +28,9 @@ export const NestedModal = component$(() => {
       <button class="modal-trigger" onClick$={() => (isNestedOpen.value = true)}>
         Nested Modal Trigger
       </button>
-      <Modal class="modal" bind:show={isNestedOpen}>
+      <Modal.Root class="modal" bind:show={isNestedOpen}>
         Nested Modal Content
-      </Modal>
+      </Modal.Root>
     </>
   );
 });

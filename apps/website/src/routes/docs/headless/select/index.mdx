@@ -4,6 +4,8 @@ title: Qwik UI | Select
 
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { statusByComponent } from '~/_state/component-statuses';
+import { useSelectFormLoader } from './examples/validation.tsx';
+export { useSelectFormLoader } from './examples/validation.tsx';
 
 <StatusBanner status={statusByComponent.headless.Select} />
 
@@ -59,7 +61,7 @@ A control that allows the user to select multiple predefined items from a listbo
         'A button or similar control that opens the select menu when interacted with.',
     },
     {
-      name: 'Select.Value',
+      name: 'Select.DisplayText',
       description: 'Displays the currently selected value.',
     },
     {
@@ -163,6 +165,20 @@ We can listen to changes in the selected value by using the `onChange$` prop. It
 
 The above example increments a count when the user selects a new item.
 
+### Forms
+
+To use the select in a form, we provide a visually hidden native select element inside of `<Select.HiddenNativeSelect>`.
+
+<Showcase name="form" />
+
+The native select element is created when a form name has been given to `<Select.Root />`
+
+### Validation
+
+<Showcase name="validation" />
+
+Above is an example of submitting a multi-select form.
+
 ## Component state
 
 We can select an initial uncontrolled value by passing the `value` prop to the `<Select.Root />` component.
@@ -227,13 +243,13 @@ Sometimes we want to allow the user to select multiple pre-defined items at a ti
 
 <Showcase name="multiple" />
 
-If we want to configure the multiple display values, we can use the `bind:display` signal.
+If we want to configure the multiple display values, we can use the `bind:displayText` signal.
 
-Something to be aware of, is the `<Select.Value />` component will now display whatever you put inside of it.
+Something to be aware of, is the `<Select.DisplayText />` component will now display whatever you put inside of it.
 
-> Under the hood, Qwik UI updates the `bind:display` signal with the latest display values.
+> Under the hood, Qwik UI updates the `bind:displayText` signal with the latest display values.
 
-Taking this a step further, one could combine the `bind:value` and `bind:display` props together to create a custom widget that displays the selected values in a list of pills.
+Taking this a step further, one could combine the `bind:value` and `bind:displayText` props together to create a custom widget that displays the selected values in a list of pills.
 
 <Showcase name="multiple-pill" />
 
@@ -301,11 +317,17 @@ To customize the scroll behavior, add the `scrollOptions` prop to the `<Select.R
 
 ## Placeholder
 
-We can provide a custom placeholder to the `<Select.Value />` component by adding the `placeholder` prop.
+We can provide a custom placeholder to the `<Select.DisplayText />` component by adding the `placeholder` prop.
 
 <Showcase name="hero" />
 
 When a value is not selected, the placeholder is displayed.
+
+## CSR
+
+The select component can be rendered both server-side or client-side, same with the rest of the components.
+
+<Showcase name="csr" />
 
 > The `placeholder` prop is only used when the `multiple` prop is set to `false`.
 
@@ -397,7 +419,7 @@ When in multi select mode, additional keyboard interactions are available.
 
 ### Data Attributes
 
-`Select`, `Select.Trigger`, `Select.Value`, `Select.Popover`, and `Select.Listbox` all have data attributes that are used to track state.
+`Select`, `Select.Trigger`, `Select.DisplayText`, `Select.Popover`, and `Select.Listbox` all have data attributes that are used to track state.
 
 <AnatomyTable
   firstColumnLabel="Attribute"
@@ -449,7 +471,7 @@ When in multi select mode, additional keyboard interactions are available.
       info: 'string',
     },
     {
-      name: 'bind:display',
+      name: 'bind:displayText',
       type: 'signal',
       description: 'Controlled display value, manages the display items.',
       info: 'string',
@@ -475,7 +497,7 @@ When in multi select mode, additional keyboard interactions are available.
   ]}
 />
 
-### Select.Value
+### Select.DisplayText
 
 <APITable
   propDescriptors={[

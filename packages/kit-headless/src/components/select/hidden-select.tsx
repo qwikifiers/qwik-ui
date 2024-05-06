@@ -1,14 +1,6 @@
-/*!
- * Portions of this file are based on code from react-spectrum.
- * Apache License Version 2.0, Copyright 2020 Adobe.
- *
- * Credits to the React Spectrum team:
- * https://github.com/adobe/react-spectrum/blob/5c1920e50d4b2b80c826ca91aff55c97350bf9f9/packages/@react-aria/select/src/HiddenSelect.tsx
- */
-
-import { component$, useContext } from '@builder.io/qwik';
-import { Opt } from './select-inline';
+import { PropsOf, component$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
 import SelectContextId from './select-context';
+import { isServer } from '@builder.io/qwik/build';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type AriaHiddenSelectProps = {
@@ -29,14 +21,25 @@ export type AriaHiddenSelectProps = {
   required?: boolean;
 };
 
-export type SelectDataProps = {
-  options: Opt[] | undefined;
-};
-
-export const HiddenSelect = component$(
-  (props: AriaHiddenSelectProps & SelectDataProps) => {
-    const { label, options, autoComplete, name, required, disabled } = props;
+export const HiddenNativeSelect = component$(
+  (props: AriaHiddenSelectProps & PropsOf<'select'>) => {
+    const { label, autoComplete, ref, ...rest } = props;
     const context = useContext(SelectContextId);
+
+    // modular forms does something with refs, doesn't seem we need it, and it overrides the ref we define here.
+    ref;
+
+    const nativeSelectRef = useSignal<HTMLSelectElement>();
+
+    useTask$(function modularFormsValidation({ track }) {
+      track(() => context.selectedIndexSetSig.value);
+
+      if (isServer) return;
+
+      // modular forms expects the input event fired after interaction
+      const inputEvent = new Event('input', { bubbles: false });
+      nativeSelectRef.value?.dispatchEvent(inputEvent);
+    });
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
     return (
@@ -45,20 +48,30 @@ export const HiddenSelect = component$(
           <label>
             {label}
             <select
+              onFocus$={() => context.triggerRef.value?.focus()}
+              ref={(element: HTMLSelectElement) => {
+                nativeSelectRef.value = element;
+                // @ts-expect-error modular forms ref function
+                ref?.(element);
+              }}
+              multiple={context.multiple}
               tabIndex={-1}
               autocomplete={autoComplete}
-              disabled={disabled}
-              required={required}
-              name={name}
+              disabled={context.disabled}
+              required={context.required}
+              name={context.name}
+              // height is determined by its children
+              style={{ height: '1px' }}
+              {...rest}
             >
               <option />
-              {options?.map((opt: Opt) => (
+              {Array.from(context.itemsMapSig.value.entries()).map(([index, item]) => (
                 <option
-                  value={opt.value}
-                  selected={context.selectedIndexesSig.value.includes(opt.index)}
-                  key={opt.value}
+                  value={item.value}
+                  selected={context.selectedIndexSetSig.value.has(index)}
+                  key={item.value}
                 >
-                  {opt.displayValue}
+                  {item.displayValue}
                 </option>
               ))}
             </select>

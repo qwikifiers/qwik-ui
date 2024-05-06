@@ -1,15 +1,11 @@
-import { component$, useId, useSignal, useStyles$ } from '@builder.io/qwik';
-import { Popover, PopoverTrigger } from '@qwik-ui/headless';
+import { component$, useStyles$ } from '@builder.io/qwik';
+import { Popover } from '@qwik-ui/headless';
 
 type InfoProps = {
   info: string;
 };
 
 export const InfoPopup = component$((props: InfoProps) => {
-  const popoverTableId = useId();
-  const triggerRef = useSignal<HTMLButtonElement>();
-  const popoverRef = useSignal<HTMLElement>();
-
   useStyles$(`
   .fade-info {
     transition: opacity 0.35s, display 0.35s, overlay 0.35s;
@@ -27,13 +23,8 @@ export const InfoPopup = component$((props: InfoProps) => {
   `);
 
   return (
-    <>
-      <PopoverTrigger
-        ref={triggerRef}
-        popoverTargetAction="show"
-        popovertarget={popoverTableId}
-        class="flex items-center justify-center"
-      >
+    <Popover.Root flip={false} floating="top" gutter={4}>
+      <Popover.Trigger class="flex items-center justify-center">
         <div class="rounded-full p-1 hover:bg-slate-300 hover:bg-opacity-50">
           <svg
             width="16"
@@ -52,22 +43,13 @@ export const InfoPopup = component$((props: InfoProps) => {
             ></path>
           </svg>
         </div>
-      </PopoverTrigger>
+      </Popover.Trigger>
 
-      <Popover
-        ref={popoverRef}
-        anchorRef={triggerRef}
-        floating={true}
-        flip={false}
-        placement="top"
-        gutter={4}
-        id={popoverTableId}
-        class="fade-info listbox rounded-base bg-transparent"
-      >
+      <Popover.Panel class="fade-info listbox rounded-base bg-transparent">
         <div class="text-md mb-2 max-w-xs rounded-base border border-b-2 border-border bg-popover px-3 py-2 font-[500] text-foreground shadow-lg sm:w-max">
           {props.info}
         </div>
-      </Popover>
-    </>
+      </Popover.Panel>
+    </Popover.Root>
   );
 });

@@ -20,7 +20,7 @@ const pokemonExample: Array<Pokemon> = [
 
 export default component$(() => {
   return (
-    <Combobox
+    <Combobox.Root
       options={pokemonExample}
       optionValueKey="pokedex"
       optionLabelKey="pokemon"

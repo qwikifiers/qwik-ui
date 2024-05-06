@@ -15,7 +15,7 @@
   margin-bottom: 0.5rem;
 }
 
-.popover {
+.popover-panel {
   border-radius: var(--border-radius);
   border: 2px dotted hsla(var(--primary));
   background-color: hsl(var(--popover));
@@ -84,4 +84,9 @@
   to {
     transform: scale(1);
   }
+}
+
+.popover-programmatic {
+  max-width: 15.5rem;
+  text-align: center;
 }

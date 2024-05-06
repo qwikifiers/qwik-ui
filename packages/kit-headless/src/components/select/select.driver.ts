@@ -15,20 +15,20 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().getByRole('listbox');
   };
 
-  // we use data-option so that it doesn't grab native select options.
-  const getOptions = (hidden?: 'hidden') => {
-    if (hidden === 'hidden') return getRoot().locator('[data-option]:hidden');
+  // we use data-item so that it doesn't grab native select items.
+  const getItems = (hidden?: 'hidden') => {
+    if (hidden === 'hidden') return getRoot().locator('[data-item]:hidden');
 
-    return getRoot().locator('[data-option]');
+    return getRoot().locator('[data-item]');
   };
 
-  const getOptionsLength = async () => {
-    return getOptions().count();
+  const getItemsLength = async () => {
+    return getItems().count();
   };
 
-  const getOptionAt = (index: number | 'last') => {
-    if (index === 'last') return getOptions().last();
-    return getOptions().nth(index);
+  const getItemAt = (index: number | 'last') => {
+    if (index === 'last') return getItems().last();
+    return getItems().nth(index);
   };
 
   const getValueElement = () => {
@@ -54,9 +54,9 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getRoot,
     getTrigger,
     getListbox,
-    getOptions,
-    getOptionsLength,
-    getOptionAt,
+    getItems,
+    getItemsLength,
+    getItemAt,
     getValueElement,
     openListbox,
   };

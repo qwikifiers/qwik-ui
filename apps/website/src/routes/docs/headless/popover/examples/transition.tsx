@@ -1,14 +1,12 @@
 import { component$ } from '@builder.io/qwik';
-import { Popover, PopoverTrigger } from '@qwik-ui/headless';
+import { Popover } from '@qwik-ui/headless';
 export default component$(() => {
   return (
-    <>
-      <PopoverTrigger popovertarget="transition-id" class="popover-trigger">
-        Popover Trigger
-      </PopoverTrigger>
-      <Popover id="transition-id" class="popover popover-transition">
+    <Popover.Root>
+      <Popover.Trigger class="popover-trigger">Popover Trigger</Popover.Trigger>
+      <Popover.Panel class="popover-panel popover-transition">
         I'm a popover!
-      </Popover>
-    </>
+      </Popover.Panel>
+    </Popover.Root>
   );
 });

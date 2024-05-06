@@ -6,7 +6,7 @@ import {
   useSignal,
   useStyles$,
 } from '@builder.io/qwik';
-import { Modal, ModalContent, ModalFooter, ModalHeader } from '@qwik-ui/headless';
+import { Modal } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/styled';
 import {
   ThemeBaseColor,
@@ -144,15 +144,15 @@ export default component$<PropsOf<typeof Button>>(() => {
         <LuSlidersHorizontal class={cn('h-4 w-4 sm:mr-3')} />
         <span class={cn('hidden', 'sm:block')}>Make it yours</span>
       </Button>
-      <Modal
+      <Modal.Root
         closeOnBackdropClick={false}
         bind:show={showSig}
         class="make-it-yours fixed bottom-[50%] right-0  top-[50%] mr-0 h-screen max-w-sm rounded-l-base border-y border-l bg-background px-4 py-8 text-foreground shadow-md sm:w-full"
       >
-        <ModalHeader class="flex w-full">
+        <header class="flex w-full">
           <h2 class="justify-self-start text-lg font-bold">Edit Profile</h2>
-        </ModalHeader>
-        <ModalContent class="mb-2 mt-8 py-4">
+        </header>
+        <div class="mb-2 mt-8 py-4">
           <label class="mb-1 block font-medium">Preset</label>
           <select
             class="h-12 w-full rounded-base border bg-background p-2"
@@ -543,9 +543,9 @@ export default component$<PropsOf<typeof Button>>(() => {
               }}
             />
           </div>
-        </ModalContent>
+        </div>
 
-        <ModalFooter class=" flex w-full justify-between gap-4">
+        <footer class=" flex w-full justify-between gap-4">
           <Button
             look="ghost"
             onClick$={() => setTheme(theme?.includes('dark') ? 'dark' : 'light')}
@@ -553,11 +553,11 @@ export default component$<PropsOf<typeof Button>>(() => {
             Reset
           </Button>
           <CopyCssConfig />
-        </ModalFooter>
+        </footer>
         <button onClick$={() => (showSig.value = false)} class="absolute right-4 top-5">
           <LuX class="h-8 w-8" />
         </button>
-      </Modal>
+      </Modal.Root>
     </div>
   );
 });

@@ -1,14 +1,4 @@
-import {
-  Combobox,
-  ComboboxControl,
-  ComboboxInput,
-  ComboboxLabel,
-  ComboboxListbox,
-  ComboboxOption,
-  ComboboxPopover,
-  ComboboxTrigger,
-  ResolvedOption,
-} from '@qwik-ui/headless';
+import { Combobox, ResolvedOption } from '@qwik-ui/headless';
 
 import { component$, useSignal } from '@builder.io/qwik';
 
@@ -23,18 +13,18 @@ export default component$(() => {
     >
       <div class="h-[1px] w-[2000px]"></div>
       <div class="flex justify-center">
-        <Combobox
+        <Combobox.Root
           class="w-fit"
           options={shiftExample}
           bind:isListboxOpen={isListboxOpenSig}
         >
-          <ComboboxLabel class=" font-semibold">Fruits 🍓</ComboboxLabel>
-          <ComboboxControl class="relative flex items-center rounded-base border">
-            <ComboboxInput
+          <Combobox.Label class=" font-semibold">Fruits 🍓</Combobox.Label>
+          <Combobox.Control class="relative flex items-center rounded-base border">
+            <Combobox.Input
               class="px-d2 w-44 rounded-base bg-background px-2 pr-6 placeholder:text-muted-foreground"
               placeholder="Papaya"
             />
-            <ComboboxTrigger class="group absolute right-0 h-6 w-6">
+            <Combobox.Trigger class="group absolute right-0 h-6 w-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -46,24 +36,24 @@ export default component$(() => {
               >
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
-            </ComboboxTrigger>
-          </ComboboxControl>
-          <ComboboxPopover>
-            <ComboboxListbox
+            </Combobox.Trigger>
+          </Combobox.Control>
+          <Combobox.Popover>
+            <Combobox.Listbox
               optionRenderer$={(option: ResolvedOption, index: number) => (
-                <ComboboxOption
+                <Combobox.Option
                   key={option.key}
                   class="group flex justify-between rounded-base border border-transparent px-2 hover:bg-accent aria-disabled:font-light aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:cursor-pointer aria-selected:border-border aria-selected:bg-accent"
                   index={index}
                   resolved={option}
                 >
                   {option.label}
-                </ComboboxOption>
+                </Combobox.Option>
               )}
               class="left:0 top:0 absolute w-fit rounded-base border px-4 py-2"
             />
-          </ComboboxPopover>
-        </Combobox>
+          </Combobox.Popover>
+        </Combobox.Root>
       </div>
     </div>
   );

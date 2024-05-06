@@ -1,2 +1,2 @@
-export * from './breadcrumb';
-export * from './breadcrumb-item';
+export { Breadcrumb as Root } from './breadcrumb';
+export { BreadcrumbItem as Item } from './breadcrumb-item';

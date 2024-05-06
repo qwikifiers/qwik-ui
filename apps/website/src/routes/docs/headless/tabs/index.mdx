@@ -87,17 +87,17 @@ You can pass a custom `onClick$` handler.
 
 ## Creating reusable Tabs
 
-In order to remove the need for a linking `value` prop for each Tab and TabPanel pair, we have chosen to create the Tabs component as an [inline component](https://qwik.builder.io/docs/components/overview/#inline-components).
+In order to remove the need for a linking `value` prop for each Tab and Tabs.Panel pair, we have chosen to create the Tabs component as an [inline component](https://qwik.builder.io/docs/components/overview/#inline-components).
 
-By consequence, the Tabs component needs to be aware of its children. If you want to create your custom reusable TabList/Tab/TabPanel components, you will have to pass them to the Tabs component through its `TabList`, `Tab`, and `TabPanel` props:
+By consequence, the Tabs component needs to be aware of its children. If you want to create your custom reusable Tabs.List/Tab/Tabs.Panel components, you will have to pass them to the Tabs component through its `Tabs.List`, `Tab`, and `Tabs.Panel` props:
 
 ```tsx
-const CustomTabs = (props: TabsProps) => (
-  <Tabs
+const CustomTabs = (props: PropsOf<typeof Tabs.Root>) => (
+  <Tabs.Root
     {...props}
-    tabListComponent={CustomTabList}
+    tabListComponent={CustomTabsList}
     tabComponent={CustomTab}
-    tabPanelComponent={CustomTabPanel}
+    tabPanelComponent={CustomTabsPanel}
   />
 );
 ```
@@ -181,7 +181,7 @@ const CustomTabs = (props: TabsProps) => (
       name: 'selectedTabId',
       type: 'number',
       description:
-        'A way to set the selected tabId programmatically. The tabId is set by the `key` prop of the Tab or TabPanel',
+        'A way to set the selected tabId programmatically. The tabId is set by the `key` prop of the Tab or Tabs.Panel',
     },
     {
       name: 'vertical',
@@ -256,7 +256,7 @@ const CustomTabs = (props: TabsProps) => (
   ]}
 />
 
-### TabPanel
+### Tabs.Panel
 
 <APITable
   propDescriptors={[

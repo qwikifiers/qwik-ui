@@ -1,7 +1,7 @@
 import { type Signal } from '@builder.io/qwik';
 
 import { createContextId } from '@builder.io/qwik';
-import { Opt } from './select-inline';
+import { TItemsMap } from './select-root';
 
 const SelectContextId = createContextId<SelectContext>('Select');
 
@@ -16,16 +16,32 @@ export type SelectContext = {
   labelRef: Signal<HTMLDivElement | undefined>;
 
   // core state
-  localId: string;
-  optionsSig: Signal<Opt[]>;
+  itemsMapSig: Readonly<Signal<TItemsMap>>;
+  selectedIndexSetSig: Signal<Set<number>>;
   highlightedIndexSig: Signal<number | null>;
+  currDisplayValueSig: Signal<string | string[] | undefined>;
   isListboxOpenSig: Signal<boolean>;
-  selectedIndexesSig: Signal<Array<number | null>>;
+  localId: string;
 
   // user configurable
   scrollOptions?: ScrollIntoViewOptions;
   loop: boolean;
   multiple: boolean | undefined;
+
+  /**
+   * The name of the select element, used when submitting an HTML form. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#name).
+   */
+  name?: string;
+
+  /**
+   * Specifies that the user must select a value before submitting the form. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#required).
+   */
+  required?: boolean;
+
+  /**
+   * If `true`, prevents the user from interacting with the select.
+   */
+  disabled?: boolean;
 };
 
 export const groupContextId = createContextId<GroupContext>('Select-Group');
@@ -34,9 +50,8 @@ export type GroupContext = {
   groupLabelId: string;
 };
 
-export const selectOptionContextId =
-  createContextId<SelectOptionContext>('Select-Option');
+export const selectItemContextId = createContextId<SelectItemContext>('Select-Option');
 
-export type SelectOptionContext = {
+export type SelectItemContext = {
   isSelectedSig: Signal<boolean>;
 };

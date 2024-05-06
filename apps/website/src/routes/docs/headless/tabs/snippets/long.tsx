@@ -1,18 +1,18 @@
 import { component$ } from '@builder.io/qwik';
-import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
+import { Tabs } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (
-    <Tabs selectedIndex={1}>
-      <TabList>
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-        <Tab>Tab 3</Tab>
-      </TabList>
+    <Tabs.Root selectedIndex={1}>
+      <Tabs.List>
+        <Tabs.Tab>Tab 1</Tabs.Tab>
+        <Tabs.Tab>Tab 2</Tabs.Tab>
+        <Tabs.Tab>Tab 3</Tabs.Tab>
+      </Tabs.List>
 
-      <TabPanel>Content 1</TabPanel>
-      <TabPanel>Content 2</TabPanel>
-      <TabPanel>Content 3</TabPanel>
-    </Tabs>
+      <Tabs.Panel>Content 1</Tabs.Panel>
+      <Tabs.Panel>Content 2</Tabs.Panel>
+      <Tabs.Panel>Content 3</Tabs.Panel>
+    </Tabs.Root>
   );
 });

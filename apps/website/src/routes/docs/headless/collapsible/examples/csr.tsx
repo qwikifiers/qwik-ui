@@ -1,6 +1,6 @@
 import { component$, useStyles$, useSignal } from '@builder.io/qwik';
 import styles from '../snippets/collapsible.css?inline';
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@qwik-ui/headless';
+import { Collapsible } from '@qwik-ui/headless';
 import SVG from './svg';
 
 export default component$(() => {
@@ -13,15 +13,15 @@ export default component$(() => {
         Render Collapsible
       </button>
       {isCollapsibleRendered.value && (
-        <Collapsible class="collapsible">
-          <CollapsibleTrigger class="collapsible-trigger">
+        <Collapsible.Root class="collapsible">
+          <Collapsible.Trigger class="collapsible-trigger">
             <span>Trigger</span>
             <SVG />
-          </CollapsibleTrigger>
-          <CollapsibleContent class="collapsible-content collapsible-content-outline ">
+          </Collapsible.Trigger>
+          <Collapsible.Content class="collapsible-content collapsible-content-outline ">
             Content
-          </CollapsibleContent>
-        </Collapsible>
+          </Collapsible.Content>
+        </Collapsible.Root>
       )}
     </>
   );

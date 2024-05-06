@@ -1,42 +1,46 @@
-import { component$, useContext, Slot, useTask$, useId } from '@builder.io/qwik';
-import { Popover, usePopover } from '../popover';
+import { component$, useContext, Slot, useTask$, PropsOf } from '@builder.io/qwik';
+import { PopoverPanel } from '../popover/popover-panel';
+import { usePopover } from '../popover/popover-trigger';
+import { PopoverRoot } from '../popover/popover-root';
 
 import ComboboxContextId from './combobox-context-id';
-import { FloatingProps } from '../popover/floating';
-import { PopoverImplProps } from '../popover/popover-impl';
 import { isServer } from '@builder.io/qwik/build';
 
-export const ComboboxPopover = component$(
-  (props: Partial<FloatingProps & PopoverImplProps>) => {
-    const context = useContext(ComboboxContextId);
-    const customPopoverId = useId();
-    const { showPopover, hidePopover } = usePopover(customPopoverId);
+export const ComboboxPopover = component$<PropsOf<typeof PopoverRoot>>((props) => {
+  const context = useContext(ComboboxContextId);
+  const { showPopover, hidePopover } = usePopover(context.localId);
+  const { floating, flip, hover, gutter, ...rest } = props;
 
-    /* REMEMBER, whenever an option is selected or onMouseDown$ the listbox is closed, and the popover should sync to that */
-    useTask$(async ({ track }) => {
-      track(() => context.isListboxOpenSig.value);
+  /* REMEMBER, whenever an option is selected or onMouseDown$ the listbox is closed, and the popover should sync to that */
+  useTask$(async ({ track }) => {
+    track(() => context.isListboxOpenSig.value);
 
-      if (isServer) return;
+    if (isServer) return;
 
-      if (context.isListboxOpenSig.value) {
-        showPopover();
-      } else {
-        hidePopover();
-      }
-    });
+    if (context.isListboxOpenSig.value) {
+      showPopover();
+    } else {
+      hidePopover();
+    }
+  });
 
-    return (
-      <Popover
-        {...props}
-        id={customPopoverId}
-        floating={true}
-        anchorRef={context.inputRef}
-        ref={context.popoverRef}
-        class={['listbox', props.class]}
-        manual
+  return (
+    <PopoverRoot
+      floating={floating}
+      flip={flip}
+      hover={hover}
+      gutter={gutter}
+      bind:anchor={context.inputRef}
+      manual
+      id={context.localId}
+    >
+      <PopoverPanel
+        data-open={context.isListboxOpenSig.value ? '' : undefined}
+        data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+        {...rest}
       >
         <Slot />
-      </Popover>
-    );
-  },
-);
+      </PopoverPanel>
+    </PopoverRoot>
+  );
+});

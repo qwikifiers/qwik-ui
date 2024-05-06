@@ -1,5 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Modal, ModalContent, ModalHeader } from '@qwik-ui/headless';
+import { Modal } from '@qwik-ui/headless';
 import { Button } from '@qwik-ui/styled';
 import { extractThemeCSS } from '@qwik-ui/utils';
 import { LuX } from '@qwikest/icons/lucide';
@@ -29,24 +29,24 @@ export default component$(() => {
       >
         Copy code
       </Button>
-      <Modal
+      <Modal.Root
         bind:show={showSig}
         class="my-animation h-[650px] max-w-2xl overflow-x-hidden rounded-base bg-background p-8 text-foreground shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100"
       >
-        <ModalHeader>
+        <header>
           <h2 class="mb-2 text-lg font-bold">Copy config</h2>
           <p class="mb-6">
             Copy and paste the following code into your global.css file to apply the
             styles.
           </p>
-        </ModalHeader>
-        <ModalContent>
+        </header>
+        <div>
           <Highlight code={cssThemeOutput.value} language="css" class="border" />
-        </ModalContent>
+        </div>
         <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-7">
           <LuX class="h-8 w-8" />
         </button>
-      </Modal>
+      </Modal.Root>
     </>
   );
 });

@@ -1,56 +1,73 @@
-import { useContext, useSignal, $, useComputed$, Signal } from '@builder.io/qwik';
+import { useContext, useSignal, $, useComputed$ } from '@builder.io/qwik';
 import SelectContextId from './select-context';
-import { Opt } from './select-inline';
 
 /**
  * Helper functions go inside of hooks.
  * This is because outside of the component$ boundary Qwik core wakes up.
  */
 export function useSelect() {
-  const toggleIndex$ = $(
-    async (
-      selectedIndexesSig: Signal<Array<number | null>>,
-      index: number | null,
-      optionsSig: Readonly<Signal<Opt[]>>,
-    ) => {
+  const context = useContext(SelectContextId);
+
+  const selectionManager$ = $(
+    async (index: number | null, action: 'add' | 'toggle' | 'remove') => {
       if (index === null) return;
 
-      // Check if the current index is disabled, and if so, find the next enabled index
-      const currentOption = optionsSig.value[index];
-      const enabledIndex =
-        currentOption && currentOption.isDisabled
-          ? await getNextEnabledOptionIndex(index, optionsSig.value, true)
-          : index;
+      const currItem = context.itemsMapSig.value.get(index);
 
-      const currentIndex = selectedIndexesSig.value.indexOf(enabledIndex);
-      if (currentIndex === -1) {
-        // Index not found, add it
-        selectedIndexesSig.value = [...selectedIndexesSig.value, enabledIndex];
-      } else {
-        // Index found, remove it
-        selectedIndexesSig.value = [
-          ...selectedIndexesSig.value.slice(0, currentIndex),
-          ...selectedIndexesSig.value.slice(currentIndex + 1),
-        ];
+      const enabledIndex =
+        currItem && currItem.disabled ? await getNextEnabledItemIndex$(index) : index;
+
+      if (action === 'add') {
+        if (context.multiple) {
+          context.selectedIndexSetSig.value = new Set([
+            ...context.selectedIndexSetSig.value,
+            index,
+          ]);
+        } else {
+          context.selectedIndexSetSig.value = new Set([index]);
+        }
+      }
+
+      if (action === 'toggle') {
+        if (context.selectedIndexSetSig.value.has(enabledIndex)) {
+          context.selectedIndexSetSig.value = new Set(
+            [...context.selectedIndexSetSig.value].filter(
+              (selectedIndex) => selectedIndex !== enabledIndex,
+            ),
+          );
+        } else {
+          context.selectedIndexSetSig.value = new Set([
+            ...context.selectedIndexSetSig.value,
+            enabledIndex,
+          ]);
+        }
+      }
+
+      if (action === 'remove') {
+        context.selectedIndexSetSig.value = new Set(
+          [...context.selectedIndexSetSig.value].filter(
+            (selectedIndex) => selectedIndex !== index,
+          ),
+        );
       }
     },
   );
 
-  const getNextEnabledOptionIndex = $((index: number, options: Opt[], loop: boolean) => {
+  const getNextEnabledItemIndex$ = $((index: number) => {
     let offset = 1;
-    const len = options.length;
+    const len = context.itemsMapSig.value.size;
 
-    if (!loop && index + 1 >= len) {
+    if (!context.loop && index + 1 >= len) {
       return index;
     }
 
     while (offset < len) {
       const nextIndex = (index + offset) % len;
-      if (!options[nextIndex].isDisabled) {
+      if (!context.itemsMapSig.value.get(nextIndex)?.disabled) {
         return nextIndex;
       }
       offset++;
-      if (!loop && index + offset >= len) {
+      if (!context.loop && index + offset >= len) {
         break;
       }
     }
@@ -58,21 +75,21 @@ export function useSelect() {
     return index;
   });
 
-  const getPrevEnabledOptionIndex = $((index: number, options: Opt[], loop: boolean) => {
+  const getPrevEnabledItemIndex$ = $((index: number) => {
     let offset = 1;
-    const len = options.length;
+    const len = context.itemsMapSig.value.size;
 
-    if (!loop && index - 1 < 0) {
+    if (!context.loop && index - 1 < 0) {
       return index;
     }
 
     while (offset <= len) {
       const prevIndex = (index - offset + len) % len;
-      if (!options[prevIndex].isDisabled) {
+      if (!context.itemsMapSig.value.get(prevIndex)?.disabled) {
         return prevIndex;
       }
       offset++;
-      if (!loop && index - offset < 0) {
+      if (!context.loop && index - offset < 0) {
         break;
       }
     }
@@ -80,21 +97,19 @@ export function useSelect() {
     return index;
   });
 
-  const getActiveDescendant = $((index: number, options: Opt[], localId: string) => {
-    const option = options[index];
-
-    if (index === -1 || option?.isDisabled) {
+  const getActiveDescendant$ = $((index: number) => {
+    if (index === -1 || context.itemsMapSig.value.get(index)?.disabled) {
       return '';
     }
 
-    return `${localId}-${index}`;
+    return `${context.localId}-${index}`;
   });
 
   return {
-    getNextEnabledOptionIndex,
-    getPrevEnabledOptionIndex,
-    getActiveDescendant,
-    toggleIndex$,
+    getNextEnabledItemIndex$,
+    getPrevEnabledItemIndex$,
+    getActiveDescendant$,
+    selectionManager$,
   };
 }
 
@@ -103,25 +118,26 @@ export function useTypeahead() {
   const inputStrSig = useSignal('');
   const indexDiffSig = useSignal<number | undefined>(undefined);
   const prevTimeoutSig = useSignal<undefined | NodeJS.Timeout>(undefined);
+  const { selectionManager$ } = useSelect();
 
-  const firstCharOptionsSig = useComputed$(() => {
-    return context.optionsSig.value.map((opt) =>
-      opt.displayValue?.slice(0, 1).toLowerCase(),
+  const firstCharItemSig = useComputed$(() => {
+    return Array.from(context.itemsMapSig.value.values()).map((item) =>
+      item.displayValue?.slice(0, 1).toLowerCase(),
     );
   });
 
-  const typeahead$ = $((key: string): void => {
+  const typeahead$ = $(async (key: string): Promise<void> => {
     inputStrSig.value += key;
     if (key.length > 1) {
       return;
     }
 
-    const firstCharOnly$ = $(() => {
+    const firstCharOnly$ = $(async () => {
       // First opens the listbox if it is not already displayed and then moves visual focus to the first option that matches the typed character.
       const singleInputChar = key.toLowerCase();
 
       // index the first time we see the same character
-      const firstCharIndex = firstCharOptionsSig.value.indexOf(singleInputChar);
+      const firstCharIndex = firstCharItemSig.value.indexOf(singleInputChar);
 
       if (firstCharIndex === -1 || firstCharIndex === undefined) {
         return null;
@@ -131,7 +147,7 @@ export function useTypeahead() {
         context.highlightedIndexSig.value = firstCharIndex;
 
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexesSig.value = [firstCharIndex];
+          await selectionManager$(firstCharIndex, 'add');
         }
 
         return;
@@ -141,11 +157,11 @@ export function useTypeahead() {
 
       const prevIndex = indexDiffSig.value - 1;
 
-      const isRepeatedChar = firstCharOptionsSig.value[prevIndex] === key;
+      const isRepeatedChar = firstCharItemSig.value[prevIndex] === key;
 
       if (isRepeatedChar) {
         // Slices the options' first characters from indexDiffSig.value for finding the next matching character.
-        const nextCharSearch = firstCharOptionsSig.value.slice(indexDiffSig.value);
+        const nextCharSearch = firstCharItemSig.value.slice(indexDiffSig.value);
 
         // index the next time we could see the same character
         const repeatIndex = nextCharSearch.indexOf(key);
@@ -154,7 +170,7 @@ export function useTypeahead() {
 
           context.highlightedIndexSig.value = nextIndex;
           if (!context.isListboxOpenSig.value) {
-            context.selectedIndexesSig.value = [nextIndex];
+            await selectionManager$(nextIndex, 'add');
           }
           indexDiffSig.value = nextIndex + 1;
           return;
@@ -163,35 +179,42 @@ export function useTypeahead() {
         indexDiffSig.value = undefined;
         context.highlightedIndexSig.value = firstCharIndex;
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexesSig.value = [firstCharIndex];
+          await selectionManager$(firstCharIndex, 'add');
         }
         return;
       }
       indexDiffSig.value = firstCharIndex + 1;
       context.highlightedIndexSig.value = firstCharIndex;
       if (!context.isListboxOpenSig.value) {
-        context.selectedIndexesSig.value = [firstCharIndex];
+        await selectionManager$(firstCharIndex, 'add');
       }
 
       return;
     });
 
-    const multipleChars$ = $(() => {
+    const multipleChars$ = $(async () => {
       // If multiple keys are typed in quick succession, visual focus moves to the first option that matches the full string.
       clearTimeout(prevTimeoutSig.value);
       prevTimeoutSig.value = setTimeout(() => {
         inputStrSig.value = '';
       }, 1000);
 
-      const firstPossibleOpt = context.optionsSig.value.findIndex((opt) => {
-        const size = inputStrSig.value.length;
-        const optStr = opt.displayValue?.toLowerCase();
-        return optStr?.substring(0, size) === inputStrSig.value;
-      });
+      let firstPossibleOpt = -1;
+      const inputSize = inputStrSig.value.length;
+      const inputStrLower = inputStrSig.value.toLowerCase();
+
+      for (const [index, item] of context.itemsMapSig.value) {
+        const optStr = item.displayValue?.toLowerCase().substring(0, inputSize);
+        if (optStr === inputStrLower) {
+          firstPossibleOpt = index;
+          break;
+        }
+      }
+
       if (firstPossibleOpt !== -1) {
         context.highlightedIndexSig.value = firstPossibleOpt;
         if (!context.isListboxOpenSig.value) {
-          context.selectedIndexesSig.value = [firstPossibleOpt];
+          await selectionManager$(firstPossibleOpt, 'add');
         }
         return;
       }

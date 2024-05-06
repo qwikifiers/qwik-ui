@@ -1,5 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import { Modal, ModalTitle, ModalDescription, Label } from '@qwik-ui/headless';
+import { Modal, Label } from '@qwik-ui/headless';
 import styles from '../snippets/animation.css?inline';
 
 export default component$(() => {
@@ -11,11 +11,11 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
-      <Modal class="modal modal-animation" bind:show={isOpen}>
-        <ModalTitle>Edit Profile</ModalTitle>
-        <ModalDescription>
+      <Modal.Root class="modal modal-animation" bind:show={isOpen}>
+        <Modal.Title>Edit Profile</Modal.Title>
+        <Modal.Description>
           You can update your profile here. Hit the save button when finished.
-        </ModalDescription>
+        </Modal.Description>
         <Label>
           Name
           <input type="text" placeholder="John Doe" />
@@ -28,7 +28,7 @@ export default component$(() => {
           <button onClick$={() => (isOpen.value = false)}>Cancel</button>
           <button onClick$={() => (isOpen.value = false)}>Save Changes</button>
         </footer>
-      </Modal>
+      </Modal.Root>
     </div>
   );
 });

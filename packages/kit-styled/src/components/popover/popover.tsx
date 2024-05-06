@@ -1,15 +1,19 @@
 import { PropsOf, Slot, component$, useStyles$ } from '@builder.io/qwik';
-import {
-  PopoverTrigger as QwikUIPopoverTrigger,
-  Popover as QwikUIPopover,
-} from '@qwik-ui/headless';
+import { Popover } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
-export const PopoverTrigger = QwikUIPopoverTrigger;
+export const PopoverRoot = component$<PropsOf<typeof Popover.Root>>(({ ...props }) => {
+  return (
+    <Popover.Root {...props}>
+      <Slot />
+    </Popover.Root>
+  );
+});
 
-export const Popover = component$<PropsOf<typeof QwikUIPopover>>(
-  ({ floating, ...props }) => {
-    useStyles$(`
+export const PopoverTrigger = Popover.Trigger;
+
+export const PopoverPanel = component$<PropsOf<typeof Popover.Panel>>(({ ...props }) => {
+  useStyles$(`
     .my-transition {
       transition: opacity 150ms, display 150ms, overlay 150ms;
       transition-behavior: allow-discrete;
@@ -24,18 +28,15 @@ export const Popover = component$<PropsOf<typeof QwikUIPopover>>(
     }
     `);
 
-    return (
-      <QwikUIPopover
-        {...props}
-        floating={floating}
-        class={cn(
-          'my-transition w-72 rounded-md border bg-popover p-4 text-popover-foreground opacity-0 shadow-md outline-none',
-          floating && 'absolute m-0',
-          props.class,
-        )}
-      >
-        <Slot />
-      </QwikUIPopover>
-    );
-  },
-);
+  return (
+    <Popover.Panel
+      {...props}
+      class={cn(
+        'my-transition w-72 rounded-md border bg-popover p-4 text-popover-foreground opacity-0 shadow-md outline-none',
+        props.class,
+      )}
+    >
+      <Slot />
+    </Popover.Panel>
+  );
+});

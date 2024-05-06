@@ -11,12 +11,12 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
-      <Modal class="modal" bind:show={isOpen}>
+      <Modal.Root class="modal" bind:show={isOpen}>
         Modal Content
         <Select.Root class="select">
           <Select.Label>Logged in users</Select.Label>
           <Select.Trigger class="select-trigger">
-            <Select.Value placeholder="Select an option" />
+            <Select.DisplayText placeholder="Select an option" />
           </Select.Trigger>
           <Select.Popover class="select-popover">
             <Select.Listbox class="select-listbox">
@@ -29,7 +29,7 @@ export default component$(() => {
             </Select.Listbox>
           </Select.Popover>
         </Select.Root>
-      </Modal>
+      </Modal.Root>
     </>
   );
 });

@@ -1,7 +1,7 @@
 import { Component, PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
-import { Tab, TabList, TabPanel, Tabs } from '@qwik-ui/headless';
+import { Tabs } from '@qwik-ui/headless';
 import { Highlight } from '../highlight/highlight';
 import { metaGlobComponents, rawComponents } from './component-imports';
 
@@ -31,27 +31,27 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   return (
     <div class="mb-12 rounded-xl shadow-lg">
       {!props.vertical ? (
-        <Tabs
+        <Tabs.Root
           {...props}
           selectedClassName="bg-primary hover:bg-primary text-primary-foreground hover:text-primary-foreground border-t-1 font-medium "
         >
-          <TabList class="flex rounded-t-lg border border-b-0 bg-accent">
-            <Tab class="rounded-tl-md px-3 py-2 hover:bg-primary/90 hover:text-primary-foreground">
+          <Tabs.List class="flex rounded-t-lg border border-b-0 bg-accent">
+            <Tabs.Tab class="rounded-tl-md px-3 py-2 hover:bg-primary/90 hover:text-primary-foreground">
               Preview
-            </Tab>
-            <Tab class="px-3 py-2 hover:bg-primary/90 hover:text-primary-foreground">
+            </Tabs.Tab>
+            <Tabs.Tab class="px-3 py-2 hover:bg-primary/90 hover:text-primary-foreground">
               Code
-            </Tab>
-          </TabList>
-          <TabPanel class="rounded-b-md border px-8 py-32 md:px-32">
+            </Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel class="rounded-b-md border px-8 py-32 md:px-32">
             <section class="flex flex-col items-center">
               {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
             </section>
-          </TabPanel>
-          <TabPanel class="relative rounded-b-md border">
+          </Tabs.Panel>
+          <Tabs.Panel class="relative rounded-b-md border">
             <Highlight class="rounded-t-none" code={componentCodeSig.value || ''} />
-          </TabPanel>
-        </Tabs>
+          </Tabs.Panel>
+        </Tabs.Root>
       ) : (
         <div>
           <section class="flex justify-center space-x-6 rounded-t-md border p-8">
