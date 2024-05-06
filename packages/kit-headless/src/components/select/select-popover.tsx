@@ -1,27 +1,36 @@
-import { component$, useContext, Slot, useTask$, PropsOf } from '@builder.io/qwik';
+import {
+  component$,
+  useContext,
+  Slot,
+  useTask$,
+  PropsOf,
+  useSignal,
+} from '@builder.io/qwik';
 import { usePopover } from '../popover/popover-trigger';
 import { PopoverPanel } from '../popover/popover-panel';
 
 import SelectContextId from './select-context';
-import { isServer } from '@builder.io/qwik/build';
 import { PopoverRoot } from '../popover/popover-root';
 
 export const SelectPopover = component$<PropsOf<typeof PopoverRoot>>((props) => {
   const context = useContext(SelectContextId);
   const { showPopover, hidePopover } = usePopover(context.localId);
+  const initialLoadSig = useSignal<boolean>(true);
 
   const { floating, flip, hover, gutter, ...rest } = props;
 
   useTask$(async ({ track }) => {
     track(() => context.isListboxOpenSig.value);
 
-    if (isServer) return;
-
-    if (context.isListboxOpenSig.value) {
-      await showPopover();
-    } else {
-      await hidePopover();
+    if (!initialLoadSig.value) {
+      if (context.isListboxOpenSig.value) {
+        await showPopover();
+      } else {
+        await hidePopover();
+      }
     }
+
+    initialLoadSig.value = false;
   });
 
   return (
