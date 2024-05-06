@@ -192,7 +192,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       track(() => bindValueSig.value);
 
       for (const [index, item] of itemsMapSig.value) {
-        if (bindValueSig.value.includes(item.value)) {
+        if (bindValueSig.value?.includes(item.value)) {
           await selectionManager$(index, 'add');
 
           if (initialLoadSig.value) {
@@ -256,7 +256,11 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
         const newUserSigValues = JSON.stringify(values);
 
         if (currUserSigValues !== newUserSigValues) {
-          bindValueSig.value = values;
+          if (context.multiple) {
+            bindValueSig.value = values;
+          } else {
+            bindValueSig.value = values[0];
+          }
         }
       }
 
