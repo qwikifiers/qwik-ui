@@ -184,7 +184,8 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
     useContextProvider(SelectContextId, context);
 
-    const { getActiveDescendant$, extractedStrOrArrFromMap$ } = useSelect();
+    const { getActiveDescendant$, extractedStrOrArrFromMap$, selectionManager$ } =
+      useSelect();
 
     useTask$(function reactiveUserValue({ track }) {
       const bindValueSig = props['bind:value'];
@@ -193,11 +194,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
       for (const [index, item] of itemsMapSig.value) {
         if (bindValueSig.value.includes(item.value)) {
-          if (multiple) {
-            selectedIndexSetSig.value = new Set([...selectedIndexSetSig.value, index]);
-          } else {
-            selectedIndexSetSig.value = new Set([index]);
-          }
+          selectionManager$(index, 'add');
 
           if (initialLoadSig.value) {
             // for both SSR and CSR, we need to set the initial index
