@@ -160,6 +160,8 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
     const currDisplayValueSig = useSignal<string | string[]>();
 
+    const initialLoadSig = useSignal<boolean>(true);
+
     const context: SelectContext = {
       itemsMapSig,
       currDisplayValueSig,
@@ -194,8 +196,10 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
         if (bindValueSig.value.includes(item.value)) {
           await selectionManager$(index, 'add');
 
-          // for both SSR and CSR, we need to set the initial index
-          context.highlightedIndexSig.value = index;
+          if (initialLoadSig.value) {
+            // for both SSR and CSR, we need to set the initial index
+            context.highlightedIndexSig.value = index;
+          }
         }
       }
     });
@@ -210,7 +214,10 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
     useTask$(function onOpenChangeTask({ track }) {
       track(() => isListboxOpenSig.value);
-      onOpenChange$?.(isListboxOpenSig.value);
+
+      if (!initialLoadSig.value) {
+        onOpenChange$?.(isListboxOpenSig.value);
+      }
     });
 
     const activeDescendantSig = useComputed$(() => {
@@ -227,7 +234,6 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       track(() => selectedIndexSetSig.value);
 
       const currValue = await extractedStrOrArrFromMap$('value');
-      const currDisplayValue = await extractedStrOrArrFromMap$('displayValue');
 
       if (onChange$ && selectedIndexSetSig.value.size > 0) {
         await onChange$(currValue);
@@ -240,8 +246,11 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
         if (currUserSigValues !== newUserSigValues) {
           bindValueSig.value = currValue;
+          console.log('BINDVALUE SIG', bindValueSig.value);
         }
       }
+
+      const currDisplayValue = await extractedStrOrArrFromMap$('displayValue');
 
       // sync the user's given signal for the display value
       if (bindDisplayTextSig && currDisplayValue) {
@@ -251,6 +260,10 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
           bindDisplayTextSig.value = currDisplayValue;
         }
       }
+    });
+
+    useTask$(() => {
+      initialLoadSig.value = false;
     });
 
     return (

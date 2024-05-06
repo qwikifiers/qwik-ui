@@ -5,23 +5,23 @@ import { LuCheck, LuX } from '@qwikest/icons/lucide';
 export default component$(() => {
   useStyles$(styles);
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
-  const display = useSignal<string[]>(['Jim']);
-  const selected = useSignal<string[]>(['Jim']);
+  const display = useSignal<string[]>([]);
+  const selected = useSignal<string[]>([]);
 
   return (
     <Select.Root multiple bind:displayText={display} bind:value={selected} class="select">
       <Select.Label>Logged in users</Select.Label>
       <Select.Trigger class="select-trigger">
         <Select.DisplayText>
-          {display.value.map((opt) => (
-            <span class="select-pill" key={opt}>
-              {opt}
+          {display.value.map((item) => (
+            <span class="select-pill" key={item}>
+              {item}
               <span
-                onClick$={() =>
-                  (selected.value = selected.value?.filter(
-                    (selectedOpt) => selectedOpt !== opt,
-                  ))
-                }
+                onClick$={() => {
+                  selected.value = selected.value?.filter(
+                    (selectedItem) => selectedItem !== item,
+                  );
+                }}
               >
                 <LuX aria-hidden="true" />
               </span>
