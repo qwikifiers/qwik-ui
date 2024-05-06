@@ -184,8 +184,7 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
     useContextProvider(SelectContextId, context);
 
-    const { getActiveDescendant$, extractedStrOrArrFromMap$, selectionManager$ } =
-      useSelect();
+    const { getActiveDescendant$, selectionManager$ } = useSelect();
 
     useTask$(async function reactiveUserValue({ track }) {
       const bindValueSig = props['bind:value'];
@@ -200,6 +199,8 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
             // for both SSR and CSR, we need to set the initial index
             context.highlightedIndexSig.value = index;
           }
+        } else {
+          await selectionManager$(index, 'remove');
         }
       }
     });
@@ -233,32 +234,39 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       const bindDisplayTextSig = props['bind:displayText'];
       track(() => selectedIndexSetSig.value);
 
-      const currValue = await extractedStrOrArrFromMap$('value');
+      const values = [];
+      const displayValues = [];
+
+      for (const index of context.selectedIndexSetSig.value) {
+        const item = context.itemsMapSig.value.get(index);
+
+        if (item) {
+          values.push(item.value);
+          displayValues.push(item.displayValue);
+        }
+      }
 
       if (onChange$ && selectedIndexSetSig.value.size > 0) {
-        await onChange$(currValue);
+        await onChange$(context.multiple ? values : values[0]);
       }
 
       // sync the user's given signal when an option is selected
       if (bindValueSig && bindValueSig.value) {
         const currUserSigValues = JSON.stringify(bindValueSig.value);
-        const newUserSigValues = JSON.stringify(currValue);
+        const newUserSigValues = JSON.stringify(values);
 
         if (currUserSigValues !== newUserSigValues) {
-          bindValueSig.value = currValue;
-          console.log('BINDVALUE SIG', bindValueSig.value);
+          bindValueSig.value = values;
         }
       }
 
-      const currDisplayValue = await extractedStrOrArrFromMap$('displayValue');
+      context.currDisplayValueSig.value = displayValues;
 
       // sync the user's given signal for the display value
-      if (bindDisplayTextSig && currDisplayValue) {
-        if (typeof currDisplayValue === 'string') {
-          bindDisplayTextSig.value = [currDisplayValue];
-        } else {
-          bindDisplayTextSig.value = currDisplayValue;
-        }
+      if (bindDisplayTextSig && context.currDisplayValueSig.value) {
+        bindDisplayTextSig.value = context.multiple
+          ? context.currDisplayValueSig.value
+          : context.currDisplayValueSig.value[0];
       }
     });
 

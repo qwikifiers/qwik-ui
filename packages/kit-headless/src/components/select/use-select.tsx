@@ -8,41 +8,50 @@ import SelectContextId from './select-context';
 export function useSelect() {
   const context = useContext(SelectContextId);
 
-  const selectionManager$ = $(async (index: number | null, action: 'add' | 'toggle') => {
-    if (index === null) return;
+  const selectionManager$ = $(
+    async (index: number | null, action: 'add' | 'toggle' | 'remove') => {
+      if (index === null) return;
 
-    // Check if the current index is disabled, and if so, find the next enabled index
-    const currItem = context.itemsMapSig.value.get(index);
+      const currItem = context.itemsMapSig.value.get(index);
 
-    const enabledIndex =
-      currItem && currItem.disabled ? await getNextEnabledItemIndex$(index) : index;
+      const enabledIndex =
+        currItem && currItem.disabled ? await getNextEnabledItemIndex$(index) : index;
 
-    if (action === 'add') {
-      if (context.multiple) {
-        context.selectedIndexSetSig.value = new Set([
-          ...context.selectedIndexSetSig.value,
-          index,
-        ]);
-      } else {
-        context.selectedIndexSetSig.value = new Set([index]);
+      if (action === 'add') {
+        if (context.multiple) {
+          context.selectedIndexSetSig.value = new Set([
+            ...context.selectedIndexSetSig.value,
+            index,
+          ]);
+        } else {
+          context.selectedIndexSetSig.value = new Set([index]);
+        }
       }
-    }
 
-    if (action === 'toggle') {
-      if (context.selectedIndexSetSig.value.has(enabledIndex)) {
+      if (action === 'toggle') {
+        if (context.selectedIndexSetSig.value.has(enabledIndex)) {
+          context.selectedIndexSetSig.value = new Set(
+            [...context.selectedIndexSetSig.value].filter(
+              (selectedIndex) => selectedIndex !== enabledIndex,
+            ),
+          );
+        } else {
+          context.selectedIndexSetSig.value = new Set([
+            ...context.selectedIndexSetSig.value,
+            enabledIndex,
+          ]);
+        }
+      }
+
+      if (action === 'remove') {
         context.selectedIndexSetSig.value = new Set(
           [...context.selectedIndexSetSig.value].filter(
-            (selectedIndex) => selectedIndex !== enabledIndex,
+            (selectedIndex) => selectedIndex !== index,
           ),
         );
-      } else {
-        context.selectedIndexSetSig.value = new Set([
-          ...context.selectedIndexSetSig.value,
-          enabledIndex,
-        ]);
       }
-    }
-  });
+    },
+  );
 
   const getNextEnabledItemIndex$ = $((index: number) => {
     let offset = 1;
@@ -96,26 +105,11 @@ export function useSelect() {
     return `${context.localId}-${index}`;
   });
 
-  const extractedStrOrArrFromMap$ = $((propertyType: 'value' | 'displayValue') => {
-    const values = [];
-
-    for (const index of context.selectedIndexSetSig.value) {
-      const item = context.itemsMapSig.value.get(index);
-
-      if (item) {
-        values.push(item[propertyType]);
-      }
-    }
-
-    return values.length === 1 ? values[0] : values;
-  });
-
   return {
     getNextEnabledItemIndex$,
     getPrevEnabledItemIndex$,
     getActiveDescendant$,
     selectionManager$,
-    extractedStrOrArrFromMap$,
   };
 }
 
