@@ -28,7 +28,6 @@ export const Pagination = component$<PaginationProps>((props) => {
 
   const visibleItems = usePagination(totalPages, selectedPage, siblingCount || 1);
 
-  console.log(visibleItems);
   return (
     <nav aria-label="pagination" data-testid="pagination" {...rest}>
       <button
