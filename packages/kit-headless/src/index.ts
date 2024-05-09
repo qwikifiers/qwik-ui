@@ -10,7 +10,6 @@ export * as Combobox from './components/combobox';
 export { type ResolvedOption } from './components/combobox';
 export * from './components/label';
 export * as Modal from './components/modal';
-export * as Drawer from './components/drawer';
 export { Pagination } from './components/pagination/pagination';
 export * as Popover from './components/popover';
 export { usePopover } from './components/popover/popover-trigger';
