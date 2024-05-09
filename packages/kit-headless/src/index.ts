@@ -1,6 +1,5 @@
 export * as Accordion from './components/accordion/';
 export * from './components/badge/badge';
-export * from './components/card';
 export * as Carousel from './components/carousel';
 export * as Checkbox from './components/checkbox/checkbox';
 export * as Collapsible from './components/collapsible';
