@@ -7,8 +7,8 @@ import {
   useTask$,
   $,
   createContextId,
-  PropsOf,
-  CorrectedToggleEvent,
+  type PropsOf,
+  type CorrectedToggleEvent,
 } from '@builder.io/qwik';
 
 import { isServer } from '@builder.io/qwik/build';
@@ -29,7 +29,6 @@ const ensureContextId = createContextId('qui-popover-null-context');
  *
  */
 export const EnsuredContext = component$(() => {
-  // @ts-expect-error 2769
   useContext(ensureContextId, null);
   return null;
 });
@@ -50,7 +49,9 @@ export const PopoverPanelImpl = component$((props: PropsOf<'div'>) => {
   // This forces a re-render on each popover instance when the signal changes
   if (hasRenderedOnClientSig.value === 1) {
     // Now run the task again after we force-rendered the contex
-    setTimeout(() => (teleportSig.value = true), 0);
+    setTimeout(() => {
+      teleportSig.value = true;
+    }, 0);
   }
 
   useTask$(async ({ track, cleanup }) => {
@@ -84,7 +85,7 @@ export const PopoverPanelImpl = component$((props: PropsOf<'div'>) => {
     }
 
     if (context.panelRef?.value) {
-      const topLayerAncestor = await findTopLayerAncestor$(context.panelRef.value!);
+      const topLayerAncestor = await findTopLayerAncestor$(context.panelRef.value);
 
       if (topLayerAncestor === null) {
         polyfillContainer.appendChild(context.panelRef.value);
