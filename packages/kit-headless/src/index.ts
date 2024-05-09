@@ -17,7 +17,6 @@ export * as Progress from './components/progress';
 export * from './components/separator/separator';
 export * from './components/spinner/spinner';
 export * as Tabs from './components/tabs';
-export * from './components/toast/toast';
 export * from './components/toggle/toggle';
 export * from './components/tooltip/tooltip';
 export * from './utils/visually-hidden';
