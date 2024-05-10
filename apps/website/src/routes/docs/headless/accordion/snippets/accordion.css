@@ -1,0 +1,51 @@
+.accordion-trigger {
+  min-width: 14rem;
+  border: 2px dotted hsla(var(--foreground) / 1);
+  text-align: left;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accordion-trigger[data-open] svg {
+  transform: rotate(180deg);
+}
+
+.accordion-trigger svg {
+  width: 20px;
+  height: 20px;
+  stroke: hsla(var(--foreground) / 0.8);
+}
+
+.accordion-item:nth-child(2) .accordion-trigger {
+  border-block: none;
+}
+
+/* prevents shifting of text when border is removed */
+.accordion-trigger[data-open] {
+  border-bottom: 2px solid transparent;
+}
+
+/* the extra border bothered me a bit, pardon my hacky :has css selector */
+.accordion-item:nth-child(2):has(.accordion-trigger[data-open])
+  + .accordion-item:nth-child(3)
+  .accordion-trigger {
+  border-top: none;
+}
+
+.accordion-trigger:hover {
+  background: hsla(var(--primary) / 0.08);
+}
+
+.accordion-content {
+  border: 2px dotted hsla(var(--primary) / 1);
+  font-weight: 500;
+  background: hsla(var(--primary) / 0.2);
+}
+
+.accordion-content,
+.accordion-trigger {
+  min-height: 44px;
+  padding: 0.5rem;
+}
