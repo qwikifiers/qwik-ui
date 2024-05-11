@@ -16,7 +16,7 @@ export default component$(() => {
         </Modal.Description>
         <Modal.Root bind:show={isStackedOpen}>
           <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
-          <Modal.Panel class="modal" style={{ width: '50%' }}>
+          <Modal.Panel class="modal" style={{ width: '300px' }}>
             <Modal.Title>I am a stacked Modal</Modal.Title>
             <Modal.Description>
               You cannot interact with the other modal until you close me.
