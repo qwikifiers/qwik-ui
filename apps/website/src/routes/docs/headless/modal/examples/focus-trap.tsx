@@ -11,11 +11,11 @@ export default component$(() => {
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>
-      <Modal.Root class="modal" bind:show={isOpen}>
+      <Modal.Panel class="modal" bind:show={isOpen}>
         Modal Content
         <input placeholder="inside input" />
         <button>inside button</button>
-      </Modal.Root>
+      </Modal.Panel>
       <input placeholder="outside input" />
     </>
   );

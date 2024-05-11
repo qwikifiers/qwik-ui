@@ -6,5 +6,5 @@ export default component$(() => {
   const showSig = useSignal(false);
   useStyles$(styles);
 
-  return <Modal.Root class="modal" bind:show={showSig}></Modal.Root>;
+  return <Modal.Panel class="modal" bind:show={showSig}></Modal.Panel>;
 });

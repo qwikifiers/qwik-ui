@@ -9,11 +9,10 @@ import {
   useStyles$,
   useTask$,
   sync$,
-  useId,
-  useContextProvider,
+  useContext,
 } from '@builder.io/qwik';
 
-import { ModalContext, modalContextId } from './modal-context';
+import { modalContextId } from './modal-context';
 
 import styles from './modal.css?inline';
 import { useModal } from './use-modal';
@@ -26,7 +25,7 @@ export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
   alert?: boolean;
 };
 
-export const Modal = component$((props: ModalProps) => {
+export const ModalPanel = component$((props: PropsOf<'dialog'>) => {
   useStyles$(styles);
   const {
     activateFocusTrap,
@@ -36,31 +35,29 @@ export const Modal = component$((props: ModalProps) => {
     trapFocus,
     wasModalBackdropClicked,
   } = useModal();
+  const context = useContext(modalContextId);
 
-  const modalRef = useSignal<HTMLDialogElement>();
-  const localId = useId();
-
-  const { 'bind:show': showSig } = props;
+  const panelRef = useSignal<HTMLDialogElement>();
 
   useTask$(async function toggleModal({ track, cleanup }) {
-    const isOpen = track(() => showSig.value);
+    const isOpen = track(() => context.showSig.value);
 
-    if (!modalRef.value) return;
+    if (!panelRef.value) return;
 
-    const focusTrap = await trapFocus(modalRef.value);
+    const focusTrap = await trapFocus(panelRef.value);
 
     if (isOpen) {
       // HACK: keep modal scroll position in place with iOS
       const storedRequestAnimationFrame = window.requestAnimationFrame;
       window.requestAnimationFrame = () => 42;
 
-      await showModal(modalRef.value);
+      await showModal(panelRef.value);
       window.requestAnimationFrame = storedRequestAnimationFrame;
-      await props.onShow$?.();
+      await context.onShow$?.();
       activateFocusTrap(focusTrap);
     } else {
-      await closeModal(modalRef.value);
-      await props.onClose$?.();
+      await closeModal(panelRef.value);
+      await context.onClose$?.();
     }
 
     cleanup(async () => {
@@ -69,7 +66,7 @@ export const Modal = component$((props: ModalProps) => {
   });
 
   const closeOnBackdropClick$ = $(async (e: MouseEvent) => {
-    if (props.alert === true || props.closeOnBackdropClick === false) {
+    if (context.alert === true || context.closeOnBackdropClick === false) {
       return;
     }
 
@@ -78,8 +75,8 @@ export const Modal = component$((props: ModalProps) => {
       return;
     }
 
-    if (await wasModalBackdropClicked(modalRef.value, e)) {
-      showSig.value = false;
+    if (await wasModalBackdropClicked(panelRef.value, e)) {
+      context.showSig.value = false;
     }
   });
 
@@ -97,29 +94,23 @@ export const Modal = component$((props: ModalProps) => {
 
   const handleKeyDown$ = $((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
-      showSig.value = false;
+      context.showSig.value = false;
       e.stopPropagation();
     }
   });
 
-  const context: ModalContext = {
-    localId,
-  };
-
-  useContextProvider(modalContextId, context);
-
   return (
     <dialog
       {...props}
-      id={`${localId}-root`}
-      aria-labelledby={`${localId}-title`}
-      aria-describedby={`${localId}-description`}
+      id={`${context.localId}-root`}
+      aria-labelledby={`${context.localId}-title`}
+      aria-describedby={`${context.localId}-description`}
       // TODO: deprecate data-state in favor of data-open, data-closing, and data-closed
-      data-state={showSig.value ? 'open' : 'closed'}
-      data-open={showSig.value && ''}
-      data-closed={!showSig.value && ''}
-      role={props.alert === true ? 'alertdialog' : 'dialog'}
-      ref={modalRef}
+      data-state={context.showSig.value ? 'open' : 'closed'}
+      data-open={context.showSig.value && ''}
+      data-closed={!context.showSig.value && ''}
+      role={context.alert === true ? 'alertdialog' : 'dialog'}
+      ref={panelRef}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       onClick$={async (e) => {
         e.stopPropagation();

@@ -28,12 +28,12 @@ export const Modal = component$(() => {
   const showSig = useContext(ModalContext);
 
   return (
-    <QwikUIModal.Root
+    <QwikUIModal.Panel
       class="max-w-sm rounded-base bg-background p-6 text-foreground shadow-md transition-all duration-300 backdrop:backdrop-blur-sm backdrop:transition-all backdrop:duration-300 data-[state=open]:appear data-[state=closed]:disappear backdrop:data-[state=open]:appear backdrop:data-[state=closed]:disappear"
       bind:show={showSig}
     >
       <Slot />
-    </QwikUIModal.Root>
+    </QwikUIModal.Panel>
   );
 });
 

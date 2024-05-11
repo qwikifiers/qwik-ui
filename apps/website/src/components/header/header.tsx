@@ -21,7 +21,6 @@ import { SunIcon } from '../icons/SunIcon';
 import { LogoIcon, LogoWithBorders } from '../icons/logo';
 
 import { useTheme } from 'qwik-themes';
-import MakeItYours from '../make-it-yours/make-it-yours';
 import { Modal } from '@qwik-ui/headless';
 import { useAppState } from '~/_state/use-app-state';
 import { LuX } from '@qwikest/icons/lucide';
@@ -30,6 +29,7 @@ import { useKitMenuItems } from '~/routes/layout';
 import { cn } from '@qwik-ui/utils';
 import { DiscordIcon } from '../icons/discord';
 import { Button, buttonVariants } from '@qwik-ui/styled';
+import MakeItYours from '../make-it-yours/make-it-yours';
 
 export interface HeaderProps {
   showVersion?: boolean;
@@ -129,7 +129,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
   const { theme } = useTheme();
 
   return (
-    <>
+    <Modal.Root bind:show={isSidebarOpenedSig}>
       <div
         class={cn(
           'sticky top-0 z-10 flex h-16 justify-center border-b bg-background',
@@ -201,10 +201,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
           </div>
         </header>
       </div>
-      <Modal.Root
-        bind:show={isSidebarOpenedSig}
-        class="sidebar-mobile ml-auto mr-0 h-screen w-full min-w-80 max-w-sm rounded-base border-0 bg-background p-8 text-foreground shadow-md"
-      >
+      <Modal.Panel class="sidebar-mobile ml-auto mr-0 h-screen w-full min-w-80 max-w-sm rounded-base border-0 bg-background p-8 text-foreground shadow-md">
         <div class="mb-2 pb-4 pt-2">
           <DocsNavigation
             linksGroups={
@@ -220,8 +217,8 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         >
           <LuX class="h-8 w-8" />
         </button>
-      </Modal.Root>
-    </>
+      </Modal.Panel>
+    </Modal.Root>
   );
 });
 
