@@ -3,21 +3,19 @@ import {
   Button,
   Input,
   Label,
-  Modal,
+  ModalPanel,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalTrigger,
-  ModalWrapper,
+  ModalRoot,
 } from '@qwik-ui/styled';
 
 export default component$(() => {
   return (
-    <ModalWrapper>
-      <ModalTrigger>
-        <Button>Open modal</Button>
-      </ModalTrigger>
-      <Modal>
+    <ModalRoot>
+      <ModalTrigger>Open modal</ModalTrigger>
+      <ModalPanel>
         <ModalHeader>
           <h2 class="text-lg font-bold">Edit Profile</h2>
           <p class="text-sm font-light">
@@ -43,7 +41,7 @@ export default component$(() => {
         <ModalFooter>
           <Button type="submit">Save changes</Button>
         </ModalFooter>
-      </Modal>
-    </ModalWrapper>
+      </ModalPanel>
+    </ModalRoot>
   );
 });

@@ -31,37 +31,27 @@ import {
   useContextProvider,
   useSignal,
 } from '@builder.io/qwik';
-import {
-  Modal as QwikUIModal,
-  ModalHeader as QwikUIModalHeader,
-  ModalContent as QwikUIModalContent,
-  ModalFooter as QwikUIModalFooter,
-} from '@qwik-ui/headless';
+import { Modal as QwikUIModal } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 import { LuX } from '@qwikest/icons/lucide';
 
 export const ModalContext = createContextId<Signal<boolean>>('modal-context');
 
-export const ModalWrapper = component$<PropsOf<'div'>>(({ ...props }) => {
+export const ModalRoot = component$<PropsOf<typeof QwikUIModal.Root>>(({ ...props }) => {
   const showSig = useSignal(false);
   useContextProvider(ModalContext, showSig);
   return (
-    <div {...props}>
+    <QwikUIModal.Root bind:show={showSig} {...props}>
       <Slot />
-    </div>
+    </QwikUIModal.Root>
   );
 });
 
-export const Modal = component$(() => {
-  const showSig = useContext(ModalContext);
-
+export const ModalPanel = component$(() => {
   return (
-    <QwikUIModal
-      class="bg-background text-foreground rounded-base data-[state=open]:appear data-[state=closed]:disappear backdrop:data-[state=open]:appear backdrop:data-[state=closed]:disappear max-w-sm p-6 shadow-md transition-all duration-300 backdrop:backdrop-blur-sm backdrop:transition-all backdrop:duration-300"
-      bind:show={showSig}
-    >
+    <QwikUIModal.Panel class="max-w-sm rounded-base bg-background p-6 text-foreground shadow-md transition-all duration-300 backdrop:backdrop-blur-sm backdrop:transition-all backdrop:duration-300 data-[state=open]:appear data-[state=closed]:disappear backdrop:data-[state=open]:appear backdrop:data-[state=closed]:disappear">
       <Slot />
-    </QwikUIModal>
+    </QwikUIModal.Panel>
   );
 });
 
@@ -74,80 +64,72 @@ export const ModalTrigger = component$<PropsOf<'button'>>(({ ...props }) => {
   );
 });
 
-export const ModalHeader = component$<PropsOf<typeof QwikUIModalHeader>>(
-  ({ ...props }) => {
-    const showSig = useContext(ModalContext);
-    return (
-      <QwikUIModalHeader
-        {...props}
-        class={cn('flex flex-col space-y-1.5 text-center sm:text-left', props.class)}
-      >
-        <Slot />
-        <button onClick$={() => (showSig.value = false)} class="absolute right-4 top-4">
-          <LuX class="h-5 w-5" />
-        </button>
-      </QwikUIModalHeader>
-    );
-  },
-);
+export const ModalHeader = component$<PropsOf<'header'>>(({ ...props }) => {
+  const showSig = useContext(ModalContext);
+  return (
+    <header
+      {...props}
+      class={cn('flex flex-col space-y-1.5 text-center sm:text-left', props.class)}
+    >
+      <Slot />
+      <button onClick$={() => (showSig.value = false)} class="absolute right-4 top-4">
+        <LuX class="h-5 w-5" />
+      </button>
+    </header>
+  );
+});
 
-export const ModalContent = component$<PropsOf<typeof QwikUIModalContent>>(
-  ({ ...props }) => {
-    return (
-      <QwikUIModalContent {...props} class={cn('mb-2 py-4', props.class)}>
-        <Slot />
-      </QwikUIModalContent>
-    );
-  },
-);
+export const ModalContent = component$<PropsOf<'div'>>(({ ...props }) => {
+  return (
+    <div {...props} class={cn('mb-2 py-4', props.class)}>
+      <Slot />
+    </div>
+  );
+});
 
-export const ModalFooter = component$<PropsOf<typeof QwikUIModalFooter>>(
-  ({ ...props }) => {
-    return (
-      <QwikUIModalFooter
-        {...props}
-        class={cn(
-          'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
-          props.class,
-        )}
-      >
-        <Slot />
-      </QwikUIModalFooter>
-    );
-  },
-);
+export const ModalFooter = component$<PropsOf<'footer'>>(({ ...props }) => {
+  return (
+    <footer
+      {...props}
+      class={cn(
+        'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
+        props.class,
+      )}
+    >
+      <Slot />
+    </footer>
+  );
+});
 ```
 
 ## Usage
 
 ```tsx
 import {
-  Button,
-  Modal,
+  ModalRoot,
+  ModalPanel,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalTrigger,
   ModalWrapper,
-} from '@qwik-ui/styled';
+} from '~/components/ui/modal';
+import { Button } from '~/components/ui/button';
 ```
 
 ```tsx
-<ModalWrapper>
+<ModalRoot>
   <ModalTrigger>
     <Button>Open modal</Button>
   </ModalTrigger>
-  <Modal>
-    <ModalHeader>
-      <h2 class="text-lg font-bold">Edit Profile</h2>
-      <p class="text-sm font-light">
-        Make changes to your profile here. Click save when you're done.
-      </p>
-    </ModalHeader>
-    <ModalContent>Your content</ModalContent>
-    <ModalFooter>
+  <ModalPanel>
+    <ModalTitle class="text-lg font-bold">Edit Profile</ModalTitle>
+    <ModalDescription class="text-sm font-light">
+      Make changes to your profile here. Click save when you're done.
+    </ModalDescription>
+    <footer class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
       <Button>Save</Button>
-    </ModalFooter>
-  </Modal>
-</ModalWrapper>
+    </footer>
+  </ModalPanel>
+</ModalRoot>
 ```

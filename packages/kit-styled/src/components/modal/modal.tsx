@@ -14,35 +14,42 @@ import { LuX } from '@qwikest/icons/lucide';
 
 export const ModalContext = createContextId<Signal<boolean>>('modal-context');
 
-export const ModalWrapper = component$<PropsOf<'div'>>(({ ...props }) => {
+export const ModalRoot = component$<PropsOf<typeof QwikUIModal.Root>>(({ ...props }) => {
   const showSig = useSignal(false);
   useContextProvider(ModalContext, showSig);
   return (
-    <div {...props}>
+    <QwikUIModal.Root bind:show={showSig} {...props}>
       <Slot />
-    </div>
+    </QwikUIModal.Root>
   );
 });
 
-export const Modal = component$(() => {
-  const showSig = useContext(ModalContext);
-
+export const ModalPanel = component$(() => {
   return (
-    <QwikUIModal.Panel
-      class="max-w-sm rounded-base bg-background p-6 text-foreground shadow-md transition-all duration-300 backdrop:backdrop-blur-sm backdrop:transition-all backdrop:duration-300 data-[state=open]:appear data-[state=closed]:disappear backdrop:data-[state=open]:appear backdrop:data-[state=closed]:disappear"
-      bind:show={showSig}
-    >
+    <QwikUIModal.Panel class="max-w-sm rounded-base bg-background p-6 text-foreground shadow-md transition-all duration-300 backdrop:backdrop-blur-sm backdrop:transition-all backdrop:duration-300 data-[state=open]:appear data-[state=closed]:disappear backdrop:data-[state=open]:appear backdrop:data-[state=closed]:disappear">
       <Slot />
     </QwikUIModal.Panel>
   );
 });
 
-export const ModalTrigger = component$<PropsOf<'button'>>(({ ...props }) => {
-  const showSig = useContext(ModalContext);
+export const ModalTrigger = component$<PropsOf<typeof QwikUIModal.Trigger>>(
+  ({ ...props }) => {
+    return (
+      <QwikUIModal.Trigger>
+        <Slot {...props} />
+      </QwikUIModal.Trigger>
+    );
+  },
+);
+
+export const ModalTitle = component$<PropsOf<'h2'>>(({ ...props }) => {
   return (
-    <div onClick$={() => (showSig.value = true)}>
-      <Slot {...props} />
-    </div>
+    <QwikUIModal.Title
+      {...props}
+      class={cn('flex flex-col space-y-1.5 text-center sm:text-left', props.class)}
+    >
+      <Slot />
+    </QwikUIModal.Title>
   );
 });
 
