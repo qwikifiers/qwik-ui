@@ -8,9 +8,7 @@ export default component$(() => {
 
   return (
     <Modal.Root bind:show={isOpen}>
-      <Modal.Trigger class="modal-trigger" onClick$={() => (isOpen.value = true)}>
-        Open Modal
-      </Modal.Trigger>
+      <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
       <Modal.Panel class="modal modal-animation">
         <Modal.Title>Edit Profile</Modal.Title>
         <Modal.Description>
