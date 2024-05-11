@@ -33,7 +33,14 @@ export const AccordionItem = component$(
     useContextProvider(accordionItemContextId, itemContext);
 
     return (
-      <div id={itemId} data-type="item" data-item-id={itemId} {...props}>
+      <div
+        data-open={isTriggerExpandedSig.value ? '' : undefined}
+        data-closed={!isTriggerExpandedSig.value ? '' : undefined}
+        id={itemId}
+        data-type="item"
+        data-item-id={itemId}
+        {...props}
+      >
         <Slot />
       </div>
     );

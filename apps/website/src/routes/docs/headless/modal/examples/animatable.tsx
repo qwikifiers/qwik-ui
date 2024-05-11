@@ -1,17 +1,14 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal, Label } from '@qwik-ui/headless';
 import styles from '../snippets/animation.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
-  const isOpen = useSignal(false);
 
   return (
-    <div class="modal-container">
-      <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
-        Open Modal
-      </button>
-      <Modal.Root class="modal modal-animation" bind:show={isOpen}>
+    <Modal.Root>
+      <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
+      <Modal.Panel class="modal-panel modal-animation">
         <Modal.Title>Edit Profile</Modal.Title>
         <Modal.Description>
           You can update your profile here. Hit the save button when finished.
@@ -25,10 +22,10 @@ export default component$(() => {
           <input type="text" placeholder="johndoe@gmail.com" />
         </Label>
         <footer>
-          <button onClick$={() => (isOpen.value = false)}>Cancel</button>
-          <button onClick$={() => (isOpen.value = false)}>Save Changes</button>
+          <Modal.Close>Cancel</Modal.Close>
+          <Modal.Close>Save Changes</Modal.Close>
         </footer>
-      </Modal.Root>
-    </div>
+      </Modal.Panel>
+    </Modal.Root>
   );
 });

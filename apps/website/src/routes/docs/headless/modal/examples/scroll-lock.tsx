@@ -1,19 +1,16 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal } from '@qwik-ui/headless';
-import styles from '../snippets/modal.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
-  const isOpen = useSignal(false);
 
   return (
-    <div>
-      <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
-        Open Modal
-      </button>
-      <Modal.Root class="modal" bind:show={isOpen}>
-        Modal Content
-      </Modal.Root>
-    </div>
+    <Modal.Root>
+      <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
+      <Modal.Panel class="modal-panel">Modal Content</Modal.Panel>
+    </Modal.Root>
   );
 });
+
+// internal
+import styles from '../snippets/modal.css?inline';

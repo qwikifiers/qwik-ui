@@ -123,6 +123,8 @@ export const AccordionTrigger = component$(
         aria-disabled={disabled}
         data-trigger-id={triggerId}
         data-state={isTriggerExpandedSig.value ? 'open' : 'closed'}
+        data-open={isTriggerExpandedSig.value ? '' : undefined}
+        data-closed={!isTriggerExpandedSig.value ? '' : undefined}
         onClick$={
           disabled
             ? []

@@ -10,28 +10,20 @@ import { Note } from '~/components/note/note';
 
 # Accordion
 
-A stacked set of interactive headings which reveal or hide their associated content.
+A set of interactive sections that show or hide connected information.
 
 <Showcase name="hero" />
 
-Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
+## ✨ Features
 
 <FeatureList
   features={[
+    'Follows the WAI-Aria design pattern',
     'Full keyboard navigation',
-    'Single or Multi Accordion',
-    'Controlled or uncontrolled',
-    'Animatable, dynamic, and resumable',
+    'Can open one or multiple items at a time',
+    'Supports initial and reactive values',
   ]}
 />
-
-[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/accordion)
-
-[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
-
-[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/accordion/index.mdx>)
-
-> Rather than using the `details` and `summary` tags as disclosure widgets, we use a custom implementation. While these widgets can be used without JavaScript, they come with [their own accessibility drawbacks](https://www.scottohara.me/blog/2022/09/12/details-summary.html).
 
 ## Building blocks
 
@@ -43,26 +35,45 @@ Qwik UI's Accordion implementation follows the [WAI-Aria](https://www.w3.org/WAI
   propDescriptors={[
     {
       name: 'Accordion.Root',
-      description: 'The root container for the accordion.',
+      description: 'The primary container for the accordion.',
     },
     {
       name: 'Accordion.Item',
-      description: `An item inside of the root. It contains the item's heading, trigger, and content.`,
+      description: 'A single disclosure widget.',
     },
     {
       name: 'Accordion.Header',
-      description: `An HTML Heading Element. The default is set to h3, can be changed with the as prop.`,
+      description: 'The heading element of an accordion item.',
     },
     {
       name: 'Accordion.Trigger',
-      description: `Toggles the corresponding content when clicked or activated. It should be placed within the Accordion.Header component.`,
+      description: 'Activates to show or hide the accordion content.',
     },
     {
       name: 'Accordion.Content',
-      description: `Contains the content associated with an item when clicking on its respective trigger.`,
+      description: 'Displays the content when its connected trigger is actived.',
     },
   ]}
 />
+
+## Why use a headless accordion?
+
+While you can create a native disclosure with HTML elements like `details` and `summary`, there are some limitations and issues with them.
+
+### Native disclosure pain points
+
+<FeatureList
+  issues={[
+    'Cannot control multiple disclosures at once',
+    'Inconsistent accessible name computation',
+    'Unintuitive role announcements',
+    'Connected information is hard to find with AT',
+  ]}
+/>
+
+Qwik UI includes a headless Accordion component that uses ARIA and JavaScript to enhance accessibility and usability for managing multiple sections smoothly.
+
+> For more information on the inconsistencies of these native elements, see Scott O'Hara's [The details and summary elements, again](https://www.scottohara.me/blog/2022/09/12/details-summary.html) article.
 
 ## Multiple items
 

@@ -1,15 +1,17 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Modal, Label } from '@qwik-ui/headless';
-import styles from '../snippets/animation.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
+  const isOpen = useSignal(false);
 
   return (
     <>
-      <Modal.Root>
-        <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
-        <Modal.Panel class="modal-panel sheet">
+      <button onClick$={() => (isOpen.value = true)} class="modal-trigger">
+        Programmatically open modal
+      </button>
+      <Modal.Root bind:show={isOpen}>
+        <Modal.Panel class="modal-panel">
           <Modal.Title>Edit Profile</Modal.Title>
           <Modal.Description>
             You can update your profile here. Hit the save button when finished.
@@ -31,3 +33,6 @@ export default component$(() => {
     </>
   );
 });
+
+// internal
+import styles from '../snippets/modal.css?inline';

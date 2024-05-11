@@ -1,27 +1,21 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { Modal } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const showSig = useSignal(false);
-
   return (
-    <>
-      <button class="modal-trigger" onClick$={() => (showSig.value = true)}>
-        Deactivate
-      </button>
-      <Modal.Root alert class="modal" bind:show={showSig}>
+    <Modal.Root alert>
+      <Modal.Trigger class="modal-trigger">Deactivate</Modal.Trigger>
+      <Modal.Panel class="modal-panel">
         <Modal.Title>Deactive Account</Modal.Title>
         <Modal.Description>
           Are you sure you want to deactivate your account?
         </Modal.Description>
         <footer>
-          <button onClick$={() => (showSig.value = false)}>Cancel</button>
-          <button onClick$={() => (showSig.value = false)}>Delete</button>
+          <Modal.Close>Cancel</Modal.Close>
+          <Modal.Close>Delete</Modal.Close>
         </footer>
-        <button class="modal-close" onClick$={() => (showSig.value = false)}>
-          +
-        </button>
-      </Modal.Root>
-    </>
+        <Modal.Close class="modal-close">+</Modal.Close>
+      </Modal.Panel>
+    </Modal.Root>
   );
 });
