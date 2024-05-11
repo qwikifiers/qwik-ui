@@ -7,16 +7,16 @@ export default component$(() => {
   const isOpen = useSignal(false);
 
   return (
-    <>
-      <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
+    <Modal.Root bind:show={isOpen}>
+      <Modal.Trigger class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
-      </button>
-      <Modal.Panel class="modal" bind:show={isOpen}>
+      </Modal.Trigger>
+      <Modal.Panel class="modal">
         Modal Content
         <input placeholder="inside input" />
         <button>inside button</button>
       </Modal.Panel>
       <input placeholder="outside input" />
-    </>
+    </Modal.Root>
   );
 });

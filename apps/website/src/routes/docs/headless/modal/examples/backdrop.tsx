@@ -7,11 +7,11 @@ export default component$(() => {
   const isOpen = useSignal(false);
 
   return (
-    <div class="modal-container">
-      <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
+    <Modal.Root class="modal-container" bind:show={isOpen}>
+      <Modal.Trigger class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
-      </button>
-      <Modal.Panel class="modal modal-backdrop" bind:show={isOpen}>
+      </Modal.Trigger>
+      <Modal.Panel class="modal modal-backdrop">
         <Modal.Title>Edit Profile</Modal.Title>
         <Modal.Description>
           You can update your profile here. Hit the save button when finished.
@@ -29,6 +29,6 @@ export default component$(() => {
           <button onClick$={() => (isOpen.value = false)}>Save Changes</button>
         </footer>
       </Modal.Panel>
-    </div>
+    </Modal.Root>
   );
 });

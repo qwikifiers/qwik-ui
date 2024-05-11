@@ -14,3 +14,288 @@ import {FeatureList} from '~/components/feature-list/feature-list';
 A window overlaid on either the primary window or another dialog window. Modal content is placed in the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer), rendering the underneath content as [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) / non-interactive.
 
 <Showcase name="hero" />
+
+The modal makes use of the HTML `dialog` element, which is supported in [every major browser](https://caniuse.com/?search=dialog).
+
+> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/). Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
+
+Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed.
+
+## ✨ Features
+
+<FeatureList
+  features={[
+    'Follows the WAI ARIA Dialog & Alertdialog design patterns.',
+    'Managed focus order',
+    'Scroll locking',
+    'Closes on escape',
+    'Toggle backdrop dismiss',
+    'Animation support',
+    'Transition support',
+    'Backdrop animations',
+  ]}
+/>
+
+## Building Blocks
+
+<CodeSnippet name="building-blocks" />
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Modal',
+      description: 'The root component that contains the dialog element.',
+    },
+    {
+      name: 'ModalTitle',
+      description: 'An accessible name for the modal.',
+    },
+    {
+      name: 'ModalDescription',
+      description: `An optional accessible description for the modal.`,
+    },
+  ]}
+/>
+
+## Dialog extendability
+
+<Showcase name="hero" />
+
+The Qwik UI Modal component is built on top of the `dialog` element. To see additional capabilities of the dialog, take a look at the [offical MDN page](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog).
+
+Our goal is to fill existing gaps, ensuring the modal is a11y compliant and enriched with HTML spec features, reducing reliance on Qwik UI maintainers.
+
+### Attribute example
+
+<Showcase name="auto-focus" />
+
+Above is an example of the `autofocus` attribute, used to focus the 2nd input when the dialog is opened.
+
+> When adding properties on `<Modal />`, it is the same as sticking the attribute, class, or API on the dialog element itself.
+
+## Open or close the modal
+
+To open or close the modal, we can use `bind:show`, a custom signal bind that leverages the [bind](https://qwik.builder.io/docs/components/rendering/#bind-attribute) syntax in Qwik.
+
+<Showcase name="hero" />
+
+`showSig` is a signal that we pass into our Modal component to customize when the modal can be open or closed.
+
+The example above opens the modal when the **Open Modal** button is clicked and closes it when a button inside the modal is clicked.
+
+> In the future, we may not need to manage state for the opening and closing of dialogs and other UI elements. Here's Open UI's [invoker proposal](https://open-ui.org/components/invokers.explainer/).
+
+Custom signal binds are like a remote control for components, controlling states like opening or closing a modal.
+
+## The Top Layer
+
+<image src={testImage} class="mb-6 rounded-base" />
+
+In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues.
+
+The top layer is used in Qwik UI whenever a modal or popover is used in supported browsers. Popovers can be applied to any semantic element, modals in Qwik UI are tied to the `dialog` element.
+
+> The previous implementation of modals required the use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal), the top layer pseudo class is a **native solution** to this problem. No more z-index wars!
+
+## Backdrops
+
+To add a modal backdrop, the `::backdrop` pseudo element can be utilized. [Backdrops](https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop) are right underneath top layer elements.
+
+By default, the `dialog` element comes with a subtle backdrop, below is a snippet customizing the backdrop background along with the [backdrop filter](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter) css property.
+
+<CodeSnippet name="backdrop.css" />
+
+<Showcase name="backdrop" />
+
+> Styling a [backdrop in Tailwind](https://tailwindcss.com/docs/backdrop-blur) can be done using the `backdrop` prefix.
+
+## Dismissing Modals via Backdrop
+
+Modals in Qwik UI can be dismissed by default when the backdrop is clicked. However, this behavior can be modified using the `closeOnBackdropClick` property.
+
+<Showcase name="backdrop-close" />
+
+The example above demonstrates a modal where the `closeOnBackdropClick` property is set to false. As a result, clicking on the backdrop does not dismiss the modal.
+
+## Alertdialog
+
+An alert dialog is a modal that interrupts user workflow to convey critical information and obtain a response. It's typically used for confirmations, error messages, or destructive actions.
+
+<Showcase name="alert-dialog" />
+
+By adding the `alert` prop to our component, we adhere to the [WAI ARIA Alertdialog specification](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/), enabling assistive technologies to distinguish alert dialogs for special handling.
+
+Alertdialogs do not allow the backdrop to be closed when clicked, regardless of whether the `closeOnBackdropClick` prop was set to true.
+
+## Focus Locking in Modals
+
+Qwik UI incorporates a feature known as focus locking, which confines the focus within the modal component when it is open.
+
+<Showcase name="hero" />
+
+This means that if a user is navigating through the modal using the Tab key, reaching the last focusable element and pressing Tab again will cycle the focus back to the first focusable element within the modal.
+
+> Focus locking behavior is provided by default in Qwik UI. If you encounter any use cases that require customized focus lock behavior, please [submit an issue](https://github.com/qwikifiers/qwik-ui/issues) on our GitHub repository.
+
+## Stripped Styles
+
+As a headless library, we intentionally try not to add any styles to the components.
+
+However, because Qwik UI builds on top of native solutions when they are well-supported, feasible, and performant, some of the widgets may inclue browser user-agent styles.
+
+These styles can be unintuitive tricky to debug. Which has been the case with Qwik UI's own docs site. As a result, we have stripped these styles from the Modal component.
+
+<CodeSnippet name="stripped-styles.css" />
+
+While in most cases, this would be up to a consumer's CSS reset to solve, in this case we are **stripping** the max-width and max-height styles on the dialog element under the hood.
+
+This is done in a separate layer so that styles are easily overridable in consumer facing applications.
+
+## Animations
+
+Animating things to display none has historically been a significant challenge on the web. This is because display none is a `discrete` property, and is **unanimatable**.
+
+> There is currently efforts to solve this problem. [New CSS properties](https://developer.chrome.com/blog/entry-exit-animations/) have been introduced, but currently do not provide good enough browser support.
+
+### Our current approach
+
+Qwik UI automatically detects any `animation` or `transition` declarations under the hood and waits for them to finish before closing the modal. If there is no animation, then it will close normally.
+
+### Adding a transition
+
+<Showcase name="transition" />
+
+To add an transition, use the `data-open`, `data-closing` and `data-closed` data attributes. Above is a snippet where we transition both the modal and backdrop's opacity.
+
+### Adding an animation
+
+<Showcase name="animatable" />
+
+To add an animation, it's the same as with transitions, using the `data-open` and `data-closing` data attributes. Below is a snippet of the animation example above.
+
+### Backdrop animations
+
+Backdrop animations have also made significant progress in the last year, with support provided in over half of the major browsers, and close to 70% of users.
+
+To add a backdrop animation, make sure to use the `::backdrop` pseudo selector to the end of the `data-closing` or `data-open` classes.
+
+> Firefox currently does not support backdrop animations. The fallback for browsers that do not support animated backdrops is the same as a non-animated backdrop.
+
+## Sheets
+
+Sheets are a type of modal/overlay used to provide temporary access to important information, while also being easily dismissible.
+
+### Side Sheet
+
+<Showcase name="sheet" />
+
+### Bottom Sheet
+
+<Showcase name="bottom-sheet" />
+
+Bottom sheets are more prevalent in mobile applications, usually to simplify UI. That said, feel free to use them wherever fits best!
+
+### Animations / Transitions CSS
+
+<CodeSnippet name="animation.css" />
+
+## Open on page load
+
+There might come a time where a modal is needed open as soon as the page loads. Unfortunately, to create modals a client-side API is currently needed regardless of implementation.
+
+## Example CSS
+
+The example for the CSS used in all of the examples above can be found below.
+
+<CodeSnippet name="modal.css" />
+
+### SSR dilemma
+
+Qwik is the first framework with an [SSR portal implementation](https://qwik.builder.io/docs/cookbook/portal/#solution). SSR Portal capabilities are unique to Qwik City, because the alternative frameworks require a client-side API for portal functionality, such as `document.appendChild`.
+
+The problem with rendering the modal in the server, is that we lose some critical behavior:
+
+- The content behind the dialog is not inert (non-modal)
+- Focus and scroll lock customizations break
+- Will not work with meta frameworks like Astro.js
+
+The current solution across framework ecosystems, is to open the Modal eagerly on the client to keep the proper functionality.
+
+<CodeSnippet name="page-load" />
+
+> We believe that the dialog element will have native support for SSR Modals in the future, gaining this behavior in the process.
+
+## Keyboard interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Escape',
+      description: 'Closes the dialog.',
+    },
+    {
+      keyTitle: 'Tab',
+      description:
+        'Moves focus to the next focusable item in the modal. If none, then loops back to the last item.',
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description:
+        'Moves focus to the previous focusable item in the modal. If none, then loops back to the last item.',
+    },
+  ]}
+/>
+
+## API
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'bind:show',
+      type: 'Signal',
+      info: 'boolean',
+      description: 'Toggle between showing or hiding the modal.',
+    },
+    {
+      name: 'closeOnBackdropClick',
+      type: 'boolean',
+      description: 'A way to tell the modal to not hide when the ::backdrop is clicked.',
+    },
+    {
+      name: '<dialog>-Attributes',
+      type: `Qwik`,
+      description:
+        'A way to configure the modal with all native attributes the HTMLDialog defines.',
+      info: `PropsOf<'dialog'>`,
+    },
+    {
+      name: 'onClose()$',
+      type: 'function',
+      info: '() => void',
+      description: 'An event hook that gets notified whenever the modal gets closed.',
+    },
+    {
+      name: 'onShow()$',
+      type: 'function',
+      info: '() => void',
+      description: 'An event hook that gets notified whenever the modal shows up.',
+    },
+    {
+      name: 'data-open',
+      type: 'attribute',
+      description: 'A data attribute used for styling open modals and entry animations.',
+    },
+    {
+      name: 'data-closing',
+      type: 'attribute',
+      description: 'A data attribute used for exit animations.',
+    },
+    {
+      name: 'data-closed',
+      type: 'attribute',
+      description: 'A data attribute used for closed modals.',
+    },
+  ]}
+/>

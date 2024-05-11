@@ -5,11 +5,11 @@ export default component$(() => {
   const showSig = useSignal(false);
 
   return (
-    <>
-      <button class="modal-trigger" onClick$={() => (showSig.value = true)}>
+    <Modal.Root alert bind:show={showSig}>
+      <Modal.Trigger class="modal-trigger" onClick$={() => (showSig.value = true)}>
         Deactivate
-      </button>
-      <Modal.Panel alert class="modal" bind:show={showSig}>
+      </Modal.Trigger>
+      <Modal.Panel class="modal">
         <Modal.Title>Deactive Account</Modal.Title>
         <Modal.Description>
           Are you sure you want to deactivate your account?
@@ -22,6 +22,6 @@ export default component$(() => {
           +
         </button>
       </Modal.Panel>
-    </>
+    </Modal.Root>
   );
 });

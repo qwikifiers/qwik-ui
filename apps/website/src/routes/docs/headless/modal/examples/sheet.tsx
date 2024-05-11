@@ -8,11 +8,9 @@ export default component$(() => {
 
   return (
     <>
-      <div class="modal-container">
-        <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
-          Open Modal
-        </button>
-        <Modal.Panel class="modal sheet" bind:show={isOpen}>
+      <Modal.Root class="modal-container" bind:show={isOpen}>
+        <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
+        <Modal.Panel class="modal sheet">
           <Modal.Title>Edit Profile</Modal.Title>
           <Modal.Description>
             You can update your profile here. Hit the save button when finished.
@@ -30,7 +28,7 @@ export default component$(() => {
             <button onClick$={() => (isOpen.value = false)}>Save Changes</button>
           </footer>
         </Modal.Panel>
-      </div>
+      </Modal.Root>
     </>
   );
 });

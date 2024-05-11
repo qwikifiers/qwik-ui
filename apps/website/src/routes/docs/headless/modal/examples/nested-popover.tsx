@@ -1,17 +1,16 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Modal, Select } from '@qwik-ui/headless';
-import styles from '../snippets/modal.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
   const isOpen = useSignal(false);
 
   return (
-    <>
-      <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
+    <Modal.Root bind:show={isOpen}>
+      <Modal.Trigger class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
-      </button>
-      <Modal.Panel class="modal" bind:show={isOpen}>
+      </Modal.Trigger>
+      <Modal.Panel class="modal">
         Modal Content
         <Select.Root class="select">
           <Select.Label>Logged in users</Select.Label>
@@ -30,6 +29,9 @@ export default component$(() => {
           </Select.Popover>
         </Select.Root>
       </Modal.Panel>
-    </>
+    </Modal.Root>
   );
 });
+
+// internal
+import styles from '../snippets/modal.css?inline';

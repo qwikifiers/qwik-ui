@@ -1,11 +1,12 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Modal, Label } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(styles);
+  const isOpen = useSignal(false);
 
   return (
-    <Modal.Root class="modal-container">
+    <Modal.Root class="modal-container" bind:show={isOpen}>
       <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
       <Modal.Panel class="modal">
         <Modal.Title>Edit Profile</Modal.Title>
@@ -20,10 +21,10 @@ export default component$(() => {
           Email
           <input type="text" placeholder="johndoe@gmail.com" />
         </Label>
-        {/* <footer>
+        <footer>
           <button onClick$={() => (isOpen.value = false)}>Cancel</button>
           <button onClick$={() => (isOpen.value = false)}>Save Changes</button>
-        </footer> */}
+        </footer>
       </Modal.Panel>
     </Modal.Root>
   );
