@@ -18,6 +18,7 @@
   color: hsla(var(--foreground));
   background-color: hsl(var(--background));
   max-width: 28rem;
+  width: 100%;
   overflow: hidden;
 }
 
