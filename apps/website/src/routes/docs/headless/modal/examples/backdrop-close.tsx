@@ -7,7 +7,7 @@ export default component$(() => {
   const isOpen = useSignal(false);
 
   return (
-    <Modal.Root class="modal-container" closeOnBackdropClick={false} bind:show={isOpen}>
+    <Modal.Root closeOnBackdropClick={false} bind:show={isOpen}>
       <Modal.Trigger class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </Modal.Trigger>

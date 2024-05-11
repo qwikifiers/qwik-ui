@@ -7,7 +7,7 @@ export default component$(() => {
   const isOpen = useSignal(false);
 
   return (
-    <Modal.Root class="modal-container" bind:show={isOpen}>
+    <Modal.Root bind:show={isOpen}>
       <button class="modal-trigger" onClick$={() => (isOpen.value = true)}>
         Open Modal
       </button>

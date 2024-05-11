@@ -6,7 +6,7 @@ export default component$(() => {
   const isOpen = useSignal(false);
 
   return (
-    <Modal.Root class="modal-container" bind:show={isOpen}>
+    <Modal.Root bind:show={isOpen}>
       <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
       <Modal.Panel class="modal">
         <Modal.Title>Edit Profile</Modal.Title>
