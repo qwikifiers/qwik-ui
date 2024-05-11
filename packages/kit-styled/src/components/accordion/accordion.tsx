@@ -5,13 +5,13 @@ import { cn } from '@qwik-ui/utils';
 
 import { LuChevronDown } from '@qwikest/icons/lucide';
 
-export const AccordionRoot = component$<PropsOf<typeof Accordion.Root>>((props) => (
+const AccordionRoot = component$<PropsOf<typeof Accordion.Root>>((props) => (
   <Accordion.Root animated {...props}>
     <Slot />
   </Accordion.Root>
 ));
 
-export const AccordionItem = component$<PropsOf<typeof Accordion.Item>>((props) => {
+const AccordionItem = component$<PropsOf<typeof Accordion.Item>>((props) => {
   return (
     <Accordion.Item {...props} class={cn('border-b', props.class)}>
       <Slot />
@@ -19,7 +19,7 @@ export const AccordionItem = component$<PropsOf<typeof Accordion.Item>>((props) 
   );
 });
 
-export const AccordionTrigger = component$<
+const AccordionTrigger = component$<
   PropsOf<typeof Accordion.Trigger> & {
     header?: PropsOf<typeof Accordion.Header>['as'];
   }
@@ -40,7 +40,7 @@ export const AccordionTrigger = component$<
   );
 });
 
-export const AccordionContent = component$<PropsOf<typeof Accordion.Content>>((props) => {
+const AccordionContent = component$<PropsOf<typeof Accordion.Content>>((props) => {
   return (
     <Accordion.Content
       {...props}
@@ -55,3 +55,10 @@ export const AccordionContent = component$<PropsOf<typeof Accordion.Content>>((p
     </Accordion.Content>
   );
 });
+
+export {
+  AccordionRoot as Root,
+  AccordionItem as Item,
+  AccordionTrigger as Trigger,
+  AccordionContent as Content,
+};

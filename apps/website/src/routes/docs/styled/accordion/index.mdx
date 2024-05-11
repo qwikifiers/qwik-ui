@@ -101,19 +101,14 @@ module.exports = {
 ## Usage
 
 ```tsx
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import { Accordion } from '~/components/ui';
 ```
 
 ```tsx
-<Accordion behavior="single" collapsible class="w-full">
-  <AccordionItem id="item-1">
-    <AccordionTrigger>Is it accessible?</AccordionTrigger>
-    <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
-  </AccordionItem>
-</Accordion>
+<Accordion.Root behavior="single" collapsible class="w-full">
+  <Accordion.Item id="item-1">
+    <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
+    <Accordion.Content>Yes. It adheres to the WAI-ARIA design pattern.</Accordion.Content>
+  </Accordion.Item>
+</Accordion.Root>
 ```

@@ -1,4 +1,4 @@
-export * from './components/accordion/accordion';
+export * as Accordion from './components/accordion/accordion';
 export * from './components/avatar/avatar';
 export * from './components/alert/alert';
 export * from './components/badge/badge';
