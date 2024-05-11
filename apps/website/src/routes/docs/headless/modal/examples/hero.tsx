@@ -1,14 +1,13 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal, Label } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(styles);
-  const isOpen = useSignal(false);
 
   return (
-    <Modal.Root bind:show={isOpen}>
+    <Modal.Root>
       <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
-      <Modal.Panel class="modal">
+      <Modal.Panel class="modal-panel">
         <Modal.Title>Edit Profile</Modal.Title>
         <Modal.Description>
           You can update your profile here. Hit the save button when finished.
@@ -22,8 +21,8 @@ export default component$(() => {
           <input type="text" placeholder="johndoe@gmail.com" />
         </Label>
         <footer>
-          <button onClick$={() => (isOpen.value = false)}>Cancel</button>
-          <button onClick$={() => (isOpen.value = false)}>Save Changes</button>
+          <Modal.Close>Cancel</Modal.Close>
+          <Modal.Close>Save Changes</Modal.Close>
         </footer>
       </Modal.Panel>
     </Modal.Root>

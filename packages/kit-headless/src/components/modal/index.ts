@@ -6,3 +6,4 @@ export { ModalHeader as Header } from './modal-header';
 export { ModalTitle as Title } from './modal-title';
 export { ModalDescription as Description } from './modal-description';
 export { ModalTrigger as Trigger } from './modal-trigger';
+export { ModalClose as Close } from './modal-close';

@@ -39,3 +39,7 @@ This computes the accessible name from the string children of the modal.
 ### <Modal.Description>
 
 This computes the accessible description from the string children of the modal.
+
+### <Modal.Close>
+
+This is a button that closes the modal when clicked.

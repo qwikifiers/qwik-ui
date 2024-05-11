@@ -9,7 +9,14 @@ export const ModalTrigger = component$((props: PropsOf<'button'>) => {
   });
 
   return (
-    <button onClick$={[handleClick$, props.onClick$]} {...props}>
+    <button
+      aria-haspopup="dialog"
+      aria-expanded={context.showSig.value}
+      data-open={context.showSig.value ? '' : undefined}
+      data-closed={!context.showSig.value ? '' : undefined}
+      onClick$={[handleClick$, props.onClick$]}
+      {...props}
+    >
       <Slot />
     </button>
   );

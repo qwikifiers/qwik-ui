@@ -1,27 +1,25 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(styles);
-  const isRootOpen = useSignal(false);
-  const isStackedOpen = useSignal(false);
 
   return (
-    <Modal.Root bind:show={isRootOpen}>
+    <Modal.Root>
       <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
-      <Modal.Panel class="modal">
+      <Modal.Panel class="modal-panel">
         <Modal.Title>Open stacked Modal</Modal.Title>
         <Modal.Description>
           You can open a Modal on top of another Modal.
         </Modal.Description>
-        <Modal.Root bind:show={isStackedOpen}>
+        <Modal.Root>
           <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
           <Modal.Panel class="modal" style={{ width: '300px' }}>
             <Modal.Title>I am a stacked Modal</Modal.Title>
             <Modal.Description>
               You cannot interact with the other modal until you close me.
             </Modal.Description>
-            <button onClick$={() => (isStackedOpen.value = false)}>Close Modal</button>
+            <Modal.Close>Close Modal</Modal.Close>
           </Modal.Panel>
         </Modal.Root>
       </Modal.Panel>

@@ -1,14 +1,13 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal, Select } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(styles);
-  const isOpen = useSignal(false);
 
   return (
-    <Modal.Root bind:show={isOpen}>
+    <Modal.Root>
       <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
-      <Modal.Panel class="modal">
+      <Modal.Panel class="modal-panel">
         Modal Content
         <Select.Root class="select">
           <Select.Label>Logged in users</Select.Label>

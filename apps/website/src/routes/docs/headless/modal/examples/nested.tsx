@@ -7,7 +7,7 @@ export default component$(() => {
   return (
     <Modal.Root>
       <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
-      <Modal.Panel class="modal">
+      <Modal.Panel class="modal-panel">
         Modal Content
         <NestedModal />
       </Modal.Panel>

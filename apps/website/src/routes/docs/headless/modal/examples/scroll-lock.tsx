@@ -7,7 +7,7 @@ export default component$(() => {
   return (
     <Modal.Root>
       <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
-      <Modal.Panel class="modal">Modal Content</Modal.Panel>
+      <Modal.Panel class="modal-panel">Modal Content</Modal.Panel>
     </Modal.Root>
   );
 });

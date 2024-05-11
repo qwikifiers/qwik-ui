@@ -1,6 +1,6 @@
-import { Slot, component$, useStylesScoped$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useStylesScoped$ } from '@builder.io/qwik';
 
-export const VisuallyHidden = component$(() => {
+export const VisuallyHidden = component$((props: PropsOf<'span'>) => {
   /* Visually hide text while keeping it accessible */
   /* Source: https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html */
   useStylesScoped$(`
@@ -26,7 +26,7 @@ export const VisuallyHidden = component$(() => {
 `);
 
   return (
-    <span class="visually-hidden">
+    <span class="visually-hidden" {...props}>
       <Slot />
     </span>
   );

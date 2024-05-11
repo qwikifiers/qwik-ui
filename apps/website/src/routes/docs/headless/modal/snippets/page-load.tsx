@@ -1,9 +1,7 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { Modal } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const showSig = useSignal(false);
-
   // uncomment this
   // useVisibleTask$(
   //   () => {
@@ -13,10 +11,13 @@ export default component$(() => {
   // );
 
   return (
-    <Modal.Panel bind:show={showSig}>
-      <Modal.Title />
-      <Modal.Description />
-      {/* other content */}
-    </Modal.Panel>
+    <Modal.Root>
+      <Modal.Trigger>Open Modal</Modal.Trigger>
+      <Modal.Panel>
+        <Modal.Title />
+        <Modal.Description />
+        {/* other content */}
+      </Modal.Panel>
+    </Modal.Root>
   );
 });
