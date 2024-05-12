@@ -3,6 +3,7 @@ import { Combobox, ResolvedOption } from '@qwik-ui/headless';
 import { PropsOf, component$, useSignal } from '@builder.io/qwik';
 import { statusByComponent } from '~/_state/component-statuses';
 import { StatusBadge } from '~/components/component-status-badge/component-status-badge';
+import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   const inputValueSig = useSignal('');
@@ -22,8 +23,6 @@ export default component$(() => {
     { component: 'select', label: 'Select' },
     { component: 'separator', label: 'Separator' },
     { component: 'tabs', label: 'Tabs' },
-    { component: 'toggle', label: 'Toggle' },
-    { component: 'tooltip', label: 'Tooltip' },
   ];
 
   return (
@@ -32,23 +31,24 @@ export default component$(() => {
       bind:highlightedIndex={highlightedIndexSig}
       bind:isListboxOpen={isListboxOpenSig}
       optionValueKey="component"
-      class="w-fit"
       options={components}
+      class="combobox-root"
     >
-      <Combobox.Label>Qwik UI ⚡</Combobox.Label>
-      <Combobox.Control class="relative rounded-base border">
+      <Combobox.Label class="combobox-label"> Qwik UI ⚡</Combobox.Label>
+      <Combobox.Control class="combobox-control">
         <Combobox.Input
           onClick$={() => (isListboxOpenSig.value = !isListboxOpenSig.value)}
-          class="px-d2 w-44 rounded-base bg-background pl-6 pr-6 placeholder:text-muted-foreground"
           onKeyDown$={(e: KeyboardEvent) => {
             if (e.key === 'Enter') {
               const inputElement = e.target as HTMLInputElement;
               window.location.href = `${docsPrefix}/${inputElement.value.toLowerCase()}`;
             }
           }}
+          placeholder="Tabs"
+          class="combobox-input"
         />
-        <Combobox.Trigger class="group absolute left-[4px] h-6 w-6">
-          <SearchIcon />
+        <Combobox.Trigger class="combobox-trigger">
+          <LuChevronDown />
         </Combobox.Trigger>
         {inputValueSig.value.length > 0 && (
           // give separate id if two triggers
@@ -64,9 +64,9 @@ export default component$(() => {
           </button>
         )}
       </Combobox.Control>
-      <Combobox.Popover gutter={8} hide="escaped">
+      <Combobox.Popover class="combobox-popover" gutter={8}>
         <Combobox.Listbox
-          class="w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-1 py-2"
+          class="combobox-listbox"
           optionRenderer$={(option: ResolvedOption, index: number) => {
             const searchOption = option.option as MyComponents;
             return (

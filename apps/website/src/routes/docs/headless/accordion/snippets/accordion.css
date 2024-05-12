@@ -18,6 +18,10 @@
   stroke: hsla(var(--foreground) / 0.8);
 }
 
+.accordion-trigger:disabled {
+  opacity: 0.5;
+}
+
 .accordion-item:nth-child(2) .accordion-trigger {
   border-block: none;
 }
@@ -48,4 +52,34 @@
 .accordion-trigger {
   min-height: 44px;
   padding: 0.5rem;
+}
+
+.accordion-animation {
+  overflow: hidden;
+}
+
+.accordion-animation[data-open] {
+  animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards animate-open;
+}
+
+.accordion-animation[data-closed] {
+  animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards animate-close;
+}
+
+@keyframes accordion-slide-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--qwikui-accordion-content-height);
+  }
+}
+
+@keyframes accordion-slide-up {
+  from {
+    height: var(--qwikui-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }

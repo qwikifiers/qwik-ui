@@ -81,13 +81,11 @@ Qwik UI includes a headless Accordion component that uses ARIA and JavaScript to
 
 ### Animations
 
-The previous two examples make use of the **animated** prop. This prop allows you to use the `transition` and `animation` properties without the content immediately closing. In the future, there will be native browser support for transitioning display.
+The **animated** prop enables the use of `transition` and `animation` properties to control the visibility of content without it closing immediately. Future browser updates will support these transitions natively.
 
-If you're curious about how the accordion is animated, you can use a built-in Qwik UI variable called **--qwikui-accordion-content-height**.
+For animations, Qwik UI provides a variable **--qwikui-accordion-content-height** variable that calculates content height for use in CSS keyframes. You can implement the `accordion-open` and `accordion-close` keyframes in your project, which animate the height property.
 
-The variable calculates the content height behind the scenes, so that you can use this variable in your keyframes. Out of the box, you can use the `accordion-open` and `accordion-close` keyframes in your project. These use an `animation` declaration on the height property.
-
-> The animation above makes use of the overflow hidden declaration. You can also check out this awesome [Cubic Bezier Tool](https://cubic-bezier.com/) to visualize the animation curve.
+To see it in action, check out the [styled accordion](../../../docs/styled/accordion/).
 
 ## Non-collapsible
 
@@ -121,6 +119,10 @@ If you're using `behavior="single"` with multiple defaultValue accordion items, 
 <Showcase name="custom-heading" />
 
 By default, when using the `Accordion.Header` component, it's rendered as an `h3` tag. You can render your heading of choice by using the **as** prop.
+
+In the above example, we're using the `h4` tag.
+
+> Make sure to follow the heading hierarchy guidelines. For example, use h4 if you're under an h3, h5 if you're under an h4, and so on.
 
 ## Selected Index
 

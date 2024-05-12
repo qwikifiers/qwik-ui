@@ -19,7 +19,7 @@ export default component$(() => {
             <Modal.Description>
               You cannot interact with the other modal until you close me.
             </Modal.Description>
-            <Modal.Close>Close Modal</Modal.Close>
+            <Modal.Close class="modal-close">Close Modal</Modal.Close>
           </Modal.Panel>
         </Modal.Root>
       </Modal.Panel>

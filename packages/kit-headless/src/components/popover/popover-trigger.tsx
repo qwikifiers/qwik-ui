@@ -148,7 +148,13 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(
       }
 
       // for the first click, we need to programmatically open the popover. The spec toggles the popover on click anyways.
-      context.panelRef?.value?.togglePopover();
+      if (!isSupportedSig.value) {
+        if (!context.isOpenSig.value) {
+          context.panelRef?.value?.showPopover();
+        } else {
+          context.panelRef?.value?.hidePopover();
+        }
+      }
     });
 
     const handlePointerOver$ = $(async () => {

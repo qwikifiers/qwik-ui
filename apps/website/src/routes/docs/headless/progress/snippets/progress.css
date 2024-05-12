@@ -3,7 +3,7 @@
   width: 100%;
   overflow: hidden;
   border-radius: calc(var(--border-radius) / 2);
-  background-color: hsl(var(--foreground));
+  border: 2px dotted hsl(var(--primary));
 }
 
 .progress-indicator {

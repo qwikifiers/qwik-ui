@@ -14,8 +14,11 @@ export default component$(() => {
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox">
           {users.map((user) => (
-            <Select.Item key={user}>
+            <Select.Item class="select-item" key={user}>
               <Select.ItemLabel>{user}</Select.ItemLabel>
+              <Select.ItemIndicator>
+                <LuCheck />
+              </Select.ItemIndicator>
             </Select.Item>
           ))}
         </Select.Listbox>
@@ -26,3 +29,4 @@ export default component$(() => {
 
 // internal
 import styles from '../snippets/select.css?inline';
+import { LuCheck } from '@qwikest/icons/lucide';

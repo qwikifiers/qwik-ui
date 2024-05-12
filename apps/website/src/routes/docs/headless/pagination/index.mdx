@@ -8,16 +8,50 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 # Pagination
 
+<Showcase name="hero" />
+
 ## ✨ Features
 
-- Pagination ranges
-- Custom Arrows
-- Custom Button Labels
-- Fully Customizable
+<FeatureList
+  features={[
+    'Pagination ranges',
+    'Custom Arrows',
+    'Custom Button Labels',
+    'Fully Customizable',
+  ]}
+/>
 
-## Interactive Example
+<Note status="warning">
+  The Pagination component is about to undergo a **major refactor**. The API and behavior will
+  change drastically in the coming weeks.
 
-<Showcase name="interactive" />
+  <div>You can expect it to match the conventions, developer
+  experience, and performance of the other components.</div>
+</Note>
+
+## Hero Example
+
+<Showcase name="hero" />
+
+## Styling
+
+<Showcase name="styling" />
+
+## Custom Button Labels
+
+<Showcase name="custom-button-labels" />
+
+## Custom Arrows
+
+<Showcase name="custom-arrows" />
+
+## Hide Next/Prev Buttons
+
+<Showcase name="hide-prev-next-buttons" />
+
+## Disabled
+
+<Showcase name="disabled" />
 
 ## API
 
@@ -111,27 +145,3 @@ Here are the notable properties for this component:
     },
   ]}
 />
-
-## Basic Example
-
-<Showcase name="basic" />
-
-## Styling
-
-<Showcase name="styling" />
-
-## Custom Button Labels
-
-<Showcase name="custom-button-labels" />
-
-## Custom Arrows
-
-<Showcase name="custom-arrows" />
-
-## Hide Next/Prev Buttons
-
-<Showcase name="hide-prev-next-buttons" />
-
-## Disabled
-
-<Showcase name="disabled" />
