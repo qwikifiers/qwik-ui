@@ -11,6 +11,10 @@
   width: fit-content;
 }
 
+.modal-trigger:hover {
+  background-color: hsla(var(--primary) / 0.08);
+}
+
 .modal-panel {
   padding: 1rem;
   gap: 0.5rem;

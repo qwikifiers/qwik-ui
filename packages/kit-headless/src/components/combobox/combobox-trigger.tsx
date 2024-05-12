@@ -20,6 +20,8 @@ export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
       ]}
       tabIndex={-1}
       aria-haspopup="listbox"
+      data-open={context.isListboxOpenSig.value ? '' : undefined}
+      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-controls={listboxId}
       popovertarget={listboxId}
       aria-expanded={context.isListboxOpenSig.value}
