@@ -1,6 +1,6 @@
 import { component$, useContext, Slot, useTask$, PropsOf } from '@builder.io/qwik';
 import { PopoverPanel } from '../popover/popover-panel';
-import { usePopover } from '../popover/popover-trigger';
+import { usePopover } from '../popover/use-popover';
 import { PopoverRoot } from '../popover/popover-root';
 
 import ComboboxContextId from './combobox-context-id';

@@ -7,7 +7,7 @@ export * from './components/label';
 export * as Modal from './components/modal';
 export { Pagination } from './components/pagination/pagination';
 export * as Popover from './components/popover';
-export { usePopover } from './components/popover/popover-trigger';
+export { usePopover } from './components/popover/use-popover';
 export * as Select from './components/select';
 export * as Progress from './components/progress';
 export * from './components/separator/separator';

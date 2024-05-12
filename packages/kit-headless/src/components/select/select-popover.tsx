@@ -6,7 +6,7 @@ import {
   PropsOf,
   useSignal,
 } from '@builder.io/qwik';
-import { usePopover } from '../popover/popover-trigger';
+import { usePopover } from '../popover/use-popover';
 import { PopoverPanel } from '../popover/popover-panel';
 
 import SelectContextId from './select-context';

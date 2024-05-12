@@ -13,8 +13,8 @@ import {
 
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
-import { supportShowAnimation, supportClosingAnimation } from './utils';
 import { popoverContextId } from './popover-context';
+import { supportShowAnimation, supportClosingAnimation } from './utils';
 
 // We don't need a provider, that way we connect all context to the root
 const ensureContextId = createContextId('qui-popover-null-context');
@@ -112,7 +112,7 @@ export const PopoverPanelImpl = component$((props: PropsOf<'div'>) => {
           : 'auto' || 'auto'
       }
       onBeforeToggle$={[
-        $((e) => {
+        $(async (e) => {
           if (!context.panelRef?.value) return;
 
           if (e.newState === 'open' && context.panelRef.value) {
