@@ -1,0 +1,14 @@
+.separator-top {
+  border-top: 2px dotted hsl(var(--foreground));
+  margin-block: 0.5rem;
+}
+
+.separator-right {
+  border-right: 2px dotted hsl(var(--foreground));
+  margin-inline: 0.5rem;
+}
+
+.separator-left {
+  border-left: 2px dotted hsl(var(--foreground));
+  margin-inline: 0.5rem;
+}

@@ -11,15 +11,15 @@ export default component$(() => {
         <Tabs.Root>
           <Tabs.List>
             <Tabs.Tab
-              style={{ width: '125px' }}
+              style={{ width: '110px' }}
               class="aria-disabled:cursor-not-allowed"
               disabled={true}
             >
               Disabled Tab
             </Tabs.Tab>
-            <Tabs.Tab style={{ width: '125px' }}>Joke 2</Tabs.Tab>
-            <Tabs.Tab style={{ width: '125px' }}>Joke 3</Tabs.Tab>
-            <Tabs.Tab style={{ width: '125px' }}>Joke 4</Tabs.Tab>
+            <Tabs.Tab style={{ width: '110px' }}>Joke 2</Tabs.Tab>
+            <Tabs.Tab style={{ width: '110px' }}>Joke 3</Tabs.Tab>
+            <Tabs.Tab style={{ width: '110px' }}>Joke 4</Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel>
             "What did the coffee report to the police", " A mugging."

@@ -21,8 +21,8 @@ export default component$(() => {
           <input type="text" placeholder="johndoe@gmail.com" />
         </Label>
         <footer>
-          <Modal.Close>Cancel</Modal.Close>
-          <Modal.Close>Save Changes</Modal.Close>
+          <Modal.Close class="modal-close">Cancel</Modal.Close>
+          <Modal.Close class="modal-close">Save Changes</Modal.Close>
         </footer>
       </Modal.Panel>
     </Modal.Root>
