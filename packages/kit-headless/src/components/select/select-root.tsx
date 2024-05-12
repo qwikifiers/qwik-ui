@@ -278,6 +278,10 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
       initialLoadSig.value = false;
     });
 
+    useTask$(({ track }) => {
+      context.disabled = track(() => disabled);
+    });
+
     return (
       <div
         role="combobox"
