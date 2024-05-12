@@ -49,6 +49,10 @@
   padding: 0.5rem;
 }
 
+.carousel-buttons button:hover {
+  background-color: hsla(var(--primary) / 0.08);
+}
+
 .carousel-img {
   pointer-events: none;
 }
@@ -60,4 +64,9 @@
 
 .pagination-underline {
   outline: 2px dotted hsl(var(--primary));
+  background-color: hsla(var(--primary) / 0.08);
+}
+
+.carousel-pagination-bullet:hover {
+  background-color: hsla(var(--primary) / 0.08);
 }

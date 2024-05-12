@@ -1,73 +1,33 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { Accordion } from '@qwik-ui/headless';
+import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   const focusedIndexSig = useSignal(0);
+  const items = [1, 2, 3];
 
   return (
     <>
       <div class="flex w-full flex-col items-center gap-4">
         <Accordion.Root
-          class="w-full"
-          onFocusIndexChange$={(index: number) => {
-            focusedIndexSig.value = index;
+          onFocusIndexChange$={(value: number) => {
+            focusedIndexSig.value = value;
           }}
         >
-          <Accordion.Item class="border-b">
-            <Accordion.Header>
-              <Accordion.Trigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
-                <span>Is Qwik Production Ready?</span>
-                <span class="pl-2">
-                  <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
-                    +
-                  </p>
-                </span>
-              </Accordion.Trigger>
-            </Accordion.Header>
-            <Accordion.Content>
-              <p class="pb-4">
-                Yes! Since 1.0 back in May, Qwik apps are great for production.
-              </p>
-            </Accordion.Content>
-          </Accordion.Item>
-          <Accordion.Item class="border-b">
-            <Accordion.Header>
-              <Accordion.Trigger class="group flex w-full items-center justify-between py-4 text-left hover:underline">
-                <span>Why is Qwik so fast?</span>
-                <span class="pl-2">
-                  <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
-                    +
-                  </p>
-                </span>
-              </Accordion.Trigger>
-            </Accordion.Header>
-            <Accordion.Content>
-              <p class="pb-4">
-                Because you're doing less work! Thanks to resumability we execute
-                JavaScript on interaction.
-              </p>
-            </Accordion.Content>
-          </Accordion.Item>
-          <Accordion.Item class="border-b">
-            <Accordion.Header>
-              <Accordion.Trigger class="group flex w-full items-center justify-between py-4 text-left hover:underline aria-expanded:rounded-none">
-                <span>What if I want to use React?</span>
-                <span class="flex pl-2">
-                  <p class="scale-150 group-aria-expanded:rotate-45 group-aria-expanded:transform">
-                    +
-                  </p>
-                </span>
-              </Accordion.Trigger>
-            </Accordion.Header>
-            <Accordion.Content>
-              <p class="pb-4">
-                Check out Qwik-React! It allows you to partially hydrate React components
-                into your Qwik app.
-              </p>
-            </Accordion.Content>
-          </Accordion.Item>
+          {items.map((item) => (
+            <Accordion.Item class="accordion-item" key={item}>
+              <Accordion.Header>
+                <Accordion.Trigger class="accordion-trigger">
+                  <span>Trigger {item}</span>
+                  <LuChevronDown />
+                </Accordion.Trigger>
+              </Accordion.Header>
+              <Accordion.Content class="accordion-content">
+                Inside Content {item}
+              </Accordion.Content>
+            </Accordion.Item>
+          ))}
         </Accordion.Root>
-
         <p>Focused Index: {focusedIndexSig.value === -1 ? 'X' : focusedIndexSig.value}</p>
       </div>
     </>

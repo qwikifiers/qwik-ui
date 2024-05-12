@@ -16,6 +16,10 @@
   opacity: 0.3;
 }
 
+.collapsible-trigger:hover {
+  background-color: hsla(var(--primary) / 0.08);
+}
+
 .collapsible-trigger[data-open] svg {
   transform: rotate(180deg);
 }

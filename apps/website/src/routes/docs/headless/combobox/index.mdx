@@ -13,6 +13,14 @@ A customizable text field with a listbox, enabling users to constrain a list of 
 
 <Showcase name="hero" />
 
+<Note status="warning">
+  The Combobox component is about to undergo a **major refactor**. The API and behavior will
+  change drastically in the coming weeks.
+
+  <div>You can expect it to match the conventions, developer
+  experience, and performance of the Select component.</div>
+</Note>
+
 Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/), along with some additional API's that enhance the flexibility, types, and performance.
 
 <div class="mb-6 flex flex-col gap-2">
@@ -50,35 +58,35 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
 <AnatomyTable
   propDescriptors={[
     {
-      name: 'Combobox',
+      name: 'Combobox.Root',
       description: 'The root container for the Combobox.',
     },
     {
-      name: 'ComboboxLabel',
+      name: 'Combobox.Label',
       description: 'A label element to connect to the Combobox.',
     },
     {
-      name: 'ComboboxControl',
+      name: 'Combobox.Control',
       description: `A container for the combobox trigger, and input.`,
     },
     {
-      name: 'ComboboxInput',
+      name: 'Combobox.Input',
       description: `An input element used for filtering, and controlling the combobox state.`,
     },
     {
-      name: 'ComboboxTrigger',
+      name: 'Combobox.Trigger',
       description: `A button that toggles the corresponding listbox when clicked.`,
     },
     {
-      name: 'ComboboxPopover',
+      name: 'Combobox.Popover',
       description: `A Popover component that teleports the children outside its parent when the listbox state is open.`,
     },
     {
-      name: 'ComboboxListbox',
+      name: 'Combobox.Listbox',
       description: `An unordered list that contains multiple options that display when opened.`,
     },
     {
-      name: 'ComboboxOption',
+      name: 'Combobox.Option',
       description: `A list item that is shown based on the listbox state and filter API.`,
     },
   ]}

@@ -11,10 +11,10 @@ export default component$(() => {
           Are you sure you want to deactivate your account?
         </Modal.Description>
         <footer>
-          <Modal.Close>Cancel</Modal.Close>
-          <Modal.Close>Delete</Modal.Close>
+          <Modal.Close class="modal-close">Cancel</Modal.Close>
+          <Modal.Close class="modal-close">Delete</Modal.Close>
         </footer>
-        <Modal.Close class="modal-close">+</Modal.Close>
+        <Modal.Close class="modal-alert-close">+</Modal.Close>
       </Modal.Panel>
     </Modal.Root>
   );

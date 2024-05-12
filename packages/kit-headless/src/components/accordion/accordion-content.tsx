@@ -109,6 +109,8 @@ export const AccordionContent = component$(({ ...props }: ContentProps) => {
       id={contentId}
       data-content-id={contentId}
       data-state={isTriggerExpandedSig.value ? 'open' : 'closed'}
+      data-open={isTriggerExpandedSig.value ? '' : undefined}
+      data-closed={!isTriggerExpandedSig.value ? '' : undefined}
       hidden={animated ? isContentHiddenSig.value : !isTriggerExpandedSig.value}
       onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
       onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}

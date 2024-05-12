@@ -27,9 +27,9 @@ export const SelectPopover = component$<PropsOf<typeof PopoverRoot>>((props) => 
 
     if (!initialLoadSig.value) {
       if (context.isListboxOpenSig.value) {
-        await showPopover();
+        showPopover();
       } else {
-        await hidePopover();
+        hidePopover();
       }
     }
   });
