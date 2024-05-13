@@ -1,4 +1,4 @@
-import { Pagination } from './pagination';
+import { HPagination } from './pagination';
 import { component$, useSignal } from '@builder.io/qwik';
 
 /**
@@ -12,7 +12,7 @@ const Sut = component$(() => {
   return (
     <>
       hello pagination
-      <Pagination
+      <HPagination
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
         onPageChange$={(page) => {
@@ -99,7 +99,7 @@ describe('Pagination', () => {
       WHEN it's disabled
       THEN all buttons are disabled
     `, () => {
-    cy.mount(<Pagination selectedPage={5} totalPages={10} disabled />);
+    cy.mount(<HPagination selectedPage={5} totalPages={10} disabled />);
 
     cy.get('[data-testid="pagination"]')
       .find('button')
@@ -113,7 +113,7 @@ describe('Pagination', () => {
       THEN it should display the custom labels
     `, () => {
     cy.mount(
-      <Pagination
+      <HPagination
         selectedPage={5}
         totalPages={10}
         customArrowTexts={{
@@ -132,7 +132,7 @@ describe('Pagination', () => {
       THEN 'prev' and 'next' buttons are not visible
     `, () => {
     cy.mount(
-      <Pagination selectedPage={4} totalPages={10} hidePrevButton hideNextButton />,
+      <HPagination selectedPage={4} totalPages={10} hidePrevButton hideNextButton />,
     );
 
     cy.contains('LEFT').should('not.exist');
@@ -144,10 +144,10 @@ describe('Pagination', () => {
       THEN they should be visible close to the labels
     `, () => {
     cy.mount(
-      <Pagination selectedPage={4} totalPages={10}>
+      <HPagination selectedPage={4} totalPages={10}>
         <span q:slot="prefix"> 👈 </span>
         <span q:slot="suffix"> 👉 </span>
-      </Pagination>,
+      </HPagination>,
     );
 
     cy.contains('PREV').children().first().contains('👈').should('be.visible');

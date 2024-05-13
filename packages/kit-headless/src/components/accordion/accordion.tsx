@@ -1,11 +1,11 @@
 import type { FunctionComponent, JSXNode } from '@builder.io/qwik';
-import { AccordionContent as InternalAccordionContent } from './accordion-content';
+import { HAccordionContent as InternalAccordionContent } from './accordion-content';
 import {
   AccordionItemProps,
-  AccordionItem as InternalAccordionItem,
+  HAccordionItem as InternalAccordionItem,
 } from './accordion-item';
-import { AccordionRoot, AccordionRootProps } from './accordion-root';
-import { AccordionTrigger as InternalAccordionTrigger } from './accordion-trigger';
+import { HAccordionRoot, AccordionRootProps } from './accordion-root';
+import { HAccordionTrigger as InternalAccordionTrigger } from './accordion-trigger';
 
 export type AccordionProps = AccordionRootProps & {
   itemComponent?: typeof InternalAccordionItem;
@@ -50,5 +50,5 @@ export const Accordion: FunctionComponent<AccordionProps> = (props) => {
       items.push(child);
     }
   }
-  return <AccordionRoot {...rest}>{items}</AccordionRoot>;
+  return <HAccordionRoot {...rest}>{items}</HAccordionRoot>;
 };
