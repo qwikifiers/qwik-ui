@@ -1,1 +1,1 @@
-export * from './label';
+export { HLabel as Label } from './label';

@@ -4,7 +4,7 @@ import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type ComboboxTriggerProps = PropsOf<'button'>;
 
-export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
+export const HComboboxTrigger = component$((props: ComboboxTriggerProps) => {
   const context = useContext(ComboboxContextId);
   const listboxId = `${context.localId}-listbox`;
 

@@ -2,7 +2,7 @@ import { PropsOf, Slot, component$, sync$, $ } from '@builder.io/qwik';
 
 type LabelProps = PropsOf<'label'>;
 
-export const Label = component$<LabelProps>((props) => {
+export const HLabel = component$<LabelProps>((props) => {
   const handleMouseDownSync$ = sync$((event: MouseEvent) => {
     if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
   });

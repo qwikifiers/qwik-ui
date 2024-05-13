@@ -54,7 +54,7 @@ export type PopoverProps = PopoverRootProps & {
 } & FloatingProps &
   PropsOf<'div'>;
 
-export const PopoverRoot = component$((props: PopoverProps) => {
+export const HPopoverRoot = component$((props: PopoverProps) => {
   const {
     id,
     'bind:anchor': givenPanelRef,

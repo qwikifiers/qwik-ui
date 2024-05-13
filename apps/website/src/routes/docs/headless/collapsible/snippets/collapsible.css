@@ -4,7 +4,7 @@
 
 .collapsible-trigger {
   width: 100%;
-  border: 2px dotted hsla(var(--primary) / 1);
+  border: 2px dotted hsla(var(--foreground) / 1);
   border-radius: calc(var(--border-radius) / 2);
   padding: 0.5rem;
   display: flex;
@@ -20,13 +20,24 @@
   background-color: hsla(var(--primary) / 0.08);
 }
 
+.collapsible-trigger svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.collapsible-trigger[data-open] {
+  border-bottom: none;
+}
+
 .collapsible-trigger[data-open] svg {
   transform: rotate(180deg);
 }
 
 .collapsible-content {
   width: 100%;
-  background-color: hsl(var(--background));
+  border: 2px dotted hsla(var(--primary) / 1);
+  font-weight: 500;
+  background: hsla(var(--primary) / 0.2);
   border-radius: calc(var(--border-radius) / 2);
   max-width: var(--select-width);
   color: hsl(var(--foreground));

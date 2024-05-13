@@ -1,8 +1,8 @@
 import { $, Slot, component$, useSignal, useStore } from '@builder.io/qwik';
-import { Tab, TabProps } from './tab';
-import { TabPanel, TabPanelProps } from './tab-panel';
-import { Tabs } from './tabs';
-import { TabList, TabListProps } from './tabs-list';
+import { HTab, TabProps } from './tab';
+import { HTabPanel, TabPanelProps } from './tab-panel';
+import { HTabs } from './tabs';
+import { HTabList, TabListProps } from './tabs-list';
 
 describe('Tabs', () => {
   it('INIT', () => {
@@ -49,12 +49,12 @@ describe('Tabs', () => {
     const TabsWithCustomOnClick = component$(() => {
       const wasSelectedSig = useSignal(false);
       return (
-        <Tabs>
-          <TabList>
-            <Tab onClick$={() => (wasSelectedSig.value = true)}>Tab 1</Tab>
-          </TabList>
-          <TabPanel>Custom onClick was called: {`${wasSelectedSig.value}`}</TabPanel>
-        </Tabs>
+        <HTabs>
+          <HTabList>
+            <HTab onClick$={() => (wasSelectedSig.value = true)}>HTab 1</HTab>
+          </HTabList>
+          <HTabPanel>Custom onClick was called: {`${wasSelectedSig.value}`}</HTabPanel>
+        </HTabs>
       );
     });
 
@@ -150,20 +150,20 @@ describe('Tabs', () => {
 
         return (
           <>
-            <Tabs
+            <HTabs
               bind:selectedIndex={selectedIndexSig}
               bind:selectedTabId={selectedTabIdSig}
             >
-              <TabList>
+              <HTabList>
                 {tabsState.map((tab) => (
-                  <Tab key={tab}>{tab}</Tab>
+                  <HTab key={tab}>{tab}</HTab>
                 ))}
-              </TabList>
+              </HTabList>
               {tabsState.map((tab) => (
                 // Making sure the key is taken from the tab
-                <TabPanel key={'panel' + tab}>{tab} Panel</TabPanel>
+                <HTabPanel key={'panel' + tab}>{tab} Panel</HTabPanel>
               ))}
-            </Tabs>
+            </HTabs>
             <button onClick$={() => tabsState.splice(tabIndexToDelete, 1)}>
               Remove Tab
             </button>
@@ -196,14 +196,14 @@ describe('Tabs', () => {
         const selectedTabIdSig = useSignal<string | undefined>();
         return (
           <>
-            <Tabs bind:selectedTabId={selectedTabIdSig}>
-              <TabList>
-                <Tab tabId="first">Tab 1</Tab>
-                <Tab tabId="second">Tab 2</Tab>
-              </TabList>
-              <TabPanel>Panel 1</TabPanel>
-              <TabPanel>Panel 2</TabPanel>
-            </Tabs>
+            <HTabs bind:selectedTabId={selectedTabIdSig}>
+              <HTabList>
+                <HTab tabId="first">Tab 1</HTab>
+                <HTab tabId="second">Tab 2</HTab>
+              </HTabList>
+              <HTabPanel>Panel 1</HTabPanel>
+              <HTabPanel>Panel 2</HTabPanel>
+            </HTabs>
             {selectedTabIdSig.value && (
               <div data-testid="selected-tab-id-from-event">
                 Selected tab id: {selectedTabIdSig.value}
@@ -246,29 +246,29 @@ describe('Tabs', () => {
 
     const TabsInsideOfTabs = component$(() => {
       return (
-        <Tabs>
-          <TabList>
-            <Tab>Tab 1</Tab>
-            <Tab>Tab 2</Tab>
-            <Tab>Tab 3</Tab>
-          </TabList>
+        <HTabs>
+          <HTabList>
+            <HTab>Tab 1</HTab>
+            <HTab>Tab 2</HTab>
+            <HTab>Tab 3</HTab>
+          </HTabList>
 
-          <TabPanel>
-            <Tabs>
-              <TabList>
-                <Tab>Tab 1</Tab>
-                <Tab>Tab 2</Tab>
-                <Tab>Tab 3</Tab>
-              </TabList>
+          <HTabPanel>
+            <HTabs>
+              <HTabList>
+                <HTab>Tab 1</HTab>
+                <HTab>Tab 2</HTab>
+                <HTab>Tab 3</HTab>
+              </HTabList>
 
-              <TabPanel>Panel 1</TabPanel>
-              <TabPanel>Child Panel 2</TabPanel>
-              <TabPanel>Panel 3</TabPanel>
-            </Tabs>
-          </TabPanel>
-          <TabPanel>Root Panel 2</TabPanel>
-          <TabPanel>Panel 3</TabPanel>
-        </Tabs>
+              <HTabPanel>Panel 1</HTabPanel>
+              <HTabPanel>Child Panel 2</HTabPanel>
+              <HTabPanel>Panel 3</HTabPanel>
+            </HTabs>
+          </HTabPanel>
+          <HTabPanel>Root Panel 2</HTabPanel>
+          <HTabPanel>Panel 3</HTabPanel>
+        </HTabs>
       );
     });
   });
@@ -485,27 +485,27 @@ describe('Tabs', () => {
 
       return (
         <>
-          <Tabs
+          <HTabs
             data-testid="tabs"
             vertical={isVertical}
             onSelectedIndexChange$={onSelectedIndexChange$}
             selectedIndex={selectedIndex.value}
           >
-            <TabList
+            <HTabList
               style={{
                 display: 'flex',
                 flexDirection: isVertical ? 'column' : 'row',
               }}
             >
-              <Tab>Tab 1</Tab>
-              <Tab>Tab 2</Tab>
-              <Tab>Tab 3</Tab>
-            </TabList>
+              <HTab>Tab 1</HTab>
+              <HTab>Tab 2</HTab>
+              <HTab>Tab 3</HTab>
+            </HTabList>
 
-            <TabPanel>Panel 1</TabPanel>
-            <TabPanel>Panel 2</TabPanel>
-            <TabPanel>Panel 3</TabPanel>
-          </Tabs>
+            <HTabPanel>Panel 1</HTabPanel>
+            <HTabPanel>Panel 2</HTabPanel>
+            <HTabPanel>Panel 3</HTabPanel>
+          </HTabs>
 
           <br />
 
@@ -544,20 +544,20 @@ describe('Tabs', () => {
         WHEN loading the component
         THEN the selected tab should be the second tab`, () => {
       cy.mount(
-        <Tabs selectedIndex={2}>
-          <TabList>
-            <Tab>Tab 1</Tab>
-            <Tab>Tab 2</Tab>
-            <Tab disabled={true}>Tab 3</Tab>
-            <Tab disabled={true}>Tab 4</Tab>
-            <Tab disabled={true}>Tab 5</Tab>
-          </TabList>
-          <TabPanel>Panel 1</TabPanel>
-          <TabPanel>Panel 2</TabPanel>
-          <TabPanel>Panel 3</TabPanel>
-          <TabPanel>Panel 4</TabPanel>
-          <TabPanel>Panel 5</TabPanel>
-        </Tabs>,
+        <HTabs selectedIndex={2}>
+          <HTabList>
+            <HTab>Tab 1</HTab>
+            <HTab>Tab 2</HTab>
+            <HTab disabled={true}>Tab 3</HTab>
+            <HTab disabled={true}>Tab 4</HTab>
+            <HTab disabled={true}>Tab 5</HTab>
+          </HTabList>
+          <HTabPanel>Panel 1</HTabPanel>
+          <HTabPanel>Panel 2</HTabPanel>
+          <HTabPanel>Panel 3</HTabPanel>
+          <HTabPanel>Panel 4</HTabPanel>
+          <HTabPanel>Panel 5</HTabPanel>
+        </HTabs>,
       );
 
       cy.findByRole('tabpanel').should('contain', 'Panel 2');
@@ -567,13 +567,13 @@ describe('Tabs', () => {
         WHEN focusing on first component and hitting the right key
         THEN the selected tab should be the third one`, () => {
       cy.mount(
-        <Tabs>
-          <TabPanel label="Tab 1">Panel 1</TabPanel>
-          <TabPanel label="Tab 2" disabled>
+        <HTabs>
+          <HTabPanel label="Tab 1">Panel 1</HTabPanel>
+          <HTabPanel label="Tab 2" disabled>
             Panel 2
-          </TabPanel>
-          <TabPanel label="Tab 3">Panel 3</TabPanel>
-        </Tabs>,
+          </HTabPanel>
+          <HTabPanel label="Tab 3">Panel 3</HTabPanel>
+        </HTabs>,
       );
       cy.findByRole('tab', { name: /Tab 1/i }).type('{rightarrow}');
       cy.findByRole('tab', { name: /Tab 3/i }).should('have.focus');
@@ -583,12 +583,12 @@ describe('Tabs', () => {
           WHEN loading the component
           THEN no panel or tab should be selected`, () => {
       cy.mount(
-        <Tabs>
-          <TabList>
-            <Tab disabled={true}>Tab 1</Tab>
-          </TabList>
-          <TabPanel>Panel 1</TabPanel>
-        </Tabs>,
+        <HTabs>
+          <HTabList>
+            <HTab disabled={true}>Tab 1</HTab>
+          </HTabList>
+          <HTabPanel>Panel 1</HTabPanel>
+        </HTabs>,
       );
 
       cy.findByRole('tabpanel').should('not.exist');
@@ -707,29 +707,29 @@ describe('Tabs', () => {
         const isMiddleDisabledSig = useSignal(false);
         return (
           <div>
-            <Tabs
+            <HTabs
               vertical={!!props.isVertical}
               style={{
                 display: 'flex',
                 flexDirection: props.isVertical ? 'row' : 'column',
               }}
             >
-              <TabList
+              <HTabList
                 style={{
                   display: 'flex',
                   flexDirection: props.isVertical ? 'column' : 'row',
                 }}
               >
-                <Tab disabled={props.disabledIndex === 0}>Tab 1</Tab>
-                <Tab disabled={props.disabledIndex === 1 || isMiddleDisabledSig.value}>
+                <HTab disabled={props.disabledIndex === 0}>Tab 1</HTab>
+                <HTab disabled={props.disabledIndex === 1 || isMiddleDisabledSig.value}>
                   Tab 2
-                </Tab>
-                <Tab disabled={props.disabledIndex === 2}>Tab 3</Tab>
-              </TabList>
-              <TabPanel>Panel 1</TabPanel>
-              <TabPanel>Panel 2</TabPanel>
-              <TabPanel>Panel 3</TabPanel>
-            </Tabs>
+                </HTab>
+                <HTab disabled={props.disabledIndex === 2}>Tab 3</HTab>
+              </HTabList>
+              <HTabPanel>Panel 1</HTabPanel>
+              <HTabPanel>Panel 2</HTabPanel>
+              <HTabPanel>Panel 3</HTabPanel>
+            </HTabs>
             {props.showDisableButton && (
               <button
                 onClick$={() => (isMiddleDisabledSig.value = !isMiddleDisabledSig.value)}
@@ -748,13 +748,13 @@ describe('Tabs', () => {
         WHEN clicking the middle one
         THEN render the middle panel`, () => {
       cy.mount(
-        <Tabs>
-          <Tab>Tab 1</Tab>
-          <TabPanel>Panel 1</TabPanel>
-          <TabPanel label="Tab 2">Panel 2</TabPanel>
-          <TabPanel selected>Panel 3</TabPanel>
-          <Tab>Tab 3</Tab>
-        </Tabs>,
+        <HTabs>
+          <HTab>HTab 1</HTab>
+          <HTabPanel>Panel 1</HTabPanel>
+          <HTabPanel label="Tab 2">Panel 2</HTabPanel>
+          <HTabPanel selected>Panel 3</HTabPanel>
+          <HTab>HTab 3</HTab>
+        </HTabs>,
       );
 
       cy.get('[role="tab"]').should('have.length', 3);
@@ -772,32 +772,32 @@ describe('Tabs', () => {
   describe('User-defined reusable TabList/Tab/TabPanel components', () => {
     const CustomTabList = component$<TabListProps>(() => {
       return (
-        <TabList>
+        <HTabList>
           <Slot />
-        </TabList>
+        </HTabList>
       );
     });
 
     const CustomTab = component$<TabProps>(({ ...props }) => {
       return (
-        <Tab {...props}>
+        <HTab {...props}>
           <Slot />
-        </Tab>
+        </HTab>
       );
     });
 
     const CustomTabPanel = component$<TabPanelProps>(({ ...props }) => {
       return (
-        <TabPanel {...props}>
+        <HTabPanel {...props}>
           <Slot />
-        </TabPanel>
+        </HTabPanel>
       );
     });
 
     const CustomThreeTabsComponent = component$(() => {
       return (
         <>
-          <Tabs
+          <HTabs
             tabListComponent={CustomTabList}
             tabComponent={CustomTab}
             tabPanelComponent={CustomTabPanel}
@@ -810,7 +810,7 @@ describe('Tabs', () => {
             <CustomTabPanel>Panel 1</CustomTabPanel>
             <CustomTabPanel>Panel 2</CustomTabPanel>
             <CustomTabPanel>Panel 3</CustomTabPanel>
-          </Tabs>
+          </HTabs>
         </>
       );
     });

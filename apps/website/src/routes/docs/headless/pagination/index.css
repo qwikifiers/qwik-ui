@@ -7,16 +7,16 @@
   height: 32px;
   width: 32px;
   border-radius: var(--rounded-base);
-  color: white;
+  color: var(--foreground);
 }
 
 .prevNextButtons {
   height: 32px;
   cursor: pointer;
   border-radius: var(--rounded-base);
-  background-color: white;
+  background-color: hsl(var(--background));
   padding: 0 8px;
-  color: black;
+  color: var(--foreground);
   border: 2px dotted hsl(var(--foreground));
 }
 .prevNextButtons:hover {
@@ -31,7 +31,7 @@
   height: 32px;
   cursor: pointer;
   border-radius: var(--rounded-base);
-  background-color: white;
+  background-color: var(--background);
   padding: 0 12px;
   text-align: center;
 }

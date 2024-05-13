@@ -3,7 +3,7 @@ import SelectContextId from './select-context';
 
 type SelectDescriptionProps = PropsOf<'div'>;
 
-export const SelectDescription = component$((props: SelectDescriptionProps) => {
+export const HSelectDescription = component$((props: SelectDescriptionProps) => {
   const context = useContext(SelectContextId);
   const descriptionId = `${context.localId}-description`;
 

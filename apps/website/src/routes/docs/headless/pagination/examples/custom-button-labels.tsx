@@ -12,7 +12,7 @@ export default component$(() => {
       <Pagination
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
-        onPageChange$={(page) => {
+        onPageChange$={(page: number) => {
           selectedPage.value = page;
         }}
         customArrowTexts={{ previous: 'LEFT', next: 'RIGHT' }}

@@ -20,7 +20,7 @@ export type ComboboxInputProps = PropsOf<'input'> & {
   disableOnBlur?: boolean;
 };
 
-export const ComboboxInput = component$(
+export const HComboboxInput = component$(
   <O extends Option = Option>({
     disableOnBlur = false,
     ...props

@@ -22,7 +22,7 @@
 .popover-panel {
   border-radius: var(--border-radius);
   border: 2px dotted hsla(var(--primary));
-  background-color: hsl(var(--popover));
+  background: hsla(var(--popover));
   color: hsl(var(--foreground));
   padding: 0.5rem;
   box-shadow:

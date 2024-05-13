@@ -13,7 +13,7 @@ export type CollapsibleContentProps = PropsOf<'div'>;
 
 import { isServer } from '@builder.io/qwik/build';
 
-export const CollapsibleContent = component$((props: CollapsibleContentProps) => {
+export const HCollapsibleContent = component$((props: CollapsibleContentProps) => {
   const context = useContext(collapsibleContextId);
   const isHiddenSig = useSignal<boolean>(!context.isOpenSig.value);
   // check if it's initially "animatable"

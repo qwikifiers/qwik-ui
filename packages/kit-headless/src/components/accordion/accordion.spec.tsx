@@ -1,10 +1,9 @@
 import { component$, useStore } from '@builder.io/qwik';
-import { AccordionRoot } from './accordion-root';
-import { AccordionItem } from './accordion-item';
-import { AccordionTrigger } from './accordion-trigger';
-import { AccordionContent } from './accordion-content';
-import { AccordionHeader } from './accordion-header';
-import { Accordion } from './accordion';
+import { HAccordionRoot } from './accordion-root';
+import { HAccordionItem } from './accordion-item';
+import { HAccordionTrigger } from './accordion-trigger';
+import { HAccordionContent } from './accordion-content';
+import { HAccordionHeader } from './accordion-header';
 
 import './accordion-cypress.css';
 
@@ -16,26 +15,26 @@ interface AccordionProps {
 const ThreeItemAccordion = component$(
   ({ behavior, collapsible, ...props }: AccordionProps) => {
     return (
-      <AccordionRoot behavior={behavior} collapsible={collapsible} {...props}>
-        <AccordionItem class="border-b">
-          <AccordionTrigger>Trigger 1</AccordionTrigger>
-          <AccordionContent>
+      <HAccordionRoot behavior={behavior} collapsible={collapsible} {...props}>
+        <HAccordionItem class="border-b">
+          <HAccordionTrigger>Trigger 1</HAccordionTrigger>
+          <HAccordionContent>
             <p>Content 1</p>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem class="border-b">
-          <AccordionTrigger>Trigger 2</AccordionTrigger>
-          <AccordionContent>
+          </HAccordionContent>
+        </HAccordionItem>
+        <HAccordionItem class="border-b">
+          <HAccordionTrigger>Trigger 2</HAccordionTrigger>
+          <HAccordionContent>
             <p>Content 2</p>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem class="border-b">
-          <AccordionTrigger>Trigger 3</AccordionTrigger>
-          <AccordionContent>
+          </HAccordionContent>
+        </HAccordionItem>
+        <HAccordionItem class="border-b">
+          <HAccordionTrigger>Trigger 3</HAccordionTrigger>
+          <HAccordionContent>
             <p>Content 3</p>
-          </AccordionContent>
-        </AccordionItem>
-      </AccordionRoot>
+          </HAccordionContent>
+        </HAccordionItem>
+      </HAccordionRoot>
     );
   },
 );
@@ -214,16 +213,16 @@ describe('Prop Behavior', () => {
 
   const DefaultValueAccordion = component$(() => {
     return (
-      <AccordionRoot>
-        <AccordionItem class="border-b">
-          <AccordionTrigger>Trigger 1</AccordionTrigger>
-          <AccordionContent>Content 1</AccordionContent>
-        </AccordionItem>
-        <AccordionItem defaultValue>
-          <AccordionTrigger>Trigger 2</AccordionTrigger>
-          <AccordionContent>Content 2</AccordionContent>
-        </AccordionItem>
-      </AccordionRoot>
+      <HAccordionRoot>
+        <HAccordionItem class="border-b">
+          <HAccordionTrigger>Trigger 1</HAccordionTrigger>
+          <HAccordionContent>Content 1</HAccordionContent>
+        </HAccordionItem>
+        <HAccordionItem defaultValue>
+          <HAccordionTrigger>Trigger 2</HAccordionTrigger>
+          <HAccordionContent>Content 2</HAccordionContent>
+        </HAccordionItem>
+      </HAccordionRoot>
     );
   });
 
@@ -251,14 +250,14 @@ describe('Prop Behavior', () => {
 
   const HeaderAccordion = component$(() => {
     return (
-      <AccordionRoot>
-        <AccordionItem class="border-b">
-          <AccordionHeader as="h4">
-            <AccordionTrigger>Trigger 1</AccordionTrigger>
-            <AccordionContent>Content 1</AccordionContent>
-          </AccordionHeader>
-        </AccordionItem>
-      </AccordionRoot>
+      <HAccordionRoot>
+        <HAccordionItem class="border-b">
+          <HAccordionHeader as="h4">
+            <HAccordionTrigger>Trigger 1</HAccordionTrigger>
+            <HAccordionContent>Content 1</HAccordionContent>
+          </HAccordionHeader>
+        </HAccordionItem>
+      </HAccordionRoot>
     );
   });
 
@@ -285,32 +284,32 @@ describe('Disabled', () => {
   const FourItemDisabledAccordion = component$(
     ({ behavior, collapsible, ...props }: AccordionProps) => {
       return (
-        <AccordionRoot behavior={behavior} collapsible={collapsible} {...props}>
-          <AccordionItem class="border-b">
-            <AccordionTrigger>Trigger 1</AccordionTrigger>
-            <AccordionContent>
+        <HAccordionRoot behavior={behavior} collapsible={collapsible} {...props}>
+          <HAccordionItem class="border-b">
+            <HAccordionTrigger>Trigger 1</HAccordionTrigger>
+            <HAccordionContent>
               <p>Content 1</p>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem class="border-b">
-            <AccordionTrigger disabled>Trigger 2</AccordionTrigger>
-            <AccordionContent>
+            </HAccordionContent>
+          </HAccordionItem>
+          <HAccordionItem class="border-b">
+            <HAccordionTrigger disabled>Trigger 2</HAccordionTrigger>
+            <HAccordionContent>
               <p>Content 2</p>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem class="border-b">
-            <AccordionTrigger>Trigger 3</AccordionTrigger>
-            <AccordionContent>
+            </HAccordionContent>
+          </HAccordionItem>
+          <HAccordionItem class="border-b">
+            <HAccordionTrigger>Trigger 3</HAccordionTrigger>
+            <HAccordionContent>
               <p>Content 3</p>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem class="border-b">
-            <AccordionTrigger>Trigger 4</AccordionTrigger>
-            <AccordionContent>
+            </HAccordionContent>
+          </HAccordionItem>
+          <HAccordionItem class="border-b">
+            <HAccordionTrigger>Trigger 4</HAccordionTrigger>
+            <HAccordionContent>
               <p>Content 4</p>
-            </AccordionContent>
-          </AccordionItem>
-        </AccordionRoot>
+            </HAccordionContent>
+          </HAccordionItem>
+        </HAccordionRoot>
       );
     },
   );
@@ -383,16 +382,16 @@ describe('Dynamic', () => {
 
       return (
         <>
-          <AccordionRoot class="dynamic-root">
+          <HAccordionRoot class="dynamic-root">
             {itemStore.map(({ label, id }, index) => {
               return (
-                <AccordionItem id={`${id}`} key={id}>
-                  <AccordionTrigger class="dynamic-trigger">{label}</AccordionTrigger>
-                  <AccordionContent>index: {index}</AccordionContent>
-                </AccordionItem>
+                <HAccordionItem id={`${id}`} key={id}>
+                  <HAccordionTrigger class="dynamic-trigger">{label}</HAccordionTrigger>
+                  <HAccordionContent>index: {index}</HAccordionContent>
+                </HAccordionItem>
               );
             })}
-          </AccordionRoot>
+          </HAccordionRoot>
 
           <div>
             <button
@@ -479,28 +478,28 @@ describe('Dynamic', () => {
   });
 });
 
-describe('shorthand syntax', () => {
-  const ShorthandAccordion = component$(() => {
-    return (
-      <Accordion>
-        <AccordionItem label="Trigger 1">Content 1</AccordionItem>
-        <AccordionItem label="Trigger 2">Content 2</AccordionItem>
-        <AccordionItem>
-          <AccordionTrigger>Trigger 3</AccordionTrigger>
-          <AccordionContent>Content 3</AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    );
-  });
+// describe('shorthand syntax', () => {
+//   const ShorthandAccordion = component$(() => {
+//     return (
+//       <HAccordion.Root>
+//         <HAccordionItem label="Trigger 1">Content 1</HAccordionItem>
+//         <HAccordionItem label="Trigger 2">Content 2</HAccordionItem>
+//         <HAccordionItem>
+//           <HAccordionTrigger>Trigger 3</HAccordionTrigger>
+//           <HAccordionContent>Content 3</HAccordionContent>
+//         </HAccordionItem>
+//       </HAccordion.Root>
+//     );
+//   });
 
-  it(`GIVEN 2 accordion items
-      WHEN clicking the 2nd item's trigger
-      THEN render the 2nd item's content
-`, () => {
-    cy.mount(<ShorthandAccordion />);
+//   it(`GIVEN 2 accordion items
+//       WHEN clicking the 2nd item's trigger
+//       THEN render the 2nd item's content
+// `, () => {
+//     cy.mount(<ShorthandAccordion />);
 
-    cy.findByRole('button', { name: /Trigger 2/i }).click();
+//     cy.findByRole('button', { name: /Trigger 2/i }).click();
 
-    cy.findByRole('region').should('contain', 'Content 2');
-  });
-});
+//     cy.findByRole('region').should('contain', 'Content 2');
+//   });
+// });

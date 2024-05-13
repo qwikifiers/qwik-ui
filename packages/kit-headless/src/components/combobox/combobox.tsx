@@ -51,7 +51,7 @@ export type ComboboxProps<O extends Option = Option> = PropsOf<'div'> & {
   'bind:selectedIndex'?: Signal<number>;
 };
 
-export const Combobox = component$(
+export const HCombobox = component$(
   <O extends Option = Option>(props: ComboboxProps<O>) => {
     const {
       'bind:isListboxOpen': givenListboxOpenSig,

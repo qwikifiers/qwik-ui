@@ -12,7 +12,7 @@ import { isBrowser } from '@builder.io/qwik/build';
 
 type CarouselViewportProps = PropsOf<'div'>;
 
-export const CarouselView = component$((props: CarouselViewportProps) => {
+export const HCarouselView = component$((props: CarouselViewportProps) => {
   const context = useContext(CarouselContextId);
 
   const totalWidthSig = useSignal<number>(0);

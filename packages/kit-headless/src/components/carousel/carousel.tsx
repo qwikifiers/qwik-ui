@@ -15,7 +15,7 @@ export type CarouselRootProps = PropsOf<'section'> & {
   'bind:currSlideIndex'?: Signal<number>;
 };
 
-export const Carousel = component$(
+export const HCarousel = component$(
   ({
     spaceBetweenSlides = 0,
     'bind:currSlideIndex': givenSlideIndexSig,
