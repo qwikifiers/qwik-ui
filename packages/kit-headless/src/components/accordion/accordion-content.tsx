@@ -14,7 +14,7 @@ import { accordionItemContextId, accordionRootContextId } from './accordion-cont
 
 export type ContentProps = PropsOf<'div'>;
 
-export const AccordionContent = component$(({ ...props }: ContentProps) => {
+export const HAccordionContent = component$(({ ...props }: ContentProps) => {
   const contextService = useContext(accordionRootContextId);
   const itemContext = useContext(accordionItemContextId);
 

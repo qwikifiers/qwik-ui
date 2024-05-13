@@ -10,7 +10,7 @@ type CarouselPaginationProps = PropsOf<'div'> & {
   renderBullet$?: QRL<(n: number) => JSX.Element>;
 };
 
-export const CarouselPagination = component$(
+export const HCarouselPagination = component$(
   ({ renderBullet$, ...props }: CarouselPaginationProps) => {
     const context = useContext(CarouselContextId);
 

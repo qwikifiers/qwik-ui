@@ -13,7 +13,7 @@ import { isServer } from '@builder.io/qwik/build';
 
 type SelectListboxProps = PropsOf<'ul'>;
 
-export const SelectListbox = component$<SelectListboxProps>((props) => {
+export const HSelectListbox = component$<SelectListboxProps>((props) => {
   useStyles$(styles);
 
   const context = useContext(SelectContextId);

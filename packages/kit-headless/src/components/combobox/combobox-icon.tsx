@@ -6,7 +6,7 @@ type ComboboxIcon = PropsOf<'svg'> & {
   svg?: JSX.Element;
 };
 
-export const ComboboxIcon = component$<ComboboxIcon>(({ svg, ...iconProps }) => {
+export const HComboboxIcon = component$<ComboboxIcon>(({ svg, ...iconProps }) => {
   if (svg) {
     return (
       <div aria-hidden="true">

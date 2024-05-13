@@ -18,7 +18,7 @@ type ModalRootProps = {
   alert?: boolean;
 } & PropsOf<'div'>;
 
-export const ModalRoot = component$((props: ModalRootProps) => {
+export const HModalRoot = component$((props: ModalRootProps) => {
   const localId = useId();
 
   const {

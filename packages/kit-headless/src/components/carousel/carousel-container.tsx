@@ -3,7 +3,7 @@ import CarouselContextId from './carousel-context-id';
 
 type CarouselContainerProps = PropsOf<'div'>;
 
-export const CarouselContainer = component$((props: CarouselContainerProps) => {
+export const HCarouselContainer = component$((props: CarouselContainerProps) => {
   const context = useContext(CarouselContextId);
 
   return (

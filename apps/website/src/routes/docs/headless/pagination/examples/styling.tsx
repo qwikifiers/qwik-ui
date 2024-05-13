@@ -12,7 +12,7 @@ export default component$(() => {
       <Pagination
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
-        onPageChange$={(page) => {
+        onPageChange$={(page: number) => {
           selectedPage.value = page;
         }}
         class="border border-foreground p-2"
@@ -24,7 +24,7 @@ export default component$(() => {
       <Pagination
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
-        onPageChange$={(page) => {
+        onPageChange$={(page: number) => {
           selectedPage.value = page;
         }}
         class="border border-foreground p-2"
@@ -36,7 +36,7 @@ export default component$(() => {
       <Pagination
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
-        onPageChange$={(page) => {
+        onPageChange$={(page: number) => {
           selectedPage.value = page;
         }}
         class="flex flex-col items-center gap-2 border border-primary"

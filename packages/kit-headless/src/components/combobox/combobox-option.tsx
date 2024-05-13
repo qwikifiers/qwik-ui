@@ -16,7 +16,7 @@ export type ComboboxOptionProps = PropsOf<'li'> & {
   resolved: ResolvedOption;
 };
 
-export const ComboboxOption = component$(
+export const HComboboxOption = component$(
   // remove non-li props from props
   ({ index, resolved, ...props }: ComboboxOptionProps) => {
     const context = useContext(ComboboxContextId);

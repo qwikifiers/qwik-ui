@@ -17,7 +17,7 @@ export type AccordionItemProps = PropsOf<'div'> & {
   label?: string | JSXChildren;
 };
 
-export const AccordionItem = component$(
+export const HAccordionItem = component$(
   ({ defaultValue = false, id, ...props }: AccordionItemProps) => {
     const localId = useId();
     const itemId = id || localId;

@@ -6,7 +6,7 @@ export type ToggleProps = PropsOf<'input'> & {
   defaultPressed?: boolean;
 };
 
-export const Toggle = component$<ToggleProps>(
+export const HToggle = component$<ToggleProps>(
   ({ pressed, defaultPressed = false, disabled, ...props }) => {
     const pressedState = useSignal(pressed || defaultPressed);
 

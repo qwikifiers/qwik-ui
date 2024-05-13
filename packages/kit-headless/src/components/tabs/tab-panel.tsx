@@ -17,7 +17,7 @@ export type TabPanelProps = {
 
 export const TAB_PANEL_ID_PREFIX = '_tabpanel_';
 
-export const TabPanel = component$(
+export const HTabPanel = component$(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ({ label, _tabId, _extraClass, ...props }: TabPanelProps) => {
     const contextService = useContext(tabsContextId);

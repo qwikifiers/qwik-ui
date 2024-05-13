@@ -21,7 +21,7 @@ export type TabProps = PropsOf<'button'> & {
   tabId?: string;
 };
 
-export const Tab = component$<TabProps>(({ selectedClassName, tabId, ...props }) => {
+export const HTab = component$<TabProps>(({ selectedClassName, tabId, ...props }) => {
   const contextService = useContext(tabsContextId);
 
   const elementRefSig = useSignal<HTMLElement | undefined>();

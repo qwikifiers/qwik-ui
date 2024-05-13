@@ -2,7 +2,7 @@ import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 
 type SelectOptionLabelProps = PropsOf<'span'>;
 
-export const SelectItemLabel = component$((props: SelectOptionLabelProps) => {
+export const HSelectItemLabel = component$((props: SelectOptionLabelProps) => {
   return (
     <span tabIndex={-1} {...props}>
       <Slot />

@@ -3,7 +3,7 @@ import { type CarouselButtonProps } from './types';
 import CarouselContextId from './carousel-context-id';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
-export const CarouselPrev = component$((props: CarouselButtonProps) => {
+export const HCarouselPrev = component$((props: CarouselButtonProps) => {
   const context = useContext(CarouselContextId);
   return (
     <button

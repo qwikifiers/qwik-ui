@@ -13,7 +13,7 @@ export default component$(() => {
         selectedPage={selectedPage.value}
         totalPages={totalPages.value}
         disabled
-        onPageChange$={(page) => {
+        onPageChange$={(page: number) => {
           selectedPage.value = page;
         }}
         class="pagination-wrapper"
