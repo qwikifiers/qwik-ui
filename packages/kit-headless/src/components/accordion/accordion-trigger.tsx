@@ -27,7 +27,7 @@ export type AccordionTriggerProps = PropsOf<'button'> & {
   disabled?: boolean;
 };
 
-export const AccordionTrigger = component$(
+export const HAccordionTrigger = component$(
   ({ disabled, ...props }: AccordionTriggerProps) => {
     const contextService = useContext(accordionRootContextId);
     const itemContext = useContext(accordionItemContextId);

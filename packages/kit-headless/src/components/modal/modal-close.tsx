@@ -1,7 +1,7 @@
 import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
 import { modalContextId } from './modal-context';
 
-export const ModalClose = component$((props: PropsOf<'button'>) => {
+export const HModalClose = component$((props: PropsOf<'button'>) => {
   const context = useContext(modalContextId);
 
   return (

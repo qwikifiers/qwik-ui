@@ -18,7 +18,7 @@ export interface SeparatorProps extends QwikDiv {
   decorative?: boolean;
 }
 
-export const Separator = component$(
+export const HSeparator = component$(
   ({
     orientation: orientationProp = 'horizontal',
     decorative,

@@ -21,7 +21,7 @@ export type AriaHiddenSelectProps = {
   required?: boolean;
 };
 
-export const HiddenNativeSelect = component$(
+export const HHiddenNativeSelect = component$(
   (props: AriaHiddenSelectProps & PropsOf<'select'>) => {
     const { label, autoComplete, ref, ...rest } = props;
     const context = useContext(SelectContextId);

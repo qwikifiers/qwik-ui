@@ -25,7 +25,7 @@ export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
   alert?: boolean;
 };
 
-export const ModalPanel = component$((props: PropsOf<'dialog'>) => {
+export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
   useStyles$(styles);
   const {
     activateFocusTrap,

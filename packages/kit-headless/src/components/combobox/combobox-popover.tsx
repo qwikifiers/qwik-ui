@@ -1,12 +1,12 @@
 import { component$, useContext, Slot, useTask$, PropsOf } from '@builder.io/qwik';
-import { PopoverPanel } from '../popover/popover-panel';
+import { HPopoverPanel } from '../popover/popover-panel';
 import { usePopover } from '../popover/use-popover';
-import { PopoverRoot } from '../popover/popover-root';
+import { HPopoverRoot } from '../popover/popover-root';
 
 import ComboboxContextId from './combobox-context-id';
 import { isServer } from '@builder.io/qwik/build';
 
-export const ComboboxPopover = component$<PropsOf<typeof PopoverRoot>>((props) => {
+export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props) => {
   const context = useContext(ComboboxContextId);
   const { showPopover, hidePopover } = usePopover(context.localId);
   const { floating, flip, hover, gutter, ...rest } = props;
@@ -25,7 +25,7 @@ export const ComboboxPopover = component$<PropsOf<typeof PopoverRoot>>((props) =
   });
 
   return (
-    <PopoverRoot
+    <HPopoverRoot
       floating={floating}
       flip={flip}
       hover={hover}
@@ -34,13 +34,13 @@ export const ComboboxPopover = component$<PropsOf<typeof PopoverRoot>>((props) =
       manual
       id={context.localId}
     >
-      <PopoverPanel
+      <HPopoverPanel
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
         {...rest}
       >
         <Slot />
-      </PopoverPanel>
-    </PopoverRoot>
+      </HPopoverPanel>
+    </HPopoverRoot>
   );
 });

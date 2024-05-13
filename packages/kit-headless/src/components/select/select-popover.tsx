@@ -7,13 +7,13 @@ import {
   useSignal,
 } from '@builder.io/qwik';
 import { usePopover } from '../popover/use-popover';
-import { PopoverPanel } from '../popover/popover-panel';
+import { HPopoverPanel } from '../popover/popover-panel';
 
 import SelectContextId from './select-context';
-import { PopoverRoot } from '../popover/popover-root';
+import { HPopoverRoot } from '../popover/popover-root';
 import { isServer } from '@builder.io/qwik/build';
 
-export const SelectPopover = component$<PropsOf<typeof PopoverRoot>>((props) => {
+export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) => {
   const context = useContext(SelectContextId);
   const { showPopover, hidePopover } = usePopover(context.localId);
 
@@ -39,7 +39,7 @@ export const SelectPopover = component$<PropsOf<typeof PopoverRoot>>((props) => 
   });
 
   return (
-    <PopoverRoot
+    <HPopoverRoot
       floating={floating}
       flip={flip}
       hover={hover}
@@ -48,13 +48,13 @@ export const SelectPopover = component$<PropsOf<typeof PopoverRoot>>((props) => 
       manual
       id={context.localId}
     >
-      <PopoverPanel
+      <HPopoverPanel
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
         {...rest}
       >
         <Slot />
-      </PopoverPanel>
-    </PopoverRoot>
+      </HPopoverPanel>
+    </HPopoverRoot>
   );
 });

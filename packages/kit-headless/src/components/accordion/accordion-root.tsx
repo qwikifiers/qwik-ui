@@ -22,7 +22,7 @@ export type AccordionRootProps = PropsOf<'div'> & {
   onFocusIndexChange$?: QRL<(index: number) => void>;
 };
 
-export const AccordionRoot = component$(
+export const HAccordionRoot = component$(
   ({
     collapsible = true,
     behavior = 'single',

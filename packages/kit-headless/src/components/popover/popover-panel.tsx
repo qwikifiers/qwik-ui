@@ -1,12 +1,12 @@
 import { component$, PropsOf, Slot, useContext } from '@builder.io/qwik';
 import { FloatingPopover } from './floating';
-import { PopoverPanelImpl } from './popover-panel-impl';
+import { HPopoverPanelImpl } from './popover-panel-impl';
 import { popoverContextId } from './popover-context';
 
 // TODO: improve the type so that it only includes FloatingProps when floating is true.
 
 /* This component determines whether the popover needs floating behavior, a common example where it doesn't, would be a toast. */
-export const PopoverPanel = component$((props: PropsOf<'div'>) => {
+export const HPopoverPanel = component$((props: PropsOf<'div'>) => {
   const context = useContext(popoverContextId);
 
   if (context.floating) {
@@ -18,8 +18,8 @@ export const PopoverPanel = component$((props: PropsOf<'div'>) => {
   }
 
   return (
-    <PopoverPanelImpl {...props}>
+    <HPopoverPanelImpl {...props}>
       <Slot />
-    </PopoverPanelImpl>
+    </HPopoverPanelImpl>
   );
 });

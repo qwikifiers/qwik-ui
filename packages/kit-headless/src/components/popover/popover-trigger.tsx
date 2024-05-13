@@ -7,7 +7,7 @@ type PopoverTriggerProps = {
   disableClickInitPopover?: boolean;
 } & PropsOf<'button'>;
 
-export const PopoverTrigger = component$<PopoverTriggerProps>(
+export const HPopoverTrigger = component$<PopoverTriggerProps>(
   (props: PopoverTriggerProps) => {
     const context = useContext(popoverContextId);
 

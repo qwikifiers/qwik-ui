@@ -33,7 +33,7 @@ export const EnsuredContext = component$(() => {
   return null;
 });
 
-export const PopoverPanelImpl = component$((props: PropsOf<'div'>) => {
+export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
   const context = useContext(popoverContextId);
   const panelId = `${context.compId}-panel`;
 

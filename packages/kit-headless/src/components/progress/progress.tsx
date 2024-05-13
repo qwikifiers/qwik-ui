@@ -24,7 +24,7 @@ type ProgressElement = PropsOf<'div'>;
 /** Default max value for progress bar **/
 const DEFAULT_MAX = 100;
 
-export const Progress = component$<ProgressProps & ProgressElement>((props) => {
+export const HProgress = component$<ProgressProps & ProgressElement>((props) => {
   const {
     max: mapProp,
     value: valueProp,

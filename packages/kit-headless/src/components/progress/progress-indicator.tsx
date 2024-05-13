@@ -3,7 +3,7 @@ import { getProgressState } from './util';
 import { ProgressContext } from './progress-context';
 
 type ProgressIndicatorElement = PropsOf<'div'>;
-export const ProgressIndicator = component$<ProgressIndicatorElement>((props) => {
+export const HProgressIndicator = component$<ProgressIndicatorElement>((props) => {
   const { ...indicatorProps } = props;
 
   const { max, value } = useContext(ProgressContext);

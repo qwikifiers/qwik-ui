@@ -14,11 +14,11 @@ import {
 import { KeyCode } from '../../utils/key-code.type';
 import { Behavior } from './behavior.type';
 import { findNextEnabledTab, findPrevEnabledTab, getEnabledTab } from './get-enabled-tab';
-import { Tab as InternalTab, TabProps } from './tab';
-import { TabPanel as InternalTabPanel, TabPanelProps } from './tab-panel';
+import { HTab as InternalTab, TabProps } from './tab';
+import { HTabPanel as InternalTabPanel, TabPanelProps } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { TabsContext } from './tabs-context.type';
-import { TabList as InternalTabList } from './tabs-list';
+import { HTabList as InternalTabList } from './tabs-list';
 
 /**
  * TABS TODOs
@@ -73,7 +73,7 @@ export type TabInfo = {
 // This function reads the children, assigns indexes and creates a
 // standard structure. It must take care to retain the props objects
 // unchanged so signals keep working
-export const Tabs: FunctionComponent<TabsProps> = (props) => {
+export const HTabs: FunctionComponent<TabsProps> = (props) => {
   const {
     children,
     tabClass,
