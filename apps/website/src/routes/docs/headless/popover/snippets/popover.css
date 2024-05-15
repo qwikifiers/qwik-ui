@@ -15,10 +15,14 @@
   margin-bottom: 0.5rem;
 }
 
+.popover-trigger:hover {
+  background-color: hsla(var(--primary) / 0.08);
+}
+
 .popover-panel {
   border-radius: var(--border-radius);
   border: 2px dotted hsla(var(--primary));
-  background-color: hsl(var(--popover));
+  background: hsla(var(--popover));
   color: hsl(var(--foreground));
   padding: 0.5rem;
   box-shadow:

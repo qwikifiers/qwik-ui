@@ -27,7 +27,7 @@ export type AccordionTriggerProps = PropsOf<'button'> & {
   disabled?: boolean;
 };
 
-export const AccordionTrigger = component$(
+export const HAccordionTrigger = component$(
   ({ disabled, ...props }: AccordionTriggerProps) => {
     const contextService = useContext(accordionRootContextId);
     const itemContext = useContext(accordionItemContextId);
@@ -123,6 +123,8 @@ export const AccordionTrigger = component$(
         aria-disabled={disabled}
         data-trigger-id={triggerId}
         data-state={isTriggerExpandedSig.value ? 'open' : 'closed'}
+        data-open={isTriggerExpandedSig.value ? '' : undefined}
+        data-closed={!isTriggerExpandedSig.value ? '' : undefined}
         onClick$={
           disabled
             ? []

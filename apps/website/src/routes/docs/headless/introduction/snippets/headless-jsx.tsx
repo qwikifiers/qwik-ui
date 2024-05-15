@@ -1,10 +1,14 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal } from '@qwik-ui/headless';
 import styles from './headless-css.css?inline';
 
 export default component$(() => {
-  const showSig = useSignal(false);
   useStyles$(styles);
 
-  return <Modal.Root class="modal" bind:show={showSig}></Modal.Root>;
+  return (
+    <Modal.Root>
+      <Modal.Trigger>Open Modal</Modal.Trigger>
+      <Modal.Panel class="modal-panel">Modal Content</Modal.Panel>
+    </Modal.Root>
+  );
 });

@@ -1,7 +1,7 @@
 import { PropsOf, Slot, component$, useContext, $, sync$ } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 
-export const SelectLabel = component$((props: PropsOf<'div'>) => {
+export const HSelectLabel = component$((props: PropsOf<'div'>) => {
   const context = useContext(SelectContextId);
   const labelId = `${context.localId}-label`;
 

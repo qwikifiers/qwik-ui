@@ -7,7 +7,7 @@ export type AccordionHeaderProps = PropsOf<HeadingUnion> & {
   as?: HeadingUnion;
 };
 
-export const AccordionHeader = component$(
+export const HAccordionHeader = component$(
   ({ as = 'h3', ...props }: AccordionHeaderProps) => {
     const itemContext = useContext(accordionItemContextId);
     const itemId = itemContext.itemId;

@@ -1,4 +1,4 @@
-.modal,
+.modal-panel,
 .modal-trigger {
   border-radius: calc(var(--border-radius));
 }
@@ -11,60 +11,66 @@
   width: fit-content;
 }
 
-.modal {
+.modal-trigger:hover,
+.modal-close:hover {
+  background-color: hsla(var(--primary) / 0.08);
+}
+
+.modal-panel {
   padding: 1rem;
   gap: 0.5rem;
   border: 2px dotted hsla(var(--primary));
   color: hsla(var(--foreground));
   background-color: hsl(var(--background));
   max-width: 28rem;
+  width: 100%;
   overflow: hidden;
 }
 
-.modal::backdrop {
+.modal-panel::backdrop {
   backdrop-filter: blur(3px) brightness(50%);
 }
 
-.modal > * {
+.modal-panel > * {
   padding-block: 0.5rem;
 }
 
-.modal input {
+.modal-panel input {
   margin-bottom: 1rem;
   border-radius: calc(var(--border-radius));
   background: hsla(var(--foreground) / 0.05);
 }
 
-.modal h2 {
+.modal-panel h2 {
   font-size: 1.5rem;
   font-weight: 800;
   padding: 0;
 }
 
-.modal input {
+.modal-panel input {
   width: 100%;
   padding: 0.5rem;
   border-radius: calc(var(--border-radius));
   border: 2px dotted hsla(var(--ring));
 }
 
-.modal footer {
+.modal-panel footer {
   padding-top: 0;
   display: flex;
   gap: 0.5rem;
 }
 
-.modal button {
+.modal-panel button {
   padding: 0.5rem;
   border-radius: calc(var(--border-radius));
   border: 2px dotted hsla(var(--muted));
 }
 
-.modal button:first-of-type {
+.modal-panel button:first-of-type {
   border-color: hsla(var(--foreground));
 }
 
-.modal button:last-of-type {
+.modal-panel button:last-of-type {
   border-color: hsla(var(--primary));
 }
 
@@ -76,7 +82,7 @@
   backdrop-filter: grayscale(90%) blur(10px);
 }
 
-.modal .modal-close {
+.modal-panel .modal-alert-close {
   position: absolute;
   top: 0;
   right: 0.5rem;
@@ -86,7 +92,7 @@
 }
 
 /* some css fun here lol */
-.modal .modal-close:focus-visible::after {
+.modal-panel .modal-alert-close:focus-visible::after {
   content: '';
   position: absolute;
   left: 0.35rem;

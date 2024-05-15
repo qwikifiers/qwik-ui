@@ -3,7 +3,7 @@ import { groupContextId } from './select-context';
 
 type SelectLabelProps = PropsOf<'li'>;
 
-export const SelectGroupLabel = component$<SelectLabelProps>((props) => {
+export const HSelectGroupLabel = component$<SelectLabelProps>((props) => {
   const groupContext = useContext(groupContextId);
 
   return (

@@ -1,7 +1,6 @@
 import { component$, useStyles$, useSignal } from '@builder.io/qwik';
-import styles from '../snippets/collapsible.css?inline';
 import { Collapsible } from '@qwik-ui/headless';
-import SVG from './svg';
+import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
@@ -16,7 +15,7 @@ export default component$(() => {
         <Collapsible.Root class="collapsible">
           <Collapsible.Trigger class="collapsible-trigger">
             <span>Trigger</span>
-            <SVG />
+            <LuChevronDown />
           </Collapsible.Trigger>
           <Collapsible.Content class="collapsible-content collapsible-content-outline ">
             Content
@@ -26,3 +25,6 @@ export default component$(() => {
     </>
   );
 });
+
+// internal
+import styles from '../snippets/collapsible.css?inline';

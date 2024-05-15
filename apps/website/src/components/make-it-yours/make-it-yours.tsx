@@ -132,7 +132,7 @@ export default component$<PropsOf<typeof Button>>(() => {
     return [font, mode, style, baseColor, primaryColor, borderRadius].join(' ');
   });
   return (
-    <div>
+    <Modal.Root closeOnBackdropClick={false} bind:show={showSig}>
       <Button
         size="sm"
         look="outline"
@@ -144,11 +144,7 @@ export default component$<PropsOf<typeof Button>>(() => {
         <LuSlidersHorizontal class={cn('h-4 w-4 sm:mr-3')} />
         <span class={cn('hidden', 'sm:block')}>Make it yours</span>
       </Button>
-      <Modal.Root
-        closeOnBackdropClick={false}
-        bind:show={showSig}
-        class="make-it-yours fixed bottom-[50%] right-0  top-[50%] mr-0 h-screen max-w-sm rounded-l-base border-y border-l bg-background px-4 py-8 text-foreground shadow-md sm:w-full"
-      >
+      <Modal.Panel class="make-it-yours fixed bottom-[50%] right-0  top-[50%] mr-0 h-screen max-w-sm rounded-l-base border-y border-l bg-background px-4 py-8 text-foreground shadow-md sm:w-full">
         <header class="flex w-full">
           <h2 class="justify-self-start text-lg font-bold">Edit Profile</h2>
         </header>
@@ -557,7 +553,7 @@ export default component$<PropsOf<typeof Button>>(() => {
         <button onClick$={() => (showSig.value = false)} class="absolute right-4 top-5">
           <LuX class="h-8 w-8" />
         </button>
-      </Modal.Root>
-    </div>
+      </Modal.Panel>
+    </Modal.Root>
   );
 });

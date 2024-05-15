@@ -47,16 +47,16 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
           </label>
         </div>
 
-        <Accordion.Root class="w-full">
+        <Accordion.Root>
           {itemStore.map(({ label, id }, index) => {
             return (
-              <Accordion.Item id={`${id}`} key={id} class="border-b">
+              <Accordion.Item id={`${id}`} key={id} class="accordion-item">
                 <Accordion.Header>
-                  <Accordion.Trigger class="group flex w-full items-center justify-between rounded-t-sm py-4 text-left hover:underline">
-                    {label}
-                  </Accordion.Trigger>
+                  <Accordion.Trigger class="accordion-trigger">{label}</Accordion.Trigger>
                 </Accordion.Header>
-                <Accordion.Content class="py-4 pt-0">index: {index}</Accordion.Content>
+                <Accordion.Content class="accordion-content">
+                  index: {index}
+                </Accordion.Content>
               </Accordion.Item>
             );
           })}

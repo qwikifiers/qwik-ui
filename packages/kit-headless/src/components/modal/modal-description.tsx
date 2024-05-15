@@ -3,7 +3,7 @@ import { modalContextId } from './modal-context';
 
 export type ModalDescriptionProps = PropsOf<'p'>;
 
-export const ModalDescription = component$((props: ModalDescriptionProps) => {
+export const HModalDescription = component$((props: ModalDescriptionProps) => {
   const context = useContext(modalContextId);
 
   const descriptionId = `${context.localId}-description`;

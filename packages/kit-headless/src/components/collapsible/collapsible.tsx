@@ -23,7 +23,7 @@ export type CollapsibleProps = PropsOf<'div'> & {
   disabled?: boolean;
 };
 
-export const Collapsible = component$((props: CollapsibleProps) => {
+export const HCollapsible = component$((props: CollapsibleProps) => {
   const {
     disabled,
     onOpenChange$,

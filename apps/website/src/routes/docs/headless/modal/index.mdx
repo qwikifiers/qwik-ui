@@ -11,28 +11,24 @@ import {FeatureList} from '~/components/feature-list/feature-list';
 
 # Modal
 
-A window overlaid on either the primary window or another dialog window. Modal content is placed in the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer), rendering the underneath content as [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) / non-interactive.
+A panel that appears above all other content, blocking interaction with the rest of the page.
 
 <Showcase name="hero" />
 
-The modal makes use of the HTML `dialog` element, which is supported in [every major browser](https://caniuse.com/?search=dialog).
-
-> For non-modal UI elements, it is preferred to use [Qwik UI's popover component](../../../docs/headless/popover/). Qwik's popover component can be applied to the most-semantically-relevant HTML element, including the `<dialog>` element itself for non-modal dialogs.
-
-Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed.
+> Looking for something above other content that doesn't block interaction with the rest of the page? Check out [Qwik UI's popover component](../../../docs/headless/popover/).
 
 ## ✨ Features
 
 <FeatureList
   features={[
-    'Follows the WAI ARIA Dialog & Alertdialog design patterns.',
-    'Managed focus order',
-    'Scroll locking',
-    'Closes on escape',
-    'Toggle backdrop dismiss',
-    'Animation support',
-    'Transition support',
-    'Backdrop animations',
+    'Follows WAI-ARIA dialog and alertdialog guidelines.',
+    'Screen reader support with title and description.',
+    'Full keyboard navigation',
+    'Locks focus inside the modal',
+    'Prevents scrolling when open',
+    'Control the open state',
+    'Above other content',
+    'Custom backdrop dismiss',
   ]}
 />
 
@@ -45,27 +41,58 @@ Modals are used when an important choice needs to be made in the application. Th
 <AnatomyTable
   propDescriptors={[
     {
-      name: 'Modal',
-      description: 'The root component that contains the dialog element.',
+      name: 'Modal.Root',
+      description: 'The primary container for the modal.',
     },
     {
-      name: 'ModalTitle',
+      name: 'Modal.Panel',
+      description: 'The dialog element that is rendered on top of other content.',
+    },
+    {
+      name: 'Modal.Trigger',
+      description: 'A button that opens the modal when interacted with.',
+    },
+    {
+      name: 'Modal.Title',
       description: 'An accessible name for the modal.',
     },
     {
       name: 'ModalDescription',
       description: `An optional accessible description for the modal.`,
     },
+    {
+      name: 'Modal.Close',
+      description: 'A button that closes the modal when interacted with.',
+    },
   ]}
 />
+
+## Why use a headless modal?
+
+Modals are used when an important choice needs to be made in the application. The rest of the content isn't interactive until a certain action has been performed.
+
+Qwik UI builds on top of the `dialog` element, and solves the following issues:
+
+### Native dialog pain points
+
+<FeatureList
+  issues={[
+    'Unintuitive focus locking behavior',
+    'No scroll locking behavior',
+    'Unintuitive user agent styles',
+    'Confusing terminology (non-modal dialogs)',
+  ]}
+/>
+
+> The dialog element is the `<Modal.Panel />` component in Qwik UI. This is one of the few cases where we believe the native behavior is a great foundation.
 
 ## Dialog extendability
 
 <Showcase name="hero" />
 
-The Qwik UI Modal component is built on top of the `dialog` element. To see additional capabilities of the dialog, take a look at the [offical MDN page](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog).
+Above, we mentioned the Modal component uses the `dialog` element. This means you can also use the native [dialog element attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) to customize the modal.
 
-Our goal is to fill existing gaps, ensuring the modal is a11y compliant and enriched with HTML spec features, reducing reliance on Qwik UI maintainers.
+> We ask that you avoid directly opening the native dialog element. This is not supported by Qwik UI. Use the `bind:show` prop instead.
 
 ### Attribute example
 
@@ -73,21 +100,15 @@ Our goal is to fill existing gaps, ensuring the modal is a11y compliant and enri
 
 Above is an example of the `autofocus` attribute, used to focus the 2nd input when the dialog is opened.
 
-> When adding properties on `<Modal />`, it is the same as sticking the attribute, class, or API on the dialog element itself.
+> When adding properties on `<Modal.Panel />`, it is the same as sticking the attribute, class, or API on the dialog element itself.
 
-## Open or close the modal
+## Programmatic behavior
 
-To open or close the modal, we can use `bind:show`, a custom signal bind that leverages the [bind](https://qwik.builder.io/docs/components/rendering/#bind-attribute) syntax in Qwik.
+To programmatically open or close the modal, we can use `bind:show`, a signal prop that allows us to reactively control the modal state.
 
-<Showcase name="hero" />
+<Showcase name="programmatic" />
 
-`showSig` is a signal that we pass into our Modal component to customize when the modal can be open or closed.
-
-The example above opens the modal when the **Open Modal** button is clicked and closes it when a button inside the modal is clicked.
-
-> In the future, we may not need to manage state for the opening and closing of dialogs and other UI elements. Here's Open UI's [invoker proposal](https://open-ui.org/components/invokers.explainer/).
-
-Custom signal binds are like a remote control for components, controlling states like opening or closing a modal.
+`isOpen` is a signal that we pass into our Modal component to customize when the modal can be open or closed.
 
 ## The Top Layer
 
@@ -95,13 +116,13 @@ Custom signal binds are like a remote control for components, controlling states
 
 In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues.
 
-The top layer is used in Qwik UI whenever a modal or popover is used in supported browsers. Popovers can be applied to any semantic element, modals in Qwik UI are tied to the `dialog` element.
+The top layer is used in both the **Modal** and **Popover** components of Qwik UI.
 
 > The previous implementation of modals required the use of [portals](https://qwik.builder.io/docs/cookbook/portal/#portal), the top layer pseudo class is a **native solution** to this problem. No more z-index wars!
 
 ## Backdrops
 
-To add a modal backdrop, the `::backdrop` pseudo element can be utilized. [Backdrops](https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop) are right underneath top layer elements.
+To add a backdrop, the `::backdrop` pseudo element can be used. [Backdrops](https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop) are right underneath top layer elements.
 
 By default, the `dialog` element comes with a subtle backdrop, below is a snippet customizing the backdrop background along with the [backdrop filter](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter) css property.
 
@@ -113,11 +134,9 @@ By default, the `dialog` element comes with a subtle backdrop, below is a snippe
 
 ## Dismissing Modals via Backdrop
 
-Modals in Qwik UI can be dismissed by default when the backdrop is clicked. However, this behavior can be modified using the `closeOnBackdropClick` property.
-
 <Showcase name="backdrop-close" />
 
-The example above demonstrates a modal where the `closeOnBackdropClick` property is set to false. As a result, clicking on the backdrop does not dismiss the modal.
+By default, modals are dismissed when clicking the backdrop. To disable this behavior, set `disableOnBackdropClick={true}` on the `<Modal.Root />` component.
 
 ## Alertdialog
 
@@ -127,25 +146,21 @@ An alert dialog is a modal that interrupts user workflow to convey critical info
 
 By adding the `alert` prop to our component, we adhere to the [WAI ARIA Alertdialog specification](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/), enabling assistive technologies to distinguish alert dialogs for special handling.
 
-Alertdialogs do not allow the backdrop to be closed when clicked, regardless of whether the `closeOnBackdropClick` prop was set to true.
+Alertdialogs cannot be dismissed by clicking the backdrop, regardless of whether the `disableOnBackdropClick` prop was set to true.
 
-## Focus Locking in Modals
+## Focus Locking
 
-Qwik UI incorporates a feature known as focus locking, which confines the focus within the modal component when it is open.
+Focus locking prevents focus from leaving the modal.
 
 <Showcase name="hero" />
 
-This means that if a user is navigating through the modal using the Tab key, reaching the last focusable element and pressing Tab again will cycle the focus back to the first focusable element within the modal.
-
-> Focus locking behavior is provided by default in Qwik UI. If you encounter any use cases that require customized focus lock behavior, please [submit an issue](https://github.com/qwikifiers/qwik-ui/issues) on our GitHub repository.
+Using the Tab key to navigate through the modal will cycle the focus from the last to the first focusable element automatically.
 
 ## Stripped Styles
 
-As a headless library, we intentionally try not to add any styles to the components.
+As a headless library, Qwik UI avoids adding styles to components. However, it uses native solutions where appropriate, which may include browser default styles.
 
-However, because Qwik UI builds on top of native solutions when they are well-supported, feasible, and performant, some of the widgets may inclue browser user-agent styles.
-
-These styles can be unintuitive tricky to debug. Which has been the case with Qwik UI's own docs site. As a result, we have stripped these styles from the Modal component.
+These default styles can be difficult to manage, so they have been removed from the Modal component to simplify debugging.
 
 <CodeSnippet name="stripped-styles.css" />
 
@@ -195,15 +210,17 @@ Sheets are a type of modal/overlay used to provide temporary access to important
 
 <Showcase name="bottom-sheet" />
 
-Bottom sheets are more prevalent in mobile applications, usually to simplify UI. That said, feel free to use them wherever fits best!
+Bottom sheets are more prevalent in mobile applications, usually to simplify UI.
 
 ### Animations / Transitions CSS
 
 <CodeSnippet name="animation.css" />
 
-## Open on page load
+## Stacked Modals
 
-There might come a time where a modal is needed open as soon as the page loads. Unfortunately, to create modals a client-side API is currently needed regardless of implementation.
+Although this is not always a recommended pattern, modals can be stacked. Focus will be trapped within the last opened modal.
+
+<Showcase name="stacked" />
 
 ## Example CSS
 
@@ -213,19 +230,11 @@ The example for the CSS used in all of the examples above can be found below.
 
 ### SSR dilemma
 
-Qwik is the first framework with an [SSR portal implementation](https://qwik.builder.io/docs/cookbook/portal/#solution). SSR Portal capabilities are unique to Qwik City, because the alternative frameworks require a client-side API for portal functionality, such as `document.appendChild`.
+Unfortunately, to create modals that open on page load in the web, it needs to be done eagerly on the client. (including existing implementations)
 
-The problem with rendering the modal in the server, is that we lose some critical behavior:
+<CodeSnippet name="page-load.tsx" />
 
-- The content behind the dialog is not inert (non-modal)
-- Focus and scroll lock customizations break
-- Will not work with meta frameworks like Astro.js
-
-The current solution across framework ecosystems, is to open the Modal eagerly on the client to keep the proper functionality.
-
-<CodeSnippet name="page-load" />
-
-> We believe that the dialog element will have native support for SSR Modals in the future, gaining this behavior in the process.
+> There is currently discussions from the Open UI group about the possibility of a modal dialog that can open on initial load.
 
 ## Keyboard interaction
 

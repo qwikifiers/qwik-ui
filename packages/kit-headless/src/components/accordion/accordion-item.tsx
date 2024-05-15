@@ -17,7 +17,7 @@ export type AccordionItemProps = PropsOf<'div'> & {
   label?: string | JSXChildren;
 };
 
-export const AccordionItem = component$(
+export const HAccordionItem = component$(
   ({ defaultValue = false, id, ...props }: AccordionItemProps) => {
     const localId = useId();
     const itemId = id || localId;
@@ -33,7 +33,14 @@ export const AccordionItem = component$(
     useContextProvider(accordionItemContextId, itemContext);
 
     return (
-      <div id={itemId} data-type="item" data-item-id={itemId} {...props}>
+      <div
+        data-open={isTriggerExpandedSig.value ? '' : undefined}
+        data-closed={!isTriggerExpandedSig.value ? '' : undefined}
+        id={itemId}
+        data-type="item"
+        data-item-id={itemId}
+        {...props}
+      >
         <Slot />
       </div>
     );

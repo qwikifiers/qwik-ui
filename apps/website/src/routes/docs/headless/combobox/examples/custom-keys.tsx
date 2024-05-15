@@ -1,6 +1,7 @@
 import { Combobox, ResolvedOption } from '@qwik-ui/headless';
 
 import { component$, useSignal } from '@builder.io/qwik';
+import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   type Pokemon = {
@@ -30,30 +31,30 @@ export default component$(() => {
         </p>
       )}
       <Combobox.Root
-        class="w-fit"
         options={pokemonExample}
         optionValueKey="pokedex"
         optionLabelKey="pokemon"
         optionDisabledKey="isPokemonCaught"
+        class="combobox-root"
       >
-        <Combobox.Label class=" font-semibold">Pokemon 🦏</Combobox.Label>
-        <Combobox.Control class="relative flex items-center rounded-base border">
-          <Combobox.Input class="px-d2 w-44 rounded-base bg-background px-2 pr-6 placeholder:text-muted-foreground" />
-          <Combobox.Trigger class="group absolute right-0 h-6 w-6">
-            <Combobox.Icon class="stroke-foreground transition-transform duration-500 group-aria-expanded:-rotate-180" />
+        <Combobox.Label class="combobox-label">Pokemon 🦏</Combobox.Label>
+        <Combobox.Control class="combobox-control">
+          <Combobox.Input placeholder="Jim" class="combobox-input" />
+          <Combobox.Trigger class="combobox-trigger">
+            <LuChevronDown class="combobox-icon" />
           </Combobox.Trigger>
         </Combobox.Control>
-        <Combobox.Popover flip={true} gutter={8}>
+        <Combobox.Popover class="combobox-popover" gutter={8}>
           <Combobox.Listbox
-            class="w-44 rounded-base border-[1px] border-slate-400 bg-slate-900 px-4 py-2"
+            class="combobox-listbox"
             optionRenderer$={(option: ResolvedOption, index: number) => {
               const pokemonOption = option.option as Pokemon;
               return (
                 <Combobox.Option
+                  class="combobox-option"
                   key={option.key}
-                  class="group flex justify-between rounded-base border border-transparent px-2 hover:bg-accent aria-disabled:font-light aria-disabled:text-muted-foreground aria-disabled:hover:bg-muted aria-selected:cursor-pointer aria-selected:border-border aria-selected:bg-accent"
-                  index={index}
                   resolved={option}
+                  index={index}
                   onMouseEnter$={() => {
                     if (pokemonOption.isPokemonCaught) {
                       isPokemonCaught.value = true;
@@ -63,8 +64,7 @@ export default component$(() => {
                     isPokemonCaught.value = false;
                   }}
                 >
-                  <span>{pokemonOption.pokemon}</span>
-                  <span>{pokemonOption.pokedex}</span>
+                  <span>{option.label}</span>
                 </Combobox.Option>
               );
             }}

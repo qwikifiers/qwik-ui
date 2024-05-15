@@ -21,7 +21,6 @@ import { SunIcon } from '../icons/SunIcon';
 import { LogoIcon, LogoWithBorders } from '../icons/logo';
 
 import { useTheme } from 'qwik-themes';
-import MakeItYours from '../make-it-yours/make-it-yours';
 import { Modal } from '@qwik-ui/headless';
 import { useAppState } from '~/_state/use-app-state';
 import { LuX } from '@qwikest/icons/lucide';
@@ -30,6 +29,7 @@ import { useKitMenuItems } from '~/routes/layout';
 import { cn } from '@qwik-ui/utils';
 import { DiscordIcon } from '../icons/discord';
 import { Button, buttonVariants } from '@qwik-ui/styled';
+import MakeItYours from '../make-it-yours/make-it-yours';
 
 export interface HeaderProps {
   showVersion?: boolean;
@@ -129,82 +129,75 @@ export default component$(({ showVersion = false }: HeaderProps) => {
   const { theme } = useTheme();
 
   return (
-    <>
-      <div
-        class={cn(
-          'sticky top-0 z-10 flex h-16 justify-center border-b bg-background',
-          theme?.includes('brutalist') && 'border-b-2',
-        )}
-      >
-        <header class="flex w-full max-w-screen-2xl items-center justify-between">
-          <section class="flex items-center justify-start">
-            <a href="/" aria-label="Qwik UI Logo" class="ml-4">
-              <LogoWithBorders class="hidden sm:block" />
-              <LogoIcon class="block sm:hidden" />
-            </a>
-            {showVersion && (
-              <div class="ml-4 hidden text-xs md:flex">
-                {kitSignal.value?.name &&
-                  kitSignal.value?.name + ' ' + kitSignal.value?.version}
-              </div>
-            )}
-          </section>
+    <Modal.Root
+      class={cn(
+        'sticky top-0 z-10 flex h-16 justify-center border-b bg-background',
+        theme?.includes('brutalist') && 'border-b-2',
+      )}
+      bind:show={isSidebarOpenedSig}
+    >
+      <header class="flex w-full max-w-screen-2xl items-center justify-between">
+        <section class="flex items-center justify-start">
+          <a href="/" aria-label="Qwik UI Logo" class="ml-4">
+            <LogoWithBorders class="hidden sm:block" />
+            <LogoIcon class="block sm:hidden" />
+          </a>
+          {showVersion && (
+            <div class="ml-4 hidden text-xs md:flex">
+              {kitSignal.value?.name &&
+                kitSignal.value?.name + ' ' + kitSignal.value?.version}
+            </div>
+          )}
+        </section>
 
-          <div class="mr-4 flex items-center">
-            <div class="mr-6 hidden items-center space-x-8 text-sm lg:flex">
-              <a
-                class={isDocsActive('/docs/headless/')}
-                href="/docs/headless/introduction/"
-              >
-                Headless
+        <div class="mr-4 flex items-center">
+          <div class="mr-6 hidden items-center space-x-8 text-sm lg:flex">
+            <a
+              class={isDocsActive('/docs/headless/')}
+              href="/docs/headless/introduction/"
+            >
+              Headless
+            </a>
+            {rootStore.featureFlags?.showStyled && (
+              <a class={isDocsActive('/docs/styled/')} href="/docs/styled/introduction/">
+                Styled
               </a>
-              {rootStore.featureFlags?.showStyled && (
-                <a
-                  class={isDocsActive('/docs/styled/')}
-                  href="/docs/styled/introduction/"
-                >
-                  Styled
-                </a>
-              )}
-            </div>
-            <div class="flex items-center space-x-1 xs:space-x-4">
-              <MakeItYours />
-              <a
-                href="https://discord.gg/PVWUUejrez"
-                target="_blank"
-                class={cn(buttonVariants({ size: 'icon', look: 'ghost' }))}
-              >
-                <DiscordIcon />
-              </a>
-              <a
-                target="_blank"
-                href="https://github.com/qwikifiers/qwik-ui"
-                aria-label="Qwik-UI GitHub repository"
-                class={cn(buttonVariants({ size: 'icon', look: 'ghost' }))}
-              >
-                <GitHubIcon />
-              </a>
-              <DarkModeToggle />
-              <Button
-                type="button"
-                aria-label="Toggle navigation"
-                onClick$={() => {
-                  isSidebarOpenedSig.value = !isSidebarOpenedSig.value;
-                }}
-                size="icon"
-                look="ghost"
-                class="flex lg:hidden"
-              >
-                {isSidebarOpenedSig.value ? <CloseIcon /> : <MenuIcon />}
-              </Button>
-            </div>
+            )}
           </div>
-        </header>
-      </div>
-      <Modal.Root
-        bind:show={isSidebarOpenedSig}
-        class="sidebar-mobile ml-auto mr-0 h-screen w-full min-w-80 max-w-sm rounded-base border-0 bg-background p-8 text-foreground shadow-md"
-      >
+          <div class="flex items-center space-x-1 xs:space-x-4">
+            <MakeItYours />
+            <a
+              href="https://discord.gg/PVWUUejrez"
+              target="_blank"
+              class={cn(buttonVariants({ size: 'icon', look: 'ghost' }))}
+            >
+              <DiscordIcon />
+            </a>
+            <a
+              target="_blank"
+              href="https://github.com/qwikifiers/qwik-ui"
+              aria-label="Qwik-UI GitHub repository"
+              class={cn(buttonVariants({ size: 'icon', look: 'ghost' }))}
+            >
+              <GitHubIcon />
+            </a>
+            <DarkModeToggle />
+            <Button
+              type="button"
+              aria-label="Toggle navigation"
+              onClick$={() => {
+                isSidebarOpenedSig.value = !isSidebarOpenedSig.value;
+              }}
+              size="icon"
+              look="ghost"
+              class="flex lg:hidden"
+            >
+              {isSidebarOpenedSig.value ? <CloseIcon /> : <MenuIcon />}
+            </Button>
+          </div>
+        </div>
+      </header>
+      <Modal.Panel class="sidebar-mobile ml-auto mr-0 h-screen w-full min-w-80 max-w-sm rounded-base border-0 bg-background p-8 text-foreground shadow-md">
         <div class="mb-2 pb-4 pt-2">
           <DocsNavigation
             linksGroups={
@@ -220,8 +213,8 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         >
           <LuX class="h-8 w-8" />
         </button>
-      </Modal.Root>
-    </>
+      </Modal.Panel>
+    </Modal.Root>
   );
 });
 

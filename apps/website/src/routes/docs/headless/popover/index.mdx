@@ -414,7 +414,7 @@ To read more about the popover API you can check it out on:
 - [Open UI Proposal](https://open-ui.org/components/popover.research.explainer/)
 - [What is the top layer?](https://developer.chrome.com/blog/what-is-the-top-layer/)
 
-### Popover
+### Popover Root
 
 <APITable
   propDescriptors={[
@@ -422,12 +422,6 @@ To read more about the popover API you can check it out on:
       name: 'id',
       type: 'string',
       description: `Popover's id. Should match the popover target.`,
-    },
-    {
-      name: 'popover',
-      type: 'union',
-      description:
-        'Defines the popover behavior, can be auto or manual. Default is auto.',
     },
     {
       name: 'manual',
@@ -480,9 +474,9 @@ To read more about the popover API you can check it out on:
       description: 'Selects the popover on all browsers.',
     },
     {
-      name: ':popover-open',
+      name: 'data-open',
       type: 'selector',
-      description: 'Native supported pseudo element when the popover is open.',
+      description: 'Style the element when the popover is open.',
     },
     {
       name: '.popover-open',
@@ -498,18 +492,6 @@ To read more about the popover API you can check it out on:
       name: '.popover-closing',
       type: 'class',
       description: 'Class to animate close behavior.',
-    },
-  ]}
-/>
-
-### Popover Trigger
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'popovertarget',
-      type: 'union',
-      description: 'Accepts a string that matches the id of the popover.',
     },
   ]}
 />

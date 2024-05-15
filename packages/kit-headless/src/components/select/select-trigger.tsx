@@ -3,7 +3,7 @@ import SelectContextId from './select-context';
 import { useSelect, useTypeahead } from './use-select';
 
 type SelectTriggerProps = PropsOf<'button'>;
-export const SelectTrigger = component$<SelectTriggerProps>((props) => {
+export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
   const context = useContext(SelectContextId);
   const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
     useSelect();

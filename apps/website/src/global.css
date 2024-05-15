@@ -1294,6 +1294,10 @@
   .dark .note-link a {
     border-bottom: 1px solid white !important;
   }
+
+  .gif-container {
+    border-radius: var(--border-radius);
+  }
 }
 
 :root {

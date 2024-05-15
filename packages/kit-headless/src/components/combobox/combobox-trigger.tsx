@@ -4,7 +4,7 @@ import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type ComboboxTriggerProps = PropsOf<'button'>;
 
-export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
+export const HComboboxTrigger = component$((props: ComboboxTriggerProps) => {
   const context = useContext(ComboboxContextId);
   const listboxId = `${context.localId}-listbox`;
 
@@ -20,6 +20,8 @@ export const ComboboxTrigger = component$((props: ComboboxTriggerProps) => {
       ]}
       tabIndex={-1}
       aria-haspopup="listbox"
+      data-open={context.isListboxOpenSig.value ? '' : undefined}
+      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       aria-controls={listboxId}
       popovertarget={listboxId}
       aria-expanded={context.isListboxOpenSig.value}

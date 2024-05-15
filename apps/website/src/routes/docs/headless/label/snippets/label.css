@@ -8,11 +8,12 @@ input {
   font-weight: 500;
   line-height: 35px;
   color: hsl(var(--foreground));
+  display: flex;
+  flex-direction: column;
 }
 
-input {
+.input {
   width: 200px;
-  display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
@@ -21,11 +22,12 @@ input {
   font-size: 15px;
   line-height: 1;
   background-color: hsl(var(--background));
-  box-shadow: 0 0 0 1px hsl(var(--foreground));
+  border: 2px dotted hsl(var(--foreground));
+  border-radius: 0;
 }
 
 input:focus {
-  box-shadow: 0 0 0 2px hsl(var(--foreground));
+  outline: 2px solid hsl(var(--foreground));
 }
 
 input::selection {

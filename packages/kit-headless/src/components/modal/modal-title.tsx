@@ -3,7 +3,7 @@ import { modalContextId } from './modal-context';
 
 export type ModalTitleProps = PropsOf<'h2'>;
 
-export const ModalTitle = component$((props: ModalTitleProps) => {
+export const HModalTitle = component$((props: ModalTitleProps) => {
   const context = useContext(modalContextId);
 
   const titleId = `${context.localId}-title`;

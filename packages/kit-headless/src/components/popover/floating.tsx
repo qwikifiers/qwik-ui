@@ -1,4 +1,4 @@
-import { PopoverPanelImpl } from './popover-panel-impl';
+import { HPopoverPanelImpl } from './popover-panel-impl';
 
 import { component$, useTask$, Slot, PropsOf, useContext } from '@builder.io/qwik';
 import {
@@ -88,8 +88,8 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
   });
 
   return (
-    <PopoverPanelImpl ref={context.panelRef} hidden={true} {...props}>
+    <HPopoverPanelImpl ref={context.panelRef} hidden={true} {...props}>
       <Slot />
-    </PopoverPanelImpl>
+    </HPopoverPanelImpl>
   );
 });

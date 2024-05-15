@@ -13,7 +13,7 @@ export type ComboboxListboxProps<O extends Option = Option> = PropsOf<'ul'> & {
   >;
 };
 
-export const ComboboxListbox = component$(
+export const HComboboxListbox = component$(
   <O extends Option = Option>({ optionRenderer$, ...props }: ComboboxListboxProps<O>) => {
     const context = useContext<ComboboxContext<O>>(ComboboxContextId);
     const listboxId = `${context.localId}-listbox`;

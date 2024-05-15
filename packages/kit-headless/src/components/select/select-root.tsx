@@ -109,7 +109,7 @@ export type SelectProps<M extends boolean = boolean> = Omit<
   TStringOrArray;
 
 /* root component in select-inline.tsx */
-export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>(
+export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps>(
   (props: SelectProps<boolean> & InternalSelectProps) => {
     const {
       _itemsMap,
@@ -276,6 +276,10 @@ export const SelectImpl = component$<SelectProps<boolean> & InternalSelectProps>
 
     useTask$(() => {
       initialLoadSig.value = false;
+    });
+
+    useTask$(({ track }) => {
+      context.disabled = track(() => disabled);
     });
 
     return (

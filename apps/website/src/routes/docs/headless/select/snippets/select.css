@@ -19,6 +19,10 @@
   align-items: center;
 }
 
+.select-trigger:hover {
+  background-color: hsla(var(--primary) / 0.08);
+}
+
 .select-popover {
   width: 100%;
   max-width: var(--select-width);
@@ -81,6 +85,7 @@
 }
 
 [data-highlighted] {
+  background-color: hsla(var(--primary) / 0.08);
   outline: 2px dotted hsla(var(--primary) / 1);
   border-radius: calc(var(--border-radius) / 2);
 }

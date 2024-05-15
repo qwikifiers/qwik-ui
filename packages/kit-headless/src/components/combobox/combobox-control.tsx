@@ -4,7 +4,7 @@ import ComboboxContextId from './combobox-context-id';
 
 export type ComboboxControlProps = PropsOf<'div'>;
 
-export const ComboboxControl = component$((props: ComboboxControlProps) => {
+export const HComboboxControl = component$((props: ComboboxControlProps) => {
   const context = useContext(ComboboxContextId);
   const controlRef = useSignal<HTMLDivElement>();
 
