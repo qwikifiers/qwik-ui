@@ -1,6 +1,9 @@
 import { type JSXNode, Component, PropsOf } from '@builder.io/qwik';
-import { CheckboxRoot, type MixedStateCheckboxProps } from '../checkbox/checkbox';
-import { ChecklistContextWrapper, getTriBool } from './checklist-context-wrapper';
+import { CheckboxRoot, type MixedStateCheckboxProps } from './checkbox';
+import {
+  ChecklistContextWrapper,
+  getTriBool,
+} from '../checklist/checklist-context-wrapper';
 
 type CheckListProps = PropsOf<'ul'> & { ariaLabeledBy: string };
 // type CheckBoxes=
@@ -38,10 +41,9 @@ export const Checklist: Component<CheckListProps> = (props: CheckListProps) => {
         const typedProps = child.props as MixedStateCheckboxProps;
         // FYI: Obj.assign mutates
         Object.assign(typedProps, { _useCheckListContext: true });
-
         checkArr.push(child);
         // TODO: fix this if hell by making fn
-        if (!typedProps.checklist) {
+        if (!typedProps.checkList) {
           checklistChilds.push(child);
 
           if (typedProps.id != undefined) {
