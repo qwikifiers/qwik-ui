@@ -8,9 +8,9 @@ export default component$(() => {
       <p>I'm the default checkbox!!!</p>
       <Checkbox.Root class=" text-white">
         <div class="flex items-center gap-3">
-          <CheckboxIndicator class="w-fit bg-slate-600">
+          <Checkbox.Indicator class="w-fit bg-slate-600">
             <p id="indicator">✅</p>
-          </CheckboxIndicator>
+          </Checkbox.Indicator>
           <p>No other stuff is needed here</p>
         </div>
       </Checkbox.Root>

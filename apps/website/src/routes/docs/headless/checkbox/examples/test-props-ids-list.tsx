@@ -14,9 +14,9 @@ export default component$(() => {
           checklist={true}
           id="checklist"
         >
-          <CheckboxIndicator class=" flex w-[80px] justify-center bg-white p-3">
+          <Checkbox.Indicator class=" flex w-[80px] justify-center bg-white p-3">
             ✅
-          </CheckboxIndicator>
+          </Checkbox.Indicator>
           <p>Controlls all</p>
         </Checkbox.Root>
         <Checkbox.Root
@@ -24,13 +24,13 @@ export default component$(() => {
           checkBoxSig={firstUserSig}
           class="flex items-center gap-3 bg-slate-900 pr-2 text-white"
         >
-          <CheckboxIndicator class="w-fit bg-slate-600">✅</CheckboxIndicator>
+          <Checkbox.Indicator class="w-fit bg-slate-600">✅</Checkbox.Indicator>
           <p>First Child</p>
         </Checkbox.Root>
 
         <Checkbox.Root id="child-2" class="bg-slate-900 text-white">
           <div class="flex items-center gap-3">
-            <CheckboxIndicator class="w-fit bg-slate-600">✅</CheckboxIndicator>
+            <Checkbox.Indicator class="w-fit bg-slate-600">✅</Checkbox.Indicator>
             <p>Second child</p>
           </div>
         </Checkbox.Root>

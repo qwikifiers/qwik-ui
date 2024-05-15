@@ -8,9 +8,9 @@ export default component$(() => {
     <>
       <Checkbox.Root class="bg-slate-900 text-white" checkBoxSig={userSig}>
         <div class="flex items-center gap-3">
-          <CheckboxIndicator class="w-fit bg-slate-600">
+          <Checkbox.Indicator class="w-fit bg-slate-600">
             <p id="indicator">✅</p>
-          </CheckboxIndicator>
+          </Checkbox.Indicator>
           <p>No other stuff is needed here</p>
         </div>
       </Checkbox.Root>
