@@ -8,7 +8,7 @@ export default component$(() => {
       <Checklist.Root class="flex flex-col gap-3" ariaLabeledBy="test123">
         <Checkbox.Root
           class="flex items-center gap-3 bg-slate-900 p-2 text-white"
-          checkList={true}
+          checklist={true}
         >
           <Checklist.Indicator class="w-fit bg-black">
             <div q:slot="checkbox" id="true-img">

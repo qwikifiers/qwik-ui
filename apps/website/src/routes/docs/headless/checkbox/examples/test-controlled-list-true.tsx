@@ -3,7 +3,7 @@ import {
   CheckboxIndicator,
   Checkbox,
   ChecklistIndicator,
-  CheckList,
+  Checklist,
 } from 'packages/kit-headless/src/components/checkbox/index';
 // this test basically ensures that the sig passed to the checklist controlls trumps all its children
 export default component$(() => {
@@ -11,10 +11,10 @@ export default component$(() => {
   return (
     <>
       <h3 id="test123">Pick a cat</h3>
-      <CheckList class="flex flex-col gap-3" ariaLabeledBy="test123">
+      <Checklist class="flex flex-col gap-3" ariaLabeledBy="test123">
         <Checkbox.Root
           class="flex items-center gap-3 bg-slate-900  text-white"
-          checkList={true}
+          checklist={true}
           checkBoxSig={checklistSig}
           id="checklist"
         >
@@ -43,7 +43,7 @@ export default component$(() => {
             <p>Im a true.tsx</p>
           </div>
         </Checkbox.Root>
-      </CheckList>
+      </Checklist>
       <p>You signal is: </p>
       <p id="signal-to-text">{`${checklistSig.value}`}</p>
     </>

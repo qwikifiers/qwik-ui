@@ -9,7 +9,7 @@ export default component$(() => {
       <Checklist.Root ariaLabeledBy="pizza-toppings" class="flex flex-col gap-4">
         <Checkbox.Root
           class="flex items-center gap-3 border-2 border-black  p-2"
-          checkList={true}
+          checklist={true}
         >
           <Checklist.Indicator class="flex h-[25px] w-[25px] items-center justify-center bg-slate-600">
             <div q:slot="checkbox" id="true-img">
