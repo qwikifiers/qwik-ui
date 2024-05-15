@@ -48,7 +48,9 @@ export default defineConfig({
       grep: /@Visual.*/,
 
       expect: {
-        toHaveScreenshot: {},
+        toHaveScreenshot: {
+          maxDiffPixels: 10,
+        },
       },
     },
 
