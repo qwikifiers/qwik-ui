@@ -33,11 +33,12 @@
     "story.headless": "nx storybook headless",
     "test.cli": "NODE_OPTIONS=--experimental-vm-modules nx test cli",
     "test.headless": "nx component-test headless",
-    "test.visual.headless": "nx visual-test headless",
+    "test.headless.visual": "nx visual-test headless",
     "test.pw.headless": "nx e2e headless",
     "test.pw.headless-chrome-113": "nx e2e-chrome-113 headless",
     "test.pw.headless.ci": "nx e2e headless",
     "test.headless.ci": "nx component-test-ci headless",
+    "test.headless.ci.visual": "docker-compose up",
     "test.utils": "nx test utils"
   },
   "packageManager": "pnpm@8.7.0",
