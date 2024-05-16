@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Skeleton } from '@qwik-ui/styled';
+import { Skeleton } from '~/components/ui';
 
 export default component$(() => {
   return (
