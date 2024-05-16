@@ -24,7 +24,7 @@ import { cn } from '@qwik-ui/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const badgeVariants = cva(
-  'inline-flex items-center rounded-sm px-2.5 py-0.5 text-xs font-semibold transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+  'inline-flex items-center rounded-sm px-2.5 py-0.5 text-xs font-semibold shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
   {
     variants: {
       look: {
@@ -40,7 +40,7 @@ export const badgeVariants = cva(
   },
 );
 
-export type BadgeProps = PropsOf<'div'> & VariantProps<typeof badgeVariants>;
+type BadgeProps = PropsOf<'div'> & VariantProps<typeof badgeVariants>;
 
 export const Badge = component$<BadgeProps>(({ look, ...props }) => {
   return (
