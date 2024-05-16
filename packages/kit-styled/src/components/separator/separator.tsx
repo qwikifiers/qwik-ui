@@ -1,12 +1,12 @@
 import { PropsOf, component$ } from '@builder.io/qwik';
-import { Separator as QwikUISeparator } from '@qwik-ui/headless';
+import { Separator as HeadlessSeparator } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
-export const Separator = component$<PropsOf<typeof QwikUISeparator>>(
+export const Separator = component$<PropsOf<typeof HeadlessSeparator>>(
   ({ orientation = 'horizontal', decorative = true, ...props }) => {
     return (
       <>
-        <QwikUISeparator
+        <HeadlessSeparator
           {...props}
           decorative={decorative}
           orientation={orientation}
