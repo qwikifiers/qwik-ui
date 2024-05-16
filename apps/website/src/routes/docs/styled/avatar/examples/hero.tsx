@@ -1,11 +1,11 @@
 import { component$ } from '@builder.io/qwik';
-import { Avatar, AvatarFallback, AvatarImage } from '@qwik-ui/styled';
+import { Avatar } from '~/components/ui';
 
 export default component$(() => {
   return (
-    <Avatar>
-      <AvatarImage src="https://github.com/mhevery.png" alt="@mhevery" />
-      <AvatarFallback>MA</AvatarFallback>
-    </Avatar>
+    <Avatar.Root>
+      <Avatar.Image src="https://github.com/mhevery.png" alt="@mhevery" />
+      <Avatar.Fallback>MA</Avatar.Fallback>
+    </Avatar.Root>
   );
 });
