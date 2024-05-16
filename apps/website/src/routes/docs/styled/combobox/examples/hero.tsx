@@ -1,15 +1,6 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { ResolvedOption } from '@qwik-ui/headless';
-import {
-  Combobox,
-  ComboboxControl,
-  ComboboxInput,
-  ComboboxLabel,
-  ComboboxListbox,
-  ComboboxOption,
-  ComboboxPopover,
-  ComboboxTrigger,
-} from '~/components/ui';
+import { Combobox } from '~/components/ui';
 import { LuCheck } from '@qwikest/icons/lucide';
 
 export default component$(() => {
@@ -35,31 +26,31 @@ export default component$(() => {
   };
 
   return (
-    <Combobox
+    <Combobox.Root
       options={objectExample}
       optionValueKey="testValue"
       optionLabelKey="testLabel"
       optionDisabledKey="disabled"
       bind:selectedIndex={selectedOptionIndexSig}
     >
-      <ComboboxLabel>Personal Trainers ⚡</ComboboxLabel>
-      <ComboboxControl>
-        <ComboboxInput placeholder="Jim" />
-        <ComboboxTrigger />
-      </ComboboxControl>
-      <ComboboxPopover gutter={8}>
-        <ComboboxListbox
+      <Combobox.Label>Personal Trainers ⚡</Combobox.Label>
+      <Combobox.Control>
+        <Combobox.Input placeholder="Jim" />
+        <Combobox.Trigger />
+      </Combobox.Control>
+      <Combobox.Popover gutter={8}>
+        <Combobox.Listbox
           optionRenderer$={(option: ResolvedOption, index: number) => {
             const myData = option.option as MyData;
             return (
-              <ComboboxOption key={option.key} resolved={option} index={index}>
+              <Combobox.Option key={option.key} resolved={option} index={index}>
                 <span>{myData.testLabel}</span>
                 {selectedOptionIndexSig.value === index && <LuCheck />}
-              </ComboboxOption>
+              </Combobox.Option>
             );
           }}
         />
-      </ComboboxPopover>
-    </Combobox>
+      </Combobox.Popover>
+    </Combobox.Root>
   );
 });
