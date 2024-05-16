@@ -9,7 +9,7 @@ import {
   ComboboxOption,
   ComboboxPopover,
   ComboboxTrigger,
-} from '@qwik-ui/styled';
+} from '~/components/ui';
 import { LuCheck } from '@qwikest/icons/lucide';
 
 export default component$(() => {
