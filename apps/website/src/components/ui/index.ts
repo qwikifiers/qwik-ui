@@ -4,6 +4,7 @@ export * from './lib/avatar';
 export * from './lib/badge';
 export * from './lib/breadcrumb';
 export * from './lib/button';
+export * from './lib/card';
 export * from './lib/checkbox';
 export * from './lib/input';
 export * from './lib/label';
