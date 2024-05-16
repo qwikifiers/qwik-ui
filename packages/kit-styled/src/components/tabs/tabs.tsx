@@ -1,19 +1,19 @@
 import { Slot, component$, PropsOf } from '@builder.io/qwik';
-import { Tabs as QwikUITabs } from '@qwik-ui/headless';
+import { Tabs as HeadlessTabs } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
-export const TabsRoot = (props: PropsOf<typeof QwikUITabs.Root>) => (
-  <QwikUITabs.Root
+const Root = (props: PropsOf<typeof HeadlessTabs.Root>) => (
+  <HeadlessTabs.Root
     {...props}
-    tabListComponent={TabsList}
+    tabListComponent={List}
     tabComponent={Tab}
-    tabPanelComponent={TabsPanel}
+    tabPanelComponent={Panel}
   />
 );
 
-export const TabsList = component$<PropsOf<typeof QwikUITabs.List>>((props) => {
+const List = component$<PropsOf<typeof HeadlessTabs.List>>((props) => {
   return (
-    <QwikUITabs.List
+    <HeadlessTabs.List
       {...props}
       class={cn(
         'inline-flex items-center justify-center rounded-lg border-base bg-muted p-1 text-muted-foreground shadow-sm',
@@ -21,13 +21,13 @@ export const TabsList = component$<PropsOf<typeof QwikUITabs.List>>((props) => {
       )}
     >
       <Slot />
-    </QwikUITabs.List>
+    </HeadlessTabs.List>
   );
 });
 
-export const Tab = component$<PropsOf<typeof QwikUITabs.Tab>>((props) => {
+const Tab = component$<PropsOf<typeof HeadlessTabs.Tab>>((props) => {
   return (
-    <QwikUITabs.Tab
+    <HeadlessTabs.Tab
       {...props}
       class={cn(
         'inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-2 font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=selected]:border-base data-[state=selected]:bg-background data-[state=selected]:text-foreground data-[state=selected]:shadow-inner',
@@ -35,13 +35,13 @@ export const Tab = component$<PropsOf<typeof QwikUITabs.Tab>>((props) => {
       )}
     >
       <Slot />
-    </QwikUITabs.Tab>
+    </HeadlessTabs.Tab>
   );
 });
 
-export const TabsPanel = component$<PropsOf<typeof QwikUITabs.Panel>>((props) => {
+const Panel = component$<PropsOf<typeof HeadlessTabs.Panel>>((props) => {
   return (
-    <QwikUITabs.Panel
+    <HeadlessTabs.Panel
       {...props}
       class={cn(
         'mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
@@ -49,6 +49,13 @@ export const TabsPanel = component$<PropsOf<typeof QwikUITabs.Panel>>((props) =>
       )}
     >
       <Slot />
-    </QwikUITabs.Panel>
+    </HeadlessTabs.Panel>
   );
 });
+
+export const Tabs = {
+  Root,
+  List,
+  Tab,
+  Panel,
+};
