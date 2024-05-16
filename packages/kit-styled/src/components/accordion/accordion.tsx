@@ -1,32 +1,32 @@
 import { component$, Slot, PropsOf } from '@builder.io/qwik';
 
-import { Accordion } from '@qwik-ui/headless';
+import { Accordion as HeadlessAccordion } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
 import { LuChevronDown } from '@qwikest/icons/lucide';
 
-const AccordionRoot = component$<PropsOf<typeof Accordion.Root>>((props) => (
-  <Accordion.Root animated {...props}>
+const Root = component$<PropsOf<typeof HeadlessAccordion.Root>>((props) => (
+  <HeadlessAccordion.Root animated {...props}>
     <Slot />
-  </Accordion.Root>
+  </HeadlessAccordion.Root>
 ));
 
-const AccordionItem = component$<PropsOf<typeof Accordion.Item>>((props) => {
+const Item = component$<PropsOf<typeof HeadlessAccordion.Item>>((props) => {
   return (
-    <Accordion.Item {...props} class={cn('border-b', props.class)}>
+    <HeadlessAccordion.Item {...props} class={cn('border-b', props.class)}>
       <Slot />
-    </Accordion.Item>
+    </HeadlessAccordion.Item>
   );
 });
 
-const AccordionTrigger = component$<
-  PropsOf<typeof Accordion.Trigger> & {
-    header?: PropsOf<typeof Accordion.Header>['as'];
+const Trigger = component$<
+  PropsOf<typeof HeadlessAccordion.Trigger> & {
+    header?: PropsOf<typeof HeadlessAccordion.Header>['as'];
   }
 >(({ header = 'h3', ...props }) => {
   return (
-    <Accordion.Header as={header} class="flex">
-      <Accordion.Trigger
+    <HeadlessAccordion.Header as={header} class="flex">
+      <HeadlessAccordion.Trigger
         {...props}
         class={cn(
           'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
@@ -35,14 +35,14 @@ const AccordionTrigger = component$<
       >
         <Slot />
         <LuChevronDown class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
-      </Accordion.Trigger>
-    </Accordion.Header>
+      </HeadlessAccordion.Trigger>
+    </HeadlessAccordion.Header>
   );
 });
 
-const AccordionContent = component$<PropsOf<typeof Accordion.Content>>((props) => {
+const Content = component$<PropsOf<typeof HeadlessAccordion.Content>>((props) => {
   return (
-    <Accordion.Content
+    <HeadlessAccordion.Content
       {...props}
       class={cn(
         'overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
@@ -52,13 +52,13 @@ const AccordionContent = component$<PropsOf<typeof Accordion.Content>>((props) =
       <div class="pb-4 pt-0">
         <Slot />
       </div>
-    </Accordion.Content>
+    </HeadlessAccordion.Content>
   );
 });
 
-export {
-  AccordionRoot as Root,
-  AccordionItem as Item,
-  AccordionTrigger as Trigger,
-  AccordionContent as Content,
+export const Accordion = {
+  Root,
+  Item,
+  Trigger,
+  Content,
 };
