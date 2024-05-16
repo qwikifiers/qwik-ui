@@ -1,10 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import {
-  CheckboxIndicator,
-  Checkbox,
-  ChecklistIndicator,
-  Checklist,
-} from 'packages/kit-headless/src/components/checkbox/index';
+import { Checkbox, Checklist } from '@qwik-ui/headless';
 // TODO: add logic to handle user passed sigs with trues
 // this test basically ensures that the sig passed to the checklist controlls trumps all its children
 export default component$(() => {
@@ -12,7 +7,7 @@ export default component$(() => {
   return (
     <>
       <h3 id="test123">Pick a cat</h3>
-      <Checklist class="flex flex-col gap-3" ariaLabeledBy="test123">
+      <Checklist.Root class="flex flex-col gap-3" ariaLabeledBy="test123">
         <Checkbox.Root
           class="flex items-center gap-3 bg-slate-900  text-white"
           checklist={true}
@@ -44,7 +39,7 @@ export default component$(() => {
             <p>Im a true.tsx</p>
           </div>
         </Checkbox.Root>
-      </Checklist>
+      </Checklist.Root>
       <p>You signal is: </p>
       <p id="signal-to-text">{`${checklistSig.value}`}</p>
     </>

@@ -1,4 +1,4 @@
-import { component$, useContext, PropsOf, Slot } from '@builder.io/qwik';
+import { component$, useContext, PropsOf, Slot, useTask$ } from '@builder.io/qwik';
 import { CheckListContext } from './context-id';
 import { props } from 'cypress/types/bluebird';
 
@@ -6,6 +6,12 @@ export type ChecklistIndicatorProps = PropsOf<'div'>;
 
 export const ChecklistIndicator = component$<ChecklistIndicatorProps>((props) => {
   const { checklistSig } = useContext(CheckListContext);
+
+  useTask$(({ track }) => {
+    track(() => checklistSig.value);
+    console.log('here running hlol');
+  });
+
   // weird comparions, but it gets the right behavior
   return (
     <div {...props}>

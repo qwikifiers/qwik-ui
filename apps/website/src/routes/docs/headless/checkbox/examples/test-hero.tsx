@@ -1,9 +1,9 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import { CheckboxIndicator } from 'packages/kit-headless/src/components/checkbox/checkbox-indicator';
-import { Checkbox } from 'packages/kit-headless/src/components/checkbox/checkbox';
+import { Checkbox } from '@qwik-ui/headless';
 
 export default component$(() => {
   const userSig = useSignal(true);
+  import { Checkbox, Checklist } from '@qwik-ui/headless';
   return (
     <>
       <Checkbox.Root class="bg-slate-900 text-white" checkBoxSig={userSig}>

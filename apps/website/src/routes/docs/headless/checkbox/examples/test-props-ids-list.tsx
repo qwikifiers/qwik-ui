@@ -1,14 +1,13 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import { CheckboxIndicator } from 'packages/kit-headless/src/components/checkbox/checkbox-indicator';
-import { Checkbox } from 'packages/kit-headless/src/components/checkbox/checkbox';
-import { Checklist } from 'packages/kit-headless/src/components/checkbox/checklist';
+import { Checkbox, Checklist } from '@qwik-ui/headless';
 export default component$(() => {
   const firstUserSig = useSignal(true);
   const secondUserSig = useSignal(true);
+  import { Checkbox, Checklist } from '@qwik-ui/headless';
   return (
     <>
       <h3 id="test123">Pick a cat</h3>
-      <Checklist class="flex flex-col gap-3" ariaLabeledBy="test123">
+      <Checklist.Root class="flex flex-col gap-3" ariaLabeledBy="test123">
         <Checkbox.Root
           class="flex items-center gap-3 bg-slate-900 p-2 text-white"
           checklist={true}
@@ -34,7 +33,7 @@ export default component$(() => {
             <p>Second child</p>
           </div>
         </Checkbox.Root>
-      </Checklist>
+      </Checklist.Root>
     </>
   );
 });

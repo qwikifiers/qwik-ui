@@ -1,7 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import { CheckboxIndicator } from 'packages/kit-headless/src/components/checkbox/checkbox-indicator';
-import { Checkbox } from 'packages/kit-headless/src/components/checkbox/checkbox';
-
+import { Checkbox, Checklist } from '@qwik-ui/headless';
 export default component$(() => {
   return (
     <>
