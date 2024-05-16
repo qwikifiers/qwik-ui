@@ -1,16 +1,15 @@
 import { component$ } from '@builder.io/qwik';
 import { LuRocket } from '@qwikest/icons/lucide';
 
-import { Alert, AlertDescription, AlertTitle } from '@qwik-ui/styled';
-
+import { Alert } from '~/components/ui';
 export default component$(() => {
   return (
-    <Alert>
+    <Alert.Root>
       <LuRocket class="h-4 w-4" />
-      <AlertTitle>Heads up!</AlertTitle>
-      <AlertDescription>
+      <Alert.Title>Heads up!</Alert.Title>
+      <Alert.Description>
         You can add components to your app using the cli.
-      </AlertDescription>
-    </Alert>
+      </Alert.Description>
+    </Alert.Root>
   );
 });

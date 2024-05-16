@@ -27,7 +27,7 @@ import { cn } from '@qwik-ui/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const alertVariants = cva(
-  'relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground',
+  'relative w-full rounded-lg border p-4 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7',
   {
     variants: {
       look: {
@@ -45,7 +45,7 @@ export const alertVariants = cva(
 
 type AlertProps = PropsOf<'div'> & VariantProps<typeof alertVariants>;
 
-export const Alert = component$<AlertProps>(({ look, ...props }) => {
+const Root = component$<AlertProps>(({ look, ...props }) => {
   return (
     <div {...props} role="alert" class={cn(alertVariants({ look }), props.class)}>
       <Slot />
@@ -53,7 +53,7 @@ export const Alert = component$<AlertProps>(({ look, ...props }) => {
   );
 });
 
-export const AlertTitle = component$<PropsOf<'h5'>>(({ ...props }) => {
+const Title = component$<PropsOf<'h5'>>(({ ...props }) => {
   return (
     <h5
       {...props}
@@ -64,29 +64,35 @@ export const AlertTitle = component$<PropsOf<'h5'>>(({ ...props }) => {
   );
 });
 
-export const AlertDescription = component$<PropsOf<'div'>>(({ ...props }) => {
+const Description = component$<PropsOf<'div'>>(({ ...props }) => {
   return (
     <div {...props} class={cn('text-sm [&_p]:leading-relaxed', props.class)}>
       <Slot />
     </div>
   );
 });
+
+export const Alert = {
+  Root,
+  Title,
+  Description,
+};
 ```
 
 ## Usage
 
 ```tsx
-import { Alert, AlertDescription, AlertTitle } from '@qwik-ui/styled';
+import { Alert } from '~/components/ui';
 ```
 
 ```tsx
-<Alert>
+<Alert.Root>
   <Terminal className="h-4 w-4" />
-  <AlertTitle>Heads up!</AlertTitle>
-  <AlertDescription>
+  <Alert.Title>Heads up!</Alert.Title>
+  <Alert.Description>
     You can add components and dependencies to your app using the cli.
-  </AlertDescription>
-</Alert>
+  </Alert.Description>
+</Alert.Root>
 ```
 
 ## Examples
