@@ -1,7 +1,7 @@
 import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 
-export const RadioGroup = component$<PropsOf<'div'>>(({ ...props }) => {
+const Root = component$<PropsOf<'div'>>(({ ...props }) => {
   return (
     <div class={cn('grid gap-2', props.class)} {...props}>
       <Slot />
@@ -9,7 +9,7 @@ export const RadioGroup = component$<PropsOf<'div'>>(({ ...props }) => {
   );
 });
 
-export const RadioGroupItem = component$<PropsOf<'input'>>(({ ...props }) => {
+const Item = component$<PropsOf<'input'>>(({ ...props }) => {
   return (
     <input
       type="radio"
@@ -21,3 +21,8 @@ export const RadioGroupItem = component$<PropsOf<'input'>>(({ ...props }) => {
     />
   );
 });
+
+export const RadioGroup = {
+  Root,
+  Item,
+};
