@@ -1,17 +1,14 @@
-import { component$, useOnWindow, useSignal, $ } from '@builder.io/qwik';
-import { Progress } from '@qwik-ui/styled';
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { Progress } from '~/components/ui';
 
 export default component$(() => {
   const progress = useSignal(30);
 
-  useOnWindow(
-    'load',
-    $(() => {
-      setTimeout(() => {
-        progress.value = 50;
-      }, 1000);
-    }),
-  );
+  useVisibleTask$(() => {
+    setTimeout(() => {
+      progress.value = 50;
+    }, 500);
+  });
 
   return <Progress value={progress.value} />;
 });
