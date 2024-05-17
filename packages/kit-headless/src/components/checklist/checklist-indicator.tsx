@@ -1,6 +1,5 @@
 import { component$, useContext, PropsOf, Slot, useTask$ } from '@builder.io/qwik';
 import { CheckListContext } from './context-id';
-import { props } from 'cypress/types/bluebird';
 
 export type ChecklistIndicatorProps = PropsOf<'div'>;
 
@@ -9,19 +8,19 @@ export const ChecklistIndicator = component$<ChecklistIndicatorProps>((props) =>
 
   useTask$(({ track }) => {
     track(() => checklistSig.value);
-    console.log('here running hlol');
   });
 
   // weird comparions, but it gets the right behavior
   return (
     <div {...props}>
+      <p>Here lol: {JSON.stringify(checklistSig.value)}</p>
       {checklistSig.value === true && (
-        <div class={checklistSig.value === true ? 'visible' : 'invisible'}>
+        <div>
           <Slot name="true" />
         </div>
       )}
       {checklistSig.value === 'indeterminate' && (
-        <div class={checklistSig.value === 'indeterminate' ? 'visible' : 'invisible'}>
+        <div>
           <Slot name="mixed" />
         </div>
       )}

@@ -3,7 +3,6 @@ import { Checkbox } from '@qwik-ui/headless';
 
 export default component$(() => {
   const userSig = useSignal(true);
-  import { Checkbox, Checklist } from '@qwik-ui/headless';
   return (
     <>
       <Checkbox.Root class="bg-slate-900 text-white" checkBoxSig={userSig}>

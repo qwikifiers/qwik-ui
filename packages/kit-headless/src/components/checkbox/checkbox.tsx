@@ -14,7 +14,7 @@ import { CheckListContext, CheckboxContext } from './context-id';
 import { TriBool, getTriBool } from '../checklist/checklist-context-wrapper';
 export type MixedStateCheckboxProps = {
   checkBoxSig?: Signal<boolean>;
-  checkList?: boolean;
+  checklist?: boolean;
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
@@ -34,9 +34,9 @@ export type ChecklistTwoStateCheckboxProps = {
 } & PropsOf<'div'>;
 export const CheckboxRoot = component$<MixedStateCheckboxProps>((props) => {
   // this is done to avoid consumers dealing with two types checkboxes, could go in different files
-  if (props._useCheckListContext && !props.checkList) {
+  if (props._useCheckListContext && !props.checklist) {
   }
-  if (props.checkList) {
+  if (props.checklist) {
     return (
       <MixedStateCheckbox {...props}>
         <Slot />
@@ -141,6 +141,8 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
 );
 
 export const MixedStateCheckbox = component$<MixedStateCheckboxProps>((props) => {
+  console.log('mixed');
+
   // all the sig stuff should be refactored into a fancy hook
   const checklistContext = useContext(CheckListContext);
   const childCheckboxes = checklistContext.checkboxes;
