@@ -22,37 +22,37 @@ qwik-ui add popover
 
 ```tsx
 import { PropsOf, Slot, component$, useStyles$ } from '@builder.io/qwik';
-import { Popover } from '@qwik-ui/headless';
+import { Popover as HeadlessPopover } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
-export const PopoverRoot = component$<PropsOf<typeof Popover.Root>>(({ ...props }) => {
+const Root = component$<PropsOf<typeof HeadlessPopover.Root>>(({ ...props }) => {
   return (
-    <Popover.Root {...props}>
+    <HeadlessPopover.Root {...props}>
       <Slot />
-    </Popover.Root>
+    </HeadlessPopover.Root>
   );
 });
 
-export const PopoverTrigger = Popover.Trigger;
+const Trigger = HeadlessPopover.Trigger;
 
-export const PopoverPanel = component$<PropsOf<typeof Popover.Panel>>(({ ...props }) => {
+const Panel = component$<PropsOf<typeof HeadlessPopover.Panel>>(({ ...props }) => {
   useStyles$(`
     .my-transition {
       transition: opacity 150ms, display 150ms, overlay 150ms;
       transition-behavior: allow-discrete;
     }
-
+  
     .popover-showing {
       opacity: 1;
     }
-
+  
     .popover-closing {
       opacity: 0;
     }
     `);
 
   return (
-    <Popover.Panel
+    <HeadlessPopover.Panel
       {...props}
       class={cn(
         'my-transition w-72 rounded-md border bg-popover p-4 text-popover-foreground opacity-0 shadow-md outline-none',
@@ -60,20 +60,26 @@ export const PopoverPanel = component$<PropsOf<typeof Popover.Panel>>(({ ...prop
       )}
     >
       <Slot />
-    </Popover.Panel>
+    </HeadlessPopover.Panel>
   );
 });
+
+export const Popover = {
+  Root,
+  Trigger,
+  Panel,
+};
 ```
 
 ## Usage
 
 ```tsx
-import { PopoverRoot, PopoverPanel, PopoverTrigger } from '~/components/ui';
+import { Popover } from '~/components/ui';
 ```
 
 ```tsx
-<PopoverRoot>
-  <PopoverTrigger>Open Trigger</PopoverTrigger>
-  <PopoverPanel>Place your content here.</PopoverPanel>
-</PopoverRoot>
+<Popover.Root>
+  <Popover.Trigger>Open Trigger</Popover.Trigger>
+  <Popover.Panel>Place your content here.</Popover.Panel>
+</Popover.Root>
 ```

@@ -28,7 +28,7 @@ qwik-ui add radio-group
 import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 
-export const RadioGroup = component$<PropsOf<'div'>>(({ ...props }) => {
+const Root = component$<PropsOf<'div'>>(({ ...props }) => {
   return (
     <div class={cn('grid gap-2', props.class)} {...props}>
       <Slot />
@@ -36,39 +36,44 @@ export const RadioGroup = component$<PropsOf<'div'>>(({ ...props }) => {
   );
 });
 
-export const RadioGroupItem = component$<PropsOf<'input'>>(({ ...props }) => {
+const Item = component$<PropsOf<'input'>>(({ ...props }) => {
   return (
     <input
       type="radio"
       {...props}
       class={cn(
-        'accent-primary h-4 w-4 disabled:cursor-not-allowed disabled:opacity-50',
+        'h-4 w-4 accent-primary disabled:cursor-not-allowed disabled:opacity-50',
         props.class,
       )}
     />
   );
 });
+
+export const RadioGroup = {
+  Root,
+  Item,
+};
 ```
 
 ## Usage
 
 ```tsx
-import { Label, RadioGroup, RadioGroupItem } from '@qwik-ui/styled';
+import { Label, RadioGroup } from '~/components/ui';
 ```
 
 ```tsx
-<RadioGroup>
+<RadioGroup.Root>
   <div class="flex items-center space-x-2">
-    <RadioGroupItem name="size" value="default" id="r1" />
+    <RadioGroup.Item name="size" value="default" id="r1" />
     <Label for="r1">Default</Label>
   </div>
   <div class="flex items-center space-x-2">
-    <RadioGroupItem name="size" value="comfortable" id="r2" />
+    <RadioGroup.Item name="size" value="comfortable" id="r2" />
     <Label for="r2">Comfortable</Label>
   </div>
   <div class="flex items-center space-x-2">
-    <RadioGroupItem name="size" value="compact" id="r3" />
+    <RadioGroup.Item name="size" value="compact" id="r3" />
     <Label for="r3">Compact</Label>
   </div>
-</RadioGroup>
+</RadioGroup.Root>
 ```

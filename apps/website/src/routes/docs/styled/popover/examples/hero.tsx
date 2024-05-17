@@ -1,20 +1,13 @@
 import { component$ } from '@builder.io/qwik';
-import {
-  Input,
-  Label,
-  PopoverRoot,
-  PopoverTrigger,
-  PopoverPanel,
-  buttonVariants,
-} from '@qwik-ui/styled';
+import { Input, Label, Popover, buttonVariants } from '~/components/ui';
 
 export default component$(() => {
   return (
-    <PopoverRoot flip={false} gutter={8}>
-      <PopoverTrigger class={buttonVariants({ look: 'outline' })}>
-        Open popover
-      </PopoverTrigger>
-      <PopoverPanel>
+    <Popover.Root flip={false} gutter={8}>
+      <Popover.Trigger class={buttonVariants({ look: 'outline' })}>
+        Open popover.
+      </Popover.Trigger>
+      <Popover.Panel>
         <div class="grid gap-4">
           <div class="space-y-2">
             <h4 class="font-medium leading-none">Dimensions</h4>
@@ -47,7 +40,7 @@ export default component$(() => {
             </div>
           </div>
         </div>
-      </PopoverPanel>
-    </PopoverRoot>
+      </Popover.Panel>
+    </Popover.Root>
   );
 });

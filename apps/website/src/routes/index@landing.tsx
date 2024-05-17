@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { DocumentHead } from '@builder.io/qwik-city';
-import { Card, CardDescription, CardHeader, CardImage, CardTitle } from '@qwik-ui/styled';
+import { Card } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
 
 // Keeping these so that we can integrate them later when refactoring the landing page to be more professional
@@ -54,26 +54,26 @@ export default component$(() => {
       </p>
       <div class="mt-4 flex flex-wrap justify-center justify-items-center gap-14">
         <a href={`/docs/headless/introduction`}>
-          <Card
+          <Card.Root
             class={cn(
               'relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 ease-step hover:scale-[1.025] focus:scale-[1.025]',
             )}
           >
-            <CardImage
+            <Card.Image
               src={`/images/qwik-ui-headless-hero.webp`}
               width="300"
               height="300"
               alt={`styled kit`}
               class="w-full rounded-t-sm"
             />
-            <CardHeader>
-              <CardTitle class="text-xl">Headless</CardTitle>
-              <CardDescription class="text-lg">
+            <Card.Header>
+              <Card.Title class="text-xl">Headless</Card.Title>
+              <Card.Description class="text-lg">
                 A headless component library of completely unstyled, accessible, and
                 resumable components for the most creative minds.
-              </CardDescription>
-            </CardHeader>
-            {/* <CardContent>
+              </Card.Description>
+            </Card.Header>
+            {/* <Card.Content>
               <ul>
                 {whyHeadless.map((pro, index) => (
                   <li key={index} class="mb-5 grid grid-cols-[25px_1fr] items-start">
@@ -82,26 +82,26 @@ export default component$(() => {
                   </li>
                 ))}
               </ul>
-            </CardContent> */}
-          </Card>
+            </Card.Content> */}
+          </Card.Root>
         </a>
         <a href={`/docs/styled/introduction`}>
-          <Card class="relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 ease-step hover:scale-[1.025] focus:scale-[1.025]">
-            <CardImage
+          <Card.Root class="relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 ease-step hover:scale-[1.025] focus:scale-[1.025]">
+            <Card.Image
               src={`/images/qwik-ui-fluffy-creature-screen.webp`}
               width="300"
               height="300"
               alt={`styled kit`}
               class="w-full rounded-t-sm"
             />
-            <CardHeader>
-              <CardTitle class="text-xl">Styled</CardTitle>
-              <CardDescription class="text-lg">
+            <Card.Header>
+              <Card.Title class="text-xl">Styled</Card.Title>
+              <Card.Description class="text-lg">
                 A design system of copy-paste, reusable, styled components built on top of
                 headless. Easy to use, easy to customize.
-              </CardDescription>
-            </CardHeader>
-            {/* <CardContent>
+              </Card.Description>
+            </Card.Header>
+            {/* <Card.Content>
               <ul>
                 {whyStyled.map((pro, index) => (
                   <li key={index} class="mb-5 grid grid-cols-[25px_1fr] items-start">
@@ -110,8 +110,8 @@ export default component$(() => {
                   </li>
                 ))}
               </ul>
-            </CardContent> */}
-          </Card>
+            </Card.Content> */}
+          </Card.Root>
         </a>
       </div>
     </div>

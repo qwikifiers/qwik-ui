@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Badge } from '@qwik-ui/styled';
+import { Badge } from '~/components/ui';
 
 export default component$(() => {
   return <Badge look="outline">Badge</Badge>;

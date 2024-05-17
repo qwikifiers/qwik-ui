@@ -1,26 +1,17 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import {
-  Button,
-  Input,
-  Label,
-  ModalPanel,
-  ModalTrigger,
-  ModalDescription,
-  ModalTitle,
-  ModalRoot,
-} from '@qwik-ui/styled';
+import { Button, Input, Label, Modal } from '~/components/ui';
 
 export default component$(() => {
   const show = useSignal(false);
 
   return (
-    <ModalRoot bind:show={show}>
-      <ModalTrigger>Open modal</ModalTrigger>
-      <ModalPanel>
-        <ModalTitle class="text-lg font-bold">Edit Profile</ModalTitle>
-        <ModalDescription class="text-sm font-light">
+    <Modal.Root bind:show={show}>
+      <Modal.Trigger>Open modal</Modal.Trigger>
+      <Modal.Panel>
+        <Modal.Title class="text-lg font-bold">Edit Profile</Modal.Title>
+        <Modal.Description class="text-sm font-light">
           Make changes to your profile here. Click save when you're done.
-        </ModalDescription>
+        </Modal.Description>
         <div class="grid gap-4 py-4">
           <div class="grid grid-cols-4 items-center gap-4">
             <Label for="name" class="text-right">
@@ -45,7 +36,7 @@ export default component$(() => {
             Save changes
           </Button>
         </footer>
-      </ModalPanel>
-    </ModalRoot>
+      </Modal.Panel>
+    </Modal.Root>
   );
 });

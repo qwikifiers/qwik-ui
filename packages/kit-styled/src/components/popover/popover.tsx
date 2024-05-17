@@ -1,18 +1,18 @@
 import { PropsOf, Slot, component$, useStyles$ } from '@builder.io/qwik';
-import { Popover } from '@qwik-ui/headless';
+import { Popover as HeadlessPopover } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
-export const PopoverRoot = component$<PropsOf<typeof Popover.Root>>(({ ...props }) => {
+const Root = component$<PropsOf<typeof HeadlessPopover.Root>>(({ ...props }) => {
   return (
-    <Popover.Root {...props}>
+    <HeadlessPopover.Root {...props}>
       <Slot />
-    </Popover.Root>
+    </HeadlessPopover.Root>
   );
 });
 
-export const PopoverTrigger = Popover.Trigger;
+const Trigger = HeadlessPopover.Trigger;
 
-export const PopoverPanel = component$<PropsOf<typeof Popover.Panel>>(({ ...props }) => {
+const Panel = component$<PropsOf<typeof HeadlessPopover.Panel>>(({ ...props }) => {
   useStyles$(`
     .my-transition {
       transition: opacity 150ms, display 150ms, overlay 150ms;
@@ -29,7 +29,7 @@ export const PopoverPanel = component$<PropsOf<typeof Popover.Panel>>(({ ...prop
     `);
 
   return (
-    <Popover.Panel
+    <HeadlessPopover.Panel
       {...props}
       class={cn(
         'my-transition w-72 rounded-md border bg-popover p-4 text-popover-foreground opacity-0 shadow-md outline-none',
@@ -37,6 +37,12 @@ export const PopoverPanel = component$<PropsOf<typeof Popover.Panel>>(({ ...prop
       )}
     >
       <Slot />
-    </Popover.Panel>
+    </HeadlessPopover.Panel>
   );
 });
+
+export const Popover = {
+  Root,
+  Trigger,
+  Panel,
+};

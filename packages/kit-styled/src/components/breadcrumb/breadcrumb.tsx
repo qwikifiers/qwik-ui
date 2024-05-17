@@ -3,7 +3,7 @@ import { cn } from '@qwik-ui/utils';
 import { LuChevronRight } from '@qwikest/icons/lucide';
 
 export type BreadcrumbProps = PropsOf<'nav'>;
-const Breadcrumb = component$<BreadcrumbProps>(() => {
+const Root = component$<BreadcrumbProps>(() => {
   return (
     <nav aria-label="breadcrumb">
       <Slot />
@@ -11,8 +11,7 @@ const Breadcrumb = component$<BreadcrumbProps>(() => {
   );
 });
 
-type BreadcrumbListProps = PropsOf<'ol'>;
-const BreadcrumbList = component$<BreadcrumbListProps>((props) => {
+const List = component$<PropsOf<'ol'>>((props) => {
   return (
     <ol
       class={cn(
@@ -26,8 +25,7 @@ const BreadcrumbList = component$<BreadcrumbListProps>((props) => {
   );
 });
 
-type BreadcrumbItemProps = PropsOf<'li'>;
-const BreadcrumbItem = component$<BreadcrumbItemProps>((props) => {
+const Item = component$<PropsOf<'li'>>((props) => {
   return (
     <li class={cn('inline-flex items-center gap-1.5', props.class)} {...props}>
       <Slot />
@@ -35,8 +33,7 @@ const BreadcrumbItem = component$<BreadcrumbItemProps>((props) => {
   );
 });
 
-type BreadcrumbLinkProps = PropsOf<'a'> & { asChild?: boolean };
-const BreadcrumbLink = component$<BreadcrumbLinkProps>((props) => {
+const Link = component$<PropsOf<'a'> & { asChild?: boolean }>((props) => {
   const Comp = props.asChild ? Slot : 'a';
   return (
     <Comp
@@ -51,8 +48,7 @@ const BreadcrumbLink = component$<BreadcrumbLinkProps>((props) => {
   );
 });
 
-type BreadcrumbSeparatorProps = PropsOf<'li'>;
-const BreadcrumbSeparator = component$<BreadcrumbSeparatorProps>((props) => {
+const Separator = component$<PropsOf<'li'>>((props) => {
   return (
     <li role="presentation" aria-hidden="true" {...props}>
       <LuChevronRight class="size-3.5 stroke-muted-foreground stroke-2" />
@@ -60,8 +56,7 @@ const BreadcrumbSeparator = component$<BreadcrumbSeparatorProps>((props) => {
   );
 });
 
-type BreadcrumbPageProps = PropsOf<'span'>;
-const BreadcrumbPage = component$<BreadcrumbPageProps>((props) => {
+const Page = component$<PropsOf<'span'>>((props) => {
   return (
     <span
       role="link"
@@ -75,11 +70,4 @@ const BreadcrumbPage = component$<BreadcrumbPageProps>((props) => {
   );
 });
 
-export {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-  BreadcrumbPage,
-};
+export const Breadcrumb = { Root, List, Item, Link, Separator, Page };

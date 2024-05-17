@@ -1,6 +1,6 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { Modal } from '@qwik-ui/headless';
-import { Button } from '@qwik-ui/styled';
+import { Button } from '~/components/ui';
 import { extractThemeCSS } from '@qwik-ui/utils';
 import { LuX } from '@qwikest/icons/lucide';
 import { useTheme } from 'qwik-themes';

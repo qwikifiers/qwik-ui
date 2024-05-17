@@ -34,7 +34,7 @@ export const Checkbox = component$<PropsOf<'input'>>(({ name, ...props }) => {
       type="checkbox"
       {...props}
       class={cn(
-        'border-primary accent-primary text-primary ring-offset-background focus:ring-ring focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground peer peer h-4 w-4 shrink-0 disabled:cursor-not-allowed disabled:opacity-50',
+        'peer peer h-4 w-4 shrink-0 border-primary text-primary accent-primary ring-offset-background focus:ring-ring focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground',
         props.class,
       )}
       name={name}

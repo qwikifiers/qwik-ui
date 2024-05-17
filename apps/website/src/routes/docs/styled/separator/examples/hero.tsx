@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Separator } from '@qwik-ui/styled';
-
+import { Separator } from '~/components/ui';
 export default component$(() => {
   return (
     <div>

@@ -7,7 +7,7 @@ import {
   useStyles$,
 } from '@builder.io/qwik';
 import { Modal } from '@qwik-ui/headless';
-import { Button } from '@qwik-ui/styled';
+import { Button } from '~/components/ui';
 import {
   ThemeBaseColor,
   ThemeBorderRadius,
@@ -141,7 +141,7 @@ export default component$<PropsOf<typeof Button>>(() => {
           showSig.value = true;
         }}
       >
-        <LuSlidersHorizontal class={cn('h-4 w-4 sm:mr-3')} />
+        <LuSlidersHorizontal class={cn('h-4 w-4 sm:mr-2')} />
         <span class={cn('hidden', 'sm:block')}>Make it yours</span>
       </Button>
       <Modal.Panel class="make-it-yours fixed bottom-[50%] right-0  top-[50%] mr-0 h-screen max-w-sm rounded-l-base border-y border-l bg-background px-4 py-8 text-foreground shadow-md sm:w-full">

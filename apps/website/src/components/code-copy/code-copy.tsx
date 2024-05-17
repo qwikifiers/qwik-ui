@@ -1,5 +1,5 @@
 import { PropsOf, component$, useSignal } from '@builder.io/qwik';
-import { Button } from '@qwik-ui/styled';
+import { Button } from '~/components/ui';
 import { cn } from '@qwik-ui/utils';
 import copy from 'clipboard-copy';
 
