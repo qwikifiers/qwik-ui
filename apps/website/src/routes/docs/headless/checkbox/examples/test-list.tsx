@@ -11,11 +11,11 @@ export default component$(() => {
           checklist={true}
         >
           <Checklist.Indicator class="w-fit bg-black">
-            <div q:slot="checkbox" id="true-img">
+            <div q:slot="true" id="true-img">
               ✅
             </div>
 
-            <div q:slot="checklist" id="mixed-img">
+            <div q:slot="mixed" id="mixed-img">
               ➖
             </div>
           </Checklist.Indicator>

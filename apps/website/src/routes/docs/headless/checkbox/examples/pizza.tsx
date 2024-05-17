@@ -12,11 +12,11 @@ export default component$(() => {
           checklist={true}
         >
           <Checklist.Indicator class="flex h-[25px] w-[25px] items-center justify-center bg-slate-600">
-            <div q:slot="checkbox" id="true-img">
+            <div q:slot="true" id="true-img">
               🍕
             </div>
 
-            <div q:slot="checklist" id="mixed-img">
+            <div q:slot="mixed" id="mixed-img">
               ➖
             </div>
           </Checklist.Indicator>
