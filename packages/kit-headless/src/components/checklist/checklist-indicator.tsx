@@ -17,19 +17,12 @@ export const ChecklistIndicator = component$<ChecklistIndicatorProps>((props) =>
     <div {...props}>
       {checklistSig.value === true && (
         <div class={checklistSig.value === true ? 'visible' : 'invisible'}>
-          <Slot name="checkbox" />
+          <Slot name="true" />
         </div>
       )}
-
       {checklistSig.value === 'indeterminate' && (
         <div class={checklistSig.value === 'indeterminate' ? 'visible' : 'invisible'}>
-          <Slot name="checklist" />
-        </div>
-      )}
-
-      {checklistSig.value === false && (
-        <div class="invisible">
-          <Slot name="checklist" />
+          <Slot name="mixed" />
         </div>
       )}
     </div>
