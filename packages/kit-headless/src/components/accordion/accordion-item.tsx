@@ -1,48 +1,54 @@
 import {
-  JSXChildren,
   PropsOf,
   Slot,
   component$,
+  useContext,
   useContextProvider,
   useId,
   useSignal,
+  useTask$,
 } from '@builder.io/qwik';
+import { HCollapsible } from '../collapsible/collapsible';
+import { accordionContextId, accordionItemContextId } from './accordion-context';
+import { isServer } from '@builder.io/qwik/build';
 
-import { accordionItemContextId } from './accordion-context-id';
+type InternalAccordionItemProps = {
+  _index?: number;
+};
 
-import { type AccordionItemContext } from './accordion-context.type';
-
-export type AccordionItemProps = PropsOf<'div'> & {
-  defaultValue?: boolean;
-  label?: string | JSXChildren;
+type AccordionItemProps = PropsOf<typeof HCollapsible> & {
+  open?: boolean;
 };
 
 export const HAccordionItem = component$(
-  ({ defaultValue = false, id, ...props }: AccordionItemProps) => {
+  ({ id, open, _index, ...props }: AccordionItemProps & InternalAccordionItemProps) => {
+    const context = useContext(accordionContextId);
     const localId = useId();
-    const itemId = id || localId;
+    const itemId = id ?? localId + '-item';
+    const isOpenSig = useSignal<boolean>(open ?? false);
+    const localIndexSig = useSignal<number>(_index!);
 
-    const isTriggerExpandedSig = useSignal<boolean>(defaultValue);
+    useTask$(({ track }) => {
+      track(() => context.selectedIndexSig.value);
 
-    const itemContext: AccordionItemContext = {
-      itemId,
-      isTriggerExpandedSig,
-      defaultValue,
+      if (context.multiple || isServer) return;
+
+      if (context.selectedIndexSig.value !== localIndexSig.value) {
+        isOpenSig.value = false;
+      }
+    });
+
+    const itemContext = {
+      isOpenSig,
+      localIndexSig,
     };
 
     useContextProvider(accordionItemContextId, itemContext);
 
     return (
-      <div
-        data-open={isTriggerExpandedSig.value ? '' : undefined}
-        data-closed={!isTriggerExpandedSig.value ? '' : undefined}
-        id={itemId}
-        data-type="item"
-        data-item-id={itemId}
-        {...props}
-      >
+      <HCollapsible bind:open={isOpenSig} id={itemId} {...props}>
         <Slot />
-      </div>
+      </HCollapsible>
     );
   },
 );

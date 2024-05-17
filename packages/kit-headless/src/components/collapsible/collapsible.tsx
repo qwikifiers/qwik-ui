@@ -42,7 +42,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
   const contentHeightSig = useSignal<number | null>(null);
 
   const localId = useId();
-  const itemId = id || localId;
+  const itemId = id ?? localId;
 
   useTask$(function onOpenChangeTask({ track }) {
     track(() => isOpenSig.value);
