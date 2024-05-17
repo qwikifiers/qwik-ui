@@ -3,7 +3,6 @@ import { Checkbox, Checklist } from '@qwik-ui/headless';
 export default component$(() => {
   const firstUserSig = useSignal(true);
   const secondUserSig = useSignal(true);
-  import { Checkbox, Checklist } from '@qwik-ui/headless';
   return (
     <>
       <h3 id="test123">Pick a cat</h3>
