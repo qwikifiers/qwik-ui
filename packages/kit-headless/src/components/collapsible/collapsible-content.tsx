@@ -36,27 +36,23 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
       return;
     }
 
-    if (context.isOpenSig.value) {
-      await context.getContentDimensions$();
+    await context.getContentDimensions$();
+
+    /* check if there's a transition or animation */
+    const { animationDuration, transitionDuration } = getComputedStyle(
+      context.contentRef.value!,
+    );
+
+    // don't animate if initially open
+    if (
+      animationDuration === '0s' &&
+      transitionDuration === '0s' &&
+      !initialRenderSig.value
+    ) {
+      isAnimatedSig.value = false;
+    } else {
+      isAnimatedSig.value = true;
     }
-
-    /* check if there's a transition or animation, we set a timeout for the initial render */
-    setTimeout(() => {
-      const { animationDuration, transitionDuration } = getComputedStyle(
-        context.contentRef.value!,
-      );
-
-      // don't animate if initially open
-      if (
-        animationDuration === '0s' &&
-        transitionDuration === '0s' &&
-        !initialRenderSig.value
-      ) {
-        isAnimatedSig.value = false;
-      } else {
-        isAnimatedSig.value = true;
-      }
-    }, 15);
 
     if (context.isOpenSig.value) {
       isHiddenSig.value = false;

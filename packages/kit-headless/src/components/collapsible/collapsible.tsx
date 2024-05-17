@@ -12,8 +12,8 @@ import {
 } from '@builder.io/qwik';
 import { collapsibleContextId } from './collapsible-context-id';
 import { type CollapsibleContext } from './collapsible-context.type';
-import { getHiddenHeight } from '../../utils/get-hidden-height';
 import { isBrowser } from '@builder.io/qwik/build';
+import { useCollapsible } from './use-collapsible';
 
 export type CollapsibleProps = PropsOf<'div'> & {
   id?: string;
@@ -32,6 +32,8 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     open,
     ...rest
   } = props;
+
+  const { getHiddenHeight } = useCollapsible();
 
   const defaultOpenSig = useSignal<boolean>(open ?? false);
   const isOpenSig = givenIsOpenSig ?? defaultOpenSig;
@@ -52,7 +54,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     }
   });
 
-  const getContentDimensions$ = $(() => {
+  const getContentDimensions$ = $(async () => {
     if (!contentRef.value) {
       throw new Error(
         'Qwik UI: There is no reference to the collapsible content element. Make sure to wrap the content in a <CollapsibleContent> component.',
@@ -60,7 +62,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     }
 
     if (contentHeightSig.value === null) {
-      contentHeightSig.value = getHiddenHeight(contentRef.value);
+      contentHeightSig.value = await getHiddenHeight(contentRef.value);
     }
 
     if (contentHeightSig.value !== 0) {

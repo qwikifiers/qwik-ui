@@ -21,11 +21,16 @@ type AccordionItemProps = PropsOf<typeof HCollapsible> & {
 };
 
 export const HAccordionItem = component$(
-  ({ id, open, _index, ...props }: AccordionItemProps & InternalAccordionItemProps) => {
+  ({
+    id,
+    open = false,
+    _index,
+    ...props
+  }: AccordionItemProps & InternalAccordionItemProps) => {
     const context = useContext(accordionContextId);
     const localId = useId();
     const itemId = id ?? localId + '-item';
-    const isOpenSig = useSignal<boolean>(open ?? false);
+    const isOpenSig = useSignal<boolean>(open);
     const localIndexSig = useSignal<number>(_index!);
 
     useTask$(({ track }) => {
