@@ -142,7 +142,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.4.1",
     "pretty-quick": "^4.0.0",
-    "qwik-nx": "^1.0.8",
+    "qwik-nx": "^2.2.1",
     "qwik-themes": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
