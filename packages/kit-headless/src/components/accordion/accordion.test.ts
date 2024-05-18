@@ -161,7 +161,7 @@ test.describe('Reactive values', () => {
   `, async ({ page }) => {
     const { driver: d } = await setup(page, 'reactive');
 
-    await d.locator.getByRole('button', { name: 'toggle open first item' }).click();
+    await d.locator.getByRole('button', { name: 'Toggle first item' }).click();
 
     await expect(d.getContentAt(0)).toBeVisible();
   });
@@ -174,7 +174,7 @@ test.describe('Reactive values', () => {
 
     await d.openCollapsible('click', 0);
 
-    await d.locator.getByRole('button', { name: 'toggle open first item' }).click();
+    await d.locator.getByRole('button', { name: 'Toggle first item' }).click();
 
     await expect(d.getContentAt(0)).toBeHidden();
   });
