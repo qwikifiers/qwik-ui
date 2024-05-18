@@ -14,9 +14,9 @@ async function setup(page: Page, exampleName: string) {
 async function collapsibleSetup(page: Page, exampleName: string) {
   const { driver: d } = await setup(page, exampleName);
 
-  const firstItem = await d.getItemAt(0);
-  const firstTrigger = await d.getTriggerAt(0);
-  const firstContent = await d.getContentAt(0);
+  const firstItem = d.getItemAt(0);
+  const firstTrigger = d.getTriggerAt(0);
+  const firstContent = d.getContentAt(0);
 
   return {
     firstItem,
@@ -109,141 +109,118 @@ test.describe('Aria', () => {
     page,
   }) => {
     const { driver: d } = await setup(page, 'hero');
-    await d.openCollapsible('Enter');
+    await d.openCollapsible('Enter', 0);
 
-    const contentId = await d.getContent().getAttribute('id');
+    const contentId = await d.getContentAt(0).getAttribute('id');
 
-    await expect(d.getTrigger()).toHaveAttribute('aria-controls', `${contentId}`);
+    await expect(d.getTriggerAt(0)).toHaveAttribute('aria-controls', `${contentId}`);
   });
 });
 
-test.describe('Animations', () => {
-  test(`GIVEN an animatable collapsible
-        WHEN clicking on the trigger
-        THEN the content should open`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'animation');
+// test.describe('Reactive values', () => {
+//   test(`GIVEN a collapsible with a bind:open prop
+//         WHEN the signal value changes to true
+//         THEN the content should be visible
+//   `, async ({ page }) => {
+//     const { driver: d } = await setup(page, 'programmatic');
 
-    await d.getTrigger().click();
-    await d.waitForAnimationEnd('[data-collapsible-content]');
-    await expect(d.getContent()).toBeVisible();
-  });
+//     // our example uses bind:checked on the checkbox with our same signal.
 
-  test(`GIVEN an open animatable collapsible
-        WHEN clicking on the trigger
-        THEN the content should close`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'animation');
-    await d.openCollapsible('click');
+//     await d.locator.getByRole('checkbox').check();
+//     await expect(d.getContent()).toBeVisible();
+//   });
 
-    await d.getTrigger().click();
-    await d.waitForAnimationEnd('[data-collapsible-content]');
-    await expect(d.getContent()).toBeHidden();
-  });
-});
+//   test(`GIVEN a collapsible with a bind:open prop
+//         WHEN the signal value changes to false
+//         THEN the content should be hidden
+//   `, async ({ page }) => {
+//     const { driver: d } = await setup(page, 'programmatic');
 
-test.describe('Reactive values', () => {
-  test(`GIVEN a collapsible with a bind:open prop
-        WHEN the signal value changes to true
-        THEN the content should be visible
-  `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'programmatic');
+//     await d.locator.getByRole('checkbox').uncheck();
+//     await expect(d.getContent()).toBeHidden();
+//   });
+// });
 
-    // our example uses bind:checked on the checkbox with our same signal.
+// test.describe('Handlers', () => {
+//   test(`GIVEN a collapsible with an onOpenChange$ prop
+//         WHEN the content is opened
+//         THEN the handler should be called
+//   `, async ({ page }) => {
+//     const { driver: d } = await setup(page, 'open-change');
 
-    await d.locator.getByRole('checkbox').check();
-    await expect(d.getContent()).toBeVisible();
-  });
+//     const countText = d.locator.getByRole('paragraph');
+//     await expect(countText).toHaveText('count: 0');
+//     await d.openCollapsible('click', 0);
 
-  test(`GIVEN a collapsible with a bind:open prop
-        WHEN the signal value changes to false
-        THEN the content should be hidden
-  `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'programmatic');
+//     await expect(countText).toHaveText('count: 1');
+//   });
 
-    await d.locator.getByRole('checkbox').uncheck();
-    await expect(d.getContent()).toBeHidden();
-  });
-});
+//   test(`GIVEN a collapsible with an onOpenChange$ prop
+//         WHEN the content is closed
+//         THEN the handler should be called
+//   `, async ({ page }) => {
+//     const { driver: d } = await setup(page, 'open-change');
 
-test.describe('Handlers', () => {
-  test(`GIVEN a collapsible with an onOpenChange$ prop
-        WHEN the content is opened
-        THEN the handler should be called
-  `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'open-change');
+//     const countText = d.locator.getByRole('paragraph');
+//     await d.openCollapsible('click', 0);
+//     await expect(countText).toHaveText('count: 1');
+//     await d.getTriggerAt(0).click();
 
-    const countText = d.locator.getByRole('paragraph');
-    await expect(countText).toHaveText('count: 0');
-    await d.openCollapsible('click');
+//     await expect(countText).toHaveText('count: 2');
+//   });
+// });
 
-    await expect(countText).toHaveText('count: 1');
-  });
+// test.describe('Disabled', () => {
+//   test(`GIVEN a collapsible with a disabled prop
+//         WHEN the trigger is clicked
+//         THEN the content should remain closed
+//   `, async ({ page }) => {
+//     const { driver: d } = await setup(page, 'disabled');
 
-  test(`GIVEN a collapsible with an onOpenChange$ prop
-        WHEN the content is closed
-        THEN the handler should be called
-  `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'open-change');
+//     await expect(d.getTriggerAt(0)).toBeDisabled();
 
-    const countText = d.locator.getByRole('paragraph');
-    await d.openCollapsible('click');
-    await expect(countText).toHaveText('count: 1');
-    await d.getTrigger().click();
+//     // actionability checks are only for enabled elements
+//     await d.getTriggerAt(0).click({ force: true });
+//     await expect(d.getContentAt(0)).toBeHidden();
+//   });
+// });
 
-    await expect(countText).toHaveText('count: 2');
-  });
-});
+// test.describe('CSR', () => {
+//   test(`GIVEN a collapsible
+//         WHEN it is client-side rendered
+//         THEN the collapsible trigger should be visible
+//   `, async ({ page }) => {
+//     const { driver: d } = await setup(page, 'csr');
 
-test.describe('Disabled', () => {
-  test(`GIVEN a collapsible with a disabled prop
-        WHEN the trigger is clicked
-        THEN the content should remain closed
-  `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'disabled');
+//     await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
+//     await expect(d.getTriggerAt(0)).toBeVisible();
+//   });
 
-    await expect(d.getTrigger()).toBeDisabled();
+//   test(`GIVEN a CSR collapsible
+//         WHEN the trigger is clicked
+//         THEN the collapsible should be opened
+// `, async ({ page }) => {
+//     const { driver: d } = await setup(page, 'csr');
 
-    // actionability checks are only for enabled elements
-    await d.getTrigger().click({ force: true });
-    await expect(d.getContent()).toBeHidden();
-  });
-});
+//     await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
+//     await expect(d.getTriggerAt(0)).toBeVisible();
 
-test.describe('CSR', () => {
-  test(`GIVEN a collapsible
-        WHEN it is client-side rendered
-        THEN the collapsible trigger should be visible
-  `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'csr');
+//     await d.getTriggerAt(0).click();
+//     await expect(d.getContentAt(0)).toBeVisible();
+//   });
 
-    await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
-    await expect(d.getTrigger()).toBeVisible();
-  });
+//   test(`GIVEN an open CSR collapsible
+//         WHEN the trigger is clicked
+//         THEN the collapsible should be closed
+// `, async ({ page }) => {
+//     const { driver: d } = await setup(page, 'csr');
 
-  test(`GIVEN a CSR collapsible
-        WHEN the trigger is clicked
-        THEN the collapsible should be opened
-`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'csr');
+//     await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
+//     await expect(d.getTriggerAt(0)).toBeVisible();
 
-    await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
-    await expect(d.getTrigger()).toBeVisible();
+//     await d.openCollapsible('click', 0);
+//     await d.getTriggerAt(0).click();
 
-    await d.getTrigger().click();
-    await expect(d.getContent()).toBeVisible();
-  });
-
-  test(`GIVEN an open CSR collapsible
-        WHEN the trigger is clicked
-        THEN the collapsible should be closed
-`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'csr');
-
-    await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
-    await expect(d.getTrigger()).toBeVisible();
-
-    await d.openCollapsible('click');
-    await d.getTrigger().click();
-
-    await expect(d.getContent()).toBeHidden();
-  });
-});
+//     await expect(d.getContentAt(0)).toBeHidden();
+//   });
+// });

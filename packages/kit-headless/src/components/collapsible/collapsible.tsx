@@ -40,6 +40,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
 
   const triggerRef = useSignal<HTMLButtonElement>();
   const contentRef = useSignal<HTMLElement>();
+  const isAnimatedSig = useSignal<boolean>(true);
 
   const contentHeightSig = useSignal<number | null>(null);
 
@@ -64,13 +65,6 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     if (contentHeightSig.value === null) {
       contentHeightSig.value = await getHiddenHeight(contentRef.value);
     }
-
-    if (contentHeightSig.value !== 0) {
-      contentRef.value.style.setProperty(
-        '--qwikui-collapsible-content-height',
-        `${contentHeightSig.value}px`,
-      );
-    }
   });
 
   const context: CollapsibleContext = {
@@ -81,6 +75,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     contentHeightSig,
     getContentDimensions$,
     disabled,
+    isAnimatedSig,
   };
 
   useContextProvider(collapsibleContextId, context);
@@ -92,6 +87,11 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
       data-disabled={context.disabled ? '' : undefined}
       data-open={context.isOpenSig.value ? '' : undefined}
       data-closed={!context.isOpenSig.value ? '' : undefined}
+      style={{
+        '--qwikui-collapsible-content-height': contentHeightSig.value
+          ? `${contentHeightSig.value}px`
+          : '0px',
+      }}
       {...rest}
     >
       <Slot />

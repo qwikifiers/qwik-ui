@@ -7,17 +7,17 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return rootLocator.locator('[data-accordion]');
   };
 
-  const getItemAt = async (index: number) => {
+  const getItemAt = (index: number) => {
     return rootLocator.locator('[data-collapsible]').nth(index);
   };
 
-  const getTriggerAt = async (index: number) => {
-    const itemLocator = await getItemAt(index);
+  const getTriggerAt = (index: number) => {
+    const itemLocator = getItemAt(index);
     return itemLocator.getByRole('button');
   };
 
-  const getContentAt = async (index: number) => {
-    const itemLocator = await getItemAt(index);
+  const getContentAt = (index: number) => {
+    const itemLocator = getItemAt(index);
     return itemLocator.locator('[data-collapsible-content]');
   };
 

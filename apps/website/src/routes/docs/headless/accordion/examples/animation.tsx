@@ -7,16 +7,16 @@ export default component$(() => {
   const items = [1, 2, 3];
 
   return (
-    <Accordion.Root animated>
+    <Accordion.Root>
       {items.map((item) => (
-        <Accordion.Item key={item}>
+        <Accordion.Item class="accordion-item" key={item}>
           <Accordion.Header>
-            <Accordion.Trigger>
+            <Accordion.Trigger class="accordion-trigger">
               <span>Trigger {item}</span>
               <LuChevronDown />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content class="accordion-animation">
+          <Accordion.Content class="accordion-content accordion-animation">
             Inside Content {item}
           </Accordion.Content>
         </Accordion.Item>

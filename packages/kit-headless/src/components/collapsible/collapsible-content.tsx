@@ -17,7 +17,6 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
   const context = useContext(collapsibleContextId);
   const isHiddenSig = useSignal<boolean>(!context.isOpenSig.value);
   // check if it's initially "animatable"
-  const isAnimatedSig = useSignal<boolean>(true);
   const initialRenderSig = useSignal<boolean>(true);
   const contentId = `${context.itemId}-content`;
   const triggerId = `${context.itemId}-trigger`;
@@ -49,14 +48,24 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
       transitionDuration === '0s' &&
       !initialRenderSig.value
     ) {
-      isAnimatedSig.value = false;
+      context.isAnimatedSig.value = false;
     } else {
-      isAnimatedSig.value = true;
+      context.isAnimatedSig.value = true;
     }
 
     if (context.isOpenSig.value) {
       isHiddenSig.value = false;
     }
+
+    setTimeout(() => {
+      const { animationDuration, transitionDuration } = getComputedStyle(
+        context.contentRef.value!,
+      );
+
+      if (animationDuration === '0s' && transitionDuration === '0s') {
+        context.isAnimatedSig.value = false;
+      }
+    }, 25);
 
     initialRenderSig.value = false;
   });
@@ -72,7 +81,7 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
       data-closed={!context.isOpenSig.value ? '' : undefined}
       onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
       onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
-      hidden={isAnimatedSig.value ? isHiddenSig.value : !context.isOpenSig.value}
+      hidden={context.isAnimatedSig.value ? isHiddenSig.value : !context.isOpenSig.value}
       aria-labelledby={triggerId}
     >
       <Slot />
