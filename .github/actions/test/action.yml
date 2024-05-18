@@ -14,10 +14,6 @@ runs:
   using: composite
 
   steps:
-    # - name: Commitlint
-    # shell: bash
-    # run: npx --no-install commitlint --from=last-release
-
     - name: Lint
       shell: bash
       run: npx nx run-many -t lint --exclude website # --base=last-release  <- add that back after fix
@@ -25,10 +21,6 @@ runs:
     - name: Build packages
       shell: bash
       run: npx nx run-many -t build --parallel=false --exclude website # --base=last-release  <- add that back
-
-    # - name: Build storybook
-    #   shell: bash
-    #   run: npx nx build-storybook headless
 
     - name: Test all except headless
       shell: bash
@@ -40,15 +32,6 @@ runs:
       uses: cypress-io/github-action@v5
       with:
         command: 'pnpm test.headless.ci'
-
-    # - name: Publish to Chromatic
-    #   uses: chromaui/action@v1
-    #   # Chromatic GitHub Action options
-    #   with:
-    #     # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-    #     projectToken: ${{ inputs.chromatic_token }}
-    #     storybookBuildDir: dist/storybook/headless
-    #     zip: true
 
     # - name: Build
     #   shell: bash

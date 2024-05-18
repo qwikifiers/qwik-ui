@@ -20,5 +20,5 @@
     "src/**/*.spec.jsx",
     "src/**/*.d.ts"
   ],
-  "exclude": ["**/*.stories.tsx", "**/*.stories.ts", "**/*.stories.js", "**/*.driver.ts"]
+  "exclude": ["**/*.driver.ts"]
 }

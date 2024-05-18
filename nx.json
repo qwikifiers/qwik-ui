@@ -27,9 +27,6 @@
     "e2e": {
       "cache": true
     },
-    "build-storybook": {
-      "cache": true
-    },
     "component-test": {
       "cache": true
     },

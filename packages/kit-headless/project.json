@@ -25,39 +25,6 @@
         "lintFilePatterns": ["packages/kit-headless/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "storybook": {
-      "executor": "@nx/storybook:storybook",
-      "options": {
-        "port": 4400,
-        "configDir": "packages/kit-headless/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@nx/storybook:build",
-      "outputs": ["{options.outputDir}"],
-      "options": {
-        "uiFramework": "@storybook/html",
-        "configDir": "packages/kit-headless/.storybook",
-        "outputDir": "dist/storybook/kit-headless"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "test-storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm test-storybook --url http://localhost:4400 --coverage",
-        "cwd": "packages/kit-headless"
-      }
-    },
     "component-test": {
       "executor": "@nx/cypress:cypress",
       "options": {
