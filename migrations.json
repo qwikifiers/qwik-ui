@@ -1,66 +1,11 @@
 {
   "migrations": [
     {
-      "cli": "nx",
-      "version": "17.3.0-beta.6",
-      "description": "Updates the nx wrapper.",
-      "implementation": "./src/migrations/update-17-3-0/update-nxw",
-      "package": "nx",
-      "name": "17.3.0-update-nx-wrapper"
-    },
-    {
-      "cli": "nx",
-      "version": "18.0.0-beta.2",
-      "description": "Updates nx.json to disabled adding plugins when generating projects in an existing Nx workspace",
-      "implementation": "./src/migrations/update-18-0-0/disable-crystal-for-existing-workspaces",
-      "x-repair-skip": true,
-      "package": "nx",
-      "name": "18.0.0-disable-adding-plugins-for-existing-workspaces"
-    },
-    {
       "version": "18.1.0-beta.3",
       "description": "Moves affected.defaultBase to defaultBase in `nx.json`",
       "implementation": "./src/migrations/update-17-2-0/move-default-base",
       "package": "nx",
       "name": "move-default-base-to-nx-json-root"
-    },
-    {
-      "cli": "nx",
-      "version": "17.2.6-beta.1",
-      "description": "Rename workspace rules from @nx/workspace/name to @nx/workspace-name",
-      "implementation": "./src/migrations/update-17-2-6-rename-workspace-rules/rename-workspace-rules",
-      "package": "@nx/eslint-plugin",
-      "name": "update-17-2-6-rename-workspace-rules"
-    },
-    {
-      "version": "17.2.0-beta.10",
-      "description": "Update vite config.",
-      "implementation": "./src/migrations/update-17-2-0/update-vite-config",
-      "package": "@nx/vite",
-      "name": "update-vite-config"
-    },
-    {
-      "version": "17.3.0-beta.0",
-      "description": "Move the vitest coverage thresholds in their own object if exists and add reporters.",
-      "implementation": "./src/migrations/update-17-3-0/vitest-coverage-and-reporters",
-      "package": "@nx/vite",
-      "name": "vitest-coverage-and-reporters"
-    },
-    {
-      "cli": "nx",
-      "version": "17.3.1-beta.0",
-      "description": "Add project property to playwright config",
-      "implementation": "./src/migrations/update-17-3-1/add-project-to-config",
-      "package": "@nx/playwright",
-      "name": "17-3-1-add-project-to-config"
-    },
-    {
-      "cli": "nx",
-      "version": "18.1.0-beta.3",
-      "description": "Remove invalid baseUrl option from @nx/playwright:playwright targets in project.json.",
-      "implementation": "./src/migrations/update-18-1-0/remove-baseUrl-from-project-json",
-      "package": "@nx/playwright",
-      "name": "18-1-0-remove-baseUrl-from-project-json"
     },
     {
       "cli": "nx",
@@ -71,18 +16,12 @@
       "name": "update-cypress-version-13-6-6"
     },
     {
-      "version": "17.2.0-beta.0",
-      "description": "Simplify eslintFilePatterns",
-      "implementation": "./src/migrations/update-17-2-0/simplify-eslint-patterns",
-      "package": "@nx/eslint",
-      "name": "simplify-eslint-patterns"
-    },
-    {
-      "version": "17.2.9",
-      "description": "Move executor options to target defaults",
-      "implementation": "./src/migrations/update-17-2-9/move-options-to-target-defaults",
-      "package": "@nx/eslint",
-      "name": "move-options-to-target-defaults"
+      "cli": "nx",
+      "version": "18.1.0-beta.3",
+      "description": "Remove invalid baseUrl option from @nx/playwright:playwright targets in project.json.",
+      "implementation": "./src/migrations/update-18-1-0/remove-baseUrl-from-project-json",
+      "package": "@nx/playwright",
+      "name": "18-1-0-remove-baseUrl-from-project-json"
     }
   ]
 }
