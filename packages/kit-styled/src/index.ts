@@ -14,6 +14,7 @@ export * from './components/popover/popover';
 export * from './components/progress/progress';
 export * from './components/radio-group/radio-group';
 export * from './components/separator/separator';
+export * from './components/select/select';
 export * from './components/skeleton/skeleton';
 export * from './components/tabs/tabs';
 export * from './components/textarea/textarea';
