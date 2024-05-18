@@ -4,6 +4,7 @@ export const accordionContextId = createContextId<AccordionContext>('qui-accordi
 
 export type AccordionContext = {
   selectedIndexSig: Signal<number | null>;
+  givenValueSig: Signal<string | null> | undefined;
   multiple?: boolean;
 };
 

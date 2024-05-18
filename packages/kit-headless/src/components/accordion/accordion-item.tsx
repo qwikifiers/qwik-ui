@@ -18,13 +18,15 @@ type InternalAccordionItemProps = {
 
 type AccordionItemProps = PropsOf<typeof HCollapsible> & {
   open?: boolean;
+  value?: string;
 };
 
 export const HAccordionItem = component$(
   ({
     id,
-    open = false,
     _index,
+    value,
+    open = false,
     ...props
   }: AccordionItemProps & InternalAccordionItemProps) => {
     const context = useContext(accordionContextId);
@@ -33,12 +35,24 @@ export const HAccordionItem = component$(
     const isOpenSig = useSignal<boolean>(open);
     const localIndexSig = useSignal<number>(_index!);
 
-    useTask$(({ track }) => {
+    useTask$(function internalState({ track }) {
       track(() => context.selectedIndexSig.value);
 
       if (context.multiple || isServer) return;
 
       if (context.selectedIndexSig.value !== localIndexSig.value) {
+        isOpenSig.value = false;
+      }
+    });
+
+    useTask$(function givenReactiveValue({ track }) {
+      track(() => context.givenValueSig?.value);
+
+      if (!context.givenValueSig) return;
+
+      if (context.givenValueSig?.value === value) {
+        isOpenSig.value = true;
+      } else {
         isOpenSig.value = false;
       }
     });

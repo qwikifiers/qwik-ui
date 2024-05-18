@@ -156,7 +156,7 @@ test.describe('Initial values', () => {
 
 test.describe('Reactive values', () => {
   test(`GIVEN an Accordion with a bind:value prop
-        WHEN the value data matches opening the first item
+        WHEN the signal data matches opening the first item
         THEN the first collapsible content should be visible
   `, async ({ page }) => {
     const { driver: d } = await setup(page, 'reactive');
@@ -167,12 +167,14 @@ test.describe('Reactive values', () => {
   });
 
   test(`GIVEN an open Accordion with a bind:value prop
-        WHEN the value data matches closing the first item
+        WHEN the signal changes to null
         THEN the first item content should be collapsed
   `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'programmatic');
+    const { driver: d } = await setup(page, 'reactive');
 
-    await d.openCollapsible('click', 0);
+    await d.locator.getByRole('button', { name: 'Toggle first item' }).click();
+
+    await expect(d.getContentAt(0)).toBeVisible();
 
     await d.locator.getByRole('button', { name: 'Toggle first item' }).click();
 
@@ -181,7 +183,7 @@ test.describe('Reactive values', () => {
 });
 
 test.describe('Handlers', () => {
-  test(`GIVEN a collapsible with an onOpenChange$ prop
+  test(`GIVEN a collapsible with an onChange$ prop
         WHEN the content is opened
         THEN the handler should be called
   `, async ({ page }) => {
