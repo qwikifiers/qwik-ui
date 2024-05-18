@@ -156,10 +156,47 @@ test.describe('Initial values', () => {
 
 test.describe('Reactive values', () => {
   test(`GIVEN an Accordion with a bind:value prop
+        WHEN selecting the third item
+        THEN the bind:value signal should update to the third item
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'reactive');
+
+    await expect(page.getByRole('paragraph')).toHaveText(
+      'Current open item: Not selected',
+    );
+
+    await d.getTriggerAt(2).click();
+
+    await expect(page.getByRole('paragraph')).toHaveText('Current open item: item-3');
+  });
+
+  test(`GIVEN an Accordion with a bind:value prop
+        WHEN selecting the third item
+        THEN updating the bind:value signal to the first item
+        THEN selecting the third item
+        THEN only the third item should be open
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'programmatic');
+
+    // this tests whether the bind:value signal is in sync with the selected index
+    await d.getTriggerAt(2).click();
+    await expect(d.getContentAt(2)).toBeVisible();
+
+    await page.getByRole('button', { name: 'Toggle first item' }).click();
+
+    await expect(d.getContentAt(0)).toBeVisible();
+    await expect(d.getContentAt(0)).toBeVisible();
+
+    await d.getTriggerAt(2).click();
+    await expect(d.getContentAt(2)).toBeVisible();
+    await expect(d.getContentAt(0)).toBeHidden();
+  });
+
+  test(`GIVEN an Accordion with a bind:value prop
         WHEN the signal data matches opening the first item
         THEN the first collapsible content should be visible
   `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'reactive');
+    const { driver: d } = await setup(page, 'programmatic');
 
     await d.locator.getByRole('button', { name: 'Toggle first item' }).click();
 
@@ -170,7 +207,7 @@ test.describe('Reactive values', () => {
         WHEN the signal changes to null
         THEN the first item content should be collapsed
   `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'reactive');
+    const { driver: d } = await setup(page, 'programmatic');
 
     await d.locator.getByRole('button', { name: 'Toggle first item' }).click();
 

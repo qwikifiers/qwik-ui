@@ -24,10 +24,18 @@ export default component$(() => {
           </Accordion.Item>
         ))}
       </Accordion.Root>
-      <p>
-        Current open item:{' '}
-        {currOpenItem.value === null ? 'Not selected' : currOpenItem.value}
-      </p>
+      <button
+        onClick$={() => {
+          // toggle the first item
+          if (currOpenItem.value === 'item-1') {
+            currOpenItem.value = null;
+          } else {
+            currOpenItem.value = 'item-1';
+          }
+        }}
+      >
+        Toggle first item
+      </button>
     </>
   );
 });

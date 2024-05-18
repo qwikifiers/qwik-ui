@@ -42,6 +42,10 @@ export const HAccordionItem = component$(
 
       if (context.selectedIndexSig.value !== localIndexSig.value) {
         isOpenSig.value = false;
+      } else {
+        // update the given bind:value signal if the value prop is set
+        if (!context.givenValueSig) return;
+        context.givenValueSig.value = value ?? null;
       }
     });
 
@@ -52,6 +56,9 @@ export const HAccordionItem = component$(
 
       if (context.givenValueSig?.value === value) {
         isOpenSig.value = true;
+
+        // fixes syncing the selected index when a bind:value signal is updated
+        context.selectedIndexSig.value = localIndexSig.value;
       } else {
         isOpenSig.value = false;
       }
