@@ -37,7 +37,6 @@ export const Accordion: FunctionComponent<AccordionProps> = (props) => {
 
     if (child.type === AccordionItem) {
       const { label } = child.props as AccordionItemProps;
-      console.log('label', label);
       if (label) {
         const currentContent = child.children;
         child.props.children = child.children = [
