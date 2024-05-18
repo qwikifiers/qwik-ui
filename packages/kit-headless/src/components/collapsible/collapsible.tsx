@@ -19,6 +19,7 @@ export type CollapsibleProps = PropsOf<'div'> & {
   id?: string;
   open?: boolean | undefined;
   'bind:open'?: Signal<boolean>;
+  onChange$?: QRL<(open: boolean) => void>;
   onOpenChange$?: QRL<(open: boolean) => void>;
   disabled?: boolean;
 };
@@ -27,6 +28,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
   const {
     disabled,
     onOpenChange$,
+    onChange$,
     'bind:open': givenIsOpenSig,
     id,
     open,
@@ -51,7 +53,9 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     track(() => isOpenSig.value);
 
     if (isBrowser) {
+      // syntactic sugar
       onOpenChange$?.(isOpenSig.value);
+      onChange$?.(isOpenSig.value);
     }
   });
 
