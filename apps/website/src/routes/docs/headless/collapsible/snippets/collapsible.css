@@ -1,5 +1,5 @@
 .collapsible {
-  width: 10rem;
+  min-width: 14rem;
 }
 
 .collapsible-trigger {
