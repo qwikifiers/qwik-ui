@@ -4,7 +4,7 @@ import { HCollapsibleContent } from '../collapsible/collapsible-content';
 export const HAccordionContent = component$(
   (props: PropsOf<typeof HCollapsibleContent>) => {
     return (
-      <HCollapsibleContent {...props}>
+      <HCollapsibleContent role="region" {...props}>
         <Slot />
       </HCollapsibleContent>
     );

@@ -6,13 +6,9 @@ export default component$(() => {
   const items = [1, 2, 3];
 
   return (
-    <Accordion.Root>
-      {items.map((item, index) => (
-        <Accordion.Item
-          defaultValue={index === 1 ? true : false}
-          class="accordion-item"
-          key={item}
-        >
+    <Accordion.Root multiple>
+      {items.map((item) => (
+        <Accordion.Item class="accordion-item" key={item}>
           <Accordion.Header>
             <Accordion.Trigger class="accordion-trigger">
               <span>Trigger {item}</span>

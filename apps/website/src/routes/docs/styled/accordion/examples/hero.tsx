@@ -8,7 +8,7 @@ import {
 
 export default component$(() => {
   return (
-    <AccordionRoot behavior="single" collapsible class="w-full">
+    <AccordionRoot class="w-full">
       <AccordionItem id="item-1">
         <AccordionTrigger>Is it accessible?</AccordionTrigger>
         <AccordionContent>

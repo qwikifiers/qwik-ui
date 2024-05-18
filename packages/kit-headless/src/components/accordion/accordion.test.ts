@@ -27,7 +27,7 @@ async function collapsibleSetup(page: Page, exampleName: string) {
 }
 
 test.describe('Mouse Behavior', () => {
-  test(`GIVEN a collapsible
+  test(`GIVEN a collapsible in an accordion
         WHEN clicking on the trigger
         THEN the content should be visible
         AND aria-expanded is true`, async ({ page }) => {
@@ -39,7 +39,7 @@ test.describe('Mouse Behavior', () => {
     await expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
   });
 
-  test(`GIVEN an open collapsible
+  test(`GIVEN an open collapsible in an accordion
         WHEN clicking on the trigger
         THEN the content should be hidden
         AND aria-expanded is false`, async ({ page }) => {
@@ -55,7 +55,7 @@ test.describe('Mouse Behavior', () => {
 });
 
 test.describe('Keyboard Behavior', () => {
-  test(`GIVEN a hero collapsible
+  test(`GIVEN a collapsible in an accordion
         WHEN pressing the space key
         THEN the content should be visible
         AND aria-expanded is true`, async ({ page }) => {
@@ -67,7 +67,7 @@ test.describe('Keyboard Behavior', () => {
     await expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
   });
 
-  test(`GIVEN an open hero collapsible
+  test(`GIVEN an open collapsible in an accordion
         WHEN pressing the space key
         THEN the content should be hidden
         AND aria-expanded is false`, async ({ page }) => {
@@ -78,7 +78,7 @@ test.describe('Keyboard Behavior', () => {
     await expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');
   });
 
-  test(`GIVEN a hero collapsible
+  test(`GIVEN a collapsible in an accordion
         WHEN pressing the enter key
         THEN the content should be visible
         AND aria-expanded is true`, async ({ page }) => {
@@ -90,7 +90,7 @@ test.describe('Keyboard Behavior', () => {
     await expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
   });
 
-  test(`GIVEN an open hero collapsible
+  test(`GIVEN an open collapsible in an accordion
         WHEN pressing the enter key
         THEN the content should be hidden
         AND aria-expanded is false`, async ({ page }) => {
@@ -103,7 +103,7 @@ test.describe('Keyboard Behavior', () => {
 });
 
 test.describe('Aria', () => {
-  test(`GIVEN a collapsible with aria-controls
+  test(`GIVEN a collapsible in an accordion with aria-controls
         WHEN a collapsible is rendered
         THEN the trigger's aria-controls should equal the content's id`, async ({
     page,
@@ -115,16 +115,42 @@ test.describe('Aria', () => {
 
     await expect(d.getTriggerAt(0)).toHaveAttribute('aria-controls', `${contentId}`);
   });
+
+  test(`GIVEN an item in an accordion
+        WHEN an item is rendered
+        THEN the item should have a role of region (not the collapsible itself)`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'hero');
+    await d.openCollapsible('Enter', 0);
+
+    await expect(d.getContentAt(0)).toHaveAttribute('role', 'region');
+  });
+});
+
+test.describe('Multiple Accordion', () => {
+  test(`GIVEN an Accordion with multiple collapsibles
+        WHEN the first and second collapsibles are opened
+        THEN both items should be visible
+    `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple');
+
+    await d.openCollapsible('click', 0);
+    await d.openCollapsible('click', 1);
+
+    await expect(d.getContentAt(0)).toBeVisible();
+    await expect(d.getContentAt(1)).toBeVisible();
+  });
 });
 
 // test.describe('Reactive values', () => {
-//   test(`GIVEN a collapsible with a bind:open prop
-//         WHEN the signal value changes to true
-//         THEN the content should be visible
+//   test(`GIVEN an Accordion with a bind:value prop
+//         WHEN the value data matches the first collapsible
+//         THEN the first collapsible content should be visible
 //   `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'programmatic');
+//     const { driver: d } = await setup(page, 'reactive');
 
-//     // our example uses bind:checked on the checkbox with our same signal.
+//     await d.locator('');
 
 //     await d.locator.getByRole('checkbox').check();
 //     await expect(d.getContent()).toBeVisible();
