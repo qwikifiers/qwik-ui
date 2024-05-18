@@ -143,58 +143,71 @@ test.describe('Multiple Accordion', () => {
   });
 });
 
-// test.describe('Reactive values', () => {
-//   test(`GIVEN an Accordion with a bind:value prop
-//         WHEN the value data matches the first collapsible
-//         THEN the first collapsible content should be visible
-//   `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'reactive');
+test.describe('Initial values', () => {
+  test(`GIVEN an Accordion with a value prop
+  WHEN the value data matches opening the second item
+  THEN the second collapsible content should be open on initial load
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'initial');
 
-//     await d.locator('');
+    await expect(d.getContentAt(1)).toBeVisible();
+  });
+});
 
-//     await d.locator.getByRole('checkbox').check();
-//     await expect(d.getContent()).toBeVisible();
-//   });
+test.describe('Reactive values', () => {
+  test(`GIVEN an Accordion with a bind:value prop
+        WHEN the value data matches opening the first item
+        THEN the first collapsible content should be visible
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'reactive');
 
-//   test(`GIVEN a collapsible with a bind:open prop
-//         WHEN the signal value changes to false
-//         THEN the content should be hidden
-//   `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'programmatic');
+    await d.locator.getByRole('button', { name: 'toggle open first item' }).click();
 
-//     await d.locator.getByRole('checkbox').uncheck();
-//     await expect(d.getContent()).toBeHidden();
-//   });
-// });
+    await expect(d.getContentAt(0)).toBeVisible();
+  });
 
-// test.describe('Handlers', () => {
-//   test(`GIVEN a collapsible with an onOpenChange$ prop
-//         WHEN the content is opened
-//         THEN the handler should be called
-//   `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'open-change');
+  test(`GIVEN an open Accordion with a bind:value prop
+        WHEN the value data matches closing the first item
+        THEN the first item content should be collapsed
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'programmatic');
 
-//     const countText = d.locator.getByRole('paragraph');
-//     await expect(countText).toHaveText('count: 0');
-//     await d.openCollapsible('click', 0);
+    await d.openCollapsible('click', 0);
 
-//     await expect(countText).toHaveText('count: 1');
-//   });
+    await d.locator.getByRole('button', { name: 'toggle open first item' }).click();
 
-//   test(`GIVEN a collapsible with an onOpenChange$ prop
-//         WHEN the content is closed
-//         THEN the handler should be called
-//   `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'open-change');
+    await expect(d.getContentAt(0)).toBeHidden();
+  });
+});
 
-//     const countText = d.locator.getByRole('paragraph');
-//     await d.openCollapsible('click', 0);
-//     await expect(countText).toHaveText('count: 1');
-//     await d.getTriggerAt(0).click();
+test.describe('Handlers', () => {
+  test(`GIVEN a collapsible with an onOpenChange$ prop
+        WHEN the content is opened
+        THEN the handler should be called
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'open-change');
 
-//     await expect(countText).toHaveText('count: 2');
-//   });
-// });
+    const countText = d.locator.getByRole('paragraph');
+    await expect(countText).toHaveText('count: 0');
+    await d.openCollapsible('click', 0);
+
+    await expect(countText).toHaveText('count: 1');
+  });
+
+  test(`GIVEN a collapsible with an onOpenChange$ prop
+        WHEN the content is closed
+        THEN the handler should be called
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'open-change');
+
+    const countText = d.locator.getByRole('paragraph');
+    await d.openCollapsible('click', 0);
+    await expect(countText).toHaveText('count: 1');
+    await d.getTriggerAt(0).click();
+
+    await expect(countText).toHaveText('count: 2');
+  });
+});
 
 // test.describe('Disabled', () => {
 //   test(`GIVEN a collapsible with a disabled prop
