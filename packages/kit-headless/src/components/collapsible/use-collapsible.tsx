@@ -1,6 +1,7 @@
 import { $ } from '@builder.io/qwik';
 
 export function useCollapsible() {
+  /* similar to React's useLayoutEffect, we want to get the height of a hidden element */
   const getHiddenHeight = $((el: HTMLElement) => {
     const clone = el.cloneNode(true) as HTMLElement;
 
@@ -15,6 +16,7 @@ export function useCollapsible() {
 
     el.after(clone);
     const height = clone.offsetHeight;
+    console.log('height', height);
 
     clone.remove();
 

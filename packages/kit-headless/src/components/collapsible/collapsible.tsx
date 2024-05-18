@@ -13,7 +13,7 @@ import {
 import { collapsibleContextId } from './collapsible-context-id';
 import { type CollapsibleContext } from './collapsible-context.type';
 import { isBrowser } from '@builder.io/qwik/build';
-import { useCollapsible } from './use-collapsible';
+import { getHiddenHeight } from '../../utils/get-hidden-height';
 
 export type CollapsibleProps = PropsOf<'div'> & {
   id?: string;
@@ -34,8 +34,6 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     open,
     ...rest
   } = props;
-
-  const { getHiddenHeight } = useCollapsible();
 
   const defaultOpenSig = useSignal<boolean>(open ?? false);
   const isOpenSig = givenIsOpenSig ?? defaultOpenSig;
@@ -67,7 +65,14 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     }
 
     if (contentHeightSig.value === null) {
-      contentHeightSig.value = await getHiddenHeight(contentRef.value);
+      contentHeightSig.value = getHiddenHeight(contentRef.value);
+    }
+
+    if (contentHeightSig.value !== 0) {
+      contentRef.value.style.setProperty(
+        '--qwikui-collapsible-content-height',
+        `${contentHeightSig.value}px`,
+      );
     }
   });
 
@@ -91,11 +96,6 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
       data-disabled={context.disabled ? '' : undefined}
       data-open={context.isOpenSig.value ? '' : undefined}
       data-closed={!context.isOpenSig.value ? '' : undefined}
-      style={{
-        '--qwikui-collapsible-content-height': contentHeightSig.value
-          ? `${contentHeightSig.value}px`
-          : '0px',
-      }}
       {...rest}
     >
       <Slot />
