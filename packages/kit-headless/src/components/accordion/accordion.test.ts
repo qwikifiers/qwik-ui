@@ -179,6 +179,15 @@ test.describe('Keyboard Behavior', () => {
       await d.getTriggerAt(0).press('End');
       await expect(d.getTriggerAt(2)).toBeFocused();
     });
+
+    test(`GIVEN an Accordion item with a disabled prop on the 2nd item
+          WHEN rendering the accordion
+          THEN the 2nd trigger should be disabled
+`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'disabled');
+
+      await expect(d.getTriggerAt(1)).toBeDisabled();
+    });
   });
 
   test.describe('looping', () => {
@@ -349,57 +358,42 @@ test.describe('Handlers', () => {
   });
 });
 
-// test.describe('Disabled', () => {
-//   test(`GIVEN a collapsible with a disabled prop
-//         WHEN the trigger is clicked
-//         THEN the content should remain closed
-//   `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'disabled');
+test.describe('CSR', () => {
+  test(`GIVEN an Accordion
+        WHEN it is client-side rendered
+        THEN an Accordion trigger should be visible
+  `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'csr');
 
-//     await expect(d.getTriggerAt(0)).toBeDisabled();
+    await d.locator.getByRole('button', { name: 'Render Accordion' }).click();
+    await expect(d.getTriggerAt(0)).toBeVisible();
+  });
 
-//     // actionability checks are only for enabled elements
-//     await d.getTriggerAt(0).click({ force: true });
-//     await expect(d.getContentAt(0)).toBeHidden();
-//   });
-// });
+  test(`GIVEN a CSR Accordion
+        WHEN a trigger is clicked
+        THEN the associated item content should be visible
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'csr');
 
-// test.describe('CSR', () => {
-//   test(`GIVEN a collapsible
-//         WHEN it is client-side rendered
-//         THEN the collapsible trigger should be visible
-//   `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'csr');
+    await d.locator.getByRole('button', { name: 'Render Accordion' }).click();
+    await expect(d.getTriggerAt(0)).toBeVisible();
 
-//     await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
-//     await expect(d.getTriggerAt(0)).toBeVisible();
-//   });
+    await d.getTriggerAt(0).click();
+    await expect(d.getContentAt(0)).toBeVisible();
+  });
 
-//   test(`GIVEN a CSR collapsible
-//         WHEN the trigger is clicked
-//         THEN the collapsible should be opened
-// `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'csr');
+  test(`GIVEN an open CSR Accordion
+        WHEN the trigger is clicked
+        THEN the item should be closed
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'csr');
 
-//     await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
-//     await expect(d.getTriggerAt(0)).toBeVisible();
+    await d.locator.getByRole('button', { name: 'Render Accordion' }).click();
+    await expect(d.getTriggerAt(0)).toBeVisible();
 
-//     await d.getTriggerAt(0).click();
-//     await expect(d.getContentAt(0)).toBeVisible();
-//   });
+    await d.openCollapsible('click', 0);
+    await d.getTriggerAt(0).click();
 
-//   test(`GIVEN an open CSR collapsible
-//         WHEN the trigger is clicked
-//         THEN the collapsible should be closed
-// `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'csr');
-
-//     await d.locator.getByRole('button', { name: 'Render Collapsible' }).click();
-//     await expect(d.getTriggerAt(0)).toBeVisible();
-
-//     await d.openCollapsible('click', 0);
-//     await d.getTriggerAt(0).click();
-
-//     await expect(d.getContentAt(0)).toBeHidden();
-//   });
-// });
+    await expect(d.getContentAt(0)).toBeHidden();
+  });
+});

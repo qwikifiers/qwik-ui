@@ -35,6 +35,8 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
       return;
     }
 
+    if (!context.contentRef.value) return;
+
     await context.getContentDimensions$();
 
     /* check if there's a transition or animation */
