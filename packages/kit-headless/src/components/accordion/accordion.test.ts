@@ -43,8 +43,9 @@ test.describe('Mouse Behavior', () => {
         WHEN clicking on the trigger
         THEN the content should be hidden
         AND aria-expanded is false`, async ({ page }) => {
-    const { firstContent, firstTrigger } = await collapsibleSetup(page, 'open');
+    const { firstContent, firstTrigger, d } = await collapsibleSetup(page, 'hero');
 
+    await d.openCollapsible('click', 0);
     await expect(firstContent).toBeVisible();
 
     await firstTrigger.click();
@@ -71,7 +72,8 @@ test.describe('Keyboard Behavior', () => {
         WHEN pressing the space key
         THEN the content should be hidden
         AND aria-expanded is false`, async ({ page }) => {
-    const { firstContent, firstTrigger } = await collapsibleSetup(page, 'open');
+    const { firstContent, firstTrigger, d } = await collapsibleSetup(page, 'hero');
+    await d.openCollapsible('Space', 0);
     await firstTrigger.press('Space');
 
     await expect(firstContent).toBeHidden();
@@ -94,7 +96,8 @@ test.describe('Keyboard Behavior', () => {
         WHEN pressing the enter key
         THEN the content should be hidden
         AND aria-expanded is false`, async ({ page }) => {
-    const { firstContent, firstTrigger } = await collapsibleSetup(page, 'open');
+    const { firstContent, firstTrigger, d } = await collapsibleSetup(page, 'hero');
+    await d.openCollapsible('Enter', 0);
     await firstTrigger.press('Enter');
 
     await expect(firstContent).toBeHidden();
