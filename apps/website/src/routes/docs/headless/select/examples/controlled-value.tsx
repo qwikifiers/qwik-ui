@@ -20,7 +20,7 @@ export default component$(() => {
         </Select.Trigger>
         <Select.Popover class="select-popover">
           <Select.Listbox class="select-listbox">
-            {users.map((user, index) => (
+            {users.map((user) => (
               <Select.Item value={user.id} key={user.id}>
                 <Select.ItemLabel>{user.name}</Select.ItemLabel>
               </Select.Item>
