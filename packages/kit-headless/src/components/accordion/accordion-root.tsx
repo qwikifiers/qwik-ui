@@ -17,6 +17,12 @@ export type AccordionRootProps = PropsOf<'div'> & {
 
   /** The reactive value controlling which item is open. */
   'bind:value'?: Signal<string | null>;
+
+  /** The initial value of the currently open item. */
+  value?: string;
+
+  /** The initial index of the currently open item. */
+  initialIndexValue?: number;
 };
 
 export const HAccordionRoot: Component<AccordionRootProps> = (
@@ -25,6 +31,7 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
   const { children: accordionChildren, ...rest } = props;
 
   let currItemIndex = 0;
+  let initialIndexValue = null;
 
   const childrenToProcess = (
     Array.isArray(accordionChildren) ? [...accordionChildren] : [accordionChildren]
@@ -45,6 +52,10 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
     switch (child.type) {
       case HAccordionItem: {
         child.props._index = currItemIndex;
+        if (props.value !== undefined && props.value === child.props.value) {
+          initialIndexValue = currItemIndex;
+        }
+
         currItemIndex++;
         break;
       }
@@ -62,18 +73,23 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
     }
   }
 
-  return <HAccordionRootImpl {...rest}>{props.children}</HAccordionRootImpl>;
+  return (
+    <HAccordionRootImpl initialIndexValue={initialIndexValue ?? undefined} {...rest}>
+      {props.children}
+    </HAccordionRootImpl>
+  );
 };
 
 export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
-  const { multiple, 'bind:value': givenValueSig, ...rest } = props;
+  const { multiple, 'bind:value': givenValueSig, initialIndexValue, ...rest } = props;
 
-  const selectedIndexSig = useSignal<number>(-1);
+  const selectedIndexSig = useSignal<number>(initialIndexValue ?? -1);
 
   const context = {
     selectedIndexSig,
     givenValueSig,
     multiple,
+    initialIndexValue,
   };
 
   useContextProvider(accordionContextId, context);
