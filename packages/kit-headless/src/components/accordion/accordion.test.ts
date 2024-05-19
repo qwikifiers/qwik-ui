@@ -103,6 +103,78 @@ test.describe('Keyboard Behavior', () => {
     await expect(firstContent).toBeHidden();
     await expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');
   });
+
+  test(`GIVEN an Accordion and the first item is focused
+        WHEN pressing the down arrow key
+        THEN the second item should be focused`, async ({ page }) => {
+    const { d } = await collapsibleSetup(page, 'hero');
+    await d.getTriggerAt(0).focus();
+    await d.getTriggerAt(0).press('ArrowDown');
+
+    await expect(d.getTriggerAt(1)).toBeFocused();
+  });
+
+  test(`GIVEN an Accordion and the second item is focused
+        WHEN pressing the up arrow key
+        THEN the first item should be focused`, async ({ page }) => {
+    const { d } = await collapsibleSetup(page, 'hero');
+    //initial
+    await d.getTriggerAt(0).focus();
+    await d.getTriggerAt(0).press('ArrowDown');
+
+    await expect(d.getTriggerAt(1)).toBeFocused();
+
+    await d.getTriggerAt(1).press('ArrowUp');
+    await expect(d.getTriggerAt(0)).toBeFocused();
+  });
+
+  test(`GIVEN an Accordion and the first item is focused
+        WHEN pressing the end key
+        THEN the last item should be focused`, async ({ page }) => {
+    const { d } = await collapsibleSetup(page, 'hero');
+    //initial
+    await d.getTriggerAt(0).focus();
+    await d.getTriggerAt(0).press('End');
+
+    await expect(d.getTriggerAt(2)).toBeFocused();
+  });
+
+  test(`GIVEN an Accordion and the last item is focused
+        WHEN pressing the home key
+        THEN the first item should be focused`, async ({ page }) => {
+    const { d } = await collapsibleSetup(page, 'hero');
+    //initial
+    await d.getTriggerAt(0).focus();
+    await d.getTriggerAt(0).press('End');
+    await expect(d.getTriggerAt(2)).toBeFocused();
+
+    await d.getTriggerAt(2).press('Home');
+    await expect(d.getTriggerAt(0)).toBeFocused();
+  });
+
+  test.describe('looping', () => {
+    test(`GIVEN an Accordion and the last item is focused
+          WHEN pressing the down arrow key
+          THEN the first item should be focused`, async ({ page }) => {
+      const { d } = await collapsibleSetup(page, 'hero');
+      //initial
+      await d.getTriggerAt(0).focus();
+      await d.getTriggerAt(0).press('End');
+      await expect(d.getTriggerAt(2)).toBeFocused();
+
+      await d.getTriggerAt(2).press('ArrowDown');
+      await expect(d.getTriggerAt(0)).toBeFocused();
+    });
+
+    test(`GIVEN an Accordion and the first item is focused
+          WHEN pressing the up arrow key
+          THEN the last item should be focused`, async ({ page }) => {
+      const { d } = await collapsibleSetup(page, 'hero');
+      await d.getTriggerAt(0).focus();
+      await d.getTriggerAt(0).press('ArrowUp');
+      await expect(d.getTriggerAt(2)).toBeFocused();
+    });
+  });
 });
 
 test.describe('Aria', () => {

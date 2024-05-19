@@ -22,6 +22,7 @@ export type CollapsibleProps = PropsOf<'div'> & {
   onChange$?: QRL<(open: boolean) => void>;
   onOpenChange$?: QRL<(open: boolean) => void>;
   disabled?: boolean;
+  triggerRef?: Signal<HTMLButtonElement>;
 };
 
 export const HCollapsible = component$((props: CollapsibleProps) => {
@@ -31,6 +32,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     onChange$,
     'bind:open': givenIsOpenSig,
     id,
+    triggerRef: givenTriggerRef,
     open,
     ...rest
   } = props;
@@ -38,7 +40,8 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
   const defaultOpenSig = useSignal<boolean>(open ?? false);
   const isOpenSig = givenIsOpenSig ?? defaultOpenSig;
 
-  const triggerRef = useSignal<HTMLButtonElement>();
+  const defaultTriggerRef = useSignal<HTMLButtonElement>();
+  const triggerRef = givenTriggerRef ?? defaultTriggerRef;
   const contentRef = useSignal<HTMLElement>();
   const isAnimatedSig = useSignal<boolean>(true);
 

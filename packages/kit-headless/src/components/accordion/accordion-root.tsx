@@ -27,6 +27,9 @@ export type AccordionRootProps = PropsOf<'div'> & {
 
   /** A QRL that is called when the selected item changes. */
   onChange$?: QRL<(value: string) => void>;
+
+  /** A map of the item indexes and their disabled state. */
+  itemsMap?: Map<number, boolean>;
 };
 
 export const HAccordionRoot: Component<AccordionRootProps> = (
@@ -36,6 +39,7 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
 
   let currItemIndex = 0;
   let initialIndex = null;
+  const itemsMap = new Map();
 
   const childrenToProcess = (
     Array.isArray(accordionChildren) ? [...accordionChildren] : [accordionChildren]
@@ -59,6 +63,7 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
         if (props.value !== undefined && props.value === child.props.value) {
           initialIndex = currItemIndex;
         }
+        itemsMap.set(currItemIndex, child.props.disabled === true);
 
         currItemIndex++;
         break;
@@ -78,7 +83,11 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
   }
 
   return (
-    <HAccordionRootImpl initialIndex={initialIndex ?? undefined} {...rest}>
+    <HAccordionRootImpl
+      initialIndex={initialIndex ?? undefined}
+      itemsMap={itemsMap}
+      {...rest}
+    >
       {props.children}
     </HAccordionRootImpl>
   );
@@ -90,10 +99,12 @@ export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
     'bind:value': givenValueSig,
     initialIndex,
     onChange$,
+    itemsMap,
     ...rest
   } = props;
 
   const selectedIndexSig = useSignal<number>(initialIndex ?? -1);
+  const triggerRefsArray = useSignal<Array<Signal>>([]);
 
   const context = {
     selectedIndexSig,
@@ -101,6 +112,8 @@ export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
     multiple,
     initialIndex,
     onChange$,
+    itemsMap,
+    triggerRefsArray,
   };
 
   useContextProvider(accordionContextId, context);

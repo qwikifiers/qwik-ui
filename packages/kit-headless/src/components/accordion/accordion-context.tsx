@@ -8,6 +8,8 @@ export type AccordionContext = {
   givenValueSig: Signal<string | null> | undefined;
   multiple?: boolean;
   onChange$: QRL<(value: string) => void> | undefined;
+  itemsMap?: Map<number, boolean> | undefined;
+  triggerRefsArray: Signal<Array<Signal>>;
 };
 
 export const accordionItemContextId =
@@ -16,4 +18,5 @@ export const accordionItemContextId =
 export type AccordionItemContext = {
   isOpenSig: Signal<boolean>;
   localIndexSig: Signal<number>;
+  triggerRef: Signal<HTMLButtonElement>;
 };

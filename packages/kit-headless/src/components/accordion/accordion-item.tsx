@@ -19,6 +19,7 @@ type InternalAccordionItemProps = {
 type AccordionItemProps = PropsOf<typeof HCollapsible> & {
   open?: boolean;
   value?: string;
+  disabled?: boolean;
 };
 
 export const HAccordionItem = component$(
@@ -29,9 +30,13 @@ export const HAccordionItem = component$(
     const localIndexSig = useSignal<number>(_index!);
     const isOpenSig = useSignal<boolean>(context.initialIndex === localIndexSig.value);
     const initialLoadSig = useSignal<boolean>(true);
+    const triggerRef = useSignal<HTMLButtonElement>(null as unknown as HTMLButtonElement);
 
     useTask$(function internalState({ track }) {
       track(() => context.selectedIndexSig.value);
+
+      // collect trigger refs for keyboard navigation
+      context.triggerRefsArray.value[localIndexSig.value] = triggerRef;
 
       if (context.multiple || isServer) return;
 
@@ -70,12 +75,13 @@ export const HAccordionItem = component$(
     const itemContext = {
       isOpenSig,
       localIndexSig,
+      triggerRef,
     };
 
     useContextProvider(accordionItemContextId, itemContext);
 
     return (
-      <HCollapsible bind:open={isOpenSig} id={itemId} {...props}>
+      <HCollapsible triggerRef={triggerRef} bind:open={isOpenSig} id={itemId} {...props}>
         <Slot />
       </HCollapsible>
     );
