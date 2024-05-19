@@ -27,9 +27,8 @@ export const HAccordionItem = component$(
     const localId = useId();
     const itemId = id ?? localId + '-item';
     const localIndexSig = useSignal<number>(_index!);
-    const isOpenSig = useSignal<boolean>(
-      context.initialIndexValue === localIndexSig.value,
-    );
+    const isOpenSig = useSignal<boolean>(context.initialIndex === localIndexSig.value);
+    const initialLoadSig = useSignal<boolean>(true);
 
     useTask$(function internalState({ track }) {
       track(() => context.selectedIndexSig.value);
@@ -39,6 +38,11 @@ export const HAccordionItem = component$(
       if (context.selectedIndexSig.value !== localIndexSig.value) {
         isOpenSig.value = false;
       } else {
+        // onChange$ behavior - called once when the value changes
+        if (!initialLoadSig.value && value && context.onChange$) {
+          context.onChange$(value);
+        }
+
         // update the given bind:value signal if the value prop is set
         if (!context.givenValueSig) return;
         context.givenValueSig.value = value ?? null;
@@ -46,9 +50,8 @@ export const HAccordionItem = component$(
     });
 
     useTask$(function givenReactiveValue({ track }) {
-      track(() => context.givenValueSig?.value);
-
       if (!context.givenValueSig) return;
+      track(() => context.givenValueSig?.value);
 
       if (context.givenValueSig?.value === value) {
         isOpenSig.value = true;
@@ -58,6 +61,10 @@ export const HAccordionItem = component$(
       } else {
         isOpenSig.value = false;
       }
+    });
+
+    useTask$(() => {
+      initialLoadSig.value = false;
     });
 
     const itemContext = {

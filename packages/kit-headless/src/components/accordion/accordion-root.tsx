@@ -2,6 +2,7 @@ import {
   Component,
   JSXNode,
   PropsOf,
+  QRL,
   Signal,
   Slot,
   component$,
@@ -22,7 +23,10 @@ export type AccordionRootProps = PropsOf<'div'> & {
   value?: string;
 
   /** The initial index of the currently open item. */
-  initialIndexValue?: number;
+  initialIndex?: number;
+
+  /** A QRL that is called when the selected item changes. */
+  onChange$?: QRL<(value: string) => void>;
 };
 
 export const HAccordionRoot: Component<AccordionRootProps> = (
@@ -31,7 +35,7 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
   const { children: accordionChildren, ...rest } = props;
 
   let currItemIndex = 0;
-  let initialIndexValue = null;
+  let initialIndex = null;
 
   const childrenToProcess = (
     Array.isArray(accordionChildren) ? [...accordionChildren] : [accordionChildren]
@@ -53,7 +57,7 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
       case HAccordionItem: {
         child.props._index = currItemIndex;
         if (props.value !== undefined && props.value === child.props.value) {
-          initialIndexValue = currItemIndex;
+          initialIndex = currItemIndex;
         }
 
         currItemIndex++;
@@ -74,22 +78,29 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
   }
 
   return (
-    <HAccordionRootImpl initialIndexValue={initialIndexValue ?? undefined} {...rest}>
+    <HAccordionRootImpl initialIndex={initialIndex ?? undefined} {...rest}>
       {props.children}
     </HAccordionRootImpl>
   );
 };
 
 export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
-  const { multiple, 'bind:value': givenValueSig, initialIndexValue, ...rest } = props;
+  const {
+    multiple,
+    'bind:value': givenValueSig,
+    initialIndex,
+    onChange$,
+    ...rest
+  } = props;
 
-  const selectedIndexSig = useSignal<number>(initialIndexValue ?? -1);
+  const selectedIndexSig = useSignal<number>(initialIndex ?? -1);
 
   const context = {
     selectedIndexSig,
     givenValueSig,
     multiple,
-    initialIndexValue,
+    initialIndex,
+    onChange$,
   };
 
   useContextProvider(accordionContextId, context);

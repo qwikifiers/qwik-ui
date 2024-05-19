@@ -227,27 +227,24 @@ test.describe('Handlers', () => {
         WHEN the content is opened
         THEN the handler should be called
   `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'open-change');
+    const { driver: d } = await setup(page, 'on-change');
 
-    const countText = d.locator.getByRole('paragraph');
-    await expect(countText).toHaveText('count: 0');
+    const countText = d.locator.getByRole('paragraph').first();
+    await expect(countText).toHaveText('Called change count: 0');
     await d.openCollapsible('click', 0);
 
-    await expect(countText).toHaveText('count: 1');
+    await expect(countText).toHaveText('Called change count: 1');
   });
 
-  test(`GIVEN a collapsible with an onOpenChange$ prop
-        WHEN the content is closed
-        THEN the handler should be called
+  test(`GIVEN a collapsible with an onChange$ prop
+        WHEN selecting the third item
+        THEN the value from the handler should be the latest selected value
   `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'open-change');
+    const { driver: d } = await setup(page, 'on-change');
 
-    const countText = d.locator.getByRole('paragraph');
-    await d.openCollapsible('click', 0);
-    await expect(countText).toHaveText('count: 1');
-    await d.getTriggerAt(0).click();
-
-    await expect(countText).toHaveText('count: 2');
+    const countText = d.locator.getByRole('paragraph').last();
+    await d.openCollapsible('click', 2);
+    await expect(countText).toHaveText('Changed to: item-3');
   });
 });
 
