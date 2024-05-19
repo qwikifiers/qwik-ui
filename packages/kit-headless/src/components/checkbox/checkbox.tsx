@@ -34,8 +34,6 @@ export type ChecklistTwoStateCheckboxProps = {
 } & PropsOf<'div'>;
 export const CheckboxRoot = component$<MixedStateCheckboxProps>((props) => {
   // this is done to avoid consumers dealing with two types checkboxes, could go in different files
-  if (props._useCheckListContext && !props.checklist) {
-  }
   if (props.checklist) {
     return (
       <MixedStateCheckbox {...props}>
