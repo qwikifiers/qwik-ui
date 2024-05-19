@@ -397,3 +397,22 @@ test.describe('CSR', () => {
     await expect(d.getContentAt(0)).toBeHidden();
   });
 });
+
+test.describe('Dynamic', () => {
+  test(`GIVEN an Accordion with items added dynamically
+        WHEN the first item is opened
+        AND a new item is added and opened
+        THEN the original first item should be closed
+        AND the new item should be open
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'dynamic');
+
+    await d.getTriggerAt(0).click();
+    await d.locator.getByRole('button', { name: 'Add Item' }).click();
+    await expect(d.getTriggerAt(0)).toHaveText('New Item');
+    await d.getTriggerAt(0).click();
+
+    await expect(d.getContentAt(0)).toBeVisible();
+    await expect(d.getContentAt(1)).toBeHidden();
+  });
+});

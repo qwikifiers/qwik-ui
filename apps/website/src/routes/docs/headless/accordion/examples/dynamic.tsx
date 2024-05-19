@@ -50,11 +50,13 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
         <Accordion.Root>
           {itemStore.map(({ label, id }, index) => {
             return (
-              <Accordion.Item id={`${id}`} key={id} class="accordion-item">
+              <Accordion.Item id={`${id}`} key={id} class="collapsible">
                 <Accordion.Header>
-                  <Accordion.Trigger class="accordion-trigger">{label}</Accordion.Trigger>
+                  <Accordion.Trigger class="collapsible-trigger">
+                    {label}
+                  </Accordion.Trigger>
                 </Accordion.Header>
-                <Accordion.Content class="accordion-content">
+                <Accordion.Content class="collapsible-content">
                   index: {index}
                 </Accordion.Content>
               </Accordion.Item>

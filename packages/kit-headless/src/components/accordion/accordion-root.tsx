@@ -8,6 +8,7 @@ import {
   component$,
   useContextProvider,
   useSignal,
+  useComputed$,
 } from '@builder.io/qwik';
 import { accordionContextId } from './accordion-context';
 import { HAccordionItem } from './accordion-item';
@@ -106,13 +107,17 @@ export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
   const selectedIndexSig = useSignal<number>(initialIndex ?? -1);
   const triggerRefsArray = useSignal<Array<Signal>>([]);
 
+  const itemsMapSig = useComputed$(() => {
+    return itemsMap ?? new Map();
+  });
+
   const context = {
     selectedIndexSig,
     givenValueSig,
     multiple,
     initialIndex,
     onChange$,
-    itemsMap,
+    itemsMapSig,
     triggerRefsArray,
   };
 

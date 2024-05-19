@@ -24,7 +24,7 @@ export default component$(() => {
           </Accordion.Item>
         ))}
       </Accordion.Root>
-      <p>
+      <p style={{ marginTop: '1rem' }}>
         Current open item:{' '}
         {currOpenItem.value === null ? 'Not selected' : currOpenItem.value}
       </p>

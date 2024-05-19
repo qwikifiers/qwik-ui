@@ -25,6 +25,7 @@ export default component$(() => {
         ))}
       </Accordion.Root>
       <button
+        style={{ marginTop: '1rem' }}
         onClick$={() => {
           // toggle the first item
           if (currOpenItem.value === 'item-1') {
