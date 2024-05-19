@@ -1,8 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "affected": {
-    "defaultBase": "main"
-  },
   "workspaceLayout": {
     "appsDir": "apps",
     "libsDir": "packages"
@@ -30,9 +27,6 @@
     "e2e": {
       "cache": true
     },
-    "build-storybook": {
-      "cache": true
-    },
     "component-test": {
       "cache": true
     },
@@ -56,5 +50,7 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json"
     ]
-  }
+  },
+  "nxCloudAccessToken": "MzViMzc1MGQtMDQyNi00N2E3LTliMmYtYWI4ZGIxYWJjYzE3fHJlYWQtd3JpdGU=",
+  "defaultBase": "main"
 }
