@@ -152,6 +152,35 @@ test.describe('Keyboard Behavior', () => {
     await expect(d.getTriggerAt(0)).toBeFocused();
   });
 
+  test.describe('disabled', () => {
+    test(`GIVEN an Accordion and the 2nd item is disabled
+          WHEN pressing the down arrow key
+          THEN it should skip the disabled item`, async ({ page }) => {
+      const { d } = await collapsibleSetup(page, 'disabled');
+      await d.getTriggerAt(0).focus();
+      await d.getTriggerAt(0).press('ArrowDown');
+      await expect(d.getTriggerAt(2)).toBeFocused();
+    });
+
+    test(`GIVEN an Accordion and the 2nd item is disabled
+          WHEN pressing the up arrow key
+          THEN it should skip the disabled item`, async ({ page }) => {
+      const { d } = await collapsibleSetup(page, 'disabled');
+      await d.getTriggerAt(2).focus();
+      await d.getTriggerAt(2).press('ArrowUp');
+      await expect(d.getTriggerAt(0)).toBeFocused();
+    });
+
+    test(`GIVEN an Accordion and the last item is disabled
+          WHEN pressing the end key
+          THEN it should focus the last enabled item`, async ({ page }) => {
+      const { d } = await collapsibleSetup(page, 'disabled');
+      await d.getTriggerAt(0).focus();
+      await d.getTriggerAt(0).press('End');
+      await expect(d.getTriggerAt(2)).toBeFocused();
+    });
+  });
+
   test.describe('looping', () => {
     test(`GIVEN an Accordion and the last item is focused
           WHEN pressing the down arrow key

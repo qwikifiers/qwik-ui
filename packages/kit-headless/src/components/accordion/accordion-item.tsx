@@ -19,7 +19,6 @@ type InternalAccordionItemProps = {
 type AccordionItemProps = PropsOf<typeof HCollapsible> & {
   open?: boolean;
   value?: string;
-  disabled?: boolean;
 };
 
 export const HAccordionItem = component$(

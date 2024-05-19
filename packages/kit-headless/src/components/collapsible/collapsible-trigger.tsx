@@ -18,6 +18,7 @@ export const HCollapsibleTrigger = component$<PropsOf<'button'>>(
         ref={context.triggerRef}
         disabled={context.disabled}
         data-disabled={context.disabled ? '' : undefined}
+        aria-disabled={context.disabled ? 'true' : 'false'}
         data-open={context.isOpenSig.value ? '' : undefined}
         data-closed={!context.isOpenSig.value ? '' : undefined}
         aria-expanded={context.isOpenSig.value}
