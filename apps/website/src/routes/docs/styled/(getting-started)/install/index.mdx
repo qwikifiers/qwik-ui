@@ -34,10 +34,8 @@ pnpm qwik-ui add input
 
 ### Step 1: Install the Headless Kit and qwikest icons
 
-To get started with the Styled Kit for Qwik UI, you first need to install the headless package and qwikest icons:
-
 ```zsh
-pnpm i -D @qwik-ui/headless @qwikest/icons
+pnpm i -D @qwik-ui/headless @qwikest/icons tailwindcss-animate
 ```
 
 ### Step 2: copy/paste your theme config
@@ -50,26 +48,26 @@ For example, we use the following config by default on the Qwik UI docs:
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --popover-foreground: 240 5.9% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --primary: 191.6 91.4% 36.5%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 214.3 31.8% 91.4%;
-    --secondary-foreground: 0 0% 0%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --card-foreground: 240 5.9% 10%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --primary: 0 93.5% 81.8%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 240 5.9% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
     --alert: 0 84.2% 60.2%;
-    --alert-foreground: 210 40% 98%;
-    --ring: 222.2 47.4% 11.2%;
+    --alert-foreground: 0 0% 98%;
+    --ring: 240 5.9% 10%;
     --border-width: 0px;
-    --border-radius: 0;
+    --border-radius: 0.5rem;
     --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
@@ -81,27 +79,27 @@ For example, we use the following config by default on the Qwik UI docs:
     --transform-press: scale(0.95);
   }
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --primary: 191.6 91.4% 36.5%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 214.3 31.8% 91.4%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --primary: 0 93.5% 81.8%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 0 0% 0%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
     --alert: 0 84.2% 60.2%;
-    --alert-foreground: 210 40% 98%;
-    --ring: 212.7 26.8% 83.9;
+    --alert-foreground: 0 0% 98%;
+    --ring: 240 4.9% 83.9%;
     --border-width: 0px;
-    --border-radius: 0;
+    --border-radius: 0.5rem;
     --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
@@ -120,39 +118,24 @@ For example, we use the following config by default on the Qwik UI docs:
 Finally, you need to modify your `tailwind.config.js` file:
 
 ```tsx
-const plugin = require('tailwindcss/plugin');
-
 const { join } = require('path');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
   plugins: [
+    require('tailwindcss-animate'),
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
         },
-        '.appear': {
-          opacity: 1,
-        },
-        '.disappear': {
-          opacity: 0,
-        },
       });
     }),
   ],
-
-  content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
   darkMode: 'class',
   theme: {
-    screens: {
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
-      '2xl': '1536px',
-    },
-    important: true,
     extend: {
       colors: {
         border: 'hsl(var(--border))',
@@ -216,15 +199,18 @@ module.exports = {
         '2xl': 'var(--shadow-2xl)',
         inner: 'var(--shadow-inner)',
       },
-      fontFamily: {
-        sans: ['Inter Variable', 'sans-serif'],
+      strokeWidth: {
+        0: '0',
+        base: 'var(--stroke-width)',
+        1: 'calc(var(--stroke-width) + 1px)',
+        2: 'calc(var(--stroke-width) + 2px)',
       },
     },
   },
 };
 ```
 
-This might seem like a lot of configuration, but we believe it to be worth it as it is what allows changing styles and themes at the click of a button.
+This might seem like a lot of configuration, but we believe it to be worth it because it allows changing your entire application's theme at the click of a button.
 
 ### Step 4: Find the components you need in the docs and copy/paste them into your project
 
