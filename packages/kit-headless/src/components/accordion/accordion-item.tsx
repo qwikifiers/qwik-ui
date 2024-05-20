@@ -2,6 +2,7 @@ import {
   PropsOf,
   Slot,
   component$,
+  useComputed$,
   useContext,
   useContextProvider,
   useId,
@@ -26,7 +27,12 @@ export const HAccordionItem = component$(
     const context = useContext(accordionContextId);
     const localId = useId();
     const itemId = id ?? localId + '-item';
-    const localIndexSig = useSignal<number>(_index!);
+
+    // gets the index dynamically
+    const localIndexSig = useComputed$(() => {
+      return _index ?? -1;
+    });
+
     const isOpenSig = useSignal<boolean>(context.initialIndex === localIndexSig.value);
     const initialLoadSig = useSignal<boolean>(true);
     const triggerRef = useSignal<HTMLButtonElement>(null as unknown as HTMLButtonElement);
@@ -34,14 +40,13 @@ export const HAccordionItem = component$(
     useTask$(function internalState({ track }) {
       track(() => context.selectedIndexSig.value);
 
-      // collect trigger refs for keyboard navigation
-      context.triggerRefsArray.value[localIndexSig.value] = triggerRef;
-
       if (context.multiple || isServer) return;
 
       if (context.selectedIndexSig.value !== localIndexSig.value) {
         isOpenSig.value = false;
       } else {
+        // never executes when first item is opened, then new item added, then new first item opened
+
         // onChange$ behavior - called once when the value changes
         if (!initialLoadSig.value && value && context.onChange$) {
           context.onChange$(value);
@@ -65,6 +70,13 @@ export const HAccordionItem = component$(
       } else {
         isOpenSig.value = false;
       }
+    });
+
+    useTask$(({ track }) => {
+      track(() => localIndexSig.value);
+
+      // collect trigger refs for keyboard navigation
+      context.triggerRefsArray.value[localIndexSig.value] = triggerRef;
     });
 
     useTask$(() => {
