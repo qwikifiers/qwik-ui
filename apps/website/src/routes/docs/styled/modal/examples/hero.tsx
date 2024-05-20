@@ -1,5 +1,7 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Button, Input, Label, Modal } from '~/components/ui';
+import { cn } from '@qwik-ui/utils';
+import { LuX } from '@qwikest/icons/lucide';
+import { Button, Input, Label, Modal, buttonVariants } from '~/components/ui';
 
 export default component$(() => {
   const show = useSignal(false);
@@ -8,8 +10,8 @@ export default component$(() => {
     <Modal.Root bind:show={show}>
       <Modal.Trigger>Open modal</Modal.Trigger>
       <Modal.Panel>
-        <Modal.Title class="text-lg font-bold">Edit Profile</Modal.Title>
-        <Modal.Description class="text-sm font-light">
+        <Modal.Title>Edit Profile</Modal.Title>
+        <Modal.Description>
           Make changes to your profile here. Click save when you're done.
         </Modal.Description>
         <div class="grid gap-4 py-4">
@@ -32,10 +34,19 @@ export default component$(() => {
           </div>
         </div>
         <footer>
-          <Button onClick$={() => (show.value = false)} type="submit">
-            Save changes
+          <Button look="primary" onClick$={() => (show.value = false)}>
+            Save
           </Button>
         </footer>
+        <Modal.Close
+          class={cn(
+            buttonVariants({ size: 'icon', look: 'ghost' }),
+            'absolute right-3 top-2',
+          )}
+          type="submit"
+        >
+          <LuX class="h-5 w-5" />
+        </Modal.Close>
       </Modal.Panel>
     </Modal.Root>
   );
