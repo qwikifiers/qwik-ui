@@ -21,11 +21,13 @@ export function useModal() {
     if (animationDuration !== '0s') {
       modal.addEventListener(
         'animationend',
-        () => {
-          delete modal.dataset.closing;
-          modal.classList.remove('modal-closing');
-          enableBodyScroll(modal);
-          modal.close();
+        (e) => {
+          if (e.target === modal) {
+            delete modal.dataset.closing;
+            modal.classList.remove('modal-closing');
+            enableBodyScroll(modal);
+            modal.close();
+          }
         },
         { once: true },
       );
@@ -33,11 +35,13 @@ export function useModal() {
     if (transitionDuration !== '0s') {
       modal.addEventListener(
         'transitionend',
-        () => {
-          delete modal.dataset.closing;
-          modal.classList.remove('modal-closing');
-          enableBodyScroll(modal);
-          modal.close();
+        (e) => {
+          if (e.target === modal) {
+            delete modal.dataset.closing;
+            modal.classList.remove('modal-closing');
+            enableBodyScroll(modal);
+            modal.close();
+          }
         },
         { once: true },
       );
