@@ -28,7 +28,7 @@ const Title = component$<PropsOf<'h2'>>(({ ...props }) => {
   return (
     <HeadlessModal.Title
       {...props}
-      class={cn('flex flex-col space-y-1.5 text-center sm:text-left', props.class)}
+      class={cn('text-lg font-semibold tracking-tight', props.class)}
     >
       <Slot />
     </HeadlessModal.Title>
@@ -37,7 +37,10 @@ const Title = component$<PropsOf<'h2'>>(({ ...props }) => {
 
 const Description = component$<PropsOf<'p'>>(({ ...props }) => {
   return (
-    <HeadlessModal.Description {...props} class={cn('text-sm font-light', props.class)}>
+    <HeadlessModal.Description
+      {...props}
+      class={cn('text-sm text-muted-foreground', props.class)}
+    >
       <Slot />
     </HeadlessModal.Description>
   );
