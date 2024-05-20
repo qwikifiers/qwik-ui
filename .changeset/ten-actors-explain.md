@@ -2,4 +2,4 @@
 '@qwik-ui/styled': patch
 ---
 
-REFACTOR styled button: place transitions into shared class
+Styled button now uses `transition-all` for every variant shared class
