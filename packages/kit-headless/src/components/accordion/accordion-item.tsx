@@ -77,6 +77,12 @@ export const HAccordionItem = component$(
 
       // collect trigger refs for keyboard navigation
       context.triggerRefsArray.value[localIndexSig.value] = triggerRef;
+
+      // update selected index when new are added and the item is opened
+      track(() => isOpenSig.value);
+      if (isOpenSig.value) {
+        context.selectedIndexSig.value = localIndexSig.value;
+      }
     });
 
     useTask$(() => {
