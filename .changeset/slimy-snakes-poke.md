@@ -1,14 +1,42 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
-import { Modal as HeadlessModal } from '@qwik-ui/headless';
-import { cn } from '@qwik-ui/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
+---
+'@qwik-ui/styled': minor
+---
 
-const Root = HeadlessModal.Root;
+## tailwind.config.cjs
 
-const Trigger = HeadlessModal.Trigger;
+Now uses tailwindcss-animate
 
-const Close = HeadlessModal.Close;
+```ts
+  plugins: [
+    require('tailwindcss-animate'),
+    ...
+  ],
+```
 
+Instead of manually defined animations through a custom plugin like
+
+```ts
+plugins: [
+  plugin(function ({ addUtilities }) {
+    addUtilities({
+      '.appear': {
+        opacity: 1,
+      },
+      '.disappear': {
+        opacity: 0,
+      },
+    });
+  }),
+];
+```
+
+## Modal refactor
+
+### Modal.Panel
+
+The Panel now uses tailwindcss-animate and comes built-in with 5 `position` variant props
+
+```tsx
 export const panelVariants = cva(
   [
     'fixed w-full bg-background p-6 text-foreground transition-all backdrop:brightness-50 backdrop:backdrop-blur-sm',
@@ -44,34 +72,25 @@ const Panel = component$<PanelProps>(({ position, ...props }) => {
     </HeadlessModal.Panel>
   );
 });
+```
 
-const Title = component$<PropsOf<'h2'>>(({ ...props }) => {
-  return (
-    <HeadlessModal.Title
-      {...props}
-      class={cn('text-lg font-semibold tracking-tight', props.class)}
-    >
-      <Slot />
-    </HeadlessModal.Title>
-  );
-});
+over previous tailwind.config.js home-made plugin
 
-const Description = component$<PropsOf<'p'>>(({ ...props }) => {
-  return (
-    <HeadlessModal.Description
-      {...props}
-      class={cn('text-sm text-muted-foreground', props.class)}
-    >
-      <Slot />
-    </HeadlessModal.Description>
-  );
-});
+```tsx
+        '.appear': {
+          opacity: 1,
+        },
+        '.disappear': {
+          opacity: 0,
+        },
+```
 
-export const Modal = {
-  Root,
-  Trigger,
-  Close,
-  Panel,
-  Title,
-  Description,
-};
+to avoid re-inventing the wheel.
+
+### Modal.Title
+
+Title now holds `text-lg font-semibold` classes.
+
+### Modal.Description
+
+Description now holds `text-muted-foreground` class.

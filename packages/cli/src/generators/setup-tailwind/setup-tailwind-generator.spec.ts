@@ -92,16 +92,11 @@ html {
       /** @type {import('tailwindcss').Config} */
       module.exports = {
         plugins: [
+          require('tailwindcss-animate'),
           plugin(function ({ addUtilities }) {
             addUtilities({
               '.press': {
                 transform: 'var(--transform-press)',
-              },
-              '.appear': {
-                opacity: 1,
-              },
-              '.disappear': {
-                opacity: 0,
               },
             });
           }),
@@ -216,16 +211,11 @@ html {
       /** @type {import('tailwindcss').Config} */
       export default {
         plugins: [
+          require('tailwindcss-animate'),
           plugin(function ({ addUtilities }) {
             addUtilities({
               '.press': {
                 transform: 'var(--transform-press)',
-              },
-              '.appear': {
-                opacity: 1,
-              },
-              '.disappear': {
-                opacity: 0,
               },
             });
           }),
@@ -339,16 +329,11 @@ html {
       /** @type {import('tailwindcss').Config} */
       export default {
         plugins: [
+          require('tailwindcss-animate'),
           plugin(function ({ addUtilities }) {
             addUtilities({
               '.press': {
                 transform: 'var(--transform-press)',
-              },
-              '.appear': {
-                opacity: 1,
-              },
-              '.disappear': {
-                opacity: 0,
               },
             });
           }),
