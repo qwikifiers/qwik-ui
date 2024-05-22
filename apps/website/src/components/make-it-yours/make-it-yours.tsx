@@ -71,7 +71,7 @@ export default component$<PropsOf<typeof Button>>(() => {
         <LuSlidersHorizontal class={cn('h-4 w-4 sm:mr-2')} />
         <span class={cn('hidden', 'sm:block')}>Make it yours</span>
       </Modal.Trigger>
-      <Modal.Panel class="fixed right-0 mr-0 h-screen max-w-sm rounded-none rounded-l-base  border-y border-l data-[closing]:slide-out-to-right data-[open]:slide-in-from-right sm:w-full">
+      <Modal.Panel position="right">
         <header class="flex w-full">
           <h2 class="justify-self-start text-lg font-bold">Edit Profile</h2>
         </header>
