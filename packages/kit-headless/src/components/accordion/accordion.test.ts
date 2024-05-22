@@ -399,11 +399,11 @@ test.describe('CSR', () => {
 });
 
 test.describe('Dynamic', () => {
-  test(`GIVEN an Accordion with items added dynamically
+  test(`GIVEN an Accordion with three items
         WHEN the first item is opened
-        AND a new item is added and opened
-        THEN the original first item should be closed
-        AND the new item should be open
+        AND an item is added to the front and opened
+        THEN the second item should be closed
+        AND the new first item should be open
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'dynamic');
 
@@ -414,5 +414,25 @@ test.describe('Dynamic', () => {
 
     await expect(d.getContentAt(0)).toBeVisible();
     await expect(d.getContentAt(1)).toBeHidden();
+  });
+
+  test(`GIVEN an Accordion with three items
+        WHEN two items are added
+        AND the end key is pressed
+        AND the 5th item should be focused
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'dynamic');
+
+    await d.getTriggerAt(0).click();
+    await d.locator.getByRole('button', { name: 'Add Item' }).click();
+    await d.locator.getByRole('button', { name: 'Add Item' }).click();
+
+    await expect(d.getTriggerAt(3)).toBeVisible();
+    await expect(d.getTriggerAt(4)).toBeVisible();
+
+    await d.getTriggerAt(0).focus();
+    await d.getTriggerAt(0).press('End');
+
+    await expect(d.getTriggerAt(4)).toBeFocused();
   });
 });
