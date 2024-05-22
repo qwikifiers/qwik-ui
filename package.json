@@ -116,6 +116,7 @@
     "node-fetch": "3.3.2",
     "np": "^10.0.5",
     "nx": "19.0.4",
+    "pkg-pr-new": "0.0.4",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
