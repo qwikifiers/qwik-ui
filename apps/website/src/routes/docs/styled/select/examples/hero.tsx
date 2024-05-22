@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik';
+import { LuCheck } from '@qwikest/icons/lucide';
 import { Select } from '~/components/ui';
 
 export default component$(() => {
@@ -10,10 +11,15 @@ export default component$(() => {
       <Select.Trigger>
         <Select.DisplayText placeholder="Select an option" />
       </Select.Trigger>
-      <Select.Popover>
+      <Select.Popover gutter={8}>
         <Select.Listbox>
           {users.map((user) => (
-            <Select.Item key={user}>{user}</Select.Item>
+            <Select.Item key={user}>
+              <Select.ItemLabel>{user}</Select.ItemLabel>
+              <Select.ItemIndicator>
+                <LuCheck class="h-4 w-4" />
+              </Select.ItemIndicator>
+            </Select.Item>
           ))}
         </Select.Listbox>
       </Select.Popover>
