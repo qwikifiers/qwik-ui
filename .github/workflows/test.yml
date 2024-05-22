@@ -29,3 +29,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           chromatic_token: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+      - run: pnpx pkg-pr-new publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN is provided automatically in any repository
