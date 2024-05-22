@@ -205,7 +205,12 @@ test.describe('keyboard behavior', () => {
       await expect(getTriCheckbox()).toHaveAttribute('aria-controls');
       const magic = await getTriCheckbox().getAttribute('aria-controls');
       expect(magic).not.toBe(null);
-      const idArr = magic!.split(' ');
+      if (magic === null) {
+        throw new Error(
+          'no mixed checkbox found. Was the driver or test template changed?',
+        );
+      }
+      const idArr = magic.split(' ');
       expect(isUniqArr(idArr)).toBe(true);
       for (let index = 0; index < idArr.length; index++) {
         const elementId = idArr[index];

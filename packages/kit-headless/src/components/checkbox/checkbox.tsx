@@ -150,7 +150,6 @@ export const MixedStateCheckbox = component$<MixedStateCheckboxProps>((props) =>
       ? ''
       : checklistContext.idArr.reduce((p, c) => p + ' ' + c);
   useContextProvider(CheckboxContext, appliedSig);
-  useTask$(() => {});
 
   // im not enterily sure why, but the if statement only runs once
   if (props.checkBoxSig !== undefined) {
