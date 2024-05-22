@@ -14,23 +14,84 @@ A set of interactive sections that show or hide connected information.
 
 <Showcase name="hero" />
 
-## Initial Value
+<FeatureList
+  features={[
+    'Follows the WAI-Aria design pattern',
+    'Full keyboard navigation',
+    'Can open one or multiple items at a time',
+    'Supports initial and reactive values',
+  ]}
+/>
+
+## Building blocks
+
+<CodeSnippet name="building-blocks.tsx" />
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Accordion.Root',
+      description: 'The primary container for the accordion.',
+    },
+    {
+      name: 'Accordion.Item',
+      description: 'A single disclosure widget.',
+    },
+    {
+      name: 'Accordion.Header',
+      description: 'The heading element of an accordion item.',
+    },
+    {
+      name: 'Accordion.Trigger',
+      description: 'Activates to show or hide the accordion content.',
+    },
+    {
+      name: 'Accordion.Content',
+      description: 'Displays the content when its connected trigger is actived.',
+    },
+  ]}
+/>
+
+## Why use a headless accordion?
+
+While you can create a native disclosure with HTML elements like `details` and `summary`, there are some limitations and issues with them.
+
+### Native disclosure pain points
+
+<FeatureList
+  issues={[
+    'Cannot control multiple disclosures at once',
+    'Inconsistent accessible name computation',
+    'Unintuitive role announcements',
+    'Connected information is hard to find with AT',
+  ]}
+/>
+
+Qwik UI includes a headless Accordion component that uses ARIA and JavaScript to enhance accessibility and usability for managing multiple sections smoothly.
+
+> For more information on the inconsistencies of these native elements, see Scott O'Hara's [The details and summary elements, again](https://www.scottohara.me/blog/2022/09/12/details-summary.html) article.
+
+## Component State
+
+## Initial value
 
 <Showcase name="initial" />
 
-## Reactive
+## Reactive value
 
 <Showcase name="reactive" />
 
-## Programmatic
+## Programmatic changes
 
 <Showcase name="programmatic" />
 
-## Handle Change
+## Handling selection changes
 
 <Showcase name="on-change" />
 
-## Disabled
+## Disabled items
 
 <Showcase name="disabled" />
 
@@ -45,3 +106,7 @@ A set of interactive sections that show or hide connected information.
 ## Dynamic
 
 <Showcase name="dynamic" />
+
+## Example CSS
+
+<CodeSnippet name="accordion.css" />
