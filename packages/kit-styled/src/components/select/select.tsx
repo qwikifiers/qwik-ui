@@ -1,26 +1,3 @@
----
-title: Qwik UI | Styled Select Component
----
-
-import { statusByComponent } from '~/_state/component-statuses';
-
-<StatusBanner status={statusByComponent.styled.Select} />
-
-# Select
-
-Displays a list of options for the user to pick from — triggered by a button.
-
-<Showcase name="hero" />
-
-## Installation
-
-### Run the following cli command or copy/paste the component code into your project
-
-```sh
-qwik-ui add select
-```
-
-```tsx
 import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { Select as HeadlessSelect } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
@@ -153,4 +130,3 @@ export const Select = {
   ItemIndicator,
   ItemLabel,
 };
-```

@@ -1,8 +1,8 @@
-import { Slot, component$, useContext } from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
 import { selectItemContextId } from './select-context';
 
-export const HSelectItemIndicator = component$(() => {
+export const HSelectItemIndicator = component$<PropsOf<'span'>>(() => {
   const selectContext = useContext(selectItemContextId);
 
-  return <>{selectContext.isSelectedSig.value && <Slot />}</>;
+  return <span>{selectContext.isSelectedSig.value && <Slot />}</span>;
 });

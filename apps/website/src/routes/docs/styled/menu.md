@@ -29,6 +29,7 @@
 - [Popover](/docs/styled/popover)
 - [Progress](/docs/styled/progress)
 - [RadioGroup](/docs/styled/radio-group)
+- [Select](/docs/styled/select)
 - [Separator](/docs/styled/separator)
 - [Skeleton](/docs/styled/skeleton)
 - [Tabs](/docs/styled/tabs)
