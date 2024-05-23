@@ -103,6 +103,7 @@ export const HAccordionItem = component$(
         bind:open={isOpenSig}
         id={itemId}
         disabled={context.disabled || props.disabled}
+        collapsible={context.collapsible}
         {...props}
       >
         <Slot />
