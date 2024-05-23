@@ -90,3 +90,39 @@
 .collapsible-animation[data-closed] {
   animation: 350ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards collapsible-closed;
 }
+
+.dynamic-input {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.dynamic-input label {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-block: 0.5rem;
+  align-items: center;
+}
+
+.dynamic-input input {
+  margin-bottom: 0.5rem;
+  width: 5rem;
+  background: hsl(var(--accent));
+  border: 2px dotted hsl(var(--foreground));
+  padding-left: 0.5rem;
+}
+
+.dynamic-input .add input {
+  background: hsla(var(--primary) / 0.2);
+}
+
+.dynamic-input .delete input {
+  background: hsla(var(--secondary) / 0.2);
+}
+
+.dynamic-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-block: 0.5rem;
+}

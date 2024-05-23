@@ -10,6 +10,7 @@ export type AccordionContext = {
   onChange$: QRL<(value: string) => void> | undefined;
   itemsMapSig?: Signal<Map<number, boolean>> | undefined;
   triggerRefsArray: Signal<Array<Signal>>;
+  disabled?: boolean;
 };
 
 export const accordionItemContextId =

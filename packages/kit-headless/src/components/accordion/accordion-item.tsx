@@ -98,7 +98,13 @@ export const HAccordionItem = component$(
     useContextProvider(accordionItemContextId, itemContext);
 
     return (
-      <HCollapsible triggerRef={triggerRef} bind:open={isOpenSig} id={itemId} {...props}>
+      <HCollapsible
+        triggerRef={triggerRef}
+        bind:open={isOpenSig}
+        id={itemId}
+        disabled={context.disabled || props.disabled}
+        {...props}
+      >
         <Slot />
       </HCollapsible>
     );

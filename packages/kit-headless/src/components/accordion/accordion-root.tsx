@@ -5,6 +5,7 @@ import {
   useComputed$,
   useContextProvider,
   useSignal,
+  useTask$,
 } from '@builder.io/qwik';
 import { AccordionRootProps } from './accordion-inline';
 import { accordionContextId } from './accordion-context';
@@ -15,11 +16,9 @@ export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
     'bind:value': givenValueSig,
     initialIndex,
     onChange$,
-    itemsMap,
+    disabled,
     ...rest
   } = props;
-
-  itemsMap;
 
   const selectedIndexSig = useSignal<number>(initialIndex ?? -1);
   const triggerRefsArray = useSignal<Array<Signal>>([]);
@@ -36,7 +35,12 @@ export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
     onChange$,
     itemsMapSig,
     triggerRefsArray,
+    disabled,
   };
+
+  useTask$(({ track }) => {
+    context.disabled = track(() => disabled);
+  });
 
   useContextProvider(accordionContextId, context);
 

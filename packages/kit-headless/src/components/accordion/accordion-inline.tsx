@@ -20,6 +20,9 @@ export type AccordionRootProps = PropsOf<'div'> & {
 
   /** A map of the item indexes and their disabled state. */
   itemsMap?: Map<number, boolean>;
+
+  /** If true, the accordion is disabled. */
+  disabled?: boolean;
 };
 
 export const HAccordionRoot: Component<AccordionRootProps> = (

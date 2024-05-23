@@ -75,37 +75,67 @@ Qwik UI includes a headless Accordion component that uses ARIA and JavaScript to
 
 ## Component State
 
-## Initial value
+### Initial value
+
+To set a default or initial value on page load, use the `value` prop on the `<Accordion.Root />` component.
 
 <Showcase name="initial" />
 
-## Reactive value
+The `value` prop on the `<Accordion.Root>` was set to `item-2`, which is the value of the second item. As a result, the second item is selected by default.
+
+### Reactive value
+
+Pass reactive state by using the `bind:value` prop on the `<Accordion.Root /> `component.
 
 <Showcase name="reactive" />
 
-## Programmatic changes
+### Programmatic changes
+
+You can also change the current expanded item values programmatically by updating the signal's value.
 
 <Showcase name="programmatic" />
 
-## Handling selection changes
+### Handling selection changes
+
+Listen to when a new item is selected by passing a callback function to the `onChange$` prop.
 
 <Showcase name="on-change" />
 
-## Disabled items
+### Disabled items
+
+Items can be disabled by setting the `disabled` prop to true on the `<Accordion.Item />` component.
 
 <Showcase name="disabled" />
 
+> Disabled items are not selectable or focusable. They are also skipped when using the arrow keys to navigate through the items.
+
+### Disabled Component
+
+The component itself can also be disabled by setting the `disabled` prop to true on the `<Accordion.Root />` component.
+
+<Showcase name="disabled-root" />
+
 ## Animation
+
+Animations can also be added using the `--qwikui-collapsible-content-height` variable.
 
 <Showcase name="animation" />
 
+<CodeSnippet name="animation.css" />
+
 ## CSR
+
+The Accordion automatically renders based on its environment. This means that it works for both server-side and client-side rendering.
 
 <Showcase name="csr" />
 
 ## Dynamic
 
+You have custom control over how to render items in the Accordion, allowing for dynamic rendering of items.
+
 <Showcase name="dynamic" />
+
+> This also updates the selected items, disabled items, and focus order automatically for you.
 
 ## Example CSS
 
