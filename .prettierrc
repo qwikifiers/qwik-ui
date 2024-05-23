@@ -5,5 +5,5 @@
   "printWidth": 90,
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindConfig": "./apps/website/tailwind.config.cjs",
-  "tailwindFunctions": ["clsx", "cva", "cn"]
+  "tailwindFunctions": ["clsx", "cva"]
 }
