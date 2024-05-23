@@ -14,6 +14,8 @@ A set of interactive sections that show or hide connected information.
 
 <Showcase name="hero" />
 
+## ✨ Features
+
 <FeatureList
   features={[
     'Follows the WAI-Aria design pattern',
@@ -123,7 +125,9 @@ The component itself can also be disabled by setting the `disabled` prop to true
 
 <Showcase name="disabled-root" />
 
-## Animation
+## Advanced
+
+### Animation
 
 Animations can also be added using the `--qwikui-collapsible-content-height` variable.
 
@@ -131,13 +135,13 @@ Animations can also be added using the `--qwikui-collapsible-content-height` var
 
 <CodeSnippet name="animation.css" />
 
-## CSR
+### CSR
 
 The Accordion automatically renders based on its environment. This means that it works for both server-side and client-side rendering.
 
 <Showcase name="csr" />
 
-## Dynamic
+### Dynamic
 
 You have custom control over how to render items in the Accordion, allowing for dynamic rendering of items.
 
@@ -148,3 +152,98 @@ You have custom control over how to render items in the Accordion, allowing for 
 ## Example CSS
 
 <CodeSnippet name="accordion.css" />
+
+## Keyboard Interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: `Expands the content of the focused section.`,
+    },
+    {
+      keyTitle: 'Enter',
+      description: `Expands the content of the focused section.`,
+    },
+    {
+      keyTitle: 'Tab',
+      description: `Moves focus to the next element.`,
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: `Moves focus to the previous element.`,
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: `Moves focus to the next trigger.`,
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: `Moves focus to the previous trigger.`,
+    },
+    {
+      keyTitle: 'Home',
+      description: `Moves focus to the first trigger.`,
+    },
+    {
+      keyTitle: 'End',
+      description: `Moves focus to the last trigger.`,
+    },
+  ]}
+/>
+
+## API
+
+### Accordion.Root
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'multiple',
+      type: 'boolean',
+      description: 'Allows multiple items to be expanded.',
+    },
+    {
+      name: 'bind:value',
+      type: 'Signal',
+      description: 'Reactive signal that controls the selected item.',
+    },
+    {
+      name: 'initialIndex',
+      type: 'number',
+      description: 'Index of the initially expanded item.',
+    },
+    {
+      name: 'onChange$',
+      type: 'function',
+      description: 'Called when the state changes.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Disables the entire accordion.',
+    },
+    {
+      name: 'collapsible',
+      type: 'boolean',
+      description: 'Allows items to be collapsible.',
+    },
+  ]}
+/>
+
+### Accordion.Item
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'value',
+      type: 'string',
+      description: 'The value associated with the accordion item.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, the accordion item is disabled.',
+    },
+  ]}
+/>

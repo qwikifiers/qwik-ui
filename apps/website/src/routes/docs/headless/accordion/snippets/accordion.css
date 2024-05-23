@@ -118,7 +118,7 @@
 }
 
 .dynamic-input .delete input {
-  background: hsla(var(--secondary) / 0.2);
+  background: hsla(var(--accent) / 1);
 }
 
 .dynamic-buttons {
