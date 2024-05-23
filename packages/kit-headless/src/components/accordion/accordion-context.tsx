@@ -11,6 +11,7 @@ export type AccordionContext = {
   itemsMapSig?: Signal<Map<number, boolean>> | undefined;
   triggerRefsArray: Signal<Array<Signal>>;
   disabled?: boolean;
+  collapsible?: boolean;
 };
 
 export const accordionItemContextId =

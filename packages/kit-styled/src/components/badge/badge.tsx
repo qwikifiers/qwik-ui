@@ -19,7 +19,7 @@ export const badgeVariants = cva(
   },
 );
 
-export type BadgeProps = PropsOf<'div'> & VariantProps<typeof badgeVariants>;
+type BadgeProps = PropsOf<'div'> & VariantProps<typeof badgeVariants>;
 
 export const Badge = component$<BadgeProps>(({ look, ...props }) => {
   return (

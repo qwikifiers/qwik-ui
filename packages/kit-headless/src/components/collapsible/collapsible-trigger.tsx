@@ -7,6 +7,7 @@ export const HCollapsibleTrigger = component$<PropsOf<'button'>>(
     const contentId = `${context.itemId}-content`;
 
     const handleClick$ = $(async () => {
+      if (!context.collapsible) return;
       context.isOpenSig.value = !context.isOpenSig.value;
     });
 

@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Button, Textarea } from '@qwik-ui/styled';
+import { Button, Textarea } from '~/components/ui';
 
 export default component$(() => {
   return (

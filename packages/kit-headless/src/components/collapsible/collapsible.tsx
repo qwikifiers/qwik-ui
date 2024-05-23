@@ -23,6 +23,7 @@ export type CollapsibleProps = PropsOf<'div'> & {
   onOpenChange$?: QRL<(open: boolean) => void>;
   disabled?: boolean;
   triggerRef?: Signal<HTMLButtonElement>;
+  collapsible?: boolean;
 };
 
 export const HCollapsible = component$((props: CollapsibleProps) => {
@@ -33,6 +34,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     'bind:open': givenIsOpenSig,
     id,
     triggerRef: givenTriggerRef,
+    collapsible = true,
     open,
     ...rest
   } = props;
@@ -88,6 +90,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     getContentDimensions$,
     disabled,
     isAnimatedSig,
+    collapsible,
   };
 
   useContextProvider(collapsibleContextId, context);

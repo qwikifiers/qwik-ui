@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import { Input, Label } from '@qwik-ui/styled';
+import { Input } from '~/components/ui';
+import { Label } from '~/components/ui';
 
 export default component$(() => {
   return (

@@ -2,8 +2,6 @@ import { component$, PropsOf, Slot } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-// TODO: Create a RFC of the variants and explaining the thought process behind them
-
 export const buttonVariants = cva(
   'inline-flex items-center justify-center rounded text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
   {

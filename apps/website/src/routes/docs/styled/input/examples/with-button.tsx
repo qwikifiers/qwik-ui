@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import { Button, Input } from '@qwik-ui/styled';
+import { Input } from '~/components/ui';
+import { Button } from '~/components/ui';
 
 export default component$(() => {
   return (

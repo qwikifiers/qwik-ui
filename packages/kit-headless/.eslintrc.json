@@ -18,10 +18,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": [
-      "packages/kit-headless/tsconfig.*?.json",
-      "packages/kit-headless/.storybook/tsconfig.json"
-    ],
+    "project": ["packages/kit-headless/tsconfig.*?.json"],
     "ecmaVersion": 2021,
     "sourceType": "module",
     "ecmaFeatures": {
@@ -29,7 +26,7 @@
     }
   },
   "plugins": ["@typescript-eslint"],
-  "ignorePatterns": ["!**/*", "cypress.config.ts", "**/.storybook/*"],
+  "ignorePatterns": ["!**/*", "cypress.config.ts"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

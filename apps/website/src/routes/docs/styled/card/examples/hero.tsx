@@ -1,13 +1,5 @@
 import { PropsOf, component$ } from '@builder.io/qwik';
-import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@qwik-ui/styled';
+import { Button, Card } from '~/components/ui';
 import { cn } from '@qwik-ui/utils';
 import { LuBell, LuCheck } from '@qwikest/icons/lucide';
 
@@ -26,16 +18,16 @@ const notifications = [
   },
 ];
 
-type CardProps = PropsOf<typeof Card>;
+type CardProps = PropsOf<typeof Card.Root>;
 
 export default component$<CardProps>(({ ...props }) => {
   return (
-    <Card class={cn('w-[380px]', props.class)} {...props}>
-      <CardHeader>
-        <CardTitle>Notifications</CardTitle>
-        <CardDescription>You have 3 unread messages.</CardDescription>
-      </CardHeader>
-      <CardContent class="grid gap-4">
+    <Card.Root class={cn('w-[380px]', props.class)} {...props}>
+      <Card.Header>
+        <Card.Title>Notifications</Card.Title>
+        <Card.Description>You have 3 unread messages.</Card.Description>
+      </Card.Header>
+      <Card.Content class="grid gap-4">
         <div class=" flex items-center space-x-4 rounded-md border p-4">
           <LuBell />
           <div class="flex-1 space-y-1">
@@ -58,12 +50,12 @@ export default component$<CardProps>(({ ...props }) => {
             </div>
           ))}
         </div>
-      </CardContent>
-      <CardFooter>
+      </Card.Content>
+      <Card.Footer>
         <Button class="w-full">
           <LuCheck class="mr-2 h-4 w-4" /> Mark all as read
         </Button>
-      </CardFooter>
-    </Card>
+      </Card.Footer>
+    </Card.Root>
   );
 });

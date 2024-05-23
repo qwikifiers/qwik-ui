@@ -23,6 +23,9 @@ export type AccordionRootProps = PropsOf<'div'> & {
 
   /** If true, the accordion is disabled. */
   disabled?: boolean;
+
+  /** If true, the accordion is collapsible. */
+  collapsible?: boolean;
 };
 
 export const HAccordionRoot: Component<AccordionRootProps> = (

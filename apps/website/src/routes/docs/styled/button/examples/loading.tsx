@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Button } from '@qwik-ui/styled';
+import { Button } from '~/components/ui';
 import { LuLoader2 } from '@qwikest/icons/lucide';
 
 export default component$(() => {

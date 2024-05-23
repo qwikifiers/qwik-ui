@@ -1,21 +1,16 @@
 import { component$, useStyles$, $ } from '@builder.io/qwik';
 import { LuCheck } from '@qwikest/icons/lucide';
 import { Select } from '@qwik-ui/headless';
-import { useForm, required, InitialValues } from '@modular-forms/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
+import { useForm, required } from '@modular-forms/qwik';
 
 type Users = {
   firstName: string;
 };
 
-export const useSelectFormLoader = routeLoader$<InitialValues<Users>>(() => ({
-  firstName: '',
-}));
-
 export default component$(() => {
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
   const [, { Form, Field }] = useForm<Users>({
-    loader: useSelectFormLoader(),
+    loader: { value: { firstName: '' } },
   });
 
   useStyles$(styles);

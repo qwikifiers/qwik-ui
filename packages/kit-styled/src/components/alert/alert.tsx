@@ -22,7 +22,7 @@ export const alertVariants = cva(
 
 type AlertProps = PropsOf<'div'> & VariantProps<typeof alertVariants>;
 
-export const Alert = component$<AlertProps>(({ look, ...props }) => {
+const Root = component$<AlertProps>(({ look, ...props }) => {
   return (
     <div {...props} role="alert" class={cn(alertVariants({ look }), props.class)}>
       <Slot />
@@ -30,7 +30,7 @@ export const Alert = component$<AlertProps>(({ look, ...props }) => {
   );
 });
 
-export const AlertTitle = component$<PropsOf<'h5'>>(({ ...props }) => {
+const Title = component$<PropsOf<'h5'>>(({ ...props }) => {
   return (
     <h5
       {...props}
@@ -41,10 +41,16 @@ export const AlertTitle = component$<PropsOf<'h5'>>(({ ...props }) => {
   );
 });
 
-export const AlertDescription = component$<PropsOf<'div'>>(({ ...props }) => {
+const Description = component$<PropsOf<'div'>>(({ ...props }) => {
   return (
     <div {...props} class={cn('text-sm [&_p]:leading-relaxed', props.class)}>
       <Slot />
     </div>
   );
 });
+
+export const Alert = {
+  Root,
+  Title,
+  Description,
+};

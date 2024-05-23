@@ -8,9 +8,6 @@
   },
   "files": [],
   "exclude": [
-    "**/*.stories.ts",
-    "**/*.stories.js",
-    "**/*.stories.tsx",
     "cypress/**/*",
     "cypress.config.ts",
     "**/*.cy.ts",

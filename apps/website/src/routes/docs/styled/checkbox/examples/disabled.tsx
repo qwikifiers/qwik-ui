@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Checkbox } from '@qwik-ui/styled';
+import { Checkbox } from '~/components/ui';
 
 export default component$(() => {
   return (

@@ -17,6 +17,7 @@ export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
     initialIndex,
     onChange$,
     disabled,
+    collapsible = true,
     ...rest
   } = props;
 
@@ -36,6 +37,7 @@ export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
     itemsMapSig,
     triggerRefsArray,
     disabled,
+    collapsible,
   };
 
   useTask$(({ track }) => {
