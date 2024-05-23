@@ -41,7 +41,7 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
 
     /* check if there's a transition or animation */
     const { animationDuration, transitionDuration } = getComputedStyle(
-      context.contentRef.value!,
+      context.contentRef.value,
     );
 
     // don't animate if initially open

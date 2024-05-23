@@ -199,19 +199,14 @@ You have custom control over how to render items in the Accordion, allowing for 
 <APITable
   propDescriptors={[
     {
-      name: 'multiple',
-      type: 'boolean',
-      description: 'Allows multiple items to be expanded.',
+      name: 'value',
+      type: 'string',
+      description: 'The initial selectedd item of the accordion.',
     },
     {
       name: 'bind:value',
       type: 'Signal',
       description: 'Reactive signal that controls the selected item.',
-    },
-    {
-      name: 'initialIndex',
-      type: 'number',
-      description: 'Index of the initially expanded item.',
     },
     {
       name: 'onChange$',
@@ -227,6 +222,11 @@ You have custom control over how to render items in the Accordion, allowing for 
       name: 'collapsible',
       type: 'boolean',
       description: 'Allows items to be collapsible.',
+    },
+    {
+      name: 'multiple',
+      type: 'boolean',
+      description: 'Allows multiple items to be expanded.',
     },
   ]}
 />

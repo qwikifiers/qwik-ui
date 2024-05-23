@@ -24,6 +24,7 @@ export type CollapsibleProps = PropsOf<'div'> & {
   disabled?: boolean;
   triggerRef?: Signal<HTMLButtonElement>;
   collapsible?: boolean;
+  accordionItem?: boolean;
 };
 
 export const HCollapsible = component$((props: CollapsibleProps) => {
@@ -36,6 +37,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     triggerRef: givenTriggerRef,
     collapsible = true,
     open,
+    accordionItem,
     ...rest
   } = props;
 
@@ -78,6 +80,14 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
         '--qwikui-collapsible-content-height',
         `${contentHeightSig.value}px`,
       );
+
+      // support previous accordion animations
+      if (accordionItem) {
+        contentRef.value.style.setProperty(
+          '--qwikui-accordion-content-height',
+          `${contentHeightSig.value}px`,
+        );
+      }
     }
   });
 
