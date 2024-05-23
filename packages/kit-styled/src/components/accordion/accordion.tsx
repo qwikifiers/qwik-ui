@@ -29,7 +29,7 @@ const Trigger = component$<
       <HeadlessAccordion.Trigger
         {...props}
         class={cn(
-          'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
+          'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-open]>svg]:rotate-180',
           props.class,
         )}
       >
@@ -45,7 +45,7 @@ const Content = component$<PropsOf<typeof HeadlessAccordion.Content>>((props) =>
     <HeadlessAccordion.Content
       {...props}
       class={cn(
-        'overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
+        'overflow-hidden text-sm data-[closed]:animate-accordion-up data-[open]:animate-accordion-down',
         props.class,
       )}
     >
