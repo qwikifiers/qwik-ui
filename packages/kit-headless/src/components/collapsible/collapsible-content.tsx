@@ -27,47 +27,18 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
     }
   });
 
-  /* detects if the content is animating. on the server everything is "animatable", we then filter out the animations on the client. */
-  useTask$(async function automaticAnimations({ track }) {
+  useTask$(async function animations({ track }) {
     track(() => context.isOpenSig.value);
 
-    if (isServer) {
+    if (isServer || !context.isAnimatedSig.value) {
       return;
     }
 
-    if (!context.contentRef.value) return;
-
     await context.getContentDimensions$();
-
-    /* check if there's a transition or animation */
-    const { animationDuration, transitionDuration } = getComputedStyle(
-      context.contentRef.value,
-    );
-
-    // don't animate if initially open
-    if (
-      animationDuration === '0s' &&
-      transitionDuration === '0s' &&
-      !initialRenderSig.value
-    ) {
-      context.isAnimatedSig.value = false;
-    } else {
-      context.isAnimatedSig.value = true;
-    }
 
     if (context.isOpenSig.value) {
       isHiddenSig.value = false;
     }
-
-    setTimeout(() => {
-      const { animationDuration, transitionDuration } = getComputedStyle(
-        context.contentRef.value!,
-      );
-
-      if (animationDuration === '0s' && transitionDuration === '0s') {
-        context.isAnimatedSig.value = false;
-      }
-    }, 25);
 
     initialRenderSig.value = false;
   });

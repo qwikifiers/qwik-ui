@@ -24,7 +24,7 @@ export const HCollapsibleTrigger = component$<PropsOf<'button'>>(
         data-closed={!context.isOpenSig.value ? '' : undefined}
         aria-expanded={context.isOpenSig.value}
         aria-controls={contentId}
-        onClick$={[context.getContentDimensions$, handleClick$, onClick$]}
+        onClick$={[handleClick$, onClick$]}
       >
         <Slot />
       </button>

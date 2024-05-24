@@ -40,7 +40,7 @@ export const HAccordionItem = component$(
     useTask$(function internalState({ track }) {
       track(() => context.selectedIndexSig.value);
 
-      if (context.multiple || isServer) return;
+      if (context.isMultipleSig.value || isServer) return;
 
       if (context.selectedIndexSig.value !== localIndexSig.value) {
         isOpenSig.value = false;
@@ -105,6 +105,7 @@ export const HAccordionItem = component$(
         disabled={context.disabled || props.disabled}
         collapsible={context.collapsible}
         accordionItem
+        heightAnimation={context.isAnimatedSig.value}
         {...props}
       >
         <Slot />

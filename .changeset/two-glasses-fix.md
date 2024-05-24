@@ -10,15 +10,15 @@ The entire Qwik UI library now does not execute code until interaction.
 
 #### Accordion.Root
 
-- The `behavior="multi"` prop has been replaced with `multiple` on the `<Accordion.Root />` component.
+- The `behavior="multi"` prop has been deprecated with `multiple` on the `<Accordion.Root />` component.
 
 - The default behavior is a single item open at a time.
 
-- The `animated` prop has been deprecated. Animation entry and exit are now automatically handled by the component.
+- The `animated` prop has been deprecated in favor of `heightAnimation`.
 
-- `onSelectIndexChange$` has been deprecated in favor of `onChange$`.
+- `onSelectIndexChange$` has been deprecated and removed in favor of `onChange$`.
 
-- `onFocusIndexChange$` has been deprecated
+- `onFocusIndexChange$` has been deprecated and removed. Let us know if you have a use case for this.
 
 - Reactively control the accordion with the `bind:value` prop.
 

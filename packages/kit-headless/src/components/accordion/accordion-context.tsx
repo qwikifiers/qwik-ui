@@ -6,12 +6,13 @@ export type AccordionContext = {
   selectedIndexSig: Signal<number | null>;
   initialIndex?: number;
   givenValueSig: Signal<string | null> | undefined;
-  multiple?: boolean;
+  isMultipleSig: Signal<boolean>;
   onChange$: QRL<(value: string) => void> | undefined;
   itemsMapSig?: Signal<Map<number, boolean>> | undefined;
   triggerRefsArray: Signal<Array<Signal>>;
   disabled?: boolean;
   collapsible?: boolean;
+  isAnimatedSig: Signal<boolean>;
 };
 
 export const accordionItemContextId =

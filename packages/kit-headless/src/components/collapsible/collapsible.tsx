@@ -20,11 +20,13 @@ export type CollapsibleProps = PropsOf<'div'> & {
   open?: boolean | undefined;
   'bind:open'?: Signal<boolean>;
   onChange$?: QRL<(open: boolean) => void>;
+  /** @deprecated use `onChange$` instead */
   onOpenChange$?: QRL<(open: boolean) => void>;
   disabled?: boolean;
   triggerRef?: Signal<HTMLButtonElement>;
   collapsible?: boolean;
   accordionItem?: boolean;
+  heightAnimation?: boolean;
 };
 
 export const HCollapsible = component$((props: CollapsibleProps) => {
@@ -38,6 +40,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     collapsible = true,
     open,
     accordionItem,
+    heightAnimation,
     ...rest
   } = props;
 
@@ -47,7 +50,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
   const defaultTriggerRef = useSignal<HTMLButtonElement>();
   const triggerRef = givenTriggerRef ?? defaultTriggerRef;
   const contentRef = useSignal<HTMLElement>();
-  const isAnimatedSig = useSignal<boolean>(true);
+  const isAnimatedSig = useSignal<boolean>(heightAnimation === true);
 
   const contentHeightSig = useSignal<number | null>(null);
 

@@ -6,6 +6,11 @@ export type AccordionRootProps = PropsOf<'div'> & {
   /** If true, multiple items can be open at the same time. */
   multiple?: boolean;
 
+  /**
+   * @deprecated Use the multiple prop instead.
+   */
+  behavior?: 'single' | 'multi';
+
   /** The reactive value controlling which item is open. */
   'bind:value'?: Signal<string | null>;
 
@@ -26,6 +31,14 @@ export type AccordionRootProps = PropsOf<'div'> & {
 
   /** If true, the accordion is collapsible. */
   collapsible?: boolean;
+
+  /** If true, the accordion is animated. */
+  heightAnimation?: boolean;
+
+  /**
+   * @deprecated Use the heightAnimation prop instead.
+   */
+  animated?: boolean;
 };
 
 export const HAccordionRoot: Component<AccordionRootProps> = (

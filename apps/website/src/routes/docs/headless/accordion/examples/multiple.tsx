@@ -8,14 +8,14 @@ export default component$(() => {
   return (
     <Accordion.Root multiple>
       {items.map((item) => (
-        <Accordion.Item class="accordion-item" key={item}>
+        <Accordion.Item class="collapsible" key={item}>
           <Accordion.Header>
-            <Accordion.Trigger class="accordion-trigger">
+            <Accordion.Trigger class="collapsible-trigger">
               <span>Trigger {item}</span>
               <LuChevronDown />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content class="accordion-content">
+          <Accordion.Content class="collapsible-content-outline collapsible-content">
             Inside Content {item}
           </Accordion.Content>
         </Accordion.Item>
