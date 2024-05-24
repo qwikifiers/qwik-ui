@@ -86,6 +86,12 @@
       "files": ["radio-group.tsx"]
     },
     {
+      "displayName": "Select",
+      "type": "select",
+      "componentFolder": "select",
+      "files": ["select.tsx"]
+    },
+    {
       "displayName": "Separator",
       "type": "separator",
       "componentFolder": "separator",
