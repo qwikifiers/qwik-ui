@@ -5,11 +5,11 @@ import { cn } from '@qwik-ui/utils';
 
 import { LuChevronDown } from '@qwikest/icons/lucide';
 
-const Root = component$<PropsOf<typeof HeadlessAccordion.Root>>((props) => (
-  <HeadlessAccordion.Root animated {...props}>
-    <Slot />
+const Root = (props: PropsOf<typeof HeadlessAccordion.Root>) => (
+  <HeadlessAccordion.Root {...props} accordionItemComponent={Item} animated>
+    {props.children}
   </HeadlessAccordion.Root>
-));
+);
 
 const Item = component$<PropsOf<typeof HeadlessAccordion.Item>>((props) => {
   return (

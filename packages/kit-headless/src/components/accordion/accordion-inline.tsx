@@ -1,6 +1,6 @@
 import { Component, JSXNode, PropsOf, QRL, Signal } from '@builder.io/qwik';
-import { HAccordionItem } from './accordion-item';
 import { HAccordionRootImpl } from './accordion-root';
+import { Accordion } from '@qwik-ui/headless';
 
 export type AccordionRootProps = PropsOf<'div'> & {
   /** If true, multiple items can be open at the same time. */
@@ -34,17 +34,20 @@ export type AccordionRootProps = PropsOf<'div'> & {
 
   /** If true, the accordion is animated. */
   animated?: boolean;
+
+  accordionItemComponent: typeof Accordion.Item;
 };
 
 export const HAccordionRoot: Component<AccordionRootProps> = (
   props: AccordionRootProps,
 ) => {
-  const { children: accordionChildren, ...rest } = props;
+  const { children: accordionChildren, accordionItemComponent, ...rest } = props;
 
   let currItemIndex = 0;
   let initialIndex = null;
   const itemsMap = new Map();
 
+  const InternalItemComponent = accordionItemComponent || Accordion.Item;
   const childrenToProcess = (
     Array.isArray(accordionChildren) ? [...accordionChildren] : [accordionChildren]
   ) as Array<JSXNode>;
@@ -62,7 +65,7 @@ export const HAccordionRoot: Component<AccordionRootProps> = (
     }
 
     switch (child.type) {
-      case HAccordionItem: {
+      case InternalItemComponent: {
         child.props._index = currItemIndex;
         if (props.value !== undefined && props.value === child.props.value) {
           initialIndex = currItemIndex;
