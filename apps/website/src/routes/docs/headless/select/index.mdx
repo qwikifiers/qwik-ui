@@ -59,7 +59,7 @@ A control that allows the user to select multiple predefined items from a listbo
         'A button or similar control that opens the select menu when interacted with.',
     },
     {
-      name: 'Select.DisplayText',
+      name: 'Select.DisplayValue',
       description: 'Displays the currently selected value.',
     },
     {
@@ -243,7 +243,7 @@ Sometimes we want to allow the user to select multiple pre-defined items at a ti
 
 If we want to configure the multiple display values, we can use the `bind:displayText` signal.
 
-Something to be aware of, is the `<Select.DisplayText />` component will now display whatever you put inside of it.
+Something to be aware of, is the `<Select.DisplayValue />` component will now display whatever you put inside of it.
 
 > Under the hood, Qwik UI updates the `bind:displayText` signal with the latest display values.
 
@@ -315,7 +315,7 @@ To customize the scroll behavior, add the `scrollOptions` prop to the `<Select.R
 
 ## Placeholder
 
-We can provide a custom placeholder to the `<Select.DisplayText />` component by adding the `placeholder` prop.
+We can provide a custom placeholder to the `<Select.DisplayValue />` component by adding the `placeholder` prop.
 
 <Showcase name="hero" />
 
@@ -417,7 +417,7 @@ When in multi select mode, additional keyboard interactions are available.
 
 ### Data Attributes
 
-`Select`, `Select.Trigger`, `Select.DisplayText`, `Select.Popover`, and `Select.Listbox` all have data attributes that are used to track state.
+`Select`, `Select.Trigger`, `Select.DisplayValue`, `Select.Popover`, and `Select.Listbox` all have data attributes that are used to track state.
 
 <AnatomyTable
   firstColumnLabel="Attribute"
@@ -495,7 +495,7 @@ When in multi select mode, additional keyboard interactions are available.
   ]}
 />
 
-### Select.DisplayText
+### Select.DisplayValue
 
 <APITable
   propDescriptors={[

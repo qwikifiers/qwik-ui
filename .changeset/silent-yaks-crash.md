@@ -5,7 +5,7 @@
 ### Select API Changes
 
 - `<SelectOption />` has been renamed to `<Select.ItemLabel />`.
-- `<Select.Value />` has been renamed to `<Select.DisplayText />`.
+- `<Select.Value />` has been renamed to `<Select.DisplayValue />`.
 
 ### `<Select.Item />`
 

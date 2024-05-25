@@ -33,7 +33,7 @@ export default component$(() => {
           <Select.Label>Logged in users</Select.Label>
           <Select.HiddenNativeSelect />
           <Select.Trigger class="select-trigger">
-            <Select.DisplayText>{displayText.value.join(', ')}</Select.DisplayText>
+            <Select.DisplayValue>{displayText.value.join(', ')}</Select.DisplayValue>
           </Select.Trigger>
           <Select.Popover class="select-popover">
             <Select.Listbox class="select-listbox">
