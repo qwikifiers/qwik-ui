@@ -43,7 +43,7 @@ export const Checklist: Component<CheckListProps> = (props: CheckListProps) => {
         Object.assign(typedProps, { _useCheckListContext: true });
         checkArr.push(child);
         // TODO: fix this if hell by making fn
-        if (!typedProps.checkList) {
+        if (!typedProps.checklist) {
           checklistChilds.push(child);
 
           if (typedProps.id != undefined) {

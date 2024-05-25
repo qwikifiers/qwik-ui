@@ -3,12 +3,16 @@ import { Checkbox } from '@qwik-ui/headless';
 export default component$(() => {
   return (
     <>
-      <Checkbox.Root class="flex items-center gap-3 border-2 border-black p-2 ">
+      <Checkbox.Root id="test" class="flex items-center gap-3 border-2 border-black p-2 ">
         <Checkbox.Indicator class="flex h-[25px] w-[25px] items-center justify-center bg-slate-600">
           ✅
         </Checkbox.Indicator>
-        I have read the README file
       </Checkbox.Root>
+      <label for="test">I work</label>
+      <div>
+        <div role="checkbox" id="test2" />
+        <label for="test2">testhere</label>
+      </div>
     </>
   );
 });
