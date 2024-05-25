@@ -4,14 +4,14 @@ import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
-  const isCollapsibleRendered = useSignal(false);
+  const renderCollapsible = useSignal(false);
 
   return (
     <>
-      <button onClick$={() => (isCollapsibleRendered.value = true)}>
+      <button onClick$={() => (renderCollapsible.value = true)}>
         Render Collapsible
       </button>
-      {isCollapsibleRendered.value && (
+      {renderCollapsible.value && (
         <Collapsible.Root class="collapsible">
           <Collapsible.Trigger class="collapsible-trigger">
             <span>Trigger</span>
