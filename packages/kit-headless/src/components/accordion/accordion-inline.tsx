@@ -3,7 +3,7 @@ import { HAccordionRootImpl } from './accordion-root';
 import { Accordion } from '@qwik-ui/headless';
 
 type InternalProps = {
-  accordionItemComponent: typeof Accordion.Item;
+  accordionItemComponent?: typeof Accordion.Item;
 };
 
 export type AccordionRootProps = PropsOf<'div'> & {
