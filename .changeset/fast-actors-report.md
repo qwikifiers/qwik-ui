@@ -2,6 +2,10 @@
 '@qwik-ui/headless': minor
 ---
 
+## 100% Lazy execution
+
+The entire Qwik UI library does not execute code until interaction.
+
 ## Bundling improvements
 
 We have reduced the bundle size significantly of the headless library. If you are a Qwik library author, please refer to [this issue](https://github.com/QwikDev/qwik/issues/5473) as it may impact your bundle size as well.
