@@ -7,7 +7,7 @@ type FormData = Record<string, FormDataEntryValue[]>;
 export default component$(() => {
   useStyles$(styles);
   const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
-  const displayText = useSignal<string[]>([]);
+  const displayValue = useSignal<string[]>([]);
 
   const submittedData = useSignal<FormData | null>(null);
   const formName = 'my-example-name!';
@@ -25,7 +25,7 @@ export default component$(() => {
       <form preventdefault:submit onSubmit$={handleSubmit$}>
         <Select.Root
           name={formName}
-          bind:displayText={displayText}
+          bind:displayValue={displayValue}
           multiple
           required
           class="select"
@@ -33,7 +33,7 @@ export default component$(() => {
           <Select.Label>Logged in users</Select.Label>
           <Select.HiddenNativeSelect />
           <Select.Trigger class="select-trigger">
-            <Select.DisplayText>{displayText.value.join(', ')}</Select.DisplayText>
+            <Select.DisplayValue>{displayValue.value.join(', ')}</Select.DisplayValue>
           </Select.Trigger>
           <Select.Popover class="select-popover">
             <Select.Listbox class="select-listbox">

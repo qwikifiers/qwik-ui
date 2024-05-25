@@ -10,18 +10,12 @@ module.exports = {
     join(__dirname, '../../packages/kit-styled/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
   plugins: [
-    require('tailwindcss-animate'),
     // PLUGIN-START
+    require('tailwindcss-animate'),
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
-        },
-        '.appear': {
-          opacity: 1,
-        },
-        '.disappear': {
-          opacity: 0,
         },
       });
     }),
@@ -111,16 +105,6 @@ module.exports = {
       transitionTimingFunction: {
         step: 'cubic-bezier(0.6, 0.6, 0, 1)',
         jumpy: 'cubic-bezier(0.87, 0, 0.13, 1)',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
-        },
-        fadeOut: {
-          '0%': { opacity: 1 },
-          '100%': { opacity: 0 },
-        },
       },
     },
   },

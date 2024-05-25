@@ -90,7 +90,7 @@ export default component$(() => {
   return (
     <>
       <h2 class="tom-headline">Tom's bookshelf</h2>
-      <Accordion.Root animated enhance={true} class="accordion-root">
+      <Accordion.Root class="accordion-root">
         {dogs.map((item, index) => (
           <Accordion.Item class="accordion-item" key={index}>
             <Accordion.Header as="h3">

@@ -10,11 +10,7 @@ export default component$(() => {
   ];
 
   return (
-    <Accordion.Root
-      animated
-      enhance={true}
-      class="box-border w-[250px] max-w-[500px] rounded-base border border-slate-500 bg-slate-600 text-white"
-    >
+    <Accordion.Root class="box-border w-[250px] max-w-[500px] rounded-base border border-slate-500 bg-slate-600 text-white">
       {cats.map((item, index) => (
         <Accordion.Item class="w-full" key={index}>
           <Accordion.Header as="h3">

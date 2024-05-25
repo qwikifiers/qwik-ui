@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node_version: [18, 20, 22]
+        node_version: [20, 22]
 
     steps:
       - name: Cancel Previous Runs
@@ -29,3 +29,17 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           chromatic_token: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+  continuous-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          node_version: 20
+      - run: pnpm build.headless
+      - run: pnpx pkg-pr-new publish ./dist/packages/kit-headless
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN is provided automatically in any repository

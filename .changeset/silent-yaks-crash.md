@@ -5,7 +5,7 @@
 ### Select API Changes
 
 - `<SelectOption />` has been renamed to `<Select.ItemLabel />`.
-- `<Select.Value />` has been renamed to `<Select.DisplayText />`.
+- `<Select.Value />` has been renamed to `<Select.DisplayValue />`.
 
 ### `<Select.Item />`
 
@@ -32,7 +32,7 @@ The previous API did not allow for customization of list items. The new API intr
 
 You can now put anything you'd like in your `<Select.Item />`, just like a normal li tag!
 
-There is a new reactive signal called `bind:displayText` that can be used to read the value of the display text. There is a new docs example that shows this in action with item pills.
+There is a new reactive signal called `bind:displayValue` that can be used to read the value of the display text. There is a new docs example that shows this in action with item pills.
 
 #### bind syntax
 
