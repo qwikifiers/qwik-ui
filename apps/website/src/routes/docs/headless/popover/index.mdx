@@ -431,7 +431,7 @@ To read more about the popover API you can check it out on:
     },
     {
       name: 'floating',
-      type: 'boolean',
+      type: 'boolean | TPlacement',
       description: 'Enables extra JavaScript behavior for floating elements.',
     },
     {
@@ -449,24 +449,6 @@ To read more about the popover API you can check it out on:
       name: 'gutter',
       type: 'number',
       description: 'The space between the floating element and the anchored element.',
-    },
-    {
-      name: 'placement',
-      type: 'union',
-      info: ` | 'top'
-    | 'top-start'
-    | 'top-end'
-    | 'right'
-    | 'right-start'
-    | 'right-end'
-    | 'bottom'
-    | 'bottom-start'
-    | 'bottom-end'
-    | 'left'
-    | 'left-start'
-    | 'left-end';`,
-      description:
-        'Flips the placement of the popover when it starts to collide with the boundaries.',
     },
     {
       name: '[popover]',

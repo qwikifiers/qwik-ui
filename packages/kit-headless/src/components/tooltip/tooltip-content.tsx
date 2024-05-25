@@ -1,9 +1,9 @@
-import { Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { HPopoverPanel } from '../popover/popover-panel';
 
-export const HTooltipContent = component$(() => {
+export const HTooltipContent = component$((props: PropsOf<typeof HPopoverPanel>) => {
   return (
-    <HPopoverPanel>
+    <HPopoverPanel {...props}>
       <Slot />
     </HPopoverPanel>
   );
