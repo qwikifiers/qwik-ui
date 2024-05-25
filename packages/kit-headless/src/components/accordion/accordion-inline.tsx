@@ -33,11 +33,6 @@ export type AccordionRootProps = PropsOf<'div'> & {
   collapsible?: boolean;
 
   /** If true, the accordion is animated. */
-  heightAnimation?: boolean;
-
-  /**
-   * @deprecated Use the heightAnimation prop instead.
-   */
   animated?: boolean;
 };
 

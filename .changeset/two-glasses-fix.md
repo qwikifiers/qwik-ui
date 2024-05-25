@@ -14,8 +14,6 @@ The entire Qwik UI library now does not execute code until interaction.
 
 - The default behavior is a single item open at a time.
 
-- The `animated` prop has been deprecated in favor of `heightAnimation`.
-
 - `onSelectIndexChange$` has been deprecated and removed in favor of `onChange$`.
 
 - `onFocusIndexChange$` has been deprecated and removed. Let us know if you have a use case for this.

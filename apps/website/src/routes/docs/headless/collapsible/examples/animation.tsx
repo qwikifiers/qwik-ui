@@ -8,7 +8,7 @@ export default component$(() => {
 
   return (
     <div>
-      <Collapsible.Root class="collapsible" bind:open={isOpen} heightAnimation>
+      <Collapsible.Root class="collapsible" bind:open={isOpen} animated>
         <Collapsible.Trigger class="collapsible-trigger">
           <span>Trigger</span>
           <LuChevronDown class="collapsible-transition" />

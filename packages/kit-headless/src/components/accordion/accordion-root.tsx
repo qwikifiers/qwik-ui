@@ -19,13 +19,12 @@ export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
     disabled,
     collapsible = true,
     animated,
-    heightAnimation,
     ...rest
   } = props;
 
   const selectedIndexSig = useSignal<number>(initialIndex ?? -1);
   const triggerRefsArray = useSignal<Array<Signal>>([]);
-  const isAnimatedSig = useSignal<boolean>(animated === true || heightAnimation === true);
+  const isAnimatedSig = useSignal<boolean>(animated === true);
   const isMultipleSig = useSignal<boolean>(multiple || props.behavior === 'multi');
 
   const itemsMapSig = useComputed$(() => {
