@@ -2,8 +2,6 @@
 title: Qwik UI | Modal
 ---
 
-import testImage from '../../../../../public/images/test-image.png';
-
 import { statusByComponent } from '~/_state/component-statuses';
 
 <StatusBanner status={statusByComponent.headless.Modal} />
@@ -111,8 +109,6 @@ To programmatically open or close the modal, we can use `bind:show`, a signal pr
 `isOpen` is a signal that we pass into our Modal component to customize when the modal can be open or closed.
 
 ## The Top Layer
-
-<image src={testImage} class="mb-6 rounded-base" />
 
 In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues.
 
