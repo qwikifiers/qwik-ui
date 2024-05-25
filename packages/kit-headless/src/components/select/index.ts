@@ -1,7 +1,7 @@
 export { HSelectRoot as Root } from './select-inline';
 export { HSelectLabel as Label } from './select-label';
 export { HSelectTrigger as Trigger } from './select-trigger';
-export { HSelectDisplayText as DisplayText } from './select-display-text';
+export { HSelectDisplayText as DisplayValue } from './select-display-text';
 export { HSelectPopover as Popover } from './select-popover';
 export { HSelectListbox as Listbox } from './select-listbox';
 export { HSelectGroup as Group } from './select-group';
