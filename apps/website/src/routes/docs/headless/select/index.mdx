@@ -241,13 +241,13 @@ Sometimes we want to allow the user to select multiple pre-defined items at a ti
 
 <Showcase name="multiple" />
 
-If we want to configure the multiple display values, we can use the `bind:displayText` signal.
+If we want to configure the multiple display values, we can use the `bind:displayValue` signal.
 
 Something to be aware of, is the `<Select.DisplayValue />` component will now display whatever you put inside of it.
 
-> Under the hood, Qwik UI updates the `bind:displayText` signal with the latest display values.
+> Under the hood, Qwik UI updates the `bind:displayValue` signal with the latest display values.
 
-Taking this a step further, one could combine the `bind:value` and `bind:displayText` props together to create a custom widget that displays the selected values in a list of pills.
+Taking this a step further, one could combine the `bind:value` and `bind:displayValue` props together to create a custom widget that displays the selected values in a list of pills.
 
 <Showcase name="multiple-pill" />
 
@@ -469,7 +469,7 @@ When in multi select mode, additional keyboard interactions are available.
       info: 'string',
     },
     {
-      name: 'bind:displayText',
+      name: 'bind:displayValue',
       type: 'signal',
       description: 'Controlled display value, manages the display items.',
       info: 'string',

@@ -9,7 +9,12 @@ export default component$(() => {
   const selected = useSignal<string[]>([]);
 
   return (
-    <Select.Root multiple bind:displayText={display} bind:value={selected} class="select">
+    <Select.Root
+      multiple
+      bind:displayValue={display}
+      bind:value={selected}
+      class="select"
+    >
       <Select.Label>Logged in users</Select.Label>
       <Select.Trigger class="select-trigger">
         <Select.DisplayValue>
