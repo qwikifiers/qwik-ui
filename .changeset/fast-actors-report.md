@@ -4,7 +4,7 @@
 
 ## 100% Lazy execution
 
-The entire Qwik UI library does not execute code until interaction.
+The entire Qwik UI library does not execute code until interaction. Your components are HTML, until the user decides to interact with them.
 
 ## Bundling improvements
 
