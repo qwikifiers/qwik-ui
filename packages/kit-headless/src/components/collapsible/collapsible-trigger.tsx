@@ -6,7 +6,8 @@ export const HCollapsibleTrigger = component$<PropsOf<'button'>>(
     const context = useContext(collapsibleContextId);
     const contentId = `${context.itemId}-content`;
 
-    const handleClick$ = $(() => {
+    const handleClick$ = $(async () => {
+      if (context.isOpenSig.value && context.collapsible === false) return;
       context.isOpenSig.value = !context.isOpenSig.value;
     });
 
@@ -18,11 +19,12 @@ export const HCollapsibleTrigger = component$<PropsOf<'button'>>(
         ref={context.triggerRef}
         disabled={context.disabled}
         data-disabled={context.disabled ? '' : undefined}
+        aria-disabled={context.disabled ? 'true' : 'false'}
         data-open={context.isOpenSig.value ? '' : undefined}
         data-closed={!context.isOpenSig.value ? '' : undefined}
         aria-expanded={context.isOpenSig.value}
         aria-controls={contentId}
-        onClick$={[context.getContentDimensions$, handleClick$, onClick$]}
+        onClick$={[handleClick$, onClick$]}
       >
         <Slot />
       </button>

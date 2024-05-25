@@ -7,7 +7,7 @@ export default component$(() => {
   const count = useSignal<number>(0);
   const isOpen = useSignal<boolean>(false);
 
-  const handleOpenChange$ = $((open: boolean) => {
+  const handleChange$ = $((open: boolean) => {
     isOpen.value = open;
     count.value++;
   });
@@ -18,7 +18,7 @@ export default component$(() => {
         count: <strong> {count.value}</strong>
       </p>
 
-      <Collapsible.Root class="collapsible" onOpenChange$={handleOpenChange$}>
+      <Collapsible.Root class="collapsible" onChange$={handleChange$}>
         <Collapsible.Trigger class="collapsible-trigger">
           <span>Trigger</span>
           <LuChevronDown />

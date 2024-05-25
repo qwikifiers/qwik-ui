@@ -259,6 +259,8 @@ Unfortunately, to create modals that open on page load in the web, it needs to b
 
 ## API
 
+### Modal.Root
+
 <APITable
   propDescriptors={[
     {
@@ -273,20 +275,13 @@ Unfortunately, to create modals that open on page load in the web, it needs to b
       description: 'A way to tell the modal to not hide when the ::backdrop is clicked.',
     },
     {
-      name: '<dialog>-Attributes',
-      type: `Qwik`,
-      description:
-        'A way to configure the modal with all native attributes the HTMLDialog defines.',
-      info: `PropsOf<'dialog'>`,
-    },
-    {
-      name: 'onClose()$',
+      name: 'onClose$',
       type: 'function',
       info: '() => void',
       description: 'An event hook that gets notified whenever the modal gets closed.',
     },
     {
-      name: 'onShow()$',
+      name: 'onShow$',
       type: 'function',
       info: '() => void',
       description: 'An event hook that gets notified whenever the modal shows up.',

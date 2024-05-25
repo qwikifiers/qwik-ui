@@ -5,11 +5,11 @@ import { cn } from '@qwik-ui/utils';
 
 import { LuChevronDown } from '@qwikest/icons/lucide';
 
-const Root = component$<PropsOf<typeof HeadlessAccordion.Root>>((props) => (
-  <HeadlessAccordion.Root animated {...props}>
-    <Slot />
+const Root = (props: PropsOf<typeof HeadlessAccordion.Root>) => (
+  <HeadlessAccordion.Root {...props} accordionItemComponent={Item} animated>
+    {props.children}
   </HeadlessAccordion.Root>
-));
+);
 
 const Item = component$<PropsOf<typeof HeadlessAccordion.Item>>((props) => {
   return (
@@ -29,7 +29,7 @@ const Trigger = component$<
       <HeadlessAccordion.Trigger
         {...props}
         class={cn(
-          'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
+          'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-open]>svg]:rotate-180',
           props.class,
         )}
       >
@@ -45,7 +45,7 @@ const Content = component$<PropsOf<typeof HeadlessAccordion.Content>>((props) =>
     <HeadlessAccordion.Content
       {...props}
       class={cn(
-        'overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
+        'overflow-hidden text-sm data-[closed]:animate-accordion-up data-[open]:animate-accordion-down',
         props.class,
       )}
     >

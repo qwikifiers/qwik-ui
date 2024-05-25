@@ -4,20 +4,20 @@ import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
-  const items = [1, 2, 3];
+  const nums = [1, 2, 3];
 
   return (
-    <Accordion.Root>
-      {items.map((item) => (
-        <Accordion.Item class="collapsible" key={item}>
+    <Accordion.Root value="item-2">
+      {nums.map((num) => (
+        <Accordion.Item value={`item-${num}`} class="collapsible" key={num}>
           <Accordion.Header>
             <Accordion.Trigger class="collapsible-trigger">
-              <span>Trigger {item}</span>
+              <span>Trigger {num}</span>
               <LuChevronDown />
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content class="collapsible-content collapsible-content-outline">
-            Inside Content {item}
+            Inside Content {num}
           </Accordion.Content>
         </Accordion.Item>
       ))}

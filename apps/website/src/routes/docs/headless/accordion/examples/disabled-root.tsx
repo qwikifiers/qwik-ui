@@ -1,13 +1,12 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import { Accordion } from '@qwik-ui/headless';
-import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
-  const items = [1, 2, 3];
+  const items = [1, 2, 3, 4];
 
   return (
-    <Accordion.Root>
+    <Accordion.Root disabled={true}>
       {items.map((item) => (
         <Accordion.Item class="collapsible" key={item}>
           <Accordion.Header>
@@ -27,3 +26,4 @@ export default component$(() => {
 
 // interal
 import styles from '../snippets/accordion.css?inline';
+import { LuChevronDown } from '@qwikest/icons/lucide';
