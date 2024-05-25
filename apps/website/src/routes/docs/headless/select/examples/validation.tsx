@@ -32,7 +32,7 @@ export default component$(() => {
               <Select.HiddenNativeSelect {...props} />
               <Select.Label>Logged in users</Select.Label>
               <Select.Trigger class="select-trigger">
-                <Select.DisplayText placeholder="Select an option" />
+                <Select.DisplayValue placeholder="Select an option" />
               </Select.Trigger>
               {field.error && <div style={{ color: '#D2122E' }}>{field.error}</div>}
               <Select.Popover class="select-popover">

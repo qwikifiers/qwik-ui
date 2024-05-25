@@ -8,9 +8,9 @@ export default component$(() => {
   const display = useSignal<string[]>([]);
 
   return (
-    <Select.Root bind:displayText={display} multiple class="select">
+    <Select.Root bind:displayValue={display} multiple class="select">
       <Select.Trigger class="select-trigger">
-        <Select.DisplayText>{display.value.join(', ')}</Select.DisplayText>
+        <Select.DisplayValue>{display.value.join(', ')}</Select.DisplayValue>
       </Select.Trigger>
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox">

@@ -9,7 +9,7 @@ export default component$(() => {
     <Select.Root loop={true} class="select">
       <Select.Label>Logged in users</Select.Label>
       <Select.Trigger class="select-trigger">
-        <Select.DisplayText placeholder="Select an option" />
+        <Select.DisplayValue placeholder="Select an option" />
       </Select.Trigger>
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox">

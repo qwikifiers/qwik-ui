@@ -42,7 +42,7 @@ const Trigger = component$<PropsOf<typeof HeadlessSelect.Trigger>>(({ ...props }
   );
 });
 
-const DisplayText = HeadlessSelect.DisplayText;
+const DisplayValue = HeadlessSelect.DisplayValue;
 
 const Popover = component$<PropsOf<typeof HeadlessSelect.Popover>>(({ ...props }) => {
   return (
@@ -121,7 +121,7 @@ export const Select = {
   Root,
   Label,
   Trigger,
-  DisplayText,
+  DisplayValue,
   Popover,
   Listbox,
   Group,

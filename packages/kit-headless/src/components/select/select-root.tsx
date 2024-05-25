@@ -62,7 +62,7 @@ export type SelectProps<M extends boolean = boolean> = Omit<
   'bind:open'?: Signal<boolean>;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  'bind:displayText'?: Signal<TMultiple<M>>;
+  'bind:displayValue'?: Signal<TMultiple<M>>;
 
   /**
    * QRL handler that runs when a select value changes.
@@ -231,7 +231,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     useTask$(async function updateConsumerProps({ track }) {
       const bindValueSig = props['bind:value'];
-      const bindDisplayTextSig = props['bind:displayText'];
+      const bindDisplayTextSig = props['bind:displayValue'];
       track(() => selectedIndexSetSig.value);
 
       const values = [];

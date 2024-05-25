@@ -59,7 +59,7 @@ A control that allows the user to select multiple predefined items from a listbo
         'A button or similar control that opens the select menu when interacted with.',
     },
     {
-      name: 'Select.DisplayText',
+      name: 'Select.DisplayValue',
       description: 'Displays the currently selected value.',
     },
     {
@@ -241,13 +241,13 @@ Sometimes we want to allow the user to select multiple pre-defined items at a ti
 
 <Showcase name="multiple" />
 
-If we want to configure the multiple display values, we can use the `bind:displayText` signal.
+If we want to configure the multiple display values, we can use the `bind:displayValue` signal.
 
-Something to be aware of, is the `<Select.DisplayText />` component will now display whatever you put inside of it.
+Something to be aware of, is the `<Select.DisplayValue />` component will now display whatever you put inside of it.
 
-> Under the hood, Qwik UI updates the `bind:displayText` signal with the latest display values.
+> Under the hood, Qwik UI updates the `bind:displayValue` signal with the latest display values.
 
-Taking this a step further, one could combine the `bind:value` and `bind:displayText` props together to create a custom widget that displays the selected values in a list of pills.
+Taking this a step further, one could combine the `bind:value` and `bind:displayValue` props together to create a custom widget that displays the selected values in a list of pills.
 
 <Showcase name="multiple-pill" />
 
@@ -315,7 +315,7 @@ To customize the scroll behavior, add the `scrollOptions` prop to the `<Select.R
 
 ## Placeholder
 
-We can provide a custom placeholder to the `<Select.DisplayText />` component by adding the `placeholder` prop.
+We can provide a custom placeholder to the `<Select.DisplayValue />` component by adding the `placeholder` prop.
 
 <Showcase name="hero" />
 
@@ -417,7 +417,7 @@ When in multi select mode, additional keyboard interactions are available.
 
 ### Data Attributes
 
-`Select`, `Select.Trigger`, `Select.DisplayText`, `Select.Popover`, and `Select.Listbox` all have data attributes that are used to track state.
+`Select`, `Select.Trigger`, `Select.DisplayValue`, `Select.Popover`, and `Select.Listbox` all have data attributes that are used to track state.
 
 <AnatomyTable
   firstColumnLabel="Attribute"
@@ -469,7 +469,7 @@ When in multi select mode, additional keyboard interactions are available.
       info: 'string',
     },
     {
-      name: 'bind:displayText',
+      name: 'bind:displayValue',
       type: 'signal',
       description: 'Controlled display value, manages the display items.',
       info: 'string',
@@ -495,7 +495,7 @@ When in multi select mode, additional keyboard interactions are available.
   ]}
 />
 
-### Select.DisplayText
+### Select.DisplayValue
 
 <APITable
   propDescriptors={[
