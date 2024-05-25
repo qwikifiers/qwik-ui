@@ -2,11 +2,17 @@
 '@qwik-ui/headless': minor
 ---
 
+### Tooltip
+
+The Tooltip component has been refactored from the ground up to be more accessible and performant.
+
+It is now built on top of the popover primitive, and has a similar API.
+
+It remains in `draft` status, and is not yet ready for production use. We will be working on it more deeply in the near future.
+
 ### Accordion
 
 The Accordion has been refactored from the ground up to be more accessible and performant.
-
-The entire Qwik UI library now does not execute code until interaction.
 
 #### Accordion.Root
 
@@ -47,7 +53,6 @@ In 0.4, we have deprecated the following headless components:
 - Action Button
 - Button Group
 - Toast
-- Tooltip
 - Card
 - Badge
 - Spinner
