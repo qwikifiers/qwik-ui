@@ -19,6 +19,7 @@ export async function supportShowAnimation(popover: HTMLElement, isPolyfill: boo
 
   popover.classList.add('popover-showing');
   popover.classList.remove('popover-closing');
+  popover.dataset.open = '';
   popover.removeAttribute('data-closing');
   popover.removeAttribute('data-closed');
 }
