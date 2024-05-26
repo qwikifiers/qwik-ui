@@ -26,3 +26,4 @@
 - [Select](/docs/headless/select)
 - [Separator](/docs/headless/separator)
 - [Tabs](/docs/headless/tabs)
+- [Tooltip](/docs/headless/tooltip)

@@ -2,7 +2,7 @@
 title: Qwik UI | Modal
 ---
 
-import testImage from '../../../../../public/images/test-image.png';
+import topLayer from '../../../../../public/images/top-layer.webp';
 
 import { statusByComponent } from '~/_state/component-statuses';
 
@@ -112,7 +112,7 @@ To programmatically open or close the modal, we can use `bind:show`, a signal pr
 
 ## The Top Layer
 
-<image src={testImage} class="mb-6 rounded-base" />
+<img src={topLayer} class="mb-6 rounded-base" />
 
 In Chrome and Edge, a `top layer` UI button is shown in the dev tools. This means the element content is placed above any other content on the page, preventing any overflow or style issues.
 
@@ -259,6 +259,8 @@ Unfortunately, to create modals that open on page load in the web, it needs to b
 
 ## API
 
+### Modal.Root
+
 <APITable
   propDescriptors={[
     {
@@ -273,20 +275,13 @@ Unfortunately, to create modals that open on page load in the web, it needs to b
       description: 'A way to tell the modal to not hide when the ::backdrop is clicked.',
     },
     {
-      name: '<dialog>-Attributes',
-      type: `Qwik`,
-      description:
-        'A way to configure the modal with all native attributes the HTMLDialog defines.',
-      info: `PropsOf<'dialog'>`,
-    },
-    {
-      name: 'onClose()$',
+      name: 'onClose$',
       type: 'function',
       info: '() => void',
       description: 'An event hook that gets notified whenever the modal gets closed.',
     },
     {
-      name: 'onShow()$',
+      name: 'onShow$',
       type: 'function',
       info: '() => void',
       description: 'An event hook that gets notified whenever the modal shows up.',

@@ -1,0 +1,84 @@
+---
+title: Qwik UI | Tooltip
+---
+
+# Tooltip
+
+A popup that shows information when an element is focused or hovered over.
+
+<Showcase name="hero" />
+
+## ✨ Features
+
+<FeatureList
+  features={[
+    'Above the rest of the page',
+    'Hover and non-hover behavior',
+    'Close with escape',
+  ]}
+/>
+
+## Building blocks
+
+```tsx
+import { component$ } from '@builder.io/qwik';
+import { Tooltip } from '@qwik-ui/headless';
+
+export default component$(() => {
+  return (
+    <Tooltip.Root>
+      <Tooltip.Trigger>Trigger</Tooltip.Trigger>
+      <Tooltip.Panel>Panel</Tooltip.Panel>
+    </Tooltip.Root>
+  );
+});
+```
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Tooltip.Root',
+      description: 'The parent container for the tooltip trigger and panel.',
+    },
+    {
+      name: 'Tooltip.Trigger',
+      description: 'A button that opens the tooltip when interacted with.',
+    },
+    {
+      name: 'Tooltip.Panel',
+      description: `An HTML Element that is above other content on the page.`,
+    },
+  ]}
+/>
+
+## API
+
+### Tooltip Root
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'hover',
+      type: 'boolean',
+      description: 'Disables hover behavior.',
+    },
+    {
+      name: 'flip',
+      type: 'boolean',
+      description:
+        'Flips the placement of the tooltip when it starts to collide with the boundaries.',
+    },
+    {
+      name: 'gutter',
+      type: 'number',
+      description: 'The space between the floating element and the anchored element.',
+    },
+    {
+      name: 'floating',
+      type: 'string',
+      description: 'The floating position of the tooltip.',
+    },
+  ]}
+/>

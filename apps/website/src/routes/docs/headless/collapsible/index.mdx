@@ -33,15 +33,15 @@ An interactive section that shows or hides its connected information.
 <AnatomyTable
   propDescriptors={[
     {
-      name: 'Collapsible',
+      name: 'Collapsible.Root',
       description: 'The root container for the Collapsible component.',
     },
     {
-      name: 'CollapsibleTrigger',
+      name: 'Collapsible.Trigger',
       description: 'A button that opens the Collapsible content when interacted with.',
     },
     {
-      name: 'CollapsibleContent',
+      name: 'Collapsible.Content',
       description: 'Contains the content associated with a Collapsible.',
     },
   ]}
@@ -70,7 +70,7 @@ As much as we love the native elements, they come with a couple of problems:
 
 ### Uncontrolled / Initial value
 
-We can select an initial uncontrolled value by passing the `open` prop to the `<Collapsible />` component.
+We can select an initial uncontrolled value by passing the `open` prop to the `<Collapsible.Root />` component.
 
 <Showcase name="open" />
 
@@ -82,7 +82,7 @@ This is because the content is rendered on the server. Animations applied to `da
 
 ### Controlled / Reactive value
 
-We can pass reactive state by using the bind:open prop to the `<Collapsible />` component.
+We can pass reactive state by using the bind:open prop to the `<Collapsible.Root />` component.
 
 <Showcase name="bind-open" />
 
@@ -102,13 +102,13 @@ We may want to handle the open / close of the collapsible. For example, we may w
 
 <Showcase name="open-change" />
 
-To do that, we can use the onOpenChange$ prop. A parameter is passed to the handler, which is a boolean indicating whether the collapsible is open or closed.
+To do that, we can use the `onChange$` prop. A parameter is passed to the handler, which is a boolean indicating whether the collapsible is open or closed.
 
 ### Disabled collapsible
 
 <Showcase name="disabled" />
 
-The collapsible can be disabled by adding the `disabled` prop to the `<Collapsible />` component.
+The collapsible can be disabled by adding the `disabled` prop to the `<Collapsible.Root />` component.
 
 ## Animating the content
 
@@ -116,22 +116,28 @@ To animate the height of the content, we can use a keyframe animation on the hei
 
 <Showcase name="animation" />
 
-### Height animation
+### Height Animation
 
-By default, the `--qwikui-collapsible-content-height` CSS variable will automatically be set to the height of the content.
+To animate the height of the content, set the `animated` prop to `true`.
+
+<Showcase name="animation" />
+
+> In the near future, you won't need JavaScript at all to animate the height of content! Here's the [CSS WG Proposal](https://github.com/w3c/csswg-drafts/blob/main/css-values-5/calc-size-explainer.md) for more info.
+
+You can use the `--qwikui-collapsible-content-height` CSS variable in your keyframes.
 
 <CodeSnippet name="animation.css" />
 
 ### Why does padding or border break the animation?
 
-Padding or border applied to `CollapsibleContent` breaks our keyframe animation above. This is because the content height has changed.
+Padding or border applied to `Collapsible.Content` breaks our keyframe animation above. This is because the content height has changed.
 
 To fix this, add a child element to the content, and set the padding or border on that element.
 
 ```tsx
-<CollapsibleContent class="collapsible-animation collapsible-content">
+<Collapsible.Content class="collapsible-animation collapsible-content">
   <p class="collapsible-content-outline">Content</p>
-</CollapsibleContent>
+</Collapsible.Content>
 ```
 
 > Rather than dealing with this under the hood, we thought it'd be appropriate to keep style management as simple as possible. Let us know if you have a better solution!
@@ -171,7 +177,7 @@ Some CSS variables are specific to the docs, feel free to plug in your own value
 
 ### Data Attributes
 
-`Collapsible`, `CollapsibleTrigger`, and `CollapsibleContent` all have the following data attributes that are used to track state:
+`Collapsible.Root`, `Collapsible.Trigger`, and `Collapsible.Content` all have the following data attributes that are used to track state:
 
 <AnatomyTable
   firstColumnLabel="Attribute"
@@ -191,7 +197,7 @@ Some CSS variables are specific to the docs, feel free to plug in your own value
   ]}
 />
 
-### Collapsible (Root)
+### Collapsible.Root
 
 <APITable
   propDescriptors={[
