@@ -105,6 +105,10 @@ export default component$(() => {
 
 - Programmatically toggling the popover is still possible, make sure to put the same id on the `<Popover.Root />` that is passed to the `usePopover` hook. Refer to the docs for more info.
 
+- popover-showing and popover-closing classes have been deprecated. Please use the `data-open` and ``data-closing` attributes instead.
+
+- The `data-open`, `data-closing`, and `data-closed` data attributes have been added to the popover.
+
 #### <Popover.Root />
 
 There is a new root compomnent. Configurable props have been moved to the root component.
