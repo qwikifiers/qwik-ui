@@ -16,7 +16,7 @@ export const Input = component$<InputProps>(
           {...props}
           aria-errormessage={`${inputId}-error`}
           aria-invaid={!!error}
-          // workaround for one way and two way data-binding https://github.com/QwikDev/qwik/issues/3926
+          // workaround to support two way data-binding on the Input component (https://github.com/QwikDev/qwik/issues/3926)
           value={valueSig ? valueSig.value : value}
           onInput$={valueSig ? $((__, el) => (valueSig.value = el.value)) : onInput$}
           ref={inputRef}
