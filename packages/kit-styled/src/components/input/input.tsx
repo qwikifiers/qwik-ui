@@ -10,6 +10,7 @@ export const Input = component$<InputProps>(
     name,
     error,
     'bind:value': valueSig,
+    value,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     'bind:checked': checkedSig,
     id,
@@ -19,7 +20,7 @@ export const Input = component$<InputProps>(
     const inputRef = useSignal<HTMLInputElement>();
 
     // TODO: remove this when we can figure out why the optimizer forces you to have a signal rather than conditionally adding the bind:value prop.
-    const dummySig = useSignal('');
+    const dummySig = useSignal<string | undefined>(value?.toString());
 
     return (
       <>
