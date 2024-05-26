@@ -7,7 +7,7 @@ import {
   useTask$,
   PropsOf,
 } from '@builder.io/qwik';
-import { collapsibleContextId } from './collapsible-context-id';
+import { collapsibleContextId } from './collapsible-context';
 
 export type CollapsibleContentProps = PropsOf<'div'>;
 

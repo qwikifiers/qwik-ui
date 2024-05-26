@@ -1,5 +1,5 @@
 import { $, PropsOf, Slot, component$, useContext, useOnWindow } from '@builder.io/qwik';
-import { collapsibleContextId } from './collapsible-context-id';
+import { collapsibleContextId } from './collapsible-context';
 
 export const HCollapsibleTrigger = component$<PropsOf<'button'>>(
   ({ onClick$, ...props }) => {
