@@ -5,6 +5,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qwikifiers/qwik-ui",
+    "directory": "packages/utils"
+  },
   "dependencies": {
     "tailwind-merge": "^1.14.0",
     "clsx": "^2.0.0",
