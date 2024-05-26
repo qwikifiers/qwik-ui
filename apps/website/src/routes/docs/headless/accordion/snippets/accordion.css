@@ -1,85 +1,123 @@
-.accordion-trigger {
+.collapsible {
   min-width: 14rem;
-  border: 2px dotted hsla(var(--foreground) / 1);
-  text-align: left;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
-.accordion-trigger[data-open] svg {
+.collapsible-trigger {
+  width: 100%;
+  border: 2px dotted hsla(var(--foreground) / 1);
+  border-radius: calc(var(--border-radius) / 2);
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -2px;
+}
+
+.collapsible-trigger[data-disabled] {
+  opacity: 0.3;
+}
+
+.collapsible-trigger:hover {
+  background-color: hsla(var(--primary) / 0.08);
+}
+
+.collapsible-trigger svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.collapsible-trigger[data-open] {
+  border-bottom: none;
+}
+
+.collapsible-trigger[data-open] svg {
   transform: rotate(180deg);
 }
 
-.accordion-trigger svg {
-  width: 20px;
-  height: 20px;
-  stroke: hsla(var(--foreground) / 0.8);
-}
-
-.accordion-trigger:disabled {
-  opacity: 0.5;
-}
-
-.accordion-item:nth-child(2) .accordion-trigger {
-  border-block: none;
-}
-
-/* prevents shifting of text when border is removed */
-.accordion-trigger[data-open] {
-  border-bottom: 2px solid transparent;
-}
-
-/* the extra border bothered me a bit, pardon my hacky :has css selector */
-.accordion-item:nth-child(2):has(.accordion-trigger[data-open])
-  + .accordion-item:nth-child(3)
-  .accordion-trigger {
+.collapsible:not(:first-child) .collapsible-trigger {
   border-top: none;
 }
 
-.accordion-trigger:hover {
-  background: hsla(var(--primary) / 0.08);
+.collapsible-content {
+  width: 100%;
+  font-weight: 500;
+  background: hsla(var(--primary) / 0.2);
+  border-radius: calc(var(--border-radius) / 2);
+  max-width: var(--select-width);
+  color: hsl(var(--foreground));
+  overflow: hidden;
+
+  /* offset the dotted border */
 }
 
-.accordion-content {
+.collapsible-content-outline {
+  padding: 0.5rem;
   border: 2px dotted hsla(var(--primary) / 1);
-  font-weight: 500;
+}
+
+/* chevron transition */
+.collapsible-transition {
+  transition: transform 500ms ease;
+}
+
+@keyframes collapsible-open {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: var(--qwikui-collapsible-content-height);
+  }
+}
+
+@keyframes collapsible-closed {
+  0% {
+    height: var(--qwikui-collapsible-content-height);
+  }
+  100% {
+    height: 0;
+  }
+}
+
+.collapsible-animation[data-open] {
+  animation: 550ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards collapsible-open;
+}
+
+.collapsible-animation[data-closed] {
+  animation: 350ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards collapsible-closed;
+}
+
+.dynamic-input {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.dynamic-input label {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-block: 0.5rem;
+  align-items: center;
+}
+
+.dynamic-input input {
+  margin-bottom: 0.5rem;
+  width: 5rem;
+  background: hsl(var(--accent));
+  border: 2px dotted hsl(var(--foreground));
+  padding-left: 0.5rem;
+}
+
+.dynamic-input .add input {
   background: hsla(var(--primary) / 0.2);
 }
 
-.accordion-content,
-.accordion-trigger {
-  min-height: 44px;
-  padding: 0.5rem;
+.dynamic-input .delete input {
+  background: hsla(var(--accent) / 1);
 }
 
-.accordion-animation {
-  overflow: hidden;
-}
-
-.accordion-animation[data-open] {
-  animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards animate-open;
-}
-
-.accordion-animation[data-closed] {
-  animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards animate-close;
-}
-
-@keyframes accordion-slide-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--qwikui-accordion-content-height);
-  }
-}
-
-@keyframes accordion-slide-up {
-  from {
-    height: var(--qwikui-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
+.dynamic-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-block: 0.5rem;
 }

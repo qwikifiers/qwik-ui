@@ -75,233 +75,199 @@ Qwik UI includes a headless Accordion component that uses ARIA and JavaScript to
 
 > For more information on the inconsistencies of these native elements, see Scott O'Hara's [The details and summary elements, again](https://www.scottohara.me/blog/2022/09/12/details-summary.html) article.
 
-## Multiple items
+## Component State
 
-<Showcase name="multi" />
+### Initial value
 
-### Animations
+To set a default or initial value on page load, use the `value` prop on the `<Accordion.Root />` component.
 
-The **animated** prop enables the use of `transition` and `animation` properties to control the visibility of content without it closing immediately. Future browser updates will support these transitions natively.
+<Showcase name="initial" />
 
-For animations, Qwik UI provides a variable **--qwikui-accordion-content-height** variable that calculates content height for use in CSS keyframes. You can implement the `accordion-open` and `accordion-close` keyframes in your project, which animate the height property.
+The `value` prop on the `<Accordion.Root>` was set to `item-2`, which is the value of the second item. As a result, the second item is selected by default.
 
-To see it in action, check out the [styled accordion](../../../docs/styled/accordion/).
+### Reactive value
 
-## Non-collapsible
+Pass reactive state by using the `bind:value` prop on the `<Accordion.Root /> `component.
 
-<Showcase name="non-collapsible" />
+<Showcase name="reactive" />
 
-By default, the <strong>collapsible</strong> prop is set to true. You can revert this behavior by setting it to false in the Accordion Root component.
+### Programmatic changes
 
-## Disabled
+You can also change the current expanded item values programmatically by updating the signal's value.
+
+<Showcase name="programmatic" />
+
+### Handling selection changes
+
+Listen to when a new item is selected by passing a callback function to the `onChange$` prop.
+
+<Showcase name="on-change" />
+
+### Multiple items
+
+To allow multiple items to be open at the same time, set the `multiple` prop to `true`.
+
+<Showcase name="multiple" />
+
+### Non-collapsible
+
+To disable collapsible behavior, set the `collapsible` prop to `false`.
+
+<Showcase name="collapsible" />
+
+This will prevent the accordion from collapsing when the user clicks on the trigger.
+
+### Disabled items
+
+Items can be disabled by setting the `disabled` prop to true on the `<Accordion.Item />` component.
 
 <Showcase name="disabled" />
 
-When disabling an accordion trigger, you're adding the default disabled browser behavior, along with removing the element from the focus order.
+> Disabled items are not selectable or focusable. They are also skipped when using the arrow keys to navigate through the items.
 
-Any disabled elements will be skipped over when using tab or the `Up Arrow` and `Down Arrow` keys. You can do this by adding the **disabled** prop on any trigger.
+### Disabled Component
 
-## Default Value
+The component itself can also be disabled by setting the `disabled` prop to true on the `<Accordion.Root />` component.
 
-<Showcase name="default-value" />
+<Showcase name="disabled-root" />
 
-You can make the accordion items uncontrolled by adding the **defaultValue** prop on the items. This will open an accordion item without user interaction, and can be used on both type single and multi accordions.
+## Advanced
 
-<Note status="warning">
-**Don't try to open multiple items with single mode!**
+### Height Animation
 
-If you're using `behavior="single"` with multiple defaultValue accordion items, the last item will be the one that opens. You may experience flickering behavior as well.
+To animate the height of the content, set the `animated` prop to `true`.
 
-</Note>
+<Showcase name="animation" />
 
-## Custom Heading Label
+> In the near future, you won't need JavaScript at all to animate the height of content! Here's the [CSS WG Proposal](https://github.com/w3c/csswg-drafts/blob/main/css-values-5/calc-size-explainer.md) for more info.
 
-<Showcase name="custom-heading" />
+You can use the `--qwikui-collapsible-content-height` CSS variable in your keyframes.
 
-By default, when using the `Accordion.Header` component, it's rendered as an `h3` tag. You can render your heading of choice by using the **as** prop.
+<CodeSnippet name="animation.css" />
 
-In the above example, we're using the `h4` tag.
+### Why does padding or border break the animation?
 
-> Make sure to follow the heading hierarchy guidelines. For example, use h4 if you're under an h3, h5 if you're under an h4, and so on.
+Padding or border applied to `Accordion.Content` breaks our keyframe animation above. This is because the content height has changed.
 
-## Selected Index
+To fix this, add a child element to the content, and set the padding or border on that element.
 
-<Showcase name="selected-index" />
+```tsx
+<Accordion.Content class="collapsible-animation collapsible-content">
+  <p class="collapsible-content-outline">Content</p>
+</Accordion.Content>
+```
 
-`onSelectedIndexChange$` will keep track of the current selected index. It can be useful for when you want to programmatically change something based on a user's interaction.
+> Rather than dealing with this under the hood, we thought it'd be appropriate to keep style management as simple as possible. Let us know if you have a better solution!
 
-## Focused Index
+### CSR
 
-<Showcase name="focused-index" />
+The Accordion automatically renders based on its environment. This means that it works for both server-side and client-side rendering.
 
-`onFocusIndexChange$` will keep track of the current focused index. It can be useful for when you want to programmatically change something based on what the user focuses.
+<Showcase name="csr" />
 
-> When a user clicks a trigger, they are also focusing it, which is worth keeping in mind when using this custom event.
+### Dynamic
 
-## Dynamic
+You have custom control over how to render items in the Accordion, allowing for dynamic rendering of items.
 
 <Showcase name="dynamic" />
 
-You can embrace reactivity, using signals, stores, and however else you'd like to use the Accordion with dynamic behavior.
+> This also updates the selected items, disabled items, and focus order automatically for you.
 
-When an Accordion Item is removed, a [Visible Task](https://qwik.builder.io/docs/components/tasks/#usevisibletask) runs that will clean up the DOM node in the browser, ensuring that you stay clear of race condition or memory leak issues.
+## Example CSS
 
-> You can add or remove something at any index and the focus order will adhere to the DOM hierarchy!
+<CodeSnippet name="accordion.css" />
 
-<div class="my-4">
-  If you'd prefer to add your own <strong>id</strong> to the Accordion Item with dynamic
-  behavior, you can add the `id` prop to the Accordion Item. This can be useful when you'd
-  like the id value to be sync with your custom logic.
-</div>
+## Keyboard Interaction
 
-By default, the Accordion Item has a locally scoped id with Qwik's `useId` hook. All children elements will be prefixed by its respective item id, followed by a dash and the element. For example, `{id}-trigger`.
-
-## Accessibility
-
-### Keyboard interaction
-
-<KeyboardInteractionTable keyDescriptors={
-[
-  {
-    keyTitle: 'Tab',
-    description: 'Moves focus to the next focusable trigger.',
-  },
-  {
-    keyTitle: 'Shift + Tab',
-    description: 'Moves focus to the previous focusable trigger.',
-  },
-  {
-    keyTitle: 'Space / Enter',
-    description: 'Expand or collapse the Accordion Trigger.',
-  },
-  {
-    keyTitle: 'Up Arrow',
-    description: 'When focus is on an accordion trigger, it will move to the previous one, or the last if at the top.'
-  },
-  {
-    keyTitle: 'Down Arrow',
-    description: 'When focus is on an accordion trigger, it will move to the next one, or the first if at the bottom.'
-  },
-  {
-    keyTitle: 'Home',
-    description: 'When on an Accordion Trigger, Moves focus to the first Accordion Trigger.',
-  },
-  {
-    keyTitle: 'End',
-    description: 'When on an Accordion Trigger, Moves focus to the last Accordion Trigger.',
-  },
-
-]
-}/>
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: `Expands the content of the focused section.`,
+    },
+    {
+      keyTitle: 'Enter',
+      description: `Expands the content of the focused section.`,
+    },
+    {
+      keyTitle: 'Tab',
+      description: `Moves focus to the next element.`,
+    },
+    {
+      keyTitle: 'Shift + Tab',
+      description: `Moves focus to the previous element.`,
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: `Moves focus to the next trigger.`,
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: `Moves focus to the previous trigger.`,
+    },
+    {
+      keyTitle: 'Home',
+      description: `Moves focus to the first trigger.`,
+    },
+    {
+      keyTitle: 'End',
+      description: `Moves focus to the last trigger.`,
+    },
+  ]}
+/>
 
 ## API
 
-### Accordion Root
+### Accordion.Root
 
 <APITable
   propDescriptors={[
     {
-      name: 'behavior',
+      name: 'value',
       type: 'string',
-      description:
-        'Determines whether the Accordion will open one or multiple items at a time.',
+      description: 'The initial selectedd item of the accordion.',
     },
     {
-      name: 'collapsible',
-      type: 'boolean',
-      description: 'Will allow the accordion to collapse items if set to true.',
+      name: 'bind:value',
+      type: 'Signal',
+      description: 'Reactive signal that controls the selected item.',
     },
     {
-      name: 'animated',
-      type: 'boolean',
-      description:
-        'Allows the trigger to close using the onAnimationEnd$ and onTransitionEnd$ event handlers.',
-    },
-    {
-      name: 'onSelectedIndexChange$',
+      name: 'onChange$',
       type: 'function',
-      info: 'PropFunction<(index: number) => void>',
-      description:
-        'An event hook that gets notified whenever the selected index changes.',
-    },
-    {
-      name: 'onFocusIndexChange$',
-      type: 'function',
-      info: 'PropFunction<(index: number) => void>',
-      description: 'An event hook that gets notified whenever the focus index changes.',
-    },
-  ]}
-/>
-
-### Accordion Item
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'id',
-      type: 'string',
-      description:
-        'Allows the consumer to supply their own id attribute for the item and its descendants.',
-    },
-    {
-      name: 'defaultValue',
-      type: 'boolean',
-      description: 'Determines whether the Accordion Item will open by default.',
-    },
-  ]}
-/>
-
-### Accordion Header
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'as',
-      type: 'union',
-      info: `'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'`,
-      description: 'Sets the heading tag of the Accordion Header (Rendered HTML)',
-    },
-  ]}
-/>
-
-### Common Built-in Props
-
-Thanks to `QwikIntrinsicAttributes` , you can use most if not all normal JSX props and handlers on the semantically correlated component. Here are some of the most common ones:
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'class',
-      type: 'string',
-      description: 'CSS classes you can apply',
-    },
-    {
-      name: 'style',
-      type: 'string',
-      description: 'CSS styles you can apply',
+      description: 'Called when the state changes.',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: 'Disables the element',
+      description: 'Disables the entire accordion.',
     },
     {
-      name: 'onClick$',
-      type: 'function',
-      info: 'PropFunction<() => void>',
-      description: 'A custom click handler that executes when the element is clicked.',
+      name: 'collapsible',
+      type: 'boolean',
+      description: 'Allows items to be collapsible.',
     },
     {
-      name: 'onKeyDown$',
-      type: 'function',
-      info: 'PropFunction<() => void>',
-      description: 'A custom click handler that executes when the key is pressed down.',
+      name: 'multiple',
+      type: 'boolean',
+      description: 'Allows multiple items to be expanded.',
+    },
+  ]}
+/>
+
+### Accordion.Item
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'value',
+      type: 'string',
+      description: 'The value associated with the accordion item.',
     },
     {
-      name: 'onFocus$',
-      type: 'function',
-      info: 'PropFunction<() => void>',
-      description: 'A custom click handler that executes when element is focused.',
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, the accordion item is disabled.',
     },
   ]}
 />

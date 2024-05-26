@@ -2,6 +2,10 @@
 '@qwik-ui/headless': minor
 ---
 
+## 100% Lazy execution
+
+The entire Qwik UI library does not execute code until interaction. Your components are HTML, until the user decides to interact with them.
+
 ## Bundling improvements
 
 We have reduced the bundle size significantly of the headless library. If you are a Qwik library author, please refer to [this issue](https://github.com/QwikDev/qwik/issues/5473) as it may impact your bundle size as well.
@@ -100,6 +104,10 @@ export default component$(() => {
 - A new `hover` prop has also been introduced on the root, useful for things like tooltips.
 
 - Programmatically toggling the popover is still possible, make sure to put the same id on the `<Popover.Root />` that is passed to the `usePopover` hook. Refer to the docs for more info.
+
+- popover-showing and popover-closing classes have been deprecated. Please use the `data-open` and ``data-closing` attributes instead.
+
+- The `data-open`, `data-closing`, and `data-closed` data attributes have been added to the popover.
 
 #### <Popover.Root />
 

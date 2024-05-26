@@ -39,11 +39,11 @@
   transition-behavior: allow-discrete;
 }
 
-.popover-transition.popover-showing {
+.popover-transition[data-open] {
   opacity: 1;
 }
 
-.popover-transition.popover-closing {
+.popover-transition[data-closing] {
   opacity: 0;
 }
 
@@ -51,11 +51,11 @@
   transform: scale(0);
 }
 
-.popover-animation.popover-showing {
+.popover-animation[data-open] {
   animation: popover-grow 0.5s ease-in-out forwards;
 }
 
-.popover-animation.popover-closing {
+.popover-animation[data-closing] {
   animation: popover-shrink 0.4s ease-in-out forwards;
 }
 

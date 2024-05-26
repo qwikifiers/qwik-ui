@@ -17,9 +17,9 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
   const context = useContext(collapsibleContextId);
   const isHiddenSig = useSignal<boolean>(!context.isOpenSig.value);
   // check if it's initially "animatable"
-  const isAnimatedSig = useSignal<boolean>(true);
   const initialRenderSig = useSignal<boolean>(true);
   const contentId = `${context.itemId}-content`;
+  const triggerId = `${context.itemId}-trigger`;
 
   const hideContent$ = $(() => {
     if (!context.isOpenSig.value) {
@@ -27,35 +27,14 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
     }
   });
 
-  /* detects if the content is animating. on the server everything is "animatable", we then filter out the animations on the client. */
-  useTask$(async function automaticAnimations({ track }) {
+  useTask$(async function animations({ track }) {
     track(() => context.isOpenSig.value);
 
-    if (isServer) {
+    if (isServer || !context.isAnimatedSig.value) {
       return;
     }
 
-    if (context.isOpenSig.value) {
-      await context.getContentDimensions$();
-    }
-
-    /* check if there's a transition or animation, we set a timeout for the initial render */
-    setTimeout(() => {
-      const { animationDuration, transitionDuration } = getComputedStyle(
-        context.contentRef.value!,
-      );
-
-      // don't animate if initially open
-      if (
-        animationDuration === '0s' &&
-        transitionDuration === '0s' &&
-        !initialRenderSig.value
-      ) {
-        isAnimatedSig.value = false;
-      } else {
-        isAnimatedSig.value = true;
-      }
-    }, 15);
+    await context.getContentDimensions$();
 
     if (context.isOpenSig.value) {
       isHiddenSig.value = false;
@@ -75,7 +54,8 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
       data-closed={!context.isOpenSig.value ? '' : undefined}
       onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
       onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
-      hidden={isAnimatedSig.value ? isHiddenSig.value : !context.isOpenSig.value}
+      hidden={context.isAnimatedSig.value ? isHiddenSig.value : !context.isOpenSig.value}
+      aria-labelledby={triggerId}
     >
       <Slot />
     </div>

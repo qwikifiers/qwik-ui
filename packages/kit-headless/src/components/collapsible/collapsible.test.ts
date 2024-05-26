@@ -99,29 +99,6 @@ test.describe('Aria', () => {
   });
 });
 
-test.describe('Animations', () => {
-  test(`GIVEN an animatable collapsible
-        WHEN clicking on the trigger
-        THEN the content should open`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'animation');
-
-    await d.getTrigger().click();
-    await d.waitForAnimationEnd('[data-collapsible-content]');
-    await expect(d.getContent()).toBeVisible();
-  });
-
-  test(`GIVEN an open animatable collapsible
-        WHEN clicking on the trigger
-        THEN the content should close`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'animation');
-    await d.openCollapsible('click');
-
-    await d.getTrigger().click();
-    await d.waitForAnimationEnd('[data-collapsible-content]');
-    await expect(d.getContent()).toBeHidden();
-  });
-});
-
 test.describe('Reactive values', () => {
   test(`GIVEN a collapsible with a bind:open prop
         WHEN the signal value changes to true

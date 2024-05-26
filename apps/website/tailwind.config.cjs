@@ -98,8 +98,18 @@ module.exports = {
       },
       // EXTEND-END
       animation: {
-        'accordion-down': '0.2s ease-out 0s 1 normal forwards accordion-open',
-        'accordion-up': '0.2s ease-out 0s 1 normal forwards accordion-close',
+        'accordion-up': 'collapsible-up 0.2s ease-out 0s 1 normal forwards',
+        'accordion-down': 'collapsible-down 0.2s ease-out 0s 1 normal forwards',
+      },
+      keyframes: {
+        'collapsible-down': {
+          from: { height: '0' },
+          to: { height: 'var(--qwikui-collapsible-content-height)' },
+        },
+        'collapsible-up': {
+          from: { height: 'var(--qwikui-collapsible-content-height)' },
+          to: { height: '0' },
+        },
       },
       transitionTimingFunction: {
         step: 'cubic-bezier(0.6, 0.6, 0, 1)',
