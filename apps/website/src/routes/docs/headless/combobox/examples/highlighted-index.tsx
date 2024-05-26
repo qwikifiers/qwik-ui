@@ -21,9 +21,9 @@ export default component$(() => {
         options={highlightedExample}
         class="combobox-root"
       >
-        <Combobox.Label class="combobox-label">Star Wars 🧙‍♂️</Combobox.Label>
+        <Combobox.Label class="combobox-label">Highlighted 🚨</Combobox.Label>
         <Combobox.Control class="combobox-control">
-          <Combobox.Input placeholder="Jim" class="combobox-input" />
+          <Combobox.Input placeholder="not highlighted" class="combobox-input" />
           <Combobox.Trigger class="combobox-trigger">
             <LuChevronDown class="combobox-icon" />
           </Combobox.Trigger>

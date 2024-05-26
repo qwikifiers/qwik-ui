@@ -20,7 +20,7 @@ export default component$(() => {
     <Combobox.Root options={objectExample} class="combobox-root">
       <Combobox.Label class="combobox-label">Star Wars 🧙‍♂️</Combobox.Label>
       <Combobox.Control class="combobox-control">
-        <Combobox.Input placeholder="Jim" class="combobox-input" />
+        <Combobox.Input placeholder="C3PO" class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>
