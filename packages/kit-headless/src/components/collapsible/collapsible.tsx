@@ -11,8 +11,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 
-import { collapsibleContextId } from './collapsible-context-id';
-import { type CollapsibleContext } from './collapsible-context.type';
+import { type CollapsibleContext, collapsibleContextId } from './collapsible-context';
 import { isBrowser } from '@builder.io/qwik/build';
 import { useCollapsible } from './use-collapsible';
 
