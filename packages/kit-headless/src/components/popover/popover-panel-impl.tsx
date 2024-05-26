@@ -105,7 +105,6 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
       id={panelId}
       ref={props.ref}
       data-open={context.isOpenSig.value ? '' : undefined}
-      data-closed={!context.isOpenSig.value ? '' : undefined}
       popover={
         (context.manual && 'manual') || props.popover === 'manual'
           ? 'manual'
@@ -116,7 +115,7 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
           if (!context.panelRef?.value) return;
 
           if (e.newState === 'open' && context.panelRef.value) {
-            supportShowAnimation(context.panelRef.value, isPolyfillSig.value);
+            await supportShowAnimation(context.panelRef.value, isPolyfillSig.value);
           }
           if (e.newState === 'closed') {
             supportClosingAnimation(context.panelRef.value);
