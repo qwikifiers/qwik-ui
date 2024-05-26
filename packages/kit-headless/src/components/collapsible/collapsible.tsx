@@ -10,10 +10,11 @@ import {
   type QRL,
   useTask$,
 } from '@builder.io/qwik';
+
 import { collapsibleContextId } from './collapsible-context-id';
 import { type CollapsibleContext } from './collapsible-context.type';
 import { isBrowser } from '@builder.io/qwik/build';
-import { getHiddenHeight } from '../../utils/get-hidden-height';
+import { useCollapsible } from './use-collapsible';
 
 export type CollapsibleProps = PropsOf<'div'> & {
   id?: string;
@@ -51,6 +52,8 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
 
   const contentHeightSig = useSignal<number | null>(null);
 
+  const { getHiddenHeight } = useCollapsible();
+
   const localId = useId();
   const itemId = id ?? localId;
 
@@ -72,7 +75,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     }
 
     if (contentHeightSig.value === null) {
-      contentHeightSig.value = getHiddenHeight(contentRef.value);
+      contentHeightSig.value = await getHiddenHeight(contentRef.value);
     }
 
     if (contentHeightSig.value !== 0) {

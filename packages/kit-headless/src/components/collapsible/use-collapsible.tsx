@@ -16,7 +16,6 @@ export function useCollapsible() {
 
     el.after(clone);
     const height = clone.offsetHeight;
-    console.log('height', height);
 
     clone.remove();
 
