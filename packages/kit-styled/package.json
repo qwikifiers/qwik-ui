@@ -5,6 +5,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qwikifiers/qwik-ui",
+    "directory": "packages/kit-styled"
+  },
   "main": "./src/index.ts",
   "types": "./packages/kit-styled/src/index.d.ts",
   "generators": "./generators.json",
