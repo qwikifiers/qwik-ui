@@ -20,6 +20,8 @@ The Accordion has been refactored from the ground up to be more accessible and p
 
 - The default behavior is a single item open at a time.
 
+- The `animated` prop has been removed. Animations are now automatically detected!
+
 - `onSelectIndexChange$` has been deprecated and removed in favor of `onChange$`.
 
 - `onFocusIndexChange$` has been deprecated and removed. Let us know if you have a use case for this.
