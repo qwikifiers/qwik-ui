@@ -105,7 +105,6 @@ export const HAccordionItem = component$(
         disabled={context.disabled || props.disabled}
         collapsible={context.collapsible}
         accordionItem
-        animated={context.isAnimatedSig.value}
         {...props}
       >
         <Slot />

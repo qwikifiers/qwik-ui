@@ -16,8 +16,7 @@ import { isServer } from '@builder.io/qwik/build';
 export const HCollapsibleContent = component$((props: CollapsibleContentProps) => {
   const context = useContext(collapsibleContextId);
   const isHiddenSig = useSignal<boolean>(!context.isOpenSig.value);
-  // check if it's initially "animatable"
-  const initialRenderSig = useSignal<boolean>(true);
+  const isAnimatedSig = useSignal<boolean>(false);
   const contentId = `${context.itemId}-content`;
   const triggerId = `${context.itemId}-trigger`;
 
@@ -27,20 +26,35 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
     }
   });
 
-  useTask$(async function animations({ track }) {
+  // animations are detected automatically
+  useTask$(async function automaticAnimations({ track }) {
     track(() => context.isOpenSig.value);
 
-    if (isServer || !context.isAnimatedSig.value) {
+    if (isServer || !context.contentRef.value) {
       return;
     }
 
     await context.getContentDimensions$();
 
     if (context.isOpenSig.value) {
+      context.contentRef.value.removeAttribute('data-closed');
+      context.contentRef.value.dataset.open = '';
       isHiddenSig.value = false;
+    } else {
+      context.contentRef.value.dataset.closed = '';
+      context.contentRef.value.removeAttribute('data-open');
     }
 
-    initialRenderSig.value = false;
+    // check if the content element has an animation or transition duration
+    const { animationDuration, transitionDuration } = getComputedStyle(
+      context.contentRef.value,
+    );
+
+    if (animationDuration !== '0s' || transitionDuration !== '0s') {
+      isAnimatedSig.value = true;
+    } else {
+      isAnimatedSig.value = false;
+    }
   });
 
   return (
@@ -50,11 +64,9 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
       id={contentId}
       data-collapsible-content
       data-disabled={context.disabled ? '' : undefined}
-      data-open={!initialRenderSig.value && context.isOpenSig.value ? '' : undefined}
-      data-closed={!context.isOpenSig.value ? '' : undefined}
       onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
       onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
-      hidden={context.isAnimatedSig.value ? isHiddenSig.value : !context.isOpenSig.value}
+      hidden={isAnimatedSig.value ? isHiddenSig.value : !context.isOpenSig.value}
       aria-labelledby={triggerId}
     >
       <Slot />

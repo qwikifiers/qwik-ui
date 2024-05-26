@@ -26,7 +26,6 @@ export type CollapsibleProps = PropsOf<'div'> & {
   triggerRef?: Signal<HTMLButtonElement>;
   collapsible?: boolean;
   accordionItem?: boolean;
-  animated?: boolean;
 };
 
 export const HCollapsible = component$((props: CollapsibleProps) => {
@@ -40,7 +39,6 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     collapsible = true,
     open,
     accordionItem,
-    animated,
     ...rest
   } = props;
 
@@ -50,7 +48,6 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
   const defaultTriggerRef = useSignal<HTMLButtonElement>();
   const triggerRef = givenTriggerRef ?? defaultTriggerRef;
   const contentRef = useSignal<HTMLElement>();
-  const isAnimatedSig = useSignal<boolean>(animated === true);
 
   const contentHeightSig = useSignal<number | null>(null);
 
@@ -102,7 +99,6 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     contentHeightSig,
     getContentDimensions$,
     disabled,
-    isAnimatedSig,
     collapsible,
   };
 
