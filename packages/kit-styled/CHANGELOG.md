@@ -1,5 +1,111 @@
 # @qwik-ui/styled
 
+## 0.1.0
+
+### Minor Changes
+
+- ## tailwind.config.cjs (by [@maiieul](https://github.com/maiieul) in [#753](https://github.com/qwikifiers/qwik-ui/pull/753))
+
+  Now uses tailwindcss-animate
+
+  ```ts
+    plugins: [
+      require('tailwindcss-animate'),
+      ...
+    ],
+  ```
+
+  Instead of manually defined animations through a custom plugin like
+
+  ```ts
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.appear': {
+          opacity: 1,
+        },
+        '.disappear': {
+          opacity: 0,
+        },
+      });
+    }),
+  ];
+  ```
+
+  ## Modal refactor
+
+  ### Modal.Panel
+
+  The Panel now uses tailwindcss-animate and comes built-in with 5 `position` variant props
+
+  ```tsx
+  export const panelVariants = cva(
+    [
+      'fixed w-full bg-background p-6 text-foreground transition-all backdrop:brightness-50 backdrop:backdrop-blur-sm',
+      'data-[closing]:duration-300 data-[open]:duration-300 data-[open]:animate-in data-[closing]:animate-out',
+      'backdrop:data-[closing]:duration-300 backdrop:data-[open]:duration-300 backdrop:data-[open]:animate-in backdrop:data-[closing]:animate-out backdrop:data-[closing]:fade-out backdrop:data-[open]:fade-in',
+    ],
+    {
+      variants: {
+        position: {
+          center:
+            'max-w-lg rounded-base shadow-lg data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-2 backdrop:data-[closing]:fade-out backdrop:data-[open]:fade-in',
+          top: 'inset-x-0 top-0 mt-0 rounded-b-base border-b data-[closing]:slide-out-to-top data-[open]:slide-in-from-top',
+          bottom:
+            'inset-x-0 bottom-0 mb-0 rounded-t-base border-t data-[closing]:slide-out-to-bottom data-[open]:slide-in-from-bottom',
+          left: 'inset-y-0 left-0 ml-0 h-full max-w-sm rounded-r-base border-r data-[closing]:slide-out-to-left data-[open]:slide-in-from-left',
+          right:
+            'inset-y-0 right-0 mr-0 h-full max-w-sm rounded-l-base border-l data-[closing]:slide-out-to-right data-[open]:slide-in-from-right',
+        },
+      },
+      defaultVariants: {
+        position: 'center',
+      },
+    },
+  );
+
+  type PanelProps = PropsOf<typeof HeadlessModal.Panel> &
+    VariantProps<typeof panelVariants>;
+
+  const Panel = component$<PanelProps>(({ position, ...props }) => {
+    return (
+      <HeadlessModal.Panel
+        {...props}
+        class={cn(panelVariants({ position }), props.class)}
+      >
+        <Slot />
+      </HeadlessModal.Panel>
+    );
+  });
+  ```
+
+  over previous tailwind.config.js home-made plugin
+
+  ```tsx
+          '.appear': {
+            opacity: 1,
+          },
+          '.disappear': {
+            opacity: 0,
+          },
+  ```
+
+  to avoid re-inventing the wheel.
+
+  ### Modal.Title
+
+  Title now holds `text-lg font-semibold` classes.
+
+  ### Modal.Description
+
+  Description now holds `text-muted-foreground` class.
+
+### Patch Changes
+
+- FEAT new styled select component (by [@maiieul](https://github.com/maiieul) in [#759](https://github.com/qwikifiers/qwik-ui/pull/759))
+
+- Styled button now uses `transition-all` for every variant shared class (by [@maiieul](https://github.com/maiieul) in [#753](https://github.com/qwikifiers/qwik-ui/pull/753))
+
 ## 0.0.6
 
 ### Patch Changes
