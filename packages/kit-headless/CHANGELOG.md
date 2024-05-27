@@ -1,5 +1,297 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+- ## 100% Lazy execution (by [@thejackshelton](https://github.com/thejackshelton) in [#737](https://github.com/qwikifiers/qwik-ui/pull/737))
+
+  The entire Qwik UI library does not execute code until interaction. Your components are HTML, until the user decides to interact with them.
+
+  ## Bundling improvements
+
+  We have reduced the bundle size significantly of the headless library. If you are a Qwik library author, please refer to [this issue](https://github.com/QwikDev/qwik/issues/5473) as it may impact your bundle size as well.
+
+  ## Dot notation
+
+  The biggest change of v0.4 is the addition of dot notation to the API. Also known as "namespaced components".
+
+  This includes our largest breaking change to Qwik UI yet. We hope it is the largest ever, and want to ensure a much smoother transition going forward. Before we can do that, we need to make sure the API's are consistent across the library.
+
+  **The component API's have been updated to use dot notation.**
+
+  We believe that dot notation will significantly improve the developer experience. Below are some of the benefits of dot notation.
+
+  ### Simple Imports
+
+  In previous versions, imports needed to be defined for each component.
+
+  ```tsx
+  import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@qwik-ui/headless';
+  ```
+
+  While this is trivial with three components, it can be a pain with the more "pieces" a component has.
+
+  ```tsx
+  import {
+    Combobox,
+    ComboboxControl,
+    ComboboxIcon,
+    ComboboxInput,
+    ComboboxLabel,
+    ComboboxListbox,
+    ComboboxOption,
+    ComboboxPopover,
+    ComboboxTrigger,
+    ResolvedOption,
+  } from '@qwik-ui/headless';
+  ```
+
+  In v0.4, the new import syntax is the following:
+
+  ```tsx
+  import { Collapsible, Combobox } from '@qwik-ui/headless';
+  ```
+
+  ### TypeScript Autocomplete
+
+  The searchability of available components has also been improved. You can now use the autocomplete feature to find a specific sub-component.
+
+  ![component autocomplete](https://i.imgur.com/ccipLo3.png)
+
+  ### Improved legibility
+
+  For longer component names, the dot notation is arguably more legible. For example, `Combobox.Listbox` vs. `ComboboxListbox`.
+
+  ### Migration Cheat Sheet
+
+  As an easier way to migrate, we've created a mini cheat sheet below. If you have any questions, or need help migrating, don't hesistate to reach out to us on Discord.
+
+  **Components named <Component>, like <Accordion> are now <Accordion.Root />**
+
+  > Except for <Modal> and <Popover>, which is now <Modal.Panel /> and <Popover.Panel /> respectively.
+
+  With new root components, the **main props** have been moved to the root component. (for example, props previously on the Popover and Modal panels).
+
+  Ex:
+
+  ```
+  <Modal bind:show> -> <Modal.Root bind:show>
+  ```
+
+  For further reference, read the [RFC](https://github.com/qwikifiers/qwik-ui/issues/700) on dot notation.
+
+  ### Popover Refactor
+
+  Based on feedback we have received from the community, we have also improved the developer experience of the Popover component.
+
+  ```tsx
+  import { component$ } from '@builder.io/qwik';
+  import { Popover } from '@qwik-ui/headless';
+
+  export default component$(() => {
+    return (
+      <Popover.Root gutter={4}>
+        <Popover.Trigger class="popover-trigger">Click me</Popover.Trigger>
+        <Popover.Panel class="popover-panel">
+          I am anchored to the popover trigger!
+        </Popover.Panel>
+      </Popover.Root>
+    );
+  });
+  ```
+
+  - By default, the popover is now anchored to its trigger. The API surface should also be simpler.
+  - A new `hover` prop has also been introduced on the root, useful for things like tooltips.
+  - Programmatically toggling the popover is still possible, make sure to put the same id on the `<Popover.Root />` that is passed to the `usePopover` hook. Refer to the docs for more info.
+  - popover-showing and popover-closing classes have been deprecated. Please use the `data-open` and ``data-closing` attributes instead.
+  - The `data-open`, `data-closing`, and `data-closed` data attributes have been added to the popover.
+
+  #### <Popover.Root />
+
+  There is a new root compomnent. Configurable props have been moved to the root component.
+
+  #### Deprecated Props
+
+  - You no longer need to style the popover open state with `:popover-open`. Instead, use the `data-open` attribute for it to style across browsers.
+
+  ```css
+  .popover-panel[data-open] {
+    background: green;
+  }
+  ```
+
+  - You no longer need to pass a `popovertarget` prop to the `<Popover.Trigger />` component. Same with an id prop on the `<Popover.Panel />` component.
+  - The `placement` prop has been deprecated, and combined with the `floating` prop.
+
+  For example, `floating="right` will now float the popover to the right.
+
+  #### Opting out of the floating library
+
+  To opt-out of the floating library, set the `floating={false}` on the `<Popover.Root />` component.
+
+  May 2024, Chrome will be adding support for the CSS anchor API. This will allow us to remove the floating UI library entirely when that gains more support across browsers.
+
+  ### Docs Improvements
+
+  A couple of docs improvements have been made:
+
+  - The docs have been updated to reflect the new API.
+  - The headless docs no longer include styles in the examples. There is an example CSS section in each component page. If you do not find one, please open an issue on GitHub.
+  - Part of the Accordion and Modal docs have been simplified
+  - The examples now include icons from the `qwikest/icons` package rather than an abstract component you could not use.
+
+- ### Modal API Changes (by [@thejackshelton](https://github.com/thejackshelton) in [#734](https://github.com/qwikifiers/qwik-ui/pull/734))
+
+  In a previous release, the following components have been deprecated:
+
+  - ModalHeader
+  - ModalContent
+  - ModalFooter
+
+  These components were native header, div, and footer elements and did nothing special under the hood. We are deprecating them in order to simplify the API and make it more consistent with the rest of the components.
+
+  The new components are:
+
+  #### <Modal.Root>
+
+  This is the main container of the modal, and now holds the major props and configuration. Examples include:
+
+  - 'bind:show'?: Signal<boolean>;
+  - closeOnBackdropClick?: boolean;
+  - alert?: boolean;
+  - onShow$?: QRL<() => void>;
+  - onClose$?: QRL<() => void>;
+
+  #### <Modal.Panel>
+
+  Previously `<Modal />` the modal panel is the dialog element that is rendered on top of the page. Its props have since been moved to the `<Modal.Root />` component, please refer to the docs for more information.
+
+  #### <Modal.Trigger>
+
+  The modal now comes with a default trigger, which will open the modal when clicked.
+
+  #### <Modal.Title>
+
+  This computes the accessible name from the string children of the modal.
+
+  ### <Modal.Description>
+
+  This computes the accessible description from the string children of the modal.
+
+  ### <Modal.Close>
+
+  This is a button that closes the modal when clicked.
+
+- ### Select API Changes (by [@thejackshelton](https://github.com/thejackshelton) in [#724](https://github.com/qwikifiers/qwik-ui/pull/724))
+
+  - `<SelectOption />` has been renamed to `<Select.ItemLabel />`.
+  - `<Select.Value />` has been renamed to `<Select.DisplayValue />`.
+
+  ### `<Select.Item />`
+
+  A new component that allows for customize of the list item.
+
+  #### `<Select.ItemIndicator />`
+
+  This component is used to render an icon or other visual element that is displayed next to the `<Select.ItemLabel />` whenever an item is selected.
+
+  ### Multi-select
+
+  To opt-in to the multi-select mode, set the `multiple` prop to `true`. Please refer to the `Multiple Selections` section in the docs for more information.
+
+  The previous API did not allow for customization of list items. The new API introduces a couple new components:
+
+  ```tsx
+      <Select.Item>
+        <Select.ItemLabel>My Display Option!</Select.ItemLabel>
+        <Select.ItemIndicator>
+          {/* anything goes here */}
+        </Select.ItemIndicator>
+      <Select.Item>
+  ```
+
+  You can now put anything you'd like in your `<Select.Item />`, just like a normal li tag!
+
+  There is a new reactive signal called `bind:displayValue` that can be used to read the value of the display text. There is a new docs example that shows this in action with item pills.
+
+  #### bind syntax
+
+  We have been exploring more with the `bind` syntax. `bind:x` is a convention based on `bind:value` and `bind:checked`, where a signal is passed and two way data binding is enabled.
+
+  > This is much more performant than previous two way data binding, thanks to signals.
+
+  As a general note:
+
+  name -> initial value
+
+  anything that does not start with `bind:` is a static value.
+
+  bind:name -> reactive signal
+
+  anything that starts with `bind:` is a reactive signal.
+
+  If you find yourself curious to explore the bind syntax more, try typing `bind:` on a root component in Qwik UI, you should see a list of available things you can reactively customize!
+
+- ### Tooltip (by [@thejackshelton](https://github.com/thejackshelton) in [#733](https://github.com/qwikifiers/qwik-ui/pull/733))
+
+  The Tooltip component has been refactored from the ground up to be more accessible and performant.
+
+  It is now built on top of the popover primitive, and has a similar API.
+
+  It remains in `draft` status, and is not yet ready for production use. We will be working on it more deeply in the near future.
+
+  ### Accordion
+
+  The Accordion has been refactored from the ground up to be more accessible and performant.
+
+  #### Accordion.Root
+
+  - The `behavior="multi"` prop has been deprecated with `multiple` on the `<Accordion.Root />` component.
+  - The default behavior is a single item open at a time.
+  - The `animated` prop has been removed. Animations are now automatically detected!
+  - `onSelectIndexChange# Changelog has been deprecated and removed in favor of `onChange# Changelog.
+  - `onFocusIndexChange# Changelog has been deprecated and removed. Let us know if you have a use case for this.
+  - Reactively control the accordion with the `bind:value` prop.
+  - Control the initial value with the `value` prop.
+  - Disable the entire accordion by using the `disabled` prop.
+
+  #### Accordion.Item
+
+  - Pass distinct values to the `<Accordion.Item />` component with the `value` prop.
+  - Disable Accordion items by setting the `disabled` prop to true on the `<Accordion.Item />` component.
+
+  For more information, please refer to the updated Accordion documentation.
+
+  ### Collapsible
+
+  - The `onOpenChange# Changelog prop has been deprecated. Use the `onChange# Changelog prop instead.
+
+  For more information, please refer to the updated Collapsible documentation.
+
+  ### Deprecated Components
+
+  In 0.4, we have deprecated the following headless components:
+
+  - Drawer
+  - Breadcrumb
+  - Action Button
+  - Button Group
+  - Toast
+  - Card
+  - Badge
+  - Spinner
+  - Rating
+  - Checkbox
+
+  Most of these components were in a pre-alpha state, duplicates from the styled kit, or were not yet ready for production use. They were lying around in the codebase for a while, and we have gained many insights since then on creating accessible, unstyled, and performant components.
+
+  You can expect the **Toast** and the **Tooltip** to come back with a much more polished form in a future release.
+
+### Patch Changes
+
+- 🐞🩹 popover API programmatic behavior works correctly (by [@thejackshelton](https://github.com/thejackshelton) in [#730](https://github.com/qwikifiers/qwik-ui/pull/730))
+
 ## 0.3.8
 
 ### Patch Changes
