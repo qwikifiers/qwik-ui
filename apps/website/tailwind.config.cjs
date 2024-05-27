@@ -96,7 +96,6 @@ module.exports = {
         1: 'calc(var(--stroke-width) + 1px)',
         2: 'calc(var(--stroke-width) + 2px)',
       },
-      // EXTEND-END
       animation: {
         'accordion-up': 'collapsible-up 0.2s ease-out 0s 1 normal forwards',
         'accordion-down': 'collapsible-down 0.2s ease-out 0s 1 normal forwards',
@@ -111,6 +110,7 @@ module.exports = {
           to: { height: '0' },
         },
       },
+      // EXTEND-END
       transitionTimingFunction: {
         step: 'cubic-bezier(0.6, 0.6, 0, 1)',
         jumpy: 'cubic-bezier(0.87, 0, 0.13, 1)',
