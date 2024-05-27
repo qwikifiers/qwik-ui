@@ -55,7 +55,7 @@ import { Collapsible, Combobox } from '@qwik-ui/headless';
 
 The searchability of available components has also been improved. You can now use the autocomplete feature to find a specific sub-component.
 
-![component autocomplete](../blob/main/apps/website/public/images/autocomplete.png)
+![component autocomplete](https://imgur.com/ccipLo3)
 
 ### Improved legibility
 
