@@ -1,13 +1,13 @@
 import { $, PropsOf, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 
-export const Checkbox = component$<PropsOf<'input'>>(
+export const Checkbox = component$<PropsOf<'input'> & { type?: 'checkbox' }>(
   ({ id, name, ['bind:checked']: checkedSig, checked, onInput$, ...props }) => {
     const inputId = id || name;
     return (
       <input
-        type="checkbox"
         {...props}
+        type="checkbox"
         // workaround to support two way data-binding on the Input component (https://github.com/QwikDev/qwik/issues/3926)
         checked={checkedSig ? checkedSig.value : checked}
         onInput$={checkedSig ? $((_, el) => (checkedSig.value = el.checked)) : onInput$}
