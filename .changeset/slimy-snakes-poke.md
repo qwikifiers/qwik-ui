@@ -4,7 +4,9 @@
 
 ## tailwind.config.cjs
 
-Now uses tailwindcss-animate
+### tailwindcss-animate
+
+The tailwind config now uses tailwindcss-animate
 
 ```ts
   plugins: [
@@ -29,6 +31,29 @@ plugins: [
   }),
 ];
 ```
+
+### New keyframes
+
+We added
+
+```js
+animation: {
+  'accordion-up': 'collapsible-up 0.2s ease-out 0s 1 normal forwards',
+  'accordion-down': 'collapsible-down 0.2s ease-out 0s 1 normal forwards',
+},
+keyframes: {
+  'collapsible-down': {
+    from: { height: '0' },
+    to: { height: 'var(--qwikui-collapsible-content-height)' },
+  },
+  'collapsible-up': {
+    from: { height: 'var(--qwikui-collapsible-content-height)' },
+    to: { height: '0' },
+  },
+},
+```
+
+to the tailwind config. You will need those for the styled accordion to be animated.
 
 ## Modal refactor
 
@@ -94,3 +119,7 @@ Title now holds `text-lg font-semibold` classes.
 ### Modal.Description
 
 Description now holds `text-muted-foreground` class.
+
+## Accordion
+
+We changed the accordion animations. So make sure to update your taiwind config accordingly (explained at the beginning of the changeset!).
