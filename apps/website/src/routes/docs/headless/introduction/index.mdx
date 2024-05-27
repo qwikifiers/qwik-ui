@@ -3,133 +3,66 @@ title: Qwik UI | Introduction
 ---
 
 import headlessHero from '/public/images/qwik-ui-headless-hero.webp';
-import { Accordion } from '@qwik-ui/styled';
+import { FAQ } from '~/components/faq/faq';
+import { ConfettiButton } from '../install/confetti-button';
 
 # Headless kit
 
-Taking inspiration from popular headless libraries such as [Headless UI](https://headlessui.com/), [Radix UI](https://www.radix-ui.com/primitives/docs/components/accordion), [React Aria](https://react-spectrum.adobe.com/react-aria/components.html), [Kobalte](https://kobalte.dev/docs/core/overview/introduction), and [Melt UI](https://melt-ui.com/docs/builders/accordion), the headless kit is a library of completely unstyled, accessible, and resumable components with built-in structure, behavior, and state.
-You can use it to build your design system from scratch with any of the tools you want, or simply use the docs as a reference to the components API if you're using the styled kit.
+Qwik UI is a tool to help you build better design systems. It includes components with **no default styles** and a [styled kit](../../styled/introduction/) with configurable presets. Both are fully customizable and accessible.
+
+You are currently exploring the headless kit, which manages the essential structure, behavior, and state of advanced UI components. It also happens to be the world's fastest UI library, squeezing out every bit of performance. _(Like lemonade from lemons that had a run-in with a steamroller.)_ 🥤
 
 <Note status="warning">
-  Qwik UI is in its **beta** phase - it's like a roller coaster, thrilling and full of
-  surprises! Expect new features and some breaking changes until we reach version 1.0. So,
-  buckle up and enjoy the ride. 🏍️
+  Qwik UI is currently in its **beta** phase. We appreciate your support and patience as
+  we continue to add new features and make improvements. Expect some breaking changes
+  until we reach version 1.0.
 </Note>
 
-## Vision
+## It's fast, like really fast
 
-In 2024, developers should not have to recreate the same [WAI-Aria Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/) from scratch. Building custom components is challenging, and developers shouldn't need to reinvent common UI patterns.
+The claim of being the world's fastest UI library is genuine, not just marketing hype. In Qwik UI, every component starts as **lightweight HTML** and activates smaller pieces upon **user interaction**. Each event is handled independently, without affecting the entire component.
 
-Our aim is to ensure Qwik UI is not just an effective, but also a simple, reliable, and flexible choice for developing applications.
+## Accessibility
 
-Qwik UI Headless is optimized to squeeze every possible ounce of performance out of Qwik _(Like lemonade from lemons that had a run-in with a steamroller.)_ 🥤
+Components in Qwik UI follow the [WAI-ARIA Design Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/) when possible. The project manages ARIA attributes, focus management, and keyboard handling.
 
-## Why Qwik UI Headless?
+However, following these guidelines alone does not guarantee full accessibility. The headless kit tests with assistive technologies to ensure that people with disabilities can fully use your applications.
 
-### The client and the server
+## Bring your own styles
 
-Like Qwik itself, Qwik UI is super performant because it renders everything it can on the server
-
-Unlike many other solutions that focus solely on client-side components, Qwik UI takes advantage of the server, the client, and the concept of resumability.
-
-This means that Qwik UI can operate with any meta-framework that supports Qwik, including the full framework benefits. At the time of writing, that includes [Qwik City](https://qwik.builder.io/docs/qwikcity/) and [Astro](https://astro.build/).
-
-### Embracing native first
-
-Qwik values HTML as the source of truth, and this principle extends to Qwik UI components. We appreciate and adopt the excellent work done by the [Open UI Group](https://open-ui.org/) when appropriate.
-
-This approach also encompasses future native APIs. Users of Qwik UI might find themselves using components that can be gradually adopted into the native specification. This implies that, eventually, these custom patterns might not need any JavaScript.
-
-> For instance, [Qwik UI's popover component](https://github.com/qwikifiers/qwik-ui/pull/445) uses the native Popover API on supported browsers. The Anchor API is also incrementally adoptable.
-
-Thanks to resumability, we do less work because there are less components to execute. With Qwik UI we build on top of that, providing the same functionality with less code needed to prefetch in the first place.
-
-## Features
-
-### Unstyled
-
-Qwik UI is a headless library, and comes with zero or very minimal styling. This means the design of your components are completely customizable.
-
-<CodeSnippet name="headless-jsx" />
-
-This is in contrast to styled libraries such as Bootstrap or Material UI, where [styles often need to be stripped](https://www.smashingmagazine.com/2022/05/you-dont-need-ui-framework/) in order to be custom.
-
-<CodeSnippet name="headless-css.css" />
-
-### Accessible at its core
-
-Everyone should have equal access to information and functionality on the web. Every Qwik UI component is designed to follow the [WCAG Guidelines](https://www.w3.org/WAI/standards-guidelines/wcag/).
-
-However, it's a common misconception that meeting WCAG success criteria guarantees full accessibility of your components. Unfortunately, this is not the case.
-
-The ultimate measure of your components' accessibility is user testing. This aspect, often overlooked in other projects, is a high priority for us.
-
-### Developer Experience that matches UX
-
-Many libraries tout their excellent Developer Experience (DX), but this doesn't necessarily translate into a superior User Experience (UX).
-
-Conversely, some packages offer great UX, but fall short when it comes to DX.
-
-One of the benefits of Qwik is its ability to create performant applications without compromising on DX. Our goal is to extend this same balance of performance and ease-of-use to those utilizing Qwik UI components.
-
-#### Some examples being:
+Out of the box, components ship with zero or necessary behavioral styles, giving you complete control over your design. You can style them using any solution.
 
 <FeatureList
-  features={[
-    'TypeScript support',
-    'Custom Signal Binds',
-    'Automatic entry and exit animations across browsers',
-    'Works across environments / microfrontends',
-    'Automatic performance optimization',
-  ]}
+  features={['Vanilla CSS', 'SASS and PostCSS', 'CSS-in-JS', 'Whatever you want!']}
+/>
+
+<ConfettiButton intro />
+
+## Environment agnostic
+
+Whether you're building an _SSG_ marketing page, _SSR_ e-commerce site, or _CSR_ dashboard, Qwik UI knows when each function should run on the server or the client for you.
+
+## Developer experience
+
+Our goal is to provide the **best developer experience**. Qwik UI offers fully-typed, discoverable, and composable components.
+
+<img
+  src="../../../public/images/autocomplete.png"
+  class="h-60 rounded-sm object-cover object-left px-2 md:h-[revert]"
+  width="1920"
+  height="600"
 />
 
 ## FAQ
 
-<Accordion.Root>
-  <Accordion.Item>
-    <Accordion.Trigger>
-      What kind of support or resources are available if I encounter issues with Qwik UI?
-    </Accordion.Trigger>
-    <Accordion.Content>
-      If you stumble into any problems, [create an
-      issue](https://github.com/qwikifiers/qwik-ui/issues) on the Qwik UI repository. We
-      also have a [discord community](https://discord.gg/PVWUUejrez) with a Qwik UI
-      channel where you can raise any concerns, propose ideas, or chat all things Qwik UI
-      😊
-    </Accordion.Content>
-  </Accordion.Item>
-  <Accordion.Item>
-    <Accordion.Trigger>How can I contribute to the project?</Accordion.Trigger>
-    <Accordion.Content>
-      We provide a [contributing](/docs/headless/contributing) guide to help get familiar
-      with the repository. Additionally, we offer a quick start [setup
-      guide](https://github.com/qwikifiers/qwik-ui/blob/main/CONTRIBUTING.md) and a
-      section dedicated to advanced resources below the Components navigation.
-    </Accordion.Content>
-  </Accordion.Item>
-  <Accordion.Item>
-    <Accordion.Trigger>
-      How can I migrate my existing application to use Qwik UI?
-    </Accordion.Trigger>
-    <Accordion.Content>
-      If you're using `Qwik-React`, `Qwik-Angular`, `@qwikdev/astro`, we suggest
-      incrementally adding Qwik UI components to your application. Qwik, built as a
-      microfrontend, allows you to incrementally integrate Qwik UI components into your
-      existing application. This approach reduces migration risk and complexity, letting
-      you leverage Qwik UI's benefits at your own pace.
-    </Accordion.Content>
-  </Accordion.Item>
-</Accordion.Root>
+<FAQ />
 
 ## Credits
 
-We strongly believe in having a [learner's mindset](https://www.jakeyou.com/blog/learners-mindset-how-to-be-a-learner), and as such, we've drawn inspiration from a multitude of projects, learning from their successes and challenges.
+We believe in a _learner's mindset_ and have drawn inspiration from many projects, learning from their successes and challenges.
 
-Qwik UI's development has been shaped by the following remarkable projects:
-
-- [Radix UI](https://www.radix-ui.com/)
 - [Kobalte](https://kobalte.dev/docs/core/overview/introduction)
-- [Melt UI](https://www.melt-ui.com/docs/introduction)
 - [React Aria](https://react-spectrum.adobe.com/react-aria/)
-- [Reach UI](https://reach.tech/)
+- [Melt UI](https://www.melt-ui.com/docs/introduction)
+- [Radix UI](https://www.radix-ui.com/)
+- [Ariakit](https://ariakit.org/)
