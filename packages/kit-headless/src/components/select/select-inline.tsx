@@ -11,9 +11,9 @@ type InlineCompProps = {
 };
 
 /*
-  This is an inline component. An example use case of an inline component to get the proper indexes with CSR. See issue #4757
-  for more information.
-*/
+ * This is an inline component. An example use case of an inline component to get the proper indexes with CSR. See issue #4757
+ * for more information.
+ */
 export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
   props: SelectProps & InlineCompProps,
 ) => {
