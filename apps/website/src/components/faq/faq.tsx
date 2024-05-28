@@ -5,7 +5,7 @@ export const FAQ = component$(() => {
   return (
     <Accordion.Root>
       <Accordion.Item>
-        <Accordion.Trigger>
+        <Accordion.Trigger class="text-left">
           What kind of support or resources are available if I encounter issues with Qwik
           UI?
         </Accordion.Trigger>
@@ -28,7 +28,9 @@ export const FAQ = component$(() => {
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item>
-        <Accordion.Trigger>How can I contribute to the project?</Accordion.Trigger>
+        <Accordion.Trigger class="text-left">
+          How can I contribute to the project?
+        </Accordion.Trigger>
         <Accordion.Content>
           We provide a{' '}
           <a
@@ -49,7 +51,7 @@ export const FAQ = component$(() => {
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item>
-        <Accordion.Trigger>
+        <Accordion.Trigger class="text-left">
           How can I migrate my existing application to use Qwik UI from another framework?
         </Accordion.Trigger>
         <Accordion.Content>
