@@ -9,16 +9,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
 
-const {
-  dependencies = {
-    '@floating-ui/dom': '^1.6.5',
-    '@floating-ui/core': '^1.6.2',
-    '@oddbird/popover-polyfill': '0.4.3',
-    'focus-trap': '7.5.4',
-    'body-scroll-lock-upgrade': '^1.1.0',
-  },
-  peerDependencies = {},
-} = pkg as any;
+const { dependencies = {}, peerDependencies = {} } = pkg as any;
 const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
 const excludeAll = (obj: any) => Object.keys(obj).map(makeRegex);
 
