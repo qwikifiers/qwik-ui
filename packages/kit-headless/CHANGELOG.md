@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.1
+
+### Patch Changes
+
+- Fix 0.4 external packages not found (by [@maiieul](https://github.com/maiieul) in [#798](https://github.com/qwikifiers/qwik-ui/pull/798))
+
 ## 0.4.0
 
 ### Minor Changes
