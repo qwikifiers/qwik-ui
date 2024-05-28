@@ -1,4 +1,5 @@
 export * as Accordion from './components/accordion/';
+export * as Calendar from './components/calendar';
 export * as Carousel from './components/carousel';
 export * as Collapsible from './components/collapsible';
 export * as Combobox from './components/combobox';
