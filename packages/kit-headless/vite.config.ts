@@ -62,9 +62,11 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        /^node:.*/,
-        ...excludeAll(dependencies),
-        ...excludeAll(peerDependencies),
+        '@floating-ui/dom',
+        '@floating-ui/core',
+        '@oddbird/popover-polyfill',
+        'focus-trap',
+        'body-scroll-lock-upgrade',
       ],
       output: {
         preserveModules: true,
