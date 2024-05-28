@@ -61,11 +61,6 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: [
-        /^node:.*/,
-        ...excludeAll(dependencies),
-        ...excludeAll(peerDependencies),
-      ],
       output: {
         preserveModules: true,
         preserveModulesRoot: 'packages/kit-headless/src',
