@@ -365,6 +365,7 @@ importers:
       '@builder.io/qwik':
         specifier: ^1.5.5
         version: 1.5.5(@types/node@20.12.12)(sass@1.77.2)(undici@5.28.4)
+    devDependencies:
       '@floating-ui/core':
         specifier: ^1.6.2
         version: 1.6.2
@@ -380,7 +381,6 @@ importers:
       focus-trap:
         specifier: 7.5.4
         version: 7.5.4
-    devDependencies:
       tsx:
         specifier: 4.7.2
         version: 4.7.2
@@ -2802,15 +2802,18 @@ packages:
     resolution: {integrity: sha512-+2XpQV9LLZeanU4ZevzRnGFg2neDeKHgFLjP6YLW+tly0IvrhqT4u8enLGjLH3qeh85g19xY5rsAusfwTdn5lg==}
     dependencies:
       '@floating-ui/utils': 0.2.2
+    dev: true
 
   /@floating-ui/dom@1.6.5:
     resolution: {integrity: sha512-Nsdud2X65Dz+1RHjAIP0t8z5e2ff/IRbei6BqFrl1urT8sDVzM1HMQ+R0XcU5ceRfyO3I6ayeqIfh+6Wb8LGTw==}
     dependencies:
       '@floating-ui/core': 1.6.2
       '@floating-ui/utils': 0.2.2
+    dev: true
 
   /@floating-ui/utils@0.2.2:
     resolution: {integrity: sha512-J4yDIIthosAsRZ5CPYP/jQvUAQtlZTTD/4suA08/FEnlxqW3sKS9iAhgsa9VYLZ6vDHn/ixJgIqRQPotoBjxIw==}
+    dev: true
 
   /@fontsource-variable/inter@5.0.18:
     resolution: {integrity: sha512-rJzSrtJ3b7djiGFvRuTe6stDfbYJGhdQSfn2SI2WfXviee7Er0yKAHE5u7FU7OWVQQQ1x3+cxdmx9NdiAkcrcA==}
@@ -3583,6 +3586,14 @@ packages:
       - nx
     dev: true
 
+  /@nrwl/devkit@19.1.0(nx@19.1.0):
+    resolution: {integrity: sha512-n4YxtAMSdlXAmwcSKcLEX48kpcPGI/sX7lCfDeoSnTKud8Y1tlNeD8rf0YZV3ae+srE6j4lxfoJrRCpWweMcEQ==}
+    dependencies:
+      '@nx/devkit': 19.1.0(nx@19.1.0)
+    transitivePeerDependencies:
+      - nx
+    dev: true
+
   /@nrwl/eslint-plugin-nx@19.0.8(@swc-node/register@1.9.1)(@swc/core@1.5.7)(@types/node@20.12.12)(@typescript-eslint/parser@7.9.0)(eslint-config-prettier@9.1.0)(eslint@8.57.0)(nx@19.0.4)(typescript@5.4.5)(verdaccio@5.31.0):
     resolution: {integrity: sha512-C83jqD+mhua/pxYWsoHMSzbeYm2MjSushMlvazv0No2RAkwV8BCiQOGpjjVDqk/vSYp2st+1VTX07nwqW0MtTA==}
     dependencies:
@@ -3908,7 +3919,7 @@ packages:
     peerDependencies:
       nx: '>= 17 <= 20'
     dependencies:
-      '@nrwl/devkit': 19.1.0(nx@19.0.4)
+      '@nrwl/devkit': 19.1.0(nx@19.1.0)
       ejs: 3.1.10
       enquirer: 2.3.6
       ignore: 5.3.1
@@ -4939,6 +4950,7 @@ packages:
 
   /@oddbird/popover-polyfill@0.4.3:
     resolution: {integrity: sha512-kBS0ZAwH8kZqFl0mV89KPK4cLYl2ZoKSfYngK4dz1eLAhKzTK0yu4LrvLdMeM7JhjWK6GxBtiY+cl1s6vR2pUg==}
+    dev: true
 
   /@phenomnomnominal/tsquery@5.0.1(typescript@5.4.5):
     resolution: {integrity: sha512-3nVv+e2FQwsW8Aw6qTU6f+1rfcJ3hrcnvH/mu9i8YhxO+9sqbOfpL8m6PbET5+xKOlz/VSbp0RoYWYCtIsnmuA==}
@@ -7319,6 +7331,7 @@ packages:
 
   /body-scroll-lock-upgrade@1.1.0:
     resolution: {integrity: sha512-nnfVAS+tB7CS9RaksuHVTpgHWHF7fE/ptIBJnwZrMqImIvWJF1OGcLnMpBhC6qhkx9oelvyxmWXwmIJXCV98Sw==}
+    dev: true
 
   /boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
@@ -10047,6 +10060,7 @@ packages:
     resolution: {integrity: sha512-N7kHdlgsO/v+iD/dMoJKtsSqs5Dz/dXZVebRgJw23LDk+jMi/974zyiOYDziY2JPp8xivq9BmUGwIJMiuSBi7w==}
     dependencies:
       tabbable: 6.2.0
+    dev: true
 
   /follow-redirects@1.15.6:
     resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
@@ -16437,6 +16451,7 @@ packages:
 
   /tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
+    dev: true
 
   /tailwind-merge@1.14.0:
     resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
