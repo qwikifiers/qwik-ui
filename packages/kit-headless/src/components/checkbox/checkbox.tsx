@@ -13,7 +13,7 @@ import {
 import { CheckListContext, CheckboxContext } from './context-id';
 import { TriBool, getTriBool } from '../checklist/checklist-context-wrapper';
 export type MixedStateCheckboxProps = {
-  checkBoxSig?: Signal<boolean>;
+  checkboxSig?: Signal<boolean>;
   checklist?: boolean;
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;
@@ -144,7 +144,7 @@ export const MixedStateCheckbox = component$<MixedStateCheckboxProps>((props) =>
   // all the sig stuff should be refactored into a fancy hook
   const checklistContext = useContext(CheckListContext);
   const childCheckboxes = checklistContext.checkboxes;
-  const appliedSig = props.checkBoxSig ?? checklistContext.checklistSig;
+  const appliedSig = props.checkboxSig ?? checklistContext.checklistSig;
   const ariaControlsStrg =
     checklistContext.idArr.length === 0
       ? ''
@@ -152,8 +152,8 @@ export const MixedStateCheckbox = component$<MixedStateCheckboxProps>((props) =>
   useContextProvider(CheckboxContext, appliedSig);
 
   // im not enterily sure why, but the if statement only runs once
-  if (props.checkBoxSig !== undefined) {
-    checklistContext.checklistSig = props.checkBoxSig;
+  if (props.checkboxSig !== undefined) {
+    checklistContext.checklistSig = props.checkboxSig;
   }
 
   const changeChecklistSig = $(() => {

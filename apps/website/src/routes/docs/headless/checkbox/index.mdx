@@ -12,4 +12,51 @@ import { statusByComponent } from '~/_state/component-statuses';
 Allows users to visually select an option by "checking" it.
 
 <Showcase name="hero" />
-<Showcase name="pizza" />
+### Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Checkbox.Root',
+      description:
+        'Defines the component boundary and exposes its internal logic; must wrap over all other parts',
+    },
+    {
+      name: 'Checkbox.Indicator',
+      description: 'Wrapper that automatically handles show & hide logic for you',
+    },
+  ]}
+/>
+
+### API
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'checkboxSig',
+      description: 'Defined at the root; binds the value to a boolean signal',
+    },
+    {
+      name: 'checklist',
+      description:
+        "Defined at the root; makes the checkbox be treated as a tri-state checkbox AND binds it's value over all other checkboxes inside a checklist",
+    },
+  ]}
+/>
+### API examples #### Controlled Checkbox
+
+<Showcase name="controlled" />
+
+This example shows that you can pass down your own signal to handle the boolean logic. Note that the initial value of your signal will affect the initial value of the checkbox.
+
+### Customization & Caveats
+
+The Checkbox is made from the ground up to be as customizable as possible.
+
+You can define your own CSS classes on every part of the component as if it were a normal div element. You can even define any valid HTML as your icon, but keep in mind that any child of the Checkbox Indicator is removed from the accesibilyti tree. This is done to prevent text, or emojis, that are meant to be used as icons from being added to the label of the Checkbox (see [automatic labeling](#automatic-labeling) for more info).
+
+### Automatic Labeling
+
+Due to the implementation of the Checkbox element being a div with the role of checkbox, any text present inside the Checkbox Root is interpreted as the checkbox label.
+
+This also means that any text tag is stripped from its semantic meaning. In other words, passing an h1 tag is treated the same as passing a p tag: they are both treated as if you passed no tag at all. See [this](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role#all_descendants_are_presentational) section of MDN for a more detailed explenation.
