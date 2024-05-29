@@ -30,14 +30,13 @@
   },
   "private": false,
   "peerDependencies": {
-    "@builder.io/qwik": "^1.5.5",
+    "@builder.io/qwik": "^1.5.5"
+  },
+  "dependencies": {
     "@floating-ui/core": "^1.6.2",
     "@floating-ui/dom": "^1.6.5",
     "@oddbird/popover-polyfill": "0.4.3",
     "focus-trap": "7.5.4",
     "body-scroll-lock-upgrade": "^1.1.0"
-  },
-  "devDependencies": {
-    "tsx": "4.7.2"
   }
 }
