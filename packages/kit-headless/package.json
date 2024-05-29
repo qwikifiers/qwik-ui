@@ -32,8 +32,7 @@
   "peerDependencies": {
     "@builder.io/qwik": "^1.5.5"
   },
-  "devDependencies": {
-    "tsx": "4.7.2",
+  "dependencies": {
     "@floating-ui/core": "^1.6.2",
     "@floating-ui/dom": "^1.6.5",
     "@oddbird/popover-polyfill": "0.4.3",
