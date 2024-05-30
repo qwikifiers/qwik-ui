@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.2
+
+### Patch Changes
+
+- ✨ accordion items can now open without a value using the `open` prop. use only in multiple mode. (by [@thejackshelton](https://github.com/thejackshelton) in [#803](https://github.com/qwikifiers/qwik-ui/pull/803))
+
 ## 0.4.1
 
 ### Patch Changes
