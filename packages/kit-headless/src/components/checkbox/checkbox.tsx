@@ -19,7 +19,7 @@ export type MixedStateCheckboxProps = {
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
 export type TwoStateCheckboxProps = {
-  checkBoxSig?: Signal<boolean>;
+  checkboxSig?: Signal<boolean>;
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
@@ -28,7 +28,7 @@ type TwoStateCheckboxBehaviorProps = {
   checkboxSig: Signal<boolean>;
 } & PropsOf<'div'>;
 export type ChecklistTwoStateCheckboxProps = {
-  checkBoxSig?: Signal<boolean>;
+  checkboxSig?: Signal<boolean>;
   _useCheckListContext?: boolean;
   _overWriteCheckbox?: boolean;
 } & PropsOf<'div'>;
@@ -65,7 +65,7 @@ function getAriaChecked(triBool: TriBool): 'mixed' | 'true' | 'false' {
 export const TwoStateCheckbox = component$<TwoStateCheckboxProps>((props) => {
   // all the sig stuff should be refactored into a fancy hook
   const defaultSig = useSignal(false);
-  const appliedSig = props.checkBoxSig ?? defaultSig;
+  const appliedSig = props.checkboxSig ?? defaultSig;
   const checklistID = useSignal<string | undefined>(props.id);
   useContextProvider(CheckboxContext, appliedSig);
   return (
@@ -89,7 +89,7 @@ export const ChecklistTwoStateCheckbox = component$<ChecklistTwoStateCheckboxPro
     // making this a wrapper over the simpler component or using hooks
     const checklistContext = useContext(CheckListContext);
     const defaultSig = useSignal(false);
-    const appliedSig = props.checkBoxSig ?? defaultSig;
+    const appliedSig = props.checkboxSig ?? defaultSig;
     const checklistID = useSignal<string | undefined>(props.id);
     // makes sure that the checklist's value is the same as its child
     const syncToChecklist = useSignal<undefined | boolean>(props._overWriteCheckbox);

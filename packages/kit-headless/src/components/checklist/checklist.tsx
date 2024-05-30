@@ -49,9 +49,9 @@ export const Checklist: Component<CheckListProps> = (props: CheckListProps) => {
           } else {
             idArr.push(false);
           }
-          if (typedProps.checkBoxSig && typedProps.checkBoxSig.value) {
-            boolArr.push(typedProps.checkBoxSig.value);
-            hellSigs.push(typedProps.checkBoxSig);
+          if (typedProps.checkboxSig && typedProps.checkboxSig.value) {
+            boolArr.push(typedProps.checkboxSig.value);
+            hellSigs.push(typedProps.checkboxSig);
           } else {
             boolArr.push(false);
           }
@@ -79,7 +79,7 @@ export const Checklist: Component<CheckListProps> = (props: CheckListProps) => {
       "QWIKUI: checklist doesn't have a checkbox. Did you give the atribute to *checklist* to any of the checkboxes inside the checklist?",
     );
   }
-  if (checklistCheckbox.props.checkBoxSig) {
+  if (checklistCheckbox.props.checkboxSig) {
     checklistChilds.forEach((checkbox) => {
       Object.assign(checkbox.props, { _overWriteCheckbox: true });
     });
