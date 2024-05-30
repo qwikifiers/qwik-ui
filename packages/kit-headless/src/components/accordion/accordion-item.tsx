@@ -23,7 +23,13 @@ type AccordionItemProps = PropsOf<typeof HCollapsible> & {
 };
 
 export const HAccordionItem = component$(
-  ({ id, _index, value, ...props }: AccordionItemProps & InternalAccordionItemProps) => {
+  ({
+    id,
+    _index,
+    value,
+    open,
+    ...props
+  }: AccordionItemProps & InternalAccordionItemProps) => {
     const context = useContext(accordionContextId);
     const localId = useId();
     const itemId = id ?? localId + '-item';
@@ -100,7 +106,8 @@ export const HAccordionItem = component$(
     return (
       <HCollapsible
         triggerRef={triggerRef}
-        bind:open={isOpenSig}
+        bind:open={open ? undefined : isOpenSig}
+        open={context.isMultipleSig.value ? open : undefined}
         id={itemId}
         disabled={context.disabled || props.disabled}
         collapsible={context.collapsible}
