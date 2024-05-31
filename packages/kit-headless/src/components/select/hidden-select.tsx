@@ -19,10 +19,6 @@ export type AriaHiddenSelectProps = {
   disabled?: boolean;
 
   required?: boolean;
-
-  // from modular forms
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  field?: any;
 };
 
 export const HHiddenNativeSelect = component$(

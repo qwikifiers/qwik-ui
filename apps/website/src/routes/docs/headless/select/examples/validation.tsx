@@ -29,7 +29,7 @@ export default component$(() => {
         {(field, props) => {
           return (
             <Select.Root class="select" required>
-              <Select.HiddenNativeSelect field={field} {...props} />
+              <Select.HiddenNativeSelect {...props} />
               <Select.Label>Logged in users</Select.Label>
               <Select.Trigger class="select-trigger">
                 <Select.DisplayValue placeholder="Select an option" />
