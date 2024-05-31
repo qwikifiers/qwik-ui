@@ -38,7 +38,7 @@ const useActiveItem = (itemIds: string[]) => {
           }
         });
       },
-      { rootMargin: `0% 0% -90% 0%` },
+      { rootMargin: `0% 0% -85% 0%` },
     );
 
     itemIds.forEach((id) => {
