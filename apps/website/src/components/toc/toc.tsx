@@ -30,13 +30,16 @@ const useActiveItem = (itemIds: string[]) => {
   const activeId = useSignal<string>();
 
   useVisibleTask$(({ cleanup }) => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          activeId.value = entry.target.id;
-        }
-      });
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            activeId.value = entry.target.id;
+          }
+        });
+      },
+      { rootMargin: `0% 0% -90% 0%` },
+    );
 
     itemIds.forEach((id) => {
       const element = document.getElementById(id);
