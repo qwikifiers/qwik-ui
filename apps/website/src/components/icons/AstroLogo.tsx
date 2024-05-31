@@ -6,7 +6,7 @@ export default component$((props: PropsOf<'svg'>) => {
       <style>
         {`
           html.light .flame {
-            fill: #17191E;
+            fill: url(#gradient);
           }
           html.dark .flame {
             fill: url(#gradient);
