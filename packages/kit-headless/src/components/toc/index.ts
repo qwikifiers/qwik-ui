@@ -1,0 +1,1 @@
+export { TableOfContent } from './toc';

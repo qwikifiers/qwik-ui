@@ -6,6 +6,7 @@ import {
   useVisibleTask$,
 } from '@builder.io/qwik';
 import { ContentHeading } from '@builder.io/qwik-city';
+import { TableOfContent } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 export const DashboardTableOfContents = component$(
   ({ headings }: { headings: ContentHeading[] }) => {
@@ -20,6 +21,8 @@ export const DashboardTableOfContents = component$(
       <div class="space-y-2">
         <div class="font-medium">On This Page</div>
         <Tree headings={headings} activeItem={activeHeading.value} />
+
+        <TableOfContent headings={headings} />
       </div>
     );
   },
