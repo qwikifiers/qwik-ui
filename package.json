@@ -161,5 +161,9 @@
   ],
   "nx": {
     "includedScripts": []
+  },
+  "volta": {
+    "node": "20.9.0",
+    "pnpm": "8.15.8"
   }
 }
