@@ -1,6 +1,6 @@
-import { PropsOf, component$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
+import { PropsOf, component$, useContext, useSignal } from '@builder.io/qwik';
 import SelectContextId from './select-context';
-import { isServer } from '@builder.io/qwik/build';
+import { HiddenSelectOption } from './hidden-select-option';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type AriaHiddenSelectProps = {
@@ -27,19 +27,7 @@ export const HHiddenNativeSelect = component$(
     const context = useContext(SelectContextId);
 
     // modular forms does something with refs, doesn't seem we need it, and it overrides the ref we define here.
-    ref;
-
     const nativeSelectRef = useSignal<HTMLSelectElement>();
-
-    useTask$(function modularFormsValidation({ track }) {
-      track(() => context.selectedIndexSetSig.value);
-
-      if (isServer) return;
-
-      // modular forms expects the input event fired after interaction
-      const inputEvent = new Event('input', { bubbles: false });
-      nativeSelectRef.value?.dispatchEvent(inputEvent);
-    });
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
     return (
@@ -48,7 +36,6 @@ export const HHiddenNativeSelect = component$(
           <label>
             {label}
             <select
-              onFocus$={() => context.triggerRef.value?.focus()}
               ref={(element: HTMLSelectElement) => {
                 nativeSelectRef.value = element;
                 // @ts-expect-error modular forms ref function
@@ -66,13 +53,13 @@ export const HHiddenNativeSelect = component$(
             >
               <option />
               {Array.from(context.itemsMapSig.value.entries()).map(([index, item]) => (
-                <option
-                  value={item.value}
-                  selected={context.selectedIndexSetSig.value.has(index)}
+                <HiddenSelectOption
                   key={item.value}
-                >
-                  {item.displayValue}
-                </option>
+                  value={item.value}
+                  displayValue={item.displayValue}
+                  nativeSelectRef={nativeSelectRef}
+                  index={index}
+                />
               ))}
             </select>
           </label>

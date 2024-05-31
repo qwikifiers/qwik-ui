@@ -1066,7 +1066,7 @@ test.describe('Props', () => {
           THEN the selected value matches the 5th option's value`, async ({ page }) => {
       const { getTrigger } = await setup(page, 'controlled-value');
 
-      await expect(getTrigger()).toHaveText('Select an option');
+      await expect(getTrigger()).toHaveText('Ryan');
       await page.getByRole('button', { name: 'Change to Abby' }).click();
 
       await expect(getTrigger()).toHaveText(`Abby`);
@@ -1081,7 +1081,7 @@ test.describe('Props', () => {
     }) => {
       const { driver: d } = await setup(page, 'controlled-value');
 
-      await expect(d.getTrigger()).toHaveText('Select an option');
+      await expect(d.getTrigger()).toHaveText('Ryan');
       // setup
       await page.getByRole('button', { name: 'Change to Abby' }).click();
       await expect(d.getTrigger()).toHaveText(`Abby`);
