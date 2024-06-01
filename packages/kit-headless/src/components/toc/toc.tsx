@@ -7,22 +7,22 @@ type Tree = Array<Node>;
 export const TableOfContent = component$<TableOfContentProps>((props) => {
   const flat = props.headings;
   const tree = getTree(props.headings);
-  const JSX = RecursiveJSX(props.headings, 0);
+  const JSX = RecursiveJSX(tree, 0);
 
   return <div>{JSX}</div>;
 });
-type RecursiveJSXProps = { flatNodes: Array<Node>; mIndex: number };
-function RecursiveJSX(flatNodes: Array<Node>, mIndex = 0) {
-  console.log('INDEX: ', mIndex, ' TO: ', flatNodes.length - 1);
-  console.log('CN: ', flatNodes[mIndex]);
-  console.log('NN: ', flatNodes[mIndex + 1]);
-  console.log('CC: ', flatNodes[mIndex].children);
+type RecursiveJSXProps = { tree: Array<Node>; mIndex: number };
+function RecursiveJSX(tree: Array<Node>, mIndex = 0) {
+  console.log('INDEX: ', mIndex, ' TO: ', tree.length - 1);
+  console.log('CT: ', tree);
+  // console.log('NN: ', flatNodes[mIndex + 1]);
+  // console.log('CC: ', flatNodes[mIndex].children);
 
-  const currNode: Node = flatNodes[mIndex];
-  const nextNode: Node | undefined = flatNodes[mIndex + 1];
+  const currNode: Node = tree[mIndex];
+  const nextNode: Node | undefined = tree[mIndex + 1];
   const base_case = nextNode === undefined && currNode.children.length === 0;
   const recursive_nested_case = currNode.children.length > 0;
-  if (base_case || mIndex >= flatNodes.length - 1) {
+  if (base_case) {
     console.log('ENDING');
 
     return <li>{currNode.level}</li>;
@@ -36,14 +36,9 @@ function RecursiveJSX(flatNodes: Array<Node>, mIndex = 0) {
       <>
         <li>
           {currNode.level}
-          <ul>
-            {currNode.children.map((node) => {
-              mIndex += 1;
-              return <li>{node.level}</li>;
-            })}
-          </ul>
+          <ul>{RecursiveJSX(currNode.children)}</ul>
         </li>
-        {mIndex + 1 <= flatNodes.length - 1 && RecursiveJSX(flatNodes, mIndex + 1)}
+        {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
       </>
     );
   }
@@ -51,7 +46,7 @@ function RecursiveJSX(flatNodes: Array<Node>, mIndex = 0) {
   return (
     <>
       <li>{currNode.level}</li>
-      {mIndex + 1 <= flatNodes.length - 1 && RecursiveJSX(flatNodes, mIndex + 1)}
+      {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
     </>
   );
 }
