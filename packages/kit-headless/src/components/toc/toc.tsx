@@ -55,14 +55,19 @@ function deltaToStrg(
   nextNode: Node,
 ): 'same level' | 'down one level' | 'up one level' {
   const delta = currNode.level - nextNode.level;
-  if (delta >= 1) {
+  if (delta === 1) {
     return 'up one level';
   }
-  if (delta <= -1) {
+  if (delta === -1) {
     return 'down one level';
   }
 
-  return 'same level';
+  if (delta === 0) {
+    return 'same level';
+  }
+  throw new Error(
+    `bad headings: are not continous from: #${currNode.id} to #${nextNode.id}`,
+  );
 }
 function getTree(nodes: ContentHeading[]) {
   let currNode = nodes[0] as Node;
