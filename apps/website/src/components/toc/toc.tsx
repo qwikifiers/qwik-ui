@@ -17,10 +17,10 @@ export const DashboardTableOfContents = component$(
       return null;
     }
 
+    // <Tree headings={headings} activeItem={activeHeading.value} />
     return (
       <div class="space-y-2">
         <div class="font-medium">On This Page</div>
-        <Tree headings={headings} activeItem={activeHeading.value} />
 
         <TableOfContent headings={headings} />
       </div>
@@ -199,8 +199,6 @@ function deltaToStrg(
 
   throw new Error('bad headings: they are not continious');
 }
-const res = getTree(test);
-console.log(JSON.stringify(res));
 
 [
   {
