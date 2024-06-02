@@ -170,6 +170,7 @@ type AnchorThingProps = {
 export const AnchorThing = component$<AnchorThingProps>((props) => {
   const currNode = props.node;
   const activeItem = props.activeItem;
+  const isActiveItem = currNode.id === `${activeItem}`;
   return (
     <a
       href={`#${currNode.id}`}
@@ -187,9 +188,7 @@ export const AnchorThing = component$<AnchorThingProps>((props) => {
       class={cn(
         currNode.level > 2 ? 'ml-4' : null,
         'inline-block no-underline transition-colors hover:text-foreground',
-        currNode.id === `${activeItem}`
-          ? 'font-medium text-foreground'
-          : 'text-muted-foreground',
+        isActiveItem ? 'font-medium text-foreground' : 'text-muted-foreground',
       )}
     >
       {currNode.text}
