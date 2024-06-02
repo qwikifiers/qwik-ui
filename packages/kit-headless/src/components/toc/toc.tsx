@@ -1,4 +1,11 @@
-import { component$, useSignal, useTask$, $, type JSXOutput } from '@builder.io/qwik';
+import {
+  component$,
+  useSignal,
+  useTask$,
+  $,
+  type JSXOutput,
+  useVisibleTask$,
+} from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { type ContentHeading } from '@builder.io/qwik-city';
 type TableOfContentProps = { headings: ContentHeading[] };
@@ -92,9 +99,66 @@ function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
   return (
     <>
       <li key={currNode.id} class={cn('mt-0 pt-2')}>
-        {currNode.text}
+        <a
+          href={`#${currNode.id}`}
+          onClick$={[
+            $(() => {
+              const element = document.getElementById(currNode.id);
+              if (element) {
+                const navbarHeight = 90;
+                const elementPosition =
+                  element.getBoundingClientRect().top + window.scrollY - navbarHeight;
+                window.scrollTo({ top: elementPosition, behavior: 'auto' });
+              }
+            }),
+          ]}
+          class={cn(
+            currNode.level > 2 ? 'ml-4' : null,
+            'inline-block no-underline transition-colors hover:text-foreground',
+            currNode.id === `${activeItem}`
+              ? 'font-medium text-foreground'
+              : 'text-muted-foreground',
+          )}
+        >
+          {currNode.text}
+        </a>
       </li>
       {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
     </>
   );
 }
+
+const useActiveItem = (itemIds: string[]) => {
+  const activeId = useSignal<string>();
+
+  useVisibleTask$(({ cleanup }) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            activeId.value = entry.target.id;
+          }
+        });
+      },
+      { rootMargin: `0% 0% -90% 0%` },
+    );
+
+    itemIds.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    cleanup(() => {
+      itemIds.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    });
+  });
+
+  return activeId;
+};
