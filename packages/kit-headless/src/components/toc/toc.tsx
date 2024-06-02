@@ -1,4 +1,5 @@
 import { component$, useSignal, useTask$, $, type JSXOutput } from '@builder.io/qwik';
+import { cn } from '@qwik-ui/utils';
 import { type ContentHeading } from '@builder.io/qwik-city';
 type TableOfContentProps = { headings: ContentHeading[] };
 interface Node extends ContentHeading {
@@ -67,16 +68,22 @@ function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
   const base_case = nextNode === undefined && currNode.children.length === 0;
   const recursive_nested_case = currNode.children.length > 0;
   if (base_case) {
-    return <li>{currNode.text}</li>;
+    return (
+      <li key={currNode.id} class={cn('mt-0 pt-2')}>
+        {currNode.text}
+      </li>
+    );
   }
   // nested uls would be easy
   // nvm, nested uls got hands
   if (recursive_nested_case) {
     return (
       <>
-        <li>
+        <li key={currNode.id} class={cn('mt-0 pt-2')}>
           {currNode.text}
-          <ul>{RecursiveJSX(currNode.children)}</ul>
+          <ul class={cn('m-0 list-none', { 'pl-4': currNode.level !== 1 })}>
+            {RecursiveJSX(currNode.children)}
+          </ul>
         </li>
         {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
       </>
@@ -84,7 +91,9 @@ function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
   }
   return (
     <>
-      <li>{currNode.text}</li>
+      <li key={currNode.id} class={cn('mt-0 pt-2')}>
+        {currNode.text}
+      </li>
       {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
     </>
   );
