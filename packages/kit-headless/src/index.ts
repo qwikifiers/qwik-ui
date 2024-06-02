@@ -15,4 +15,3 @@ export * as Tabs from './components/tabs';
 export { Toggle } from './components/toggle';
 export * from './utils/visually-hidden';
 export * as Tooltip from './components/tooltip';
-export * from './components/toc';
