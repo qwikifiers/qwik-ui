@@ -17,11 +17,10 @@ export const DashboardTableOfContents = component$(
       return null;
     }
 
-    // <Tree headings={headings} activeItem={activeHeading.value} />
+    <Tree headings={headings} activeItem={activeHeading.value} />;
     return (
       <div class="space-y-2">
         <div class="font-medium">On This Page</div>
-
         <TableOfContent headings={headings} />
       </div>
     );

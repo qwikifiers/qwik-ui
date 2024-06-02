@@ -1,4 +1,4 @@
-import { component$, type JSXOutput } from '@builder.io/qwik';
+import { component$, useSignal, useTask$, $, type JSXOutput } from '@builder.io/qwik';
 import { type ContentHeading } from '@builder.io/qwik-city';
 type TableOfContentProps = { headings: ContentHeading[] };
 interface Node extends ContentHeading {
@@ -7,49 +7,11 @@ interface Node extends ContentHeading {
 }
 type Tree = Array<Node>;
 export const TableOfContent = component$<TableOfContentProps>((props) => {
-  const tree = getTree(props.headings);
-  const JSX = RecursiveJSX(tree, 0);
-
-  return <div>{JSX}</div>;
+  const infiniteStopper = JSON.parse(JSON.stringify(props.headings));
+  const tree = getTree(infiniteStopper);
+  return <>{RecursiveJSX(tree)}</>;
 });
-function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
-  console.log('INDEX: ', mIndex, ' TO: ', tree.length - 1);
-  console.log('CT: ', tree);
-  // console.log('NN: ', flatNodes[mIndex + 1]);
-  // console.log('CC: ', flatNodes[mIndex].children);
 
-  const currNode: Node = tree[mIndex];
-  const nextNode: Node | undefined = tree[mIndex + 1];
-  const base_case = nextNode === undefined && currNode.children.length === 0;
-  const recursive_nested_case = currNode.children.length > 0;
-  if (base_case) {
-    console.log('ENDING');
-
-    return <li>{currNode.level}</li>;
-  }
-  // nested uls would be easy
-  // nvm, nested uls got hands
-  if (recursive_nested_case) {
-    console.log('NESTED');
-
-    return (
-      <>
-        <li>
-          {currNode.level}
-          <ul>{RecursiveJSX(currNode.children)}</ul>
-        </li>
-        {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
-      </>
-    );
-  }
-  console.log('SIMPLE');
-  return (
-    <>
-      <li>{currNode.level}</li>
-      {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
-    </>
-  );
-}
 function deltaToStrg(
   currNode: Node,
   nextNode: Node,
@@ -98,4 +60,32 @@ function getTree(nodes: ContentHeading[]) {
     currNode = nextNode;
   }
   return tree;
+}
+function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
+  const currNode: Node = tree[mIndex];
+  const nextNode: Node | undefined = tree[mIndex + 1];
+  const base_case = nextNode === undefined && currNode.children.length === 0;
+  const recursive_nested_case = currNode.children.length > 0;
+  if (base_case) {
+    return <li>{currNode.level}</li>;
+  }
+  // nested uls would be easy
+  // nvm, nested uls got hands
+  if (recursive_nested_case) {
+    return (
+      <>
+        <li>
+          {currNode.level}
+          <ul>{RecursiveJSX(currNode.children)}</ul>
+        </li>
+        {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
+      </>
+    );
+  }
+  return (
+    <>
+      <li>{currNode.level}</li>
+      {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
+    </>
+  );
 }
