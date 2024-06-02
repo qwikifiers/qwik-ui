@@ -4,7 +4,6 @@ import {
   type JSXOutput,
   useVisibleTask$,
   $,
-  Signal,
 } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { type ContentHeading } from '@builder.io/qwik-city';
@@ -12,7 +11,7 @@ type TableOfContentProps = { headings: ContentHeading[] };
 interface Node extends ContentHeading {
   level: number;
   children: Array<Node>;
-  activeItem: Signal<string | undefined>;
+  activeItem: string;
 }
 type Tree = Array<Node>;
 export const TableOfContent = component$<TableOfContentProps>((props) => {
@@ -20,7 +19,7 @@ export const TableOfContent = component$<TableOfContentProps>((props) => {
   const itemIds = props.headings.map((item) => item.id);
   const activeHeading = useActiveItem(itemIds);
   const tree = getTree(infiniteStopper);
-  return <>{RecursiveJSX(tree, activeHeading)}</>;
+  return <>{RecursiveJSX(tree, activeHeading.value)}</>;
 });
 
 function deltaToStrg(
@@ -75,11 +74,7 @@ function getTree(nodes: ContentHeading[]) {
   }
   return tree;
 }
-function RecursiveJSX(
-  tree: Array<Node>,
-  activeItem: Signal<string | undefined>,
-  mIndex = 0,
-): JSXOutput {
+function RecursiveJSX(tree: Array<Node>, activeItem: string, mIndex = 0): JSXOutput {
   const currNode: Node = tree[mIndex];
   const nextNode: Node | undefined = tree[mIndex + 1];
   const base_case = nextNode === undefined && currNode.children.length === 0;
@@ -117,7 +112,7 @@ function RecursiveJSX(
 }
 
 const useActiveItem = (itemIds: string[]) => {
-  const activeId = useSignal<string>();
+  const activeId = useSignal<string>('');
 
   useVisibleTask$(({ cleanup }) => {
     const observer = new IntersectionObserver(
@@ -128,7 +123,7 @@ const useActiveItem = (itemIds: string[]) => {
           }
         });
       },
-      { rootMargin: `0% 0% -90% 0%` },
+      { rootMargin: `0% 0% -85% 0%` },
     );
 
     itemIds.forEach((id) => {
@@ -152,7 +147,7 @@ const useActiveItem = (itemIds: string[]) => {
 };
 type AnchorThingProps = {
   node: Node;
-  activeItem: Signal<string | undefined>;
+  activeItem: string;
 };
 export const AnchorThing = component$<AnchorThingProps>((props) => {
   const currNode = props.node;
@@ -172,7 +167,7 @@ export const AnchorThing = component$<AnchorThingProps>((props) => {
         }),
       ]}
       class={cn(
-        currNode.level > 2 ? 'ml-3' : null,
+        currNode.level > 2 ? 'ml-4' : null,
         'inline-block no-underline transition-colors hover:text-foreground',
         currNode.id === `${activeItem}`
           ? 'font-medium text-foreground'
