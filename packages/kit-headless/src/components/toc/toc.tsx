@@ -67,7 +67,7 @@ function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
   const base_case = nextNode === undefined && currNode.children.length === 0;
   const recursive_nested_case = currNode.children.length > 0;
   if (base_case) {
-    return <li>{currNode.level}</li>;
+    return <li>{currNode.text}</li>;
   }
   // nested uls would be easy
   // nvm, nested uls got hands
@@ -75,7 +75,7 @@ function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
     return (
       <>
         <li>
-          {currNode.level}
+          {currNode.text}
           <ul>{RecursiveJSX(currNode.children)}</ul>
         </li>
         {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
@@ -84,7 +84,7 @@ function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
   }
   return (
     <>
-      <li>{currNode.level}</li>
+      <li>{currNode.text}</li>
       {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
     </>
   );
