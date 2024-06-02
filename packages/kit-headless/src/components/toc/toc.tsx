@@ -45,8 +45,8 @@ function deltaToStrg(
 function getTree(nodes: ContentHeading[]) {
   let currNode = nodes[0] as Node;
   currNode.children = [];
-  let tree = [currNode];
-  let childrenMap = new Map<number, Tree>();
+  const tree = [currNode];
+  const childrenMap = new Map<number, Tree>();
   childrenMap.set(currNode.level, currNode.children);
   for (let index = 1; index < nodes.length; index++) {
     const nextNode = nodes[index] as Node;
@@ -54,17 +54,20 @@ function getTree(nodes: ContentHeading[]) {
     childrenMap.set(nextNode.level, nextNode.children);
     const deltaStrg = deltaToStrg(currNode, nextNode);
     switch (deltaStrg) {
-      case 'up one level':
+      case 'up one level': {
         const grandParent = childrenMap.get(currNode.level - 2);
         grandParent?.push(nextNode);
         break;
-      case 'same level':
+      }
+      case 'same level': {
         const parent = childrenMap.get(currNode.level - 1);
         parent?.push(nextNode);
         break;
-      case 'down one level':
+      }
+      case 'down one level': {
         currNode.children.push(nextNode);
         break;
+      }
       default:
         break;
     }
