@@ -1,10 +1,10 @@
 import {
   component$,
   useSignal,
-  useTask$,
-  $,
   type JSXOutput,
   useVisibleTask$,
+  $,
+  Signal,
 } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { type ContentHeading } from '@builder.io/qwik-city';
@@ -12,12 +12,15 @@ type TableOfContentProps = { headings: ContentHeading[] };
 interface Node extends ContentHeading {
   level: number;
   children: Array<Node>;
+  activeItem: Signal<string | undefined>;
 }
 type Tree = Array<Node>;
 export const TableOfContent = component$<TableOfContentProps>((props) => {
   const infiniteStopper = JSON.parse(JSON.stringify(props.headings));
+  const itemIds = props.headings.map((item) => item.id);
+  const activeHeading = useActiveItem(itemIds);
   const tree = getTree(infiniteStopper);
-  return <>{RecursiveJSX(tree)}</>;
+  return <>{RecursiveJSX(tree, activeHeading)}</>;
 });
 
 function deltaToStrg(
@@ -69,7 +72,11 @@ function getTree(nodes: ContentHeading[]) {
   }
   return tree;
 }
-function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
+function RecursiveJSX(
+  tree: Array<Node>,
+  activeItem: Signal<string | undefined>,
+  mIndex = 0,
+): JSXOutput {
   const currNode: Node = tree[mIndex];
   const nextNode: Node | undefined = tree[mIndex + 1];
   const base_case = nextNode === undefined && currNode.children.length === 0;
@@ -77,7 +84,7 @@ function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
   if (base_case) {
     return (
       <li key={currNode.id} class={cn('mt-0 pt-2')}>
-        {currNode.text}
+        <AnchorThing node={currNode} activeItem={activeItem} />
       </li>
     );
   }
@@ -87,43 +94,21 @@ function RecursiveJSX(tree: Array<Node>, mIndex = 0): JSXOutput {
     return (
       <>
         <li key={currNode.id} class={cn('mt-0 pt-2')}>
-          {currNode.text}
+          <AnchorThing node={currNode} activeItem={activeItem} />
           <ul class={cn('m-0 list-none', { 'pl-4': currNode.level !== 1 })}>
-            {RecursiveJSX(currNode.children)}
+            {RecursiveJSX(currNode.children, activeItem)}
           </ul>
         </li>
-        {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
+        {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, activeItem, mIndex + 1)}
       </>
     );
   }
   return (
     <>
       <li key={currNode.id} class={cn('mt-0 pt-2')}>
-        <a
-          href={`#${currNode.id}`}
-          onClick$={[
-            $(() => {
-              const element = document.getElementById(currNode.id);
-              if (element) {
-                const navbarHeight = 90;
-                const elementPosition =
-                  element.getBoundingClientRect().top + window.scrollY - navbarHeight;
-                window.scrollTo({ top: elementPosition, behavior: 'auto' });
-              }
-            }),
-          ]}
-          class={cn(
-            currNode.level > 2 ? 'ml-4' : null,
-            'inline-block no-underline transition-colors hover:text-foreground',
-            currNode.id === `${activeItem}`
-              ? 'font-medium text-foreground'
-              : 'text-muted-foreground',
-          )}
-        >
-          {currNode.text}
-        </a>
+        <AnchorThing node={currNode} activeItem={activeItem} />
       </li>
-      {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, mIndex + 1)}
+      {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, activeItem, mIndex + 1)}
     </>
   );
 }
@@ -162,3 +147,36 @@ const useActiveItem = (itemIds: string[]) => {
 
   return activeId;
 };
+type AnchorThingProps = {
+  node: Node;
+  activeItem: Signal<string | undefined>;
+};
+export const AnchorThing = component$<AnchorThingProps>((props) => {
+  const currNode = props.node;
+  const activeItem = props.activeItem;
+  return (
+    <a
+      href={`#${currNode.id}`}
+      onClick$={[
+        $(() => {
+          const element = document.getElementById(currNode.id);
+          if (element) {
+            const navbarHeight = 90;
+            const elementPosition =
+              element.getBoundingClientRect().top + window.scrollY - navbarHeight;
+            window.scrollTo({ top: elementPosition, behavior: 'auto' });
+          }
+        }),
+      ]}
+      class={cn(
+        currNode.level > 2 ? 'ml-3' : null,
+        'inline-block no-underline transition-colors hover:text-foreground',
+        currNode.id === `${activeItem}`
+          ? 'font-medium text-foreground'
+          : 'text-muted-foreground',
+      )}
+    >
+      {currNode.text}
+    </a>
+  );
+});
