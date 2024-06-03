@@ -42,7 +42,9 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
     if (!context.itemsMapSig.value) return;
 
-    typeahead$(e.key);
+    if (!context.isListboxOpenSig.value) {
+      typeahead$(e.key);
+    }
 
     switch (e.key) {
       case 'Tab':

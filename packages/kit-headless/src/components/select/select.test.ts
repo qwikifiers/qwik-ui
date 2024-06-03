@@ -396,19 +396,14 @@ test.describe('Keyboard Behavior', () => {
           AND the Enter key is pressed
           THEN option value should be the selected value
           AND should have an aria-selected of true`, async ({ page }) => {
-      const {
-        getTrigger,
-        getItemAt: getOptionAt,
-        getValueElement,
-        openListbox,
-      } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'hero');
 
-      await openListbox('Enter');
+      await d.openListbox('Enter');
 
-      await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
-      const expectedValue = await getOptionAt(0).textContent();
-      await getTrigger().press('Enter');
-      await expect(getValueElement()).toHaveText(expectedValue!);
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+      const expectedValue = await d.getItemAt(0).textContent();
+      await d.getItemAt(0).press('Enter');
+      await expect(d.getValueElement()).toHaveText(expectedValue!);
     });
 
     test(`GIVEN an open hero select
@@ -438,19 +433,14 @@ test.describe('Keyboard Behavior', () => {
           AND the Space key is pressed
           THEN option value should be the selected value
           AND should have an aria-selected of true`, async ({ page }) => {
-      const {
-        getTrigger,
-        getItemAt: getOptionAt,
-        getValueElement,
-        openListbox,
-      } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'hero');
 
-      await openListbox('Space');
+      await d.openListbox('Space');
 
-      await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
-      const expectedValue = await getOptionAt(0).textContent();
-      await getTrigger().press('Space');
-      await expect(getValueElement()).toHaveText(expectedValue!);
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+      const expectedValue = await d.getItemAt(0).textContent();
+      await d.getItemAt(0).press('Space');
+      await expect(d.getValueElement()).toHaveText(expectedValue!);
     });
 
     test(`GIVEN no selected item and a placeholder
@@ -535,11 +525,12 @@ test.describe('Keyboard Behavior', () => {
           THEN the second option starting with the letter "j" should have data-highlighted`, async ({
       page,
     }) => {
-      const { getRoot, getTrigger, openListbox } = await setup(page, 'typeahead');
+      const { getRoot, openListbox } = await setup(page, 'typeahead');
       await openListbox('ArrowDown');
-      await getTrigger().pressSequentially('jj', { delay: 1250 });
-      const highlightedOpt = getRoot().locator('[data-highlighted]');
-      await expect(highlightedOpt).toContainText('jessie', { ignoreCase: true });
+      const highlightedItem = getRoot().locator('[data-highlighted]');
+
+      await highlightedItem.pressSequentially('jj', { delay: 1250 });
+      await expect(highlightedItem).toContainText('jessie', { ignoreCase: true });
     });
 
     test(`GIVEN an open select with a typeahead support
