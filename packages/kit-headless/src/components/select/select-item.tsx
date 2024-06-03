@@ -34,8 +34,9 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   const itemRef = useSignal<HTMLLIElement>();
   const localIndexSig = useSignal<number | null>(null);
   const itemId = `${context.localId}-${_index}`;
+  const isInitialFocusSig = useSignal<boolean>(true);
 
-  const { selectionManager$ } = useSelect();
+  const { selectionManager$, getNextEnabledItemIndex$ } = useSelect();
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -46,14 +47,20 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     return !disabled && context.highlightedIndexSig.value === _index;
   });
 
-  useTask$(function getIndexTask() {
+  useTask$(async function getIndexTask() {
     if (_index === undefined)
       throw Error('Qwik UI: Select component item cannot find its proper index.');
 
     localIndexSig.value = _index;
+
+    // update the context with the first enabled item ref
+    const firstEnabledIndex = await getNextEnabledItemIndex$(-1);
+    if (localIndexSig.value === firstEnabledIndex) {
+      context.firstEnabledItemRef = itemRef;
+    }
   });
 
-  useTask$(function scrollableTask({ track, cleanup }) {
+  useTask$(async function scrollableTask({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
 
     if (isServer) return;
@@ -81,6 +88,8 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
         observer.observe(itemRef.value);
       }
     }
+
+    if (!isInitialFocusSig.value) return;
   });
 
   const handleClick$ = $(async () => {
@@ -124,7 +133,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
       data-selected={isSelectedSig.value ? '' : undefined}
       data-highlighted={isHighlightedSig.value ? '' : undefined}
       data-disabled={disabled ? '' : undefined}
-      data-item
+      data-item={_index}
       role="option"
     >
       <Slot />

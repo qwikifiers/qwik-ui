@@ -134,7 +134,15 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
-      context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
+      const firstItem = await getNextEnabledItemIndex$(-1);
+      context.highlightedIndexSig.value = firstItem;
+
+      // Wait for the popover code to be executed
+      while (!(context.firstEnabledItemRef.value === document.activeElement)) {
+        await new Promise((resolve) => setTimeout(resolve, 5));
+        context.firstEnabledItemRef.value?.focus();
+      }
+
       return;
     }
   });
