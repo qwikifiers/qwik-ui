@@ -513,10 +513,10 @@ test.describe('Keyboard Behavior', () => {
           THEN the first option starting with the letter "j" should have data-highlighted`, async ({
       page,
     }) => {
-      const { getRoot, getTrigger, openListbox } = await setup(page, 'typeahead');
-      await openListbox('ArrowDown');
-      await getTrigger().pressSequentially('j');
-      const highlightedOpt = getRoot().locator('[data-highlighted]');
+      const { driver: d } = await setup(page, 'typeahead');
+      await d.openListbox('ArrowDown');
+      await d.getItemAt(0).press('j');
+      const highlightedOpt = d.getRoot().locator('[data-highlighted]');
       await expect(highlightedOpt).toContainText('j', { ignoreCase: true });
     });
 
