@@ -62,8 +62,13 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     localIndexSig.value = _index;
   });
 
-  useTask$(async function scrollableTask({ track, cleanup }) {
+  useTask$(async function navigationTask({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
+
+    // update the context with the highlighted item ref
+    if (localIndexSig.value === context.highlightedIndexSig.value) {
+      context.highlightedItemRef = itemRef;
+    }
 
     if (isServer) return;
 
@@ -89,11 +94,6 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
       if (itemRef.value) {
         observer.observe(itemRef.value);
       }
-    }
-
-    // update the context with the highlighted item ref
-    if (localIndexSig.value === context.highlightedIndexSig.value) {
-      context.highlightedItemRef = itemRef;
     }
   });
 
@@ -222,7 +222,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
       data-selected={isSelectedSig.value ? '' : undefined}
       data-highlighted={isHighlightedSig.value ? '' : undefined}
       data-disabled={disabled ? '' : undefined}
-      data-item={_index}
+      data-item
       role="option"
     >
       <Slot />
