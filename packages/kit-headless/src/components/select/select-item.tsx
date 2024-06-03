@@ -8,6 +8,7 @@ import {
   useTask$,
   type PropsOf,
   useContextProvider,
+  sync$,
 } from '@builder.io/qwik';
 import { isServer, isBrowser } from '@builder.io/qwik/build';
 import SelectContextId, {
@@ -126,6 +127,24 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     isSelectedSig,
   };
 
+  const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+    const keys = [
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowRight',
+      'ArrowLeft',
+      'Home',
+      'End',
+      'PageDown',
+      'PageUp',
+      'Enter',
+      ' ',
+    ];
+    if (keys.includes(e.key)) {
+      e.preventDefault();
+    }
+  });
+
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
     switch (e.key) {
       case 'ArrowDown':
@@ -164,6 +183,11 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
           context.highlightedIndexSig.value = lastEnabledOptionIndex;
         }
         break;
+
+      case 'Tab':
+      case 'Escape':
+        context.isListboxOpenSig.value = false;
+        break;
     }
   });
 
@@ -174,7 +198,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
       {...rest}
       id={itemId}
       onClick$={[handleClick$, props.onClick$]}
-      onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
+      onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
       ref={itemRef}
       tabIndex={-1}
