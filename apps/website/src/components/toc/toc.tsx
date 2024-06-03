@@ -17,7 +17,9 @@ export const DashboardTableOfContents = component$(
     return (
       <div class="space-y-2">
         <div class="font-medium">On This Page</div>
-        <TableOfContent headings={headings} />
+        <ul>
+          <TableOfContent headings={headings} />
+        </ul>
       </div>
     );
   },
