@@ -56,50 +56,16 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
           : !context.isListboxOpenSig.value;
         break;
 
-      case 'ArrowDown':
-        if (context.isListboxOpenSig.value) {
-          context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
-            context.highlightedIndexSig.value!,
-          );
-          if (context.multiple && e.shiftKey) {
-            await selectionManager$(context.highlightedIndexSig.value, 'toggle');
-          }
-        } else {
-          context.isListboxOpenSig.value = true;
-        }
-        break;
-
-      case 'ArrowUp':
-        if (context.isListboxOpenSig.value) {
-          context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
-            context.highlightedIndexSig.value!,
-          );
-          if (context.multiple && e.shiftKey) {
-            await selectionManager$(context.highlightedIndexSig.value, 'toggle');
-          }
-        } else {
-          context.isListboxOpenSig.value = true;
-        }
-        break;
-
-      case 'Home':
-        if (context.isListboxOpenSig.value) {
-          context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
-        }
-        break;
-
-      case 'End':
-        if (context.isListboxOpenSig.value) {
-          const lastEnabledOptionIndex = await getPrevEnabledItemIndex$(
-            context.itemsMapSig.value.size,
-          );
-          context.highlightedIndexSig.value = lastEnabledOptionIndex;
-        }
-        break;
-
       case 'Tab':
       case 'Escape':
         context.isListboxOpenSig.value = false;
+        break;
+
+      case 'ArrowDown':
+      case 'ArrowUp':
+        if (!context.isListboxOpenSig.value) {
+          context.isListboxOpenSig.value = true;
+        }
         break;
 
       case 'ArrowRight':

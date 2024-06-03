@@ -36,7 +36,8 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   const itemId = `${context.localId}-${_index}`;
   const isInitialFocusSig = useSignal<boolean>(true);
 
-  const { selectionManager$, getNextEnabledItemIndex$ } = useSelect();
+  const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
+    useSelect();
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -44,7 +45,14 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   });
 
   const isHighlightedSig = useComputed$(() => {
-    return !disabled && context.highlightedIndexSig.value === _index;
+    if (disabled) return;
+
+    if (context.highlightedIndexSig.value === _index) {
+      itemRef.value?.focus();
+      return true;
+    } else {
+      return false;
+    }
   });
 
   useTask$(async function getIndexTask() {
@@ -118,6 +126,47 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     isSelectedSig,
   };
 
+  const handleKeyDown$ = $(async (e: KeyboardEvent) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        if (context.isListboxOpenSig.value) {
+          context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
+            context.highlightedIndexSig.value!,
+          );
+          if (context.multiple && e.shiftKey) {
+            await selectionManager$(context.highlightedIndexSig.value, 'toggle');
+          }
+        }
+        break;
+
+      case 'ArrowUp':
+        if (context.isListboxOpenSig.value) {
+          context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
+            context.highlightedIndexSig.value!,
+          );
+          if (context.multiple && e.shiftKey) {
+            await selectionManager$(context.highlightedIndexSig.value, 'toggle');
+          }
+        }
+        break;
+
+      case 'Home':
+        if (context.isListboxOpenSig.value) {
+          context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
+        }
+        break;
+
+      case 'End':
+        if (context.isListboxOpenSig.value) {
+          const lastEnabledOptionIndex = await getPrevEnabledItemIndex$(
+            context.itemsMapSig.value.size,
+          );
+          context.highlightedIndexSig.value = lastEnabledOptionIndex;
+        }
+        break;
+    }
+  });
+
   useContextProvider(selectItemContextId, selectContext);
 
   return (
@@ -125,6 +174,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
       {...rest}
       id={itemId}
       onClick$={[handleClick$, props.onClick$]}
+      onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
       onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
       ref={itemRef}
       tabIndex={-1}
