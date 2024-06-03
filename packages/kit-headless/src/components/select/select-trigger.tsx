@@ -45,17 +45,6 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
     typeahead$(e.key);
 
     switch (e.key) {
-      case 'Enter':
-      case ' ':
-        if (context.isListboxOpenSig.value) {
-          const action = context.multiple ? 'toggle' : 'add';
-          await selectionManager$(context.highlightedIndexSig.value, action);
-        }
-        context.isListboxOpenSig.value = context.multiple
-          ? true
-          : !context.isListboxOpenSig.value;
-        break;
-
       case 'Tab':
       case 'Escape':
         context.isListboxOpenSig.value = false;
@@ -85,6 +74,13 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
           await selectionManager$(prevIndex, 'add');
           context.highlightedIndexSig.value = prevIndex;
         }
+        break;
+
+      case 'Enter':
+      case ' ':
+        context.isListboxOpenSig.value = context.multiple
+          ? true
+          : !context.isListboxOpenSig.value;
         break;
 
       case 'a':

@@ -180,9 +180,28 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
         }
         break;
 
-      case 'Tab':
       case 'Escape':
+        context.triggerRef.value?.focus();
         context.isListboxOpenSig.value = false;
+        break;
+
+      case 'Tab':
+        context.isListboxOpenSig.value = false;
+        break;
+
+      case 'Enter':
+      case ' ':
+        if (context.isListboxOpenSig.value) {
+          const action = context.multiple ? 'toggle' : 'add';
+          await selectionManager$(context.highlightedIndexSig.value, action);
+
+          if (!context.multiple) {
+            context.triggerRef.value?.focus();
+          }
+        }
+        context.isListboxOpenSig.value = context.multiple
+          ? true
+          : !context.isListboxOpenSig.value;
         break;
     }
   });
