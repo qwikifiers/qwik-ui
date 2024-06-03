@@ -161,7 +161,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     const currDisplayValueSig = useSignal<string | string[]>();
 
     const initialLoadSig = useSignal<boolean>(true);
-    const firstEnabledItemRef = useSignal<HTMLLIElement>();
+    const highlightedItemRef = useSignal<HTMLLIElement>();
 
     const context: SelectContext = {
       itemsMapSig,
@@ -171,7 +171,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       listboxRef,
       labelRef,
       groupRef,
-      firstEnabledItemRef,
+      highlightedItemRef,
       localId,
       highlightedIndexSig,
       selectedIndexSetSig,

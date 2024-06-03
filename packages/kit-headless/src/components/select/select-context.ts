@@ -14,7 +14,7 @@ export type SelectContext = {
   listboxRef: Signal<HTMLUListElement | undefined>;
   groupRef: Signal<HTMLDivElement | undefined>;
   labelRef: Signal<HTMLDivElement | undefined>;
-  firstEnabledItemRef: Signal<HTMLLIElement | undefined>;
+  highlightedItemRef: Signal<HTMLLIElement | undefined>;
 
   // core state
   itemsMapSig: Readonly<Signal<TItemsMap>>;
