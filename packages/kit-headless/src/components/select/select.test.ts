@@ -321,40 +321,33 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN an open hero select
   WHEN the first option is highlighted and the down arrow key is pressed
   THEN the second option should have data-highlighted`, async ({ page }) => {
-      const {
-        getTrigger,
-        getItemAt: getOptionAt,
-        openListbox,
-      } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'hero');
 
-      await openListbox('Enter');
+      await d.openListbox('Enter');
 
       // first index highlighted
 
-      await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
 
-      await getTrigger().focus();
-      await getTrigger().press('ArrowDown');
-      await expect(getOptionAt(1)).toHaveAttribute('data-highlighted');
+      await d.getItemAt(0).focus();
+      await d.getItemAt(0).press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
 
     test(`GIVEN an open hero select
   WHEN the third option is highlighted and the up arrow key is pressed
   THEN the second option should have data-highlighted`, async ({ page }) => {
-      const {
-        getTrigger,
-        getItemAt: getOptionAt,
-        openListbox,
-      } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'hero');
 
-      await openListbox('Enter');
+      await d.openListbox('Enter');
 
-      await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
-      await getTrigger().press('ArrowDown');
-      await getTrigger().press('ArrowDown');
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+      await d.getItemAt(0).press('ArrowDown');
+      await d.getItemAt(1).press('ArrowDown');
+      1;
 
-      await getTrigger().press('ArrowUp');
-      await expect(getOptionAt(1)).toHaveAttribute('data-highlighted');
+      await d.getItemAt(2).press('ArrowUp');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
 
     test(`GIVEN a hero select with a chosen option
@@ -362,24 +355,18 @@ test.describe('Keyboard Behavior', () => {
           THEN the data-highlighted option should not change on re-open`, async ({
       page,
     }) => {
-      const {
-        getTrigger,
-        getListbox,
-        getItemAt: getOptionAt,
-        openListbox,
-      } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'hero');
 
-      await openListbox('Enter');
+      await d.openListbox('Enter');
 
       // second option highlighted
+      await d.getItemAt(0).press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+      await d.getItemAt(1).press('Enter');
+      await expect(d.getListbox()).toBeHidden();
 
-      await getTrigger().press('ArrowDown');
-      await expect(getOptionAt(1)).toHaveAttribute('data-highlighted');
-      await getTrigger().press('Enter');
-      await expect(getListbox()).toBeHidden();
-
-      await getTrigger().press('ArrowDown');
-      await expect(getOptionAt(1)).toHaveAttribute('data-highlighted');
+      await d.getTrigger().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
   });
 
