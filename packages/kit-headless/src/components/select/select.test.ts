@@ -288,40 +288,34 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN an open hero select
         WHEN pressing the end key
         THEN the last option should have data-highlighted`, async ({ page }) => {
-      const {
-        getTrigger,
-        getItemAt: getOptionAt,
-        openListbox,
-      } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'hero');
 
-      await openListbox('click');
+      await d.openListbox('click');
 
-      await getTrigger().focus();
-      await getTrigger().press('End');
+      await d.getItemAt(0).focus();
+      await d.getItemAt(0).press('End');
 
-      await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
+      await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
     });
 
     test(`GIVEN an open hero select
         WHEN pressing the home key after the end key
         THEN the first option should have data-highlighted`, async ({ page }) => {
-      const {
-        getTrigger,
-        getItemAt: getOptionAt,
-        openListbox,
-      } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'hero');
 
-      await openListbox('click');
+      await d.openListbox('click');
 
       // to last index
-      await getTrigger().focus();
-      await getTrigger().press('End');
+      await d.getItemAt(0).focus();
+      await d.getItemAt(0).press('End');
 
-      await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
+      await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
 
       // to first index
-      await getTrigger().press('Home');
-      await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
+      const itemsLength = await d.getItemsLength();
+      const lastItem = d.getItemAt(itemsLength - 1);
+      await lastItem.press('Home');
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
 
     test(`GIVEN an open hero select

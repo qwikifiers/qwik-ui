@@ -15,7 +15,7 @@ import SelectContextId, {
   SelectItemContext,
   selectItemContextId,
 } from './select-context';
-import { useSelect } from './use-select';
+import { useSelect, useTypeahead } from './use-select';
 
 export type SelectItemProps = PropsOf<'li'> & {
   /** Internal index we get from the inline component. Please see select-inline.tsx */
@@ -38,6 +38,8 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
 
   const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
     useSelect();
+
+  const { typeahead$ } = useTypeahead();
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -142,6 +144,8 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   });
 
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
+    typeahead$(e.key);
+
     switch (e.key) {
       case 'ArrowDown':
         if (context.isListboxOpenSig.value) {
