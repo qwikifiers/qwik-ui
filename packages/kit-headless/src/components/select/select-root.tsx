@@ -162,6 +162,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     const initialLoadSig = useSignal<boolean>(true);
     const highlightedItemRef = useSignal<HTMLLIElement>();
+    const isDisabledSig = useSignal<boolean>(disabled ?? false);
 
     const context: SelectContext = {
       itemsMapSig,
@@ -181,7 +182,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       multiple,
       name,
       required,
-      disabled,
+      isDisabledSig,
     };
 
     useContextProvider(SelectContextId, context);
@@ -281,7 +282,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     });
 
     useTask$(({ track }) => {
-      context.disabled = track(() => disabled);
+      isDisabledSig.value = track(() => disabled ?? false);
     });
 
     return (
@@ -290,7 +291,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
         ref={rootRef}
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-        data-disabled={context.disabled ? '' : undefined}
+        data-disabled={isDisabledSig.value ? '' : undefined}
         aria-controls={listboxId}
         aria-expanded={context.isListboxOpenSig.value}
         aria-haspopup="listbox"

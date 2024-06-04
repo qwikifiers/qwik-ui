@@ -22,6 +22,7 @@ export type SelectContext = {
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;
   isListboxOpenSig: Signal<boolean>;
+  isDisabledSig: Signal<boolean>;
   localId: string;
 
   // user configurable
@@ -38,11 +39,6 @@ export type SelectContext = {
    * Specifies that the user must select a value before submitting the form. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#required).
    */
   required?: boolean;
-
-  /**
-   * If `true`, prevents the user from interacting with the select.
-   */
-  disabled?: boolean;
 };
 
 export const groupContextId = createContextId<GroupContext>('Select-Group');
