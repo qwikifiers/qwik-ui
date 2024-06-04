@@ -331,7 +331,7 @@ test.describe('Keyboard Behavior', () => {
   });
 
   test.describe('selecting options', () => {
-    test(`GIVEN an opened hero select with the first option highlighted
+    test(`GIVEN an opened select with the first option highlighted
           WHEN the Enter key is pressed
           THEN the listbox should be closed and aria-expanded should be false`, async ({
       page,
@@ -346,7 +346,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
 
-    test(`GIVEN an open hero select
+    test(`GIVEN an open select
           WHEN an option has data-highlighted
           AND the Enter key is pressed
           THEN option value should be the selected value
@@ -361,7 +361,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getValueElement()).toHaveText(expectedValue!);
     });
 
-    test(`GIVEN an open hero select
+    test(`GIVEN an open select
           WHEN an option has data-highlighted
           AND the Space key is pressed
           THEN the listbox should be closed and aria-expanded false`, async ({
@@ -391,6 +391,17 @@ test.describe('Keyboard Behavior', () => {
       const expectedValue = await d.getItemAt(0).textContent();
       await d.getItemAt(0).press('Space');
       await expect(d.getValueElement()).toHaveText(expectedValue!);
+    });
+
+    test(`GIVEN an open select
+          WHEN an option is selected
+          THEN focus should go back to the trigger`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openListbox('Space');
+
+      await d.getHighlightedItem().press('Enter');
+      await expect(d.getTrigger()).toBeFocused();
     });
 
     test(`GIVEN no selected item and a placeholder
