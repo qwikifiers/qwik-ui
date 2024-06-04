@@ -623,95 +623,69 @@ test.describe('Keyboard Behavior', () => {
           AND the last option is data-highlighted
           WHEN the down key is pressed
           THEN data-highlighted should stay on the last option`, async ({ page }) => {
-        const {
-          getTrigger,
-          getItemAt: getOptionAt,
-          openListbox,
-        } = await setup(page, 'hero');
+        const { driver: d } = await setup(page, 'hero');
 
         // initially last option is highlighted
-        await openListbox('Enter');
-        const trigger = getTrigger();
-        await trigger.focus();
-        await trigger.press('End');
+        await d.openListbox('Enter');
+        await d.getItemAt(0).press('End');
 
-        await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
-
-        await trigger.focus();
-        await trigger.press('ArrowDown');
-        await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
+        await d.getItemAt('last').press('ArrowDown');
+        await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
       });
 
       test(`GIVEN an open basic select
           AND the first option is data-highlighted
           WHEN the up arrow key is pressed
           THEN data-highlighted should stay on the first option`, async ({ page }) => {
-        const {
-          getTrigger,
-          getItemAt: getOptionAt,
-          openListbox,
-        } = await setup(page, 'hero');
+        const { driver: d } = await setup(page, 'hero');
 
-        await openListbox('Enter');
-        const option = getOptionAt(0);
-        await expect(option).toHaveAttribute('data-highlighted');
-        await getTrigger().focus();
-        await getTrigger().press('ArrowUp');
-        await expect(option).toHaveAttribute('data-highlighted');
+        await d.openListbox('Enter');
+        const firstItem = d.getItemAt(0);
+        await expect(firstItem).toHaveAttribute('data-highlighted');
+        await firstItem.press('ArrowUp');
+        await expect(firstItem).toHaveAttribute('data-highlighted');
       });
 
       test(`GIVEN a closed basic select
           AND the last option is selected
           WHEN the right arrow key is pressed
           THEN it should stay on the last option`, async ({ page }) => {
-        const {
-          getTrigger,
-          getItemAt: getOptionAt,
-          getListbox,
-          openListbox,
-        } = await setup(page, 'hero');
+        const { driver: d } = await setup(page, 'hero');
 
         // initially last option is highlighted & listbox closed
-        await openListbox('Enter');
-        await getTrigger().focus();
-        await getTrigger().press('End');
+        await d.openListbox('Enter');
+        await d.getItemAt(0).press('End');
 
-        await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
-        await getTrigger().press('Enter');
-        await expect(getOptionAt('last')).toHaveAttribute('aria-selected', 'true');
-        await expect(getListbox()).toBeHidden();
+        const lastItem = d.getItemAt('last');
+        await expect(lastItem).toHaveAttribute('data-highlighted');
+        await lastItem.press('Enter');
+        await expect(lastItem).toHaveAttribute('aria-selected', 'true');
+        await expect(d.getListbox()).toBeHidden();
 
-        await getTrigger().focus();
-        await getTrigger().press('ArrowRight');
-        await expect(getOptionAt('last')).toHaveAttribute('data-highlighted');
-        await expect(getOptionAt('last')).toHaveAttribute('aria-selected', 'true');
+        await d.getTrigger().press('ArrowRight');
+        await expect(lastItem).toHaveAttribute('data-highlighted');
+        await expect(lastItem).toHaveAttribute('aria-selected', 'true');
       });
 
       test(`GIVEN a closed basic select
           AND the first option is selected
           WHEN the left arrow key is pressed
           THEN it should stay on the first option`, async ({ page }) => {
-        const {
-          getTrigger,
-          getItemAt: getOptionAt,
-          getListbox,
-          openListbox,
-        } = await setup(page, 'hero');
+        const { driver: d } = await setup(page, 'hero');
 
         // initially first option is highlighted & listbox closed
-        await openListbox('Enter');
-        await expect(getListbox()).toBeVisible();
-        await getTrigger().focus();
-        await getTrigger().press('Enter');
+        await d.openListbox('Enter');
+        await expect(d.getListbox()).toBeVisible();
+        await d.getItemAt(0).press('Enter');
 
-        await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
-        await expect(getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
-        await expect(getListbox()).toBeHidden();
+        await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+        await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
+        await expect(d.getListbox()).toBeHidden();
 
-        await getTrigger().focus();
-        await getTrigger().press('ArrowLeft');
-        await expect(getOptionAt(0)).toHaveAttribute('data-highlighted');
-        await expect(getOptionAt(0)).toHaveAttribute('aria-selected', 'true');
+        await d.getTrigger().focus();
+        await d.getTrigger().press('ArrowLeft');
+        await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+        await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
       });
     });
 
