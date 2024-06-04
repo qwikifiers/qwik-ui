@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.3
+
+### Patch Changes
+
+- 🐞🩹 select validates correctly with modular forms (by [@thejackshelton](https://github.com/thejackshelton) in [#814](https://github.com/qwikifiers/qwik-ui/pull/814))
+
+- refactor: improved select focus navigation (by [@thejackshelton](https://github.com/thejackshelton) in [#822](https://github.com/qwikifiers/qwik-ui/pull/822))
+
+- 🐞🩹 select can now be reactively disabled (by [@thejackshelton](https://github.com/thejackshelton) in [#823](https://github.com/qwikifiers/qwik-ui/pull/823))
+
 ## 0.4.2
 
 ### Patch Changes
