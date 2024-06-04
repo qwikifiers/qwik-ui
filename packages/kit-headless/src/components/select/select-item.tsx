@@ -216,6 +216,16 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
           ? true
           : !context.isListboxOpenSig.value;
         break;
+
+      case 'a':
+        if (e.ctrlKey && context.multiple) {
+          for (const [index, item] of context.itemsMapSig.value) {
+            if (!item.disabled) {
+              await selectionManager$(index, 'add');
+            }
+          }
+        }
+        break;
     }
   });
 

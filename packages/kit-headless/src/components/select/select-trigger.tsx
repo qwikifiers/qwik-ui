@@ -92,16 +92,6 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
           ? true
           : !context.isListboxOpenSig.value;
         break;
-
-      case 'a':
-        if (e.ctrlKey && context.multiple) {
-          for (const [index, item] of context.itemsMapSig.value) {
-            if (!item.disabled) {
-              await selectionManager$(index, 'add');
-            }
-          }
-        }
-        break;
     }
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
