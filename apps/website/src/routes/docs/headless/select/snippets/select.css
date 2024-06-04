@@ -17,10 +17,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 0.25rem;
 }
 
 .select-trigger:hover {
   background-color: hsla(var(--primary) / 0.08);
+}
+
+.select-trigger:focus-visible {
+  outline: 2px solid hsla(var(--primary) / 1);
+  outline-offset: 2px;
 }
 
 .select-popover {
