@@ -44,7 +44,7 @@ export const HHiddenNativeSelect = component$(
               multiple={context.multiple}
               tabIndex={-1}
               autocomplete={autoComplete}
-              disabled={context.disabled}
+              disabled={context.isDisabledSig.value ? true : undefined}
               required={context.required}
               name={context.name}
               // height is determined by its children
