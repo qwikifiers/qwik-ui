@@ -9,13 +9,15 @@ import {
   type PropsOf,
   useContextProvider,
   sync$,
+  useOnWindow,
+  QRL,
 } from '@builder.io/qwik';
 import { isServer, isBrowser } from '@builder.io/qwik/build';
 import SelectContextId, {
   SelectItemContext,
   selectItemContextId,
 } from './select-context';
-import { useSelect, useTypeahead } from './use-select';
+import { useSelect } from './use-select';
 
 export type SelectItemProps = PropsOf<'li'> & {
   /** Internal index we get from the inline component. Please see select-inline.tsx */
@@ -35,11 +37,18 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   const itemRef = useSignal<HTMLLIElement>();
   const localIndexSig = useSignal<number | null>(null);
   const itemId = `${context.localId}-${_index}`;
+  const typeaheadFnSig = useSignal<QRL<(key: string) => Promise<void>>>();
 
   const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
     useSelect();
 
-  const { typeahead$ } = useTypeahead();
+  // we're getting the same function instance from the trigger, without needing to restructure context
+  useOnWindow(
+    'typeaheadFn',
+    $((e: CustomEvent) => {
+      typeaheadFnSig.value = e.detail;
+    }),
+  );
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -144,7 +153,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   });
 
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
-    typeahead$(e.key);
+    typeaheadFnSig.value?.(e.key);
 
     switch (e.key) {
       case 'ArrowDown':

@@ -1,4 +1,12 @@
-import { $, Slot, component$, sync$, useContext, type PropsOf } from '@builder.io/qwik';
+import {
+  $,
+  Slot,
+  component$,
+  sync$,
+  useContext,
+  useSignal,
+  type PropsOf,
+} from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import { useSelect, useTypeahead } from './use-select';
 
@@ -9,7 +17,7 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
     useSelect();
   const labelId = `${context.localId}-label`;
   const descriptionId = `${context.localId}-description`;
-
+  const initialKeyDownSig = useSignal(true);
   const { typeahead$ } = useTypeahead();
 
   const handleClickSync$ = sync$((e: MouseEvent) => {
@@ -106,6 +114,9 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
       await new Promise((resolve) => setTimeout(resolve, 5));
       context.highlightedItemRef.value?.focus();
     }
+
+    if (!initialKeyDownSig.value) return;
+    document.dispatchEvent(new CustomEvent('typeaheadFn', { detail: typeahead$ }));
   });
 
   return (
