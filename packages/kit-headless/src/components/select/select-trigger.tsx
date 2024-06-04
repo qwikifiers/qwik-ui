@@ -118,11 +118,11 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-      data-disabled={context.disabled ? '' : undefined}
+      data-disabled={context.isDisabledSig.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}
       aria-labelledby={labelId}
       aria-describedby={descriptionId}
-      disabled={context.disabled}
+      disabled={context.isDisabledSig.value ? true : undefined}
       preventdefault:blur
     >
       <Slot />

@@ -6,7 +6,7 @@ export const HSelectLabel = component$((props: PropsOf<'div'>) => {
   const labelId = `${context.localId}-label`;
 
   const handleClick$ = $(() => {
-    if (context.disabled) return;
+    if (context.isDisabledSig.value) return;
 
     context.triggerRef.value?.focus();
   });
@@ -17,7 +17,7 @@ export const HSelectLabel = component$((props: PropsOf<'div'>) => {
 
   return (
     <div
-      data-disabled={context.disabled ? '' : undefined}
+      data-disabled={context.isDisabledSig.value ? '' : undefined}
       ref={context.labelRef}
       id={labelId}
       onClick$={[handleClick$, props.onClick$]}
