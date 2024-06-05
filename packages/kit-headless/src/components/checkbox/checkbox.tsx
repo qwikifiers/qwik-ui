@@ -25,7 +25,7 @@ export type TwoStateCheckboxProps = {
 } & PropsOf<'div'>;
 
 type TwoStateCheckboxBehaviorProps = {
-  checkboxSig: Signal<boolean>;
+  'bind:checked': Signal<boolean>;
 } & PropsOf<'div'>;
 export type ChecklistTwoStateCheckboxProps = {
   'bind:checked'?: Signal<boolean>;
