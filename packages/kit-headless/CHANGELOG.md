@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.4
+
+### Patch Changes
+
+- ✨ new Select.ErrorMessage component (by [@thejackshelton](https://github.com/thejackshelton) in [#825](https://github.com/qwikifiers/qwik-ui/pull/825))
+
+  feat: data-invalid attribute to style when the select is invalid
+
+  feat: new Select.Description component
+
 ## 0.4.3
 
 ### Patch Changes
