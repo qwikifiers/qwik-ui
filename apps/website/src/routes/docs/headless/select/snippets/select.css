@@ -28,6 +28,10 @@
   outline-offset: 2px;
 }
 
+.select-trigger[data-invalid] {
+  border: 2px dotted #d2122e;
+}
+
 .select-popover {
   width: 100%;
   max-width: var(--select-width);

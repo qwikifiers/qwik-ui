@@ -39,6 +39,8 @@ export type SelectContext = {
    * Specifies that the user must select a value before submitting the form. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#required).
    */
   required?: boolean;
+
+  isInvalidSig?: Signal<boolean>;
 };
 
 export const groupContextId = createContextId<GroupContext>('Select-Group');

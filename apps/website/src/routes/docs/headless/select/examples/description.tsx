@@ -1,0 +1,33 @@
+import { component$, useStyles$ } from '@builder.io/qwik';
+import { Select } from '@qwik-ui/headless';
+
+export default component$(() => {
+  useStyles$(styles);
+  const users = ['Tim', 'Ryan', 'Jim', 'Jessie', 'Abby'];
+
+  return (
+    <Select.Root class="select">
+      <Select.Label>Logged in users</Select.Label>
+      <Select.Trigger class="select-trigger">
+        <Select.DisplayValue placeholder="Select an option" />
+      </Select.Trigger>
+      <Select.Description>Select a user to see their profile</Select.Description>
+      <Select.Popover class="select-popover">
+        <Select.Listbox class="select-listbox">
+          {users.map((user) => (
+            <Select.Item class="select-item" key={user}>
+              <Select.ItemLabel>{user}</Select.ItemLabel>
+              <Select.ItemIndicator>
+                <LuCheck />
+              </Select.ItemIndicator>
+            </Select.Item>
+          ))}
+        </Select.Listbox>
+      </Select.Popover>
+    </Select.Root>
+  );
+});
+
+// internal
+import styles from '../snippets/select.css?inline';
+import { LuCheck } from '@qwikest/icons/lucide';
