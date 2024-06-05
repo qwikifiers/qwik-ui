@@ -17,14 +17,14 @@ export default component$(() => {
           <p>Controlls all</p>
         </Checkbox.Root>
         <Checkbox.Root
-          checkboxSig={firstUserSig}
+          bind:checked={firstUserSig}
           class="flex items-center gap-3 bg-slate-900 pr-2 text-white"
         >
           <Checkbox.Indicator class="w-fit bg-slate-600">✅</Checkbox.Indicator>
           <p>No other stuff is needed here</p>
         </Checkbox.Root>
 
-        <Checkbox.Root checkboxSig={secondUserSig} class="bg-slate-900 text-white">
+        <Checkbox.Root bind:checked={secondUserSig} class="bg-slate-900 text-white">
           <div class="flex items-center gap-3">
             <Checkbox.Indicator class="w-fit bg-slate-600">✅</Checkbox.Indicator>
             <p>No other stuff is needed here</p>

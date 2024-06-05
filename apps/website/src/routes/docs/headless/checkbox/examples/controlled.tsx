@@ -6,7 +6,7 @@ export default component$(() => {
     <>
       <div class="flex flex-col gap-3">
         <Checkbox.Root
-          checkboxSig={controlledSig}
+          bind:checked={controlledSig}
           id="test"
           class="flex items-center gap-3 border-2 border-black p-2 "
         >

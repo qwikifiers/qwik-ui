@@ -19,7 +19,7 @@ export default component$(() => {
         </Checkbox.Root>
         <Checkbox.Root
           id="child-1"
-          checkboxSig={firstUserSig}
+          bind:checked={firstUserSig}
           class="flex items-center gap-3 bg-slate-900 pr-2 text-white"
         >
           <Checkbox.Indicator class="w-fit bg-slate-600">✅</Checkbox.Indicator>

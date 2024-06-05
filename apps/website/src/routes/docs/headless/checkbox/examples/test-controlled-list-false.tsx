@@ -11,7 +11,7 @@ export default component$(() => {
         <Checkbox.Root
           class="flex items-center gap-3 bg-slate-900  text-white"
           checklist={true}
-          checkboxSig={checklistSig}
+          bind:checked={checklistSig}
           id="checklist"
         >
           <Checklist.Indicator class="w-fit">
