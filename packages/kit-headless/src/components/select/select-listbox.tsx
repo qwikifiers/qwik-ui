@@ -67,6 +67,7 @@ export const HSelectListbox = component$<SelectListboxProps>((props) => {
       ref={context.listboxRef}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+      data-invalid={context.isInvalidSig?.value ? '' : undefined}
     >
       <Slot />
     </ul>

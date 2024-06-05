@@ -17,6 +17,8 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
     useSelect();
   const labelId = `${context.localId}-label`;
   const descriptionId = `${context.localId}-description`;
+  const errorMessageId = `${context.localId}-error-message`;
+  const triggerId = `${context.localId}-trigger`;
   const initialKeyDownSig = useSignal(true);
   const { typeahead$ } = useTypeahead();
 
@@ -112,16 +114,18 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
   return (
     <button
       {...props}
-      id={`${context.localId}-trigger`}
+      id={triggerId}
       ref={context.triggerRef}
       onClick$={[handleClickSync$, handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       data-disabled={context.isDisabledSig.value ? '' : undefined}
+      data-invalid={context.isInvalidSig?.value ? '' : undefined}
       aria-expanded={context.isListboxOpenSig.value}
       aria-labelledby={labelId}
-      aria-describedby={descriptionId}
+      aria-describedby={`${descriptionId} 
+      ${errorMessageId}`}
       disabled={context.isDisabledSig.value ? true : undefined}
       preventdefault:blur
     >

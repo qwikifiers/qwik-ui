@@ -41,6 +41,10 @@ export const HHiddenNativeSelect = component$(
                 // @ts-expect-error modular forms ref function
                 ref?.(element);
               }}
+              onFocus$={() => {
+                // override modular forms focus event
+                return;
+              }}
               multiple={context.multiple}
               tabIndex={-1}
               autocomplete={autoComplete}

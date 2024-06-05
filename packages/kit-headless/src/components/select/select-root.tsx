@@ -105,6 +105,8 @@ export type SelectProps<M extends boolean = boolean> = Omit<
    * If `true`, allows multiple selections.
    */
   multiple?: M;
+
+  invalid?: boolean;
 } & TMultiValue &
   TStringOrArray;
 
@@ -123,8 +125,11 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       name,
       required,
       disabled,
+      invalid,
       ...rest
     } = props;
+
+    invalid;
 
     // refs
     const rootRef = useSignal<HTMLDivElement>();
@@ -163,6 +168,18 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     const initialLoadSig = useSignal<boolean>(true);
     const highlightedItemRef = useSignal<HTMLLIElement>();
     const isDisabledSig = useSignal<boolean>(disabled ?? false);
+    const isInvalidSig = useSignal<boolean>(props.invalid ?? false);
+
+    useTask$(({ track }) => {
+      /**
+       * We want the component to be invalid based on the presence of the     Select.ErrorMessage component. If passed through context as just a prop that won't work.
+       *
+       * my guess here, is props.invalid is a store under the hood, so it can track changes to the property, but when destructured, it's just a
+       *
+       * So we update a signal here so that the context can track it.
+       */
+      isInvalidSig.value = track(() => props.invalid ?? false);
+    });
 
     const context: SelectContext = {
       itemsMapSig,
@@ -183,6 +200,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       name,
       required,
       isDisabledSig,
+      isInvalidSig,
     };
 
     useContextProvider(SelectContextId, context);
@@ -292,6 +310,8 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
         data-disabled={isDisabledSig.value ? '' : undefined}
+        data-invalid={context.isInvalidSig?.value ? '' : undefined}
+        aria-invalid={context.isInvalidSig?.value}
         aria-controls={listboxId}
         aria-expanded={context.isListboxOpenSig.value}
         aria-haspopup="listbox"
