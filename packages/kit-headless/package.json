@@ -16,7 +16,7 @@
   "types": "./index.d.ts",
   "type": "module",
   "scripts": {
-    "setup.chrome.113": "npx tsx ./scripts/prepare-chrome-113.ts"
+    "setup.chrome.108": "npx tsx ./scripts/prepare-chrome-browser.ts"
   },
   "exports": {
     ".": {

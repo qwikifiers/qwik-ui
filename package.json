@@ -33,7 +33,7 @@
     "test.headless": "nx component-test headless --skip-nx-cache",
     "test.visual.headless": "nx visual-test headless",
     "test.pw.headless": "nx e2e headless",
-    "test.pw.headless-chrome-113": "nx e2e-chrome-113 headless",
+    "test.pw.headless-chrome-108": "nx e2e-chrome-108 headless",
     "test.pw.headless.ci": "nx e2e headless",
     "test.headless.ci": "nx component-test-ci headless",
     "test.utils": "nx test utils"
