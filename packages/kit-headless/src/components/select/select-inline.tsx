@@ -3,11 +3,13 @@ import { HSelectImpl, type SelectProps } from './select-root';
 import { HSelectItem as InternalSelectItem } from './select-item';
 import { HSelectLabel as InternalSelectLabel } from './select-label';
 import { HSelectItemLabel as InternalSelectItemLabel } from './select-item-label';
+import { HSelectErrorMessage as InternalSelectErrorMessage } from './select-error-message';
 
 type InlineCompProps = {
   selectLabelComponent?: typeof InternalSelectLabel;
   selectItemComponent?: typeof InternalSelectItem;
   selectItemLabelComponent?: typeof InternalSelectItemLabel;
+  selectErrorMessageComponent?: typeof InternalSelectErrorMessage;
 };
 
 /*
@@ -22,6 +24,7 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
     selectLabelComponent: UserLabel,
     selectItemComponent: UserItem,
     selectItemLabelComponent: UserItemLabel,
+    selectErrorMessageComponent: UserErrorMessage,
     ...rest
   } = props;
 
@@ -31,6 +34,7 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
   const SelectLabel = UserLabel ?? InternalSelectLabel;
   const SelectItem = UserItem ?? InternalSelectItem;
   const SelectItemLabel = UserItemLabel ?? InternalSelectItemLabel;
+  const SelectErrorMessage = UserErrorMessage ?? InternalSelectErrorMessage;
 
   // source of truth
   const itemsMap = new Map();
@@ -40,6 +44,7 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
 
   let valuePropIndex = null;
   let isLabelNeeded = false;
+  let isInvalid = false;
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
@@ -119,6 +124,12 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
         break;
       }
 
+      case SelectErrorMessage: {
+        // when the component is present in the JSX, it's invalid
+        isInvalid = true;
+        break;
+      }
+
       default: {
         if (child) {
           const anyChildren = Array.isArray(child.children)
@@ -138,6 +149,7 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
       _label={isLabelNeeded}
       _valuePropIndex={valuePropIndex}
       _itemsMap={itemsMap}
+      invalid={isInvalid}
     >
       {props.children}
     </HSelectImpl>

@@ -55,19 +55,19 @@
         "project": ["logic"]
       }
     },
-    "setup-chrome-113": {
+    "setup-chrome-108": {
       "executor": "nx:run-script",
       "options": {
-        "script": "setup.chrome.113"
+        "script": "setup.chrome.108"
       }
     },
-    "e2e-chrome-113": {
+    "e2e-chrome-108": {
       "executor": "@nx/playwright:playwright",
       "outputs": ["{workspaceRoot}/dist/.playwright/packages/kit-headless"],
-      "dependsOn": ["setup-chrome-113"],
+      "dependsOn": ["setup-chrome-108"],
       "options": {
         "config": "packages/kit-headless/playwright.config.ts",
-        "project": ["popover-chrome-113"]
+        "project": ["popover-chrome-108"]
       }
     },
     "visual-test": {

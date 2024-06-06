@@ -18,16 +18,16 @@ let binaryPath;
 switch (currentPlatform) {
   case 'darwin':
     binaryPath =
-      './browsers/chrome/113/chrome-darwin/Chromium.app/Contents/MacOS/Chromium';
+      './browsers/chrome/108/chrome-darwin/Chromium.app/Contents/MacOS/Chromium';
     break;
   case 'win32':
-    binaryPath = './browsers/chrome/113/chrome-win32/chrome.exe';
+    binaryPath = './browsers/chrome/108/chrome-win32/chrome.exe';
     break;
   case 'linux':
-    binaryPath = './browsers/chrome/113/chrome-linux/chrome';
+    binaryPath = './browsers/chrome/108/chrome-linux/chrome';
     break;
   default:
-    throw new Error('Cannot install Chrome 13 on unknown platform');
+    throw new Error('Cannot install Chrome 108 on unknown platform');
 }
 
 /**
@@ -65,7 +65,7 @@ export default defineConfig({
     },
 
     {
-      name: 'popover-chrome-113',
+      name: 'popover-chrome-108',
       use: {
         launchOptions: {
           executablePath: path.resolve(dirName, binaryPath),

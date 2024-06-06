@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/headless",
-  "version": "0.4.2",
+  "version": "0.4.4",
   "description": "Qwik UI headless components library",
   "publishConfig": {
     "access": "public"
@@ -16,7 +16,7 @@
   "types": "./index.d.ts",
   "type": "module",
   "scripts": {
-    "setup.chrome.113": "npx tsx ./scripts/prepare-chrome-113.ts"
+    "setup.chrome.108": "npx tsx ./scripts/prepare-chrome-browser.ts"
   },
   "exports": {
     ".": {

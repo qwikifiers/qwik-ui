@@ -23,6 +23,7 @@ export const Input = component$<InputProps>(
             props.class,
           )}
           id={inputId}
+          name={name}
         />
         {error && (
           <div id={`${inputId}-error`} class="text-destructive mt-1 text-sm">

@@ -35,6 +35,10 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getTrigger().locator('[data-value]');
   };
 
+  const getHighlightedItem = () => {
+    return getRoot().locator('[data-highlighted]');
+  };
+
   const openListbox = async (key: OpenKeys | 'click') => {
     await getTrigger().focus();
 
@@ -59,5 +63,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getItemAt,
     getValueElement,
     openListbox,
+    getHighlightedItem,
   };
 }

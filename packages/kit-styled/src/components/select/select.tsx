@@ -9,6 +9,7 @@ const Root = (props: PropsOf<typeof HeadlessSelect.Root>) => (
     selectItemComponent={Item}
     selectItemLabelComponent={ItemLabel}
     selectLabelComponent={Label}
+    selectErrorMessageComponent={ErrorMessage}
   />
 );
 
@@ -82,6 +83,8 @@ const Group = HeadlessSelect.Group;
 
 const GroupLabel = HeadlessSelect.GroupLabel;
 
+const ErrorMessage = HeadlessSelect.ErrorMessage;
+
 const Item = component$<PropsOf<typeof HeadlessSelect.Item>>(({ ...props }) => {
   return (
     <HeadlessSelect.Item
@@ -129,4 +132,5 @@ export const Select = {
   Item,
   ItemIndicator,
   ItemLabel,
+  ErrorMessage,
 };
