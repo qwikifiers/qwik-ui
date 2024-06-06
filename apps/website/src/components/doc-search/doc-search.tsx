@@ -9,6 +9,7 @@ import {
 } from '@builder.io/qwik';
 import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { isBrowser } from '@builder.io/qwik/build';
+import { Button } from '~/components/ui';
 import clsx from 'clsx';
 import { useFocusTrap, useStorageSignal } from '../../hooks';
 
@@ -18,10 +19,7 @@ import { HashtagIcon } from '../icons/HashtagIcon';
 import { PageIcon } from '../icons/PageIcon';
 import { SearchIcon } from '../icons/SearchIcon';
 import { AlgoliaLogo } from '../icons/AlgoliaLogo';
-
-import { trackEvent } from '~/utils';
-import { SystemIcon } from './SystemIcon';
-import { TextLink } from './TextLink';
+import { trackEvent } from './trackEvent';
 
 type HitType = 'lvl2' | 'lvl3' | 'lvl4' | 'lvl5' | 'content';
 
@@ -333,14 +331,14 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
             {/* Header */}
             <header class="flex h-14 flex-shrink-0 items-center px-2 md:h-16 lg:h-[72px] lg:px-4">
               <form class="flex flex-1" preventdefault:submit>
-                <SystemIcon
-                  label={loading.value ? 'Search' : 'Focus search input'}
+                <Button
+                  disabled={loading.value}
                   type="button"
+                  aria-label={loading.value ? 'Search' : 'Focus search input'}
                   onClick$={() => inputElement.value!.focus()}
-                  loading={loading.value}
                 >
                   <SearchIcon class="h-full" />
-                </SystemIcon>
+                </Button>
                 <input
                   class="flex-1 bg-transparent px-2 text-lg text-slate-900 outline-none placeholder:text-slate-500 dark:text-slate-200 md:text-xl"
                   ref={inputElement}
@@ -350,14 +348,14 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
                   onInput$={(_, element) => (input.value = element.value)}
                 />
               </form>
-              <SystemIcon
+              <Button
                 class="lg:!h-[22px] lg:!w-[22px]"
-                label="Close search"
+                aria-label="Close search"
                 type="button"
                 onClick$={() => (open.value = false)}
               >
                 <CloseIcon class="h-full" />
-              </SystemIcon>
+              </Button>
             </header>
 
             {/* Content */}
@@ -368,14 +366,13 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
                   <p class="md:text-lg">
                     An unexpected error has occurred. If this happens regularly, please
                     create an{' '}
-                    <TextLink
+                    <a
+                      class="focus-ring rounded text-sky-600 underline decoration-slate-400 decoration-dashed underline-offset-[3px] focus-visible:outline-offset-4 focus-visible:ring-offset-[6px] dark:text-sky-400 dark:decoration-slate-600"
                       href="https://github.com/fabian-hiller/valibot/issues/new"
                       target="_blank"
-                      colored
-                      underlined
                     >
                       issue
-                    </TextLink>{' '}
+                    </a>{' '}
                     on Github.
                   </p>
                 ) : // No result
@@ -445,13 +442,13 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
             {/* Footer */}
             <footer class="flex h-12 flex-shrink-0 items-center justify-end px-4 text-xs md:h-14 md:text-sm lg:h-[72px] lg:px-6">
               Search by
-              <TextLink
-                class="ml-2 md:ml-3"
+              <a
+                class="focus-ring ml-2 rounded focus-visible:outline-offset-4 focus-visible:ring-offset-[6px] md:ml-3"
                 href="https://www.algolia.com/ref/docsearch/?utm_source=valibot.dev&utm_medium=referral&utm_content=powered_by&utm_campaign=docsearch"
                 target="_blank"
               >
                 <AlgoliaLogo class="h-8 md:h-10" />
-              </TextLink>
+              </a>
             </footer>
           </div>
           <div

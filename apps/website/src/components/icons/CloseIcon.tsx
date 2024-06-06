@@ -1,11 +1,16 @@
-export const CloseIcon = () => (
+import { component$, type HTMLAttributes } from '@builder.io/qwik';
+
+export const CloseIcon = component$<HTMLAttributes<SVGSVGElement>>((props) => (
   <svg
-    viewBox="0 0 10 9"
+    viewBox="0 0 40 48"
+    role="img"
+    aria-label="Close icon"
     fill="none"
+    stroke="currentColor"
     stroke-linecap="round"
-    aria-hidden="true"
-    class="h-8 w-8 rounded-base stroke-black p-1 hover:bg-gray-100 dark:stroke-white dark:hover:bg-slate-600"
+    stroke-width={4}
+    {...props}
   >
-    <path d="m1.5 1 7 7M8.5 1l-7 7" />
+    <path d="M36.27 7.73 3.73 40.27m32.54 0L3.73 7.73" />
   </svg>
-);
+));
