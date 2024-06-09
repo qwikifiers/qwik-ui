@@ -47,7 +47,7 @@ api-extractor run -c api-extractor.json --local
    *
    * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
    */
-  "mainEntryPointFilePath": "./types/components/select/use-select.d.ts",
+  "mainEntryPointFilePath": "./select/dist/lib/select-root.d.ts",
 
   /**
    * A list of NPM package names whose exports should be treated as part of this package.
