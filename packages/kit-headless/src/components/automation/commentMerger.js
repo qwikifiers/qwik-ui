@@ -13,7 +13,7 @@ async function myFileReader(path) {
   }
   for (let index = 0; index < comments.length; index++) {
     const line = comments[index];
-    const singleLine = /^\s*\/[*]{2}(.*)\*\/$/;
+    const singleLine = /^\s*\/[*]{2}(.*)[*]{1,2}\//;
     const starter = /\/[*]{2}$/;
     if (singleLine.test(line)) {
       const hell_reloaded = singleLine.exec(line)[1];
@@ -33,27 +33,17 @@ async function myFileReader(path) {
         strg += nextLine;
         index += 1;
       } while (!/[*][/]$/.test(nextLine) | (index > comments.length));
-      console.log('END: ', strg, index);
+      strg = strg.replaceAll('\n', '');
+
+      if (cms.hasOwnProperty(component)) {
+        cms[component].push({ desc: strg, prop: comments[index] });
+        continue;
+      }
+      cms[component] = [pairer(index, line)];
       continue;
     }
   }
   console.log(cms);
 }
-
-// let start = false;
-// return;
-// for await (const line of file.readLines()) {
-//   const singleLine = /^\/[*]{2} (.*) \*\/$/;
-//   const starter = /\/[*]{2}$/;
-//   if (singleLine.test(line)) {
-//     const hell_reloaded = singleLine.exec(line)[1];
-//     esp_comment += hell_reloaded;
-//     cms.push(hell_reloaded);
-//   }
-//   if (starter.test(line)) {
-//     console.log('STARTER');
-//   }
-// }
-// console.log(cms);
-// }
-// TODO: make it a for-index loop so i can handle starter case with a do-while loop
+const magical_regex = /\/[*]{2}(\w|\W)*?[*][/]\n(\w|\W)*?;\n/g;
+// TODO: fix case of multiple comment but start is not white space
