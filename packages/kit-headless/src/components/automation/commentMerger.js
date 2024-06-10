@@ -45,5 +45,5 @@ async function myFileReader(path) {
   }
   console.log(cms);
 }
-const magical_regex = /^\s*\/[*]{2}([\w|\W|]*?)[*]{1,2}[/]\n([\w|\W]*?;)$/gm;
+const magical_regex = /^\s*?\/[*]{2}\n?([\w|\W|]*?)\s*[*]{1,2}[/]\n[ ]*([\w|\W]*?;)$/gm;
 // TODO: fix case of multiple comment but start is not white space
