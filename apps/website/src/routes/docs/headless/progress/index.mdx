@@ -14,7 +14,9 @@ Displays a progress bar related to a task.
 
 <Showcase name="hero" />
 
-Qwik UI's Progress implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/meter) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
+Qwik UI's Progress implementation follows the [WAI-Aria](https://w3c.github.io/aria/#progressbar) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
+
+## ✨ Features
 
 <FeatureList
   features={['Provides context for assistive technology to read the progress of a task.']}
@@ -24,34 +26,49 @@ Qwik UI's Progress implementation follows the [WAI-Aria](https://www.w3.org/WAI/
 
 <CodeSnippet name="building-blocks" />
 
-{/* TODO: Match docs conventions with the select, collapsible, or label. */}
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Progress.Root',
+      description: 'The root container for the progress',
+    },
+    {
+      name: 'Progress.Indicator',
+      description: 'Displays the progression process',
+    },
+  ]}
+/>
+
+## Example CSS
+
+<CodeSnippet name="progress.css" />
 
 ## Accessibility
 
-Adheres to the [progressbar role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/meter/).
+Adheres to the [progressbar role requirements](https://w3c.github.io/aria/#progressbar/).
 
 ## API
 
-### Progress
-
-Contains all of the progress parts.
+### Progress.Root
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the Progress.',
+      description: 'Custom class for the progress wrapper',
     },
     {
       name: 'value',
       type: 'number',
-      description: 'The progress value.',
+      description: 'Current value of the progress bar.',
     },
     {
       name: 'max',
       type: 'number',
-      description: 'The maximum progress value',
+      description: 'Maximum value of the progress bar.',
     },
     {
       name: 'getValueLabel',
@@ -62,32 +79,14 @@ Contains all of the progress parts.
   ]}
 />
 
-### Progress Indicator
-
-Contains all of the progress parts.
+### Progress.Indicator
 
 <APITable
   propDescriptors={[
     {
       name: 'class',
       type: 'string',
-      description: 'CSS classes to apply to the Progress.',
-    },
-    {
-      name: 'value',
-      type: 'number',
-      description: 'The progress value.',
-    },
-    {
-      name: 'max',
-      type: 'number',
-      description: 'The maximum progress value',
-    },
-    {
-      name: 'getValueLabel',
-      type: 'function',
-      description:
-        'A function to get the accessible label text representing the current value in a human-readable format. If not provided, the value label will be read as the numeric value as a percentage of the max value.',
+      description: 'Custom class for the progress indicator',
     },
   ]}
 />
