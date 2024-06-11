@@ -9,8 +9,8 @@ export const SearchIcon = component$<HTMLAttributes<SVGSVGElement>>((props) => (
     stroke="currentColor"
     stroke-linecap="round"
     stroke-width={4}
-    width="1.35em"
-    height="1.35em"
+    width="1.5em"
+    height="1.5em"
     {...props}
   >
     <path d="M18 5.57A14.15 14.15 0 1 1 3.86 19.72 14.15 14.15 0 0 1 18.01 5.57Zm21.14 36.86-11.7-11.72" />

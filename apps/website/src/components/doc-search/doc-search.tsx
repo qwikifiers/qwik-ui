@@ -20,6 +20,7 @@ import { PageIcon } from '../icons/PageIcon';
 import { SearchIcon } from '../icons/SearchIcon';
 import { AlgoliaLogo } from '../icons/AlgoliaLogo';
 import { trackEvent } from './trackEvent';
+import { LuLoader2 } from '@qwikest/icons/lucide';
 
 type HitType = 'lvl2' | 'lvl3' | 'lvl4' | 'lvl5' | 'content';
 
@@ -186,7 +187,6 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
                   },
                 )
               ).json()) as AlgoliaResult;
-
               // Transform hits of Algolia result to our schema
               let prevItem: SearchItem | undefined;
               const searchResult: SearchItem[] = algoliaResult.hits.map((hit) => {
@@ -333,11 +333,16 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
               <form class="flex flex-1" preventdefault:submit>
                 <Button
                   disabled={loading.value}
-                  type="button"
+                  look="ghost"
+                  class="overflow-hidden"
                   aria-label={loading.value ? 'Search' : 'Focus search input'}
                   onClick$={() => inputElement.value!.focus()}
                 >
-                  <SearchIcon class="h-full" />
+                  {loading.value ? (
+                    <LuLoader2 class="h-[1.49em] w-[1.49em] animate-spin" />
+                  ) : (
+                    <SearchIcon class="h-full" />
+                  )}
                 </Button>
                 <input
                   class="flex-1 bg-transparent px-2 text-lg text-slate-900 outline-none placeholder:text-slate-500 dark:text-slate-200 md:text-xl"
@@ -349,9 +354,8 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
                 />
               </form>
               <Button
-                class="lg:!h-[22px] lg:!w-[22px]"
                 aria-label="Close search"
-                type="button"
+                look="ghost"
                 onClick$={() => (open.value = false)}
               >
                 <CloseIcon class="h-full" />
