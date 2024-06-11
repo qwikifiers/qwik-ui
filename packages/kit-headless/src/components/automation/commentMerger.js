@@ -5,11 +5,11 @@ async function myFileReader(path, component_name) {
   const magical_regex = /^\s*?\/[*]{2}\n?([\w|\W|]*?)\s*[*]{1,2}[/]\n[ ]*([\w|\W]*?;)$/gm;
   const cms = {};
   const sourceCode = fs.readFileSync(path, 'utf-8');
-  const lol = magical_regex.exec(sourceCode);
   let groups;
 
   while ((groups = magical_regex.exec(sourceCode)) !== null) {
-    const comment = groups[1];
+    const bad = /^ *|(\* *)/g;
+    const comment = groups[1].replaceAll(bad, '');
     const prop = groups[2];
     if (cms.hasOwnProperty(component_name)) {
       cms[component_name].push({ comment, prop });
@@ -17,5 +17,7 @@ async function myFileReader(path, component_name) {
     }
     cms[component_name] = [{ comment, prop }];
   }
+
   console.log(cms);
+  return cms;
 }
