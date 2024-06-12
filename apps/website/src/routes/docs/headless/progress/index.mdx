@@ -10,17 +10,13 @@ import { Note } from '~/components/note/note';
 
 # Progress
 
-Displays a progress bar related to a task.
+A visual indicator that shows how much of a task has been completed.
 
 <Showcase name="hero" />
 
-Qwik UI's Progress implementation follows the [WAI-Aria](https://w3c.github.io/aria/#progressbar) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
-
 ## ✨ Features
 
-<FeatureList
-  features={['Provides context for assistive technology to read the progress of a task.']}
-/>
+<FeatureList features={['Follows the WAI-Aria design pattern']} />
 
 ## Building blocks
 
@@ -45,21 +41,12 @@ Qwik UI's Progress implementation follows the [WAI-Aria](https://w3c.github.io/a
 
 <CodeSnippet name="progress.css" />
 
-## Accessibility
-
-Adheres to the [progressbar role requirements](https://w3c.github.io/aria/#progressbar/).
-
 ## API
 
 ### Progress.Root
 
 <APITable
   propDescriptors={[
-    {
-      name: 'class',
-      type: 'string',
-      description: 'Custom class for the progress wrapper',
-    },
     {
       name: 'value',
       type: 'number',
@@ -75,18 +62,6 @@ Adheres to the [progressbar role requirements](https://w3c.github.io/aria/#progr
       type: 'function',
       description:
         'A function to get the accessible label text representing the current value in a human-readable format. If not provided, the value label will be read as the numeric value as a percentage of the max value.',
-    },
-  ]}
-/>
-
-### Progress.Indicator
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'class',
-      type: 'string',
-      description: 'Custom class for the progress indicator',
     },
   ]}
 />
