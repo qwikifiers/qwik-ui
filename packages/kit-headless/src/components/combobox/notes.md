@@ -41,7 +41,50 @@ Types of comboboxes:
 
 ## Features:
 
+    Critical:
+    - [ ] Single selection
+    - [ ] Single selection keyboard navigation
+    - [ ] Reactive or initial values
+    - [ ] Open/Close listbox based on typing, focus, or manually
+    - [ ] Disabled options
+    - [ ] Tab stop focus management
+    - [ ] A11y components / labels
+    - [ ] Item Groups
+    - [ ] Placeholder (check if needed? or if we can use the input placeholder)
+    - [ ] Multiple selection
+    - [ ] Multiple selection keyboard navigation
     - [ ] Closes when no matching options
+
+    Advanced:
+    - [ ] Custom ARIA live region announcements for option focus, filtering, and selection to address bugs in VO (check if this is still needed).
+    - [ ] Browser autofill with a native hidden select
+
+## Props:
+
+### Root:
+
+name: multiple
+description: Whether the combobox allows multiple selections.
+
+name: value
+description: The initial selected value of the combobox.
+
+name: bind:value
+description: Reactive selected value of the combobox.
+
+name: onChange$
+description: Callback when the selected value changes.
+
+name: onInput$
+description: Callback when the user types in the combobox.
+
+name: disabled
+description: Whether the combobox is disabled.
+
+advanced:
+
+name: debounce
+description: makes sure that your code is only triggered once per user input.
 
 ## Keyboard Interactions:
 
