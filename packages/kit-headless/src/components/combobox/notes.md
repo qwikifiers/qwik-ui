@@ -65,25 +65,84 @@ Types of comboboxes:
 - **Alt + Down Arrow (Optional)**:
   - Displays the popup without moving focus if not already displayed.
 - **Alt + Up Arrow (Optional)**:
+
   - If the popup is displayed, returns focus to the combobox and closes the popup.
 
-## WAI-ARIA Roles, States, and Properties:
+  ### Note on Text Editing Keys
 
-    - The button controlling the disclosure has `role="button"` and `aria-expanded` attribute which indicates the visibility state of the content.
-    - Optionally, `aria-controls` can be used on the button to reference the id of the content container.
+  **Standard single-line text editing keys include:**
 
-## Use Cases:
+  - **Input:** Typing characters
+  - **Cursor Movement:** Arrow keys, Home, End
+  - **Selection:** Shift + Arrow keys, Ctrl/Cmd + A
+  - **Text Manipulation:** Backspace, Delete, Ctrl/Cmd + X/C/V (Cut/Copy/Paste)
 
-- FAQ sections
-- Navigation menus with collapsible sections
-- Hiding and revealing more detailed content
+  **Key Points:**
 
-## Accessibility Considerations:
+  - **Platform-Dependent:** Key assignments vary by operating system.
+  - **Browser Reliance:** Use HTML input elements with type="text" or elements with the contenteditable attribute to leverage browser-provided text editing functions.
+  - **JavaScript Interference:** Avoid capturing key events for standard editing keys to ensure browser functionality is not disrupted.
 
-- Ensure that the state (expanded or collapsed) is clearly communicated to assistive technologies.
-- Provide visual indicators (like arrows) that hint at the action of the button.
-- Consider dynamically loading content as an enhancement, not a requirement, for the functionality to work.
+## Listbox popup interaction
 
-## Downsides:
+- **Enter**:
+  - Accepts the focused option in the listbox by closing the popup, placing the accepted value in the combobox, and if the combobox is editable, placing the input cursor at the end of the value.
+- **Escape**:
+  - Closes the popup and returns focus to the combobox. Optionally, if the combobox is editable, clears the contents of the combobox.
+- **Down Arrow**:
+  - Moves focus to and selects the next option. If focus is on the last option, either returns focus to the combobox or does nothing.
+- **Up Arrow**:
+  - Moves focus to and selects the previous option. If focus is on the first option, either returns focus to the combobox or does nothing.
+- **Right Arrow**:
+  - If the combobox is editable, returns focus to the combobox without closing the popup and moves the input cursor one character to the right. If the input cursor is on the right-most character, the cursor does not move.
+- **Left Arrow**:
+  - If the combobox is editable, returns focus to the combobox without closing the popup and moves the input cursor one character to the left. If the input cursor is on the left-most character, the cursor does not move.
+- **Home (Optional)**:
+  - Either moves focus to and selects the first option or, if the combobox is editable, returns focus to the combobox and places the cursor on the first character.
+- **End (Optional)**:
+  - Either moves focus to the last option or, if the combobox is editable, returns focus to the combobox and places the cursor after the last character.
+- **Any printable character**:
+  - If the combobox is editable, returns the focus to the combobox without closing the popup and types the character.
+  - Otherwise, moves focus to the next option with a name that starts with the characters typed.
+- **Backspace (Optional)**:
+  - If the combobox is editable, returns focus to the combobox and deletes the character prior to the cursor.
+- **Delete (Optional)**:
+  - If the combobox is editable, returns focus to the combobox, removes the selected state if a suggestion was selected, and removes the inline autocomplete string if present.
 
-- Dynamic content loading can introduce complexity in maintaining state and accessibility.
+> DOM focus stays on the combobox. Assistive technology focus moves within the listbox using `aria-activedescendant`. Only one suggested value can be selected at a time.
+
+# ARIA Roles, States, and Properties for Combobox with Listbox
+
+1. **Combobox Input Element:**
+
+   - Has `role="combobox"`.
+   - `aria-controls` references the listbox element (set when the listbox is visible).
+
+2. **Listbox Element:**
+
+   - Has `role="listbox"`.
+
+3. **Visibility States:**
+
+   - `aria-expanded` is `false` when the listbox is not visible.
+   - `aria-expanded` is `true` when the listbox is visible.
+
+4. **Focus Management:**
+
+   - DOM focus is on the combobox element when it receives focus.
+   - When a descendant of the listbox is focused, DOM focus remains on the combobox, and `aria-activedescendant` refers to the focused element within the listbox.
+
+5. **Selection Indication:**
+
+   - The selected value in the listbox has `aria-selected="true"`.
+
+6. **Labeling:**
+
+   - If the combobox has a visible label and can be labeled using the HTML `label` element, it is labeled using the `label` element.
+   - Otherwise, the combobox element has `aria-labelledby` set to the labeling element or `aria-label` if no visible label is present.
+
+7. **Autocomplete Behavior:**
+   - `aria-autocomplete` values:
+     - `none`: Suggested values are the same regardless of typed characters.
+     - `list`: Suggested values complete or correspond to typed characters.
+     - `both`: Suggested values complete or correspond to typed characters, with the completion string appearing inline.
