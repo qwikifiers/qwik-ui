@@ -51,6 +51,8 @@ Types of comboboxes:
     - [ ] A11y components / labels
     - [ ] Item Groups
     - [ ] Placeholder (check if needed? or if we can use the input placeholder)
+    - [ ] Custom filter function
+    - [ ] Form and validation support
     - [ ] Multiple selection
     - [ ] Multiple selection keyboard navigation
     - [ ] Closes when no matching options
@@ -78,8 +80,40 @@ description: Callback when the selected value changes.
 name: onInput$
 description: Callback when the user types in the combobox.
 
+name: open
+description: initial open state of the combobox.
+
+name: bind:open
+description: Reactive open state of the combobox.
+
+name: onOpenChange$
+
 name: disabled
 description: Whether the combobox is disabled.
+
+loop:
+description: highlighted options loop from first to last
+
+name: filter$
+description: the function used to filter the listbox options.
+type: "startsWith" | "endsWith" | "contains" | QRL<(value: string) => boolean>
+
+name: name
+description: the name of the combobox.
+
+name: required
+description: whether the combobox is required.
+
+autoComplete:
+description: Hint for form autofill feature
+
+### Data Attributes:
+
+data-disabled Present when the item is disabled.
+
+data-selected Present when the item is selected.
+
+data-highlighted Present when the item is highlighted.
 
 advanced:
 
