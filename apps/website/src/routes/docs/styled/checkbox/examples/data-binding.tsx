@@ -6,7 +6,7 @@ export default component$(() => {
   return (
     <div>
       <div class="flex items-center space-x-2">
-        {/* @ts-expect-error https://github.com/QwikDev/qwik/pull/6398 */}
+        {/* @ts-ignore https://github.com/QwikDev/qwik/pull/6398 */}
         <Checkbox id="terms" bind:checked={checkedSig} />
         <div>
           <Label for="terms">Accept terms and conditions</Label>
