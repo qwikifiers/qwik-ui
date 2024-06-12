@@ -239,14 +239,14 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN a hero select
         WHEN pressing the up arrow
         THEN open up the listbox
-        AND the first option should have data-highlighted`, async ({ page }) => {
+        AND the last option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
       await d.getTrigger().focus();
       await d.getTrigger().press('ArrowUp');
       await expect(d.getListbox()).toBeVisible();
 
-      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+      await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
     });
 
     test(`GIVEN an open hero select
