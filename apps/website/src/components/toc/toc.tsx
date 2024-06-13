@@ -12,8 +12,6 @@ export const DashboardTableOfContents = component$(
     if (headings.length === 0) {
       return null;
     }
-    console.log(headings);
-
     return (
       <div class="space-y-2">
         <div class="font-medium">On This Page</div>
@@ -38,7 +36,7 @@ export const TableOfContent = component$<TableOfContentProps>((props) => {
   const itemIds = props.headings.map((item) => item.id);
   const activeHeading = useActiveItem(itemIds);
   const tree = getTree(infiniteStopper);
-  return <>{RecursiveJSX(tree, activeHeading.value)}</>;
+  return RecursiveJSX(tree, activeHeading.value);
 });
 
 function deltaToStrg(
@@ -101,7 +99,7 @@ function RecursiveJSX(tree: Array<Node>, activeItem: string, mIndex = 0): JSXOut
   if (base_case) {
     return (
       <li key={currNode.id} class={cn('mt-0 pt-2')}>
-        <AnchorThing node={currNode} activeItem={activeItem} />
+        <Anchor node={currNode} activeItem={activeItem} />
       </li>
     );
   }
@@ -111,7 +109,7 @@ function RecursiveJSX(tree: Array<Node>, activeItem: string, mIndex = 0): JSXOut
     return (
       <>
         <li key={currNode.id} class={cn('mt-0 list-none pt-2')}>
-          <AnchorThing node={currNode} activeItem={activeItem} />
+          <Anchor node={currNode} activeItem={activeItem} />
           <ul class={cn('m-0 list-none', { 'pl-4': currNode.level !== 1 })}>
             {RecursiveJSX(currNode.children, activeItem)}
           </ul>
@@ -124,7 +122,7 @@ function RecursiveJSX(tree: Array<Node>, activeItem: string, mIndex = 0): JSXOut
   return (
     <>
       <li key={currNode.id} class={cn('mt-0 pt-2')}>
-        <AnchorThing node={currNode} activeItem={activeItem} />
+        <Anchor node={currNode} activeItem={activeItem} />
       </li>
       {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, activeItem, mIndex + 1)}
     </>
@@ -169,7 +167,7 @@ type AnchorThingProps = {
   node: Node;
   activeItem: string;
 };
-export const AnchorThing = component$<AnchorThingProps>((props) => {
+export const Anchor = component$<AnchorThingProps>((props) => {
   const currNode = props.node;
   const activeItem = props.activeItem;
   const isActiveItem = currNode.id === `${activeItem}`;
