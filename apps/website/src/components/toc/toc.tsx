@@ -1,12 +1,6 @@
 import { ContentHeading } from '@builder.io/qwik-city';
 import { cn } from '@qwik-ui/utils';
-import {
-  component$,
-  useSignal,
-  type JSXOutput,
-  useVisibleTask$,
-  $,
-} from '@builder.io/qwik';
+import { component$, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
 
 export const DashboardTableOfContents = component$(
   ({ headings }: { headings: ContentHeading[] }) => {
