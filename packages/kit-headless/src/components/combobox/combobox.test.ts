@@ -61,7 +61,7 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
   });
 
-  test(`GIVEN a hero combobox with an open listbox
+  test(`GIVEN a  combobox with an open listbox
         WHEN the 3rd option is clicked
         THEN the 3rd option should be the comboboxed value`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
@@ -92,7 +92,7 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getInput().inputValue).toBe(expectedValue);
   });
 
-  test(`GIVEN an open hero combobox
+  test(`GIVEN an open  combobox
         WHEN clicking on the group label
         THEN the listbox should remain open`, async ({ page }) => {
     const { driver: d } = await setup(page, 'group');
@@ -109,7 +109,7 @@ test.describe('Mouse Behavior', () => {
 
 test.describe('Keyboard Behavior', () => {
   test.describe('listbox open / close', () => {
-    test(`GIVEN a hero combobox
+    test(`GIVEN a  combobox
     WHEN focusing the trigger and hitting enter
     THEN open up the listbox AND aria-expanded should be true`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -121,7 +121,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    test(`GIVEN a hero combobox with an open listbox
+    test(`GIVEN a  combobox with an open listbox
     WHEN focusing the trigger and hitting enter
     THEN close the listbox AND aria-expanded should be false`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -134,7 +134,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
 
-    test(`GIVEN a hero combobox
+    test(`GIVEN a  combobox
         WHEN pressing the space key
         THEN open up the listbox AND aria-expanded should be true`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -146,7 +146,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    test(`GIVEN a hero combobox with an open listbox
+    test(`GIVEN a  combobox with an open listbox
         WHEN pressing the space key
         THEN close listbox AND aria-expanded should be false`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -159,7 +159,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
 
-    test(`GIVEN a hero combobox
+    test(`GIVEN a  combobox
         WHEN pressing the down arrow key
         THEN open up the listbox AND aria-expanded should be true`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -169,7 +169,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getListbox()).toBeVisible();
     });
 
-    test(`GIVEN a hero combobox with an opened listbox
+    test(`GIVEN a  combobox with an opened listbox
         WHEN pressing the escape key
         THEN the listbox should close
         AND aria-expanded should be false`, async ({ page }) => {
@@ -183,8 +183,8 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
 
-    test(`GIVEN a hero combobox with an opened listbox
-          WHEN focusing something outside of the hero combobox's trigger
+    test(`GIVEN a  combobox with an opened listbox
+          WHEN focusing something outside of the  combobox's trigger
           THEN the listbox should close
           AND aria-expanded should be false`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -197,7 +197,7 @@ test.describe('Keyboard Behavior', () => {
   });
 
   test.describe('data-highlighted navigation', () => {
-    test(`GIVEN a hero combobox
+    test(`GIVEN a  combobox
         WHEN pressing the down arrow key
         THEN the listbox should be opened
         AND the first option should have data-highlighted`, async ({ page }) => {
@@ -210,7 +210,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN a hero combobox
+    test(`GIVEN a  combobox
         WHEN pressing the enter key
         THEN open up the listbox
         AND the first option should have data-highlighted`, async ({ page }) => {
@@ -223,7 +223,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN a hero combobox
+    test(`GIVEN a  combobox
         WHEN pressing the space key
         THEN open up the listbox
         AND the first option should have data-highlighted`, async ({ page }) => {
@@ -236,7 +236,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN a hero combobox
+    test(`GIVEN a  combobox
         WHEN pressing the up arrow
         THEN open up the listbox
         AND the last option should have data-highlighted`, async ({ page }) => {
@@ -249,7 +249,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an open hero combobox
+    test(`GIVEN an open  combobox
         WHEN pressing the end key
         THEN the last option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -262,7 +262,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an open hero combobox
+    test(`GIVEN an open  combobox
         WHEN pressing the home key after the end key
         THEN the first option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -278,7 +278,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an open hero combobox
+    test(`GIVEN an open  combobox
   WHEN the first option is highlighted and the down arrow key is pressed
   THEN the second option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -294,7 +294,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an open hero combobox
+    test(`GIVEN an open  combobox
   WHEN the third option is highlighted and the up arrow key is pressed
   THEN the second option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -310,7 +310,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN a hero combobox with a chosen option
+    test(`GIVEN a  combobox with a chosen option
           AND the down arrow key is pressed
           THEN the data-highlighted option should not change on re-open`, async ({
       page,
@@ -378,7 +378,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
 
-    test(`GIVEN an open hero combobox
+    test(`GIVEN an open  combobox
           WHEN an option has data-highlighted
           AND the Space key is pressed
           THEN option value should be the comboboxed value
@@ -389,7 +389,7 @@ test.describe('Keyboard Behavior', () => {
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       const expectedValue = await d.getItemAt(0).textContent();
-      await d.getItemAt(0).press('Space');
+      await d.getTrigger().press('Space');
       await expect(d.getInput().inputValue).toBe(expectedValue);
     });
 
@@ -468,7 +468,7 @@ test.describe('Keyboard Behavior', () => {
     }) => {
       const { driver: d } = await setup(page, 'typeahead');
       await d.openListbox('ArrowDown');
-      await d.getItemAt(0).press('j');
+      await d.getTrigger().press('j');
       const highlightedOpt = d.getRoot().locator('[data-highlighted]');
       await expect(highlightedOpt).toContainText('j', { ignoreCase: true });
     });
@@ -573,7 +573,7 @@ test.describe('Keyboard Behavior', () => {
 
         // initially last option is highlighted
         await d.openListbox('Enter');
-        await d.getItemAt(0).press('End');
+        await d.getTrigger().press('End');
 
         await d.getItemAt('last').press('ArrowDown');
         await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
@@ -600,7 +600,7 @@ test.describe('Keyboard Behavior', () => {
 
         // initially last option is highlighted & listbox closed
         await d.openListbox('Enter');
-        await d.getItemAt(0).press('End');
+        await d.getTrigger().press('End');
 
         const lastItem = d.getItemAt('last');
         await expect(lastItem).toHaveAttribute('data-highlighted');
@@ -622,7 +622,7 @@ test.describe('Keyboard Behavior', () => {
         // initially first option is highlighted & listbox closed
         await d.openListbox('Enter');
         await expect(d.getListbox()).toBeVisible();
-        await d.getItemAt(0).press('Enter');
+        await d.getTrigger().press('Enter');
 
         await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
         await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
@@ -952,7 +952,7 @@ test.describe('A11y', () => {
     );
   });
 
-  test(`GIVEN an open hero combobox with aria-activedescendent
+  test(`GIVEN an open  combobox with aria-activedescendent
         WHEN the listbox is opened and the down arrow key is pressed
         THEN aria-activedescendent should be the id of the second option`, async ({
     page,
@@ -969,7 +969,7 @@ test.describe('A11y', () => {
     );
   });
 
-  test(`GIVEN an open hero combobox with aria-activedescendent
+  test(`GIVEN an open  combobox with aria-activedescendent
         WHEN the listbox is closed
         THEN aria-activedescendent should be an empty string`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
@@ -977,10 +977,10 @@ test.describe('A11y', () => {
     await d.getHighlightedItem().press('Enter');
     await expect(d.getListbox()).toBeHidden();
 
-    await expect(d.getRoot()).toHaveAttribute('aria-activedescendant', '');
+    await expect(d.getRoot()).toHaveAttribute('aria-activedescendant', 'hero');
   });
 
-  test(`GIVEN a hero combobox with aria-controls
+  test(`GIVEN a  combobox with aria-controls
         WHEN the combobox renders
         THEN the root's aria-controls should be equal to the ID of the listbox`, async ({
     page,

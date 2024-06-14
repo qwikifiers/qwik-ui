@@ -1,10 +1,17 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$, $, useContext } from '@builder.io/qwik';
+import { comboboxContextId } from './combobox-context';
 
 type HComboboxItemProps = PropsOf<'li'>;
 
 export const HComboboxItem = component$((props: HComboboxItemProps) => {
+  const context = useContext(comboboxContextId);
+
+  const handleClick$ = $(async () => {
+    context.isListboxOpenSig.value = false;
+  });
+
   return (
-    <li {...props}>
+    <li data-item onClick$={handleClick$} {...props}>
       <Slot />
     </li>
   );
