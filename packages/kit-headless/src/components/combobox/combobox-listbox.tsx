@@ -11,6 +11,7 @@ export const HComboboxListbox = component$((props: HComboboxListboxProps) => {
 
   return (
     <ul
+      ref={context.listboxRef}
       role="listbox"
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}

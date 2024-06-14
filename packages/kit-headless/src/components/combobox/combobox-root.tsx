@@ -4,7 +4,9 @@ import {
   Signal,
   Slot,
   component$,
+  useComputed$,
   useContextProvider,
+  useId,
   useSignal,
 } from '@builder.io/qwik';
 import { ComboboxContext, comboboxContextId } from './combobox-context';
@@ -93,18 +95,59 @@ export const HComboboxRootImpl = component$<
   HComboboxRootImplProps<boolean> & InternalComboboxProps
 >((props: HComboboxRootImplProps<boolean> & InternalComboboxProps) => {
   const isListboxOpenSig = useSignal(false);
-  const { onChange$, onOpenChange$, ...rest } = props;
+  const {
+    onChange$,
+    onOpenChange$,
+    _itemsMap,
+    _valuePropIndex: givenValuePropIndex,
+    ...rest
+  } = props;
   onChange$;
   onOpenChange$;
 
+  // refs
+  const rootRef = useSignal<HTMLDivElement>();
+  const triggerRef = useSignal<HTMLButtonElement>();
+  const inputRef = useSignal<HTMLInputElement>();
+  const popoverRef = useSignal<HTMLElement>();
+  const listboxRef = useSignal<HTMLUListElement>();
+  const labelRef = useSignal<HTMLDivElement>();
+  const groupRef = useSignal<HTMLDivElement>();
+  const highlightedItemRef = useSignal<HTMLLIElement>();
+
+  // ids
+  const localId = useId();
+
+  // source of truth
+  const itemsMapSig = useComputed$(() => {
+    return _itemsMap;
+  });
+
+  const selectedIndexSetSig = useSignal<Set<number>>(
+    new Set(givenValuePropIndex ? [givenValuePropIndex] : []),
+  );
+
+  const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
+
   const context: ComboboxContext = {
     isListboxOpenSig,
+    itemsMapSig,
+    triggerRef,
+    inputRef,
+    popoverRef,
+    listboxRef,
+    labelRef,
+    groupRef,
+    highlightedItemRef,
+    localId,
+    highlightedIndexSig,
+    selectedIndexSetSig,
   };
 
   useContextProvider(comboboxContextId, context);
 
   return (
-    <div role="combobox" {...rest}>
+    <div ref={rootRef} role="combobox" {...rest}>
       <Slot />
     </div>
   );
