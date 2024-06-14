@@ -30,10 +30,12 @@ interface Node extends ContentHeading {
 }
 type Tree = Array<Node>;
 export const TableOfContent = component$<TableOfContentProps>((props) => {
-  const infiniteStopper = JSON.parse(JSON.stringify(props.headings));
+  const inifiniteStopper = props.headings.map((heading) => {
+    return { text: heading.text, id: heading.id, level: heading.level };
+  });
   const itemIds = props.headings.map((item) => item.id);
   const activeHeading = useActiveItem(itemIds);
-  const tree = getTree(infiniteStopper);
+  const tree = getTree(inifiniteStopper);
   return <RecursiveJSX tree={tree[0]} activeItem={activeHeading.value} />;
 });
 
