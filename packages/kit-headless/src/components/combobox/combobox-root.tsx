@@ -100,6 +100,8 @@ export const HComboboxRootImpl = component$<
     onOpenChange$,
     _itemsMap,
     _valuePropIndex: givenValuePropIndex,
+    loop: givenLoop,
+    multiple = false,
     ...rest
   } = props;
   onChange$;
@@ -115,6 +117,7 @@ export const HComboboxRootImpl = component$<
   const groupRef = useSignal<HTMLDivElement>();
   const highlightedItemRef = useSignal<HTMLLIElement>();
 
+  const loop = givenLoop ?? false;
   // ids
   const localId = useId();
 
@@ -142,6 +145,8 @@ export const HComboboxRootImpl = component$<
     localId,
     highlightedIndexSig,
     selectedIndexSetSig,
+    loop,
+    multiple,
   };
 
   useContextProvider(comboboxContextId, context);

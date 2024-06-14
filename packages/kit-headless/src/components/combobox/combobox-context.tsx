@@ -18,6 +18,9 @@ export type ComboboxContext = {
   highlightedItemRef: Signal<HTMLLIElement | undefined>;
   selectedIndexSetSig: Signal<Set<number>>;
   highlightedIndexSig: Signal<number | null>;
+
+  loop: boolean;
+  multiple: boolean | undefined;
 };
 
 // export const groupContextId = createContextId<GroupContext>('Combobox-Group');
