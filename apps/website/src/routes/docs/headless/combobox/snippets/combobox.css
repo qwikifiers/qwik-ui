@@ -70,7 +70,7 @@
   stroke: hsl(var(--foreground));
 }
 
-.combobox-option {
+.combobox-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
