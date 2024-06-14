@@ -1,4 +1,5 @@
 import { ContentHeading } from '@builder.io/qwik-city';
+import { cn } from '@qwik-ui/utils';
 import {
   component$,
   useSignal,
@@ -15,15 +16,12 @@ export const DashboardTableOfContents = component$(
     return (
       <div class="space-y-2">
         <div class="font-medium">On This Page</div>
-        <ul>
-          <TableOfContent headings={headings} />
-        </ul>
+        <TableOfContent headings={headings} />
       </div>
     );
   },
 );
 
-import { cn } from '@qwik-ui/utils';
 type TableOfContentProps = { headings: ContentHeading[] };
 interface Node extends ContentHeading {
   level: number;
@@ -36,7 +34,7 @@ export const TableOfContent = component$<TableOfContentProps>((props) => {
   const itemIds = props.headings.map((item) => item.id);
   const activeHeading = useActiveItem(itemIds);
   const tree = getTree(infiniteStopper);
-  return RecursiveJSX(tree, activeHeading.value);
+  return <RecursiveJSX tree={tree[0]} activeItem={activeHeading.value} />;
 });
 
 function deltaToStrg(
@@ -91,43 +89,30 @@ function getTree(nodes: ContentHeading[]) {
   }
   return tree;
 }
-function RecursiveJSX(tree: Array<Node>, activeItem: string, mIndex = 0): JSXOutput {
-  const currNode: Node = tree[mIndex];
-  const nextNode: Node | undefined = tree[mIndex + 1];
-  const base_case = nextNode === undefined && currNode.children.length === 0;
-  const recursive_nested_case = currNode.children.length > 0;
-  if (base_case) {
-    return (
-      <li key={currNode.id} class={cn('mt-0 pt-2')}>
-        <Anchor node={currNode} activeItem={activeItem} />
-      </li>
-    );
-  }
-  // nested uls would be easy
-  // nvm, nested uls got hands
-  if (recursive_nested_case) {
-    return (
-      <>
-        <li key={currNode.id} class={cn('mt-0 list-none pt-2')}>
-          <Anchor node={currNode} activeItem={activeItem} />
-          <ul class={cn('m-0 list-none', { 'pl-4': currNode.level !== 1 })}>
-            {RecursiveJSX(currNode.children, activeItem)}
-          </ul>
-        </li>
-        {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, activeItem, mIndex + 1)}
-      </>
-    );
-  }
-
-  return (
-    <>
-      <li key={currNode.id} class={cn('mt-0 pt-2')}>
-        <Anchor node={currNode} activeItem={activeItem} />
-      </li>
-      {mIndex + 1 <= tree.length - 1 && RecursiveJSX(tree, activeItem, mIndex + 1)}
-    </>
-  );
-}
+type RecursiveJSXProps = {
+  tree: Node;
+  activeItem: string;
+  limit?: number;
+};
+const RecursiveJSX = component$<RecursiveJSXProps>(({ tree, activeItem, limit = 3 }) => {
+  const currNode: Node = tree;
+  return currNode?.children?.length && currNode.level < limit ? (
+    <ul class={cn('m-0 list-none', { 'pl-4': currNode.level !== 1 })}>
+      {currNode.children.map((childNode) => {
+        return (
+          <li key={currNode.id} class={cn('mt-0 list-none pt-2')}>
+            <Anchor node={childNode} activeItem={activeItem} />
+            {childNode.children.length ? (
+              <>
+                <RecursiveJSX tree={childNode} activeItem={activeItem} />
+              </>
+            ) : null}
+          </li>
+        );
+      })}
+    </ul>
+  ) : null;
+});
 
 const useActiveItem = (itemIds: string[]) => {
   const activeId = useSignal<string>('');
