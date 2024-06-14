@@ -1,4 +1,4 @@
-export { HComboboxRootImpl as Root } from './combobox-root';
+export { HComboboxRoot as Root } from './combobox-inline';
 export { HComboboxLabel as Label } from './combobox-label';
 export { HComboboxTrigger as Trigger } from './combobox-trigger';
 export { HComboboxInput as Input } from './combobox-input';

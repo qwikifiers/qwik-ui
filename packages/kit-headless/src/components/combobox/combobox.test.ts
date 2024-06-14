@@ -63,7 +63,7 @@ test.describe('Mouse Behavior', () => {
 
   test(`GIVEN a  combobox with an open listbox
         WHEN the 3rd option is clicked
-        THEN the 3rd option should be the comboboxed value`, async ({ page }) => {
+        THEN the 3rd option should be the selected value`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
     await d.openListbox('click');
@@ -77,7 +77,7 @@ test.describe('Mouse Behavior', () => {
 
   test(`GIVEN a combobox
         WHEN adding new users and comboboxing a new user
-        THEN the new user should be the comboboxed value`, async ({ page }) => {
+        THEN the new user should be the selected value`, async ({ page }) => {
     const { driver: d } = await setup(page, 'add-users');
 
     await page.getByRole('button', { name: 'Add Users' }).click();
@@ -349,7 +349,7 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN an open combobox
           WHEN an option has data-highlighted
           AND the Enter key is pressed
-          THEN option value should be the comboboxed value
+          THEN option value should be the selected value
           AND should have an aria-selected of true`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
@@ -381,7 +381,7 @@ test.describe('Keyboard Behavior', () => {
     test(`GIVEN an open  combobox
           WHEN an option has data-highlighted
           AND the Space key is pressed
-          THEN option value should be the comboboxed value
+          THEN option value should be the selected value
           AND should have an aria-selected of true`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
@@ -394,7 +394,7 @@ test.describe('Keyboard Behavior', () => {
     });
 
     test(`GIVEN an open combobox
-          WHEN an option is comboboxed
+          WHEN an option is selected
           THEN focus should go back to the trigger`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
@@ -404,9 +404,9 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getTrigger()).toBeFocused();
     });
 
-    test(`GIVEN no comboboxed item and a placeholder
+    test(`GIVEN no selected item and a placeholder
           WHEN pressing the right arrow key once
-          THEN the first enabled option should be comboboxed and have aria-selected`, async ({
+          THEN the first enabled option should be selected and have aria-selected`, async ({
       page,
     }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -420,9 +420,9 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN no comboboxed item and a placeholder
+    test(`GIVEN no selected item and a placeholder
           WHEN pressing the right arrow key twice
-          THEN the first enabled option should be comboboxed and have aria-selected`, async ({
+          THEN the first enabled option should be selected and have aria-selected`, async ({
       page,
     }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -439,14 +439,14 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN the second item is comboboxed
+    test(`GIVEN the second item is selected
           WHEN pressing the left arrow key
-          THEN the first item should be comboboxed and have aria-selected & data-highlighted`, async ({
+          THEN the first item should be selected and have aria-selected & data-highlighted`, async ({
       page,
     }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      // get initial comboboxed value
+      // get initial selected value
       // const firstItemValue = await getOptionAt(0).textContent();
       await d.getTrigger().focus();
       await d.getTrigger().press('ArrowRight');
@@ -551,7 +551,7 @@ test.describe('Keyboard Behavior', () => {
 
     test(`GIVEN a closed combobox with typeahead support
           WHEN the user types a letter matching an option
-          THEN the first matching option should be comboboxed`, async ({ page }) => {
+          THEN the first matching option should be selected`, async ({ page }) => {
       // ideally want to refactor this so that even if the test example is changed, the test will still pass, getting it more programmatically.
       const { driver: d } = await setup(page, 'hero');
       await d.getTrigger().focus();
@@ -593,7 +593,7 @@ test.describe('Keyboard Behavior', () => {
       });
 
       test(`GIVEN a closed basic combobox
-          AND the last option is comboboxed
+          AND the last option is selected
           WHEN the right arrow key is pressed
           THEN it should stay on the last option`, async ({ page }) => {
         const { driver: d } = await setup(page, 'hero');
@@ -614,7 +614,7 @@ test.describe('Keyboard Behavior', () => {
       });
 
       test(`GIVEN a closed basic combobox
-          AND the first option is comboboxed
+          AND the first option is selected
           WHEN the left arrow key is pressed
           THEN it should stay on the first option`, async ({ page }) => {
         const { driver: d } = await setup(page, 'hero');
@@ -667,7 +667,7 @@ test.describe('Keyboard Behavior', () => {
       });
 
       test(`GIVEN a closed combobox with loop enabled
-            AND the last option is comboboxed
+            AND the last option is selected
             WHEN the right arrow key is pressed
             THEN it should loop to the first option`, async ({ page }) => {
         const { driver: d } = await setup(page, 'loop');
@@ -688,7 +688,7 @@ test.describe('Keyboard Behavior', () => {
       });
 
       test(`GIVEN a closed combobox with loop enabled
-            AND the first option is comboboxed
+            AND the first option is selected
             WHEN the right arrow key is pressed
             THEN it should loop to the first option`, async ({ page }) => {
         const { driver: d } = await setup(page, 'loop');
@@ -789,7 +789,7 @@ test.describe('Disabled', () => {
 test.describe('Props', () => {
   test(`GIVEN a basic combobox
         WHEN there is a placeholder
-        THEN the placeholder should be presented instead of a comboboxed value`, async ({
+        THEN the placeholder should be presented instead of a selected value`, async ({
     page,
   }) => {
     const { driver: d } = await setup(page, 'hero');
@@ -799,7 +799,7 @@ test.describe('Props', () => {
 
   test(`GIVEN a combobox with an onChange$ prop
         WHEN the combobox value changes
-        THEN the placeholder should be presented instead of a comboboxed value`, async ({
+        THEN the placeholder should be presented instead of a selected value`, async ({
     page,
   }) => {
     const { driver: d } = await setup(page, 'change-value');
@@ -814,7 +814,7 @@ test.describe('Props', () => {
 
   test(`GIVEN a combobox with an onOpenChange$ prop
         WHEN the combobox value changes
-        THEN the placeholder should be presented instead of a comboboxed value`, async ({
+        THEN the placeholder should be presented instead of a selected value`, async ({
     page,
   }) => {
     const { driver: d } = await setup(page, 'open-change');
@@ -828,7 +828,7 @@ test.describe('Props', () => {
   test.describe('uncontrolled', () => {
     test(`GIVEN an uncontrolled combobox with a value prop on the root component
           WHEN the value data matches the fourth option
-          THEN the comboboxed value should be the data passed to the value prop
+          THEN the selected value should be the data passed to the value prop
           AND the fourth option should have data-highlighted
           AND aria-selected set to true`, async ({ page }) => {
       const { driver: d } = await setup(page, 'uncontrolled');
@@ -844,7 +844,7 @@ test.describe('Props', () => {
   test.describe('controlled', () => {
     test(`GIVEN a controlled combobox with a bind:value prop on the root component
           WHEN the signal data matches the second option
-          THEN the comboboxed value should be the data passed to the bind:value prop
+          THEN the selected value should be the data passed to the bind:value prop
           AND should should have data-highlighted
           AND aria-selected set to true`, async ({ page }) => {
       const { driver: d } = await setup(page, 'controlled');
@@ -871,22 +871,22 @@ test.describe('Props', () => {
 
   test.describe('option value', () => {
     test(`GIVEN a combobox with distinct display and option values
-          WHEN the 2nd option is comboboxed
-          THEN the comboboxed value matches the 2nd option's value`, async ({ page }) => {
+          WHEN the 2nd option is selected
+          THEN the selected value matches the 2nd option's value`, async ({ page }) => {
       const { driver: d } = await setup(page, 'item-value');
 
       await d.openListbox('Enter');
 
-      await expect(page.locator('p')).toContainText('The comboboxed value is: null');
+      await expect(page.locator('p')).toContainText('The selected value is: null');
       await d.getHighlightedItem().press('ArrowDown');
       await d.getHighlightedItem().press('Enter');
 
-      await expect(page.locator('p')).toContainText('The comboboxed value is: 1');
+      await expect(page.locator('p')).toContainText('The selected value is: 1');
     });
 
     test(`GIVEN a combobox with distinct display and option values
           WHEN a controlled value is set to the 5th option
-          THEN the comboboxed value matches the 5th option's value`, async ({ page }) => {
+          THEN the selected value matches the 5th option's value`, async ({ page }) => {
       const { driver: d } = await setup(page, 'controlled-value');
 
       await expect(d.getTrigger()).toHaveText('Ryan');
@@ -896,7 +896,7 @@ test.describe('Props', () => {
     });
 
     test(`GIVEN a combobox with distinct display and option values
-          WHEN the 5th option is comboboxed
+          WHEN the 5th option is selected
           AND it clicks another option
           AND it goes back to the 5th option programmatically
           THEN the bind:value signal should update to reflect the 5th option's value`, async ({
@@ -997,7 +997,7 @@ test.describe('Multiple selection', () => {
   test.describe('mouse behavior', () => {
     test(`GIVEN a multi combobox
         WHEN clicking an option
-        THEN the option should be comboboxed
+        THEN the option should be selected
         AND the listbox should remain open`, async ({ page }) => {
       const { driver: d } = await setup(page, 'multiple');
       await d.openListbox('click');
@@ -1009,7 +1009,7 @@ test.describe('Multiple selection', () => {
     test(`GIVEN a multi combobox
         WHEN clicking one option
         AND another option
-        THEN both options should be comboboxed`, async ({ page }) => {
+        THEN both options should be selected`, async ({ page }) => {
       const { driver: d } = await setup(page, 'multiple');
       await d.openListbox('click');
       await d.getItemAt(0).click();
@@ -1021,9 +1021,7 @@ test.describe('Multiple selection', () => {
     test(`GIVEN a multi combobox
           WHEN clicking one option
           AND clicking the same option again
-          THEN it should toggle between comboboxed and uncomboboxed`, async ({
-      page,
-    }) => {
+          THEN it should toggle between selected and unselected`, async ({ page }) => {
       const { driver: d } = await setup(page, 'multiple');
       await d.openListbox('click');
       await d.getItemAt(0).click();
@@ -1035,7 +1033,7 @@ test.describe('Multiple selection', () => {
     test(`GIVEN a multi combobox
         WHEN clicking one option
         AND clicking another option
-        THEN the comboboxed value should contain both options`, async ({ page }) => {
+        THEN the selected value should contain both options`, async ({ page }) => {
       const { driver: d } = await setup(page, 'multiple');
       await d.openListbox('click');
       await d.getItemAt(0).click();
@@ -1052,7 +1050,7 @@ test.describe('Multiple selection', () => {
       test(`GIVEN an open multi combobox
             WHEN pressing the ${key} key
             AND pressing the ${key} key again
-            THEN the comboboxed option should toggle between comboboxed and uncomboboxed`, async ({
+            THEN the selected option should toggle between selected and unselected`, async ({
         page,
       }) => {
         const { driver: d } = await setup(page, 'multiple');
