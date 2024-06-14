@@ -31,8 +31,7 @@ export function useModal() {
         },
         { once: true },
       );
-    }
-    if (transitionDuration !== '0s') {
+    } else if (transitionDuration !== '0s') {
       modal.addEventListener(
         'transitionend',
         (e) => {
@@ -45,8 +44,7 @@ export function useModal() {
         },
         { once: true },
       );
-    }
-    if (animationDuration === '0s' && transitionDuration === '0s') {
+    } else if (animationDuration === '0s' && transitionDuration === '0s') {
       delete modal.dataset.closing;
       modal.classList.remove('modal-closing');
       enableBodyScroll(modal);
