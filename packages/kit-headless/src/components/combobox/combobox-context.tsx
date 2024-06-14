@@ -1,8 +1,10 @@
-import { createContextId } from '@builder.io/qwik';
+import { Signal, createContextId } from '@builder.io/qwik';
 
 export const comboboxContextId = createContextId<ComboboxContext>('qui-combobox');
 
-export type ComboboxContext = {};
+export type ComboboxContext = {
+  isListboxOpenSig: Signal<boolean>;
+};
 
 // export const groupContextId = createContextId<GroupContext>('Combobox-Group');
 
