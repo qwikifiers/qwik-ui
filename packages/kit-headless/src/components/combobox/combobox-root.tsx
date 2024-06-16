@@ -123,7 +123,7 @@ export const HComboboxRootImpl = component$<
 
   // source of truth
   const itemsMapSig = useComputed$(() => {
-    return _itemsMap;
+    return _itemsMap ?? new Map();
   });
 
   const selectedIndexSetSig = useSignal<Set<number>>(

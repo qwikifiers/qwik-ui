@@ -72,7 +72,7 @@ test.describe('Mouse Behavior', () => {
     await d.getItemAt(2).click();
 
     await expect(d.getItemAt(2)).toHaveAttribute('aria-selected', 'true');
-    await expect(d.getInput().inputValue).toBe(thirdOptStr);
+    await expect(d.getInput()).toHaveValue(thirdOptStr!);
   });
 
   test(`GIVEN a combobox
@@ -89,7 +89,7 @@ test.describe('Mouse Behavior', () => {
 
     await expect(d.getItemAt(7)).toHaveText(expectedValue);
     await d.getItemAt(7).click();
-    await expect(d.getInput().inputValue).toBe(expectedValue);
+    await expect(d.getInput()).toHaveValue(expectedValue);
   });
 
   test(`GIVEN an open  combobox
@@ -358,7 +358,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       const expectedValue = await d.getItemAt(0).textContent();
       await d.getHighlightedItem().press('Enter');
-      await expect(d.getInput().inputValue).toBe(expectedValue);
+      await expect(d.getInput()).toHaveValue(expectedValue);
     });
 
     test(`GIVEN an open combobox
@@ -390,7 +390,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       const expectedValue = await d.getItemAt(0).textContent();
       await d.getTrigger().press('Space');
-      await expect(d.getInput().inputValue).toBe(expectedValue);
+      await expect(d.getInput()).toHaveValue(expectedValue);
     });
 
     test(`GIVEN an open combobox
@@ -415,7 +415,7 @@ test.describe('Keyboard Behavior', () => {
       await d.getTrigger().focus();
       await d.getTrigger().press('ArrowRight');
 
-      expect(d.getInput().inputValue).toBe(firstItemValue);
+      expect(d.getInput()).toHaveValue(firstItemValue);
       await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
@@ -431,10 +431,10 @@ test.describe('Keyboard Behavior', () => {
       const secondItemValue = await d.getItemAt(1).textContent();
 
       await d.getTrigger().press('ArrowRight');
-      await expect(d.getInput().inputValue).toBe(firstItemValue);
+      await expect(d.getInput()).toHaveValue(firstItemValue);
       await d.getTrigger().press('ArrowRight');
 
-      await expect(d.getInput().inputValue).toBe(secondItemValue);
+      await expect(d.getInput()).toHaveValue(secondItemValue);
       await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
@@ -450,11 +450,11 @@ test.describe('Keyboard Behavior', () => {
       // const firstItemValue = await getOptionAt(0).textContent();
       await d.getTrigger().focus();
       await d.getTrigger().press('ArrowRight');
-      await expect(d.getInput().inputValue).toBe('Tim');
+      await expect(d.getInput()).toHaveValue('Tim');
       await d.getTrigger().press('ArrowRight');
 
       await d.getTrigger().press('ArrowLeft');
-      await expect(d.getInput().inputValue).toBe('Tim');
+      await expect(d.getInput()).toHaveValue('Tim');
       await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
@@ -794,7 +794,7 @@ test.describe('Props', () => {
   }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    await expect(d.getInput().inputValue).toBe('combobox an option');
+    await expect(d.getInput()).toHaveValue('combobox an option');
   });
 
   test(`GIVEN a combobox with an onChange$ prop
@@ -835,7 +835,7 @@ test.describe('Props', () => {
 
       const expectedValue = await d.getItemAt(3).textContent();
 
-      await expect(d.getInput().inputValue).toBe(expectedValue);
+      await expect(d.getInput()).toHaveValue(expectedValue);
       await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
       await expect(d.getItemAt(3)).toHaveAttribute('aria-selected', 'true');
     });
@@ -851,7 +851,7 @@ test.describe('Props', () => {
 
       const expectedValue = await d.getItemAt(1).textContent();
 
-      await expect(d.getInput().inputValue).toBe(expectedValue);
+      await expect(d.getInput()).toHaveValue(expectedValue);
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
     });
@@ -1041,7 +1041,7 @@ test.describe('Multiple selection', () => {
       await d.getItemAt(1).click();
       await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
 
-      await expect(d.getInput().inputValue).toBe('Tim, Ryan');
+      await expect(d.getInput()).toHaveValue('Tim, Ryan');
     });
   });
 

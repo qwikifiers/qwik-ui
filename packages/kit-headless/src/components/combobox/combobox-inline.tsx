@@ -18,7 +18,7 @@ export type InternalComboboxProps = {
 
   /** Our source of truth for the items. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
    **/
-  _itemsMap: TItemsMap;
+  _itemsMap?: TItemsMap;
 };
 
 /*

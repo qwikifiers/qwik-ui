@@ -6,9 +6,8 @@ export function useCombobox() {
   const selectionManager$ = $(
     async (index: number | null, action: 'add' | 'toggle' | 'remove') => {
       if (index === null) return;
-      const currItem = context.itemsMapSig.value.get(index);
-      const enabledIndex =
-        currItem && currItem.disabled ? await getNextEnabledItemIndex$(index) : index;
+      const selectedDisplayValue = context.itemsMapSig.value.get(index)?.displayValue;
+
       if (action === 'add') {
         if (context.multiple) {
           context.selectedIndexSetSig.value = new Set([
@@ -20,16 +19,16 @@ export function useCombobox() {
         }
       }
       if (action === 'toggle') {
-        if (context.selectedIndexSetSig.value.has(enabledIndex)) {
+        if (context.selectedIndexSetSig.value.has(index)) {
           context.selectedIndexSetSig.value = new Set(
             [...context.selectedIndexSetSig.value].filter(
-              (selectedIndex) => selectedIndex !== enabledIndex,
+              (selectedIndex) => selectedIndex !== index,
             ),
           );
         } else {
           context.selectedIndexSetSig.value = new Set([
             ...context.selectedIndexSetSig.value,
-            enabledIndex,
+            index,
           ]);
         }
       }
@@ -39,6 +38,13 @@ export function useCombobox() {
             (selectedIndex) => selectedIndex !== index,
           ),
         );
+      }
+
+      if (action === 'add' || action === 'toggle') {
+        if (!context.inputRef.value) return;
+        if (!selectedDisplayValue) return;
+
+        context.inputRef.value.value = selectedDisplayValue;
       }
     },
   );
