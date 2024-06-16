@@ -109,67 +109,25 @@ test.describe('Mouse Behavior', () => {
 
 test.describe('Keyboard Behavior', () => {
   test.describe('listbox open / close', () => {
-    test(`GIVEN a  combobox
-    WHEN focusing the trigger and hitting enter
-    THEN open up the listbox AND aria-expanded should be true`, async ({ page }) => {
+    test(`GIVEN a combobox focused on the input
+          WHEN pressing the down arrow key
+          THEN open up the listbox`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      await d.getTrigger().focus();
-      await d.getTrigger().press('Enter');
-
-      await expect(d.getListbox()).toBeVisible();
-      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
-    });
-
-    test(`GIVEN a  combobox with an open listbox
-    WHEN focusing the trigger and hitting enter
-    THEN close the listbox AND aria-expanded should be false`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
-
-      await d.openListbox('click');
-
-      await d.getTrigger().focus();
-      await d.getTrigger().press('Enter');
-      await expect(d.getListbox()).toBeHidden();
-      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
-    });
-
-    test(`GIVEN a  combobox
-        WHEN pressing the space key
-        THEN open up the listbox AND aria-expanded should be true`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
-
-      await d.getTrigger().focus();
-      await d.getTrigger().press('Space');
-
-      await expect(d.getListbox()).toBeVisible();
-      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
-    });
-
-    test(`GIVEN a  combobox with an open listbox
-        WHEN pressing the space key
-        THEN close listbox AND aria-expanded should be false`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
-
-      await d.openListbox('Space');
-
-      await d.getTrigger().focus();
-      await d.getTrigger().press('Space');
-      await expect(d.getListbox()).toBeHidden();
-      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
-    });
-
-    test(`GIVEN a  combobox
-        WHEN pressing the down arrow key
-        THEN open up the listbox AND aria-expanded should be true`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
-
-      await d.getTrigger().focus();
-      await d.getTrigger().press('ArrowDown');
+      await d.getInput().press('ArrowDown');
       await expect(d.getListbox()).toBeVisible();
     });
 
-    test(`GIVEN a  combobox with an opened listbox
+    test(`GIVEN a combobox focused on the input
+    WHEN pressing the up arrow key
+    THEN open up the listbox`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.getInput().press('ArrowUp');
+      await expect(d.getListbox()).toBeVisible();
+    });
+
+    test(`GIVEN a combobox with an opened listbox
         WHEN pressing the escape key
         THEN the listbox should close
         AND aria-expanded should be false`, async ({ page }) => {
@@ -177,8 +135,8 @@ test.describe('Keyboard Behavior', () => {
 
       await d.openListbox('click');
 
-      await d.getTrigger().focus();
-      await d.getTrigger().press('Escape');
+      await d.getInput().focus();
+      await d.getInput().press('Escape');
       await expect(d.getListbox()).toBeHidden();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
