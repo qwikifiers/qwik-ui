@@ -1,9 +1,14 @@
 {
   "name": "@qwik-ui/styled",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Qwik UI components library with styles",
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qwikifiers/qwik-ui",
+    "directory": "packages/kit-styled"
   },
   "main": "./src/index.ts",
   "types": "./packages/kit-styled/src/index.d.ts",
@@ -18,7 +23,7 @@
     "@builder.io/qwik": "^1.1.0"
   },
   "devDependencies": {
-    "@qwik-ui/headless": "0.3.8",
+    "@qwik-ui/headless": "0.4.4",
     "@qwik-ui/utils": "0.2.1"
   }
 }

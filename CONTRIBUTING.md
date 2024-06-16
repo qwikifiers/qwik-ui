@@ -11,6 +11,10 @@ Please, read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) to help us kee
 
 [Choose an issue template](https://github.com/qwikifiers/qwik-ui/issues/new/choose) to file a bug report / feature request.
 
+## Triaging Issues
+
+If you're interested in helping out with triaging issues, please follow the [Triaging Guide](./contributing/TRIAGE.md).
+
 ## Ready to contribute a Pull Request (PR)?
 
 ### 1. Make sure you aren't duplicating someone else's efforts.

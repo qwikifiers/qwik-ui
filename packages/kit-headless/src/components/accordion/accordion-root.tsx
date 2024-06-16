@@ -19,8 +19,11 @@ export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
     disabled,
     collapsible = true,
     animated,
+    itemsMap,
     ...rest
   } = props;
+
+  itemsMap;
 
   const selectedIndexSig = useSignal<number>(initialIndex ?? -1);
   const triggerRefsArray = useSignal<Array<Signal>>([]);

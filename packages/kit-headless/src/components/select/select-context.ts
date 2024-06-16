@@ -14,6 +14,7 @@ export type SelectContext = {
   listboxRef: Signal<HTMLUListElement | undefined>;
   groupRef: Signal<HTMLDivElement | undefined>;
   labelRef: Signal<HTMLDivElement | undefined>;
+  highlightedItemRef: Signal<HTMLLIElement | undefined>;
 
   // core state
   itemsMapSig: Readonly<Signal<TItemsMap>>;
@@ -21,6 +22,7 @@ export type SelectContext = {
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;
   isListboxOpenSig: Signal<boolean>;
+  isDisabledSig: Signal<boolean>;
   localId: string;
 
   // user configurable
@@ -38,10 +40,7 @@ export type SelectContext = {
    */
   required?: boolean;
 
-  /**
-   * If `true`, prevents the user from interacting with the select.
-   */
-  disabled?: boolean;
+  isInvalidSig?: Signal<boolean>;
 };
 
 export const groupContextId = createContextId<GroupContext>('Select-Group');

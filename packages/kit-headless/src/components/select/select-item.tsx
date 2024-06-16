@@ -8,6 +8,9 @@ import {
   useTask$,
   type PropsOf,
   useContextProvider,
+  sync$,
+  useOnWindow,
+  QRL,
 } from '@builder.io/qwik';
 import { isServer, isBrowser } from '@builder.io/qwik/build';
 import SelectContextId, {
@@ -34,8 +37,18 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   const itemRef = useSignal<HTMLLIElement>();
   const localIndexSig = useSignal<number | null>(null);
   const itemId = `${context.localId}-${_index}`;
+  const typeaheadFnSig = useSignal<QRL<(key: string) => Promise<void>>>();
 
-  const { selectionManager$ } = useSelect();
+  const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
+    useSelect();
+
+  // we're getting the same function instance from the trigger, without needing to restructure context
+  useOnWindow(
+    'typeaheadFn',
+    $((e: CustomEvent) => {
+      typeaheadFnSig.value = e.detail;
+    }),
+  );
 
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -43,18 +56,30 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   });
 
   const isHighlightedSig = useComputed$(() => {
-    return !disabled && context.highlightedIndexSig.value === _index;
+    if (disabled) return;
+
+    if (context.highlightedIndexSig.value === _index) {
+      itemRef.value?.focus();
+      return true;
+    } else {
+      return false;
+    }
   });
 
-  useTask$(function getIndexTask() {
+  useTask$(async function getIndexTask() {
     if (_index === undefined)
       throw Error('Qwik UI: Select component item cannot find its proper index.');
 
     localIndexSig.value = _index;
   });
 
-  useTask$(function scrollableTask({ track, cleanup }) {
+  useTask$(async function navigationTask({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
+
+    // update the context with the highlighted item ref
+    if (localIndexSig.value === context.highlightedIndexSig.value) {
+      context.highlightedItemRef = itemRef;
+    }
 
     if (isServer) return;
 
@@ -109,6 +134,101 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     isSelectedSig,
   };
 
+  const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+    const keys = [
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowRight',
+      'ArrowLeft',
+      'Home',
+      'End',
+      'PageDown',
+      'PageUp',
+      'Enter',
+      ' ',
+    ];
+    if (keys.includes(e.key)) {
+      e.preventDefault();
+    }
+  });
+
+  const handleKeyDown$ = $(async (e: KeyboardEvent) => {
+    typeaheadFnSig.value?.(e.key);
+
+    switch (e.key) {
+      case 'ArrowDown':
+        if (context.isListboxOpenSig.value) {
+          context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
+            context.highlightedIndexSig.value!,
+          );
+          if (context.multiple && e.shiftKey) {
+            await selectionManager$(context.highlightedIndexSig.value, 'toggle');
+          }
+        }
+        break;
+
+      case 'ArrowUp':
+        if (context.isListboxOpenSig.value) {
+          context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
+            context.highlightedIndexSig.value!,
+          );
+          if (context.multiple && e.shiftKey) {
+            await selectionManager$(context.highlightedIndexSig.value, 'toggle');
+          }
+        }
+        break;
+
+      case 'Home':
+        if (context.isListboxOpenSig.value) {
+          context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
+        }
+        break;
+
+      case 'End':
+        if (context.isListboxOpenSig.value) {
+          const lastEnabledOptionIndex = await getPrevEnabledItemIndex$(
+            context.itemsMapSig.value.size,
+          );
+          context.highlightedIndexSig.value = lastEnabledOptionIndex;
+        }
+        break;
+
+      case 'Escape':
+        context.triggerRef.value?.focus();
+        context.isListboxOpenSig.value = false;
+        break;
+
+      case 'Tab':
+        context.isListboxOpenSig.value = false;
+        break;
+
+      case 'Enter':
+      case ' ':
+        if (context.isListboxOpenSig.value) {
+          const action = context.multiple ? 'toggle' : 'add';
+          await selectionManager$(context.highlightedIndexSig.value, action);
+
+          if (!context.multiple) {
+            context.triggerRef.value?.focus();
+          }
+        }
+        context.isListboxOpenSig.value = context.multiple
+          ? true
+          : !context.isListboxOpenSig.value;
+        break;
+
+      case 'a':
+        if (e.ctrlKey && context.multiple) {
+          for (const [index, item] of context.itemsMapSig.value) {
+            if (!item.disabled) {
+              await selectionManager$(index, 'add');
+            }
+          }
+        }
+        break;
+    }
+  });
+
   useContextProvider(selectItemContextId, selectContext);
 
   return (
@@ -116,6 +236,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
       {...rest}
       id={itemId}
       onClick$={[handleClick$, props.onClick$]}
+      onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
       ref={itemRef}
       tabIndex={-1}

@@ -33,12 +33,12 @@
     "test.headless": "nx component-test headless --skip-nx-cache",
     "test.visual.headless": "nx visual-test headless",
     "test.pw.headless": "nx e2e headless",
-    "test.pw.headless-chrome-113": "nx e2e-chrome-113 headless",
+    "test.pw.headless-chrome-108": "nx e2e-chrome-108 headless",
     "test.pw.headless.ci": "nx e2e headless",
     "test.headless.ci": "nx component-test-ci headless",
     "test.utils": "nx test utils"
   },
-  "packageManager": "pnpm@8.15.8",
+  "packageManager": "pnpm@9.3.0",
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
     "@builder.io/qwik": "^1.5.5",
@@ -57,16 +57,16 @@
     "@jscutlery/semver": "^4.2.0",
     "@k11r/nx-cloudflare-wrangler": "3.0.0-feat-sst-upgrade.1",
     "@modular-forms/qwik": "^0.24.0",
-    "@nx/cypress": "^19.0.8",
-    "@nx/devkit": "^19.0.8",
-    "@nx/eslint": "^19.0.8",
-    "@nx/eslint-plugin": "^19.0.8",
-    "@nx/jest": "^19.0.8",
-    "@nx/js": "^19.0.8",
-    "@nx/playwright": "^19.0.8",
-    "@nx/plugin": "^19.0.8",
-    "@nx/vite": "^19.0.8",
-    "@nx/workspace": "^19.0.8",
+    "@nx/cypress": "19.2.3",
+    "@nx/devkit": "19.2.3",
+    "@nx/eslint": "19.2.3",
+    "@nx/eslint-plugin": "19.2.3",
+    "@nx/jest": "19.2.3",
+    "@nx/js": "19.2.3",
+    "@nx/playwright": "19.2.3",
+    "@nx/plugin": "19.2.3",
+    "@nx/vite": "19.2.3",
+    "@nx/workspace": "19.2.3",
     "@oddbird/popover-polyfill": "0.4.3",
     "@playwright/test": "^1.44.1",
     "@qwikest/icons": "^0.0.13",
@@ -115,7 +115,7 @@
     "kleur": "^4.1.5",
     "node-fetch": "3.3.2",
     "np": "^10.0.5",
-    "nx": "19.0.4",
+    "nx": "19.2.3",
     "pkg-pr-new": "0.0.5",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
@@ -161,5 +161,9 @@
   ],
   "nx": {
     "includedScripts": []
+  },
+  "volta": {
+    "node": "20.9.0",
+    "pnpm": "9.3.0"
   }
 }

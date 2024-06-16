@@ -122,6 +122,7 @@ const { join } = require('path');
 const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
   plugins: [
@@ -205,6 +206,20 @@ module.exports = {
         1: 'calc(var(--stroke-width) + 1px)',
         2: 'calc(var(--stroke-width) + 2px)',
       },
+      animation: {
+        'accordion-up': 'collapsible-up 0.2s ease-out 0s 1 normal forwards',
+        'accordion-down': 'collapsible-down 0.2s ease-out 0s 1 normal forwards',
+      },
+      keyframes: {
+        'collapsible-down': {
+          from: { height: '0' },
+          to: { height: 'var(--qwikui-collapsible-content-height)' },
+        },
+        'collapsible-up': {
+          from: { height: 'var(--qwikui-collapsible-content-height)' },
+          to: { height: '0' },
+        },
+      },
     },
   },
 };
@@ -215,3 +230,32 @@ This might seem like a lot of configuration, but we believe it to be worth it be
 ### Step 4: Find the components you need in the docs and copy/paste them into your project
 
 You will find the components code in their corresponding link in the docs.
+
+### Bonus step: add a barrel file to ~/components/ui
+
+```tsx
+export * from './accordion/accordion';
+export * from './alert/alert';
+export * from './avatar/avatar';
+export * from './badge/badge';
+export * from './breadcrumb/breadcrumb';
+export * from './button/button';
+export * from './card/card';
+export * from './checkbox/checkbox';
+export * from './combobox/combobox';
+export * from './input/input';
+export * from './label/label';
+export * from './modal/modal';
+export * from './popover/popover';
+export * from './progress/progress';
+export * from './radio-group/radio-group';
+export * from './separator/separator';
+export * from './skeleton/skeleton';
+export * from './tabs/tabs';
+export * from './textarea/textarea';
+export * from './select/select';
+```
+
+This way you can now `import { Accordion, Alert, ... } from '~/components/ui';` 👯‍♀️
+
+(**small tip:** you can commment out the components you don't use!)

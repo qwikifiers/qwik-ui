@@ -6,7 +6,7 @@ export default component$(() => {
   const items = [1, 2, 3];
 
   return (
-    <Accordion.Root animated>
+    <Accordion.Root>
       {items.map((item) => (
         <Accordion.Item class="collapsible" key={item}>
           <Accordion.Header>

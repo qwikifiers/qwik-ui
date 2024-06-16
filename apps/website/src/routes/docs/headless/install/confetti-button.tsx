@@ -1,39 +1,55 @@
 import { component$, useSignal } from '@builder.io/qwik';
-// @ts-ignore
+// @ts-expect-error no types
 import confetti from 'canvas-confetti';
 
-export const ConfettiButton = component$(() => {
+export const ConfettiButton = component$(({ intro }: { intro?: boolean }) => {
   const buttonRef = useSignal<HTMLButtonElement>();
+  const didClickSig = useSignal(false);
+
   return (
-    <div class="relative my-6 flex justify-center">
-      <div class="relative">
-        <div class="absolute top-[3px] z-0 block h-full w-full rounded-base bg-slate-800 transition-transform duration-300 dark:bg-slate-500"></div>
-        <button
-          ref={buttonRef}
-          onClick$={async () => {
-            if (!buttonRef.value) return;
-            const rect = buttonRef.value.getBoundingClientRect();
+    <div class="flex flex-wrap items-baseline gap-4">
+      <div class={`relative ${intro ? 'my-0' : 'mb-6'} flex`}>
+        <div class="relative">
+          <div class="absolute top-[3px] z-0 block h-full w-full rounded-sm bg-primary/30 transition-transform duration-300 dark:bg-primary/60"></div>
+          <button
+            ref={buttonRef}
+            onClick$={async () => {
+              didClickSig.value = true;
+              if (!buttonRef.value) return;
+              const rect = buttonRef.value.getBoundingClientRect();
 
-            if (!rect) return;
+              if (!rect) return;
 
-            // so it's always on top of the button
-            const x = (rect.left + rect.width / 2) / window.innerWidth;
-            const y = rect.top / window.innerHeight;
+              // so it's always on top of the button
+              const x = (rect.left + rect.width / 2) / window.innerWidth;
+              const y = rect.top / window.innerHeight;
 
-            await confetti({
-              colors: ['#02B9FC', '#B57DFC'],
-              origin: {
-                x,
-                y,
-              },
-            });
-          }}
-          class="z-1 relative h-[44px] rounded-base bg-slate-700 px-3 font-bold text-white shadow-md dark:bg-slate-600"
-          id="add-confetti-button"
-        >
-          Woohoo! 🎉
-        </button>
+              const jsLogo = confetti.shapeFromPath({
+                path: [
+                  'M0 0h1052v1052H0z',
+                  'M965.9 801.1c-7.7-48-39-88.3-131.7-125.9-32.2-14.8-68.1-25.399-78.8-49.8-3.8-14.2-4.3-22.2-1.9-30.8 6.9-27.9 40.2-36.6 66.6-28.6 17 5.7 33.1 18.801 42.8 39.7 45.4-29.399 45.3-29.2 77-49.399-11.6-18-17.8-26.301-25.4-34-27.3-30.5-64.5-46.2-124-45-10.3 1.3-20.699 2.699-31 4-29.699 7.5-58 23.1-74.6 44-49.8 56.5-35.6 155.399 25 196.1 59.7 44.8 147.4 55 158.6 96.9 10.9 51.3-37.699 67.899-86 62-35.6-7.4-55.399-25.5-76.8-58.4-39.399 22.8-39.399 22.8-79.899 46.1 9.6 21 19.699 30.5 35.8 48.7 76.2 77.3 266.899 73.5 301.1-43.5 1.399-4.001 10.6-30.801 3.199-72.101zm-394-317.6h-98.4c0 85-.399 169.4-.399 254.4 0 54.1 2.8 103.7-6 118.9-14.4 29.899-51.7 26.2-68.7 20.399-17.3-8.5-26.1-20.6-36.3-37.699-2.8-4.9-4.9-8.7-5.601-9-26.699 16.3-53.3 32.699-80 49 13.301 27.3 32.9 51 58 66.399 37.5 22.5 87.9 29.4 140.601 17.3 34.3-10 63.899-30.699 79.399-62.199 22.4-41.3 17.6-91.3 17.4-146.6.5-90.2 0-180.4 0-270.9z',
+                ],
+              });
+
+              await confetti({
+                colors: intro ? ['#f0db4f'] : ['#02B9FC', '#B57DFC'],
+                shapes: intro ? [jsLogo] : undefined,
+                origin: {
+                  x,
+                  y,
+                },
+              });
+            }}
+            class="z-1 relative h-[44px] rounded-base bg-primary px-3 font-bold text-white shadow-md"
+            id="add-confetti-button"
+          >
+            {intro ? 'Click me!' : 'Woohoo! 🎉'}
+          </button>
+        </div>
       </div>
+      {didClickSig.value && intro ? (
+        <p>My click event just executed! (not the button component)</p>
+      ) : null}
     </div>
   );
 });

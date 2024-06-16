@@ -135,13 +135,11 @@ The component itself can also be disabled by setting the `disabled` prop to true
 
 ### Height Animation
 
-To animate the height of the content, set the `animated` prop to `true`.
+To animate the Accordion content, the `--qwikui-collapsible-content-height` CSS variable in your keyframes.
 
 <Showcase name="animation" />
 
 > In the near future, you won't need JavaScript at all to animate the height of content! Here's the [CSS WG Proposal](https://github.com/w3c/csswg-drafts/blob/main/css-values-5/calc-size-explainer.md) for more info.
-
-You can use the `--qwikui-collapsible-content-height` CSS variable in your keyframes.
 
 <CodeSnippet name="animation.css" />
 
@@ -268,6 +266,11 @@ You have custom control over how to render items in the Accordion, allowing for 
       name: 'disabled',
       type: 'boolean',
       description: 'When true, the accordion item is disabled.',
+    },
+    {
+      name: 'open',
+      type: 'boolean',
+      description: 'Opens the accordion item in multiple mode.',
     },
   ]}
 />

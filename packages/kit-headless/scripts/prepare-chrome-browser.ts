@@ -12,16 +12,16 @@ function printProgress(progress: number) {
 }
 
 async function prepareChrome113() {
-  const path = `browsers/chrome/113/chrome-${os.platform()}`;
+  const path = `browsers/chrome/108/chrome-${os.platform()}`;
 
   if (fs.existsSync(path)) {
-    console.log('Chrome 113 already exists. Skipping unzip ⏩');
+    console.log('Chrome 108 already exists. Skipping unzip ⏩');
   } else {
     console.log('Creating directory to save the browser 🌐');
     fs.mkdirSync(path, { recursive: true });
 
     const downloadResponse = await fetch(
-      `https://github.com/qwikifiers/qwik-ui-polyfill-browsers/raw/main/chrome/113/chrome-${os.platform()}.zip`,
+      `https://github.com/qwikifiers/qwik-ui-polyfill-browsers/raw/main/chrome/108/chrome-${os.platform()}.zip`,
     );
 
     const contentLength = downloadResponse.headers.get('content-length');
@@ -33,7 +33,7 @@ async function prepareChrome113() {
         async start(controller) {
           if (!downloadResponse.body) {
             throw new Error(
-              'Invalid response received when trying to download Chrome 113',
+              'Invalid response received when trying to download Chrome 108',
             );
           }
 
@@ -53,7 +53,7 @@ async function prepareChrome113() {
 
     await decompress(
       Buffer.from(await res.arrayBuffer()),
-      `browsers/chrome/113/chrome-${os.platform()}`,
+      `browsers/chrome/108/chrome-${os.platform()}`,
       { strip: 1 },
     );
   }

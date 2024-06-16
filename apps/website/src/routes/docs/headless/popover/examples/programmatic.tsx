@@ -17,8 +17,11 @@ export default component$(() => {
             await togglePopover();
           }
         }}
+        onClick$={async () => {
+          await togglePopover();
+        }}
       >
-        Focus me and press the 'o' key!
+        Click me or focus me and press the 'o' key!
       </button>
       <Popover.Panel class="popover-panel popover-programmatic">
         I'm a programmatically opened popover!

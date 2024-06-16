@@ -51,6 +51,7 @@ export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) =
       <HPopoverPanel
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+        data-invalid={context.isInvalidSig?.value ? '' : undefined}
         {...rest}
       >
         <Slot />

@@ -8,7 +8,11 @@ export const HSelectDescription = component$((props: SelectDescriptionProps) => 
   const descriptionId = `${context.localId}-description`;
 
   return (
-    <div id={descriptionId} data-disabled={context.disabled ? '' : undefined} {...props}>
+    <div
+      id={descriptionId}
+      data-disabled={context.isDisabledSig.value ? '' : undefined}
+      {...props}
+    >
       <Slot />
     </div>
   );
