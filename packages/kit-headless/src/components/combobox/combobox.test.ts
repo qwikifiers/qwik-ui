@@ -142,13 +142,13 @@ test.describe('Keyboard Behavior', () => {
     });
 
     test(`GIVEN a  combobox with an opened listbox
-          WHEN focusing something outside of the  combobox's trigger
+          WHEN focusing something outside of the combobox's input
           THEN the listbox should close
           AND aria-expanded should be false`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
       await d.openListbox('Enter');
-      await d.getTrigger().press('Tab');
+      await d.getInput().press('Tab');
       await expect(d.getListbox()).toBeHidden();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
