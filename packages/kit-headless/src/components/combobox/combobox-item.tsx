@@ -32,6 +32,15 @@ export const HComboboxItem = component$(
       const index = _index ?? null;
       return !disabled && context.selectedIndexSetSig.value.has(index!);
     });
+    const isHighlightedSig = useComputed$(() => {
+      if (disabled) return;
+
+      if (context.highlightedIndexSig.value === localIndexSig.value) {
+        return true;
+      } else {
+        return false;
+      }
+    });
 
     useTask$(async function getIndexTask() {
       if (_index === undefined)
@@ -54,11 +63,21 @@ export const HComboboxItem = component$(
       }
     });
 
+    const handlePointerOver$ = $(() => {
+      if (disabled) return;
+
+      if (localIndexSig.value !== null) {
+        context.highlightedIndexSig.value = localIndexSig.value;
+      }
+    });
+
     return (
       <li
         aria-selected={isSelectedSig.value}
         aria-disabled={disabled === true ? 'true' : 'false'}
         data-selected={isSelectedSig.value ? '' : undefined}
+        data-highlighted={isHighlightedSig.value ? '' : undefined}
+        onPointerOver$={[handlePointerOver$, rest.onPointerOver$]}
         data-item
         onClick$={handleClick$}
         {...rest}

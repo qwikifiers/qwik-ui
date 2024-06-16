@@ -115,7 +115,6 @@ export const HComboboxRootImpl = component$<
   const listboxRef = useSignal<HTMLUListElement>();
   const labelRef = useSignal<HTMLDivElement>();
   const groupRef = useSignal<HTMLDivElement>();
-  const highlightedItemRef = useSignal<HTMLLIElement>();
 
   const loop = givenLoop ?? false;
   // ids
@@ -141,7 +140,6 @@ export const HComboboxRootImpl = component$<
     listboxRef,
     labelRef,
     groupRef,
-    highlightedItemRef,
     localId,
     highlightedIndexSig,
     selectedIndexSetSig,

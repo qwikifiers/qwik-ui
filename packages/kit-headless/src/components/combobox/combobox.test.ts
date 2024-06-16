@@ -147,7 +147,7 @@ test.describe('Keyboard Behavior', () => {
           AND aria-expanded should be false`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      await d.openListbox('Enter');
+      await d.openListbox('click');
       await d.getInput().press('Tab');
       await expect(d.getListbox()).toBeHidden();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
@@ -155,40 +155,13 @@ test.describe('Keyboard Behavior', () => {
   });
 
   test.describe('data-highlighted navigation', () => {
-    test(`GIVEN a  combobox
+    test(`GIVEN a combobox
         WHEN pressing the down arrow key
         THEN the listbox should be opened
         AND the first option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      await d.getTrigger().focus();
-      await d.getTrigger().press('ArrowDown');
-      await expect(d.getListbox()).toBeVisible();
-
-      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
-    });
-
-    test(`GIVEN a  combobox
-        WHEN pressing the enter key
-        THEN open up the listbox
-        AND the first option should have data-highlighted`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
-
-      await d.getTrigger().focus();
-      await d.getTrigger().press('Enter');
-      await expect(d.getListbox()).toBeVisible();
-
-      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
-    });
-
-    test(`GIVEN a  combobox
-        WHEN pressing the space key
-        THEN open up the listbox
-        AND the first option should have data-highlighted`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
-
-      await d.getTrigger().focus();
-      await d.getTrigger().press('Space');
+      await d.getInput().press('ArrowDown');
       await expect(d.getListbox()).toBeVisible();
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
@@ -200,48 +173,47 @@ test.describe('Keyboard Behavior', () => {
         AND the last option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      await d.getTrigger().focus();
-      await d.getTrigger().press('ArrowUp');
+      await d.getInput().press('ArrowUp');
       await expect(d.getListbox()).toBeVisible();
 
       await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an open  combobox
+    test(`GIVEN an open combobox
         WHEN pressing the end key
         THEN the last option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      await d.openListbox('Enter');
+      await d.openListbox('ArrowDown');
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
-      await d.getHighlightedItem().press('End');
+      await d.getInput().press('End');
 
       await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an open  combobox
+    test(`GIVEN an open combobox
         WHEN pressing the home key after the end key
         THEN the first option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      await d.openListbox('Enter');
+      await d.openListbox('ArrowDown');
 
       // to last index
-      await d.getHighlightedItem().press('End');
+      await d.getInput().press('End');
       await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
 
       // to first index
-      await d.getHighlightedItem().press('Home');
+      await d.getInput().press('Home');
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an open  combobox
-  WHEN the first option is highlighted and the down arrow key is pressed
-  THEN the second option should have data-highlighted`, async ({ page }) => {
+    test(`GIVEN an open combobox
+          WHEN the first option is highlighted and the down arrow key is pressed
+          THEN the second option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      await d.openListbox('Enter');
+      await d.openListbox('ArrowDown');
 
       // first index highlighted
 
@@ -257,7 +229,7 @@ test.describe('Keyboard Behavior', () => {
   THEN the second option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      await d.openListbox('Enter');
+      await d.openListbox('ArrowDown');
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowDown');
@@ -265,25 +237,6 @@ test.describe('Keyboard Behavior', () => {
       1;
 
       await d.getHighlightedItem().press('ArrowUp');
-      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
-    });
-
-    test(`GIVEN a  combobox with a chosen option
-          AND the down arrow key is pressed
-          THEN the data-highlighted option should not change on re-open`, async ({
-      page,
-    }) => {
-      const { driver: d } = await setup(page, 'hero');
-
-      await d.openListbox('Enter');
-
-      // second option highlighted
-      await d.getHighlightedItem().press('ArrowDown');
-      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
-      await d.getHighlightedItem().press('Enter');
-      await expect(d.getListbox()).toBeHidden();
-
-      await d.getHighlightedItem().press('ArrowDown');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
   });
@@ -296,10 +249,10 @@ test.describe('Keyboard Behavior', () => {
     }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      await d.openListbox('Enter');
+      await d.openListbox('ArrowDown');
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
-      await d.getHighlightedItem().press('Enter');
+      await d.getInput().press('Enter');
       await expect(d.getListbox()).toBeHidden();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
@@ -336,7 +289,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
 
-    test(`GIVEN an open  combobox
+    test(`GIVEN an open combobox
           WHEN an option has data-highlighted
           AND the Space key is pressed
           THEN option value should be the selected value
@@ -415,6 +368,25 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getInput()).toHaveValue('Tim');
       await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN a combobox with a chosen option
+          AND the down arrow key is pressed
+          THEN the data-highlighted option should not change on re-open`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openListbox('ArrowDown');
+
+      // second option highlighted
+      await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+      await d.getHighlightedItem().press('Enter');
+      await expect(d.getListbox()).toBeHidden();
+
+      await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
   });
 

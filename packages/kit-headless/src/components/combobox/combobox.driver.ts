@@ -1,5 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
-type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
+type OpenKeys = 'ArrowUp' | 'ArrowDown';
 export type DriverLocator = Locator | Page;
 
 export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
@@ -40,10 +40,8 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const openListbox = async (key: OpenKeys | 'click') => {
-    await getTrigger().focus();
-
     if (key !== 'click') {
-      await getTrigger().press(key);
+      await getInput().press(key);
     } else {
       await getTrigger().click();
     }

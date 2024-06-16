@@ -14,8 +14,6 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
     const keys = [
       'ArrowUp',
       'ArrowDown',
-      'ArrowRight',
-      'ArrowLeft',
       'Home',
       'End',
       'PageDown',
@@ -85,7 +83,13 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
-      context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
+      if (e.key === 'ArrowDown') {
+        context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
+      } else {
+        context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
+          context.itemsMapSig.value.size,
+        );
+      }
       return;
     }
   });

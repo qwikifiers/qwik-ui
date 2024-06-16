@@ -15,6 +15,7 @@ export const HComboboxTrigger = component$((props: HComboboxTriggerImplProps) =>
       ref={context.triggerRef}
       aria-expanded={context.isListboxOpenSig.value}
       onClick$={handleClick$}
+      tabIndex={-1}
       {...props}
     >
       <Slot />
