@@ -88,6 +88,13 @@
   overflow-y: auto;
 }
 
+.combobox-group-label {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: hsla(var(--foreground) / 0.8);
+  padding-top: 0.5rem;
+}
+
 [data-highlighted] {
   outline: 2px dotted hsla(var(--primary) / 1);
   background: hsla(var(--primary) / 0.08);

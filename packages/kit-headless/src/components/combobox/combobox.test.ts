@@ -76,23 +76,23 @@ test.describe('Mouse Behavior', () => {
   });
 
   test(`GIVEN a combobox
-        WHEN adding new users and comboboxing a new user
+        WHEN adding new users and selecting a new user
         THEN the new user should be the selected value`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'add-users');
+    const { driver: d } = await setup(page, 'add-items');
 
-    await page.getByRole('button', { name: 'Add Users' }).click();
+    await page.getByRole('button', { name: 'Add Fruits' }).click();
 
-    await expect(d.getItems()).toHaveCount(8);
+    await expect(d.getItems()).toHaveCount(11);
 
     await d.openListbox('click');
-    const expectedValue = 'Bob';
+    const expectedValue = 'Durian';
 
-    await expect(d.getItemAt(7)).toHaveText(expectedValue);
-    await d.getItemAt(7).click();
+    await expect(d.getItemAt(8)).toHaveText(expectedValue);
+    await d.getItemAt(8).click();
     await expect(d.getInput()).toHaveValue(expectedValue);
   });
 
-  test(`GIVEN an open  combobox
+  test(`GIVEN an open combobox
         WHEN clicking on the group label
         THEN the listbox should remain open`, async ({ page }) => {
     const { driver: d } = await setup(page, 'group');
@@ -330,7 +330,7 @@ test.describe('Keyboard Behavior', () => {
     });
   });
 
-  test.describe('comboboxing options', () => {
+  test.describe('selecting options', () => {
     test(`GIVEN an opened combobox with the first option highlighted
           WHEN the Enter key is pressed
           THEN the listbox should be closed and aria-expanded should be false`, async ({
@@ -358,7 +358,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       const expectedValue = await d.getItemAt(0).textContent();
       await d.getHighlightedItem().press('Enter');
-      await expect(d.getInput()).toHaveValue(expectedValue);
+      await expect(d.getInput()).toHaveValue(expectedValue!);
     });
 
     test(`GIVEN an open combobox
@@ -390,7 +390,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       const expectedValue = await d.getItemAt(0).textContent();
       await d.getTrigger().press('Space');
-      await expect(d.getInput()).toHaveValue(expectedValue);
+      await expect(d.getInput()).toHaveValue(expectedValue!);
     });
 
     test(`GIVEN an open combobox
@@ -415,7 +415,7 @@ test.describe('Keyboard Behavior', () => {
       await d.getTrigger().focus();
       await d.getTrigger().press('ArrowRight');
 
-      expect(d.getInput()).toHaveValue(firstItemValue);
+      expect(d.getInput()).toHaveValue(firstItemValue!);
       await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
@@ -431,10 +431,10 @@ test.describe('Keyboard Behavior', () => {
       const secondItemValue = await d.getItemAt(1).textContent();
 
       await d.getTrigger().press('ArrowRight');
-      await expect(d.getInput()).toHaveValue(firstItemValue);
+      await expect(d.getInput()).toHaveValue(firstItemValue!);
       await d.getTrigger().press('ArrowRight');
 
-      await expect(d.getInput()).toHaveValue(secondItemValue);
+      await expect(d.getInput()).toHaveValue(secondItemValue!);
       await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
@@ -835,7 +835,7 @@ test.describe('Props', () => {
 
       const expectedValue = await d.getItemAt(3).textContent();
 
-      await expect(d.getInput()).toHaveValue(expectedValue);
+      await expect(d.getInput()).toHaveValue(expectedValue!);
       await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
       await expect(d.getItemAt(3)).toHaveAttribute('aria-selected', 'true');
     });
@@ -851,7 +851,7 @@ test.describe('Props', () => {
 
       const expectedValue = await d.getItemAt(1).textContent();
 
-      await expect(d.getInput()).toHaveValue(expectedValue);
+      await expect(d.getInput()).toHaveValue(expectedValue!);
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
     });
@@ -1063,7 +1063,7 @@ test.describe('Multiple selection', () => {
     }
 
     test(`GIVEN a multi combobox
-          WHEN comboboxing an option
+          WHEN selecting an option
           AND hitting the escape key
           THEN the listbox should be closed`, async ({ page }) => {
       const { driver: d } = await setup(page, 'multiple');

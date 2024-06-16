@@ -1,11 +1,11 @@
 import { PropsOf, Slot, component$ } from '@builder.io/qwik';
 
-type HComboboxGroupLabelProps = PropsOf<'div'>;
+type HComboboxGroupLabelProps = PropsOf<'li'>;
 
 export const HComboboxGroupLabel = component$((props: HComboboxGroupLabelProps) => {
   return (
-    <div {...props}>
+    <li {...props}>
       <Slot />
-    </div>
+    </li>
   );
 });
