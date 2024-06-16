@@ -35,7 +35,7 @@ export const HComboboxItem = component$(
     const isHighlightedSig = useComputed$(() => {
       if (disabled) return;
 
-      if (context.highlightedIndexSig.value === localIndexSig.value) {
+      if (context.highlightedIndexSig.value === _index) {
         return true;
       } else {
         return false;

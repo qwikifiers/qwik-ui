@@ -11,16 +11,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
     useCombobox();
 
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
-    const keys = [
-      'ArrowUp',
-      'ArrowDown',
-      'Home',
-      'End',
-      'PageDown',
-      'PageUp',
-      'Enter',
-      ' ',
-    ];
+    const keys = ['ArrowUp', 'ArrowDown', 'Home', 'End', 'PageDown', 'PageUp', 'Enter'];
     if (keys.includes(e.key)) {
       e.preventDefault();
     }
@@ -68,6 +59,19 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
       case 'Tab':
       case 'Escape':
         context.isListboxOpenSig.value = false;
+        break;
+
+      case 'Enter':
+        if (context.isListboxOpenSig.value) {
+          const action = context.multiple ? 'toggle' : 'add';
+          await selectionManager$(context.highlightedIndexSig.value, action);
+        }
+
+        if (context.multiple) {
+          context.isListboxOpenSig.value = true;
+        } else {
+          context.isListboxOpenSig.value = false;
+        }
         break;
 
       case 'a':
