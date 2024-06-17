@@ -1,4 +1,11 @@
-import { PropsOf, component$, useContext, $, sync$ } from '@builder.io/qwik';
+import {
+  PropsOf,
+  component$,
+  useContext,
+  $,
+  sync$,
+  useComputed$,
+} from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 import { useCombobox } from './use-combobox';
 
@@ -6,9 +13,23 @@ type HComboboxInputProps = PropsOf<'input'>;
 
 export const HComboboxInput = component$((props: HComboboxInputProps) => {
   const context = useContext(comboboxContextId);
+  const listboxId = `${context.localId}-listbox`;
+  const inputId = `${context.localId}-input`;
 
-  const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
-    useCombobox();
+  const {
+    selectionManager$,
+    getNextEnabledItemIndex$,
+    getPrevEnabledItemIndex$,
+    getActiveDescendant$,
+  } = useCombobox();
+
+  const activeDescendantSig = useComputed$(async () => {
+    if (context.isListboxOpenSig.value) {
+      return getActiveDescendant$(context.highlightedIndexSig.value ?? -1);
+    } else {
+      return '';
+    }
+  });
 
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
     const keys = ['ArrowUp', 'ArrowDown', 'Home', 'End', 'PageDown', 'PageUp', 'Enter'];
@@ -100,7 +121,14 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
 
   return (
     <input
+      role="combobox"
+      id={inputId}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
+      aria-activedescendant={activeDescendantSig.value}
+      aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
+      aria-controls={context.isListboxOpenSig.value ? listboxId : undefined}
+      aria-autocomplete="list"
+      aria-haspopup="listbox"
       ref={context.inputRef}
       {...props}
     />

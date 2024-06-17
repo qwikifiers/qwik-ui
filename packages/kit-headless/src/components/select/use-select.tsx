@@ -92,18 +92,9 @@ export function useSelect() {
     return index;
   });
 
-  const getActiveDescendant$ = $((index: number) => {
-    if (index === -1 || context.itemsMapSig.value.get(index)?.disabled) {
-      return '';
-    }
-
-    return `${context.localId}-${index}`;
-  });
-
   return {
     getNextEnabledItemIndex$,
     getPrevEnabledItemIndex$,
-    getActiveDescendant$,
     selectionManager$,
   };
 }

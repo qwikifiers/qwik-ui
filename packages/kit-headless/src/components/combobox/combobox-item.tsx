@@ -73,6 +73,8 @@ export const HComboboxItem = component$(
 
     return (
       <li
+        role="option"
+        id={`${context.localId}-${_index}`}
         aria-selected={isSelectedSig.value}
         aria-disabled={disabled === true ? 'true' : 'false'}
         data-selected={isSelectedSig.value ? '' : undefined}

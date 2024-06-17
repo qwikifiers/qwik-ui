@@ -205,7 +205,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     useContextProvider(SelectContextId, context);
 
-    const { getActiveDescendant$, selectionManager$ } = useSelect();
+    const { selectionManager$ } = useSelect();
 
     useTask$(async function reactiveUserValue({ track }) {
       const bindValueSig = props['bind:value'];
@@ -239,14 +239,6 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
       if (!initialLoadSig.value) {
         onOpenChange$?.(isListboxOpenSig.value);
-      }
-    });
-
-    const activeDescendantSig = useComputed$(() => {
-      if (isListboxOpenSig.value) {
-        return getActiveDescendant$(highlightedIndexSig.value ?? -1);
-      } else {
-        return '';
       }
     });
 
@@ -315,7 +307,6 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
         aria-controls={listboxId}
         aria-expanded={context.isListboxOpenSig.value}
         aria-haspopup="listbox"
-        aria-activedescendant={activeDescendantSig.value}
         aria-labelledby={_label ? labelId : valueId}
         aria-multiselectable={context.multiple ? 'true' : undefined}
         {...rest}

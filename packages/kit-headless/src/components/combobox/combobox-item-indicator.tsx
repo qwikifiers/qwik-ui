@@ -4,7 +4,7 @@ type HComboboxItemIndicatorProps = PropsOf<'span'>;
 
 export const HComboboxItemIndicator = component$((props: HComboboxItemIndicatorProps) => {
   return (
-    <span {...props}>
+    <span aria-hidden="true" {...props}>
       <Slot />
     </span>
   );

@@ -71,6 +71,7 @@ export const HComboboxListbox = component$<ComboboxListboxProps>((props) => {
       id={listboxId}
       role="listbox"
       ref={context.listboxRef}
+      aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
     >
