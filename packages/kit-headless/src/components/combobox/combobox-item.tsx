@@ -7,8 +7,13 @@ import {
   useSignal,
   useTask$,
   useComputed$,
+  useContextProvider,
 } from '@builder.io/qwik';
-import { comboboxContextId } from './combobox-context';
+import {
+  ComboboxItemContext,
+  comboboxContextId,
+  comboboxItemContextId,
+} from './combobox-context';
 import { useCombobox } from './use-combobox';
 
 export type HComboboxItemProps = PropsOf<'li'> & {
@@ -70,6 +75,12 @@ export const HComboboxItem = component$(
         context.highlightedIndexSig.value = localIndexSig.value;
       }
     });
+
+    const itemContext: ComboboxItemContext = {
+      isSelectedSig,
+    };
+
+    useContextProvider(comboboxItemContextId, itemContext);
 
     return (
       <li

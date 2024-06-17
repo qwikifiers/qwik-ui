@@ -28,8 +28,9 @@ export type ComboboxContext = {
 //   groupLabelId: string;
 // };
 
-// export const ComboboxItemContextId = createContextId<ComboboxItemContext>('Combobox-Option');
+export const comboboxItemContextId =
+  createContextId<ComboboxItemContext>('Combobox-Option');
 
-// export type ComboboxItemContext = {
-//   isSelectedSig: Signal<boolean>;
-// };
+export type ComboboxItemContext = {
+  isSelectedSig: Signal<boolean>;
+};

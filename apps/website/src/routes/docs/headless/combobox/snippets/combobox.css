@@ -51,7 +51,7 @@
 
 .combobox-popover {
   width: 100%;
-  max-width: calc(var(--combobox-width) + 2.25rem);
+  max-width: calc(var(--combobox-width) + 2.5rem);
 }
 
 .combobox-listbox {
