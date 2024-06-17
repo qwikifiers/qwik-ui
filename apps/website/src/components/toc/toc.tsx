@@ -29,7 +29,8 @@ const TableOfContents = component$<TableOfContentsProps>(({ headings }) => {
   const itemIds = headings.map(({ id }) => id);
   const activeHeading = useActiveItem(itemIds);
   const tree = buildTree(sanitizedHeadings);
-  return <RecursiveList tree={tree[0]} activeItem={activeHeading.value} />;
+  const fixStartingBug: Node = { ...tree, children: [tree] };
+  return <RecursiveList tree={fixStartingBug} activeItem={activeHeading.value} />;
 });
 
 function deltaToStrg(
@@ -94,7 +95,7 @@ function buildTree(nodes: ContentHeading[]) {
     }
     currNode = nextNode;
   }
-  return tree;
+  return tree[0];
 }
 
 type RecursiveListProps = {
