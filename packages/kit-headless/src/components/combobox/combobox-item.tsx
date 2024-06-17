@@ -15,6 +15,7 @@ import {
   comboboxItemContextId,
 } from './combobox-context';
 import { useCombobox } from './use-combobox';
+import { isBrowser, isServer } from '@builder.io/qwik/build';
 
 export type HComboboxItemProps = PropsOf<'li'> & {
   /** Internal index we get from the inline component. Please see combobox-inline.tsx */
@@ -30,6 +31,7 @@ export type HComboboxItemProps = PropsOf<'li'> & {
 export const HComboboxItem = component$(
   ({ disabled, _index, ...rest }: HComboboxItemProps) => {
     const context = useContext(comboboxContextId);
+    const itemRef = useSignal<HTMLLIElement>();
 
     const { selectionManager$ } = useCombobox();
     const localIndexSig = useSignal<number | null>(null);
@@ -52,6 +54,37 @@ export const HComboboxItem = component$(
         throw Error('Qwik UI: Select component item cannot find its proper index.');
 
       localIndexSig.value = _index;
+    });
+
+    const checkVisibility$ = $(async (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+
+      // TODO: get this to work when hitting up arrow key initially
+      // if the is not visible, scroll it into view
+      if (isHighlightedSig.value && !entry.isIntersecting) {
+        itemRef.value?.scrollIntoView(context.scrollOptions);
+      }
+    });
+
+    useTask$(async function navigationTask({ track, cleanup }) {
+      track(() => context.highlightedIndexSig.value);
+
+      if (isServer) return;
+
+      let observer: IntersectionObserver;
+
+      cleanup(() => observer?.disconnect());
+
+      if (isBrowser) {
+        observer = new IntersectionObserver(checkVisibility$, {
+          root: context.listboxRef.value,
+          threshold: 1.0,
+        });
+
+        if (itemRef.value) {
+          observer.observe(itemRef.value);
+        }
+      }
     });
 
     const handleClick$ = $(async () => {
@@ -85,6 +118,7 @@ export const HComboboxItem = component$(
     return (
       <li
         role="option"
+        ref={itemRef}
         id={`${context.localId}-${_index}`}
         aria-selected={isSelectedSig.value}
         aria-disabled={disabled === true ? 'true' : 'false'}

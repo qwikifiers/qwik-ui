@@ -101,6 +101,7 @@ export const HComboboxRootImpl = component$<
     _itemsMap,
     _valuePropIndex: givenValuePropIndex,
     loop: givenLoop,
+    scrollOptions: givenScrollOptions,
     multiple = false,
     ...rest
   } = props;
@@ -115,6 +116,11 @@ export const HComboboxRootImpl = component$<
   const listboxRef = useSignal<HTMLUListElement>();
   const labelRef = useSignal<HTMLDivElement>();
   const groupRef = useSignal<HTMLDivElement>();
+  const scrollOptions = givenScrollOptions ?? {
+    behavior: 'smooth',
+    block: 'center',
+    inline: 'nearest',
+  };
 
   const loop = givenLoop ?? false;
   // ids
@@ -145,6 +151,7 @@ export const HComboboxRootImpl = component$<
     selectedIndexSetSig,
     loop,
     multiple,
+    scrollOptions,
   };
 
   useContextProvider(comboboxContextId, context);

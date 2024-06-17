@@ -159,8 +159,9 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     const isListboxOpenSig = useSignal<boolean>(false);
     const scrollOptions = givenScrollOptions ?? {
-      behavior: 'instant',
-      block: 'nearest',
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest',
     };
 
     const currDisplayValueSig = useSignal<string | string[]>();

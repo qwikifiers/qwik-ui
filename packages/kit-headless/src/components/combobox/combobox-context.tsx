@@ -6,6 +6,7 @@ export const comboboxContextId = createContextId<ComboboxContext>('qui-combobox'
 export type ComboboxContext = {
   isListboxOpenSig: Signal<boolean>;
   itemsMapSig: Readonly<Signal<TItemsMap>>;
+  scrollOptions: ScrollIntoViewOptions;
   localId: string;
 
   // refs
