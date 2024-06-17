@@ -34,4 +34,5 @@ export const comboboxItemContextId =
 
 export type ComboboxItemContext = {
   isSelectedSig: Signal<boolean>;
+  itemLabelId: string;
 };

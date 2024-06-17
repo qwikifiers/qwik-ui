@@ -264,226 +264,871 @@
           ]
         }
       ],
-      "styled": [
+      "headless": [
         {
-          "file": "packages/kit-styled/.eslintrc.json",
-          "hash": "15119497204773371150"
+          "file": "packages/kit-headless/.eslintrc.json",
+          "hash": "1102324680065344610"
         },
         {
-          "file": "packages/kit-styled/.gitignore",
-          "hash": "4698596868108127296"
+          "file": "packages/kit-headless/CHANGELOG.md",
+          "hash": "7142992548794744657"
         },
         {
-          "file": "packages/kit-styled/.prettierignore",
-          "hash": "4698596868108127296"
+          "file": "packages/kit-headless/README.md",
+          "hash": "11608136141838762100"
         },
         {
-          "file": "packages/kit-styled/CHANGELOG.md",
-          "hash": "9388703707969739731"
+          "file": "packages/kit-headless/cypress.config.ts",
+          "hash": "14071200194376977624",
+          "deps": ["npm:cypress"]
         },
         {
-          "file": "packages/kit-styled/README.md",
-          "hash": "12142971673062581355"
+          "file": "packages/kit-headless/cypress/fixtures/example.json",
+          "hash": "11785586596216172004"
         },
         {
-          "file": "packages/kit-styled/components-registry.json",
-          "hash": "14083291802817147955"
+          "file": "packages/kit-headless/cypress/support/commands.ts",
+          "hash": "10691280201180961611",
+          "deps": ["npm:@testing-library/cypress", "npm:cypress-real-events"]
         },
         {
-          "file": "packages/kit-styled/jest.config.ts",
-          "hash": "7654877260441485338"
+          "file": "packages/kit-headless/cypress/support/component-index.html",
+          "hash": "14940629804142817678"
         },
         {
-          "file": "packages/kit-styled/package.json",
-          "hash": "7060648228982070129",
-          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
+          "file": "packages/kit-headless/cypress/support/component.ts",
+          "hash": "11608793233339433308",
+          "deps": ["npm:cypress-ct-qwik", "npm:cypress-axe", "npm:axe-core"]
         },
         {
-          "file": "packages/kit-styled/project.json",
-          "hash": "16119293112165469973"
+          "file": "packages/kit-headless/cypress/tsconfig.json",
+          "hash": "17847548748032242792"
         },
         {
-          "file": "packages/kit-styled/src/components/accordion/accordion-todo.md",
-          "hash": "17294311277729900897"
-        },
-        {
-          "file": "packages/kit-styled/src/components/accordion/accordion.tsx",
-          "hash": "15793604709966646187",
-          "deps": ["npm:@builder.io/qwik", "headless", "utils", "npm:@qwikest/icons"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/alert/alert.tsx",
-          "hash": "2550259995602487409",
-          "deps": ["npm:@builder.io/qwik", "utils", "npm:class-variance-authority"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/avatar/avatar.tsx",
-          "hash": "1294416892940537747",
-          "deps": ["npm:@builder.io/qwik", "utils"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/badge/badge.tsx",
-          "hash": "14494939795121147094",
-          "deps": ["npm:@builder.io/qwik", "utils", "npm:class-variance-authority"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/breadcrumb/breadcrumb.tsx",
-          "hash": "9044576339435124070",
-          "deps": ["npm:@builder.io/qwik", "utils", "npm:@qwikest/icons"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/button/button.tsx",
-          "hash": "3331476381730401701",
-          "deps": ["npm:@builder.io/qwik", "utils", "npm:class-variance-authority"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/button/todo.ts",
-          "hash": "2467242909230149103"
-        },
-        {
-          "file": "packages/kit-styled/src/components/card/card.tsx",
-          "hash": "7275048784630296511",
-          "deps": ["npm:@builder.io/qwik", "utils"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/checkbox/checkbox.tsx",
-          "hash": "15983273747625244696",
-          "deps": ["npm:@builder.io/qwik", "utils"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/combobox/combobox.tsx",
-          "hash": "6969639823456134210",
-          "deps": ["npm:@builder.io/qwik", "headless", "utils", "npm:@qwikest/icons"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/input/input.tsx",
-          "hash": "1753727445947086485",
-          "deps": ["npm:@builder.io/qwik", "utils"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/label/label.tsx",
-          "hash": "1834835142959414884",
-          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/modal/modal.tsx",
-          "hash": "10467309493688795273",
+          "file": "packages/kit-headless/package.json",
+          "hash": "1190335579989997618",
           "deps": [
             "npm:@builder.io/qwik",
-            "headless",
-            "utils",
-            "npm:class-variance-authority"
+            "npm:@floating-ui/core",
+            "npm:@floating-ui/dom",
+            "npm:@oddbird/popover-polyfill",
+            "npm:focus-trap",
+            "npm:body-scroll-lock-upgrade"
           ]
         },
         {
-          "file": "packages/kit-styled/src/components/popover/popover.tsx",
-          "hash": "1067137827836896828",
-          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
+          "file": "packages/kit-headless/playwright.config.ts",
+          "hash": "2646456468843194280",
+          "deps": ["npm:@playwright/test"]
         },
         {
-          "file": "packages/kit-styled/src/components/progress/progress.tsx",
-          "hash": "2002803675616008931",
-          "deps": ["utils", "npm:@builder.io/qwik", "headless"]
+          "file": "packages/kit-headless/project.json",
+          "hash": "8115345176280280194"
         },
         {
-          "file": "packages/kit-styled/src/components/radio-group/radio-group.tsx",
-          "hash": "8244248321189683701",
-          "deps": ["npm:@builder.io/qwik", "utils"]
+          "file": "packages/kit-headless/scripts/prepare-chrome-browser.ts",
+          "hash": "532207750125935064",
+          "deps": ["npm:decompress"]
         },
         {
-          "file": "packages/kit-styled/src/components/scroll-area/scroll-area-qwikified.tsx",
-          "hash": "16363150129806283591",
+          "file": "packages/kit-headless/src/components/accordion/accordion-content.tsx",
+          "hash": "18354558410714603204",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/accordion/accordion-context.tsx",
+          "hash": "1366218310809772570",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/accordion/accordion-heading.tsx",
+          "hash": "12402742237078889331",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/accordion/accordion-inline.tsx",
+          "hash": "6248429464922322453",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/accordion/accordion-item.tsx",
+          "hash": "16868044035791556999",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/accordion/accordion-root.tsx",
+          "hash": "8376760369549442286",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/accordion/accordion-trigger.tsx",
+          "hash": "1162900482442305115",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/accordion/accordion.driver.ts",
+          "hash": "15061775514879020353",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/accordion/accordion.test.ts",
+          "hash": "2230040224121098890",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/accordion/index.ts",
+          "hash": "17367510968101583592"
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/carousel-container.tsx",
+          "hash": "13573027204307031712",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/carousel-context-id.ts",
+          "hash": "7864970634943413149",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/carousel-context.type.ts",
+          "hash": "10387990374981273972",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/carousel-viewport.tsx",
+          "hash": "18313067520806381966",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/carousel.tsx",
+          "hash": "2857560488453576197",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/index.ts",
+          "hash": "11447110586464242053"
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/next-button.tsx",
+          "hash": "1414530031300049141",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/pagination.tsx",
+          "hash": "3757503289888924754",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/prev-button.tsx",
+          "hash": "13314997347389201783",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/slide.tsx",
+          "hash": "16309649936041900949",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/types.ts",
+          "hash": "6112788627928582535",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/carousel/utils.ts",
+          "hash": "4403205350774339987"
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/collapsible-content.tsx",
+          "hash": "16269434754058362661",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/collapsible-context.ts",
+          "hash": "15477514498008391839",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/collapsible-context.type.ts",
+          "hash": "233385576937871241",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/collapsible-trigger.tsx",
+          "hash": "9699192878593812678",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/collapsible.driver.ts",
+          "hash": "9438770096625322551",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/collapsible.test.ts",
+          "hash": "12988094674658874082",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/collapsible.tsx",
+          "hash": "358061693655794872",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/index.ts",
+          "hash": "5323751624085774369"
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/notes.md",
+          "hash": "4978079388583965523"
+        },
+        {
+          "file": "packages/kit-headless/src/components/collapsible/use-collapsible.tsx",
+          "hash": "2808075182448548456",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-context.tsx",
+          "hash": "11065266011846372750",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-description.tsx",
+          "hash": "14160733170720467479",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-error-message.tsx",
+          "hash": "13714316901468132192",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-group-label.tsx",
+          "hash": "3184791477176488977",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-group.tsx",
+          "hash": "13608602476949652409",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-inline.tsx",
+          "hash": "390732061472310048",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-input.tsx",
+          "hash": "9629722927923468588",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-item-indicator.tsx",
+          "hash": "13702004273628212182",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-item-label.tsx",
+          "hash": "18072069204159371715",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-item.tsx",
+          "hash": "3294929647508826391",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-label.tsx",
+          "hash": "147859866420238385",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-listbox.tsx",
+          "hash": "11321694397023230387",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-popover.tsx",
+          "hash": "16908703778173518313",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-root.tsx",
+          "hash": "16257149184085073681",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox-trigger.tsx",
+          "hash": "14246147756144462406",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox.css",
+          "hash": "12133885074678056037"
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox.driver.ts",
+          "hash": "8722832286097381148",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/combobox.test.ts",
+          "hash": "4196166580770485196",
+          "deps": ["npm:@axe-core/playwright", "npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/index.ts",
+          "hash": "4996933775753702103"
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/notes.md",
+          "hash": "11693362748626519892"
+        },
+        {
+          "file": "packages/kit-headless/src/components/combobox/use-combobox.tsx",
+          "hash": "14428997859415852948",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/label/index.ts",
+          "hash": "11026549204161293429"
+        },
+        {
+          "file": "packages/kit-headless/src/components/label/label.driver.ts",
+          "hash": "2059460513441746512",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/label/label.test.ts",
+          "hash": "8474188042748092386",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/label/label.tsx",
+          "hash": "4858902349981397604",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/index.ts",
+          "hash": "18169245409884158748"
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-close.tsx",
+          "hash": "12152894244144386201",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-content.tsx",
+          "hash": "17613704291148448333",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-context.tsx",
+          "hash": "861672249223241771",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-description.tsx",
+          "hash": "17373726034627993728",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-footer.tsx",
+          "hash": "2801594662788932010",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-header.tsx",
+          "hash": "12825563823832739404",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-panel.tsx",
+          "hash": "9509554515316147473",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-root.tsx",
+          "hash": "4516077362235151302",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-title.tsx",
+          "hash": "9214704979039514862",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal-trigger.tsx",
+          "hash": "17185721851837194058",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal.css",
+          "hash": "6520569177284261899"
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal.driver.ts",
+          "hash": "14145842136622240676",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal.test.ts",
+          "hash": "5334533882391719877",
+          "deps": ["npm:@playwright/test", "npm:@axe-core/playwright"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal.test.ts-snapshots/closed-modal-visual-win32.png",
+          "hash": "3373804060101082463"
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/modal.test.ts-snapshots/opened-modal-visual-win32.png",
+          "hash": "3373804060101082463"
+        },
+        {
+          "file": "packages/kit-headless/src/components/modal/use-modal.tsx",
+          "hash": "11107586071171390512",
           "deps": [
-            "npm:react",
-            "npm:@radix-ui/react-scroll-area",
-            "npm:@builder.io/qwik-react",
-            "utils"
-          ]
-        },
-        {
-          "file": "packages/kit-styled/src/components/select/select.tsx",
-          "hash": "3582572398803044463",
-          "deps": ["npm:@builder.io/qwik", "headless", "utils", "npm:@qwikest/icons"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/separator/separator.tsx",
-          "hash": "1786671082757971171",
-          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/skeleton/skeleton.tsx",
-          "hash": "3298521806454525005",
-          "deps": ["npm:@builder.io/qwik", "utils"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/tabs/tabs.tsx",
-          "hash": "3105382026992377558",
-          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/textarea/textarea.tsx",
-          "hash": "16199369262994315740",
-          "deps": ["npm:@builder.io/qwik", "utils"]
-        },
-        {
-          "file": "packages/kit-styled/src/components/toggle/toggle.tsx",
-          "hash": "14958517139631742719",
-          "deps": [
+            "npm:focus-trap",
             "npm:@builder.io/qwik",
-            "headless",
-            "utils",
-            "npm:class-variance-authority"
+            "npm:body-scroll-lock-upgrade"
           ]
         },
         {
-          "file": "packages/kit-styled/src/index.ts",
-          "hash": "11907924815395016399"
+          "file": "packages/kit-headless/src/components/pagination/index.ts",
+          "hash": "11682245463792618312"
         },
         {
-          "file": "packages/kit-styled/src/root.tsx",
+          "file": "packages/kit-headless/src/components/pagination/pagination.spec.tsx",
+          "hash": "15569046771820822468",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/pagination/pagination.tsx",
+          "hash": "16748078753316549988",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/pagination/types/index.ts",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "packages/kit-headless/src/components/pagination/types/pagination-api.ts",
+          "hash": "13664700665299608970",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/pagination/use-pagination.spec.ts",
+          "hash": "7651286596244766226"
+        },
+        {
+          "file": "packages/kit-headless/src/components/pagination/use-pagination.ts",
+          "hash": "16687791691632926323"
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/floating.tsx",
+          "hash": "8287800499919190183",
+          "deps": ["npm:@builder.io/qwik", "npm:@floating-ui/dom"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/index.ts",
+          "hash": "5334748605218991769"
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover-context.ts",
+          "hash": "18054976716259003512",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover-panel-arrow.tsx",
+          "hash": "5597809448334091571",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover-panel-impl.tsx",
+          "hash": "4375677230116165175",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover-panel.tsx",
+          "hash": "6283970310358751525",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover-root.tsx",
+          "hash": "17076375589072742520",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover-trigger.tsx",
+          "hash": "10876695288754586441",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover.css",
+          "hash": "6325510174286787867"
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover.driver.ts",
+          "hash": "17905498853305881044",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover.test.ts",
+          "hash": "5018793405758968713",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/closed-popover-popover-chrome-108-win32.png",
+          "hash": "15684497913457857359"
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/closed-popover-popover-chrome-113-win32.png",
+          "hash": "15684497913457857359"
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/closed-popover-visual-win32.png",
+          "hash": "16832614529709618404"
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/opened-popover-popover-chrome-108-win32.png",
+          "hash": "15684497913457857359"
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/opened-popover-popover-chrome-113-win32.png",
+          "hash": "15684497913457857359"
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/opened-popover-visual-win32.png",
+          "hash": "10786573520661818113"
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/use-popover.tsx",
+          "hash": "16274582206575705569",
+          "deps": ["npm:@builder.io/qwik", ["npm:@oddbird/popover-polyfill", "dynamic"]]
+        },
+        {
+          "file": "packages/kit-headless/src/components/popover/utils.ts",
+          "hash": "1495749714397906506"
+        },
+        {
+          "file": "packages/kit-headless/src/components/progress/index.ts",
+          "hash": "15046207709841489348"
+        },
+        {
+          "file": "packages/kit-headless/src/components/progress/progress-context.ts",
+          "hash": "8074125084192744548",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/progress/progress-indicator.tsx",
+          "hash": "8938293261248371546",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/progress/progress.driver.ts",
+          "hash": "9705956386557944722",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/progress/progress.test.ts",
+          "hash": "17074188237077349081",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/progress/progress.tsx",
+          "hash": "7870304914382868961",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/progress/util.ts",
+          "hash": "1503567056384928213"
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/hidden-select-option.tsx",
+          "hash": "5896598436480056390",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/hidden-select.tsx",
+          "hash": "11283396020417662963",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/index.ts",
+          "hash": "10090056183574731235"
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-context.ts",
+          "hash": "9823077445229168180",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-description.tsx",
+          "hash": "5970708715131798707",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-display-value.tsx",
+          "hash": "6059246203505704164",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-error-message.tsx",
+          "hash": "9072534528850814931",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-group-label.tsx",
+          "hash": "8134665469788484904",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-group.tsx",
+          "hash": "15960368556896936265",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-inline.tsx",
+          "hash": "9931002393921693093",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-item-indicator.tsx",
+          "hash": "7965076495566704219",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-item-label.tsx",
+          "hash": "10604972725112038638",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-item.tsx",
+          "hash": "3735150670588250106",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-label.tsx",
+          "hash": "1442647912843039759",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-listbox.tsx",
+          "hash": "8547035400908217214",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-popover.tsx",
+          "hash": "3360269313890741196",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-root.tsx",
+          "hash": "6558797598470010084",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select-trigger.tsx",
+          "hash": "15191582625650636720",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select.css",
+          "hash": "12133885074678056037"
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select.driver.ts",
+          "hash": "1897561247645517871",
+          "deps": ["npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/select.test.ts",
+          "hash": "12476697184773954922",
+          "deps": ["npm:@axe-core/playwright", "npm:@playwright/test"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/select/use-select.tsx",
+          "hash": "16252503510099424436",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/separator/index.ts",
+          "hash": "18396674091744448446"
+        },
+        {
+          "file": "packages/kit-headless/src/components/separator/separator.spec.tsx",
+          "hash": "3604932647670671482"
+        },
+        {
+          "file": "packages/kit-headless/src/components/separator/separator.tsx",
+          "hash": "16394358881289406417",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/__image_snapshots__/Tabs INIT #0.diff.png",
+          "hash": "1427947304376411208"
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/__image_snapshots__/Tabs INIT #0.png",
+          "hash": "15773877862721544025"
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/__image_snapshots__/Tabs INIT #1.png",
+          "hash": "6488761197234902111"
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/__image_snapshots__/Tabs INIT #2.png",
+          "hash": "6488761197234902111"
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/behavior.type.ts",
+          "hash": "12195626711085055790"
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/get-enabled-tab.ts",
+          "hash": "2725481084169281231"
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/index.ts",
+          "hash": "8833264384329145010"
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/tab-panel.tsx",
+          "hash": "13653148012615768424",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/tab.tsx",
+          "hash": "17346300728414916656",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/tabs-context-id.ts",
+          "hash": "17715147887619754968",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/tabs-context.type.ts",
+          "hash": "9354699577257360669",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/tabs-list.tsx",
+          "hash": "14326885893148776607",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/tabs.spec.tsx",
+          "hash": "6502200568446107695",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tabs/tabs.tsx",
+          "hash": "3027204196651148542",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/test.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "packages/kit-headless/src/components/toggle/index.ts",
+          "hash": "9002542396152043470"
+        },
+        {
+          "file": "packages/kit-headless/src/components/toggle/toggle.tsx",
+          "hash": "9172071463364034847",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tooltip/index.ts",
+          "hash": "2851811705883393161"
+        },
+        {
+          "file": "packages/kit-headless/src/components/tooltip/tooltip-content.tsx",
+          "hash": "261358882836972080",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tooltip/tooltip-root.tsx",
+          "hash": "7380298442523654680",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/components/tooltip/tooltip-trigger.tsx",
+          "hash": "13004900250230530172",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/hooks/listbox-notes.md",
+          "hash": "7307881201355853956"
+        },
+        {
+          "file": "packages/kit-headless/src/hooks/use-enabled-index.tsx",
+          "hash": "12033497610787196517",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "packages/kit-headless/src/hooks/use-listbox.tsx",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "packages/kit-headless/src/index.ts",
+          "hash": "12378782900808375712"
+        },
+        {
+          "file": "packages/kit-headless/src/root.tsx",
           "hash": "9292475718796214979"
         },
         {
-          "file": "packages/kit-styled/src/templates/global.css",
-          "hash": "3391692653819463493"
+          "file": "packages/kit-headless/src/utils/get-hidden-height.ts",
+          "hash": "4666545515794979998"
         },
         {
-          "file": "packages/kit-styled/src/templates/tailwind.config.cjs",
-          "hash": "17155394967537199841",
-          "deps": ["npm:tailwindcss", "npm:tailwindcss-animate"]
+          "file": "packages/kit-headless/src/utils/index.ts",
+          "hash": "13589012854750365158"
         },
         {
-          "file": "packages/kit-styled/src/templates/tailwind.extend._template",
-          "hash": "10682437245220846463"
+          "file": "packages/kit-headless/src/utils/key-code.type.ts",
+          "hash": "8823953352216378302"
         },
         {
-          "file": "packages/kit-styled/tsconfig.generators.json",
-          "hash": "711180413094354002"
+          "file": "packages/kit-headless/src/utils/use-ordinal.ts",
+          "hash": "5640231495714966703",
+          "deps": ["npm:@builder.io/qwik"]
         },
         {
-          "file": "packages/kit-styled/tsconfig.json",
-          "hash": "7242123465456087625"
+          "file": "packages/kit-headless/src/utils/visually-hidden.tsx",
+          "hash": "15667522651717277587",
+          "deps": ["npm:@builder.io/qwik"]
         },
         {
-          "file": "packages/kit-styled/tsconfig.lib.json",
-          "hash": "10897204350944647853"
+          "file": "packages/kit-headless/tsconfig.editor.json",
+          "hash": "4367155676099094863"
         },
         {
-          "file": "packages/kit-styled/tsconfig.spec.json",
-          "hash": "10661452920985907898"
+          "file": "packages/kit-headless/tsconfig.json",
+          "hash": "3691627161608604825"
         },
         {
-          "file": "packages/kit-styled/type.d.ts",
+          "file": "packages/kit-headless/tsconfig.lib.json",
+          "hash": "15546818031576068619"
+        },
+        {
+          "file": "packages/kit-headless/tsconfig.spec.json",
+          "hash": "83092853570162862"
+        },
+        {
+          "file": "packages/kit-headless/type.d.ts",
           "hash": "8804666966648526110"
         },
         {
-          "file": "packages/kit-styled/vite.config.ts",
-          "hash": "5036014388096966232",
+          "file": "packages/kit-headless/vite.config.ts",
+          "hash": "17051287524678694626",
           "deps": [
             "npm:@builder.io/qwik",
             "npm:qwik-nx",
             "npm:vite",
             "npm:vite-plugin-dts",
+            "npm:vite-plugin-static-copy",
             "npm:vite-tsconfig-paths"
           ]
         }
@@ -1104,6 +1749,11 @@
         {
           "file": "apps/website/src/routes/docs/headless/combobox/examples/loop.tsx",
           "hash": "16973019911299897386",
+          "deps": ["npm:@builder.io/qwik", "headless", "npm:@qwikest/icons"]
+        },
+        {
+          "file": "apps/website/src/routes/docs/headless/combobox/examples/scrollable.tsx",
+          "hash": "4451067014265735828",
           "deps": ["npm:@builder.io/qwik", "headless", "npm:@qwikest/icons"]
         },
         {
@@ -2163,11 +2813,6 @@
             ["npm:rehype-pretty-code", "dynamic"],
             ["npm:unist-util-visit", "dynamic"]
           ]
-        },
-        {
-          "file": "apps/website/src/routes/docs/headless/combobox/examples/scrollable.tsx",
-          "hash": "4451067014265735828",
-          "deps": ["npm:@builder.io/qwik", "headless", "npm:@qwikest/icons"]
         }
       ],
       "cli-e2e": [
@@ -2194,995 +2839,6 @@
         {
           "file": "packages/cli-e2e/tsconfig.spec.json",
           "hash": "6898991939206723030"
-        }
-      ],
-      "headless": [
-        {
-          "file": "packages/kit-headless/.eslintrc.json",
-          "hash": "1102324680065344610"
-        },
-        {
-          "file": "packages/kit-headless/CHANGELOG.md",
-          "hash": "7142992548794744657"
-        },
-        {
-          "file": "packages/kit-headless/README.md",
-          "hash": "11608136141838762100"
-        },
-        {
-          "file": "packages/kit-headless/cypress.config.ts",
-          "hash": "14071200194376977624",
-          "deps": ["npm:cypress"]
-        },
-        {
-          "file": "packages/kit-headless/cypress/fixtures/example.json",
-          "hash": "11785586596216172004"
-        },
-        {
-          "file": "packages/kit-headless/cypress/support/commands.ts",
-          "hash": "10691280201180961611",
-          "deps": ["npm:@testing-library/cypress", "npm:cypress-real-events"]
-        },
-        {
-          "file": "packages/kit-headless/cypress/support/component-index.html",
-          "hash": "14940629804142817678"
-        },
-        {
-          "file": "packages/kit-headless/cypress/support/component.ts",
-          "hash": "11608793233339433308",
-          "deps": ["npm:cypress-ct-qwik", "npm:cypress-axe", "npm:axe-core"]
-        },
-        {
-          "file": "packages/kit-headless/cypress/tsconfig.json",
-          "hash": "17847548748032242792"
-        },
-        {
-          "file": "packages/kit-headless/package.json",
-          "hash": "1190335579989997618",
-          "deps": [
-            "npm:@builder.io/qwik",
-            "npm:@floating-ui/core",
-            "npm:@floating-ui/dom",
-            "npm:@oddbird/popover-polyfill",
-            "npm:focus-trap",
-            "npm:body-scroll-lock-upgrade"
-          ]
-        },
-        {
-          "file": "packages/kit-headless/playwright.config.ts",
-          "hash": "2646456468843194280",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/project.json",
-          "hash": "8115345176280280194"
-        },
-        {
-          "file": "packages/kit-headless/scripts/prepare-chrome-browser.ts",
-          "hash": "532207750125935064",
-          "deps": ["npm:decompress"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/accordion-content.tsx",
-          "hash": "18354558410714603204",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/accordion-context.tsx",
-          "hash": "1366218310809772570",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/accordion-heading.tsx",
-          "hash": "12402742237078889331",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/accordion-inline.tsx",
-          "hash": "6248429464922322453",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/accordion-item.tsx",
-          "hash": "16868044035791556999",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/accordion-root.tsx",
-          "hash": "8376760369549442286",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/accordion-trigger.tsx",
-          "hash": "1162900482442305115",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/accordion.driver.ts",
-          "hash": "15061775514879020353",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/accordion.test.ts",
-          "hash": "2230040224121098890",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/accordion/index.ts",
-          "hash": "17367510968101583592"
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/carousel-container.tsx",
-          "hash": "13573027204307031712",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/carousel-context-id.ts",
-          "hash": "7864970634943413149",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/carousel-context.type.ts",
-          "hash": "10387990374981273972",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/carousel-viewport.tsx",
-          "hash": "18313067520806381966",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/carousel.tsx",
-          "hash": "2857560488453576197",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/index.ts",
-          "hash": "11447110586464242053"
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/next-button.tsx",
-          "hash": "1414530031300049141",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/pagination.tsx",
-          "hash": "3757503289888924754",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/prev-button.tsx",
-          "hash": "13314997347389201783",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/slide.tsx",
-          "hash": "16309649936041900949",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/types.ts",
-          "hash": "6112788627928582535",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/carousel/utils.ts",
-          "hash": "4403205350774339987"
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/collapsible-content.tsx",
-          "hash": "16269434754058362661",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/collapsible-context.ts",
-          "hash": "15477514498008391839",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/collapsible-context.type.ts",
-          "hash": "233385576937871241",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/collapsible-trigger.tsx",
-          "hash": "9699192878593812678",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/collapsible.driver.ts",
-          "hash": "9438770096625322551",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/collapsible.test.ts",
-          "hash": "12988094674658874082",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/collapsible.tsx",
-          "hash": "358061693655794872",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/index.ts",
-          "hash": "5323751624085774369"
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/notes.md",
-          "hash": "4978079388583965523"
-        },
-        {
-          "file": "packages/kit-headless/src/components/collapsible/use-collapsible.tsx",
-          "hash": "2808075182448548456",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-context.tsx",
-          "hash": "17962521556835902181",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-description.tsx",
-          "hash": "14160733170720467479",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-error-message.tsx",
-          "hash": "13714316901468132192",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-group-label.tsx",
-          "hash": "3184791477176488977",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-group.tsx",
-          "hash": "13608602476949652409",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-inline.tsx",
-          "hash": "390732061472310048",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-input.tsx",
-          "hash": "9629722927923468588",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-item-indicator.tsx",
-          "hash": "13702004273628212182",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-item-label.tsx",
-          "hash": "14248247035034152374",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-item.tsx",
-          "hash": "1677032850817770873",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-label.tsx",
-          "hash": "147859866420238385",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-listbox.tsx",
-          "hash": "11321694397023230387",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-popover.tsx",
-          "hash": "16908703778173518313",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-root.tsx",
-          "hash": "16257149184085073681",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox-trigger.tsx",
-          "hash": "14246147756144462406",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox.css",
-          "hash": "12133885074678056037"
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox.driver.ts",
-          "hash": "8722832286097381148",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/combobox.test.ts",
-          "hash": "4196166580770485196",
-          "deps": ["npm:@axe-core/playwright", "npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/index.ts",
-          "hash": "4996933775753702103"
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/notes.md",
-          "hash": "11693362748626519892"
-        },
-        {
-          "file": "packages/kit-headless/src/components/combobox/use-combobox.tsx",
-          "hash": "14428997859415852948",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/label/index.ts",
-          "hash": "11026549204161293429"
-        },
-        {
-          "file": "packages/kit-headless/src/components/label/label.driver.ts",
-          "hash": "2059460513441746512",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/label/label.test.ts",
-          "hash": "8474188042748092386",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/label/label.tsx",
-          "hash": "4858902349981397604",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/index.ts",
-          "hash": "18169245409884158748"
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-close.tsx",
-          "hash": "12152894244144386201",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-content.tsx",
-          "hash": "17613704291148448333",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-context.tsx",
-          "hash": "861672249223241771",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-description.tsx",
-          "hash": "17373726034627993728",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-footer.tsx",
-          "hash": "2801594662788932010",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-header.tsx",
-          "hash": "12825563823832739404",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-panel.tsx",
-          "hash": "9509554515316147473",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-root.tsx",
-          "hash": "4516077362235151302",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-title.tsx",
-          "hash": "9214704979039514862",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal-trigger.tsx",
-          "hash": "17185721851837194058",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal.css",
-          "hash": "6520569177284261899"
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal.driver.ts",
-          "hash": "14145842136622240676",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal.test.ts",
-          "hash": "5334533882391719877",
-          "deps": ["npm:@playwright/test", "npm:@axe-core/playwright"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal.test.ts-snapshots/closed-modal-visual-win32.png",
-          "hash": "3373804060101082463"
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/modal.test.ts-snapshots/opened-modal-visual-win32.png",
-          "hash": "3373804060101082463"
-        },
-        {
-          "file": "packages/kit-headless/src/components/modal/use-modal.tsx",
-          "hash": "11107586071171390512",
-          "deps": [
-            "npm:focus-trap",
-            "npm:@builder.io/qwik",
-            "npm:body-scroll-lock-upgrade"
-          ]
-        },
-        {
-          "file": "packages/kit-headless/src/components/pagination/index.ts",
-          "hash": "11682245463792618312"
-        },
-        {
-          "file": "packages/kit-headless/src/components/pagination/pagination.spec.tsx",
-          "hash": "15569046771820822468",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/pagination/pagination.tsx",
-          "hash": "16748078753316549988",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/pagination/types/index.ts",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "packages/kit-headless/src/components/pagination/types/pagination-api.ts",
-          "hash": "13664700665299608970",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/pagination/use-pagination.spec.ts",
-          "hash": "7651286596244766226"
-        },
-        {
-          "file": "packages/kit-headless/src/components/pagination/use-pagination.ts",
-          "hash": "16687791691632926323"
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/floating.tsx",
-          "hash": "8287800499919190183",
-          "deps": ["npm:@builder.io/qwik", "npm:@floating-ui/dom"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/index.ts",
-          "hash": "5334748605218991769"
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover-context.ts",
-          "hash": "18054976716259003512",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover-panel-arrow.tsx",
-          "hash": "5597809448334091571",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover-panel-impl.tsx",
-          "hash": "4375677230116165175",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover-panel.tsx",
-          "hash": "6283970310358751525",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover-root.tsx",
-          "hash": "17076375589072742520",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover-trigger.tsx",
-          "hash": "10876695288754586441",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover.css",
-          "hash": "6325510174286787867"
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover.driver.ts",
-          "hash": "17905498853305881044",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover.test.ts",
-          "hash": "5018793405758968713",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/closed-popover-popover-chrome-108-win32.png",
-          "hash": "15684497913457857359"
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/closed-popover-popover-chrome-113-win32.png",
-          "hash": "15684497913457857359"
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/closed-popover-visual-win32.png",
-          "hash": "16832614529709618404"
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/opened-popover-popover-chrome-108-win32.png",
-          "hash": "15684497913457857359"
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/opened-popover-popover-chrome-113-win32.png",
-          "hash": "15684497913457857359"
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/popover.test.ts-snapshots/opened-popover-visual-win32.png",
-          "hash": "10786573520661818113"
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/use-popover.tsx",
-          "hash": "16274582206575705569",
-          "deps": ["npm:@builder.io/qwik", ["npm:@oddbird/popover-polyfill", "dynamic"]]
-        },
-        {
-          "file": "packages/kit-headless/src/components/popover/utils.ts",
-          "hash": "1495749714397906506"
-        },
-        {
-          "file": "packages/kit-headless/src/components/progress/index.ts",
-          "hash": "15046207709841489348"
-        },
-        {
-          "file": "packages/kit-headless/src/components/progress/progress-context.ts",
-          "hash": "8074125084192744548",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/progress/progress-indicator.tsx",
-          "hash": "8938293261248371546",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/progress/progress.driver.ts",
-          "hash": "9705956386557944722",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/progress/progress.test.ts",
-          "hash": "17074188237077349081",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/progress/progress.tsx",
-          "hash": "7870304914382868961",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/progress/util.ts",
-          "hash": "1503567056384928213"
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/hidden-select-option.tsx",
-          "hash": "5896598436480056390",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/hidden-select.tsx",
-          "hash": "11283396020417662963",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/index.ts",
-          "hash": "10090056183574731235"
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-context.ts",
-          "hash": "9823077445229168180",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-description.tsx",
-          "hash": "5970708715131798707",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-display-value.tsx",
-          "hash": "6059246203505704164",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-error-message.tsx",
-          "hash": "9072534528850814931",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-group-label.tsx",
-          "hash": "8134665469788484904",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-group.tsx",
-          "hash": "15960368556896936265",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-inline.tsx",
-          "hash": "9931002393921693093",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-item-indicator.tsx",
-          "hash": "7965076495566704219",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-item-label.tsx",
-          "hash": "10604972725112038638",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-item.tsx",
-          "hash": "3735150670588250106",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-label.tsx",
-          "hash": "1442647912843039759",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-listbox.tsx",
-          "hash": "8547035400908217214",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-popover.tsx",
-          "hash": "3360269313890741196",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-root.tsx",
-          "hash": "6558797598470010084",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select-trigger.tsx",
-          "hash": "15191582625650636720",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select.css",
-          "hash": "12133885074678056037"
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select.driver.ts",
-          "hash": "1897561247645517871",
-          "deps": ["npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/select.test.ts",
-          "hash": "12476697184773954922",
-          "deps": ["npm:@axe-core/playwright", "npm:@playwright/test"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/select/use-select.tsx",
-          "hash": "16252503510099424436",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/separator/index.ts",
-          "hash": "18396674091744448446"
-        },
-        {
-          "file": "packages/kit-headless/src/components/separator/separator.spec.tsx",
-          "hash": "3604932647670671482"
-        },
-        {
-          "file": "packages/kit-headless/src/components/separator/separator.tsx",
-          "hash": "16394358881289406417",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/__image_snapshots__/Tabs INIT #0.diff.png",
-          "hash": "1427947304376411208"
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/__image_snapshots__/Tabs INIT #0.png",
-          "hash": "15773877862721544025"
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/__image_snapshots__/Tabs INIT #1.png",
-          "hash": "6488761197234902111"
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/__image_snapshots__/Tabs INIT #2.png",
-          "hash": "6488761197234902111"
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/behavior.type.ts",
-          "hash": "12195626711085055790"
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/get-enabled-tab.ts",
-          "hash": "2725481084169281231"
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/index.ts",
-          "hash": "8833264384329145010"
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/tab-panel.tsx",
-          "hash": "13653148012615768424",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/tab.tsx",
-          "hash": "17346300728414916656",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/tabs-context-id.ts",
-          "hash": "17715147887619754968",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/tabs-context.type.ts",
-          "hash": "9354699577257360669",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/tabs-list.tsx",
-          "hash": "14326885893148776607",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/tabs.spec.tsx",
-          "hash": "6502200568446107695",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tabs/tabs.tsx",
-          "hash": "3027204196651148542",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/test.css",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "packages/kit-headless/src/components/toggle/index.ts",
-          "hash": "9002542396152043470"
-        },
-        {
-          "file": "packages/kit-headless/src/components/toggle/toggle.tsx",
-          "hash": "9172071463364034847",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tooltip/index.ts",
-          "hash": "2851811705883393161"
-        },
-        {
-          "file": "packages/kit-headless/src/components/tooltip/tooltip-content.tsx",
-          "hash": "261358882836972080",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tooltip/tooltip-root.tsx",
-          "hash": "7380298442523654680",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/components/tooltip/tooltip-trigger.tsx",
-          "hash": "13004900250230530172",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/hooks/listbox-notes.md",
-          "hash": "7307881201355853956"
-        },
-        {
-          "file": "packages/kit-headless/src/hooks/use-enabled-index.tsx",
-          "hash": "12033497610787196517",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/hooks/use-listbox.tsx",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "packages/kit-headless/src/index.ts",
-          "hash": "12378782900808375712"
-        },
-        {
-          "file": "packages/kit-headless/src/root.tsx",
-          "hash": "9292475718796214979"
-        },
-        {
-          "file": "packages/kit-headless/src/utils/get-hidden-height.ts",
-          "hash": "4666545515794979998"
-        },
-        {
-          "file": "packages/kit-headless/src/utils/index.ts",
-          "hash": "13589012854750365158"
-        },
-        {
-          "file": "packages/kit-headless/src/utils/key-code.type.ts",
-          "hash": "8823953352216378302"
-        },
-        {
-          "file": "packages/kit-headless/src/utils/use-ordinal.ts",
-          "hash": "5640231495714966703",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/src/utils/visually-hidden.tsx",
-          "hash": "15667522651717277587",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "packages/kit-headless/tsconfig.editor.json",
-          "hash": "4367155676099094863"
-        },
-        {
-          "file": "packages/kit-headless/tsconfig.json",
-          "hash": "3691627161608604825"
-        },
-        {
-          "file": "packages/kit-headless/tsconfig.lib.json",
-          "hash": "15546818031576068619"
-        },
-        {
-          "file": "packages/kit-headless/tsconfig.spec.json",
-          "hash": "83092853570162862"
-        },
-        {
-          "file": "packages/kit-headless/type.d.ts",
-          "hash": "8804666966648526110"
-        },
-        {
-          "file": "packages/kit-headless/vite.config.ts",
-          "hash": "17051287524678694626",
-          "deps": [
-            "npm:@builder.io/qwik",
-            "npm:qwik-nx",
-            "npm:vite",
-            "npm:vite-plugin-dts",
-            "npm:vite-plugin-static-copy",
-            "npm:vite-tsconfig-paths"
-          ]
-        }
-      ],
-      "component-tests": [
-        {
-          "file": "apps/component-tests/.eslintrc.json",
-          "hash": "9361427286350822970"
-        },
-        {
-          "file": "apps/component-tests/.prettierignore",
-          "hash": "4404720512232629990"
-        },
-        {
-          "file": "apps/component-tests/README.md",
-          "hash": "3126197185078960666"
-        },
-        {
-          "file": "apps/component-tests/package.json",
-          "hash": "10221747445133211840"
-        },
-        {
-          "file": "apps/component-tests/postcss.config.cjs",
-          "hash": "4262667264494117614"
-        },
-        {
-          "file": "apps/component-tests/project.json",
-          "hash": "1504789304147767807"
-        },
-        {
-          "file": "apps/component-tests/public/favicon.svg",
-          "hash": "446107399934622830"
-        },
-        {
-          "file": "apps/component-tests/public/manifest.json",
-          "hash": "12573047294351719872"
-        },
-        {
-          "file": "apps/component-tests/public/robots.txt",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "apps/component-tests/src/components/router-head/router-head.tsx",
-          "hash": "10080190791998056234",
-          "deps": ["npm:@builder.io/qwik", "npm:@builder.io/qwik-city"]
-        },
-        {
-          "file": "apps/component-tests/src/components/showcase-test/component-imports.ts",
-          "hash": "15105148389518940450",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "apps/component-tests/src/components/showcase-test/showcase-test.tsx",
-          "hash": "11229512138478370890",
-          "deps": ["npm:@builder.io/qwik", "npm:@builder.io/qwik-city"]
-        },
-        {
-          "file": "apps/component-tests/src/entry.dev.tsx",
-          "hash": "11105446068029354798",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "apps/component-tests/src/entry.preview.tsx",
-          "hash": "15643192444815724209",
-          "deps": ["npm:@builder.io/qwik-city"]
-        },
-        {
-          "file": "apps/component-tests/src/entry.ssr.tsx",
-          "hash": "7540504042726582659",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "apps/component-tests/src/global.css",
-          "hash": "9489008171105121188"
-        },
-        {
-          "file": "apps/component-tests/src/root.tsx",
-          "hash": "12355559020081188533",
-          "deps": ["npm:@builder.io/qwik", "npm:@builder.io/qwik-city"]
-        },
-        {
-          "file": "apps/component-tests/src/routes/[kit]/[component]/[example]/index.tsx",
-          "hash": "4561206609782755295",
-          "deps": ["npm:@builder.io/qwik"]
-        },
-        {
-          "file": "apps/component-tests/src/routes/index.tsx",
-          "hash": "16171849459772174596",
-          "deps": ["npm:@builder.io/qwik", "npm:@builder.io/qwik-city"]
-        },
-        {
-          "file": "apps/component-tests/src/routes/service-worker.ts",
-          "hash": "6519991492550831346",
-          "deps": ["npm:@builder.io/qwik-city"]
-        },
-        {
-          "file": "apps/component-tests/tailwind.config.cjs",
-          "hash": "17155394967537199841",
-          "deps": ["npm:tailwindcss", "npm:tailwindcss-animate"]
-        },
-        {
-          "file": "apps/component-tests/tsconfig.app.json",
-          "hash": "3830819396057461311"
-        },
-        {
-          "file": "apps/component-tests/tsconfig.json",
-          "hash": "15160844760657561301"
-        },
-        {
-          "file": "apps/component-tests/tsconfig.spec.json",
-          "hash": "12411688542299444852"
-        },
-        {
-          "file": "apps/component-tests/vite.config.ts",
-          "hash": "15074540463730093837",
-          "deps": [
-            "npm:@builder.io/qwik",
-            "npm:@builder.io/qwik-city",
-            "npm:vite",
-            "npm:vite-tsconfig-paths",
-            "npm:qwik-nx"
-          ]
         }
       ],
       "cli": [
@@ -3316,6 +2972,230 @@
         {
           "file": "packages/cli/types/qwik-ui-config.type.ts",
           "hash": "6422827978268209882"
+        }
+      ],
+      "styled": [
+        {
+          "file": "packages/kit-styled/.eslintrc.json",
+          "hash": "15119497204773371150"
+        },
+        {
+          "file": "packages/kit-styled/.gitignore",
+          "hash": "4698596868108127296"
+        },
+        {
+          "file": "packages/kit-styled/.prettierignore",
+          "hash": "4698596868108127296"
+        },
+        {
+          "file": "packages/kit-styled/CHANGELOG.md",
+          "hash": "9388703707969739731"
+        },
+        {
+          "file": "packages/kit-styled/README.md",
+          "hash": "12142971673062581355"
+        },
+        {
+          "file": "packages/kit-styled/components-registry.json",
+          "hash": "14083291802817147955"
+        },
+        {
+          "file": "packages/kit-styled/jest.config.ts",
+          "hash": "7654877260441485338"
+        },
+        {
+          "file": "packages/kit-styled/package.json",
+          "hash": "7060648228982070129",
+          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/project.json",
+          "hash": "16119293112165469973"
+        },
+        {
+          "file": "packages/kit-styled/src/components/accordion/accordion-todo.md",
+          "hash": "17294311277729900897"
+        },
+        {
+          "file": "packages/kit-styled/src/components/accordion/accordion.tsx",
+          "hash": "15793604709966646187",
+          "deps": ["npm:@builder.io/qwik", "headless", "utils", "npm:@qwikest/icons"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/alert/alert.tsx",
+          "hash": "2550259995602487409",
+          "deps": ["npm:@builder.io/qwik", "utils", "npm:class-variance-authority"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/avatar/avatar.tsx",
+          "hash": "1294416892940537747",
+          "deps": ["npm:@builder.io/qwik", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/badge/badge.tsx",
+          "hash": "14494939795121147094",
+          "deps": ["npm:@builder.io/qwik", "utils", "npm:class-variance-authority"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/breadcrumb/breadcrumb.tsx",
+          "hash": "9044576339435124070",
+          "deps": ["npm:@builder.io/qwik", "utils", "npm:@qwikest/icons"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/button/button.tsx",
+          "hash": "3331476381730401701",
+          "deps": ["npm:@builder.io/qwik", "utils", "npm:class-variance-authority"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/button/todo.ts",
+          "hash": "2467242909230149103"
+        },
+        {
+          "file": "packages/kit-styled/src/components/card/card.tsx",
+          "hash": "7275048784630296511",
+          "deps": ["npm:@builder.io/qwik", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/checkbox/checkbox.tsx",
+          "hash": "15983273747625244696",
+          "deps": ["npm:@builder.io/qwik", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/combobox/combobox.tsx",
+          "hash": "6969639823456134210",
+          "deps": ["npm:@builder.io/qwik", "headless", "utils", "npm:@qwikest/icons"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/input/input.tsx",
+          "hash": "1753727445947086485",
+          "deps": ["npm:@builder.io/qwik", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/label/label.tsx",
+          "hash": "1834835142959414884",
+          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/modal/modal.tsx",
+          "hash": "10467309493688795273",
+          "deps": [
+            "npm:@builder.io/qwik",
+            "headless",
+            "utils",
+            "npm:class-variance-authority"
+          ]
+        },
+        {
+          "file": "packages/kit-styled/src/components/popover/popover.tsx",
+          "hash": "1067137827836896828",
+          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/progress/progress.tsx",
+          "hash": "2002803675616008931",
+          "deps": ["utils", "npm:@builder.io/qwik", "headless"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/radio-group/radio-group.tsx",
+          "hash": "8244248321189683701",
+          "deps": ["npm:@builder.io/qwik", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/scroll-area/scroll-area-qwikified.tsx",
+          "hash": "16363150129806283591",
+          "deps": [
+            "npm:react",
+            "npm:@radix-ui/react-scroll-area",
+            "npm:@builder.io/qwik-react",
+            "utils"
+          ]
+        },
+        {
+          "file": "packages/kit-styled/src/components/select/select.tsx",
+          "hash": "3582572398803044463",
+          "deps": ["npm:@builder.io/qwik", "headless", "utils", "npm:@qwikest/icons"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/separator/separator.tsx",
+          "hash": "1786671082757971171",
+          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/skeleton/skeleton.tsx",
+          "hash": "3298521806454525005",
+          "deps": ["npm:@builder.io/qwik", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/tabs/tabs.tsx",
+          "hash": "3105382026992377558",
+          "deps": ["npm:@builder.io/qwik", "headless", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/textarea/textarea.tsx",
+          "hash": "16199369262994315740",
+          "deps": ["npm:@builder.io/qwik", "utils"]
+        },
+        {
+          "file": "packages/kit-styled/src/components/toggle/toggle.tsx",
+          "hash": "14958517139631742719",
+          "deps": [
+            "npm:@builder.io/qwik",
+            "headless",
+            "utils",
+            "npm:class-variance-authority"
+          ]
+        },
+        {
+          "file": "packages/kit-styled/src/index.ts",
+          "hash": "11907924815395016399"
+        },
+        {
+          "file": "packages/kit-styled/src/root.tsx",
+          "hash": "9292475718796214979"
+        },
+        {
+          "file": "packages/kit-styled/src/templates/global.css",
+          "hash": "3391692653819463493"
+        },
+        {
+          "file": "packages/kit-styled/src/templates/tailwind.config.cjs",
+          "hash": "17155394967537199841",
+          "deps": ["npm:tailwindcss", "npm:tailwindcss-animate"]
+        },
+        {
+          "file": "packages/kit-styled/src/templates/tailwind.extend._template",
+          "hash": "10682437245220846463"
+        },
+        {
+          "file": "packages/kit-styled/tsconfig.generators.json",
+          "hash": "711180413094354002"
+        },
+        {
+          "file": "packages/kit-styled/tsconfig.json",
+          "hash": "7242123465456087625"
+        },
+        {
+          "file": "packages/kit-styled/tsconfig.lib.json",
+          "hash": "10897204350944647853"
+        },
+        {
+          "file": "packages/kit-styled/tsconfig.spec.json",
+          "hash": "10661452920985907898"
+        },
+        {
+          "file": "packages/kit-styled/type.d.ts",
+          "hash": "8804666966648526110"
+        },
+        {
+          "file": "packages/kit-styled/vite.config.ts",
+          "hash": "5036014388096966232",
+          "deps": [
+            "npm:@builder.io/qwik",
+            "npm:qwik-nx",
+            "npm:vite",
+            "npm:vite-plugin-dts",
+            "npm:vite-tsconfig-paths"
+          ]
         }
       ],
       "qwik-ui-repo": [
@@ -3700,6 +3580,126 @@
         {
           "file": "tsconfig.base.json",
           "hash": "5796110077211836644"
+        }
+      ],
+      "component-tests": [
+        {
+          "file": "apps/component-tests/.eslintrc.json",
+          "hash": "9361427286350822970"
+        },
+        {
+          "file": "apps/component-tests/.prettierignore",
+          "hash": "4404720512232629990"
+        },
+        {
+          "file": "apps/component-tests/README.md",
+          "hash": "3126197185078960666"
+        },
+        {
+          "file": "apps/component-tests/package.json",
+          "hash": "10221747445133211840"
+        },
+        {
+          "file": "apps/component-tests/postcss.config.cjs",
+          "hash": "4262667264494117614"
+        },
+        {
+          "file": "apps/component-tests/project.json",
+          "hash": "1504789304147767807"
+        },
+        {
+          "file": "apps/component-tests/public/favicon.svg",
+          "hash": "446107399934622830"
+        },
+        {
+          "file": "apps/component-tests/public/manifest.json",
+          "hash": "12573047294351719872"
+        },
+        {
+          "file": "apps/component-tests/public/robots.txt",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/component-tests/src/components/router-head/router-head.tsx",
+          "hash": "10080190791998056234",
+          "deps": ["npm:@builder.io/qwik", "npm:@builder.io/qwik-city"]
+        },
+        {
+          "file": "apps/component-tests/src/components/showcase-test/component-imports.ts",
+          "hash": "15105148389518940450",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "apps/component-tests/src/components/showcase-test/showcase-test.tsx",
+          "hash": "11229512138478370890",
+          "deps": ["npm:@builder.io/qwik", "npm:@builder.io/qwik-city"]
+        },
+        {
+          "file": "apps/component-tests/src/entry.dev.tsx",
+          "hash": "11105446068029354798",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "apps/component-tests/src/entry.preview.tsx",
+          "hash": "15643192444815724209",
+          "deps": ["npm:@builder.io/qwik-city"]
+        },
+        {
+          "file": "apps/component-tests/src/entry.ssr.tsx",
+          "hash": "7540504042726582659",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "apps/component-tests/src/global.css",
+          "hash": "9489008171105121188"
+        },
+        {
+          "file": "apps/component-tests/src/root.tsx",
+          "hash": "12355559020081188533",
+          "deps": ["npm:@builder.io/qwik", "npm:@builder.io/qwik-city"]
+        },
+        {
+          "file": "apps/component-tests/src/routes/[kit]/[component]/[example]/index.tsx",
+          "hash": "4561206609782755295",
+          "deps": ["npm:@builder.io/qwik"]
+        },
+        {
+          "file": "apps/component-tests/src/routes/index.tsx",
+          "hash": "16171849459772174596",
+          "deps": ["npm:@builder.io/qwik", "npm:@builder.io/qwik-city"]
+        },
+        {
+          "file": "apps/component-tests/src/routes/service-worker.ts",
+          "hash": "6519991492550831346",
+          "deps": ["npm:@builder.io/qwik-city"]
+        },
+        {
+          "file": "apps/component-tests/tailwind.config.cjs",
+          "hash": "17155394967537199841",
+          "deps": ["npm:tailwindcss", "npm:tailwindcss-animate"]
+        },
+        {
+          "file": "apps/component-tests/tsconfig.app.json",
+          "hash": "3830819396057461311"
+        },
+        {
+          "file": "apps/component-tests/tsconfig.json",
+          "hash": "15160844760657561301"
+        },
+        {
+          "file": "apps/component-tests/tsconfig.spec.json",
+          "hash": "12411688542299444852"
+        },
+        {
+          "file": "apps/component-tests/vite.config.ts",
+          "hash": "15074540463730093837",
+          "deps": [
+            "npm:@builder.io/qwik",
+            "npm:@builder.io/qwik-city",
+            "npm:vite",
+            "npm:vite-tsconfig-paths",
+            "npm:qwik-nx"
+          ]
         }
       ]
     }

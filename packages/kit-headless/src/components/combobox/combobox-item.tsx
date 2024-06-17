@@ -32,6 +32,7 @@ export const HComboboxItem = component$(
   ({ disabled, _index, ...rest }: HComboboxItemProps) => {
     const context = useContext(comboboxContextId);
     const itemRef = useSignal<HTMLLIElement>();
+    const itemLabelId = `${context.localId}-${_index}-item-label`;
 
     const { selectionManager$ } = useCombobox();
     const localIndexSig = useSignal<number | null>(null);
@@ -111,6 +112,7 @@ export const HComboboxItem = component$(
 
     const itemContext: ComboboxItemContext = {
       isSelectedSig,
+      itemLabelId,
     };
 
     useContextProvider(comboboxItemContextId, itemContext);
@@ -119,12 +121,14 @@ export const HComboboxItem = component$(
       <li
         role="option"
         ref={itemRef}
+        tabIndex={-1}
         id={`${context.localId}-${_index}`}
         aria-selected={isSelectedSig.value}
         aria-disabled={disabled === true ? 'true' : 'false'}
         data-selected={isSelectedSig.value ? '' : undefined}
         data-highlighted={isHighlightedSig.value ? '' : undefined}
         onPointerOver$={[handlePointerOver$, rest.onPointerOver$]}
+        aria-labelledby={itemLabelId}
         data-item
         onClick$={handleClick$}
         {...rest}
