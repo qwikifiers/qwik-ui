@@ -1,10 +1,12 @@
-import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$, $ } from '@builder.io/qwik';
 import { Combobox } from '@qwik-ui/headless';
-import { LuChevronDown, LuCheck } from '@qwikest/icons/lucide';
+import { LuCheck, LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
-  const fruits = useSignal<string[]>([
+  const count = useSignal(0);
+
+  const fruits = [
     'Apple',
     'Apricot',
     'Bilberry',
@@ -13,13 +15,16 @@ export default component$(() => {
     'Currant',
     'Cherry',
     'Coconut',
-  ]);
-  const hasAddedFruits = useSignal<boolean>(false);
+  ];
+
+  const handleOpenChange$ = $(() => {
+    count.value++;
+  });
 
   return (
     <>
-      <Combobox.Root class="combobox-root">
-        <Combobox.Label class="combobox-label">Fruits</Combobox.Label>
+      <Combobox.Root class="combobox-root" onOpenChange$={handleOpenChange$}>
+        <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
         <div class="combobox-box">
           <Combobox.Input class="combobox-input" />
           <Combobox.Trigger class="combobox-trigger">
@@ -28,7 +33,7 @@ export default component$(() => {
         </div>
         <Combobox.Popover class="combobox-popover" gutter={8}>
           <Combobox.Listbox class="combobox-listbox">
-            {fruits.value.map((fruit) => (
+            {fruits.map((fruit) => (
               <Combobox.Item key={fruit} class="combobox-item">
                 <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
                 <Combobox.ItemIndicator>
@@ -39,16 +44,7 @@ export default component$(() => {
           </Combobox.Listbox>
         </Combobox.Popover>
       </Combobox.Root>
-      <button
-        onClick$={$(() => {
-          if (!hasAddedFruits.value) {
-            fruits.value = [...fruits.value, 'Durian', 'Jackfruit', 'Ackee'];
-            hasAddedFruits.value = true;
-          }
-        })}
-      >
-        Add Fruits
-      </button>
+      <p>The listbox opened and closed {count.value} time(s)</p>
     </>
   );
 });

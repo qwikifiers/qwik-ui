@@ -19,7 +19,7 @@ export default component$(() => {
   return (
     <Combobox.Root class="combobox-root">
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
-      <div class="combobox-control">
+      <div class="combobox-box">
         <Combobox.Input class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />

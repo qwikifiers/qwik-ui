@@ -8,6 +8,7 @@ import {
   useContextProvider,
   useId,
   useSignal,
+  useTask$,
 } from '@builder.io/qwik';
 import { ComboboxContext, comboboxContextId } from './combobox-context';
 import { InternalComboboxProps } from './combobox-inline';
@@ -130,12 +131,39 @@ export const HComboboxRootImpl = component$<
   const itemsMapSig = useComputed$(() => {
     return _itemsMap ?? new Map();
   });
-
   const selectedIndexSetSig = useSignal<Set<number>>(
     new Set(givenValuePropIndex ? [givenValuePropIndex] : []),
   );
-
   const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
+  const initialLoadSig = useSignal<boolean>(true);
+
+  useTask$(async function onChangeTask({ track }) {
+    track(() => isListboxOpenSig.value);
+
+    const values = [];
+    const displayValues = [];
+
+    for (const index of selectedIndexSetSig.value) {
+      const item = itemsMapSig.value.get(index);
+
+      if (item) {
+        values.push(item.value);
+        displayValues.push(item.displayValue);
+      }
+    }
+
+    if (onChange$ && selectedIndexSetSig.value.size > 0) {
+      await onChange$(multiple ? values : values[0]);
+    }
+  });
+
+  useTask$(async function onOpenChangeTask({ track }) {
+    track(() => isListboxOpenSig.value);
+
+    if (!initialLoadSig.value) {
+      onOpenChange$?.(isListboxOpenSig.value);
+    }
+  });
 
   const context: ComboboxContext = {
     isListboxOpenSig,
@@ -155,6 +183,10 @@ export const HComboboxRootImpl = component$<
   };
 
   useContextProvider(comboboxContextId, context);
+
+  useTask$(() => {
+    initialLoadSig.value = false;
+  });
 
   return (
     <div ref={rootRef} role="combobox" {...rest}>

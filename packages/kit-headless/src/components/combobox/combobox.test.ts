@@ -443,7 +443,7 @@ test.describe('Props', () => {
   test(`GIVEN a combobox with an onChange$ prop
         WHEN the combobox value changes
         THEN the handler should run once`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'change-value');
+    const { driver: d } = await setup(page, 'change');
 
     await d.openListbox('click');
 
