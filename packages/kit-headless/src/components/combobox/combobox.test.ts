@@ -372,8 +372,7 @@ test.describe('Disabled', () => {
         It should have aria-disabled`, async ({ page }) => {
     const { driver: d } = await setup(page, 'disabled');
 
-    await d.openListbox('Enter');
-    await d.getHighlightedItem().press('ArrowDown');
+    await d.openListbox('ArrowDown');
     await expect(d.getItemAt(0)).toBeDisabled();
   });
 
@@ -388,12 +387,11 @@ test.describe('Disabled', () => {
   });
 
   test(`GIVEN an open disabled combobox
-        WHEN the last option is disabled and the end key is pressed
+        WHEN the last option is disabled and the up arrow key is pressed
         THEN the second last index should have data-highlighted`, async ({ page }) => {
     const { driver: d } = await setup(page, 'disabled');
 
-    await d.openListbox('ArrowDown');
-    await d.getHighlightedItem().press('End');
+    await d.openListbox('ArrowUp');
     const length = await d.getItemsLength();
     const lastEnabledOption = d.getItemAt(length - 2);
     await expect(lastEnabledOption).toHaveAttribute('data-highlighted');
@@ -407,7 +405,7 @@ test.describe('Disabled', () => {
 
     await d.openListbox('ArrowDown');
     await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
-    await d.getHighlightedItem().press('ArrowDown');
+    await d.getInput().press('ArrowDown');
     await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
   });
 
@@ -421,10 +419,10 @@ test.describe('Disabled', () => {
     await d.openListbox('ArrowDown');
     const secondOption = await d.getItemAt(1);
     await expect(secondOption).toHaveAttribute('data-highlighted');
-    await d.getHighlightedItem().press('ArrowDown');
+    await d.getInput().press('ArrowDown');
     await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
 
-    await d.getHighlightedItem().press('ArrowUp');
+    await d.getInput().press('ArrowUp');
     await expect(secondOption).toHaveAttribute('data-highlighted');
   });
 });

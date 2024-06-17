@@ -532,7 +532,7 @@
         },
         {
           "file": "packages/kit-headless/src/components/combobox/combobox-item.tsx",
-          "hash": "3294929647508826391",
+          "hash": "4018104453127510485",
           "deps": ["npm:@builder.io/qwik"]
         },
         {
@@ -571,7 +571,7 @@
         },
         {
           "file": "packages/kit-headless/src/components/combobox/combobox.test.ts",
-          "hash": "4196166580770485196",
+          "hash": "4723180821225861215",
           "deps": ["npm:@axe-core/playwright", "npm:@playwright/test"]
         },
         {
@@ -1758,7 +1758,7 @@
         },
         {
           "file": "apps/website/src/routes/docs/headless/combobox/index.mdx",
-          "hash": "16303130505967235963"
+          "hash": "2207867564898373599"
         },
         {
           "file": "apps/website/src/routes/docs/headless/combobox/snippets/building-blocks.tsx",
@@ -2813,6 +2813,11 @@
             ["npm:rehype-pretty-code", "dynamic"],
             ["npm:unist-util-visit", "dynamic"]
           ]
+        },
+        {
+          "file": "apps/website/src/routes/docs/headless/combobox/examples/disabled.tsx",
+          "hash": "12271078307239969873",
+          "deps": ["npm:@builder.io/qwik", "headless", "npm:@qwikest/icons"]
         }
       ],
       "cli-e2e": [
@@ -3580,6 +3585,10 @@
         {
           "file": "tsconfig.base.json",
           "hash": "5796110077211836644"
+        },
+        {
+          "file": ".nx/workspace-data/d/server-process.json",
+          "hash": "13547936657023327738"
         }
       ],
       "component-tests": [

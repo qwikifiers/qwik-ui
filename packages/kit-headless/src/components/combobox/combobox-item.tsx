@@ -125,6 +125,7 @@ export const HComboboxItem = component$(
         id={`${context.localId}-${_index}`}
         aria-selected={isSelectedSig.value}
         aria-disabled={disabled === true ? 'true' : 'false'}
+        data-disabled={disabled ? '' : undefined}
         data-selected={isSelectedSig.value ? '' : undefined}
         data-highlighted={isHighlightedSig.value ? '' : undefined}
         onPointerOver$={[handlePointerOver$, rest.onPointerOver$]}
