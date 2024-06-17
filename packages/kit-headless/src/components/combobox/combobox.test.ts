@@ -433,16 +433,16 @@ test.describe('Props', () => {
         THEN the placeholder should be presented instead of a selected value`, async ({
     page,
   }) => {
-    const { driver: d } = await setup(page, 'hero');
+    await setup(page, 'placeholder');
 
-    await expect(d.getInput()).toHaveValue('combobox an option');
+    const input = await page.getByPlaceholder('placeholder');
+
+    await expect(input).toBeVisible();
   });
 
   test(`GIVEN a combobox with an onChange$ prop
         WHEN the combobox value changes
-        THEN the placeholder should be presented instead of a selected value`, async ({
-    page,
-  }) => {
+        THEN the handler should run once`, async ({ page }) => {
     const { driver: d } = await setup(page, 'change-value');
 
     await d.openListbox('click');

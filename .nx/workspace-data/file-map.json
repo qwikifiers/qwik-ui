@@ -571,7 +571,7 @@
         },
         {
           "file": "packages/kit-headless/src/components/combobox/combobox.test.ts",
-          "hash": "4723180821225861215",
+          "hash": "86946335094164737",
           "deps": ["npm:@axe-core/playwright", "npm:@playwright/test"]
         },
         {
@@ -1758,7 +1758,7 @@
         },
         {
           "file": "apps/website/src/routes/docs/headless/combobox/index.mdx",
-          "hash": "2207867564898373599"
+          "hash": "901313620670457041"
         },
         {
           "file": "apps/website/src/routes/docs/headless/combobox/snippets/building-blocks.tsx",
@@ -2817,6 +2817,11 @@
         {
           "file": "apps/website/src/routes/docs/headless/combobox/examples/disabled.tsx",
           "hash": "12271078307239969873",
+          "deps": ["npm:@builder.io/qwik", "headless", "npm:@qwikest/icons"]
+        },
+        {
+          "file": "apps/website/src/routes/docs/headless/combobox/examples/placeholder.tsx",
+          "hash": "11470114366550001296",
           "deps": ["npm:@builder.io/qwik", "headless", "npm:@qwikest/icons"]
         }
       ],
