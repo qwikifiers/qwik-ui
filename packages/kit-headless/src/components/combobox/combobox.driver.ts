@@ -32,7 +32,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getInput = () => {
-    return getRoot().getByRole('textbox');
+    return getRoot().locator('[data-combobox-input]');
   };
 
   const getHighlightedItem = () => {

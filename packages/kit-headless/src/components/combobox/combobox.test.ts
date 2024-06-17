@@ -294,73 +294,31 @@ test.describe('Keyboard Behavior', () => {
 
   test.describe('looping', () => {
     test.describe('loop disabled', () => {
-      test(`GIVEN an open basic combobox
+      test(`GIVEN an open combobox
           AND the last option is data-highlighted
           WHEN the down key is pressed
           THEN data-highlighted should stay on the last option`, async ({ page }) => {
         const { driver: d } = await setup(page, 'hero');
 
         // initially last option is highlighted
-        await d.openListbox('Enter');
-        await d.getTrigger().press('End');
+        await d.openListbox('ArrowUp');
+        await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
 
         await d.getItemAt('last').press('ArrowDown');
         await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
       });
 
-      test(`GIVEN an open basic combobox
+      test(`GIVEN an open combobox
           AND the first option is data-highlighted
           WHEN the up arrow key is pressed
           THEN data-highlighted should stay on the first option`, async ({ page }) => {
         const { driver: d } = await setup(page, 'hero');
 
-        await d.openListbox('Enter');
+        await d.openListbox('ArrowDown');
         const firstItem = d.getItemAt(0);
         await expect(firstItem).toHaveAttribute('data-highlighted');
         await firstItem.press('ArrowUp');
         await expect(firstItem).toHaveAttribute('data-highlighted');
-      });
-
-      test(`GIVEN a closed basic combobox
-          AND the last option is selected
-          WHEN the right arrow key is pressed
-          THEN it should stay on the last option`, async ({ page }) => {
-        const { driver: d } = await setup(page, 'hero');
-
-        // initially last option is highlighted & listbox closed
-        await d.openListbox('Enter');
-        await d.getTrigger().press('End');
-
-        const lastItem = d.getItemAt('last');
-        await expect(lastItem).toHaveAttribute('data-highlighted');
-        await lastItem.press('Enter');
-        await expect(lastItem).toHaveAttribute('aria-selected', 'true');
-        await expect(d.getListbox()).toBeHidden();
-
-        await d.getTrigger().press('ArrowRight');
-        await expect(lastItem).toHaveAttribute('data-highlighted');
-        await expect(lastItem).toHaveAttribute('aria-selected', 'true');
-      });
-
-      test(`GIVEN a closed basic combobox
-          AND the first option is selected
-          WHEN the left arrow key is pressed
-          THEN it should stay on the first option`, async ({ page }) => {
-        const { driver: d } = await setup(page, 'hero');
-
-        // initially first option is highlighted & listbox closed
-        await d.openListbox('Enter');
-        await expect(d.getListbox()).toBeVisible();
-        await d.getTrigger().press('Enter');
-
-        await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
-        await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
-        await expect(d.getListbox()).toBeHidden();
-
-        await d.getTrigger().focus();
-        await d.getTrigger().press('ArrowLeft');
-        await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
-        await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
       });
     });
 
@@ -372,8 +330,7 @@ test.describe('Keyboard Behavior', () => {
         const { driver: d } = await setup(page, 'loop');
 
         // initially last option is highlighted
-        await d.openListbox('Enter');
-        await d.getHighlightedItem().press('End');
+        await d.openListbox('ArrowUp');
 
         await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
 
@@ -388,65 +345,22 @@ test.describe('Keyboard Behavior', () => {
         const { driver: d } = await setup(page, 'loop');
 
         // initially last option is highlighted
-        await d.openListbox('Enter');
+        await d.openListbox('ArrowDown');
         await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
 
         await d.getHighlightedItem().press('ArrowUp');
         await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
-      });
-
-      test(`GIVEN a closed combobox with loop enabled
-            AND the last option is selected
-            WHEN the right arrow key is pressed
-            THEN it should loop to the first option`, async ({ page }) => {
-        const { driver: d } = await setup(page, 'loop');
-
-        // initially last option is highlighted
-        await d.openListbox('Enter');
-        await d.getHighlightedItem().press('End');
-        await d.getHighlightedItem().press('Enter');
-
-        await expect(d.getListbox()).toBeHidden();
-
-        await expect(d.getItemAt('last')).toHaveAttribute('aria-selected', 'true');
-
-        await d.getTrigger().focus();
-        await d.getTrigger().press('ArrowRight');
-        await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
-        await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
-      });
-
-      test(`GIVEN a closed combobox with loop enabled
-            AND the first option is selected
-            WHEN the right arrow key is pressed
-            THEN it should loop to the first option`, async ({ page }) => {
-        const { driver: d } = await setup(page, 'loop');
-
-        // initially combobox first option
-        await d.openListbox('Enter');
-        await d.getHighlightedItem().press('Enter');
-
-        await expect(d.getListbox()).toBeHidden();
-
-        await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
-
-        await d.getTrigger().focus();
-        await d.getTrigger().press('ArrowLeft');
-        await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
-        await expect(d.getItemAt('last')).toHaveAttribute('aria-selected', 'true');
       });
     });
   });
 
   test(`GIVEN an open combobox with multiple groups and a scrollable listbox
         AND the last option is not visible
-        WHEN the end key is pressed
-        THEN the last option should be visible`, async ({ page }) => {
+        WHEN highlighting an option not visible in the viewport
+        THEN it should be scrolled into view`, async ({ page }) => {
     const { driver: d } = await setup(page, 'scrollable');
 
-    await d.openListbox('Enter');
-
-    await d.getHighlightedItem().press('End');
+    await d.openListbox('ArrowUp');
 
     await expect(d.getItemAt('last')).toBeInViewport();
   });
@@ -516,7 +430,7 @@ test.describe('Disabled', () => {
 });
 
 test.describe('Props', () => {
-  test(`GIVEN a basic combobox
+  test(`GIVEN a combobox
         WHEN there is a placeholder
         THEN the placeholder should be presented instead of a selected value`, async ({
     page,

@@ -17,7 +17,7 @@ export default component$(() => {
   ];
 
   return (
-    <Combobox.Root class="combobox-root">
+    <Combobox.Root class="combobox-root" loop>
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
       <div class="combobox-control">
         <Combobox.Input class="combobox-input" />

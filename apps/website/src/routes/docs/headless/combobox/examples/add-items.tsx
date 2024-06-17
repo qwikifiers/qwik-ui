@@ -26,7 +26,7 @@ export default component$(() => {
             <LuChevronDown class="combobox-icon" />
           </Combobox.Trigger>
         </div>
-        <Combobox.Popover class="combobox-popover">
+        <Combobox.Popover class="combobox-popover" gutter={8}>
           <Combobox.Listbox class="combobox-listbox">
             {fruits.value.map((fruit) => (
               <Combobox.Item key={fruit} class="combobox-item">
