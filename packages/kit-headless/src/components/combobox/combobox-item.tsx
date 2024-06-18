@@ -15,7 +15,7 @@ import {
   comboboxItemContextId,
 } from './combobox-context';
 import { useCombobox } from './use-combobox';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
+import { isServer } from '@builder.io/qwik/build';
 
 export type HComboboxItemProps = PropsOf<'li'> & {
   /** Internal index we get from the inline component. Please see combobox-inline.tsx */
@@ -40,6 +40,7 @@ export const HComboboxItem = component$(
       const index = _index ?? null;
       return !disabled && context.selectedIndexSetSig.value.has(index!);
     });
+    const initialOpenSig = useSignal<boolean>(true);
     const isHighlightedSig = useComputed$(() => {
       if (disabled) return;
 
@@ -60,31 +61,20 @@ export const HComboboxItem = component$(
     const checkVisibility$ = $(async (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries;
 
-      // TODO: get this to work when hitting up arrow key initially
-      // if the is not visible, scroll it into view
       if (isHighlightedSig.value && !entry.isIntersecting) {
-        itemRef.value?.scrollIntoView(context.scrollOptions);
-      }
-    });
+        const containerRect = context.listboxRef.value?.getBoundingClientRect();
+        const itemRect = itemRef.value?.getBoundingClientRect();
 
-    useTask$(async function navigationTask({ track, cleanup }) {
-      track(() => context.highlightedIndexSig.value);
+        if (!containerRect || !itemRect) return;
 
-      if (isServer) return;
+        // Calculates the offset to center the item within the container
+        const offset =
+          itemRect.top -
+          containerRect.top -
+          containerRect.height / 2 +
+          itemRect.height / 2;
 
-      let observer: IntersectionObserver;
-
-      cleanup(() => observer?.disconnect());
-
-      if (isBrowser) {
-        observer = new IntersectionObserver(checkVisibility$, {
-          root: context.listboxRef.value,
-          threshold: 1.0,
-        });
-
-        if (itemRef.value) {
-          observer.observe(itemRef.value);
-        }
+        context.listboxRef.value?.scrollBy({ top: offset, ...context.scrollOptions });
       }
     });
 
@@ -116,6 +106,31 @@ export const HComboboxItem = component$(
     };
 
     useContextProvider(comboboxItemContextId, itemContext);
+
+    useTask$(async function navigationTask({ track, cleanup }) {
+      track(() => context.highlightedIndexSig.value);
+
+      if (isServer || !context.listboxRef.value) return;
+      if (_index !== context.highlightedIndexSig.value) return;
+
+      const hasScrollbar =
+        context.listboxRef.value.scrollHeight > context.listboxRef.value.clientHeight;
+
+      if (!hasScrollbar) {
+        return;
+      }
+
+      const observer = new IntersectionObserver(checkVisibility$, {
+        root: context.listboxRef.value,
+        threshold: 1.0,
+      });
+
+      cleanup(() => observer?.disconnect());
+
+      if (itemRef.value) {
+        observer.observe(itemRef.value);
+      }
+    });
 
     return (
       <li

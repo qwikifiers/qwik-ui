@@ -12,6 +12,7 @@ import {
 } from '@builder.io/qwik';
 import { ComboboxContext, comboboxContextId } from './combobox-context';
 import { InternalComboboxProps } from './combobox-inline';
+import { useCombobox } from './use-combobox';
 
 export type TMultiple<M> = M extends true ? string[] : string;
 
@@ -107,6 +108,11 @@ export const HComboboxRootImpl = component$<
     ...rest
   } = props;
 
+  // source of truth
+  const itemsMapSig = useComputed$(() => {
+    return _itemsMap ?? new Map();
+  });
+
   // refs
   const rootRef = useSignal<HTMLDivElement>();
   const triggerRef = useSignal<HTMLButtonElement>();
@@ -115,51 +121,19 @@ export const HComboboxRootImpl = component$<
   const listboxRef = useSignal<HTMLUListElement>();
   const labelRef = useSignal<HTMLDivElement>();
   const groupRef = useSignal<HTMLDivElement>();
-  const scrollOptions = givenScrollOptions ?? {
-    behavior: 'smooth',
-    block: 'center',
-    inline: 'nearest',
-  };
-
   const loop = givenLoop ?? false;
-  // ids
   const localId = useId();
-
-  // source of truth
-  const itemsMapSig = useComputed$(() => {
-    return _itemsMap ?? new Map();
-  });
   const selectedIndexSetSig = useSignal<Set<number>>(
     new Set(givenValuePropIndex ? [givenValuePropIndex] : []),
   );
   const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
   const initialLoadSig = useSignal<boolean>(true);
-
-  useTask$(async function onChangeTask({ track }) {
-    track(() => selectedIndexSetSig.value);
-
-    const values = [];
-
-    for (const index of selectedIndexSetSig.value) {
-      const item = itemsMapSig.value.get(index);
-
-      if (item) {
-        values.push(item.value);
-      }
-    }
-
-    if (!initialLoadSig.value) {
-      await onChange$?.(multiple ? values : values[0]);
-    }
-  });
-
-  useTask$(async function onOpenChangeTask({ track }) {
-    track(() => isListboxOpenSig.value);
-
-    if (!initialLoadSig.value) {
-      onOpenChange$?.(isListboxOpenSig.value);
-    }
-  });
+  const currDisplayValueSig = useSignal<string | string[]>();
+  const scrollOptions = givenScrollOptions ?? {
+    behavior: 'smooth',
+    block: 'center',
+    inline: 'nearest',
+  };
 
   const context: ComboboxContext = {
     isListboxOpenSig,
@@ -173,12 +147,95 @@ export const HComboboxRootImpl = component$<
     localId,
     highlightedIndexSig,
     selectedIndexSetSig,
+    currDisplayValueSig,
     loop,
     multiple,
     scrollOptions,
   };
 
   useContextProvider(comboboxContextId, context);
+
+  const { selectionManager$ } = useCombobox();
+
+  useTask$(async function reactiveUserValue({ track }) {
+    const bindValueSig = props['bind:value'];
+    if (!bindValueSig) return;
+    track(() => bindValueSig.value);
+
+    for (const [index, item] of itemsMapSig.value) {
+      if (bindValueSig.value?.includes(item.value)) {
+        await selectionManager$(index, 'add');
+
+        if (initialLoadSig.value) {
+          // for both SSR and CSR, we need to set the initial index
+          context.highlightedIndexSig.value = index;
+        }
+      } else {
+        await selectionManager$(index, 'remove');
+      }
+    }
+  });
+
+  useTask$(function reactiveUserOpen({ track }) {
+    const bindOpenSig = props['bind:open'];
+    if (!bindOpenSig) return;
+    track(() => bindOpenSig.value);
+
+    isListboxOpenSig.value = bindOpenSig.value ?? isListboxOpenSig.value;
+  });
+
+  useTask$(function onOpenChangeTask({ track }) {
+    track(() => isListboxOpenSig.value);
+
+    if (!initialLoadSig.value) {
+      onOpenChange$?.(isListboxOpenSig.value);
+    }
+  });
+
+  useTask$(async function updateConsumerProps({ track }) {
+    const bindValueSig = props['bind:value'];
+    const bindDisplayTextSig = props['bind:displayValue'];
+    track(() => selectedIndexSetSig.value);
+
+    const values = [];
+    const displayValues = [];
+
+    for (const index of context.selectedIndexSetSig.value) {
+      const item = context.itemsMapSig.value.get(index);
+
+      if (item) {
+        values.push(item.value);
+        displayValues.push(item.displayValue);
+      }
+    }
+
+    if (onChange$ && selectedIndexSetSig.value.size > 0) {
+      await onChange$(context.multiple ? values : values[0]);
+    }
+
+    // sync the user's given signal when an option is selected
+    if (bindValueSig && bindValueSig.value) {
+      const currUserSigValues = JSON.stringify(bindValueSig.value);
+      const newUserSigValues = JSON.stringify(values);
+
+      if (currUserSigValues !== newUserSigValues) {
+        if (context.multiple) {
+          bindValueSig.value = values;
+        } else {
+          bindValueSig.value = values[0];
+        }
+      }
+    }
+
+    context.currDisplayValueSig.value = displayValues;
+
+    // sync the user's given signal for the display value
+    if (bindDisplayTextSig && context.currDisplayValueSig.value) {
+      bindDisplayTextSig.value = context.multiple
+        ? context.currDisplayValueSig.value
+        : context.currDisplayValueSig.value[0];
+    }
+  });
 
   useTask$(() => {
     initialLoadSig.value = false;
