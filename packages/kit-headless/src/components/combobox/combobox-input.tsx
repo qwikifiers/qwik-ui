@@ -16,6 +16,12 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
   const listboxId = `${context.localId}-listbox`;
   const inputId = `${context.localId}-input`;
 
+  const initialDisplayValue = !context.multiple
+    ? context.itemsMapSig.value.get(
+        context.selectedIndexSetSig.value.values().next().value,
+      )?.displayValue
+    : undefined;
+
   const {
     selectionManager$,
     getNextEnabledItemIndex$,
@@ -122,6 +128,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
   return (
     <input
       role="combobox"
+      value={initialDisplayValue || undefined}
       id={inputId}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       aria-activedescendant={activeDescendantSig.value}

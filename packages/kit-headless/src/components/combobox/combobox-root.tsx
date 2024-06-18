@@ -106,8 +106,6 @@ export const HComboboxRootImpl = component$<
     multiple = false,
     ...rest
   } = props;
-  onChange$;
-  onOpenChange$;
 
   // refs
   const rootRef = useSignal<HTMLDivElement>();
@@ -138,22 +136,20 @@ export const HComboboxRootImpl = component$<
   const initialLoadSig = useSignal<boolean>(true);
 
   useTask$(async function onChangeTask({ track }) {
-    track(() => isListboxOpenSig.value);
+    track(() => selectedIndexSetSig.value);
 
     const values = [];
-    const displayValues = [];
 
     for (const index of selectedIndexSetSig.value) {
       const item = itemsMapSig.value.get(index);
 
       if (item) {
         values.push(item.value);
-        displayValues.push(item.displayValue);
       }
     }
 
-    if (onChange$ && selectedIndexSetSig.value.size > 0) {
-      await onChange$(multiple ? values : values[0]);
+    if (!initialLoadSig.value) {
+      await onChange$?.(multiple ? values : values[0]);
     }
   });
 

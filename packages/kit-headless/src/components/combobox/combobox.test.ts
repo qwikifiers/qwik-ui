@@ -217,26 +217,25 @@ test.describe('Keyboard Behavior', () => {
 
       // first index highlighted
 
-      await expect(d.getHighlightedItem()).toHaveAttribute('data-highlighted');
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
 
-      await d.getHighlightedItem().focus();
-      await d.getHighlightedItem().press('ArrowDown');
+      await d.getInput().press('ArrowDown');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
 
-    test(`GIVEN an open  combobox
-  WHEN the third option is highlighted and the up arrow key is pressed
-  THEN the second option should have data-highlighted`, async ({ page }) => {
+    test(`GIVEN an open combobox
+          WHEN the third option is highlighted and the up arrow key is pressed
+          THEN the second option should have data-highlighted`, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
       await d.openListbox('ArrowDown');
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
-      await d.getHighlightedItem().press('ArrowDown');
-      await d.getHighlightedItem().press('ArrowDown');
+      await d.getInput().press('ArrowDown');
+      await d.getInput().press('ArrowDown');
       1;
 
-      await d.getHighlightedItem().press('ArrowUp');
+      await d.getInput().press('ArrowUp');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
   });
@@ -268,7 +267,7 @@ test.describe('Keyboard Behavior', () => {
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       const expectedValue = await d.getItemAt(0).textContent();
-      await d.getHighlightedItem().press('Enter');
+      await d.getInput().press('Enter');
       await expect(d.getInput()).toHaveValue(expectedValue!);
     });
 
@@ -282,12 +281,12 @@ test.describe('Keyboard Behavior', () => {
       await d.openListbox('ArrowDown');
 
       // second option highlighted
-      await d.getHighlightedItem().press('ArrowDown');
+      await d.getInput().press('ArrowDown');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
-      await d.getHighlightedItem().press('Enter');
+      await d.getInput().press('Enter');
       await expect(d.getListbox()).toBeHidden();
 
-      await d.getHighlightedItem().press('ArrowDown');
+      await d.getInput().press('ArrowDown');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
   });
@@ -334,7 +333,7 @@ test.describe('Keyboard Behavior', () => {
 
         await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
 
-        await d.getHighlightedItem().press('ArrowDown');
+        await d.getInput().press('ArrowDown');
         await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       });
 
@@ -348,7 +347,7 @@ test.describe('Keyboard Behavior', () => {
         await d.openListbox('ArrowDown');
         await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
 
-        await d.getHighlightedItem().press('ArrowUp');
+        await d.getInput().press('ArrowUp');
         await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
       });
     });
@@ -469,10 +468,10 @@ test.describe('Props', () => {
   test.describe('uncontrolled', () => {
     test(`GIVEN an uncontrolled combobox with a value prop on the root component
           WHEN the value data matches the fourth option
-          THEN the selected value should be the data passed to the value prop
-          AND the fourth option should have data-highlighted
-          AND aria-selected set to true`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'uncontrolled');
+          THEN the selected value should be the data passed to the value prop`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'initial');
 
       const expectedValue = await d.getItemAt(3).textContent();
 
@@ -519,8 +518,8 @@ test.describe('Props', () => {
       await d.openListbox('Enter');
 
       await expect(page.locator('p')).toContainText('The selected value is: null');
-      await d.getHighlightedItem().press('ArrowDown');
-      await d.getHighlightedItem().press('Enter');
+      await d.getInput().press('ArrowDown');
+      await d.getInput().press('Enter');
 
       await expect(page.locator('p')).toContainText('The selected value is: 1');
     });
@@ -600,7 +599,7 @@ test.describe('A11y', () => {
   }) => {
     const { driver: d } = await setup(page, 'hero');
     await d.openListbox('ArrowDown');
-    await d.getHighlightedItem().press('ArrowDown');
+    await d.getInput().press('ArrowDown');
 
     const secondOptionId = await d.getItemAt(1).getAttribute('id');
 
@@ -615,7 +614,7 @@ test.describe('A11y', () => {
         THEN aria-activedescendent should be an empty string`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
     await d.openListbox('ArrowDown');
-    await d.getHighlightedItem().press('Enter');
+    await d.getInput().press('Enter');
     await expect(d.getListbox()).toBeHidden();
 
     await expect(d.getRoot()).toHaveAttribute('aria-activedescendant', 'hero');
@@ -696,9 +695,9 @@ test.describe('Multiple selection', () => {
       }) => {
         const { driver: d } = await setup(page, 'multiple');
         await d.openListbox('Enter');
-        await d.getHighlightedItem().press(key);
+        await d.getInput().press(key);
         await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
-        await d.getHighlightedItem().press(key);
+        await d.getInput().press(key);
         await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'false');
       });
     }
@@ -711,7 +710,7 @@ test.describe('Multiple selection', () => {
       await d.openListbox('click');
       await d.getItemAt(0).click();
       await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
-      await d.getHighlightedItem().press('Escape');
+      await d.getInput().press('Escape');
       await expect(d.getListbox()).toBeHidden();
     });
 
@@ -722,7 +721,7 @@ test.describe('Multiple selection', () => {
     }) => {
       const { driver: d } = await setup(page, 'multiple');
       await d.openListbox('Enter');
-      await d.getHighlightedItem().press('Shift+ArrowDown');
+      await d.getInput().press('Shift+ArrowDown');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
     });
@@ -735,10 +734,10 @@ test.describe('Multiple selection', () => {
       const { driver: d } = await setup(page, 'multiple');
       // initial setup
       await d.openListbox('Enter');
-      await d.getHighlightedItem().press('ArrowDown');
+      await d.getInput().press('ArrowDown');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
 
-      await d.getHighlightedItem().press('Shift+ArrowUp');
+      await d.getInput().press('Shift+ArrowUp');
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
     });
