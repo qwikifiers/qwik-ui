@@ -13,6 +13,7 @@ node_modules
 .rollup.cache
 tsconfig.tsbuildinfo
 .nx/cache
+.nx/workspace-data
 
 # IDE - VSCode
 .vscode/*
