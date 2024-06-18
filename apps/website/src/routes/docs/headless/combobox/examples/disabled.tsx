@@ -29,7 +29,7 @@ export default component$(() => {
     >
       <Combobox.Label class="combobox-label">Disabled ⛔</Combobox.Label>
       <Combobox.Control class="combobox-control">
-        <Combobox.Input placeholder="Jim" class="combobox-input" />
+        <Combobox.Input placeholder="Enabled" class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>

@@ -7,7 +7,7 @@ import {
   useTask$,
   PropsOf,
 } from '@builder.io/qwik';
-import { collapsibleContextId } from './collapsible-context-id';
+import { collapsibleContextId } from './collapsible-context';
 
 export type CollapsibleContentProps = PropsOf<'div'>;
 
@@ -16,10 +16,9 @@ import { isServer } from '@builder.io/qwik/build';
 export const HCollapsibleContent = component$((props: CollapsibleContentProps) => {
   const context = useContext(collapsibleContextId);
   const isHiddenSig = useSignal<boolean>(!context.isOpenSig.value);
-  // check if it's initially "animatable"
-  const isAnimatedSig = useSignal<boolean>(true);
-  const initialRenderSig = useSignal<boolean>(true);
+  const isAnimatedSig = useSignal<boolean>(false);
   const contentId = `${context.itemId}-content`;
+  const triggerId = `${context.itemId}-trigger`;
 
   const hideContent$ = $(() => {
     if (!context.isOpenSig.value) {
@@ -27,41 +26,35 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
     }
   });
 
-  /* detects if the content is animating. on the server everything is "animatable", we then filter out the animations on the client. */
+  // animations are detected automatically
   useTask$(async function automaticAnimations({ track }) {
     track(() => context.isOpenSig.value);
 
-    if (isServer) {
+    if (isServer || !context.contentRef.value) {
       return;
     }
 
-    if (context.isOpenSig.value) {
-      await context.getContentDimensions$();
-    }
-
-    /* check if there's a transition or animation, we set a timeout for the initial render */
-    setTimeout(() => {
-      const { animationDuration, transitionDuration } = getComputedStyle(
-        context.contentRef.value!,
-      );
-
-      // don't animate if initially open
-      if (
-        animationDuration === '0s' &&
-        transitionDuration === '0s' &&
-        !initialRenderSig.value
-      ) {
-        isAnimatedSig.value = false;
-      } else {
-        isAnimatedSig.value = true;
-      }
-    }, 15);
+    await context.getContentDimensions$();
 
     if (context.isOpenSig.value) {
+      context.contentRef.value.removeAttribute('data-closed');
+      context.contentRef.value.dataset.open = '';
       isHiddenSig.value = false;
+    } else {
+      context.contentRef.value.dataset.closed = '';
+      context.contentRef.value.removeAttribute('data-open');
     }
 
-    initialRenderSig.value = false;
+    // check if the content element has an animation or transition duration
+    const { animationDuration, transitionDuration } = getComputedStyle(
+      context.contentRef.value,
+    );
+
+    if (animationDuration !== '0s' || transitionDuration !== '0s') {
+      isAnimatedSig.value = true;
+    } else {
+      isAnimatedSig.value = false;
+    }
   });
 
   return (
@@ -71,11 +64,10 @@ export const HCollapsibleContent = component$((props: CollapsibleContentProps) =
       id={contentId}
       data-collapsible-content
       data-disabled={context.disabled ? '' : undefined}
-      data-open={!initialRenderSig.value && context.isOpenSig.value ? '' : undefined}
-      data-closed={!context.isOpenSig.value ? '' : undefined}
       onAnimationEnd$={[hideContent$, props.onAnimationEnd$]}
       onTransitionEnd$={[hideContent$, props.onTransitionEnd$]}
       hidden={isAnimatedSig.value ? isHiddenSig.value : !context.isOpenSig.value}
+      aria-labelledby={triggerId}
     >
       <Slot />
     </div>

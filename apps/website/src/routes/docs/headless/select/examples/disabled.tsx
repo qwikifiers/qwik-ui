@@ -10,7 +10,7 @@ export default component$(() => {
       <p>This one is the disabled</p>
       <Select.Label>Logged in users</Select.Label>
       <Select.Trigger class="select-trigger">
-        <Select.DisplayText placeholder="Select an option" />
+        <Select.DisplayValue placeholder="Select an option" />
       </Select.Trigger>
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox">

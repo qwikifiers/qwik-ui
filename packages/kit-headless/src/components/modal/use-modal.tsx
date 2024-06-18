@@ -21,28 +21,30 @@ export function useModal() {
     if (animationDuration !== '0s') {
       modal.addEventListener(
         'animationend',
-        () => {
-          delete modal.dataset.closing;
-          modal.classList.remove('modal-closing');
-          enableBodyScroll(modal);
-          modal.close();
+        (e) => {
+          if (e.target === modal) {
+            delete modal.dataset.closing;
+            modal.classList.remove('modal-closing');
+            enableBodyScroll(modal);
+            modal.close();
+          }
         },
         { once: true },
       );
-    }
-    if (transitionDuration !== '0s') {
+    } else if (transitionDuration !== '0s') {
       modal.addEventListener(
         'transitionend',
-        () => {
-          delete modal.dataset.closing;
-          modal.classList.remove('modal-closing');
-          enableBodyScroll(modal);
-          modal.close();
+        (e) => {
+          if (e.target === modal) {
+            delete modal.dataset.closing;
+            modal.classList.remove('modal-closing');
+            enableBodyScroll(modal);
+            modal.close();
+          }
         },
         { once: true },
       );
-    }
-    if (animationDuration === '0s' && transitionDuration === '0s') {
+    } else if (animationDuration === '0s' && transitionDuration === '0s') {
       delete modal.dataset.closing;
       modal.classList.remove('modal-closing');
       enableBodyScroll(modal);

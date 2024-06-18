@@ -9,6 +9,10 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return rootLocator.locator('[popover]');
   };
 
+  const getPopoverByTextContent = (popoverContent: string) => {
+    return rootLocator.locator('.popover-panel').getByText(popoverContent);
+  };
+
   const getTrigger = () => {
     return rootLocator.locator('[popovertarget]');
   };
@@ -16,7 +20,11 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const openPopover = async (key: PopoverOpenKeys | 'click', index?: number) => {
     const action = key === 'click' ? 'click' : 'press';
     const trigger = index !== undefined ? getTrigger().nth(index) : getTrigger();
-    const popover = index !== undefined ? getPopover().nth(index) : getPopover();
+
+    const popover =
+      index !== undefined
+        ? getPopoverByTextContent(`Popover ${index + 1}`)
+        : getPopover();
 
     if (action === 'click') {
       await trigger.click({ position: { x: 1, y: 1 } }); // Modified line
@@ -26,6 +34,8 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
 
     // Needed because Playwright doesn't wait for the listbox to be visible
     await expect(popover).toBeVisible();
+
+    return { trigger, popover };
   };
 
   const getAllPopovers = () => {
@@ -49,5 +59,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getAllTriggers,
     openPopover,
     getProgrammaticButtonTrigger,
+    getPopoverByTextContent,
   };
 }

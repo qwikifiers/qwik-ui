@@ -9,7 +9,7 @@ export default component$(() => {
   return (
     <Select.Root class="select">
       <Select.Trigger class="select-trigger">
-        <Select.DisplayText placeholder="Select an option" />
+        <Select.DisplayValue placeholder="Select an option" />
       </Select.Trigger>
       <Select.Popover class="select-popover">
         <Select.Listbox class="select-listbox select-max-height">

@@ -23,7 +23,10 @@ export const HPopoverTrigger = component$<PopoverTriggerProps>(
     } = usePopover(context.compId);
 
     const handleClick$ = $(async () => {
-      if (context.hover) return;
+      if (context.hover && !isSupportedSig.value) {
+        await showPopover();
+        return;
+      }
 
       if (isSupportedSig.value) return;
 

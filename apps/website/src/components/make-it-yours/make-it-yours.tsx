@@ -1,13 +1,5 @@
-import {
-  $,
-  PropsOf,
-  component$,
-  useComputed$,
-  useSignal,
-  useStyles$,
-} from '@builder.io/qwik';
-import { Modal } from '@qwik-ui/headless';
-import { Button } from '~/components/ui';
+import { $, PropsOf, component$, useComputed$ } from '@builder.io/qwik';
+import { Modal, Button, buttonVariants } from '~/components/ui';
 import {
   ThemeBaseColor,
   ThemeBorderRadius,
@@ -25,69 +17,6 @@ import CopyCssConfig from '../copy-css-config/copy-css-config';
 import { useAppState } from '~/_state/use-app-state';
 
 export default component$<PropsOf<typeof Button>>(() => {
-  useStyles$(`
-    .make-it-yours::backdrop {
-      background: rgba(0,0,0,0.05);
-    }
-  
-    .make-it-yours {
-      animation: sheetOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
-    }
-  
-    .make-it-yours::backdrop {
-      animation: sheetFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
-    }
-  
-    .make-it-yours.modal-closing {
-      animation: sheetClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
-    }
-  
-    .make-it-yours.modal-closing::backdrop {
-      animation: sheetFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
-    }
-
-    @keyframes sheetOpen {
-      from {
-        opacity: 0;
-        transform: translateX(100%);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0%);
-      }
-    }
-  
-    @keyframes sheetClose {
-      from {
-        opacity: 1;
-        transform: translateX(0%);
-      }
-      to {
-        opacity: 0;
-        transform: translateX(100%);
-      }
-    }
-  
-    @keyframes sheetFadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-  
-    @keyframes sheetFadeOut {
-      from {
-        opacity: 1;
-      }
-      to {
-        opacity: 0;
-      }
-    }
-    `);
-
-  const showSig = useSignal(false);
   const rootStore = useAppState();
 
   const { theme, setTheme } = useTheme();
@@ -132,19 +61,17 @@ export default component$<PropsOf<typeof Button>>(() => {
     return [font, mode, style, baseColor, primaryColor, borderRadius].join(' ');
   });
   return (
-    <Modal.Root closeOnBackdropClick={false} bind:show={showSig}>
-      <Button
-        size="sm"
-        look="outline"
-        class="flex sm:mr-2 sm:h-10"
-        onClick$={() => {
-          showSig.value = true;
-        }}
+    <Modal.Root>
+      <Modal.Trigger
+        class={cn(
+          buttonVariants({ size: 'sm', look: 'outline' }),
+          'flex sm:mr-2 sm:h-10',
+        )}
       >
         <LuSlidersHorizontal class={cn('h-4 w-4 sm:mr-2')} />
         <span class={cn('hidden', 'sm:block')}>Make it yours</span>
-      </Button>
-      <Modal.Panel class="make-it-yours fixed bottom-[50%] right-0  top-[50%] mr-0 h-screen max-w-sm rounded-l-base border-y border-l bg-background px-4 py-8 text-foreground shadow-md sm:w-full">
+      </Modal.Trigger>
+      <Modal.Panel position="right">
         <header class="flex w-full">
           <h2 class="justify-self-start text-lg font-bold">Edit Profile</h2>
         </header>
@@ -550,9 +477,11 @@ export default component$<PropsOf<typeof Button>>(() => {
           </Button>
           <CopyCssConfig />
         </footer>
-        <button onClick$={() => (showSig.value = false)} class="absolute right-4 top-5">
+        <Modal.Close
+          class={cn(buttonVariants({ size: 'sm', look: 'link' }), 'fixed right-4 top-5')}
+        >
           <LuX class="h-8 w-8" />
-        </button>
+        </Modal.Close>
       </Modal.Panel>
     </Modal.Root>
   );

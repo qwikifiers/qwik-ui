@@ -26,63 +26,52 @@ export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {
 
   return (
     <>
-      <div class="flex w-full flex-col items-center">
-        <div class="flex gap-4">
-          <label class="mb-4 flex flex-col-reverse items-center text-center">
-            <input
-              class="max-w-[50px] rounded-base bg-accent px-2"
-              type="text"
-              bind:value={itemIndexToAdd}
-            />
-            <span>Index to Add</span>
-          </label>
+      <div class="dynamic-input">
+        <label class="add">
+          <input bind:value={itemIndexToAdd} />
+          <span>Index to Add</span>
+        </label>
 
-          <label class="mb-4 flex flex-col-reverse items-center text-center">
-            <input
-              class="max-w-[50px] rounded-base bg-accent px-2"
-              type="text"
-              bind:value={itemIndexToDelete}
-            />
-            <span>Index to Delete</span>
-          </label>
-        </div>
+        <label class="delete">
+          <input bind:value={itemIndexToDelete} />
+          <span>Index to Delete</span>
+        </label>
+      </div>
 
-        <Accordion.Root>
-          {itemStore.map(({ label, id }, index) => {
-            return (
-              <Accordion.Item id={`${id}`} key={id} class="accordion-item">
-                <Accordion.Header>
-                  <Accordion.Trigger class="accordion-trigger">{label}</Accordion.Trigger>
-                </Accordion.Header>
-                <Accordion.Content class="accordion-content">
-                  index: {index}
-                </Accordion.Content>
-              </Accordion.Item>
-            );
-          })}
-        </Accordion.Root>
-        <div class="flex gap-2 md:gap-4">
-          <button
-            style={{ color: 'green', marginTop: '1rem' }}
-            onClick$={() => {
-              if (itemStore.length < 6) {
-                itemStore.splice(parseInt(itemIndexToAdd.value), 0, newItem);
-              }
-            }}
-          >
-            <strong>Add Item</strong>
-          </button>
-          <button
-            style={{ color: 'red', marginTop: '1rem' }}
-            onClick$={() => {
-              if (itemStore.length > 2) {
-                itemStore.splice(parseInt(itemIndexToDelete.value), 1);
-              }
-            }}
-          >
-            <strong>Remove Item</strong>
-          </button>
-        </div>
+      <Accordion.Root>
+        {itemStore.map(({ label, id }, index) => {
+          return (
+            <Accordion.Item id={`${id}`} key={id} class="collapsible">
+              <Accordion.Header>
+                <Accordion.Trigger class="collapsible-trigger">{label}</Accordion.Trigger>
+              </Accordion.Header>
+              <Accordion.Content class="collapsible-content collapsible-content-outline">
+                index: {index}
+              </Accordion.Content>
+            </Accordion.Item>
+          );
+        })}
+      </Accordion.Root>
+
+      <div class="dynamic-buttons">
+        <button
+          onClick$={() => {
+            if (itemStore.length < 6) {
+              itemStore.splice(parseInt(itemIndexToAdd.value), 0, newItem);
+            }
+          }}
+        >
+          <strong>Add Item</strong>
+        </button>
+        <button
+          onClick$={() => {
+            if (itemStore.length > 2) {
+              itemStore.splice(parseInt(itemIndexToDelete.value), 1);
+            }
+          }}
+        >
+          <strong>Remove Item</strong>
+        </button>
       </div>
     </>
   );

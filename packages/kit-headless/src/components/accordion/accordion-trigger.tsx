@@ -1,173 +1,111 @@
 import {
-  component$,
+  PropsOf,
   Slot,
+  component$,
+  sync$,
   useContext,
   useSignal,
-  useTask$,
-  useVisibleTask$,
   $,
-  type QwikKeyboardEvent,
-  PropsOf,
 } from '@builder.io/qwik';
+import { HCollapsibleTrigger } from '../collapsible/collapsible-trigger';
+import { accordionContextId, accordionItemContextId } from './accordion-context';
+import { useEnabledIndex } from '../../hooks/use-enabled-index';
 
-import { accordionItemContextId, accordionRootContextId } from './accordion-context-id';
-
-import { KeyCode } from '../../utils/key-code.type';
-
-const accordionPreventedKeys = [
-  KeyCode.Home,
-  KeyCode.End,
-  KeyCode.PageDown,
-  KeyCode.PageUp,
-  KeyCode.ArrowDown,
-  KeyCode.ArrowUp,
-];
-
-export type AccordionTriggerProps = PropsOf<'button'> & {
-  disabled?: boolean;
-};
+type KeyboardDirection = 'next' | 'prev' | 'first' | 'last';
 
 export const HAccordionTrigger = component$(
-  ({ disabled, ...props }: AccordionTriggerProps) => {
-    const contextService = useContext(accordionRootContextId);
+  (props: PropsOf<typeof HCollapsibleTrigger>) => {
+    const context = useContext(accordionContextId);
     const itemContext = useContext(accordionItemContextId);
+    const { getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } = useEnabledIndex();
+    const focusedIndexSig = useSignal<number | null>(null);
 
-    const ref = useSignal<HTMLButtonElement>();
-    const triggerElement = ref.value;
+    /** Determines and focuses the next enabled item. */
+    const focusManager$ = $(async (direction: KeyboardDirection) => {
+      if (!context.itemsMapSig?.value) {
+        throw new Error(
+          'Qwik UI: Accordion item does not have a map of the available item info.',
+        );
+      }
 
-    const behavior = contextService.behavior;
-    const collapsible = contextService.collapsible;
-    const defaultValue = itemContext.defaultValue;
+      let index: number | null = null;
 
-    const triggerElementsSig = contextService.triggerElementsSig;
-    const triggerId = `${itemContext.itemId}-trigger`;
+      switch (direction) {
+        case 'next':
+          if (focusedIndexSig.value === itemContext.localIndexSig.value) {
+            index = await getNextEnabledItemIndex$(
+              itemContext.localIndexSig.value,
+              context.itemsMapSig.value,
+            );
+          }
+          break;
 
-    const updateTriggers$ = contextService.updateTriggers$;
+        case 'prev':
+          if (focusedIndexSig.value === itemContext.localIndexSig.value) {
+            index = await getPrevEnabledItemIndex$(
+              itemContext.localIndexSig.value,
+              context.itemsMapSig.value,
+            );
+          }
+          break;
 
-    /* content panel id for aria-controls */
-    const contentId = `${itemContext.itemId}-content`;
+        case 'first':
+          index = await getNextEnabledItemIndex$(-1, context.itemsMapSig.value);
+          break;
 
-    const selectedTriggerIdSig = contextService.selectedTriggerIdSig;
-    const isTriggerExpandedSig = itemContext.isTriggerExpandedSig;
+        case 'last':
+          index = await getPrevEnabledItemIndex$(
+            context.itemsMapSig.value.size,
+            context.itemsMapSig.value,
+            false,
+          );
+          break;
+      }
 
-    /* The consumer can use these two signals. */
-    const currFocusedTriggerIndexSig = contextService.currFocusedTriggerIndexSig;
-    const currSelectedTriggerIndexSig = contextService.currSelectedTriggerIndexSig;
-
-    const setSelectedTriggerIndexSig$ = $(() => {
-      if (behavior === 'single' && triggerElement) {
-        currSelectedTriggerIndexSig.value =
-          triggerElementsSig.value.indexOf(triggerElement);
+      if (index !== null) {
+        context.triggerRefsArray.value[index].value.focus();
       }
     });
 
-    const setCurrFocusedIndexSig$ = $(() => {
-      if (!triggerElement) {
-        return;
-      }
+    const handleKeyDown$ = $(async (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowDown':
+          await focusManager$('next');
+          break;
 
-      currFocusedTriggerIndexSig.value = triggerElementsSig.value.indexOf(triggerElement);
-    });
+        case 'ArrowUp':
+          await focusManager$('prev');
+          break;
 
-    useTask$(function resetTriggersTask({ track }) {
-      track(() => selectedTriggerIdSig.value);
+        case 'Home':
+          await focusManager$('first');
+          break;
 
-      if (behavior === 'single' && triggerId !== selectedTriggerIdSig.value) {
-        isTriggerExpandedSig.value = false;
-      }
-    });
-
-    useTask$(function openDefaultValueTask() {
-      if (defaultValue) {
-        isTriggerExpandedSig.value = true;
+        case 'End':
+          await focusManager$('last');
+          break;
       }
     });
 
-    // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(function navigateTriggerVisibleTask({ cleanup }) {
-      if (!triggerElement) {
-        return;
-      }
+    const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+      const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
 
-      /* runs each time a new trigger is added. We need to tell the root it's time to take a role call. */
-      if (!disabled) {
-        updateTriggers$();
+      if (keys.includes(e.key)) {
+        e.preventDefault();
       }
-
-      function keyHandler(e: KeyboardEvent) {
-        if (accordionPreventedKeys.includes(e.key as KeyCode)) {
-          e.preventDefault();
-        }
-      }
-
-      triggerElement.addEventListener('keydown', keyHandler);
-      cleanup(() => {
-        triggerElement?.removeEventListener('keydown', keyHandler);
-      });
     });
 
-    // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(
-      function cleanupTriggersTask({ cleanup }) {
-        cleanup(() => {
-          updateTriggers$();
-        });
-      },
-      { strategy: 'document-ready' },
-    );
     return (
-      <button
-        ref={ref}
-        id={triggerId}
-        disabled={disabled}
-        aria-disabled={disabled}
-        data-trigger-id={triggerId}
-        data-state={isTriggerExpandedSig.value ? 'open' : 'closed'}
-        data-open={isTriggerExpandedSig.value ? '' : undefined}
-        data-closed={!isTriggerExpandedSig.value ? '' : undefined}
-        onClick$={
-          disabled
-            ? []
-            : [
-                $(() => {
-                  selectedTriggerIdSig.value = triggerId;
-
-                  setSelectedTriggerIndexSig$();
-
-                  collapsible
-                    ? (isTriggerExpandedSig.value = !isTriggerExpandedSig.value)
-                    : (isTriggerExpandedSig.value = true);
-                }),
-                props.onClick$,
-              ]
-        }
-        aria-expanded={isTriggerExpandedSig.value}
-        aria-controls={contentId}
-        onKeyDown$={[
-          $(async (e: QwikKeyboardEvent) => {
-            if (e.key === 'ArrowUp') {
-              await contextService.focusPreviousTrigger$();
-            }
-
-            if (e.key === 'ArrowDown') {
-              await contextService.focusNextTrigger$();
-            }
-
-            if (e.key === 'Home') {
-              await contextService.focusFirstTrigger$();
-            }
-
-            if (e.key === 'End') {
-              await contextService.focusLastTrigger$();
-            }
-          }),
-          props.onKeyDown$,
-        ]}
-        onFocus$={[setCurrFocusedIndexSig$, props.onFocus$]}
+      <HCollapsibleTrigger
+        onClick$={() => {
+          context.selectedIndexSig.value = itemContext.localIndexSig.value;
+        }}
+        onFocus$={() => (focusedIndexSig.value = itemContext.localIndexSig.value)}
+        onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
         {...props}
       >
         <Slot />
-      </button>
+      </HCollapsibleTrigger>
     );
   },
 );

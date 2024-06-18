@@ -143,7 +143,7 @@ Entry and exit animations have often been a frustrating experience in web develo
 
 Until recently, discrete properties were not animatable. Luckily, there's [new properties to CSS](https://developer.chrome.com/blog/entry-exit-animations) that solve this problem.
 
-The browser support for these is similar to support of the popover API. That said, the Qwik UI team has done an awesome job of managing animations on polyfill browsers for you using the `popover-showing` and `popover-closing` classes.
+The browser support for these is similar to support of the popover API. That said, the Qwik UI team has done an awesome job of managing animations on polyfill browsers for you using the `data-open` and `data-closing` attributes.
 
 ```css
 .my-transition {
@@ -159,11 +159,11 @@ The browser support for these is similar to support of the popover API. That sai
   opacity: 0;
 }
 
-.popover-showing {
+.my-transition[data-open] {
   opacity: 1;
 }
 
-.popover-closing {
+.my-transition[data-closing] {
   opacity: 0;
 }
 ```
@@ -333,9 +333,9 @@ We put it under an `@layer` so that it can be easily overridden when adding your
 
 To use an animation, add the following CSS classes to the component.
 
-- The `.popover-showing` class determines the animation that happens when it is first opened.
+- The `data-open` attribute determines the animation that happens when it is first opened.
 
-- The `.popover-closing` class determines what class is added when the listbox is **closed**.
+- The `data-closing` class determines what class is added when the listbox is **closed**.
 
 Here's the CSS imported from the example:
 
@@ -344,11 +344,11 @@ Here's the CSS imported from the example:
   transform: scale(0);
 }
 
-.popover-animation.popover-showing {
+.popover-animation[data-open] {
   animation: popover-grow 0.5s ease-in-out forwards;
 }
 
-.popover-animation.popover-closing {
+.popover-animation[data-closing] {
   animation: popover-shrink 0.4s ease-in-out forwards;
 }
 
@@ -377,7 +377,7 @@ Here's the CSS imported from the example:
 
 ### Transition declarations
 
-Transitions use the same classes for entry and exit animations. Those being `.popover-showing` and `.popover-closing`. They are explained more in the `Caveats` section.
+Transitions use the same classes for entry and exit animations. Those being `data-open` and `data-closing`. They are explained more in the `Caveats` section.
 
 <Showcase name="transition" />
 
@@ -395,11 +395,11 @@ CSS from the example:
   transition-behavior: allow-discrete;
 }
 
-.popover-transition.popover-showing {
+.popover-transition[data-open] {
   opacity: 1;
 }
 
-.popover-transition.popover-closing {
+.popover-transition[data-closing] {
   opacity: 0;
 }
 ```
@@ -431,7 +431,7 @@ To read more about the popover API you can check it out on:
     },
     {
       name: 'floating',
-      type: 'boolean',
+      type: 'boolean | TPlacement',
       description: 'Enables extra JavaScript behavior for floating elements.',
     },
     {
@@ -451,24 +451,6 @@ To read more about the popover API you can check it out on:
       description: 'The space between the floating element and the anchored element.',
     },
     {
-      name: 'placement',
-      type: 'union',
-      info: ` | 'top'
-    | 'top-start'
-    | 'top-end'
-    | 'right'
-    | 'right-start'
-    | 'right-end'
-    | 'bottom'
-    | 'bottom-start'
-    | 'bottom-end'
-    | 'left'
-    | 'left-start'
-    | 'left-end';`,
-      description:
-        'Flips the placement of the popover when it starts to collide with the boundaries.',
-    },
-    {
       name: '[popover]',
       type: 'selector',
       description: 'Selects the popover on all browsers.',
@@ -479,19 +461,19 @@ To read more about the popover API you can check it out on:
       description: 'Style the element when the popover is open.',
     },
     {
-      name: '.popover-open',
-      type: 'class',
-      description: 'Polyfill class added to style unsupported browsers.',
+      name: 'data-closing',
+      type: 'selector',
+      description: 'Style the element when the popover is closing.',
     },
     {
-      name: '.popover-showing',
-      type: 'class',
-      description: 'Class to animate entry behavior.',
+      name: 'data-closed',
+      type: 'selector',
+      description: 'Style the element when the popover is closed.',
     },
     {
-      name: '.popover-closing',
+      name: 'data-closing',
       type: 'class',
-      description: 'Class to animate close behavior.',
+      description: 'Class to animate exit behavior.',
     },
   ]}
 />

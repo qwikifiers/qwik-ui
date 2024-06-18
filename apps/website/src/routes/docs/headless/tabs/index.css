@@ -4,7 +4,8 @@
 
 .tabs-example [role='tab'] {
   width: 138px;
-  background: white;
+  background: var(--background);
+  color: var(--foreground);
 }
 
 .tabs-example [role='tab'][disabled] {
@@ -13,7 +14,8 @@
 }
 
 .tabs-example [role='tab'][data-state='selected'] {
-  background: hsl(var(--primary) / 0.3);
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 
 .tabs-example [role='tablist'] {
@@ -25,14 +27,4 @@
 .tabs-example h3 {
   font-weight: 600;
   margin-bottom: 0.5rem;
-}
-
-.dark .tabs-example [role='tab'] {
-  background: hsl(var(--foreground));
-  color: hsl(var(--muted));
-}
-
-.dark .tabs-example [role='tab'][data-state='selected'] {
-  background: hsl(var(--primary));
-  color: hsl(var(--muted));
 }

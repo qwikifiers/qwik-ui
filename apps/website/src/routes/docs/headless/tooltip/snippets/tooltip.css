@@ -1,0 +1,23 @@
+.tooltip-trigger {
+  border-radius: var(--border-radius);
+  border: 2px dotted hsla(var(--foreground));
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.tooltip-trigger:hover {
+  background-color: hsla(var(--primary) / 0.08);
+}
+
+.tooltip-content {
+  border-radius: var(--border-radius);
+  border: 2px dotted hsla(var(--primary));
+  background: hsla(var(--tooltip));
+  color: hsl(var(--foreground));
+  padding: 0.5rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}

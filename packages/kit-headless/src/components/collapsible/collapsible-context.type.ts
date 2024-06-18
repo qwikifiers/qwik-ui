@@ -8,4 +8,5 @@ export interface CollapsibleContext {
   contentHeightSig: Signal<number | null>;
   getContentDimensions$: QRL<() => void>;
   disabled: boolean | undefined;
+  collapsible?: boolean;
 }

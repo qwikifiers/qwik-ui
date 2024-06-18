@@ -11,18 +11,12 @@ module.exports = {
     join(__dirname, '../../packages/kit-headless/src/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
   plugins: [
-    require('tailwindcss-animate'),
     // PLUGIN-START
+    require('tailwindcss-animate'),
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
-        },
-        '.appear': {
-          opacity: 1,
-        },
-        '.disappear': {
-          opacity: 0,
         },
       });
     }),
@@ -30,7 +24,6 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    important: true,
     extend: {
       screens: {
         xs: '480px',
@@ -104,24 +97,24 @@ module.exports = {
         1: 'calc(var(--stroke-width) + 1px)',
         2: 'calc(var(--stroke-width) + 2px)',
       },
-      // EXTEND-END
       animation: {
-        'accordion-down': '0.2s ease-out 0s 1 normal forwards accordion-open',
-        'accordion-up': '0.2s ease-out 0s 1 normal forwards accordion-close',
+        'accordion-up': 'collapsible-up 0.2s ease-out 0s 1 normal forwards',
+        'accordion-down': 'collapsible-down 0.2s ease-out 0s 1 normal forwards',
       },
+      keyframes: {
+        'collapsible-down': {
+          from: { height: '0' },
+          to: { height: 'var(--qwikui-collapsible-content-height)' },
+        },
+        'collapsible-up': {
+          from: { height: 'var(--qwikui-collapsible-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      // EXTEND-END
       transitionTimingFunction: {
         step: 'cubic-bezier(0.6, 0.6, 0, 1)',
         jumpy: 'cubic-bezier(0.87, 0, 0.13, 1)',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
-        },
-        fadeOut: {
-          '0%': { opacity: 1 },
-          '100%': { opacity: 0 },
-        },
       },
     },
   },

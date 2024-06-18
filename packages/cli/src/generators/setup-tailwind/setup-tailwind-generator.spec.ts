@@ -92,16 +92,11 @@ html {
       /** @type {import('tailwindcss').Config} */
       module.exports = {
         plugins: [
+          require('tailwindcss-animate'),
           plugin(function ({ addUtilities }) {
             addUtilities({
               '.press': {
                 transform: 'var(--transform-press)',
-              },
-              '.appear': {
-                opacity: 1,
-              },
-              '.disappear': {
-                opacity: 0,
               },
             });
           }),
@@ -186,6 +181,20 @@ html {
               base: 'var(--stroke-width)',
               1: 'calc(var(--stroke-width) + 1px)',
               2: 'calc(var(--stroke-width) + 2px)',
+            },
+            animation: {
+              'accordion-up': 'collapsible-up 0.2s ease-out 0s 1 normal forwards',
+              'accordion-down': 'collapsible-down 0.2s ease-out 0s 1 normal forwards',
+            },
+            keyframes: {
+              'collapsible-down': {
+                from: { height: '0' },
+                to: { height: 'var(--qwikui-collapsible-content-height)' },
+              },
+              'collapsible-up': {
+                from: { height: 'var(--qwikui-collapsible-content-height)' },
+                to: { height: '0' },
+              },
             },
             fontFamily: {
               sans: ['Inter Variable', 'sans-serif'],
@@ -216,16 +225,11 @@ html {
       /** @type {import('tailwindcss').Config} */
       export default {
         plugins: [
+          require('tailwindcss-animate'),
           plugin(function ({ addUtilities }) {
             addUtilities({
               '.press': {
                 transform: 'var(--transform-press)',
-              },
-              '.appear': {
-                opacity: 1,
-              },
-              '.disappear': {
-                opacity: 0,
               },
             });
           }),
@@ -311,6 +315,20 @@ html {
               1: 'calc(var(--stroke-width) + 1px)',
               2: 'calc(var(--stroke-width) + 2px)',
             },
+            animation: {
+              'accordion-up': 'collapsible-up 0.2s ease-out 0s 1 normal forwards',
+              'accordion-down': 'collapsible-down 0.2s ease-out 0s 1 normal forwards',
+            },
+            keyframes: {
+              'collapsible-down': {
+                from: { height: '0' },
+                to: { height: 'var(--qwikui-collapsible-content-height)' },
+              },
+              'collapsible-up': {
+                from: { height: 'var(--qwikui-collapsible-content-height)' },
+                to: { height: '0' },
+              },
+            },
             fontFamily: {
               sans: ['Inter Variable', 'sans-serif'],
             },
@@ -339,16 +357,11 @@ html {
       /** @type {import('tailwindcss').Config} */
       export default {
         plugins: [
+          require('tailwindcss-animate'),
           plugin(function ({ addUtilities }) {
             addUtilities({
               '.press': {
                 transform: 'var(--transform-press)',
-              },
-              '.appear': {
-                opacity: 1,
-              },
-              '.disappear': {
-                opacity: 0,
               },
             });
           }),
@@ -433,6 +446,20 @@ html {
               base: 'var(--stroke-width)',
               1: 'calc(var(--stroke-width) + 1px)',
               2: 'calc(var(--stroke-width) + 2px)',
+            },
+            animation: {
+              'accordion-up': 'collapsible-up 0.2s ease-out 0s 1 normal forwards',
+              'accordion-down': 'collapsible-down 0.2s ease-out 0s 1 normal forwards',
+            },
+            keyframes: {
+              'collapsible-down': {
+                from: { height: '0' },
+                to: { height: 'var(--qwikui-collapsible-content-height)' },
+              },
+              'collapsible-up': {
+                from: { height: 'var(--qwikui-collapsible-content-height)' },
+                to: { height: '0' },
+              },
             },
             fontFamily: {
               sans: ['Inter Variable', 'sans-serif'],

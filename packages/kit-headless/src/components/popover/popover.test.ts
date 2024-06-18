@@ -37,11 +37,11 @@ test.describe('Mouse Behavior', () => {
         THEN the popover should close`, async ({ page }) => {
     const { driver: d } = await setup(page, 'basic');
 
-    await d.openPopover('click');
+    const { popover } = await d.openPopover('click');
 
     await page.mouse.click(0, 0);
 
-    await expect(d.getPopover()).toBeHidden();
+    await expect(popover).toBeHidden();
   });
 
   test(`GIVEN a pair of popovers in auto mode
@@ -52,11 +52,8 @@ test.describe('Mouse Behavior', () => {
   }) => {
     const { driver: d } = await setup(page, 'auto');
 
-    const firstPopover = d.getPopover().nth(0);
-    const secondPopover = d.getPopover().nth(1);
-
-    await d.openPopover('click', 0);
-    await d.openPopover('click', 1);
+    const { popover: firstPopover } = await d.openPopover('click', 0);
+    const { popover: secondPopover } = await d.openPopover('click', 1);
 
     await expect(firstPopover).toBeHidden();
     await expect(secondPopover).toBeVisible();
@@ -72,7 +69,7 @@ test.describe('Mouse Behavior', () => {
 
     await page.mouse.click(0, 0);
 
-    await expect(d.getPopover().nth(0)).toBeVisible();
+    await expect(d.getPopoverByTextContent('Popover 1')).toBeVisible();
   });
 
   test(`GIVEN a pair of manual popovers
@@ -81,8 +78,49 @@ test.describe('Mouse Behavior', () => {
         THEN then both popovers should be opened`, async ({ page }) => {
     const { driver: d } = await setup(page, 'manual');
 
-    await d.openPopover('click', 0);
-    await d.openPopover('click', 1);
+    const { popover: firstPopover } = await d.openPopover('click', 0);
+    const { popover: secondPopover } = await d.openPopover('click', 1);
+
+    await expect(firstPopover).toBeVisible();
+    await expect(secondPopover).toBeVisible();
+  });
+
+  test(`GIVEN a pair of manual popovers
+    WHEN clicking the first trigger on the page
+    AND clicking the second trigger
+    THEN the seconf popover should overlap the first`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-popover-overlap');
+
+    const [firstTrigger, secondTrigger] = await d.getAllTriggers();
+    const [firstPopover, secondPopover] = await d.getAllPopovers();
+
+    firstTrigger.click();
+    secondTrigger.click();
+
+    const topPopover = page.locator(
+      `[popover]:above(:text("${await firstPopover.innerText()}"))`,
+    );
+
+    expect(await topPopover.innerText()).toBe(await secondPopover.innerText());
+  });
+
+  test(`GIVEN a pair of manual popovers
+    WHEN clicking the second trigger on the page
+    AND clicking the first trigger
+    THEN the first popover should overlap the second`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-popover-overlap');
+
+    const [firstTrigger, secondTrigger] = await d.getAllTriggers();
+    const [firstPopover, secondPopover] = await d.getAllPopovers();
+
+    firstTrigger.click();
+    secondTrigger.click();
+
+    const topPopover = page.locator(
+      `[popover]:above(:text("${await secondPopover.innerText()}"))`,
+    );
+
+    expect(await topPopover.innerText()).toBe(await firstPopover.innerText());
   });
 
   test(`GIVEN a pair of manual opened popovers
@@ -91,13 +129,14 @@ test.describe('Mouse Behavior', () => {
         THEN both popovers should be closed`, async ({ page }) => {
     const { driver: d } = await setup(page, 'manual');
 
-    const firstPopover = d.getPopover().nth(0);
-    const secondPopover = d.getPopover().nth(1);
-    const firstTrigger = d.getTrigger().nth(0);
-    const secondTrigger = d.getTrigger().nth(1);
-
-    await d.openPopover('click', 0);
-    await d.openPopover('click', 1);
+    const { popover: firstPopover, trigger: firstTrigger } = await d.openPopover(
+      'click',
+      0,
+    );
+    const { popover: secondPopover, trigger: secondTrigger } = await d.openPopover(
+      'click',
+      1,
+    );
 
     // Explicitly specifying click positions due to default behavior targeting the element's center,
     // which is obscured by the popover in this scenario.
@@ -107,6 +146,43 @@ test.describe('Mouse Behavior', () => {
     // Assert
     await expect(firstPopover).toBeHidden();
     await expect(secondPopover).toBeHidden();
+  });
+
+  test(`GIVEN a popover with hover enabled
+    WHEN hovering over the popover
+    THEN the popover should appear above the trigger`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hover');
+
+    const popover = d.getPopover();
+    const trigger = d.getTrigger();
+
+    await trigger.hover();
+
+    await expect(popover).toBeVisible();
+
+    const popoverBoundingBox = await popover.boundingBox();
+    const triggerBoundingBox = await trigger.boundingBox();
+
+    const triggerTopEdge = triggerBoundingBox?.y ?? Number.MAX_VALUE;
+
+    expect(popoverBoundingBox?.y).toBeLessThan(triggerTopEdge);
+  });
+
+  test(`GIVEN an open popover with hover enabled
+    WHEN hovering await from the popover
+    THEN the popover should disappear`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hover');
+
+    const popover = d.getPopover();
+    const trigger = d.getTrigger();
+
+    await trigger.hover();
+
+    await expect(popover).toBeVisible();
+
+    await page.mouse.move(0, 0);
+
+    await expect(popover).toBeHidden();
   });
 
   test(`GIVEN a popover with placement set to right
@@ -152,31 +228,85 @@ test.describe('Mouse Behavior', () => {
     expect(gutterSpace).toBe(40);
   });
 
-  // test(`GIVEN a combobox with a flip configured
-  // WHEN scrolling the page
-  // THEN the popover flip to the opposite end once space runs out`, async ({ page }) => {
-  //   const { driver: d } = await setup(page, 'flip');
+  test(`GIVEN a combobox with a flip configured
+        WHEN scrolling the page
+        THEN the popover flip to the opposite end once space runs out`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'flip');
 
-  //   const popover = d.getPopover();
-  //   const trigger = d.getTrigger();
+    const popover = d.getPopover();
+    const trigger = d.getTrigger();
 
-  //   // Introduce artificial spacing
-  //   await trigger.evaluate((element) => (element.style.top = '800px'));
+    async function calculateYDiff() {
+      const popoverBoundingBox = await popover.boundingBox();
+      const triggerBoundingBox = await trigger.boundingBox();
 
-  //   await trigger.click();
+      console.log(triggerBoundingBox, popoverBoundingBox);
 
-  //   await expect(popover).toBeVisible();
+      return (popoverBoundingBox?.y ?? 0) - (triggerBoundingBox?.y ?? 0);
+    }
 
-  //   const popoverBoundingBox = await popover.boundingBox();
-  //   const triggerBoundingBox = await trigger.boundingBox();
+    // Introduce artificial spacing
+    await trigger.evaluate((element) => (element.style.marginTop = '2000px'));
+    await trigger.evaluate((element) => (element.style.marginBottom = '1000px'));
 
-  //   console.log(triggerBoundingBox, popoverBoundingBox);
+    await trigger.click();
 
-  //   const triggerBottomAbsolutePosition =
-  //     (triggerBoundingBox?.y ?? 0) + (triggerBoundingBox?.height ?? 0);
+    // Should be below the trigger
+    await expect(popover).toBeVisible();
 
-  //   expect((popoverBoundingBox?.y ?? 0) - triggerBottomAbsolutePosition).toBe(24);
-  // });
+    let yDiff = await calculateYDiff();
+
+    expect(yDiff).toBeGreaterThan(0);
+
+    await page.evaluate(() => window.scrollBy(0, -400));
+
+    await page.waitForTimeout(1000);
+
+    // Should be above the trigger
+    yDiff = await calculateYDiff();
+    expect(yDiff).toBeLessThan(0);
+  });
+
+  test.describe('Programmatic functionality', () => {
+    test(`GIVEN a programmatic popover
+        WHEN the showPopover function is called
+        THEN the popover should be open`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-show');
+      await expect(d.getPopover()).toBeHidden();
+      const programmaticTrigger = page.getByRole('button', { name: 'show popover' });
+      await programmaticTrigger.click();
+      await expect(d.getPopover()).toBeVisible();
+    });
+
+    test(`GIVEN an open programmatic popover
+        WHEN the hidePopover function is called
+        THEN the popover should be hidden`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-hide');
+      const programmaticTrigger = page.getByRole('button', { name: 'hide popover' });
+      // initial open
+      await d.openPopover('click');
+      await programmaticTrigger.click({ position: { x: 0, y: 0 } });
+      await expect(d.getPopover()).toBeHidden();
+    });
+
+    test(`GIVEN a progrmmatic popover
+        WHEN focusing on the button and pressing the 'o' key
+        THEN the popover should be programmatically opened`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'programmatic');
+
+      await expect(d.getPopover()).toBeHidden();
+
+      const programmaticTrigger = page.getByRole('button');
+
+      // Using `page` here because driver is scoped to the popover
+      await expect(programmaticTrigger).toBeVisible();
+      await programmaticTrigger.click();
+
+      await expect(d.getPopover()).toBeVisible();
+    });
+  });
 });
 
 test.describe('Keyboard Behavior', () => {
@@ -219,25 +349,6 @@ test.describe('Keyboard Behavior', () => {
     await expect(d.getTrigger()).toBeFocused();
   });
 
-  test(`GIVEN a popover
-        WHEN focusing on the button and pressing the 'o' key
-        THEN the popover should be programmatically opened`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'programmatic');
-
-    await expect(d.getPopover()).toBeHidden();
-
-    const programmaticTrigger = page.getByRole('button', {
-      name: "Focus me and press the 'o'",
-    });
-
-    // Using `page` here because driver is scoped to the popover
-    await expect(programmaticTrigger).toBeVisible();
-    await programmaticTrigger.focus();
-    await programmaticTrigger.press('o');
-
-    await expect(d.getPopover()).toBeVisible();
-  });
-
   test.describe('auto', () => {
     test(`GIVEN a pair of auto popovers
     WHEN one popover is open with the enter key
@@ -245,13 +356,7 @@ test.describe('Keyboard Behavior', () => {
     THEN the first popover should close and the second one appear`, async ({ page }) => {
       const { driver: d } = await setup(page, 'auto');
 
-      const firstPopover = d.getPopover().nth(0);
-      const secondPopover = d.getPopover().nth(1);
-
-      await expect(firstPopover).toBeHidden();
-      await expect(secondPopover).toBeHidden();
-
-      await d.openPopover('Enter', 0);
+      const { popover: firstPopover } = await d.openPopover('Enter', 0);
       await d.openPopover('Enter', 1);
 
       await expect(firstPopover).toBeHidden();
@@ -264,13 +369,14 @@ test.describe('Keyboard Behavior', () => {
         THEN then both popovers should be closed`, async ({ page }) => {
     const { driver: d } = await setup(page, 'manual');
 
-    const firstPopover = d.getPopover().nth(0);
-    const secondPopover = d.getPopover().nth(1);
-    const firstTrigger = d.getTrigger().nth(0);
-    const secondTrigger = d.getTrigger().nth(1);
-
-    await d.openPopover('Enter', 0);
-    await d.openPopover('Enter', 1);
+    const { popover: firstPopover, trigger: firstTrigger } = await d.openPopover(
+      'click',
+      0,
+    );
+    const { popover: secondPopover, trigger: secondTrigger } = await d.openPopover(
+      'click',
+      1,
+    );
 
     await secondTrigger.press('Enter');
     await expect(secondPopover).toBeHidden();
@@ -319,56 +425,69 @@ test.describe('Keyboard Behavior', () => {
     const popover = d.getPopover();
     const trigger = d.getTrigger();
 
+    await trigger.focus();
+    await expect(trigger).toBeFocused();
+
     await trigger.press('Enter');
 
     await expect(popover).toBeVisible();
 
-    const popoverBoundingBox = await popover.boundingBox();
     const triggerBoundingBox = await trigger.boundingBox();
+    const popoverBoundingBox = await popover.boundingBox();
 
     expect(popoverBoundingBox?.x).toBeGreaterThan(
       (triggerBoundingBox?.x ?? Number.MAX_VALUE) +
         (triggerBoundingBox?.width ?? Number.MAX_VALUE),
     );
   });
-});
 
-test.describe('Programmatic', () => {
-  // test(`GIVEN a programmatic popover
-  //       WHEN the showPopover function is called
-  //       THEN the popover should be open`, async ({ page }) => {
-  //   const { driver: d } = await setup(page, 'show');
-  //   await expect(d.getPopover()).toBeHidden();
-  //   const programmaticTrigger = page.getByRole('button', { name: 'show popover' });
-  //   await programmaticTrigger.click();
-  //   await expect(d.getPopover()).toBeVisible();
-  // });
-  // test(`GIVEN an open programmatic popover
-  // WHEN the hidePopover function is called
-  // THEN the popover should be hidden`, async ({ page }) => {
-  //   const { driver: d } = await setup(page, 'hide');
-  //   const programmaticTrigger = page.getByRole('button', { name: 'hide popover' });
-  //   // initial open
-  //   await d.openPopover('click');
-  //   await programmaticTrigger.click({ position: { x: 0, y: 0 } });
-  //   await expect(d.getPopover()).toBeHidden();
-  // });
-  // test(`GIVEN a programmatic popover
-  //       WHEN the togglePopover function is called
-  //       THEN the popover should be open`, async ({ page }) => {
-  //   const { driver: d } = await setup(page, 'toggle');
-  //   const programmaticTrigger = page.getByRole('button', { name: 'toggle popover' });
-  //   await programmaticTrigger.click();
-  //   await expect(d.getPopover()).toBeVisible();
-  // });
-  // test(`GIVEN an open programmatic popover
-  // WHEN the togglePopover function is called
-  // THEN the popover should be closed`, async ({ page }) => {
-  //   const { driver: d } = await setup(page, 'toggle');
-  //   const programmaticTrigger = page.getByRole('button', { name: 'toggle popover' });
-  //   await programmaticTrigger.click();
-  //   await expect(d.getPopover()).toBeVisible();
-  //   await programmaticTrigger.click();
-  //   await expect(d.getPopover()).toBeHidden();
-  // });
+  test.describe('Programmatic functionality', () => {
+    test(`GIVEN a programmatic popover
+        WHEN the showPopover function is called
+        THEN the popover should be open`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-show');
+      await expect(d.getPopover()).toBeHidden();
+      const programmaticTrigger = page.getByRole('button', { name: 'show popover' });
+
+      await programmaticTrigger.focus();
+      await programmaticTrigger.press('Enter');
+
+      await expect(d.getPopover()).toBeVisible();
+    });
+
+    test(`GIVEN an open programmatic popover
+  WHEN the hidePopover function is called
+  THEN the popover should be hidden`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-hide');
+
+      // Initial open
+      await d.getTrigger().click();
+      await expect(d.getPopover()).toBeVisible();
+
+      const programmaticTrigger = page.getByRole('button', { name: 'hide popover' });
+      await programmaticTrigger.focus();
+      await programmaticTrigger.press('Enter');
+
+      await expect(d.getPopover()).toBeHidden();
+    });
+
+    test(`GIVEN a progrmmatic popover
+      WHEN focusing on the button and pressing the 'o' key
+      THEN the popover should be programmatically opened`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'programmatic');
+
+      await expect(d.getPopover()).toBeHidden();
+
+      const programmaticTrigger = page.getByRole('button', {
+        name: "Focus me and press the 'o'",
+      });
+
+      // Using `page` here because driver is scoped to the popover
+      await expect(programmaticTrigger).toBeVisible();
+      await programmaticTrigger.focus();
+      await programmaticTrigger.press('o');
+
+      await expect(d.getPopover()).toBeVisible();
+    });
+  });
 });

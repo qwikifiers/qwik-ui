@@ -10,49 +10,63 @@ import {
   type QRL,
   useTask$,
 } from '@builder.io/qwik';
-import { collapsibleContextId } from './collapsible-context-id';
-import { type CollapsibleContext } from './collapsible-context.type';
-import { getHiddenHeight } from '../../utils/get-hidden-height';
+
+import { type CollapsibleContext, collapsibleContextId } from './collapsible-context';
 import { isBrowser } from '@builder.io/qwik/build';
+import { useCollapsible } from './use-collapsible';
 
 export type CollapsibleProps = PropsOf<'div'> & {
   id?: string;
   open?: boolean | undefined;
   'bind:open'?: Signal<boolean>;
+  onChange$?: QRL<(open: boolean) => void>;
+  /** @deprecated use `onChange$` instead */
   onOpenChange$?: QRL<(open: boolean) => void>;
   disabled?: boolean;
+  triggerRef?: Signal<HTMLButtonElement>;
+  collapsible?: boolean;
+  accordionItem?: boolean;
 };
 
 export const HCollapsible = component$((props: CollapsibleProps) => {
   const {
     disabled,
     onOpenChange$,
+    onChange$,
     'bind:open': givenIsOpenSig,
     id,
+    triggerRef: givenTriggerRef,
+    collapsible = true,
     open,
+    accordionItem,
     ...rest
   } = props;
 
   const defaultOpenSig = useSignal<boolean>(open ?? false);
   const isOpenSig = givenIsOpenSig ?? defaultOpenSig;
 
-  const triggerRef = useSignal<HTMLButtonElement>();
+  const defaultTriggerRef = useSignal<HTMLButtonElement>();
+  const triggerRef = givenTriggerRef ?? defaultTriggerRef;
   const contentRef = useSignal<HTMLElement>();
 
   const contentHeightSig = useSignal<number | null>(null);
 
+  const { getHiddenHeight } = useCollapsible();
+
   const localId = useId();
-  const itemId = id || localId;
+  const itemId = id ?? localId;
 
   useTask$(function onOpenChangeTask({ track }) {
     track(() => isOpenSig.value);
 
     if (isBrowser) {
+      // syntactic sugar
       onOpenChange$?.(isOpenSig.value);
+      onChange$?.(isOpenSig.value);
     }
   });
 
-  const getContentDimensions$ = $(() => {
+  const getContentDimensions$ = $(async () => {
     if (!contentRef.value) {
       throw new Error(
         'Qwik UI: There is no reference to the collapsible content element. Make sure to wrap the content in a <CollapsibleContent> component.',
@@ -60,7 +74,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     }
 
     if (contentHeightSig.value === null) {
-      contentHeightSig.value = getHiddenHeight(contentRef.value);
+      contentHeightSig.value = await getHiddenHeight(contentRef.value);
     }
 
     if (contentHeightSig.value !== 0) {
@@ -68,6 +82,14 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
         '--qwikui-collapsible-content-height',
         `${contentHeightSig.value}px`,
       );
+
+      // support previous accordion animations
+      if (accordionItem) {
+        contentRef.value.style.setProperty(
+          '--qwikui-accordion-content-height',
+          `${contentHeightSig.value}px`,
+        );
+      }
     }
   });
 
@@ -79,6 +101,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
     contentHeightSig,
     getContentDimensions$,
     disabled,
+    collapsible,
   };
 
   useContextProvider(collapsibleContextId, context);
