@@ -9,14 +9,14 @@ type DropdownCheckboxItemProps = {
    * QRL handler that runs when the user selects an item.
    */
   onChange$?: QRL<(checked: boolean) => void>;
-} & DropdownItemProps;
+} & Omit<DropdownItemProps, 'onChange$'>;
 
 export const HDropdownCheckboxItem = component$((props: DropdownCheckboxItemProps) => {
   const { disabled = false, closeOnSelect = false, onChange$, ...rest } = props;
 
   const checkedSig = useSignal<boolean>(false);
 
-  useTask$(function reactiveUserOpen({ track }) {
+  useTask$(function reactiveUserChecked({ track }) {
     const bindCheckedSig = props['bind:checked'];
     if (!bindCheckedSig) return;
     track(() => bindCheckedSig.value);

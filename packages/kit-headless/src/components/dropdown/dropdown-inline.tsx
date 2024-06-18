@@ -70,15 +70,6 @@ export const HDropdownRoot: Component<DropdownProps & InlineCompProps> = (
 
         // increment after processing children
         currItemIndex++;
-
-        // the default case isn't handled here, so we need to process the children to get to the label component
-        if (child.props.children) {
-          const childChildren = Array.isArray(child.props.children)
-            ? [...child.props.children]
-            : [child.props.children];
-          childrenToProcess.unshift(...childChildren);
-        }
-
         break;
       }
 

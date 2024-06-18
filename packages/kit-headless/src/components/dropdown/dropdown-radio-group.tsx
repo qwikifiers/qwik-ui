@@ -27,7 +27,7 @@ type DropdownRadioGroupProps = {
    * QRL handler that runs when the user selects an item.
    */
   onChange$?: QRL<(value: string) => void>;
-} & PropsOf<'div'>;
+} & Omit<PropsOf<'div'>, 'onChange$'>;
 
 export const HDropdownRadioGroup = component$((props: DropdownRadioGroupProps) => {
   const { disabled = false, defaultValue = '', onChange$, ...rest } = props;
@@ -38,6 +38,8 @@ export const HDropdownRadioGroup = component$((props: DropdownRadioGroupProps) =
     const bindValueSig = props['bind:value'];
     if (!bindValueSig) return;
     track(() => bindValueSig.value);
+
+    console.log('bindValueSig.value:', bindValueSig.value);
 
     valueSig.value = bindValueSig.value;
   });
