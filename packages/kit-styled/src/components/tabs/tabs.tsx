@@ -1,4 +1,4 @@
-import { Slot, component$, PropsOf } from '@builder.io/qwik';
+import { Slot, component$, type PropsOf } from '@builder.io/qwik';
 import { Tabs as HeadlessTabs } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 

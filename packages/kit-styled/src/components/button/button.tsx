@@ -1,4 +1,4 @@
-import { component$, PropsOf, Slot } from '@builder.io/qwik';
+import { component$, type PropsOf, Slot } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
