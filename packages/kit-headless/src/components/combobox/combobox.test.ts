@@ -520,7 +520,7 @@ test.describe('Props', () => {
           THEN the selected value matches the 2nd option's value`, async ({ page }) => {
       const { driver: d } = await setup(page, 'item-value');
 
-      await d.openListbox('Enter');
+      await d.openListbox('ArrowDown');
 
       await expect(page.locator('p')).toContainText('The selected value is: null');
       await d.getInput().press('ArrowDown');
@@ -532,12 +532,12 @@ test.describe('Props', () => {
     test(`GIVEN a combobox with distinct display and option values
           WHEN a reactive value is set to the 5th option
           THEN the selected value matches the 5th option's value`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'reactive-value');
+      const { driver: d } = await setup(page, 'programmatic');
 
-      await expect(d.getTrigger()).toHaveText('Ryan');
+      await expect(d.getInput()).toHaveValue('Ryan');
       await page.getByRole('button', { name: 'Change to Abby' }).click();
 
-      await expect(d.getTrigger()).toHaveText(`Abby`);
+      await expect(d.getInput()).toHaveValue(`Abby`);
     });
 
     test(`GIVEN a combobox with distinct display and option values
@@ -547,18 +547,18 @@ test.describe('Props', () => {
           THEN the bind:value signal should update to reflect the 5th option's value`, async ({
       page,
     }) => {
-      const { driver: d } = await setup(page, 'reactive-value');
+      const { driver: d } = await setup(page, 'programmatic');
 
-      await expect(d.getTrigger()).toHaveText('Ryan');
+      await expect(d.getInput()).toHaveValue('Ryan');
       // setup
       await page.getByRole('button', { name: 'Change to Abby' }).click();
-      await expect(d.getTrigger()).toHaveText(`Abby`);
+      await expect(d.getInput()).toHaveValue(`Abby`);
 
       await d.openListbox('click');
       await d.getItemAt(1).click();
-      await expect(d.getTrigger()).toHaveText(`Ryan`);
+      await expect(d.getInput()).toHaveValue(`Ryan`);
       await page.getByRole('button', { name: 'Change to Abby' }).click();
-      await expect(d.getTrigger()).toHaveText(`Abby`);
+      await expect(d.getInput()).toHaveValue(`Abby`);
     });
   });
 });
@@ -614,7 +614,7 @@ test.describe('A11y', () => {
     );
   });
 
-  test(`GIVEN an open  combobox with aria-activedescendent
+  test(`GIVEN an open combobox with aria-activedescendent
         WHEN the listbox is closed
         THEN aria-activedescendent should be an empty string`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
