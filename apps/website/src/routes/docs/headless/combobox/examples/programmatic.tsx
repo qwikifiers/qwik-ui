@@ -15,12 +15,12 @@ export default component$(() => {
     <>
       <Combobox.Root class="combobox-root" bind:value={selectedId}>
         <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
-        <div class="combobox-box">
+        <Combobox.Hub class="combobox-hub">
           <Combobox.Input class="combobox-input" />
           <Combobox.Trigger class="combobox-trigger">
             <LuChevronDown class="combobox-icon" />
           </Combobox.Trigger>
-        </div>
+        </Combobox.Hub>
         <Combobox.Popover class="combobox-popover" gutter={8}>
           <Combobox.Listbox class="combobox-listbox">
             {users.map((user) => (

@@ -25,14 +25,14 @@ const Label = component$<PropsOf<typeof HeadlessCombobox.Label>>(({ ...props }) 
   );
 });
 
-const Control = component$<PropsOf<typeof HeadlessCombobox.Control>>((props) => {
+const Control = component$<PropsOf<typeof HeadlessCombobox.Hub>>((props) => {
   return (
-    <HeadlessCombobox.Control
+    <HeadlessCombobox.Hub
       {...props}
       class={cn('relative flex items-center rounded-base ', props.class)}
     >
       <Slot />
-    </HeadlessCombobox.Control>
+    </HeadlessCombobox.Hub>
   );
 });
 

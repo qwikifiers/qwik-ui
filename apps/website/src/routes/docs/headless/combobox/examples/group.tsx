@@ -10,12 +10,12 @@ export default component$(() => {
   return (
     <Combobox.Root class="combobox-root">
       <Combobox.Label class="combobox-label">User count</Combobox.Label>
-      <div class="combobox-box">
+      <Combobox.Hub class="combobox-hub">
         <Combobox.Input class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>
-      </div>
+      </Combobox.Hub>
       <Combobox.Popover class="combobox-popover" gutter={8}>
         <Combobox.Listbox class="combobox-listbox">
           <Combobox.Group>

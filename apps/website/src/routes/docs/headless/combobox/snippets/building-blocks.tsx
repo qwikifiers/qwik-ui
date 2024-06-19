@@ -7,10 +7,10 @@ export default component$(() => {
   return (
     <Combobox.Root options={data}>
       <Combobox.Label>Label Element</Combobox.Label>
-      <Combobox.Control>
+      <Combobox.Hub>
         <Combobox.Input />
         <Combobox.Trigger>Opens Listbox</Combobox.Trigger>
-      </Combobox.Control>
+      </Combobox.Hub>
       <Combobox.Popover>
         <Combobox.Listbox
           optionRenderer$={(option: ResolvedOption, index: number) => (

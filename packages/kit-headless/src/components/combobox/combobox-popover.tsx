@@ -44,7 +44,7 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
       flip={flip}
       hover={hover}
       gutter={gutter}
-      bind:anchor={context.inputRef}
+      bind:anchor={props['bind:anchor'] ?? context.hubRef}
       manual
       id={context.localId}
     >

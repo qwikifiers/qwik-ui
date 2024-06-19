@@ -41,7 +41,7 @@
   height: 44px;
 }
 
-.combobox-box {
+.combobox-hub {
   height: 48px;
   display: flex;
   align-items: center;
@@ -104,4 +104,31 @@
 [data-disabled] {
   opacity: 0.6;
   background: hsl(var(--foreground) / 0.05);
+}
+
+.combobox-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-inline: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: hsl(var(--muted));
+  margin-block: 0.25rem;
+}
+
+.combobox-multibox {
+  min-height: 48px;
+  max-width: 300px;
+
+  display: flex;
+  outline: 2px dotted hsla(var(--foreground));
+  position: relative;
+}
+
+.combobox-multibox:has(.combobox-input:focus) {
+  background: hsla(var(--primary) / 0.08);
+}
+
+.combobox-multibox .combobox-input:focus {
+  background: transparent;
 }

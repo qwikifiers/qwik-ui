@@ -44,7 +44,7 @@ export function useCombobox() {
         if (!context.inputRef.value) return;
         if (!selectedDisplayValue) return;
 
-        if (context.selectedIndexSetSig.value.has(index)) {
+        if (!context.multiple && context.selectedIndexSetSig.value.has(index)) {
           context.inputRef.value.value = selectedDisplayValue;
         }
       }

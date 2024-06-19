@@ -16,6 +16,7 @@ export type ComboboxContext = {
   listboxRef: Signal<HTMLUListElement | undefined>;
   groupRef: Signal<HTMLDivElement | undefined>;
   labelRef: Signal<HTMLDivElement | undefined>;
+  hubRef: Signal<HTMLDivElement | undefined>;
   selectedIndexSetSig: Signal<Set<number>>;
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;

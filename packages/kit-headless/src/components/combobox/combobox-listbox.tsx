@@ -28,24 +28,18 @@ export const HComboboxListbox = component$<ComboboxListboxProps>((props) => {
       return;
     }
 
-    if (
-      !context.listboxRef.value ||
-      !context.triggerRef.value ||
-      !context.inputRef.value
-    ) {
+    if (!context.listboxRef.value || !context.hubRef.value) {
       return;
     }
 
     const listboxRect = context.listboxRef.value.getBoundingClientRect();
-    const triggerRect = context.triggerRef.value.getBoundingClientRect();
-    const inputRect = context.inputRef.value.getBoundingClientRect();
+    const boxRect = context.hubRef.value.getBoundingClientRect();
     const { clientX, clientY } = e;
 
     const isOutsideListbox = await isOutside(listboxRect, clientX, clientY);
-    const isOutsideTrigger = await isOutside(triggerRect, clientX, clientY);
-    const isOutsideInput = await isOutside(inputRect, clientX, clientY);
+    const isOutsideBox = await isOutside(boxRect, clientX, clientY);
 
-    if (isOutsideListbox && isOutsideTrigger && isOutsideInput) {
+    if (isOutsideListbox && isOutsideBox) {
       context.isListboxOpenSig.value = false;
     }
   });

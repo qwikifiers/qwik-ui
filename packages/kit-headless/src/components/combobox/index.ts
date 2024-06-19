@@ -11,3 +11,4 @@ export { HComboboxItemIndicator as ItemIndicator } from './combobox-item-indicat
 export { HComboboxDescription as Description } from './combobox-description';
 export { HComboboxErrorMessage as ErrorMessage } from './combobox-error-message';
 export { HComboboxPopover as Popover } from './combobox-popover';
+export { HComboboxHub as Hub } from './combobox-hub';

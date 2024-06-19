@@ -121,6 +121,7 @@ export const HComboboxRootImpl = component$<
   const listboxRef = useSignal<HTMLUListElement>();
   const labelRef = useSignal<HTMLDivElement>();
   const groupRef = useSignal<HTMLDivElement>();
+  const hubRef = useSignal<HTMLDivElement>();
   const loop = givenLoop ?? false;
   const localId = useId();
   const selectedIndexSetSig = useSignal<Set<number>>(
@@ -144,6 +145,7 @@ export const HComboboxRootImpl = component$<
     listboxRef,
     labelRef,
     groupRef,
+    hubRef,
     localId,
     highlightedIndexSig,
     selectedIndexSetSig,

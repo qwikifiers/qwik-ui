@@ -34,10 +34,10 @@ export default component$(() => {
       bind:selectedIndex={selectedOptionIndexSig}
     >
       <Combobox.Label>Personal Trainers ⚡</Combobox.Label>
-      <Combobox.Control>
+      <Combobox.Box>
         <Combobox.Input placeholder="Jim" />
         <Combobox.Trigger />
-      </Combobox.Control>
+      </Combobox.Box>
       <Combobox.Popover gutter={8}>
         <Combobox.Listbox
           optionRenderer$={(option: ResolvedOption, index: number) => {
