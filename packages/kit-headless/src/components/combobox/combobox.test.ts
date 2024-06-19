@@ -599,7 +599,7 @@ test.describe('A11y', () => {
     );
   });
 
-  test(`GIVEN an open  combobox with aria-activedescendent
+  test(`GIVEN a combobox with aria-activedescendent on the input
         WHEN the listbox is opened and the down arrow key is pressed
         THEN aria-activedescendent should be the id of the second option`, async ({
     page,
@@ -610,7 +610,7 @@ test.describe('A11y', () => {
 
     const secondOptionId = await d.getItemAt(1).getAttribute('id');
 
-    await expect(d.getRoot()).toHaveAttribute(
+    await expect(d.getInput()).toHaveAttribute(
       'aria-activedescendant',
       `${secondOptionId}`,
     );
@@ -624,19 +624,19 @@ test.describe('A11y', () => {
     await d.getInput().press('Enter');
     await expect(d.getListbox()).toBeHidden();
 
-    await expect(d.getRoot()).toHaveAttribute('aria-activedescendant', 'hero');
+    await expect(d.getInput()).toHaveAttribute('aria-activedescendant', '');
   });
 
-  test(`GIVEN a  combobox with aria-controls
+  test(`GIVEN a combobox with aria-controls on the input
         WHEN the combobox renders
         THEN the root's aria-controls should be equal to the ID of the listbox`, async ({
     page,
   }) => {
     const { driver: d } = await setup(page, 'hero');
-    await d.openListbox('Enter');
+    await d.openListbox('ArrowDown');
     const listboxId = await d.getListbox().getAttribute('id');
 
-    await expect(d.getRoot()).toHaveAttribute('aria-controls', `${listboxId}`);
+    await expect(d.getInput()).toHaveAttribute('aria-controls', `${listboxId}`);
   });
 });
 
