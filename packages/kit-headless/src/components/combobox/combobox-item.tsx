@@ -40,7 +40,6 @@ export const HComboboxItem = component$(
       const index = _index ?? null;
       return !disabled && context.selectedIndexSetSig.value.has(index!);
     });
-    const initialOpenSig = useSignal<boolean>(true);
     const isHighlightedSig = useComputed$(() => {
       if (disabled) return;
 
@@ -83,9 +82,6 @@ export const HComboboxItem = component$(
 
       if (context.multiple) {
         await selectionManager$(localIndexSig.value, 'toggle');
-
-        // keep focus so that when pressing escape, the listbox closes even when clicking.
-        context.triggerRef.value?.focus();
       } else {
         await selectionManager$(localIndexSig.value, 'add');
         context.isListboxOpenSig.value = false;
@@ -98,6 +94,10 @@ export const HComboboxItem = component$(
       if (localIndexSig.value !== null) {
         context.highlightedIndexSig.value = localIndexSig.value;
       }
+    });
+
+    const handleFocus$ = $(() => {
+      context.inputRef.value?.focus();
     });
 
     const itemContext: ComboboxItemContext = {
@@ -144,6 +144,7 @@ export const HComboboxItem = component$(
         data-selected={isSelectedSig.value ? '' : undefined}
         data-highlighted={isHighlightedSig.value ? '' : undefined}
         onPointerOver$={[handlePointerOver$, rest.onPointerOver$]}
+        onFocus$={[handleFocus$, rest.onFocus$]}
         aria-labelledby={itemLabelId}
         data-item
         onClick$={handleClick$}

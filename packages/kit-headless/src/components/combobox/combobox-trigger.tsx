@@ -11,16 +11,11 @@ export const HComboboxTrigger = component$((props: HComboboxTriggerImplProps) =>
     context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
   });
 
-  const handleMouseDown$ = $(() => {
-    context.inputRef.value?.focus();
-  });
-
   return (
     <button
       ref={context.triggerRef}
       aria-expanded={context.isListboxOpenSig.value}
       onClick$={[handleClick$, props.onClick$]}
-      onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
       preventdefault:mousedown
       tabIndex={-1}
       {...props}
