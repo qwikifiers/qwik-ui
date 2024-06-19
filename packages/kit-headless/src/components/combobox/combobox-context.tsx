@@ -24,14 +24,14 @@ export type ComboboxContext = {
   multiple: boolean | undefined;
 };
 
-// export const groupContextId = createContextId<GroupContext>('Combobox-Group');
+export const groupContextId = createContextId<GroupContext>('qui-combobox-group');
 
-// export type GroupContext = {
-//   groupLabelId: string;
-// };
+export type GroupContext = {
+  groupLabelId: string;
+};
 
 export const comboboxItemContextId =
-  createContextId<ComboboxItemContext>('Combobox-Option');
+  createContextId<ComboboxItemContext>('qui-combobox-item');
 
 export type ComboboxItemContext = {
   isSelectedSig: Signal<boolean>;

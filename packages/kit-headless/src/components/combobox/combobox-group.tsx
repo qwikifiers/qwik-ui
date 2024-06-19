@@ -1,10 +1,27 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import {
+  PropsOf,
+  Slot,
+  component$,
+  useContext,
+  useContextProvider,
+} from '@builder.io/qwik';
 
-type HComboboxGroupProps = PropsOf<'div'>;
+import { comboboxContextId, groupContextId } from './combobox-context';
 
-export const HComboboxGroup = component$((props: HComboboxGroupProps) => {
+type ComboboxGroupProps = PropsOf<'div'>;
+
+export const HComboboxGroup = component$<ComboboxGroupProps>((props) => {
+  const context = useContext(comboboxContextId);
+  const groupLabelId = `${context.localId}-group-label`;
+
+  const groupContext = {
+    groupLabelId,
+  };
+
+  useContextProvider(groupContextId, groupContext);
+
   return (
-    <div {...props}>
+    <div aria-labelledby={groupLabelId} role="group" {...props} ref={context.groupRef}>
       <Slot />
     </div>
   );

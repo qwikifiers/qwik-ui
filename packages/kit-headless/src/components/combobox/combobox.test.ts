@@ -591,6 +591,8 @@ test.describe('A11y', () => {
     await d.openListbox('ArrowDown');
     const labelId = await d.getRoot().getByRole('listitem').first().getAttribute('id');
 
+    console.log(labelId);
+
     await expect(d.getRoot().getByRole('group').first()).toHaveAttribute(
       'aria-labelledby',
       labelId!,
