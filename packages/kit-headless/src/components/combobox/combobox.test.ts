@@ -5,7 +5,7 @@ import { createTestDriver } from './combobox.driver';
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/combobox/${exampleName}`);
 
-  const driver = createTestDriver(page.getByRole('combobox'));
+  const driver = createTestDriver(page.locator('[data-combobox-root]'));
 
   return {
     driver,

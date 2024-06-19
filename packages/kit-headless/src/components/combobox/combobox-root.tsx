@@ -242,7 +242,7 @@ export const HComboboxRootImpl = component$<
   });
 
   return (
-    <div ref={rootRef} role="combobox" {...rest}>
+    <div ref={rootRef} role="group" data-combobox-root {...rest}>
       <Slot />
     </div>
   );

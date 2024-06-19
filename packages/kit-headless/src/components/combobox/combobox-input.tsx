@@ -15,6 +15,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
   const context = useContext(comboboxContextId);
   const listboxId = `${context.localId}-listbox`;
   const inputId = `${context.localId}-input`;
+  const labelId = `${context.localId}-label`;
 
   const initialDisplayValue = !context.multiple
     ? context.itemsMapSig.value.get(
@@ -132,8 +133,9 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
       id={inputId}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       aria-activedescendant={activeDescendantSig.value}
-      aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
-      aria-controls={context.isListboxOpenSig.value ? listboxId : undefined}
+      aria-expanded={context.isListboxOpenSig.value ? 'true' : 'false'}
+      aria-controls={listboxId}
+      aria-labelledby={labelId}
       aria-autocomplete="list"
       aria-haspopup="listbox"
       ref={context.inputRef}

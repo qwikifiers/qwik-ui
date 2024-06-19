@@ -5,9 +5,10 @@ type HComboboxLabelProps = PropsOf<'label'>;
 
 export const HComboboxLabel = component$((props: HComboboxLabelProps) => {
   const context = useContext(comboboxContextId);
+  const labelId = `${context.localId}-label`;
 
   return (
-    <label ref={context.labelRef} {...props}>
+    <label id={labelId} ref={context.labelRef} {...props}>
       <Slot />
     </label>
   );
