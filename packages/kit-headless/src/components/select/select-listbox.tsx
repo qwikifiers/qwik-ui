@@ -18,6 +18,7 @@ export const HSelectListbox = component$<SelectListboxProps>((props) => {
 
   const context = useContext(SelectContextId);
   const listboxId = `${context.localId}-listbox`;
+  const triggerId = `${context.localId}-trigger`;
 
   const isOutside = $((rect: DOMRect, x: number, y: number) => {
     return x < rect.left || x > rect.right || y < rect.top || y > rect.bottom;
@@ -65,6 +66,8 @@ export const HSelectListbox = component$<SelectListboxProps>((props) => {
       id={listboxId}
       role="listbox"
       ref={context.listboxRef}
+      aria-multiselectable={context.multiple ? 'true' : undefined}
+      aria-labelledby={triggerId}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       data-invalid={context.isInvalidSig?.value ? '' : undefined}

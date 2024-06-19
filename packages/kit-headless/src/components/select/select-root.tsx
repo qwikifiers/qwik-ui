@@ -142,9 +142,6 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     // ids
     const localId = useId();
-    const listboxId = `${localId}-listbox`;
-    const labelId = `${localId}-label`;
-    const valueId = `${localId}-value`;
 
     // source of truth
     const itemsMapSig = useComputed$(() => {
@@ -298,18 +295,14 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     return (
       <div
-        role="combobox"
+        role="group"
         ref={rootRef}
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
         data-disabled={isDisabledSig.value ? '' : undefined}
         data-invalid={context.isInvalidSig?.value ? '' : undefined}
         aria-invalid={context.isInvalidSig?.value}
-        aria-controls={listboxId}
-        aria-expanded={context.isListboxOpenSig.value}
-        aria-haspopup="listbox"
-        aria-labelledby={_label ? labelId : valueId}
-        aria-multiselectable={context.multiple ? 'true' : undefined}
+        data-qui-select-root
         {...rest}
       >
         <Slot />

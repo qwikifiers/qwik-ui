@@ -5,7 +5,7 @@ import { createTestDriver } from './select.driver';
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/select/${exampleName}`);
 
-  const driver = createTestDriver(page.getByRole('combobox'));
+  const driver = createTestDriver(page.locator('[data-qui-select-root]'));
 
   return {
     driver,
@@ -918,13 +918,12 @@ test.describe('Props', () => {
   });
 });
 
-/** TODO: add docs telling people how to add an aria-label to the root component. (accessible name) */
 test.describe('A11y', () => {
   test('Axe Validation Test', async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
     const initialResults = await new AxeBuilder({ page })
-      .include('[role="combobox"]')
+      .include('[data-qui-select-root]')
       .analyze();
 
     expect(initialResults.violations).toEqual([]);
@@ -932,7 +931,7 @@ test.describe('A11y', () => {
     await d.openListbox('click');
 
     const afterClickResults = await new AxeBuilder({ page })
-      .include('[role="combobox"]')
+      .include('[data-qui-select-root]')
       .analyze();
 
     expect(afterClickResults.violations).toEqual([]);
@@ -952,44 +951,25 @@ test.describe('A11y', () => {
     );
   });
 
-  test(`GIVEN an open hero select with aria-activedescendent
-        WHEN the listbox is opened and the down arrow key is pressed
-        THEN aria-activedescendent should be the id of the second option`, async ({
-    page,
-  }) => {
-    const { driver: d } = await setup(page, 'hero');
-    await d.openListbox('ArrowDown');
-    await d.getHighlightedItem().press('ArrowDown');
-
-    const secondOptionId = await d.getItemAt(1).getAttribute('id');
-
-    await expect(d.getRoot()).toHaveAttribute(
-      'aria-activedescendant',
-      `${secondOptionId}`,
-    );
-  });
-
-  test(`GIVEN an open hero select with aria-activedescendent
-        WHEN the listbox is closed
-        THEN aria-activedescendent should be an empty string`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
-    await d.openListbox('ArrowDown');
-    await d.getHighlightedItem().press('Enter');
-    await expect(d.getListbox()).toBeHidden();
-
-    await expect(d.getRoot()).toHaveAttribute('aria-activedescendant', '');
-  });
-
-  test(`GIVEN a hero select with aria-controls
+  test(`GIVEN a select with aria-controls
         WHEN the select renders
-        THEN the root's aria-controls should be equal to the ID of the listbox`, async ({
+        THEN the trigger's aria-controls should be equal to the ID of the listbox`, async ({
     page,
   }) => {
     const { driver: d } = await setup(page, 'hero');
     await d.openListbox('Enter');
     const listboxId = await d.getListbox().getAttribute('id');
 
-    await expect(d.getRoot()).toHaveAttribute('aria-controls', `${listboxId}`);
+    await expect(d.getTrigger()).toHaveAttribute('aria-controls', `${listboxId}`);
+  });
+
+  test(`GIVEN a multi-select
+        WHEN the select renders
+        THEN the listbox should have aria-multiselectable to true`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple');
+    await d.openListbox('Enter');
+
+    await expect(d.getListbox()).toHaveAttribute('aria-multiselectable', 'true');
   });
 });
 
