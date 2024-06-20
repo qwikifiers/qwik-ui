@@ -22,7 +22,7 @@ export const ShowcaseTest = component$(() => {
 
   return (
     <>
-      <section class="flex flex-col items-center">
+      <section class="flex w-full flex-col items-center">
         {MetaGlobComponentSig.value && <MetaGlobComponentSig.value />}
       </section>
     </>

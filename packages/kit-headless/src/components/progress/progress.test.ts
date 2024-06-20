@@ -10,27 +10,53 @@ async function setup(page: Page, exampleName: string) {
   return { driver, getRoot, getProgressState, getProgressValue, getProgressIndicator };
 }
 
-test.describe('Progress Bar usaged', () => {
-  test(`should have root and indicator`, async ({ page }) => {
+test.describe('Critical functionality', () => {
+  test(`GIVEN a progress
+  WHEN the progress is rendered
+  THEN it should have root and indicator`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
     await expect(d.getRoot()).toBeVisible();
     await expect(d.getProgressIndicator()).toBeVisible();
   });
 
-  test(`should have progress state loading if is not completed`, async ({ page }) => {
+  test(`GIVEN a progress
+  WHEN progress is not completed
+  THEN it should have progress state loading`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    expect(d.getProgressIndicator()).toBeVisible();
+    await expect(d.getProgressIndicator()).toBeVisible();
     expect(await d.getProgressState()).toBe('loading');
     expect(await d.getProgressValue()).toBe('30');
   });
+});
 
-  test(`should have aria attributes`, async ({ page }) => {
+test.describe('A11y', () => {
+  test(`GIVEN a progress
+  WHEN the progress is rendered
+  THEN it should have aria-valuemin attribute`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
     await expect(d.getRoot()).toHaveAttribute('aria-valuemin', '0');
+  });
+
+  test(`GIVEN a progress
+  WHEN the progress is rendered
+  THEN it should have aria-valuemax attribute`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
     await expect(d.getRoot()).toHaveAttribute('aria-valuemax', '100');
+  });
+
+  test(`GIVEN a progress
+  WHEN the progress is rendered
+  THEN it should have aria-valuenow attribute`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
     await expect(d.getRoot()).toHaveAttribute('aria-valuenow', '30');
+  });
+
+  test(`GIVEN a progress
+  WHEN the progress is rendered
+  THEN it should have aria-valuetext attribute`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
     await expect(d.getRoot()).toHaveAttribute('aria-valuetext', '30%');
   });
 });
