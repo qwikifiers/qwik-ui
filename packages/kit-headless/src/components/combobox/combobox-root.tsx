@@ -127,6 +127,7 @@ export const HComboboxRootImpl = component$<
   const selectedIndexSetSig = useSignal<Set<number>>(
     new Set(givenValuePropIndex ? [givenValuePropIndex] : []),
   );
+  const disabledIndexSetSig = useSignal<Set<number>>(new Set());
   const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
   const initialLoadSig = useSignal<boolean>(true);
   const currDisplayValueSig = useSignal<string | string[]>();
@@ -135,9 +136,11 @@ export const HComboboxRootImpl = component$<
     block: 'center',
     inline: 'nearest',
   };
+  const inputValueSig = useSignal<string>(inputRef.value?.value ?? '');
 
   const context: ComboboxContext = {
     isListboxOpenSig,
+    inputValueSig,
     itemsMapSig,
     triggerRef,
     inputRef,
@@ -149,6 +152,7 @@ export const HComboboxRootImpl = component$<
     localId,
     highlightedIndexSig,
     selectedIndexSetSig,
+    disabledIndexSetSig,
     currDisplayValueSig,
     loop,
     multiple,
@@ -240,6 +244,14 @@ export const HComboboxRootImpl = component$<
   });
 
   useTask$(() => {
+    const disabledIndices = new Set<number>();
+    for (const [index, item] of itemsMapSig.value) {
+      if (item.disabled) {
+        disabledIndices.add(index);
+      }
+    }
+    disabledIndexSetSig.value = disabledIndices;
+
     initialLoadSig.value = false;
   });
 

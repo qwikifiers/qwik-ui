@@ -5,6 +5,7 @@ export const comboboxContextId = createContextId<ComboboxContext>('qui-combobox'
 
 export type ComboboxContext = {
   isListboxOpenSig: Signal<boolean>;
+  inputValueSig: Signal<string>;
   itemsMapSig: Readonly<Signal<TItemsMap>>;
   scrollOptions: ScrollIntoViewOptions;
   localId: string;
@@ -20,6 +21,7 @@ export type ComboboxContext = {
   selectedIndexSetSig: Signal<Set<number>>;
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;
+  disabledIndexSetSig: Signal<Set<number>>;
 
   loop: boolean;
   multiple: boolean | undefined;

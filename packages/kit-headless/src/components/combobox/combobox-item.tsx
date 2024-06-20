@@ -28,130 +28,158 @@ export type HComboboxItemProps = PropsOf<'li'> & {
   value?: string;
 };
 
-export const HComboboxItem = component$(
-  ({ disabled, _index, ...rest }: HComboboxItemProps) => {
-    const context = useContext(comboboxContextId);
-    const itemRef = useSignal<HTMLLIElement>();
-    const itemLabelId = `${context.localId}-${_index}-item-label`;
+export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps) => {
+  const context = useContext(comboboxContextId);
+  const itemRef = useSignal<HTMLLIElement>();
+  const itemLabelId = `${context.localId}-${_index}-item-label`;
 
-    const { selectionManager$ } = useCombobox();
-    const localIndexSig = useSignal<number | null>(null);
-    const isSelectedSig = useComputed$(() => {
-      const index = _index ?? null;
-      return !disabled && context.selectedIndexSetSig.value.has(index!);
-    });
-    const isHighlightedSig = useComputed$(() => {
-      if (disabled) return;
+  const { selectionManager$ } = useCombobox();
+  const localIndexSig = useSignal<number | null>(null);
+  const isDisabledSig = useComputed$(() =>
+    context.disabledIndexSetSig.value.has(_index!),
+  );
+  const isSelectedSig = useComputed$(() => {
+    const index = _index ?? null;
+    return !isDisabledSig.value && context.selectedIndexSetSig.value.has(index!);
+  });
 
-      if (context.highlightedIndexSig.value === _index) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+  const isHighlightedSig = useComputed$(() => {
+    if (isDisabledSig.value) return;
 
-    useTask$(async function getIndexTask() {
-      if (_index === undefined)
-        throw Error('Qwik UI: Combobox component item cannot find its proper index.');
+    if (context.highlightedIndexSig.value === _index) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
-      localIndexSig.value = _index;
-    });
+  useTask$(async function getIndexTask() {
+    if (_index === undefined)
+      throw Error('Qwik UI: Combobox component item cannot find its proper index.');
 
-    const checkVisibility$ = $(async (entries: IntersectionObserverEntry[]) => {
-      const [entry] = entries;
+    localIndexSig.value = _index;
+  });
 
-      if (isHighlightedSig.value && !entry.isIntersecting) {
-        const containerRect = context.listboxRef.value?.getBoundingClientRect();
-        const itemRect = itemRef.value?.getBoundingClientRect();
+  const checkVisibility$ = $(async (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
 
-        if (!containerRect || !itemRect) return;
+    if (isHighlightedSig.value && !entry.isIntersecting) {
+      const containerRect = context.listboxRef.value?.getBoundingClientRect();
+      const itemRect = itemRef.value?.getBoundingClientRect();
 
-        // Calculates the offset to center the item within the container
-        const offset =
-          itemRect.top -
-          containerRect.top -
-          containerRect.height / 2 +
-          itemRect.height / 2;
+      if (!containerRect || !itemRect) return;
 
-        context.listboxRef.value?.scrollBy({ top: offset, ...context.scrollOptions });
-      }
-    });
+      // Calculates the offset to center the item within the container
+      const offset =
+        itemRect.top - containerRect.top - containerRect.height / 2 + itemRect.height / 2;
 
-    const handleClick$ = $(async () => {
-      if (disabled || localIndexSig.value === null) return;
+      context.listboxRef.value?.scrollBy({ top: offset, ...context.scrollOptions });
+    }
+  });
 
-      if (context.multiple) {
-        await selectionManager$(localIndexSig.value, 'toggle');
-      } else {
-        await selectionManager$(localIndexSig.value, 'add');
-        context.isListboxOpenSig.value = false;
-      }
-    });
+  const handleClick$ = $(async () => {
+    if (isDisabledSig.value || localIndexSig.value === null) return;
 
-    const handlePointerOver$ = $(() => {
-      if (disabled) return;
+    if (context.multiple) {
+      await selectionManager$(localIndexSig.value, 'toggle');
+    } else {
+      await selectionManager$(localIndexSig.value, 'add');
+      context.isListboxOpenSig.value = false;
+    }
+  });
 
-      if (localIndexSig.value !== null) {
-        context.highlightedIndexSig.value = localIndexSig.value;
-      }
-    });
+  const handlePointerOver$ = $(() => {
+    if (isDisabledSig.value) return;
 
-    const handleFocus$ = $(() => {
-      context.inputRef.value?.focus();
-    });
+    if (localIndexSig.value !== null) {
+      context.highlightedIndexSig.value = localIndexSig.value;
+    }
+  });
 
-    const itemContext: ComboboxItemContext = {
-      isSelectedSig,
-      itemLabelId,
-    };
+  const handleFocus$ = $(() => {
+    context.inputRef.value?.focus();
+  });
 
-    useContextProvider(comboboxItemContextId, itemContext);
+  const itemContext: ComboboxItemContext = {
+    isSelectedSig,
+    itemLabelId,
+  };
 
-    useTask$(async function navigationTask({ track, cleanup }) {
-      track(() => context.highlightedIndexSig.value);
+  useContextProvider(comboboxItemContextId, itemContext);
 
-      if (isServer || !context.listboxRef.value) return;
-      if (_index !== context.highlightedIndexSig.value) return;
+  useTask$(async function navigationTask({ track, cleanup }) {
+    track(() => context.highlightedIndexSig.value);
 
-      const hasScrollbar =
-        context.listboxRef.value.scrollHeight > context.listboxRef.value.clientHeight;
+    if (isServer || !context.listboxRef.value) return;
+    if (_index !== context.highlightedIndexSig.value) return;
 
-      if (!hasScrollbar) {
-        return;
-      }
+    const hasScrollbar =
+      context.listboxRef.value.scrollHeight > context.listboxRef.value.clientHeight;
 
-      const observer = new IntersectionObserver(checkVisibility$, {
-        root: context.listboxRef.value,
-        threshold: 1.0,
-      });
+    if (!hasScrollbar) {
+      return;
+    }
 
-      cleanup(() => observer?.disconnect());
-
-      if (itemRef.value) {
-        observer.observe(itemRef.value);
-      }
+    const observer = new IntersectionObserver(checkVisibility$, {
+      root: context.listboxRef.value,
+      threshold: 1.0,
     });
 
-    return (
-      <li
-        role="option"
-        ref={itemRef}
-        tabIndex={-1}
-        id={`${context.localId}-${_index}`}
-        aria-selected={isSelectedSig.value}
-        aria-disabled={disabled === true ? 'true' : 'false'}
-        data-disabled={disabled ? '' : undefined}
-        data-selected={isSelectedSig.value ? '' : undefined}
-        data-highlighted={isHighlightedSig.value ? '' : undefined}
-        onPointerOver$={[handlePointerOver$, rest.onPointerOver$]}
-        onFocus$={[handleFocus$, rest.onFocus$]}
-        aria-labelledby={itemLabelId}
-        data-item
-        onClick$={handleClick$}
-        {...rest}
-      >
-        <Slot />
-      </li>
-    );
-  },
-);
+    cleanup(() => observer?.disconnect());
+
+    if (itemRef.value) {
+      observer.observe(itemRef.value);
+    }
+  });
+
+  useTask$(async ({ track }) => {
+    track(() => context.inputValueSig.value);
+
+    if (isServer || !itemRef.value) return;
+
+    if (context.inputValueSig.value === '') {
+      context.selectedIndexSetSig.value = new Set<number>();
+    } else {
+      context.isListboxOpenSig.value = true;
+    }
+
+    const itemDisplayValue = context.itemsMapSig.value.get(_index!)?.displayValue;
+
+    if (itemDisplayValue?.includes(context.inputValueSig.value)) {
+      itemRef.value.style.display = 'revert';
+      context.disabledIndexSetSig.value = new Set(
+        [...context.disabledIndexSetSig.value].filter(
+          (selectedIndex) => selectedIndex !== _index,
+        ),
+      );
+    } else {
+      itemRef.value.style.display = 'none';
+      context.disabledIndexSetSig.value = new Set([
+        ...context.disabledIndexSetSig.value,
+        _index!,
+      ]);
+    }
+  });
+
+  return (
+    <li
+      role="option"
+      ref={itemRef}
+      tabIndex={-1}
+      id={`${context.localId}-${_index}`}
+      aria-selected={isSelectedSig.value}
+      aria-disabled={isDisabledSig.value === true ? 'true' : 'false'}
+      data-disabled={isDisabledSig.value ? '' : undefined}
+      data-selected={isSelectedSig.value ? '' : undefined}
+      data-highlighted={isHighlightedSig.value ? '' : undefined}
+      onPointerOver$={[handlePointerOver$, rest.onPointerOver$]}
+      onFocus$={[handleFocus$, rest.onFocus$]}
+      aria-labelledby={itemLabelId}
+      data-item
+      onClick$={handleClick$}
+      {...rest}
+    >
+      <Slot />
+    </li>
+  );
+});

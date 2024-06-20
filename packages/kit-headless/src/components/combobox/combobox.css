@@ -5,3 +5,11 @@
 [role='listbox'][data-open] {
   display: revert;
 }
+
+[data-item-indicator] {
+  display: none;
+}
+
+[data-item-indicator][data-selected] {
+  display: revert;
+}

@@ -58,7 +58,7 @@ export function useCombobox() {
     }
     while (offset < len) {
       const nextIndex = (index + offset) % len;
-      if (!context.itemsMapSig.value.get(nextIndex)?.disabled) {
+      if (!context.disabledIndexSetSig.value.has(nextIndex)) {
         return nextIndex;
       }
       offset++;
@@ -76,7 +76,7 @@ export function useCombobox() {
     }
     while (offset <= len) {
       const prevIndex = (index - offset + len) % len;
-      if (!context.itemsMapSig.value.get(prevIndex)?.disabled) {
+      if (!context.disabledIndexSetSig.value.has(prevIndex)) {
         return prevIndex;
       }
       offset++;
@@ -87,7 +87,7 @@ export function useCombobox() {
     return index;
   });
   const getActiveDescendant$ = $((index: number) => {
-    if (index === -1 || context.itemsMapSig.value.get(index)?.disabled) {
+    if (index === -1 || context.disabledIndexSetSig.value.has(index)) {
       return '';
     }
     return `${context.localId}-${index}`;

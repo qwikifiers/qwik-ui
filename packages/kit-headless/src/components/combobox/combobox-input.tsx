@@ -107,7 +107,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
     if (context.highlightedIndexSig.value === null) {
       if (e.key === 'ArrowDown') {
         context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
-      } else {
+      } else if (e.key === 'ArrowUp') {
         context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
           context.itemsMapSig.value.size,
         );
@@ -116,12 +116,19 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
     }
   });
 
+  const handleInput$ = $(async (e: InputEvent) => {
+    const target = e.target as HTMLInputElement;
+    context.inputValueSig.value = target.value;
+    context.highlightedIndexSig.value = null;
+  });
+
   return (
     <input
       role="combobox"
       value={initialDisplayValue || undefined}
       id={inputId}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
+      onInput$={[handleInput$, props.onInput$]}
       aria-activedescendant={activeDescendantSig.value}
       aria-expanded={context.isListboxOpenSig.value ? 'true' : 'false'}
       aria-controls={listboxId}
@@ -129,6 +136,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
       aria-autocomplete="list"
       aria-haspopup="listbox"
       ref={context.inputRef}
+      autocomplete="off"
       data-combobox-input
       {...props}
     />

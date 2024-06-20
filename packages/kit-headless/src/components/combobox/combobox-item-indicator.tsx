@@ -7,8 +7,13 @@ export const HComboboxItemIndicator = component$((props: HComboboxItemIndicatorP
   const itemContext = useContext(comboboxItemContextId);
 
   return (
-    <span aria-hidden="true" {...props}>
-      {itemContext.isSelectedSig.value && <Slot />}
+    <span
+      data-selected={itemContext.isSelectedSig.value ? '' : undefined}
+      data-item-indicator
+      aria-hidden="true"
+      {...props}
+    >
+      <Slot />
     </span>
   );
 });
