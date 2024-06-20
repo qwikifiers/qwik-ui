@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../../dist/out-tsc"
-  },
-  "files": [".prettierrc.js"],
-  "exclude": ["tailwind.config.cjs"],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
-}
