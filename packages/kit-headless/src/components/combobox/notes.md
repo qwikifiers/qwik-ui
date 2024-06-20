@@ -42,23 +42,21 @@ Types of comboboxes:
 ## Features:
 
     Critical:
-    - [ ] Single selection
-    - [ ] Single selection keyboard navigation
-    - [ ] Reactive or initial values
+    - [x] Single selection
+    - [x] Single selection keyboard navigation
+    - [x] Reactive or initial values
     - [ ] Open/Close listbox based on typing, focus, or manually
-    - [ ] Disabled options
-    - [ ] Tab stop focus management
-    - [ ] A11y components / labels
-    - [ ] Item Groups
+    - [x] Disabled options
+    - [x] Tab stop focus management
+    - [x] A11y components / labels
+    - [x] Item Groups
     - [ ] Placeholder (check if needed? or if we can use the input placeholder)
     - [ ] Custom filter function
     - [ ] Form and validation support
-    - [ ] Multiple selection
-    - [ ] Multiple selection keyboard navigation
+    - [x] Multiple selection
     - [ ] Closes when no matching options
 
     Advanced:
-    - [ ] Custom ARIA live region announcements for option focus, filtering, and selection to address bugs in VO (check if this is still needed).
     - [ ] Browser autofill with a native hidden select
 
 ## Props:

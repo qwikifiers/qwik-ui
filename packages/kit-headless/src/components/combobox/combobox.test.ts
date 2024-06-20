@@ -723,3 +723,60 @@ test.describe('Multiple selection', () => {
     });
   });
 });
+
+test.describe('Filtering options', () => {
+  test(`GIVEN a combobox
+        WHEN typing into the combobox
+        THEN some options should be filtered`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+    await d.openListbox('ArrowDown');
+    expect(await d.getItemsLength()).toBe(8);
+    await d.getInput().fill('a');
+    expect(await d.getItemsLength()).not.toBe(8);
+  });
+
+  test(`GIVEN a combobox
+        WHEN typing a string that doesn't match an option
+        THEN the listbox should be closed`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+    await d.openListbox('ArrowDown');
+    await d.getInput().fill('abc123');
+    await expect(d.getListbox()).toBeHidden();
+  });
+
+  test(`GIVEN a combobox
+        WHEN typing a string that matches an option
+        THEN the listbox should be open`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+    await d.openListbox('ArrowDown');
+    await d.getInput().fill('App');
+    await expect(d.getListbox()).toBeVisible();
+  });
+
+  test(`GIVEN a combobox with some filtered options
+        WHEN the input is cleared
+        THEN everything should be displayed`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+    // initial setup
+    await d.openListbox('ArrowDown');
+    expect(await d.getItemsLength()).toBe(8);
+    await d.getInput().fill('a');
+    expect(await d.getItemsLength()).not.toBe(8);
+
+    await d.getInput().press('Backspace');
+    expect(await d.getItemsLength()).toBe(8);
+  });
+
+  test(`GIVEN a combobox
+        WHEN an option is selected
+        AND the typed string does not match the filter function
+        THEN the option should be unselected`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+    await d.openListbox('ArrowDown');
+    await d.getInput().press('Enter');
+    await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
+
+    await d.getInput().press('z');
+    await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'false');
+  });
+});
