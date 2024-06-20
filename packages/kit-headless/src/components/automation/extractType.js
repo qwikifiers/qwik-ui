@@ -1,33 +1,24 @@
 import * as fs from 'fs';
 import * as util from 'util';
-myFileReader('../select/select-root.tsx', 'select-root', './output.js');
 async function myFileReader(path, component_name, output) {
-  // we do what we can because we must
-  const getPublicTypes = /^type Public.*?{([\w|\W]*?)};/gm;
+  const getPublicTypes = /type Public.*?{([\w|\W]*?)};/gm;
   const cms = {};
   const sourceCode = fs.readFileSync(path, 'utf-8');
   let groups;
-
   while ((groups = getPublicTypes.exec(sourceCode)) !== null) {
-    const comments = groups[1];
-    console.log('----------');
-    console.log(comments);
-    console.log('----------');
-    // const trimStart = /^ *|(\* *)/g;
-    // const comment = groups[1].replaceAll(trimStart, '');
-    // const prop = groups[2];
-    // const type = groups[3];
-    // if (cms.hasOwnProperty(component_name)) {
-    //   cms[component_name].push({ comment, prop, type });
-    //   continue;
-    // }
-    // cms[component_name] = [{ comment, prop, type }];
+    const trimStart = /^ *|(\* *)/g;
+    const comments = groups[1].replaceAll(trimStart, '');
+    if (cms.hasOwnProperty(component_name)) {
+      cms[component_name].push({ comments });
+      continue;
+    }
+    cms[component_name] = [{ comments }];
   }
-  // const idk = `export const output=${util.inspect(cms)}`;
-  // console.log(cms);
-  // try {
-  //   fs.writeFileSync(output, idk);
-  // } catch (err) {
-  //   console.error(err);
-  // }
+  const strg = `export const output=${util.inspect(cms)}`;
+  try {
+    fs.writeFileSync(output, strg);
+  } catch (err) {
+    console.error(err);
+  }
 }
+myFileReader('../select/select-root.tsx', 'select-root', './output.js');
