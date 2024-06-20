@@ -39,6 +39,10 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().locator('[data-highlighted]');
   };
 
+  const getHub = () => {
+    return getRoot().locator('[data-combobox-hub]');
+  };
+
   const openListbox = async (key: OpenKeys | 'click') => {
     if (key !== 'click') {
       await getInput().press(key);
@@ -62,5 +66,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getInput,
     openListbox,
     getHighlightedItem,
+    getHub,
   };
 }

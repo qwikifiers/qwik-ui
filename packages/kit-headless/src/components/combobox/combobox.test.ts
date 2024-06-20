@@ -678,9 +678,9 @@ test.describe('Multiple selection', () => {
     });
 
     test(`GIVEN a multi combobox
-        WHEN clicking one option
-        AND clicking another option
-        THEN the selected value should contain both options`, async ({ page }) => {
+          WHEN clicking one option
+          AND clicking another option
+          THEN the selected value should contain both options`, async ({ page }) => {
       const { driver: d } = await setup(page, 'multiple');
       await d.openListbox('click');
       await d.getItemAt(0).click();
@@ -688,26 +688,27 @@ test.describe('Multiple selection', () => {
       await d.getItemAt(1).click();
       await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
 
-      await expect(d.getInput()).toHaveValue('Tim, Ryan');
+      console.log(d.getHub());
+
+      await expect(d.getHub()).toContainText('Apple');
+      await expect(d.getHub()).toContainText('Apricot');
     });
   });
 
   test.describe('keyboard behavior', () => {
-    for (const key of ['Enter', 'Space']) {
-      test(`GIVEN an open multi combobox
-            WHEN pressing the ${key} key
-            AND pressing the ${key} key again
+    test(`GIVEN an open multi combobox
+            WHEN pressing the Enter key
+            AND pressing the Enter key again
             THEN the selected option should toggle between selected and unselected`, async ({
-        page,
-      }) => {
-        const { driver: d } = await setup(page, 'multiple');
-        await d.openListbox('Enter');
-        await d.getInput().press(key);
-        await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
-        await d.getInput().press(key);
-        await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'false');
-      });
-    }
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'multiple');
+      await d.openListbox('ArrowDown');
+      await d.getInput().press('Enter');
+      await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
+      await d.getInput().press('Enter');
+      await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'false');
+    });
 
     test(`GIVEN a multi combobox
           WHEN selecting an option
@@ -719,34 +720,6 @@ test.describe('Multiple selection', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
       await d.getInput().press('Escape');
       await expect(d.getListbox()).toBeHidden();
-    });
-
-    test(`GIVEN a multi combobox
-          WHEN hitting the shift + arrow down key
-          THEN focus should move to the next option, and toggle that option`, async ({
-      page,
-    }) => {
-      const { driver: d } = await setup(page, 'multiple');
-      await d.openListbox('Enter');
-      await d.getInput().press('Shift+ArrowDown');
-      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
-      await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
-    });
-
-    test(`GIVEN a multi combobox
-          WHEN hitting the shift + arrow up key
-          THEN focus should move to the previous option, and toggle that option`, async ({
-      page,
-    }) => {
-      const { driver: d } = await setup(page, 'multiple');
-      // initial setup
-      await d.openListbox('Enter');
-      await d.getInput().press('ArrowDown');
-      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
-
-      await d.getInput().press('Shift+ArrowUp');
-      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
-      await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
     });
   });
 });

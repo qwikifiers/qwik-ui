@@ -95,20 +95,10 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
           await selectionManager$(context.highlightedIndexSig.value, action);
         }
 
-        if (context.multiple) {
+        if (context.multiple && context.isListboxOpenSig.value) {
           context.isListboxOpenSig.value = true;
         } else {
           context.isListboxOpenSig.value = false;
-        }
-        break;
-
-      case 'a':
-        if (e.ctrlKey && context.multiple) {
-          for (const [index, item] of context.itemsMapSig.value) {
-            if (!item.disabled) {
-              await selectionManager$(index, 'add');
-            }
-          }
         }
         break;
     }
