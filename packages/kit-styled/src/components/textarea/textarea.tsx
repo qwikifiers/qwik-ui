@@ -1,4 +1,4 @@
-import { $, component$, PropsOf } from '@builder.io/qwik';
+import { $, component$, type PropsOf } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 
 type TextareaProps = PropsOf<'textarea'> & {
