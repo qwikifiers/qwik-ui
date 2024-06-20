@@ -1,0 +1,24 @@
+{
+  "name": "sink",
+  "type": "module",
+  "devDependencies": {
+    "@builder.io/qwik": "^1.5.7",
+    "@builder.io/qwik-city": "^1.5.7",
+    "@types/eslint": "^8.56.10",
+    "@types/node": "^20.12.7",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.57.0",
+    "eslint-plugin-qwik": "^1.5.7",
+    "postcss": "^8.4.31",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.4",
+    "tailwindcss": "3.3.3",
+    "typescript": "5.4.5",
+    "undici": "*",
+    "vite": "^5.2.10",
+    "vite-tsconfig-paths": "^4.2.1",
+    "@qwikest/icons": "^0.0.13"
+  }
+}
