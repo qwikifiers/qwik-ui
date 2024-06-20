@@ -34,6 +34,7 @@
     "undici": "*",
     "vite": "^5.2.10",
     "vite-tsconfig-paths": "^4.2.1",
-    "@qwikest/icons": "^0.0.13"
+    "@qwikest/icons": "^0.0.13",
+    "@qwik-ui/headless": "0.4.4"
   }
 }
