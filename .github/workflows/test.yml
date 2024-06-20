@@ -40,6 +40,6 @@ jobs:
         with:
           node_version: 20
       - run: pnpm build.headless && pnpm build
-      - run: pnpx pkg-pr-new publish --compact ./dist/packages/kit-headless --template ./dist/apps/website/src/routes/docs/headless/accordion/examples/*
+      - run: pnpx pkg-pr-new publish --compact ./dist/packages/kit-headless --template ./apps/website/src/routes/docs/headless/accordion/examples/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN is provided automatically in any repository
