@@ -143,10 +143,13 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
       context.isListboxOpenSig.value = true;
     }
 
-    const itemDisplayValue = context.itemsMapSig.value.get(_index!)?.displayValue;
+    const lowerCaseDisplayValue = context.itemsMapSig.value
+      .get(_index!)
+      ?.displayValue.toLowerCase();
+    const lowerCaseInputValue = context.inputValueSig.value.toLowerCase();
 
-    if (itemDisplayValue?.includes(context.inputValueSig.value)) {
-      itemRef.value.style.display = 'revert';
+    if (lowerCaseDisplayValue?.includes(lowerCaseInputValue)) {
+      itemRef.value.style.display = '';
       context.disabledIndexSetSig.value = new Set(
         [...context.disabledIndexSetSig.value].filter(
           (selectedIndex) => selectedIndex !== _index,

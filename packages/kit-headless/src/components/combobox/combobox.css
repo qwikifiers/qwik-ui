@@ -1,15 +1,3 @@
-[role='listbox'][data-closed] {
+[data-item-indicator]:not([data-selected]) {
   display: none;
-}
-
-[role='listbox'][data-open] {
-  display: revert;
-}
-
-[data-item-indicator] {
-  display: none;
-}
-
-[data-item-indicator][data-selected] {
-  display: revert;
 }
