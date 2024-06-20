@@ -5,3 +5,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes collapsible-open {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: var(--qwikui-collapsible-content-height);
+  }
+}
+
+@keyframes collapsible-closed {
+  0% {
+    height: var(--qwikui-collapsible-content-height);
+  }
+  100% {
+    height: 0;
+  }
+}
+
+.collapsible-animation[data-open] {
+  animation: 550ms ease-out 0s 1 normal forwards collapsible-open;
+}
+
+.collapsible-animation[data-closed] {
+  animation: 350ms ease-out 0s 1 normal forwards collapsible-closed;
+}
