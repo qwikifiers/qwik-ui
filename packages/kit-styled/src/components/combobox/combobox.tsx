@@ -3,7 +3,7 @@ import { Combobox as HeadlessCombobox } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 import { LuChevronDown } from '@qwikest/icons/lucide';
 
-const Root = component$<PropsOf<typeof HeadlessCombobox.Root>>((props) => {
+const Root = (props: PropsOf<typeof HeadlessCombobox.Root>) => {
   return (
     <HeadlessCombobox.Root
       {...props}
@@ -11,11 +11,13 @@ const Root = component$<PropsOf<typeof HeadlessCombobox.Root>>((props) => {
         'flex h-full w-48 flex-col overflow-hidden bg-popover text-popover-foreground',
         props.class,
       )}
+      comboboxItemComponent={Item}
+      comboboxItemLabelComponent={ItemLabel}
     >
       <Slot />
     </HeadlessCombobox.Root>
   );
-});
+};
 
 const Label = component$<PropsOf<typeof HeadlessCombobox.Label>>(({ ...props }) => {
   return (
@@ -25,7 +27,27 @@ const Label = component$<PropsOf<typeof HeadlessCombobox.Label>>(({ ...props }) 
   );
 });
 
-const Control = component$<PropsOf<typeof HeadlessCombobox.Hub>>((props) => {
+const ItemLabel = component$<PropsOf<typeof HeadlessCombobox.ItemLabel>>(
+  ({ ...props }) => {
+    return (
+      <HeadlessCombobox.ItemLabel {...props} class={cn('text-sm', props.class)}>
+        <Slot />
+      </HeadlessCombobox.ItemLabel>
+    );
+  },
+);
+
+const ItemIndicator = component$<PropsOf<typeof HeadlessCombobox.ItemIndicator>>(
+  ({ ...props }) => {
+    return (
+      <HeadlessCombobox.ItemIndicator {...props} class={cn('text-sm', props.class)}>
+        <Slot />
+      </HeadlessCombobox.ItemIndicator>
+    );
+  },
+);
+
+const Hub = component$<PropsOf<typeof HeadlessCombobox.Hub>>((props) => {
   return (
     <HeadlessCombobox.Hub
       {...props}
@@ -78,9 +100,9 @@ const Listbox = component$<PropsOf<typeof HeadlessCombobox.Listbox>>(({ ...props
   );
 });
 
-const Option = component$<PropsOf<typeof HeadlessCombobox.Option>>(({ ...props }) => {
+const Item = component$<PropsOf<typeof HeadlessCombobox.Item>>(({ ...props }) => {
   return (
-    <HeadlessCombobox.Option
+    <HeadlessCombobox.Item
       {...props}
       class={cn(
         'group flex justify-between gap-4 rounded-sm px-2 text-foreground aria-disabled:font-light aria-disabled:text-muted-foreground data-[highlighted]:cursor-pointer data-[highlighted]:bg-accent',
@@ -88,17 +110,19 @@ const Option = component$<PropsOf<typeof HeadlessCombobox.Option>>(({ ...props }
       )}
     >
       <Slot />
-    </HeadlessCombobox.Option>
+    </HeadlessCombobox.Item>
   );
 });
 
 export const Combobox = {
   Root,
   Label,
-  Control,
+  Hub,
   Input,
   Trigger,
   Popover,
   Listbox,
-  Option,
+  Item,
+  ItemLabel,
+  ItemIndicator,
 };

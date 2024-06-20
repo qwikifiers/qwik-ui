@@ -52,7 +52,7 @@ export const HComboboxItem = component$(
 
     useTask$(async function getIndexTask() {
       if (_index === undefined)
-        throw Error('Qwik UI: Select component item cannot find its proper index.');
+        throw Error('Qwik UI: Combobox component item cannot find its proper index.');
 
       localIndexSig.value = _index;
     });

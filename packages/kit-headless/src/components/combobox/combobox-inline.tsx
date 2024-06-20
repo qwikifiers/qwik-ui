@@ -1,7 +1,7 @@
 import { type JSXNode, Component } from '@builder.io/qwik';
-import { HComboboxItem } from './combobox-item';
-import { HComboboxItemLabel } from './combobox-item-label';
 import { HComboboxRootImpl, HComboboxRootImplProps } from './combobox-root';
+import { HComboboxItem as InternalComboboxItem } from './combobox-item';
+import { HComboboxItemLabel as InternalComboboxItemLabel } from './combobox-item-label';
 
 export type TItemsMap = Map<
   number,
@@ -19,6 +19,9 @@ export type InternalComboboxProps = {
   /** Our source of truth for the items. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
    **/
   _itemsMap?: TItemsMap;
+
+  comboboxItemComponent?: typeof InternalComboboxItem;
+  comboboxItemLabelComponent?: typeof InternalComboboxItemLabel;
 };
 
 /*
@@ -28,7 +31,15 @@ export type InternalComboboxProps = {
 export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplProps> = (
   props: InternalComboboxProps & HComboboxRootImplProps,
 ) => {
-  const { children: myChildren, ...rest } = props;
+  const {
+    children: myChildren,
+    comboboxItemComponent: UserItem,
+    comboboxItemLabelComponent: UserItemLabel,
+    ...rest
+  } = props;
+
+  const HComboboxItem = UserItem ?? InternalComboboxItem;
+  const HComboboxItemLabel = UserItemLabel ?? InternalComboboxItemLabel;
 
   // source of truth
   const itemsMap = new Map();
