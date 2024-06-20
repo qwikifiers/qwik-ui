@@ -50,7 +50,10 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
 
     switch (e.key) {
       case 'ArrowDown':
-        if (context.isListboxOpenSig.value) {
+        if (
+          context.isListboxOpenSig.value &&
+          context.highlightedIndexSig.value !== null
+        ) {
           context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
             context.highlightedIndexSig.value!,
           );
@@ -107,6 +110,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
     if (context.highlightedIndexSig.value === null) {
       if (e.key === 'ArrowDown') {
         context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
+        console.log('highlightedIndexSig.value', context.highlightedIndexSig.value);
       } else if (e.key === 'ArrowUp') {
         context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
           context.itemsMapSig.value.size,
