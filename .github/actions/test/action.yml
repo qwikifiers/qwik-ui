@@ -16,11 +16,11 @@ runs:
   steps:
     - name: Lint
       shell: bash
-      run: npx nx run-many -t lint --exclude website # --base=last-release  <- add that back after fix
+      run: npx nx run-many -t lint --exclude website,sink # --base=last-release  <- add that back after fix
 
     - name: Build packages
       shell: bash
-      run: npx nx run-many -t build --parallel=false --exclude website # --base=last-release  <- add that back
+      run: npx nx run-many -t build --parallel=false --exclude website,sink # --base=last-release  <- add that back
 
     - name: Test all except headless
       shell: bash
