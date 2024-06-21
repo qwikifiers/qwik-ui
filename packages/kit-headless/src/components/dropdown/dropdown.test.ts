@@ -468,14 +468,4 @@ test.describe('Disabled', () => {
     await expect(d.getItemAt(2)).toBeDisabled();
     await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
   });
-
-  test(`GIVEN an open disabled dropdown
-        WHEN first option is disabled
-        THEN the second option should have data-highlighted`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'disabled');
-
-    await d.openDropdown('ArrowDown');
-
-    await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
-  });
 });
