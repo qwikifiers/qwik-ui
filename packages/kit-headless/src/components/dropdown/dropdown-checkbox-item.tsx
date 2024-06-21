@@ -1,20 +1,35 @@
-import { $, QRL, Signal, Slot, component$, useSignal, useTask$ } from '@builder.io/qwik';
-import { DropdownItemProps, HDropdownItem } from './dropdown-item';
+import {
+  $,
+  QRL,
+  Signal,
+  Slot,
+  component$,
+  sync$,
+  useSignal,
+  useTask$,
+} from '@builder.io/qwik';
 
-type DropdownCheckboxItemProps = {
-  /** A signal that controls the current checked state (controlled). */
+import { CheckboxRoot } from '../checkbox/checkbox';
+import { DropdownItemProps } from './dropdown-item';
+import { useDropdownItem } from './use-dropdown-item';
+
+export type DropdownCheckboxItemProps = {
+  /**
+   * A signal that controls the current checked value (controlled).
+   */
   'bind:checked'?: Signal<boolean>;
 
   /**
-   * QRL handler that runs when the user selects an item.
+   * QRL handler that runs when the checked value changes.
    */
   onChange$?: QRL<(checked: boolean) => void>;
 } & Omit<DropdownItemProps, 'onChange$'>;
 
 export const HDropdownCheckboxItem = component$((props: DropdownCheckboxItemProps) => {
-  const { disabled = false, closeOnSelect = false, onChange$, ...rest } = props;
+  const { disabled, onChange$, closeOnSelect = false, ...rest } = props;
 
   const checkedSig = useSignal<boolean>(false);
+  const checkboxRef = useSignal<HTMLDivElement>();
 
   useTask$(function reactiveUserChecked({ track }) {
     const bindCheckedSig = props['bind:checked'];
@@ -30,26 +45,51 @@ export const HDropdownCheckboxItem = component$((props: DropdownCheckboxItemProp
     onChange$?.(checkedSig.value);
   });
 
-  const onSelect = $(() => {
+  // Handle the toggle of the checked state when the item is selected trough the keyboard or click.
+  const toggleChecked$ = $(() => {
     checkedSig.value = !checkedSig.value;
-    props.onSelect$?.();
+  });
+
+  const {
+    handleClick$,
+    handleKeyDown$,
+    handlePointerOver$,
+    itemId,
+    itemRef,
+    isHighlightedSig,
+  } = useDropdownItem({ ...props, onItemSelect: toggleChecked$, closeOnSelect });
+
+  //Prevent default behavior for certain keys. This needs to be sync to prevent default behavior and can't be implemented in useDropdownItem.
+  const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+    const keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'Home', 'End', 'Enter', ' '];
+    if (keys.includes(e.key)) {
+      e.preventDefault();
+    }
   });
 
   return (
-    <HDropdownItem
-      {...rest}
-      onSelect$={onSelect}
-      role="menuitemcheckbox"
-      closeOnSelect={closeOnSelect}
-      disabled={disabled}
-      aria-checked={checkedSig.value ? 'true' : 'false'}
-      aria-disabled={disabled}
-      style={{ display: 'flex', alignItems: 'center' }}
+    <div
+      onClick$={[handleClick$, props.onClick$]}
+      tabIndex={-1}
+      id={itemId}
+      onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
+      onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
+      ref={itemRef}
+      aria-disabled={disabled === true ? 'true' : 'false'}
       data-disabled={disabled}
+      data-highlighted={isHighlightedSig.value}
       data-checked={checkedSig.value}
+      data-menu-item
     >
-      <Slot name="dropdown-item-indicator" />
-      <Slot />
-    </HDropdownItem>
+      <CheckboxRoot
+        bind:checked={checkedSig}
+        preventdefault:click
+        ref={checkboxRef}
+        style={{ pointerEvents: 'none' }}
+        {...rest}
+      >
+        <Slot />
+      </CheckboxRoot>
+    </div>
   );
 });

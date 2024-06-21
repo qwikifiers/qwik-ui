@@ -3,7 +3,6 @@ import {
   dropdownRadioGroupContextId,
 } from './dropdown-context';
 import {
-  PropsOf,
   QRL,
   Signal,
   Slot,
@@ -12,6 +11,8 @@ import {
   useSignal,
   useTask$,
 } from '@builder.io/qwik';
+
+import { DropdownItemProps } from './dropdown-item';
 
 type DropdownRadioGroupProps = {
   /** A signal that controls the current group value (controlled). */
@@ -27,7 +28,7 @@ type DropdownRadioGroupProps = {
    * QRL handler that runs when the user selects an item.
    */
   onChange$?: QRL<(value: string) => void>;
-} & Omit<PropsOf<'div'>, 'onChange$'>;
+} & DropdownItemProps;
 
 export const HDropdownRadioGroup = component$((props: DropdownRadioGroupProps) => {
   const { disabled = false, defaultValue = '', onChange$, ...rest } = props;
@@ -38,8 +39,6 @@ export const HDropdownRadioGroup = component$((props: DropdownRadioGroupProps) =
     const bindValueSig = props['bind:value'];
     if (!bindValueSig) return;
     track(() => bindValueSig.value);
-
-    console.log('bindValueSig.value:', bindValueSig.value);
 
     valueSig.value = bindValueSig.value;
   });

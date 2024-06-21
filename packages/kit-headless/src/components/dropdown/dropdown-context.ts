@@ -31,3 +31,10 @@ export type DropdownRadioGroupContext = {
   valueSig: Signal<string>;
   disabled: boolean;
 };
+
+export const dropdownGroupContextId =
+  createContextId<DropdownGroupContext>('qui-dropdown-group');
+
+export type DropdownGroupContext = {
+  groupLabelId: string;
+};

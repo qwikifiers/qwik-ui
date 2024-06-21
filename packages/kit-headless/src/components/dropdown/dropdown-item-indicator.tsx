@@ -1,11 +1,15 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import {
+  CheckboxIndicator,
+  CheckboxIndicatorProps,
+} from '../checkbox/checkbox-indicator';
+import { Slot, component$ } from '@builder.io/qwik';
 
-type DropdownItemIndicatorProps = PropsOf<'div'>;
+type DropdownItemIndicatorProps = CheckboxIndicatorProps;
 
 export const HDropdownItemIndicator = component$((props: DropdownItemIndicatorProps) => {
   return (
-    <div data-indicator {...props} q:slot="dropdown-item-indicator">
+    <CheckboxIndicator data-indicator {...props}>
       <Slot />
-    </div>
+    </CheckboxIndicator>
   );
 });
