@@ -137,13 +137,6 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
       context.isListboxOpenSig.value = true;
     }
 
-    const hasVisibleItems =
-      context.itemsMapSig.value.size !== context.disabledIndexSetSig.value.size;
-
-    if (!hasVisibleItems) {
-      context.isListboxOpenSig.value = false;
-    }
-
     let isVisible;
     const displayValue = context.itemsMapSig.value.get(_index)?.displayValue;
     if (!displayValue) return;
@@ -156,6 +149,13 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
     }
 
     filterManager$(!!isVisible, itemRef, _index);
+
+    const hasVisibleItems =
+      context.itemsMapSig.value.size !== context.disabledIndexSetSig.value.size;
+
+    if (!hasVisibleItems) {
+      context.isListboxOpenSig.value = false;
+    }
   });
 
   return (

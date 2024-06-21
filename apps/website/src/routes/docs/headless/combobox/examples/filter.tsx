@@ -17,7 +17,12 @@ export default component$(() => {
   ];
 
   return (
-    <Combobox.Root class="combobox-root">
+    <Combobox.Root
+      class="combobox-root"
+      filter$={(displayValue, inputValue) =>
+        displayValue.toLowerCase().startsWith(inputValue.toLowerCase())
+      }
+    >
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
       <Combobox.Hub class="combobox-hub">
         <Combobox.Input class="combobox-input" />

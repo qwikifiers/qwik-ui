@@ -591,8 +591,6 @@ test.describe('A11y', () => {
     await d.openListbox('ArrowDown');
     const labelId = await d.getRoot().getByRole('listitem').first().getAttribute('id');
 
-    console.log(labelId);
-
     await expect(d.getRoot().getByRole('group').first()).toHaveAttribute(
       'aria-labelledby',
       labelId!,
@@ -688,8 +686,6 @@ test.describe('Multiple selection', () => {
       await d.getItemAt(1).click();
       await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
 
-      console.log(d.getHub());
-
       await expect(d.getHub()).toContainText('Apple');
       await expect(d.getHub()).toContainText('Apricot');
     });
@@ -731,7 +727,8 @@ test.describe('Filtering options', () => {
     const { driver: d } = await setup(page, 'hero');
     await d.openListbox('ArrowDown');
     expect(await d.getVisibleItemsLength()).toBe(8);
-    await d.getInput().press('z');
+    await d.getInput().press('a');
+    await expect(d.getInput()).toHaveValue('a');
     expect(await d.getVisibleItemsLength()).not.toBe(8);
   });
 
@@ -739,8 +736,11 @@ test.describe('Filtering options', () => {
         WHEN typing a string that doesn't match an option
         THEN the listbox should be closed`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
-    await d.openListbox('ArrowDown');
-    await d.getInput().fill('abc123');
+    await d.getInput().press('a');
+    await expect(d.getInput()).toHaveValue('a');
+    await expect(d.getListbox()).toBeVisible();
+    await d.getInput().pressSequentially('bc123');
+    await expect(d.getInput()).toHaveValue('abc123');
     await expect(d.getListbox()).toBeHidden();
   });
 
@@ -749,7 +749,7 @@ test.describe('Filtering options', () => {
         THEN the listbox should be open`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
     await d.openListbox('ArrowDown');
-    await d.getInput().fill('App');
+    await d.getInput().pressSequentially('App');
     await expect(d.getListbox()).toBeVisible();
   });
 
@@ -760,7 +760,7 @@ test.describe('Filtering options', () => {
     // initial setup
     await d.openListbox('ArrowDown');
     expect(await d.getVisibleItemsLength()).toBe(8);
-    await d.getInput().fill('a');
+    await d.getInput().press('a');
     expect(await d.getVisibleItemsLength()).not.toBe(8);
 
     await d.getInput().press('Backspace');
@@ -778,5 +778,17 @@ test.describe('Filtering options', () => {
 
     await d.getInput().press('z');
     await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'false');
+  });
+
+  test(`GIVEN a combobox
+        WHEN a custom filter is set
+        THEN it should respect the filter function`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'filter');
+    await d.openListbox('ArrowDown');
+    await d.getInput().press('a');
+
+    const getVisibleItems = await page.locator('[data-item]:visible');
+    await expect(getVisibleItems.nth(0)).toHaveText('Apple');
+    await expect(getVisibleItems.nth(1)).toHaveText('Apricot');
   });
 });
