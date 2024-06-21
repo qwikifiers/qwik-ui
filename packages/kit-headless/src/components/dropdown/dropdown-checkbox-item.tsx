@@ -77,8 +77,10 @@ export const HDropdownCheckboxItem = component$((props: DropdownCheckboxItemProp
       ref={itemRef}
       aria-disabled={disabled === true ? 'true' : 'false'}
       data-disabled={disabled}
+      aria-checked={checkedSig.value ? 'true' : 'false'}
       data-highlighted={isHighlightedSig.value}
       data-checked={checkedSig.value}
+      data-close-on-select={props.closeOnSelect}
       data-menu-item
     >
       <CheckboxRoot

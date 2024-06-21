@@ -21,7 +21,7 @@ export type DropdownItemProps = {
 
 export const HDropdownItem = component$((props: DropdownItemProps) => {
   /* look at dropdown-inline on how we get the index. */
-  const { _index, disabled, ...rest } = props;
+  const { _index, disabled, closeOnSelect = true, ...rest } = props;
 
   const {
     handleClick$,
@@ -30,7 +30,7 @@ export const HDropdownItem = component$((props: DropdownItemProps) => {
     itemId,
     itemRef,
     isHighlightedSig,
-  } = useDropdownItem(props);
+  } = useDropdownItem({ closeOnSelect, ...props });
 
   // Prevent default behavior for certain keys. This needs to be sync to prevent default behavior and can't be implemented in useDropdownItem.
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
@@ -54,6 +54,7 @@ export const HDropdownItem = component$((props: DropdownItemProps) => {
       data-disabled={disabled}
       data-highlighted={isHighlightedSig.value}
       data-menu-item
+      data-close-on-select={closeOnSelect}
     >
       <Slot />
     </div>

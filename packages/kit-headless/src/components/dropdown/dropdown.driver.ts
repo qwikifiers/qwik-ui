@@ -1,64 +1,65 @@
-// import { expect, type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
+type OpenKeys = 'ArrowUp' | 'Enter' | 'Space' | 'ArrowDown';
+export type DriverLocator = Locator | Page;
 
-// export type DriverLocator = Locator | Page;
+export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
+  const getRoot = () => {
+    return rootLocator;
+  };
 
-// export type PopoverOpenKeys = 'Enter' | 'Space';
+  const getTrigger = () => {
+    return getRoot().getByRole('button');
+  };
 
-// export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
-//   const getPopover = () => {
-//     return rootLocator.locator('[popover]');
-//   };
+  const getContent = () => {
+    return getRoot().locator('[data-content]');
+  };
 
-//   const getPopoverByTextContent = (popoverContent: string) => {
-//     return rootLocator.locator('.popover-panel').getByText(popoverContent);
-//   };
+  const getItems = () => {
+    return getRoot().locator('[data-menu-item]');
+  };
 
-//   const getTrigger = () => {
-//     return rootLocator.locator('[popovertarget]');
-//   };
+  const getItemsLength = async () => {
+    return getItems().count();
+  };
 
-//   const openPopover = async (key: PopoverOpenKeys | 'click', index?: number) => {
-//     const action = key === 'click' ? 'click' : 'press';
-//     const trigger = index !== undefined ? getTrigger().nth(index) : getTrigger();
+  const getItemAt = (index: number | 'last') => {
+    if (index === 'last') return getItems().last();
+    return getItems().nth(index);
+  };
 
-//     const popover =
-//       index !== undefined
-//         ? getPopoverByTextContent(`Popover ${index + 1}`)
-//         : getPopover();
+  const getValueElement = () => {
+    return getTrigger().locator('[data-value]');
+  };
 
-//     if (action === 'click') {
-//       await trigger.click({ position: { x: 1, y: 1 } }); // Modified line
-//     } else {
-//       await trigger.press(key);
-//     }
+  const getHighlightedItem = () => {
+    return getRoot().locator('[data-highlighted]');
+  };
 
-//     // Needed because Playwright doesn't wait for the listbox to be visible
-//     await expect(popover).toBeVisible();
+  const openDropdown = async (key: OpenKeys | 'click') => {
+    await getTrigger().focus();
 
-//     return { trigger, popover };
-//   };
+    if (key !== 'click') {
+      await getTrigger().press(key);
+    } else {
+      await getTrigger().click();
+    }
 
-//   const getAllPopovers = () => {
-//     return getPopover().all();
-//   };
+    // Needed because Playwright doesn't wait for the dropdown to be visible
+    await expect(getContent()).toBeVisible();
+  };
 
-//   const getAllTriggers = () => {
-//     return getTrigger().all();
-//   };
-
-//   const getProgrammaticButtonTrigger = () => {
-//     return rootLocator.locator('button');
-//   };
-
-//   return {
-//     ...rootLocator,
-//     locator: rootLocator,
-//     getPopover,
-//     getAllPopovers,
-//     getTrigger,
-//     getAllTriggers,
-//     openPopover,
-//     getProgrammaticButtonTrigger,
-//     getPopoverByTextContent,
-//   };
-// }
+  return {
+    ...rootLocator,
+    locator: rootLocator,
+    getRoot,
+    getTrigger,
+    getContent,
+    getItems,
+    getItemsLength,
+    getItemAt,
+    getValueElement,
+    openDropdown,
+    getHighlightedItem,
+  };
+}

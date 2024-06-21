@@ -61,6 +61,7 @@ export const HDropdownContent = component$<DropdownContentProps>((props) => {
 
   return (
     <div
+      data-content
       {...props}
       id={contentId}
       role="content"

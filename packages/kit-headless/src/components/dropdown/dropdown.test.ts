@@ -1,493 +1,481 @@
-// import { expect, test, type Page } from '@playwright/test';
-// import { PopoverOpenKeys, createTestDriver } from './dropdown.driver';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { expect, test, type Page } from '@playwright/test';
+import { createTestDriver } from './dropdown.driver';
 
-// async function setup(page: Page, exampleName: string) {
-//   await page.goto(`/headless/popover/${exampleName}`);
+async function setup(page: Page, exampleName: string) {
+  await page.goto(`/headless/dropdown/${exampleName}`);
 
-//   const driver = createTestDriver(page);
+  const driver = createTestDriver(page.getByTestId('dropdown'));
 
-//   return {
-//     driver,
-//   };
-// }
+  return {
+    driver,
+  };
+}
 
-// test('@Visual diff', async ({ page }) => {
-//   const { driver: d } = await setup(page, 'basic');
-//   await expect(page).toHaveScreenshot('closed popover.png');
+test.describe('Mouse Behavior', () => {
+  test(`GIVEN a hero dropdown
+        WHEN clicking on the trigger
+        THEN open up the content AND aria-expanded should be true`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
-//   await d.getTrigger().click();
+    await d.getTrigger().click();
 
-//   await expect(page).toHaveScreenshot('opened popover.png');
-// });
+    await expect(d.getContent()).toBeVisible();
+    await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
+  });
 
-// test.describe('Mouse Behavior', () => {
-//   test(`GIVEN a closed popover
-//         WHEN clicking on the trigger
-//         THEN the popover should be opened `, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'basic');
-//     await expect(d.getPopover()).toBeHidden();
+  test(`GIVEN a hero dropdown with an open content
+        WHEN the trigger is clicked
+        THEN close the content AND aria-expanded should be false`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
-//     await d.getTrigger().click();
+    await d.openDropdown('click');
 
-//     await expect(d.getPopover()).toBeVisible();
-//   });
+    await d.getTrigger().click();
 
-//   test(`GIVEN an open popover
-//         WHEN clicking elsewhere on the page
-//         THEN the popover should close`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'basic');
+    await expect(d.getContent()).toBeHidden();
+    await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
+  });
 
-//     const { popover } = await d.openPopover('click');
+  test(`GIVEN a hero dropdown with an open content
+        WHEN an option with close on dropdown is clicked
+        THEN close the content AND aria-expanded should be false`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
-//     await page.mouse.click(0, 0);
+    await d.openDropdown('click');
 
-//     await expect(popover).toBeHidden();
-//   });
+    await d.getItemAt(0).click();
 
-//   test(`GIVEN a pair of popovers in auto mode
-//         WHEN clicking the first trigger
-//         AND clicking the second trigger
-//         THEN the first popover should close and the second one appear`, async ({
-//     page,
-//   }) => {
-//     const { driver: d } = await setup(page, 'auto');
-
-//     const { popover: firstPopover } = await d.openPopover('click', 0);
-//     const { popover: secondPopover } = await d.openPopover('click', 1);
+    await expect(d.getContent()).toBeHidden();
+    await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
+  });
 
-//     await expect(firstPopover).toBeHidden();
-//     await expect(secondPopover).toBeVisible();
-//   });
+  test(`GIVEN a hero dropdown with an open content
+        WHEN the first checkbox item is clicked
+        THEN the first checkbox item should have aria-checked`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
-//   test(`GIVEN an open manual popover
-//         WHEN clicking elsewhere on the page
-//         THEN the popover should remain open`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'manual');
+    await d.openDropdown('click');
 
-//     // initial open
-//     await d.openPopover('click', 0);
+    await d.getItemAt(3).click();
 
-//     await page.mouse.click(0, 0);
+    await expect(d.getItemAt(3)).toHaveAttribute('aria-checked', 'true');
+  });
 
-//     await expect(d.getPopoverByTextContent('Popover 1')).toBeVisible();
-//   });
+  test(`GIVEN a hero dropdown with an open content
+        WHEN the first option of the radio group is clicked
+        THEN the first option should have aria-checked`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
-//   test(`GIVEN a pair of manual popovers
-//         WHEN clicking the first trigger on the page
-//         AND then clicking the second trigger
-//         THEN then both popovers should be opened`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'manual');
+    await d.openDropdown('click');
 
-//     const { popover: firstPopover } = await d.openPopover('click', 0);
-//     const { popover: secondPopover } = await d.openPopover('click', 1);
+    await d.getItemAt(5).click();
 
-//     await expect(firstPopover).toBeVisible();
-//     await expect(secondPopover).toBeVisible();
-//   });
+    await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'true');
+  });
 
-//   test(`GIVEN a pair of manual popovers
-//     WHEN clicking the first trigger on the page
-//     AND clicking the second trigger
-//     THEN the seconf popover should overlap the first`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'test-popover-overlap');
+  test(`GIVEN a hero dropdown with an open content
+    WHEN the second option of the radio group is clicked
+    THEN the first option should have aria-checked equal to false`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
-//     const [firstTrigger, secondTrigger] = await d.getAllTriggers();
-//     const [firstPopover, secondPopover] = await d.getAllPopovers();
+    await d.openDropdown('click');
 
-//     firstTrigger.click();
-//     secondTrigger.click();
+    await d.getItemAt(6).click();
 
-//     const topPopover = page.locator(
-//       `[popover]:above(:text("${await firstPopover.innerText()}"))`,
-//     );
+    await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'false');
+    await expect(d.getItemAt(6)).toHaveAttribute('aria-checked', 'true');
+  });
 
-//     expect(await topPopover.innerText()).toBe(await secondPopover.innerText());
-//   });
+  test(`GIVEN a hero dropdown with an open content
+        WHEN clicking on the group label
+        THEN the content should remain open`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
-//   test(`GIVEN a pair of manual popovers
-//     WHEN clicking the second trigger on the page
-//     AND clicking the first trigger
-//     THEN the first popover should overlap the second`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'test-popover-overlap');
+    await d.openDropdown('click');
 
-//     const [firstTrigger, secondTrigger] = await d.getAllTriggers();
-//     const [firstPopover, secondPopover] = await d.getAllPopovers();
+    const label = d.getRoot().getByRole('group').locator('span');
 
-//     firstTrigger.click();
-//     secondTrigger.click();
+    await expect(label).toBeVisible();
+    await label.click();
+    await expect(d.getContent()).toBeVisible();
+  });
+});
+
+test.describe('Keyboard Behavior', () => {
+  test.describe('dropdown open / close', () => {
+    test(`GIVEN a hero dropdown
+    WHEN focusing the trigger and hitting enter
+    THEN open up the dropdown AND aria-expanded should be true`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.getTrigger().focus();
+      await d.getTrigger().press('Enter');
+
+      await expect(d.getContent()).toBeVisible();
+      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    test(`GIVEN a hero dropdown
+        WHEN pressing the space key
+        THEN open up the content AND aria-expanded should be true`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.getTrigger().focus();
+      await d.getTrigger().press('Space');
+
+      await expect(d.getContent()).toBeVisible();
+      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    test(`GIVEN a hero dropdown
+        WHEN pressing the down arrow key
+        THEN open up the content AND aria-expanded should be true`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.getTrigger().focus();
+      await d.getTrigger().press('ArrowDown');
+      await expect(d.getContent()).toBeVisible();
+    });
+
+    test(`GIVEN a hero dropdown
+      WHEN pressing the up arrow key
+      THEN open up the content AND aria-expanded should be true`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.getTrigger().focus();
+      await d.getTrigger().press('ArrowUp');
+      await expect(d.getContent()).toBeVisible();
+    });
+
+    test(`GIVEN a hero dropdown with an opened content
+        WHEN pressing the escape key
+        THEN the content should close
+        AND aria-expanded should be false`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('click');
+
+      await page.keyboard.press('Escape');
+
+      await expect(d.getContent()).toBeHidden();
+      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    test(`GIVEN a hero dropdown with an opened content
+          WHEN focusing something outside of the hero dropdown's trigger
+          THEN the content should close
+          AND aria-expanded should be false`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Enter');
+
+      await page.keyboard.press('Tab');
+
+      await expect(d.getContent()).toBeHidden();
+      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
+    });
+  });
+
+  test.describe('data-highlighted navigation', () => {
+    test(`GIVEN a hero dropdown
+        WHEN pressing the down arrow key
+        THEN the content should be opened
+        AND the first option should have data-highlighted`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.getTrigger().focus();
+      await d.getTrigger().press('ArrowDown');
+      await expect(d.getContent()).toBeVisible();
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+    });
 
-//     const topPopover = page.locator(
-//       `[popover]:above(:text("${await secondPopover.innerText()}"))`,
-//     );
-
-//     expect(await topPopover.innerText()).toBe(await firstPopover.innerText());
-//   });
-
-//   test(`GIVEN a pair of manual opened popovers
-//         WHEN clicking the first trigger on the page
-//         AND clicking the second trigger
-//         THEN both popovers should be closed`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'manual');
-
-//     const { popover: firstPopover, trigger: firstTrigger } = await d.openPopover(
-//       'click',
-//       0,
-//     );
-//     const { popover: secondPopover, trigger: secondTrigger } = await d.openPopover(
-//       'click',
-//       1,
-//     );
-
-//     // Explicitly specifying click positions due to default behavior targeting the element's center,
-//     // which is obscured by the popover in this scenario.
-//     await firstTrigger.click({ position: { x: 1, y: 1 } });
-//     await secondTrigger.click({ position: { x: 1, y: 1 } });
-
-//     // Assert
-//     await expect(firstPopover).toBeHidden();
-//     await expect(secondPopover).toBeHidden();
-//   });
-
-//   test(`GIVEN a popover with hover enabled
-//     WHEN hovering over the popover
-//     THEN the popover should appear above the trigger`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'hover');
-
-//     const popover = d.getPopover();
-//     const trigger = d.getTrigger();
-
-//     await trigger.hover();
-
-//     await expect(popover).toBeVisible();
-
-//     const popoverBoundingBox = await popover.boundingBox();
-//     const triggerBoundingBox = await trigger.boundingBox();
-
-//     const triggerTopEdge = triggerBoundingBox?.y ?? Number.MAX_VALUE;
-
-//     expect(popoverBoundingBox?.y).toBeLessThan(triggerTopEdge);
-//   });
-
-//   test(`GIVEN an open popover with hover enabled
-//     WHEN hovering await from the popover
-//     THEN the popover should disappear`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'hover');
-
-//     const popover = d.getPopover();
-//     const trigger = d.getTrigger();
-
-//     await trigger.hover();
-
-//     await expect(popover).toBeVisible();
-
-//     await page.mouse.move(0, 0);
-
-//     await expect(popover).toBeHidden();
-//   });
-
-//   test(`GIVEN a popover with placement set to right
-//         WHEN hovering over the popover
-//         THEN the popover should appear to the right of the trigger`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'placement');
-
-//     const popover = d.getPopover();
-//     const trigger = d.getTrigger();
-
-//     await trigger.hover();
-
-//     await expect(popover).toBeVisible();
-
-//     const popoverBoundingBox = await popover.boundingBox();
-//     const triggerBoundingBox = await trigger.boundingBox();
-
-//     const triggerRightEdge =
-//       (triggerBoundingBox?.x ?? Number.MAX_VALUE) +
-//       (triggerBoundingBox?.width ?? Number.MAX_VALUE);
-
-//     expect(popoverBoundingBox?.x).toBeGreaterThan(triggerRightEdge);
-//   });
-
-//   test(`GIVEN a popover with a gutter configured
-//         WHEN opening the popover
-//         THEN the popover should be spaced 40px from the popover`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'gutter');
-
-//     const popover = d.getPopover();
-//     const trigger = d.getTrigger();
-
-//     await trigger.click();
-
-//     await expect(popover).toBeVisible();
-
-//     const popoverBoundingBox = await popover.boundingBox();
-//     const triggerBoundingBox = await trigger.boundingBox();
-
-//     const gutterSpace =
-//       (triggerBoundingBox?.y ?? 0) -
-//       ((popoverBoundingBox?.y ?? 0) + (popoverBoundingBox?.height ?? 0));
-//     expect(gutterSpace).toBe(40);
-//   });
-
-//   test(`GIVEN a combobox with a flip configured
-//         WHEN scrolling the page
-//         THEN the popover flip to the opposite end once space runs out`, async ({
-//     page,
-//   }) => {
-//     const { driver: d } = await setup(page, 'flip');
-
-//     const popover = d.getPopover();
-//     const trigger = d.getTrigger();
-
-//     async function calculateYDiff() {
-//       const popoverBoundingBox = await popover.boundingBox();
-//       const triggerBoundingBox = await trigger.boundingBox();
-
-//       console.log(triggerBoundingBox, popoverBoundingBox);
-
-//       return (popoverBoundingBox?.y ?? 0) - (triggerBoundingBox?.y ?? 0);
-//     }
-
-//     // Introduce artificial spacing
-//     await trigger.evaluate((element) => (element.style.marginTop = '2000px'));
-//     await trigger.evaluate((element) => (element.style.marginBottom = '1000px'));
-
-//     await trigger.click();
-
-//     // Should be below the trigger
-//     await expect(popover).toBeVisible();
-
-//     let yDiff = await calculateYDiff();
-
-//     expect(yDiff).toBeGreaterThan(0);
-
-//     await page.evaluate(() => window.scrollBy(0, -400));
-
-//     await page.waitForTimeout(1000);
-
-//     // Should be above the trigger
-//     yDiff = await calculateYDiff();
-//     expect(yDiff).toBeLessThan(0);
-//   });
-
-//   test.describe('Programmatic functionality', () => {
-//     test(`GIVEN a programmatic popover
-//         WHEN the showPopover function is called
-//         THEN the popover should be open`, async ({ page }) => {
-//       const { driver: d } = await setup(page, 'test-show');
-//       await expect(d.getPopover()).toBeHidden();
-//       const programmaticTrigger = page.getByRole('button', { name: 'show popover' });
-//       await programmaticTrigger.click();
-//       await expect(d.getPopover()).toBeVisible();
-//     });
-
-//     test(`GIVEN an open programmatic popover
-//         WHEN the hidePopover function is called
-//         THEN the popover should be hidden`, async ({ page }) => {
-//       const { driver: d } = await setup(page, 'test-hide');
-//       const programmaticTrigger = page.getByRole('button', { name: 'hide popover' });
-//       // initial open
-//       await d.openPopover('click');
-//       await programmaticTrigger.click({ position: { x: 0, y: 0 } });
-//       await expect(d.getPopover()).toBeHidden();
-//     });
-
-//     test(`GIVEN a progrmmatic popover
-//         WHEN focusing on the button and pressing the 'o' key
-//         THEN the popover should be programmatically opened`, async ({ page }) => {
-//       const { driver: d } = await setup(page, 'programmatic');
-
-//       await expect(d.getPopover()).toBeHidden();
-
-//       const programmaticTrigger = page.getByRole('button');
-
-//       // Using `page` here because driver is scoped to the popover
-//       await expect(programmaticTrigger).toBeVisible();
-//       await programmaticTrigger.click();
-
-//       await expect(d.getPopover()).toBeVisible();
-//     });
-//   });
-// });
-
-// test.describe('Keyboard Behavior', () => {
-//   for (const key of ['Enter', 'Space'] as PopoverOpenKeys[]) {
-//     test(`GIVEN a closed popover
-//           WHEN focusing on the button and pressing the '${key}' key
-//           THEN the popover should open`, async ({ page }) => {
-//       const { driver: d } = await setup(page, 'basic');
-//       await expect(d.getPopover()).toBeHidden();
-
-//       await d.getTrigger().press(key);
-//       await expect(d.getPopover()).toBeVisible();
-//     });
-
-//     test(`GIVEN an open popover
-//           WHEN focusing on the button and pressing the '${key}' key
-//           THEN the popover should close`, async ({ page }) => {
-//       const { driver: d } = await setup(page, 'basic');
-
-//       // Open the popover
-//       await d.openPopover(key);
-
-//       await d.getTrigger().press(key);
-//       await expect(d.getPopover()).toBeHidden();
-//     });
-//   }
-
-//   test(`GIVEN an open popover
-//         WHEN focusing on the button and pressing the 'Escape' key
-//         THEN the popover should close and the trigger focused`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'basic');
-
-//     // Open the popover
-//     await d.openPopover('Enter');
-
-//     // Close the popover
-//     page.keyboard.press('Escape');
-
-//     await expect(d.getPopover()).toBeHidden();
-//     await expect(d.getTrigger()).toBeFocused();
-//   });
-
-//   test.describe('auto', () => {
-//     test(`GIVEN a pair of auto popovers
-//     WHEN one popover is open with the enter key
-//     AND another popover is open with the enter key
-//     THEN the first popover should close and the second one appear`, async ({ page }) => {
-//       const { driver: d } = await setup(page, 'auto');
-
-//       const { popover: firstPopover } = await d.openPopover('Enter', 0);
-//       await d.openPopover('Enter', 1);
-
-//       await expect(firstPopover).toBeHidden();
-//     });
-//   });
-
-//   test(`GIVEN a pair of manual opened popovers
-//         WHEN pressing enter on the first trigger on the page
-//         AND the same on the second trigger
-//         THEN then both popovers should be closed`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'manual');
-
-//     const { popover: firstPopover, trigger: firstTrigger } = await d.openPopover(
-//       'click',
-//       0,
-//     );
-//     const { popover: secondPopover, trigger: secondTrigger } = await d.openPopover(
-//       'click',
-//       1,
-//     );
-
-//     await secondTrigger.press('Enter');
-//     await expect(secondPopover).toBeHidden();
-
-//     // Assert
-//     await firstTrigger.press('Enter');
-//     await expect(firstPopover).toBeHidden();
-//   });
-
-//   test(`GIVEN a popover
-//         WHEN programmatically toggling the popover
-//         THEN the popover should open`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'programmatic');
-
-//     const popover = d.getPopover();
-//     const programmaticTrigger = page.getByRole('button');
-
-//     await expect(popover).toBeHidden();
-
-//     await programmaticTrigger.press('o');
-
-//     await expect(popover).toBeVisible();
-//   });
-
-//   test(`GIVEN a popover
-//         WHEN programmatically toggling the popover
-//         THEN the popover should close`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'programmatic');
-
-//     // initial open
-//     const popover = d.getPopover();
-//     const programmaticTrigger = page.getByRole('button');
-//     await programmaticTrigger.press('o');
-//     await expect(popover).toBeVisible();
-
-//     await programmaticTrigger.press('o');
-
-//     await expect(popover).toBeHidden();
-//   });
-
-//   test(`GIVEN a popover with placement set to top
-//         WHEN opening the popover using the keyboard
-//         THEN the popover should appear to the right of the trigger`, async ({ page }) => {
-//     const { driver: d } = await setup(page, 'placement');
-
-//     const popover = d.getPopover();
-//     const trigger = d.getTrigger();
-
-//     await trigger.focus();
-//     await expect(trigger).toBeFocused();
-
-//     await trigger.press('Enter');
-
-//     await expect(popover).toBeVisible();
-
-//     const triggerBoundingBox = await trigger.boundingBox();
-//     const popoverBoundingBox = await popover.boundingBox();
-
-//     expect(popoverBoundingBox?.x).toBeGreaterThan(
-//       (triggerBoundingBox?.x ?? Number.MAX_VALUE) +
-//         (triggerBoundingBox?.width ?? Number.MAX_VALUE),
-//     );
-//   });
-
-//   test.describe('Programmatic functionality', () => {
-//     test(`GIVEN a programmatic popover
-//         WHEN the showPopover function is called
-//         THEN the popover should be open`, async ({ page }) => {
-//       const { driver: d } = await setup(page, 'test-show');
-//       await expect(d.getPopover()).toBeHidden();
-//       const programmaticTrigger = page.getByRole('button', { name: 'show popover' });
-
-//       await programmaticTrigger.focus();
-//       await programmaticTrigger.press('Enter');
-
-//       await expect(d.getPopover()).toBeVisible();
-//     });
-
-//     test(`GIVEN an open programmatic popover
-//   WHEN the hidePopover function is called
-//   THEN the popover should be hidden`, async ({ page }) => {
-//       const { driver: d } = await setup(page, 'test-hide');
-
-//       // Initial open
-//       await d.getTrigger().click();
-//       await expect(d.getPopover()).toBeVisible();
-
-//       const programmaticTrigger = page.getByRole('button', { name: 'hide popover' });
-//       await programmaticTrigger.focus();
-//       await programmaticTrigger.press('Enter');
-
-//       await expect(d.getPopover()).toBeHidden();
-//     });
-
-//     test(`GIVEN a progrmmatic popover
-//       WHEN focusing on the button and pressing the 'o' key
-//       THEN the popover should be programmatically opened`, async ({ page }) => {
-//       const { driver: d } = await setup(page, 'programmatic');
-
-//       await expect(d.getPopover()).toBeHidden();
-
-//       const programmaticTrigger = page.getByRole('button', {
-//         name: "Focus me and press the 'o'",
-//       });
-
-//       // Using `page` here because driver is scoped to the popover
-//       await expect(programmaticTrigger).toBeVisible();
-//       await programmaticTrigger.focus();
-//       await programmaticTrigger.press('o');
-
-//       await expect(d.getPopover()).toBeVisible();
-//     });
-//   });
-// });
+    test(`GIVEN a hero dropdown
+        WHEN pressing the enter key
+        THEN open up the content
+        AND the first option should have data-highlighted`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.getTrigger().focus();
+      await d.getTrigger().press('Enter');
+      await expect(d.getContent()).toBeVisible();
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN a hero dropdown
+        WHEN pressing the space key
+        THEN open up the content
+        AND the first option should have data-highlighted`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.getTrigger().focus();
+      await d.getTrigger().press('Space');
+      await expect(d.getContent()).toBeVisible();
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN a hero dropdown
+        WHEN pressing the up arrow
+        THEN open up the content
+        AND the first option should have data-highlighted`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.getTrigger().focus();
+      await d.getTrigger().press('ArrowUp');
+      await expect(d.getContent()).toBeVisible();
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN an open hero dropdown
+        WHEN pressing the end key
+        THEN the last option should have data-highlighted`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Enter');
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+      await d.getHighlightedItem().press('End');
+
+      await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN an open hero dropdown
+        WHEN pressing the home key after the end key
+        THEN the first option should have data-highlighted`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Enter');
+
+      // to last index
+      await d.getHighlightedItem().press('End');
+      await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
+
+      // to first index
+      await d.getHighlightedItem().press('Home');
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN an open hero dropdown
+  WHEN the first option is highlighted and the down arrow key is pressed
+  THEN the second option should have data-highlighted`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Enter');
+
+      // first index highlighted
+
+      await expect(d.getHighlightedItem()).toHaveAttribute('data-highlighted');
+
+      await d.getHighlightedItem().focus();
+      await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN an open hero dropdown
+  WHEN the third option is highlighted and the up arrow key is pressed
+  THEN the second option should have data-highlighted`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Enter');
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+      await d.getHighlightedItem().press('ArrowDown');
+      await d.getHighlightedItem().press('ArrowDown');
+
+      await d.getHighlightedItem().press('ArrowUp');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN a hero dropdown with a chosen option
+          AND the down arrow key is pressed
+          THEN the data-highlighted option should not change on re-open`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Enter');
+
+      // second option highlighted
+      await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+      await d.getHighlightedItem().press('Enter');
+      await expect(d.getContent()).toBeHidden();
+
+      await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+    });
+  });
+
+  test.describe('selecting options', () => {
+    test(`GIVEN an opened hero dropdown with the first option highlighted
+          WHEN the Enter key is pressed
+          THEN the content should be closed and aria-expanded should be false IF the data-close-on-select attribute is present`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Enter');
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+      await d.getHighlightedItem().press('Enter');
+      await expect(d.getContent()).toBeHidden();
+      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    test(`GIVEN an opened hero dropdown with the first option highlighted
+          WHEN the Space key is pressed
+          THEN the content should be closed and aria-expanded should be false IF the data-close-on-select attribute is present`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Space');
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+      await expect(d.getItemAt(0)).toHaveAttribute('data-close-on-select');
+      await d.getHighlightedItem().press('Space');
+      await expect(d.getContent()).toBeHidden();
+      await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    test(`GIVEN an open dropdown
+          WHEN an option is selected
+          THEN focus should go back to the trigger IF the data-close-on-select attribute is present`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Space');
+
+      await d.getHighlightedItem().press('Enter');
+      await expect(d.getTrigger()).toBeFocused();
+    });
+
+    test(`GIVEN an open dropdown with the first checkbox item is highlighted
+      WHEN the Enter key is pressed
+      THEN the first checkbox item should have aria-checked`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Space');
+
+      await d.getHighlightedItem().press('ArrowDown');
+      await d.getHighlightedItem().press('ArrowDown');
+      await d.getHighlightedItem().press('Enter');
+
+      await expect(d.getItemAt(3)).toHaveAttribute('aria-checked', 'true');
+    });
+
+    test(`GIVEN an open dropdown with the first checkbox item is highlighted
+      WHEN the Space key is pressed
+      THEN the first checkbox item should have aria-checked`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('Space');
+
+      await d.getHighlightedItem().press('ArrowDown');
+      await d.getHighlightedItem().press('ArrowDown');
+      await d.getHighlightedItem().press('Space');
+
+      await expect(d.getItemAt(3)).toHaveAttribute('aria-checked', 'true');
+    });
+
+    test(`GIVEN an open dropdown with the first radio group item is highlighted
+      WHEN the Enter key is pressed
+      THEN the first radio group item should have aria-checked`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('click');
+
+      await d.getItemAt(5).click();
+      await d.getHighlightedItem().press('End');
+      await d.getHighlightedItem().press('ArrowUp');
+      await d.getHighlightedItem().press('Enter');
+
+      await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'true');
+    });
+
+    test(`GIVEN an open dropdown with the first radio group item is highlighted
+      WHEN the Space key is pressed
+      THEN the first radio group item should have aria-checked`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('click');
+
+      await d.getItemAt(5).click();
+      await d.getHighlightedItem().press('End');
+      await d.getHighlightedItem().press('ArrowUp');
+      await d.getHighlightedItem().press('Space');
+
+      await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'true');
+    });
+
+    test(`GIVEN an open dropdown with the second radio group item is highlighted
+      WHEN the Enter key is pressed
+      THEN the second radio group item should have aria-checked`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('click');
+
+      await d.getItemAt(5).click();
+      await d.getHighlightedItem().press('End');
+      await d.getHighlightedItem().press('Enter');
+
+      await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'false');
+      await expect(d.getItemAt(6)).toHaveAttribute('aria-checked', 'true');
+    });
+
+    test(`GIVEN an open dropdown with the second radio group item is highlighted
+      WHEN the Space key is pressed
+      THEN the second radio group item should have aria-checked`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openDropdown('click');
+
+      await d.getItemAt(5).click();
+      await d.getHighlightedItem().press('End');
+      await d.getHighlightedItem().press('Space');
+
+      await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'false');
+      await expect(d.getItemAt(6)).toHaveAttribute('aria-checked', 'true');
+    });
+  });
+});
+
+test.describe('Disabled', () => {
+  test(`GIVEN an open dropdown with the third option disabled    
+        THEN It should have aria-disabled`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await d.openDropdown('Enter');
+    await expect(d.getItemAt(2)).toBeDisabled();
+  });
+
+  test(`GIVEN an open dropdown 
+    WHEN the third option disabled    
+    THEN the fourth option should have data-highlighted after pressing Arrow Down two times`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await d.openDropdown('Enter');
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowDown');
+
+    await expect(d.getItemAt(2)).toBeDisabled();
+    await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
+  });
+
+  test(`GIVEN an open disabled dropdown
+        WHEN first option is disabled
+        THEN the second option should have data-highlighted`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'disabled');
+
+    await d.openDropdown('ArrowDown');
+
+    await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+  });
+});

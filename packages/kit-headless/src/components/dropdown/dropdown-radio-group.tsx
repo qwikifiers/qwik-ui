@@ -57,7 +57,7 @@ export const HDropdownRadioGroup = component$((props: DropdownRadioGroupProps) =
   useContextProvider(dropdownRadioGroupContextId, radioGroupContext);
 
   return (
-    <div role="group" {...rest} data-disabled={disabled}>
+    <div role="radiogroup" {...rest} data-disabled={disabled}>
       <Slot />
     </div>
   );
