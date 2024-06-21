@@ -10,3 +10,4 @@ export { HDropdownRadioItem as RadioItem } from './dropdown-radio-item';
 export { HDropdownPopover as Popover } from './dropdown-popover';
 export { HDropdownGroup as Group } from './dropdown-group';
 export { HDropdownGroupLabel as GroupLabel } from './dropdown-group-label';
+export { HDropdownArrow as Arrow } from './dropdown-arrow';

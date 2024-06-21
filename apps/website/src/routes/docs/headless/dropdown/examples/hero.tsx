@@ -21,6 +21,7 @@ export default component$(() => {
     <Dropdown.Root data-testid="dropdown">
       <Dropdown.Trigger class="dropdown-trigger">Git Settings</Dropdown.Trigger>
       <Dropdown.Popover>
+        <Dropdown.Arrow class="dropdown-arrow" />
         <Dropdown.Content class="dropdown-content">
           <Dropdown.Group class="dropdown-group">
             <Dropdown.GroupLabel class="dropdown-group-label">
