@@ -16,6 +16,8 @@ export const HComboboxTrigger = component$((props: HComboboxTriggerImplProps) =>
       ref={context.triggerRef}
       aria-expanded={context.isListboxOpenSig.value}
       onClick$={[handleClick$, props.onClick$]}
+      data-open={context.isListboxOpenSig.value ? '' : undefined}
+      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       preventdefault:mousedown
       tabIndex={-1}
       {...props}

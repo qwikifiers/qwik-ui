@@ -55,7 +55,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
           context.highlightedIndexSig.value !== null
         ) {
           context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
-            context.highlightedIndexSig.value!,
+            context.highlightedIndexSig.value,
           );
         } else {
           context.isListboxOpenSig.value = true;

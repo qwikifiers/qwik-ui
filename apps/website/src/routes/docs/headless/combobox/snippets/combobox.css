@@ -70,6 +70,10 @@
   stroke: hsl(var(--foreground));
 }
 
+.combobox-trigger[data-open] .combobox-icon {
+  transform: rotate(180deg);
+}
+
 .combobox-item {
   display: flex;
   align-items: center;

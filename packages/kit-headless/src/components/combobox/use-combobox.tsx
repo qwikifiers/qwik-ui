@@ -50,6 +50,7 @@ export function useCombobox() {
       }
     },
   );
+
   const getNextEnabledItemIndex$ = $((index: number) => {
     let offset = 1;
     const len = context.itemsMapSig.value.size;
@@ -68,6 +69,7 @@ export function useCombobox() {
     }
     return index;
   });
+
   const getPrevEnabledItemIndex$ = $((index: number) => {
     let offset = 1;
     const len = context.itemsMapSig.value.size;
@@ -86,16 +88,28 @@ export function useCombobox() {
     }
     return index;
   });
+
+  const hasVisibleItems$ = $(() => {
+    for (const index of context.itemsMapSig.value.keys()) {
+      if (!context.disabledIndexSetSig.value.has(index)) {
+        return true;
+      }
+    }
+    return false;
+  });
+
   const getActiveDescendant$ = $((index: number) => {
     if (index === -1 || context.disabledIndexSetSig.value.has(index)) {
       return '';
     }
     return `${context.localId}-${index}`;
   });
+
   return {
     getNextEnabledItemIndex$,
     getPrevEnabledItemIndex$,
     getActiveDescendant$,
     selectionManager$,
+    hasVisibleItems$,
   };
 }

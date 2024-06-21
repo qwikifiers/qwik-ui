@@ -29,18 +29,19 @@ export type HComboboxItemProps = PropsOf<'li'> & {
 };
 
 export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps) => {
+  if (_index === undefined) {
+    throw new Error('Qwik UI: Combobox component item cannot find its proper index.');
+  }
+
   const context = useContext(comboboxContextId);
   const itemRef = useSignal<HTMLLIElement>();
   const itemLabelId = `${context.localId}-${_index}-item-label`;
 
-  const { selectionManager$ } = useCombobox();
-  const localIndexSig = useSignal<number | null>(null);
-  const isDisabledSig = useComputed$(() =>
-    context.disabledIndexSetSig.value.has(_index!),
-  );
+  const { selectionManager$, hasVisibleItems$ } = useCombobox();
+  const isDisabledSig = useComputed$(() => context.disabledIndexSetSig.value.has(_index));
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
-    return !isDisabledSig.value && context.selectedIndexSetSig.value.has(index!);
+    return !isDisabledSig.value && context.selectedIndexSetSig.value.has(index);
   });
 
   const isHighlightedSig = useComputed$(() => {
@@ -51,13 +52,6 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
     } else {
       return false;
     }
-  });
-
-  useTask$(async function getIndexTask() {
-    if (_index === undefined)
-      throw Error('Qwik UI: Combobox component item cannot find its proper index.');
-
-    localIndexSig.value = _index;
   });
 
   const checkVisibility$ = $(async (entries: IntersectionObserverEntry[]) => {
@@ -78,12 +72,12 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   });
 
   const handleClick$ = $(async () => {
-    if (isDisabledSig.value || localIndexSig.value === null) return;
+    if (isDisabledSig.value || _index === null) return;
 
     if (context.multiple) {
-      await selectionManager$(localIndexSig.value, 'toggle');
+      await selectionManager$(_index, 'toggle');
     } else {
-      await selectionManager$(localIndexSig.value, 'add');
+      await selectionManager$(_index, 'add');
       context.isListboxOpenSig.value = false;
     }
   });
@@ -91,8 +85,8 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   const handlePointerOver$ = $(() => {
     if (isDisabledSig.value) return;
 
-    if (localIndexSig.value !== null) {
-      context.highlightedIndexSig.value = localIndexSig.value;
+    if (_index !== null) {
+      context.highlightedIndexSig.value = _index;
     }
   });
 
@@ -144,7 +138,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
     }
 
     const lowerCaseDisplayValue = context.itemsMapSig.value
-      .get(_index!)
+      .get(_index)
       ?.displayValue.toLowerCase();
     const lowerCaseInputValue = context.inputValueSig.value.toLowerCase();
 
@@ -159,8 +153,14 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
       itemRef.value.style.display = 'none';
       context.disabledIndexSetSig.value = new Set([
         ...context.disabledIndexSetSig.value,
-        _index!,
+        _index,
       ]);
+    }
+
+    const hasVisibleItems = await hasVisibleItems$();
+
+    if (!hasVisibleItems) {
+      context.isListboxOpenSig.value = false;
     }
   });
 
