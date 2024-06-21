@@ -69,6 +69,7 @@
     "@nx/workspace": "19.2.3",
     "@oddbird/popover-polyfill": "0.4.3",
     "@playwright/test": "^1.44.1",
+    "@qwik-ui/headless": "0.4.4",
     "@qwikest/icons": "^0.0.13",
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@shikijs/transformers": "^1.6.0",
