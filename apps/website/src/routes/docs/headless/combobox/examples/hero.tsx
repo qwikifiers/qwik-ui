@@ -17,7 +17,12 @@ export default component$(() => {
   ];
 
   return (
-    <Combobox.Root class="combobox-root">
+    <Combobox.Root
+      class="combobox-root"
+      filter$={(displayValue: string, inputValue: string) =>
+        displayValue.startsWith(inputValue)
+      }
+    >
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
       <Combobox.Hub class="combobox-hub">
         <Combobox.Input class="combobox-input" />

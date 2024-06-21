@@ -1,4 +1,4 @@
-import { useContext, $ } from '@builder.io/qwik';
+import { useContext, $, Signal } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 
 export function useCombobox() {
@@ -51,6 +51,19 @@ export function useCombobox() {
     },
   );
 
+  const filterManager$ = $((isVisible: boolean, itemRef: Signal, index: number) => {
+    if (!itemRef.value) return;
+
+    itemRef.value.style.display = isVisible ? '' : 'none';
+    context.disabledIndexSetSig.value = new Set(
+      isVisible
+        ? [...context.disabledIndexSetSig.value].filter(
+            (selectedIndex) => selectedIndex !== index,
+          )
+        : [...context.disabledIndexSetSig.value, index],
+    );
+  });
+
   const getNextEnabledItemIndex$ = $((index: number) => {
     let offset = 1;
     const len = context.itemsMapSig.value.size;
@@ -101,5 +114,6 @@ export function useCombobox() {
     getPrevEnabledItemIndex$,
     getActiveDescendant$,
     selectionManager$,
+    filterManager$,
   };
 }

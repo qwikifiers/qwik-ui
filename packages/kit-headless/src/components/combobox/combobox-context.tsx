@@ -1,4 +1,4 @@
-import { Signal, createContextId } from '@builder.io/qwik';
+import { QRL, Signal, createContextId } from '@builder.io/qwik';
 import { TItemsMap } from './combobox-inline';
 
 export const comboboxContextId = createContextId<ComboboxContext>('qui-combobox');
@@ -25,6 +25,7 @@ export type ComboboxContext = {
 
   loop: boolean;
   multiple: boolean | undefined;
+  filter$?: QRL<(item: string, inputValue: string) => boolean>;
 };
 
 export const groupContextId = createContextId<GroupContext>('qui-combobox-group');

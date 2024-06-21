@@ -90,6 +90,8 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
   multiple?: M;
 
   invalid?: boolean;
+
+  filter$?: QRL<(displayValue: string, inputValue: string) => boolean>;
 } & TMultiValue &
   TStringOrArray;
 
@@ -105,6 +107,7 @@ export const HComboboxRootImpl = component$<
     loop: givenLoop,
     scrollOptions: givenScrollOptions,
     multiple = false,
+    filter$,
     ...rest
   } = props;
 
@@ -154,6 +157,7 @@ export const HComboboxRootImpl = component$<
     selectedIndexSetSig,
     disabledIndexSetSig,
     currDisplayValueSig,
+    filter$,
     loop,
     multiple,
     scrollOptions,

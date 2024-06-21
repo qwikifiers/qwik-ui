@@ -37,7 +37,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   const itemRef = useSignal<HTMLLIElement>();
   const itemLabelId = `${context.localId}-${_index}-item-label`;
 
-  const { selectionManager$ } = useCombobox();
+  const { selectionManager$, filterManager$ } = useCombobox();
   const isDisabledSig = useComputed$(() => context.disabledIndexSetSig.value.has(_index));
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -137,32 +137,25 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
       context.isListboxOpenSig.value = true;
     }
 
-    const lowerCaseDisplayValue = context.itemsMapSig.value
-      .get(_index)
-      ?.displayValue.toLowerCase();
-    const lowerCaseInputValue = context.inputValueSig.value.toLowerCase();
-
-    if (lowerCaseDisplayValue?.includes(lowerCaseInputValue)) {
-      itemRef.value.style.display = '';
-      context.disabledIndexSetSig.value = new Set(
-        [...context.disabledIndexSetSig.value].filter(
-          (selectedIndex) => selectedIndex !== _index,
-        ),
-      );
-    } else {
-      itemRef.value.style.display = 'none';
-      context.disabledIndexSetSig.value = new Set([
-        ...context.disabledIndexSetSig.value,
-        _index,
-      ]);
-    }
-
     const hasVisibleItems =
       context.itemsMapSig.value.size !== context.disabledIndexSetSig.value.size;
 
     if (!hasVisibleItems) {
       context.isListboxOpenSig.value = false;
     }
+
+    let isVisible;
+    const displayValue = context.itemsMapSig.value.get(_index)?.displayValue;
+    if (!displayValue) return;
+    if (context.filter$) {
+      isVisible = await context.filter$(displayValue, context.inputValueSig.value);
+    } else {
+      const lowerCaseDisplayValue = displayValue?.toLowerCase();
+      const lowerCaseInputValue = context.inputValueSig.value.toLowerCase();
+      isVisible = lowerCaseDisplayValue?.includes(lowerCaseInputValue);
+    }
+
+    filterManager$(!!isVisible, itemRef, _index);
   });
 
   return (
