@@ -37,7 +37,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   const itemRef = useSignal<HTMLLIElement>();
   const itemLabelId = `${context.localId}-${_index}-item-label`;
 
-  const { selectionManager$, hasVisibleItems$ } = useCombobox();
+  const { selectionManager$ } = useCombobox();
   const isDisabledSig = useComputed$(() => context.disabledIndexSetSig.value.has(_index));
   const isSelectedSig = useComputed$(() => {
     const index = _index ?? null;
@@ -157,7 +157,8 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
       ]);
     }
 
-    const hasVisibleItems = await hasVisibleItems$();
+    const hasVisibleItems =
+      context.itemsMapSig.value.size !== context.disabledIndexSetSig.value.size;
 
     if (!hasVisibleItems) {
       context.isListboxOpenSig.value = false;

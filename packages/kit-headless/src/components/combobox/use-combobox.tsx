@@ -89,15 +89,6 @@ export function useCombobox() {
     return index;
   });
 
-  const hasVisibleItems$ = $(() => {
-    for (const index of context.itemsMapSig.value.keys()) {
-      if (!context.disabledIndexSetSig.value.has(index)) {
-        return true;
-      }
-    }
-    return false;
-  });
-
   const getActiveDescendant$ = $((index: number) => {
     if (index === -1 || context.disabledIndexSetSig.value.has(index)) {
       return '';
@@ -110,6 +101,5 @@ export function useCombobox() {
     getPrevEnabledItemIndex$,
     getActiveDescendant$,
     selectionManager$,
-    hasVisibleItems$,
   };
 }

@@ -730,9 +730,9 @@ test.describe('Filtering options', () => {
         THEN some options should be filtered`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
     await d.openListbox('ArrowDown');
-    expect(await d.getItemsLength()).toBe(8);
-    await d.getInput().fill('a');
-    expect(await d.getItemsLength()).not.toBe(8);
+    expect(await d.getVisibleItemsLength()).toBe(8);
+    await d.getInput().press('z');
+    expect(await d.getVisibleItemsLength()).not.toBe(8);
   });
 
   test(`GIVEN a combobox
@@ -759,12 +759,12 @@ test.describe('Filtering options', () => {
     const { driver: d } = await setup(page, 'hero');
     // initial setup
     await d.openListbox('ArrowDown');
-    expect(await d.getItemsLength()).toBe(8);
+    expect(await d.getVisibleItemsLength()).toBe(8);
     await d.getInput().fill('a');
-    expect(await d.getItemsLength()).not.toBe(8);
+    expect(await d.getVisibleItemsLength()).not.toBe(8);
 
     await d.getInput().press('Backspace');
-    expect(await d.getItemsLength()).toBe(8);
+    expect(await d.getVisibleItemsLength()).toBe(8);
   });
 
   test(`GIVEN a combobox

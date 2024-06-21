@@ -22,8 +22,12 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().locator('[data-item]');
   };
 
+  const getVisibleItemsLength = () => {
+    return getRoot().locator('[data-item]:visible').count();
+  };
+
   const getItemsLength = async () => {
-    return getItems().count();
+    return await getItems().count();
   };
 
   const getItemAt = (index: number | 'last') => {
@@ -66,6 +70,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getInput,
     openListbox,
     getHighlightedItem,
+    getVisibleItemsLength,
     getHub,
   };
 }
