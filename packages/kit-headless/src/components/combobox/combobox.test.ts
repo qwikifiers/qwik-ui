@@ -761,6 +761,7 @@ test.describe('Filtering options', () => {
     await d.openListbox('ArrowDown');
     expect(await d.getVisibleItemsLength()).toBe(8);
     await d.getInput().press('a');
+    await expect(d.getInput()).toHaveValue('a');
     expect(await d.getVisibleItemsLength()).not.toBe(8);
 
     await d.getInput().press('Backspace');

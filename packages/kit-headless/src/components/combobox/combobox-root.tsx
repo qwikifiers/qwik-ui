@@ -195,10 +195,16 @@ export const HComboboxRootImpl = component$<
   });
 
   useTask$(function onOpenChangeTask({ track }) {
+    const bindOpenSig = props['bind:open'];
     track(() => isListboxOpenSig.value);
 
     if (!initialLoadSig.value) {
       onOpenChange$?.(isListboxOpenSig.value);
+    }
+
+    // sync the user's given signal for the open state
+    if (bindOpenSig && bindOpenSig.value !== isListboxOpenSig.value) {
+      bindOpenSig.value = isListboxOpenSig.value;
     }
   });
 
