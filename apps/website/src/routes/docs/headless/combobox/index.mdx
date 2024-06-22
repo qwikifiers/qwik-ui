@@ -9,9 +9,110 @@ import { FeatureList } from '~/components/feature-list/feature-list';
 
 # Combobox
 
-A text box with a list of options. Type to filter and select an item.
+Users can either type a value or pick one from a dropdown list.
 
 <Showcase name="hero" />
+
+## ✨ Features
+
+<FeatureList
+  features={[
+    'WAI ARIA Combobox design pattern',
+    'Single and multiple selection',
+    'Reactive and initial value changes',
+    'Disabled items',
+    'Tab key focus management',
+    'Grouped items',
+    'Looping',
+    'Custom scroll behavior',
+    'Listbox UI above all (Popover)',
+    'Custom positioning (Popover)',
+    'Typeahead item selection and focus',
+    'Arrow key navigation and focus management',
+    'Open/Close listbox by typing, focus, or manually',
+    'Custom filter function',
+    'Closes on no matching items',
+  ]}
+  roadmap={[
+    'Browser autofill with hidden select',
+    'Form validation support',
+    'Custom placeholder',
+  ]}
+/>
+
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Combobox.Root',
+      description: 'Container for the Combobox.',
+    },
+    {
+      name: 'Combobox.Label',
+      description: 'Label for the Combobox.',
+    },
+    {
+      name: 'Combobox.Hub',
+      description: 'Central element around which other elements are positioned.',
+    },
+    {
+      name: 'Combobox.Trigger',
+      description: 'Opens and closes the Combobox.',
+    },
+    {
+      name: 'Combobox.Input',
+      description: 'Filters items and shows the selected value.',
+    },
+    {
+      name: 'Combobox.Popover',
+      description: 'Container for list items, positioned above other content.',
+    },
+    {
+      name: 'Combobox.Listbox',
+      description: 'Displays items.',
+    },
+    {
+      name: 'Combobox.Item',
+      description: 'item in the Listbox.',
+    },
+    {
+      name: 'Combobox.ItemLabel',
+      description: 'Label for an item.',
+    },
+    {
+      name: 'Combobox.ItemIndicator',
+      description: 'Indicates selection.',
+    },
+    {
+      name: 'Combobox.Group',
+      description: 'Groups related items.',
+    },
+    {
+      name: 'Combobox.GroupLabel',
+      description: 'Label for a group of items.',
+    },
+  ]}
+/>
+
+## Why use a headless Combobox?
+
+The native `<select>` HTML element encounters significant obstacles in terms of styling flexibility, consistency across different browsers, and delivering a seamless user experience.
+
+### Native Combobox pain points
+
+<FeatureList
+  issues={[
+    'Styling Limitations',
+    'Multiselect Complexity',
+    'Limited Typeahead Support',
+    'Inconsistent Behavior across browsers and devices',
+  ]}
+/>
 
 ## Dynamic
 
