@@ -468,6 +468,17 @@ test.describe('Props', () => {
     await expect(sibling).toHaveText('The listbox opened and closed 1 time(s)');
   });
 
+  test(`GIVEN a combobox with an onInput$ prop
+        WHEN typing in the combobox once
+        THEN the handler should run once`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'input');
+
+    const sibling = d.getRoot().locator('+ p');
+    await expect(sibling).toHaveText('onInput$ was called 0 time(s)');
+    await d.getInput().press('z');
+    await expect(sibling).toHaveText('onInput$ was called 1 time(s)');
+  });
+
   test.describe('initial', () => {
     test(`GIVEN a combobox with an initial value prop on the root
           WHEN the value data matches the fourth option

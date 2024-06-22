@@ -35,7 +35,7 @@ type TStringOrArray =
     };
 
 export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
-  PropsOf<'div'>,
+  Omit<PropsOf<'div'>, 'onInput$'>,
   'onChange$'
 > & {
   /** A signal that controls the current selected value (controlled). */
@@ -92,6 +92,8 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
   invalid?: boolean;
 
   filter$?: QRL<(displayValue: string, inputValue: string) => boolean>;
+
+  onInput$?: QRL<(value: string) => void>;
 } & TMultiValue &
   TStringOrArray;
 
@@ -100,6 +102,7 @@ export const HComboboxRootImpl = component$<
 >((props: HComboboxRootImplProps<boolean> & InternalComboboxProps) => {
   const isListboxOpenSig = useSignal(false);
   const {
+    onInput$,
     onChange$,
     onOpenChange$,
     _itemsMap,
@@ -205,6 +208,14 @@ export const HComboboxRootImpl = component$<
     // sync the user's given signal for the open state
     if (bindOpenSig && bindOpenSig.value !== isListboxOpenSig.value) {
       bindOpenSig.value = isListboxOpenSig.value;
+    }
+  });
+
+  useTask$(function onInputTask({ track }) {
+    track(() => context.inputValueSig.value);
+
+    if (!initialLoadSig.value) {
+      onInput$?.(context.inputValueSig.value);
     }
   });
 
