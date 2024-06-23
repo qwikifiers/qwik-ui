@@ -14,7 +14,7 @@ const Root = (props: PropsOf<typeof HeadlessCombobox.Root>) => {
       comboboxItemComponent={Item}
       comboboxItemLabelComponent={ItemLabel}
     >
-      <Slot />
+      {props.children}
     </HeadlessCombobox.Root>
   );
 };
@@ -51,7 +51,7 @@ const Control = component$<PropsOf<typeof HeadlessCombobox.Control>>((props) => 
   return (
     <HeadlessCombobox.Control
       {...props}
-      class={cn('relative flex items-center rounded-base ', props.class)}
+      class={cn('relative flex items-center rounded-base', props.class)}
     >
       <Slot />
     </HeadlessCombobox.Control>
@@ -63,7 +63,7 @@ const Input = component$<PropsOf<typeof HeadlessCombobox.Input>>((props) => {
     <HeadlessCombobox.Input
       {...props}
       class={cn(
-        'flex h-10 w-full rounded-md border border-input bg-transparent py-3 pl-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-10 w-full rounded-md border border-input py-3 pl-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
         props.class,
       )}
     />
@@ -83,22 +83,25 @@ const Trigger = component$<PropsOf<typeof HeadlessCombobox.Trigger>>(({ ...props
 
 const Popover = component$<PropsOf<typeof HeadlessCombobox.Popover>>((props) => {
   return (
-    <HeadlessCombobox.Popover {...props} class={cn('bg-transparent', props.class)}>
+    <HeadlessCombobox.Popover
+      {...props}
+      class={cn('w-48 rounded-base border p-2', props.class)}
+    >
       <Slot />
     </HeadlessCombobox.Popover>
   );
 });
 
-const Listbox = component$<PropsOf<typeof HeadlessCombobox.Listbox>>(({ ...props }) => {
-  return (
-    <HeadlessCombobox.Listbox
-      {...props}
-      class={cn('w-48 rounded-base border bg-background p-2', props.class)}
-    >
-      <Slot />
-    </HeadlessCombobox.Listbox>
-  );
-});
+// const Listbox = component$<PropsOf<typeof HeadlessCombobox.Listbox>>(({ ...props }) => {
+//   return (
+//     <HeadlessCombobox.Listbox
+//       {...props}
+//       class={cn('w-48 rounded-base border bg-background p-2', props.class)}
+//     >
+//       <Slot />
+//     </HeadlessCombobox.Listbox>
+//   );
+// });
 
 const Item = component$<PropsOf<typeof HeadlessCombobox.Item>>(({ ...props }) => {
   return (
@@ -121,7 +124,6 @@ export const Combobox = {
   Input,
   Trigger,
   Popover,
-  Listbox,
   Item,
   ItemLabel,
   ItemIndicator,
