@@ -26,7 +26,7 @@ export default component$(() => {
       bind:value={selected}
     >
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
-      <Combobox.Hub class="combobox-multibox">
+      <Combobox.Control class="combobox-multibox">
         {display.value.map((item) => (
           <span class="combobox-pill" key={item}>
             {item}
@@ -45,7 +45,7 @@ export default component$(() => {
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>
-      </Combobox.Hub>
+      </Combobox.Control>
       <Combobox.Popover class="combobox-popover" gutter={8}>
         <Combobox.Listbox class="combobox-listbox">
           {fruits.map((fruit) => (

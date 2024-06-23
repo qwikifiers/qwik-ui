@@ -44,7 +44,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getHub = () => {
-    return getRoot().locator('[data-combobox-hub]');
+    return getRoot().locator('[data-combobox-control]');
   };
 
   const openListbox = async (key: OpenKeys | 'click') => {

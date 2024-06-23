@@ -1,24 +1,21 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import { Combobox } from '@qwik-ui/headless';
-import { LuCheck, LuChevronDown } from '@qwikest/icons/lucide';
+import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
 
-  const fruits = [
-    'Apple',
-    'Apricot',
-    'Bilberry',
-    'Blackberry',
-    'Blackcurrant',
-    'Currant',
-    'Cherry',
-    'Coconut',
+  const users = [
+    { name: 'Tim', status: '🟢' },
+    { name: 'Ryan', status: '🔴' },
+    { name: 'Jim', status: '🟡' },
+    { name: 'Jessie', status: '🟢' },
+    { name: 'Abby', status: '🟡' },
   ];
 
   return (
     <Combobox.Root class="combobox-root">
-      <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
+      <Combobox.Label class="combobox-label">Logged in users</Combobox.Label>
       <Combobox.Control class="combobox-control">
         <Combobox.Input class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
@@ -27,12 +24,10 @@ export default component$(() => {
       </Combobox.Control>
       <Combobox.Popover class="combobox-popover" gutter={8}>
         <Combobox.Listbox class="combobox-listbox">
-          {fruits.map((fruit) => (
-            <Combobox.Item key={fruit} class="combobox-item">
-              <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
-              <Combobox.ItemIndicator>
-                <LuCheck />
-              </Combobox.ItemIndicator>
+          {users.map((user) => (
+            <Combobox.Item key={user.name} class="combobox-item">
+              <Combobox.ItemLabel>{user.name}</Combobox.ItemLabel>
+              <Combobox.ItemIndicator>{user.status}</Combobox.ItemIndicator>
             </Combobox.Item>
           ))}
         </Combobox.Listbox>

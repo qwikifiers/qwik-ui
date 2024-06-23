@@ -47,14 +47,14 @@ const ItemIndicator = component$<PropsOf<typeof HeadlessCombobox.ItemIndicator>>
   },
 );
 
-const Hub = component$<PropsOf<typeof HeadlessCombobox.Hub>>((props) => {
+const Control = component$<PropsOf<typeof HeadlessCombobox.Control>>((props) => {
   return (
-    <HeadlessCombobox.Hub
+    <HeadlessCombobox.Control
       {...props}
       class={cn('relative flex items-center rounded-base ', props.class)}
     >
       <Slot />
-    </HeadlessCombobox.Hub>
+    </HeadlessCombobox.Control>
   );
 });
 
@@ -117,7 +117,7 @@ const Item = component$<PropsOf<typeof HeadlessCombobox.Item>>(({ ...props }) =>
 export const Combobox = {
   Root,
   Label,
-  Hub,
+  Control,
   Input,
   Trigger,
   Popover,

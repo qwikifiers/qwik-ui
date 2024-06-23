@@ -17,12 +17,12 @@ export default component$(() => {
   return (
     <Combobox.Root>
       <Combobox.Label>Personal Trainers</Combobox.Label>
-      <Combobox.Hub>
+      <Combobox.Control>
         <Combobox.Input />
         <Combobox.Trigger>
           <LuChevronDown />
         </Combobox.Trigger>
-      </Combobox.Hub>
+      </Combobox.Control>
       <Combobox.Popover gutter={8}>
         <Combobox.Listbox>
           {fruits.map((fruit) => (

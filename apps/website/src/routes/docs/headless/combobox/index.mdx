@@ -57,7 +57,7 @@ Users can either type a value or pick one from a dropdown list.
       description: 'Label for the Combobox.',
     },
     {
-      name: 'Combobox.Hub',
+      name: 'Combobox.Control',
       description: 'Central element around which other elements are positioned.',
     },
     {
@@ -101,18 +101,47 @@ Users can either type a value or pick one from a dropdown list.
 
 ## Why use a headless Combobox?
 
-The native `<select>` HTML element encounters significant obstacles in terms of styling flexibility, consistency across different browsers, and delivering a seamless user experience.
+A native combobox does not exist. The Open UI group has created a [proposal](https://open-ui.org/components/combobox.explainer/) for a new HTML element called `combobox`.
 
-### Native Combobox pain points
+## Passing data
 
-<FeatureList
-  issues={[
-    'Styling Limitations',
-    'Multiselect Complexity',
-    'Limited Typeahead Support',
-    'Inconsistent Behavior across browsers and devices',
-  ]}
-/>
+To add data, use the `<Combobox.Item>` component inside of the listbox.
+
+### Basic example
+
+<Showcase name="string" />
+
+By default, the content inside of the `<Combobox.ItemLabel />` component is the item's value.
+
+### Mapping over data
+
+<Showcase name="hero" />
+
+You control how the data is rendered. Map over the data or render the items as you like.
+
+### Object example
+
+<Showcase name="object" />
+
+> If you need to display a different value to the user, use the `value` prop on `<Combobox.Item />`. This will be explained in the next section.
+
+### Passing a distinct value
+
+<Showcase name="item-value" />
+
+A distinct value is when one thing is displayed to the user, but another value is passed to the item.
+
+By adding the `value` prop to the `<Combobox.Item />` component, a distinct value is created.
+
+> A common use case is to select a user's unique account id
+
+### Handling selection changes
+
+<Showcase name="change" />
+
+Use the `onChange$` prop to listen for changes in the selected value. It provides the new selected value as an argument.
+
+The example above increments a count when a new item is selected.
 
 ## Dynamic
 

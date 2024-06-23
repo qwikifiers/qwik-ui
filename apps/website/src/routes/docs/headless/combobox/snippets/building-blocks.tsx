@@ -6,10 +6,12 @@ export default component$(() => {
   return (
     <Combobox.Root>
       <Combobox.Label>label</Combobox.Label>
-      <Combobox.Hub>
+
+      <Combobox.Control>
         <Combobox.Input />
         <Combobox.Trigger>trigger</Combobox.Trigger>
-      </Combobox.Hub>
+      </Combobox.Control>
+
       <Combobox.Popover>
         <Combobox.Listbox>
           <Combobox.Item>

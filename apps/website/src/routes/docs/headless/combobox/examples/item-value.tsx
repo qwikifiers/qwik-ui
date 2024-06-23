@@ -21,12 +21,12 @@ export default component$(() => {
     <>
       <Combobox.Root onChange$={handleChange$} class="combobox-root" value="Blackberry">
         <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
-        <Combobox.Hub class="combobox-hub">
+        <Combobox.Control class="combobox-control">
           <Combobox.Input class="combobox-input" />
           <Combobox.Trigger class="combobox-trigger">
             <LuChevronDown class="combobox-icon" />
           </Combobox.Trigger>
-        </Combobox.Hub>
+        </Combobox.Control>
         <Combobox.Popover class="combobox-popover" gutter={8}>
           <Combobox.Listbox class="combobox-listbox">
             {users.map((user) => (

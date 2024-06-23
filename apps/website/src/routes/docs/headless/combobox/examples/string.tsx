@@ -1,20 +1,9 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import { Combobox } from '@qwik-ui/headless';
-import { LuCheck, LuChevronDown } from '@qwikest/icons/lucide';
+import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
-
-  const fruits = [
-    'Apple',
-    'Apricot',
-    'Bilberry',
-    'Blackberry',
-    'Blackcurrant',
-    'Currant',
-    'Cherry',
-    'Coconut',
-  ];
 
   return (
     <Combobox.Root class="combobox-root">
@@ -27,14 +16,12 @@ export default component$(() => {
       </Combobox.Control>
       <Combobox.Popover class="combobox-popover" gutter={8}>
         <Combobox.Listbox class="combobox-listbox">
-          {fruits.map((fruit) => (
-            <Combobox.Item key={fruit} class="combobox-item">
-              <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
-              <Combobox.ItemIndicator>
-                <LuCheck />
-              </Combobox.ItemIndicator>
-            </Combobox.Item>
-          ))}
+          <Combobox.Item class="combobox-item">
+            <Combobox.ItemLabel>Option 1</Combobox.ItemLabel>
+          </Combobox.Item>
+          <Combobox.Item class="combobox-item">
+            <Combobox.ItemLabel>Option 2</Combobox.ItemLabel>
+          </Combobox.Item>
         </Combobox.Listbox>
       </Combobox.Popover>
     </Combobox.Root>
