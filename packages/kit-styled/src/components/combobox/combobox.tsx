@@ -85,23 +85,12 @@ const Popover = component$<PropsOf<typeof HeadlessCombobox.Popover>>((props) => 
   return (
     <HeadlessCombobox.Popover
       {...props}
-      class={cn('w-48 rounded-base border p-2', props.class)}
+      class={cn('w-48 rounded-base border bg-background p-2', props.class)}
     >
       <Slot />
     </HeadlessCombobox.Popover>
   );
 });
-
-// const Listbox = component$<PropsOf<typeof HeadlessCombobox.Listbox>>(({ ...props }) => {
-//   return (
-//     <HeadlessCombobox.Listbox
-//       {...props}
-//       class={cn('w-48 rounded-base border bg-background p-2', props.class)}
-//     >
-//       <Slot />
-//     </HeadlessCombobox.Listbox>
-//   );
-// });
 
 const Item = component$<PropsOf<typeof HeadlessCombobox.Item>>(({ ...props }) => {
   return (
