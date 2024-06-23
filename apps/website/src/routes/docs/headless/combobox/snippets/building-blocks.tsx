@@ -13,14 +13,12 @@ export default component$(() => {
       </Combobox.Control>
 
       <Combobox.Popover>
-        <Combobox.Listbox>
-          <Combobox.Item>
-            <Combobox.ItemLabel>item label</Combobox.ItemLabel>
-            <Combobox.ItemIndicator>
-              <LuCheck />
-            </Combobox.ItemIndicator>
-          </Combobox.Item>
-        </Combobox.Listbox>
+        <Combobox.Item>
+          <Combobox.ItemLabel>item label</Combobox.ItemLabel>
+          <Combobox.ItemIndicator>
+            <LuCheck />
+          </Combobox.ItemIndicator>
+        </Combobox.Item>
       </Combobox.Popover>
     </Combobox.Root>
   );

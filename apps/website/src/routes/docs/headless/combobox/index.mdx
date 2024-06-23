@@ -216,7 +216,7 @@ To handle the popover open/close state, use the `onOpenChange$` prop. It passes 
 
 <Showcase name="open-change" />
 
-## Handling input changes
+### Handling input changes
 
 Add the `onInput$` prop to the `<Combobox.Root />` component.
 
@@ -309,28 +309,8 @@ When in multi select mode, additional keyboard interactions are available.
 <KeyboardInteractionTable
   keyDescriptors={[
     {
-      keyTitle: 'Space',
-      description: `Toggles the selection of the highlighted item without closing the combobox.`,
-    },
-    {
       keyTitle: 'Enter',
       description: `Toggles the selection of the highlighted item without closing the combobox.`,
-    },
-    {
-      keyTitle: 'Shift + ArrowDown',
-      description: `Extends the selection from the current focus to the next item.`,
-    },
-    {
-      keyTitle: 'Shift + ArrowUp',
-      description: `Extends the selection from the current focus to the previous item.`,
-    },
-    {
-      keyTitle: 'Ctrl + A',
-      description: `Selects all items in the list.`,
-    },
-    {
-      keyTitle: 'Esc',
-      description: `Closes the combobox and moves focus back to the trigger.`,
     },
   ]}
 />
@@ -339,7 +319,7 @@ When in multi select mode, additional keyboard interactions are available.
 
 ### Data Attributes
 
-`Combobox`, `Combobox.Trigger`, `Combobox.DisplayValue`, `Combobox.Popover`, and `Combobox.Listbox` all have data attributes that are used to track state.
+`Combobox.Root`, `Combobox.Trigger`, and `Combobox.Popover`, all have data attributes that are used to track state.
 
 <AnatomyTable
   firstColumnLabel="Attribute"
@@ -413,6 +393,16 @@ When in multi select mode, additional keyboard interactions are available.
       type: 'boolean',
       description:
         'Determines if focus cycles from the last item back to the first, or vice versa.',
+    },
+    {
+      name: 'placeholder',
+      type: 'string',
+      description: 'Sets a placeholder instead of a selected value.',
+    },
+    {
+      name: 'multiple',
+      type: 'boolean',
+      description: 'Enables multiple selections.',
     },
     {
       name: 'filter$',

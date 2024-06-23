@@ -289,6 +289,70 @@ test.describe('Keyboard Behavior', () => {
       await d.getInput().press('ArrowDown');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
+
+    test(`GIVEN an open combobox with an option selected
+            WHEN that same option is clicked
+            THEN the listbox should remain open`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openListbox('ArrowDown');
+      await d.getItemAt(0).click();
+
+      await expect(d.getListbox()).toBeHidden();
+
+      await d.openListbox('click');
+      await d.getItemAt(0).click();
+
+      await expect(d.getListbox()).toBeVisible();
+    });
+
+    test(`GIVEN an open combobox with an option selected
+            WHEN that same option is clicked
+            THEN the option should be unselected`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openListbox('ArrowDown');
+      await d.getItemAt(0).click();
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-selected');
+
+      await d.openListbox('click');
+      await d.getItemAt(0).click();
+
+      await expect(d.getItemAt(0)).not.toHaveAttribute('data-selected');
+    });
+
+    test(`GIVEN an open combobox with an option selected
+            WHEN that same option is pressed with the enter key
+            THEN the listbox should remain open`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openListbox('ArrowDown');
+      await d.getInput().press('Enter');
+
+      await expect(d.getListbox()).toBeHidden();
+
+      await d.openListbox('ArrowDown');
+      await d.getInput().press('Enter');
+
+      await expect(d.getListbox()).toBeVisible();
+    });
+
+    test(`GIVEN an open combobox with an option selected
+            WHEN that same option is pressed with the enter key
+            THEN the option should be unselected`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      await d.openListbox('ArrowDown');
+      await d.getInput().press('Enter');
+
+      await expect(d.getItemAt(0)).toHaveAttribute('data-selected');
+
+      await d.openListbox('ArrowDown');
+      await d.getInput().press('Enter');
+
+      await expect(d.getItemAt(0)).not.toHaveAttribute('data-selected');
+    });
   });
 
   test.describe('looping', () => {
