@@ -94,6 +94,8 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
   filter$?: QRL<(displayValue: string, inputValue: string) => boolean>;
 
   onInput$?: QRL<(value: string) => void>;
+
+  placeholder?: string;
 } & TMultiValue &
   TStringOrArray;
 
@@ -110,6 +112,7 @@ export const HComboboxRootImpl = component$<
     loop: givenLoop,
     scrollOptions: givenScrollOptions,
     multiple = false,
+    placeholder,
     filter$,
     ...rest
   } = props;
@@ -162,6 +165,7 @@ export const HComboboxRootImpl = component$<
     loop,
     multiple,
     scrollOptions,
+    placeholder,
   };
 
   useContextProvider(comboboxContextId, context);

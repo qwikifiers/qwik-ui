@@ -26,6 +26,7 @@ export type ComboboxContext = {
   multiple: boolean | undefined;
   filter$?: QRL<(item: string, inputValue: string) => boolean>;
   onInput$?: QRL<(value: string) => void>;
+  placeholder?: string;
 };
 
 export const groupContextId = createContextId<GroupContext>('qui-combobox-group');

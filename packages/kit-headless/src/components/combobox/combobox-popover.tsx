@@ -35,10 +35,6 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
     }
   });
 
-  useTask$(() => {
-    initialLoadSig.value = false;
-  });
-
   const listboxId = `${context.localId}-panel`;
 
   const isOutside = $((rect: DOMRect, x: number, y: number) => {
@@ -79,6 +75,10 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
     cleanup(() => {
       window.removeEventListener('pointerdown', handleDismiss$);
     });
+  });
+
+  useTask$(() => {
+    initialLoadSig.value = false;
   });
 
   return (

@@ -17,10 +17,10 @@ export default component$(() => {
   ];
 
   return (
-    <Combobox.Root class="combobox-root">
+    <Combobox.Root class="combobox-root" placeholder="placeholder">
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
       <Combobox.Control class="combobox-control">
-        <Combobox.Input placeholder="placeholder" class="combobox-input" />
+        <Combobox.Input class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>

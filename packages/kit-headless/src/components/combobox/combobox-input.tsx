@@ -140,6 +140,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
       aria-haspopup="listbox"
       ref={context.inputRef}
       autocomplete="off"
+      placeholder={context.placeholder ?? props.placeholder ?? undefined}
       data-combobox-input
       {...props}
     />
