@@ -15,16 +15,16 @@ export default component$(() => {
   ];
 
   return (
-    <Combobox.Root>
-      <Combobox.Label>Personal Trainers</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input />
-        <Combobox.Trigger>
-          <LuChevronDown />
-        </Combobox.Trigger>
-      </Combobox.Control>
-      <Combobox.Popover gutter={8}>
-        <Combobox.Listbox>
+    <>
+      <Combobox.Root>
+        <Combobox.Label>Personal Trainers</Combobox.Label>
+        <Combobox.Control>
+          <Combobox.Input />
+          <Combobox.Trigger>
+            <LuChevronDown />
+          </Combobox.Trigger>
+        </Combobox.Control>
+        <Combobox.Popover gutter={8}>
           {fruits.map((fruit) => (
             <Combobox.Item key={fruit}>
               <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
@@ -33,8 +33,8 @@ export default component$(() => {
               </Combobox.ItemIndicator>
             </Combobox.Item>
           ))}
-        </Combobox.Listbox>
-      </Combobox.Popover>
-    </Combobox.Root>
+        </Combobox.Popover>
+      </Combobox.Root>
+    </>
   );
 });
