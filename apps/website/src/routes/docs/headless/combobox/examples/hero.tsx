@@ -19,23 +19,23 @@ export default component$(() => {
   return (
     <Combobox.Root class="combobox-root">
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
+
       <Combobox.Control class="combobox-control">
         <Combobox.Input class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>
       </Combobox.Control>
+
       <Combobox.Popover class="combobox-popover" gutter={8}>
-        <Combobox.Listbox class="combobox-listbox">
-          {fruits.map((fruit) => (
-            <Combobox.Item key={fruit} class="combobox-item">
-              <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
-              <Combobox.ItemIndicator>
-                <LuCheck />
-              </Combobox.ItemIndicator>
-            </Combobox.Item>
-          ))}
-        </Combobox.Listbox>
+        {fruits.map((fruit) => (
+          <Combobox.Item key={fruit} class="combobox-item">
+            <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
+            <Combobox.ItemIndicator>
+              <LuCheck />
+            </Combobox.ItemIndicator>
+          </Combobox.Item>
+        ))}
       </Combobox.Popover>
     </Combobox.Root>
   );

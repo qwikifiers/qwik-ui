@@ -13,7 +13,7 @@ type HComboboxInputProps = PropsOf<'input'>;
 
 export const HComboboxInput = component$((props: HComboboxInputProps) => {
   const context = useContext(comboboxContextId);
-  const listboxId = `${context.localId}-listbox`;
+  const panelId = `${context.localId}-panel`;
   const inputId = `${context.localId}-input`;
   const labelId = `${context.localId}-label`;
 
@@ -134,7 +134,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
       onInput$={[handleInput$, props.onInput$]}
       aria-activedescendant={activeDescendantSig.value}
       aria-expanded={context.isListboxOpenSig.value ? 'true' : 'false'}
-      aria-controls={listboxId}
+      aria-controls={panelId}
       aria-labelledby={labelId}
       aria-autocomplete="list"
       aria-haspopup="listbox"

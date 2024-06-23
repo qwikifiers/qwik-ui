@@ -13,11 +13,10 @@ export type ComboboxContext = {
   // refs
   triggerRef: Signal<HTMLButtonElement | undefined>;
   inputRef: Signal<HTMLInputElement | undefined>;
-  popoverRef: Signal<HTMLElement | undefined>;
   listboxRef: Signal<HTMLUListElement | undefined>;
   groupRef: Signal<HTMLDivElement | undefined>;
   labelRef: Signal<HTMLDivElement | undefined>;
-  hubRef: Signal<HTMLDivElement | undefined>;
+  controlRef: Signal<HTMLDivElement | undefined>;
   selectedIndexSetSig: Signal<Set<number>>;
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;

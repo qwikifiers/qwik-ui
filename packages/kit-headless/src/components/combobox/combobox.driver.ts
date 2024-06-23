@@ -43,7 +43,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().locator('[data-highlighted]');
   };
 
-  const getHub = () => {
+  const getControl = () => {
     return getRoot().locator('[data-combobox-control]');
   };
 
@@ -71,6 +71,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     openListbox,
     getHighlightedItem,
     getVisibleItemsLength,
-    getHub,
+    getControl,
   };
 }

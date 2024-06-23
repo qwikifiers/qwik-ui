@@ -8,21 +8,22 @@ export default component$(() => {
   return (
     <Combobox.Root class="combobox-root">
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
+
       <Combobox.Control class="combobox-control">
         <Combobox.Input class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>
       </Combobox.Control>
+
       <Combobox.Popover class="combobox-popover" gutter={8}>
-        <Combobox.Listbox class="combobox-listbox">
-          <Combobox.Item class="combobox-item">
-            <Combobox.ItemLabel>Option 1</Combobox.ItemLabel>
-          </Combobox.Item>
-          <Combobox.Item class="combobox-item">
-            <Combobox.ItemLabel>Option 2</Combobox.ItemLabel>
-          </Combobox.Item>
-        </Combobox.Listbox>
+        <Combobox.Item class="combobox-item">
+          <Combobox.ItemLabel>Option 1</Combobox.ItemLabel>
+        </Combobox.Item>
+
+        <Combobox.Item class="combobox-item">
+          <Combobox.ItemLabel>Option 2</Combobox.ItemLabel>
+        </Combobox.Item>
       </Combobox.Popover>
     </Combobox.Root>
   );

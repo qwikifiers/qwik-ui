@@ -99,7 +99,7 @@ test.describe('Mouse Behavior', () => {
 
     await d.openListbox('click');
 
-    const label = d.getRoot().getByRole('listitem').first();
+    const label = page.locator('[data-group-label]').first();
 
     await expect(label).toBeVisible();
     await label.click();
@@ -600,7 +600,9 @@ test.describe('A11y', () => {
         AND its associated label`, async ({ page }) => {
     const { driver: d } = await setup(page, 'group');
     await d.openListbox('ArrowDown');
-    const labelId = await d.getRoot().getByRole('listitem').first().getAttribute('id');
+    const label = page.locator('[data-group-label]').first();
+
+    const labelId = await label.getAttribute('id');
 
     await expect(d.getRoot().getByRole('group').first()).toHaveAttribute(
       'aria-labelledby',
@@ -697,8 +699,8 @@ test.describe('Multiple selection', () => {
       await d.getItemAt(1).click();
       await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
 
-      await expect(d.getHub()).toContainText('Apple');
-      await expect(d.getHub()).toContainText('Apricot');
+      await expect(d.getControl()).toContainText('Apple');
+      await expect(d.getControl()).toContainText('Apricot');
     });
   });
 

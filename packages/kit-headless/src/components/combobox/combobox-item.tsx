@@ -17,7 +17,7 @@ import {
 import { useCombobox } from './use-combobox';
 import { isServer } from '@builder.io/qwik/build';
 
-export type HComboboxItemProps = PropsOf<'li'> & {
+export type HComboboxItemProps = PropsOf<'div'> & {
   /** Internal index we get from the inline component. Please see combobox-inline.tsx */
   _index?: number;
 
@@ -159,7 +159,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   });
 
   return (
-    <li
+    <div
       role="option"
       ref={itemRef}
       tabIndex={-1}
@@ -177,6 +177,6 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
       {...rest}
     >
       <Slot />
-    </li>
+    </div>
   );
 });

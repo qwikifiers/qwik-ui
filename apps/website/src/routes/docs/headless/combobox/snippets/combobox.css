@@ -52,15 +52,10 @@
 .combobox-popover {
   width: 100%;
   max-width: calc(var(--combobox-width) + 2.5rem);
-}
-
-.combobox-listbox {
-  width: 100%;
   background-color: hsl(var(--background));
   padding: 0.5rem;
   border: 2px dotted hsla(var(--foreground) / 0.6);
   border-radius: calc(var(--border-radius) / 2);
-  max-width: calc(var(--combobox-width) + 44px);
   color: hsl(var(--foreground));
 }
 

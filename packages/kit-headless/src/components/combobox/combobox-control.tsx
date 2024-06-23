@@ -8,7 +8,7 @@ export const HComboboxControl = component$((props: HComboboxControlProps) => {
   const context = useContext(comboboxContextId);
 
   return (
-    <div ref={context.hubRef} data-combobox-control {...props}>
+    <div ref={context.controlRef} data-combobox-control {...props}>
       <Slot />
     </div>
   );
