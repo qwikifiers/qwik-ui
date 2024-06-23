@@ -63,7 +63,7 @@ export default component$(() => {
               src={`/images/qwik-ui-headless-hero.webp`}
               width="300"
               height="300"
-              alt={`styled kit`}
+              alt={`headless kit`}
               class="w-full rounded-t-sm"
             />
             <Card.Header>
