@@ -174,7 +174,7 @@ Add the `disabled` prop to `<Combobox.Item />` to disable items.
 
 Disabled items cannot be selected or focused and are skipped during arrow key navigation.
 
-## Dynamic
+### Dynamically adding items
 
 A common use case is adding items dynamically, like an infinite scrolling list of users.
 
@@ -188,7 +188,7 @@ Clicking the `Add Users` button creates new users to the list. We could also fet
 
 Add `<Combobox.ItemIndicator />` inside `<Combobox.Item />` to indicate the selected item.
 
-## Multiple
+### Multiple selections
 
 To allow multiple selections, set the `multiple` prop to `true`.
 
@@ -202,11 +202,27 @@ You can combine `bind:value` and `bind:displayValue` to create a custom widget t
 
 ## Menu behavior
 
-### Handling Popover Open/Close
+### Custom Filter
+
+Change the filter behavior by adding the `filter$` prop to the `<Combobox.Root />` component. This function determines how items are filtered based on the user's input.
+
+<Showcase name="filter" />
+
+The `filter$` prop accepts a function with two parameters: `displayValue` and `inputValue`.
+
+### Handling popover open/close
 
 To handle the popover open/close state, use the `onOpenChange$` prop. It passes a boolean indicating whether the listbox is open.
 
 <Showcase name="open-change" />
+
+## Handling input changes
+
+Add the `onInput$` prop to the `<Combobox.Root />` component.
+
+<Showcase name="input" />
+
+This function is called when the user types in the input.
 
 ### Looping
 
@@ -235,16 +251,14 @@ The native `scrollIntoView` method scrolls items into view when highlighted. To 
 
 ## Placeholder
 
-We can provide a custom placeholder to the `<Combobox.DisplayValue />` component by adding the `placeholder` prop.
+We can provide a custom placeholder to the `<Combobox.Root />` component by adding the `placeholder` prop.
 
 <Showcase name="placeholder" />
 
 When a value is not selected, the placeholder is displayed.
 
-## Custom Filter
+## CSR
 
-<Showcase name="filter" />
+Like every Qwik UI component, the Combobox component can be rendered server-side or client-side.
 
-## onInput$
-
-<Showcase name="input" />
+<Showcase name="csr" />
