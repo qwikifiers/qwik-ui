@@ -842,6 +842,7 @@ test.describe('Filtering options', () => {
     expect(await d.getVisibleItemsLength()).not.toBe(8);
 
     await d.getInput().press('Backspace');
+    await expect(d.getInput()).toHaveValue('');
     expect(await d.getVisibleItemsLength()).toBe(8);
   });
 

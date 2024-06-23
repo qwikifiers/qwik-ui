@@ -3,7 +3,7 @@ import { component$, PropsOf, Slot } from '@builder.io/qwik';
 type ComboboxListboxProps = PropsOf<'ul'>;
 
 /**
- * @deprecated This component is deprecated. Please remove it from your code.
+ * @deprecated This component is deprecated. It will be removed in a future release.
  */
 export const HComboboxListbox = component$<ComboboxListboxProps>(
   (props: PropsOf<'ul'>) => {

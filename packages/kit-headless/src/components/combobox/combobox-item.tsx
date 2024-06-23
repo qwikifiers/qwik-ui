@@ -74,10 +74,9 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   const handleClick$ = $(async () => {
     if (isDisabledSig.value || _index === null) return;
 
-    if (context.multiple) {
-      await selectionManager$(_index, 'toggle');
-    } else {
-      await selectionManager$(_index, 'add');
+    await selectionManager$(_index, 'toggle');
+
+    if (!isSelectedSig.value && !context.multiple) {
       context.isListboxOpenSig.value = false;
     }
   });

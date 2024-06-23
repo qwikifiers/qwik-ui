@@ -26,10 +26,14 @@ export function useCombobox() {
             ),
           );
         } else {
-          context.selectedIndexSetSig.value = new Set([
-            ...context.selectedIndexSetSig.value,
-            index,
-          ]);
+          if (context.multiple) {
+            context.selectedIndexSetSig.value = new Set([
+              ...context.selectedIndexSetSig.value,
+              index,
+            ]);
+          } else {
+            context.selectedIndexSetSig.value = new Set([index]);
+          }
         }
       }
       if (action === 'remove') {

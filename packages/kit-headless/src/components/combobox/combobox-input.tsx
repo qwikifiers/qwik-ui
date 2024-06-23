@@ -94,15 +94,15 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
 
       case 'Enter':
         if (context.isListboxOpenSig.value) {
-          const action = context.multiple ? 'toggle' : 'add';
-          await selectionManager$(context.highlightedIndexSig.value, action);
+          const highlightedIndex = context.highlightedIndexSig.value;
+          await selectionManager$(highlightedIndex, 'toggle');
+
+          const isSelected = context.selectedIndexSetSig.value.has(highlightedIndex!);
+          if (isSelected && !context.multiple) {
+            context.isListboxOpenSig.value = false;
+          }
         }
 
-        if (context.multiple && context.isListboxOpenSig.value) {
-          context.isListboxOpenSig.value = true;
-        } else {
-          context.isListboxOpenSig.value = false;
-        }
         break;
     }
 
