@@ -262,3 +262,190 @@ When a value is not selected, the placeholder is displayed.
 Like every Qwik UI component, the Combobox component can be rendered server-side or client-side.
 
 <Showcase name="csr" />
+
+## Example CSS
+
+Every code example uses the following CSS:
+
+<CodeSnippet name="combobox.css" />
+
+Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
+
+## Keyboard Interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Enter',
+      description: `Selects a highlighted item when open.`,
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: `Opens the combobox or moves focus down.`,
+    },
+    {
+      keyTitle: 'ArrowUp',
+      description: `Opens the combobox or moves focus up.`,
+    },
+    {
+      keyTitle: 'Home',
+      description: `When focus is on an item, moves focus to first item.`,
+    },
+    {
+      keyTitle: 'End',
+      description: `When focus is on an item, moves focus to last item.`,
+    },
+    {
+      keyTitle: 'Esc',
+      description: `Closes the combobox and moves focus to the trigger.`,
+    },
+  ]}
+/>
+
+### Multi Select
+
+When in multi select mode, additional keyboard interactions are available.
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: `Toggles the selection of the highlighted item without closing the combobox.`,
+    },
+    {
+      keyTitle: 'Enter',
+      description: `Toggles the selection of the highlighted item without closing the combobox.`,
+    },
+    {
+      keyTitle: 'Shift + ArrowDown',
+      description: `Extends the selection from the current focus to the next item.`,
+    },
+    {
+      keyTitle: 'Shift + ArrowUp',
+      description: `Extends the selection from the current focus to the previous item.`,
+    },
+    {
+      keyTitle: 'Ctrl + A',
+      description: `Selects all items in the list.`,
+    },
+    {
+      keyTitle: 'Esc',
+      description: `Closes the combobox and moves focus back to the trigger.`,
+    },
+  ]}
+/>
+
+## API
+
+### Data Attributes
+
+`Combobox`, `Combobox.Trigger`, `Combobox.DisplayValue`, `Combobox.Popover`, and `Combobox.Listbox` all have data attributes that are used to track state.
+
+<AnatomyTable
+  firstColumnLabel="Attribute"
+  propDescriptors={[
+    {
+      name: 'data-open',
+      description: 'If the listbox is open (Boolean).',
+    },
+    {
+      name: 'data-closed',
+      description: 'If the listbox is closed (Boolean).',
+    },
+  ]}
+/>
+
+`Combobox.Item` has the following data attributes:
+
+<AnatomyTable
+  firstColumnLabel="Attribute"
+  propDescriptors={[
+    {
+      name: 'data-selected',
+      description: 'If the item is selected. (Boolean)',
+    },
+    {
+      name: 'data-highlighted',
+      description: 'If the item is highlighted. (Boolean)',
+    },
+    {
+      name: 'data-disabled',
+      description: 'If item is disabled. (Boolean)',
+    },
+  ]}
+/>
+
+### Combobox.Root
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'value',
+      type: 'string',
+      description: 'Uncontrolled combobox value.',
+    },
+    {
+      name: 'bind:value',
+      type: 'signal',
+      description: 'Controlled selected value, manages the selected item.',
+      info: 'string',
+    },
+    {
+      name: 'bind:displayValue',
+      type: 'signal',
+      description: 'Controlled display value, manages the display items.',
+      info: 'string',
+    },
+    {
+      name: 'onChange$',
+      type: 'QRL',
+      description: 'Function called when the selected value changes.',
+      info: 'QRL<(value: string) => void>',
+    },
+    {
+      name: 'onOpenChange$',
+      type: 'QRL',
+      description: 'Function called when the listbox opens or closes.',
+      info: 'QRL<(open: boolean) => void>',
+    },
+    {
+      name: 'loop',
+      type: 'boolean',
+      description:
+        'Determines if focus cycles from the last item back to the first, or vice versa.',
+    },
+    {
+      name: 'filter$',
+      type: 'QRL',
+      description: 'Function to filter items based on user input.',
+      info: 'QRL<(displayValue: string, inputValue: string) => boolean>',
+    },
+    {
+      name: 'onInput$',
+      type: 'QRL',
+      description: 'Function called when the user types in the input.',
+      info: 'QRL<(inputValue: string) => void>',
+    },
+  ]}
+/>
+
+### Combobox.Popover
+
+`Combobox.Popover` is a wrapper of the [Popover](../../../docs/headless/popover/) component, and has the Same API's.
+
+### Combobox.Item:
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'value',
+      type: 'string',
+      description: 'Give the combobox a value other than what is displayed in the item.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, the item is disabled.',
+    },
+  ]}
+/>
