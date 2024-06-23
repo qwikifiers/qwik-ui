@@ -1,10 +1,9 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { Checkbox, Checklist } from '@qwik-ui/headless';
 export default component$(() => {
   return (
     <>
       <h3 id="test123">Pick a cat</h3>
-      import {(Checkbox, Checklist)} from '@qwik-ui/headless';
       <Checklist.Root class="flex flex-col gap-3" ariaLabeledBy="test123">
         <Checkbox.Root
           class="flex items-center gap-3 bg-slate-900 p-2 text-white"
