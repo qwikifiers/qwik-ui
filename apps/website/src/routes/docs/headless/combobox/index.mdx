@@ -29,7 +29,7 @@ Users can either type a value or pick one from a dropdown list.
     'Custom positioning (Popover)',
     'Typeahead item selection and focus',
     'Arrow key navigation and focus management',
-    'Open/Close listbox by typing, focus, or manually',
+    'Open/Close popover by typing, focus, or manually',
     'Custom filter function',
     'Closes on no matching items',
   ]}
@@ -70,11 +70,8 @@ Users can either type a value or pick one from a dropdown list.
     },
     {
       name: 'Combobox.Popover',
-      description: 'Container for list items, positioned above other content.',
-    },
-    {
-      name: 'Combobox.Listbox',
-      description: 'Displays items.',
+      description:
+        'Container for list items, positioned above other content. Also the listbox.',
     },
     {
       name: 'Combobox.Item',
@@ -105,7 +102,7 @@ A native combobox does not exist. The Open UI group has created a [proposal](htt
 
 ## Passing data
 
-To add data, use the `<Combobox.Item>` component inside of the listbox.
+To add data, use the `<Combobox.Item>` component inside of the popover.
 
 ### Basic example
 
@@ -143,41 +140,106 @@ Use the `onChange$` prop to listen for changes in the selected value. It provide
 
 The example above increments a count when a new item is selected.
 
-## Dynamic
+## Component state
 
-<Showcase name="add-items" />
+To add initial state, use the `value` prop on the `<Combobox.Root />` component.
 
-## Group
-
-<Showcase name="group" />
-
-## Loop
-
-<Showcase name="loop" />
-
-## Scrollable
-
-<Showcase name="scrollable" />
-
-## Disabled
-
-<Showcase name="disabled" />
-
-## Placeholder
-
-<Showcase name="placeholder" />
-
-## Initial
+### Uncontrolled / Initial value
 
 <Showcase name="initial" />
 
-## Reactive
+The example above sets "Jessie" as the initial value, so it is selected and focused.
+
+### Controlled / Reactive value
+
+To add reactive state, use the `bind:value` prop on the `<Combobox.Root />` component.
 
 <Showcase name="reactive" />
 
+> Note that the initial value of the signal will affect the initial value of the checkbox.
+
+### Programmatic changes
+
+Optionally, the selected value can be programmatically updated by the signal.
+
+<Showcase name="programmatic" />
+
+In the example above, clicking the "Change to Abby" button changes the selected value.
+
+### Disabled items
+
+<Showcase name="disabled" />
+
+Add the `disabled` prop to `<Combobox.Item />` to disable items.
+
+Disabled items cannot be selected or focused and are skipped during arrow key navigation.
+
+## Dynamic
+
+A common use case is adding items dynamically, like an infinite scrolling list of users.
+
+<Showcase name="add-items" />
+
+Clicking the `Add Users` button creates new users to the list. We could also fetch more data from the server or database.
+
+### Item indicators
+
+<Showcase name="indicator" />
+
+Add `<Combobox.ItemIndicator />` inside `<Combobox.Item />` to indicate the selected item.
+
 ## Multiple
 
+To allow multiple selections, set the `multiple` prop to `true`.
+
 <Showcase name="multiple" />
+
+Use the `bind:displayValue` signal to configure multiple display values.
+
+> Qwik UI updates the `bind:displayValue` signal with the latest display values.
+
+You can combine `bind:value` and `bind:displayValue` to create a custom widget that displays selected values as a list of pills.
+
+## Menu behavior
+
+### Handling Popover Open/Close
+
+To handle the popover open/close state, use the `onOpenChange$` prop. It passes a boolean indicating whether the listbox is open.
+
+<Showcase name="open-change" />
+
+### Looping
+
+To loop through items, use the `loop` prop on `<Combobox.Root />`.
+
+<Showcase name="loop" />
+
+- Pressing the down arrow key moves focus to the first enabled item.
+- Pressing the up arrow key moves focus to the last enabled item.
+
+### Grouped Items
+
+Use `<Combobox.Group />` and `<Combobox.GroupLabel />` to group items and provide an accessible name.
+
+<Showcase name="group" />
+
+### Scrolling
+
+Handle scrolling in the listbox since focus remains on the select trigger when open.
+
+<Showcase name="scrollable" />
+
+The native `scrollIntoView` method scrolls items into view when highlighted. To customize scroll behavior, add the `scrollOptions` prop to `<Combobox.Root />`.
+
+> Qwik UI does not provide virtual scrolling. However, a [Qwik community package](https://github.com/literalpie/qwik-virtual-scroll) implements virtual scrolling based on [Tanstack Virtual](https://github.com/TanStack/virtual).
+
+## Placeholder
+
+We can provide a custom placeholder to the `<Combobox.DisplayValue />` component by adding the `placeholder` prop.
+
+<Showcase name="hero" />
+
+When a value is not selected, the placeholder is displayed.
 
 ## Custom Filter
 

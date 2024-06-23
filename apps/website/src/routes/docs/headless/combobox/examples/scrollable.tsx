@@ -16,27 +16,24 @@ export default component$(() => {
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>
       </Combobox.Control>
-      <Combobox.Popover class="combobox-popover" gutter={8}>
-        <Combobox.Listbox class="combobox-listbox combobox-max-height">
-          <Combobox.Group>
-            <Combobox.GroupLabel class="combobox-group-label">Active</Combobox.GroupLabel>
-            {activeUsers.map((user) => (
-              <Combobox.Item key={user}>
-                <Combobox.ItemLabel>{user}</Combobox.ItemLabel>
-              </Combobox.Item>
-            ))}
-          </Combobox.Group>
-          <Combobox.Group>
-            <Combobox.GroupLabel class="combobox-group-label">
-              Offline
-            </Combobox.GroupLabel>
-            {offlineUsers.map((user) => (
-              <Combobox.Item key={user}>
-                <Combobox.ItemLabel>{user}</Combobox.ItemLabel>
-              </Combobox.Item>
-            ))}
-          </Combobox.Group>
-        </Combobox.Listbox>
+      <Combobox.Popover class="combobox-popover combobox-max-height" gutter={8}>
+        <Combobox.Group>
+          <Combobox.GroupLabel class="combobox-group-label">Active</Combobox.GroupLabel>
+          {activeUsers.map((user) => (
+            <Combobox.Item key={user}>
+              <Combobox.ItemLabel>{user}</Combobox.ItemLabel>
+            </Combobox.Item>
+          ))}
+        </Combobox.Group>
+
+        <Combobox.Group>
+          <Combobox.GroupLabel class="combobox-group-label">Offline</Combobox.GroupLabel>
+          {offlineUsers.map((user) => (
+            <Combobox.Item key={user}>
+              <Combobox.ItemLabel>{user}</Combobox.ItemLabel>
+            </Combobox.Item>
+          ))}
+        </Combobox.Group>
       </Combobox.Popover>
     </Combobox.Root>
   );
