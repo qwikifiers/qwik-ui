@@ -39,6 +39,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Collapsible: ComponentStatus.Beta,
     Combobox: ComponentStatus.Beta,
     Checkbox: ComponentStatus.Draft,
+    Dropdown: ComponentStatus.Draft,
     Label: ComponentStatus.Draft,
     Modal: ComponentStatus.Beta,
     Pagination: ComponentStatus.Draft,
