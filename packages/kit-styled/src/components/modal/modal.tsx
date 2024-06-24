@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { type PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { Modal as HeadlessModal } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 import { cva, type VariantProps } from 'class-variance-authority';

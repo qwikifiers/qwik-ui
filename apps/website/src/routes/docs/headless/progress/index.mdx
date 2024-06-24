@@ -10,78 +10,52 @@ import { Note } from '~/components/note/note';
 
 # Progress
 
-Displays a progress bar related to a task.
+A visual indicator that shows how much of a task has been completed.
 
 <Showcase name="hero" />
 
-Qwik UI's Progress implementation follows the [WAI-Aria](https://www.w3.org/WAI/ARIA/apg/patterns/meter) design pattern, along with some additional API's that enhance the flexibility, types, and performance.
+## ✨ Features
 
-<FeatureList
-  features={['Provides context for assistive technology to read the progress of a task.']}
-/>
+<FeatureList features={['Follows the WAI-Aria design pattern']} />
 
 ## Building blocks
 
 <CodeSnippet name="building-blocks" />
 
-{/* TODO: Match docs conventions with the select, collapsible, or label. */}
+### 🎨 Anatomy
 
-## Accessibility
-
-Adheres to the [progressbar role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/meter/).
-
-## API
-
-### Progress
-
-Contains all of the progress parts.
-
-<APITable
+<AnatomyTable
   propDescriptors={[
     {
-      name: 'class',
-      type: 'string',
-      description: 'CSS classes to apply to the Progress.',
+      name: 'Progress.Root',
+      description: 'The root container for the progress',
     },
     {
-      name: 'value',
-      type: 'number',
-      description: 'The progress value.',
-    },
-    {
-      name: 'max',
-      type: 'number',
-      description: 'The maximum progress value',
-    },
-    {
-      name: 'getValueLabel',
-      type: 'function',
-      description:
-        'A function to get the accessible label text representing the current value in a human-readable format. If not provided, the value label will be read as the numeric value as a percentage of the max value.',
+      name: 'Progress.Indicator',
+      description: 'Displays the progression process',
     },
   ]}
 />
 
-### Progress Indicator
+## Example CSS
 
-Contains all of the progress parts.
+<CodeSnippet name="progress.css" />
+
+## API
+
+### Progress.Root
 
 <APITable
   propDescriptors={[
     {
-      name: 'class',
-      type: 'string',
-      description: 'CSS classes to apply to the Progress.',
-    },
-    {
       name: 'value',
       type: 'number',
-      description: 'The progress value.',
+      description: 'Current value of the progress bar.',
     },
     {
       name: 'max',
       type: 'number',
-      description: 'The maximum progress value',
+      description: 'Maximum value of the progress bar.',
     },
     {
       name: 'getValueLabel',

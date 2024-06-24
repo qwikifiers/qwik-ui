@@ -1,4 +1,5 @@
-import { useSignal, useTask$, useOnDocument, $ } from '@builder.io/qwik';
+import { $, useOnDocument, useSignal, useTask$ } from '@builder.io/qwik';
+
 import { isBrowser } from '@builder.io/qwik/build';
 
 export function usePopover(customId?: string) {
