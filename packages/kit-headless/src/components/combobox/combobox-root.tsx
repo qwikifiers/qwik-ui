@@ -89,13 +89,23 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
    */
   multiple?: M;
 
+  /** If true, the combobox is invalid. */
   invalid?: boolean;
 
+  /** QRL to customize the filter function. */
   filter$?: QRL<(displayValue: string, inputValue: string) => boolean>;
 
+  /** Handler that runs when the input value changes. */
   onInput$?: QRL<(value: string) => void>;
 
+  /** Handler that runs when there are no visible items in the listbox. */
+  onEmpty$?: QRL<() => void>;
+
+  /** Placeholder text for the input. */
   placeholder?: string;
+
+  /** Checks if the Combobox.Empty component was added. */
+  hasEmptyComp?: boolean;
 } & TMultiValue &
   TStringOrArray;
 
@@ -114,6 +124,7 @@ export const HComboboxRootImpl = component$<
     multiple = false,
     placeholder,
     filter$,
+    hasEmptyComp,
     ...rest
   } = props;
 
@@ -146,6 +157,31 @@ export const HComboboxRootImpl = component$<
   };
   const inputValueSig = useSignal<string>(inputRef.value?.value ?? '');
 
+  // check any initial disabled items before the computed read below
+  useTask$(() => {
+    // initial disabled indices
+    const disabledIndices = new Set<number>();
+    for (const [index, item] of itemsMapSig.value) {
+      if (item.disabled) {
+        disabledIndices.add(index);
+      }
+    }
+    disabledIndexSetSig.value = disabledIndices;
+  });
+
+  const hasVisibleItemsSig = useComputed$(() => {
+    return itemsMapSig.value.size !== disabledIndexSetSig.value.size;
+  });
+
+  useTask$(function closeIfEmptyComp({ track }) {
+    track(() => disabledIndexSetSig.value);
+
+    // automatically closes the listbox if there are no visible items AND the combobox does not have an empty component
+    if (!hasEmptyComp && !hasVisibleItemsSig.value) {
+      isListboxOpenSig.value = false;
+    }
+  });
+
   const context: ComboboxContext = {
     isListboxOpenSig,
     inputValueSig,
@@ -166,6 +202,7 @@ export const HComboboxRootImpl = component$<
     multiple,
     scrollOptions,
     placeholder,
+    hasVisibleItemsSig,
   };
 
   useContextProvider(comboboxContextId, context);
@@ -267,14 +304,6 @@ export const HComboboxRootImpl = component$<
   });
 
   useTask$(() => {
-    const disabledIndices = new Set<number>();
-    for (const [index, item] of itemsMapSig.value) {
-      if (item.disabled) {
-        disabledIndices.add(index);
-      }
-    }
-    disabledIndexSetSig.value = disabledIndices;
-
     initialLoadSig.value = false;
   });
 

@@ -2,6 +2,7 @@ import { type JSXNode, Component } from '@builder.io/qwik';
 import { HComboboxRootImpl, HComboboxRootImplProps } from './combobox-root';
 import { HComboboxItem as InternalComboboxItem } from './combobox-item';
 import { HComboboxItemLabel as InternalComboboxItemLabel } from './combobox-item-label';
+import { HComboboxEmpty as InternalComboboxEmpty } from './combobox-empty';
 
 export type TItemsMap = Map<
   number,
@@ -40,14 +41,15 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
 
   const HComboboxItem = UserItem ?? InternalComboboxItem;
   const HComboboxItemLabel = UserItemLabel ?? InternalComboboxItemLabel;
+  const HComboboxEmpty = InternalComboboxEmpty;
 
   // source of truth
   const itemsMap = new Map();
   let currItemIndex = 0;
   let isItemDisabled = false;
   let givenItemValue = null;
-
   let valuePropIndex = null;
+  let hasEmptyComp = false;
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
@@ -122,6 +124,11 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
         break;
       }
 
+      case HComboboxEmpty: {
+        hasEmptyComp = true;
+        break;
+      }
+
       default: {
         if (child) {
           const anyChildren = Array.isArray(child.children)
@@ -136,7 +143,12 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
   }
 
   return (
-    <HComboboxRootImpl {...rest} _valuePropIndex={valuePropIndex} _itemsMap={itemsMap}>
+    <HComboboxRootImpl
+      {...rest}
+      _valuePropIndex={valuePropIndex}
+      _itemsMap={itemsMap}
+      hasEmptyComp={hasEmptyComp}
+    >
       {props.children}
     </HComboboxRootImpl>
   );

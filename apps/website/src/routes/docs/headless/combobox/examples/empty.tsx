@@ -34,6 +34,7 @@ export default component$(() => {
             </Combobox.ItemIndicator>
           </Combobox.Item>
         ))}
+        <Combobox.Empty>No items found</Combobox.Empty>
       </Combobox.Popover>
     </Combobox.Root>
   );
