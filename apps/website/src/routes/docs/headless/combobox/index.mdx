@@ -210,6 +210,14 @@ Change the filter behavior by adding the `filter$` prop to the `<Combobox.Root /
 
 The `filter$` prop accepts a function with two parameters: `displayValue` and `inputValue`.
 
+### Empty UI
+
+By default, the popover automatically closes when there are no items to display.
+
+To show UI when there are no items in the popover, use the `Combobox.Empty` component.
+
+<Showcase name="empty" />
+
 ### Handling popover open/close
 
 To handle the popover open/close state, use the `onOpenChange$` prop. It passes a boolean indicating whether the popover is open.
@@ -256,14 +264,6 @@ We can provide a custom placeholder to the `<Combobox.Root />` component by addi
 <Showcase name="placeholder" />
 
 When a value is not selected, the placeholder is displayed.
-
-## Empty
-
-To show UI when there are no items in the popover, use the `Combobox.Empty` component.
-
-<Showcase name="empty" />
-
-If this component is not used, the popover will be closed by default when there are no visible items.
 
 ## CSR
 
