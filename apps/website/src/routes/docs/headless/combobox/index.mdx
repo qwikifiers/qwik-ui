@@ -25,7 +25,7 @@ Users can either type a value or pick one from a dropdown list.
     'Grouped items',
     'Looping',
     'Custom scroll behavior',
-    'Listbox UI above all (Popover)',
+    'Popover UI above all',
     'Custom positioning (Popover)',
     'Typeahead item selection and focus',
     'Arrow key navigation and focus management',
@@ -71,11 +71,11 @@ Users can either type a value or pick one from a dropdown list.
     {
       name: 'Combobox.Popover',
       description:
-        'Container for list items, positioned above other content. Also the listbox.',
+        'Container for list items, positioned above other content. Also the popover.',
     },
     {
       name: 'Combobox.Item',
-      description: 'item in the Listbox.',
+      description: 'item in the popover.',
     },
     {
       name: 'Combobox.ItemLabel',
@@ -212,7 +212,7 @@ The `filter$` prop accepts a function with two parameters: `displayValue` and `i
 
 ### Handling popover open/close
 
-To handle the popover open/close state, use the `onOpenChange$` prop. It passes a boolean indicating whether the listbox is open.
+To handle the popover open/close state, use the `onOpenChange$` prop. It passes a boolean indicating whether the popover is open.
 
 <Showcase name="open-change" />
 
@@ -241,7 +241,7 @@ Use `<Combobox.Group />` and `<Combobox.GroupLabel />` to group items and provid
 
 ### Scrolling
 
-Handle scrolling in the listbox since focus remains on the select trigger when open.
+Handle scrolling in the popover since focus remains on the select trigger when open.
 
 <Showcase name="scrollable" />
 
@@ -259,11 +259,11 @@ When a value is not selected, the placeholder is displayed.
 
 ## Empty
 
-To show UI when there are no items in the listbox, use the `Empty` component.
+To show UI when there are no items in the popover, use the `Combobox.Empty` component.
 
 <Showcase name="empty" />
 
-If this component is not used, the listbox will be closed by default when there are no visible items.
+If this component is not used, the popover will be closed by default when there are no visible items.
 
 ## CSR
 
@@ -334,11 +334,11 @@ When in multi select mode, additional keyboard interactions are available.
   propDescriptors={[
     {
       name: 'data-open',
-      description: 'If the listbox is open (Boolean).',
+      description: 'If the popover is open (Boolean).',
     },
     {
       name: 'data-closed',
-      description: 'If the listbox is closed (Boolean).',
+      description: 'If the popover is closed (Boolean).',
     },
   ]}
 />
@@ -393,7 +393,7 @@ When in multi select mode, additional keyboard interactions are available.
     {
       name: 'onOpenChange$',
       type: 'QRL',
-      description: 'Function called when the listbox opens or closes.',
+      description: 'Function called when the popover opens or closes.',
       info: 'QRL<(open: boolean) => void>',
     },
     {
