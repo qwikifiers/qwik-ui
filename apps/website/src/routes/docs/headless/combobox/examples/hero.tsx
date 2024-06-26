@@ -1,9 +1,17 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$, useVisibleTask$ } from '@builder.io/qwik';
 import { Combobox } from '@qwik-ui/headless';
 import { LuCheck, LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
+
+  const ref = useSignal<HTMLElement>();
+  const inputRef = useSignal<HTMLInputElement>();
+
+  useVisibleTask$(() => {
+    console.log(ref.value);
+    console.log(inputRef.value);
+  });
 
   const fruits = [
     'Apple',
@@ -17,10 +25,10 @@ export default component$(() => {
   ];
 
   return (
-    <Combobox.Root class="combobox-root">
+    <Combobox.Root class="combobox-root" ref={ref}>
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
       <Combobox.Control class="combobox-control">
-        <Combobox.Input class="combobox-input" />
+        <Combobox.Input ref={inputRef} class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>

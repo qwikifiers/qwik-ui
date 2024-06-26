@@ -8,11 +8,14 @@ import {
 } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 import { useCombobox } from './use-combobox';
+import { useMergedRef } from '../../hooks/merge-refs';
 
 type HComboboxInputProps = PropsOf<'input'>;
 
 export const HComboboxInput = component$((props: HComboboxInputProps) => {
   const context = useContext(comboboxContextId);
+  const inputRef = useMergedRef(props.ref, context.inputRef);
+
   const panelId = `${context.localId}-panel`;
   const inputId = `${context.localId}-input`;
   const labelId = `${context.localId}-label`;
@@ -138,7 +141,7 @@ export const HComboboxInput = component$((props: HComboboxInputProps) => {
       aria-labelledby={labelId}
       aria-autocomplete="list"
       aria-haspopup="listbox"
-      ref={context.inputRef}
+      ref={inputRef}
       autocomplete="off"
       placeholder={context.placeholder ?? props.placeholder ?? undefined}
       data-combobox-input
