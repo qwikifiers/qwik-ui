@@ -6,7 +6,6 @@ async function myFileReader(path, component_name, output) {
   const sourceCode = fs.readFileSync(path, 'utf-8');
   const cms = extractComments(component_name, sourceCode);
   const idk = `export const output=${util.inspect(cms)}`;
-  console.log(cms);
   try {
     fs.writeFileSync(output, idk);
   } catch (err) {
