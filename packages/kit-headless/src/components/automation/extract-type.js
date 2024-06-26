@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as util from 'util';
 async function myFileReader(path, component_name, output) {
   const sourceCode = fs.readFileSync(path, 'utf-8');
-  const cms = getPublicTypes(component_name, sourceCode);
+  const cms = extractPublicTypes(component_name, sourceCode);
   const strg = `export const output=${util.inspect(cms)}`;
   try {
     fs.writeFileSync(output, strg);
@@ -11,7 +11,7 @@ async function myFileReader(path, component_name, output) {
   }
 }
 
-export function getPublicTypes(component_name, strg) {
+export function extractPublicTypes(component_name, strg) {
   const getPublicTypes = /type Public.*?{([\w|\W]*?)};/gm;
   const cms = {};
   let groups;
