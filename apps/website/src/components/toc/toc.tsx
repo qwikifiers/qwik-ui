@@ -1,6 +1,6 @@
 import { ContentHeading } from '@builder.io/qwik-city';
 import { cn } from '@qwik-ui/utils';
-import { component$, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
+import { component$, useSignal, $, useOnWindow } from '@builder.io/qwik';
 
 export const DashboardTableOfContents = component$(
   ({ headings }: { headings: ContentHeading[] }) => {
@@ -30,7 +30,7 @@ export const TableOfContent = component$<TableOfContentProps>((props) => {
   const itemIds = props.headings.map((item) => item.id);
   const activeHeading = useActiveItem(itemIds);
   const tree = getTree(inifiniteStopper);
-  return <RecursiveJSX tree={tree[0]} activeItem={activeHeading.value} />;
+  return <RecursiveJSX tree={tree[0]} activeItem={activeHeading.value ?? ''} />;
 });
 
 function deltaToStrg(
@@ -111,39 +111,43 @@ const RecursiveJSX = component$<RecursiveJSXProps>(({ tree, activeItem, limit = 
 });
 
 const useActiveItem = (itemIds: string[]) => {
-  const activeId = useSignal<string>('');
+  const activeId = useSignal<string>();
 
-  useVisibleTask$(({ cleanup }) => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            activeId.value = entry.target.id;
-          }
-        });
-      },
-      { rootMargin: `0% 0% -85% 0%` },
-    );
+  useOnWindow(
+    'scroll',
+    $(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              activeId.value = entry.target.id;
+            }
+          });
+        },
+        { rootMargin: `0% 0% -85% 0%` },
+      );
 
-    itemIds.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-      }
-    });
-
-    cleanup(() => {
       itemIds.forEach((id) => {
         const element = document.getElementById(id);
         if (element) {
-          observer.unobserve(element);
+          observer.observe(element);
         }
       });
-    });
-  });
+
+      return () => {
+        itemIds.forEach((id) => {
+          const element = document.getElementById(id);
+          if (element) {
+            observer.unobserve(element);
+          }
+        });
+      };
+    }),
+  );
 
   return activeId;
 };
+
 type AnchorThingProps = {
   node: Node;
   activeItem: string;
