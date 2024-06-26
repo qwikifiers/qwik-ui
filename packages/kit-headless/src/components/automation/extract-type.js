@@ -16,8 +16,7 @@ export function extractPublicTypes(component_name, strg) {
   const cms = {};
   let groups;
   while ((groups = getPublicTypes.exec(strg)) !== null) {
-    const trimStart = /^ *|(\* *)/g;
-    const comments = groups[1].replaceAll(trimStart, '');
+    const comments = groups[1];
     if (cms.hasOwnProperty(component_name)) {
       cms[component_name].push({ comments });
       continue;
