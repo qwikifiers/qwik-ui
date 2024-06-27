@@ -4,7 +4,6 @@ import {
   component$,
   $,
   useContext,
-  useSignal,
   useTask$,
   useComputed$,
   useContextProvider,
@@ -16,6 +15,7 @@ import {
 } from './combobox-context';
 import { useCombobox } from './use-combobox';
 import { isServer } from '@builder.io/qwik/build';
+import { useMergedRef } from '../../hooks/merge-refs';
 
 export type HComboboxItemProps = PropsOf<'div'> & {
   /** Internal index we get from the inline component. Please see combobox-inline.tsx */
@@ -34,7 +34,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   }
 
   const context = useContext(comboboxContextId);
-  const itemRef = useSignal<HTMLLIElement>();
+  const itemRef = useMergedRef(rest.ref);
   const itemLabelId = `${context.localId}-${_index}-item-label`;
 
   const { selectionManager$, filterManager$ } = useCombobox();
@@ -58,7 +58,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
     const [entry] = entries;
 
     if (isHighlightedSig.value && !entry.isIntersecting) {
-      const containerRect = context.listboxRef.value?.getBoundingClientRect();
+      const containerRect = context.panelRef.value?.getBoundingClientRect();
       const itemRect = itemRef.value?.getBoundingClientRect();
 
       if (!containerRect || !itemRect) return;
@@ -67,7 +67,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
       const offset =
         itemRect.top - containerRect.top - containerRect.height / 2 + itemRect.height / 2;
 
-      context.listboxRef.value?.scrollBy({ top: offset, ...context.scrollOptions });
+      context.panelRef.value?.scrollBy({ top: offset, ...context.scrollOptions });
     }
   });
 
@@ -103,18 +103,18 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   useTask$(async function navigationTask({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
 
-    if (isServer || !context.listboxRef.value) return;
+    if (isServer || !context.panelRef.value) return;
     if (_index !== context.highlightedIndexSig.value) return;
 
     const hasScrollbar =
-      context.listboxRef.value.scrollHeight > context.listboxRef.value.clientHeight;
+      context.panelRef.value.scrollHeight > context.panelRef.value.clientHeight;
 
     if (!hasScrollbar) {
       return;
     }
 
     const observer = new IntersectionObserver(checkVisibility$, {
-      root: context.listboxRef.value,
+      root: context.panelRef.value,
       threshold: 1.0,
     });
 

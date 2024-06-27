@@ -23,14 +23,12 @@ export default component$(() => {
         </Combobox.Trigger>
       </Combobox.Control>
       <Combobox.Popover class="combobox-popover" gutter={8}>
-        <Combobox.Listbox class="combobox-listbox">
-          {users.map((user) => (
-            <Combobox.Item key={user.name} class="combobox-item">
-              <Combobox.ItemLabel>{user.name}</Combobox.ItemLabel>
-              <Combobox.ItemIndicator>{user.status}</Combobox.ItemIndicator>
-            </Combobox.Item>
-          ))}
-        </Combobox.Listbox>
+        {users.map((user) => (
+          <Combobox.Item key={user.name} class="combobox-item">
+            <Combobox.ItemLabel>{user.name}</Combobox.ItemLabel>
+            <Combobox.ItemIndicator>{user.status}</Combobox.ItemIndicator>
+          </Combobox.Item>
+        ))}
       </Combobox.Popover>
     </Combobox.Root>
   );

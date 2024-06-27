@@ -187,7 +187,7 @@ export const HComboboxRootImpl = component$<
     itemsMapSig,
     triggerRef,
     inputRef,
-    listboxRef: panelRef,
+    panelRef,
     labelRef,
     groupRef,
     controlRef,

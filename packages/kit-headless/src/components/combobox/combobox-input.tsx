@@ -14,7 +14,7 @@ type HComboboxInputProps = PropsOf<'input'>;
 
 export const HComboboxInput = component$((props: HComboboxInputProps) => {
   const context = useContext(comboboxContextId);
-  const inputRef = useMergedRef(props.ref, context.inputRef);
+  const inputRef = useMergedRef(props.ref, context, 'inputRef');
 
   const panelId = `${context.localId}-panel`;
   const inputId = `${context.localId}-input`;
