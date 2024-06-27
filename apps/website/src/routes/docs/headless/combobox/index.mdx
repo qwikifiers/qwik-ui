@@ -224,6 +224,12 @@ To handle the popover open/close state, use the `onOpenChange$` prop. It passes 
 
 <Showcase name="open-change" />
 
+### Reactive open state
+
+To reactively control the open state, use the `bind:open` prop.
+
+<Showcase name="reactive-open" />
+
 ### Handling input changes
 
 Add the `onInput$` prop to the `<Combobox.Root />` component.
@@ -231,6 +237,12 @@ Add the `onInput$` prop to the `<Combobox.Root />` component.
 <Showcase name="input" />
 
 This function is called when the user types in the input.
+
+### Reactive input value
+
+The input can also be fully controlled by adding the `bind:value` prop to the `<Combobox.Input />` component.
+
+<Showcase name="reactive-input" />
 
 ### Looping
 
@@ -264,6 +276,14 @@ We can provide a custom placeholder to the `<Combobox.Root />` component by addi
 <Showcase name="placeholder" />
 
 When a value is not selected, the placeholder is displayed.
+
+## Using Refs
+
+You can pass a ref to each Combobox component to access the underlying DOM element.
+
+<Showcase name="refs" />
+
+Above is an example that programmatically changes the background color of the trigger when clicked.
 
 ## CSR
 
