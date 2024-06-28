@@ -13,3 +13,4 @@ export { HComboboxErrorMessage as ErrorMessage } from './combobox-error-message'
 export { HComboboxPopover as Popover } from './combobox-popover';
 export { HComboboxControl as Control } from './combobox-control';
 export { HComboboxEmpty as Empty } from './combobox-empty';
+export { HiddenNativeSelect } from './combobox-hidden-select';

@@ -123,7 +123,7 @@ export const HComboboxInput = component$(
       }
     });
 
-    const handleInput$ = $(async (e: InputEvent, el) => {
+    const handleInput$ = $(async (e: InputEvent, el: HTMLInputElement) => {
       const target = e.target as HTMLInputElement;
       context.inputValueSig.value = target.value;
       context.highlightedIndexSig.value = null;

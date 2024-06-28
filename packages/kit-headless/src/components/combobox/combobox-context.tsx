@@ -28,6 +28,9 @@ export type ComboboxContext = {
   filter$?: QRL<(item: string, inputValue: string) => boolean>;
   onInput$?: QRL<(value: string) => void>;
   placeholder?: string;
+  name?: string;
+  required?: boolean;
+  isDisabledSig: Signal<boolean>;
 };
 
 export const groupContextId = createContextId<GroupContext>('qui-combobox-group');

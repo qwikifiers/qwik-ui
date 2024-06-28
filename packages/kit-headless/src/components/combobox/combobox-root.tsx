@@ -126,6 +126,9 @@ export const HComboboxRootImpl = component$<
     placeholder,
     filter$,
     hasEmptyComp,
+    name,
+    required,
+    disabled,
     ...rest
   } = props;
 
@@ -146,6 +149,7 @@ export const HComboboxRootImpl = component$<
     new Set(givenValuePropIndex ? [givenValuePropIndex] : []),
   );
   const disabledIndexSetSig = useSignal<Set<number>>(new Set());
+  const isDisabledSig = useSignal<boolean>(disabled ?? false);
   const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
   const initialLoadSig = useSignal<boolean>(true);
   const currDisplayValueSig = useSignal<string | string[]>();
@@ -202,6 +206,9 @@ export const HComboboxRootImpl = component$<
     scrollOptions,
     placeholder,
     hasVisibleItemsSig,
+    name,
+    required,
+    isDisabledSig,
   };
 
   useContextProvider(comboboxContextId, context);
@@ -302,12 +309,24 @@ export const HComboboxRootImpl = component$<
     }
   });
 
+  useTask$(({ track }) => {
+    isDisabledSig.value = track(() => disabled ?? false);
+  });
+
   useTask$(() => {
     initialLoadSig.value = false;
   });
 
   return (
-    <div ref={rootRef} role="group" data-combobox-root {...rest}>
+    <div
+      role="group"
+      ref={rootRef}
+      data-open={context.isListboxOpenSig.value ? '' : undefined}
+      data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+      data-disabled={isDisabledSig.value}
+      data-combobox-root
+      {...rest}
+    >
       <Slot />
     </div>
   );
