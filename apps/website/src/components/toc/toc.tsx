@@ -36,20 +36,23 @@ export const TableOfContent = component$<TableOfContentProps>((props) => {
 function deltaToStrg(
   currNode: Node,
   nextNode: Node,
-): 'same level' | 'down one level' | 'up one level' {
+): 'same level' | 'down one level' | 'up one level' | 'upwards discontinuous' {
   const delta = currNode.level - nextNode.level;
+  if (delta > 1) {
+    return 'upwards discontinuous';
+  }
   if (delta === 1) {
     return 'up one level';
+  }
+  if (delta === 0) {
+    return 'same level';
   }
   if (delta === -1) {
     return 'down one level';
   }
 
-  if (delta === 0) {
-    return 'same level';
-  }
   throw new Error(
-    `bad headings: are not continous from: #${currNode.id} to #${nextNode.id}`,
+    `bad headings: are downwards discontinous from: #${currNode.id} to #${nextNode.id} bc from ${currNode.level} to ${nextNode.level}`,
   );
 }
 function getTree(nodes: ContentHeading[]) {
@@ -64,6 +67,14 @@ function getTree(nodes: ContentHeading[]) {
     childrenMap.set(nextNode.level, nextNode.children);
     const deltaStrg = deltaToStrg(currNode, nextNode);
     switch (deltaStrg) {
+      case 'upwards discontinuous': {
+        const delta = currNode.level - nextNode.level;
+        if (childrenMap.has(delta - 1)) {
+          const nthParent = childrenMap.get(delta - 1);
+          nthParent?.push(nextNode);
+        }
+        break;
+      }
       case 'up one level': {
         const grandParent = childrenMap.get(currNode.level - 2);
         grandParent?.push(nextNode);
