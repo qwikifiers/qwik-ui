@@ -107,6 +107,9 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
 
   /** Checks if the Combobox.Empty component was added. */
   hasEmptyComp?: boolean;
+
+  /** Checks if the Combobox.ErrorMessage component was added. */
+  hasErrorComp?: boolean;
 } & TMultiValue &
   TStringOrArray;
 
@@ -126,6 +129,7 @@ export const HComboboxRootImpl = component$<
     placeholder,
     filter$,
     hasEmptyComp,
+    hasErrorComp,
     name,
     required,
     disabled,
@@ -159,6 +163,7 @@ export const HComboboxRootImpl = component$<
     inline: 'nearest',
   };
   const inputValueSig = useSignal<string>(inputRef.value?.value ?? '');
+  const isInvalidSig = useSignal<boolean>(hasErrorComp ?? false);
 
   // check any initial disabled items before the computed read below
   useTask$(() => {
@@ -170,6 +175,10 @@ export const HComboboxRootImpl = component$<
       }
     }
     disabledIndexSetSig.value = disabledIndices;
+  });
+
+  useTask$(({ track }) => {
+    isInvalidSig.value = track(() => props.hasErrorComp ?? false);
   });
 
   const hasVisibleItemsSig = useComputed$(() => {
@@ -209,6 +218,7 @@ export const HComboboxRootImpl = component$<
     name,
     required,
     isDisabledSig,
+    isInvalidSig,
   };
 
   useContextProvider(comboboxContextId, context);
@@ -324,6 +334,8 @@ export const HComboboxRootImpl = component$<
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       data-disabled={isDisabledSig.value}
+      data-invalid={context.isInvalidSig.value ? '' : undefined}
+      aria-invalid={context.isInvalidSig.value}
       data-combobox-root
       {...rest}
     >

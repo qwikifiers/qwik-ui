@@ -49,6 +49,10 @@
   position: relative;
 }
 
+.combobox-control[data-invalid] {
+  outline: 2px dotted #d2122e;
+}
+
 .combobox-popover {
   width: 100%;
   max-width: calc(var(--combobox-width) + 2.5rem);

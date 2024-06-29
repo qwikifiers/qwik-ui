@@ -21,6 +21,7 @@ export const HComboboxTrigger = component$((props: HComboboxTriggerImplProps) =>
       onClick$={[handleClick$, props.onClick$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+      data-invalid={context.isInvalidSig.value ? '' : undefined}
       preventdefault:mousedown
       tabIndex={-1}
       {...props}

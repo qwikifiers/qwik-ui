@@ -98,6 +98,7 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
         id={listboxId}
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
+        data-invalid={context.isInvalidSig.value ? '' : undefined}
         role="listbox"
         aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
         {...rest}

@@ -31,6 +31,7 @@ export type ComboboxContext = {
   name?: string;
   required?: boolean;
   isDisabledSig: Signal<boolean>;
+  isInvalidSig: Signal<boolean>;
 };
 
 export const groupContextId = createContextId<GroupContext>('qui-combobox-group');

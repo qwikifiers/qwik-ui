@@ -10,7 +10,12 @@ export const HComboboxControl = component$((props: HComboboxControlProps) => {
   const controlRef = useMergedRef(props.ref, context, 'controlRef');
 
   return (
-    <div ref={controlRef} data-combobox-control {...props}>
+    <div
+      ref={controlRef}
+      data-combobox-control
+      data-invalid={context.isInvalidSig?.value ? '' : undefined}
+      {...props}
+    >
       <Slot />
     </div>
   );

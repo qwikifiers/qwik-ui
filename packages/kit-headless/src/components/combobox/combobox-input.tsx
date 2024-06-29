@@ -151,6 +151,7 @@ export const HComboboxInput = component$(
         autocomplete="off"
         placeholder={context.placeholder ?? props.placeholder ?? undefined}
         data-combobox-input
+        data-invalid={context.isInvalidSig.value ? '' : undefined}
         {...props}
       />
     );

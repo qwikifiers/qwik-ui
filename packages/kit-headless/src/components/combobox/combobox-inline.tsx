@@ -3,6 +3,7 @@ import { HComboboxRootImpl, HComboboxRootImplProps } from './combobox-root';
 import { HComboboxItem as InternalComboboxItem } from './combobox-item';
 import { HComboboxItemLabel as InternalComboboxItemLabel } from './combobox-item-label';
 import { HComboboxEmpty as InternalComboboxEmpty } from './combobox-empty';
+import { HComboboxErrorMessage } from './combobox-error-message';
 
 export type TItemsMap = Map<
   number,
@@ -50,6 +51,7 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
   let givenItemValue = null;
   let valuePropIndex = null;
   let hasEmptyComp = false;
+  let hasErrorComp = false;
 
   const childrenToProcess = (
     Array.isArray(myChildren) ? [...myChildren] : [myChildren]
@@ -129,6 +131,11 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
         break;
       }
 
+      case HComboboxErrorMessage: {
+        hasErrorComp = true;
+        break;
+      }
+
       default: {
         if (child) {
           const anyChildren = Array.isArray(child.children)
@@ -148,6 +155,7 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
       _valuePropIndex={valuePropIndex}
       _itemsMap={itemsMap}
       hasEmptyComp={hasEmptyComp}
+      hasErrorComp={hasErrorComp}
     >
       {props.children}
     </HComboboxRootImpl>

@@ -200,6 +200,18 @@ Use the `bind:displayValue` signal to configure multiple display values.
 
 You can combine `bind:value` and `bind:displayValue` to create a custom widget that displays selected values as a list of pills.
 
+### Placeholder
+
+We can provide a custom placeholder to the `<Combobox.Root />` component by adding the `placeholder` prop.
+
+<Showcase name="placeholder" />
+
+### CSR
+
+Like every Qwik UI component, the Combobox component can be rendered server-side or client-side.
+
+<Showcase name="csr" />
+
 ## Menu behavior
 
 ### Custom Filter
@@ -269,15 +281,11 @@ The native `scrollIntoView` method scrolls items into view when highlighted. To 
 
 > Qwik UI does not provide virtual scrolling. However, a [Qwik community package](https://github.com/literalpie/qwik-virtual-scroll) implements virtual scrolling based on [Tanstack Virtual](https://github.com/TanStack/virtual).
 
-## Placeholder
-
-We can provide a custom placeholder to the `<Combobox.Root />` component by adding the `placeholder` prop.
-
-<Showcase name="placeholder" />
-
 When a value is not selected, the placeholder is displayed.
 
-## Using Refs
+## Advanced
+
+### Using Refs
 
 You can pass a ref to each Combobox component to access the underlying DOM element.
 
@@ -285,15 +293,21 @@ You can pass a ref to each Combobox component to access the underlying DOM eleme
 
 Above is an example that programmatically changes the background color of the trigger when clicked.
 
-## CSR
+### Forms
 
-Like every Qwik UI component, the Combobox component can be rendered server-side or client-side.
-
-<Showcase name="csr" />
-
-## Forms
+To use the combobox in a form, a visually hidden native select element is provided inside of `<Combobox.HiddenNativeSelect>`.
 
 <Showcase name="form" />
+
+The `name` prop on the `Combobox.Root` component is used to name the Combobox form field.
+
+### Validation
+
+Form libaries like [Modular Forms](https://modularforms.dev/) can be used to validate the combobox form field.
+
+<Showcase name="validation" />
+
+> This allows you to use Qwik UI with any form validation library.
 
 ## Example CSS
 
