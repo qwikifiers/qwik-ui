@@ -10,27 +10,27 @@ export const DashboardTableOfContents = component$(
     return (
       <div class="space-y-2">
         <div class="font-medium">On This Page</div>
-        <TableOfContent headings={headings} />
+        <TableOfContents headings={headings} />
       </div>
     );
   },
 );
 
-type TableOfContentProps = { headings: ContentHeading[] };
+type TableOfContentsProps = { headings: ContentHeading[] };
+
 interface Node extends ContentHeading {
-  level: number;
-  children: Array<Node>;
+  children: Node[];
   activeItem: string;
 }
 type Tree = Array<Node>;
-export const TableOfContent = component$<TableOfContentProps>((props) => {
-  const inifiniteStopper = props.headings.map((heading) => {
-    return { text: heading.text, id: heading.id, level: heading.level };
-  });
-  const itemIds = props.headings.map((item) => item.id);
+
+const TableOfContents = component$<TableOfContentsProps>(({ headings }) => {
+  const sanitizedHeadings = headings.map(({ text, id, level }) => ({ text, id, level }));
+  const itemIds = headings.map(({ id }) => id);
   const activeHeading = useActiveItem(itemIds);
-  const tree = getTree(inifiniteStopper);
-  return <RecursiveJSX tree={tree[0]} activeItem={activeHeading.value} />;
+  const tree = buildTree(sanitizedHeadings);
+  const fixStartingBug: Node = { ...tree, children: [tree] };
+  return <RecursiveList tree={fixStartingBug} activeItem={activeHeading.value} />;
 });
 
 function deltaToStrg(
@@ -55,7 +55,8 @@ function deltaToStrg(
     `bad headings: are downwards discontinous from: #${currNode.id} to #${nextNode.id} bc from ${currNode.level} to ${nextNode.level}`,
   );
 }
-function getTree(nodes: ContentHeading[]) {
+
+function buildTree(nodes: ContentHeading[]) {
   let currNode = nodes[0] as Node;
   currNode.children = [];
   const tree = [currNode];
@@ -94,32 +95,31 @@ function getTree(nodes: ContentHeading[]) {
     }
     currNode = nextNode;
   }
-  return tree;
+  return tree[0];
 }
-type RecursiveJSXProps = {
+
+type RecursiveListProps = {
   tree: Node;
   activeItem: string;
   limit?: number;
 };
-const RecursiveJSX = component$<RecursiveJSXProps>(({ tree, activeItem, limit = 3 }) => {
-  const currNode: Node = tree;
-  return currNode?.children?.length && currNode.level < limit ? (
-    <ul class={cn('m-0 list-none', { 'pl-4': currNode.level !== 1 })}>
-      {currNode.children.map((childNode) => {
-        return (
-          <li key={currNode.id} class={cn('mt-0 list-none pt-2')}>
+
+const RecursiveList = component$<RecursiveListProps>(
+  ({ tree, activeItem, limit = 3 }) => {
+    return tree?.children?.length && tree.level < limit ? (
+      <ul class={cn('m-0 list-none', { 'pl-4': tree.level !== 1 })}>
+        {tree.children.map((childNode) => (
+          <li key={childNode.id} class="mt-0 list-none pt-2">
             <Anchor node={childNode} activeItem={activeItem} />
-            {childNode.children.length ? (
-              <>
-                <RecursiveJSX tree={childNode} activeItem={activeItem} />
-              </>
-            ) : null}
+            {childNode.children.length > 0 && (
+              <RecursiveList tree={childNode} activeItem={activeItem} />
+            )}
           </li>
-        );
-      })}
-    </ul>
-  ) : null;
-});
+        ))}
+      </ul>
+    ) : null;
+  },
+);
 
 const useActiveItem = (itemIds: string[]) => {
   const activeId = useSignal<string>('');
@@ -133,7 +133,7 @@ const useActiveItem = (itemIds: string[]) => {
           }
         });
       },
-      { rootMargin: `0% 0% -85% 0%` },
+      { rootMargin: '0% 0% -85% 0%' },
     );
 
     itemIds.forEach((id) => {
@@ -155,35 +155,35 @@ const useActiveItem = (itemIds: string[]) => {
 
   return activeId;
 };
-type AnchorThingProps = {
+
+type AnchorProps = {
   node: Node;
   activeItem: string;
 };
-export const Anchor = component$<AnchorThingProps>((props) => {
-  const currNode = props.node;
-  const activeItem = props.activeItem;
-  const isActiveItem = currNode.id === `${activeItem}`;
+
+const Anchor = component$<AnchorProps>(({ node, activeItem }) => {
+  const isActive = node.id === activeItem;
   return (
     <a
-      href={`#${currNode.id}`}
+      href={`#${node.id}`}
       onClick$={[
         $(() => {
-          const element = document.getElementById(currNode.id);
+          const element = document.getElementById(node.id);
           if (element) {
             const navbarHeight = 90;
-            const elementPosition =
+            const position =
               element.getBoundingClientRect().top + window.scrollY - navbarHeight;
-            window.scrollTo({ top: elementPosition, behavior: 'auto' });
+            window.scrollTo({ top: position, behavior: 'auto' });
           }
         }),
       ]}
       class={cn(
-        currNode.level > 2 ? 'ml-4' : null,
+        node.level > 2 && 'ml-2',
         'inline-block no-underline transition-colors hover:text-foreground',
-        isActiveItem ? 'font-medium text-foreground' : 'text-muted-foreground',
+        isActive ? 'font-medium text-foreground' : 'text-muted-foreground',
       )}
     >
-      {currNode.text}
+      {node.text}
     </a>
   );
 });
