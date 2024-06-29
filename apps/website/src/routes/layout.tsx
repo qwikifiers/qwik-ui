@@ -1,5 +1,5 @@
 /* eslint-disable qwik/no-react-props */
-import { Slot, component$ } from '@builder.io/qwik';
+import { Slot, component$, useSignal } from '@builder.io/qwik';
 import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
 import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
 import {
@@ -15,12 +15,13 @@ import Header from '~/components/header/header';
 
 export default component$(() => {
   const { headings } = useContent();
-
+  const searchOpen = useSignal(true);
   const { menuItemsGroups } = useKitMenuItems();
 
   return (
     <>
-      <Header showBottomBorder={true} showVersion={true} />
+      <Header showBottomBorder={true} showVersion={true} searchOpen={searchOpen} />
+
       <div class="flex justify-center">
         <div class="flex w-full max-w-screen-2xl justify-center lg:justify-around xl:justify-between 2xl:space-x-16">
           <DocsNavigation

@@ -47,6 +47,13 @@ export default component$(() => {
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
         <ServiceWorkerRegister />
+        <script
+          async
+          src="https://umami.valibot.dev/script.js"
+          data-website-id="1fe7c3d9-66cb-43db-bb9c-dd86128e828c"
+          data-domains="valibot.dev"
+          data-strip-search="true"
+        />
       </head>
       <body lang="en">
         <ThemeProvider
