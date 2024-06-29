@@ -27,16 +27,14 @@ export default component$(() => {
           </Combobox.Trigger>
         </Combobox.Control>
         <Combobox.Popover class="combobox-popover" gutter={8}>
-          <Combobox.Listbox class="combobox-listbox">
-            {fruits.value.map((fruit) => (
-              <Combobox.Item key={fruit} class="combobox-item">
-                <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
-                <Combobox.ItemIndicator>
-                  <LuCheck />
-                </Combobox.ItemIndicator>
-              </Combobox.Item>
-            ))}
-          </Combobox.Listbox>
+          {fruits.value.map((fruit) => (
+            <Combobox.Item key={fruit} class="combobox-item">
+              <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
+              <Combobox.ItemIndicator>
+                <LuCheck />
+              </Combobox.ItemIndicator>
+            </Combobox.Item>
+          ))}
         </Combobox.Popover>
       </Combobox.Root>
       <button

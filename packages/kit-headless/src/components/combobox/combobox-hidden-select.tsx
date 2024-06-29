@@ -43,6 +43,7 @@ export const HiddenNativeSelect = component$(
               }}
               onFocus$={() => {
                 // override modular forms focus event
+                context.inputRef.value?.focus();
                 return;
               }}
               multiple={context.multiple}

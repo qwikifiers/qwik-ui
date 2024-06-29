@@ -20,6 +20,8 @@ export const HComboboxInput = component$(
     const panelId = `${context.localId}-panel`;
     const inputId = `${context.localId}-input`;
     const labelId = `${context.localId}-label`;
+    const descriptionId = `${context.localId}-description`;
+    const errorMessageId = `${context.localId}-error-message`;
 
     const initialDisplayValue = !context.multiple
       ? context.itemsMapSig.value.get(
@@ -145,6 +147,8 @@ export const HComboboxInput = component$(
         aria-expanded={context.isListboxOpenSig.value ? 'true' : 'false'}
         aria-controls={panelId}
         aria-labelledby={labelId}
+        aria-describedby={`${descriptionId} 
+        ${errorMessageId}`}
         aria-autocomplete="list"
         aria-haspopup="listbox"
         ref={inputRef}
