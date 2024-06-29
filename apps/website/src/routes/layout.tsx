@@ -10,12 +10,10 @@ import {
 import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
-import { ScrollArea } from '@qwik-ui/styled';
 import Header from '~/components/header/header';
 
 export default component$(() => {
   const { headings } = useContent();
-
   const { menuItemsGroups } = useKitMenuItems();
 
   return (
@@ -35,12 +33,10 @@ export default component$(() => {
             </main>
           </MDXProvider>
           <div class="mx-6 hidden w-60 min-w-48 text-sm xl:block">
-            <div class="sticky top-16 pt-4">
-              <ScrollArea>
-                <div class="sticky top-16 -mt-10 h-[calc(100vh-64px)] py-12">
-                  <DashboardTableOfContents headings={headings ? headings : []} />
-                </div>
-              </ScrollArea>
+            <div class={`fixed translate-y-[-20px] py-12`}>
+              <div class="toc-scrollbar mb-4 h-[calc(100vh-64px)]  overflow-auto pb-16">
+                <DashboardTableOfContents headings={headings ? headings : []} />
+              </div>
             </div>
           </div>
         </div>

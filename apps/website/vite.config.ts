@@ -1,5 +1,4 @@
 import { qwikCity } from '@builder.io/qwik-city/vite';
-import { qwikReact } from '@builder.io/qwik-react/vite';
 import { qwikVite } from '@builder.io/qwik/optimizer';
 import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
@@ -84,7 +83,6 @@ export default defineConfig(async () => {
           outDir: '../../dist/apps/website/server',
         },
       }),
-      qwikReact(),
       tsconfigPaths({ root: '../../' }),
     ],
 
