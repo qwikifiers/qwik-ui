@@ -15,6 +15,7 @@
 
 - [Missing a component?](/docs/headless/missing)
 - [Accordion](/docs/headless/accordion)
+- [Calendar](/docs/headless/calendar)
 - [Carousel](/docs/headless/carousel)
 - [Collapsible](/docs/headless/collapsible)
 - [Combobox](/docs/headless/combobox)
