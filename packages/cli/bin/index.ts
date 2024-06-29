@@ -193,16 +193,20 @@ async function handleInit() {
   });
 
   // CREATE CONFIG FILE
-  execSync(
-    `${
-      getPackageManagerCommand().exec
-    } nx g qwik-ui:init --interactive false --project-root=${
-      config.projectRoot
-    } --ui-components-path=${config.uiComponentsPath}`,
-    {
-      stdio: 'inherit',
-    },
-  );
+  try {
+    execSync(
+      `${
+        getPackageManagerCommand().exec
+      } nx g qwik-ui:init --interactive false --project-root=${
+        config.projectRoot
+      } --ui-components-path=${config.uiComponentsPath}`,
+      {
+        stdio: 'inherit',
+      },
+    );
+  } catch (e) {
+    console.log('Error creating config file: ', e);
+  }
 
   let shouldCustomize = false;
   if (!config.style && !config.primaryColor && !config.borderRadius) {
