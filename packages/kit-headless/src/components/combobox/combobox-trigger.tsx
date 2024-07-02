@@ -1,35 +1,31 @@
-import { Slot, component$, useContext, $, PropsOf } from '@builder.io/qwik';
-import ComboboxContextId from './combobox-context-id';
-import { VisuallyHidden } from '../../utils/visually-hidden';
+import { PropsOf, Slot, component$, useContext, $ } from '@builder.io/qwik';
+import { comboboxContextId } from './combobox-context';
+import { useMergedRef } from '../../hooks/merge-refs';
 
-export type ComboboxTriggerProps = PropsOf<'button'>;
+type HComboboxTriggerImplProps = PropsOf<'button'>;
 
-export const HComboboxTrigger = component$((props: ComboboxTriggerProps) => {
-  const context = useContext(ComboboxContextId);
-  const listboxId = `${context.localId}-listbox`;
+export const HComboboxTrigger = component$((props: HComboboxTriggerImplProps) => {
+  const context = useContext(comboboxContextId);
+  const triggerRef = useMergedRef(props.ref, context, 'triggerRef');
+
+  const handleClick$ = $(() => {
+    context.inputRef.value?.focus();
+    context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
+  });
 
   return (
     <button
-      {...props}
-      ref={context.triggerRef}
-      onClick$={[
-        $(() => {
-          context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
-        }),
-        props.onClick$,
-      ]}
-      tabIndex={-1}
-      aria-haspopup="listbox"
+      ref={triggerRef}
+      type="button"
+      aria-expanded={context.isListboxOpenSig.value}
+      onClick$={[handleClick$, props.onClick$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-      aria-controls={listboxId}
-      popovertarget={listboxId}
-      aria-expanded={context.isListboxOpenSig.value}
+      data-invalid={context.isInvalidSig.value ? '' : undefined}
+      preventdefault:mousedown
+      tabIndex={-1}
+      {...props}
     >
-      <VisuallyHidden>
-        Toggle list of
-        {context.labelRef.value ? context.labelRef.value?.innerText : 'options'}
-      </VisuallyHidden>
       <Slot />
     </button>
   );

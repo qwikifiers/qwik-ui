@@ -14,7 +14,7 @@ export default extendConfig(baseConfig, () => {
       cloudflarePagesAdapter({
         ssg: {
           include: ['/*'],
-          origin: 'https://qwikui.com'
+          origin: 'https://qwikui.com',
         },
       }),
     ],

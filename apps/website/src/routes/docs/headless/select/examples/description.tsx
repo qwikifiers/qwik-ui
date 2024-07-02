@@ -13,16 +13,14 @@ export default component$(() => {
       </Select.Trigger>
       <Select.Description>Select a user to see their profile</Select.Description>
       <Select.Popover class="select-popover">
-        <Select.Listbox class="select-listbox">
-          {users.map((user) => (
-            <Select.Item class="select-item" key={user}>
-              <Select.ItemLabel>{user}</Select.ItemLabel>
-              <Select.ItemIndicator>
-                <LuCheck />
-              </Select.ItemIndicator>
-            </Select.Item>
-          ))}
-        </Select.Listbox>
+        {users.map((user) => (
+          <Select.Item class="select-item" key={user}>
+            <Select.ItemLabel>{user}</Select.ItemLabel>
+            <Select.ItemIndicator>
+              <LuCheck />
+            </Select.ItemIndicator>
+          </Select.Item>
+        ))}
       </Select.Popover>
     </Select.Root>
   );

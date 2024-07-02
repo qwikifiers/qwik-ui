@@ -8,7 +8,6 @@ const Root = (props: PropsOf<typeof HeadlessSelect.Root>) => (
     {...props}
     selectItemComponent={Item}
     selectItemLabelComponent={ItemLabel}
-    selectLabelComponent={Label}
     selectErrorMessageComponent={ErrorMessage}
   />
 );

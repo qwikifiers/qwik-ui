@@ -1,7 +1,7 @@
 import { $, type PropsOf, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 
-export const Checkbox = component$<PropsOf<'input'> & { type?: 'checkbox' }>(
+export const Checkbox = component$<Partial<PropsOf<'input'> & { type?: 'checkbox' }>>(
   ({ id, name, ['bind:checked']: checkedSig, checked, onInput$, ...props }) => {
     const inputId = id || name;
     return (
