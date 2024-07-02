@@ -99,7 +99,7 @@ test.describe('Mouse Behavior', () => {
 
     await d.openListbox('click');
 
-    const label = d.getRoot().getByRole('listitem').first();
+    const label = d.getRoot().locator('[data-group-label]').first();
 
     await expect(label).toBeVisible();
     await label.click();
@@ -557,7 +557,7 @@ test.describe('Keyboard Behavior', () => {
       await d.getTrigger().focus();
       const char = 'j';
       await d.getTrigger().press(char);
-      const firstJOption = d.getRoot().locator('li', { hasText: char }).nth(0);
+      const firstJOption = d.getRoot().locator('[data-item]', { hasText: char }).nth(0);
       await expect(firstJOption).toHaveAttribute('aria-selected', 'true');
       await expect(firstJOption).toHaveAttribute('data-highlighted');
     });
@@ -943,7 +943,11 @@ test.describe('A11y', () => {
         AND its associated label`, async ({ page }) => {
     const { driver: d } = await setup(page, 'group');
     await d.openListbox('ArrowDown');
-    const labelId = await d.getRoot().getByRole('listitem').first().getAttribute('id');
+    const labelId = await d
+      .getRoot()
+      .locator('[data-group-label]')
+      .first()
+      .getAttribute('id');
 
     await expect(d.getRoot().getByRole('group').first()).toHaveAttribute(
       'aria-labelledby',

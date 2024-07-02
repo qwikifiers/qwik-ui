@@ -8,7 +8,9 @@ export default component$(() => {
   const triggerRef = useSignal<HTMLButtonElement>();
 
   const handleClick$ = $(() => {
-    triggerRef.value?.style.backgroundColor = 'red';
+    if (!triggerRef.value) return;
+
+    triggerRef.value.style.backgroundColor = 'red';
   });
 
   const fruits = [

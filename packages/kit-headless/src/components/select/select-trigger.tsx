@@ -19,7 +19,7 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
   const descriptionId = `${context.localId}-description`;
   const errorMessageId = `${context.localId}-error-message`;
   const triggerId = `${context.localId}-trigger`;
-  const listboxId = `${context.localId}-listbox`;
+  const panelId = `${context.localId}-panel`;
   const valueId = `${context.localId}-value`;
   const initialKeyDownSig = useSignal(true);
   const { typeahead$ } = useTypeahead();
@@ -135,7 +135,7 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
       ${errorMessageId}`}
       aria-expanded={context.isListboxOpenSig.value ? true : false}
       aria-haspopup="listbox"
-      aria-controls={listboxId}
+      aria-controls={panelId}
       disabled={context.isDisabledSig.value ? true : undefined}
       preventdefault:blur
     >

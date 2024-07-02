@@ -101,6 +101,7 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
         data-invalid={context.isInvalidSig.value ? '' : undefined}
         role="listbox"
         aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
+        aria-multiselectable={context.multiple ? 'true' : undefined}
         {...rest}
       >
         <Slot />

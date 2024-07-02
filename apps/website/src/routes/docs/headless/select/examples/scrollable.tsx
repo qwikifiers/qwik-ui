@@ -11,25 +11,23 @@ export default component$(() => {
       <Select.Trigger class="select-trigger">
         <Select.DisplayValue placeholder="Select an option" />
       </Select.Trigger>
-      <Select.Popover class="select-popover">
-        <Select.Listbox class="select-listbox select-max-height">
-          <Select.Group>
-            <Select.GroupLabel class="select-label">People</Select.GroupLabel>
-            {users.map((user) => (
-              <Select.Item key={user}>
-                <Select.ItemLabel>{user}</Select.ItemLabel>
-              </Select.Item>
-            ))}
-          </Select.Group>
-          <Select.Group>
-            <Select.GroupLabel class="select-label">Animals</Select.GroupLabel>
-            {animals.map((animal) => (
-              <Select.Item key={animal}>
-                <Select.ItemLabel>{animal}</Select.ItemLabel>
-              </Select.Item>
-            ))}
-          </Select.Group>
-        </Select.Listbox>
+      <Select.Popover class="select-popover select-max-height">
+        <Select.Group>
+          <Select.GroupLabel class="select-label">People</Select.GroupLabel>
+          {users.map((user) => (
+            <Select.Item key={user}>
+              <Select.ItemLabel>{user}</Select.ItemLabel>
+            </Select.Item>
+          ))}
+        </Select.Group>
+        <Select.Group>
+          <Select.GroupLabel class="select-label">Animals</Select.GroupLabel>
+          {animals.map((animal) => (
+            <Select.Item key={animal}>
+              <Select.ItemLabel>{animal}</Select.ItemLabel>
+            </Select.Item>
+          ))}
+        </Select.Group>
       </Select.Popover>
     </Select.Root>
   );

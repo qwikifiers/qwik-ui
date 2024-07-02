@@ -13,18 +13,16 @@ export default component$(() => {
         <Select.DisplayValue placeholder="Select an option" />
       </Select.Trigger>
       <Select.Popover class="select-popover">
-        <Select.Listbox class="select-listbox">
-          {users.map((user, index) => (
-            <Select.Item
-              key={user}
-              disabled={
-                index === 0 || index === 2 || index === users.length - 1 ? true : false
-              }
-            >
-              <Select.ItemLabel>{user}</Select.ItemLabel>
-            </Select.Item>
-          ))}
-        </Select.Listbox>
+        {users.map((user, index) => (
+          <Select.Item
+            key={user}
+            disabled={
+              index === 0 || index === 2 || index === users.length - 1 ? true : false
+            }
+          >
+            <Select.ItemLabel>{user}</Select.ItemLabel>
+          </Select.Item>
+        ))}
       </Select.Popover>
     </Select.Root>
   );

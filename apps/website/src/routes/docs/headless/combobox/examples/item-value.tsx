@@ -28,16 +28,14 @@ export default component$(() => {
           </Combobox.Trigger>
         </Combobox.Control>
         <Combobox.Popover class="combobox-popover" gutter={8}>
-          <Combobox.Listbox class="combobox-listbox">
-            {users.map((user) => (
-              <Combobox.Item value={user.id} key={user.id} class="combobox-item">
-                <Combobox.ItemLabel>{user.label}</Combobox.ItemLabel>
-                <Combobox.ItemIndicator>
-                  <LuCheck />
-                </Combobox.ItemIndicator>
-              </Combobox.Item>
-            ))}
-          </Combobox.Listbox>
+          {users.map((user) => (
+            <Combobox.Item value={user.id} key={user.id} class="combobox-item">
+              <Combobox.ItemLabel>{user.label}</Combobox.ItemLabel>
+              <Combobox.ItemIndicator>
+                <LuCheck />
+              </Combobox.ItemIndicator>
+            </Combobox.Item>
+          ))}
         </Combobox.Popover>
       </Combobox.Root>
       <p>The selected value is: {selected.value ?? 'null'}</p>

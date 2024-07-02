@@ -26,22 +26,20 @@ export default component$(() => {
         </Combobox.Trigger>
       </Combobox.Control>
       <Combobox.Popover class="combobox-popover" gutter={8}>
-        <Combobox.Listbox class="combobox-listbox">
-          {fruits.map((fruit, index) => (
-            <Combobox.Item
-              disabled={
-                index === 0 || index === 2 || index === fruits.length - 1 ? true : false
-              }
-              key={fruit}
-              class="combobox-item"
-            >
-              <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
-              <Combobox.ItemIndicator>
-                <LuCheck />
-              </Combobox.ItemIndicator>
-            </Combobox.Item>
-          ))}
-        </Combobox.Listbox>
+        {fruits.map((fruit, index) => (
+          <Combobox.Item
+            disabled={
+              index === 0 || index === 2 || index === fruits.length - 1 ? true : false
+            }
+            key={fruit}
+            class="combobox-item"
+          >
+            <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
+            <Combobox.ItemIndicator>
+              <LuCheck />
+            </Combobox.ItemIndicator>
+          </Combobox.Item>
+        ))}
       </Combobox.Popover>
     </Combobox.Root>
   );

@@ -11,14 +11,12 @@ export default component$(() => {
         <Select.DisplayValue placeholder="Select an option" />
       </Select.Trigger>
       <Select.Popover class="select-popover">
-        <Select.Listbox class="select-listbox">
-          <Select.Item>
-            <Select.ItemLabel>Option 1</Select.ItemLabel>
-          </Select.Item>
-          <Select.Item>
-            <Select.ItemLabel>Option 2</Select.ItemLabel>
-          </Select.Item>
-        </Select.Listbox>
+        <Select.Item>
+          <Select.ItemLabel>Option 1</Select.ItemLabel>
+        </Select.Item>
+        <Select.Item>
+          <Select.ItemLabel>Option 2</Select.ItemLabel>
+        </Select.Item>
       </Select.Popover>
     </Select.Root>
   );
