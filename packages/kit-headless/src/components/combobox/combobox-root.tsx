@@ -13,7 +13,7 @@ import {
 import { ComboboxContext, comboboxContextId } from './combobox-context';
 import { InternalComboboxProps } from './combobox-inline';
 import { useCombobox } from './use-combobox';
-import { useMergedRef } from '../../hooks/merge-refs';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 export type TMultiple<M> = M extends true ? string[] : string;
 
@@ -140,10 +140,10 @@ export const HComboboxRootImpl = component$<
   const itemsMapSig = useComputed$(() => {
     return _itemsMap ?? new Map();
   });
-  const rootRef = useMergedRef(props.ref);
+  const rootRef = useCombinedRef(props.ref);
   const triggerRef = useSignal<HTMLButtonElement>();
   const inputRef = useSignal<HTMLInputElement>();
-  const panelRef = useSignal<HTMLUListElement>();
+  const panelRef = useSignal<HTMLDivElement>();
   const labelRef = useSignal<HTMLDivElement>();
   const groupRef = useSignal<HTMLDivElement>();
   const controlRef = useSignal<HTMLDivElement>();

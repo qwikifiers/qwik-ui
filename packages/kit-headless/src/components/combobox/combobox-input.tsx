@@ -8,14 +8,15 @@ import {
 } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 import { useCombobox } from './use-combobox';
-import { useMergedRef } from '../../hooks/merge-refs';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 type HComboboxInputProps = PropsOf<'input'>;
 
 export const HComboboxInput = component$(
   ({ 'bind:value': inputValueSig, ...props }: HComboboxInputProps) => {
     const context = useContext(comboboxContextId);
-    const inputRef = useMergedRef(props.ref, context, 'inputRef');
+    const contextRefOpts = { context, givenContextRef: context.inputRef };
+    const inputRef = useCombinedRef(props.ref, contextRefOpts);
 
     const panelId = `${context.localId}-panel`;
     const inputId = `${context.localId}-input`;

@@ -7,14 +7,15 @@ import {
 } from '@builder.io/qwik';
 
 import { comboboxContextId, groupContextId } from './combobox-context';
-import { useMergedRef } from '../../hooks/merge-refs';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 type ComboboxGroupProps = PropsOf<'div'>;
 
 export const HComboboxGroup = component$<ComboboxGroupProps>((props) => {
   const context = useContext(comboboxContextId);
   const groupLabelId = `${context.localId}-group-label`;
-  const groupRef = useMergedRef(props.ref, context, 'groupRef');
+  const contextRefOpts = { context, givenContextRef: context.groupRef };
+  const groupRef = useCombinedRef(props.ref, contextRefOpts);
 
   const groupContext = {
     groupLabelId,

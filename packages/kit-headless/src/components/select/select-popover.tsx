@@ -13,7 +13,7 @@ import { HPopoverPanel } from '../popover/popover-panel';
 import selectContextId from './select-context';
 import { HPopoverRoot } from '../popover/popover-root';
 import { isServer } from '@builder.io/qwik/build';
-import { useMergedRef } from '../../hooks/merge-refs';
+import { useMergedRef } from '../../hooks/combined-refs';
 
 export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) => {
   const context = useContext(selectContextId);

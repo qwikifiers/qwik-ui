@@ -1,12 +1,13 @@
 import { PropsOf, Slot, component$, useContext, $ } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
-import { useMergedRef } from '../../hooks/merge-refs';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 type HComboboxTriggerImplProps = PropsOf<'button'>;
 
 export const HComboboxTrigger = component$((props: HComboboxTriggerImplProps) => {
   const context = useContext(comboboxContextId);
-  const triggerRef = useMergedRef(props.ref, context, 'triggerRef');
+  const contextRefOpts = { context, givenContextRef: context.triggerRef };
+  const triggerRef = useCombinedRef(props.ref, contextRefOpts);
 
   const handleClick$ = $(() => {
     context.inputRef.value?.focus();

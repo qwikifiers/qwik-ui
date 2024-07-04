@@ -13,12 +13,13 @@ import { HPopoverPanel } from '../popover/popover-panel';
 import { comboboxContextId } from './combobox-context';
 import { HPopoverRoot } from '../popover/popover-root';
 import { isServer } from '@builder.io/qwik/build';
-import { useMergedRef } from '../../hooks/merge-refs';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props) => {
   const context = useContext(comboboxContextId);
   const { showPopover, hidePopover } = usePopover(context.localId);
-  const panelRef = useMergedRef(props.ref, context, 'panelRef');
+  const contextRefOpts = { context, givenContextRef: context.panelRef };
+  const panelRef = useCombinedRef(props.ref, contextRefOpts);
 
   const { floating, flip, hover, gutter, ...rest } = props;
   const initialLoadSig = useSignal<boolean>(true);
@@ -48,11 +49,11 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
       return;
     }
 
-    if (!context.panelRef.value || !context.controlRef.value) {
+    if (!panelRef.value || !context.controlRef.value) {
       return;
     }
 
-    const listboxRect = context.panelRef.value.getBoundingClientRect();
+    const listboxRect = panelRef.value.getBoundingClientRect();
     const boxRect = context.controlRef.value.getBoundingClientRect();
     const { clientX, clientY } = e;
 

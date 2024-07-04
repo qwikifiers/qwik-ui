@@ -15,7 +15,7 @@ import {
 } from './combobox-context';
 import { useCombobox } from './use-combobox';
 import { isServer } from '@builder.io/qwik/build';
-import { useMergedRef } from '../../hooks/merge-refs';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 export type HComboboxItemProps = PropsOf<'div'> & {
   /** Internal index we get from the inline component. Please see combobox-inline.tsx */
@@ -34,7 +34,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   }
 
   const context = useContext(comboboxContextId);
-  const itemRef = useMergedRef(rest.ref);
+  const itemRef = useCombinedRef(rest.ref);
   const itemLabelId = `${context.localId}-${_index}-item-label`;
 
   const { selectionManager$, filterManager$ } = useCombobox();

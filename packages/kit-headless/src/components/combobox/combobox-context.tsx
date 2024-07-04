@@ -13,7 +13,7 @@ export type ComboboxContext = {
   // refs
   triggerRef: Signal<HTMLButtonElement | undefined>;
   inputRef: Signal<HTMLInputElement | undefined>;
-  panelRef: Signal<HTMLUListElement | undefined>;
+  panelRef: Signal<HTMLDivElement | undefined>;
   groupRef: Signal<HTMLDivElement | undefined>;
   labelRef: Signal<HTMLDivElement | undefined>;
   controlRef: Signal<HTMLDivElement | undefined>;
