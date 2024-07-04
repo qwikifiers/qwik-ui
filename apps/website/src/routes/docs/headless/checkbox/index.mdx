@@ -34,27 +34,25 @@ Allows users to visually select an option by checking it.
 
 ### Controlled Checkbox
 
-You can bind the internal value of a checkbox to a user-defined signal:
+To add reactive state, use the `bind:checked` prop on the `<Checkbox.Root />` component.
 
 <Showcase name="controlled" />
 
-Do keep in mind that the inital value of the signal WILL affect the initial value of the checkbox.
+> Note that the initial value of the signal will affect the initial value of the checkbox.
 
-In the example below, the left checkbox was bindided to a signal with an inital value of false while the right checkbox was bindded to a signal with an inital falue of true.
+In the example below, the left checkbox starts as **false**, while the right checkbox starts as **true**.
 
 <Showcase name="controlled-values" />
 
 ## Customization & Caveats
 
-The Checkbox is made from the ground up to be as customizable as possible.
-
-You can define your own CSS classes on every part of the component as if it were a normal div element. You can even define any valid HTML as your icon, but keep in mind that any child of the Checkbox Indicator is removed from the accesibilyti tree. This is done to prevent text, or emojis, that are meant to be used as icons from being added to the label of the Checkbox (see [automatic labeling](#automatic-labeling) for more info).
+You can apply CSS classes to any part of the component. Any valid HTML can be used as an icon, but children of the Checkbox Indicator are removed from the accessibility tree to prevent them from being added to the Checkbox Label.
 
 ### Automatic Labeling
 
-Due to the implementation of the Checkbox element being a div with the role of checkbox, any text present inside the Checkbox Root is interpreted as the checkbox label.
+The Checkbox element is a div with the role of checkbox, so any text inside the Checkbox Root is interpreted as the checkbox label.
 
-This also means that any text tag is stripped from its semantic meaning. In other words, passing an h1 tag is treated the same as passing a p tag: they are both treated as if you passed no tag at all. See [this](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role#all_descendants_are_presentational) section of MDN for a more detailed explenation.
+Text tags lose their semantic meaning. For example, an h1 tag is treated the same as a p tag. See [this MDN section](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role#all_descendants_are_presentational) for more details.
 
 ## API
 
@@ -64,13 +62,12 @@ This also means that any text tag is stripped from its semantic meaning. In othe
   propDescriptors={[
     {
       name: 'bind:checked',
-      description:
-        'two-way data bind of the value of the checkbox to a user-defined signal',
+      description: 'Two-way data binding of the checkbox value to a user-defined signal',
     },
     {
       name: 'checklist',
       description:
-        "when true makes the checkbox be treated as a tri-state checkbox AND binds it's value over all other checkboxes inside the checklist",
+        'When true, treats the checkbox as a tri-state and binds its value to all other checkboxes in the checklist',
     },
   ]}
 />

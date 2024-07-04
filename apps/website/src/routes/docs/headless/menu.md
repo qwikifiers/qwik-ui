@@ -19,6 +19,7 @@
 - [Collapsible](/docs/headless/collapsible)
 - [Combobox](/docs/headless/combobox)
 - [Checkbox](/docs/headless/checkbox)
+- [Dropdown](/docs/headless/dropdown)
 - [Label](/docs/headless/label)
 - [Modal](/docs/headless/modal)
 - [Pagination](/docs/headless/pagination)

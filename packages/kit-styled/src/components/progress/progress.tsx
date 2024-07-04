@@ -1,5 +1,5 @@
 import { cn } from '@qwik-ui/utils';
-import { PropsOf, component$ } from '@builder.io/qwik';
+import { type PropsOf, component$ } from '@builder.io/qwik';
 import { Progress as HeadlessProgress } from '@qwik-ui/headless';
 
 export const Progress = component$<PropsOf<typeof HeadlessProgress.Root>>((props) => {
