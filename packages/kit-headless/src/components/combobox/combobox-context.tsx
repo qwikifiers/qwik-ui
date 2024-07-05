@@ -25,7 +25,7 @@ export type ComboboxContext = {
 
   loop: boolean;
   multiple: boolean | undefined;
-  filter$?: QRL<(item: string, inputValue: string) => boolean>;
+  filter?: boolean;
   onInput$?: QRL<(value: string) => void>;
   placeholder?: string;
   name?: string;

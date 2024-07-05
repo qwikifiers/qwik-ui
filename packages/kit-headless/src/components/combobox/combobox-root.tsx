@@ -93,8 +93,8 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
   /** If true, the combobox is invalid. */
   invalid?: boolean;
 
-  /** QRL to customize the filter function. */
-  filter$?: QRL<(displayValue: string, inputValue: string) => boolean>;
+  /** If true, the combobox will filter the items based on the input value based on the include */
+  filter?: boolean;
 
   /** Handler that runs when the input value changes. */
   onInput$?: QRL<(value: string) => void>;
@@ -127,7 +127,7 @@ export const HComboboxRootImpl = component$<
     scrollOptions: givenScrollOptions,
     multiple = false,
     placeholder,
-    filter$,
+    filter = true,
     hasEmptyComp,
     hasErrorComp,
     name,
@@ -209,7 +209,7 @@ export const HComboboxRootImpl = component$<
     selectedIndexSetSig,
     disabledIndexSetSig,
     currDisplayValueSig,
-    filter$,
+    filter,
     loop,
     multiple,
     scrollOptions,

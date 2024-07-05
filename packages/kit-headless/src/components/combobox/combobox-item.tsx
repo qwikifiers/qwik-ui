@@ -139,15 +139,12 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
     let isVisible;
     const displayValue = context.itemsMapSig.value.get(_index)?.displayValue;
     if (!displayValue) return;
-    if (context.filter$) {
-      isVisible = await context.filter$(displayValue, context.inputValueSig.value);
-    } else {
+    if (context.filter) {
       const lowerCaseDisplayValue = displayValue?.toLowerCase();
       const lowerCaseInputValue = context.inputValueSig.value.toLowerCase();
       isVisible = lowerCaseDisplayValue?.includes(lowerCaseInputValue);
+      filterManager$(!!isVisible, itemRef, _index);
     }
-
-    filterManager$(!!isVisible, itemRef, _index);
   });
 
   return (

@@ -220,11 +220,13 @@ Like every Qwik UI component, the Combobox component can be rendered server-side
 
 ### Custom Filter
 
-Change the filter behavior by adding the `filter$` prop to the `<Combobox.Root />` component. This function determines how items are filtered based on the user's input.
+By default, the Combobox filters items based on user input. To disable this, set the `filter` prop to `false`.
 
 <Showcase name="filter" />
 
-The `filter$` prop accepts a function with two parameters: `displayValue` and `inputValue`.
+You can use any filtering library. In the example above, we use `match-sorter`.
+
+> The `filter` prop is `true` by default, using the `includes` method to filter items.
 
 ### Empty UI
 
