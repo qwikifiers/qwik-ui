@@ -340,7 +340,7 @@ importers:
         version: 19.2.3(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))
       '@qwik-ui/utils':
         specifier: 0.2.1
-        version: 0.2.1
+        version: link:../utils
       ansis:
         specifier: 2.3.0
         version: 2.3.0
@@ -353,7 +353,7 @@ importers:
     devDependencies:
       '@qwik-ui/styled':
         specifier: 0.1.0
-        version: 0.1.0(@builder.io/qwik@1.5.7(@types/node@20.12.12)(sass@1.77.5)(terser@5.31.1)(undici@6.19.0))
+        version: link:../kit-styled
 
   packages/kit-headless:
     dependencies:
@@ -384,10 +384,10 @@ importers:
     devDependencies:
       '@qwik-ui/headless':
         specifier: 0.4.4
-        version: 0.4.4(@builder.io/qwik@1.5.7(@types/node@20.12.12)(sass@1.77.5)(terser@5.31.1)(undici@6.19.0))
+        version: link:../kit-headless
       '@qwik-ui/utils':
         specifier: 0.2.1
-        version: 0.2.1
+        version: link:../utils
 
   packages/utils:
     dependencies:
@@ -2168,21 +2168,6 @@ packages:
 
   '@polka/url@1.0.0-next.25':
     resolution: {integrity: sha512-j7P6Rgr3mmtdkeDGTe0E/aYyWEWVtc5yFXtHCRHs28/jptDEWfaVOc5T7cblqy1XKPPfCxJc/8DwQ5YgLOZOVQ==}
-
-  '@qwik-ui/headless@0.4.4':
-    resolution: {integrity: sha512-IL43yt5vdRt8FQGXVBhTAzMYnYm77+1AadFV/LHXDPwZ2oL7gBk774l2/8eXtHx0zm6GnP52HY9TLx8dXTvdxw==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      '@builder.io/qwik': ^1.5.5
-
-  '@qwik-ui/styled@0.1.0':
-    resolution: {integrity: sha512-Tzq6r+B69cnlUudh1OXZgSIsnzVzMxczQvP+3lp9FtIRZ1umKCrzzg5Lbp6PNGKuI5JCjWNst2wcAeMt1bXYtQ==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      '@builder.io/qwik': ^1.1.0
-
-  '@qwik-ui/utils@0.2.1':
-    resolution: {integrity: sha512-NZkHmN6jZP6DMB6JL4iBc4vrXP+GbFSxCoTDTWrlB2bGL6D7+/IXkHzruLVH9GaLqo7yMgc/SBTZCZCPfVU3FA==}
 
   '@qwikest/icons@0.0.13':
     resolution: {integrity: sha512-e0wY8vmx0nDSUiuCATlk+ojTvdBV4txIGHHWjZW5SRkv4XB8H9+3WSDcLPz0ItUdRyzcrohE9k2jtQI/98aRPA==}
@@ -10849,12 +10834,6 @@ snapshots:
     transitivePeerDependencies:
       - nx
 
-  '@nrwl/devkit@19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))':
-    dependencies:
-      '@nx/devkit': 19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))
-    transitivePeerDependencies:
-      - nx
-
   '@nrwl/eslint-plugin-nx@19.2.3(@babel/traverse@7.24.7)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11))(@types/node@20.12.12)(@typescript-eslint/parser@7.9.0(eslint@8.57.0)(typescript@5.4.5))(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(nx@19.2.3(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))(typescript@5.4.5)(verdaccio@5.31.1(typanion@3.14.0))':
     dependencies:
       '@nx/eslint-plugin': 19.2.3(@babel/traverse@7.24.7)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11))(@types/node@20.12.12)(@typescript-eslint/parser@7.9.0(eslint@8.57.0)(typescript@5.4.5))(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(nx@19.2.3(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))(typescript@5.4.5)(verdaccio@5.31.1(typanion@3.14.0))
@@ -11096,7 +11075,7 @@ snapshots:
 
   '@nx/devkit@19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))':
     dependencies:
-      '@nrwl/devkit': 19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))
+      '@nrwl/devkit': 19.3.0(nx@19.2.3(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.8)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))
       ejs: 3.1.10
       enquirer: 2.3.6
       ignore: 5.3.1
@@ -11653,21 +11632,6 @@ snapshots:
       config-chain: 1.1.13
 
   '@polka/url@1.0.0-next.25': {}
-
-  '@qwik-ui/headless@0.4.4(@builder.io/qwik@1.5.7(@types/node@20.12.12)(sass@1.77.5)(terser@5.31.1)(undici@6.19.0))':
-    dependencies:
-      '@builder.io/qwik': 1.5.7(@types/node@20.12.12)(sass@1.77.5)(terser@5.31.1)(undici@6.19.0)
-      '@floating-ui/core': 1.6.2
-      '@floating-ui/dom': 1.6.5
-      '@oddbird/popover-polyfill': 0.4.3
-      body-scroll-lock-upgrade: 1.1.0
-      focus-trap: 7.5.4
-
-  '@qwik-ui/styled@0.1.0(@builder.io/qwik@1.5.7(@types/node@20.12.12)(sass@1.77.5)(terser@5.31.1)(undici@6.19.0))':
-    dependencies:
-      '@builder.io/qwik': 1.5.7(@types/node@20.12.12)(sass@1.77.5)(terser@5.31.1)(undici@6.19.0)
-
-  '@qwik-ui/utils@0.2.1': {}
 
   '@qwikest/icons@0.0.13(@builder.io/qwik@1.5.7(@types/node@20.12.12)(sass@1.77.5)(terser@5.31.1)(undici@5.28.4))':
     dependencies:
