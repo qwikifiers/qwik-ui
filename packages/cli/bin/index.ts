@@ -317,11 +317,12 @@ async function handleInit() {
   const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
   log.info(
-    `Installing ${styledPackage}, ${headlessPackage}, ${utilsPackage}, ${externalDependencies.reduce((d, all) => `${all}, ${d}`, '')}...`,
+    `Installing ${styledPackage}, ${headlessPackage}, ${utilsPackage}, ${externalDependencies.reduce((all, d) => `${all}, ${d}`, '')}...`,
   );
 
   const externalDepsString = externalDependencies.reduce(
-    (d, all) => `${all} ${d}@latest`,
+    (all, d) => `${all} ${d}@latest`,
+    '',
   );
 
   execSync(
