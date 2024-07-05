@@ -40,6 +40,7 @@ jobs:
         with:
           node_version: 20
       - run: pnpm release.prepare --skip-nx-cache --parallel=false
+      - run: cat ./dist/packages/cli/package.json
       - run: pnpm dlx pkg-pr-new@^0.0.9 publish --compact --pnpm ./dist/packages/kit-headless ./dist/packages/kit-styled ./dist/packages/cli ./dist/packages/utils
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN is provided automatically in any repository
