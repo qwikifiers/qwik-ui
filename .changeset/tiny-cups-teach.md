@@ -2,4 +2,5 @@
 'qwik-ui': patch
 ---
 
-FIX: now installing `tailwindcss-animate` during the cli init
+FIX: now installing `tailwindcss-animate`, `class-variance-authority`
+and `@qwikest/icons` during the cli init

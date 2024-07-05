@@ -39,7 +39,11 @@ const listOfCommands = COMMANDS.join(', ');
 const styledPackage = '@qwik-ui/styled';
 const headlessPackage = '@qwik-ui/headless';
 const utilsPackage = '@qwik-ui/utils';
-const tailwindAnimatePackage = 'tailwindcss-animate';
+const externalDependencies = [
+  'tailwindcss-animate',
+  'class-variance-authority',
+  '@qwikest/icons',
+];
 
 main();
 
@@ -313,12 +317,17 @@ async function handleInit() {
   const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
   log.info(
-    `Installing ${styledPackage}, ${headlessPackage} ${utilsPackage} and ${tailwindAnimatePackage}...`,
+    `Installing ${styledPackage}, ${headlessPackage}, ${utilsPackage}, ${externalDependencies.reduce((d, all) => `${all}, ${d}`, '')}...`,
   );
+
+  const externalDepsString = externalDependencies.reduce(
+    (d, all) => `${all} ${d}@latest`,
+  );
+
   execSync(
     `${
       getPackageManagerCommand().addDev
-    } ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag} ${tailwindAnimatePackage}@latest`,
+    } ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag} ${externalDepsString}`,
     {
       stdio: 'inherit',
     },
