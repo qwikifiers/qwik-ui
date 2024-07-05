@@ -209,6 +209,7 @@ export const HComboboxRootImpl = component$<
     selectedIndexSetSig,
     disabledIndexSetSig,
     currDisplayValueSig,
+    initialLoadSig,
     filter,
     loop,
     multiple,

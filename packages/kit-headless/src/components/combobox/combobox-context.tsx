@@ -22,6 +22,7 @@ export type ComboboxContext = {
   currDisplayValueSig: Signal<string | string[] | undefined>;
   disabledIndexSetSig: Signal<Set<number>>;
   hasVisibleItemsSig: Signal<boolean>;
+  initialLoadSig: Signal<boolean>;
 
   loop: boolean;
   multiple: boolean | undefined;

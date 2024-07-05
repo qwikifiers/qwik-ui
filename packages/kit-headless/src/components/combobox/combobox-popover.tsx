@@ -1,12 +1,4 @@
-import {
-  component$,
-  useContext,
-  Slot,
-  useTask$,
-  PropsOf,
-  useSignal,
-  $,
-} from '@builder.io/qwik';
+import { component$, useContext, Slot, useTask$, PropsOf, $ } from '@builder.io/qwik';
 import { usePopover } from '../popover/use-popover';
 import { HPopoverPanel } from '../popover/popover-panel';
 
@@ -22,14 +14,13 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
   const panelRef = useCombinedRef(props.ref, contextRefOpts);
 
   const { floating, flip, hover, gutter, ...rest } = props;
-  const initialLoadSig = useSignal<boolean>(true);
 
   useTask$(async ({ track }) => {
     track(() => context.isListboxOpenSig.value);
 
     if (isServer) return;
 
-    if (!initialLoadSig.value) {
+    if (!context.initialLoadSig.value) {
       if (context.isListboxOpenSig.value) {
         showPopover();
       } else {
@@ -78,10 +69,6 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
     cleanup(() => {
       window.removeEventListener('pointerdown', handleDismiss$);
     });
-  });
-
-  useTask$(() => {
-    initialLoadSig.value = false;
   });
 
   return (

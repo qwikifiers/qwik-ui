@@ -147,6 +147,15 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
     }
   });
 
+  useTask$(({ track }) => {
+    track(() => context.isListboxOpenSig.value);
+
+    if (context.isListboxOpenSig.value) {
+      context.initialLoadSig.value = false;
+      console.log('initial load sig', context.initialLoadSig.value);
+    }
+  });
+
   return (
     <div
       role="option"
