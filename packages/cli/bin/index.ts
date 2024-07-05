@@ -20,10 +20,10 @@ import {
 } from '@nx/devkit';
 
 import {
-  ThemePrimaryColor,
-  ThemeStyle,
   ThemeBorderRadius,
   ThemeConfig,
+  ThemePrimaryColor,
+  ThemeStyle,
 } from '@qwik-ui/utils';
 import { bgRgb, bold, cyan, green, red } from 'ansis';
 import { execSync } from 'child_process';
@@ -39,6 +39,7 @@ const listOfCommands = COMMANDS.join(', ');
 const styledPackage = '@qwik-ui/styled';
 const headlessPackage = '@qwik-ui/headless';
 const utilsPackage = '@qwik-ui/utils';
+const tailwindAnimatePackage = 'tailwindcss-animate';
 
 main();
 
@@ -311,11 +312,13 @@ async function handleInit() {
 
   const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
-  log.info(`Installing ${styledPackage}, ${headlessPackage} and ${utilsPackage}...`);
+  log.info(
+    `Installing ${styledPackage}, ${headlessPackage} ${utilsPackage} and ${tailwindAnimatePackage}...`,
+  );
   execSync(
     `${
       getPackageManagerCommand().addDev
-    } ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag}`,
+    } ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag} ${tailwindAnimatePackage}@latest`,
     {
       stdio: 'inherit',
     },
