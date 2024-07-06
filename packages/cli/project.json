@@ -6,6 +6,7 @@
   "targets": {
     "build-bin": {
       "executor": "@nx/js:tsc",
+      "dependsOn": ["update-external-deps-versions"],
       "outputs": ["{options.outputPath}"],
       "options": {
         "rootDir": ".",
@@ -46,6 +47,12 @@
             "output": "."
           }
         ]
+      }
+    },
+    "update-external-deps-versions": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm dlx tsm ./tools/scripts/update-cli-deps.ts"]
       }
     },
     "test": {

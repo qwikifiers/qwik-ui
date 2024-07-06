@@ -34,16 +34,13 @@ import {
   QWIK_UI_CONFIG_FILENAME,
 } from '../src/_shared/config-filenames';
 
+import externalDeps from '../src/_shared/external-deps.json';
+
 const COMMANDS = ['init', 'add'];
 const listOfCommands = COMMANDS.join(', ');
 const styledPackage = '@qwik-ui/styled';
 const headlessPackage = '@qwik-ui/headless';
 const utilsPackage = '@qwik-ui/utils';
-const externalDependencies = [
-  'tailwindcss-animate',
-  'class-variance-authority',
-  '@qwikest/icons',
-];
 
 main();
 
@@ -243,7 +240,7 @@ async function handleInit() {
       config.primaryColor = cancelable(
         await select({
           message: cyan('Choose a primary color'),
-          initialValue: ThemePrimaryColor.CYAN600,
+          initialValue: ThemePrimaryColor.CYAN600 as string,
           options: [
             {
               label: bold`${bgRgb(220, 38, 38)`   `} ${capitalizeFirstLetter('Red')} `,
@@ -316,12 +313,17 @@ async function handleInit() {
 
   const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
-  log.info(
-    `Installing ${styledPackage}, ${headlessPackage}, ${utilsPackage}, ${externalDependencies.reduce((all, d) => `${all}, ${d}`, '')}...`,
+  const externalDepsNames = Object.keys(externalDeps).reduce(
+    (all, dep) => `${all}, ${dep}`,
+    '',
   );
 
-  const externalDepsString = externalDependencies.reduce(
-    (all, d) => `${all} ${d}@latest`,
+  log.info(
+    `Installing ${styledPackage}, ${headlessPackage}, ${utilsPackage}, ${externalDepsNames}...`,
+  );
+
+  const externalDepsString = Object.keys(externalDeps).reduce(
+    (all, dep) => `${all} ${dep}@${externalDeps[dep]}`,
     '',
   );
 
