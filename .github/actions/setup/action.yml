@@ -23,7 +23,7 @@ runs:
         git config --global user.email 'qwik-ui@users.noreply.github.com'
 
     - name: Setup pnpm
-      uses: pnpm/action-setup@v2.2.4
+      uses: pnpm/action-setup@v4
       with:
         version: 9.3.0
 

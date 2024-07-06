@@ -32,14 +32,14 @@ jobs:
 
   continuous-release:
     runs-on: ubuntu-latest
-
+    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v3
       - name: Setup
         uses: ./.github/actions/setup
         with:
           node_version: 20
-      - run: pnpm build.headless
-      - run: pnpx pkg-pr-new publish --compact ./dist/packages/kit-headless
+      - run: pnpm release.prepare --parallel=false
+      - run: pnpm dlx pkg-pr-new@^0.0.9 publish --pnpm ./dist/packages/kit-headless ./dist/packages/kit-styled ./dist/packages/cli ./dist/packages/utils
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN is provided automatically in any repository

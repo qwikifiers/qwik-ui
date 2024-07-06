@@ -4,6 +4,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qwikifiers/qwik-ui",
+    "directory": "packages/cli"
+  },
   "description": "Qwik UI Command line interface",
   "dependencies": {
     "@clack/prompts": "^0.7.0",
