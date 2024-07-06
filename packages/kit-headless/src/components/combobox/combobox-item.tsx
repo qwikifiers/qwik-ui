@@ -28,26 +28,28 @@ export type HComboboxItemProps = PropsOf<'div'> & {
   value?: string;
 };
 
-export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps) => {
-  if (_index === undefined) {
+export const HComboboxItem = component$((props: HComboboxItemProps) => {
+  if (props._index === undefined) {
     throw new Error('Qwik UI: Combobox component item cannot find its proper index.');
   }
 
   const context = useContext(comboboxContextId);
-  const itemRef = useCombinedRef(rest.ref);
-  const itemLabelId = `${context.localId}-${_index}-item-label`;
+  const itemRef = useCombinedRef(props.ref);
+  const itemLabelId = `${context.localId}-${props._index ?? -1}-item-label`;
 
   const { selectionManager$, filterManager$ } = useCombobox();
-  const isDisabledSig = useComputed$(() => context.disabledIndexSetSig.value.has(_index));
+  const isDisabledSig = useComputed$(() =>
+    context.disabledIndexSetSig.value.has(props._index ?? -1),
+  );
   const isSelectedSig = useComputed$(() => {
-    const index = _index ?? null;
+    const index = props._index ?? -1;
     return !isDisabledSig.value && context.selectedIndexSetSig.value.has(index);
   });
 
   const isHighlightedSig = useComputed$(() => {
     if (isDisabledSig.value) return;
 
-    if (context.highlightedIndexSig.value === _index) {
+    if (context.highlightedIndexSig.value === props._index ?? -1) {
       return true;
     } else {
       return false;
@@ -72,9 +74,9 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   });
 
   const handleClick$ = $(async () => {
-    if (isDisabledSig.value || _index === null) return;
+    if (isDisabledSig.value || (props._index ?? -1) === null) return;
 
-    await selectionManager$(_index, 'toggle');
+    await selectionManager$(props._index ?? -1, 'toggle');
 
     if (!isSelectedSig.value && !context.multiple) {
       context.isListboxOpenSig.value = false;
@@ -84,8 +86,8 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   const handlePointerOver$ = $(() => {
     if (isDisabledSig.value) return;
 
-    if (_index !== null) {
-      context.highlightedIndexSig.value = _index;
+    if (props._index ?? -1 !== null) {
+      context.highlightedIndexSig.value = props._index ?? -1;
     }
   });
 
@@ -96,6 +98,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
   const itemContext: ComboboxItemContext = {
     isSelectedSig,
     itemLabelId,
+    _index: props._index,
   };
 
   useContextProvider(comboboxItemContextId, itemContext);
@@ -104,7 +107,7 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
     track(() => context.highlightedIndexSig.value);
 
     if (isServer || !context.panelRef.value) return;
-    if (_index !== context.highlightedIndexSig.value) return;
+    if (props._index ?? -1 !== context.highlightedIndexSig.value) return;
 
     const hasScrollbar =
       context.panelRef.value.scrollHeight > context.panelRef.value.clientHeight;
@@ -137,13 +140,13 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
     }
 
     let isVisible;
-    const displayValue = context.itemsMapSig.value.get(_index)?.displayValue;
+    const displayValue = context.itemsMapSig.value.get(props._index ?? -1)?.displayValue;
     if (!displayValue) return;
     if (context.filter) {
       const lowerCaseDisplayValue = displayValue?.toLowerCase();
       const lowerCaseInputValue = context.inputValueSig.value.toLowerCase();
       isVisible = lowerCaseDisplayValue?.includes(lowerCaseInputValue);
-      filterManager$(!!isVisible, itemRef, _index);
+      filterManager$(!!isVisible, itemRef, props._index ?? -1);
     }
   });
 
@@ -161,18 +164,18 @@ export const HComboboxItem = component$(({ _index, ...rest }: HComboboxItemProps
       role="option"
       ref={itemRef}
       tabIndex={-1}
-      id={`${context.localId}-${_index}`}
+      id={`${context.localId}-${props._index ?? -1}`}
       aria-selected={isSelectedSig.value}
       aria-disabled={isDisabledSig.value === true ? 'true' : 'false'}
       data-disabled={isDisabledSig.value ? '' : undefined}
       data-selected={isSelectedSig.value ? '' : undefined}
       data-highlighted={isHighlightedSig.value ? '' : undefined}
-      onPointerOver$={[handlePointerOver$, rest.onPointerOver$]}
-      onFocus$={[handleFocus$, rest.onFocus$]}
+      onPointerOver$={[handlePointerOver$, props.onPointerOver$]}
+      onFocus$={[handleFocus$, props.onFocus$]}
       aria-labelledby={itemLabelId}
       data-item
       onClick$={handleClick$}
-      {...rest}
+      {...props}
     >
       <Slot />
     </div>
