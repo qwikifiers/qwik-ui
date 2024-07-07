@@ -26,6 +26,7 @@ export const HComboboxInput = component$(
     const descriptionId = `${context.localId}-description`;
     const errorMessageId = `${context.localId}-error-message`;
     const initialValueSig = useSignal<string | undefined>();
+    const wasEmptyBeforeBackspaceSig = useSignal(false);
 
     const {
       selectionManager$,
@@ -51,6 +52,11 @@ export const HComboboxInput = component$(
 
     const handleKeyDown$ = $(async (e: KeyboardEvent) => {
       if (!context.itemsMapSig.value) return;
+
+      if (e.key === 'Backspace') {
+        // check if input was empty before backspace
+        wasEmptyBeforeBackspaceSig.value = context.inputValueSig.value.length === 0;
+      }
 
       switch (e.key) {
         case 'ArrowDown':
@@ -134,6 +140,25 @@ export const HComboboxInput = component$(
       }
     });
 
+    const handleKeyUp$ = $((e: KeyboardEvent) => {
+      const selectedValuesArray = [...context.selectedValueSetSig.value];
+
+      if (e.key === 'Backspace') {
+        // removeOnBackspace
+        if (!context.multiple) return;
+        if (context.selectedValueSetSig.value.size === 0) return;
+        if (!context.removeOnBackspace) return;
+
+        if (
+          wasEmptyBeforeBackspaceSig.value &&
+          context.inputValueSig.value.length === 0
+        ) {
+          selectedValuesArray.pop(); // Remove the last element
+          context.selectedValueSetSig.value = new Set(selectedValuesArray);
+        }
+      }
+    });
+
     /** Users may pass an initial value to bind:value on the input, use the value, or bind:value props on the root. */
     useTask$(function initialState() {
       const selectedValue =
@@ -180,6 +205,7 @@ export const HComboboxInput = component$(
         value={computedInputValueSig.value}
         id={inputId}
         onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
+        onKeyUp$={[context.removeOnBackspace ? handleKeyUp$ : undefined, props.onKeyUp$]}
         onInput$={[handleInput$, props.onInput$]}
         aria-activedescendant={activeDescendantSig.value}
         aria-expanded={context.isListboxOpenSig.value ? 'true' : 'false'}

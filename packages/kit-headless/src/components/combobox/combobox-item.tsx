@@ -139,7 +139,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
 
     if (isServer || !itemRef.value) return;
 
-    if (context.inputValueSig.value === '') {
+    if (context.inputValueSig.value === '' && !context.multiple) {
       context.selectedValueSetSig.value = new Set<string>();
     } else {
       context.isListboxOpenSig.value = true;

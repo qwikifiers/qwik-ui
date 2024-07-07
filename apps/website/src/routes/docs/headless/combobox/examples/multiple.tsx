@@ -22,6 +22,7 @@ export default component$(() => {
     <Combobox.Root
       class="combobox-root"
       multiple
+      removeOnBackspace
       bind:displayValue={display}
       bind:value={selected}
     >

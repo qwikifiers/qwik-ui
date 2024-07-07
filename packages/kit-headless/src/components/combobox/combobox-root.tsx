@@ -110,6 +110,8 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
 
   /** Checks if the Combobox.ErrorMessage component was added. */
   hasErrorComp?: boolean;
+
+  removeOnBackspace?: boolean;
 } & TMultiValue &
   TStringOrArray;
 
@@ -131,6 +133,7 @@ export const HComboboxRootImpl = component$<
     _itemsMap,
     hasEmptyComp,
     hasErrorComp,
+    removeOnBackspace = false,
     name,
     required,
     disabled,
@@ -212,6 +215,7 @@ export const HComboboxRootImpl = component$<
     currDisplayValueSig,
     isMouseOverPopupSig,
     initialLoadSig,
+    removeOnBackspace,
     filter,
     loop,
     multiple,
