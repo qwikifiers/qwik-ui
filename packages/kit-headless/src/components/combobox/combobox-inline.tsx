@@ -99,10 +99,6 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
 
         itemsMap.set(currItemIndex, { value, displayValue, disabled: isItemDisabled });
 
-        child.props._value = value;
-        child.props._displayValue = displayValue;
-        child.props._disabled = isItemDisabled;
-
         if (props.value && props.multiple) {
           throw new Error(
             `Qwik UI: When in multiple selection mode, the value prop is disabled. Use the bind:value prop's initial signal value instead.`,

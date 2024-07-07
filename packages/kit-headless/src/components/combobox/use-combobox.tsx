@@ -69,8 +69,12 @@ export function useCombobox() {
   });
 
   const getNextEnabledItemIndex$ = $((index: number) => {
-    let offset = 1;
     const len = context.itemsMapSig.value.size;
+    if (len === 1) {
+      return context.disabledIndexSetSig.value.has(0) ? -1 : 0;
+    }
+
+    let offset = 1;
     if (!context.loop && index + 1 >= len) {
       return index;
     }

@@ -11,7 +11,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 import { ComboboxContext, comboboxContextId } from './combobox-context';
-import { InternalComboboxProps, TItemsMap } from './combobox-inline';
+import { InternalComboboxProps } from './combobox-inline';
 import { useCombobox } from './use-combobox';
 import { useCombinedRef } from '../../hooks/combined-refs';
 
@@ -137,7 +137,9 @@ export const HComboboxRootImpl = component$<
   } = props;
 
   // source of truth
-  const itemsMapSig = useSignal<TItemsMap>(_itemsMap ?? new Map());
+  const itemsMapSig = useComputed$(() => {
+    return props._itemsMap ?? new Map();
+  });
   const rootRef = useCombinedRef(props.ref);
   const triggerRef = useSignal<HTMLButtonElement>();
   const inputRef = useSignal<HTMLInputElement>();

@@ -24,12 +24,6 @@ export const HComboboxInput = component$(
     const descriptionId = `${context.localId}-description`;
     const errorMessageId = `${context.localId}-error-message`;
 
-    const initialDisplayValue = !context.multiple
-      ? context.itemsMapSig.value.get(
-          context.selectedIndexSetSig.value.values().next().value,
-        )?.displayValue
-      : undefined;
-
     const {
       selectionManager$,
       getNextEnabledItemIndex$,
@@ -64,6 +58,7 @@ export const HComboboxInput = component$(
             context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
               context.highlightedIndexSig.value,
             );
+            console.log('arrow down', context.highlightedIndexSig.value);
           } else {
             context.isListboxOpenSig.value = true;
           }
@@ -140,7 +135,7 @@ export const HComboboxInput = component$(
     return (
       <input
         role="combobox"
-        value={initialDisplayValue ?? (inputValueSig && inputValueSig.value)}
+        value={inputValueSig && inputValueSig.value}
         id={inputId}
         onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
         onInput$={[handleInput$, props.onInput$]}

@@ -159,6 +159,12 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
     }
   });
 
+  useTask$(({ track }) => {
+    track(() => context.highlightedIndexSig.value);
+
+    console.log('highlighted index sig', context.highlightedIndexSig.value);
+  });
+
   return (
     <div
       role="option"
