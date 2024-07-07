@@ -1,242 +1,133 @@
 import {
-  $,
   component$,
-  isSignal,
   PropsOf,
   Signal,
   Slot,
-  sync$,
   useComputed$,
   useContextProvider,
-  useId,
-  useOnWindow,
   useSignal,
+  useTask$,
 } from '@builder.io/qwik';
-import { QwikDateCtx, QwikDateCtxId } from './context';
-import { generateMaxDate, generateMinDate, Locale } from '../core';
+import { DefaultDate, Month, QwikDateCtx, QwikDateCtxId } from './context';
+import { Locale, MONTHS_LG } from '../core';
+import { daysArrGenerator } from '../core/utils/date-generator';
+// import { daysArrGenerator } from "../core/utils/date-generator";
 
-interface RootProps extends PropsOf<'div'> {
-  completeWeeks?: Signal<boolean> | boolean;
-  defaultDate?: Date | string;
-  minDate?: Date;
-  maxDate?: Date;
-  locale?: Signal<Locale> | Locale;
-  theme?: 'light' | 'dark' | 'system';
-  dir?: 'ltr' | 'rtl' | 'auto';
+const regex = /^\d{4}-(0[1-9]|1[0-2])-\d{2}$/;
+
+/**  
+ * API
+ * calendar -> root,
+      cell -> button (I think we should call this <Calendar.Date />),
+      content -> tbody (<Calendar.Content />),
+      field -> tr (<Calendar.Row />)
+      grid -> table (<Calendar.Grid />),
+      heading -> thead (<Calendar.Header />), 
+      label -> a11y name,(<Calendar.Label />)
+      nextButton -> trigger (<Calendar.Next />),
+      prevButton -> another trigger XD (<Calendar.Previous />),
+      segment -> td (<Calendar.Cell />),
+      trigger -> (<Calendar.Trigger />),
+
+      ----------------------------
+
+      <Calendar.Root>
+        <Calendar.Label>Date</Calendar.Label> // this is not necessary YET
+        <Calendar.Header>
+          <Calendar.Row>
+          <Calendar.Day />
+          </Calendar.Row>
+        </Calendar.Header>
+        
+        <Calendar.Grid>
+          <Calendar.Row>
+            <Calendar.Cell>
+              <Calendar.Date />
+            </Calendar.Cell>
+          </Calendar.Row>
+        </Calendar.Grid>
+      </Calendar.Root>
+  */
+
+interface Props extends PropsOf<'div'> {
+  date?: DefaultDate;
+  'bind:date'?: Signal<DefaultDate>;
+  locale?: Locale;
 }
 
-export const CalendarRoot = component$<RootProps>(
-  ({
-    completeWeeks = false,
-    defaultDate,
-    dir,
-    maxDate: maxDateProp,
-    locale,
-    minDate: minDateProp,
-    theme = 'system',
-    ...props
-  }) => {
-    if (
-      minDateProp &&
-      maxDateProp &&
-      minDateProp?.toString() === maxDateProp?.toString()
-    ) {
-      throw new Error(
-        'minDate and maxDate cannot be the same date, please provide a valid range of dates',
-      );
-    }
+export type RootProps = Props &
+  (
+    | { fullWeeks?: boolean; 'bind:dates': Signal<(number | null)[][]> }
+    | { fullWeeks: true; 'bind:dates': Signal<number[][]> }
+    | { fullWeeks: false; 'bind:dates': Signal<(number | null)[][]> }
+  );
 
-    if (minDateProp && maxDateProp && minDateProp > maxDateProp) {
-      throw new Error(
-        'minimum date cannot be greater than maximum date, please provide a valid range of dates',
-      );
-    }
+export const RootImpl = component$<RootProps>(
+  ({ date: defaultDateProp, locale, fullWeeks, ...props }) => {
+    const date = new Date().toISOString().split('T')[0] as DefaultDate;
 
-    const defaultDateParsed = defaultDate ? new Date(defaultDate) : new Date();
+    const labelStr = props['aria-label'] ?? 'Actual Date is:';
 
     // signals
-    const activeDate = useSignal<Date | null>(null);
-    const dateToRender = useSignal<Date>(defaultDateParsed);
+    const dateSignal = useSignal<DefaultDate>(defaultDateProp ?? date);
+    const defaultDate = props['bind:date'] ?? dateSignal;
+    const activeDate = useSignal<DefaultDate>(defaultDate.value);
+    const monthToRender = useSignal<Month>(defaultDate.value.split('-')[1] as Month);
+    const yearToRender = useSignal<number>(+defaultDate.value.split('-')[0]);
 
-    // computed values
-    const minDate = useComputed$<Date>(
-      () => minDateProp ?? generateMinDate(defaultDateParsed),
-    );
-    const maxDate = useComputed$<Date>(
-      () => maxDateProp ?? generateMaxDate(defaultDateParsed),
-    );
+    // computed
+    const labelSignal = useComputed$(() => {
+      const [year, month] = activeDate.value.split('-');
 
-    // refs
-    const triggerRef = useSignal<HTMLButtonElement>();
-    const rootEl = useSignal<HTMLDivElement>();
+      return `${labelStr} ${MONTHS_LG[locale ?? 'en'][+month - 1]} ${year}`;
+    });
 
-    // constants
-    const formatDefaultDate =
-      defaultDate instanceof Date
-        ? defaultDate.toISOString().split('T')[0]
-        : defaultDate?.split('T')[0];
+    // validators
+    if (!regex.test(defaultDate.value))
+      throw new Error(
+        'Invalid date format in Calendar Root. Please use YYYY-MM-DD format.',
+      );
 
-    // context stuffs
-    const localId = useId();
-    const contentId = `${localId}-content`;
+    // context
     const ctx: QwikDateCtx = {
-      triggerRef,
-      contentId,
-      minDate,
-      maxDate,
-      defaultDate: formatDefaultDate,
-      dateToRender,
-      locale: isSignal(locale) ? locale : locale ?? 'en',
-      completeWeeks,
+      defaultDate,
       activeDate,
+      locale: locale ?? 'en',
+      monthToRender,
+      yearToRender,
     };
 
     useContextProvider(QwikDateCtxId, ctx);
 
-    useOnWindow(
-      'DOMContentLoaded',
-      $(() => {
-        if (!rootEl.value) {
-          throw new Error('Content ref not found');
-        }
+    // tasks
+    useTask$(({ track }) => {
+      const datesArr = props['bind:dates'];
+      track(() => ctx.monthToRender.value);
+      track(() => ctx.yearToRender.value);
 
-        function onMountThemeHandler() {
-          const selectedTheme = rootEl.value?.getAttribute('data-theme');
+      const dates = daysArrGenerator({
+        month: ctx.monthToRender.value,
+        year: `${ctx.yearToRender.value}`,
+        fullWeeks,
+      });
 
-          if (selectedTheme !== 'system') return;
+      props['bind:dates'].value = dates;
 
-          const themeFromLocalStorage = localStorage.getItem('theme');
-          const themeFromMediaQuery =
-            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-              ? 'dark'
-              : 'light';
-
-          rootEl.value?.setAttribute(
-            'data-theme',
-            themeFromLocalStorage ?? themeFromMediaQuery,
-          );
-
-          localStorage.setItem('theme', themeFromLocalStorage ?? themeFromMediaQuery);
-        }
-
-        function onMountDirHandler() {
-          const dir = rootEl.value?.getAttribute('dir');
-          if (dir && dir !== 'auto') return;
-
-          const newDir = window.getComputedStyle(document.documentElement).direction;
-          rootEl.value?.setAttribute('dir', newDir);
-
-          const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-              if (mutation.type === 'attributes' && mutation.attributeName === 'dir') {
-                const value = (mutation.target as HTMLElement).getAttribute('dir');
-                if (value === 'auto' || !value) {
-                  return rootEl.value?.setAttribute('dir', newDir);
-                }
-                rootEl.value?.setAttribute('dir', value);
-              }
-            });
-          });
-
-          observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['dir'],
-          });
-        }
-
-        onMountThemeHandler();
-        onMountDirHandler();
-      }),
-    );
-
-    const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
-      const keys = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft'];
-
-      if (keys.includes(e.key)) {
-        e.preventDefault();
-      }
-    });
-
-    const updateTabIndex = $((e: KeyboardEvent, target: HTMLDivElement) => {
-      const rows = target.querySelectorAll('[data-calendar-row]');
-      const focusedEl = target.querySelector(':focus') as HTMLButtonElement;
-
-      const isNotDayBtn = !focusedEl.hasAttribute('data-qwik-date-day');
-
-      if (isNotDayBtn) return;
-
-      const tr = Array.from(rows).filter((row) =>
-        row.contains(focusedEl),
-      )[0] as HTMLTableRowElement;
-      if (!focusedEl.parentElement) return;
-      const index = Array.from(tr.children).indexOf(focusedEl.parentElement);
-
-      if (e.key.toLowerCase() === 'arrowdown') {
-        const nextRow = focusedEl.closest('tr')?.nextElementSibling;
-        const nextDay = Array.from(nextRow?.children ?? [])[index].querySelector(
-          '[data-qwik-date-day]',
-        ) as HTMLButtonElement;
-
-        // if (rows[rows.length - 1].contains(focusedEl.parentElement)) {
-        // }
-
-        focusedEl.setAttribute('tabindex', '-1');
-        nextDay.setAttribute('tabindex', '0');
-        nextDay?.focus();
-      }
-
-      if (e.key.toLowerCase() === 'arrowup') {
-        const prevRow = focusedEl.closest('tr')?.previousElementSibling;
-        const prevDay = Array.from(prevRow?.children ?? [])[index].querySelector(
-          '[data-qwik-date-day]',
-        ) as HTMLButtonElement;
-        if (rows[0].contains(focusedEl)) {
-          return console.log('first row');
-        }
-
-        focusedEl.setAttribute('tabindex', '-1');
-        prevDay.setAttribute('tabindex', '0');
-        prevDay?.focus();
-      }
-
-      if (e.key.toLowerCase() === 'arrowright') {
-        const nextDay = Array.from(tr.children)[index + 1].querySelector(
-          '[data-qwik-date-day]',
-        ) as HTMLButtonElement;
-
-        if (index === tr.children.length - 1) {
-          return console.log('last column');
-        }
-
-        focusedEl.setAttribute('tabindex', '-1');
-        nextDay.setAttribute('tabindex', '0');
-        nextDay?.focus();
-      }
-
-      if (e.key.toLowerCase() === 'arrowleft') {
-        const prevDay = Array.from(tr.children)[index - 1].querySelector(
-          '[data-qwik-date-day]',
-        ) as HTMLButtonElement;
-
-        if (index === 0) {
-          return console.log('first column');
-        }
-
-        focusedEl.setAttribute('tabindex', '-1');
-        prevDay.setAttribute('tabindex', '0');
-        prevDay?.focus();
+      if (dates && datesArr && ctx.monthToRender && ctx.yearToRender) {
+        datesArr.value = dates;
       }
     });
 
     return (
       <div
+        onKeyDown$={(e, target) => {
+          console.log({ e, target });
+        }}
+        role="application"
+        aria-label={labelSignal.value}
         {...props}
-        data-theme={theme}
-        dir={dir}
-        data-qwik-date
-        ref={rootEl}
-        onKeyDown$={[handleKeyDownSync$, updateTabIndex]}
       >
+        {/* <div>{JSON.stringify(props["bind:dates"].value, null, 2)}</div> */}
         <Slot />
       </div>
     );

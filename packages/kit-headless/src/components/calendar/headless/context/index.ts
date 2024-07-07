@@ -4,16 +4,27 @@ import { Locale } from '../../core';
 
 export const QwikDateCtxId = createContextId<QwikDateCtx>('Qwik-Date');
 
-export type CalendarState = 'open' | 'closed';
+export type Month =
+  | '01'
+  | '02'
+  | '03'
+  | '04'
+  | '05'
+  | '06'
+  | '07'
+  | '08'
+  | '09'
+  | '10'
+  | '11'
+  | '12';
+export type DefaultDate = `${number}-${Month}-${number}`;
 
 export type QwikDateCtx = {
-  triggerRef: Signal<HTMLButtonElement | undefined>;
-  contentId: string;
-  completeWeeks: Signal<boolean> | boolean;
-  minDate: Readonly<Signal<Date>>;
-  maxDate: Readonly<Signal<Date>>;
-  defaultDate: string | undefined;
-  activeDate: Signal<Date | null>;
-  dateToRender: Signal<Date>;
-  locale: Signal<Locale> | Locale;
+  // triggerRef: Signal<HTMLButtonElement | undefined>;
+  // contentId: string;
+  defaultDate: Signal<DefaultDate>;
+  activeDate: Signal<DefaultDate>;
+  monthToRender: Signal<Month>;
+  yearToRender: Signal<number>;
+  locale: Locale;
 };

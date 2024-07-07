@@ -1,41 +1,24 @@
-import {
-  component$,
-  isSignal,
-  PropsOf,
-  Slot,
-  useComputed$,
-  useContext,
-} from '@builder.io/qwik';
-import { QwikDateCtxId } from './context';
+import { component$, PropsOf, Slot, useContext } from '@builder.io/qwik';
 import { MONTHS_LG } from '../core';
+import { QwikDateCtxId } from './context';
 
-export const CalendarHeader = component$<PropsOf<'header'>>((props) => {
+export const Header = component$<PropsOf<'header'>>((props) => {
   return (
-    <header {...props} data-header>
+    <header {...props}>
       <Slot />
     </header>
   );
 });
 
-export const CalendarHeaderTitle = component$<PropsOf<'div'>>((props) => {
-  const { locale, dateToRender } = useContext(QwikDateCtxId);
+export const HeaderTitle = component$<PropsOf<'div'>>((props) => {
+  const { locale, monthToRender, yearToRender } = useContext(QwikDateCtxId);
 
-  //BUG: we need to use `useComputed$` to update the month label bc for some reason in qwik >= 1.5.4 it doesn't update if you use the constant object directly in the JSX
-  const monthToDisplay = useComputed$(() => {
-    return MONTHS_LG[isSignal(locale) ? locale.value : locale][
-      dateToRender.value.getMonth()
-    ];
-  });
+  const monthStr = MONTHS_LG[locale][+monthToRender.value - 1];
+  const title = `${monthStr} ${yearToRender.value}`;
 
   return (
-    <div
-      role="presentation"
-      aria-live="polite"
-      id="qwik-date-heading"
-      data-header-content
-      {...props}
-    >
-      {monthToDisplay} {dateToRender.value.getFullYear()}
+    <div aria-live="polite" role="presentation" {...props}>
+      {title}
     </div>
   );
 });

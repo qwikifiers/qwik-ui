@@ -1,3 +1,5 @@
+import { Locale } from './types';
+
 export const MONTHS_LG = {
   en: [
     'January',
@@ -74,4 +76,4 @@ export const ARIA_LABELS = {
 export const WEEKDAYS = {
   en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   es: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-} as const;
+} as const satisfies Record<Locale, string[]>;
