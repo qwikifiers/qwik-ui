@@ -43,7 +43,8 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
   );
   const isSelectedSig = useComputed$(() => {
     const index = props._index ?? -1;
-    return !isDisabledSig.value && context.selectedIndexSetSig.value.has(index);
+    const selectedValue = context.itemsMapSig.value.get(index)?.value;
+    return !isDisabledSig.value && context.selectedValueSetSig.value.has(selectedValue!);
   });
 
   const isHighlightedSig = useComputed$(() => {
@@ -134,7 +135,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
     if (isServer || !itemRef.value) return;
 
     if (context.inputValueSig.value === '') {
-      context.selectedIndexSetSig.value = new Set<number>();
+      context.selectedValueSetSig.value = new Set<string>();
     } else {
       context.isListboxOpenSig.value = true;
     }

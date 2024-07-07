@@ -17,7 +17,7 @@ export type ComboboxContext = {
   groupRef: Signal<HTMLDivElement | undefined>;
   labelRef: Signal<HTMLDivElement | undefined>;
   controlRef: Signal<HTMLDivElement | undefined>;
-  selectedIndexSetSig: Signal<Set<number>>;
+  selectedValueSetSig: Signal<Set<string>>;
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;
   disabledIndexSetSig: Signal<Set<number>>;

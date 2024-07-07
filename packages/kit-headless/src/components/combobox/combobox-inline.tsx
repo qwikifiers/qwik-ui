@@ -14,6 +14,7 @@ export type InternalComboboxProps = {
   /** When a value is passed, we check if it's an actual item value, and get its index at pre-render time.
    **/
   _valuePropIndex?: number | null;
+  _value?: string;
 
   /** Checks if the consumer added the label in their JSX */
   _label?: boolean;
@@ -109,6 +110,7 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
         if (value === props.value) {
           // minus one because it is incremented already in SelectOption
           valuePropIndex = currItemIndex;
+          props._value = value;
         }
 
         const isString = typeof child.props.children === 'string';

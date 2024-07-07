@@ -99,7 +99,7 @@ export const HComboboxInput = component$(
             const highlightedIndex = context.highlightedIndexSig.value;
             await selectionManager$(highlightedIndex, 'toggle');
 
-            const isSelected = context.selectedIndexSetSig.value.has(highlightedIndex!);
+            const isSelected = context.selectedValueSetSig.value.size > 0;
             if (isSelected && !context.multiple) {
               context.isListboxOpenSig.value = false;
             }

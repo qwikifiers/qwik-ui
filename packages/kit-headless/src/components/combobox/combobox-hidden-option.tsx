@@ -22,7 +22,7 @@ export const ComboboxHiddenSelectOption = component$(
     const context = useContext(comboboxContextId);
 
     useTask$(async function modularFormsValidation({ track }) {
-      track(() => context.selectedIndexSetSig.value);
+      track(() => context.selectedValueSetSig.value);
 
       if (isServer || !nativeSelectRef.value || !optionRef.value) return;
 
@@ -31,7 +31,13 @@ export const ComboboxHiddenSelectOption = component$(
       nativeSelectRef.value?.dispatchEvent(inputEvent);
 
       // make sure to programmatically select the option after the input event has fired
-      optionRef.value.selected = context.selectedIndexSetSig.value.has(index);
+      const value = context.itemsMapSig.value.get(index)?.value;
+      if (!value) {
+        throw new Error(
+          'Qwik UI: value not found when trying to select or unselect an item.',
+        );
+      }
+      optionRef.value.selected = context.selectedValueSetSig.value.has(value);
     });
 
     return (

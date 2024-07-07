@@ -8,38 +8,46 @@ export function useCombobox() {
       if (index === null) return;
       const selectedDisplayValue = context.itemsMapSig.value.get(index)?.displayValue;
 
+      const value = context.itemsMapSig.value.get(index)?.value;
+
+      if (!value) {
+        throw new Error(
+          'Qwik UI: value not found when trying to select or unselect an item.',
+        );
+      }
+
       if (action === 'add') {
         if (context.multiple) {
-          context.selectedIndexSetSig.value = new Set([
-            ...context.selectedIndexSetSig.value,
-            index,
+          context.selectedValueSetSig.value = new Set([
+            ...context.selectedValueSetSig.value,
+            value,
           ]);
         } else {
-          context.selectedIndexSetSig.value = new Set([index]);
+          context.selectedValueSetSig.value = new Set([value]);
         }
       }
       if (action === 'toggle') {
-        if (context.selectedIndexSetSig.value.has(index)) {
-          context.selectedIndexSetSig.value = new Set(
-            [...context.selectedIndexSetSig.value].filter(
-              (selectedIndex) => selectedIndex !== index,
+        if (context.selectedValueSetSig.value.has(value)) {
+          context.selectedValueSetSig.value = new Set(
+            [...context.selectedValueSetSig.value].filter(
+              (selectedValue) => selectedValue !== value,
             ),
           );
         } else {
           if (context.multiple) {
-            context.selectedIndexSetSig.value = new Set([
-              ...context.selectedIndexSetSig.value,
-              index,
+            context.selectedValueSetSig.value = new Set([
+              ...context.selectedValueSetSig.value,
+              value,
             ]);
           } else {
-            context.selectedIndexSetSig.value = new Set([index]);
+            context.selectedValueSetSig.value = new Set([value]);
           }
         }
       }
       if (action === 'remove') {
-        context.selectedIndexSetSig.value = new Set(
-          [...context.selectedIndexSetSig.value].filter(
-            (selectedIndex) => selectedIndex !== index,
+        context.selectedValueSetSig.value = new Set(
+          [...context.selectedValueSetSig.value].filter(
+            (selectedValue) => selectedValue !== value,
           ),
         );
       }
@@ -48,7 +56,7 @@ export function useCombobox() {
         if (!context.inputRef.value) return;
         if (!selectedDisplayValue) return;
 
-        if (!context.multiple && context.selectedIndexSetSig.value.has(index)) {
+        if (!context.multiple && context.selectedValueSetSig.value.has(value)) {
           context.inputRef.value.value = selectedDisplayValue;
         }
       }

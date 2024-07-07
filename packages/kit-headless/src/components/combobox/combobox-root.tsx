@@ -122,6 +122,7 @@ export const HComboboxRootImpl = component$<
     onChange$,
     onOpenChange$,
     _valuePropIndex: givenValuePropIndex,
+    _value,
     loop: givenLoop,
     scrollOptions: givenScrollOptions,
     multiple = false,
@@ -136,6 +137,8 @@ export const HComboboxRootImpl = component$<
     ...rest
   } = props;
 
+  onChange$;
+
   // source of truth
   const itemsMapSig = useComputed$(() => {
     return props._itemsMap ?? new Map();
@@ -149,9 +152,7 @@ export const HComboboxRootImpl = component$<
   const controlRef = useSignal<HTMLDivElement>();
   const loop = givenLoop ?? false;
   const localId = useId();
-  const selectedIndexSetSig = useSignal<Set<number>>(
-    new Set(givenValuePropIndex ? [givenValuePropIndex] : []),
-  );
+  const selectedValueSetSig = useSignal<Set<string>>(new Set(_value ? [_value] : []));
   const disabledIndexSetSig = useSignal<Set<number>>(new Set());
   const isDisabledSig = useSignal<boolean>(disabled ?? false);
   const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
@@ -206,7 +207,7 @@ export const HComboboxRootImpl = component$<
     controlRef,
     localId,
     highlightedIndexSig,
-    selectedIndexSetSig,
+    selectedValueSetSig,
     disabledIndexSetSig,
     currDisplayValueSig,
     initialLoadSig,
@@ -275,50 +276,50 @@ export const HComboboxRootImpl = component$<
     }
   });
 
-  useTask$(async function updateConsumerProps({ track }) {
-    const bindValueSig = props['bind:value'];
-    const bindDisplayTextSig = props['bind:displayValue'];
-    track(() => selectedIndexSetSig.value);
+  // useTask$(async function updateConsumerProps({ track }) {
+  //   const bindValueSig = props['bind:value'];
+  //   const bindDisplayTextSig = props['bind:displayValue'];
+  //   track(() => selectedValueSetSig.value);
 
-    const values = [];
-    const displayValues = [];
+  //   const values = [];
+  //   const displayValues = [];
 
-    for (const index of context.selectedIndexSetSig.value) {
-      const item = context.itemsMapSig.value.get(index);
+  //   for (const index of context.selectedIndexSetSig.value) {
+  //     const item = context.itemsMapSig.value.get(index);
 
-      if (item) {
-        values.push(item.value);
-        displayValues.push(item.displayValue);
-      }
-    }
+  //     if (item) {
+  //       values.push(item.value);
+  //       displayValues.push(item.displayValue);
+  //     }
+  //   }
 
-    if (onChange$ && selectedIndexSetSig.value.size > 0) {
-      await onChange$(context.multiple ? values : values[0]);
-    }
+  //   if (onChange$ && selectedIndexSetSig.value.size > 0) {
+  //     await onChange$(context.multiple ? values : values[0]);
+  //   }
 
-    // sync the user's given signal when an option is selected
-    if (bindValueSig && bindValueSig.value) {
-      const currUserSigValues = JSON.stringify(bindValueSig.value);
-      const newUserSigValues = JSON.stringify(values);
+  //   // sync the user's given signal when an option is selected
+  //   if (bindValueSig && bindValueSig.value) {
+  //     const currUserSigValues = JSON.stringify(bindValueSig.value);
+  //     const newUserSigValues = JSON.stringify(values);
 
-      if (currUserSigValues !== newUserSigValues) {
-        if (context.multiple) {
-          bindValueSig.value = values;
-        } else {
-          bindValueSig.value = values[0];
-        }
-      }
-    }
+  //     if (currUserSigValues !== newUserSigValues) {
+  //       if (context.multiple) {
+  //         bindValueSig.value = values;
+  //       } else {
+  //         bindValueSig.value = values[0];
+  //       }
+  //     }
+  //   }
 
-    context.currDisplayValueSig.value = displayValues;
+  //   context.currDisplayValueSig.value = displayValues;
 
-    // sync the user's given signal for the display value
-    if (bindDisplayTextSig && context.currDisplayValueSig.value) {
-      bindDisplayTextSig.value = context.multiple
-        ? context.currDisplayValueSig.value
-        : context.currDisplayValueSig.value[0];
-    }
-  });
+  //   // sync the user's given signal for the display value
+  //   if (bindDisplayTextSig && context.currDisplayValueSig.value) {
+  //     bindDisplayTextSig.value = context.multiple
+  //       ? context.currDisplayValueSig.value
+  //       : context.currDisplayValueSig.value[0];
+  //   }
+  // });
 
   useTask$(({ track }) => {
     isDisabledSig.value = track(() => disabled ?? false);
