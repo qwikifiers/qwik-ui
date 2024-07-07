@@ -153,7 +153,7 @@ export const HComboboxRootImpl = component$<
   /** We use selected values to preserve the item state when the consumer filters the items. */
   const selectedValueSetSig = useSignal<Set<string>>(new Set(_value ? [_value] : []));
   const disabledIndexSetSig = useSignal<Set<number>>(new Set());
-  const resetScrollBySig = useSignal<boolean>(false);
+  const isMouseOverPopupSig = useSignal<boolean>(false);
   const isDisabledSig = useSignal<boolean>(disabled ?? false);
   const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
   const initialLoadSig = useSignal<boolean>(true);
@@ -210,7 +210,7 @@ export const HComboboxRootImpl = component$<
     selectedValueSetSig,
     disabledIndexSetSig,
     currDisplayValueSig,
-    resetScrollBySig,
+    isMouseOverPopupSig,
     initialLoadSig,
     filter,
     loop,

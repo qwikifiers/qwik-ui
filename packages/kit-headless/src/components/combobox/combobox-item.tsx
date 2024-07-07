@@ -64,7 +64,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
       const containerRect = context.panelRef.value?.getBoundingClientRect();
       const itemRect = itemRef.value?.getBoundingClientRect();
 
-      if (!containerRect || !itemRect || context.resetScrollBySig.value) return;
+      if (!containerRect || !itemRect || context.isMouseOverPopupSig.value) return;
 
       // Calculates the offset to center the item within the container
       const offset =
@@ -90,7 +90,9 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
   const handlePointerOver$ = $(() => {
     if (isDisabledSig.value) return;
 
-    if (props._index !== undefined) {
+    console.log('executed');
+
+    if (props._index !== undefined && context.isMouseOverPopupSig.value) {
       context.highlightedIndexSig.value = props._index ?? -1;
     }
   });

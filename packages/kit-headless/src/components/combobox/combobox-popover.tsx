@@ -87,7 +87,7 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
 
   const resetScrollMove = useDebouncer(
     $(() => {
-      context.resetScrollBySig.value = false;
+      context.isMouseOverPopupSig.value = false;
     }),
     650,
   );
@@ -112,12 +112,12 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
         aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
         aria-multiselectable={context.multiple ? 'true' : undefined}
         onMouseMove$={async () => {
-          context.resetScrollBySig.value = true;
+          context.isMouseOverPopupSig.value = true;
 
           await resetScrollMove();
         }}
-        onMouseOut$={() => (context.resetScrollBySig.value = false)}
-        onKeyDown$={() => (context.resetScrollBySig.value = true)}
+        onMouseOut$={() => (context.isMouseOverPopupSig.value = false)}
+        onKeyDown$={() => (context.isMouseOverPopupSig.value = true)}
         {...rest}
       >
         <Slot />

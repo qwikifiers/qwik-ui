@@ -13,12 +13,13 @@ import { HPopoverPanel } from '../popover/popover-panel';
 import selectContextId from './select-context';
 import { HPopoverRoot } from '../popover/popover-root';
 import { isServer } from '@builder.io/qwik/build';
-import { useMergedRef } from '../../hooks/combined-refs';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) => {
   const context = useContext(selectContextId);
   const { showPopover, hidePopover } = usePopover(context.localId);
-  const panelRef = useMergedRef(props.ref, context, 'popoverRef');
+  const contextRefOpts = { context, givenContextRef: context.popoverRef };
+  const panelRef = useCombinedRef(props.ref, contextRefOpts);
 
   const { floating, flip, hover, gutter, ...rest } = props;
   const initialLoadSig = useSignal<boolean>(true);
