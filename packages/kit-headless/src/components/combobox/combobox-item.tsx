@@ -87,7 +87,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
   const handlePointerOver$ = $(() => {
     if (isDisabledSig.value) return;
 
-    if (props._index ?? -1 !== null) {
+    if (props._index !== undefined) {
       context.highlightedIndexSig.value = props._index ?? -1;
     }
   });
@@ -156,14 +156,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
 
     if (context.isListboxOpenSig.value) {
       context.initialLoadSig.value = false;
-      console.log('initial load sig', context.initialLoadSig.value);
     }
-  });
-
-  useTask$(({ track }) => {
-    track(() => context.highlightedIndexSig.value);
-
-    console.log('highlighted index sig', context.highlightedIndexSig.value);
   });
 
   return (

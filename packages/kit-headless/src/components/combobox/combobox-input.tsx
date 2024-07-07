@@ -26,7 +26,6 @@ export const HComboboxInput = component$(
     const descriptionId = `${context.localId}-description`;
     const errorMessageId = `${context.localId}-error-message`;
     const initialValueSig = useSignal<string | undefined>();
-    const initialLoadSig = useSignal<boolean>(true);
 
     const {
       selectionManager$,
@@ -62,7 +61,6 @@ export const HComboboxInput = component$(
             context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
               context.highlightedIndexSig.value,
             );
-            console.log('arrow down', context.highlightedIndexSig.value);
           } else {
             context.isListboxOpenSig.value = true;
           }
@@ -136,16 +134,33 @@ export const HComboboxInput = component$(
       }
     });
 
-    useTask$(() => {
+    /** Users may pass an initial value to bind:value on the input, use the value, or bind:value props on the root. */
+    useTask$(function initialState() {
       const selectedValue =
         context.selectedValueSetSig.value.size > 0
           ? context.selectedValueSetSig.value.values().next().value
           : '';
 
-      const item = Array.from(context.itemsMapSig.value.values()).find(
-        (item) => item.value === selectedValue,
-      );
-      initialValueSig.value = item ? item.displayValue : '';
+      let initialValue = '';
+      let matchingItemValue = null;
+      let matchingItemIndex = -1;
+
+      context.itemsMapSig.value.forEach((item, index) => {
+        if (item.value === selectedValue) {
+          initialValue = item.displayValue;
+        }
+        if (inputValueSig?.value && item.displayValue === inputValueSig.value) {
+          matchingItemValue = item.value;
+          matchingItemIndex = index;
+        }
+      });
+
+      initialValueSig.value = initialValue;
+
+      if (matchingItemValue !== null) {
+        context.selectedValueSetSig.value.add(matchingItemValue);
+        context.highlightedIndexSig.value = matchingItemIndex;
+      }
     });
 
     const computedInputValueSig = useComputed$(() => {
