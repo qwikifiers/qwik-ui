@@ -112,8 +112,6 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
           // minus one because it is incremented already in SelectOption
           valuePropIndex = currItemIndex;
           _value = value;
-
-          console.log('given value: ', props._value);
         }
 
         const isString = typeof child.props.children === 'string';

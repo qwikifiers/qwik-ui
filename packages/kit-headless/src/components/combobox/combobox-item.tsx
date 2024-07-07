@@ -64,13 +64,16 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
       const containerRect = context.panelRef.value?.getBoundingClientRect();
       const itemRect = itemRef.value?.getBoundingClientRect();
 
-      if (!containerRect || !itemRect) return;
+      if (!containerRect || !itemRect || context.resetScrollBySig.value) return;
 
       // Calculates the offset to center the item within the container
       const offset =
         itemRect.top - containerRect.top - containerRect.height / 2 + itemRect.height / 2;
 
-      context.panelRef.value?.scrollBy({ top: offset, ...context.scrollOptions });
+      context.panelRef.value?.scrollBy({
+        top: document.hasFocus() ? offset : undefined,
+        ...context.scrollOptions,
+      });
     }
   });
 
@@ -108,7 +111,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
     track(() => context.highlightedIndexSig.value);
 
     if (isServer || !context.panelRef.value) return;
-    if (props._index ?? -1 !== context.highlightedIndexSig.value) return;
+    if (props._index !== context.highlightedIndexSig.value) return;
 
     const hasScrollbar =
       context.panelRef.value.scrollHeight > context.panelRef.value.clientHeight;

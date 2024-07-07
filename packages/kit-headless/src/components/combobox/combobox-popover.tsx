@@ -84,6 +84,15 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
     initialLoadSig.value = false;
   });
 
+  useTask$(({ track }) => {
+    track(() => context.resetScrollBySig.value);
+  });
+
+  const handleMouseEvent$ = $((e: MouseEvent) => {
+    const isInteracting = e.type === 'mousedown' || e.type === 'mouseover';
+    context.resetScrollBySig.value = isInteracting;
+  });
+
   return (
     <HPopoverRoot
       floating={floating}
@@ -103,6 +112,9 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
         role="listbox"
         aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
         aria-multiselectable={context.multiple ? 'true' : undefined}
+        onMouseOver$={handleMouseEvent$}
+        onMouseOut$={handleMouseEvent$}
+        onKeyDown$={() => (context.resetScrollBySig.value = true)}
         {...rest}
       >
         <Slot />

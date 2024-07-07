@@ -20,6 +20,7 @@ export type ComboboxContext = {
   selectedValueSetSig: Signal<Set<string>>;
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;
+  resetScrollBySig: Signal<boolean>;
   disabledIndexSetSig: Signal<Set<number>>;
   hasVisibleItemsSig: Signal<boolean>;
   initialLoadSig: Signal<boolean>;
