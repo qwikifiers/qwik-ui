@@ -5,6 +5,8 @@ import {
   $,
   sync$,
   useComputed$,
+  useTask$,
+  useSignal,
 } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 import { useCombobox } from './use-combobox';
@@ -23,6 +25,8 @@ export const HComboboxInput = component$(
     const labelId = `${context.localId}-label`;
     const descriptionId = `${context.localId}-description`;
     const errorMessageId = `${context.localId}-error-message`;
+    const initialValueSig = useSignal<string | undefined>();
+    const initialLoadSig = useSignal<boolean>(true);
 
     const {
       selectionManager$,
@@ -132,10 +136,33 @@ export const HComboboxInput = component$(
       }
     });
 
+    useTask$(() => {
+      const selectedValue =
+        context.selectedValueSetSig.value.size > 0
+          ? context.selectedValueSetSig.value.values().next().value
+          : '';
+
+      const item = Array.from(context.itemsMapSig.value.values()).find(
+        (item) => item.value === selectedValue,
+      );
+      initialValueSig.value = item ? item.displayValue : '';
+    });
+
+    const computedInputValueSig = useComputed$(() => {
+      if (initialValueSig.value) {
+        return initialValueSig.value;
+      } else {
+        if (inputValueSig?.value) {
+          return inputValueSig.value;
+        }
+        return '';
+      }
+    });
+
     return (
       <input
         role="combobox"
-        value={inputValueSig && inputValueSig.value}
+        value={computedInputValueSig.value}
         id={inputId}
         onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
         onInput$={[handleInput$, props.onInput$]}

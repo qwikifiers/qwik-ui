@@ -51,6 +51,7 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
   let isItemDisabled = false;
   let givenItemValue = null;
   let valuePropIndex = null;
+  let _value;
   let hasEmptyComp = false;
   let hasErrorComp = false;
 
@@ -110,7 +111,9 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
         if (value === props.value) {
           // minus one because it is incremented already in SelectOption
           valuePropIndex = currItemIndex;
-          props._value = value;
+          _value = value;
+
+          console.log('given value: ', props._value);
         }
 
         const isString = typeof child.props.children === 'string';
@@ -155,6 +158,7 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
     <HComboboxRootImpl
       {...rest}
       _valuePropIndex={valuePropIndex}
+      _value={_value}
       _itemsMap={itemsMap}
       hasEmptyComp={hasEmptyComp}
       hasErrorComp={hasErrorComp}
