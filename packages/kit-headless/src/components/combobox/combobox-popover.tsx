@@ -14,6 +14,7 @@ import { comboboxContextId } from './combobox-context';
 import { HPopoverRoot } from '../popover/popover-root';
 import { isServer } from '@builder.io/qwik/build';
 import { useCombinedRef } from '../../hooks/combined-refs';
+import { useDebouncer } from '../../hooks/use-debouncer';
 
 export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props) => {
   const context = useContext(comboboxContextId);
@@ -84,14 +85,12 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
     initialLoadSig.value = false;
   });
 
-  useTask$(({ track }) => {
-    track(() => context.resetScrollBySig.value);
-  });
-
-  const handleMouseEvent$ = $((e: MouseEvent) => {
-    const isInteracting = e.type === 'mousedown' || e.type === 'mouseover';
-    context.resetScrollBySig.value = isInteracting;
-  });
+  const resetScrollMove = useDebouncer(
+    $(() => {
+      context.resetScrollBySig.value = false;
+    }),
+    650,
+  );
 
   return (
     <HPopoverRoot
@@ -112,8 +111,12 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
         role="listbox"
         aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
         aria-multiselectable={context.multiple ? 'true' : undefined}
-        onMouseOver$={handleMouseEvent$}
-        onMouseOut$={handleMouseEvent$}
+        onMouseMove$={async () => {
+          context.resetScrollBySig.value = true;
+
+          await resetScrollMove();
+        }}
+        onMouseOut$={() => (context.resetScrollBySig.value = false)}
         onKeyDown$={() => (context.resetScrollBySig.value = true)}
         {...rest}
       >
