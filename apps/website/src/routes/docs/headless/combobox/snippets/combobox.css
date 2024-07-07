@@ -9,15 +9,9 @@
 .combobox-input {
   all: unset;
   box-sizing: border-box;
-  border-right: none;
-  background: hsl(var(--background));
+  background: transparent;
   padding-inline: 0.5rem;
-  border-left: none;
   padding-right: 44px;
-}
-
-.combobox-input:focus {
-  background: hsl(var(--primary) / 0.08);
 }
 
 .combobox-trigger {
@@ -47,6 +41,10 @@
   align-items: center;
   outline: 2px dotted hsla(var(--foreground));
   position: relative;
+}
+
+.combobox-control:focus-within {
+  background: hsl(var(--primary) / 0.08);
 }
 
 .combobox-control[data-invalid] {
@@ -117,21 +115,4 @@
   padding: 0.25rem 0.5rem;
   background-color: hsl(var(--muted));
   margin-block: 0.25rem;
-}
-
-.combobox-multibox {
-  min-height: 48px;
-  max-width: 300px;
-
-  display: flex;
-  outline: 2px dotted hsla(var(--foreground));
-  position: relative;
-}
-
-.combobox-multibox:has(.combobox-input:focus) {
-  background: hsla(var(--primary) / 0.08);
-}
-
-.combobox-multibox .combobox-input:focus {
-  background: transparent;
 }

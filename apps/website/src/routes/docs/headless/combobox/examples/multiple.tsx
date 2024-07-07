@@ -27,7 +27,7 @@ export default component$(() => {
       bind:value={selected}
     >
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
-      <Combobox.Control class="combobox-multibox">
+      <Combobox.Control class="combobox-control">
         {display.value.map((item) => (
           <span class="combobox-pill" key={item}>
             {item}

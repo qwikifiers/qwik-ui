@@ -27,6 +27,7 @@ export const HComboboxInput = component$(
     const errorMessageId = `${context.localId}-error-message`;
     const initialValueSig = useSignal<string | undefined>();
     const wasEmptyBeforeBackspaceSig = useSignal(false);
+    const isInputResetSig = useSignal(false);
 
     const {
       selectionManager$,
@@ -103,14 +104,20 @@ export const HComboboxInput = component$(
           break;
 
         case 'Enter':
-          if (context.isListboxOpenSig.value) {
-            const highlightedIndex = context.highlightedIndexSig.value;
-            await selectionManager$(highlightedIndex, 'toggle');
+          if (!context.isListboxOpenSig.value) break;
 
-            const isSelected = context.selectedValueSetSig.value.size > 0;
-            if (isSelected && !context.multiple) {
-              context.isListboxOpenSig.value = false;
-            }
+          await selectionManager$(context.highlightedIndexSig.value, 'toggle');
+          if (context.selectedValueSetSig.value.size <= 0) break;
+
+          if (!context.multiple) {
+            context.isListboxOpenSig.value = false;
+            break;
+          }
+
+          if (context.inputRef.value) {
+            context.inputRef.value.value = '';
+            context.inputValueSig.value = '';
+            isInputResetSig.value = true;
           }
 
           break;
@@ -133,16 +140,16 @@ export const HComboboxInput = component$(
       const target = e.target as HTMLInputElement;
       context.inputValueSig.value = target.value;
       context.highlightedIndexSig.value = null;
+      isInputResetSig.value = false;
 
       // bind:value on the input
       if (inputValueSig) {
         inputValueSig.value = el.value;
+        context.inputValueSig.value = el.value;
       }
     });
 
     const handleKeyUp$ = $((e: KeyboardEvent) => {
-      const selectedValuesArray = [...context.selectedValueSetSig.value];
-
       if (e.key === 'Backspace') {
         // removeOnBackspace
         if (!context.multiple) return;
@@ -150,9 +157,10 @@ export const HComboboxInput = component$(
         if (!context.removeOnBackspace) return;
 
         if (
-          wasEmptyBeforeBackspaceSig.value &&
+          (wasEmptyBeforeBackspaceSig.value || isInputResetSig.value) &&
           context.inputValueSig.value.length === 0
         ) {
+          const selectedValuesArray = [...context.selectedValueSetSig.value];
           selectedValuesArray.pop(); // Remove the last element
           context.selectedValueSetSig.value = new Set(selectedValuesArray);
         }

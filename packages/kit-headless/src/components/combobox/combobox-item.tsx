@@ -90,8 +90,6 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
   const handlePointerOver$ = $(() => {
     if (isDisabledSig.value) return;
 
-    console.log('executed');
-
     if (props._index !== undefined && context.isMouseOverPopupSig.value) {
       context.highlightedIndexSig.value = props._index ?? -1;
     }
