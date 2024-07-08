@@ -1,4 +1,4 @@
-import { component$, Slot, PropsOf } from '@builder.io/qwik';
+import { component$, Slot, type PropsOf } from '@builder.io/qwik';
 
 import { Accordion as HeadlessAccordion } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';

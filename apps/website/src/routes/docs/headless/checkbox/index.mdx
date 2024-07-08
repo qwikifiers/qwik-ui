@@ -1,0 +1,73 @@
+---
+title: Qwik UI | Checkbox
+---
+
+import { FeatureList } from '~/components/feature-list/feature-list';
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.headless.Select} />
+
+# Checkbox (Two-State)
+
+Allows users to visually select an option by checking it.
+
+<Showcase name="hero" />
+
+## Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Checkbox.Root',
+      description:
+        'Defines the component boundary and exposes its internal logic AND must wrap over all other parts',
+    },
+    {
+      name: 'Checkbox.Indicator',
+      description:
+        'Wrapper that automatically shows its children when true and hides them when false',
+    },
+  ]}
+/>
+
+## Examples
+
+### Controlled Checkbox
+
+To add reactive state, use the `bind:checked` prop on the `<Checkbox.Root />` component.
+
+<Showcase name="controlled" />
+
+> Note that the initial value of the signal will affect the initial value of the checkbox.
+
+In the example below, the left checkbox starts as **false**, while the right checkbox starts as **true**.
+
+<Showcase name="controlled-values" />
+
+## Customization & Caveats
+
+You can apply CSS classes to any part of the component. Any valid HTML can be used as an icon, but children of the Checkbox Indicator are removed from the accessibility tree to prevent them from being added to the Checkbox Label.
+
+### Automatic Labeling
+
+The Checkbox element is a div with the role of checkbox, so any text inside the Checkbox Root is interpreted as the checkbox label.
+
+Text tags lose their semantic meaning. For example, an h1 tag is treated the same as a p tag. See [this MDN section](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role#all_descendants_are_presentational) for more details.
+
+## API
+
+### Checkbox.Root
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'bind:checked',
+      description: 'Two-way data binding of the checkbox value to a user-defined signal',
+    },
+    {
+      name: 'checklist',
+      description:
+        'When true, treats the checkbox as a tri-state and binds its value to all other checkboxes in the checklist',
+    },
+  ]}
+/>
