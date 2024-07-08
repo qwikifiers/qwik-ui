@@ -337,7 +337,7 @@ Some CSS variables are specific to the docs, feel free to plug in your own value
   keyDescriptors={[
     {
       keyTitle: 'Enter',
-      description: `Selects a highlighted item when open.`,
+      description: `Selects a highlighted item when open. Toggles the selection of the highlighted item without closing the combobox if an item is already selected.`,
     },
     {
       keyTitle: 'ArrowDown',
@@ -358,6 +358,10 @@ Some CSS variables are specific to the docs, feel free to plug in your own value
     {
       keyTitle: 'Esc',
       description: `Closes the combobox and moves focus to the trigger.`,
+    },
+    {
+      keyTitle: 'Tab',
+      description: `Moves focus to the next focusable element.`,
     },
   ]}
 />
@@ -391,6 +395,10 @@ When in multi select mode, additional keyboard interactions are available.
     {
       name: 'data-closed',
       description: 'If the popover is closed (Boolean).',
+    },
+    {
+      name: 'data-invalid',
+      description: 'If the combobox is invalid (Boolean).',
     },
   ]}
 />
@@ -431,16 +439,21 @@ When in multi select mode, additional keyboard interactions are available.
       info: 'string',
     },
     {
-      name: 'bind:displayValue',
-      type: 'signal',
-      description: 'Controlled display value, manages the display items.',
-      info: 'string',
+      name: 'filter',
+      type: 'boolean',
+      description: 'Disables the default filter function when set to false.',
     },
     {
       name: 'onChange$',
       type: 'QRL',
       description: 'Function called when the selected value changes.',
       info: 'QRL<(value: string) => void>',
+    },
+    {
+      name: 'bind:open',
+      type: 'signal',
+      description: 'Controlled open state of the popover.',
+      info: 'boolean',
     },
     {
       name: 'onOpenChange$',
@@ -465,10 +478,10 @@ When in multi select mode, additional keyboard interactions are available.
       description: 'Enables multiple selections.',
     },
     {
-      name: 'filter$',
-      type: 'QRL',
-      description: 'Function to filter items based on user input.',
-      info: 'QRL<(displayValue: string, inputValue: string) => boolean>',
+      name: 'bind:displayValue',
+      type: 'signal',
+      description: 'Controlled display value, manages the display items.',
+      info: 'string',
     },
     {
       name: 'onInput$',
@@ -481,7 +494,7 @@ When in multi select mode, additional keyboard interactions are available.
 
 ### Combobox.Popover
 
-`Combobox.Popover` is a wrapper of the [Popover](../../../docs/headless/popover/) component, and has the Same API's.
+`Combobox.Popover` is a wrapper of the [Popover](../../../docs/headless/popover/) component, and has the same APIs.
 
 ### Combobox.Item:
 

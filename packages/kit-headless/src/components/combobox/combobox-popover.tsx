@@ -109,7 +109,7 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
         data-invalid={context.isInvalidSig.value ? '' : undefined}
         role="listbox"
-        aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
+        aria-expanded={context.isListboxOpenSig.value ? 'true' : 'false'}
         aria-multiselectable={context.multiple ? 'true' : undefined}
         onMouseMove$={async () => {
           context.isMouseOverPopupSig.value = true;
