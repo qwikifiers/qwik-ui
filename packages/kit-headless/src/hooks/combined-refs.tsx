@@ -34,14 +34,14 @@ export function useCombinedRef(externalRef: any, ctxOpts?: CtxOpts) {
     );
   });
   const contextRefExists = ctxRefNameSig.value !== undefined;
-  const contextRef = contextRefExists && ctxOpts?.context?.[ctxRefNameSig.value];
+  const contextRef = contextRefExists && ctxOpts?.context?.[ctxRefNameSig.value!];
 
   useTask$(() => {
     if (!externalRef) return;
 
     if (contextRef) {
       // update the context with the external ref
-      ctxOpts.context[ctxRefNameSig.value] = externalRef;
+      ctxOpts.context[ctxRefNameSig.value!] = externalRef;
     } else {
       internalRef.value = externalRef.value;
     }
