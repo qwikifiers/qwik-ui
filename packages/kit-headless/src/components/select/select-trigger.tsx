@@ -9,6 +9,7 @@ import {
 } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import { useSelect, useTypeahead } from './use-select';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 type SelectTriggerProps = PropsOf<'button'>;
 export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
@@ -23,6 +24,8 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
   const valueId = `${context.localId}-value`;
   const initialKeyDownSig = useSignal(true);
   const { typeahead$ } = useTypeahead();
+  const contextRefOpts = { context, givenContextRef: context.triggerRef };
+  const triggerRef = useCombinedRef(props.ref, contextRefOpts);
 
   const handleClickSync$ = sync$((e: MouseEvent) => {
     e.preventDefault();
@@ -123,7 +126,7 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
     <button
       {...props}
       id={triggerId}
-      ref={context.triggerRef}
+      ref={triggerRef}
       onClick$={[handleClickSync$, handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}

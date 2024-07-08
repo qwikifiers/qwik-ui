@@ -12,6 +12,7 @@ import {
 } from '@builder.io/qwik';
 import SelectContextId, { type SelectContext } from './select-context';
 import { useSelect } from './use-select';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 export type TItemsMap = Map<
   number,
@@ -132,7 +133,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     invalid;
 
     // refs
-    const rootRef = useSignal<HTMLDivElement>();
+    const rootRef = useCombinedRef(props.ref);
     const triggerRef = useSignal<HTMLButtonElement>();
     const popoverRef = useSignal<HTMLElement>();
     const listboxRef = useSignal<HTMLUListElement>();

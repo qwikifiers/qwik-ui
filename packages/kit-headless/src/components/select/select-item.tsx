@@ -18,6 +18,7 @@ import SelectContextId, {
   selectItemContextId,
 } from './select-context';
 import { useSelect } from './use-select';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 export type SelectItemProps = PropsOf<'div'> & {
   /** Internal index we get from the inline component. Please see select-inline.tsx */
@@ -34,7 +35,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   /* look at select-inline on how we get the index. */
   const { _index, disabled, ...rest } = props;
   const context = useContext(SelectContextId);
-  const itemRef = useSignal<HTMLLIElement>();
+  const itemRef = useCombinedRef(props.ref);
   const localIndexSig = useSignal<number | null>(null);
   const itemId = `${context.localId}-${_index}`;
   const typeaheadFnSig = useSignal<QRL<(key: string) => Promise<void>>>();
