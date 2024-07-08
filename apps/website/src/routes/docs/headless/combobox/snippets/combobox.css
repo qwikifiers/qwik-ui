@@ -36,7 +36,7 @@
 }
 
 .combobox-control {
-  height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   outline: 2px dotted hsla(var(--foreground));
@@ -115,4 +115,36 @@
   padding: 0.25rem 0.5rem;
   background-color: hsl(var(--muted));
   margin-block: 0.25rem;
+}
+
+.combobox-pill-container {
+  padding-right: 44px;
+  width: 100%;
+}
+
+.combobox-multiple {
+  display: flex;
+  flex-direction: column;
+}
+
+.combobox-multiple input {
+  width: 100%;
+}
+
+.combobox-multiple .combobox-trigger {
+  min-height: 48px;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.combobox-clear {
+  background: hsl(var(--secondary) / 0.08);
+}
+
+.combobox-control:focus-within .combobox-pill {
+  background-color: hsl(var(--foreground) / 0.08);
+}
+
+.combobox-control:focus-within .combobox-clear {
+  background: hsl(var(--secondary) / 0.25);
 }

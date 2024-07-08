@@ -15,34 +15,50 @@ export default component$(() => {
     'Coconut',
   ];
 
-  const display = useSignal<string[]>([]);
+  const displayValues = useSignal<string[]>([]);
   const selected = useSignal<string[]>([]);
+
+  const inputRef = useSignal<HTMLInputElement>();
 
   return (
     <Combobox.Root
       class="combobox-root"
       multiple
       removeOnBackspace
-      bind:displayValue={display}
+      bind:displayValue={displayValues}
       bind:value={selected}
     >
       <Combobox.Label class="combobox-label">Personal Trainers</Combobox.Label>
-      <Combobox.Control class="combobox-control">
-        {display.value.map((item) => (
-          <span class="combobox-pill" key={item}>
-            {item}
-            <span
+      <Combobox.Control class="combobox-control combobox-multiple">
+        <div class="combobox-pill-container">
+          {displayValues.value.map((item) => (
+            <span class="combobox-pill" key={item}>
+              {item}
+              <span
+                onPointerDown$={() => {
+                  selected.value = selected.value?.filter(
+                    (selectedItem) => selectedItem !== item,
+                  );
+                  inputRef.value?.focus();
+                }}
+              >
+                <LuX aria-hidden="true" />
+              </span>
+            </span>
+          ))}
+          {displayValues.value.length > 4 && (
+            <button
+              class="combobox-clear combobox-pill"
               onClick$={() => {
-                selected.value = selected.value?.filter(
-                  (selectedItem) => selectedItem !== item,
-                );
+                selected.value = [];
+                inputRef.value?.focus();
               }}
             >
-              <LuX aria-hidden="true" />
-            </span>
-          </span>
-        ))}
-        <Combobox.Input class="combobox-input" />
+              clear all
+            </button>
+          )}
+        </div>
+        <Combobox.Input class="combobox-input" ref={inputRef} />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>
