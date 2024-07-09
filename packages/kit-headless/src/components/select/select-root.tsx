@@ -12,6 +12,7 @@ import {
 } from '@builder.io/qwik';
 import SelectContextId, { type SelectContext } from './select-context';
 import { useSelect } from './use-select';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 export type TItemsMap = Map<
   number,
@@ -132,7 +133,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     invalid;
 
     // refs
-    const rootRef = useSignal<HTMLDivElement>();
+    const rootRef = useCombinedRef(props.ref);
     const triggerRef = useSignal<HTMLButtonElement>();
     const popoverRef = useSignal<HTMLElement>();
     const listboxRef = useSignal<HTMLUListElement>();
@@ -142,9 +143,6 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     // ids
     const localId = useId();
-    const listboxId = `${localId}-listbox`;
-    const labelId = `${localId}-label`;
-    const valueId = `${localId}-value`;
 
     // source of truth
     const itemsMapSig = useComputed$(() => {
@@ -159,8 +157,9 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     const isListboxOpenSig = useSignal<boolean>(false);
     const scrollOptions = givenScrollOptions ?? {
-      behavior: 'instant',
-      block: 'nearest',
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest',
     };
 
     const currDisplayValueSig = useSignal<string | string[]>();
@@ -205,7 +204,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     useContextProvider(SelectContextId, context);
 
-    const { getActiveDescendant$, selectionManager$ } = useSelect();
+    const { selectionManager$ } = useSelect();
 
     useTask$(async function reactiveUserValue({ track }) {
       const bindValueSig = props['bind:value'];
@@ -239,14 +238,6 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
       if (!initialLoadSig.value) {
         onOpenChange$?.(isListboxOpenSig.value);
-      }
-    });
-
-    const activeDescendantSig = useComputed$(() => {
-      if (isListboxOpenSig.value) {
-        return getActiveDescendant$(highlightedIndexSig.value ?? -1);
-      } else {
-        return '';
       }
     });
 
@@ -305,19 +296,14 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     return (
       <div
-        role="combobox"
+        role="group"
         ref={rootRef}
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
         data-disabled={isDisabledSig.value ? '' : undefined}
         data-invalid={context.isInvalidSig?.value ? '' : undefined}
         aria-invalid={context.isInvalidSig?.value}
-        aria-controls={listboxId}
-        aria-expanded={context.isListboxOpenSig.value}
-        aria-haspopup="listbox"
-        aria-activedescendant={activeDescendantSig.value}
-        aria-labelledby={_label ? labelId : valueId}
-        aria-multiselectable={context.multiple ? 'true' : undefined}
+        data-qui-select-root
         {...rest}
       >
         <Slot />

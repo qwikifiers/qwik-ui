@@ -20,10 +20,10 @@ import {
 } from '@nx/devkit';
 
 import {
-  ThemePrimaryColor,
-  ThemeStyle,
   ThemeBorderRadius,
   ThemeConfig,
+  ThemePrimaryColor,
+  ThemeStyle,
 } from '@qwik-ui/utils';
 import { bgRgb, bold, cyan, green, red } from 'ansis';
 import { execSync } from 'child_process';
@@ -33,6 +33,8 @@ import {
   COMPONENTS_REGISTRY_FILENAME,
   QWIK_UI_CONFIG_FILENAME,
 } from '../src/_shared/config-filenames';
+
+import externalDeps from '../src/_shared/external-deps.json';
 
 const COMMANDS = ['init', 'add'];
 const listOfCommands = COMMANDS.join(', ');
@@ -238,7 +240,7 @@ async function handleInit() {
       config.primaryColor = cancelable(
         await select({
           message: cyan('Choose a primary color'),
-          initialValue: ThemePrimaryColor.CYAN600,
+          initialValue: ThemePrimaryColor.CYAN600 as string,
           options: [
             {
               label: bold`${bgRgb(220, 38, 38)`   `} ${capitalizeFirstLetter('Red')} `,
@@ -311,11 +313,24 @@ async function handleInit() {
 
   const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
-  log.info(`Installing ${styledPackage}, ${headlessPackage} and ${utilsPackage}...`);
+  const externalDepsNames = Object.keys(externalDeps).reduce(
+    (all, dep) => `${all}, ${dep}`,
+    '',
+  );
+
+  log.info(
+    `Installing ${styledPackage}, ${headlessPackage}, ${utilsPackage}, ${externalDepsNames}...`,
+  );
+
+  const externalDepsString = Object.keys(externalDeps).reduce(
+    (all, dep) => `${all} ${dep}@${externalDeps[dep]}`,
+    '',
+  );
+
   execSync(
     `${
       getPackageManagerCommand().addDev
-    } ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag}`,
+    } ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag} ${externalDepsString}`,
     {
       stdio: 'inherit',
     },

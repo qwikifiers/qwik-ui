@@ -12,16 +12,14 @@ export default component$(() => {
         <Select.DisplayValue placeholder="Select an option" />
       </Select.Trigger>
       <Select.Popover gutter={8}>
-        <Select.Listbox>
-          {users.map((user) => (
-            <Select.Item key={user}>
-              <Select.ItemLabel>{user}</Select.ItemLabel>
-              <Select.ItemIndicator>
-                <LuCheck class="h-4 w-4" />
-              </Select.ItemIndicator>
-            </Select.Item>
-          ))}
-        </Select.Listbox>
+        {users.map((user) => (
+          <Select.Item key={user}>
+            <Select.ItemLabel>{user}</Select.ItemLabel>
+            <Select.ItemIndicator>
+              <LuCheck class="h-4 w-4" />
+            </Select.ItemIndicator>
+          </Select.Item>
+        ))}
       </Select.Popover>
     </Select.Root>
   );

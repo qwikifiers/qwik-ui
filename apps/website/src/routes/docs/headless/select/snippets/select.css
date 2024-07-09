@@ -34,15 +34,11 @@
 
 .select-popover {
   width: 100%;
-  max-width: var(--select-width);
-}
-
-.select-listbox {
-  width: 100%;
+  max-width: calc(var(--select-width));
   background-color: hsl(var(--background));
   padding: 0.5rem;
   border: 2px dotted hsla(var(--foreground) / 0.6);
-  max-width: var(--select-width);
+  border-radius: calc(var(--border-radius) / 2);
   color: hsl(var(--foreground));
 }
 

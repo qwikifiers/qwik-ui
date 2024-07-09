@@ -8,7 +8,6 @@ const Root = (props: PropsOf<typeof HeadlessSelect.Root>) => (
     {...props}
     selectItemComponent={Item}
     selectItemLabelComponent={ItemLabel}
-    selectLabelComponent={Label}
     selectErrorMessageComponent={ErrorMessage}
   />
 );
@@ -51,30 +50,12 @@ const Popover = component$<PropsOf<typeof HeadlessSelect.Popover>>(({ ...props }
       <HeadlessSelect.Popover
         {...props}
         class={cn(
-          'w-full max-w-[15rem] data-[open]:animate-in data-[closing]:animate-out data-[closing]:fade-out-0 data-[open]:fade-in-0 data-[closing]:zoom-out-95 data-[open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-          // 'overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md',
+          'w-full min-w-32 max-w-[15rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[open]:animate-in data-[closing]:animate-out data-[closing]:fade-out-0 data-[open]:fade-in-0 data-[closing]:zoom-out-95 data-[open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
           props.class,
         )}
       >
         <Slot />
       </HeadlessSelect.Popover>
-    </>
-  );
-});
-
-type ListboxProps = PropsOf<typeof HeadlessSelect.Listbox>;
-const Listbox = component$<ListboxProps>(({ ...props }) => {
-  return (
-    <>
-      <HeadlessSelect.Listbox
-        {...props}
-        class={cn(
-          'relative z-50 max-h-96 min-w-32 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md',
-          props.class,
-        )}
-      >
-        <Slot />
-      </HeadlessSelect.Listbox>
     </>
   );
 });
@@ -126,7 +107,6 @@ export const Select = {
   Trigger,
   DisplayValue,
   Popover,
-  Listbox,
   Group,
   GroupLabel,
   Item,

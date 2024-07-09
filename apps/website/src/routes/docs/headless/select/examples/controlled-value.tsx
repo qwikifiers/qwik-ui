@@ -19,13 +19,11 @@ export default component$(() => {
           <Select.DisplayValue placeholder="Select an option" />
         </Select.Trigger>
         <Select.Popover class="select-popover">
-          <Select.Listbox class="select-listbox">
-            {users.map((user) => (
-              <Select.Item value={user.id} key={user.id}>
-                <Select.ItemLabel>{user.name}</Select.ItemLabel>
-              </Select.Item>
-            ))}
-          </Select.Listbox>
+          {users.map((user) => (
+            <Select.Item value={user.id} key={user.id}>
+              <Select.ItemLabel>{user.name}</Select.ItemLabel>
+            </Select.Item>
+          ))}
         </Select.Popover>
       </Select.Root>
       <button onClick$={$(() => (selectedId.value = '4'))}>Change to Abby</button>

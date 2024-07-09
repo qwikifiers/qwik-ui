@@ -13,16 +13,14 @@ export default component$(() => {
         <Select.DisplayValue>{display.value.join(', ')}</Select.DisplayValue>
       </Select.Trigger>
       <Select.Popover class="select-popover">
-        <Select.Listbox class="select-listbox">
-          {users.map((user, index) => (
-            <Select.Item value={index.toString()} class="select-item" key={user}>
-              <Select.ItemLabel>{user}</Select.ItemLabel>
-              <Select.ItemIndicator>
-                <LuCheck />
-              </Select.ItemIndicator>
-            </Select.Item>
-          ))}
-        </Select.Listbox>
+        {users.map((user, index) => (
+          <Select.Item value={index.toString()} class="select-item" key={user}>
+            <Select.ItemLabel>{user}</Select.ItemLabel>
+            <Select.ItemIndicator>
+              <LuCheck />
+            </Select.ItemIndicator>
+          </Select.Item>
+        ))}
       </Select.Popover>
     </Select.Root>
   );

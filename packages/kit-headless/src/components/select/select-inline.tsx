@@ -1,12 +1,10 @@
 import { type JSXNode, Component } from '@builder.io/qwik';
 import { HSelectImpl, type SelectProps } from './select-root';
 import { HSelectItem as InternalSelectItem } from './select-item';
-import { HSelectLabel as InternalSelectLabel } from './select-label';
 import { HSelectItemLabel as InternalSelectItemLabel } from './select-item-label';
 import { HSelectErrorMessage as InternalSelectErrorMessage } from './select-error-message';
 
 type InlineCompProps = {
-  selectLabelComponent?: typeof InternalSelectLabel;
   selectItemComponent?: typeof InternalSelectItem;
   selectItemLabelComponent?: typeof InternalSelectItemLabel;
   selectErrorMessageComponent?: typeof InternalSelectErrorMessage;
@@ -21,7 +19,6 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
 ) => {
   const {
     children: myChildren,
-    selectLabelComponent: UserLabel,
     selectItemComponent: UserItem,
     selectItemLabelComponent: UserItemLabel,
     selectErrorMessageComponent: UserErrorMessage,
@@ -31,7 +28,6 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
   /**
    * When creating reusable component pieces, SelectRoot needs to know the    existence of these components. See the styled tabs for as an example.
    **/
-  const SelectLabel = UserLabel ?? InternalSelectLabel;
   const SelectItem = UserItem ?? InternalSelectItem;
   const SelectItemLabel = UserItemLabel ?? InternalSelectItemLabel;
   const SelectErrorMessage = UserErrorMessage ?? InternalSelectErrorMessage;
@@ -43,7 +39,6 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
   let givenItemValue = null;
 
   let valuePropIndex = null;
-  let isLabelNeeded = false;
   let isInvalid = false;
 
   const childrenToProcess = (
@@ -63,11 +58,6 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
     }
 
     switch (child.type) {
-      case SelectLabel: {
-        isLabelNeeded = true;
-        break;
-      }
-
       case SelectItem: {
         // get the index of the current option
         child.props._index = currItemIndex;
@@ -146,7 +136,6 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
   return (
     <HSelectImpl
       {...rest}
-      _label={isLabelNeeded}
       _valuePropIndex={valuePropIndex}
       _itemsMap={itemsMap}
       invalid={isInvalid}

@@ -1,47 +1,38 @@
-import { Combobox, ResolvedOption } from '@qwik-ui/headless';
-
-import { component$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
+import { Combobox } from '@qwik-ui/headless';
 import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
-  type Jedi = {
-    value: string;
-    label: string;
-  };
+  useStyles$(styles);
 
-  const objectExample: Array<Jedi> = [
-    { value: 'anakin', label: 'Anakin Skywalker' },
-    { value: 'obi-wan', label: 'Obi-Wan Kenobi' },
-    { value: 'mace', label: 'Mace Windu' },
-    { value: 'yoda', label: 'Yoda' },
+  const users = [
+    { name: 'Tim', status: '🟢' },
+    { name: 'Ryan', status: '🔴' },
+    { name: 'Jim', status: '🟡' },
+    { name: 'Jessie', status: '🟢' },
+    { name: 'Abby', status: '🟡' },
   ];
 
   return (
-    <Combobox.Root options={objectExample} class="combobox-root">
-      <Combobox.Label class="combobox-label">Star Wars 🧙‍♂️</Combobox.Label>
+    <Combobox.Root class="combobox-root">
+      <Combobox.Label class="combobox-label">Logged in users</Combobox.Label>
       <Combobox.Control class="combobox-control">
-        <Combobox.Input placeholder="C3PO" class="combobox-input" />
+        <Combobox.Input class="combobox-input" />
         <Combobox.Trigger class="combobox-trigger">
           <LuChevronDown class="combobox-icon" />
         </Combobox.Trigger>
       </Combobox.Control>
       <Combobox.Popover class="combobox-popover" gutter={8}>
-        <Combobox.Listbox
-          class="combobox-listbox"
-          optionRenderer$={(option: ResolvedOption, index: number) => {
-            return (
-              <Combobox.Option
-                class="combobox-option"
-                key={option.key}
-                resolved={option}
-                index={index}
-              >
-                <span>{option.label}</span>
-              </Combobox.Option>
-            );
-          }}
-        />
+        {users.map((user) => (
+          <Combobox.Item key={user.name} class="combobox-item">
+            <Combobox.ItemLabel>{user.name}</Combobox.ItemLabel>
+            <Combobox.ItemIndicator>{user.status}</Combobox.ItemIndicator>
+          </Combobox.Item>
+        ))}
       </Combobox.Popover>
     </Combobox.Root>
   );
 });
+
+// internal
+import styles from '../snippets/combobox.css?inline';
