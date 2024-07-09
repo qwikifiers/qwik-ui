@@ -19,6 +19,7 @@ export const rawComponents: Record<string, any> = import.meta.glob(
   '/src/routes/docs/**/**/examples/*.tsx',
   {
     query: '?raw',
+    import: 'default',
     eager: isDev ? false : true,
   },
 );
