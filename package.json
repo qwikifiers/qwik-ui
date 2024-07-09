@@ -38,7 +38,7 @@
     "test.headless.ci": "nx component-test-ci headless",
     "test.utils": "nx test utils"
   },
-  "packageManager": "pnpm@9.3.0",
+  "packageManager": "pnpm@9.5.0",
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
     "@builder.io/qwik": "^1.5.5",
@@ -56,16 +56,16 @@
     "@jscutlery/semver": "^4.2.0",
     "@k11r/nx-cloudflare-wrangler": "3.0.0-feat-sst-upgrade.1",
     "@modular-forms/qwik": "^0.24.0",
-    "@nx/cypress": "19.2.3",
-    "@nx/devkit": "19.2.3",
-    "@nx/eslint": "19.2.3",
-    "@nx/eslint-plugin": "19.2.3",
-    "@nx/jest": "19.2.3",
-    "@nx/js": "19.2.3",
-    "@nx/playwright": "19.2.3",
-    "@nx/plugin": "19.2.3",
-    "@nx/vite": "19.2.3",
-    "@nx/workspace": "19.2.3",
+    "@nx/cypress": "19.4.2",
+    "@nx/devkit": "19.4.2",
+    "@nx/eslint": "19.4.2",
+    "@nx/eslint-plugin": "19.4.2",
+    "@nx/jest": "19.4.2",
+    "@nx/js": "19.4.2",
+    "@nx/playwright": "19.4.2",
+    "@nx/plugin": "19.4.2",
+    "@nx/vite": "19.4.2",
+    "@nx/workspace": "19.4.2",
     "@oddbird/popover-polyfill": "0.4.3",
     "@playwright/test": "^1.44.1",
     "@qwikest/icons": "^0.0.13",
@@ -91,7 +91,7 @@
     "class-variance-authority": "^0.7.0",
     "clipboard-copy": "^4.0.1",
     "clsx": "^2.1.1",
-    "cypress": "13.9.0",
+    "cypress": "13.13.0",
     "cypress-axe": "1.5.0",
     "cypress-ct-qwik": "0.3.0",
     "cypress-real-events": "1.12.0",
@@ -112,7 +112,7 @@
     "match-sorter": "6.3.4",
     "node-fetch": "3.3.2",
     "np": "^10.0.5",
-    "nx": "19.2.3",
+    "nx": "19.4.2",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
@@ -158,6 +158,6 @@
   },
   "volta": {
     "node": "20.9.0",
-    "pnpm": "9.3.0"
+    "pnpm": "9.5.0"
   }
 }
