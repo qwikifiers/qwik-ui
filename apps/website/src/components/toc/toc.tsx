@@ -1,6 +1,6 @@
 import { ContentHeading } from '@builder.io/qwik-city';
 import { cn } from '@qwik-ui/utils';
-import { component$, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
+import { component$, useSignal, $, useOnWindow } from '@builder.io/qwik';
 
 export const DashboardTableOfContents = component$(
   ({ headings }: { headings: ContentHeading[] }) => {
@@ -122,36 +122,39 @@ const RecursiveList = component$<RecursiveListProps>(
 );
 
 const useActiveItem = (itemIds: string[]) => {
-  const activeId = useSignal<string>('');
+  const activeId = useSignal<string>();
 
-  useVisibleTask$(({ cleanup }) => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            activeId.value = entry.target.id;
-          }
-        });
-      },
-      { rootMargin: '0% 0% -85% 0%' },
-    );
+  useOnWindow(
+    'scroll',
+    $(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              activeId.value = entry.target.id;
+            }
+          });
+        },
+        { rootMargin: '0% 0% -85% 0%' },
+      );
 
-    itemIds.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-      }
-    });
-
-    cleanup(() => {
       itemIds.forEach((id) => {
         const element = document.getElementById(id);
         if (element) {
-          observer.unobserve(element);
+          observer.observe(element);
         }
       });
-    });
-  });
+
+      return () => {
+        itemIds.forEach((id) => {
+          const element = document.getElementById(id);
+          if (element) {
+            observer.unobserve(element);
+          }
+        });
+      };
+    }),
+  );
 
   return activeId;
 };

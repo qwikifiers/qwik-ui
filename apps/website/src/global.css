@@ -1264,6 +1264,19 @@
     border-left: 1px solid var(--qwikui-slate-300);
   }
 
+  .toc-scrollbar::-webkit-scrollbar-track,
+  .dark .toc-scrollbar::-webkit-scrollbar-track {
+    border-color: transparent;
+  }
+
+  .toc-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .toc-scrollbar:hover.toc-scrollbar::-webkit-scrollbar-thumb {
+    background-color: hsla(var(--foreground) / 0.15);
+  }
+
   .dark *::-webkit-scrollbar-track {
     background: transparent;
     border-left: 1px solid var(--qwikui-slate-800);
