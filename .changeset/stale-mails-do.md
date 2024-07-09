@@ -202,9 +202,9 @@ The `value` prop has been added to the `Combobox.Root` component to select the i
 
 You can also now listen to when the input value changes by using the `onInput$` prop on the `<Combobox.Root />` component.
 
-#### Passing refs to the combobox
+#### Passing refs to the combobox (experimental)
 
-The combobox is the first component to support passing refs! You can now pass a ref of your own to any component inside the combobox.
+The combobox is the first component to support passing refs! You can now pass a ref of your own to any component inside the combobox. This is an experimental feature, and we are still working on it, use at your own risk.
 
 ```tsx
 const inputRef = useSignal<HTMLInputElement>();
