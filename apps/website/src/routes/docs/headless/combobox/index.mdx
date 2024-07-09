@@ -3,7 +3,6 @@ title: Qwik UI | Combobox
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
-import { FeatureList } from '~/components/feature-list/feature-list';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
@@ -297,9 +296,9 @@ When a value is not selected, the placeholder is displayed.
 
 ## Advanced
 
-### Using Refs
+### Using Refs (experimental)
 
-You can pass a ref to each Combobox component to access the underlying DOM element.
+You can pass a ref to each Combobox component to access the underlying DOM element. This is an experimental feature, and we are still working on it, use at your own risk.
 
 <Showcase name="refs" />
 
