@@ -17,24 +17,22 @@ A control that allows the user to select multiple predefined items from a listbo
 
 <FeatureList
   features={[
-    'Supports single and multiple selection',
-    'Supports reactive and initial value changes',
-    'Disabled item support',
-    'Stop focus management via the Tab key',
-    'Grouped items support',
-    'Looping support',
-    'Support for custom scroll behavior',
-    'Listbox UI is placed above everything else. (Select.Popover)',
-    'Custom Positioning (Select.Popover)',
-    'item selection and focus management by typing (typeahead)',
-    'Keyboard support for item navigation via arrow keys and focus management',
-    'Automatic focus management for both selection modes.',
-    'Supports a custom placeholder',
+    'WAI ARIA Listbox design pattern',
+    'Single and multiple selection',
+    'Reactive and initial value changes',
+    'Disabled items',
+    'Tab key focus management',
+    'Grouped items',
+    'Looping',
+    'Custom scroll behavior',
+    'Listbox UI above all (Popover)',
+    'Custom positioning (Popover)',
+    'Typeahead item selection and focus',
+    'Arrow key navigation and focus management',
+    'Custom placeholder',
   ]}
   roadmap={['Opt-in native form support via a visually hidden select', 'RTL support']}
 />
-
-> Missing a feature? Check out the [contributing guide](../../../docs/headless/contributing) and we'd be happy to review any relevant issues or PR's. Feel free to work on any of the features listed above.
 
 ## Building blocks
 
@@ -94,11 +92,11 @@ A control that allows the user to select multiple predefined items from a listbo
   ]}
 />
 
-## Why use a headless select?
+## Why use a headless Select?
 
 The native `<select>` HTML element encounters significant obstacles in terms of styling flexibility, consistency across different browsers, and delivering a seamless user experience.
 
-### Native select pain points
+### Native Select pain points
 
 <FeatureList
   issues={[
@@ -111,19 +109,13 @@ The native `<select>` HTML element encounters significant obstacles in terms of 
 
 ### Native effort
 
-The [Open UI group](https://open-ui.org/components/selectlist/) has been working towards filling in some of these gaps with a new HTML element called `selectlist`.
+The [Open UI group](https://open-ui.org/components/selectlist/) is creating a stylable select element to address similar use cases as headless components.
 
-It is still not supported by any major browsers, and there is still an ongoing debate about its future, including a possible attribute to the select element to fix some of the problems instead.
-
-### Philosophy
-
-Qwik UI's Select component is designed to solve these pain points out of the box, along with a focus on accessibility and usability.
-
-It intends to provide intuitive APIs and behavior.
+However, since it is built on the existing native select element, its customizability and out-of-the-box experience may be limited, even with upcoming enhancements.
 
 ## Passing data
 
-The select component accepts data similar to the native select element. Item data can be passed in directly to `<Select.ItemLabel />`.
+To add data, use the `<Select.Item>` component inside of the listbox.
 
 ### Basic example
 
@@ -135,33 +127,31 @@ By default, the content inside of the `<Select.ItemLabel />` component is the it
 
 <Showcase name="hero" />
 
-You are in full control of how the data is rendered. Map over the data, or render the items however you like.
-
-> Maybe the items are out of order and you want to sort them? Programmatically update them directly in the JSX? You can do that!
+You control how the data is rendered. Map over the data or render the items as you like.
 
 ### Object example
 
 <Showcase name="object" />
 
-> In a case like the above example, where the display value can get cluttered, you may want to provide a `value` prop to the `<Select.Item />` component. We will refer to this in the next section.
+> If you need to display a different value to the user, use the `value` prop on `<Select.Item />`. This will be explained in the next section.
 
 ### Passing a distinct value
 
 <Showcase name="item-value" />
 
-Sometimes we want to display one thing to the user, but pass another value to the item.
+A distinct value is when one thing is displayed to the user, but another value is passed to the item.
 
-By adding the `value` prop to the `<Select.Item />` component, we can pass a distinct value to the select component.
+By adding the `value` prop to the `<Select.Item />` component, a distinct value is created.
 
-> A common use case is to select a user's unique account id, rather than their name.
+> A common use case is to select a user's unique account id
 
 ### Handling selection changes
 
 <Showcase name="change-value" />
 
-We can listen to changes in the selected value by using the `onChange$` prop. It provides an argument that is the new selected value.
+Use the `onChange$` prop to listen for changes in the selected value. It provides the new selected value as an argument.
 
-The above example increments a count when the user selects a new item.
+The example above increments a count when a new item is selected.
 
 ### Forms
 
@@ -334,8 +324,6 @@ When a value is not selected, the placeholder is displayed.
 The select component can be rendered both server-side or client-side, same with the rest of the components.
 
 <Showcase name="csr" />
-
-> The `placeholder` prop is only used when the `multiple` prop is set to `false`.
 
 ## Example CSS
 

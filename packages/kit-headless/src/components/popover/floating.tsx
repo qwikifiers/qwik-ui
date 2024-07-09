@@ -88,7 +88,7 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
   });
 
   return (
-    <HPopoverPanelImpl ref={context.panelRef} hidden={true} {...props}>
+    <HPopoverPanelImpl hidden={true} {...props}>
       <Slot />
     </HPopoverPanelImpl>
   );

@@ -1,16 +1,23 @@
-import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
-import { HLabel } from '../label/label';
-import ComboboxContextId from './combobox-context-id';
+import { PropsOf, Slot, component$, useContext, $ } from '@builder.io/qwik';
+import { comboboxContextId } from './combobox-context';
+import { Label } from '../label';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
-export type ComboboxLabelProps = PropsOf<'label'>;
+type HComboboxLabelProps = PropsOf<'label'>;
 
-export const HComboboxLabel = component$((props: ComboboxLabelProps) => {
-  const context = useContext(ComboboxContextId);
-  const inputId = `${context.localId}-input`;
+export const HComboboxLabel = component$((props: HComboboxLabelProps) => {
+  const context = useContext(comboboxContextId);
+  const labelId = `${context.localId}-label`;
+  const contextRefOpts = { context, givenContextRef: context.labelRef };
+  const labelRef = useCombinedRef(props.ref, contextRefOpts);
+
+  const handleClick$ = $(() => {
+    context.inputRef.value?.focus();
+  });
 
   return (
-    <HLabel {...props} for={inputId} ref={context.labelRef}>
+    <Label onClick$={handleClick$} id={labelId} ref={labelRef} {...props}>
       <Slot />
-    </HLabel>
+    </Label>
   );
 });
