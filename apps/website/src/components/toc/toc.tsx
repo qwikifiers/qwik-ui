@@ -30,7 +30,7 @@ const TableOfContents = component$<TableOfContentsProps>(({ headings }) => {
   const activeHeading = useActiveItem(itemIds);
   const tree = buildTree(sanitizedHeadings);
   const fixStartingBug: Node = { ...tree, children: [tree] };
-  return <RecursiveList tree={fixStartingBug} activeItem={activeHeading.value} />;
+  return <RecursiveList tree={fixStartingBug} activeItem={activeHeading.value ?? ''} />;
 });
 
 function deltaToStrg(
