@@ -11,6 +11,7 @@ import { Highlight } from '../highlight/highlight';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const codeSnippets: any = import.meta.glob('/src/routes/docs/**/**/snippets/*', {
   query: '?raw',
+  import: 'default',
   eager: isDev ? false : true,
 });
 
