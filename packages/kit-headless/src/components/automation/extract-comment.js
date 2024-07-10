@@ -16,7 +16,7 @@ export function extractComments(component_name, strg) {
   const magical_regex =
     /^\s*?\/[*]{2}\n?([\w|\W|]*?)\s*[*]{1,2}[/]\n[ ]*([\w|\W]*?): ([\w|\W]*?)$/gm;
 
-  const cms = {};
+  const cms = [];
   let groups;
 
   while ((groups = magical_regex.exec(strg)) !== null) {
@@ -24,11 +24,7 @@ export function extractComments(component_name, strg) {
     const comment = groups[1].replaceAll(trimStart, '');
     const prop = groups[2];
     const type = groups[3];
-    if (cms.hasOwnProperty(component_name)) {
-      cms[component_name].push({ comment, prop, type });
-      continue;
-    }
-    cms[component_name] = [{ comment, prop, type }];
+    cms.push({ comment, prop, type });
   }
   return cms;
 }
