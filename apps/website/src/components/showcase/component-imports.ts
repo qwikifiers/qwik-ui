@@ -18,7 +18,8 @@ export const metaGlobComponents: Record<string, any> = import.meta.glob(
 export const rawComponents: Record<string, any> = import.meta.glob(
   '/src/routes/docs/**/**/examples/*.tsx',
   {
-    as: 'raw',
+    query: '?raw',
+    import: 'default',
     eager: isDev ? false : true,
   },
 );

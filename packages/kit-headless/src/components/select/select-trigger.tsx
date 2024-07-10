@@ -9,6 +9,7 @@ import {
 } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import { useSelect, useTypeahead } from './use-select';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 type SelectTriggerProps = PropsOf<'button'>;
 export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
@@ -19,8 +20,12 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
   const descriptionId = `${context.localId}-description`;
   const errorMessageId = `${context.localId}-error-message`;
   const triggerId = `${context.localId}-trigger`;
+  const panelId = `${context.localId}-panel`;
+  const valueId = `${context.localId}-value`;
   const initialKeyDownSig = useSignal(true);
   const { typeahead$ } = useTypeahead();
+  const contextRefOpts = { context, givenContextRef: context.triggerRef };
+  const triggerRef = useCombinedRef(props.ref, contextRefOpts);
 
   const handleClickSync$ = sync$((e: MouseEvent) => {
     e.preventDefault();
@@ -98,7 +103,13 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
 
     /** When initially opening the listbox, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
-      context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
+      if (e.key === 'ArrowUp') {
+        context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
+          context.itemsMapSig.value.size,
+        );
+      } else {
+        context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
+      }
     }
 
     // Wait for the popover code to be executed
@@ -115,17 +126,19 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
     <button
       {...props}
       id={triggerId}
-      ref={context.triggerRef}
+      ref={triggerRef}
       onClick$={[handleClickSync$, handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
       data-disabled={context.isDisabledSig.value ? '' : undefined}
       data-invalid={context.isInvalidSig?.value ? '' : undefined}
-      aria-expanded={context.isListboxOpenSig.value}
-      aria-labelledby={labelId}
+      aria-labelledby={`${valueId} ${labelId} `}
       aria-describedby={`${descriptionId} 
       ${errorMessageId}`}
+      aria-expanded={context.isListboxOpenSig.value ? true : false}
+      aria-haspopup="listbox"
+      aria-controls={panelId}
       disabled={context.isDisabledSig.value ? true : undefined}
       preventdefault:blur
     >

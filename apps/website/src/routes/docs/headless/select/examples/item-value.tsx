@@ -25,13 +25,11 @@ export default component$(() => {
           <Select.DisplayValue placeholder="Select an option" />
         </Select.Trigger>
         <Select.Popover class="select-popover">
-          <Select.Listbox class="select-listbox">
-            {users.map((user) => (
-              <Select.Item value={user.id} key={user.id}>
-                <Select.ItemLabel>{user.label}</Select.ItemLabel>
-              </Select.Item>
-            ))}
-          </Select.Listbox>
+          {users.map((user) => (
+            <Select.Item value={user.id} key={user.id}>
+              <Select.ItemLabel>{user.label}</Select.ItemLabel>
+            </Select.Item>
+          ))}
         </Select.Popover>
       </Select.Root>
       <p>The selected value is: {selected.value ?? 'null'}</p>

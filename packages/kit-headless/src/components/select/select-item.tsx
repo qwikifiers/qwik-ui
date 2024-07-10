@@ -12,14 +12,15 @@ import {
   useOnWindow,
   QRL,
 } from '@builder.io/qwik';
-import { isServer, isBrowser } from '@builder.io/qwik/build';
+import { isServer } from '@builder.io/qwik/build';
 import SelectContextId, {
   SelectItemContext,
   selectItemContextId,
 } from './select-context';
 import { useSelect } from './use-select';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
-export type SelectItemProps = PropsOf<'li'> & {
+export type SelectItemProps = PropsOf<'div'> & {
   /** Internal index we get from the inline component. Please see select-inline.tsx */
   _index?: number;
 
@@ -34,7 +35,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   /* look at select-inline on how we get the index. */
   const { _index, disabled, ...rest } = props;
   const context = useContext(SelectContextId);
-  const itemRef = useSignal<HTMLLIElement>();
+  const itemRef = useCombinedRef(props.ref);
   const localIndexSig = useSignal<number | null>(null);
   const itemId = `${context.localId}-${_index}`;
   const typeaheadFnSig = useSignal<QRL<(key: string) => Promise<void>>>();
@@ -73,6 +74,23 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     localIndexSig.value = _index;
   });
 
+  const checkVisibility$ = $(async (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
+
+    if (isHighlightedSig.value && !entry.isIntersecting) {
+      const containerRect = context.popoverRef.value?.getBoundingClientRect();
+      const itemRect = itemRef.value?.getBoundingClientRect();
+
+      if (!containerRect || !itemRect) return;
+
+      // Calculates the offset to center the item within the container
+      const offset =
+        itemRect.top - containerRect.top - containerRect.height / 2 + itemRect.height / 2;
+
+      context.popoverRef.value?.scrollBy({ top: offset, ...context.scrollOptions });
+    }
+  });
+
   useTask$(async function navigationTask({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
 
@@ -81,30 +99,25 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
       context.highlightedItemRef = itemRef;
     }
 
-    if (isServer) return;
+    if (isServer || !context.popoverRef.value) return;
+    if (_index !== context.highlightedIndexSig.value) return;
 
-    let observer: IntersectionObserver;
+    const hasScrollbar =
+      context.popoverRef.value.scrollHeight > context.popoverRef.value.clientHeight;
 
-    const checkVisibility = (entries: IntersectionObserverEntry[]) => {
-      const [entry] = entries;
+    if (!hasScrollbar) {
+      return;
+    }
 
-      // if the is not visible, scroll it into view
-      if (isHighlightedSig.value && !entry.isIntersecting) {
-        itemRef.value?.scrollIntoView(context.scrollOptions);
-      }
-    };
+    const observer = new IntersectionObserver(checkVisibility$, {
+      root: context.popoverRef.value,
+      threshold: 1.0,
+    });
 
     cleanup(() => observer?.disconnect());
 
-    if (isBrowser) {
-      observer = new IntersectionObserver(checkVisibility, {
-        root: context.listboxRef.value,
-        threshold: 1.0,
-      });
-
-      if (itemRef.value) {
-        observer.observe(itemRef.value);
-      }
+    if (itemRef.value) {
+      observer.observe(itemRef.value);
     }
   });
 
@@ -232,7 +245,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   useContextProvider(selectItemContextId, selectContext);
 
   return (
-    <li
+    <div
       {...rest}
       id={itemId}
       onClick$={[handleClick$, props.onClick$]}
@@ -249,6 +262,6 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
       role="option"
     >
       <Slot />
-    </li>
+    </div>
   );
 });

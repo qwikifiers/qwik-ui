@@ -15,6 +15,7 @@ import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
 import { popoverContextId } from './popover-context';
 import { supportShowAnimation, supportClosingAnimation } from './utils';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 // We don't need a provider, that way we connect all context to the root
 const ensureContextId = createContextId('qui-popover-null-context');
@@ -36,6 +37,8 @@ export const EnsuredContext = component$(() => {
 export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
   const context = useContext(popoverContextId);
   const panelId = `${context.compId}-panel`;
+  const contextRefOpts = { context, givenContextRef: context.panelRef };
+  const panelRef = useCombinedRef(props.ref, contextRefOpts);
 
   // We must inject some minimal hiding CSS while the polyfill loads, and the preset class
   useStyles$(popoverStyles);
@@ -103,7 +106,7 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
     <div
       {...props}
       id={panelId}
-      ref={props.ref}
+      ref={panelRef}
       popover={
         (context.manual && 'manual') || props.popover === 'manual'
           ? 'manual'

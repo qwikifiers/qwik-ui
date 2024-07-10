@@ -1,39 +1,19 @@
-import { component$, useContext, QRL, PropsOf } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
 
-import { JSX } from '@builder.io/qwik/jsx-runtime';
+type ComboboxListboxProps = PropsOf<'ul'>;
 
-import ComboboxContextId from './combobox-context-id';
-import type { ComboboxContext, Option } from './combobox-context.type';
-import { ResolvedOption } from './combobox';
-import { VisuallyHidden } from '../../utils/visually-hidden';
-
-export type ComboboxListboxProps<O extends Option = Option> = PropsOf<'ul'> & {
-  optionRenderer$?: QRL<
-    (resolved: ResolvedOption<O>, filteredIndex: number) => JSX.Element
-  >;
-};
-
-export const HComboboxListbox = component$(
-  <O extends Option = Option>({ optionRenderer$, ...props }: ComboboxListboxProps<O>) => {
-    const context = useContext<ComboboxContext<O>>(ComboboxContextId);
-    const listboxId = `${context.localId}-listbox`;
+/**
+ * @deprecated This component is deprecated. It will be removed in a future release.
+ */
+export const HComboboxListbox = component$<ComboboxListboxProps>(
+  (props: PropsOf<'ul'>) => {
+    // props to prevent type errors in consumer apps
+    props;
 
     return (
-      <ul
-        {...props}
-        id={listboxId}
-        ref={context.listboxRef}
-        role="listbox"
-        style={{ ...(props.style as object) }}
-      >
-        <VisuallyHidden>
-          List of
-          {context.labelRef.value ? context.labelRef.value?.innerText : 'options'}
-        </VisuallyHidden>
-        {context.filteredOptionsSig.value.map((resolved, filteredIndex) =>
-          optionRenderer$?.(resolved, filteredIndex),
-        )}
-      </ul>
+      <>
+        <Slot />
+      </>
     );
   },
 );

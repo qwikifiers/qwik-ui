@@ -259,3 +259,22 @@ export * from './select/select';
 This way you can now `import { Accordion, Alert, ... } from '~/components/ui';` 👯‍♀️
 
 (**small tip:** you can commment out the components you don't use!)
+
+## Tailwind CSS IntelliSense VSCode extension
+
+If you don't already have it, go ahead and install the [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) extension for vscode.
+
+Then, edit your [settings.json](https://code.visualstudio.com/docs/getstarted/settings) with the following:
+
+```json
+{
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
+}
+```
+
+This will enable the extension to recognize the Qwik UI utility functions and give you the same autocompletion you get with the default Tailwind classes.
+
+You can thank us later... 😉
