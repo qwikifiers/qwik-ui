@@ -12,7 +12,7 @@ async function myFileReader(path, component_name, output) {
 }
 
 export function extractPublicTypes(component_name, strg) {
-  const getPublicTypes = /type Public.*?{([\w|\W]*?)};/gm;
+  const getPublicTypes = /type Public[\w\W]*?{([\w|\W]*?)}(;| &)/gm;
   const cms = {};
   let groups;
   while ((groups = getPublicTypes.exec(strg)) !== null) {
