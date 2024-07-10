@@ -12,16 +12,12 @@ async function myFileReader(path, component_name, output) {
 }
 
 export function extractPublicTypes(component_name, strg) {
-  const getPublicTypes = /type Public[\w\W]*?{([\w|\W]*?)}(;| &)/gm;
-  const cms = {};
+  const getPublicTypes = /type Public([A-Z][\w]*)*[\w\W]*?{([\w|\W]*?)}(;| &)/gm;
+  const cms = [];
   let groups;
   while ((groups = getPublicTypes.exec(strg)) !== null) {
-    const comments = groups[1];
-    if (cms.hasOwnProperty(component_name)) {
-      cms[component_name].push({ comments });
-      continue;
-    }
-    cms[component_name] = [{ comments }];
+    const string = groups[2];
+    cms.push({ label: groups[1], string });
   }
   return cms;
 }
