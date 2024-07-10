@@ -2,11 +2,25 @@ import { qwikCity } from '@builder.io/qwik-city/vite';
 import { qwikReact } from '@builder.io/qwik-react/vite';
 import { qwikVite } from '@builder.io/qwik/optimizer';
 import { qwikNxVite } from 'qwik-nx/plugins';
-import { defineConfig } from 'vite';
+import { ViteDevServer, defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { isDev } from '@builder.io/qwik/build';
 import { recmaProvideComponents } from './recma-provide-components';
+import { resolve } from 'path';
+function watchMonorepoChanges() {
+  return {
+    name: 'watch-monorepo-changes',
+    configureServer(server: ViteDevServer) {
+      const watchPath = resolve(__dirname, '../../packages/kit-headless');
 
+      server.watcher.on('change', (file: string) => {
+        if (file.startsWith(watchPath)) {
+          console.log(`File changed: ${file}`);
+        }
+      });
+    },
+  };
+}
 export default defineConfig(async () => {
   const { default: rehypePrettyCode } = await import('rehype-pretty-code');
   const { visit } = await import('unist-util-visit');
@@ -30,6 +44,7 @@ export default defineConfig(async () => {
 
   return {
     plugins: [
+      watchMonorepoChanges(),
       qwikNxVite(),
       qwikCity({
         mdxPlugins: {
