@@ -23,6 +23,5 @@ function getPathAndName(strg) {
   const subTitle = /\/(.*)\.tsx/.exec(strg)[1];
   if (subTitle.includes('-')) {
   }
-  console.log(title, subTitle, strg);
 }
 objectifier('..');
