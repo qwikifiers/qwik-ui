@@ -218,7 +218,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
   );
 });
 
-const DarkModeToggle = component$<PropsOf<'button'>>(({ ...props }) => {
+const DarkModeToggle = component$<PropsOf<typeof Button>>(({ ...props }) => {
   const { theme, setTheme } = useTheme();
   const switchLightDark = $((input: string | string[]): string | string[] | undefined => {
     const switchWord = (word: string): string =>
@@ -234,7 +234,6 @@ const DarkModeToggle = component$<PropsOf<'button'>>(({ ...props }) => {
   return (
     <Button
       {...props}
-      type="button"
       aria-label="Toggle dark mode"
       size="icon"
       look="ghost"
