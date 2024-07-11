@@ -56,7 +56,7 @@ npm install -D @qwik-ui/headless
 | [Separator](https://qwikui.com/docs/headless/separator)   |         |               | ✅   |        |
 | [Tabs](https://qwikui.com/docs/headless/tabs)             |         |               | ✅   |        |
 | [Toggle](https://qwikui.com/docs/headless/toggle)         |   ✅    |               |      |        |
-| [Tooltip](https://qwikui.com/docs/headless/tooltip)       |         |      ✅       |      |        |
+| [Tooltip](https://qwikui.com/docs/headless/tooltip)       |         |               | ✅   |        |
 
 ## Contributing
 

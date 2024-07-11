@@ -48,6 +48,6 @@ export const statusByComponent: ComponentKitsStatuses = {
     Select: ComponentStatus.Beta,
     Separator: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
-    Tooltip: ComponentStatus.Draft,
+    Tooltip: ComponentStatus.Beta,
   },
 };
