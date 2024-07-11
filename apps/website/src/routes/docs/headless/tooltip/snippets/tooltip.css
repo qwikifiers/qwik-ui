@@ -21,3 +21,50 @@
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
+
+.tooltip-animation {
+  transform: scale(0);
+}
+
+.tooltip-animation[data-state='open'] {
+  animation: tooltip-grow 0.5s ease-in-out forwards;
+}
+
+.tooltip-animation[data-state='closing'] {
+  animation: tooltip-shrink 0.4s ease-in-out forwards;
+}
+
+@keyframes tooltip-shrink {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+@keyframes tooltip-grow {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.tooltip-transition {
+  opacity: 0;
+  transition:
+    opacity 0.5s,
+    display 0.5s,
+    overlay 0.5s;
+  transition-behavior: allow-discrete;
+}
+
+.tooltip-transition[data-state='open'] {
+  opacity: 1;
+}
+
+.tooltip-transition[data-state='closing'] {
+  opacity: 0;
+}
