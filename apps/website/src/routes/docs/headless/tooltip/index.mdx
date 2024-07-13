@@ -109,50 +109,20 @@ Tooltips are useful for displaying contextual information or additional details 
 ### Styling open tooltips
 
 ```tsx
-.tooltip-panel[data-state="open"] {
+.tooltip-panel[data-open] {
   background: lightblue;
 }
 ```
 
-Use the data-state attribute on the `<Tooltip.Panel>` component to specifically style the tooltip when it's open.
+Use the `data-open` and `data-closed` attributes on the `<Tooltip.Panel>` component to specifically style the tooltip when it's open.
 
 ### Cross-browser Animations
 
 Entry and exit animations have often been a frustrating experience in web development, especially trying to animate between `display: none`, a discrete property.
 
-Luckily, the Qwik UI team has done an excellent job of managing animations on polyfill browsers for you using the `data-state` attributes.
+Luckily, the Qwik UI team has done an excellent job of managing animations on polyfill browsers for you using the `data-*` attributes.
 
-```css
-.tooltip-animation {
-  transform: scale(0);
-}
-
-.tooltip-animation[data-state='open'] {
-  animation: tooltip-grow 0.5s ease-in-out forwards;
-}
-
-.tooltip-animation[data-state='closing'] {
-  animation: tooltip-shrink 0.4s ease-in-out forwards;
-}
-
-@keyframes tooltip-shrink {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0);
-  }
-}
-
-@keyframes tooltip-grow {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-```
+<CodeSnippet name="animation.css" />
 
 ## Tooltip Behavior
 
@@ -206,9 +176,9 @@ If Tailwind is the framework of choice, then styles can be added using the [arbi
 
 To use an animation, add the following CSS classes to the component.
 
-- The `data-state="open"` attribute determines the animation that happens when it is first opened.
+- The `data-open` attribute determines the animation that happens when it is first opened.
 
-- The `data-state="closing"` class determines what class is added when the tooltip is **closed**.
+- The `data-closed` class determines what class is added when the tooltip is **closed**.
 
 Here's the CSS imported from the example:
 
@@ -216,7 +186,7 @@ Here's the CSS imported from the example:
 
 ### Transition declarations
 
-Transitions use the same classes for entry and exit animations. Those being `data-state="opening"` and `data-state="closing"`. They are explained more in the `Caveats` section.
+Transitions use the same classes for entry and exit animations. Those being `data-open` and `data-closed`. They are explained more in the `Caveats` section.
 
 <Showcase name="transition" />
 
@@ -224,24 +194,7 @@ Transitions use the same classes for entry and exit animations. Those being `dat
 
 CSS from the example:
 
-```css
-.tooltip-transition {
-  opacity: 0;
-  transition:
-    opacity 0.5s,
-    display 0.5s,
-    overlay 0.5s;
-  transition-behavior: allow-discrete;
-}
-
-.tooltip-transition[data-state='open'] {
-  opacity: 1;
-}
-
-.tooltip-transition[data-state='closing'] {
-  opacity: 0;
-}
-```
+<CodeSnippet name="transition.css" />
 
 ## Additional References
 
@@ -279,23 +232,23 @@ To read more about tooltips you can check it out on:
       description: 'The space between the trigger element and the tooltip.',
     },
     {
-      name: 'data-state="closing"',
+      name: 'data-closing"',
       type: 'selector',
       description: 'Style the element when the tooltip is closing. This occurs when the popover has a delay set.',
     },
     {
-      name: 'data-state="closed"',
+      name: 'data-closed',
       type: 'selector',
       description: 'Style the element when the tooltip is closed.',
     },
 
     {
-      name: 'data-state="opening"',
+      name: 'data-opening',
       type: 'selector',
       description: 'Style the element when the tooltip is in the process of opening. This occurs when the popover has a delay set.',
     },
     {
-      name: 'data-state="open"',
+      name: 'data-open',
       type: 'selector',
       description: 'Style the element when the tooltip is open.',
     },

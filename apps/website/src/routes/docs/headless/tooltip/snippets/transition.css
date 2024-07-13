@@ -7,10 +7,10 @@
   transition-behavior: allow-discrete;
 }
 
-.tooltip-transition[data-state='opening'] {
+.tooltip-transition[data-open] {
   opacity: 1;
 }
 
-.tooltip-transition[data-state='closing'] {
+.tooltip-transition[data-closed] {
   opacity: 0;
 }
