@@ -5,7 +5,7 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "private": false,
+  "private": true,
   "type": "module",
   "scripts": {
     "build.changelog-formatter": "tsc .changeset/changelog-github-custom.ts && mv .changeset/changelog-github-custom.js .changeset/changelog-github-custom.cjs",
@@ -26,6 +26,7 @@
     "preview": "nx preview website",
     "release.prepare": "nx run-many --target=build -p packages/*",
     "release.setroot": "mv pnpm-workspace.yaml dist/pnpm-workspace.yaml && cp pnpm-workspace-for-release.yaml pnpm-workspace.yaml",
+    "release:e2e": "pnpm release.prepare && pnpm release.setroot && pnpm --filter=qwik-ui exec pnpm version patch && pnpm --filter=qwik-ui publish --tag e2e --no-git-checks && pnpm release.resetroot",
     "release": "pnpm release.prepare && pnpm release.setroot && pnpm release.publish && pnpm release.resetroot",
     "release.publish": "changeset publish",
     "release.resetroot": "cp dist/pnpm-workspace.yaml pnpm-workspace.yaml",
@@ -36,7 +37,8 @@
     "test.pw.headless-chrome-108": "nx e2e-chrome-108 headless",
     "test.pw.headless.ci": "nx e2e headless",
     "test.headless.ci": "nx component-test-ci headless",
-    "test.utils": "nx test utils"
+    "test.utils": "nx test utils",
+    "cli.build": "nx run cli:build"
   },
   "packageManager": "pnpm@9.5.0",
   "devDependencies": {
