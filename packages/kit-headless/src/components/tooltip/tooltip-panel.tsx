@@ -11,12 +11,7 @@ export const HTooltipPanel = component$((props: HTooltipPanelProps) => {
   const context = useContext(TooltipContextId);
 
   return (
-    <HPopoverPanel
-      {...props}
-      role="tooltip"
-      id={context.localId}
-      data-state={context.state.value}
-    >
+    <HPopoverPanel {...props} role="tooltip" id={context.localId}>
       <Slot />
     </HPopoverPanel>
   );

@@ -1,6 +1,8 @@
 import { component$ } from '@builder.io/qwik';
 import { Tooltip } from '@qwik-ui/headless';
 
+import '../snippets/animation.css';
+
 export default component$(() => {
   return (
     <Tooltip.Root gutter={4} flip>

@@ -81,7 +81,7 @@ export const HTooltipRoot = component$((props: TooltipProps) => {
   return (
     <HPopoverRoot
       manual
-      hover={true}
+      hover
       bind:anchor={triggerRef}
       floating={placement}
       id={localId}
