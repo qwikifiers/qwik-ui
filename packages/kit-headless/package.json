@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/headless",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Qwik UI headless components library",
   "publishConfig": {
     "access": "public"
@@ -16,7 +16,7 @@
   "types": "./index.d.ts",
   "type": "module",
   "scripts": {
-    "setup.chrome.113": "npx tsx ./scripts/prepare-chrome-113.ts"
+    "setup.chrome.108": "npx tsx ./scripts/prepare-chrome-browser.ts"
   },
   "exports": {
     ".": {
@@ -30,9 +30,13 @@
   },
   "private": false,
   "peerDependencies": {
-    "@builder.io/qwik": "^1.5.4"
+    "@builder.io/qwik": "^1.7.1"
   },
-  "devDependencies": {
-    "tsx": "4.7.2"
+  "dependencies": {
+    "@floating-ui/core": "^1.6.2",
+    "@floating-ui/dom": "^1.6.5",
+    "@oddbird/popover-polyfill": "0.4.3",
+    "focus-trap": "7.5.4",
+    "body-scroll-lock-upgrade": "^1.1.0"
   }
 }

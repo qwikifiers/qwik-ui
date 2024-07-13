@@ -1,19 +1,19 @@
-import { HPopoverPanelImpl } from './popover-panel-impl';
-
-import { component$, useTask$, Slot, PropsOf, useContext } from '@builder.io/qwik';
 import {
+  Placement,
   ReferenceElement,
+  arrow as _arrow,
+  flip as _flip,
+  hide as _hide,
+  offset as _offset,
+  shift as _shift,
   autoUpdate,
   computePosition,
-  offset as _offset,
-  flip as _flip,
-  shift as _shift,
-  hide as _hide,
-  arrow as _arrow,
-  Placement,
 } from '@floating-ui/dom';
-import { popoverContextId } from './popover-context';
+import { PropsOf, Slot, component$, useContext, useTask$ } from '@builder.io/qwik';
+
+import { HPopoverPanelImpl } from './popover-panel-impl';
 import { isServer } from '@builder.io/qwik/build';
+import { popoverContextId } from './popover-context';
 
 export const FloatingPopover = component$((props: PropsOf<'div'>) => {
   const context = useContext(popoverContextId);
@@ -88,7 +88,7 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
   });
 
   return (
-    <HPopoverPanelImpl ref={context.panelRef} hidden={true} {...props}>
+    <HPopoverPanelImpl hidden={true} {...props}>
       <Slot />
     </HPopoverPanelImpl>
   );

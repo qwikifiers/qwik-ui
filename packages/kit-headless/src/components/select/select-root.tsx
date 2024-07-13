@@ -12,6 +12,7 @@ import {
 } from '@builder.io/qwik';
 import SelectContextId, { type SelectContext } from './select-context';
 import { useSelect } from './use-select';
+import { useCombinedRef } from '../../hooks/combined-refs';
 
 export type TItemsMap = Map<
   number,
@@ -105,6 +106,8 @@ export type SelectProps<M extends boolean = boolean> = Omit<
    * If `true`, allows multiple selections.
    */
   multiple?: M;
+
+  invalid?: boolean;
 } & TMultiValue &
   TStringOrArray;
 
@@ -123,11 +126,14 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       name,
       required,
       disabled,
+      invalid,
       ...rest
     } = props;
 
+    invalid;
+
     // refs
-    const rootRef = useSignal<HTMLDivElement>();
+    const rootRef = useCombinedRef(props.ref);
     const triggerRef = useSignal<HTMLButtonElement>();
     const popoverRef = useSignal<HTMLElement>();
     const listboxRef = useSignal<HTMLUListElement>();
@@ -137,9 +143,6 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     // ids
     const localId = useId();
-    const listboxId = `${localId}-listbox`;
-    const labelId = `${localId}-label`;
-    const valueId = `${localId}-value`;
 
     // source of truth
     const itemsMapSig = useComputed$(() => {
@@ -154,13 +157,28 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
     const isListboxOpenSig = useSignal<boolean>(false);
     const scrollOptions = givenScrollOptions ?? {
-      behavior: 'instant',
-      block: 'nearest',
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest',
     };
 
     const currDisplayValueSig = useSignal<string | string[]>();
 
     const initialLoadSig = useSignal<boolean>(true);
+    const highlightedItemRef = useSignal<HTMLLIElement>();
+    const isDisabledSig = useSignal<boolean>(disabled ?? false);
+    const isInvalidSig = useSignal<boolean>(props.invalid ?? false);
+
+    useTask$(({ track }) => {
+      /**
+       * We want the component to be invalid based on the presence of the     Select.ErrorMessage component. If passed through context as just a prop that won't work.
+       *
+       * my guess here, is props.invalid is a store under the hood, so it can track changes to the property, but when destructured, it's just a
+       *
+       * So we update a signal here so that the context can track it.
+       */
+      isInvalidSig.value = track(() => props.invalid ?? false);
+    });
 
     const context: SelectContext = {
       itemsMapSig,
@@ -170,6 +188,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       listboxRef,
       labelRef,
       groupRef,
+      highlightedItemRef,
       localId,
       highlightedIndexSig,
       selectedIndexSetSig,
@@ -179,12 +198,13 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       multiple,
       name,
       required,
-      disabled,
+      isDisabledSig,
+      isInvalidSig,
     };
 
     useContextProvider(SelectContextId, context);
 
-    const { getActiveDescendant$, selectionManager$ } = useSelect();
+    const { selectionManager$ } = useSelect();
 
     useTask$(async function reactiveUserValue({ track }) {
       const bindValueSig = props['bind:value'];
@@ -218,14 +238,6 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
 
       if (!initialLoadSig.value) {
         onOpenChange$?.(isListboxOpenSig.value);
-      }
-    });
-
-    const activeDescendantSig = useComputed$(() => {
-      if (isListboxOpenSig.value) {
-        return getActiveDescendant$(highlightedIndexSig.value ?? -1);
-      } else {
-        return '';
       }
     });
 
@@ -279,22 +291,19 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     });
 
     useTask$(({ track }) => {
-      context.disabled = track(() => disabled);
+      isDisabledSig.value = track(() => disabled ?? false);
     });
 
     return (
       <div
-        role="combobox"
+        role="group"
         ref={rootRef}
         data-open={context.isListboxOpenSig.value ? '' : undefined}
         data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-        data-disabled={context.disabled ? '' : undefined}
-        aria-controls={listboxId}
-        aria-expanded={context.isListboxOpenSig.value}
-        aria-haspopup="listbox"
-        aria-activedescendant={activeDescendantSig.value}
-        aria-labelledby={_label ? labelId : valueId}
-        aria-multiselectable={context.multiple ? 'true' : undefined}
+        data-disabled={isDisabledSig.value ? '' : undefined}
+        data-invalid={context.isInvalidSig?.value ? '' : undefined}
+        aria-invalid={context.isInvalidSig?.value}
+        data-qui-select-root
         {...rest}
       >
         <Slot />

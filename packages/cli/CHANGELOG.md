@@ -1,5 +1,12 @@
 # qwik-ui
 
+## 0.1.1
+
+### Patch Changes
+
+- 🐞🩹 now installing `tailwindcss-animate`, `class-variance-authority` (by [@shairez](https://github.com/shairez) in [#872](https://github.com/qwikifiers/qwik-ui/pull/872))
+  and `@qwikest/icons` during the cli init
+
 ## 0.1.0
 
 ### Minor Changes

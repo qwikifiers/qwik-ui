@@ -21,7 +21,7 @@ qwik-ui add skeleton
 ```
 
 ```tsx
-import { PropsOf, component$ } from '@builder.io/qwik';
+import { type PropsOf, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 
 export const Skeleton = component$<PropsOf<'div'>>(({ ...props }) => {
@@ -38,7 +38,7 @@ import { Skeleton } from '~/components/ui';
 ```
 
 ```tsx
-<Skeleton className="h-6 w-24 rounded-full" />
+<Skeleton class="h-6 w-24 rounded-full" />
 ```
 
 ## Examples

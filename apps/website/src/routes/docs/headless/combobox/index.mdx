@@ -3,51 +3,41 @@ title: Qwik UI | Combobox
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
-import { FeatureList } from '~/components/feature-list/feature-list';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
 # Combobox
 
-A customizable text field with a listbox, enabling users to constrain a list of choices based on their search criteria.
+Users can either type a value or pick one from a dropdown list.
 
 <Showcase name="hero" />
-
-<Note status="warning">
-  The Combobox component is about to undergo a **major refactor**. The API and behavior will
-  change drastically in the coming weeks.
-
-  <div>You can expect it to match the conventions, developer
-  experience, and performance of the Select component.</div>
-</Note>
-
-Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/), along with some additional API's that enhance the flexibility, types, and performance.
-
-<div class="mb-6 flex flex-col gap-2">
-[View Source Code ↗️](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/combobox)
-
-[Report an issue 🚨](https://github.com/qwikifiers/qwik-ui/issues)
-
-[Edit This Page 🗒️](<https://github.com/qwikifiers/qwik-ui/edit/main/apps/website/src/routes/docs/headless/(components)/combobox/index.mdx>)
-
-</div>
 
 ## ✨ Features
 
 <FeatureList
   features={[
-    'Full WAI-Aria compliance',
-    'Full keyboard navigation',
-    'Custom Autocomplete behavior',
-    'Custom filter functionality',
-    'Controlled or uncontrolled',
-    'Supports disabled options',
-    'Custom signal binds',
-    'Animatable, dynamic, and resumable',
+    'WAI ARIA Combobox design pattern',
+    'Single and multiple selection',
+    'Reactive and initial value changes',
+    'Disabled items',
+    'Tab key focus management',
+    'Grouped items',
+    'Looping',
+    'Custom scroll behavior',
+    'Popover UI above all',
+    'Custom positioning (Popover)',
+    'Typeahead item selection and focus',
+    'Arrow key navigation and focus management',
+    'Open/Close popover by typing, focus, or manually',
+    'Custom filter function',
+    'Closes on no matching items',
+  ]}
+  roadmap={[
+    'Browser autofill with hidden select',
+    'Form validation support',
+    'Custom placeholder',
   ]}
 />
-
-<br />
 
 ## Building blocks
 
@@ -59,463 +49,465 @@ Qwik UI's Combobox implementation follows the [WAI-Aria Combobox specifications]
   propDescriptors={[
     {
       name: 'Combobox.Root',
-      description: 'The root container for the Combobox.',
+      description: 'Container for the Combobox.',
     },
     {
       name: 'Combobox.Label',
-      description: 'A label element to connect to the Combobox.',
+      description: 'Accessible label for the Combobox.',
     },
     {
       name: 'Combobox.Control',
-      description: `A container for the combobox trigger, and input.`,
-    },
-    {
-      name: 'Combobox.Input',
-      description: `An input element used for filtering, and controlling the combobox state.`,
+      description: 'Central element around which other elements are positioned.',
     },
     {
       name: 'Combobox.Trigger',
-      description: `A button that toggles the corresponding listbox when clicked.`,
+      description: 'Opens and closes the Combobox.',
+    },
+    {
+      name: 'Combobox.Input',
+      description: 'Filters items and shows the selected value.',
     },
     {
       name: 'Combobox.Popover',
-      description: `A Popover component that teleports the children outside its parent when the listbox state is open.`,
+      description:
+        'Container for list items, positioned above other content. Also the popover.',
     },
     {
-      name: 'Combobox.Listbox',
-      description: `An unordered list that contains multiple options that display when opened.`,
+      name: 'Combobox.Item',
+      description: 'item in the popover.',
     },
     {
-      name: 'Combobox.Option',
-      description: `A list item that is shown based on the listbox state and filter API.`,
+      name: 'Combobox.ItemLabel',
+      description: 'Label for an item.',
+    },
+    {
+      name: 'Combobox.ItemIndicator',
+      description: 'Indicates selection.',
+    },
+    {
+      name: 'Combobox.Group',
+      description: 'Groups related items.',
+    },
+    {
+      name: 'Combobox.GroupLabel',
+      description: 'Label for a group of items.',
+    },
+    {
+      name: 'Combobox.Description',
+      description: 'Displays the accessible description of the combobox.',
     },
   ]}
 />
 
+## Why use a headless Combobox?
+
+A native combobox does not exist. The Open UI group has created a [proposal](https://open-ui.org/components/combobox.explainer/) for a new HTML element called `combobox`.
+
 ## Passing data
 
-Qwik UI's Combobox supports **both** string and option data. Whether that's an array of strings, or an array of objects. To pass in data, add the `options` prop on the Combobox Root.
+To add data, use the `<Combobox.Item>` component inside of the popover.
 
-### String example
+### Basic example
 
 <Showcase name="string" />
 
-Under the hood, the data passed in populates the listbox with options. To see options visually, add the `renderOption$` prop on the Combobox Listbox. This prop is a [QRL](https://qwik.builder.io/docs/advanced/qrl/#qrl), inside is a callback where the `ComboboxOption` component needs to be passed in.
+By default, the content inside of the `<Combobox.ItemLabel />` component is the item's value.
+
+### Mapping over data
+
+<Showcase name="hero" />
+
+You control how the data is rendered. Map over the data or render the items as you like.
 
 ### Object example
 
 <Showcase name="object" />
 
-The callback takes **two** parameters:
+> If you need to display a different value to the user, use the `value` prop on `<Combobox.Item />`. This will be explained in the next section.
 
-- An object that holds the resolved option data.
-- The option index.
+### Passing a distinct value
 
-The resolved object also holds:
+<Showcase name="item-value" />
 
-- The key.
-- Option Label.
-- Option Value.
-- Any disabled options.
+A distinct value is when one thing is displayed to the user, but another value is passed to the item.
 
-Import the **ResolvedOption** type from Qwik UI and pass in the data according to the code block below.
+By adding the `value` prop to the `<Combobox.Item />` component, a distinct value is created.
 
-<CodeSnippet name="resolved-option" />
-## Adding a filter
+> A common use case is to select a user's unique account id
 
-Out of the box, the Combobox comes with a default filter that uses the **string.includes** method to filter options. To add a custom filter, you can use the `filter$` QRL.
+### Handling selection changes
 
-<Showcase name="custom-filter" />
+<Showcase name="change" />
 
-In this example, the filter function retrieves the input value and options object. It then filters the options using the JavaScript `string.startsWith` method as part of our filter logic. However, you are not limited to this method. You can use any filtering method of your choice to customize the behavior to suit your needs.
+Use the `onChange$` prop to listen for changes in the selected value. It provides the new selected value as an argument.
 
-### Sorting
+The example above increments a count when a new item is selected.
 
-In our previous example, you may have noticed that the country data wasn't sorted alphabetically. To sort options, add an additional sort method after the filter.
+## Component state
 
-<Showcase name="sort-filter" />
+To add initial state, use the `value` prop on the `<Combobox.Root />` component.
 
-## Disabled Behavior
+### Uncontrolled / Initial value
 
-There are two ways to indicate that an option is disabled:
+<Showcase name="initial" />
 
-- Using the default **disabled** key.
-- Passing a unique key name using the **optionDisabledKey** prop.
+The example above sets "Jessie" as the initial value, so it is selected and focused.
+
+### Controlled / Reactive value
+
+To add reactive state, use the `bind:value` prop on the `<Combobox.Root />` component.
+
+<Showcase name="reactive" />
+
+> Note that the initial value of the signal will affect the initial value of the checkbox.
+
+### Programmatic changes
+
+Optionally, the selected value can be programmatically updated by the signal.
+
+<Showcase name="programmatic" />
+
+In the example above, clicking the "Change to Abby" button changes the selected value.
+
+### Disabled items
 
 <Showcase name="disabled" />
 
-The **optionDisabledKey** prop does not need to be passed when there is a key already named disabled, OR you do not have any disabled options.
+Add the `disabled` prop to `<Combobox.Item />` to disable items.
 
-## Custom Key Names
+Disabled items cannot be selected or focused and are skipped during arrow key navigation.
 
-As we saw previously with the **optionDisabledKey** prop, custom key names can also be passed in for values and labels.
+### Dynamically adding items
 
-<Showcase name="custom-keys" />
+A common use case is adding items dynamically, like an infinite scrolling list of users.
 
-In some cases, your data object keys may not match the default keys that the Combobox component expects for option values and labels. By default, the Combobox component looks for keys named **value** for option values and **label** for option labels.
+<Showcase name="add-items" />
 
-If your data object keys are different, you can specify custom key names using the `optionValueKey` and `optionLabelKey` props.
+Clicking the `Add Users` button creates new users to the list. We could also fetch more data from the server or database.
 
-<CodeSnippet name="custom-keys" />
+### Item indicators
 
-Within our example, the value key is called **pokedex** and the label key is called **pokemon**. This tells the Combobox component to use the "pokedex" key for option values and the "pokemon" key for option labels.
+<Showcase name="indicator" />
 
-> these props only need to be used if your data object keys **do not match** the default "value" and "label" keys. If your data object keys match these defaults, you do not need to pass in any custom keys.
+Add `<Combobox.ItemIndicator />` inside `<Combobox.Item />` to indicate the selected item.
 
-## Configuring the Input
+### Multiple selections
 
-### Disabling Blur
+To allow multiple selections, set the `multiple` prop to `true`.
 
-The Qwik UI Combobox uses the `onBlur$ event` on the input to close the listbox when interacting with other elements.
+<Showcase name="multiple" />
 
-<Showcase name="disable-blur" />
+Use the `bind:displayValue` signal to configure multiple display values.
 
-This can get tedious if certain custom behavior needs to be added, or the listbox needs to be inspected in the dev tools.
+> Qwik UI updates the `bind:displayValue` signal with the latest display values.
 
-To disable this behavior, set `disableOnBlur={true}` on the Input.
+You can combine `bind:value` and `bind:displayValue` to create a custom widget that displays selected values as a list of pills.
 
-## Customizing State Signals
+#### Remove items on backspace
 
-The Combobox component allows you to customize its state signals. This can be useful if you want to control or observe these states externally.
+To remove items on backspace, add the `removeOnBackspace` prop to the `<Combobox.Root />` component.
 
-In reality it is a signal prop, we prefer using this syntax, because we believe it is familiar to Qwik developers with the [bind syntax](https://qwik.builder.io/docs/components/rendering/#bind-attribute).
+<Showcase name="multiple" />
 
-<APITable
-  propDescriptors={[
-    {
-      name: 'bind:inputValue',
-      type: 'Signal',
-      description: 'Controls the current value of the input.',
-    },
-    {
-      name: 'bind:selectedIndex',
-      type: 'Signal',
-      description: 'Controls the selected option index.',
-    },
-    {
-      name: 'bind:isListboxOpen',
-      type: 'Signal',
-      description: 'Controls the open state of the listbox.',
-    },
-    {
-      name: 'bind:isInputFocused',
-      type: 'Signal',
-      description: 'Controls the focus state of the input.',
-    },
-    {
-      name: 'bind:highlightedIndex',
-      type: 'Signal',
-      description: 'Controls which option is highlighted.',
-    },
-  ]}
-/>
+### Placeholder
 
-Here is an example of how to customize these signals:
+We can provide a custom placeholder to the `<Combobox.Root />` component by adding the `placeholder` prop.
 
-<Showcase name="signal-binds" />
+<Showcase name="placeholder" />
 
-When clicking on the input, it will now toggle the listbox. Signal binds are a useful toolbelt when customizing state is needed.
+### CSR
 
-## Default Label
+Like every Qwik UI component, the Combobox component can be rendered server-side or client-side.
 
-To set a default Label, pass the `defaultLabel` prop to the Combobox Root, along with the string label. This label connects to its proper option value, and highlights it accordingly.
+<Showcase name="csr" />
 
-<Showcase name="default-label" />
+## Menu behavior
 
-### Setting a default highlighted index
+### Custom Filter
 
-With the trick we learned about signal binds earlier, we can highlight an index by default, or customize the highlighted index based on user interaction.
+By default, the Combobox filters items based on user input. To disable this, set the `filter` prop to `false`.
 
-<Showcase name="highlighted-index" />
+<Showcase name="filter" />
 
-## Search Bar
+You can use any filtering library. In the example above, we use `match-sorter`.
 
-A common use case for an Autocomplete is a search bar. Here's an example of that using the Combobox.
+> The `filter` prop is `true` by default, using the `includes` method to filter items.
 
-<Showcase name="search-bar" />
+### Empty UI
 
-This example shows MPA navigation using the Search Bar component. For SPA navigation, use Qwik's [useNavigate](https://qwik.builder.io/docs/api/#usenavigate) hook.
+By default, the popover automatically closes when there are no items to display.
 
-## **Keyboard interactions**
+To show UI when there are no items in the popover, use the `Combobox.Empty` component.
 
-<KeyboardInteractionTable keyDescriptors={
-  [
+<Showcase name="empty" />
+
+### Handling popover open/close
+
+To handle the popover open/close state, use the `onOpenChange$` prop. It passes a boolean indicating whether the popover is open.
+
+<Showcase name="open-change" />
+
+### Reactive open state
+
+To reactively control the open state, use the `bind:open` prop.
+
+<Showcase name="reactive-open" />
+
+### Handling input changes
+
+Add the `onInput$` prop to the `<Combobox.Root />` component.
+
+<Showcase name="input" />
+
+This function is called when the user types in the input.
+
+### Reactive input value
+
+The input can also be fully controlled by adding the `bind:value` prop to the `<Combobox.Input />` component.
+
+<Showcase name="reactive-input" />
+
+### Looping
+
+To loop through items, use the `loop` prop on `<Combobox.Root />`.
+
+<Showcase name="loop" />
+
+- Pressing the down arrow key moves focus to the first enabled item.
+- Pressing the up arrow key moves focus to the last enabled item.
+
+### Grouped Items
+
+Use `<Combobox.Group />` and `<Combobox.GroupLabel />` to group items and provide an accessible name.
+
+<Showcase name="group" />
+
+### Scrolling
+
+Handle scrolling in the popover since focus remains on the select trigger when open.
+
+<Showcase name="scrollable" />
+
+The native `scrollIntoView` method scrolls items into view when highlighted. To customize scroll behavior, add the `scrollOptions` prop to `<Combobox.Root />`.
+
+> Qwik UI does not provide virtual scrolling. However, a [Qwik community package](https://github.com/literalpie/qwik-virtual-scroll) implements virtual scrolling based on [Tanstack Virtual](https://github.com/TanStack/virtual).
+
+When a value is not selected, the placeholder is displayed.
+
+## Advanced
+
+### Using Refs (experimental)
+
+You can pass a ref to each Combobox component to access the underlying DOM element. This is an experimental feature, and we are still working on it, use at your own risk.
+
+<Showcase name="refs" />
+
+Above is an example that programmatically changes the background color of the trigger when clicked.
+
+### Forms
+
+To use the combobox in a form, a visually hidden native select element is provided inside of `<Combobox.HiddenNativeSelect>`.
+
+<Showcase name="form" />
+
+The `name` prop on the `Combobox.Root` component is used to name the Combobox form field.
+
+### Validation
+
+Form libaries like [Modular Forms](https://modularforms.dev/) can be used to validate the combobox form field.
+
+<Showcase name="validation" />
+
+When the `<Combobox.ErrorMessage>` component is rendered, the component is in an invalid state.
+
+> This allows you to use Qwik UI with any form validation library.
+
+## Example CSS
+
+Every code example uses the following CSS:
+
+<CodeSnippet name="combobox.css" />
+
+Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
+
+## Keyboard Interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
     {
       keyTitle: 'Enter',
-      description: `Selects the highlighted option. The listbox closes and the selected option becomes the input's value.`
+      description: `Selects a highlighted item when open. Toggles the selection of the highlighted item without closing the combobox if an item is already selected.`,
     },
     {
-      keyTitle: 'Down Arrow',
-      description: `Opens the listbox and shifts focus to the first option. If focus is already on an option, it moves to the next one. If no next option exists, focus returns to the first option.`,
+      keyTitle: 'ArrowDown',
+      description: `Opens the combobox or moves focus down.`,
     },
     {
-      keyTitle: 'Up Arrow',
-      description: `If focus is on an option, it moves to the previous option. If no previous option exists, focus moves to the last option.`,
-    },
-    {
-      keyTitle: 'Escape',
-      description: `Closes the listbox.`,
+      keyTitle: 'ArrowUp',
+      description: `Opens the combobox or moves focus up.`,
     },
     {
       keyTitle: 'Home',
-      description: `Moves the cursor to the start of the input value when the input is focused. When any listbox option is focused, focus shifts to the first enabled option.`,
+      description: `When focus is on an item, moves focus to first item.`,
     },
     {
       keyTitle: 'End',
-      description: `Moves the cursor to the end of the input value when the input is focused. When any listbox option is focused, focus shifts to the last enabled option.`,
+      description: `When focus is on an item, moves focus to last item.`,
     },
     {
-      keyTitle: 'Delete',
-      description: `Deletes the selected text in the input.`,
+      keyTitle: 'Esc',
+      description: `Closes the combobox and moves focus to the trigger.`,
     },
+    {
+      keyTitle: 'Tab',
+      description: `Moves focus to the next focusable element.`,
+    },
+  ]}
+/>
 
-]
-}/>
+### Multi Select
+
+When in multi select mode, additional keyboard interactions are available.
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Enter',
+      description: `Toggles the selection of the highlighted item without closing the combobox.`,
+    },
+  ]}
+/>
 
 ## API
 
-The Combobox component API provides a set of properties that allow you to customize the behavior and appearance of the combobox. Here are the notable properties for this component.
+### Data Attributes
 
-### Combobox (Root)
+`Combobox.Root`, `Combobox.Trigger`, and `Combobox.Popover`, all have data attributes that are used to track state.
 
-<APITable
+<AnatomyTable
+  firstColumnLabel="Attribute"
   propDescriptors={[
     {
-      name: 'options',
-      type: 'O[]',
-      description: 'An array of options for the combobox.',
+      name: 'data-open',
+      description: 'If the popover is open (Boolean).',
     },
     {
-      name: 'filter$',
-      type: 'QRL',
-      description: 'A QRL for a custom filter function.',
+      name: 'data-closed',
+      description: 'If the popover is closed (Boolean).',
     },
     {
-      name: 'optionValueKey',
-      type: 'string',
-      description: 'The key for the option value.',
-    },
-    {
-      name: 'optionLabelKey',
-      type: 'string',
-      description: 'The key for the option label.',
-    },
-    {
-      name: 'optionDisabledKey',
-      type: 'string',
-      description: 'The key for the disabled option.',
-    },
-    {
-      name: 'defaultLabel',
-      type: 'string',
-      description: 'The default label for the combobox.',
-    },
-    {
-      name: 'bind:selectedIndex',
-      type: `Signal<number>`,
-      description: 'A signal for the selected option index.',
-    },
-    {
-      name: 'bind:isListboxOpen',
-      type: `Signal<boolean>`,
-      description: 'A signal for the open state of the listbox.',
-    },
-    {
-      name: 'bind:isInputFocused',
-      type: 'Signal<boolean>',
-      description: 'A signal for the focus state of the input.',
-    },
-    {
-      name: 'bind:inputValue',
-      type: 'Signal<string>',
-      description: 'A signal for the current value of the input.',
-    },
-    {
-      name: 'bind:highlightedIndex',
-      type: 'Signal<number>',
-      description: 'A signal for the highlighted option index.',
+      name: 'data-invalid',
+      description: 'If the combobox is invalid (Boolean).',
     },
   ]}
 />
 
-### ComboboxTrigger
+`Combobox.Item` has the following data attributes:
 
-<APITable
+<AnatomyTable
+  firstColumnLabel="Attribute"
   propDescriptors={[
     {
-      name: 'onMouseDown$',
-      type: 'function',
-      description: 'A QRL that toggles the open state of the listbox on mouse down.',
+      name: 'data-selected',
+      description: 'If the item is selected. (Boolean)',
     },
     {
-      name: 'tabIndex',
-      type: 'number',
-      description: 'The tab index of the trigger button. Set to 0 by default.',
+      name: 'data-highlighted',
+      description: 'If the item is highlighted. (Boolean)',
+    },
+    {
+      name: 'data-disabled',
+      description: 'If item is disabled. (Boolean)',
     },
   ]}
 />
 
-### ComboboxInput
+### Combobox.Root
 
 <APITable
   propDescriptors={[
-    {
-      name: 'disableOnBlur',
-      type: 'boolean',
-      description: 'Disables the onBlur event on the input.',
-    },
-    {
-      name: 'onInput$',
-      type: 'function',
-      description: 'A QRL for handling input events.',
-    },
-    {
-      name: 'onBlur$',
-      type: 'function',
-      description: 'A QRL for handling blur events.',
-    },
-    {
-      name: 'onKeyDown$',
-      type: 'function',
-      description: 'A QRL for handling keydown events.',
-    },
-    {
-      name: 'type',
-      type: 'string',
-      description: 'The type of the input element.',
-    },
     {
       name: 'value',
       type: 'string',
-      description: 'The current value of the input element.',
+      description: 'Uncontrolled combobox value.',
+    },
+    {
+      name: 'bind:value',
+      type: 'signal',
+      description: 'Controlled selected value, manages the selected item.',
+      info: 'string',
+    },
+    {
+      name: 'filter',
+      type: 'boolean',
+      description: 'Disables the default filter function when set to false.',
+    },
+    {
+      name: 'onChange$',
+      type: 'QRL',
+      description: 'Function called when the selected value changes.',
+      info: 'QRL<(value: string) => void>',
+    },
+    {
+      name: 'bind:open',
+      type: 'signal',
+      description: 'Controlled open state of the popover.',
+      info: 'boolean',
+    },
+    {
+      name: 'onOpenChange$',
+      type: 'QRL',
+      description: 'Function called when the popover opens or closes.',
+      info: 'QRL<(open: boolean) => void>',
+    },
+    {
+      name: 'loop',
+      type: 'boolean',
+      description:
+        'Determines if focus cycles from the last item back to the first, or vice versa.',
     },
     {
       name: 'placeholder',
       type: 'string',
-      description: 'The placeholder text for the input element.',
+      description: 'Sets a placeholder instead of a selected value.',
     },
-  ]}
-/>
-
-### ComboboxPopover
-
-The Combobox Popover is a wrapper of [Qwik UI's popover component](../../../docs/headless/popover/). You can view the full API table at the bottom of the popover page.
-
-### ComboboxListbox
-
-<APITable
-  propDescriptors={[
     {
-      name: 'optionRenderer$',
+      name: 'multiple',
+      type: 'boolean',
+      description: 'Enables multiple selections.',
+    },
+    {
+      name: 'bind:displayValue',
+      type: 'signal',
+      description: 'Controlled display value, manages the display items.',
+      info: 'string',
+    },
+    {
+      name: 'onInput$',
       type: 'QRL',
-      description: 'A QRL for rendering the options.',
-    },
-    {
-      name: 'placement',
-      type: 'union',
-      description: 'The placement of the listbox.',
-      info: `"top" | "bottom" | "left" | "right"`,
-    },
-    {
-      name: 'gutter',
-      type: 'number',
-      description: 'The gutter space between the input and the floating element.',
-    },
-    {
-      name: 'flip',
-      type: 'boolean',
-      description: 'Allows the listbox to flip its position based on available space.',
-    },
-    {
-      name: 'size',
-      type: 'boolean',
-      description: 'Controls the size of the listbox.',
-    },
-    {
-      name: 'autoPlacement',
-      type: 'boolean',
-      description: 'Automatically places the listbox based on available space.',
-    },
-    {
-      name: 'hide',
-      type: 'union',
-      description:
-        'Allows hiding the listbox when it appears detached from the reference element.',
-      info: `"escaped" | "referenceHidden"`,
-    },
-    {
-      name: 'ancestorScroll',
-      type: 'boolean',
-      description: 'Controls the scroll behavior of the listbox.',
-    },
-    {
-      name: 'ancestorResize',
-      type: 'boolean',
-      description: 'Controls the resize behavior of the listbox.',
-    },
-    {
-      name: 'elementResize',
-      type: 'boolean',
-      description: 'Controls the resize behavior of the listbox element.',
-    },
-    {
-      name: 'layoutShift',
-      type: 'boolean',
-      description: 'Controls the layout shift of the listbox.',
-    },
-    {
-      name: 'animationFrame',
-      type: 'boolean',
-      description:
-        'Whether to update the position of the listbox on every animation frame.',
+      description: 'Function called when the user types in the input.',
+      info: 'QRL<(inputValue: string) => void>',
     },
   ]}
 />
 
-### ComboboxOption
+### Combobox.Popover
+
+`Combobox.Popover` is a wrapper of the [Popover](../../../docs/headless/popover/) component, and has the same APIs.
+
+### Combobox.Item:
 
 <APITable
   propDescriptors={[
     {
-      name: 'index',
-      type: 'number',
-      description: 'The index of the option.',
+      name: 'value',
+      type: 'string',
+      description: 'Give the combobox a value other than what is displayed in the item.',
     },
     {
-      name: 'resolved',
-      type: 'ResolvedOption',
-      description: 'The resolved option data.',
-      info: `
-        option: O;
-        key: number;
-        value: O extends Record<string, unknown> ? O[ValueKey] : O;
-        label: string;
-        disabled: boolean;
-        lcLabel?: string;
-      `,
-    },
-    {
-      name: 'onMouseEnter$',
-      type: 'function',
-      description: 'A QRL for handling mouse enter events.',
-    },
-    {
-      name: 'onClick$',
-      type: 'function',
-      description: 'A QRL for handling click events.',
-    },
-  ]}
-/>
-
-### ComboboxIcon
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'svg',
-      type: 'HTMLOrSVGElement',
-      description:
-        'A custom SVG element wrapped around a span with aria-hidden to be used as the icon. If an SVG is not passed inside, it will use the library default caret icon.',
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, the item is disabled.',
     },
   ]}
 />

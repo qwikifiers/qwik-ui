@@ -1,11 +1,11 @@
-import { Component, PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { Component, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
 import { Tabs } from '@qwik-ui/headless';
 import { Highlight } from '../highlight/highlight';
 import { metaGlobComponents, rawComponents } from './component-imports';
 
-type ShowcaseProps = PropsOf<'div'> & {
+type ShowcaseProps = {
   name?: string;
   vertical?: boolean;
 };

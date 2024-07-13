@@ -34,18 +34,20 @@ export default component$(() => {
               <Select.Trigger class="select-trigger">
                 <Select.DisplayValue placeholder="Select an option" />
               </Select.Trigger>
-              {field.error && <div style={{ color: '#D2122E' }}>{field.error}</div>}
+              {field.error && (
+                <Select.ErrorMessage style={{ color: '#D2122E' }}>
+                  {field.error}
+                </Select.ErrorMessage>
+              )}
               <Select.Popover class="select-popover">
-                <Select.Listbox class="select-listbox">
-                  {users.map((user) => (
-                    <Select.Item class="select-item" key={user}>
-                      <Select.ItemLabel>{user}</Select.ItemLabel>
-                      <Select.ItemIndicator>
-                        <LuCheck />
-                      </Select.ItemIndicator>
-                    </Select.Item>
-                  ))}
-                </Select.Listbox>
+                {users.map((user) => (
+                  <Select.Item class="select-item" key={user}>
+                    <Select.ItemLabel>{user}</Select.ItemLabel>
+                    <Select.ItemIndicator>
+                      <LuCheck />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                ))}
               </Select.Popover>
             </Select.Root>
           );
