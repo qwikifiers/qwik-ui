@@ -14,11 +14,11 @@ const Root = component$<BreadcrumbProps>(() => {
 const List = component$<PropsOf<'ol'>>((props) => {
   return (
     <ol
+      {...props}
       class={cn(
         ' flex flex-wrap items-center gap-1.5 break-words text-sm sm:gap-2.5',
         props.class,
       )}
-      {...props}
     >
       <Slot />
     </ol>
@@ -27,7 +27,7 @@ const List = component$<PropsOf<'ol'>>((props) => {
 
 const Item = component$<PropsOf<'li'>>((props) => {
   return (
-    <li class={cn('inline-flex items-center gap-1.5', props.class)} {...props}>
+    <li {...props} class={cn('inline-flex items-center gap-1.5', props.class)}>
       <Slot />
     </li>
   );
@@ -37,11 +37,11 @@ const Link = component$<PropsOf<'a'> & { asChild?: boolean }>((props) => {
   const Comp = props.asChild ? Slot : 'a';
   return (
     <Comp
+      {...props}
       class={cn(
         'text-muted-foreground transition-colors hover:text-foreground',
         props.class,
       )}
-      {...props}
     >
       {!props.asChild && <Slot />}
     </Comp>
@@ -62,8 +62,8 @@ const Page = component$<PropsOf<'span'>>((props) => {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      class={cn('font-normal text-foreground', props.class)}
       {...props}
+      class={cn('font-normal text-foreground', props.class)}
     >
       <Slot />
     </span>
