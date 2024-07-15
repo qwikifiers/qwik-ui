@@ -191,8 +191,7 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
               let prevItem: SearchItem | undefined;
               const searchResult: SearchItem[] = algoliaResult.hits.map((hit) => {
                 // Create path by removing origin from URL
-                const path = hit.url.replace(import.meta.env.PUBLIC_WEBSITE_URL, '');
-
+                const path = hit.url.replace('https://qwikui.com', '');
                 // Create search item object
                 const searchItem: SearchItem = {
                   group: `${hit.hierarchy.lvl0}${hit.hierarchy.lvl1 ? `: ${hit.hierarchy.lvl1}` : ''}`,
@@ -205,11 +204,11 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
                         ? 'child'
                         : 'none',
                   type: hit.type,
-                  page: hit._highlightResult.hierarchy.lvl2.value,
+                  page: hit._highlightResult.hierarchy?.lvl2?.value,
                   text:
                     hit.type === 'content'
-                      ? hit._snippetResult!.content.value
-                      : hit._highlightResult.hierarchy[hit.type]!.value,
+                      ? (hit?._snippetResult?.content.value as string)
+                      : (hit?._highlightResult?.hierarchy[hit.type]?.value as string),
                   path,
                 };
 
@@ -478,6 +477,7 @@ type SearchItemProps = SearchItem & {
  */
 const SearchItem = component$<SearchItemProps>(
   ({ type, relation, page, text, path, index, activeIndex, onClick$, recent }) => {
+    debugger;
     // Use element signal
     const element = useSignal<HTMLAnchorElement>();
 
