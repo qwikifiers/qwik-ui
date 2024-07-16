@@ -21,8 +21,8 @@ type DropdownRadioGroupProps = {
   //* If `true`, the group is disabled. */
   disabled?: boolean;
 
-  //* The default value of the group. */
-  defaultValue?: string;
+  //* The initial value of the group. */
+  value?: string;
 
   /**
    * QRL handler that runs when the user selects an item.
@@ -31,9 +31,9 @@ type DropdownRadioGroupProps = {
 } & DropdownItemProps;
 
 export const HDropdownRadioGroup = component$((props: DropdownRadioGroupProps) => {
-  const { disabled = false, defaultValue = '', onChange$, ...rest } = props;
+  const { disabled = false, value = '', onChange$, ...rest } = props;
 
-  const valueSig = useSignal(defaultValue);
+  const valueSig = useSignal(value);
 
   useTask$(function reactiveUserValue({ track }) {
     const bindValueSig = props['bind:value'];

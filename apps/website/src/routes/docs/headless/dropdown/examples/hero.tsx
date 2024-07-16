@@ -1,8 +1,6 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
-
 import { Dropdown } from '@qwik-ui/headless';
 import { LuCheck } from '@qwikest/icons/lucide';
-import styles from '../snippets/dropdown.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
@@ -45,7 +43,7 @@ export default component$(() => {
           );
         })}
         <Dropdown.Separator />
-        <Dropdown.RadioGroup class="dropdown-group" defaultValue="main">
+        <Dropdown.RadioGroup class="dropdown-group" value="main">
           {radioItems.map((item) => {
             return (
               <Dropdown.RadioItem key={item} class="dropdown-item" value={item}>
@@ -61,3 +59,6 @@ export default component$(() => {
     </Dropdown.Root>
   );
 });
+
+// internal
+import styles from '../snippets/dropdown.css?inline';
