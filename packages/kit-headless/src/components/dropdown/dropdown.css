@@ -8,3 +8,11 @@
 [role='menuitemradio'][data-checked] > [data-indicator] {
   display: block;
 }
+
+[role='menu'][data-closed] {
+  display: none;
+}
+
+[role='menu'][data-open] {
+  display: revert;
+}

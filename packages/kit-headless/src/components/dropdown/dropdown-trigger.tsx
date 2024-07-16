@@ -15,7 +15,7 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
   const context = useContext(dropdownContextId);
   const { getNextEnabledItemIndex$ } = useDropdown();
   const triggerId = `${context.localId}-trigger`;
-  const initialKeyDownSig = useSignal(true);
+  const isInitialKeyDownSig = useSignal(true);
 
   const handleClickSync$ = sync$((e: MouseEvent) => {
     e.preventDefault();
@@ -63,7 +63,7 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
         break;
     }
 
-    /** When initially opening the listbox, we want to grab the first enabled option index */
+    /** When initially opening the menu, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
       context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
     }
@@ -74,7 +74,7 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
       context.highlightedItemRef.value?.focus();
     }
 
-    if (!initialKeyDownSig.value) return;
+    if (!isInitialKeyDownSig.value) return;
   });
 
   return (

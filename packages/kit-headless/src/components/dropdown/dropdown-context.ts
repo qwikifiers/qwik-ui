@@ -10,12 +10,12 @@ export type DropdownContext = {
   itemsMapSig: Readonly<Signal<TItemsMap>>;
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;
+  isMouseOverPopupSig: Signal<boolean>;
   localId: string;
 
   // refs
   triggerRef: Signal<HTMLButtonElement | undefined>;
-  popoverRef: Signal<HTMLElement | undefined>;
-  contentRef: Signal<HTMLElement | undefined>;
+  panelRef: Signal<HTMLElement | undefined>;
   highlightedItemRef: Signal<HTMLLIElement | undefined>;
 
   // user configurable

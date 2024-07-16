@@ -60,8 +60,7 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
     // refs
     const rootRef = useSignal<HTMLDivElement>();
     const triggerRef = useSignal<HTMLButtonElement>();
-    const popoverRef = useSignal<HTMLElement>();
-    const contentRef = useSignal<HTMLElement>();
+    const panelRef = useSignal<HTMLElement>();
     const loop = givenLoop ?? false;
 
     // ids
@@ -85,6 +84,7 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
 
     const initialLoadSig = useSignal<boolean>(true);
     const highlightedItemRef = useSignal<HTMLLIElement>();
+    const isMouseOverPopupSig = useSignal<boolean>(false);
 
     const context: DropdownContext = {
       itemsMapSig,
@@ -92,9 +92,9 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
       highlightedIndexSig,
       isOpenSig,
       triggerRef,
-      popoverRef,
-      contentRef,
+      panelRef,
       highlightedItemRef,
+      isMouseOverPopupSig,
       localId,
       scrollOptions,
       loop,
