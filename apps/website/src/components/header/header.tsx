@@ -36,7 +36,7 @@ import { SearchIcon } from '../icons/SearchIcon';
 export interface HeaderProps {
   showVersion?: boolean;
   showBottomBorder?: boolean;
-  searchOpen?: Signal<boolean>;
+  searchOpen: Signal<boolean>;
 }
 
 export default component$(({ showVersion = false, searchOpen }: HeaderProps) => {
@@ -180,7 +180,7 @@ export default component$(({ showVersion = false, searchOpen }: HeaderProps) => 
               type="button"
               aria-label="Toggle navigation"
               onClick$={() => {
-                if (searchOpen) {
+                if (!searchOpen.value) {
                   searchOpen.value = true;
                 }
               }}

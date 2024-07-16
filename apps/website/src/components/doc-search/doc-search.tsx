@@ -170,22 +170,15 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
           const timeout = setTimeout(async () => {
             try {
               const algoliaResult = (await (
-                await fetch(
-                  `https://${
-                    import.meta.env.PUBLIC_ALGOLIA_APP_ID
-                  }-dsn.algolia.net/1/indexes/${
-                    import.meta.env.PUBLIC_ALGOLIA_INDEX_NAME
-                  }/query`,
-                  {
-                    method: 'POST',
-                    headers: {
-                      'X-Algolia-Application-Id': import.meta.env.PUBLIC_ALGOLIA_APP_ID,
-                      'X-Algolia-API-Key': import.meta.env.PUBLIC_ALGOLIA_PUBLIC_API_KEY,
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ query: currentInput }),
+                await fetch(`https://45LJHJ8SXX-dsn.algolia.net/1/indexes/qwikui/query`, {
+                  method: 'POST',
+                  headers: {
+                    'X-Algolia-Application-Id': '45LJHJ8SXX',
+                    'X-Algolia-API-Key': '70092cb30dabe39e20d9afdb5930c6d5',
+                    'Content-Type': 'application/json',
                   },
-                )
+                  body: JSON.stringify({ query: currentInput }),
+                })
               ).json()) as AlgoliaResult;
               // Transform hits of Algolia result to our schema
               let prevItem: SearchItem | undefined;
@@ -204,7 +197,7 @@ export const DocSearch = component$<DocSearchProps>(({ open }) => {
                         ? 'child'
                         : 'none',
                   type: hit.type,
-                  page: hit._highlightResult.hierarchy?.lvl2?.value,
+                  page: hit._highlightResult.hierarchy?.lvl1?.value,
                   text:
                     hit.type === 'content'
                       ? (hit?._snippetResult?.content.value as string)
@@ -477,7 +470,6 @@ type SearchItemProps = SearchItem & {
  */
 const SearchItem = component$<SearchItemProps>(
   ({ type, relation, page, text, path, index, activeIndex, onClick$, recent }) => {
-    debugger;
     // Use element signal
     const element = useSignal<HTMLAnchorElement>();
 
@@ -524,14 +516,7 @@ const SearchItem = component$<SearchItemProps>(
           {type === 'content' && (relation === 'none' || recent) && (
             <div class="mb-2 text-xs md:text-sm" dangerouslySetInnerHTML={page} />
           )}
-          <div
-            class="text-sm md:text-base"
-            dangerouslySetInnerHTML={`${
-              type !== 'lvl2' && type !== 'content' && (relation === 'none' || recent)
-                ? `${page}: `
-                : ''
-            }${text}`}
-          />
+          <div class="text-sm md:text-base" dangerouslySetInnerHTML={`${page || text}`} />
         </div>
         <AngleRightIcon class="h-3 flex-shrink-0 md:h-4" />
       </Link>

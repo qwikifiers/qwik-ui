@@ -11,10 +11,11 @@ import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
 import Header from '~/components/header/header';
+import { DocSearch } from '~/components/doc-search/doc-search';
 
 export default component$(() => {
   const { headings } = useContent();
-  const searchOpen = useSignal(true);
+  const searchOpen = useSignal(false);
   const { menuItemsGroups } = useKitMenuItems();
 
   return (
@@ -44,6 +45,7 @@ export default component$(() => {
         </div>
         <footer></footer>
       </div>
+      <DocSearch open={searchOpen} />
     </>
   );
 });
