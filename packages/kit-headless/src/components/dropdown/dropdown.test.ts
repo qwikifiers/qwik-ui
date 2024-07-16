@@ -5,7 +5,7 @@ import { createTestDriver } from './dropdown.driver';
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/dropdown/${exampleName}`);
 
-  const driver = createTestDriver(page.getByTestId('dropdown'));
+  const driver = createTestDriver(page.locator('[data-qui-dropdown]'));
 
   return {
     driver,

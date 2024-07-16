@@ -18,7 +18,7 @@ export default component$(() => {
   const radioItems = ['main', 'develop'];
 
   return (
-    <Dropdown.Root data-testid="dropdown">
+    <Dropdown.Root>
       <Dropdown.Trigger class="dropdown-trigger">Git Settings</Dropdown.Trigger>
       <Dropdown.Popover>
         <Dropdown.Group class="dropdown-group">

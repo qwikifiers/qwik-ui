@@ -134,8 +134,8 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
 
     return (
       <div
-        role="dropdown"
-        data-dropdown
+        role="group"
+        data-qui-dropdown
         ref={rootRef}
         data-open={context.isOpenSig.value ? true : undefined}
         data-closed={!context.isOpenSig.value ? true : undefined}
