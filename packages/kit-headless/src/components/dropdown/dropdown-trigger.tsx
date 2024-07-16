@@ -17,10 +17,6 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
   const triggerId = `${context.localId}-trigger`;
   const isInitialKeyDownSig = useSignal(true);
 
-  const handleClickSync$ = sync$((e: MouseEvent) => {
-    e.preventDefault();
-  });
-
   // Both the space and enter keys run with handleClick$
   const handleClick$ = $(() => {
     context.isOpenSig.value = !context.isOpenSig.value;
@@ -83,13 +79,14 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
       {...props}
       id={triggerId}
       ref={context.triggerRef}
-      onClick$={[handleClickSync$, handleClick$, props.onClick$]}
+      preventdefault:click
+      preventdefault:blur
+      onClick$={[handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isOpenSig.value ? true : undefined}
       data-closed={!context.isOpenSig.value ? true : undefined}
       aria-expanded={context.isOpenSig.value}
       aria-haspopup="true"
-      preventdefault:blur
     >
       <Slot />
     </button>
