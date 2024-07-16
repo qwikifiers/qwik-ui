@@ -32,7 +32,6 @@
 .dropdown-popover {
   min-width: var(--dropdown-width);
   flex-direction: column;
-  display: flex;
   row-gap: 0.25rem;
   padding: 1rem 1rem 1rem 1.5rem;
   border: 2px dotted hsl(var(--foreground));
