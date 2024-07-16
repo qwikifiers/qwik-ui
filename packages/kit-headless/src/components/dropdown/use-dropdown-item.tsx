@@ -14,7 +14,7 @@ type useDropdownItemProps = { onItemSelect?: () => void } & Pick<
 
 /**
  * Helper functions go inside of hooks.
- * This is because outside of the component$ boundary Qwik core wakes up.
+ * This is because outside of the component$ boundary Qwik core wakes up, or at least this was once a problem.
  */
 export function useDropdownItem(props: useDropdownItemProps) {
   const context = useContext(dropdownContextId);

@@ -70,7 +70,7 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
 
     // source of truth
     const itemsMapSig = useComputed$(() => {
-      return _itemsMap;
+      return props._itemsMap;
     });
 
     const highlightedIndexSig = useSignal<number | null>(null);
