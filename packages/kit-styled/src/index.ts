@@ -19,3 +19,4 @@ export * from './components/skeleton/skeleton';
 export * from './components/tabs/tabs';
 export * from './components/textarea/textarea';
 export * from './components/toggle/toggle';
+export * from './components/dropdown/dropdown';
