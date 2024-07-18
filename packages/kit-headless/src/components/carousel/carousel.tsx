@@ -51,7 +51,7 @@ export const HCarousel = component$(
     useContextProvider(CarouselContextId, context);
 
     return (
-      <section aria-roledescription="carousel" role="group" {...props}>
+      <section data-qui-carousel aria-roledescription="carousel" role="group" {...props}>
         <VisuallyHidden aria-live="polite" aria-atomic="true">
           Slide {context.currentIndexSig.value} of
           {context.numSlidesSig.value}
