@@ -16,6 +16,7 @@ export const HCarouselNext = component$((props: CarouselButtonProps) => {
 
         context.transitionDurationSig.value = 625;
       }}
+      data-qui-carousel-next
     >
       <VisuallyHidden>next slide</VisuallyHidden>
       <Slot />

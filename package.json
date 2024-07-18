@@ -14,7 +14,7 @@
     "build.headless": "nx build headless",
     "change": "changeset",
     "changeset.version": "changeset version && pnpm install --no-frozen-lockfile && git add --all",
-    "dev": "nx serve website",
+    "dev": "nx serve website --host",
     "dev.ct": "nx serve component-tests",
     "format.all": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html,css,scss}\"",
     "format.fix": "pretty-quick --staged",

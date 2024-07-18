@@ -111,6 +111,7 @@ export const HCarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
       data-slide-num={localIndexSig.value}
       style={{ marginRight: `${context.spaceBetweenSlides}px` }}
       ref={slideRef}
+      data-qui-carousel-slide
       {...props}
     >
       <Slot />

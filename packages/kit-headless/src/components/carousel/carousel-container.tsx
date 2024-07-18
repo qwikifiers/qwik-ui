@@ -14,6 +14,7 @@ export const HCarouselContainer = component$((props: CarouselContainerProps) => 
         transitionDuration: `${context.transitionDurationSig.value}ms`,
         transitionDelay: '0ms',
       }}
+      data-qui-carousel-container
       {...props}
     >
       <Slot />

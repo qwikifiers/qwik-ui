@@ -14,6 +14,7 @@ export const HCarouselPrev = component$((props: CarouselButtonProps) => {
         context.currentIndexSig.value--;
         context.transitionDurationSig.value = 625;
       }}
+      data-qui-carousel-prev
     >
       <VisuallyHidden>previous slide</VisuallyHidden>
       <Slot />
