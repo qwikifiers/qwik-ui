@@ -1,7 +1,7 @@
 import { Component } from '@builder.io/qwik';
 import { type AccordionRootProps, HAccordionRootImpl } from './accordion-root';
 import { Accordion } from '@qwik-ui/headless';
-import { findComponent, processChildren } from '../../utils/inline';
+import { findComponent, processChildren } from '../../utils/inline-component';
 
 type InternalProps = {
   accordionItemComponent?: typeof Accordion.Item;
