@@ -1,4 +1,4 @@
-import { test, type Page } from '@playwright/test';
+import { test, type Page, expect } from '@playwright/test';
 import { createTestDriver } from './carousel.driver';
 
 async function setup(page: Page, exampleName: string) {
@@ -19,5 +19,7 @@ test.describe('Mouse Behavior', () => {
     const { driver: d } = await setup(page, 'hero');
 
     await d.getNextButton().click();
+
+    await expect(d.getSlideAt(1)).toBeVisible();
   });
 });
