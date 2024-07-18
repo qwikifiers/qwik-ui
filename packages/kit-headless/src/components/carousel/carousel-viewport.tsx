@@ -1,32 +1,10 @@
-import {
-  component$,
-  type PropsOf,
-  Slot,
-  useContext,
-  $,
-  useSignal,
-  useTask$,
-} from '@builder.io/qwik';
+import { component$, type PropsOf, Slot, useContext, $ } from '@builder.io/qwik';
 import CarouselContextId from './carousel-context-id';
-import { isBrowser } from '@builder.io/qwik/build';
 
 type CarouselViewportProps = PropsOf<'div'>;
 
 export const HCarouselView = component$((props: CarouselViewportProps) => {
   const context = useContext(CarouselContextId);
-
-  const totalWidthSig = useSignal<number>(0);
-
-  useTask$(({ track }) => {
-    track(() => context.isDraggingSig.value);
-
-    if (isBrowser) {
-      totalWidthSig.value =
-        context.numSlidesSig.value *
-        context.slideRefsArray.value[0].value.offsetWidth *
-        -1;
-    }
-  });
 
   const handlePointerMove$ = $((e: PointerEvent) => {
     if (context.isDraggingSig.value) {
