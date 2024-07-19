@@ -78,10 +78,10 @@ export const HCarouselView = component$((props: CarouselViewportProps) => {
   return (
     <div
       onPointerDown$={(e) => {
-        if (!context.draggable) return;
+        if (!context.isDraggableSig.value) return;
 
-        // Do nothing if this is not the primary button (e.g., right click).
-        if (e.pointerType === 'mouse' && e.button !== 0) {
+        // Check if the device is a pointer device
+        if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') {
           return;
         }
 

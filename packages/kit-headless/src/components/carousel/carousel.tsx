@@ -5,6 +5,7 @@ import {
   component$,
   useContextProvider,
   useSignal,
+  useComputed$,
 } from '@builder.io/qwik';
 import { type CarouselContext } from './carousel-context.type';
 import CarouselContextId from './carousel-context-id';
@@ -20,7 +21,6 @@ export const HCarousel = component$(
   ({
     spaceBetweenSlides = 0,
     'bind:currSlideIndex': givenSlideIndexSig,
-    draggable = true,
     ...props
   }: CarouselRootProps) => {
     const defaultIndexSig = useSignal(0);
@@ -35,9 +35,13 @@ export const HCarousel = component$(
     const initialX = useSignal<number>(0);
     const initialTransformX = useSignal<number>(0);
     const slideRefsArray = useSignal<Array<Signal>>([]);
+    const isDraggableSig = useComputed$(() => {
+      return props.draggable ?? true;
+    });
 
     const context: CarouselContext = {
-      draggable,
+      isDraggableSig,
+      isMouseDraggingSig,
       slideOffsetSig,
       currentIndexSig,
       numSlidesSig,
@@ -45,7 +49,6 @@ export const HCarousel = component$(
       viewportRef,
       containerRef,
       spaceBetweenSlides,
-      isMouseDraggingSig,
       initialX,
       initialTransformX,
       slideRefsArray,

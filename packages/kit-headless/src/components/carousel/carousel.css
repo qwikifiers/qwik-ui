@@ -2,7 +2,11 @@
   @media (pointer: coarse) {
     [data-qui-carousel-container][data-draggable] {
       scroll-snap-type: x mandatory;
-      overflow: scroll;
+      overflow-x: scroll;
+    }
+
+    [data-draggable] [data-qui-carousel-slide] {
+      scroll-snap-align: start;
     }
   }
 }

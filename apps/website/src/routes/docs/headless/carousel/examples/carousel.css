@@ -9,11 +9,9 @@
 .carousel-container {
   backface-visibility: hidden;
   display: flex;
-  touch-action: pan-y;
   margin-left: calc(var(--slide-spacing) * -1);
   transition-property: transform;
   transition-timing-function: ease;
-  overflow-x: visible;
   padding-block: 0.5rem;
 }
 
