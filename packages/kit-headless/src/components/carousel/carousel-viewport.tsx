@@ -7,7 +7,7 @@ export const HCarouselView = component$((props: CarouselViewportProps) => {
   const context = useContext(CarouselContextId);
 
   const handlePointerMove$ = $((e: PointerEvent) => {
-    if (context.isDraggingSig.value) {
+    if (context.isMouseDraggingSig.value) {
       if (!context.containerRef.value) {
         return;
       }
@@ -78,6 +78,8 @@ export const HCarouselView = component$((props: CarouselViewportProps) => {
   return (
     <div
       onPointerDown$={(e) => {
+        if (!context.draggable) return;
+
         // Do nothing if this is not the primary button (e.g., right click).
         if (e.pointerType === 'mouse' && e.button !== 0) {
           return;
@@ -89,7 +91,7 @@ export const HCarouselView = component$((props: CarouselViewportProps) => {
           const matrix = new DOMMatrix(style.transform);
           context.initialTransformX.value = matrix.m41;
 
-          context.isDraggingSig.value = true;
+          context.isMouseDraggingSig.value = true;
         }
 
         window.addEventListener('pointermove', handlePointerMove$);

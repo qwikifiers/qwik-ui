@@ -13,12 +13,14 @@ import { VisuallyHidden } from '../../utils/visually-hidden';
 export type CarouselRootProps = PropsOf<'section'> & {
   spaceBetweenSlides?: number;
   'bind:currSlideIndex'?: Signal<number>;
+  draggable?: boolean;
 };
 
 export const HCarousel = component$(
   ({
     spaceBetweenSlides = 0,
     'bind:currSlideIndex': givenSlideIndexSig,
+    draggable = true,
     ...props
   }: CarouselRootProps) => {
     const defaultIndexSig = useSignal(0);
@@ -29,12 +31,13 @@ export const HCarousel = component$(
     const transitionDurationSig = useSignal<number>(0);
     const viewportRef = useSignal<HTMLDivElement>();
     const containerRef = useSignal<HTMLDivElement>();
-    const isDraggingSig = useSignal<boolean>(false);
+    const isMouseDraggingSig = useSignal<boolean>(false);
     const initialX = useSignal<number>(0);
     const initialTransformX = useSignal<number>(0);
     const slideRefsArray = useSignal<Array<Signal>>([]);
 
     const context: CarouselContext = {
+      draggable,
       slideOffsetSig,
       currentIndexSig,
       numSlidesSig,
@@ -42,7 +45,7 @@ export const HCarousel = component$(
       viewportRef,
       containerRef,
       spaceBetweenSlides,
-      isDraggingSig,
+      isMouseDraggingSig,
       initialX,
       initialTransformX,
       slideRefsArray,

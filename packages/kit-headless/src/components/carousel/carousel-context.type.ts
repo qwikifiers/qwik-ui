@@ -1,6 +1,8 @@
 import { type Signal } from '@builder.io/qwik';
 
 export interface CarouselContext {
+  draggable: boolean;
+
   // source of truth
   slideOffsetSig: Signal<number>;
   numSlidesSig: Signal<number>;
@@ -22,7 +24,7 @@ export interface CarouselContext {
   currentIndexSig: Signal<number>;
 
   // dragging
-  isDraggingSig: Signal<boolean>;
+  isMouseDraggingSig: Signal<boolean>;
   initialX: Signal<number>;
   initialTransformX: Signal<number>;
 }

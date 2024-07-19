@@ -97,6 +97,7 @@ export default component$(() => {
       bind:currSlideIndex={currentIndexSig}
       spaceBetweenSlides={30}
       class="carousel"
+      draggable={false}
     >
       <div class="carousel-buttons">
         <Carousel.Prev class="prev-button">Prev</Carousel.Prev>

@@ -18,7 +18,7 @@ export const HCarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
   const localIndexSig = useSignal<number | null>(null);
 
   const handlePointerUp$ = $(() => {
-    context.isDraggingSig.value = false;
+    context.isMouseDraggingSig.value = false;
 
     if (!context.containerRef.value || !slideRef.value) {
       return;
@@ -78,11 +78,11 @@ export const HCarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
   });
 
   useTask$(({ track }) => {
-    track(() => context.isDraggingSig.value);
+    track(() => context.isMouseDraggingSig.value);
 
     if (isServer) return;
 
-    context.isDraggingSig.value
+    context.isMouseDraggingSig.value
       ? window.addEventListener('pointerup', handlePointerUp$)
       : window.removeEventListener('pointerup', handlePointerUp$);
   });
