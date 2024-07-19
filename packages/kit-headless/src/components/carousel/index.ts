@@ -1,4 +1,4 @@
-export { CarouselRoot as Root } from './root';
+export { CarouselRoot as Root } from './inline';
 export { CarouselView as View } from './viewport';
 export { CarouselContainer as Container } from './container';
 export { CarouselSlide as Slide } from './slide';

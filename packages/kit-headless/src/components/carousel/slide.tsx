@@ -10,9 +10,11 @@ import {
 import { carouselContextId } from './context';
 import { isServer } from '@builder.io/qwik/build';
 
-export type CarouselSlideProps = PropsOf<'div'>;
+export type CarouselSlideProps = PropsOf<'div'> & {
+  _index?: number;
+};
 
-export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
+export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProps) => {
   const context = useContext(carouselContextId);
   const slideRef = useSignal<HTMLDivElement | undefined>();
   const localIndexSig = useSignal<number | null>(null);

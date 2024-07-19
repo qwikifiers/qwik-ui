@@ -16,7 +16,7 @@ export type CarouselRootProps = PropsOf<'section'> & {
   draggable?: boolean;
 };
 
-export const CarouselRoot = component$(
+export const CarouselBase = component$(
   ({
     spaceBetweenSlides = 0,
     'bind:currSlideIndex': givenSlideIndexSig,
