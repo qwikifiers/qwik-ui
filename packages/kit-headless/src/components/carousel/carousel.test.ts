@@ -337,6 +337,56 @@ test.describe('Behavior', () => {
 
     // TODO
   });
+
+  test.describe('Threshold', () => {
+    test(`GIVEN a carousel with dragging enabled
+          WHEN on the first slide and the mouse is moved far right
+          THEN it should stay snapped on the first slide
+`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      // remove this (there so that TS doesn't complain)
+      d;
+
+      // TODO
+    });
+
+    test(`GIVEN a carousel with dragging enabled
+          WHEN on the last slide and the mouse is moved far left
+          THEN it should stay snapped on the last slide
+`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      // remove this (there so that TS doesn't complain)
+      d;
+
+      // TODO
+    });
+
+    test(`GIVEN a carousel with dragging enabled
+          WHEN on the first slide and is swiped far left
+          THEN it should stay snapped on the last slide
+`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      // remove this (there so that TS doesn't complain)
+      d;
+
+      // TODO
+    });
+
+    test(`GIVEN a carousel with dragging enabled
+          WHEN on the last slide and is swiped far right
+          THEN it should stay snapped on the first slide
+`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      // remove this (there so that TS doesn't complain)
+      d;
+
+      // TODO
+    });
+  });
 });
 
 // TODO: finish test cases, create new ones based on the expected behavior in Figma.
