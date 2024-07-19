@@ -1,95 +1,40 @@
-import { Component, JSXNode, PropsOf, QRL, Signal } from '@builder.io/qwik';
-import { HAccordionRootImpl } from './accordion-root';
+import { Component } from '@builder.io/qwik';
+import { type AccordionRootProps, HAccordionRootImpl } from './accordion-root';
 import { Accordion } from '@qwik-ui/headless';
+import { findComponent, processChildren } from '../../utils/inline-component';
 
 type InternalProps = {
   accordionItemComponent?: typeof Accordion.Item;
 };
 
-export type AccordionRootProps = PropsOf<'div'> & {
-  /** If true, multiple items can be open at the same time. */
-  multiple?: boolean;
-
-  /**
-   * @deprecated Use the multiple prop instead.
-   */
-  behavior?: 'single' | 'multi';
-
-  /** The reactive value controlling which item is open. */
-  'bind:value'?: Signal<string | null>;
-
-  /** The initial value of the currently open item. */
-  value?: string;
-
-  /** The initial index of the currently open item. */
-  initialIndex?: number;
-
-  /** A QRL that is called when the selected item changes. */
-  onChange$?: QRL<(value: string) => void>;
-
-  /** A map of the item indexes and their disabled state. */
-  itemsMap?: Map<number, boolean>;
-
-  /** If true, the accordion is disabled. */
-  disabled?: boolean;
-
-  /** If true, the accordion is collapsible. */
-  collapsible?: boolean;
-
-  /** If true, the accordion is animated. */
-  animated?: boolean;
-};
-
 export const HAccordionRoot: Component<AccordionRootProps & InternalProps> = (
   props: AccordionRootProps & InternalProps,
 ) => {
-  const { children: accordionChildren, accordionItemComponent, ...rest } = props;
-
+  const {
+    children,
+    accordionItemComponent: GivenItem,
+    value: initialValue,
+    ...rest
+  } = props;
+  const Item = GivenItem || Accordion.Item;
   let currItemIndex = 0;
   let initialIndex = null;
   const itemsMap = new Map();
 
-  const InternalItemComponent = accordionItemComponent || Accordion.Item;
-  const childrenToProcess = (
-    Array.isArray(accordionChildren) ? [...accordionChildren] : [accordionChildren]
-  ) as Array<JSXNode>;
+  // code executes when the item component's shell is "seen"
+  findComponent(Item, (itemProps) => {
+    itemProps._index = currItemIndex;
 
-  while (childrenToProcess.length) {
-    const child = childrenToProcess.shift();
+    itemsMap.set(currItemIndex, itemProps.disabled);
 
-    if (!child) {
-      continue;
+    if (initialValue && initialValue === itemProps.value) {
+      initialIndex = currItemIndex;
     }
 
-    if (Array.isArray(child)) {
-      childrenToProcess.unshift(...child);
-      continue;
-    }
+    currItemIndex++;
+  });
 
-    switch (child.type) {
-      case InternalItemComponent: {
-        child.props._index = currItemIndex;
-        if (props.value !== undefined && props.value === child.props.value) {
-          initialIndex = currItemIndex;
-        }
-        itemsMap.set(currItemIndex, child.props.disabled === true);
-
-        currItemIndex++;
-        break;
-      }
-
-      default: {
-        if (child) {
-          const anyChildren = Array.isArray(child.children)
-            ? [...child.children]
-            : [child.children];
-          childrenToProcess.unshift(...(anyChildren as JSXNode[]));
-        }
-
-        break;
-      }
-    }
-  }
+  processChildren(children);
 
   return (
     <HAccordionRootImpl
