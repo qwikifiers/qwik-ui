@@ -263,6 +263,80 @@ test.describe('Accessibility', () => {
 
     // TODO
   });
+
+  test(`GIVEN a carousel with loop disabled
+        WHEN on the last slide
+        THEN the previous button should be focused
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with loop disabled
+        WHEN on the first slide
+        THEN the next button should be focused
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+});
+
+test.describe('Behavior', () => {
+  test(`GIVEN a carousel with loop disabled
+        WHEN on the last slide
+        THEN the next button should be disabled
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with loop disabled
+        WHEN on the first slide
+        THEN the previous button should be disabled
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with loop enabled
+        WHEN on the last slide and the next button is clicked
+        THEN it should move to the first slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with loop enabled
+        WHEN on the first slide and the previous button is clicked
+        THEN it should move to the first slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
 });
 
 // TODO: finish test cases, create new ones based on the expected behavior in Figma.
