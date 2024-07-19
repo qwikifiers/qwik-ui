@@ -75,34 +75,39 @@ export const CarouselView = component$((props: CarouselViewportProps) => {
     }
   });
 
+  const handlePointerDown$ = $((e: PointerEvent) => {
+    if (!context.isDraggableSig.value) return;
+
+    // check if the device is a pointer device
+    if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') {
+      return;
+    }
+
+    context.initialX.value = e.clientX;
+    if (context.containerRef.value) {
+      const style = window.getComputedStyle(context.containerRef.value);
+      const matrix = new DOMMatrix(style.transform);
+      context.initialTransformX.value = matrix.m41;
+
+      context.isMouseDraggingSig.value = true;
+    }
+
+    window.addEventListener('pointermove', handlePointerMove$);
+  });
+
+  const handleWindowPointerUp$ = $(() => {
+    /* removes pointer move event from pointer up created in slide.tsx */
+    window.removeEventListener('pointermove', handlePointerMove$);
+  });
+
+  const handleTransitionEnd$ = $(() => (context.transitionDurationSig.value = 0));
+
   return (
     <div
-      onPointerDown$={(e) => {
-        if (!context.isDraggableSig.value) return;
-
-        // Check if the device is a pointer device
-        if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') {
-          return;
-        }
-
-        context.initialX.value = e.clientX;
-        if (context.containerRef.value) {
-          const style = window.getComputedStyle(context.containerRef.value);
-          const matrix = new DOMMatrix(style.transform);
-          context.initialTransformX.value = matrix.m41;
-
-          context.isMouseDraggingSig.value = true;
-        }
-
-        window.addEventListener('pointermove', handlePointerMove$);
-      }}
-      /* removes pointer move event from pointer up created in slide.tsx */
-      window:onPointerUp$={() =>
-        window.removeEventListener('pointermove', handlePointerMove$)
-      }
       ref={context.viewportRef}
-      style={{ overflowX: 'visible', position: 'relative' }}
-      onTransitionEnd$={() => (context.transitionDurationSig.value = 0)}
+      onPointerDown$={[handlePointerDown$, props.onPointerDown$]}
+      window:onPointerUp$={[handleWindowPointerUp$, props['window:onPointerUp$']]}
+      onTransitionEnd$={[handleTransitionEnd$, props.onTransitionEnd$]}
       {...props}
     >
       <Slot />

@@ -13,7 +13,7 @@ export default component$(() => {
         Render Carousel
       </button>
       {renderCarousel.value && (
-        <Carousel.Root class="carousel">
+        <Carousel.Root class="carousel-root">
           <div class="carousel-buttons">
             <Carousel.Previous class="prev-button">Prev</Carousel.Previous>
             <Carousel.Next class="next-button">Next</Carousel.Next>

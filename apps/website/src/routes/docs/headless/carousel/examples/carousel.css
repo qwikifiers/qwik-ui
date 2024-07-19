@@ -1,9 +1,10 @@
-.carousel {
+.carousel-root {
   --slide-size: 100%;
   --slide-height: 5rem;
   height: 100%;
   max-width: 500px;
   overflow: hidden;
+  width: 100%;
 }
 
 .carousel-container {
