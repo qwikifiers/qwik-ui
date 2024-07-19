@@ -1,5 +1,5 @@
 import { test, type Page, expect } from '@playwright/test';
-import { createTestDriver } from './carousel.driver';
+import { createTestDriver } from './driver';
 import { AxeBuilder } from '@axe-core/playwright';
 
 async function setup(page: Page, exampleName: string) {

@@ -1,10 +1,10 @@
 import { component$, type PropsOf, Slot, useContext, $ } from '@builder.io/qwik';
-import CarouselContextId from './carousel-context-id';
+import { carouselContextId } from './context';
 
 type CarouselViewportProps = PropsOf<'div'>;
 
-export const HCarouselView = component$((props: CarouselViewportProps) => {
-  const context = useContext(CarouselContextId);
+export const CarouselView = component$((props: CarouselViewportProps) => {
+  const context = useContext(carouselContextId);
 
   const handlePointerMove$ = $((e: PointerEvent) => {
     if (context.isMouseDraggingSig.value) {

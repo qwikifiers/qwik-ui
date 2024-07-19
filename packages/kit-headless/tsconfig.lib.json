@@ -17,5 +17,11 @@
     "**/*.spec.ts",
     "**/*.driver.ts"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/carousel/carousel.test.ts"
+  ]
 }

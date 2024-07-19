@@ -1,3 +1,7 @@
+import { createContextId } from '@builder.io/qwik';
+
+export const carouselContextId = createContextId<CarouselContext>('carousel-context');
+
 import { type Signal } from '@builder.io/qwik';
 
 export interface CarouselContext {

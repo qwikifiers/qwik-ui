@@ -23,6 +23,10 @@
   transition-property: transform;
   border: 2px dotted hsl(var(--primary));
   pointer-events: none;
+  min-height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .carousel-pagination {

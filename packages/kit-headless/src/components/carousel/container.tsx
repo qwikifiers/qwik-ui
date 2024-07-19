@@ -1,12 +1,12 @@
 import { component$, type PropsOf, Slot, useContext } from '@builder.io/qwik';
-import CarouselContextId from './carousel-context-id';
+import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
 import styles from './carousel.css?inline';
 
 type CarouselContainerProps = PropsOf<'div'>;
 
-export const HCarouselContainer = component$((props: CarouselContainerProps) => {
-  const context = useContext(CarouselContextId);
+export const CarouselContainer = component$((props: CarouselContainerProps) => {
+  const context = useContext(carouselContextId);
   useStyles$(styles);
 
   return (

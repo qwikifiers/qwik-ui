@@ -7,8 +7,7 @@ import {
   useSignal,
   useComputed$,
 } from '@builder.io/qwik';
-import { type CarouselContext } from './carousel-context.type';
-import CarouselContextId from './carousel-context-id';
+import { CarouselContext, carouselContextId } from './context';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type CarouselRootProps = PropsOf<'section'> & {
@@ -17,7 +16,7 @@ export type CarouselRootProps = PropsOf<'section'> & {
   draggable?: boolean;
 };
 
-export const HCarousel = component$(
+export const CarouselRoot = component$(
   ({
     spaceBetweenSlides = 0,
     'bind:currSlideIndex': givenSlideIndexSig,
@@ -54,7 +53,7 @@ export const HCarousel = component$(
       slideRefsArray,
     };
 
-    useContextProvider(CarouselContextId, context);
+    useContextProvider(carouselContextId, context);
 
     return (
       <section data-qui-carousel aria-roledescription="carousel" role="group" {...props}>

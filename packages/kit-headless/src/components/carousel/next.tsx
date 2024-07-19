@@ -1,10 +1,9 @@
-import { Slot, component$, useContext } from '@builder.io/qwik';
-import { type CarouselButtonProps } from './types';
-import CarouselContextId from './carousel-context-id';
+import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
+import { carouselContextId } from './context';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
-export const HCarouselNext = component$((props: CarouselButtonProps) => {
-  const context = useContext(CarouselContextId);
+export const CarouselNext = component$((props: PropsOf<'button'>) => {
+  const context = useContext(carouselContextId);
 
   return (
     <button

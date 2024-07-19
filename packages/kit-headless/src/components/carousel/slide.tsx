@@ -7,13 +7,13 @@ import {
   useSignal,
   $,
 } from '@builder.io/qwik';
-import CarouselContextId from './carousel-context-id';
+import { carouselContextId } from './context';
 import { isServer } from '@builder.io/qwik/build';
 
 export type CarouselSlideProps = PropsOf<'div'>;
 
-export const HCarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
-  const context = useContext(CarouselContextId);
+export const CarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
+  const context = useContext(carouselContextId);
   const slideRef = useSignal<HTMLDivElement | undefined>();
   const localIndexSig = useSignal<number | null>(null);
 
