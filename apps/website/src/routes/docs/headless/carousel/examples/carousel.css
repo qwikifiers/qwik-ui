@@ -2,17 +2,12 @@
   --slide-size: 100%;
   --slide-height: 5rem;
   height: 100%;
-  max-width: 500px;
-  overflow: hidden;
   width: 100%;
 }
 
 .carousel-container {
   backface-visibility: hidden;
   display: flex;
-  margin-left: calc(var(--slide-spacing) * -1);
-  transition-property: transform;
-  transition-timing-function: ease;
   padding-block: 0.5rem;
 }
 
@@ -21,13 +16,9 @@
   min-width: 0;
   position: relative;
   user-select: none;
-  transition-property: transform;
   border: 2px dotted hsl(var(--primary));
   pointer-events: none;
   min-height: 10rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .carousel-pagination {

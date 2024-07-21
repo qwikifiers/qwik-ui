@@ -9,4 +9,8 @@
       scroll-snap-align: start;
     }
   }
+
+  [data-qui-carousel-container] {
+    overflow: hidden;
+  }
 }
