@@ -1,5 +1,4 @@
 export { CarouselRoot as Root } from './inline';
-export { CarouselView as View } from './viewport';
 export { CarouselScroller as Scroller } from './scroller';
 export { CarouselSlide as Slide } from './slide';
 export { CarouselPrevious as Previous } from './previous';

@@ -11,7 +11,6 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
       disabled={context.currentIndexSig.value === 0}
       onClick$={() => {
         context.currentIndexSig.value--;
-        context.transitionDurationSig.value = 625;
       }}
       data-qui-carousel-prev
     >
