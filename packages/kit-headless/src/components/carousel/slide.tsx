@@ -20,13 +20,12 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
     if (_index !== undefined) {
       context.slideRefsArray.value[_index] = slideRef;
     } else {
-      throw new Error('Qwik UI: Carousel component slide cannot find its proper index.');
+      throw new Error('Qwik UI: Carousel Slide cannot find its proper index.');
     }
   });
 
   return (
     <div
-      data-slide-num={_index}
       style={{ marginRight: `${context.spaceBetweenSlides}px` }}
       ref={slideRef}
       data-qui-carousel-slide
