@@ -34,26 +34,34 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   const handleMouseSnap$ = $(() => {
     if (!context.containerRef.value) return;
-    if (!isMouseDownSig.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
 
     const container = context.containerRef.value;
     const slides = context.slideRefsArray.value;
+    const containerScrollLeft = container.scrollLeft;
 
-    const closestSlide = slides[0].value;
-    closestSlideRef.value = closestSlide;
-    context.currentIndexSig.value = 0;
-    let minDistance = Math.abs(container.scrollLeft - closestSlide.offsetLeft);
+    let closestSlide = slides[0].value;
+    let minDistance = Math.abs(containerScrollLeft - closestSlide.offsetLeft);
 
-    slides.forEach((slideRef, index) => {
+    slides.forEach((slideRef) => {
       if (!slideRef.value) return;
-      const distance = Math.abs(container.scrollLeft - slideRef.value.offsetLeft);
+      const distance = Math.abs(containerScrollLeft - slideRef.value.offsetLeft);
       if (distance < minDistance) {
-        closestSlideRef.value = slideRef.value;
-        context.currentIndexSig.value = index;
+        closestSlide = slideRef.value;
         minDistance = distance;
       }
+    });
+
+    const slideWidth = closestSlide.getBoundingClientRect().width;
+    const slideMarginLeft = parseFloat(getComputedStyle(closestSlide).marginLeft);
+    const slideMarginRight = parseFloat(getComputedStyle(closestSlide).marginRight);
+    const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
+    const snapPosition =
+      Math.round(containerScrollLeft / totalSlideWidth) * totalSlideWidth;
+    container.scrollTo({
+      left: snapPosition,
+      behavior: 'smooth',
     });
 
     wasMouseUpSig.value = true;
@@ -69,7 +77,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     window.addEventListener('mouseup', handleMouseSnap$);
   });
 
-  useTask$(({ track }) => {
+  useTask$(function nonDraggingBehavior({ track }) {
     track(() => context.currentIndexSig.value);
 
     /** This task should only fire if anything other than drag changes the currentIndex */
