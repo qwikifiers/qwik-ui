@@ -46,16 +46,15 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     const container = context.containerRef.value;
     const slides = context.slideRefsArray.value;
-    const containerScrollLeft = container.scrollLeft;
 
     const closestSlide = slides[0].value;
     closestSlideRef.value = closestSlide;
     context.currentIndexSig.value = 0;
-    let minDistance = Math.abs(containerScrollLeft - closestSlide.offsetLeft);
+    let minDistance = Math.abs(container.scrollLeft - closestSlide.offsetLeft);
 
     slides.forEach((slideRef, index) => {
       if (!slideRef.value) return;
-      const distance = Math.abs(containerScrollLeft - slideRef.value.offsetLeft);
+      const distance = Math.abs(container.scrollLeft - slideRef.value.offsetLeft);
       if (distance < minDistance) {
         closestSlideRef.value = slideRef.value;
         context.currentIndexSig.value = index;
