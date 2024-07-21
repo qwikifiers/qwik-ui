@@ -21,6 +21,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const startXSig = useSignal<number>();
   const scrollLeftSig = useSignal(0);
   const closestSlideRef = useSignal<HTMLDivElement>();
+  const wasMouseUpSig = useSignal(false);
 
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
@@ -31,6 +32,33 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     context.containerRef.value.scrollLeft = scrollLeftSig.value - walk;
   });
 
+  const handleMouseSnap$ = $(() => {
+    if (!context.containerRef.value) return;
+    if (!isMouseDownSig.value) return;
+    isMouseDownSig.value = false;
+    window.removeEventListener('mousemove', handleMouseMove$);
+
+    const container = context.containerRef.value;
+    const slides = context.slideRefsArray.value;
+
+    const closestSlide = slides[0].value;
+    closestSlideRef.value = closestSlide;
+    context.currentIndexSig.value = 0;
+    let minDistance = Math.abs(container.scrollLeft - closestSlide.offsetLeft);
+
+    slides.forEach((slideRef, index) => {
+      if (!slideRef.value) return;
+      const distance = Math.abs(container.scrollLeft - slideRef.value.offsetLeft);
+      if (distance < minDistance) {
+        closestSlideRef.value = slideRef.value;
+        context.currentIndexSig.value = index;
+        minDistance = distance;
+      }
+    });
+
+    wasMouseUpSig.value = true;
+  });
+
   const handleMouseDown$ = $((e: MouseEvent) => {
     if (!context.isDraggableSig.value) return;
     if (!context.containerRef.value) return;
@@ -38,34 +66,17 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     startXSig.value = e.pageX - context.containerRef.value.offsetLeft;
     scrollLeftSig.value = context.containerRef.value.scrollLeft;
     window.addEventListener('mousemove', handleMouseMove$);
+    window.addEventListener('mouseup', handleMouseSnap$);
   });
-
-  // const handleMouseSnap$ = $(() => {
-  //   if (!context.containerRef.value) return;
-  //   isMouseDownSig.value = false;
-  //   window.removeEventListener('mousemove', handleMouseMove$);
-
-  //   const container = context.containerRef.value;
-  //   const slides = context.slideRefsArray.value;
-
-  //   const closestSlide = slides[0].value;
-  //   closestSlideRef.value = closestSlide;
-  //   context.currentIndexSig.value = 0;
-  //   let minDistance = Math.abs(container.scrollLeft - closestSlide.offsetLeft);
-
-  //   slides.forEach((slideRef, index) => {
-  //     if (!slideRef.value) return;
-  //     const distance = Math.abs(container.scrollLeft - slideRef.value.offsetLeft);
-  //     if (distance < minDistance) {
-  //       closestSlideRef.value = slideRef.value;
-  //       context.currentIndexSig.value = index;
-  //       minDistance = distance;
-  //     }
-  //   });
-  // });
 
   useTask$(({ track }) => {
     track(() => context.currentIndexSig.value);
+
+    /** This task should only fire if anything other than drag changes the currentIndex */
+    if (wasMouseUpSig.value) {
+      wasMouseUpSig.value = false;
+      return;
+    }
 
     if (!context.containerRef.value || isServer) return;
 
@@ -85,12 +96,14 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
     const snapPosition = context.currentIndexSig.value * totalSlideWidth;
 
-    console.log('hello');
+    if (isMouseDownSig.value) return;
 
     context.containerRef.value.scrollTo({
       left: snapPosition,
       behavior: 'smooth',
     });
+
+    window.removeEventListener('mousemove', handleMouseMove$);
   });
 
   return (
