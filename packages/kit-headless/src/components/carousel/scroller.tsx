@@ -16,19 +16,21 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const context = useContext(carouselContextId);
   useStyles$(styles);
   const isMouseDownSig = useSignal(false);
-  const startXSig = useSignal();
+  const startXSig = useSignal<number>();
   const scrollLeftSig = useSignal(0);
 
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
+    if (!context.containerRef.value) return;
     const x = e.pageX - context.containerRef.value.offsetLeft;
-    const SCROLL_SPEED = 3;
+    const SCROLL_SPEED = 1.75;
     const walk = (x - startXSig.value) * SCROLL_SPEED;
     context.containerRef.value.scrollLeft = scrollLeftSig.value - walk;
   });
 
   const handleMouseDown$ = $((e: MouseEvent) => {
     if (!context.isDraggableSig.value) return;
+    if (!context.containerRef.value) return;
     isMouseDownSig.value = true;
     startXSig.value = e.pageX - context.containerRef.value.offsetLeft;
     scrollLeftSig.value = context.containerRef.value.scrollLeft;
@@ -44,6 +46,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const container = context.containerRef.value;
     const slides = context.slideRefsArray.value;
     const containerScrollLeft = container.scrollLeft;
+
     let closestSlide = slides[0].value;
     let minDistance = Math.abs(containerScrollLeft - closestSlide.offsetLeft);
 
@@ -56,8 +59,12 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       }
     });
 
+    // Ensure snapping to the closest full slide width
+    const slideWidth = closestSlide.getBoundingClientRect().width;
+    const snapPosition = Math.round(containerScrollLeft / slideWidth) * slideWidth;
+
     container.scrollTo({
-      left: closestSlide.offsetLeft,
+      left: snapPosition,
       behavior: 'smooth',
     });
   });
