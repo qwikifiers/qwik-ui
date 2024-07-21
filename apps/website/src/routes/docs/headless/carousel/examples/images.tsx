@@ -10,21 +10,19 @@ export default component$(() => {
         <Carousel.Previous class="prev-button">Prev</Carousel.Previous>
         <Carousel.Next class="next-button">Next</Carousel.Next>
       </div>
-      <Carousel.View>
-        <Carousel.Container class="carousel-container">
-          {slideImageMetadata.map((data) => (
-            <Carousel.Slide key={data.id} class="carousel-slide">
-              <img
-                class="carousel-img"
-                width="640"
-                height="320"
-                src={`https://picsum.photos/id/${data.id}/640/320`}
-                alt={data.author}
-              />
-            </Carousel.Slide>
-          ))}
-        </Carousel.Container>
-      </Carousel.View>
+      <Carousel.Scroller class="carousel-container">
+        {slideImageMetadata.map((data) => (
+          <Carousel.Slide key={data.id} class="carousel-slide">
+            <img
+              class="carousel-img"
+              width="640"
+              height="320"
+              src={`https://picsum.photos/id/${data.id}/640/320`}
+              alt={data.author}
+            />
+          </Carousel.Slide>
+        ))}
+      </Carousel.Scroller>
     </Carousel.Root>
   );
 });

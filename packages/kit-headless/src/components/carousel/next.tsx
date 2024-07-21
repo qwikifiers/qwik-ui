@@ -12,6 +12,7 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
       disabled={context.currentIndexSig.value + 1 === context.numSlidesSig.value}
       onClick$={() => {
         context.currentIndexSig.value++;
+        console.log(context.currentIndexSig.value);
       }}
       data-qui-carousel-next
     >
