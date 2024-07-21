@@ -47,14 +47,16 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const containerScrollLeft = container.scrollLeft;
 
     let closestSlide = slides[0].value;
+    let closestSlideIndex = 0;
     let minDistance = Math.abs(containerScrollLeft - closestSlide.offsetLeft);
 
-    slides.forEach((slideRef) => {
+    slides.forEach((slideRef, index) => {
       if (!slideRef.value) return;
       const distance = Math.abs(containerScrollLeft - slideRef.value.offsetLeft);
       if (distance < minDistance) {
         closestSlide = slideRef.value;
         minDistance = distance;
+        closestSlideIndex = index;
       }
     });
 
@@ -62,12 +64,14 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const slideMarginLeft = parseFloat(getComputedStyle(closestSlide).marginLeft);
     const slideMarginRight = parseFloat(getComputedStyle(closestSlide).marginRight);
     const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
-    const snapPosition =
-      Math.round(containerScrollLeft / totalSlideWidth) * totalSlideWidth;
+    const snapPosition = closestSlideIndex * totalSlideWidth;
+
     container.scrollTo({
       left: snapPosition,
       behavior: 'smooth',
     });
+
+    context.currentIndexSig.value = closestSlideIndex;
   });
 
   return (
