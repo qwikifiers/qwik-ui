@@ -37,12 +37,11 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     window.addEventListener('mousemove', handleMouseMove$);
   });
 
-  const handleWindowMouseUp$ = $(() => {
+  const handleSnap$ = $(() => {
     if (!context.containerRef.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
 
-    // snapping logic
     const container = context.containerRef.value;
     const slides = context.slideRefsArray.value;
     const containerScrollLeft = container.scrollLeft;
@@ -73,7 +72,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     <div
       ref={context.containerRef}
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
-      window:onMouseUp$={[handleWindowMouseUp$, props['window:onPointerUp$']]}
+      window:onMouseUp$={[handleSnap$, props['window:onPointerUp$']]}
       data-draggable={context.isDraggableSig.value ? '' : undefined}
       data-qui-carousel-container
       preventdefault:mousemove
