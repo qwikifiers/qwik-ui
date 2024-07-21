@@ -37,7 +37,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     window.addEventListener('mousemove', handleMouseMove$);
   });
 
-  const handleSnap$ = $(() => {
+  const handleMouseSnap$ = $(() => {
     if (!context.containerRef.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
@@ -58,10 +58,12 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       }
     });
 
-    // Ensure snapping to the closest full slide width
     const slideWidth = closestSlide.getBoundingClientRect().width;
-    const snapPosition = Math.round(containerScrollLeft / slideWidth) * slideWidth;
-
+    const slideMarginLeft = parseFloat(getComputedStyle(closestSlide).marginLeft);
+    const slideMarginRight = parseFloat(getComputedStyle(closestSlide).marginRight);
+    const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
+    const snapPosition =
+      Math.round(containerScrollLeft / totalSlideWidth) * totalSlideWidth;
     container.scrollTo({
       left: snapPosition,
       behavior: 'smooth',
@@ -72,7 +74,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     <div
       ref={context.containerRef}
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
-      window:onMouseUp$={[handleSnap$, props['window:onPointerUp$']]}
+      window:onMouseUp$={[handleMouseSnap$, props['window:onPointerUp$']]}
       data-draggable={context.isDraggableSig.value ? '' : undefined}
       data-qui-carousel-container
       preventdefault:mousemove
