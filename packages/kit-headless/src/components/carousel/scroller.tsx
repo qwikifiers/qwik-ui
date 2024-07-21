@@ -5,6 +5,7 @@ import {
   useContext,
   useSignal,
   $,
+  useTask$,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
@@ -18,6 +19,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isMouseDownSig = useSignal(false);
   const startXSig = useSignal<number>();
   const scrollLeftSig = useSignal(0);
+  const closestSlideRef = useSignal<HTMLDivElement>();
 
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
@@ -46,32 +48,41 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const slides = context.slideRefsArray.value;
     const containerScrollLeft = container.scrollLeft;
 
-    let closestSlide = slides[0].value;
-    let closestSlideIndex = 0;
+    const closestSlide = slides[0].value;
+    closestSlideRef.value = closestSlide;
+    context.currentIndexSig.value = 0;
     let minDistance = Math.abs(containerScrollLeft - closestSlide.offsetLeft);
 
     slides.forEach((slideRef, index) => {
       if (!slideRef.value) return;
       const distance = Math.abs(containerScrollLeft - slideRef.value.offsetLeft);
       if (distance < minDistance) {
-        closestSlide = slideRef.value;
+        closestSlideRef.value = slideRef.value;
+        context.currentIndexSig.value = index;
         minDistance = distance;
-        closestSlideIndex = index;
       }
     });
+  });
 
-    const slideWidth = closestSlide.getBoundingClientRect().width;
-    const slideMarginLeft = parseFloat(getComputedStyle(closestSlide).marginLeft);
-    const slideMarginRight = parseFloat(getComputedStyle(closestSlide).marginRight);
+  useTask$(({ track }) => {
+    track(() => context.currentIndexSig.value);
+
+    if (!closestSlideRef.value || !context.containerRef.value) return;
+
+    const slideWidth = closestSlideRef.value.getBoundingClientRect().width;
+    const slideMarginLeft = parseFloat(
+      getComputedStyle(closestSlideRef.value).marginLeft,
+    );
+    const slideMarginRight = parseFloat(
+      getComputedStyle(closestSlideRef.value).marginRight,
+    );
     const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
-    const snapPosition = closestSlideIndex * totalSlideWidth;
+    const snapPosition = context.currentIndexSig.value * totalSlideWidth;
 
-    container.scrollTo({
+    context.containerRef.value.scrollTo({
       left: snapPosition,
       behavior: 'smooth',
     });
-
-    context.currentIndexSig.value = closestSlideIndex;
   });
 
   return (
