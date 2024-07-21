@@ -12,7 +12,7 @@ import styles from './carousel.css?inline';
 
 type CarouselContainerProps = PropsOf<'div'>;
 
-export const CarouselContainer = component$((props: CarouselContainerProps) => {
+export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const context = useContext(carouselContextId);
   useStyles$(styles);
   const isMouseDownSig = useSignal(false);
@@ -20,18 +20,11 @@ export const CarouselContainer = component$((props: CarouselContainerProps) => {
   const scrollLeftSig = useSignal(0);
 
   const handleMouseMove$ = $((e: MouseEvent) => {
-    if (!isMouseDownSig.value) return;
+    if (!isMouseDownSig.value || startXSig.value === undefined) return;
     const x = e.pageX - context.containerRef.value.offsetLeft;
-    console.log('x', x);
     const SCROLL_SPEED = 3;
     const walk = (x - startXSig.value) * SCROLL_SPEED;
-    console.log('walk', walk);
     context.containerRef.value.scrollLeft = scrollLeftSig.value - walk;
-
-    console.log('carousel container', context.containerRef.value);
-
-    console.log('scroll left', context.containerRef.value.scrollLeft);
-    console.log('move');
   });
 
   const handleMouseDown$ = $((e: MouseEvent) => {
@@ -43,8 +36,30 @@ export const CarouselContainer = component$((props: CarouselContainerProps) => {
   });
 
   const handleWindowMouseUp$ = $(() => {
+    if (!context.containerRef.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
+
+    // snapping logic
+    const container = context.containerRef.value;
+    const slides = context.slideRefsArray.value;
+    const containerScrollLeft = container.scrollLeft;
+    let closestSlide = slides[0].value;
+    let minDistance = Math.abs(containerScrollLeft - closestSlide.offsetLeft);
+
+    slides.forEach((slideRef) => {
+      if (!slideRef.value) return;
+      const distance = Math.abs(containerScrollLeft - slideRef.value.offsetLeft);
+      if (distance < minDistance) {
+        closestSlide = slideRef.value;
+        minDistance = distance;
+      }
+    });
+
+    container.scrollTo({
+      left: closestSlide.offsetLeft,
+      behavior: 'smooth',
+    });
   });
 
   return (
