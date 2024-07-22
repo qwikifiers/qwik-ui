@@ -13,7 +13,9 @@ import { VisuallyHidden } from '../../utils/visually-hidden';
 export type CarouselRootProps = PropsOf<'section'> & {
   spaceBetweenSlides?: number;
   'bind:currSlideIndex'?: Signal<number>;
+  slidesPerView?: number;
   draggable?: boolean;
+  'bind:numBullets'?: Signal<number>;
 };
 
 export const CarouselBase = component$(
@@ -37,6 +39,9 @@ export const CarouselBase = component$(
     const isDraggableSig = useComputed$(() => {
       return props.draggable ?? true;
     });
+    const slidesPerViewSig = useComputed$(() => {
+      return props.slidesPerView ?? 1;
+    });
 
     const context: CarouselContext = {
       isDraggableSig,
@@ -51,6 +56,7 @@ export const CarouselBase = component$(
       initialX,
       initialTransformX,
       slideRefsArray,
+      slidesPerViewSig,
     };
 
     useContextProvider(carouselContextId, context);

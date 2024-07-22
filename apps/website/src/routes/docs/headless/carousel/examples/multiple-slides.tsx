@@ -7,7 +7,7 @@ export default component$(() => {
   const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink'];
 
   return (
-    <Carousel.Root class="carousel-root">
+    <Carousel.Root class="carousel-root" slidesPerView={2}>
       <div class="carousel-buttons">
         <Carousel.Previous class="prev-button">Prev</Carousel.Previous>
         <Carousel.Next class="next-button">Next</Carousel.Next>
@@ -19,6 +19,13 @@ export default component$(() => {
           </Carousel.Slide>
         ))}
       </Carousel.Scroller>
+      <Carousel.Pagination class="carousel-pagination">
+        {colors.map((color, index) => (
+          <Carousel.Bullet class="carousel-pagination-bullet" key={color}>
+            {index + 1}
+          </Carousel.Bullet>
+        ))}
+      </Carousel.Pagination>
     </Carousel.Root>
   );
 });
