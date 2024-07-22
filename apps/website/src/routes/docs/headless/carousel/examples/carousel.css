@@ -64,3 +64,8 @@
 .carousel-pagination-bullet:hover {
   background-color: hsla(var(--primary) / 0.08);
 }
+
+.carousel-half-size {
+  --slide-size: 50%;
+  border: 2px dotted hsl(var(--primary));
+}
