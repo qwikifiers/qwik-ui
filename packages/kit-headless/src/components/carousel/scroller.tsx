@@ -59,10 +59,15 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
     const snapPosition =
       Math.round(containerScrollLeft / totalSlideWidth) * totalSlideWidth;
+
     container.scrollTo({
       left: snapPosition,
       behavior: 'smooth',
     });
+
+    // Calculate the correct index based on the snap position
+    const correctIndex = Math.round(snapPosition / totalSlideWidth);
+    context.currentIndexSig.value = correctIndex;
 
     wasMouseUpSig.value = true;
   });
