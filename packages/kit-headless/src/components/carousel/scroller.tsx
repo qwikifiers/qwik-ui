@@ -21,7 +21,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const startXSig = useSignal<number>();
   const scrollLeftSig = useSignal(0);
   const closestSlideRef = useSignal<HTMLDivElement>();
-  const wasMouseUpSig = useSignal(false);
+  const wasMovingSig = useSignal(false);
 
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
@@ -30,6 +30,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const SCROLL_SPEED = 1.75;
     const walk = (x - startXSig.value) * SCROLL_SPEED;
     context.containerRef.value.scrollLeft = scrollLeftSig.value - walk;
+    wasMovingSig.value = true;
   });
 
   const handleMouseSnap$ = $(() => {
@@ -68,8 +69,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     // Calculate the correct index based on the snap position
     const correctIndex = Math.round(snapPosition / totalSlideWidth);
     context.currentIndexSig.value = correctIndex;
-
-    wasMouseUpSig.value = true;
   });
 
   const handleMouseDown$ = $((e: MouseEvent) => {
@@ -80,14 +79,15 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     scrollLeftSig.value = context.containerRef.value.scrollLeft;
     window.addEventListener('mousemove', handleMouseMove$);
     window.addEventListener('mouseup', handleMouseSnap$);
+    wasMovingSig.value = false;
   });
 
   useTask$(function nonDraggingBehavior({ track }) {
     track(() => context.currentIndexSig.value);
 
     /** This task should only fire if anything other than drag changes the currentIndex */
-    if (wasMouseUpSig.value) {
-      wasMouseUpSig.value = false;
+    if (wasMovingSig.value) {
+      wasMovingSig.value = false;
       return;
     }
 
