@@ -15,7 +15,12 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
   });
 
   return (
-    <button onClick$={[handleClick$, props.onClick$]} role="tab" {...props}>
+    <button
+      data-active={context.currentIndexSig.value === _index ? '' : undefined}
+      onClick$={[handleClick$, props.onClick$]}
+      role="tab"
+      {...props}
+    >
       <Slot />
     </button>
   );

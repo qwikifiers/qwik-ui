@@ -56,7 +56,7 @@
   padding-inline: 0.5rem;
 }
 
-.pagination-underline {
+.carousel-pagination-bullet[data-active] {
   outline: 2px dotted hsl(var(--primary));
   background-color: hsla(var(--primary) / 0.08);
 }

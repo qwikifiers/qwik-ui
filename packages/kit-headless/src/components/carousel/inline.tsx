@@ -4,10 +4,18 @@ import { Carousel } from '@qwik-ui/headless';
 import { findComponent, processChildren } from '../../utils/inline-component';
 
 type InternalProps = {
-  _index?: number;
   value?: string;
+  /**
+   * @deprecated Use `slideComponent` instead.
+   */
   carouselSlideComponent?: typeof Carousel.Slide;
+  /**
+   * @deprecated Use `bulletComponent` instead.
+   */
   carouselBulletComponent?: typeof Carousel.Bullet;
+
+  slideComponent?: typeof Carousel.Slide;
+  bulletComponent?: typeof Carousel.Bullet;
 };
 
 export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
@@ -15,12 +23,14 @@ export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
 ) => {
   const {
     children,
-    carouselSlideComponent: GivenSlide,
-    carouselBulletComponent: GivenBullet,
+    carouselSlideComponent: GivenSlideOld,
+    carouselBulletComponent: GivenBulletOld,
+    slideComponent: GivenSlide,
+    bulletComponent: GivenBullet,
     ...rest
   } = props;
-  const Slide = GivenSlide || Carousel.Slide;
-  const Bullet = GivenBullet || Carousel.Bullet;
+  const Slide = GivenSlide || GivenSlideOld || Carousel.Slide;
+  const Bullet = GivenBullet || GivenBulletOld || Carousel.Bullet;
   let currSlideIndex = 0;
   let currBulletIndex = 0;
 
