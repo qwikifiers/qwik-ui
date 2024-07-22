@@ -36,6 +36,7 @@ export const CarouselBase = component$(
     const initialX = useSignal<number>(0);
     const initialTransformX = useSignal<number>(0);
     const slideRefsArray = useSignal<Array<Signal>>([]);
+    const bulletRefsArray = useSignal<Array<Signal>>([]);
     const isDraggableSig = useComputed$(() => {
       return props.draggable ?? true;
     });
@@ -56,6 +57,7 @@ export const CarouselBase = component$(
       initialX,
       initialTransformX,
       slideRefsArray,
+      bulletRefsArray,
       slidesPerViewSig,
     };
 

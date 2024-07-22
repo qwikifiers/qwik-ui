@@ -13,6 +13,7 @@ export interface CarouselContext {
   spaceBetweenSlides: number;
   slidesPerViewSig: Signal<number>;
   slideRefsArray: Signal<Array<Signal>>;
+  bulletRefsArray: Signal<Array<Signal>>;
 
   /* 
     refs 
