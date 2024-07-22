@@ -30,8 +30,9 @@ export const CarouselBase = component$(
     const slideOffsetSig = useSignal<number>(0);
     const numSlidesSig = useSignal<number>(0);
     const transitionDurationSig = useSignal<number>(0);
-    const viewportRef = useSignal<HTMLDivElement>();
     const containerRef = useSignal<HTMLDivElement>();
+    const nextButtonRef = useSignal<HTMLButtonElement>();
+    const prevButtonRef = useSignal<HTMLButtonElement>();
     const isMouseDraggingSig = useSignal<boolean>(false);
     const initialX = useSignal<number>(0);
     const initialTransformX = useSignal<number>(0);
@@ -51,7 +52,6 @@ export const CarouselBase = component$(
       currentIndexSig,
       numSlidesSig,
       transitionDurationSig,
-      viewportRef,
       containerRef,
       spaceBetweenSlides,
       initialX,
@@ -59,6 +59,8 @@ export const CarouselBase = component$(
       slideRefsArray,
       bulletRefsArray,
       slidesPerViewSig,
+      nextButtonRef,
+      prevButtonRef,
     };
 
     useContextProvider(carouselContextId, context);

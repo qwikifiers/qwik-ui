@@ -15,13 +15,9 @@ export interface CarouselContext {
   slideRefsArray: Signal<Array<Signal>>;
   bulletRefsArray: Signal<Array<Signal>>;
 
-  /* 
-    refs 
-    (I don't like adding sig to refs 
-    because we know they are signals in qwik)
-  */
-  viewportRef: Signal<HTMLDivElement | undefined>;
   containerRef: Signal<HTMLDivElement | undefined>;
+  nextButtonRef: Signal<HTMLButtonElement | undefined>;
+  prevButtonRef: Signal<HTMLButtonElement | undefined>;
 
   // animation
   transitionDurationSig: Signal<number>;
