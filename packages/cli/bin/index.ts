@@ -172,7 +172,7 @@ async function handleInit() {
   if (!installTailwind) {
     installTailwind = cancelable(
       await confirm({
-        message: cyan('Would you like to instal Tailwind? (required)'),
+        message: cyan('Would you like to install Tailwind? (required)'),
         initialValue: false,
       }),
     );
