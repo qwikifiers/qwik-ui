@@ -38,7 +38,7 @@
     "test.headless.ci": "nx component-test-ci headless",
     "test.utils": "nx test utils"
   },
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@9.6.0",
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
     "@builder.io/qwik": "^1.7.1",
@@ -158,6 +158,6 @@
   },
   "volta": {
     "node": "20.9.0",
-    "pnpm": "9.5.0"
+    "pnpm": "9.6.0"
   }
 }
