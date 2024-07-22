@@ -7,20 +7,34 @@ type InternalProps = {
   _index?: number;
   value?: string;
   carouselSlideComponent?: typeof Carousel.Slide;
+  carouselBulletComponent?: typeof Carousel.Bullet;
 };
 
 export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
   props: CarouselRootProps & InternalProps,
 ) => {
-  const { children, carouselSlideComponent: GivenSlide, ...rest } = props;
+  const {
+    children,
+    carouselSlideComponent: GivenSlide,
+    carouselBulletComponent: GivenBullet,
+    ...rest
+  } = props;
   const Slide = GivenSlide || Carousel.Slide;
-  let currItemIndex = 0;
+  const Bullet = GivenBullet || Carousel.Bullet;
+  let currSlideIndex = 0;
+  let currBulletIndex = 0;
 
   // code executes when the item component's shell is "seen"
   findComponent(Slide, (slideProps) => {
-    slideProps._index = currItemIndex;
+    slideProps._index = currSlideIndex;
 
-    currItemIndex++;
+    currSlideIndex++;
+  });
+
+  findComponent(Bullet, (bulletProps) => {
+    bulletProps._index = currBulletIndex;
+
+    currBulletIndex++;
   });
 
   processChildren(children);

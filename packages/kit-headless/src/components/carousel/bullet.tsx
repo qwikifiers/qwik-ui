@@ -1,15 +1,22 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$, $, useContext } from '@builder.io/qwik';
+import { carouselContextId } from './context';
 
-export const PaginationBullet = component$((props: PropsOf<'div'>) => {
-  //   const context = useContext(carouselContextId);
+type BulletProps = PropsOf<'button'> & {
+  _index?: number;
+};
+
+export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => {
+  const context = useContext(carouselContextId);
+
+  const handleClick$ = $(() => {
+    if (typeof _index === 'number') {
+      context.currentIndexSig.value = _index;
+    }
+  });
 
   return (
-    <div
-      {...props}
-      //   aria-current={context.currentIndexSig.value === num}
-      //   data-current-slide={context.currentIndexSig.value === num}
-    >
+    <button onClick$={[handleClick$, props.onClick$]} role="tab" {...props}>
       <Slot />
-    </div>
+    </button>
   );
 });
