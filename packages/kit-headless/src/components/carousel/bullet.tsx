@@ -16,6 +16,7 @@ type BulletProps = PropsOf<'button'> & {
 export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => {
   const context = useContext(carouselContextId);
   const bulletRef = useSignal<HTMLButtonElement>();
+  const isRenderedSig = useSignal(true);
 
   useTask$(function getIndexOrder() {
     if (_index !== undefined) {
@@ -49,6 +50,17 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
     }
   });
 
+  useTask$(function renderAvailableBullets() {
+    const lastScrollableIndex =
+      context.numSlidesSig.value - context.slidesPerViewSig.value;
+
+    if (typeof _index !== 'number') return;
+
+    if (_index > lastScrollableIndex) {
+      isRenderedSig.value = false;
+    }
+  });
+
   return (
     <button
       ref={bulletRef}
@@ -57,6 +69,7 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
       onFocus$={[handleFocus$, props.onFocus$]}
       onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
       role="tab"
+      hidden={!isRenderedSig.value}
       {...props}
     >
       <Slot />
