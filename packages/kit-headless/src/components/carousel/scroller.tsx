@@ -22,7 +22,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const closestSlideRef = useSignal<HTMLDivElement>();
   const isMouseDownSig = useSignal(false);
   const isMouseMovingSig = useSignal(false);
-  const isTouchMovingSig = useSignal(false);
+  const isTouchDeviceSig = useSignal(false);
+  const isTouchMovingSig = useSignal(true);
 
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
@@ -85,8 +86,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   useTask$(function snapWithoutDrag({ track }) {
     track(() => context.currentIndexSig.value);
 
-    if (isTouchMovingSig.value) return;
-
     /** This task should only fire if anything other than drag changes the currentIndex */
     if (isMouseMovingSig.value) {
       isMouseMovingSig.value = false;
@@ -96,7 +95,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     if (!context.containerRef.value || isServer) return;
 
     if (!closestSlideRef.value) {
-      closestSlideRef.value = context.slideRefsArray.value[0].value;
+      closestSlideRef.value =
+        context.slideRefsArray.value[context.currentIndexSig.value]?.value;
     }
 
     if (!closestSlideRef.value) return;
@@ -123,7 +123,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   const updateTouchDeviceIndex$ = $(() => {
     if (!context.containerRef.value) return;
-    if (!isTouchMovingSig.value) return;
     const container = context.containerRef.value;
     const containerScrollLeft = container.scrollLeft;
     const slides = context.slideRefsArray.value;
@@ -146,19 +145,24 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     }
   });
 
-  const handleTouchMove$ = $(() => {
-    isTouchMovingSig.value = true;
-  });
-
   return (
     <div
       ref={context.containerRef}
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
       data-draggable={context.isDraggableSig.value ? '' : undefined}
       data-qui-carousel-container
-      onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
-      onScroll$={[updateTouchDeviceIndex$, props.onScroll$]}
-      onScrollend$={() => (isTouchMovingSig.value = false)}
+      onScroll$={[
+        $(
+          () =>
+            isTouchDeviceSig.value && isTouchMovingSig.value && updateTouchDeviceIndex$(),
+        ),
+        props.onScroll$,
+      ]}
+      onTouchMove$={() => (isTouchMovingSig.value = true)}
+      window:onTouchStart$={() => {
+        isTouchMovingSig.value = false;
+        isTouchDeviceSig.value = true;
+      }}
       preventdefault:mousemove
       {...props}
     >
