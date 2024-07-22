@@ -23,7 +23,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isMouseDownSig = useSignal(false);
   const isMouseMovingSig = useSignal(false);
   const isTouchMovingSig = useSignal(false);
-  const isTouchDeviceSig = useSignal(false);
 
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
@@ -86,7 +85,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   useTask$(function snapWithoutDrag({ track }) {
     track(() => context.currentIndexSig.value);
 
-    if (isTouchDeviceSig.value && !isTouchMovingSig.value) return;
+    if (isTouchMovingSig.value) return;
 
     /** This task should only fire if anything other than drag changes the currentIndex */
     if (isMouseMovingSig.value) {
@@ -160,7 +159,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
       onScroll$={[updateTouchDeviceIndex$, props.onScroll$]}
       onScrollend$={() => (isTouchMovingSig.value = false)}
-      window:onTouchStart$={() => (isTouchDeviceSig.value = true)}
       preventdefault:mousemove
       {...props}
     >
