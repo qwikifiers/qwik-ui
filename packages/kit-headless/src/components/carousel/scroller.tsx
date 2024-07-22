@@ -17,20 +17,22 @@ type CarouselContainerProps = PropsOf<'div'>;
 export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const context = useContext(carouselContextId);
   useStyles$(styles);
-  const isMouseDownSig = useSignal(false);
   const startXSig = useSignal<number>();
   const scrollLeftSig = useSignal(0);
   const closestSlideRef = useSignal<HTMLDivElement>();
-  const wasMovingSig = useSignal(false);
+  const isMouseDownSig = useSignal(false);
+  const isMouseMovingSig = useSignal(false);
+  const isTouchMovingSig = useSignal(false);
+  const isTouchDeviceSig = useSignal(false);
 
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
     if (!context.containerRef.value) return;
     const x = e.pageX - context.containerRef.value.offsetLeft;
-    const SCROLL_SPEED = 1.75;
-    const walk = (x - startXSig.value) * SCROLL_SPEED;
+    const dragSpeed = 1.75;
+    const walk = (x - startXSig.value) * dragSpeed;
     context.containerRef.value.scrollLeft = scrollLeftSig.value - walk;
-    wasMovingSig.value = true;
+    isMouseMovingSig.value = true;
   });
 
   const handleMouseSnap$ = $(() => {
@@ -58,16 +60,15 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const slideMarginLeft = parseFloat(getComputedStyle(closestSlide).marginLeft);
     const slideMarginRight = parseFloat(getComputedStyle(closestSlide).marginRight);
     const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
-    const snapPosition =
+    const dragSnapPosition =
       Math.round(containerScrollLeft / totalSlideWidth) * totalSlideWidth;
 
     container.scrollTo({
-      left: snapPosition,
+      left: dragSnapPosition,
       behavior: 'smooth',
     });
 
-    // Calculate the correct index based on the snap position
-    const correctIndex = Math.round(snapPosition / totalSlideWidth);
+    const correctIndex = Math.round(dragSnapPosition / totalSlideWidth);
     context.currentIndexSig.value = correctIndex;
   });
 
@@ -79,15 +80,17 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     scrollLeftSig.value = context.containerRef.value.scrollLeft;
     window.addEventListener('mousemove', handleMouseMove$);
     window.addEventListener('mouseup', handleMouseSnap$);
-    wasMovingSig.value = false;
+    isMouseMovingSig.value = false;
   });
 
-  useTask$(function nonDraggingBehavior({ track }) {
+  useTask$(function snapWithoutDrag({ track }) {
     track(() => context.currentIndexSig.value);
 
+    if (isTouchDeviceSig.value && !isTouchMovingSig.value) return;
+
     /** This task should only fire if anything other than drag changes the currentIndex */
-    if (wasMovingSig.value) {
-      wasMovingSig.value = false;
+    if (isMouseMovingSig.value) {
+      isMouseMovingSig.value = false;
       return;
     }
 
@@ -107,16 +110,45 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       getComputedStyle(closestSlideRef.value).marginRight,
     );
     const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
-    const snapPosition = context.currentIndexSig.value * totalSlideWidth;
+    const nonDragSnapPosition = context.currentIndexSig.value * totalSlideWidth;
 
     if (isMouseDownSig.value) return;
 
     context.containerRef.value.scrollTo({
-      left: snapPosition,
+      left: nonDragSnapPosition,
       behavior: 'smooth',
     });
 
     window.removeEventListener('mousemove', handleMouseMove$);
+  });
+
+  const updateTouchDeviceIndex$ = $(() => {
+    if (!context.containerRef.value) return;
+    if (!isTouchMovingSig.value) return;
+    const container = context.containerRef.value;
+    const containerScrollLeft = container.scrollLeft;
+    const slides = context.slideRefsArray.value;
+
+    let currentIndex = 0;
+    let minDistance = Infinity;
+
+    slides.forEach((slideRef, index) => {
+      if (!slideRef.value) return;
+      const slideLeft = slideRef.value.offsetLeft;
+      const distance = Math.abs(containerScrollLeft - slideLeft);
+      if (distance < minDistance) {
+        minDistance = distance;
+        currentIndex = index;
+      }
+    });
+
+    if (context.currentIndexSig.value !== currentIndex) {
+      context.currentIndexSig.value = currentIndex;
+    }
+  });
+
+  const handleTouchMove$ = $(() => {
+    isTouchMovingSig.value = true;
   });
 
   return (
@@ -125,6 +157,10 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
       data-draggable={context.isDraggableSig.value ? '' : undefined}
       data-qui-carousel-container
+      onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
+      onScroll$={[updateTouchDeviceIndex$, props.onScroll$]}
+      onScrollend$={() => (isTouchMovingSig.value = false)}
+      window:onTouchStart$={() => (isTouchDeviceSig.value = true)}
       preventdefault:mousemove
       {...props}
     >
