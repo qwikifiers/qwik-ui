@@ -96,6 +96,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       return;
     }
 
+    if (isTouchDeviceSig.value && isTouchMovingSig.value) return;
+
     if (!context.containerRef.value || isServer) return;
 
     const nonDragSnapPosition = await getSlidePosition$(context.currentIndexSig.value);
