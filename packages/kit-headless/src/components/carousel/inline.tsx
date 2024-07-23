@@ -53,7 +53,6 @@ export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
 
   return (
     <CarouselBase numSlides={numSlides} {...rest}>
-      {numSlides}
       {props.children}
     </CarouselBase>
   );

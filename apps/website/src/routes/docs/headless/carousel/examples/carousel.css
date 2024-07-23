@@ -4,7 +4,7 @@
 
 .carousel-scroller {
   display: flex;
-  padding-block: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .carousel-slide {
@@ -14,6 +14,7 @@
 
   border: 2px dotted hsl(var(--primary));
   min-height: 10rem;
+  margin-top: 0.5rem;
 }
 
 .carousel-pagination {
