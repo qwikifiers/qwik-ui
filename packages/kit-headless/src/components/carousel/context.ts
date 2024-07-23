@@ -10,7 +10,7 @@ export interface CarouselContext {
   // source of truth
   slideOffsetSig: Signal<number>;
   numSlidesSig: Signal<number>;
-  spaceBetweenSlides: number;
+  gapSig: Signal<number>;
   slidesPerViewSig: Signal<number>;
   slideRefsArray: Signal<Array<Signal>>;
   bulletRefsArray: Signal<Array<Signal>>;

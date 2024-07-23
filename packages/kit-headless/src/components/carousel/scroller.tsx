@@ -57,9 +57,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     });
 
     const slideWidth = closestSlide.getBoundingClientRect().width;
-    const slideMarginLeft = parseFloat(getComputedStyle(closestSlide).marginLeft);
-    const slideMarginRight = parseFloat(getComputedStyle(closestSlide).marginRight);
-    const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
+    const totalSlideWidth = slideWidth + context.gapSig.value;
     const dragSnapPosition =
       Math.round(containerScrollLeft / totalSlideWidth) * totalSlideWidth;
 
@@ -102,13 +100,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     if (!closestSlideRef.value) return;
 
     const slideWidth = closestSlideRef.value.getBoundingClientRect().width;
-    const slideMarginLeft = parseFloat(
-      getComputedStyle(closestSlideRef.value).marginLeft,
-    );
-    const slideMarginRight = parseFloat(
-      getComputedStyle(closestSlideRef.value).marginRight,
-    );
-    const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight;
+    const totalSlideWidth = slideWidth + context.gapSig.value;
     const nonDragSnapPosition = context.currentIndexSig.value * totalSlideWidth;
 
     if (isMouseDownSig.value) return;
@@ -150,7 +142,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       ref={context.containerRef}
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
       data-draggable={context.isDraggableSig.value ? '' : undefined}
-      data-qui-carousel-container
+      data-qui-carousel-scroller
       onScroll$={[
         $(
           () =>
@@ -164,6 +156,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
         isTouchDeviceSig.value = true;
       }}
       preventdefault:mousemove
+      style={{ gap: context.gapSig.value }}
       {...props}
     >
       <Slot />

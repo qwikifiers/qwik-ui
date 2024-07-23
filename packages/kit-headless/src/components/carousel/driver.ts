@@ -15,7 +15,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getContainer = () => {
-    return getRoot().locator('[data-qui-carousel-container]');
+    return getRoot().locator('[data-qui-carousel-scroller]');
   };
 
   const getSlideAt = (index: number) => {

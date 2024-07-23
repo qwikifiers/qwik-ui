@@ -7,10 +7,10 @@ export default component$(() => {
   return (
     <Carousel.Root class="carousel-root">
       <div class="carousel-buttons">
-        <Carousel.Previous class="prev-button">Prev</Carousel.Previous>
-        <Carousel.Next class="next-button">Next</Carousel.Next>
+        <Carousel.Previous>Prev</Carousel.Previous>
+        <Carousel.Next>Next</Carousel.Next>
       </div>
-      <Carousel.Scroller class="carousel-container">
+      <Carousel.Scroller class="carousel-scroller">
         {slideImageMetadata.map((data) => (
           <Carousel.Slide key={data.id} class="carousel-slide">
             <img

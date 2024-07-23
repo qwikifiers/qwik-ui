@@ -1,23 +1,19 @@
 .carousel-root {
-  --slide-size: 100%;
-  --slide-height: 5rem;
-  height: 100%;
   width: 100%;
 }
 
-.carousel-container {
-  backface-visibility: hidden;
+.carousel-scroller {
   display: flex;
   padding-block: 0.5rem;
 }
 
 .carousel-slide {
-  flex: 0 0 var(--slide-size);
-  min-width: 0;
-  position: relative;
+  /* how the slide is sized */
+  flex-basis: 100%;
+  flex-shrink: 0;
+
   user-select: none;
   border: 2px dotted hsl(var(--primary));
-  pointer-events: none;
   min-height: 10rem;
 }
 
@@ -34,10 +30,6 @@
   border: 2px dotted hsl(var(--accent));
 }
 
-.carousel-buttons button[aria-disabled='true'] {
-  opacity: 0.5;
-}
-
 .carousel-buttons button {
   border: 2px dotted hsl(var(--foreground));
   padding: 0.5rem;
@@ -47,8 +39,8 @@
   background-color: hsla(var(--primary) / 0.08);
 }
 
-.carousel-img {
-  pointer-events: none;
+.carousel-buttons button:disabled {
+  opacity: 0.5;
 }
 
 .carousel-pagination-bullet {
@@ -66,6 +58,6 @@
 }
 
 .carousel-half-size {
-  --slide-size: 50%;
+  flex-basis: 50%;
   border: 2px dotted hsl(var(--primary));
 }

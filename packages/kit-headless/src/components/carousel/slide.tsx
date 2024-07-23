@@ -28,7 +28,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
 
   return (
     <div
-      style={{ marginRight: `${context.spaceBetweenSlides}px` }}
+      style={{ marginRight: `${context.gap}px` }}
       ref={slideRef}
       data-qui-carousel-slide
       {...props}

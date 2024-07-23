@@ -9,10 +9,10 @@ export default component$(() => {
   return (
     <Carousel.Root class="carousel-root" draggable={false}>
       <div class="carousel-buttons">
-        <Carousel.Previous class="prev-button">Prev</Carousel.Previous>
-        <Carousel.Next class="next-button">Next</Carousel.Next>
+        <Carousel.Previous>Prev</Carousel.Previous>
+        <Carousel.Next>Next</Carousel.Next>
       </div>
-      <Carousel.Scroller class="carousel-container">
+      <Carousel.Scroller class="carousel-scroller">
         {colors.map((color) => (
           <Carousel.Slide key={color} class="carousel-slide">
             {color}
