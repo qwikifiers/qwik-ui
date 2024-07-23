@@ -1,20 +1,39 @@
-import { PropsOf, Slot, component$, useContext, useSignal, $ } from '@builder.io/qwik';
+import {
+  PropsOf,
+  Slot,
+  component$,
+  useContext,
+  useSignal,
+  $,
+  useId,
+} from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
   const context = useContext(carouselContextId);
   const isKeyboardFocusSig = useSignal(false);
+  const previousId = useId();
 
-  const handleFocus$ = $((e: FocusEvent) => {
-    isKeyboardFocusSig.value = e.detail === 0;
-  });
-
-  const handleBlur$ = $(() => {
+  const handleFocusNext$ = $(() => {
     if (isKeyboardFocusSig.value && context.currentIndexSig.value === 0) {
-      context.nextButtonRef.value?.focus();
+      const activeElAtBlur = document.activeElement;
+      setTimeout(() => {
+        if (document.activeElement !== activeElAtBlur) return;
+        if (context.currentIndexSig.value === 0) {
+          context.nextButtonRef.value?.focus();
+        }
+      }, 2000);
     }
     isKeyboardFocusSig.value = false;
+  });
+
+  const handleKeyDown$ = $(() => {
+    isKeyboardFocusSig.value = true;
+  });
+
+  const handleClick$ = $(() => {
+    context.currentIndexSig.value--;
   });
 
   return (
@@ -23,14 +42,13 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
       ref={context.prevButtonRef}
       aria-disabled={context.currentIndexSig.value === 0}
       disabled={context.currentIndexSig.value === 0}
-      onClick$={() => {
-        context.currentIndexSig.value--;
-      }}
-      onFocus$={[handleFocus$, props.onFocus$]}
-      onBlur$={[handleBlur$, props.onBlur$]}
+      onClick$={[handleClick$, props.onClick$]}
+      onBlur$={[handleFocusNext$, props.onBlur$]}
+      onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
       data-qui-carousel-prev
+      aria-labelledby={previousId}
     >
-      <VisuallyHidden>previous slide</VisuallyHidden>
+      <VisuallyHidden id={previousId}>previous slide</VisuallyHidden>
       <Slot />
     </button>
   );

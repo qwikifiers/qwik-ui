@@ -12,7 +12,6 @@
   flex-basis: 100%;
   flex-shrink: 0;
 
-  user-select: none;
   border: 2px dotted hsl(var(--primary));
   min-height: 10rem;
 }

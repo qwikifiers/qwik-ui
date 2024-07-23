@@ -67,13 +67,13 @@ export const CarouselBase = component$(
     useContextProvider(carouselContextId, context);
 
     return (
-      <section data-qui-carousel aria-roledescription="carousel" role="group" {...props}>
+      <div data-qui-carousel aria-roledescription="carousel" role="group" {...props}>
         <VisuallyHidden aria-live="polite" aria-atomic="true">
-          Slide {context.currentIndexSig.value} of
-          {context.numSlidesSig.value}
+          Slide {context.currentIndexSig.value + 1} of
+          {numSlidesSig.value}
         </VisuallyHidden>
         <Slot />
-      </section>
+      </div>
     );
   },
 );

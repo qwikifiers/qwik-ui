@@ -6,6 +6,8 @@ import {
   useTask$,
   useSignal,
   $,
+  useComputed$,
+  useId,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { VisuallyHidden } from '../../utils/visually-hidden';
@@ -15,16 +17,28 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
   const isLastSlideInViewSig = useSignal(false);
   const initialLoadSig = useSignal(true);
   const isKeyboardFocusSig = useSignal(false);
-
-  const handleFocus$ = $((e: FocusEvent) => {
-    isKeyboardFocusSig.value = e.detail === 0;
+  const isLastScrollableIndexSig = useComputed$(() => {
+    return context.numSlidesSig.value - context.slidesPerViewSig.value;
   });
+  const nextId = useId();
 
-  const handleBlur$ = $(() => {
+  const handleFocusPrev$ = $(() => {
     if (isKeyboardFocusSig.value && isLastSlideInViewSig.value) {
-      context.prevButtonRef.value?.focus();
+      const activeElAtBlur = document.activeElement;
+      setTimeout(() => {
+        if (document.activeElement !== activeElAtBlur) return;
+        if (isLastScrollableIndexSig.value >= context.currentIndexSig.value) {
+          context.prevButtonRef.value?.focus();
+        }
+      }, 2000);
     }
     isKeyboardFocusSig.value = false;
+  });
+
+  const handleKeyDown$ = $(() => {
+    if (!isLastScrollableIndexSig.value) return;
+
+    isKeyboardFocusSig.value = true;
   });
 
   useTask$(function updateSlidesPerViewState({ track }) {
@@ -32,10 +46,8 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
 
     if (initialLoadSig.value) return;
 
-    const lastScrollableIndex =
-      context.numSlidesSig.value - 1 - context.slidesPerViewSig.value;
-
-    isLastSlideInViewSig.value = context.currentIndexSig.value >= lastScrollableIndex;
+    isLastSlideInViewSig.value =
+      context.currentIndexSig.value >= isLastScrollableIndexSig.value;
   });
 
   useTask$(() => {
@@ -55,11 +67,12 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
       aria-disabled={isLastSlideInViewSig.value}
       disabled={isLastSlideInViewSig.value}
       onClick$={[handleClick$, props.onClick$]}
-      onFocus$={[handleFocus$, props.onFocus$]}
-      onBlur$={[handleBlur$, props.onBlur$]}
+      onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
+      onBlur$={[handleFocusPrev$, props.onBlur$]}
       data-qui-carousel-next
+      aria-labelledby={nextId}
     >
-      <VisuallyHidden>next slide</VisuallyHidden>
+      <VisuallyHidden id={nextId}>next slide</VisuallyHidden>
       <Slot />
     </button>
   );
