@@ -19,7 +19,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   useStyles$(styles);
   const startXSig = useSignal<number>();
   const scrollLeftSig = useSignal(0);
-  const closestSlideRef = useSignal<HTMLDivElement>();
   const isMouseDownSig = useSignal(false);
   const isMouseMovingSig = useSignal(false);
   const isTouchDeviceSig = useSignal(false);
@@ -89,10 +88,9 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     isMouseMovingSig.value = false;
   });
 
-  useTask$(function snapWithoutDrag({ track }) {
+  useTask$(async function snapWithoutDrag({ track }) {
     track(() => context.currentIndexSig.value);
 
-    /** This task should only fire if anything other than drag changes the currentIndex */
     if (isMouseMovingSig.value) {
       isMouseMovingSig.value = false;
       return;
@@ -100,16 +98,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     if (!context.containerRef.value || isServer) return;
 
-    if (!closestSlideRef.value) {
-      closestSlideRef.value =
-        context.slideRefsArray.value[context.currentIndexSig.value]?.value;
-    }
-
-    if (!closestSlideRef.value) return;
-
-    const slideWidth = closestSlideRef.value.getBoundingClientRect().width;
-    const totalSlideWidth = slideWidth + context.gapSig.value;
-    const nonDragSnapPosition = context.currentIndexSig.value * totalSlideWidth;
+    const nonDragSnapPosition = await getSlidePosition$(context.currentIndexSig.value);
 
     if (isMouseDownSig.value) return;
 
