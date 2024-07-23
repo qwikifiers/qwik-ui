@@ -22,8 +22,6 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
     } else {
       throw new Error('Qwik UI: Carousel Slide cannot find its proper index.');
     }
-
-    context.numSlidesSig.value = context.slideRefsArray.value.length;
   });
 
   return (

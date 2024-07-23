@@ -52,7 +52,7 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
 
   useTask$(function renderAvailableBullets() {
     const lastScrollableIndex =
-      context.numSlidesSig.value - context.slidesPerViewSig.value;
+      context.numSlidesSig.value - 1 - context.slidesPerViewSig.value;
 
     if (typeof _index !== 'number') return;
 

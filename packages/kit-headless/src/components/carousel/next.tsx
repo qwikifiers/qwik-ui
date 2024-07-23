@@ -33,7 +33,7 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
     if (initialLoadSig.value) return;
 
     const lastScrollableIndex =
-      context.numSlidesSig.value - context.slidesPerViewSig.value;
+      context.numSlidesSig.value - 1 - context.slidesPerViewSig.value;
 
     isLastSlideInViewSig.value = context.currentIndexSig.value >= lastScrollableIndex;
   });

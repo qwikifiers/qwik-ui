@@ -33,12 +33,14 @@ export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
   const Bullet = GivenBullet || GivenBulletOld || Carousel.Bullet;
   let currSlideIndex = 0;
   let currBulletIndex = 0;
+  let numSlides = 1;
 
   // code executes when the item component's shell is "seen"
   findComponent(Slide, (slideProps) => {
     slideProps._index = currSlideIndex;
 
     currSlideIndex++;
+    numSlides++;
   });
 
   findComponent(Bullet, (bulletProps) => {
@@ -49,5 +51,9 @@ export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
 
   processChildren(children);
 
-  return <CarouselBase {...rest}>{props.children}</CarouselBase>;
+  return (
+    <CarouselBase numSlides={numSlides} {...rest}>
+      {props.children}
+    </CarouselBase>
+  );
 };

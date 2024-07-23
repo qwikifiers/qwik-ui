@@ -14,6 +14,7 @@ export type CarouselRootProps = PropsOf<'section'> & {
   gap?: number;
   'bind:currSlideIndex'?: Signal<number>;
   slidesPerView?: number;
+  numSlides?: number;
   draggable?: boolean;
 };
 
@@ -23,7 +24,9 @@ export const CarouselBase = component$(
     const currentIndexSig = givenSlideIndexSig ? givenSlideIndexSig : defaultIndexSig;
 
     const slideOffsetSig = useSignal<number>(0);
-    const numSlidesSig = useSignal<number>(0);
+    const numSlidesSig = useComputed$(() => {
+      return props.numSlides ?? 0;
+    });
     const transitionDurationSig = useSignal<number>(0);
     const containerRef = useSignal<HTMLDivElement>();
     const nextButtonRef = useSignal<HTMLButtonElement>();
