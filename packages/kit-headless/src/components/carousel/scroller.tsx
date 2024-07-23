@@ -24,6 +24,10 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isTouchDeviceSig = useSignal(false);
   const isTouchMovingSig = useSignal(true);
 
+  useTask$(() => {
+    context.isScrollerSig.value = true;
+  });
+
   const getSlidePosition$ = $((index: number) => {
     if (!context.containerRef.value) return 0;
     const slides = context.slideRefsArray.value;

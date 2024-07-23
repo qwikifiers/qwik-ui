@@ -45,6 +45,7 @@ export const CarouselBase = component$(
     const gapSig = useComputed$(() => {
       return props.gap ?? 0;
     });
+    const isScrollerSig = useSignal(false);
 
     const context: CarouselContext = {
       isDraggableSig,
@@ -62,6 +63,7 @@ export const CarouselBase = component$(
       slidesPerViewSig,
       nextButtonRef,
       prevButtonRef,
+      isScrollerSig,
     };
 
     useContextProvider(carouselContextId, context);

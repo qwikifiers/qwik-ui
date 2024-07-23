@@ -19,6 +19,9 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
   const isActiveSig = useComputed$(() => {
     return context.currentIndexSig.value === _index;
   });
+  const isHiddenSig = useComputed$(() => {
+    return !context.isScrollerSig.value && !isActiveSig.value;
+  });
 
   useTask$(function getIndexOrder() {
     if (_index !== undefined) {
@@ -33,6 +36,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
       ref={slideRef}
       data-active={isActiveSig.value ? '' : undefined}
       inert={!isActiveSig.value}
+      hidden={isHiddenSig.value}
       aria-roledescription="slide"
       data-qui-carousel-slide
       {...props}

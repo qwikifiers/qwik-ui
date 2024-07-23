@@ -6,6 +6,7 @@ import { type Signal } from '@builder.io/qwik';
 
 export interface CarouselContext {
   isDraggableSig: Signal<boolean>;
+  isScrollerSig: Signal<boolean>;
 
   // source of truth
   slideOffsetSig: Signal<number>;
