@@ -25,6 +25,18 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isTouchDeviceSig = useSignal(false);
   const isTouchMovingSig = useSignal(true);
 
+  const getSlidePosition$ = $((index: number) => {
+    if (!context.containerRef.value) return 0;
+    const slides = context.slideRefsArray.value;
+    let position = 0;
+    for (let i = 0; i < index; i++) {
+      if (slides[i].value) {
+        position += slides[i].value.getBoundingClientRect().width + context.gapSig.value;
+      }
+    }
+    return position;
+  });
+
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
     if (!context.containerRef.value) return;
@@ -35,7 +47,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     isMouseMovingSig.value = true;
   });
 
-  const handleMouseSnap$ = $(() => {
+  const handleMouseSnap$ = $(async () => {
     if (!context.containerRef.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
@@ -44,30 +56,26 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const slides = context.slideRefsArray.value;
     const containerScrollLeft = container.scrollLeft;
 
-    let closestSlide = slides[0].value;
-    let minDistance = Math.abs(containerScrollLeft - closestSlide.offsetLeft);
+    let closestIndex = 0;
+    let minDistance = Infinity;
 
-    slides.forEach((slideRef) => {
-      if (!slideRef.value) return;
-      const distance = Math.abs(containerScrollLeft - slideRef.value.offsetLeft);
+    for (let i = 0; i < slides.length; i++) {
+      const slidePosition = await getSlidePosition$(i);
+      const distance = Math.abs(containerScrollLeft - slidePosition);
       if (distance < minDistance) {
-        closestSlide = slideRef.value;
+        closestIndex = i;
         minDistance = distance;
       }
-    });
+    }
 
-    const slideWidth = closestSlide.getBoundingClientRect().width;
-    const totalSlideWidth = slideWidth + context.gapSig.value;
-    const dragSnapPosition =
-      Math.round(containerScrollLeft / totalSlideWidth) * totalSlideWidth;
+    const dragSnapPosition = await getSlidePosition$(closestIndex);
 
     container.scrollTo({
       left: dragSnapPosition,
       behavior: 'smooth',
     });
 
-    const correctIndex = Math.round(dragSnapPosition / totalSlideWidth);
-    context.currentIndexSig.value = correctIndex;
+    context.currentIndexSig.value = closestIndex;
   });
 
   const handleMouseDown$ = $((e: MouseEvent) => {
