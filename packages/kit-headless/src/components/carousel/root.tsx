@@ -16,6 +16,7 @@ export type CarouselRootProps = PropsOf<'section'> & {
   slidesPerView?: number;
   numSlides?: number;
   draggable?: boolean;
+  align?: 'start' | 'center' | 'end';
 };
 
 export const CarouselBase = component$(
@@ -46,8 +47,12 @@ export const CarouselBase = component$(
       return props.gap ?? 0;
     });
     const isScrollerSig = useSignal(false);
+    const alignSig = useComputed$(() => {
+      return props.align ?? 'start';
+    });
 
     const context: CarouselContext = {
+      alignSig,
       isDraggableSig,
       isMouseDraggingSig,
       slideOffsetSig,

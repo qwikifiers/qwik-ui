@@ -5,6 +5,7 @@ export const carouselContextId = createContextId<CarouselContext>('carousel-cont
 import { type Signal } from '@builder.io/qwik';
 
 export interface CarouselContext {
+  alignSig: Signal<'start' | 'center' | 'end'>;
   isDraggableSig: Signal<boolean>;
   isScrollerSig: Signal<boolean>;
 

@@ -30,6 +30,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   const getSlidePosition$ = $((index: number) => {
     if (!context.containerRef.value) return 0;
+    const container = context.containerRef.value;
     const slides = context.slideRefsArray.value;
     let position = 0;
     for (let i = 0; i < index; i++) {
@@ -37,7 +38,17 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
         position += slides[i].value.getBoundingClientRect().width + context.gapSig.value;
       }
     }
-    return position;
+
+    const alignment = context.alignSig.value;
+    if (alignment === 'center') {
+      position -=
+        (container.clientWidth - slides[index].value.getBoundingClientRect().width) / 2;
+    } else if (alignment === 'end') {
+      position -=
+        container.clientWidth - slides[index].value.getBoundingClientRect().width;
+    }
+
+    return Math.max(0, position);
   });
 
   const handleMouseMove$ = $((e: MouseEvent) => {
@@ -159,6 +170,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
         isTouchDeviceSig.value = true;
       }}
       preventdefault:mousemove
+      data-align={context.alignSig.value}
       style={{ gap: context.gapSig.value }}
       {...props}
     >

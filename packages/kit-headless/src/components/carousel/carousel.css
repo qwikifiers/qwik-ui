@@ -8,6 +8,14 @@
     [data-draggable] [data-qui-carousel-slide] {
       scroll-snap-align: start;
     }
+
+    [data-draggable][data-align='center'] [data-qui-carousel-slide] {
+      scroll-snap-align: center;
+    }
+
+    [data-draggable][data-align='end'] [data-qui-carousel-slide] {
+      scroll-snap-align: end;
+    }
   }
 
   [data-qui-carousel-scroller] {
