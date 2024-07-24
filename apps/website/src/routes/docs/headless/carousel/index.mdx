@@ -69,6 +69,32 @@ A control that displays a set of content in a scrolling container.
 
 <Showcase name="without-scroller" />
 
+## Animations
+
+### Conditional Slides
+
+<Showcase name="conditional" />
+
+```css
+.carousel-conditional {
+  position: relative;
+  height: 200px;
+}
+
+.carousel-conditional .carousel-slide {
+  opacity: 0;
+  transition: opacity 2.5s;
+  /* NOT display block */
+  display: revert;
+  position: absolute;
+  inset: 0;
+}
+
+.carousel-conditional .carousel-slide[data-active] {
+  opacity: 1;
+}
+```
+
 ## CSR
 
 <Showcase name="csr" />

@@ -19,7 +19,8 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
   const isActiveSig = useComputed$(() => {
     return context.currentIndexSig.value === _index;
   });
-  const isHiddenSig = useComputed$(() => {
+  /** Used to hide the actual slide when it's inactive */
+  const isInactiveSig = useComputed$(() => {
     return !context.isScrollerSig.value && !isActiveSig.value;
   });
 
@@ -34,11 +35,11 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
   return (
     <div
       ref={slideRef}
-      data-active={isActiveSig.value ? '' : undefined}
       inert={!isActiveSig.value}
-      hidden={isHiddenSig.value}
+      hidden={isInactiveSig.value}
       aria-roledescription="slide"
       data-qui-carousel-slide
+      data-active={isActiveSig.value ? '' : undefined}
       {...props}
     >
       <Slot />

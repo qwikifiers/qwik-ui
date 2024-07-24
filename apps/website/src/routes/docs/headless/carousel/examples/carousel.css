@@ -61,3 +61,21 @@
   flex-basis: 50%;
   border: 2px dotted hsl(var(--primary));
 }
+
+.carousel-conditional {
+  position: relative;
+  height: 200px;
+}
+
+.carousel-conditional .carousel-slide {
+  opacity: 0;
+  transition: opacity 0.5s;
+  /* NOT display block */
+  display: revert;
+  position: absolute;
+  inset: 0;
+}
+
+.carousel-conditional .carousel-slide[data-active] {
+  opacity: 1;
+}
