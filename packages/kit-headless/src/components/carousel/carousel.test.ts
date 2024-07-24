@@ -27,6 +27,7 @@ test.describe('Mouse Behavior', () => {
 
     await d.getNextButton().click();
 
+    // every slide might be "visible" in the case of scroller carousels. It might be easier to check if the slide has the data-active attribute.
     await expect(d.getSlideAt(1)).toBeVisible();
   });
 
@@ -71,7 +72,7 @@ test.describe('Mouse Behavior', () => {
         WHEN clicking on the pagination bullets
         THEN it should move to the corresponding slide
 `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'pagination');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -85,7 +86,7 @@ test.describe('Keyboard Behavior', () => {
         WHEN the enter key is pressed on the focused next button
         THEN it should move to the next slide
         `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'pagination');
 
     await d.getNextButton().press('Enter');
 
@@ -96,7 +97,7 @@ test.describe('Keyboard Behavior', () => {
         WHEN the enter key is pressed on the focused previous button
         THEN it should move to the previous slide
   `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'pagination');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -108,7 +109,7 @@ test.describe('Keyboard Behavior', () => {
         WHEN the first bullet is focused and the right arrow key is pressed
         THEN focus should move to the next bullet
 `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'pagination');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -120,7 +121,31 @@ test.describe('Keyboard Behavior', () => {
         WHEN the 2nd bullet is focused and the left arrow key is pressed
         THEN focus should move to the previous bullet
 `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'pagination');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with a pagination control
+    WHEN the first bullet is focused and the right arrow key is pressed
+    THEN focus should move to the 2nd slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'pagination');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with a pagination control
+    WHEN the 2nd bullet is focused and the left arrow key is pressed
+    THEN it should move to the 1st slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'pagination');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -158,7 +183,7 @@ test.describe('Mobile / Touch Behavior', () => {
         WHEN tapping on the pagination bullets
         THEN it should move to the corresponding slide
 `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'pagination');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -218,7 +243,7 @@ test.describe('Accessibility', () => {
         WHEN it is rendered
         THEN the control should have the role of navigation
 `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'pagination');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -230,7 +255,7 @@ test.describe('Accessibility', () => {
         WHEN it is rendered
         THEN each bullet should have the role of tab
 `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'pagination');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -318,7 +343,8 @@ test.describe('Behavior', () => {
         WHEN on the last slide and the next button is clicked
         THEN it should move to the first slide
 `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    // JACK HASNT DONE THIS YET
+    const { driver: d } = await setup(page, 'loop');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -330,7 +356,7 @@ test.describe('Behavior', () => {
         WHEN on the first slide and the previous button is clicked
         THEN it should move to the first slide
 `, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+    const { driver: d } = await setup(page, 'loop');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -364,7 +390,7 @@ test.describe('Behavior', () => {
     });
 
     test(`GIVEN a carousel with dragging enabled
-          WHEN on the first slide and is swiped far left
+          WHEN on the first slide and is mobile swiped far left
           THEN it should stay snapped on the last slide
 `, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -376,7 +402,7 @@ test.describe('Behavior', () => {
     });
 
     test(`GIVEN a carousel with dragging enabled
-          WHEN on the last slide and is swiped far right
+          WHEN on the last slide and is mobile swiped far right
           THEN it should stay snapped on the first slide
 `, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
@@ -399,5 +425,19 @@ test.describe('Behavior', () => {
  *
  * When there is a use case that the default hero.tsx example doesn't cover, add a new test file in the docs headless/carousel/examples folder.
  *
+ *
+ */
+
+/**
+ * Future possible tests:
+ * Autoplay
+ *
+ * Snapping between center and end of slides
+ *
+ * Non-scroller or "conditional" carousels
+ *
+ * Multiple slides per view (2-n slides at a time)
+ *
+ * Multiple slider per move (+n slides per navigation)
  *
  */
