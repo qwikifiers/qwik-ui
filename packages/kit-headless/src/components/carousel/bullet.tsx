@@ -37,17 +37,20 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
   });
 
   const handleKeyDown$ = $((e: KeyboardEvent) => {
-    if (typeof _index !== 'number') return;
+    if (typeof _index !== 'number' || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft'))
+      return;
 
-    if (e.key === 'ArrowRight') {
-      const nextIndex = _index + 1;
-      context.bulletRefsArray.value[nextIndex]?.value.focus();
+    const totalBullets = context.bulletRefsArray.value.length;
+    const direction = e.key === 'ArrowRight' ? 1 : -1;
+    let newIndex = _index + direction;
+
+    if (context.isLoopSig.value) {
+      newIndex = (newIndex + totalBullets) % totalBullets;
+    } else {
+      newIndex = Math.max(0, Math.min(newIndex, totalBullets - 1));
     }
 
-    if (e.key === 'ArrowLeft') {
-      const prevIndex = _index - 1;
-      context.bulletRefsArray.value[prevIndex]?.value.focus();
-    }
+    context.bulletRefsArray.value[newIndex]?.value.focus();
   });
 
   useTask$(function renderAvailableBullets() {

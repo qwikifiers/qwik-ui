@@ -8,6 +8,7 @@ export interface CarouselContext {
   alignSig: Signal<'start' | 'center' | 'end'>;
   isDraggableSig: Signal<boolean>;
   isScrollerSig: Signal<boolean>;
+  isLoopSig: Signal<boolean>;
 
   // source of truth
   slideOffsetSig: Signal<number>;

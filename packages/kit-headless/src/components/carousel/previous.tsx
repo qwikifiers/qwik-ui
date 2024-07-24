@@ -16,6 +16,8 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
   const previousId = useId();
 
   const handleFocusNext$ = $(() => {
+    if (context.isLoopSig.value) return;
+
     if (isKeyboardFocusSig.value && context.currentIndexSig.value === 0) {
       const activeElAtBlur = document.activeElement;
       setTimeout(() => {
@@ -33,7 +35,11 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
   });
 
   const handleClick$ = $(() => {
-    context.currentIndexSig.value--;
+    if (context.currentIndexSig.value === 0 && context.isLoopSig.value) {
+      context.currentIndexSig.value = context.numSlidesSig.value - 1;
+    } else {
+      context.currentIndexSig.value--;
+    }
   });
 
   return (
@@ -41,7 +47,7 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
       {...props}
       ref={context.prevButtonRef}
       aria-disabled={context.currentIndexSig.value === 0}
-      disabled={context.currentIndexSig.value === 0}
+      disabled={context.currentIndexSig.value === 0 && !context.isLoopSig.value}
       onClick$={[handleClick$, props.onClick$]}
       onBlur$={[handleFocusNext$, props.onBlur$]}
       onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
