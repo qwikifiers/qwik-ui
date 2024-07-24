@@ -39,25 +39,6 @@ npm install -D @qwik-ui/headless
 
 <br/>
 
-## Components Status
-
-### Headless Kit
-
-| Component                                                 | Planned | Draft (Alpha) | Beta | Stable |
-| :-------------------------------------------------------- | :-----: | :-----------: | ---- | ------ |
-| [Accordion](https://qwikui.com/docs/headless/accordion)   |         |               | ✅   |        |
-| Carousel                                                  |   ✅    |               |      |        |
-| [Combobox](https://qwikui.com/docs/headless/combobox)     |         |               | ✅   |        |
-| Dialog                                                    |   ✅    |               |      |        |
-| [Modal](https://qwikui.com/docs/headless/modal)           |         |               | ✅   |        |
-| [Pagination](https://qwikui.com/docs/headless/pagination) |         |      ✅       |      |        |
-| [Popover](https://qwikui.com/docs/headless/popover)       |         |      ✅       |      |        |
-| [Select](https://qwikui.com/docs/headless/select)         |         |      ✅       |      |        |
-| [Separator](https://qwikui.com/docs/headless/separator)   |         |               | ✅   |        |
-| [Tabs](https://qwikui.com/docs/headless/tabs)             |         |               | ✅   |        |
-| [Toggle](https://qwikui.com/docs/headless/toggle)         |   ✅    |               |      |        |
-| [Tooltip](https://qwikui.com/docs/headless/tooltip)       |         |      ✅       |      |        |
-
 ## Contributing
 
 Want to contribute? Yayy! 🎉
