@@ -78,7 +78,13 @@ export const CarouselBase = component$(
     useContextProvider(carouselContextId, context);
 
     return (
-      <div data-qui-carousel aria-roledescription="carousel" role="group" {...props}>
+      <div
+        data-qui-carousel
+        aria-roledescription="carousel"
+        role="group"
+        {...props}
+        aria-live="polite"
+      >
         <Slot />
       </div>
     );
