@@ -38,7 +38,7 @@
     "test.headless.ci": "nx component-test-ci headless",
     "test.utils": "nx test utils"
   },
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@9.6.0",
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
     "@builder.io/qwik": "^1.7.1",
@@ -69,7 +69,7 @@
     "@oddbird/popover-polyfill": "0.4.3",
     "@playwright/test": "^1.44.1",
     "@qwikest/icons": "^0.0.13",
-    "@shikijs/transformers": "^1.6.0",
+    "@shikijs/transformers": "^1.11.0",
     "@swc-node/register": "^1.9.1",
     "@swc/core": "^1.5.7",
     "@testing-library/cypress": "10.0.1",
@@ -121,7 +121,7 @@
     "qwik-themes": "^0.2.0",
     "rehype-pretty-code": "^0.13.2",
     "sass": "^1.77.2",
-    "shiki": "1.6.0",
+    "shiki": "1.11.0",
     "specificity": "^1.0.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.3",
@@ -158,6 +158,6 @@
   },
   "volta": {
     "node": "20.9.0",
-    "pnpm": "9.5.0"
+    "pnpm": "9.6.0"
   }
 }
