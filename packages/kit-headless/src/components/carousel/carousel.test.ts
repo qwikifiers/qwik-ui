@@ -152,6 +152,30 @@ test.describe('Keyboard Behavior', () => {
 
     // TODO
   });
+
+  test(`GIVEN a carousel with a pagination control
+        WHEN the 1st bullet is focused and the end key is pressed
+        THEN it should move to the last slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'pagination');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with a pagination control
+        WHEN the last bullet is focused and the home key is pressed
+        THEN it should move to the first slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'pagination');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
 });
 
 test.describe('Mobile / Touch Behavior', () => {
