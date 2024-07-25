@@ -17,10 +17,10 @@
 
 ## 3. Add appropriate ARIA attributes
 
-- Use `aria-roledescription="carousel"` on the main container
-- Apply `role="region"` or `role="group"` to the carousel container based on page information architecture
-- Use `role="group"` with `aria-roledescription="slide"` for slide containers in basic carousels
-- For tabbed carousels, use `role="tablist"` for the tab container and `role="tab"` and `role="tabpanel"` for individual slides
+- Use `aria-roledescription="carousel"` on the main container [x]
+- Apply `role="region"` or `role="group"` to the carousel container based on page information architecture [x]
+- Use `aria-roledescription="slide"` for slide containers in basic carousels [x]
+- For tabbed carousels, use `role="tablist"` for the tab container and `role="tab"` and `role="tabpanel"` for individual slides [x]
 - Implement `aria-labelledby` or `aria-label` for accessible names on carousel container and slides
 - Add `aria-selected`, `aria-controls`, and `aria-label` on tabs in tabbed carousels
 

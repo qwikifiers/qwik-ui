@@ -16,6 +16,7 @@ type InternalProps = {
 
   slideComponent?: typeof Carousel.Slide;
   bulletComponent?: typeof Carousel.Bullet;
+  titleComponent?: typeof Carousel.Title;
 };
 
 export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
@@ -27,13 +28,16 @@ export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
     carouselBulletComponent: GivenBulletOld,
     slideComponent: GivenSlide,
     bulletComponent: GivenBullet,
+    titleComponent: GivenTitle,
     ...rest
   } = props;
   const Slide = GivenSlide || GivenSlideOld || Carousel.Slide;
   const Bullet = GivenBullet || GivenBulletOld || Carousel.Bullet;
+  const Title = GivenTitle || Carousel.Title;
   let currSlideIndex = 0;
   let currBulletIndex = 0;
   let numSlides = 0;
+  let isTitle = false;
 
   // code executes when the item component's shell is "seen"
   findComponent(Slide, (slideProps) => {
@@ -49,10 +53,14 @@ export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
     currBulletIndex++;
   });
 
+  findComponent(Title, () => {
+    isTitle = true;
+  });
+
   processChildren(children);
 
   return (
-    <CarouselBase numSlides={numSlides} {...rest}>
+    <CarouselBase numSlides={numSlides} isTitle={isTitle} {...rest}>
       {props.children}
     </CarouselBase>
   );

@@ -6,6 +6,7 @@ import {
   useContextProvider,
   useSignal,
   useComputed$,
+  useId,
 } from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
 
@@ -17,17 +18,18 @@ export type CarouselRootProps = PropsOf<'section'> & {
   draggable?: boolean;
   align?: 'start' | 'center' | 'end';
   loop?: boolean;
+  isTitle?: boolean;
 };
 
 export const CarouselBase = component$(
-  ({ 'bind:currSlideIndex': givenSlideIndexSig, ...props }: CarouselRootProps) => {
-    const defaultIndexSig = useSignal(0);
-    const currentIndexSig = givenSlideIndexSig ? givenSlideIndexSig : defaultIndexSig;
-
+  ({
+    'bind:currSlideIndex': givenSlideIndexSig,
+    isTitle,
+    ...props
+  }: CarouselRootProps) => {
+    // core state
+    const localId = useId();
     const slideOffsetSig = useSignal<number>(0);
-    const numSlidesSig = useComputed$(() => {
-      return props.numSlides ?? 0;
-    });
     const transitionDurationSig = useSignal<number>(0);
     const containerRef = useSignal<HTMLDivElement>();
     const nextButtonRef = useSignal<HTMLButtonElement>();
@@ -37,22 +39,18 @@ export const CarouselBase = component$(
     const initialTransformX = useSignal<number>(0);
     const slideRefsArray = useSignal<Array<Signal>>([]);
     const bulletRefsArray = useSignal<Array<Signal>>([]);
-    const isDraggableSig = useComputed$(() => {
-      return props.draggable ?? true;
-    });
-    const slidesPerViewSig = useComputed$(() => {
-      return props.slidesPerView ?? 1;
-    });
-    const gapSig = useComputed$(() => {
-      return props.gap ?? 0;
-    });
+    const defaultIndexSig = useSignal(0);
+    const currentIndexSig = givenSlideIndexSig ? givenSlideIndexSig : defaultIndexSig;
     const isScrollerSig = useSignal(false);
-    const alignSig = useComputed$(() => {
-      return props.align ?? 'start';
-    });
-    const isLoopSig = useComputed$(() => {
-      return props.loop ?? false;
-    });
+
+    // derived
+    const numSlidesSig = useComputed$(() => props.numSlides ?? 0);
+    const isDraggableSig = useComputed$(() => props.draggable ?? true);
+    const slidesPerViewSig = useComputed$(() => props.slidesPerView ?? 1);
+    const gapSig = useComputed$(() => props.gap ?? 0);
+    const alignSig = useComputed$(() => props.align ?? 'start');
+    const isLoopSig = useComputed$(() => props.loop ?? false);
+    const titleId = `${localId}-title`;
 
     const context: CarouselContext = {
       isLoopSig,
@@ -73,17 +71,20 @@ export const CarouselBase = component$(
       nextButtonRef,
       prevButtonRef,
       isScrollerSig,
+      localId,
     };
 
     useContextProvider(carouselContextId, context);
 
     return (
       <div
-        data-qui-carousel
-        aria-roledescription="carousel"
         role="group"
-        {...props}
+        aria-roledescription="carousel"
         aria-live="polite"
+        data-qui-carousel
+        aria-labelledby={isTitle ? titleId : undefined}
+        aria-label={!isTitle ? `content slideshow` : undefined}
+        {...props}
       >
         <Slot />
       </div>

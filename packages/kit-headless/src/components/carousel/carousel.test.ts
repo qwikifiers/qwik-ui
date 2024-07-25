@@ -236,7 +236,18 @@ test.describe('Accessibility', () => {
     // remove this (there so that TS doesn't complain)
     d;
 
-    // TODO
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getRoot()).toHaveAttribute('aria-label', 'content slideshow');
+  });
+
+  test(`GIVEN a carousel with a title
+        WHEN it is rendered
+        THEN the carousel container should have the role of group
+        AND the title should be the accessible name`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'title');
+
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getRoot()).toHaveAttribute('aria-labelledby', 'Favorite Colors');
   });
 
   test(`GIVEN a carousel
