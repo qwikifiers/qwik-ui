@@ -95,6 +95,7 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
       aria-label={`${_index !== undefined && `Slide ${_index + 1}`}`}
       aria-controls={slideId}
       data-active={context.currentIndexSig.value === _index ? '' : undefined}
+      aria-selected={context.currentIndexSig.value === _index ? true : false}
       onClick$={[handleClick$, props.onClick$]}
       onFocus$={[handleFocus$, props.onFocus$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
