@@ -16,6 +16,11 @@ export type CarouselSlideProps = PropsOf<'div'> & {
 export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProps) => {
   const context = useContext(carouselContextId);
   const slideRef = useSignal<HTMLDivElement | undefined>();
+  const isVisibleSig = useComputed$(() => {
+    const start = context.currentIndexSig.value;
+    const end = start + context.slidesPerViewSig.value;
+    return _index !== undefined && _index >= start && _index < end;
+  });
   const isActiveSig = useComputed$(() => {
     return context.currentIndexSig.value === _index;
   });
@@ -35,11 +40,11 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
   return (
     <div
       ref={slideRef}
-      inert={!isActiveSig.value}
+      inert={!isVisibleSig.value}
       hidden={isInactiveSig.value}
       aria-roledescription="slide"
       data-qui-carousel-slide
-      data-active={isActiveSig.value ? '' : undefined}
+      data-active={isVisibleSig.value ? '' : undefined}
       aria-label={`${_index !== undefined && _index + 1} of ${context.numSlidesSig.value}`}
       {...props}
     >
