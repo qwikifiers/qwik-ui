@@ -26,14 +26,5 @@ export function useBoundSignal<T>(givenSignal?: Signal<T>, initialValue?: T): Si
     }
   });
 
-  useTask$(({ track }) => {
-    if (givenSignal) {
-      const value = track(() => givenSignal.value);
-      if (boundSignal !== givenSignal) {
-        boundSignal.value = value;
-      }
-    }
-  });
-
   return boundSignal;
 }
