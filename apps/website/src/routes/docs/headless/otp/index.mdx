@@ -1,0 +1,30 @@
+---
+title: Qwik UI | Accordion
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+import { FeatureList } from '~/components/feature-list/feature-list';
+import { Note } from '~/components/note/note';
+
+<StatusBanner status={statusByComponent.headless.Otp} />
+
+# OTP
+
+A set of interactive sections that show or hide connected information.
+
+<Showcase name="hero" />
+
+initial thoughts:
+
+```tsx
+<Otp.Root>
+  <Otp.HiddenNativeInput />
+  <Otp.Item>1</Otp.Item>
+  <Otp.Item>2</Otp.Item>
+  <Otp.Item>3</Otp.Item>
+
+  <Otp.Item>4</Otp.Item>
+  <Otp.Item>5</Otp.Item>
+  <Otp.Item>6</Otp.Item>
+</Otp.Root>
+```

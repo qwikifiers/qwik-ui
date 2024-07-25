@@ -21,6 +21,7 @@
 - [Checkbox](/docs/headless/checkbox)
 - [Dropdown](/docs/headless/dropdown)
 - [Label](/docs/headless/label)
+- [Otp](/docs/headless/otp)
 - [Modal](/docs/headless/modal)
 - [Pagination](/docs/headless/pagination)
 - [Popover](/docs/headless/popover)

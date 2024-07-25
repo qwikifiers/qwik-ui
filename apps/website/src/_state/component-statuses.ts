@@ -42,6 +42,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Dropdown: ComponentStatus.Draft,
     Label: ComponentStatus.Draft,
     Modal: ComponentStatus.Beta,
+    Otp: ComponentStatus.Draft,
     Pagination: ComponentStatus.Draft,
     Popover: ComponentStatus.Beta,
     Progress: ComponentStatus.Beta,
