@@ -9,6 +9,7 @@ import {
   useId,
 } from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
+import { useBoundSignal } from '../../utils/bound-signal';
 
 export type CarouselRootProps = PropsOf<'div'> & {
   /** The gap between slides */
@@ -35,6 +36,9 @@ export type CarouselRootProps = PropsOf<'div'> & {
    */
   'bind:currSlideIndex'?: Signal<number>;
 
+  /** Whether the carousel should autoplay */
+  'bind:autoplay'?: Signal<boolean>;
+
   /** Time in milliseconds before the next slide plays during autoplay */
   autoPlayIntervalMs?: number;
 
@@ -49,6 +53,7 @@ export const CarouselBase = component$(
   ({
     'bind:currSlideIndex': givenOldSlideIndexSig,
     'bind:selectedIndex': givenSlideIndexSig,
+    'bind:autoplay': givenAutoplaySig,
     _isTitle: isTitle,
     ...props
   }: CarouselRootProps) => {
@@ -60,11 +65,12 @@ export const CarouselBase = component$(
     const isMouseDraggingSig = useSignal<boolean>(false);
     const slideRefsArray = useSignal<Array<Signal>>([]);
     const bulletRefsArray = useSignal<Array<Signal>>([]);
-    const defaultIndexSig = useSignal(0);
-    const currentIndexSig =
-      givenSlideIndexSig ?? givenOldSlideIndexSig ?? defaultIndexSig;
+    const currentIndexSig = useBoundSignal(
+      givenSlideIndexSig ?? givenOldSlideIndexSig,
+      0,
+    );
     const isScrollerSig = useSignal(false);
-    const isAutoplaySig = useSignal(false);
+    const isAutoplaySig = useBoundSignal(givenAutoplaySig, false);
 
     // derived
     const numSlidesSig = useComputed$(() => props._numSlides ?? 0);
@@ -74,6 +80,7 @@ export const CarouselBase = component$(
     const alignSig = useComputed$(() => props.align ?? 'start');
     const isLoopSig = useComputed$(() => props.loop ?? false);
     const autoPlayIntervalMsSig = useComputed$(() => props.autoPlayIntervalMs ?? 0);
+
     const titleId = `${localId}-title`;
 
     const context: CarouselContext = {

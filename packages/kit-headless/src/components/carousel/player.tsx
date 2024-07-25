@@ -9,7 +9,7 @@ import {
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 
-export const CarouselAutoplay = component$((props: PropsOf<'button'>) => {
+export const CarouselPlayer = component$((props: PropsOf<'button'>) => {
   const context = useContext(carouselContextId);
   const intervalIdSig = useSignal<NodeJS.Timeout>();
 

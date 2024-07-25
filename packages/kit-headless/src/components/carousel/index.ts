@@ -6,4 +6,4 @@ export { CarouselNext as Next } from './next';
 export { CarouselPagination as Pagination } from './pagination';
 export { CarouselBullet as Bullet } from './bullet';
 export { CarouselTitle as Title } from './title';
-export { CarouselAutoplay as Autoplay } from './autoplay';
+export { CarouselPlayer as Player } from './player';
