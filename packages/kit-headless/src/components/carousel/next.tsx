@@ -7,10 +7,8 @@ import {
   useSignal,
   $,
   useComputed$,
-  useId,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
-import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export const CarouselNext = component$((props: PropsOf<'button'>) => {
   const context = useContext(carouselContextId);
@@ -20,7 +18,6 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
   const isLastScrollableIndexSig = useComputed$(() => {
     return context.numSlidesSig.value - context.slidesPerViewSig.value;
   });
-  const nextId = useId();
 
   const handleFocusPrev$ = $(() => {
     if (context.isLoopSig.value) return;
@@ -77,9 +74,8 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
       onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
       onBlur$={[handleFocusPrev$, props.onBlur$]}
       data-qui-carousel-next
-      aria-labelledby={nextId}
+      aria-label="next slide"
     >
-      <VisuallyHidden id={nextId}>next slide</VisuallyHidden>
       <Slot />
     </button>
   );

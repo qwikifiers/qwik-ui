@@ -40,6 +40,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
       aria-roledescription="slide"
       data-qui-carousel-slide
       data-active={isActiveSig.value ? '' : undefined}
+      aria-label={`${_index !== undefined && _index + 1} of ${context.numSlidesSig.value}`}
       {...props}
     >
       <Slot />

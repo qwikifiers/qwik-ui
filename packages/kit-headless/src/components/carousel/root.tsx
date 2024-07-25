@@ -8,7 +8,6 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
-import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export type CarouselRootProps = PropsOf<'section'> & {
   gap?: number;
@@ -80,10 +79,6 @@ export const CarouselBase = component$(
 
     return (
       <div data-qui-carousel aria-roledescription="carousel" role="group" {...props}>
-        <VisuallyHidden aria-live="polite" aria-atomic="true">
-          Slide {context.currentIndexSig.value + 1} of
-          {numSlidesSig.value}
-        </VisuallyHidden>
         <Slot />
       </div>
     );

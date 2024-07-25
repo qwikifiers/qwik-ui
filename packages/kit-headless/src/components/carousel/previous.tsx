@@ -1,19 +1,9 @@
-import {
-  PropsOf,
-  Slot,
-  component$,
-  useContext,
-  useSignal,
-  $,
-  useId,
-} from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useContext, useSignal, $ } from '@builder.io/qwik';
 import { carouselContextId } from './context';
-import { VisuallyHidden } from '../../utils/visually-hidden';
 
 export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
   const context = useContext(carouselContextId);
   const isKeyboardFocusSig = useSignal(false);
-  const previousId = useId();
 
   const handleFocusNext$ = $(() => {
     if (context.isLoopSig.value) return;
@@ -52,9 +42,8 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
       onBlur$={[handleFocusNext$, props.onBlur$]}
       onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
       data-qui-carousel-prev
-      aria-labelledby={previousId}
+      aria-label="previous slide"
     >
-      <VisuallyHidden id={previousId}>previous slide</VisuallyHidden>
       <Slot />
     </button>
   );

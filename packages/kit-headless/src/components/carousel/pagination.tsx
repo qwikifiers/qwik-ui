@@ -4,7 +4,7 @@ type CarouselPaginationProps = PropsOf<'div'>;
 
 export const CarouselPagination = component$(({ ...props }: CarouselPaginationProps) => {
   return (
-    <div role="navigation" {...props}>
+    <div role="tablist" {...props}>
       <Slot />
     </div>
   );

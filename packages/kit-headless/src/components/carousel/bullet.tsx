@@ -73,6 +73,8 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
       onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
       role="tab"
       hidden={!isRenderedSig.value}
+      aria-label={`${_index !== undefined && `Slide ${_index + 1}`}`}
+      tabIndex={_index === context.currentIndexSig.value ? 0 : -1}
       {...props}
     >
       <Slot />

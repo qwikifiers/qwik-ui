@@ -241,7 +241,7 @@ test.describe('Accessibility', () => {
 
   test(`GIVEN a carousel with a pagination control
         WHEN it is rendered
-        THEN the control should have the role of navigation
+        THEN the parent of the slide tabs should have the role of tablist
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
