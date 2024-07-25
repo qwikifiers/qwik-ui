@@ -111,7 +111,7 @@ export const CarouselBase = component$(
         aria-labelledby={isTitle ? titleId : undefined}
         aria-label={!isTitle ? `content slideshow` : undefined}
         aria-roledescription="carousel"
-        aria-live="polite"
+        aria-live={isAutoplaySig.value ? 'off' : 'polite'}
         data-qui-carousel
         {...props}
       >

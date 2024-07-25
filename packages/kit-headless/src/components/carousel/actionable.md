@@ -21,10 +21,10 @@
 - Apply `role="region"` or `role="group"` to the carousel container based on page information architecture [x]
 - Use `aria-roledescription="slide"` for slide containers in basic carousels [x]
 - For tabbed carousels, use `role="tablist"` for the tab container and `role="tab"` and `role="tabpanel"` for individual slides [x]
-- Implement `aria-labelledby` or `aria-label` for accessible names on carousel container and slides
+- Implement `aria-labelledby` or `aria-label` for accessible names on carousel container and slides [x]
 - Add `aria-selected`, `aria-controls`, and `aria-label` on tabs in tabbed carousels
 
-## 4. Implement live regions
+## 4. Implement live regions [x]
 
 - Use `aria-live="polite"` when auto-rotation is off
 - Set `aria-live="off"` when auto-rotation is on

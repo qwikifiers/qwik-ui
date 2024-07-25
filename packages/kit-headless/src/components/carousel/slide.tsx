@@ -16,6 +16,7 @@ export type CarouselSlideProps = PropsOf<'div'> & {
 export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProps) => {
   const context = useContext(carouselContextId);
   const slideRef = useSignal<HTMLDivElement | undefined>();
+  const slideId = `${context.localId}-${_index ?? -1}`;
   const isVisibleSig = useComputed$(() => {
     const start = context.currentIndexSig.value;
     const end = start + context.slidesPerViewSig.value;
@@ -40,6 +41,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
   return (
     <div
       ref={slideRef}
+      id={slideId}
       inert={!isVisibleSig.value}
       hidden={isInactiveSig.value}
       aria-roledescription="slide"

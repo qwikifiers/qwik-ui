@@ -36,7 +36,11 @@ export const CarouselPlayer = component$((props: PropsOf<'button'>) => {
   });
 
   return (
-    <button onClick$={[handleClick$, props.onClick$]} {...props}>
+    <button
+      aria-label="Stop automatic slide show"
+      onClick$={[handleClick$, props.onClick$]}
+      {...props}
+    >
       <Slot />
     </button>
   );

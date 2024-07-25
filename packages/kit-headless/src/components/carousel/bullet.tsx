@@ -17,6 +17,7 @@ type BulletProps = PropsOf<'button'> & {
 export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => {
   const context = useContext(carouselContextId);
   const bulletRef = useSignal<HTMLButtonElement>();
+  const slideId = `${context.localId}-${_index ?? -1}`;
   const isRenderedSig = useSignal(true);
 
   useTask$(function getIndexOrder() {
@@ -92,6 +93,7 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
       hidden={!isRenderedSig.value}
       tabIndex={_index === context.currentIndexSig.value ? 0 : -1}
       aria-label={`${_index !== undefined && `Slide ${_index + 1}`}`}
+      aria-controls={slideId}
       data-active={context.currentIndexSig.value === _index ? '' : undefined}
       onClick$={[handleClick$, props.onClick$]}
       onFocus$={[handleFocus$, props.onFocus$]}
