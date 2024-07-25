@@ -15,6 +15,7 @@ export interface CarouselContext {
   bulletRefsArray: Signal<Array<Signal>>;
   currentIndexSig: Signal<number>;
   isScrollerSig: Signal<boolean>;
+  isAutoPlaySig: Signal<boolean>;
 
   // derived
   numSlidesSig: Signal<number>;
@@ -23,4 +24,5 @@ export interface CarouselContext {
   gapSig: Signal<number>;
   alignSig: Signal<'start' | 'center' | 'end'>;
   isLoopSig: Signal<boolean>;
+  autoPlayIntervalMsSig: Signal<number>;
 }

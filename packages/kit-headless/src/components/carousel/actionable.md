@@ -2,7 +2,7 @@
 
 ## 1. Implement auto-rotation control
 
-- Add a start/stop button for users to control auto-rotation
+- Add a start/stop button for users to control auto-rotation [x]
 - Pause rotation on hover, focus, or when reduced motion is preferred
 - Disable auto-rotation completely as an option
 - Ensure auto-rotation stops when keyboard focus enters the carousel

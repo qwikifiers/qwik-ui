@@ -35,6 +35,9 @@ export type CarouselRootProps = PropsOf<'div'> & {
    */
   'bind:currSlideIndex'?: Signal<number>;
 
+  /** Time in milliseconds before the next slide plays during autoplay */
+  autoPlayIntervalMs?: number;
+
   /** @internal Total number of slides */
   _numSlides?: number;
 
@@ -61,6 +64,7 @@ export const CarouselBase = component$(
     const currentIndexSig =
       givenSlideIndexSig ?? givenOldSlideIndexSig ?? defaultIndexSig;
     const isScrollerSig = useSignal(false);
+    const isAutoplaySig = useSignal(false);
 
     // derived
     const numSlidesSig = useComputed$(() => props._numSlides ?? 0);
@@ -69,6 +73,7 @@ export const CarouselBase = component$(
     const gapSig = useComputed$(() => props.gap ?? 0);
     const alignSig = useComputed$(() => props.align ?? 'start');
     const isLoopSig = useComputed$(() => props.loop ?? false);
+    const autoPlayIntervalMsSig = useComputed$(() => props.autoPlayIntervalMs ?? 0);
     const titleId = `${localId}-title`;
 
     const context: CarouselContext = {
@@ -81,12 +86,14 @@ export const CarouselBase = component$(
       bulletRefsArray,
       currentIndexSig,
       isScrollerSig,
+      isAutoPlaySig: isAutoplaySig,
       numSlidesSig,
       isDraggableSig,
       slidesPerViewSig,
       gapSig,
       alignSig,
       isLoopSig,
+      autoPlayIntervalMsSig,
     };
 
     useContextProvider(carouselContextId, context);
