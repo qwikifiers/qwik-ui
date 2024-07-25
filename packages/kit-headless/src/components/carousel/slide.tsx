@@ -43,6 +43,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
       inert={!isVisibleSig.value}
       hidden={isInactiveSig.value}
       aria-roledescription="slide"
+      role={context.bulletRefsArray.value.length > 0 ? 'tabpanel' : undefined}
       data-qui-carousel-slide
       data-active={isVisibleSig.value ? '' : undefined}
       aria-label={`${_index !== undefined && _index + 1} of ${context.numSlidesSig.value}`}
