@@ -60,7 +60,7 @@ export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
   processChildren(children);
 
   return (
-    <CarouselBase numSlides={numSlides} isTitle={isTitle} {...rest}>
+    <CarouselBase _numSlides={numSlides} _isTitle={isTitle} {...rest}>
       {props.children}
     </CarouselBase>
   );

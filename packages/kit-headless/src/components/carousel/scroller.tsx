@@ -29,8 +29,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   });
 
   const getSlidePosition$ = $((index: number) => {
-    if (!context.containerRef.value) return 0;
-    const container = context.containerRef.value;
+    if (!context.scrollerRef.value) return 0;
+    const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
     let position = 0;
     for (let i = 0; i < index; i++) {
@@ -53,20 +53,20 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
-    if (!context.containerRef.value) return;
-    const x = e.pageX - context.containerRef.value.offsetLeft;
+    if (!context.scrollerRef.value) return;
+    const x = e.pageX - context.scrollerRef.value.offsetLeft;
     const dragSpeed = 1.75;
     const walk = (x - startXSig.value) * dragSpeed;
-    context.containerRef.value.scrollLeft = scrollLeftSig.value - walk;
+    context.scrollerRef.value.scrollLeft = scrollLeftSig.value - walk;
     isMouseMovingSig.value = true;
   });
 
   const handleMouseSnap$ = $(async () => {
-    if (!context.containerRef.value) return;
+    if (!context.scrollerRef.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
 
-    const container = context.containerRef.value;
+    const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
     const containerScrollLeft = container.scrollLeft;
 
@@ -94,10 +94,10 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   const handleMouseDown$ = $((e: MouseEvent) => {
     if (!context.isDraggableSig.value) return;
-    if (!context.containerRef.value) return;
+    if (!context.scrollerRef.value) return;
     isMouseDownSig.value = true;
-    startXSig.value = e.pageX - context.containerRef.value.offsetLeft;
-    scrollLeftSig.value = context.containerRef.value.scrollLeft;
+    startXSig.value = e.pageX - context.scrollerRef.value.offsetLeft;
+    scrollLeftSig.value = context.scrollerRef.value.scrollLeft;
     window.addEventListener('mousemove', handleMouseMove$);
     window.addEventListener('mouseup', handleMouseSnap$);
     isMouseMovingSig.value = false;
@@ -113,13 +113,13 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     if (isTouchDeviceSig.value && isTouchMovingSig.value) return;
 
-    if (!context.containerRef.value || isServer) return;
+    if (!context.scrollerRef.value || isServer) return;
 
     const nonDragSnapPosition = await getSlidePosition$(context.currentIndexSig.value);
 
     if (isMouseDownSig.value) return;
 
-    context.containerRef.value.scrollTo({
+    context.scrollerRef.value.scrollTo({
       left: nonDragSnapPosition,
       behavior: 'smooth',
     });
@@ -128,8 +128,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   });
 
   const updateTouchDeviceIndex$ = $(() => {
-    if (!context.containerRef.value) return;
-    const container = context.containerRef.value;
+    if (!context.scrollerRef.value) return;
+    const container = context.scrollerRef.value;
     const containerScrollLeft = container.scrollLeft;
     const slides = context.slideRefsArray.value;
 
@@ -153,7 +153,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   return (
     <div
-      ref={context.containerRef}
+      ref={context.scrollerRef}
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
       data-draggable={context.isDraggableSig.value ? '' : undefined}
       data-qui-carousel-scroller
