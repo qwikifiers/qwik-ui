@@ -18,7 +18,7 @@ export default component$(() => {
   return (
     <Dropdown.Root>
       <Dropdown.Trigger class="dropdown-trigger">Git Settings</Dropdown.Trigger>
-      <Dropdown.Popover class="dropdown-popover" gutter={8}>
+      <Dropdown.Popover>
         <Dropdown.Group class="dropdown-group">
           <Dropdown.GroupLabel class="dropdown-group-label">Actions</Dropdown.GroupLabel>
           {actions.map((action) => (

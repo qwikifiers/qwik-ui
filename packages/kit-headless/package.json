@@ -30,7 +30,7 @@
   },
   "private": false,
   "peerDependencies": {
-    "@builder.io/qwik": "^1.7.1"
+    "@builder.io/qwik": "1.7.0"
   },
   "dependencies": {
     "@floating-ui/core": "^1.6.2",

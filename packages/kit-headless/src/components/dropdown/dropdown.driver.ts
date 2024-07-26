@@ -11,8 +11,8 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().getByRole('button');
   };
 
-  const getContent = () => {
-    return getRoot().locator('[data-content]');
+  const getPopover = () => {
+    return getRoot().getByRole('menu');
   };
 
   const getItems = () => {
@@ -46,7 +46,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     }
 
     // Needed because Playwright doesn't wait for the dropdown to be visible
-    await expect(getContent()).toBeVisible();
+    await expect(getPopover()).toBeVisible();
   };
 
   return {
@@ -54,7 +54,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     locator: rootLocator,
     getRoot,
     getTrigger,
-    getContent,
+    getPopover,
     getItems,
     getItemsLength,
     getItemAt,

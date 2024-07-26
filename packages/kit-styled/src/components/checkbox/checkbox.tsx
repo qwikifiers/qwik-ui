@@ -17,6 +17,7 @@ export const Checkbox = component$<Partial<PropsOf<'input'> & { type?: 'checkbox
           props.class,
         )}
         id={inputId}
+        name={name}
       />
     );
   },
