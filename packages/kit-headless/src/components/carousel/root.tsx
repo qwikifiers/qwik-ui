@@ -93,7 +93,7 @@ export const CarouselBase = component$(
       bulletRefsArray,
       currentIndexSig,
       isScrollerSig,
-      isAutoPlaySig: isAutoplaySig,
+      isAutoplaySig,
       numSlidesSig,
       isDraggableSig,
       slidesPerViewSig,

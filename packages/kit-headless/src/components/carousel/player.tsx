@@ -14,13 +14,13 @@ export const CarouselPlayer = component$((props: PropsOf<'button'>) => {
   const intervalIdSig = useSignal<NodeJS.Timeout>();
 
   const handleClick$ = $(() => {
-    context.isAutoPlaySig.value = !context.isAutoPlaySig.value;
+    context.isAutoplaySig.value = !context.isAutoplaySig.value;
   });
 
   useTask$(function handleAutoplayProgress({ track }) {
-    track(() => context.isAutoPlaySig.value);
+    track(() => context.isAutoplaySig.value);
 
-    if (!context.isAutoPlaySig.value) {
+    if (!context.isAutoplaySig.value) {
       clearInterval(intervalIdSig.value);
       return;
     }
@@ -37,7 +37,11 @@ export const CarouselPlayer = component$((props: PropsOf<'button'>) => {
 
   return (
     <button
-      aria-label="Stop automatic slide show"
+      aria-label={
+        context.isAutoplaySig.value
+          ? 'stop automatic slide show'
+          : 'start automatic slide show'
+      }
       onClick$={[handleClick$, props.onClick$]}
       {...props}
     >

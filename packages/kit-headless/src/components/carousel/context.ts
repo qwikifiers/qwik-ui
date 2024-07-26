@@ -15,7 +15,7 @@ export interface CarouselContext {
   bulletRefsArray: Signal<Array<Signal>>;
   currentIndexSig: Signal<number>;
   isScrollerSig: Signal<boolean>;
-  isAutoPlaySig: Signal<boolean>;
+  isAutoplaySig: Signal<boolean>;
 
   // derived
   numSlidesSig: Signal<number>;
