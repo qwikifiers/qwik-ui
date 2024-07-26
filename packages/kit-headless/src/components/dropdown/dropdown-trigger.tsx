@@ -15,11 +15,7 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
   const context = useContext(dropdownContextId);
   const { getNextEnabledItemIndex$ } = useDropdown();
   const triggerId = `${context.localId}-trigger`;
-  const initialKeyDownSig = useSignal(true);
-
-  const handleClickSync$ = sync$((e: MouseEvent) => {
-    e.preventDefault();
-  });
+  const isInitialKeyDownSig = useSignal(true);
 
   // Both the space and enter keys run with handleClick$
   const handleClick$ = $(() => {
@@ -63,7 +59,7 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
         break;
     }
 
-    /** When initially opening the listbox, we want to grab the first enabled option index */
+    /** When initially opening the menu, we want to grab the first enabled option index */
     if (context.highlightedIndexSig.value === null) {
       context.highlightedIndexSig.value = await getNextEnabledItemIndex$(-1);
     }
@@ -74,7 +70,7 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
       context.highlightedItemRef.value?.focus();
     }
 
-    if (!initialKeyDownSig.value) return;
+    if (!isInitialKeyDownSig.value) return;
   });
 
   return (
@@ -83,13 +79,14 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
       {...props}
       id={triggerId}
       ref={context.triggerRef}
-      onClick$={[handleClickSync$, handleClick$, props.onClick$]}
+      preventdefault:click
+      preventdefault:blur
+      onClick$={[handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isOpenSig.value ? true : undefined}
       data-closed={!context.isOpenSig.value ? true : undefined}
       aria-expanded={context.isOpenSig.value}
       aria-haspopup="true"
-      preventdefault:blur
     >
       <Slot />
     </button>

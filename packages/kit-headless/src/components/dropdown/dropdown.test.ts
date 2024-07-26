@@ -5,7 +5,7 @@ import { createTestDriver } from './dropdown.driver';
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/dropdown/${exampleName}`);
 
-  const driver = createTestDriver(page.getByTestId('dropdown'));
+  const driver = createTestDriver(page.locator('[data-qui-dropdown]'));
 
   return {
     driver,
@@ -20,7 +20,7 @@ test.describe('Mouse Behavior', () => {
 
     await d.getTrigger().click();
 
-    await expect(d.getContent()).toBeVisible();
+    await expect(d.getPopover()).toBeVisible();
     await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
   });
 
@@ -33,7 +33,7 @@ test.describe('Mouse Behavior', () => {
 
     await d.getTrigger().click();
 
-    await expect(d.getContent()).toBeHidden();
+    await expect(d.getPopover()).toBeHidden();
     await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
   });
 
@@ -46,7 +46,7 @@ test.describe('Mouse Behavior', () => {
 
     await d.getItemAt(0).click();
 
-    await expect(d.getContent()).toBeHidden();
+    await expect(d.getPopover()).toBeHidden();
     await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
   });
 
@@ -98,7 +98,7 @@ test.describe('Mouse Behavior', () => {
 
     await expect(label).toBeVisible();
     await label.click();
-    await expect(d.getContent()).toBeVisible();
+    await expect(d.getPopover()).toBeVisible();
   });
 });
 
@@ -112,7 +112,7 @@ test.describe('Keyboard Behavior', () => {
       await d.getTrigger().focus();
       await d.getTrigger().press('Enter');
 
-      await expect(d.getContent()).toBeVisible();
+      await expect(d.getPopover()).toBeVisible();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
     });
 
@@ -124,7 +124,7 @@ test.describe('Keyboard Behavior', () => {
       await d.getTrigger().focus();
       await d.getTrigger().press('Space');
 
-      await expect(d.getContent()).toBeVisible();
+      await expect(d.getPopover()).toBeVisible();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'true');
     });
 
@@ -135,7 +135,7 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getTrigger().focus();
       await d.getTrigger().press('ArrowDown');
-      await expect(d.getContent()).toBeVisible();
+      await expect(d.getPopover()).toBeVisible();
     });
 
     test(`GIVEN a hero dropdown
@@ -145,7 +145,7 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getTrigger().focus();
       await d.getTrigger().press('ArrowUp');
-      await expect(d.getContent()).toBeVisible();
+      await expect(d.getPopover()).toBeVisible();
     });
 
     test(`GIVEN a hero dropdown with an opened content
@@ -158,7 +158,7 @@ test.describe('Keyboard Behavior', () => {
 
       await page.keyboard.press('Escape');
 
-      await expect(d.getContent()).toBeHidden();
+      await expect(d.getPopover()).toBeHidden();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
 
@@ -172,7 +172,7 @@ test.describe('Keyboard Behavior', () => {
 
       await page.keyboard.press('Tab');
 
-      await expect(d.getContent()).toBeHidden();
+      await expect(d.getPopover()).toBeHidden();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
   });
@@ -186,7 +186,7 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getTrigger().focus();
       await d.getTrigger().press('ArrowDown');
-      await expect(d.getContent()).toBeVisible();
+      await expect(d.getPopover()).toBeVisible();
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
@@ -199,7 +199,7 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getTrigger().focus();
       await d.getTrigger().press('Enter');
-      await expect(d.getContent()).toBeVisible();
+      await expect(d.getPopover()).toBeVisible();
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
@@ -212,7 +212,7 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getTrigger().focus();
       await d.getTrigger().press('Space');
-      await expect(d.getContent()).toBeVisible();
+      await expect(d.getPopover()).toBeVisible();
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
@@ -225,7 +225,7 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getTrigger().focus();
       await d.getTrigger().press('ArrowUp');
-      await expect(d.getContent()).toBeVisible();
+      await expect(d.getPopover()).toBeVisible();
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     });
@@ -303,7 +303,7 @@ test.describe('Keyboard Behavior', () => {
       await d.getHighlightedItem().press('ArrowDown');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Enter');
-      await expect(d.getContent()).toBeHidden();
+      await expect(d.getPopover()).toBeHidden();
 
       await d.getHighlightedItem().press('ArrowDown');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
@@ -322,7 +322,7 @@ test.describe('Keyboard Behavior', () => {
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Enter');
-      await expect(d.getContent()).toBeHidden();
+      await expect(d.getPopover()).toBeHidden();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
 
@@ -338,7 +338,7 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       await expect(d.getItemAt(0)).toHaveAttribute('data-close-on-select');
       await d.getHighlightedItem().press('Space');
-      await expect(d.getContent()).toBeHidden();
+      await expect(d.getPopover()).toBeHidden();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
 
