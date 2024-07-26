@@ -21,4 +21,10 @@
   [data-qui-carousel-scroller] {
     overflow: hidden;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-qui-carousel-player] {
+      display: none;
+    }
+  }
 }

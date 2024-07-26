@@ -6,6 +6,7 @@ import {
   useTask$,
   useSignal,
   useComputed$,
+  $,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 
@@ -38,6 +39,10 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
     }
   });
 
+  const handleFocusIn$ = $(() => {
+    context.isAutoplaySig.value = false;
+  });
+
   return (
     <div
       ref={slideRef}
@@ -49,6 +54,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
       data-qui-carousel-slide
       data-active={isVisibleSig.value ? '' : undefined}
       aria-label={`${_index !== undefined && _index + 1} of ${context.numSlidesSig.value}`}
+      onFocusIn$={[handleFocusIn$, props.onFocusIn$]}
       {...props}
     >
       <Slot />

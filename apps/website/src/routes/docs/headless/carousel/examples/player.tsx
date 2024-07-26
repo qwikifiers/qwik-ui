@@ -13,7 +13,7 @@ export default component$(() => {
       <Carousel.Root
         class="carousel-root"
         gap={30}
-        autoPlayIntervalMs={2000}
+        autoPlayIntervalMs={3500}
         bind:autoplay={isPlaying}
       >
         <div class="carousel-buttons">
@@ -22,9 +22,10 @@ export default component$(() => {
           <Carousel.Next>Next</Carousel.Next>
         </div>
         <Carousel.Scroller class="carousel-scroller">
-          {colors.map((color) => (
+          {colors.map((color, index) => (
             <Carousel.Slide key={color} class="carousel-slide">
               {color}
+              <div>{index === 1 && <button>I stop autoplay on focus!</button>}</div>
             </Carousel.Slide>
           ))}
         </Carousel.Scroller>
