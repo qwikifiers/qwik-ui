@@ -53,7 +53,8 @@ export const CarouselPlayer = component$((props: PropsOf<'button'>) => {
     }
 
     const advanceSlideIndex$ = $(() => {
-      (context.currentIndexSig.value++ % context.numSlidesSig.value) - 1;
+      context.currentIndexSig.value =
+        (context.currentIndexSig.value + 1) % context.numSlidesSig.value;
     });
 
     intervalIdSig.value = setInterval(
