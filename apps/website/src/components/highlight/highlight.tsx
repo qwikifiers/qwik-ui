@@ -8,13 +8,13 @@ import {
   $,
 } from '@builder.io/qwik';
 import { CodeCopy } from '../code-copy/code-copy';
-import { getHighlighterCore } from 'shiki';
 import { cn } from '@qwik-ui/utils';
 import { isDev } from '@builder.io/qwik/build';
 import poimandres from 'shiki/themes/poimandres.mjs';
 import html from 'shiki/langs/html.mjs';
 import css from 'shiki/langs/css.mjs';
 import tsx from 'shiki/langs/tsx.mjs';
+import { createHighlighterCore } from 'shiki/index.mjs';
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
@@ -48,7 +48,7 @@ export const Highlight = component$(
         modifiedCode = partsOfCode[0];
       }
 
-      const highlighter = await getHighlighterCore({
+      const highlighter = await createHighlighterCore({
         themes: [poimandres],
         langs: [html, css, tsx],
         loadWasm: import('shiki/wasm'),
