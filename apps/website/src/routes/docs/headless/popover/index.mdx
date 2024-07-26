@@ -243,6 +243,14 @@ Above is an example of how we programmatically open and close the popover in the
 
 > In the native spec, these are methods, although we want to ensure code executes on interaction in all browsers, including the polyfill.
 
+### Handling state changes
+
+<Showcase name="toggle-event" />
+
+Use the `onToggle$` prop on the `<Popover.Panel>` to listen for changes to the popover visibility.
+
+The example above uses a `Signal` to track whether the popover is triggered or not.
+
 ## Floating Behavior
 
 By default, the Qwik UI Popover will float below the trigger component.
@@ -474,6 +482,19 @@ To read more about the popover API you can check it out on:
       name: 'data-closing',
       type: 'class',
       description: 'Class to animate exit behavior.',
+    },
+  ]}
+/>
+
+### Popover Panel
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'onToggle',
+      type: 'QRL',
+      description: 'Function called when the popover opens or closes',
+      info: 'QRL<(event: CorrectedToggleEvent, element: HTMLDivElement) => void>',
     },
   ]}
 />
