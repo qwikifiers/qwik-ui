@@ -1,4 +1,14 @@
 @layer qwik-ui {
+  [data-qui-carousel-scroller] {
+    overflow: hidden;
+    display: flex;
+  }
+
+  [data-qui-carousel-slide] {
+    flex-basis: calc(100% / var(--slides-per-view, 1));
+    flex-shrink: 0;
+  }
+
   @media (pointer: coarse) {
     [data-qui-carousel-scroller][data-draggable] {
       scroll-snap-type: x mandatory;
@@ -16,10 +26,6 @@
     [data-draggable][data-align='end'] [data-qui-carousel-slide] {
       scroll-snap-align: end;
     }
-  }
-
-  [data-qui-carousel-scroller] {
-    overflow: hidden;
   }
 
   @media (prefers-reduced-motion: reduce) {

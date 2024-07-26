@@ -7,7 +7,7 @@ export default component$(() => {
   const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink'];
 
   return (
-    <Carousel.Root class="carousel-root" slidesPerView={2}>
+    <Carousel.Root class="carousel-root" slidesPerView={3}>
       <div class="carousel-buttons">
         <Carousel.Previous>Prev</Carousel.Previous>
         <Carousel.Next>Next</Carousel.Next>

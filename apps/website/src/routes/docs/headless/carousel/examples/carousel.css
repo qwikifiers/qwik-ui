@@ -3,15 +3,10 @@
 }
 
 .carousel-scroller {
-  display: flex;
   margin-bottom: 0.5rem;
 }
 
 .carousel-slide {
-  /* how the slide is sized */
-  flex-basis: 100%;
-  flex-shrink: 0;
-
   border: 2px dotted hsl(var(--primary));
   min-height: 10rem;
   margin-top: 0.5rem;
@@ -59,7 +54,6 @@
 }
 
 .carousel-half-size {
-  flex-basis: 50%;
   border: 2px dotted hsl(var(--primary));
 }
 

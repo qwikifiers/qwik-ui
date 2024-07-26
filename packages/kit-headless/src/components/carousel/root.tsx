@@ -7,6 +7,7 @@ import {
   useSignal,
   useComputed$,
   useId,
+  $,
 } from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
 import { useBoundSignal } from '../../utils/bound-signal';
@@ -105,6 +106,13 @@ export const CarouselBase = component$(
 
     useContextProvider(carouselContextId, context);
 
+    const handleQVisible$ = $(() => {
+      scrollerRef.value?.style.setProperty(
+        '--slides-per-view',
+        slidesPerViewSig.value.toString(),
+      );
+    });
+
     return (
       <div
         role="group"
@@ -114,6 +122,8 @@ export const CarouselBase = component$(
         aria-live={isAutoplaySig.value ? 'off' : 'polite'}
         data-qui-carousel
         {...props}
+        // avoid using qvisible at all costs (it is basically a visible task). This only adds it when there are more than 1 slides per view and we must update the layout position based on the number of slides per view.
+        onQVisible$={slidesPerViewSig.value > 1 ? handleQVisible$ : undefined}
       >
         <Slot />
       </div>
