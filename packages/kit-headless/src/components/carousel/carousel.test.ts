@@ -79,6 +79,30 @@ test.describe('Mouse Behavior', () => {
 
     // TODO
   });
+
+  test(`GIVEN a carousel with dragging enabled
+        WHEN on the first slide and the mouse is moved far right
+        THEN it should stay snapped on the first slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with dragging enabled
+        WHEN on the last slide and the mouse is moved far left
+        THEN it should stay snapped on the last slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
 });
 
 test.describe('Keyboard Behavior', () => {
@@ -208,6 +232,30 @@ test.describe('Mobile / Touch Behavior', () => {
         THEN it should move to the corresponding slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with dragging enabled
+        WHEN on the first slide and is mobile swiped far left
+        THEN it should stay snapped on the last slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test(`GIVEN a carousel with dragging enabled
+        WHEN on the last slide and is mobile swiped far right
+        THEN it should stay snapped on the first slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
 
     // remove this (there so that TS doesn't complain)
     d;
@@ -349,60 +397,11 @@ test.describe('Accessibility', () => {
   });
 });
 
-test.describe('Behavior', () => {
-  test(`GIVEN a carousel with loop disabled
-        WHEN on the last slide
-        THEN the next button should be disabled
-`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
-
-    // remove this (there so that TS doesn't complain)
-    d;
-
-    // TODO
-  });
-
-  test(`GIVEN a carousel with loop disabled
-        WHEN on the first slide
-        THEN the previous button should be disabled
-`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
-
-    // remove this (there so that TS doesn't complain)
-    d;
-
-    // TODO
-  });
-
-  test(`GIVEN a carousel with loop enabled
-        WHEN on the last slide and the next button is clicked
-        THEN it should move to the first slide
-`, async ({ page }) => {
-    // JACK HASNT DONE THIS YET
-    const { driver: d } = await setup(page, 'loop');
-
-    // remove this (there so that TS doesn't complain)
-    d;
-
-    // TODO
-  });
-
-  test(`GIVEN a carousel with loop enabled
-        WHEN on the first slide and the previous button is clicked
-        THEN it should move to the first slide
-`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'loop');
-
-    // remove this (there so that TS doesn't complain)
-    d;
-
-    // TODO
-  });
-
-  test.describe('Threshold', () => {
-    test(`GIVEN a carousel with dragging enabled
-          WHEN on the first slide and the mouse is moved far right
-          THEN it should stay snapped on the first slide
+test.describe('Props', () => {
+  test.describe('loop', () => {
+    test(`GIVEN a carousel with loop disabled
+          WHEN on the last slide
+          THEN the next button should be disabled
 `, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
@@ -412,9 +411,9 @@ test.describe('Behavior', () => {
       // TODO
     });
 
-    test(`GIVEN a carousel with dragging enabled
-          WHEN on the last slide and the mouse is moved far left
-          THEN it should stay snapped on the last slide
+    test(`GIVEN a carousel with loop disabled
+          WHEN on the first slide
+          THEN the previous button should be disabled
 `, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
@@ -424,11 +423,12 @@ test.describe('Behavior', () => {
       // TODO
     });
 
-    test(`GIVEN a carousel with dragging enabled
-          WHEN on the first slide and is mobile swiped far left
-          THEN it should stay snapped on the last slide
+    test(`GIVEN a carousel with loop enabled
+          WHEN on the last slide and the next button is clicked
+          THEN it should move to the first slide
 `, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
+      // JACK HASNT DONE THIS YET
+      const { driver: d } = await setup(page, 'loop');
 
       // remove this (there so that TS doesn't complain)
       d;
@@ -436,11 +436,49 @@ test.describe('Behavior', () => {
       // TODO
     });
 
-    test(`GIVEN a carousel with dragging enabled
-          WHEN on the last slide and is mobile swiped far right
-          THEN it should stay snapped on the first slide
+    test(`GIVEN a carousel with loop enabled
+          WHEN on the first slide and the previous button is clicked
+          THEN it should move to the first slide
 `, async ({ page }) => {
-      const { driver: d } = await setup(page, 'hero');
+      const { driver: d } = await setup(page, 'loop');
+
+      // remove this (there so that TS doesn't complain)
+      d;
+
+      // TODO
+    });
+  });
+
+  test(`GIVEN a carousel with a prop changing its initial index
+        WHEN rendered
+        THEN its scroll position should be at the initial index slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'initial');
+
+    // remove this (there so that TS doesn't complain)
+    d;
+
+    // TODO
+  });
+
+  test.describe('reactive', () => {
+    test(`GIVEN a carousel with a bind prop
+          WHEN rendered
+          THEN the selected slide should be at the initial index slide
+`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'reactive');
+
+      // remove this (there so that TS doesn't complain)
+      d;
+
+      // TODO
+    });
+
+    test(`GIVEN a carousel with a bind prop
+          WHEN the signal passed to bind changes
+          THEN the selected slide should be at the new signal value
+`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'reactive');
 
       // remove this (there so that TS doesn't complain)
       d;
