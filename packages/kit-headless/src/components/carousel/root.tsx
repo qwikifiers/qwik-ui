@@ -7,7 +7,6 @@ import {
   useSignal,
   useComputed$,
   useId,
-  useTask$,
 } from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
 import { useBoundSignal } from '../../utils/bound-signal';
@@ -59,7 +58,6 @@ export const CarouselBase = component$(
     'bind:selectedIndex': givenSlideIndexSig,
     'bind:autoplay': givenAutoplaySig,
     _isTitle: isTitle,
-    initialIndex,
     ...props
   }: CarouselRootProps) => {
     // core state
@@ -109,12 +107,6 @@ export const CarouselBase = component$(
     };
 
     useContextProvider(carouselContextId, context);
-
-    useTask$(() => {
-      if (initialIndex !== undefined) {
-        currentIndexSig.value = initialIndex;
-      }
-    });
 
     return (
       <div

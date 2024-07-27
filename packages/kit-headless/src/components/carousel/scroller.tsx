@@ -171,7 +171,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       }}
       preventdefault:mousemove
       data-align={context.alignSig.value}
-      style={{ gap: context.gapSig.value }}
       {...props}
     >
       <Slot />

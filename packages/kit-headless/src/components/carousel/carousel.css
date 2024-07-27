@@ -2,10 +2,16 @@
   [data-qui-carousel-scroller] {
     overflow: hidden;
     display: flex;
+    gap: var(--gap);
   }
 
   [data-qui-carousel-slide] {
-    flex-basis: calc(100% / var(--slides-per-view, 1));
+    /* default, feel free to override */
+    --total-gap-width: calc(var(--gap) * (var(--slides-per-view) - 1));
+    --available-slide-width: calc(100% - var(--total-gap-width));
+    --slide-width: calc(var(--available-slide-width) / var(--slides-per-view));
+
+    flex-basis: var(--slide-width);
     flex-shrink: 0;
   }
 
