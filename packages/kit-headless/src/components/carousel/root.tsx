@@ -7,7 +7,7 @@ import {
   useSignal,
   useComputed$,
   useId,
-  $,
+  useTask$,
 } from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
 import { useBoundSignal } from '../../utils/bound-signal';
@@ -59,6 +59,7 @@ export const CarouselBase = component$(
     'bind:selectedIndex': givenSlideIndexSig,
     'bind:autoplay': givenAutoplaySig,
     _isTitle: isTitle,
+    initialIndex,
     ...props
   }: CarouselRootProps) => {
     // core state
@@ -109,11 +110,10 @@ export const CarouselBase = component$(
 
     useContextProvider(carouselContextId, context);
 
-    const handleQVisible$ = $(() => {
-      scrollerRef.value?.style.setProperty(
-        '--slides-per-view',
-        slidesPerViewSig.value.toString(),
-      );
+    useTask$(() => {
+      if (initialIndex !== undefined) {
+        currentIndexSig.value = initialIndex;
+      }
     });
 
     return (
@@ -125,8 +125,10 @@ export const CarouselBase = component$(
         aria-live={isAutoplaySig.value ? 'off' : 'polite'}
         data-qui-carousel
         {...props}
-        // avoid using qvisible at all costs (it is basically a visible task). This only adds it when there are more than 1 slides per view and we must update the layout position based on the number of slides per view.
-        onQVisible$={slidesPerViewSig.value > 1 ? handleQVisible$ : undefined}
+        style={{
+          '--slides-per-view': slidesPerViewSig.value,
+          '--gap': `${gapSig.value}px`,
+        }}
       >
         <Slot />
       </div>
