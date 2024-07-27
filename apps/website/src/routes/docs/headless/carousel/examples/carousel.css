@@ -10,6 +10,7 @@
   border: 2px dotted hsl(var(--primary));
   min-height: 10rem;
   margin-top: 0.5rem;
+  user-select: none;
 }
 
 .carousel-pagination {
@@ -51,10 +52,6 @@
 
 .carousel-pagination-bullet:hover {
   background-color: hsla(var(--primary) / 0.08);
-}
-
-.carousel-half-size {
-  border: 2px dotted hsl(var(--primary));
 }
 
 .carousel-conditional {

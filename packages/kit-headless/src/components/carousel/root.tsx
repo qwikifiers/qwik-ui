@@ -31,6 +31,9 @@ export type CarouselRootProps = PropsOf<'div'> & {
   /** Bind the selected index to a signal */
   'bind:selectedIndex'?: Signal<number>;
 
+  /** change the initial index of the carousel on render */
+  initialIndex?: number;
+
   /**
    * @deprecated Use bind:selectedIndex instead
    * Bind the current slide index to a signal
