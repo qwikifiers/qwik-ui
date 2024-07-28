@@ -58,6 +58,7 @@ export const CarouselBase = component$(
     'bind:selectedIndex': givenSlideIndexSig,
     'bind:autoplay': givenAutoplaySig,
     _isTitle: isTitle,
+    initialIndex,
     ...props
   }: CarouselRootProps) => {
     // core state
@@ -70,7 +71,7 @@ export const CarouselBase = component$(
     const bulletRefsArray = useSignal<Array<Signal>>([]);
     const currentIndexSig = useBoundSignal(
       givenSlideIndexSig ?? givenOldSlideIndexSig,
-      0,
+      initialIndex ?? 0,
     );
     const isScrollerSig = useSignal(false);
     const isAutoplaySig = useBoundSignal(givenAutoplaySig, false);
@@ -120,6 +121,7 @@ export const CarouselBase = component$(
         style={{
           '--slides-per-view': slidesPerViewSig.value,
           '--gap': `${gapSig.value}px`,
+          '--initial-index': initialIndex || 0,
         }}
       >
         <Slot />
