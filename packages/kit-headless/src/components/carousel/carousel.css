@@ -22,15 +22,16 @@
       overflow-x: scroll;
     }
 
-    [data-draggable] [data-qui-carousel-slide] {
+    /* make sure snap align is added after initial index animation */
+    [data-draggable]:hover [data-qui-carousel-slide] {
       scroll-snap-align: start;
     }
 
-    [data-draggable][data-align='center'] [data-qui-carousel-slide] {
+    [data-draggable][data-align='center']:hover [data-qui-carousel-slide] {
       scroll-snap-align: center;
     }
 
-    [data-draggable][data-align='end'] [data-qui-carousel-slide] {
+    [data-draggable][data-align='end']:hover [data-qui-carousel-slide] {
       scroll-snap-align: end;
     }
   }
@@ -41,10 +42,7 @@
     }
   }
 
-  /*
-    Workaround until scroll-snap-start is added to 
-    CSS. Credits to https://blog.kizu.dev/snappy-scroll-start/ 
-  */
+  /* Workaround until scroll-snap-start is added to CSS. */
   [data-qui-scroll-start] {
     position: absolute;
     width: 1px;
