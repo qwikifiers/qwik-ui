@@ -1,12 +1,14 @@
 import * as fs from 'fs';
+import { resolve } from 'path';
 import * as util from 'util';
 export default function singleComponent(path: string) {
-  console.log('HI andrew ', path);
   const component_name = /\/([\w-]*).tsx/.exec(path);
   if (component_name === null || component_name[1] === null) {
     // may need better behavior
     return;
   }
+  const lol = getOutputPath(path, component_name[1]);
+  console.log('HERE2: ', lol);
   const sourceCode = fs.readFileSync(path, 'utf-8');
   const comments = extractPublicTypes(sourceCode);
   const parsed = [];
@@ -43,4 +45,12 @@ function extractComments(strg: string) {
     cms.push({ comment, prop, type });
   }
   return cms;
+}
+
+function getOutputPath(ogPath: string, componentName: string): string {
+  return resolve(
+    __dirname,
+    `apps/website/src/routes/docs/headless/${componentName}/examples`,
+  );
+  return ogPath;
 }
