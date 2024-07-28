@@ -58,6 +58,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
       {...props}
     >
       <Slot />
+      {context.initialIndex === _index && <div data-qui-scroll-start>initial index</div>}
     </div>
   );
 });

@@ -25,4 +25,5 @@ export interface CarouselContext {
   alignSig: Signal<'start' | 'center' | 'end'>;
   isLoopSig: Signal<boolean>;
   autoPlayIntervalMsSig: Signal<number>;
+  initialIndex: number | undefined;
 }
