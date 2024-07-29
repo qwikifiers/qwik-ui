@@ -4,21 +4,8 @@ import { qwikNxVite } from 'qwik-nx/plugins';
 import { ViteDevServer, defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
-import { resolve } from 'path';
-function watchMonorepoChanges() {
-  return {
-    name: 'watch-monorepo-changes',
-    configureServer(server: ViteDevServer) {
-      const watchPath = resolve(__dirname, '../../packages/kit-headless');
+import autoAPI from './auto-api';
 
-      server.watcher.on('change', (file: string) => {
-        if (file.startsWith(watchPath)) {
-          console.log(`File changed: ${file}`);
-        }
-      });
-    },
-  };
-}
 export default defineConfig(async () => {
   const { default: rehypePrettyCode } = await import('rehype-pretty-code');
   const { visit } = await import('unist-util-visit');
@@ -44,7 +31,7 @@ export default defineConfig(async () => {
 
   return {
     plugins: [
-      watchMonorepoChanges(),
+      autoAPI(),
       qwikNxVite(),
       qwikCity({
         mdxPlugins: {
