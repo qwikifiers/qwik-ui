@@ -119,6 +119,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     if (!context.scrollerRef.value || isServer) return;
 
+    context.scrollStartRef.value?.style.setProperty('--scroll-snap-align', 'none');
+
     const nonDragSnapPosition = await getSlidePosition$(context.currentIndexSig.value);
 
     if (isMouseDownSig.value) return;
