@@ -42,36 +42,23 @@
     }
   }
 
-  /* Workaround until scroll-snap-start is added to CSS. */
+  /* workaround until scroll-snap-start is added to CSS. */
   [data-qui-scroll-start] {
-    position: absolute;
+    clip-path: inset(50%);
+    height: 1px;
     width: 1px;
-    left: var(--scroll-start);
+    white-space: nowrap;
     container-type: size;
     visibility: hidden;
-    animation: --snap 0.01s both;
+    margin-right: calc(-1 * var(--gap));
   }
 
   [data-qui-scroll-start]::before {
     content: '';
     height: 1px;
+    width: 1px;
     display: block;
-  }
-
-  @container (min-width: 1px) {
-    [data-qui-scroll-start]::before {
-      scroll-margin-left: 0px;
-      scroll-snap-align: start;
-    }
-  }
-
-  @keyframes --snap {
-    to {
-      width: 0;
-    }
-  }
-
-  [data-qui-carousel-slide] {
-    position: relative;
+    /* changes to none on first interaction */
+    scroll-snap-align: var(--scroll-snap-align, start);
   }
 }

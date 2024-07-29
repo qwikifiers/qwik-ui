@@ -66,6 +66,7 @@ export const CarouselBase = component$(
     const scrollerRef = useSignal<HTMLDivElement>();
     const nextButtonRef = useSignal<HTMLButtonElement>();
     const prevButtonRef = useSignal<HTMLButtonElement>();
+    const scrollStartRef = useSignal<HTMLDivElement>();
     const isMouseDraggingSig = useSignal<boolean>(false);
     const slideRefsArray = useSignal<Array<Signal>>([]);
     const bulletRefsArray = useSignal<Array<Signal>>([]);
@@ -92,6 +93,7 @@ export const CarouselBase = component$(
       scrollerRef,
       nextButtonRef,
       prevButtonRef,
+      scrollStartRef,
       isMouseDraggingSig,
       slideRefsArray,
       bulletRefsArray,
