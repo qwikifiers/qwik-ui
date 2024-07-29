@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import { resolve } from 'path';
 import * as util from 'util';
-export default function singleComponent(path: string) {
+import { ViteDevServer } from 'vite';
+function singleComponent(path: string) {
   const component_name = /\/([\w-]*).tsx/.exec(path);
   if (component_name === null || component_name[1] === null) {
     // may need better behavior
@@ -53,4 +54,19 @@ function getOutputPath(ogPath: string, componentName: string): string {
     `apps/website/src/routes/docs/headless/${componentName}/examples`,
   );
   return ogPath;
+}
+
+export default function autoAPI() {
+  return {
+    name: 'watch-monorepo-changes',
+    configureServer(server: ViteDevServer) {
+      const watchPath = resolve(__dirname, '../../packages/kit-headless');
+      server.watcher.on('change', (file: string) => {
+        if (file.startsWith(watchPath)) {
+          console.log(`File changed: ${file}`);
+          singleComponent(file);
+        }
+      });
+    },
+  };
 }
