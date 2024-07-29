@@ -42,15 +42,14 @@
     }
   }
 
-  /* workaround until scroll-snap-start is added to CSS. */
+  /* workaround until scroll-snap-start is added to CSS. courtesy of Jack */
   [data-qui-scroll-start] {
     clip-path: inset(50%);
     height: 1px;
     width: 1px;
     white-space: nowrap;
-    container-type: size;
     visibility: hidden;
-    margin-right: calc(-1 * var(--gap));
+    margin-right: calc(-1 * var(--gap) - 1px);
   }
 
   [data-qui-scroll-start]::before {
