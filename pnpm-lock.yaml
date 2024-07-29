@@ -343,7 +343,7 @@ importers:
   packages/kit-headless:
     dependencies:
       '@builder.io/qwik':
-        specifier: ^1.7.2
+        specifier: 1.7.2
         version: 1.7.2(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
       '@floating-ui/core':
         specifier: ^1.6.2
@@ -364,7 +364,7 @@ importers:
   packages/kit-styled:
     dependencies:
       '@builder.io/qwik':
-        specifier: ^1.7.2
+        specifier: 1.7.2
         version: 1.7.2(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
     devDependencies:
       '@qwik-ui/headless':
