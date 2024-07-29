@@ -33,7 +33,8 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
-    useTask$(async function initShiki() {
+    useTask$(async ({ track }) => {
+      track(() => code);
       let modifiedCode: string = code;
 
       let partsOfCode = modifiedCode.split(splitCommentStart);
