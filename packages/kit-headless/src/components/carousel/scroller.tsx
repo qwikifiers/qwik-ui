@@ -95,6 +95,10 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const handleMouseDown$ = $((e: MouseEvent) => {
     if (!context.isDraggableSig.value) return;
     if (!context.scrollerRef.value) return;
+    if (context.initialIndex && context.scrollStartRef.value) {
+      context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
+    }
+
     isMouseDownSig.value = true;
     startXSig.value = e.pageX - context.scrollerRef.value.offsetLeft;
     scrollLeftSig.value = context.scrollerRef.value.scrollLeft;
@@ -114,6 +118,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     if (isTouchDeviceSig.value && isTouchMovingSig.value) return;
 
     if (!context.scrollerRef.value || isServer) return;
+
+    context.scrollStartRef.value?.style.setProperty('--scroll-snap-align', 'none');
 
     const nonDragSnapPosition = await getSlidePosition$(context.currentIndexSig.value);
 
@@ -164,7 +170,9 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
         ),
         props.onScroll$,
       ]}
-      onTouchMove$={() => (isTouchMovingSig.value = true)}
+      onTouchMove$={() => {
+        isTouchMovingSig.value = true;
+      }}
       window:onTouchStart$={() => {
         isTouchMovingSig.value = false;
         isTouchDeviceSig.value = true;

@@ -8,6 +8,7 @@ export interface CarouselContext {
   // core state
   localId: string;
   scrollerRef: Signal<HTMLDivElement | undefined>;
+  scrollStartRef: Signal<HTMLDivElement | undefined>;
   nextButtonRef: Signal<HTMLButtonElement | undefined>;
   prevButtonRef: Signal<HTMLButtonElement | undefined>;
   isMouseDraggingSig: Signal<boolean>;
