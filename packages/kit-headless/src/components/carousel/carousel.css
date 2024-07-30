@@ -1,0 +1,80 @@
+@layer qwik-ui {
+  [data-qui-carousel-scroller] {
+    overflow: hidden;
+    display: flex;
+    gap: var(--gap);
+    /* for mobile & scroll-snap-start */
+    scroll-snap-type: x mandatory;
+  }
+
+  [data-qui-carousel-slide] {
+    /* default, feel free to override */
+    --total-gap-width: calc(var(--gap) * (var(--slides-per-view) - 1));
+    --available-slide-width: calc(100% - var(--total-gap-width));
+    --slide-width: calc(var(--available-slide-width) / var(--slides-per-view));
+
+    flex-basis: var(--slide-width);
+    flex-shrink: 0;
+  }
+
+  @media (pointer: coarse) {
+    [data-qui-carousel-scroller][data-draggable] {
+      overflow-x: scroll;
+    }
+
+    /* make sure snap align is added after initial index animation */
+    [data-draggable][data-initial-touch] [data-qui-carousel-slide] {
+      scroll-snap-align: start;
+    }
+
+    [data-draggable][data-align='center'][data-initial-touch] [data-qui-carousel-slide] {
+      scroll-snap-align: center;
+    }
+
+    [data-draggable][data-align='end'][data-initial-touch] [data-qui-carousel-slide] {
+      scroll-snap-align: end;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-qui-carousel-player] {
+      display: none;
+    }
+  }
+
+  /* workaround until scroll-snap-start is added to CSS */
+  [data-qui-scroll-start] {
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    white-space: nowrap;
+    visibility: hidden;
+  }
+
+  /* so the snap start marker is not included in the scroll snap position */
+  [data-qui-scroll-start][data-start] {
+    margin-right: calc(-1 * var(--gap) - 1px);
+  }
+
+  [data-qui-scroll-start][data-center] {
+    margin-left: 0px;
+  }
+
+  [data-qui-scroll-start][data-end] {
+    margin-left: calc(-1 * var(--gap) - 1px);
+  }
+
+  [data-qui-scroll-start]::before {
+    content: '';
+    height: 1px;
+    width: 1px;
+    display: block;
+    /* changes to none on first interaction */
+    scroll-snap-align: var(--scroll-snap-align, start);
+  }
+
+  /* remove the marker's snap-align on hover */
+  [data-qui-carousel-scroller]:hover [data-qui-scroll-start]::before {
+    scroll-snap-align: unset;
+  }
+}

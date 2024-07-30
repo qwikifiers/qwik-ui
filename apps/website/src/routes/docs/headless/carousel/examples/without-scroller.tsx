@@ -12,13 +12,11 @@ export default component$(() => {
         <Carousel.Previous>Prev</Carousel.Previous>
         <Carousel.Next>Next</Carousel.Next>
       </div>
-      <Carousel.Scroller class="carousel-scroller">
-        {colors.map((color) => (
-          <Carousel.Slide key={color} class="carousel-slide">
-            {color}
-          </Carousel.Slide>
-        ))}
-      </Carousel.Scroller>
+      {colors.map((color) => (
+        <Carousel.Slide key={color} class="carousel-slide">
+          {color}
+        </Carousel.Slide>
+      ))}
     </Carousel.Root>
   );
 });

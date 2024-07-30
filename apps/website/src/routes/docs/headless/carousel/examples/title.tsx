@@ -8,6 +8,7 @@ export default component$(() => {
 
   return (
     <Carousel.Root class="carousel-root" gap={30}>
+      <Carousel.Title>Favorite Colors</Carousel.Title>
       <div class="carousel-buttons">
         <Carousel.Previous>Prev</Carousel.Previous>
         <Carousel.Next>Next</Carousel.Next>
