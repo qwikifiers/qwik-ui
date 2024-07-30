@@ -7,14 +7,18 @@ export default component$(() => {
   const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink'];
 
   return (
-    <Carousel.Root class="carousel-root" gap={30}>
+    <Carousel.Root class="carousel-root" gap={30} align="end">
       <div class="carousel-buttons">
         <Carousel.Previous>Prev</Carousel.Previous>
         <Carousel.Next>Next</Carousel.Next>
       </div>
       <Carousel.Scroller class="carousel-scroller">
         {colors.map((color) => (
-          <Carousel.Slide key={color} class="carousel-slide">
+          <Carousel.Slide
+            style={{ flexBasis: '300px' }}
+            key={color}
+            class="carousel-slide"
+          >
             {color}
           </Carousel.Slide>
         ))}
