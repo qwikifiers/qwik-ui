@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import { $, useComputed$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
+import { isServer } from '@builder.io/qwik/build';
 
 import { DropdownItemProps } from './dropdown-item';
 import { dropdownContextId } from './dropdown-context';
@@ -14,7 +14,7 @@ type useDropdownItemProps = { onItemSelect?: () => void } & Pick<
 
 /**
  * Helper functions go inside of hooks.
- * This is because outside of the component$ boundary Qwik core wakes up.
+ * This is because outside of the component$ boundary Qwik core wakes up, or at least this was once a problem.
  */
 export function useDropdownItem(props: useDropdownItemProps) {
   const context = useContext(dropdownContextId);
@@ -43,38 +43,49 @@ export function useDropdownItem(props: useDropdownItemProps) {
     localIndexSig.value = _index;
   });
 
+  const checkVisibility$ = $(async (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
+
+    if (isHighlightedSig.value && !entry.isIntersecting) {
+      const containerRect = context.panelRef.value?.getBoundingClientRect();
+      const itemRect = itemRef.value?.getBoundingClientRect();
+
+      if (!containerRect || !itemRect || context.isMouseOverPopupSig.value) return;
+
+      // Calculates the offset to center the item within the container
+      const offset =
+        itemRect.top - containerRect.top - containerRect.height / 2 + itemRect.height / 2;
+
+      context.panelRef.value?.scrollBy({
+        top: document.hasFocus() ? offset : undefined,
+        ...context.scrollOptions,
+      });
+    }
+  });
+
   useTask$(async function navigationTask({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
 
-    // update the context with the highlighted item ref
-    if (localIndexSig.value === context.highlightedIndexSig.value) {
-      context.highlightedItemRef = itemRef;
+    if (isServer || !context.panelRef.value) return;
+    if (props._index !== context.highlightedIndexSig.value) return;
+    context.highlightedItemRef = itemRef;
+
+    const hasScrollbar =
+      context.panelRef.value.scrollHeight > context.panelRef.value.clientHeight;
+
+    if (!hasScrollbar) {
+      return;
     }
 
-    if (isServer) return;
-
-    let observer: IntersectionObserver;
-
-    const checkVisibility = (entries: IntersectionObserverEntry[]) => {
-      const [entry] = entries;
-
-      // if the is not visible, scroll it into view
-      if (isHighlightedSig.value && !entry.isIntersecting) {
-        itemRef.value?.scrollIntoView(context.scrollOptions);
-      }
-    };
+    const observer = new IntersectionObserver(checkVisibility$, {
+      root: context.panelRef.value,
+      threshold: 1.0,
+    });
 
     cleanup(() => observer?.disconnect());
 
-    if (isBrowser) {
-      observer = new IntersectionObserver(checkVisibility, {
-        root: context.contentRef.value,
-        threshold: 1.0,
-      });
-
-      if (itemRef.value) {
-        observer.observe(itemRef.value);
-      }
+    if (itemRef.value) {
+      observer.observe(itemRef.value);
     }
   });
 

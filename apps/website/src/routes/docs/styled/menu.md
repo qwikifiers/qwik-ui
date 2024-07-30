@@ -23,6 +23,7 @@
 - [Card](/docs/styled/card)
 - [Checkbox](/docs/styled/checkbox)
 - [Combobox](/docs/styled/combobox)
+- [Dropdown](/docs/styled/dropdown)
 - [Input](/docs/styled/input)
 - [Label](/docs/styled/label)
 - [Modal](/docs/styled/modal)

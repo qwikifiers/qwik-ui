@@ -20,6 +20,7 @@ export const statusByComponent: ComponentKitsStatuses = {
     Card: ComponentStatus.Beta,
     Checkbox: ComponentStatus.Draft,
     Combobox: ComponentStatus.Draft,
+    Dropdown: ComponentStatus.Draft,
     Input: ComponentStatus.Draft,
     Label: ComponentStatus.Beta,
     Modal: ComponentStatus.Draft,
