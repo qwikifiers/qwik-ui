@@ -1,4 +1,4 @@
-import { component$, PropsOf, useContext, useSignal, useTask$ } from '@builder.io/qwik';
+import { component$, PropsOf, useContext, useSignal } from '@builder.io/qwik';
 import { OTPContextId } from './otp-context';
 
 type OTPProps = {
@@ -13,17 +13,13 @@ export const OtpItem = component$(({ _index, ...props }: OTPProps) => {
     throw new Error('Qwik UI: Otp Item must have an index. This is a bug in Qwik UI');
   }
 
-  useTask$(() => {
-    console.log('I AM INSTANCE NUMBER: ', _index);
-  });
-
   return (
     <input
       ref={inputRef}
       {...props}
       type="text"
       data-qui-otp-item={_index}
-      value={context.value[_index]}
+      value={context.value.value[_index]}
       size={1}
       onFocus$={() => {
         context.nativeInputRef.value?.focus();

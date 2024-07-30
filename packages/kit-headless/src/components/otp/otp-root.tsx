@@ -4,7 +4,6 @@ import {
   Slot,
   useContextProvider,
   useSignal,
-  useStore,
 } from '@builder.io/qwik';
 import { OTPContextId } from './otp-context';
 import { OtpItem } from './otp-item';
@@ -26,13 +25,15 @@ export const OtpRoot = ({ children }: OtpRootProps) => {
 };
 
 export const OtpBase = component$((props: OtpRootProps) => {
+  const value = useSignal<string | number>('');
+  const activeIndex = useSignal(0);
   const nativeInputRef = useSignal<HTMLInputElement>();
 
-  const context = useStore({
-    value: '',
-    activeIndex: 0,
-    nativeInputRef,
-  });
+  const context = {
+    value: value,
+    activeIndex: activeIndex.value,
+    nativeInputRef: nativeInputRef,
+  };
 
   useContextProvider(OTPContextId, context);
   return (

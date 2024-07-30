@@ -13,12 +13,11 @@ export const OTPNativeInput = component$(() => {
         ref={context.nativeInputRef}
         type="text"
         data-qui-otp-native-input
-        value={context.value}
+        value={context.value.value}
         class="border border-gray-300 "
         onInput$={(event: InputEvent) => {
           const input = event.target as HTMLInputElement;
-          context.value = input.value;
-          // context.activeIndex = (context.activeIndex + 1) % context.numInputs;
+          context.value.value = input.value;
         }}
       />
     </div>
