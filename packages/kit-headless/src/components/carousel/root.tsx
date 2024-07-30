@@ -124,7 +124,7 @@ export const CarouselBase = component$(
         style={{
           '--slides-per-view': slidesPerViewSig.value,
           '--gap': `${gapSig.value}px`,
-          '--scroll-start': `calc((${initialIndex || 0} * (100% - ${gapSig.value}px)) + var(--slides-per-view)`,
+          '--scroll-snap-align': alignSig.value,
         }}
       >
         <Slot />
