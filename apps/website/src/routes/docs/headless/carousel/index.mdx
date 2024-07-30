@@ -18,32 +18,71 @@ Displays multiple content items in one space, rotating through them.
   features={[
     'Follows WAI-ARIA design pattern',
     'Full keyboard navigation',
-    'Dynamic Slide Offsetting',
-    'Transition Duration Control',
-    'Pagination',
-    'Navigate via Prev/Next buttons',
+    'Dynamic slide offsetting',
+    'Customizable alignment (start, center, end)',
+    'Pagination with bullet navigation',
+    'Navigate via Previous/Next buttons',
+    'Autoplay functionality',
+    'Looping option',
+    'Support for multiple slides per view',
+    'Reactive slide updates',
+    'Initial slide selection',
+    'Customizable accessible names',
+    'Supports scroller and conditional carousels',
   ]}
   roadmap={[
-    'Tests',
-    'Documentation',
-    'Fix for the "snapping" behavior when going pass the last slide',
-    'A refactor of the API (for example, conventions like the select)',
-    'Remove additional styles to the headless component',
+    'Improve test coverage',
+    'Enhance documentation',
+    'Refine API for consistency with other components',
+    'Add support for vertical carousels',
   ]}
 />
 
 ## CSS Scroll snapping
 
+Qwik UI combines CSS scroll snapping and flexbox for the carousel:
+
+- Scroll snapping: Used on mobile for smooth touch interactions and initial snap position.
+- Flexbox: Provides a simple layout system for variable widths, gaps, and columns.
+
+> Styles are in an @layer for easy customization:
+
 ```css
 @layer qwik-ui {
+  [data-qui-carousel-scroller] {
+    overflow: hidden;
+    display: flex;
+    gap: var(--gap);
+    /* for mobile & scroll-snap-start */
+    scroll-snap-type: x mandatory;
+  }
+
+  [data-qui-carousel-slide] {
+    /* default, feel free to override */
+    --total-gap-width: calc(var(--gap) * (var(--slides-per-view) - 1));
+    --available-slide-width: calc(100% - var(--total-gap-width));
+    --slide-width: calc(var(--available-slide-width) / var(--slides-per-view));
+
+    flex-basis: var(--slide-width);
+    flex-shrink: 0;
+  }
+
   @media (pointer: coarse) {
     [data-qui-carousel-scroller][data-draggable] {
-      scroll-snap-type: x mandatory;
       overflow-x: scroll;
     }
 
-    [data-draggable] [data-qui-carousel-slide] {
+    /* make sure snap align is added after initial index animation */
+    [data-draggable][data-initial-touch] [data-qui-carousel-slide] {
       scroll-snap-align: start;
+    }
+
+    [data-draggable][data-align='center'][data-initial-touch] [data-qui-carousel-slide] {
+      scroll-snap-align: center;
+    }
+
+    [data-draggable][data-align='end'][data-initial-touch] [data-qui-carousel-slide] {
+      scroll-snap-align: end;
     }
   }
 }
@@ -51,23 +90,39 @@ Displays multiple content items in one space, rotating through them.
 
 ## Pagination
 
+Use `<Carousel.Pagination />` and `<Carousel.Bullet />` components to add pagination.
+
 <Showcase name="pagination" />
 
+> These are exposed to assistive technologies as tabs for screen readers.
+
 ## Multiple Slides
+
+Set the `slidesPerView` prop for multiple slides.
 
 <Showcase name="multiple-slides" />
 
 ## Non-draggable
 
+Opt-out of the draggable behavior by setting the `draggable` prop to `false`.
+
 <Showcase name="non-draggable" />
 
 ## Different widths
+
+By default, the slides will take up the full width of the carousel.
+
+To change this, use the `flex-basis` CSS property on the `<Carousel.Slide />` component.
 
 <Showcase name="different-widths" />
 
 ## Without Scroller
 
+Qwik UI supports carousels without a scroller, which can be useful for conditional slide carousels.
+
 <Showcase name="without-scroller" />
+
+Remove the `<Carousel.Scroller />` component to remove the scroller.
 
 ## Animations
 
@@ -97,34 +152,124 @@ Displays multiple content items in one space, rotating through them.
 
 ## CSR
 
+Both SSR and CSR are supported. In this example, we conditionally render the carousel based on an interaction.
+
 <Showcase name="csr" />
 
-## Align
+## Center
 
-### Center
+Align slides to the center of the carousel by setting the `align` prop to `center`.
 
 <Showcase name="center" />
 
-### End
+## End
+
+Align slides to the end of the carousel by setting the `align` prop to `end`.
 
 <Showcase name="end" />
 
 ## Loop
 
+Loop the carousel by setting the `loop` prop to `true`.
+
 <Showcase name="loop" />
+
+> When looping, navigation buttons are never disabled.
 
 ## Accessible Name
 
+Add an accessible name to the carousel by adding the `<Carousel.Title />` component.
+
 <Showcase name="title" />
+
+To hide the title from screen readers, use the `<VisuallyHidden />` component.
+
+> The title is automatically added to the carousel's `aria-labelledby` attribute.
 
 ## Autoplay
 
+To use autoplay, use the `bind:autoplay` prop.
+
 <Showcase name="player" />
 
+### What if I want to autoplay on initial render?
+
+Use a visible task to change the signal passed to `bind:autoplay` to `true` when the component is visible.
+
+```tsx
+ {/* inside your component */}
+  useVisibleTask$(() => {
+    isAutoplaySig.value = true;
+  })
+
+  {/* the carousel */}
+  <Carousel.Root bind:autoplay={isAutoplaySig}>
+```
+
 ## Initial
+
+To set an initial slide position, use the `startIndex` prop.
 
 <Showcase name="initial" />
 
 ## Reactive
 
+Reactively control the selected slide index by using the `bind:selectedIndex` prop.
+
 <Showcase name="reactive" />
+
+## API
+
+### Carousel.Root
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'gap',
+      type: 'number',
+      description: 'The gap between slides.',
+    },
+    {
+      name: 'slidesPerView',
+      type: 'number',
+      description: 'Number of slides to show at once.',
+    },
+    {
+      name: 'draggable',
+      type: 'boolean',
+      description: 'Whether the carousel is draggable.',
+    },
+    {
+      name: 'align',
+      type: 'union',
+      description: 'Alignment of slides within the viewport.',
+      info: '"start" | "center" | "end"',
+    },
+    {
+      name: 'loop',
+      type: 'boolean',
+      description: 'Whether the carousel should loop.',
+    },
+    {
+      name: 'bind:selectedIndex',
+      type: 'Signal<number>',
+      description: 'Bind the selected index to a signal.',
+    },
+    {
+      name: 'startIndex',
+      type: 'number',
+      description: 'Change the initial index of the carousel on render.',
+    },
+    {
+      name: 'bind:autoplay',
+      type: 'Signal<boolean>',
+      description: 'Whether the carousel should autoplay.',
+    },
+    {
+      name: 'autoPlayIntervalMs',
+      type: 'number',
+      description: 'Time in milliseconds before the next slide plays during autoplay.',
+    },
+  ]}
+/>
+import {info} from 'console';
