@@ -23,6 +23,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isMouseMovingSig = useSignal(false);
   const isTouchDeviceSig = useSignal(false);
   const isTouchMovingSig = useSignal(true);
+  const isTouchStartSig = useSignal(false);
 
   useTask$(() => {
     context.isScrollerSig.value = true;
@@ -173,12 +174,16 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       onTouchMove$={() => {
         isTouchMovingSig.value = true;
       }}
+      onTouchStart$={() => {
+        isTouchStartSig.value = true;
+      }}
       window:onTouchStart$={() => {
         isTouchMovingSig.value = false;
         isTouchDeviceSig.value = true;
       }}
       preventdefault:mousemove
       data-align={context.alignSig.value}
+      data-initial-touch={isTouchStartSig.value ? '' : undefined}
       {...props}
     >
       <Slot />
