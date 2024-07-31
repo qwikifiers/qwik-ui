@@ -6,6 +6,7 @@ import {
   useSignal,
   $,
   useTask$,
+  useOnWindow,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
@@ -157,6 +158,18 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       context.currentIndexSig.value = currentIndex;
     }
   });
+
+  // resize the snap point when the window resizes
+  const handleResize = $(async () => {
+    if (!context.scrollerRef.value) return;
+    const newPosition = await getSlidePosition$(context.currentIndexSig.value);
+    context.scrollerRef.value.scrollTo({
+      left: newPosition,
+      behavior: 'auto',
+    });
+  });
+
+  useOnWindow('resize', handleResize);
 
   return (
     <div
