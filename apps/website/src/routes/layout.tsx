@@ -1,5 +1,5 @@
 /* eslint-disable qwik/no-react-props */
-import { Slot, component$, useSignal } from '@builder.io/qwik';
+import { Slot, component$ } from '@builder.io/qwik';
 import { ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
 import { ComponentsStatusesMap, statusByComponent } from '~/_state/component-statuses';
 import {
@@ -11,16 +11,14 @@ import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
 import Header from '~/components/header/header';
-import { DocSearch } from '~/components/doc-search/doc-search';
 
 export default component$(() => {
   const { headings } = useContent();
-  const searchOpen = useSignal(false);
   const { menuItemsGroups } = useKitMenuItems();
 
   return (
     <>
-      <Header showBottomBorder={true} showVersion={true} searchOpen={searchOpen} />
+      <Header showBottomBorder={true} showVersion={true} />
 
       <div class="flex justify-center">
         <div class="flex w-full max-w-screen-2xl justify-center lg:justify-around xl:justify-between 2xl:space-x-16">
@@ -45,7 +43,6 @@ export default component$(() => {
         </div>
         <footer></footer>
       </div>
-      <DocSearch open={searchOpen} />
     </>
   );
 });
