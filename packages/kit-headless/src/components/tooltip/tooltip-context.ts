@@ -1,4 +1,4 @@
-import { createContextId, Signal } from '@builder.io/qwik';
+import { createContextId, QRL, Signal } from '@builder.io/qwik';
 
 export const TooltipContextId = createContextId<TooltipContext>('Tooltip');
 
@@ -11,6 +11,8 @@ export type TooltipContext = {
   triggerRef: Signal<HTMLButtonElement | undefined>;
 
   state: Signal<TriggerDataState>;
+
+  onOpenChange$: QRL<(state: 'open' | 'closed') => void>;
 };
 
 export type TriggerDataState = 'closing' | 'closed' | 'opening' | 'open';

@@ -221,3 +221,20 @@ test.describe('Tooltip Animations', () => {
     await expect(tooltip).toBeHidden();
   });
 });
+
+test.describe('Tooltip Events', () => {
+  test(`GIVEN a tooltip with opOpenChange configured
+        WHEN hovering over the trigger
+        THEN the text should say "The tooltip is open"`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'onChange');
+    const tooltip = d.getTooltip();
+    const trigger = d.getTrigger();
+
+    expect(d.getOnChangeVerificationText('closed')).toBeVisible();
+
+    await trigger.hover();
+    await expect(tooltip).toBeVisible();
+
+    expect(d.getOnChangeVerificationText('open')).toBeVisible();
+  });
+});

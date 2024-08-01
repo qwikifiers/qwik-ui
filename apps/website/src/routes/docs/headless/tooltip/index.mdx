@@ -199,6 +199,13 @@ CSS from the example:
 
 <CodeSnippet name="transition.css" />
 
+## Events
+
+The tooltip contains a `onOpenChange$` event that runs when the tooltip opens or closes.
+This can be used to trigger additional actions when the tooltip is opened or closed.
+
+<Showcase name="onChange" />
+
 ## Additional References
 
 Qwik UI aims to be in line with the standard whenever possible. Our goal is to empower Qwik developers to create amazing experiences for their users.
@@ -254,6 +261,12 @@ To read more about tooltips you can check it out on:
       name: 'data-open',
       type: 'selector',
       description: 'Style the element when the tooltip is open.',
+    },
+    {
+      name: 'onOpenChange$',
+      type: 'QRL',
+      description: 'QRL handler that runs when the tooltip opens or closes.',
+      info: 'QRL<(state: "open" | "closed") => void>',
     },
 
 ]}

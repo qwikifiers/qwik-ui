@@ -51,6 +51,10 @@ export function createTooltipDriver<T extends DriverLocator>(rootLocator: T) {
     return getTrigger().all();
   };
 
+  const getOnChangeVerificationText = (state: 'open' | 'closed') => {
+    return rootLocator.getByText(`The tooltip is ${state}`);
+  };
+
   const getProgrammaticButtonTrigger = () => {
     return rootLocator.locator('button');
   };
@@ -65,5 +69,6 @@ export function createTooltipDriver<T extends DriverLocator>(rootLocator: T) {
     openTooltip,
     getProgrammaticButtonTrigger,
     getTooltipByTextContent,
+    getOnChangeVerificationText,
   };
 }

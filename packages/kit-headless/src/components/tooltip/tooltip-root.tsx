@@ -7,6 +7,7 @@ import {
   useContextProvider,
   useId,
   useSignal,
+  $,
 } from '@builder.io/qwik';
 import { FloatingProps, HPopoverRoot } from '../popover/popover-root';
 import { TooltipContext, TooltipContextId, TriggerDataState } from './tooltip-context';
@@ -27,7 +28,7 @@ export type TooltipRootProps = {
    * QRL handler that runs when the tooltip opens or closes.
    * @param open The new state of the tooltip.
    */
-  onOpenChange$?: QRL<(state: TriggerDataState) => void>;
+  onOpenChange$?: QRL<(state: 'open' | 'closed') => void>;
 
   /**
    * A value that determines how long before the tooltip will
@@ -58,7 +59,7 @@ export const HTooltipRoot = component$((props: TooltipProps) => {
     gutter,
     delayDuration = 0,
     flip,
-    onOpenChange$: _,
+    onOpenChange$,
     ...rest
   } = props;
 
@@ -74,6 +75,7 @@ export const HTooltipRoot = component$((props: TooltipProps) => {
     triggerRef,
     delayDuration,
     state: tooltipState,
+    onOpenChange$: $((e) => onOpenChange$?.(e)),
   };
 
   useContextProvider(TooltipContextId, context);
