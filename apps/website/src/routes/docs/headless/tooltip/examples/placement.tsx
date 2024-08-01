@@ -24,7 +24,7 @@ export default component$(() => {
         <option value="left">Left</option>
       </select>
 
-      <Tooltip.Root gutter={4} flip placement={placement.value}>
+      <Tooltip.Root key={placement.value} gutter={4} flip placement={placement.value}>
         <Tooltip.Trigger>Hover or Focus me</Tooltip.Trigger>
         <Tooltip.Panel
           aria-label={`Tooltip content on the ${placement.value}`}

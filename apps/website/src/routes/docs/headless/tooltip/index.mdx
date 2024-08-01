@@ -118,11 +118,14 @@ Use the `data-open` and `data-closed` attributes on the `<Tooltip.Panel>` compon
 
 ### Cross-browser Animations
 
-Entry and exit animations have often been a frustrating experience in web development, especially trying to animate between `display: none`, a discrete property.
+{/\* Entry and exit animations have often been a frustrating experience in web development, especially trying to animate between `display: none`, a discrete property.
 
 Luckily, the Qwik UI team has done an excellent job of managing animations on polyfill browsers for you using the `data-*` attributes.
 
 <CodeSnippet name="animation.css" />
+*/}
+
+> Animations are not currently available in the Tooltip component. We are working on a solution to provide a more seamless experience. In the meantime, you can still use transitions.
 
 ## Tooltip Behavior
 
@@ -170,7 +173,7 @@ If Tailwind is the framework of choice, then styles can be added using the [arbi
 
 > The arbitrary variant can be customized/abstracted even further by [adding a variant](https://tailwindcss.com/docs/plugins#adding-variants) as a plugin in the tailwind config.
 
-## Animations
+{/\* ## Animations
 
 <Showcase name="animation" />
 
@@ -182,7 +185,7 @@ To use an animation, add the following CSS classes to the component.
 
 Here's the CSS imported from the example:
 
-<CodeSnippet name="animation.css" />
+<CodeSnippet name="animation.css" /> */}
 
 ### Transition declarations
 
