@@ -33,20 +33,6 @@ runs:
       with:
         command: 'pnpm test.headless.ci'
 
-    # - name: Build
-    #   shell: bash
-    #   run: npx nx affected:build --base=last-release --exclude=website
-
-    # - name: E2E Tests
-    #   shell: bash
-    #   run: npx nx affected --target=e2e --base=last-release
-
-    # - name: Codecov upload
-    #   uses: codecov/codecov-action@v2
-
-    # - name: Lint PR
-    #   if: github.event_name == 'pull_request'
-    #   shell: bash
-    #   run: pnpm danger ci --use-github-checks --failOnErrors -d .dangerfile.ts
-    #   env:
-    #     DANGER_GITHUB_API_TOKEN: ${{ inputs.github_token }}
+    - name: CLI E2E Tests
+      shell: bash
+      run: npx nx run cli-e2e:e2e --skip-nx-cache
