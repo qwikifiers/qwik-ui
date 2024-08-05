@@ -246,7 +246,6 @@ export const DocSearch = component$<DocSearchProps>(() => {
    * Handles the click on a search item.
    */
   const handleClick = $((item: SearchItem) => {
-    debugger;
     if (item.path === location.url.pathname) {
       open.value = false;
     }
