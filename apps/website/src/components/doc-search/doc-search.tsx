@@ -298,6 +298,7 @@ export const DocSearch = component$<DocSearchProps>(() => {
    * Prevents default behavior of keydown events.
    */
   const preventDefault = sync$((event: KeyboardEvent) => {
+    debugger;
     if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
       event.preventDefault();
     }
