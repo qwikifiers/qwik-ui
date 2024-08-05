@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.5.1
+
+### Patch Changes
+
+- ## Carousel (by [@thejackshelton](https://github.com/thejackshelton) in [#894](https://github.com/qwikifiers/qwik-ui/pull/894))
+
+  The carousel has been refactored from the ground up, including new features, components, and QOL updates. It is still in a draft state, and development is ongoing.
+
+  ## Dropdown
+
+  More improvements have been made to the dropdown component, including new features, components, and QOL updates.
+
 ## 0.5.0
 
 ### Minor Changes

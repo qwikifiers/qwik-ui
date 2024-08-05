@@ -113,6 +113,7 @@ export const HCollapsible = component$((props: CollapsibleProps) => {
       data-disabled={context.disabled ? '' : undefined}
       data-open={context.isOpenSig.value ? '' : undefined}
       data-closed={!context.isOpenSig.value ? '' : undefined}
+      aria-live="polite"
       {...rest}
     >
       <Slot />

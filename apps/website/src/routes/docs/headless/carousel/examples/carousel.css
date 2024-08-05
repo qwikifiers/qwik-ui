@@ -1,30 +1,16 @@
-.carousel {
-  --slide-size: 100%;
-  --slide-height: 5rem;
-  height: 100%;
-  max-width: 500px;
-  overflow: hidden;
+.carousel-root {
+  width: 100%;
 }
 
-.carousel-container {
-  backface-visibility: hidden;
-  display: flex;
-  touch-action: pan-y;
-  margin-left: calc(var(--slide-spacing) * -1);
-  transition-property: transform;
-  transition-timing-function: ease;
-  overflow-x: visible;
-  padding-block: 0.5rem;
+.carousel-scroller {
+  margin-bottom: 0.5rem;
 }
 
 .carousel-slide {
-  flex: 0 0 var(--slide-size);
-  min-width: 0;
-  position: relative;
-  user-select: none;
-  transition-property: transform;
   border: 2px dotted hsl(var(--primary));
-  pointer-events: none;
+  min-height: 10rem;
+  margin-top: 0.5rem;
+  user-select: none;
 }
 
 .carousel-pagination {
@@ -32,16 +18,13 @@
   gap: 0.5rem;
   padding: 1rem;
   border: 2px dotted hsl(var(--foreground));
+  outline: none;
 }
 
 .carousel-buttons {
   display: flex;
   justify-content: space-between;
   border: 2px dotted hsl(var(--accent));
-}
-
-.carousel-buttons button[aria-disabled='true'] {
-  opacity: 0.5;
 }
 
 .carousel-buttons button {
@@ -53,8 +36,8 @@
   background-color: hsla(var(--primary) / 0.08);
 }
 
-.carousel-img {
-  pointer-events: none;
+.carousel-buttons button:disabled {
+  opacity: 0.5;
 }
 
 .carousel-pagination-bullet {
@@ -62,11 +45,29 @@
   padding-inline: 0.5rem;
 }
 
-.pagination-underline {
+.carousel-pagination-bullet[data-active] {
   outline: 2px dotted hsl(var(--primary));
   background-color: hsla(var(--primary) / 0.08);
 }
 
 .carousel-pagination-bullet:hover {
   background-color: hsla(var(--primary) / 0.08);
+}
+
+.carousel-conditional {
+  position: relative;
+  height: 200px;
+}
+
+.carousel-conditional .carousel-slide {
+  opacity: 0;
+  transition: opacity 0.5s;
+  /* NOT display block */
+  display: revert;
+  position: absolute;
+  inset: 0;
+}
+
+.carousel-conditional .carousel-slide[data-active] {
+  opacity: 1;
 }

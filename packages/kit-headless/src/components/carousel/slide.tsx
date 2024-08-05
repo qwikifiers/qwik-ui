@@ -5,115 +5,75 @@ import {
   useContext,
   useTask$,
   useSignal,
+  useComputed$,
   $,
 } from '@builder.io/qwik';
-import CarouselContextId from './carousel-context-id';
-import { isServer } from '@builder.io/qwik/build';
+import { carouselContextId } from './context';
 
-export type CarouselSlideProps = PropsOf<'div'>;
+export type CarouselSlideProps = PropsOf<'div'> & {
+  _index?: number;
+};
 
-export const HCarouselSlide = component$(({ ...props }: CarouselSlideProps) => {
-  const context = useContext(CarouselContextId);
+export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProps) => {
+  const context = useContext(carouselContextId);
   const slideRef = useSignal<HTMLDivElement | undefined>();
-  const localIndexSig = useSignal<number | null>(null);
+  const slideId = `${context.localId}-${_index ?? -1}`;
+  const isVisibleSig = useComputed$(() => {
+    const start = context.currentIndexSig.value;
+    const end = start + context.slidesPerViewSig.value;
+    return _index !== undefined && _index >= start && _index < end;
+  });
+  const isActiveSig = useComputed$(() => {
+    return context.currentIndexSig.value === _index;
+  });
+  /** Used to hide the actual slide when it's inactive */
+  const isInactiveSig = useComputed$(() => {
+    return !context.isScrollerSig.value && !isActiveSig.value;
+  });
 
-  const handlePointerUp$ = $(() => {
-    context.isDraggingSig.value = false;
-
-    if (!context.containerRef.value || !slideRef.value) {
-      return;
-    }
-
-    /*
-      TODO: figure out why a separate DOMMatrix is why dragging and the buttons work properly.
-    */
-    const style = window.getComputedStyle(context.containerRef.value);
-    const matrix = new DOMMatrix(style.transform);
-
-    const containerTranslateX = matrix.m41;
-    // How far to the left the slides container is shifted.
-    const absContainerTranslateX = Math.abs(containerTranslateX);
-
-    if (!context.viewportRef.value) {
-      return;
-    }
-
-    // How far the left edge of this slide is from the left of the slides container.
-    const slideSlideContainerLeftOffset = slideRef.value.offsetLeft;
-    // How far the right edge of this slide is from the left of the slides container
-    // (includes space between slide).
-    const slideRightEdgePos =
-      slideSlideContainerLeftOffset +
-      slideRef.value.offsetWidth +
-      context.spaceBetweenSlides;
-
-    const carouselViewportWidth = context.viewportRef.value.offsetWidth;
-    const halfViewportWidth = carouselViewportWidth / 2;
-
-    const isWithinBounds =
-      absContainerTranslateX > slideSlideContainerLeftOffset - halfViewportWidth &&
-      absContainerTranslateX < slideRightEdgePos - halfViewportWidth;
-
-    if (isWithinBounds) {
-      context.transitionDurationSig.value = 300;
-
-      /*
-        we update here when mouse released (not when slide changes)
-        this is how it can "snap" back to the previous slide
-      */
-      context.slideOffsetSig.value = slideSlideContainerLeftOffset * -1;
+  useTask$(function getIndexOrder() {
+    if (_index !== undefined) {
+      context.slideRefsArray.value[_index] = slideRef;
+    } else {
+      throw new Error('Qwik UI: Carousel Slide cannot find its proper index.');
     }
   });
 
-  useTask$(() => {
-    // local index
-    localIndexSig.value = context.numSlidesSig.value;
-
-    // TODO: Refactor this out and use array length instead
-    context.numSlidesSig.value++;
-
-    context.slideRefsArray.value = [...context.slideRefsArray.value, slideRef];
-
-    return;
-  });
-
-  useTask$(({ track }) => {
-    track(() => context.isDraggingSig.value);
-
-    if (isServer) return;
-
-    context.isDraggingSig.value
-      ? window.addEventListener('pointerup', handlePointerUp$)
-      : window.removeEventListener('pointerup', handlePointerUp$);
-  });
-
-  useTask$(({ track }) => {
-    track(() => context.currentIndexSig.value);
-    if (localIndexSig.value === context.currentIndexSig.value && slideRef.value) {
-      context.transitionDurationSig.value = 625;
-      context.slideOffsetSig.value = slideRef.value.offsetLeft * -1;
-    }
-
-    /* TODO: figure out how to customize animation for separate actions:
-
-    For example, this 625 is now for everything, because the slide index changing is our source of truth.
-
-    Perhaps a bind?
-
-    */
-    setTimeout(() => {
-      context.transitionDurationSig.value = 625;
-    }, 0);
+  const handleFocusIn$ = $(() => {
+    context.isAutoplaySig.value = false;
   });
 
   return (
-    <div
-      data-slide-num={localIndexSig.value}
-      style={{ marginRight: `${context.spaceBetweenSlides}px` }}
-      ref={slideRef}
-      {...props}
-    >
-      <Slot />
-    </div>
+    <>
+      {/* start marker */}
+      {context.initialIndex === _index && context.alignSig.value === 'start' && (
+        <div ref={context.scrollStartRef} data-qui-scroll-start data-start></div>
+      )}
+      <div
+        ref={slideRef}
+        id={slideId}
+        inert={!isVisibleSig.value}
+        hidden={isInactiveSig.value}
+        aria-roledescription="slide"
+        role={context.bulletRefsArray.value.length > 0 ? 'tabpanel' : undefined}
+        data-qui-carousel-slide
+        data-active={isVisibleSig.value ? '' : undefined}
+        aria-label={`${_index !== undefined && _index + 1} of ${context.numSlidesSig.value}`}
+        onFocusIn$={[handleFocusIn$, props.onFocusIn$]}
+        {...props}
+      >
+        <Slot />
+
+        {/* center marker */}
+        {context.initialIndex === _index && context.alignSig.value === 'center' && (
+          <div ref={context.scrollStartRef} data-qui-scroll-start data-center></div>
+        )}
+      </div>
+
+      {/* end marker */}
+      {context.initialIndex === _index && context.alignSig.value === 'end' && (
+        <div ref={context.scrollStartRef} data-qui-scroll-start data-end></div>
+      )}
+    </>
   );
 });
