@@ -460,6 +460,8 @@ type SearchItemProps = SearchItem & {
  */
 const SearchItem = component$<SearchItemProps>(
   ({ type, relation, page, text, path, index, activeIndex, onClick$, recent }) => {
+    console.log(type, relation, page, text, path, index, activeIndex, recent);
+    debugger;
     // Use element signal
     const element = useSignal<HTMLAnchorElement>();
 
