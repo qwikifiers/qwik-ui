@@ -9,18 +9,16 @@ import {
 } from '@builder.io/qwik';
 import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { isBrowser } from '@builder.io/qwik/build';
-import { Button, Modal, buttonVariants } from '~/components/ui';
+import { Modal, buttonVariants } from '~/components/ui';
 import clsx from 'clsx';
 import { useFocusTrap, useStorageSignal } from '../../hooks';
 import { cn } from '@qwik-ui/utils';
 import { LuX } from '@qwikest/icons/lucide';
-import { LuLoader2 } from '@qwikest/icons/lucide';
 
 import { AngleRightIcon } from '../icons/AngleRightIcon';
 import { HashtagIcon } from '../icons/HashtagIcon';
 import { PageIcon } from '../icons/PageIcon';
 import { SearchIcon } from '../icons/SearchIcon';
-import { AlgoliaLogo } from '../icons/AlgoliaLogo';
 
 type HitType = 'lvl2' | 'lvl3' | 'lvl4' | 'lvl5' | 'content';
 
@@ -298,7 +296,6 @@ export const DocSearch = component$<DocSearchProps>(() => {
    * Prevents default behavior of keydown events.
    */
   const preventDefault = sync$((event: KeyboardEvent) => {
-    debugger;
     if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
       event.preventDefault();
     }
@@ -314,125 +311,9 @@ export const DocSearch = component$<DocSearchProps>(() => {
         ref={modalElement}
         window:onKeyDown$={[preventDefault, handleKeyDown]}
       >
-        {/* Header */}
-        <header class="flex h-14 flex-shrink-0 items-center px-2 md:h-16 lg:h-[72px] lg:px-4">
-          <form class="flex flex-1" preventdefault:submit>
-            <Button
-              disabled={loading.value}
-              look="ghost"
-              class="overflow-hidden"
-              aria-label={loading.value ? 'Search' : 'Focus search input'}
-              onClick$={() => inputElement.value!.focus()}
-            >
-              {loading.value ? (
-                <LuLoader2 class="h-[1.49em] w-[1.49em] animate-spin" />
-              ) : (
-                <SearchIcon class="h-full" />
-              )}
-            </Button>
-            <input
-              class="flex-1 bg-transparent px-2 text-lg text-slate-900 outline-none placeholder:text-slate-500 dark:text-slate-200 md:text-xl"
-              ref={inputElement}
-              type="search"
-              placeholder="Search docs"
-              value={input.value}
-              onInput$={(_, element) => (input.value = element.value)}
-            />
-          </form>
-        </header>
-
-        {/* Content */}
-        <div class="flex-1 overflow-y-auto overscroll-contain scroll-smooth p-4 lg:max-h-[350px] lg:min-h-[120px] lg:px-6">
-          {
-            // Error
-            error.value ? (
-              <p class="md:text-lg">
-                An unexpected error has occurred. If this happens regularly, please create
-                an{' '}
-                <a
-                  class="focus-ring rounded text-sky-600 underline decoration-slate-400 decoration-dashed underline-offset-[3px] focus-visible:outline-offset-4 focus-visible:ring-offset-[6px] dark:text-sky-400 dark:decoration-slate-600"
-                  href="https://github.com/fabian-hiller/valibot/issues/new"
-                  target="_blank"
-                >
-                  issue
-                </a>{' '}
-                on Github.
-              </p>
-            ) : // No result
-            input.value && !loading.value && !result.value.length ? (
-              <p class="text-sm md:text-base">
-                No results for "
-                <span class="text-slate-900 dark:text-slate-200">{input.value}</span>"
-              </p>
-            ) : // Result
-            input.value && result.value.length ? (
-              <ul>
-                {result.value.map((item, index) => {
-                  const getPrevItem = () =>
-                    index > 0 ? result.value[index - 1] : undefined;
-                  const getGroup = () =>
-                    getPrevItem()?.group !== item.group ? item.group : undefined;
-                  return (
-                    <li
-                      key={item.path + item.text}
-                      class={clsx(
-                        index > 0 &&
-                          (getGroup()
-                            ? 'mt-9'
-                            : item.relation === 'page' &&
-                                getPrevItem()?.relation !== 'page'
-                              ? 'mt-6'
-                              : item.relation === 'child'
-                                ? 'border-l-2 border-l-slate-200 pl-2 pt-2.5 dark:border-l-slate-800'
-                                : 'mt-2.5'),
-                      )}
-                    >
-                      {getGroup() && (
-                        <div class="mb-6 text-sm md:text-base">{getGroup()}</div>
-                      )}
-                      <SearchItem
-                        {...item}
-                        index={index}
-                        activeIndex={activeIndex}
-                        onClick$={() => handleClick(item)}
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : // Resent
-            recent.value!.length ? (
-              <>
-                <div class="text-sm md:text-base">Recent</div>
-                <ul class="mt-6 space-y-2.5">
-                  {recent.value.map((item, index) => (
-                    <li key={item.path + item.text}>
-                      <SearchItem
-                        {...item}
-                        index={index}
-                        activeIndex={activeIndex}
-                        onClick$={() => handleClick(item)}
-                        recent
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : null
-          }
+        <div>
+          <Link href="/docs/styled/button/"> 2323</Link>
         </div>
-
-        {/* Footer */}
-        <footer class="flex h-12 flex-shrink-0 items-center justify-end px-4 text-xs md:h-14 md:text-sm lg:h-[72px] lg:px-6">
-          Search by
-          <a
-            class="focus-ring ml-2 rounded focus-visible:outline-offset-4 focus-visible:ring-offset-[6px] md:ml-3"
-            href="https://www.algolia.com/ref/docsearch/?utm_source=valibot.dev&utm_medium=referral&utm_content=powered_by&utm_campaign=docsearch"
-            target="_blank"
-          >
-            <AlgoliaLogo class="h-8 md:h-10" />
-          </a>
-        </footer>
         <Modal.Close
           class={cn(
             buttonVariants({ size: 'icon', look: 'ghost' }),
