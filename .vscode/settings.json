@@ -1,6 +1,5 @@
 {
   "git.pullTags": false,
-"conventionalCommits.scopes": ["styled", "headless", "docs"],
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
