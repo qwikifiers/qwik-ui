@@ -23,15 +23,15 @@
     }
 
     /* make sure snap align is added after initial index animation */
-    [data-draggable]:hover [data-qui-carousel-slide] {
+    [data-draggable][data-initial-touch] [data-qui-carousel-slide] {
       scroll-snap-align: start;
     }
 
-    [data-draggable][data-align='center']:hover [data-qui-carousel-slide] {
+    [data-draggable][data-align='center'][data-initial-touch] [data-qui-carousel-slide] {
       scroll-snap-align: center;
     }
 
-    [data-draggable][data-align='end']:hover [data-qui-carousel-slide] {
+    [data-draggable][data-align='end'][data-initial-touch] [data-qui-carousel-slide] {
       scroll-snap-align: end;
     }
   }
@@ -42,14 +42,26 @@
     }
   }
 
-  /* workaround until scroll-snap-start is added to CSS. courtesy of Jack */
+  /* workaround until scroll-snap-start is added to CSS */
   [data-qui-scroll-start] {
     clip-path: inset(50%);
     height: 1px;
     width: 1px;
     white-space: nowrap;
     visibility: hidden;
+  }
+
+  /* so the snap start marker is not included in the scroll snap position */
+  [data-qui-scroll-start][data-start] {
     margin-right: calc(-1 * var(--gap) - 1px);
+  }
+
+  [data-qui-scroll-start][data-center] {
+    margin-left: 0px;
+  }
+
+  [data-qui-scroll-start][data-end] {
+    margin-left: calc(-1 * var(--gap) - 1px);
   }
 
   [data-qui-scroll-start]::before {
@@ -59,5 +71,10 @@
     display: block;
     /* changes to none on first interaction */
     scroll-snap-align: var(--scroll-snap-align, start);
+  }
+
+  /* remove the marker's snap-align on hover */
+  [data-qui-carousel-scroller]:hover [data-qui-scroll-start]::before {
+    scroll-snap-align: unset;
   }
 }

@@ -1,9 +1,6 @@
 import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
-import {
-  QwikCityProvider,
-  RouterOutlet,
-  ServiceWorkerRegister,
-} from '@builder.io/qwik-city';
+import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
+import { PrefetchServiceWorker, PrefetchGraph } from '@builder.io/qwik';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
@@ -46,7 +43,8 @@ export default component$(() => {
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
-        <ServiceWorkerRegister />
+        <PrefetchGraph />
+        <PrefetchServiceWorker />
       </head>
       <body lang="en">
         <ThemeProvider

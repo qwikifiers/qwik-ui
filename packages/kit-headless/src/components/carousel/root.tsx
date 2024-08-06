@@ -31,7 +31,7 @@ export type CarouselRootProps = PropsOf<'div'> & {
   'bind:selectedIndex'?: Signal<number>;
 
   /** change the initial index of the carousel on render */
-  initialIndex?: number;
+  startIndex?: number;
 
   /**
    * @deprecated Use bind:selectedIndex instead
@@ -58,7 +58,7 @@ export const CarouselBase = component$(
     'bind:selectedIndex': givenSlideIndexSig,
     'bind:autoplay': givenAutoplaySig,
     _isTitle: isTitle,
-    initialIndex,
+    startIndex,
     ...props
   }: CarouselRootProps) => {
     // core state
@@ -72,7 +72,7 @@ export const CarouselBase = component$(
     const bulletRefsArray = useSignal<Array<Signal>>([]);
     const currentIndexSig = useBoundSignal(
       givenSlideIndexSig ?? givenOldSlideIndexSig,
-      initialIndex ?? 0,
+      startIndex ?? 0,
     );
     const isScrollerSig = useSignal(false);
     const isAutoplaySig = useBoundSignal(givenAutoplaySig, false);
@@ -107,7 +107,7 @@ export const CarouselBase = component$(
       alignSig,
       isLoopSig,
       autoPlayIntervalMsSig,
-      initialIndex,
+      initialIndex: startIndex,
     };
 
     useContextProvider(carouselContextId, context);
@@ -124,7 +124,7 @@ export const CarouselBase = component$(
         style={{
           '--slides-per-view': slidesPerViewSig.value,
           '--gap': `${gapSig.value}px`,
-          '--scroll-start': `calc((${initialIndex || 0} * (100% - ${gapSig.value}px)) + var(--slides-per-view)`,
+          '--scroll-snap-align': alignSig.value,
         }}
       >
         <Slot />

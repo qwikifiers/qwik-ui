@@ -1,25 +1,23 @@
-import {
-  ClassList,
-  PropsOf,
-  component$,
-  useSignal,
-  useTask$,
-  useVisibleTask$,
-  $,
-} from '@builder.io/qwik';
+import { ClassList, PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { CodeCopy } from '../code-copy/code-copy';
 import { cn } from '@qwik-ui/utils';
-import { isDev } from '@builder.io/qwik/build';
 import poimandres from 'shiki/themes/poimandres.mjs';
 import html from 'shiki/langs/html.mjs';
 import css from 'shiki/langs/css.mjs';
 import tsx from 'shiki/langs/tsx.mjs';
-import { createHighlighterCore } from 'shiki/index.mjs';
+import { createHighlighterCore, BundledLanguage } from 'shiki/index.mjs';
+
+// Create a single highlighter instance
+const highlighterPromise = createHighlighterCore({
+  themes: [poimandres],
+  langs: [html, css, tsx],
+  loadWasm: import('shiki/wasm'),
+});
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
   copyCodeClass?: ClassList;
-  language?: 'tsx' | 'html' | 'css';
+  language?: BundledLanguage;
   splitCommentStart?: string;
   splitCommentEnd?: string;
 };
@@ -35,7 +33,8 @@ export const Highlight = component$(
   }: HighlightProps) => {
     const codeSig = useSignal('');
 
-    const addShiki$ = $(async () => {
+    useTask$(async ({ track }) => {
+      track(() => code);
       let modifiedCode: string = code;
 
       let partsOfCode = modifiedCode.split(splitCommentStart);
@@ -48,35 +47,12 @@ export const Highlight = component$(
         modifiedCode = partsOfCode[0];
       }
 
-      const highlighter = await createHighlighterCore({
-        themes: [poimandres],
-        langs: [html, css, tsx],
-        loadWasm: import('shiki/wasm'),
-      });
-
+      const highlighter = await highlighterPromise;
       const str = highlighter.codeToHtml(modifiedCode, {
         lang: language,
-        themes: {
-          light: 'poimandres',
-          dark: 'poimandres',
-        },
+        theme: 'poimandres',
       });
-      codeSig.value = str.toString();
-    });
-
-    useTask$(async ({ track }) => {
-      track(() => code);
-      if (!isDev) {
-        await addShiki$();
-      }
-    });
-
-    // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(async ({ track }) => {
-      track(() => code);
-      if (isDev) {
-        await addShiki$();
-      }
+      codeSig.value = str;
     });
 
     return (

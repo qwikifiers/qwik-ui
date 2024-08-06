@@ -6,6 +6,7 @@ import {
   useSignal,
   $,
   useTask$,
+  useOnWindow,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
@@ -23,6 +24,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isMouseMovingSig = useSignal(false);
   const isTouchDeviceSig = useSignal(false);
   const isTouchMovingSig = useSignal(true);
+  const isTouchStartSig = useSignal(false);
 
   useTask$(() => {
     context.isScrollerSig.value = true;
@@ -157,6 +159,18 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     }
   });
 
+  // resize the snap point when the window resizes
+  const handleResize = $(async () => {
+    if (!context.scrollerRef.value) return;
+    const newPosition = await getSlidePosition$(context.currentIndexSig.value);
+    context.scrollerRef.value.scrollTo({
+      left: newPosition,
+      behavior: 'auto',
+    });
+  });
+
+  useOnWindow('resize', handleResize);
+
   return (
     <div
       ref={context.scrollerRef}
@@ -173,12 +187,16 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       onTouchMove$={() => {
         isTouchMovingSig.value = true;
       }}
+      onTouchStart$={() => {
+        isTouchStartSig.value = true;
+      }}
       window:onTouchStart$={() => {
         isTouchMovingSig.value = false;
         isTouchDeviceSig.value = true;
       }}
       preventdefault:mousemove
       data-align={context.alignSig.value}
+      data-initial-touch={isTouchStartSig.value ? '' : undefined}
       {...props}
     >
       <Slot />
