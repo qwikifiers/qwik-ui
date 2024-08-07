@@ -1,8 +1,9 @@
-import { createContextId } from '@builder.io/qwik';
+import { createContextId, Signal } from '@builder.io/qwik';
 
 export interface ProgressContext {
-  value: number | null;
-  max: number;
+  valueSig: Signal<number | null>;
+  maxSig: Signal<number>;
+  dataAttributesSig: Signal<Record<string, string | number | undefined>>;
 }
 
 export const ProgressContext = createContextId<ProgressContext>('progress');

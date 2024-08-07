@@ -9,12 +9,7 @@ export default component$(() => {
 
   return (
     <Progress.Root value={progress} class="progress">
-      <Progress.Indicator
-        class="progress-indicator"
-        style={{
-          transform: `translateX(-${100 - progress}%)`,
-        }}
-      />
+      <Progress.Indicator class="progress-indicator" />
     </Progress.Root>
   );
 });
