@@ -19,6 +19,13 @@ export default component$(() => {
           </Carousel.Slide>
         ))}
       </Carousel.Scroller>
+      <Carousel.Pagination class="carousel-pagination">
+        {colors.map((color, index) => (
+          <Carousel.Bullet class="carousel-pagination-bullet" key={color}>
+            {index + 1}
+          </Carousel.Bullet>
+        ))}
+      </Carousel.Pagination>
     </Carousel.Root>
   );
 });
