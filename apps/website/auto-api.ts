@@ -2,6 +2,20 @@ import * as fs from 'fs';
 import { resolve } from 'path';
 import * as util from 'util';
 import { ViteDevServer } from 'vite';
+export default function autoAPI() {
+  return {
+    name: 'watch-monorepo-changes',
+    configureServer(server: ViteDevServer) {
+      const watchPath = resolve(__dirname, '../../packages/kit-headless');
+      server.watcher.on('change', (file: string) => {
+        if (file.startsWith(watchPath)) {
+          console.log(`File changed: ${file}`);
+          singleComponent(file);
+        }
+      });
+    },
+  };
+}
 function singleComponent(path: string) {
   const component_name = /\/([\w-]*).tsx/.exec(path);
   if (component_name === null || component_name[1] === null) {
@@ -9,7 +23,9 @@ function singleComponent(path: string) {
     return;
   }
   const lol = getOutputPath(path, component_name[1]);
-  console.log('HERE2: ', lol);
+  console.log('PATH: ', lol);
+  handleIntialDir(lol);
+
   const sourceCode = fs.readFileSync(path, 'utf-8');
   const comments = extractPublicTypes(sourceCode);
   const parsed = [];
@@ -19,7 +35,6 @@ function singleComponent(path: string) {
     parsed.push(pair);
   }
   const componentAPI = { [component_name[1]]: parsed };
-  console.log(util.inspect(componentAPI, false, 8));
 }
 function extractPublicTypes(strg: string) {
   const getPublicTypes = /type Public([A-Z][\w]*)*[\w\W]*?{([\w|\W]*?)}(;| &)/gm;
@@ -49,24 +64,14 @@ function extractComments(strg: string) {
 }
 
 function getOutputPath(ogPath: string, componentName: string): string {
-  return resolve(
-    __dirname,
-    `apps/website/src/routes/docs/headless/${componentName}/examples`,
-  );
+  return resolve(__dirname, `apps/website/src/routes/docs/headless/${componentName}`);
   return ogPath;
 }
+function handleIntialDir(path: string) {
+  if (fs.existsSync(path + '/api.ts')) {
+    console.log('YAYA');
+    return;
+  }
 
-export default function autoAPI() {
-  return {
-    name: 'watch-monorepo-changes',
-    configureServer(server: ViteDevServer) {
-      const watchPath = resolve(__dirname, '../../packages/kit-headless');
-      server.watcher.on('change', (file: string) => {
-        if (file.startsWith(watchPath)) {
-          console.log(`File changed: ${file}`);
-          singleComponent(file);
-        }
-      });
-    },
-  };
+  console.log('NAYAYA');
 }
