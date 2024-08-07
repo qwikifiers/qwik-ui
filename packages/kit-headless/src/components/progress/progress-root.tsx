@@ -8,6 +8,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 import { ProgressContext } from './progress-context';
+import { useBoundSignal } from '../../utils/bound-signal';
 
 type ProgressProps = {
   min?: number;
@@ -25,71 +26,73 @@ type ProgressProps = {
 };
 
 export type ProgressState = 'indeterminate' | 'complete' | 'loading';
-export const ProgressRoot = component$<ProgressProps & PropsOf<'div'>>((props) => {
-  /** Default max value for progress bar **/
-  const defaultMax = 100;
+export const ProgressRoot = component$<ProgressProps & PropsOf<'div'>>(
+  ({ 'bind:value': givenValueSig, ...props }) => {
+    /** Default max value for progress bar **/
+    const defaultMax = 100;
 
-  const minSig = useComputed$(() => props.min ?? 0);
-  const maxSig = useComputed$(() => props.max ?? defaultMax);
-  const valueSig = useComputed$(() => props.value ?? null);
-  const isValidProgressSig = useComputed$(() => {
-    return Number.isFinite(maxSig.value) && maxSig.value > minSig.value;
-  });
+    const minSig = useComputed$(() => props.min ?? 0);
+    const maxSig = useComputed$(() => props.max ?? defaultMax);
+    const valueSig = useBoundSignal(givenValueSig, props.value ?? null);
+    const isValidProgressSig = useComputed$(() => {
+      return Number.isFinite(maxSig.value) && maxSig.value > minSig.value;
+    });
 
-  const valueLabelSig = useComputed$(() => {
-    const value = valueSig.value ?? 0;
-    if (props.getValueLabel) {
-      return props.getValueLabel(value, maxSig.value);
-    }
-    return `${Math.round((value / maxSig.value) * 100)}%`;
-  });
+    const valueLabelSig = useComputed$(() => {
+      const value = valueSig.value ?? 0;
+      if (props.getValueLabel) {
+        return props.getValueLabel(value, maxSig.value);
+      }
+      return `${Math.round((value / maxSig.value) * 100)}%`;
+    });
 
-  useTask$(function checkValidProgress({ track }) {
-    track(() => isValidProgressSig.value);
-    if (!isValidProgressSig.value) {
-      throw new Error(
-        'Qwik UI: Progress component max must be a finite number and greater than min.',
-      );
-    }
-  });
+    useTask$(function checkValidProgress({ track }) {
+      track(() => isValidProgressSig.value);
+      if (!isValidProgressSig.value) {
+        throw new Error(
+          'Qwik UI: Progress component max must be a finite number and greater than min.',
+        );
+      }
+    });
 
-  const progressSig = useComputed$(() => {
-    return valueSig.value == null
-      ? 'indeterminate'
-      : valueSig.value === maxSig.value
-        ? 'complete'
-        : 'loading';
-  });
+    const progressSig = useComputed$(() => {
+      return valueSig.value == null
+        ? 'indeterminate'
+        : valueSig.value === maxSig.value
+          ? 'complete'
+          : 'loading';
+    });
 
-  const dataAttributesSig = useComputed$(() => {
-    return {
-      'data-progress': progressSig.value,
-      'data-value': valueSig.value ?? undefined,
-      'data-max': maxSig.value,
+    const dataAttributesSig = useComputed$(() => {
+      return {
+        'data-progress': progressSig.value,
+        'data-value': valueSig.value ?? undefined,
+        'data-max': maxSig.value,
+      };
+    });
+
+    const context: ProgressContext = {
+      dataAttributesSig,
+      valueSig,
+      maxSig,
     };
-  });
 
-  const context: ProgressContext = {
-    dataAttributesSig,
-    valueSig,
-    maxSig,
-  };
+    useContextProvider(ProgressContext, context);
 
-  useContextProvider(ProgressContext, context);
-
-  return (
-    <div
-      role="progressbar"
-      aria-label="progress"
-      aria-valuemax={maxSig.value}
-      aria-valuemin={minSig.value}
-      data-min={minSig.value}
-      aria-valuenow={valueSig.value ?? undefined}
-      aria-valuetext={valueLabelSig.value}
-      {...dataAttributesSig.value}
-      {...props}
-    >
-      <Slot />
-    </div>
-  );
-});
+    return (
+      <div
+        role="progressbar"
+        aria-label="progress"
+        aria-valuemax={maxSig.value}
+        aria-valuemin={minSig.value}
+        data-min={minSig.value}
+        aria-valuenow={valueSig.value ?? undefined}
+        aria-valuetext={valueLabelSig.value}
+        {...dataAttributesSig.value}
+        {...props}
+      >
+        <Slot />
+      </div>
+    );
+  },
+);
