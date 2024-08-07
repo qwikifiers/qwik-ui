@@ -54,6 +54,9 @@ export type CarouselRootProps = PropsOf<'div'> & {
 
   /** @internal Whether this carousel has a title */
   _isTitle?: boolean;
+
+  /** Allows the user to navigate steps when interacting with the stepper */
+  stepInteraction?: boolean;
 };
 
 export const CarouselBase = component$(
@@ -95,6 +98,7 @@ export const CarouselBase = component$(
     const isLoopSig = useComputed$(() => props.loop ?? false);
     const autoPlayIntervalMsSig = useComputed$(() => props.autoPlayIntervalMs ?? 0);
     const progressSig = useBoundSignal(givenProgressSig, getInitialProgress());
+    const isStepInteractionSig = useComputed$(() => props.stepInteraction ?? false);
 
     const titleId = `${localId}-title`;
 
@@ -118,6 +122,7 @@ export const CarouselBase = component$(
       isLoopSig,
       autoPlayIntervalMsSig,
       startIndex,
+      isStepInteractionSig,
     };
 
     useContextProvider(carouselContextId, context);

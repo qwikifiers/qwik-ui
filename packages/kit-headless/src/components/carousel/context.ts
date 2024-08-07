@@ -1,10 +1,8 @@
-import { createContextId } from '@builder.io/qwik';
+import { createContextId, type Signal } from '@builder.io/qwik';
 
-export const carouselContextId = createContextId<CarouselContext>('carousel-context');
+export const carouselContextId = createContextId<CarouselContext>('qui-carousel-context');
 
-import { type Signal } from '@builder.io/qwik';
-
-export interface CarouselContext {
+export type CarouselContext = {
   // core state
   localId: string;
   scrollerRef: Signal<HTMLDivElement | undefined>;
@@ -27,4 +25,5 @@ export interface CarouselContext {
   isLoopSig: Signal<boolean>;
   autoPlayIntervalMsSig: Signal<number>;
   startIndex: number | undefined;
-}
+  isStepInteractionSig: Signal<boolean>;
+};
