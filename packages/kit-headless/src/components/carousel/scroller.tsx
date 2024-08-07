@@ -96,7 +96,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const handleMouseDown$ = $((e: MouseEvent) => {
     if (!context.isDraggableSig.value) return;
     if (!context.scrollerRef.value) return;
-    if (context.initialIndex && context.scrollStartRef.value) {
+    if (context.startIndex && context.scrollStartRef.value) {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
 

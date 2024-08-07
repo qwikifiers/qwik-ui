@@ -39,11 +39,12 @@ export const ProgressRoot = component$<ProgressProps & PropsOf<'div'>>(
     });
 
     const valueLabelSig = useComputed$(() => {
-      const value = valueSig.value ?? 0;
+      const value = valueSig.value ?? minSig.value;
+      const range = maxSig.value - minSig.value;
       if (props.getValueLabel) {
         return props.getValueLabel(value, maxSig.value);
       }
-      return `${Math.round((value / maxSig.value) * 100)}%`;
+      return `${Math.round(((value - minSig.value) / range) * 100)}%`;
     });
 
     useTask$(function checkValidProgress({ track }) {
@@ -56,11 +57,10 @@ export const ProgressRoot = component$<ProgressProps & PropsOf<'div'>>(
     });
 
     const progressSig = useComputed$(() => {
-      return valueSig.value == null
-        ? 'indeterminate'
-        : valueSig.value === maxSig.value
-          ? 'complete'
-          : 'loading';
+      if (valueSig.value == null) return 'indeterminate';
+      const range = maxSig.value - minSig.value;
+      const progress = (valueSig.value - minSig.value) / range;
+      return progress >= 1 ? 'complete' : 'loading';
     });
 
     const dataAttributesSig = useComputed$(() => {
@@ -75,6 +75,7 @@ export const ProgressRoot = component$<ProgressProps & PropsOf<'div'>>(
       dataAttributesSig,
       valueSig,
       maxSig,
+      minSig,
     };
 
     useContextProvider(ProgressContext, context);
