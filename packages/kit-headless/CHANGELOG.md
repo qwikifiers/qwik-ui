@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.2
+
+### Patch Changes
+
+- 🐞🩹 modal close handler onClick$ (by [@thejackshelton](https://github.com/thejackshelton) in [#909](https://github.com/qwikifiers/qwik-ui/pull/909))
+
 ## 0.5.1
 
 ### Patch Changes
