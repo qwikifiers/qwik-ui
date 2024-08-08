@@ -370,7 +370,7 @@ async function installNxIfNeeded() {
     try {
       let contents = readFileSync(ignorePath, 'utf-8');
       if (!contents.includes('.nx/cache')) {
-        contents = [contents, '', '.nx/cache'].join('\n');
+        contents = [contents, '', '.nx/cache', '.nx/workspace-data'].join('\n');
         writeFileSync(ignorePath, contents, 'utf-8');
       }
     } catch {
