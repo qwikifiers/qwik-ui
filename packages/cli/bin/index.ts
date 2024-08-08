@@ -20,10 +20,13 @@ import {
 } from '@nx/devkit';
 
 import {
-  ThemeBorderRadius,
+  type ThemeBorderRadius,
+  ThemeBorderRadiuses,
   ThemeConfig,
-  ThemePrimaryColor,
+  type ThemePrimaryColor,
+  ThemePrimaryColors,
   ThemeStyle,
+  ThemeStyles,
 } from '@qwik-ui/utils';
 import { bgRgb, bold, cyan, green, red } from 'ansis';
 import { execSync } from 'child_process';
@@ -101,7 +104,7 @@ async function handleInit() {
         .option('style', {
           description: 'Theme style',
           type: 'string',
-          choices: [ThemeStyle.SIMPLE, ThemeStyle.BRUTALIST, ThemeStyle.NEUMORPHIC],
+          choices: [ThemeStyles.SIMPLE, ThemeStyles.BRUTALIST, ThemeStyles.NEUMORPHIC],
         })
         .option('e2e', {
           description: 'Install styled packages tagged as e2e for tests',
@@ -217,9 +220,9 @@ async function handleInit() {
   }
 
   if (!shouldCustomize) {
-    config.style ||= ThemeStyle.SIMPLE;
-    config.primaryColor ||= ThemePrimaryColor.CYAN600;
-    config.borderRadius ||= ThemeBorderRadius['BORDER-RADIUS-0'];
+    config.style ||= ThemeStyles.SIMPLE;
+    config.primaryColor ||= ThemePrimaryColors.CYAN600;
+    config.borderRadius ||= ThemeBorderRadiuses['BORDER-RADIUS-0'];
   } else {
     if (!config.style) {
       config.style = cancelable(
@@ -227,11 +230,11 @@ async function handleInit() {
           message: cyan('Choose a style for your theme'),
 
           options: [
-            { label: 'Simple', value: ThemeStyle.SIMPLE },
-            { label: 'Brutalist', value: ThemeStyle.BRUTALIST },
-            { label: 'Neumorphic', value: ThemeStyle.NEUMORPHIC },
+            { label: 'Simple', value: ThemeStyles.SIMPLE },
+            { label: 'Brutalist', value: ThemeStyles.BRUTALIST },
+            { label: 'Neumorphic', value: ThemeStyles.NEUMORPHIC },
           ],
-          initialValue: ThemeStyle.SIMPLE,
+          initialValue: ThemeStyles.SIMPLE,
         }),
       );
     }
@@ -240,51 +243,51 @@ async function handleInit() {
       config.primaryColor = cancelable(
         await select({
           message: cyan('Choose a primary color'),
-          initialValue: ThemePrimaryColor.CYAN600 as string,
+          initialValue: ThemePrimaryColors.CYAN600 as string,
           options: [
             {
               label: bold`${bgRgb(220, 38, 38)`   `} ${capitalizeFirstLetter('Red')} `,
-              hint: ThemePrimaryColor.RED600,
-              value: ThemePrimaryColor.RED600,
+              hint: ThemePrimaryColors.RED600,
+              value: ThemePrimaryColors.RED600,
             },
             {
               label: bold`${bgRgb(234, 88, 12)`   `} ${capitalizeFirstLetter('Orange')} `,
-              hint: ThemePrimaryColor.ORANGE600,
-              value: ThemePrimaryColor.ORANGE600,
+              hint: ThemePrimaryColors.ORANGE600,
+              value: ThemePrimaryColors.ORANGE600,
             },
             {
               label: bold`${bgRgb(250, 204, 21)`   `} ${capitalizeFirstLetter(
                 'Yellow',
               )} `,
-              hint: ThemePrimaryColor.YELLOW400,
-              value: ThemePrimaryColor.YELLOW400,
+              hint: ThemePrimaryColors.YELLOW400,
+              value: ThemePrimaryColors.YELLOW400,
             },
             {
               label: bold`${bgRgb(22, 163, 74)`   `} ${capitalizeFirstLetter('Green')} `,
-              hint: ThemePrimaryColor.GREEN600,
-              value: ThemePrimaryColor.GREEN600,
+              hint: ThemePrimaryColors.GREEN600,
+              value: ThemePrimaryColors.GREEN600,
             },
             {
               label: bold`${bgRgb(6, 182, 212)`   `} ${capitalizeFirstLetter('Cyan')} `,
-              hint: ThemePrimaryColor.CYAN600,
-              value: ThemePrimaryColor.CYAN600,
+              hint: ThemePrimaryColors.CYAN600,
+              value: ThemePrimaryColors.CYAN600,
             },
             {
               label: bold`${bgRgb(37, 99, 235)`   `} ${capitalizeFirstLetter('Blue')} `,
-              hint: ThemePrimaryColor.BLUE600,
-              value: ThemePrimaryColor.BLUE600,
+              hint: ThemePrimaryColors.BLUE600,
+              value: ThemePrimaryColors.BLUE600,
             },
             {
               label: bold`${bgRgb(147, 51, 234)`   `} ${capitalizeFirstLetter(
                 'Purple',
               )} `,
-              hint: ThemePrimaryColor.PURPLE600,
-              value: ThemePrimaryColor.PURPLE600,
+              hint: ThemePrimaryColors.PURPLE600,
+              value: ThemePrimaryColors.PURPLE600,
             },
             {
               label: bold`${bgRgb(219, 39, 119)`   `} ${capitalizeFirstLetter('Pink')} `,
-              hint: ThemePrimaryColor.PINK600,
-              value: ThemePrimaryColor.PINK600,
+              hint: ThemePrimaryColors.PINK600,
+              value: ThemePrimaryColors.PINK600,
             },
           ],
         }),

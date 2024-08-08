@@ -1,5 +1,5 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { ThemeBorderRadius, ThemePrimaryColor, ThemeStyle } from '@qwik-ui/utils';
+import { ThemeBorderRadiuses, ThemePrimaryColors, ThemeStyles } from '@qwik-ui/utils';
 import { SetupTailwindGeneratorSchema } from './schema';
 import { setupTailwindGenerator } from './setup-tailwind-generator';
 
@@ -575,9 +575,9 @@ html {
     const { tree, options } = setupWithProperFiles();
 
     options.rootCssPath = 'src/global.css';
-    options.borderRadius = ThemeBorderRadius['BORDER-RADIUS-1'];
-    options.primaryColor = ThemePrimaryColor.RED600;
-    options.style = ThemeStyle.BRUTALIST;
+    options.borderRadius = ThemeBorderRadiuses['BORDER-RADIUS-1'];
+    options.primaryColor = ThemePrimaryColors.RED600;
+    options.style = ThemeStyles.BRUTALIST;
 
     await setupTailwindGenerator(tree, options);
 
