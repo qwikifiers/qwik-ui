@@ -10,6 +10,18 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().locator('[data-qui-carousel-next]');
   };
 
+  const getPaginationBullet = (index: number) => {
+    return getRoot().locator(`[tabindex]`).nth(index);
+  };
+
+  const getTotalSlides = () => {
+    return getRoot().locator(`[data-qui-carousel-scroller]`).count();
+  };
+
+  const getSlideTitleId = () => {
+    return getRoot().locator('[id]');
+  };
+
   const getPrevButton = () => {
     return getRoot().locator('[data-qui-carousel-prev]');
   };
@@ -43,5 +55,8 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getContainer,
     getSlideAt,
     waitForAnimationEnd,
+    getPaginationBullet,
+    getTotalSlides,
+    getSlideTitleId,
   };
 }
