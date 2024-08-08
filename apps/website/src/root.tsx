@@ -1,6 +1,12 @@
-import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
+import {
+  component$,
+  PrefetchGraph,
+  PrefetchServiceWorker,
+  useContextProvider,
+  useStore,
+  useStyles$,
+} from '@builder.io/qwik';
 import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
-import { PrefetchServiceWorker, PrefetchGraph } from '@builder.io/qwik';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
@@ -11,12 +17,12 @@ import { ThemeProvider } from 'qwik-themes';
 
 import '@fontsource-variable/inter';
 import {
-  ThemeBaseColor,
-  ThemeBorderRadius,
-  ThemeFont,
-  ThemeMode,
-  ThemePrimaryColor,
-  ThemeStyle,
+  ThemeBaseColors,
+  ThemeBorderRadiuses,
+  ThemeFonts,
+  ThemeModes,
+  ThemePrimaryColors,
+  ThemeStyles,
 } from '@qwik-ui/utils';
 
 export default component$(() => {
@@ -51,12 +57,12 @@ export default component$(() => {
           attribute="class"
           enableSystem={false}
           themes={[
-            ...Object.values(ThemeFont),
-            ...Object.values(ThemeMode),
-            ...Object.values(ThemeStyle),
-            ...Object.values(ThemeBaseColor),
-            ...Object.values(ThemePrimaryColor),
-            ...Object.values(ThemeBorderRadius),
+            ...Object.values(ThemeFonts),
+            ...Object.values(ThemeModes),
+            ...Object.values(ThemeStyles),
+            ...Object.values(ThemeBaseColors),
+            ...Object.values(ThemePrimaryColors),
+            ...Object.values(ThemeBorderRadiuses),
           ]}
         >
           <RouterOutlet />

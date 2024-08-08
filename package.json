@@ -24,7 +24,7 @@
     "prepare": "simple-git-hooks",
     "preview.cloudflare": "nx preview-cloudflare website",
     "preview": "nx preview website",
-    "release.prepare": "nx run-many --target=build -p packages/*",
+    "release.prepare": "nx run-many --target=build -p packages/* --skip-nx-cache",
     "release.setroot": "mv pnpm-workspace.yaml dist/pnpm-workspace.yaml && cp tools/for-release/pnpm-workspace-for-release.yaml pnpm-workspace.yaml",
     "release": "pnpm release.prepare && pnpm release.setroot && pnpm release.publish && pnpm release.resetroot",
     "release.publish": "changeset publish",
