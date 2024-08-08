@@ -1,6 +1,6 @@
 {
   "name": "qwik-ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publishConfig": {
     "access": "public"
   },
@@ -13,7 +13,7 @@
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "@nx/devkit": "19.2.3",
-    "@qwik-ui/utils": "0.2.1",
+    "@qwik-ui/utils": "0.3.0",
     "ansis": "2.3.0",
     "tslib": "^2.3.0",
     "yargs": "17.7.2"
