@@ -234,7 +234,7 @@ async function handleInit() {
             { label: 'Brutalist', value: ThemeStyles.BRUTALIST },
             { label: 'Neumorphic', value: ThemeStyles.NEUMORPHIC },
           ],
-          initialValue: ThemeStyles.SIMPLE,
+          initialValue: ThemeStyles.SIMPLE as ThemeStyle,
         }),
       );
     }
@@ -306,7 +306,7 @@ async function handleInit() {
             { label: '0.75', value: 'border-radius-dot-75' },
             { label: '1', value: 'border-radius-1' },
           ],
-          initialValue: 'border-radius-0',
+          initialValue: 'border-radius-0' as ThemeBorderRadius,
         }),
       );
     }
