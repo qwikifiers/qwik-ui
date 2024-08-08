@@ -13,8 +13,8 @@ async function setup(page: Page, exampleName: string) {
 }
 
 test.describe('Mouse Behavior', () => {
-  //Click the "Next" button
-  test(`GIVEN a carousel
+  //1. Click the "Next" button
+  test(`1. GIVEN a carousel
         WHEN clicking on the next button
         THEN it should move to the next slide
         `, async ({ page }) => {
@@ -29,18 +29,11 @@ test.describe('Mouse Behavior', () => {
     await d.getNextButton().click();
     // async code: code runs as if it is scheduled
     // "await" will wait untill next button is clicked
-
-    // every slide might be "visible" in the case of scroller carousels. It might be easier to check if the slide has the data-active attribute.
     await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
-
-    // negative test cases:
-    // await expect(d.getSlideAt(3)).not.toHaveAttribute('data-active');
-    // expect(): is an assertion method, cheching the expected behavior
-    // await expect(d.getSlideAt(1)).;   --> isActive() or
   });
 
-  // Click "Previous" button
-  test(`GIVEN a carousel
+  //2.  Click "Previous" button
+  test(`2. GIVEN a carousel
         WHEN clicking on the previous button
         THEN it should move to the previous slide
   `, async ({ page }) => {
@@ -58,8 +51,8 @@ test.describe('Mouse Behavior', () => {
     // test previous work
   });
 
-  //to-do WHEN using a pointer device and dragging to the left
-  test(`GIVEN a carousel with dragging enabled
+  //3. to-do WHEN using a pointer device and dragging to the left
+  test(`3. GIVEN a carousel with dragging enabled
         WHEN using a pointer device and dragging to the left
         THEN it should move to the next slide
   `, async ({ page }) => {
@@ -72,8 +65,8 @@ test.describe('Mouse Behavior', () => {
     // TODO
   });
 
-  //WHEN using a pointer device and dragging to the right
-  test(`GIVEN a carousel with dragging enabled
+  //4. to-do WHEN using a pointer device and dragging to the right
+  test(`4. GIVEN a carousel with dragging enabled
         WHEN using a pointer device and dragging to the right
         THEN it should move to the previous slide
 `, async ({ page }) => {
@@ -85,168 +78,303 @@ test.describe('Mouse Behavior', () => {
     // TODO
   });
 
-  //to-do WHEN clicking on the pagination bullets
-  test(`GIVEN a carousel with a pagination control
+  //5. WHEN clicking on the pagination bullets
+  test(`5. GIVEN a carousel with a pagination control
         WHEN clicking on the pagination bullets
         THEN it should move to the corresponding slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
     // remove this (there so that TS doesn't complain)
-    d;
+    await d.getPaginationBullet(6).click();
+    await expect(d.getSlideAt(6)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(2)).not.toHaveAttribute('data-active');
 
-    // TODO
+    await d.getPaginationBullet(1).click();
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(6)).not.toHaveAttribute('data-active');
   });
 });
 
-//WHEN the enter key is pressed on the focused next button
 test.describe('Keyboard Behavior', () => {
-  test(`GIVEN a carousel
+  //6. WHEN the enter key is pressed on the focused next button
+  test(`6. GIVEN a carousel
         WHEN the enter key is pressed on the focused next button
         THEN it should move to the next slide
         `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
+    await d.getNextButton().focus();
     await d.getNextButton().press('Enter');
 
-    await expect(d.getSlideAt(1)).toBeVisible();
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    await d.getNextButton().focus();
+    await d.getNextButton().press('Enter');
+
+    await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(3)).not.toHaveAttribute('data-active');
+    await expect(d.getSlideAt(6)).not.toHaveAttribute('data-active');
+    await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
   });
 
-  //WHEN the enter key is pressed on the focused previous button
-  test(`GIVEN a carousel
+  //7. WHEN the enter key is pressed on the focused previous button
+  test(`7. GIVEN a carousel
         WHEN the enter key is pressed on the focused previous button
         THEN it should move to the previous slide
   `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    const isDisabled = await d.getPrevButton().isDisabled();
+    await expect(isDisabled).toBe(true); // check that "Previous" button is disabled for initial state
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
 
-    // TODO
+    await d.getPrevButton().focus();
+    await d.getPrevButton().press('Enter'); // check that clicking disabled button does not break anything
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+
+    await d.getPaginationBullet(6).click();
+    await expect(d.getSlideAt(6)).toHaveAttribute('data-active');
+
+    await d.getPrevButton().focus();
+    await d.getPrevButton().press('Enter');
+    await expect(d.getSlideAt(6)).not.toHaveAttribute('data-active');
+
+    await d.getPrevButton().focus();
+    await d.getPrevButton().press('Enter');
+    await expect(d.getSlideAt(4)).toHaveAttribute('data-active');
+
+    await d.getPrevButton().focus();
+    await d.getPrevButton().press('Enter');
+    await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
   });
 
-  //WHEN the first bullet is focused and the right arrow key is pressed
-  test(`GIVEN a carousel with a pagination control
+  //8. WHEN the first bullet is focused and the right arrow key is pressed
+  test(`8. GIVEN a carousel with a pagination control
         WHEN the first bullet is focused and the right arrow key is pressed
         THEN focus should move to the next bullet
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Focus on the first pagination bullet
+    const firstBullet = d.getPaginationBullet(0);
+    await firstBullet.focus();
 
-    // TODO
+    // Press the right arrow key
+    await page.keyboard.press('ArrowRight');
+    // Verify the focus is on the second bullet
+
+    // Verify the focus is on the second bullet
+    const secondBullet = d.getPaginationBullet(1);
+    const isSecondBulletFocused = await secondBullet.evaluate(
+      (el) => document.activeElement === el,
+    );
+    expect(isSecondBulletFocused).toBe(true);
   });
 
-  //WHEN the 2nd bullet is focused and the left arrow key is pressed
-  test(`GIVEN a carousel with a pagination control
+  //9. WHEN the 2nd bullet is focused and the left arrow key is pressed
+  test(`9. GIVEN a carousel with a pagination control
         WHEN the 2nd bullet is focused and the left arrow key is pressed
         THEN focus should move to the previous bullet
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Focus on the second pagination bullet
+    const secondBullet = d.getPaginationBullet(1);
+    await secondBullet.focus();
 
-    // TODO
+    // Press the left arrow key
+    await page.keyboard.press('ArrowLeft');
+
+    // Verify the focus is on the first bullet
+    const firstBullet = d.getPaginationBullet(0);
+    const isFirstBulletFocused = await firstBullet.evaluate(
+      (el) => document.activeElement === el,
+    );
+    expect(isFirstBulletFocused).toBe(true);
   });
 
-  //WHEN the first bullet is focused and the right arrow key is pressed
-  test(`GIVEN a carousel with a pagination control
+  //10. WHEN the first bullet is focused and the right arrow key is pressed
+  test(`10. GIVEN a carousel with a pagination control
     WHEN the first bullet is focused and the right arrow key is pressed
     THEN focus should move to the 2nd slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Focus on the first pagination bullet
+    const firstBullet = d.getPaginationBullet(0);
+    await firstBullet.focus();
 
-    // TODO
+    // Press the right arrow key
+    await page.keyboard.press('ArrowRight');
+    // Verify the focus is on the second slide
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    // Verify the focus is NOT on the first and third bullets
+    await expect(d.getSlideAt(2)).not.toHaveAttribute('data-active');
+    await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
   });
 
-  //WHEN the 2nd bullet is focused and the left arrow key is pressed
-  test(`GIVEN a carousel with a pagination control
+  //11. WHEN the 2nd bullet is focused and the left arrow key is pressed
+  test(`11. GIVEN a carousel with a pagination control
     WHEN the 2nd bullet is focused and the left arrow key is pressed
-    THEN it should move to the 1st slide
+    THEN focus should move to the 1st slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Focus on the second pagination bullet
+    const secondBullet = d.getPaginationBullet(1);
+    await secondBullet.focus();
 
-    // TODO
+    // Press the left arrow key
+    await page.keyboard.press('ArrowLeft');
+    // Verify the focus is on the first slide
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+
+    // Verify the focus is NOT on the second and third bullets
+    await expect(d.getSlideAt(2)).not.toHaveAttribute('data-active');
+    await expect(d.getSlideAt(1)).not.toHaveAttribute('data-active');
   });
 
-  //WHEN the 1st bullet is focused and the end key is pressed
-  test(`GIVEN a carousel with a pagination control
-        WHEN the 1st bullet is focused and the end key is pressed
+  //12. WHEN the 1st bullet is focused and the END key is pressed
+  test(`12. GIVEN a carousel with a pagination control
+        WHEN the 1st bullet is focused and the END key is pressed
         THEN it should move to the last slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Focus on the first pagination bullet
+    const firstBullet = d.getPaginationBullet(0);
+    await firstBullet.focus();
 
-    // TODO
+    // Press the End key
+    await page.keyboard.press('End');
+
+    // Get the total number of slides
+    const totalSlides = await d.getTotalSlides();
+
+    // Verify the last slide is active
+    await expect(d.getSlideAt(totalSlides - 1)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
+    await expect(d.getSlideAt(5)).not.toHaveAttribute('data-active');
   });
 
-  //WHEN the last bullet is focused and the home key is pressed
-  test(`GIVEN a carousel with a pagination control
-        WHEN the last bullet is focused and the home key is pressed
+  //13. WHEN the last bullet is focused and the HOME key is pressed
+  test(`13. GIVEN a carousel with a pagination control
+        WHEN the last bullet is focused and the HOME key is pressed
         THEN it should move to the first slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Get the total number of slides
+    const totalSlides = await d.getTotalSlides();
 
-    // TODO
+    // Focus on the last pagination bullet
+    const lastBullet = d.getPaginationBullet(totalSlides - 1);
+    await lastBullet.focus();
+
+    // Press the Home key
+    await page.keyboard.press('Home');
+
+    // Verify the first slide is active
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(1)).not.toHaveAttribute('data-active');
+    await expect(d.getSlideAt(6)).not.toHaveAttribute('data-active');
   });
 });
 
-//WHEN swiping to the left
 test.describe('Mobile / Touch Behavior', () => {
-  test(`GIVEN a carousel with dragging enabled
+  //14. WHEN swiping to the left
+  test(`14. GIVEN a carousel with dragging enabled
         WHEN swiping to the left
         THEN it should move to the next slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Assuming the first slide is active initially
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
 
-    // TODO
+    // Perform the swipe gesture to the left
+    const carousel = d.getContainer();
+    const boundingBox = await carousel.boundingBox();
+    if (boundingBox) {
+      const startX = boundingBox.x + boundingBox.width * 0.8; // Start near the right edge
+      const endX = boundingBox.x + boundingBox.width * 0.2; // End near the left edge
+      const y = boundingBox.y + boundingBox.height / 2; // Swipe in the vertical middle
+
+      // Perform the drag action
+      await page.mouse.move(startX, y);
+      await page.mouse.down();
+      await page.mouse.move(endX, y, { steps: 10 });
+      await page.mouse.up();
+    }
+
+    // Verify the next slide is active
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+    // Verify that other slides are NOT active
+    await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
+    await expect(d.getSlideAt(2)).not.toHaveAttribute('data-active');
   });
 
-  //WHEN swiping to the right
-  test(`GIVEN a carousel with dragging enabled
+  //15. WHEN swiping to the right
+  test(`15. GIVEN a carousel with dragging enabled
         WHEN swiping to the right
         THEN it should move to the previous slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Make the second slide active by clicking the NEXT button
+    await d.getNextButton().click();
 
-    // TODO
+    // Assuming the second slide is active initially
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    // Perform the swipe gesture to the right
+    const carousel = d.getContainer();
+    const boundingBox = await carousel.boundingBox();
+    if (boundingBox) {
+      const startX = boundingBox.x + boundingBox.width * 0.2; // Start near the left edge
+      const endX = boundingBox.x + boundingBox.width * 0.8; // End near the right edge
+      const y = boundingBox.y + boundingBox.height / 2; // Swipe in the vertical middle
+
+      // Perform the drag action
+      await page.mouse.move(startX, y);
+      await page.mouse.down();
+      await page.mouse.move(endX, y, { steps: 10 });
+      await page.mouse.up();
+    }
+
+    // Verify the previous slide (first slide) is active
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    // Verify that other slides are NOT active
+    await expect(d.getSlideAt(1)).not.toHaveAttribute('data-active');
+    await expect(d.getSlideAt(6)).not.toHaveAttribute('data-active');
   });
 
-  //WHEN tapping on the pagination bullets
-  test(`GIVEN a carousel with a pagination control
+  //16. WHEN tapping on the pagination bullets
+  test(`16. GIVEN a carousel with a pagination control
         WHEN tapping on the pagination bullets
         THEN it should move to the corresponding slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Get the total number of slides
+    const totalSlides = await d.getTotalSlides();
 
-    // TODO
+    // Assuming that we want to test tapping on each bullet and verify the corresponding slide
+    for (let i = 0; i < totalSlides; i++) {
+      // Tap on the pagination bullet
+      await d.getPaginationBullet(i).click();
+
+      // Verify the corresponding slide is active
+      await expect(d.getSlideAt(i)).toHaveAttribute('data-active');
+    }
   });
 });
 
 test.describe('Accessibility', () => {
-  test('Axe Validation Test', async ({ page }) => {
+  test('17. Axe Validation Test', async ({ page }) => {
     await setup(page, 'hero');
 
     const initialResults = await new AxeBuilder({ page })
@@ -256,7 +384,7 @@ test.describe('Accessibility', () => {
     expect(initialResults.violations).toEqual([]);
   });
 
-  test(`GIVEN a carousel
+  test(`18. GIVEN a carousel
         WHEN it is rendered
         THEN it should have an accessible name
 `, async ({ page }) => {
@@ -269,14 +397,19 @@ test.describe('Accessibility', () => {
     await expect(d.getRoot()).toHaveAttribute('aria-label', 'content slideshow');
   });
 
-  test(`GIVEN a carousel with a title
+  test(`19. GIVEN a carousel with a title
         WHEN it is rendered
         THEN the carousel container should have the role of group
-        AND the title should be the accessible name`, async ({ page }) => {
+        AND the title should be the accessible name
+        `, async ({ page }) => {
     const { driver: d } = await setup(page, 'title');
 
     await expect(d.getRoot()).toBeVisible();
-    await expect(d.getRoot()).toHaveAttribute('aria-labelledby', 'Favorite Colors');
+    await expect(d.getRoot()).toHaveAttribute('aria-labelledby');
+    //await expect(d.getRoot()).toHaveAttribute('aria-labelledby', 'Favorite Colors');
+    await expect(d.getSlideTitleId()).toHaveAttribute('Favorite Colors');
+    //await expect(d.getSlideTitleId()).textContent().toBe('Favorite Colors');
+    //await expect(d.getSlideAt(0)).toHaveAttribute('Favorite Colors');
   });
 
   test(`GIVEN a carousel

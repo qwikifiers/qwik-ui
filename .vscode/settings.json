@@ -7,5 +7,9 @@
   ],
   "editor.codeActionsOnSave": {
     "source.removeUnusedImports": "explicit"
-  }
+  },
+  "workbench.colorTheme": "Visual Studio Light",
+  "workbench.preferredHighContrastLightColorTheme": "Visual Studio Light",
+  "workbench.preferredLightColorTheme": "Default Light+",
+  "workbench.preferredHighContrastColorTheme": "Default Light Modern"
 }
