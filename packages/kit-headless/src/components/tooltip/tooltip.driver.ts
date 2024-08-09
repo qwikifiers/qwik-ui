@@ -59,6 +59,35 @@ export function createTooltipDriver<T extends DriverLocator>(rootLocator: T) {
     return rootLocator.locator('button');
   };
 
+  const selectOption = async (placement: string) => {
+    const dropdown = rootLocator.getByLabel('Select Tooltip Placement:');
+    await dropdown.selectOption(placement);
+  };
+
+  const validateTooltipPosition = async (placement: string) => {
+    const triggerBoundingBox = await getTrigger().boundingBox();
+    const tooltipBoundingBox = await getTooltip().boundingBox();
+
+    switch (placement) {
+      case 'top':
+        expect(tooltipBoundingBox?.y).toBeLessThan(triggerBoundingBox?.y ?? 0);
+        break;
+      case 'right':
+        expect(tooltipBoundingBox?.x).toBeGreaterThan(
+          (triggerBoundingBox?.x ?? 0) + (triggerBoundingBox?.width ?? 0),
+        );
+        break;
+      case 'bottom':
+        expect(tooltipBoundingBox?.y).toBeGreaterThan(
+          (triggerBoundingBox?.y ?? 0) + (triggerBoundingBox?.height ?? 0),
+        );
+        break;
+      case 'left':
+        expect(tooltipBoundingBox?.x).toBeLessThan(triggerBoundingBox?.x ?? 0);
+        break;
+    }
+  };
+
   return {
     ...rootLocator,
     locator: rootLocator,
@@ -70,5 +99,7 @@ export function createTooltipDriver<T extends DriverLocator>(rootLocator: T) {
     getProgrammaticButtonTrigger,
     getTooltipByTextContent,
     getOnChangeVerificationText,
+    selectOption,
+    validateTooltipPosition,
   };
 }

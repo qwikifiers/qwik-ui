@@ -74,50 +74,76 @@ test.describe('Keyboard Behavior', () => {
 });
 
 test.describe('Placement and Positioning', () => {
-  const placements = ['top', 'right', 'bottom', 'left'] as const;
+  test(`GIVEN a tooltip with placement set to top
+    WHEN hovering over the trigger
+    THEN the tooltip should appear at the top of the trigger`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'placement');
 
-  test.describe('Tooltip Placements', () => {
-    placements.forEach((placement) => {
-      test(`GIVEN a tooltip with placement set to ${placement}
-            WHEN hovering over the trigger
-            THEN the tooltip should appear at the ${placement} of the trigger`, async ({
-        page,
-      }) => {
-        const { driver: d } = await setup(page, 'placement');
+    const placement = 'top';
+    d.selectOption(placement);
 
-        const dropdown = page.getByLabel('Select Tooltip Placement:');
-        await dropdown.selectOption(placement);
+    const tooltip = d.getTooltip();
+    const trigger = d.getTrigger();
 
-        const tooltip = d.getTooltip();
-        const trigger = d.getTrigger();
+    await trigger.hover();
 
-        await trigger.hover();
+    await expect(tooltip).toBeVisible();
 
-        await expect(tooltip).toBeVisible();
+    d.validateTooltipPosition(placement);
+  });
 
-        const triggerBoundingBox = await trigger.boundingBox();
-        const tooltipBoundingBox = await tooltip.boundingBox();
+  test(`GIVEN a tooltip with placement set to right
+    WHEN hovering over the trigger
+    THEN the tooltip should appear at the right of the trigger`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'placement');
 
-        switch (placement) {
-          case 'top':
-            expect(tooltipBoundingBox?.y).toBeLessThan(triggerBoundingBox?.y ?? 0);
-            break;
-          case 'right':
-            expect(tooltipBoundingBox?.x).toBeGreaterThan(
-              (triggerBoundingBox?.x ?? 0) + (triggerBoundingBox?.width ?? 0),
-            );
-            break;
-          case 'bottom':
-            expect(tooltipBoundingBox?.y).toBeGreaterThan(
-              (triggerBoundingBox?.y ?? 0) + (triggerBoundingBox?.height ?? 0),
-            );
-            break;
-          case 'left':
-            expect(tooltipBoundingBox?.x).toBeLessThan(triggerBoundingBox?.x ?? 0);
-            break;
-        }
-      });
-    });
+    const placement = 'right';
+    d.selectOption(placement);
+
+    const tooltip = d.getTooltip();
+    const trigger = d.getTrigger();
+
+    await trigger.hover();
+
+    await expect(tooltip).toBeVisible();
+
+    d.validateTooltipPosition(placement);
+  });
+
+  test(`GIVEN a tooltip with placement set to bottom
+    WHEN hovering over the trigger
+    THEN the tooltip should appear at the bottom of the trigger`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'placement');
+
+    const placement = 'bottom';
+    d.selectOption(placement);
+
+    const tooltip = d.getTooltip();
+    const trigger = d.getTrigger();
+
+    await trigger.hover();
+
+    await expect(tooltip).toBeVisible();
+
+    d.validateTooltipPosition(placement);
+  });
+
+  test(`GIVEN a tooltip with placement set to left
+    WHEN hovering over the trigger
+    THEN the tooltip should appear at the left of the trigger`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'placement');
+
+    const placement = 'left';
+    d.selectOption(placement);
+
+    const tooltip = d.getTooltip();
+    const trigger = d.getTrigger();
+
+    await trigger.hover();
+
+    await expect(tooltip).toBeVisible();
+
+    d.validateTooltipPosition(placement);
   });
 
   test(`GIVEN a tooltip with a gutter configured
