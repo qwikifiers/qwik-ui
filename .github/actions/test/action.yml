@@ -20,7 +20,7 @@ runs:
 
     - name: Build packages
       shell: bash
-      run: npx nx run-many -t build --parallel=false --exclude website # --base=last-release  <- add that back
+      run: npx nx run-many -t build --parallel=false --exclude website --skip-nx-cache # --base=last-release  <- add that back
 
     - name: Test all except headless
       shell: bash

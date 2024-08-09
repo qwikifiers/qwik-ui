@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+### Minor Changes
+
+- Changed enums to const maps in utils (by [@shairez](https://github.com/shairez) in [#914](https://github.com/qwikifiers/qwik-ui/pull/914))
+
 ## 0.2.1
 
 ### Patch Changes
