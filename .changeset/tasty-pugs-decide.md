@@ -1,5 +1,5 @@
 ---
-'@qwik-ui/headless': minor
+'@qwik-ui/headless': patch
 ---
 
-Implement a beta version of the Tooltip component
+feat: implement a beta version of the Tooltip component
