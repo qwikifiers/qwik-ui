@@ -1,0 +1,29 @@
+.tooltip-animation {
+  transform: scale(0);
+}
+
+.tooltip-animation[data-open] {
+  animation: tooltip-grow 0.5s ease-in-out forwards;
+}
+
+.tooltip-animation[data-closing] {
+  animation: tooltip-shrink 0.4s ease-in-out forwards;
+}
+
+@keyframes tooltip-shrink {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+@keyframes tooltip-grow {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

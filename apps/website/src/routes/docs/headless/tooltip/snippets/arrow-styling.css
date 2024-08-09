@@ -1,0 +1,38 @@
+.tooltip-arrow-styled-panel {
+  background-color: #222;
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.tooltip-arrow-styled-panel[data-open] {
+  opacity: 1;
+}
+
+.tooltip-arrow-styled-arrow {
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.tooltip-arrow-styled-arrow::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #222;
+  top: -5px;
+  left: calc(50% - 5px);
+  transform: rotate(45deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: top 0.3s ease;
+}
+
+.tooltip-arrow-styled-panel[data-open] .tooltip-arrow-styled-arrow::before {
+  top: -8px;
+}
