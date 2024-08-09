@@ -174,7 +174,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
             >
               <DiscordIcon />
             </a>
-            <DocSearch open={false} />
+            <DocSearch />
             <a
               target="_blank"
               href="https://github.com/qwikifiers/qwik-ui"
