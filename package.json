@@ -14,22 +14,22 @@
     "build.headless": "nx build headless",
     "change": "changeset",
     "changeset.version": "changeset version && pnpm install --no-frozen-lockfile && git add --all",
-    "dev": "nx serve website",
+    "dev": "nx serve website --host",
     "dev.ct": "nx serve component-tests",
     "format.all": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html,css,scss}\"",
-    "format.fix": "pretty-quick --staged",
+    "format.staged": "pretty-quick --staged",
     "link.dist": "cd dist/packages/kit-headless && pnpm link --global",
     "lint": "nx affected:lint",
     "local.npm": "nx local-registry",
-    "prepare": "husky install",
+    "prepare": "simple-git-hooks",
     "preview.cloudflare": "nx preview-cloudflare website",
     "preview": "nx preview website",
-    "release.prepare": "nx run-many --target=build -p packages/*",
-    "release.setroot": "mv pnpm-workspace.yaml dist/pnpm-workspace.yaml && cp pnpm-workspace-for-release.yaml pnpm-workspace.yaml",
-    "release:e2e": "pnpm release.prepare && pnpm release.setroot && pnpm --filter=qwik-ui exec pnpm version patch && pnpm --filter=qwik-ui publish --tag e2e --no-git-checks && pnpm release.resetroot",
+    "release.prepare": "nx run-many --target=build -p packages/* --skip-nx-cache",
+    "release.setroot": "mv pnpm-workspace.yaml dist/pnpm-workspace.yaml && cp tools/for-release/pnpm-workspace-for-release.yaml pnpm-workspace.yaml",
     "release": "pnpm release.prepare && pnpm release.setroot && pnpm release.publish && pnpm release.resetroot",
     "release.publish": "changeset publish",
     "release.resetroot": "cp dist/pnpm-workspace.yaml pnpm-workspace.yaml",
+    "release.e2e": "pnpm release.prepare && pnpm release.setroot && pnpm -r exec pnpm version patch && pnpm -r publish --tag e2e --no-git-checks && pnpm release.resetroot",
     "test.cli": "NODE_OPTIONS=--experimental-vm-modules nx test cli",
     "test.headless": "nx component-test headless --skip-nx-cache",
     "test.visual.headless": "nx visual-test headless",
@@ -37,14 +37,16 @@
     "test.pw.headless-chrome-108": "nx e2e-chrome-108 headless",
     "test.pw.headless.ci": "nx e2e headless",
     "test.headless.ci": "nx component-test-ci headless",
-    "test.utils": "nx test utils",
-    "cli.build": "nx run cli:build"
+    "test.utils": "nx test utils"
   },
-  "packageManager": "pnpm@9.5.0",
+  "simple-git-hooks": {
+    "pre-commit": "pnpm format.staged"
+  },
+  "packageManager": "pnpm@9.6.0",
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
-    "@builder.io/qwik": "^1.7.1",
-    "@builder.io/qwik-city": "^1.7.1",
+    "@builder.io/qwik": "^1.7.2",
+    "@builder.io/qwik-city": "^1.7.2",
     "@changesets/cli": "^2.27.3",
     "@changesets/get-github-info": "^0.6.0",
     "@changesets/types": "^6.0.0",
@@ -71,7 +73,7 @@
     "@oddbird/popover-polyfill": "0.4.3",
     "@playwright/test": "^1.44.1",
     "@qwikest/icons": "^0.0.13",
-    "@shikijs/transformers": "^1.6.0",
+    "@shikijs/transformers": "^1.11.0",
     "@swc-node/register": "^1.9.1",
     "@swc/core": "^1.5.7",
     "@testing-library/cypress": "10.0.1",
@@ -104,9 +106,8 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-cypress": "^3.2.0",
     "eslint-plugin-playwright": "^1.6.2",
-    "eslint-plugin-qwik": "^1.7.0",
+    "eslint-plugin-qwik": "^1.7.2",
     "focus-trap": "7.5.4",
-    "husky": "^9.0.11",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "24.0.0",
@@ -123,7 +124,8 @@
     "qwik-themes": "^0.2.0",
     "rehype-pretty-code": "^0.13.2",
     "sass": "^1.77.2",
-    "shiki": "1.6.0",
+    "shiki": "1.11.0",
+    "simple-git-hooks": "2.11.1",
     "specificity": "^1.0.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.3",
@@ -145,11 +147,6 @@
     "wrangler": "^3.57.1",
     "yargs": "^17.7.2"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
   "keywords": [
     "qwik",
     "qwik ui components",
@@ -160,6 +157,6 @@
   },
   "volta": {
     "node": "20.9.0",
-    "pnpm": "9.5.0"
+    "pnpm": "9.6.0"
   }
 }

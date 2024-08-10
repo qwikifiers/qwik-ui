@@ -1,9 +1,9 @@
-import { ThemeBaseColor } from './theme-base-color.enum';
-import { ThemeBorderRadius } from './theme-border-radius.enum';
-import { ThemePrimaryColor } from './theme-primary-color.enum';
-import { ThemeFont } from './theme-font.enum';
-import { ThemeMode } from './theme-mode-enum';
-import { ThemeStyle } from './theme-style.enum';
+import { type ThemeBaseColor } from './theme-base-colors';
+import { ThemeBorderRadius } from './theme-border-radiuses';
+import { type ThemeFont } from './theme-fonts';
+import { type ThemeMode } from './theme-modes';
+import { type ThemePrimaryColor } from './theme-primary-colors';
+import { type ThemeStyle } from './theme-styles';
 
 export type ThemeConfig = {
   font?: ThemeFont | string;

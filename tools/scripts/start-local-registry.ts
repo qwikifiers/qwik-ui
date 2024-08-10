@@ -16,7 +16,7 @@ export default async () => {
     storage,
     verbose: false,
   });
-  execSync('pnpm run release:e2e', {
+  execSync('pnpm run release.e2e', {
     env: process.env,
     stdio: 'inherit',
   });

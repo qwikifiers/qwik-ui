@@ -1,8 +1,6 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
-
 import { Dropdown } from '@qwik-ui/headless';
 import { LuCheck } from '@qwikest/icons/lucide';
-import styles from '../snippets/dropdown.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
@@ -18,51 +16,49 @@ export default component$(() => {
   const radioItems = ['main', 'develop'];
 
   return (
-    <Dropdown.Root data-testid="dropdown">
+    <Dropdown.Root>
       <Dropdown.Trigger class="dropdown-trigger">Git Settings</Dropdown.Trigger>
-      <Dropdown.Popover>
-        <Dropdown.Arrow class="dropdown-arrow" />
-        <Dropdown.Content class="dropdown-content">
-          <Dropdown.Group class="dropdown-group">
-            <Dropdown.GroupLabel class="dropdown-group-label">
-              Actions
-            </Dropdown.GroupLabel>
-            {actions.map((action) => (
-              <Dropdown.Item
-                key={action.label}
-                class="dropdown-item"
-                disabled={action.disabled}
-              >
-                {action.label}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Group>
-          <Dropdown.Separator />
-          {checkboxItems.map((item) => {
+      <Dropdown.Popover class="dropdown-popover" gutter={8}>
+        <Dropdown.Group class="dropdown-group">
+          <Dropdown.GroupLabel class="dropdown-group-label">Actions</Dropdown.GroupLabel>
+          {actions.map((action) => (
+            <Dropdown.Item
+              key={action.label}
+              class="dropdown-item"
+              disabled={action.disabled}
+            >
+              {action.label}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Group>
+        <Dropdown.Separator />
+        {checkboxItems.map((item) => {
+          return (
+            <Dropdown.CheckboxItem key={item} class="dropdown-item">
+              <Dropdown.ItemIndicator>
+                <LuCheck />
+              </Dropdown.ItemIndicator>
+              {item}
+            </Dropdown.CheckboxItem>
+          );
+        })}
+        <Dropdown.Separator />
+        <Dropdown.RadioGroup class="dropdown-group" value="main">
+          {radioItems.map((item) => {
             return (
-              <Dropdown.CheckboxItem key={item} class="dropdown-item">
+              <Dropdown.RadioItem key={item} class="dropdown-item" value={item}>
                 <Dropdown.ItemIndicator>
                   <LuCheck />
                 </Dropdown.ItemIndicator>
                 {item}
-              </Dropdown.CheckboxItem>
+              </Dropdown.RadioItem>
             );
           })}
-          <Dropdown.Separator />
-          <Dropdown.RadioGroup class="dropdown-group" defaultValue="main">
-            {radioItems.map((item) => {
-              return (
-                <Dropdown.RadioItem key={item} class="dropdown-item" value={item}>
-                  <Dropdown.ItemIndicator>
-                    <LuCheck />
-                  </Dropdown.ItemIndicator>
-                  {item}
-                </Dropdown.RadioItem>
-              );
-            })}
-          </Dropdown.RadioGroup>
-        </Dropdown.Content>
+        </Dropdown.RadioGroup>
       </Dropdown.Popover>
     </Dropdown.Root>
   );
 });
+
+// internal
+import styles from '../snippets/dropdown.css?inline';
