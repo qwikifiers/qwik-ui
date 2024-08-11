@@ -13,7 +13,7 @@ import { AppState } from './_state/app-state.type';
 import { RouterHead } from './components/router-head/router-head';
 import globalStyles from './global.css?inline';
 
-import { ThemeProvider } from 'qwik-themes';
+import { ThemeProvider } from '~/_state/qwik-themes/provider';
 
 import '@fontsource-variable/inter';
 import {
@@ -46,7 +46,7 @@ export default component$(() => {
   return (
     <QwikCityProvider>
       <head>
-        <meta charSet="utf-8" />
+        <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
         <PrefetchGraph />

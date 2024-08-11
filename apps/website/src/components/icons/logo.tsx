@@ -1,6 +1,7 @@
 import { PropsOf, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
-import { useTheme } from 'qwik-themes';
+import { useTheme } from '~/_state/qwik-themes/provider';
+
 
 export const Logo = component$<PropsOf<'svg'>>(({ ...props }) => {
   return (

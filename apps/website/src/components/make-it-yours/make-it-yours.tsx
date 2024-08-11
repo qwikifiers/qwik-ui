@@ -1,16 +1,17 @@
 import { $, PropsOf, component$, useComputed$ } from '@builder.io/qwik';
 import {
-  ThemeBaseColors,
-  ThemeBorderRadiuses,
-  ThemeConfig,
-  ThemeFonts,
-  ThemeModes,
-  ThemePrimaryColors,
-  ThemeStyles,
-  cn,
+    ThemeBaseColors,
+    ThemeBorderRadiuses,
+    ThemeConfig,
+    ThemeFonts,
+    ThemeModes,
+    ThemePrimaryColors,
+    ThemeStyles,
+    cn,
 } from '@qwik-ui/utils';
 import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
-import { useTheme } from 'qwik-themes';
+import { useTheme } from '~/_state/qwik-themes/provider';
+
 import { Button, Modal, buttonVariants } from '~/components/ui';
 
 import { useAppState } from '~/_state/use-app-state';
