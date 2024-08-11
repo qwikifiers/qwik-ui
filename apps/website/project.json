@@ -63,7 +63,6 @@
       "executor": "@k11r/nx-cloudflare-wrangler:deploy-page",
       "options": {
         "dist": "dist/apps/website/client",
-        "branch": "main",
         "projectName": "qwik-ui-site"
       },
       "dependsOn": ["build-cloudflare"]
