@@ -6,6 +6,7 @@ import {
   createContextId,
   useContext,
   useContextProvider,
+  useOnWindow,
   useSignal,
   useTask$,
   useVisibleTask$,
@@ -71,6 +72,7 @@ export const ThemeProvider = component$<ThemeProviderProps>(
       }
     });
 
+    // eslint-disable-next-line qwik/no-use-visible-task -- not possible atm to useOnWindow for a MediaQueryList event
     useVisibleTask$(({ cleanup }) => {
       themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
       const media = window.matchMedia('(prefers-color-scheme: dark)');
@@ -93,20 +95,17 @@ export const ThemeProvider = component$<ThemeProviderProps>(
 
     // localStorage event handling
 
-    useVisibleTask$(({ cleanup }) => {
-      const handleStorage = (e: StorageEvent) => {
+    useOnWindow(
+      'storage',
+      $((e: StorageEvent) => {
         if (e.key !== storageKey) {
           return;
         }
-
-        // If default theme set, use it if localstorage === null (happens on local storage manual deletion)
+        // If default theme set, use it if localStorage === null (happens on local storage manual deletion)
         const theme = e.newValue || defaultTheme;
         themeSig.value = theme;
-      };
-
-      window.addEventListener('storage', handleStorage);
-      cleanup(() => window.removeEventListener('storage', handleStorage));
-    });
+      }),
+    );
 
     useTask$(({ track }) => {
       track(() => themeSig.value);
