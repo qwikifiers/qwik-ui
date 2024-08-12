@@ -6,13 +6,14 @@ import {
   createContextId,
   useContext,
   useContextProvider,
-  useStore,
+  useSignal,
   useTask$,
   useVisibleTask$,
 } from '@builder.io/qwik';
-import { disableAnimation, getSystemTheme, getTheme } from './helper';
+import { disableAnimation, getSystemTheme } from './helper';
 import { ThemeScript } from './theme-script';
-import type { Theme, ThemeProviderProps, UseThemeProps } from './types';
+import type { SystemTheme, Theme, ThemeProviderProps, UseThemeProps } from './types';
+import { isServer } from '@builder.io/qwik/build';
 
 const ThemeContext = createContextId<UseThemeProps>('theme-context');
 
@@ -33,6 +34,9 @@ export const ThemeProvider = component$<ThemeProviderProps>(
     value,
     nonce,
   }) => {
+    const themeSig = useSignal<Theme>('');
+    const resolvedThemeSig = useSignal<Theme>(storageKey);
+
     const attrs = !value ? themes.flat() : Object.values(value);
 
     const applyTheme = $((theme: Theme) => {
@@ -67,49 +71,15 @@ export const ThemeProvider = component$<ThemeProviderProps>(
       }
     });
 
-    const resolvedThemeStore = useStore({
-      value: getTheme(storageKey),
-      setResolvedTheme: $(function (this: any, theme: string) {
-        this.value = theme;
-      }),
-    });
-
-    const themeStore = useStore<UseThemeProps>({
-      theme: getTheme(storageKey, defaultTheme),
-      setTheme: $(function (this: UseThemeProps, theme) {
-        this.theme = theme;
-
-        try {
-          localStorage.setItem(
-            storageKey,
-            Array.isArray(theme) ? theme.join(' ') : (theme as string),
-          );
-        } catch (e) {
-          // Unsupported
-        }
-      }),
-      forcedTheme,
-      themes: enableSystem
-        ? Array.isArray(themes[0])
-          ? [...(themes as string[][]), ['system']]
-          : [...(themes as string[]), 'system']
-        : themes,
-      systemTheme: (enableSystem ? resolvedThemeStore.value : undefined) as
-        | 'light'
-        | 'dark'
-        | undefined,
-    });
-
     useVisibleTask$(({ cleanup }) => {
-      themeStore.setTheme(getTheme(storageKey, defaultTheme));
-
+      themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
       const media = window.matchMedia('(prefers-color-scheme: dark)');
 
       const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
         const resolved = getSystemTheme(e);
-        resolvedThemeStore.setResolvedTheme(resolved);
+        resolvedThemeSig.value = resolved;
 
-        if (themeStore.theme === 'system' && enableSystem && !forcedTheme) {
+        if (themeSig.value === 'system' && enableSystem && !forcedTheme) {
           applyTheme('system');
         }
       };
@@ -122,6 +92,7 @@ export const ThemeProvider = component$<ThemeProviderProps>(
     });
 
     // localStorage event handling
+
     useVisibleTask$(({ cleanup }) => {
       const handleStorage = (e: StorageEvent) => {
         if (e.key !== storageKey) {
@@ -130,25 +101,46 @@ export const ThemeProvider = component$<ThemeProviderProps>(
 
         // If default theme set, use it if localstorage === null (happens on local storage manual deletion)
         const theme = e.newValue || defaultTheme;
-        themeStore.setTheme(theme);
+        themeSig.value = theme;
       };
 
       window.addEventListener('storage', handleStorage);
       cleanup(() => window.removeEventListener('storage', handleStorage));
     });
 
-    // Whenever theme or forcedTheme changes, apply it
     useTask$(({ track }) => {
-      track(() => themeStore.theme || forcedTheme);
-
-      if (themeStore.theme !== 'system') {
-        resolvedThemeStore.setResolvedTheme(themeStore.theme as string);
-      }
-
-      applyTheme(forcedTheme ?? themeStore.theme);
+      track(() => themeSig.value);
+      if (isServer) return;
+      localStorage.setItem(
+        storageKey,
+        Array.isArray(themeSig.value) ? themeSig.value.join(' ') : themeSig.value || '',
+      );
     });
 
-    useContextProvider(ThemeContext, themeStore);
+    // Whenever theme or forcedTheme changes, apply it
+    useTask$(({ track }) => {
+      track(() => themeSig.value || forcedTheme);
+
+      if (themeSig.value !== 'system') {
+        resolvedThemeSig.value = themeSig.value;
+      }
+
+      applyTheme(forcedTheme ?? themeSig.value);
+    });
+
+    useContextProvider(ThemeContext, {
+      themeSig,
+      resolvedThemeSig,
+      forcedTheme,
+      systemTheme: (enableSystem ? resolvedThemeSig.value : undefined) as
+        | SystemTheme
+        | undefined,
+      themes: enableSystem
+        ? Array.isArray(themes[0])
+          ? [...(themes as string[][]), ['system']]
+          : [...(themes as string[]), 'system']
+        : themes,
+    });
 
     return (
       <Fragment>

@@ -1,13 +1,13 @@
 import { $, PropsOf, component$, useComputed$ } from '@builder.io/qwik';
 import {
-    ThemeBaseColors,
-    ThemeBorderRadiuses,
-    ThemeConfig,
-    ThemeFonts,
-    ThemeModes,
-    ThemePrimaryColors,
-    ThemeStyles,
-    cn,
+  ThemeBaseColors,
+  ThemeBorderRadiuses,
+  ThemeConfig,
+  ThemeFonts,
+  ThemeModes,
+  ThemePrimaryColors,
+  ThemeStyles,
+  cn,
 } from '@qwik-ui/utils';
 import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
 import { useTheme } from '~/_state/qwik-themes/provider';
@@ -20,10 +20,10 @@ import CopyCssConfig from '../copy-css-config/copy-css-config';
 export default component$<PropsOf<typeof Button>>(() => {
   const rootStore = useAppState();
 
-  const { theme, setTheme } = useTheme();
+  const { themeSig } = useTheme();
 
   const themeComputedObjectSig = useComputed$((): ThemeConfig => {
-    if (!theme || theme === 'light') {
+    if (!themeSig.value || themeSig.value === 'light') {
       return {
         font: ThemeFonts.SANS,
         mode: ThemeModes.LIGHT,
@@ -34,7 +34,7 @@ export default component$<PropsOf<typeof Button>>(() => {
       };
     }
 
-    if (theme === 'dark') {
+    if (themeSig.value === 'dark') {
       return {
         font: ThemeFonts.SANS,
         mode: ThemeModes.DARK,
@@ -45,7 +45,9 @@ export default component$<PropsOf<typeof Button>>(() => {
       };
     }
 
-    const themeArray = Array.isArray(theme) ? theme : theme.split(' ');
+    const themeArray = Array.isArray(themeSig.value)
+      ? themeSig.value
+      : themeSig.value.split(' ');
     return {
       font: themeArray[0],
       mode: themeArray[1],
@@ -92,7 +94,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                 themeComputedObjectSig.value.font = ThemeFonts.SANS;
               }
               themeComputedObjectSig.value.style = el.value;
-              setTheme(await themeStoreToThemeClasses$());
+              themeSig.value = await themeStoreToThemeClasses$();
             }}
           >
             <option value={'simple'}>Simple</option>
@@ -115,7 +117,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                   onClick$={async () => {
                     themeComputedObjectSig.value.baseColor = baseColor;
 
-                    setTheme(await themeStoreToThemeClasses$());
+                    themeSig.value = await themeStoreToThemeClasses$();
                   }}
                   class={cn(
                     'flex h-3 w-3 items-center justify-center rounded-none',
@@ -166,7 +168,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                     size="icon"
                     onClick$={async () => {
                       themeComputedObjectSig.value.primaryColor = primaryColor;
-                      setTheme(await themeStoreToThemeClasses$());
+                      themeSig.value = await themeStoreToThemeClasses$();
                     }}
                     class={cn(
                       'h-3 w-3 rounded-none',
@@ -183,7 +185,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                       primaryColor === 'primary-zinc-900' ||
                       primaryColor === 'primary-neutral-900' ||
                       primaryColor === 'primary-stone-900') &&
-                    theme?.includes('dark') ? (
+                    themeSig.value?.includes('dark') ? (
                       <span
                         class={cn(
                           'flex h-[10px] w-[10px] shrink-0 rounded-none',
@@ -440,7 +442,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                     look="outline"
                     onClick$={async () => {
                       themeComputedObjectSig.value.borderRadius = borderRadius;
-                      setTheme(await themeStoreToThemeClasses$());
+                      themeSig.value = await themeStoreToThemeClasses$();
                     }}
                     class={cn('w-12', isActive && 'mb-2 border-ring')}
                   >
@@ -463,7 +465,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                 themeComputedObjectSig.value.mode =
                   themeComputedObjectSig.value.mode?.includes('light') ? 'dark' : 'light';
 
-                setTheme(await themeStoreToThemeClasses$());
+                themeSig.value = await themeStoreToThemeClasses$();
               }}
             />
           </div>
@@ -472,7 +474,9 @@ export default component$<PropsOf<typeof Button>>(() => {
         <footer class=" flex w-full justify-between gap-4">
           <Button
             look="ghost"
-            onClick$={() => setTheme(theme?.includes('dark') ? 'dark' : 'light')}
+            onClick$={() => {
+              themeSig.value = themeSig.value?.includes('dark') ? 'dark' : 'light';
+            }}
           >
             Reset
           </Button>

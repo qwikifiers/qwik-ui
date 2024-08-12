@@ -1,4 +1,4 @@
-import type { QRL } from '@builder.io/qwik';
+import { Signal } from '@builder.io/qwik';
 
 interface ValueObject {
   [themeName: string]: string;
@@ -9,19 +9,16 @@ export type SystemTheme = 'dark' | 'light';
 export type Theme = 'dark' | 'light' | string | string[] | undefined;
 
 export interface UseThemeProps {
+  /** theme signal */
+  themeSig: Signal<Theme>;
+  /** Forced theme name for the current page */
+  resolvedThemeSig: Signal<Theme>;
+  /** If enableSystem is true, returns the System theme preference ("dark" or "light"), regardless what the active theme is */
+  forcedTheme: string | undefined;
+  /** If `enableSystem` is true and the active theme is "system", this returns whether the system preference resolved to "dark" or "light". Otherwise, identical to `theme` */
+  systemTheme: SystemTheme | undefined;
   /** List of all available theme names */
   themes: string[] | string[][];
-  /** Forced theme name for the current page */
-  forcedTheme?: string | undefined;
-  /** Update the theme */
-  setTheme: QRL<(theme: Theme) => void>;
-  /** Active theme name */
-  theme?: Theme;
-  // themeSig: Signal<Theme>
-  /** If `enableSystem` is true and the active theme is "system", this returns whether the system preference resolved to "dark" or "light". Otherwise, identical to `theme` */
-  resolvedTheme?: Theme;
-  /** If enableSystem is true, returns the System theme preference ("dark" or "light"), regardless what the active theme is */
-  systemTheme?: SystemTheme | undefined;
 }
 
 export interface ThemeProviderProps {

@@ -12,16 +12,16 @@ export default component$(() => {
 
   const cssThemeOutput = useSignal<string>('');
 
-  const { theme } = useTheme();
+  const { themeSig } = useTheme();
 
   return (
     <Modal.Root bind:show={showSig}>
       <Button
         onClick$={() => {
           cssThemeOutput.value = extractThemeCSS(
-            theme === 'dark' || theme === 'light'
+            themeSig.value === 'dark' || themeSig.value === 'light'
               ? 'border-radius-0 simple primary-cyan-600 light base-slate'
-              : theme,
+              : themeSig.value,
             globalCSS,
           );
           showSig.value = true;
