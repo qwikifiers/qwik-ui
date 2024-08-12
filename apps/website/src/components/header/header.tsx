@@ -20,7 +20,7 @@ import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
 import { LogoIcon, LogoWithBorders } from '../icons/logo';
 
-import { useTheme } from '~/_state/qwik-themes/provider';
+import { useTheme } from '@qwik-ui/themes';
 
 import { Modal } from '@qwik-ui/headless';
 import { useAppState } from '~/_state/use-app-state';

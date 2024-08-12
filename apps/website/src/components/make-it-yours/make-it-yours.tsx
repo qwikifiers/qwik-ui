@@ -10,7 +10,7 @@ import {
   cn,
 } from '@qwik-ui/utils';
 import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
-import { useTheme } from '~/_state/qwik-themes/provider';
+import { useTheme } from '@qwik-ui/themes';
 
 import { Button, Modal, buttonVariants } from '~/components/ui';
 

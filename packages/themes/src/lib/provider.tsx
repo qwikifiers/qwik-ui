@@ -11,7 +11,6 @@ import {
   useTask$,
   useVisibleTask$,
 } from '@builder.io/qwik';
-import { disableAnimation, getSystemTheme } from './helper';
 import { ThemeScript } from './theme-script';
 import type { SystemTheme, Theme, ThemeProviderProps, UseThemeProps } from './types';
 import { isServer } from '@builder.io/qwik/build';
@@ -163,3 +162,30 @@ export const ThemeProvider = component$<ThemeProviderProps>(
     );
   },
 );
+
+const getSystemTheme = (mq?: MediaQueryList | MediaQueryListEvent): SystemTheme => {
+  const currMq = mq || window.matchMedia('(prefers-color-scheme: dark)');
+  const isDark = currMq.matches;
+  const systemTheme = isDark ? 'dark' : 'light';
+  return systemTheme;
+};
+
+const disableAnimation = () => {
+  const css = document.createElement('style');
+  css.appendChild(
+    document.createTextNode(
+      '*{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}',
+    ),
+  );
+  document.head.appendChild(css);
+
+  return () => {
+    // Force restyle
+    (() => window.getComputedStyle(document.body))();
+
+    // Wait for next tick before removing
+    setTimeout(() => {
+      document.head.removeChild(css);
+    }, 1);
+  };
+};

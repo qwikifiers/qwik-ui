@@ -3,7 +3,7 @@ import { Modal } from '@qwik-ui/headless';
 import { Button } from '~/components/ui';
 import { extractThemeCSS } from '@qwik-ui/utils';
 import { LuX } from '@qwikest/icons/lucide';
-import { useTheme } from '~/_state/qwik-themes/provider';
+import { useTheme } from '@qwik-ui/themes';
 import globalCSS from '~/global.css?raw';
 import { Highlight } from '../highlight/highlight';
 
