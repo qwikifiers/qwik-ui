@@ -64,7 +64,7 @@
       "options": {
         "dist": "dist/apps/website/client",
         "branch": "main",
-        "projectName": "qwik-ui"
+        "projectName": "qwik-ui-site"
       },
       "dependsOn": ["build-cloudflare"]
     },
