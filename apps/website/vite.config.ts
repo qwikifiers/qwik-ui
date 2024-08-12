@@ -4,29 +4,29 @@ import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
+import { isDev } from '@builder.io/qwik/build';
 
 export default defineConfig(async () => {
   const { default: rehypePrettyCode } = await import('rehype-pretty-code');
   const { visit } = await import('unist-util-visit');
 
-  // Commented out for qwik v1.7.0
-  // let output: any = {};
-  // if (!isDev) {
-  //   // Client-specific configuration
-  //   output = {
-  //     // Customize the client build structure
-  //     entryFileNames: ({ name }: any) => {
-  //       if (name.startsWith('entry')) {
-  //         return '[name].js';
-  //       }
-  //       return `build/[name]-[hash].js`;
-  //     },
-  //     chunkFileNames: () => {
-  //       return `build/[name]-[hash].js`;
-  //     },
-  //     assetFileNames: `build/[name]-[hash].[ext]`,
-  //   };
-  // }
+  let output: any = {};
+  if (!isDev) {
+    // Client-specific configuration
+    output = {
+      // Customize the client build structure
+      entryFileNames: ({ name }: any) => {
+        if (name.startsWith('entry')) {
+          return '[name].js';
+        }
+        return `build/[name]-[hash].js`;
+      },
+      chunkFileNames: () => {
+        return `build/[name]-[hash].js`;
+      },
+      assetFileNames: `build/[name]-[hash].[ext]`,
+    };
+  }
 
   return {
     plugins: [
@@ -95,10 +95,9 @@ export default defineConfig(async () => {
     },
     build: {
       target: 'es2022',
-      // Commented out for qwik v1.7.0
-      // rollupOptions: {
-      //   output,
-      // },
+      rollupOptions: {
+        output,
+      },
     },
     preview: {
       headers: {
