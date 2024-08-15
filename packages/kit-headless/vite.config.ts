@@ -1,7 +1,6 @@
 /// <reference types="vitest" />
 import { qwikVite } from '@builder.io/qwik/optimizer';
 import { dirname, join } from 'path';
-import { qwikNxVite } from 'qwik-nx/plugins';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -15,7 +14,6 @@ const excludeAll = (obj: any) => Object.keys(obj).map(makeRegex);
 
 export default defineConfig({
   plugins: [
-    qwikNxVite(),
     qwikVite(),
     tsconfigPaths({ root: '../../' }),
     dts({

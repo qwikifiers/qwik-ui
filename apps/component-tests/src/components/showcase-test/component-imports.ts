@@ -10,6 +10,7 @@ function createMetaGlobComponents() {
     '../../../../website/src/routes/docs/**/**/examples/*.tsx',
     {
       import: 'default',
+      eager: false,
     },
   );
 

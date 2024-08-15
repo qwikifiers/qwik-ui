@@ -11,6 +11,7 @@ import { Highlight } from '../highlight/highlight';
 const codeSnippets: any = import.meta.glob('/src/routes/docs/**/**/snippets/*', {
   query: '?raw',
   import: 'default',
+  eager: false,
 });
 
 type CodeSnippetProps = PropsOf<'div'> & {

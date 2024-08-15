@@ -1,5 +1,8 @@
 {
   "name": "@qwik-ui/website",
   "description": "The Qwik UI Website",
-  "private": true
+  "private": true,
+  "scripts": {
+    "build.server": "vite build -c adapters/static/vite.config.ts"
+  }
 }

@@ -8,6 +8,7 @@ export const metaGlobComponents: Record<string, any> = import.meta.glob(
   '/src/routes/docs/**/**/examples/*.tsx',
   {
     import: 'default',
+    eager: false,
   },
 );
 
@@ -17,5 +18,6 @@ export const rawComponents: Record<string, any> = import.meta.glob(
   {
     query: '?raw',
     import: 'default',
+    eager: false,
   },
 );

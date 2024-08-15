@@ -20,7 +20,7 @@
   "private": false,
   "scripts": {},
   "peerDependencies": {
-    "@builder.io/qwik": "1.7.2"
+    "@builder.io/qwik": "1.8"
   },
   "devDependencies": {
     "@qwik-ui/headless": "^0.5.0",
