@@ -3,7 +3,9 @@ title: 'Qwik UI - Contributing'
 ---
 
 import { FeatureList } from '~/components/feature-list/feature-list';
+
 import { InfoPopup } from '~/components/info-popup/info-popup';
+
 import { statusByComponent } from '~/_state/component-statuses';
 
 # Contributing
@@ -56,13 +58,11 @@ We also have plenty of other [accessibility resources](https://discord.com/chann
 
 ## When is a headless component beta?
 
-### It has features
-
 It can be used for most common use cases, and maybe some advanced ones (if you'd like to go further).
 
-What I like to do is look at other places around the web and see how things work! What kind of features do they have? Does someone already have a need for this in the Qwik community? How would I go about approaching this?
+A good place to start is look around the web and see how things work! What kind of features do other solutions have? Does someone already have a need for this in the Qwik community? How would I go about approaching this?
 
-We also take inspiration from awesome headless libraries in other communities. For example, like the popular headless libraries below:
+Feel free to take inspiration from awesome headless libraries in other communities. For example, like the popular headless libraries below:
 
 - [React Aria](https://react-spectrum.adobe.com/react-aria/components.html) is a React Headless library.
 - [Radix UI](https://www.radix-ui.com/primitives/docs/components/accordion) is a React Headless library.
@@ -73,132 +73,25 @@ We also take inspiration from awesome headless libraries in other communities. F
 - [React Headless Hooks](https://webeetle.github.io/react-headless-hooks/docs/useAccordion) is a hooks based headless library for React.
 - [Downshift](https://www.downshift-js.com/) is a hooks based library for accessible comboboxes and select components.
 
-I love going through these projects and understanding the why and what problems they solve. What kinda features do all of them have in common? How do they name things? What conventions do they use? How satisfied are people consuming it?
+Going through these projects can help with understanding the why and what problems they solve. What kinda features do all of them have in common? How do they name things? What conventions do they use? How satisfied are people consuming it?
 
-I think this is a good way to figure out what to work on. That said, we also want to keep things simple, and not add features unless we know there is a demand for them (hence looking for similarities).
-
-> Ideally, we would like the surface API to be simple, but **powerful**. Post 1.0, we are also looking to refactor the components to use hook logic under the hood, and provide a hooks API to keep things as customizable as possible, giving the opportunity to use a hook or a component!
-
-## Tests
-
-Tests ensure we can sleep sound at night and know that our component behavior is working as intended. Part of the Qwik core team, Shai Reznik (and also a contributor here!) talks a lot about [test driven development](https://www.youtube.com/watch?v=KHaeVaSkhIE).
-
-### TDD Process
-
-- we need a new feature!
-- make a failing test with the desired behavior (wut?)
-- get the test passing by adding said feature!
-- enjoy life when refactoring 🏝️
-
-We strongly recommend TDD development for the headless library, and we are currently in the process of a playwright integration.
-
-Currently, the component testing integration for Qwik & Playwright is in development, and we are using e2e tests for the time being. That said, most tests should be very easy to migrate later on.
-
-### Getting started w/ testing
-
-Here's an example way of getting a testid of the `Hero` select docs example in `index.mdx`, without affecting any visible markup.
-
-```tsx
-<div data-testid="select-hero-test">
-  <Showcase name="hero" />
-</div>
-```
-
-Then, we get our testDriver, you can think of it as reusable code we use throughout the test. For example, in the Select component we constantly grab the listbox, trigger, etc.
-
-```tsx
-import { Locator, Page } from '@playwright/test';
-
-export type DriverLocator = Locator | Page;
-
-export function selectTestDriver<T extends DriverLocator>(locator: T) {
-  const getRoot = () => {
-    return locator.getByRole('combobox');
-  };
-
-  return {
-    ...locator,
-    locator,
-    getRoot,
-    getListbox() {
-      return getRoot().getByRole('listbox');
-    },
-    getTrigger() {
-      return getRoot().getByRole('button');
-    },
-    // get all options
-    getOptions() {
-      return getRoot().getByRole('option').all();
-    },
-  };
-}
-```
-
-Now we can write some tests:
-
-```tsx
-import { test, expect } from '@playwright/test';
-import { selectTestDriver } from './select.driver';
-
-test.beforeEach(async ({ page }) => {
-  await page.goto('/docs/headless/select');
-});
-
-test.describe('critical functionality', () => {
-  test(`GIVEN a basic select
-        WHEN clicking on the trigger
-        THEN open up the listbox
-        AND aria-expanded should be true`, async ({ page }) => {
-    const testDriver = selectTestDriver(page.getByTestId('select-hero-test'));
-
-    const { getListbox, getTrigger } = testDriver;
-
-    await getTrigger().click();
-
-    await expect(getListbox()).toBeVisible();
-    await expect(getTrigger()).toHaveAttribute('aria-expanded', 'true');
-  });
-
-  test(`GIVEN a basic select
-        WHEN focusing the trigger and hitting enter
-        THEN open up the listbox
-        AND aria-expanded should be true`, async ({ page }) => {
-    const testDriver = selectTestDriver(page.getByTestId('select-hero-test'));
-
-    const { getListbox, getTrigger } = testDriver;
-
-    await getTrigger().focus();
-    await page.keyboard.press('Enter');
-
-    await expect(getListbox()).toBeVisible();
-    await expect(getTrigger()).toHaveAttribute('aria-expanded', 'true');
-  });
-});
-```
-
-To run the tests, use the `pnpm playwright` (only in my branch) command, or the `nx e2e website` longform. You can also do `--ui` to open the UI mode (which is pretty awesome!)
-
-> This example is in `spec.select.tsx` in the `src/components/select` folder of the website.
-
-Once we've added a failing test with what we expect, we can now go ahead and implement the feature for that!
-
-Heads up, I (Jack) am also relatively new to playwright myself 😅. I'm guessing there is a way to not need the testDriver to be consumed on each test. Feel free to experiment!
+It also helps to keep things simple, and not add features unless there is a demand for them (hence looking for similarities).
 
 ## Docs
 
-We use [MDX](https://mdxjs.com/docs/what-is-mdx/) for interactive markdown.
+Qwik UI uses [MDX](https://mdxjs.com/docs/what-is-mdx/) for interactive markdown.
 
-You can find the headless docs [here](https://github.com/qwikifiers/qwik-ui/tree/main/apps/website/src/routes/docs/headless).
+Here is a quick link to the [headless docs in github](https://github.com/qwikifiers/qwik-ui/tree/main/apps/website/src/routes/docs/headless).
 
-When creating the docs, we have a `showcase` component, which gives typescript support, a component preview of your example, and **automatically** updates the code example as you edit it! 🤯
+One of the most import components in the docs is the `showcase` component, which gives typescript support, a component preview of your example, and **automatically** updates the code example as you edit it! 🤯
 
-> Here's [an example](https://github.com/qwikifiers/qwik-ui/blob/main/apps/website/src/routes/docs/headless/modal/examples/main.tsx) of someone consuming a headless component! In `index.mdx` we can use `<Showcase name="main" />`, because `main.tsx` is the file path.
+> Here's [an example](https://github.com/qwikifiers/qwik-ui/blob/main/apps/website/src/routes/docs/headless/modal/examples/hero.tsx) of someone consuming a headless component! In `index.mdx` we can use `<Showcase name="hero" />`, because `hero.tsx` is the file path.
 
-The same thing goes for our `snippet` component, which is for showing code blocks only.
+The same thing goes for the `snippet` component, which is for showing code blocks only.
 
 ### Docs Components
 
-We also have more [docs components](https://github.com/qwikifiers/qwik-ui/tree/main/apps/website/src/components) to make your life easier! Some examples being:
+There are more [docs components](https://github.com/qwikifiers/qwik-ui/tree/main/apps/website/src/components) to make your life easier! Some examples being:
 
 ### Notes
 
@@ -242,15 +135,125 @@ We also have more [docs components](https://github.com/qwikifiers/qwik-ui/tree/m
 
 <InfoPopup info="Some info!" />
 
+## Tests
+
+Tests ensure we can sleep sound at night and know that our component behavior is working as intended. Part of the Qwik core team, Shai Reznik (and also a contributor here!) talks a lot about [test driven development](https://www.youtube.com/watch?v=KHaeVaSkhIE).
+
+### TDD Process
+
+- we need a new feature!
+- make a failing test with the desired behavior (wut?)
+- get the test passing by adding said feature!
+- enjoy life when refactoring 🏝️
+
+We strongly recommend TDD development for the headless library.
+
+[Playwright](https://playwright.dev/) is the tool that is used for component testing.
+
+### Getting started w/ testing
+
+Using what we've learned with the showcase component, let's create a new example to test:
+
+```tsx
+import { component$ } from '@builder.io/qwik';
+import { Collapsible } from '@qwik-ui/headless';
+
+export default component$(() => {
+  return (
+    <Collapsible.Root>
+      <Collapsible.Trigger>
+        Trigger
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        Content
+      </Collapsible.Content>
+    </Collapsible.Root>
+  );
+});
+```
+
+Above is a new file called `hero.tsx` in our `examples` folder. In the collapsible pages `index.mdx` file add the following:
+
+```shell
+  <Showcase name="hero" />
+```
+
+Adding the showcase component to the website MDX will automatically create a new isolated environment in playwright as well.
+
+Each headless component also needs a "driver file", or the reusable component pieces we will need throughout the test.
+
+In the headless folder, create a new file with the convention of `<component-name>.driver.tsx`.
+
+```tsx
+import { Locator, Page } from '@playwright/test';
+export type DriverLocator = Locator | Page;
+
+export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
+  const getRoot = () => {
+    return rootLocator.locator('[data-collapsible]');
+  };
+
+  const getTrigger = () => {
+    return getRoot().getByRole('button');
+  };
+
+  const getContent = () => {
+    return getRoot().locator('[data-collapsible-content]');
+  };
+
+  return {
+    ...rootLocator,
+    locator: rootLocator,
+    getRoot,
+    getTrigger,
+    getContent,
+  };
+}
+```
+
+Above we are getting the collapsible root, trigger, and content.
+
+Now, these pieces can be used in our test file:
+
+```tsx
+import { expect, test, type Page } from '@playwright/test';
+import { createTestDriver } from './collapsible.driver';
+
+async function setup(page: Page, exampleName: string) {
+  await page.goto(`headless/collapsible/${exampleName}`);
+
+  const driver = createTestDriver(page);
+
+  return {
+    driver,
+  };
+}
+
+test.describe('Mouse Behavior', () => {
+    test(`GIVEN a collapsible
+          WHEN clicking on the trigger
+          THEN the content should be visible`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await d.getTrigger().click();
+    await expect(d.getContent()).toBeVisible();
+  });
+});
+```
+
+Notice that we passed the hero example to our setup function for this test.
+
+To run the tests, use the `pnpm test.pw.headless --ui` command.
+
+Once the test is failing with the intended playwright commands, it's a good time to implement the feature for that!
+
 ### **What if I only want to do docs contributions, is that ok?**
 
 Absolutely, documentation is a critical part of the project, and something that can be very much improved! I recommend checking out [Sarah Rainsberg's Docs Guide](https://contribute.docs.astro.build/welcome/), it's partly towards Astro, but is also a great general resource for writing good documentation.
 
 ## Where should I learn the Qwik parts?
 
-If you find yourself stuck on a certain pattern, try taking a look through Qwik UI beta components. For example, the [select component](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/select) would be a good one to look through.
-
-We're also happy to help! We love experimenting with things and having a blast while doing it.
+If you find yourself stuck on a certain pattern, try taking a look through Qwik UI stable components. For example, the [collapsible component](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/collapsible).
 
 ### What's something I should avoid?
 
@@ -258,7 +261,7 @@ We're also happy to help! We love experimenting with things and having a blast w
 
 You're pretty much saying "hey Qwik! All those benefits you do to lazy load and delay the execution of code? Let's throw those away".
 
-Instead, look at it this way:
+When building headless functionality, it's important to ask yourself:
 
 Where does my user interact with things? And how can I make sure that we can _delay_ the execution of that code until the user ABSOLUTELY needs it.
 
@@ -281,7 +284,7 @@ useVisibleTask$(({ cleanup }) => {
 });
 ```
 
-Because this code is directly tied to an event, we should not be using a visible task. We could achieve the same result with:
+Because this code is directly tied to an event, the same result could be achieved with:
 
 ```tsx
 useOnWindow('resize', $(() => {
@@ -292,7 +295,7 @@ useOnWindow('resize', $(() => {
 });
 ```
 
-We promise that creating ui elements gets easier once you have a clear mental model for API's like `useTask$`. Here are some alternatives to explore.
+Creating ui elements gets easier once you have a clear mental model for API's like `useTask$`. Here are some alternatives to explore over useVisibleTask$.
 
 - [Events](https://qwik.dev/docs/components/events/#events) - onClick$, onScroll$, onKeydown$
 - [useTask$](https://qwik.dev/docs/components/tasks/#usetask) - (running code initially on server, tracked change on client)
@@ -307,6 +310,39 @@ We want to squeeze as much possible performance out of Qwik, and stay with the p
 ## How do I make a PR?
 
 We cover it in-depth in the [contributing guide](https://github.com/qwikifiers/qwik-ui/blob/main/CONTRIBUTING.md) here.
+
+## Inline Components for UI Libraries (proper indexes)
+
+Inline components play a crucial role in Qwik, especially when building headless UI libraries. They help solve unique challenges related to Qwik's resumable architecture and asynchronous rendering capabilities.
+
+### Why Use Inline Components?
+
+In client-side rendered environments, such as dashboards, Qwik components can render asynchronously and even out of order.
+
+<Showcase name="inline" />
+
+This has to do with the entrypoints of the application. The current and previous generation of frameworks execute from the root entrypoint down in a tree-like structure, which is O(n) complexity.
+
+Qwik components execute based on interactions, each interactive piece is a possible entry point of the application. This means that Qwik components can render asynchronously and even out of order. Manu Almeida covers this in-depth on the [builder.io blog](https://www.builder.io/blog/hydration-tree-resumability-map).
+
+While this offers substantial benefits, this poses a challenge when you need to maintain a specific order or index for child components when in a CSR environment.
+
+[Inline components](https://qwik.dev/docs/components/overview/#inline-components) help address this by:
+
+1. Ensuring proper indexing of child components
+2. Creating boundaries for bundling related code
+3. Providing a way to process children before rendering, and while QRL's are being resolved
+
+### How Inline Components Work
+
+Unlike regular Qwik components defined with `component$()`, inline components:
+
+- Are declared as standard functions
+- Cannot use `use*` methods (e.g., `useSignal`, `useStore`)
+- Cannot project content with `<Slot>`
+- Are bundled with their parent component
+
+Here's an example of how an inline component might be used in a breadcrumb implementation:
 
 ## That's it!
 
