@@ -9,6 +9,7 @@ import {
   useOnWindow,
   useSignal,
   useTask$,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { ThemeScript } from './theme-script';
 import type { SystemTheme, Theme, ThemeProviderProps, UseThemeProps } from './types';
@@ -72,25 +73,28 @@ export const ThemeProvider = component$<ThemeProviderProps>(
 
     // DO NOT UNCOMMENT. THIS CAUSES BUNDLE ISSUE ACROSS SITE -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     // eslint-disable-next-line qwik/no-use-visible-task -- not possible atm to useOnWindow for a MediaQueryList event
-    // useVisibleTask$(({ cleanup }) => {
-    //   // themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
-    //   const media = window.matchMedia('(prefers-color-scheme: dark)');
+    useVisibleTask$(
+      ({ cleanup }) => {
+        themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-    //   const handleMediaQuery = $((e: MediaQueryListEvent | MediaQueryList) => {
-    //     const resolved = getSystemTheme(e);
-    //     resolvedThemeSig.value = resolved;
+        const handleMediaQuery = $((e: MediaQueryListEvent | MediaQueryList) => {
+          const resolved = getSystemTheme(e);
+          resolvedThemeSig.value = resolved;
 
-    //     if (themeSig.value === 'system' && enableSystem && !forcedTheme) {
-    //       applyTheme('system');
-    //     }
-    //   });
+          if (themeSig.value === 'system' && enableSystem && !forcedTheme) {
+            applyTheme('system');
+          }
+        });
 
-    //   media.addEventListener('change', handleMediaQuery);
+        media.addEventListener('change', handleMediaQuery);
 
-    //   handleMediaQuery(media);
+        handleMediaQuery(media);
 
-    //   cleanup(() => media.removeEventListener('change', handleMediaQuery));
-    // });
+        cleanup(() => media.removeEventListener('change', handleMediaQuery));
+      },
+      { strategy: 'document-idle' },
+    );
 
     // localStorage event handling
 
