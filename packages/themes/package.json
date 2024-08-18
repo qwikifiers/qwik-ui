@@ -23,6 +23,5 @@
   "peerDependencies": {
     "@builder.io/qwik": "1.7.2"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

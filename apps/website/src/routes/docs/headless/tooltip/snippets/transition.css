@@ -1,0 +1,16 @@
+.tooltip-transition {
+  opacity: 0;
+  transition:
+    opacity 0.5s,
+    display 0.5s,
+    overlay 0.5s;
+  transition-behavior: allow-discrete;
+}
+
+.tooltip-transition[data-open] {
+  opacity: 1;
+}
+
+.tooltip-transition[data-closed] {
+  opacity: 0;
+}

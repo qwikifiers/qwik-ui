@@ -3,6 +3,7 @@ title: Qwik UI | Popover
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
+
 import styles from './snippets/popover.css';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
@@ -272,12 +273,6 @@ Instead, the popover will be fixed position, and you can use CSS to position it.
 ## Configuration
 
 The `Popover.Root` component is designed for positioning elements that float and facilitating interactions with them.
-
-### Hover
-
-If we'd like to show the `Popover.Panel` on hover, we can use the `hover` prop.
-
-<Showcase name="hover" />
 
 ### Custom Floating Position
 

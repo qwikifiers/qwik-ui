@@ -18,9 +18,13 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   const componentCodeSig = useSignal<string>();
 
   useTask$(async () => {
-    // eslint-disable-next-line qwik/valid-lexical-scope
-    MetaGlobComponentSig.value = await metaGlobComponents[componentPath](); // We need to call `await metaGlobComponents[componentPath]()` in development as it is `eager:false`
-    componentCodeSig.value = await rawComponents[componentPath]();
+    try {
+      // eslint-disable-next-line qwik/valid-lexical-scope
+      MetaGlobComponentSig.value = await metaGlobComponents[componentPath](); // We need to call `await metaGlobComponents[componentPath]()` in development as it is `eager:false`
+      componentCodeSig.value = await rawComponents[componentPath]();
+    } catch (e) {
+      throw new Error(`Unable to load path ${componentPath}`);
+    }
   });
 
   return (
