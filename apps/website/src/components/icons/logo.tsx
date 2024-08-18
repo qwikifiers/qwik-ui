@@ -1,6 +1,6 @@
 import { PropsOf, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
-import { useTheme } from 'qwik-themes';
+import { useTheme } from '@qwik-ui/themes';
 
 export const Logo = component$<PropsOf<'svg'>>(({ ...props }) => {
   return (
@@ -57,7 +57,7 @@ export const Logo = component$<PropsOf<'svg'>>(({ ...props }) => {
 });
 
 export const LogoWithBorders = component$<PropsOf<'svg'>>(({ ...props }) => {
-  const { theme } = useTheme();
+  const { themeSig } = useTheme();
   return (
     <svg
       {...props}
@@ -72,7 +72,7 @@ export const LogoWithBorders = component$<PropsOf<'svg'>>(({ ...props }) => {
       clip-rule="evenodd"
     >
       <g
-        class={cn(theme?.includes('light') ? 'stroke-black' : 'stroke-white')}
+        class={cn(themeSig.value?.includes('light') ? 'stroke-black' : 'stroke-white')}
         stroke-width="8"
         fill="none"
       >
@@ -118,7 +118,7 @@ export const LogoWithBorders = component$<PropsOf<'svg'>>(({ ...props }) => {
 });
 
 export const LogoIcon = component$<PropsOf<'svg'>>(({ ...props }) => {
-  const { theme } = useTheme();
+  const { themeSig } = useTheme();
   return (
     <svg
       {...props}
@@ -129,7 +129,7 @@ export const LogoIcon = component$<PropsOf<'svg'>>(({ ...props }) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
-        class={cn(theme?.includes('light') ? 'stroke-black' : 'stroke-white')}
+        class={cn(themeSig.value?.includes('light') ? 'stroke-black' : 'stroke-white')}
         stroke-width="8"
         fill="none"
       >

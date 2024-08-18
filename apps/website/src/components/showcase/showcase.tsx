@@ -1,6 +1,5 @@
 import { Component, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import { isDev } from '@builder.io/qwik/build';
 import { Tabs } from '@qwik-ui/headless';
 import { Highlight } from '../highlight/highlight';
 import { metaGlobComponents, rawComponents } from './component-imports';
@@ -21,15 +20,10 @@ export const Showcase = component$<ShowcaseProps>(({ name, ...props }) => {
   useTask$(async () => {
     try {
       // eslint-disable-next-line qwik/valid-lexical-scope
-      MetaGlobComponentSig.value = isDev
-        ? await metaGlobComponents[componentPath]() // We need to call `await metaGlobComponents[componentPath]()` in development as it is `eager:false`
-        : metaGlobComponents[componentPath]; // We need to directly access the `metaGlobComponents[componentPath]` expression in preview/production as it is `eager:true`
-      componentCodeSig.value = isDev
-        ? await rawComponents[componentPath]()
-        : rawComponents[componentPath];
+      MetaGlobComponentSig.value = await metaGlobComponents[componentPath](); // We need to call `await metaGlobComponents[componentPath]()` in development as it is `eager:false`
+      componentCodeSig.value = await rawComponents[componentPath]();
     } catch (e) {
-      console.error('Unable to load path %s', componentPath, e);
-      throw e;
+      throw new Error(`Unable to load path ${componentPath}`);
     }
   });
 

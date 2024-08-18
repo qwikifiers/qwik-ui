@@ -1,0 +1,27 @@
+{
+  "name": "@qwik-ui/themes",
+  "version": "0.0.1",
+  "description": "Qwik UI themes",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qwikifiers/qwik-ui",
+    "directory": "packages/themes"
+  },
+  "main": "./index.qwik.cjs",
+  "qwik": "./index.qwik.mjs",
+  "module": "./index.qwik.mjs",
+  "types": "./index.d.ts",
+  "type": "module",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "private": false,
+  "scripts": {},
+  "peerDependencies": {
+    "@builder.io/qwik": "1.7.2"
+  },
+  "devDependencies": {}
+}

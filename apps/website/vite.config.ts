@@ -9,7 +9,7 @@ export default defineConfig(async () => {
   const { default: rehypePrettyCode } = await import('rehype-pretty-code');
   const { visit } = await import('unist-util-visit');
 
-  // Commented out for qwik v1.7.0
+  // commented out as doesn't seem to work with import.meta.glob eager:false in preview
   // let output: any = {};
   // if (!isDev) {
   //   // Client-specific configuration
@@ -17,12 +17,12 @@ export default defineConfig(async () => {
   //     // Customize the client build structure
   //     entryFileNames: ({ name }: any) => {
   //       if (name.startsWith('entry')) {
-  //         return '[name].js';
+  //         return '[name].mjs';
   //       }
-  //       return `build/[name]-[hash].js`;
+  //       return `[name]-[hash].js`;
   //     },
   //     chunkFileNames: () => {
-  //       return `build/[name]-[hash].js`;
+  //       return `[name]-[hash].js`;
   //     },
   //     assetFileNames: `build/[name]-[hash].[ext]`,
   //   };
@@ -95,10 +95,9 @@ export default defineConfig(async () => {
     },
     build: {
       target: 'es2022',
-      // Commented out for qwik v1.7.0
-      // rollupOptions: {
-      //   output,
-      // },
+      rollupOptions: {
+        // output,
+      },
     },
     preview: {
       headers: {
