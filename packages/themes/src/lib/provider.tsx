@@ -39,13 +39,13 @@ export const ThemeProvider = component$<ThemeProviderProps>(
 
     const attrs = !value ? themes.flat() : Object.values(value);
 
-    const applyTheme = $((theme: Theme) => {
+    const applyTheme = $(async (theme: Theme) => {
       let resolved = theme;
       if (!resolved) return;
 
       // If theme is system, resolve it before setting theme
       if (theme === 'system' && enableSystem) {
-        resolved = getSystemTheme();
+        resolved = await getSystemTheme();
       }
 
       // Join the array of attr if the theme is an array
@@ -75,11 +75,13 @@ export const ThemeProvider = component$<ThemeProviderProps>(
     // eslint-disable-next-line qwik/no-use-visible-task -- not possible atm to useOnWindow for a MediaQueryList event
     useVisibleTask$(
       ({ cleanup }) => {
-        themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
+        setTimeout(() => {
+          themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
+        }, 1000);
         const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-        const handleMediaQuery = $((e: MediaQueryListEvent | MediaQueryList) => {
-          const resolved = getSystemTheme(e);
+        const handleMediaQuery = $(async (e: MediaQueryListEvent | MediaQueryList) => {
+          const resolved = await getSystemTheme(e);
           resolvedThemeSig.value = resolved;
 
           if (themeSig.value === 'system' && enableSystem && !forcedTheme) {
@@ -167,12 +169,12 @@ export const ThemeProvider = component$<ThemeProviderProps>(
   },
 );
 
-const getSystemTheme = (mq?: MediaQueryList | MediaQueryListEvent): SystemTheme => {
+const getSystemTheme = $((mq?: MediaQueryList | MediaQueryListEvent): SystemTheme => {
   const currMq = mq || window.matchMedia('(prefers-color-scheme: dark)');
   const isDark = currMq.matches;
   const systemTheme = isDark ? 'dark' : 'light';
   return systemTheme;
-};
+});
 
 const disableAnimation = () => {
   const css = document.createElement('style');
