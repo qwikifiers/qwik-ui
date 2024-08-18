@@ -4,8 +4,90 @@ title: Qwik UI | Styled Toggle Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+<StatusBanner status={statusByComponent.styled.ToggleGroup} />
+
 # Toggle
+
+A two-state button that can be either on or off.
+
+<Showcase name="hero" />
 
 In a world of endless choices, sometimes you just need a simple yes or no. The Qwik UI Styled Toggle component is a welcomed rest for the mind.
 
-<StatusBanner status={statusByComponent.styled.Toggle} />
+## Installation
+
+### Run the following cli command or copy/paste the component code into your project
+
+```sh
+qwik-ui add toggle
+```
+
+```tsx
+import { component$, type PropsOf, Slot } from '@builder.io/qwik';
+import { cn } from '@qwik-ui/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { Toggle as HeadlessToggle } from '@qwik-ui/headless';
+
+export const toggleVariants = cva(
+  'inline-flex items-center justify-center rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-primary data-[state=on]:text-white',
+  {
+    variants: {
+      look: {
+        default: 'bg-transparent',
+        outline:
+          'border border-input bg-transparent hover:bg-accent hover:text-accent-foreground',
+      },
+      size: {
+        default: 'h-10 px-3',
+        sm: 'h-9 px-2.5',
+        lg: 'h-11 px-5',
+      },
+    },
+    defaultVariants: {
+      look: 'default',
+      size: 'default',
+    },
+  },
+);
+
+type ToggleProps = PropsOf<typeof HeadlessToggle> & VariantProps<typeof toggleVariants>;
+
+export const Toggle = component$<ToggleProps>(({ size, look, ...props }) => {
+  return (
+    <HeadlessToggle {...props} class={cn(toggleVariants({ size, look }), props.class)}>
+      <Slot />
+    </HeadlessToggle>
+  );
+});
+```
+
+## Usage
+
+```tsx
+import { Toggle } from '~/components/ui';
+```
+
+```tsx
+<Toggle>Hello</Toggle
+```
+
+## Usage / Component State
+
+### Initial Value (Uncontrolled)
+
+An initial, uncontrolled value can be provided using the `defaultPressed` prop.
+
+<Showcase name="defaultPressed" />
+
+### Reactive Value (Controlled)
+
+Pass the `pressed` prop to make the pressed state controlled.
+The `onPressedChange$` event is fired when the user toggle the button, and receives the new value.
+
+<Showcase name="pressed" />
+
+### Disabled
+
+Pass the `disabled` prop.
+
+<Showcase name="disabled" />
