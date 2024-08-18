@@ -148,52 +148,15 @@ test.describe('Mouse Behavior', () => {
     await expect(secondPopover).toBeHidden();
   });
 
-  test(`GIVEN a popover with hover enabled
-    WHEN hovering over the popover
-    THEN the popover should appear above the trigger`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hover');
-
-    const popover = d.getPopover();
-    const trigger = d.getTrigger();
-
-    await trigger.hover();
-
-    await expect(popover).toBeVisible();
-
-    const popoverBoundingBox = await popover.boundingBox();
-    const triggerBoundingBox = await trigger.boundingBox();
-
-    const triggerTopEdge = triggerBoundingBox?.y ?? Number.MAX_VALUE;
-
-    expect(popoverBoundingBox?.y).toBeLessThan(triggerTopEdge);
-  });
-
-  test(`GIVEN an open popover with hover enabled
-    WHEN hovering await from the popover
-    THEN the popover should disappear`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hover');
-
-    const popover = d.getPopover();
-    const trigger = d.getTrigger();
-
-    await trigger.hover();
-
-    await expect(popover).toBeVisible();
-
-    await page.mouse.move(0, 0);
-
-    await expect(popover).toBeHidden();
-  });
-
   test(`GIVEN a popover with placement set to right
-        WHEN hovering over the popover
+        WHEN clicking the popover
         THEN the popover should appear to the right of the trigger`, async ({ page }) => {
     const { driver: d } = await setup(page, 'placement');
 
     const popover = d.getPopover();
     const trigger = d.getTrigger();
 
-    await trigger.hover();
+    await trigger.click();
 
     await expect(popover).toBeVisible();
 
