@@ -77,7 +77,7 @@ export const ThemeProvider = component$<ThemeProviderProps>(
       ({ cleanup }) => {
         setTimeout(() => {
           themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
-        }, 1000);
+        }, 2000);
         const media = window.matchMedia('(prefers-color-scheme: dark)');
 
         const handleMediaQuery = $(async (e: MediaQueryListEvent | MediaQueryList) => {
