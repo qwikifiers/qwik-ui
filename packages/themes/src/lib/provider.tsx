@@ -9,6 +9,7 @@ import {
   useOnWindow,
   useSignal,
   useTask$,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { ThemeScript } from './theme-script';
 import type { SystemTheme, Theme, ThemeProviderProps, UseThemeProps } from './types';
@@ -38,13 +39,13 @@ export const ThemeProvider = component$<ThemeProviderProps>(
 
     const attrs = !value ? themes.flat() : Object.values(value);
 
-    const applyTheme = $((theme: Theme) => {
+    const applyTheme = $(async (theme: Theme) => {
       let resolved = theme;
       if (!resolved) return;
 
       // If theme is system, resolve it before setting theme
       if (theme === 'system' && enableSystem) {
-        resolved = getSystemTheme();
+        resolved = await getSystemTheme();
       }
 
       // Join the array of attr if the theme is an array
@@ -72,25 +73,30 @@ export const ThemeProvider = component$<ThemeProviderProps>(
 
     // DO NOT UNCOMMENT. THIS CAUSES BUNDLE ISSUE ACROSS SITE -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     // eslint-disable-next-line qwik/no-use-visible-task -- not possible atm to useOnWindow for a MediaQueryList event
-    // useVisibleTask$(({ cleanup }) => {
-    //   // themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
-    //   const media = window.matchMedia('(prefers-color-scheme: dark)');
+    useVisibleTask$(
+      ({ cleanup }) => {
+        setTimeout(() => {
+          themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
+        }, 1000);
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-    //   const handleMediaQuery = $((e: MediaQueryListEvent | MediaQueryList) => {
-    //     const resolved = getSystemTheme(e);
-    //     resolvedThemeSig.value = resolved;
+        const handleMediaQuery = $(async (e: MediaQueryListEvent | MediaQueryList) => {
+          const resolved = await getSystemTheme(e);
+          resolvedThemeSig.value = resolved;
 
-    //     if (themeSig.value === 'system' && enableSystem && !forcedTheme) {
-    //       applyTheme('system');
-    //     }
-    //   });
+          if (themeSig.value === 'system' && enableSystem && !forcedTheme) {
+            applyTheme('system');
+          }
+        });
 
-    //   media.addEventListener('change', handleMediaQuery);
+        media.addEventListener('change', handleMediaQuery);
 
-    //   handleMediaQuery(media);
+        handleMediaQuery(media);
 
-    //   cleanup(() => media.removeEventListener('change', handleMediaQuery));
-    // });
+        cleanup(() => media.removeEventListener('change', handleMediaQuery));
+      },
+      { strategy: 'document-idle' },
+    );
 
     // localStorage event handling
 
@@ -163,12 +169,12 @@ export const ThemeProvider = component$<ThemeProviderProps>(
   },
 );
 
-const getSystemTheme = (mq?: MediaQueryList | MediaQueryListEvent): SystemTheme => {
+const getSystemTheme = $((mq?: MediaQueryList | MediaQueryListEvent): SystemTheme => {
   const currMq = mq || window.matchMedia('(prefers-color-scheme: dark)');
   const isDark = currMq.matches;
   const systemTheme = isDark ? 'dark' : 'light';
   return systemTheme;
-};
+});
 
 const disableAnimation = () => {
   const css = document.createElement('style');
