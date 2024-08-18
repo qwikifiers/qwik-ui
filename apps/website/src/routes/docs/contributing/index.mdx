@@ -14,7 +14,7 @@ Thinking about contributing to the project, but don't know where to start? You'r
 
 We'll get you up in shape in no time, and ready to hop into the Qwik UI code cave.
 
-![The Qwik UI Code Cave](/images/contributing/code-cave.webp)
+<img width={1024} height={1024} src="/images/contributing/code-cave.webp" />
 
 ## There are **two projects** we currently work on:
 
@@ -317,15 +317,25 @@ Inline components play a crucial role in Qwik, especially when building headless
 
 ### Why Use Inline Components?
 
+**TLDR**: Inline components can look into the children and get the proper index, pass data, or make certain API decisions.
+
+A more detailed explanation:
+
 In client-side rendered environments, such as dashboards, Qwik components can render asynchronously and even out of order.
 
-<Showcase name="inline" />
+<Showcase name="the-problem" />
+
+The above demonstrates the problem. The conditional JSX added is rendered on the client when the button is clicked, and the items are not rendered in the correct order.
+
+By contrast, when it is rendered on the server, we get the expected order.
+
+<Showcase name="server" />
 
 This has to do with the entrypoints of the application. The current and previous generation of frameworks execute from the root entrypoint down in a tree-like structure, which is O(n) complexity.
 
-Qwik components execute based on interactions, each interactive piece is a possible entry point of the application. This means that Qwik components can render asynchronously and even out of order. Manu Almeida covers this in-depth on the [builder.io blog](https://www.builder.io/blog/hydration-tree-resumability-map).
+Qwik components execute based on interactions, each interactive piece is a possible entry point of the application. This means that Qwik components can render asynchronously and even out of order. Manu Almeida covers these [data structures in relations to frameworks in-depth](https://www.builder.io/blog/hydration-tree-resumability-map).
 
-While this offers substantial benefits, this poses a challenge when you need to maintain a specific order or index for child components when in a CSR environment.
+While resumability and javascript streaming offer substantial benefits, it poses a challenge when you need to maintain a specific order or index for child components when in a CSR environment.
 
 [Inline components](https://qwik.dev/docs/components/overview/#inline-components) help address this by:
 
@@ -342,7 +352,27 @@ Unlike regular Qwik components defined with `component$()`, inline components:
 - Cannot project content with `<Slot>`
 - Are bundled with their parent component
 
-Here's an example of how an inline component might be used in a breadcrumb implementation:
+Inline components should be used with caution. They are called inline because they are defined inline with the parent component. This means that they are bundled with the parent component, which can lead to performance issues if used excessively.
+
+In our case, the tradeoff is negligible, but it's something to keep in mind.
+
+### Adding an inline component
+
+To use an inline component, create a standard function that returns JSX. In the below example, the inline component is called ExampleRoot.
+
+<Showcase name="inline" />
+
+The root component uses two utilities from Qwik UI.
+
+One is `findComponent`, which expects the component to be found as the first argument, and a callback function with the component's props as the second argument. The logic in this callback function is executed when the component is found.
+
+> findComponent can be used to find any children of our root. If we wanted to execute logic based on the existence of a new component called `<Toggle />` we could use `findComponent(Toggle, () => {})`.
+
+The other utility is `processChildren`, which allows us to search through the children of an inline component for the "outer shell" we're looking for.
+
+> processChildren should only be called once per inline component.
+
+The prop `_index` contains an underscore to emphasize that it is an internal prop. Notice how `_index` is consumed in the child Item component.
 
 ## That's it!
 

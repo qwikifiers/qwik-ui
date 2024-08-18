@@ -1,29 +1,41 @@
-import { component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { component$, PropsOf, useSignal } from '@builder.io/qwik';
+import { findComponent, processChildren } from '@qwik-ui/utils';
 
 export default component$(() => {
-  const isItemsRenderedSig = useSignal(false);
+  const isRenderedSig = useSignal(false);
 
   return (
-    <button onClick$={() => (isItemsRenderedSig.value = !isItemsRenderedSig.value)}>
-      Render on the client:
-      {isItemsRenderedSig.value && (
-        <>
+    <div>
+      <button onClick$={() => (isRenderedSig.value = true)}>render on the client</button>
+      {isRenderedSig.value && (
+        <ExampleRoot>
           <Item />
           <Item />
           <Item />
           <Item />
-        </>
+        </ExampleRoot>
       )}
-    </button>
+    </div>
   );
 });
 
-const Item = component$(() => {
-  const itemNum = useSignal(0);
+const ExampleRoot = ({ children }: PropsOf<'div'>) => {
+  let currItemIndex = 0;
 
-  useTask$(() => {
-    itemNum.value++;
+  findComponent(Item, (itemProps) => {
+    itemProps._index = currItemIndex;
+    currItemIndex++;
   });
 
-  return <div>{itemNum.value}</div>;
+  processChildren(children);
+
+  return <div>{children}</div>;
+};
+
+const Item = component$(({ _index }: { _index?: number }) => {
+  if (_index === undefined) {
+    throw new Error('Qwik UI: Example inline component cannot find its proper index.');
+  }
+
+  return <div>Item {_index + 1}</div>;
 });
