@@ -76,6 +76,7 @@ export default defineConfig(async () => {
         },
       }),
       qwikVite({
+        lint: false,
         tsconfigFileNames: ['tsconfig.app.json'],
         client: {
           outDir: '../../dist/apps/website/client',
