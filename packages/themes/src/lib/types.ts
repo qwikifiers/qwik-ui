@@ -9,12 +9,16 @@ export type SystemTheme = 'dark' | 'light';
 export type Theme = 'dark' | 'light' | string | string[] | undefined;
 
 export interface UseThemeProps {
+  // system or light
+  defaultTheme: string;
   /** theme signal */
   themeSig: Signal<Theme>;
   /** Forced theme name for the current page */
   resolvedThemeSig: Signal<Theme>;
   /** If enableSystem is true, returns the System theme preference ("dark" or "light"), regardless what the active theme is */
   forcedTheme: string | undefined;
+  // localStorage key
+  storageKey: string;
   /** If `enableSystem` is true and the active theme is "system", this returns whether the system preference resolved to "dark" or "light". Otherwise, identical to `theme` */
   systemTheme: SystemTheme | undefined;
   /** List of all available theme names */
