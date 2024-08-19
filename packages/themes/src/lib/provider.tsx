@@ -71,13 +71,9 @@ export const ThemeProvider = component$<ThemeProviderProps>(
       }
     });
 
-    // DO NOT UNCOMMENT. THIS CAUSES BUNDLE ISSUE ACROSS SITE -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     // eslint-disable-next-line qwik/no-use-visible-task -- not possible atm to useOnWindow for a MediaQueryList event
     useVisibleTask$(
       ({ cleanup }) => {
-        setTimeout(() => {
-          themeSig.value = localStorage.getItem(storageKey) || defaultTheme;
-        }, 2000);
         const media = window.matchMedia('(prefers-color-scheme: dark)');
 
         const handleMediaQuery = $(async (e: MediaQueryListEvent | MediaQueryList) => {
@@ -133,9 +129,11 @@ export const ThemeProvider = component$<ThemeProviderProps>(
     });
 
     useContextProvider(ThemeContext, {
+      defaultTheme,
       themeSig,
       resolvedThemeSig,
       forcedTheme,
+      storageKey,
       systemTheme: (enableSystem ? resolvedThemeSig.value : undefined) as
         | SystemTheme
         | undefined,
