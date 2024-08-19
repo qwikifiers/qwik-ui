@@ -2,21 +2,32 @@
 title: Qwik UI | Tooltip
 ---
 
+import { statusByComponent } from '~/_state/component-statuses';
+
+import styles from './snippets/tooltip.css';
+
+<StatusBanner status={statusByComponent.headless.Tooltip} />
+
 # Tooltip
 
-A popup that shows information when an element is focused or hovered over.
+A text label that appears when a user hovers, focuses, or touches an element.
 
 <Showcase name="hero" />
 
-## ✨ Features
-
 <FeatureList
   features={[
-    'Above the rest of the page',
-    'Hover and non-hover behavior',
-    'Close with escape',
+    `Opens on hover or focus`,
+    'Closes on trigger activation or Escape key press',
+    'Customizable open/close delays',
+    'Optional arrow component',
+    'Always portaled content',
+    'Accessibility with ARIA roles and keyboard interactions',
+    'Flipping to avoid overflow',
+    'Automatic placement adjustment',
   ]}
 />
+
+The Qwik UI Tooltip component provides additional information or context on hover, focus, or touch. It ensures accessibility and positioning with built-in ARIA roles and automatic placement adjustments.
 
 ## Building blocks
 
@@ -26,15 +37,20 @@ import { Tooltip } from '@qwik-ui/headless';
 
 export default component$(() => {
   return (
-    <Tooltip.Root>
-      <Tooltip.Trigger>Trigger</Tooltip.Trigger>
-      <Tooltip.Panel>Panel</Tooltip.Panel>
+    <Tooltip.Root delayDuration={800} gutter={4} flip placement="top">
+      <Tooltip.Trigger>
+        <button>Hover or Focus me</button>
+      </Tooltip.Trigger>
+      <Tooltip.Panel aria-label="Tooltip content">
+        <Tooltip.Arrow width={10} height={5} />
+        Tooltip content here
+      </Tooltip.Panel>
     </Tooltip.Root>
   );
 });
 ```
 
-### 🎨 Anatomy
+### Anatomy Table
 
 <AnatomyTable
   propDescriptors={[
@@ -44,25 +60,155 @@ export default component$(() => {
     },
     {
       name: 'Tooltip.Trigger',
-      description: 'A button that opens the tooltip when interacted with.',
+      description: 'An element that opens the tooltip when interacted with.',
     },
     {
       name: 'Tooltip.Panel',
-      description: `An HTML Element that is above other content on the page.`,
+      description: `An HTML element that contains the tooltip content.`,
+    },
+    {
+      name: 'Tooltip.Arrow',
+      description: `An optional arrow component to point to the trigger element.`,
     },
   ]}
 />
 
-## API
+## What is a Tooltip?
+
+A tooltip is a small text label that appears when a user hovers over, focuses on, or touches an element. It provides additional information or context.
+
+### When would I use a tooltip?
+
+Tooltips are useful for displaying contextual information or additional details about an element without cluttering the UI. They enhance user experience by providing necessary information only when needed.
+
+## Use case examples
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Form Field',
+      description: 'Provide additional information or guidance about a form field.',
+    },
+    {
+      name: 'Button',
+      description: 'Explain what an action button does.',
+    },
+    {
+      name: 'Icon',
+      description: 'Give more context or definition to an icon.',
+    },
+  ]}
+/>
+
+## Caveats
+
+<Note status="warning">
+  While we handle most of the hard stuff, there are some details that should be
+  considered.
+</Note>
+
+### Styling open tooltips
+
+```tsx
+.tooltip-panel[data-open] {
+  background: lightblue;
+}
+```
+
+Use the `data-open` and `data-closed` attributes on the `<Tooltip.Panel>` component to specifically style the tooltip when it's open.
+
+### Cross-browser Animations
+
+> Animations are not currently available in the Tooltip component. We are working on a solution to provide a more seamless experience. In the meantime, you can still use transitions.
+
+## Tooltip Behavior
+
+Tooltips show when hovering over or focusing on the trigger element and dismiss when moving the mouse away or losing focus.
+
+## Floating Behavior
+
+By default, the Qwik UI Tooltip will float above the trigger component.
+
+<Showcase name="floating" />
+
+To make a tooltip float, we use JavaScript to choose where the tooltip should be positioned.
+
+### Custom Floating Position
+
+By default, tooltips will float above the trigger component.
+
+When setting `placement` on the root, you can customize the position of the tooltip.
+
+<Showcase name="placement" />
+
+Above we have set the `placement` prop to `right`, so the `<Tooltip.Panel>` will be positioned to the right of the trigger.
+
+### Flip
+
+Enabled by default, we can use the `flip` prop to flip its position based on the available space in the viewport.
+
+<Showcase name="flip" />
+
+To disable flipping, set `flip={false}` on the `<Tooltip.Root>`.
+
+### Gutter
+
+The gutter property defines the space between the anchor element and the floating element.
+
+<Showcase name="gutter" />
+
+## Styling
+
+Styles can be added normally like any other component in Qwik UI, such as adding a class.
+
+If Tailwind is the framework of choice, then styles can be added using the [arbitrary variant syntax](https://tailwindcss.com/docs/hover-focus-and-other-states#using-arbitrary-variants) or [@apply](https://tailwindcss.com/docs/reusing-styles#extracting-classes-with-apply) command.
+
+<Showcase name="styling" />
+
+> The arbitrary variant can be customized/abstracted even further by [adding a variant](https://tailwindcss.com/docs/plugins#adding-variants) as a plugin in the tailwind config.
+
+### Transition declarations
+
+Transitions use the same classes for entry and exit animations. Those being `data-open` and `data-closed`. They are explained more in the `Caveats` section.
+
+<Showcase name="transition" />
+
+> The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) is another native solution that aims to solve animating between states. Support is currently in around **~71%** of browsers.
+
+CSS from the example:
+
+<CodeSnippet name="transition.css" />
+
+## Events
+
+The tooltip contains a `onOpenChange$` event that runs when the tooltip opens or closes.
+This can be used to trigger additional actions when the tooltip is opened or closed.
+
+<Showcase name="onChange" />
+
+## Additional References
+
+Qwik UI aims to be in line with the standard whenever possible. Our goal is to empower Qwik developers to create amazing experiences for their users.
+
+To read more about tooltips you can check it out on:
+
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role)
+- [WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/#tooltip)
 
 ### Tooltip Root
 
 <APITable
   propDescriptors={[
     {
-      name: 'hover',
-      type: 'boolean',
-      description: 'Disables hover behavior.',
+      name: 'id',
+      type: 'string',
+      description: `Tooltip's id. Should match the tooltip target.`,
+    },
+    {
+      name: 'delayDuration',
+      type: 'number',
+      description:
+        'A value that determines how long before the tooltip will be opened once triggered in milliseconds.',
     },
     {
       name: 'flip',
@@ -73,12 +219,64 @@ export default component$(() => {
     {
       name: 'gutter',
       type: 'number',
-      description: 'The space between the floating element and the anchored element.',
+      description: 'The space between the trigger element and the tooltip.',
     },
     {
-      name: 'floating',
-      type: 'string',
-      description: 'The floating position of the tooltip.',
+      name: 'data-closing"',
+      type: 'selector',
+      description: 'Style the element when the tooltip is closing. This occurs when the popover has a delay set.',
+    },
+    {
+      name: 'data-closed',
+      type: 'selector',
+      description: 'Style the element when the tooltip is closed.',
+    },
+
+    {
+      name: 'data-opening',
+      type: 'selector',
+      description: 'Style the element when the tooltip is in the process of opening. This occurs when the popover has a delay set.',
+    },
+    {
+      name: 'data-open',
+      type: 'selector',
+      description: 'Style the element when the tooltip is open.',
+    },
+    {
+      name: 'onOpenChange$',
+      type: 'QRL',
+      description: 'QRL handler that runs when the tooltip opens or closes.',
+      info: 'QRL<(state: "open" | "closed") => void>',
+    },
+
+]}
+/>
+
+### Tooltip Components
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'Tooltip.Trigger',
+      description: 'The element that triggers the tooltip.',
+    },
+    {
+      name: 'Tooltip.Panel',
+      description: 'The container for the tooltip content.',
+    },
+    {
+      name: 'Tooltip.Arrow',
+      description: 'An optional arrow component for the tooltip.',
     },
   ]}
 />
+
+### Example Usages
+
+#### Basic:
+
+<Showcase name="basic" />
+
+#### Complex HTML:
+
+<Showcase name="complex" />

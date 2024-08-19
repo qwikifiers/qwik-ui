@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { isDev } from '@builder.io/qwik/build';
 
 // The below `/src/routes/docs/**/**/examples/*.tsx` patterns are here so that import.meta.glob works both for styled and headless routes.
 // For example:
@@ -11,7 +10,6 @@ function createMetaGlobComponents() {
     '../../../../website/src/routes/docs/**/**/examples/*.tsx',
     {
       import: 'default',
-      eager: isDev ? false : true,
     },
   );
 

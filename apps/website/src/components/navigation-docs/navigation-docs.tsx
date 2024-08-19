@@ -27,7 +27,7 @@ const defaultLinksGroups: LinkGroup[] = [
     children: [
       {
         name: 'Contributing',
-        href: '/contributing/',
+        href: '/docs/contributing/',
       },
       {
         name: 'Headless',

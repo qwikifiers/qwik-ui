@@ -1,6 +1,5 @@
 import { PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-import { isDev } from '@builder.io/qwik/build';
 import { Highlight } from '../highlight/highlight';
 
 // The below `/src/routes/docs/**/**/snippets/*.tsx` pattern is here so that import.meta.glob works both for styled and headless routes.
@@ -12,7 +11,6 @@ import { Highlight } from '../highlight/highlight';
 const codeSnippets: any = import.meta.glob('/src/routes/docs/**/**/snippets/*', {
   query: '?raw',
   import: 'default',
-  eager: isDev ? false : true,
 });
 
 type CodeSnippetProps = PropsOf<'div'> & {
@@ -30,9 +28,7 @@ export const CodeSnippet = component$<CodeSnippetProps>(({ name }) => {
   const codeSnippetSig = useSignal<string>();
 
   useTask$(async () => {
-    codeSnippetSig.value = isDev
-      ? await codeSnippets[snippetPath]() // We need to call `await codeSnippets[snippetPath]()` in development as it is `eager:false`
-      : codeSnippets[snippetPath]; // We need to directly access the `codeSnippets[snippetPath]` expression in preview/production as it is `eager:true`
+    codeSnippetSig.value = await codeSnippets[snippetPath](); // We need to call `await codeSnippets[snippetPath]()` in development as it is `eager:false`
   });
 
   return (
