@@ -63,7 +63,7 @@ test.describe('Mouse Behavior', () => {
   //disabled
   test(`GIVEN a disabled toggle
         WHEN the toggle is clicked
-        AND data-disabled should remain`, async ({ page }) => {
+        THEN data-disabled should remain`, async ({ page }) => {
     const { driver: d } = await setup(page, 'disabled');
 
     await expect(d.getToggleButton()).toBeDisabled();

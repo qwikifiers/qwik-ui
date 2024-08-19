@@ -34,7 +34,7 @@ export const HToggle = component$<ToggleProps>((props) => {
   const pressedSig = useSignal<boolean>(defaultPressed);
 
   useTask$(({ track }) => {
-    if (!pressedProp) return;
+    if (pressedProp === undefined) return;
     track(() => pressedProp);
     pressedSig.value = pressedProp;
   });
