@@ -45,7 +45,8 @@ export const Highlight = component$(
       codeSig.value = str.toString();
     });
 
-    useTask$(async () => {
+    useTask$(async ({ track }) => {
+      track(() => code);
       await addShiki$();
     });
 
