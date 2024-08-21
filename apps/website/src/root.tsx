@@ -10,7 +10,7 @@ import { AppState } from './_state/app-state.type';
 import { RouterHead } from './components/router-head/router-head';
 import globalStyles from './global.css?inline';
 
-import { ThemeProvider } from 'qwik-themes';
+import { ThemeProvider } from '@qwik-ui/themes';
 
 import '@fontsource-variable/inter';
 import {

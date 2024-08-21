@@ -4,29 +4,29 @@ import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
-import { isDev } from '@builder.io/qwik/build';
 
 export default defineConfig(async () => {
   const { default: rehypePrettyCode } = await import('rehype-pretty-code');
   const { visit } = await import('unist-util-visit');
 
-  let output: any = {};
-  if (!isDev) {
-    // Client-specific configuration
-    output = {
-      // Customize the client build structure
-      entryFileNames: ({ name }: any) => {
-        if (name.startsWith('entry')) {
-          return '[name].js';
-        }
-        return `build/[name]-[hash].js`;
-      },
-      chunkFileNames: () => {
-        return `build/[name]-[hash].js`;
-      },
-      assetFileNames: `build/[name]-[hash].[ext]`,
-    };
-  }
+  // commented out as doesn't seem to work with import.meta.glob eager:false in preview
+  // let output: any = {};
+  // if (!isDev) {
+  //   // Client-specific configuration
+  //   output = {
+  //     // Customize the client build structure
+  //     entryFileNames: ({ name }: any) => {
+  //       if (name.startsWith('entry')) {
+  //         return '[name].mjs';
+  //       }
+  //       return `[name]-[hash].js`;
+  //     },
+  //     chunkFileNames: () => {
+  //       return `[name]-[hash].js`;
+  //     },
+  //     assetFileNames: `build/[name]-[hash].[ext]`,
+  //   };
+  // }
 
   return {
     plugins: [
@@ -76,6 +76,7 @@ export default defineConfig(async () => {
         },
       }),
       qwikVite({
+        lint: false,
         tsconfigFileNames: ['tsconfig.app.json'],
         client: {
           outDir: '../../dist/apps/website/client',
@@ -96,7 +97,7 @@ export default defineConfig(async () => {
     build: {
       target: 'es2022',
       rollupOptions: {
-        output,
+        // output,
       },
     },
     preview: {

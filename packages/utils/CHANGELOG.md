@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1
+
+### Patch Changes
+
+- ✨ new inline component utilities (by [@thejackshelton](https://github.com/thejackshelton) in [#937](https://github.com/qwikifiers/qwik-ui/pull/937))
+
 ## 0.3.0
 
 ### Minor Changes

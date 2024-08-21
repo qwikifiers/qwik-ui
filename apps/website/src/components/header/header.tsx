@@ -20,7 +20,8 @@ import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
 import { LogoIcon, LogoWithBorders } from '../icons/logo';
 
-import { useTheme } from 'qwik-themes';
+import { useTheme } from '@qwik-ui/themes';
+
 import { Modal } from '@qwik-ui/headless';
 import { useAppState } from '~/_state/use-app-state';
 import { LuX } from '@qwikest/icons/lucide';
@@ -127,13 +128,13 @@ export default component$(({ showVersion = false }: HeaderProps) => {
     }
   });
 
-  const { theme } = useTheme();
+  const { themeSig } = useTheme();
 
   return (
     <Modal.Root
       class={cn(
         'sticky top-0 z-10 flex h-16 justify-center border-b bg-background',
-        theme?.includes('brutalist') && 'border-b-2',
+        themeSig.value?.includes('brutalist') && 'border-b-2',
       )}
       bind:show={isSidebarOpenedSig}
     >
@@ -221,7 +222,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
 });
 
 const DarkModeToggle = component$<PropsOf<typeof Button>>(({ ...props }) => {
-  const { theme, setTheme } = useTheme();
+  const { themeSig } = useTheme();
   const switchLightDark = $((input: string | string[]): string | string[] | undefined => {
     const switchWord = (word: string): string =>
       word.includes('light')
@@ -239,7 +240,9 @@ const DarkModeToggle = component$<PropsOf<typeof Button>>(({ ...props }) => {
       aria-label="Toggle dark mode"
       size="icon"
       look="ghost"
-      onClick$={async () => setTheme(await switchLightDark(theme || 'light'))}
+      onClick$={async () =>
+        (themeSig.value = await switchLightDark(themeSig.value || 'light'))
+      }
     >
       <div class="hidden dark:block">
         <MoonIcon />
