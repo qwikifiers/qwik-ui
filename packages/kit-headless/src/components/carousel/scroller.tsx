@@ -7,7 +7,6 @@ import {
   $,
   useTask$,
   useOnWindow,
-  useComputed$,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
@@ -26,7 +25,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isTouchDeviceSig = useSignal(false);
   const isTouchMovingSig = useSignal(true);
   const isTouchStartSig = useSignal(false);
-  const directionSig = useComputed$(() => context.directionSig.value);
+  const isHorizontal = context.directionSig.value === 'row';
 
   useTask$(() => {
     context.isScrollerSig.value = true;
@@ -40,25 +39,20 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     for (let i = 0; i < index; i++) {
       if (slides[i].value) {
         position +=
-          slides[i].value.getBoundingClientRect()[
-            directionSig.value === 'row' ? 'width' : 'height'
-          ] + context.gapSig.value;
+          slides[i].value.getBoundingClientRect()[isHorizontal ? 'width' : 'height'] +
+          context.gapSig.value;
       }
     }
     const alignment = context.alignSig.value;
     if (alignment === 'center') {
-      position -=
-        (container[directionSig.value === 'row' ? 'clientWidth' : 'clientHeight'] -
-          slides[index].value.getBoundingClientRect()[
-            directionSig.value === 'row' ? 'width' : 'height'
-          ]) /
-        2;
+      position -= isHorizontal
+        ? (container.clientWidth - slides[index].value.getBoundingClientRect().width) / 2
+        : (container.clientHeight - slides[index].value.getBoundingClientRect().height) /
+          2;
     } else if (alignment === 'end') {
-      position -=
-        container[directionSig.value === 'row' ? 'clientWidth' : 'clientHeight'] -
-        slides[index].value.getBoundingClientRect()[
-          directionSig.value === 'row' ? 'width' : 'height'
-        ];
+      position -= isHorizontal
+        ? container.clientWidth - slides[index].value.getBoundingClientRect().width
+        : container.clientHeight - slides[index].value.getBoundingClientRect().height;
     }
 
     return Math.max(0, position);
@@ -67,14 +61,12 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startPositionSig.value === undefined) return;
     if (!context.scrollerRef.value) return;
-    const position =
-      e[directionSig.value === 'row' ? 'pageX' : 'pageY'] -
-      context.scrollerRef.value[
-        directionSig.value === 'row' ? 'offsetLeft' : 'offsetTop'
-      ];
+    const position = isHorizontal
+      ? e.pageX - context.scrollerRef.value.offsetLeft
+      : e.pageY - context.scrollerRef.value.offsetTop;
     const dragSpeed = 1.75;
     const walk = (position - startPositionSig.value) * dragSpeed;
-    context.scrollerRef.value[directionSig.value === 'row' ? 'scrollLeft' : 'scrollTop'] =
+    context.scrollerRef.value[isHorizontal ? 'scrollLeft' : 'scrollTop'] =
       scrollInDirectionSig.value - walk;
     isMouseMovingSig.value = true;
   });
@@ -87,7 +79,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
     const containerScrollInDirection =
-      container[directionSig.value === 'row' ? 'scrollLeft' : 'scrollTop'];
+      container[isHorizontal ? 'scrollLeft' : 'scrollTop'];
 
     let closestIndex = 0;
     let minDistance = Infinity;
@@ -120,15 +112,11 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     }
 
     isMouseDownSig.value = true;
-    startPositionSig.value =
-      e[directionSig.value === 'row' ? 'pageX' : 'pageY'] -
-      context.scrollerRef.value[
-        directionSig.value === 'row' ? 'offsetLeft' : 'offsetTop'
-      ];
+    startPositionSig.value = isHorizontal
+      ? e.pageX - context.scrollerRef.value.offsetLeft
+      : e.pageY - context.scrollerRef.value.offsetTop;
     scrollInDirectionSig.value =
-      context.scrollerRef.value[
-        directionSig.value === 'row' ? 'scrollLeft' : 'scrollTop'
-      ];
+      context.scrollerRef.value[isHorizontal ? 'scrollLeft' : 'scrollTop'];
     window.addEventListener('mousemove', handleMouseMove$);
     window.addEventListener('mouseup', handleMouseSnap$);
     isMouseMovingSig.value = false;
@@ -164,8 +152,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const updateTouchDeviceIndex$ = $(() => {
     if (!context.scrollerRef.value) return;
     const container = context.scrollerRef.value;
-    const containerScrollDirection =
-      container[directionSig.value === 'row' ? 'scrollLeft' : 'scrollTop'];
+    const containerScrollDirection = container[isHorizontal ? 'scrollLeft' : 'scrollTop'];
     const slides = context.slideRefsArray.value;
 
     let currentIndex = 0;
@@ -173,8 +160,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     slides.forEach((slideRef, index) => {
       if (!slideRef.value) return;
-      const slideInDirection =
-        slideRef.value[directionSig.value === 'row' ? 'offsetLeft' : 'offsetTop'];
+      const slideInDirection = slideRef.value[isHorizontal ? 'offsetLeft' : 'offsetTop'];
       const distance = Math.abs(containerScrollDirection - slideInDirection);
       if (distance < minDistance) {
         minDistance = distance;
