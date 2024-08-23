@@ -1,0 +1,191 @@
+---
+title: Qwik UI | Toggle Group
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.headless.Toggle} />
+
+# Toggle Group
+
+A set of two-state buttons that can be toggled on or off.
+
+<Showcase name="hero" />
+
+## ✨ Features
+
+<FeatureList
+  features={[
+    'Follows the WAI-Aria design pattern',
+    'Full keyboard navigation',
+    'Can open one or multiple items at a time',
+    'Supports initial and reactive values',
+    'Supports looping',
+    'Choose the orientation and direction',
+  ]}
+/>
+
+## Usage / Component State
+
+### Multiple selection
+
+<Showcase name="multiple" />
+
+### Initial Value (Uncontrolled)
+
+An initial, uncontrolled value can be provided using the `defaultValue` prop.
+
+<Showcase name="defaultValue" />
+
+### Reactive Value (Controlled)
+
+Pass the `value` prop to make the pressed state controlled.
+The `onValueChange$` event is fired when the user toggle the button, and receives the new value.
+
+<Showcase name="value" />
+
+Or you can bind the value with a signal.
+
+<Showcase name="value-bind" />
+
+### Disabled
+
+Pass the `disabled` prop.
+
+<Showcase name="disabled" />
+
+You can also disabled specific items, pass the `disabled` prop at the `ToggleGroup.Item` level:
+When navigating with key arrows, the disabled item will be skipped.
+
+<Showcase name="item-disabled-center" />
+
+### Looping Enabled
+
+Pass the `loop` prop. When enabled, keyboard navigation will loop from last item to first, and vice versa.
+If one item is disabled it will skip it.
+
+<Showcase name="loop" />
+
+If one item is disabled it will skip it.
+
+<Showcase name="loop-item-disabled" />
+
+### Vertical Orientation
+
+Pass the `orientation` prop.
+
+<Showcase name="vertical" />
+
+### Right-to-Left (rtl) Direction
+
+Pass the `direction` prop to `rtl`.
+
+<Showcase name="horizontal-rtl" />
+
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: 'Toggles the item.',
+    },
+    {
+      keyTitle: 'Enter',
+      description: 'Toggles the item.',
+    },
+    {
+      keyTitle: 'ArrowLeft',
+      description: 'Works when orientation is "horizontal". Moves focus to the previous item. If direction is "rtl", moves focus to the next item.',
+    },
+    {
+      keyTitle: 'ArrowRight',
+      description: 'Works when orientation is "horizontal". Moves focus to the next item. If "rtl", moves focus to the previous item.',
+    },
+    {
+      keyTitle: 'ArrowDown',
+      description: 'Works when orientation is "vertical". Moves focus to the next item. If "rtl", moves focus to the previous item.',
+    },
+
+    {
+      keyTitle: 'ArrowUp',
+      description: 'Works when orientation is "vertical". Moves focus to the previous item. If "rtl", moves focus to the next item.',
+    },
+
+]}
+/>
+
+## API
+
+### ToggleGroup.Root
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'multiple',
+      type: 'boolean',
+      description: 'Enable multiple selections. Default to `false`.',
+    },
+    {
+      name: 'defaultValue',
+      type: 'string | string[]',
+      description: 'Initial value when the toggle is rendered and default to `false`.',
+    },
+    {
+      name: 'value',
+      type: 'string | string[]',
+      description:
+        'Reactive value to make the pressed state controlled. Use in conjunction with `onValueChange$`.',
+    },
+    {
+      name: 'onValueChange$',
+      type: 'function',
+      info: 'PropFunction<() => void>',
+      description: 'Called when the state changes.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Disables all items.',
+    },
+    {
+      name: 'loop',
+      type: 'boolean',
+      description:
+        'Enable looping when navigating with the keyboard. Default to `false`.',
+    },
+    {
+      name: 'orientation',
+      type: '"horizontal" | "vertical"',
+      description: 'Choose the orientation of the toggle items. Default to "horizontal".',
+    },
+    {
+      name: 'direction',
+      type: '"ltr" | "rtl"',
+      description: 'Choose the direction of the toggle items. Default to "ltr".',
+    },
+  ]}
+/>
+
+### ToggleGroup.Item
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'value',
+      type: 'string',
+      description: 'A unique value for the item.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Disables the toggle making the toggle unpressable.',
+    },
+  ]}
+/>
