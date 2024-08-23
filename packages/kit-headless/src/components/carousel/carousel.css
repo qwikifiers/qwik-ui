@@ -2,9 +2,11 @@
   [data-qui-carousel-scroller] {
     overflow: hidden;
     display: flex;
+    flex-direction: var(--direction);
     gap: var(--gap);
+    max-height: var(--max-slide-height);
     /* for mobile & scroll-snap-start */
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: both mandatory;
   }
 
   [data-qui-carousel-slide] {
@@ -20,6 +22,7 @@
   @media (pointer: coarse) {
     [data-qui-carousel-scroller][data-draggable] {
       overflow-x: scroll;
+      overflow-y: scroll;
     }
 
     /* make sure snap align is added after initial index animation */

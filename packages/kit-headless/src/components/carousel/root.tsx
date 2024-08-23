@@ -7,6 +7,7 @@ import {
   useSignal,
   useComputed$,
   useId,
+  useTask$,
 } from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
 import { useBoundSignal } from '../../utils/bound-signal';
@@ -50,6 +51,12 @@ export type CarouselRootProps = PropsOf<'div'> & {
 
   /** @internal Whether this carousel has a title */
   _isTitle?: boolean;
+
+  /** The carousel's orientation */
+  direction?: 'row' | 'column';
+
+  /** The slider height */
+  maxSlideHeight?: number | undefined;
 };
 
 export const CarouselBase = component$(
@@ -75,6 +82,7 @@ export const CarouselBase = component$(
       startIndex ?? 0,
     );
     const isScrollerSig = useSignal(false);
+    const directionSig = useSignal(() => props.direction ?? 'row');
     const isAutoplaySig = useBoundSignal(givenAutoplaySig, false);
 
     // derived
@@ -85,6 +93,7 @@ export const CarouselBase = component$(
     const alignSig = useComputed$(() => props.align ?? 'start');
     const isLoopSig = useComputed$(() => props.loop ?? false);
     const autoPlayIntervalMsSig = useComputed$(() => props.autoPlayIntervalMs ?? 0);
+    const maxSlideHeight = useComputed$(() => props.maxSlideHeight ?? undefined);
 
     const titleId = `${localId}-title`;
 
@@ -108,9 +117,18 @@ export const CarouselBase = component$(
       isLoopSig,
       autoPlayIntervalMsSig,
       initialIndex: startIndex,
+      directionSig,
     };
 
     useContextProvider(carouselContextId, context);
+
+    // Max Height needed for making vertical carousel
+    useTask$(({ track }) => {
+      track(() => maxSlideHeight.value);
+      if (!maxSlideHeight.value) {
+        directionSig.value = 'row';
+      }
+    });
 
     return (
       <div
@@ -125,6 +143,8 @@ export const CarouselBase = component$(
           '--slides-per-view': slidesPerViewSig.value,
           '--gap': `${gapSig.value}px`,
           '--scroll-snap-align': alignSig.value,
+          '--direction': directionSig.value,
+          '--max-slide-height': `${maxSlideHeight.value}px`,
         }}
       >
         <Slot />
