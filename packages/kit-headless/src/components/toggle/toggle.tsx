@@ -1,4 +1,4 @@
-import type { PropsOf, QRL } from '@builder.io/qwik';
+import type { PropsOf, QRL, Signal } from '@builder.io/qwik';
 import { $, component$, Slot, useSignal, useTask$ } from '@builder.io/qwik';
 
 export type ToggleProps = PropsOf<'button'> & {
@@ -18,9 +18,17 @@ export type ToggleProps = PropsOf<'button'> & {
    */
   onPressedChange$?: QRL<(pressed: boolean) => void>;
   /**
+   * Controlling the pressed state with a bounded value.
+   */
+  'bind:pressed'?: Signal<boolean>;
+  /**
+   * Reference to the button element.
+   */
+  // ref?: Signal<Element | undefined>;
+  /**
    * Any additional props for the button
    */
-  //   [key: string]: any;
+  // [key: string]: unknown;
 };
 
 export const HToggle = component$<ToggleProps>((props) => {
@@ -28,8 +36,11 @@ export const HToggle = component$<ToggleProps>((props) => {
     pressed: pressedProp,
     defaultPressed = false,
     onPressedChange$,
+    // 'bind:pressed': givenValueSig,
     ...buttonProps
   } = props;
+
+  // const pressedSig = useBoundSignal(givenValueSig, defaultPressed);
 
   const pressedSig = useSignal<boolean>(defaultPressed);
 

@@ -38,6 +38,10 @@ The `onPressedChange$` event is fired when the user toggle the button, and recei
 
 <Showcase name="pressed" />
 
+Or you can bind the value with a signal.
+
+<Showcase name="bind-pressed" />
+
 ### Disabled
 
 Pass the `disabled` prop.
@@ -48,6 +52,23 @@ Pass the `disabled` prop.
 
 <CodeSnippet name="building-blocks" />
 
+## Accessibility
+
+### Keyboard interaction
+
+<KeyboardInteractionTable
+  keyDescriptors={[
+    {
+      keyTitle: 'Space',
+      description: 'Toggles between states.',
+    },
+    {
+      keyTitle: 'Enter',
+      description: 'Toggles between states.',
+    },
+  ]}
+/>
+
 ## API
 
 <APITable
@@ -55,13 +76,13 @@ Pass the `disabled` prop.
     {
       name: 'defaultPressed',
       type: 'boolean',
-      description: 'An initial value when the toggle is rendered and default to `false`.',
+      description: 'An initial value when the toggle is rendered. Default to `false`.',
     },
     {
       name: 'pressed',
       type: 'boolean',
       description:
-        'To make the pressed state controlled. Use in conjunction with `onPressedChange$`',
+        'To make the pressed state controlled. Use in conjunction with `onPressedChange$`.',
     },
     {
       name: 'onPressedChange$',
@@ -73,23 +94,6 @@ Pass the `disabled` prop.
       name: 'disabled',
       type: 'boolean',
       description: 'Disables the toggle making the toggle unpressable.',
-    },
-  ]}
-/>
-
-## Accessibility
-
-### Keyboard interaction
-
-<KeyboardInteractionTable
-  keyDescriptors={[
-    {
-      keyTitle: 'Space',
-      description: 'Toggle between states',
-    },
-    {
-      keyTitle: 'Enter',
-      description: 'Toggle between states',
     },
   ]}
 />

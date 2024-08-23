@@ -6,11 +6,7 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <div class="toggle-container">
-      <Toggle
-        pressed
-        disabled
-        class="toggle hover:bg-accent hover:text-accent-foreground"
-      >
+      <Toggle pressed disabled class="toggle">
         Hello
       </Toggle>
     </div>

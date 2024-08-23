@@ -8,7 +8,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getToggleButton = () => {
-    return getRoot().getByRole('button');
+    return getRoot().getByRole('button').nth(0);
   };
 
   const pressButtonWithEnter = () => {
@@ -20,14 +20,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getToggleButton().focus();
     return getToggleButton().press('Space');
   };
-
-  // const getValueElement = () => {
-  //   return getToggleButton().locator('[data-value]');
-  // };
-
-  // const getHighlightedItem = () => {
-  //   return getRoot().locator('[data-highlighted]');
-  // };
 
   return {
     ...rootLocator,

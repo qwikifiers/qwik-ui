@@ -60,6 +60,53 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'false');
   });
 
+  //bind:pressed: 1 way binding (reading)
+  test(`GIVEN a pressed toggle (with 'bind-pressed')
+    WHEN the toggle is clicked
+    THEN aria-pressed should be false
+    AND the span element that store the value of the bounded Signal 
+    should be updated
+    `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-bind-pressed');
+
+    //Given
+    await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'true');
+
+    //When
+    await d.getToggleButton().click();
+
+    //Then
+    await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'false');
+    const spanElement = await d.getRoot().locator('[test-data-bounded-span]');
+    await expect(spanElement).toContainText('You unpressed me');
+  });
+
+  //bind:pressed: 2 way binding (writting)
+  test(`GIVEN a pressed toggle (with 'bind-pressed')
+    WHEN the toggle is clicked
+    AND the external button is clicked
+    THEN aria-pressed should be true
+    AND the span element that store the value of the bounded Signal 
+    should be updated
+    `, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-bind-pressed');
+
+    //Given
+    await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'true');
+
+    //When
+    await d.getToggleButton().click();
+    await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'false');
+
+    const button = await d.getRoot().locator('[test-data-bounded-button]');
+    await button.click();
+
+    //Then
+    await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'true');
+    const spanElement = await d.getRoot().locator('[test-data-bounded-span]');
+    await expect(spanElement).toContainText('You pressed me');
+  });
+
   //disabled
   test(`GIVEN a disabled toggle
         WHEN the toggle is clicked

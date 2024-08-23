@@ -12,7 +12,7 @@ export default component$(() => {
         onPressedChange$={(p) =>
           p ? (text.value = 'Unpress me') : (text.value = 'Press me')
         }
-        class="toggle hover:bg-accent hover:text-accent-foreground"
+        class="toggle"
       >
         Hello
       </Toggle>
