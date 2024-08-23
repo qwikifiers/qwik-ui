@@ -27,4 +27,5 @@ export interface CarouselContext {
   isLoopSig: Signal<boolean>;
   autoPlayIntervalMsSig: Signal<number>;
   initialIndex: number | undefined;
+  directionSig: Signal<'row' | 'column'>;
 }
