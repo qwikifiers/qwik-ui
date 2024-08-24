@@ -277,5 +277,17 @@ Reactively control the selected slide index by using the `bind:selectedIndex` pr
       type: 'number',
       description: 'Time in milliseconds before the next slide plays during autoplay.',
     },
+    {
+      name: 'direction',
+      type: 'union',
+      description:
+        'Change the direction of the carousel, for it to be veritical define the maxSlideHeight prop as well.',
+      info: '"row" | "column"',
+    },
+    {
+      name: 'maxSlideHeight',
+      type: 'number',
+      description: 'Write the height of the longest slide.',
+    },
   ]}
 />
