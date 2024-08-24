@@ -25,7 +25,7 @@ export default function (opts: RenderToStreamOptions) {
     },
     prefetchStrategy: {
       implementation: {
-        linkInsert: 'html-append',
+        linkInsert: 'js-append',
         linkRel: 'modulepreload',
       },
     },
