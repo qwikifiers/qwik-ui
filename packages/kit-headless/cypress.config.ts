@@ -6,8 +6,9 @@ export default defineConfig({
     screenshotOnRunFailure: true,
     video: false,
     devServer: {
+      // @ts-ignore
       framework: 'cypress-ct-qwik',
       bundler: 'vite',
-    } as any,
+    },
   },
 });
