@@ -23,11 +23,5 @@ export default function (opts: RenderToStreamOptions) {
       lang: 'en-us',
       ...opts.containerAttributes,
     },
-    prefetchStrategy: {
-      implementation: {
-        linkInsert: 'html-append',
-        linkRel: 'modulepreload',
-      },
-    },
   });
 }
