@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import { resolve } from 'path';
-import * as util from 'util';
 import { ViteDevServer } from 'vite';
 export default function autoAPI() {
   return {
@@ -9,33 +8,45 @@ export default function autoAPI() {
       const watchPath = resolve(__dirname, '../../packages/kit-headless');
       server.watcher.on('change', (file: string) => {
         if (file.startsWith(watchPath)) {
-          console.log(`File changed: ${file}`);
-          singleComponent(file);
+          loopOnAllChildFiles(file);
         }
       });
     },
   };
 }
-function singleComponent(path: string) {
+// the object should have this general structure, arranged from parent to child
+// componentName:[subComponent,subcomponent,...]
+// subComponentName:[publicType,publicType,...]
+// publicType:[{ comment,prop,type },{ comment,prop,type },...]
+// THEY UPPER-MOST KEY IS ALWAYS USED AS A HEADING
+type ComponentParts = Record<string, SubComponents>;
+type SubComponents = SubComponent[];
+type SubComponent = Record<string, PublicType[]>;
+type PublicType = Record<string, ParsedProps[]>;
+type ParsedProps = {
+  comment: string;
+  prop: string;
+  type: string;
+};
+function parseSingleComponentFromDir(path: string, ref: SubComponents) {
   const component_name = /\/([\w-]*).tsx/.exec(path);
   if (component_name === null || component_name[1] === null) {
     // may need better behavior
     return;
   }
-  const lol = getOutputPath(path, component_name[1]);
-  console.log('PATH: ', lol);
-  handleIntialDir(lol);
-
   const sourceCode = fs.readFileSync(path, 'utf-8');
   const comments = extractPublicTypes(sourceCode);
-  const parsed = [];
+  const parsed: PublicType[] = [];
   for (const comment of comments) {
     const api = extractComments(comment.string);
-    const pair = { [comment.label]: api };
+    const pair: PublicType = { [comment.label]: api };
     parsed.push(pair);
   }
-  const componentAPI = { [component_name[1]]: parsed };
+  const completeSubComponent: SubComponent = { [component_name[1]]: parsed };
+  ref.push(completeSubComponent);
+  return ref;
 }
+
 function extractPublicTypes(strg: string) {
   const getPublicTypes = /type Public([A-Z][\w]*)*[\w\W]*?{([\w|\W]*?)}(;| &)/gm;
   const cms = [];
@@ -46,7 +57,7 @@ function extractPublicTypes(strg: string) {
   }
   return cms;
 }
-function extractComments(strg: string) {
+function extractComments(strg: string): ParsedProps[] {
   const magical_regex =
     /^\s*?\/[*]{2}\n?([\w|\W|]*?)\s*[*]{1,2}[/]\n[ ]*([\w|\W]*?): ([\w|\W]*?)$/gm;
 
@@ -63,15 +74,23 @@ function extractComments(strg: string) {
   return cms;
 }
 
-function getOutputPath(ogPath: string, componentName: string): string {
-  return resolve(__dirname, `apps/website/src/routes/docs/headless/${componentName}`);
-  return ogPath;
-}
-function handleIntialDir(path: string) {
-  if (fs.existsSync(path + '/api.ts')) {
-    console.log('YAYA');
+function loopOnAllChildFiles(filePath: string) {
+  const childComponentRegex = /\/([\w-]*).tsx$/.exec(filePath);
+  if (childComponentRegex === null) {
     return;
   }
-
-  console.log('NAYAYA');
+  const parentDir = filePath.replace(childComponentRegex[0], '');
+  const componentRegex = /\/(\w*)$/.exec(parentDir);
+  if (!fs.existsSync(parentDir) || componentRegex == null) {
+    return;
+  }
+  const componentName = componentRegex[1];
+  const allParts: SubComponents = [];
+  const store: ComponentParts = { [componentName]: allParts };
+  fs.readdirSync(parentDir).forEach((fileName) => {
+    if (/tsx$/.test(fileName)) {
+      const fullPath = parentDir + '/' + fileName;
+      parseSingleComponentFromDir(fullPath, store[componentName]);
+    }
+  });
 }
