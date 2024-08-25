@@ -1,5 +1,5 @@
 import { PropsOf, component$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { Link, useLocation } from '@builder.io/qwik-city';
 import { ComponentStatus } from '~/_state/component-status.type';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
 import { cn } from '@qwik-ui/utils';
@@ -56,7 +56,7 @@ export const DocsNavigation = component$(
                   const isLinkActive = location.url.pathname === link.href;
                   return (
                     <li key={link.name + link.href}>
-                      <a
+                      <Link
                         class={cn(
                           buttonVariants({ look: 'ghost' }),
                           'flex h-10 items-center rounded-base font-sans',
@@ -74,7 +74,7 @@ export const DocsNavigation = component$(
                           <div>{link.name}</div>
                           {link.status && <StatusBadge status={link.status} />}
                         </div>
-                      </a>
+                      </Link>
                     </li>
                   );
                 })}
