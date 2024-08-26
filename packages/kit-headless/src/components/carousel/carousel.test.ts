@@ -406,10 +406,11 @@ test.describe('Accessibility', () => {
 
     await expect(d.getRoot()).toBeVisible();
     await expect(d.getRoot()).toHaveAttribute('aria-labelledby');
+    // await expect(d.getRoot()).toHaveAttribute('role', 'group');
+    //await expect(d.getRoot()).toHaveAccessibleName('');  -> research what it does do
+    await expect(d.getRoot()).toHaveRole('group');
+
     //await expect(d.getRoot()).toHaveAttribute('aria-labelledby', 'Favorite Colors');
-    await expect(d.getSlideTitleId()).toHaveAttribute('Favorite Colors');
-    //await expect(d.getSlideTitleId()).textContent().toBe('Favorite Colors');
-    //await expect(d.getSlideAt(0)).toHaveAttribute('Favorite Colors');
   });
 
   test(`GIVEN a carousel
