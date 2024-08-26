@@ -105,5 +105,10 @@ export default defineConfig(async () => {
         'Cache-Control': 'public, max-age=600',
       },
     },
+    optimizeDeps: {
+      // Put problematic deps that break bundling here, mostly those with binaries.
+      // For example ['better-sqlite3'] if you use that in server functions.
+      exclude: ['shiki'],
+    },
   };
 });
