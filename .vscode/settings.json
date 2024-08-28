@@ -8,5 +8,4 @@
   "editor.codeActionsOnSave": {
     "source.removeUnusedImports": "explicit"
   },
-  "workbench.colorTheme": "Visual Studio Light"
 }
