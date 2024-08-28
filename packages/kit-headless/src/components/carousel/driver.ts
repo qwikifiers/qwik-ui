@@ -26,8 +26,17 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().locator('[data-qui-carousel-prev]');
   };
 
+  const getSlideTabsParent = () => {
+    // return getRoot().locator(`:nth-child(${0 + 1})`).nth(1);;
+    return getRoot().getByRole('tablist');
+  };
+
   const getContainer = () => {
     return getRoot().locator('[data-qui-carousel-scroller]');
+  };
+
+  const getItems = () => {
+    return getRoot().locator(`[role]`);
   };
 
   const getSlideAt = (index: number) => {
@@ -58,5 +67,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getPaginationBullet,
     getTotalSlides,
     getSlideTitleId,
+    getSlideTabsParent,
+    getItems,
   };
 }

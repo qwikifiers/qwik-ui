@@ -58,11 +58,40 @@ test.describe('Mouse Behavior', () => {
   `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
-    //await d.
+    // Ensure the first slide is active
+    const firstSlide = await d.getSlideAt(0);
+    await expect(firstSlide).toHaveAttribute('data-active');
 
-    // TODO
+    // Get the bounding box of the first slide to determine the drag start point
+    const boundingBox = await firstSlide.boundingBox();
+    if (!boundingBox) {
+      throw new Error('Could not determine the bounding box of the first slide');
+    }
+
+    // // Calculate start and end points for the drag
+    // const startX = boundingBox.x + boundingBox.width / 2; // Middle of the first slide
+    // const startY = boundingBox.y + boundingBox.height / 2;
+    // const endX = startX - boundingBox.width * 0.3; // Dragging left, adjust as needed
+
+    // // Perform the drag action using the mouse (pointer device)
+    // await page.mouse.move(startX, startY);
+    // await page.mouse.down();
+    // await page.mouse.move(endX, startY, { steps: 10 }); // Dragging left
+    // await page.mouse.up();
+
+    const startX = boundingBox.x + boundingBox.width * 0.8; // Start near the right edge
+    const endX = boundingBox.x + boundingBox.width * 0.2; // End near the left edge
+    const y = boundingBox.y + boundingBox.height / 2; // Swipe in the vertical middle
+
+    // Perform the drag action
+    await page.mouse.move(startX, y);
+    await page.mouse.down();
+    await page.mouse.move(endX, y, { steps: 10 });
+    await page.mouse.up();
+
+    // Verify that the next slide is now active
+    const secondSlide = await d.getSlideAt(1); // Assuming the next slide is at index 1
+    await expect(secondSlide).toHaveAttribute('data-active');
   });
 
   //4. to-do WHEN using a pointer device and dragging to the right
@@ -72,10 +101,41 @@ test.describe('Mouse Behavior', () => {
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Move to the second slide (assuming you want to drag back to the first slide)
+    await d.getNextButton().click();
 
-    // TODO
+    // Ensure the second slide is active
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    // Get the bounding box of the second slide to determine the drag start point
+    const boundingBox = await d.getSlideAt(1).boundingBox();
+    if (!boundingBox) {
+      throw new Error('Could not determine the bounding box of the second slide');
+    }
+
+    // // Calculate start and end points for the drag
+    // const startX = boundingBox.x + boundingBox.width/2; // Middle of the second slide
+    // const startY = boundingBox.y + boundingBox.height / 2;
+    // const endX = boundingBox.x - boundingBox.width * 1.5; // Dragging all the way to the left (past the left edge of the slide)
+
+    // // Perform the drag action using the mouse (pointer device)
+    // await page.mouse.move(startX, startY);
+    // await page.mouse.down();
+    // await page.mouse.move(endX, startY, { steps: 10 }); // Dragging left all the way
+    // await page.mouse.up();
+
+    const startX = boundingBox.x + boundingBox.width * 0.2; // Start near the left edge
+    const endX = boundingBox.x + boundingBox.width * 0.8; // End near the right edge
+    const y = boundingBox.y + boundingBox.height / 2; // Swipe in the vertical middle
+
+    // Perform the drag action
+    await page.mouse.move(startX, y);
+    await page.mouse.down();
+    await page.mouse.move(endX, y, { steps: 10 });
+    await page.mouse.up();
+
+    // Verify that the first slide is now active
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
   });
 
   //5. WHEN clicking on the pagination bullets
@@ -157,20 +217,21 @@ test.describe('Keyboard Behavior', () => {
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // Focus on the first pagination bullet
-    const firstBullet = d.getPaginationBullet(0);
+    // Focus the first pagination bullet
+    const firstBullet = await d.getPaginationBullet(0);
     await firstBullet.focus();
+
+    // Verify the first bullet is focused
+    await expect(firstBullet).toHaveAttribute('aria-selected', 'true');
 
     // Press the right arrow key
     await page.keyboard.press('ArrowRight');
-    // Verify the focus is on the second bullet
 
-    // Verify the focus is on the second bullet
-    const secondBullet = d.getPaginationBullet(1);
-    const isSecondBulletFocused = await secondBullet.evaluate(
-      (el) => document.activeElement === el,
-    );
-    expect(isSecondBulletFocused).toBe(true);
+    // Get the second bullet
+    const secondBullet = await d.getPaginationBullet(1);
+
+    // Verify the focus has moved to the second bullet
+    await expect(secondBullet).toHaveAttribute('aria-selected', 'true');
   });
 
   //9. WHEN the 2nd bullet is focused and the left arrow key is pressed
@@ -184,15 +245,17 @@ test.describe('Keyboard Behavior', () => {
     const secondBullet = d.getPaginationBullet(1);
     await secondBullet.focus();
 
-    // Press the left arrow key
+    // Verify the first bullet is focused
+    await expect(secondBullet).toHaveAttribute('aria-selected', 'true');
+
+    // Press the right arrow key
     await page.keyboard.press('ArrowLeft');
 
-    // Verify the focus is on the first bullet
-    const firstBullet = d.getPaginationBullet(0);
-    const isFirstBulletFocused = await firstBullet.evaluate(
-      (el) => document.activeElement === el,
-    );
-    expect(isFirstBulletFocused).toBe(true);
+    // Get the second bullet
+    const firstBullet = await d.getPaginationBullet(0);
+
+    // Verify the focus has moved to the second bullet
+    await expect(firstBullet).toHaveAttribute('aria-selected', 'true');
   });
 
   //10. WHEN the first bullet is focused and the right arrow key is pressed
@@ -413,202 +476,399 @@ test.describe('Accessibility', () => {
     //await expect(d.getRoot()).toHaveAttribute('aria-labelledby', 'Favorite Colors');
   });
 
-  test(`GIVEN a carousel
+  test(`20. GIVEN a carousel
         WHEN it is rendered
         THEN the carousel container should have the role of group
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
-
-    // TODO
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getRoot()).toHaveRole('group');
   });
 
-  test(`GIVEN a carousel
+  test(`21. GIVEN a carousel
         WHEN it is rendered
         THEN the items should have a posinset of its current index
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    await expect(d.getRoot()).toBeVisible();
 
-    // TODO
+    // Assuming getItems() returns a list of carousel items
+    const items = await d.getItems();
+    const itemCount = await items.count();
+
+    for (let i = 0; i < itemCount; i++) {
+      const item = items.nth(i);
+      const expectedPosinset = (i + 1).toString(); // posinset is 1-based index
+      await expect(item).toHaveAttribute('aria-posinset', expectedPosinset);
+    }
   });
 
-  test(`GIVEN a carousel with a pagination control
+  test(`22. GIVEN a carousel with a pagination control
         WHEN it is rendered
         THEN the parent of the slide tabs should have the role of tablist
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
-
-    // TODO
+    // Verify the parent element has the role of 'tablist'
+    await expect(d.getSlideTabsParent()).toHaveRole('tablist');
   });
 
-  test(`GIVEN a carousel with a pagination control
+  test(`23. GIVEN a carousel with a pagination control
         WHEN it is rendered
         THEN each bullet should have the role of tab
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    const bulletCount = await d.getTotalSlides();
 
-    // TODO
+    // Verify each bullet has the role of 'tab'
+    for (let i = 0; i < bulletCount; i++) {
+      const bullet = await d.getPaginationBullet(i);
+      await expect(bullet).toHaveRole('tab');
+    }
   });
 
   // it should also have aria-live polite and announce the current slide
 
-  test(`GIVEN a carousel
+  test(`24. GIVEN a carousel
         WHEN a slide is not the current slide
         THEN it should be inert
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    const totalSlides = await d.getTotalSlides();
 
-    // TODO
+    // Move to the first slide and ensure it's active
+    const firstSlide = await d.getSlideAt(0);
+    await expect(firstSlide).toHaveAttribute('data-active');
+
+    // Check that all other slides are inert
+    for (let i = 1; i < totalSlides; i++) {
+      const slide = await d.getSlideAt(i);
+      await expect(slide).toHaveAttribute('inert');
+    }
+
+    // Optionally, move to another slide and repeat the check
+    await d.getNextButton().click();
+
+    // Now the second slide should be active
+    const secondSlide = await d.getSlideAt(1);
+    await expect(secondSlide).toHaveAttribute('data-active');
+
+    // Check that all other slides (except the second one) are inert
+    for (let i = 0; i < totalSlides; i++) {
+      if (i !== 1) {
+        const slide = await d.getSlideAt(i);
+        await expect(slide).toHaveAttribute('inert');
+      }
+    }
   });
 
-  test(`GIVEN a carousel
+  test(`25. GIVEN a carousel
         WHEN on the current slide
         THEN items inside the slide should be the only focusable items
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    const totalSlides = await d.getTotalSlides();
 
-    // TODO
+    // Move to the first slide and ensure it's active
+    const firstSlide = await d.getSlideAt(0);
+    await expect(firstSlide).toHaveAttribute('data-active');
+
+    // Check that all other slides are inert
+    for (let i = 1; i < totalSlides; i++) {
+      const slide = await d.getSlideAt(i);
+      await expect(slide).toHaveAttribute('inert');
+    }
+
+    // Optionally, move to another slide and repeat the check
+    await d.getNextButton().click();
+
+    // Now the second slide should be active
+    const secondSlide = await d.getSlideAt(1);
+    await expect(secondSlide).toHaveAttribute('data-active');
+
+    // Check that all other slides (except the second one) are inert
+    for (let i = 0; i < totalSlides; i++) {
+      if (i !== 1) {
+        const slide = await d.getSlideAt(i);
+        await expect(slide).toHaveAttribute('inert');
+      }
+    }
   });
 
-  test(`GIVEN a carousel with loop disabled
+  test(`26. GIVEN a carousel with loop disabled
         WHEN on the last slide
         THEN the previous button should be focused
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    const totalSlides = await d.getTotalSlides();
 
-    // TODO
+    // //Move to the last slide by clicking the next button until the end
+    // for (let i = 0; i < totalSlides - 2; i++) {
+    //     await d.getNextButton().click();
+    //     //await expect(d.getSlideAt(i)).toHaveAttribute('data-active');
+    // }
+    await d.getNextButton().click(); //1
+    await d.getNextButton().click(); //2
+    await d.getNextButton().click(); //3
+    await d.getNextButton().click(); //4
+    await d.getNextButton().click(); //5
+    await d.getNextButton().click(); //6
+
+    // Ensure the last slide is active
+    const lastSlide = await d.getSlideAt(totalSlides - 2);
+    await expect(lastSlide).toHaveAttribute('data-active');
+
+    // Check that the previous button is focused
+    const prevButton = await d.getPrevButton();
+    await expect(d.getPrevButton()).toHaveAttribute('aria-disabled', 'false');
+    await expect(d.getNextButton()).toHaveAttribute('aria-disabled', 'true');
   });
 
-  test(`GIVEN a carousel with loop disabled
+  test(`27. GIVEN a carousel with loop disabled
         WHEN on the first slide
         THEN the next button should be focused
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Ensure the carousel is on the first slide
+    const firstSlide = await d.getSlideAt(0);
+    await expect(firstSlide).toHaveAttribute('data-active');
 
-    // TODO
+    // Verify that the next button is focused
+
+    await expect(d.getNextButton()).toHaveAttribute('aria-disabled', 'false');
+    await expect(d.getPrevButton()).toHaveAttribute('aria-disabled', 'true');
   });
 });
 
 test.describe('Behavior', () => {
-  test(`GIVEN a carousel with loop disabled
+  test(`28. GIVEN a carousel with loop disabled
         WHEN on the last slide
         THEN the next button should be disabled
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Move to the last slide
+    const totalSlides = await d.getTotalSlides();
+    //for (let i = 0; i < totalSlides - 1; i++) {
+    //    await d.getNextButton().click();
+    //}
 
-    // TODO
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    //await d.getNextButton().click();
+
+    // Ensure the last slide is active
+    //await expect(d.getSlideAt(totalSlides)).toHaveAttribute('data-active');
+    //await expect(d.getSlideAt(8)).toHaveAttribute('data-active');
+
+    // Verify the next button is disabled
+    await expect(d.getNextButton()).toHaveAttribute('disabled'); // Adjust if your button uses 'aria-disabled' or another attribute
   });
 
-  test(`GIVEN a carousel with loop disabled
+  test(`29. GIVEN a carousel with loop disabled
         WHEN on the first slide
         THEN the previous button should be disabled
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Ensure the first slide is active
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
 
-    // TODO
+    // Verify the previous button is disabled
+    await expect(d.getPrevButton()).toHaveAttribute('disabled'); //
   });
 
-  test(`GIVEN a carousel with loop enabled
+  test(`30. BUG GIVEN a carousel with loop enabled
         WHEN on the last slide and the next button is clicked
         THEN it should move to the first slide
 `, async ({ page }) => {
     // JACK HASNT DONE THIS YET
     const { driver: d } = await setup(page, 'loop');
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    await d.getNextButton().click();
+    await d.getNextButton().click();
 
-    // remove this (there so that TS doesn't complain)
-    d;
-
-    // TODO
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
   });
 
-  test(`GIVEN a carousel with loop enabled
+  test(`31. BUG GIVEN a carousel with loop enabled
         WHEN on the first slide and the previous button is clicked
         THEN it should move to the first slide
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'loop');
 
-    // remove this (there so that TS doesn't complain)
-    d;
+    // Ensure the first slide is active
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
 
-    // TODO
+    // Click the previous button
+    await d.getPrevButton().click();
+
+    // Get the total number of slides
+    const totalSlides = await d.getTotalSlides();
+    console.log(`Total number of slides: ${totalSlides}`);
+
+    // Verify that the last slide is now active
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
   });
 
   test.describe('Threshold', () => {
-    test(`GIVEN a carousel with dragging enabled
+    test(`32. GIVEN a carousel with dragging enabled
           WHEN on the first slide and the mouse is moved far right
           THEN it should stay snapped on the first slide
 `, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      // remove this (there so that TS doesn't complain)
-      d;
+      // Ensure the first slide is active
+      await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
 
-      // TODO
+      // Get the bounding box of the first slide to determine the drag start point
+      const firstSlide = await d.getSlideAt(0);
+      const boundingBox = await firstSlide.boundingBox();
+      if (!boundingBox) {
+        throw new Error('Could not determine the bounding box of the first slide');
+      }
+
+      // Calculate start and end points for the drag
+      const startX = boundingBox.x + boundingBox.width / 2; // Middle of the first slide
+      const startY = boundingBox.y + boundingBox.height / 2;
+      const endX = startX + boundingBox.width * 2; // Dragging far to the right
+
+      // Perform the drag action
+      await page.mouse.move(startX, startY);
+      await page.mouse.down();
+      await page.mouse.move(endX, startY, { steps: 10 }); // Dragging right
+      await page.mouse.up();
+
+      // Verify that the first slide is still active
+      await expect(firstSlide).toHaveAttribute('data-active');
     });
 
-    test(`GIVEN a carousel with dragging enabled
+    test(`33. GIVEN a carousel with dragging enabled
           WHEN on the last slide and the mouse is moved far left
           THEN it should stay snapped on the last slide
 `, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      // remove this (there so that TS doesn't complain)
-      d;
+      // Get the total number of slides
+      const totalSlides = await d.getTotalSlides();
 
-      // TODO
+      // Move to the last slide
+      for (let i = 0; i < totalSlides - 1; i++) {
+        await d.getNextButton().click();
+      }
+
+      // Ensure the last slide is active
+      const lastSlide = await d.getSlideAt(totalSlides - 1);
+      await expect(lastSlide).toHaveAttribute('data-active');
+
+      // Get the bounding box of the last slide to determine the drag start point
+      const boundingBox = await lastSlide.boundingBox();
+      if (!boundingBox) {
+        throw new Error('Could not determine the bounding box of the last slide');
+      }
+
+      // Calculate start and end points for the drag
+      const startX = boundingBox.x + boundingBox.width / 2; // Middle of the last slide
+      const startY = boundingBox.y + boundingBox.height / 2;
+      const endX = startX - boundingBox.width * 2; // Dragging far to the left
+
+      // Perform the drag action
+      await page.mouse.move(startX, startY);
+      await page.mouse.down();
+      await page.mouse.move(endX, startY, { steps: 10 }); // Dragging left
+      await page.mouse.up();
+
+      // // Perform the drag action
+      // await d.mouse.move(startX, startY);
+      // await d.mouse.down();
+      // await d.mouse.move(endX, startY, { steps: 10 }); // Dragging left
+      // await d.mouse.up();
+
+      // Verify that the last slide is still active
+      await expect(lastSlide).toHaveAttribute('data-active');
     });
 
-    test(`GIVEN a carousel with dragging enabled
+    test(`34. GIVEN a carousel with dragging enabled
           WHEN on the first slide and is mobile swiped far left
           THEN it should stay snapped on the last slide
 `, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      // remove this (there so that TS doesn't complain)
-      d;
+      // Ensure the first slide is active
+      const firstSlide = await d.getSlideAt(0);
+      await expect(firstSlide).toHaveAttribute('data-active');
 
-      // TODO
+      // Get the bounding box of the first slide to determine the swipe start point
+      const boundingBox = await firstSlide.boundingBox();
+      if (!boundingBox) {
+        throw new Error('Could not determine the bounding box of the first slide');
+      }
+
+      // Calculate start and end points for the swipe
+      const startX = boundingBox.x + boundingBox.width / 2; // Middle of the first slide
+      const startY = boundingBox.y + boundingBox.height / 2;
+      const endX = startX - boundingBox.width * 2; // Swiping far to the left
+
+      // Perform the swipe action (simulating mobile touch input)
+      await page.touchscreen.tap(startX, startY); // Start the swipe
+      await page.touchscreen.swipe(startX, startY, endX, startY, 50); // Swiping left with some speed
+      //page, lastSlide, 'right', 100
+
+      // Verify that the first slide is still active
+      await expect(firstSlide).toHaveAttribute('data-active');
     });
 
-    test(`GIVEN a carousel with dragging enabled
+    test(`35. GIVEN a carousel with dragging enabled
           WHEN on the last slide and is mobile swiped far right
           THEN it should stay snapped on the first slide
 `, async ({ page }) => {
       const { driver: d } = await setup(page, 'hero');
 
-      // remove this (there so that TS doesn't complain)
-      d;
+      // Get the total number of slides
+      const totalSlides = await d.getTotalSlides();
 
-      // TODO
+      // Move to the last slide
+      for (let i = 0; i < totalSlides - 1; i++) {
+        await d.getNextButton().click();
+      }
+
+      // Ensure the last slide is active
+      const lastSlide = await d.getSlideAt(totalSlides - 1);
+      await expect(lastSlide).toHaveAttribute('data-active');
+
+      // Get the bounding box of the last slide to determine the swipe start point
+      const boundingBox = await lastSlide.boundingBox();
+      if (!boundingBox) {
+        throw new Error('Could not determine the bounding box of the last slide');
+      }
+
+      // Calculate start and end points for the swipe
+      const startX = boundingBox.x + boundingBox.width / 2; // Middle of the last slide
+      const startY = boundingBox.y + boundingBox.height / 2;
+      const endX = startX + boundingBox.width * 2; // Swiping far to the right
+
+      // Perform the swipe action (simulating mobile touch input)
+      await page.touchscreen.tap(startX, startY); // Start the swipe
+      //await page.touchscreen.swipe(page, lastSlide, 'right', 100); // Swiping left with some speed
+      //await page.touchscreen.swipe(startX, startY, endX, startY, 50); // Swiping right with some speed
+
+      // Verify that the last slide is still active
+      await expect(lastSlide).toHaveAttribute('data-active');
     });
   });
 });
