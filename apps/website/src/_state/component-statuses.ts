@@ -32,6 +32,8 @@ export const statusByComponent: ComponentKitsStatuses = {
     Separator: ComponentStatus.Beta,
     Skeleton: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
+    Toggle: ComponentStatus.Draft,
+    'Toggle Group': ComponentStatus.Draft,
     Textarea: ComponentStatus.Draft,
   },
   headless: {
@@ -49,6 +51,8 @@ export const statusByComponent: ComponentKitsStatuses = {
     Select: ComponentStatus.Beta,
     Separator: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
+    Toggle: ComponentStatus.Draft,
+    'Toggle Group': ComponentStatus.Draft,
     Tooltip: ComponentStatus.Draft,
   },
 };
