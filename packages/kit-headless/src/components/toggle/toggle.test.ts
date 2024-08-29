@@ -81,7 +81,7 @@ test.describe('Mouse Behavior', () => {
     await expect(spanElement).toContainText('You unpressed me');
   });
 
-  //bind:pressed: 2 way binding (writting)
+  //bind:pressed: 2 way binding (writing)
   test(`GIVEN a pressed toggle (with 'bind-pressed')
     WHEN the toggle is clicked
     AND the external button is clicked

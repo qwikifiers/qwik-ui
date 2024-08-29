@@ -69,22 +69,25 @@ export const HToggleGroupItem = component$<ToggleGroupItemProps>((props) => {
   const valueContext = useContext(toggleGroupValueContextId);
   const baseContext = useContext(toggleGroupBaseContextId);
   const disabled = baseContext.disabled || itemDisabled;
+  const isPressedSig = useSignal(false);
 
   const itemId = useId();
 
-  const pressed = useComputed$(() => {
-    const pressedValue = valueContext.pressedValuesSig.value;
-    if (pressedValue == null) return false;
+  useTask$(({ track }) => {
+    const pressedValue = track(() => valueContext.pressedValuesSig.value);
+    if (pressedValue == null) {
+      isPressedSig.value = false;
+      return;
+    }
 
     if (typeof pressedValue === 'string') {
-      return pressedValue === value;
+      isPressedSig.value = pressedValue === value;
+    } else {
+      isPressedSig.value = pressedValue.includes(value);
     }
-    return pressedValue.includes(value);
   });
 
-  // const pressed = useComputed$(() => valueContext.pressedValuesSig.value.includes(value));
-
-  const tabIndex = useComputed$(() => (pressed.value ? 0 : -1));
+  const tabIndex = useComputed$(() => (isPressedSig.value ? 0 : -1));
 
   const itemRef = useSignal<HTMLButtonElement>();
 
@@ -163,7 +166,7 @@ export const HToggleGroupItem = component$<ToggleGroupItemProps>((props) => {
     <Toggle
       ref={itemRef}
       {...itemProps}
-      pressed={pressed.value}
+      bind:pressed={isPressedSig}
       disabled={disabled}
       onPressedChange$={handlePressed$}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}

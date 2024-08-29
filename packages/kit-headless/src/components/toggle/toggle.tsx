@@ -1,5 +1,6 @@
 import type { PropsOf, QRL, Signal } from '@builder.io/qwik';
-import { $, component$, Slot, useSignal, useTask$ } from '@builder.io/qwik';
+import { $, component$, Slot, useTask$ } from '@builder.io/qwik';
+import { useBoundSignal } from '../../utils/bound-signal';
 
 export type ToggleProps = PropsOf<'button'> & {
   /**
@@ -36,13 +37,11 @@ export const HToggle = component$<ToggleProps>((props) => {
     pressed: pressedProp,
     defaultPressed = false,
     onPressedChange$,
-    // 'bind:pressed': givenValueSig,
+    'bind:pressed': givenValueSig,
     ...buttonProps
   } = props;
 
-  // const pressedSig = useBoundSignal(givenValueSig, defaultPressed);
-
-  const pressedSig = useSignal<boolean>(defaultPressed);
+  const pressedSig = useBoundSignal(givenValueSig, defaultPressed);
 
   useTask$(({ track }) => {
     if (pressedProp === undefined) return;

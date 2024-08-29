@@ -26,22 +26,6 @@ function useCreateSingleToggleGroup(props: ToggleGroupSingleProps) {
     pressedValuesSig.value = value;
   });
 
-  // const pressedValuesSig = useSignal(givenValueSig?.value ?? value ?? defaultValue ?? '');
-
-  // // side effect: update external when internal changed
-  // useTask$(({ track }) => {
-  //   if (!givenValueSig) return;
-  //   track(() => pressedValuesSig.value); //internal changed
-  //   givenValueSig.value = pressedValuesSig.value; //side effect: update external
-  // });
-
-  // // side effect: update internal when external changed
-  // useTask$(({ track }) => {
-  //   if (!givenValueSig) return;
-  //   track(() => givenValueSig.value); //external changed
-  //   pressedValuesSig.value = givenValueSig.value; //side effect: update internal
-  // });
-
   const handleValueChange$ = $((newValue: string) => {
     pressedValuesSig.value = newValue;
     console.log('newState', newValue);
