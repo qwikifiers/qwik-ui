@@ -1,12 +1,12 @@
 import { Tree, formatFiles, joinPathFragments, workspaceRoot } from '@nx/devkit';
 import {
-  ThemeStyle,
+  ThemeBaseColors,
+  ThemeBorderRadiuses,
+  ThemePrimaryColors,
+  ThemeStyles,
   extractBetweenComments,
   extractThemeCSS,
   type ThemeConfig,
-  ThemePrimaryColor,
-  ThemeBorderRadius,
-  ThemeBaseColor,
 } from '@qwik-ui/utils';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -23,10 +23,10 @@ export async function setupTailwindGenerator(
 
   options.projectRoot = options.projectRoot ?? '';
 
-  options.style = options.style ?? ThemeStyle.SIMPLE;
-  options.primaryColor = options.primaryColor ?? ThemePrimaryColor.CYAN600;
+  options.style = options.style ?? ThemeStyles.SIMPLE;
+  options.primaryColor = options.primaryColor ?? ThemePrimaryColors.CYAN600;
 
-  options.borderRadius = options.borderRadius ?? ThemeBorderRadius['BORDER-RADIUS-0'];
+  options.borderRadius = options.borderRadius ?? ThemeBorderRadiuses['BORDER-RADIUS-0'];
 
   updateTailwindConfig(tree, options.projectRoot, kitRoot);
 
@@ -181,7 +181,7 @@ function updateRootCss(
   kitRoot: string,
   themeConfig: ThemeConfig,
 ) {
-  themeConfig.baseColor = ThemeBaseColor.SLATE;
+  themeConfig.baseColor = ThemeBaseColors.SLATE;
 
   const rootCssContent = tree.read(globalCssPath, 'utf-8');
 

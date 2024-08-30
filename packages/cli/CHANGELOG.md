@@ -1,5 +1,23 @@
 # qwik-ui
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`519718f`](https://github.com/qwikifiers/qwik-ui/commit/519718f159b051a4858990b059dad89dc5b1ba13)]:
+  - @qwik-ui/utils@0.3.1
+
+## 0.1.2
+
+### Patch Changes
+
+- Changed enums to const maps in utils (by [@shairez](https://github.com/shairez) in [#914](https://github.com/qwikifiers/qwik-ui/pull/914))
+
+- 🐞🩹 added `.nx/workspace-data` to `.gitignore` for new projects (by [@shairez](https://github.com/shairez) in [#914](https://github.com/qwikifiers/qwik-ui/pull/914))
+
+- Updated dependencies [[`927c2d4`](https://github.com/qwikifiers/qwik-ui/commit/927c2d4117ffe9c07fc0c75b9df412d5662ad6c1)]:
+  - @qwik-ui/utils@0.3.0
+
 ## 0.1.1
 
 ### Patch Changes

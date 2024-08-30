@@ -1,50 +1,53 @@
 import { $, PropsOf, component$, useComputed$ } from '@builder.io/qwik';
-import { Modal, Button, buttonVariants } from '~/components/ui';
 import {
-  ThemeBaseColor,
-  ThemeBorderRadius,
+  ThemeBaseColors,
+  ThemeBorderRadiuses,
   ThemeConfig,
-  ThemeFont,
-  ThemeMode,
-  ThemePrimaryColor,
-  ThemeStyle,
+  ThemeFonts,
+  ThemeModes,
+  ThemePrimaryColors,
+  ThemeStyles,
   cn,
 } from '@qwik-ui/utils';
 import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
-import { useTheme } from 'qwik-themes';
+import { useTheme } from '@qwik-ui/themes';
 
-import CopyCssConfig from '../copy-css-config/copy-css-config';
+import { Button, Modal, buttonVariants } from '~/components/ui';
+
 import { useAppState } from '~/_state/use-app-state';
+import CopyCssConfig from '../copy-css-config/copy-css-config';
 
 export default component$<PropsOf<typeof Button>>(() => {
   const rootStore = useAppState();
 
-  const { theme, setTheme } = useTheme();
+  const { themeSig } = useTheme();
 
   const themeComputedObjectSig = useComputed$((): ThemeConfig => {
-    if (!theme || theme === 'light') {
+    if (!themeSig.value || themeSig.value === 'light') {
       return {
-        font: ThemeFont.SANS,
-        mode: ThemeMode.LIGHT,
-        style: ThemeStyle.SIMPLE,
-        baseColor: ThemeBaseColor.SLATE,
-        primaryColor: ThemePrimaryColor.CYAN600,
-        borderRadius: ThemeBorderRadius['BORDER-RADIUS-0'],
+        font: ThemeFonts.SANS,
+        mode: ThemeModes.LIGHT,
+        style: ThemeStyles.SIMPLE,
+        baseColor: ThemeBaseColors.SLATE,
+        primaryColor: ThemePrimaryColors.CYAN600,
+        borderRadius: ThemeBorderRadiuses['BORDER-RADIUS-0'],
       };
     }
 
-    if (theme === 'dark') {
+    if (themeSig.value === 'dark') {
       return {
-        font: ThemeFont.SANS,
-        mode: ThemeMode.DARK,
-        style: ThemeStyle.SIMPLE,
-        baseColor: ThemeBaseColor.SLATE,
-        primaryColor: ThemePrimaryColor.CYAN600,
-        borderRadius: ThemeBorderRadius['BORDER-RADIUS-0'],
+        font: ThemeFonts.SANS,
+        mode: ThemeModes.DARK,
+        style: ThemeStyles.SIMPLE,
+        baseColor: ThemeBaseColors.SLATE,
+        primaryColor: ThemePrimaryColors.CYAN600,
+        borderRadius: ThemeBorderRadiuses['BORDER-RADIUS-0'],
       };
     }
 
-    const themeArray = Array.isArray(theme) ? theme : theme.split(' ');
+    const themeArray = Array.isArray(themeSig.value)
+      ? themeSig.value
+      : themeSig.value.split(' ');
     return {
       font: themeArray[0],
       mode: themeArray[1],
@@ -82,16 +85,16 @@ export default component$<PropsOf<typeof Button>>(() => {
             value={themeComputedObjectSig.value.style}
             onChange$={async (e, el) => {
               if (el.value === 'simple') {
-                themeComputedObjectSig.value.font = ThemeFont.SANS;
+                themeComputedObjectSig.value.font = ThemeFonts.SANS;
               }
               if (el.value === 'brutalist') {
-                themeComputedObjectSig.value.font = ThemeFont.MONO;
+                themeComputedObjectSig.value.font = ThemeFonts.MONO;
               }
               if (el.value === 'neumorphic') {
-                themeComputedObjectSig.value.font = ThemeFont.SANS;
+                themeComputedObjectSig.value.font = ThemeFonts.SANS;
               }
               themeComputedObjectSig.value.style = el.value;
-              setTheme(await themeStoreToThemeClasses$());
+              themeSig.value = await themeStoreToThemeClasses$();
             }}
           >
             <option value={'simple'}>Simple</option>
@@ -103,7 +106,7 @@ export default component$<PropsOf<typeof Button>>(() => {
 
           <label class="mb-1 mt-8 block font-medium">Base</label>
           <div class="flex">
-            {Object.values(ThemeBaseColor).map((baseColor: string) => {
+            {Object.values(ThemeBaseColors).map((baseColor: string) => {
               const isActive = themeComputedObjectSig.value.baseColor === baseColor;
 
               return (
@@ -114,7 +117,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                   onClick$={async () => {
                     themeComputedObjectSig.value.baseColor = baseColor;
 
-                    setTheme(await themeStoreToThemeClasses$());
+                    themeSig.value = await themeStoreToThemeClasses$();
                   }}
                   class={cn(
                     'flex h-3 w-3 items-center justify-center rounded-none',
@@ -139,7 +142,7 @@ export default component$<PropsOf<typeof Button>>(() => {
           <label class="mb-1 mt-8 block font-medium">Primary</label>
           <div class="flex justify-end">
             <div class="grid grid-cols-[repeat(22,0fr)]">
-              {Object.values(ThemePrimaryColor).map((primaryColor: string) => {
+              {Object.values(ThemePrimaryColors).map((primaryColor: string) => {
                 const isActive =
                   themeComputedObjectSig.value.primaryColor === primaryColor;
 
@@ -165,7 +168,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                     size="icon"
                     onClick$={async () => {
                       themeComputedObjectSig.value.primaryColor = primaryColor;
-                      setTheme(await themeStoreToThemeClasses$());
+                      themeSig.value = await themeStoreToThemeClasses$();
                     }}
                     class={cn(
                       'h-3 w-3 rounded-none',
@@ -182,7 +185,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                       primaryColor === 'primary-zinc-900' ||
                       primaryColor === 'primary-neutral-900' ||
                       primaryColor === 'primary-stone-900') &&
-                    theme?.includes('dark') ? (
+                    themeSig.value?.includes('dark') ? (
                       <span
                         class={cn(
                           'flex h-[10px] w-[10px] shrink-0 rounded-none',
@@ -430,7 +433,7 @@ export default component$<PropsOf<typeof Button>>(() => {
           <div>
             <label class="mb-1 mt-8 block font-medium">Radius</label>
             <div class="flex h-12 space-x-3">
-              {Object.values(ThemeBorderRadius).map((borderRadius: string) => {
+              {Object.values(ThemeBorderRadiuses).map((borderRadius: string) => {
                 const isActive =
                   themeComputedObjectSig.value.borderRadius === borderRadius;
                 return (
@@ -439,7 +442,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                     look="outline"
                     onClick$={async () => {
                       themeComputedObjectSig.value.borderRadius = borderRadius;
-                      setTheme(await themeStoreToThemeClasses$());
+                      themeSig.value = await themeStoreToThemeClasses$();
                     }}
                     class={cn('w-12', isActive && 'mb-2 border-ring')}
                   >
@@ -462,7 +465,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                 themeComputedObjectSig.value.mode =
                   themeComputedObjectSig.value.mode?.includes('light') ? 'dark' : 'light';
 
-                setTheme(await themeStoreToThemeClasses$());
+                themeSig.value = await themeStoreToThemeClasses$();
               }}
             />
           </div>
@@ -471,7 +474,9 @@ export default component$<PropsOf<typeof Button>>(() => {
         <footer class=" flex w-full justify-between gap-4">
           <Button
             look="ghost"
-            onClick$={() => setTheme(theme?.includes('dark') ? 'dark' : 'light')}
+            onClick$={() => {
+              themeSig.value = themeSig.value?.includes('dark') ? 'dark' : 'light';
+            }}
           >
             Reset
           </Button>

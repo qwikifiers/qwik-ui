@@ -1,22 +1,25 @@
 import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
-import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
-import { PrefetchServiceWorker, PrefetchGraph } from '@builder.io/qwik';
+import {
+  QwikCityProvider,
+  RouterOutlet,
+  ServiceWorkerRegister,
+} from '@builder.io/qwik-city';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
 import { RouterHead } from './components/router-head/router-head';
 import globalStyles from './global.css?inline';
 
-import { ThemeProvider } from 'qwik-themes';
+import { ThemeProvider } from '@qwik-ui/themes';
 
 import '@fontsource-variable/inter';
 import {
-  ThemeBaseColor,
-  ThemeBorderRadius,
-  ThemeFont,
-  ThemeMode,
-  ThemePrimaryColor,
-  ThemeStyle,
+  ThemeBaseColors,
+  ThemeBorderRadiuses,
+  ThemeFonts,
+  ThemeModes,
+  ThemePrimaryColors,
+  ThemeStyles,
 } from '@qwik-ui/utils';
 
 export default component$(() => {
@@ -40,23 +43,22 @@ export default component$(() => {
   return (
     <QwikCityProvider>
       <head>
-        <meta charSet="utf-8" />
+        <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
-        <PrefetchGraph />
-        <PrefetchServiceWorker />
+        <ServiceWorkerRegister />
       </head>
       <body lang="en">
         <ThemeProvider
           attribute="class"
           enableSystem={false}
           themes={[
-            ...Object.values(ThemeFont),
-            ...Object.values(ThemeMode),
-            ...Object.values(ThemeStyle),
-            ...Object.values(ThemeBaseColor),
-            ...Object.values(ThemePrimaryColor),
-            ...Object.values(ThemeBorderRadius),
+            ...Object.values(ThemeFonts),
+            ...Object.values(ThemeModes),
+            ...Object.values(ThemeStyles),
+            ...Object.values(ThemeBaseColors),
+            ...Object.values(ThemePrimaryColors),
+            ...Object.values(ThemeBorderRadiuses),
           ]}
         >
           <RouterOutlet />
