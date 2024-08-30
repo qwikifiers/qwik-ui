@@ -16,17 +16,63 @@ A visual indicator that shows how much of a task has been completed.
 
 <Showcase name="hero" />
 
-<Showcase name="reactive" />
+## In progress
+
+While the input state is not complete, the progress component is "in progress".
+
+<Showcase name="hero" />
+
+The `data-progress="in-progress"` attribute is applied to the progress and its indicator.
+
+## Max
+
+The `max` prop is used to set the maximum value of the progress bar.
+
+<Showcase name="max" />
+
+## Min
+
+The `min` prop sets a minimum value for the progress bar.
+
+<Showcase name="min" />
+
+## Complete
+
+If the progress is complete, the `data-progress="complete"` attribute is applied to the progress and its indicator.
+
+<Showcase name="complete" />
 
 ## Indeterminate progress
 
-When the progress is not known, the progress should be indeterminate. A progress bar can be indetermine when the value it receives is `null`.
+When the progress is not known, the progress should be indeterminate. A progress bar can be indeterminate when the value it receives is `null`.
 
 <Showcase name="indeterminate" />
 
 When in the indeterminate state, the progress and its indicator have the `data-progress="indeterminate"` attribute.
 
 > Indeterminate progress is useful for showing that an operation is ongoing, but its completion time or progress percentage is unknown.
+
+## Initial Progress
+
+To set the initial progress, you can pass a `value` prop to the `Progress.Root` component.
+
+<Showcase name="hero" />
+
+## Reactive Progress changes
+
+To dynamically update the progress bar, pass in a signal to the `bind:value` prop.
+
+<Showcase name="reactive" />
+
+> The example above randomly updates the progress bar's percentage when the button is clicked.
+
+## CSR
+
+Similar to other Qwik UI headless components, the Progress Bar automatically renders based on its environment. The previous progress bars are rendered on the server.
+
+<Showcase name="csr" />
+
+The example above shows the progress bar being rendered on the client when the `isRendered` signal is set to `true`.
 
 ### Indeterminate Example CSS
 

@@ -1,17 +1,15 @@
-@keyframes loading-flash {
-  0% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.1;
+@media (prefers-reduced-motion: no-preference) {
+  .progress-indicator.indeterminate {
+    width: 30%;
+    animation: indeterminate-slide 2s infinite cubic-bezier(0.37, 0, 0.63, 1);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .progress-indicator[data-progress='indeterminate'] {
-    animation: loading-flash 1.5s ease-in-out infinite;
+@keyframes indeterminate-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
   }
 }

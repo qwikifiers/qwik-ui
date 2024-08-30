@@ -1,6 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Progress } from '@qwik-ui/headless';
-import styles from '../snippets/progress.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
@@ -13,3 +12,6 @@ export default component$(() => {
     </Progress.Root>
   );
 });
+
+// internal
+import styles from '../snippets/progress.css?inline';

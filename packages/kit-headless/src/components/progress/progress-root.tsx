@@ -44,7 +44,11 @@ export const ProgressRoot = component$<ProgressProps & PropsOf<'div'>>((props) =
   });
 
   const isValidProgressSig = useComputed$(() => {
-    return Number.isFinite(maxSig.value) && maxSig.value > minSig.value;
+    const isMaxFinite = Number.isFinite(maxSig.value);
+    const isMaxGreaterThanMin = maxSig.value > minSig.value;
+    const isValueValid = valueSig.value === null || valueSig.value >= minSig.value;
+
+    return isMaxFinite && isMaxGreaterThanMin && isValueValid;
   });
 
   const valueLabelSig = useComputed$(() => {
@@ -60,7 +64,7 @@ export const ProgressRoot = component$<ProgressProps & PropsOf<'div'>>((props) =
     track(() => isValidProgressSig.value);
     if (!isValidProgressSig.value) {
       throw new Error(
-        'Qwik UI: Progress component max must be a finite number and greater than min.',
+        'Qwik UI: Progress component must be a finite number, and within the max and min range.',
       );
     }
   });

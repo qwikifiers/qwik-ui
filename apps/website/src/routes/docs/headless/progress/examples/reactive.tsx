@@ -1,6 +1,5 @@
 import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Progress } from '@qwik-ui/headless';
-import styles from '../snippets/progress.css?inline';
 
 export default component$(() => {
   useStyles$(styles);
@@ -12,7 +11,12 @@ export default component$(() => {
       <Progress.Root bind:value={progressSig} class="progress">
         <Progress.Indicator class="progress-indicator" />
       </Progress.Root>
-      <button onClick$={() => (progressSig.value = 50)}>Change progress</button>
+      <button onClick$={() => (progressSig.value = Math.random() * 100)}>
+        Change progress
+      </button>
     </>
   );
 });
+
+// internal
+import styles from '../snippets/progress.css?inline';
