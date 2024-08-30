@@ -45,6 +45,21 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
   const HComboboxItemLabel = UserItemLabel ?? InternalComboboxItemLabel;
   const HComboboxEmpty = InternalComboboxEmpty;
 
+  // recursively extracts the markup (ex: styling characters based on search)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function getInnerText(node: any): string {
+    if (typeof node === 'string') return node;
+    if (Array.isArray(node)) return node.map(getInnerText).join('');
+    if (node && typeof node === 'object') {
+      if ('props' in node && 'children' in node.props) {
+        return getInnerText(node.props.children);
+      } else if ('children' in node) {
+        return getInnerText(node.children);
+      }
+    }
+    return '';
+  }
+
   // source of truth
   const itemsMap = new Map();
   let currItemIndex = 0;
@@ -94,7 +109,9 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
       }
 
       case HComboboxItemLabel: {
-        const displayValue = child.props.children as string;
+        const displayValue = getInnerText(child.props.children);
+
+        console.log(displayValue);
 
         // distinct value, or the display value is the same as the value
         const value = (givenItemValue !== null ? givenItemValue : displayValue) as string;
@@ -112,15 +129,6 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
           // minus one because it is incremented already in SelectOption
           valuePropIndex = currItemIndex;
           _value = value;
-        }
-
-        const isString = typeof child.props.children === 'string';
-
-        if (!isString) {
-          throw new Error(
-            `Qwik UI: select item label passed was not a string. It was a ${typeof child
-              .props.children}.`,
-          );
         }
 
         // increment after processing children
