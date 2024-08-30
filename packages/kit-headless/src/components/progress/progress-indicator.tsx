@@ -8,10 +8,11 @@ export const ProgressIndicator = component$<ProgressIndicatorElement>((props) =>
   const context = useContext(ProgressContext);
 
   const translateXSig = useComputed$(() => {
-    if (context.valueSig.value === null) return 'translateX(-100%)';
+    if (context.valueSig.value === null) return 'translateX(0%)';
     const range = context.maxSig.value - context.minSig.value;
     const progress = (context.valueSig.value - context.minSig.value) / range;
-    return `translateX(-${100 - progress * 100}%)`;
+    const remainingPercentage = 100 - progress * 100;
+    return `translateX(-${remainingPercentage}%)`;
   });
 
   return (

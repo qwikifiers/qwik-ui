@@ -11,3 +11,19 @@
   width: 100%;
   background-color: hsl(var(--primary));
 }
+
+@keyframes loading-flash {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+.progress-indicator[data-progress='indeterminate'] {
+  animation: loading-flash 1.5s ease-in-out infinite;
+}

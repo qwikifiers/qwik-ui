@@ -29,6 +29,15 @@ test.describe('Critical functionality', () => {
     expect(await d.getProgressState()).toBe('loading');
     expect(await d.getProgressValue()).toBe('30');
   });
+
+  test(`GIVEN a progress
+        WHEN progress is null
+        THEN it should have progress state indeterminate`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'indeterminate');
+
+    await expect(d.getProgressIndicator()).toBeVisible();
+    expect(await d.getProgressState()).toBe('indeterminate');
+  });
 });
 
 test.describe('A11y', () => {

@@ -18,6 +18,16 @@ A visual indicator that shows how much of a task has been completed.
 
 <Showcase name="reactive" />
 
+## Indeterminate progress
+
+When the progress is not known, the progress should be indeterminate. A progress bar can be indetermine when the value it receives is `null`.
+
+<Showcase name="indeterminate" />
+
+When in the indeterminate state, the progress and its indicator have the `data-progress="indeterminate"` attribute.
+
+> Indeterminate progress is useful for showing that an operation is ongoing, but its completion time or progress percentage is unknown.
+
 ## ✨ Features
 
 <FeatureList features={['Follows the WAI-Aria design pattern']} />
