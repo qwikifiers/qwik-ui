@@ -111,8 +111,6 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
       case HComboboxItemLabel: {
         const displayValue = getInnerText(child.props.children);
 
-        console.log(displayValue);
-
         // distinct value, or the display value is the same as the value
         const value = (givenItemValue !== null ? givenItemValue : displayValue) as string;
 
