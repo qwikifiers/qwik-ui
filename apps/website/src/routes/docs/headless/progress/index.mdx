@@ -16,55 +16,82 @@ A visual indicator that shows how much of a task has been completed.
 
 <Showcase name="hero" />
 
-## In progress
+## ✨ Features
 
-While the input state is not complete, the progress component is "in progress".
+<FeatureList
+  features={[
+    'Follows the WAI-Aria design pattern',
+    'Supports indeterminate state for unknown progress',
+    'Allows dynamic updatess',
+    'Customizable value labels for accessibility',
+  ]}
+/>
+
+## Defining the range
+
+### Min
+
+The `min` prop sets a minimum starting point for the progress bar.
+
+<Showcase name="min" />
+
+### Adding a value
+
+To set a value for the progress bar, use the `value` prop in the `Progress.Root` component.
+
+<Showcase name="hero" />
+
+### Max
+
+The `max` prop defines the upper limit of the progress bar.
+
+<Showcase name="max" />
+
+## Status
+
+### In progress
+
+When the task is ongoing, the progress component reflects this state.
 
 <Showcase name="hero" />
 
 The `data-progress="in-progress"` attribute is applied to the progress and its indicator.
 
-## Max
+### Complete
 
-The `max` prop is used to set the maximum value of the progress bar.
-
-<Showcase name="max" />
-
-## Min
-
-The `min` prop sets a minimum value for the progress bar.
-
-<Showcase name="min" />
-
-## Complete
-
-If the progress is complete, the `data-progress="complete"` attribute is applied to the progress and its indicator.
+When the task is finished, the `data-progress="complete"` attribute is applied.
 
 <Showcase name="complete" />
 
-## Indeterminate progress
+### Indeterminate progress
 
-When the progress is not known, the progress should be indeterminate. A progress bar can be indeterminate when the value it receives is `null`.
+If the progress is uncertain, the bar should be in an indeterminate state. This occurs when the value is `null`.
 
 <Showcase name="indeterminate" />
 
-When in the indeterminate state, the progress and its indicator have the `data-progress="indeterminate"` attribute.
+In this state, the progress and its indicator will have the `data-progress="indeterminate"` attribute.
 
-> Indeterminate progress is useful for showing that an operation is ongoing, but its completion time or progress percentage is unknown.
+> Indeterminate progress is ideal for indicating ongoing operations without a clear completion time.
 
-## Initial Progress
+#### Indeterminate Example CSS
 
-To set the initial progress, you can pass a `value` prop to the `Progress.Root` component.
+<CodeSnippet name="indeterminate.css" />
+
+## State
+
+### Initial Progress
+
+To set the initial progress on page load, you can pass a `value` prop to the `Progress.Root` component.
 
 <Showcase name="hero" />
 
-## Reactive Progress changes
+### Dynamic Progress Updates
 
-To dynamically update the progress bar, pass in a signal to the `bind:value` prop.
+To update the progress bar in real-time, pass a signal to the `bind:value` prop.
 
 <Showcase name="reactive" />
 
-> The example above randomly updates the progress bar's percentage when the button is clicked.
+The progress bar can also be used in combination with other Qwik UI headless components, such as the Carousel component when the user [navigates through the slides](../carousel/#progress).
 
 ## CSR
 
@@ -73,14 +100,6 @@ Similar to other Qwik UI headless components, the Progress Bar automatically ren
 <Showcase name="csr" />
 
 The example above shows the progress bar being rendered on the client when the `isRendered` signal is set to `true`.
-
-### Indeterminate Example CSS
-
-<CodeSnippet name="indeterminate.css" />
-
-## ✨ Features
-
-<FeatureList features={['Follows the WAI-Aria design pattern']} />
 
 ## Building blocks
 
@@ -113,8 +132,15 @@ The example above shows the progress bar being rendered on the client when the `
   propDescriptors={[
     {
       name: 'value',
+      type: 'union',
+      info: 'number | null',
+      description:
+        'Current value of the progress bar. Can be null for indeterminate state.',
+    },
+    {
+      name: 'min',
       type: 'number',
-      description: 'Current value of the progress bar.',
+      description: 'Minimum starting point for the progress bar.',
     },
     {
       name: 'max',
@@ -125,7 +151,14 @@ The example above shows the progress bar being rendered on the client when the `
       name: 'getValueLabel',
       type: 'function',
       description:
-        'A function to get the accessible label text representing the current value in a human-readable format. If not provided, the value label will be read as the numeric value as a percentage of the max value.',
+        'A function to get the accessible label for the current value. If not provided, the label will be shown as a percentage of the range.',
+    },
+    {
+      name: 'bind:value',
+      type: 'Signal',
+      info: 'Signal<number | null>',
+      description:
+        'A signal to bind the current value of the progress bar for reactive updates.',
     },
   ]}
 />

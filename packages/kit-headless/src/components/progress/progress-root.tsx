@@ -81,6 +81,7 @@ export const ProgressRoot = component$<ProgressProps & PropsOf<'div'>>((props) =
       'data-progress': progressSig.value,
       'data-value': valueSig.value ?? undefined,
       'data-max': maxSig.value,
+      'data-min': minSig.value,
     };
   });
 
@@ -99,7 +100,6 @@ export const ProgressRoot = component$<ProgressProps & PropsOf<'div'>>((props) =
       aria-label="progress"
       aria-valuemax={maxSig.value}
       aria-valuemin={minSig.value}
-      data-min={minSig.value}
       aria-valuenow={valueSig.value ?? undefined}
       aria-valuetext={valueLabelSig.value}
       {...dataAttributesSig.value}

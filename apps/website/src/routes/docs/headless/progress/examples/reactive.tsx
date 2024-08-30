@@ -11,9 +11,7 @@ export default component$(() => {
       <Progress.Root bind:value={progressSig} class="progress">
         <Progress.Indicator class="progress-indicator" />
       </Progress.Root>
-      <button onClick$={() => (progressSig.value = Math.random() * 100)}>
-        Change progress
-      </button>
+      <button onClick$={() => (progressSig.value = 70)}>Change progress</button>
     </>
   );
 });

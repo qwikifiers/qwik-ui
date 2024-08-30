@@ -38,6 +38,57 @@ test.describe('Critical functionality', () => {
     await expect(d.getProgressIndicator()).toBeVisible();
     expect(await d.getProgressState()).toBe('indeterminate');
   });
+
+  test(`GIVEN a progress
+        WHEN progress is 100%
+        THEN it should have progress state complete`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'complete');
+
+    await expect(d.getProgressIndicator()).toBeVisible();
+    expect(await d.getProgressState()).toBe('complete');
+  });
+});
+
+test.describe('State', () => {
+  test(`GIVEN a progress
+        WHEN the value is 30
+        THEN it should be 30% complete`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getRoot()).toHaveAttribute('aria-valuetext', '30%');
+  });
+
+  test(`GIVEN a progress
+        WHEN the value is 20 and the max is 25
+        THEN it should be 80% complete`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'max');
+
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getRoot()).toHaveAttribute('aria-valuetext', '80%');
+  });
+
+  test(`GIVEN a progress with the value of 5000
+        WHEN the min is 2000 and the max is 10000
+        THEN it should be 38% complete`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'min');
+
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getRoot()).toHaveAttribute('aria-valuetext', '38%');
+  });
+
+  test(`GIVEN a progress with the value of 30
+        WHEN the value is reactively changed to 70
+        THEN it should be 70% complete`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'reactive');
+
+    await expect(d.getRoot()).toHaveAttribute('aria-valuetext', '30%');
+
+    await page.locator('button').click();
+
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getRoot()).toHaveAttribute('aria-valuetext', '70%');
+  });
 });
 
 test.describe('A11y', () => {
