@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import { resolve } from 'path';
+import { inspect } from 'util';
 import { ViteDevServer } from 'vite';
 export default function autoAPI() {
   return {
@@ -73,7 +74,27 @@ function extractComments(strg: string): ParsedProps[] {
   }
   return cms;
 }
+function writeToDocs(fullPath: string, componentName: string, api: ComponentParts) {
+  if (fullPath.includes('kit-headless')) {
+    const relDocPath = `../website/src/routes//docs/headless/${componentName}`;
+    const fullDocPath = resolve(__dirname, relDocPath);
+    const dirPath = fullDocPath.concat('/auto-api');
 
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath);
+    }
+    const json = JSON.stringify(api, null, 2);
+    const hacky = `export const api=${json}`;
+    console.log(json);
+
+    try {
+      fs.writeFileSync(dirPath.concat('/api.ts'), hacky);
+      console.log('auto-api: succesfully genereated new json!!! :)');
+    } catch (err) {
+      return;
+    }
+  }
+}
 function loopOnAllChildFiles(filePath: string) {
   const childComponentRegex = /\/([\w-]*).tsx$/.exec(filePath);
   if (childComponentRegex === null) {
@@ -93,4 +114,6 @@ function loopOnAllChildFiles(filePath: string) {
       parseSingleComponentFromDir(fullPath, store[componentName]);
     }
   });
+
+  writeToDocs(filePath, componentName, store);
 }
