@@ -1,20 +1,52 @@
-import { component$, useContext, QwikIntrinsicElements, PropsOf } from '@builder.io/qwik';
-import { Polymorphic } from '../polymorphic';
+import {
+  component$,
+  QwikIntrinsicElements,
+  Slot,
+  useComputed$,
+  useContext,
+  $,
+} from '@builder.io/qwik';
 import { carouselContextId } from './context';
 
-type BulletProps<C extends keyof QwikIntrinsicElements = 'div'> = {
+type AllowedElements = 'button' | 'a' | 'div' | 'span';
+
+type StepProps = {
   _index?: number;
-  as?: C;
-} & PropsOf<string extends C ? 'div' : C>;
+};
 
 export const CarouselStep = component$(
-  <C extends 'div' | 'button' = 'div'>(
-    props: BulletProps<C> & QwikIntrinsicElements[C],
+  <C extends AllowedElements = 'button'>(
+    props: QwikIntrinsicElements[C] & { as?: C } & StepProps,
   ) => {
     const context = useContext(carouselContextId);
+    const { as, _index, ...rest } = props;
+    const Comp = as ?? 'button';
 
-    const { as = context.isStepInteractionSig.value ? 'button' : 'div', ...rest } = props;
+    // TODO: add aria-current="step" and data-current
 
-    return <Polymorphic as={as as typeof as} {...(rest as PropsOf<typeof as>)} />;
+    const localIndexSig = useComputed$(() => _index ?? 0);
+    const isCurrentSig = useComputed$(() =>
+      context.currentIndexSig.value === _index ? 'step' : undefined,
+    );
+
+    const handleClick$ = $(() => {
+      context.currentIndexSig.value = localIndexSig.value;
+    });
+
+    return (
+      <>
+        {/* @ts-expect-error annoying polymorphism */}
+        <Comp
+          data-qui-carousel-step
+          aria-current={isCurrentSig.value}
+          data-current={isCurrentSig.value}
+          data-step={localIndexSig.value + 1}
+          {...(Comp === 'button' && { onClick$: [handleClick$, rest.onClick$] })}
+          {...rest}
+        >
+          <Slot />
+        </Comp>
+      </>
+    );
   },
 );

@@ -226,6 +226,34 @@ You can also control the progress of the carousel by using the `bind:progress` p
 
 In the above example, we also use the headless progress component to show the progress of the carousel.
 
+## Stepper
+
+The Carousel component also includes built-in accessibility support for steppers and setup wizards.
+
+<Showcase name="stepper" />
+
+Steps can be disabled and enabled based on the index of the current slide or any other piece of state.
+
+> Steppers are seen by screen readers as a navigation area with series of steps that the user can navigate through.
+
+### No Scroll
+
+Similar to Carousel's, steppers can be used without a scroller.
+
+<Showcase name="stepper-no-scroll" />
+
+### Vertical
+
+Vertical steppers can be created by changing the markup position of the stepper.
+
+<Showcase name="vertical-stepper" />
+
+### Presentational
+
+Create non-interactive steppers by setting the `as` prop to `div` or `span`. Use `Carousel.Next` and `Carousel.Previous` components for navigation instead.
+
+<Showcase name="stepper-presentational" />
+
 ## API
 
 ### Carousel.Root
