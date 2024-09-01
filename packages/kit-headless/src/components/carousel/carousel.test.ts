@@ -260,13 +260,42 @@ test.describe('Keyboard Behavior', () => {
   });
 });
 
+// PW doesn't support swipe actions, which is why we use mouse events in-between taps
 test.describe('Mobile / Touch Behavior', () => {
+  test.use({ viewport: { width: 414, height: 896 }, isMobile: true, hasTouch: true });
+
+  test(`GIVEN a mobile carousel
+        WHEN it is rendered
+        THEN it should use CSS scroll snap for swiping`, async ({ page }) => {
+    await setup(page, 'hero');
+
+    // is css scroll snapping enabled
+    const isCoarsePointer = await page.evaluate(
+      () => matchMedia('(pointer: coarse)').matches,
+    );
+    expect(isCoarsePointer).toBe(true);
+  });
+
   test(`GIVEN a carousel with dragging enabled
         WHEN swiping to the left
         THEN it should move to the next slide`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    d;
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    const boundingBox = await d.getSlideBoundingBoxAt(0);
+
+    const startX = boundingBox.x + boundingBox.width * 0.8; // near right edge
+    const endX = boundingBox.x + boundingBox.width * 0.2; // near left edge
+    const y = boundingBox.y + boundingBox.height / 2; // swipe height
+
+    // perform the swipe action
+    await page.touchscreen.tap(startX, y);
+    await page.mouse.move(startX, y, { steps: 10 });
+    await page.mouse.move(endX, y, { steps: 10 });
+    await page.touchscreen.tap(endX, y);
+
+    // second slide should be active
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
   });
 
   test(`GIVEN a carousel with dragging enabled
@@ -274,7 +303,46 @@ test.describe('Mobile / Touch Behavior', () => {
         THEN it should move to the previous slide`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
-    d;
+    // initial setup
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await d.getNextButton().tap();
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    const boundingBox = await d.getSlideBoundingBoxAt(0);
+
+    const startX = boundingBox.x + boundingBox.width * 0.2; // near left edge
+    const endX = boundingBox.x + boundingBox.width * 0.8; // near right edge
+    const y = boundingBox.y + boundingBox.height / 2; // swipe height
+
+    await page.touchscreen.tap(startX, y);
+    await page.mouse.move(startX, y, { steps: 10 });
+    await page.mouse.move(endX, y, { steps: 10 });
+    await page.touchscreen.tap(endX, y);
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  });
+
+  test(`GIVEN a carousel with dragging enabled
+        WHEN tapping on the next button
+        THEN it should move to the next slide`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await d.getNextButton().tap();
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+  });
+
+  test(`GIVEN a carousel with dragging enabled
+        WHEN tapping on the previous button
+        THEN it should move to the previous slide`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await d.getNextButton().tap();
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    await d.getPrevButton().tap();
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
   });
 
   test(`GIVEN a carousel with a pagination control
@@ -282,7 +350,11 @@ test.describe('Mobile / Touch Behavior', () => {
         THEN it should move to the corresponding slide`, async ({ page }) => {
     const { driver: d } = await setup(page, 'pagination');
 
-    d;
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+
+    await d.getPaginationBullet(3).tap();
+    await expect(d.getSlideAt(3)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
   });
 });
 
