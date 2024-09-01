@@ -296,6 +296,7 @@ test.describe('Mobile / Touch Behavior', () => {
 
     // second slide should be active
     await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+    await expect(d.getPrevButton()).toBeEnabled();
   });
 
   test(`GIVEN a carousel with dragging enabled
@@ -320,6 +321,7 @@ test.describe('Mobile / Touch Behavior', () => {
     await page.touchscreen.tap(endX, y);
 
     await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await expect(d.getPrevButton()).toBeDisabled();
   });
 
   test(`GIVEN a carousel with dragging enabled
