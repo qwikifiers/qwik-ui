@@ -19,6 +19,18 @@ export type TItemsMap = Map<
   { value: string; displayValue: string; disabled: boolean }
 >;
 
+export type PublicInternalSelectProps = {
+  /** When a value is passed, we check if it's an actual item value, and get its index at pre-render time.
+   **/
+  _valuePropIndex?: number | null;
+
+  /** Checks if the consumer added the label in their JSX */
+  _label?: boolean;
+
+  /** Our source of truth for the items. We get this at pre-render time in the inline component, that way we do not need to call native methods such as textContent.
+   **/
+  _itemsMap: TItemsMap;
+};
 export type InternalSelectProps = {
   /** When a value is passed, we check if it's an actual item value, and get its index at pre-render time.
    **/

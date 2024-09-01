@@ -20,10 +20,10 @@ export default function autoAPI() {
 // subComponentName:[publicType,publicType,...]
 // publicType:[{ comment,prop,type },{ comment,prop,type },...]
 // THEY UPPER-MOST KEY IS ALWAYS USED AS A HEADING
-type ComponentParts = Record<string, SubComponents>;
+export type ComponentParts = Record<string, SubComponents>;
 type SubComponents = SubComponent[];
-type SubComponent = Record<string, PublicType[]>;
-type PublicType = Record<string, ParsedProps[]>;
+export type SubComponent = Record<string, PublicType[]>;
+export type PublicType = Record<string, ParsedProps[]>;
 type ParsedProps = {
   comment: string;
   prop: string;
@@ -60,7 +60,7 @@ function extractPublicTypes(strg: string) {
 }
 function extractComments(strg: string): ParsedProps[] {
   const magical_regex =
-    /^\s*?\/[*]{2}\n?([\w|\W|]*?)\s*[*]{1,2}[/]\n[ ]*([\w|\W]*?): ([\w|\W]*?)$/gm;
+    /^\s*?\/[*]{2}\n?([\w|\W|]*?)\s*[*]{1,2}[/]\n[ ]*([\w|\W]*?): ([\w|\W]*?);?$/gm;
 
   const cms = [];
   let groups;
