@@ -696,3 +696,66 @@ test.describe('Multiple slides', () => {
     await expect(d.getSlideAt(3)).toHaveAttribute('inert');
   });
 });
+
+test.describe('CSR', () => {
+  test(`GIVEN a button that conditionally renders a carousel
+        WHEN the button is clicked
+        THEN the carousel should be visible`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'csr');
+    await expect(d.getRoot()).not.toBeVisible();
+    await expect(d.getNextButton()).not.toBeVisible();
+    await expect(d.getPrevButton()).not.toBeVisible();
+    await expect(d.getSlideAt(0)).not.toBeVisible();
+
+    await page.getByRole('button').click();
+
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getNextButton()).toBeVisible();
+    await expect(d.getPrevButton()).toBeVisible();
+    await expect(d.getSlideAt(0)).toBeVisible();
+  });
+
+  test(`GIVEN a button that conditionally renders a carousel
+        WHEN the button is clicked
+        THEN the carousel should be interactive`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'csr');
+    await expect(d.getRoot()).not.toBeVisible();
+
+    await page.getByRole('button').click();
+
+    await expect(d.getNextButton()).toBeVisible();
+    await expect(d.getSlideAt(1)).toBeVisible();
+  });
+
+  test(`GIVEN a button that conditionally renders a carousel
+        WHEN the button is clicked and the carousel is dragged to the left
+        THEN it should move to the next slide`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'csr');
+
+    await page.getByRole('button').click();
+
+    await expect(d.getNextButton()).toBeVisible();
+    await expect(d.getSlideAt(1)).toBeVisible();
+
+    // Ensure the first slide is active
+    const firstSlide = d.getSlideAt(0);
+    await expect(firstSlide).toHaveAttribute('data-active');
+
+    // grab first slide dimensions
+    const boundingBox = await d.getSlideBoundingBoxAt(0);
+
+    const startX = boundingBox.x + boundingBox.width * 0.8; // near right edge
+    const endX = boundingBox.x + boundingBox.width * 0.2; // near left edge
+    const y = boundingBox.y + boundingBox.height / 2; // swipe height
+
+    // perform the drag action
+    await firstSlide.hover({ position: { x: 5, y: 5 } });
+    await page.mouse.move(startX, y);
+    await page.mouse.down();
+    await page.mouse.move(endX, y, { steps: 10 });
+    await page.mouse.up();
+
+    // second slide should be active
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+  });
+});
