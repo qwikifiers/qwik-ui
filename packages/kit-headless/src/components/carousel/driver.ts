@@ -31,7 +31,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().getByRole('tablist');
   };
 
-  const getContainer = () => {
+  const getScroller = () => {
     return getRoot().locator('[data-qui-carousel-scroller]');
   };
 
@@ -40,7 +40,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getSlideAt = (index: number) => {
-    return getContainer().locator(`[data-qui-carousel-slide]`).nth(index);
+    return getScroller().locator(`[data-qui-carousel-slide]`).nth(index);
   };
 
   const getSlideBoundingBoxAt = async (index: number) => {
@@ -53,13 +53,23 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return boundingBox;
   };
 
+  const getScrollerBoundingBox = async () => {
+    const boundingBox = await getScroller().boundingBox();
+
+    if (!boundingBox) {
+      throw new Error('Could not determine the bounding box of the scroller');
+    }
+
+    return boundingBox;
+  };
+
   return {
     ...rootLocator,
     locator: rootLocator,
     getRoot,
     getNextButton,
     getPrevButton,
-    getContainer,
+    getScroller,
     getSlideAt,
     getSlideBoundingBoxAt,
     getPaginationBullet,
@@ -67,5 +77,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getSlideTitleId,
     getSlideTabsParent,
     getItems,
+    getScrollerBoundingBox,
   };
 }

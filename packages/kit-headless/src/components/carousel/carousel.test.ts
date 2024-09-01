@@ -145,6 +145,64 @@ test.describe('Mouse Behavior', () => {
     expect(finalSlideBox.x).toBeCloseTo(initialSlideBox.x, 0);
     await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
   });
+
+  test(`GIVEN a carousel with dragging enabled
+        WHEN dragging to the next slide
+        THEN the next slide should snap to the left side of the scroller`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    const initialSlideBox = await d.getSlideBoundingBoxAt(0);
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+
+    const startX = initialSlideBox.x + initialSlideBox.width * 0.8;
+    const endX = initialSlideBox.x + initialSlideBox.width * 0.2;
+    const y = initialSlideBox.y + initialSlideBox.height / 2;
+
+    await d.getSlideAt(0).hover({ position: { x: 5, y: 5 } });
+    await page.mouse.move(startX, y);
+    await page.mouse.down();
+    await page.mouse.move(endX, y, { steps: 10 });
+    await page.mouse.up();
+    await d.getSlideAt(1).hover({ position: { x: 5, y: 5 } });
+
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    const scrollerBox = await d.getScrollerBoundingBox();
+    const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+
+    // we need to check the space between the scroller left and the second slide left
+    expect(Math.abs(secondSlideBox.x - scrollerBox.x)).toBeLessThan(1);
+  });
+
+  test(`GIVEN a carousel
+        WHEN clicking the next button
+        THEN the next slide should snap to the left side of the scroller`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await d.getNextButton().click();
+
+    const scrollerBox = await d.getScrollerBoundingBox();
+    const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+
+    const gap = await page.evaluate(() => {
+      const scroller = document.querySelector('[data-qui-carousel-scroller]');
+      return parseInt(window.getComputedStyle(scroller!).getPropertyValue('gap'));
+    });
+
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+    const slideWidth = secondSlideBox.width;
+
+    // we need to check the distance travelled to the next slide
+    await expect(Math.abs(secondSlideBox.x - scrollerBox.x) - gap).toBeCloseTo(
+      slideWidth,
+      0,
+    );
+  });
 });
 
 test.describe('Keyboard Behavior', () => {
@@ -357,6 +415,61 @@ test.describe('Mobile / Touch Behavior', () => {
     await d.getPaginationBullet(3).tap();
     await expect(d.getSlideAt(3)).toHaveAttribute('data-active');
     await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
+  });
+
+  test(`GIVEN a mobile carousel
+        WHEN swiping to the next slide
+        THEN the next slide should snap to the left side of the scroller`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    const boundingBox = await d.getSlideBoundingBoxAt(0);
+
+    const startX = boundingBox.x + boundingBox.width * 0.8;
+    const endX = boundingBox.x + boundingBox.width * 0.2;
+    const y = boundingBox.y + boundingBox.height / 2;
+
+    await page.touchscreen.tap(startX, y);
+    await page.mouse.move(startX, y, { steps: 10 });
+    await page.mouse.move(endX, y, { steps: 10 });
+    await page.touchscreen.tap(endX, y);
+
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    const scrollerBox = await d.getScrollerBoundingBox();
+    const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+
+    expect(Math.abs(secondSlideBox.x - scrollerBox.x)).toBeLessThan(1); // Allow 1px tolerance
+  });
+
+  test(`GIVEN a mobile carousel
+    WHEN tapping the next button
+    THEN the next slide should snap to the left side of the scroller`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await d.getNextButton().tap();
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    const scrollerBox = await d.getScrollerBoundingBox();
+    const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+
+    const gap = await page.evaluate(() => {
+      const scroller = document.querySelector('[data-qui-carousel-scroller]');
+      return parseInt(window.getComputedStyle(scroller!).getPropertyValue('gap'));
+    });
+
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+    const slideWidth = secondSlideBox.width;
+
+    const actualDifference = Math.abs(secondSlideBox.x - scrollerBox.x);
+
+    // within range (e.g., ±20 pixels)
+    expect(Math.abs(actualDifference - slideWidth)).toBeLessThanOrEqual(20);
   });
 });
 
