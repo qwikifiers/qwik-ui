@@ -229,6 +229,9 @@ test.describe('Keyboard Behavior', () => {
   });
 });
 
+// TODO: Mobile / Touch Behavior
+// Swipe not supported in PW: https://github.com/microsoft/playwright/issues/2903
+// Help question: https://discordapp.com/channels/807756831384403968/1279663419494109195/1279663419494109195
 test.describe('Mobile / Touch Behavior', () => {
   test(`14. GIVEN a carousel with dragging enabled
         WHEN swiping to the left
@@ -356,11 +359,13 @@ test.describe('Accessibility', () => {
     await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
     await expect(d.getSlideAt(0)).toHaveAttribute('inert');
   });
+});
 
+test.describe('Looping', () => {
   // focus change happens when in two seconds a focus change did not occur
   test(`25. GIVEN a carousel with loop disabled
-        WHEN navigating via keyboard to the last slide
-        THEN the previous button should be focused after 2 seconds
+      WHEN navigating via keyboard to the last slide
+      THEN the previous button should be focused after 2 seconds
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
@@ -378,8 +383,8 @@ test.describe('Accessibility', () => {
   });
 
   test(`26. GIVEN a carousel with loop disabled
-        WHEN navigating via keyboard to the first slide
-        THEN the next button should be focused after 2 seconds
+      WHEN navigating via keyboard to the first slide
+      THEN the next button should be focused after 2 seconds
 `, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
 
@@ -389,9 +394,7 @@ test.describe('Accessibility', () => {
     await page.waitForTimeout(2000);
     await expect(d.getNextButton()).toBeFocused();
   });
-});
 
-test.describe('Behavior', () => {
   test(`28. GIVEN a carousel with loop disabled
         WHEN on the last slide
         THEN the next button should be disabled
