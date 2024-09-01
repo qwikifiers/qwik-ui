@@ -4,9 +4,10 @@ import {
   type ComponentParts,
   type SubComponent,
 } from 'apps/website/auto-api';
+import { APITable, APITableProps } from './api-table';
 type Config = {
   topHeader?: QRL<(text: string) => JSXOutput>;
-  subHeader?: (text: string) => string;
+  subHeader?: QRL<(text: string) => JSXOutput>;
 };
 
 type AnatomyTableProps = {
@@ -28,11 +29,12 @@ const currentHeader = $((_: string) => {
   );
 });
 
-function currentSubHeader(header: string) {
-  return <h3 class="mb-6 mt-8 scroll-mt-20 text-xl font-semibold">header</h3>;
-}
+const currentSubHeader = $((text: string) => {
+  return <h3 class="mb-6 mt-8 scroll-mt-20 text-xl font-semibold">{text}</h3>;
+});
 const defaultConfig: Config = {
   topHeader: currentHeader,
+  subHeader: currentSubHeader,
 };
 export const AutoAPI = component$<AnatomyTableProps>(
   ({ api, config = defaultConfig }) => {
@@ -72,19 +74,29 @@ const SubComponent = component$<SubComponentProps>(({ subComponent, config }) =>
   );
 });
 
-const ParsedComments = component$<ParsedCommentsProps>(({ parsedProps }) => {
-  let subheader = Object.keys(parsedProps)[0];
+const ParsedComments = component$<ParsedCommentsProps>(({ parsedProps, config }) => {
+  const key = Object.keys(parsedProps)[0];
+  const subHeaderSig = useSignal<string | JSXOutput>(key);
 
+  useTask$(async () => {
+    if (config.subHeader) {
+      subHeaderSig.value = await config.subHeader(key as string);
+    }
+  });
+
+  const translation: APITableProps = {
+    propDescriptors: parsedProps[key].map((e) => {
+      return {
+        name: e.prop,
+        type: e.type,
+        description: e.comment,
+      };
+    }),
+  };
   return (
     <>
-      <p>{subheader}</p>
-      {parsedProps[subheader].map((e) => {
-        return (
-          <p>
-            {e.prop} : {e.type} : {`${e.comment}`}
-          </p>
-        );
-      })}
+      {subHeaderSig.value}
+      <APITable propDescriptors={translation.propDescriptors} />
     </>
   );
 });
