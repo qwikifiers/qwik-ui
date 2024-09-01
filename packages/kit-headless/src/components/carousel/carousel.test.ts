@@ -420,3 +420,47 @@ test.describe('Looping', () => {
     await expect(d.getSlideAt(totalSlides - 1)).toHaveAttribute('data-active');
   });
 });
+
+test.describe('Multiple slides', () => {
+  test(`GIVEN a carousel with multiple slides per view set to 3
+        WHEN the carousel is rendered
+        THEN 3 slides should be visible at a time`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple-slides');
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getSlideAt(0)).toBeVisible();
+    await expect(d.getSlideAt(1)).toBeVisible();
+    await expect(d.getSlideAt(2)).toBeVisible();
+  });
+
+  test(`GIVEN a carousel with multiple slides per view set to 3
+        WHEN the carousel is rendered
+        THEN the first 3 slides should be interactive`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple-slides');
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(3)).not.toHaveAttribute('data-active');
+  });
+
+  test(`GIVEN a carousel with multiple slides per view set to 3
+        WHEN the next button is clicked
+        THEN the slides 2, 3, 4 should be interactive`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple-slides');
+    await expect(d.getRoot()).toBeVisible();
+    await d.getNextButton().click();
+    await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(3)).toHaveAttribute('data-active');
+  });
+
+  test(`GIVEN a carousel with multiple slides per view set to 3
+        WHEN the carousel is rendered
+        THEN slide 4 should not be interactive`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'multiple-slides');
+    await expect(d.getRoot()).toBeVisible();
+    await expect(d.getSlideAt(0)).not.toHaveAttribute('inert');
+    await expect(d.getSlideAt(3)).toHaveAttribute('inert');
+  });
+});
