@@ -100,6 +100,51 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
     await expect(d.getSlideAt(6)).not.toHaveAttribute('data-active');
   });
+
+  test(`GIVEN a carousel with dragging enabled
+    WHEN dragging the carousel
+    THEN it should affect the slide position`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    const initialSlideBox = await d.getSlideBoundingBoxAt(0);
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+
+    const startX = initialSlideBox.x + initialSlideBox.width * 0.8;
+    const endX = initialSlideBox.x + initialSlideBox.width * 0.2;
+    const y = initialSlideBox.y + initialSlideBox.height / 2;
+
+    await d.getSlideAt(0).hover({ position: { x: 5, y: 5 } });
+    await page.mouse.move(startX, y);
+    await page.mouse.down();
+    await page.mouse.move(endX, y, { steps: 10 });
+    await page.mouse.up();
+
+    const finalSlideBox = await d.getSlideBoundingBoxAt(0);
+    expect(Math.abs(finalSlideBox.x - initialSlideBox.x)).toBeGreaterThan(1);
+  });
+
+  test(`GIVEN a carousel with dragging disabled
+        WHEN attempting to drag the carousel
+        THEN it should not affect the slide position`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'non-draggable');
+
+    const initialSlideBox = await d.getSlideBoundingBoxAt(0);
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+
+    const startX = initialSlideBox.x + initialSlideBox.width * 0.8;
+    const endX = initialSlideBox.x + initialSlideBox.width * 0.2;
+    const y = initialSlideBox.y + initialSlideBox.height / 2;
+
+    await d.getSlideAt(0).hover({ position: { x: 5, y: 5 } });
+    await page.mouse.move(startX, y);
+    await page.mouse.down();
+    await page.mouse.move(endX, y, { steps: 10 });
+    await page.mouse.up();
+
+    const finalSlideBox = await d.getSlideBoundingBoxAt(0);
+    expect(finalSlideBox.x).toBeCloseTo(initialSlideBox.x, 0);
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  });
 });
 
 test.describe('Keyboard Behavior', () => {
