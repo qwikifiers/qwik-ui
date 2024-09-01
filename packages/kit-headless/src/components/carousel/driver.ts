@@ -10,29 +10,48 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().locator('[data-qui-carousel-next]');
   };
 
+  const getPaginationBullet = (index: number) => {
+    return getRoot().locator(`[tabindex]`).nth(index);
+  };
+
+  const getTotalSlides = () => {
+    return getRoot().locator(`[data-qui-carousel-slide]`).count();
+  };
+
+  const getSlideTitleId = () => {
+    return getRoot().locator('[id]');
+  };
+
   const getPrevButton = () => {
     return getRoot().locator('[data-qui-carousel-prev]');
+  };
+
+  const getSlideTabsParent = () => {
+    // return getRoot().locator(`:nth-child(${0 + 1})`).nth(1);;
+    return getRoot().getByRole('tablist');
   };
 
   const getContainer = () => {
     return getRoot().locator('[data-qui-carousel-scroller]');
   };
 
+  const getItems = () => {
+    return getRoot().locator(`[role]`);
+  };
+
   const getSlideAt = (index: number) => {
     return getContainer().locator(`[data-qui-carousel-slide]`).nth(index);
   };
 
-  /**
-   * Wait for all animations within the given element and subtrees to finish
-   * See: https://github.com/microsoft/playwright/issues/15660#issuecomment-1184911658
-   */
-  function waitForAnimationEnd(selector: string) {
-    return getRoot()
-      .locator(selector)
-      .evaluate((element) =>
-        Promise.all(element.getAnimations().map((animation) => animation.finished)),
-      );
-  }
+  const getSlideBoundingBoxAt = async (index: number) => {
+    const boundingBox = await getSlideAt(index).boundingBox();
+
+    if (!boundingBox) {
+      throw new Error('Could not determine the bounding box of the slide');
+    }
+
+    return boundingBox;
+  };
 
   return {
     ...rootLocator,
@@ -42,6 +61,11 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getPrevButton,
     getContainer,
     getSlideAt,
-    waitForAnimationEnd,
+    getSlideBoundingBoxAt,
+    getPaginationBullet,
+    getTotalSlides,
+    getSlideTitleId,
+    getSlideTabsParent,
+    getItems,
   };
 }

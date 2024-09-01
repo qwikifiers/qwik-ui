@@ -22,8 +22,6 @@ export const CarouselStep = component$(
     const { as, _index, ...rest } = props;
     const Comp = as ?? 'button';
 
-    // TODO: add aria-current="step" and data-current
-
     const localIndexSig = useComputed$(() => _index ?? 0);
     const isCurrentSig = useComputed$(() =>
       context.currentIndexSig.value === _index ? 'step' : undefined,
@@ -39,7 +37,7 @@ export const CarouselStep = component$(
         <Comp
           data-qui-carousel-step
           aria-current={isCurrentSig.value}
-          data-current={isCurrentSig.value}
+          data-current={isCurrentSig.value ? '' : undefined}
           data-step={localIndexSig.value + 1}
           {...(Comp === 'button' && { onClick$: [handleClick$, rest.onClick$] })}
           {...rest}

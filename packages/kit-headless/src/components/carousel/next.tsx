@@ -68,7 +68,7 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
     <button
       {...props}
       ref={context.nextButtonRef}
-      aria-disabled={isLastSlideInViewSig.value}
+      aria-disabled={isLastSlideInViewSig.value && !context.isLoopSig.value}
       disabled={isLastSlideInViewSig.value && !context.isLoopSig.value}
       onClick$={[handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
