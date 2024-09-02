@@ -111,11 +111,7 @@ export const HToggleGroupItem = component$<ToggleGroupItemProps>((props) => {
     if (!isNavigationKey(event.key)) return;
     event.preventDefault();
   });
-  // const handleKeyDownSync$ = sync$((event: KeyboardEvent) => {
-  //   if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(event.key)) return;
-  //   console.log('sync');
-  //   event.preventDefault();
-  // });
+
   const handleKeyDown$ = $(async (event: KeyboardEvent) => {
     //grab items by rootId
     const items = baseContext.itemsRefs.value;

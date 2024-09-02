@@ -35,9 +35,6 @@ type ToggleGroupNavigationProps = {
    * keyboard navigation will loop from last item to first, and vice versa.
    */
   loop?: boolean;
-  //TODO: props below
-  // Additional props for div
-  //   [key: string]: any;
 };
 
 export type ToggleGroupSingleProps = {
