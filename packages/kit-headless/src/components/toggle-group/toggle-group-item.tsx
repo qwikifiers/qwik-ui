@@ -103,27 +103,11 @@ export const HToggleGroupItem = component$<ToggleGroupItemProps>((props) => {
     }
   });
 
-  const handleKeyDownSync$ = $((event: KeyboardEvent) => {
-    const isNavigationKey = (key: string): key is NavigationKeys => {
-      return ['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(key);
-    };
-
-    if (!isNavigationKey(event.key)) return;
-    event.preventDefault();
-  });
-
   const handleKeyDown$ = $(async (event: KeyboardEvent) => {
     //grab items by rootId
     const items = baseContext.itemsRefs.value;
 
-    //another technique to grab items
-    //   const items = Array.from(
-    //     document.querySelectorAll(`.toggle-group-item-${baseContext.rootId}`),
-    //   ) as HTMLElement[];
-    //   // Filter out disabled items
-    //   const enabledItems = items.filter((item) => item.ariaDisabled === 'false');
-
-    if (items.size === 0) return; // Avoid errors if no items are found
+    if (items.size === 0) return;
 
     // Filter out disabled items
     const enabledItems = Array.from(items.values()).filter(
@@ -165,8 +149,8 @@ export const HToggleGroupItem = component$<ToggleGroupItemProps>((props) => {
       bind:pressed={isPressedSig}
       disabled={disabled}
       onPressedChange$={handlePressed$}
-      onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
-      class={`toggle-group-item-${baseContext.rootId} gap-2 ${props.class}`}
+      onKeyDown$={handleKeyDown$}
+      class={`toggle-group-item-${baseContext.rootId} ${props.class}`}
       id={itemId}
       tabIndex={tabIndex.value}
       aria-orientation={baseContext.orientation}

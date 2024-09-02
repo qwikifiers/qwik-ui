@@ -294,7 +294,7 @@ test.describe('Mouse Behavior', () => {
 
   test(`GIVEN a toggle-group with 'bind:value' = Signal<['left', 'center']>
     WHEN the 'center' item is clicked
-    THEN 'center' item should have aria-pressed on true
+    THEN 'center' item should have aria-pressed on false
     THEN the span element that store the value of the bounded Signal 
     should be updated`, async ({ page }) => {
     const { driver: d } = await setup(page, 'test-value-bind-multiple');

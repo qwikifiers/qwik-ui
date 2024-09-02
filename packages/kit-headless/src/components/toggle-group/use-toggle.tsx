@@ -1,4 +1,4 @@
-import { $, useSignal, useTask$ } from '@builder.io/qwik';
+import { $, useTask$ } from '@builder.io/qwik';
 
 import { ToggleGroupValueContext } from './toggle-group-context';
 import {
@@ -17,7 +17,6 @@ function useCreateSingleToggleGroup(props: ToggleGroupSingleProps) {
     'bind:value': givenValueSig,
   } = props;
 
-  //internal state
   const pressedValuesSig = useBoundSignal(givenValueSig, defaultValue);
 
   useTask$(({ track }) => {
@@ -28,7 +27,7 @@ function useCreateSingleToggleGroup(props: ToggleGroupSingleProps) {
 
   const handleValueChange$ = $((newValue: string) => {
     pressedValuesSig.value = newValue;
-    console.log('newState', newValue);
+
     if (onValueChange$) onValueChange$(pressedValuesSig.value);
   });
 
@@ -52,7 +51,13 @@ function useCreateMultipleToggleGroup(props: ToggleGroupMultipleProps) {
     onValueChange$,
   } = props;
 
-  const pressedValuesSig = useSignal(givenValueSig?.value ?? value ?? defaultValue ?? []);
+  const pressedValuesSig = useBoundSignal(givenValueSig, defaultValue);
+
+  useTask$(({ track }) => {
+    if (value === undefined) return;
+    track(() => value);
+    pressedValuesSig.value = value;
+  });
 
   const handleValueChange$ = $((newValue: string[]) => {
     pressedValuesSig.value = newValue;
@@ -81,8 +86,7 @@ function isSingleProps(props: ToggleGroupApiProps): props is ToggleGroupSinglePr
 
 export function useToggleGroup(props: ToggleGroupApiProps): ToggleGroupValueContext {
   if (isSingleProps(props)) {
-    // TODO:
-    // this is fine cuz
+    // this is fine as the ToggleGroup will always be either Single or Multiple during its lifecycle
     // eslint-disable-next-line qwik/use-method-usage
     return useCreateSingleToggleGroup(props);
   }

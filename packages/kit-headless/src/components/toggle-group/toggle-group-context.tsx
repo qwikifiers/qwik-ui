@@ -9,7 +9,6 @@ export const toggleGroupValueContextId = createContextId<ToggleGroupValueContext
   'qui-toggle-group-value',
 );
 
-//TODO: this could be in a "shared" folder
 export type Orientation = 'horizontal' | 'vertical';
 export type Direction = 'ltr' | 'rtl';
 

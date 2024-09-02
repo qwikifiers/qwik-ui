@@ -1,5 +1,5 @@
 import type { PropsOf, QRL, Signal } from '@builder.io/qwik';
-import { $, component$, Slot, useTask$ } from '@builder.io/qwik';
+import { $, component$, Slot, sync$, useTask$ } from '@builder.io/qwik';
 import { useBoundSignal } from '../../utils/bound-signal';
 
 export type ToggleProps = PropsOf<'button'> & {
@@ -22,14 +22,6 @@ export type ToggleProps = PropsOf<'button'> & {
    * Controlling the pressed state with a bounded value.
    */
   'bind:pressed'?: Signal<boolean>;
-  /**
-   * Reference to the button element.
-   */
-  // ref?: Signal<Element | undefined>;
-  /**
-   * Any additional props for the button
-   */
-  // [key: string]: unknown;
 };
 
 export const HToggle = component$<ToggleProps>((props) => {
@@ -42,6 +34,12 @@ export const HToggle = component$<ToggleProps>((props) => {
   } = props;
 
   const pressedSig = useBoundSignal(givenValueSig, defaultPressed);
+
+  const handleKeyDownSync$ = sync$((event: KeyboardEvent) => {
+    if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(event.key)) return;
+
+    event.preventDefault();
+  });
 
   useTask$(({ track }) => {
     if (pressedProp === undefined) return;
@@ -64,6 +62,7 @@ export const HToggle = component$<ToggleProps>((props) => {
       aria-pressed={pressedSig.value}
       aria-disabled={props.disabled ? true : false}
       data-disabled={props.disabled ? '' : undefined}
+      onKeyDown$={[handleKeyDownSync$, props.onKeyDown$]}
       {...buttonProps}
       class={props.class}
       onClick$={[props.onClick$, handleClick$]}

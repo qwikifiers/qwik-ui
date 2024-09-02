@@ -1,5 +1,5 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
-
+import styles from '../snippets/toggle.css?inline';
 import { ToggleGroup } from '@qwik-ui/headless';
 
 export default component$(() => {
@@ -20,6 +20,3 @@ export default component$(() => {
     </div>
   );
 });
-
-// internal
-import styles from '../snippets/toggle.css?inline';
