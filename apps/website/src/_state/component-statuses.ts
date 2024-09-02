@@ -53,6 +53,6 @@ export const statusByComponent: ComponentKitsStatuses = {
     Tabs: ComponentStatus.Beta,
     Toggle: ComponentStatus.Draft,
     'Toggle Group': ComponentStatus.Draft,
-    Tooltip: ComponentStatus.Draft,
+    Tooltip: ComponentStatus.Beta,
   },
 };

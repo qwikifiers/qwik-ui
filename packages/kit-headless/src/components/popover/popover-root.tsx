@@ -14,6 +14,7 @@ export type PopoverRootProps = {
   manual?: boolean;
   ref?: Signal<HTMLElement | undefined>;
   floating?: boolean | TPlacement;
+  /** @deprecated Use the tooltip instead, which adheres to the WAI-ARIA design pattern. */
   hover?: boolean;
   id?: string;
   'bind:anchor'?: Signal<HTMLElement | undefined>;

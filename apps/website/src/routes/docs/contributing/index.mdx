@@ -1,0 +1,377 @@
+---
+title: 'Qwik UI - Contributing'
+---
+
+import { FeatureList } from '~/components/feature-list/feature-list';
+
+import { InfoPopup } from '~/components/info-popup/info-popup';
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+# Contributing
+
+Thinking about contributing to the project, but don't know where to start? You're in the right place!
+
+We'll get you up in shape in no time, and ready to hop into the Qwik UI code cave.
+
+<img width={1024} height={1024} src="/images/contributing/code-cave.webp" />
+
+## There are **two projects** we currently work on:
+
+### Qwik UI Headless
+
+Don't know what a headless library is? [This might help](https://www.smashingmagazine.com/2022/05/you-dont-need-ui-framework/).
+
+### Qwik UI Styled
+
+A styled copy-paste component ~~library~~ collection built with TailwindCSS, cva and tailwind-merge - inspired by [Shadcn](https://ui.shadcn.com/docs).
+
+## There's a lot of stuff here!
+
+Yep, `99%` of the time you're gonna be in two directories:
+
+**website** - `apps/website` for the docs
+
+**packages** - `packages/kit-headless` or `packages/kit-styled`
+
+## **What can I do?**
+
+We welcome any sort of contributions, whether it's a new feature/component, bug fix, or documentation.
+
+Feel free to hang out on [Discord](https://discord.gg/PVWUUejrez) if you have a question, need help, or would like to help others.
+
+## Headless
+
+Check out the [introduction section](https://qwikui.com/docs/headless/introduction/) to see the principles of Qwik UI, and the project goals. As a heads up, those may change over time with more discussion!
+
+### I don't know anything about accessibility, can I still contribute?
+
+Of course! Neither did we before starting this project. Our go-to resource is the [Aria Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/). Find the component you're going for, and read through the component guide.
+
+<Note status="warning">
+  **Disclaimer**: following the guide does not necessarily mean it's accessible, you can
+  think of it as a starting guide that'll get you 70% there. The only way to truly test is
+  with assistive technology, such as a **screenreader**.
+</Note>
+
+We also have plenty of other [accessibility resources](https://discord.com/channels/990511757091033108/1114309494986506401/1114309494986506401) you can skim through. Feel free to ask questions!
+
+## When is a headless component beta?
+
+It can be used for most common use cases, and maybe some advanced ones (if you'd like to go further).
+
+A good place to start is look around the web and see how things work! What kind of features do other solutions have? Does someone already have a need for this in the Qwik community? How would I go about approaching this?
+
+Feel free to take inspiration from awesome headless libraries in other communities. For example, like the popular headless libraries below:
+
+- [React Aria](https://react-spectrum.adobe.com/react-aria/components.html) is a React Headless library.
+- [Radix UI](https://www.radix-ui.com/primitives/docs/components/accordion) is a React Headless library.
+- [Melt UI](https://melt-ui.com/docs/builders/accordion) is a Svelte headless library.
+- [Kobalte](https://kobalte.dev/docs/core/components/accordion) is a Solid JS headless library
+- [Headless UI](https://headlessui.com/) is a React and Vue headless library.
+- [Ark UI](https://ark-ui.com/) is a headless library that uses state machines.
+- [React Headless Hooks](https://webeetle.github.io/react-headless-hooks/docs/useAccordion) is a hooks based headless library for React.
+- [Downshift](https://www.downshift-js.com/) is a hooks based library for accessible comboboxes and select components.
+
+Going through these projects can help with understanding the why and what problems they solve. What kinda features do all of them have in common? How do they name things? What conventions do they use? How satisfied are people consuming it?
+
+It also helps to keep things simple, and not add features unless there is a demand for them (hence looking for similarities).
+
+## Docs
+
+Qwik UI uses [MDX](https://mdxjs.com/docs/what-is-mdx/) for interactive markdown.
+
+Here is a quick link to the [headless docs in github](https://github.com/qwikifiers/qwik-ui/tree/main/apps/website/src/routes/docs/headless).
+
+One of the most import components in the docs is the `showcase` component, which gives typescript support, a component preview of your example, and **automatically** updates the code example as you edit it! 🤯
+
+> Here's [an example](https://github.com/qwikifiers/qwik-ui/blob/main/apps/website/src/routes/docs/headless/modal/examples/hero.tsx) of someone consuming a headless component! In `index.mdx` we can use `<Showcase name="hero" />`, because `hero.tsx` is the file path.
+
+The same thing goes for the `snippet` component, which is for showing code blocks only.
+
+### Docs Components
+
+There are more [docs components](https://github.com/qwikifiers/qwik-ui/tree/main/apps/website/src/components) to make your life easier! Some examples being:
+
+### Notes
+
+<Note>I am a note component!</Note>
+
+### API table
+
+<APITable
+  propDescriptors={[
+    {
+      name: 'behavior',
+      type: 'string',
+      description:
+        'Determines whether the Accordion will open one or multiple items at a time.',
+    },
+    {
+      name: 'onSelectedIndexChange$',
+      type: 'function',
+      info: 'PropFunction<(index: number) => void>',
+      description:
+        'An event hook that gets notified whenever the selected index changes.',
+    },
+    {
+      name: 'onFocusIndexChange$',
+      type: 'function',
+      info: 'PropFunction<(index: number) => void>',
+      description: 'An event hook that gets notified whenever the focus index changes.',
+    },
+  ]}
+/>
+
+### Feature list
+
+<FeatureList features={['feature A', 'feature B']} />
+
+### Component status banner
+
+<StatusBanner status={statusByComponent.headless.Collapsible} />
+
+### info popup (uses the popover)
+
+<InfoPopup info="Some info!" />
+
+## Tests
+
+Tests ensure we can sleep sound at night and know that our component behavior is working as intended. Part of the Qwik core team, Shai Reznik (and also a contributor here!) talks a lot about [test driven development](https://www.youtube.com/watch?v=KHaeVaSkhIE).
+
+### TDD Process
+
+- we need a new feature!
+- make a failing test with the desired behavior (wut?)
+- get the test passing by adding said feature!
+- enjoy life when refactoring 🏝️
+
+We strongly recommend TDD development for the headless library.
+
+[Playwright](https://playwright.dev/) is the tool that is used for component testing.
+
+### Getting started w/ testing
+
+Using what we've learned with the showcase component, let's create a new example to test:
+
+```tsx
+import { component$ } from '@builder.io/qwik';
+import { Collapsible } from '@qwik-ui/headless';
+
+export default component$(() => {
+  return (
+    <Collapsible.Root>
+      <Collapsible.Trigger>Trigger</Collapsible.Trigger>
+      <Collapsible.Content>Content</Collapsible.Content>
+    </Collapsible.Root>
+  );
+});
+```
+
+Above is a new file called `hero.tsx` in our `examples` folder. In the collapsible pages `index.mdx` file add the following:
+
+```shell
+  <Showcase name="hero" />
+```
+
+Adding the showcase component to the website MDX will automatically create a new isolated environment in playwright as well.
+
+Each headless component also needs a "driver file", or the reusable component pieces we will need throughout the test.
+
+In the headless folder, create a new file with the convention of `<component-name>.driver.tsx`.
+
+```tsx
+import { Locator, Page } from '@playwright/test';
+export type DriverLocator = Locator | Page;
+
+export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
+  const getRoot = () => {
+    return rootLocator.locator('[data-collapsible]');
+  };
+
+  const getTrigger = () => {
+    return getRoot().getByRole('button');
+  };
+
+  const getContent = () => {
+    return getRoot().locator('[data-collapsible-content]');
+  };
+
+  return {
+    ...rootLocator,
+    locator: rootLocator,
+    getRoot,
+    getTrigger,
+    getContent,
+  };
+}
+```
+
+Above we are getting the collapsible root, trigger, and content.
+
+Now, these pieces can be used in our test file:
+
+```tsx
+import { expect, test, type Page } from '@playwright/test';
+import { createTestDriver } from './collapsible.driver';
+
+async function setup(page: Page, exampleName: string) {
+  await page.goto(`headless/collapsible/${exampleName}`);
+
+  const driver = createTestDriver(page);
+
+  return {
+    driver,
+  };
+}
+
+test.describe('Mouse Behavior', () => {
+  test(`GIVEN a collapsible
+          WHEN clicking on the trigger
+          THEN the content should be visible`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+
+    await d.getTrigger().click();
+    await expect(d.getContent()).toBeVisible();
+  });
+});
+```
+
+Notice that we passed the hero example to our setup function for this test.
+
+To run the tests, use the `pnpm test.pw.headless --ui` command.
+
+Once the test is failing with the intended playwright commands, it's a good time to implement the feature for that!
+
+### **What if I only want to do docs contributions, is that ok?**
+
+Absolutely, documentation is a critical part of the project, and something that can be very much improved! I recommend checking out [Sarah Rainsberg's Docs Guide](https://contribute.docs.astro.build/welcome/), it's partly towards Astro, but is also a great general resource for writing good documentation.
+
+## Where should I learn the Qwik parts?
+
+If you find yourself stuck on a certain pattern, try taking a look through Qwik UI stable components. For example, the [collapsible component](https://github.com/qwikifiers/qwik-ui/tree/main/packages/kit-headless/src/components/collapsible).
+
+### What's something I should avoid?
+
+[useVisibleTask$](https://qwik.dev/docs/guides/best-practices/#use-usevisibletask-as-a-last-resort). It's an escape hatch, and for 95% of UI components I can promise you that it's not needed.
+
+You're pretty much saying "hey Qwik! All those benefits you do to lazy load and delay the execution of code? Let's throw those away".
+
+When building headless functionality, it's important to ask yourself:
+
+Where does my user interact with things? And how can I make sure that we can _delay_ the execution of that code until the user ABSOLUTELY needs it.
+
+Here's a code example I've seen in the Qwik discord. The developer is trying to make sure that an open menu navbar is closed when the window is resized over `1248px`
+
+```tsx
+useVisibleTask$(({ cleanup }) => {
+  const updateDocumentClass = () => {
+    if (menuOpen.value && window.innerWidth > 1248) {
+      menuOpen.value = false;
+      document.documentElement.classList.remove('modal-open');
+    }
+  };
+
+  window.addEventListener('resize', updateDocumentClass);
+
+  cleanup(() => {
+    window.removeEventListener('resize', updateDocumentClass);
+  });
+});
+```
+
+Because this code is directly tied to an event, the same result could be achieved with:
+
+```tsx
+useOnWindow('resize', $(() => {
+  if (menuOpen.value && window.innerWidth > 1248) {
+    menuOpen.value = false;
+    document.documentElement.classList.remove('modal-open');
+  }
+});
+```
+
+Creating ui elements gets easier once you have a clear mental model for API's like `useTask$`. Here are some alternatives to explore over useVisibleTask$.
+
+- [Events](https://qwik.dev/docs/components/events/#events) - onClick$, onScroll$, onKeydown$
+- [useTask$](https://qwik.dev/docs/components/tasks/#usetask) - (running code initially on server, tracked change on client)
+- [useComputed$](https://qwik.dev/docs/components/state/#usecomputed) - deriving state synchronously
+- [Custom Events](https://github.com/thejackshelton/astro-qwik-global-state-example/blob/main/src/components/counter.tsx). Check out `random-island.tsx` too.
+- [sync$](https://qwik.dev/docs/cookbook/sync-events/#sync-synchronous-events-beta) - perform some browser work
+  ex: preventDefault w/ onKeyDown$, localStorage
+- [useVisibleTask$](https://qwik.dev/docs/components/tasks/#usevisibletask) (the last resort)
+
+We want to squeeze as much possible performance out of Qwik, and stay with the principle that things execute on interaction. This allows consumers to have a fast app without even trying!
+
+## How do I make a PR?
+
+We cover it in-depth in the [contributing guide](https://github.com/qwikifiers/qwik-ui/blob/main/CONTRIBUTING.md) here.
+
+## Inline Components for UI Libraries (proper indexes)
+
+Inline components play a crucial role in Qwik, especially when building headless UI libraries. They help solve unique challenges related to Qwik's resumable architecture and asynchronous rendering capabilities.
+
+### Why Use Inline Components?
+
+**TLDR**: Inline components can look into the children and get the proper index, pass data, or make certain API decisions.
+
+A more detailed explanation:
+
+In client-side rendered environments, such as dashboards, Qwik components can render asynchronously and even out of order.
+
+<Showcase name="the-problem" />
+
+The above demonstrates the problem. The conditional JSX added is rendered on the client when the button is clicked, and the items are not rendered in the correct order.
+
+By contrast, when it is rendered on the server, we get the expected order.
+
+<Showcase name="server" />
+
+This has to do with the entrypoints of the application. The current and previous generation of frameworks execute from the root entrypoint down in a tree-like structure, which is O(n) complexity.
+
+Qwik components execute based on interactions, each interactive piece is a possible entry point of the application. This means that Qwik components can render asynchronously and even out of order. Manu Almeida covers these [data structures in relations to frameworks in-depth](https://www.builder.io/blog/hydration-tree-resumability-map).
+
+While resumability and javascript streaming offer substantial benefits, it poses a challenge when you need to maintain a specific order or index for child components when in a CSR environment.
+
+[Inline components](https://qwik.dev/docs/components/overview/#inline-components) help address this by:
+
+1. Ensuring proper indexing of child components
+2. Creating boundaries for bundling related code
+3. Providing a way to process children before rendering, and while QRL's are being resolved
+
+### How Inline Components Work
+
+Unlike regular Qwik components defined with `component$()`, inline components:
+
+- Are declared as standard functions
+- Cannot use `use*` methods (e.g., `useSignal`, `useStore`)
+- Cannot project content with `<Slot>`
+- Are bundled with their parent component
+
+Inline components should be used with caution. They are called inline because they are defined inline with the parent component. This means that they are bundled with the parent component, which can lead to performance issues if used excessively.
+
+In our case, the tradeoff is negligible, but it's something to keep in mind.
+
+### Adding an inline component
+
+To use an inline component, create a standard function that returns JSX. In the below example, the inline component is called ExampleRoot.
+
+<Showcase name="inline" />
+
+The root component uses two utilities from Qwik UI.
+
+One is `findComponent`, which expects the component to be found as the first argument, and a callback function with the component's props as the second argument. The logic in this callback function is executed when the component is found.
+
+> findComponent can be used to find any children of our root. If we wanted to execute logic based on the existence of a new component called `<Toggle />` we could use `findComponent(Toggle, () => {})`.
+
+The other utility is `processChildren`, which allows us to search through the children of an inline component for the "outer shell" we're looking for.
+
+> processChildren should only be called once per inline component.
+
+The prop `_index` contains an underscore to emphasize that it is an internal prop. Notice how `_index` is consumed in the child Item component.
+
+## That's it!
+
+Hopefully you should have enough to get up and running with Qwik UI Headless, if you have any questions don't let us stop you from reaching out, and happy building :qwik:
+
+If you'd like to work on the styled library that's entirely a possibility too, there's currently documentation on the headless is all.
