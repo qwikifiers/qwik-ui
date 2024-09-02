@@ -759,3 +759,35 @@ test.describe('CSR', () => {
     await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
   });
 });
+
+test.describe('Autoplay', () => {
+  test(`GIVEN a carousel
+        WHEN the autoplay trigger is clicked
+        THEN it should automatically move to the next slide`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'player');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await d.getPlayer().click();
+
+    await page.waitForTimeout(3500);
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    await page.waitForTimeout(3500);
+    await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
+  });
+
+  test(`GIVEN a carousel that has autoplay enabled when visible
+        WHEN the component is visible
+        THEN it should automatically move to the next slide`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-player-visible');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await expect(d.getRoot()).toBeVisible();
+
+    await page.waitForTimeout(3500);
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    await page.waitForTimeout(3500);
+    await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
+  });
+});

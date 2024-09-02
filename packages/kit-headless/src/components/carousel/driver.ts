@@ -63,6 +63,10 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return boundingBox;
   };
 
+  const getPlayer = () => {
+    return getRoot().locator('[data-qui-carousel-player]');
+  };
+
   return {
     ...rootLocator,
     locator: rootLocator,
@@ -78,5 +82,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getSlideTabsParent,
     getItems,
     getScrollerBoundingBox,
+    getPlayer,
   };
 }
