@@ -564,6 +564,23 @@ test.describe('Accessibility', () => {
     await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
     await expect(d.getSlideAt(0)).toHaveAttribute('inert');
   });
+
+  test(`GIVEN a carousel stepper
+        WHEN it is rendered
+        THEN the current slide's step should have aria-current="step"`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'stepper');
+    await expect(d.getStepAt(0)).toHaveAttribute('aria-current', 'step');
+  });
+
+  test(`GIVEN a carousel stepper
+        WHEN it is rendered
+        THEN the stepper parent should have role="navigation"`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'stepper');
+    await expect(d.getStepperParent()).toHaveRole('navigation');
+    await expect(d.getStepperParent()).toBeVisible();
+  });
 });
 
 test.describe('Looping', () => {
@@ -847,5 +864,42 @@ test.describe('State', () => {
     await d.getNextButton().click();
 
     await expect(progressBar).toHaveAttribute('aria-valuetext', '17%');
+  });
+});
+
+test.describe('Stepper', () => {
+  test(`GIVEN a carousel stepper
+        WHEN it is rendered
+        THEN the first step should be the current one`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'stepper');
+    await expect(d.getStepAt(0)).toHaveAttribute('data-current');
+    await expect(d.getStepAt(1)).not.toHaveAttribute('data-current');
+  });
+
+  test(`GIVEN a carousel stepper
+        WHEN clicking on the second step
+        THEN the second step should be the current one`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'stepper');
+    await expect(d.getStepAt(0)).toHaveAttribute('data-current');
+
+    await d.getStepAt(1).click();
+    await expect(d.getStepAt(1)).toHaveAttribute('data-current');
+  });
+
+  test(`GIVEN a carousel stepper
+        WHEN clicking on the second step
+        THEN it should move to the second slide`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'stepper');
+    await expect(d.getStepAt(0)).toHaveAttribute('data-current');
+
+    await d.getStepAt(1).click();
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+  });
+
+  test(`GIVEN a carousel stepper that isn't interactive
+        WHEN the as prop is a div
+        THEN it should be a div`, async ({ page }) => {
+    await setup(page, 'stepper');
+    await expect(page.locator('div', { hasText: 'Header 1' })).toBeVisible();
   });
 });

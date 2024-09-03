@@ -43,6 +43,14 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getScroller().locator(`[data-qui-carousel-slide]`).nth(index);
   };
 
+  const getStepAt = (index: number) => {
+    return getRoot().locator(`[data-qui-carousel-step]`).nth(index);
+  };
+
+  const getStepperParent = () => {
+    return getRoot().getByRole('navigation');
+  };
+
   const getSlideBoundingBoxAt = async (index: number) => {
     const boundingBox = await getSlideAt(index).boundingBox();
 
@@ -83,5 +91,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getItems,
     getScrollerBoundingBox,
     getPlayer,
+    getStepAt,
+    getStepperParent,
   };
 }
