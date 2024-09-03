@@ -791,3 +791,61 @@ test.describe('Autoplay', () => {
     await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
   });
 });
+
+test.describe('State', () => {
+  test(`GIVEN a carousel that has a start Index
+        WHEN the component is rendered
+        THEN that start index should be active
+        AND visible`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'initial');
+
+    await expect(d.getSlideAt(4)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(4)).toBeVisible();
+  });
+
+  test(`GIVEN a carousel that can be reactively changed
+        WHEN the index is changed to 4
+        THEN it should scroll to the fourth slide`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'reactive');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+
+    await page.locator('button', { hasText: 'Change to index 4' }).click();
+
+    await expect(d.getSlideAt(4)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(4)).toBeVisible();
+  });
+
+  test(`GIVEN a carousel that can be reactively changed
+        WHEN the index is changed to 4, to a new slide, and back
+        THEN it should update back to the fourth slide`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'reactive');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+
+    await page.locator('button', { hasText: 'Change to index 4' }).click();
+
+    await expect(d.getSlideAt(4)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(4)).toBeVisible();
+
+    await d.getNextButton().click();
+    await expect(d.getSlideAt(5)).toHaveAttribute('data-active');
+
+    await page.locator('button', { hasText: 'Change to index 4' }).click();
+
+    await expect(d.getSlideAt(4)).toHaveAttribute('data-active');
+  });
+
+  test(`GIVEN a carousel with a progress bar
+        WHEN the next button is clicked
+        THEN it should affect the progress bar`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'progress');
+    const progressBar = page.getByRole('progressbar');
+    await expect(progressBar).toBeVisible();
+    await expect(progressBar).toHaveAttribute('aria-valuetext', '0%');
+
+    await d.getNextButton().click();
+
+    await expect(progressBar).toHaveAttribute('aria-valuetext', '17%');
+  });
+});
