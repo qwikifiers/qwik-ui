@@ -21,8 +21,7 @@
 
   @media (pointer: coarse) {
     [data-qui-carousel-scroller][data-draggable] {
-      overflow-x: scroll;
-      overflow-y: scroll;
+      overflow: scroll;
     }
 
     /* make sure snap align is added after initial index animation */

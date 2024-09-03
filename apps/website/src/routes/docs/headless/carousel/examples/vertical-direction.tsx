@@ -9,8 +9,8 @@ export default component$(() => {
   return (
     <Carousel.Root class="carousel-root" gap={30} direction="column" maxSlideHeight={160}>
       <div class="carousel-buttons">
-        <Carousel.Previous>Down</Carousel.Previous>
-        <Carousel.Next>Up</Carousel.Next>
+        <Carousel.Previous>Prev</Carousel.Previous>
+        <Carousel.Next>Next</Carousel.Next>
       </div>
       <Carousel.Scroller class="carousel-scroller">
         {colors.map((color) => (
