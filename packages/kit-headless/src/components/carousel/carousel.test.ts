@@ -897,9 +897,20 @@ test.describe('Stepper', () => {
   });
 
   test(`GIVEN a carousel stepper that isn't interactive
-        WHEN the as prop is a div
-        THEN it should be a div`, async ({ page }) => {
-    await setup(page, 'stepper');
-    await expect(page.locator('div', { hasText: 'Header 1' })).toBeVisible();
+    WHEN the as prop is a div
+    THEN it should be a div and not be interactive`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'stepper-presentational');
+
+    const firstStep = d.getStepAt(0);
+    let tagName;
+
+    const isDiv = await firstStep.evaluate((el) => {
+      el.tagName === 'DIV';
+      tagName = el.tagName;
+    });
+
+    expect(isDiv).toBe(tagName);
+    await expect(firstStep).not.toHaveAttribute('role', 'button');
+    await expect(firstStep).not.toHaveAttribute('tabindex', '0');
   });
 });

@@ -11,6 +11,7 @@ import {
 } from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
 import { useBoundSignal } from '../../utils/bound-signal';
+import { useAutoplay } from './use-carousel';
 
 export type CarouselRootProps = PropsOf<'div'> & {
   /** The gap between slides */
@@ -124,6 +125,8 @@ export const CarouselBase = component$(
       startIndex,
       isStepInteractionSig,
     };
+
+    useAutoplay(context);
 
     useContextProvider(carouselContextId, context);
 
