@@ -7,9 +7,11 @@ import {
   useSignal,
   useComputed$,
   useId,
+  useTask$,
 } from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
 import { useBoundSignal } from '../../utils/bound-signal';
+import { useAutoplay } from './use-carousel';
 
 export type CarouselRootProps = PropsOf<'div'> & {
   /** The gap between slides */
@@ -42,6 +44,9 @@ export type CarouselRootProps = PropsOf<'div'> & {
   /** Whether the carousel should autoplay */
   'bind:autoplay'?: Signal<boolean>;
 
+  /** the current progress of the carousel */
+  'bind:progress'?: Signal<number>;
+
   /** Time in milliseconds before the next slide plays during autoplay */
   autoPlayIntervalMs?: number;
 
@@ -50,6 +55,9 @@ export type CarouselRootProps = PropsOf<'div'> & {
 
   /** @internal Whether this carousel has a title */
   _isTitle?: boolean;
+
+  /** Allows the user to navigate steps when interacting with the stepper */
+  stepInteraction?: boolean;
 };
 
 export const CarouselBase = component$(
@@ -57,6 +65,7 @@ export const CarouselBase = component$(
     'bind:currSlideIndex': givenOldSlideIndexSig,
     'bind:selectedIndex': givenSlideIndexSig,
     'bind:autoplay': givenAutoplaySig,
+    'bind:progress': givenProgressSig,
     _isTitle: isTitle,
     startIndex,
     ...props
@@ -77,6 +86,10 @@ export const CarouselBase = component$(
     const isScrollerSig = useSignal(false);
     const isAutoplaySig = useBoundSignal(givenAutoplaySig, false);
 
+    const getInitialProgress = () => {
+      return startIndex ? startIndex / ((props._numSlides ?? 1) - 1) : 0;
+    };
+
     // derived
     const numSlidesSig = useComputed$(() => props._numSlides ?? 0);
     const isDraggableSig = useComputed$(() => props.draggable ?? true);
@@ -85,6 +98,8 @@ export const CarouselBase = component$(
     const alignSig = useComputed$(() => props.align ?? 'start');
     const isLoopSig = useComputed$(() => props.loop ?? false);
     const autoPlayIntervalMsSig = useComputed$(() => props.autoPlayIntervalMs ?? 0);
+    const progressSig = useBoundSignal(givenProgressSig, getInitialProgress());
+    const isStepInteractionSig = useComputed$(() => props.stepInteraction ?? false);
 
     const titleId = `${localId}-title`;
 
@@ -107,10 +122,25 @@ export const CarouselBase = component$(
       alignSig,
       isLoopSig,
       autoPlayIntervalMsSig,
-      initialIndex: startIndex,
+      startIndex,
+      isStepInteractionSig,
     };
 
+    useAutoplay(context);
+
     useContextProvider(carouselContextId, context);
+
+    useTask$(({ track }) => {
+      if (!givenProgressSig) return;
+      track(() => currentIndexSig.value);
+      track(() => numSlidesSig.value);
+
+      if (numSlidesSig.value > 1) {
+        progressSig.value = (currentIndexSig.value / (numSlidesSig.value - 1)) * 100;
+      } else {
+        progressSig.value = 0;
+      }
+    });
 
     return (
       <div

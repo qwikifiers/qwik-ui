@@ -4,10 +4,8 @@ import { Progress } from '@qwik-ui/headless';
 export default component$(() => {
   useStyles$(styles);
 
-  const progress = 30;
-
   return (
-    <Progress.Root value={progress} class="progress">
+    <Progress.Root value={100} class="progress">
       <Progress.Indicator class="progress-indicator" />
     </Progress.Root>
   );
