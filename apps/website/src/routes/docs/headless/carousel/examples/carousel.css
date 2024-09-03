@@ -18,7 +18,6 @@
   gap: 0.5rem;
   padding: 1rem;
   border: 2px dotted hsl(var(--foreground));
-  outline: none;
 }
 
 .carousel-buttons {
@@ -43,6 +42,7 @@
 .carousel-pagination-bullet {
   cursor: pointer;
   padding-inline: 0.5rem;
+  outline: none;
 }
 
 .carousel-pagination-bullet[data-active] {
