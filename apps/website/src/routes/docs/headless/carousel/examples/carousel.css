@@ -18,7 +18,6 @@
   gap: 0.5rem;
   padding: 1rem;
   border: 2px dotted hsl(var(--foreground));
-  outline: none;
 }
 
 .carousel-buttons {
@@ -44,6 +43,7 @@
 .carousel-pagination-bullet {
   cursor: pointer;
   padding-inline: 0.5rem;
+  outline: none;
 }
 
 .carousel-pagination-bullet[data-active] {
@@ -71,4 +71,32 @@
 
 .carousel-conditional .carousel-slide[data-active] {
   opacity: 1;
+}
+
+.carousel-stepper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.carousel-step {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.carousel-step::before {
+  content: attr(data-step);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: hsl(var(--muted));
+
+  /* Slight adjustment for visual centering */
+  padding-bottom: 0.1em;
+}
+
+.carousel-step[data-current]::before {
+  background-color: hsl(var(--primary));
 }

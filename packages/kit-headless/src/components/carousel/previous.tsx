@@ -36,7 +36,7 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
     <button
       {...props}
       ref={context.prevButtonRef}
-      aria-disabled={context.currentIndexSig.value === 0}
+      aria-disabled={context.currentIndexSig.value === 0 && !context.isLoopSig.value}
       disabled={context.currentIndexSig.value === 0 && !context.isLoopSig.value}
       onClick$={[handleClick$, props.onClick$]}
       onBlur$={[handleFocusNext$, props.onBlur$]}
