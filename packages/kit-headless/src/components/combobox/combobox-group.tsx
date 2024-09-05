@@ -14,7 +14,7 @@ type ComboboxGroupProps = PropsOf<'div'>;
 export const HComboboxGroup = component$<ComboboxGroupProps>((props) => {
   const context = useContext(comboboxContextId);
   const groupLabelId = `${context.localId}-group-label`;
-  const contextRefOpts = { context, givenContextRef: context.groupRef };
+  const contextRefOpts = { context, givenContextRef: context.panelRef };
   const groupRef = useCombinedRef(props.ref, contextRefOpts);
 
   const groupContext = {

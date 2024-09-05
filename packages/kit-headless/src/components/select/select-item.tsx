@@ -78,16 +78,19 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     const [entry] = entries;
 
     if (isHighlightedSig.value && !entry.isIntersecting) {
-      const containerRect = context.popoverRef.value?.getBoundingClientRect();
+      const containerRect = context.panelRef.value?.getBoundingClientRect();
       const itemRect = itemRef.value?.getBoundingClientRect();
 
-      if (!containerRect || !itemRect) return;
+      if (!containerRect || !itemRect || context.isMouseOverPopupSig.value) return;
 
       // Calculates the offset to center the item within the container
       const offset =
         itemRect.top - containerRect.top - containerRect.height / 2 + itemRect.height / 2;
 
-      context.popoverRef.value?.scrollBy({ top: offset, ...context.scrollOptions });
+      context.panelRef.value?.scrollBy({
+        top: document.hasFocus() ? offset : undefined,
+        ...context.scrollOptions,
+      });
     }
   });
 
@@ -99,18 +102,18 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
       context.highlightedItemRef = itemRef;
     }
 
-    if (isServer || !context.popoverRef.value) return;
-    if (_index !== context.highlightedIndexSig.value) return;
+    if (isServer || !context.panelRef.value) return;
+    if (props._index !== context.highlightedIndexSig.value) return;
 
     const hasScrollbar =
-      context.popoverRef.value.scrollHeight > context.popoverRef.value.clientHeight;
+      context.panelRef.value.scrollHeight > context.panelRef.value.clientHeight;
 
     if (!hasScrollbar) {
       return;
     }
 
     const observer = new IntersectionObserver(checkVisibility$, {
-      root: context.popoverRef.value,
+      root: context.panelRef.value,
       threshold: 1.0,
     });
 

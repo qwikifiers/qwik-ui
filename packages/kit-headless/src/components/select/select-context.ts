@@ -14,6 +14,7 @@ export type SelectContext = {
   listboxRef: Signal<HTMLUListElement | undefined>;
   groupRef: Signal<HTMLDivElement | undefined>;
   labelRef: Signal<HTMLDivElement | undefined>;
+  panelRef: Signal<HTMLDivElement | undefined>;
   highlightedItemRef: Signal<HTMLLIElement | undefined>;
 
   // core state
@@ -22,6 +23,7 @@ export type SelectContext = {
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;
   isListboxOpenSig: Signal<boolean>;
+  isMouseOverPopupSig: Signal<boolean>;
   isDisabledSig: Signal<boolean>;
   localId: string;
 

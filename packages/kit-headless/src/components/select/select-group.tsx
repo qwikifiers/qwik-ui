@@ -21,7 +21,7 @@ export const HSelectGroup = component$<SelectGroupProps>((props) => {
   useContextProvider(groupContextId, groupContext);
 
   return (
-    <div aria-labelledby={groupLabelId} role="group" {...props} ref={context.groupRef}>
+    <div aria-labelledby={groupLabelId} role="group" {...props} ref={context.panelRef}>
       <Slot />
     </div>
   );

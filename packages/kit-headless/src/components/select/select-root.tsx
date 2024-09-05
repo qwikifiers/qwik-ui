@@ -139,6 +139,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     const listboxRef = useSignal<HTMLUListElement>();
     const labelRef = useSignal<HTMLDivElement>();
     const groupRef = useSignal<HTMLDivElement>();
+    const panelRef = useSignal<HTMLDivElement>();
     const loop = givenLoop ?? false;
 
     // ids
@@ -156,6 +157,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
 
     const isListboxOpenSig = useSignal<boolean>(false);
+    const isMouseOverPopupSig = useSignal<boolean>(false);
     const scrollOptions = givenScrollOptions ?? {
       behavior: 'smooth',
       block: 'center',
@@ -188,11 +190,13 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       listboxRef,
       labelRef,
       groupRef,
+      panelRef,
       highlightedItemRef,
       localId,
       highlightedIndexSig,
       selectedIndexSetSig,
       isListboxOpenSig,
+      isMouseOverPopupSig,
       scrollOptions,
       loop,
       multiple,

@@ -14,6 +14,7 @@ import selectContextId from './select-context';
 import { HPopoverRoot } from '../popover/popover-root';
 import { isServer } from '@builder.io/qwik/build';
 import { useCombinedRef } from '../../hooks/combined-refs';
+import { useDebouncer } from '../../hooks/use-debouncer';
 
 export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) => {
   const context = useContext(selectContextId);
@@ -85,6 +86,13 @@ export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) =
     initialLoadSig.value = false;
   });
 
+  const resetScrollMove = useDebouncer(
+    $(() => {
+      context.isMouseOverPopupSig.value = false;
+    }),
+    650,
+  );
+
   return (
     <HPopoverRoot
       floating={floating}
@@ -105,6 +113,13 @@ export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) =
         aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
         aria-multiselectable={context.multiple ? 'true' : undefined}
         aria-labelledby={triggerId}
+        onMouseMove$={async () => {
+          context.isMouseOverPopupSig.value = true;
+
+          await resetScrollMove();
+        }}
+        onMouseOut$={() => (context.isMouseOverPopupSig.value = false)}
+        onKeyDown$={() => (context.isMouseOverPopupSig.value = true)}
         {...rest}
       >
         <Slot />
