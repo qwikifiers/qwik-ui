@@ -374,6 +374,14 @@ The other utility is `processChildren`, which allows us to search through the ch
 
 The prop `_index` contains an underscore to emphasize that it is an internal prop. Notice how `_index` is consumed in the child Item component.
 
+#### DONT USE SLOTS
+
+Notice how `<ExampleRoot />` returns a `children` prop. This is because inline components are able to look at children. Rather than passing a slot in an inline component, the children prop should be passed to the component's return function.
+
+#### How to use hooks and context?
+
+Context and hooks is still easy to use, create a new component called `<ExampleBase />` and return that instead of the div (with the children passed between) in the example above. From there, you can use context, hooks, and all the other Qwik goodies as a top level component.
+
 ## That's it!
 
 Hopefully you should have enough to get up and running with Qwik UI Headless, if you have any questions don't let us stop you from reaching out, and happy building :qwik:
