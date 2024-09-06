@@ -160,7 +160,9 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     slides.forEach((slideRef, index) => {
       if (!slideRef.value) return;
-      const slideInDirection = slideRef.value[isHorizontal ? 'offsetLeft' : 'offsetTop'];
+      const slideInDirection = isHorizontal
+        ? slideRef.value['offsetLeft']
+        : slideRef.value['offsetTop'] - slideRef.value.parentElement['offsetTop']; // get the offsetTop from the top of the current carousel
       const distance = Math.abs(containerScrollDirection - slideInDirection);
       if (distance < minDistance) {
         minDistance = distance;
