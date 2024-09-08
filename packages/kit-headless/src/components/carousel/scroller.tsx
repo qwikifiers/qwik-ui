@@ -30,6 +30,32 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     context.isScrollerSig.value = true;
   });
 
+  const easeInOutCubic = $((t: number): number => {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  });
+
+  const animateScroll$ = $(
+    (startPosition: number, endPosition: number, duration: number) => {
+      if (!context.scrollerRef.value) return;
+      const container = context.scrollerRef.value;
+      const distance = endPosition - startPosition;
+      const startTime = performance.now();
+
+      const animate = async (currentTime: number) => {
+        const elapsedTime = currentTime - startTime;
+        if (elapsedTime < duration) {
+          const progress = await easeInOutCubic(elapsedTime / duration);
+          container.scrollLeft = startPosition + distance * progress;
+          requestAnimationFrame(animate);
+        } else {
+          container.scrollLeft = endPosition;
+        }
+      };
+
+      requestAnimationFrame(animate);
+    },
+  );
+
   const getSlidePosition$ = $((index: number) => {
     if (!context.scrollerRef.value) return 0;
     const container = context.scrollerRef.value;
@@ -85,11 +111,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     }
 
     const dragSnapPosition = await getSlidePosition$(closestIndex);
-
-    container.scrollTo({
-      left: dragSnapPosition,
-      behavior: 'smooth',
-    });
+    const startPosition = context.scrollerRef.value.scrollLeft;
+    await animateScroll$(startPosition, dragSnapPosition, 300);
 
     context.currentIndexSig.value = closestIndex;
   });
@@ -127,10 +150,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     if (isMouseDownSig.value) return;
 
-    context.scrollerRef.value.scrollTo({
-      left: nonDragSnapPosition,
-      behavior: 'smooth',
-    });
+    const startPosition = context.scrollerRef.value.scrollLeft;
+    await animateScroll$(startPosition, nonDragSnapPosition, 300);
 
     window.removeEventListener('mousemove', handleMouseMove$);
   });
