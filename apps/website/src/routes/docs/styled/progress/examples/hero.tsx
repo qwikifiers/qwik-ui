@@ -2,7 +2,7 @@ import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { Progress } from '~/components/ui';
 
 export default component$(() => {
-  const progress = useSignal(30);
+  const progress = useSignal(20);
 
   useVisibleTask$(() => {
     setTimeout(() => {
@@ -10,5 +10,5 @@ export default component$(() => {
     }, 500);
   });
 
-  return <Progress value={progress.value} />;
+  return <Progress bind:value={progress} />;
 });

@@ -27,20 +27,18 @@ Displays multiple content items in one space, rotating through them.
     'Support for multiple slides per view',
     'Reactive slide updates',
     'Initial slide selection',
+    'Carousels can be horizontal or vertical',
     'Customizable accessible names',
-    'Supports scroller and conditional carousels',
-  ]}
-  roadmap={[
-    'Improve test coverage',
-    'Enhance documentation',
-    'Refine API for consistency with other components',
-    'Add support for vertical carousels',
+    'Supports carousels with or without scrollers',
+    'Optionally exposed as an accessible stepper',
   ]}
 />
 
-## CSS Scroll snapping
+## Why use the Qwik UI Carousel?
 
-Qwik UI combines CSS scroll snapping and flexbox for the carousel:
+### CSS Scroll snapping
+
+On coarse devices and when getting initial slide positions, Qwik UI combines CSS scroll snapping and flexbox for an optimized swiping experience:
 
 - Scroll snapping: Used on mobile for smooth touch interactions and initial snap position.
 - Flexbox: Provides a simple layout system for variable widths, gaps, and columns.
@@ -88,27 +86,53 @@ Qwik UI combines CSS scroll snapping and flexbox for the carousel:
 }
 ```
 
-## Pagination
+## Alignment Options
 
-Use `<Carousel.Pagination />` and `<Carousel.Bullet />` components to add pagination.
+### Start Alignment
 
-<Showcase name="pagination" />
+The default alignment is `start`. Slides will snap to the left edge of the carousel.
 
-> These are exposed to assistive technologies as tabs for screen readers.
+<Showcase name="hero" />
 
-## Multiple Slides
+### Center Alignment
+
+Set the `align` prop to `center` to align slides to the center of the carousel.
+
+<Showcase name="center" />
+
+### End Alignment
+
+Set the `align` prop to `end` to align slides to the right edge of the carousel.
+
+<Showcase name="end" />
+
+## Component State
+
+### Initial
+
+To set an initial slide position, use the `startIndex` prop.
+
+<Showcase name="initial" />
+
+### Reactive
+
+Reactively control the selected slide index by using the `bind:selectedIndex` prop.
+
+<Showcase name="reactive" />
+
+### Multiple Slides
 
 Set the `slidesPerView` prop for multiple slides.
 
 <Showcase name="multiple-slides" />
 
-## Non-draggable
+### Non-draggable
 
 Opt-out of the draggable behavior by setting the `draggable` prop to `false`.
 
 <Showcase name="non-draggable" />
 
-## Different widths
+### Different widths
 
 By default, the slides will take up the full width of the carousel.
 
@@ -116,7 +140,7 @@ To change this, use the `flex-basis` CSS property on the `<Carousel.Slide />` co
 
 <Showcase name="different-widths" />
 
-## Without Scroller
+### No Scroll
 
 Qwik UI supports carousels without a scroller, which can be useful for conditional slide carousels.
 
@@ -124,9 +148,7 @@ Qwik UI supports carousels without a scroller, which can be useful for condition
 
 Remove the `<Carousel.Scroller />` component to remove the scroller.
 
-## Animations
-
-### Conditional Slides
+#### Example Conditional Animation
 
 <Showcase name="conditional" />
 
@@ -150,25 +172,13 @@ Remove the `<Carousel.Scroller />` component to remove the scroller.
 }
 ```
 
-## CSR
+### CSR
 
 Both SSR and CSR are supported. In this example, we conditionally render the carousel based on an interaction.
 
 <Showcase name="csr" />
 
-## Center
-
-Align slides to the center of the carousel by setting the `align` prop to `center`.
-
-<Showcase name="center" />
-
-## End
-
-Align slides to the end of the carousel by setting the `align` prop to `end`.
-
-<Showcase name="end" />
-
-## Loop
+### Loop
 
 Loop the carousel by setting the `loop` prop to `true`.
 
@@ -176,9 +186,17 @@ Loop the carousel by setting the `loop` prop to `true`.
 
 > When looping, navigation buttons are never disabled.
 
-## Accessible Name
+### Autoplay
 
-Add an accessible name to the carousel by adding the `<Carousel.Title />` component.
+To use autoplay, use the `bind:autoplay` prop.
+
+<Showcase name="player" />
+
+### Accessible name
+
+By default, the carousel is automatically labeled with the `aria-label` attribute.
+
+In the case that you want to add a custom accessible name, use the `<Carousel.Title />` component.
 
 <Showcase name="title" />
 
@@ -186,13 +204,7 @@ To hide the title from screen readers, use the `<VisuallyHidden />` component.
 
 > The title is automatically added to the carousel's `aria-labelledby` attribute.
 
-## Autoplay
-
-To use autoplay, use the `bind:autoplay` prop.
-
-<Showcase name="player" />
-
-### What if I want to autoplay on initial render?
+#### What if I want to autoplay on initial render?
 
 Use a visible task to change the signal passed to `bind:autoplay` to `true` when the component is visible.
 
@@ -206,17 +218,53 @@ Use a visible task to change the signal passed to `bind:autoplay` to `true` when
   <Carousel.Root bind:autoplay={isAutoplaySig}>
 ```
 
-## Initial
+## Configurations
 
-To set an initial slide position, use the `startIndex` prop.
+### Pagination
 
-<Showcase name="initial" />
+Use `<Carousel.Pagination />` and `<Carousel.Bullet />` components to add pagination.
 
-## Reactive
+<Showcase name="pagination" />
 
-Reactively control the selected slide index by using the `bind:selectedIndex` prop.
+Inspired by [Adam Argyle's carousel examples](https://gui-challenges.web.app/carousel/dist/), the carousel component allows the pagination to be extendable, while intending to be intuitive.
 
-<Showcase name="reactive" />
+> These are exposed to assistive technologies as tabs for screen readers.
+
+### Stepper
+
+The Carousel component also includes built-in accessibility support for steppers and setup wizards.
+
+<Showcase name="stepper" />
+
+Steps can be disabled and enabled based on the index of the current slide or any other piece of state.
+
+> Steppers are seen by screen readers as a navigation area with series of steps that the user can navigate through.
+
+#### No Scroll
+
+Similar to Carousel's, steppers can be used without a scroller.
+
+<Showcase name="stepper-no-scroll" />
+
+#### Vertical
+
+Vertical steppers can be created by changing the markup position of the stepper.
+
+<Showcase name="vertical-stepper" />
+
+#### Presentational
+
+Create non-interactive steppers by setting the `as` prop to `div` or `span`. Use `Carousel.Next` and `Carousel.Previous` components for navigation instead.
+
+<Showcase name="stepper-presentational" />
+
+### Progress
+
+You can also control the progress of the carousel by using the `bind:progress` prop.
+
+<Showcase name="progress" />
+
+In the above example, we also use the headless progress component to show the progress of the carousel.
 
 ## API
 

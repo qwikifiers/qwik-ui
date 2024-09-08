@@ -18,3 +18,4 @@ export * from './utils/visually-hidden';
 export * as Tooltip from './components/tooltip';
 export * as Dropdown from './components/dropdown';
 export * as Combobox from './components/combobox';
+export { Polymorphic } from './components/polymorphic';

@@ -7,3 +7,5 @@ export { CarouselPagination as Pagination } from './pagination';
 export { CarouselBullet as Bullet } from './bullet';
 export { CarouselTitle as Title } from './title';
 export { CarouselPlayer as Player } from './player';
+export { CarouselStepper as Stepper } from './stepper';
+export { CarouselStep as Step } from './step';
