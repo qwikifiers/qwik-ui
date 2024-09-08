@@ -83,8 +83,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
     if (!context.scrollerRef.value) return;
     const x = e.pageX - context.scrollerRef.value.offsetLeft;
-    const dragSpeed = 1.75;
-    const walk = (x - startXSig.value) * dragSpeed;
+    const walk = x - startXSig.value;
     context.scrollerRef.value.scrollLeft = scrollLeftSig.value - walk;
     isMouseMovingSig.value = true;
   });
