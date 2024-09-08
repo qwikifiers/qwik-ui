@@ -25,26 +25,47 @@ A set of two-state buttons that can be toggled on or off.
   ]}
 />
 
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
+### 🎨 Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'ToggleGroup.Root',
+      description: 'The primary container for the toggle group.',
+    },
+    {
+      name: 'ToggleGroup.Item',
+      description: 'A single item.',
+    },
+  ]}
+/>
+
 ## Usage / Component State
 
 ### Multiple selection
+
+Pass a `multiple` prop to enable multi-selection.
 
 <Showcase name="multiple" />
 
 ### Initial Value (Uncontrolled)
 
-An initial, uncontrolled value can be provided using the `defaultValue` prop.
+An initial, uncontrolled value can be provided using the `value` prop.
 
-<Showcase name="defaultValue" />
+<Showcase name="initialValue" />
 
-### Reactive Value (Controlled)
-
-Pass the `value` prop to make the pressed state controlled.
-The `onValueChange$` event is fired when the user toggle the button, and receives the new value.
+If you want to have some control when an item is selected, like making some side effect you can use
+the `onValueChange$`. The event is fired when the user toggle the button, and receives the new value.
 
 <Showcase name="value" />
 
-Or you can bind the value with a signal.
+### Reactive Value (Controlled)
+
+Pass a signal to `bind:value` prop to make the pressed state controlled (binding the value with a signal).
 
 <Showcase name="value-bind" />
 
@@ -81,10 +102,6 @@ Pass the `orientation` prop.
 Pass the `direction` prop to `rtl`.
 
 <Showcase name="horizontal-rtl" />
-
-## Building blocks
-
-<CodeSnippet name="building-blocks" />
 
 ## Accessibility
 
@@ -133,21 +150,21 @@ Pass the `direction` prop to `rtl`.
       description: 'Enable multiple selections. Default to `false`.',
     },
     {
-      name: 'defaultValue',
-      type: 'string | string[]',
-      description: 'Initial value when the toggle is rendered and default to `false`.',
-    },
-    {
       name: 'value',
       type: 'string | string[]',
       description:
-        'Reactive value to make the pressed state controlled. Use in conjunction with `onValueChange$`.',
+        'Initial value to make the pressed state uncontrolled. Use in conjunction with `onValueChange$` to have some reactivity.',
     },
     {
       name: 'onValueChange$',
       type: 'function',
       info: 'PropFunction<() => void>',
       description: 'Called when the state changes.',
+    },
+    {
+      name: 'bind:value',
+      type: 'Signal<string | string[]>',
+      description: 'Reactive value (signal) to make the pressed state controlled.',
     },
     {
       name: 'disabled',
@@ -186,6 +203,11 @@ Pass the `direction` prop to `rtl`.
       name: 'disabled',
       type: 'boolean',
       description: 'Disables the toggle making the toggle unpressable.',
+    },
+    {
+      name: 'pressed',
+      type: 'boolean',
+      description: 'Makes the toggle initially pressed.',
     },
   ]}
 />

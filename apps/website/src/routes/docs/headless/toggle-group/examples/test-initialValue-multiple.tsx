@@ -7,7 +7,7 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <div class="toggle-container">
-      <ToggleGroup.Root defaultValue={'left'}>
+      <ToggleGroup.Root multiple value={['left', 'center']}>
         <ToggleGroup.Item value="left" aria-label="Left aligned" class="toggle">
           Left
         </ToggleGroup.Item>

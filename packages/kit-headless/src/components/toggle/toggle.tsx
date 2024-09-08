@@ -1,24 +1,23 @@
 import type { PropsOf, QRL, Signal } from '@builder.io/qwik';
 import { $, component$, Slot, sync$, useTask$ } from '@builder.io/qwik';
-import { useBoundSignal } from '../../utils/bound-signal';
+import { useBoundSignal } from '../../utils/bound-signal2';
 
 export type ToggleProps = PropsOf<'button'> & {
   /**
-   * The controlled state of the toggle.
+   * When true, prevents the user from interacting with the toggle group and all its items.
    */
   disabled?: boolean;
-  pressed?: boolean;
   /**
-   * The state of the toggle when initially rendered. Use `defaultPressed`
-   * if you do not need to control the state of the toggle.
-   * @defaultValue false
+   * The initial value of the toggle.
+   * Can be used in conjunction with `onPressedChange` to have more control.
    */
-  defaultPressed?: boolean;
+  pressed?: boolean;
   /**
    * The callback that fires when the state of the toggle changes.
    */
   onPressedChange$?: QRL<(pressed: boolean) => void>;
   /**
+   * The reactive value (a signal) of the toggle (the signal is the controlled value).
    * Controlling the pressed state with a bounded value.
    */
   'bind:pressed'?: Signal<boolean>;
@@ -27,13 +26,12 @@ export type ToggleProps = PropsOf<'button'> & {
 export const HToggle = component$<ToggleProps>((props) => {
   const {
     pressed: pressedProp,
-    defaultPressed = false,
     onPressedChange$,
     'bind:pressed': givenValueSig,
     ...buttonProps
   } = props;
 
-  const pressedSig = useBoundSignal(givenValueSig, defaultPressed);
+  const pressedSig = useBoundSignal(givenValueSig, pressedProp ? pressedProp : false);
 
   const handleKeyDownSync$ = sync$((event: KeyboardEvent) => {
     if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(event.key)) return;
@@ -41,13 +39,13 @@ export const HToggle = component$<ToggleProps>((props) => {
     event.preventDefault();
   });
 
-  useTask$(({ track }) => {
+  useTask$(async ({ track }) => {
     if (pressedProp === undefined) return;
     track(() => pressedProp);
     pressedSig.value = pressedProp;
   });
 
-  const handleClick$ = $(() => {
+  const handleClick$ = $(async () => {
     if (!props.disabled) {
       pressedSig.value = !pressedSig.value;
       if (onPressedChange$) {

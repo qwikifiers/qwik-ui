@@ -28,10 +28,10 @@ test.describe('Mouse Behavior', () => {
   });
 
   //Uncontrolled / Initial
-  test(`GIVEN a pressed toggle (with 'defaultPressed')
+  test(`GIVEN a pressed toggle (with initial 'pressed')
     WHEN the toggle is clicked
     THEN aria-pressed should be false`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'defaultPressed');
+    const { driver: d } = await setup(page, 'initialPressed');
 
     //Given
     await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'true');
@@ -43,8 +43,7 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'false');
   });
 
-  //Controlled / Reactive
-  //pressed
+  //pressed with onPressedChange to have some control
   test(`GIVEN a pressed toggle (with 'pressed')
         WHEN the toggle is clicked
         THEN aria-pressed should be false`, async ({ page }) => {
@@ -60,6 +59,7 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'false');
   });
 
+  //Controlled / Reactive
   //bind:pressed: 1 way binding (reading)
   test(`GIVEN a pressed toggle (with 'bind-pressed')
     WHEN the toggle is clicked
@@ -172,10 +172,10 @@ test.describe('Keyboard Behavior a11y', () => {
   });
 
   //Uncontrolled / Initial
-  test(`GIVEN a pressed toggle (with 'defaultPressed')
+  test(`GIVEN a pressed toggle (with initial 'pressed')
     WHEN the toggle is 'Enter' pressed
     THEN aria-pressed should be false`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'defaultPressed');
+    const { driver: d } = await setup(page, 'initialPressed');
 
     //Given
     await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'true');
@@ -186,10 +186,10 @@ test.describe('Keyboard Behavior a11y', () => {
     //Then
     await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'false');
   });
-  test(`GIVEN a pressed toggle (with 'defaultPressed')
+  test(`GIVEN a pressed toggle (with initial 'pressed')
     WHEN the toggle is 'Space' pressed
     THEN aria-pressed should be false`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'defaultPressed');
+    const { driver: d } = await setup(page, 'initialPressed');
 
     //Given
     await expect(d.getToggleButton()).toHaveAttribute('aria-pressed', 'true');

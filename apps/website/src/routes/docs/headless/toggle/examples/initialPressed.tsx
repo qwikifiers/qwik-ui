@@ -6,7 +6,7 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <div class="toggle-container">
-      <Toggle defaultPressed={true} class="toggle">
+      <Toggle pressed={true} class="toggle">
         Hello
       </Toggle>
     </div>

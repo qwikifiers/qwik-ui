@@ -1,41 +1,34 @@
 import type { QRL, Signal } from '@builder.io/qwik';
 import { createContextId } from '@builder.io/qwik';
 
-export const toggleGroupBaseContextId = createContextId<ToggleGroupBaseContext>(
-  'qui-toggle-group-base',
-);
-
-export const toggleGroupValueContextId = createContextId<ToggleGroupValueContext>(
-  'qui-toggle-group-value',
+export const toggleGroupRootApiContextId = createContextId<ToggleGroupRootApiContext>(
+  'qui-toggle-group-root-api',
 );
 
 export type Orientation = 'horizontal' | 'vertical';
 export type Direction = 'ltr' | 'rtl';
 
-type ItemId = string;
-export type ToggleGroupBaseContext = {
-  disabled: boolean;
-  orientation: Orientation;
-  direction: Direction;
+export type ItemId = string;
+export type Item = {
+  itemId: ItemId;
+  ref: Signal<HTMLElement | undefined>;
+  isPressed: Signal<boolean>;
+  isDisabled: boolean;
+  tabIndex: Signal<number>;
+};
+
+export type ToggleGroupRootApiContext = {
   rootId: string;
-  loop: boolean;
-  itemsRefs: Signal<Map<ItemId, Signal>>;
+  rootOrientation: Orientation;
+  rootDirection: Direction;
+  rootIsDisabled: boolean;
+  rootIsLoopEnabled: boolean;
+  rootMultiple: boolean;
+  activateItem$: QRL<(itemValue: string) => Promise<void> | void>;
+  deActivateItem$: QRL<(itemValue: string) => Promise<void> | void>;
+  getAllItem$: QRL<() => Item[]>;
+  pressedValuesSig: Signal<string | string[]>;
+  getAndSetTabIndexItem$: QRL<(itemId: ItemId, tabIndexValue: 0 | -1) => void>;
+  registerItem$: QRL<(itemId: ItemId, itemSig: Signal<Item>) => void>;
+  itemsCSR: Signal<HTMLElement[]>;
 };
-
-type ToggleGroupValueCommonContext = {
-  multiple: boolean;
-  onItemActivate$: QRL<(value: string) => void>;
-  onItemDeactivate$: QRL<(value: string) => void>;
-};
-
-type ToggleGroupValueSingleContext = ToggleGroupValueCommonContext & {
-  pressedValuesSig: Signal<string>;
-};
-
-type ToggleGroupValueMultipleContext = ToggleGroupValueCommonContext & {
-  pressedValuesSig: Signal<string[]>;
-};
-
-export type ToggleGroupValueContext =
-  | ToggleGroupValueSingleContext
-  | ToggleGroupValueMultipleContext;

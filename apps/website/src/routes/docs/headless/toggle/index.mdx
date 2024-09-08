@@ -23,22 +23,26 @@ A two-state button that can be either on or off.
   ]}
 />
 
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
 ## Usage / Component State
 
 ### Initial Value (Uncontrolled)
 
-An initial, uncontrolled value can be provided using the `defaultPressed` prop.
+An initial, uncontrolled value can be provided using the `pressed` prop.
 
-<Showcase name="defaultPressed" />
+<Showcase name="initialPressed" />
 
-### Reactive Value (Controlled)
-
-Pass the `pressed` prop to make the pressed state controlled.
-The `onPressedChange$` event is fired when the user toggle the button, and receives the new value.
+If you want to have some control when the toggle is pressed, like making some side effect you can use
+the `onPressedChange$`. The event is fired when the user toggle the button, and receives the new value.
 
 <Showcase name="pressed" />
 
-Or you can bind the value with a signal.
+### Reactive Value (Controlled)
+
+Pass a signal to `bind:value` prop to make the pressed state controlled (binding the value with a signal).
 
 <Showcase name="bind-pressed" />
 
@@ -47,10 +51,6 @@ Or you can bind the value with a signal.
 Pass the `disabled` prop.
 
 <Showcase name="disabled" />
-
-## Building blocks
-
-<CodeSnippet name="building-blocks" />
 
 ## Accessibility
 
@@ -74,21 +74,21 @@ Pass the `disabled` prop.
 <APITable
   propDescriptors={[
     {
-      name: 'defaultPressed',
-      type: 'boolean',
-      description: 'An initial value when the toggle is rendered. Default to `false`.',
-    },
-    {
       name: 'pressed',
       type: 'boolean',
       description:
-        'To make the pressed state controlled. Use in conjunction with `onPressedChange$`.',
+        'Initial value to make the pressed state uncontrolled. Use in conjunction with `onPressedChange$` to have some reactivity.',
     },
     {
       name: 'onPressedChange$',
       type: 'function',
       info: 'PropFunction<() => void>',
       description: 'Called when the state changes.',
+    },
+    {
+      name: 'bind:pressed',
+      type: 'Signal<boolean>',
+      description: 'Reactive value (signal) to make the pressed state controlled.',
     },
     {
       name: 'disabled',

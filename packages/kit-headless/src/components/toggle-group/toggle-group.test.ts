@@ -170,10 +170,10 @@ test.describe('Mouse Behavior', () => {
 
   //Uncontrolled / Initial (default props)
   //single (multiple = false)
-  test(`GIVEN a toggle-group with 'defaultValue' = 'left'
+  test(`GIVEN a toggle-group with 'value' = 'left'
     WHEN the 'center' item is clicked
     THEN 'center' item should have aria-pressed on true`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'defaultValue');
+    const { driver: d } = await setup(page, 'initialValue');
 
     //Given
     await expect(d.getItems()).toHaveCount(3);
@@ -193,10 +193,10 @@ test.describe('Mouse Behavior', () => {
   });
 
   //multiple
-  test(`GIVEN a toggle-group with 'defaultValue' = ['left', 'center']
+  test(`GIVEN a toggle-group with 'value' = ['left', 'center']
     WHEN the 'center' item is clicked
     THEN 'left' item should have aria-pressed on true`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'test-defaultValue-multiple');
+    const { driver: d } = await setup(page, 'test-initialValue-multiple');
 
     //Given
     await expect(d.getItems()).toHaveCount(3);
@@ -215,11 +215,12 @@ test.describe('Mouse Behavior', () => {
     await expect(centerItem).toHaveAttribute('aria-pressed', 'false');
   });
 
-  //Controlled (value + onValueChange OR bind:value)
+  //Some control (value + onValueChange)
   //single
   test(`GIVEN a toggle-group with 'value' = 'left'
     WHEN the 'center' item is clicked
-    THEN 'center' item should have aria-pressed on true`, async ({ page }) => {
+    THEN 'center' item should have aria-pressed on true
+    AND valueSelected should be center`, async ({ page }) => {
     const { driver: d } = await setup(page, 'value');
 
     //Given
@@ -239,6 +240,7 @@ test.describe('Mouse Behavior', () => {
     await expect(leftItem).toHaveAttribute('aria-pressed', 'false');
   });
 
+  //Reactive (controlled)
   test(`GIVEN a toggle-group with 'bind:value' = Signal<'left'>
     WHEN the 'center' item is clicked
     THEN 'center' item should have aria-pressed on true
@@ -252,17 +254,42 @@ test.describe('Mouse Behavior', () => {
     const centerItem = await d.getItemByIndex(1);
     const rightItem = await d.getItemByIndex(2);
     await expect(leftItem).toHaveAttribute('aria-pressed', 'true');
+    await expect(leftItem).toHaveAttribute('tabIndex', '0');
     await expect(centerItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(centerItem).toHaveAttribute('tabIndex', '-1');
     await expect(rightItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(rightItem).toHaveAttribute('tabIndex', '-1');
 
     //when
     await centerItem.click();
 
     //Then
     await expect(leftItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(leftItem).toHaveAttribute('tabIndex', '-1');
+
     await expect(centerItem).toHaveAttribute('aria-pressed', 'true');
+    await expect(centerItem).toHaveAttribute('tabIndex', '0');
+
+    await expect(rightItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(rightItem).toHaveAttribute('tabIndex', '-1');
+
     const spanElement = await d.getRoot().locator('[test-data-bounded-span]');
     await expect(spanElement).toContainText('You selected: center');
+
+    //when
+    await centerItem.click();
+
+    //Then
+    await expect(leftItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(leftItem).toHaveAttribute('tabIndex', '0');
+
+    await expect(centerItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(centerItem).toHaveAttribute('tabIndex', '-1');
+
+    await expect(rightItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(rightItem).toHaveAttribute('tabIndex', '-1');
+
+    await expect(spanElement).toContainText('You selected: ');
   });
 
   //multiple
@@ -535,6 +562,124 @@ test.describe('Keyboard Navigation (Moving and Pressing)', () => {
     await expect(centerItem).toHaveAttribute('aria-pressed', 'false');
   });
 
+  test(`GIVEN a single toggle-group wrapped into other element
+    WHEN the 'outsideRoot' element is 'Focused'
+    AND the 'outsideRoot' element is 'Tab' pressed
+    THEN 'leftItem' (firstItem) should be focused`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-focus-single');
+    //Given
+    await expect(d.getItems()).toHaveCount(3);
+    const leftItem = await d.getItemByIndex(0);
+    const centerItem = await d.getItemByIndex(1);
+    const rightItem = await d.getItemByIndex(2);
+    await expect(leftItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(leftItem).toHaveAttribute('tabIndex', '0');
+    await expect(centerItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(centerItem).toHaveAttribute('tabIndex', '-1');
+    await expect(rightItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(rightItem).toHaveAttribute('tabIndex', '-1');
+
+    const outsideRootTopElement = await d
+      .getRoot()
+      .locator('[test-data-outside-root-top]');
+    const outsideRootBottomButtonElement = await d
+      .getRoot()
+      .locator('[test-data-outside-root-bottom-button]');
+
+    //When, Then
+    await outsideRootTopElement.focus();
+    await outsideRootTopElement.press('Tab');
+    await expect(leftItem).toBeFocused();
+    await leftItem.press('Tab');
+    await expect(outsideRootBottomButtonElement).toBeFocused();
+  });
+
+  test(`GIVEN a single toggle-group wrapped into other element and center item is pressed
+    WHEN the 'outsideRoot' element is 'Focused'
+    AND the 'outsideRoot' element is 'Tab' pressed
+    THEN 'center' (pressedItem) should be focused`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-focus-single-center-pressed');
+    //Given
+    await expect(d.getItems()).toHaveCount(3);
+    const leftItem = await d.getItemByIndex(0);
+    const centerItem = await d.getItemByIndex(1);
+    const rightItem = await d.getItemByIndex(2);
+    await expect(leftItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(leftItem).toHaveAttribute('tabIndex', '-1');
+    await expect(centerItem).toHaveAttribute('aria-pressed', 'true');
+    await expect(centerItem).toHaveAttribute('tabIndex', '0');
+    await expect(rightItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(rightItem).toHaveAttribute('tabIndex', '-1');
+
+    const outsideRootTopElement = await d
+      .getRoot()
+      .locator('[test-data-outside-root-top]');
+
+    //When, Then
+    await outsideRootTopElement.focus();
+    await outsideRootTopElement.press('Tab');
+    await expect(centerItem).toBeFocused();
+  });
+
+  test(`GIVEN a multiple toggle-group wrapped into other element
+    WHEN the 'outsideRoot' element is 'Focused'
+    AND the 'outsideRoot' element is 'Tab' pressed
+    THEN 'leftItem' (firstItem) should be focused`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-focus-multiple');
+    //Given
+    await expect(d.getItems()).toHaveCount(3);
+    const leftItem = await d.getItemByIndex(0);
+    const centerItem = await d.getItemByIndex(1);
+    const rightItem = await d.getItemByIndex(2);
+    await expect(leftItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(leftItem).toHaveAttribute('tabIndex', '0');
+    await expect(centerItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(centerItem).toHaveAttribute('tabIndex', '-1');
+    await expect(rightItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(rightItem).toHaveAttribute('tabIndex', '-1');
+
+    const outsideRootTopElement = await d
+      .getRoot()
+      .locator('[test-data-outside-root-top]');
+    const outsideRootBottomButtonElement = await d
+      .getRoot()
+      .locator('[test-data-outside-root-bottom-button]');
+
+    //When, Then
+    await outsideRootTopElement.focus();
+    await outsideRootTopElement.press('Tab');
+    await expect(leftItem).toBeFocused();
+    await leftItem.press('Tab');
+    await expect(outsideRootBottomButtonElement).toBeFocused();
+  });
+
+  test(`GIVEN a multiple toggle-group wrapped into other element and center item is pressed
+    WHEN the 'outsideRoot' element is 'Focused'
+    AND the 'outsideRoot' element is 'Tab' pressed
+    THEN 'center' (pressedItem) should be focused`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-focus-multiple-center-pressed');
+    //Given
+    await expect(d.getItems()).toHaveCount(3);
+    const leftItem = await d.getItemByIndex(0);
+    const centerItem = await d.getItemByIndex(1);
+    const rightItem = await d.getItemByIndex(2);
+    await expect(leftItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(leftItem).toHaveAttribute('tabIndex', '-1');
+    await expect(centerItem).toHaveAttribute('aria-pressed', 'true');
+    await expect(centerItem).toHaveAttribute('tabIndex', '0');
+    await expect(rightItem).toHaveAttribute('aria-pressed', 'false');
+    await expect(rightItem).toHaveAttribute('tabIndex', '-1');
+
+    const outsideRootTopElement = await d
+      .getRoot()
+      .locator('[test-data-outside-root-top]');
+
+    //When, Then
+    await outsideRootTopElement.focus();
+    await outsideRootTopElement.press('Tab');
+    await expect(centerItem).toBeFocused();
+  });
+
   test(`GIVEN a toggle-group with 'center' is 'Enter' pressed
         WHEN the 'right' item is 'Enter' pressed
         AND the 'center' item is 'Enter' pressed
@@ -658,12 +803,12 @@ test.describe('Keyboard Navigation (Moving and Pressing)', () => {
     await expect(centerItem).toHaveAttribute('aria-pressed', 'false');
   });
 
-  //Uncontrolled / Initial (default props)
+  //Uncontrolled / Initial value
   //single (multiple = false)
-  test(`GIVEN a toggle-group with 'defaultValue' = 'left'
+  test(`GIVEN a toggle-group with an initial 'value' = 'left'
     WHEN the 'center' item is 'Enter' pressed
     THEN 'center' item should have aria-pressed on true`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'defaultValue');
+    const { driver: d } = await setup(page, 'initialValue');
 
     //Given
     await expect(d.getItems()).toHaveCount(3);
@@ -686,10 +831,10 @@ test.describe('Keyboard Navigation (Moving and Pressing)', () => {
   });
 
   //multiple
-  test(`GIVEN a toggle-group with 'defaultValue' = ['left', 'center']
+  test(`GIVEN a toggle-group with an initial 'value' = ['left', 'center']
     WHEN the 'center' item is 'Enter' pressed
     THEN 'left' item should have aria-pressed on true`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'test-defaultValue-multiple');
+    const { driver: d } = await setup(page, 'test-initialValue-multiple');
 
     //Given
     await expect(d.getItems()).toHaveCount(3);
@@ -711,7 +856,7 @@ test.describe('Keyboard Navigation (Moving and Pressing)', () => {
     await expect(centerItem).toHaveAttribute('aria-pressed', 'false');
   });
 
-  //Controlled (value)
+  //Initial (value)
   //single
   test(`GIVEN a toggle-group with 'value' = 'left'
     WHEN the 'center' item is 'Enter' pressed

@@ -1,6 +1,6 @@
-import { $, useTask$ } from '@builder.io/qwik';
+import { $, Signal, useId, useSignal } from '@builder.io/qwik';
 
-import { ToggleGroupValueContext } from './toggle-group-context';
+import { Item, ItemId } from './toggle-group-context';
 import {
   ToggleGroupApiProps,
   ToggleGroupMultipleProps,
@@ -8,22 +8,44 @@ import {
 } from './toggle-group-root';
 import { useBoundSignal } from '../../utils/bound-signal2';
 
-function useCreateSingleToggleGroup(props: ToggleGroupSingleProps) {
-  const {
-    multiple = false,
-    defaultValue,
-    value,
-    onValueChange$,
-    'bind:value': givenValueSig,
-  } = props;
+function useRootItemsRepo() {
+  const items = useSignal<Map<ItemId, Signal<Item>>>(new Map());
 
-  const pressedValuesSig = useBoundSignal(givenValueSig, defaultValue);
+  const rootId = useId();
 
-  useTask$(({ track }) => {
-    if (value === undefined) return;
-    track(() => value);
-    pressedValuesSig.value = value;
+  //only used to register itemRef in CSR land
+  const itemsCSR = useSignal<HTMLElement[]>([]);
+
+  const registerItem$ = $((itemId: ItemId, itemSig: Signal<Item>) => {
+    items.value = items.value.set(itemId, itemSig);
   });
+
+  const getAndSetTabIndexItem$ = $((itemId: ItemId, tabIndexValue: 0 | -1) => {
+    const itemSig = items.value.get(itemId);
+    if (!itemSig) throw 'Item Not Found';
+    if (itemSig) {
+      itemSig.value.tabIndex.value = tabIndexValue;
+    }
+  });
+
+  const getAllItems$ = $(() =>
+    Array.from(items.value.values()).map((signal) => signal.value),
+  );
+
+  return {
+    getAllItems$,
+    getAndSetTabIndexItem$,
+    registerItem$,
+    rootId,
+    itemsCSR,
+  } as const;
+}
+
+function useCreateSingleToggleGroup(props: ToggleGroupSingleProps) {
+  const { multiple = false, value, onValueChange$, 'bind:value': givenValueSig } = props;
+
+  const pressedValuesSig = useBoundSignal(givenValueSig, value);
+  const rootItemsRepo = useRootItemsRepo();
 
   const handleValueChange$ = $((newValue: string) => {
     pressedValuesSig.value = newValue;
@@ -31,52 +53,56 @@ function useCreateSingleToggleGroup(props: ToggleGroupSingleProps) {
     if (onValueChange$) onValueChange$(pressedValuesSig.value);
   });
 
-  const handleItemActivate$ = $((itemValue: string) => handleValueChange$(itemValue));
-  const handleItemDeactivate$ = $(() => handleValueChange$(''));
+  const activateItem$ = $((itemValue: string) => handleValueChange$(itemValue));
+  const deActivateItem$ = $(() => handleValueChange$(''));
 
   return {
     multiple,
     pressedValuesSig,
-    onItemActivate$: handleItemActivate$,
-    onItemDeactivate$: handleItemDeactivate$,
+    activateItem$,
+    deActivateItem$,
+    getAllItems$: rootItemsRepo.getAllItems$,
+    getAndSetTabIndexItem$: rootItemsRepo.getAndSetTabIndexItem$,
+    registerItem$: rootItemsRepo.registerItem$,
+    rootId: rootItemsRepo.rootId,
+    itemsCSR: rootItemsRepo.itemsCSR,
   } as const;
 }
 
 function useCreateMultipleToggleGroup(props: ToggleGroupMultipleProps) {
-  const {
-    multiple = true,
-    'bind:value': givenValueSig,
-    value,
-    defaultValue,
-    onValueChange$,
-  } = props;
+  const { multiple = true, 'bind:value': givenValueSig, value, onValueChange$ } = props;
 
-  const pressedValuesSig = useBoundSignal(givenValueSig, defaultValue);
+  /*
+  Need to pass an empty array if not I got: TypeError when toggle
+  Uncaught (in promise) TypeError: pressedValuesSig.value is not iterable
+  */
+  const pressedValuesSig = useBoundSignal(givenValueSig, value || []);
 
-  useTask$(({ track }) => {
-    if (value === undefined) return;
-    track(() => value);
-    pressedValuesSig.value = value;
-  });
+  const rootItemsRepo = useRootItemsRepo();
 
   const handleValueChange$ = $((newValue: string[]) => {
     pressedValuesSig.value = newValue;
+
     if (onValueChange$) onValueChange$(pressedValuesSig.value);
   });
 
-  const handleItemActivate$ = $((itemValue: string) =>
+  const activateItem$ = $((itemValue: string) =>
     handleValueChange$([...pressedValuesSig.value, itemValue]),
   );
-
-  const handleItemDeactivate$ = $((itemValue: string) =>
+  const deActivateItem$ = $((itemValue: string) =>
     handleValueChange$(pressedValuesSig.value.filter((value) => value !== itemValue)),
   );
 
   return {
     multiple,
     pressedValuesSig,
-    onItemActivate$: handleItemActivate$,
-    onItemDeactivate$: handleItemDeactivate$,
+    activateItem$,
+    deActivateItem$,
+    getAllItems$: rootItemsRepo.getAllItems$,
+    getAndSetTabIndexItem$: rootItemsRepo.getAndSetTabIndexItem$,
+    registerItem$: rootItemsRepo.registerItem$,
+    rootId: rootItemsRepo.rootId,
+    itemsCSR: rootItemsRepo.itemsCSR,
   } as const;
 }
 
@@ -84,7 +110,7 @@ function isSingleProps(props: ToggleGroupApiProps): props is ToggleGroupSinglePr
   return props.multiple === undefined || props.multiple === false;
 }
 
-export function useToggleGroup(props: ToggleGroupApiProps): ToggleGroupValueContext {
+export function useToggleGroup(props: ToggleGroupApiProps) {
   if (isSingleProps(props)) {
     // this is fine as the ToggleGroup will always be either Single or Multiple during its lifecycle
     // eslint-disable-next-line qwik/use-method-usage
