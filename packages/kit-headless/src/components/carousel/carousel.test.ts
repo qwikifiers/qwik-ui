@@ -444,6 +444,33 @@ test.describe('Mobile / Touch Behavior', () => {
     expect(Math.abs(secondSlideBox.x - scrollerBox.x)).toBeLessThan(1); // Allow 1px tolerance
   });
 
+  test(`GIVEN a mobile vertical carousel
+        WHEN swiping to the next slide
+        Then the next slide should snap to the top side of the scroller`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'vertical-direction');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    const boundingBox = await d.getSlideBoundingBoxAt(0);
+
+    const startY = boundingBox.y + boundingBox.height * 0.8;
+    const endY = boundingBox.y + boundingBox.height * 0.2;
+    const x = boundingBox.x + boundingBox.width / 2;
+
+    await page.touchscreen.tap(x, startY);
+    await page.mouse.move(x, startY, { steps: 10 });
+    await page.mouse.move(x, endY, { steps: 10 });
+    await page.touchscreen.tap(x, endY);
+
+    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+    const scrollerBox = await d.getScrollerBoundingBox();
+    const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+
+    expect(Math.abs(secondSlideBox.y - scrollerBox.y)).toBeLessThan(1); // Allow 1px tolerance
+  });
+
   test(`GIVEN a mobile carousel
     WHEN tapping the next button
     THEN the next slide should snap to the left side of the scroller`, async ({
