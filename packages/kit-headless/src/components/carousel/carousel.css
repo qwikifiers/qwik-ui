@@ -21,19 +21,6 @@
     [data-qui-carousel-scroller][data-draggable] {
       overflow-x: scroll;
     }
-
-    /* make sure snap align is added after initial index animation */
-    [data-draggable][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: start;
-    }
-
-    [data-draggable][data-align='center'][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: center;
-    }
-
-    [data-draggable][data-align='end'][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: end;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
