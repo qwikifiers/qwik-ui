@@ -89,7 +89,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     isMouseMovingSig.value = true;
   });
 
-  const handleSnap$ = $(() => {
+  const handleDragSnap$ = $(() => {
     if (!context.scrollerRef.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
@@ -117,7 +117,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     const dragSnapPosition = targetSlide.offsetLeft - container.offsetLeft;
 
-    // Use native smooth scrolling for better performance
     container.scrollTo({
       left: dragSnapPosition,
       behavior: 'smooth',
@@ -137,7 +136,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     startXSig.value = e.pageX - context.scrollerRef.value.offsetLeft;
     scrollLeftSig.value = context.scrollerRef.value.scrollLeft;
     window.addEventListener('mousemove', handleMouseMove$);
-    window.addEventListener('mouseup', handleSnap$);
+    window.addEventListener('mouseup', handleDragSnap$);
     isMouseMovingSig.value = false;
   });
 
@@ -175,25 +174,26 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     });
   });
 
+  const handleWindowTouchStart$ = $(() => {
+    isTouchMovingSig.value = false;
+    isTouchDeviceSig.value = true;
+  });
+
+  const handleTouchMove$ = $(() => {
+    isTouchMovingSig.value = true;
+  });
+
   useOnWindow('resize', handleResize);
 
   return (
     <div
       ref={context.scrollerRef}
-      onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
-      data-draggable={context.isDraggableSig.value ? '' : undefined}
       data-qui-carousel-scroller
-      onTouchMove$={() => {
-        isTouchMovingSig.value = true;
-      }}
-      onTouchEnd$={handleSnap$}
-      onTouchStart$={() => {
-        isTouchStartSig.value = true;
-      }}
-      window:onTouchStart$={() => {
-        isTouchMovingSig.value = false;
-        isTouchDeviceSig.value = true;
-      }}
+      onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
+      onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
+      onTouchEnd$={handleDragSnap$}
+      data-draggable={context.isDraggableSig.value ? '' : undefined}
+      window:onTouchStart$={[handleWindowTouchStart$, props['window:onTouchStart$']]}
       preventdefault:mousemove
       data-align={context.alignSig.value}
       data-initial-touch={isTouchStartSig.value ? '' : undefined}
