@@ -25,6 +25,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isTouchDeviceSig = useSignal(false);
   const isTouchMovingSig = useSignal(true);
   const isTouchStartSig = useSignal(false);
+  const lastTouchX = useSignal(0);
 
   useTask$(() => {
     context.isScrollerSig.value = true;
@@ -34,27 +35,33 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   });
 
-  const animateScroll$ = $(
-    (startPosition: number, endPosition: number, duration: number) => {
-      if (!context.scrollerRef.value) return;
-      const container = context.scrollerRef.value;
-      const distance = endPosition - startPosition;
-      const startTime = performance.now();
+  const animationFrame = useSignal<number | null>(null);
 
-      const animate = async (currentTime: number) => {
-        const elapsedTime = currentTime - startTime;
-        if (elapsedTime < duration) {
-          const progress = await easeInOutCubic(elapsedTime / duration);
-          container.scrollLeft = startPosition + distance * progress;
-          requestAnimationFrame(animate);
-        } else {
-          container.scrollLeft = endPosition;
-        }
-      };
+  const animateScroll$ = $((endPosition: number, duration: number) => {
+    if (!context.scrollerRef.value) return;
+    const container = context.scrollerRef.value;
+    const startPosition = container.scrollLeft;
+    const startTime = performance.now();
 
-      requestAnimationFrame(animate);
-    },
-  );
+    if (animationFrame.value !== null) {
+      cancelAnimationFrame(animationFrame.value);
+    }
+
+    const animate = async (currentTime: number) => {
+      const elapsedTime = currentTime - startTime;
+      if (elapsedTime < duration) {
+        const progress = await easeInOutCubic(elapsedTime / duration);
+        const newPosition = startPosition + (endPosition - startPosition) * progress;
+        container.scrollLeft = newPosition;
+        animationFrame.value = requestAnimationFrame(animate);
+      } else {
+        container.scrollLeft = endPosition;
+        animationFrame.value = null;
+      }
+    };
+
+    animationFrame.value = requestAnimationFrame(animate);
+  });
 
   const getSlidePosition$ = $((index: number) => {
     if (!context.scrollerRef.value) return 0;
@@ -89,7 +96,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     isMouseMovingSig.value = true;
   });
 
-  const handleDragSnap$ = $(() => {
+  const handleDragSnap$ = $(async () => {
     if (!context.scrollerRef.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
@@ -97,6 +104,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
     const containerScrollLeft = container.scrollLeft;
+    const containerWidth = container.clientWidth;
+    const alignment = context.alignSig.value;
 
     let closestIndex = 0;
     let minDistance = Infinity;
@@ -104,7 +113,16 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     for (let i = 0; i < slides.length; i++) {
       const slide = slides[i].value;
       if (!slide) continue;
-      const slidePosition = slide.offsetLeft - container.offsetLeft;
+      const slideRect = slide.getBoundingClientRect();
+      let slidePosition = slide.offsetLeft - container.offsetLeft;
+
+      // Adjust slidePosition based on alignment
+      if (alignment === 'center') {
+        slidePosition -= (containerWidth - slideRect.width) / 2;
+      } else if (alignment === 'end') {
+        slidePosition -= containerWidth - slideRect.width;
+      }
+
       const distance = Math.abs(containerScrollLeft - slidePosition);
       if (distance < minDistance) {
         closestIndex = i;
@@ -112,15 +130,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       }
     }
 
-    const targetSlide = slides[closestIndex].value;
-    if (!targetSlide) return;
-
-    const dragSnapPosition = targetSlide.offsetLeft - container.offsetLeft;
-
-    container.scrollTo({
-      left: dragSnapPosition,
-      behavior: 'smooth',
-    });
+    const dragSnapPosition = await getSlidePosition$(closestIndex);
+    await animateScroll$(dragSnapPosition, 300);
 
     context.currentIndexSig.value = closestIndex;
   });
@@ -158,13 +169,11 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     if (isMouseDownSig.value) return;
 
-    const startPosition = context.scrollerRef.value.scrollLeft;
-    await animateScroll$(startPosition, nonDragSnapPosition, 300);
+    await animateScroll$(nonDragSnapPosition, 300);
 
     window.removeEventListener('mousemove', handleMouseMove$);
   });
 
-  // resize the snap point when the window resizes
   const handleResize = $(async () => {
     if (!context.scrollerRef.value) return;
     const newPosition = await getSlidePosition$(context.currentIndexSig.value);
@@ -179,17 +188,37 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     isTouchDeviceSig.value = true;
   });
 
-  const handleTouchMove$ = $(() => {
+  const handleTouchStart$ = $((e: TouchEvent) => {
+    if (!context.isDraggableSig.value) return;
+    isTouchStartSig.value = true;
+    lastTouchX.value = e.touches[0].clientX;
+  });
+
+  const handleTouchMove$ = $((e: TouchEvent) => {
+    if (!context.isDraggableSig.value || !context.scrollerRef.value) return;
+    const touchX = e.touches[0].clientX;
+    const diff = lastTouchX.value - touchX;
+    context.scrollerRef.value.scrollLeft += diff;
+    lastTouchX.value = touchX;
     isTouchMovingSig.value = true;
   });
 
   useOnWindow('resize', handleResize);
+
+  useTask$(({ cleanup }) => {
+    cleanup(() => {
+      if (animationFrame.value !== null) {
+        cancelAnimationFrame(animationFrame.value);
+      }
+    });
+  });
 
   return (
     <div
       ref={context.scrollerRef}
       data-qui-carousel-scroller
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
+      onTouchStart$={handleTouchStart$}
       onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
       onTouchEnd$={handleDragSnap$}
       data-draggable={context.isDraggableSig.value ? '' : undefined}
