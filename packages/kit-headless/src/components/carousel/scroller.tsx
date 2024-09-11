@@ -38,6 +38,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
     let position = 0;
+
     for (let i = 0; i < index; i++) {
       if (slides[i].value) {
         position += slides[i].value.getBoundingClientRect().width + context.gapSig.value;
@@ -53,6 +54,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
         container.clientWidth - slides[index].value.getBoundingClientRect().width;
     }
 
+    console.log(`getSlidePosition$ for index ${index}: ${position}`);
     return Math.max(0, position);
   });
 
@@ -62,30 +64,28 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const x = e.pageX;
     const dragSpeed = 1.75;
     const walk = (startXSig.value - x) * dragSpeed;
-    console.log(startXSig.value);
-    const newTransform = transformLeftSig.value - walk;
-    console.log('TRANSFORM LEFT: ', transformLeftSig.value);
-    context.scrollerRef.value.style.transform = `translate3d(${newTransform}px, 0, 0)`;
+    transformLeftSig.value -= walk;
+    context.scrollerRef.value.style.transform = `translate3d(${transformLeftSig.value}px, 0, 0)`;
     context.scrollerRef.value.style.transition = 'none';
+    startXSig.value = x;
     isMouseMovingSig.value = true;
+    console.log('Mouse move transform:', transformLeftSig.value);
   });
 
   const handleDragSnap$ = $(async () => {
     if (!context.scrollerRef.value) return;
 
-    const computedTransform = getComputedStyle(context.scrollerRef.value).transform;
-
-    transformLeftSig.value =
-      computedTransform === 'none' ? 0 : parseInt(computedTransform.split(',')[4]) || 0;
-
-    isMouseDownSig.value = false;
-    window.removeEventListener('mousemove', handleMouseMove$);
-
     const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
-    const containerScrollLeft = container.scrollLeft;
-    const containerWidth = container.clientWidth;
-    const alignment = context.alignSig.value;
+    const containerRect = container.getBoundingClientRect();
+    const viewportCenter = window.innerWidth / 2;
+
+    console.log(
+      'Container left:',
+      containerRect.left,
+      'Viewport center:',
+      viewportCenter,
+    );
 
     let closestIndex = 0;
     let minDistance = Infinity;
@@ -93,29 +93,34 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     for (let i = 0; i < slides.length; i++) {
       const slide = slides[i].value;
       if (!slide) continue;
+
       const slideRect = slide.getBoundingClientRect();
-      let slidePosition = slide.offsetLeft - container.offsetLeft;
+      const slideCenter = slideRect.left + slideRect.width / 2;
+      const distanceToCenter = Math.abs(slideCenter - viewportCenter);
 
-      // Adjust slidePosition based on alignment
-      if (alignment === 'center') {
-        slidePosition -= (containerWidth - slideRect.width) / 2;
-      } else if (alignment === 'end') {
-        slidePosition -= containerWidth - slideRect.width;
-      }
+      console.log(
+        `Slide ${i}: center = ${slideCenter}, distance to viewport center = ${distanceToCenter}`,
+      );
 
-      const distance = Math.abs(containerScrollLeft - slidePosition);
-      if (distance < minDistance) {
+      if (distanceToCenter < minDistance) {
         closestIndex = i;
-        minDistance = distance;
+        minDistance = distanceToCenter;
       }
     }
 
+    console.log('Closest index:', closestIndex, 'Min distance:', minDistance);
+
     const dragSnapPosition = await getSlidePosition$(closestIndex);
+    console.log('Drag snap position:', dragSnapPosition);
+
     container.style.transition = 'transform 0.3s ease-out';
     container.style.transform = `translate3d(${-dragSnapPosition}px, 0, 0)`;
     transformLeftSig.value = -dragSnapPosition;
 
     context.currentIndexSig.value = closestIndex;
+    isMouseDownSig.value = false;
+    isMouseMovingSig.value = false;
+    window.removeEventListener('mousemove', handleMouseMove$);
   });
 
   const handleMouseDown$ = $((e: MouseEvent) => {
