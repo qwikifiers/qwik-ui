@@ -63,7 +63,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const dragSpeed = 1.75;
     const walk = (startXSig.value - x) * dragSpeed;
     console.log(startXSig.value);
-    const newTransform = transformLeftSig.value + walk;
+    const newTransform = transformLeftSig.value - walk;
     console.log('TRANSFORM LEFT: ', transformLeftSig.value);
     context.scrollerRef.value.style.transform = `translate3d(${newTransform}px, 0, 0)`;
     context.scrollerRef.value.style.transition = 'none';
