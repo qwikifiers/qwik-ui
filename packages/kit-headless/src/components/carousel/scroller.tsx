@@ -71,13 +71,13 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   });
 
   const handleDragSnap$ = $(async () => {
+    if (!context.scrollerRef.value) return;
+
     const computedTransform = getComputedStyle(context.scrollerRef.value).transform;
 
     transformLeftSig.value =
-      computedTransform === 'none' ? 0 : parseFloat(computedTransform.split(',')[4]) || 0;
+      computedTransform === 'none' ? 0 : parseInt(computedTransform.split(',')[4]) || 0;
 
-    console.log('transform left: ', transformLeftSig.value);
-    if (!context.scrollerRef.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
 
@@ -110,8 +110,10 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       }
     }
 
-    // const dragSnapPosition = await getSlidePosition$(closestIndex);
-    // container.style.transform = `translate3d(${-dragSnapPosition}px, 0, 0)`;
+    const dragSnapPosition = await getSlidePosition$(closestIndex);
+    container.style.transition = 'transform 0.3s ease-out';
+    container.style.transform = `translate3d(${-dragSnapPosition}px, 0, 0)`;
+    transformLeftSig.value = -dragSnapPosition;
 
     context.currentIndexSig.value = closestIndex;
   });
@@ -144,11 +146,11 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     context.scrollStartRef.value?.style.setProperty('--scroll-snap-align', 'none');
 
-    const nonDragSnapPosition = await getSlidePosition$(context.currentIndexSig.value);
+    // const nonDragSnapPosition = await getSlidePosition$(context.currentIndexSig.value);
 
     if (isMouseDownSig.value) return;
 
-    context.scrollerRef.value.scrollTo({ left: nonDragSnapPosition, behavior: 'smooth' });
+    // context.scrollerRef.value.scrollTo({ left: nonDragSnapPosition, behavior: 'smooth' });
 
     window.removeEventListener('mousemove', handleMouseMove$);
   });
