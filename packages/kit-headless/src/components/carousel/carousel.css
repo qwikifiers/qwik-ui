@@ -4,6 +4,7 @@
     gap: var(--gap);
     /* for mobile & scroll-snap-start */
     scroll-snap-type: x mandatory;
+    will-change: transform;
   }
 
   [data-qui-carousel-slide] {
