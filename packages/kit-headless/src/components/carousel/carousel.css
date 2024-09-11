@@ -1,6 +1,5 @@
 @layer qwik-ui {
   [data-qui-carousel-scroller] {
-    overflow: hidden;
     display: flex;
     gap: var(--gap);
     /* for mobile & scroll-snap-start */

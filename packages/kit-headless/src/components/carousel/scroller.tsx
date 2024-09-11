@@ -19,7 +19,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const context = useContext(carouselContextId);
   useStyles$(styles);
   const startXSig = useSignal<number>();
-  const scrollLeftSig = useSignal(0);
+  const transformLeftSig = useSignal(0);
   const isMouseDownSig = useSignal(false);
   const isMouseMovingSig = useSignal(false);
   const isTouchDeviceSig = useSignal(false);
@@ -59,14 +59,24 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const handleMouseMove$ = $((e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
     if (!context.scrollerRef.value) return;
-    const x = e.pageX - context.scrollerRef.value.offsetLeft;
+    const x = e.pageX;
     const dragSpeed = 1.75;
-    const walk = (x - startXSig.value) * dragSpeed;
-    context.scrollerRef.value.scrollLeft = scrollLeftSig.value - walk;
+    const walk = (startXSig.value - x) * dragSpeed;
+    console.log(startXSig.value);
+    const newTransform = transformLeftSig.value + walk;
+    console.log('TRANSFORM LEFT: ', transformLeftSig.value);
+    context.scrollerRef.value.style.transform = `translate3d(${newTransform}px, 0, 0)`;
+    context.scrollerRef.value.style.transition = 'none';
     isMouseMovingSig.value = true;
   });
 
   const handleDragSnap$ = $(async () => {
+    const computedTransform = getComputedStyle(context.scrollerRef.value).transform;
+
+    transformLeftSig.value =
+      computedTransform === 'none' ? 0 : parseFloat(computedTransform.split(',')[4]) || 0;
+
+    console.log('transform left: ', transformLeftSig.value);
     if (!context.scrollerRef.value) return;
     isMouseDownSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
@@ -100,8 +110,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       }
     }
 
-    const dragSnapPosition = await getSlidePosition$(closestIndex);
-    container.scrollTo({ left: dragSnapPosition, behavior: 'smooth' });
+    // const dragSnapPosition = await getSlidePosition$(closestIndex);
+    // container.style.transform = `translate3d(${-dragSnapPosition}px, 0, 0)`;
 
     context.currentIndexSig.value = closestIndex;
   });
@@ -114,8 +124,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     }
 
     isMouseDownSig.value = true;
-    startXSig.value = e.pageX - context.scrollerRef.value.offsetLeft;
-    scrollLeftSig.value = context.scrollerRef.value.scrollLeft;
+    startXSig.value = e.pageX;
     window.addEventListener('mousemove', handleMouseMove$);
     window.addEventListener('mouseup', handleDragSnap$);
     isMouseMovingSig.value = false;
@@ -185,20 +194,24 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   return (
     <div
-      ref={context.scrollerRef}
-      data-qui-carousel-scroller
+      style={{ overflow: 'hidden' }}
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
-      onTouchStart$={handleTouchStart$}
-      onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
-      onTouchEnd$={handleDragSnap$}
-      data-draggable={context.isDraggableSig.value ? '' : undefined}
-      window:onTouchStart$={[handleWindowTouchStart$, props['window:onTouchStart$']]}
-      preventdefault:mousemove
-      data-align={context.alignSig.value}
-      data-initial-touch={isTouchStartSig.value ? '' : undefined}
-      {...props}
     >
-      <Slot />
+      <div
+        ref={context.scrollerRef}
+        data-qui-carousel-scroller
+        onTouchStart$={handleTouchStart$}
+        onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
+        onTouchEnd$={handleDragSnap$}
+        data-draggable={context.isDraggableSig.value ? '' : undefined}
+        window:onTouchStart$={[handleWindowTouchStart$, props['window:onTouchStart$']]}
+        preventdefault:mousemove
+        data-align={context.alignSig.value}
+        data-initial-touch={isTouchStartSig.value ? '' : undefined}
+        {...props}
+      >
+        <Slot />
+      </div>
     </div>
   );
 });
