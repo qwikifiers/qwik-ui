@@ -151,11 +151,19 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     context.scrollStartRef.value?.style.setProperty('--scroll-snap-align', 'none');
 
-    // const nonDragSnapPosition = await getSlidePosition$(context.currentIndexSig.value);
-
     if (isMouseDownSig.value) return;
 
-    // context.scrollerRef.value.scrollTo({ left: nonDragSnapPosition, behavior: 'smooth' });
+    const container = context.scrollerRef.value;
+    const currentIndex = context.currentIndexSig.value;
+
+    console.log('Snap without drag - Current index:', currentIndex);
+
+    const snapPosition = await getSlidePosition$(currentIndex);
+    console.log('Snap without drag - Snap position:', snapPosition);
+
+    container.style.transition = 'transform 0.3s ease-out';
+    container.style.transform = `translate3d(${-snapPosition}px, 0, 0)`;
+    transformLeftSig.value = -snapPosition;
 
     window.removeEventListener('mousemove', handleMouseMove$);
   });
