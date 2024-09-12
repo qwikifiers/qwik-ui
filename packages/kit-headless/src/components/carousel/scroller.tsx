@@ -105,6 +105,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     context.currentIndexSig.value = closestIndex;
     isMouseDownSig.value = false;
     isMouseMovingSig.value = false;
+    isTouchMovingSig.value = false;
+    isTouchStartSig.value = false;
     window.removeEventListener('mousemove', handleMouseMove$);
   });
 
@@ -165,7 +167,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     window.removeEventListener('mousemove', handleMouseMove$);
   });
 
-  const handleResize = $(async () => {
+  const handleResize$ = $(async () => {
     if (!context.scrollerRef.value) return;
     const newPosition = await getSlidePosition$(context.currentIndexSig.value);
     transformLeftSig.value = -newPosition;
@@ -201,7 +203,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     }
 
     context.scrollerRef.value.style.transition = 'none';
-    isMouseDownSig.value = true;
     startXSig.value = e.touches[0].clientX;
     isTouchStartSig.value = true;
     isTouchMovingSig.value = false;
@@ -209,7 +210,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   const handleTouchMove$ = $((e: TouchEvent) => {
     if (
-      !isMouseDownSig.value ||
+      isMouseDownSig.value ||
       startXSig.value === undefined ||
       !context.scrollerRef.value
     )
@@ -235,17 +236,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     isTouchMovingSig.value = true;
   });
 
-  const handleTouchEnd$ = $(async () => {
-    if (!context.scrollerRef.value) return;
-
-    await handleDragSnap$();
-
-    isTouchStartSig.value = false;
-    isTouchMovingSig.value = false;
-    isMouseDownSig.value = false;
-  });
-
-  useOnWindow('resize', handleResize);
+  useOnWindow('resize', handleResize$);
 
   return (
     <div
@@ -253,7 +244,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
       onTouchStart$={handleTouchStart$}
       onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
-      onTouchEnd$={handleTouchEnd$}
+      onTouchEnd$={handleDragSnap$}
       preventdefault:touchstart
       preventdefault:touchmove
     >
