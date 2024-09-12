@@ -254,6 +254,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       onTouchStart$={handleTouchStart$}
       onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
       onTouchEnd$={handleTouchEnd$}
+      preventdefault:touchstart
+      preventdefault:touchmove
     >
       <div
         ref={context.scrollerRef}
