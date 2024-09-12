@@ -26,12 +26,11 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isTouchMovingSig = useSignal(true);
   const isTouchStartSig = useSignal(false);
   const lastTouchX = useSignal(0);
+  const userDefinedTransitionSig = useSignal<string>();
 
   useTask$(() => {
     context.isScrollerSig.value = true;
   });
-
-  const animationFrame = useSignal<number | null>(null);
 
   const getSlidePosition$ = $((index: number) => {
     if (!context.scrollerRef.value) return 0;
@@ -66,10 +65,11 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const walk = (startXSig.value - x) * dragSpeed;
     transformLeftSig.value -= walk;
     context.scrollerRef.value.style.transform = `translate3d(${transformLeftSig.value}px, 0, 0)`;
-    context.scrollerRef.value.style.transition = 'none';
+
+    console.log('USER DEFINED TRANSITION:', userDefinedTransitionSig.value);
+    context.scrollerRef.value.style.transition = 'revert';
     startXSig.value = x;
     isMouseMovingSig.value = true;
-    console.log('Mouse move transform:', transformLeftSig.value);
   });
 
   const handleDragSnap$ = $(async () => {
@@ -98,23 +98,18 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       const slideCenter = slideRect.left + slideRect.width / 2;
       const distanceToCenter = Math.abs(slideCenter - viewportCenter);
 
-      console.log(
-        `Slide ${i}: center = ${slideCenter}, distance to viewport center = ${distanceToCenter}`,
-      );
-
       if (distanceToCenter < minDistance) {
         closestIndex = i;
         minDistance = distanceToCenter;
       }
     }
 
-    console.log('Closest index:', closestIndex, 'Min distance:', minDistance);
-
     const dragSnapPosition = await getSlidePosition$(closestIndex);
-    console.log('Drag snap position:', dragSnapPosition);
 
-    container.style.transition = 'transform 0.3s ease-out';
     container.style.transform = `translate3d(${-dragSnapPosition}px, 0, 0)`;
+    if (userDefinedTransitionSig.value) {
+      context.scrollerRef.value.style.transition = userDefinedTransitionSig.value;
+    }
     transformLeftSig.value = -dragSnapPosition;
 
     context.currentIndexSig.value = closestIndex;
@@ -137,6 +132,19 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     isMouseMovingSig.value = false;
   });
 
+  // we reset the transition while dragging for a normal drag experience. this task grabs our stored transition value
+  useTask$(function grabUserAnimation({ track }) {
+    track(() => transformLeftSig.value);
+
+    if (isServer || !context.scrollerRef.value) return;
+
+    if (userDefinedTransitionSig.value) return;
+
+    userDefinedTransitionSig.value = getComputedStyle(
+      context.scrollerRef.value,
+    ).transition;
+  });
+
   useTask$(async function snapWithoutDrag({ track }) {
     track(() => context.currentIndexSig.value);
 
@@ -155,14 +163,12 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     const container = context.scrollerRef.value;
     const currentIndex = context.currentIndexSig.value;
-
-    console.log('Snap without drag - Current index:', currentIndex);
-
     const snapPosition = await getSlidePosition$(currentIndex);
-    console.log('Snap without drag - Snap position:', snapPosition);
-
-    container.style.transition = 'transform 0.3s ease-out';
     container.style.transform = `translate3d(${-snapPosition}px, 0, 0)`;
+
+    if (userDefinedTransitionSig.value) {
+      context.scrollerRef.value.style.transition = userDefinedTransitionSig.value;
+    }
     transformLeftSig.value = -snapPosition;
 
     window.removeEventListener('mousemove', handleMouseMove$);
@@ -198,14 +204,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   });
 
   useOnWindow('resize', handleResize);
-
-  useTask$(({ cleanup }) => {
-    cleanup(() => {
-      if (animationFrame.value !== null) {
-        cancelAnimationFrame(animationFrame.value);
-      }
-    });
-  });
 
   return (
     <div

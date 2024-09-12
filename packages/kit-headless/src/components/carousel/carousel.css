@@ -5,6 +5,7 @@
     /* for mobile & scroll-snap-start */
     scroll-snap-type: x mandatory;
     will-change: transform;
+    transition: 0.3s transform ease-out;
   }
 
   [data-qui-carousel-slide] {
