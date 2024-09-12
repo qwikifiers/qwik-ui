@@ -53,7 +53,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
         container.clientWidth - slides[index].value.getBoundingClientRect().width;
     }
 
-    console.log(`getSlidePosition$ for index ${index}: ${position}`);
     return Math.max(0, position);
   });
 
@@ -66,7 +65,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     transformLeftSig.value -= walk;
     context.scrollerRef.value.style.transform = `translate3d(${transformLeftSig.value}px, 0, 0)`;
 
-    console.log('USER DEFINED TRANSITION:', userDefinedTransitionSig.value);
     context.scrollerRef.value.style.transition = 'revert';
     startXSig.value = x;
     isMouseMovingSig.value = true;
@@ -108,6 +106,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     container.style.transform = `translate3d(${-dragSnapPosition}px, 0, 0)`;
     if (userDefinedTransitionSig.value) {
+      console.log('Setting transition to:', userDefinedTransitionSig.value);
       context.scrollerRef.value.style.transition = userDefinedTransitionSig.value;
     }
     transformLeftSig.value = -dragSnapPosition;
@@ -134,7 +133,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   // we reset the transition while dragging for a normal drag experience. this task grabs our stored transition value
   useTask$(function grabUserAnimation({ track }) {
-    track(() => transformLeftSig.value);
+    track(() => isMouseDownSig.value);
+    track(() => isTouchStartSig.value);
 
     if (isServer || !context.scrollerRef.value) return;
 
