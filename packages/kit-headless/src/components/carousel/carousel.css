@@ -19,9 +19,9 @@
   }
 
   @media (pointer: coarse) {
-    [data-qui-carousel-scroller][data-draggable] {
+    /* [data-qui-carousel-scroller][data-draggable] {
       overflow-x: scroll;
-    }
+    } */
   }
 
   @media (prefers-reduced-motion: reduce) {

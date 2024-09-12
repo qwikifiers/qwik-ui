@@ -25,7 +25,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isTouchDeviceSig = useSignal(false);
   const isTouchMovingSig = useSignal(true);
   const isTouchStartSig = useSignal(false);
-  const lastTouchX = useSignal(0);
   const userDefinedTransitionSig = useSignal<string>();
 
   useTask$(() => {
@@ -189,18 +188,61 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   });
 
   const handleTouchStart$ = $((e: TouchEvent) => {
-    if (!context.isDraggableSig.value) return;
+    if (!context.isDraggableSig.value || !context.scrollerRef.value) return;
+
+    if (context.startIndex && context.scrollStartRef.value) {
+      context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
+    }
+
+    if (!userDefinedTransitionSig.value) {
+      userDefinedTransitionSig.value =
+        context.scrollerRef.value.style.transition ||
+        getComputedStyle(context.scrollerRef.value).transition;
+    }
+
+    context.scrollerRef.value.style.transition = 'none';
+    isMouseDownSig.value = true;
+    startXSig.value = e.touches[0].clientX;
     isTouchStartSig.value = true;
-    lastTouchX.value = e.touches[0].clientX;
+    isTouchMovingSig.value = false;
   });
 
   const handleTouchMove$ = $((e: TouchEvent) => {
-    if (!context.isDraggableSig.value || !context.scrollerRef.value) return;
-    const touchX = e.touches[0].clientX;
-    const diff = lastTouchX.value - touchX;
-    context.scrollerRef.value.scrollLeft += diff;
-    lastTouchX.value = touchX;
+    if (
+      !isMouseDownSig.value ||
+      startXSig.value === undefined ||
+      !context.scrollerRef.value
+    )
+      return;
+
+    const x = e.touches[0].clientX;
+    const dragSpeed = 1;
+    const walk = (startXSig.value - x) * dragSpeed;
+    transformLeftSig.value -= walk;
+
+    // Limit the transform to prevent overscrolling
+    const maxTransform = 0;
+    const minTransform = -(
+      context.scrollerRef.value.scrollWidth - context.scrollerRef.value.clientWidth
+    );
+    transformLeftSig.value = Math.max(
+      minTransform,
+      Math.min(maxTransform, transformLeftSig.value),
+    );
+
+    context.scrollerRef.value.style.transform = `translate3d(${transformLeftSig.value}px, 0, 0)`;
+    startXSig.value = x;
     isTouchMovingSig.value = true;
+  });
+
+  const handleTouchEnd$ = $(async () => {
+    if (!context.scrollerRef.value) return;
+
+    await handleDragSnap$();
+
+    isTouchStartSig.value = false;
+    isTouchMovingSig.value = false;
+    isMouseDownSig.value = false;
   });
 
   useOnWindow('resize', handleResize);
@@ -209,13 +251,13 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     <div
       style={{ overflow: 'hidden' }}
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
+      onTouchStart$={handleTouchStart$}
+      onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
+      onTouchEnd$={handleTouchEnd$}
     >
       <div
         ref={context.scrollerRef}
         data-qui-carousel-scroller
-        onTouchStart$={handleTouchStart$}
-        onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
-        onTouchEnd$={handleDragSnap$}
         data-draggable={context.isDraggableSig.value ? '' : undefined}
         window:onTouchStart$={[handleWindowTouchStart$, props['window:onTouchStart$']]}
         preventdefault:mousemove
