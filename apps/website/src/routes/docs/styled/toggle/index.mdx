@@ -76,16 +76,20 @@ import { Toggle } from '~/components/ui';
 
 ### Initial Value (Uncontrolled)
 
-An initial, uncontrolled value can be provided using the `defaultPressed` prop.
+An initial, uncontrolled value can be provided using the `pressed` prop.
 
-<Showcase name="defaultPressed" />
+<Showcase name="initialPressed" />
+
+If you want to have some control when the toggle is pressed, like making some side effect you can use
+the `onPressedChange$`. The event is fired when the user toggle the button, and receives the new value.
+
+<Showcase name="pressed" />
 
 ### Reactive Value (Controlled)
 
-Pass the `pressed` prop to make the pressed state controlled.
-The `onPressedChange$` event is fired when the user toggle the button, and receives the new value.
+Pass a signal to `bind:value` prop to make the pressed state controlled (binding the value with a signal).
 
-<Showcase name="pressed" />
+<Showcase name="bind-pressed" />
 
 ### Disabled
 
