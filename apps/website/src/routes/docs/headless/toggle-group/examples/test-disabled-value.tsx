@@ -12,7 +12,7 @@ export default component$(() => {
     <div class="toggle-container">
       <ToggleGroup.Root
         value={'left'}
-        onValueChange$={(v: string) => {
+        onChange$={(v: string) => {
           valueSelected.value = v;
         }}
         disabled

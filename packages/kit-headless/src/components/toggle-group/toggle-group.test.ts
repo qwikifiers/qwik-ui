@@ -215,7 +215,7 @@ test.describe('Mouse Behavior', () => {
     await expect(centerItem).toHaveAttribute('aria-pressed', 'false');
   });
 
-  //Some control (value + onValueChange)
+  //Some control (value + onChange$)
   //single
   test(`GIVEN a toggle-group with 'value' = 'left'
     WHEN the 'center' item is clicked

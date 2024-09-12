@@ -42,7 +42,7 @@ function useRootItemsRepo() {
 }
 
 function useCreateSingleToggleGroup(props: ToggleGroupSingleProps) {
-  const { multiple = false, value, onValueChange$, 'bind:value': givenValueSig } = props;
+  const { multiple = false, value, onChange$, 'bind:value': givenValueSig } = props;
 
   const pressedValuesSig = useBoundSignal(givenValueSig, value);
   const rootItemsRepo = useRootItemsRepo();
@@ -50,7 +50,7 @@ function useCreateSingleToggleGroup(props: ToggleGroupSingleProps) {
   const handleValueChange$ = $((newValue: string) => {
     pressedValuesSig.value = newValue;
 
-    if (onValueChange$) onValueChange$(pressedValuesSig.value);
+    if (onChange$) onChange$(pressedValuesSig.value);
   });
 
   const activateItem$ = $((itemValue: string) => handleValueChange$(itemValue));
@@ -70,7 +70,7 @@ function useCreateSingleToggleGroup(props: ToggleGroupSingleProps) {
 }
 
 function useCreateMultipleToggleGroup(props: ToggleGroupMultipleProps) {
-  const { multiple = true, 'bind:value': givenValueSig, value, onValueChange$ } = props;
+  const { multiple = true, 'bind:value': givenValueSig, value, onChange$ } = props;
 
   /*
   Need to pass an empty array if not I got: TypeError when toggle
@@ -83,7 +83,7 @@ function useCreateMultipleToggleGroup(props: ToggleGroupMultipleProps) {
   const handleValueChange$ = $((newValue: string[]) => {
     pressedValuesSig.value = newValue;
 
-    if (onValueChange$) onValueChange$(pressedValuesSig.value);
+    if (onChange$) onChange$(pressedValuesSig.value);
   });
 
   const activateItem$ = $((itemValue: string) =>

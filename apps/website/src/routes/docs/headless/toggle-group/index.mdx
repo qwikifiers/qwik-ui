@@ -59,7 +59,7 @@ An initial, uncontrolled value can be provided using the `value` prop.
 <Showcase name="initialValue" />
 
 If you want to have some control when an item is selected, like making some side effect you can use
-the `onValueChange$`. The event is fired when the user toggle the button, and receives the new value.
+the `onChange$`. The event is fired when the user toggle the button, and receives the new value.
 
 <Showcase name="value" />
 
@@ -153,10 +153,10 @@ Pass the `direction` prop to `rtl`.
       name: 'value',
       type: 'string | string[]',
       description:
-        'Initial value to make the pressed state uncontrolled. Use in conjunction with `onValueChange$` to have some reactivity.',
+        'Initial value to make the pressed state uncontrolled. Use in conjunction with `onChange$` to have some reactivity.',
     },
     {
-      name: 'onValueChange$',
+      name: 'onChange$',
       type: 'function',
       info: 'PropFunction<() => void>',
       description: 'Called when the state changes.',

@@ -42,7 +42,7 @@ export type ToggleGroupSingleProps = {
   multiple?: false;
   /**
    * The initial value of the pressed item (uncontrolled).
-   * Can be used in conjunction with onValueChange.
+   * Can be used in conjunction with onChange$.
    */
   value?: string;
 
@@ -50,7 +50,7 @@ export type ToggleGroupSingleProps = {
    * The callback that fires when the value of the toggle group changes.
    * Event handler called when the pressed state of an item changes.
    */
-  onValueChange$?: QRL<(value: string) => void>;
+  onChange$?: QRL<(value: string) => void>;
   /**
    * The reactive value (a signal) of the pressed item (the signal is the controlled value).
    * Controlling the pressed state with a bounded value.
@@ -65,14 +65,14 @@ export type ToggleGroupMultipleProps = {
   multiple?: true;
   /**
    * The initial value of the pressed item (uncontrolled).
-   * Can be used in conjunction with onValueChange.
+   * Can be used in conjunction with onChange$.
    */
   value?: string[];
   /**
    * The callback that fires when the value of the toggle group changes.
    * Event handler called when the pressed state of an item changes.
    */
-  onValueChange$?: QRL<(value: string[]) => void>;
+  onChange$?: QRL<(value: string[]) => void>;
   /**
    * The reactive value (a signal) of the pressed item (the signal is the controlled value).
    * Controlling the pressed state with a bounded value.
@@ -88,7 +88,7 @@ export type ToggleGroupRootProps = PropsOf<'div'> & ToggleGroupApiProps;
 
 export const HToggleGroupRoot = component$<ToggleGroupRootProps>((props) => {
   const {
-    onValueChange$: _,
+    onChange$: _,
     disabled = false,
     orientation = 'horizontal',
     direction = 'ltr',
