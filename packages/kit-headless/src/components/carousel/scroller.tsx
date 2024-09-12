@@ -75,15 +75,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
-    const containerRect = container.getBoundingClientRect();
     const viewportCenter = window.innerWidth / 2;
-
-    console.log(
-      'Container left:',
-      containerRect.left,
-      'Viewport center:',
-      viewportCenter,
-    );
 
     let closestIndex = 0;
     let minDistance = Infinity;
@@ -106,9 +98,9 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     container.style.transform = `translate3d(${-dragSnapPosition}px, 0, 0)`;
     if (userDefinedTransitionSig.value) {
-      console.log('Setting transition to:', userDefinedTransitionSig.value);
       context.scrollerRef.value.style.transition = userDefinedTransitionSig.value;
     }
+
     transformLeftSig.value = -dragSnapPosition;
 
     context.currentIndexSig.value = closestIndex;
@@ -177,10 +169,18 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const handleResize = $(async () => {
     if (!context.scrollerRef.value) return;
     const newPosition = await getSlidePosition$(context.currentIndexSig.value);
-    context.scrollerRef.value.scrollTo({
-      left: newPosition,
-      behavior: 'auto',
-    });
+    transformLeftSig.value = -newPosition;
+    context.scrollerRef.value.style.transform = `translate3d(${-newPosition}px, 0, 0)`;
+    context.scrollerRef.value.style.transition = 'none';
+
+    // restore transition if it was set by the user
+    setTimeout(() => {
+      if (!context.scrollerRef.value) return;
+
+      if (userDefinedTransitionSig.value) {
+        context.scrollerRef.value.style.transition = userDefinedTransitionSig.value;
+      }
+    }, 0);
   });
 
   const handleWindowTouchStart$ = $(() => {
