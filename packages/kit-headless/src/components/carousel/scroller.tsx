@@ -13,9 +13,7 @@ import { useStyles$ } from '@builder.io/qwik';
 import styles from './carousel.css?inline';
 import { isServer } from '@builder.io/qwik/build';
 
-type CarouselContainerProps = PropsOf<'div'>;
-
-export const CarouselScroller = component$((props: CarouselContainerProps) => {
+export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const context = useContext(carouselContextId);
   useStyles$(styles);
   const startXSig = useSignal<number>();
@@ -231,6 +229,18 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   useOnWindow('resize', handleResize$);
 
+  const getInitialSlidePos = $(async () => {
+    if (context.startIndex === undefined) {
+      throw new Error('Qwik UI: Q Visible executed when startIndex is not set');
+    }
+
+    const position = await getSlidePosition$(context.startIndex);
+    transformSig.value.x = -position;
+    setTransition(false);
+    requestAnimationFrame(updateTransform);
+    setTransition(true);
+  });
+
   return (
     <div
       data-qui-carousel-viewport
@@ -238,6 +248,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       onTouchStart$={[handleTouchStart$, props.onTouchStart$]}
       onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
       onTouchEnd$={[handleDragSnap$, props.onTouchEnd$]}
+      onQVisible$={context.startIndex ? getInitialSlidePos : undefined}
       preventdefault:touchstart
       preventdefault:touchmove
     >
