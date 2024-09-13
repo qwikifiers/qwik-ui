@@ -248,9 +248,12 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       onTouchStart$={[handleTouchStart$, props.onTouchStart$]}
       onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
       onTouchEnd$={[handleDragSnap$, props.onTouchEnd$]}
-      onQVisible$={context.startIndex ? getInitialSlidePos : undefined}
       preventdefault:touchstart
       preventdefault:touchmove
+      /**
+       * This is similar to a visible task. Use it as a last resort, anything on SSR time is always preferred. In this case, it's possible to get the initial slide position with scroll (scroll snap + marker elements), but not css transform without knowing the element dimensions.
+       **/
+      onQVisible$={context.startIndex ? getInitialSlidePos : undefined}
     >
       <div
         ref={context.scrollerRef}
