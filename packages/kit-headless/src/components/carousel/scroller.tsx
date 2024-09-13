@@ -171,22 +171,19 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     window.removeEventListener('mousemove', handleMouseMove$);
   });
 
+  /** On mobile, the scrollbar being added fires a resize event, which we don't want to affect the animations of all carousels on the page */
   const handleResize$ = $(async () => {
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    if (isCoarsePointer) return;
+
+    await setTransition(true);
+
     if (!context.scrollerRef.value) return;
     const newPosition = await getSlidePosition$(context.currentIndexSig.value);
     transformLeftSig.value = -newPosition;
     context.scrollerRef.value.style.transform = `translate3d(${-newPosition}px, 0, 0)`;
     context.scrollerRef.value.style.transition = 'none';
-
-    // restore transition if it was set by the user
-    setTimeout(async () => {
-      await setTransition(true);
-    }, 0);
-  });
-
-  const handleWindowTouchStart$ = $(() => {
-    isTouchMovingSig.value = false;
-    isTouchDeviceSig.value = true;
   });
 
   const handleTouchStart$ = $(async (e: TouchEvent) => {
@@ -248,7 +245,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
         ref={context.scrollerRef}
         data-qui-carousel-scroller
         data-draggable={context.isDraggableSig.value ? '' : undefined}
-        window:onTouchStart$={[handleWindowTouchStart$, props['window:onTouchStart$']]}
         preventdefault:mousemove
         data-align={context.alignSig.value}
         data-initial-touch={isTouchStartSig.value ? '' : undefined}
