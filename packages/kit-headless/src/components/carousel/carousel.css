@@ -1,9 +1,14 @@
 @layer qwik-ui {
+  [data-qui-carousel-viewport] {
+    overflow: hidden;
+  }
+
   [data-qui-carousel-scroller] {
     display: flex;
     gap: var(--gap);
     /* for mobile & scroll-snap-start */
     scroll-snap-type: x mandatory;
+    transform: var(--transform);
     will-change: transform;
     transition: 0.3s transform ease-out;
   }

@@ -233,11 +233,11 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
   return (
     <div
-      style={{ overflow: 'hidden' }}
+      data-qui-carousel-viewport
       onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
-      onTouchStart$={handleTouchStart$}
+      onTouchStart$={[handleTouchStart$, props.onTouchStart$]}
       onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
-      onTouchEnd$={handleDragSnap$}
+      onTouchEnd$={[handleDragSnap$, props.onTouchEnd$]}
       preventdefault:touchstart
       preventdefault:touchmove
     >
@@ -245,12 +245,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
         ref={context.scrollerRef}
         data-qui-carousel-scroller
         data-draggable={context.isDraggableSig.value ? '' : undefined}
-        preventdefault:mousemove
         data-align={context.alignSig.value}
         data-initial-touch={isTouchStartSig.value ? '' : undefined}
-        style={{
-          transform: 'var(--transform)',
-        }}
         {...props}
       >
         <Slot />
