@@ -453,22 +453,86 @@ test.describe('Mobile / Touch Behavior', () => {
 
     await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
     const boundingBox = await d.getSlideBoundingBoxAt(0);
+    const cdpSession = await page.context().newCDPSession(page);
 
     const startY = boundingBox.y + boundingBox.height * 0.8;
-    const endY = boundingBox.y + boundingBox.height * 0.2;
+    const endY = boundingBox.y;
     const x = boundingBox.x + boundingBox.width / 2;
 
+    // touch events
     await page.touchscreen.tap(x, startY);
-    await page.mouse.move(x, startY, { steps: 10 });
-    await page.mouse.move(x, endY, { steps: 10 });
+
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchStart',
+      touchPoints: [{ x, y: startY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: [{ x, y: endY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchEnd',
+      touchPoints: [{ x, y: startY }],
+    });
+
     await page.touchscreen.tap(x, endY);
+    await page.touchscreen.tap(x, startY); // tap the slide to make it visible
+    await expect(d.getSlideAt(1)).toBeVisible();
 
-    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
-
+    await cdpSession.detach();
     const scrollerBox = await d.getScrollerBoundingBox();
     const secondSlideBox = await d.getSlideBoundingBoxAt(1);
 
     expect(Math.abs(secondSlideBox.y - scrollerBox.y)).toBeLessThan(1); // Allow 1px tolerance
+  });
+
+  test(`GIVEN a mobile vertical carousel
+        WHEN swiping two times to the next slide and clicking next button
+        Then the third slide should be visible`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'vertical-direction');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    const boundingBox = await d.getSlideBoundingBoxAt(0);
+    const cdpSession = await page.context().newCDPSession(page);
+
+    const startY = boundingBox.y + boundingBox.height * 0.99;
+    const endY = boundingBox.y;
+    const x = boundingBox.x + boundingBox.width / 2;
+
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchStart',
+      touchPoints: [{ x, y: startY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: [{ x, y: endY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchEnd',
+      touchPoints: [{ x, y: startY }],
+    });
+    await expect(d.getSlideAt(1)).toBeVisible();
+
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchStart',
+      touchPoints: [{ x, y: startY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: [{ x, y: endY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchEnd',
+      touchPoints: [{ x, y: startY }],
+    });
+
+    await cdpSession.detach();
+
+    await expect(d.getSlideAt(2)).toBeVisible();
+
+    await d.getNextButton().tap();
+
+    expect(d.getSlideAt(3)).toHaveAttribute('data-active');
   });
 
   test(`GIVEN a mobile carousel
