@@ -26,6 +26,27 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isTouchMovingSig = useSignal(true);
   const isTouchStartSig = useSignal(false);
   const userDefinedTransitionSig = useSignal<string>();
+  const isInitialTransitionSig = useSignal(true);
+
+  const setTransition = $((useTransition: boolean) => {
+    if (!context.scrollerRef.value) return;
+
+    if (useTransition === false) {
+      context.scrollerRef.value.style.transition = 'none';
+      return;
+    }
+
+    if (isInitialTransitionSig.value) {
+      userDefinedTransitionSig.value = getComputedStyle(
+        context.scrollerRef.value,
+      ).transition;
+
+      isInitialTransitionSig.value = false;
+    }
+
+    context.scrollerRef.value.style.transition =
+      userDefinedTransitionSig.value ?? 'revert';
+  });
 
   useTask$(() => {
     context.isScrollerSig.value = true;
@@ -55,16 +76,16 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     return Math.max(0, position);
   });
 
-  const handleMouseMove$ = $((e: MouseEvent) => {
+  const handleMouseMove$ = $(async (e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
     if (!context.scrollerRef.value) return;
     const x = e.pageX;
     const dragSpeed = 1.75;
     const walk = (startXSig.value - x) * dragSpeed;
     transformLeftSig.value -= walk;
+    await setTransition(false);
     context.scrollerRef.value.style.transform = `translate3d(${transformLeftSig.value}px, 0, 0)`;
 
-    context.scrollerRef.value.style.transition = 'revert';
     startXSig.value = x;
     isMouseMovingSig.value = true;
   });
@@ -95,10 +116,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     const dragSnapPosition = await getSlidePosition$(closestIndex);
 
+    await setTransition(true);
     container.style.transform = `translate3d(${-dragSnapPosition}px, 0, 0)`;
-    if (userDefinedTransitionSig.value) {
-      context.scrollerRef.value.style.transition = userDefinedTransitionSig.value;
-    }
 
     transformLeftSig.value = -dragSnapPosition;
 
@@ -110,9 +129,11 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     window.removeEventListener('mousemove', handleMouseMove$);
   });
 
-  const handleMouseDown$ = $((e: MouseEvent) => {
+  const handleMouseDown$ = $(async (e: MouseEvent) => {
     if (!context.isDraggableSig.value) return;
     if (!context.scrollerRef.value) return;
+    await setTransition(true);
+
     if (context.startIndex && context.scrollStartRef.value) {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
@@ -122,20 +143,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     window.addEventListener('mousemove', handleMouseMove$);
     window.addEventListener('mouseup', handleDragSnap$);
     isMouseMovingSig.value = false;
-  });
-
-  // we reset the transition while dragging for a normal drag experience. this task grabs our stored transition value
-  useTask$(function grabUserAnimation({ track }) {
-    track(() => isMouseDownSig.value);
-    track(() => isTouchStartSig.value);
-
-    if (isServer || !context.scrollerRef.value) return;
-
-    if (userDefinedTransitionSig.value) return;
-
-    userDefinedTransitionSig.value = getComputedStyle(
-      context.scrollerRef.value,
-    ).transition;
   });
 
   useTask$(async function snapWithoutDrag({ track }) {
@@ -157,11 +164,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const container = context.scrollerRef.value;
     const currentIndex = context.currentIndexSig.value;
     const snapPosition = await getSlidePosition$(currentIndex);
+    await setTransition(true);
     container.style.transform = `translate3d(${-snapPosition}px, 0, 0)`;
-
-    if (userDefinedTransitionSig.value) {
-      context.scrollerRef.value.style.transition = userDefinedTransitionSig.value;
-    }
     transformLeftSig.value = -snapPosition;
 
     window.removeEventListener('mousemove', handleMouseMove$);
@@ -175,12 +179,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     context.scrollerRef.value.style.transition = 'none';
 
     // restore transition if it was set by the user
-    setTimeout(() => {
-      if (!context.scrollerRef.value) return;
-
-      if (userDefinedTransitionSig.value) {
-        context.scrollerRef.value.style.transition = userDefinedTransitionSig.value;
-      }
+    setTimeout(async () => {
+      await setTransition(true);
     }, 0);
   });
 
@@ -189,26 +189,20 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     isTouchDeviceSig.value = true;
   });
 
-  const handleTouchStart$ = $((e: TouchEvent) => {
+  const handleTouchStart$ = $(async (e: TouchEvent) => {
     if (!context.isDraggableSig.value || !context.scrollerRef.value) return;
 
     if (context.startIndex && context.scrollStartRef.value) {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
 
-    if (!userDefinedTransitionSig.value) {
-      userDefinedTransitionSig.value =
-        context.scrollerRef.value.style.transition ||
-        getComputedStyle(context.scrollerRef.value).transition;
-    }
-
-    context.scrollerRef.value.style.transition = 'none';
+    await setTransition(true);
     startXSig.value = e.touches[0].clientX;
     isTouchStartSig.value = true;
     isTouchMovingSig.value = false;
   });
 
-  const handleTouchMove$ = $((e: TouchEvent) => {
+  const handleTouchMove$ = $(async (e: TouchEvent) => {
     if (
       isMouseDownSig.value ||
       startXSig.value === undefined ||
@@ -231,6 +225,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       Math.min(maxTransform, transformLeftSig.value),
     );
 
+    await setTransition(false);
     context.scrollerRef.value.style.transform = `translate3d(${transformLeftSig.value}px, 0, 0)`;
     startXSig.value = x;
     isTouchMovingSig.value = true;
@@ -248,6 +243,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       preventdefault:touchstart
       preventdefault:touchmove
     >
+      {userDefinedTransitionSig.value}
       <div
         ref={context.scrollerRef}
         data-qui-carousel-scroller
