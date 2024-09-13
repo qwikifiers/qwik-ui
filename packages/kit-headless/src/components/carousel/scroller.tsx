@@ -19,7 +19,7 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const context = useContext(carouselContextId);
   useStyles$(styles);
   const startXSig = useSignal<number>();
-  const transformLeftSig = useSignal(0);
+  const transformSig = useSignal({ x: 0, y: 0, z: 0 });
   const isMouseDownSig = useSignal(false);
   const isMouseMovingSig = useSignal(false);
   const isTouchDeviceSig = useSignal(false);
@@ -27,6 +27,11 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const isTouchStartSig = useSignal(false);
   const userDefinedTransitionSig = useSignal<string>();
   const isInitialTransitionSig = useSignal(true);
+
+  const updateTransform = $(() => {
+    if (!context.scrollerRef.value) return;
+    context.scrollerRef.value.style.transform = `translate3d(${transformSig.value.x}px, ${transformSig.value.y}px, ${transformSig.value.z}px)`;
+  });
 
   const setTransition = $((useTransition: boolean) => {
     if (!context.scrollerRef.value) return;
@@ -82,9 +87,9 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const x = e.pageX;
     const dragSpeed = 1.75;
     const walk = (startXSig.value - x) * dragSpeed;
-    transformLeftSig.value -= walk;
+    transformSig.value.x -= walk;
     await setTransition(false);
-    context.scrollerRef.value.style.transform = `translate3d(${transformLeftSig.value}px, 0, 0)`;
+    requestAnimationFrame(updateTransform);
 
     startXSig.value = x;
     isMouseMovingSig.value = true;
@@ -93,7 +98,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const handleDragSnap$ = $(async () => {
     if (!context.scrollerRef.value) return;
 
-    const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
     const viewportCenter = window.innerWidth / 2;
 
@@ -117,9 +121,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const dragSnapPosition = await getSlidePosition$(closestIndex);
 
     await setTransition(true);
-    container.style.transform = `translate3d(${-dragSnapPosition}px, 0, 0)`;
-
-    transformLeftSig.value = -dragSnapPosition;
+    transformSig.value.x = -dragSnapPosition;
+    requestAnimationFrame(updateTransform);
 
     context.currentIndexSig.value = closestIndex;
     isMouseDownSig.value = false;
@@ -161,17 +164,15 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     if (isMouseDownSig.value) return;
 
-    const container = context.scrollerRef.value;
     const currentIndex = context.currentIndexSig.value;
     const snapPosition = await getSlidePosition$(currentIndex);
     await setTransition(true);
-    container.style.transform = `translate3d(${-snapPosition}px, 0, 0)`;
-    transformLeftSig.value = -snapPosition;
+    transformSig.value.x = -snapPosition;
+    requestAnimationFrame(updateTransform);
 
     window.removeEventListener('mousemove', handleMouseMove$);
   });
 
-  /** On mobile, the scrollbar being added fires a resize event, which we don't want to affect the animations of all carousels on the page */
   const handleResize$ = $(async () => {
     const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
 
@@ -181,8 +182,8 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     if (!context.scrollerRef.value) return;
     const newPosition = await getSlidePosition$(context.currentIndexSig.value);
-    transformLeftSig.value = -newPosition;
-    context.scrollerRef.value.style.transform = `translate3d(${-newPosition}px, 0, 0)`;
+    transformSig.value.x = -newPosition;
+    requestAnimationFrame(updateTransform);
     context.scrollerRef.value.style.transition = 'none';
   });
 
@@ -210,20 +211,17 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
     const x = e.touches[0].clientX;
     const dragSpeed = 1;
     const walk = (startXSig.value - x) * dragSpeed;
-    transformLeftSig.value -= walk;
+    const newTransform = transformSig.value.x - walk;
 
     // Limit the transform to prevent overscrolling
     const maxTransform = 0;
     const minTransform = -(
       context.scrollerRef.value.scrollWidth - context.scrollerRef.value.clientWidth
     );
-    transformLeftSig.value = Math.max(
-      minTransform,
-      Math.min(maxTransform, transformLeftSig.value),
-    );
+    transformSig.value.x = Math.max(minTransform, Math.min(maxTransform, newTransform));
 
     await setTransition(false);
-    context.scrollerRef.value.style.transform = `translate3d(${transformLeftSig.value}px, 0, 0)`;
+    requestAnimationFrame(updateTransform);
     startXSig.value = x;
     isTouchMovingSig.value = true;
   });
@@ -240,7 +238,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
       preventdefault:touchstart
       preventdefault:touchmove
     >
-      {userDefinedTransitionSig.value}
       <div
         ref={context.scrollerRef}
         data-qui-carousel-scroller
