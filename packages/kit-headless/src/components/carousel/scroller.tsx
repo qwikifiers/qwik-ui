@@ -28,9 +28,16 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
   const userDefinedTransitionSig = useSignal<string>();
   const isInitialTransitionSig = useSignal(true);
 
+  useTask$(() => {
+    context.isScrollerSig.value = true;
+  });
+
   const updateTransform = $(() => {
     if (!context.scrollerRef.value) return;
-    context.scrollerRef.value.style.transform = `translate3d(${transformSig.value.x}px, ${transformSig.value.y}px, ${transformSig.value.z}px)`;
+    context.scrollerRef.value.style.setProperty(
+      '--transform',
+      `translate3d(${transformSig.value.x}px, ${transformSig.value.y}px, ${transformSig.value.z}px)`,
+    );
   });
 
   const setTransition = $((useTransition: boolean) => {
@@ -51,10 +58,6 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     context.scrollerRef.value.style.transition =
       userDefinedTransitionSig.value ?? 'revert';
-  });
-
-  useTask$(() => {
-    context.isScrollerSig.value = true;
   });
 
   const getSlidePosition$ = $((index: number) => {
@@ -245,6 +248,9 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
         preventdefault:mousemove
         data-align={context.alignSig.value}
         data-initial-touch={isTouchStartSig.value ? '' : undefined}
+        style={{
+          transform: 'var(--transform)',
+        }}
         {...props}
       >
         <Slot />
