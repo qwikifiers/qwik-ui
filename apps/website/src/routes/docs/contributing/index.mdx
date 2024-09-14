@@ -161,12 +161,8 @@ import { Collapsible } from '@qwik-ui/headless';
 export default component$(() => {
   return (
     <Collapsible.Root>
-      <Collapsible.Trigger>
-        Trigger
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        Content
-      </Collapsible.Content>
+      <Collapsible.Trigger>Trigger</Collapsible.Trigger>
+      <Collapsible.Content>Content</Collapsible.Content>
     </Collapsible.Root>
   );
 });
@@ -230,7 +226,7 @@ async function setup(page: Page, exampleName: string) {
 }
 
 test.describe('Mouse Behavior', () => {
-    test(`GIVEN a collapsible
+  test(`GIVEN a collapsible
           WHEN clicking on the trigger
           THEN the content should be visible`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');

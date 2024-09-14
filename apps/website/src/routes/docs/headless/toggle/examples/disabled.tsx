@@ -6,7 +6,9 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <div class="toggle-container">
-      <Toggle class="toggle">Hello</Toggle>
+      <Toggle disabled class="toggle">
+        Hello
+      </Toggle>
     </div>
   );
 });
