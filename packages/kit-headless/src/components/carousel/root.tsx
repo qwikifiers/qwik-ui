@@ -90,7 +90,9 @@ export const CarouselBase = component$(
     const isAutoplaySig = useBoundSignal(givenAutoplaySig, false);
 
     const getInitialProgress = () => {
-      return startIndex ? startIndex / ((props._numSlides ?? 1) - 1) : 0;
+      return startIndexSig.value
+        ? startIndexSig.value / ((props._numSlides ?? 1) - 1)
+        : 0;
     };
 
     // derived
