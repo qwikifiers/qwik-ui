@@ -1,12 +1,12 @@
 import {
   component$,
   type PropsOf,
-  Slot,
   useContext,
   useSignal,
   $,
   useTask$,
   useOnWindow,
+  Slot,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
@@ -234,11 +234,19 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       throw new Error('Qwik UI: Q Visible executed when startIndex is not set');
     }
 
-    const position = await getSlidePosition$(context.startIndex);
-    transformSig.value.x = -position;
-    setTransition(false);
+    if (!context.scrollerRef.value) {
+      return;
+    }
+
+    await setTransition(false);
+
+    transformSig.value.x = context.scrollerRef.value.scrollLeft;
+
+    context.scrollerRef.value.style.transform = `translate3d(${-transformSig.value.x}px, ${transformSig.value.y}px, ${transformSig.value.z}px)`;
+
+    context.scrollerRef.value.style.overflow = 'visible';
+    await setTransition(true);
     requestAnimationFrame(updateTransform);
-    setTransition(true);
   });
 
   return (
@@ -261,6 +269,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
         data-draggable={context.isDraggableSig.value ? '' : undefined}
         data-align={context.alignSig.value}
         data-initial-touch={isTouchStartSig.value ? '' : undefined}
+        data-initial={context.startIndex ? '' : undefined}
         {...props}
       >
         <Slot />

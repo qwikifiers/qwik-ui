@@ -13,6 +13,10 @@
     transition: 0.3s transform ease-out;
   }
 
+  [data-qui-carousel-scroller][data-initial] {
+    overflow: hidden;
+  }
+
   [data-qui-carousel-slide] {
     /* default, feel free to override */
     --total-gap-width: calc(var(--gap) * (var(--slides-per-view) - 1));
