@@ -90,7 +90,11 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
         container.clientWidth - slides[index].value.getBoundingClientRect().width;
     }
 
-    return Math.max(0, position);
+    const maxPosition = 0;
+    const minPosition = -(container.scrollWidth - container.clientWidth);
+    position = Math.max(minPosition, Math.min(maxPosition, -position));
+
+    return Math.abs(position);
   });
 
   const handleMouseMove$ = $(async (e: MouseEvent) => {
