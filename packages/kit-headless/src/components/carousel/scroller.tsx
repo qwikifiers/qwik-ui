@@ -120,7 +120,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     if (!context.scrollerRef.value) return;
 
     const slides = context.slideRefsArray.value;
-    const viewportCenter = window.innerWidth / 2;
+    const currentPosition = -transformSig.value.x;
 
     let closestIndex = 0;
     let minDistance = Infinity;
@@ -129,13 +129,12 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       const slide = slides[i].value;
       if (!slide) continue;
 
-      const slideRect = slide.getBoundingClientRect();
-      const slideCenter = slideRect.left + slideRect.width / 2;
-      const distanceToCenter = Math.abs(slideCenter - viewportCenter);
+      const slidePosition = await getSlidePosition(i);
+      const distance = Math.abs(slidePosition - currentPosition);
 
-      if (distanceToCenter < minDistance) {
+      if (distance < minDistance) {
         closestIndex = i;
-        minDistance = distanceToCenter;
+        minDistance = distance;
       }
     }
 
