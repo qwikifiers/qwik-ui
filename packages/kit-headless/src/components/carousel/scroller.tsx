@@ -15,6 +15,9 @@ import { isServer } from '@builder.io/qwik/build';
 
 export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const context = useContext(carouselContextId);
+
+  const { onMouseDown$, onTouchStart$, onTouchMove$, onTouchEnd$, ...rest } = props;
+
   useStyles$(styles);
   const startXSig = useSignal<number>();
   const transformSig = useSignal({ x: 0, y: 0, z: 0 });
@@ -271,10 +274,10 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   return (
     <div
       data-qui-carousel-viewport
-      onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
-      onTouchStart$={[handleTouchStart$, props.onTouchStart$]}
-      onTouchMove$={[handleTouchMove$, props.onTouchMove$]}
-      onTouchEnd$={[handleDragSnap$, props.onTouchEnd$]}
+      onMouseDown$={[handleMouseDown$, onMouseDown$]}
+      onTouchStart$={[handleTouchStart$, onTouchStart$]}
+      onTouchMove$={[handleTouchMove$, onTouchMove$]}
+      onTouchEnd$={[handleDragSnap$, onTouchEnd$]}
       preventdefault:touchstart
       preventdefault:touchmove
       /**
@@ -289,7 +292,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
         data-align={context.alignSig.value}
         data-initial-touch={isTouchStartSig.value ? '' : undefined}
         data-initial={context.startIndexSig.value ? '' : undefined}
-        {...props}
+        {...rest}
       >
         <Slot />
       </div>
