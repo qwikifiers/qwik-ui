@@ -30,7 +30,17 @@ const currentHeader = $((_: string) => {
 });
 
 const currentSubHeader = $((text: string) => {
-  return <h3 class="mb-6 mt-8 scroll-mt-20 text-xl font-semibold">{text}</h3>;
+  let subHeader = text.replace(/(p|P)rops/, '');
+  const hasCapital = /[a-z][A-Z]/.exec(subHeader)?.index;
+  if (hasCapital != undefined) {
+    subHeader =
+      subHeader.slice(0, hasCapital + 1) + '.' + subHeader.slice(hasCapital + 1);
+  }
+  return (
+    <>
+      <h3 class="mb-6 mt-8 scroll-mt-20 text-xl font-semibold">{subHeader}</h3>
+    </>
+  );
 });
 const defaultConfig: Config = {
   topHeader: currentHeader,
@@ -65,7 +75,7 @@ const SubComponent = component$<SubComponentProps>(({ subComponent, config }) =>
   const comments = subComponent[subComponentKey];
   return (
     <>
-      {comments.map((e, i) => (
+      {comments.map((e) => (
         <>
           <ParsedComments parsedProps={e} config={config} />
         </>
