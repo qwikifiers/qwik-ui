@@ -79,9 +79,12 @@ export const CarouselBase = component$(
     const isMouseDraggingSig = useSignal<boolean>(false);
     const slideRefsArray = useSignal<Array<Signal>>([]);
     const bulletRefsArray = useSignal<Array<Signal>>([]);
+    const startIndexSig = useComputed$(() => {
+      return startIndex ?? givenSlideIndexSig?.value ?? 0;
+    });
     const currentIndexSig = useBoundSignal(
       givenSlideIndexSig ?? givenOldSlideIndexSig,
-      startIndex ?? 0,
+      startIndexSig.value,
     );
     const isScrollerSig = useSignal(false);
     const isAutoplaySig = useBoundSignal(givenAutoplaySig, false);
@@ -122,7 +125,7 @@ export const CarouselBase = component$(
       alignSig,
       isLoopSig,
       autoPlayIntervalMsSig,
-      startIndex,
+      startIndexSig,
       isStepInteractionSig,
     };
 

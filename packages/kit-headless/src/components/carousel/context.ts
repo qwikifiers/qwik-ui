@@ -24,6 +24,6 @@ export type CarouselContext = {
   alignSig: Signal<'start' | 'center' | 'end'>;
   isLoopSig: Signal<boolean>;
   autoPlayIntervalMsSig: Signal<number>;
-  startIndex: number | undefined;
+  startIndexSig: Signal<number>;
   isStepInteractionSig: Signal<boolean>;
 };

@@ -46,7 +46,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
   return (
     <>
       {/* start marker */}
-      {context.startIndex === _index && context.alignSig.value === 'start' && (
+      {context.startIndexSig.value === _index && context.alignSig.value === 'start' && (
         <div ref={context.scrollStartRef} data-qui-scroll-start data-start></div>
       )}
       <div
@@ -65,13 +65,14 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
         <Slot />
 
         {/* center marker */}
-        {context.startIndex === _index && context.alignSig.value === 'center' && (
-          <div ref={context.scrollStartRef} data-qui-scroll-start data-center></div>
-        )}
+        {context.startIndexSig.value === _index &&
+          context.alignSig.value === 'center' && (
+            <div ref={context.scrollStartRef} data-qui-scroll-start data-center></div>
+          )}
       </div>
 
       {/* end marker */}
-      {context.startIndex === _index && context.alignSig.value === 'end' && (
+      {context.startIndexSig.value === _index && context.alignSig.value === 'end' && (
         <div ref={context.scrollStartRef} data-qui-scroll-start data-end></div>
       )}
     </>

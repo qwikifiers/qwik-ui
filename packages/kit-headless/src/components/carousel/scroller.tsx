@@ -151,7 +151,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     if (!context.scrollerRef.value) return;
     await setTransition(true);
 
-    if (context.startIndex && context.scrollStartRef.value) {
+    if (context.startIndexSig.value && context.scrollStartRef.value) {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
 
@@ -204,7 +204,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const handleTouchStart$ = $(async (e: TouchEvent) => {
     if (!context.isDraggableSig.value || !context.scrollerRef.value) return;
 
-    if (context.startIndex && context.scrollStartRef.value) {
+    if (context.startIndexSig.value && context.scrollStartRef.value) {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
 
@@ -244,8 +244,8 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
    * Uses CSS scroll snapping so there's no shift, THEN we swap it out with our transform implementation asap
    **/
   const getInitialSlidePos = $(async () => {
-    if (context.startIndex === undefined) {
-      throw new Error('Qwik UI: Q Visible executed when startIndex is not set');
+    if (context.startIndexSig.value === undefined) {
+      throw new Error('Qwik UI: Q Visible executed when startIndexSig is not set');
     }
 
     if (!context.scrollerRef.value) {
@@ -254,11 +254,9 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
 
     context.scrollerRef.value.style.transform = 'none';
 
-    // Get the current scroll position for all axes
     const scrollLeft = context.scrollerRef.value.scrollLeft;
     const scrollTop = context.scrollerRef.value.scrollTop;
 
-    // Update all transform values
     transformSig.value = {
       x: -scrollLeft,
       y: -scrollTop,
@@ -282,7 +280,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       /**
        * This is similar to a visible task. Use it as a last resort, anything on SSR time is always preferred. In this case, it's possible to get the initial slide position with scroll (scroll snap + marker elements), but not css transform without knowing the element dimensions.
        **/
-      onQVisible$={context.startIndex ? getInitialSlidePos : undefined}
+      onQVisible$={context.startIndexSig.value ? getInitialSlidePos : undefined}
     >
       <div
         ref={context.scrollerRef}
@@ -290,7 +288,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
         data-draggable={context.isDraggableSig.value ? '' : undefined}
         data-align={context.alignSig.value}
         data-initial-touch={isTouchStartSig.value ? '' : undefined}
-        data-initial={context.startIndex ? '' : undefined}
+        data-initial={context.startIndexSig.value ? '' : undefined}
         {...props}
       >
         <Slot />
