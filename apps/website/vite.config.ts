@@ -1,7 +1,7 @@
 import { qwikCity } from '@builder.io/qwik-city/vite';
 import { qwikVite } from '@builder.io/qwik/optimizer';
 import { qwikNxVite } from 'qwik-nx/plugins';
-import { ViteDevServer, defineConfig } from 'vite';
+import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
 import autoAPI from './auto-api';
