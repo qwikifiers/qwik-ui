@@ -32,19 +32,12 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
 
   const updateTransform = $(() => {
     if (!context.scrollerRef.value) return;
-    context.scrollerRef.value.style.setProperty(
-      '--transform',
-      `translate3d(${transformSig.value.x}px, ${transformSig.value.y}px, ${transformSig.value.z}px)`,
-    );
+    const transform = `translate3d(${transformSig.value.x}px, ${transformSig.value.y}px, ${transformSig.value.z}px)`;
+    context.scrollerRef.value.style.transform = transform;
   });
 
   const setTransition = $((useTransition: boolean) => {
     if (!context.scrollerRef.value) return;
-
-    if (useTransition === false) {
-      context.scrollerRef.value.style.transition = 'none';
-      return;
-    }
 
     if (isInitialTransitionSig.value) {
       userDefinedTransitionSig.value = getComputedStyle(
@@ -52,6 +45,11 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       ).transition;
 
       isInitialTransitionSig.value = false;
+    }
+
+    if (useTransition === false) {
+      context.scrollerRef.value.style.transition = 'none';
+      return;
     }
 
     context.scrollerRef.value.style.transition =
@@ -238,14 +236,13 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       return;
     }
 
-    await setTransition(false);
-
-    transformSig.value.x = context.scrollerRef.value.scrollLeft;
-
-    context.scrollerRef.value.style.transform = `translate3d(${-transformSig.value.x}px, ${transformSig.value.y}px, ${transformSig.value.z}px)`;
-
+    transformSig.value = {
+      ...transformSig.value,
+      x: -context.scrollerRef.value.scrollLeft,
+    };
     context.scrollerRef.value.style.overflow = 'visible';
-    await setTransition(true);
+
+    await setTransition(false);
     requestAnimationFrame(updateTransform);
   });
 
