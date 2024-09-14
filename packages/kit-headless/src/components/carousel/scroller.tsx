@@ -36,6 +36,16 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     context.scrollerRef.value.style.transform = transform;
   });
 
+  const applyTransformBoundaries = $(
+    (newTransform: number, scrollerRef: HTMLDivElement | undefined) => {
+      if (!scrollerRef) return newTransform;
+
+      const maxTransform = 0;
+      const minTransform = -(scrollerRef.scrollWidth - scrollerRef.clientWidth);
+      return Math.max(minTransform, Math.min(maxTransform, newTransform));
+    },
+  );
+
   const setTransition = $((useTransition: boolean) => {
     if (!context.scrollerRef.value) return;
 
@@ -84,12 +94,17 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
     if (!context.scrollerRef.value) return;
     const x = e.pageX;
-    const dragSpeed = 1.75;
+    const dragSpeed = 1;
     const walk = (startXSig.value - x) * dragSpeed;
-    transformSig.value.x -= walk;
+    const newTransform = transformSig.value.x - walk;
+
+    transformSig.value.x = await applyTransformBoundaries(
+      newTransform,
+      context.scrollerRef.value,
+    );
+
     await setTransition(false);
     requestAnimationFrame(updateTransform);
-
     startXSig.value = x;
     isMouseMovingSig.value = true;
   });
@@ -212,12 +227,10 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     const walk = (startXSig.value - x) * dragSpeed;
     const newTransform = transformSig.value.x - walk;
 
-    // Limit the transform to prevent overscrolling
-    const maxTransform = 0;
-    const minTransform = -(
-      context.scrollerRef.value.scrollWidth - context.scrollerRef.value.clientWidth
+    transformSig.value.x = await applyTransformBoundaries(
+      newTransform,
+      context.scrollerRef.value,
     );
-    transformSig.value.x = Math.max(minTransform, Math.min(maxTransform, newTransform));
 
     await setTransition(false);
     requestAnimationFrame(updateTransform);
