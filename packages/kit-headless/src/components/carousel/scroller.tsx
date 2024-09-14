@@ -227,6 +227,9 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
 
   useOnWindow('resize', handleResize$);
 
+  /**
+   * Uses CSS scroll snapping so there's no shift, THEN we swap it out with our transform implementation asap
+   **/
   const getInitialSlidePos = $(async () => {
     if (context.startIndex === undefined) {
       throw new Error('Qwik UI: Q Visible executed when startIndex is not set');
@@ -236,14 +239,16 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       return;
     }
 
+    context.scrollerRef.value.style.transform = 'none';
+
     transformSig.value = {
       ...transformSig.value,
       x: -context.scrollerRef.value.scrollLeft,
     };
-    context.scrollerRef.value.style.overflow = 'visible';
 
     await setTransition(false);
-    requestAnimationFrame(updateTransform);
+    await updateTransform();
+    context.scrollerRef.value.style.overflow = 'visible';
   });
 
   return (

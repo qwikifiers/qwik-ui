@@ -27,12 +27,6 @@
     flex-shrink: 0;
   }
 
-  @media (pointer: coarse) {
-    /* [data-qui-carousel-scroller][data-draggable] {
-      overflow-x: scroll;
-    } */
-  }
-
   @media (prefers-reduced-motion: reduce) {
     [data-qui-carousel-player] {
       display: none;
