@@ -12,6 +12,7 @@ import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
 import styles from './carousel.css?inline';
 import { isServer } from '@builder.io/qwik/build';
+import { useDebouncer } from '../../hooks/use-debouncer';
 
 export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const context = useContext(carouselContextId);
@@ -21,13 +22,14 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   useStyles$(styles);
   const startXSig = useSignal<number>();
   const transformSig = useSignal({ x: 0, y: 0, z: 0 });
+  const boundariesSig = useSignal<{ min: number; max: number } | null>(null);
   const isMouseDownSig = useSignal(false);
   const isMouseMovingSig = useSignal(false);
   const isTouchDeviceSig = useSignal(false);
   const isTouchMovingSig = useSignal(true);
   const isTouchStartSig = useSignal(false);
-  const userDefinedTransitionSig = useSignal<string>();
   const isInitialTransitionSig = useSignal(true);
+  const userDefinedTransitionSig = useSignal<string>();
 
   useTask$(() => {
     context.isScrollerSig.value = true;
@@ -39,15 +41,13 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     context.scrollerRef.value.style.transform = transform;
   });
 
-  const applyTransformBoundaries = $(
-    (newTransform: number, scrollerRef: HTMLDivElement | undefined) => {
-      if (!scrollerRef) return newTransform;
+  const applyTransformBoundaries = $((scrollerRef: HTMLDivElement | undefined) => {
+    if (!scrollerRef) return;
 
-      const maxTransform = 0;
-      const minTransform = -(scrollerRef.scrollWidth - scrollerRef.clientWidth);
-      return Math.max(minTransform, Math.min(maxTransform, newTransform));
-    },
-  );
+    const maxTransform = 0;
+    const minTransform = -(scrollerRef.scrollWidth - scrollerRef.clientWidth);
+    boundariesSig.value = { min: minTransform, max: maxTransform };
+  });
 
   const setTransition = $((useTransition: boolean) => {
     if (!context.scrollerRef.value) return;
@@ -99,19 +99,24 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
 
   const handleMouseMove = $(async (e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
-    if (!context.scrollerRef.value) return;
+    if (!context.scrollerRef.value || !boundariesSig.value) return;
     const x = e.pageX;
     const dragSpeed = 1;
     const walk = (startXSig.value - x) * dragSpeed;
     const newTransform = transformSig.value.x - walk;
 
-    transformSig.value.x = await applyTransformBoundaries(
-      newTransform,
-      context.scrollerRef.value,
-    );
+    if (
+      newTransform >= boundariesSig.value.min &&
+      newTransform <= boundariesSig.value.max
+    ) {
+      transformSig.value.x = newTransform;
 
-    await setTransition(false);
-    requestAnimationFrame(updateTransform);
+      await setTransition(false);
+      requestAnimationFrame(async () => {
+        await updateTransform();
+      });
+    }
+
     startXSig.value = x;
     isMouseMovingSig.value = true;
   });
@@ -160,6 +165,8 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     if (context.startIndexSig.value && context.scrollStartRef.value) {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
+
+    await applyTransformBoundaries(context.scrollerRef.value);
 
     isMouseDownSig.value = true;
     startXSig.value = e.pageX;
@@ -214,32 +221,42 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
 
-    await setTransition(true);
     startXSig.value = e.touches[0].clientX;
     isTouchStartSig.value = true;
     isTouchMovingSig.value = false;
+
+    await applyTransformBoundaries(context.scrollerRef.value);
+
+    await setTransition(false);
   });
 
+  const debouncedUpdate = useDebouncer(updateTransform, 1);
   const handleTouchMove = $(async (e: TouchEvent) => {
     if (
       isMouseDownSig.value ||
       startXSig.value === undefined ||
-      !context.scrollerRef.value
+      !context.scrollerRef.value ||
+      !boundariesSig.value
     )
       return;
 
     const x = e.touches[0].clientX;
     const dragSpeed = 1;
+
     const walk = (startXSig.value - x) * dragSpeed;
     const newTransform = transformSig.value.x - walk;
 
-    transformSig.value.x = await applyTransformBoundaries(
-      newTransform,
-      context.scrollerRef.value,
-    );
+    if (
+      newTransform >= boundariesSig.value.min &&
+      newTransform <= boundariesSig.value.max
+    ) {
+      transformSig.value.x = newTransform;
 
-    await setTransition(false);
-    requestAnimationFrame(updateTransform);
+      requestAnimationFrame(async () => {
+        await debouncedUpdate();
+      });
+    }
+
     startXSig.value = x;
     isTouchMovingSig.value = true;
   });
