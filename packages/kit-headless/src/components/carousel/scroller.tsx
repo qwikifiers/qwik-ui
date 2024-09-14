@@ -69,7 +69,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       userDefinedTransitionSig.value ?? 'revert';
   });
 
-  const getSlidePosition$ = $((index: number) => {
+  const getSlidePosition = $((index: number) => {
     if (!context.scrollerRef.value) return 0;
     const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
@@ -97,7 +97,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     return Math.abs(position);
   });
 
-  const handleMouseMove$ = $(async (e: MouseEvent) => {
+  const handleMouseMove = $(async (e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
     if (!context.scrollerRef.value) return;
     const x = e.pageX;
@@ -116,7 +116,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     isMouseMovingSig.value = true;
   });
 
-  const handleDragSnap$ = $(async () => {
+  const handleDragSnap = $(async () => {
     if (!context.scrollerRef.value) return;
 
     const slides = context.slideRefsArray.value;
@@ -139,7 +139,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       }
     }
 
-    const dragSnapPosition = await getSlidePosition$(closestIndex);
+    const dragSnapPosition = await getSlidePosition(closestIndex);
 
     await setTransition(true);
     transformSig.value.x = -dragSnapPosition;
@@ -150,10 +150,10 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     isMouseMovingSig.value = false;
     isTouchMovingSig.value = false;
     isTouchStartSig.value = false;
-    window.removeEventListener('mousemove', handleMouseMove$);
+    window.removeEventListener('mousemove', handleMouseMove);
   });
 
-  const handleMouseDown$ = $(async (e: MouseEvent) => {
+  const handleMouseDown = $(async (e: MouseEvent) => {
     if (!context.isDraggableSig.value) return;
     if (!context.scrollerRef.value) return;
     await setTransition(true);
@@ -164,8 +164,8 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
 
     isMouseDownSig.value = true;
     startXSig.value = e.pageX;
-    window.addEventListener('mousemove', handleMouseMove$);
-    window.addEventListener('mouseup', handleDragSnap$);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleDragSnap);
     isMouseMovingSig.value = false;
   });
 
@@ -186,15 +186,15 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     if (isMouseDownSig.value) return;
 
     const currentIndex = context.currentIndexSig.value;
-    const snapPosition = await getSlidePosition$(currentIndex);
+    const snapPosition = await getSlidePosition(currentIndex);
     await setTransition(true);
     transformSig.value.x = -snapPosition;
     requestAnimationFrame(updateTransform);
 
-    window.removeEventListener('mousemove', handleMouseMove$);
+    window.removeEventListener('mousemove', handleMouseMove);
   });
 
-  const handleResize$ = $(async () => {
+  const handleResize = $(async () => {
     const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
 
     if (isCoarsePointer) return;
@@ -202,13 +202,13 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     await setTransition(true);
 
     if (!context.scrollerRef.value) return;
-    const newPosition = await getSlidePosition$(context.currentIndexSig.value);
+    const newPosition = await getSlidePosition(context.currentIndexSig.value);
     transformSig.value.x = -newPosition;
     requestAnimationFrame(updateTransform);
     context.scrollerRef.value.style.transition = 'none';
   });
 
-  const handleTouchStart$ = $(async (e: TouchEvent) => {
+  const handleTouchStart = $(async (e: TouchEvent) => {
     if (!context.isDraggableSig.value || !context.scrollerRef.value) return;
 
     if (context.startIndexSig.value && context.scrollStartRef.value) {
@@ -221,7 +221,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     isTouchMovingSig.value = false;
   });
 
-  const handleTouchMove$ = $(async (e: TouchEvent) => {
+  const handleTouchMove = $(async (e: TouchEvent) => {
     if (
       isMouseDownSig.value ||
       startXSig.value === undefined ||
@@ -245,7 +245,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     isTouchMovingSig.value = true;
   });
 
-  useOnWindow('resize', handleResize$);
+  useOnWindow('resize', handleResize);
 
   /**
    * Uses CSS scroll snapping so there's no shift, THEN we swap it out with our transform implementation asap
@@ -278,10 +278,10 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   return (
     <div
       data-qui-carousel-viewport
-      onMouseDown$={[handleMouseDown$, onMouseDown$]}
-      onTouchStart$={[handleTouchStart$, onTouchStart$]}
-      onTouchMove$={[handleTouchMove$, onTouchMove$]}
-      onTouchEnd$={[handleDragSnap$, onTouchEnd$]}
+      onMouseDown$={[handleMouseDown, onMouseDown$]}
+      onTouchStart$={[handleTouchStart, onTouchStart$]}
+      onTouchMove$={[handleTouchMove, onTouchMove$]}
+      onTouchEnd$={[handleDragSnap, onTouchEnd$]}
       preventdefault:touchstart
       preventdefault:touchmove
       /**
