@@ -241,9 +241,15 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
 
     context.scrollerRef.value.style.transform = 'none';
 
+    // Get the current scroll position for all axes
+    const scrollLeft = context.scrollerRef.value.scrollLeft;
+    const scrollTop = context.scrollerRef.value.scrollTop;
+
+    // Update all transform values
     transformSig.value = {
-      ...transformSig.value,
-      x: -context.scrollerRef.value.scrollLeft,
+      x: -scrollLeft,
+      y: -scrollTop,
+      z: transformSig.value.z,
     };
 
     await setTransition(false);
