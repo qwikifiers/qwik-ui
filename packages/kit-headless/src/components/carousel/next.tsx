@@ -54,13 +54,17 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
   });
 
   const handleClick$ = $(() => {
-    if (
-      context.currentIndexSig.value >= isLastScrollableIndexSig.value &&
-      context.isLoopSig.value
-    ) {
+    const move = context.moveSig.value;
+    const currentIndex = context.currentIndexSig.value;
+    const lastIndex = context.numSlidesSig.value - 1;
+    const lastScrollableIndex = isLastScrollableIndexSig.value;
+
+    if (currentIndex >= lastScrollableIndex && context.isLoopSig.value) {
       context.currentIndexSig.value = 0;
     } else {
-      context.currentIndexSig.value++;
+      const remainingSlides = lastIndex - currentIndex;
+      const actualMove = Math.min(move, remainingSlides);
+      context.currentIndexSig.value = Math.min(currentIndex + actualMove, lastIndex);
     }
   });
 

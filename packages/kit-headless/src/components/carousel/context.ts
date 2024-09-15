@@ -26,4 +26,5 @@ export type CarouselContext = {
   autoPlayIntervalMsSig: Signal<number>;
   startIndexSig: Signal<number>;
   sensitivitySig: Signal<{ mouse: number; touch: number }>;
+  moveSig: Signal<number>;
 };

@@ -59,10 +59,14 @@ export type CarouselRootProps = PropsOf<'div'> & {
   /** Allows the user to navigate steps when interacting with the stepper */
   stepInteraction?: boolean;
 
+  /** The sensitivity of the carousel dragging */
   sensitivity?: {
     mouse?: number;
     touch?: number;
   };
+
+  /** The amount of slides to move when hitting the next or previous button */
+  move?: number;
 };
 
 export const CarouselBase = component$(
@@ -115,6 +119,7 @@ export const CarouselBase = component$(
         touch: props.sensitivity?.touch ?? 1.25,
       };
     });
+    const moveSig = useComputed$(() => props.move ?? 1);
 
     const titleId = `${localId}-title`;
 
@@ -139,6 +144,7 @@ export const CarouselBase = component$(
       autoPlayIntervalMsSig,
       startIndexSig,
       sensitivitySig,
+      moveSig,
     };
 
     useAutoplay(context);
