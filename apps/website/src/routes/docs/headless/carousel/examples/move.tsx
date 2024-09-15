@@ -22,7 +22,7 @@ export default component$(() => {
 
   return (
     <>
-      <Carousel.Root class="carousel-root" gap={30} move={2} slidesPerView={1}>
+      <Carousel.Root class="carousel-root" gap={30} move={2} slidesPerView={2}>
         <div class="carousel-buttons">
           <Carousel.Previous>Prev</Carousel.Previous>
           <Carousel.Next>Next</Carousel.Next>

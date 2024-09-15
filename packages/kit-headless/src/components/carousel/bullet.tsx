@@ -76,14 +76,21 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
   });
 
   useTask$(function renderAvailableBullets() {
-    const lastScrollableIndex =
-      context.numSlidesSig.value - context.slidesPerViewSig.value;
-
     if (typeof _index !== 'number') return;
 
-    if (_index > lastScrollableIndex) {
-      isRenderedSig.value = false;
-    }
+    const totalSlides = context.numSlidesSig.value;
+    const slidesPerView = context.slidesPerViewSig.value;
+    const lastScrollableIndex = totalSlides - slidesPerView;
+
+    // Calculate the number of bullets needed
+    const numBullets = Math.ceil(totalSlides / slidesPerView);
+
+    // Determine which indexes should be rendered
+    const renderIndexes = Array.from({ length: numBullets }, (_, i) =>
+      i === numBullets - 1 ? lastScrollableIndex : i * slidesPerView,
+    );
+
+    isRenderedSig.value = renderIndexes.includes(_index);
   });
 
   return (
