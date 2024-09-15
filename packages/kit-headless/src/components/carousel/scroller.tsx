@@ -30,6 +30,8 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const isTouchStartSig = useSignal(false);
   const isInitialTransitionSig = useSignal(true);
   const userDefinedTransitionSig = useSignal<string>();
+  const initialLoadSig = useSignal(true);
+  const isNewPosOnLoadSig = useSignal(false);
 
   useTask$(() => {
     context.isScrollerSig.value = true;
@@ -267,6 +269,8 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
    * Uses CSS scroll snapping so there's no shift, THEN we swap it out with our transform implementation asap
    **/
   const getInitialSlidePos = $(async () => {
+    console.log('getInitialSlidePos');
+
     if (context.startIndexSig.value === undefined) {
       throw new Error('Qwik UI: Q Visible executed when startIndexSig is not set');
     }
@@ -291,6 +295,18 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     context.scrollerRef.value.style.overflow = 'visible';
   });
 
+  useTask$(() => {
+    if (!initialLoadSig.value) return;
+    isNewPosOnLoadSig.value =
+      context.startIndexSig.value !== 0 &&
+      context.startIndexSig.value !== undefined &&
+      context.currentIndexSig.value !== 0;
+  });
+
+  useTask$(() => {
+    initialLoadSig.value = false;
+  });
+
   return (
     <div
       data-qui-carousel-viewport
@@ -303,7 +319,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       /**
        * This is similar to a visible task. Use it as a last resort, anything on SSR time is always preferred. In this case, it's possible to get the initial slide position with scroll (scroll snap + marker elements), but not css transform without knowing the element dimensions.
        **/
-      onQVisible$={context.startIndexSig.value ? getInitialSlidePos : undefined}
+      onQVisible$={isNewPosOnLoadSig.value ? getInitialSlidePos : undefined}
     >
       <div
         ref={context.scrollerRef}
@@ -311,7 +327,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
         data-draggable={context.isDraggableSig.value ? '' : undefined}
         data-align={context.alignSig.value}
         data-initial-touch={isTouchStartSig.value ? '' : undefined}
-        data-initial={context.startIndexSig.value ? '' : undefined}
+        data-initial={isNewPosOnLoadSig.value ? '' : undefined}
         {...rest}
       >
         <Slot />

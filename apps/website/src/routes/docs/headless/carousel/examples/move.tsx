@@ -21,25 +21,29 @@ export default component$(() => {
   `);
 
   return (
-    <Carousel.Root class="carousel-root" gap={30} move={2} slidesPerView={2}>
-      <div class="carousel-buttons">
-        <Carousel.Previous>Prev</Carousel.Previous>
-        <Carousel.Next>Next</Carousel.Next>
-      </div>
-      <Carousel.Scroller class="carousel-scroller">
-        {colors.map((color) => (
-          <Carousel.Slide key={color} class="carousel-slide">
-            {color}
-          </Carousel.Slide>
-        ))}
-      </Carousel.Scroller>
+    <>
+      <Carousel.Root class="carousel-root" gap={30} move={2} slidesPerView={1}>
+        <div class="carousel-buttons">
+          <Carousel.Previous>Prev</Carousel.Previous>
+          <Carousel.Next>Next</Carousel.Next>
+        </div>
+        <Carousel.Scroller class="carousel-scroller">
+          {colors.map((color) => (
+            <Carousel.Slide key={color} class="carousel-slide">
+              {color}
+            </Carousel.Slide>
+          ))}
+        </Carousel.Scroller>
 
-      <Carousel.Pagination style={{ display: 'flex', justifyContent: 'center' }}>
-        {colors.map((_, index) => {
-          return <Carousel.Bullet key={index} class="carousel-circle"></Carousel.Bullet>;
-        })}
-      </Carousel.Pagination>
-    </Carousel.Root>
+        <Carousel.Pagination style={{ display: 'flex', justifyContent: 'center' }}>
+          {colors.map((_, index) => {
+            return (
+              <Carousel.Bullet key={index} class="carousel-circle"></Carousel.Bullet>
+            );
+          })}
+        </Carousel.Pagination>
+      </Carousel.Root>
+    </>
   );
 });
 // internal
