@@ -444,6 +444,97 @@ test.describe('Mobile / Touch Behavior', () => {
     expect(Math.abs(secondSlideBox.x - scrollerBox.x)).toBeLessThan(1); // Allow 1px tolerance
   });
 
+  test(`GIVEN a mobile vertical carousel
+        WHEN swiping to the next slide
+        Then the next slide should snap to the top side of the scroller`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'vertical-direction');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    const boundingBox = await d.getSlideBoundingBoxAt(0);
+    const cdpSession = await page.context().newCDPSession(page);
+
+    const startY = boundingBox.y + boundingBox.height * 0.8;
+    const endY = boundingBox.y;
+    const x = boundingBox.x + boundingBox.width / 2;
+
+    // touch events
+    await page.touchscreen.tap(x, startY);
+
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchStart',
+      touchPoints: [{ x, y: startY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: [{ x, y: endY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchEnd',
+      touchPoints: [{ x, y: startY }],
+    });
+
+    await page.touchscreen.tap(x, endY);
+    await page.touchscreen.tap(x, startY); // tap the slide to make it visible
+    await expect(d.getSlideAt(1)).toBeVisible();
+
+    await cdpSession.detach();
+    const scrollerBox = await d.getScrollerBoundingBox();
+    const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+
+    expect(Math.abs(secondSlideBox.y - scrollerBox.y)).toBeLessThan(1); // Allow 1px tolerance
+  });
+
+  test(`GIVEN a mobile vertical carousel
+        WHEN swiping two times to the next slide and clicking next button
+        Then the third slide should be visible`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'vertical-direction');
+
+    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    const boundingBox = await d.getSlideBoundingBoxAt(0);
+    const cdpSession = await page.context().newCDPSession(page);
+
+    const startY = boundingBox.y + boundingBox.height * 0.99;
+    const endY = boundingBox.y;
+    const x = boundingBox.x + boundingBox.width / 2;
+
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchStart',
+      touchPoints: [{ x, y: startY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: [{ x, y: endY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchEnd',
+      touchPoints: [{ x, y: startY }],
+    });
+    await expect(d.getSlideAt(1)).toBeVisible();
+
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchStart',
+      touchPoints: [{ x, y: startY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: [{ x, y: endY }],
+    });
+    await cdpSession.send('Input.dispatchTouchEvent', {
+      type: 'touchEnd',
+      touchPoints: [{ x, y: startY }],
+    });
+
+    await cdpSession.detach();
+
+    await expect(d.getSlideAt(2)).toBeVisible();
+
+    await d.getNextButton().tap();
+
+    expect(d.getSlideAt(3)).toHaveAttribute('data-active');
+  });
+
   test(`GIVEN a mobile carousel
     WHEN tapping the next button
     THEN the next slide should snap to the left side of the scroller`, async ({
@@ -457,7 +548,6 @@ test.describe('Mobile / Touch Behavior', () => {
 
     const scrollerBox = await d.getScrollerBoundingBox();
     const secondSlideBox = await d.getSlideBoundingBoxAt(1);
-
     await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
     const slideWidth = secondSlideBox.width;
 
@@ -859,6 +949,34 @@ test.describe('State', () => {
     await d.getNextButton().click();
 
     await expect(progressBar).toHaveAttribute('aria-valuetext', '17%');
+  });
+
+  test(`GIVEN a carousel with direction column and max slide height declared
+        WHEN the swipe up or down
+        THEN the attribute should move to the right slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'vertical-direction');
+    d;
+
+    const visibleSlide = d.getSlideAt(0);
+
+    const slideBox = await visibleSlide.boundingBox();
+
+    if (slideBox) {
+      const startX = slideBox.x + slideBox.width / 2;
+      const startY = slideBox.y + slideBox.height / 2;
+
+      // swipe up from the middle of the visible slide
+      await page.mouse.move(startX, startY);
+      await page.mouse.down();
+      await page.mouse.move(startX, -startY, { steps: 10 });
+
+      // finish the swiping and move the mouse back
+      await page.mouse.up();
+      await page.mouse.move(startX, startY, { steps: 10 });
+    }
+    // checking that the slide changed
+    expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
   });
 });
 

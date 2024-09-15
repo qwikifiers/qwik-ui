@@ -67,6 +67,12 @@ export type CarouselRootProps = PropsOf<'div'> & {
 
   /** The amount of slides to move when hitting the next or previous button */
   move?: number;
+
+  /** The carousel's direction */
+  orientation?: 'horizontal' | 'vertical';
+
+  /** The maximum height of the slides. Needed in vertical carousels */
+  maxSlideHeight?: number;
 };
 
 export const CarouselBase = component$(
@@ -120,6 +126,13 @@ export const CarouselBase = component$(
       };
     });
     const moveSig = useComputed$(() => props.move ?? 1);
+    const maxSlideHeightSig = useComputed$(() => props.maxSlideHeight ?? undefined);
+    const orientationSig = useComputed$(() => {
+      if (props.maxSlideHeight === undefined) {
+        return 'horizontal';
+      }
+      return props.orientation ?? 'horizontal';
+    });
 
     const titleId = `${localId}-title`;
 
@@ -145,6 +158,8 @@ export const CarouselBase = component$(
       startIndexSig,
       sensitivitySig,
       moveSig,
+      orientationSig,
+      maxSlideHeightSig,
     };
 
     useAutoplay(context);
@@ -176,6 +191,8 @@ export const CarouselBase = component$(
           '--slides-per-view': slidesPerViewSig.value,
           '--gap': `${gapSig.value}px`,
           '--scroll-snap-align': alignSig.value,
+          '--orientation': orientationSig.value === 'vertical' ? 'column' : 'row',
+          '--max-slide-height': `${maxSlideHeightSig.value}px`,
         }}
       >
         <Slot />

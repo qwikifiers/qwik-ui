@@ -4,17 +4,17 @@
   }
 
   [data-qui-carousel-scroller] {
-    display: flex;
-    gap: var(--gap);
-    /* for mobile & scroll-snap-start */
-    scroll-snap-type: x mandatory;
     transform: var(--transform);
     will-change: transform;
     transition: 0.3s transform ease-out;
-  }
 
-  [data-qui-carousel-scroller][data-initial] {
-    overflow: hidden;
+    display: flex;
+    gap: var(--gap);
+    flex-direction: var(--orientation);
+
+    /* for initial slide position */
+    scroll-snap-type: both mandatory;
+    max-height: calc(var(--max-slide-height));
   }
 
   [data-qui-carousel-slide] {
@@ -25,6 +25,10 @@
 
     flex-basis: var(--slide-width);
     flex-shrink: 0;
+  }
+
+  [data-qui-carousel-scroller][data-initial] {
+    overflow: hidden;
   }
 
   @media (prefers-reduced-motion: reduce) {

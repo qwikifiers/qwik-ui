@@ -27,4 +27,6 @@ export type CarouselContext = {
   startIndexSig: Signal<number>;
   sensitivitySig: Signal<{ mouse: number; touch: number }>;
   moveSig: Signal<number>;
+  orientationSig: Signal<'horizontal' | 'vertical'>;
+  maxSlideHeightSig: Signal<number | undefined>;
 };
