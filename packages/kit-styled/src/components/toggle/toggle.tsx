@@ -1,34 +1,37 @@
-import { type PropsOf, component$ } from '@builder.io/qwik';
-import { Toggle as HeadlessToggle } from '@qwik-ui/headless';
+import { component$, type PropsOf, Slot } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
-import { VariantProps, cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { Toggle as HeadlessToggle } from '@qwik-ui/headless';
 
-type ToggleProps = PropsOf<typeof HeadlessToggle> & VariantProps<typeof toggleVariants>;
-
-const toggleVariants = cva(
-  'inline-flex items-center justify-center rounded-base text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground',
+export const toggleVariants = cva(
+  'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 aria-[pressed=true]:bg-primary aria-[pressed=true]:text-accent-foreground',
   {
     variants: {
-      variant: {
-        default: 'bg-transparent',
+      look: {
+        default: 'border border-input bg-transparent',
         outline:
-          'border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground',
+          'border border-input bg-transparent hover:bg-accent hover:text-accent-foreground',
       },
+
       size: {
-        default: 'h-9 px-3',
-        sm: 'h-8 px-2',
-        lg: 'h-10 px-3',
+        default: 'h-10 px-3',
+        sm: 'h-9 px-2.5',
+        lg: 'h-11 px-5',
       },
     },
     defaultVariants: {
-      variant: 'default',
+      look: 'default',
       size: 'default',
     },
   },
 );
 
-const Toggle = component$<ToggleProps>(({ variant, size, ...props }) => (
-  <HeadlessToggle {...props} class={cn(toggleVariants({ variant, size }), props.class)} />
-));
+type ToggleProps = PropsOf<typeof HeadlessToggle> & VariantProps<typeof toggleVariants>;
 
-export { Toggle, toggleVariants };
+export const Toggle = component$<ToggleProps>(({ size, look, ...props }) => {
+  return (
+    <HeadlessToggle {...props} class={cn(toggleVariants({ size, look }), props.class)}>
+      <Slot />
+    </HeadlessToggle>
+  );
+});

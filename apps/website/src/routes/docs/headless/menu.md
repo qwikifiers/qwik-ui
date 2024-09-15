@@ -29,3 +29,5 @@
 - [Separator](/docs/headless/separator)
 - [Tabs](/docs/headless/tabs)
 - [Tooltip](/docs/headless/tooltip)
+- [Toggle](/docs/headless/toggle)
+- [ToggleGroup](/docs/headless/toggle-group)

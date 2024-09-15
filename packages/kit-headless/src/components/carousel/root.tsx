@@ -56,6 +56,11 @@ export type CarouselRootProps = PropsOf<'div'> & {
   /** @internal Whether this carousel has a title */
   _isTitle?: boolean;
 
+  /** The carousel's orientation */
+  direction?: 'row' | 'column';
+
+  /** The slider height */
+  maxSlideHeight?: number | undefined;
   /** Allows the user to navigate steps when interacting with the stepper */
   stepInteraction?: boolean;
 };
@@ -84,6 +89,7 @@ export const CarouselBase = component$(
       startIndex ?? 0,
     );
     const isScrollerSig = useSignal(false);
+    const directionSig = useSignal(() => props.direction ?? 'row');
     const isAutoplaySig = useBoundSignal(givenAutoplaySig, false);
 
     const getInitialProgress = () => {
@@ -98,6 +104,7 @@ export const CarouselBase = component$(
     const alignSig = useComputed$(() => props.align ?? 'start');
     const isLoopSig = useComputed$(() => props.loop ?? false);
     const autoPlayIntervalMsSig = useComputed$(() => props.autoPlayIntervalMs ?? 0);
+    const maxSlideHeight = useComputed$(() => props.maxSlideHeight ?? undefined);
     const progressSig = useBoundSignal(givenProgressSig, getInitialProgress());
     const isStepInteractionSig = useComputed$(() => props.stepInteraction ?? false);
 
@@ -122,6 +129,7 @@ export const CarouselBase = component$(
       alignSig,
       isLoopSig,
       autoPlayIntervalMsSig,
+      directionSig,
       startIndex,
       isStepInteractionSig,
     };
@@ -129,6 +137,14 @@ export const CarouselBase = component$(
     useAutoplay(context);
 
     useContextProvider(carouselContextId, context);
+
+    // Max Height needed for making vertical carousel
+    useTask$(({ track }) => {
+      track(() => maxSlideHeight.value);
+      if (!maxSlideHeight.value) {
+        directionSig.value = 'row';
+      }
+    });
 
     useTask$(({ track }) => {
       if (!givenProgressSig) return;
@@ -155,6 +171,8 @@ export const CarouselBase = component$(
           '--slides-per-view': slidesPerViewSig.value,
           '--gap': `${gapSig.value}px`,
           '--scroll-snap-align': alignSig.value,
+          '--direction': directionSig.value,
+          '--max-slide-height': `${maxSlideHeight.value}px`,
         }}
       >
         <Slot />
