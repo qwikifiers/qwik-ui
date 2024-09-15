@@ -49,6 +49,11 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
 
     if (typeof _index !== 'number' || !usedKeys.includes(e.key)) return;
 
+    const totalSlides = context.numSlidesSig.value;
+    const slidesPerView = context.slidesPerViewSig.value;
+    const move = context.moveSig.value;
+    const lastScrollableIndex = totalSlides - slidesPerView;
+
     if (e.key === 'Home') {
       context.currentIndexSig.value = 0;
       context.bulletRefsArray.value[0].value.focus();
@@ -56,22 +61,33 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
     }
 
     if (e.key === 'End') {
-      const lastIndex = context.numSlidesSig.value - 1;
-      context.currentIndexSig.value = lastIndex;
-      context.bulletRefsArray.value[lastIndex].value.focus();
+      context.currentIndexSig.value = lastScrollableIndex;
+      context.bulletRefsArray.value[lastScrollableIndex].value.focus();
       return;
     }
 
-    const totalBullets = context.bulletRefsArray.value.length;
     const direction = e.key === 'ArrowRight' ? 1 : -1;
-    let newIndex = _index + direction;
 
-    if (context.isLoopSig.value) {
-      newIndex = (newIndex + totalBullets) % totalBullets;
-    } else {
-      newIndex = Math.max(0, Math.min(newIndex, totalBullets - 1));
+    // Calculate valid bullet indexes
+    const validIndexes = [];
+    for (let i = 0; i <= lastScrollableIndex; i += move) {
+      validIndexes.push(i);
+    }
+    if (lastScrollableIndex % move !== 0) {
+      validIndexes.push(lastScrollableIndex);
     }
 
+    const currentPosition = validIndexes.indexOf(_index);
+    let newPosition = currentPosition + direction;
+
+    if (context.isLoopSig.value) {
+      newPosition = (newPosition + validIndexes.length) % validIndexes.length;
+    } else {
+      newPosition = Math.max(0, Math.min(newPosition, validIndexes.length - 1));
+    }
+
+    const newIndex = validIndexes[newPosition];
+    context.currentIndexSig.value = newIndex;
     context.bulletRefsArray.value[newIndex].value.focus();
   });
 
@@ -82,10 +98,10 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
     const slidesPerView = context.slidesPerViewSig.value;
     const lastScrollableIndex = totalSlides - slidesPerView;
 
-    // Calculate the number of bullets needed
+    // calculate the number of bullets needed
     const numBullets = Math.ceil(totalSlides / slidesPerView);
 
-    // Determine which indexes should be rendered
+    // determine which indexes should be rendered
     const renderIndexes = Array.from({ length: numBullets }, (_, i) =>
       i === numBullets - 1 ? lastScrollableIndex : i * slidesPerView,
     );
