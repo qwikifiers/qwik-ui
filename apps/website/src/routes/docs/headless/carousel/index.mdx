@@ -50,9 +50,11 @@ On coarse devices and when getting initial slide positions, Qwik UI combines CSS
   [data-qui-carousel-scroller] {
     overflow: hidden;
     display: flex;
+    flex-direction: var(--direction);
     gap: var(--gap);
+    max-height: var(--max-slide-height);
     /* for mobile & scroll-snap-start */
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: both mandatory;
   }
 
   [data-qui-carousel-slide] {
@@ -67,7 +69,7 @@ On coarse devices and when getting initial slide positions, Qwik UI combines CSS
 
   @media (pointer: coarse) {
     [data-qui-carousel-scroller][data-draggable] {
-      overflow-x: scroll;
+      overflow: scroll;
     }
 
     /* make sure snap align is added after initial index animation */
@@ -139,6 +141,13 @@ By default, the slides will take up the full width of the carousel.
 To change this, use the `flex-basis` CSS property on the `<Carousel.Slide />` component.
 
 <Showcase name="different-widths" />
+
+### Vertical Direction
+
+Qwik UI supports vertical carousels.
+Set the `direction` prop to `column ` and define `maxSlideHeight` prop in px, for making the vertical carousel.
+
+<Showcase name="vertical-direction" />
 
 ### No Scroll
 
@@ -317,6 +326,18 @@ In the above example, we also use the headless progress component to show the pr
       name: 'autoPlayIntervalMs',
       type: 'number',
       description: 'Time in milliseconds before the next slide plays during autoplay.',
+    },
+    {
+      name: 'direction',
+      type: 'union',
+      description:
+        'Change the direction of the carousel, for it to be veritical define the maxSlideHeight prop as well.',
+      info: '"row" | "column"',
+    },
+    {
+      name: 'maxSlideHeight',
+      type: 'number',
+      description: 'Write the height of the longest slide.',
     },
   ]}
 />

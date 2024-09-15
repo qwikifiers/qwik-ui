@@ -9,7 +9,7 @@
 .carousel-slide {
   border: 2px dotted hsl(var(--primary));
   min-height: 10rem;
-  margin-top: 0.5rem;
+  -webkit-user-select: none; /* support for Safari */
   user-select: none;
 }
 
@@ -24,6 +24,7 @@
   display: flex;
   justify-content: space-between;
   border: 2px dotted hsl(var(--accent));
+  margin-bottom: 0.5rem;
 }
 
 .carousel-buttons button {
