@@ -7,6 +7,7 @@ import {
   useTask$,
   useSignal,
   sync$,
+  useComputed$,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 
@@ -44,19 +45,32 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
     }
   });
 
-  const handleKeyDown$ = $((e: KeyboardEvent) => {
-    const usedKeys = ['ArrowRight', 'ArrowLeft', 'Home', 'End'];
-
-    if (typeof _index !== 'number' || !usedKeys.includes(e.key)) return;
-
+  const validIndexesSig = useComputed$(() => {
     const totalSlides = context.numSlidesSig.value;
     const slidesPerView = context.slidesPerViewSig.value;
     const move = context.moveSig.value;
     const lastScrollableIndex = totalSlides - slidesPerView;
 
+    const indexes = [];
+    for (let i = 0; i <= lastScrollableIndex; i += move) {
+      indexes.push(i);
+    }
+    if (lastScrollableIndex % move !== 0) {
+      indexes.push(lastScrollableIndex);
+    }
+    return indexes;
+  });
+
+  const handleKeyDown$ = $(async (e: KeyboardEvent) => {
+    const usedKeys = ['ArrowRight', 'ArrowLeft', 'Home', 'End'];
+    if (typeof _index !== 'number' || !usedKeys.includes(e.key)) return;
+
+    const validIndexes = validIndexesSig.value;
+    const lastScrollableIndex = validIndexes[validIndexes.length - 1];
+
     if (e.key === 'Home') {
-      context.currentIndexSig.value = 0;
-      context.bulletRefsArray.value[0].value.focus();
+      context.currentIndexSig.value = validIndexes[0];
+      context.bulletRefsArray.value[validIndexes[0]].value.focus();
       return;
     }
 
@@ -67,16 +81,6 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
     }
 
     const direction = e.key === 'ArrowRight' ? 1 : -1;
-
-    // Calculate valid bullet indexes
-    const validIndexes = [];
-    for (let i = 0; i <= lastScrollableIndex; i += move) {
-      validIndexes.push(i);
-    }
-    if (lastScrollableIndex % move !== 0) {
-      validIndexes.push(lastScrollableIndex);
-    }
-
     const currentPosition = validIndexes.indexOf(_index);
     let newPosition = currentPosition + direction;
 
@@ -91,22 +95,22 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
     context.bulletRefsArray.value[newIndex].value.focus();
   });
 
-  useTask$(function renderAvailableBullets() {
+  useTask$(async function renderAvailableBullets() {
     if (typeof _index !== 'number') return;
+    const validIndexes = validIndexesSig.value;
+    isRenderedSig.value = validIndexes.includes(_index);
+  });
 
-    const totalSlides = context.numSlidesSig.value;
-    const slidesPerView = context.slidesPerViewSig.value;
-    const lastScrollableIndex = totalSlides - slidesPerView;
-
-    // calculate the number of bullets needed
-    const numBullets = Math.ceil(totalSlides / slidesPerView);
-
-    // determine which indexes should be rendered
-    const renderIndexes = Array.from({ length: numBullets }, (_, i) =>
-      i === numBullets - 1 ? lastScrollableIndex : i * slidesPerView,
+  const isActiveBulletSig = useComputed$(() => {
+    if (typeof _index !== 'number' || !validIndexesSig.value.includes(_index))
+      return false;
+    const currentIndex = context.currentIndexSig.value;
+    const nextBulletIndex =
+      validIndexesSig.value[validIndexesSig.value.indexOf(_index) + 1];
+    return (
+      currentIndex >= _index &&
+      (nextBulletIndex === undefined || currentIndex < nextBulletIndex)
     );
-
-    isRenderedSig.value = renderIndexes.includes(_index);
   });
 
   return (
@@ -117,8 +121,8 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
       tabIndex={_index === context.currentIndexSig.value ? 0 : -1}
       aria-label={`${_index !== undefined && `Slide ${_index + 1}`}`}
       aria-controls={slideId}
-      data-active={context.currentIndexSig.value === _index ? '' : undefined}
-      aria-selected={context.currentIndexSig.value === _index ? true : false}
+      data-active={isActiveBulletSig.value ? '' : undefined}
+      aria-selected={isActiveBulletSig.value}
       onClick$={[handleClick$, props.onClick$]}
       onFocus$={[handleFocus$, props.onFocus$]}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
