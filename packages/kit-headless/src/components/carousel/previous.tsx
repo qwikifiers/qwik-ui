@@ -1,18 +1,36 @@
-import { PropsOf, Slot, component$, useContext, useSignal, $ } from '@builder.io/qwik';
+import {
+  PropsOf,
+  Slot,
+  component$,
+  useContext,
+  useSignal,
+  $,
+  useComputed$,
+} from '@builder.io/qwik';
 import { carouselContextId } from './context';
+import { useCarousel } from './use-carousel';
 
 export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
   const context = useContext(carouselContextId);
   const isKeyboardFocusSig = useSignal(false);
 
+  const { validIndexesSig } = useCarousel(context);
+
+  const isFirstScrollableIndexSig = useComputed$(() => {
+    return validIndexesSig.value[0];
+  });
+
   const handleFocusNext$ = $(() => {
     if (context.isLoopSig.value) return;
 
-    if (isKeyboardFocusSig.value && context.currentIndexSig.value === 0) {
+    if (
+      isKeyboardFocusSig.value &&
+      context.currentIndexSig.value === isFirstScrollableIndexSig.value
+    ) {
       const activeElAtBlur = document.activeElement;
       setTimeout(() => {
         if (document.activeElement !== activeElAtBlur) return;
-        if (context.currentIndexSig.value === 0) {
+        if (context.currentIndexSig.value === isFirstScrollableIndexSig.value) {
           context.nextButtonRef.value?.focus();
         }
       }, 2000);
@@ -25,19 +43,28 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
   });
 
   const handleClick$ = $(() => {
-    if (context.currentIndexSig.value === 0 && context.isLoopSig.value) {
-      context.currentIndexSig.value = context.numSlidesSig.value - 1;
+    const validIndexes = validIndexesSig.value;
+    const currentIndex = context.currentIndexSig.value;
+    const currentPosition = validIndexes.indexOf(currentIndex);
+
+    if (currentPosition === 0 && context.isLoopSig.value) {
+      context.currentIndexSig.value = validIndexes[validIndexes.length - 1];
     } else {
-      context.currentIndexSig.value--;
+      const prevPosition = Math.max(currentPosition - 1, 0);
+      context.currentIndexSig.value = validIndexes[prevPosition];
     }
+  });
+
+  const isFirstSlideSig = useComputed$(() => {
+    return context.currentIndexSig.value === isFirstScrollableIndexSig.value;
   });
 
   return (
     <button
       {...props}
       ref={context.prevButtonRef}
-      aria-disabled={context.currentIndexSig.value === 0 && !context.isLoopSig.value}
-      disabled={context.currentIndexSig.value === 0 && !context.isLoopSig.value}
+      aria-disabled={isFirstSlideSig.value && !context.isLoopSig.value}
+      disabled={isFirstSlideSig.value && !context.isLoopSig.value}
       onClick$={[handleClick$, props.onClick$]}
       onBlur$={[handleFocusNext$, props.onBlur$]}
       onKeyDown$={[handleKeyDown$, props.onKeyDown$]}

@@ -9,14 +9,19 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
+import { useCarousel } from './use-carousel';
 
 export const CarouselNext = component$((props: PropsOf<'button'>) => {
   const context = useContext(carouselContextId);
   const isLastSlideInViewSig = useSignal(false);
   const initialLoadSig = useSignal(true);
   const isKeyboardFocusSig = useSignal(false);
+
+  const { validIndexesSig } = useCarousel(context);
+
   const isLastScrollableIndexSig = useComputed$(() => {
-    return context.numSlidesSig.value - context.slidesPerViewSig.value;
+    const validIndexes = validIndexesSig.value;
+    return validIndexes[validIndexes.length - 1];
   });
 
   const handleFocusPrev$ = $(() => {
@@ -45,8 +50,9 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
 
     if (initialLoadSig.value) return;
 
+    const validIndexes = validIndexesSig.value;
     isLastSlideInViewSig.value =
-      context.currentIndexSig.value >= isLastScrollableIndexSig.value;
+      validIndexes.indexOf(context.currentIndexSig.value) === validIndexes.length - 1;
   });
 
   useTask$(() => {
@@ -54,17 +60,15 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
   });
 
   const handleClick$ = $(() => {
-    const move = context.moveSig.value;
+    const validIndexes = validIndexesSig.value;
     const currentIndex = context.currentIndexSig.value;
-    const lastIndex = context.numSlidesSig.value - 1;
-    const lastScrollableIndex = isLastScrollableIndexSig.value;
+    const currentPosition = validIndexes.indexOf(currentIndex);
 
-    if (currentIndex >= lastScrollableIndex && context.isLoopSig.value) {
-      context.currentIndexSig.value = 0;
+    if (currentPosition === validIndexes.length - 1 && context.isLoopSig.value) {
+      context.currentIndexSig.value = validIndexes[0];
     } else {
-      const remainingSlides = lastIndex - currentIndex;
-      const actualMove = Math.min(move, remainingSlides);
-      context.currentIndexSig.value = Math.min(currentIndex + actualMove, lastIndex);
+      const nextPosition = Math.min(currentPosition + 1, validIndexes.length - 1);
+      context.currentIndexSig.value = validIndexes[nextPosition];
     }
   });
 

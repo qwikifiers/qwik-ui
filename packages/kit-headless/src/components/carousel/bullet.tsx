@@ -10,6 +10,7 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
+import { useCarousel } from './use-carousel';
 
 type BulletProps = PropsOf<'button'> & {
   _index?: number;
@@ -20,6 +21,8 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
   const bulletRef = useSignal<HTMLButtonElement>();
   const slideId = `${context.localId}-${_index ?? -1}`;
   const isRenderedSig = useSignal(true);
+
+  const { validIndexesSig } = useCarousel(context);
 
   useTask$(function getIndexOrder() {
     if (_index !== undefined) {
@@ -43,22 +46,6 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
     if (e.key === 'Home' || e.key === 'End') {
       e.preventDefault();
     }
-  });
-
-  const validIndexesSig = useComputed$(() => {
-    const totalSlides = context.numSlidesSig.value;
-    const slidesPerView = context.slidesPerViewSig.value;
-    const move = context.moveSig.value;
-    const lastScrollableIndex = totalSlides - slidesPerView;
-
-    const indexes = [];
-    for (let i = 0; i <= lastScrollableIndex; i += move) {
-      indexes.push(i);
-    }
-    if (lastScrollableIndex % move !== 0) {
-      indexes.push(lastScrollableIndex);
-    }
-    return indexes;
   });
 
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
