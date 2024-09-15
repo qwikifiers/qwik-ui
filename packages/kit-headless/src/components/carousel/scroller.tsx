@@ -257,12 +257,12 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
 
-    startXSig.value = e.touches[0].clientX;
+    const isVertical = context.orientationSig.value === 'vertical';
+    startXSig.value = isVertical ? e.touches[0].clientY : e.touches[0].clientX;
     isTouchStartSig.value = true;
     isTouchMovingSig.value = false;
 
     await applyTransformBoundaries(context.scrollerRef.value);
-
     await setTransition(false);
   });
 
