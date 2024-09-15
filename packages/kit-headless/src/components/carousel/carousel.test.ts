@@ -458,11 +458,6 @@ test.describe('Mobile / Touch Behavior', () => {
     const scrollerBox = await d.getScrollerBoundingBox();
     const secondSlideBox = await d.getSlideBoundingBoxAt(1);
 
-    const gap = await page.evaluate(() => {
-      const scroller = document.querySelector('[data-qui-carousel-scroller]');
-      return parseInt(window.getComputedStyle(scroller!).getPropertyValue('gap'));
-    });
-
     await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
     const slideWidth = secondSlideBox.width;
 
@@ -825,7 +820,7 @@ test.describe('State', () => {
         THEN it should scroll to the fourth slide`, async ({ page }) => {
     const { driver: d } = await setup(page, 'reactive');
 
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
 
     await page.locator('button', { hasText: 'Change to index 4' }).click();
 
@@ -838,7 +833,7 @@ test.describe('State', () => {
         THEN it should update back to the fourth slide`, async ({ page }) => {
     const { driver: d } = await setup(page, 'reactive');
 
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
 
     await page.locator('button', { hasText: 'Change to index 4' }).click();
 
