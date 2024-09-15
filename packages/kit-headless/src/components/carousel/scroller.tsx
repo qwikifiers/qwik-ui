@@ -20,7 +20,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const { onMouseDown$, onTouchStart$, onTouchMove$, onTouchEnd$, ...rest } = props;
 
   useStyles$(styles);
-  const startXSig = useSignal<number>();
+  const startPosSig = useSignal<number>();
   const transformSig = useSignal({ x: 0, y: 0, z: 0 });
   const boundariesSig = useSignal<{ min: number; max: number } | null>(null);
   const isMouseDownSig = useSignal(false);
@@ -121,11 +121,11 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   });
 
   const handleMouseMove = $(async (e: MouseEvent) => {
-    if (!isMouseDownSig.value || startXSig.value === undefined) return;
+    if (!isMouseDownSig.value || startPosSig.value === undefined) return;
     if (!context.scrollerRef.value || !boundariesSig.value) return;
     const pos = context.orientationSig.value === 'vertical' ? e.pageY : e.pageX;
     const dragSpeed = context.sensitivitySig.value.mouse;
-    const walk = (startXSig.value - pos) * dragSpeed;
+    const walk = (startPosSig.value - pos) * dragSpeed;
     const newTransform =
       transformSig.value[context.orientationSig.value === 'vertical' ? 'y' : 'x'] - walk;
 
@@ -142,7 +142,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       });
     }
 
-    startXSig.value = pos;
+    startPosSig.value = pos;
     isMouseMovingSig.value = true;
   });
 
@@ -201,7 +201,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     await applyTransformBoundaries(context.scrollerRef.value);
 
     isMouseDownSig.value = true;
-    startXSig.value = e.pageX;
+    startPosSig.value = e.pageX;
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleDragSnap);
     isMouseMovingSig.value = false;
@@ -258,7 +258,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     }
 
     const isVertical = context.orientationSig.value === 'vertical';
-    startXSig.value = isVertical ? e.touches[0].clientY : e.touches[0].clientX;
+    startPosSig.value = isVertical ? e.touches[0].clientY : e.touches[0].clientX;
     isTouchStartSig.value = true;
     isTouchMovingSig.value = false;
 
@@ -270,7 +270,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const handleTouchMove = $(async (e: TouchEvent) => {
     if (
       isMouseDownSig.value ||
-      startXSig.value === undefined ||
+      startPosSig.value === undefined ||
       !context.scrollerRef.value ||
       !boundariesSig.value
     )
@@ -282,7 +282,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
         : e.touches[0].clientX;
     const dragSpeed = context.sensitivitySig.value.touch;
 
-    const walk = (startXSig.value - pos) * dragSpeed;
+    const walk = (startPosSig.value - pos) * dragSpeed;
     const newTransform =
       transformSig.value[context.orientationSig.value === 'vertical' ? 'y' : 'x'] - walk;
 
@@ -298,7 +298,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       });
     }
 
-    startXSig.value = pos;
+    startPosSig.value = pos;
     isTouchMovingSig.value = true;
   });
 
