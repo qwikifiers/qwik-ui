@@ -101,7 +101,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
     if (!context.scrollerRef.value || !boundariesSig.value) return;
     const x = e.pageX;
-    const dragSpeed = 1;
+    const dragSpeed = context.sensitivitySig.value.mouse;
     const walk = (startXSig.value - x) * dragSpeed;
     const newTransform = transformSig.value.x - walk;
 
@@ -241,7 +241,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       return;
 
     const x = e.touches[0].clientX;
-    const dragSpeed = 1;
+    const dragSpeed = context.sensitivitySig.value.touch;
 
     const walk = (startXSig.value - x) * dragSpeed;
     const newTransform = transformSig.value.x - walk;

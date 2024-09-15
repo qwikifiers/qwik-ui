@@ -25,5 +25,5 @@ export type CarouselContext = {
   isLoopSig: Signal<boolean>;
   autoPlayIntervalMsSig: Signal<number>;
   startIndexSig: Signal<number>;
-  isStepInteractionSig: Signal<boolean>;
+  sensitivitySig: Signal<{ mouse: number; touch: number }>;
 };

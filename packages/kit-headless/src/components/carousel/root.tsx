@@ -58,6 +58,11 @@ export type CarouselRootProps = PropsOf<'div'> & {
 
   /** Allows the user to navigate steps when interacting with the stepper */
   stepInteraction?: boolean;
+
+  sensitivity?: {
+    mouse?: number;
+    touch?: number;
+  };
 };
 
 export const CarouselBase = component$(
@@ -104,7 +109,12 @@ export const CarouselBase = component$(
     const isLoopSig = useComputed$(() => props.loop ?? false);
     const autoPlayIntervalMsSig = useComputed$(() => props.autoPlayIntervalMs ?? 0);
     const progressSig = useBoundSignal(givenProgressSig, getInitialProgress());
-    const isStepInteractionSig = useComputed$(() => props.stepInteraction ?? false);
+    const sensitivitySig = useComputed$(() => {
+      return {
+        mouse: props.sensitivity?.mouse ?? 1.5,
+        touch: props.sensitivity?.touch ?? 1.25,
+      };
+    });
 
     const titleId = `${localId}-title`;
 
@@ -128,7 +138,7 @@ export const CarouselBase = component$(
       isLoopSig,
       autoPlayIntervalMsSig,
       startIndexSig,
-      isStepInteractionSig,
+      sensitivitySig,
     };
 
     useAutoplay(context);
