@@ -15,6 +15,7 @@
   gap: 0.5rem;
   padding: 1rem;
   border: 2px dotted hsl(var(--foreground));
+  margin-top: 0.5rem;
 }
 
 .carousel-buttons {

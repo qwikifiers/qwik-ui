@@ -9,7 +9,7 @@ export default component$(() => {
   return (
     <Carousel.Root
       class="carousel-root"
-      gap={0}
+      gap={30}
       orientation="vertical"
       maxSlideHeight={160}
     >

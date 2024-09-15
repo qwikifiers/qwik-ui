@@ -46,17 +46,27 @@
     visibility: hidden;
   }
 
-  /* so the snap start marker is not included in the scroll snap position */
-  [data-qui-scroll-start][data-start] {
+  /* Offsetting the scroll-start - Horizontal orientation */
+  [data-qui-scroll-start][data-orientation='horizontal'][data-start] {
     margin-right: calc(-1 * var(--gap) - 1px);
   }
 
-  [data-qui-scroll-start][data-center] {
-    margin-left: 0px;
+  [data-qui-scroll-start][data-orientation='horizontal'][data-end] {
+    margin-left: calc(-1 * var(--gap) - 1px);
   }
 
-  [data-qui-scroll-start][data-end] {
-    margin-left: calc(-1 * var(--gap) - 1px);
+  /* Vertical orientation */
+  [data-qui-scroll-start][data-orientation='vertical'][data-start] {
+    margin-top: calc(-1 * var(--gap) - 1px);
+  }
+
+  [data-qui-scroll-start][data-orientation='vertical'][data-end] {
+    margin-bottom: calc(-1 * var(--gap) - 1px);
+  }
+
+  /* Center alignment (both orientations) */
+  [data-qui-scroll-start][data-center] {
+    margin: 0;
   }
 
   [data-qui-scroll-start]::before {
