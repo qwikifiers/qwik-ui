@@ -39,7 +39,10 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
 
   const updateTransform = $(() => {
     if (!context.scrollerRef.value) return;
-    const transform = `translate3d(${transformSig.value.x}px, ${transformSig.value.y}px, ${transformSig.value.z}px)`;
+    const transform =
+      context.orientationSig.value === 'vertical'
+        ? `translate3d(0, ${transformSig.value.y}px, 0)`
+        : `translate3d(${transformSig.value.x}px, 0, 0)`;
     context.scrollerRef.value.style.transform = transform;
   });
 
@@ -47,7 +50,10 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     if (!scrollerRef) return;
 
     const maxTransform = 0;
-    const minTransform = -(scrollerRef.scrollWidth - scrollerRef.clientWidth);
+    const minTransform =
+      context.orientationSig.value === 'vertical'
+        ? -(scrollerRef.scrollHeight - scrollerRef.clientHeight)
+        : -(scrollerRef.scrollWidth - scrollerRef.clientWidth);
     boundariesSig.value = { min: minTransform, max: maxTransform };
   });
 
@@ -79,21 +85,36 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
 
     for (let i = 0; i < index; i++) {
       if (slides[i].value) {
-        position += slides[i].value.getBoundingClientRect().width + context.gapSig.value;
+        const rect = slides[i].value.getBoundingClientRect();
+        position +=
+          context.orientationSig.value === 'vertical' ? rect.height : rect.width;
+        position += context.gapSig.value;
       }
     }
 
     const alignment = context.alignSig.value;
+    const currentSlide = slides[index].value;
+    const currentRect = currentSlide.getBoundingClientRect();
+    const containerSize =
+      context.orientationSig.value === 'vertical'
+        ? container.clientHeight
+        : container.clientWidth;
+    const slideSize =
+      context.orientationSig.value === 'vertical'
+        ? currentRect.height
+        : currentRect.width;
+
     if (alignment === 'center') {
-      position -=
-        (container.clientWidth - slides[index].value.getBoundingClientRect().width) / 2;
+      position -= (containerSize - slideSize) / 2;
     } else if (alignment === 'end') {
-      position -=
-        container.clientWidth - slides[index].value.getBoundingClientRect().width;
+      position -= containerSize - slideSize;
     }
 
     const maxPosition = 0;
-    const minPosition = -(container.scrollWidth - container.clientWidth);
+    const minPosition =
+      context.orientationSig.value === 'vertical'
+        ? -(container.scrollHeight - container.clientHeight)
+        : -(container.scrollWidth - container.clientWidth);
     position = Math.max(minPosition, Math.min(maxPosition, -position));
 
     return Math.abs(position);
@@ -102,16 +123,18 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const handleMouseMove = $(async (e: MouseEvent) => {
     if (!isMouseDownSig.value || startXSig.value === undefined) return;
     if (!context.scrollerRef.value || !boundariesSig.value) return;
-    const x = e.pageX;
+    const pos = context.orientationSig.value === 'vertical' ? e.pageY : e.pageX;
     const dragSpeed = context.sensitivitySig.value.mouse;
-    const walk = (startXSig.value - x) * dragSpeed;
-    const newTransform = transformSig.value.x - walk;
+    const walk = (startXSig.value - pos) * dragSpeed;
+    const newTransform =
+      transformSig.value[context.orientationSig.value === 'vertical' ? 'y' : 'x'] - walk;
 
     if (
       newTransform >= boundariesSig.value.min &&
       newTransform <= boundariesSig.value.max
     ) {
-      transformSig.value.x = newTransform;
+      transformSig.value[context.orientationSig.value === 'vertical' ? 'y' : 'x'] =
+        newTransform;
 
       await setTransition(false);
       requestAnimationFrame(async () => {
@@ -119,7 +142,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       });
     }
 
-    startXSig.value = x;
+    startXSig.value = pos;
     isMouseMovingSig.value = true;
   });
 
@@ -127,7 +150,10 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     if (!context.scrollerRef.value) return;
 
     const slides = context.slideRefsArray.value;
-    const currentPosition = -transformSig.value.x;
+    const currentPosition =
+      context.orientationSig.value === 'vertical'
+        ? -transformSig.value.y
+        : -transformSig.value.x;
 
     let closestIndex = 0;
     let minDistance = Infinity;
@@ -148,7 +174,11 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     const dragSnapPosition = await getSlidePosition(closestIndex);
 
     await setTransition(true);
-    transformSig.value.x = -dragSnapPosition;
+    if (context.orientationSig.value === 'vertical') {
+      transformSig.value.y = -dragSnapPosition;
+    } else {
+      transformSig.value.x = -dragSnapPosition;
+    }
     requestAnimationFrame(updateTransform);
 
     context.currentIndexSig.value = closestIndex;
@@ -196,7 +226,11 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     const currentIndex = context.currentIndexSig.value;
     const snapPosition = await getSlidePosition(currentIndex);
     await setTransition(true);
-    transformSig.value.x = -snapPosition;
+    if (context.orientationSig.value === 'vertical') {
+      transformSig.value.y = -snapPosition;
+    } else {
+      transformSig.value.x = -snapPosition;
+    }
     requestAnimationFrame(updateTransform);
 
     window.removeEventListener('mousemove', handleMouseMove);
@@ -242,24 +276,29 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     )
       return;
 
-    const x = e.touches[0].clientX;
+    const pos =
+      context.orientationSig.value === 'vertical'
+        ? e.touches[0].clientY
+        : e.touches[0].clientX;
     const dragSpeed = context.sensitivitySig.value.touch;
 
-    const walk = (startXSig.value - x) * dragSpeed;
-    const newTransform = transformSig.value.x - walk;
+    const walk = (startXSig.value - pos) * dragSpeed;
+    const newTransform =
+      transformSig.value[context.orientationSig.value === 'vertical' ? 'y' : 'x'] - walk;
 
     if (
       newTransform >= boundariesSig.value.min &&
       newTransform <= boundariesSig.value.max
     ) {
-      transformSig.value.x = newTransform;
+      transformSig.value[context.orientationSig.value === 'vertical' ? 'y' : 'x'] =
+        newTransform;
 
       requestAnimationFrame(async () => {
         await debouncedUpdate();
       });
     }
 
-    startXSig.value = x;
+    startXSig.value = pos;
     isTouchMovingSig.value = true;
   });
 
