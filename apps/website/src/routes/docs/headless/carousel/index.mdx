@@ -47,12 +47,22 @@ On coarse devices and when getting initial slide positions, Qwik UI combines CSS
 
 ```css
 @layer qwik-ui {
-  [data-qui-carousel-scroller] {
+  [data-qui-carousel-viewport] {
     overflow: hidden;
+  }
+
+  [data-qui-carousel-scroller] {
+    transform: var(--transform);
+    will-change: transform;
+    transition: 0.3s transform ease-out;
+
     display: flex;
     gap: var(--gap);
-    /* for mobile & scroll-snap-start */
-    scroll-snap-type: x mandatory;
+    flex-direction: var(--orientation);
+
+    /* for initial slide position */
+    scroll-snap-type: both mandatory;
+    max-height: calc(var(--max-slide-height));
   }
 
   [data-qui-carousel-slide] {
@@ -63,24 +73,12 @@ On coarse devices and when getting initial slide positions, Qwik UI combines CSS
 
     flex-basis: var(--slide-width);
     flex-shrink: 0;
+    position: relative;
   }
 
-  @media (pointer: coarse) {
-    [data-qui-carousel-scroller][data-draggable] {
-      overflow-x: scroll;
-    }
-
-    /* make sure snap align is added after initial index animation */
-    [data-draggable][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: start;
-    }
-
-    [data-draggable][data-align='center'][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: center;
-    }
-
-    [data-draggable][data-align='end'][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: end;
+  @media (prefers-reduced-motion: reduce) {
+    [data-qui-carousel-player] {
+      display: none;
     }
   }
 }

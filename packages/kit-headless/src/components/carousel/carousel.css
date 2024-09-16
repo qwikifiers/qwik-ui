@@ -46,6 +46,12 @@
     width: 1px;
     white-space: nowrap;
     visibility: hidden;
+    display: none;
+  }
+
+  /* should not affect padding on non-scroller carousels */
+  [data-qui-carousel-scroller] [data-qui-scroll-start] {
+    display: revert;
   }
 
   /* Offsetting the scroll-start - Horizontal orientation */

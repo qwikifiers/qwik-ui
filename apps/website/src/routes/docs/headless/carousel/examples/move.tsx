@@ -35,7 +35,9 @@ export default component$(() => {
           ))}
         </Carousel.Scroller>
 
-        <Carousel.Pagination style={{ display: 'flex', justifyContent: 'center' }}>
+        <Carousel.Pagination
+          style={{ display: 'flex', justifyContent: 'center', marginTop: '0.5rem' }}
+        >
           {colors.map((_, index) => {
             return (
               <Carousel.Bullet key={index} class="carousel-circle"></Carousel.Bullet>
