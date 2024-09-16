@@ -8,7 +8,7 @@ import { Note } from '~/components/note/note';
 
 # Carousel
 
-Displays multiple content items in one space, rotating through them.
+Display and navigate through multiple content items.
 
 <Showcase name="hero" />
 
@@ -34,55 +34,33 @@ Displays multiple content items in one space, rotating through them.
   ]}
 />
 
-## Why use the Qwik UI Carousel?
+## Why use the Qwik UI Carousel
 
-### CSS Scroll snapping
+### HTML until users care
 
-On coarse devices and when getting initial slide positions, Qwik UI combines CSS scroll snapping and flexbox for an optimized swiping experience:
+The Carousel is a common widget in landing pages and SSR-rendered environments (even above the fold). Unlike many carousel libraries that rely on heavy JavaScript hydration, our implementation is designed to be:
 
-- Scroll snapping: Used on mobile for smooth touch interactions and initial snap position.
-- Flexbox: Provides a simple layout system for variable widths, gaps, and columns.
+- Environment agnostic (automatically SSR or CSR)
+- HTML-first
+- JavaScript-enhanced on interaction
 
-> Styles are in an @layer for easy customization:
+The Carousel remains lightweight HTML until users interact with it through swiping, dragging, clicking, etc.
 
-```css
-@layer qwik-ui {
-  [data-qui-carousel-viewport] {
-    overflow: hidden;
-  }
+### Hardware acceleration
 
-  [data-qui-carousel-scroller] {
-    transform: var(--transform);
-    will-change: transform;
-    transition: 0.3s transform ease-out;
+Initially, this component was built with normal scroll behavior (including CSS Scroll Snapping), but our testing found it to be janky on mobile the moment a custom animation was added.
 
-    display: flex;
-    gap: var(--gap);
-    flex-direction: var(--orientation);
+> CSS Scroll snapping also currently does not support mouse drag.
 
-    /* for initial slide position */
-    scroll-snap-type: both mandatory;
-    max-height: calc(var(--max-slide-height));
-  }
+The Qwik UI Carousel uses `CSS transforms` and `will-change` for smooth, hardware-accelerated animations, optimizing performance across devices, especially on mobile.
 
-  [data-qui-carousel-slide] {
-    /* default, feel free to override */
-    --total-gap-width: calc(var(--gap) * (var(--slides-per-view) - 1));
-    --available-slide-width: calc(100% - var(--total-gap-width));
-    --slide-width: calc(var(--available-slide-width) / var(--slides-per-view));
+### Design Decisions
 
-    flex-basis: var(--slide-width);
-    flex-shrink: 0;
-    position: relative;
-  }
+The Qwik UI Carousel is designed with the following intentions:
 
-  @media (prefers-reduced-motion: reduce) {
-    [data-qui-carousel-player] {
-      display: none;
-    }
-  }
-}
-```
+- Consistency with Qwik UI's API design for ease of use
+- Modularity to support various use cases
+- Extendable with custom components
 
 ## Alignment Options
 
@@ -90,7 +68,7 @@ On coarse devices and when getting initial slide positions, Qwik UI combines CSS
 
 The default alignment is `start`. Slides will snap to the left edge of the carousel.
 
-<Showcase name="hero" />
+<Showcase name="start" />
 
 ### Center Alignment
 
@@ -287,6 +265,49 @@ You can also control the progress of the carousel by using the `bind:progress` p
 <Showcase name="progress" />
 
 In the above example, we also use the headless progress component to show the progress of the carousel.
+
+### Initial Styles
+
+> Styles are in an @layer for easy customization:
+
+```css
+@layer qwik-ui {
+  [data-qui-carousel-viewport] {
+    overflow: hidden;
+  }
+
+  [data-qui-carousel-scroller] {
+    transform: var(--transform);
+    will-change: transform;
+    transition: 0.3s transform ease-out;
+
+    display: flex;
+    gap: var(--gap);
+    flex-direction: var(--orientation);
+
+    /* for initial slide position */
+    scroll-snap-type: both mandatory;
+    max-height: calc(var(--max-slide-height));
+  }
+
+  [data-qui-carousel-slide] {
+    /* default, feel free to override */
+    --total-gap-width: calc(var(--gap) * (var(--slides-per-view) - 1));
+    --available-slide-width: calc(100% - var(--total-gap-width));
+    --slide-width: calc(var(--available-slide-width) / var(--slides-per-view));
+
+    flex-basis: var(--slide-width);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-qui-carousel-player] {
+      display: none;
+    }
+  }
+}
+```
 
 ## API
 
