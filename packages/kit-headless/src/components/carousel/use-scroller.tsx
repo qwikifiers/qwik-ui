@@ -1,5 +1,5 @@
 import { CarouselContext } from './context';
-import { $, useSignal, useTask$ } from '@builder.io/qwik';
+import { $, useComputed$, useSignal, useTask$ } from '@builder.io/qwik';
 
 type OrientationProps = {
   size: 'width' | 'height';
@@ -17,7 +17,8 @@ export function useScroller(context: CarouselContext) {
   const isMouseDownSig = useSignal(false);
   const isTouchDeviceSig = useSignal(false);
   const isInitialTransitionSig = useSignal(true);
-  const userDefinedTransitionSig = useSignal<string>();
+  const givenTransitionSig = useSignal<string>();
+  const isVerticalSig = useComputed$(() => context.orientationSig.value === 'vertical');
 
   useTask$(() => {
     context.isScrollerSig.value = true;
@@ -69,9 +70,7 @@ export function useScroller(context: CarouselContext) {
     if (!context.scrollerRef.value) return;
 
     if (isInitialTransitionSig.value) {
-      userDefinedTransitionSig.value = getComputedStyle(
-        context.scrollerRef.value,
-      ).transition;
+      givenTransitionSig.value = getComputedStyle(context.scrollerRef.value).transition;
 
       isInitialTransitionSig.value = false;
     }
@@ -81,8 +80,7 @@ export function useScroller(context: CarouselContext) {
       return;
     }
 
-    context.scrollerRef.value.style.transition =
-      userDefinedTransitionSig.value ?? 'revert';
+    context.scrollerRef.value.style.transition = givenTransitionSig.value ?? 'revert';
   });
 
   const getSlidePosition = $(async (index: number) => {
@@ -152,7 +150,7 @@ export function useScroller(context: CarouselContext) {
     isMouseDownSig,
     isTouchDeviceSig,
     isInitialTransitionSig,
-    userDefinedTransitionSig,
+    isVerticalSig,
     setTransform,
     setBoundaries,
     setTransition,
