@@ -1,5 +1,5 @@
 import { CarouselContext } from './context';
-import { $, useComputed$, useSignal, useTask$ } from '@builder.io/qwik';
+import { $, useSignal, useTask$ } from '@builder.io/qwik';
 
 type OrientationProps = {
   size: 'width' | 'height';
@@ -18,77 +18,73 @@ export function useScroller(context: CarouselContext) {
   const isTouchDeviceSig = useSignal(false);
   const isInitialTransitionSig = useSignal(true);
   const givenTransitionSig = useSignal<string>();
-  const isVerticalSig = useComputed$(() => context.orientationSig.value === 'vertical');
 
   useTask$(() => {
     context.isScrollerSig.value = true;
   });
 
-  const getOrientationProps = $((isVertical: boolean): OrientationProps => {
-    if (isVertical) {
-      return {
-        size: 'height',
-        scroll: 'scrollHeight',
-        client: 'clientHeight',
-        direction: 'y',
-        pagePosition: 'pageY',
-        clientPosition: 'clientY',
-      };
-    }
-
-    return {
+  const orientationProps: Record<'vertical' | 'horizontal', OrientationProps> = {
+    vertical: {
+      size: 'height',
+      scroll: 'scrollHeight',
+      client: 'clientHeight',
+      direction: 'y',
+      pagePosition: 'pageY',
+      clientPosition: 'clientY',
+    },
+    horizontal: {
       size: 'width',
       scroll: 'scrollWidth',
       client: 'clientWidth',
       direction: 'x',
       pagePosition: 'pageX',
       clientPosition: 'clientX',
-    };
-  });
+    },
+  };
 
-  const setTransform = $(async () => {
+  const { direction, scroll, client, size } =
+    orientationProps[context.orientationSig.value];
+
+  const setTransform = $(() => {
     if (!context.scrollerRef.value) return;
-    const isVertical = context.orientationSig.value === 'vertical';
-    const { direction: transform } = await getOrientationProps(isVertical);
-    const translateValue = transformSig.value[transform];
-    const translateString = isVertical
-      ? `0, ${translateValue}px, 0`
-      : `${translateValue}px, 0, 0`;
-    context.scrollerRef.value.style.transform = `translate3d(${translateString})`;
+
+    const transformMap = {
+      x: (value: number) => `${value}px, 0, 0`,
+      y: (value: number) => `0, ${value}px, 0`,
+    };
+
+    const value = transformSig.value[direction];
+
+    context.scrollerRef.value.style.transform = `translate3d(${transformMap[direction](value)})`;
   });
 
-  const setBoundaries = $(async (scrollerRef: HTMLDivElement | undefined) => {
-    if (!scrollerRef) return;
-    const isVertical = context.orientationSig.value === 'vertical';
-    const { scroll, client } = await getOrientationProps(isVertical);
+  const setBoundaries = $(() => {
+    if (!context.scrollerRef.value) return;
+
     const maxTransform = 0;
-    const minTransform = -(scrollerRef[scroll] - scrollerRef[client]);
+    const minTransform = -(
+      context.scrollerRef.value[scroll] - context.scrollerRef.value[client]
+    );
     boundariesSig.value = { min: minTransform, max: maxTransform };
   });
 
-  const setTransition = $(async (useTransition: boolean) => {
+  const setTransition = $((isEnabled: boolean) => {
     if (!context.scrollerRef.value) return;
 
     if (isInitialTransitionSig.value) {
       givenTransitionSig.value = getComputedStyle(context.scrollerRef.value).transition;
-
       isInitialTransitionSig.value = false;
     }
 
-    if (useTransition === false) {
-      context.scrollerRef.value.style.transition = 'none';
-      return;
-    }
-
-    context.scrollerRef.value.style.transition = givenTransitionSig.value ?? 'revert';
+    context.scrollerRef.value.style.transition = isEnabled
+      ? givenTransitionSig.value ?? 'revert'
+      : 'none';
   });
 
-  const getSlidePosition = $(async (index: number) => {
+  const getSlidePosition = $((index: number) => {
     if (!context.scrollerRef.value) return 0;
     const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
-    const isVertical = context.orientationSig.value === 'vertical';
-    const { size, client, scroll } = await getOrientationProps(isVertical);
     let position = 0;
 
     for (let i = 0; i < index; i++) {
@@ -150,12 +146,11 @@ export function useScroller(context: CarouselContext) {
     isMouseDownSig,
     isTouchDeviceSig,
     isInitialTransitionSig,
-    isVerticalSig,
     setTransform,
     setBoundaries,
     setTransition,
     setInitialSlidePos,
-    getOrientationProps,
+    orientationProps,
     getSlidePosition,
   };
 }

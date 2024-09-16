@@ -33,8 +33,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     boundariesSig,
     isMouseDownSig,
     isTouchDeviceSig,
-    isVerticalSig,
-    getOrientationProps,
+    orientationProps,
     getSlidePosition,
     setBoundaries,
     setTransform,
@@ -42,11 +41,12 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     setInitialSlidePos,
   } = useScroller(context);
 
+  const { direction, pagePosition, clientPosition } =
+    orientationProps[context.orientationSig.value];
+
   const handleMouseMove = $(async (e: MouseEvent) => {
     if (!isMouseDownSig.value || startPosSig.value === undefined) return;
     if (!context.scrollerRef.value || !boundariesSig.value) return;
-
-    const { direction, pagePosition } = await getOrientationProps(isVerticalSig.value);
 
     const pos = e[pagePosition];
     const dragSpeed = context.sensitivitySig.value.mouse;
@@ -71,7 +71,6 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     if (!context.scrollerRef.value) return;
 
     const slides = context.slideRefsArray.value;
-    const { direction } = await getOrientationProps(isVerticalSig.value);
     const currentPosition = -transformSig.value[direction];
 
     let closestIndex = 0;
@@ -113,7 +112,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
 
-    await setBoundaries(context.scrollerRef.value);
+    await setBoundaries();
 
     isMouseDownSig.value = true;
     startPosSig.value = e.pageX;
@@ -141,7 +140,6 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     const currentIndex = context.currentIndexSig.value;
     const snapPosition = await getSlidePosition(currentIndex);
     await setTransition(true);
-    const { direction } = await getOrientationProps(isVerticalSig.value);
     transformSig.value[direction] = -snapPosition;
     await setTransform();
 
@@ -171,12 +169,11 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
 
-    const { clientPosition } = await getOrientationProps(isVerticalSig.value);
     startPosSig.value = e.touches[0][clientPosition];
     isTouchStartSig.value = true;
     isTouchMovingSig.value = false;
 
-    await setBoundaries(context.scrollerRef.value);
+    await setBoundaries();
     await setTransition(false);
   });
 
@@ -184,8 +181,6 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const handleTouchMove = $(async (e: TouchEvent) => {
     if (isMouseDownSig.value || startPosSig.value === undefined) return;
     if (!context.scrollerRef.value || !boundariesSig.value) return;
-
-    const { direction, clientPosition } = await getOrientationProps(isVerticalSig.value);
 
     const pos = e.touches[0][clientPosition];
     const dragSpeed = context.sensitivitySig.value.touch;
