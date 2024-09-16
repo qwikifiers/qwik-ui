@@ -25,6 +25,7 @@
 
     flex-basis: var(--slide-width);
     flex-shrink: 0;
+    position: relative;
   }
 
   [data-qui-carousel-scroller][data-initial] {
@@ -39,6 +40,7 @@
 
   /* workaround until scroll-snap-start is added to CSS */
   [data-qui-scroll-start] {
+    --remove-flex-gap: calc(-1 * var(--gap) - 1px);
     clip-path: inset(50%);
     height: 1px;
     width: 1px;
@@ -48,25 +50,16 @@
 
   /* Offsetting the scroll-start - Horizontal orientation */
   [data-qui-scroll-start][data-orientation='horizontal'][data-start] {
-    margin-right: calc(-1 * var(--gap) - 1px);
+    margin-right: var(--remove-flex-gap);
   }
 
   [data-qui-scroll-start][data-orientation='horizontal'][data-end] {
-    margin-left: calc(-1 * var(--gap) - 1px);
+    margin-left: var(--remove-flex-gap);
   }
 
-  /* Vertical orientation */
+  /* Vertical orientation (remove start gap) */
   [data-qui-scroll-start][data-orientation='vertical'][data-start] {
-    margin-top: calc(-1 * var(--gap) - 1px);
-  }
-
-  [data-qui-scroll-start][data-orientation='vertical'][data-end] {
-    margin-bottom: calc(-1 * var(--gap) - 1px);
-  }
-
-  /* Center alignment (both orientations) */
-  [data-qui-scroll-start][data-center] {
-    margin: 0;
+    margin-top: var(--remove-flex-gap);
   }
 
   [data-qui-scroll-start]::before {
@@ -76,6 +69,23 @@
     display: block;
     /* changes to none on first interaction */
     scroll-snap-align: var(--scroll-snap-align, start);
+  }
+
+  /* position the marker to the start */
+  [data-qui-scroll-start][data-start]::before {
+    margin-top: calc(var(--remove-flex-gap) * -1);
+  }
+
+  /* position the marker to the end */
+  [data-qui-scroll-start][data-end]::before {
+    margin-top: calc(var(--remove-flex-gap) * 1);
+  }
+
+  /* center verically */
+  [data-qui-scroll-start][data-center]::before {
+    position: absolute;
+    margin-top: -0.5px;
+    inset: 50%;
   }
 
   /* remove the marker's snap-align on hover */
