@@ -4,10 +4,11 @@ import {
   type ComponentParts,
   type SubComponent,
 } from 'apps/website/auto-api';
-import { APITable, APITableProps } from './api-table';
+import { APITable, type APITableProps } from './api-table';
 type Config = {
   topHeader?: QRL<(text: string) => JSXOutput>;
   subHeader?: QRL<(text: string) => JSXOutput>;
+  props?: QRL<(text: string) => string>;
 };
 
 type AnatomyTableProps = {
@@ -42,9 +43,14 @@ const currentSubHeader = $((text: string) => {
     </>
   );
 });
+
+const removeQuestionMarkFromProp = $((text: string) => {
+  return text.replace('?', '');
+});
 const defaultConfig: Config = {
   topHeader: currentHeader,
   subHeader: currentSubHeader,
+  props: removeQuestionMarkFromProp,
 };
 export const AutoAPI = component$<AnatomyTableProps>(
   ({ api, config = defaultConfig }) => {
@@ -87,26 +93,35 @@ const SubComponent = component$<SubComponentProps>(({ subComponent, config }) =>
 const ParsedComments = component$<ParsedCommentsProps>(({ parsedProps, config }) => {
   const key = Object.keys(parsedProps)[0];
   const subHeaderSig = useSignal<string | JSXOutput>(key);
-
   useTask$(async () => {
     if (config.subHeader) {
       subHeaderSig.value = await config.subHeader(key as string);
     }
   });
-
-  const translation: APITableProps = {
-    propDescriptors: parsedProps[key].map((e) => {
-      return {
-        name: e.prop,
-        type: e.type,
-        description: e.comment,
-      };
-    }),
-  };
+  const appliedPropsSig = useSignal<null | APITableProps>(null);
+  useTask$(async () => {
+    const translation: APITableProps = {
+      propDescriptors: parsedProps[key].map((e) => {
+        return {
+          name: e.prop,
+          type: e.type,
+          description: e.comment,
+        };
+      }),
+    };
+    if (config.props) {
+      for (const props of translation.propDescriptors) {
+        props.name = await config.props(props.name);
+      }
+    }
+    appliedPropsSig.value = translation;
+  });
   return (
     <>
       {subHeaderSig.value}
-      <APITable propDescriptors={translation.propDescriptors} />
+      {appliedPropsSig.value?.propDescriptors && (
+        <APITable propDescriptors={appliedPropsSig.value?.propDescriptors} />
+      )}
     </>
   );
 });
