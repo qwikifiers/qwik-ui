@@ -4,19 +4,6 @@
   "sourceRoot": "apps/website-e2e/src",
   "projectType": "application",
   "targets": {
-    "e2e": {
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "cypressConfig": "apps/website-e2e/cypress.config.ts",
-        "devServerTarget": "website:serve",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "website:serve:production"
-        }
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],

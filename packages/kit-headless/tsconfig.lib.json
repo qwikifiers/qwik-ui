@@ -6,8 +6,6 @@
   },
   "files": [],
   "exclude": [
-    "cypress/**/*",
-    "cypress.config.ts",
     "**/*.cy.ts",
     "**/*.cy.js",
     "**/*.cy.tsx",

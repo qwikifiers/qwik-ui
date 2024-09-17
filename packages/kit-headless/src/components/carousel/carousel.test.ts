@@ -549,10 +549,11 @@ test.describe('Mobile / Touch Behavior', () => {
     const scrollerBox = await d.getScrollerBoundingBox();
     const secondSlideBox = await d.getSlideBoundingBoxAt(1);
 
-    const gap = await page.evaluate(() => {
-      const scroller = document.querySelector('[data-qui-carousel-scroller]');
-      return parseInt(window.getComputedStyle(scroller!).getPropertyValue('gap'));
-    });
+    // Commented out because 'gap' is assigned a value but never used.
+    // const gap = await page.evaluate(() => {
+    //   const scroller = document.querySelector('[data-qui-carousel-scroller]');
+    //   return parseInt(window.getComputedStyle(scroller!).getPropertyValue('gap'));
+    // });
 
     await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
     const slideWidth = secondSlideBox.width;
