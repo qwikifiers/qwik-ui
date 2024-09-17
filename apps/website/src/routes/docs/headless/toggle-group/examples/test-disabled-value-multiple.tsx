@@ -12,7 +12,7 @@ export default component$(() => {
       <ToggleGroup.Root
         multiple
         value={['left', 'center']}
-        onChange$={(v) => (valueSelected.value = v)}
+        onChange$={(v: string[]) => (valueSelected.value = v)}
         disabled
       >
         <ToggleGroup.Item value="left" aria-label="Left aligned" class="toggle">
