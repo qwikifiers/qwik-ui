@@ -978,6 +978,34 @@ test.describe('State', () => {
     // checking that the slide changed
     expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
   });
+
+  test(`GIVEN a carousel with direction column and max slide height declared
+        WHEN the swipe up or down
+        THEN the attribute should move to the right slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'vertical-direction');
+    d;
+
+    const visibleSlide = d.getSlideAt(0);
+
+    const slideBox = await visibleSlide.boundingBox();
+
+    if (slideBox) {
+      const startX = slideBox.x + slideBox.width / 2;
+      const startY = slideBox.y + slideBox.height / 2;
+
+      // swipe up from the middle of the visible slide
+      await page.mouse.move(startX, startY);
+      await page.mouse.down();
+      await page.mouse.move(startX, -startY, { steps: 10 });
+
+      // finish the swiping and move the mouse back
+      await page.mouse.up();
+      await page.mouse.move(startX, startY, { steps: 10 });
+    }
+    // checking that the slide changed
+    expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
+  });
 });
 
 test.describe('Stepper', () => {

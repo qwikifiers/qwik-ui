@@ -1,0 +1,65 @@
+.toggle-container {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 35px;
+  color: hsl(var(--foreground));
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle {
+  width: auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0 10px;
+  height: 35px;
+  font-size: 15px;
+  line-height: 1;
+  background-color: hsl(var(--background));
+  border: 2px dotted hsla(var(--primary) / 1);
+  border-radius: 0;
+}
+
+/* Default background when aria-pressed is false */
+.toggle[aria-pressed='false'] {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground));
+}
+/* Ensure focus or active state does not override when aria-pressed is false */
+.toggle[aria-pressed='false']:focus,
+.toggle[aria-pressed='false']:active {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground));
+}
+
+.toggle:hover {
+  background-color: hsla(var(--primary) / 0.08);
+}
+
+/* Focused and Pressed states */
+.toggle:focus-visible {
+  outline: 2px solid hsla(var(--primary));
+  outline-offset: 2px;
+}
+
+.toggle:focus,
+.toggle:active {
+  background-color: hsla(var(--primary));
+  color: white;
+}
+
+/* When the toggle is pressed */
+.toggle[aria-pressed='true'] {
+  background-color: hsla(var(--primary)) !important;
+  color: white;
+}
+
+.toggle[aria-pressed='true']:focus {
+  outline: 2px solid hsla(var(--secondary));
+}
+
+[data-disabled] {
+  opacity: 0.6;
+  background: hsl(var(--foreground) / 0.05);
+}

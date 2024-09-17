@@ -1,10 +1,12 @@
-import { $, component$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Toggle } from '@qwik-ui/headless';
+import styles from '../snippets/toggle.css?inline';
 
 export default component$(() => {
+  useStyles$(styles);
   return (
-    <>
-      <Toggle pressed onClick$={$(() => console.log('Toggle'))} />
-    </>
+    <div class="toggle-container">
+      <Toggle class="toggle">Hello</Toggle>
+    </div>
   );
 });

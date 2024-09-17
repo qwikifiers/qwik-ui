@@ -56,6 +56,11 @@ export type CarouselRootProps = PropsOf<'div'> & {
   /** @internal Whether this carousel has a title */
   _isTitle?: boolean;
 
+  /** The carousel's orientation */
+  direction?: 'row' | 'column';
+
+  /** The slider height */
+  maxSlideHeight?: number | undefined;
   /** Allows the user to navigate steps when interacting with the stepper */
   stepInteraction?: boolean;
 
