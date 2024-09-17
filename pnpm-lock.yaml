@@ -310,7 +310,7 @@ importers:
         version: 17.7.2
     devDependencies:
       '@qwik-ui/styled':
-        specifier: 0.1.0
+        specifier: 0.2.0
         version: link:../kit-styled
 
   packages/kit-headless:
@@ -341,7 +341,7 @@ importers:
         version: 1.9.0(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
     devDependencies:
       '@qwik-ui/headless':
-        specifier: ^0.5.2
+        specifier: ^0.6.0
         version: link:../kit-headless
       '@qwik-ui/utils':
         specifier: 0.3.1
@@ -9890,6 +9890,12 @@ snapshots:
     transitivePeerDependencies:
       - nx
 
+  '@nrwl/devkit@19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))':
+    dependencies:
+      '@nx/devkit': 19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))
+    transitivePeerDependencies:
+      - nx
+
   '@nrwl/devkit@19.3.0(nx@19.4.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))':
     dependencies:
       '@nx/devkit': 19.3.0(nx@19.4.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))
@@ -10092,7 +10098,7 @@ snapshots:
 
   '@nx/devkit@19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))':
     dependencies:
-      '@nrwl/devkit': 19.3.0(nx@19.4.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))
+      '@nrwl/devkit': 19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))
       ejs: 3.1.10
       enquirer: 2.3.6
       ignore: 5.3.1
