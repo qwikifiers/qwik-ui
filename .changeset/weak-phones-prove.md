@@ -4,10 +4,6 @@
 '@qwik-ui/themes': minor
 ---
 
-feat: toggle component added as a draft state
-
-feat: toggle group component added as a draft state
-
 feat: carousel reaches beta state
 
 feat: stepper component added as a configuration for the carousel
