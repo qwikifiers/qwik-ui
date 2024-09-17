@@ -4,9 +4,6 @@
     "outDir": "../../dist/out-tsc",
     "types": [
       "vitest/globals",
-      "cypress",
-      "cypress-axe",
-      "@testing-library/cypress",
       "node"
     ]
   },

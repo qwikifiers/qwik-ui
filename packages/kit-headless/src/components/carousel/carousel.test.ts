@@ -416,7 +416,7 @@ test.describe('Mobile / Touch Behavior', () => {
     await expect(d.getSlideAt(3)).toHaveAttribute('data-active');
     await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
   });
-
+  
   // test(`GIVEN a mobile carousel
   //       WHEN swiping to the next slide
   //       THEN the next slide should snap to the left side of the scroller`, async ({
