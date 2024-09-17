@@ -71,7 +71,7 @@ export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => 
     const currentPosition = validIndexes.indexOf(_index);
     let newPosition = currentPosition + direction;
 
-    if (context.isLoopSig.value) {
+    if (context.isRewindSig.value) {
       newPosition = (newPosition + validIndexes.length) % validIndexes.length;
     } else {
       newPosition = Math.max(0, Math.min(newPosition, validIndexes.length - 1));

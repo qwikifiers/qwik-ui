@@ -22,7 +22,7 @@ export type CarouselContext = {
   slidesPerViewSig: Signal<number>;
   gapSig: Signal<number>;
   alignSig: Signal<'start' | 'center' | 'end'>;
-  isLoopSig: Signal<boolean>;
+  isRewindSig: Signal<boolean>;
   autoPlayIntervalMsSig: Signal<number>;
   startIndexSig: Signal<number>;
   sensitivitySig: Signal<{ mouse: number; touch: number }>;

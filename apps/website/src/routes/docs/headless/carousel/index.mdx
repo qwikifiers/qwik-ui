@@ -23,7 +23,7 @@ Display and navigate through multiple content items.
     'Pagination with bullet navigation',
     'Navigate via Previous/Next buttons',
     'Autoplay functionality',
-    'Looping option',
+    'Rewind option',
     'Support for multiple slides per view',
     'Reactive slide updates',
     'Initial slide selection',
@@ -180,13 +180,13 @@ Both SSR and CSR are supported. In this example, we conditionally render the car
 
 <Showcase name="csr" />
 
-### Loop
+### Rewind
 
-Loop the carousel by setting the `loop` prop to `true`.
+Rewind the carousel by setting the `rewind` prop to `true`.
 
-<Showcase name="loop" />
+<Showcase name="rewind" />
 
-> When looping, navigation buttons are never disabled.
+> When rewinding, navigation buttons are never disabled.
 
 ### Autoplay
 
@@ -353,9 +353,9 @@ In the above example, we also use the headless progress component to show the pr
       info: '"start" | "center" | "end"',
     },
     {
-      name: 'loop',
+      name: 'rewind',
       type: 'boolean',
-      description: 'Whether the carousel should loop.',
+      description: 'Whether the carousel should rewind.',
     },
     {
       name: 'bind:selectedIndex',

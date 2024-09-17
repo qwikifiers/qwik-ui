@@ -9,7 +9,6 @@
     transition: 0.3s transform ease-out;
 
     display: flex;
-    flex-direction: var(--direction);
     gap: var(--gap);
     flex-direction: var(--orientation);
 

@@ -7,7 +7,7 @@ export default component$(() => {
   const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink'];
 
   return (
-    <Carousel.Root class="carousel-root" gap={30} loop>
+    <Carousel.Root class="carousel-root" gap={30} rewind>
       <div class="carousel-buttons">
         <Carousel.Previous>Prev</Carousel.Previous>
         <Carousel.Next>Next</Carousel.Next>

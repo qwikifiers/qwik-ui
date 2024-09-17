@@ -26,8 +26,8 @@ export type CarouselRootProps = PropsOf<'div'> & {
   /** Alignment of slides within the viewport */
   align?: 'start' | 'center' | 'end';
 
-  /** Whether the carousel should loop */
-  loop?: boolean;
+  /** Whether the carousel should rewind */
+  rewind?: boolean;
 
   /** Bind the selected index to a signal */
   'bind:selectedIndex'?: Signal<number>;
@@ -55,14 +55,6 @@ export type CarouselRootProps = PropsOf<'div'> & {
 
   /** @internal Whether this carousel has a title */
   _isTitle?: boolean;
-
-  /** The carousel's orientation */
-  direction?: 'row' | 'column';
-
-  /** The slider height */
-  maxSlideHeight?: number | undefined;
-  /** Allows the user to navigate steps when interacting with the stepper */
-  stepInteraction?: boolean;
 
   /** The sensitivity of the carousel dragging */
   sensitivity?: {
@@ -124,7 +116,7 @@ export const CarouselBase = component$((props: CarouselRootProps) => {
   const slidesPerViewSig = useComputed$(() => props.slidesPerView ?? 1);
   const gapSig = useComputed$(() => props.gap ?? 0);
   const alignSig = useComputed$(() => props.align ?? 'start');
-  const isLoopSig = useComputed$(() => props.loop ?? false);
+  const isRewindSig = useComputed$(() => props.rewind ?? false);
   const autoPlayIntervalMsSig = useComputed$(() => props.autoPlayIntervalMs ?? 0);
   const progressSig = useBoundSignal(givenProgressSig, getInitialProgress());
   const sensitivitySig = useComputed$(() => {
@@ -161,7 +153,7 @@ export const CarouselBase = component$((props: CarouselRootProps) => {
     slidesPerViewSig,
     gapSig,
     alignSig,
-    isLoopSig,
+    isRewindSig,
     autoPlayIntervalMsSig,
     startIndexSig,
     sensitivitySig,

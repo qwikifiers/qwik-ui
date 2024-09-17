@@ -21,7 +21,7 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
   });
 
   const handleFocusNext$ = $(() => {
-    if (context.isLoopSig.value) return;
+    if (context.isRewindSig.value) return;
 
     if (
       isKeyboardFocusSig.value &&
@@ -47,7 +47,7 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
     const currentIndex = context.currentIndexSig.value;
     const currentPosition = validIndexes.indexOf(currentIndex);
 
-    if (currentPosition === 0 && context.isLoopSig.value) {
+    if (currentPosition === 0 && context.isRewindSig.value) {
       context.currentIndexSig.value = validIndexes[validIndexes.length - 1];
     } else {
       const prevPosition = Math.max(currentPosition - 1, 0);
@@ -63,8 +63,8 @@ export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
     <button
       {...props}
       ref={context.prevButtonRef}
-      aria-disabled={isFirstSlideSig.value && !context.isLoopSig.value}
-      disabled={isFirstSlideSig.value && !context.isLoopSig.value}
+      aria-disabled={isFirstSlideSig.value && !context.isRewindSig.value}
+      disabled={isFirstSlideSig.value && !context.isRewindSig.value}
       onClick$={[handleClick$, props.onClick$]}
       onBlur$={[handleFocusNext$, props.onBlur$]}
       onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
