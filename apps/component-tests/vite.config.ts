@@ -2,12 +2,10 @@ import { qwikVite } from '@builder.io/qwik/optimizer';
 import { qwikCity } from '@builder.io/qwik-city/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { qwikNxVite } from 'qwik-nx/plugins';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/apps/component-tests',
   plugins: [
-    qwikNxVite(),
     qwikCity(),
     qwikVite({
       client: {
