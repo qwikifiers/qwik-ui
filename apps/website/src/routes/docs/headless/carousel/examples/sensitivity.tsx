@@ -10,8 +10,10 @@ export default component$(() => {
     <Carousel.Root
       class="carousel-root"
       gap={30}
-      orientation="vertical"
-      maxSlideHeight={160}
+      sensitivity={{
+        mouse: 2.5,
+        touch: 2.25,
+      }}
     >
       <div class="carousel-buttons">
         <Carousel.Previous>Prev</Carousel.Previous>
@@ -27,6 +29,5 @@ export default component$(() => {
     </Carousel.Root>
   );
 });
-
 // internal
 import styles from './carousel.css?inline';

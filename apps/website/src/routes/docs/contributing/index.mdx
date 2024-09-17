@@ -379,11 +379,7 @@ Notice how `<ExampleRoot />` returns a `children` prop. This is because inline c
 Context and hooks is still easy to use, create a new component called `<ExampleBase />` and return that instead of the div (with the children passed between) in the example above. From there, you can use context, hooks, and all the other Qwik goodies as a top level component.
 
 ```tsx
-return (
-  <ExampleBase>
-    {props.children}
-  </ExampleBase>
-)
+return <ExampleBase>{props.children}</ExampleBase>;
 
 // use hooks, context, and other stuff here!
 export const ExampleBase = component$(() => {
@@ -391,8 +387,8 @@ export const ExampleBase = component$(() => {
     <div>
       <Slot />
     </div>
-  )
-})
+  );
+});
 ```
 
 ## That's it!
