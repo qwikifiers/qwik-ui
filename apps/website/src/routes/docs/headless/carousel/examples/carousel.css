@@ -74,6 +74,8 @@
 .carousel-stepper {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .carousel-step {
@@ -97,4 +99,8 @@
 
 .carousel-step[data-current]::before {
   background-color: hsl(var(--primary));
+}
+
+.carousel-animation {
+  transition: 0.35s transform cubic-bezier(0.57, 0.16, 0.95, 0.67);
 }

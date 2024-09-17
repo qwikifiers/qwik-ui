@@ -218,6 +218,20 @@ Use a visible task to change the signal passed to `bind:autoplay` to `true` when
   <Carousel.Root bind:autoplay={isAutoplaySig}>
 ```
 
+### Custom scroll animations
+
+To create a custom animation, use a CSS transition on the scroller with the `transform` property.
+
+<Showcase name="animate" />
+
+```css
+.carousel-animation {
+  transition: 0.35s transform cubic-bezier(0.57, 0.16, 0.95, 0.67);
+}
+```
+
+> Want to help make animations extend to keyframes and other goodies? Reach out to Jack in the [discord](https://discord.gg/3Vej3ehVVQ).
+
 ## Configurations
 
 ### Pagination
