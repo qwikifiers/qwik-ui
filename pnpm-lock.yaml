@@ -12,11 +12,11 @@ importers:
         specifier: ^4.9.1
         version: 4.9.1(playwright-core@1.44.1)
       '@builder.io/qwik':
-        specifier: 1.7.3
-        version: 1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
+        specifier: https://pkg.pr.new/@builder.io/qwik@6881
+        version: https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
       '@builder.io/qwik-city':
-        specifier: 1.7.3
-        version: 1.7.3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)
+        specifier: https://pkg.pr.new/@builder.io/qwik-city@6881
+        version: https://pkg.pr.new/@builder.io/qwik-city@6881(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5)
       '@changesets/cli':
         specifier: ^2.27.3
         version: 2.27.5
@@ -55,7 +55,7 @@ importers:
         version: 3.0.0-feat-sst-upgrade.1(@nx/devkit@19.4.2(nx@19.4.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11))))(@nx/node@19.3.0(@babel/traverse@7.24.6)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11))(@types/node@20.12.12)(@zkochan/js-yaml@0.0.7)(eslint@8.57.0)(nx@19.4.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))(ts-node@10.9.1(@swc/core@1.5.29(@swc/helpers@0.5.11))(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)(verdaccio@5.31.0(typanion@3.14.0)))(esbuild@0.17.19)(wrangler@3.58.0)
       '@modular-forms/qwik':
         specifier: ^0.24.0
-        version: 0.24.0(@builder.io/qwik-city@1.7.3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1))(@builder.io/qwik@1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))
+        version: 0.24.0(@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@6881(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5))(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))
       '@nx/cypress':
         specifier: 19.4.2
         version: 19.4.2(@babel/traverse@7.24.6)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11))(@types/node@20.12.12)(@zkochan/js-yaml@0.0.7)(cypress@13.13.0)(eslint@8.57.0)(nx@19.4.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))(typescript@5.4.5)(verdaccio@5.31.0(typanion@3.14.0))
@@ -94,7 +94,7 @@ importers:
         version: 1.44.1
       '@qwikest/icons':
         specifier: ^0.0.13
-        version: 0.0.13(@builder.io/qwik@1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))
+        version: 0.0.13(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))
       '@shikijs/transformers':
         specifier: ^1.11.0
         version: 1.11.0
@@ -169,7 +169,7 @@ importers:
         version: 1.5.0(axe-core@4.9.1)(cypress@13.13.0)
       cypress-ct-qwik:
         specifier: 0.3.0
-        version: 0.3.0(@builder.io/qwik@1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))(cypress@13.13.0)
+        version: 0.3.0(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))(cypress@13.13.0)
       cypress-real-events:
         specifier: 1.12.0
         version: 1.12.0(cypress@13.13.0)
@@ -343,8 +343,8 @@ importers:
   packages/kit-headless:
     dependencies:
       '@builder.io/qwik':
-        specifier: 1.7.2
-        version: 1.7.2(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
+        specifier: https://pkg.pr.new/@builder.io/qwik@6881
+        version: https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
       '@floating-ui/core':
         specifier: ^1.6.2
         version: 1.6.2
@@ -364,8 +364,8 @@ importers:
   packages/kit-styled:
     dependencies:
       '@builder.io/qwik':
-        specifier: 1.7.2
-        version: 1.7.2(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
+        specifier: https://pkg.pr.new/@builder.io/qwik@6881
+        version: https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
     devDependencies:
       '@qwik-ui/headless':
         specifier: ^0.5.2
@@ -1039,8 +1039,9 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@builder.io/qwik-city@1.7.3':
-    resolution: {integrity: sha512-ZCD8HQ4AmSaBCENaDeFDh3h5drxjUi44miEUSnBf73gSACDSChq70LaM+Y2wwoaArDT6OQ3YzuN/lzFpFWynQg==}
+  '@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@6881':
+    resolution: {tarball: https://pkg.pr.new/@builder.io/qwik-city@6881}
+    version: 1.8.0
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
 
   '@builder.io/qwik@1.7.2':
@@ -1048,8 +1049,9 @@ packages:
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
 
-  '@builder.io/qwik@1.7.3':
-    resolution: {integrity: sha512-lVRT4j9redY4X+iOy26U2vhychJgX24aaleu3IuBlEwD8MjCU5k46ApHq+cGqI24/kbqjirPH3SIxtVSByEG/A==}
+  '@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@6881':
+    resolution: {tarball: https://pkg.pr.new/@builder.io/qwik@6881}
+    version: 1.8.0
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
 
@@ -1797,6 +1799,7 @@ packages:
 
   '@modular-forms/qwik@0.24.0':
     resolution: {integrity: sha512-mF+cOw2lmiEjCf7odYW65d1gxp5ozqAbDfX5Z6yAt0wE7wsRHBZgi0YoXAh63vRCEcR5UMG/9kdTXj3KCjxhug==}
+    version: 0.24.0
     peerDependencies:
       '@builder.io/qwik': ^1.4.0
       '@builder.io/qwik-city': ^1.4.0
@@ -2163,6 +2166,7 @@ packages:
 
   '@qwikest/icons@0.0.13':
     resolution: {integrity: sha512-e0wY8vmx0nDSUiuCATlk+ojTvdBV4txIGHHWjZW5SRkv4XB8H9+3WSDcLPz0ItUdRyzcrohE9k2jtQI/98aRPA==}
+    version: 0.0.13
     engines: {node: '>=15.0.0'}
     peerDependencies:
       '@builder.io/qwik': '>=1.0.0'
@@ -3900,6 +3904,7 @@ packages:
 
   cypress-ct-qwik@0.3.0:
     resolution: {integrity: sha512-S1PcR6BbZMHprTYmYvYcZODNFy+WOQewUIWCGRA2ruq4H6I2zJSVLy0VxynKuxgSx3OKp5GYUIXSTmdxkTdk4Q==}
+    version: 0.3.0
     peerDependencies:
       '@builder.io/qwik': '>0.23.0'
       cypress: '>=12.8.1'
@@ -5134,9 +5139,9 @@ packages:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}
     engines: {node: '>= 4'}
 
-  imagetools-core@6.0.4:
-    resolution: {integrity: sha512-N1qs5qn7u9nR3kboISkYuvJm8MohiphCfBa+wx1UOropVaFis9/mh6wuDPLHJNhl6/64C7q2Pch5NASVKAaSrg==}
-    engines: {node: '>=12.0.0'}
+  imagetools-core@7.0.1:
+    resolution: {integrity: sha512-XDUx3Ac1VrZ4XF5eAJNYdHbFXRPNyebHFrwJsZ4WHb7X2MitOVW23cFphSDByT3MH5rdWdxKr4edSW2agChvDg==}
+    engines: {node: '>=18.0.0'}
 
   immutable@4.3.6:
     resolution: {integrity: sha512-Ju0+lEMyzMVZarkTn/gqRpdqd5dOPaz1mCZ0SH3JV6iFw81PldE/PEB1hWVEA288HPt4WXW8O7AWxB10M+03QQ==}
@@ -8364,6 +8369,14 @@ packages:
     resolution: {integrity: sha512-/EH/sDgxU2eGxajKdwLCDmQ4FWq+kpi3uCmBGpw1xJtnAxEjlD8j8PEiGWpCIMIs3ciNAgH0d3TTJiUkYzyZjA==}
     engines: {node: '>=10.12.0'}
 
+  valibot@0.42.0:
+    resolution: {integrity: sha512-igMdmHXxDiQY714ssh9bGisMqJ2yg7sko1KOmv/omnrIacGtP6mGrbvVT1IuV1bDrHyG9ybgpHwG1UElDiDCLg==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
@@ -8409,9 +8422,9 @@ packages:
   vfile@6.0.1:
     resolution: {integrity: sha512-1bYqc7pt6NIADBJ98UiG0Bn/CHIVOoZ/IyEkqIruLg0mE1BKzkOXY2D6CSqQIcKqgadppE5lrxgWXJmXd7zZJw==}
 
-  vite-imagetools@6.2.9:
-    resolution: {integrity: sha512-C4ZYhgj2vAj43/TpZ06XlDNP0p/7LIeYbgUYr+xG44nM++4HGX6YZBKAYpiBNgiCFUTJ6eXkRppWBrfPMevgmg==}
-    engines: {node: '>=12.0.0'}
+  vite-imagetools@7.0.4:
+    resolution: {integrity: sha512-C9C7b2p/8/TCN2g26tE9haoer2i8K4x0v2RXUiHsIjiz221vQuKItCQ+VyiVCsUMPXfJC/tlZsmCZVBz5jh7uA==}
+    engines: {node: '>=18.0.0'}
 
   vite-node@1.6.0:
     resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
@@ -8781,6 +8794,9 @@ packages:
     resolution: {integrity: sha512-D7eujBWkLa3p2sIpJA0d1pr7es+a7m0vFAnZLlCEKq/Ij2k0MLi9Br2UPxoxdYystm5K1yeBGzub0FlYUEWj2Q==}
     engines: {node: '>=8.0.0'}
     hasBin: true
+
+  zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
 
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
@@ -9568,17 +9584,18 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@builder.io/qwik-city@1.7.3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)':
+  '@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@6881(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5)':
     dependencies:
       '@mdx-js/mdx': 3.0.1
       '@types/mdx': 2.0.13
       source-map: 0.7.4
       svgo: 3.3.2
       undici: 5.28.4
+      valibot: 0.42.0(typescript@5.4.5)
       vfile: 6.0.1
       vite: 5.2.11(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
-      vite-imagetools: 6.2.9(rollup@4.18.0)
-      zod: 3.23.8
+      vite-imagetools: 7.0.4(rollup@4.18.0)
+      zod: 3.22.4
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -9589,6 +9606,7 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+      - typescript
 
   '@builder.io/qwik@1.7.2(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)':
     dependencies:
@@ -9603,7 +9621,7 @@ snapshots:
       - sugarss
       - terser
 
-  '@builder.io/qwik@1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)':
+  '@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)':
     dependencies:
       csstype: 3.1.3
       vite: 5.2.11(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
@@ -10507,10 +10525,10 @@ snapshots:
 
   '@microsoft/tsdoc@0.14.2': {}
 
-  '@modular-forms/qwik@0.24.0(@builder.io/qwik-city@1.7.3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1))(@builder.io/qwik@1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))':
+  '@modular-forms/qwik@0.24.0(@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@6881(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5))(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))':
     dependencies:
-      '@builder.io/qwik': 1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
-      '@builder.io/qwik-city': 1.7.3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)
+      '@builder.io/qwik': https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
+      '@builder.io/qwik-city': https://pkg.pr.new/@builder.io/qwik-city@6881(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5)
       decode-formdata: 0.7.3
 
   '@nodelib/fs.scandir@2.1.5':
@@ -11366,9 +11384,9 @@ snapshots:
 
   '@polka/url@1.0.0-next.25': {}
 
-  '@qwikest/icons@0.0.13(@builder.io/qwik@1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))':
+  '@qwikest/icons@0.0.13(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))':
     dependencies:
-      '@builder.io/qwik': 1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
+      '@builder.io/qwik': https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
 
   '@rollup/pluginutils@4.2.1':
     dependencies:
@@ -13322,9 +13340,9 @@ snapshots:
       axe-core: 4.9.1
       cypress: 13.13.0
 
-  cypress-ct-qwik@0.3.0(@builder.io/qwik@1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))(cypress@13.13.0):
+  cypress-ct-qwik@0.3.0(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1))(cypress@13.13.0):
     dependencies:
-      '@builder.io/qwik': 1.7.3(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
+      '@builder.io/qwik': https://pkg.pr.new/@builder.io/qwik@6881(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
       '@cypress/mount-utils': 4.1.0
       cypress: 13.13.0
 
@@ -14910,9 +14928,7 @@ snapshots:
 
   ignore@5.3.1: {}
 
-  imagetools-core@6.0.4:
-    dependencies:
-      sharp: 0.33.4
+  imagetools-core@7.0.1: {}
 
   immutable@4.3.6: {}
 
@@ -18730,6 +18746,10 @@ snapshots:
       '@types/istanbul-lib-coverage': 2.0.6
       convert-source-map: 2.0.0
 
+  valibot@0.42.0(typescript@5.4.5):
+    optionalDependencies:
+      typescript: 5.4.5
+
   validate-npm-package-license@3.0.4:
     dependencies:
       spdx-correct: 3.2.0
@@ -18834,10 +18854,11 @@ snapshots:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  vite-imagetools@6.2.9(rollup@4.18.0):
+  vite-imagetools@7.0.4(rollup@4.18.0):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
-      imagetools-core: 6.0.4
+      imagetools-core: 7.0.1
+      sharp: 0.33.4
     transitivePeerDependencies:
       - rollup
 
@@ -19279,6 +19300,8 @@ snapshots:
       validator: 13.12.0
     optionalDependencies:
       commander: 9.5.0
+
+  zod@3.22.4: {}
 
   zod@3.23.8: {}
 

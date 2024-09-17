@@ -30,7 +30,7 @@
   },
   "private": false,
   "peerDependencies": {
-    "@builder.io/qwik": "1.7.2"
+    "@builder.io/qwik": "https://pkg.pr.new/@builder.io/qwik@6881"
   },
   "dependencies": {
     "@floating-ui/core": "^1.6.2",
