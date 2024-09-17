@@ -68,7 +68,7 @@ export const FeatureList = component$((props: FeatureListProps) => {
       {!props.issues && (
         <Note>
           Missing a feature? Check out the{' '}
-          <a class="font-bold" href="https://qwikui.com/contributing/">
+          <a class="font-bold" href="https://qwikui.com/docs/contributing/">
             contributing guide
           </a>{' '}
           and we'd be happy to review any relevant issues or PR's. Feel free to work on

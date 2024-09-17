@@ -7,19 +7,18 @@ export default component$(() => {
   const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink'];
 
   return (
-    <Carousel.Root
-      class="carousel-root"
-      gap={30}
-      orientation="vertical"
-      maxSlideHeight={160}
-    >
+    <Carousel.Root class="carousel-root" gap={30}>
       <div class="carousel-buttons">
         <Carousel.Previous>Prev</Carousel.Previous>
         <Carousel.Next>Next</Carousel.Next>
       </div>
       <Carousel.Scroller class="carousel-scroller">
         {colors.map((color) => (
-          <Carousel.Slide key={color} class="carousel-slide">
+          <Carousel.Slide
+            style={{ flexBasis: '300px' }}
+            key={color}
+            class="carousel-slide"
+          >
             {color}
           </Carousel.Slide>
         ))}
@@ -27,6 +26,5 @@ export default component$(() => {
     </Carousel.Root>
   );
 });
-
 // internal
 import styles from './carousel.css?inline';

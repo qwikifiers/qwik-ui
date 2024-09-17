@@ -1,12 +1,20 @@
 @layer qwik-ui {
-  [data-qui-carousel-scroller] {
+  [data-qui-carousel-viewport] {
     overflow: hidden;
+  }
+
+  [data-qui-carousel-scroller] {
+    transform: var(--transform);
+    will-change: transform;
+    transition: 0.3s transform ease-out;
+
     display: flex;
-    flex-direction: var(--direction);
     gap: var(--gap);
-    max-height: var(--max-slide-height);
-    /* for mobile & scroll-snap-start */
+    flex-direction: var(--orientation);
+
+    /* for initial slide position */
     scroll-snap-type: both mandatory;
+    max-height: calc(var(--max-slide-height));
   }
 
   [data-qui-carousel-slide] {
@@ -17,25 +25,11 @@
 
     flex-basis: var(--slide-width);
     flex-shrink: 0;
+    position: relative;
   }
 
-  @media (pointer: coarse) {
-    [data-qui-carousel-scroller][data-draggable] {
-      overflow: scroll;
-    }
-
-    /* make sure snap align is added after initial index animation */
-    [data-draggable][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: start;
-    }
-
-    [data-draggable][data-align='center'][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: center;
-    }
-
-    [data-draggable][data-align='end'][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: end;
-    }
+  [data-qui-carousel-scroller][data-initial] {
+    overflow: hidden;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -46,24 +40,32 @@
 
   /* workaround until scroll-snap-start is added to CSS */
   [data-qui-scroll-start] {
+    --remove-flex-gap: calc(-1 * var(--gap) - 1px);
     clip-path: inset(50%);
     height: 1px;
     width: 1px;
     white-space: nowrap;
     visibility: hidden;
+    display: none;
   }
 
-  /* so the snap start marker is not included in the scroll snap position */
-  [data-qui-scroll-start][data-start] {
-    margin-right: calc(-1 * var(--gap) - 1px);
+  /* should not affect padding on non-scroller carousels */
+  [data-qui-carousel-scroller] [data-qui-scroll-start] {
+    display: revert;
   }
 
-  [data-qui-scroll-start][data-center] {
-    margin-left: 0px;
+  /* Offsetting the scroll-start - Horizontal orientation */
+  [data-qui-scroll-start][data-orientation='horizontal'][data-start] {
+    margin-right: var(--remove-flex-gap);
   }
 
-  [data-qui-scroll-start][data-end] {
-    margin-left: calc(-1 * var(--gap) - 1px);
+  [data-qui-scroll-start][data-orientation='horizontal'][data-end] {
+    margin-left: var(--remove-flex-gap);
+  }
+
+  /* Vertical orientation (remove start gap) */
+  [data-qui-scroll-start][data-orientation='vertical'][data-start] {
+    margin-top: var(--remove-flex-gap);
   }
 
   [data-qui-scroll-start]::before {
@@ -73,6 +75,23 @@
     display: block;
     /* changes to none on first interaction */
     scroll-snap-align: var(--scroll-snap-align, start);
+  }
+
+  /* position the marker to the start */
+  [data-qui-scroll-start][data-start]::before {
+    margin-top: calc(var(--remove-flex-gap) * -1);
+  }
+
+  /* position the marker to the end */
+  [data-qui-scroll-start][data-end]::before {
+    margin-top: calc(var(--remove-flex-gap) * 1);
+  }
+
+  /* center verically */
+  [data-qui-scroll-start][data-center]::before {
+    position: absolute;
+    margin-top: -0.5px;
+    inset: 50%;
   }
 
   /* remove the marker's snap-align on hover */
