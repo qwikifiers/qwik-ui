@@ -8,17 +8,49 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 # Toggle
 
-A toggle component is a primitive that us used to quickly switch between two possible states.
+A two-state button that can be either on or off.
 
 <Showcase name="hero" />
+
+## ✨ Features
+
+<FeatureList
+  features={[
+    'Follows the WAI-Aria design pattern',
+    'Full keyboard navigation',
+    'Can open one or multiple items at a time',
+    'Supports initial and reactive values',
+  ]}
+/>
 
 ## Building blocks
 
 <CodeSnippet name="building-blocks" />
 
-## Examples
+## Usage / Component State
 
-### WIP
+### Initial Value (Uncontrolled)
+
+An initial, uncontrolled value can be provided using the `pressed` prop.
+
+<Showcase name="initialPressed" />
+
+If you want to have some control when the toggle is pressed, like making some side effect you can use
+the `onPressedChange$`. The event is fired when the user toggle the button, and receives the new value.
+
+<Showcase name="pressed" />
+
+### Reactive Value (Controlled)
+
+Pass a signal to `bind:value` prop to make the pressed state controlled (binding the value with a signal).
+
+<Showcase name="bind-pressed" />
+
+### Disabled
+
+Pass the `disabled` prop.
+
+<Showcase name="disabled" />
 
 ## Accessibility
 
@@ -28,45 +60,40 @@ A toggle component is a primitive that us used to quickly switch between two pos
   keyDescriptors={[
     {
       keyTitle: 'Space',
-      description: 'Toggle between states',
+      description: 'Toggles between states.',
     },
     {
-      keyTitle: 'Tab',
-      description: 'Moves focus to the next focusable element.',
-    },
-    {
-      keyTitle: 'Shift + Tab',
-      description: 'Moves focus to the previous focusable element.',
+      keyTitle: 'Enter',
+      description: 'Toggles between states.',
     },
   ]}
 />
 
 ## API
 
-### Toggle
-
 <APITable
   propDescriptors={[
     {
       name: 'pressed',
       type: 'boolean',
-      description: 'Toggle between pressed and not pressed state',
+      description:
+        'Initial value to make the pressed state uncontrolled. Use in conjunction with `onPressedChange$` to have some reactivity.',
     },
     {
-      name: 'defaultPressed',
-      type: 'boolean',
-      description: 'The default pressed state when the toggle is rendered',
-    },
-    {
-      name: 'onClick$',
-      info: 'PropFunction<() => void>',
+      name: 'onPressedChange$',
       type: 'function',
-      description: 'A custom click handler to wire to the toggle click event',
+      info: 'PropFunction<() => void>',
+      description: 'Called when the state changes.',
+    },
+    {
+      name: 'bind:pressed',
+      type: 'Signal<boolean>',
+      description: 'Reactive value (signal) to make the pressed state controlled.',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: 'Sets whether the toggle is disabled or not',
+      description: 'Disables the toggle making the toggle unpressable.',
     },
   ]}
 />

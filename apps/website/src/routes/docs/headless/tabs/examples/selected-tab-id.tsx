@@ -11,9 +11,9 @@ export default component$(() => {
         <h3>Danish Composers</h3>
         <Tabs.Root bind:selectedTabId={selectedTabIdSig}>
           <Tabs.List>
-            <Tabs.Tab tabId="Maria">Maria</Tabs.Tab>
-            <Tabs.Tab tabId="Carl">Carl</Tabs.Tab>
-            <Tabs.Tab tabId="Ida">Ida</Tabs.Tab>
+            <Tabs.Tab tabId="id-0">Maria</Tabs.Tab>
+            <Tabs.Tab tabId="id-1">Carl</Tabs.Tab>
+            <Tabs.Tab tabId="id-2">Ida</Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel>
             <p>Maria Theresia Ahlefeldt (16 January 1755 - 20 December 1810) ...</p>

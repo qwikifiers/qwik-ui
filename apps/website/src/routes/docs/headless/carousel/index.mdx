@@ -8,7 +8,7 @@ import { Note } from '~/components/note/note';
 
 # Carousel
 
-Displays multiple content items in one space, rotating through them.
+Display and navigate through multiple content items.
 
 <Showcase name="hero" />
 
@@ -23,92 +23,100 @@ Displays multiple content items in one space, rotating through them.
     'Pagination with bullet navigation',
     'Navigate via Previous/Next buttons',
     'Autoplay functionality',
-    'Looping option',
+    'Rewind option',
     'Support for multiple slides per view',
     'Reactive slide updates',
     'Initial slide selection',
+    'Carousels can be horizontal or vertical',
     'Customizable accessible names',
-    'Supports scroller and conditional carousels',
-  ]}
-  roadmap={[
-    'Improve test coverage',
-    'Enhance documentation',
-    'Refine API for consistency with other components',
-    'Add support for vertical carousels',
+    'Supports carousels with or without scrollers',
+    'Optionally exposed as an accessible stepper',
+    'Supports custom animations',
+    'Integrates with progress bars and other components',
   ]}
 />
 
-## CSS Scroll snapping
+## Why use the Qwik UI Carousel
 
-Qwik UI combines CSS scroll snapping and flexbox for the carousel:
+### HTML until users care
 
-- Scroll snapping: Used on mobile for smooth touch interactions and initial snap position.
-- Flexbox: Provides a simple layout system for variable widths, gaps, and columns.
+The Carousel is a common widget in landing pages and SSR-rendered environments (even above the fold). Unlike many carousel libraries that rely on heavy JavaScript hydration, our implementation is designed to be:
 
-> Styles are in an @layer for easy customization:
+- Environment agnostic (automatically SSR or CSR)
+- HTML-first
+- JavaScript-enhanced on interaction
 
-```css
-@layer qwik-ui {
-  [data-qui-carousel-scroller] {
-    overflow: hidden;
-    display: flex;
-    gap: var(--gap);
-    /* for mobile & scroll-snap-start */
-    scroll-snap-type: x mandatory;
-  }
+The Carousel remains lightweight HTML until users interact with it through swiping, dragging, clicking, etc.
 
-  [data-qui-carousel-slide] {
-    /* default, feel free to override */
-    --total-gap-width: calc(var(--gap) * (var(--slides-per-view) - 1));
-    --available-slide-width: calc(100% - var(--total-gap-width));
-    --slide-width: calc(var(--available-slide-width) / var(--slides-per-view));
+### Hardware acceleration
 
-    flex-basis: var(--slide-width);
-    flex-shrink: 0;
-  }
+Initially, this component was built with normal scroll behavior (including CSS Scroll Snapping), but our testing found it to be janky on mobile the moment a custom animation was added.
 
-  @media (pointer: coarse) {
-    [data-qui-carousel-scroller][data-draggable] {
-      overflow-x: scroll;
-    }
+> CSS Scroll snapping also currently does not support mouse drag.
 
-    /* make sure snap align is added after initial index animation */
-    [data-draggable][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: start;
-    }
+The Qwik UI Carousel uses `CSS transforms` and `will-change` for smooth, hardware-accelerated animations, optimizing performance across devices, especially on mobile.
 
-    [data-draggable][data-align='center'][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: center;
-    }
+### Design Decisions
 
-    [data-draggable][data-align='end'][data-initial-touch] [data-qui-carousel-slide] {
-      scroll-snap-align: end;
-    }
-  }
-}
-```
+The Qwik UI Carousel is designed with the following intentions:
 
-## Pagination
+- Consistency with Qwik UI's API design for ease of use
+- Modularity to support various use cases
+- Extendable with custom components
 
-Use `<Carousel.Pagination />` and `<Carousel.Bullet />` components to add pagination.
+## Alignment Options
 
-<Showcase name="pagination" />
+### Start Alignment
 
-> These are exposed to assistive technologies as tabs for screen readers.
+The default alignment is `start`. Slides will snap to the left edge of the carousel.
 
-## Multiple Slides
+<Showcase name="start" />
+
+### Center Alignment
+
+Set the `align` prop to `center` to align slides to the center of the carousel.
+
+<Showcase name="center" />
+
+### End Alignment
+
+Set the `align` prop to `end` to align slides to the right edge of the carousel.
+
+<Showcase name="end" />
+
+## Component State
+
+### Initial
+
+To set an initial slide position, use the `startIndex` prop.
+
+<Showcase name="initial" />
+
+### Reactive
+
+Reactively control the selected slide index by using the `bind:selectedIndex` prop.
+
+<Showcase name="reactive" />
+
+### Multiple Slides
 
 Set the `slidesPerView` prop for multiple slides.
 
 <Showcase name="multiple-slides" />
 
-## Non-draggable
+### Vertical
+
+Qwik UI supports vertical carousels. Add the `orientation` prop with the value of `vertical` to the `<Carousel.Root />` component.
+
+<Showcase name="vertical-direction" />
+
+### Non-draggable
 
 Opt-out of the draggable behavior by setting the `draggable` prop to `false`.
 
 <Showcase name="non-draggable" />
 
-## Different widths
+### Different widths
 
 By default, the slides will take up the full width of the carousel.
 
@@ -116,7 +124,25 @@ To change this, use the `flex-basis` CSS property on the `<Carousel.Slide />` co
 
 <Showcase name="different-widths" />
 
-## Without Scroller
+### Sensitivity
+
+You can customize the sensitivity of the carousel dragging by passing an object with `mouse` and `touch` properties.
+
+<Showcase name="sensitivity" />
+
+The default values are `1.5` for `mouse` and `1.25` for `touch`.
+
+> The example above uses `2.5` for `mouse` and `2.25` for `touch`.
+
+### Move
+
+You can customize the amount of slides to move when hitting the next or previous button by passing a number.
+
+<Showcase name="move" />
+
+The default value is `1`.
+
+### No Scroll
 
 Qwik UI supports carousels without a scroller, which can be useful for conditional slide carousels.
 
@@ -124,9 +150,7 @@ Qwik UI supports carousels without a scroller, which can be useful for condition
 
 Remove the `<Carousel.Scroller />` component to remove the scroller.
 
-## Animations
-
-### Conditional Slides
+#### Example Conditional Animation
 
 <Showcase name="conditional" />
 
@@ -150,35 +174,31 @@ Remove the `<Carousel.Scroller />` component to remove the scroller.
 }
 ```
 
-## CSR
+### CSR
 
 Both SSR and CSR are supported. In this example, we conditionally render the carousel based on an interaction.
 
 <Showcase name="csr" />
 
-## Center
+### Rewind
 
-Align slides to the center of the carousel by setting the `align` prop to `center`.
+Rewind the carousel by setting the `rewind` prop to `true`.
 
-<Showcase name="center" />
+<Showcase name="rewind" />
 
-## End
+> When rewinding, navigation buttons are never disabled.
 
-Align slides to the end of the carousel by setting the `align` prop to `end`.
+### Autoplay
 
-<Showcase name="end" />
+To use autoplay, use the `bind:autoplay` prop.
 
-## Loop
+<Showcase name="player" />
 
-Loop the carousel by setting the `loop` prop to `true`.
+### Accessible name
 
-<Showcase name="loop" />
+By default, the carousel is automatically labeled with the `aria-label` attribute.
 
-> When looping, navigation buttons are never disabled.
-
-## Accessible Name
-
-Add an accessible name to the carousel by adding the `<Carousel.Title />` component.
+In the case that you want to add a custom accessible name, use the `<Carousel.Title />` component.
 
 <Showcase name="title" />
 
@@ -186,13 +206,7 @@ To hide the title from screen readers, use the `<VisuallyHidden />` component.
 
 > The title is automatically added to the carousel's `aria-labelledby` attribute.
 
-## Autoplay
-
-To use autoplay, use the `bind:autoplay` prop.
-
-<Showcase name="player" />
-
-### What if I want to autoplay on initial render?
+#### What if I want to autoplay on initial render?
 
 Use a visible task to change the signal passed to `bind:autoplay` to `true` when the component is visible.
 
@@ -206,17 +220,110 @@ Use a visible task to change the signal passed to `bind:autoplay` to `true` when
   <Carousel.Root bind:autoplay={isAutoplaySig}>
 ```
 
-## Initial
+### Custom scroll animations
 
-To set an initial slide position, use the `startIndex` prop.
+To create a custom animation, use a CSS transition on the scroller with the `transform` property.
 
-<Showcase name="initial" />
+<Showcase name="animate" />
 
-## Reactive
+```css
+.carousel-animation {
+  transition: 0.35s transform cubic-bezier(0.57, 0.16, 0.95, 0.67);
+}
+```
 
-Reactively control the selected slide index by using the `bind:selectedIndex` prop.
+> Want to help make animations extend to keyframes and other goodies? Reach out to Jack in the [discord](https://discord.gg/3Vej3ehVVQ).
 
-<Showcase name="reactive" />
+## Configurations
+
+### Pagination
+
+Use `<Carousel.Pagination />` and `<Carousel.Bullet />` components to add pagination.
+
+<Showcase name="pagination" />
+
+Inspired by [Adam Argyle's carousel examples](https://gui-challenges.web.app/carousel/dist/), the carousel component allows the pagination to be extendable, while intending to be intuitive.
+
+> These are exposed to assistive technologies as tabs for screen readers.
+
+### Stepper
+
+The Carousel component also includes built-in accessibility support for steppers and setup wizards.
+
+<Showcase name="stepper" />
+
+Steps can be disabled and enabled based on the index of the current slide or any other piece of state.
+
+> Steppers are seen by screen readers as a navigation area with series of steps that the user can navigate through.
+
+#### No Scroll
+
+Similar to Carousel's, steppers can be used without a scroller.
+
+<Showcase name="stepper-no-scroll" />
+
+#### Vertical
+
+Vertical steppers can be created by changing the markup position of the stepper.
+
+<Showcase name="vertical-stepper" />
+
+#### Presentational
+
+Create non-interactive steppers by setting the `as` prop to `div` or `span`. Use `Carousel.Next` and `Carousel.Previous` components for navigation instead.
+
+<Showcase name="stepper-presentational" />
+
+### Progress
+
+You can also control the progress of the carousel by using the `bind:progress` prop.
+
+<Showcase name="progress" />
+
+In the above example, we also use the headless progress component to show the progress of the carousel.
+
+### Initial Styles
+
+> Styles are in an @layer for easy customization:
+
+```css
+@layer qwik-ui {
+  [data-qui-carousel-viewport] {
+    overflow: hidden;
+  }
+
+  [data-qui-carousel-scroller] {
+    transform: var(--transform);
+    will-change: transform;
+    transition: 0.3s transform ease-out;
+
+    display: flex;
+    gap: var(--gap);
+    flex-direction: var(--orientation);
+
+    /* for initial slide position */
+    scroll-snap-type: both mandatory;
+    max-height: calc(var(--max-slide-height));
+  }
+
+  [data-qui-carousel-slide] {
+    /* default, feel free to override */
+    --total-gap-width: calc(var(--gap) * (var(--slides-per-view) - 1));
+    --available-slide-width: calc(100% - var(--total-gap-width));
+    --slide-width: calc(var(--available-slide-width) / var(--slides-per-view));
+
+    flex-basis: var(--slide-width);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-qui-carousel-player] {
+      display: none;
+    }
+  }
+}
+```
 
 ## API
 
@@ -246,9 +353,9 @@ Reactively control the selected slide index by using the `bind:selectedIndex` pr
       info: '"start" | "center" | "end"',
     },
     {
-      name: 'loop',
+      name: 'rewind',
       type: 'boolean',
-      description: 'Whether the carousel should loop.',
+      description: 'Whether the carousel should rewind.',
     },
     {
       name: 'bind:selectedIndex',
@@ -269,6 +376,18 @@ Reactively control the selected slide index by using the `bind:selectedIndex` pr
       name: 'autoPlayIntervalMs',
       type: 'number',
       description: 'Time in milliseconds before the next slide plays during autoplay.',
+    },
+    {
+      name: 'direction',
+      type: 'union',
+      description:
+        'Change the direction of the carousel, for it to be veritical define the maxSlideHeight prop as well.',
+      info: '"row" | "column"',
+    },
+    {
+      name: 'maxSlideHeight',
+      type: 'number',
+      description: 'Write the height of the longest slide.',
     },
   ]}
 />

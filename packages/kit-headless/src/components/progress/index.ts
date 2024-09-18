@@ -1,2 +1,2 @@
-export { HProgressIndicator as Indicator } from './progress-indicator';
-export { HProgress as Root } from './progress';
+export { ProgressIndicator as Indicator } from './progress-indicator';
+export { ProgressRoot as Root } from './progress-root';

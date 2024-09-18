@@ -7,6 +7,6 @@
     "src/components/carousel/carousel.test.ts"
   ],
   "compilerOptions": {
-    "types": ["node", "jest", "@testing-library/jest-dom", "@testing-library/cypress"]
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   }
 }
