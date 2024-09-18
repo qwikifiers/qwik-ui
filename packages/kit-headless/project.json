@@ -25,28 +25,6 @@
         "lintFilePatterns": ["packages/kit-headless/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "component-test": {
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "cypressConfig": "packages/kit-headless/cypress.config.ts",
-        "testingType": "component",
-        "watch": true,
-        "skipNxCache": true,
-        "env": {
-          "pluginVisualRegressionCleanupUnusedImages": false
-        }
-      }
-    },
-    "component-test-ci": {
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "cypressConfig": "packages/kit-headless/cypress.config.ts",
-        "testingType": "component",
-        "env": {
-          "pluginVisualRegressionCleanupUnusedImages": false
-        }
-      }
-    },
     "e2e": {
       "executor": "@nx/playwright:playwright",
       "outputs": ["{workspaceRoot}/dist/.playwright/packages/kit-headless"],

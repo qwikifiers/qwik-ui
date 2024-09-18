@@ -2,29 +2,52 @@
   width: 100%;
 }
 
-.tabs-example [role='tab'] {
-  width: 138px;
+.four-tabs-example [role='tab'] {
+  width: 6rem;
   background: var(--background);
   color: var(--foreground);
 }
 
-.tabs-example [role='tab'][disabled] {
+.vertical-tabs-example [role='tab'] {
+  width: 12rem;
+  background: var(--background);
+  color: var(--foreground);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tabs-example [role='tab'] {
+  width: 9rem;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.four-tabs-example [role='tab'][disabled][aria-disabled='true'],
+.vertical-tabs-example [role='tab'][disabled][aria-disabled='true'],
+.tabs-example [role='tab'][disabled][aria-disabled='true'] {
+  cursor: not-allowed;
   opacity: 0.3;
   font-weight: 400;
 }
 
+.four-tabs-example [role='tab'][data-state='selected'],
+.vertical-tabs-example [role='tab'][data-state='selected'],
 .tabs-example [role='tab'][data-state='selected'] {
   background: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
 }
 
+.four-tabs-example [role='tablist'],
+.vertical-tabs-example [role='tablist'],
 .tabs-example [role='tablist'] {
   border: 2px dotted hsl(var(--foreground));
   margin-bottom: 1rem;
   max-width: fit-content;
 }
 
+.four-tabs-example h3,
+.vertical-tabs-example h3,
 .tabs-example h3 {
   font-weight: 600;
-  margin-bottom: 0.5rem;
 }

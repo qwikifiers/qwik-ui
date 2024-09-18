@@ -5,7 +5,7 @@ export default component$(() => {
   useStyles$(styles);
 
   const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink'];
-  const selectedIndex = useSignal<number>(0);
+  const selectedIndex = useSignal<number>(2);
 
   return (
     <>

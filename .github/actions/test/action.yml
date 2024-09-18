@@ -28,11 +28,6 @@ runs:
       env:
         NODE_OPTIONS: --experimental-vm-modules
 
-    - name: Test Headless
-      uses: cypress-io/github-action@v5
-      with:
-        command: 'pnpm test.headless.ci'
-
     # - name: Build
     #   shell: bash
     #   run: npx nx affected:build --base=last-release --exclude=website

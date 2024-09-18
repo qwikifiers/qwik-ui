@@ -1,0 +1,120 @@
+---
+title: Qwik UI | Styled Toggle Group Component
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.styled.ToggleGroup} />
+
+# Toggle Group
+
+A set of two-state buttons that can be toggled on or off.
+
+<Showcase name="hero" />
+
+You can choose a multiple selection variant:
+
+<Showcase name="multiple" />
+
+And here is the default look for a disabled `ToggleGroup.Root`:
+
+<Showcase name="disabled" />
+
+<span class="flex flex-1 gap-1 font-medium">
+  To see all features and the API checkout our
+  <a href="/docs/headless/toggle-group" class="text-blue-500 hover:underline">
+    Headless component
+  </a>
+</span>
+
+## Installation
+
+**Run the following cli command or copy/paste the component code into your project**
+
+```sh
+qwik-ui add toggle-group
+```
+
+```tsx
+import {
+  component$,
+  type PropsOf,
+  Slot,
+  useContext,
+  useContextProvider,
+} from '@builder.io/qwik';
+import { cn } from '@qwik-ui/utils';
+import { ToggleGroup as HeadlessToggleGroup } from '@qwik-ui/headless';
+
+import { toggleVariants } from '@qwik-ui/styled';
+import type { VariantProps } from 'class-variance-authority';
+
+import { createContextId } from '@builder.io/qwik';
+
+export const toggleGroupStyledContextId = createContextId<ToggleGroupStyledContext>(
+  'qui-toggle-group-styled',
+);
+
+export type ToggleGroupStyledContext = VariantProps<typeof toggleVariants>;
+
+type ToggleGroupRootProps = PropsOf<typeof HeadlessToggleGroup.Root> &
+  VariantProps<typeof toggleVariants>;
+
+const Root = component$<ToggleGroupRootProps>(({ size, look, ...props }) => {
+  const contextStyled: ToggleGroupStyledContext = {
+    size,
+    look,
+  };
+  useContextProvider(toggleGroupStyledContextId, contextStyled);
+
+  return (
+    <HeadlessToggleGroup.Root
+      {...props}
+      class={cn('flex items-center gap-1', props.class)}
+    >
+      <Slot />
+    </HeadlessToggleGroup.Root>
+  );
+});
+
+type ToggleGroupItemProps = PropsOf<typeof HeadlessToggleGroup.Item> &
+  VariantProps<typeof toggleVariants>;
+
+const Item = component$<ToggleGroupItemProps>(({ ...props }) => {
+  const { size, look } = useContext(toggleGroupStyledContextId);
+
+  return (
+    <HeadlessToggleGroup.Item
+      {...props}
+      class={cn(toggleVariants({ size, look }), props.class)}
+    >
+      <Slot />
+    </HeadlessToggleGroup.Item>
+  );
+});
+
+export const ToggleGroup = {
+  Root,
+  Item,
+};
+```
+
+## Usage
+
+```tsx
+import { ToggleGroup } from '~/components/ui';
+```
+
+```tsx
+<ToggleGroup.Root type="multiple">
+  <ToggleGroup.Item value="left" aria-label="Left aligned">
+    Left
+  </ToggleGroup.Item>
+  <ToggleGroup.Item value="center" aria-label="Center aligned">
+    Center
+  </ToggleGroup.Item>
+  <ToggleGroup.Item value="right" aria-label="Right aligned">
+    Right
+  </ToggleGroup.Item>
+</ToggleGroup.Root>
+```

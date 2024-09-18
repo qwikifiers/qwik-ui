@@ -32,11 +32,13 @@ export const statusByComponent: ComponentKitsStatuses = {
     Separator: ComponentStatus.Beta,
     Skeleton: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
+    Toggle: ComponentStatus.Draft,
+    ToggleGroup: ComponentStatus.Draft,
     Textarea: ComponentStatus.Draft,
   },
   headless: {
     Accordion: ComponentStatus.Beta,
-    Carousel: ComponentStatus.Draft,
+    Carousel: ComponentStatus.Beta,
     Collapsible: ComponentStatus.Beta,
     Combobox: ComponentStatus.Beta,
     Checkbox: ComponentStatus.Draft,
@@ -49,6 +51,8 @@ export const statusByComponent: ComponentKitsStatuses = {
     Select: ComponentStatus.Beta,
     Separator: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
+    Toggle: ComponentStatus.Draft,
+    ToggleGroup: ComponentStatus.Draft,
     Tooltip: ComponentStatus.Beta,
   },
 };

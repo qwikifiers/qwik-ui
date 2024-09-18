@@ -45,10 +45,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
 
   return (
     <>
-      {/* start marker */}
-      {context.startIndex === _index && context.alignSig.value === 'start' && (
-        <div ref={context.scrollStartRef} data-qui-scroll-start data-start></div>
-      )}
+      <ScrollMarker align="start" _index={_index} />
       <div
         ref={slideRef}
         id={slideId}
@@ -63,17 +60,36 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
         {...props}
       >
         <Slot />
-
-        {/* center marker */}
-        {context.startIndex === _index && context.alignSig.value === 'center' && (
-          <div ref={context.scrollStartRef} data-qui-scroll-start data-center></div>
-        )}
+        <ScrollMarker align="center" _index={_index} />
       </div>
-
-      {/* end marker */}
-      {context.startIndex === _index && context.alignSig.value === 'end' && (
-        <div ref={context.scrollStartRef} data-qui-scroll-start data-end></div>
-      )}
+      <ScrollMarker align="end" _index={_index} />
     </>
+  );
+});
+
+type ScrollMarkerProps = PropsOf<'div'> & {
+  align: 'start' | 'center' | 'end';
+  _index: number | undefined;
+};
+
+const ScrollMarker = component$((props: ScrollMarkerProps) => {
+  const context = useContext(carouselContextId);
+
+  const { align, _index, ...rest } = props;
+
+  if (_index === undefined) return;
+
+  const isVisible =
+    context.startIndexSig.value === _index && context.alignSig.value === align;
+
+  return (
+    <div
+      ref={context.scrollStartRef}
+      data-qui-scroll-start
+      data-orientation={context.orientationSig.value}
+      hidden={!isVisible}
+      {...{ [`data-${align}`]: '' }}
+      {...rest}
+    ></div>
   );
 });

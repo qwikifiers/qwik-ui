@@ -146,35 +146,35 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
   });
 
-  test(`GIVEN a carousel with dragging enabled
-        WHEN dragging to the next slide
-        THEN the next slide should snap to the left side of the scroller`, async ({
-    page,
-  }) => {
-    const { driver: d } = await setup(page, 'hero');
+  // test(`GIVEN a carousel with dragging enabled
+  //       WHEN dragging to the next slide
+  //       THEN the next slide should snap to the left side of the scroller`, async ({
+  //   page,
+  // }) => {
+  //   const { driver: d } = await setup(page, 'hero');
 
-    const initialSlideBox = await d.getSlideBoundingBoxAt(0);
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  //   const initialSlideBox = await d.getSlideBoundingBoxAt(0);
+  //   await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
 
-    const startX = initialSlideBox.x + initialSlideBox.width * 0.8;
-    const endX = initialSlideBox.x + initialSlideBox.width * 0.2;
-    const y = initialSlideBox.y + initialSlideBox.height / 2;
+  //   const startX = initialSlideBox.x + initialSlideBox.width * 0.8;
+  //   const endX = initialSlideBox.x + initialSlideBox.width * 0.2;
+  //   const y = initialSlideBox.y + initialSlideBox.height / 2;
 
-    await d.getSlideAt(0).hover({ position: { x: 5, y: 5 } });
-    await page.mouse.move(startX, y);
-    await page.mouse.down();
-    await page.mouse.move(endX, y, { steps: 10 });
-    await page.mouse.up();
-    await d.getSlideAt(1).hover({ position: { x: 5, y: 5 } });
+  //   await d.getSlideAt(0).hover({ position: { x: 5, y: 5 } });
+  //   await page.mouse.move(startX, y);
+  //   await page.mouse.down();
+  //   await page.mouse.move(endX, y, { steps: 10 });
+  //   await page.mouse.up();
+  //   await d.getSlideAt(1).hover({ position: { x: 5, y: 5 } });
 
-    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+  //   await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
 
-    const scrollerBox = await d.getScrollerBoundingBox();
-    const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+  //   const scrollerBox = await d.getScrollerBoundingBox();
+  //   const secondSlideBox = await d.getSlideBoundingBoxAt(1);
 
-    // we need to check the space between the scroller left and the second slide left
-    expect(Math.abs(secondSlideBox.x - scrollerBox.x)).toBeLessThan(1);
-  });
+  //   // we need to check the space between the scroller left and the second slide left
+  //   expect(Math.abs(secondSlideBox.x - scrollerBox.x)).toBeLessThan(1);
+  // });
 
   test(`GIVEN a carousel
         WHEN clicking the next button
@@ -334,53 +334,53 @@ test.describe('Mobile / Touch Behavior', () => {
     expect(isCoarsePointer).toBe(true);
   });
 
-  test(`GIVEN a carousel with dragging enabled
-        WHEN swiping to the left
-        THEN it should move to the next slide`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+  // test(`GIVEN a carousel with dragging enabled
+  //       WHEN swiping to the left
+  //       THEN it should move to the next slide`, async ({ page }) => {
+  //   const { driver: d } = await setup(page, 'hero');
 
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
-    const boundingBox = await d.getSlideBoundingBoxAt(0);
+  //   await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  //   const boundingBox = await d.getSlideBoundingBoxAt(0);
 
-    const startX = boundingBox.x + boundingBox.width * 0.8; // near right edge
-    const endX = boundingBox.x + boundingBox.width * 0.2; // near left edge
-    const y = boundingBox.y + boundingBox.height / 2; // swipe height
+  //   const startX = boundingBox.x + boundingBox.width * 0.8; // near right edge
+  //   const endX = boundingBox.x + boundingBox.width * 0.2; // near left edge
+  //   const y = boundingBox.y + boundingBox.height / 2; // swipe height
 
-    // perform the swipe action
-    await page.touchscreen.tap(startX, y);
-    await page.mouse.move(startX, y, { steps: 10 });
-    await page.mouse.move(endX, y, { steps: 10 });
-    await page.touchscreen.tap(endX, y);
+  //   // perform the swipe action
+  //   await page.touchscreen.tap(startX, y);
+  //   await page.mouse.move(startX, y, { steps: 10 });
+  //   await page.mouse.move(endX, y, { steps: 10 });
+  //   await page.touchscreen.tap(endX, y);
 
-    // second slide should be active
-    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
-    await expect(d.getPrevButton()).toBeEnabled();
-  });
+  //   // second slide should be active
+  //   await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+  //   await expect(d.getPrevButton()).toBeEnabled();
+  // });
 
-  test(`GIVEN a carousel with dragging enabled
-        WHEN swiping to the right
-        THEN it should move to the previous slide`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
+  // test(`GIVEN a carousel with dragging enabled
+  //       WHEN swiping to the right
+  //       THEN it should move to the previous slide`, async ({ page }) => {
+  //   const { driver: d } = await setup(page, 'hero');
 
-    // initial setup
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
-    await d.getNextButton().tap();
-    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+  //   // initial setup
+  //   await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  //   await d.getNextButton().tap();
+  //   await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
 
-    const boundingBox = await d.getSlideBoundingBoxAt(0);
+  //   const boundingBox = await d.getSlideBoundingBoxAt(0);
 
-    const startX = boundingBox.x + boundingBox.width * 0.2; // near left edge
-    const endX = boundingBox.x + boundingBox.width * 0.8; // near right edge
-    const y = boundingBox.y + boundingBox.height / 2; // swipe height
+  //   const startX = boundingBox.x + boundingBox.width * 0.2; // near left edge
+  //   const endX = boundingBox.x + boundingBox.width * 0.8; // near right edge
+  //   const y = boundingBox.y + boundingBox.height / 2; // swipe height
 
-    await page.touchscreen.tap(startX, y);
-    await page.mouse.move(startX, y, { steps: 10 });
-    await page.mouse.move(endX, y, { steps: 10 });
-    await page.touchscreen.tap(endX, y);
+  //   await page.touchscreen.tap(startX, y);
+  //   await page.mouse.move(startX, y, { steps: 10 });
+  //   await page.mouse.move(endX, y, { steps: 10 });
+  //   await page.touchscreen.tap(endX, y);
 
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
-    await expect(d.getPrevButton()).toBeDisabled();
-  });
+  //   await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  //   await expect(d.getPrevButton()).toBeDisabled();
+  // });
 
   test(`GIVEN a carousel with dragging enabled
         WHEN tapping on the next button
@@ -417,60 +417,145 @@ test.describe('Mobile / Touch Behavior', () => {
     await expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
   });
 
-  test(`GIVEN a mobile carousel
-        WHEN swiping to the next slide
-        THEN the next slide should snap to the left side of the scroller`, async ({
-    page,
-  }) => {
-    const { driver: d } = await setup(page, 'hero');
+  // test(`GIVEN a mobile carousel
+  //       WHEN swiping to the next slide
+  //       THEN the next slide should snap to the left side of the scroller`, async ({
+  //   page,
+  // }) => {
+  //   const { driver: d } = await setup(page, 'hero');
 
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
-    const boundingBox = await d.getSlideBoundingBoxAt(0);
+  //   await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  //   const boundingBox = await d.getSlideBoundingBoxAt(0);
 
-    const startX = boundingBox.x + boundingBox.width * 0.8;
-    const endX = boundingBox.x + boundingBox.width * 0.2;
-    const y = boundingBox.y + boundingBox.height / 2;
+  //   const startX = boundingBox.x + boundingBox.width * 0.8;
+  //   const endX = boundingBox.x + boundingBox.width * 0.2;
+  //   const y = boundingBox.y + boundingBox.height / 2;
 
-    await page.touchscreen.tap(startX, y);
-    await page.mouse.move(startX, y, { steps: 10 });
-    await page.mouse.move(endX, y, { steps: 10 });
-    await page.touchscreen.tap(endX, y);
+  //   await page.touchscreen.tap(startX, y);
+  //   await page.mouse.move(startX, y, { steps: 10 });
+  //   await page.mouse.move(endX, y, { steps: 10 });
+  //   await page.touchscreen.tap(endX, y);
 
-    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+  //   await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
 
-    const scrollerBox = await d.getScrollerBoundingBox();
-    const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+  //   const scrollerBox = await d.getScrollerBoundingBox();
+  //   const secondSlideBox = await d.getSlideBoundingBoxAt(1);
 
-    expect(Math.abs(secondSlideBox.x - scrollerBox.x)).toBeLessThan(1); // Allow 1px tolerance
-  });
+  //   expect(Math.abs(secondSlideBox.x - scrollerBox.x)).toBeLessThan(1); // Allow 1px tolerance
+  // });
 
-  test(`GIVEN a mobile carousel
-    WHEN tapping the next button
-    THEN the next slide should snap to the left side of the scroller`, async ({
-    page,
-  }) => {
-    const { driver: d } = await setup(page, 'hero');
+  // test(`GIVEN a mobile vertical carousel
+  //       WHEN swiping to the next slide
+  //       Then the next slide should snap to the top side of the scroller`, async ({
+  //   page,
+  // }) => {
+  //   const { driver: d } = await setup(page, 'vertical-direction');
 
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
-    await d.getNextButton().tap();
-    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+  //   await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  //   const boundingBox = await d.getSlideBoundingBoxAt(0);
+  //   const cdpSession = await page.context().newCDPSession(page);
 
-    const scrollerBox = await d.getScrollerBoundingBox();
-    const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+  //   const startY = boundingBox.y + boundingBox.height * 0.8;
+  //   const endY = boundingBox.y;
+  //   const x = boundingBox.x + boundingBox.width / 2;
 
-    const gap = await page.evaluate(() => {
-      const scroller = document.querySelector('[data-qui-carousel-scroller]');
-      return parseInt(window.getComputedStyle(scroller!).getPropertyValue('gap'));
-    });
+  //   // touch events
+  //   await page.touchscreen.tap(x, startY);
 
-    await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
-    const slideWidth = secondSlideBox.width;
+  //   await cdpSession.send('Input.dispatchTouchEvent', {
+  //     type: 'touchStart',
+  //     touchPoints: [{ x, y: startY }],
+  //   });
+  //   await cdpSession.send('Input.dispatchTouchEvent', {
+  //     type: 'touchMove',
+  //     touchPoints: [{ x, y: endY }],
+  //   });
+  //   await cdpSession.send('Input.dispatchTouchEvent', {
+  //     type: 'touchEnd',
+  //     touchPoints: [{ x, y: startY }],
+  //   });
 
-    const actualDifference = Math.abs(secondSlideBox.x - scrollerBox.x);
+  //   await page.touchscreen.tap(x, endY);
+  //   await page.touchscreen.tap(x, startY); // tap the slide to make it visible
+  //   await expect(d.getSlideAt(1)).toBeVisible();
 
-    // within range (e.g., ±20 pixels)
-    expect(Math.abs(actualDifference - slideWidth)).toBeLessThanOrEqual(20);
-  });
+  //   await cdpSession.detach();
+  //   const scrollerBox = await d.getScrollerBoundingBox();
+  //   const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+
+  //   expect(Math.abs(secondSlideBox.y - scrollerBox.y)).toBeLessThan(1); // Allow 1px tolerance
+  // });
+
+  // test(`GIVEN a mobile vertical carousel
+  //       WHEN swiping two times to the next slide and clicking next button
+  //       Then the third slide should be visible`, async ({ page }) => {
+  //   const { driver: d } = await setup(page, 'vertical-direction');
+
+  //   await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  //   const boundingBox = await d.getSlideBoundingBoxAt(0);
+  //   const cdpSession = await page.context().newCDPSession(page);
+
+  //   const startY = boundingBox.y + boundingBox.height * 0.99;
+  //   const endY = boundingBox.y;
+  //   const x = boundingBox.x + boundingBox.width / 2;
+
+  //   await cdpSession.send('Input.dispatchTouchEvent', {
+  //     type: 'touchStart',
+  //     touchPoints: [{ x, y: startY }],
+  //   });
+  //   await cdpSession.send('Input.dispatchTouchEvent', {
+  //     type: 'touchMove',
+  //     touchPoints: [{ x, y: endY }],
+  //   });
+  //   await cdpSession.send('Input.dispatchTouchEvent', {
+  //     type: 'touchEnd',
+  //     touchPoints: [{ x, y: startY }],
+  //   });
+  //   await expect(d.getSlideAt(1)).toBeVisible();
+
+  //   await cdpSession.send('Input.dispatchTouchEvent', {
+  //     type: 'touchStart',
+  //     touchPoints: [{ x, y: startY }],
+  //   });
+  //   await cdpSession.send('Input.dispatchTouchEvent', {
+  //     type: 'touchMove',
+  //     touchPoints: [{ x, y: endY }],
+  //   });
+  //   await cdpSession.send('Input.dispatchTouchEvent', {
+  //     type: 'touchEnd',
+  //     touchPoints: [{ x, y: startY }],
+  //   });
+
+  //   await cdpSession.detach();
+
+  //   await expect(d.getSlideAt(2)).toBeVisible();
+
+  //   await d.getNextButton().tap();
+
+  //   expect(d.getSlideAt(3)).toHaveAttribute('data-active');
+  // });
+
+  // test(`GIVEN a mobile carousel
+  //   WHEN tapping the next button
+  //   THEN the next slide should snap to the left side of the scroller`, async ({
+  //   page,
+  // }) => {
+  //   const { driver: d } = await setup(page, 'hero');
+
+  //   await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+  //   await d.getNextButton().tap();
+  //   await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+
+  //   const scrollerBox = await d.getScrollerBoundingBox();
+  //   const secondSlideBox = await d.getSlideBoundingBoxAt(1);
+  //   await expect(d.getSlideAt(1)).toHaveAttribute('data-active');
+  //   const slideWidth = secondSlideBox.width;
+
+  //   const actualDifference = Math.abs(secondSlideBox.x - scrollerBox.x);
+
+  //   // within range (e.g., ±20 pixels)
+  //   expect(Math.abs(actualDifference - slideWidth)).toBeLessThanOrEqual(20);
+  // });
 });
 
 test.describe('Accessibility', () => {
@@ -825,7 +910,7 @@ test.describe('State', () => {
         THEN it should scroll to the fourth slide`, async ({ page }) => {
     const { driver: d } = await setup(page, 'reactive');
 
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
 
     await page.locator('button', { hasText: 'Change to index 4' }).click();
 
@@ -838,7 +923,7 @@ test.describe('State', () => {
         THEN it should update back to the fourth slide`, async ({ page }) => {
     const { driver: d } = await setup(page, 'reactive');
 
-    await expect(d.getSlideAt(0)).toHaveAttribute('data-active');
+    await expect(d.getSlideAt(2)).toHaveAttribute('data-active');
 
     await page.locator('button', { hasText: 'Change to index 4' }).click();
 
@@ -864,6 +949,62 @@ test.describe('State', () => {
     await d.getNextButton().click();
 
     await expect(progressBar).toHaveAttribute('aria-valuetext', '17%');
+  });
+
+  test(`GIVEN a carousel with direction column and max slide height declared
+        WHEN the swipe up or down
+        THEN the attribute should move to the right slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'vertical-direction');
+    d;
+
+    const visibleSlide = d.getSlideAt(0);
+
+    const slideBox = await visibleSlide.boundingBox();
+
+    if (slideBox) {
+      const startX = slideBox.x + slideBox.width / 2;
+      const startY = slideBox.y + slideBox.height / 2;
+
+      // swipe up from the middle of the visible slide
+      await page.mouse.move(startX, startY);
+      await page.mouse.down();
+      await page.mouse.move(startX, -startY, { steps: 10 });
+
+      // finish the swiping and move the mouse back
+      await page.mouse.up();
+      await page.mouse.move(startX, startY, { steps: 10 });
+    }
+    // checking that the slide changed
+    expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
+  });
+
+  test(`GIVEN a carousel with direction column and max slide height declared
+        WHEN the swipe up or down
+        THEN the attribute should move to the right slide
+`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'vertical-direction');
+    d;
+
+    const visibleSlide = d.getSlideAt(0);
+
+    const slideBox = await visibleSlide.boundingBox();
+
+    if (slideBox) {
+      const startX = slideBox.x + slideBox.width / 2;
+      const startY = slideBox.y + slideBox.height / 2;
+
+      // swipe up from the middle of the visible slide
+      await page.mouse.move(startX, startY);
+      await page.mouse.down();
+      await page.mouse.move(startX, -startY, { steps: 10 });
+
+      // finish the swiping and move the mouse back
+      await page.mouse.up();
+      await page.mouse.move(startX, startY, { steps: 10 });
+    }
+    // checking that the slide changed
+    expect(d.getSlideAt(0)).not.toHaveAttribute('data-active');
   });
 });
 

@@ -2,14 +2,11 @@
   width: 100%;
 }
 
-.carousel-scroller {
-  margin-bottom: 0.5rem;
-}
-
 .carousel-slide {
   border: 2px dotted hsl(var(--primary));
   min-height: 10rem;
-  margin-top: 0.5rem;
+  max-height: 10rem;
+  -webkit-user-select: none; /* support for Safari */
   user-select: none;
 }
 
@@ -18,12 +15,15 @@
   gap: 0.5rem;
   padding: 1rem;
   border: 2px dotted hsl(var(--foreground));
+  margin-top: 0.5rem;
 }
 
 .carousel-buttons {
   display: flex;
   justify-content: space-between;
   border: 2px dotted hsl(var(--accent));
+  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .carousel-buttons button {
@@ -75,6 +75,8 @@
 .carousel-stepper {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .carousel-step {
@@ -98,4 +100,8 @@
 
 .carousel-step[data-current]::before {
   background-color: hsl(var(--primary));
+}
+
+.carousel-animation {
+  transition: 0.35s transform cubic-bezier(0.57, 0.16, 0.95, 0.67);
 }
