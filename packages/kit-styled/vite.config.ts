@@ -1,14 +1,12 @@
 import { qwikVite } from '@builder.io/qwik/optimizer';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { join } from 'path';
-import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [
-    qwikNxVite(),
     qwikVite({
       vendorRoots: [join(__dirname, '../kit-headless/src')],
     }),

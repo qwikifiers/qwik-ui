@@ -1,6 +1,28 @@
-import { useSignal, useTask$, $ } from '@builder.io/qwik';
+import { useSignal, useTask$, $, useComputed$ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import { CarouselContext } from './context';
+
+export function useCarousel(context: CarouselContext) {
+  const validIndexesSig = useComputed$(() => {
+    const totalSlides = context.numSlidesSig.value;
+    const slidesPerView = context.slidesPerViewSig.value;
+    const move = context.moveSig.value;
+    const lastScrollableIndex = totalSlides - slidesPerView;
+
+    const indexes = [];
+    for (let i = 0; i <= lastScrollableIndex; i += move) {
+      indexes.push(i);
+    }
+    if (lastScrollableIndex % move !== 0) {
+      indexes.push(lastScrollableIndex);
+    }
+    return indexes;
+  });
+
+  return {
+    validIndexesSig,
+  };
+}
 
 export function useAutoplay(context: CarouselContext) {
   const intervalIdSig = useSignal<NodeJS.Timeout>();

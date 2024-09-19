@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/headless",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Qwik UI headless components library",
   "publishConfig": {
     "access": "public"
@@ -30,7 +30,7 @@
   },
   "private": false,
   "peerDependencies": {
-    "@builder.io/qwik": "1.7.2"
+    "@builder.io/qwik": "^1.9"
   },
   "dependencies": {
     "@floating-ui/core": "^1.6.2",
