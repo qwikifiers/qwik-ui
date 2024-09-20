@@ -61,7 +61,7 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
   });
 
-  test(`GIVEN a  combobox with an open listbox
+  test(`GIVEN a combobox with an open listbox
         WHEN the 3rd option is clicked
         THEN the 3rd option should be the selected value`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
@@ -586,6 +586,52 @@ test.describe('Props', () => {
       page.getByRole('button', { name: 'Toggle open state' }).click();
 
       await expect(d.getListbox()).toBeVisible();
+    });
+
+    test(`GIVEN a reactive combobox
+               WHEN the user empties the input with selecting all text and backspace
+               THEN there should be no selected value`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'reactive');
+
+      const apricot = (await d.getItemAt(1).textContent()) ?? '';
+
+      await expect(d.getInput()).toHaveValue(apricot);
+
+      await d.getInput().clear();
+
+      await expect(d.getInput()).toHaveValue('');
+
+      await expect(
+        page.getByRole('paragraph', { name: 'Your favorite fruit is:' }),
+      ).toBeVisible();
+    });
+
+    test(`GIVEN a reactive combobox
+               WHEN the user empties the input and selects a new value
+               THEN that should update the given signal`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'reactive');
+
+      const apricot = (await d.getItemAt(1).textContent()) ?? '';
+
+      await expect(d.getInput()).toHaveValue(apricot);
+
+      await d.getInput().clear();
+
+      await expect(d.getInput()).toHaveValue('');
+
+      await expect(
+        page.getByRole('paragraph', { name: 'Your favorite fruit is:' }),
+      ).toBeVisible();
+
+      await d.openListbox('click');
+
+      await d.getItemAt(1).click();
+
+      await expect(d.getInput()).toHaveValue('Apricot');
+
+      await expect(
+        page.getByRole('paragraph', { name: 'Your favorite fruit is: Apricot' }),
+      ).toBeVisible();
     });
   });
 
