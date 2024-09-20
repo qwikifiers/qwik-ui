@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 export type DriverLocator = Locator | Page;
 
 export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
@@ -10,7 +10,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     return getRoot().locator('#indicator');
   };
   const getCheckList = () => {
-    return getRoot().getByRole('group');
+    return getRoot().getByRole('checkbox');
   };
   const getChecklistUL = () => {
     // note: filter method is always relative to the original locator not document root despite using root
@@ -24,8 +24,17 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   const getCheckbox = () => {
     return getRoot().getByRole('checkbox');
   };
+
+  const getSelectAll = () => {
+    return getRoot().locator('[data-qds-selectall]');
+  };
+
+  const getSelectAllIndicator = () => {
+    return getSelectAll().locator('[data-qds-indicator]');
+  };
+
   const getTriCheckbox = () => {
-    return getRoot().locator('css=[aria-controls]');
+    return getRoot().locator('#selectAll');
   };
   return {
     ...rootLocator,
@@ -37,5 +46,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getChecklistUL,
     getChecklistLIs,
     getTriCheckbox,
+    getSelectAll,
+    getSelectAllIndicator,
   };
 }

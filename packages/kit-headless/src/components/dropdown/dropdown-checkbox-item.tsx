@@ -9,7 +9,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 
-import { CheckboxRoot } from '../checkbox/checkbox';
+import { CheckboxRoot } from '../checkbox/checkbox-root';
 import { DropdownItemProps } from './dropdown-item';
 import { useDropdownItem } from './use-dropdown-item';
 
