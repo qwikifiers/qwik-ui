@@ -12,7 +12,6 @@ import {
 } from '@builder.io/qwik';
 import { ComboboxContext, comboboxContextId } from './combobox-context';
 import { InternalComboboxProps } from './combobox-inline';
-import { useCombobox } from './use-combobox';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { useBoundSignal } from '../../utils/bound-signal';
 
@@ -238,26 +237,6 @@ export const HComboboxRootImpl = component$<
   };
 
   useContextProvider(comboboxContextId, context);
-
-  const { selectionManager$ } = useCombobox();
-
-  useTask$(async function reactiveUserValue({ track }) {
-    track(() => selectedValuesSig.value);
-
-    for (const [index, item] of itemsMapSig.value) {
-      if (
-        selectedValuesSig.value.includes(item.value) ||
-        selectedValuesSig.value === item.value
-      ) {
-        await selectionManager$(index, 'add');
-
-        if (initialLoadSig.value) {
-          // for both SSR and CSR, we need to set the initial index
-          context.highlightedIndexSig.value = index;
-        }
-      }
-    }
-  });
 
   useTask$(function reactiveUserOpen({ track }) {
     const bindOpenSig = props['bind:open'];
