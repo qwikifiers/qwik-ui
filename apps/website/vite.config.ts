@@ -1,6 +1,5 @@
 import { qwikCity } from '@builder.io/qwik-city/vite';
 import { qwikVite } from '@builder.io/qwik/optimizer';
-import { qwikNxVite } from 'qwik-nx/plugins';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
@@ -32,7 +31,6 @@ export default defineConfig(async () => {
   return {
     plugins: [
       autoAPI(),
-      qwikNxVite(),
       qwikCity({
         mdxPlugins: {
           rehypeSyntaxHighlight: false,
