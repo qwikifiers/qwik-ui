@@ -16,47 +16,46 @@ export function useCombobox() {
         );
       }
 
+      const currentValue = context.selectedValuesSig.value;
+      const isArray = Array.isArray(currentValue);
+
       if (action === 'add') {
         if (context.multiple) {
-          context.selectedValueSetSig.value = new Set([
-            ...context.selectedValueSetSig.value,
-            value,
-          ]);
+          context.selectedValuesSig.value = isArray ? [...currentValue, value] : [value];
         } else {
-          context.selectedValueSetSig.value = new Set([value]);
+          context.selectedValuesSig.value = value;
         }
       }
+
       if (action === 'toggle') {
-        if (context.selectedValueSetSig.value.has(value)) {
-          context.selectedValueSetSig.value = new Set(
-            [...context.selectedValueSetSig.value].filter(
-              (selectedValue) => selectedValue !== value,
-            ),
+        if (context.multiple) {
+          if (isArray) {
+            context.selectedValuesSig.value = currentValue.includes(value)
+              ? currentValue.filter((selectedValue) => selectedValue !== value)
+              : [...currentValue, value];
+          } else {
+            context.selectedValuesSig.value = [value];
+          }
+        } else {
+          context.selectedValuesSig.value = currentValue === value ? '' : value;
+        }
+      }
+
+      if (action === 'remove') {
+        if (context.multiple && isArray) {
+          context.selectedValuesSig.value = currentValue.filter(
+            (selectedValue) => selectedValue !== value,
           );
         } else {
-          if (context.multiple) {
-            context.selectedValueSetSig.value = new Set([
-              ...context.selectedValueSetSig.value,
-              value,
-            ]);
-          } else {
-            context.selectedValueSetSig.value = new Set([value]);
-          }
+          context.selectedValuesSig.value = '';
         }
-      }
-      if (action === 'remove') {
-        context.selectedValueSetSig.value = new Set(
-          [...context.selectedValueSetSig.value].filter(
-            (selectedValue) => selectedValue !== value,
-          ),
-        );
       }
 
       if (action === 'add' || action === 'toggle') {
         if (!context.inputRef.value) return;
         if (!selectedDisplayValue) return;
 
-        if (!context.multiple && context.selectedValueSetSig.value.has(value)) {
+        if (!context.multiple && context.selectedValuesSig.value === value) {
           context.inputRef.value.value = selectedDisplayValue;
         }
       }

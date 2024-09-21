@@ -18,6 +18,7 @@ export type ComboboxContext = {
   labelRef: Signal<HTMLDivElement | undefined>;
   controlRef: Signal<HTMLDivElement | undefined>;
   selectedValueSetSig: Signal<Set<string>>;
+  selectedValuesSig: Signal<string | string[]>;
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;
   isMouseOverPopupSig: Signal<boolean>;

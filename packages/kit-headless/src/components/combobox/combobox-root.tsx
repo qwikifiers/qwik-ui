@@ -14,6 +14,7 @@ import { ComboboxContext, comboboxContextId } from './combobox-context';
 import { InternalComboboxProps } from './combobox-inline';
 import { useCombobox } from './use-combobox';
 import { useCombinedRef } from '../../hooks/combined-refs';
+import { useBoundSignal } from '../../utils/bound-signal';
 
 export type TMultiple<M> = M extends true ? string[] : string;
 
@@ -123,6 +124,7 @@ export const HComboboxRootImpl = component$<
     onInput$,
     onChange$,
     onOpenChange$,
+    'bind:value': givenValueSig,
     _valuePropIndex: givenValuePropIndex,
     _value,
     loop: givenLoop,
@@ -155,6 +157,10 @@ export const HComboboxRootImpl = component$<
   const localId = useId();
   /** We use selected values to preserve the item state when the consumer filters the items. */
   const selectedValueSetSig = useSignal<Set<string>>(new Set(_value ? [_value] : []));
+  const selectedValuesSig = useBoundSignal(
+    givenValueSig,
+    multiple ? (_value ? [_value] : []) : _value || '',
+  );
   const disabledIndexSetSig = useSignal<Set<number>>(new Set());
   const isMouseOverPopupSig = useSignal<boolean>(false);
   const isDisabledSig = useSignal<boolean>(disabled ?? false);
@@ -210,6 +216,7 @@ export const HComboboxRootImpl = component$<
     controlRef,
     localId,
     highlightedIndexSig,
+    selectedValuesSig,
     selectedValueSetSig,
     disabledIndexSetSig,
     currDisplayValueSig,
@@ -234,12 +241,11 @@ export const HComboboxRootImpl = component$<
   const { selectionManager$ } = useCombobox();
 
   useTask$(async function reactiveUserValue({ track }) {
-    const bindValueSig = props['bind:value'];
-    if (!bindValueSig) return;
-    track(() => bindValueSig.value);
+    track(() => selectedValuesSig.value);
 
     for (const [index, item] of itemsMapSig.value) {
-      if (bindValueSig.value?.includes(item.value)) {
+      if (selectedValuesSig.value.includes(item.value)) {
+        console.log('run reactive user value');
         await selectionManager$(index, 'add');
 
         if (initialLoadSig.value) {
@@ -283,11 +289,9 @@ export const HComboboxRootImpl = component$<
   });
 
   useTask$(async function updateConsumerProps({ track }) {
-    const bindValueSig = props['bind:value'];
-    const bindDisplayTextSig = props['bind:displayValue'];
-    track(() => selectedValueSetSig.value);
+    track(() => selectedValuesSig.value);
 
-    const values = Array.from(selectedValueSetSig.value);
+    const values = selectedValuesSig.value;
     const displayValues = [];
 
     for (const value of values) {
@@ -299,31 +303,8 @@ export const HComboboxRootImpl = component$<
       }
     }
 
-    if (onChange$ && selectedValueSetSig.value.size > 0) {
+    if (onChange$ && selectedValuesSig.value.length > 0) {
       await onChange$(context.multiple ? values : values[0]);
-    }
-
-    // sync the user's given signal when an option is selected
-    if (bindValueSig && bindValueSig.value) {
-      const currUserSigValues = JSON.stringify(bindValueSig.value);
-      const newUserSigValues = JSON.stringify(values);
-
-      if (currUserSigValues !== newUserSigValues) {
-        if (context.multiple) {
-          bindValueSig.value = values;
-        } else {
-          bindValueSig.value = values[0];
-        }
-      }
-    }
-
-    context.currDisplayValueSig.value = displayValues;
-
-    // sync the user's given signal for the display value
-    if (bindDisplayTextSig && context.currDisplayValueSig.value) {
-      bindDisplayTextSig.value = context.multiple
-        ? context.currDisplayValueSig.value
-        : context.currDisplayValueSig.value[0];
     }
   });
 
