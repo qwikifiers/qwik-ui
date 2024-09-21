@@ -1,9 +1,10 @@
-import { type JSXNode, Component } from '@builder.io/qwik';
+import { Component, JSXChildren } from '@builder.io/qwik';
 import { HComboboxRootImpl, HComboboxRootImplProps } from './combobox-root';
 import { HComboboxItem as InternalComboboxItem } from './combobox-item';
 import { HComboboxItemLabel as InternalComboboxItemLabel } from './combobox-item-label';
 import { HComboboxEmpty as InternalComboboxEmpty } from './combobox-empty';
 import { HComboboxErrorMessage } from './combobox-error-message';
+import { findComponent, processChildren } from '../../utils/inline-component';
 
 export type TItemsMap = Map<
   number,
@@ -35,7 +36,7 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
   props: InternalComboboxProps & HComboboxRootImplProps,
 ) => {
   const {
-    children: myChildren,
+    children,
     comboboxItemComponent: UserItem,
     comboboxItemLabelComponent: UserItemLabel,
     ...rest
@@ -49,108 +50,69 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
   const itemsMap = new Map();
   let currItemIndex = 0;
   let isItemDisabled = false;
-  let givenItemValue = null;
+  let givenItemValue: string | null = null;
   let valuePropIndex = null;
   let _value;
   let hasEmptyComp = false;
   let hasErrorComp = false;
 
-  const childrenToProcess = (
-    Array.isArray(myChildren) ? [...myChildren] : [myChildren]
-  ) as Array<JSXNode>;
+  findComponent(HComboboxItem, (itemProps) => {
+    itemProps._index = currItemIndex;
 
-  while (childrenToProcess.length) {
-    const child = childrenToProcess.shift();
+    isItemDisabled = itemProps.disabled === true;
 
-    if (!child) {
-      continue;
+    if (itemProps.value) {
+      givenItemValue = itemProps.value as string;
     }
 
-    if (Array.isArray(child)) {
-      childrenToProcess.unshift(...child);
-      continue;
+    // the default case isn't handled here, so we need to process the children to get to the label component
+    if (itemProps.children) {
+      return processChildren(itemProps.children as JSXChildren);
+    }
+  });
+
+  findComponent(HComboboxItemLabel, (labelProps) => {
+    const displayValue = labelProps.children as string;
+
+    // distinct value, or the display value is the same as the value
+    const value = (givenItemValue !== null ? givenItemValue : displayValue) as string;
+
+    itemsMap.set(currItemIndex, { value, displayValue, disabled: isItemDisabled });
+
+    if (props.value && props.multiple) {
+      throw new Error(
+        `Qwik UI: When in multiple selection mode, the value prop is disabled. Use the bind:value prop's initial signal value instead.`,
+      );
     }
 
-    switch (child.type) {
-      case HComboboxItem: {
-        // get the index of the current option
-        child.props._index = currItemIndex;
-
-        isItemDisabled = child.props.disabled === true;
-
-        if (child.props.value) {
-          givenItemValue = child.props.value;
-        }
-
-        // the default case isn't handled here, so we need to process the children to get to the label component
-        if (child.props.children) {
-          const childChildren = Array.isArray(child.props.children)
-            ? [...child.props.children]
-            : [child.props.children];
-          childrenToProcess.unshift(...childChildren);
-        }
-
-        break;
-      }
-
-      case HComboboxItemLabel: {
-        const displayValue = child.props.children as string;
-
-        // distinct value, or the display value is the same as the value
-        const value = (givenItemValue !== null ? givenItemValue : displayValue) as string;
-
-        itemsMap.set(currItemIndex, { value, displayValue, disabled: isItemDisabled });
-
-        if (props.value && props.multiple) {
-          throw new Error(
-            `Qwik UI: When in multiple selection mode, the value prop is disabled. Use the bind:value prop's initial signal value instead.`,
-          );
-        }
-
-        // if the current option value is equal to the initial value
-        if (value === props.value) {
-          // minus one because it is incremented already in SelectOption
-          valuePropIndex = currItemIndex;
-          _value = value;
-        }
-
-        const isString = typeof child.props.children === 'string';
-
-        if (!isString) {
-          throw new Error(
-            `Qwik UI: select item label passed was not a string. It was a ${typeof child
-              .props.children}.`,
-          );
-        }
-
-        // increment after processing children
-        currItemIndex++;
-
-        break;
-      }
-
-      case HComboboxEmpty: {
-        hasEmptyComp = true;
-        break;
-      }
-
-      case HComboboxErrorMessage: {
-        hasErrorComp = true;
-        break;
-      }
-
-      default: {
-        if (child) {
-          const anyChildren = Array.isArray(child.children)
-            ? [...child.children]
-            : [child.children];
-          childrenToProcess.unshift(...(anyChildren as JSXNode[]));
-        }
-
-        break;
-      }
+    // if the current option value is equal to the initial value
+    if (value === props.value) {
+      // minus one because it is incremented already in SelectOption
+      valuePropIndex = currItemIndex;
+      _value = value;
     }
-  }
+
+    const isString = typeof labelProps.children === 'string';
+
+    if (!isString) {
+      throw new Error(
+        `Qwik UI: select item label passed was not a string. It was a ${typeof labelProps.children}.`,
+      );
+    }
+
+    // increment after processing children
+    currItemIndex++;
+  });
+
+  findComponent(HComboboxEmpty, () => {
+    hasEmptyComp = true;
+  });
+
+  findComponent(HComboboxErrorMessage, () => {
+    hasErrorComp = true;
+  });
+
+  processChildren(children);
 
   return (
     <HComboboxRootImpl
@@ -161,7 +123,7 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
       hasEmptyComp={hasEmptyComp}
       hasErrorComp={hasErrorComp}
     >
-      {props.children}
+      {children}
     </HComboboxRootImpl>
   );
 };
