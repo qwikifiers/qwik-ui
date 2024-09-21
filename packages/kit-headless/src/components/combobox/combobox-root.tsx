@@ -133,7 +133,6 @@ export const HComboboxRootImpl = component$<
     filter = true,
     _itemsMap,
     hasEmptyComp,
-    hasErrorComp,
     removeOnBackspace = false,
     name,
     required,
@@ -173,8 +172,8 @@ export const HComboboxRootImpl = component$<
     inline: 'nearest',
   };
   const inputValueSig = useSignal<string>(inputRef.value?.value ?? '');
-  const isInvalidSig = useSignal<boolean>(hasErrorComp ?? false);
   const isDisabledSig = useComputed$(() => props.disabled ?? false);
+  const isInvalidSig = useComputed$(() => props.hasErrorComp ?? false);
 
   // check any initial disabled items before the computed read below
   useTask$(() => {
@@ -186,10 +185,6 @@ export const HComboboxRootImpl = component$<
       }
     }
     disabledIndexSetSig.value = disabledIndices;
-  });
-
-  useTask$(({ track }) => {
-    isInvalidSig.value = track(() => props.hasErrorComp ?? false);
   });
 
   const hasVisibleItemsSig = useComputed$(() => {
