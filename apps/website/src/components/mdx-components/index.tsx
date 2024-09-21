@@ -11,7 +11,6 @@ import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard
 import { Note } from '../note/note';
 import { Showcase } from '../showcase/showcase';
 import { StatusBanner } from '../status-banner/status-banner';
-import autoAPI from 'apps/website/auto-api';
 
 export const components: Record<string, Component> = {
   p: component$<PropsOf<'p'>>(({ ...props }) => {
