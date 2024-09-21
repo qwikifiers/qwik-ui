@@ -85,7 +85,6 @@ function writeToDocs(fullPath: string, componentName: string, api: ComponentPart
     }
     const json = JSON.stringify(api, null, 2);
     const hacky = `export const api=${json}`;
-    console.log(json);
 
     try {
       fs.writeFileSync(dirPath.concat('/api.ts'), hacky);

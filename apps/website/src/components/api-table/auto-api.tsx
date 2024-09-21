@@ -1,10 +1,18 @@
 import { JSXOutput, component$, $, QRL, useTask$, useSignal } from '@builder.io/qwik';
-import {
-  PublicType,
-  type ComponentParts,
-  type SubComponent,
-} from 'apps/website/auto-api';
 import { APITable, type APITableProps } from './api-table';
+import { packages } from '../install-snippet/install-snippet';
+
+//This is a workaround for not being able to export across packages due to nx rule:
+// https://nx.dev/features/enforce-module-boundaries#enforce-module-boundaries
+type ComponentParts = Record<string, SubComponents>;
+type SubComponents = SubComponent[];
+type SubComponent = Record<string, PublicType[]>;
+type PublicType = Record<string, ParsedProps[]>;
+type ParsedProps = {
+  comment: string;
+  prop: string;
+  type: string;
+};
 type AutoAPIConfig = {
   topHeader?: QRL<(text: string) => JSXOutput>;
   subHeader?: QRL<(text: string) => JSXOutput>;
