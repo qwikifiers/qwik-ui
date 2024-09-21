@@ -1,13 +1,46 @@
 import { useContext, $, Signal } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 
+class ValueManager<T> {
+  constructor(
+    private isMultiple: boolean,
+    private initialValue: T | T[],
+  ) {}
+
+  add(value: T): T | T[] {
+    if (this.isMultiple) {
+      const currentArray = Array.isArray(this.initialValue) ? [...this.initialValue] : [];
+      return [...currentArray, value];
+    }
+    return value;
+  }
+
+  remove(value: T): T | T[] {
+    if (this.isMultiple && Array.isArray(this.initialValue)) {
+      return this.initialValue.filter((v) => v !== value);
+    }
+    return '' as T;
+  }
+
+  toggle(value: T): T | T[] {
+    if (this.isMultiple) {
+      const currentArray = Array.isArray(this.initialValue) ? [...this.initialValue] : [];
+      return currentArray.includes(value)
+        ? currentArray.filter((v) => v !== value)
+        : [...currentArray, value];
+    }
+    return this.initialValue === value ? ('' as T) : value;
+  }
+}
+
 export function useCombobox() {
   const context = useContext(comboboxContextId);
+
   const selectionManager$ = $(
     async (index: number | null, action: 'add' | 'toggle' | 'remove') => {
       if (index === null) return;
-      const selectedDisplayValue = context.itemsMapSig.value.get(index)?.displayValue;
 
+      const selectedDisplayValue = context.itemsMapSig.value.get(index)?.displayValue;
       const value = context.itemsMapSig.value.get(index)?.value;
 
       if (!value) {
@@ -16,48 +49,26 @@ export function useCombobox() {
         );
       }
 
-      const currentValue = context.selectedValuesSig.value;
-      const isArray = Array.isArray(currentValue);
+      const valueManager = new ValueManager(
+        context.multiple ?? false,
+        context.selectedValuesSig.value,
+      );
 
-      if (action === 'add') {
-        if (context.multiple) {
-          context.selectedValuesSig.value = isArray ? [...currentValue, value] : [value];
-        } else {
-          context.selectedValuesSig.value = value;
-        }
+      switch (action) {
+        case 'add':
+          context.selectedValuesSig.value = valueManager.add(value);
+          break;
+        case 'remove':
+          context.selectedValuesSig.value = valueManager.remove(value);
+          return; // Early return for 'remove' action
+        case 'toggle':
+          context.selectedValuesSig.value = valueManager.toggle(value);
+          break;
       }
 
-      if (action === 'toggle') {
-        if (context.multiple) {
-          if (isArray) {
-            context.selectedValuesSig.value = currentValue.includes(value)
-              ? currentValue.filter((selectedValue) => selectedValue !== value)
-              : [...currentValue, value];
-          } else {
-            context.selectedValuesSig.value = [value];
-          }
-        } else {
-          context.selectedValuesSig.value = currentValue === value ? '' : value;
-        }
-      }
-
-      if (action === 'remove') {
-        if (context.multiple && isArray) {
-          context.selectedValuesSig.value = currentValue.filter(
-            (selectedValue) => selectedValue !== value,
-          );
-        } else {
-          context.selectedValuesSig.value = '';
-        }
-      }
-
-      if (action === 'add' || action === 'toggle') {
-        if (!context.inputRef.value) return;
-        if (!selectedDisplayValue) return;
-
-        if (!context.multiple && context.selectedValuesSig.value === value) {
-          context.inputRef.value.value = selectedDisplayValue;
-        }
+      // Update input value for single-select combobox
+      if (!context.multiple && context.inputRef.value && selectedDisplayValue) {
+        context.inputRef.value.value = selectedDisplayValue;
       }
     },
   );
