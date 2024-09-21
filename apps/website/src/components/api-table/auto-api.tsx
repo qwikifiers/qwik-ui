@@ -5,7 +5,7 @@ import {
   type SubComponent,
 } from 'apps/website/auto-api';
 import { APITable, type APITableProps } from './api-table';
-type Config = {
+type AutoAPIConfig = {
   topHeader?: QRL<(text: string) => JSXOutput>;
   subHeader?: QRL<(text: string) => JSXOutput>;
   props?: QRL<(text: string) => string>;
@@ -13,21 +13,20 @@ type Config = {
 
 type AnatomyTableProps = {
   api?: ComponentParts;
-  config: Config;
+  config: AutoAPIConfig;
 };
 
 type SubComponentProps = {
   subComponent: SubComponent;
-  config: Config;
+  config: AutoAPIConfig;
 };
 type ParsedCommentsProps = {
   parsedProps: PublicType;
-  config: Config;
+  config: AutoAPIConfig;
 };
 const currentHeader = $((_: string) => {
-  return (
-    <h2 class="mb-8 mt-20 scroll-mt-24 border-b-2 pb-2 text-2xl font-extrabold">API</h2>
-  );
+  //cannot send h2 from here because current TOC can only read md
+  return null;
 });
 
 const currentSubHeader = $((text: string) => {
@@ -47,7 +46,7 @@ const currentSubHeader = $((text: string) => {
 const removeQuestionMarkFromProp = $((text: string) => {
   return text.replace('?', '');
 });
-const defaultConfig: Config = {
+const defaultConfig: AutoAPIConfig = {
   topHeader: currentHeader,
   subHeader: currentSubHeader,
   props: removeQuestionMarkFromProp,
