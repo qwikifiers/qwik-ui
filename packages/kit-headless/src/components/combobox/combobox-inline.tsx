@@ -14,8 +14,8 @@ export type TItemsMap = Map<
 export type InternalComboboxProps = {
   /** When a value is passed, we check if it's an actual item value, and get its index at pre-render time.
    **/
-  _valuePropIndex?: number | null;
-  _value?: string;
+  initialIndex?: number | null;
+  initialValue?: string;
 
   /** Checks if the consumer added the label in their JSX */
   _label?: boolean;
@@ -48,11 +48,16 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
 
   // source of truth
   const itemsMap = new Map();
+
   let currItemIndex = 0;
+  let initialIndex = null;
+  let initialValue;
+
   let isItemDisabled = false;
+
+  // user adds value prop on Item component
   let givenItemValue: string | null = null;
-  let valuePropIndex = null;
-  let _value;
+
   let hasEmptyComp = false;
   let hasErrorComp = false;
 
@@ -88,8 +93,8 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
     // if the current option value is equal to the initial value
     if (value === props.value) {
       // minus one because it is incremented already in SelectOption
-      valuePropIndex = currItemIndex;
-      _value = value;
+      initialIndex = currItemIndex;
+      initialValue = value;
     }
 
     const isString = typeof labelProps.children === 'string';
@@ -117,8 +122,8 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
   return (
     <HComboboxRootImpl
       {...rest}
-      _valuePropIndex={valuePropIndex}
-      _value={_value}
+      initialIndex={initialIndex}
+      initialValue={initialValue}
       _itemsMap={itemsMap}
       hasEmptyComp={hasEmptyComp}
       hasErrorComp={hasErrorComp}

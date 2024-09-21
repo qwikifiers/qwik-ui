@@ -124,8 +124,8 @@ export const HComboboxRootImpl = component$<
     onOpenChange$,
     'bind:value': givenValueSig,
     'bind:open': givenOpenSig,
-    _valuePropIndex: givenValuePropIndex,
-    _value,
+    initialIndex,
+    initialValue,
     loop: givenLoop,
     scrollOptions: givenScrollOptions,
     multiple = false,
@@ -143,7 +143,7 @@ export const HComboboxRootImpl = component$<
   const isListboxOpenSig = useBoundSignal(givenOpenSig, false);
   const selectedValuesSig = useBoundSignal(
     givenValueSig,
-    multiple ? (_value ? [_value] : []) : _value || '',
+    multiple ? (initialValue ? [initialValue] : []) : initialValue || '',
   );
 
   const itemsMapSig = useComputed$(() => {
@@ -159,11 +159,13 @@ export const HComboboxRootImpl = component$<
   const loop = givenLoop ?? false;
   const localId = useId();
   /** We use selected values to preserve the item state when the consumer filters the items. */
-  const selectedValueSetSig = useSignal<Set<string>>(new Set(_value ? [_value] : []));
+  const selectedValueSetSig = useSignal<Set<string>>(
+    new Set(initialValue ? [initialValue] : []),
+  );
 
   const disabledIndexSetSig = useSignal<Set<number>>(new Set());
   const isMouseOverPopupSig = useSignal<boolean>(false);
-  const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
+  const highlightedIndexSig = useSignal<number | null>(initialIndex ?? null);
   const initialLoadSig = useSignal<boolean>(true);
   const currDisplayValueSig = useSignal<string | string[]>();
   const scrollOptions = givenScrollOptions ?? {
@@ -222,7 +224,7 @@ export const HComboboxRootImpl = component$<
     filter,
     loop,
     multiple,
-    _value,
+    _value: initialValue,
     scrollOptions,
     placeholder,
     hasVisibleItemsSig,
