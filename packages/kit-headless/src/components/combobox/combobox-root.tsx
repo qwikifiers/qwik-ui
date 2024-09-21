@@ -118,12 +118,12 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
 export const HComboboxRootImpl = component$<
   HComboboxRootImplProps<boolean> & InternalComboboxProps
 >((props: HComboboxRootImplProps<boolean> & InternalComboboxProps) => {
-  const isListboxOpenSig = useSignal(false);
   const {
     onInput$,
     onChange$,
     onOpenChange$,
     'bind:value': givenValueSig,
+    'bind:open': givenOpenSig,
     _valuePropIndex: givenValuePropIndex,
     _value,
     loop: givenLoop,
@@ -137,11 +137,16 @@ export const HComboboxRootImpl = component$<
     removeOnBackspace = false,
     name,
     required,
-    disabled,
     ...rest
   } = props;
 
   // source of truth
+  const isListboxOpenSig = useBoundSignal(givenOpenSig, false);
+  const selectedValuesSig = useBoundSignal(
+    givenValueSig,
+    multiple ? (_value ? [_value] : []) : _value || '',
+  );
+
   const itemsMapSig = useComputed$(() => {
     return props._itemsMap ?? new Map();
   });
@@ -156,14 +161,9 @@ export const HComboboxRootImpl = component$<
   const localId = useId();
   /** We use selected values to preserve the item state when the consumer filters the items. */
   const selectedValueSetSig = useSignal<Set<string>>(new Set(_value ? [_value] : []));
-  const selectedValuesSig = useBoundSignal(
-    givenValueSig,
-    multiple ? (_value ? [_value] : []) : _value || '',
-  );
 
   const disabledIndexSetSig = useSignal<Set<number>>(new Set());
   const isMouseOverPopupSig = useSignal<boolean>(false);
-  const isDisabledSig = useSignal<boolean>(disabled ?? false);
   const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
   const initialLoadSig = useSignal<boolean>(true);
   const currDisplayValueSig = useSignal<string | string[]>();
@@ -174,6 +174,7 @@ export const HComboboxRootImpl = component$<
   };
   const inputValueSig = useSignal<string>(inputRef.value?.value ?? '');
   const isInvalidSig = useSignal<boolean>(hasErrorComp ?? false);
+  const isDisabledSig = useComputed$(() => props.disabled ?? false);
 
   // check any initial disabled items before the computed read below
   useTask$(() => {
@@ -238,29 +239,15 @@ export const HComboboxRootImpl = component$<
 
   useContextProvider(comboboxContextId, context);
 
-  useTask$(function reactiveUserOpen({ track }) {
-    const bindOpenSig = props['bind:open'];
-    if (!bindOpenSig) return;
-    track(() => bindOpenSig.value);
-
-    isListboxOpenSig.value = bindOpenSig.value ?? isListboxOpenSig.value;
-  });
-
-  useTask$(function onOpenChangeTask({ track }) {
-    const bindOpenSig = props['bind:open'];
+  useTask$(function handleOpenChange({ track }) {
     track(() => isListboxOpenSig.value);
 
     if (!initialLoadSig.value) {
       onOpenChange$?.(isListboxOpenSig.value);
     }
-
-    // sync the user's given signal for the open state
-    if (bindOpenSig && bindOpenSig.value !== isListboxOpenSig.value) {
-      bindOpenSig.value = isListboxOpenSig.value;
-    }
   });
 
-  useTask$(function onInputTask({ track }) {
+  useTask$(function handleInput({ track }) {
     track(() => context.inputValueSig.value);
 
     if (!initialLoadSig.value) {
@@ -268,28 +255,14 @@ export const HComboboxRootImpl = component$<
     }
   });
 
-  useTask$(async function updateConsumerProps({ track }) {
+  useTask$(async function handleChange({ track }) {
     track(() => selectedValuesSig.value);
 
-    const values = selectedValuesSig.value;
-    const displayValues = [];
+    if (!onChange$) return;
 
-    for (const value of values) {
-      for (const item of context.itemsMapSig.value.values()) {
-        if (item.value === value) {
-          displayValues.push(item.displayValue);
-          break;
-        }
-      }
+    if (!initialLoadSig.value && selectedValuesSig.value.length > 0) {
+      await onChange$(selectedValuesSig.value);
     }
-
-    if (onChange$ && selectedValuesSig.value.length > 0) {
-      await onChange$(values);
-    }
-  });
-
-  useTask$(({ track }) => {
-    isDisabledSig.value = track(() => disabled ?? false);
   });
 
   useTask$(() => {
