@@ -253,10 +253,8 @@ export const HComboboxRootImpl = component$<
   useTask$(async function handleChange({ track }) {
     track(() => selectedValuesSig.value);
 
-    if (!onChange$) return;
-
     if (!initialLoadSig.value && selectedValuesSig.value.length > 0) {
-      await onChange$(selectedValuesSig.value);
+      await onChange$?.(selectedValuesSig.value);
     }
   });
 
