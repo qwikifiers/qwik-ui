@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$, useTask$ } from '@builder.io/qwik';
 import { Combobox } from '@qwik-ui/headless';
 import { LuCheck, LuChevronDown } from '@qwikest/icons/lucide';
 
@@ -17,6 +17,12 @@ export default component$(() => {
     'Cherry',
     'Coconut',
   ];
+
+  useTask$(({ track }) => {
+    track(() => selectedFruit.value);
+
+    console.log(selectedFruit.value);
+  });
 
   return (
     <>

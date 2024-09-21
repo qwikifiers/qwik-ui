@@ -161,6 +161,7 @@ export const HComboboxRootImpl = component$<
     givenValueSig,
     multiple ? (_value ? [_value] : []) : _value || '',
   );
+
   const disabledIndexSetSig = useSignal<Set<number>>(new Set());
   const isMouseOverPopupSig = useSignal<boolean>(false);
   const isDisabledSig = useSignal<boolean>(disabled ?? false);
@@ -244,16 +245,16 @@ export const HComboboxRootImpl = component$<
     track(() => selectedValuesSig.value);
 
     for (const [index, item] of itemsMapSig.value) {
-      if (selectedValuesSig.value.includes(item.value)) {
-        console.log('run reactive user value');
+      if (
+        selectedValuesSig.value.includes(item.value) ||
+        selectedValuesSig.value === item.value
+      ) {
         await selectionManager$(index, 'add');
 
         if (initialLoadSig.value) {
           // for both SSR and CSR, we need to set the initial index
           context.highlightedIndexSig.value = index;
         }
-      } else {
-        await selectionManager$(index, 'remove');
       }
     }
   });
@@ -304,7 +305,7 @@ export const HComboboxRootImpl = component$<
     }
 
     if (onChange$ && selectedValuesSig.value.length > 0) {
-      await onChange$(context.multiple ? values : values[0]);
+      await onChange$(values);
     }
   });
 
