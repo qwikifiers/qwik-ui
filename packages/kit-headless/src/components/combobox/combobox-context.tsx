@@ -26,7 +26,7 @@ export type ComboboxContext = {
   removeOnBackspace: boolean;
   hasVisibleItemsSig: Signal<boolean>;
   initialLoadSig: Signal<boolean>;
-  _value: string | undefined;
+  initialValue: string | undefined;
 
   loop: boolean;
   multiple: boolean | undefined;

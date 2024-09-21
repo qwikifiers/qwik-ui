@@ -224,7 +224,7 @@ export const HComboboxRootImpl = component$<
     filter,
     loop,
     multiple,
-    _value: initialValue,
+    initialValue,
     scrollOptions,
     placeholder,
     hasVisibleItemsSig,
@@ -236,19 +236,19 @@ export const HComboboxRootImpl = component$<
 
   useContextProvider(comboboxContextId, context);
 
-  useTask$(function handleOpenChange({ track }) {
+  useTask$(async function handleOpenChange({ track }) {
     track(() => isListboxOpenSig.value);
 
     if (!initialLoadSig.value) {
-      onOpenChange$?.(isListboxOpenSig.value);
+      await onOpenChange$?.(isListboxOpenSig.value);
     }
   });
 
-  useTask$(function handleInput({ track }) {
+  useTask$(async function handleInput({ track }) {
     track(() => context.inputValueSig.value);
 
     if (!initialLoadSig.value) {
-      onInput$?.(context.inputValueSig.value);
+      await onInput$?.(context.inputValueSig.value);
     }
   });
 
