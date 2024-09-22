@@ -1,4 +1,5 @@
-export { Checklist as Root } from './checklist';
-export { ChecklistIndicator as Indicator } from './checklist-indicator';
-export * from './checklist-context-wrapper';
-export * from './context-id';
+export { ChecklistRoot as Root } from './checklist-root';
+export { ChecklistSelectAll as SelectAll } from './checklist-selectall';
+export { ChecklistItem as Item } from './checklist-item';
+export { ChecklistItemIndicator as ItemIndicator } from './checklist-indicator';
+export { ChecklistItemIndicator as Indicator } from './checklist-indicator';
