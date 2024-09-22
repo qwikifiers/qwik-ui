@@ -15,7 +15,7 @@ import { useCombinedRef } from '../../hooks/combined-refs';
 type HComboboxInputProps = PropsOf<'input'>;
 
 export const HComboboxInput = component$(
-  ({ 'bind:value': inputValueSig, ...props }: HComboboxInputProps) => {
+  ({ 'bind:value': givenInputValueSig, ...props }: HComboboxInputProps) => {
     const context = useContext(comboboxContextId);
     const contextRefOpts = { context, givenContextRef: context.inputRef };
     const inputRef = useCombinedRef(props.ref, contextRefOpts);
@@ -143,8 +143,8 @@ export const HComboboxInput = component$(
       isInputResetSig.value = false;
 
       // bind:value on the input
-      if (inputValueSig) {
-        inputValueSig.value = el.value;
+      if (givenInputValueSig) {
+        givenInputValueSig.value = el.value;
         context.inputValueSig.value = el.value;
       }
     });
@@ -180,9 +180,7 @@ export const HComboboxInput = component$(
 
         if (isSelected) {
           initialValue.push(item.displayValue);
-          if (highlightedIndexSig.value === -1) {
-            highlightedIndexSig.value = index;
-          }
+          highlightedIndexSig.value = index;
           // end the loop when we've found our selected value in single mode
           if (!multiple) break;
         }
@@ -191,21 +189,14 @@ export const HComboboxInput = component$(
       initialValueSig.value = multiple ? initialValue : initialValue[0] || '';
     });
 
-    const computedInputValueSig = useComputed$(() => {
-      if (initialValueSig.value) {
-        return initialValueSig.value;
-      } else {
-        if (inputValueSig?.value) {
-          return inputValueSig.value;
-        }
-        return '';
-      }
-    });
+    const inputValueSig = useComputed$(
+      () => initialValueSig.value ?? givenInputValueSig?.value ?? '',
+    );
 
     return (
       <input
         role="combobox"
-        value={computedInputValueSig.value}
+        value={inputValueSig.value}
         id={inputId}
         onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
         onKeyUp$={[context.removeOnBackspace ? handleKeyUp$ : undefined, props.onKeyUp$]}

@@ -258,6 +258,23 @@ export const HComboboxRootImpl = component$<
     if (!initialLoadSig.value && selectedValuesSig.value.length > 0) {
       await onChange$?.(selectedValuesSig.value);
     }
+
+    const selectedValue = Array.isArray(selectedValuesSig.value)
+      ? selectedValuesSig.value[selectedValuesSig.value.length - 1]
+      : selectedValuesSig.value;
+
+    for (const [index, item] of itemsMapSig.value.entries()) {
+      if (item.value === selectedValue) {
+        /* avoid "highlight jumping" on multiple selections */
+        if (context.isListboxOpenSig.value === false) {
+          context.highlightedIndexSig.value = index;
+        }
+
+        if (!context.inputRef.value) return;
+        context.inputRef.value.value = item.displayValue;
+        break;
+      }
+    }
   });
 
   useTask$(() => {
