@@ -88,25 +88,24 @@ export function useCombobox() {
 
   const getNextEnabledItemIndex$ = $((index: number) => {
     const len = context.itemsMapSig.value.size;
-    if (len === 1) {
-      return context.disabledIndexSetSig.value.has(0) ? -1 : 0;
+    if (len === 0) return -1;
+
+    const findNextEnabled = (start: number) => {
+      for (let i = 0; i < len; i++) {
+        const nextIndex = (start + i) % len;
+        if (!context.disabledIndexSetSig.value.has(nextIndex)) {
+          return nextIndex;
+        }
+      }
+      return -1;
+    };
+
+    if (index === -1 || len === 1) {
+      return findNextEnabled(0);
     }
 
-    let offset = 1;
-    if (!context.loop && index + 1 >= len) {
-      return index;
-    }
-    while (offset < len) {
-      const nextIndex = (index + offset) % len;
-      if (!context.disabledIndexSetSig.value.has(nextIndex)) {
-        return nextIndex;
-      }
-      offset++;
-      if (!context.loop && index + offset >= len) {
-        break;
-      }
-    }
-    return index;
+    const nextIndex = findNextEnabled(index + 1);
+    return context.loop || nextIndex > index ? nextIndex : index;
   });
 
   const getPrevEnabledItemIndex$ = $((index: number) => {
