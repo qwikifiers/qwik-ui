@@ -238,6 +238,32 @@ test.describe('Keyboard Behavior', () => {
       await d.getInput().press('ArrowUp');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     });
+
+    test(`GIVEN a combobox with a selected value via mouse
+          WHEN using the arrow keys to select another option
+          THEN the latest selected option should be highlighted when the menu is opened again`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      // initial mouse selection
+      await d.openListbox('click');
+      await d.getItemAt(2).click();
+
+      await d.openListbox('ArrowDown');
+      await expect(d.getItemAt(2)).toHaveAttribute('data-highlighted');
+
+      // selection via arrow keys
+      await d.getInput().press('ArrowDown');
+      await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
+
+      await d.getInput().press('Enter');
+      await expect(d.getItemAt(3)).toHaveAttribute('data-selected');
+
+      // latest selected option should be highlighted when the menu is opened again
+      await d.openListbox('ArrowDown');
+      await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
+    });
   });
 
   test.describe('selecting options', () => {
