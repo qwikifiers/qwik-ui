@@ -198,13 +198,6 @@ export const HComboboxRootImpl = component$<
     );
   });
 
-  useTask$(({ track }) => {
-    track(() => itemsMapSig.value);
-
-    console.log(itemsMapSig.value.size);
-    console.log(isNoItemsSig.value);
-  });
-
   useTask$(function closeIfEmptyComp({ track }) {
     track(() => itemsMapSig.value);
     track(() => filteredIndexSetSig.value);

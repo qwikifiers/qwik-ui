@@ -65,12 +65,9 @@ export const HComboboxInput = component$(
             context.isListboxOpenSig.value &&
             context.highlightedIndexSig.value !== null
           ) {
-            console.log('BEFORE: ', context.highlightedIndexSig.value);
-
             context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
               context.highlightedIndexSig.value,
             );
-            console.log(context.highlightedIndexSig.value);
           } else {
             context.isListboxOpenSig.value = true;
           }
