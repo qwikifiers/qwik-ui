@@ -162,16 +162,17 @@ export const HComboboxInput = component$(
       if (e.key === 'Backspace') {
         // removeOnBackspace
         if (!context.multiple) return;
-        if (context.selectedValueSetSig.value.size === 0) return;
+        if (context.selectedValuesSig.value.length === 0) return;
         if (!context.removeOnBackspace) return;
 
         if (
           (wasEmptyBeforeBackspaceSig.value || isInputResetSig.value) &&
           context.inputValueSig.value.length === 0
         ) {
-          const selectedValuesArray = [...context.selectedValueSetSig.value];
-          selectedValuesArray.pop(); // Remove the last element
-          context.selectedValueSetSig.value = new Set(selectedValuesArray);
+          const selectedValuesArray = [...context.selectedValuesSig.value];
+          selectedValuesArray.pop();
+
+          context.selectedValuesSig.value = selectedValuesArray;
         }
       }
     });
