@@ -25,7 +25,7 @@ export const HComboboxInput = component$(
     const labelId = `${context.localId}-label`;
     const descriptionId = `${context.localId}-description`;
     const errorMessageId = `${context.localId}-error-message`;
-    const initialValueSig = useSignal<string | undefined>();
+    const initialValueSig = useSignal<string | string[] | undefined>();
     const wasEmptyBeforeBackspaceSig = useSignal(false);
     const isInputResetSig = useSignal(false);
 
@@ -168,32 +168,27 @@ export const HComboboxInput = component$(
     });
 
     /** Users may pass an initial value to bind:value on the input, use the value, or bind:value props on the root. */
-    useTask$(function initialState() {
-      const selectedValue =
-        context.selectedValueSetSig.value.size > 0
-          ? context.selectedValueSetSig.value.values().next().value
-          : '';
+    useTask$(function getInitialValues() {
+      const { selectedValuesSig, multiple, itemsMapSig, highlightedIndexSig } = context;
+      const selectedValues = selectedValuesSig.value;
+      const initialValue: string[] = [];
 
-      let initialValue = '';
-      let matchingItemValue = null;
-      let matchingItemIndex = -1;
+      for (const [index, item] of itemsMapSig.value.entries()) {
+        const isSelected = multiple
+          ? Array.isArray(selectedValues) && selectedValues.includes(item.value)
+          : item.value === selectedValues;
 
-      context.itemsMapSig.value.forEach((item, index) => {
-        if (item.value === selectedValue) {
-          initialValue = item.displayValue;
+        if (isSelected) {
+          initialValue.push(item.displayValue);
+          if (highlightedIndexSig.value === -1) {
+            highlightedIndexSig.value = index;
+          }
+          // end the loop when we've found our selected value in single mode
+          if (!multiple) break;
         }
-        if (inputValueSig?.value && item.displayValue === inputValueSig.value) {
-          matchingItemValue = item.value;
-          matchingItemIndex = index;
-        }
-      });
-
-      initialValueSig.value = initialValue;
-
-      if (matchingItemValue !== null) {
-        context.selectedValueSetSig.value.add(matchingItemValue);
-        context.highlightedIndexSig.value = matchingItemIndex;
       }
+
+      initialValueSig.value = multiple ? initialValue : initialValue[0] || '';
     });
 
     const computedInputValueSig = useComputed$(() => {
