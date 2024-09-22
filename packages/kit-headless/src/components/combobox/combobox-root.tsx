@@ -122,8 +122,6 @@ export const HComboboxRootImpl = component$<
     onInput$,
     onChange$,
     onOpenChange$,
-    'bind:value': givenValueSig,
-    'bind:open': givenOpenSig,
     initialIndex,
     initialValue,
     loop: givenLoop,
@@ -136,11 +134,15 @@ export const HComboboxRootImpl = component$<
     removeOnBackspace = false,
     name,
     required,
+    'bind:value': givenValueSig,
+    'bind:open': givenOpenSig,
+    'bind:displayValue': givenDisplayValueSig,
     ...rest
   } = props;
 
   // source of truth
   const isListboxOpenSig = useBoundSignal(givenOpenSig, false);
+  const displayValuesSig = useBoundSignal(givenDisplayValueSig, []);
   const selectedValuesSig = useBoundSignal(
     givenValueSig,
     multiple ? (initialValue ? [initialValue] : []) : initialValue || '',
@@ -167,7 +169,6 @@ export const HComboboxRootImpl = component$<
   const isMouseOverPopupSig = useSignal<boolean>(false);
   const highlightedIndexSig = useSignal<number | null>(initialIndex ?? null);
   const initialLoadSig = useSignal<boolean>(true);
-  const currDisplayValueSig = useSignal<string | string[]>();
   const scrollOptions = givenScrollOptions ?? {
     behavior: 'smooth',
     block: 'center',
@@ -217,7 +218,7 @@ export const HComboboxRootImpl = component$<
     selectedValuesSig,
     selectedValueSetSig,
     disabledIndexSetSig,
-    currDisplayValueSig,
+    displayValuesSig,
     isMouseOverPopupSig,
     initialLoadSig,
     removeOnBackspace,
@@ -259,22 +260,27 @@ export const HComboboxRootImpl = component$<
       await onChange$?.(selectedValuesSig.value);
     }
 
-    const selectedValue = Array.isArray(selectedValuesSig.value)
-      ? selectedValuesSig.value[selectedValuesSig.value.length - 1]
-      : selectedValuesSig.value;
+    const selectedValues = Array.isArray(selectedValuesSig.value)
+      ? selectedValuesSig.value
+      : [selectedValuesSig.value];
+
+    const displayValues: string[] = [];
 
     for (const [index, item] of itemsMapSig.value.entries()) {
-      if (item.value === selectedValue) {
+      if (selectedValues.includes(item.value)) {
+        displayValues.push(item.displayValue);
+
         /* avoid "highlight jumping" on multiple selections */
         if (context.isListboxOpenSig.value === false) {
           context.highlightedIndexSig.value = index;
         }
-
-        if (!context.inputRef.value) return;
-        context.inputRef.value.value = item.displayValue;
-        break;
       }
     }
+
+    displayValuesSig.value = displayValues;
+
+    if (multiple || !context.inputRef.value) return;
+    context.inputRef.value.value = displayValues[0];
   });
 
   useTask$(() => {
