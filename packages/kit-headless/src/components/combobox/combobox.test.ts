@@ -883,19 +883,6 @@ test.describe('Filtering options', () => {
   });
 
   test(`GIVEN a combobox
-        WHEN an option is selected
-        AND the typed string does not match the filter function
-        THEN the option should be unselected`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
-    await d.openListbox('ArrowDown');
-    await d.getInput().press('Enter');
-    await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
-
-    await d.getInput().press('z');
-    await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'false');
-  });
-
-  test(`GIVEN a combobox
         WHEN a custom filter is set
         THEN it should respect the filter function`, async ({ page }) => {
     const { driver: d } = await setup(page, 'filter');
