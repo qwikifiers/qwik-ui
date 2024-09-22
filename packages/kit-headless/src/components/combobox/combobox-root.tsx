@@ -279,7 +279,7 @@ export const HComboboxRootImpl = component$<
 
     displayValuesSig.value = displayValues;
 
-    if (multiple || !context.inputRef.value) return;
+    if (multiple || !context.inputRef.value || !displayValues[0]) return;
     context.inputRef.value.value = displayValues[0];
   });
 
