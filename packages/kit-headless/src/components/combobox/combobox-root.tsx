@@ -191,15 +191,26 @@ export const HComboboxRootImpl = component$<
     disabledIndexSetSig.value = disabledIndices;
   });
 
-  const hasVisibleItemsSig = useComputed$(() => {
-    return itemsMapSig.value.size !== disabledIndexSetSig.value.size;
+  const isNoItemsSig = useComputed$(() => {
+    return (
+      itemsMapSig.value.size === filteredIndexSetSig.value.size ||
+      itemsMapSig.value.size === 0
+    );
+  });
+
+  useTask$(({ track }) => {
+    track(() => itemsMapSig.value);
+
+    console.log(itemsMapSig.value.size);
+    console.log(isNoItemsSig.value);
   });
 
   useTask$(function closeIfEmptyComp({ track }) {
-    track(() => disabledIndexSetSig.value);
+    track(() => itemsMapSig.value);
+    track(() => filteredIndexSetSig.value);
 
     // automatically closes the listbox if there are no visible items AND the combobox does not have an empty component
-    if (!hasEmptyComp && !hasVisibleItemsSig.value) {
+    if (!hasEmptyComp && isNoItemsSig.value) {
       isListboxOpenSig.value = false;
     }
   });
@@ -230,7 +241,7 @@ export const HComboboxRootImpl = component$<
     initialValue,
     scrollOptions,
     placeholder,
-    hasVisibleItemsSig,
+    isNoItemsSig,
     name,
     required,
     isDisabledSig,

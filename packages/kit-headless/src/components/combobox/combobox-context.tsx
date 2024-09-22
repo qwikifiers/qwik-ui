@@ -25,7 +25,7 @@ export type ComboboxContext = {
   isMouseOverPopupSig: Signal<boolean>;
   disabledIndexSetSig: Signal<Set<number>>;
   removeOnBackspace: boolean;
-  hasVisibleItemsSig: Signal<boolean>;
+  isNoItemsSig: Signal<boolean>;
   initialLoadSig: Signal<boolean>;
   initialValue: string | undefined;
 
