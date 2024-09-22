@@ -200,7 +200,7 @@ export const HComboboxInput = component$(
     });
 
     const inputValueSig = useComputed$(
-      () => initialValueSig.value ?? givenInputValueSig?.value ?? '',
+      () => givenInputValueSig?.value ?? initialValueSig.value ?? '',
     );
 
     return (
