@@ -138,19 +138,14 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
     }
   });
 
-  useTask$(async ({ track }) => {
+  useTask$(async function defaultFilter({ track }) {
     track(() => context.inputValueSig.value);
 
     if (isServer || !itemRef.value) return;
 
-    if (context.inputValueSig.value === '' && !context.multiple) {
-      context.selectedValuesSig.value = '';
-    } else {
-      context.isListboxOpenSig.value = true;
-    }
+    const displayValue = context.itemsMapSig.value.get(props._index ?? -1)?.displayValue;
 
     let isVisible;
-    const displayValue = context.itemsMapSig.value.get(props._index ?? -1)?.displayValue;
     if (!displayValue) return;
     if (context.filter) {
       const lowerCaseDisplayValue = displayValue?.toLowerCase();
@@ -183,7 +178,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
       onFocus$={[handleFocus$, props.onFocus$]}
       aria-labelledby={itemLabelId}
       data-item
-      onClick$={handleClick$}
+      onClick$={[handleClick$, props.onClick$]}
       {...props}
     >
       <Slot />

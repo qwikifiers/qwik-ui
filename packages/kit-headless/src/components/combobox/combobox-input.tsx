@@ -142,6 +142,12 @@ export const HComboboxInput = component$(
       context.highlightedIndexSig.value = null;
       isInputResetSig.value = false;
 
+      if (target.value === '' && !context.multiple) {
+        context.selectedValuesSig.value = '';
+      } else {
+        context.isListboxOpenSig.value = true;
+      }
+
       // bind:value on the input
       if (givenInputValueSig) {
         givenInputValueSig.value = el.value;
