@@ -76,14 +76,31 @@ export function useCombobox() {
   const filterManager$ = $((isVisible: boolean, itemRef: Signal, index: number) => {
     if (!itemRef.value) return;
 
+    const isDisabled = context.itemsMapSig.value.get(index)?.disabled;
+
     itemRef.value.style.display = isVisible ? '' : 'none';
-    context.disabledIndexSetSig.value = new Set(
+
+    context.filteredIndexSetSig.value = new Set(
       isVisible
-        ? [...context.disabledIndexSetSig.value].filter(
-            (selectedIndex) => selectedIndex !== index,
+        ? [...context.filteredIndexSetSig.value].filter(
+            (filteredIndex) => filteredIndex !== index,
           )
-        : [...context.disabledIndexSetSig.value, index],
+        : [...context.filteredIndexSetSig.value, index],
     );
+
+    // Update disabledIndexSetSig
+    if (isDisabled) {
+      context.disabledIndexSetSig.value = new Set([
+        ...context.disabledIndexSetSig.value,
+        index,
+      ]);
+    } else {
+      context.disabledIndexSetSig.value = new Set(
+        [...context.disabledIndexSetSig.value].filter(
+          (disabledIndex) => disabledIndex !== index,
+        ),
+      );
+    }
   });
 
   const getNextEnabledItemIndex$ = $((index: number) => {
@@ -93,7 +110,10 @@ export function useCombobox() {
     const findNextEnabled = (start: number) => {
       for (let i = 0; i < len; i++) {
         const nextIndex = (start + i) % len;
-        if (!context.disabledIndexSetSig.value.has(nextIndex)) {
+        if (
+          !context.disabledIndexSetSig.value.has(nextIndex) &&
+          !context.filteredIndexSetSig.value.has(nextIndex)
+        ) {
           return nextIndex;
         }
       }
@@ -109,22 +129,28 @@ export function useCombobox() {
   });
 
   const getPrevEnabledItemIndex$ = $((index: number) => {
-    let offset = 1;
     const len = context.itemsMapSig.value.size;
-    if (!context.loop && index - 1 < 0) {
-      return index;
-    }
-    while (offset <= len) {
-      const prevIndex = (index - offset + len) % len;
-      if (!context.disabledIndexSetSig.value.has(prevIndex)) {
-        return prevIndex;
+    if (len === 0) return -1;
+
+    const findPrevEnabled = (start: number) => {
+      for (let i = 0; i < len; i++) {
+        const prevIndex = (start - i + len) % len;
+        if (
+          !context.disabledIndexSetSig.value.has(prevIndex) &&
+          !context.filteredIndexSetSig.value.has(prevIndex)
+        ) {
+          return prevIndex;
+        }
       }
-      offset++;
-      if (!context.loop && index - offset < 0) {
-        break;
-      }
+      return -1;
+    };
+
+    if (index === -1 || len === 1) {
+      return findPrevEnabled(len - 1);
     }
-    return index;
+
+    const prevIndex = findPrevEnabled(index - 1);
+    return context.loop || prevIndex < index ? prevIndex : index;
   });
 
   const getActiveDescendant$ = $((index: number) => {

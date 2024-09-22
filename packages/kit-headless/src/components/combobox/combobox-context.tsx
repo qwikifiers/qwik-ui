@@ -19,6 +19,7 @@ export type ComboboxContext = {
   controlRef: Signal<HTMLDivElement | undefined>;
   selectedValueSetSig: Signal<Set<string>>;
   selectedValuesSig: Signal<string | string[]>;
+  filteredIndexSetSig: Signal<Set<number>>;
   highlightedIndexSig: Signal<number | null>;
   displayValuesSig: Signal<string | string[] | undefined>;
   isMouseOverPopupSig: Signal<boolean>;

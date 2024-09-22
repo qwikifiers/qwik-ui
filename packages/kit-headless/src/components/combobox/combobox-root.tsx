@@ -166,6 +166,7 @@ export const HComboboxRootImpl = component$<
   );
 
   const disabledIndexSetSig = useSignal<Set<number>>(new Set());
+  const filteredIndexSetSig = useSignal<Set<number>>(new Set());
   const isMouseOverPopupSig = useSignal<boolean>(false);
   const highlightedIndexSig = useSignal<number | null>(initialIndex ?? null);
   const initialLoadSig = useSignal<boolean>(true);
@@ -218,6 +219,7 @@ export const HComboboxRootImpl = component$<
     selectedValuesSig,
     selectedValueSetSig,
     disabledIndexSetSig,
+    filteredIndexSetSig,
     displayValuesSig,
     isMouseOverPopupSig,
     initialLoadSig,
