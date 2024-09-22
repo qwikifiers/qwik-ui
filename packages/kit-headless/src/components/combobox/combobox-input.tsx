@@ -54,6 +54,8 @@ export const HComboboxInput = component$(
     const handleKeyDown$ = $(async (e: KeyboardEvent) => {
       if (!context.itemsMapSig.value) return;
 
+      context.isKeyboardFocusSig.value = true;
+
       if (e.key === 'Backspace') {
         // check if input was empty before backspace
         wasEmptyBeforeBackspaceSig.value = context.inputValueSig.value.length === 0;

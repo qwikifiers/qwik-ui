@@ -7,6 +7,7 @@ import {
   useTask$,
   useComputed$,
   useContextProvider,
+  useSignal,
 } from '@builder.io/qwik';
 import {
   ComboboxItemContext,
@@ -30,6 +31,7 @@ export type HComboboxItemProps = PropsOf<'div'> & {
 
 export const HComboboxItem = component$((props: HComboboxItemProps) => {
   const context = useContext(comboboxContextId);
+  const debounceTimeoutSig = useSignal<NodeJS.Timeout>();
 
   if (props._index === undefined) {
     throw new Error('Qwik UI: Combobox component item cannot find its proper index.');
@@ -74,7 +76,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
       const containerRect = context.panelRef.value?.getBoundingClientRect();
       const itemRect = itemRef.value?.getBoundingClientRect();
 
-      if (!containerRect || !itemRect || context.isMouseOverPopupSig.value) return;
+      if (!containerRect || !itemRect || !context.isKeyboardFocusSig.value) return;
 
       // Calculates the offset to center the item within the container
       const offset =
@@ -117,29 +119,40 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
 
   useContextProvider(comboboxItemContextId, itemContext);
 
-  useTask$(async function navigationTask({ track, cleanup }) {
+  useTask$(function handleScrolling({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
 
     if (isServer || !context.panelRef.value) return;
-    if (props._index !== context.highlightedIndexSig.value) return;
 
     const hasScrollbar =
       context.panelRef.value.scrollHeight > context.panelRef.value.clientHeight;
 
-    if (!hasScrollbar) {
-      return;
+    if (!hasScrollbar) return;
+
+    if (debounceTimeoutSig.value !== undefined) {
+      clearTimeout(debounceTimeoutSig.value);
     }
 
-    const observer = new IntersectionObserver(checkVisibility$, {
-      root: context.panelRef.value,
-      threshold: 1.0,
+    debounceTimeoutSig.value = setTimeout(() => {
+      if (props._index !== context.highlightedIndexSig.value) return;
+
+      const observer = new IntersectionObserver(checkVisibility$, {
+        root: context.panelRef.value,
+        threshold: 1.0,
+      });
+
+      cleanup(() => observer?.disconnect());
+
+      if (itemRef.value) {
+        observer.observe(itemRef.value);
+      }
+    }, 100);
+
+    cleanup(() => {
+      if (debounceTimeoutSig.value !== undefined) {
+        clearTimeout(debounceTimeoutSig.value);
+      }
     });
-
-    cleanup(() => observer?.disconnect());
-
-    if (itemRef.value) {
-      observer.observe(itemRef.value);
-    }
   });
 
   useTask$(async function defaultFilter({ track }) {

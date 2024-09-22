@@ -23,6 +23,7 @@ export type ComboboxContext = {
   highlightedIndexSig: Signal<number | null>;
   displayValuesSig: Signal<string | string[] | undefined>;
   isMouseOverPopupSig: Signal<boolean>;
+  isKeyboardFocusSig: Signal<boolean>;
   disabledIndexSetSig: Signal<Set<number>>;
   removeOnBackspace: boolean;
   isNoItemsSig: Signal<boolean>;

@@ -178,6 +178,7 @@ export const HComboboxRootImpl = component$<
   const inputValueSig = useSignal<string>(inputRef.value?.value ?? '');
   const isDisabledSig = useComputed$(() => props.disabled ?? false);
   const isInvalidSig = useComputed$(() => props.hasErrorComp ?? false);
+  const isKeyboardFocusSig = useSignal(false);
 
   // check any initial disabled items before the computed read below
   useTask$(() => {
@@ -226,6 +227,7 @@ export const HComboboxRootImpl = component$<
     filteredIndexSetSig,
     displayValuesSig,
     isMouseOverPopupSig,
+    isKeyboardFocusSig,
     initialLoadSig,
     removeOnBackspace,
     filter,
