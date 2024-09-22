@@ -589,49 +589,39 @@ test.describe('Props', () => {
     });
 
     test(`GIVEN a reactive combobox
-               WHEN the user empties the input with selecting all text and backspace
-               THEN there should be no selected value`, async ({ page }) => {
+          WHEN the user empties the input with selecting all text and backspace
+          THEN there should be no selected value`, async ({ page }) => {
       const { driver: d } = await setup(page, 'reactive');
 
-      const apricot = (await d.getItemAt(1).textContent()) ?? '';
-
-      await expect(d.getInput()).toHaveValue(apricot);
+      await expect(d.getInput()).toHaveValue('Apricot');
+      await expect(page.getByRole('paragraph')).toContainText('Apricot');
 
       await d.getInput().clear();
 
       await expect(d.getInput()).toHaveValue('');
 
-      await expect(
-        page.getByRole('paragraph', { name: 'Your favorite fruit is:' }),
-      ).toBeVisible();
+      await expect(page.getByRole('paragraph')).not.toContainText('Apricot');
     });
 
     test(`GIVEN a reactive combobox
-               WHEN the user empties the input and selects a new value
-               THEN that should update the given signal`, async ({ page }) => {
+          WHEN the user empties the input and selects a new value
+          THEN that should update the given signal`, async ({ page }) => {
       const { driver: d } = await setup(page, 'reactive');
 
-      const apricot = (await d.getItemAt(1).textContent()) ?? '';
-
-      await expect(d.getInput()).toHaveValue(apricot);
+      await expect(d.getInput()).toHaveValue('Apricot');
+      await expect(page.getByRole('paragraph')).toContainText('Apricot');
 
       await d.getInput().clear();
 
       await expect(d.getInput()).toHaveValue('');
 
-      await expect(
-        page.getByRole('paragraph', { name: 'Your favorite fruit is:' }),
-      ).toBeVisible();
+      await expect(page.getByRole('paragraph')).not.toContainText('Apricot');
 
       await d.openListbox('click');
+      await d.getItemAt(0).click();
 
-      await d.getItemAt(1).click();
-
-      await expect(d.getInput()).toHaveValue('Apricot');
-
-      await expect(
-        page.getByRole('paragraph', { name: 'Your favorite fruit is: Apricot' }),
-      ).toBeVisible();
+      await expect(d.getInput()).toHaveValue('Apple');
+      await expect(page.getByRole('paragraph')).toContainText('Apple');
     });
   });
 
