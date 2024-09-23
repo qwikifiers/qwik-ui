@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.6.1
+
+### Patch Changes
+
+- # Combobox Improvements (by [@thejackshelton](https://github.com/thejackshelton) in [#968](https://github.com/qwikifiers/qwik-ui/pull/968))
+
+  ## 🔄 Reactive Improvements
+
+  - Better handling of array-based values
+  - Improved handling of initial and reactive values
+
+  ## 🐛 Key Bug Fixes
+
+  - Fixed highlight jumping issues
+  - Enhanced empty input handling
+  - Better filtered item highlighting
+
+  ## 🖱️ Interaction Enhancements
+
+  - Smoother scrolling experience
+  - Improved keyboard and mouse coordination
+
+  ## 🚀 Performance Optimizations
+
+  - More efficient item filtering
+
+  ## 🧪 Reliability
+
+  - Added tests for reactivity handling, item unselection, and mouse-to-pointer interaction switching
+  - Improved handling of edge cases in user interactions
+
 ## 0.6.0
 
 ### Minor Changes

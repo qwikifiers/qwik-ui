@@ -12,8 +12,8 @@ import {
 } from '@builder.io/qwik';
 import { ComboboxContext, comboboxContextId } from './combobox-context';
 import { InternalComboboxProps } from './combobox-inline';
-import { useCombobox } from './use-combobox';
 import { useCombinedRef } from '../../hooks/combined-refs';
+import { useBoundSignal } from '../../utils/bound-signal';
 
 export type TMultiple<M> = M extends true ? string[] : string;
 
@@ -118,13 +118,12 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
 export const HComboboxRootImpl = component$<
   HComboboxRootImplProps<boolean> & InternalComboboxProps
 >((props: HComboboxRootImplProps<boolean> & InternalComboboxProps) => {
-  const isListboxOpenSig = useSignal(false);
   const {
     onInput$,
     onChange$,
     onOpenChange$,
-    _valuePropIndex: givenValuePropIndex,
-    _value,
+    initialIndex,
+    initialValue,
     loop: givenLoop,
     scrollOptions: givenScrollOptions,
     multiple = false,
@@ -132,15 +131,23 @@ export const HComboboxRootImpl = component$<
     filter = true,
     _itemsMap,
     hasEmptyComp,
-    hasErrorComp,
     removeOnBackspace = false,
     name,
     required,
-    disabled,
+    'bind:value': givenValueSig,
+    'bind:open': givenOpenSig,
+    'bind:displayValue': givenDisplayValueSig,
     ...rest
   } = props;
 
   // source of truth
+  const isListboxOpenSig = useBoundSignal(givenOpenSig, false);
+  const displayValuesSig = useBoundSignal(givenDisplayValueSig, []);
+  const selectedValuesSig = useBoundSignal(
+    givenValueSig,
+    multiple ? (initialValue ? [initialValue] : []) : initialValue || '',
+  );
+
   const itemsMapSig = useComputed$(() => {
     return props._itemsMap ?? new Map();
   });
@@ -154,20 +161,24 @@ export const HComboboxRootImpl = component$<
   const loop = givenLoop ?? false;
   const localId = useId();
   /** We use selected values to preserve the item state when the consumer filters the items. */
-  const selectedValueSetSig = useSignal<Set<string>>(new Set(_value ? [_value] : []));
+  const selectedValueSetSig = useSignal<Set<string>>(
+    new Set(initialValue ? [initialValue] : []),
+  );
+
   const disabledIndexSetSig = useSignal<Set<number>>(new Set());
+  const filteredIndexSetSig = useSignal<Set<number>>(new Set());
   const isMouseOverPopupSig = useSignal<boolean>(false);
-  const isDisabledSig = useSignal<boolean>(disabled ?? false);
-  const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
+  const highlightedIndexSig = useSignal<number | null>(initialIndex ?? null);
   const initialLoadSig = useSignal<boolean>(true);
-  const currDisplayValueSig = useSignal<string | string[]>();
   const scrollOptions = givenScrollOptions ?? {
     behavior: 'smooth',
     block: 'center',
     inline: 'nearest',
   };
   const inputValueSig = useSignal<string>(inputRef.value?.value ?? '');
-  const isInvalidSig = useSignal<boolean>(hasErrorComp ?? false);
+  const isDisabledSig = useComputed$(() => props.disabled ?? false);
+  const isInvalidSig = useComputed$(() => props.hasErrorComp ?? false);
+  const isKeyboardFocusSig = useSignal(false);
 
   // check any initial disabled items before the computed read below
   useTask$(() => {
@@ -181,19 +192,19 @@ export const HComboboxRootImpl = component$<
     disabledIndexSetSig.value = disabledIndices;
   });
 
-  useTask$(({ track }) => {
-    isInvalidSig.value = track(() => props.hasErrorComp ?? false);
-  });
-
-  const hasVisibleItemsSig = useComputed$(() => {
-    return itemsMapSig.value.size !== disabledIndexSetSig.value.size;
+  const isNoItemsSig = useComputed$(() => {
+    return (
+      itemsMapSig.value.size === filteredIndexSetSig.value.size ||
+      itemsMapSig.value.size === 0
+    );
   });
 
   useTask$(function closeIfEmptyComp({ track }) {
-    track(() => disabledIndexSetSig.value);
+    track(() => itemsMapSig.value);
+    track(() => filteredIndexSetSig.value);
 
     // automatically closes the listbox if there are no visible items AND the combobox does not have an empty component
-    if (!hasEmptyComp && !hasVisibleItemsSig.value) {
+    if (!hasEmptyComp && isNoItemsSig.value) {
       isListboxOpenSig.value = false;
     }
   });
@@ -210,19 +221,22 @@ export const HComboboxRootImpl = component$<
     controlRef,
     localId,
     highlightedIndexSig,
+    selectedValuesSig,
     selectedValueSetSig,
     disabledIndexSetSig,
-    currDisplayValueSig,
+    filteredIndexSetSig,
+    displayValuesSig,
     isMouseOverPopupSig,
+    isKeyboardFocusSig,
     initialLoadSig,
     removeOnBackspace,
     filter,
     loop,
     multiple,
-    _value,
+    initialValue,
     scrollOptions,
     placeholder,
-    hasVisibleItemsSig,
+    isNoItemsSig,
     name,
     required,
     isDisabledSig,
@@ -231,104 +245,50 @@ export const HComboboxRootImpl = component$<
 
   useContextProvider(comboboxContextId, context);
 
-  const { selectionManager$ } = useCombobox();
-
-  useTask$(async function reactiveUserValue({ track }) {
-    const bindValueSig = props['bind:value'];
-    if (!bindValueSig) return;
-    track(() => bindValueSig.value);
-
-    for (const [index, item] of itemsMapSig.value) {
-      if (bindValueSig.value?.includes(item.value)) {
-        await selectionManager$(index, 'add');
-
-        if (initialLoadSig.value) {
-          // for both SSR and CSR, we need to set the initial index
-          context.highlightedIndexSig.value = index;
-        }
-      } else {
-        await selectionManager$(index, 'remove');
-      }
-    }
-  });
-
-  useTask$(function reactiveUserOpen({ track }) {
-    const bindOpenSig = props['bind:open'];
-    if (!bindOpenSig) return;
-    track(() => bindOpenSig.value);
-
-    isListboxOpenSig.value = bindOpenSig.value ?? isListboxOpenSig.value;
-  });
-
-  useTask$(function onOpenChangeTask({ track }) {
-    const bindOpenSig = props['bind:open'];
+  useTask$(async function handleOpenChange({ track }) {
     track(() => isListboxOpenSig.value);
 
     if (!initialLoadSig.value) {
-      onOpenChange$?.(isListboxOpenSig.value);
-    }
-
-    // sync the user's given signal for the open state
-    if (bindOpenSig && bindOpenSig.value !== isListboxOpenSig.value) {
-      bindOpenSig.value = isListboxOpenSig.value;
+      await onOpenChange$?.(isListboxOpenSig.value);
     }
   });
 
-  useTask$(function onInputTask({ track }) {
+  useTask$(async function handleInput({ track }) {
     track(() => context.inputValueSig.value);
 
     if (!initialLoadSig.value) {
-      onInput$?.(context.inputValueSig.value);
+      await onInput$?.(context.inputValueSig.value);
     }
   });
 
-  useTask$(async function updateConsumerProps({ track }) {
-    const bindValueSig = props['bind:value'];
-    const bindDisplayTextSig = props['bind:displayValue'];
-    track(() => selectedValueSetSig.value);
+  useTask$(async function handleChange({ track }) {
+    track(() => selectedValuesSig.value);
 
-    const values = Array.from(selectedValueSetSig.value);
-    const displayValues = [];
+    if (!initialLoadSig.value && selectedValuesSig.value.length > 0) {
+      await onChange$?.(selectedValuesSig.value);
+    }
 
-    for (const value of values) {
-      for (const item of context.itemsMapSig.value.values()) {
-        if (item.value === value) {
-          displayValues.push(item.displayValue);
-          break;
+    const selectedValues = Array.isArray(selectedValuesSig.value)
+      ? selectedValuesSig.value
+      : [selectedValuesSig.value];
+
+    const displayValues: string[] = [];
+
+    for (const [index, item] of itemsMapSig.value.entries()) {
+      if (selectedValues.includes(item.value)) {
+        displayValues.push(item.displayValue);
+
+        /* avoid "highlight jumping" on multiple selections */
+        if (context.isListboxOpenSig.value === false) {
+          context.highlightedIndexSig.value = index;
         }
       }
     }
 
-    if (onChange$ && selectedValueSetSig.value.size > 0) {
-      await onChange$(context.multiple ? values : values[0]);
-    }
+    displayValuesSig.value = displayValues;
 
-    // sync the user's given signal when an option is selected
-    if (bindValueSig && bindValueSig.value) {
-      const currUserSigValues = JSON.stringify(bindValueSig.value);
-      const newUserSigValues = JSON.stringify(values);
-
-      if (currUserSigValues !== newUserSigValues) {
-        if (context.multiple) {
-          bindValueSig.value = values;
-        } else {
-          bindValueSig.value = values[0];
-        }
-      }
-    }
-
-    context.currDisplayValueSig.value = displayValues;
-
-    // sync the user's given signal for the display value
-    if (bindDisplayTextSig && context.currDisplayValueSig.value) {
-      bindDisplayTextSig.value = context.multiple
-        ? context.currDisplayValueSig.value
-        : context.currDisplayValueSig.value[0];
-    }
-  });
-
-  useTask$(({ track }) => {
-    isDisabledSig.value = track(() => disabled ?? false);
+    if (multiple || !context.inputRef.value || !displayValues[0]) return;
+    context.inputRef.value.value = displayValues[0];
   });
 
   useTask$(() => {

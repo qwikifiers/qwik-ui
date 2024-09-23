@@ -7,6 +7,7 @@ import {
   useTask$,
   useComputed$,
   useContextProvider,
+  useSignal,
 } from '@builder.io/qwik';
 import {
   ComboboxItemContext,
@@ -29,28 +30,39 @@ export type HComboboxItemProps = PropsOf<'div'> & {
 };
 
 export const HComboboxItem = component$((props: HComboboxItemProps) => {
+  const context = useContext(comboboxContextId);
+  const debounceTimeoutSig = useSignal<NodeJS.Timeout>();
+
   if (props._index === undefined) {
     throw new Error('Qwik UI: Combobox component item cannot find its proper index.');
   }
 
-  const context = useContext(comboboxContextId);
+  const localIndexSig = useComputed$(() => props._index ?? -1);
   const itemRef = useCombinedRef(props.ref);
-  const itemLabelId = `${context.localId}-${props._index ?? -1}-item-label`;
 
   const { selectionManager$, filterManager$ } = useCombobox();
+
+  const itemLabelId = `${context.localId}-${localIndexSig.value}-item-label`;
+
   const isDisabledSig = useComputed$(() =>
-    context.disabledIndexSetSig.value.has(props._index ?? -1),
+    context.disabledIndexSetSig.value.has(localIndexSig.value),
   );
   const isSelectedSig = useComputed$(() => {
-    const index = props._index ?? -1;
+    const index = localIndexSig.value;
     const selectedValue = context.itemsMapSig.value.get(index)?.value;
-    return !isDisabledSig.value && context.selectedValueSetSig.value.has(selectedValue!);
+    if (!selectedValue || isDisabledSig.value) return false;
+
+    if (Array.isArray(context.selectedValuesSig.value)) {
+      return context.selectedValuesSig.value.includes(selectedValue);
+    } else {
+      return context.selectedValuesSig.value === selectedValue;
+    }
   });
 
   const isHighlightedSig = useComputed$(() => {
     if (isDisabledSig.value) return;
 
-    if (context.highlightedIndexSig.value === props._index ?? -1) {
+    if (context.highlightedIndexSig.value === localIndexSig.value) {
       return true;
     } else {
       return false;
@@ -64,7 +76,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
       const containerRect = context.panelRef.value?.getBoundingClientRect();
       const itemRect = itemRef.value?.getBoundingClientRect();
 
-      if (!containerRect || !itemRect || context.isMouseOverPopupSig.value) return;
+      if (!containerRect || !itemRect || !context.isKeyboardFocusSig.value) return;
 
       // Calculates the offset to center the item within the container
       const offset =
@@ -78,9 +90,9 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
   });
 
   const handleClick$ = $(async () => {
-    if (isDisabledSig.value || (props._index ?? -1) === null) return;
+    if (isDisabledSig.value || localIndexSig.value === null) return;
 
-    await selectionManager$(props._index ?? -1, 'toggle');
+    await selectionManager$(localIndexSig.value, 'toggle');
 
     if (!isSelectedSig.value && !context.multiple) {
       context.isListboxOpenSig.value = false;
@@ -88,10 +100,10 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
   });
 
   const handlePointerOver$ = $(() => {
-    if (isDisabledSig.value) return;
+    if (isDisabledSig.value || context.isKeyboardFocusSig.value) return;
 
     if (props._index !== undefined && context.isMouseOverPopupSig.value) {
-      context.highlightedIndexSig.value = props._index ?? -1;
+      context.highlightedIndexSig.value = localIndexSig.value;
     }
   });
 
@@ -107,50 +119,56 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
 
   useContextProvider(comboboxItemContextId, itemContext);
 
-  useTask$(async function navigationTask({ track, cleanup }) {
+  useTask$(function handleScrolling({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
 
     if (isServer || !context.panelRef.value) return;
-    if (props._index !== context.highlightedIndexSig.value) return;
 
     const hasScrollbar =
       context.panelRef.value.scrollHeight > context.panelRef.value.clientHeight;
 
-    if (!hasScrollbar) {
-      return;
+    if (!hasScrollbar) return;
+
+    if (debounceTimeoutSig.value !== undefined) {
+      clearTimeout(debounceTimeoutSig.value);
     }
 
-    const observer = new IntersectionObserver(checkVisibility$, {
-      root: context.panelRef.value,
-      threshold: 1.0,
+    debounceTimeoutSig.value = setTimeout(() => {
+      if (props._index !== context.highlightedIndexSig.value) return;
+
+      const observer = new IntersectionObserver(checkVisibility$, {
+        root: context.panelRef.value,
+        threshold: 1.0,
+      });
+
+      cleanup(() => observer?.disconnect());
+
+      if (itemRef.value) {
+        observer.observe(itemRef.value);
+      }
+    }, 100);
+
+    cleanup(() => {
+      if (debounceTimeoutSig.value !== undefined) {
+        clearTimeout(debounceTimeoutSig.value);
+      }
     });
-
-    cleanup(() => observer?.disconnect());
-
-    if (itemRef.value) {
-      observer.observe(itemRef.value);
-    }
   });
 
-  useTask$(async ({ track }) => {
+  useTask$(async function defaultFilter({ track }) {
     track(() => context.inputValueSig.value);
 
     if (isServer || !itemRef.value) return;
 
-    if (context.inputValueSig.value === '' && !context.multiple) {
-      context.selectedValueSetSig.value = new Set<string>();
-    } else {
-      context.isListboxOpenSig.value = true;
-    }
+    const displayValue = context.itemsMapSig.value.get(localIndexSig.value)?.displayValue;
 
     let isVisible;
-    const displayValue = context.itemsMapSig.value.get(props._index ?? -1)?.displayValue;
     if (!displayValue) return;
     if (context.filter) {
       const lowerCaseDisplayValue = displayValue?.toLowerCase();
       const lowerCaseInputValue = context.inputValueSig.value.toLowerCase();
       isVisible = lowerCaseDisplayValue?.includes(lowerCaseInputValue);
-      filterManager$(!!isVisible, itemRef, props._index ?? -1);
+      filterManager$(!!isVisible, itemRef, localIndexSig.value);
     }
   });
 
@@ -167,7 +185,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
       role="option"
       ref={itemRef}
       tabIndex={-1}
-      id={`${context.localId}-${props._index ?? -1}`}
+      id={`${context.localId}-${localIndexSig.value}`}
       aria-selected={isSelectedSig.value}
       aria-disabled={isDisabledSig.value === true ? 'true' : 'false'}
       data-disabled={isDisabledSig.value ? '' : undefined}
@@ -177,7 +195,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
       onFocus$={[handleFocus$, props.onFocus$]}
       aria-labelledby={itemLabelId}
       data-item
-      onClick$={handleClick$}
+      onClick$={[handleClick$, props.onClick$]}
       {...props}
     >
       <Slot />

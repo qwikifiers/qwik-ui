@@ -15,7 +15,7 @@ import { useCombinedRef } from '../../hooks/combined-refs';
 type HComboboxInputProps = PropsOf<'input'>;
 
 export const HComboboxInput = component$(
-  ({ 'bind:value': inputValueSig, ...props }: HComboboxInputProps) => {
+  ({ 'bind:value': givenInputValueSig, ...props }: HComboboxInputProps) => {
     const context = useContext(comboboxContextId);
     const contextRefOpts = { context, givenContextRef: context.inputRef };
     const inputRef = useCombinedRef(props.ref, contextRefOpts);
@@ -25,7 +25,7 @@ export const HComboboxInput = component$(
     const labelId = `${context.localId}-label`;
     const descriptionId = `${context.localId}-description`;
     const errorMessageId = `${context.localId}-error-message`;
-    const initialValueSig = useSignal<string | undefined>();
+    const initialValueSig = useSignal<string | string[] | undefined>();
     const wasEmptyBeforeBackspaceSig = useSignal(false);
     const isInputResetSig = useSignal(false);
 
@@ -53,6 +53,8 @@ export const HComboboxInput = component$(
 
     const handleKeyDown$ = $(async (e: KeyboardEvent) => {
       if (!context.itemsMapSig.value) return;
+
+      context.isKeyboardFocusSig.value = true;
 
       if (e.key === 'Backspace') {
         // check if input was empty before backspace
@@ -107,7 +109,7 @@ export const HComboboxInput = component$(
           if (!context.isListboxOpenSig.value) break;
 
           await selectionManager$(context.highlightedIndexSig.value, 'toggle');
-          if (context.selectedValueSetSig.value.size <= 0) break;
+          if (context.selectedValuesSig.value.length <= 0) break;
 
           if (!context.multiple) {
             context.isListboxOpenSig.value = false;
@@ -142,9 +144,15 @@ export const HComboboxInput = component$(
       context.highlightedIndexSig.value = null;
       isInputResetSig.value = false;
 
+      if (target.value === '' && !context.multiple) {
+        context.selectedValuesSig.value = '';
+      } else {
+        context.isListboxOpenSig.value = true;
+      }
+
       // bind:value on the input
-      if (inputValueSig) {
-        inputValueSig.value = el.value;
+      if (givenInputValueSig) {
+        givenInputValueSig.value = el.value;
         context.inputValueSig.value = el.value;
       }
     });
@@ -153,64 +161,51 @@ export const HComboboxInput = component$(
       if (e.key === 'Backspace') {
         // removeOnBackspace
         if (!context.multiple) return;
-        if (context.selectedValueSetSig.value.size === 0) return;
+        if (context.selectedValuesSig.value.length === 0) return;
         if (!context.removeOnBackspace) return;
 
         if (
           (wasEmptyBeforeBackspaceSig.value || isInputResetSig.value) &&
           context.inputValueSig.value.length === 0
         ) {
-          const selectedValuesArray = [...context.selectedValueSetSig.value];
-          selectedValuesArray.pop(); // Remove the last element
-          context.selectedValueSetSig.value = new Set(selectedValuesArray);
+          const selectedValuesArray = [...context.selectedValuesSig.value];
+          selectedValuesArray.pop();
+
+          context.selectedValuesSig.value = selectedValuesArray;
         }
       }
     });
 
     /** Users may pass an initial value to bind:value on the input, use the value, or bind:value props on the root. */
-    useTask$(function initialState() {
-      const selectedValue =
-        context.selectedValueSetSig.value.size > 0
-          ? context.selectedValueSetSig.value.values().next().value
-          : '';
+    useTask$(function getInitialValues() {
+      const { selectedValuesSig, multiple, itemsMapSig, highlightedIndexSig } = context;
+      const selectedValues = selectedValuesSig.value;
+      const initialValue: string[] = [];
 
-      let initialValue = '';
-      let matchingItemValue = null;
-      let matchingItemIndex = -1;
+      for (const [index, item] of itemsMapSig.value.entries()) {
+        const isSelected = multiple
+          ? Array.isArray(selectedValues) && selectedValues.includes(item.value)
+          : item.value === selectedValues;
 
-      context.itemsMapSig.value.forEach((item, index) => {
-        if (item.value === selectedValue) {
-          initialValue = item.displayValue;
+        if (isSelected) {
+          initialValue.push(item.displayValue);
+          highlightedIndexSig.value = index;
+          // end the loop when we've found our selected value in single mode
+          if (!multiple) break;
         }
-        if (inputValueSig?.value && item.displayValue === inputValueSig.value) {
-          matchingItemValue = item.value;
-          matchingItemIndex = index;
-        }
-      });
-
-      initialValueSig.value = initialValue;
-
-      if (matchingItemValue !== null) {
-        context.selectedValueSetSig.value.add(matchingItemValue);
-        context.highlightedIndexSig.value = matchingItemIndex;
       }
+
+      initialValueSig.value = multiple ? initialValue : initialValue[0] || '';
     });
 
-    const computedInputValueSig = useComputed$(() => {
-      if (initialValueSig.value) {
-        return initialValueSig.value;
-      } else {
-        if (inputValueSig?.value) {
-          return inputValueSig.value;
-        }
-        return '';
-      }
-    });
+    const inputValueSig = useComputed$(
+      () => givenInputValueSig?.value ?? initialValueSig.value ?? '',
+    );
 
     return (
       <input
         role="combobox"
-        value={computedInputValueSig.value}
+        value={inputValueSig.value}
         id={inputId}
         onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
         onKeyUp$={[context.removeOnBackspace ? handleKeyUp$ : undefined, props.onKeyUp$]}

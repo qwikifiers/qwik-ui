@@ -18,14 +18,17 @@ export type ComboboxContext = {
   labelRef: Signal<HTMLDivElement | undefined>;
   controlRef: Signal<HTMLDivElement | undefined>;
   selectedValueSetSig: Signal<Set<string>>;
+  selectedValuesSig: Signal<string | string[]>;
+  filteredIndexSetSig: Signal<Set<number>>;
   highlightedIndexSig: Signal<number | null>;
-  currDisplayValueSig: Signal<string | string[] | undefined>;
+  displayValuesSig: Signal<string | string[] | undefined>;
   isMouseOverPopupSig: Signal<boolean>;
+  isKeyboardFocusSig: Signal<boolean>;
   disabledIndexSetSig: Signal<Set<number>>;
   removeOnBackspace: boolean;
-  hasVisibleItemsSig: Signal<boolean>;
+  isNoItemsSig: Signal<boolean>;
   initialLoadSig: Signal<boolean>;
-  _value: string | undefined;
+  initialValue: string | undefined;
 
   loop: boolean;
   multiple: boolean | undefined;
