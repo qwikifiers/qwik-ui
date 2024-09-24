@@ -19,3 +19,4 @@ export * as Tooltip from './components/tooltip';
 export * as Dropdown from './components/dropdown';
 export * as Combobox from './components/combobox';
 export { Polymorphic } from './components/polymorphic';
+export * as Switch from './components/switch';
