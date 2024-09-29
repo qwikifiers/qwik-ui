@@ -44,13 +44,13 @@ type TMultiValue =
 
 type TStringOrArray =
   | {
-      multiple?: true;
-      onChange$?: QRL<(value: string[]) => void>;
-    }
+    multiple?: true;
+    onChange$?: QRL<(value: string[]) => void>;
+  }
   | {
-      multiple?: false;
-      onChange$?: QRL<(value: string) => void>;
-    };
+    multiple?: false;
+    onChange$?: QRL<(value: string) => void>;
+  };
 
 export type SelectProps<M extends boolean = boolean> = Omit<
   PropsOf<'div'>,
