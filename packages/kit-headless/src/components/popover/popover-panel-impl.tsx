@@ -14,7 +14,6 @@ import {
 import { isServer } from '@builder.io/qwik/build';
 import popoverStyles from './popover.css?inline';
 import { popoverContextId } from './popover-context';
-import { supportShowAnimation, supportClosingAnimation } from './utils';
 import { useCombinedRef } from '../../hooks/combined-refs';
 
 // We don't need a provider, that way we connect all context to the root
@@ -116,11 +115,15 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
         $(async (e) => {
           if (!context.panelRef?.value) return;
 
-          if (e.newState === 'open' && context.panelRef.value) {
-            await supportShowAnimation(context.panelRef.value, isPolyfillSig.value);
+          const popover = context.panelRef.value;
+
+          if (e.newState === 'open') {
+            delete popover.dataset.closed;
+            popover.dataset.open = '';
           }
           if (e.newState === 'closed') {
-            supportClosingAnimation(context.panelRef.value);
+            delete popover.dataset.open;
+            popover.dataset.closed = '';
           }
         }),
         props.onBeforeToggle$,

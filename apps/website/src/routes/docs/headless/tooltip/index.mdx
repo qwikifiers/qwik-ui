@@ -6,6 +6,8 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 <StatusBanner status={statusByComponent.headless.Tooltip} />
 
+import Styles from './examples/styles';
+
 # Tooltip
 
 A text label that appears when a user hovers, focuses, or touches an element.
@@ -115,10 +117,6 @@ Tooltips are useful for displaying contextual information or additional details 
 
 Use the `data-open` and `data-closed` attributes on the `<Tooltip.Panel>` component to specifically style the tooltip when it's open.
 
-### Cross-browser Animations
-
-> Animations are not currently available in the Tooltip component. We are working on a solution to provide a more seamless experience. In the meantime, you can still use transitions.
-
 ## Tooltip Behavior
 
 Tooltips show when hovering over or focusing on the trigger element and dismiss when moving the mouse away or losing focus.
@@ -165,17 +163,31 @@ If Tailwind is the framework of choice, then styles can be added using the [arbi
 
 > The arbitrary variant can be customized/abstracted even further by [adding a variant](https://tailwindcss.com/docs/plugins#adding-variants) as a plugin in the tailwind config.
 
+## Animations
+
+Tooltips rely on animations and transitions to provide smooth entry and exit effects. Like the Popover, tooltips benefit from modern CSS capabilities that allow animating between display: none and display: block. This ensures the tooltip remains visible for the entire duration of the animation.
+
+<BrowserAnimationCompatability />
+
+### Keyframe Animation Example
+
+<Showcase name="animation" />
+
+Keyframes are used for complex entry and exit animations. In this case:
+
+`tooltip-grow` animates the tooltip to grow from scale 0 to scale 1 when it opens.
+
+`tooltip-shrink` animates the tooltip to shrink from scale 1 to scale 0 when it closes, eventually setting `display: none`.
+
 ### Transition declarations
 
-Transitions use the same classes for entry and exit animations. Those being `data-open` and `data-closed`. They are explained more in the `Caveats` section.
+Transitions are ideal for animating properties like opacity and scale for smoother interactions:
 
 <Showcase name="transition" />
 
-> The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) is another native solution that aims to solve animating between states. Support is currently in around **~71%** of browsers.
+Here, transitions handle smooth opacity and scale changes. The `transition-behavior: allow-discrete` ensures that `display` and `overlay` animate properly.
 
-CSS from the example:
-
-<CodeSnippet name="transition.css" />
+<ImportantAnimationCaveats />
 
 ## Events
 
@@ -220,7 +232,7 @@ To read more about tooltips you can check it out on:
       description: 'The space between the trigger element and the tooltip.',
     },
     {
-      name: 'data-closing"',
+      name: 'data-closing',
       type: 'selector',
       description: 'Style the element when the tooltip is closing. This occurs when the popover has a delay set.',
     },

@@ -39,7 +39,7 @@
     "test.utils": "nx test utils"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm format.staged"
+    "pre-commit": "pnpm format.staged && pnpm lint"
   },
   "packageManager": "pnpm@9.7.0",
   "devDependencies": {
