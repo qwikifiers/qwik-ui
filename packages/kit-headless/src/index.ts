@@ -13,7 +13,7 @@ export * as Progress from './components/progress';
 export * from './components/separator';
 export * as Tabs from './components/tabs';
 export { Toggle } from './components/toggle';
-export { ToggleGroup } from './components/toggle-group';
+export * as ToggleGroup from './components/toggle-group';
 export * from './utils/visually-hidden';
 export * as Tooltip from './components/tooltip';
 export * as Dropdown from './components/dropdown';

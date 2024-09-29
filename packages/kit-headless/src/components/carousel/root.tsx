@@ -13,7 +13,7 @@ import { CarouselContext, carouselContextId } from './context';
 import { useBoundSignal } from '../../utils/bound-signal';
 import { useAutoplay } from './use-carousel';
 
-export type CarouselRootProps = PropsOf<'div'> & {
+export type PublicCarouselRootProps = PropsOf<'div'> & {
   /** The gap between slides */
   gap?: number;
 
@@ -72,7 +72,7 @@ export type CarouselRootProps = PropsOf<'div'> & {
   maxSlideHeight?: number;
 };
 
-export const CarouselBase = component$((props: CarouselRootProps) => {
+export const CarouselBase = component$((props: PublicCarouselRootProps) => {
   const {
     align,
     'bind:currSlideIndex': givenOldSlideIndexSig,

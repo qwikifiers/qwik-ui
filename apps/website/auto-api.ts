@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import { resolve } from 'path';
-import { inspect } from 'util';
 import { ViteDevServer } from 'vite';
 export default function autoAPI() {
   return {

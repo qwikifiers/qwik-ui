@@ -1,6 +1,5 @@
 import { JSXOutput, component$, $, QRL, useTask$, useSignal } from '@builder.io/qwik';
 import { APITable, type APITableProps } from './api-table';
-import { packages } from '../install-snippet/install-snippet';
 
 //This is a workaround for not being able to export across packages due to nx rule:
 // https://nx.dev/features/enforce-module-boundaries#enforce-module-boundaries
@@ -32,7 +31,7 @@ type ParsedCommentsProps = {
   parsedProps: PublicType;
   config: AutoAPIConfig;
 };
-const currentHeader = $((_: string) => {
+const currentHeader = $(() => {
   //cannot send h2 from here because current TOC can only read md
   return null;
 });
@@ -75,8 +74,8 @@ export const AutoAPI = component$<AnatomyTableProps>(
     return (
       <>
         {topHeaderSig.value}
-        {subComponents.map((e) => (
-          <SubComponent subComponent={e} config={config} />
+        {subComponents.map((e, index) => (
+          <SubComponent key={index} subComponent={e} config={config} />
         ))}
       </>
     );
@@ -109,10 +108,15 @@ const ParsedComments = component$<ParsedCommentsProps>(({ parsedProps, config })
   useTask$(async () => {
     const translation: APITableProps = {
       propDescriptors: parsedProps[key].map((e) => {
+        const isObject = e.type.includes('{');
+        const isUnion = e.type.includes('|');
+        const isPopup = isObject || isUnion;
+
         return {
           name: e.prop,
-          type: e.type,
+          type: isObject ? 'object' : isUnion ? 'union' : e.type,
           description: e.comment,
+          info: (isPopup && e.type) || undefined,
         };
       }),
     };
