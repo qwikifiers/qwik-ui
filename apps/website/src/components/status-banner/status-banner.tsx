@@ -77,7 +77,7 @@ export const StatusBanner = component$(({ status }: StatusBannerProps) => {
     <>
       <div
         ref={ref}
-        hidden={isBannerClosedSig.value}
+        hidden={isBannerClosedSig.value || !status}
         onAnimationEnd$={() => (isBannerClosedSig.value = true)}
         class={cn(
           getBackgroundByStatus(status),
