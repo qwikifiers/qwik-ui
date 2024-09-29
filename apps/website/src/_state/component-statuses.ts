@@ -45,7 +45,6 @@ export const statusByComponent: ComponentKitsStatuses = {
     Pagination: ComponentStatus.Draft,
     Progress: ComponentStatus.Beta,
     Select: ComponentStatus.Beta,
-    Separator: ComponentStatus.Beta,
     Tabs: ComponentStatus.Beta,
     Toggle: ComponentStatus.Beta,
     'Toggle Group': ComponentStatus.Beta,
