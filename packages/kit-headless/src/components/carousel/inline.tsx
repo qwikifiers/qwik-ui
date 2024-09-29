@@ -1,5 +1,5 @@
 import { Component } from '@builder.io/qwik';
-import { CarouselBase, CarouselRootProps } from './root';
+import { CarouselBase, PublicCarouselRootProps } from './root';
 import { Carousel } from '@qwik-ui/headless';
 import { findComponent, processChildren } from '../../utils/inline-component';
 
@@ -20,8 +20,8 @@ type InternalProps = {
   titleComponent?: typeof Carousel.Title;
 };
 
-export const CarouselRoot: Component<CarouselRootProps & InternalProps> = (
-  props: CarouselRootProps & InternalProps,
+export const CarouselRoot: Component<PublicCarouselRootProps & InternalProps> = (
+  props: PublicCarouselRootProps & InternalProps,
 ) => {
   const {
     children,
