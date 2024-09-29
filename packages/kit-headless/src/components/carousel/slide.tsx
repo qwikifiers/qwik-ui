@@ -7,6 +7,7 @@ import {
   useSignal,
   useComputed$,
   $,
+  Signal,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 
@@ -16,7 +17,9 @@ export type CarouselSlideProps = PropsOf<'div'> & {
 
 export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProps) => {
   const context = useContext(carouselContextId);
-  const slideRef = useSignal<HTMLDivElement | undefined>();
+  const internalSlideRef = useSignal<HTMLDivElement | undefined>();
+  const slideRef = (props.ref as Signal<HTMLDivElement>) ?? internalSlideRef;
+
   const slideId = `${context.localId}-${_index ?? -1}`;
   const isVisibleSig = useComputed$(() => {
     const start = context.currentIndexSig.value;

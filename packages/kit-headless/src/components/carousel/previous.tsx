@@ -6,6 +6,7 @@ import {
   useSignal,
   $,
   useComputed$,
+  Signal,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useCarousel } from './use-carousel';
@@ -13,6 +14,10 @@ import { useCarousel } from './use-carousel';
 export const CarouselPrevious = component$((props: PropsOf<'button'>) => {
   const context = useContext(carouselContextId);
   const isKeyboardFocusSig = useSignal(false);
+
+  if (props.ref) {
+    context.prevButtonRef = props.ref as Signal<HTMLButtonElement>;
+  }
 
   const { validIndexesSig } = useCarousel(context);
 

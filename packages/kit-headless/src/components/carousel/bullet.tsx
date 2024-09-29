@@ -8,6 +8,7 @@ import {
   useSignal,
   sync$,
   useComputed$,
+  Signal,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useCarousel } from './use-carousel';
@@ -18,7 +19,8 @@ type BulletProps = PropsOf<'button'> & {
 
 export const CarouselBullet = component$(({ _index, ...props }: BulletProps) => {
   const context = useContext(carouselContextId);
-  const bulletRef = useSignal<HTMLButtonElement>();
+  const internalBulletRef = useSignal<HTMLButtonElement>();
+  const bulletRef = (props.ref as Signal<HTMLButtonElement>) ?? internalBulletRef;
   const slideId = `${context.localId}-${_index ?? -1}`;
   const isRenderedSig = useSignal(true);
 

@@ -7,12 +7,18 @@ import {
   useSignal,
   $,
   useComputed$,
+  Signal,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useCarousel } from './use-carousel';
 
 export const CarouselNext = component$((props: PropsOf<'button'>) => {
   const context = useContext(carouselContextId);
+
+  if (props.ref) {
+    context.nextButtonRef = props.ref as Signal<HTMLButtonElement>;
+  }
+
   const isLastSlideInViewSig = useSignal(false);
   const initialLoadSig = useSignal(true);
   const isKeyboardFocusSig = useSignal(false);
