@@ -147,5 +147,9 @@
   "volta": {
     "node": "20.9.0",
     "pnpm": "9.7.0"
+  },
+  "dependencies": {
+    "tree-sitter": "0.21.1",
+    "tree-sitter-typescript": "0.23.0"
   }
 }

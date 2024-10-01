@@ -1,6 +1,41 @@
 import * as fs from 'fs';
 import { resolve } from 'path';
 import { ViteDevServer } from 'vite';
+import { default as Parser, Query } from 'tree-sitter';
+import { default as TS } from 'tree-sitter-typescript';
+import { inspect } from 'util';
+const parser = new Parser();
+const query = new Query(
+  TS.tsx,
+  `
+declaration: (type_alias_declaration
+  name: (type_identifier) @text
+    (intersection_type
+    (object_type
+
+      (comment) @commnet
+      .
+      (property_signature
+          name: (_) @prop
+          type: (type_annotation (_) @type)
+      )
+    )
+  )
+)
+`,
+);
+//const query = new Query(
+//  TS.tsx,
+//  `
+//(type_alias_declaration
+//    name: (type_identifier) @text
+//(intersection_type
+//(object_type) @test
+//) @hi
+//)
+//`,
+//);
+parser.setLanguage(TS.tsx);
 export default function autoAPI() {
   return {
     name: 'watch-monorepo-changes',
@@ -35,6 +70,23 @@ function parseSingleComponentFromDir(path: string, ref: SubComponents) {
     return;
   }
   const sourceCode = fs.readFileSync(path, 'utf-8');
+  const tree = parser.parse(sourceCode);
+  const matches = query.matches(tree.rootNode);
+  let count = 1;
+  console.log(matches);
+
+  matches.forEach((match) => {
+    match.captures.forEach((lol) => console.log(lol.node.text));
+    console.log(match, count);
+    count++;
+    //console.log(match.setProperties);
+    //console.log(match.refutedProperties);
+    //console.log(match.assertedProperties);
+    //console.log(match.text);
+    //console.log(match.node);
+    //console.log(match.name);
+  });
+
   const comments = extractPublicTypes(sourceCode);
   const parsed: PublicType[] = [];
   for (const comment of comments) {
