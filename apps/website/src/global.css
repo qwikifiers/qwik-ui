@@ -1225,7 +1225,7 @@
   }
 
   p code {
-    @apply rounded-sm border-b-2 bg-accent/50 px-2 py-0.5;
+    @apply rounded-sm border-b-2 bg-accent px-2 py-0.5;
   }
 
   pre code {
