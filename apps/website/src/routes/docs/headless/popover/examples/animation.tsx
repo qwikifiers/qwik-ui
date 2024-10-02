@@ -1,6 +1,40 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Popover } from '@qwik-ui/headless';
+
 export default component$(() => {
+  useStyles$(`
+  .popover-animation {
+    animation: popover-shrink 0.4s ease-in-out forwards;
+  }
+
+  /* For exit animation */
+  .popover-animation:popover-open {
+    animation: popover-grow 0.5s ease-in-out forwards;
+  }
+
+  @keyframes popover-shrink {
+    from {
+      transform: scale(1);
+      display: block;
+    }
+
+    to {
+      transform: scale(0);
+      display: none;
+    }
+  }
+
+  @keyframes popover-grow {
+    from {
+      transform: scale(0);
+    }
+
+    to {
+      transform: scale(1);
+    }
+  }
+  `);
+
   return (
     <Popover.Root>
       <Popover.Trigger class="popover-trigger">Popover Trigger</Popover.Trigger>

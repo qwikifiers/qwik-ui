@@ -3,10 +3,10 @@ title: Qwik UI | Popover
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
+import Styles from './examples/styles';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
 
-import Styles from './examples/styles';
 
 # Popover
 
@@ -137,41 +137,6 @@ It can help prevent overflow issues within your UI, and make sure your content i
 ```
 
 Use the `data-open` attribute on the `<Popover.Panel>` component to specifically style the popup when it's open on all browsers.
-
-### Cross-browser Animations
-
-Entry and exit animations have often been a frustrating experience in web development. Especially trying to animate between `display: none`, a discrete property.
-
-Until recently, discrete properties were not animatable. Luckily, there's [new properties to CSS](https://developer.chrome.com/blog/entry-exit-animations) that solve this problem.
-
-The browser support for these is similar to support of the popover API. That said, the Qwik UI team has done an awesome job of managing animations on polyfill browsers for you using the `data-open` and `data-closing` attributes.
-
-```css
-.my-transition {
-  transition:
-    opacity 0.5s,
-    display 0.5s,
-    overlay 0.5s;
-
-  /* on new-line so the declaration is valid in all browsers */
-  transition-behavior: allow-discrete;
-
-  /* starting style for all browsers */
-  opacity: 0;
-}
-
-.my-transition[data-open] {
-  opacity: 1;
-}
-
-.my-transition[data-closing] {
-  opacity: 0;
-}
-```
-
-Above is an example of a transition that works across browsers. The `allow-discrete` property allows us to transition both display and overlay. Overlay is a property that allows us to transition top-layer behavior.
-
-> In the rare case of a browser supporting the popover API, but not the overlay property, the element functionality is the same but does not transition.
 
 ## Popover modes
 
@@ -332,80 +297,32 @@ We put it under an `@layer` so that it can be easily overridden when adding your
 
 ## Animations
 
+Popovers present unique challenges for animations due to their reliance on the `display` property, which traditionally hasn't been animatable. Modern browsers solve this problem with discrete animations, which allow smooth transitions between `display: none` and `display: block`. This ensures that popovers remain visible for the entire duration of the animation.
+
+There are two main types of animations that can be applied to popovers in Qwik UI:
+
+- **Keyframe Animations**: For more complex entry and exit animations, such as growing or shrinking effects.
+- **CSS Transitions**: For smoother, incremental property changes like opacity and scaling.
+
+To handle animations across all browsers, Qwik UI uses both keyframes and transitions, leveraging the native `:popover-open` pseudo-class and ensuring smooth state transitions with `transition-behavior: allow-discrete`.
+
+<BrowserAnimationsCompatability />
+
+### Keyframe Animation Example
+
+Keyframes are ideal for handling the entry and exit of the popover. Below is an example using `popover-grow` for opening and `popover-shrink` for closing the popover:
+
 <Showcase name="animation" />
-
-To use an animation, add the following CSS classes to the component.
-
-- The `data-open` attribute determines the animation that happens when it is first opened.
-
-- The `data-closing` class determines what class is added when the listbox is **closed**.
-
-Here's the CSS imported from the example:
-
-```css
-.popover-animation {
-  transform: scale(0);
-}
-
-.popover-animation[data-open] {
-  animation: popover-grow 0.5s ease-in-out forwards;
-}
-
-.popover-animation[data-closing] {
-  animation: popover-shrink 0.4s ease-in-out forwards;
-}
-
-@keyframes popover-shrink {
-  from {
-    transform: scale(1);
-  }
-
-  to {
-    transform: scale(0);
-  }
-}
-
-@keyframes popover-grow {
-  from {
-    transform: scale(0);
-  }
-
-  to {
-    transform: scale(1);
-  }
-}
-```
-
-> These classes also apply to transition declarations as well. Below is an example of that use case.
 
 ### Transition declarations
 
-Transitions use the same classes for entry and exit animations. Those being `data-open` and `data-closing`. They are explained more in the `Caveats` section.
+CSS transitions are useful for animating properties like opacity and scale over time. Discrete properties like display and overlay can be handled using transition-behavior: allow-discrete.
 
 <Showcase name="transition" />
 
-> The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) is another native solution that aims to solve animating between states. Support is currently in around **~71%** of browsers.
+<TopLayerAnimationsCaveats />
 
-CSS from the example:
-
-```css
-.popover-transition {
-  opacity: 0;
-  transition:
-    opacity 0.5s,
-    display 0.5s,
-    overlay 0.5s;
-  transition-behavior: allow-discrete;
-}
-
-.popover-transition[data-open] {
-  opacity: 1;
-}
-
-.popover-transition[data-closing] {
-  opacity: 0;
-}
-```
+By using keyframe animations and CSS transitions together, we can achieve smooth entry and exit effects for popovers. Keyframes like `popover-grow` and `popover-shrink` handle scaling and visibility, while transitions focus on gradual changes to properties like `opacity`. Remember to include `display` and `overlay` in your transition properties and use `transition-behavior: allow-discrete` to ensure smooth animations across all browsers.
 
 ## Additional References
 
@@ -464,19 +381,9 @@ To read more about the popover API you can check it out on:
       description: 'Style the element when the popover is open.',
     },
     {
-      name: 'data-closing',
-      type: 'selector',
-      description: 'Style the element when the popover is closing.',
-    },
-    {
       name: 'data-closed',
       type: 'selector',
       description: 'Style the element when the popover is closed.',
-    },
-    {
-      name: 'data-closing',
-      type: 'class',
-      description: 'Class to animate exit behavior.',
     },
   ]}
 />
