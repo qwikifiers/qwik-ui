@@ -11,8 +11,8 @@ import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard
 import { Note } from '../note/note';
 import { Showcase } from '../showcase/showcase';
 import { StatusBanner } from '../status-banner/status-banner';
-import { ImportantAnimationCaveats } from '../animations/caveats';
-import { BrowserAnimationCompatability } from '../animations/compatability';
+import { TopLayerAnimationsCaveats } from '../animations/caveats';
+import { BrowserAnimationsCompatability } from '../animations/compatability';
 
 export const components: Record<string, Component> = {
   p: component$<PropsOf<'p'>>(({ ...props }) => {
@@ -136,6 +136,6 @@ export const components: Record<string, Component> = {
   StatusBanner,
   Showcase,
   AutoAPI,
-  ImportantAnimationCaveats,
-  BrowserAnimationCompatability,
+  TopLayerAnimationsCaveats,
+  BrowserAnimationsCompatability,
 };

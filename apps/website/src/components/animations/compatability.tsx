@@ -2,7 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import { Note, NoteStatus } from '../note/note'; // Adjust the import path based on your structure
 import { Badge } from '~/components/ui';
 
-export const BrowserAnimationCompatability = component$(() => {
+export const BrowserAnimationsCompatability = component$(() => {
   return (
     <Note status={NoteStatus.Info}>
       <div class="flex flex-col gap-2">

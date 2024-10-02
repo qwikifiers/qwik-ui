@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { Note, NoteStatus } from '../note/note'; // Adjust the import path based on your structure
 
-export const ImportantAnimationCaveats = component$(() => {
+export const TopLayerAnimationsCaveats = component$(() => {
   return (
     <Note status={NoteStatus.Warning}>
       <strong>Important Caveats for Animating Discrete Properties</strong>
