@@ -3,10 +3,10 @@ title: Qwik UI | Popover
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
+import Styles from './examples/styles';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
 
-import Styles from './examples/styles';
 
 # Popover
 
@@ -306,7 +306,7 @@ There are two main types of animations that can be applied to popovers in Qwik U
 
 To handle animations across all browsers, Qwik UI uses both keyframes and transitions, leveraging the native `:popover-open` pseudo-class and ensuring smooth state transitions with `transition-behavior: allow-discrete`.
 
-<BrowserAnimationCompatability />
+<BrowserAnimationsCompatability />
 
 ### Keyframe Animation Example
 
@@ -320,7 +320,7 @@ CSS transitions are useful for animating properties like opacity and scale over 
 
 <Showcase name="transition" />
 
-<ImportantAnimationCaveats />
+<TopLayerAnimationsCaveats />
 
 By using keyframe animations and CSS transitions together, we can achieve smooth entry and exit effects for popovers. Keyframes like `popover-grow` and `popover-shrink` handle scaling and visibility, while transitions focus on gradual changes to properties like `opacity`. Remember to include `display` and `overlay` in your transition properties and use `transition-behavior: allow-discrete` to ensure smooth animations across all browsers.
 
