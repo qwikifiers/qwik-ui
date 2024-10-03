@@ -80,7 +80,6 @@
     "@typescript-eslint/parser": "7.9.0",
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
-    "all-contributors-cli": "^6.26.1",
     "ansis": "3.2.0",
     "autoprefixer": "^10.4.19",
     "axe-core": "^4.9.1",
