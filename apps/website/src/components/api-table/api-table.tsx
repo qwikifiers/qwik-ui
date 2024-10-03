@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik';
-import { InfoPopup } from '../info-popup/info-popup';
 export type APITableProps = {
   propDescriptors: {
     name: string;
@@ -34,7 +33,7 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
                     <code class="rounded-base border border-b-2 px-2">
                       {propDescriptor.type}
                     </code>
-                    {propDescriptor.info && <InfoPopup info={propDescriptor.info} />}
+                    {/* {propDescriptor.info && <InfoPopup info={propDescriptor.info} />} */}
                   </div>
                 </td>
                 <td class="py-3 align-baseline">
