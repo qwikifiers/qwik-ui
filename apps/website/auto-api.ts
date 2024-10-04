@@ -3,8 +3,19 @@ import { resolve } from 'path';
 import { ViteDevServer } from 'vite';
 import { default as Parser, Query } from 'tree-sitter';
 import { default as TS } from 'tree-sitter-typescript';
-import { inspect } from 'util';
 const parser = new Parser();
+
+/**
+ WHOM IT MAY CONCERN:
+if by some reason you need to refactor the query below and don't know where to starts, below are what I consider to be the must-know parts.
+
+ 1) Tree-Sitter query docs: https://tree-sitter.github.io/tree-sitter/using-parsers#query-syntax
+ 1b) Put particular attention to the capturing nodes, wildcard nodes, and anchor sections!!!
+
+2) Have a way of being able to see the tree-sitter AST in realtime. The ideal setup comes included in Neovim. In ex mode, simply run
+the command below and you'll have the file's AST viewer open in realtime: InspectTree
+**/
+
 const query = new Query(
   TS.tsx,
   `
@@ -39,9 +50,9 @@ export default function autoAPI() {
   };
 }
 // the object should have this general structure, arranged from parent to child
-// componentName:[subComponent,subcomponent,...]
-// subComponentName:[publicType,publicType,...]
-// publicType:[{ comment,prop,type },{ comment,prop,type },...]
+// componentName:[subComponent,subcomponent,...] & componentName comes from the dir
+// subComponentName/type alias:[publicType,publicType,...] & subcomponent comes from the file under dir
+// publicType:[{ comment,prop,type },{ comment,prop,type },...] & publicType comes from type inside file
 // THEY UPPER-MOST KEY IS ALWAYS USED AS A HEADING
 export type ComponentParts = Record<string, SubComponents>;
 type SubComponents = SubComponent[];
