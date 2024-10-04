@@ -9,11 +9,11 @@ const query = new Query(
   TS.tsx,
   `
 declaration: (type_alias_declaration
-  name: (type_identifier) @text
+  name: (type_identifier) @subComponentName
     (intersection_type
     (object_type
 
-      (comment) @commnet
+      (comment) @comment
       .
       (property_signature
           name: (_) @prop
@@ -24,17 +24,6 @@ declaration: (type_alias_declaration
 )
 `,
 );
-//const query = new Query(
-//  TS.tsx,
-//  `
-//(type_alias_declaration
-//    name: (type_identifier) @text
-//(intersection_type
-//(object_type) @test
-//) @hi
-//)
-//`,
-//);
 parser.setLanguage(TS.tsx);
 export default function autoAPI() {
   return {
@@ -73,11 +62,23 @@ function parseSingleComponentFromDir(path: string, ref: SubComponents) {
   const tree = parser.parse(sourceCode);
   const matches = query.matches(tree.rootNode);
   let count = 1;
-  console.log(matches);
-
   matches.forEach((match) => {
-    match.captures.forEach((lol) => console.log(lol.node.text));
-    console.log(match, count);
+    const magic: ParsedProps = { comment: '', prop: '', type: '' };
+    match.captures.forEach((lol) => {
+      if (lol.name === 'comment') {
+        magic.comment = lol.node.text;
+      }
+
+      if (lol.name === 'prop') {
+        magic.prop = lol.node.text;
+      }
+
+      if (lol.name === 'type') {
+        magic.type = lol.node.text;
+      }
+    });
+    console.log(magic);
+
     count++;
     //console.log(match.setProperties);
     //console.log(match.refutedProperties);
