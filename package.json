@@ -39,7 +39,7 @@
     "test.utils": "nx test utils"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm format.staged"
+    "pre-commit": "pnpm format.staged && pnpm lint"
   },
   "packageManager": "pnpm@9.7.0",
   "devDependencies": {
@@ -69,7 +69,6 @@
     "@oddbird/popover-polyfill": "0.4.3",
     "@playwright/test": "^1.44.1",
     "@qwikest/icons": "^0.0.13",
-    "@shikijs/transformers": "^1.11.0",
     "@swc-node/register": "^1.9.1",
     "@swc/core": "^1.5.7",
     "@types/decompress": "4.2.7",
@@ -114,7 +113,7 @@
     "qwik-themes": "^0.2.0",
     "rehype-pretty-code": "^0.13.2",
     "sass": "^1.77.2",
-    "shiki": "1.11.0",
+    "shiki": "^1.21.0",
     "simple-git-hooks": "2.11.1",
     "specificity": "^1.0.0",
     "tailwind-merge": "^2.3.0",

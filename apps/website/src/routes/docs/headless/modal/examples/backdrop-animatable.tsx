@@ -3,33 +3,23 @@ import { Modal, Label } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(`
-    .modal-transition {
-      opacity: 0;
-      transform: scale(0.9);
-      transition:
-        opacity 0.35s ease-in-out,
-        transform 0.35s ease-in-out,
-        display 0.35s,
-        overlay 0.35s;
-      transition-behavior: allow-discrete;
+    .modal-animation[open]::backdrop {
+      animation: backdropFadeIn 0.75s ease-in-out forwards;
     }
 
-    .modal-transition:popover-open {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    @starting-style {
-      .modal-transition:popover-open {
-        opacity: 0;
-        transform: scale(0.9);
+    @keyframes backdropFadeIn {
+      from {
+        background-color: rgba(0, 0, 0, 0);
+      }
+      to {
+        background-color: rgba(0, 0, 0, 0.65);
       }
     }`);
 
   return (
     <Modal.Root>
       <Modal.Trigger class="modal-trigger">Open Modal</Modal.Trigger>
-      <Modal.Panel class="modal-panel modal-transition">
+      <Modal.Panel class="modal-panel modal-animation">
         <Modal.Title>Edit Profile</Modal.Title>
         <Modal.Description>
           You can update your profile here. Hit the save button when finished.
