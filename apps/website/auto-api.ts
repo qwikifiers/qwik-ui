@@ -6,11 +6,12 @@ import { default as TS } from 'tree-sitter-typescript';
 const parser = new Parser();
 
 /**
- WHOM IT MAY CONCERN:
+TO WHOM IT MAY CONCERN:
+
 if by some reason you need to refactor the query below and don't know where to starts, below are what I consider to be the must-know parts.
 
- 1) Tree-Sitter query docs: https://tree-sitter.github.io/tree-sitter/using-parsers#query-syntax
- 1b) Put particular attention to the capturing nodes, wildcard nodes, and anchor sections!!!
+1) Tree-Sitter query docs: https://tree-sitter.github.io/tree-sitter/using-parsers#query-syntax
+1b) Put particular attention to the following sections: capturing nodes, wildcard nodes, and anchors
 
 2) Have a way of being able to see the tree-sitter AST in realtime. The ideal setup comes included in Neovim. In ex mode, simply run
 the command below and you'll have the file's AST viewer open in realtime: InspectTree
@@ -18,8 +19,7 @@ the command below and you'll have the file's AST viewer open in realtime: Inspec
 
 const query = new Query(
   TS.tsx,
-  `
-declaration: (type_alias_declaration
+  `declaration: (type_alias_declaration
   name: (type_identifier) @subComponentName
     (intersection_type
     (object_type
@@ -63,7 +63,10 @@ type ParsedProps = {
   prop: string;
   type: string;
 };
-function parseSingleComponentFromDir(path: string, ref: SubComponents) {
+function parseSingleComponentFromDir(
+  path: string,
+  ref: SubComponents,
+): SubComponents | undefined {
   const component_name = /\/([\w-]*).tsx/.exec(path);
   if (component_name === null || component_name[1] === null) {
     // may need better behavior
@@ -71,72 +74,44 @@ function parseSingleComponentFromDir(path: string, ref: SubComponents) {
   }
   const sourceCode = fs.readFileSync(path, 'utf-8');
   const tree = parser.parse(sourceCode);
+  const parsed: PublicType[] = [];
+  function topKey(obj: { [x: string]: any } | undefined) {
+    return obj ? Object.keys(obj)[0] : '';
+  }
   const matches = query.matches(tree.rootNode);
-  let count = 1;
   matches.forEach((match) => {
-    const magic: ParsedProps = { comment: '', prop: '', type: '' };
+    const last: PublicType = parsed[parsed.length - 1];
+    let subComponentName = '';
+    const parsedProps: ParsedProps = { comment: '', prop: '', type: '' };
     match.captures.forEach((lol) => {
+      //statetements are ordered as they appear in array
+      if (lol.name === 'subComponentName' && subComponentName != lol.node.text) {
+        subComponentName = lol.node.text;
+      }
       if (lol.name === 'comment') {
-        magic.comment = lol.node.text;
+        parsedProps.comment = lol.node.text;
       }
 
       if (lol.name === 'prop') {
-        magic.prop = lol.node.text;
+        parsedProps.prop = lol.node.text;
       }
 
       if (lol.name === 'type') {
-        magic.type = lol.node.text;
+        parsedProps.type = lol.node.text;
+        if (subComponentName === topKey(last)) {
+          last[topKey(last)].push(parsedProps);
+        } else {
+          parsed.push({ [subComponentName]: [parsedProps] });
+        }
       }
     });
-    console.log(magic);
-
-    count++;
-    //console.log(match.setProperties);
-    //console.log(match.refutedProperties);
-    //console.log(match.assertedProperties);
-    //console.log(match.text);
-    //console.log(match.node);
-    //console.log(match.name);
   });
 
-  const comments = extractPublicTypes(sourceCode);
-  const parsed: PublicType[] = [];
-  for (const comment of comments) {
-    const api = extractComments(comment.string);
-    const pair: PublicType = { [comment.label]: api };
-    parsed.push(pair);
-  }
   const completeSubComponent: SubComponent = { [component_name[1]]: parsed };
   ref.push(completeSubComponent);
   return ref;
 }
 
-function extractPublicTypes(strg: string) {
-  const getPublicTypes = /type Public([A-Z][\w]*)*[\w\W]*?{([\w|\W]*?)}(;| &)/gm;
-  const cms = [];
-  let groups;
-  while ((groups = getPublicTypes.exec(strg)) !== null) {
-    const string = groups[2];
-    cms.push({ label: groups[1], string });
-  }
-  return cms;
-}
-function extractComments(strg: string): ParsedProps[] {
-  const magical_regex =
-    /^\s*?\/[*]{2}\n?([\w|\W|]*?)\s*[*]{1,2}[/]\n[ ]*([\w|\W]*?): ([\w|\W]*?);?$/gm;
-
-  const cms = [];
-  let groups;
-
-  while ((groups = magical_regex.exec(strg)) !== null) {
-    const trimStart = /^ *|(\* *)/g;
-    const comment = groups[1].replaceAll(trimStart, '');
-    const prop = groups[2];
-    const type = groups[3];
-    cms.push({ comment, prop, type });
-  }
-  return cms;
-}
 function writeToDocs(fullPath: string, componentName: string, api: ComponentParts) {
   if (fullPath.includes('kit-headless')) {
     const relDocPath = `../website/src/routes//docs/headless/${componentName}`;
