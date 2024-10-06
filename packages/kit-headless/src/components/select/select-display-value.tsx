@@ -20,7 +20,7 @@ export const HSelectDisplayValue = component$((props: SelectValueProps) => {
   const context = useContext(SelectContextId);
   const valueId = `${context.localId}-value`;
 
-  const displayStrSig = useComputed$(async () => {
+  const displayStrSig = useComputed$(() => {
     if (context.multiple) {
       // for more customization when multiple is true
       return <Slot />;

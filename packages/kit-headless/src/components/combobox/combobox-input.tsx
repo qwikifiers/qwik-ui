@@ -36,7 +36,7 @@ export const HComboboxInput = component$(
       getActiveDescendant$,
     } = useCombobox();
 
-    const activeDescendantSig = useComputed$(async () => {
+    const activeDescendantSig = useComputed$(() => {
       if (context.isListboxOpenSig.value) {
         return getActiveDescendant$(context.highlightedIndexSig.value ?? -1);
       } else {

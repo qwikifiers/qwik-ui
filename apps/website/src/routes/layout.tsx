@@ -10,7 +10,6 @@ import {
 import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
-import Header from '~/components/header/header';
 
 export default component$(() => {
   const { headings } = useContent();
@@ -18,7 +17,7 @@ export default component$(() => {
 
   return (
     <>
-      <Header showBottomBorder={true} showVersion={true} />
+      {/* <Header showBottomBorder={true} showVersion={true} /> */}
       <div class="flex justify-center">
         <div class="flex w-full max-w-screen-2xl justify-center lg:justify-around xl:justify-between 2xl:space-x-16">
           <DocsNavigation
