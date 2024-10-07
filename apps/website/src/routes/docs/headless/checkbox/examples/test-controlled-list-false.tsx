@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import { Checkbox, Checklist } from '@qwik-ui/headless';
 // TODO: add logic to handle user passed sigs with trues
 // this test basically ensures that the sig passed to the checklist controlls trumps all its children
@@ -7,10 +7,10 @@ export default component$(() => {
   return (
     <>
       <h3 id="test123">Pick a cat</h3>
-      <Checklist.Root class="flex flex-col gap-3" ariaLabeledBy="test123">
+      <Checklist.Root initialStates={[false, false, false]}>
         <Checkbox.Root
           class="flex items-center gap-3 bg-slate-900  text-white"
-          checklist={true}
+          // checklist={true}
           bind:checked={checklistSig}
           id="checklist"
         >

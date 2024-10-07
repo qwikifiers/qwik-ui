@@ -1,9 +1,30 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal, Label } from '@qwik-ui/headless';
-import styles from '../snippets/animation.css?inline';
 
 export default component$(() => {
-  useStyles$(styles);
+  useStyles$(`
+    .modal-transition {
+      opacity: 0;
+      transform: scale(0.9);
+      transition:
+        opacity 0.35s ease-in-out,
+        transform 0.35s ease-in-out,
+        display 0.35s,
+        overlay 0.35s;
+      transition-behavior: allow-discrete;
+    }
+
+    .modal-transition:popover-open {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @starting-style {
+      .modal-transition:popover-open {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+    }`);
 
   return (
     <Modal.Root>

@@ -1,9 +1,37 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal, Label } from '@qwik-ui/headless';
-import styles from '../snippets/animation.css?inline';
 
 export default component$(() => {
-  useStyles$(styles);
+  useStyles$(`
+    .modal-animation {
+      animation: modalClose 0.35s ease-in-out forwards;
+    }
+
+    .modal-animation:popover-open {
+      animation: modalOpen 0.75s ease-in-out forwards;
+    }
+
+    @keyframes modalOpen {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes modalClose {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+    }`);
 
   return (
     <Modal.Root>

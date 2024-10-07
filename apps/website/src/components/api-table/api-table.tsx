@@ -1,9 +1,9 @@
 import { component$ } from '@builder.io/qwik';
 import { InfoPopup } from '../info-popup/info-popup';
-type APITableProps = {
+export type APITableProps = {
   propDescriptors: {
     name: string;
-    info: string;
+    info?: string;
     type: string;
     description: string;
   }[];

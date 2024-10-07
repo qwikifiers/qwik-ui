@@ -4,6 +4,10 @@ import { FeatureList } from '~/components/feature-list/feature-list';
 
 import { Note } from '~/components/note/note';
 
+import { AutoAPI } from '~/components/api-table/auto-api';
+
+import { api } from './auto-api/api';
+
 <StatusBanner status={statusByComponent.headless.Carousel} />
 
 # Carousel
@@ -327,67 +331,4 @@ In the above example, we also use the headless progress component to show the pr
 
 ## API
 
-### Carousel.Root
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'gap',
-      type: 'number',
-      description: 'The gap between slides.',
-    },
-    {
-      name: 'slidesPerView',
-      type: 'number',
-      description: 'Number of slides to show at once.',
-    },
-    {
-      name: 'draggable',
-      type: 'boolean',
-      description: 'Whether the carousel is draggable.',
-    },
-    {
-      name: 'align',
-      type: 'union',
-      description: 'Alignment of slides within the viewport.',
-      info: '"start" | "center" | "end"',
-    },
-    {
-      name: 'rewind',
-      type: 'boolean',
-      description: 'Whether the carousel should rewind.',
-    },
-    {
-      name: 'bind:selectedIndex',
-      type: 'Signal<number>',
-      description: 'Bind the selected index to a signal.',
-    },
-    {
-      name: 'startIndex',
-      type: 'number',
-      description: 'Change the initial index of the carousel on render.',
-    },
-    {
-      name: 'bind:autoplay',
-      type: 'Signal<boolean>',
-      description: 'Whether the carousel should autoplay.',
-    },
-    {
-      name: 'autoPlayIntervalMs',
-      type: 'number',
-      description: 'Time in milliseconds before the next slide plays during autoplay.',
-    },
-    {
-      name: 'direction',
-      type: 'union',
-      description:
-        'Change the direction of the carousel, for it to be veritical define the maxSlideHeight prop as well.',
-      info: '"row" | "column"',
-    },
-    {
-      name: 'maxSlideHeight',
-      type: 'number',
-      description: 'Write the height of the longest slide.',
-    },
-  ]}
-/>
+<AutoAPI api={api} />

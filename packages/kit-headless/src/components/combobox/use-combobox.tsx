@@ -1,13 +1,46 @@
 import { useContext, $, Signal } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 
+class ValueManager<T> {
+  constructor(
+    private isMultiple: boolean,
+    private initialValue: T | T[],
+  ) {}
+
+  add(value: T): T | T[] {
+    if (this.isMultiple) {
+      const currentArray = Array.isArray(this.initialValue) ? [...this.initialValue] : [];
+      return [...currentArray, value];
+    }
+    return value;
+  }
+
+  remove(value: T): T | T[] {
+    if (this.isMultiple && Array.isArray(this.initialValue)) {
+      return this.initialValue.filter((v) => v !== value);
+    }
+    return '' as T;
+  }
+
+  toggle(value: T): T | T[] {
+    if (this.isMultiple) {
+      const currentArray = Array.isArray(this.initialValue) ? [...this.initialValue] : [];
+      return currentArray.includes(value)
+        ? currentArray.filter((v) => v !== value)
+        : [...currentArray, value];
+    }
+    return this.initialValue === value ? ('' as T) : value;
+  }
+}
+
 export function useCombobox() {
   const context = useContext(comboboxContextId);
+
   const selectionManager$ = $(
     async (index: number | null, action: 'add' | 'toggle' | 'remove') => {
       if (index === null) return;
-      const selectedDisplayValue = context.itemsMapSig.value.get(index)?.displayValue;
 
+      const selectedDisplayValue = context.itemsMapSig.value.get(index)?.displayValue;
       const value = context.itemsMapSig.value.get(index)?.value;
 
       if (!value) {
@@ -16,49 +49,26 @@ export function useCombobox() {
         );
       }
 
-      if (action === 'add') {
-        if (context.multiple) {
-          context.selectedValueSetSig.value = new Set([
-            ...context.selectedValueSetSig.value,
-            value,
-          ]);
-        } else {
-          context.selectedValueSetSig.value = new Set([value]);
-        }
-      }
-      if (action === 'toggle') {
-        if (context.selectedValueSetSig.value.has(value)) {
-          context.selectedValueSetSig.value = new Set(
-            [...context.selectedValueSetSig.value].filter(
-              (selectedValue) => selectedValue !== value,
-            ),
-          );
-        } else {
-          if (context.multiple) {
-            context.selectedValueSetSig.value = new Set([
-              ...context.selectedValueSetSig.value,
-              value,
-            ]);
-          } else {
-            context.selectedValueSetSig.value = new Set([value]);
-          }
-        }
-      }
-      if (action === 'remove') {
-        context.selectedValueSetSig.value = new Set(
-          [...context.selectedValueSetSig.value].filter(
-            (selectedValue) => selectedValue !== value,
-          ),
-        );
+      const valueManager = new ValueManager(
+        context.multiple ?? false,
+        context.selectedValuesSig.value,
+      );
+
+      switch (action) {
+        case 'add':
+          context.selectedValuesSig.value = valueManager.add(value);
+          break;
+        case 'remove':
+          context.selectedValuesSig.value = valueManager.remove(value);
+          return; // Early return for 'remove' action
+        case 'toggle':
+          context.selectedValuesSig.value = valueManager.toggle(value);
+          break;
       }
 
-      if (action === 'add' || action === 'toggle') {
-        if (!context.inputRef.value) return;
-        if (!selectedDisplayValue) return;
-
-        if (!context.multiple && context.selectedValueSetSig.value.has(value)) {
-          context.inputRef.value.value = selectedDisplayValue;
-        }
+      // Update input value for single-select combobox
+      if (!context.multiple && context.inputRef.value && selectedDisplayValue) {
+        context.inputRef.value.value = selectedDisplayValue;
       }
     },
   );
@@ -66,56 +76,81 @@ export function useCombobox() {
   const filterManager$ = $((isVisible: boolean, itemRef: Signal, index: number) => {
     if (!itemRef.value) return;
 
+    const isDisabled = context.itemsMapSig.value.get(index)?.disabled;
+
     itemRef.value.style.display = isVisible ? '' : 'none';
-    context.disabledIndexSetSig.value = new Set(
+
+    context.filteredIndexSetSig.value = new Set(
       isVisible
-        ? [...context.disabledIndexSetSig.value].filter(
-            (selectedIndex) => selectedIndex !== index,
+        ? [...context.filteredIndexSetSig.value].filter(
+            (filteredIndex) => filteredIndex !== index,
           )
-        : [...context.disabledIndexSetSig.value, index],
+        : [...context.filteredIndexSetSig.value, index],
     );
+
+    // Update disabledIndexSetSig
+    if (isDisabled) {
+      context.disabledIndexSetSig.value = new Set([
+        ...context.disabledIndexSetSig.value,
+        index,
+      ]);
+    } else {
+      context.disabledIndexSetSig.value = new Set(
+        [...context.disabledIndexSetSig.value].filter(
+          (disabledIndex) => disabledIndex !== index,
+        ),
+      );
+    }
   });
 
   const getNextEnabledItemIndex$ = $((index: number) => {
     const len = context.itemsMapSig.value.size;
-    if (len === 1) {
-      return context.disabledIndexSetSig.value.has(0) ? -1 : 0;
+    if (len === 0) return -1;
+
+    const findNextEnabled = (start: number) => {
+      for (let i = 0; i < len; i++) {
+        const nextIndex = (start + i) % len;
+        if (
+          !context.disabledIndexSetSig.value.has(nextIndex) &&
+          !context.filteredIndexSetSig.value.has(nextIndex)
+        ) {
+          return nextIndex;
+        }
+      }
+      return -1;
+    };
+
+    if (index === -1 || len === 1) {
+      return findNextEnabled(0);
     }
 
-    let offset = 1;
-    if (!context.loop && index + 1 >= len) {
-      return index;
-    }
-    while (offset < len) {
-      const nextIndex = (index + offset) % len;
-      if (!context.disabledIndexSetSig.value.has(nextIndex)) {
-        return nextIndex;
-      }
-      offset++;
-      if (!context.loop && index + offset >= len) {
-        break;
-      }
-    }
-    return index;
+    const nextIndex = findNextEnabled(index + 1);
+    return context.loop || nextIndex > index ? nextIndex : index;
   });
 
   const getPrevEnabledItemIndex$ = $((index: number) => {
-    let offset = 1;
     const len = context.itemsMapSig.value.size;
-    if (!context.loop && index - 1 < 0) {
-      return index;
-    }
-    while (offset <= len) {
-      const prevIndex = (index - offset + len) % len;
-      if (!context.disabledIndexSetSig.value.has(prevIndex)) {
-        return prevIndex;
+    if (len === 0) return -1;
+
+    const findPrevEnabled = (start: number) => {
+      for (let i = 0; i < len; i++) {
+        const prevIndex = (start - i + len) % len;
+        if (
+          !context.disabledIndexSetSig.value.has(prevIndex) &&
+          !context.filteredIndexSetSig.value.has(prevIndex)
+        ) {
+          return prevIndex;
+        }
       }
-      offset++;
-      if (!context.loop && index - offset < 0) {
-        break;
-      }
+      return -1;
+    };
+
+    if (index === -1 || len === 1) {
+      return findPrevEnabled(len - 1);
     }
-    return index;
+
+    const prevIndex = findPrevEnabled(index - 1);
+    return context.loop || prevIndex < index ? prevIndex : index;
   });
 
   const getActiveDescendant$ = $((index: number) => {

@@ -30,4 +30,4 @@
 - [Tabs](/docs/headless/tabs)
 - [Tooltip](/docs/headless/tooltip)
 - [Toggle](/docs/headless/toggle)
-- [ToggleGroup](/docs/headless/toggle-group)
+- [Toggle Group](/docs/headless/toggle-group)
