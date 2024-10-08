@@ -84,12 +84,14 @@ function parseSingleComponentFromDir(
     let subComponentName = '';
     const parsedProps: ParsedProps = { comment: '', prop: '', type: '' };
     match.captures.forEach((lol) => {
-      //statetements are ordered as they appear in array
+      //statetements are ordered as they appear in capture array
       if (lol.name === 'subComponentName' && subComponentName != lol.node.text) {
         subComponentName = lol.node.text;
       }
       if (lol.name === 'comment') {
-        parsedProps.comment = lol.node.text;
+        //this removes the comment syntax
+        const justText = lol.node.text.replaceAll(/[/*]/g, '');
+        parsedProps.comment = justText;
       }
 
       if (lol.name === 'prop') {
