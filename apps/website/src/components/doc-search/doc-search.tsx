@@ -10,16 +10,16 @@ import {
 import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { isBrowser } from '@builder.io/qwik/build';
 import { Button, Modal, buttonVariants } from '~/components/ui';
-import clsx from 'clsx';
 import { useFocusTrap, useStorageSignal } from '../../hooks';
 import { cn } from '@qwik-ui/utils';
-import { LuX } from '@qwikest/icons/lucide';
-import { LuLoader2 } from '@qwikest/icons/lucide';
-
-import { AngleRightIcon } from '../icons/AngleRightIcon';
-import { HashtagIcon } from '../icons/HashtagIcon';
-import { PageIcon } from '../icons/PageIcon';
-import { SearchIcon } from '../icons/SearchIcon';
+import {
+  LuChevronRight,
+  LuFileText,
+  LuHash,
+  LuSearch,
+  LuX,
+  LuLoader2,
+} from '@qwikest/icons/lucide';
 import { AlgoliaLogo } from '../icons/AlgoliaLogo';
 
 type HitType = 'lvl2' | 'lvl3' | 'lvl4' | 'lvl5' | 'content';
@@ -69,7 +69,6 @@ type SearchStorage = {
       }
     | undefined;
 };
-
 
 /**
  * Provides a search box for the documentation.
@@ -303,7 +302,7 @@ export const DocSearch = component$(() => {
   return (
     <Modal.Root bind:show={open}>
       <Modal.Trigger class={[buttonVariants({ look: 'ghost', size: 'icon' })]}>
-        <SearchIcon />
+        <LuSearch class="h-6 w-6" />
       </Modal.Trigger>
       <Modal.Panel
         class="max-h-xl! max-w-4xl"
@@ -323,7 +322,7 @@ export const DocSearch = component$(() => {
               {loading.value ? (
                 <LuLoader2 class="h-[1.49em] w-[1.49em] animate-spin" />
               ) : (
-                <SearchIcon class="h-full" />
+                <LuSearch class="h-full" />
               )}
             </Button>
             <input
@@ -371,7 +370,7 @@ export const DocSearch = component$(() => {
                   return (
                     <li
                       key={item.path + item.text}
-                      class={clsx(
+                      class={cn(
                         index > 0 &&
                           (getGroup()
                             ? 'mt-9'
@@ -472,7 +471,7 @@ const SearchItem = component$<SearchItemProps>(
 
     return (
       <Link
-        class={clsx(
+        class={cn(
           'focus-ring flex scroll-my-12 items-center rounded-2xl border-2 px-5 py-4 md:px-6',
           active.value
             ? 'border-transparent bg-sky-600/10 text-sky-600 dark:bg-sky-400/10 dark:text-sky-400'
@@ -486,12 +485,12 @@ const SearchItem = component$<SearchItemProps>(
         onClick$={onClick$}
       >
         {relation === 'page' ? (
-          <PageIcon class="h-5 flex-shrink-0 md:h-6" />
+          <LuFileText class="h-5 flex-shrink-0 md:h-6" />
         ) : (
-          <HashtagIcon class="h-5 flex-shrink-0 md:h-6" />
+          <LuHash class="h-5 flex-shrink-0 md:h-6" />
         )}
         <div
-          class={clsx(
+          class={cn(
             'flex-1 px-4 md:px-5 [&_mark]:bg-transparent [&_mark]:font-medium',
             active.value
               ? '[&_mark]:text-sky-600 [&_mark]:underline [&_mark]:dark:text-sky-400'
@@ -503,7 +502,7 @@ const SearchItem = component$<SearchItemProps>(
           )}
           <div class="text-sm md:text-base" dangerouslySetInnerHTML={`${page || text}`} />
         </div>
-        <AngleRightIcon class="h-3 flex-shrink-0 md:h-4" />
+        <LuChevronRight class="h-6 w-6" />
       </Link>
     );
   },
