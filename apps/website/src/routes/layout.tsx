@@ -72,16 +72,18 @@ function decorateMenuItemsWithBadges(
   return menuItems?.map((item) => {
     return {
       name: item.text,
-      children: item.items?.map((child) => {
-        const link: LinkProps = {
-          name: child.text,
-          href: child.href,
-        };
-        if (kitStatusesMap[link.name]) {
-          link.status = kitStatusesMap[link.name];
-        }
-        return link;
-      }),
+      children: [
+        ...(item.items ?? []).map((child) => {
+          const link: LinkProps = {
+            name: child.text,
+            href: child.href,
+          };
+          if (kitStatusesMap[link.name]) {
+            link.status = kitStatusesMap[link.name];
+          }
+          return link;
+        }),
+      ],
     };
   });
 }
