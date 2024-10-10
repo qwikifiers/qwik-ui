@@ -1,12 +1,24 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
 import {
-  QwikCityProvider,
-  RouterOutlet,
-  ServiceWorkerRegister,
-} from '@builder.io/qwik-city';
-import { RouterHead } from './components/router-head/router-head';
+  component$, useStyles$,
+  PrefetchGraph,
+  PrefetchServiceWorker
+} from '@builder.io/qwik';
+import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
 
+import { RouterHead } from './components/router-head/router-head';
 import globalStyles from './global.css?inline';
+
+import { ThemeProvider } from '@qwik-ui/themes';
+
+import '@fontsource-variable/inter';
+import {
+  ThemeBaseColors,
+  ThemeBorderRadiuses,
+  ThemeFonts,
+  ThemeModes,
+  ThemePrimaryColors,
+  ThemeStyles,
+} from '@qwik-ui/utils';
 
 export default component$(() => {
   /**
@@ -17,16 +29,31 @@ export default component$(() => {
    */
   useStyles$(globalStyles);
 
+
   return (
     <QwikCityProvider>
       <head>
-        <meta charSet="utf-8" />
+        <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
       </head>
       <body lang="en">
-        <RouterOutlet />
-        <ServiceWorkerRegister />
+        <PrefetchGraph />
+        <PrefetchServiceWorker />
+        <ThemeProvider
+          attribute="class"
+          enableSystem={false}
+          themes={[
+            ...Object.values(ThemeFonts),
+            ...Object.values(ThemeModes),
+            ...Object.values(ThemeStyles),
+            ...Object.values(ThemeBaseColors),
+            ...Object.values(ThemePrimaryColors),
+            ...Object.values(ThemeBorderRadiuses),
+          ]}
+        >
+          <RouterOutlet />
+        </ThemeProvider>
       </body>
     </QwikCityProvider>
   );
