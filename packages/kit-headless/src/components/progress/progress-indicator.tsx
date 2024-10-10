@@ -1,21 +1,25 @@
-import { PropsOf, component$, useContext } from '@builder.io/qwik';
-import { getProgressState } from './util';
+import { PropsOf, component$, useComputed$, useContext } from '@builder.io/qwik';
 import { ProgressContext } from './progress-context';
 
 type ProgressIndicatorElement = PropsOf<'div'>;
-export const HProgressIndicator = component$<ProgressIndicatorElement>((props) => {
+export const ProgressIndicator = component$<ProgressIndicatorElement>((props) => {
   const { ...indicatorProps } = props;
 
-  const { max, value } = useContext(ProgressContext);
-  const translateX = value ? `translateX(-${100 - value}%)` : undefined;
+  const context = useContext(ProgressContext);
+
+  const translateXSig = useComputed$(() => {
+    if (context.valueSig.value === null) return 'translateX(0%)';
+    const range = context.maxSig.value - context.minSig.value;
+    const progress = (context.valueSig.value - context.minSig.value) / range;
+    const remainingPercentage = 100 - progress * 100;
+    return `translateX(-${remainingPercentage}%)`;
+  });
 
   return (
     <div
-      style={{ transform: translateX }}
+      style={{ transform: translateXSig.value }}
       title="progress_indicator"
-      data-progress={getProgressState(value, max)}
-      data-value={value ?? undefined}
-      data-max={max}
+      {...context.dataAttributesSig.value}
       {...indicatorProps}
     />
   );

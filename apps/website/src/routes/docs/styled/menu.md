@@ -35,3 +35,5 @@
 - [Skeleton](/docs/styled/skeleton)
 - [Tabs](/docs/styled/tabs)
 - [Textarea](/docs/styled/textarea)
+- [Toggle](/docs/styled/toggle)
+- [ToggleGroup](/docs/styled/toggle-group)

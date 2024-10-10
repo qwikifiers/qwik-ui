@@ -17,7 +17,7 @@ export default component$(() => {
         }}
         class="border border-foreground p-2"
         defaultClass="border border-primary p-4"
-        selectedClass="border bg-destructive p-4"
+        selectedClass="border bg-alert p-4"
         dividerClass="bg-muted p-4"
       />
 
@@ -29,7 +29,7 @@ export default component$(() => {
         }}
         class="border border-foreground p-2"
         defaultClass="bg-primary w-8 h-8"
-        selectedClass="bg-destructive w-8 h-8"
+        selectedClass="bg-alert w-8 h-8"
         dividerClass="bg-muted h-8 px-2"
       />
 

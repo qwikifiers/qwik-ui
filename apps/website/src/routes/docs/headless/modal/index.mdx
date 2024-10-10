@@ -3,11 +3,9 @@ title: Qwik UI | Modal
 ---
 
 import topLayer from '../../../../../public/images/top-layer.webp';
-
 import { statusByComponent } from '~/_state/component-statuses';
 
 <StatusBanner status={statusByComponent.headless.Modal} />
-import {FeatureList} from '~/components/feature-list/feature-list';
 
 # Modal
 
@@ -170,33 +168,29 @@ This is done in a separate layer so that styles are easily overridable in consum
 
 ## Animations
 
-Animating things to display none has historically been a significant challenge on the web. This is because display none is a `discrete` property, and is **unanimatable**.
+Modals require smooth entry and exit animations to enhance user experience. However, animating properties like display and overlay can be challenging because they are discrete properties and not traditionally animatable.
 
-> There is currently efforts to solve this problem. [New CSS properties](https://developer.chrome.com/blog/entry-exit-animations/) have been introduced, but currently do not provide good enough browser support.
+Modern browsers have introduced discrete animation capabilities, allowing us to animate these properties effectively. Below, we'll explore how to implement animations and transitions for modals using keyframe animations and CSS transitions.
 
-### Our current approach
+### Keyframe Animation Example
 
-Qwik UI automatically detects any `animation` or `transition` declarations under the hood and waits for them to finish before closing the modal. If there is no animation, then it will close normally.
-
-### Adding a transition
-
-<Showcase name="transition" />
-
-To add an transition, use the `data-open`, `data-closing` and `data-closed` data attributes. Above is a snippet where we transition both the modal and backdrop's opacity.
-
-### Adding an animation
+Keyframes are ideal for handling the entry and exit of the modal. Here's an example using modalOpen for opening and modalClose for closing the modal:
 
 <Showcase name="animatable" />
 
-To add an animation, it's the same as with transitions, using the `data-open` and `data-closing` data attributes. Below is a snippet of the animation example above.
+### Transition Declarations
+
+Transitions are useful for animating properties like opacity and transform. Here's how to implement transitions for the modal:
+
+<Showcase name="transition" />
+
+<TopLayerAnimationsCaveats />
 
 ### Backdrop animations
 
-Backdrop animations have also made significant progress in the last year, with support provided in over half of the major browsers, and close to 70% of users.
+To animate the modal's backdrop, use the `::backdrop` pseudo-element and include it in your keyframes or transitions:
 
-To add a backdrop animation, make sure to use the `::backdrop` pseudo selector to the end of the `data-closing` or `data-open` classes.
-
-> Firefox currently does not support backdrop animations. The fallback for browsers that do not support animated backdrops is the same as a non-animated backdrop.
+<Showcase name="backdrop-animatable" />
 
 ## Sheets
 

@@ -7,7 +7,7 @@ export const HComboboxEmpty = component$((props: PropsOf<'div'>) => {
   return (
     <div
       data-qui-combobox-empty
-      data-empty={context.hasVisibleItemsSig.value ? undefined : ''}
+      data-empty={context.isNoItemsSig.value ? '' : undefined}
       {...props}
     >
       <Slot />

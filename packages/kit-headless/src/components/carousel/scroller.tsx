@@ -1,115 +1,127 @@
 import {
   component$,
   type PropsOf,
-  Slot,
   useContext,
-  useSignal,
   $,
   useTask$,
   useOnWindow,
+  Slot,
+  useSignal,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
 import styles from './carousel.css?inline';
 import { isServer } from '@builder.io/qwik/build';
+import { useDebouncer } from '../../hooks/use-debouncer';
+import { useScroller } from './use-scroller';
 
-type CarouselContainerProps = PropsOf<'div'>;
-
-export const CarouselScroller = component$((props: CarouselContainerProps) => {
-  const context = useContext(carouselContextId);
+export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   useStyles$(styles);
-  const startXSig = useSignal<number>();
-  const scrollLeftSig = useSignal(0);
-  const isMouseDownSig = useSignal(false);
+  const context = useContext(carouselContextId);
+
+  const { onMouseDown$, onTouchStart$, onTouchMove$, onTouchEnd$, ...rest } = props;
+
   const isMouseMovingSig = useSignal(false);
-  const isTouchDeviceSig = useSignal(false);
   const isTouchMovingSig = useSignal(true);
   const isTouchStartSig = useSignal(false);
+  const initialLoadSig = useSignal(true);
+  const isNewPosOnLoadSig = useSignal(false);
 
-  useTask$(() => {
-    context.isScrollerSig.value = true;
-  });
+  const {
+    startPosSig,
+    transformSig,
+    boundariesSig,
+    isMouseDownSig,
+    isTouchDeviceSig,
+    orientationProps,
+    getSlidePosition,
+    setBoundaries,
+    setTransform,
+    setTransition,
+    setInitialSlidePos,
+  } = useScroller(context);
 
-  const getSlidePosition$ = $((index: number) => {
-    if (!context.scrollerRef.value) return 0;
-    const container = context.scrollerRef.value;
-    const slides = context.slideRefsArray.value;
-    let position = 0;
-    for (let i = 0; i < index; i++) {
-      if (slides[i].value) {
-        position += slides[i].value.getBoundingClientRect().width + context.gapSig.value;
-      }
+  const { direction, pagePosition, clientPosition } =
+    orientationProps[context.orientationSig.value];
+
+  const handleMouseMove = $(async (e: MouseEvent) => {
+    if (!isMouseDownSig.value || startPosSig.value === undefined) return;
+    if (!context.scrollerRef.value || !boundariesSig.value) return;
+
+    const pos = e[pagePosition];
+    const dragSpeed = context.sensitivitySig.value.mouse;
+    const walk = (startPosSig.value - pos) * dragSpeed;
+    const newTransform = transformSig.value[direction] - walk;
+
+    if (
+      newTransform >= boundariesSig.value.min &&
+      newTransform <= boundariesSig.value.max
+    ) {
+      transformSig.value[direction] = newTransform;
+
+      await setTransition(false);
+      await setTransform();
     }
 
-    const alignment = context.alignSig.value;
-    if (alignment === 'center') {
-      position -=
-        (container.clientWidth - slides[index].value.getBoundingClientRect().width) / 2;
-    } else if (alignment === 'end') {
-      position -=
-        container.clientWidth - slides[index].value.getBoundingClientRect().width;
-    }
-
-    return Math.max(0, position);
-  });
-
-  const handleMouseMove$ = $((e: MouseEvent) => {
-    if (!isMouseDownSig.value || startXSig.value === undefined) return;
-    if (!context.scrollerRef.value) return;
-    const x = e.pageX - context.scrollerRef.value.offsetLeft;
-    const dragSpeed = 1.75;
-    const walk = (x - startXSig.value) * dragSpeed;
-    context.scrollerRef.value.scrollLeft = scrollLeftSig.value - walk;
+    startPosSig.value = pos;
     isMouseMovingSig.value = true;
   });
 
-  const handleMouseSnap$ = $(async () => {
+  const handleDragSnap = $(async () => {
     if (!context.scrollerRef.value) return;
-    isMouseDownSig.value = false;
-    window.removeEventListener('mousemove', handleMouseMove$);
 
-    const container = context.scrollerRef.value;
     const slides = context.slideRefsArray.value;
-    const containerScrollLeft = container.scrollLeft;
+    const currentPosition = -transformSig.value[direction];
 
     let closestIndex = 0;
     let minDistance = Infinity;
 
     for (let i = 0; i < slides.length; i++) {
-      const slidePosition = await getSlidePosition$(i);
-      const distance = Math.abs(containerScrollLeft - slidePosition);
+      const slide = slides[i].value;
+      if (!slide) continue;
+
+      const slidePosition = await getSlidePosition(i);
+      const distance = Math.abs(slidePosition - currentPosition);
+
       if (distance < minDistance) {
         closestIndex = i;
         minDistance = distance;
       }
     }
 
-    const dragSnapPosition = await getSlidePosition$(closestIndex);
+    const dragSnapPosition = await getSlidePosition(closestIndex);
 
-    container.scrollTo({
-      left: dragSnapPosition,
-      behavior: 'smooth',
-    });
+    await setTransition(true);
+    transformSig.value[direction] = -dragSnapPosition;
+    await setTransform();
 
     context.currentIndexSig.value = closestIndex;
+    isMouseDownSig.value = false;
+    isMouseMovingSig.value = false;
+    isTouchMovingSig.value = false;
+    isTouchStartSig.value = false;
+    window.removeEventListener('mousemove', handleMouseMove);
   });
 
-  const handleMouseDown$ = $((e: MouseEvent) => {
+  const handleMouseDown = $(async (e: MouseEvent) => {
     if (!context.isDraggableSig.value) return;
     if (!context.scrollerRef.value) return;
-    if (context.initialIndex && context.scrollStartRef.value) {
+    await setTransition(true);
+
+    if (context.startIndexSig.value && context.scrollStartRef.value) {
       context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
     }
 
+    await setBoundaries();
+
     isMouseDownSig.value = true;
-    startXSig.value = e.pageX - context.scrollerRef.value.offsetLeft;
-    scrollLeftSig.value = context.scrollerRef.value.scrollLeft;
-    window.addEventListener('mousemove', handleMouseMove$);
-    window.addEventListener('mouseup', handleMouseSnap$);
+    startPosSig.value = e.pageX;
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleDragSnap);
     isMouseMovingSig.value = false;
   });
 
-  useTask$(async function snapWithoutDrag({ track }) {
+  useTask$(async function nonDragSnap({ track }) {
     track(() => context.currentIndexSig.value);
 
     if (isMouseMovingSig.value) {
@@ -123,83 +135,107 @@ export const CarouselScroller = component$((props: CarouselContainerProps) => {
 
     context.scrollStartRef.value?.style.setProperty('--scroll-snap-align', 'none');
 
-    const nonDragSnapPosition = await getSlidePosition$(context.currentIndexSig.value);
-
     if (isMouseDownSig.value) return;
 
-    context.scrollerRef.value.scrollTo({
-      left: nonDragSnapPosition,
-      behavior: 'smooth',
-    });
+    const currentIndex = context.currentIndexSig.value;
+    const snapPosition = await getSlidePosition(currentIndex);
+    await setTransition(true);
+    transformSig.value[direction] = -snapPosition;
+    await setTransform();
 
-    window.removeEventListener('mousemove', handleMouseMove$);
+    window.removeEventListener('mousemove', handleMouseMove);
   });
 
-  const updateTouchDeviceIndex$ = $(() => {
-    if (!context.scrollerRef.value) return;
-    const container = context.scrollerRef.value;
-    const containerScrollLeft = container.scrollLeft;
-    const slides = context.slideRefsArray.value;
-
-    let currentIndex = 0;
-    let minDistance = Infinity;
-
-    slides.forEach((slideRef, index) => {
-      if (!slideRef.value) return;
-      const slideLeft = slideRef.value.offsetLeft;
-      const distance = Math.abs(containerScrollLeft - slideLeft);
-      if (distance < minDistance) {
-        minDistance = distance;
-        currentIndex = index;
-      }
-    });
-
-    if (context.currentIndexSig.value !== currentIndex) {
-      context.currentIndexSig.value = currentIndex;
-    }
-  });
-
-  // resize the snap point when the window resizes
   const handleResize = $(async () => {
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    if (isCoarsePointer) return;
+
+    await setTransition(true);
+
     if (!context.scrollerRef.value) return;
-    const newPosition = await getSlidePosition$(context.currentIndexSig.value);
-    context.scrollerRef.value.scrollTo({
-      left: newPosition,
-      behavior: 'auto',
-    });
+
+    const newPosition = await getSlidePosition(context.currentIndexSig.value);
+    transformSig.value.x = -newPosition;
+
+    await setTransform();
+    context.scrollerRef.value.style.transition = 'none';
+  });
+
+  const handleTouchStart = $(async (e: TouchEvent) => {
+    if (!context.isDraggableSig.value || !context.scrollerRef.value) return;
+
+    if (context.startIndexSig.value && context.scrollStartRef.value) {
+      context.scrollStartRef.value.style.setProperty('--scroll-snap-align', 'none');
+    }
+
+    startPosSig.value = e.touches[0][clientPosition];
+    isTouchStartSig.value = true;
+    isTouchMovingSig.value = false;
+
+    await setBoundaries();
+    await setTransition(false);
+  });
+
+  const debouncedUpdate = useDebouncer(setTransform, 1);
+  const handleTouchMove = $(async (e: TouchEvent) => {
+    if (isMouseDownSig.value || startPosSig.value === undefined) return;
+    if (!context.scrollerRef.value || !boundariesSig.value) return;
+
+    const pos = e.touches[0][clientPosition];
+    const dragSpeed = context.sensitivitySig.value.touch;
+
+    const walk = (startPosSig.value - pos) * dragSpeed;
+    const newTransform = transformSig.value[direction] - walk;
+
+    if (
+      newTransform >= boundariesSig.value.min &&
+      newTransform <= boundariesSig.value.max
+    ) {
+      transformSig.value[direction] = newTransform;
+      await debouncedUpdate();
+    }
+
+    startPosSig.value = pos;
+    isTouchMovingSig.value = true;
   });
 
   useOnWindow('resize', handleResize);
 
+  useTask$(() => {
+    if (!initialLoadSig.value) return;
+    isNewPosOnLoadSig.value =
+      context.startIndexSig.value !== 0 &&
+      context.startIndexSig.value !== undefined &&
+      context.currentIndexSig.value !== 0;
+  });
+
+  useTask$(() => {
+    initialLoadSig.value = false;
+  });
+
   return (
     <div
-      ref={context.scrollerRef}
-      onMouseDown$={[handleMouseDown$, props.onMouseDown$]}
-      data-draggable={context.isDraggableSig.value ? '' : undefined}
-      data-qui-carousel-scroller
-      onScroll$={[
-        $(
-          () =>
-            isTouchDeviceSig.value && isTouchMovingSig.value && updateTouchDeviceIndex$(),
-        ),
-        props.onScroll$,
-      ]}
-      onTouchMove$={() => {
-        isTouchMovingSig.value = true;
-      }}
-      onTouchStart$={() => {
-        isTouchStartSig.value = true;
-      }}
-      window:onTouchStart$={() => {
-        isTouchMovingSig.value = false;
-        isTouchDeviceSig.value = true;
-      }}
-      preventdefault:mousemove
-      data-align={context.alignSig.value}
-      data-initial-touch={isTouchStartSig.value ? '' : undefined}
-      {...props}
+      data-qui-carousel-viewport
+      onMouseDown$={[handleMouseDown, onMouseDown$]}
+      onTouchStart$={[handleTouchStart, onTouchStart$]}
+      onTouchMove$={[handleTouchMove, onTouchMove$]}
+      onTouchEnd$={[handleDragSnap, onTouchEnd$]}
+      preventdefault:touchstart
+      preventdefault:touchmove
+      onQVisible$={isNewPosOnLoadSig.value ? setInitialSlidePos : undefined}
     >
-      <Slot />
+      <div
+        ref={context.scrollerRef}
+        data-qui-carousel-scroller
+        data-draggable={context.isDraggableSig.value ? '' : undefined}
+        data-align={context.alignSig.value}
+        data-initial-touch={isTouchStartSig.value ? '' : undefined}
+        data-initial={isNewPosOnLoadSig.value ? '' : undefined}
+        {...rest}
+      >
+        <Slot />
+      </div>
     </div>
   );
 });

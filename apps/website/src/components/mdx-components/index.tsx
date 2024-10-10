@@ -2,6 +2,7 @@ import { Component, PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
+import { AutoAPI } from '../api-table/auto-api';
 import { CodeCopy } from '../code-copy/code-copy';
 import { CodeSnippet } from '../code-snippet/code-snippet';
 import { FeatureList } from '../feature-list/feature-list';
@@ -10,6 +11,8 @@ import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard
 import { Note } from '../note/note';
 import { Showcase } from '../showcase/showcase';
 import { StatusBanner } from '../status-banner/status-banner';
+import { TopLayerAnimationsCaveats } from '../animations/caveats';
+import { BrowserAnimationsCompatability } from '../animations/compatability';
 
 export const components: Record<string, Component> = {
   p: component$<PropsOf<'p'>>(({ ...props }) => {
@@ -132,4 +135,7 @@ export const components: Record<string, Component> = {
   Note,
   StatusBanner,
   Showcase,
+  AutoAPI,
+  TopLayerAnimationsCaveats,
+  BrowserAnimationsCompatability,
 };

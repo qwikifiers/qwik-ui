@@ -9,9 +9,15 @@ export default component$(() => {
       <div class="tabs-example mr-auto">
         <h3>Danish Composers</h3>
         <h4 class="mb-4">(Hover over the tabs - they should not be selected)</h4>
-        <Tabs.Root behavior="manual">
+        <Tabs.Root>
           <Tabs.List>
-            <Tabs.Tab>Maria</Tabs.Tab>
+            <Tabs.Tab
+              onClick$={(_, el) => {
+                el.innerHTML = 'Jack';
+              }}
+            >
+              Maria
+            </Tabs.Tab>
             <Tabs.Tab>Carl</Tabs.Tab>
             <Tabs.Tab>Ida</Tabs.Tab>
           </Tabs.List>

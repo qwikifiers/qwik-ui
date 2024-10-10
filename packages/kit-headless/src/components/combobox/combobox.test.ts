@@ -61,7 +61,7 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getItemAt(1)).toHaveAttribute('aria-selected', 'true');
   });
 
-  test(`GIVEN a  combobox with an open listbox
+  test(`GIVEN a combobox with an open listbox
         WHEN the 3rd option is clicked
         THEN the 3rd option should be the selected value`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
@@ -237,6 +237,32 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getInput().press('ArrowUp');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+    });
+
+    test(`GIVEN a combobox with a selected value via mouse
+          WHEN using the arrow keys to select another option
+          THEN the latest selected option should be highlighted when the menu is opened again`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'hero');
+
+      // initial mouse selection
+      await d.openListbox('click');
+      await d.getItemAt(2).click();
+
+      await d.openListbox('ArrowDown');
+      await expect(d.getItemAt(2)).toHaveAttribute('data-highlighted');
+
+      // selection via arrow keys
+      await d.getInput().press('ArrowDown');
+      await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
+
+      await d.getInput().press('Enter');
+      await expect(d.getItemAt(3)).toHaveAttribute('data-selected');
+
+      // latest selected option should be highlighted when the menu is opened again
+      await d.openListbox('ArrowDown');
+      await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
     });
   });
 
@@ -587,6 +613,42 @@ test.describe('Props', () => {
 
       await expect(d.getListbox()).toBeVisible();
     });
+
+    test(`GIVEN a reactive combobox
+          WHEN the user empties the input with selecting all text and backspace
+          THEN there should be no selected value`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'reactive');
+
+      await expect(d.getInput()).toHaveValue('Apricot');
+      await expect(page.getByRole('paragraph')).toContainText('Apricot');
+
+      await d.getInput().clear();
+
+      await expect(d.getInput()).toHaveValue('');
+
+      await expect(page.getByRole('paragraph')).not.toContainText('Apricot');
+    });
+
+    test(`GIVEN a reactive combobox
+          WHEN the user empties the input and selects a new value
+          THEN that should update the given signal`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'reactive');
+
+      await expect(d.getInput()).toHaveValue('Apricot');
+      await expect(page.getByRole('paragraph')).toContainText('Apricot');
+
+      await d.getInput().clear();
+
+      await expect(d.getInput()).toHaveValue('');
+
+      await expect(page.getByRole('paragraph')).not.toContainText('Apricot');
+
+      await d.openListbox('click');
+      await d.getItemAt(0).click();
+
+      await expect(d.getInput()).toHaveValue('Apple');
+      await expect(page.getByRole('paragraph')).toContainText('Apple');
+    });
   });
 
   test.describe('option value', () => {
@@ -844,19 +906,6 @@ test.describe('Filtering options', () => {
     await d.getInput().press('Backspace');
     await expect(d.getInput()).toHaveValue('');
     expect(await d.getVisibleItemsLength()).toBe(8);
-  });
-
-  test(`GIVEN a combobox
-        WHEN an option is selected
-        AND the typed string does not match the filter function
-        THEN the option should be unselected`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
-    await d.openListbox('ArrowDown');
-    await d.getInput().press('Enter');
-    await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
-
-    await d.getInput().press('z');
-    await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'false');
   });
 
   test(`GIVEN a combobox

@@ -8,7 +8,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 
-import { CheckboxRoot } from '../checkbox/checkbox';
+import { CheckboxRoot } from '../checkbox/checkbox-root';
 import { DropdownCheckboxItemProps } from './dropdown-checkbox-item';
 import { dropdownRadioGroupContextId } from './dropdown-context';
 import { useDropdownItem } from './use-dropdown-item';

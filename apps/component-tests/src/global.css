@@ -1240,11 +1240,19 @@
 
   *::-webkit-scrollbar-thumb {
     /* Thumb color */
-    background-color: var(--qwikui-slate-500);
+    background-color: hsla(var(--foreground) / 0.25);
     border-radius: 0.5rem;
     background-clip: padding-box;
-    border-left: 0.3rem solid transparent;
-    border-right: 0.3rem solid transparent;
+    border-left: 0.15rem solid transparent;
+    border-right: 0.15rem solid transparent;
+  }
+
+  .navigation-docs::-webkit-scrollbar-thumb {
+    background-color: hsla(var(--foreground) / 0.1);
+  }
+
+  .dark .navigation-docs::-webkit-scrollbar-thumb {
+    background-color: hsla(var(--foreground) / 0.2);
   }
 
   *::-webkit-scrollbar-corner {
@@ -1256,8 +1264,17 @@
     border-left: 1px solid var(--qwikui-slate-300);
   }
 
-  .dark *::-webkit-scrollbar-thumb {
-    background-color: var(--qwikui-slate-500);
+  .toc-scrollbar::-webkit-scrollbar-track,
+  .dark .toc-scrollbar::-webkit-scrollbar-track {
+    border-color: transparent;
+  }
+
+  .toc-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .toc-scrollbar:hover.toc-scrollbar::-webkit-scrollbar-thumb {
+    background-color: hsla(var(--foreground) / 0.15);
   }
 
   .dark *::-webkit-scrollbar-track {
@@ -1272,7 +1289,7 @@
   }
 
   .code-example *::-webkit-scrollbar-thumb {
-    background: var(--qwikui-slate-500);
+    background-color: var(--qwikui-slate-600);
     border-radius: 0.5rem;
     background-clip: padding-box;
   }
@@ -1289,6 +1306,10 @@
 
   .dark .note-link a {
     border-bottom: 1px solid white !important;
+  }
+
+  .gif-container {
+    border-radius: var(--border-radius);
   }
 }
 
@@ -1342,7 +1363,7 @@ body {
   min-height: 100%;
 }
 
-/* Utilities layer for animations. The current arbitrary & docs tailwind animation guidelines are not maintainable long term. 
+/* Utilities layer for animations. The current arbitrary & docs tailwind animation guidelines are not maintainable long term.
   It would make more sense to supply the user with the animation declaration in the docs.
 */
 @layer utilities {

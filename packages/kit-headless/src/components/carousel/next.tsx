@@ -9,18 +9,23 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
+import { useCarousel } from './use-carousel';
 
 export const CarouselNext = component$((props: PropsOf<'button'>) => {
   const context = useContext(carouselContextId);
   const isLastSlideInViewSig = useSignal(false);
   const initialLoadSig = useSignal(true);
   const isKeyboardFocusSig = useSignal(false);
+
+  const { validIndexesSig } = useCarousel(context);
+
   const isLastScrollableIndexSig = useComputed$(() => {
-    return context.numSlidesSig.value - context.slidesPerViewSig.value;
+    const validIndexes = validIndexesSig.value;
+    return validIndexes[validIndexes.length - 1];
   });
 
   const handleFocusPrev$ = $(() => {
-    if (context.isLoopSig.value) return;
+    if (context.isRewindSig.value) return;
 
     if (isKeyboardFocusSig.value && isLastSlideInViewSig.value) {
       const activeElAtBlur = document.activeElement;
@@ -45,8 +50,9 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
 
     if (initialLoadSig.value) return;
 
+    const validIndexes = validIndexesSig.value;
     isLastSlideInViewSig.value =
-      context.currentIndexSig.value >= isLastScrollableIndexSig.value;
+      validIndexes.indexOf(context.currentIndexSig.value) === validIndexes.length - 1;
   });
 
   useTask$(() => {
@@ -54,13 +60,15 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
   });
 
   const handleClick$ = $(() => {
-    if (
-      context.currentIndexSig.value >= isLastScrollableIndexSig.value &&
-      context.isLoopSig.value
-    ) {
-      context.currentIndexSig.value = 0;
+    const validIndexes = validIndexesSig.value;
+    const currentIndex = context.currentIndexSig.value;
+    const currentPosition = validIndexes.indexOf(currentIndex);
+
+    if (currentPosition === validIndexes.length - 1 && context.isRewindSig.value) {
+      context.currentIndexSig.value = validIndexes[0];
     } else {
-      context.currentIndexSig.value++;
+      const nextPosition = Math.min(currentPosition + 1, validIndexes.length - 1);
+      context.currentIndexSig.value = validIndexes[nextPosition];
     }
   });
 
@@ -68,8 +76,8 @@ export const CarouselNext = component$((props: PropsOf<'button'>) => {
     <button
       {...props}
       ref={context.nextButtonRef}
-      aria-disabled={isLastSlideInViewSig.value}
-      disabled={isLastSlideInViewSig.value && !context.isLoopSig.value}
+      aria-disabled={isLastSlideInViewSig.value && !context.isRewindSig.value}
+      disabled={isLastSlideInViewSig.value && !context.isRewindSig.value}
       onClick$={[handleClick$, props.onClick$]}
       onKeyDown$={[handleKeyDown$, props.onKeyDown$]}
       onBlur$={[handleFocusPrev$, props.onBlur$]}

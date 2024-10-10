@@ -348,7 +348,7 @@ export const TabsImpl = component$((props: TabsProps & { tabInfoList: TabInfo[] 
   useContextProvider(tabsContextId, contextService);
 
   return (
-    <div ref={ref} {...rest}>
+    <div data-qui-tabs-root ref={ref} {...rest}>
       <Slot />
     </div>
   );
