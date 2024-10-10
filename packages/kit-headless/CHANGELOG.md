@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+
+### Minor Changes
+
+- We are removing the existing popover animations shimming and instead wil now only support native popover animations. This is considered a breaking change but will be more reliable overall. (by [@cwoolum](https://github.com/cwoolum) in [#970](https://github.com/qwikifiers/qwik-ui/pull/970))
+
 ## 0.6.1
 
 ### Patch Changes

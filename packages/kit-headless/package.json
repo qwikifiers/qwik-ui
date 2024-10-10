@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/headless",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Qwik UI headless components library",
   "publishConfig": {
     "access": "public"
