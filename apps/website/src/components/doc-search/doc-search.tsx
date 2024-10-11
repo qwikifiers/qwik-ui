@@ -313,7 +313,7 @@ export const DocSearch = component$(() => {
               )}
             </div>
             <input
-              class="flex-1 bg-transparent px-2 text-lg text-slate-900 outline-none placeholder:text-slate-500 dark:text-slate-200 md:text-xl"
+              class="flex-1 bg-transparent px-2 text-lg outline-none placeholder:text-muted-foreground md:text-xl"
               ref={inputElement}
               type="search"
               placeholder="Search docs"
@@ -332,7 +332,7 @@ export const DocSearch = component$(() => {
                 An unexpected error has occurred. If this happens regularly, please create
                 an{' '}
                 <a
-                  class="focus-ring rounded text-sky-600 underline decoration-slate-400 decoration-dashed underline-offset-[3px] focus-visible:outline-offset-4 focus-visible:ring-offset-[6px] dark:text-sky-400 dark:decoration-slate-600"
+                  class="focus-ring rounded text-primary underline decoration-secondary decoration-dashed underline-offset-[3px] focus-visible:outline-offset-4 focus-visible:ring-offset-[6px]"
                   href="https://github.com/fabian-hiller/valibot/issues/new"
                   target="_blank"
                 >
@@ -343,8 +343,7 @@ export const DocSearch = component$(() => {
             ) : // No result
             input.value && !loading.value && !result.value.length ? (
               <p class="text-sm md:text-base">
-                No results for "
-                <span class="text-slate-900 dark:text-slate-200">{input.value}</span>"
+                No results for "<span>{input.value}</span>"
               </p>
             ) : // Result
             input.value && result.value.length ? (
@@ -365,7 +364,7 @@ export const DocSearch = component$(() => {
                                 getPrevItem()?.relation !== 'page'
                               ? 'mt-6'
                               : item.relation === 'child'
-                                ? 'border-l-2 border-l-slate-200 pl-2 pt-2.5 dark:border-l-slate-800'
+                                ? 'border-l-2 pl-2 pt-2.5'
                                 : 'mt-2.5'),
                       )}
                     >
