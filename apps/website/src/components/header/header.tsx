@@ -13,18 +13,14 @@ import { useLocation } from '@builder.io/qwik-city';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as styledKitVersion } from '../../../../../packages/kit-styled/package.json';
-import { CloseIcon } from '../icons/CloseIcon';
 import { GitHubIcon } from '../icons/GitHubIcon';
-import { MenuIcon } from '../icons/MenuIcon';
-import { MoonIcon } from '../icons/MoonIcon';
-import { SunIcon } from '../icons/SunIcon';
 import { LogoIcon, LogoWithBorders } from '../icons/logo';
 
 import { useTheme } from '@qwik-ui/themes';
 
 import { Modal } from '@qwik-ui/headless';
 import { useAppState } from '~/_state/use-app-state';
-import { LuX } from '@qwikest/icons/lucide';
+import { LuMenu, LuMoon, LuSun, LuX } from '@qwikest/icons/lucide';
 import { DocsNavigation } from '../navigation-docs/navigation-docs';
 import { useKitMenuItems } from '~/routes/layout';
 import { cn } from '@qwik-ui/utils';
@@ -195,7 +191,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
               look="ghost"
               class="flex lg:hidden"
             >
-              {isSidebarOpenedSig.value ? <CloseIcon /> : <MenuIcon />}
+              <LuMenu class="h-6 w-6" />
             </Button>
           </div>
         </div>
@@ -245,10 +241,10 @@ const DarkModeToggle = component$<PropsOf<typeof Button>>(({ ...props }) => {
       }
     >
       <div class="hidden dark:block">
-        <MoonIcon />
+        <LuMoon class="h-6 w-6" />
       </div>
       <div class="block dark:hidden">
-        <SunIcon />
+        <LuSun class="h-6 w-6" />
       </div>
     </Button>
   );
