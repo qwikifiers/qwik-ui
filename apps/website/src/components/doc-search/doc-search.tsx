@@ -10,7 +10,7 @@ import {
 import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { isBrowser } from '@builder.io/qwik/build';
 import { Button, Modal, buttonVariants } from '~/components/ui';
-import { useFocusTrap, useStorageSignal } from '../../hooks';
+import { useStorageSignal } from '../../hooks';
 import { cn } from '@qwik-ui/utils';
 import {
   LuChevronRight,
@@ -98,22 +98,12 @@ export const DocSearch = component$(() => {
   // Compute search items
   const searchItems = useComputed$(() => (input.value ? result.value : recent.value));
 
-  // Use focus trap when search is open
-  useFocusTrap(modalElement, open);
-
   // Do stuff when search is opened or closed
   useTask$(({ track }) => {
     track(() => inputElement.value);
     track(() => open.value);
     if (isBrowser && inputElement.value) {
-      // Focus input and block background scrolling when search is opened
-      if (open.value) {
-        inputElement.value.focus();
-        document.body.style.overflow = 'hidden';
-
-        // Otherwise when search is closed, add clicked item to recent and
-        // reset state and background scrolling
-      } else {
+      if (!open.value) {
         const item = clicked.value;
         if (item) {
           recent.value = [item, ...recent.value.filter((i) => i !== item).slice(0, 5)];
