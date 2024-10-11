@@ -9,7 +9,7 @@ import {
 } from '@builder.io/qwik';
 import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { isBrowser } from '@builder.io/qwik/build';
-import { Button, Modal, buttonVariants } from '~/components/ui';
+import { Modal, buttonVariants } from '~/components/ui';
 import { useStorageSignal } from '../../hooks';
 import { cn } from '@qwik-ui/utils';
 import {
@@ -302,19 +302,16 @@ export const DocSearch = component$(() => {
         {/* Header */}
         <header class="flex h-14 flex-shrink-0 items-center px-2 md:h-16 lg:h-[72px] lg:px-4">
           <form class="flex flex-1" preventdefault:submit>
-            <Button
-              disabled={loading.value}
-              look="ghost"
+            <div
               class="overflow-hidden"
               aria-label={loading.value ? 'Search' : 'Focus search input'}
-              onClick$={() => inputElement.value!.focus()}
             >
               {loading.value ? (
-                <LuLoader2 class="h-[1.49em] w-[1.49em] animate-spin" />
+                <LuLoader2 class="h-6 w-6 animate-spin" />
               ) : (
-                <LuSearch class="h-full" />
+                <LuSearch class="h-6 w-6" />
               )}
-            </Button>
+            </div>
             <input
               class="flex-1 bg-transparent px-2 text-lg text-slate-900 outline-none placeholder:text-slate-500 dark:text-slate-200 md:text-xl"
               ref={inputElement}
