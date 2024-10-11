@@ -383,7 +383,7 @@ export const DocSearch = component$(() => {
                 })}
               </ul>
             ) : // Resent
-            recent.value!.length ? (
+            recent.value?.length ? (
               <>
                 <div class="text-sm md:text-base">Recent</div>
                 <ul class="mt-6 space-y-2.5">
@@ -459,10 +459,8 @@ const SearchItem = component$<SearchItemProps>(
     return (
       <Link
         class={cn(
-          'focus-ring flex scroll-my-12 items-center rounded-2xl border-2 px-5 py-4 md:px-6',
-          active.value
-            ? 'border-transparent bg-sky-600/10 text-sky-600 dark:bg-sky-400/10 dark:text-sky-400'
-            : 'border-slate-200 dark:border-slate-800',
+          'focus-ring flex scroll-my-12 items-center rounded-2xl border px-5 py-4 md:px-6',
+          active.value && 'bg-primary/10 text-primary',
         )}
         ref={element}
         href={path}
@@ -478,10 +476,10 @@ const SearchItem = component$<SearchItemProps>(
         )}
         <div
           class={cn(
-            'flex-1 px-4 md:px-5 [&_mark]:bg-transparent [&_mark]:font-medium',
+            'flex-1 px-4 md:px-5 [&_mark]:bg-transparent [&_mark]:font-semibold',
             active.value
-              ? '[&_mark]:text-sky-600 [&_mark]:underline [&_mark]:dark:text-sky-400'
-              : '[&_mark]:text-slate-900 [&_mark]:dark:text-slate-200',
+              ? '[&_mark]:text-primary [&_mark]:underline'
+              : '[&_mark]:text-foreground',
           )}
         >
           {type === 'content' && (relation === 'none' || recent) && (
