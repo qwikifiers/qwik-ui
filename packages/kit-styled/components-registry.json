@@ -60,7 +60,7 @@
       "type": "dropdown",
       "componentFolder": "dropdown",
       "files": ["dropdown.tsx"]
-    }
+    },
     {
       "displayName": "Input",
       "type": "input",
