@@ -2,97 +2,13 @@
 title: Qwik UI | Dropdown
 ---
 
-import { FeatureList } from '~/components/feature-list/feature-list';
-
-import { statusByComponent } from '~/_state/component-statuses';
-
-<StatusBanner status={statusByComponent.headless.Dropdown} />
+import Hero from './examples/hero';
+import Repro from './examples/repro';
 
 # Dropdown
 
-Customizable popover menu.
+ABOVE HERO
 
-<Showcase name="hero" />
+<Hero />
 
-## Anatomy
-
-<AnatomyTable
-  propDescriptors={[
-    {
-      name: 'Dropdown.Root',
-      description:
-        'Defines the component boundary and exposes its internal logic. Must wrap over all other parts.',
-    },
-    {
-      name: 'Dropdown.Trigger',
-      description:
-        'Toggles the visibility of the dropdown menu. Should wrap around the button element.',
-    },
-    {
-      name: 'Dropdown.Popover',
-      description:
-        'Container for the dropdown menu, responsible for positioning and visibility.',
-    },
-    {
-      name: 'Dropdown.Arrow',
-      description: 'Optional arrow pointing from the trigger to the dropdown menu.',
-    },
-    {
-      name: 'Dropdown.Content',
-      description: 'Contains the dropdown options and other interactive elements.',
-    },
-    {
-      name: 'Dropdown.Group',
-      description: 'Groups multiple dropdown items under a common label.',
-    },
-    {
-      name: 'Dropdown.GroupLabel',
-      description: 'Label for a group of dropdown items.',
-    },
-    {
-      name: 'Dropdown.Separator',
-      description:
-        'Visual separator between different sections or groups of dropdown items.',
-    },
-    {
-      name: 'Dropdown.CheckboxItem',
-      description: 'Dropdown item that includes a checkbox for multi-select options.',
-    },
-    {
-      name: 'Dropdown.ItemIndicator',
-      description: 'Indicator that shows the selected state of an item.',
-    },
-    {
-      name: 'Dropdown.RadioGroup',
-      description: 'Groups radio items, allowing only one to be selected at a time.',
-    },
-    {
-      name: 'Dropdown.RadioItem',
-      description:
-        'Dropdown item that includes a radio button for single-select options within a radio group.',
-    },
-  ]}
-/>
-
-{/* Need to create more examples - TBD */}
-
-## API
-
-### Dropdown.Root
-
-<AnatomyTable
-  propDescriptors={[
-    {
-      name: 'bind:open',
-      description:
-        'Two-way data bind of the open state of the dropdown to a user-defined signal.',
-    },
-    {
-      name: 'onOpenChange$',
-      description:
-        'Callback function that is triggered when the open state of the dropdown changes.',
-    },
-  ]}
-/>
-
-<Showcase name="simple" />
+<Repro />

@@ -12,11 +12,11 @@ importers:
         specifier: ^4.9.1
         version: 4.9.1(playwright-core@1.44.1)
       '@builder.io/qwik':
-        specifier: https://pkg.pr.new/@builder.io/qwik@01702b5
-        version: https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
+        specifier: https://pkg.pr.new/@builder.io/qwik@e2d67d3
+        version: https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
       '@builder.io/qwik-city':
-        specifier: https://pkg.pr.new/@builder.io/qwik-city@01702b5
-        version: https://pkg.pr.new/@builder.io/qwik-city@01702b5(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5)
+        specifier: https://pkg.pr.new/@builder.io/qwik-city@e2d67d3
+        version: https://pkg.pr.new/@builder.io/qwik-city@e2d67d3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5)
       '@changesets/cli':
         specifier: ^2.27.3
         version: 2.27.5
@@ -49,7 +49,7 @@ importers:
         version: 3.0.0-feat-sst-upgrade.1(@nx/devkit@19.4.2(nx@19.4.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11))))(@nx/node@19.3.0(@babel/traverse@7.24.6)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11))(@types/node@20.12.12)(@zkochan/js-yaml@0.0.7)(eslint@8.57.0)(nx@19.4.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))(ts-node@10.9.1(@swc/core@1.5.29(@swc/helpers@0.5.11))(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)(verdaccio@5.31.0(typanion@3.14.0)))(esbuild@0.17.19)(wrangler@3.58.0)
       '@modular-forms/qwik':
         specifier: ^0.24.0
-        version: 0.24.0(@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@01702b5(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5))(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1)))
+        version: 0.24.0(@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@e2d67d3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5))(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1)))
       '@nx/devkit':
         specifier: 19.4.2
         version: 19.4.2(nx@19.4.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.11)))
@@ -85,7 +85,7 @@ importers:
         version: 1.44.1
       '@qwikest/icons':
         specifier: ^0.0.13
-        version: 0.0.13(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1)))
+        version: 0.0.13(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1)))
       '@swc-node/register':
         specifier: ^1.9.1
         version: 1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5)
@@ -313,8 +313,8 @@ importers:
   packages/kit-headless:
     dependencies:
       '@builder.io/qwik':
-        specifier: https://pkg.pr.new/@builder.io/qwik@01702b5
-        version: https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
+        specifier: https://pkg.pr.new/@builder.io/qwik@e2d67d3
+        version: https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
       '@floating-ui/core':
         specifier: ^1.6.2
         version: 1.6.2
@@ -334,8 +334,8 @@ importers:
   packages/kit-styled:
     dependencies:
       '@builder.io/qwik':
-        specifier: https://pkg.pr.new/@builder.io/qwik@01702b5
-        version: https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
+        specifier: https://pkg.pr.new/@builder.io/qwik@e2d67d3
+        version: https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
     devDependencies:
       '@qwik-ui/headless':
         specifier: ^0.6.0
@@ -347,8 +347,8 @@ importers:
   packages/themes:
     dependencies:
       '@builder.io/qwik':
-        specifier: https://pkg.pr.new/@builder.io/qwik@01702b5
-        version: https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
+        specifier: https://pkg.pr.new/@builder.io/qwik@e2d67d3
+        version: https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
 
   packages/utils:
     dependencies:
@@ -1009,19 +1009,19 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@01702b5':
-    resolution: {tarball: https://pkg.pr.new/@builder.io/qwik-city@01702b5}
+  '@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@e2d67d3':
+    resolution: {tarball: https://pkg.pr.new/@builder.io/qwik-city@e2d67d3}
     version: 2.0.0-0
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
 
-  '@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@01702b5':
-    resolution: {tarball: https://pkg.pr.new/@builder.io/qwik@01702b5}
+  '@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@e2d67d3':
+    resolution: {tarball: https://pkg.pr.new/@builder.io/qwik@e2d67d3}
     version: 2.0.0-0
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
     hasBin: true
     peerDependencies:
       prettier: '*'
-      vitest: 2.0.5
+      vitest: ^2
     peerDependenciesMeta:
       prettier:
         optional: true
@@ -8412,7 +8412,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.6
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   '@babel/parser@7.24.6':
     dependencies:
@@ -9013,7 +9013,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@01702b5(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5)':
+  '@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@e2d67d3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5)':
     dependencies:
       '@mdx-js/mdx': 3.0.1
       '@types/mdx': 2.0.13
@@ -9037,7 +9037,7 @@ snapshots:
       - terser
       - typescript
 
-  '@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))':
+  '@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))':
     dependencies:
       csstype: 3.1.3
       vite: 5.3.5(@types/node@20.12.12)(sass@1.77.4)(terser@5.31.1)
@@ -9893,10 +9893,10 @@ snapshots:
 
   '@microsoft/tsdoc@0.14.2': {}
 
-  '@modular-forms/qwik@0.24.0(@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@01702b5(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5))(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1)))':
+  '@modular-forms/qwik@0.24.0(@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@e2d67d3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5))(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1)))':
     dependencies:
-      '@builder.io/qwik': https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
-      '@builder.io/qwik-city': https://pkg.pr.new/@builder.io/qwik-city@01702b5(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5)
+      '@builder.io/qwik': https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
+      '@builder.io/qwik-city': https://pkg.pr.new/@builder.io/qwik-city@e2d67d3(@types/node@20.12.12)(rollup@4.18.0)(sass@1.77.4)(terser@5.31.1)(typescript@5.4.5)
       decode-formdata: 0.7.3
 
   '@nodelib/fs.scandir@2.1.5':
@@ -10709,9 +10709,9 @@ snapshots:
 
   '@polka/url@1.0.0-next.25': {}
 
-  '@qwikest/icons@0.0.13(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1)))':
+  '@qwikest/icons@0.0.13(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1)))':
     dependencies:
-      '@builder.io/qwik': https://pkg.pr.new/@builder.io/qwik@01702b5(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
+      '@builder.io/qwik': https://pkg.pr.new/@builder.io/qwik@e2d67d3(@types/node@20.12.12)(prettier@3.2.5)(sass@1.77.4)(terser@5.31.1)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.77.4)(terser@5.31.1))
 
   '@rollup/pluginutils@4.2.1':
     dependencies:
@@ -12422,7 +12422,7 @@ snapshots:
   css-tree@2.2.1:
     dependencies:
       mdn-data: 2.0.28
-      source-map-js: 1.2.0
+      source-map-js: 1.2.1
 
   css-tree@2.3.1:
     dependencies:
@@ -17020,7 +17020,7 @@ snapshots:
       css-tree: 2.3.1
       css-what: 6.1.0
       csso: 5.0.5
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   symbol-observable@1.2.0: {}
 

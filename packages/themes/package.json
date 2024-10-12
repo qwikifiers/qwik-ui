@@ -21,7 +21,7 @@
   "private": false,
   "scripts": {},
   "peerDependencies": {
-    "@builder.io/qwik": "https://pkg.pr.new/@builder.io/qwik@01702b5"
+    "@builder.io/qwik": "https://pkg.pr.new/@builder.io/qwik@e2d67d3"
   },
   "devDependencies": {}
 }
