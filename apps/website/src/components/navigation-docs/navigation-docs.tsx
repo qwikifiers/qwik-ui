@@ -30,6 +30,10 @@ const defaultLinksGroups: LinkGroup[] = [
         href: '/docs/contributing/',
       },
       {
+        name: 'Contributors',
+        href: '/docs/contributors/',
+      },
+      {
         name: 'Headless',
         href: '/docs/headless/introduction/',
       },

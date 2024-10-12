@@ -119,9 +119,6 @@ importers:
       '@vitest/ui':
         specifier: ^1.6.0
         version: 1.6.0(vitest@1.6.0)
-      all-contributors-cli:
-        specifier: ^6.26.1
-        version: 6.26.1
       ansis:
         specifier: 3.2.0
         version: 3.2.0
@@ -2790,11 +2787,6 @@ packages:
   ajv@8.12.0:
     resolution: {integrity: sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==}
 
-  all-contributors-cli@6.26.1:
-    resolution: {integrity: sha512-Ymgo3FJACRBEd1eE653FD1J/+uD0kqpUNYfr9zNC1Qby0LgbhDBzB3EF6uvkAbYpycStkk41J+0oo37Lc02yEw==}
-    engines: {node: '>=4'}
-    hasBin: true
-
   ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
 
@@ -5335,10 +5327,6 @@ packages:
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
 
-  json-fixer@1.6.15:
-    resolution: {integrity: sha512-TuDuZ5KrgyjoCIppdPXBMqiGfota55+odM+j2cQ5rt/XKyKmqGB3Whz1F8SN8+60yYGy/Nu5lbRZ+rx8kBIvBw==}
-    engines: {node: '>=10'}
-
   json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
 
@@ -6366,11 +6354,6 @@ packages:
   pathval@1.1.1:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
 
-  pegjs@0.10.0:
-    resolution: {integrity: sha512-qI5+oFNEGi3L5HAxDwN2LA4Gg7irF70Zs25edhjld9QemOgp0CbvMtbFcMvFtEo1OityPrcCzkQFB8JP/hxgow==}
-    engines: {node: '>=0.10'}
-    hasBin: true
-
   pend@1.2.0:
     resolution: {integrity: sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==}
 
@@ -6405,10 +6388,6 @@ packages:
   pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
-
-  pify@5.0.0:
-    resolution: {integrity: sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==}
-    engines: {node: '>=10'}
 
   pinkie-promise@2.0.1:
     resolution: {integrity: sha512-0Gni6D4UcLTbv9c57DfxDGdr41XfgUjqWZu492f0cIGr16zDU06BWP/RAEvOuo7CQ0CNjHaLlM59YJJFm3NWlw==}
@@ -9894,12 +9873,6 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nrwl/devkit@19.1.1(nx@19.1.1(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))':
-    dependencies:
-      '@nx/devkit': 19.1.1(nx@19.1.1(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))
-    transitivePeerDependencies:
-      - nx
-
   '@nrwl/devkit@19.1.1(nx@19.4.2(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))':
     dependencies:
       '@nx/devkit': 19.1.1(nx@19.4.2(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))
@@ -10095,7 +10068,7 @@ snapshots:
 
   '@nx/devkit@19.1.1(nx@19.1.1(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))':
     dependencies:
-      '@nrwl/devkit': 19.1.1(nx@19.1.1(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))
+      '@nrwl/devkit': 19.1.1(nx@19.4.2(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))
       ejs: 3.1.10
       enquirer: 2.3.6
       ignore: 5.3.1
@@ -11537,23 +11510,6 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
       uri-js: 4.4.1
-
-  all-contributors-cli@6.26.1:
-    dependencies:
-      '@babel/runtime': 7.24.6
-      async: 3.2.5
-      chalk: 4.1.2
-      didyoumean: 1.2.2
-      inquirer: 7.3.3
-      json-fixer: 1.6.15
-      lodash: 4.17.21
-      node-fetch: 2.7.0
-      pify: 5.0.0
-      yargs: 15.4.1
-    optionalDependencies:
-      prettier: 2.8.8
-    transitivePeerDependencies:
-      - encoding
 
   ansi-align@3.0.1:
     dependencies:
@@ -14639,12 +14595,6 @@ snapshots:
 
   json-buffer@3.0.1: {}
 
-  json-fixer@1.6.15:
-    dependencies:
-      '@babel/runtime': 7.24.6
-      chalk: 4.1.2
-      pegjs: 0.10.0
-
   json-parse-even-better-errors@2.3.1: {}
 
   json-parse-even-better-errors@3.0.2: {}
@@ -15944,8 +15894,6 @@ snapshots:
 
   pathval@1.1.1: {}
 
-  pegjs@0.10.0: {}
-
   pend@1.2.0: {}
 
   perfect-debounce@1.0.0: {}
@@ -15969,8 +15917,6 @@ snapshots:
   pify@3.0.0: {}
 
   pify@4.0.1: {}
-
-  pify@5.0.0: {}
 
   pinkie-promise@2.0.1:
     dependencies:
