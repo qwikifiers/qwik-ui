@@ -7,7 +7,7 @@ export const Progress = component$<PropsOf<typeof HeadlessProgress.Root>>((props
     <HeadlessProgress.Root
       class={cn(
         'relative h-4 w-full overflow-hidden rounded border bg-muted',
-        props?.class,
+        props.class,
       )}
       {...props}
     >
