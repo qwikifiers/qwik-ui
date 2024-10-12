@@ -319,7 +319,7 @@ importers:
   packages/kit-headless:
     dependencies:
       '@builder.io/qwik':
-        specifier: '>=1.9'
+        specifier: '>=1.3.1'
         version: 1.9.0(@types/node@20.12.12)(sass@1.77.4)
       '@floating-ui/core':
         specifier: ^1.6.2
@@ -340,7 +340,7 @@ importers:
   packages/kit-styled:
     dependencies:
       '@builder.io/qwik':
-        specifier: '>=1.9'
+        specifier: '>=1.3.1'
         version: 1.9.0(@types/node@20.12.12)(sass@1.77.4)
     devDependencies:
       '@qwik-ui/headless':
@@ -353,8 +353,8 @@ importers:
   packages/themes:
     dependencies:
       '@builder.io/qwik':
-        specifier: 1.7.2
-        version: 1.7.2(@types/node@20.12.12)(sass@1.77.4)
+        specifier: '>=1.3.1'
+        version: 1.9.0(@types/node@20.12.12)(sass@1.77.4)
 
   packages/utils:
     dependencies:
@@ -1018,11 +1018,6 @@ packages:
   '@builder.io/qwik-city@1.9.0':
     resolution: {integrity: sha512-N+TARxsrVMNpIQQ+cnTN+c/gCdI5PlUGPFaRnWT4dw3ug+bizoaldksFvdATarWVYUMkoK7tTpop3cORKN9tAg==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
-
-  '@builder.io/qwik@1.7.2':
-    resolution: {integrity: sha512-9pMZHDB6hIHn6jfQu0zRT54G7Lg0gSGVlGSogYttdeNB3qKl9QkuHXSz3wziyBD6mtFMrCkpLshFs/ZBtajoIA==}
-    engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
-    hasBin: true
 
   '@builder.io/qwik@1.9.0':
     resolution: {integrity: sha512-E4EFXOaUz4A6D48lw1CwKR4CLZCPquetuMPrRoAPZjBueL/R1oBzXdRt5zVemS6lAoTSjXBsnxXo2kGYKCI7pA==}
@@ -9033,19 +9028,6 @@ snapshots:
       - supports-color
       - terser
       - typescript
-
-  '@builder.io/qwik@1.7.2(@types/node@20.12.12)(sass@1.77.4)':
-    dependencies:
-      csstype: 3.1.3
-      vite: 5.2.11(@types/node@20.12.12)(sass@1.77.4)
-    transitivePeerDependencies:
-      - '@types/node'
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - terser
 
   '@builder.io/qwik@1.9.0(@types/node@20.12.12)(sass@1.77.4)':
     dependencies:
