@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
+import { RequestHandler, routeLoader$ } from '@builder.io/qwik-city';
 import { Badge } from '@qwik-ui/styled';
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
@@ -22,6 +22,7 @@ export const useContributors = routeLoader$<Contributor[]>(async () => {
 
   const contributors: Contributor[] = await response.json();
 
+  // @ts-expect-error m.type actually is valid
   return contributors.filter((m) => m.type === 'User');
 });
 
