@@ -8,16 +8,16 @@
       "files": ["accordion.tsx"]
     },
     {
-      "displayName": "Avatar",
-      "type": "avatar",
-      "componentFolder": "avatar",
-      "files": ["avatar.tsx"]
-    },
-    {
       "displayName": "Alert",
       "type": "alert",
       "componentFolder": "alert",
       "files": ["alert.tsx"]
+    },
+    {
+      "displayName": "Avatar",
+      "type": "avatar",
+      "componentFolder": "avatar",
+      "files": ["avatar.tsx"]
     },
     {
       "displayName": "Badge",
@@ -56,6 +56,12 @@
       "files": ["combobox.tsx"]
     },
     {
+      "displayName": "Dropdown",
+      "type": "dropdown",
+      "componentFolder": "dropdown",
+      "files": ["dropdown.tsx"]
+    }
+    {
       "displayName": "Input",
       "type": "input",
       "componentFolder": "input",
@@ -78,6 +84,12 @@
       "type": "popover",
       "componentFolder": "popover",
       "files": ["popover.tsx"]
+    },
+    {
+      "displayName": "Progress",
+      "type": "progress",
+      "componentFolder": "progress",
+      "files": ["progress.tsx"]
     },
     {
       "displayName": "Radio Group",
@@ -114,6 +126,18 @@
       "type": "textarea",
       "componentFolder": "textarea",
       "files": ["textarea.tsx"]
+    },
+    {
+      "displayName": "Toggle",
+      "type": "toggle",
+      "componentFolder": "toggle",
+      "files": ["toggle.tsx"]
+    },
+    {
+      "displayName": "ToggleGroup",
+      "type": "toggle-group",
+      "componentFolder": "toggle-group",
+      "files": ["toggle-group.tsx"]
     }
   ]
 }
