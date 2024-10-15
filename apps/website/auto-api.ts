@@ -67,7 +67,27 @@ type ParsedProps = {
 
 /**
  * Note: For this code to run, you need to prefix the type with 'Public' (e.g., 'PublicMyType') in your TypeScript files
- * and save the file. This convention helps the parser identify and process the public types correctly.
+ *
+ *  * e.g:
+ *
+ * ```tsx
+ * type PublicModalRootProps = {
+ *     //blablabla
+ *     onShow$?: QRL<() => void>;
+ *     //blablabla
+ *     onClose$?: QRL<() => void>;
+ *     //blablabla
+ *     'bind:show'?: Signal<boolean>;
+ *     //blablabla
+ *     closeOnBackdropClick?: boolean;
+ *     //blablabla
+ *     alert?: boolean;
+ * };
+ * ```
+ * This convention helps the parser identify and process the public types correctly.
+ *
+ * Now when you save the corresponding .mdx file, the API will be updated accordingly.
+ *
  **/
 
 function parseSingleComponentFromDir(
@@ -104,9 +124,9 @@ function parseSingleComponentFromDir(
       }
       if (capture.name === 'type') {
         parsedProps.type = capture.node.text;
-        const lastKey = last ? Object.keys(last)[0] : '';
-        if (subComponentName === lastKey) {
-          last![lastKey].push(parsedProps);
+        const topKey = last ? Object.keys(last)[0] : '';
+        if (subComponentName === topKey) {
+          last[topKey].push(parsedProps);
         } else {
           parsed.push({ [subComponentName]: [parsedProps] });
         }
@@ -126,7 +146,7 @@ function writeToDocs(fullPath: string, componentName: string, api: ComponentPart
     const dirPath = resolve(fullDocPath, 'auto-api');
 
     if (!fs.existsSync(dirPath)) {
-      fs.mkdirSync(dirPath, { recursive: true });
+      fs.mkdirSync(dirPath);
     }
     const json = JSON.stringify(api, null, 2);
     const exportedApi = `export const api = ${json};`;
@@ -145,7 +165,7 @@ function loopOnAllChildFiles(filePath: string) {
   if (!childComponentMatch) {
     return;
   }
-  const parentDir = filePath.slice(0, filePath.lastIndexOf(childComponentMatch[0]));
+  const parentDir = filePath.replace(childComponentMatch[0], '');
   const componentMatch = /[\\/](\w+)$/.exec(parentDir);
   if (!fs.existsSync(parentDir) || !componentMatch) {
     return;
