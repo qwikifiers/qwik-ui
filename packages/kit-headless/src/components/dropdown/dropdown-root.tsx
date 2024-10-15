@@ -11,7 +11,6 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import { dropdownContextId, type DropdownContext } from './dropdown-context';
-import { useDropdown } from './use-dropdown';
 
 export type TItemsMap = Map<
   number,
@@ -102,8 +101,6 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
 
     useContextProvider(dropdownContextId, context);
 
-    const { getActiveDescendant$ } = useDropdown();
-
     useTask$(function reactiveUserOpen({ track }) {
       const bindOpenSig = props['bind:open'];
       if (!bindOpenSig) return;
@@ -120,12 +117,25 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
       }
     });
 
+    // only evaluate when open
     const activeDescendantSig = useComputed$(() => {
-      if (isOpenSig.value) {
-        return getActiveDescendant$(highlightedIndexSig.value ?? -1);
-      } else {
+      if (!isOpenSig.value) {
         return '';
       }
+
+      const highlightedIndex = context.highlightedIndexSig.value ?? -1;
+      const highlightedItem = context.itemsMapSig.value.get(highlightedIndex);
+
+      if (
+        highlightedIndex === null ||
+        highlightedIndex === -1 ||
+        highlightedItem?.disabled
+      ) {
+        return '';
+      }
+
+      // highlighted item id
+      return `${context.localId}-${highlightedIndex}`;
     });
 
     useTask$(() => {

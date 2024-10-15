@@ -1,8 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import { CheckIcon } from '../icons/Check';
-import { Roadmap } from '../icons/Roadmap';
-import { IssueIcon } from '../icons/Issues';
 import { Note } from '../note/note';
+import { LuBadge, LuBadgeAlert, LuBadgeCheck } from '@qwikest/icons/lucide';
 
 type FeatureListProps = {
   features: string[];
@@ -22,7 +20,7 @@ export const FeatureList = component$((props: FeatureListProps) => {
                   key={descriptor}
                   class={`flex w-full list-none items-center gap-x-2 gap-y-4 ${index === props.features.length - 1 ? '' : 'border-b-[1px]'} border-slate-200 py-2 dark:border-slate-800`}
                 >
-                  <CheckIcon class="min-w-[21px]" />
+                  <LuBadgeCheck class="h-5 w-5 text-green-600" />
                   {descriptor}
                 </li>
               );
@@ -39,7 +37,7 @@ export const FeatureList = component$((props: FeatureListProps) => {
                     key={descriptor}
                     class="flex w-full list-none items-center gap-x-2 gap-y-4 border-b-[1px] border-slate-200 py-2 dark:border-slate-800"
                   >
-                    <Roadmap class="min-w-[21px]" />
+                    <LuBadge class="h-5 w-5 text-yellow-500" />
                     {descriptor}
                   </li>
                 </>
@@ -56,7 +54,7 @@ export const FeatureList = component$((props: FeatureListProps) => {
                     key={descriptor}
                     class="flex w-full list-none items-center gap-x-2 gap-y-4 border-b-[1px] border-slate-200 py-2 dark:border-slate-800"
                   >
-                    <IssueIcon class="min-w-[21px]" />
+                    <LuBadgeAlert class="h-5 w-5 text-red-500" />
                     {descriptor}
                   </li>
                 </>
