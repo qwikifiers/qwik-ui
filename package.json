@@ -5,7 +5,7 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "private": false,
+  "private": true,
   "type": "module",
   "scripts": {
     "build.changelog-formatter": "tsc .changeset/changelog-github-custom.ts && mv .changeset/changelog-github-custom.js .changeset/changelog-github-custom.cjs",
@@ -29,6 +29,7 @@
     "release": "pnpm release.prepare && pnpm release.setroot && pnpm release.publish && pnpm release.resetroot",
     "release.publish": "changeset publish",
     "release.resetroot": "cp dist/pnpm-workspace.yaml pnpm-workspace.yaml",
+    "release.e2e": "pnpm release.prepare && pnpm release.setroot && pnpm -r exec pnpm version patch && pnpm -r publish --tag e2e --no-git-checks && pnpm release.resetroot",
     "test.cli": "NODE_OPTIONS=--experimental-vm-modules nx test cli",
     "test.headless": "nx component-test headless --skip-nx-cache",
     "test.visual.headless": "nx visual-test headless",
