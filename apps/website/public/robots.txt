@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Algolia-Crawler-Verif: B07EC35A2AC0DA67
+
+Sitemap: https://qwikui.com/sitemap.xml

@@ -153,17 +153,9 @@ export function useCombobox() {
     return context.loop || prevIndex < index ? prevIndex : index;
   });
 
-  const getActiveDescendant$ = $((index: number) => {
-    if (index === -1 || context.disabledIndexSetSig.value.has(index)) {
-      return '';
-    }
-    return `${context.localId}-${index}`;
-  });
-
   return {
     getNextEnabledItemIndex$,
     getPrevEnabledItemIndex$,
-    getActiveDescendant$,
     selectionManager$,
     filterManager$,
   };

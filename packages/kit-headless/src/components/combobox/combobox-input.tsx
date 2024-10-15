@@ -29,19 +29,27 @@ export const HComboboxInput = component$(
     const wasEmptyBeforeBackspaceSig = useSignal(false);
     const isInputResetSig = useSignal(false);
 
-    const {
-      selectionManager$,
-      getNextEnabledItemIndex$,
-      getPrevEnabledItemIndex$,
-      getActiveDescendant$,
-    } = useCombobox();
+    const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
+      useCombobox();
 
-    const activeDescendantSig = useComputed$(async () => {
-      if (context.isListboxOpenSig.value) {
-        return getActiveDescendant$(context.highlightedIndexSig.value ?? -1);
-      } else {
+    const activeDescendantSig = useComputed$(() => {
+      if (!context.isListboxOpenSig.value) {
         return '';
       }
+
+      const highlightedIndex = context.highlightedIndexSig.value ?? -1;
+      const highlightedItem = context.itemsMapSig.value.get(highlightedIndex);
+
+      if (
+        highlightedIndex === null ||
+        highlightedIndex === -1 ||
+        highlightedItem?.disabled
+      ) {
+        return '';
+      }
+
+      // highlighted item id
+      return `${context.localId}-${highlightedIndex}`;
     });
 
     const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
