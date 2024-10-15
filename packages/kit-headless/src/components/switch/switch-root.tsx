@@ -9,11 +9,10 @@ export type SwitchProps = PropsOf<'div'> & SwitchState;
 
 
 
-export const SwitchRoot = component$(({defaultChecked, disabled, label, onChange$, ...rest}: SwitchProps) => {
+export const SwitchRoot = component$(({defaultChecked, disabled, onChange$, ...rest}: SwitchProps) => {
   const context: SwitchContextState = {
     defaultChecked,
     disabled,
-    label,
     bindChecked: rest['bind:checked'],
     onChange$: onChange$
   }

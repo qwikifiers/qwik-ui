@@ -1,85 +1,55 @@
+/* Define default light theme colors */
 .switch {
-  --brand-hue: 200;
-  --brand-saturation: 100%;
-  --brand-lightness: 50%;
-
-  --brand-light: hsl(var(--brand-hue) var(--brand-saturation) var(--brand-lightness));
-  --text1-light: hsl(var(--brand-hue) var(--brand-saturation) 10%);
-  --surface1-light: hsl(var(--brand-hue) 25% 100%);
-
-  --brand-dark: hsl(var(--brand-hue) calc(var(--brand-saturation) / 2) calc(var(--brand-lightness) / 1.5));
-  --text1-dark: hsl(var(--brand-hue) 15% 85%);
-  --surface1-dark: hsl(var(--brand-hue) 10% 10%);
-  --thumb-size: 2rem;
-  --thumb: hsl(0 0% 100%);
-  --thumb-highlight: hsl(0 0% 0% / 25%);
-
-  --track-size: calc(var(--thumb-size) * 2);
-  --track-padding: 2px;
-  --track-inactive: hsl(80 0% 80%);
-  --track-active: hsl(80 60% 45%);
-
-  --thumb-color: var(--thumb);
-  --thumb-color-highlight: var(--thumb-highlight);
-  --track-color-inactive: var(--track-inactive);
-  --track-color-active: var(--track-active);
-
+  --thumb-color: hsla(var(--switch-thumb-color));
+  --track-color-inactive: hsla(80 0% 80%);
+  --track-color-active: hsla(var(--primary));
   --isLTR: 1;
 
   display: flex;
   align-items: center;
   gap: 2ch;
   justify-content: space-between;
-
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
-
   &>input {
     --thumb-position: 0%;
     --thumb-transition-duration: .25s;
-
-    padding: var(--track-padding);
+    padding: 2px;
     background: var(--track-color-inactive);
-    inline-size: var(--track-size);
-    block-size: var(--thumb-size);
-    border-radius: var(--track-size);
-
+    inline-size: 4rem;
+    block-size: 2rem;
+    border-radius: 4rem;
     appearance: none;
     pointer-events: none;
     touch-action: pan-y;
     border: none;
     outline-offset: 5px;
     box-sizing: content-box;
-
     flex-shrink: 0;
     display: grid;
     align-items: center;
     grid: [track] 1fr / [track] 1fr;
-
     transition: background-color .25s ease;
 
     &::before {
       --highlight-size: 0;
-
       content: "";
       cursor: pointer;
       pointer-events: auto;
       grid-area: track;
-      inline-size: var(--thumb-size);
-      block-size: var(--thumb-size);
+      inline-size: 2rem;
+      block-size: 2rem;
       background: var(--thumb-color);
-      box-shadow: 0 0 0 var(--highlight-size) var(--thumb-color-highlight);
+      box-shadow: 0 0 0 var(--highlight-size) hsla(var(--thumb-color-highlight));
       border-radius: 50%;
       transform: translateX(var(--thumb-position));
 
       @media (--motionOK) {
-        & {
-          transition:
-            transform var(--thumb-transition-duration) ease,
-            box-shadow .25s ease;
-        }
+        transition:
+          transform var(--thumb-transition-duration) ease,
+          box-shadow .25s ease;
       }
     }
 
@@ -89,22 +59,29 @@
 
     &:checked {
       background: var(--track-color-active);
-      --thumb-position: calc((var(--track-size) - 100%) * var(--isLTR));
+      --thumb-position: calc((4rem - 100%) * var(--isLTR));
     }
 
     &:indeterminate {
-      --thumb-position: calc(calc(calc(var(--track-size) / 2) - calc(var(--thumb-size) / 2)) * var(--isLTR));
+      --thumb-position: calc(1rem * var(--isLTR));
     }
 
     &:disabled {
       cursor: not-allowed;
-      --thumb-color: transparent;
-
+      opacity: 0.35;
       &::before {
         cursor: not-allowed;
-        box-shadow: inset 0 0 0 2px hsl(0 0% 100% / 50%);
-
+        box-shadow: inset 0 0 0 2px hsl(0 0% 100% / 10%);
       }
     }
   }
+}
+
+/* Dark theme overrides */
+.theme-dark .switch {
+  --background: 210, 50%, 20%; /* Adjusted for dark theme */
+  --primary: 210, 80%, 60%; /* Adjusted for dark theme */
+  --thumb-color: hsla(var(--background));
+  --track-color-inactive: hsla(240, 10%, 50%);
+  --track-color-active: hsla(var(--primary));
 }
