@@ -16,8 +16,7 @@ const parser = new Parser();
 
 const query = new Query(
   TS.tsx,
-  `declaration: 
-    (type_alias_declaration
+  `(type_alias_declaration
       name: (type_identifier) @subComponentName
       (intersection_type
         (object_type
