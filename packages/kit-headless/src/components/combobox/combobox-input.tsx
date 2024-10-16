@@ -28,28 +28,32 @@ export const HComboboxInput = component$(
     const initialValueSig = useSignal<string | string[] | undefined>();
     const wasEmptyBeforeBackspaceSig = useSignal(false);
     const isInputResetSig = useSignal(false);
+    const activeDescendantSig = useSignal<string | undefined>(undefined);
 
     const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
       useCombobox();
 
-    const activeDescendantSig = useComputed$(() => {
-      if (!context.isListboxOpenSig.value) {
-        return '';
-      }
+    useTask$(function getActiveDescendant({ track }) {
+      track(() => context.highlightedIndexSig.value);
+      track(() => context.isListboxOpenSig.value);
 
       const highlightedIndex = context.highlightedIndexSig.value ?? -1;
       const highlightedItem = context.itemsMapSig.value.get(highlightedIndex);
+
+      if (!context.isListboxOpenSig.value) {
+        activeDescendantSig.value = '';
+        return;
+      }
 
       if (
         highlightedIndex === null ||
         highlightedIndex === -1 ||
         highlightedItem?.disabled
       ) {
-        return '';
+        return;
       }
 
-      // highlighted item id
-      return `${context.localId}-${highlightedIndex}`;
+      activeDescendantSig.value = `${context.localId}-${highlightedIndex}`;
     });
 
     const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {

@@ -45,17 +45,17 @@ export const api = {
           HComboboxItemProps: [
             {
               comment:
-                ' Internal index we get from the inline component. Please see combobox-inline.tsx ',
+                'Internal index we get from the inline component. Please see combobox-inline.tsx',
               prop: '_index',
               type: 'number',
             },
             {
-              comment: ' If true, item is not selectable or focusable. ',
+              comment: 'If true, item is not selectable or focusable.',
               prop: 'disabled',
               type: 'boolean',
             },
             {
-              comment: ' Selected value associated with the item. ',
+              comment: 'Selected value associated with the item.',
               prop: 'value',
               type: 'string',
             },

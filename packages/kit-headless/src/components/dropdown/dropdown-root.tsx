@@ -84,6 +84,7 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
     const initialLoadSig = useSignal<boolean>(true);
     const highlightedItemRef = useSignal<HTMLLIElement>();
     const isMouseOverPopupSig = useSignal<boolean>(false);
+    const activeDescendantSig = useSignal<string | undefined>(undefined);
 
     const context: DropdownContext = {
       itemsMapSig,
@@ -117,25 +118,27 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
       }
     });
 
-    // only evaluate when open
-    const activeDescendantSig = useComputed$(() => {
-      if (!isOpenSig.value) {
-        return '';
-      }
+    useTask$(function getActiveDescendant({ track }) {
+      track(() => highlightedIndexSig.value);
+      track(() => isOpenSig.value);
 
       const highlightedIndex = context.highlightedIndexSig.value ?? -1;
       const highlightedItem = context.itemsMapSig.value.get(highlightedIndex);
+
+      if (!isOpenSig.value) {
+        activeDescendantSig.value = '';
+        return;
+      }
 
       if (
         highlightedIndex === null ||
         highlightedIndex === -1 ||
         highlightedItem?.disabled
       ) {
-        return '';
+        return;
       }
 
-      // highlighted item id
-      return `${context.localId}-${highlightedIndex}`;
+      activeDescendantSig.value = `${context.localId}-${highlightedIndex}`;
     });
 
     useTask$(() => {
