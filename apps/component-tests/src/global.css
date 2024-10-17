@@ -36,9 +36,13 @@
     --alert: 0 84.2% 60.2%;
     --alert-foreground: 210 40% 98%;
     --ring: 222.2 47.4% 11.2%;
+    --switch-thumb-color: 0 0% 100%;
+    --thumb-color-highlight: 0, 0%, 72%, 0.25;
   }
 
   .dark {
+    --thumb-color-highlight: 0, 0%, 100%, 0.25;
+    --switch-thumb-color: 0 0% 100%;
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
