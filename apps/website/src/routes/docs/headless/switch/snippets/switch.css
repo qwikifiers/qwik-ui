@@ -4,10 +4,10 @@
   --track-color-inactive: hsla(80 0% 80%);
   --track-color-active: hsla(var(--primary));
   --isLTR: 1;
-
+  flex-direction: row-reverse;
   display: flex;
   align-items: center;
-  gap: 2ch;
+  gap: 1ch;
   justify-content: space-between;
   cursor: pointer;
   user-select: none;
