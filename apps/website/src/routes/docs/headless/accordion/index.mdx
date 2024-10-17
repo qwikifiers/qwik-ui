@@ -6,6 +6,10 @@ import { statusByComponent } from '~/_state/component-statuses';
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { Note } from '~/components/note/note';
 
+import { AutoAPI } from '~/components/api-table/auto-api';
+
+import { api } from './auto-api/api';
+
 <StatusBanner status={statusByComponent.headless.Accordion} />
 
 # Accordion
@@ -214,63 +218,7 @@ You have custom control over how to render items in the Accordion, allowing for 
   ]}
 />
 
+
 ## API
 
-### Accordion.Root
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'value',
-      type: 'string',
-      description: 'The initial selectedd item of the accordion.',
-    },
-    {
-      name: 'bind:value',
-      type: 'Signal',
-      description: 'Reactive signal that controls the selected item.',
-    },
-    {
-      name: 'onChange$',
-      type: 'function',
-      description: 'Called when the state changes.',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: 'Disables the entire accordion.',
-    },
-    {
-      name: 'collapsible',
-      type: 'boolean',
-      description: 'Allows items to be collapsible.',
-    },
-    {
-      name: 'multiple',
-      type: 'boolean',
-      description: 'Allows multiple items to be expanded.',
-    },
-  ]}
-/>
-
-### Accordion.Item
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'value',
-      type: 'string',
-      description: 'The value associated with the accordion item.',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: 'When true, the accordion item is disabled.',
-    },
-    {
-      name: 'open',
-      type: 'boolean',
-      description: 'Opens the accordion item in multiple mode.',
-    },
-  ]}
-/>
+<AutoAPI api={api} />

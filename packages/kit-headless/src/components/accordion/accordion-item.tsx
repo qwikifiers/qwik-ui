@@ -17,9 +17,13 @@ type InternalAccordionItemProps = {
   _index?: number;
 };
 
-type AccordionItemProps = PropsOf<typeof HCollapsible> & {
-  open?: boolean;
+type PublicAccordionItemProps = PropsOf<typeof HCollapsible> & {
+  /** The value associated with the accordion item. */
   value?: string;
+  /** When true, the accordion item is disabled. */
+  disabled?: boolean;
+  /** Opens the accordion item in multiple mode.*/
+  open?: boolean;
 };
 
 export const HAccordionItem = component$(
@@ -29,7 +33,7 @@ export const HAccordionItem = component$(
     value,
     open,
     ...props
-  }: AccordionItemProps & InternalAccordionItemProps) => {
+  }: PublicAccordionItemProps & InternalAccordionItemProps) => {
     const context = useContext(accordionContextId);
     const localId = useId();
     const itemId = id ?? localId + '-item';
