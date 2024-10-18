@@ -31,7 +31,7 @@ export const api = {
               "type": "QRL<(open: boolean) => void>"
             },
             {
-              "comment": "@deprecated use `onChange$` instead",
+              "comment": "@deprecated use `onChange$` instead.",
               "prop": "onOpenChange$",
               "type": "QRL<(open: boolean) => void>"
             },
