@@ -15,20 +15,28 @@ import { type CollapsibleContext, collapsibleContextId } from './collapsible-con
 import { isBrowser } from '@builder.io/qwik/build';
 import { useCollapsible } from './use-collapsible';
 
-export type CollapsibleProps = PropsOf<'div'> & {
+export type PublicCollapsibleRootProps = PropsOf<'div'> & {
+  /** The ID of the underlaying HTML element. */
   id?: string;
+  /**	Uncontrolled initial expanded value. */
   open?: boolean | undefined;
+  /** Controlled expanded value, manages the collapsible content. */
   'bind:open'?: Signal<boolean>;
+  /**	Function called when the collapsible opens or closes. */
   onChange$?: QRL<(open: boolean) => void>;
-  /** @deprecated use `onChange$` instead */
+  /** @deprecated use `onChange$` instead. */
   onOpenChange$?: QRL<(open: boolean) => void>;
+  /** Disables the collapsible when true. */
   disabled?: boolean;
+  /** Passes reference to trigger instead of root. */
   triggerRef?: Signal<HTMLButtonElement>;
+  /** When false, collapsible will never collapse (will remain open). */
   collapsible?: boolean;
+  /** If true, supports previous accordion animations. */
   accordionItem?: boolean;
 };
 
-export const HCollapsible = component$((props: CollapsibleProps) => {
+export const HCollapsible = component$((props: PublicCollapsibleRootProps) => {
   const {
     disabled,
     onOpenChange$,

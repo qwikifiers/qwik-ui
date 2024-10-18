@@ -2,6 +2,8 @@ import { statusByComponent } from '~/_state/component-statuses';
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { Note } from '~/components/note/note';
 import { AnatomyTable } from '~/components/anatomy-table/anatomy-table';
+import { AutoAPI } from '~/components/api-table/auto-api';
+import { api } from './auto-api/api';
 
 <StatusBanner status={statusByComponent.headless.Collapsible} />
 
@@ -195,31 +197,4 @@ Some CSS variables are specific to the docs, feel free to plug in your own value
   ]}
 />
 
-### Collapsible.Root
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'open',
-      type: 'boolean',
-      description: 'Uncontrolled initial expanded value.',
-    },
-    {
-      name: 'bind:open',
-      type: 'signal',
-      description: 'Controlled expanded value, manages the collapsible content.',
-      info: 'boolean',
-    },
-    {
-      name: 'onOpenChange$',
-      type: 'QRL',
-      description: 'Function called when the collapsible opens or closes.',
-      info: 'QRL<(open: boolean) => void>',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: 'Disables the collapsible when true.',
-    },
-  ]}
-/>
+<AutoAPI api={api} />
