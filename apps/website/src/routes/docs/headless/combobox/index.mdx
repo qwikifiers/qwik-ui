@@ -2,7 +2,9 @@
 title: Qwik UI | Combobox
 ---
 
+import { AutoAPI } from '~/components/api-table/auto-api';
 import { statusByComponent } from '~/_state/component-statuses';
+import { api } from './auto-api/api';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
@@ -422,92 +424,9 @@ When in multi select mode, additional keyboard interactions are available.
   ]}
 />
 
-### Combobox.Root
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'value',
-      type: 'string',
-      description: 'Uncontrolled combobox value.',
-    },
-    {
-      name: 'bind:value',
-      type: 'signal',
-      description: 'Controlled selected value, manages the selected item.',
-      info: 'string',
-    },
-    {
-      name: 'filter',
-      type: 'boolean',
-      description: 'Disables the default filter function when set to false.',
-    },
-    {
-      name: 'onChange$',
-      type: 'QRL',
-      description: 'Function called when the selected value changes.',
-      info: 'QRL<(value: string) => void>',
-    },
-    {
-      name: 'bind:open',
-      type: 'signal',
-      description: 'Controlled open state of the popover.',
-      info: 'boolean',
-    },
-    {
-      name: 'onOpenChange$',
-      type: 'QRL',
-      description: 'Function called when the popover opens or closes.',
-      info: 'QRL<(open: boolean) => void>',
-    },
-    {
-      name: 'loop',
-      type: 'boolean',
-      description:
-        'Determines if focus cycles from the last item back to the first, or vice versa.',
-    },
-    {
-      name: 'placeholder',
-      type: 'string',
-      description: 'Sets a placeholder instead of a selected value.',
-    },
-    {
-      name: 'multiple',
-      type: 'boolean',
-      description: 'Enables multiple selections.',
-    },
-    {
-      name: 'bind:displayValue',
-      type: 'signal',
-      description: 'Controlled display value, manages the display items.',
-      info: 'string',
-    },
-    {
-      name: 'onInput$',
-      type: 'QRL',
-      description: 'Function called when the user types in the input.',
-      info: 'QRL<(inputValue: string) => void>',
-    },
-  ]}
-/>
+<AutoAPI api={api} />
 
 ### Combobox.Popover
 
 `Combobox.Popover` is a wrapper of the [Popover](../../../docs/headless/popover/) component, and has the same APIs.
 
-### Combobox.Item:
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'value',
-      type: 'string',
-      description: 'Give the combobox a value other than what is displayed in the item.',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: 'When true, the item is disabled.',
-    },
-  ]}
-/>

@@ -35,10 +35,7 @@ type TStringOrArray =
       onChange$?: QRL<(value: string) => void>;
     };
 
-export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
-  Omit<PropsOf<'div'>, 'onInput$'>,
-  'onChange$'
-> & {
+type PublicComboboxRootProps<M extends boolean = boolean> = {
   /** A signal that controls the current selected value (controlled). */
   'bind:value'?: Signal<TMultiple<M>>;
 
@@ -112,8 +109,14 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
   hasErrorComp?: boolean;
 
   removeOnBackspace?: boolean;
-} & TMultiValue &
-  TStringOrArray;
+};
+export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
+  Omit<PropsOf<'div'>, 'onInput$'>,
+  'onChange$'
+> &
+  TMultiValue &
+  TStringOrArray &
+  PublicComboboxRootProps<M>;
 
 export const HComboboxRootImpl = component$<
   HComboboxRootImplProps<boolean> & InternalComboboxProps

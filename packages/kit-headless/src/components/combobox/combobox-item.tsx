@@ -17,8 +17,7 @@ import {
 import { useCombobox } from './use-combobox';
 import { isServer } from '@builder.io/qwik/build';
 import { useCombinedRef } from '../../hooks/combined-refs';
-
-export type HComboboxItemProps = PropsOf<'div'> & {
+type PublicComboboxItemProps = {
   /** Internal index we get from the inline component. Please see combobox-inline.tsx */
   _index?: number;
 
@@ -28,6 +27,7 @@ export type HComboboxItemProps = PropsOf<'div'> & {
   /** Selected value associated with the item. */
   value?: string;
 };
+export type HComboboxItemProps = PropsOf<'div'> & PublicComboboxItemProps;
 
 export const HComboboxItem = component$((props: HComboboxItemProps) => {
   const context = useContext(comboboxContextId);
