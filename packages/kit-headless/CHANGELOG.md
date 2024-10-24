@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.2
+
+### Patch Changes
+
+- 🩹 fix peer dependencies to reflect actual lowest qwik version (1.3.1) that is compatible with qwik-ui/headless (by [@maiieul](https://github.com/maiieul) in [#992](https://github.com/qwikifiers/qwik-ui/pull/992))
+
+- 🐞🩹 packages now have a variable range of peer dependencies (by [@thejackshelton](https://github.com/thejackshelton) in [#988](https://github.com/qwikifiers/qwik-ui/pull/988))
+
+  fix: async computed signals are now sync in preparation for v2
+
 ## 0.6.1
 
 ### Patch Changes

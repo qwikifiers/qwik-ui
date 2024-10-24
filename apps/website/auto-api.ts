@@ -1,41 +1,39 @@
 import * as fs from 'fs';
 import { resolve } from 'path';
 import { ViteDevServer } from 'vite';
-import { default as Parser, Query } from 'tree-sitter';
-import { default as TS } from 'tree-sitter-typescript';
+import Parser, { Query } from 'tree-sitter';
+import TS from 'tree-sitter-typescript';
+
 const parser = new Parser();
 
 /**
-TO WHOM IT MAY CONCERN:
-
-if by some reason you need to refactor the query below and don't know where to starts, below are what I consider to be the must-know parts.
-
-1) Tree-Sitter query docs: https://tree-sitter.github.io/tree-sitter/using-parsers#query-syntax
-1b) Put particular attention to the following sections: capturing nodes, wildcard nodes, and anchors
-
-2) Have a way of being able to see the tree-sitter AST in realtime. The ideal setup comes included in Neovim. In ex mode, simply run
-the command below and you'll have the file's AST viewer open in realtime: InspectTree
-**/
+ * Tree-Sitter query docs: https://tree-sitter.github.io/tree-sitter/using-parsers#query-syntax
+ * Pay particular attention to the following sections: capturing nodes, wildcard nodes, and anchors.
+ *
+ * To have a way of being able to see the Tree-Sitter AST in real-time: the ideal setup comes included in Neovim. In ex mode, simply run
+ * the command below and you'll have the file's AST viewer open in real-time: `:InspectTree`
+ **/
 
 const query = new Query(
   TS.tsx,
-  `declaration: (type_alias_declaration
-  name: (type_identifier) @subComponentName
-    (intersection_type
-    (object_type
-
-      (comment) @comment
-      .
-      (property_signature
-          name: (_) @prop
-          type: (type_annotation (_) @type)
+  `(type_alias_declaration
+      name: (type_identifier) @subComponentName
+      (intersection_type
+        (object_type
+          (comment) @comment
+          .
+          (property_signature
+            name: (_) @prop
+            type: (type_annotation (_) @type)
+          )
+        )
       )
     )
-  )
-)
-`,
+  `,
 );
+
 parser.setLanguage(TS.tsx);
+
 export default function autoAPI() {
   return {
     name: 'watch-monorepo-changes',
@@ -49,11 +47,13 @@ export default function autoAPI() {
     },
   };
 }
-// the object should have this general structure, arranged from parent to child
-// componentName:[subComponent,subcomponent,...] & componentName comes from the dir
-// subComponentName/type alias:[publicType,publicType,...] & subcomponent comes from the file under dir
-// publicType:[{ comment,prop,type },{ comment,prop,type },...] & publicType comes from type inside file
-// THEY UPPER-MOST KEY IS ALWAYS USED AS A HEADING
+
+// The object should have this general structure, arranged from parent to child
+// componentName: [subComponent, subComponent, ...] & componentName comes from the directory
+// subComponentName/type alias: [PublicType, PublicType, ...] & subComponent comes from the file under directory
+// PublicType: [{ comment, prop, type }, { comment, prop, type }, ...] & PublicType comes from type inside file
+// THE UPPER-MOST KEY IS ALWAYS USED AS A HEADING
+
 export type ComponentParts = Record<string, SubComponents>;
 type SubComponents = SubComponent[];
 export type SubComponent = Record<string, PublicType[]>;
@@ -63,45 +63,69 @@ type ParsedProps = {
   prop: string;
   type: string;
 };
+
+/**
+ * Note: For this code to run, you need to prefix the type with 'Public' (e.g., 'PublicMyType') in your TypeScript files
+ *
+ *  * e.g:
+ *
+ * ```tsx
+ * type PublicModalRootProps = {
+ *     //blablabla
+ *     onShow$?: QRL<() => void>;
+ *     //blablabla
+ *     onClose$?: QRL<() => void>;
+ *     //blablabla
+ *     'bind:show'?: Signal<boolean>;
+ *     //blablabla
+ *     closeOnBackdropClick?: boolean;
+ *     //blablabla
+ *     alert?: boolean;
+ * };
+ * ```
+ * This convention helps the parser identify and process the public types correctly.
+ *
+ * Now when you save the corresponding .mdx file, the API will be updated accordingly.
+ *
+ **/
+
 function parseSingleComponentFromDir(
   path: string,
   ref: SubComponents,
 ): SubComponents | undefined {
-  const component_name = /\/([\w-]*).tsx/.exec(path);
-  if (component_name === null || component_name[1] === null) {
-    // may need better behavior
+  const componentNameMatch = /[\\/](\w[\w-]*)\.tsx$/.exec(path);
+  if (!componentNameMatch) {
+    // May need better behavior
     return;
   }
+  const componentName = componentNameMatch[1];
   const sourceCode = fs.readFileSync(path, 'utf-8');
   const tree = parser.parse(sourceCode);
   const parsed: PublicType[] = [];
-  function topKey(obj: { [x: string]: any } | undefined) {
-    return obj ? Object.keys(obj)[0] : '';
-  }
+
   const matches = query.matches(tree.rootNode);
   matches.forEach((match) => {
-    const last: PublicType = parsed[parsed.length - 1];
+    const last: PublicType | undefined = parsed[parsed.length - 1];
     let subComponentName = '';
     const parsedProps: ParsedProps = { comment: '', prop: '', type: '' };
-    match.captures.forEach((lol) => {
-      //statetements are ordered as they appear in capture array
-      if (lol.name === 'subComponentName' && subComponentName != lol.node.text) {
-        subComponentName = lol.node.text;
+    match.captures.forEach((capture) => {
+      // Statements are ordered as they appear in capture array
+      if (capture.name === 'subComponentName' && subComponentName !== capture.node.text) {
+        subComponentName = capture.node.text;
       }
-      if (lol.name === 'comment') {
-        //this removes the comment syntax
-        const justText = lol.node.text.replaceAll(/[/*]/g, '');
+      if (capture.name === 'comment') {
+        // This removes the comment syntax
+        const justText = capture.node.text.replace(/[/*]/g, '').trim();
         parsedProps.comment = justText;
       }
-
-      if (lol.name === 'prop') {
-        parsedProps.prop = lol.node.text;
+      if (capture.name === 'prop') {
+        parsedProps.prop = capture.node.text;
       }
-
-      if (lol.name === 'type') {
-        parsedProps.type = lol.node.text;
-        if (subComponentName === topKey(last)) {
-          last[topKey(last)].push(parsedProps);
+      if (capture.name === 'type') {
+        parsedProps.type = capture.node.text;
+        const topKey = last ? Object.keys(last)[0] : '';
+        if (subComponentName === topKey) {
+          last[topKey].push(parsedProps);
         } else {
           parsed.push({ [subComponentName]: [parsedProps] });
         }
@@ -109,47 +133,49 @@ function parseSingleComponentFromDir(
     });
   });
 
-  const completeSubComponent: SubComponent = { [component_name[1]]: parsed };
+  const completeSubComponent: SubComponent = { [componentName]: parsed };
   ref.push(completeSubComponent);
   return ref;
 }
 
 function writeToDocs(fullPath: string, componentName: string, api: ComponentParts) {
   if (fullPath.includes('kit-headless')) {
-    const relDocPath = `../website/src/routes//docs/headless/${componentName}`;
+    const relDocPath = `../website/src/routes/docs/headless/${componentName}`;
     const fullDocPath = resolve(__dirname, relDocPath);
-    const dirPath = fullDocPath.concat('/auto-api');
+    const dirPath = resolve(fullDocPath, 'auto-api');
 
     if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath);
     }
     const json = JSON.stringify(api, null, 2);
-    const hacky = `export const api=${json}`;
+    const exportedApi = `export const api = ${json};`;
 
     try {
-      fs.writeFileSync(dirPath.concat('/api.ts'), hacky);
-      console.log('auto-api: succesfully genereated new json!!! :)');
+      fs.writeFileSync(resolve(dirPath, 'api.ts'), exportedApi);
+      console.log('auto-api: successfully generated new JSON!');
     } catch (err) {
-      return;
+      console.error('Error writing API file:', err);
     }
   }
 }
+
 function loopOnAllChildFiles(filePath: string) {
-  const childComponentRegex = /\/([\w-]*).tsx$/.exec(filePath);
-  if (childComponentRegex === null) {
+  const childComponentMatch = /[\\/](\w[\w-]*)\.tsx$/.exec(filePath);
+  if (!childComponentMatch) {
     return;
   }
-  const parentDir = filePath.replace(childComponentRegex[0], '');
-  const componentRegex = /\/(\w*)$/.exec(parentDir);
-  if (!fs.existsSync(parentDir) || componentRegex == null) {
+  const parentDir = filePath.replace(childComponentMatch[0], '');
+  const componentMatch = /[\\/](\w+)$/.exec(parentDir);
+  if (!fs.existsSync(parentDir) || !componentMatch) {
     return;
   }
-  const componentName = componentRegex[1];
+  const componentName = componentMatch[1];
   const allParts: SubComponents = [];
   const store: ComponentParts = { [componentName]: allParts };
+
   fs.readdirSync(parentDir).forEach((fileName) => {
-    if (/tsx$/.test(fileName)) {
-      const fullPath = parentDir + '/' + fileName;
+    if (/\.tsx$/.test(fileName)) {
+      const fullPath = resolve(parentDir, fileName);
       parseSingleComponentFromDir(fullPath, store[componentName]);
     }
   });
