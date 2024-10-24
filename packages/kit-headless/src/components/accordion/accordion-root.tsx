@@ -11,7 +11,7 @@ import {
 } from '@builder.io/qwik';
 import { accordionContextId } from './accordion-context';
 
-export type PublicAccordionRootProps = PropsOf<'div'> & {
+type PublicAccordionRootProps = {
   /** If true, multiple items can be open at the same time. */
   multiple?: boolean;
 
@@ -44,8 +44,9 @@ export type PublicAccordionRootProps = PropsOf<'div'> & {
   /** If true, the accordion is animated. */
   animated?: boolean;
 };
+export type AccordionRootProps = PropsOf<'div'> & PublicAccordionRootProps;
 
-export const HAccordionRootImpl = component$((props: PublicAccordionRootProps) => {
+export const HAccordionRootImpl = component$((props: AccordionRootProps) => {
   const {
     multiple,
     'bind:value': givenValueSig,
