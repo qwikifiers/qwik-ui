@@ -6,7 +6,7 @@ export default component$(() => {
   const checked = useSignal(true)
   useStyles$(styles);
   return (
-    <Switch.Root class="switch"  bind:checked={checked}>
+    <Switch.Root class="switch" bind:checked={checked}>
       <Switch.Label>test</Switch.Label>
       <Switch.Input />
     </Switch.Root>

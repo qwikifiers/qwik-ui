@@ -5,27 +5,15 @@ export const SwitchInput = component$<PropsOf<'input'>>(() => {
     const context = useContext(SwitchContext)
     const id = useId()
     if(context.defaultChecked && context.bindChecked && !context.bindChecked.value){
-      context.bindChecked.value = true
+      context.bindChecked.value = !context.bindChecked.value
     }
 
     if(context.autoFocus && !context.switchRef?.value){
       context.switchRef?.value?.focus()
     }
 
-
-    const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
-      if (e.key === ' ') {
-        e.preventDefault();
-      }
-    });
-
-    const handleKeyDown$ = $((e: KeyboardEvent) => {
-      if (e.key === ' ') {
-        context.bindChecked.value = !context.bindChecked.value;
-      }
-    });
-
     const handleClick$ = $((e: MouseEvent | KeyboardEvent) => {
+      context.switchRef?.value?.focus()
       context.bindChecked.value = !context.bindChecked.value;
       if(context.onChange$){
         context.onChange$(context.bindChecked.value, e)
@@ -36,7 +24,9 @@ export const SwitchInput = component$<PropsOf<'input'>>(() => {
       }
 
     });
-
+    const handleClickSync$ = sync$((e: MouseEvent) => {
+      e.preventDefault();
+    });
     return (
       <input
         data-checked={context.bindChecked?.value ? '' : undefined}
@@ -47,10 +37,9 @@ export const SwitchInput = component$<PropsOf<'input'>>(() => {
         aria-checked={context.bindChecked ? 'true' : 'false'}
         type="checkbox"
         role="switch"
-        onClick$={handleClick$}
+        onClick$={[handleClickSync$, handleClick$]}
         checked={context.bindChecked?.value}
-        onChange$={handleClick$}
-        onKeyDown$={[handleKeyDownSync$, handleKeyDown$]}
+        onChange$={[handleClickSync$,handleClick$]}
         onKeyPress$={handleClick$}
       />
     );
