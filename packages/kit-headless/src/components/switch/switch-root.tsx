@@ -27,6 +27,7 @@ export const SwitchRoot = component$(({defaultChecked, disabled, onChange$, ...r
       {...rest}
       data-checked={context.bindChecked?.value ? '' : undefined}
       data-disabled={context.disabled ? '' : undefined}
+      data-qui-switch
     >
       <Slot></Slot>
     </div>

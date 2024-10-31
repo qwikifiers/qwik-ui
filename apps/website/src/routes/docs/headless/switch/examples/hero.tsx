@@ -3,11 +3,17 @@ import { Switch } from '@qwik-ui/headless';
 
 
 export default component$(() => {
-  const checked = useSignal(true)
+  const checked = useSignal(false)
+  const count = useSignal(0);
   useStyles$(styles);
+
   return (
-    <Switch.Root class="switch" bind:checked={checked}>
-      <Switch.Label>test</Switch.Label>
+    <Switch.Root
+      class="switch"
+      bind:checked={checked}
+      onChange$={() => count.value++}
+    >
+      <Switch.Label>test{count.value}</Switch.Label>
       <Switch.Input />
     </Switch.Root>
   );

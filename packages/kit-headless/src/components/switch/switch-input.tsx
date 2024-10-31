@@ -29,14 +29,15 @@ export const SwitchInput = component$<PropsOf<'input'>>(() => {
     });
     return (
       <input
-        data-checked={context.bindChecked?.value ? '' : undefined}
-        data-disabled={context.disabled ? '' : undefined}
+        data-checked={context.bindChecked?.value ? 'true' : 'false'}
+        data-disabled={context.disabled ? 'true' : 'false'}
         ref={context.switchRef}
         aria-describedby={`${id}-switch`}
         disabled={context.disabled}
         aria-checked={context.bindChecked ? 'true' : 'false'}
         type="checkbox"
         role="switch"
+        data-value
         onClick$={[handleClickSync$, handleClick$]}
         checked={context.bindChecked?.value}
         onChange$={[handleClickSync$,handleClick$]}
