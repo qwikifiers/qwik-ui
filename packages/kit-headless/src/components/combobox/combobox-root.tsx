@@ -27,13 +27,13 @@ type TMultiValue =
 
 type TStringOrArray =
   | {
-      multiple?: true;
-      onChange$?: QRL<(value: string[]) => void>;
-    }
+    multiple?: true;
+    onChange$?: QRL<(value: string[]) => void>;
+  }
   | {
-      multiple?: false;
-      onChange$?: QRL<(value: string) => void>;
-    };
+    multiple?: false;
+    onChange$?: QRL<(value: string) => void>;
+  };
 
 type PublicComboboxRootProps<M extends boolean = boolean> = {
   /** A signal that controls the current selected value (controlled). */
@@ -108,6 +108,9 @@ type PublicComboboxRootProps<M extends boolean = boolean> = {
   /** Checks if the Combobox.ErrorMessage component was added. */
   hasErrorComp?: boolean;
 
+  /**
+   * If `true`, deletes the most recent item when the backspace key is pressed.
+   */
   removeOnBackspace?: boolean;
 };
 export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
