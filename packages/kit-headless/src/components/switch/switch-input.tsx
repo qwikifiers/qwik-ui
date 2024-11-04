@@ -13,6 +13,15 @@ export const SwitchInput = component$<PropsOf<'input'>>(() => {
     }
 
     const handleClick$ = $((e: MouseEvent | KeyboardEvent) => {
+      const keys = [
+        'Enter',
+        ' ',
+      ];
+      if(!keys.includes((e as KeyboardEvent).key)){
+        return
+      }
+      // keycode
+
       context.switchRef?.value?.focus()
       context.bindChecked.value = !context.bindChecked.value;
       if(context.onChange$){
@@ -27,6 +36,18 @@ export const SwitchInput = component$<PropsOf<'input'>>(() => {
     const handleClickSync$ = sync$((e: MouseEvent) => {
       e.preventDefault();
     });
+
+    const handleKeyPressSync$ = sync$((e: KeyboardEvent) => {
+      const keys = [
+        'Enter',
+        ' ',
+      ];
+      if (keys.includes(e.key)) {
+        e.preventDefault();
+      }
+    });
+
+
     return (
       <input
         data-checked={context.bindChecked?.value ? 'true' : 'false'}
@@ -41,7 +62,7 @@ export const SwitchInput = component$<PropsOf<'input'>>(() => {
         onClick$={[handleClickSync$, handleClick$]}
         checked={context.bindChecked?.value}
         onChange$={[handleClickSync$,handleClick$]}
-        onKeyPress$={handleClick$}
+        onKeyPress$={[handleClick$,handleKeyPressSync$]}
       />
     );
   },
