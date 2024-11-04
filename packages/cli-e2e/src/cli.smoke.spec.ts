@@ -23,13 +23,18 @@ describe('Qwik UI CLI Smoke test', () => {
 
   it('should be installed and add the button file', () => {
     execSync(
-      'npx -y qwik-ui@0.0.0-e2e init --e2e --projectRoot / --uiComponentsPath "src/components/ui" --rootCssPath "src/global.css" --installTailwind --style "simple" --borderRadius "0" --primaryColor "cyan-600" --components=button',
+      'npx -y qwik-ui@e2e init --e2e --projectRoot / --uiComponentsPath "src/components/ui" --rootCssPath "src/global.css" --installTailwind --style "simple" --components=button',
       {
         cwd: projectDirectory,
-        stdio: 'inherit',
         env: process.env,
+        stdio: 'inherit',
       },
     );
+    execSync('npx -y qwik-ui@e2e add button', {
+      cwd: projectDirectory,
+      env: process.env,
+      stdio: 'inherit',
+    });
     const buttonIsInTheRightPlace = existsSync(
       join(projectDirectory, 'src/components/ui/button/button.tsx'),
     );
@@ -54,7 +59,7 @@ function createTestQwikProject() {
     recursive: true,
   });
 
-  execSync(`pnpm create qwik@latest basic ${projectName}`, {
+  execSync(`pnpm create qwik@latest empty ${projectName}`, {
     cwd: tempDir,
     stdio: 'inherit',
     env: process.env,
