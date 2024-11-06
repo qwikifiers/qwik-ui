@@ -32,3 +32,4 @@
 - [Tooltip](/docs/headless/tooltip)
 - [Toggle](/docs/headless/toggle)
 - [Toggle Group](/docs/headless/toggle-group)
+- [Switch](/docs/headless/switch)

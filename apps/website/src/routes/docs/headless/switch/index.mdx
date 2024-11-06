@@ -1,274 +1,82 @@
 ---
-title: Qwik UI | Tabs
+title: Qwik UI | Switch
 ---
+
+import { FeatureList } from '~/components/feature-list/feature-list';
 
 import { statusByComponent } from '~/_state/component-statuses';
 
-<StatusBanner status={statusByComponent.headless.Tabs} />
+<StatusBanner status={statusByComponent.headless.Switch} />
 
-# Tabs
+# Switch
 
-Explore and switch between different views using tabs
+A toggleable control for user interactions.
 
-<Showcase name="first" />
+<Showcase name="hero" />
 
-## Building blocks
+## Anatomy
 
-### The full version
-
-<CodeSnippet name="long" />
-
-### The short version
-
-<CodeSnippet name="short" />
-
-> The "short version" 👆 will be automatically transformed into the full ARIA compliant version
-
-## Vertical
-
-by default, the tabs are horizontal, but you can adjust the underlying behavior to be vertical by setting the `vertical` prop to true.
-
-<Showcase name="vertical" />
-
-## Disabled
-
-You can disable a tab by setting the `disabled` prop to true.
-
-<Showcase name="disabled" />
-
-## Behavior
-
-### Automatic
-
-The default behavior of the tabs is manual, which means that the tabs will automatically switch to the next tab when the user hovers over the tab. You can change this behavior by setting the `behavior` prop to `automatic`.
-
-<Showcase name="automatic" />
-
-### Manual
-
-You can set the behavior to manual, which means that the tabs will not automatically switch to the next tab when the user presses the right arrow key, and to the previous tab when the user presses the left arrow key.
-
-<Showcase name="manual" />
-
-## Dynamic
-
-<Showcase name="dynamic" />
-
-## onSelectedIndexChange$
-
-You can listen to changes in the selected index by subscribing to the `onSelectedIndexChange$` store.
-
-<Showcase name="on-selected-index-change" />
-
-## bind:selectedIndex
-
-You can provide a signal for the selected index with the `bind:selectedIndex={yourSignal}` and it will be used directly. This is a more efficient version of `onSelectedIndexChange$`.
-
-## bind:selectedTabId
-
-You can provide a signal for the selected tab id with the `bind:selectedTabId={yourSignal}`
-and it will be used directly.
-
-💡 You can manually set the `tabId` prop on each tab to be able to select any tab by its ID.
-
-<Showcase name="selected-tab-id" />
-
-## Add a "selected" prop
-
-You can add a "selected" prop to the Tab component to make it selected by default.
-
-<Showcase name="selected-prop" />
-
-## onClick$
-
-You can pass a custom `onClick$` handler.
-
-<Showcase name="on-click" />
-
-## Creating reusable Tabs
-
-In order to remove the need for a linking `value` prop for each Tab and Tabs.Panel pair, we have chosen to create the Tabs component as an [inline component](https://qwik.builder.io/docs/components/overview/#inline-components).
-
-By consequence, the Tabs component needs to be aware of its children. If you want to create your custom reusable Tabs.List/Tab/Tabs.Panel components, you will have to pass them to the Tabs component through its `Tabs.List`, `Tab`, and `Tabs.Panel` props:
-
-```tsx
-const CustomTabs = (props: PropsOf<typeof Tabs.Root>) => (
-  <Tabs.Root
-    {...props}
-    tabListComponent={CustomTabsList}
-    tabComponent={CustomTab}
-    tabPanelComponent={CustomTabsPanel}
-  />
-);
-```
-
-<br />
-
-<Note status="warning">
-  If you don't do the above, the Tabs component cannot know if your CustomTab component is
-  a Tab component.
-</Note>
-
-<Showcase name="reusable" />
-
-## Accessibility
-
-### Keyboard interaction
-
-<KeyboardInteractionTable
-  keyDescriptors={[
+<AnatomyTable
+  propDescriptors={[
     {
-      keyTitle: 'Tab',
-      description: 'Moves focus to the selected panel.',
+      name: 'Switch.Root',
+      description:
+        'Defines the component boundary and exposes its internal logic. Must wrap over all other parts.',
     },
     {
-      keyTitle: 'Shift + Tab',
-      description: 'Moves focus to the selected tab.',
+      name: 'Switch.Input',
+      description:
+        'The actual switch element that users interact with. Can be toggled on or off.',
     },
     {
-      keyTitle: 'ArrowRight',
-      description: 'Moves focus to the next tab.',
-    },
-    {
-      keyTitle: 'ArrowLeft',
-      description: 'Moves focus to the previous tab.',
-    },
-    {
-      keyTitle: 'ArrowDown',
-      description: 'In "vertical mode", moves focus to the next tab.',
-    },
-    {
-      keyTitle: 'ArrowUp',
-      description: 'In "vertical mode", moves focus to the previous tab.',
-    },
-    {
-      keyTitle: 'Home',
-      description: 'Moves focus to the first tab.',
-    },
-    {
-      keyTitle: 'PageUp',
-      description: 'Moves focus to the first tab.',
-    },
-    {
-      keyTitle: 'End',
-      description: 'Moves focus to the last tab.',
-    },
-    {
-      keyTitle: 'PageDown',
-      description: 'Moves focus to the first tab.',
+      name: 'Switch.Label',
+      description:
+        'Provides a label for the switch, enhancing accessibility and usability.',
     },
   ]}
 />
+
+## Behavior Tests
+
+### Mouse Interaction
+
+<Showcase name="hero" />
+
+- **Toggle State**: Ensures that clicking the switch toggles its checked state correctly.
+- **Trigger onChange**: Verifies that the onChange callback is triggered when the switch is clicked.
+
+### Keyboard Interaction
+
+<Showcase name="hero" />
+
+- **Enter Key**: Tests that pressing the Enter key toggles the switch's state.
+- **Space Key**: Checks that pressing the Space key toggles the switch's state.
+
+### Default Properties
+
+<Showcase name="checked" />
+
+- **Checked by Default**: Confirms that the switch is checked upon initial render if set so.
+- **Disabled State**: Ensures that the switch is disabled and does not respond to user interactions when set so.
 
 ## API
 
-### Tabs
+### Switch.Root
 
-<APITable
+<AnatomyTable
   propDescriptors={[
     {
-      name: 'behavior',
-      type: 'string',
+      name: 'bind:checked',
       description:
-        'Toggle between automatic or manual. The automatic behavior moves between tabs when hover. The manual behavior moves between tabs on click.',
+        'Two-way data bind of the checked state of the switch to a user-defined signal.',
     },
     {
-      name: 'selectedIndex',
-      type: 'number',
-      description: 'A way to set the selected index programmatically',
-    },
-    {
-      name: 'selectedTabId',
-      type: 'number',
+      name: 'onChange$',
       description:
-        'A way to set the selected tabId programmatically. The tabId is set by the `key` prop of the Tab or Tabs.Panel',
-    },
-    {
-      name: 'vertical',
-      type: 'boolean',
-      description:
-        'If set to true, the behavior of UpArrow and DownArrow will navigate between tabs vertically instead of horizontally.',
-    },
-    {
-      name: 'onSelectedIndexChange$',
-      type: 'function',
-      info: '(index: number) => void',
-      description: 'An event hook that gets notified whenever the selected index changes',
-    },
-    {
-      name: 'onSelectedTabIdChange$',
-      type: 'function',
-      info: '(index: string) => void',
-      description: 'An event hook that gets notified whenever the selected tabId changes',
-    },
-    {
-      name: 'bind:selectedIndex',
-      type: 'signal',
-      info: 'Signal<number | undefined>',
-      description:
-        'A signal that binds the selected index. This is a more efficient version of `selectedIndex` + `onSelectedIndexChange$`',
-    },
-    {
-      name: 'bind:selectedTabId',
-      type: 'signal',
-      info: 'Signal<string | undefined>',
-      description:
-        'A signal that binds the selected tabId. This is a more efficient version of `selectedTabId` + `onSelectedTabIdChange$`',
-    },
-    {
-      name: 'tabClass',
-      type: 'string',
-      description: 'The class name to apply to tabs',
-    },
-    {
-      name: 'panelClass',
-      type: 'string',
-      description: 'The class name to apply to panels',
+        'Callback function that is triggered when the checked state of the switch changes.',
     },
   ]}
 />
 
-### Tab
 
-<APITable
-  propDescriptors={[
-    {
-      name: 'selectedClassName',
-      type: 'string',
-      description: 'The class name to apply when the tab is selected',
-    },
-    {
-      name: 'selected',
-      type: 'boolean',
-      description: 'Select this tab by default',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: 'Set the disabled state of a specific tab',
-    },
-    {
-      name: 'tabId',
-      type: 'string',
-      description:
-        'Set the tab id, can be used with `bind:selectedTabId` to select a tab programmatically',
-    },
-  ]}
-/>
 
-### Tabs.Panel
-
-<APITable
-  propDescriptors={[
-    {
-      name: 'label',
-      type: 'element',
-      description: 'Shorthand for `<Tab>{label}</Tab>`',
-    },
-    {
-      name: 'selected',
-      type: 'boolean',
-      description: 'Select this tab by default',
-    },
-  ]}
-/>
