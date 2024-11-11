@@ -185,7 +185,7 @@ async function handleInit() {
 
   if (installTailwind) {
     execSync(
-      `${getPackageManagerCommand().exec} qwik add tailwind --skipConfirmation=true`,
+      `${getPackageManagerCommand().exec} qwik add tailwind --skipConfirmation=true --projectDir=${config.projectRoot}`,
       {
         stdio: 'inherit',
         cwd: config.projectRoot,
@@ -432,9 +432,9 @@ Options: [${possibleComponentNames.join(', ')}]`,
           coerce: (components) => componentTypesFromString(components),
         })
         .option('projectRoot', {
-          description: 'The root of the project (default: "/")',
+          description: 'The root of the project (default: "./")',
           type: 'string',
-          default: '/',
+          default: './',
         }),
     handler: () => {},
   };
@@ -450,8 +450,8 @@ Options: [${possibleComponentNames.join(', ')}]`,
   if (!projectRoot && !args['projectRoot']) {
     projectRoot = cancelable(
       await text({
-        message: cyan('Specify the root of the project (leave empty for "/")'),
-        initialValue: '/',
+        message: cyan('Specify the root of the project (leave empty for "./")'),
+        initialValue: './',
       }),
     );
   }

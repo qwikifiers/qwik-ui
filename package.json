@@ -29,8 +29,9 @@
     "release": "pnpm release.prepare && pnpm release.setroot && pnpm release.publish && pnpm release.resetroot",
     "release.publish": "changeset publish",
     "release.resetroot": "cp dist/pnpm-workspace.yaml pnpm-workspace.yaml",
-    "release.e2e": "pnpm release.prepare && pnpm release.setroot && pnpm -r exec pnpm version patch && pnpm -r publish --tag e2e --no-git-checks && pnpm release.resetroot",
+    "release.e2e": "pnpm release.prepare && pnpm release.setroot && pnpm -r exec pnpm version patch && pnpm -r exec pnpm publish --tag e2e --no-git-checks && pnpm release.resetroot",
     "test.cli": "NODE_OPTIONS=--experimental-vm-modules nx test cli",
+    "test.cli.e2e": "nx e2e cli-e2e",
     "test.headless": "nx component-test headless --skip-nx-cache",
     "test.visual.headless": "nx visual-test headless",
     "test.pw.headless": "nx e2e headless",
@@ -147,7 +148,7 @@
     "includedScripts": []
   },
   "volta": {
-    "node": "20.9.0",
+    "node": "22.7.0",
     "pnpm": "9.7.0"
   }
 }
