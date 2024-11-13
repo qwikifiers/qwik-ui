@@ -38,6 +38,13 @@ describe('init generator', () => {
     options.projectRoot = '/my-project';
     await initGenerator(tree, options);
 
-    expect(tree.exists('my-project/qwik-ui.config.json')).toBeTruthy();
+    expect(tree.exists('qwik-ui.config.json')).toBeTruthy();
+
+    const expectedContents = tree.read(QWIK_UI_CONFIG_FILENAME, 'utf-8');
+
+    expect(expectedContents).toMatchInlineSnapshot(`
+      "{ "componentsRoot": "/my-project/src/components/ui" }
+      "
+    `);
   });
 });
