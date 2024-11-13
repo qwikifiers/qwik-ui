@@ -8,15 +8,15 @@ export async function initGenerator(tree: Tree, options: InitGeneratorSchema) {
     return;
   }
 
-  options.projectRoot ||= '/';
+  options.projectRoot ||= './';
   options.componentsRoot ||= 'src/components/ui';
 
-  const fullConfigPath = joinPathFragments(options.projectRoot, QWIK_UI_CONFIG_FILENAME);
+  const fullConfigPath = joinPathFragments('./', QWIK_UI_CONFIG_FILENAME);
 
   tree.write(
     fullConfigPath,
     JSON.stringify({
-      componentsRoot: options.componentsRoot,
+      componentsRoot: joinPathFragments(options.projectRoot, options.componentsRoot),
     }),
   );
 

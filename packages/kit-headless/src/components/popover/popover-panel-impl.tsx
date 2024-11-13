@@ -1,20 +1,20 @@
 import {
+  $,
   Slot,
   component$,
+  createContextId,
+  useContext,
   useSignal,
   useStyles$,
-  useContext,
   useTask$,
-  $,
-  createContextId,
-  type PropsOf,
   type CorrectedToggleEvent,
+  type PropsOf,
 } from '@builder.io/qwik';
 
 import { isServer } from '@builder.io/qwik/build';
-import popoverStyles from './popover.css?inline';
-import { popoverContextId } from './popover-context';
 import { useCombinedRef } from '../../hooks/combined-refs';
+import { popoverContextId } from './popover-context';
+import popoverStyles from './popover.css?inline';
 
 // We don't need a provider, that way we connect all context to the root
 const ensureContextId = createContextId('qui-popover-null-context');
@@ -107,9 +107,7 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
       id={panelId}
       ref={panelRef}
       popover={
-        (context.manual && 'manual') || props.popover === 'manual'
-          ? 'manual'
-          : 'auto' || 'auto'
+        (context.manual && 'manual') || props.popover === 'manual' ? 'manual' : 'auto'
       }
       onBeforeToggle$={[
         $(async (e) => {
