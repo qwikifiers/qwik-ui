@@ -37,6 +37,7 @@ import {
   QWIK_UI_CONFIG_FILENAME,
 } from '../src/_shared/config-filenames';
 
+import path from 'path';
 import externalDeps from '../src/_shared/external-deps.json';
 
 const COMMANDS = ['init', 'add'];
@@ -144,8 +145,8 @@ async function handleInit() {
   if (!config.projectRoot) {
     config.projectRoot = cancelable(
       await text({
-        message: cyan('Specify the root of the project (leave empty for "/")'),
-        initialValue: '/',
+        message: cyan('Specify the root of the project (leave empty for "./")'),
+        initialValue: './',
       }),
     );
   }
@@ -162,9 +163,10 @@ async function handleInit() {
   if (!config.rootCssPath) {
     config.rootCssPath = await collectFileLocationFromUser({
       message: cyan(
-        'Your global css file location (where you defined your tailwind directives)',
+        'The path to the global css file the tailwind directives are defined (relative to the root you specified above)',
       ),
       errorMessageName: 'Global css file',
+      rootDir: config.projectRoot,
       initialValue: 'src/global.css',
     });
   }
@@ -181,12 +183,12 @@ async function handleInit() {
     );
   }
 
-  // TODO: Add "cwd" with the project root, and see if we can skip the interactive question from qwik cli
   if (installTailwind) {
     execSync(
-      `${getPackageManagerCommand().exec} qwik add tailwind --skipConfirmation=true`,
+      `${getPackageManagerCommand().exec} qwik add tailwind --skipConfirmation=true --projectDir=${config.projectRoot}`,
       {
         stdio: 'inherit',
+        cwd: config.projectRoot,
       },
     );
   }
@@ -430,9 +432,9 @@ Options: [${possibleComponentNames.join(', ')}]`,
           coerce: (components) => componentTypesFromString(components),
         })
         .option('projectRoot', {
-          description: 'The root of the project (default: "/")',
+          description: 'The root of the project (default: "./")',
           type: 'string',
-          default: '/',
+          default: './',
         }),
     handler: () => {},
   };
@@ -448,8 +450,8 @@ Options: [${possibleComponentNames.join(', ')}]`,
   if (!projectRoot && !args['projectRoot']) {
     projectRoot = cancelable(
       await text({
-        message: cyan('Specify the root of the project (leave empty for "/")'),
-        initialValue: '/',
+        message: cyan('Specify the root of the project (leave empty for "./")'),
+        initialValue: './',
       }),
     );
   }
@@ -507,6 +509,7 @@ function parseCommands(command: CommandModule) {
 interface FilePromptInfo {
   message: string;
   errorMessageName: string;
+  rootDir: string;
   initialValue?: string;
 }
 
@@ -517,9 +520,9 @@ async function collectFileLocationFromUser(config: FilePromptInfo) {
       initialValue: config.initialValue,
     }),
   );
-
-  if (!existsSync(filePath)) {
-    log.error(`${config.errorMessageName} not found at ${filePath}, want to try again?`);
+  const fullPath = path.join(config.rootDir, filePath);
+  if (!existsSync(fullPath)) {
+    log.error(`${config.errorMessageName} not found at ${fullPath}, want to try again?`);
     return collectFileLocationFromUser({ ...config, initialValue: filePath });
   }
   return filePath;
