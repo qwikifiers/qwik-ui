@@ -5,7 +5,7 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "private": false,
+  "private": true,
   "type": "module",
   "scripts": {
     "build.changelog-formatter": "tsc .changeset/changelog-github-custom.ts && mv .changeset/changelog-github-custom.js .changeset/changelog-github-custom.cjs",
@@ -29,7 +29,9 @@
     "release": "pnpm release.prepare && pnpm release.setroot && pnpm release.publish && pnpm release.resetroot",
     "release.publish": "changeset publish",
     "release.resetroot": "cp dist/pnpm-workspace.yaml pnpm-workspace.yaml",
+    "release.e2e": "pnpm release.prepare && pnpm release.setroot && pnpm -r exec pnpm version patch && pnpm -r exec pnpm publish --tag e2e --no-git-checks && pnpm release.resetroot",
     "test.cli": "NODE_OPTIONS=--experimental-vm-modules nx test cli",
+    "test.cli.e2e": "nx e2e cli-e2e",
     "test.headless": "nx component-test headless --skip-nx-cache",
     "test.visual.headless": "nx visual-test headless",
     "test.pw.headless": "nx e2e headless",
@@ -54,7 +56,6 @@
     "@floating-ui/dom": "^1.6.5",
     "@fontsource-variable/inter": "^5.0.18",
     "@img/sharp-linux-x64": "^0.33.4",
-    "@jscutlery/semver": "^4.2.0",
     "@k11r/nx-cloudflare-wrangler": "3.0.0-feat-sst-upgrade.1",
     "@modular-forms/qwik": "^0.24.0",
     "@nx/devkit": "19.4.2",
@@ -146,7 +147,7 @@
     "includedScripts": []
   },
   "volta": {
-    "node": "20.9.0",
+    "node": "22.7.0",
     "pnpm": "9.7.0"
   }
 }

@@ -32,9 +32,9 @@ runs:
     #   shell: bash
     #   run: npx nx affected:build --base=last-release --exclude=website
 
-    # - name: E2E Tests
-    #   shell: bash
-    #   run: npx nx affected --target=e2e --base=last-release
+    - name: CLI E2E Tests
+      shell: bash
+      run: npx nx e2e cli-e2e
 
     # - name: Codecov upload
     #   uses: codecov/codecov-action@v2
