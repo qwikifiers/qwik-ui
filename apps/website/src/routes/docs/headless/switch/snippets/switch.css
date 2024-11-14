@@ -1,7 +1,7 @@
 /* Define default light theme colors */
 .switch {
   --thumb-color: hsla(var(--switch-thumb-color));
-  --track-color-inactive: hsla(80 0% 80%);
+  --track-color-inactive: hsla(var(--switch-track-color-inactive));
   --track-color-active: hsla(var(--primary));
   --isLTR: 1;
   flex-direction: row-reverse;
@@ -42,7 +42,7 @@
       inline-size: 2rem;
       block-size: 2rem;
       background: var(--thumb-color);
-      box-shadow: 0 0 0 var(--highlight-size) hsla(var(--thumb-color-highlight));
+      box-shadow: 0 0 0 var(--highlight-size) hsla(var(--switch-thumb-color-highlight));
       border-radius: 50%;
       transform: translateX(var(--thumb-position));
 
@@ -80,13 +80,4 @@
       outline-offset: 2px;
     }
   }
-}
-
-/* Dark theme overrides */
-.theme-dark .switch {
-  --background: 210, 50%, 20%; /* Adjusted for dark theme */
-  --primary: 210, 80%, 60%; /* Adjusted for dark theme */
-  --thumb-color: hsla(var(--background));
-  --track-color-inactive: hsla(240, 10%, 50%);
-  --track-color-active: hsla(var(--primary));
 }

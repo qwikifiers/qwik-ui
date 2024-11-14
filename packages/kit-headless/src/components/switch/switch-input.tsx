@@ -17,7 +17,7 @@ export const SwitchInput = component$<PropsOf<'input'>>(() => {
         'Enter',
         ' ',
       ];
-      if(!keys.includes((e as KeyboardEvent).key)){
+      if((e as KeyboardEvent)?.key !== undefined && !keys.includes((e as KeyboardEvent).key)){
         return
       }
       // keycode
