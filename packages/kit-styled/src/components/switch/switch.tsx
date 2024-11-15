@@ -1,9 +1,16 @@
 import { type PropsOf, component$, Slot } from '@builder.io/qwik';
 import { Switch as HeadlessSwitch } from '@qwik-ui/headless';
+import { cn } from '@qwik-ui/utils';
 
 const Root = component$<PropsOf<typeof HeadlessSwitch.Root>>(({ ...props }) => {
   return (
-    <HeadlessSwitch.Root {...props}>
+    <HeadlessSwitch.Root
+      {...props}
+      class={cn(
+        'flex-row-reverse flex items-center gap-1 justify-between cursor-pointer select-none tap-highlight-transparent',
+        props.class,
+      )}
+    >
       <Slot />
     </HeadlessSwitch.Root>
   );
