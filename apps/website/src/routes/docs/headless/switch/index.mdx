@@ -14,6 +14,28 @@ A toggleable control for user interactions.
 
 <Showcase name="hero" />
 
+## ✨ Features
+
+<FeatureList
+  features={[
+    'WAI ARIA Switch design pattern',
+    'Single toggle state (on/off)',
+    'Reactive state changes',
+    'Disabled state',
+    'Keyboard accessibility (Space and Enter keys)',
+    'Custom styling options',
+    'Support for labels and descriptions',
+    'Focus management',
+    'Accessibility support for screen readers',
+  ]}
+  roadmap={['Opt-in native form support', 'RTL support']}
+/>
+
+
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
 ## Anatomy
 
 <AnatomyTable
@@ -35,6 +57,25 @@ A toggleable control for user interactions.
     },
   ]}
 />
+
+## Why use a headless Switch?
+
+The native `<input type="checkbox">` element presents several challenges regarding styling, behavior, and user experience.
+
+### Native Switch pain points
+
+<FeatureList
+  issues={[
+    'Limited styling options',
+    'Inconsistent appearance across browsers',
+    'Lack of custom animations and transitions',
+    'Accessibility challenges with native elements',
+  ]}
+/>
+
+### Native effort
+
+While there are efforts to enhance the native checkbox element, such as the [Open UI group](https://open-ui.org/components/switch/), these solutions often fall short in terms of flexibility and customization. A headless Switch component allows developers to create a fully tailored user experience without the constraints of native elements.
 
 ## Behavior Tests
 
@@ -74,6 +115,26 @@ A toggleable control for user interactions.
       name: 'onChange$',
       description:
         'Callback function that is triggered when the checked state of the switch changes.',
+    },
+    {
+      name: 'disabled',
+      description:
+        'Disables the switch, preventing any user interaction.',
+    },
+    {
+      name: 'onClick$',
+      description:
+        'Callback function that is triggered when the switch is clicked.',
+    },
+    {
+      name: 'defaultChecked',
+      description:
+        'Sets the switch to the checked state by default.',
+    },
+    {
+      name: 'autoFocus',
+      description:
+        'Sets the switch to auto focus.',
     },
   ]}
 />
