@@ -75,6 +75,7 @@ test.describe('Default property ', () => {
     const { driver: d } = await setup(page, 'checked');
     await expect(d.getTrigger()).toBeChecked();
     await expect(d.getTrigger()).toHaveAttribute('data-checked', 'true');
+    await expect(d.getTrigger()).toHaveAttribute('aria-checked', 'true');
   })
 
   test(`
@@ -88,7 +89,8 @@ test.describe('Default property ', () => {
 
   test(`
     GIVEN a disabled switch
-    
+    WHEN the switch is mounted
+    THEN the switch should be disabled
     `, async ({ page }) => {
     const { driver: d } = await setup(page, 'disabled');
     await expect(d.getTrigger()).toHaveAttribute('data-disabled', 'true');
