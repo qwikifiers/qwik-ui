@@ -1,8 +1,4 @@
-import {
-  component$, useStyles$,
-  PrefetchGraph,
-  PrefetchServiceWorker
-} from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
 
 import { RouterHead } from './components/router-head/router-head';
@@ -10,7 +6,6 @@ import globalStyles from './global.css?inline';
 
 import { ThemeProvider } from '@qwik-ui/themes';
 
-import '@fontsource-variable/inter';
 import {
   ThemeBaseColors,
   ThemeBorderRadiuses,
@@ -29,7 +24,6 @@ export default component$(() => {
    */
   useStyles$(globalStyles);
 
-
   return (
     <QwikCityProvider>
       <head>
@@ -38,8 +32,6 @@ export default component$(() => {
         <RouterHead />
       </head>
       <body lang="en">
-        <PrefetchGraph />
-        <PrefetchServiceWorker />
         <ThemeProvider
           attribute="class"
           enableSystem={false}
