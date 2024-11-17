@@ -56,8 +56,6 @@ export const ModulePreload = component$(() => {
           link.fetchPriority = 'low';
           document.head.appendChild(link);
         });
-
-        console.log('qChunks', qChunks);
       };
 
       await requestIdleCallback(await startPreloading);
