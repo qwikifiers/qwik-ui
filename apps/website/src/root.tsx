@@ -8,7 +8,6 @@ import globalStyles from './global.css?inline';
 
 import { ThemeProvider } from '@qwik-ui/themes';
 
-import '@fontsource-variable/inter';
 import {
   ThemeBaseColors,
   ThemeBorderRadiuses,

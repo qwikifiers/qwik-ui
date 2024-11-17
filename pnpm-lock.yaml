@@ -35,9 +35,6 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.6.5
         version: 1.6.5
-      '@fontsource-variable/inter':
-        specifier: ^5.0.18
-        version: 5.0.18
       '@img/sharp-linux-x64':
         specifier: ^0.33.4
         version: 0.33.4
@@ -1439,9 +1436,6 @@ packages:
 
   '@floating-ui/utils@0.2.2':
     resolution: {integrity: sha512-J4yDIIthosAsRZ5CPYP/jQvUAQtlZTTD/4suA08/FEnlxqW3sKS9iAhgsa9VYLZ6vDHn/ixJgIqRQPotoBjxIw==}
-
-  '@fontsource-variable/inter@5.0.18':
-    resolution: {integrity: sha512-rJzSrtJ3b7djiGFvRuTe6stDfbYJGhdQSfn2SI2WfXviee7Er0yKAHE5u7FU7OWVQQQ1x3+cxdmx9NdiAkcrcA==}
 
   '@gitbeaker/core@35.8.1':
     resolution: {integrity: sha512-KBrDykVKSmU9Q9Gly8KeHOgdc0lZSa435srECxuO0FGqqBcUQ82hPqUc13YFkkdOI9T1JRA3qSFajg8ds0mZKA==}
@@ -9272,8 +9266,6 @@ snapshots:
 
   '@floating-ui/utils@0.2.2': {}
 
-  '@fontsource-variable/inter@5.0.18': {}
-
   '@gitbeaker/core@35.8.1':
     dependencies:
       '@gitbeaker/requester-utils': 35.8.1
@@ -9696,12 +9688,6 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nrwl/devkit@19.1.1(nx@19.1.1(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))':
-    dependencies:
-      '@nx/devkit': 19.1.1(nx@19.1.1(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))
-    transitivePeerDependencies:
-      - nx
-
   '@nrwl/devkit@19.1.1(nx@19.4.2(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))':
     dependencies:
       '@nx/devkit': 19.1.1(nx@19.4.2(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))
@@ -9897,7 +9883,7 @@ snapshots:
 
   '@nx/devkit@19.1.1(nx@19.1.1(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))':
     dependencies:
-      '@nrwl/devkit': 19.1.1(nx@19.1.1(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))
+      '@nrwl/devkit': 19.1.1(nx@19.4.2(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))
       ejs: 3.1.10
       enquirer: 2.3.6
       ignore: 5.3.1
