@@ -1,11 +1,4 @@
-import {
-  component$,
-  useContextProvider,
-  useStore,
-  useStyles$,
-  PrefetchGraph,
-  PrefetchServiceWorker,
-} from '@builder.io/qwik';
+import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
 import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
@@ -24,6 +17,7 @@ import {
   ThemePrimaryColors,
   ThemeStyles,
 } from '@qwik-ui/utils';
+import { ModulePreload } from './components/module-preload/module-preload';
 
 export default component$(() => {
   /**
@@ -51,8 +45,7 @@ export default component$(() => {
         <RouterHead />
       </head>
       <body lang="en">
-        <PrefetchGraph />
-        <PrefetchServiceWorker />
+        <ModulePreload />
         <ThemeProvider
           attribute="class"
           enableSystem={false}
