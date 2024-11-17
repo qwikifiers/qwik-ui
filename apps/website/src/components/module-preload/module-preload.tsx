@@ -53,6 +53,7 @@ export const ModulePreload = component$(() => {
           link.rel = 'modulepreload';
           link.as = 'script';
           link.href = '/' + 'build/' + chunk;
+          link.fetchPriority = 'low';
           document.head.appendChild(link);
         });
 
