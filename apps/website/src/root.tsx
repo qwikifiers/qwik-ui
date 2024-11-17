@@ -36,6 +36,21 @@ export default component$(() => {
 
   useContextProvider(APP_STATE_CONTEXT_ID, appState);
 
+  const unregisterPrefetchServiceWorkers = `
+;(function () {
+  navigator.serviceWorker?.getRegistrations().then((regs) => {
+    for (const reg of regs) {
+      if (
+        reg.active?.scriptURL.includes('service-worker.js') ||
+        reg.active?.scriptURL.includes('qwik-prefetch-service-worker.js')
+      ) {
+        reg.unregister();
+      }
+    }
+  });
+})();
+`;
+
   return (
     <QwikCityProvider>
       <head>
@@ -44,6 +59,7 @@ export default component$(() => {
         <RouterHead />
       </head>
       <body lang="en">
+        <script dangerouslySetInnerHTML={unregisterPrefetchServiceWorkers} />
         <ModulePreload />
         <ThemeProvider
           attribute="class"
