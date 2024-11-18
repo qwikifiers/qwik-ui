@@ -5,6 +5,7 @@ export const HCollapsibleTrigger = component$<PropsOf<'button'>>(
   ({ onClick$, ...props }) => {
     const context = useContext(collapsibleContextId);
     const contentId = `${context.itemId}-content`;
+    const triggerId = `${context.itemId}-trigger`;
 
     const handleClick$ = $(async () => {
       if (context.isOpenSig.value && context.collapsible === false) return;
@@ -16,6 +17,7 @@ export const HCollapsibleTrigger = component$<PropsOf<'button'>>(
     return (
       <button
         {...props}
+        id={triggerId}
         ref={context.triggerRef}
         disabled={context.disabled}
         data-disabled={context.disabled ? '' : undefined}
