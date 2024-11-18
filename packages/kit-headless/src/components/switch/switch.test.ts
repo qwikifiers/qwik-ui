@@ -36,6 +36,7 @@ test.describe('Mouse Behavior', () => {
     await expect(d.getTriggerlaBle()).toHaveText('0')
     await d.getTrigger().click();
     await expect(d.getTriggerlaBle()).toHaveText('1')
+    await expect(d.getTrigger()).toBeChecked()
   })
 
 })
@@ -64,6 +65,17 @@ test.describe('Keyboard Behavior', () => {
     await d.getTrigger().press(' ');
     await expect(d.getTrigger()).not.toBeChecked();
   });
+
+  test(`
+    GIVEN a hero switch
+    WHEN focusing the trigger and pressing the Tab key
+    THEN the checked property should not toggle`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'hero');
+    await d.getTrigger().focus();
+    await expect(d.getTrigger()).not.toBeChecked();
+    await d.getTrigger().press('Tab');
+    await expect(d.getTrigger()).not.toBeChecked();
+    });
 })
 
 test.describe('Default property ', () => {
@@ -94,6 +106,16 @@ test.describe('Default property ', () => {
     `, async ({ page }) => {
     const { driver: d } = await setup(page, 'disabled');
     await expect(d.getTrigger()).toHaveAttribute('data-disabled', 'true');
+    await expect(d.getTrigger()).toBeDisabled()
+  })
 
+  test(`
+    GIVEN a disabled switch
+    WHEN clicking the switch
+    THEN the switch should not toggle`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'disabled');
+    await expect(d.getTrigger()).toHaveAttribute('data-disabled', 'true');
+    await d.getTrigger().click()
+    await expect(d.getTrigger()).not.toBeChecked()
   })
 })
