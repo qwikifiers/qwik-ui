@@ -1,9 +1,8 @@
 /* Define default light theme colors */
 .switch {
-  --thumb-color: hsla(var(--switch-thumb-color));
+  --thumb-color: hsla(var(--backgroundr));
   --track-color-inactive: hsla(var(--switch-track-color-inactive));
   --track-color-active: hsla(var(--primary));
-  --isLTR: 1;
   flex-direction: row-reverse;
   display: flex;
   align-items: center;
@@ -34,7 +33,6 @@
     transition: background-color .25s ease;
 
     &::before {
-      --highlight-size: 0;
       content: "";
       cursor: pointer;
       pointer-events: auto;
@@ -42,30 +40,19 @@
       inline-size: 2rem;
       block-size: 2rem;
       background: var(--thumb-color);
-      box-shadow: 0 0 0 var(--highlight-size) hsla(var(--switch-thumb-color-highlight));
+      box-shadow: 0 0 0 0 hsla(var(--switch-thumb-color-highlight));
       border-radius: 50%;
-      transform: translateX(var(--thumb-position));
-
-      @media (--motionOK) {
-        transition:
-          transform var(--thumb-transition-duration) ease,
-          box-shadow .25s ease;
-      }
+      transform: translateX(0%);
     }
 
     &:not(:disabled):hover::before {
-      --highlight-size: .5rem;
+      box-shadow: 0 0 0 0.5rem hsla(var(--switch-thumb-color-highlight));
     }
 
     &:checked {
       background: var(--track-color-active);
-      --thumb-position: calc((4rem - 100%) * var(--isLTR));
+      --thumb-position: calc((4rem - 100%) * 1);
     }
-
-    &:indeterminate {
-      --thumb-position: calc(1rem * var(--isLTR));
-    }
-
     &:disabled {
       cursor: not-allowed;
       opacity: 0.35;
