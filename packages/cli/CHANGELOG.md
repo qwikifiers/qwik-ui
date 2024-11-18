@@ -1,5 +1,15 @@
 # qwik-ui
 
+## 0.1.4
+
+### Patch Changes
+
+- 🐞🩹 `qwik-ui.config.json` is generated at the root of the monorepo. (by [@shairez](https://github.com/shairez) in [#1009](https://github.com/qwikifiers/qwik-ui/pull/1009))
+
+  Before it got created inside of the individual project, but it was wrong because we couldn't generate components in the right place or use the CLI from the root of the monorepo.
+
+- 🐞🩹 cli not checking relative global.css correctly (by [@shairez](https://github.com/shairez) in [#1003](https://github.com/qwikifiers/qwik-ui/pull/1003))
+
 ## 0.1.3
 
 ### Patch Changes
