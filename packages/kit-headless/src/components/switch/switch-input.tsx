@@ -1,7 +1,7 @@
 
 import { component$, PropsOf, sync$, useContext, useId, $ } from '@builder.io/qwik';
 import { SwitchContext } from './switch-context';
-export const SwitchInput = component$<PropsOf<'input'>>(() => {
+export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
     const context = useContext(SwitchContext)
     const id = useId()
     if(context.defaultChecked && context.bindChecked && !context.bindChecked.value){
@@ -47,9 +47,9 @@ export const SwitchInput = component$<PropsOf<'input'>>(() => {
       }
     });
 
-
     return (
       <input
+        {...rest}
         data-checked={context.bindChecked?.value ? 'true' : 'false'}
         data-disabled={context.disabled ? 'true' : 'false'}
         ref={context.switchRef}

@@ -18,6 +18,12 @@ module.exports = {
         '.press': {
           transform: 'var(--transform-press)',
         },
+        '.inline-size-4': {
+          inlineSize: '4rem',
+        },
+        '.block-size-2': {
+          blockSize: '2rem',
+        },
       });
     }),
     // PLUGIN-END
