@@ -12,6 +12,7 @@
     "build": "nx build website",
     "build.cloudflare": "nx build-cloudflare website",
     "build.headless": "nx build headless",
+    "build.qwik-ci": "nx run-many --target=build -p packages/*",
     "change": "changeset",
     "changeset.version": "changeset version && pnpm install --no-frozen-lockfile && git add --all",
     "dev": "nx serve website --host",
@@ -38,6 +39,7 @@
     "test.pw.headless-chrome-108": "nx e2e-chrome-108 headless",
     "test.pw.headless.ci": "nx e2e headless",
     "test.headless.ci": "nx component-test-ci headless",
+    "test.qwik-ci": "nx run-many --target=test --exclude=cli",
     "test.utils": "nx test utils"
   },
   "simple-git-hooks": {
