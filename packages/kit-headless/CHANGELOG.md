@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.3
+
+### Patch Changes
+
+- 🐞🩹 collapsible trigger has correct label (by [@thejackshelton-kunaico](https://github.com/thejackshelton-kunaico) in [#1012](https://github.com/qwikifiers/qwik-ui/pull/1012))
+
 ## 0.6.2
 
 ### Patch Changes
