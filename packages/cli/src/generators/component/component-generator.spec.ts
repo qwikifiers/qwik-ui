@@ -33,6 +33,10 @@ describe('Component generator', () => {
 
     await componentGenerator(tree, options);
 
+    expect(tree.exists(`${DEFAULT_COMPONENTS_LOCATION}/index.ts`)).toBeTruthy();
+    const barrelContent = tree.read(`${DEFAULT_COMPONENTS_LOCATION}/index.ts`, 'utf-8');
+    expect(barrelContent).toContain(`export * from './button/button';`);
+
     expect(tree.exists(`${DEFAULT_COMPONENTS_LOCATION}/button/button.tsx`)).toBeTruthy();
   });
 
@@ -48,5 +52,9 @@ describe('Component generator', () => {
 
     expect(tree.exists(`${DEFAULT_COMPONENTS_LOCATION}/button/button.tsx`)).toBeTruthy();
     expect(tree.exists(`${DEFAULT_COMPONENTS_LOCATION}/input/input.tsx`)).toBeTruthy();
+
+    const barrelContent = tree.read(`${DEFAULT_COMPONENTS_LOCATION}/index.ts`, 'utf-8');
+    expect(barrelContent).toContain(`export * from './button/button';
+export * from './input/input';`);
   });
 });
