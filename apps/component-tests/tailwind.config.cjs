@@ -41,6 +41,8 @@ module.exports = {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        switchInactive: 'hsl(var(--switch-track-color-inactive))',
+        switchThumb: 'hsl(var(--switch-thumb-color-highlight))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',

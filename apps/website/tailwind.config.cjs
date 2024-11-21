@@ -24,6 +24,7 @@ module.exports = {
         '.block-size-2': {
           blockSize: '2rem',
         },
+
       });
     }),
     // PLUGIN-END

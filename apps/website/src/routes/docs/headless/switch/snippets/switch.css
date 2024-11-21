@@ -1,6 +1,6 @@
 /* Define default light theme colors */
 .switch {
-  --thumb-color: hsla(var(--backgroundr));
+  --thumb-color: hsla(var(--background));
   --track-color-inactive: hsla(var(--switch-track-color-inactive));
   --track-color-active: hsla(var(--primary));
   flex-direction: row-reverse;
@@ -36,7 +36,6 @@
       content: "";
       cursor: pointer;
       pointer-events: auto;
-      grid-area: track;
       inline-size: 2rem;
       block-size: 2rem;
       background: var(--thumb-color);
