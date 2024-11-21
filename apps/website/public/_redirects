@@ -1,1 +1,4 @@
 # https://developers.cloudflare.com/pages/platform/redirects/
+
+/repro https://stackblitz.com/~/github.com/qwikifiers/qwik-ui-stackblitz 307
+/repro/ https://stackblitz.com/~/github.com/qwikifiers/qwik-ui-stackblitz 307
