@@ -15,7 +15,7 @@
   &>input {
     --thumb-position: 0%;
     --thumb-transition-duration: .25s;
-    padding: 2px;
+    padding: 4px;
     background: var(--track-color-inactive);
     inline-size: 4rem;
     block-size: 2rem;
@@ -46,11 +46,15 @@
 
     &:not(:disabled):hover::before {
       box-shadow: 0 0 0 0.5rem hsla(var(--switch-thumb-color-highlight));
+
     }
 
     &:checked {
       background: var(--track-color-active);
-      --thumb-position: calc((4rem - 100%) * 1);
+      &::before {
+        transform: translateX(100%);
+      }
+
     }
     &:disabled {
       cursor: not-allowed;

@@ -29,7 +29,7 @@ const Input = component$<PropsOf<typeof HeadlessSwitch.Input>>(({ ...props }) =>
   return (
     <HeadlessSwitch.Input
       {...props}
-      class={cn('p-[2px] bg-switchInactive inline-size-4 block-size-2 rounded-full appearance-none pointer-events-none touch-pan-y border-none outline-offset[5px] box-content flex-shrink-0 grid place-items-center grid-cols-[track] transition-bg[.25s] ease before:content-[""] before:cursor-pointer before:pointer-events-auto before:inline-size-2 before:block-size-2 before:bg-switchThumb before:box-shadow[0_0_0_0_hsla(var(--switch-thumb-color-highlight))] before:rounded-[50%] before:transform[translateX(0%)]',
+      class={cn('p-[2px] bg-switchInactive inline-size-4 grid-cols-[1fr] grid-rows-[1fr] block-size-2 rounded-full appearance-none pointer-events-none touch-pan-y border-none outline-offset[5px] box-content flex-shrink-0 grid place-items-center transition-bg[.25s] ease before:content-[" "] before:cursor-pointer before:pointer-events-auto before:inline-size-2 before:block-size-2 before:bg-background before:box-shadow[0_0_0_0_hsla(var(--switch-thumb-color-highlight))] before:rounded-[50%] before:transform[translateX(0%)]',
         props.class,
       )}
     />
