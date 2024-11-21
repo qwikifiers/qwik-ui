@@ -35,7 +35,7 @@ body:
     id: reproduction
     attributes:
       label: Reproduction
-      description: Please provide a link via [qwik.new](https://qwik.new/) or a link to a repo that can reproduce the problem you ran into. `npm create qwik@latest` can be used as a starter template. A [minimal reproduction](https://stackoverflow.com/help/minimal-reproducible-example) is required ([Why?](https://antfu.me/posts/why-reproductions-are-required)). If a report is vague (e.g. just a generic error message) and has no reproduction, it will receive a "need reproduction" label. If no reproduction is provided after 14 days, it will be auto-closed.
+      description: Please provide a link via [https://qwikui.com/repro](https://qwikui.com/repro) or clone [this repo](https://github.com/qwikifiers/qwik-ui-stackblitz) and reproduce the problem you ran into. A [minimal reproduction](https://stackoverflow.com/help/minimal-reproducible-example) is required ([Why?](https://antfu.me/posts/why-reproductions-are-required)). If a report is vague (e.g. just a generic error message) and has no reproduction, it will receive a "need reproduction" label. If no reproduction is provided after 14 days, it will be auto-closed.
       placeholder: Reproduction URL
     validations:
       required: true
