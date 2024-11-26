@@ -39,7 +39,9 @@ npm install -D @qwik-ui/headless
 
 ## Contributing
 
-Want to contribute? Yayy! 🎉
+First of all, we wanted to thank [our awesome contributors](https://qwikui.com/docs/contributors/)! 🙌
+
+Want to contribute as well? Yayy! 🎉
 
 Please read and follow our [Contributing Guidelines](CONTRIBUTING.md) to learn what are the right steps to take before contributing your time, effort and code.
 
