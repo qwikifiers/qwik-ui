@@ -21,6 +21,9 @@ module.exports = {
         '.inline-size-4': {
           inlineSize: '4rem',
         },
+        '.inline-size-2': {
+          inlineSize: '2rem',
+        },
         '.block-size-2': {
           blockSize: '2rem',
         },
