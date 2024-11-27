@@ -8,27 +8,30 @@ const parser = new Parser();
 
 /**
  * Tree-Sitter query docs: https://tree-sitter.github.io/tree-sitter/using-parsers#query-syntax
- * Pay particular attention to the following sections: capturing nodes, wildcard nodes, and anchors.
+ * Pay particular attention to the following sections: capturing nodes, wildcard nodes,predicates,alternations, and anchors.
  *
  * To have a way of being able to see the Tree-Sitter AST in real-time: the ideal setup comes included in Neovim. In ex mode, simply run
  * the command below and you'll have the file's AST viewer open in real-time: `:InspectTree`
  **/
-
+const commentPropType = `
+  (object_type
+    (comment) @comment
+    .
+    (property_signature
+      name: (_) @prop
+      type: (type_annotation (_) @type)
+    )
+  )`;
+const nestedTypeDef = `(_ ${commentPropType})`;
 const query = new Query(
   TS.tsx,
   `(type_alias_declaration
-      name: (type_identifier) @subComponentName
-      (intersection_type
-        (object_type
-          (comment) @comment
-          .
-          (property_signature
-            name: (_) @prop
-            type: (type_annotation (_) @type)
-          )
-        )
-      )
-    )
+     name: (type_identifier) @subComponentName (#match? @subComponentName "^Public")
+     [
+       (${nestedTypeDef})
+       (${commentPropType})
+     ]
+  )
   `,
 );
 
