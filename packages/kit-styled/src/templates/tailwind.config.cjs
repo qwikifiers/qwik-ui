@@ -13,21 +13,26 @@ module.exports = {
   plugins: [
     // PLUGIN-START
     require('tailwindcss-animate'),
-    plugin(function ({ addUtilities }) {
+    plugin(function ({ addUtilities,theme,e }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
         },
-        '.inline-size-4': {
-          inlineSize: '4rem',
-        },
-        '.block-size-2': {
-          blockSize: '2rem',
-        },
 
       });
-    }),
-    // PLUGIN-END
+      const sizelist = theme('spacing');
+      const blockSizeUtilities = Object.keys(sizelist).reduce((acc, key) => {
+        const value = sizelist[key];
+        acc[`.${e(`block-size-${key}`)}`] = {
+          'block-size': value,
+        };
+        acc[`.${e(`inline-size-${key}`)}`] = {
+          'inline-size': value,
+        };
+        return acc;
+      }, {});
+
+      addUtilities(blockSizeUtilities, ['responsive', 'hover']);
   ],
   darkMode: 'class',
   theme: {

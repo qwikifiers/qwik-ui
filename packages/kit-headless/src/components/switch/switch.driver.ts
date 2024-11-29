@@ -8,12 +8,12 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getTrigger = () => {
-    return getRoot().locator('[data-value]')
+    return getRoot().locator('[data-value]');
   };
 
   const getTriggerlaBle = () => {
-    return getRoot().locator('[data-switch-lable]')
-  }
+    return getRoot().locator('[data-switch-lable]');
+  };
 
   const openListbox = async (key: OpenKeys | 'click') => {
     await getTrigger().focus();
@@ -23,7 +23,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     } else {
       await getTrigger().click();
     }
-
   };
 
   return {
@@ -32,6 +31,6 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
     getRoot,
     getTrigger,
     openListbox,
-    getTriggerlaBle
+    getTriggerlaBle,
   };
 }

@@ -12,9 +12,9 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
-  &>input {
+  & > input {
     --thumb-position: 0%;
-    --thumb-transition-duration: .25s;
+    --thumb-transition-duration: 0.25s;
     padding: 4px;
     background: var(--track-color-inactive);
     inline-size: 4rem;
@@ -30,10 +30,10 @@
     display: grid;
     align-items: center;
     grid: [track] 1fr / [track] 1fr;
-    transition: background-color .25s ease;
+    transition: background-color 0.25s ease;
 
     &::before {
-      content: "";
+      content: '';
       cursor: pointer;
       pointer-events: auto;
       inline-size: 2rem;
@@ -46,7 +46,6 @@
 
     &:not(:disabled):hover::before {
       box-shadow: 0 0 0 0.5rem hsla(var(--switch-thumb-color-highlight));
-
     }
 
     &:checked {
@@ -54,7 +53,6 @@
       &::before {
         transform: translateX(100%);
       }
-
     }
     &:disabled {
       cursor: not-allowed;

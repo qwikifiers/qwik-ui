@@ -20,26 +20,27 @@ async function setup(page: Page, exampleName: string) {
 test.describe('Mouse Behavior', () => {
   test(`GIVEN a hero switch
         WHEN toggled
-        THEN the checked property should correctly reflect the toggle state`, async ({ page }) => {
+        THEN the checked property should correctly reflect the toggle state`, async ({
+    page,
+  }) => {
     const { driver: d } = await setup(page, 'hero');
     await expect(d.getTrigger()).not.toBeChecked();
     await expect(d.getTrigger()).toHaveAttribute('data-checked', 'flase');
     await d.getTrigger().click();
     await expect(d.getTrigger()).toHaveAttribute('data-checked', 'true');
-    await expect(d.getTrigger()).toBeChecked()
-  })
+    await expect(d.getTrigger()).toBeChecked();
+  });
 
   test(`GIVEN a hero switch
     WHEN clicked
     THEN the onChange callback should be triggered`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
-    await expect(d.getTriggerlaBle()).toHaveText('0')
+    await expect(d.getTriggerlaBle()).toHaveText('0');
     await d.getTrigger().click();
-    await expect(d.getTriggerlaBle()).toHaveText('1')
-    await expect(d.getTrigger()).toBeChecked()
-  })
-
-})
+    await expect(d.getTriggerlaBle()).toHaveText('1');
+    await expect(d.getTrigger()).toBeChecked();
+  });
+});
 
 test.describe('Keyboard Behavior', () => {
   test(`GIVEN a hero switch
@@ -75,8 +76,8 @@ test.describe('Keyboard Behavior', () => {
     await expect(d.getTrigger()).not.toBeChecked();
     await d.getTrigger().press('Tab');
     await expect(d.getTrigger()).not.toBeChecked();
-    });
-})
+  });
+});
 
 test.describe('Default property ', () => {
   test(`
@@ -88,7 +89,7 @@ test.describe('Default property ', () => {
     await expect(d.getTrigger()).toBeChecked();
     await expect(d.getTrigger()).toHaveAttribute('data-checked', 'true');
     await expect(d.getTrigger()).toHaveAttribute('aria-checked', 'true');
-  })
+  });
 
   test(`
     GIVEN a defaultChecked switch
@@ -97,7 +98,7 @@ test.describe('Default property ', () => {
     `, async ({ page }) => {
     const { driver: d } = await setup(page, 'defaultChecked');
     await expect(d.getTrigger()).toBeChecked();
-  })
+  });
 
   test(`
     GIVEN a disabled switch
@@ -106,8 +107,8 @@ test.describe('Default property ', () => {
     `, async ({ page }) => {
     const { driver: d } = await setup(page, 'disabled');
     await expect(d.getTrigger()).toHaveAttribute('data-disabled', 'true');
-    await expect(d.getTrigger()).toBeDisabled()
-  })
+    await expect(d.getTrigger()).toBeDisabled();
+  });
 
   test(`
     GIVEN a disabled switch
@@ -115,7 +116,7 @@ test.describe('Default property ', () => {
     THEN the switch should not toggle`, async ({ page }) => {
     const { driver: d } = await setup(page, 'disabled');
     await expect(d.getTrigger()).toHaveAttribute('data-disabled', 'true');
-    await d.getTrigger().click()
-    await expect(d.getTrigger()).not.toBeChecked()
-  })
-})
+    await d.getTrigger().click();
+    await expect(d.getTrigger()).not.toBeChecked();
+  });
+});

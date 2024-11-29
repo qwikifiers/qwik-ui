@@ -7,7 +7,7 @@ const Root = component$<PropsOf<typeof HeadlessSwitch.Root>>(({ ...props }) => {
     <HeadlessSwitch.Root
       {...props}
       class={cn(
-        'flex-row-reverse flex items-center gap-1 justify-between cursor-pointer select-none tap-highlight-transparent',
+        'tap-highlight-transparent flex cursor-pointer select-none flex-row-reverse items-center justify-between gap-1',
         props.class,
       )}
     >
@@ -15,7 +15,6 @@ const Root = component$<PropsOf<typeof HeadlessSwitch.Root>>(({ ...props }) => {
     </HeadlessSwitch.Root>
   );
 });
-
 
 const Label = component$<PropsOf<typeof HeadlessSwitch.Label>>(({ ...props }) => {
   return (
@@ -29,13 +28,13 @@ const Input = component$<PropsOf<typeof HeadlessSwitch.Input>>(({ ...props }) =>
   return (
     <HeadlessSwitch.Input
       {...props}
-      class={cn('p-[4px] bg-switchInactive inline-size-4 grid-cols-[1fr] grid-rows-[1fr] block-size-2 rounded-full appearance-none pointer-events-none touch-pan-y border-none box-content flex-shrink-0 grid transition-bg[.25s] ease before:content-[" "] before:cursor-pointer before:pointer-events-auto before:block-size-2 before:inline-size-2 before:bg-background before:rounded-[50%] before:translate-x-[0%]',
+      class={cn(
+        'bg-switchInactive transition-bg[.25s] ease before:content-[" "] pointer-events-none box-content grid flex-shrink-0 touch-pan-y appearance-none grid-cols-[1fr] grid-rows-[1fr] rounded-full border-none p-[4px] block-size-8 inline-size-16 before:pointer-events-auto before:translate-x-[0%] before:cursor-pointer before:rounded-[50%] before:bg-background before:block-size-8 before:inline-size-8',
         props.class,
       )}
     />
   );
 });
-
 
 export const Switch = {
   Root,

@@ -1,9 +1,8 @@
 import { component$, useStyles$, useSignal } from '@builder.io/qwik';
 import { Switch } from '@qwik-ui/headless';
 
-
 export default component$(() => {
-  const checked = useSignal(true)
+  const checked = useSignal(true);
   useStyles$(styles);
   return (
     <Switch.Root class="switch" bind:checked={checked}>
@@ -14,5 +13,3 @@ export default component$(() => {
 });
 
 import styles from '../snippets/switch.css?inline';
-
-
