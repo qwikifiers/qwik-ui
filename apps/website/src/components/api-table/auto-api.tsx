@@ -37,7 +37,8 @@ const currentHeader = $(() => {
 });
 
 const currentSubHeader = $((text: string) => {
-  let subHeader = text.replace(/(p|P)rops/, '');
+  const removePublicPrefix = text.replace(/^Public/, '');
+  let subHeader = removePublicPrefix.replace(/(p|P)rops/, '');
   const hasCapital = /[a-z][A-Z]/.exec(subHeader)?.index;
   if (hasCapital != undefined) {
     subHeader =
