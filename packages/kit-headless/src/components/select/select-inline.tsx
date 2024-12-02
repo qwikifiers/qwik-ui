@@ -1,4 +1,4 @@
-import { type JSXNode, Component } from '@builder.io/qwik';
+import { type JSXNode, type PublicProps } from '@builder.io/qwik';
 import { HSelectImpl, type SelectProps } from './select-root';
 import { HSelectItem as InternalSelectItem } from './select-item';
 import { HSelectItemLabel as InternalSelectItemLabel } from './select-item-label';
@@ -14,8 +14,8 @@ type InlineCompProps = {
   This is an inline component. An example use case of an inline component to get the proper indexes with CSR. See issue #4757
   for more information.
 */
-export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
-  props: SelectProps & InlineCompProps,
+export const HSelectRoot = <M extends true>(
+  props: PublicProps<SelectProps<M> & InlineCompProps>,
 ) => {
   const {
     children: myChildren,
