@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Setup Tailwind generator 
+exports[`Setup Tailwind generator
     GIVEN no options are passed
     THEN it should generate "simple" style with primary color "cyan-600", base color "slate" and border-radius 0 1`] = `
 "@tailwind components;
@@ -89,7 +89,7 @@ html {
 "
 `;
 
-exports[`Setup Tailwind generator 
+exports[`Setup Tailwind generator
     GIVEN style is "brutalist" and primary color is "red-600" and border-radius is 1
     THEN it should generate the correct theme 1`] = `
 "@tailwind components;
@@ -172,7 +172,7 @@ html {
 "
 `;
 
-exports[`Setup Tailwind generator 
+exports[`Setup Tailwind generator
   GIVEN global.css and tailwind config exist in commonjs format
   THEN it should generate the proper tailwind config values 1`] = `
 "const plugin = require('tailwindcss/plugin');
@@ -308,7 +308,7 @@ module.exports = {
 "
 `;
 
-exports[`Setup Tailwind generator 
+exports[`Setup Tailwind generator
   GIVEN tailwind config exist in esm format
   WHEN running the generator
   THEN it should generate the proper tailwind config values 1`] = `
@@ -443,7 +443,7 @@ export default {
 "
 `;
 
-exports[`Setup Tailwind generator 
+exports[`Setup Tailwind generator
   GIVEN tailwind config has already a plugins array
   THEN it should add the plugin with the right plugin and import 1`] = `
 "import plugin from 'tailwindcss/plugin';

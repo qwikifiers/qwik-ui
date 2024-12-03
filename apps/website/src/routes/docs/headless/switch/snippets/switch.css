@@ -1,8 +1,5 @@
 /* Define default light theme colors */
 .switch {
-  --thumb-color: hsla(var(--background));
-  --track-color-inactive: hsla(var(--switch-track-color-inactive));
-  --track-color-active: hsla(var(--primary));
   flex-direction: row-reverse;
   display: flex;
   align-items: center;
@@ -11,12 +8,11 @@
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-
   & > input {
     --thumb-position: 0%;
     --thumb-transition-duration: 0.25s;
     padding: 4px;
-    background: var(--track-color-inactive);
+    background: hsla(var(--switch-track-color-inactive));
     inline-size: 4rem;
     block-size: 2rem;
     border-radius: 4rem;
@@ -38,7 +34,7 @@
       pointer-events: auto;
       inline-size: 2rem;
       block-size: 2rem;
-      background: var(--thumb-color);
+      background: hsla(var(--background));
       box-shadow: 0 0 0 0 hsla(var(--switch-thumb-color-highlight));
       border-radius: 50%;
       transform: translateX(0%);
@@ -49,7 +45,7 @@
     }
 
     &:checked {
-      background: var(--track-color-active);
+      background: hsla(var(--primary));
       &::before {
         transform: translateX(100%);
       }
