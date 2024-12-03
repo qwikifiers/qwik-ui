@@ -1,5 +1,48 @@
 ---
-title: Qwik UI | Styled Radio Group Component
+title: Qwik UI | Styled Switch Component
 ---
 
-sdsds
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.styled.Switch} />
+
+# Switch
+
+The Switch component allows users to toggle between two states, such as on/off or enabled/disabled. It is designed to be accessible and visually appealing, providing a smooth user experience.
+
+<Showcase name="hero" />
+
+## Installation
+
+To install the Switch component, run the following command in your terminal:
+
+```sh
+qwik-ui add switch
+```
+
+Alternatively, you can copy and paste the component code directly into your project.
+
+## Usage
+
+Here’s how to use the Switch component in your application:
+
+```tsx
+import { component$, useSignal } from '@builder.io/qwik';
+import { Switch } from '~/components/ui';
+
+export default component$(() => {
+  const checked = useSignal(false);
+  return (
+    <Switch.Root bind:checked={checked}>
+      <Switch.Input />
+      <Switch.Label>Toggle Option</Switch.Label>
+    </Switch.Root>
+  );
+});
+```
+
+## Examples
+
+### Checked
+
+<Showcase name="hero" vertical />
