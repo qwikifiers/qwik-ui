@@ -18,7 +18,6 @@ module.exports = {
         '.press': {
           transform: 'var(--transform-press)',
         },
-
       });
       const sizelist = theme('spacing');
       const blockSizeUtilities = Object.keys(sizelist).reduce((acc, key) => {
@@ -33,6 +32,9 @@ module.exports = {
       }, {});
 
       addUtilities(blockSizeUtilities, ['responsive', 'hover']);
+
+    }),
+    // PLUGIN-END
   ],
   darkMode: 'class',
   theme: {
