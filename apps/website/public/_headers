@@ -2,3 +2,6 @@
 
 /build/*
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+
+/docs/*
+  Cache-Control: public, max-age=3600, s-maxage=3600
