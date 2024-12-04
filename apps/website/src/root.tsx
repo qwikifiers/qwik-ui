@@ -1,9 +1,5 @@
 import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
-import {
-  QwikCityProvider,
-  RouterOutlet,
-  ServiceWorkerRegister,
-} from '@builder.io/qwik-city';
+import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
@@ -20,7 +16,7 @@ import {
   ThemePrimaryColors,
   ThemeStyles,
 } from '@qwik-ui/utils';
-import { isDev } from '@builder.io/qwik/build';
+import { ModulePreload } from './components/module-preload/module-preload';
 
 export default component$(() => {
   /**
@@ -40,20 +36,20 @@ export default component$(() => {
 
   useContextProvider(APP_STATE_CONTEXT_ID, appState);
 
-  //   const unregisterPrefetchServiceWorkers = `
-  // ;(function () {
-  //   navigator.serviceWorker?.getRegistrations().then((regs) => {
-  //     for (const reg of regs) {
-  //       if (
-  //         reg.active?.scriptURL.includes('service-worker.js') ||
-  //         reg.active?.scriptURL.includes('qwik-prefetch-service-worker.js')
-  //       ) {
-  //         reg.unregister();
-  //       }
-  //     }
-  //   });
-  // })();
-  // `;
+  const unregisterPrefetchServiceWorkers = `
+;(function () {
+  navigator.serviceWorker?.getRegistrations().then((regs) => {
+    for (const reg of regs) {
+      if (
+        reg.active?.scriptURL.includes('service-worker.js') ||
+        reg.active?.scriptURL.includes('qwik-prefetch-service-worker.js')
+      ) {
+        reg.unregister();
+      }
+    }
+  });
+})();
+`;
 
   return (
     <QwikCityProvider>
@@ -63,8 +59,8 @@ export default component$(() => {
         <RouterHead />
       </head>
       <body lang="en">
-        {/* <script dangerouslySetInnerHTML={unregisterPrefetchServiceWorkers} /> */}
-        {/* <ModulePreload /> */}
+        <script dangerouslySetInnerHTML={unregisterPrefetchServiceWorkers} />
+        <ModulePreload />
         <ThemeProvider
           attribute="class"
           enableSystem={false}
@@ -79,7 +75,6 @@ export default component$(() => {
         >
           <RouterOutlet />
         </ThemeProvider>
-        {!isDev && <ServiceWorkerRegister />}
       </body>
     </QwikCityProvider>
   );

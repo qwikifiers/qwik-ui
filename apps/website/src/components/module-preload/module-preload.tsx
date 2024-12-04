@@ -54,7 +54,7 @@ export const ModulePreload = component$(() => {
           link.as = 'script';
           link.href = '/' + 'build/' + chunk;
           link.fetchPriority = 'low';
-          document.head.appendChild(link);
+          document.body.appendChild(link);
         });
       };
 
