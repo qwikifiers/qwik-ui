@@ -1,6 +1,5 @@
-import type { Plugin } from 'unified';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
-  Program,
   Node,
   FunctionDeclaration,
   VariableDeclarator,
@@ -13,9 +12,9 @@ function isNamedFunction(node: FunctionDeclaration, name: string) {
   return Boolean(node.id?.name === name);
 }
 
-export const recmaProvideComponents: Plugin<any, Program> = () => {
+export const recmaProvideComponents = () => {
   let id = 0;
-  return (tree) => {
+  return (tree: { body: any[] }) => {
     const replacement = [];
     for (const _node of tree.body) {
       const node = _node as Node;
@@ -98,7 +97,7 @@ export const recmaProvideComponents: Plugin<any, Program> = () => {
           local: { type: 'Identifier', name: '_inlinedQrl' },
         },
       ],
-      source: { type: 'Literal', value: '@builder.io/qwik' },
+      source: { type: 'Literal', value: '@qwik.dev/core' },
     });
   };
 };
