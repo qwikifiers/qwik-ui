@@ -5,11 +5,11 @@ import {
   useComputed$,
   useSignal,
   useStyles$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { useLocation } from '@builder.io/qwik-city';
+import { useLocation } from '@qwik.dev/router';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as styledKitVersion } from '../../../../../packages/kit-styled/package.json';
@@ -238,12 +238,8 @@ const DarkModeToggle = component$<PropsOf<typeof Button>>(({ ...props }) => {
         (themeSig.value = await switchLightDark(themeSig.value || 'light'))
       }
     >
-      <div class="hidden dark:block">
-        <LuMoon class="h-6 w-6" />
-      </div>
-      <div class="block dark:hidden">
-        <LuSun class="h-6 w-6" />
-      </div>
+      <LuMoon class="block h-6 w-6 dark:hidden" />
+      <LuSun class="block h-6 w-6 dark:hidden" />
     </Button>
   );
 });

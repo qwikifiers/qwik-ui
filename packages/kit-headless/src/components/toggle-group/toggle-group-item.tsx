@@ -1,4 +1,4 @@
-import type { PropsOf } from '@builder.io/qwik';
+import type { PropsOf } from '@qwik.dev/core';
 import {
   component$,
   useContext,
@@ -7,7 +7,7 @@ import {
   useId,
   useSignal,
   useTask$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { Toggle } from '@qwik-ui/headless';
 import {
   Direction,
@@ -16,7 +16,7 @@ import {
   toggleGroupRootApiContextId,
 } from './toggle-group-context';
 import { KeyCode } from '../../utils';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
+import { isBrowser, isServer } from '@qwik.dev/core/build';
 
 type NavigationKeys =
   | KeyCode.ArrowRight

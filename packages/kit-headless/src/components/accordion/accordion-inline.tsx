@@ -1,4 +1,4 @@
-import { Component } from '@builder.io/qwik';
+import { Component } from '@qwik.dev/core';
 import { type AccordionRootProps, HAccordionRootImpl } from './accordion-root';
 import { Accordion } from '@qwik-ui/headless';
 import { findComponent, processChildren } from '../../utils/inline-component';

@@ -1,4 +1,4 @@
-import { $, PropsOf, component$, useComputed$ } from '@builder.io/qwik';
+import { $, PropsOf, component$, useComputed$ } from '@qwik.dev/core';
 import {
   ThemeBaseColors,
   ThemeBorderRadiuses,

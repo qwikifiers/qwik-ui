@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@qwik.dev/core';
 import { Popover } from '@qwik-ui/headless';
 export default component$(() => {
   const toggleStatus = useSignal<'open' | 'closed'>('closed');

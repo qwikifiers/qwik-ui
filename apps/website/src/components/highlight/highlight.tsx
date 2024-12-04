@@ -1,4 +1,4 @@
-import { ClassList, PropsOf, component$, useSignal, useTask$, $ } from '@builder.io/qwik';
+import { ClassList, PropsOf, component$, useSignal, useTask$, $ } from '@qwik.dev/core';
 import { CodeCopy } from '../code-copy/code-copy';
 import { cn } from '@qwik-ui/utils';
 import { codeToHtml } from 'shiki';

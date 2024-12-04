@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Note } from '../note/note';
 import { LuBadge, LuBadgeAlert, LuBadgeCheck } from '@qwikest/icons/lucide';
 

@@ -1,5 +1,5 @@
 import { HPagination } from './pagination';
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@qwik.dev/core';
 
 /**
  * SUT - System under test

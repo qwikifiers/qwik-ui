@@ -1,5 +1,5 @@
-import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
-import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
+import { component$, useContextProvider, useStore, useStyles$ } from '@qwik.dev/core';
+import { QwikRouterProvider, RouterOutlet } from '@qwik.dev/router';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
@@ -52,7 +52,7 @@ export default component$(() => {
 `;
 
   return (
-    <QwikCityProvider>
+    <QwikRouterProvider>
       <head>
         <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
@@ -76,6 +76,6 @@ export default component$(() => {
           <RouterOutlet />
         </ThemeProvider>
       </body>
-    </QwikCityProvider>
+    </QwikRouterProvider>
   );
 });

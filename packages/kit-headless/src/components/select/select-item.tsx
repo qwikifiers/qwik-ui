@@ -11,8 +11,8 @@ import {
   sync$,
   useOnWindow,
   QRL,
-} from '@builder.io/qwik';
-import { isServer } from '@builder.io/qwik/build';
+} from '@qwik.dev/core';
+import { isServer } from '@qwik.dev/core/build';
 import SelectContextId, {
   SelectItemContext,
   selectItemContextId,

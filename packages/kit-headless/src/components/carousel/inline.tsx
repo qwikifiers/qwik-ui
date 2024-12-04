@@ -1,4 +1,4 @@
-import { Component } from '@builder.io/qwik';
+import { Component } from '@qwik.dev/core';
 import { CarouselBase, PublicCarouselRootProps } from './root';
 import { Carousel } from '@qwik-ui/headless';
 import { findComponent, processChildren } from '../../utils/inline-component';

@@ -8,14 +8,14 @@ import {
   useComputed$,
   useContextProvider,
   useSignal,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import {
   ComboboxItemContext,
   comboboxContextId,
   comboboxItemContextId,
 } from './combobox-context';
 import { useCombobox } from './use-combobox';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer } from '@qwik.dev/core/build';
 import { useCombinedRef } from '../../hooks/combined-refs';
 
 export type HComboboxItemProps = PropsOf<'div'> & {

@@ -7,7 +7,7 @@ import {
   Slot,
   useContextProvider,
   $,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { findComponent, processChildren } from '../../utils/inline-component';
 import { ChecklistContext, type ChecklistState } from './checklist-context';
 import { ChecklistItem } from './checklist-item';
