@@ -1,11 +1,9 @@
-import { type PropsOf, type PublicProps, Slot, component$ } from '@builder.io/qwik';
+import { type PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { Select as HeadlessSelect } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 import { LuCheck, LuChevronDown } from '@qwikest/icons/lucide';
 
-const Root = <M extends true>(
-  props: PublicProps<PropsOf<typeof HeadlessSelect.Root<M>>>,
-) => (
+const Root = (props: PropsOf<typeof HeadlessSelect.Root>) => (
   <HeadlessSelect.Root
     {...props}
     selectItemComponent={Item}
