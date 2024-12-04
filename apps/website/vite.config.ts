@@ -2,7 +2,6 @@ import { qwikCity } from '@builder.io/qwik-city/vite';
 import { qwikVite } from '@builder.io/qwik/optimizer';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { recmaProvideComponents } from './recma-provide-components';
 import autoAPI from './auto-api';
 
 export default defineConfig(async () => {
@@ -39,7 +38,7 @@ export default defineConfig(async () => {
         },
         mdx: {
           providerImportSource: '~/_state/MDXProvider',
-          recmaPlugins: [recmaProvideComponents],
+          // recmaPlugins: [recmaProvideComponents],
           rehypePlugins: [
             () => (tree) => {
               visit(tree, (node) => {
