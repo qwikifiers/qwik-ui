@@ -6,12 +6,12 @@ import {
   $,
   useTask$,
   PropsOf,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { collapsibleContextId } from './collapsible-context';
 
 export type CollapsibleContentProps = PropsOf<'div'>;
 
-import { isServer } from '@qwik.dev/core/build';
+import { isServer } from '@builder.io/qwik/build';
 
 export const HCollapsibleContent = component$((props: CollapsibleContentProps) => {
   const context = useContext(collapsibleContextId);

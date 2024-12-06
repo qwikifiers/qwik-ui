@@ -1,4 +1,5 @@
-import { component$, FunctionComponent, PropsOf, Slot } from '@qwik.dev/core';
+import { component$, PropsOf, Slot } from '@builder.io/qwik';
+import { FunctionComponent } from '@builder.io/qwik/jsx-runtime';
 
 /**
  *  We can use polymorphic components to render different elements based on the type of the `as` prop.

@@ -1,4 +1,4 @@
-import { component$, Signal, useSignal, useTask$ } from '@qwik.dev/core';
+import { component$, Signal, useSignal, useTask$ } from '@builder.io/qwik';
 
 export default component$(() => {
   const isItemsRenderedSig = useSignal(false);

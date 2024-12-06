@@ -1,4 +1,4 @@
-import { Signal, createContextId } from '@qwik.dev/core';
+import { Signal, createContextId } from '@builder.io/qwik';
 
 import { TItemsMap } from './dropdown-root';
 

@@ -5,8 +5,8 @@ import {
   useContext,
   useSignal,
   useTask$,
-} from '@qwik.dev/core';
-import { isServer } from '@qwik.dev/core/build';
+} from '@builder.io/qwik';
+import { isServer } from '@builder.io/qwik/build';
 import SelectContextId from './select-context';
 
 type HiddenSelectOptionProps = {

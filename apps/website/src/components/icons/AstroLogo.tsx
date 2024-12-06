@@ -1,4 +1,4 @@
-import { component$, type PropsOf } from '@qwik.dev/core';
+import { component$, type PropsOf } from '@builder.io/qwik';
 
 export default component$((props: PropsOf<'svg'>) => {
   return (

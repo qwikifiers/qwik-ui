@@ -1,6 +1,6 @@
 import { PaginationProps } from './types/pagination-api';
 import { usePagination } from './use-pagination';
-import { component$, Slot } from '@qwik.dev/core';
+import { component$, Slot } from '@builder.io/qwik';
 
 export const HPagination = component$<PaginationProps>((props) => {
   const {

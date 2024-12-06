@@ -7,7 +7,7 @@ import {
   useContextProvider,
   useId,
   useSignal,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { ModalContext, modalContextId } from './modal-context';
 
 type ModalRootProps = {

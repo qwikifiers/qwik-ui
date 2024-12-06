@@ -1,4 +1,4 @@
-import { component$ } from '@qwik.dev/core';
+import { component$ } from '@builder.io/qwik';
 import { Note, NoteStatus } from '../note/note'; // Adjust the import path based on your structure
 
 export const TopLayerAnimationsCaveats = component$(() => {

@@ -6,10 +6,10 @@ import {
   $,
   useContextProvider,
   sync$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { useBoundSignal } from '../../utils/bound-signal';
 import { CheckboxContext } from './checkbox-context';
-import type { QwikIntrinsicElements } from '@qwik.dev/core';
+import type { QwikIntrinsicElements } from '@builder.io/qwik';
 
 type AllowedElements = 'li' | 'div' | 'span';
 

@@ -1,4 +1,4 @@
-import { QRL, Signal, createContextId } from '@qwik.dev/core';
+import { QRL, Signal, createContextId } from '@builder.io/qwik';
 
 export const modalContextId = createContextId<ModalContext>('qui-modal');
 

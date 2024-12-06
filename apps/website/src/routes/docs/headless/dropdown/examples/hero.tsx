@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@qwik.dev/core';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Dropdown } from '@qwik-ui/headless';
 import { LuCheck } from '@qwikest/icons/lucide';
 

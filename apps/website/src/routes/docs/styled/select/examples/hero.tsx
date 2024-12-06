@@ -1,4 +1,4 @@
-import { component$ } from '@qwik.dev/core';
+import { component$ } from '@builder.io/qwik';
 import { LuCheck } from '@qwikest/icons/lucide';
 import { Select } from '~/components/ui';
 

@@ -1,4 +1,4 @@
-import { $, useContext } from '@qwik.dev/core';
+import { $, useContext } from '@builder.io/qwik';
 
 import { dropdownContextId } from './dropdown-context';
 

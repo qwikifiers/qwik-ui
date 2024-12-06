@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@qwik.dev/core';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Label } from '@qwik-ui/headless';
 import styles from '../snippets/label.css?inline';
 

@@ -5,7 +5,7 @@ import {
   useContext,
   useSignal,
   useTask$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { CheckboxRoot } from '../checkbox/checkbox-root';
 import { ChecklistContext } from './checklist-context';
 

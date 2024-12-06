@@ -8,9 +8,9 @@ import {
   useSignal,
   Signal,
   useTask$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { TooltipContextId, TriggerDataState } from './tooltip-context';
-import { isServer } from '@qwik.dev/core/build';
+import { isServer } from '@builder.io/qwik/build';
 import { usePopover } from '../popover/use-popover';
 
 /**

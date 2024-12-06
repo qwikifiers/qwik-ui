@@ -7,7 +7,7 @@ import {
   useContext,
   useSignal,
   sync$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { TAB_PANEL_ID_PREFIX } from './tab-panel';
 import { tabsContextId } from './tabs-context-id';
 import { KeyCode } from '../../utils/key-code.type';

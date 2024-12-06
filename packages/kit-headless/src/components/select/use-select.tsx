@@ -1,4 +1,4 @@
-import { useContext, useSignal, $, useComputed$ } from '@qwik.dev/core';
+import { useContext, useSignal, $, useComputed$ } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 
 /**

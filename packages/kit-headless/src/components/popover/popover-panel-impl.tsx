@@ -7,10 +7,11 @@ import {
   useSignal,
   useStyles$,
   useTask$,
+  type CorrectedToggleEvent,
   type PropsOf,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 
-import { isServer } from '@qwik.dev/core/build';
+import { isServer } from '@builder.io/qwik/build';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { popoverContextId } from './popover-context';
 import popoverStyles from './popover.css?inline';
@@ -126,7 +127,7 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
         props.onBeforeToggle$,
       ]}
       onToggle$={[
-        $((e) => {
+        $((e: CorrectedToggleEvent) => {
           context.isOpenSig.value = e.newState === 'open';
 
           if (!context.panelRef?.value) return;

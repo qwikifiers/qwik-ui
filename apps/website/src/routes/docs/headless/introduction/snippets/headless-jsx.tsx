@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@qwik.dev/core';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal } from '@qwik-ui/headless';
 import styles from './headless-css.css?inline';
 

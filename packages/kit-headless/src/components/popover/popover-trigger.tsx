@@ -1,4 +1,4 @@
-import { Slot, component$, $, PropsOf, useContext } from '@qwik.dev/core';
+import { Slot, component$, $, PropsOf, useContext } from '@builder.io/qwik';
 import { popoverContextId } from './popover-context';
 import { usePopover } from './use-popover';
 

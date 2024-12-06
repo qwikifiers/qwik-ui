@@ -1,4 +1,4 @@
-import { createContextId, QRL, Signal } from '@qwik.dev/core';
+import { createContextId, QRL, Signal } from '@builder.io/qwik';
 
 export const TooltipContextId = createContextId<TooltipContext>('Tooltip');
 

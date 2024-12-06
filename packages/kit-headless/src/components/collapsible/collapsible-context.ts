@@ -1,8 +1,8 @@
-import { createContextId } from '@qwik.dev/core';
+import { createContextId } from '@builder.io/qwik';
 
 export const collapsibleContextId = createContextId<CollapsibleContext>('Collapsible');
 
-import { type QRL, type Signal } from '@qwik.dev/core';
+import { type QRL, type Signal } from '@builder.io/qwik';
 
 export interface CollapsibleContext {
   itemId: string;

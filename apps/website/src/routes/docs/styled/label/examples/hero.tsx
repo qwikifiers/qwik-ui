@@ -1,4 +1,4 @@
-import { component$ } from '@qwik.dev/core';
+import { component$ } from '@builder.io/qwik';
 import { Checkbox, Label } from '~/components/ui';
 
 export default component$(() => {

@@ -1,5 +1,5 @@
-import { qwikRouter } from '@qwik.dev/router/vite';
-import { qwikVite } from '@qwik.dev/core/optimizer';
+import { qwikCity } from '@builder.io/qwik-city/vite';
+import { qwikVite } from '@builder.io/qwik/optimizer';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
@@ -31,7 +31,7 @@ export default defineConfig(async () => {
   return {
     plugins: [
       autoAPI(),
-      qwikRouter({
+      qwikCity({
         mdxPlugins: {
           rehypeSyntaxHighlight: false,
           remarkGfm: true,

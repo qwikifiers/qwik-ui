@@ -4,7 +4,7 @@ import {
   type PropsOf,
   useComputed$,
   Slot,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 
 import SelectContextId from './select-context';
 

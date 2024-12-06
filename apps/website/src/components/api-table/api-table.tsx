@@ -1,4 +1,4 @@
-import { component$ } from '@qwik.dev/core';
+import { component$ } from '@builder.io/qwik';
 import { InfoPopup } from '../info-popup/info-popup';
 export type APITableProps = {
   propDescriptors: {

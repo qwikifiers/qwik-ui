@@ -1,4 +1,4 @@
-import { component$ } from '@qwik.dev/core';
+import { component$ } from '@builder.io/qwik';
 
 /**
  * TooltipArrowProps defines the properties for the Tooltip Arrow component.

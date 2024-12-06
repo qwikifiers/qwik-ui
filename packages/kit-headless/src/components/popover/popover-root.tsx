@@ -6,7 +6,7 @@ import {
   useContextProvider,
   useId,
   useSignal,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { popoverContextId, PopoverContext } from './popover-context';
 
 export type PopoverRootProps = {

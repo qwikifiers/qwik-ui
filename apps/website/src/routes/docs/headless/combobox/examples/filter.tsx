@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$, useTask$ } from '@qwik.dev/core';
+import { component$, useSignal, useStyles$, useTask$ } from '@builder.io/qwik';
 import { Combobox } from '@qwik-ui/headless';
 import { LuCheck, LuChevronDown } from '@qwikest/icons/lucide';
 import { matchSorter } from 'match-sorter';

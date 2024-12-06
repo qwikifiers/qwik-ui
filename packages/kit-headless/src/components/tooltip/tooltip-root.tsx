@@ -8,7 +8,7 @@ import {
   useId,
   useSignal,
   $,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { FloatingProps, HPopoverRoot } from '../popover/popover-root';
 import { TooltipContext, TooltipContextId, TriggerDataState } from './tooltip-context';
 

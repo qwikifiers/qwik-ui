@@ -1,4 +1,4 @@
-import { useContext } from '@qwik.dev/core';
+import { useContext } from '@builder.io/qwik';
 import { APP_STATE_CONTEXT_ID } from './app-state-context-id';
 
 export const useAppState = () => {

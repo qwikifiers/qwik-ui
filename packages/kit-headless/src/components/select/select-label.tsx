@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$, useContext, $, sync$ } from '@qwik.dev/core';
+import { PropsOf, Slot, component$, useContext, $, sync$ } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 import { useCombinedRef } from '../../hooks/combined-refs';
 

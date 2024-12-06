@@ -7,7 +7,7 @@ import {
   useSignal,
   useComputed$,
   $,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { carouselContextId } from './context';
 
 export type CarouselSlideProps = PropsOf<'div'> & {

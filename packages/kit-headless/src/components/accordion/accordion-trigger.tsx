@@ -6,7 +6,7 @@ import {
   useContext,
   useSignal,
   $,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { HCollapsibleTrigger } from '../collapsible/collapsible-trigger';
 import { accordionContextId, accordionItemContextId } from './accordion-context';
 import { useEnabledIndex } from '../../hooks/use-enabled-index';

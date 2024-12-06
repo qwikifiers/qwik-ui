@@ -1,4 +1,4 @@
-import { $, component$, useSignal, useStyles$ } from '@qwik.dev/core';
+import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Combobox } from '@qwik-ui/headless';
 export default component$(() => {
   useStyles$(styles);

@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$, useContext } from '@qwik.dev/core';
+import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
 import SelectContextId from './select-context';
 
 type SelectDescriptionProps = PropsOf<'div'>;

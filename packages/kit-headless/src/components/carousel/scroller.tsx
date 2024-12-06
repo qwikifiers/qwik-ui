@@ -7,11 +7,11 @@ import {
   useOnWindow,
   Slot,
   useSignal,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { carouselContextId } from './context';
-import { useStyles$ } from '@qwik.dev/core';
+import { useStyles$ } from '@builder.io/qwik';
 import styles from './carousel.css?inline';
-import { isServer } from '@qwik.dev/core/build';
+import { isServer } from '@builder.io/qwik/build';
 import { useDebouncer } from '../../hooks/use-debouncer';
 import { useScroller } from './use-scroller';
 

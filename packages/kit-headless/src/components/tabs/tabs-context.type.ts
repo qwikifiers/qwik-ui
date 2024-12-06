@@ -1,4 +1,4 @@
-import type { QRL, Signal } from '@qwik.dev/core';
+import type { QRL, Signal } from '@builder.io/qwik';
 import type { KeyCode } from '../../utils/key-code.type';
 
 export interface TabsContext {

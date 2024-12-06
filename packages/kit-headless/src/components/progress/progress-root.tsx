@@ -6,7 +6,7 @@ import {
   useComputed$,
   useContextProvider,
   useTask$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { ProgressContext } from './progress-context';
 import { useBoundSignal } from '../../utils/bound-signal';
 

@@ -7,13 +7,13 @@ import {
   $,
   useSignal,
   useStyles$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { usePopover } from '../popover/use-popover';
 import { HPopoverPanel } from '../popover/popover-panel';
 
 import { dropdownContextId } from './dropdown-context';
 import { HPopoverRoot } from '../popover/popover-root';
-import { isServer } from '@qwik.dev/core/build';
+import { isServer } from '@builder.io/qwik/build';
 import { useDebouncer } from '../../hooks/use-debouncer';
 import styles from './dropdown.css?inline';
 

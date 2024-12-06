@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$, useSignal } from '@qwik.dev/core';
+import { PropsOf, Slot, component$, useSignal } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { LuX } from '@qwikest/icons/lucide';
 import { Button, Input, Label, Modal, buttonVariants } from '~/components/ui';

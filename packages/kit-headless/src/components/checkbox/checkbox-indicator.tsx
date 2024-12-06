@@ -5,7 +5,7 @@ import {
   Slot,
   useTask$,
   useStyles$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { CheckboxContext } from './checkbox-context';
 import './checkbox.css';
 import styles from './checkbox.css?inline';

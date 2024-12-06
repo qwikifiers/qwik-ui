@@ -1,3 +1,3 @@
-import { component$ } from '@qwik.dev/core';
+import { component$ } from '@builder.io/qwik';
 
 export default component$(() => <></>);

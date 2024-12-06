@@ -1,4 +1,4 @@
-import { component$, PropsOf, useSignal } from '@qwik.dev/core';
+import { component$, PropsOf, useSignal } from '@builder.io/qwik';
 import { findComponent, processChildren } from '@qwik-ui/utils';
 
 export default component$(() => {

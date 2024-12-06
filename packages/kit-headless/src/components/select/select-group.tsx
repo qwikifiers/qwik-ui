@@ -4,7 +4,7 @@ import {
   component$,
   useContext,
   useContextProvider,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 
 import SelectContextId, { groupContextId } from './select-context';
 

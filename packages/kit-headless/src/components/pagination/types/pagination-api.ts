@@ -1,4 +1,4 @@
-import { PropsOf, QRL } from '@qwik.dev/core';
+import { PropsOf, QRL } from '@builder.io/qwik';
 
 export interface PaginationCoreProps {
   selectedPage: number;

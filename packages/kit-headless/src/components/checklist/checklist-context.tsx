@@ -1,4 +1,4 @@
-import { createContextId, type Signal } from '@qwik.dev/core';
+import { createContextId, type Signal } from '@builder.io/qwik';
 
 export interface ChecklistState {
   items: Signal<boolean[]>;

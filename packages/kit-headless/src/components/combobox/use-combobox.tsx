@@ -1,4 +1,4 @@
-import { useContext, $, Signal } from '@qwik.dev/core';
+import { useContext, $, Signal } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 
 class ValueManager<T> {

@@ -7,7 +7,7 @@ import {
   useComputed$,
   useTask$,
   useSignal,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 import { useCombobox } from './use-combobox';
 import { useCombinedRef } from '../../hooks/combined-refs';

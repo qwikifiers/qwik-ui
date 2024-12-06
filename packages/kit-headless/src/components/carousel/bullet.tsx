@@ -8,7 +8,7 @@ import {
   useSignal,
   sync$,
   useComputed$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useCarousel } from './use-carousel';
 

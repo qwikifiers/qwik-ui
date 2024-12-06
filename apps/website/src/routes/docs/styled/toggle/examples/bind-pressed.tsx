@@ -1,4 +1,4 @@
-import { component$, useComputed$, useSignal } from '@qwik.dev/core';
+import { component$, useComputed$, useSignal } from '@builder.io/qwik';
 import { Toggle } from '~/components/ui';
 
 export default component$(() => {

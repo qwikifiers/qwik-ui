@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@qwik.dev/core';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import styles from '../snippets/popover.css?inline';
 
 export default component$(() => {

@@ -1,4 +1,4 @@
-import { QRL, Signal, createContextId } from '@qwik.dev/core';
+import { QRL, Signal, createContextId } from '@builder.io/qwik';
 import { TItemsMap } from './combobox-inline';
 
 export const comboboxContextId = createContextId<ComboboxContext>('qui-combobox');

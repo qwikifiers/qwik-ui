@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@qwik.dev/core';
+import { component$, useSignal } from '@builder.io/qwik';
 // @ts-expect-error no types
 import confetti from 'canvas-confetti';
 

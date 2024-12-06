@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$, useContext, useStyles$ } from '@qwik.dev/core';
+import { PropsOf, Slot, component$, useContext, useStyles$ } from '@builder.io/qwik';
 import { comboboxItemContextId } from './combobox-context';
 import styles from './combobox.css?inline';
 

@@ -1,4 +1,4 @@
-import { QRL, useSignal, $ } from '@qwik.dev/core';
+import { QRL, useSignal, $ } from '@builder.io/qwik';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useDebouncer = (fn: QRL<(args: any) => void>, delay: number) => {

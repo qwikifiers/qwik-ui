@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$, useContext } from '@qwik.dev/core';
+import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
 import { groupContextId } from './combobox-context';
 
 type HComboboxGroupLabelProps = PropsOf<'div'>;

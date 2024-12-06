@@ -1,4 +1,4 @@
-// import { component$, useSignal, useStyles$ } from '@qwik.dev/core';
+// import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
 // import { Checkbox, Checklist } from '@qwik-ui/headless';
 // const toppingNames = ['hot peppers', 'ham', 'pineaple', 'mushroom'];
 // const toppingImages = ['🌶️', '🍗', '🍍', '🍄'];

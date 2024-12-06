@@ -1,4 +1,4 @@
-import { type PropsOf, component$, Slot } from '@qwik.dev/core';
+import { type PropsOf, component$, Slot } from '@builder.io/qwik';
 
 type CarouselPaginationProps = PropsOf<'div'>;
 

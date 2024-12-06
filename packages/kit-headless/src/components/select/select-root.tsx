@@ -9,7 +9,7 @@ import {
   type QRL,
   useId,
   useComputed$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import SelectContextId, { type SelectContext } from './select-context';
 import { useSelect } from './use-select';
 import { useCombinedRef } from '../../hooks/combined-refs';

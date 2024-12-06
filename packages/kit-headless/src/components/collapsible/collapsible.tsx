@@ -9,10 +9,10 @@ import {
   type PropsOf,
   type QRL,
   useTask$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 
 import { type CollapsibleContext, collapsibleContextId } from './collapsible-context';
-import { isBrowser } from '@qwik.dev/core/build';
+import { isBrowser } from '@builder.io/qwik/build';
 import { useCollapsible } from './use-collapsible';
 
 export type CollapsibleProps = PropsOf<'div'> & {

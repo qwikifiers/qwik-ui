@@ -6,7 +6,7 @@ import {
   Slot,
   useSignal,
   useTask$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { ChecklistContext } from './checklist-context';
 import { CheckboxRoot } from '../checkbox/checkbox-root';
 

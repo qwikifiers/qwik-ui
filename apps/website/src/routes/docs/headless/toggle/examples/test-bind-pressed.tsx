@@ -1,4 +1,4 @@
-import { component$, useComputed$, useSignal, useStyles$ } from '@qwik.dev/core';
+import { component$, useComputed$, useSignal, useStyles$ } from '@builder.io/qwik';
 import { Toggle } from '@qwik-ui/headless';
 import styles from '../snippets/toggle.css?inline';
 

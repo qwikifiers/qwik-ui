@@ -8,7 +8,7 @@ import {
   useComputed$,
   useId,
   useTask$,
-} from '@qwik.dev/core';
+} from '@builder.io/qwik';
 import { CarouselContext, carouselContextId } from './context';
 import { useBoundSignal } from '../../utils/bound-signal';
 import { useAutoplay } from './use-carousel';

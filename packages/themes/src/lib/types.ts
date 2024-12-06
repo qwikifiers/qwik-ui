@@ -1,4 +1,4 @@
-import { Signal } from '@qwik.dev/core';
+import { Signal } from '@builder.io/qwik';
 
 interface ValueObject {
   [themeName: string]: string;

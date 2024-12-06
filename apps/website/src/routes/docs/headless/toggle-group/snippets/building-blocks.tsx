@@ -1,4 +1,4 @@
-import { component$ } from '@qwik.dev/core';
+import { component$ } from '@builder.io/qwik';
 import { ToggleGroup } from '@qwik-ui/headless';
 
 export default component$(() => {

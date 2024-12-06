@@ -1,5 +1,5 @@
-import type { PropsOf, QRL, Signal } from '@qwik.dev/core';
-import { component$, useContextProvider, Slot, useTask$, $ } from '@qwik.dev/core';
+import type { PropsOf, QRL, Signal } from '@builder.io/qwik';
+import { component$, useContextProvider, Slot, useTask$, $ } from '@builder.io/qwik';
 import {
   toggleGroupRootApiContextId,
   type Direction,
@@ -7,7 +7,7 @@ import {
   type ToggleGroupRootApiContext,
 } from './toggle-group-context';
 import { useToggleGroup } from './use-toggle';
-import { isBrowser, isServer } from '@qwik.dev/core/build';
+import { isBrowser, isServer } from '@builder.io/qwik/build';
 
 export type ToggleGroupBaseProps = {
   /**
