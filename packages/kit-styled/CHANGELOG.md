@@ -1,5 +1,15 @@
 # @qwik-ui/styled
 
+## 0.3.0
+
+### Minor Changes
+
+- ✨ Added the following components: Dropdown, Toggle, ToggleGroup in #993 (by [@shairez](https://github.com/shairez) in [#1013](https://github.com/qwikifiers/qwik-ui/pull/1013))
+
+### Patch Changes
+
+- 🐞🩹 onChange not accepting regular functions (by [@wmertens](https://github.com/wmertens) in [#1021](https://github.com/qwikifiers/qwik-ui/pull/1021))
+
 ## 0.2.0
 
 ### Minor Changes

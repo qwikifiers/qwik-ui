@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.4
+
+### Patch Changes
+
+- 🐞🩹 types for multiple values (by [@wmertens](https://github.com/wmertens) in [#1021](https://github.com/qwikifiers/qwik-ui/pull/1021))
+
 ## 0.6.3
 
 ### Patch Changes
