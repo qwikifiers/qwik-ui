@@ -7,6 +7,7 @@ import {
   useOnWindow,
   Slot,
   useSignal,
+  Signal,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
@@ -18,6 +19,10 @@ import { useScroller } from './use-scroller';
 export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   useStyles$(styles);
   const context = useContext(carouselContextId);
+
+  if (props.ref) {
+    context.scrollerRef = props.ref as Signal<HTMLDivElement>;
+  }
 
   const { onMouseDown$, onTouchStart$, onTouchMove$, onTouchEnd$, ...rest } = props;
 
