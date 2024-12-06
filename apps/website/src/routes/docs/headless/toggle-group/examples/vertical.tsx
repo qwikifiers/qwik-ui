@@ -7,7 +7,7 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <div class="toggle-container">
-      <ToggleGroup.Root orientation={'vertical'}>
+      <ToggleGroup.Root data-orientation={'vertical'}>
         <ToggleGroup.Item value="left" aria-label="Left aligned" class="toggle">
           Left
         </ToggleGroup.Item>
