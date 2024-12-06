@@ -32,24 +32,44 @@ export type InternalSelectProps = {
   _itemsMap: TItemsMap;
 };
 
-export type SelectProps<
-  M extends true,
-  T = boolean extends M ? string : M extends true ? string[] : string,
-> = Omit<PropsOf<'div'>, 'onChange$'> & {
+export type TMultiple<M> = M extends true ? string[] : string;
+
+/**
+ *  Value sets an initial value for the select. If multiple is true, value is disabled
+ *
+ */
+type TMultiValue =
+  | { multiple: true; value?: never }
+  | { multiple?: false; value?: string };
+
+type TStringOrArray =
+  | {
+    multiple?: true;
+    onChange$?: QRL<(value: string[]) => void>;
+  }
+  | {
+    multiple?: false;
+    onChange$?: QRL<(value: string) => void>;
+  };
+
+export type SelectProps<M extends boolean = boolean> = Omit<
+  PropsOf<'div'>,
+  'onChange$'
+> & {
   /** A signal that controls the current selected value (controlled). */
-  'bind:value'?: T extends string ? Signal<T> : never;
+  'bind:value'?: Signal<TMultiple<M>>;
 
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  'bind:displayValue'?: T extends string ? Signal<T> : never;
+  'bind:displayValue'?: Signal<TMultiple<M>>;
 
   /**
    * QRL handler that runs when a select value changes.
    * @param value The new value as a string.
    */
-  onChange$?: QRL<(value: T) => void>;
+  onChange$?: QRL<(value: TMultiple<M>) => void>;
   /**
    * QRL handler that runs when the listbox opens or closes.
    * @param open The new state of the listbox.
@@ -87,18 +107,13 @@ export type SelectProps<
    */
   multiple?: M;
 
-  /**
-   *  Value sets an initial value for the select. If multiple is true, value is disabled
-   *
-   */
-  value?: M extends false ? string : never;
-
   invalid?: boolean;
-};
+} & TMultiValue &
+  TStringOrArray;
 
 /* root component in select-inline.tsx */
-export const HSelectImpl = component$(
-  <M extends true, T>(props: SelectProps<M, T> & InternalSelectProps) => {
+export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps>(
+  (props: SelectProps<boolean> & InternalSelectProps) => {
     const {
       _itemsMap,
       _valuePropIndex: givenValuePropIndex,
@@ -244,7 +259,7 @@ export const HSelectImpl = component$(
       }
 
       if (onChange$ && selectedIndexSetSig.value.size > 0) {
-        await onChange$(context.multiple ? (values as T) : (values[0] as T));
+        await onChange$(context.multiple ? values : values[0]);
       }
 
       // sync the user's given signal when an option is selected
@@ -254,9 +269,9 @@ export const HSelectImpl = component$(
 
         if (currUserSigValues !== newUserSigValues) {
           if (context.multiple) {
-            bindValueSig.value = values as T;
+            bindValueSig.value = values;
           } else {
-            bindValueSig.value = values[0] as T;
+            bindValueSig.value = values[0];
           }
         }
       }
@@ -266,8 +281,8 @@ export const HSelectImpl = component$(
       // sync the user's given signal for the display value
       if (bindDisplayTextSig && context.currDisplayValueSig.value) {
         bindDisplayTextSig.value = context.multiple
-          ? (context.currDisplayValueSig.value as T)
-          : (context.currDisplayValueSig.value[0] as T);
+          ? context.currDisplayValueSig.value
+          : context.currDisplayValueSig.value[0];
       }
     });
 
