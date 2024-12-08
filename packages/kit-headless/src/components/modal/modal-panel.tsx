@@ -53,16 +53,24 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
 
       await showModal(panelRef.value);
       window.requestAnimationFrame = storedRequestAnimationFrame;
-      await context.onShow$?.();
       activateFocusTrap(focusTrap);
     } else {
       await closeModal(panelRef.value);
-      await context.onClose$?.();
     }
 
     cleanup(async () => {
       await deactivateFocusTrap(focusTrap);
     });
+  });
+
+  useTask$(async ({ track }) => {
+    track(() => context.showSig.value);
+
+    if (context.showSig.value) {
+      await context.onShow$?.();
+    } else {
+      await context.onClose$?.();
+    }
   });
 
   const closeOnBackdropClick$ = $(async (e: MouseEvent) => {
