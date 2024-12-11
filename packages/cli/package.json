@@ -1,6 +1,6 @@
 {
   "name": "qwik-ui",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -19,7 +19,7 @@
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@qwik-ui/styled": "0.2.0"
+    "@qwik-ui/styled": "0.3.0"
   },
   "type": "commonjs",
   "main": "./src/index.js",
