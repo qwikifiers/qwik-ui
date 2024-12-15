@@ -22,6 +22,7 @@ export const HComboboxInput = component$(
     const inputRef = useCombinedRef(props.ref, contextRefOpts);
 
     const panelId = `${context.localId}-panel`;
+    const inlineId = `${context.localId}-inline`;
     const inputId = `${context.localId}-input`;
     const labelId = `${context.localId}-label`;
     const descriptionId = `${context.localId}-description`;
@@ -38,18 +39,16 @@ export const HComboboxInput = component$(
         return '';
       }
 
-      const highlightedIndex = context.highlightedIndexSig.value ?? -1;
-      const highlightedItem = context.itemsMapSig.value.get(highlightedIndex);
-
-      if (
-        highlightedIndex === null ||
-        highlightedIndex === -1 ||
-        highlightedItem?.disabled
-      ) {
+      const highlightedIndex = context.highlightedIndexSig.value;
+      if (highlightedIndex === null || highlightedIndex === -1) {
         return '';
       }
 
-      // highlighted item id
+      const highlightedItem = context.itemsMapSig.value.get(highlightedIndex);
+      if (!highlightedItem || highlightedItem.disabled) {
+        return '';
+      }
+
       return `${context.localId}-${highlightedIndex}`;
     });
 
@@ -227,13 +226,13 @@ export const HComboboxInput = component$(
         onKeyUp$={[context.removeOnBackspace ? handleKeyUp$ : undefined, props.onKeyUp$]}
         onInput$={[handleInput$, props.onInput$]}
         aria-activedescendant={activeDescendantSig.value}
-        aria-expanded={context.isListboxOpenSig.value ? 'true' : 'false'}
-        aria-controls={panelId}
+        aria-expanded={context.isExpandedSig.value}
+        aria-controls={context.mode === 'inline' ? inlineId : panelId}
         aria-labelledby={labelId}
         aria-describedby={`${descriptionId} 
         ${errorMessageId}`}
         aria-autocomplete="list"
-        aria-haspopup="listbox"
+        aria-haspopup={context.mode === 'inline' ? undefined : 'listbox'}
         ref={inputRef}
         autocomplete="off"
         placeholder={context.placeholder ?? props.placeholder ?? undefined}

@@ -1,6 +1,8 @@
 import { QRL, Signal, createContextId } from '@builder.io/qwik';
 import { TItemsMap } from './combobox-inline-comp';
 
+export type ComboboxExpandedState = 'true' | 'false' | undefined;
+
 export const comboboxContextId = createContextId<ComboboxContext>('qui-combobox');
 
 export type ComboboxContext = {
@@ -30,6 +32,7 @@ export type ComboboxContext = {
   initialLoadSig: Signal<boolean>;
   initialValue: string | undefined;
 
+  isExpandedSig: Signal<ComboboxExpandedState>;
   mode: 'inline' | 'popover';
   loop: boolean;
   multiple: boolean | undefined;

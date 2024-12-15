@@ -217,6 +217,18 @@ export const HComboboxRootImpl = component$<
     }
   });
 
+  const isExpandedSig = useComputed$(() => {
+    if (mode === 'inline') {
+      return undefined;
+    }
+
+    if (isListboxOpenSig.value) {
+      return 'true';
+    } else {
+      return 'false';
+    }
+  });
+
   const context: ComboboxContext = {
     isListboxOpenSig,
     inputValueSig,
@@ -229,6 +241,7 @@ export const HComboboxRootImpl = component$<
     controlRef,
     localId,
     highlightedIndexSig,
+    isExpandedSig,
     selectedValuesSig,
     selectedValueSetSig,
     disabledIndexSetSig,

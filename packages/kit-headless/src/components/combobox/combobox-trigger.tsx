@@ -18,7 +18,7 @@ export const HComboboxTrigger = component$((props: HComboboxTriggerImplProps) =>
     <button
       ref={triggerRef}
       type="button"
-      aria-expanded={context.isListboxOpenSig.value}
+      aria-expanded={context.isExpandedSig.value}
       onClick$={[handleClick$, props.onClick$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
