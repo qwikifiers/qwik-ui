@@ -1361,7 +1361,6 @@ html {
 
 body {
   min-height: 100%;
-  scrollbar-gutter: stable;
 }
 
 /* Utilities layer for animations. The current arbitrary & docs tailwind animation guidelines are not maintainable long term. 
