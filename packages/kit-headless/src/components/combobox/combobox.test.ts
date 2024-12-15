@@ -920,3 +920,13 @@ test.describe('Filtering options', () => {
     await expect(getVisibleItems.nth(1)).toHaveText('Apricot');
   });
 });
+
+test.describe('Inline mode', () => {
+  test(`GIVEN a combobox in inline mode
+        WHEN rendered
+        THEN the first option should be highlighted`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'inline');
+
+    await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+  });
+});

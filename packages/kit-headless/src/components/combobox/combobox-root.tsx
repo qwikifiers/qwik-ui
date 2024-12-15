@@ -11,7 +11,7 @@ import {
   useTask$,
 } from '@builder.io/qwik';
 import { ComboboxContext, comboboxContextId } from './combobox-context';
-import { InternalComboboxProps } from './combobox-inline';
+import { InternalComboboxProps } from './combobox-inline-comp';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { useBoundSignal } from '../../utils/bound-signal';
 
