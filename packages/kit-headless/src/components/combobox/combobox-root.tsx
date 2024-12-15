@@ -112,6 +112,13 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
   hasErrorComp?: boolean;
 
   removeOnBackspace?: boolean;
+
+  /**
+   * Controls the accessibility and interaction behavior of the combobox:
+   * - 'popover' (default): Behaves like a traditional dropdown, suitable for form inputs
+   * - 'inline': Optimized for command palette-style interfaces where the combobox is the primary focus
+   */
+  mode?: 'inline' | 'popover';
 } & TMultiValue &
   TStringOrArray;
 
@@ -134,6 +141,7 @@ export const HComboboxRootImpl = component$<
     removeOnBackspace = false,
     name,
     required,
+    mode = 'popover',
     'bind:value': givenValueSig,
     'bind:open': givenOpenSig,
     'bind:displayValue': givenDisplayValueSig,
@@ -232,6 +240,7 @@ export const HComboboxRootImpl = component$<
     removeOnBackspace,
     filter,
     loop,
+    mode,
     multiple,
     initialValue,
     scrollOptions,

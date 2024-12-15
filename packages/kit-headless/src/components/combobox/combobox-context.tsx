@@ -30,6 +30,7 @@ export type ComboboxContext = {
   initialLoadSig: Signal<boolean>;
   initialValue: string | undefined;
 
+  mode: 'inline' | 'popover';
   loop: boolean;
   multiple: boolean | undefined;
   filter?: boolean;

@@ -33,7 +33,7 @@ export const HComboboxInput = component$(
       useCombobox();
 
     const activeDescendantSig = useComputed$(() => {
-      if (!context.isListboxOpenSig.value) {
+      if (!context.isListboxOpenSig.value && context.mode === 'popover') {
         return '';
       }
 

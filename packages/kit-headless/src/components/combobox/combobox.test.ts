@@ -929,4 +929,66 @@ test.describe('Inline mode', () => {
 
     await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
   });
+
+  test(`GIVEN a combobox in inline mode
+        WHEN hitting enter and arrow down
+        THEN the next option should be highlighted`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'inline');
+
+    await d.getInput().press('Enter');
+    await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+    await d.getInput().press('ArrowDown');
+    await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+  });
+
+  test(`GIVEN a combobox in inline mode
+        WHEN hitting enter
+        THEN the input value should not change to the selected item's text`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'inline');
+
+    await d.getInput().press('Enter');
+    await expect(d.getInput()).toHaveValue('');
+  });
+
+  test(`GIVEN a combobox in inline mode
+        WHEN selecting an item
+        THEN the listbox should remain visible`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'inline');
+
+    await d.getInput().press('Enter');
+    await expect(d.getListbox()).toBeVisible();
+  });
+
+  test(`GIVEN a combobox in inline mode
+        WHEN typing to filter items
+        THEN highlighted state should persist on first visible item`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'inline');
+
+    await d.getInput().fill('ap'); // Assuming this filters to show "Apple"
+    await expect(d.getHighlightedItem()).toBeVisible();
+  });
+
+  test(`GIVEN a combobox in inline mode
+        WHEN escape is pressed
+        THEN the listbox should remain visible`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'inline');
+
+    await d.getInput().press('Escape');
+    await expect(d.getListbox()).toBeVisible();
+  });
+
+  test(`GIVEN a combobox in inline mode
+        WHEN tabbing away and back to input
+        THEN the highlight state should be preserved`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'inline');
+
+    await d.getInput().press('ArrowDown');
+    await d.getInput().press('Tab');
+    await d.getInput().focus();
+    await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
+  });
 });
