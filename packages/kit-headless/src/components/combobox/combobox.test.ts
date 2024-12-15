@@ -972,6 +972,17 @@ test.describe('Inline mode', () => {
     await expect(d.getHighlightedItem()).toBeVisible();
   });
 
+  test(`GIVEN a combobox in inline mode with a custom filter
+        WHEN typing to filter items
+        THEN highlighted state should persist on first visible item`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'custom-inline');
+
+    await d.getInput().fill('ap');
+    await expect(d.getHighlightedItem()).toBeVisible();
+  });
+
   test(`GIVEN a combobox in inline mode
         WHEN escape is pressed
         THEN the listbox should remain visible`, async ({ page }) => {

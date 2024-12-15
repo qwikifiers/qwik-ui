@@ -148,7 +148,6 @@ export const HComboboxInput = component$(
     const handleInput$ = $(async (e: InputEvent, el: HTMLInputElement) => {
       const target = e.target as HTMLInputElement;
       context.inputValueSig.value = target.value;
-      context.highlightedIndexSig.value = null;
       isInputResetSig.value = false;
 
       if (target.value === '' && !context.multiple) {
@@ -161,6 +160,10 @@ export const HComboboxInput = component$(
       if (givenInputValueSig) {
         givenInputValueSig.value = el.value;
         context.inputValueSig.value = el.value;
+      }
+
+      if (context.mode !== 'inline') {
+        context.highlightedIndexSig.value = null;
       }
     });
 
