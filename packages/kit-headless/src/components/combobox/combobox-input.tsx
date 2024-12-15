@@ -7,6 +7,7 @@ import {
   useComputed$,
   useTask$,
   useSignal,
+  QRL,
 } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 import { useCombobox } from './use-combobox';
@@ -69,28 +70,25 @@ export const HComboboxInput = component$(
         wasEmptyBeforeBackspaceSig.value = context.inputValueSig.value.length === 0;
       }
 
-      switch (e.key) {
-        case 'ArrowDown':
-          if (
-            context.isListboxOpenSig.value &&
-            context.highlightedIndexSig.value !== null
-          ) {
-            context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
-              context.highlightedIndexSig.value,
-            );
+      const handleArrowNavigation$ = $(
+        async (getEnabledItemIndex$: QRL<(index: number) => number>) => {
+          if (context.mode === 'inline' || context.isListboxOpenSig.value) {
+            const currentIndex = context.highlightedIndexSig.value ?? -1;
+
+            context.highlightedIndexSig.value = await getEnabledItemIndex$(currentIndex);
           } else {
             context.isListboxOpenSig.value = true;
           }
+        },
+      );
+
+      switch (e.key) {
+        case 'ArrowDown':
+          await handleArrowNavigation$(getNextEnabledItemIndex$);
           break;
 
         case 'ArrowUp':
-          if (context.isListboxOpenSig.value) {
-            context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
-              context.highlightedIndexSig.value!,
-            );
-          } else {
-            context.isListboxOpenSig.value = true;
-          }
+          await handleArrowNavigation$(getPrevEnabledItemIndex$);
           break;
 
         case 'Home':
@@ -114,14 +112,16 @@ export const HComboboxInput = component$(
           break;
 
         case 'Enter':
-          if (!context.isListboxOpenSig.value) break;
+          // Skip if not in inline mode and listbox is closed
+          if (!context.isListboxOpenSig.value && context.mode !== 'inline') return;
 
           await selectionManager$(context.highlightedIndexSig.value, 'toggle');
-          if (context.selectedValuesSig.value.length <= 0) break;
+          if (context.selectedValuesSig.value.length <= 0) return;
 
           if (!context.multiple) {
+            if (context.mode === 'inline') return;
             context.isListboxOpenSig.value = false;
-            break;
+            return;
           }
 
           if (context.inputRef.value) {
@@ -129,7 +129,6 @@ export const HComboboxInput = component$(
             context.inputValueSig.value = '';
             isInputResetSig.value = true;
           }
-
           break;
       }
 
@@ -181,6 +180,12 @@ export const HComboboxInput = component$(
 
           context.selectedValuesSig.value = selectedValuesArray;
         }
+      }
+    });
+
+    useTask$(function inlineModeInit() {
+      if (context.mode === 'inline') {
+        context.highlightedIndexSig.value = 0;
       }
     });
 
