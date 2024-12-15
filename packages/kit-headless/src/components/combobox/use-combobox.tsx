@@ -66,8 +66,13 @@ export function useCombobox() {
           break;
       }
 
-      // Update input value for single-select combobox
-      if (!context.multiple && context.inputRef.value && selectedDisplayValue) {
+      const shouldUpdateInput =
+        !context.multiple &&
+        context.mode !== 'inline' &&
+        context.inputRef.value &&
+        selectedDisplayValue;
+
+      if (shouldUpdateInput && context.inputRef.value) {
         context.inputRef.value.value = selectedDisplayValue;
       }
     },

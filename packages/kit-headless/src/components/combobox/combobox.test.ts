@@ -968,7 +968,7 @@ test.describe('Inline mode', () => {
   }) => {
     const { driver: d } = await setup(page, 'inline');
 
-    await d.getInput().fill('ap'); // Assuming this filters to show "Apple"
+    await d.getInput().fill('ap');
     await expect(d.getHighlightedItem()).toBeVisible();
   });
 
