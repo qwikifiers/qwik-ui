@@ -1,3 +1,6 @@
+# Development
+/apps/website/public/pagefind/
+
 # Build
 dist
 lib-types
