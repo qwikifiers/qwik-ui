@@ -100,9 +100,12 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
   });
 
   const handlePointerOver$ = $(() => {
-    if (isDisabledSig.value || context.isKeyboardFocusSig.value) return;
+    if (isDisabledSig.value) return;
 
-    if (props._index !== undefined && context.isMouseOverPopupSig.value) {
+    if (
+      props._index !== undefined &&
+      (context.isMouseOverPopupSig.value || context.mode === 'inline')
+    ) {
       context.highlightedIndexSig.value = localIndexSig.value;
     }
   });
