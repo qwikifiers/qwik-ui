@@ -1,8 +1,17 @@
-import { $, component$, useOnWindow, useSignal } from '@builder.io/qwik';
+import { $, component$, useOnWindow, useSignal, useTask$ } from '@builder.io/qwik';
+import { isServer } from '@builder.io/qwik/build';
 import { Combobox, Modal } from '@qwik-ui/headless';
 import { buttonVariants } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
 import { LuSearch } from '@qwikest/icons/lucide';
+
+interface SearchResult {
+  url: string;
+  meta: {
+    title: string;
+  };
+  excerpt?: string;
+}
 
 export const SearchModal = component$(() => {
   const isOpen = useSignal(false);
@@ -15,6 +24,19 @@ export const SearchModal = component$(() => {
       }
     }),
   );
+
+  const isInitialized = useSignal(false);
+
+  useTask$(({ track }) => {
+    track(() => isOpen.value);
+
+    if (isServer) return;
+
+    if (isOpen.value && !isInitialized.value) {
+      window.dispatchEvent(new CustomEvent('initPagefind'));
+      isInitialized.value = true;
+    }
+  });
 
   return (
     <Modal.Root bind:show={isOpen}>
@@ -35,15 +57,25 @@ export const SearchModal = component$(() => {
 });
 
 export const Search = component$(() => {
-  const results = ['result 1', 'result 2', 'result 3'];
+  const results = useSignal<SearchResult[]>([]);
+
+  useOnWindow(
+    'searchResults',
+    $((event: CustomEvent) => {
+      results.value = event.detail;
+
+      console.log(results.value);
+    }),
+  );
 
   return (
-    <Combobox.Root mode="inline">
-      <Combobox.Input />
+    <Combobox.Root mode="inline" filter={false}>
+      <Combobox.Input data-id="search" />
       <Combobox.Inline>
-        {results.map((result) => (
-          <Combobox.Item key={result}>
-            <Combobox.ItemLabel>{result}</Combobox.ItemLabel>
+        {results.value.map((result) => (
+          <Combobox.Item value={result.url} key={result.meta.title}>
+            <Combobox.ItemLabel>{result.meta.title}</Combobox.ItemLabel>
+            <div dangerouslySetInnerHTML={result.excerpt}></div>
           </Combobox.Item>
         ))}
       </Combobox.Inline>
