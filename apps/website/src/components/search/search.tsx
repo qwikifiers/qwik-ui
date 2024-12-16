@@ -75,7 +75,7 @@ export const SearchModal = component$(() => {
         <LuSearch class="h-4 w-4" />
         <span class="hidden sm:block">Search</span>
       </Modal.Trigger>
-      <Modal.Panel class="fixed top-[20%] my-0">
+      <Modal.Panel class="fixed top-[10%] my-0 w-[min(100%,768px)] rounded-[8px] bg-background shadow-lg backdrop:backdrop-brightness-[60%] dark:bg-muted dark:shadow-2xl">
         <Search />
       </Modal.Panel>
     </Modal.Root>
@@ -96,7 +96,6 @@ export const Search = component$(() => {
       return;
     }
 
-    // Get data for each result immediately
     const searchResults = await Promise.all(
       search.results.slice(0, 5).map(async (r) => {
         const data = await r.data();
@@ -113,15 +112,39 @@ export const Search = component$(() => {
   });
 
   return (
-    <Combobox.Root mode="inline" filter={false}>
-      <Combobox.Input onInput$={handleInput} data-id="search" />
-      <Combobox.Inline>
+    <Combobox.Root
+      mode="inline"
+      filter={false}
+      onChange$={(value: string) => {
+        // useNavigate if you're using <Link /> or CSR true
+        window.location.href = value;
+      }}
+    >
+      <Combobox.Input
+        class="min-h-[48px] w-full rounded-t-[8px] bg-muted px-4 text-foreground outline-ring"
+        onInput$={handleInput}
+        data-id="search"
+      />
+      <Combobox.Inline class="flex flex-col">
         {results.value.map((result) => (
-          <Combobox.Item key={result.url}>
-            <Combobox.ItemLabel>{result.meta.title}</Combobox.ItemLabel>
-          </Combobox.Item>
+          <a href={result.url} key={result.url}>
+            <Combobox.Item
+              value={result.url}
+              class="border-b border-foreground/10 px-2 py-4 data-[highlighted]:bg-foreground/10"
+            >
+              <Combobox.ItemLabel class="text-lg font-bold text-foreground">
+                {result.meta.title}
+              </Combobox.ItemLabel>
+              <div
+                class="text-sm text-foreground"
+                dangerouslySetInnerHTML={result.excerpt}
+              />
+            </Combobox.Item>
+          </a>
         ))}
-        <Combobox.Empty>No results found</Combobox.Empty>
+        <Combobox.Empty class="px-2 py-4 text-foreground">
+          No results found
+        </Combobox.Empty>
       </Combobox.Inline>
     </Combobox.Root>
   );
