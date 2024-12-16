@@ -1,5 +1,6 @@
 import { component$, useStyles$ } from '@builder.io/qwik';
 import { Combobox } from '@qwik-ui/headless';
+import { LuCheck } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
@@ -25,6 +26,9 @@ export default component$(() => {
         {fruits.map((fruit) => (
           <Combobox.Item key={fruit} class="combobox-item">
             <Combobox.ItemLabel>{fruit}</Combobox.ItemLabel>
+            <Combobox.ItemIndicator>
+              <LuCheck />
+            </Combobox.ItemIndicator>
           </Combobox.Item>
         ))}
       </Combobox.Inline>
