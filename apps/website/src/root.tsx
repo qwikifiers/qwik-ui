@@ -77,31 +77,11 @@ export default component$(() => {
         </ThemeProvider>
         <script
           dangerouslySetInnerHTML={`
-window.addEventListener('initPagefind', async () => {
-  const pagefind = await import("/pagefind/pagefind.js");
-  await pagefind.init();
-  window.pagefind = pagefind;
-});
-
-          document.querySelector('[data-id="search"]')?.addEventListener('input', async (e) => {
-            // Preload indexes while user is typing
-            window.pagefind.preload(e.target.value);
-            
-            // Use built-in debounced search
-            const search = await window.pagefind.debouncedSearch(e.target.value);
-            
-            if (search === null) {
-              // A more recent search call was made, ignore this one
-              return;
-            }
-
-            // Load first 5 results with their data
-            const results = await Promise.all(
-              search.results.slice(0, 5).map(r => r.data())
-            );
-            
-            window.dispatchEvent(new CustomEvent('searchResults', { detail: results }));
-          });
+            window.addEventListener('initPagefind', async () => {
+              const pagefind = await import("/pagefind/pagefind.js");
+              await pagefind.init();
+              window.pagefind = pagefind;
+            });
           `}
         ></script>
       </body>

@@ -5,12 +5,38 @@ import { buttonVariants } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
 import { LuSearch } from '@qwikest/icons/lucide';
 
-interface SearchResult {
+interface PagefindSearchResult {
+  id: string;
   url: string;
   meta: {
     title: string;
   };
   excerpt?: string;
+}
+
+interface PagefindSearchResultRaw {
+  id: string;
+  url: string;
+  meta: {
+    title: string;
+  };
+  excerpt?: string;
+  data: () => Promise<PagefindSearchResult>;
+}
+
+interface PagefindSearch {
+  results: PagefindSearchResultRaw[];
+}
+
+interface Pagefind {
+  preload: (term: string) => Promise<void>;
+  debouncedSearch: (term: string) => Promise<PagefindSearch | null>;
+}
+
+declare global {
+  interface Window {
+    pagefind: Pagefind;
+  }
 }
 
 export const SearchModal = component$(() => {
@@ -57,27 +83,45 @@ export const SearchModal = component$(() => {
 });
 
 export const Search = component$(() => {
-  const results = useSignal<SearchResult[]>([]);
+  const results = useSignal<PagefindSearchResult[]>([]);
+  const handleInput = $(async (e: InputEvent) => {
+    const target = e.target as HTMLInputElement;
 
-  useOnWindow(
-    'searchResults',
-    $((event: CustomEvent) => {
-      results.value = event.detail;
+    await window.pagefind.preload(target.value);
 
-      console.log(results.value);
-    }),
-  );
+    const search = await window.pagefind.debouncedSearch(target.value);
+
+    if (search === null) {
+      results.value = [];
+      return;
+    }
+
+    // Get data for each result immediately
+    const searchResults = await Promise.all(
+      search.results.slice(0, 5).map(async (r) => {
+        const data = await r.data();
+        return {
+          id: r.id,
+          url: data.url,
+          meta: data.meta,
+          excerpt: data.excerpt,
+        };
+      }),
+    );
+
+    results.value = searchResults;
+  });
 
   return (
     <Combobox.Root mode="inline" filter={false}>
-      <Combobox.Input data-id="search" />
+      <Combobox.Input onInput$={handleInput} data-id="search" />
       <Combobox.Inline>
         {results.value.map((result) => (
-          <Combobox.Item value={result.url} key={result.meta.title}>
+          <Combobox.Item key={result.url}>
             <Combobox.ItemLabel>{result.meta.title}</Combobox.ItemLabel>
-            <div dangerouslySetInnerHTML={result.excerpt}></div>
           </Combobox.Item>
         ))}
+        <Combobox.Empty>No results found</Combobox.Empty>
       </Combobox.Inline>
     </Combobox.Root>
   );

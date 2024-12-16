@@ -8,12 +8,14 @@ import {
   useContextProvider,
   useId,
   useSignal,
+  useStyles$,
   useTask$,
 } from '@builder.io/qwik';
 import { ComboboxContext, comboboxContextId } from './combobox-context';
 import { InternalComboboxProps } from './combobox-inline-comp';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { useBoundSignal } from '../../utils/bound-signal';
+import styles from './combobox.css?inline';
 
 export type TMultiple<M> = M extends true ? string[] : string;
 
@@ -125,6 +127,7 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
 export const HComboboxRootImpl = component$<
   HComboboxRootImplProps<boolean> & InternalComboboxProps
 >((props: HComboboxRootImplProps<boolean> & InternalComboboxProps) => {
+  useStyles$(styles);
   const {
     onInput$,
     onChange$,

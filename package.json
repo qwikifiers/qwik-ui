@@ -15,6 +15,7 @@
     "build.qwik-ci": "nx run-many --target=build -p packages/*",
     "change": "changeset",
     "changeset.version": "changeset version && pnpm install --no-frozen-lockfile && git add --all",
+    "copy-pagefind": "cp -r dist/apps/website/client/pagefind apps/website/public/pagefind",
     "dev": "nx serve website --host",
     "dev.ct": "nx serve component-tests --port 6173",
     "format.all": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html,css,scss}\"",
