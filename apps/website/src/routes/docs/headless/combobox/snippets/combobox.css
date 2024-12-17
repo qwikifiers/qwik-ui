@@ -96,13 +96,13 @@
   padding-top: 0.5rem;
 }
 
-[data-highlighted] {
+.combobox-root [data-highlighted] {
   outline: 2px dotted hsla(var(--primary) / 1);
   background: hsla(var(--primary) / 0.08);
   border-radius: calc(var(--border-radius) / 2);
 }
 
-[data-disabled] {
+.combobox-root [data-disabled] {
   opacity: 0.6;
   background: hsl(var(--foreground) / 0.05);
 }

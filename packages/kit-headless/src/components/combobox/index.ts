@@ -1,4 +1,4 @@
-export { HComboboxRoot as Root } from './combobox-inline';
+export { HComboboxRoot as Root } from './combobox-inline-comp';
 export { HComboboxLabel as Label } from './combobox-label';
 export { HComboboxTrigger as Trigger } from './combobox-trigger';
 export { HComboboxInput as Input } from './combobox-input';
@@ -14,3 +14,4 @@ export { HComboboxPopover as Popover } from './combobox-popover';
 export { HComboboxControl as Control } from './combobox-control';
 export { HComboboxEmpty as Empty } from './combobox-empty';
 export { HiddenNativeSelect } from './combobox-hidden-select';
+export { ComboboxInline as Inline } from './combobox-inline';

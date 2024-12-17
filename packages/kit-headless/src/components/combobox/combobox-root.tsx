@@ -8,12 +8,14 @@ import {
   useContextProvider,
   useId,
   useSignal,
+  useStyles$,
   useTask$,
 } from '@builder.io/qwik';
 import { ComboboxContext, comboboxContextId } from './combobox-context';
-import { InternalComboboxProps } from './combobox-inline';
+import { InternalComboboxProps } from './combobox-inline-comp';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { useBoundSignal } from '../../utils/bound-signal';
+import styles from './combobox.css?inline';
 
 export type TMultiple<M> = M extends true ? string[] : string;
 
@@ -112,12 +114,20 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
   hasErrorComp?: boolean;
 
   removeOnBackspace?: boolean;
+
+  /**
+   * Controls the accessibility and interaction behavior of the combobox:
+   * - 'popover' (default): Behaves like a traditional dropdown, suitable for form inputs
+   * - 'inline': Optimized for command palette-style interfaces where the combobox is the primary focus
+   */
+  mode?: 'inline' | 'popover';
 } & TMultiValue &
   TStringOrArray;
 
 export const HComboboxRootImpl = component$<
   HComboboxRootImplProps<boolean> & InternalComboboxProps
 >((props: HComboboxRootImplProps<boolean> & InternalComboboxProps) => {
+  useStyles$(styles);
   const {
     onInput$,
     onChange$,
@@ -134,6 +144,7 @@ export const HComboboxRootImpl = component$<
     removeOnBackspace = false,
     name,
     required,
+    mode = 'popover',
     'bind:value': givenValueSig,
     'bind:open': givenOpenSig,
     'bind:displayValue': givenDisplayValueSig,
@@ -209,6 +220,18 @@ export const HComboboxRootImpl = component$<
     }
   });
 
+  const isExpandedSig = useComputed$(() => {
+    if (mode === 'inline') {
+      return undefined;
+    }
+
+    if (isListboxOpenSig.value) {
+      return 'true';
+    } else {
+      return 'false';
+    }
+  });
+
   const context: ComboboxContext = {
     isListboxOpenSig,
     inputValueSig,
@@ -221,6 +244,7 @@ export const HComboboxRootImpl = component$<
     controlRef,
     localId,
     highlightedIndexSig,
+    isExpandedSig,
     selectedValuesSig,
     selectedValueSetSig,
     disabledIndexSetSig,
@@ -232,6 +256,7 @@ export const HComboboxRootImpl = component$<
     removeOnBackspace,
     filter,
     loop,
+    mode,
     multiple,
     initialValue,
     scrollOptions,
@@ -286,6 +311,8 @@ export const HComboboxRootImpl = component$<
     }
 
     displayValuesSig.value = displayValues;
+
+    if (mode === 'inline') return;
 
     if (multiple || !context.inputRef.value || !displayValues[0]) return;
     context.inputRef.value.value = displayValues[0];
