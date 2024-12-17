@@ -5,7 +5,7 @@ export default component$(() => {
   return (
     <Accordion.Root class="w-full">
       <Accordion.Item>
-        <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
+        <Accordion.Trigger header="h2">Is it accessible?</Accordion.Trigger>
         <Accordion.Content>
           Yes. It adheres to the WAI-ARIA design pattern.
         </Accordion.Content>
