@@ -1,0 +1,13 @@
+@layer qwik-ui {
+  /* Horizontal orientation*/
+  [data-orientation='horizontal'] {
+    display: flex;
+    flex-direction: row;
+  }
+
+  /* Vertical orientation*/
+  [data-orientation='vertical'] {
+    display: flex;
+    flex-direction: column;
+  }
+}
