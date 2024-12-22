@@ -64,10 +64,10 @@ export default defineConfig({
         ...excludeAll(dependencies),
         ...excludeAll(peerDependencies),
       ],
-      output: {
-        preserveModules: true,
-        preserveModulesRoot: 'packages/kit-headless/src',
-      },
+      // output: {
+      //   preserveModules: true,
+      //   preserveModulesRoot: 'packages/kit-headless/src',
+      // },
     },
   },
 });
