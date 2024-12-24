@@ -162,8 +162,8 @@ export default component$(({ showVersion = false }: HeaderProps) => {
             )}
           </div>
           <div class="flex items-center space-x-1 xs:space-x-4">
-            <SearchModal />
             <MakeItYours />
+            <SearchModal />
             <a
               href="https://discord.gg/PVWUUejrez"
               target="_blank"

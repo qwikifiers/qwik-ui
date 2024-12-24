@@ -68,12 +68,11 @@ export const SearchModal = component$(() => {
     <Modal.Root bind:show={isOpen}>
       <Modal.Trigger
         class={cn(
-          buttonVariants({ size: 'sm', look: 'outline' }),
+          buttonVariants({ size: 'icon', look: 'ghost' }),
           'flex h-8 items-center gap-2 sm:h-10',
         )}
       >
-        <LuSearch class="h-4 w-4" />
-        <span class="hidden sm:block">Search</span>
+        <LuSearch class="h-5 w-5 sm:h-6 sm:w-6" />
       </Modal.Trigger>
       <Modal.Panel class="fixed top-[10%] my-0 w-[min(100%,768px)] rounded-[8px] bg-background shadow-lg backdrop:backdrop-brightness-[60%] dark:bg-muted dark:shadow-2xl">
         <Search />
