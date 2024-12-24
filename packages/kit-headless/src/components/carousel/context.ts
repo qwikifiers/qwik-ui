@@ -10,6 +10,7 @@ export type CarouselContext = {
   nextButtonRef: Signal<HTMLButtonElement | undefined>;
   prevButtonRef: Signal<HTMLButtonElement | undefined>;
   isMouseDraggingSig: Signal<boolean>;
+  isMouseWheelSig: Signal<boolean>;
   slideRefsArray: Signal<Array<Signal>>;
   bulletRefsArray: Signal<Array<Signal>>;
   currentIndexSig: Signal<number>;
