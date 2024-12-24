@@ -30,7 +30,7 @@ interface PagefindSearch {
 
 interface Pagefind {
   preload: (term: string) => Promise<void>;
-  debouncedSearch: (term: string) => Promise<PagefindSearch | null>;
+  search: (term: string) => PagefindSearch | null;
 }
 
 declare global {
@@ -88,7 +88,7 @@ export const Search = component$(() => {
 
     await window.pagefind.preload(target.value);
 
-    const search = await window.pagefind.debouncedSearch(target.value);
+    const search = await window.pagefind.search(target.value);
 
     if (search === null) {
       results.value = [];
@@ -96,7 +96,7 @@ export const Search = component$(() => {
     }
 
     const searchResults = await Promise.all(
-      search.results.slice(0, 5).map(async (r) => {
+      search.results.map(async (r) => {
         const data = await r.data();
         return {
           id: r.id,
