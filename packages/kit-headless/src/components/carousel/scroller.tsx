@@ -14,6 +14,7 @@ import styles from './carousel.css?inline';
 import { isServer } from '@builder.io/qwik/build';
 import { useDebouncer } from '../../hooks/use-debouncer';
 import { useScroller } from './use-scroller';
+import { useCarousel } from './use-carousel';
 
 export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   useStyles$(styles);
@@ -26,6 +27,8 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
   const isTouchStartSig = useSignal(false);
   const initialLoadSig = useSignal(true);
   const isNewPosOnLoadSig = useSignal(false);
+
+  const { validIndexesSig } = useCarousel(context);
 
   const {
     startPosSig,
@@ -210,6 +213,23 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       context.currentIndexSig.value !== 0;
   });
 
+  const handleWheel = $(async (e: WheelEvent) => {
+    if (!context.isDraggableSig.value || !context.scrollerRef.value) return;
+    if (!context.isMouseWheelSig.value) return;
+
+    const validIndexes = validIndexesSig.value;
+    const currentIndex = context.currentIndexSig.value;
+    const currentPosition = validIndexes.indexOf(currentIndex);
+    const direction = e.deltaY > 0 ? 1 : -1;
+
+    // check if in bounds
+    const newPosition = Math.max(
+      0,
+      Math.min(currentPosition + direction, validIndexes.length - 1),
+    );
+    context.currentIndexSig.value = validIndexes[newPosition];
+  });
+
   useTask$(() => {
     initialLoadSig.value = false;
   });
@@ -224,6 +244,8 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
       preventdefault:touchstart
       preventdefault:touchmove
       onQVisible$={isNewPosOnLoadSig.value ? setInitialSlidePos : undefined}
+      onWheel$={handleWheel}
+      preventdefault:wheel
     >
       <div
         ref={context.scrollerRef}

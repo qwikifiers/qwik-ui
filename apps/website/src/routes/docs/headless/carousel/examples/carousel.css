@@ -1,5 +1,6 @@
 .carousel-root {
   width: 100%;
+  position: relative;
 }
 
 .carousel-slide {

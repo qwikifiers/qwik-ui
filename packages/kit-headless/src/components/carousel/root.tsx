@@ -70,6 +70,9 @@ export type PublicCarouselRootProps = PropsOf<'div'> & {
 
   /** The maximum height of the slides. Needed in vertical carousels */
   maxSlideHeight?: number;
+
+  /** Whether the carousel should support mousewheel navigation */
+  mousewheel?: boolean;
 };
 
 export const CarouselBase = component$((props: PublicCarouselRootProps) => {
@@ -133,6 +136,7 @@ export const CarouselBase = component$((props: PublicCarouselRootProps) => {
     }
     return props.orientation ?? 'horizontal';
   });
+  const isMouseWheelSig = useComputed$(() => props.mousewheel ?? false);
 
   const titleId = `${localId}-title`;
 
@@ -143,6 +147,7 @@ export const CarouselBase = component$((props: PublicCarouselRootProps) => {
     prevButtonRef,
     scrollStartRef,
     isMouseDraggingSig,
+    isMouseWheelSig,
     slideRefsArray,
     bulletRefsArray,
     currentIndexSig,
