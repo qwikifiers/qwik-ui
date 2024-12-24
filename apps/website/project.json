@@ -78,7 +78,7 @@
     "build-cloudflare": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx nx run website:build:production && npx pagefind --site dist/apps/website/client"
+        "command": "npx nx run website:build:production"
       }
     }
   },
