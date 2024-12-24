@@ -17,6 +17,15 @@ export default component$(() => {
         background-color: hsl(var(--primary));
     }
 
+    .mousewheel-pagination {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        position: absolute;
+        top: 33%;
+        right: 8px;
+    }
+
     `);
 
   return (
@@ -38,16 +47,7 @@ export default component$(() => {
           </Carousel.Slide>
         ))}
       </Carousel.Scroller>
-      <Carousel.Pagination
-        style={{
-          position: 'absolute',
-          top: '33%',
-          right: '8px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 4,
-        }}
-      >
+      <Carousel.Pagination class="mousewheel-pagination">
         {colors.map((color) => (
           <Carousel.Bullet class="mousewheel-bullet" key={color} />
         ))}
