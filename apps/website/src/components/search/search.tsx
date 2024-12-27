@@ -1,6 +1,6 @@
 import { $, component$, useOnWindow, useSignal, useTask$ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
-import { Combobox, Modal } from '@qwik-ui/headless';
+import { Combobox, Modal } from '@qwik-ui/styled';
 import { buttonVariants } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
 import { LuSearch } from '@qwikest/icons/lucide';
@@ -66,15 +66,10 @@ export const SearchModal = component$(() => {
 
   return (
     <Modal.Root bind:show={isOpen}>
-      <Modal.Trigger
-        class={cn(
-          buttonVariants({ size: 'icon', look: 'ghost' }),
-          'flex h-8 items-center gap-2 sm:h-10',
-        )}
-      >
+      <Modal.Trigger class={cn(buttonVariants({ size: 'icon', look: 'ghost' }))}>
         <LuSearch class="h-5 w-5 sm:h-6 sm:w-6" />
       </Modal.Trigger>
-      <Modal.Panel class="fixed top-[10%] my-0 w-[min(100%,768px)] rounded-[8px] bg-background shadow-lg backdrop:backdrop-brightness-[60%] dark:bg-muted dark:shadow-2xl">
+      <Modal.Panel class="mt-20 max-w-[calc(100vw-32px)] p-0 sm:max-w-md">
         <Search />
       </Modal.Panel>
     </Modal.Root>
@@ -82,16 +77,19 @@ export const SearchModal = component$(() => {
 });
 
 export const Search = component$(() => {
-  const results = useSignal<PagefindSearchResult[]>([]);
+  const resultsSig = useSignal<PagefindSearchResult[]>([]);
+  const inputValueSig = useSignal<string>('');
   const handleInput = $(async (e: InputEvent) => {
     const target = e.target as HTMLInputElement;
+
+    inputValueSig.value = target.value;
 
     await window.pagefind.preload(target.value);
 
     const search = await window.pagefind.search(target.value);
 
     if (search === null) {
-      results.value = [];
+      resultsSig.value = [];
       return;
     }
 
@@ -107,33 +105,40 @@ export const Search = component$(() => {
       }),
     );
 
-    results.value = searchResults;
+    resultsSig.value = searchResults;
   });
 
   return (
     <Combobox.Root
+      class="w-full"
       mode="inline"
       filter={false}
+      // @ts-expect-error wrong type
       onChange$={(value: string) => {
         // useNavigate if you're using <Link /> or CSR true
         window.location.href = value;
       }}
     >
       <Combobox.Input
-        class="min-h-[48px] w-full rounded-t-[8px] bg-muted px-4 text-foreground outline-ring"
         onInput$={handleInput}
         data-id="search"
+        placeholder="Find anything"
+        class={cn(
+          'h-12 w-full rounded-b-none border-none focus-visible:outline-none focus-visible:ring-0',
+        )}
       />
-      <Combobox.Inline class="flex flex-col">
-        {results.value.map((result) => (
+      <Combobox.Inline class="max-h-[calc(100vh-200px)] overflow-auto border-t-2 border-border">
+        {resultsSig.value?.map((result) => (
           <a href={result.url} key={result.url}>
             <Combobox.Item
               value={result.url}
-              class="border-b border-foreground/10 px-2 py-4 data-[highlighted]:bg-foreground/10"
+              class="block rounded-none border-b px-2 py-4"
             >
-              <Combobox.ItemLabel class="text-lg font-bold text-foreground">
-                {result.meta.title}
-              </Combobox.ItemLabel>
+              <div>
+                <Combobox.ItemLabel class="text-base">
+                  {result.meta.title}
+                </Combobox.ItemLabel>
+              </div>
               <div
                 class="text-sm text-foreground"
                 dangerouslySetInnerHTML={result.excerpt}
@@ -141,9 +146,9 @@ export const Search = component$(() => {
             </Combobox.Item>
           </a>
         ))}
-        <Combobox.Empty class="px-2 py-4 text-foreground">
-          No results found
-        </Combobox.Empty>
+        {resultsSig.value?.length === 0 && inputValueSig.value.length > 0 && (
+          <Combobox.Empty>No results found</Combobox.Empty>
+        )}
       </Combobox.Inline>
     </Combobox.Root>
   );
