@@ -51,7 +51,7 @@ export const Highlight = component$(
     });
 
     return (
-      <div class="code-example relative max-h-[31.25rem] rounded-base">
+      <div class="code-example data-pagefind-ignore relative max-h-[31.25rem] rounded-base">
         <CodeCopy
           class={[
             'absolute right-3 top-3 text-white hover:bg-slate-800 hover:text-white',

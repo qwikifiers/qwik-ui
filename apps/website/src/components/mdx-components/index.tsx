@@ -112,7 +112,7 @@ export const components: Record<string, Component> = {
     __rawString__?: string;
   }>(({ __rawString__ }) => {
     return (
-      <div class="code-example relative mb-6 max-h-[31.25rem] rounded-base">
+      <div class="code-example data-pagefind-ignore relative mb-6 max-h-[31.25rem] rounded-base">
         <CodeCopy class="absolute right-3 top-3" code={__rawString__} />
         <div
           class={cn(
