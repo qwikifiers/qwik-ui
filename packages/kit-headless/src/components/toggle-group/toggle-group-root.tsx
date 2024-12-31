@@ -1,5 +1,12 @@
 import type { PropsOf, QRL, Signal } from '@builder.io/qwik';
-import { component$, useContextProvider, Slot, useTask$, $ } from '@builder.io/qwik';
+import {
+  component$,
+  useContextProvider,
+  Slot,
+  useTask$,
+  $,
+  useStyles$,
+} from '@builder.io/qwik';
 import {
   toggleGroupRootApiContextId,
   type Direction,
@@ -8,6 +15,7 @@ import {
 } from './toggle-group-context';
 import { useToggleGroup } from './use-toggle';
 import { isBrowser, isServer } from '@builder.io/qwik/build';
+import styles from './toggle-group.css?inline';
 
 export type ToggleGroupBaseProps = {
   /**
@@ -87,6 +95,7 @@ export type ToggleGroupApiProps = (ToggleGroupSingleProps | ToggleGroupMultipleP
 export type ToggleGroupRootProps = PropsOf<'div'> & ToggleGroupApiProps;
 
 export const HToggleGroupRoot = component$<ToggleGroupRootProps>((props) => {
+  useStyles$(styles);
   const {
     onChange$: _,
     disabled = false,
@@ -97,7 +106,6 @@ export const HToggleGroupRoot = component$<ToggleGroupRootProps>((props) => {
   } = props;
 
   const commonProps = { role: 'group', 'aria-orientation': orientation, dir: direction };
-  const orientationClass = orientation === 'vertical' ? 'flex-col' : 'flex-row';
 
   const api = useToggleGroup(props);
 
@@ -275,8 +283,8 @@ export const HToggleGroupRoot = component$<ToggleGroupRootProps>((props) => {
     <div
       {...divProps}
       {...commonProps}
-      class={`flex ${orientationClass} items-center gap-1`}
       data-qui-togglegroup-root
+      data-orientation={orientation}
     >
       <Slot />
     </div>
