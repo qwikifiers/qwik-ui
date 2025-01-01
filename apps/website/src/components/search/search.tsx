@@ -1,4 +1,11 @@
-import { $, component$, useOnWindow, useSignal, useTask$ } from '@builder.io/qwik';
+import {
+  $,
+  component$,
+  Signal,
+  useOnWindow,
+  useSignal,
+  useTask$,
+} from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import { Combobox, Modal } from '@qwik-ui/styled';
 import { buttonVariants } from '@qwik-ui/styled';
@@ -77,13 +84,13 @@ export const SearchModal = component$((props: { class?: string }) => {
       <Modal.Panel
         class={cn(props.class, 'mt-20 w-full !max-w-xl bg-red-500 p-0 sm:max-w-md')}
       >
-        <Search />
+        <Search isOpen={isOpen} />
       </Modal.Panel>
     </Modal.Root>
   );
 });
 
-export const Search = component$(() => {
+export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
   const resultsSig = useSignal<PagefindSearchResult[]>([]);
   const inputValueSig = useSignal<string>('');
   const handleInput = $(async (e: InputEvent) => {
@@ -129,10 +136,16 @@ export const Search = component$(() => {
       // @ts-expect-error bad types in core
       onChange$={(value: string) => {
         window.location.href = value;
+        isOpen.value = false;
       }}
     >
       <Combobox.Input
         onInput$={handleInput}
+        onKeyDown$={(e: KeyboardEvent) => {
+          if (e.key === 'Enter') {
+            isOpen.value = false;
+          }
+        }}
         data-id="search"
         placeholder="Find anything"
         class={cn(
@@ -141,47 +154,61 @@ export const Search = component$(() => {
       />
       <Combobox.Inline class="max-h-[calc(100vh-200px)] overflow-auto border-t-2 border-border">
         {(() => {
-          const headlessResults = resultsSig.value
+          const processedResults = resultsSig.value
             .flatMap((result) => {
+              // Get all headings for this result
               const headings =
                 result.anchors?.filter((anchor) =>
-                  ['h2', 'h3'].includes(anchor.element),
+                  ['h2', 'h3', 'h4', 'h5', 'h6'].includes(anchor.element),
                 ) || [];
 
-              return headings.map((heading) => ({
-                ...result,
-                url: `${result.url}#${heading.id}`,
-                heading: heading.text,
-                weight: 1.0,
-              }));
-            })
-            .filter((result) => result.url.includes('/headless/'))
-            .slice(0, 5);
+              // Find the best matching heading based on input value
+              const bestHeading = headings.reduce((best, current) => {
+                const currentMatch = current.text
+                  .toLowerCase()
+                  .includes(inputValueSig.value.toLowerCase());
+                const bestMatch = best?.text
+                  .toLowerCase()
+                  .includes(inputValueSig.value.toLowerCase());
 
-          const styledResults = resultsSig.value
-            .flatMap((result) => {
-              const headings =
-                result.anchors?.filter((anchor) =>
-                  ['h2', 'h3'].includes(anchor.element),
-                ) || [];
+                if (currentMatch && !bestMatch) return current;
+                if (!currentMatch && bestMatch) return best;
+                if (!currentMatch && !bestMatch) return best || current;
 
-              return headings.map((heading) => ({
-                ...result,
-                url: `${result.url}#${heading.id}`,
-                heading: heading.text,
-                weight: 1.0,
-              }));
+                // If both match, prefer h2/h3 over other levels
+                return ['h2', 'h3'].includes(current.element) ? current : best;
+              }, headings[0]);
+
+              if (!bestHeading) return [];
+
+              return [
+                {
+                  ...result,
+                  url: `${result.url}#${bestHeading.id}`,
+                  heading: bestHeading.text,
+                  category: result.url.includes('/styled/') ? 'styled' : 'headless',
+                },
+              ];
             })
-            .filter((result) => result.url.includes('/styled/'))
-            .slice(0, 5);
+            .filter(
+              (result) =>
+                result.url.includes('/styled/') || result.url.includes('/headless/'),
+            )
+            .slice(0, 8); // Limit to 8 results
 
           return (
             <>
-              {headlessResults.length > 0 && (
+              {processedResults.length > 0 && (
                 <>
                   <div class="px-2 py-2 font-medium text-muted-foreground">Headless</div>
-                  {headlessResults.map((result) => (
-                    <a href={result.url} key={result.url}>
+                  {processedResults.map((result) => (
+                    <a
+                      href={result.url}
+                      key={result.url}
+                      onClick$={() => {
+                        isOpen.value = false;
+                      }}
+                    >
                       <Combobox.Item
                         value={result.url}
                         class="block rounded-none border-b px-2 py-4"
@@ -192,36 +219,6 @@ export const Search = component$(() => {
                           </div>
                           <Combobox.ItemLabel class="text-base font-medium">
                             {result.heading}
-                          </Combobox.ItemLabel>
-                          <div
-                            class="text-sm text-muted-foreground"
-                            dangerouslySetInnerHTML={result.excerpt}
-                          />
-                        </div>
-                      </Combobox.Item>
-                    </a>
-                  ))}
-                </>
-              )}
-              {styledResults.length > 0 && (
-                <>
-                  <div class="px-2 py-2 font-medium text-muted-foreground">Styled</div>
-                  {styledResults.map((result) => (
-                    <a href={result.url} key={result.url}>
-                      <Combobox.Item
-                        value={result.url}
-                        class="block rounded-none border-b px-2 py-4"
-                      >
-                        <div class="flex flex-col gap-1">
-                          <div class="text-sm capitalize text-muted-foreground opacity-50">
-                            {result.url.split('/').slice(-2, -1)}
-                          </div>
-                          <Combobox.ItemLabel class="text-base font-medium">
-                            {
-                              result.anchors?.find((anchor) =>
-                                ['h2', 'h3', 'h4', 'h5', 'h6'].includes(anchor.element),
-                              )?.text
-                            }
                           </Combobox.ItemLabel>
                           <div
                             class="text-sm text-muted-foreground"
