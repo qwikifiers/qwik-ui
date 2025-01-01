@@ -123,11 +123,6 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
     resultsSig.value = searchResults;
   });
 
-  useTask$(({ track }) => {
-    track(() => resultsSig.value);
-    console.log(resultsSig.value);
-  });
-
   return (
     <Combobox.Root
       class="w-full"
