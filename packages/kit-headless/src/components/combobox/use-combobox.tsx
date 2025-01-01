@@ -66,14 +66,19 @@ export function useCombobox() {
           break;
       }
 
-      // Update input value for single-select combobox
-      if (!context.multiple && context.inputRef.value && selectedDisplayValue) {
+      const shouldUpdateInput =
+        !context.multiple &&
+        context.mode !== 'inline' &&
+        context.inputRef.value &&
+        selectedDisplayValue;
+
+      if (shouldUpdateInput && context.inputRef.value) {
         context.inputRef.value.value = selectedDisplayValue;
       }
     },
   );
 
-  const filterManager$ = $((isVisible: boolean, itemRef: Signal, index: number) => {
+  const filterManager$ = $(async (isVisible: boolean, itemRef: Signal, index: number) => {
     if (!itemRef.value) return;
 
     const isDisabled = context.itemsMapSig.value.get(index)?.disabled;
@@ -88,7 +93,6 @@ export function useCombobox() {
         : [...context.filteredIndexSetSig.value, index],
     );
 
-    // Update disabledIndexSetSig
     if (isDisabled) {
       context.disabledIndexSetSig.value = new Set([
         ...context.disabledIndexSetSig.value,
@@ -100,6 +104,25 @@ export function useCombobox() {
           (disabledIndex) => disabledIndex !== index,
         ),
       );
+    }
+
+    if (context.mode !== 'inline') return;
+    if (!isVisible) return;
+    if (isDisabled) return;
+
+    // we do this because indexes change in custom filter mode
+    if (context.filter === false) {
+      const firstVisibleIndex = await getNextEnabledItemIndex$(-1);
+      if (firstVisibleIndex !== -1) {
+        context.highlightedIndexSig.value = firstVisibleIndex;
+      }
+    } else {
+      const firstVisibleIndex = [...Array(context.itemsMapSig.value.size).keys()].find(
+        (i) => !context.filteredIndexSetSig.value.has(i),
+      );
+      if (firstVisibleIndex !== undefined) {
+        context.highlightedIndexSig.value = firstVisibleIndex;
+      }
     }
   });
 

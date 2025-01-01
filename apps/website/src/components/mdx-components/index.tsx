@@ -1,4 +1,4 @@
-import { Component, PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { type Component, type PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { cn } from '@qwik-ui/utils';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
@@ -112,7 +112,10 @@ export const components: Record<string, Component> = {
     __rawString__?: string;
   }>(({ __rawString__ }) => {
     return (
-      <div class="code-example relative mb-6 max-h-[31.25rem] rounded-base">
+      <div
+        class="code-example data-pagefind-ignore relative mb-6 max-h-[31.25rem] rounded-base"
+        data-pagefind-ignore="all"
+      >
         <CodeCopy class="absolute right-3 top-3" code={__rawString__} />
         <div
           class={cn(
