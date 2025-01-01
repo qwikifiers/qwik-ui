@@ -12,6 +12,11 @@ interface PagefindSearchResult {
     title: string;
   };
   excerpt?: string;
+  anchors?: {
+    text: string;
+    element: string;
+    id: string;
+  }[];
 }
 
 interface PagefindSearchResultRaw {
@@ -39,7 +44,7 @@ declare global {
   }
 }
 
-export const SearchModal = component$(() => {
+export const SearchModal = component$((props: { class?: string }) => {
   const isOpen = useSignal(false);
 
   useOnWindow(
@@ -69,7 +74,9 @@ export const SearchModal = component$(() => {
       <Modal.Trigger class={cn(buttonVariants({ size: 'icon', look: 'ghost' }))}>
         <LuSearch class="h-5 w-5 sm:h-6 sm:w-6" />
       </Modal.Trigger>
-      <Modal.Panel class="mt-20 max-w-[calc(100vw-32px)] p-0 sm:max-w-md">
+      <Modal.Panel
+        class={cn(props.class, 'mt-20 w-full !max-w-xl bg-red-500 p-0 sm:max-w-md')}
+      >
         <Search />
       </Modal.Panel>
     </Modal.Root>
@@ -97,10 +104,11 @@ export const Search = component$(() => {
       search.results.map(async (r) => {
         const data = await r.data();
         return {
-          id: r.id,
+          id: data.id,
           url: data.url,
           meta: data.meta,
           excerpt: data.excerpt,
+          anchors: data.anchors,
         };
       }),
     );
@@ -108,14 +116,18 @@ export const Search = component$(() => {
     resultsSig.value = searchResults;
   });
 
+  useTask$(({ track }) => {
+    track(() => resultsSig.value);
+    console.log(resultsSig.value);
+  });
+
   return (
     <Combobox.Root
       class="w-full"
       mode="inline"
       filter={false}
-      // @ts-expect-error wrong type
+      // @ts-expect-error bad types in core
       onChange$={(value: string) => {
-        // useNavigate if you're using <Link /> or CSR true
         window.location.href = value;
       }}
     >
@@ -128,27 +140,105 @@ export const Search = component$(() => {
         )}
       />
       <Combobox.Inline class="max-h-[calc(100vh-200px)] overflow-auto border-t-2 border-border">
-        {resultsSig.value?.map((result) => (
-          <a href={result.url} key={result.url}>
-            <Combobox.Item
-              value={result.url}
-              class="block rounded-none border-b px-2 py-4"
-            >
-              <div>
-                <Combobox.ItemLabel class="text-base">
-                  {result.meta.title}
-                </Combobox.ItemLabel>
-              </div>
-              <div
-                class="text-sm text-foreground"
-                dangerouslySetInnerHTML={result.excerpt}
-              />
-            </Combobox.Item>
-          </a>
-        ))}
-        {resultsSig.value?.length === 0 && inputValueSig.value.length > 0 && (
-          <Combobox.Empty>No results found</Combobox.Empty>
-        )}
+        {(() => {
+          const headlessResults = resultsSig.value
+            .flatMap((result) => {
+              const headings =
+                result.anchors?.filter((anchor) =>
+                  ['h2', 'h3'].includes(anchor.element),
+                ) || [];
+
+              return headings.map((heading) => ({
+                ...result,
+                url: `${result.url}#${heading.id}`,
+                heading: heading.text,
+                weight: 1.0,
+              }));
+            })
+            .filter((result) => result.url.includes('/headless/'))
+            .slice(0, 5);
+
+          const styledResults = resultsSig.value
+            .flatMap((result) => {
+              const headings =
+                result.anchors?.filter((anchor) =>
+                  ['h2', 'h3'].includes(anchor.element),
+                ) || [];
+
+              return headings.map((heading) => ({
+                ...result,
+                url: `${result.url}#${heading.id}`,
+                heading: heading.text,
+                weight: 1.0,
+              }));
+            })
+            .filter((result) => result.url.includes('/styled/'))
+            .slice(0, 5);
+
+          return (
+            <>
+              {headlessResults.length > 0 && (
+                <>
+                  <div class="px-2 py-2 font-medium text-muted-foreground">Headless</div>
+                  {headlessResults.map((result) => (
+                    <a href={result.url} key={result.url}>
+                      <Combobox.Item
+                        value={result.url}
+                        class="block rounded-none border-b px-2 py-4"
+                      >
+                        <div class="flex flex-col gap-1">
+                          <div class="text-sm capitalize text-muted-foreground opacity-50">
+                            {result.url.split('/').slice(-2, -1)}
+                          </div>
+                          <Combobox.ItemLabel class="text-base font-medium">
+                            {result.heading}
+                          </Combobox.ItemLabel>
+                          <div
+                            class="text-sm text-muted-foreground"
+                            dangerouslySetInnerHTML={result.excerpt}
+                          />
+                        </div>
+                      </Combobox.Item>
+                    </a>
+                  ))}
+                </>
+              )}
+              {styledResults.length > 0 && (
+                <>
+                  <div class="px-2 py-2 font-medium text-muted-foreground">Styled</div>
+                  {styledResults.map((result) => (
+                    <a href={result.url} key={result.url}>
+                      <Combobox.Item
+                        value={result.url}
+                        class="block rounded-none border-b px-2 py-4"
+                      >
+                        <div class="flex flex-col gap-1">
+                          <div class="text-sm capitalize text-muted-foreground opacity-50">
+                            {result.url.split('/').slice(-2, -1)}
+                          </div>
+                          <Combobox.ItemLabel class="text-base font-medium">
+                            {
+                              result.anchors?.find((anchor) =>
+                                ['h2', 'h3', 'h4', 'h5', 'h6'].includes(anchor.element),
+                              )?.text
+                            }
+                          </Combobox.ItemLabel>
+                          <div
+                            class="text-sm text-muted-foreground"
+                            dangerouslySetInnerHTML={result.excerpt}
+                          />
+                        </div>
+                      </Combobox.Item>
+                    </a>
+                  ))}
+                </>
+              )}
+              {resultsSig.value?.length === 0 && inputValueSig.value.length > 0 && (
+                <Combobox.Empty class="px-2 py-4">No results found</Combobox.Empty>
+              )}
+            </>
+          );
+        })()}
       </Combobox.Inline>
     </Combobox.Root>
   );

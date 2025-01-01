@@ -97,14 +97,6 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
       initialValue = value;
     }
 
-    const isString = typeof labelProps.children === 'string';
-
-    if (!isString) {
-      throw new Error(
-        `Qwik UI: select item label passed was not a string. It was a ${typeof labelProps.children}.`,
-      );
-    }
-
     // increment after processing children
     currItemIndex++;
   });

@@ -61,9 +61,6 @@ export const api = {
       'combobox-trigger': [],
     },
     {
-      'dummy-comp': [],
-    },
-    {
       'use-combobox': [],
     },
   ],
