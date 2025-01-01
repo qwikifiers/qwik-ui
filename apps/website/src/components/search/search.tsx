@@ -156,29 +156,10 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
         {(() => {
           const processedResults = resultsSig.value
             .flatMap((result) => {
-              // Get all headings for this result
-              const headings =
-                result.anchors?.filter((anchor) =>
-                  ['h2', 'h3', 'h4', 'h5', 'h6'].includes(anchor.element),
-                ) || [];
+              const headings = getValidHeadings(result.anchors);
+              if (!headings.length) return [];
 
-              // Find the best matching heading based on input value
-              const bestHeading = headings.reduce((best, current) => {
-                const currentMatch = current.text
-                  .toLowerCase()
-                  .includes(inputValueSig.value.toLowerCase());
-                const bestMatch = best?.text
-                  .toLowerCase()
-                  .includes(inputValueSig.value.toLowerCase());
-
-                if (currentMatch && !bestMatch) return current;
-                if (!currentMatch && bestMatch) return best;
-                if (!currentMatch && !bestMatch) return best || current;
-
-                // If both match, prefer h2/h3 over other levels
-                return ['h2', 'h3'].includes(current.element) ? current : best;
-              }, headings[0]);
-
+              const bestHeading = findBestMatchingHeading(headings, inputValueSig.value);
               if (!bestHeading) return [];
 
               return [
@@ -190,11 +171,41 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
                 },
               ];
             })
-            .filter(
-              (result) =>
-                result.url.includes('/styled/') || result.url.includes('/headless/'),
-            )
-            .slice(0, 8); // Limit to 8 results
+            .filter(isValidRoute)
+            .slice(0, 8);
+
+          function getValidHeadings(
+            anchors?: { element: string; text: string; id: string }[],
+          ) {
+            if (!anchors) return [];
+            return anchors.filter((anchor) =>
+              ['h2', 'h3', 'h4', 'h5', 'h6'].includes(anchor.element),
+            );
+          }
+
+          function findBestMatchingHeading(
+            headings: { element: string; text: string; id: string }[],
+            searchTerm: string,
+          ) {
+            return headings.reduce((best, current) => {
+              const isCurrentMatch = current.text
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+              const isBestMatch = best?.text
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+
+              if (isCurrentMatch && !isBestMatch) return current;
+              if (!isCurrentMatch && isBestMatch) return best;
+              if (!isCurrentMatch && !isBestMatch) return best || current;
+
+              return ['h2', 'h3'].includes(current.element) ? current : best;
+            }, headings[0]);
+          }
+
+          function isValidRoute(result: { url: string }) {
+            return result.url.includes('/styled/') || result.url.includes('/headless/');
+          }
 
           return (
             <>
