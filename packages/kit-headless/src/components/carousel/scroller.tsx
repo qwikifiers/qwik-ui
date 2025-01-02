@@ -264,10 +264,8 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     const deltaY = Math.abs(touch.clientY - touchStartY);
 
     if (carouselOrientation === 'horizontal' && deltaX > deltaY && deltaX > 5) {
-      console.log('preventing default: horizontal');
       e.preventDefault();
     } else if (carouselOrientation === 'vertical' && deltaY > deltaX && deltaY > 5) {
-      console.log('preventing default: vertical');
       e.preventDefault();
     }
   });
