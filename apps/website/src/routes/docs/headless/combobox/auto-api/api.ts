@@ -28,6 +28,9 @@ export const api = {
       'combobox-hidden-select': [],
     },
     {
+      'combobox-inline-comp': [],
+    },
+    {
       'combobox-inline': [],
     },
     {
@@ -40,28 +43,7 @@ export const api = {
       'combobox-item-label': [],
     },
     {
-      'combobox-item': [
-        {
-          HComboboxItemProps: [
-            {
-              comment:
-                ' Internal index we get from the inline component. Please see combobox-inline.tsx ',
-              prop: '_index',
-              type: 'number',
-            },
-            {
-              comment: ' If true, item is not selectable or focusable. ',
-              prop: 'disabled',
-              type: 'boolean',
-            },
-            {
-              comment: ' Selected value associated with the item. ',
-              prop: 'value',
-              type: 'string',
-            },
-          ],
-        },
-      ],
+      'combobox-item': [],
     },
     {
       'combobox-label': [],

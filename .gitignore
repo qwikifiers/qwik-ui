@@ -1,3 +1,10 @@
+# Development
+/apps/website/public/pagefind/pagefind-modular-ui.css
+/apps/website/public/pagefind/pagefind-modular-ui.js
+/apps/website/public/pagefind/pagefind-ui.css
+/apps/website/public/pagefind/pagefind-ui.js
+
+
 # Build
 dist
 lib-types

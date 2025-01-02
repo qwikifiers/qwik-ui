@@ -27,7 +27,7 @@ import { cn } from '@qwik-ui/utils';
 import { DiscordIcon } from '../icons/discord';
 import { Button, buttonVariants } from '@qwik-ui/styled';
 import MakeItYours from '../make-it-yours/make-it-yours';
-
+import { SearchModal } from '../search/search';
 export interface HeaderProps {
   showVersion?: boolean;
   showBottomBorder?: boolean;
@@ -163,6 +163,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
           </div>
           <div class="flex items-center space-x-1 xs:space-x-4">
             <MakeItYours />
+            <SearchModal />
             <a
               href="https://discord.gg/PVWUUejrez"
               target="_blank"

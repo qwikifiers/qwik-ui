@@ -221,6 +221,39 @@ Like every Qwik UI component, the Combobox component can be rendered server-side
 
 <Showcase name="csr" />
 
+## Inline Mode (Command Palette)
+
+The Combobox supports an inline mode which allows for searching and selection from a list of options decoupled from the popover.
+
+To enable inline mode:
+
+Add the `mode="inline"` prop to `<Combobox.Root>`
+
+Use the `Combobox.Inline` component instead of `<Combobox.Popover>`.
+
+<Showcase name="inline" />
+
+### Key Differences in Inline Mode:
+
+1. **Always Visible**: The listbox remains visible at all times, even after item selection or pressing Escape
+2. **Initial State**: The first option is automatically highlighted when the combobox renders
+3. **Selection Behavior**:
+   - Selecting an item does not close the listbox
+   - The input value remains empty after selection
+4. **Focus Management**:
+   - Highlight state persists when filtering items
+   - Highlight state is preserved when tabbing away and back to the input
+
+Inline mode is useful when you want users to quickly browse and select from a list while maintaining context of all available options.
+
+### Custom Filtering with Inline Mode
+
+You can combine inline mode with custom filtering logic while maintaining the same persistent listbox behavior.
+
+<Showcase name="custom-inline" />
+
+> In inline mode, the `<Combobox.Control>` component is not needed, as the listbox is always visible.
+
 ## Menu behavior
 
 ### Custom Filter

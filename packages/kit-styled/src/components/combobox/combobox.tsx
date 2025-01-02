@@ -63,7 +63,7 @@ const Input = component$<PropsOf<typeof HeadlessCombobox.Input>>((props) => {
     <HeadlessCombobox.Input
       {...props}
       class={cn(
-        'flex h-10 w-full rounded-md border border-input py-3 pl-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-12 w-full rounded-base border border-input bg-background px-3 py-1 text-sm text-foreground shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
         props.class,
       )}
     />
@@ -106,6 +106,22 @@ const Item = component$<PropsOf<typeof HeadlessCombobox.Item>>(({ ...props }) =>
   );
 });
 
+const Inline = component$<PropsOf<typeof HeadlessCombobox.Inline>>(({ ...props }) => {
+  return (
+    <HeadlessCombobox.Inline {...props} class={cn('', props.class)}>
+      <Slot />
+    </HeadlessCombobox.Inline>
+  );
+});
+
+const Empty = component$<PropsOf<typeof HeadlessCombobox.Empty>>(({ ...props }) => {
+  return (
+    <HeadlessCombobox.Empty {...props} class={cn('', props.class)}>
+      <Slot />
+    </HeadlessCombobox.Empty>
+  );
+});
+
 export const Combobox = {
   Root,
   Label,
@@ -116,4 +132,6 @@ export const Combobox = {
   Item,
   ItemLabel,
   ItemIndicator,
+  Inline,
+  Empty,
 };

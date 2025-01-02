@@ -7,6 +7,7 @@ import {
   useComputed$,
   useTask$,
   useSignal,
+  QRL,
 } from '@builder.io/qwik';
 import { comboboxContextId } from './combobox-context';
 import { useCombobox } from './use-combobox';
@@ -21,6 +22,7 @@ export const HComboboxInput = component$(
     const inputRef = useCombinedRef(props.ref, contextRefOpts);
 
     const panelId = `${context.localId}-panel`;
+    const inlineId = `${context.localId}-inline`;
     const inputId = `${context.localId}-input`;
     const labelId = `${context.localId}-label`;
     const descriptionId = `${context.localId}-description`;
@@ -33,22 +35,20 @@ export const HComboboxInput = component$(
       useCombobox();
 
     const activeDescendantSig = useComputed$(() => {
-      if (!context.isListboxOpenSig.value) {
+      if (!context.isListboxOpenSig.value && context.mode === 'popover') {
         return '';
       }
 
-      const highlightedIndex = context.highlightedIndexSig.value ?? -1;
+      const highlightedIndex = context.highlightedIndexSig.value;
+      if (highlightedIndex === null || highlightedIndex === -1) {
+        return '';
+      }
+
       const highlightedItem = context.itemsMapSig.value.get(highlightedIndex);
-
-      if (
-        highlightedIndex === null ||
-        highlightedIndex === -1 ||
-        highlightedItem?.disabled
-      ) {
+      if (!highlightedItem || highlightedItem.disabled) {
         return '';
       }
 
-      // highlighted item id
       return `${context.localId}-${highlightedIndex}`;
     });
 
@@ -69,28 +69,25 @@ export const HComboboxInput = component$(
         wasEmptyBeforeBackspaceSig.value = context.inputValueSig.value.length === 0;
       }
 
-      switch (e.key) {
-        case 'ArrowDown':
-          if (
-            context.isListboxOpenSig.value &&
-            context.highlightedIndexSig.value !== null
-          ) {
-            context.highlightedIndexSig.value = await getNextEnabledItemIndex$(
-              context.highlightedIndexSig.value,
-            );
+      const handleArrowNavigation$ = $(
+        async (getEnabledItemIndex$: QRL<(index: number) => number>) => {
+          if (context.mode === 'inline' || context.isListboxOpenSig.value) {
+            const currentIndex = context.highlightedIndexSig.value ?? -1;
+
+            context.highlightedIndexSig.value = await getEnabledItemIndex$(currentIndex);
           } else {
             context.isListboxOpenSig.value = true;
           }
+        },
+      );
+
+      switch (e.key) {
+        case 'ArrowDown':
+          await handleArrowNavigation$(getNextEnabledItemIndex$);
           break;
 
         case 'ArrowUp':
-          if (context.isListboxOpenSig.value) {
-            context.highlightedIndexSig.value = await getPrevEnabledItemIndex$(
-              context.highlightedIndexSig.value!,
-            );
-          } else {
-            context.isListboxOpenSig.value = true;
-          }
+          await handleArrowNavigation$(getPrevEnabledItemIndex$);
           break;
 
         case 'Home':
@@ -114,14 +111,16 @@ export const HComboboxInput = component$(
           break;
 
         case 'Enter':
-          if (!context.isListboxOpenSig.value) break;
+          // Skip if not in inline mode and listbox is closed
+          if (!context.isListboxOpenSig.value && context.mode !== 'inline') return;
 
           await selectionManager$(context.highlightedIndexSig.value, 'toggle');
-          if (context.selectedValuesSig.value.length <= 0) break;
+          if (context.selectedValuesSig.value.length <= 0) return;
 
           if (!context.multiple) {
+            if (context.mode === 'inline') return;
             context.isListboxOpenSig.value = false;
-            break;
+            return;
           }
 
           if (context.inputRef.value) {
@@ -129,7 +128,6 @@ export const HComboboxInput = component$(
             context.inputValueSig.value = '';
             isInputResetSig.value = true;
           }
-
           break;
       }
 
@@ -149,7 +147,6 @@ export const HComboboxInput = component$(
     const handleInput$ = $(async (e: InputEvent, el: HTMLInputElement) => {
       const target = e.target as HTMLInputElement;
       context.inputValueSig.value = target.value;
-      context.highlightedIndexSig.value = null;
       isInputResetSig.value = false;
 
       if (target.value === '' && !context.multiple) {
@@ -162,6 +159,10 @@ export const HComboboxInput = component$(
       if (givenInputValueSig) {
         givenInputValueSig.value = el.value;
         context.inputValueSig.value = el.value;
+      }
+
+      if (context.mode !== 'inline') {
+        context.highlightedIndexSig.value = null;
       }
     });
 
@@ -181,6 +182,12 @@ export const HComboboxInput = component$(
 
           context.selectedValuesSig.value = selectedValuesArray;
         }
+      }
+    });
+
+    useTask$(function inlineModeInit() {
+      if (context.mode === 'inline') {
+        context.highlightedIndexSig.value = 0;
       }
     });
 
@@ -219,13 +226,13 @@ export const HComboboxInput = component$(
         onKeyUp$={[context.removeOnBackspace ? handleKeyUp$ : undefined, props.onKeyUp$]}
         onInput$={[handleInput$, props.onInput$]}
         aria-activedescendant={activeDescendantSig.value}
-        aria-expanded={context.isListboxOpenSig.value ? 'true' : 'false'}
-        aria-controls={panelId}
+        aria-expanded={context.isExpandedSig.value}
+        aria-controls={context.mode === 'inline' ? inlineId : panelId}
         aria-labelledby={labelId}
         aria-describedby={`${descriptionId} 
         ${errorMessageId}`}
         aria-autocomplete="list"
-        aria-haspopup="listbox"
+        aria-haspopup={context.mode === 'inline' ? undefined : 'listbox'}
         ref={inputRef}
         autocomplete="off"
         placeholder={context.placeholder ?? props.placeholder ?? undefined}
