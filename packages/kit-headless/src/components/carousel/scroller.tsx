@@ -7,6 +7,7 @@ import {
   useOnWindow,
   Slot,
   useSignal,
+  sync$,
 } from '@builder.io/qwik';
 import { carouselContextId } from './context';
 import { useStyles$ } from '@builder.io/qwik';
@@ -234,18 +235,51 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
     initialLoadSig.value = false;
   });
 
+  // This only works because we don't need to serialize refs or signals
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let activeCarousel: HTMLElement | null = null;
+  let carouselOrientation: string | null = null;
+
+  const preventTouchStart = sync$((e: TouchEvent) => {
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    const target = e.target as HTMLElement;
+    activeCarousel = target.closest('[data-qui-carousel-scroller]');
+    if (!activeCarousel) return;
+
+    carouselOrientation = activeCarousel.getAttribute('data-orientation');
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+  });
+
+  const preventTouchMove = sync$((e: TouchEvent) => {
+    if (!activeCarousel || !carouselOrientation) return;
+
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    const deltaX = Math.abs(touch.clientX - touchStartX);
+    const deltaY = Math.abs(touch.clientY - touchStartY);
+
+    if (carouselOrientation === 'horizontal' && deltaX > deltaY && deltaX > 5) {
+      e.preventDefault();
+    } else if (carouselOrientation === 'vertical' && deltaY > deltaX && deltaY > 5) {
+      e.preventDefault();
+    }
+  });
+
   return (
     <div
       data-qui-carousel-viewport
       onMouseDown$={[handleMouseDown, onMouseDown$]}
-      onTouchStart$={[handleTouchStart, onTouchStart$]}
-      onTouchMove$={[handleTouchMove, onTouchMove$]}
+      onTouchStart$={[preventTouchStart, handleTouchStart, onTouchStart$]}
+      onTouchMove$={[preventTouchMove, handleTouchMove, onTouchMove$]}
       onTouchEnd$={[handleDragSnap, onTouchEnd$]}
-      preventdefault:touchstart
-      preventdefault:touchmove
       onQVisible$={isNewPosOnLoadSig.value ? setInitialSlidePos : undefined}
       onWheel$={handleWheel}
-      preventdefault:wheel
+      preventdefault:wheel={context.isMouseWheelSig.value}
     >
       <div
         ref={context.scrollerRef}
@@ -254,6 +288,7 @@ export const CarouselScroller = component$((props: PropsOf<'div'>) => {
         data-align={context.alignSig.value}
         data-initial-touch={isTouchStartSig.value ? '' : undefined}
         data-initial={isNewPosOnLoadSig.value ? '' : undefined}
+        data-orientation={context.orientationSig.value}
         {...rest}
       >
         <Slot />

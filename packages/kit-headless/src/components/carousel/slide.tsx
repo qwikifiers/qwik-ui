@@ -52,6 +52,7 @@ export const CarouselSlide = component$(({ _index, ...props }: CarouselSlideProp
         inert={!isVisibleSig.value}
         hidden={isInactiveSig.value}
         aria-roledescription="slide"
+        data-orientation={context.orientationSig.value}
         role={context.bulletRefsArray.value.length > 0 ? 'tabpanel' : undefined}
         data-qui-carousel-slide
         data-active={isVisibleSig.value ? '' : undefined}
