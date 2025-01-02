@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { useDocumentHead, useLocation } from '@builder.io/qwik-city';
-import codeCave from '../../../public/images/contributing/code-cave.webp';
+import codeCave from '../../../public/images/contributing/code-cave.jpg';
 
 /**
  * The RouterHead component is placed inside of the document `<head>` element.
@@ -16,6 +16,11 @@ export const RouterHead = component$(() => {
       <link rel="canonical" href={loc.url.href} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+      {/* Theme and color scheme */}
+      <meta name="color-scheme" content="dark light" />
+      <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
+      <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
 
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
