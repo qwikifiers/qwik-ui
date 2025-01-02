@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.4
+
+### Patch Changes
+
+- ✨ carousel now supports mousewheel navigation in vertical mode (by [@thejackshelton](https://github.com/thejackshelton) in [#1030](https://github.com/qwikifiers/qwik-ui/pull/1030))
+
 ## 0.6.3
 
 ### Patch Changes

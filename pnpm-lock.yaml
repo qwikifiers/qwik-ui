@@ -307,7 +307,7 @@ importers:
         version: 17.7.2
     devDependencies:
       '@qwik-ui/styled':
-        specifier: 0.2.0
+        specifier: 0.3.0
         version: link:../kit-styled
 
   packages/kit-headless:
@@ -338,7 +338,7 @@ importers:
         version: 1.9.0(@types/node@20.12.12)(sass@1.77.4)
     devDependencies:
       '@qwik-ui/headless':
-        specifier: ^0.6.0
+        specifier: ^0.6.4
         version: link:../kit-headless
       '@qwik-ui/utils':
         specifier: 0.3.1
@@ -1547,7 +1547,6 @@ packages:
   '@img/sharp-linux-x64@0.33.4':
     resolution: {integrity: sha512-GoR++s0XW9DGVi8SUGQ/U4AeIzLdNjHka6jidVwapQ/JebGVQIpi52OdyxCNVRE++n1FCLzjDovJNozif7w/Aw==}
     engines: {glibc: '>=2.26', node: ^18.17.0 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0', yarn: '>=3.2.0'}
-    cpu: [x64]
     os: [linux]
 
   '@img/sharp-linuxmusl-arm64@0.33.4':
