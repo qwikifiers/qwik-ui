@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik';
 import { ShowcaseTest } from '../../../../components/showcase-test/showcase-test';
-
 export default component$(() => {
   // Need to center the content in the screen
   // so that tests like popover placement can
