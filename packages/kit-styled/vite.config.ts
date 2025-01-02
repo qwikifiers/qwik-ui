@@ -49,6 +49,6 @@ export default defineConfig({
     globals: true,
     cache: { dir: '../../node_modules/.vitest' },
     environment: 'node',
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    include: ['src/**/*.{spec,test-d}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
   },
 });
