@@ -2,7 +2,7 @@ import { createContextId, QRL, type Signal } from '@builder.io/qwik';
 
 export interface SwitchState {
   'bind:checked': Signal<boolean>;
-  defaultChecked?: boolean;
+  checked?: boolean;
   disabled?: boolean;
   onChange$?: QRL<(checked: boolean, event: MouseEvent | KeyboardEvent) => void>;
   onClick$?: QRL<(checked: boolean, event: MouseEvent | KeyboardEvent) => void>;

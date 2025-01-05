@@ -4,7 +4,7 @@ export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
   const context = useContext(SwitchContext);
   const switchRef = useSignal<HTMLInputElement | undefined>();
   const id = useId();
-  if (context.defaultChecked && context.bindChecked && !context.bindChecked.value) {
+  if (context.checked && context.bindChecked && !context.bindChecked.value) {
     context.bindChecked.value = !context.bindChecked.value;
   }
 
@@ -55,13 +55,15 @@ export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
     >
       <input
         {...rest}
+
+        aria-label={'switch'}
         data-checked={context.bindChecked?.value ? 'true' : 'false'}
         data-disabled={context.disabled ? 'true' : 'false'}
         ref={context.switchRef || switchRef}
         aria-describedby={`${id}-switch`}
         disabled={context.disabled}
+        bind:checked={context.bindChecked}
         checked={context.bindChecked?.value}
-        aria-checked={context.bindChecked ? 'true' : 'false'}
         type="checkbox"
         role="switch"
         data-value
