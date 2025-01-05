@@ -19,7 +19,7 @@ export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
     const keys = ['Enter', ' '];
     if (
       (e as KeyboardEvent)?.key !== undefined &&
-      !keys.includes((e as KeyboardEvent).key)
+      !keys.includes((e as KeyboardEvent).code)
     ) {
       return;
     }
@@ -41,7 +41,7 @@ export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
 
   const handleKeyPressSync$ = sync$((e: KeyboardEvent) => {
     const keys = ['Enter', ' '];
-    if (keys.includes(e.key)) {
+    if (keys.includes(e.code)) {
       e.preventDefault();
     }
   });
