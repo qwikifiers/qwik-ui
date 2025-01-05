@@ -8,28 +8,67 @@
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  & > input {
+
+  [data-switch-track] {
     --thumb-position: 0%;
     --thumb-transition-duration: 0.25s;
-    padding: 4px;
-    background: hsla(var(--switch-track-color-inactive));
-    inline-size: 4rem;
-    block-size: 2rem;
+    position: relative;
+    padding: 2px;
     border-radius: 4rem;
-    appearance: none;
-    pointer-events: none;
-    touch-action: pan-y;
-    border: none;
-    outline-offset: 5px;
-    box-sizing: content-box;
-    flex-shrink: 0;
-    display: grid;
-    align-items: center;
-    grid: [track] 1fr / [track] 1fr;
-    transition: background-color 0.25s ease;
+    background: hsla(var(--switch-track-color-inactive));
 
-    &::before {
-      content: '';
+    & > input {
+      inline-size: 4rem;
+      block-size: 2rem;
+      border-radius: 4rem;
+      appearance: none;
+      pointer-events: none;
+      touch-action: pan-y;
+      border: none;
+      outline-offset: 5px;
+      box-sizing: content-box;
+      flex-shrink: 0;
+      display: grid;
+      align-items: center;
+      grid: [track] 1fr / [track] 1fr;
+      transition: background-color 0.25s ease;
+
+    }
+    & > input:checked {
+      background: hsla(var(--primary));
+    }
+    &:has(> input:checked) {
+      background: hsla(var(--primary));
+    }
+
+
+    &:not(:disabled):hover > [data-switch-thumb] {
+      box-shadow: 0 0 0 0.5rem hsla(var(--switch-thumb-color-highlight));
+    }
+
+    & > input:checked ~ [data-switch-thumb] {
+      transform: translateX(100%);
+    }
+
+    &:has(> input:disabled) {
+      cursor: not-allowed;
+      opacity: 0.35;
+    }
+    & > input:disabled ~ [data-switch-thumb] {
+      cursor: not-allowed;
+      box-shadow: inset 0 0 0 2px hsl(0 0% 100% / 10%) !important;
+    }
+
+    &:focus {
+      outline: 2px solid hsl(var(--primary));
+      outline-offset: 2px;
+    }
+
+    & > [data-switch-thumb] {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      display: inline-block;
       cursor: pointer;
       pointer-events: auto;
       inline-size: 2rem;
@@ -38,30 +77,6 @@
       box-shadow: 0 0 0 0 hsla(var(--switch-thumb-color-highlight));
       border-radius: 50%;
       transform: translateX(0%);
-    }
-
-    &:not(:disabled):hover::before {
-      box-shadow: 0 0 0 0.5rem hsla(var(--switch-thumb-color-highlight));
-    }
-
-    &:checked {
-      background: hsla(var(--primary));
-      &::before {
-        transform: translateX(100%);
-      }
-    }
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.35;
-      &::before {
-        cursor: not-allowed;
-        box-shadow: inset 0 0 0 2px hsl(0 0% 100% / 10%);
-      }
-    }
-
-    &:focus {
-      outline: 2px solid hsl(var(--primary));
-      outline-offset: 2px;
     }
   }
 }

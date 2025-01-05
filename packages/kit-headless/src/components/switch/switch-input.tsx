@@ -1,7 +1,8 @@
-import { component$, PropsOf, sync$, useContext, useId, $ } from '@builder.io/qwik';
+import { component$, PropsOf, sync$, useContext, useId, $, useSignal } from '@builder.io/qwik';
 import { SwitchContext } from './switch-context';
 export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
   const context = useContext(SwitchContext);
+  const switchRef = useSignal<HTMLInputElement | undefined>();
   const id = useId();
   if (context.defaultChecked && context.bindChecked && !context.bindChecked.value) {
     context.bindChecked.value = !context.bindChecked.value;
@@ -12,6 +13,9 @@ export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
   }
 
   const handleClick$ = $((e: MouseEvent | KeyboardEvent) => {
+    if (context.disabled) {
+      return;
+    }
     const keys = ['Enter', ' '];
     if (
       (e as KeyboardEvent)?.key !== undefined &&
@@ -43,21 +47,26 @@ export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
   });
 
   return (
-    <input
-      {...rest}
-      data-checked={context.bindChecked?.value ? 'true' : 'false'}
-      data-disabled={context.disabled ? 'true' : 'false'}
-      ref={context.switchRef}
-      aria-describedby={`${id}-switch`}
-      disabled={context.disabled}
-      aria-checked={context.bindChecked ? 'true' : 'false'}
-      type="checkbox"
-      role="switch"
-      data-value
-      onClick$={[handleClickSync$, handleClick$]}
-      checked={context.bindChecked?.value}
+    <div
+      data-switch-track
       onChange$={[handleClickSync$, handleClick$]}
       onKeyPress$={[handleClick$, handleKeyPressSync$]}
-    />
+      onClick$={[handleClickSync$, handleClick$]}
+    >
+      <input
+        {...rest}
+        data-checked={context.bindChecked?.value ? 'true' : 'false'}
+        data-disabled={context.disabled ? 'true' : 'false'}
+        ref={context.switchRef || switchRef}
+        aria-describedby={`${id}-switch`}
+        disabled={context.disabled}
+        checked={context.bindChecked?.value}
+        aria-checked={context.bindChecked ? 'true' : 'false'}
+        type="checkbox"
+        role="switch"
+        data-value
+        />
+      <span data-switch-thumb></span>
+    </div>
   );
 });
