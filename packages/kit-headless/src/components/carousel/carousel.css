@@ -98,4 +98,8 @@
   [data-qui-carousel-scroller]:hover [data-qui-scroll-start]::before {
     scroll-snap-align: unset;
   }
+
+  [data-initial] [hidden] {
+    display: none;
+  }
 }
