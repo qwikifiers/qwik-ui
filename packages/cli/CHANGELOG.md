@@ -1,5 +1,22 @@
 # qwik-ui
 
+## 0.2.0
+
+### Minor Changes
+
+- ✨ added a barrel file to the components root folder (by [@shairez](https://github.com/shairez) in [#1015](https://github.com/qwikifiers/qwik-ui/pull/1015))
+
+  Now when you generate a component qwik-ui will create an `index.ts` file in your components folder which exports the newly generated components.
+
+  Example: `qwik-ui add input`
+
+  Generated output:
+
+  ```bash
+  src/components/index.ts # exports * from './input/input'
+  src/components/input/input.tsx
+  ```
+
 ## 0.1.4
 
 ### Patch Changes
