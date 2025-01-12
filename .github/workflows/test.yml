@@ -52,4 +52,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate
-      - run: npx pagefind --site dist/apps/website/client && cp -r dist/apps/website/client/pagefind apps/website/public/pagefind
+        run: npx pagefind --site dist/apps/website/client && cp -r dist/apps/website/client/pagefind apps/website/public/pagefind
