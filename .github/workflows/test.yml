@@ -35,6 +35,7 @@ jobs:
 
   continuous-release:
     if: github.event_name == 'pull_request'
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
