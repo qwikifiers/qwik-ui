@@ -12,7 +12,6 @@ import {
   useOnWindow,
   QRL,
 } from '@builder.io/qwik';
-import { isServer } from '@builder.io/qwik/build';
 import SelectContextId, {
   SelectItemContext,
   selectItemContextId,
@@ -60,7 +59,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     if (disabled) return;
 
     if (context.highlightedIndexSig.value === _index) {
-      itemRef.value?.focus();
+      itemRef.value?.focus({ preventScroll: true });
       return true;
     } else {
       return false;
@@ -74,50 +73,12 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     localIndexSig.value = _index;
   });
 
-  const checkVisibility$ = $(async (entries: IntersectionObserverEntry[]) => {
-    const [entry] = entries;
-
-    if (isHighlightedSig.value && !entry.isIntersecting) {
-      const containerRect = context.popoverRef.value?.getBoundingClientRect();
-      const itemRect = itemRef.value?.getBoundingClientRect();
-
-      if (!containerRect || !itemRect) return;
-
-      // Calculates the offset to center the item within the container
-      const offset =
-        itemRect.top - containerRect.top - containerRect.height / 2 + itemRect.height / 2;
-
-      context.popoverRef.value?.scrollBy({ top: offset, ...context.scrollOptions });
-    }
-  });
-
-  useTask$(async function navigationTask({ track, cleanup }) {
+  useTask$(async function navigationTask({ track }) {
     track(() => context.highlightedIndexSig.value);
 
     // update the context with the highlighted item ref
     if (localIndexSig.value === context.highlightedIndexSig.value) {
       context.highlightedItemRef = itemRef;
-    }
-
-    if (isServer || !context.popoverRef.value) return;
-    if (_index !== context.highlightedIndexSig.value) return;
-
-    const hasScrollbar =
-      context.popoverRef.value.scrollHeight > context.popoverRef.value.clientHeight;
-
-    if (!hasScrollbar) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(checkVisibility$, {
-      root: context.popoverRef.value,
-      threshold: 1.0,
-    });
-
-    cleanup(() => observer?.disconnect());
-
-    if (itemRef.value) {
-      observer.observe(itemRef.value);
     }
   });
 
