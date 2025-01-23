@@ -169,6 +169,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     const isDisabledSig = useSignal<boolean>(disabled ?? false);
     const isInvalidSig = useSignal<boolean>(props.invalid ?? false);
     const isKeyboardFocusSig = useSignal<boolean>(false);
+    const isMouseOverPopupSig = useSignal<boolean>(false);
 
     useTask$(({ track }) => {
       /**
@@ -194,6 +195,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       highlightedIndexSig,
       selectedIndexSetSig,
       isKeyboardFocusSig,
+      isMouseOverPopupSig,
       isListboxOpenSig,
       scrollOptions,
       loop,

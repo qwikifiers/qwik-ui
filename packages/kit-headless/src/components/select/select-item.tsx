@@ -182,6 +182,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
 
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
     typeaheadFnSig.value?.(e.key);
+    context.isKeyboardFocusSig.value = true;
 
     switch (e.key) {
       case 'ArrowDown':
