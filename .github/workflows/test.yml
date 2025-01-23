@@ -47,8 +47,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN is provided automatically in any repository
 
-  pagefind:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Generate
-        run: npx pagefind --site dist/apps/website/client && cp -r dist/apps/website/client/pagefind apps/website/public/pagefind
+
+  # pagefind:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Generate
+  #       run: npx pagefind --site dist/apps/website/client && cp -r dist/apps/website/client/pagefind apps/website/public/pagefind
