@@ -18,6 +18,7 @@ import SelectContextId, {
 } from './select-context';
 import { useSelect } from './use-select';
 import { useCombinedRef } from '../../hooks/combined-refs';
+import { isServer } from '@builder.io/qwik/build';
 
 export type SelectItemProps = PropsOf<'div'> & {
   /** Internal index we get from the inline component. Please see select-inline.tsx */
@@ -38,6 +39,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
   const localIndexSig = useSignal<number | null>(null);
   const itemId = `${context.localId}-${_index}`;
   const typeaheadFnSig = useSignal<QRL<(key: string) => Promise<void>>>();
+  const debounceTimeoutSig = useSignal<NodeJS.Timeout>();
 
   const { selectionManager$, getNextEnabledItemIndex$, getPrevEnabledItemIndex$ } =
     useSelect();
@@ -73,13 +75,65 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     localIndexSig.value = _index;
   });
 
-  useTask$(async function navigationTask({ track }) {
+  const checkVisibility$ = $(async (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
+
+    if (isHighlightedSig.value && !entry.isIntersecting) {
+      const containerRect = context.popoverRef.value?.getBoundingClientRect();
+      const itemRect = itemRef.value?.getBoundingClientRect();
+
+      if (!containerRect || !itemRect || !context.isKeyboardFocusSig.value) return;
+
+      // Calculates the offset to center the item within the container
+      const offset =
+        itemRect.top - containerRect.top - containerRect.height / 2 + itemRect.height / 2;
+
+      context.popoverRef.value?.scrollBy({
+        top: document.hasFocus() ? offset : undefined,
+        ...context.scrollOptions,
+      });
+    }
+  });
+
+  useTask$(function handleScrolling({ track, cleanup }) {
     track(() => context.highlightedIndexSig.value);
 
     // update the context with the highlighted item ref
     if (localIndexSig.value === context.highlightedIndexSig.value) {
       context.highlightedItemRef = itemRef;
     }
+
+    if (isServer || !context.popoverRef.value) return;
+
+    const hasScrollbar =
+      context.popoverRef.value.scrollHeight > context.popoverRef.value.clientHeight;
+
+    if (!hasScrollbar) return;
+
+    if (debounceTimeoutSig.value !== undefined) {
+      clearTimeout(debounceTimeoutSig.value);
+    }
+
+    debounceTimeoutSig.value = setTimeout(() => {
+      if (props._index !== context.highlightedIndexSig.value) return;
+
+      const observer = new IntersectionObserver(checkVisibility$, {
+        root: context.popoverRef.value,
+        threshold: 1.0,
+      });
+
+      cleanup(() => observer?.disconnect());
+
+      if (itemRef.value) {
+        observer.observe(itemRef.value);
+      }
+    }, 100);
+
+    cleanup(() => {
+      if (debounceTimeoutSig.value !== undefined) {
+        clearTimeout(debounceTimeoutSig.value);
+      }
+    });
   });
 
   const handleClick$ = $(async () => {

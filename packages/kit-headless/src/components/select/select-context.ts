@@ -21,6 +21,7 @@ export type SelectContext = {
   selectedIndexSetSig: Signal<Set<number>>;
   highlightedIndexSig: Signal<number | null>;
   currDisplayValueSig: Signal<string | string[] | undefined>;
+  isKeyboardFocusSig: Signal<boolean>;
   isListboxOpenSig: Signal<boolean>;
   isDisabledSig: Signal<boolean>;
   localId: string;

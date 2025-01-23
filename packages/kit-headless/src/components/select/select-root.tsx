@@ -168,6 +168,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     const highlightedItemRef = useSignal<HTMLLIElement>();
     const isDisabledSig = useSignal<boolean>(disabled ?? false);
     const isInvalidSig = useSignal<boolean>(props.invalid ?? false);
+    const isKeyboardFocusSig = useSignal<boolean>(false);
 
     useTask$(({ track }) => {
       /**
@@ -192,6 +193,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       localId,
       highlightedIndexSig,
       selectedIndexSetSig,
+      isKeyboardFocusSig,
       isListboxOpenSig,
       scrollOptions,
       loop,
