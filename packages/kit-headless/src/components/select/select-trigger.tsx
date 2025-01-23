@@ -56,6 +56,7 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
 
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
     if (!context.itemsMapSig.value) return;
+    context.isKeyboardFocusSig.value = true;
 
     if (!context.isListboxOpenSig.value) {
       typeahead$(e.key);

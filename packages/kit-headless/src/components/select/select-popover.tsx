@@ -85,6 +85,11 @@ export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) =
     initialLoadSig.value = false;
   });
 
+  const handleMouseEnter$ = $(() => {
+    context.isKeyboardFocusSig.value = false;
+    context.isMouseOverPopupSig.value = true;
+  });
+
   return (
     <HPopoverRoot
       floating={floating}
@@ -105,6 +110,7 @@ export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) =
         aria-expanded={context.isListboxOpenSig.value ? 'true' : undefined}
         aria-multiselectable={context.multiple ? 'true' : undefined}
         aria-labelledby={triggerId}
+        onMouseEnter$={[handleMouseEnter$, props.onMouseEnter$]}
         {...rest}
       >
         <Slot />
