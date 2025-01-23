@@ -119,7 +119,7 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
 
       const observer = new IntersectionObserver(checkVisibility$, {
         root: context.popoverRef.value,
-        threshold: 1.0,
+        threshold: 0,
       });
 
       cleanup(() => observer?.disconnect());
