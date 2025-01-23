@@ -44,13 +44,13 @@ type TMultiValue =
 
 type TStringOrArray =
   | {
-    multiple?: true;
-    onChange$?: QRL<(value: string[]) => void>;
-  }
+      multiple?: true;
+      onChange$?: QRL<(value: string[]) => void>;
+    }
   | {
-    multiple?: false;
-    onChange$?: QRL<(value: string) => void>;
-  };
+      multiple?: false;
+      onChange$?: QRL<(value: string) => void>;
+    };
 
 export type SelectProps<M extends boolean = boolean> = Omit<
   PropsOf<'div'>,
@@ -150,7 +150,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     });
 
     const selectedIndexSetSig = useSignal<Set<number>>(
-      new Set(givenValuePropIndex ? [givenValuePropIndex] : []),
+      new Set([givenValuePropIndex ?? []].flat()),
     );
 
     const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
