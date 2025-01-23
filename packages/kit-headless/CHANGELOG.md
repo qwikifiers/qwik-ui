@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.5
+
+### Patch Changes
+
+- Select fixes for: (by [@thejackshelton](https://github.com/thejackshelton) in [#1042](https://github.com/qwikifiers/qwik-ui/pull/1042))
+
+  - [#1001](https://github.com/qwikifiers/qwik-ui/issues/1001)
+  - [#979](https://github.com/qwikifiers/qwik-ui/issues/979)
+
+  Also fixes for infinite scroll issues when both keyboard and mouse are used to navigate the listbox.
+
 ## 0.6.4
 
 ### Patch Changes
