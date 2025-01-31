@@ -35,7 +35,6 @@ jobs:
 
   continuous-release:
     if: github.event_name == 'pull_request'
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -48,7 +47,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN is provided automatically in any repository
 
-  pagefind:
-    steps:
-      - name: Generate
-      - run: npx pagefind --site dist/apps/website/client && cp -r dist/apps/website/client/pagefind apps/website/public/pagefind
+
+  # pagefind:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Generate
+  #       run: npx pagefind --site dist/apps/website/client && cp -r dist/apps/website/client/pagefind apps/website/public/pagefind

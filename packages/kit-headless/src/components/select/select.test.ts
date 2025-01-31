@@ -839,6 +839,19 @@ test.describe('Props', () => {
       await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
       await expect(d.getItemAt(3)).toHaveAttribute('aria-selected', 'true');
     });
+
+    test(`
+      GIVEN a select
+      WHEN the first option is selected on render
+      THEN the first option should be displayed`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'first-value-selected');
+
+      const expectedValue = await d.getItemAt(0).textContent();
+
+      await expect(d.getValueElement()).toHaveText(expectedValue!);
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
+      await expect(d.getItemAt(0)).toHaveAttribute('aria-selected', 'true');
+    });
   });
 
   test.describe('controlled', () => {

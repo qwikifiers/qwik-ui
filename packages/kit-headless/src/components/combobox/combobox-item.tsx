@@ -141,7 +141,7 @@ export const HComboboxItem = component$((props: HComboboxItemProps) => {
 
       const observer = new IntersectionObserver(checkVisibility$, {
         root: context.panelRef.value,
-        threshold: 1.0,
+        threshold: 0,
       });
 
       cleanup(() => observer?.disconnect());

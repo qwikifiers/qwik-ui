@@ -4,8 +4,7 @@ import { LuChevronDown } from '@qwikest/icons/lucide';
 
 export default component$(() => {
   useStyles$(styles);
-  const activeUsers = ['Tim', 'Ryan', 'Jim', 'Abby'];
-  const offlineUsers = ['Joey', 'Bob', 'Jack', 'John'];
+  const items = Array.from({ length: 100 }, (_, i) => (i + 1).toString());
 
   return (
     <Combobox.Root class="combobox-root">
@@ -17,23 +16,11 @@ export default component$(() => {
         </Combobox.Trigger>
       </Combobox.Control>
       <Combobox.Popover class="combobox-popover combobox-max-height" gutter={8}>
-        <Combobox.Group>
-          <Combobox.GroupLabel class="combobox-group-label">Active</Combobox.GroupLabel>
-          {activeUsers.map((user) => (
-            <Combobox.Item key={user}>
-              <Combobox.ItemLabel>{user}</Combobox.ItemLabel>
-            </Combobox.Item>
-          ))}
-        </Combobox.Group>
-
-        <Combobox.Group>
-          <Combobox.GroupLabel class="combobox-group-label">Offline</Combobox.GroupLabel>
-          {offlineUsers.map((user) => (
-            <Combobox.Item key={user}>
-              <Combobox.ItemLabel>{user}</Combobox.ItemLabel>
-            </Combobox.Item>
-          ))}
-        </Combobox.Group>
+        {items.map((item) => (
+          <Combobox.Item key={item}>
+            <Combobox.ItemLabel>{item}</Combobox.ItemLabel>
+          </Combobox.Item>
+        ))}
       </Combobox.Popover>
     </Combobox.Root>
   );

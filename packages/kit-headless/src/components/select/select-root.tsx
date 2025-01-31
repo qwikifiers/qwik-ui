@@ -44,13 +44,13 @@ type TMultiValue =
 
 type TStringOrArray =
   | {
-    multiple?: true;
-    onChange$?: QRL<(value: string[]) => void>;
-  }
+      multiple?: true;
+      onChange$?: QRL<(value: string[]) => void>;
+    }
   | {
-    multiple?: false;
-    onChange$?: QRL<(value: string) => void>;
-  };
+      multiple?: false;
+      onChange$?: QRL<(value: string) => void>;
+    };
 
 export type SelectProps<M extends boolean = boolean> = Omit<
   PropsOf<'div'>,
@@ -150,7 +150,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     });
 
     const selectedIndexSetSig = useSignal<Set<number>>(
-      new Set(givenValuePropIndex ? [givenValuePropIndex] : []),
+      new Set([givenValuePropIndex ?? []].flat()),
     );
 
     const highlightedIndexSig = useSignal<number | null>(givenValuePropIndex ?? null);
@@ -168,6 +168,8 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     const highlightedItemRef = useSignal<HTMLLIElement>();
     const isDisabledSig = useSignal<boolean>(disabled ?? false);
     const isInvalidSig = useSignal<boolean>(props.invalid ?? false);
+    const isKeyboardFocusSig = useSignal<boolean>(false);
+    const isMouseOverPopupSig = useSignal<boolean>(false);
 
     useTask$(({ track }) => {
       /**
@@ -192,6 +194,8 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       localId,
       highlightedIndexSig,
       selectedIndexSetSig,
+      isKeyboardFocusSig,
+      isMouseOverPopupSig,
       isListboxOpenSig,
       scrollOptions,
       loop,
