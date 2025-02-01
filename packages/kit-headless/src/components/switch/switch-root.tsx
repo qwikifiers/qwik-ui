@@ -4,19 +4,22 @@ import {
   useContextProvider,
   useSignal,
   type PropsOf,
+  useStyles$,
 } from '@builder.io/qwik';
 import {
   type SwitchContextState,
   type SwitchState,
   SwitchContext,
 } from './switch-context';
+import styles from './switch.css?inline';
 export type SwitchProps = PropsOf<'div'> & SwitchState;
 
 export const SwitchRoot = component$(
-  ({ defaultChecked, disabled, onChange$, ...rest }: SwitchProps) => {
+  ({ checked, disabled, onChange$, ...rest }: SwitchProps) => {
+    useStyles$(styles);
     const switchRef = useSignal<HTMLInputElement | undefined>();
     const context: SwitchContextState = {
-      defaultChecked,
+      checked,
       disabled,
       bindChecked: rest['bind:checked'],
       onChange$: onChange$,

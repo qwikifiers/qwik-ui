@@ -1,6 +1,6 @@
 import { component$, PropsOf, sync$, useContext, useId, $, useSignal } from '@builder.io/qwik';
 import { SwitchContext } from './switch-context';
-export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
+export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: string}>((rest) => {
   const context = useContext(SwitchContext);
   const switchRef = useSignal<HTMLInputElement | undefined>();
   const id = useId();
@@ -68,7 +68,7 @@ export const SwitchInput = component$<PropsOf<'input'>>((rest) => {
         role="switch"
         data-value
         />
-      <span data-switch-thumb></span>
+      <span data-switch-thumb class={rest.thumbClassName}></span>
     </div>
   );
 });
