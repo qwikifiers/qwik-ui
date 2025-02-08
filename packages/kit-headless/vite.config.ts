@@ -7,6 +7,7 @@ import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
+import { isDev } from '@builder.io/qwik/build';
 
 const { dependencies = {}, peerDependencies = {} } = pkg as any;
 const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
@@ -64,10 +65,12 @@ export default defineConfig({
         ...excludeAll(dependencies),
         ...excludeAll(peerDependencies),
       ],
-      output: {
-        preserveModules: true,
-        preserveModulesRoot: 'packages/kit-headless/src',
-      },
+      output: isDev
+        ? undefined
+        : {
+            preserveModules: true,
+            preserveModulesRoot: 'packages/kit-headless/src',
+          },
     },
   },
 });
