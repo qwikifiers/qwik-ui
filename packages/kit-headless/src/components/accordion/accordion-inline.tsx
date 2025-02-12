@@ -1,10 +1,10 @@
 import { Component } from '@builder.io/qwik';
 import { type AccordionRootProps, HAccordionRootImpl } from './accordion-root';
-import { Accordion } from '@qwik-ui/headless';
 import { findComponent, processChildren } from '../../utils/inline-component';
+import { HAccordionItem } from './accordion-item';
 
 type InternalProps = {
-  accordionItemComponent?: typeof Accordion.Item;
+  accordionItemComponent?: typeof HAccordionItem;
 };
 
 export const HAccordionRoot: Component<AccordionRootProps & InternalProps> = (
@@ -16,7 +16,7 @@ export const HAccordionRoot: Component<AccordionRootProps & InternalProps> = (
     value: initialValue,
     ...rest
   } = props;
-  const Item = GivenItem || Accordion.Item;
+  const Item = GivenItem || HAccordionItem;
   let currItemIndex = 0;
   let initialIndex = null;
   const itemsMap = new Map();
