@@ -1,23 +1,26 @@
 import { Component } from '@builder.io/qwik';
 import { CarouselBase, PublicCarouselRootProps } from './root';
-import { Carousel } from '@qwik-ui/headless';
 import { findComponent, processChildren } from '../../utils/inline-component';
+import { CarouselSlide } from './slide';
+import { CarouselBullet } from './bullet';
+import { CarouselStep } from './step';
+import { CarouselTitle } from './title';
 
 type InternalProps = {
   value?: string;
   /**
    * @deprecated Use `slideComponent` instead.
    */
-  carouselSlideComponent?: typeof Carousel.Slide;
+  carouselSlideComponent?: typeof CarouselSlide;
   /**
    * @deprecated Use `bulletComponent` instead.
    */
-  carouselBulletComponent?: typeof Carousel.Bullet;
+  carouselBulletComponent?: typeof CarouselBullet;
 
-  slideComponent?: typeof Carousel.Slide;
-  bulletComponent?: typeof Carousel.Bullet;
-  stepComponent?: typeof Carousel.Step;
-  titleComponent?: typeof Carousel.Title;
+  slideComponent?: typeof CarouselSlide;
+  bulletComponent?: typeof CarouselBullet;
+  stepComponent?: typeof CarouselStep;
+  titleComponent?: typeof CarouselTitle;
 };
 
 export const CarouselRoot: Component<PublicCarouselRootProps & InternalProps> = (
@@ -33,10 +36,10 @@ export const CarouselRoot: Component<PublicCarouselRootProps & InternalProps> = 
     titleComponent: GivenTitle,
     ...rest
   } = props;
-  const Slide = GivenSlide || GivenSlideOld || Carousel.Slide;
-  const Bullet = GivenBullet || GivenBulletOld || Carousel.Bullet;
-  const Step = GivenStep || Carousel.Step;
-  const Title = GivenTitle || Carousel.Title;
+  const Slide = GivenSlide || GivenSlideOld || CarouselSlide;
+  const Bullet = GivenBullet || GivenBulletOld || CarouselBullet;
+  const Step = GivenStep || CarouselStep;
+  const Title = GivenTitle || CarouselTitle;
   let currSlideIndex = 0;
   let currBulletIndex = 0;
   let currStepIndex = 0;
