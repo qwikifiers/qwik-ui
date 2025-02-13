@@ -8,7 +8,8 @@ import {
   useSignal,
   useTask$,
 } from '@builder.io/qwik';
-import { Toggle } from '@qwik-ui/headless';
+import { isBrowser, isServer } from '@builder.io/qwik/build';
+
 import {
   Direction,
   Item,
@@ -16,7 +17,7 @@ import {
   toggleGroupRootApiContextId,
 } from './toggle-group-context';
 import { KeyCode } from '../../utils';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
+import { Toggle } from '../toggle';
 
 type NavigationKeys =
   | KeyCode.ArrowRight

@@ -8,10 +8,10 @@ import {
 import { cn } from '@qwik-ui/utils';
 import { ToggleGroup as HeadlessToggleGroup } from '@qwik-ui/headless';
 
-import { toggleVariants } from '@qwik-ui/styled';
 import type { VariantProps } from 'class-variance-authority';
 
 import { createContextId } from '@builder.io/qwik';
+import { toggleVariants } from '../toggle/toggle';
 
 export const toggleGroupStyledContextId = createContextId<ToggleGroupStyledContext>(
   'qui-toggle-group-styled',
