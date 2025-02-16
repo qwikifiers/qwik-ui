@@ -55,13 +55,13 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
     >
       <input
         {...rest}
-
         aria-label={'switch'}
         data-checked={context.bindChecked?.value ? 'true' : 'false'}
         data-disabled={context.disabled ? 'true' : 'false'}
         ref={context.switchRef || switchRef}
         aria-describedby={`${id}-switch`}
         disabled={context.disabled}
+        aria-checked={context.bindChecked?.value ? 'true' : 'false'}
         bind:checked={context.bindChecked}
         checked={context.bindChecked?.value}
         type="checkbox"

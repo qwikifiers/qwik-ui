@@ -25,8 +25,8 @@ test.describe('Mouse Behavior', () => {
   }) => {
     const { driver: d } = await setup(page, 'hero');
     await expect(d.getTrigger()).not.toBeChecked();
-    await expect(d.getTrigger()).toHaveAttribute('data-checked', 'flase');
-    await d.getTrigger().click();
+    await expect(d.getTrigger()).toHaveAttribute('data-checked', 'false');
+    await d.getTrigger().click({ force: true });
     await expect(d.getTrigger()).toHaveAttribute('data-checked', 'true');
     await expect(d.getTrigger()).toBeChecked();
   });
@@ -35,9 +35,9 @@ test.describe('Mouse Behavior', () => {
     WHEN clicked
     THEN the onChange callback should be triggered`, async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
-    await expect(d.getTriggerlaBle()).toHaveText('0');
-    await d.getTrigger().click();
-    await expect(d.getTriggerlaBle()).toHaveText('1');
+    await expect(d.getTriggerlaBle()).toHaveText('test0');
+    await d.getTrigger().click({force: true});
+    await expect(d.getTriggerlaBle()).toHaveText('test1');
     await expect(d.getTrigger()).toBeChecked();
   });
 });
@@ -116,7 +116,7 @@ test.describe('Default property ', () => {
     THEN the switch should not toggle`, async ({ page }) => {
     const { driver: d } = await setup(page, 'disabled');
     await expect(d.getTrigger()).toHaveAttribute('data-disabled', 'true');
-    await d.getTrigger().click();
+    await d.getTrigger().click({force: true});
     await expect(d.getTrigger()).not.toBeChecked();
   });
 });

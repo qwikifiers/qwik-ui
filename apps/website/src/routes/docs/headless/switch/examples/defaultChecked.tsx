@@ -1,10 +1,9 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { Switch } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const checked = useSignal(false);
   return (
-    <Switch.Root class="switch" checked bind:checked={checked}>
+    <Switch.Root class="switch" checked>
       <Switch.Label>test</Switch.Label>
       <Switch.Input />
     </Switch.Root>
