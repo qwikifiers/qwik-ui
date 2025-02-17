@@ -7,9 +7,9 @@ import {
   useContextProvider,
   sync$,
 } from '@builder.io/qwik';
-import { useBoundSignal } from '../../utils/bound-signal';
 import { CheckboxContext } from './checkbox-context';
 import type { QwikIntrinsicElements } from '@builder.io/qwik';
+import { useBoundSignal } from '../../utils/bound-signal';
 
 type AllowedElements = 'li' | 'div' | 'span';
 

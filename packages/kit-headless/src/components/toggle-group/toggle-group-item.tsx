@@ -16,8 +16,8 @@ import {
   Orientation,
   toggleGroupRootApiContextId,
 } from './toggle-group-context';
-import { KeyCode } from '../../utils';
 import { Toggle } from '../toggle';
+import { KeyCode } from '../../utils/key-code.type';
 
 type NavigationKeys =
   | KeyCode.ArrowRight
