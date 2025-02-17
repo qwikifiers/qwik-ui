@@ -10,7 +10,7 @@ export interface SwitchState {
 }
 //
 export type SwitchContextState = Omit<SwitchState, 'bind:checked'> & {
-  bindChecked?: Signal<boolean>;
+  bindChecked: Signal<boolean>;
   switchRef?: Signal<HTMLInputElement | undefined>;
 };
 

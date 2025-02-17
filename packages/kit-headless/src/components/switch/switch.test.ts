@@ -19,6 +19,25 @@ async function setup(page: Page, exampleName: string) {
 
 test.describe('Mouse Behavior', () => {
   test(`GIVEN a hero switch
+       WHEN checking data attributes and properties
+       THEN data-checked and checked property should match`, async ({page}) => {
+        const { driver: d } = await setup(page, 'hero');
+        await expect(d.getTrigger()).toHaveAttribute('aria-label', 'switch');
+        await expect(d.getTrigger()).toHaveAttribute('data-checked', 'false');
+        await expect(d.getTrigger()).toHaveAttribute('data-disabled', 'false');
+        await expect(d.getTrigger()).toHaveAttribute('aria-describedby', expect.stringMatching(/switch$/));
+        await expect(d.getTrigger()).not.toBeDisabled();
+        await expect(d.getTrigger()).toHaveAttribute('aria-checked', 'false');
+        await expect(d.getTrigger()).not.toBeChecked();
+        // type
+        await expect(d.getTrigger()).toHaveAttribute('type', 'checkbox');
+        // role
+        await expect(d.getTrigger()).toHaveAttribute('role', 'switch');
+
+
+
+  })
+  test(`GIVEN a hero switch
         WHEN toggled
         THEN the checked property should correctly reflect the toggle state`, async ({
     page,
