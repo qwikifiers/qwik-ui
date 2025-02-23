@@ -6,9 +6,9 @@ export default component$(() => {
 
   useStyles$(`
     .accordion-root {
-        box-sizing: border-box; 
-        border-radius: 0.275rem; 
-        color: #ffffff; 
+        box-sizing: border-box;
+        border-radius: 0.275rem;
+        color: #ffffff;
         width: 250px;
         max-width: 500px;
         border: 1px solid #4B5563;
@@ -31,17 +31,17 @@ export default component$(() => {
     .accordion-trigger:hover {
         background-color: #374151;
       }
-      
+
       .accordion-trigger.rounded-t-sm {
         border-top-left-radius: 0.125rem;
         border-top-right-radius: 0.125rem;
       }
-      
+
       .accordion-trigger.rounded-b-sm {
         border-bottom-left-radius: 0.125rem;
         border-bottom-right-radius: 0.125rem;
       }
-      
+
       .accordion-trigger.border-b-0 {
         border-bottom: 0;
       }
@@ -49,7 +49,7 @@ export default component$(() => {
       .accordion-trigger[aria-expanded="true"] {
         border-radius: 0;
       }
-      
+
       .accordion-trigger svg {
         transition: transform 500ms ease;
       }
@@ -63,11 +63,11 @@ export default component$(() => {
         background-color: #1F2937;
       }
 
-      .accordion-slide[data-state='open'] {
+      .accordion-slide[data-open] {
         animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-open;
       }
-    
-      .accordion-slide[data-state='closed'] {
+
+      .accordion-slide[data-closed] {
         animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-close;
       }
 
@@ -75,7 +75,7 @@ export default component$(() => {
         background: #1F2937;
         padding: 0.5rem 1rem;
       }
-      
+
       .accordion-item:last-of-type .accordion-content {
         border-bottom-left-radius: 0.275rem;
         border-bottom-right-radius: 0.275rem;
