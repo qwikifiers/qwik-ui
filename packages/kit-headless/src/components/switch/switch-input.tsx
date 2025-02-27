@@ -4,9 +4,6 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
   const context = useContext(SwitchContext);
   const switchRef = useSignal<HTMLInputElement | undefined>();
   const id = useId();
-  if (context.checked && context.bindChecked && !context.bindChecked.value) {
-    context.bindChecked.value = !context.bindChecked.value;
-  }
 
   if (context.autoFocus && !context.switchRef?.value) {
     context.switchRef?.value?.focus();

@@ -117,6 +117,9 @@ test.describe('Default property ', () => {
     `, async ({ page }) => {
     const { driver: d } = await setup(page, 'defaultChecked');
     await expect(d.getTrigger()).toBeChecked();
+    await d.getTrigger().click({ force: true });
+    await expect(d.getTrigger()).not.toBeChecked()
+
   });
 
   test(`

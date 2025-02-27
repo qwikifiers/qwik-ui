@@ -17,7 +17,8 @@ export type SwitchProps = PropsOf<'div'> & SwitchState;
 export const SwitchRoot = component$(
   ({ checked, disabled, onChange$, ...rest }: SwitchProps) => {
     useStyles$(styles);
-    const checkedState = useSignal(rest['bind:checked']?.value ?? false);
+    const defaultChecked = checked || rest['bind:checked']?.value;
+    const checkedState = useSignal(defaultChecked || false);
     const switchRef = useSignal<HTMLInputElement | undefined>();
     const context: SwitchContextState = {
       checked,
