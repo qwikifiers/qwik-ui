@@ -33,9 +33,6 @@ test.describe('Mouse Behavior', () => {
         await expect(d.getTrigger()).toHaveAttribute('type', 'checkbox');
         // role
         await expect(d.getTrigger()).toHaveAttribute('role', 'switch');
-
-
-
   })
   test(`GIVEN a hero switch
         WHEN toggled
@@ -140,5 +137,21 @@ test.describe('Default property ', () => {
     await expect(d.getTrigger()).toHaveAttribute('data-disabled', 'true');
     await d.getTrigger().click({force: true});
     await expect(d.getTrigger()).not.toBeChecked();
+  });
+
+  test(`
+    GIVEN a switch without a label
+    WHEN the switch is mounted
+    THEN it should have a default label`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'pure');
+    await expect(d.getTriggerlaBle()).not.toBeNull();
+  });
+
+  test(`
+    GIVEN a switch with custom attributes
+    WHEN the switch is mounted
+    THEN it should have the custom attributes`, async ({ page }) => {
+      const { driver: d } = await setup(page, 'pure');
+      await expect(d.getTrigger()).toHaveAttribute('data-test', '11');
   });
 });

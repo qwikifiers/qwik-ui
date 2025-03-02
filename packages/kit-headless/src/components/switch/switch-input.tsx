@@ -64,6 +64,7 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
         type="checkbox"
         role="switch"
         data-value
+
         />
       <span data-switch-thumb class={rest.thumbClassName}></span>
     </div>

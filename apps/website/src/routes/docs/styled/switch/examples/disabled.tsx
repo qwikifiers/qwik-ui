@@ -4,11 +4,10 @@ import { Switch } from '~/components/ui';
 export default component$(() => {
   const checked = useSignal(false);
   return (
-    <>
-      <Switch.Root class="switch" bind:checked={checked}>
-        <Switch.Label>test</Switch.Label>
-        <Switch.Input />
-      </Switch.Root>
-    </>
+    <Switch.Root class="switch" disabled bind:checked={checked}>
+      <Switch.Label>test</Switch.Label>
+      <Switch.Input />
+    </Switch.Root>
   );
 });
+

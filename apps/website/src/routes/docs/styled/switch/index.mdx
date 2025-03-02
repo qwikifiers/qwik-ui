@@ -43,6 +43,39 @@ export default component$(() => {
 
 ## Examples
 
-### Checked
+### Mouse Interaction
 
-<Showcase name="hero" vertical />
+<Showcase name="hero" />
+
+- **Toggle State**: Ensures that clicking the switch toggles its checked state correctly.
+- **Trigger onChange**: Verifies that the onChange callback is triggered when the switch is clicked.
+
+### Keyboard Interaction
+
+<Showcase name="hero" />
+
+- **Enter Key**: Tests that pressing the Enter key toggles the switch's state.
+- **Space Key**: Checks that pressing the Space key toggles the switch's state.
+
+### Default Properties
+
+<Showcase name="checked" />
+
+- **Checked by Default**: Confirms that the switch is checked upon initial render if set so.
+- **Disabled State**: Ensures that the switch is disabled and does not respond to user interactions when set so.
+
+### Pure Implementation
+
+<Showcase name="pure" />
+
+- **Minimal Implementation**: Demonstrates a minimal implementation of the switch without additional features.
+- **Custom Data Attribute**: Shows how to add custom data attributes to the switch input element.
+
+### Disabled State
+<Showcase name="disabled" />
+
+- **Checked by Default**: Confirms that the switch is checked upon initial render if set so.
+- **Disabled State**: Ensures that the switch is disabled and does not respond to user interactions when set so.
+- **Label Support**: Includes a label for the switch to enhance accessibility.
+
+

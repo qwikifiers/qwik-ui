@@ -3,10 +3,10 @@ import { Switch } from '@qwik-ui/headless';
 
 export default component$(() => {
   useStyles$(styles);
+
   return (
-    <Switch.Root class="switch" checked>
-      <Switch.Label>test</Switch.Label>
-      <Switch.Input />
+    <Switch.Root class="switch" >
+      <Switch.Input data-test={11}  />
     </Switch.Root>
   );
 });
