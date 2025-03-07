@@ -27,7 +27,7 @@ import {
   ThemePrimaryColors,
   ThemeStyle,
   ThemeStyles,
-} from '@qwik-ui/utils';
+} from '@qwik-ui/extract-theme';
 import { bgRgb, bold, cyan, green, red } from 'ansis';
 import { execSync } from 'child_process';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
