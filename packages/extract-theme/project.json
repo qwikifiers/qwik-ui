@@ -1,0 +1,61 @@
+{
+  "name": "extract-theme",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/extract-theme/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/packages/extract-theme",
+        "configFile": "packages/extract-theme/vite.config.ts",
+        "mode": "lib"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/extract-theme/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/packages/extract-theme"],
+      "options": {
+        "config": "packages/extract-theme/playwright.config.ts",
+        "project": ["logic"]
+      }
+    },
+    "setup-chrome-108": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "setup.chrome.108"
+      }
+    },
+    "e2e-chrome-108": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/packages/extract-theme"],
+      "dependsOn": ["setup-chrome-108"],
+      "options": {
+        "config": "packages/extract-theme/playwright.config.ts",
+        "project": ["popover-chrome-108"]
+      }
+    },
+    "visual-test": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/packages/extract-theme"],
+      "options": {
+        "config": "packages/extract-theme/playwright.config.ts",
+        "project": ["visual"]
+      }
+    }
+  },
+  "tags": []
+}

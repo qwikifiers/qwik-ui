@@ -1,4 +1,4 @@
-import { ObjectValues } from '../type-utils';
+import { ObjectValues } from './type-utils';
 
 export const ThemePrimaryColors = {
   SLATE100: 'primary-slate-100',

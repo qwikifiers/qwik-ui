@@ -15,7 +15,7 @@ import {
   ThemeModes,
   ThemePrimaryColors,
   ThemeStyles,
-} from '@qwik-ui/utils';
+} from '@qwik-ui/extract-theme';
 import { ModulePreload } from './components/module-preload/module-preload';
 
 export default component$(() => {
