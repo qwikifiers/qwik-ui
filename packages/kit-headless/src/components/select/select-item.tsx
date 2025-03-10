@@ -61,7 +61,9 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     if (disabled) return;
 
     if (context.highlightedIndexSig.value === _index) {
-      itemRef.value?.focus({ preventScroll: true });
+      if (!isServer) {
+        itemRef.value?.focus({ preventScroll: true });
+      }
       return true;
     } else {
       return false;

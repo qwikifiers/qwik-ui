@@ -103,7 +103,9 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
           valuePropIndex = currItemIndex;
         }
 
-        const isString = typeof child.props.children === 'string';
+        const isString =
+          typeof child.props.children === 'string' ||
+          typeof child.props.children === 'object';
 
         if (!isString) {
           throw new Error(
