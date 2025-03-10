@@ -1,6 +1,6 @@
-import { $, useOnDocument, useSignal, useTask$ } from '@builder.io/qwik';
+import { $, useOnDocument, useSignal, useTask$ } from '@qwik.dev/core';
 
-import { isBrowser } from '@builder.io/qwik/build';
+import { isBrowser } from '@qwik.dev/core/build';
 
 export function usePopover(customId?: string) {
   const hasPolyfillLoadedSig = useSignal<boolean>(false);

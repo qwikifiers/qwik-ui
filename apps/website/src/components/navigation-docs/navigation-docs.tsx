@@ -1,5 +1,5 @@
-import { PropsOf, component$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { PropsOf, component$ } from '@qwik.dev/core';
+import { useLocation } from '@qwik.dev/router';
 import { ComponentStatus } from '~/_state/component-status.type';
 import { StatusBadge } from '../component-status-badge/component-status-badge';
 import { cn } from '@qwik-ui/utils';

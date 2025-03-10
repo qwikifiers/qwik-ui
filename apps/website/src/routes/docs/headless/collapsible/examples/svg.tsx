@@ -1,4 +1,4 @@
-import { PropsOf } from '@builder.io/qwik';
+import { PropsOf } from '@qwik.dev/core';
 
 export default function SVG(props: PropsOf<'svg'>) {
   return (

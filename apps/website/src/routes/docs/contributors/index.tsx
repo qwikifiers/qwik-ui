@@ -1,5 +1,5 @@
-import { component$ } from '@builder.io/qwik';
-import { RequestHandler, routeLoader$ } from '@builder.io/qwik-city';
+import { component$ } from '@qwik.dev/core';
+import { RequestHandler, routeLoader$ } from '@qwik.dev/router';
 import { Badge } from '@qwik-ui/styled';
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {

@@ -1,4 +1,4 @@
-import { $ } from '@builder.io/qwik';
+import { $ } from '@qwik.dev/core';
 
 export function useCollapsible() {
   /* similar to React's useLayoutEffect, we want to get the height of a hidden element */

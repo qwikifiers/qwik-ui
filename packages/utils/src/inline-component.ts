@@ -1,4 +1,4 @@
-import { JSXChildren, JSXNode } from '@builder.io/qwik';
+import { JSXChildren, JSXNode } from '@qwik.dev/core';
 
 /**
  *

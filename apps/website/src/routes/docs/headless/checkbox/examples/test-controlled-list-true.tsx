@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Checklist } from '@qwik-ui/headless';
 // this test basically ensures that the sig passed to the checklist controlls trumps all its children
 export default component$(() => {

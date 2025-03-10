@@ -5,7 +5,7 @@ import {
   useContext,
   Slot,
   useContextProvider,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 export const MDXContext = createContextId<Components>('MDXContext');
 

@@ -10,7 +10,7 @@ import {
   useSignal,
   useTask$,
   type FunctionComponent,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { KeyCode } from '../../utils/key-code.type';
 import { Behavior } from './behavior.type';
 import { findNextEnabledTab, findPrevEnabledTab, getEnabledTab } from './get-enabled-tab';

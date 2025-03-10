@@ -1,10 +1,4 @@
-import {
-  component$,
-  useContext,
-  type PropsOf,
-  useComputed$,
-  Slot,
-} from '@builder.io/qwik';
+import { component$, useContext, type PropsOf, useComputed$, Slot } from '@qwik.dev/core';
 
 import SelectContextId from './select-context';
 

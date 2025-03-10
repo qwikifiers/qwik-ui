@@ -1,6 +1,6 @@
-import { ContentHeading } from '@builder.io/qwik-city';
+import { ContentHeading } from '@qwik.dev/router';
 import { cn } from '@qwik-ui/utils';
-import { component$, useSignal, $, useOnWindow } from '@builder.io/qwik';
+import { component$, useSignal, $, useOnWindow } from '@qwik.dev/core';
 
 export const DashboardTableOfContents = component$(
   ({ headings }: { headings: ContentHeading[] }) => {
@@ -25,7 +25,11 @@ interface Node extends ContentHeading {
 type Tree = Array<Node>;
 
 const TableOfContents = component$<TableOfContentsProps>(({ headings }) => {
-  const sanitizedHeadings = headings.map(({ text, id, level }) => ({ text, id, level }));
+  const sanitizedHeadings = headings.map(({ text, id, level }) => ({
+    text,
+    id,
+    level,
+  }));
   const itemIds = headings.map(({ id }) => id);
   const activeHeading = useActiveItem(itemIds);
   const tree = buildTree(sanitizedHeadings);

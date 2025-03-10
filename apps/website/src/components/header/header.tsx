@@ -5,11 +5,11 @@ import {
   useComputed$,
   useSignal,
   useStyles$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as headlessVersion } from '../../../../../packages/kit-headless/package.json';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { useLocation } from '@builder.io/qwik-city';
+import { useLocation } from '@qwik.dev/router';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { version as styledKitVersion } from '../../../../../packages/kit-styled/package.json';

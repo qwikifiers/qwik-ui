@@ -1,4 +1,4 @@
-import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { $, component$, useSignal, useStyles$ } from '@qwik.dev/core';
 import { Select } from '@qwik-ui/headless';
 import styles from '../snippets/select.css?inline';
 export default component$(() => {

@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useContext } from '@qwik.dev/core';
 import { comboboxItemContextId } from './combobox-context';
 
 type HComboboxItemLabelProps = PropsOf<'span'>;

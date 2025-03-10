@@ -1,4 +1,4 @@
-import { $, component$, type PropsOf } from '@builder.io/qwik';
+import { $, component$, type PropsOf } from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 
 type InputProps = PropsOf<'input'> & {

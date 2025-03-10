@@ -1,5 +1,5 @@
-import { Component, component$, useSignal, useTask$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { Component, component$, useSignal, useTask$ } from '@qwik.dev/core';
+import { useLocation } from '@qwik.dev/router';
 import { Tabs } from '@qwik-ui/headless';
 import { Highlight } from '../highlight/highlight';
 import { metaGlobComponents, rawComponents } from './component-imports';

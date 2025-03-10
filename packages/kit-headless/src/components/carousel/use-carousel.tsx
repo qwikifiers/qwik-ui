@@ -1,5 +1,5 @@
-import { useSignal, useTask$, $, useComputed$ } from '@builder.io/qwik';
-import { isServer } from '@builder.io/qwik/build';
+import { useSignal, useTask$, $, useComputed$ } from '@qwik.dev/core';
+import { isServer } from '@qwik.dev/core/build';
 import { CarouselContext } from './context';
 
 export function useCarousel(context: CarouselContext) {

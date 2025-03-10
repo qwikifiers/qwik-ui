@@ -10,10 +10,10 @@ import {
   useSignal,
   useTask$,
   useVisibleTask$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { ThemeScript } from './theme-script';
 import type { SystemTheme, Theme, ThemeProviderProps, UseThemeProps } from './types';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer } from '@qwik.dev/core/build';
 
 const ThemeContext = createContextId<UseThemeProps>('theme-context');
 

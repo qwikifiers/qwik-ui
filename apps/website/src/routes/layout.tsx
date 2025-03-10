@@ -1,6 +1,6 @@
 /* eslint-disable qwik/no-react-props */
-import { Slot, component$ } from '@builder.io/qwik';
-import { type ContentMenu, useContent, useLocation } from '@builder.io/qwik-city';
+import { Slot, component$ } from '@qwik.dev/core';
+import { type ContentMenu, useContent, useLocation } from '@qwik.dev/router';
 import {
   type ComponentsStatusesMap,
   statusByComponent,

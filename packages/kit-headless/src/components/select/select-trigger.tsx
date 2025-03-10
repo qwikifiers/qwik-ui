@@ -6,7 +6,7 @@ import {
   useContext,
   useSignal,
   type PropsOf,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import SelectContextId from './select-context';
 import { useSelect, useTypeahead } from './use-select';
 import { useCombinedRef } from '../../hooks/combined-refs';

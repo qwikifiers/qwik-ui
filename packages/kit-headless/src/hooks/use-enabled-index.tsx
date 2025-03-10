@@ -1,4 +1,4 @@
-import { $ } from '@builder.io/qwik';
+import { $ } from '@qwik.dev/core';
 
 export function useEnabledIndex() {
   const getNextEnabledItemIndex$ = $(

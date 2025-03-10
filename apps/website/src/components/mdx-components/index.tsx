@@ -1,4 +1,4 @@
-import { type Component, type PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { type Component, type PropsOf, Slot, component$ } from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';

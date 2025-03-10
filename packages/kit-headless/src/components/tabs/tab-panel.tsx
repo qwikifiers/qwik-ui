@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { PropsOf, Slot, component$, useComputed$, useContext } from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useComputed$, useContext } from '@qwik.dev/core';
 import { TAB_ID_PREFIX } from './tab';
 import { tabsContextId } from './tabs-context-id';
 

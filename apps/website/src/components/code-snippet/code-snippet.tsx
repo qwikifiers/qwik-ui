@@ -1,5 +1,5 @@
-import { PropsOf, component$, useSignal, useTask$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { PropsOf, component$, useSignal, useTask$ } from '@qwik.dev/core';
+import { useLocation } from '@qwik.dev/router';
 import { Highlight } from '../highlight/highlight';
 
 // The below `/src/routes/docs/**/**/snippets/*.tsx` pattern is here so that import.meta.glob works both for styled and headless routes.

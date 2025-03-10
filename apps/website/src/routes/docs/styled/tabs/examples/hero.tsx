@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Button, Card, Input, Label, Tabs } from '@qwik-ui/styled';
 
 export default component$(() => {

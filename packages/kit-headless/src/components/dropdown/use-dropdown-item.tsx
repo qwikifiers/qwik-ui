@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { $, useComputed$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
-import { isServer } from '@builder.io/qwik/build';
+import { $, useComputed$, useContext, useSignal, useTask$ } from '@qwik.dev/core';
+import { isServer } from '@qwik.dev/core/build';
 
 import { DropdownItemProps } from './dropdown-item';
 import { dropdownContextId } from './dropdown-context';

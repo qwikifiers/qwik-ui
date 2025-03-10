@@ -1,4 +1,4 @@
-import { component$, PropsOf, Slot } from '@builder.io/qwik';
+import { component$, PropsOf, Slot } from '@qwik.dev/core';
 
 type HeadingUnion = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 

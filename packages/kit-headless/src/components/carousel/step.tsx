@@ -5,7 +5,7 @@ import {
   useComputed$,
   useContext,
   $,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { carouselContextId } from './context';
 
 type AllowedElements = 'button' | 'a' | 'div' | 'span';
@@ -39,7 +39,9 @@ export const CarouselStep = component$(
           aria-current={isCurrentSig.value}
           data-current={isCurrentSig.value ? '' : undefined}
           data-step={localIndexSig.value + 1}
-          {...(Comp === 'button' && { onClick$: [handleClick$, rest.onClick$] })}
+          {...(Comp === 'button' && {
+            onClick$: [handleClick$, rest.onClick$],
+          })}
           {...rest}
         >
           <Slot />

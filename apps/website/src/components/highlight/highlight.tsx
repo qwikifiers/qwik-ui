@@ -5,7 +5,7 @@ import {
   useSignal,
   useTask$,
   $,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { CodeCopy } from '../code-copy/code-copy';
 import { cn } from '@qwik-ui/utils';
 import { codeToHtml } from 'shiki';

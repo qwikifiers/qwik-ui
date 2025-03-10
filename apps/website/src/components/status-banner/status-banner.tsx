@@ -1,4 +1,4 @@
-import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useSignal, useStylesScoped$ } from '@qwik.dev/core';
 import { Badge } from '~/components/ui';
 import { cn } from '@qwik-ui/utils';
 import { ComponentStatus } from '~/_state/component-status.type';

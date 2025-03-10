@@ -1,4 +1,4 @@
-import { type QRL, type Signal } from '@builder.io/qwik';
+import { type QRL, type Signal } from '@qwik.dev/core';
 
 export interface CollapsibleContext {
   itemId: string;

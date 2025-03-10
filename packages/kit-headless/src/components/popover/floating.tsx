@@ -9,10 +9,10 @@ import {
   autoUpdate,
   computePosition,
 } from '@floating-ui/dom';
-import { PropsOf, Slot, component$, useContext, useTask$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useContext, useTask$ } from '@qwik.dev/core';
 
 import { HPopoverPanelImpl } from './popover-panel-impl';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer } from '@qwik.dev/core/build';
 import { popoverContextId } from './popover-context';
 
 export const FloatingPopover = component$((props: PropsOf<'div'>) => {

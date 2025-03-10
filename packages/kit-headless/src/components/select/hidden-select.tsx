@@ -1,4 +1,4 @@
-import { PropsOf, component$, useContext, useSignal } from '@builder.io/qwik';
+import { PropsOf, component$, useContext, useSignal } from '@qwik.dev/core';
 import SelectContextId from './select-context';
 import { HiddenSelectOption } from './hidden-select-option';
 import { VisuallyHidden } from '../../utils/visually-hidden';

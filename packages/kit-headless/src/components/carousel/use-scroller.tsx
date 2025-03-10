@@ -1,5 +1,5 @@
 import { CarouselContext } from './context';
-import { $, useSignal, useTask$ } from '@builder.io/qwik';
+import { $, useSignal, useTask$ } from '@qwik.dev/core';
 
 type OrientationProps = {
   size: 'width' | 'height';

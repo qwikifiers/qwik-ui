@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@qwik.dev/core';
 import { Carousel } from '@qwik-ui/headless';
 
 export default component$(() => {
@@ -36,7 +36,11 @@ export default component$(() => {
         </Carousel.Scroller>
 
         <Carousel.Pagination
-          style={{ display: 'flex', justifyContent: 'center', marginTop: '0.5rem' }}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '0.5rem',
+          }}
         >
           {colors.map((_, index) => {
             return (

@@ -1,5 +1,5 @@
-import type { QRL, Signal } from '@builder.io/qwik';
-import { createContextId } from '@builder.io/qwik';
+import type { QRL, Signal } from '@qwik.dev/core';
+import { createContextId } from '@qwik.dev/core';
 
 export const toggleGroupRootApiContextId = createContextId<ToggleGroupRootApiContext>(
   'qui-toggle-group-root-api',

@@ -1,4 +1,4 @@
-import { PropsOf, component$, useComputed$, useContext } from '@builder.io/qwik';
+import { PropsOf, component$, useComputed$, useContext } from '@qwik.dev/core';
 import { ProgressContext } from './progress-context';
 
 type ProgressIndicatorElement = PropsOf<'div'>;

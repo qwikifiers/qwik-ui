@@ -7,7 +7,7 @@ import {
   sync$,
   useSignal,
   useTask$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 import { CheckboxRoot } from '../checkbox/checkbox-root';
 import { DropdownItemProps } from './dropdown-item';
@@ -57,7 +57,11 @@ export const HDropdownCheckboxItem = component$((props: DropdownCheckboxItemProp
     itemId,
     itemRef,
     isHighlightedSig,
-  } = useDropdownItem({ ...props, onItemSelect: toggleChecked$, closeOnSelect });
+  } = useDropdownItem({
+    ...props,
+    onItemSelect: toggleChecked$,
+    closeOnSelect,
+  });
 
   //Prevent default behavior for certain keys. This needs to be sync to prevent default behavior and can't be implemented in useDropdownItem.
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {

@@ -21,7 +21,7 @@ qwik-ui add input
 ```
 
 ```tsx
-import { $, component$, type PropsOf } from '@builder.io/qwik';
+import { $, component$, type PropsOf } from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 
 type InputProps = PropsOf<'input'> & {
@@ -48,7 +48,7 @@ export const Input = component$<InputProps>(
           id={inputId}
         />
         {error && (
-          <div id={`${inputId}-error`} class="text-alert mt-1 text-sm">
+          <div id={`${inputId}-error`} class="mt-1 text-sm text-alert">
             {error}
           </div>
         )}

@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@qwik.dev/core';
 import { Checkbox, Checklist } from '@qwik-ui/headless';
 // TODO: add logic to handle user passed sigs with trues
 // this test basically ensures that the sig passed to the checklist controlls trumps all its children

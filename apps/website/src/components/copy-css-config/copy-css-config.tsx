@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@qwik.dev/core';
 import { Modal } from '@qwik-ui/headless';
 import { Button } from '~/components/ui';
 import { extractThemeCSS } from '@qwik-ui/utils';

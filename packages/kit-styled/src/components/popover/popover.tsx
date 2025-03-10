@@ -1,4 +1,4 @@
-import { type PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { type PropsOf, Slot, component$ } from '@qwik.dev/core';
 import { Popover as HeadlessPopover } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 

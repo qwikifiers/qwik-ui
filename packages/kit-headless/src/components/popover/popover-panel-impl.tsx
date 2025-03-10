@@ -9,9 +9,9 @@ import {
   useTask$,
   type CorrectedToggleEvent,
   type PropsOf,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
-import { isServer } from '@builder.io/qwik/build';
+import { isServer } from '@qwik.dev/core/build';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { popoverContextId } from './popover-context';
 import popoverStyles from './popover.css?inline';

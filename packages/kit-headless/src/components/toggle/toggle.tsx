@@ -1,5 +1,5 @@
-import type { PropsOf, QRL, Signal } from '@builder.io/qwik';
-import { $, component$, Slot, sync$, useTask$ } from '@builder.io/qwik';
+import type { PropsOf, QRL, Signal } from '@qwik.dev/core';
+import { $, component$, Slot, sync$, useTask$ } from '@qwik.dev/core';
 import { useBoundSignal } from '../../utils/bound-signal2';
 
 export type ToggleProps = PropsOf<'button'> & {

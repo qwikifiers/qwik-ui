@@ -11,14 +11,14 @@ import {
   sync$,
   useOnWindow,
   QRL,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import SelectContextId, {
   SelectItemContext,
   selectItemContextId,
 } from './select-context';
 import { useSelect } from './use-select';
 import { useCombinedRef } from '../../hooks/combined-refs';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer } from '@qwik.dev/core/build';
 
 export type SelectItemProps = PropsOf<'div'> & {
   /** Internal index we get from the inline component. Please see select-inline.tsx */

@@ -1,7 +1,7 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@qwik.dev/core';
 import styles from '../snippets/toggle.css?inline';
 import { ToggleGroup } from '@qwik-ui/headless';
-import { useSignal } from '@builder.io/qwik';
+import { useSignal } from '@qwik.dev/core';
 
 export default component$(() => {
   useStyles$(styles);

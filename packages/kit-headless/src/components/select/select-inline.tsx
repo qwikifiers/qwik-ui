@@ -1,4 +1,4 @@
-import { type JSXNode, Component } from '@builder.io/qwik';
+import { type JSXNode, Component } from '@qwik.dev/core';
 import { HSelectImpl, type SelectProps } from './select-root';
 import { HSelectItem as InternalSelectItem } from './select-item';
 import { HSelectItemLabel as InternalSelectItemLabel } from './select-item-label';
@@ -85,7 +85,11 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
         // distinct value, or the display value is the same as the value
         const value = (givenItemValue !== null ? givenItemValue : displayValue) as string;
 
-        itemsMap.set(currItemIndex, { value, displayValue, disabled: isItemDisabled });
+        itemsMap.set(currItemIndex, {
+          value,
+          displayValue,
+          disabled: isItemDisabled,
+        });
 
         if (props.value && props.multiple) {
           throw new Error(

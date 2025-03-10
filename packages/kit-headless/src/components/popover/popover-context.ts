@@ -1,4 +1,4 @@
-import { Signal, createContextId } from '@builder.io/qwik';
+import { Signal, createContextId } from '@qwik.dev/core';
 import { TPlacement } from './popover-root';
 
 export const popoverContextId = createContextId<PopoverContext>('qui-popover');

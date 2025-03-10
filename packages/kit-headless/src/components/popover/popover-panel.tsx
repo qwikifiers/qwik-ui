@@ -1,4 +1,4 @@
-import { component$, PropsOf, Slot, useContext } from '@builder.io/qwik';
+import { component$, PropsOf, Slot, useContext } from '@qwik.dev/core';
 import { FloatingPopover } from './floating';
 import { HPopoverPanelImpl } from './popover-panel-impl';
 import { popoverContextId } from './popover-context';

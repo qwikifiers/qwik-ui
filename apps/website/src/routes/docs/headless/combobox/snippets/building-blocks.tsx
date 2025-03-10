@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Combobox } from '@qwik-ui/headless';
 import { LuCheck } from '@qwikest/icons/lucide';
 

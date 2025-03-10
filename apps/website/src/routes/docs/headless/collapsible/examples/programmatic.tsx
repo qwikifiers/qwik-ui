@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@qwik.dev/core';
 import { Collapsible } from '@qwik-ui/headless';
 import styles from '../snippets/collapsible.css?inline';
 
@@ -9,7 +9,11 @@ export default component$(() => {
   return (
     <>
       <input
-        style={{ width: '20px', height: '20px', accentColor: 'hsl(var(--primary))' }}
+        style={{
+          width: '20px',
+          height: '20px',
+          accentColor: 'hsl(var(--primary))',
+        }}
         type="checkbox"
         bind:checked={isOpen}
       />

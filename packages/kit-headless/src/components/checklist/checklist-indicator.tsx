@@ -1,4 +1,4 @@
-import { component$, type PropsOf, Slot } from '@builder.io/qwik';
+import { component$, type PropsOf, Slot } from '@qwik.dev/core';
 import { CheckboxIndicator } from '../checkbox/checkbox-indicator';
 
 type ChecklistItemIndicatorProps = PropsOf<'div'>;
