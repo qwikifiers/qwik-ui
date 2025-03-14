@@ -3,11 +3,10 @@
 exports[`Setup Tailwind generator 
     GIVEN no options are passed
     THEN it should generate "simple" style with primary color "cyan-600", base color "slate" and border-radius 0 1`] = `
-"
-  @tailwind components;
+"@tailwind components;
 @tailwind base;
 @tailwind utilities;
-  @layer base {
+@layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 47.4% 11.2%;
@@ -33,9 +32,12 @@ exports[`Setup Tailwind generator
     --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
     --transform-press: scale(0.95);
@@ -65,15 +67,17 @@ exports[`Setup Tailwind generator
     --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
     --transform-press: scale(0.95);
   }
 }
-  
 
 html {
   height: 100%;
@@ -82,17 +86,16 @@ html {
   background-color: var(--color-bg) !important;
   color: var(--color-text) !important;
 }
-  "
+"
 `;
 
 exports[`Setup Tailwind generator 
     GIVEN style is "brutalist" and primary color is "red-600" and border-radius is 1
     THEN it should generate the correct theme 1`] = `
-"
-  @tailwind components;
+"@tailwind components;
 @tailwind base;
 @tailwind utilities;
-  @layer base {
+@layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 47.4% 11.2%;
@@ -158,7 +161,6 @@ exports[`Setup Tailwind generator
     --transform-press: translate(4px, 4px);
   }
 }
-  
 
 html {
   height: 100%;
@@ -167,7 +169,7 @@ html {
   background-color: var(--color-bg) !important;
   color: var(--color-text) !important;
 }
-  "
+"
 `;
 
 exports[`Setup Tailwind generator 
@@ -178,9 +180,10 @@ exports[`Setup Tailwind generator
 const { join } = require('path');
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {plugins: [
-require('tailwindcss-animate'),
-    plugin(function ({ addUtilities,theme,e }) {
+module.exports = {
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(function ({ addUtilities, theme, e }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
@@ -199,25 +202,22 @@ require('tailwindcss-animate'),
       }, {});
 
       addUtilities(blockSizeUtilities, ['responsive', 'hover']);
-
     }),
   ],
 
-  
-content: [
-  join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
-],
-darkMode: 'class',
-theme: {
-  screens: {
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px',
-    '2xl': '1536px',
-  },
-  important: true,
-  extend: {colors: {
+  content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
+  darkMode: 'class',
+  theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
+    important: true,
+    extend: {
+      colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -301,14 +301,13 @@ theme: {
           to: { height: '0' },
         },
       },
-    fontFamily: {
-      sans: ['Inter Variable', 'sans-serif'],
+      fontFamily: {
+        sans: ['Inter Variable', 'sans-serif'],
+      },
     },
   },
-},
-
 };
-  "
+"
 `;
 
 exports[`Setup Tailwind generator 
@@ -318,9 +317,10 @@ exports[`Setup Tailwind generator
 "import plugin from 'tailwindcss/plugin';
 
 /** @type {import('tailwindcss').Config} */
-export default {plugins: [
-require('tailwindcss-animate'),
-    plugin(function ({ addUtilities,theme,e }) {
+export default {
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(function ({ addUtilities, theme, e }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
@@ -339,25 +339,22 @@ require('tailwindcss-animate'),
       }, {});
 
       addUtilities(blockSizeUtilities, ['responsive', 'hover']);
-
     }),
   ],
 
-  
-content: [
-  join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
-],
-darkMode: 'class',
-theme: {
-  screens: {
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px',
-    '2xl': '1536px',
-  },
-  important: true,
-  extend: {colors: {
+  content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
+  darkMode: 'class',
+  theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
+    important: true,
+    extend: {
+      colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -441,14 +438,13 @@ theme: {
           to: { height: '0' },
         },
       },
-    fontFamily: {
-      sans: ['Inter Variable', 'sans-serif'],
+      fontFamily: {
+        sans: ['Inter Variable', 'sans-serif'],
+      },
     },
   },
-},
-
 };
-  "
+"
 `;
 
 exports[`Setup Tailwind generator 
@@ -458,8 +454,9 @@ exports[`Setup Tailwind generator
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  plugins: [require('tailwindcss-animate'),
-    plugin(function ({ addUtilities,theme,e }) {
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(function ({ addUtilities, theme, e }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
@@ -478,22 +475,22 @@ export default {
       }, {});
 
       addUtilities(blockSizeUtilities, ['responsive', 'hover']);
-
-    }),somePlugin],
-content: [
-  join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
-],
-darkMode: 'class',
-theme: {
-  screens: {
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px',
-    '2xl': '1536px',
-  },
-  important: true,
-  extend: {colors: {
+    }),
+    somePlugin,
+  ],
+  content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}')],
+  darkMode: 'class',
+  theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
+    important: true,
+    extend: {
+      colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -577,12 +574,11 @@ theme: {
           to: { height: '0' },
         },
       },
-    fontFamily: {
-      sans: ['Inter Variable', 'sans-serif'],
+      fontFamily: {
+        sans: ['Inter Variable', 'sans-serif'],
+      },
     },
   },
-},
-
 };
-  "
+"
 `;
