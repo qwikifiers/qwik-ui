@@ -20,20 +20,8 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
     ) {
       return;
     }
-    // keycode
-
     context.switchRef?.value?.focus();
     context.bindChecked.value = !context.bindChecked.value;
-    if (context.onChange$) {
-      context.onChange$(context.bindChecked.value, e);
-    }
-
-    if (context.onClick$) {
-      context.onClick$(context.bindChecked.value, e);
-    }
-  });
-  const handleClickSync$ = sync$((e: MouseEvent) => {
-    e.preventDefault();
   });
 
   const handleKeyPressSync$ = sync$((e: KeyboardEvent) => {
@@ -46,9 +34,12 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
   return (
     <div
       data-switch-track
-      onChange$={[handleClickSync$, handleClick$]}
-      onKeyPress$={[handleClick$, handleKeyPressSync$]}
-      onClick$={[handleClickSync$, handleClick$]}
+      preventdefault:click
+      preventdefault:change
+      preventdefault:keypress
+      onChange$={[handleClick$, context?.onChange$]}
+      onKeyPress$={[handleClick$, handleKeyPressSync$, context?.onKeyPress$]}
+      onClick$={[handleClick$, context?.onClick$]}
     >
       <input
         {...rest}

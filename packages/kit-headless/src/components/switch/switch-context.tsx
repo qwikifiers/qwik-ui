@@ -4,8 +4,9 @@ export interface SwitchState {
   'bind:checked'?: Signal<boolean>;
   checked?: boolean;
   disabled?: boolean;
-  onChange$?: QRL<(checked: boolean, event: MouseEvent | KeyboardEvent) => void>;
-  onClick$?: QRL<(checked: boolean, event: MouseEvent | KeyboardEvent) => void>;
+  onChange$?: QRL<(event: MouseEvent | KeyboardEvent) => void>;
+  onClick$?: QRL<(event: MouseEvent | KeyboardEvent) => void>;
+  onKeyPress$?: QRL<(event: KeyboardEvent) => void>;
   autoFocus?: boolean;
 }
 //
