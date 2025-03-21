@@ -1,8 +1,7 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
-import { Switch } from '@qwik-ui/headless';
+import { component$ } from '@builder.io/qwik';
+import { Switch } from '~/components/ui';
 
 export default component$(() => {
-  useStyles$(styles);
   return (
     <Switch.Root class="switch" checked>
       <Switch.Label>test</Switch.Label>
@@ -11,4 +10,3 @@ export default component$(() => {
   );
 });
 
-import styles from '../snippets/switch.css?inline';

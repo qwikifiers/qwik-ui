@@ -100,6 +100,21 @@ While there are efforts to enhance the native checkbox element, such as the [Ope
 - **Checked by Default**: Confirms that the switch is checked upon initial render if set so.
 - **Disabled State**: Ensures that the switch is disabled and does not respond to user interactions when set so.
 
+### Pure Implementation
+
+<Showcase name="pure" />
+
+- **Minimal Implementation**: Demonstrates a minimal implementation of the switch without additional features.
+- **Custom Data Attribute**: Shows how to add custom data attributes to the switch input element.
+
+### Disabled State
+<Showcase name="disabled" />
+
+- **Checked by Default**: Confirms that the switch is checked upon initial render if set so.
+- **Disabled State**: Ensures that the switch is disabled and does not respond to user interactions when set so.
+- **Label Support**: Includes a label for the switch to enhance accessibility.
+
+
 ## API
 
 ### Switch.Root
@@ -127,7 +142,7 @@ While there are efforts to enhance the native checkbox element, such as the [Ope
         'Callback function that is triggered when the switch is clicked.',
     },
     {
-      name: 'defaultChecked',
+      name: 'checked',
       description:
         'Sets the switch to the checked state by default.',
     },
