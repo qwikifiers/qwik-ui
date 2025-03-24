@@ -12,13 +12,15 @@ import {
   SwitchContext,
 } from './switch-context';
 import styles from './switch.css?inline';
+import { useBoundSignal } from '../../utils/bound-signal';
+useBoundSignal;
 export type SwitchProps = PropsOf<'div'> & SwitchState;
 
 export const SwitchRoot = component$(
   ({ checked, disabled, onChange$, ...rest }: SwitchProps) => {
     useStyles$(styles);
-    const defaultChecked = checked || rest['bind:checked']?.value;
-    const checkedState = useSignal(defaultChecked || false);
+    const defaultChecked = useBoundSignal(rest['bind:checked'], checked);
+    const checkedState = useSignal(defaultChecked.value || false);
     const switchRef = useSignal<HTMLInputElement | undefined>();
     const context: SwitchContextState = {
       checked,
