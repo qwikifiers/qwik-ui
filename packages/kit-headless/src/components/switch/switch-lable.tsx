@@ -3,7 +3,7 @@ export const SwitchLable = component$<PropsOf<'lable'>>((rest) => {
   const id = useId();
   return (
     <label aria-label="switch-label" for={`switch-${id}`} data-switch-lable {...rest}>
-      <Slot></Slot>
+      <Slot/>
     </label>
   );
 });

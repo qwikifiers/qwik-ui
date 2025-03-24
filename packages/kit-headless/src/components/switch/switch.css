@@ -1,4 +1,4 @@
-@layer switch-track {
+@layer qwik-ui {
   [data-switch-track] {
     position: relative;
     padding: 2px;
