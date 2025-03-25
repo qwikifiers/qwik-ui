@@ -5,22 +5,10 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
   const switchRef = useSignal<HTMLInputElement | undefined>();
   const id = useId();
 
-  if (context.autoFocus && !context.switchRef?.value) {
-    context.switchRef?.value?.focus();
-  }
-
-  const handleClick$ = $((e: MouseEvent | KeyboardEvent) => {
+  const handleClick$ = $(() => {
     if (context.disabled) {
       return;
     }
-    const keys = ['Enter', ' '];
-    if (
-      (e as KeyboardEvent)?.key !== undefined &&
-      !keys.includes((e as KeyboardEvent).code)
-    ) {
-      return;
-    }
-    context.switchRef?.value?.focus();
     context.bindChecked.value = !context.bindChecked.value;
   });
 
@@ -38,7 +26,7 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
       preventdefault:change
       preventdefault:keypress
       onChange$={[handleClick$, context?.onChange$]}
-      onKeyPress$={[handleClick$, handleKeyPressSync$, context?.onKeyPress$]}
+      onKeyPress$={[handleKeyPressSync$, context?.onKeyPress$]}
       onClick$={[handleClick$, context?.onClick$]}
     >
       <input
@@ -54,8 +42,8 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
         checked={context.bindChecked?.value}
         type="checkbox"
         role="switch"
-        data-value
-
+        data-qui-switch-input
+        autoFocus={context.autoFocus}
         />
       <span data-switch-thumb class={rest.thumbClassName}></span>
     </div>

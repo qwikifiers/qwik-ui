@@ -20,14 +20,14 @@ export const SwitchRoot = component$(
   ({ checked, disabled, onChange$, ...rest }: SwitchProps) => {
     useStyles$(styles);
     const defaultChecked = useBoundSignal(rest['bind:checked'], checked);
-    const checkedState = useSignal(defaultChecked.value || false);
+    const bindChecked = useSignal(defaultChecked.value || false);
     const switchRef = useSignal<HTMLInputElement | undefined>();
     const context: SwitchContextState = {
       checked,
       disabled,
-      bindChecked: checkedState,
-      onChange$: onChange$,
-      switchRef: switchRef,
+      bindChecked,
+      onChange$,
+      switchRef,
     };
 
     useContextProvider(SwitchContext, context);
