@@ -10,7 +10,7 @@ import {
   useTask$,
   sync$,
   useContext,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 import { modalContextId } from './modal-context';
 

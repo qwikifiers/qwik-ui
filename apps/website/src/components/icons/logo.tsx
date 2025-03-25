@@ -1,4 +1,4 @@
-import { PropsOf, component$ } from '@builder.io/qwik';
+import { PropsOf, component$ } from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 import { useTheme } from '@qwik-ui/themes';
 

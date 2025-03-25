@@ -1,5 +1,5 @@
 import { FocusTrap, createFocusTrap } from 'focus-trap';
-import { $ } from '@builder.io/qwik';
+import { $ } from '@qwik.dev/core';
 
 export type WidthState = {
   width: number | null;

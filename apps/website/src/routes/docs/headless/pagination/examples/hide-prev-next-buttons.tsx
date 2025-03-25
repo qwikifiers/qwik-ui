@@ -1,4 +1,4 @@
-import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useSignal, useStylesScoped$ } from '@qwik.dev/core';
 import { Pagination } from '@qwik-ui/headless';
 import styles from '../index.css?inline';
 

@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$ } from '@qwik.dev/core';
 
 type SelectOptionLabelProps = PropsOf<'span'>;
 

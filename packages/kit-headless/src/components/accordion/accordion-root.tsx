@@ -8,7 +8,7 @@ import {
   useContextProvider,
   useSignal,
   useTask$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { accordionContextId } from './accordion-context';
 
 export type AccordionRootProps = PropsOf<'div'> & {

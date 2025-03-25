@@ -7,7 +7,6 @@ import Styles from './examples/styles';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
 
-
 # Popover
 
 A popup that goes above other content on the page. You can still interact with the rest of the page while the popover is open.
@@ -33,7 +32,7 @@ While we wait for support though, Qwik UI uses a polyfill under the hood for you
 ## Building blocks
 
 ```tsx
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Popover } from '@qwik-ui/headless';
 
 export default component$(() => {

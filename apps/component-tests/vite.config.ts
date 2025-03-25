@@ -1,12 +1,12 @@
-import { qwikVite } from '@builder.io/qwik/optimizer';
-import { qwikCity } from '@builder.io/qwik-city/vite';
+import { qwikVite } from '@qwik.dev/core/optimizer';
+import { qwikRouter } from '@qwik.dev/router/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/apps/component-tests',
   plugins: [
-    qwikCity(),
+    qwikRouter(),
     qwikVite({
       client: {
         outDir: '../../dist/apps/component-tests/client',
