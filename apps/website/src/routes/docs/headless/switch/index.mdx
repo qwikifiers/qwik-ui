@@ -1,0 +1,158 @@
+---
+title: Qwik UI | Switch
+---
+
+import { FeatureList } from '~/components/feature-list/feature-list';
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+<StatusBanner status={statusByComponent.headless.Switch} />
+
+# Switch
+
+A toggleable control for user interactions.
+
+<Showcase name="hero" />
+
+## ✨ Features
+
+<FeatureList
+  features={[
+    'WAI ARIA Switch design pattern',
+    'Single toggle state (on/off)',
+    'Reactive state changes',
+    'Disabled state',
+    'Keyboard accessibility (Space and Enter keys)',
+    'Custom styling options',
+    'Support for labels and descriptions',
+    'Focus management',
+    'Accessibility support for screen readers',
+  ]}
+  roadmap={['Opt-in native form support', 'RTL support']}
+/>
+
+
+## Building blocks
+
+<CodeSnippet name="building-blocks" />
+
+## Anatomy
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'Switch.Root',
+      description:
+        'Defines the component boundary and exposes its internal logic. Must wrap over all other parts.',
+    },
+    {
+      name: 'Switch.Input',
+      description:
+        'The actual switch element that users interact with. Can be toggled on or off.',
+    },
+    {
+      name: 'Switch.Label',
+      description:
+        'Provides a label for the switch, enhancing accessibility and usability.',
+    },
+  ]}
+/>
+
+## Why use a headless Switch?
+
+The native `<input type="checkbox">` element presents several challenges regarding styling, behavior, and user experience.
+
+### Native Switch pain points
+
+<FeatureList
+  issues={[
+    'Limited styling options',
+    'Inconsistent appearance across browsers',
+    'Lack of custom animations and transitions',
+    'Accessibility challenges with native elements',
+  ]}
+/>
+
+### Native effort
+
+While there are efforts to enhance the native checkbox element, such as the [Open UI group](https://open-ui.org/components/switch/), these solutions often fall short in terms of flexibility and customization. A headless Switch component allows developers to create a fully tailored user experience without the constraints of native elements.
+
+## Behavior Tests
+
+### Mouse Interaction
+
+<Showcase name="hero" />
+
+- **Toggle State**: Ensures that clicking the switch toggles its checked state correctly.
+- **Trigger onChange**: Verifies that the onChange callback is triggered when the switch is clicked.
+
+### Keyboard Interaction
+
+<Showcase name="hero" />
+
+- **Enter Key**: Tests that pressing the Enter key toggles the switch's state.
+- **Space Key**: Checks that pressing the Space key toggles the switch's state.
+
+### Default Properties
+
+<Showcase name="checked" />
+
+- **Checked by Default**: Confirms that the switch is checked upon initial render if set so.
+- **Disabled State**: Ensures that the switch is disabled and does not respond to user interactions when set so.
+
+### Pure Implementation
+
+<Showcase name="pure" />
+
+- **Minimal Implementation**: Demonstrates a minimal implementation of the switch without additional features.
+- **Custom Data Attribute**: Shows how to add custom data attributes to the switch input element.
+
+### Disabled State
+<Showcase name="disabled" />
+
+- **Checked by Default**: Confirms that the switch is checked upon initial render if set so.
+- **Disabled State**: Ensures that the switch is disabled and does not respond to user interactions when set so.
+- **Label Support**: Includes a label for the switch to enhance accessibility.
+
+
+## API
+
+### Switch.Root
+
+<AnatomyTable
+  propDescriptors={[
+    {
+      name: 'bind:checked',
+      description:
+        'Two-way data bind of the checked state of the switch to a user-defined signal.',
+    },
+    {
+      name: 'onChange$',
+      description:
+        'Callback function that is triggered when the checked state of the switch changes.',
+    },
+    {
+      name: 'disabled',
+      description:
+        'Disables the switch, preventing any user interaction.',
+    },
+    {
+      name: 'onClick$',
+      description:
+        'Callback function that is triggered when the switch is clicked.',
+    },
+    {
+      name: 'checked',
+      description:
+        'Sets the switch to the checked state by default.',
+    },
+    {
+      name: 'autoFocus',
+      description:
+        'Sets the switch to auto focus.',
+    },
+  ]}
+/>
+
+
+

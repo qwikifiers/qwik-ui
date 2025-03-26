@@ -1,0 +1,11 @@
+/* Define default light theme colors */
+.switch {
+  flex-direction: row-reverse;
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
