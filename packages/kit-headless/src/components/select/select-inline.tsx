@@ -85,7 +85,11 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
         // distinct value, or the display value is the same as the value
         const value = (givenItemValue !== null ? givenItemValue : displayValue) as string;
 
-        itemsMap.set(currItemIndex, { value, displayValue, disabled: isItemDisabled });
+        itemsMap.set(currItemIndex, {
+          value,
+          displayValue,
+          disabled: isItemDisabled,
+        });
 
         if (props.value && props.multiple) {
           throw new Error(
@@ -99,7 +103,9 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
           valuePropIndex = currItemIndex;
         }
 
-        const isString = typeof child.props.children === 'string';
+        const isString =
+          typeof child.props.children === 'string' ||
+          typeof child.props.children === 'object';
 
         if (!isString) {
           throw new Error(
