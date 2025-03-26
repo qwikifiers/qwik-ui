@@ -10,9 +10,11 @@ export interface SwitchState {
   autoFocus?: boolean;
 }
 //
-export type SwitchContextState = Omit<SwitchState, 'bind:checked'> & {
+export type SwitchContextState = Omit<SwitchState, 'bind:checked'|'disabled' | 'autoFocus'> & {
   bindChecked: Signal<boolean>;
   switchRef?: Signal<HTMLInputElement | undefined>;
+  disabled?: Signal<boolean | undefined>;
+  autoFocus?: Signal<boolean | undefined>;
 };
 
 export const SwitchContext = createContextId<SwitchContextState>('SwitchContext');

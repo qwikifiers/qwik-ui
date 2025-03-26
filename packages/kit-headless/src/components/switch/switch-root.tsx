@@ -13,21 +13,24 @@ import {
 } from './switch-context';
 import styles from './switch.css?inline';
 import { useBoundSignal } from '../../utils/bound-signal';
-useBoundSignal;
+
 export type SwitchProps = PropsOf<'div'> & SwitchState;
 
 export const SwitchRoot = component$(
-  ({ checked, disabled, onChange$, ...rest }: SwitchProps) => {
+  ({ checked, disabled, onChange$, autoFocus, ...rest }: SwitchProps) => {
     useStyles$(styles);
     const defaultChecked = useBoundSignal(rest['bind:checked'], checked);
     const bindChecked = useSignal(defaultChecked.value || false);
     const switchRef = useSignal<HTMLInputElement | undefined>();
+    const isDisabled = useSignal(disabled);
+    const isAutoFocus = useSignal(autoFocus);
     const context: SwitchContextState = {
       checked,
-      disabled,
+      disabled: isDisabled,
       bindChecked,
       onChange$,
       switchRef,
+      autoFocus: isAutoFocus
     };
 
     useContextProvider(SwitchContext, context);
@@ -36,7 +39,7 @@ export const SwitchRoot = component$(
       <div
         {...rest}
         data-checked={context.bindChecked?.value ? '' : undefined}
-        data-disabled={context.disabled ? '' : undefined}
+        data-disabled={context.disabled?.value ? '' : undefined}
         data-qui-switch
       >
         <Slot></Slot>

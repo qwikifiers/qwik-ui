@@ -6,7 +6,7 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
   const id = useId();
 
   const handleClick$ = $(() => {
-    if (context.disabled) {
+    if (context.disabled?.value) {
       return;
     }
     context.bindChecked.value = !context.bindChecked.value;
@@ -33,17 +33,17 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
         {...rest}
         aria-label={'switch'}
         data-checked={context.bindChecked?.value ? 'true' : 'false'}
-        data-disabled={context.disabled ? 'true' : 'false'}
+        data-disabled={context.disabled?.value ? 'true' : 'false'}
         ref={context.switchRef || switchRef}
         aria-describedby={`${id}-switch`}
-        disabled={context.disabled}
+        disabled={context.disabled?.value}
         aria-checked={context.bindChecked?.value ? 'true' : 'false'}
         bind:checked={context.bindChecked}
         checked={context.bindChecked?.value}
         type="checkbox"
         role="switch"
         data-qui-switch-input
-        autoFocus={context.autoFocus}
+        autoFocus={context.autoFocus?.value}
         />
       <span data-switch-thumb class={rest.thumbClassName}></span>
     </div>
