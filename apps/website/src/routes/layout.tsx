@@ -13,7 +13,6 @@ import {
 import { MDXProvider } from '~/_state/MDXProvider';
 import { components } from '~/components/mdx-components';
 import { DashboardTableOfContents } from '~/components/toc/toc';
-import Header from '~/components/header/header';
 
 export default component$(() => {
   const { headings } = useContent();
@@ -21,7 +20,7 @@ export default component$(() => {
 
   return (
     <>
-      <Header showBottomBorder={true} showVersion={true} />
+      {/* <Header showBottomBorder={true} showVersion={true} /> */}
       <div class="grid justify-center">
         <div class="grid w-full max-w-screen-2xl grid-cols-[minmax(0,1fr)] lg:grid-cols-[288px_minmax(0,1fr)] xl:grid-cols-[288px_minmax(0,968px)_240px] 2xl:gap-16">
           <DocsNavigation

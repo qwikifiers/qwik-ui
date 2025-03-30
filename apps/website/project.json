@@ -15,10 +15,27 @@
         "production": {}
       }
     },
+    "build.debug": {
+      "executor": "qwik-nx:build",
+      "options": {
+        "runSequence": ["website:build.client.debug", "website:build.ssr.debug"],
+        "outputPath": "dist/apps/website"
+      },
+      "configurations": {
+        "preview": {},
+        "production": {}
+      }
+    },
     "preview": {
       "executor": "@nx/vite:preview-server",
       "options": {
         "buildTarget": "website:build"
+      }
+    },
+    "preview.debug": {
+      "executor": "@nx/vite:preview-server",
+      "options": {
+        "buildTarget": "website:build.debug"
       }
     },
     "serve": {
@@ -33,6 +50,13 @@
       "options": {
         "outputPath": "dist/apps/website",
         "configFile": "apps/website/vite.config.ts"
+      }
+    },
+    "build.client.debug": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --inspect-brk ../../node_modules/vite/bin/vite.js build --config vite.config.ts",
+        "cwd": "apps/website"
       }
     },
     "build.ssr": {
@@ -51,6 +75,13 @@
         }
       },
       "dependsOn": []
+    },
+    "build.ssr.debug": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --inspect-brk ../../node_modules/vite/bin/vite.js build --ssr src/entry.preview.tsx --mode production --config vite.config.ts",
+        "cwd": "apps/website"
+      }
     },
     "serve.debug": {
       "executor": "nx:run-commands",

@@ -77,6 +77,7 @@ export default defineConfig(async () => {
       }),
       qwikVite({
         lint: false,
+        debug: true,
         tsconfigFileNames: ['tsconfig.app.json'],
         client: {
           outDir: '../../dist/apps/website/client',
@@ -95,10 +96,8 @@ export default defineConfig(async () => {
       },
     },
     build: {
+      minify: false,
       target: 'es2022',
-      rollupOptions: {
-        // output,
-      },
     },
     preview: {
       headers: {
