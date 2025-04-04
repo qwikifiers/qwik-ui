@@ -36,7 +36,7 @@ export default component$(() => {
   useContextProvider(APP_STATE_CONTEXT_ID, appState);
 
   return (
-    <QwikCityProvider prefetchLimit={100}>
+    <QwikCityProvider prefetchLimit={10}>
       <head>
         <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
