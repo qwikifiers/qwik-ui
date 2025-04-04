@@ -49,8 +49,8 @@
   "packageManager": "pnpm@9.7.0",
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
-    "@builder.io/qwik": "https://pkg.pr.new/@builder.io/qwik@7453",
-    "@builder.io/qwik-city": "https://pkg.pr.new/@builder.io/qwik-city@7453",
+    "@builder.io/qwik": "https://pkg.pr.new/@builder.io/qwik@7480",
+    "@builder.io/qwik-city": "https://pkg.pr.new/@builder.io/qwik-city@7480",
     "@changesets/cli": "^2.27.3",
     "@changesets/get-github-info": "^0.6.0",
     "@changesets/types": "^6.0.0",

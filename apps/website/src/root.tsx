@@ -1,9 +1,5 @@
 import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
-import {
-  QwikCityProvider,
-  RouterOutlet,
-  ServiceWorkerRegister,
-} from '@builder.io/qwik-city';
+import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
@@ -40,24 +36,14 @@ export default component$(() => {
   useContextProvider(APP_STATE_CONTEXT_ID, appState);
 
   return (
-    <QwikCityProvider>
+    <QwikCityProvider prefetchLimit={100}>
       <head>
         <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
         {/* <PrefetchGraph />
         <PrefetchServiceWorker /> */}
-        <ServiceWorkerRegister />
-
-        <script
-          dangerouslySetInnerHTML={`
-            window.addEventListener('initPagefind', async () => {
-              const pagefind = await import("/pagefind/pagefind.js");
-              await pagefind.init();
-              window.pagefind = pagefind;
-            });
-          `}
-        ></script>
+        {/* <ServiceWorkerRegister /> */}
       </head>
       <body lang="en">
         <ThemeProvider
