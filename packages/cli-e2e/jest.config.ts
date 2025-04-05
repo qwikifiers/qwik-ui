@@ -9,4 +9,5 @@ export default {
   coverageDirectory: '../../coverage/packages/cli-e2e',
   globalSetup: '../../tools/scripts/start-local-registry.ts',
   globalTeardown: '../../tools/scripts/stop-local-registry.ts',
+  passWithNoTests: true,
 };
