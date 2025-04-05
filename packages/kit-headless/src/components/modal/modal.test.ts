@@ -167,6 +167,25 @@ test.describe('Focus Trap', () => {
     await insideButton.press('Tab');
     await expect(insideInput).toBeFocused();
   });
+
+  test(`GIVEN a modal
+    WHEN navigating to another page in SPA
+    THEN the body should not have overflow hidden`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-spa-scroll');
+
+    await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
+
+    await d.openModal();
+
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+
+    await Promise.all([
+      page.waitForURL('**/headless/modal/hero/', { waitUntil: 'networkidle' }),
+      page.click('[q\\:link]'),
+    ]);
+
+    await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
+  });
 });
 
 test.describe('Nested Modals', () => {
