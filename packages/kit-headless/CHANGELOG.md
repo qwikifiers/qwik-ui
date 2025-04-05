@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.6
+
+### Patch Changes
+
+- 🐞🩹 cleanup scroll locking (by [@thejackshelton](https://github.com/thejackshelton) in [#1061](https://github.com/qwikifiers/qwik-ui/pull/1061))
+
+- 🐞🩹 select uses correct types and does not execute focus on server side (by [@thejackshelton-kunaico](https://github.com/thejackshelton-kunaico) in [#1057](https://github.com/qwikifiers/qwik-ui/pull/1057))
+
 ## 0.6.5
 
 ### Patch Changes
