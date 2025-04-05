@@ -24,7 +24,7 @@ export default component$(() => {
           <Modal.Close class="modal-close">Cancel</Modal.Close>
           <Modal.Close class="modal-close">Save Changes</Modal.Close>
         </footer>
-        <Link href="../hero">ACCORDON</Link>
+        <Link href="../../../test-route">SPA NAVIGATION</Link>
       </Modal.Panel>
     </Modal.Root>
   );
