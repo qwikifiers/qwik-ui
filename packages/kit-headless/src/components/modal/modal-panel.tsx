@@ -16,6 +16,8 @@ import { modalContextId } from './modal-context';
 
 import styles from './modal.css?inline';
 import { useModal } from './use-modal';
+import { isServer } from '@builder.io/qwik/build';
+import { enableBodyScroll } from 'body-scroll-lock-upgrade';
 
 export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
   onShow$?: QRL<() => void>;
@@ -59,7 +61,10 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
     }
 
     cleanup(async () => {
+      if (isServer) return;
       await deactivateFocusTrap(focusTrap);
+      if (!panelRef.value) return;
+      enableBodyScroll(panelRef.value);
     });
   });
 
