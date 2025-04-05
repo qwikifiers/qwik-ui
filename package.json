@@ -49,8 +49,8 @@
   "packageManager": "pnpm@9.7.0",
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
-    "@builder.io/qwik": "https://pkg.pr.new/@builder.io/qwik@6273458",
-    "@builder.io/qwik-city": "https://pkg.pr.new/@builder.io/qwik-city@6273458",
+    "@builder.io/qwik": "https://pkg.pr.new/@builder.io/qwik@7489",
+    "@builder.io/qwik-city": "https://pkg.pr.new/@builder.io/qwik-city@7489",
     "@changesets/cli": "^2.27.3",
     "@changesets/get-github-info": "^0.6.0",
     "@changesets/types": "^6.0.0",
@@ -115,6 +115,7 @@
     "qwik-nx": "^2.3.0",
     "qwik-themes": "^0.2.0",
     "rehype-pretty-code": "^0.13.2",
+    "rollup": "4.39.0",
     "sass": "^1.77.2",
     "shiki": "^1.21.0",
     "simple-git-hooks": "2.11.1",
