@@ -13,7 +13,7 @@ import {
   ThemeModes,
   ThemePrimaryColors,
   ThemeStyles,
-} from '@qwik-ui/utils';
+} from '@qwik-ui/extract-theme';
 
 export default component$(() => {
   /**

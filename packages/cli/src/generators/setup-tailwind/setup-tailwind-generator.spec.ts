@@ -1,5 +1,9 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { ThemeBorderRadiuses, ThemePrimaryColors, ThemeStyles } from '@qwik-ui/utils';
+import {
+  ThemeBorderRadiuses,
+  ThemePrimaryColors,
+  ThemeStyles,
+} from '@qwik-ui/extract-theme';
 import { SetupTailwindGeneratorSchema } from './schema';
 import { setupTailwindGenerator } from './setup-tailwind-generator';
 
