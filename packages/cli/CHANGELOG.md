@@ -1,5 +1,11 @@
 # qwik-ui
 
+## 0.3.0
+
+### Minor Changes
+
+- Added sponsors section to the Readme (by [@zaynet](https://github.com/zaynet) in [#1064](https://github.com/qwikifiers/qwik-ui/pull/1064))
+
 ## 0.2.0
 
 ### Minor Changes
