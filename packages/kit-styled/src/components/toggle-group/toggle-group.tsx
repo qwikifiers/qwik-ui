@@ -4,13 +4,13 @@ import {
   Slot,
   useContext,
   useContextProvider,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 import { ToggleGroup as HeadlessToggleGroup } from '@qwik-ui/headless';
 
 import type { VariantProps } from 'class-variance-authority';
 
-import { createContextId } from '@builder.io/qwik';
+import { createContextId } from '@qwik.dev/core';
 import { toggleVariants } from '../toggle/toggle';
 
 export const toggleGroupStyledContextId = createContextId<ToggleGroupStyledContext>(

@@ -1,4 +1,4 @@
-import { component$, Signal, useSignal, useTask$ } from '@builder.io/qwik';
+import { component$, Signal, useSignal, useTask$ } from '@qwik.dev/core';
 
 export default component$(() => {
   const countSig = useSignal(0);

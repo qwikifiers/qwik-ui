@@ -1,4 +1,4 @@
-import { PropsOf, component$, useComputed$ } from '@builder.io/qwik';
+import { PropsOf, component$, useComputed$ } from '@qwik.dev/core';
 
 const ORIENTATIONS = ['horizontal', 'vertical'] as const;
 

@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, useSignal, useStyles$ } from '@qwik.dev/core';
 import { Carousel } from '@qwik-ui/headless';
 import { LuPause, LuPlay } from '@qwikest/icons/lucide';
 

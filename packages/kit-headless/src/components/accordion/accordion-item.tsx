@@ -8,10 +8,10 @@ import {
   useId,
   useSignal,
   useTask$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { HCollapsible } from '../collapsible/collapsible';
 import { accordionContextId, accordionItemContextId } from './accordion-context';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer } from '@qwik.dev/core/build';
 
 type InternalAccordionItemProps = {
   _index?: number;
