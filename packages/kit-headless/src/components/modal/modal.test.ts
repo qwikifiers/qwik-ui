@@ -137,6 +137,22 @@ test.describe('Scroll locking', () => {
       }),
     ).toBe(true);
   });
+
+  test(`GIVEN a modal
+    WHEN navigating to another page in SPA
+    THEN the body should not have overflow hidden`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-spa-scroll');
+
+    await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
+
+    await d.openModal();
+
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+
+    await page.click('[q\\:link]');
+
+    await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
+  });
 });
 
 test.describe('Focus Trap', () => {
