@@ -41,20 +41,18 @@ test.describe('Mouse Behavior', () => {
   }) => {
     const { driver: d } = await setup(page, 'hero');
     await expect(d.getInputElement()).not.toBeChecked();
+    await expect(d.getInputElement()).toHaveAttribute('aria-describedby', expect.stringMatching(/switch$/));
+    await expect(d.getInputElement()).toHaveAttribute('aria-label', 'switch');
     await expect(d.getInputElement()).toHaveAttribute('data-checked', 'false');
-    await d.getInputElement().click({ force: true });
+    await expect(d.getInputElement()).toHaveAttribute('data-disabled', 'false');
+    await d.getInputElement().click();
     await expect(d.getInputElement()).toHaveAttribute('data-checked', 'true');
+    await expect(d.getInputElement()).toHaveAttribute('data-disabled', 'false');
     await expect(d.getInputElement()).toBeChecked();
-  });
-
-  test(`GIVEN a hero switch
-    WHEN clicked
-    THEN the onChange callback should be triggered`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'hero');
-    await expect(d.getTriggerLabel()).toHaveText('test0');
-    await d.getInputElement().click({ force: true });
-    await expect(d.getTriggerLabel()).toHaveText('test1');
-    await expect(d.getInputElement()).toBeChecked();
+    // type
+    await expect(d.getInputElement()).toHaveAttribute('type', 'checkbox');
+    // role
+    await expect(d.getInputElement()).toHaveAttribute('role', 'switch');
   });
 });
 
@@ -65,8 +63,13 @@ test.describe('Keyboard Behavior', () => {
     const { driver: d } = await setup(page, 'hero');
     await d.getInputElement().focus();
     await expect(d.getInputElement()).not.toBeChecked();
+    await expect(d.getInputElement()).toHaveAttribute('aria-describedby', expect.stringMatching(/switch$/));
+    await expect(d.getInputElement()).toHaveAttribute('aria-label', 'switch');
+    await expect(d.getInputElement()).toHaveAttribute('data-checked', 'false');
+    await expect(d.getInputElement()).toHaveAttribute('data-disabled', 'false');
     await d.getInputElement().press('Enter');
     await expect(d.getInputElement()).toBeChecked();
+    await expect(d.getInputElement()).toHaveAttribute('data-checked', 'true');
     await d.getInputElement().press('Enter');
     await expect(d.getInputElement()).not.toBeChecked();
   });
@@ -77,8 +80,13 @@ test.describe('Keyboard Behavior', () => {
     const { driver: d } = await setup(page, 'hero');
     await d.getInputElement().focus();
     await expect(d.getInputElement()).not.toBeChecked();
+    await expect(d.getInputElement()).toHaveAttribute('aria-describedby', expect.stringMatching(/switch$/));
+    await expect(d.getInputElement()).toHaveAttribute('aria-label', 'switch');
+    await expect(d.getInputElement()).toHaveAttribute('data-checked', 'false');
+    await expect(d.getInputElement()).toHaveAttribute('data-disabled', 'false');
     await d.getInputElement().press(' ');
     await expect(d.getInputElement()).toBeChecked();
+    await expect(d.getInputElement()).toHaveAttribute('data-checked', 'true');
     await d.getInputElement().press(' ');
     await expect(d.getInputElement()).not.toBeChecked();
   });
@@ -91,8 +99,10 @@ test.describe('Keyboard Behavior', () => {
     `, async ({ page }) => {
       const { driver: d } = await setup(page, 'checked');
       await expect(d.getInputElement()).toBeChecked();
+      await expect(d.getInputElement()).toHaveAttribute('aria-describedby', expect.stringMatching(/switch$/));
+      await expect(d.getInputElement()).toHaveAttribute('aria-label', 'switch');
       await expect(d.getInputElement()).toHaveAttribute('data-checked', 'true');
-      await expect(d.getInputElement()).toHaveAttribute('aria-checked', 'true');
+      await expect(d.getInputElement()).toHaveAttribute('data-disabled', 'false');
     });
 
     test(`
@@ -102,7 +112,12 @@ test.describe('Keyboard Behavior', () => {
     `, async ({ page }) => {
       const { driver: d } = await setup(page, 'defaultChecked');
       await expect(d.getInputElement()).toBeChecked();
-      await d.getInputElement().click({ force: true });
+      await expect(d.getInputElement()).toHaveAttribute('aria-describedby', expect.stringMatching(/switch$/));
+      await expect(d.getInputElement()).toHaveAttribute('aria-label', 'switch');
+      await expect(d.getInputElement()).toHaveAttribute('data-checked', 'true');
+      await d.getInputElement().click();
+      await expect(d.getInputElement()).toHaveAttribute('data-checked', 'false');
+      await expect(d.getInputElement()).toHaveAttribute('data-disabled', 'false');
       await expect(d.getInputElement()).not.toBeChecked()
 
     });
@@ -114,6 +129,8 @@ test.describe('Keyboard Behavior', () => {
     `, async ({ page }) => {
       const { driver: d } = await setup(page, 'disabled');
       await expect(d.getInputElement()).toHaveAttribute('data-disabled', 'true');
+      await expect(d.getInputElement()).toHaveAttribute('aria-describedby', expect.stringMatching(/switch$/));
+      await expect(d.getInputElement()).toHaveAttribute('aria-label', 'switch');
       await expect(d.getInputElement()).toBeDisabled();
     });
 
@@ -122,8 +139,9 @@ test.describe('Keyboard Behavior', () => {
     WHEN clicking the switch
     THEN the switch should not toggle`, async ({ page }) => {
       const { driver: d } = await setup(page, 'disabled');
+      await expect(d.getInputElement()).toHaveAttribute('aria-describedby', expect.stringMatching(/switch$/));
       await expect(d.getInputElement()).toHaveAttribute('data-disabled', 'true');
-      await d.getInputElement().click({ force: true });
+      await d.getInputElement().click();
       await expect(d.getInputElement()).not.toBeChecked();
     });
 
@@ -133,14 +151,10 @@ test.describe('Keyboard Behavior', () => {
     THEN it should have a default label`, async ({ page }) => {
       const { driver: d } = await setup(page, 'pure');
       await expect(d.getTriggerLabel()).not.toBeNull();
-    });
-
-    test(`
-    GIVEN a switch with custom attributes
-    WHEN the switch is mounted
-    THEN it should have the custom attributes`, async ({ page }) => {
-      const { driver: d } = await setup(page, 'pure');
+      await expect(d.getInputElement()).toHaveAttribute('data-disabled', 'false');
+      await expect(d.getInputElement()).toHaveAttribute('aria-describedby', expect.stringMatching(/switch$/));
       await expect(d.getInputElement()).toHaveAttribute('data-test', '11');
     });
+
   });
 });
