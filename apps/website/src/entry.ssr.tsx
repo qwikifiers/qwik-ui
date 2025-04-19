@@ -43,5 +43,10 @@ export default function (opts: RenderToStreamOptions) {
       lang: 'en',
       ...opts.containerAttributes,
     },
+    preloader: {
+      debug: true,
+      ssrPreloads: 5,
+      maxBufferPreloads: 50,
+    },
   });
 }
