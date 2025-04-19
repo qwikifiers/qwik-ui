@@ -1,25 +1,13 @@
-/**
- * WHAT IS THIS FILE?
- *
- * SSR entry point, in all cases the application is render outside the browser, this
- * entry point will be the common one.
- *
- * - Server (express, cloudflare...)
- * - npm run start
- * - npm run preview
- * - npm run build
- *
- */
-import { renderToStream, type RenderToStreamOptions } from '@builder.io/qwik/server';
-import { manifest } from '@qwik-client-manifest';
+import type { PreloaderOptions, RenderToStreamOptions } from '@builder.io/qwik/server';
+import { renderToStream } from '@builder.io/qwik/server';
 import Root from './root';
 
 // You can pass these as query parameters, as well as `preloadDebug`
 const preloaderSettings = [
-  'maxPreloads',
-  'minProbability',
-  'maxSimultaneousPreloads',
-  'minPreloadProbability',
+  'ssrPreloads',
+  'ssrPreloadProbability',
+  'maxBufferPreloads',
+  'preloadProbability',
 ] as const;
 
 export default function (opts: RenderToStreamOptions) {
@@ -28,29 +16,31 @@ export default function (opts: RenderToStreamOptions) {
   if (urlStr) {
     const { searchParams } = new URL(urlStr);
     if (searchParams.size) {
-      opts = {
+      const newOpts = {
         ...opts,
-        prefetchStrategy: {
-          ...opts.prefetchStrategy,
-          implementation: { ...opts.prefetchStrategy?.implementation },
+        preloader: {
+          ...(typeof opts.preloader === 'object' ? opts.preloader : undefined),
         },
-      };
-      if (searchParams.has('preloadDebug')) {
-        opts.prefetchStrategy!.implementation!.debug = true;
+      } as Omit<RenderToStreamOptions, 'preloader'> & { preloader: PreloaderOptions };
+      if (searchParams.has('preloaderDebug')) {
+        newOpts.preloader!.debug = true;
       }
       for (const type of preloaderSettings) {
         if (searchParams.has(type)) {
-          opts.prefetchStrategy!.implementation![type] = Number(searchParams.get(type));
+          newOpts.preloader[type] = Number(searchParams.get(type));
         }
       }
+      opts = newOpts;
     }
   }
   return renderToStream(<Root />, {
-    manifest,
+    qwikLoader: {
+      // The docs can be long so make sure to intercept events before the end of the document.
+      position: 'top',
+    },
     ...opts,
-    // Use container attributes to set attributes on the html tag.
     containerAttributes: {
-      lang: 'en-us',
+      lang: 'en',
       ...opts.containerAttributes,
     },
   });
