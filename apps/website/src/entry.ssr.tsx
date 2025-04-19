@@ -45,7 +45,7 @@ export default function (opts: RenderToStreamOptions) {
     },
     preloader: {
       debug: true,
-      ssrPreloads: 0,
+      ssrPreloads: 25,
       maxBufferPreloads: 25,
     },
   });
