@@ -23,6 +23,7 @@
       "require": "./index.cjs"
     }
   },
+  "license": "MIT",
   "main": "./index.cjs",
   "module": "./index.js",
   "typings": "./index.d.ts"

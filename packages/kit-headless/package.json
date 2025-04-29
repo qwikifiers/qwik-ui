@@ -25,6 +25,7 @@
       "require": "./index.qwik.cjs"
     }
   },
+  "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
   },
