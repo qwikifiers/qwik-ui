@@ -294,7 +294,7 @@ importers:
         specifier: 19.2.3
         version: 19.2.3(nx@19.4.2(@swc-node/register@1.9.1(@swc/core@1.5.24(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.24(@swc/helpers@0.5.11)))
       '@qwik-ui/utils':
-        specifier: 0.3.1
+        specifier: 0.3.2
         version: link:../utils
       ansis:
         specifier: 2.3.0
@@ -307,7 +307,7 @@ importers:
         version: 17.7.2
     devDependencies:
       '@qwik-ui/styled':
-        specifier: 0.3.0
+        specifier: 0.3.1
         version: link:../kit-styled
 
   packages/kit-headless:
@@ -338,10 +338,10 @@ importers:
         version: 1.9.0(@types/node@20.12.12)(sass@1.77.4)
     devDependencies:
       '@qwik-ui/headless':
-        specifier: ^0.6.4
+        specifier: ^0.6.7
         version: link:../kit-headless
       '@qwik-ui/utils':
-        specifier: 0.3.1
+        specifier: 0.3.2
         version: link:../utils
 
   packages/themes:
