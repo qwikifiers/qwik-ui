@@ -13,12 +13,26 @@ module.exports = {
   plugins: [
     // PLUGIN-START
     require('tailwindcss-animate'),
-    plugin(function ({ addUtilities }) {
+    plugin(function ({ addUtilities,theme,e }) {
       addUtilities({
         '.press': {
           transform: 'var(--transform-press)',
         },
       });
+      const sizelist = theme('spacing');
+      const blockSizeUtilities = Object.keys(sizelist).reduce((acc, key) => {
+        const value = sizelist[key];
+        acc[`.${e(`block-size-${key}`)}`] = {
+          'block-size': value,
+        };
+        acc[`.${e(`inline-size-${key}`)}`] = {
+          'inline-size': value,
+        };
+        return acc;
+      }, {});
+
+      addUtilities(blockSizeUtilities, ['responsive', 'hover']);
+
     }),
     // PLUGIN-END
   ],
@@ -35,6 +49,8 @@ module.exports = {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        switchInactive: 'hsl(var(--switch-track-color-inactive))',
+        switchThumb: 'hsl(var(--switch-thumb-color-highlight))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
