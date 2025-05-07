@@ -6,7 +6,7 @@ import {
   ToggleGroupMultipleProps,
   ToggleGroupSingleProps,
 } from './toggle-group-root';
-import { useBoundSignal } from '../../utils/bound-signal2';
+import { useBoundSignal } from '../../utils/bound-signal';
 
 function useRootItemsRepo() {
   const items = useSignal<Map<ItemId, Signal<Item>>>(new Map());

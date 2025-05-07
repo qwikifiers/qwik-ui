@@ -15,4 +15,5 @@ export default {
   testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/cli',
+  prettierPath: null,
 };
