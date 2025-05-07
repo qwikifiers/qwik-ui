@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Alert } from '~/components/ui';
 import { LuAlertTriangle } from '@qwikest/icons/lucide';
 

@@ -145,7 +145,7 @@
   The new Combobox anatomy is as follows:
 
   ```tsx
-  import { component$ } from '@builder.io/qwik';
+  import { component$ } from '@qwik.dev/core';
   import { Combobox } from '@qwik-ui/headless';
   import { LuCheck } from '@qwikest/icons/lucide';
 
@@ -255,7 +255,7 @@
   To opt-out of the default filter, add the `filter={false}` prop to the `Combobox.Root` component, which will disable the default filter.
 
   ```tsx
-  import { component$, useSignal, useStyles$, useTask$ } from '@builder.io/qwik';
+  import { component$, useSignal, useStyles$, useTask$ } from '@qwik.dev/core';
   import { Combobox } from '@qwik-ui/headless';
   import { LuCheck, LuChevronDown } from '@qwikest/icons/lucide';
   import { matchSorter } from 'match-sorter';
@@ -466,7 +466,7 @@
   Here is the initial API:
 
   ```tsx
-  import { component$ } from '@builder.io/qwik';
+  import { component$ } from '@qwik.dev/core';
   import { Dropdown } from '@qwik-ui/headless';
   export default component$(() => {
   return (
@@ -622,7 +622,7 @@
   Based on feedback we have received from the community, we have also improved the developer experience of the Popover component.
 
   ```tsx
-  import { component$ } from '@builder.io/qwik';
+  import { component$ } from '@qwik.dev/core';
   import { Popover } from '@qwik-ui/headless';
 
   export default component$(() => {

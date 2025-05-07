@@ -9,7 +9,7 @@ import {
   component$,
   useContext,
   useContextProvider,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 type DropdownGroupProps = PropsOf<'div'>;
 

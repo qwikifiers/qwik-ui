@@ -6,7 +6,7 @@ import {
   useContext,
   useSignal,
   useTask$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 import { CheckboxRoot } from '../checkbox/checkbox-root';
 import { DropdownCheckboxItemProps } from './dropdown-checkbox-item';
@@ -53,7 +53,11 @@ export const HDropdownRadioItem = component$((props: DropdownRadioItemProps) => 
     itemId,
     itemRef,
     isHighlightedSig,
-  } = useDropdownItem({ ...props, onItemSelect: onItemSelect$, closeOnSelect });
+  } = useDropdownItem({
+    ...props,
+    onItemSelect: onItemSelect$,
+    closeOnSelect,
+  });
 
   return (
     <div

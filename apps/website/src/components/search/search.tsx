@@ -1,12 +1,5 @@
-import {
-  $,
-  component$,
-  Signal,
-  useOnWindow,
-  useSignal,
-  useTask$,
-} from '@builder.io/qwik';
-import { isServer } from '@builder.io/qwik/build';
+import { $, component$, Signal, useOnWindow, useSignal, useTask$ } from '@qwik.dev/core';
+import { isServer } from '@qwik.dev/core/build';
 import { Combobox, Modal } from '@qwik-ui/styled';
 import { buttonVariants } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';

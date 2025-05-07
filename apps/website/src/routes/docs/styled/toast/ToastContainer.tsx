@@ -1,5 +1,5 @@
-import { component$ } from '@builder.io/qwik';
-import { Slot } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
+import { Slot } from '@qwik.dev/core';
 export default component$(() => {
   return (
     <div class="form-control">

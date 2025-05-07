@@ -1,4 +1,4 @@
-import { type PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { type PropsOf, Slot, component$ } from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 import { LuChevronRight } from '@qwikest/icons/lucide';
 

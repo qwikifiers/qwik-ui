@@ -1,4 +1,4 @@
-import { Component, JSXChildren } from '@builder.io/qwik';
+import { Component, JSXChildren } from '@qwik.dev/core';
 import { HComboboxRootImpl, HComboboxRootImplProps } from './combobox-root';
 import { HComboboxItem as InternalComboboxItem } from './combobox-item';
 import { HComboboxItemLabel as InternalComboboxItemLabel } from './combobox-item-label';
@@ -82,7 +82,11 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
     // distinct value, or the display value is the same as the value
     const value = (givenItemValue !== null ? givenItemValue : displayValue) as string;
 
-    itemsMap.set(currItemIndex, { value, displayValue, disabled: isItemDisabled });
+    itemsMap.set(currItemIndex, {
+      value,
+      displayValue,
+      disabled: isItemDisabled,
+    });
 
     if (props.value && props.multiple) {
       throw new Error(
