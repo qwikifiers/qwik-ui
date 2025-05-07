@@ -1,4 +1,4 @@
-import { ObjectValues } from '../type-utils';
+import { ObjectValues } from './type-utils';
 
 export const ThemeBorderRadiuses = {
   'BORDER-RADIUS-0': 'border-radius-0',

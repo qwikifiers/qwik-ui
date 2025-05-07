@@ -1,0 +1,34 @@
+{
+  "name": "@qwik-ui/extract-theme",
+  "version": "0.3.1",
+  "description": "Qwik UI extract-theme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qwikifiers/qwik-ui",
+    "directory": "packages/extract-theme"
+  },
+  "main": "./index.qwik.cjs",
+  "qwik": "./index.qwik.mjs",
+  "module": "./index.qwik.mjs",
+  "types": "./index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.qwik.mjs",
+      "require": "./index.qwik.cjs"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "private": false,
+  "dependencies": {
+    "tailwind-merge": "^1.14.0",
+    "clsx": "^2.0.0",
+    "qwik-themes": "^0.2.0"
+  }
+}

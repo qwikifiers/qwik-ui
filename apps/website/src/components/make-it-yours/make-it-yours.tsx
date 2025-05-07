@@ -7,8 +7,8 @@ import {
   ThemeModes,
   ThemePrimaryColors,
   ThemeStyles,
-  cn,
-} from '@qwik-ui/utils';
+} from '@qwik-ui/extract-theme';
+import { cn } from '@qwik-ui/utils';
 import { LuSlidersHorizontal, LuX } from '@qwikest/icons/lucide';
 import { useTheme } from '@qwik-ui/themes';
 

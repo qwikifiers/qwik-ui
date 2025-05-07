@@ -7,7 +7,7 @@ import {
   extractBetweenComments,
   extractThemeCSS,
   type ThemeConfig,
-} from '@qwik-ui/utils';
+} from '@qwik-ui/extract-theme';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { getKitRoot } from '../../_shared/get-kit-root';
