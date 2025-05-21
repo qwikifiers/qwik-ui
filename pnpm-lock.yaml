@@ -12,11 +12,11 @@ importers:
         specifier: ^4.9.1
         version: 4.10.1(playwright-core@1.52.0)
       '@builder.io/qwik':
-        specifier: https://pkg.pr.new/@builder.io/qwik@7618
-        version: https://pkg.pr.new/@builder.io/qwik@7618(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
+        specifier: 1.14.0
+        version: 1.14.0(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
       '@builder.io/qwik-city':
-        specifier: https://pkg.pr.new/@builder.io/qwik-city@7618
-        version: https://pkg.pr.new/@builder.io/qwik-city@7618(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
+        specifier: 1.14.0
+        version: 1.14.0(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
       '@changesets/cli':
         specifier: ^2.27.3
         version: 2.29.4
@@ -43,7 +43,7 @@ importers:
         version: 3.0.0-feat-sst-upgrade.1(@nx/devkit@19.4.2(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.11.24(@swc/helpers@0.5.17))))(@nx/node@21.1.1(@babel/traverse@7.27.1)(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.11.24(@swc/helpers@0.5.17))(@types/node@20.12.12)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(eslint@8.57.1)(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.11.24(@swc/helpers@0.5.17)))(ts-node@10.9.1(@swc/core@1.11.24(@swc/helpers@0.5.17))(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)(verdaccio@5.33.0(typanion@3.14.0)))(esbuild@0.17.19)(wrangler@3.114.8)
       '@modular-forms/qwik':
         specifier: ^0.24.0
-        version: 0.24.0(@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@7618(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@7618(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))
+        version: 0.24.0(@builder.io/qwik-city@1.14.0(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))(@builder.io/qwik@1.14.0(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))
       '@nx/devkit':
         specifier: 19.4.2
         version: 19.4.2(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.11.24(@swc/helpers@0.5.17)))
@@ -79,7 +79,7 @@ importers:
         version: 1.52.0
       '@qwikest/icons':
         specifier: ^0.0.13
-        version: 0.0.13(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@7618(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))
+        version: 0.0.13(@builder.io/qwik@1.14.0(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))
       '@swc-node/register':
         specifier: ^1.9.1
         version: 1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5)
@@ -156,8 +156,8 @@ importers:
         specifier: ^1.6.2
         version: 1.8.3(eslint@8.57.1)
       eslint-plugin-qwik:
-        specifier: https://pkg.pr.new/eslint-plugin-qwik@7618
-        version: https://pkg.pr.new/eslint-plugin-qwik@7618(eslint@8.57.1)(typescript@5.4.5)
+        specifier: 1.14.0
+        version: 1.14.0(eslint@8.57.1)(typescript@5.4.5)
       focus-trap:
         specifier: 7.5.4
         version: 7.5.4
@@ -292,7 +292,7 @@ importers:
         version: 0.7.0
       '@nx/devkit':
         specifier: 19.2.3
-        version: 19.2.3(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))
+        version: 19.2.3(nx@21.1.1(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))
       '@qwik-ui/utils':
         specifier: 0.3.2
         version: link:../utils
@@ -989,23 +989,14 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@7618':
-    resolution: {tarball: https://pkg.pr.new/@builder.io/qwik-city@7618}
-    version: 1.13.0
+  '@builder.io/qwik-city@1.14.0':
+    resolution: {integrity: sha512-QHVNJYFk584UMmxGyLE6YFEdj3A3Z6MKn7bAJBpTy3kBunl1LvarrrB+jhvo+VdLO/eJKjaOmJhwK+FZ3Gn0FQ==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     peerDependencies:
       vite: ^5
 
   '@builder.io/qwik@1.14.0':
     resolution: {integrity: sha512-jl/a2wBPd5P17UQ5sCfo2/i1WGVkK/UoBKxhGb9867ekhVL2XvCHAUaAxBSAVUWuI8y1YMvRpRG7BZcveApj6A==}
-    engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
-    hasBin: true
-    peerDependencies:
-      vite: ^5
-
-  '@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@7618':
-    resolution: {tarball: https://pkg.pr.new/@builder.io/qwik@7618}
-    version: 1.13.0
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
     peerDependencies:
@@ -1650,7 +1641,6 @@ packages:
   '@img/sharp-linux-x64@0.33.5':
     resolution: {integrity: sha512-opC+Ok5pRNAzuvq1AG0ar+1owsu842/Ab+4qvU879ippJBHvyY5n2mxF1izXqkPYlGuP/M556uh53jRLJmzTWA==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
-    cpu: [x64]
     os: [linux]
 
   '@img/sharp-linux-x64@0.34.2':
@@ -1975,7 +1965,6 @@ packages:
 
   '@modular-forms/qwik@0.24.0':
     resolution: {integrity: sha512-mF+cOw2lmiEjCf7odYW65d1gxp5ozqAbDfX5Z6yAt0wE7wsRHBZgi0YoXAh63vRCEcR5UMG/9kdTXj3KCjxhug==}
-    version: 0.24.0
     peerDependencies:
       '@builder.io/qwik': ^1.4.0
       '@builder.io/qwik-city': ^1.4.0
@@ -2477,7 +2466,6 @@ packages:
 
   '@qwikest/icons@0.0.13':
     resolution: {integrity: sha512-e0wY8vmx0nDSUiuCATlk+ojTvdBV4txIGHHWjZW5SRkv4XB8H9+3WSDcLPz0ItUdRyzcrohE9k2jtQI/98aRPA==}
-    version: 0.0.13
     engines: {node: '>=15.0.0'}
     peerDependencies:
       '@builder.io/qwik': '>=1.0.0'
@@ -4443,9 +4431,8 @@ packages:
       eslint-plugin-jest:
         optional: true
 
-  eslint-plugin-qwik@https://pkg.pr.new/eslint-plugin-qwik@7618:
-    resolution: {tarball: https://pkg.pr.new/eslint-plugin-qwik@7618}
-    version: 1.13.0
+  eslint-plugin-qwik@1.14.0:
+    resolution: {integrity: sha512-fPGQz46SQONkz7tmM0ZicJO1z24QxMVfHrNsoFe9lkyYgc0UKx0OJVmAb7Bh+S9WH4idNBvSjF6lgEfSRc+WCA==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -9367,7 +9354,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@7618(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))':
+  '@builder.io/qwik-city@1.14.0(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))':
     dependencies:
       '@mdx-js/mdx': 3.1.0(acorn@8.14.1)
       '@types/mdx': 2.0.13
@@ -9386,12 +9373,6 @@ snapshots:
       - typescript
 
   '@builder.io/qwik@1.14.0(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))':
-    dependencies:
-      csstype: 3.1.3
-      rollup: 4.41.0
-      vite: 5.2.11(@types/node@20.12.12)(sass@1.89.0)
-
-  '@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@7618(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))':
     dependencies:
       csstype: 3.1.3
       rollup: 4.41.0
@@ -10378,7 +10359,7 @@ snapshots:
       unist-util-position-from-estree: 2.0.0
       unist-util-stringify-position: 4.0.0
       unist-util-visit: 5.0.0
-      vfile: 6.0.2
+      vfile: 6.0.3
     transitivePeerDependencies:
       - acorn
       - supports-color
@@ -10418,10 +10399,10 @@ snapshots:
 
   '@microsoft/tsdoc@0.14.2': {}
 
-  '@modular-forms/qwik@0.24.0(@builder.io/qwik-city@https://pkg.pr.new/@builder.io/qwik-city@7618(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@7618(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))':
+  '@modular-forms/qwik@0.24.0(@builder.io/qwik-city@1.14.0(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))(@builder.io/qwik@1.14.0(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))':
     dependencies:
-      '@builder.io/qwik': https://pkg.pr.new/@builder.io/qwik@7618(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
-      '@builder.io/qwik-city': https://pkg.pr.new/@builder.io/qwik-city@7618(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
+      '@builder.io/qwik': 1.14.0(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
+      '@builder.io/qwik-city': 1.14.0(acorn@8.14.1)(rollup@4.41.0)(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
       decode-formdata: 0.7.5
 
   '@napi-rs/wasm-runtime@0.2.10':
@@ -10449,9 +10430,9 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@nrwl/devkit@19.2.3(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))':
+  '@nrwl/devkit@19.2.3(nx@21.1.1(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))':
     dependencies:
-      '@nx/devkit': 19.2.3(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))
+      '@nx/devkit': 19.2.3(nx@21.1.1(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))
     transitivePeerDependencies:
       - nx
 
@@ -10541,15 +10522,6 @@ snapshots:
       - '@swc/core'
       - debug
 
-  '@nrwl/tao@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17))':
-    dependencies:
-      nx: 19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17))
-      tslib: 2.8.1
-    transitivePeerDependencies:
-      - '@swc-node/register'
-      - '@swc/core'
-      - debug
-
   '@nrwl/vite@19.4.2(@babel/traverse@7.27.1)(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.11.24(@swc/helpers@0.5.17))(@types/node@20.12.12)(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.11.24(@swc/helpers@0.5.17)))(typescript@5.4.5)(verdaccio@5.33.0(typanion@3.14.0))(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))(vitest@1.6.1(@types/node@20.12.12)(@vitest/ui@1.6.1)(jsdom@24.0.0)(sass@1.89.0))':
     dependencies:
       '@nx/vite': 19.4.2(@babel/traverse@7.27.1)(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.11.24(@swc/helpers@0.5.17))(@types/node@20.12.12)(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.11.24(@swc/helpers@0.5.17)))(typescript@5.4.5)(verdaccio@5.33.0(typanion@3.14.0))(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))(vitest@1.6.1(@types/node@20.12.12)(@vitest/ui@1.6.1)(jsdom@24.0.0)(sass@1.89.0))
@@ -10575,14 +10547,14 @@ snapshots:
       - '@swc/core'
       - debug
 
-  '@nx/devkit@19.2.3(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))':
+  '@nx/devkit@19.2.3(nx@21.1.1(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))':
     dependencies:
-      '@nrwl/devkit': 19.2.3(nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))
+      '@nrwl/devkit': 19.2.3(nx@21.1.1(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)))
       ejs: 3.1.10
       enquirer: 2.3.6
       ignore: 5.3.2
       minimatch: 9.0.3
-      nx: 19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17))
+      nx: 21.1.1(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17))
       semver: 7.7.2
       tmp: 0.2.3
       tslib: 2.8.1
@@ -11267,9 +11239,9 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
-  '@qwikest/icons@0.0.13(@builder.io/qwik@https://pkg.pr.new/@builder.io/qwik@7618(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))':
+  '@qwikest/icons@0.0.13(@builder.io/qwik@1.14.0(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0)))':
     dependencies:
-      '@builder.io/qwik': https://pkg.pr.new/@builder.io/qwik@7618(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
+      '@builder.io/qwik': 1.14.0(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
 
   '@rollup/pluginutils@4.2.1':
     dependencies:
@@ -13510,7 +13482,7 @@ snapshots:
       eslint: 8.57.1
       globals: 13.24.0
 
-  eslint-plugin-qwik@https://pkg.pr.new/eslint-plugin-qwik@7618(eslint@8.57.1)(typescript@5.4.5):
+  eslint-plugin-qwik@1.14.0(eslint@8.57.1)(typescript@5.4.5):
     dependencies:
       '@typescript-eslint/utils': 8.32.1(eslint@8.57.1)(typescript@5.4.5)
       eslint: 8.57.1
@@ -16119,58 +16091,6 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  nx@19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)):
-    dependencies:
-      '@nrwl/tao': 19.4.2(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17))
-      '@yarnpkg/lockfile': 1.1.0
-      '@yarnpkg/parsers': 3.0.0-rc.46
-      '@zkochan/js-yaml': 0.0.7
-      axios: 1.9.0
-      chalk: 4.1.2
-      cli-cursor: 3.1.0
-      cli-spinners: 2.6.1
-      cliui: 8.0.1
-      dotenv: 16.4.5
-      dotenv-expand: 11.0.7
-      enquirer: 2.3.6
-      figures: 3.2.0
-      flat: 5.0.2
-      front-matter: 4.0.2
-      fs-extra: 11.3.0
-      ignore: 5.3.2
-      jest-diff: 29.7.0
-      jsonc-parser: 3.2.0
-      lines-and-columns: 2.0.4
-      minimatch: 9.0.3
-      node-machine-id: 1.1.12
-      npm-run-path: 4.0.1
-      open: 8.4.2
-      ora: 5.3.0
-      semver: 7.7.2
-      string-width: 4.2.3
-      strong-log-transformer: 2.1.0
-      tar-stream: 2.2.0
-      tmp: 0.2.3
-      tsconfig-paths: 4.2.0
-      tslib: 2.8.1
-      yargs: 17.7.2
-      yargs-parser: 21.1.1
-    optionalDependencies:
-      '@nx/nx-darwin-arm64': 19.4.2
-      '@nx/nx-darwin-x64': 19.4.2
-      '@nx/nx-freebsd-x64': 19.4.2
-      '@nx/nx-linux-arm-gnueabihf': 19.4.2
-      '@nx/nx-linux-arm64-gnu': 19.4.2
-      '@nx/nx-linux-arm64-musl': 19.4.2
-      '@nx/nx-linux-x64-gnu': 19.4.2
-      '@nx/nx-linux-x64-musl': 19.4.2
-      '@nx/nx-win32-arm64-msvc': 19.4.2
-      '@nx/nx-win32-x64-msvc': 19.4.2
-      '@swc-node/register': 1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3)
-      '@swc/core': 1.11.24(@swc/helpers@0.5.17)
-    transitivePeerDependencies:
-      - debug
-
   nx@21.1.1(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.11.24(@swc/helpers@0.5.17)):
     dependencies:
       '@napi-rs/wasm-runtime': 0.2.4
@@ -16220,6 +16140,59 @@ snapshots:
       '@nx/nx-win32-arm64-msvc': 21.1.1
       '@nx/nx-win32-x64-msvc': 21.1.1
       '@swc-node/register': 1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.4.5)
+      '@swc/core': 1.11.24(@swc/helpers@0.5.17)
+    transitivePeerDependencies:
+      - debug
+
+  nx@21.1.1(@swc-node/register@1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3))(@swc/core@1.11.24(@swc/helpers@0.5.17)):
+    dependencies:
+      '@napi-rs/wasm-runtime': 0.2.4
+      '@yarnpkg/lockfile': 1.1.0
+      '@yarnpkg/parsers': 3.0.2
+      '@zkochan/js-yaml': 0.0.7
+      axios: 1.9.0
+      chalk: 4.1.2
+      cli-cursor: 3.1.0
+      cli-spinners: 2.6.1
+      cliui: 8.0.1
+      dotenv: 16.4.5
+      dotenv-expand: 11.0.7
+      enquirer: 2.3.6
+      figures: 3.2.0
+      flat: 5.0.2
+      front-matter: 4.0.2
+      ignore: 5.3.2
+      jest-diff: 29.7.0
+      jsonc-parser: 3.2.0
+      lines-and-columns: 2.0.3
+      minimatch: 9.0.3
+      node-machine-id: 1.1.12
+      npm-run-path: 4.0.1
+      open: 8.4.2
+      ora: 5.3.0
+      resolve.exports: 2.0.3
+      semver: 7.7.2
+      string-width: 4.2.3
+      tar-stream: 2.2.0
+      tmp: 0.2.3
+      tree-kill: 1.2.2
+      tsconfig-paths: 4.2.0
+      tslib: 2.8.1
+      yaml: 2.8.0
+      yargs: 17.7.2
+      yargs-parser: 21.1.1
+    optionalDependencies:
+      '@nx/nx-darwin-arm64': 21.1.1
+      '@nx/nx-darwin-x64': 21.1.1
+      '@nx/nx-freebsd-x64': 21.1.1
+      '@nx/nx-linux-arm-gnueabihf': 21.1.1
+      '@nx/nx-linux-arm64-gnu': 21.1.1
+      '@nx/nx-linux-arm64-musl': 21.1.1
+      '@nx/nx-linux-x64-gnu': 21.1.1
+      '@nx/nx-linux-x64-musl': 21.1.1
+      '@nx/nx-win32-arm64-msvc': 21.1.1
+      '@nx/nx-win32-x64-msvc': 21.1.1
+      '@swc-node/register': 1.10.10(@swc/core@1.11.24(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.3)
       '@swc/core': 1.11.24(@swc/helpers@0.5.17)
     transitivePeerDependencies:
       - debug
@@ -16840,7 +16813,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.7
       estree-util-build-jsx: 3.0.1
-      vfile: 6.0.2
+      vfile: 6.0.3
 
   recma-jsx@1.0.0(acorn@8.14.1):
     dependencies:
@@ -16857,14 +16830,14 @@ snapshots:
       '@types/estree': 1.0.7
       esast-util-from-js: 2.0.1
       unified: 11.0.5
-      vfile: 6.0.2
+      vfile: 6.0.3
 
   recma-stringify@1.0.0:
     dependencies:
       '@types/estree': 1.0.7
       estree-util-to-js: 2.0.0
       unified: 11.0.5
-      vfile: 6.0.2
+      vfile: 6.0.3
 
   reflect.getprototypeof@1.0.10:
     dependencies:
@@ -16974,7 +16947,7 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-to-hast: 13.2.0
       unified: 11.0.5
-      vfile: 6.0.2
+      vfile: 6.0.3
 
   remove-accents@0.5.0: {}
 
