@@ -98,7 +98,20 @@ export default defineConfig(async () => {
     build: {
       target: 'es2022',
       rollupOptions: {
-        // output,
+        output: {
+          manualChunks: (id: string) => {
+            if (id.includes('css-tree')) {
+              return 'css-tree';
+            }
+            if (
+              id.includes('tailwind-merge') ||
+              id.includes('clsx') ||
+              id.includes('cn')
+            ) {
+              return 'tailwind-merge';
+            }
+          },
+        },
       },
     },
     preview: {
