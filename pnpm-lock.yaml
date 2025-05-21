@@ -309,6 +309,9 @@ importers:
       '@qwik-ui/styled':
         specifier: 0.3.1
         version: link:../kit-styled
+      prettier-2:
+        specifier: npm:prettier@^2
+        version: prettier@2.8.8
 
   packages/kit-headless:
     dependencies:

@@ -24,9 +24,9 @@ describe('init generator', () => {
     const expectedContents = tree.read(QWIK_UI_CONFIG_FILENAME, 'utf-8');
 
     expect(expectedContents).toMatchInlineSnapshot(`
-      "{ "componentsRoot": "src/components/ui" }
-      "
-    `);
+"{ "componentsRoot": "src/components/ui" }
+"
+`);
   });
 
   test(`
@@ -43,8 +43,8 @@ describe('init generator', () => {
     const expectedContents = tree.read(QWIK_UI_CONFIG_FILENAME, 'utf-8');
 
     expect(expectedContents).toMatchInlineSnapshot(`
-      "{ "componentsRoot": "/my-project/src/components/ui" }
-      "
-    `);
+"{ "componentsRoot": "/my-project/src/components/ui" }
+"
+`);
   });
 });

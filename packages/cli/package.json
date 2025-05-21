@@ -19,7 +19,8 @@
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@qwik-ui/styled": "0.3.1"
+    "@qwik-ui/styled": "0.3.1",
+    "prettier-2": "npm:prettier@^2"
   },
   "type": "commonjs",
   "main": "./src/index.js",
