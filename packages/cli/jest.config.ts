@@ -1,5 +1,6 @@
-/* eslint-disable */
-export default {
+import type { Config } from 'jest';
+
+const config: Config = {
   displayName: 'qwikui-cli',
   preset: '../../jest.preset.cjs',
   globals: {},
@@ -15,4 +16,8 @@ export default {
   testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/cli',
+  // @ts-expect-error declaration file
+  prettierPath: import('prettier-2').path,
 };
+
+export default config;
