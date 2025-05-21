@@ -100,15 +100,14 @@ export default defineConfig(async () => {
       rollupOptions: {
         output: {
           manualChunks: (id: string) => {
-            if (id.includes('css-tree')) {
+            if (id.includes('node-modules') && id.includes('css-tree')) {
               return 'css-tree';
             }
             if (
-              id.includes('tailwind-merge') ||
-              id.includes('clsx') ||
-              id.includes('cn')
+              id.includes('node-modules') &&
+              (id.includes('tailwind-merge') || id.includes('clsx'))
             ) {
-              return 'tailwind-merge';
+              return 'cn';
             }
           },
         },
