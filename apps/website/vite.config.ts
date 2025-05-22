@@ -4,10 +4,10 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
 import autoAPI from './auto-api';
+import { ShikiTransformer } from 'shiki';
 
 export default defineConfig(async () => {
-  const { default: rehypePrettyCode } = await import('rehype-pretty-code');
-  const { visit } = await import('unist-util-visit');
+  const { default: shikiRehype } = await import('@shikijs/rehype');
 
   return {
     plugins: [
@@ -22,37 +22,13 @@ export default defineConfig(async () => {
           providerImportSource: '~/_state/MDXProvider',
           recmaPlugins: [recmaProvideComponents],
           rehypePlugins: [
-            () => (tree) => {
-              visit(tree, (node) => {
-                if (node?.type === 'element' && node?.tagName === 'pre') {
-                  const [codeEl] = node.children;
-                  if (codeEl.tagName !== 'code') {
-                    return;
-                  }
-                  node.__rawString__ = codeEl.children?.[0].value;
-                }
-              });
-            },
             [
-              rehypePrettyCode,
+              shikiRehype,
               {
                 theme: 'poimandres',
+                transformers: [transformerSourceAsPreProp()],
               },
             ],
-            () => (tree) => {
-              visit(tree, (node) => {
-                if (node?.type === 'element' && node?.tagName === 'figure') {
-                  if (!('data-rehype-pretty-code-figure' in node.properties)) {
-                    return;
-                  }
-                  const preElement = node.children.at(-1);
-                  if (preElement.tagName !== 'pre') {
-                    return;
-                  }
-                  preElement.properties['__rawString__'] = node.__rawString__;
-                }
-              });
-            },
           ],
         },
       }),
@@ -101,10 +77,13 @@ export default defineConfig(async () => {
         'Cache-Control': 'public, max-age=600',
       },
     },
-    optimizeDeps: {
-      // Put problematic deps that break bundling here, mostly those with binaries.
-      // For example ['better-sqlite3'] if you use that in server functions.
-      exclude: ['shiki'],
-    },
   };
 });
+
+function transformerSourceAsPreProp(): ShikiTransformer {
+  return {
+    pre(node) {
+      node.properties.rawCodeString = this.source;
+    },
+  };
+}

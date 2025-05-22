@@ -1,62 +1,25 @@
-import {
-  type ClassList,
-  type PropsOf,
-  component$,
-  useSignal,
-  useTask$,
-  $,
-} from '@builder.io/qwik';
+import { type ClassList, type PropsOf, component$ } from '@builder.io/qwik';
 import { CodeCopy } from '../code-copy/code-copy';
 import { cn } from '@qwik-ui/utils';
-import { codeToHtml } from 'shiki';
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
+import { createHighlighter } from 'shiki/bundle/web';
+
+const jsEngine = createJavaScriptRegexEngine();
+
+const shiki = await createHighlighter({
+  themes: ['poimandres'],
+  langs: ['tsx', 'html', 'css'],
+  engine: jsEngine,
+});
 
 export type HighlightProps = PropsOf<'div'> & {
   code: string;
   copyCodeClass?: ClassList;
   language?: 'tsx' | 'html' | 'css';
-  splitCommentStart?: string;
-  splitCommentEnd?: string;
 };
 
 export const Highlight = component$(
-  ({
-    code,
-    copyCodeClass,
-    language = 'tsx',
-    splitCommentStart = '{/* start */}',
-    splitCommentEnd = '{/* end */}',
-    ...props
-  }: HighlightProps) => {
-    const codeSig = useSignal('');
-
-    const addShiki$ = $(async () => {
-      let modifiedCode: string = code;
-
-      let partsOfCode = modifiedCode.split(splitCommentStart);
-
-      if (partsOfCode.length > 1) {
-        modifiedCode = partsOfCode[1];
-      }
-
-      partsOfCode = modifiedCode.split(splitCommentEnd);
-
-      if (partsOfCode.length > 1) {
-        modifiedCode = partsOfCode[0];
-      }
-
-      const str = await codeToHtml(modifiedCode, {
-        lang: language,
-        theme: 'poimandres',
-      });
-
-      codeSig.value = str.toString();
-    });
-
-    useTask$(async ({ track }) => {
-      track(() => code);
-      await addShiki$();
-    });
-
+  ({ code, copyCodeClass, language = 'tsx', ...props }: HighlightProps) => {
     return (
       <div class="code-example data-pagefind-ignore relative max-h-[31.25rem] rounded-base">
         <CodeCopy
@@ -74,7 +37,12 @@ export const Highlight = component$(
           )}
           data-pagefind-ignore="all"
         >
-          <div dangerouslySetInnerHTML={codeSig.value} />
+          <div
+            dangerouslySetInnerHTML={shiki.codeToHtml(code, {
+              lang: language,
+              theme: 'poimandres',
+            })}
+          />
         </div>
       </div>
     );
