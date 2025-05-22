@@ -109,14 +109,14 @@ export const components: Record<string, Component> = {
     );
   }),
   pre: component$<{
-    __rawString__?: string;
-  }>(({ __rawString__ }) => {
+    rawCodeString?: string;
+  }>(({ rawCodeString }) => {
     return (
       <div
         class="code-example data-pagefind-ignore relative mb-6 max-h-[31.25rem] rounded-base"
         data-pagefind-ignore="all"
       >
-        <CodeCopy class="absolute right-3 top-3" code={__rawString__} />
+        <CodeCopy class="absolute right-3 top-3" code={rawCodeString} />
         <div
           class={cn(
             'max-h-[31.25rem] max-w-full overflow-y-auto rounded-base border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
