@@ -128,7 +128,6 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
       class="w-full"
       mode="inline"
       filter={false}
-      // @ts-expect-error bad types in core
       onChange$={(value: string) => {
         window.location.href = value;
         isOpen.value = false;

@@ -9,25 +9,6 @@ export default defineConfig(async () => {
   const { default: rehypePrettyCode } = await import('rehype-pretty-code');
   const { visit } = await import('unist-util-visit');
 
-  // commented out as doesn't seem to work with import.meta.glob eager:false in preview
-  // let output: any = {};
-  // if (!isDev) {
-  //   // Client-specific configuration
-  //   output = {
-  //     // Customize the client build structure
-  //     entryFileNames: ({ name }: any) => {
-  //       if (name.startsWith('entry')) {
-  //         return '[name].mjs';
-  //       }
-  //       return `[name]-[hash].js`;
-  //     },
-  //     chunkFileNames: () => {
-  //       return `[name]-[hash].js`;
-  //     },
-  //     assetFileNames: `build/[name]-[hash].[ext]`,
-  //   };
-  // }
-
   return {
     plugins: [
       autoAPI(),
@@ -87,6 +68,8 @@ export default defineConfig(async () => {
         },
       }),
       tsconfigPaths({ root: '../../' }),
+      // Uncomment for debugging preview with http2 via https
+      // basicSsl(),
     ],
 
     server: {
@@ -100,11 +83,11 @@ export default defineConfig(async () => {
       rollupOptions: {
         output: {
           manualChunks: (id: string) => {
-            if (id.includes('node-modules') && id.includes('css-tree')) {
+            if (id.includes('node_modules') && id.includes('css-tree')) {
               return 'css-tree';
             }
             if (
-              id.includes('node-modules') &&
+              id.includes('node_modules') &&
               (id.includes('tailwind-merge') || id.includes('clsx'))
             ) {
               return 'cn';
