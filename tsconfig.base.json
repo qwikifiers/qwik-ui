@@ -13,6 +13,8 @@
     "lib": ["ES2022", "dom", "WebWorker", "DOM.Iterable"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@builder.io/qwik",
     "baseUrl": ".",
     "paths": {
       "@qwik-ui/headless": ["packages/kit-headless/src/index.ts"],
