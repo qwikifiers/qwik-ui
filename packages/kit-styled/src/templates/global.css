@@ -1241,10 +1241,10 @@
   *::-webkit-scrollbar-thumb {
     /* Thumb color */
     background-color: hsla(var(--foreground) / 0.25);
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
     background-clip: padding-box;
-    border-left: 0.15rem solid transparent;
-    border-right: 0.15rem solid transparent;
+    border-left: 0.3rem solid transparent;
+    border-right: 0.3rem solid transparent;
   }
 
   .navigation-docs::-webkit-scrollbar-thumb {
@@ -1261,7 +1261,7 @@
 
   *::-webkit-scrollbar-track {
     background: transparent;
-    border-left: 1px solid var(--qwikui-slate-300);
+    border-left: 0;
   }
 
   .toc-scrollbar::-webkit-scrollbar-track,
@@ -1279,8 +1279,7 @@
 
   .dark *::-webkit-scrollbar-track {
     background: transparent;
-    border-left: 1px solid var(--qwikui-slate-800);
-    border-right: 1px solid var(--qwikui-slate-800);
+    border-left: 0;
   }
 
   .code-example *::-webkit-scrollbar-track {

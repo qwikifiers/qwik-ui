@@ -16,7 +16,6 @@ import {
   ThemePrimaryColors,
   ThemeStyles,
 } from '@qwik-ui/utils';
-import { ModulePreload } from './components/module-preload/module-preload';
 
 export default component$(() => {
   /**
@@ -60,7 +59,6 @@ export default component$(() => {
       </head>
       <body lang="en">
         <script dangerouslySetInnerHTML={unregisterPrefetchServiceWorkers} />
-        <ModulePreload />
         <ThemeProvider
           attribute="class"
           enableSystem={false}

@@ -16,6 +16,10 @@ import Root from './root';
 
 export default function (opts: RenderToStreamOptions) {
   return renderToStream(<Root />, {
+    preloader: {
+      ssrPreloads: 20,
+      maxIdlePreloads: 25,
+    },
     manifest,
     ...opts,
     // Use container attributes to set attributes on the html tag.

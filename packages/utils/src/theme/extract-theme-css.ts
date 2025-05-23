@@ -1,4 +1,4 @@
-import { Theme } from 'qwik-themes/lib-types/lib/types';
+import { Theme } from '@qwik-ui/themes';
 import { calculate, compare } from 'specificity';
 import { extractBetweenComments } from './extract-between-comments';
 
