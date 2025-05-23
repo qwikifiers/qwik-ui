@@ -86,6 +86,13 @@ export const recmaProvideComponents: Plugin<any, Program> = () => {
 
     tree.body.unshift({
       type: 'ImportDeclaration',
+      attributes: [
+        {
+          type: 'ImportAttribute',
+          key: { type: 'Identifier', name: 'type' },
+          value: { type: 'Literal', value: 'module' },
+        },
+      ],
       specifiers: [
         {
           type: 'ImportSpecifier',

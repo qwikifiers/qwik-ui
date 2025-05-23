@@ -263,11 +263,11 @@ This way you can now `import { Accordion, Alert, ... } from '~/components/ui';` 
 
 (**small tip:** you can comment out the components you don't use!)
 
-## Tailwind CSS IntelliSense VSCode extension
+## Tailwind CSS editor extension
 
-If you don't already have it, go ahead and install the [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) extension for vscode.
+You can configure your code editor to recognize the Qwik UI utility functions. This gives you the same auto-completion that you get for the default Tailwind CSS classes.
 
-Then, edit your [settings.json](https://code.visualstudio.com/docs/getstarted/settings) with the following:
+Use the following configuration with your chosen editor:
 
 ```json
 {
@@ -278,6 +278,16 @@ Then, edit your [settings.json](https://code.visualstudio.com/docs/getstarted/se
 }
 ```
 
-This will enable the extension to recognize the Qwik UI utility functions and give you the same autocompletion you get with the default Tailwind classes.
-
 You can thank us later... 😉
+
+### VSCode
+
+The [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) extension is available to download for VSCode.
+
+Install it, open your [settings.json](https://code.visualstudio.com/docs/getstarted/settings) file, and append the provided configuration.
+
+### JetBrains IDEs
+
+The [Tailwind CSS](https://plugins.jetbrains.com/plugin/15321-tailwind-css) plugin is already bundled with JetBrains IDEs.
+
+[Click here](jetbrains://idea/settings?name=Languages+%26+Frameworks--Style+Sheets--Tailwind+CSS) to navigate to _Settings_ > _Languages & Frameworks_ > _Style Sheets_ > _Tailwind CSS_, and append the provided configuration.

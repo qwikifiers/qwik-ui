@@ -4,29 +4,10 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
 import autoAPI from './auto-api';
+import { ShikiTransformer } from 'shiki';
 
 export default defineConfig(async () => {
-  const { default: rehypePrettyCode } = await import('rehype-pretty-code');
-  const { visit } = await import('unist-util-visit');
-
-  // commented out as doesn't seem to work with import.meta.glob eager:false in preview
-  // let output: any = {};
-  // if (!isDev) {
-  //   // Client-specific configuration
-  //   output = {
-  //     // Customize the client build structure
-  //     entryFileNames: ({ name }: any) => {
-  //       if (name.startsWith('entry')) {
-  //         return '[name].mjs';
-  //       }
-  //       return `[name]-[hash].js`;
-  //     },
-  //     chunkFileNames: () => {
-  //       return `[name]-[hash].js`;
-  //     },
-  //     assetFileNames: `build/[name]-[hash].[ext]`,
-  //   };
-  // }
+  const { default: shikiRehype } = await import('@shikijs/rehype');
 
   return {
     plugins: [
@@ -41,42 +22,19 @@ export default defineConfig(async () => {
           providerImportSource: '~/_state/MDXProvider',
           recmaPlugins: [recmaProvideComponents],
           rehypePlugins: [
-            () => (tree) => {
-              visit(tree, (node) => {
-                if (node?.type === 'element' && node?.tagName === 'pre') {
-                  const [codeEl] = node.children;
-                  if (codeEl.tagName !== 'code') {
-                    return;
-                  }
-                  node.__rawString__ = codeEl.children?.[0].value;
-                }
-              });
-            },
             [
-              rehypePrettyCode,
+              shikiRehype,
               {
                 theme: 'poimandres',
+                transformers: [transformerSourceAsPreProp()],
               },
             ],
-            () => (tree) => {
-              visit(tree, (node) => {
-                if (node?.type === 'element' && node?.tagName === 'figure') {
-                  if (!('data-rehype-pretty-code-figure' in node.properties)) {
-                    return;
-                  }
-                  const preElement = node.children.at(-1);
-                  if (preElement.tagName !== 'pre') {
-                    return;
-                  }
-                  preElement.properties['__rawString__'] = node.__rawString__;
-                }
-              });
-            },
           ],
         },
       }),
       qwikVite({
         lint: false,
+        debug: true,
         tsconfigFileNames: ['tsconfig.app.json'],
         client: {
           outDir: '../../dist/apps/website/client',
@@ -86,6 +44,8 @@ export default defineConfig(async () => {
         },
       }),
       tsconfigPaths({ root: '../../' }),
+      // Uncomment for debugging preview with http2 via https
+      // basicSsl(),
     ],
 
     server: {
@@ -97,7 +57,19 @@ export default defineConfig(async () => {
     build: {
       target: 'es2022',
       rollupOptions: {
-        // output,
+        output: {
+          manualChunks: (id: string) => {
+            if (id.includes('node_modules') && id.includes('css-tree')) {
+              return 'css-tree';
+            }
+            if (
+              id.includes('node_modules') &&
+              (id.includes('tailwind-merge') || id.includes('clsx'))
+            ) {
+              return 'cn';
+            }
+          },
+        },
       },
     },
     preview: {
@@ -105,10 +77,13 @@ export default defineConfig(async () => {
         'Cache-Control': 'public, max-age=600',
       },
     },
-    optimizeDeps: {
-      // Put problematic deps that break bundling here, mostly those with binaries.
-      // For example ['better-sqlite3'] if you use that in server functions.
-      exclude: ['shiki'],
-    },
   };
 });
+
+function transformerSourceAsPreProp(): ShikiTransformer {
+  return {
+    pre(node) {
+      node.properties.rawCodeString = this.source;
+    },
+  };
+}

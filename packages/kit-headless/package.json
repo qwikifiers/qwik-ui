@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/headless",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Qwik UI headless components library",
   "publishConfig": {
     "access": "public"
@@ -25,6 +25,7 @@
       "require": "./index.qwik.cjs"
     }
   },
+  "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
   },

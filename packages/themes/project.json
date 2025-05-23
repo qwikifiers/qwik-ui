@@ -5,12 +5,17 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
-        "main": "src/index.ts",
         "outputPath": "dist/packages/themes",
-        "tsConfig": "packages/themes/tsconfig.lib.json"
+        "configFile": "packages/themes/vite.config.ts",
+        "mode": "lib"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
       }
     },
     "lint": {

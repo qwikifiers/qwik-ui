@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+### Patch Changes
+
+- add license in package json (by [@thejackshelton](https://github.com/thejackshelton) in [#1070](https://github.com/qwikifiers/qwik-ui/pull/1070))
+
 ## 0.1.0
 
 ### Minor Changes
