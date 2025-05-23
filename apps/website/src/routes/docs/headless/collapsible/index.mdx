@@ -4,6 +4,7 @@ import { Note } from '~/components/note/note';
 import { AnatomyTable } from '~/components/anatomy-table/anatomy-table';
 
 import { ShowcaseHero, ShowcaseOpen, ShowcaseBindOpen, ShowcaseProgrammatic, ShowcaseOpenChange, ShowcaseDisabled, ShowcaseAnimation, ShowcaseCsr } from './showcase-components';
+import { CodeSnippetCollapsibleCss, CodeSnippetAnimationsCss } from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Collapsible} />
 
@@ -28,7 +29,7 @@ An interactive section that shows or hides its connected information.
 
 ## Building blocks
 
-<CodeSnippet name="building-blocks" />
+<CodeSnippetBuildingBlocks />
 
 ### 🎨 Anatomy
 
@@ -126,7 +127,7 @@ To animate the Accordion content, the `--qwikui-collapsible-content-height` CSS 
 
 > In the near future, you won't need JavaScript at all to animate the height of content! Here's the [CSS WG Proposal](https://github.com/w3c/csswg-drafts/blob/main/css-values-5/calc-size-explainer.md) for more info.
 
-<CodeSnippet name="animation.css" />
+<CodeSnippetAnimationsCss />
 
 ### Why does padding or border break the animation?
 
@@ -152,7 +153,7 @@ The main difference, is there is no server to client handoff. This can be useful
 
 ## Example CSS
 
-<CodeSnippet name="collapsible.css" />
+<CodeSnippetCollapsibleCss />
 
 Every code example uses the following CSS:
 

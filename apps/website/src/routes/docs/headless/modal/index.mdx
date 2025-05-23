@@ -6,6 +6,7 @@ import topLayer from '../../../../../public/images/top-layer.webp';
 import { statusByComponent } from '~/_state/component-statuses';
 
 import { ShowcaseHero, ShowcaseAutoFocus, ShowcaseProgrammatic, ShowcaseBackdrop, ShowcaseBackdropClose, ShowcaseAlertDialog, ShowcaseAnimatable, ShowcaseTransition, ShowcaseBackdropAnimatable, ShowcaseSheet, ShowcaseBottomSheet, ShowcaseStacked } from './showcase-components';
+import { CodeSnippetBuildingBlocks, CodeSnippetBackdropCss, CodeSnippetStrippedStylesCss, CodeSnippetModalCss, CodeSnippetAnimationsCss, CodeSnippetPageLoad } from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Modal} />
 
@@ -34,7 +35,7 @@ A panel that appears above all other content, blocking interaction with the rest
 
 ## Building Blocks
 
-<CodeSnippet name="building-blocks" />
+<CodeSnippetBuildingBlocks />
 
 ### 🎨 Anatomy
 
@@ -126,7 +127,7 @@ To add a backdrop, the `::backdrop` pseudo element can be used. [Backdrops](http
 
 By default, the `dialog` element comes with a subtle backdrop, below is a snippet customizing the backdrop background along with the [backdrop filter](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter) css property.
 
-<CodeSnippet name="backdrop.css" />
+<CodeSnippetBackdropCss />
 
 <ShowcaseBackdrop />
 
@@ -162,7 +163,7 @@ As a headless library, Qwik UI avoids adding styles to components. However, it u
 
 These default styles can be difficult to manage, so they have been removed from the Modal component to simplify debugging.
 
-<CodeSnippet name="stripped-styles.css" />
+<CodeSnippetStrippedStylesCss />
 
 While in most cases, this would be up to a consumer's CSS reset to solve, in this case we are **stripping** the max-width and max-height styles on the dialog element under the hood.
 
@@ -210,7 +211,7 @@ Bottom sheets are more prevalent in mobile applications, usually to simplify UI.
 
 ### Animations / Transitions CSS
 
-<CodeSnippet name="animation.css" />
+<CodeSnippetAnimationsCss />
 
 ## Stacked Modals
 
@@ -222,13 +223,13 @@ Although this is not always a recommended pattern, modals can be stacked. Focus 
 
 The example for the CSS used in all of the examples above can be found below.
 
-<CodeSnippet name="modal.css" />
+<CodeSnippetModalCss />
 
 ### SSR dilemma
 
 Unfortunately, to create modals that open on page load in the web, it needs to be done eagerly on the client. (including existing implementations)
 
-<CodeSnippet name="page-load.tsx" />
+<CodeSnippetPageLoad />
 
 > There is currently discussions from the Open UI group about the possibility of a modal dialog that can open on initial load.
 

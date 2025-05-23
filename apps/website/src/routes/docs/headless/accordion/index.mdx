@@ -7,6 +7,7 @@ import { FeatureList } from '~/components/feature-list/feature-list';
 import { Note } from '~/components/note/note';
 
 import { ShowcaseHero, ShowcaseInitial, ShowcaseReactive, ShowcaseProgrammatic, ShowcaseOnChange, ShowcaseMultiple, ShowcaseCollapsible, ShowcaseDisabled, ShowcaseDisabledRoot, ShowcaseAnimation, ShowcaseCsr, ShowcaseDynamic } from './showcase-components';
+import { CodeSnippetAccordionCss, CodeSnippetAnimationsCss, CodeSnippetBuildingBlocks } from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Accordion} />
 
@@ -29,7 +30,7 @@ A set of interactive sections that show or hide connected information.
 
 ## Building blocks
 
-<CodeSnippet name="building-blocks.tsx" />
+<CodeSnippetBuildingBlocks />
 
 ### 🎨 Anatomy
 
@@ -143,7 +144,7 @@ To animate the Accordion content, the `--qwikui-collapsible-content-height` CSS 
 
 > In the near future, you won't need JavaScript at all to animate the height of content! Here's the [CSS WG Proposal](https://github.com/w3c/csswg-drafts/blob/main/css-values-5/calc-size-explainer.md) for more info.
 
-<CodeSnippet name="animation.css" />
+<CodeSnippetAnimationsCss />
 
 ### Why does padding or border break the animation?
 
@@ -175,7 +176,7 @@ You have custom control over how to render items in the Accordion, allowing for 
 
 ## Example CSS
 
-<CodeSnippet name="accordion.css" />
+<CodeSnippetAccordionCss />
 
 ## Keyboard Interaction
 

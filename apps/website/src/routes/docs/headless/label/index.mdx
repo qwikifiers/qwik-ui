@@ -7,6 +7,7 @@ import { FeatureList } from '~/components/feature-list/feature-list';
 import { Note } from '~/components/note/note';
 
 import { ShowcaseHero } from './showcase-components';
+import { CodeSnippetBuildingBlocks, CodeSnippetLabelCss } from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Label} />
 
@@ -31,7 +32,7 @@ For your own custom controls to work correctly, ensure they use native elements 
 
 ## Building blocks
 
-<CodeSnippet name="building-blocks" />
+<CodeSnippetBuildingBlocks />
 
 ### 🎨 Anatomy
 
@@ -54,4 +55,4 @@ The native behavior will try to select and focus the text of the label. This is 
 
 ## Example CSS
 
-<CodeSnippet name="label.css" />
+<CodeSnippetLabelCss />

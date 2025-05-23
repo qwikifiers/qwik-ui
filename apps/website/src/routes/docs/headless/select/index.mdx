@@ -6,6 +6,7 @@ import { FeatureList } from '~/components/feature-list/feature-list';
 import { statusByComponent } from '~/_state/component-statuses';
 
 import { ShowcaseHero, ShowcaseString, ShowcaseObject, ShowcaseItemValue, ShowcaseChangeValue, ShowcaseForm, ShowcaseValidation, ShowcaseDescription, ShowcaseUncontrolled, ShowcaseControlled, ShowcaseBindOpen, ShowcaseControlledValue, ShowcaseDisabled, ShowcaseAddUsers, ShowcaseIndicator, ShowcaseMultiple, ShowcaseMultiplePill, ShowcaseTypeahead, ShowcaseOpenChange, ShowcaseLoop, ShowcaseGroup, ShowcaseScrollable, ShowcaseCsr, ShowcaseFirstValueSelected } from './showcase-components';
+import { CodeSnippetBuildingBlocks, CodeSnippetSelectCss } from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Select} />
 
@@ -38,7 +39,7 @@ A control that allows the user to select multiple predefined items from a listbo
 
 ## Building blocks
 
-<CodeSnippet name="building-blocks" />
+<CodeSnippetBuildingBlocks />
 
 ### 🎨 Anatomy
 
@@ -331,7 +332,7 @@ The select component can be rendered both server-side or client-side, same with 
 
 Every code example uses the following CSS:
 
-<CodeSnippet name="select.css" />
+<CodeSnippetSelectCss />
 
 Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
 

@@ -5,6 +5,7 @@ title: Qwik UI | Combobox
 import { statusByComponent } from '~/_state/component-statuses';
 
 import { ShowcaseHero, ShowcaseString, ShowcaseObject, ShowcaseItemValue, ShowcaseChange, ShowcaseInitial, ShowcaseReactive, ShowcaseProgrammatic, ShowcaseDisabled, ShowcaseAddItems, ShowcaseIndicator, ShowcaseMultiple, ShowcasePlaceholder, ShowcaseCsr, ShowcaseInline, ShowcaseCustomInline, ShowcaseFilter, ShowcaseEmpty, ShowcaseOpenChange, ShowcaseReactiveOpen, ShowcaseInput, ShowcaseReactiveInput, ShowcaseLoop, ShowcaseGroup, ShowcaseScrollable, ShowcaseRefs, ShowcaseForm, ShowcaseValidation } from './showcase-components';
+import { CodeSnippetBuildingBlocks, CodeSnippetComboboxCss } from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
@@ -43,7 +44,7 @@ Users can either type a value or pick one from a dropdown list.
 
 ## Building blocks
 
-<CodeSnippet name="building-blocks" />
+<CodeSnippetBuildingBlocks />
 
 ### 🎨 Anatomy
 
@@ -361,7 +362,7 @@ When the `<Combobox.ErrorMessage>` component is rendered, the component is in an
 
 Every code example uses the following CSS:
 
-<CodeSnippet name="combobox.css" />
+<CodeSnippetComboboxCss />
 
 Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
 

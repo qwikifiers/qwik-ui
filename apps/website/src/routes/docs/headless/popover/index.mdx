@@ -6,6 +6,7 @@ import { statusByComponent } from '~/_state/component-statuses';
 import Styles from './examples/styles';
 
 import { ShowcaseHero, ShowcaseBasic, ShowcaseInspect, ShowcaseAuto, ShowcaseManual, ShowcaseProgrammatic, ShowcaseToggleEvent, ShowcaseFloating, ShowcasePlacement, ShowcaseCorners, ShowcaseFlip, ShowcaseGutter, ShowcaseStyling, ShowcaseAnimation, ShowcaseTransition } from './showcase-components';
+import { CodeSnippetFloatingCss, CodeSnippetPopoverCss, CodeSnippetBuildingBlocks } from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
 
@@ -34,19 +35,7 @@ While we wait for support though, Qwik UI uses a polyfill under the hood for you
 
 ## Building blocks
 
-```tsx
-import { component$ } from '@builder.io/qwik';
-import { Popover } from '@qwik-ui/headless';
-
-export default component$(() => {
-  return (
-    <Popover.Root>
-      <Popover.Trigger>Trigger</Popover.Trigger>
-      <Popover.Panel>Panel</Popover.Panel>
-    </Popover.Root>
-  );
-});
-```
+<CodeSnippetBuildingBlocks />
 
 ### 🎨 Anatomy
 
@@ -291,7 +280,7 @@ There are times when we want to override this behavior. An example being when we
 
 Qwik UI strips the following styles when in floating mode:
 
-<CodeSnippet name="floating.css" />
+<CodeSnippetFloatingCss />
 
 We put it under an `@layer` so that it can be easily overridden when adding your own styles.
 
