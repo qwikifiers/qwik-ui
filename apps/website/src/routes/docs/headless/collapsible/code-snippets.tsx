@@ -6,9 +6,9 @@ export const CodeSnippetBuildingBlocks = component$(() => {
   return <CodeSnippet code={BuildingBlocksSnippet} />;
 });
 
-import AnimationsCssSnippet from './snippets/animations.css?raw';
-export const CodeSnippetAnimationsCss = component$(() => {
-  return <CodeSnippet code={AnimationsCssSnippet} />;
+import AnimationCssSnippet from './snippets/animation.css?raw';
+export const CodeSnippetAnimationCss = component$(() => {
+  return <CodeSnippet code={AnimationCssSnippet} />;
 });
 
 import CollapsibleCssSnippet from './snippets/collapsible.css?raw';

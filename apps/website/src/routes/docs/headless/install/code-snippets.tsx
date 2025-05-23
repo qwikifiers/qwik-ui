@@ -6,7 +6,7 @@ export const CodeSnippetBuildingBlocks = component$(() => {
   return <CodeSnippet code={BuildingBlocksSnippet} />;
 });
 
-import AstroTsConfigSnippet from './snippets/astro.tsconfig.json?raw';
+import AstroTsConfigSnippet from './snippets/astro-tsconfig.json?raw';
 export const CodeSnippetAstroTsConfig = component$(() => {
   return <CodeSnippet code={AstroTsConfigSnippet} />;
 });

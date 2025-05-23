@@ -16,9 +16,9 @@ export const CodeSnippetStrippedStylesCss = component$(() => {
   return <CodeSnippet code={StrippedStylesCssSnippet} />;
 });
 
-import AnimationsCssSnippet from './snippets/animations.css?raw';
-export const CodeSnippetAnimationsCss = component$(() => {
-  return <CodeSnippet code={AnimationsCssSnippet} />;
+import AnimationCssSnippet from './snippets/animation.css?raw';
+export const CodeSnippetAnimationCss = component$(() => {
+  return <CodeSnippet code={AnimationCssSnippet} />;
 });
 
 import ModalCssSnippet from './snippets/modal.css?raw';
