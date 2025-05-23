@@ -5,8 +5,10 @@ export default component$(() => {
   useStyles$(styles);
 
   return (
-    <Switch.Root class="switch" >
-      <Switch.Input data-test={11}  />
+    <Switch.Root class="switch">
+      <Switch.Input data-test={11}>
+        <Switch.Thumb />
+      </Switch.Input>
     </Switch.Root>
   );
 });

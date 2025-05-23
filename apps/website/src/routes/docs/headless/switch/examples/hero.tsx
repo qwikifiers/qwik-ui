@@ -9,7 +9,9 @@ export default component$(() => {
   return (
     <Switch.Root class="switch" bind:checked={checked} onChange$={() => count.value++}>
       <Switch.Label>label{count.value}</Switch.Label>
-      <Switch.Input />
+      <Switch.Input>
+        <Switch.Thumb />
+      </Switch.Input>
     </Switch.Root>
   );
 });

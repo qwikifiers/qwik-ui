@@ -7,7 +7,9 @@ export default component$(() => {
     <>
       <Switch.Root class="switch" bind:checked={checked}>
         <Switch.Label>label</Switch.Label>
-        <Switch.Input />
+        <Switch.Input>
+          <Switch.Thumb />
+        </Switch.Input>
       </Switch.Root>
     </>
   );

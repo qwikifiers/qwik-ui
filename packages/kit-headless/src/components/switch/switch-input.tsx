@@ -1,6 +1,19 @@
-import { component$, PropsOf, sync$, useContext, useId, $, useSignal } from '@builder.io/qwik';
+import {
+  component$,
+  PropsOf,
+  useContext,
+  useId,
+  $,
+  useSignal,
+  Slot,
+} from '@builder.io/qwik';
 import { SwitchContext } from './switch-context';
-export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: string}>((rest) => {
+
+export interface SwitchInputProps extends PropsOf<'input'> {
+  thumbClassName?: string;
+}
+
+export const SwitchInput = component$<SwitchInputProps>((props) => {
   const context = useContext(SwitchContext);
   const switchRef = useSignal<HTMLInputElement | undefined>();
   const id = useId();
@@ -12,25 +25,18 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
     context.bindChecked.value = !context.bindChecked.value;
   });
 
-  const handleKeyPressSync$ = sync$((e: KeyboardEvent) => {
-    const keys = ['Enter', ' '];
-    if (keys.includes(e.code)) {
-      e.preventDefault();
-    }
-  });
-
   return (
     <div
       data-switch-track
       preventdefault:click
       preventdefault:change
       preventdefault:keypress
-      onChange$={[handleClick$, context?.onChange$]}
-      onKeyPress$={[handleKeyPressSync$, context?.onKeyPress$]}
-      onClick$={[handleClick$, context?.onClick$]}
+      onChange$={[handleClick$, context?.onChange$, props.onChange$]}
+      onKeyPress$={[context?.onKeyPress$, props.onKeyPress$]}
+      onClick$={[handleClick$, context?.onClick$, props.onClick$]}
     >
       <input
-        {...rest}
+        {...props}
         aria-label={'switch'}
         data-checked={context.bindChecked?.value ? 'true' : 'false'}
         data-disabled={context.disabled?.value ? 'true' : 'false'}
@@ -44,8 +50,16 @@ export const SwitchInput = component$<PropsOf<'input'> & {thumbClassName?: strin
         role="switch"
         data-qui-switch-input
         autoFocus={context.autoFocus?.value}
-        />
-      <span data-switch-thumb class={rest.thumbClassName}></span>
+      />
+      <Slot />
     </div>
   );
+});
+
+export interface SwitchThumbProps {
+  className?: string;
+}
+
+export const SwitchThumb = component$<SwitchThumbProps>(({ className }) => {
+  return <span data-switch-thumb class={className}></span>;
 });
