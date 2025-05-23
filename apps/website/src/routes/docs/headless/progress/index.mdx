@@ -4,6 +4,8 @@ title: Qwik UI | Progress
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseMin, ShowcaseMax, ShowcaseComplete, ShowcaseIndeterminate, ShowcaseReactive, ShowcaseCsr } from './showcase-components';
+
 import { FeatureList } from '~/components/feature-list/feature-list';
 
 import { Note } from '~/components/note/note';
@@ -12,9 +14,9 @@ import { Note } from '~/components/note/note';
 
 # Progress
 
-A visual indicator that shows how much of a task has been completed.
+Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## ✨ Features
 
@@ -33,19 +35,19 @@ A visual indicator that shows how much of a task has been completed.
 
 The `min` prop sets a minimum starting point for the progress bar.
 
-<Showcase name="min" />
+<ShowcaseMin />
 
 ### Adding a value
 
 To set a value for the progress bar, use the `value` prop in the `Progress.Root` component.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ### Max
 
 The `max` prop defines the upper limit of the progress bar.
 
-<Showcase name="max" />
+<ShowcaseMax />
 
 ## Status
 
@@ -53,7 +55,7 @@ The `max` prop defines the upper limit of the progress bar.
 
 When the task is ongoing, the progress component reflects this state.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 The `data-progress="in-progress"` attribute is applied to the progress and its indicator.
 
@@ -61,13 +63,13 @@ The `data-progress="in-progress"` attribute is applied to the progress and its i
 
 When the task is finished, the `data-progress="complete"` attribute is applied.
 
-<Showcase name="complete" />
+<ShowcaseComplete />
 
 ### Indeterminate progress
 
 If the progress is uncertain, the bar should be in an indeterminate state. This occurs when the value is `null`.
 
-<Showcase name="indeterminate" />
+<ShowcaseIndeterminate />
 
 In this state, the progress and its indicator will have the `data-progress="indeterminate"` attribute.
 
@@ -83,13 +85,13 @@ In this state, the progress and its indicator will have the `data-progress="inde
 
 To set the initial progress on page load, you can pass a `value` prop to the `Progress.Root` component.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ### Dynamic Progress Updates
 
 To update the progress bar in real-time, pass a signal to the `bind:value` prop.
 
-<Showcase name="reactive" />
+<ShowcaseReactive />
 
 The progress bar can also be used in combination with other Qwik UI headless components, such as the Carousel component when the user [navigates through the slides](../carousel/#progress).
 
@@ -97,7 +99,7 @@ The progress bar can also be used in combination with other Qwik UI headless com
 
 Similar to other Qwik UI headless components, the Progress Bar automatically renders based on its environment. The previous progress bars are rendered on the server.
 
-<Showcase name="csr" />
+<ShowcaseCsr />
 
 The example above shows the progress bar being rendered on the client when the `isRendered` signal is set to `true`.
 

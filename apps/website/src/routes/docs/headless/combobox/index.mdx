@@ -4,13 +4,15 @@ title: Qwik UI | Combobox
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseString, ShowcaseObject, ShowcaseItemValue, ShowcaseChange, ShowcaseInitial, ShowcaseReactive, ShowcaseProgrammatic, ShowcaseDisabled, ShowcaseAddItems, ShowcaseIndicator, ShowcaseMultiple, ShowcasePlaceholder, ShowcaseCsr, ShowcaseInline, ShowcaseCustomInline, ShowcaseFilter, ShowcaseEmpty, ShowcaseOpenChange, ShowcaseReactiveOpen, ShowcaseInput, ShowcaseReactiveInput, ShowcaseLoop, ShowcaseGroup, ShowcaseScrollable, ShowcaseRefs, ShowcaseForm, ShowcaseValidation } from './showcase-components';
+
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
 # Combobox
 
 Users can either type a value or pick one from a dropdown list.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## ✨ Features
 
@@ -109,25 +111,25 @@ To add data, use the `<Combobox.Item>` component inside of the popover.
 
 ### Basic example
 
-<Showcase name="string" />
+<ShowcaseString />
 
 By default, the content inside of the `<Combobox.ItemLabel />` component is the item's value.
 
 ### Mapping over data
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 You control how the data is rendered. Map over the data or render the items as you like.
 
 ### Object example
 
-<Showcase name="object" />
+<ShowcaseObject />
 
 > If you need to display a different value to the user, use the `value` prop on `<Combobox.Item />`. This will be explained in the next section.
 
 ### Passing a distinct value
 
-<Showcase name="item-value" />
+<ShowcaseItemValue />
 
 A distinct value is when one thing is displayed to the user, but another value is passed to the item.
 
@@ -137,7 +139,7 @@ By adding the `value` prop to the `<Combobox.Item />` component, a distinct valu
 
 ### Handling selection changes
 
-<Showcase name="change" />
+<ShowcaseChange />
 
 Use the `onChange$` prop to listen for changes in the selected value. It provides the new selected value as an argument.
 
@@ -149,7 +151,7 @@ To add initial state, use the `value` prop on the `<Combobox.Root />` component.
 
 ### Uncontrolled / Initial value
 
-<Showcase name="initial" />
+<ShowcaseInitial />
 
 The example above sets "Jessie" as the initial value, so it is selected and focused.
 
@@ -157,7 +159,7 @@ The example above sets "Jessie" as the initial value, so it is selected and focu
 
 To add reactive state, use the `bind:value` prop on the `<Combobox.Root />` component.
 
-<Showcase name="reactive" />
+<ShowcaseReactive />
 
 > Note that the initial value of the signal will affect the initial value of the checkbox.
 
@@ -165,13 +167,13 @@ To add reactive state, use the `bind:value` prop on the `<Combobox.Root />` comp
 
 Optionally, the selected value can be programmatically updated by the signal.
 
-<Showcase name="programmatic" />
+<ShowcaseProgrammatic />
 
 In the example above, clicking the "Change to Abby" button changes the selected value.
 
 ### Disabled items
 
-<Showcase name="disabled" />
+<ShowcaseDisabled />
 
 Add the `disabled` prop to `<Combobox.Item />` to disable items.
 
@@ -181,13 +183,13 @@ Disabled items cannot be selected or focused and are skipped during arrow key na
 
 A common use case is adding items dynamically, like an infinite scrolling list of users.
 
-<Showcase name="add-items" />
+<ShowcaseAddItems />
 
 Clicking the `Add Users` button creates new users to the list. We could also fetch more data from the server or database.
 
 ### Item indicators
 
-<Showcase name="indicator" />
+<ShowcaseIndicator />
 
 Add `<Combobox.ItemIndicator />` inside `<Combobox.Item />` to indicate the selected item.
 
@@ -195,7 +197,7 @@ Add `<Combobox.ItemIndicator />` inside `<Combobox.Item />` to indicate the sele
 
 To allow multiple selections, set the `multiple` prop to `true`.
 
-<Showcase name="multiple" />
+<ShowcaseMultiple />
 
 Use the `bind:displayValue` signal to configure multiple display values.
 
@@ -207,19 +209,19 @@ You can combine `bind:value` and `bind:displayValue` to create a custom widget t
 
 To remove items on backspace, add the `removeOnBackspace` prop to the `<Combobox.Root />` component.
 
-<Showcase name="multiple" />
+<ShowcaseMultiple />
 
 ### Placeholder
 
 We can provide a custom placeholder to the `<Combobox.Root />` component by adding the `placeholder` prop.
 
-<Showcase name="placeholder" />
+<ShowcasePlaceholder />
 
 ### CSR
 
 Like every Qwik UI component, the Combobox component can be rendered server-side or client-side.
 
-<Showcase name="csr" />
+<ShowcaseCsr />
 
 ## Inline Mode (Command Palette)
 
@@ -231,7 +233,7 @@ Add the `mode="inline"` prop to `<Combobox.Root>`
 
 Use the `Combobox.Inline` component instead of `<Combobox.Popover>`.
 
-<Showcase name="inline" />
+<ShowcaseInline />
 
 ### Key Differences in Inline Mode:
 
@@ -250,7 +252,7 @@ Inline mode is useful when you want users to quickly browse and select from a li
 
 You can combine inline mode with custom filtering logic while maintaining the same persistent listbox behavior.
 
-<Showcase name="custom-inline" />
+<ShowcaseCustomInline />
 
 > In inline mode, the `<Combobox.Control>` component is not needed, as the listbox is always visible.
 
@@ -260,7 +262,7 @@ You can combine inline mode with custom filtering logic while maintaining the sa
 
 By default, the Combobox filters items based on user input. To disable this, set the `filter` prop to `false`.
 
-<Showcase name="filter" />
+<ShowcaseFilter />
 
 You can use any filtering library. In the example above, we use `match-sorter`.
 
@@ -272,25 +274,25 @@ By default, the popover automatically closes when there are no items to display.
 
 To show UI when there are no items in the popover, use the `Combobox.Empty` component.
 
-<Showcase name="empty" />
+<ShowcaseEmpty />
 
 ### Handling popover open/close
 
 To handle the popover open/close state, use the `onOpenChange$` prop. It passes a boolean indicating whether the popover is open.
 
-<Showcase name="open-change" />
+<ShowcaseOpenChange />
 
 ### Reactive open state
 
 To reactively control the open state, use the `bind:open` prop.
 
-<Showcase name="reactive-open" />
+<ShowcaseReactiveOpen />
 
 ### Handling input changes
 
 Add the `onInput$` prop to the `<Combobox.Root />` component.
 
-<Showcase name="input" />
+<ShowcaseInput />
 
 This function is called when the user types in the input.
 
@@ -298,13 +300,13 @@ This function is called when the user types in the input.
 
 The input can also be fully controlled by adding the `bind:value` prop to the `<Combobox.Input />` component.
 
-<Showcase name="reactive-input" />
+<ShowcaseReactiveInput />
 
 ### Looping
 
 To loop through items, use the `loop` prop on `<Combobox.Root />`.
 
-<Showcase name="loop" />
+<ShowcaseLoop />
 
 - Pressing the down arrow key moves focus to the first enabled item.
 - Pressing the up arrow key moves focus to the last enabled item.
@@ -313,13 +315,13 @@ To loop through items, use the `loop` prop on `<Combobox.Root />`.
 
 Use `<Combobox.Group />` and `<Combobox.GroupLabel />` to group items and provide an accessible name.
 
-<Showcase name="group" />
+<ShowcaseGroup />
 
 ### Scrolling
 
 Handle scrolling in the popover since focus remains on the select trigger when open.
 
-<Showcase name="scrollable" />
+<ShowcaseScrollable />
 
 The native `scrollIntoView` method scrolls items into view when highlighted. To customize scroll behavior, add the `scrollOptions` prop to `<Combobox.Root />`.
 
@@ -333,7 +335,7 @@ When a value is not selected, the placeholder is displayed.
 
 You can pass a ref to each Combobox component to access the underlying DOM element. This is an experimental feature, and we are still working on it, use at your own risk.
 
-<Showcase name="refs" />
+<ShowcaseRefs />
 
 Above is an example that programmatically changes the background color of the trigger when clicked.
 
@@ -341,7 +343,7 @@ Above is an example that programmatically changes the background color of the tr
 
 To use the combobox in a form, a visually hidden native select element is provided inside of `<Combobox.HiddenNativeSelect>`.
 
-<Showcase name="form" />
+<ShowcaseForm />
 
 The `name` prop on the `Combobox.Root` component is used to name the Combobox form field.
 
@@ -349,7 +351,7 @@ The `name` prop on the `Combobox.Root` component is used to name the Combobox fo
 
 Form libaries like [Modular Forms](https://modularforms.dev/) can be used to validate the combobox form field.
 
-<Showcase name="validation" />
+<ShowcaseValidation />
 
 When the `<Combobox.ErrorMessage>` component is rendered, the component is in an invalid state.
 

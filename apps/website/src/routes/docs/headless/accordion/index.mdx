@@ -6,13 +6,15 @@ import { statusByComponent } from '~/_state/component-statuses';
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { Note } from '~/components/note/note';
 
+import { ShowcaseHero, ShowcaseInitial, ShowcaseReactive, ShowcaseProgrammatic, ShowcaseOnChange, ShowcaseMultiple, ShowcaseCollapsible, ShowcaseDisabled, ShowcaseDisabledRoot, ShowcaseAnimation, ShowcaseCsr, ShowcaseDynamic } from './showcase-components';
+
 <StatusBanner status={statusByComponent.headless.Accordion} />
 
 # Accordion
 
 A set of interactive sections that show or hide connected information.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## ✨ Features
 
@@ -81,7 +83,7 @@ Qwik UI includes a headless Accordion component that uses ARIA and JavaScript to
 
 To set a default or initial value on page load, use the `value` prop on the `<Accordion.Root />` component.
 
-<Showcase name="initial" />
+<ShowcaseInitial />
 
 The `value` prop on the `<Accordion.Root>` was set to `item-2`, which is the value of the second item. As a result, the second item is selected by default.
 
@@ -89,31 +91,31 @@ The `value` prop on the `<Accordion.Root>` was set to `item-2`, which is the val
 
 Pass reactive state by using the `bind:value` prop on the `<Accordion.Root /> `component.
 
-<Showcase name="reactive" />
+<ShowcaseReactive />
 
 ### Programmatic changes
 
 You can also change the current expanded item values programmatically by updating the signal's value.
 
-<Showcase name="programmatic" />
+<ShowcaseProgrammatic />
 
 ### Handling selection changes
 
 Listen to when a new item is selected by passing a callback function to the `onChange$` prop.
 
-<Showcase name="on-change" />
+<ShowcaseOnChange />
 
 ### Multiple items
 
 To allow multiple items to be open at the same time, set the `multiple` prop to `true`.
 
-<Showcase name="multiple" />
+<ShowcaseMultiple />
 
 ### Non-collapsible
 
 To disable collapsible behavior, set the `collapsible` prop to `false`.
 
-<Showcase name="collapsible" />
+<ShowcaseCollapsible />
 
 This will prevent the accordion from collapsing when the user clicks on the trigger.
 
@@ -121,7 +123,7 @@ This will prevent the accordion from collapsing when the user clicks on the trig
 
 Items can be disabled by setting the `disabled` prop to true on the `<Accordion.Item />` component.
 
-<Showcase name="disabled" />
+<ShowcaseDisabled />
 
 > Disabled items are not selectable or focusable. They are also skipped when using the arrow keys to navigate through the items.
 
@@ -129,7 +131,7 @@ Items can be disabled by setting the `disabled` prop to true on the `<Accordion.
 
 The component itself can also be disabled by setting the `disabled` prop to true on the `<Accordion.Root />` component.
 
-<Showcase name="disabled-root" />
+<ShowcaseDisabledRoot />
 
 ## Advanced
 
@@ -137,7 +139,7 @@ The component itself can also be disabled by setting the `disabled` prop to true
 
 To animate the Accordion content, the `--qwikui-collapsible-content-height` CSS variable in your keyframes.
 
-<Showcase name="animation" />
+<ShowcaseAnimation />
 
 > In the near future, you won't need JavaScript at all to animate the height of content! Here's the [CSS WG Proposal](https://github.com/w3c/csswg-drafts/blob/main/css-values-5/calc-size-explainer.md) for more info.
 
@@ -161,13 +163,13 @@ To fix this, add a child element to the content, and set the padding or border o
 
 The Accordion automatically renders based on its environment. This means that it works for both server-side and client-side rendering.
 
-<Showcase name="csr" />
+<ShowcaseCsr />
 
 ### Dynamic
 
 You have custom control over how to render items in the Accordion, allowing for dynamic rendering of items.
 
-<Showcase name="dynamic" />
+<ShowcaseDynamic />
 
 > This also updates the selected items, disabled items, and focus order automatically for you.
 

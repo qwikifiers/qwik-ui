@@ -1,10 +1,12 @@
 ---
-title: Qwik UI | Progress
+title: Qwik UI | Label
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { Note } from '~/components/note/note';
+
+import { ShowcaseHero } from './showcase-components';
 
 <StatusBanner status={statusByComponent.headless.Label} />
 
@@ -12,7 +14,7 @@ import { Note } from '~/components/note/note';
 
 Renders an accessible label associated with controls.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 This component is based on the native label element, it will automatically apply the correct labelling when wrapping controls or using the for attribute.
 

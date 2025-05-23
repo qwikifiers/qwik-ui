@@ -5,13 +5,15 @@ title: Qwik UI | Modal
 import topLayer from '../../../../../public/images/top-layer.webp';
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseAutoFocus, ShowcaseProgrammatic, ShowcaseBackdrop, ShowcaseBackdropClose, ShowcaseAlertDialog, ShowcaseAnimatable, ShowcaseTransition, ShowcaseBackdropAnimatable, ShowcaseSheet, ShowcaseBottomSheet, ShowcaseStacked } from './showcase-components';
+
 <StatusBanner status={statusByComponent.headless.Modal} />
 
 # Modal
 
 A panel that appears above all other content, blocking interaction with the rest of the page.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 > Looking for something above other content that doesn't block interaction with the rest of the page? Check out [Qwik UI's popover component](../../../docs/headless/popover/).
 
@@ -86,7 +88,7 @@ Qwik UI builds on top of the `dialog` element, and solves the following issues:
 
 ## Dialog extendability
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 Above, we mentioned the Modal component uses the `dialog` element. This means you can also use the native [dialog element attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) to customize the modal.
 
@@ -94,7 +96,7 @@ Above, we mentioned the Modal component uses the `dialog` element. This means yo
 
 ### Attribute example
 
-<Showcase name="auto-focus" />
+<ShowcaseAutoFocus />
 
 Above is an example of the `autofocus` attribute, used to focus the 2nd input when the dialog is opened.
 
@@ -104,7 +106,7 @@ Above is an example of the `autofocus` attribute, used to focus the 2nd input wh
 
 To programmatically open or close the modal, we can use `bind:show`, a signal prop that allows us to reactively control the modal state.
 
-<Showcase name="programmatic" />
+<ShowcaseProgrammatic />
 
 `isOpen` is a signal that we pass into our Modal component to customize when the modal can be open or closed.
 
@@ -126,13 +128,13 @@ By default, the `dialog` element comes with a subtle backdrop, below is a snippe
 
 <CodeSnippet name="backdrop.css" />
 
-<Showcase name="backdrop" />
+<ShowcaseBackdrop />
 
 > Styling a [backdrop in Tailwind](https://tailwindcss.com/docs/backdrop-blur) can be done using the `backdrop` prefix.
 
 ## Dismissing Modals via Backdrop
 
-<Showcase name="backdrop-close" />
+<ShowcaseBackdropClose />
 
 By default, modals are dismissed when clicking the backdrop. To disable this behavior, set `disableOnBackdropClick={true}` on the `<Modal.Root />` component.
 
@@ -140,7 +142,7 @@ By default, modals are dismissed when clicking the backdrop. To disable this beh
 
 An alert dialog is a modal that interrupts user workflow to convey critical information and obtain a response. It's typically used for confirmations, error messages, or destructive actions.
 
-<Showcase name="alert-dialog" />
+<ShowcaseAlertDialog />
 
 By adding the `alert` prop to our component, we adhere to the [WAI ARIA Alertdialog specification](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/), enabling assistive technologies to distinguish alert dialogs for special handling.
 
@@ -150,7 +152,7 @@ Alertdialogs cannot be dismissed by clicking the backdrop, regardless of whether
 
 Focus locking prevents focus from leaving the modal.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 Using the Tab key to navigate through the modal will cycle the focus from the last to the first focusable element automatically.
 
@@ -176,13 +178,13 @@ Modern browsers have introduced discrete animation capabilities, allowing us to 
 
 Keyframes are ideal for handling the entry and exit of the modal. Here's an example using modalOpen for opening and modalClose for closing the modal:
 
-<Showcase name="animatable" />
+<ShowcaseAnimatable />
 
 ### Transition Declarations
 
 Transitions are useful for animating properties like opacity and transform. Here's how to implement transitions for the modal:
 
-<Showcase name="transition" />
+<ShowcaseTransition />
 
 <TopLayerAnimationsCaveats />
 
@@ -190,7 +192,7 @@ Transitions are useful for animating properties like opacity and transform. Here
 
 To animate the modal's backdrop, use the `::backdrop` pseudo-element and include it in your keyframes or transitions:
 
-<Showcase name="backdrop-animatable" />
+<ShowcaseBackdropAnimatable />
 
 ## Sheets
 
@@ -198,11 +200,11 @@ Sheets are a type of modal/overlay used to provide temporary access to important
 
 ### Side Sheet
 
-<Showcase name="sheet" />
+<ShowcaseSheet />
 
 ### Bottom Sheet
 
-<Showcase name="bottom-sheet" />
+<ShowcaseBottomSheet />
 
 Bottom sheets are more prevalent in mobile applications, usually to simplify UI.
 
@@ -214,7 +216,7 @@ Bottom sheets are more prevalent in mobile applications, usually to simplify UI.
 
 Although this is not always a recommended pattern, modals can be stacked. Focus will be trapped within the last opened modal.
 
-<Showcase name="stacked" />
+<ShowcaseStacked />
 
 ## Example CSS
 

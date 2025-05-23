@@ -4,13 +4,15 @@ title: Qwik UI | Tabs
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseFirst, ShowcaseVertical, ShowcaseDisabled, ShowcaseAutomatic, ShowcaseManual, ShowcaseDynamic, ShowcaseOnSelectedIndexChange, ShowcaseSelectedTabId, ShowcaseSelectedProp, ShowcaseOnClick, ShowcaseReusable } from './showcase-components';
+
 <StatusBanner status={statusByComponent.headless.Tabs} />
 
 # Tabs
 
 Explore and switch between different views using tabs
 
-<Showcase name="first" />
+<ShowcaseFirst />
 
 ## Building blocks
 
@@ -28,13 +30,13 @@ Explore and switch between different views using tabs
 
 by default, the tabs are horizontal, but you can adjust the underlying behavior to be vertical by setting the `vertical` prop to true.
 
-<Showcase name="vertical" />
+<ShowcaseVertical />
 
 ## Disabled
 
 You can disable a tab by setting the `disabled` prop to true.
 
-<Showcase name="disabled" />
+<ShowcaseDisabled />
 
 ## Behavior
 
@@ -42,23 +44,23 @@ You can disable a tab by setting the `disabled` prop to true.
 
 The default behavior of the tabs is manual, which means that the tabs will automatically switch to the next tab when the user hovers over the tab. You can change this behavior by setting the `behavior` prop to `automatic`.
 
-<Showcase name="automatic" />
+<ShowcaseAutomatic />
 
 ### Manual
 
 You can set the behavior to manual, which means that the tabs will not automatically switch to the next tab when the user presses the right arrow key, and to the previous tab when the user presses the left arrow key.
 
-<Showcase name="manual" />
+<ShowcaseManual />
 
 ## Dynamic
 
-<Showcase name="dynamic" />
+<ShowcaseDynamic />
 
 ## onSelectedIndexChange$
 
 You can listen to changes in the selected index by subscribing to the `onSelectedIndexChange$` store.
 
-<Showcase name="on-selected-index-change" />
+<ShowcaseOnSelectedIndexChange />
 
 ## bind:selectedIndex
 
@@ -71,19 +73,19 @@ and it will be used directly.
 
 💡 You can manually set the `tabId` prop on each tab to be able to select any tab by its ID.
 
-<Showcase name="selected-tab-id" />
+<ShowcaseSelectedTabId />
 
 ## Add a "selected" prop
 
 You can add a "selected" prop to the Tab component to make it selected by default.
 
-<Showcase name="selected-prop" />
+<ShowcaseSelectedProp />
 
 ## onClick$
 
 You can pass a custom `onClick$` handler.
 
-<Showcase name="on-click" />
+<ShowcaseOnClick />
 
 ## Creating reusable Tabs
 
@@ -109,7 +111,7 @@ const CustomTabs = (props: PropsOf<typeof Tabs.Root>) => (
   a Tab component.
 </Note>
 
-<Showcase name="reusable" />
+<ShowcaseReusable />
 
 ## Accessibility
 

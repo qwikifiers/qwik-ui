@@ -8,6 +8,8 @@ import { InfoPopup } from '~/components/info-popup/info-popup';
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseTheProblem, ShowcaseInline, ShowcaseServer } from './showcase-components';
+
 # Contributing
 
 Thinking about contributing to the project, but don't know where to start? You're in the right place!
@@ -319,13 +321,13 @@ A more detailed explanation:
 
 In client-side rendered environments, such as dashboards, Qwik components can render asynchronously and even out of order.
 
-<Showcase name="the-problem" />
+<ShowcaseTheProblem />
 
 The above demonstrates the problem. The conditional JSX added is rendered on the client when the button is clicked, and the items are not rendered in the correct order.
 
 By contrast, when it is rendered on the server, we get the expected order.
 
-<Showcase name="server" />
+<ShowcaseServer />
 
 This has to do with the entrypoints of the application. The current and previous generation of frameworks execute from the root entrypoint down in a tree-like structure, which is O(n) complexity.
 
@@ -356,7 +358,7 @@ In our case, the tradeoff is negligible, but it's something to keep in mind.
 
 To use an inline component, create a standard function that returns JSX. In the below example, the inline component is called ExampleRoot.
 
-<Showcase name="inline" />
+<ShowcaseInline />
 
 The root component uses two utilities from Qwik UI.
 

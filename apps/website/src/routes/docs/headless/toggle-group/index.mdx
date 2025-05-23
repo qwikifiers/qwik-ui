@@ -4,13 +4,15 @@ title: Qwik UI | Toggle Group
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseMultiple, ShowcaseInitialValue, ShowcaseValue, ShowcaseValueBind, ShowcaseDisabled, ShowcaseItemDisabledCenter, ShowcaseLoop, ShowcaseLoopItemDisabled, ShowcaseVertical, ShowcaseHorizontalRtl } from './showcase-components';
+
 <StatusBanner status={statusByComponent.headless['Toggle Group']} />
 
 # Toggle Group
 
 A set of two-state buttons that can be toggled on or off.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## ✨ Features
 
@@ -50,58 +52,58 @@ A set of two-state buttons that can be toggled on or off.
 
 Pass a `multiple` prop to enable multi-selection.
 
-<Showcase name="multiple" />
+<ShowcaseMultiple />
 
 ### Initial Value (Uncontrolled)
 
 An initial, uncontrolled value can be provided using the `value` prop.
 
-<Showcase name="initialValue" />
+<ShowcaseInitialValue />
 
 If you want to have some control when an item is selected, like making some side effect you can use
 the `onChange$`. The event is fired when the user toggle the button, and receives the new value.
 
-<Showcase name="value" />
+<ShowcaseValue />
 
 ### Reactive Value (Controlled)
 
 Pass a signal to `bind:value` prop to make the pressed state controlled (binding the value with a signal).
 
-<Showcase name="value-bind" />
+<ShowcaseValueBind />
 
 ### Disabled
 
 Pass the `disabled` prop.
 
-<Showcase name="disabled" />
+<ShowcaseDisabled />
 
 You can also disabled specific items, pass the `disabled` prop at the `ToggleGroup.Item` level:
 When navigating with key arrows, the disabled item will be skipped.
 
-<Showcase name="item-disabled-center" />
+<ShowcaseItemDisabledCenter />
 
 ### Looping Enabled
 
 Pass the `loop` prop. When enabled, keyboard navigation will loop from last item to first, and vice versa.
 If one item is disabled it will skip it.
 
-<Showcase name="loop" />
+<ShowcaseLoop />
 
 If one item is disabled it will skip it.
 
-<Showcase name="loop-item-disabled" />
+<ShowcaseLoopItemDisabled />
 
 ### Vertical Orientation
 
 Pass the `orientation` prop.
 
-<Showcase name="vertical" />
+<ShowcaseVertical />
 
 ### Right-to-Left (rtl) Direction
 
 Pass the `direction` prop to `rtl`.
 
-<Showcase name="horizontal-rtl" />
+<ShowcaseHorizontalRtl />
 
 ## Accessibility
 
