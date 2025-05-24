@@ -85,12 +85,6 @@ Qwik UI uses [MDX](https://mdxjs.com/docs/what-is-mdx/) for interactive markdown
 
 Here is a quick link to the [headless docs in github](https://github.com/qwikifiers/qwik-ui/tree/main/apps/website/src/routes/docs/headless).
 
-One of the most import components in the docs is the `showcase` component, which gives typescript support, a component preview of your example, and **automatically** updates the code example as you edit it! 🤯
-
-> Here's [an example](https://github.com/qwikifiers/qwik-ui/blob/main/apps/website/src/routes/docs/headless/modal/examples/hero.tsx) of someone consuming a headless component! In `index.mdx` we can use `<Showcase name="hero" />`, because `hero.tsx` is the file path.
-
-The same thing goes for the `snippet` component, which is for showing code blocks only.
-
 ### Docs Components
 
 There are more [docs components](https://github.com/qwikifiers/qwik-ui/tree/main/apps/website/src/components) to make your life easier! Some examples being:
@@ -154,7 +148,9 @@ We strongly recommend TDD development for the headless library.
 
 ### Getting started w/ testing
 
-Using what we've learned with the showcase component, let's create a new example to test:
+
+
+We use the components showcased in the docs to test the headless library. Let's create a new example to test:
 
 ```tsx
 import { component$ } from '@builder.io/qwik';
@@ -169,14 +165,6 @@ export default component$(() => {
   );
 });
 ```
-
-Above is a new file called `hero.tsx` in our `examples` folder. In the collapsible pages `index.mdx` file add the following:
-
-```shell
-  <Showcase name="hero" />
-```
-
-Adding the showcase component to the website MDX will automatically create a new isolated environment in playwright as well.
 
 Each headless component also needs a "driver file", or the reusable component pieces we will need throughout the test.
 
