@@ -35,12 +35,6 @@ import { HTabList as InternalTabList } from './tabs-list';
  *  NOTE: scrolling support? or multiple lines? (probably not for headless but for tailwind / material )
  * Add ability to close tabs with an ❌ icon (and keyboard support)
 
-* TO DISCUSS
- - name of the components, e.g. Tabs, Tabs.Trigger, Tabs.Panel
- - selectedClassname => selectedClass
- - do we keep all current props (tabId callbacks?)
- - shorthand for tab: "label" or "tab"?
- - the TODOs
   *
  */
 
@@ -55,7 +49,9 @@ export type TabsProps = PropsOf<'div'> & {
   onSelectedTabIdChange$?: (tabId: string) => void;
   'bind:selectedIndex'?: Signal<number | undefined>;
   'bind:selectedTabId'?: Signal<string | undefined>;
+  /** @deprecated was for the shorthand API that we decided to no longer support as part of the headless kit */
   tabClass?: PropsOf<'div'>['class'];
+  /** @deprecated was for the shorthand API that we decided to no longer support as part of the headless kit */
   panelClass?: PropsOf<'div'>['class'];
 
   tabListComponent?: typeof InternalTabList;
@@ -76,8 +72,6 @@ export type TabInfo = {
 export const HTabs: FunctionComponent<TabsProps> = (props) => {
   const {
     children,
-    tabClass,
-    panelClass,
     tabListComponent: UserTabList,
     tabComponent: UserTab,
     tabPanelComponent: UserTabPanel,
@@ -134,6 +128,7 @@ export const HTabs: FunctionComponent<TabsProps> = (props) => {
           (matchedTabComponent?.props as TabProps).tabId || matchedTabComponent?.key;
         const tabId: string = tabIdFromTabMaybe || child.key || `${panelIndex}`;
 
+        // This will be removed on v1 release
         if (label) {
           tabComponents.push((<Tab>{label}</Tab>) as JSXNode<typeof Tab>);
         }
@@ -146,7 +141,6 @@ export const HTabs: FunctionComponent<TabsProps> = (props) => {
         child.key = tabId;
         // Add props but don't replace the object
         child.props._tabId = tabId;
-        child.props._extraClass = panelClass;
 
         panelComponents.push(child);
         tabInfoList.push({
@@ -175,7 +169,6 @@ export const HTabs: FunctionComponent<TabsProps> = (props) => {
     const tabId = tabInfoList[index]?.tabId;
     tab.key = tabId;
     tab.props.tabId = tabId;
-    tab.props._extraClass = tabClass;
     if (
       tabInfoList[index].panelProps.disabled !== undefined &&
       tab.props.disabled === undefined

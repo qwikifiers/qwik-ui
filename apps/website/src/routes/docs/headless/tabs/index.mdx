@@ -215,16 +215,6 @@ const CustomTabs = (props: PropsOf<typeof Tabs.Root>) => (
       description:
         'A signal that binds the selected tabId. This is a more efficient version of `selectedTabId` + `onSelectedTabIdChange$`',
     },
-    {
-      name: 'tabClass',
-      type: 'string',
-      description: 'The class name to apply to tabs',
-    },
-    {
-      name: 'panelClass',
-      type: 'string',
-      description: 'The class name to apply to panels',
-    },
   ]}
 />
 
@@ -260,11 +250,6 @@ const CustomTabs = (props: PropsOf<typeof Tabs.Root>) => (
 
 <APITable
   propDescriptors={[
-    {
-      name: 'label',
-      type: 'element',
-      description: 'Shorthand for `<Tab>{label}</Tab>`',
-    },
     {
       name: 'selected',
       type: 'boolean',
