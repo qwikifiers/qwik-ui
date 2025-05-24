@@ -341,7 +341,7 @@ importers:
         version: 1.14.0(vite@5.2.11(@types/node@20.12.12)(sass@1.89.0))
     devDependencies:
       '@qwik-ui/headless':
-        specifier: ^0.6.7
+        specifier: ^0.7.0
         version: link:../kit-headless
       '@qwik-ui/utils':
         specifier: 0.3.2
