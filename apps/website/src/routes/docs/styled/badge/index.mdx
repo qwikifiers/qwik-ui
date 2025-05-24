@@ -4,6 +4,8 @@ title: Qwik UI | Styled Badge Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcasePrimary, ShowcaseSecondary, ShowcaseAlert, ShowcaseOutline } from './showcase-components';
+
 <StatusBanner status={statusByComponent.styled.Badge} />
 
 # Badge
@@ -55,16 +57,16 @@ export const Badge = component$<BadgeProps>(({ look, ...props }) => {
 
 ### Primary
 
-<Showcase name="primary" vertical />
+<ShowcasePrimary />
 
 ### Secondary
 
-<Showcase name="secondary" vertical />
+<ShowcaseSecondary />
 
 ### Alert
 
-<Showcase name="alert" vertical />
+<ShowcaseAlert />
 
 ### Outline
 
-<Showcase name="outline" vertical />
+<ShowcaseOutline />

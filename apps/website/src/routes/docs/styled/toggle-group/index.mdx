@@ -4,21 +4,23 @@ title: Qwik UI | Styled Toggle Group Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseMultiple, ShowcaseDisabled } from './showcase-components';
+
 <StatusBanner status={statusByComponent.styled.ToggleGroup} />
 
 # Toggle Group
 
 A set of two-state buttons that can be toggled on or off.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 You can choose a multiple selection variant:
 
-<Showcase name="multiple" />
+<ShowcaseMultiple />
 
 And here is the default look for a disabled `ToggleGroup.Root`:
 
-<Showcase name="disabled" />
+<ShowcaseDisabled />
 
 <span class="flex flex-1 gap-1 font-medium">
   To see all features and the API checkout our

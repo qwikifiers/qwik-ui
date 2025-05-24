@@ -4,6 +4,8 @@ title: Qwik UI | Styled Checkbox Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseWithText, ShowcaseDisabled, ShowcaseDataBinding } from './showcase-components';
+
 <StatusBanner status={statusByComponent.styled.Checkbox} />
 
 # Checkbox
@@ -14,7 +16,7 @@ A control that allows the user to toggle between checked and not checked.
 
 <br />
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## Installation
 
@@ -54,12 +56,12 @@ export const Checkbox = component$<PropsOf<'input'>>(
 
 ### With Text
 
-<Showcase name="with-text" vertical />
+<ShowcaseWithText />
 
 ### Disabled
 
-<Showcase name="disabled" vertical />
+<ShowcaseDisabled />
 
 ### Data binding
 
-<Showcase name="data-binding" vertical />
+<ShowcaseDataBinding />

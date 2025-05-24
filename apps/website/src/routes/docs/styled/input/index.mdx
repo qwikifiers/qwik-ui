@@ -4,13 +4,15 @@ title: Qwik UI | Styled Input Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseFile, ShowcaseDisabled, ShowcaseWithLabel, ShowcaseWithButton, ShowcaseWithText, ShowcaseDataBinding } from './showcase-components';
+
 <StatusBanner status={statusByComponent.styled.Input} />
 
 # Input
 
 Displays a form input field or a component that looks like an input field.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## Installation
 
@@ -72,24 +74,24 @@ import { Input } from '~/components/ui';
 
 ### File
 
-<Showcase name="file" vertical />
+<ShowcaseFile />
 
 ### Disabled
 
-<Showcase name="disabled" vertical />
+<ShowcaseDisabled />
 
 ### With Label
 
-<Showcase name="with-label" vertical />
+<ShowcaseWithLabel />
 
 ### With button
 
-<Showcase name="with-button" vertical />
+<ShowcaseWithButton />
 
 ### With text
 
-<Showcase name="with-text" vertical />
+<ShowcaseWithText />
 
 ### Data-binding
 
-<Showcase name="data-binding" vertical />
+<ShowcaseDataBinding />

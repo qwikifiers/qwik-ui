@@ -9,6 +9,9 @@ import astroCLI from '../../../../../public/images/astro-cli.webp';
 import qwikdevAstroCLI from '../../../../../public/images/qwikdev-astro-cli.webp';
 import { ConfettiButton } from './confetti-button';
 
+import { ShowcaseAccordion, ShowcaseAccordionQwikCity, ShowcaseAstroAccordion } from './showcase-components';
+import { CodeSnippetBuildingBlocks, CodeSnippetAstroTsConfig } from './code-snippets';
+
 export const packages = {
   npm: 'npm i -D @qwik-ui/headless',
   yarn: 'yarn add -D @qwik-ui/headless',
@@ -63,7 +66,7 @@ Install Qwik UI with your choice of package manager below:
 
     Below is an example of the `Accordion` component's building block:
 
-    <CodeSnippet name="building-blocks" />
+    <CodeSnippetBuildingBlocks />
 
     We will use this example as a Qwik UI component in each guide.
 
@@ -117,7 +120,7 @@ Install Qwik UI with your choice of package manager below:
 
     Now, to create a component, you can simply copy/paste the code from the building blocks section, or the snippet provided in the code tab below 👇
 
-    <Showcase name="accordion" />
+    <ShowcaseAccordion />
 
     Hooray! We've now added our **first** Qwik UI component in Qwik City. It includes a starting point where the accordion functionality and aria behavior is added for us.
 
@@ -125,7 +128,7 @@ Install Qwik UI with your choice of package manager below:
 
     Let's add a few styles to make the component stand out more, we'll use `Tailwind CSS` as a styling solution.
 
-    <Showcase name="accordion-qwik-city" />
+    <ShowcaseAccordionQwikCity />
 
     > Here's a Qwik City [project example repository](https://github.com/thejackshelton/qwik-ui-scratch) with the content from above. Feel free to clone it and play with it.
 
@@ -189,12 +192,12 @@ Install Qwik UI with your choice of package manager below:
 
     Once again, let's copy our `building-blocks` example from above.
 
-    <CodeSnippet name="building-blocks" />
+<CodeSnippetBuildingBlocks />
 
-    <Showcase name="accordion" />
+    <ShowcaseAccordion />
 
     And we'll spice it up a bit using some vanilla CSS.
 
-    <Showcase name="astro-accordion" />
+    <ShowcaseAstroAccordion />
 
     > Here's an Astro [project example repository](https://github.com/thejackshelton/qwik-ui-astro-scratch) with the content from above. Feel free to clone it and play with it.

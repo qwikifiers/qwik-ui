@@ -5,6 +5,9 @@ title: Qwik UI | Popover
 import { statusByComponent } from '~/_state/component-statuses';
 import Styles from './examples/styles';
 
+import { ShowcaseHero, ShowcaseBasic, ShowcaseInspect, ShowcaseAuto, ShowcaseManual, ShowcaseProgrammatic, ShowcaseToggleEvent, ShowcaseFloating, ShowcasePlacement, ShowcaseCorners, ShowcaseFlip, ShowcaseGutter, ShowcaseStyling, ShowcaseAnimation, ShowcaseTransition } from './showcase-components';
+import { CodeSnippetFloatingCss, CodeSnippetPopoverCss, CodeSnippetBuildingBlocks } from './code-snippets';
+
 <StatusBanner status={statusByComponent.headless.Popover} />
 
 
@@ -12,7 +15,7 @@ import Styles from './examples/styles';
 
 A popup that goes above other content on the page. You can still interact with the rest of the page while the popover is open.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 <FeatureList
   features={[
@@ -24,7 +27,7 @@ A popup that goes above other content on the page. You can still interact with t
   ]}
 />
 
-<Showcase name="basic" />
+<ShowcaseBasic />
 
 The Qwik UI Popover component is built on top of the [Native Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API). Support is in every browser, and will increase over time.
 
@@ -32,19 +35,7 @@ While we wait for support though, Qwik UI uses a polyfill under the hood for you
 
 ## Building blocks
 
-```tsx
-import { component$ } from '@builder.io/qwik';
-import { Popover } from '@qwik-ui/headless';
-
-export default component$(() => {
-  return (
-    <Popover.Root>
-      <Popover.Trigger>Trigger</Popover.Trigger>
-      <Popover.Panel>Panel</Popover.Panel>
-    </Popover.Root>
-  );
-});
-```
+<CodeSnippetBuildingBlocks />
 
 ### 🎨 Anatomy
 
@@ -71,7 +62,7 @@ A popover is a **non-modal** UI element that creates overlays around a DOM eleme
 
 It's great for displaying additional information or options without navigating away from the current context.
 
-<Showcase name="inspect" />
+<ShowcaseInspect />
 
 > It is the web's native solution to [portals](https://qwik.builder.io/docs/cookbook/portal/#portal), which are commonly used in other JavaScript frameworks.
 
@@ -144,7 +135,7 @@ Use the `data-open` attribute on the `<Popover.Panel>` component to specifically
 
 By default, a popover is auto.
 
-<Showcase name="auto" />
+<ShowcaseAuto />
 
 An auto popover will automatically hide when you click outside of it and typically only one can be shown at a time.
 
@@ -154,7 +145,7 @@ Auto popovers dismiss when clicking outside of them and pressing the escape key.
 
 A manual popover gives you more control over the popup.
 
-<Showcase name="manual" />
+<ShowcaseManual />
 
 Manual popovers do not dismiss unless you click on the `<Popover.Trigger>` or programmatically close them.
 
@@ -182,7 +173,7 @@ To programmatically open the `Popover.Panel`, Qwik UI provides a couple function
   ]}
 />
 
-<Showcase name="programmatic" />
+<ShowcaseProgrammatic />
 
 We can control where the popover is floating by using the `bind:anchor` prop. We pass it a signal, and use that signal as the anchor's `ref`.
 
@@ -211,7 +202,7 @@ Above is an example of how we programmatically open and close the popover in the
 
 ### Handling state changes
 
-<Showcase name="toggle-event" />
+<ShowcaseToggleEvent />
 
 Use the `onToggle$` prop on the `<Popover.Panel>` to listen for changes to the popover visibility.
 
@@ -221,7 +212,7 @@ The example above uses a `Signal` to track whether the popover is triggered or n
 
 By default, the Qwik UI Popover will float below the trigger component.
 
-<Showcase name="floating" />
+<ShowcaseFloating />
 
 To make a popover float, we use JavaScript to choose where the popover should be positioned.
 
@@ -245,7 +236,7 @@ By default, popovers will float below the trigger component.
 
 When setting `floating` on the root, you can customize the position of the popover.
 
-<Showcase name="placement" />
+<ShowcasePlacement />
 
 Above we have set the `floating` prop to `right`, and so the `<Popover.Panel>` will be positioned to the right of the trigger.
 
@@ -253,7 +244,7 @@ Above we have set the `floating` prop to `right`, and so the `<Popover.Panel>` w
 
 This also includes moving things to specific corners of the anchor.
 
-<Showcase name="corners" />
+<ShowcaseCorners />
 
 You can suffix the direction with `-start` or `-end` to move the popover to the start or end of the anchor.
 
@@ -261,7 +252,7 @@ You can suffix the direction with `-start` or `-end` to move the popover to the 
 
 Enabled by default, we can use the `flip` prop to flip its position based on the available space in the viewport.
 
-<Showcase name="flip" />
+<ShowcaseFlip />
 
 To disable flipping, set `flip={false}` on the `<Popover.Root>`.
 
@@ -269,7 +260,7 @@ To disable flipping, set `flip={false}` on the `<Popover.Root>`.
 
 In the previous docs examples, we use the gutter property on the listbox. Gutter is the space between the anchor element and the floating element.
 
-<Showcase name="gutter" />
+<ShowcaseGutter />
 
 ## Styling
 
@@ -277,7 +268,7 @@ Styles can be added normally like any other component in Qwik UI, such as adding
 
 If Tailwind is the framework of choice, then styles can be added using the [arbitrary variant syntax](https://tailwindcss.com/docs/hover-focus-and-other-states#using-arbitrary-variants) or [@apply](https://tailwindcss.com/docs/reusing-styles#extracting-classes-with-apply) command. Below is an example of styling with `[popover]` as an arbitrary variant.
 
-<Showcase name="styling" />
+<ShowcaseStyling />
 
 > The arbitrary variant can be customized/abstracted even further by [adding a variant](https://tailwindcss.com/docs/plugins#adding-variants) as a plugin in the tailwind config.
 
@@ -289,7 +280,7 @@ There are times when we want to override this behavior. An example being when we
 
 Qwik UI strips the following styles when in floating mode:
 
-<CodeSnippet name="floating.css" />
+<CodeSnippetFloatingCss />
 
 We put it under an `@layer` so that it can be easily overridden when adding your own styles.
 
@@ -312,13 +303,13 @@ To handle animations across all browsers, Qwik UI uses both keyframes and transi
 
 Keyframes are ideal for handling the entry and exit of the popover. Below is an example using `popover-grow` for opening and `popover-shrink` for closing the popover:
 
-<Showcase name="animation" />
+<ShowcaseAnimation />
 
 ### Transition declarations
 
 CSS transitions are useful for animating properties like opacity and scale over time. Discrete properties like display and overlay can be handled using transition-behavior: allow-discrete.
 
-<Showcase name="transition" />
+<ShowcaseTransition />
 
 <TopLayerAnimationsCaveats />
 

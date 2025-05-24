@@ -7,5 +7,10 @@
   "editor.codeActionsOnSave": {
     "source.removeUnusedImports": "explicit"
   },
+  "[mdx]": {
+    "editor.codeActionsOnSave": {
+      "source.removeUnusedImports": "never"
+    }
+  },
   "vitest.disableWorkspaceWarning": true
 }

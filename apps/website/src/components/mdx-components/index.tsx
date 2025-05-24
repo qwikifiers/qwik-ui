@@ -9,7 +9,6 @@ import { FeatureList } from '../feature-list/feature-list';
 import { InstallSnippet } from '../install-snippet/install-snippet';
 import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard-interaction-table';
 import { Note } from '../note/note';
-import { Showcase } from '../showcase/showcase';
 import { StatusBanner } from '../status-banner/status-banner';
 import { TopLayerAnimationsCaveats } from '../animations/caveats';
 import { BrowserAnimationsCompatability } from '../animations/compatability';
@@ -137,7 +136,6 @@ export const components: Record<string, Component> = {
   KeyboardInteractionTable,
   Note,
   StatusBanner,
-  Showcase,
   AutoAPI,
   TopLayerAnimationsCaveats,
   BrowserAnimationsCompatability,
