@@ -5,6 +5,7 @@ import { tabsContextId } from './tabs-context-id';
 
 export type TabPanelProps = {
   /** Optional tab contents. */
+  /** @deprecated This prop was used for the shorthand API that we decided to no longer support as part of the headless kit */
   label?: PropsOf<'div'>['children'];
   selected?: boolean;
   disabled?: boolean;
