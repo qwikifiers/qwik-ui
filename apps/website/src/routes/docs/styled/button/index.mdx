@@ -1,3 +1,13 @@
+---
+title: Qwik UI | Styled Button Component
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+import { ShowcasePrimary, ShowcaseSecondary, ShowcaseAlert, ShowcaseOutline, ShowcaseGhost, ShowcaseLink, ShowcaseSize, ShowcaseIcon, ShowcaseWithIcon, ShowcaseLoading } from './showcase-components';
+
+<StatusBanner status={statusByComponent.styled.Button} />
+
 # Button
 
 Displays a button or a component that looks like a button.
@@ -60,40 +70,40 @@ export const Button = component$<ButtonProps>(({ size, look, ...props }) => {
 
 ### Primary
 
-<Showcase name="primary" vertical />
+<ShowcasePrimary />
 
 ### Secondary
 
-<Showcase name="secondary" vertical />
+<ShowcaseSecondary />
 
 ### Alert
 
-<Showcase name="alert" vertical />
+<ShowcaseAlert />
 
 ### Outline
 
-<Showcase name="outline" vertical />
+<ShowcaseOutline />
 
 ### Ghost
 
-<Showcase name="ghost" vertical />
+<ShowcaseGhost />
 
 ### Link
 
-<Showcase name="link" vertical />
+<ShowcaseLink />
 
 ### Large and Small
 
-<Showcase name="size" vertical />
+<ShowcaseSize />
 
 ### Icon
 
-<Showcase name="icon" vertical />
+<ShowcaseIcon />
 
 ### With Icon
 
-<Showcase name="with-icon" vertical />
+<ShowcaseWithIcon />
 
 ### Loading
 
-<Showcase name="loading" vertical />
+<ShowcaseLoading />

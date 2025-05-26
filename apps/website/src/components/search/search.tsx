@@ -128,10 +128,17 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
       class="w-full"
       mode="inline"
       filter={false}
-      onChange$={(value: string) => {
-        window.location.href = value;
-        isOpen.value = false;
-      }}
+      onChange$={$(
+        (value: string | string[]) => {
+          if (typeof value === 'string') {
+            window.location.href = value;
+            isOpen.value = false;
+          } else {
+            window.location.href = value[0];
+            isOpen.value = false;
+          }
+        },
+      )}
     >
       <Combobox.Input
         onInput$={handleInput}

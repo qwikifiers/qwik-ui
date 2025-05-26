@@ -4,7 +4,7 @@ import { Accordion } from '@qwik-ui/headless';
 interface DynamicAccordionProps {
   itemIndexToDelete?: number;
   itemIndexToAdd?: number;
-  itemsLength: number;
+  itemsLength?: number;
 }
 
 export default component$(({ itemsLength = 3 }: DynamicAccordionProps) => {

@@ -4,13 +4,15 @@ title: Qwik UI | Styled Textarea Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseDisabled, ShowcaseWithLabel, ShowcaseWithButton, ShowcaseWithText, ShowcaseDataBinding } from './showcase-components';
+
 <StatusBanner status={statusByComponent.styled.Textarea} />
 
 # Textarea
 
 Displays a form textarea field or a component that looks like a textarea.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## Installation
 
@@ -65,20 +67,20 @@ import { Textarea } from '~/components/ui';
 
 ### Disabled
 
-<Showcase name="disabled" vertical />
+<ShowcaseDisabled />
 
 ### With Label
 
-<Showcase name="with-label" vertical />
+<ShowcaseWithLabel />
 
 ### With button
 
-<Showcase name="with-button" vertical />
+<ShowcaseWithButton />
 
 ### With text
 
-<Showcase name="with-text" vertical />
+<ShowcaseWithText />
 
 ### Data binding
 
-<Showcase name="data-binding" vertical />
+<ShowcaseDataBinding />

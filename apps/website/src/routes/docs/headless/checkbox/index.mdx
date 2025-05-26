@@ -5,13 +5,15 @@ title: Qwik UI | Checkbox
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseControlled, ShowcaseControlledValues, ShowcaseChecklist } from './showcase-components';
+
 <StatusBanner status={statusByComponent.headless.Select} />
 
 # Checkbox (Two-State)
 
 Allows users to visually select an option by checking it.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## Anatomy
 
@@ -36,15 +38,15 @@ Allows users to visually select an option by checking it.
 
 To add reactive state, use the `bind:checked` prop on the `<Checkbox.Root />` component.
 
-<Showcase name="controlled" />
+<ShowcaseControlled />
 
 > Note that the initial value of the signal will affect the initial value of the checkbox.
 
 In the example below, the left checkbox starts as **false**, while the right checkbox starts as **true**.
 
-<Showcase name="controlled-values" />
+<ShowcaseControlledValues />
 
-<Showcase name="checklist" />
+<ShowcaseChecklist />
 
 ## Customization & Caveats
 
