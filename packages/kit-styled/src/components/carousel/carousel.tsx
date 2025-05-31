@@ -1,26 +1,3 @@
----
-title: Qwik UI | Styled Carousel Component
----
-
-import { statusByComponent } from '~/_state/component-statuses';
-
-<StatusBanner status={statusByComponent.styled.Carousel} />
-
-# Carousel
-
-Display and navigate through multiple content items.
-
-<Showcase name="hero" />    
-
-## Installation
-
-**Run the following cli command or copy/paste the component code into your project**
-
-```sh
-qwik-ui add carousel
-```
-
-```tsx
 import {
   useContext,
   component$,
@@ -249,18 +226,3 @@ export const Carousel = {
   Stepper,
   Step,
 };
-```
-
-## Examples
-
-### Hero
-
-<Showcase name="hero" />
-
-### Pagination
-
-<Showcase name="pagination" />
-
-### Stepper
-
-<Showcase name="stepper" />
