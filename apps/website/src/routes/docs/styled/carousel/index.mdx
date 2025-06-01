@@ -3,14 +3,13 @@ title: Qwik UI | Styled Carousel Component
 ---
 
 import { statusByComponent } from '~/_state/component-statuses';
-
-<StatusBanner status={statusByComponent.styled.Carousel} />
+import { ShowcaseHero, ShowcaseHeroVertical, ShowcasePagination, ShowcaseStepper } from './showcase-components';
 
 # Carousel
 
 Display and navigate through multiple content items.
 
-<Showcase name="hero" />    
+<ShowcaseHero />    
 
 ## Installation
 
@@ -253,14 +252,14 @@ export const Carousel = {
 
 ## Examples
 
-### Hero
+### Hero Vertical
 
-<Showcase name="hero" />
+<ShowcaseHeroVertical />
 
 ### Pagination
 
-<Showcase name="pagination" />
+<ShowcasePagination />
 
 ### Stepper
 
-<Showcase name="stepper" />
+<ShowcaseStepper />
