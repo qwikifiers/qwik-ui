@@ -22,6 +22,7 @@
 - [Breadcrumb](/docs/styled/breadcrumb)
 - [Button](/docs/styled/button)
 - [Card](/docs/styled/card)
+- [Carousel](/docs/styled/carousel)
 - [Checkbox](/docs/styled/checkbox)
 - [Combobox](/docs/styled/combobox)
 - [Dropdown](/docs/styled/dropdown)

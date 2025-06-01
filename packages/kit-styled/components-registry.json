@@ -44,6 +44,12 @@
       "files": ["card.tsx"]
     },
     {
+      "displayName": "Carousel",
+      "type": "carousel",
+      "componentFolder": "carousel",
+      "files": ["carousel.tsx"]
+    },
+    {
       "displayName": "Checkbox",
       "type": "checkbox",
       "componentFolder": "checkbox",
