@@ -60,7 +60,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/cli/jest.config.ts"
+        "jestConfig": "packages/cli/jest.config.js"
       }
     },
     "copy-global-css": {
