@@ -21,7 +21,7 @@ A text label that appears when a user hovers, focuses, or touches an element.
     `Opens on hover or focus`,
     'Closes on trigger activation or Escape key press',
     'Customizable open/close delays',
-    'Optional arrow component',
+    {/* 'Optional arrow component', */}
     'Always portaled content',
     'Accessibility with ARIA roles and keyboard interactions',
     'Flipping to avoid overflow',
@@ -44,7 +44,6 @@ export default component$(() => {
         <button>Hover or Focus me</button>
       </Tooltip.Trigger>
       <Tooltip.Panel aria-label="Tooltip content">
-        <Tooltip.Arrow width={10} height={5} />
         Tooltip content here
       </Tooltip.Panel>
     </Tooltip.Root>
@@ -68,10 +67,10 @@ export default component$(() => {
       name: 'Tooltip.Panel',
       description: `An HTML element that contains the tooltip content.`,
     },
-    {
+    {/* {
       name: 'Tooltip.Arrow',
       description: `An optional arrow component to point to the trigger element.`,
-    },
+    }, */}
   ]}
 />
 
@@ -276,10 +275,10 @@ To read more about tooltips you can check it out on:
       name: 'Tooltip.Panel',
       description: 'The container for the tooltip content.',
     },
-    {
+    {/* {
       name: 'Tooltip.Arrow',
       description: 'An optional arrow component for the tooltip.',
-    },
+    }, */}
   ]}
 />
 
