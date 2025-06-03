@@ -157,7 +157,7 @@ const Next = component$<
   );
 });
 
-const Pagination = component$(({ ...props }: PropsOf<typeof HCarousel.Pagination>) => {
+const Pagination = component$<PropsOf<typeof HCarousel.Pagination>>(({ ...props }) => {
   return (
     <HCarousel.Pagination
       {...props}
@@ -168,7 +168,7 @@ const Pagination = component$(({ ...props }: PropsOf<typeof HCarousel.Pagination
   );
 });
 
-const Bullet = component$((props: PropsOf<typeof HCarousel.Bullet>) => {
+const Bullet = component$<PropsOf<typeof HCarousel.Bullet>>((props) => {
   return (
     <HCarousel.Bullet
       {...props}
@@ -181,7 +181,7 @@ const Bullet = component$((props: PropsOf<typeof HCarousel.Bullet>) => {
   );
 });
 
-const Title = component$((props: PropsOf<typeof HCarousel.Title>) => {
+const Title = component$<PropsOf<typeof HCarousel.Title>>((props) => {
   return (
     <HCarousel.Title {...props}>
       <Slot />
@@ -200,7 +200,7 @@ const Stepper = (props: PropsOf<typeof HCarousel.Stepper>) => {
   );
 };
 
-const Step = component$((props: PropsOf<typeof HCarousel.Step>) => {
+const Step = component$<PropsOf<typeof HCarousel.Step>>((props) => {
   return (
     <HCarousel.Step
       {...props}
