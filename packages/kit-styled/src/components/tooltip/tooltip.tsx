@@ -1,28 +1,3 @@
----
-title: Qwik UI | Styled Tooltip Component
----
-
-import { statusByComponent } from '~/_state/component-statuses';
-
-import { ShowcaseHero } from './showcase-components';
-
-<StatusBanner status={statusByComponent.styled.Tooltip} />
-
-# Tooltip
-
-A text label that appears when a user hovers, focuses, or touches an element.
-
-<ShowcaseHero />
-
-## Installation
-
-### Run the following cli command or copy/paste the component code into your project
-
-```sh
-qwik-ui add tooltip
-```
-
-```tsx
 import { type PropsOf, Slot, component$ } from '@builder.io/qwik';
 import { Tooltip as HeadlessTooltip } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
@@ -58,18 +33,3 @@ export const Tooltip = {
   Trigger,
   Panel,
 };
-
-```
-
-## Usage
-
-```tsx
-import { Tooltip } from '~/components/ui';
-```
-
-```tsx
-<Tooltip.Root>
-  <Tooltip.Trigger>Open Trigger</Tooltip.Trigger>
-  <Tooltip.Panel>Place your content here.</Tooltip.Panel>
-</Tooltip.Root>
-```

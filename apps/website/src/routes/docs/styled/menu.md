@@ -39,3 +39,4 @@
 - [Textarea](/docs/styled/textarea)
 - [Toggle](/docs/styled/toggle)
 - [ToggleGroup](/docs/styled/toggle-group)
+- [Tooltip](/docs/styled/tooltip)
