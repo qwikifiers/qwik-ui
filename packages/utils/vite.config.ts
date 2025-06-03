@@ -12,6 +12,7 @@ const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
 const excludeAll = (obj: any) => Object.keys(obj).map(makeRegex);
 
 export default defineConfig({
+  root: 'packages/utils',
   test: {
     globals: true,
     cache: {

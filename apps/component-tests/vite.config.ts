@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
+  root: 'apps/component-tests',
   cacheDir: '../../node_modules/.vite/apps/component-tests',
   plugins: [
     qwikCity(),
