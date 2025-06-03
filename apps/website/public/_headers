@@ -1,7 +1,17 @@
 # https://developers.cloudflare.com/pages/platform/headers/
 
+# Static assets - long-term caching
 /build/*
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
 
+# Documentation pages - shorter caching for content updates
 /docs/*
   Cache-Control: public, max-age=3600, s-maxage=3600
+
+# Root and other static pages - medium-term caching
+/*
+  Cache-Control: public, max-age=7200, s-maxage=7200
+
+# Override for API routes or dynamic content (if any)
+/api/*
+  Cache-Control: no-cache
