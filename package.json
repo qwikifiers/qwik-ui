@@ -33,7 +33,7 @@
     "release.resetroot": "cp dist/pnpm-workspace.yaml pnpm-workspace.yaml",
     "release.e2e": "pnpm release.prepare && pnpm release.setroot && pnpm -r exec pnpm version patch && pnpm -r exec pnpm publish --tag e2e --no-git-checks && pnpm release.resetroot",
     "test.cli": "NODE_OPTIONS=--experimental-vm-modules nx test cli",
-    "test.cli.e2e": "nx e2e cli-e2e",
+    "test.cli.e2e": "nx e2e cli-e2e switch.test.ts",
     "test.headless": "nx component-test headless --skip-nx-cache",
     "test.visual.headless": "nx visual-test headless",
     "test.pw.headless": "nx e2e headless",

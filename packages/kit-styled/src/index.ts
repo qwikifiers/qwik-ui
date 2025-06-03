@@ -22,3 +22,4 @@ export * from './components/textarea/textarea';
 export * from './components/toggle/toggle';
 export * from './components/toggle-group/toggle-group';
 export * from './components/dropdown/dropdown';
+export * from './components/switch/switch';

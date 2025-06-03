@@ -14,7 +14,7 @@ describe('init generator', () => {
   }
 
   test(`
-    GIVEN empty options and tree 
+    GIVEN empty options and tree
     WHEN initGenerator is run
     THEN it should create a config file with the default values`, async () => {
     const { tree, options } = setup();
@@ -30,7 +30,7 @@ describe('init generator', () => {
   });
 
   test(`
-    GIVEN project root of "/my-project" 
+    GIVEN project root of "/my-project"
     WHEN initGenerator is run
     THEN it should create the config file inside my-project`, async () => {
     const { tree, options } = setup();
