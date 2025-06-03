@@ -1,6 +1,4 @@
-import type { Config } from 'jest';
-
-const config: Config = {
+module.exports = {
   displayName: 'qwikui-cli',
   preset: '../../jest.preset.cjs',
   globals: {},
@@ -16,8 +14,5 @@ const config: Config = {
   testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/cli',
-  // @ts-expect-error declaration file
-  prettierPath: import('prettier-2').path,
-};
-
-export default config;
+  prettierPath: require.resolve('prettier-2'),
+}; 
