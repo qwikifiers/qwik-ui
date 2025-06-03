@@ -6,6 +6,7 @@ import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
+  root: 'packages/kit-styled',
   plugins: [
     qwikVite({
       vendorRoots: [join(__dirname, '../kit-headless/src')],

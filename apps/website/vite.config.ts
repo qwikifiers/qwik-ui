@@ -10,6 +10,7 @@ export default defineConfig(async () => {
   const { default: shikiRehype } = await import('@shikijs/rehype');
 
   return {
+    root: 'apps/website',
     plugins: [
       autoAPI(),
       qwikCity({
