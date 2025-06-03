@@ -1,5 +1,4 @@
 ---
-'qwik-ui': patch
 '@qwik-ui/styled': patch
 ---
 
