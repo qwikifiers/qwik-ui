@@ -1371,11 +1371,11 @@ body {
   It would make more sense to supply the user with the animation declaration in the docs.
 */
 @layer utilities {
-  .accordion-animation-1[data-state='open'] {
+  .accordion-animation-1[data-open] {
     animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-open;
   }
 
-  .accordion-animation-1[data-state='closed'] {
+  .accordion-animation-1[data-closed] {
     animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-close;
   }
 }

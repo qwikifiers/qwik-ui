@@ -4,13 +4,15 @@ title: Qwik UI | Styled Toggle Component
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseInitialPressed, ShowcasePressed, ShowcaseBindPressed, ShowcaseDisabled } from './showcase-components';
+
 <StatusBanner status={statusByComponent.styled.Toggle} />
 
 # Toggle
 
 A two-state button that can be either on or off.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 In a world of endless choices, sometimes you just need a simple yes or no. The Qwik UI Styled Toggle component is a welcomed rest for the mind.
 
@@ -29,7 +31,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { Toggle as HeadlessToggle } from '@qwik-ui/headless';
 
 export const toggleVariants = cva(
-  'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 aria-[pressed=true]:bg-primary aria-[pressed=true]:text-accent-foreground',
+  'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 aria-[pressed=true]:bg-primary aria-[pressed=true]:text-primary-foreground',
   {
     variants: {
       look: {
@@ -78,21 +80,21 @@ import { Toggle } from '~/components/ui';
 
 An initial, uncontrolled value can be provided using the `pressed` prop.
 
-<Showcase name="initialPressed" />
+<ShowcaseInitialPressed />
 
 If you want to have some control when the toggle is pressed, like making some side effect you can use
 the `onPressedChange$`. The event is fired when the user toggle the button, and receives the new value.
 
-<Showcase name="pressed" />
+<ShowcasePressed />
 
 ### Reactive Value (Controlled)
 
 Pass a signal to `bind:value` prop to make the pressed state controlled (binding the value with a signal).
 
-<Showcase name="bind-pressed" />
+<ShowcaseBindPressed />
 
 ### Disabled
 
 Pass the `disabled` prop.
 
-<Showcase name="disabled" />
+<ShowcaseDisabled />

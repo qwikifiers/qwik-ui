@@ -480,21 +480,6 @@ test.describe('Disabled tabs', () => {
   });
 });
 
-test.skip('Shorthand API', () => {
-  test(`GIVEN 3 tabs written using shorthand
-      WHEN clicking the middle one
-      THEN render the middle panel`, async ({ page }) => {
-    const { driver: d } = await setup(page, 'shorthand-api-tabs');
-
-    await expect(d.getAllTabs()).toHaveCount(3);
-
-    await expect(d.getTabPanel()).toContainText('Panel 3');
-    await d.getTab(1).click();
-    await expect(d.getTabPanel()).toContainText('Panel 2');
-    await expect(d.getTabList()).toBeVisible();
-  });
-});
-
 test.describe.skip('User-defined reusable TabList/Tab/TabPanel components', () => {
   test(`GIVEN a user-defined TabList to Tabs
       WHEN clicking the middle Tab

@@ -5,13 +5,16 @@ title: Qwik UI | Select
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseString, ShowcaseObject, ShowcaseItemValue, ShowcaseChangeValue, ShowcaseForm, ShowcaseValidation, ShowcaseDescription, ShowcaseUncontrolled, ShowcaseControlled, ShowcaseBindOpen, ShowcaseControlledValue, ShowcaseDisabled, ShowcaseAddUsers, ShowcaseIndicator, ShowcaseMultiple, ShowcaseMultiplePill, ShowcaseTypeahead, ShowcaseOpenChange, ShowcaseLoop, ShowcaseGroup, ShowcaseScrollable, ShowcaseCsr, ShowcaseFirstValueSelected } from './showcase-components';
+import { CodeSnippetBuildingBlocks, CodeSnippetSelectCss } from './code-snippets';
+
 <StatusBanner status={statusByComponent.headless.Select} />
 
 # Select
 
 A control that allows the user to select multiple predefined items from a listbox.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## ✨ Features
 
@@ -36,7 +39,7 @@ A control that allows the user to select multiple predefined items from a listbo
 
 ## Building blocks
 
-<CodeSnippet name="building-blocks" />
+<CodeSnippetBuildingBlocks />
 
 ### 🎨 Anatomy
 
@@ -119,25 +122,25 @@ To add data, use the `<Select.Item>` component inside of the listbox.
 
 ### Basic example
 
-<Showcase name="string" />
+<ShowcaseString />
 
 By default, the content inside of the `<Select.ItemLabel />` component is the item's value.
 
 ### Mapping over data
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 You control how the data is rendered. Map over the data or render the items as you like.
 
 ### Object example
 
-<Showcase name="object" />
+<ShowcaseObject />
 
 > If you need to display a different value to the user, use the `value` prop on `<Select.Item />`. This will be explained in the next section.
 
 ### Passing a distinct value
 
-<Showcase name="item-value" />
+<ShowcaseItemValue />
 
 A distinct value is when one thing is displayed to the user, but another value is passed to the item.
 
@@ -147,7 +150,7 @@ By adding the `value` prop to the `<Select.Item />` component, a distinct value 
 
 ### Handling selection changes
 
-<Showcase name="change-value" />
+<ShowcaseChangeValue />
 
 Use the `onChange$` prop to listen for changes in the selected value. It provides the new selected value as an argument.
 
@@ -157,13 +160,13 @@ The example above increments a count when a new item is selected.
 
 To use the select in a form, we provide a visually hidden native select element inside of `<Select.HiddenNativeSelect>`.
 
-<Showcase name="form" />
+<ShowcaseForm />
 
 The native select element is created when a form name has been given to `<Select.Root />`
 
 ### Validation
 
-<Showcase name="validation" />
+<ShowcaseValidation />
 
 The `<Select.ErrorMessage />` component is used to display errors when the select is invalid.
 
@@ -173,7 +176,7 @@ To style based on the invalid state, use the `data-invalid` data attribute.
 
 Provide more information to assistive technologies by adding a description to the select.
 
-<Showcase name="description" />
+<ShowcaseDescription />
 
 ## Component state
 
@@ -181,7 +184,7 @@ We can select an initial uncontrolled value by passing the `value` prop to the `
 
 ### Uncontrolled / Initial value
 
-<Showcase name="uncontrolled" />
+<ShowcaseUncontrolled />
 
 The above example passes one of the item values "Jessie" as the initial value. As a result, the matching value is selected and focused.
 
@@ -191,7 +194,7 @@ The above example passes one of the item values "Jessie" as the initial value. A
 
 We can pass reactive state by using the `bind:value` prop to the `<Select.Root />` component.
 
-<Showcase name="controlled" />
+<ShowcaseControlled />
 
 `bind:value` is a signal prop, it allows us to reactively control the selected value of the select component.
 
@@ -199,19 +202,19 @@ We can pass reactive state by using the `bind:value` prop to the `<Select.Root /
 
 We can also reactively control the open state of the select component by using the `bind:open` signal prop.
 
-<Showcase name="bind-open" />
+<ShowcaseBindOpen />
 
 ### Programmatic changes
 
 We can also programmatically change the selected value by changing the value of the signal.
 
-<Showcase name="controlled-value" />
+<ShowcaseControlledValue />
 
 In the above example, we've changed the selected value by clicking on the "Change to Abby" button.
 
 ### Disabled items
 
-<Showcase name="disabled" />
+<ShowcaseDisabled />
 
 Items can be disabled by adding the `disabled` prop to the `<Select.Item />` component.
 
@@ -221,13 +224,13 @@ Disabled items are not selectable or focusable. They are also skipped when using
 
 A common use case is the addition of items dynamically. For example, an infinite scrolling list of users.
 
-<Showcase name="add-users" />
+<ShowcaseAddUsers />
 
 Clicking the `Add Users` button adds a couple new users mapped to the list. Taking this further, we could grab more data from the server and add it to the list, or even hitting a database to get more users.
 
 ### Item Indicators
 
-<Showcase name="indicator" />
+<ShowcaseIndicator />
 
 We can add an indicator to the selected item by adding the `<Select.ItemIndicator />` component inside the `<Select.Item />` component.
 
@@ -237,7 +240,7 @@ This is useful for indicating the selected item in a list of items.
 
 Sometimes we want to allow the user to select multiple pre-defined items at a time. We can do that by setting the `multiple` prop to `true`.
 
-<Showcase name="multiple" />
+<ShowcaseMultiple />
 
 If we want to configure the multiple display values, we can use the `bind:displayValue` signal.
 
@@ -247,7 +250,7 @@ Something to be aware of, is the `<Select.DisplayValue />` component will now di
 
 Taking this a step further, one could combine the `bind:value` and `bind:displayValue` props together to create a custom widget that displays the selected values in a list of pills.
 
-<Showcase name="multiple-pill" />
+<ShowcaseMultiplePill />
 
 The above example shows the selected values which can be filtered by clicking on the cancel icon.
 
@@ -267,7 +270,7 @@ This is because it is harder to customize the individual selected display values
 
 The select offers a typeahead feature that allows users to quickly find items by typing.
 
-<Showcase name="typeahead" />
+<ShowcaseTypeahead />
 
 It reduces the need to scroll through the available items. Typeahead is particularly handy for expected data sets, such as a list of countries.
 
@@ -277,7 +280,7 @@ It reduces the need to scroll through the available items. Typeahead is particul
 
 We may want to handle the open / close of the listbox. For example, we may want to show a loading indicator when the listbox is open.
 
-<Showcase name="open-change" />
+<ShowcaseOpenChange />
 
 To do that, we can use the `onOpenChange$` prop. A parameter is passed to the handler, which is a boolean indicating whether the listbox is open or closed.
 
@@ -285,7 +288,7 @@ To do that, we can use the `onOpenChange$` prop. A parameter is passed to the ha
 
 To loop through the items, we can use the `loop` boolean prop on the `<Select.Root />` component.
 
-<Showcase name="loop" />
+<ShowcaseLoop />
 
 - Pressing the down arrow key will move focus to the first item in the list.
 
@@ -293,7 +296,7 @@ To loop through the items, we can use the `loop` boolean prop on the `<Select.Ro
 
 ### Grouped items
 
-<Showcase name="group" />
+<ShowcaseGroup />
 
 The `<Select.Group />` and `<Select.GroupLabel />` components are used to group and provide an accessible name to the Grouped items.
 
@@ -303,7 +306,7 @@ Wrap the items in a group, add a Label, and you're good to go!
 
 Because focus remains on the select trigger when the listbox is open, it's important to handle scrolling in the listbox.
 
-<Showcase name="scrollable" />
+<ShowcaseScrollable />
 
 The native `scrollIntoView` method is used to scroll the itemss into view when the user highlights an items.
 
@@ -315,7 +318,7 @@ To customize the scroll behavior, add the `scrollOptions` prop to the `<Select.R
 
 We can provide a custom placeholder to the `<Select.DisplayValue />` component by adding the `placeholder` prop.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 When a value is not selected, the placeholder is displayed.
 
@@ -323,13 +326,13 @@ When a value is not selected, the placeholder is displayed.
 
 The select component can be rendered both server-side or client-side, same with the rest of the components.
 
-<Showcase name="csr" />
+<ShowcaseCsr />
 
 ## Example CSS
 
 Every code example uses the following CSS:
 
-<CodeSnippet name="select.css" />
+<CodeSnippetSelectCss />
 
 Some CSS variables are specific to the docs, feel free to plug in your own values or variables!
 

@@ -6,13 +6,15 @@ import { FeatureList } from '~/components/feature-list/feature-list';
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { ShowcaseHero, ShowcaseSimple } from './showcase-components';
+
 <StatusBanner status={statusByComponent.headless.Dropdown} />
 
 # Dropdown
 
 Customizable popover menu.
 
-<Showcase name="hero" />
+<ShowcaseHero />
 
 ## Anatomy
 
@@ -32,14 +34,6 @@ Customizable popover menu.
       name: 'Dropdown.Popover',
       description:
         'Container for the dropdown menu, responsible for positioning and visibility.',
-    },
-    {
-      name: 'Dropdown.Arrow',
-      description: 'Optional arrow pointing from the trigger to the dropdown menu.',
-    },
-    {
-      name: 'Dropdown.Content',
-      description: 'Contains the dropdown options and other interactive elements.',
     },
     {
       name: 'Dropdown.Group',
@@ -95,4 +89,4 @@ Customizable popover menu.
   ]}
 />
 
-<Showcase name="simple" />
+<ShowcaseSimple />
