@@ -56,6 +56,12 @@
       "files": ["checkbox.tsx"]
     },
     {
+      "displayName": "Collapsible",
+      "type": "collapsible",
+      "componentFolder": "collapsible",
+      "files": ["collapsible.tsx"]
+    },
+    {
       "displayName": "Combobox",
       "type": "combobox",
       "componentFolder": "combobox",
@@ -144,6 +150,12 @@
       "type": "toggle-group",
       "componentFolder": "toggle-group",
       "files": ["toggle-group.tsx"]
+    },
+    {
+      "displayName": "Tooltip",
+      "type": "tooltip",
+      "componentFolder": "tooltip",
+      "files": ["tooltip.tsx"]
     }
   ]
 }

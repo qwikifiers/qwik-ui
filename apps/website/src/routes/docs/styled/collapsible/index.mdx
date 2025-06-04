@@ -1,0 +1,73 @@
+---
+title: Qwik UI | Styled Collapsible Component
+description: An interactive section that shows or hides its connected information. Copy/paste into your project from the documentation or by using the CLI. Easily customize the CVA variants according to your brand requirements.
+---
+
+import { statusByComponent } from '~/_state/component-statuses';
+
+import { ShowcaseHero } from './showcase-components';
+
+
+<StatusBanner status={statusByComponent.styled.Collapsible} />
+
+# Collapsible
+
+An interactive section that shows or hides its connected information.
+
+<ShowcaseHero />
+
+## Installation
+
+### 1. Run the following cli command or copy/paste the component code into your project
+
+```sh
+qwik-ui add collapsible
+```
+
+```tsx
+import { component$, Slot, type PropsOf } from '@builder.io/qwik';
+
+import { Collapsible as HeadlessCollapsible } from '@qwik-ui/headless';
+import { cn } from '@qwik-ui/utils';
+
+const Root = (props: PropsOf<typeof HeadlessCollapsible.Root>) => (
+  <HeadlessCollapsible.Root {...props}>{props.children}</HeadlessCollapsible.Root>
+);
+
+const Trigger = component$<PropsOf<typeof HeadlessCollapsible.Trigger>>(
+  ({ ...props }) => {
+    return (
+      <HeadlessCollapsible.Trigger {...props}>
+        <Slot />
+      </HeadlessCollapsible.Trigger>
+    );
+  },
+);
+
+const Content = component$<PropsOf<typeof HeadlessCollapsible.Content>>((props) => {
+  return (
+    <HeadlessCollapsible.Content {...props} class={cn(props.class)}>
+      <Slot />
+    </HeadlessCollapsible.Content>
+  );
+});
+
+export const Collapsible = {
+  Root,
+  Trigger,
+  Content,
+};
+```
+
+## Usage
+
+```tsx
+import { Collapsible } from '~/components/ui';
+```
+
+```tsx
+<Collapsible.Root>
+  <Collapsible.Trigger>Is it accessible?</Collapsible.Trigger>
+  <Collapsible.Content>Yes. It adheres to the WAI-ARIA design pattern.</Collapsible.Content>
+</Collapsible.Root>
+```

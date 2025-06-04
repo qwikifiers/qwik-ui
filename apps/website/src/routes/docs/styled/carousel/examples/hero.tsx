@@ -3,7 +3,7 @@ import { Card, Carousel } from '@qwik-ui/styled';
 
 export default component$(() => {
   return (
-    <Carousel.Root class="max-w-xs sm:max-w-sm">
+    <Carousel.Root class="max-w-xs">
       <Carousel.Scroller class="m-2">
         {Array.from({ length: 9 }).map((_, index) => (
           <Carousel.Slide key={index}>

@@ -24,6 +24,7 @@
 - [Card](/docs/styled/card)
 - [Carousel](/docs/styled/carousel)
 - [Checkbox](/docs/styled/checkbox)
+- [Collapsible](/docs/styled/collapsible)
 - [Combobox](/docs/styled/combobox)
 - [Dropdown](/docs/styled/dropdown)
 - [Input](/docs/styled/input)

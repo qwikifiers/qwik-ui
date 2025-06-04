@@ -93,8 +93,8 @@ const Previous = component$<
       class={cn(
         'absolute',
         context.orientation === 'horizontal'
-          ? '-left-16 top-1/2 -translate-y-1/2'
-          : '-top-16 right-1/2 translate-x-1/2',
+          ? '-left-12 top-1/2 -translate-y-1/2'
+          : '-top-12 right-1/2 translate-x-1/2',
       )}
     >
       <HCarousel.Previous
@@ -129,8 +129,8 @@ const Next = component$<
       class={cn(
         'absolute',
         context.orientation === 'horizontal'
-          ? '-right-16 top-1/2 -translate-y-1/2'
-          : '-bottom-16 right-1/2 translate-x-1/2',
+          ? '-right-12 top-1/2 -translate-y-1/2'
+          : '-bottom-12 right-1/2 translate-x-1/2',
       )}
     >
       {/* moves content to the right on hover */}
