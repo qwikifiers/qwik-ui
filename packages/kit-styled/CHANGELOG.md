@@ -1,5 +1,19 @@
 # @qwik-ui/styled
 
+## 0.3.2
+
+### Patch Changes
+
+- ✨ The styled kit Tooltip component is now available. (by [@maiieul](https://github.com/maiieul) in [#1103](https://github.com/qwikifiers/qwik-ui/pull/1103))
+
+- ✨ The styled kit Collapsible component is now available. (by [@maiieul](https://github.com/maiieul) in [#1102](https://github.com/qwikifiers/qwik-ui/pull/1102))
+
+- 🐞🩹 global.css for correct Accordion data-open data-closed in animations, fix "leftover" styled Modal inlined tailwind to data-[open] data-[closed] from deprecated data-[state="open"] data=[state="closed"], and reflected the changes to the qwik-ui docs (by [@serbyxp](https://github.com/serbyxp) in [#1050](https://github.com/qwikifiers/qwik-ui/pull/1050))
+
+- ✨ The styled kit Carousel component is now available. (by [@maiieul](https://github.com/maiieul) in [#1086](https://github.com/qwikifiers/qwik-ui/pull/1086))
+
+- ✨ The styled kit Dropdown component is now available. (by [@maiieul](https://github.com/maiieul) in [#1103](https://github.com/qwikifiers/qwik-ui/pull/1103))
+
 ## 0.3.1
 
 ### Patch Changes
