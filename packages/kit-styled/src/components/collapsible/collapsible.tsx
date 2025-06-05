@@ -1,5 +1,4 @@
 import { component$, Slot, type PropsOf } from '@builder.io/qwik';
-
 import { Collapsible as HeadlessCollapsible } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 
