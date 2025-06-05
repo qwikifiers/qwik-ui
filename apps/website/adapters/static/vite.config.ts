@@ -13,6 +13,8 @@ export default extendConfig(baseConfig, () => {
     plugins: [
       staticAdapter({
         origin: 'https://qwikui.com',
+        include: ['/*'],
+        exclude: ['/api/*'],
       }),
     ],
   };
