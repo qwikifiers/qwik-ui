@@ -23,8 +23,8 @@ export const Showcase = component$<ShowcaseProps>(({ rawCode, ...props }) => {
               Code
             </Tabs.Tab>
           </Tabs.List>
-          <Tabs.Panel class="rounded-b-md border px-8 py-32 md:px-32">
-            <section class="flex flex-col items-center">
+          <Tabs.Panel class="h-[500px] rounded-b-md border px-8 py-32 md:px-32">
+            <section class="flex h-full flex-col items-center justify-center">
               <Slot />
             </section>
           </Tabs.Panel>

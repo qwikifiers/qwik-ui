@@ -6,7 +6,7 @@ import { LuChevronUp } from '@qwikest/icons/lucide';
 export default component$(() => {
   return (
     <Carousel.Root
-      class="w-full"
+      class="w-full max-w-sm"
       orientation="vertical"
       maxSlideHeight={360}
       slidesPerView={3}
@@ -17,7 +17,7 @@ export default component$(() => {
             <div class="p-1">
               <Card.Root>
                 <Card.Content class="flex w-full items-center justify-center pt-6">
-                  <span class="text-4xl font-semibold">{index + 1}</span>
+                  <span class="text-3xl font-semibold">{index + 1}</span>
                 </Card.Content>
               </Card.Root>
             </div>

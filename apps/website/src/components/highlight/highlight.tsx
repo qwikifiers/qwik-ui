@@ -21,7 +21,7 @@ export type HighlightProps = PropsOf<'div'> & {
 export const Highlight = component$(
   ({ code, copyCodeClass, language = 'tsx', ...props }: HighlightProps) => {
     return (
-      <div class="code-example data-pagefind-ignore relative max-h-[31.25rem] rounded-base">
+      <div class="code-example data-pagefind-ignore relative rounded-base">
         <CodeCopy
           class={[
             'absolute right-3 top-3 text-white hover:bg-slate-800 hover:text-white',
@@ -32,7 +32,7 @@ export const Highlight = component$(
         <div
           {...props}
           class={cn(
-            'tab-size max-h-[31.25rem] max-w-full overflow-auto rounded-sm bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
+            'tab-size max-h-[494px] max-w-full overflow-auto rounded-sm bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
             props.class,
           )}
           data-pagefind-ignore="all"

@@ -7,6 +7,7 @@ export * from './components/button/button';
 export * from './components/card/card';
 export * from './components/carousel/carousel';
 export * from './components/checkbox/checkbox';
+export * from './components/collapsible/collapsible';
 export * from './components/combobox/combobox';
 export * from './components/input/input';
 export * from './components/label/label';

@@ -1,26 +1,16 @@
 export const api = {
-  collapsible: [
+  "collapsible": [
     {
-      'collapsible-content': [],
+      "collapsible-content": []
     },
     {
-      'collapsible-trigger': [],
+      "collapsible-trigger": []
     },
     {
-      collapsible: [
-        {
-          CollapsibleProps: [
-            {
-              comment: '@deprecated use `onChange$` instead',
-              prop: 'onOpenChange$',
-              type: 'QRL<(open: boolean) => void>',
-            },
-          ],
-        },
-      ],
+      "collapsible": []
     },
     {
-      'use-collapsible': [],
-    },
-  ],
+      "use-collapsible": []
+    }
+  ]
 };
