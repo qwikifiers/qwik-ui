@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.8
+
+### Patch Changes
+
+- We deprecated the Tabs shorthand API as it was less composable and more maintenance. We might add that API as copy/paste in the future. (by [@maiieul](https://github.com/maiieul) in [#995](https://github.com/qwikifiers/qwik-ui/pull/995))
+
 ## 0.6.7
 
 ### Patch Changes
