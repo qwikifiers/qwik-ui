@@ -18,7 +18,7 @@
     "build": {
       "executor": "@nx/js:tsc",
       "inputs": ["{projectRoot}/bin/**/*", "{projectRoot}/src/**/*"],
-      "dependsOn": ["build-bin"],
+      "dependsOn": ["^build", "build-bin"],
       "outputs": ["{options.outputPath}"],
       "options": {
         "main": "packages/cli/src/generators/index.ts",
