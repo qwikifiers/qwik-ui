@@ -185,7 +185,7 @@ async function handleInit() {
 
   if (installTailwind) {
     execSync(
-      `${getPackageManagerCommand().exec} qwik add tailwind --skipConfirmation=true --projectDir=${config.projectRoot}`,
+      `${getPackageManagerCommand().exec} qwik add tailwind-v3 --skipConfirmation=true --projectDir=${config.projectRoot}`,
       {
         stdio: 'inherit',
         cwd: config.projectRoot,
