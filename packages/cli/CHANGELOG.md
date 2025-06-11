@@ -1,5 +1,11 @@
 # qwik-ui
 
+## 0.3.1
+
+### Patch Changes
+
+- 🐞🩹 cli now works but defaults to tailwind 3 installation. Support for Tailwind 4 is coming (by [@shairez](https://github.com/shairez) in [#1105](https://github.com/qwikifiers/qwik-ui/pull/1105))
+
 ## 0.3.0
 
 ### Minor Changes
