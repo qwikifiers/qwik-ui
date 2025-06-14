@@ -12,12 +12,7 @@ import {
   select,
   text,
 } from '@clack/prompts';
-import {
-  getPackageManagerCommand,
-  readJsonFile,
-  workspaceRoot,
-  writeJsonFile,
-} from '@nx/devkit';
+import { readJsonFile, workspaceRoot, writeJsonFile } from '@nx/devkit';
 
 import {
   type ThemeBorderRadius,
@@ -36,6 +31,7 @@ import {
   COMPONENTS_REGISTRY_FILENAME,
   QWIK_UI_CONFIG_FILENAME,
 } from '../src/_shared/config-filenames';
+import { getPackageManager } from '../src/_shared/package-manager';
 
 import path from 'path';
 import externalDeps from '../src/_shared/external-deps.json';
@@ -122,10 +118,12 @@ async function handleInit() {
     handler: () => {},
   };
 
+  const pm = await getPackageManager();
+
   const args = await parseCommands(InitCommand);
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  await installNxIfNeeded();
+  await installNxIfNeeded(pm);
 
   interface InitConfig extends ThemeConfig {
     projectRoot?: string;
@@ -185,7 +183,7 @@ async function handleInit() {
 
   if (installTailwind) {
     execSync(
-      `${getPackageManagerCommand().exec} qwik add tailwind-v3 --skipConfirmation=true --projectDir=${config.projectRoot}`,
+      `${pm.getExecuteCommand()} qwik add tailwind-v3 --skipConfirmation=true --projectDir=${config.projectRoot}`,
       {
         stdio: 'inherit',
         cwd: config.projectRoot,
@@ -195,15 +193,13 @@ async function handleInit() {
 
   // ADD QWIK UI CLI TO DEPENDENCIES
   log.info('Adding qwik-ui cli to package.json...');
-  execSync(`${getPackageManagerCommand().addDev} qwik-ui@latest`, {
+  execSync(`${pm.getAddDevDependencyCommand()} qwik-ui@latest`, {
     stdio: 'inherit',
   });
 
   // CREATE CONFIG FILE
   execSync(
-    `${
-      getPackageManagerCommand().exec
-    } nx g qwik-ui:init --interactive false --project-root=${
+    `${pm.getExecuteCommand()} nx g qwik-ui:init --interactive false --project-root=${
       config.projectRoot
     } --ui-components-path=${config.uiComponentsPath}`,
     {
@@ -333,9 +329,7 @@ async function handleInit() {
   );
 
   execSync(
-    `${
-      getPackageManagerCommand().addDev
-    } ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag} ${externalDepsString}`,
+    `${pm.getAddDevDependencyCommand()} ${styledPackage}@${packageTag} ${headlessPackage}@${packageTag} ${utilsPackage}@${packageTag} ${externalDepsString}`,
     {
       stdio: 'inherit',
     },
@@ -343,9 +337,7 @@ async function handleInit() {
 
   // SETUP TAILWIND
   execSync(
-    `${
-      getPackageManagerCommand().exec
-    } nx g qwik-ui:setup-tailwind --interactive false --project-root=${
+    `${pm.getExecuteCommand()} nx g qwik-ui:setup-tailwind --interactive false --project-root=${
       config.projectRoot
     }  --root-css-path=${config.rootCssPath} --style=${config.style}`,
     {
@@ -357,13 +349,13 @@ async function handleInit() {
   log.info('If you want to customize your theme further, check out https://qwikui.com');
 }
 
-async function installNxIfNeeded() {
+async function installNxIfNeeded(pm: Awaited<ReturnType<typeof getPackageManager>>) {
   if (existsSync('nx.json')) {
     log.info('seems like nx.json already exists. cool!');
   } else {
     log.info('Installing Nx...');
 
-    execSync(`${getPackageManagerCommand().addDev} nx@latest`, {
+    execSync(`${pm.getAddDevDependencyCommand()} nx@latest`, {
       stdio: 'inherit',
     });
 
@@ -386,6 +378,8 @@ async function installNxIfNeeded() {
 }
 
 async function handleAdd(projectRoot?: string, componentsFromInit?: string) {
+  const pm = await getPackageManager();
+
   if (!existsSync(QWIK_UI_CONFIG_FILENAME)) {
     exitWithError(
       `${QWIK_UI_CONFIG_FILENAME} not found, please run ${green('qwik-ui init')} first`,
@@ -481,7 +475,7 @@ Options: [${possibleComponentNames.join(', ')}]`,
 
   // GENERATE COMPONENTS
   execSync(
-    `${getPackageManagerCommand().exec} nx g qwik-ui:component ${componentsToAdd.join(
+    `${pm.getExecuteCommand()} nx g qwik-ui:component ${componentsToAdd.join(
       ',',
     )} --interactive false --project-root=${projectRoot}`,
     {
