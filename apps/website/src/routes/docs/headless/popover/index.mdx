@@ -5,11 +5,30 @@ title: Qwik UI | Popover
 import { statusByComponent } from '~/_state/component-statuses';
 import Styles from './examples/styles';
 
-import { ShowcaseHero, ShowcaseBasic, ShowcaseInspect, ShowcaseAuto, ShowcaseManual, ShowcaseProgrammatic, ShowcaseToggleEvent, ShowcaseFloating, ShowcasePlacement, ShowcaseCorners, ShowcaseFlip, ShowcaseGutter, ShowcaseStyling, ShowcaseAnimation, ShowcaseTransition } from './showcase-components';
-import { CodeSnippetFloatingCss, CodeSnippetPopoverCss, CodeSnippetBuildingBlocks } from './code-snippets';
+import {
+  ShowcaseHero,
+  ShowcaseBasic,
+  ShowcaseInspect,
+  ShowcaseAuto,
+  ShowcaseManual,
+  ShowcaseProgrammatic,
+  ShowcaseToggleEvent,
+  ShowcaseFloating,
+  ShowcasePlacement,
+  ShowcaseCorners,
+  ShowcaseFlip,
+  ShowcaseGutter,
+  ShowcaseStyling,
+  ShowcaseAnimation,
+  ShowcaseTransition,
+} from './showcase-components';
+import {
+  CodeSnippetFloatingCss,
+  CodeSnippetPopoverCss,
+  CodeSnippetBuildingBlocks,
+} from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Popover} />
-
 
 # Popover
 
@@ -24,6 +43,7 @@ A popup that goes above other content on the page. You can still interact with t
     'Polyfill for unsupported browsers',
     'Executes code on interaction',
     'Float and position the popover',
+    'Supports RTL',
   ]}
 />
 
