@@ -66,9 +66,10 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
         if (isRTL) {
           const documentWidth = document.body.getBoundingClientRect().width;
           const popoverWidth = popover.getBoundingClientRect().width;
+          const boundaryX = Math.max(x, 0);
 
           Object.assign(popover.style, {
-            right: `${documentWidth - x - popoverWidth}px`,
+            right: `${documentWidth - boundaryX - popoverWidth}px`,
             top: `${y}px`,
             transform: context.transform,
           });
