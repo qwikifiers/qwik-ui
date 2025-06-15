@@ -61,11 +61,25 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
       }).then(async (resolvedData) => {
         const { x, y } = resolvedData;
 
-        Object.assign(popover.style, {
-          left: `${x}px`,
-          top: `${y}px`,
-          transform: context.transform,
-        });
+        const isRTL = document.documentElement.dir === 'rtl';
+
+        if (isRTL) {
+          const documentWidth = document.body.getBoundingClientRect().width;
+          const popoverWidth = popover.getBoundingClientRect().width;
+          const boundaryX = Math.max(x, 0);
+
+          Object.assign(popover.style, {
+            right: `${documentWidth - boundaryX - popoverWidth}px`,
+            top: `${y}px`,
+            transform: context.transform,
+          });
+        } else {
+          Object.assign(popover.style, {
+            left: `${x}px`,
+            top: `${y}px`,
+            transform: context.transform,
+          });
+        }
 
         if (resolvedData.middlewareData.arrow && context.arrowRef?.value) {
           const { x, y } = resolvedData.middlewareData.arrow;
