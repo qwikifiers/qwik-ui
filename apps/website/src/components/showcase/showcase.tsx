@@ -13,13 +13,13 @@ export const Showcase = component$<ShowcaseProps>(({ rawCode, ...props }) => {
       {!props.vertical ? (
         <Tabs.Root
           {...props}
-          selectedClassName="bg-primary hover:bg-primary text-primary-foreground hover:text-primary-foreground border-t-1 font-medium "
+          selectedClassName="bg-primary hover:bg-primary text-primary-foreground hover:text-primary-foreground border-t font-medium "
         >
-          <Tabs.List class="flex rounded-t-lg border border-b-0 bg-accent">
-            <Tabs.Tab class="h-[44px] rounded-tl-md px-3 py-2 hover:bg-primary/90 hover:text-primary-foreground">
+          <Tabs.List class="bg-accent flex rounded-t-lg border border-b-0">
+            <Tabs.Tab class="hover:bg-primary/90 hover:text-primary-foreground h-[44px] rounded-tl-md px-3 py-2">
               Preview
             </Tabs.Tab>
-            <Tabs.Tab class="h-[44px] px-3 py-2 hover:bg-primary/90 hover:text-primary-foreground">
+            <Tabs.Tab class="hover:bg-primary/90 hover:text-primary-foreground h-[44px] px-3 py-2">
               Code
             </Tabs.Tab>
           </Tabs.List>

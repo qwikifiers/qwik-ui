@@ -82,7 +82,7 @@ export const SearchModal = component$((props: { class?: string }) => {
         <LuSearch class="h-5 w-5 sm:h-6 sm:w-6" />
       </Modal.Trigger>
       <Modal.Panel
-        class={cn(props.class, 'mt-20 w-full !max-w-xl bg-red-500 p-0 sm:max-w-md')}
+        class={cn(props.class, 'mt-20 w-full max-w-xl! bg-red-500 p-0 sm:max-w-md')}
       >
         <Search isOpen={isOpen} />
       </Modal.Panel>
@@ -150,7 +150,7 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
         data-id="search"
         placeholder="Find anything"
         class={cn(
-          'h-12 w-full rounded-b-none border-none focus-visible:outline-none focus-visible:ring-0',
+          'h-12 w-full rounded-b-none border-none focus-visible:outline-hidden focus-visible:ring-0',
         )}
       />
       <Combobox.Inline class="max-h-[calc(100vh-200px)] overflow-auto border-t-2 border-border">

@@ -39,7 +39,7 @@ export const components: Record<string, Component> = {
         {...props}
         class={[
           cn(
-            'mb-8 mt-20 scroll-mt-24 border-b-2 pb-2 text-2xl font-extrabold',
+            'mt-20 mb-8 scroll-mt-24 border-b-2 pb-2 text-2xl font-extrabold',
             props.class,
           ),
         ]}
@@ -52,7 +52,7 @@ export const components: Record<string, Component> = {
     return (
       <h3
         {...props}
-        class={[cn('mb-6 mt-8 scroll-mt-20 text-xl font-semibold', props.class)]}
+        class={[cn('mt-8 mb-6 scroll-mt-20 text-xl font-semibold', props.class)]}
       >
         <Slot />
       </h3>
@@ -60,7 +60,7 @@ export const components: Record<string, Component> = {
   }),
   h4: component$<PropsOf<'h4'>>(({ ...props }) => {
     return (
-      <h4 {...props} class={[cn('mb-4 mt-6 text-lg font-medium', props.class)]}>
+      <h4 {...props} class={[cn('mt-6 mb-4 text-lg font-medium', props.class)]}>
         <Slot />
       </h4>
     );
@@ -112,13 +112,13 @@ export const components: Record<string, Component> = {
   }>(({ rawCodeString }) => {
     return (
       <div
-        class="code-example data-pagefind-ignore relative mb-6 max-h-[31.25rem] rounded-base"
+        class="code-example data-pagefind-ignore rounded-base relative mb-6 max-h-125"
         data-pagefind-ignore="all"
       >
-        <CodeCopy class="absolute right-3 top-3" code={rawCodeString} />
+        <CodeCopy class="absolute top-3 right-3" code={rawCodeString} />
         <div
           class={cn(
-            'max-h-[31.25rem] max-w-full overflow-y-auto rounded-base border bg-gradient-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
+            'rounded-base dark:from-background dark:to-accent/30 max-h-125 max-w-full overflow-y-auto border bg-linear-to-b from-slate-900 to-slate-800 p-6 text-sm',
           )}
         >
           <pre>

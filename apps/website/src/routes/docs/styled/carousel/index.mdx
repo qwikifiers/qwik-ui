@@ -196,7 +196,7 @@ const Bullet = component$((props: PropsOf<typeof HCarousel.Bullet>) => {
       {...props}
       class={cn(
         'size-5 rounded-full border border-background bg-muted outline-0 outline-muted transition-all duration-300 ease-in-out hover:border-muted',
-        'data-[active]:border-primary data-[active]:bg-primary data-[active]:text-primary-foreground',
+        'data-active:border-primary data-active:bg-primary data-active:text-primary-foreground',
         props.class,
       )}
     />
@@ -227,7 +227,7 @@ const Step = component$((props: PropsOf<typeof HCarousel.Step>) => {
     <HCarousel.Step
       {...props}
       class={cn(
-        'flex items-center gap-1 [&[data-current]_span:first-child]:outline-2 [&[data-current]_span:first-child]:outline-offset-[-2px] [&[data-current]_span:first-child]:outline-primary',
+        'flex items-center gap-1 [&[data-current]_span:first-child]:outline-2 [&[data-current]_span:first-child]:-outline-offset-2 [&[data-current]_span:first-child]:outline-primary',
         props.class,
       )}
     >

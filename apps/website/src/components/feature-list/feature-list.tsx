@@ -11,14 +11,14 @@ type FeatureListProps = {
 export const FeatureList = component$((props: FeatureListProps) => {
   return (
     <>
-      <ul class="mb-12 mt-6 !px-0">
+      <ul class="mt-6 mb-12 px-0!">
         {props.features && (
           <>
             {props.features.map((descriptor, index) => {
               return (
                 <li
                   key={descriptor}
-                  class={`flex w-full list-none items-center gap-x-2 gap-y-4 ${index === props.features.length - 1 ? '' : 'border-b-[1px]'} border-slate-200 py-2 dark:border-slate-800`}
+                  class={`flex w-full list-none items-center gap-x-2 gap-y-4 ${index === props.features.length - 1 ? '' : 'border-b'} border-slate-200 py-2 dark:border-slate-800`}
                 >
                   <LuBadgeCheck class="h-5 w-5 text-green-600" />
                   {descriptor}
@@ -29,13 +29,13 @@ export const FeatureList = component$((props: FeatureListProps) => {
         )}
         {props.roadmap && (
           <>
-            <h3 class="mb-6 mt-8 scroll-mt-20 text-xl font-semibold">Roadmap</h3>
+            <h3 class="mt-8 mb-6 scroll-mt-20 text-xl font-semibold">Roadmap</h3>
             {props.roadmap.map((descriptor) => {
               return (
                 <>
                   <li
                     key={descriptor}
-                    class="flex w-full list-none items-center gap-x-2 gap-y-4 border-b-[1px] border-slate-200 py-2 dark:border-slate-800"
+                    class="flex w-full list-none items-center gap-x-2 gap-y-4 border-b border-slate-200 py-2 dark:border-slate-800"
                   >
                     <LuBadge class="h-5 w-5 text-yellow-500" />
                     {descriptor}
@@ -52,7 +52,7 @@ export const FeatureList = component$((props: FeatureListProps) => {
                 <>
                   <li
                     key={descriptor}
-                    class="flex w-full list-none items-center gap-x-2 gap-y-4 border-b-[1px] border-slate-200 py-2 dark:border-slate-800"
+                    class="flex w-full list-none items-center gap-x-2 gap-y-4 border-b border-slate-200 py-2 dark:border-slate-800"
                   >
                     <LuBadgeAlert class="h-5 w-5 text-red-500" />
                     {descriptor}

@@ -88,7 +88,7 @@ const Input = component$<PropsOf<typeof HeadlessCombobox.Input>>((props) => {
     <HeadlessCombobox.Input
       {...props}
       class={cn(
-        'flex h-10 w-full rounded-md border border-input py-3 pl-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-10 w-full rounded-md border border-input py-3 pl-2 text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
         props.class,
       )}
     />
@@ -122,7 +122,7 @@ const Item = component$<PropsOf<typeof HeadlessCombobox.Item>>(({ ...props }) =>
     <HeadlessCombobox.Item
       {...props}
       class={cn(
-        'group flex justify-between gap-4 rounded-sm px-2 text-foreground aria-disabled:font-light aria-disabled:text-muted-foreground data-[highlighted]:cursor-pointer data-[highlighted]:bg-accent',
+        'group flex justify-between gap-4 rounded-sm px-2 text-foreground aria-disabled:font-light aria-disabled:text-muted-foreground data-highlighted:cursor-pointer data-highlighted:bg-accent',
         props.class,
       )}
     >

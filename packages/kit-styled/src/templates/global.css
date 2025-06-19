@@ -1,6 +1,39 @@
-@tailwind components;
-@tailwind base;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@config './tailwind.config.cjs';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility accordion-animation-1 {
+  &[data-open] {
+    animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-open;
+  }
+
+  &[data-closed] {
+    animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-close;
+  }
+}
+
+/* Not used yet - could be used for the colored text on the landing page when the make-it-yours color is too bright in light mode or too dim in dark mode */
+@utility text-outlined {
+  @apply [text-shadow:-1px_0_#777,0_1px_#777,1px_0_#777,0_-1px_#777] dark:[text-shadow:-1px_0_#ccc,0_1px_#ccc,1px_0_#ccc,0_-1px_#ccc];
+}
 
 @layer base {
   :root {
@@ -1235,11 +1268,11 @@
     @apply border-border;
   }
   body {
-    @apply bg-background font-sans text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
 
   p code {
-    @apply rounded-sm border-b-2 bg-accent px-2 py-0.5;
+    @apply bg-accent rounded-sm border-b-2 px-2 py-0.5;
   }
 
   pre code {
@@ -1326,72 +1359,58 @@
   }
 }
 
-:root {
-  /* primary colors - try using primary and secondary instead */
-  --qwikui-purple-50: #f9f5ff;
-  --qwikui-purple-100: #f2e8ff;
-  --qwikui-purple-200: #e7d6fe;
-  --qwikui-purple-300: #d4b5fd;
-  --qwikui-purple-400: #b37bfa;
-  --qwikui-purple-500: #9f57f5;
-  --qwikui-purple-600: #8835e8;
-  --qwikui-purple-700: #7424cc;
-  --qwikui-purple-800: #6323a6;
-  --qwikui-purple-900: #521d86;
-  --qwikui-purple-950: #360863;
+@layer utilities {
+  :root {
+    /* primary colors - try using primary and secondary instead */
+    --qwikui-purple-50: #f9f5ff;
+    --qwikui-purple-100: #f2e8ff;
+    --qwikui-purple-200: #e7d6fe;
+    --qwikui-purple-300: #d4b5fd;
+    --qwikui-purple-400: #b37bfa;
+    --qwikui-purple-500: #9f57f5;
+    --qwikui-purple-600: #8835e8;
+    --qwikui-purple-700: #7424cc;
+    --qwikui-purple-800: #6323a6;
+    --qwikui-purple-900: #521d86;
+    --qwikui-purple-950: #360863;
 
-  --qwikui-blue-50: #effaff;
-  --qwikui-blue-100: #def3ff;
-  --qwikui-blue-200: #b6eaff;
-  --qwikui-blue-300: #76dbff;
-  --qwikui-blue-400: #2dcaff;
-  --qwikui-blue-500: #02b9fc;
-  --qwikui-blue-600: #0090d2;
-  --qwikui-blue-700: #0073aa;
-  --qwikui-blue-800: #00618c;
-  --qwikui-blue-900: #075073;
-  --qwikui-blue-950: #04334d;
+    --qwikui-blue-50: #effaff;
+    --qwikui-blue-100: #def3ff;
+    --qwikui-blue-200: #b6eaff;
+    --qwikui-blue-300: #76dbff;
+    --qwikui-blue-400: #2dcaff;
+    --qwikui-blue-500: #02b9fc;
+    --qwikui-blue-600: #0090d2;
+    --qwikui-blue-700: #0073aa;
+    --qwikui-blue-800: #00618c;
+    --qwikui-blue-900: #075073;
+    --qwikui-blue-950: #04334d;
 
-  /* neutrals - for internal use */
-  --qwikui-slate-50: #f8fafc;
-  --qwikui-slate-100: #f1f5f9;
-  --qwikui-slate-200: #e2e8f0;
-  --qwikui-slate-300: #cbd5e1;
-  --qwikui-slate-400: #94a3b8;
-  --qwikui-slate-500: #64748b;
-  --qwikui-slate-600: #475569;
-  --qwikui-slate-700: #334155;
-  --qwikui-slate-800: #1e293b;
-  --qwikui-slate-900: #0f172a;
-  --qwikui-slate-950: #020617;
-}
+    /* neutrals - for internal use */
+    --qwikui-slate-50: #f8fafc;
+    --qwikui-slate-100: #f1f5f9;
+    --qwikui-slate-200: #e2e8f0;
+    --qwikui-slate-300: #cbd5e1;
+    --qwikui-slate-400: #94a3b8;
+    --qwikui-slate-500: #64748b;
+    --qwikui-slate-600: #475569;
+    --qwikui-slate-700: #334155;
+    --qwikui-slate-800: #1e293b;
+    --qwikui-slate-900: #0f172a;
+    --qwikui-slate-950: #020617;
+  }
 
-html {
-  height: 100%;
-  min-height: 100%;
-  scroll-behavior: smooth;
-}
+  html {
+    height: 100%;
+    min-height: 100%;
+    scroll-behavior: smooth;
+  }
 
-body {
-  min-height: 100%;
-}
+  body {
+    min-height: 100%;
+  }
 
-/* Utilities layer for animations. The current arbitrary & docs tailwind animation guidelines are not maintainable long term.
+  /* Utilities layer for animations. The current arbitrary & docs tailwind animation guidelines are not maintainable long term.
   It would make more sense to supply the user with the animation declaration in the docs.
 */
-@layer utilities {
-  .accordion-animation-1[data-open] {
-    animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-open;
-  }
-
-  .accordion-animation-1[data-closed] {
-    animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-close;
-  }
-}
-
-/* Not used yet - could be used for the colored text on the landing page when the make-it-yours color is too bright in light mode or too dim in dark mode */
-@layer components {
-  .text-outlined {
-    @apply [text-shadow:-1px_0_#777,_0_1px_#777,_1px_0_#777,_0_-1px_#777] dark:[text-shadow:-1px_0_#ccc,_0_1px_#ccc,_1px_0_#ccc,_0_-1px_#ccc];
-  }
 }

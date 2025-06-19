@@ -50,7 +50,7 @@ export default component$(() => {
       </h2>
       <p class="text-center text-lg lg:text-xl">
         Choose a kit and start building the future{' '}
-        <span class="hue-rotate-[150deg]">⚡</span>
+        <span class="hue-rotate-150">⚡</span>
       </p>
       <div class="mt-4 flex flex-wrap justify-center justify-items-center gap-14">
         <a href={`/docs/headless/introduction`}>

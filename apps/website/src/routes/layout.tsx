@@ -23,7 +23,7 @@ export default component$(() => {
     <>
       <Header showBottomBorder={true} showVersion={true} />
       <div class="grid justify-center">
-        <div class="grid w-full max-w-screen-2xl grid-cols-[minmax(0,1fr)] lg:grid-cols-[288px_minmax(0,1fr)] xl:grid-cols-[288px_minmax(0,968px)_240px] 2xl:gap-16">
+        <div class="grid w-full grid-cols-[minmax(0,1fr)] lg:grid-cols-[288px_minmax(0,1fr)] xl:grid-cols-[288px_minmax(0,968px)_240px] 2xl:gap-16">
           <DocsNavigation
             linksGroups={
               menuItemsGroups && menuItemsGroups.length > 0 ? menuItemsGroups : undefined
@@ -37,7 +37,7 @@ export default component$(() => {
           </MDXProvider>
           <div class="mx-6 hidden text-sm xl:block">
             <div class="fixed translate-y-[-20px] py-12">
-              <div class="toc-scrollbar mb-4 h-[calc(100vh-64px)] overflow-auto pb-16 pr-6">
+              <div class="toc-scrollbar mb-4 h-[calc(100vh-64px)] overflow-auto pr-6 pb-16">
                 <DashboardTableOfContents headings={headings ? headings : []} />
               </div>
             </div>

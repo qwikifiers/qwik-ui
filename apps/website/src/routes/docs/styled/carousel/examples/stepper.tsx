@@ -14,7 +14,7 @@ export default component$(() => {
             <Carousel.Step key={index}>
               <span
                 class={cn(
-                  'flex size-8 items-center justify-center rounded-full bg-muted text-xl font-semibold',
+                  'bg-muted flex size-8 items-center justify-center rounded-full text-xl font-semibold',
                   progressIndex.value >= index && 'bg-primary text-primary-foreground',
                 )}
               >
@@ -23,7 +23,7 @@ export default component$(() => {
               <span class="font-semibold">{title}</span>
             </Carousel.Step>
             {index < steps.length - 1 && (
-              <div class="mx-2 flex-grow">
+              <div class="mx-2 grow">
                 <Separator
                   class={cn(progressIndex.value > index ? 'bg-foreground' : 'bg-muted')}
                 />
