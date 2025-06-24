@@ -195,7 +195,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
           </div>
         </div>
       </header>
-      <Modal.Panel class="sidebar-mobile rounded-base bg-background text-foreground mr-0 ml-auto h-screen w-full max-w-sm min-w-80 border-0 p-8 shadow-md">
+      <Modal.Panel class="sidebar-mobile rounded-base bg-background text-foreground mr-0 ml-auto h-screen w-sm border-0 shadow-md">
         <div class="mb-2 pt-2 pb-4">
           <DocsNavigation
             linksGroups={

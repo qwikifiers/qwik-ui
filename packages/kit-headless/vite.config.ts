@@ -7,6 +7,7 @@ import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
+import tailwindcss from '@tailwindcss/vite';
 
 const { dependencies = {}, peerDependencies = {} } = pkg as any;
 const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
@@ -36,6 +37,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [{ src: './README.md', dest: './' }],
     }),
+    tailwindcss(),
   ],
   server: {
     fs: {

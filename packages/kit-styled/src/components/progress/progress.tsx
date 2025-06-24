@@ -6,12 +6,12 @@ export const Progress = component$<PropsOf<typeof HeadlessProgress.Root>>((props
   return (
     <HeadlessProgress.Root
       class={cn(
-        'relative h-4 w-full overflow-hidden rounded border bg-muted',
+        'bg-muted relative h-4 w-full overflow-hidden rounded-sm border',
         props.class,
       )}
       {...props}
     >
-      <HeadlessProgress.Indicator class="h-full w-full flex-1 bg-primary transition-all" />
+      <HeadlessProgress.Indicator class="bg-primary h-full w-full flex-1 transition-all" />
     </HeadlessProgress.Root>
   );
 });

@@ -63,13 +63,13 @@ export const DocsNavigation = component$(
                       <Link
                         class={cn(
                           buttonVariants({ look: 'ghost' }),
-                          'flex h-10 items-center rounded-base font-sans',
+                          'rounded-base flex h-10 items-center font-sans',
                           isLinkActive ||
                             (location.url.pathname?.startsWith('/docs/headless/') &&
                               link.name === 'Headless') ||
                             (location.url.pathname?.startsWith('/docs/styled/') &&
                               link.name === 'Styled')
-                            ? 'bg-accent font-bold text-accent-foreground'
+                            ? 'bg-accent text-accent-foreground font-bold'
                             : 'font-normal',
                         )}
                         href={link.href}

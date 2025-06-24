@@ -139,7 +139,7 @@ export default component$<PropsOf<typeof Button>>(() => {
             })}
           </div>
 
-          <label class="mt-8 mb-1 block font-medium">Primary</label>
+          <label class="mt-8 mb-1 block border-2 font-medium">Primary</label>
           <div class="flex justify-end">
             <div class="grid grid-cols-[repeat(22,0fr)]">
               {Object.values(ThemePrimaryColors).map((primaryColor: string) => {
