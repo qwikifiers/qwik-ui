@@ -9,7 +9,7 @@ export const HModalClose = component$((props: PropsOf<'button'>) => {
   });
 
   return (
-    <button onClick$={[handleClick$, props.onClick$]} {...props}>
+    <button type="button" onClick$={[handleClick$, props.onClick$]} {...props}>
       <Slot />
     </button>
   );
