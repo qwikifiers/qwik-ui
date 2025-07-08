@@ -4,7 +4,19 @@ title: Qwik UI | Tooltip
 
 import { statusByComponent } from '~/_state/component-statuses';
 
-import { ShowcaseHero, ShowcaseFloating, ShowcasePlacement, ShowcaseFlip, ShowcaseGutter, ShowcaseStyling, ShowcaseAnimation, ShowcaseTransition, ShowcaseOnChange, ShowcaseBasic, ShowcaseComplex } from './showcase-components';
+import {
+  ShowcaseHero,
+  ShowcaseFloating,
+  ShowcasePlacement,
+  ShowcaseFlip,
+  ShowcaseGutter,
+  ShowcaseStyling,
+  ShowcaseAnimation,
+  ShowcaseTransition,
+  ShowcaseOnChange,
+  ShowcaseBasic,
+  ShowcaseComplex,
+} from './showcase-components';
 
 <StatusBanner status={statusByComponent.headless.Tooltip} />
 
@@ -25,6 +37,7 @@ A text label that appears when a user hovers, focuses, or touches an element.
     'Accessibility with ARIA roles and keyboard interactions',
     'Flipping to avoid overflow',
     'Automatic placement adjustment',
+    'Supports RTL',
   ]}
 />
 
@@ -42,9 +55,7 @@ export default component$(() => {
       <Tooltip.Trigger>
         <button>Hover or Focus me</button>
       </Tooltip.Trigger>
-      <Tooltip.Panel aria-label="Tooltip content">
-        Tooltip content here
-      </Tooltip.Panel>
+      <Tooltip.Panel aria-label="Tooltip content">Tooltip content here</Tooltip.Panel>
     </Tooltip.Root>
   );
 });
