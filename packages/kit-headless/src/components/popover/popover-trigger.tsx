@@ -1,5 +1,5 @@
 import { Slot, component$, $, PropsOf, useContext } from '@builder.io/qwik';
-import { popoverContextId } from './popover-context';
+import { popoverContextId } from './popover-types';
 import { usePopover } from './use-popover';
 
 type PopoverTriggerProps = {

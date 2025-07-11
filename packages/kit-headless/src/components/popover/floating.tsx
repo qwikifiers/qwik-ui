@@ -13,7 +13,7 @@ import { PropsOf, Slot, component$, useContext, useTask$ } from '@builder.io/qwi
 
 import { HPopoverPanelImpl } from './popover-panel-impl';
 import { isServer } from '@builder.io/qwik/build';
-import { popoverContextId } from './popover-context';
+import { popoverContextId } from './popover-types';
 
 export const FloatingPopover = component$((props: PropsOf<'div'>) => {
   const context = useContext(popoverContextId);
@@ -58,6 +58,7 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
       await computePosition(anchor as ReferenceElement, popover, {
         placement: placement as Placement,
         middleware,
+        strategy: context.strategy,
       }).then(async (resolvedData) => {
         const { x, y } = resolvedData;
 

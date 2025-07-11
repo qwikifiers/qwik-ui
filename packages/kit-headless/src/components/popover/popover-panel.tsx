@@ -1,7 +1,7 @@
 import { component$, PropsOf, Slot, useContext } from '@builder.io/qwik';
 import { FloatingPopover } from './floating';
 import { HPopoverPanelImpl } from './popover-panel-impl';
-import { popoverContextId } from './popover-context';
+import { popoverContextId } from './popover-types';
 
 // TODO: improve the type so that it only includes FloatingProps when floating is true.
 
@@ -11,7 +11,7 @@ export const HPopoverPanel = component$((props: PropsOf<'div'>) => {
 
   if (context.floating) {
     return (
-      <FloatingPopover data-floating {...props}>
+      <FloatingPopover data-floating={context.strategy || 'absolute'} {...props}>
         <Slot />
       </FloatingPopover>
     );

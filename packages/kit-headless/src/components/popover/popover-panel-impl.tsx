@@ -13,7 +13,7 @@ import {
 
 import { isServer } from '@builder.io/qwik/build';
 import { useCombinedRef } from '../../hooks/combined-refs';
-import { popoverContextId } from './popover-context';
+import { popoverContextId } from './popover-types';
 import popoverStyles from './popover.css?inline';
 
 // We don't need a provider, that way we connect all context to the root
