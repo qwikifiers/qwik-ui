@@ -58,6 +58,7 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
       await computePosition(anchor as ReferenceElement, popover, {
         placement: placement as Placement,
         middleware,
+        strategy: 'fixed',
       }).then(async (resolvedData) => {
         const { x, y } = resolvedData;
 

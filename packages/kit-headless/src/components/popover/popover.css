@@ -17,7 +17,7 @@
     padding: unset;
     border: unset;
     overflow: unset;
-    position: absolute;
+    position: fixed;
   }
 }
 
@@ -28,6 +28,6 @@
     padding: unset;
     border: unset;
     overflow: unset;
-    position: absolute;
+    position: fixed;
   }
 }
