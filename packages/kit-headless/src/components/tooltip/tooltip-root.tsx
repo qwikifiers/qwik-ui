@@ -9,7 +9,8 @@ import {
   useSignal,
   $,
 } from '@builder.io/qwik';
-import { FloatingProps, HPopoverRoot } from '../popover/popover-root';
+import { type Floating } from '../popover/popover-types';
+import { HPopoverRoot } from '../popover/popover-root';
 import { TooltipContext, TooltipContextId, TriggerDataState } from './tooltip-context';
 
 /**
@@ -42,7 +43,7 @@ export type TooltipRootProps = {
   placement?: Parameters<typeof HPopoverRoot>['0']['floating'];
 
   id?: string;
-} & Pick<FloatingProps, 'flip' | 'gutter'>;
+} & Pick<Floating, 'flip' | 'gutter'>;
 
 /**
  * TooltipProps combines TooltipRootProps and the properties of a div element.

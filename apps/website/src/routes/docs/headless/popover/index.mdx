@@ -362,8 +362,14 @@ To read more about the popover API you can check it out on:
     },
     {
       name: 'floating',
-      type: 'boolean | TPlacement',
+      type: 'boolean | Placement',
       description: 'Enables extra JavaScript behavior for floating elements.',
+    },
+    {
+      name: 'strategy',
+      type: 'absolute | fixed',
+      description:
+        'The strategy to use when positioning the floating element. The default value is absolute, which suites most cases, while fixed position might be better in legacy browsers like iOS 15.4.',
     },
     {
       name: 'anchorRef',

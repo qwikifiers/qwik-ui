@@ -19,6 +19,10 @@
     overflow: unset;
     position: absolute;
   }
+
+  [data-floating='fixed'] {
+    position: fixed;
+  }
 }
 
 /** override the polyfill's layer, which gets dynamically imported later on. */
@@ -29,5 +33,9 @@
     border: unset;
     overflow: unset;
     position: absolute;
+  }
+
+  [data-floating='fixed'] {
+    position: fixed;
   }
 }

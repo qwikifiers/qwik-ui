@@ -7,13 +7,19 @@ import {
   useId,
   useSignal,
 } from '@builder.io/qwik';
-import { popoverContextId, PopoverContext } from './popover-context';
+
+import {
+  popoverContextId,
+  type Floating,
+  type Placement,
+  type PopoverContext,
+} from './popover-types';
 
 export type PopoverRootProps = {
   popover?: 'manual' | 'auto';
   manual?: boolean;
   ref?: Signal<HTMLElement | undefined>;
-  floating?: boolean | TPlacement;
+  floating?: boolean | Placement;
   /** @deprecated Use the tooltip instead, which adheres to the WAI-ARIA design pattern. */
   hover?: boolean;
   id?: string;
@@ -21,39 +27,9 @@ export type PopoverRootProps = {
   'bind:panel'?: Signal<HTMLElement | undefined>;
 };
 
-export type FloatingProps = {
-  ancestorScroll?: boolean;
-  ancestorResize?: boolean;
-  elementResize?: boolean;
-  layoutShift?: boolean;
-  animationFrame?: boolean;
-  gutter?: number;
-  shift?: boolean;
-  flip?: boolean;
-  size?: boolean;
-  hide?: 'referenceHidden' | 'escaped';
-  inline?: boolean;
-  transform?: string;
-  arrow?: boolean;
-};
-
-export type TPlacement =
-  | 'top'
-  | 'top-start'
-  | 'top-end'
-  | 'right'
-  | 'right-start'
-  | 'right-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'left'
-  | 'left-start'
-  | 'left-end';
-
 export type PopoverProps = PopoverRootProps & {
-  floating?: boolean | TPlacement;
-} & FloatingProps &
+  floating?: boolean | Placement;
+} & Floating &
   PropsOf<'div'>;
 
 export const HPopoverRoot = component$((props: PopoverProps) => {
@@ -74,6 +50,7 @@ export const HPopoverRoot = component$((props: PopoverProps) => {
     elementResize = true,
     animationFrame = false,
     transform,
+    strategy,
     ...rest
   } = props;
 
@@ -109,6 +86,7 @@ export const HPopoverRoot = component$((props: PopoverProps) => {
     flip,
     shift,
     hide,
+    strategy,
     ancestorScroll,
     ancestorResize,
     elementResize,
