@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.9
+
+### Patch Changes
+
+- 🐞🩹 Modal.Close now of type button (by [@Caesarovich](https://github.com/Caesarovich) in [#1110](https://github.com/qwikifiers/qwik-ui/pull/1110))
+
+- Support rtl for elements using floating ui (by [@omerman](https://github.com/omerman) in [#1109](https://github.com/qwikifiers/qwik-ui/pull/1109))
+
 ## 0.6.8
 
 ### Patch Changes
