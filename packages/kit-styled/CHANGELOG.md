@@ -1,5 +1,11 @@
 # @qwik-ui/styled
 
+## 0.3.3
+
+### Patch Changes
+
+- 🐞🩹 styled modal aligning to either left/top when position set either right/bottom' (by [@lolzivkovic](https://github.com/lolzivkovic) in [#1104](https://github.com/qwikifiers/qwik-ui/pull/1104))
+
 ## 0.3.2
 
 ### Patch Changes
