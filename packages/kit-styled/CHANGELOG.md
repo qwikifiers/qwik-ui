@@ -1,5 +1,11 @@
 # @qwik-ui/styled
 
+## 0.3.4
+
+### Patch Changes
+
+- PATCH: The styled Input, Checkbox and Textarea components now properly handle two way data-binding and allow passing onInput$ outside and inside of forms. (by [@maiieul](https://github.com/maiieul) in [#1118](https://github.com/qwikifiers/qwik-ui/pull/1118))
+
 ## 0.3.3
 
 ### Patch Changes
