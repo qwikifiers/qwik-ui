@@ -1,6 +1,6 @@
 {
   "name": "@qwik-ui/styled",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Qwik UI components library with styles",
   "publishConfig": {
     "access": "public"

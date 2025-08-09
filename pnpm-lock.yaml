@@ -307,7 +307,7 @@ importers:
         version: 17.7.2
     devDependencies:
       '@qwik-ui/styled':
-        specifier: 0.3.3
+        specifier: 0.3.4
         version: link:../kit-styled
       prettier-2:
         specifier: npm:prettier@^2
