@@ -1266,11 +1266,11 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background font-sans text-foreground;
   }
 
   p code {
-    @apply bg-accent rounded-sm border-b-2 px-2 py-0.5;
+    @apply rounded-sm border-b-2 bg-accent px-2 py-0.5;
   }
 
   pre code {
@@ -1285,7 +1285,7 @@
 
   *::-webkit-scrollbar-thumb {
     /* Thumb color */
-    background-color: hsla(var(--foreground) / 0.25);
+    background-color: oklch(from var(--foreground) l c h / 0.25);
     border-radius: 0.5rem;
     background-clip: padding-box;
     border-left: 0.15rem solid transparent;
@@ -1293,11 +1293,11 @@
   }
 
   .navigation-docs::-webkit-scrollbar-thumb {
-    background-color: hsla(var(--foreground) / 0.1);
+    background-color: oklch(from var(--foreground) l c h / 0.1);
   }
 
   .dark .navigation-docs::-webkit-scrollbar-thumb {
-    background-color: hsla(var(--foreground) / 0.2);
+    background-color: oklch(from var(--foreground) l c h / 0.2);
   }
 
   *::-webkit-scrollbar-corner {
@@ -1319,7 +1319,7 @@
   }
 
   .toc-scrollbar:hover.toc-scrollbar::-webkit-scrollbar-thumb {
-    background-color: hsla(var(--foreground) / 0.15);
+    background-color: oklch(from var(--foreground) l c h / 0.15);
   }
 
   .dark *::-webkit-scrollbar-track {

@@ -33,7 +33,7 @@
 }
 
 .modal-animation::backdrop {
-  background: hsla(0, 0%, 0%, 0.5);
+  background: oklch(from 0, 0%, 0%, 0.5);
 }
 
 @keyframes modalOpen {
@@ -89,7 +89,7 @@
 }
 
 .sheet::backdrop {
-  background: hsla(0, 0%, 0%, 0.5);
+  background: oklch(from 0, 0%, 0%, 0.5);
 }
 
 .sheet {

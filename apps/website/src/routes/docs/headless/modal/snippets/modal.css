@@ -6,22 +6,22 @@
 .modal-trigger {
   padding: 0.5rem;
   width: 100%;
-  border: 2px dotted hsla(var(--foreground));
+  border: 2px dotted oklch(from var(--foreground) l c h);
   height: 44px;
   width: fit-content;
 }
 
 .modal-trigger:hover,
 .modal-close:hover {
-  background-color: hsla(var(--primary) / 0.08);
+  background-color: oklch(from var(--primary) l c h / 0.08);
 }
 
 .modal-panel {
   padding: 1rem;
   gap: 0.5rem;
-  border: 2px dotted hsla(var(--primary));
-  color: hsla(var(--foreground));
-  background-color: hsl(var(--background));
+  border: 2px dotted oklch(from var(--primary) l c h);
+  color: oklch(from var(--foreground) l c h);
+  background-color: oklch(from var(--background) l c h);
   max-width: 28rem;
   width: 100%;
   overflow: hidden;
@@ -38,7 +38,7 @@
 .modal-panel input {
   margin-bottom: 1rem;
   border-radius: calc(var(--border-radius));
-  background: hsla(var(--foreground) / 0.05);
+  background: oklch(from var(--foreground) l c h / 0.05);
 }
 
 .modal-panel h2 {
@@ -51,7 +51,7 @@
   width: 100%;
   padding: 0.5rem;
   border-radius: calc(var(--border-radius));
-  border: 2px dotted hsla(var(--ring));
+  border: 2px dotted oklch(from var(--ring) l c h);
 }
 
 .modal-panel footer {
@@ -63,15 +63,15 @@
 .modal-panel button {
   padding: 0.5rem;
   border-radius: calc(var(--border-radius));
-  border: 2px dotted hsla(var(--muted));
+  border: 2px dotted oklch(from var(--muted) l c h);
 }
 
 .modal-panel button:first-of-type {
-  border-color: hsla(var(--foreground));
+  border-color: oklch(from var(--foreground) l c h);
 }
 
 .modal-panel button:last-of-type {
-  border-color: hsla(var(--primary));
+  border-color: oklch(from var(--primary) l c h);
 }
 
 .modal-backdrop::backdrop {
@@ -99,7 +99,7 @@
   right: 0.55rem;
   top: 0.7rem;
   bottom: 0.7rem;
-  border: 1px solid hsla(var(--foreground));
+  border: 1px solid oklch(from var(--foreground) l c h);
   transform: rotate(-45deg);
   pointer-events: none;
 }

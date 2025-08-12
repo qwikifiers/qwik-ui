@@ -1285,7 +1285,7 @@
 
   *::-webkit-scrollbar-thumb {
     /* Thumb color */
-    background-color: hsla(var(--foreground) / 0.25);
+    background-color: oklch(from var(--foreground) l c h / 0.25);
     border-radius: 0.4rem;
     background-clip: padding-box;
     border-left: 0.3rem solid transparent;
@@ -1293,11 +1293,11 @@
   }
 
   .navigation-docs::-webkit-scrollbar-thumb {
-    background-color: hsla(var(--foreground) / 0.1);
+    background-color: oklch(from var(--foreground) l c h / 0.1);
   }
 
   .dark .navigation-docs::-webkit-scrollbar-thumb {
-    background-color: hsla(var(--foreground) / 0.2);
+    background-color: oklch(from var(--foreground) l c h / 0.2);
   }
 
   *::-webkit-scrollbar-corner {
@@ -1319,7 +1319,7 @@
   }
 
   .toc-scrollbar:hover.toc-scrollbar::-webkit-scrollbar-thumb {
-    background-color: hsla(var(--foreground) / 0.15);
+    background-color: oklch(from var(--foreground) l c h / 0.15);
   }
 
   .dark *::-webkit-scrollbar-track {

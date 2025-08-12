@@ -18,9 +18,9 @@
     --card-foreground: var(--color-slate-900);
     --border: var(--color-slate-200);
     --input: var(--color-slate-200);
-    --primary: hsl(197 98% 52%);
+    --primary: oklch(74.1% 38.5% 234.357);
     --primary-foreground: black;
-    --secondary: hsl(266 96% 74%);
+    --secondary: oklch(69.9% 46.25% 301.823);
     --secondary-foreground: black;
     --accent: var(--color-slate-100);
     --accent-foreground: var(--color-slate-900);
@@ -51,9 +51,9 @@
     --card-foreground: var(--color-slate-50);
     --border: var(--color-slate-800);
     --input: var(--color-slate-800);
-    --primary: hsl(197 98% 52%);
+    --primary: oklch(74.1% 38.5% 234.357);
     --primary-foreground: black;
-    --secondary: hsl(266 96% 74%);
+    --secondary: oklch(69.9% 46.25% 301.823);
     --secondary-foreground: black;
     --accent: var(--color-slate-700);
     --accent-foreground: var(--color-slate-50);
