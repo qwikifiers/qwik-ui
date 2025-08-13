@@ -180,9 +180,6 @@
   }
 }
 
-/* @utility underline {
-} */
-
 @layer base {
   .border-radius-0 {
     --border-radius: 0rem;
@@ -1391,8 +1388,4 @@
   &[data-closed] {
     animation: 500ms cubic-bezier(0.87, 0, 0.13, 1) 0s 1 normal forwards accordion-close;
   }
-}
-
-@utility text-outlined {
-  @apply [text-shadow:-1px_0_#777,0_1px_#777,1px_0_#777,0_-1px_#777] dark:[text-shadow:-1px_0_#ccc,0_1px_#ccc,1px_0_#ccc,0_-1px_#ccc];
 }
