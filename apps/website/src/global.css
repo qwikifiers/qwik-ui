@@ -101,10 +101,6 @@
   --radius-xl: calc(var(--border-radius) + 0.75rem);
   --radius-2xl: calc(var(--border-radius) + 1rem);
   --radius-3xl: calc(var(--border-radius) + 1.5rem);
-  --default-border-width: calc(var(--border-width) + 1px);
-  --border-2: calc(var(--border-width) + 2px);
-  --border-4: calc(var(--border-width) + 4px);
-  --border-8: calc(var(--border-width) + 8px);
   --shadow-xs: var(--shadow-base);
   --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
@@ -112,10 +108,15 @@
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
   --shadow-inner: var(--shadow-inner);
-  --stroke-0: 0;
-  --stroke: var(--stroke-width);
-  --stroke-1: calc(var(--stroke-width) + 1px);
-  --stroke-2: calc(var(--stroke-width) + 2px);
+  --default-border-width: calc(var(--border-width) + 1px);
+  --border-width-base: var(--border-width);
+  --border-width-2: calc(var(--border-width) + 2px);
+  --border-width-4: calc(var(--border-width) + 4px);
+  --border-width-8: calc(var(--border-width) + 8px);
+  --stroke-width-0: 0px;
+  --stroke-width-base: var(--stroke-width);
+  --stroke-width-1: calc(var(--stroke-width) + 1px);
+  --stroke-width-2: calc(var(--stroke-width) + 2px);
   --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
   --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
   @keyframes collapsible-down {
@@ -136,10 +137,16 @@
   }
 }
 
-@layer utilities {
-  .press {
-    transform: var(--transform-press);
-  }
+@utility press {
+  transform: var(--transform-press);
+}
+@utility border-width-* {
+  /* prettier-ignore */
+  border: --value(--border-width-*);
+}
+@utility stroke-width-* {
+  /* prettier-ignore */
+  stroke: --value(--stroke-width-*);
 }
 
 @layer base {
@@ -194,7 +201,7 @@
 
   /* CSS PARSER: START - DO NOT REMOVE */
   .simple {
-    --border-width-base: 1px;
+    --border-width: 1px;
     --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
     --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -217,7 +224,7 @@
   }
 
   .brutalist.brutalist {
-    --border-width-base: 3px;
+    --border-width: 3px;
     --stroke-width: 2px;
     --border: black;
     --input: black;
@@ -243,7 +250,7 @@
   }
 
   .dark.brutalist.brutalist {
-    --border-width-base: 3px;
+    --border-width: 3px;
     --stroke-width: 2px;
     --underline: 2px;
     --shadow-2xs: 1px 1px rgba(0, 0, 0, 1);
@@ -267,7 +274,7 @@
   }
 
   .neumorphic.neumorphic {
-    --border-width-base: 0px;
+    --border-width: 0px;
     --stroke-width: 0px;
     --background: hsl(0 0 88%);
     --foreground: var(--color-zinc-900);
@@ -311,7 +318,7 @@
   }
 
   .dark.neumorphic.neumorphic {
-    --border-width-base: 0px;
+    --border-width: 0px;
     --stroke-width: 0px;
     --background: var(--color-zinc-700);
     --foreground: var(--color-zinc-200);
