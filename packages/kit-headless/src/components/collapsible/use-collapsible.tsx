@@ -14,6 +14,9 @@ export function useCollapsible() {
       display: 'block',
     });
 
+    // Remove the hidden attribute because tailwind can override it
+    clone.removeAttribute('hidden');
+
     el.after(clone);
     const height = clone.offsetHeight;
 
