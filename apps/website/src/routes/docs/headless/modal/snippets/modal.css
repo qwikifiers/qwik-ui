@@ -25,6 +25,7 @@
   max-width: 28rem;
   width: 100%;
   overflow: hidden;
+  margin: auto;
 }
 
 .modal-panel::backdrop {
