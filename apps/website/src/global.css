@@ -101,7 +101,8 @@
   --radius-xl: calc(var(--border-radius) + 0.75rem);
   --radius-2xl: calc(var(--border-radius) + 1rem);
   --radius-3xl: calc(var(--border-radius) + 1.5rem);
-  --shadow-xs: var(--shadow-base);
+  --shadow-base: var(--shadow-base);
+  --shadow-xs: var(--shadow-xs);
   --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
@@ -147,6 +148,10 @@
 @utility stroke-width-* {
   /* prettier-ignore */
   stroke: --value(--stroke-width-*);
+}
+@utility shadow-* {
+  /* prettier-ignore */
+  box-shadow: --value(--shadow-*);
 }
 
 @layer base {
