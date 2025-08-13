@@ -147,11 +147,11 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background font-sans text-foreground;
   }
 
   p code {
-    @apply bg-accent rounded-sm border-b-2 px-2 py-0.5;
+    @apply rounded-sm border-b-2 bg-accent px-2 py-0.5;
   }
 
   pre code {
@@ -164,7 +164,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background font-sans text-foreground;
   }
 }
 
