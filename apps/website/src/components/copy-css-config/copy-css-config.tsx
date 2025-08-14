@@ -30,7 +30,7 @@ export default component$(() => {
       >
         Copy code
       </Button>
-      <Modal.Panel class="my-animation rounded-base bg-background text-foreground h-[650px] max-w-2xl overflow-x-hidden p-8 shadow-md backdrop:backdrop-blur-sm backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100">
+      <Modal.Panel class="my-animation rounded-base m-auto h-[650px] max-w-2xl overflow-x-hidden bg-background p-8 text-foreground shadow-md backdrop:backdrop-blur-sm backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100">
         <header>
           <h2 class="mb-2 text-lg font-bold">Copy config</h2>
           <p class="mb-6">

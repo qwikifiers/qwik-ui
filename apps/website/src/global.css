@@ -120,6 +120,7 @@
   --stroke-width-2: calc(var(--stroke-width) + 2px);
   --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
   --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
+
   @keyframes collapsible-down {
     from {
       height: 0;
@@ -159,15 +160,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background font-sans text-foreground;
-  }
-
-  p code {
-    @apply rounded-sm border-b-2 bg-accent px-2 py-0.5;
-  }
-
-  pre code {
-    @apply whitespace-pre-wrap;
+    @apply bg-background text-foreground;
   }
 }
 
@@ -176,11 +169,25 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background font-sans text-foreground;
+    @apply bg-background text-foreground;
   }
 }
 
 @layer base {
+  * {
+    @apply font-sans;
+  }
+  body {
+    @apply font-sans;
+  }
+  p code {
+    @apply rounded-sm border-b-2 bg-accent px-2 py-0.5;
+  }
+
+  pre code {
+    @apply whitespace-pre-wrap;
+  }
+  /* CSS PARSER: START - DO NOT REMOVE */
   .border-radius-0 {
     --border-radius: 0rem;
   }
@@ -201,7 +208,6 @@
     --border-radius: 1rem;
   }
 
-  /* CSS PARSER: START - DO NOT REMOVE */
   .simple {
     --border-width: 1px;
     --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);

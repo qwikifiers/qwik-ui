@@ -7,10 +7,8 @@ export const extractThemeCSS = (theme: Theme, globalCSS: string) => {
 
   // Parse the CSS to get the variables
   const classesMap = createClassesMap(cssClasses);
-  // console.log('classesMap', classesMap);
   // Example usage with the cssThemeToObjectTheme function output
   const objDarkClasses = applyDarkOverrides(classesMap);
-  // console.log('objDarkClasses', objDarkClasses);
   const objRootClasses = removeDarkClasses(classesMap);
 
   // Build the theme CSS
@@ -263,7 +261,106 @@ function objThemeToCSSThemeOutput(themeObject: ThemeMap) {
     cssOutput += `  }\n`;
   }
 
-  cssOutput += `}`;
+  cssOutput += `}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-alert: var(--alert);
+  --color-alert-foreground: var(--alert-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-xs: var(--border-radius);
+  --radius-sm: calc(var(--border-radius) + 0.125rem);
+  --radius-md: calc(var(--border-radius) + 0.375rem);
+  --radius-lg: calc(var(--border-radius) + 0.5rem);
+  --radius-xl: calc(var(--border-radius) + 0.75rem);
+  --radius-2xl: calc(var(--border-radius) + 1rem);
+  --radius-3xl: calc(var(--border-radius) + 1.5rem);
+  --shadow-base: var(--shadow-base);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+  --shadow-inner: var(--shadow-inner);
+  --default-border-width: calc(var(--border-width) + 1px);
+  --border-width-base: var(--border-width);
+  --border-width-2: calc(var(--border-width) + 2px);
+  --border-width-4: calc(var(--border-width) + 4px);
+  --border-width-8: calc(var(--border-width) + 8px);
+  --stroke-width-0: 0px;
+  --stroke-width-base: var(--stroke-width);
+  --stroke-width-1: calc(var(--stroke-width) + 1px);
+  --stroke-width-2: calc(var(--stroke-width) + 2px);
+  --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
+  --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
+
+  @keyframes collapsible-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--qwikui-collapsible-content-height);
+    }
+  }
+  @keyframes collapsible-up {
+    from {
+      height: var(--qwikui-collapsible-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+@utility press {
+  transform: var(--transform-press);
+}
+@utility border-width-* {
+  /* prettier-ignore */
+  border: --value(--border-width-*);
+}
+@utility stroke-width-* {
+  /* prettier-ignore */
+  stroke: --value(--stroke-width-*);
+}
+@utility shadow-* {
+  /* prettier-ignore */
+  box-shadow: --value(--shadow-*);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}`;
 
   return cssOutput;
 }
