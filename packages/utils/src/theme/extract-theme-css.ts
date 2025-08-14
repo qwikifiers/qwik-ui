@@ -249,7 +249,13 @@ function reorderThemeObject(themeObject: ThemeMap) {
 }
 
 function objThemeToCSSThemeOutput(themeObject: ThemeMap) {
-  let cssOutput = `@layer base {\n`;
+  let cssOutput = `@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {\n`;
 
   // Iterate over each theme (e.g., 'root', 'dark')
   for (const [theme, values] of Object.entries(themeObject)) {
