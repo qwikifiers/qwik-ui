@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.0
+
+### Minor Changes
+
+- minor: adds strategy prop to use when positioning the floating element in popover (by [@ignatvilesov](https://github.com/ignatvilesov) in [#1114](https://github.com/qwikifiers/qwik-ui/pull/1114))
+
+### Patch Changes
+
+- 🐞🩹 Modal.Close now of type button (by [@Caesarovich](https://github.com/Caesarovich) in [#1110](https://github.com/qwikifiers/qwik-ui/pull/1110))
+
+- Support rtl for elements using floating ui (by [@omerman](https://github.com/omerman) in [#1109](https://github.com/qwikifiers/qwik-ui/pull/1109))
+
 ## 0.6.8
 
 ### Patch Changes
