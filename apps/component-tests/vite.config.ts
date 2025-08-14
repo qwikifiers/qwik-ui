@@ -2,7 +2,6 @@ import { qwikVite } from '@builder.io/qwik/optimizer';
 import { qwikCity } from '@builder.io/qwik-city/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   root: 'apps/component-tests',
@@ -19,7 +18,6 @@ export default defineConfig({
       tsconfigFileNames: ['tsconfig.app.json'],
     }),
     tsconfigPaths({ root: '../../' }),
-    tailwindcss(),
   ],
   server: {
     fs: {

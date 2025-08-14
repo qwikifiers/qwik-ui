@@ -1,6 +1,5 @@
 import { qwikVite } from '@builder.io/qwik/optimizer';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import tailwindcss from '@tailwindcss/vite';
 import { join } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -17,7 +16,6 @@ export default defineConfig({
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
     }),
     nxViteTsPaths(),
-    tailwindcss(),
   ],
   server: {
     fs: {
