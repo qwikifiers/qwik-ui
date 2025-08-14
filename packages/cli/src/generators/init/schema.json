@@ -9,11 +9,6 @@
       "description": "The root directory you want the config file to be created in.",
       "x-prompt": "Which project do you ?"
     },
-    "tailwindConfigPath": {
-      "type": "string",
-      "description": "Tailwind config path",
-      "x-prompt": "Tailwind config path"
-    },
     "rootCssPath": {
       "type": "string",
       "description": "The root css file where you declare all the tailwind related directives",
