@@ -52,5 +52,8 @@
     ]
   },
   "nxCloudAccessToken": "MzViMzc1MGQtMDQyNi00N2E3LTliMmYtYWI4ZGIxYWJjYzE3fHJlYWQtd3JpdGU=",
-  "defaultBase": "main"
+  "defaultBase": "main",
+  "tui": {
+    "enabled": false
+  }
 }
