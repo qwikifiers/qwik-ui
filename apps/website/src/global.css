@@ -28,7 +28,8 @@
     --alert-foreground: var(--color-slate-50);
     --ring: var(--color-slate-900);
     --border-width: 0px;
-    --border-radius: 0;
+    --stroke-width: 1px;
+    --border-radius: 0.25rem;
     --shadow-base: none;
     --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
     --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -62,7 +63,8 @@
     --alert-foreground: var(--color-slate-50);
     --ring: var(--color-slate-300);
     --border-width: 0px;
-    --border-radius: 0;
+    --stroke-width: 1px;
+    --border-radius: 0.25rem;
     --shadow-base: none;
     --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
     --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -200,6 +202,7 @@
 
   .simple {
     --border-width: 0px;
+    --stroke-width: 1px;
     --shadow-base: none;
     --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
     --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -246,7 +249,7 @@
 
   .neumorphic.neumorphic {
     --border-width: 0px;
-    --stroke-width: 0px;
+    --stroke-width: 1px;
     --background: hsl(0 0 88%);
     --foreground: var(--color-zinc-900);
     --popover: hsl(0 0 88%);
@@ -290,7 +293,7 @@
 
   .dark.neumorphic.neumorphic {
     --border-width: 0px;
-    --stroke-width: 0px;
+    --stroke-width: 1px;
     --background: var(--color-zinc-700);
     --foreground: var(--color-zinc-200);
     --popover: var(--color-zinc-700);
@@ -1350,12 +1353,6 @@
 
 /* DOCS */
 @layer base {
-  * {
-    @apply font-sans;
-  }
-  body {
-    @apply font-sans;
-  }
   p code {
     @apply rounded-sm border-b-2 bg-accent px-2 py-0.5;
   }

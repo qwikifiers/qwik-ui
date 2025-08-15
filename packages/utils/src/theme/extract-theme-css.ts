@@ -220,6 +220,7 @@ function reorderThemeObject(themeObject: ThemeMap) {
     '--alert-foreground',
     '--ring',
     '--border-width',
+    '--stroke-width',
     '--border-radius',
     '--shadow-base',
     '--shadow-2xs',

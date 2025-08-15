@@ -72,6 +72,7 @@ html {
           --alert-foreground: var(--color-slate-50);
           --ring: var(--color-slate-900);
           --border-width: 0px;
+          --stroke-width: 1px;
           --border-radius: 0rem;
           --shadow-base: none;
           --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
@@ -108,6 +109,7 @@ html {
           --alert-foreground: var(--color-slate-50);
           --ring: var(--color-slate-300);
           --border-width: 0px;
+          --stroke-width: 1px;
           --border-radius: 0rem;
           --shadow-base: none;
           --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
@@ -280,6 +282,7 @@ html {
           --alert-foreground: var(--color-slate-50);
           --ring: black;
           --border-width: 2px;
+          --stroke-width: 2px;
           --border-radius: 1rem;
           --shadow-base: 0px 1px rgba(0, 0, 0, 1);
           --shadow-2xs: 1px 2px rgba(0, 0, 0, 1);
@@ -313,6 +316,7 @@ html {
           --alert-foreground: var(--color-slate-50);
           --ring: black;
           --border-width: 3px;
+          --stroke-width: 2px;
           --border-radius: 1rem;
           --shadow-base: 0px 1px rgba(0, 0, 0, 1);
           --shadow-2xs: 0px 1px rgba(0, 0, 0, 1);
