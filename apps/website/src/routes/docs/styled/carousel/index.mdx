@@ -115,8 +115,8 @@ const Previous = component$<
       class={cn(
         'absolute',
         context.orientation === 'horizontal'
-          ? '-left-16 top-1/2 -translate-y-1/2'
-          : '-top-16 right-1/2 translate-x-1/2',
+          ? 'top-1/2 -left-12 -translate-y-1/2'
+          : '-top-12 right-1/2 translate-x-1/2',
       )}
     >
       <HCarousel.Previous
@@ -151,8 +151,8 @@ const Next = component$<
       class={cn(
         'absolute',
         context.orientation === 'horizontal'
-          ? '-right-16 top-1/2 -translate-y-1/2'
-          : '-bottom-16 right-1/2 translate-x-1/2',
+          ? 'top-1/2 -right-12 -translate-y-1/2'
+          : 'right-1/2 -bottom-12 translate-x-1/2',
       )}
     >
       {/* moves content to the right on hover */}
@@ -179,7 +179,7 @@ const Next = component$<
   );
 });
 
-const Pagination = component$(({ ...props }: PropsOf<typeof HCarousel.Pagination>) => {
+const Pagination = component$<PropsOf<typeof HCarousel.Pagination>>(({ ...props }) => {
   return (
     <HCarousel.Pagination
       {...props}
@@ -190,7 +190,7 @@ const Pagination = component$(({ ...props }: PropsOf<typeof HCarousel.Pagination
   );
 });
 
-const Bullet = component$((props: PropsOf<typeof HCarousel.Bullet>) => {
+const Bullet = component$<PropsOf<typeof HCarousel.Bullet>>((props) => {
   return (
     <HCarousel.Bullet
       {...props}
@@ -203,7 +203,7 @@ const Bullet = component$((props: PropsOf<typeof HCarousel.Bullet>) => {
   );
 });
 
-const Title = component$((props: PropsOf<typeof HCarousel.Title>) => {
+const Title = component$<PropsOf<typeof HCarousel.Title>>((props) => {
   return (
     <HCarousel.Title {...props}>
       <Slot />
@@ -222,7 +222,7 @@ const Stepper = (props: PropsOf<typeof HCarousel.Stepper>) => {
   );
 };
 
-const Step = component$((props: PropsOf<typeof HCarousel.Step>) => {
+const Step = component$<PropsOf<typeof HCarousel.Step>>((props) => {
   return (
     <HCarousel.Step
       {...props}
