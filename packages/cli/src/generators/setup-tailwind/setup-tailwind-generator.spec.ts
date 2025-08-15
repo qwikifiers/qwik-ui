@@ -73,8 +73,8 @@ html {
           --ring: var(--color-slate-900);
           --border-width: 0px;
           --border-radius: 0rem;
-          --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-          --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+          --shadow-sm:
+            0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
           --shadow-md:
             0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
           --shadow-lg:
@@ -107,8 +107,8 @@ html {
           --ring: var(--color-slate-300);
           --border-width: 0px;
           --border-radius: 0rem;
-          --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-          --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+          --shadow-sm:
+            0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
           --shadow-md:
             0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
           --shadow-lg:
@@ -278,7 +278,6 @@ html {
           --border-width: 2px;
           --border-radius: 1rem;
           --shadow-sm: 4px 4px rgba(0, 0, 0, 1);
-          --shadow: 5px 5px rgba(0, 0, 0, 1);
           --shadow-md: 6px 6px rgba(0, 0, 0, 1);
           --shadow-lg: 8px 8px rgba(0, 0, 0, 1);
           --shadow-xl: 11px 11px rgba(0, 0, 0, 1);
@@ -308,7 +307,6 @@ html {
           --border-width: 3px;
           --border-radius: 1rem;
           --shadow-sm: 4px 4px rgba(0, 0, 0, 1);
-          --shadow: 5px 5px rgba(0, 0, 0, 1);
           --shadow-md: 6px 6px rgba(0, 0, 0, 1);
           --shadow-lg: 8px 8px rgba(0, 0, 0, 1);
           --shadow-xl: 11px 11px rgba(0, 0, 0, 1);
