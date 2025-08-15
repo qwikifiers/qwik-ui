@@ -195,7 +195,8 @@ async function handleInit() {
 
   // ADD QWIK UI CLI TO DEPENDENCIES
   log.info('Adding qwik-ui cli to package.json...');
-  execSync(`${getPackageManagerCommand().addDev} qwik-ui@latest`, {
+  const cliTag = args['e2e'] ? 'e2e' : 'latest';
+  execSync(`${getPackageManagerCommand().addDev} qwik-ui@${cliTag}`, {
     stdio: 'inherit',
   });
 
