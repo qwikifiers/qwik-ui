@@ -48,7 +48,7 @@ export const Sheet = component$<PropsOf<typeof Modal.Panel>>(({ ...props }) => {
         <Modal.Close
           class={cn(
             buttonVariants({ size: 'icon', look: 'link' }),
-            'absolute right-3 top-2',
+            'absolute top-2 right-3',
           )}
           type="submit"
         >

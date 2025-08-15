@@ -32,8 +32,8 @@ const Popover = component$((props: PopoverProps) => {
     <HDropdown.Popover
       {...props}
       class={cn(
-        'bg-popover text-popover-foreground min-w-32 overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md',
-        'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95',
+        'min-w-32 overflow-x-hidden overflow-y-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md',
+        'data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95',
         'data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         props.class,
       )}
@@ -79,7 +79,7 @@ type SeparatorProps = PropsOf<typeof HDropdown.Separator>;
 
 const Separator = component$((props: SeparatorProps) => {
   return (
-    <HDropdown.Separator {...props} class={cn('bg-muted -mx-1 my-1 h-px', props.class)} />
+    <HDropdown.Separator {...props} class={cn('-mx-1 my-1 h-px bg-muted', props.class)} />
   );
 });
 

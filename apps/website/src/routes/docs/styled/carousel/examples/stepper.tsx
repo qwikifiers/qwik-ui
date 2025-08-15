@@ -14,7 +14,7 @@ export default component$(() => {
             <Carousel.Step key={index}>
               <span
                 class={cn(
-                  'bg-muted flex size-8 items-center justify-center rounded-full text-xl font-semibold',
+                  'flex size-8 items-center justify-center rounded-full bg-muted text-xl font-semibold',
                   progressIndex.value >= index && 'bg-primary text-primary-foreground',
                 )}
               >

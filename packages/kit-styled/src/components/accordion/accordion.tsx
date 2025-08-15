@@ -34,7 +34,7 @@ const Trigger = component$<
         )}
       >
         <Slot />
-        <LuChevronDown class="text-muted-foreground h-4 w-4 shrink-0 transition-transform duration-200" />
+        <LuChevronDown class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
       </HeadlessAccordion.Trigger>
     </HeadlessAccordion.Header>
   );
@@ -45,7 +45,7 @@ const Content = component$<PropsOf<typeof HeadlessAccordion.Content>>((props) =>
     <HeadlessAccordion.Content
       {...props}
       class={cn(
-        'data-closed:animate-accordion-up data-open:animate-accordion-down overflow-hidden text-sm',
+        'overflow-hidden text-sm data-closed:animate-accordion-up data-open:animate-accordion-down',
         props.class,
       )}
     >

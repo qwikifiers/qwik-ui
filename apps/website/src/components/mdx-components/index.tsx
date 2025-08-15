@@ -118,7 +118,7 @@ export const components: Record<string, Component> = {
         <CodeCopy class="absolute top-3 right-3" code={rawCodeString} />
         <div
           class={cn(
-            'rounded-base dark:from-background dark:to-accent/30 max-h-125 max-w-full overflow-y-auto border bg-linear-to-b from-slate-900 to-slate-800 p-6 text-sm',
+            'rounded-base max-h-125 max-w-full overflow-y-auto border bg-linear-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
           )}
         >
           <pre>

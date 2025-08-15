@@ -32,7 +32,7 @@ export const Highlight = component$(
         <div
           {...props}
           class={cn(
-            'tab-size dark:from-background dark:to-accent/30 max-h-[494px] max-w-full overflow-auto rounded-sm bg-linear-to-b from-slate-900 to-slate-800 p-6 text-sm',
+            'tab-size max-h-[494px] max-w-full overflow-auto rounded-sm bg-linear-to-b from-slate-900 to-slate-800 p-6 text-sm dark:from-background dark:to-accent/30',
             props.class,
           )}
           data-pagefind-ignore="all"

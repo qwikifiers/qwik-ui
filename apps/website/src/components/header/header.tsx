@@ -128,7 +128,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
   return (
     <Modal.Root
       class={cn(
-        'bg-background sticky top-0 z-10 flex h-16 justify-center border-b',
+        'sticky top-0 z-10 flex h-16 justify-center border-b bg-background',
         themeSig.value?.includes('brutalist') && 'border-b-2',
       )}
       bind:show={isSidebarOpenedSig}
@@ -195,13 +195,13 @@ export default component$(({ showVersion = false }: HeaderProps) => {
           </div>
         </div>
       </header>
-      <Modal.Panel class="sidebar-mobile rounded-base bg-background text-foreground mr-0 ml-auto h-screen w-sm border-0 shadow-md">
+      <Modal.Panel class="sidebar-mobile rounded-base mr-0 ml-auto h-screen w-sm border-0 bg-background text-foreground shadow-md">
         <div class="mb-2 pt-2 pb-4">
           <DocsNavigation
             linksGroups={
               menuItemsGroups && menuItemsGroups.length > 0 ? menuItemsGroups : undefined
             }
-            class="bg-background max-w-80 overflow-auto"
+            class="max-w-80 overflow-auto bg-background"
           />
         </div>
         <button

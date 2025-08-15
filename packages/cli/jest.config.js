@@ -15,4 +15,4 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/cli',
   prettierPath: require.resolve('prettier-2'),
-}; 
+};

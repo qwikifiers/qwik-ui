@@ -16,7 +16,7 @@ const List = component$<PropsOf<typeof HeadlessTabs.List>>((props) => {
     <HeadlessTabs.List
       {...props}
       class={cn(
-        'border-base bg-muted text-muted-foreground inline-flex items-center justify-center rounded-lg p-1 shadow-sm',
+        'inline-flex items-center justify-center rounded-lg border-base bg-muted p-1 text-muted-foreground shadow-sm',
         props.class,
       )}
     >
@@ -30,7 +30,7 @@ const Tab = component$<PropsOf<typeof HeadlessTabs.Tab>>((props) => {
     <HeadlessTabs.Tab
       {...props}
       class={cn(
-        'ring-offset-background focus-visible:ring-ring data-[state=selected]:border-base data-[state=selected]:bg-background data-[state=selected]:text-foreground inline-flex items-center justify-center rounded-md px-3 py-2 font-medium whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=selected]:shadow-inner',
+        'inline-flex items-center justify-center rounded-md px-3 py-2 font-medium whitespace-nowrap ring-offset-background transition-all focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=selected]:border-base data-[state=selected]:bg-background data-[state=selected]:text-foreground data-[state=selected]:shadow-inner',
         props.class,
       )}
     >
@@ -44,7 +44,7 @@ const Panel = component$<PropsOf<typeof HeadlessTabs.Panel>>((props) => {
     <HeadlessTabs.Panel
       {...props}
       class={cn(
-        'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
+        'mt-2 ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden',
         props.class,
       )}
     >

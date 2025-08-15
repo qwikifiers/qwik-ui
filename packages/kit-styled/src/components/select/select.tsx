@@ -31,7 +31,7 @@ const Trigger = component$<PropsOf<typeof HeadlessSelect.Trigger>>(({ ...props }
       <HeadlessSelect.Trigger
         {...props}
         class={cn(
-          'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-9 w-full items-center justify-between rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-sm focus:ring-1 focus:outline-hidden disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+          'flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-sm ring-offset-background placeholder:text-muted-foreground focus:ring-1 focus:ring-ring focus:outline-hidden disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
           props.class,
         )}
       >
@@ -50,7 +50,7 @@ const Popover = component$<PropsOf<typeof HeadlessSelect.Popover>>(({ ...props }
       <HeadlessSelect.Popover
         {...props}
         class={cn(
-          'bg-popover text-popover-foreground data-open:animate-in data-closing:animate-out data-closing:fade-out-0 data-open:fade-in-0 data-closing:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 w-full max-w-60 min-w-32 rounded-md border p-1 shadow-md',
+          'w-full max-w-60 min-w-32 rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-closing:animate-out data-closing:fade-out-0 data-closing:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
           props.class,
         )}
       >
@@ -71,7 +71,7 @@ const Item = component$<PropsOf<typeof HeadlessSelect.Item>>(({ ...props }) => {
     <HeadlessSelect.Item
       {...props}
       class={cn(
-        'focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50',
+        'relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50',
         'data-highlighted:border-base data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         props.class,
       )}

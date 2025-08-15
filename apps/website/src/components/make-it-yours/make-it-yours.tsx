@@ -81,7 +81,7 @@ export default component$<PropsOf<typeof Button>>(() => {
         <div class="mt-8 mb-2 py-4">
           <label class="mb-1 block font-medium">Preset</label>
           <select
-            class="rounded-base bg-background h-12 w-full border p-2"
+            class="rounded-base h-12 w-full border bg-background p-2"
             value={themeComputedObjectSig.value.style}
             onChange$={async (e, el) => {
               if (el.value === 'simple') {
@@ -121,7 +121,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                   }}
                   class={cn(
                     'flex h-3 w-3 items-center justify-center rounded-none',
-                    isActive && 'border-ring border-2',
+                    isActive && 'border-2 border-ring',
                   )}
                 >
                   <span
@@ -170,7 +170,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                       themeComputedObjectSig.value.primaryColor = primaryColor;
                       themeSig.value = await themeStoreToThemeClasses$();
                     }}
-                    class={cn('h-3 w-3 rounded-none', isActive && 'border-ring border')}
+                    class={cn('h-3 w-3 rounded-none', isActive && 'border border-ring')}
                   >
                     {(primaryColor === 'primary-slate-800' ||
                       primaryColor === 'primary-gray-800' ||
@@ -441,7 +441,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                       themeComputedObjectSig.value.borderRadius = borderRadius;
                       themeSig.value = await themeStoreToThemeClasses$();
                     }}
-                    class={cn('w-12', isActive && 'border-ring mb-2')}
+                    class={cn('w-12', isActive && 'mb-2 border-ring')}
                   >
                     {borderRadius === 'border-radius-0' && 0}
                     {borderRadius === 'border-radius-dot-25' && '.25'}

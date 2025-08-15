@@ -46,7 +46,7 @@ export const InfoPopup = component$((props: InfoProps) => {
       </Popover.Trigger>
 
       <Popover.Panel class="fade-info listbox rounded-base bg-transparent">
-        <div class="text-md rounded-base border-border bg-popover text-foreground mb-2 max-w-xs border border-b-2 px-3 py-2 font-medium shadow-lg sm:w-max">
+        <div class="text-md rounded-base mb-2 max-w-xs border border-b-2 border-border bg-popover px-3 py-2 font-medium text-foreground shadow-lg sm:w-max">
           {props.info}
         </div>
       </Popover.Panel>

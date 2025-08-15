@@ -69,7 +69,7 @@ export const DocsNavigation = component$(
                               link.name === 'Headless') ||
                             (location.url.pathname?.startsWith('/docs/styled/') &&
                               link.name === 'Styled')
-                            ? 'bg-accent text-accent-foreground font-bold'
+                            ? 'bg-accent font-bold text-accent-foreground'
                             : 'font-normal',
                         )}
                         href={link.href}
