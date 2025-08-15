@@ -16,14 +16,15 @@ runs:
   steps:
     - name: Lint
       shell: bash
-      run: npx nx run-many -t lint --exclude website  --base=last-release
+      run: npx nx run-many -t lint --exclude website # --base=last-release  <- add that back after fix
+
     - name: Build packages
       shell: bash
-      run: npx nx run-many -t build --parallel=false --exclude website --skip-nx-cache --base=last-release
+      run: npx nx run-many -t build --parallel=false --exclude website --skip-nx-cache # --base=last-release  <- add that back
 
     - name: Test all except headless
       shell: bash
-      run: npx nx run-many -t test --base=last-release
+      run: npx nx run-many -t test # --base=last-release <- add that back
       env:
         NODE_OPTIONS: --experimental-vm-modules
 
