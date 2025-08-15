@@ -5,6 +5,5 @@
     "outDir": "../../dist/out-tsc"
   },
   "files": [],
-  "exclude": ["tailwind.config.cjs"],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

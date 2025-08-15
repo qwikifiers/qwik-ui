@@ -185,7 +185,7 @@ async function handleInit() {
 
   if (installTailwind) {
     execSync(
-      `${getPackageManagerCommand().exec} qwik add tailwind-v3 --skipConfirmation=true --projectDir=${config.projectRoot}`,
+      `${getPackageManagerCommand().exec} qwik add tailwind --skipConfirmation=true --projectDir=${config.projectRoot}`,
       {
         stdio: 'inherit',
         cwd: config.projectRoot,
@@ -195,7 +195,8 @@ async function handleInit() {
 
   // ADD QWIK UI CLI TO DEPENDENCIES
   log.info('Adding qwik-ui cli to package.json...');
-  execSync(`${getPackageManagerCommand().addDev} qwik-ui@latest`, {
+  const cliTag = args['e2e'] ? 'e2e' : 'latest';
+  execSync(`${getPackageManagerCommand().addDev} qwik-ui@${cliTag}`, {
     stdio: 'inherit',
   });
 

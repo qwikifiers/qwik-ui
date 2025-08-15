@@ -15,16 +15,16 @@ export const APITable = component$(({ propDescriptors }: APITableProps) => {
       <table class="mb-6 w-full min-w-[540px] border-b text-left sm:min-w-full">
         <tbody class="divide-y">
           <tr class="w-1/4">
-            <th class="w-1/6 whitespace-nowrap py-2 pl-4 font-semibold sm:pl-0">Prop</th>
-            <th class="w-1/6 whitespace-nowrap py-2 font-semibold">Type</th>
-            <th class="w-2/3 whitespace-nowrap p-2 font-semibold">Description</th>
+            <th class="w-1/6 py-2 pl-4 font-semibold whitespace-nowrap sm:pl-0">Prop</th>
+            <th class="w-1/6 py-2 font-semibold whitespace-nowrap">Type</th>
+            <th class="w-2/3 p-2 font-semibold whitespace-nowrap">Description</th>
           </tr>
           {propDescriptors?.map((propDescriptor) => {
             return (
               <tr key={propDescriptor.name}>
                 <td class="py-3 pl-4 sm:pl-0">
                   <div class="flex items-center gap-2">
-                    <code class="mr-6 rounded-base border border-b-2 border-primary px-2">
+                    <code class="rounded-base mr-6 border border-b-2 border-primary px-2">
                       {propDescriptor.name}
                     </code>
                   </div>

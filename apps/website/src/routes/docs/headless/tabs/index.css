@@ -34,14 +34,14 @@
 .four-tabs-example [role='tab'][data-state='selected'],
 .vertical-tabs-example [role='tab'][data-state='selected'],
 .tabs-example [role='tab'][data-state='selected'] {
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
+  background: oklch(from var(--primary) l c h);
+  color: oklch(from var(--primary-foreground) l c h);
 }
 
 .four-tabs-example [role='tablist'],
 .vertical-tabs-example [role='tablist'],
 .tabs-example [role='tablist'] {
-  border: 2px dotted hsl(var(--foreground));
+  border: 2px dotted oklch(from var(--foreground) l c h);
   margin-bottom: 1rem;
   max-width: fit-content;
 }

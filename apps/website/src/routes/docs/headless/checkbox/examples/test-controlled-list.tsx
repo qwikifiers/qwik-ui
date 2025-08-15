@@ -11,7 +11,7 @@ export default component$(() => {
           class="flex items-center gap-3 bg-slate-900 p-2 text-white"
           // checklist={true}
         >
-          <Checkbox.Indicator class=" flex w-[80px] justify-center bg-white p-3">
+          <Checkbox.Indicator class="flex w-[80px] justify-center bg-white p-3">
             ✅
           </Checkbox.Indicator>
           <p>Controlls all</p>

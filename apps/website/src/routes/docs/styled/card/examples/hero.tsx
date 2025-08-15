@@ -28,10 +28,10 @@ export default component$<CardProps>(({ ...props }) => {
         <Card.Description>You have 3 unread messages.</Card.Description>
       </Card.Header>
       <Card.Content class="grid gap-4">
-        <div class=" flex items-center space-x-4 rounded-md border p-4">
+        <div class="flex items-center space-x-4 rounded-md border p-4">
           <LuBell />
           <div class="flex-1 space-y-1">
-            <p class="text-sm font-medium leading-none">Push Notifications</p>
+            <p class="text-sm leading-none font-medium">Push Notifications</p>
             <p class="text-sm text-muted-foreground">Send notifications to device.</p>
           </div>
           {/* <Switch /> */}
@@ -44,7 +44,7 @@ export default component$<CardProps>(({ ...props }) => {
             >
               <span class="flex h-2 w-2 translate-y-1 rounded-full bg-primary" />
               <div class="space-y-1">
-                <p class="text-sm font-medium leading-none">{notification.title}</p>
+                <p class="text-sm leading-none font-medium">{notification.title}</p>
                 <p class="text-sm text-muted-foreground">{notification.description}</p>
               </div>
             </div>

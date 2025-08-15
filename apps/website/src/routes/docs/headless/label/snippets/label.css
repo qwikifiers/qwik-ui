@@ -7,7 +7,7 @@ input {
   font-size: 15px;
   font-weight: 500;
   line-height: 35px;
-  color: hsl(var(--foreground));
+  color: oklch(from var(--foreground) l c h);
   display: flex;
   flex-direction: column;
 }
@@ -21,13 +21,13 @@ input {
   height: 35px;
   font-size: 15px;
   line-height: 1;
-  background-color: hsl(var(--background));
-  border: 2px dotted hsl(var(--foreground));
+  background-color: oklch(from var(--background) l c h);
+  border: 2px dotted oklch(from var(--foreground) l c h);
   border-radius: 0;
 }
 
 input:focus {
-  outline: 2px solid hsl(var(--foreground));
+  outline: 2px solid oklch(from var(--foreground) l c h);
 }
 
 input::selection {

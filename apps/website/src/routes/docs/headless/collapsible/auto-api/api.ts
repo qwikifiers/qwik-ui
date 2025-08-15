@@ -1,16 +1,16 @@
 export const api = {
-  "collapsible": [
+  collapsible: [
     {
-      "collapsible-content": []
+      'collapsible-content': [],
     },
     {
-      "collapsible-trigger": []
+      'collapsible-trigger': [],
     },
     {
-      "collapsible": []
+      collapsible: [],
     },
     {
-      "use-collapsible": []
-    }
-  ]
+      'use-collapsible': [],
+    },
+  ],
 };

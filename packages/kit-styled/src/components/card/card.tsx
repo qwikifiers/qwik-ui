@@ -25,7 +25,7 @@ const Header = component$<PropsOf<'div'>>((props) => {
 
 const Title = component$<PropsOf<'h3'>>((props) => {
   return (
-    <h3 {...props} class={cn('font-medium leading-none tracking-tight', props.class)}>
+    <h3 {...props} class={cn('leading-none font-medium tracking-tight', props.class)}>
       <Slot />
     </h3>
   );

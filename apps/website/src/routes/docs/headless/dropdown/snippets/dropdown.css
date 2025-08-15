@@ -34,7 +34,7 @@
   flex-direction: column;
   row-gap: 0.25rem;
   padding: 1rem 1rem 1rem 1.5rem;
-  border: 2px dotted hsl(var(--foreground));
+  border: 2px dotted oklch(from var(--foreground) l c h);
 }
 
 .dropdown-item {
@@ -68,7 +68,7 @@
 
 [data-disabled] {
   opacity: 0.6;
-  background: hsl(var(--foreground) / 0.05);
+  background: oklch(from var(--foreground) l c h / 0.05);
 }
 
 .dropdown-max-height {
