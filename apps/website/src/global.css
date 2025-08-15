@@ -30,8 +30,9 @@
     --border-width: 0px;
     --border-radius: 0;
     --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+    --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -63,8 +64,9 @@
     --border-width: 0px;
     --border-radius: 0;
     --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+    --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -101,6 +103,7 @@
     --radius-2xl: calc(var(--border-radius) + 1rem);
     --radius-3xl: calc(var(--border-radius) + 1.5rem);
     --shadow-base: var(--shadow-base);
+    --shadow-2xs: var(--shadow-2xs);
     --shadow-xs: var(--shadow-xs);
     --shadow-sm: var(--shadow-sm);
     --shadow-md: var(--shadow-md);
@@ -198,9 +201,8 @@
   .simple {
     --border-width: 0px;
     --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
-    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -227,7 +229,6 @@
     --shadow-2xs: 1px 1px rgba(0, 0, 0, 1);
     --shadow-xs: 2px 2px rgba(0, 0, 0, 1);
     --shadow-sm: 4px 4px rgba(0, 0, 0, 1);
-    --shadow: 5px 5px rgba(0, 0, 0, 1);
     --shadow-md: 6px 6px rgba(0, 0, 0, 1);
     --shadow-lg: 8px 8px rgba(0, 0, 0, 1);
     --shadow-xl: 11px 11px rgba(0, 0, 0, 1);
@@ -251,7 +252,6 @@
     --shadow-2xs: 1px 1px rgba(0, 0, 0, 1);
     --shadow-xs: 2px 2px rgba(0, 0, 0, 1);
     --shadow-sm: 4px 4px rgba(0, 0, 0, 1);
-    --shadow: 5px 5px rgba(0, 0, 0, 1);
     --shadow-md: 6px 6px rgba(0, 0, 0, 1);
     --shadow-lg: 8px 8px rgba(0, 0, 0, 1);
     --shadow-xl: 11px 11px rgba(0, 0, 0, 1);
@@ -284,16 +284,16 @@
       -3px -3px 6px #bebebe, 3px 3px 6px #ffffff,
       inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+    --shadow-2xs:
+      -3px -3px 6px #bebebe, 3px 3px 6px #ffffff,
+      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
+      inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow-sm:
       3px 3px 6px #bebebe, -3px -3px 6px #ffffff,
       inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
-    --shadow:
-      4px 4px 8px #bebebe, -4px -4px 8px #ffffff,
-      inset 1px 1px 2px rgba(190, 190, 190, 0.5),
-      inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow-md:
-      5px 5px 10px #bebebe, -5px -5px 10px #ffffff,
+      4px 4px 8px #bebebe, -4px -4px 8px #ffffff,
       inset 1px 1px 2px rgba(190, 190, 190, 0.5),
       inset -1px -1px 2px rgba(255, 255, 255, 0.5);
     --shadow-lg:
@@ -327,10 +327,10 @@
     --shadow-base:
       -3px -3px 6px #2c2c31, 3px 3px 6px #52525b, inset 1px 1px 2px #2c2c31,
       inset -1px -1px 2px #52525b;
-    --shadow-sm:
+    --shadow-xs:
       3px 3px 6px #2c2c31, -3px -3px 6px #52525b, inset 1px 1px 2px #2c2c31,
       inset -1px -1px 2px #52525b;
-    --shadow:
+    --shadow-sm:
       4px 4px 8px #2c2c31, -4px -4px 8px #52525b, inset 1px 1px 2px #2c2c31,
       inset -1px -1px 2px #52525b;
     --shadow-md:
