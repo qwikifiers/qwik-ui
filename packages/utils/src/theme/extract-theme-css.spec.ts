@@ -59,8 +59,9 @@ describe('Extract theme from css', () => {
           --ring: var(--color-neutral-900);
           --border-width: 0px;
           --border-radius: 0rem;
+          --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+          --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
           --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-          --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
           --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
           --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
           --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -88,8 +89,9 @@ describe('Extract theme from css', () => {
           --ring: var(--color-neutral-300);
           --border-width: 0px;
           --border-radius: 0rem;
+          --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+          --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
           --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-          --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
           --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
           --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
           --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -99,67 +101,69 @@ describe('Extract theme from css', () => {
         }
       }
 
-      @theme inline {
-        --color-background: var(--background);
-        --color-foreground: var(--foreground);
-        --color-card: var(--card);
-        --color-card-foreground: var(--card-foreground);
-        --color-popover: var(--popover);
-        --color-popover-foreground: var(--popover-foreground);
-        --color-primary: var(--primary);
-        --color-primary-foreground: var(--primary-foreground);
-        --color-secondary: var(--secondary);
-        --color-secondary-foreground: var(--secondary-foreground);
-        --color-muted: var(--muted);
-        --color-muted-foreground: var(--muted-foreground);
-        --color-accent: var(--accent);
-        --color-accent-foreground: var(--accent-foreground);
-        --color-alert: var(--alert);
-        --color-alert-foreground: var(--alert-foreground);
-        --color-border: var(--border);
-        --color-input: var(--input);
-        --color-ring: var(--ring);
-        --radius-xs: var(--border-radius);
-        --radius-sm: calc(var(--border-radius) + 0.125rem);
-        --radius-md: calc(var(--border-radius) + 0.375rem);
-        --radius-lg: calc(var(--border-radius) + 0.5rem);
-        --radius-xl: calc(var(--border-radius) + 0.75rem);
-        --radius-2xl: calc(var(--border-radius) + 1rem);
-        --radius-3xl: calc(var(--border-radius) + 1.5rem);
-        --shadow-base: var(--shadow-base);
-        --shadow-xs: var(--shadow-xs);
-        --shadow-sm: var(--shadow-sm);
-        --shadow-md: var(--shadow-md);
-        --shadow-lg: var(--shadow-lg);
-        --shadow-xl: var(--shadow-xl);
-        --shadow-2xl: var(--shadow-2xl);
-        --shadow-inner: var(--shadow-inner);
-        --default-border-width: calc(var(--border-width) + 1px);
-        --border-width-base: var(--border-width);
-        --border-width-2: calc(var(--border-width) + 2px);
-        --border-width-4: calc(var(--border-width) + 4px);
-        --border-width-8: calc(var(--border-width) + 8px);
-        --stroke-width-0: 0px;
-        --stroke-width-base: var(--stroke-width);
-        --stroke-width-1: calc(var(--stroke-width) + 1px);
-        --stroke-width-2: calc(var(--stroke-width) + 2px);
-        --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
-        --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
+        @theme inline {
+          --color-background: var(--background);
+          --color-foreground: var(--foreground);
+          --color-card: var(--card);
+          --color-card-foreground: var(--card-foreground);
+          --color-popover: var(--popover);
+          --color-popover-foreground: var(--popover-foreground);
+          --color-primary: var(--primary);
+          --color-primary-foreground: var(--primary-foreground);
+          --color-secondary: var(--secondary);
+          --color-secondary-foreground: var(--secondary-foreground);
+          --color-muted: var(--muted);
+          --color-muted-foreground: var(--muted-foreground);
+          --color-accent: var(--accent);
+          --color-accent-foreground: var(--accent-foreground);
+          --color-alert: var(--alert);
+          --color-alert-foreground: var(--alert-foreground);
+          --color-border: var(--border);
+          --color-input: var(--input);
+          --color-ring: var(--ring);
+          --radius-xs: var(--border-radius);
+          --radius-sm: calc(var(--border-radius) + 0.125rem);
+          --radius-md: calc(var(--border-radius) + 0.375rem);
+          --radius-lg: calc(var(--border-radius) + 0.5rem);
+          --radius-xl: calc(var(--border-radius) + 0.75rem);
+          --radius-2xl: calc(var(--border-radius) + 1rem);
+          --radius-3xl: calc(var(--border-radius) + 1.5rem);
+          --shadow-base: var(--shadow-base);
+          --shadow-2xs: var(--shadow-2xs);
+          --shadow-xs: var(--shadow-xs);
+          --shadow-sm: var(--shadow-sm);
+          --shadow-md: var(--shadow-md);
+          --shadow-lg: var(--shadow-lg);
+          --shadow-xl: var(--shadow-xl);
+          --shadow-2xl: var(--shadow-2xl);
+          --shadow-inner: var(--shadow-inner);
+          --default-border-width: calc(var(--border-width) + 1px);
+          --border-width-base: var(--border-width);
+          --border-width-2: calc(var(--border-width) + 2px);
+          --border-width-4: calc(var(--border-width) + 4px);
+          --border-width-8: calc(var(--border-width) + 8px);
+          --stroke-width-0: 0px;
+          --stroke-width-base: var(--stroke-width);
+          --stroke-width-1: calc(var(--stroke-width) + 1px);
+          --stroke-width-2: calc(var(--stroke-width) + 2px);
+          --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
+          --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
 
-        @keyframes collapsible-down {
-          from {
-            height: 0;
+          @keyframes collapsible-down {
+            from {
+              height: 0;
+            }
+            to {
+              height: var(--qwikui-collapsible-content-height);
+            }
           }
-          to {
-            height: var(--qwikui-collapsible-content-height);
-          }
-        }
-        @keyframes collapsible-up {
-          from {
-            height: var(--qwikui-collapsible-content-height);
-          }
-          to {
-            height: 0;
+          @keyframes collapsible-up {
+            from {
+              height: var(--qwikui-collapsible-content-height);
+            }
+            to {
+              height: 0;
+            }
           }
         }
       }
@@ -240,8 +244,9 @@ describe('Extract theme from css', () => {
             --ring: var(--color-neutral-900);
             --border-width: 0px;
             --border-radius: 0rem;
+            --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -269,8 +274,9 @@ describe('Extract theme from css', () => {
             --ring: var(--color-neutral-300);
             --border-width: 0px;
             --border-radius: 0rem;
+            --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -280,67 +286,69 @@ describe('Extract theme from css', () => {
           }
         }
 
-        @theme inline {
-          --color-background: var(--background);
-          --color-foreground: var(--foreground);
-          --color-card: var(--card);
-          --color-card-foreground: var(--card-foreground);
-          --color-popover: var(--popover);
-          --color-popover-foreground: var(--popover-foreground);
-          --color-primary: var(--primary);
-          --color-primary-foreground: var(--primary-foreground);
-          --color-secondary: var(--secondary);
-          --color-secondary-foreground: var(--secondary-foreground);
-          --color-muted: var(--muted);
-          --color-muted-foreground: var(--muted-foreground);
-          --color-accent: var(--accent);
-          --color-accent-foreground: var(--accent-foreground);
-          --color-alert: var(--alert);
-          --color-alert-foreground: var(--alert-foreground);
-          --color-border: var(--border);
-          --color-input: var(--input);
-          --color-ring: var(--ring);
-          --radius-xs: var(--border-radius);
-          --radius-sm: calc(var(--border-radius) + 0.125rem);
-          --radius-md: calc(var(--border-radius) + 0.375rem);
-          --radius-lg: calc(var(--border-radius) + 0.5rem);
-          --radius-xl: calc(var(--border-radius) + 0.75rem);
-          --radius-2xl: calc(var(--border-radius) + 1rem);
-          --radius-3xl: calc(var(--border-radius) + 1.5rem);
-          --shadow-base: var(--shadow-base);
-          --shadow-xs: var(--shadow-xs);
-          --shadow-sm: var(--shadow-sm);
-          --shadow-md: var(--shadow-md);
-          --shadow-lg: var(--shadow-lg);
-          --shadow-xl: var(--shadow-xl);
-          --shadow-2xl: var(--shadow-2xl);
-          --shadow-inner: var(--shadow-inner);
-          --default-border-width: calc(var(--border-width) + 1px);
-          --border-width-base: var(--border-width);
-          --border-width-2: calc(var(--border-width) + 2px);
-          --border-width-4: calc(var(--border-width) + 4px);
-          --border-width-8: calc(var(--border-width) + 8px);
-          --stroke-width-0: 0px;
-          --stroke-width-base: var(--stroke-width);
-          --stroke-width-1: calc(var(--stroke-width) + 1px);
-          --stroke-width-2: calc(var(--stroke-width) + 2px);
-          --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
-          --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
+          @theme inline {
+            --color-background: var(--background);
+            --color-foreground: var(--foreground);
+            --color-card: var(--card);
+            --color-card-foreground: var(--card-foreground);
+            --color-popover: var(--popover);
+            --color-popover-foreground: var(--popover-foreground);
+            --color-primary: var(--primary);
+            --color-primary-foreground: var(--primary-foreground);
+            --color-secondary: var(--secondary);
+            --color-secondary-foreground: var(--secondary-foreground);
+            --color-muted: var(--muted);
+            --color-muted-foreground: var(--muted-foreground);
+            --color-accent: var(--accent);
+            --color-accent-foreground: var(--accent-foreground);
+            --color-alert: var(--alert);
+            --color-alert-foreground: var(--alert-foreground);
+            --color-border: var(--border);
+            --color-input: var(--input);
+            --color-ring: var(--ring);
+            --radius-xs: var(--border-radius);
+            --radius-sm: calc(var(--border-radius) + 0.125rem);
+            --radius-md: calc(var(--border-radius) + 0.375rem);
+            --radius-lg: calc(var(--border-radius) + 0.5rem);
+            --radius-xl: calc(var(--border-radius) + 0.75rem);
+            --radius-2xl: calc(var(--border-radius) + 1rem);
+            --radius-3xl: calc(var(--border-radius) + 1.5rem);
+            --shadow-base: var(--shadow-base);
+            --shadow-2xs: var(--shadow-2xs);
+            --shadow-xs: var(--shadow-xs);
+            --shadow-sm: var(--shadow-sm);
+            --shadow-md: var(--shadow-md);
+            --shadow-lg: var(--shadow-lg);
+            --shadow-xl: var(--shadow-xl);
+            --shadow-2xl: var(--shadow-2xl);
+            --shadow-inner: var(--shadow-inner);
+            --default-border-width: calc(var(--border-width) + 1px);
+            --border-width-base: var(--border-width);
+            --border-width-2: calc(var(--border-width) + 2px);
+            --border-width-4: calc(var(--border-width) + 4px);
+            --border-width-8: calc(var(--border-width) + 8px);
+            --stroke-width-0: 0px;
+            --stroke-width-base: var(--stroke-width);
+            --stroke-width-1: calc(var(--stroke-width) + 1px);
+            --stroke-width-2: calc(var(--stroke-width) + 2px);
+            --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
+            --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
 
-          @keyframes collapsible-down {
-            from {
-              height: 0;
+            @keyframes collapsible-down {
+              from {
+                height: 0;
+              }
+              to {
+                height: var(--qwikui-collapsible-content-height);
+              }
             }
-            to {
-              height: var(--qwikui-collapsible-content-height);
-            }
-          }
-          @keyframes collapsible-up {
-            from {
-              height: var(--qwikui-collapsible-content-height);
-            }
-            to {
-              height: 0;
+            @keyframes collapsible-up {
+              from {
+                height: var(--qwikui-collapsible-content-height);
+              }
+              to {
+                height: 0;
+              }
             }
           }
         }
@@ -416,9 +424,11 @@ test(`GIVEN theme string is 'brutalist base-stone primary-pink-700 border-radius
         --alert-foreground: var(--color-stone-50);
         --ring: black;
         --border-width: 2px;
+        --stroke-width: 2px;
         --border-radius: 0.75rem;
+        --shadow-2xs: 1px 1px rgba(0, 0, 0, 1);
+        --shadow-xs: 2px 2px rgba(0, 0, 0, 1);
         --shadow-sm: 4px 4px rgba(0, 0, 0, 1);
-        --shadow: 5px 5px rgba(0, 0, 0, 1);
         --shadow-md: 6px 6px rgba(0, 0, 0, 1);
         --shadow-lg: 8px 8px rgba(0, 0, 0, 1);
         --shadow-xl: 11px 11px rgba(0, 0, 0, 1);
@@ -444,9 +454,11 @@ test(`GIVEN theme string is 'brutalist base-stone primary-pink-700 border-radius
         --alert-foreground: var(--color-stone-50);
         --ring: black;
         --border-width: 3px;
+        --stroke-width: 2px;
         --border-radius: 0.75rem;
+        --shadow-2xs: 1px 1px rgba(0, 0, 0, 1);
+        --shadow-xs: 2px 2px rgba(0, 0, 0, 1);
         --shadow-sm: 4px 4px rgba(0, 0, 0, 1);
-        --shadow: 5px 5px rgba(0, 0, 0, 1);
         --shadow-md: 6px 6px rgba(0, 0, 0, 1);
         --shadow-lg: 8px 8px rgba(0, 0, 0, 1);
         --shadow-xl: 11px 11px rgba(0, 0, 0, 1);
@@ -455,67 +467,69 @@ test(`GIVEN theme string is 'brutalist base-stone primary-pink-700 border-radius
       }
     }
 
-    @theme inline {
-      --color-background: var(--background);
-      --color-foreground: var(--foreground);
-      --color-card: var(--card);
-      --color-card-foreground: var(--card-foreground);
-      --color-popover: var(--popover);
-      --color-popover-foreground: var(--popover-foreground);
-      --color-primary: var(--primary);
-      --color-primary-foreground: var(--primary-foreground);
-      --color-secondary: var(--secondary);
-      --color-secondary-foreground: var(--secondary-foreground);
-      --color-muted: var(--muted);
-      --color-muted-foreground: var(--muted-foreground);
-      --color-accent: var(--accent);
-      --color-accent-foreground: var(--accent-foreground);
-      --color-alert: var(--alert);
-      --color-alert-foreground: var(--alert-foreground);
-      --color-border: var(--border);
-      --color-input: var(--input);
-      --color-ring: var(--ring);
-      --radius-xs: var(--border-radius);
-      --radius-sm: calc(var(--border-radius) + 0.125rem);
-      --radius-md: calc(var(--border-radius) + 0.375rem);
-      --radius-lg: calc(var(--border-radius) + 0.5rem);
-      --radius-xl: calc(var(--border-radius) + 0.75rem);
-      --radius-2xl: calc(var(--border-radius) + 1rem);
-      --radius-3xl: calc(var(--border-radius) + 1.5rem);
-      --shadow-base: var(--shadow-base);
-      --shadow-xs: var(--shadow-xs);
-      --shadow-sm: var(--shadow-sm);
-      --shadow-md: var(--shadow-md);
-      --shadow-lg: var(--shadow-lg);
-      --shadow-xl: var(--shadow-xl);
-      --shadow-2xl: var(--shadow-2xl);
-      --shadow-inner: var(--shadow-inner);
-      --default-border-width: calc(var(--border-width) + 1px);
-      --border-width-base: var(--border-width);
-      --border-width-2: calc(var(--border-width) + 2px);
-      --border-width-4: calc(var(--border-width) + 4px);
-      --border-width-8: calc(var(--border-width) + 8px);
-      --stroke-width-0: 0px;
-      --stroke-width-base: var(--stroke-width);
-      --stroke-width-1: calc(var(--stroke-width) + 1px);
-      --stroke-width-2: calc(var(--stroke-width) + 2px);
-      --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
-      --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
+      @theme inline {
+        --color-background: var(--background);
+        --color-foreground: var(--foreground);
+        --color-card: var(--card);
+        --color-card-foreground: var(--card-foreground);
+        --color-popover: var(--popover);
+        --color-popover-foreground: var(--popover-foreground);
+        --color-primary: var(--primary);
+        --color-primary-foreground: var(--primary-foreground);
+        --color-secondary: var(--secondary);
+        --color-secondary-foreground: var(--secondary-foreground);
+        --color-muted: var(--muted);
+        --color-muted-foreground: var(--muted-foreground);
+        --color-accent: var(--accent);
+        --color-accent-foreground: var(--accent-foreground);
+        --color-alert: var(--alert);
+        --color-alert-foreground: var(--alert-foreground);
+        --color-border: var(--border);
+        --color-input: var(--input);
+        --color-ring: var(--ring);
+        --radius-xs: var(--border-radius);
+        --radius-sm: calc(var(--border-radius) + 0.125rem);
+        --radius-md: calc(var(--border-radius) + 0.375rem);
+        --radius-lg: calc(var(--border-radius) + 0.5rem);
+        --radius-xl: calc(var(--border-radius) + 0.75rem);
+        --radius-2xl: calc(var(--border-radius) + 1rem);
+        --radius-3xl: calc(var(--border-radius) + 1.5rem);
+        --shadow-base: var(--shadow-base);
+        --shadow-2xs: var(--shadow-2xs);
+        --shadow-xs: var(--shadow-xs);
+        --shadow-sm: var(--shadow-sm);
+        --shadow-md: var(--shadow-md);
+        --shadow-lg: var(--shadow-lg);
+        --shadow-xl: var(--shadow-xl);
+        --shadow-2xl: var(--shadow-2xl);
+        --shadow-inner: var(--shadow-inner);
+        --default-border-width: calc(var(--border-width) + 1px);
+        --border-width-base: var(--border-width);
+        --border-width-2: calc(var(--border-width) + 2px);
+        --border-width-4: calc(var(--border-width) + 4px);
+        --border-width-8: calc(var(--border-width) + 8px);
+        --stroke-width-0: 0px;
+        --stroke-width-base: var(--stroke-width);
+        --stroke-width-1: calc(var(--stroke-width) + 1px);
+        --stroke-width-2: calc(var(--stroke-width) + 2px);
+        --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
+        --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
 
-      @keyframes collapsible-down {
-        from {
-          height: 0;
+        @keyframes collapsible-down {
+          from {
+            height: 0;
+          }
+          to {
+            height: var(--qwikui-collapsible-content-height);
+          }
         }
-        to {
-          height: var(--qwikui-collapsible-content-height);
-        }
-      }
-      @keyframes collapsible-up {
-        from {
-          height: var(--qwikui-collapsible-content-height);
-        }
-        to {
-          height: 0;
+        @keyframes collapsible-up {
+          from {
+            height: var(--qwikui-collapsible-content-height);
+          }
+          to {
+            height: 0;
+          }
         }
       }
     }
@@ -595,9 +609,11 @@ test(`GIVEN primary color is "pink-700",
           --alert-foreground: var(--color-stone-50);
           --ring: black;
           --border-width: 2px;
+          --stroke-width: 2px;
           --border-radius: 0.75rem;
+          --shadow-2xs: 1px 1px rgba(0, 0, 0, 1);
+          --shadow-xs: 2px 2px rgba(0, 0, 0, 1);
           --shadow-sm: 4px 4px rgba(0, 0, 0, 1);
-          --shadow: 5px 5px rgba(0, 0, 0, 1);
           --shadow-md: 6px 6px rgba(0, 0, 0, 1);
           --shadow-lg: 8px 8px rgba(0, 0, 0, 1);
           --shadow-xl: 11px 11px rgba(0, 0, 0, 1);
@@ -623,9 +639,11 @@ test(`GIVEN primary color is "pink-700",
           --alert-foreground: var(--color-stone-50);
           --ring: black;
           --border-width: 3px;
+          --stroke-width: 2px;
           --border-radius: 0.75rem;
+          --shadow-2xs: 1px 1px rgba(0, 0, 0, 1);
+          --shadow-xs: 2px 2px rgba(0, 0, 0, 1);
           --shadow-sm: 4px 4px rgba(0, 0, 0, 1);
-          --shadow: 5px 5px rgba(0, 0, 0, 1);
           --shadow-md: 6px 6px rgba(0, 0, 0, 1);
           --shadow-lg: 8px 8px rgba(0, 0, 0, 1);
           --shadow-xl: 11px 11px rgba(0, 0, 0, 1);
@@ -634,67 +652,69 @@ test(`GIVEN primary color is "pink-700",
         }
       }
 
-      @theme inline {
-        --color-background: var(--background);
-        --color-foreground: var(--foreground);
-        --color-card: var(--card);
-        --color-card-foreground: var(--card-foreground);
-        --color-popover: var(--popover);
-        --color-popover-foreground: var(--popover-foreground);
-        --color-primary: var(--primary);
-        --color-primary-foreground: var(--primary-foreground);
-        --color-secondary: var(--secondary);
-        --color-secondary-foreground: var(--secondary-foreground);
-        --color-muted: var(--muted);
-        --color-muted-foreground: var(--muted-foreground);
-        --color-accent: var(--accent);
-        --color-accent-foreground: var(--accent-foreground);
-        --color-alert: var(--alert);
-        --color-alert-foreground: var(--alert-foreground);
-        --color-border: var(--border);
-        --color-input: var(--input);
-        --color-ring: var(--ring);
-        --radius-xs: var(--border-radius);
-        --radius-sm: calc(var(--border-radius) + 0.125rem);
-        --radius-md: calc(var(--border-radius) + 0.375rem);
-        --radius-lg: calc(var(--border-radius) + 0.5rem);
-        --radius-xl: calc(var(--border-radius) + 0.75rem);
-        --radius-2xl: calc(var(--border-radius) + 1rem);
-        --radius-3xl: calc(var(--border-radius) + 1.5rem);
-        --shadow-base: var(--shadow-base);
-        --shadow-xs: var(--shadow-xs);
-        --shadow-sm: var(--shadow-sm);
-        --shadow-md: var(--shadow-md);
-        --shadow-lg: var(--shadow-lg);
-        --shadow-xl: var(--shadow-xl);
-        --shadow-2xl: var(--shadow-2xl);
-        --shadow-inner: var(--shadow-inner);
-        --default-border-width: calc(var(--border-width) + 1px);
-        --border-width-base: var(--border-width);
-        --border-width-2: calc(var(--border-width) + 2px);
-        --border-width-4: calc(var(--border-width) + 4px);
-        --border-width-8: calc(var(--border-width) + 8px);
-        --stroke-width-0: 0px;
-        --stroke-width-base: var(--stroke-width);
-        --stroke-width-1: calc(var(--stroke-width) + 1px);
-        --stroke-width-2: calc(var(--stroke-width) + 2px);
-        --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
-        --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
+        @theme inline {
+          --color-background: var(--background);
+          --color-foreground: var(--foreground);
+          --color-card: var(--card);
+          --color-card-foreground: var(--card-foreground);
+          --color-popover: var(--popover);
+          --color-popover-foreground: var(--popover-foreground);
+          --color-primary: var(--primary);
+          --color-primary-foreground: var(--primary-foreground);
+          --color-secondary: var(--secondary);
+          --color-secondary-foreground: var(--secondary-foreground);
+          --color-muted: var(--muted);
+          --color-muted-foreground: var(--muted-foreground);
+          --color-accent: var(--accent);
+          --color-accent-foreground: var(--accent-foreground);
+          --color-alert: var(--alert);
+          --color-alert-foreground: var(--alert-foreground);
+          --color-border: var(--border);
+          --color-input: var(--input);
+          --color-ring: var(--ring);
+          --radius-xs: var(--border-radius);
+          --radius-sm: calc(var(--border-radius) + 0.125rem);
+          --radius-md: calc(var(--border-radius) + 0.375rem);
+          --radius-lg: calc(var(--border-radius) + 0.5rem);
+          --radius-xl: calc(var(--border-radius) + 0.75rem);
+          --radius-2xl: calc(var(--border-radius) + 1rem);
+          --radius-3xl: calc(var(--border-radius) + 1.5rem);
+          --shadow-base: var(--shadow-base);
+          --shadow-2xs: var(--shadow-2xs);
+          --shadow-xs: var(--shadow-xs);
+          --shadow-sm: var(--shadow-sm);
+          --shadow-md: var(--shadow-md);
+          --shadow-lg: var(--shadow-lg);
+          --shadow-xl: var(--shadow-xl);
+          --shadow-2xl: var(--shadow-2xl);
+          --shadow-inner: var(--shadow-inner);
+          --default-border-width: calc(var(--border-width) + 1px);
+          --border-width-base: var(--border-width);
+          --border-width-2: calc(var(--border-width) + 2px);
+          --border-width-4: calc(var(--border-width) + 4px);
+          --border-width-8: calc(var(--border-width) + 8px);
+          --stroke-width-0: 0px;
+          --stroke-width-base: var(--stroke-width);
+          --stroke-width-1: calc(var(--stroke-width) + 1px);
+          --stroke-width-2: calc(var(--stroke-width) + 2px);
+          --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
+          --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
 
-        @keyframes collapsible-down {
-          from {
-            height: 0;
+          @keyframes collapsible-down {
+            from {
+              height: 0;
+            }
+            to {
+              height: var(--qwikui-collapsible-content-height);
+            }
           }
-          to {
-            height: var(--qwikui-collapsible-content-height);
-          }
-        }
-        @keyframes collapsible-up {
-          from {
-            height: var(--qwikui-collapsible-content-height);
-          }
-          to {
-            height: 0;
+          @keyframes collapsible-up {
+            from {
+              height: var(--qwikui-collapsible-content-height);
+            }
+            to {
+              height: 0;
+            }
           }
         }
       }
