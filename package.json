@@ -46,7 +46,7 @@
   "simple-git-hooks": {
     "pre-commit": "pnpm format.staged && pnpm lint"
   },
-  "packageManager": "pnpm@9.7.0",
+  "packageManager": "pnpm@10.15.0",
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",
     "@builder.io/qwik": "1.14.1",
@@ -151,6 +151,6 @@
   },
   "volta": {
     "node": "22.7.0",
-    "pnpm": "9.7.0"
+    "pnpm": "10.15.0"
   }
 }
