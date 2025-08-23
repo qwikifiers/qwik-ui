@@ -7,7 +7,7 @@ export default component$(() => {
       <Checkbox id="terms2" disabled />
       <label
         for="terms2"
-        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        class="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
         Accept terms and conditions
       </label>

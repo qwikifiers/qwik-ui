@@ -63,7 +63,7 @@ export const DocsNavigation = component$(
                       <a
                         class={cn(
                           buttonVariants({ look: 'ghost' }),
-                          'flex h-10 items-center rounded-base font-sans',
+                          'rounded-base flex h-10 items-center font-sans',
                           isLinkActive ||
                             (location.url.pathname?.startsWith('/docs/headless/') &&
                               link.name === 'Headless') ||

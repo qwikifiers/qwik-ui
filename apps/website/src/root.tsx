@@ -4,7 +4,8 @@ import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
 import { RouterHead } from './components/router-head/router-head';
-import globalStyles from './global.css?inline';
+
+import global from './global.css?inline';
 
 import { ThemeProvider } from '@qwik-ui/themes';
 
@@ -24,7 +25,8 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
-  useStyles$(globalStyles);
+
+  useStyles$(global);
 
   const appState = useStore<AppState>({
     featureFlags: {

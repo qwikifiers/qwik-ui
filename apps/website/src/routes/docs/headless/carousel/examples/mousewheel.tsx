@@ -10,11 +10,11 @@ export default component$(() => {
     .mousewheel-bullet {
         width: 10px;
         height: 10px;
-        background: hsl(var(--muted));
+        background: oklch(from var(--muted) l c h);
     }
         
     .mousewheel-bullet[data-active] {
-        background-color: hsl(var(--primary));
+        background-color: oklch(from var(--primary) l c h);
     }
 
     .mousewheel-pagination {

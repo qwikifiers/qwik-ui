@@ -10,7 +10,7 @@ export default component$(() => {
   ];
 
   return (
-    <Accordion.Root class="box-border w-[250px] max-w-[500px] rounded-base border border-slate-500 bg-slate-600 text-white">
+    <Accordion.Root class="rounded-base box-border w-[250px] max-w-[500px] border border-slate-500 bg-slate-600 text-white">
       {cats.map((item, index) => (
         <Accordion.Item class="w-full" key={index}>
           <Accordion.Header as="h3">
@@ -18,9 +18,7 @@ export default component$(() => {
               class={`group flex min-h-[44px] w-full items-center justify-between ${
                 index === 0 ? 'rounded-t-sm' : ''
               } ${
-                index === cats.length - 1
-                  ? 'rounded-b-sm border-b-[0px]'
-                  : 'border-b-[1px]'
+                index === cats.length - 1 ? 'rounded-b-sm border-b-0' : 'border-b'
               } border-slate-500 bg-slate-600 px-4 py-2 text-left hover:bg-slate-700`}
             >
               <span>favorite cat {index + 1}</span>
@@ -30,7 +28,7 @@ export default component$(() => {
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content class="accordion-animation-1 overflow-hidden">
-            <p class="bg-slate-900 p-4 ">{item}</p>
+            <p class="bg-slate-900 p-4">{item}</p>
           </Accordion.Content>
         </Accordion.Item>
       ))}

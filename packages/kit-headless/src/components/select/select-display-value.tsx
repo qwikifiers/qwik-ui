@@ -31,7 +31,7 @@ export const HSelectDisplayValue = component$((props: SelectValueProps) => {
     } else {
       return context.multiple
         ? context.currDisplayValueSig.value
-        : context.currDisplayValueSig.value?.[0] ?? placeholder;
+        : (context.currDisplayValueSig.value?.[0] ?? placeholder);
     }
   });
 

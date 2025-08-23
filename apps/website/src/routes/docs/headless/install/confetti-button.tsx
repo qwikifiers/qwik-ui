@@ -40,7 +40,7 @@ export const ConfettiButton = component$(({ intro }: { intro?: boolean }) => {
                 },
               });
             }}
-            class="z-1 relative h-[44px] rounded-base bg-primary px-3 font-bold text-white shadow-md"
+            class="rounded-base relative z-1 h-[44px] bg-primary px-3 font-bold text-white shadow-md"
             id="add-confetti-button"
           >
             {intro ? 'Click me!' : 'Woohoo! 🎉'}
