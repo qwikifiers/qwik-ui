@@ -1,5 +1,12 @@
 # qwik-ui
 
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies [[`10f1474`](https://github.com/qwikifiers/qwik-ui/commit/10f1474e3d239c0e3d0ffe2b19f7d965e31ff677)]:
+  - @qwik-ui/utils@0.3.3
+
 ## 0.3.1
 
 ### Patch Changes
