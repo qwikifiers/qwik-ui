@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.1
+
+### Patch Changes
+
+- 🐞🩹 all @qwik-ui packages are now side effect free. This cleans up the consumers bundle-graphs of unnecessary static imports, preventing any likelyhood of over-preloading. (by [@maiieul](https://github.com/maiieul) in [#1126](https://github.com/qwikifiers/qwik-ui/pull/1126))
+
 ## 0.7.0
 
 ### Minor Changes

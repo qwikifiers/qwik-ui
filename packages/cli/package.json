@@ -13,13 +13,13 @@
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "@nx/devkit": "21.1.2",
-    "@qwik-ui/utils": "0.3.2",
+    "@qwik-ui/utils": "0.3.3",
     "ansis": "2.3.0",
     "tslib": "^2.3.0",
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@qwik-ui/styled": "0.3.4",
+    "@qwik-ui/styled": "0.3.5",
     "prettier-2": "npm:prettier@^2"
   },
   "type": "commonjs",
