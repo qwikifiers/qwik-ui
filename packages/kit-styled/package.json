@@ -26,5 +26,6 @@
   "devDependencies": {
     "@qwik-ui/headless": "^0.7.0",
     "@qwik-ui/utils": "0.3.2"
-  }
+  },
+  "sideEffects": false
 }
