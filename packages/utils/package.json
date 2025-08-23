@@ -26,5 +26,6 @@
   "license": "MIT",
   "main": "./index.cjs",
   "module": "./index.js",
-  "typings": "./index.d.ts"
+  "typings": "./index.d.ts",
+  "sideEffects": false
 }
