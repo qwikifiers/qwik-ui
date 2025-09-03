@@ -77,7 +77,7 @@ export function useScroller(context: CarouselContext) {
     }
 
     context.scrollerRef.value.style.transition = isEnabled
-      ? givenTransitionSig.value ?? 'revert'
+      ? (givenTransitionSig.value ?? 'revert')
       : 'none';
   });
 

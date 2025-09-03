@@ -46,7 +46,7 @@ const currentSubHeader = $((text: string) => {
   }
   return (
     <>
-      <h3 class="mb-6 mt-8 scroll-mt-20 text-xl font-semibold">{subHeader}</h3>
+      <h3 class="mt-8 mb-6 scroll-mt-20 text-xl font-semibold">{subHeader}</h3>
     </>
   );
 });

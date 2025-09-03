@@ -4,6 +4,7 @@
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
+  "tailwindCSS.experimental.configFile": "apps/website/src/global.css",
   "editor.codeActionsOnSave": {
     "source.removeUnusedImports": "explicit"
   },

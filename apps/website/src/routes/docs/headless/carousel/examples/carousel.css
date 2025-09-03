@@ -4,7 +4,7 @@
 }
 
 .carousel-slide {
-  border: 2px dotted hsl(var(--primary));
+  border: 2px dotted oklch(from var(--primary) l c h);
   min-height: 10rem;
   max-height: 10rem;
   -webkit-user-select: none; /* support for Safari */
@@ -15,25 +15,25 @@
   display: flex;
   gap: 0.5rem;
   padding: 1rem;
-  border: 2px dotted hsl(var(--foreground));
+  border: 2px dotted oklch(from var(--foreground) l c h);
   margin-top: 0.5rem;
 }
 
 .carousel-buttons {
   display: flex;
   justify-content: space-between;
-  border: 2px dotted hsl(var(--accent));
+  border: 2px dotted oklch(from var(--accent) l c h);
   margin-bottom: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
 .carousel-buttons button {
-  border: 2px dotted hsl(var(--foreground));
+  border: 2px dotted oklch(from var(--foreground) l c h);
   padding: 0.5rem;
 }
 
 .carousel-buttons button:hover {
-  background-color: hsla(var(--primary) / 0.08);
+  background-color: oklch(from var(--primary) l c h / 0.08);
 }
 
 .carousel-buttons button:disabled {
@@ -47,12 +47,12 @@
 }
 
 .carousel-pagination-bullet[data-active] {
-  outline: 2px dotted hsl(var(--primary));
-  background-color: hsla(var(--primary) / 0.08);
+  outline: 2px dotted oklch(from var(--primary) l c h);
+  background-color: oklch(from var(--primary) l c h / 0.08);
 }
 
 .carousel-pagination-bullet:hover {
-  background-color: hsla(var(--primary) / 0.08);
+  background-color: oklch(from var(--primary) l c h / 0.08);
 }
 
 .carousel-conditional {
@@ -93,14 +93,14 @@
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background-color: hsl(var(--muted));
+  background-color: oklch(from var(--muted) l c h);
 
   /* Slight adjustment for visual centering */
   padding-bottom: 0.1em;
 }
 
 .carousel-step[data-current]::before {
-  background-color: hsl(var(--primary));
+  background-color: oklch(from var(--primary) l c h);
 }
 
 .carousel-animation {

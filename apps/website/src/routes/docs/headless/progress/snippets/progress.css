@@ -3,13 +3,13 @@
   width: 100%;
   overflow: hidden;
   border-radius: calc(var(--border-radius) / 2);
-  border: 2px dotted hsl(var(--primary));
+  border: 2px dotted oklch(from var(--primary) l c h);
 }
 
 .progress-indicator {
   height: 100%;
   width: 100%;
-  background-color: hsl(var(--primary));
+  background-color: oklch(from var(--primary) l c h);
 }
 
 @keyframes loading-flash {
@@ -42,7 +42,7 @@
 
 .progress-example-input {
   border-radius: calc(var(--border-radius) / 2);
-  border: 2px dotted hsl(var(--primary));
+  border: 2px dotted oklch(from var(--primary) l c h);
   margin-left: 0.5rem;
   max-width: 3rem;
   padding: 0.25rem;

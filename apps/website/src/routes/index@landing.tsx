@@ -43,20 +43,19 @@ export default component$(() => {
         <span class="font-extrabold tracking-wide text-primary">Qwik</span>{' '}
         <span class="font-extrabold tracking-wide text-secondary">UI</span>
       </h1>
-      <h2 class="text-center text-xl font-bold leading-normal lg:text-3xl">
+      <h2 class="text-center text-xl leading-normal font-bold lg:text-3xl">
         Headless & styled copy-paste components
         <br />
         <span class="leading-normal text-primary">automatically optimized for you</span>
       </h2>
       <p class="text-center text-lg lg:text-xl">
-        Choose a kit and start building the future{' '}
-        <span class="hue-rotate-[150deg]">⚡</span>
+        Choose a kit and start building the future <span class="hue-rotate-150">⚡</span>
       </p>
       <div class="mt-4 flex flex-wrap justify-center justify-items-center gap-14">
         <a href={`/docs/headless/introduction`}>
           <Card.Root
             class={cn(
-              'relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 ease-step hover:scale-[1.025] focus:scale-[1.025]',
+              'ease-step relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 hover:scale-[1.025] focus:scale-[1.025]',
             )}
           >
             <Card.Image
@@ -86,7 +85,7 @@ export default component$(() => {
           </Card.Root>
         </a>
         <a href={`/docs/styled/introduction`}>
-          <Card.Root class="relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 ease-step hover:scale-[1.025] focus:scale-[1.025]">
+          <Card.Root class="ease-step relative block h-full max-w-md rounded-lg shadow-lg outline-1 duration-150 hover:scale-[1.025] focus:scale-[1.025]">
             <Card.Image
               src={`/images/qwik-ui-fluffy-creature-screen.webp`}
               width="300"

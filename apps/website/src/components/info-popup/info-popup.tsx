@@ -25,7 +25,7 @@ export const InfoPopup = component$((props: InfoProps) => {
   return (
     <Popover.Root flip={false} floating="top" gutter={4}>
       <Popover.Trigger class="flex items-center justify-center">
-        <div class="rounded-full p-1 hover:bg-slate-300 hover:bg-opacity-50">
+        <div class="hover:bg-opacity-50 rounded-full p-1 hover:bg-slate-300">
           <svg
             width="16"
             height="16"
@@ -46,7 +46,7 @@ export const InfoPopup = component$((props: InfoProps) => {
       </Popover.Trigger>
 
       <Popover.Panel class="fade-info listbox rounded-base bg-transparent">
-        <div class="text-md mb-2 max-w-xs rounded-base border border-b-2 border-border bg-popover px-3 py-2 font-[500] text-foreground shadow-lg sm:w-max">
+        <div class="text-md rounded-base mb-2 max-w-xs border border-b-2 border-border bg-popover px-3 py-2 font-medium text-foreground shadow-lg sm:w-max">
           {props.info}
         </div>
       </Popover.Panel>

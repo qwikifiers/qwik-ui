@@ -23,7 +23,7 @@ export default component$(() => {
               <span class="font-semibold">{title}</span>
             </Carousel.Step>
             {index < steps.length - 1 && (
-              <div class="mx-2 flex-grow">
+              <div class="mx-2 grow">
                 <Separator
                   class={cn(progressIndex.value > index ? 'bg-foreground' : 'bg-muted')}
                 />

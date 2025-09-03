@@ -46,8 +46,8 @@ export const Note = component$<NoteProps>(({ status }) => {
         'note-link relative mx-2 my-12 px-5 py-4 lg:px-8 lg:py-6',
       )}
     >
-      <div class="absolute left-[-17.5px] top-[-17.5px] hidden h-8 w-8 rounded-full bg-white dark:bg-slate-900 lg:block">
-        <div class="flex h-8 w-8 items-center justify-center ">
+      <div class="absolute top-[-17.5px] left-[-17.5px] hidden h-8 w-8 rounded-full bg-white lg:block dark:bg-slate-900">
+        <div class="flex h-8 w-8 items-center justify-center">
           {getIconByStatus(status ?? NoteStatus.Info)}
         </div>
       </div>

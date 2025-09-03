@@ -11,21 +11,21 @@ const Close = HeadlessModal.Close;
 
 export const panelVariants = cva(
   [
-    'fixed w-full bg-background p-6 text-foreground transition-all backdrop:brightness-50 backdrop:backdrop-blur-sm',
-    'data-[closing]:duration-300 data-[open]:duration-300 data-[open]:animate-in data-[closing]:animate-out',
-    'backdrop:data-[closing]:duration-300 backdrop:data-[open]:duration-300 backdrop:data-[open]:animate-in backdrop:data-[closing]:animate-out backdrop:data-[closing]:fade-out backdrop:data-[open]:fade-in',
+    'fixed bg-background p-6 text-foreground transition-all backdrop:brightness-50 backdrop:backdrop-blur-xs',
+    'data-closing:animate-out data-closing:duration-300 data-open:animate-in data-open:duration-300',
+    'data-closing:backdrop:animate-out data-closing:backdrop:duration-300 data-closing:backdrop:fade-out data-open:backdrop:animate-in data-open:backdrop:duration-300 data-open:backdrop:fade-in',
   ],
   {
     variants: {
       position: {
         center:
-          'max-w-lg rounded-base shadow-lg data-[closed]:fade-out data-[open]:fade-in data-[closed]:zoom-out-95 data-[open]:zoom-in-95 data-[open]:slide-in-from-bottom-2 backdrop:data-[closing]:fade-out backdrop:data-[open]:fade-in',
-        top: 'inset-x-0 top-0 mb-auto mt-0 rounded-b-base border-b data-[closing]:slide-out-to-top data-[open]:slide-in-from-top',
+          'rounded-base m-auto max-w-lg shadow-lg data-closed:zoom-out-95 data-closed:fade-out data-closing:backdrop:fade-out data-open:zoom-in-95 data-open:fade-in data-open:slide-in-from-bottom-2 data-open:backdrop:fade-in',
+        top: 'rounded-b-base inset-x-0 top-0 mb-auto w-full border-b data-closing:slide-out-to-top data-open:slide-in-from-top',
         bottom:
-          'inset-x-0 bottom-0 mb-0 mt-auto rounded-t-base border-t data-[closing]:slide-out-to-bottom data-[open]:slide-in-from-bottom',
-        left: 'inset-y-0 left-0 ml-0 mr-auto h-full max-w-sm rounded-r-base border-r data-[closing]:slide-out-to-left data-[open]:slide-in-from-left',
+          'rounded-t-base inset-x-0 bottom-0 mt-auto w-full border-t data-closing:slide-out-to-bottom data-open:slide-in-from-bottom',
+        left: 'rounded-r-base inset-y-0 left-0 mr-auto h-full max-w-sm border-r data-closing:slide-out-to-left data-open:slide-in-from-left',
         right:
-          'inset-y-0 right-0 ml-auto mr-0 h-full max-w-sm rounded-l-base border-l data-[closing]:slide-out-to-right data-[open]:slide-in-from-right',
+          'rounded-l-base inset-y-0 right-0 ml-auto h-full max-w-sm border-l data-closing:slide-out-to-right data-open:slide-in-from-right',
       },
     },
     defaultVariants: {
