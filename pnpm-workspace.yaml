@@ -2,4 +2,15 @@ packages:
   - packages/*
 
 onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - core-js
+  - esbuild
   - nx
+  - oxc-resolver
+  - sharp
+  - simple-git-hooks
+  - tree-sitter
+  - tree-sitter-typescript
+  - unrs-resolver
+  - workerd
