@@ -192,11 +192,11 @@ async function handleInit() {
       },
     );
   }
+  const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
   // ADD QWIK UI CLI TO DEPENDENCIES
   log.info('Adding qwik-ui cli to package.json...');
-  const cliTag = args['e2e'] ? 'e2e' : 'latest';
-  execSync(`${getPackageManagerCommand().addDev} qwik-ui@${cliTag}`, {
+  execSync(`${getPackageManagerCommand().addDev} qwik-ui@${packageTag}`, {
     stdio: 'inherit',
   });
 
@@ -316,8 +316,6 @@ async function handleInit() {
   }
 
   // INSTALL STYLED KIT
-
-  const packageTag = args['e2e'] ? 'e2e' : 'latest';
 
   const externalDepsNames = Object.keys(externalDeps).reduce(
     (all, dep) => `${all}, ${dep}`,
