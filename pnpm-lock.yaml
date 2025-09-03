@@ -347,7 +347,7 @@ importers:
         specifier: ^0.7.1
         version: link:../kit-headless
       '@qwik-ui/utils':
-        specifier: 0.3.3
+        specifier: 0.3.2
         version: link:../utils
 
   packages/themes:
