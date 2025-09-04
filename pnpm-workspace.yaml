@@ -14,3 +14,6 @@ onlyBuiltDependencies:
   - tree-sitter-typescript
   - unrs-resolver
   - workerd
+
+patchedDependencies:
+  rollup: patches/rollup.patch
