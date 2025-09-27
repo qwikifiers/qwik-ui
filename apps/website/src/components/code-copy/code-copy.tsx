@@ -16,7 +16,7 @@ export const CodeCopy = component$<CodeCopyProps>(({ code = '', ...props }) => {
       {...props}
       look="ghost"
       title={copied.value ? 'Copied to Clipboard' : 'Copy to Clipboard'}
-      class={cn(props.class)}
+      class={cn('hover:bg-slate-700 hover:text-slate-50', props.class)}
       onClick$={async () => {
         await copy(code);
         copied.value = true;

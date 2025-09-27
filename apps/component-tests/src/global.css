@@ -74,7 +74,7 @@
   }
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -168,15 +168,6 @@
 
   pre code {
     @apply whitespace-pre-wrap;
-  }
-}
-
-@layer components {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background font-sans text-foreground;
   }
 }
 

@@ -111,7 +111,7 @@ describe('Setup Tailwind generator', () => {
         }
       }
 
-      @theme inline {
+      @theme {
         --color-background: var(--background);
         --color-foreground: var(--foreground);
         --color-card: var(--card);
@@ -194,15 +194,6 @@ describe('Setup Tailwind generator', () => {
       }
 
       @layer base {
-        * {
-          @apply border-border outline-ring/50;
-        }
-        body {
-          @apply bg-background text-foreground;
-        }
-      }
-
-      @layer components {
         * {
           @apply border-border outline-ring/50;
         }
@@ -305,7 +296,7 @@ describe('Setup Tailwind generator', () => {
         }
       }
 
-      @theme inline {
+      @theme {
         --color-background: var(--background);
         --color-foreground: var(--foreground);
         --color-card: var(--card);
@@ -388,15 +379,6 @@ describe('Setup Tailwind generator', () => {
       }
 
       @layer base {
-        * {
-          @apply border-border outline-ring/50;
-        }
-        body {
-          @apply bg-background text-foreground;
-        }
-      }
-
-      @layer components {
         * {
           @apply border-border outline-ring/50;
         }

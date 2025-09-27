@@ -271,7 +271,7 @@ function objThemeToCSSThemeOutput(themeObject: ThemeMap) {
 
   cssOutput += `}
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -361,15 +361,7 @@ function objThemeToCSSThemeOutput(themeObject: ThemeMap) {
     @apply bg-background text-foreground;
   }
 }
-
-@layer components {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}`;
+`;
 
   return cssOutput;
 }

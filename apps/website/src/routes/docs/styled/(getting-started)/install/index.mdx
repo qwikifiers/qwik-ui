@@ -122,7 +122,7 @@ Here's an example:
   }
 }
 
-  @theme inline {
+  @theme {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -213,15 +213,6 @@ Here's an example:
     @apply bg-background text-foreground;
   }
 }
-
-@layer components {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
 ```
 
 ### Step 3: Find the components you need in the docs and copy/paste them into your project
@@ -276,8 +267,6 @@ Use the following configuration with your chosen editor:
   ]
 }
 ```
-
-You can thank us later... 😉
 
 ### VSCode
 

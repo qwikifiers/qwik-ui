@@ -41,3 +41,7 @@
 - [Toggle](/docs/styled/toggle)
 - [ToggleGroup](/docs/styled/toggle-group)
 - [Tooltip](/docs/styled/tooltip)
+
+## Guides
+
+- [Tailwind 3 Migration](/docs/styled/guides/tailwind-3-migration)

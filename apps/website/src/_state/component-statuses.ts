@@ -16,6 +16,8 @@ export const statusByComponent: ComponentKitsStatuses = {
     RadioGroup: ComponentStatus.Draft,
     Carousel: ComponentStatus.Draft,
     Tooltip: ComponentStatus.Draft,
+    Toggle: ComponentStatus.Draft,
+    ToggleGroup: ComponentStatus.Draft,
   },
   headless: {
     Checkbox: ComponentStatus.Draft,

@@ -101,7 +101,7 @@ describe('Extract theme from css', () => {
         }
       }
 
-      @theme inline {
+      @theme {
         --color-background: var(--background);
         --color-foreground: var(--foreground);
         --color-card: var(--card);
@@ -191,15 +191,7 @@ describe('Extract theme from css', () => {
           @apply bg-background text-foreground;
         }
       }
-
-      @layer components {
-        * {
-          @apply border-border outline-ring/50;
-        }
-        body {
-          @apply bg-background text-foreground;
-        }
-      }"
+      "
     `);
   });
 
@@ -285,7 +277,7 @@ describe('Extract theme from css', () => {
           }
         }
 
-        @theme inline {
+        @theme {
           --color-background: var(--background);
           --color-foreground: var(--foreground);
           --color-card: var(--card);
@@ -375,15 +367,7 @@ describe('Extract theme from css', () => {
             @apply bg-background text-foreground;
           }
         }
-
-        @layer components {
-          * {
-            @apply border-border outline-ring/50;
-          }
-          body {
-            @apply bg-background text-foreground;
-          }
-        }"
+        "
       `);
     });
   });
@@ -465,7 +449,7 @@ test(`GIVEN theme string is 'brutalist base-stone primary-pink-700 border-radius
       }
     }
 
-    @theme inline {
+    @theme {
       --color-background: var(--background);
       --color-foreground: var(--foreground);
       --color-card: var(--card);
@@ -555,15 +539,7 @@ test(`GIVEN theme string is 'brutalist base-stone primary-pink-700 border-radius
         @apply bg-background text-foreground;
       }
     }
-
-    @layer components {
-      * {
-        @apply border-border outline-ring/50;
-      }
-      body {
-        @apply bg-background text-foreground;
-      }
-    }"
+    "
   `);
 });
 
@@ -649,7 +625,7 @@ test(`GIVEN primary color is "pink-700",
         }
       }
 
-      @theme inline {
+      @theme {
         --color-background: var(--background);
         --color-foreground: var(--foreground);
         --color-card: var(--card);
@@ -739,15 +715,7 @@ test(`GIVEN primary color is "pink-700",
           @apply bg-background text-foreground;
         }
       }
-
-      @layer components {
-        * {
-          @apply border-border outline-ring/50;
-        }
-        body {
-          @apply bg-background text-foreground;
-        }
-      }"
+      "
     `);
   });
 });
@@ -828,7 +796,7 @@ const exampleRootCssContent = `
     --transform-press: scale(0.95);
   }
 
-  @theme inline {
+  @theme {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -911,15 +879,6 @@ const exampleRootCssContent = `
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer components {
   * {
     @apply border-border outline-ring/50;
   }

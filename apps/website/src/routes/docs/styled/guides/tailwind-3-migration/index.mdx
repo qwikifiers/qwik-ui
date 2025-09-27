@@ -1,0 +1,224 @@
+---
+title: 'Qwik UI | Styled Kit - Installation'
+---
+
+# Tailwind 3 Migration Guide
+
+## What's New
+
+- The CLI can now initialize projects with Tailwind v4.
+- Full support for the new @theme, @utility and @layer directives.
+- The theme configuration is now done in css only.
+- HSL colors are now converted to OKLCH.
+- We've fixed and cleaned up the style of the components.
+- All the components are formatted with the new prettier-plugin-tailwindcss classes order.
+- The Collapsible component has been updated to work with the new Tailwind v4.
+
+## How to upgrade
+
+### 1. Follow the Tailwind v4 Upgrade Guide
+
+Upgrade to Tailwind v4 by following the official upgrade guide: https://tailwindcss.com/docs/upgrade-guide. 
+
+Using `npx @tailwindcss/upgrade` should do the trick.
+
+### 2. Update your CSS variables
+
+The tailwind cli codemod will automatically update your CSS variables to use the new @theme directive, but it will miss some configuration from the tailwind.config.cjs file.
+
+To update your config, go to https://qwik-ui.com/, open the "Make it yours" modal and copy/paste the css-variables config to your global css file. Update it accordingly to your project needs.
+
+If you are using custom colors, you might need to use @theme inline instead of @theme.
+
+Here is an example of the css config:
+
+```css
+@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  :root {
+    --background: white;
+    --foreground: var(--color-slate-950);
+    --muted: var(--color-slate-100);
+    --muted-foreground: var(--color-slate-700);
+    --popover: white;
+    --popover-foreground: var(--color-slate-900);
+    --card: white;
+    --card-foreground: var(--color-slate-900);
+    --border: var(--color-slate-200);
+    --input: var(--color-slate-200);
+    --primary: var(--color-blue-200);
+    --primary-foreground: black;
+    --secondary: var(--color-slate-900);
+    --secondary-foreground: white;
+    --accent: var(--color-slate-100);
+    --accent-foreground: var(--color-slate-900);
+    --alert: var(--color-red-500);
+    --alert-foreground: var(--color-slate-50);
+    --ring: var(--color-slate-900);
+    --border-width: 0px;
+    --stroke-width: 1px;
+    --border-radius: 0rem;
+    --shadow-base: none;
+    --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
+    --transform-press: scale(0.95);
+  }
+  .dark {
+    --background: var(--color-slate-950);
+    --foreground: var(--color-slate-50);
+    --muted: var(--color-slate-800);
+    --muted-foreground: var(--color-slate-300);
+    --popover: var(--color-slate-950);
+    --popover-foreground: var(--color-slate-50);
+    --card: var(--color-slate-950);
+    --card-foreground: var(--color-slate-50);
+    --border: var(--color-slate-800);
+    --input: var(--color-slate-800);
+    --primary: var(--color-blue-200);
+    --primary-foreground: black;
+    --secondary: var(--color-slate-100);
+    --secondary-foreground: black;
+    --accent: var(--color-slate-700);
+    --accent-foreground: var(--color-slate-50);
+    --alert: var(--color-red-500);
+    --alert-foreground: var(--color-slate-50);
+    --ring: var(--color-slate-300);
+    --border-width: 0px;
+    --stroke-width: 1px;
+    --border-radius: 0rem;
+    --shadow-base: none;
+    --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
+    --transform-press: scale(0.95);
+  }
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-alert: var(--alert);
+  --color-alert-foreground: var(--alert-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-xs: var(--border-radius);
+  --radius-sm: calc(var(--border-radius) + 0.125rem);
+  --radius-md: calc(var(--border-radius) + 0.375rem);
+  --radius-lg: calc(var(--border-radius) + 0.5rem);
+  --radius-xl: calc(var(--border-radius) + 0.75rem);
+  --radius-2xl: calc(var(--border-radius) + 1rem);
+  --radius-3xl: calc(var(--border-radius) + 1.5rem);
+  --shadow-base: var(--shadow-base);
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+  --shadow-inner: var(--shadow-inner);
+  --default-border-width: calc(var(--border-width) + 1px);
+  --border-width-base: var(--border-width);
+  --border-width-2: calc(var(--border-width) + 2px);
+  --border-width-4: calc(var(--border-width) + 4px);
+  --border-width-8: calc(var(--border-width) + 8px);
+  --stroke-width-0: 0px;
+  --stroke-width-base: var(--stroke-width);
+  --stroke-width-1: calc(var(--stroke-width) + 1px);
+  --stroke-width-2: calc(var(--stroke-width) + 2px);
+  --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
+  --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
+
+  @keyframes collapsible-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--qwikui-collapsible-content-height);
+    }
+  }
+  @keyframes collapsible-up {
+    from {
+      height: var(--qwikui-collapsible-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+@utility press {
+  transform: var(--transform-press);
+}
+@utility border-width-* {
+  /* prettier-ignore */
+  border: --value(--border-width-*);
+}
+@utility stroke-width-* {
+  /* prettier-ignore */
+  stroke: --value(--stroke-width-*);
+}
+@utility shadow-* {
+  /* prettier-ignore */
+  box-shadow: --value(--shadow-*);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+```
+
+### 3. Update your dependencies
+
+- Install the @tailwindcss/vite package and pass it to your vite.config plugins array.
+
+- Install the tw-animate-css package and remove the old tailwindcss-animate one.
+
+
+### 4. Update the Modal component
+
+Add `"w-full"` to Modal PanelVariants position.top and position.bottom; add `"m-auto"` to position.center
+
+
+## Troubleshooting
+
+Make sure to remove your tailwind.config.cjs and postcss.config.cjs files. They can cause conflicts with the new tailwind 4 config.
+
+If you are in a monorepo, make sure to `@source “../../../path/to/your/components“;`
+
+If you didn't modify some components, you can re-copy/paste (or re-install them with the cli) for their most up to date version.
+

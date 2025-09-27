@@ -1,5 +1,5 @@
 {
-  "tw-animate-css": "^1.3.7",
+  "tw-animate-css": "1.3.4",
   "class-variance-authority": "0.7.1",
   "@qwikest/icons": "^0.0.13"
 }
