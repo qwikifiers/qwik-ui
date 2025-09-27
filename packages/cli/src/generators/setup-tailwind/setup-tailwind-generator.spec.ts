@@ -28,7 +28,7 @@ describe('Setup Tailwind generator', () => {
     const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
 
     expect(updatedGlobalCssContent).toMatchInlineSnapshot(`
-      "@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+      "@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
       @import 'tailwindcss';
       @import 'tw-animate-css';
 
@@ -219,7 +219,7 @@ describe('Setup Tailwind generator', () => {
     const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
 
     expect(updatedGlobalCssContent).toMatchInlineSnapshot(`
-      "@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+      "@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
       @import 'tailwindcss';
       @import 'tw-animate-css';
 

@@ -15,7 +15,6 @@
 
 ## Components
 
-- [Missing a component?](/docs/styled/missing)
 - [Accordion](/docs/styled/accordion)
 - [Alert](/docs/styled/alert)
 - [Avatar](/docs/styled/avatar)

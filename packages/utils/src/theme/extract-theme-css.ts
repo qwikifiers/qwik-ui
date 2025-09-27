@@ -251,7 +251,7 @@ function reorderThemeObject(themeObject: ThemeMap) {
 }
 
 function objThemeToCSSThemeOutput(themeObject: ThemeMap) {
-  let cssOutput = `@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+  let cssOutput = `@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
 @import 'tailwindcss';
 @import 'tw-animate-css';
 

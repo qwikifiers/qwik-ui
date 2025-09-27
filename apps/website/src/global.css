@@ -1,4 +1,4 @@
-@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
 @import 'tailwindcss';
 @import 'tw-animate-css';
 

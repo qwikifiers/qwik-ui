@@ -32,7 +32,7 @@ describe('Extract theme from css', () => {
     const theme = extractThemeCSS(inputThemeString, exampleRootCssContent);
 
     expect(theme).toMatchInlineSnapshot(`
-      "@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+      "@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
       @import 'tailwindcss';
       @import 'tw-animate-css';
 
@@ -208,7 +208,7 @@ describe('Extract theme from css', () => {
     themeStringInEveryOrder.forEach((themeString) => {
       const theme = extractThemeCSS(themeString, exampleRootCssContent);
       expect(theme).toMatchInlineSnapshot(`
-        "@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+        "@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
         @import 'tailwindcss';
         @import 'tw-animate-css';
 
@@ -380,7 +380,7 @@ test(`GIVEN theme string is 'brutalist base-stone primary-pink-700 border-radius
   const theme = extractThemeCSS(inputThemeString, exampleRootCssContent);
 
   expect(theme).toMatchInlineSnapshot(`
-    "@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+    "@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
     @import 'tailwindcss';
     @import 'tw-animate-css';
 
@@ -556,7 +556,7 @@ test(`GIVEN primary color is "pink-700",
   themeStringInEveryOrder.forEach((themeString) => {
     const theme = extractThemeCSS(themeString, exampleRootCssContent);
     expect(theme).toMatchInlineSnapshot(`
-      "@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+      "@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
       @import 'tailwindcss';
       @import 'tw-animate-css';
 
@@ -721,7 +721,7 @@ test(`GIVEN primary color is "pink-700",
 });
 
 const exampleRootCssContent = `
-@layer qwik-ui, popover-polyfill, theme, base, components, utilities;
+@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
