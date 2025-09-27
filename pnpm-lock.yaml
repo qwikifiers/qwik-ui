@@ -255,8 +255,8 @@ importers:
         specifier: 5.7.3
         version: 5.7.3
       undici:
-        specifier: '*'
-        version: 7.16.0
+        specifier: 6.21.3
+        version: 6.21.3
       unified:
         specifier: ^11.0.5
         version: 11.0.5
@@ -8599,9 +8599,9 @@ packages:
     resolution: {integrity: sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==}
     engines: {node: '>=14.0'}
 
-  undici@7.16.0:
-    resolution: {integrity: sha512-QEg3HPMll0o3t2ourKwOeUAZ159Kn9mx5pnzHRQO8+Wixmh88YdZRiIwat0iNzNNXn0yoEtXJqFpyW7eM8BV7g==}
-    engines: {node: '>=20.18.1'}
+  undici@6.21.3:
+    resolution: {integrity: sha512-gBLkYIlEnSp8pFbT64yFgGE6UIB9tAkhukC23PmMDCe5Nd+cRqKxSjw5y54MK2AZMgZfJWMaNE4nYUHgi1XEOw==}
+    engines: {node: '>=18.17'}
 
   unenv@2.0.0-rc.14:
     resolution: {integrity: sha512-od496pShMen7nOy5VmVJCnq8rptd45vh6Nx/r2iPbrba6pa6p+tS2ywuIHRZ/OBvSbQZB0kWvpO9XBNVFXHD3Q==}
@@ -9971,7 +9971,7 @@ snapshots:
       '@types/mdx': 2.0.13
       source-map: 0.7.6
       svgo: 3.3.2
-      undici: 7.16.0
+      undici: 6.21.3
       valibot: 1.1.0(typescript@5.7.3)
       vfile: 6.0.3
       vite: 7.1.7(@types/node@22.15.29)(jiti@2.6.0)(lightningcss@1.29.2)(sass@1.93.2)(yaml@2.8.1)
@@ -18997,7 +18997,7 @@ snapshots:
     dependencies:
       '@fastify/busboy': 2.1.1
 
-  undici@7.16.0: {}
+  undici@6.21.3: {}
 
   unenv@2.0.0-rc.14:
     dependencies:
