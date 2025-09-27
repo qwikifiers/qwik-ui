@@ -255,7 +255,7 @@ importers:
         specifier: 5.7.3
         version: 5.7.3
       undici:
-        specifier: ^7.16.0
+        specifier: '*'
         version: 7.16.0
       unified:
         specifier: ^11.0.5
