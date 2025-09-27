@@ -3,7 +3,6 @@ import { defineConfig } from 'vite';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import * as path from 'path';
 import dts from 'vite-plugin-dts';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
 
@@ -30,9 +29,6 @@ export default defineConfig({
     }),
     viteTsConfigPaths({
       root: '../../',
-    }),
-    viteStaticCopy({
-      targets: [{ src: './README.md', dest: './' }],
     }),
     nxViteTsPaths(),
   ],

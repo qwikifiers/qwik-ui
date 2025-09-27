@@ -59,21 +59,6 @@ export default defineConfig(async () => {
     },
     build: {
       target: 'es2022',
-      rollupOptions: {
-        output: {
-          manualChunks: (id: string) => {
-            if (id.includes('node_modules') && id.includes('css-tree')) {
-              return 'css-tree';
-            }
-            if (
-              id.includes('node_modules') &&
-              (id.includes('tailwind-merge') || id.includes('clsx'))
-            ) {
-              return 'cn';
-            }
-          },
-        },
-      },
     },
     preview: {
       headers: {
