@@ -4,7 +4,6 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
 
@@ -32,9 +31,6 @@ export default defineConfig({
 
         return;
       },
-    }),
-    viteStaticCopy({
-      targets: [{ src: './README.md', dest: './' }],
     }),
   ],
   server: {
