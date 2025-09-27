@@ -1,5 +1,22 @@
 # @qwik-ui/styled
 
+## 0.4.0
+
+### Minor Changes
+
+- ✨ Qwik UI has now fully migrated and updated the global.css config and components to use tailwind v4. You can copy/paste the components into your project(s) or use the CLI. (by [@maiieul](https://github.com/maiieul) in [#1122](https://github.com/qwikifiers/qwik-ui/pull/1122))
+
+  ## Migration guide:
+
+  - Make sure to commit any changes before you start the steps below
+  - Run the `npx @tailwindcss/upgrade` script and let it do most of the work for you
+  - Remove your tailwind.config.cjs and postcss.config.cjs
+  - install the @tailwindcss/vite package and pass it to your vite.config plugins array
+  - Copy paste the new css config base tokens, or use the `qwik-ui init` to get them, and adapt them to your project
+  - If you are in a monorepo, make sure to `@source “../../../path/to/your/components“;`
+  - Add `"w-full"` to Modal PanelVariants position.top and position.bottom; add `"m-auto"` to position.center
+  - If you didn't modify some components, you can re-copy/paste (or re-install them with the cli) for their most up to date version
+
 ## 0.3.5
 
 ### Patch Changes
@@ -127,20 +144,20 @@
   export const panelVariants = cva(
     [
       'fixed w-full bg-background p-6 text-foreground transition-all backdrop:brightness-50 backdrop:backdrop-blur-sm',
-      'data-[closing]:duration-300 data-[open]:duration-300 data-[open]:animate-in data-[closing]:animate-out',
-      'backdrop:data-[closing]:duration-300 backdrop:data-[open]:duration-300 backdrop:data-[open]:animate-in backdrop:data-[closing]:animate-out backdrop:data-[closing]:fade-out backdrop:data-[open]:fade-in',
+      'data-[closing]:animate-out data-[closing]:duration-300 data-[open]:animate-in data-[open]:duration-300',
+      'backdrop:data-[closing]:animate-out backdrop:data-[closing]:duration-300 backdrop:data-[closing]:fade-out backdrop:data-[open]:animate-in backdrop:data-[open]:duration-300 backdrop:data-[open]:fade-in',
     ],
     {
       variants: {
         position: {
           center:
-            'max-w-lg rounded-base shadow-lg data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-2 backdrop:data-[closing]:fade-out backdrop:data-[open]:fade-in',
-          top: 'inset-x-0 top-0 mt-0 rounded-b-base border-b data-[closing]:slide-out-to-top data-[open]:slide-in-from-top',
+            'rounded-base max-w-lg shadow-lg backdrop:data-[closing]:fade-out backdrop:data-[open]:fade-in data-[state=closed]:zoom-out-95 data-[state=closed]:fade-out data-[state=open]:zoom-in-95 data-[state=open]:fade-in data-[state=open]:slide-in-from-bottom-2',
+          top: 'rounded-b-base inset-x-0 top-0 mt-0 border-b data-[closing]:slide-out-to-top data-[open]:slide-in-from-top',
           bottom:
-            'inset-x-0 bottom-0 mb-0 rounded-t-base border-t data-[closing]:slide-out-to-bottom data-[open]:slide-in-from-bottom',
-          left: 'inset-y-0 left-0 ml-0 h-full max-w-sm rounded-r-base border-r data-[closing]:slide-out-to-left data-[open]:slide-in-from-left',
+            'rounded-t-base inset-x-0 bottom-0 mb-0 border-t data-[closing]:slide-out-to-bottom data-[open]:slide-in-from-bottom',
+          left: 'rounded-r-base inset-y-0 left-0 ml-0 h-full max-w-sm border-r data-[closing]:slide-out-to-left data-[open]:slide-in-from-left',
           right:
-            'inset-y-0 right-0 mr-0 h-full max-w-sm rounded-l-base border-l data-[closing]:slide-out-to-right data-[open]:slide-in-from-right',
+            'rounded-l-base inset-y-0 right-0 mr-0 h-full max-w-sm border-l data-[closing]:slide-out-to-right data-[open]:slide-in-from-right',
         },
       },
       defaultVariants: {
