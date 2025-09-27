@@ -3,6 +3,7 @@ import {
   Slot,
   component$,
   sync$,
+  useComputed$,
   useContext,
   useSignal,
   type PropsOf,
@@ -26,6 +27,10 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
   const { typeahead$ } = useTypeahead();
   const contextRefOpts = { context, givenContextRef: context.triggerRef };
   const triggerRef = useCombinedRef(props.ref, contextRefOpts);
+
+  const isDisabled = useComputed$(() =>
+    context.isDisabledSig.value || props.disabled ? true : undefined,
+  );
 
   const handleClickSync$ = sync$((e: MouseEvent) => {
     e.preventDefault();
@@ -132,7 +137,7 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
       data-open={context.isListboxOpenSig.value ? '' : undefined}
       data-closed={!context.isListboxOpenSig.value ? '' : undefined}
-      data-disabled={context.isDisabledSig.value ? '' : undefined}
+      data-disabled={isDisabled.value ? '' : undefined}
       data-invalid={context.isInvalidSig?.value ? '' : undefined}
       aria-labelledby={`${valueId} ${labelId} `}
       aria-describedby={`${descriptionId} 
@@ -140,7 +145,7 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
       aria-expanded={context.isListboxOpenSig.value ? true : false}
       aria-haspopup="listbox"
       aria-controls={panelId}
-      disabled={context.isDisabledSig.value ? true : undefined}
+      disabled={isDisabled.value}
       preventdefault:blur
     >
       <Slot />
