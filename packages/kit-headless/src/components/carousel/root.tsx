@@ -198,6 +198,7 @@ export const CarouselBase = component$((props: PublicCarouselRootProps) => {
         '--scroll-snap-align': alignSig.value,
         '--orientation': orientationSig.value === 'vertical' ? 'column' : 'row',
         '--max-slide-height': `${maxSlideHeightSig.value}px`,
+        // '--remove-flex-gap': `-${gapSig.value - 1}px`,
       }}
     >
       <Slot />

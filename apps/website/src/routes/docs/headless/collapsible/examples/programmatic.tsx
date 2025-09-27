@@ -9,7 +9,11 @@ export default component$(() => {
   return (
     <>
       <input
-        style={{ width: '20px', height: '20px', accentColor: 'hsl(var(--primary))' }}
+        style={{
+          width: '20px',
+          height: '20px',
+          accentColor: 'oklch(from var(--primary) l c h)',
+        }}
         type="checkbox"
         bind:checked={isOpen}
       />

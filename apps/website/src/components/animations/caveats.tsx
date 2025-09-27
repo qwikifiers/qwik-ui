@@ -6,7 +6,7 @@ export const TopLayerAnimationsCaveats = component$(() => {
     <Note status={NoteStatus.Warning}>
       <strong>Important Caveats for Animating Discrete Properties</strong>
 
-      <ul class="mt-4 list-disc bg-gradient-to-b pl-4">
+      <ul class="mt-4 list-disc bg-linear-to-b pl-4">
         <li>
           <strong>
             Animating <code>display</code> and <code>overlay</code>:

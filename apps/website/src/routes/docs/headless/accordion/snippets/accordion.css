@@ -4,7 +4,7 @@
 
 .collapsible-trigger {
   width: 100%;
-  border: 2px dotted hsla(var(--foreground) / 1);
+  border: 2px dotted oklch(from var(--foreground) l c h / 1);
   border-radius: calc(var(--border-radius) / 2);
   padding: 0.5rem;
   display: flex;
@@ -18,7 +18,7 @@
 }
 
 .collapsible-trigger:hover {
-  background-color: hsla(var(--primary) / 0.08);
+  background-color: oklch(from var(--primary) l c h / 0.08);
 }
 
 .collapsible-trigger svg {
@@ -41,10 +41,10 @@
 .collapsible-content {
   width: 100%;
   font-weight: 500;
-  background: hsla(var(--primary) / 0.2);
+  background: oklch(from var(--primary) l c h / 0.2);
   border-radius: calc(var(--border-radius) / 2);
   max-width: var(--select-width);
-  color: hsl(var(--foreground));
+  color: oklch(from var(--foreground) l c h);
   overflow: hidden;
 
   /* offset the dotted border */
@@ -52,7 +52,7 @@
 
 .collapsible-content-outline {
   padding: 0.5rem;
-  border: 2px dotted hsla(var(--primary) / 1);
+  border: 2px dotted oklch(from var(--primary) l c h / 1);
 }
 
 /* chevron transition */
@@ -103,17 +103,17 @@
 .dynamic-input input {
   margin-bottom: 0.5rem;
   width: 5rem;
-  background: hsl(var(--accent));
-  border: 2px dotted hsl(var(--foreground));
+  background: oklch(from var(--accent) l c h);
+  border: 2px dotted oklch(from var(--foreground) l c h);
   padding-left: 0.5rem;
 }
 
 .dynamic-input .add input {
-  background: hsla(var(--primary) / 0.2);
+  background: oklch(from var(--primary) l c h / 0.2);
 }
 
 .dynamic-input .delete input {
-  background: hsla(var(--accent) / 1);
+  background: oklch(from var(--accent) l c h / 1);
 }
 
 .dynamic-buttons {

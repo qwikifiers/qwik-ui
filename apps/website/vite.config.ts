@@ -5,10 +5,11 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { recmaProvideComponents } from './recma-provide-components';
 import autoAPI from './auto-api';
 import { ShikiTransformer } from 'shiki';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig(async () => {
   const { default: shikiRehype } = await import('@shikijs/rehype');
-
+  // const { default: tailwindcss } = await import('@tailwindcss/vite');
   return {
     root: 'apps/website',
     plugins: [
@@ -47,6 +48,7 @@ export default defineConfig(async () => {
       tsconfigPaths({ root: '../../' }),
       // Uncomment for debugging preview with http2 via https
       // basicSsl(),
+      tailwindcss(),
     ],
 
     server: {

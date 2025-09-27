@@ -82,7 +82,7 @@ export const SearchModal = component$((props: { class?: string }) => {
         <LuSearch class="h-5 w-5 sm:h-6 sm:w-6" />
       </Modal.Trigger>
       <Modal.Panel
-        class={cn(props.class, 'mt-20 w-full !max-w-xl bg-red-500 p-0 sm:max-w-md')}
+        class={cn(props.class, 'mt-20 w-full max-w-xl! bg-red-500 p-0 sm:max-w-md')}
       >
         <Search isOpen={isOpen} />
       </Modal.Panel>
@@ -128,17 +128,15 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
       class="w-full"
       mode="inline"
       filter={false}
-      onChange$={$(
-        (value: string | string[]) => {
-          if (typeof value === 'string') {
-            window.location.href = value;
-            isOpen.value = false;
-          } else {
-            window.location.href = value[0];
-            isOpen.value = false;
-          }
-        },
-      )}
+      onChange$={$((value: string | string[]) => {
+        if (typeof value === 'string') {
+          window.location.href = value;
+          isOpen.value = false;
+        } else {
+          window.location.href = value[0];
+          isOpen.value = false;
+        }
+      })}
     >
       <Combobox.Input
         onInput$={handleInput}
@@ -150,7 +148,7 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
         data-id="search"
         placeholder="Find anything"
         class={cn(
-          'h-12 w-full rounded-b-none border-none focus-visible:outline-none focus-visible:ring-0',
+          'h-12 w-full rounded-b-none border-none focus-visible:ring-0 focus-visible:outline-hidden',
         )}
       />
       <Combobox.Inline class="max-h-[calc(100vh-200px)] overflow-auto border-t-2 border-border">
@@ -226,7 +224,7 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
                         class="block rounded-none border-b px-2 py-4"
                       >
                         <div class="flex flex-col gap-1">
-                          <div class="text-sm capitalize text-muted-foreground opacity-50">
+                          <div class="text-sm text-muted-foreground capitalize opacity-50">
                             {result.url.split('/').slice(-2, -1)}
                           </div>
                           <Combobox.ItemLabel class="text-base font-medium">

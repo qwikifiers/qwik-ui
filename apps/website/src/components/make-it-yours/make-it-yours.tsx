@@ -78,10 +78,10 @@ export default component$<PropsOf<typeof Button>>(() => {
         <header class="flex w-full">
           <h2 class="justify-self-start text-lg font-bold">Edit Profile</h2>
         </header>
-        <div class="mb-2 mt-8 py-4">
+        <div class="mt-8 mb-2 py-4">
           <label class="mb-1 block font-medium">Preset</label>
           <select
-            class="h-12 w-full rounded-base border bg-background p-2"
+            class="rounded-base h-12 w-full border bg-background p-2"
             value={themeComputedObjectSig.value.style}
             onChange$={async (e, el) => {
               if (el.value === 'simple') {
@@ -104,7 +104,7 @@ export default component$<PropsOf<typeof Button>>(() => {
             )}
           </select>
 
-          <label class="mb-1 mt-8 block font-medium">Base</label>
+          <label class="mt-8 mb-1 block font-medium">Base</label>
           <div class="flex">
             {Object.values(ThemeBaseColors).map((baseColor: string) => {
               const isActive = themeComputedObjectSig.value.baseColor === baseColor;
@@ -139,7 +139,7 @@ export default component$<PropsOf<typeof Button>>(() => {
             })}
           </div>
 
-          <label class="mb-1 mt-8 block font-medium">Primary</label>
+          <label class="mt-8 mb-1 block font-medium">Primary</label>
           <div class="flex justify-end">
             <div class="grid grid-cols-[repeat(22,0fr)]">
               {Object.values(ThemePrimaryColors).map((primaryColor: string) => {
@@ -170,10 +170,7 @@ export default component$<PropsOf<typeof Button>>(() => {
                       themeComputedObjectSig.value.primaryColor = primaryColor;
                       themeSig.value = await themeStoreToThemeClasses$();
                     }}
-                    class={cn(
-                      'h-3 w-3 rounded-none',
-                      isActive && 'border-[1px] border-ring',
-                    )}
+                    class={cn('h-3 w-3 rounded-none', isActive && 'border border-ring')}
                   >
                     {(primaryColor === 'primary-slate-800' ||
                       primaryColor === 'primary-gray-800' ||
@@ -431,7 +428,7 @@ export default component$<PropsOf<typeof Button>>(() => {
           </div>
 
           <div>
-            <label class="mb-1 mt-8 block font-medium">Radius</label>
+            <label class="mt-8 mb-1 block font-medium">Radius</label>
             <div class="flex h-12 space-x-3">
               {Object.values(ThemeBorderRadiuses).map((borderRadius: string) => {
                 const isActive =
@@ -471,7 +468,7 @@ export default component$<PropsOf<typeof Button>>(() => {
           </div>
         </div>
 
-        <footer class=" flex w-full justify-between gap-4">
+        <footer class="flex w-full justify-between gap-4">
           <Button
             look="ghost"
             onClick$={() => {
@@ -483,7 +480,7 @@ export default component$<PropsOf<typeof Button>>(() => {
           <CopyCssConfig />
         </footer>
         <Modal.Close
-          class={cn(buttonVariants({ size: 'sm', look: 'link' }), 'fixed right-4 top-5')}
+          class={cn(buttonVariants({ size: 'sm', look: 'link' }), 'fixed top-5 right-4')}
         >
           <LuX class="h-8 w-8" />
         </Modal.Close>

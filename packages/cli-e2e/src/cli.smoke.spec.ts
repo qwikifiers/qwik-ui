@@ -30,7 +30,7 @@ describe('Qwik UI CLI Smoke test', () => {
         stdio: 'inherit',
       },
     );
-    execSync('npx -y qwik-ui@e2e add button', {
+    execSync('pnpm exec qwik-ui add button', {
       cwd: projectDirectory,
       env: process.env,
       stdio: 'inherit',

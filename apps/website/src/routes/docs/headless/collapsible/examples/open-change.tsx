@@ -23,7 +23,7 @@ export default component$(() => {
           <span>Trigger</span>
           <LuChevronDown />
         </Collapsible.Trigger>
-        <Collapsible.Content class="collapsible-content collapsible-content-outline ">
+        <Collapsible.Content class="collapsible-content collapsible-content-outline">
           Content
         </Collapsible.Content>
       </Collapsible.Root>

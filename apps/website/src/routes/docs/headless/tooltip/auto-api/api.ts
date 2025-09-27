@@ -1,16 +1,16 @@
 export const api = {
-  "tooltip": [
+  tooltip: [
     {
-      "tooltip-arrow": []
+      'tooltip-arrow': [],
     },
     {
-      "tooltip-panel": []
+      'tooltip-panel': [],
     },
     {
-      "tooltip-root": []
+      'tooltip-root': [],
     },
     {
-      "tooltip-trigger": []
-    }
-  ]
+      'tooltip-trigger': [],
+    },
+  ],
 };

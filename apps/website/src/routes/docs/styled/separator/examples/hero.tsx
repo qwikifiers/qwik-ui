@@ -4,7 +4,7 @@ export default component$(() => {
   return (
     <div>
       <div class="space-y-1">
-        <h4 class="text-sm font-medium leading-none">Qwik UI</h4>
+        <h4 class="text-sm leading-none font-medium">Qwik UI</h4>
         <p class="text-sm text-muted-foreground">An open-source UI component library.</p>
       </div>
       <Separator class="my-4" />

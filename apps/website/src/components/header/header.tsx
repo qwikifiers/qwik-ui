@@ -133,7 +133,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
       )}
       bind:show={isSidebarOpenedSig}
     >
-      <header class="flex w-full max-w-screen-2xl items-center justify-between">
+      <header class="flex w-full items-center justify-between">
         <section class="flex items-center justify-start">
           <a href="/" aria-label="Qwik UI Logo" class="ml-4">
             <LogoWithBorders class="hidden sm:block" />
@@ -161,7 +161,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
               </a>
             )}
           </div>
-          <div class="flex items-center space-x-1 xs:space-x-4">
+          <div class="xs:space-x-4 flex items-center space-x-1">
             <MakeItYours />
             <SearchModal />
             <a
@@ -195,8 +195,8 @@ export default component$(({ showVersion = false }: HeaderProps) => {
           </div>
         </div>
       </header>
-      <Modal.Panel class="sidebar-mobile ml-auto mr-0 h-screen w-full min-w-80 max-w-sm rounded-base border-0 bg-background p-8 text-foreground shadow-md">
-        <div class="mb-2 pb-4 pt-2">
+      <Modal.Panel class="sidebar-mobile rounded-base mr-0 ml-auto h-screen w-sm border-0 bg-background text-foreground shadow-md">
+        <div class="mb-2 pt-2 pb-4">
           <DocsNavigation
             linksGroups={
               menuItemsGroups && menuItemsGroups.length > 0 ? menuItemsGroups : undefined
@@ -207,7 +207,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         <button
           autoFocus
           onClick$={() => (isSidebarOpenedSig.value = false)}
-          class="absolute right-6 top-[26px]"
+          class="absolute top-[26px] right-6"
         >
           <LuX class="h-8 w-8" />
         </button>

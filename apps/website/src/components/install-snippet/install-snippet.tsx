@@ -32,12 +32,12 @@ export type InstallSnippetProps = {
 };
 export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => {
   return (
-    <Tabs.Root class="mb-12 rounded-base shadow-lg" behavior="manual">
-      <Tabs.List class=" flex rounded-t-xl border border-b-0 p-2">
+    <Tabs.Root class="rounded-base mb-12 shadow-lg" behavior="manual">
+      <Tabs.List class="flex rounded-t-xl border border-b-0 p-2">
         {Object.keys(packages).map((key, index) => (
           <Tabs.Tab
             key={index}
-            class="mr-2 rounded-base border px-2 py-1 hover:bg-accent hover:font-medium hover:text-accent-foreground"
+            class="rounded-base mr-2 border px-2 py-1 hover:bg-accent hover:font-medium hover:text-accent-foreground"
           >
             {key}
           </Tabs.Tab>
@@ -46,7 +46,7 @@ export const InstallSnippet = component$<InstallSnippetProps>(({ packages }) => 
       {Object.entries(packages).map(([, value], index) => (
         <Tabs.Panel
           key={index}
-          class="rounded-b-lg border-[1.5px]  bg-gradient-to-b from-slate-900 to-slate-800 px-4 py-6 text-white shadow-lg dark:from-background dark:to-accent/50"
+          class="rounded-b-lg border-[1.5px] bg-linear-to-b from-slate-900 to-slate-800 px-4 py-6 text-white shadow-lg dark:from-background dark:to-accent/50"
         >
           <div data-pagefind-ignore="all" class="flex items-center justify-between">
             {value}

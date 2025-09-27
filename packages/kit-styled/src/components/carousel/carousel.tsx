@@ -93,7 +93,7 @@ const Previous = component$<
       class={cn(
         'absolute',
         context.orientation === 'horizontal'
-          ? '-left-12 top-1/2 -translate-y-1/2'
+          ? 'top-1/2 -left-12 -translate-y-1/2'
           : '-top-12 right-1/2 translate-x-1/2',
       )}
     >
@@ -129,8 +129,8 @@ const Next = component$<
       class={cn(
         'absolute',
         context.orientation === 'horizontal'
-          ? '-right-12 top-1/2 -translate-y-1/2'
-          : '-bottom-12 right-1/2 translate-x-1/2',
+          ? 'top-1/2 -right-12 -translate-y-1/2'
+          : 'right-1/2 -bottom-12 translate-x-1/2',
       )}
     >
       {/* moves content to the right on hover */}
@@ -174,7 +174,7 @@ const Bullet = component$<PropsOf<typeof HCarousel.Bullet>>((props) => {
       {...props}
       class={cn(
         'size-5 rounded-full border border-background bg-muted outline-0 outline-muted transition-all duration-300 ease-in-out hover:border-muted',
-        'data-[active]:border-primary data-[active]:bg-primary data-[active]:text-primary-foreground',
+        'data-active:border-primary data-active:bg-primary data-active:text-primary-foreground',
         props.class,
       )}
     />
@@ -205,7 +205,7 @@ const Step = component$<PropsOf<typeof HCarousel.Step>>((props) => {
     <HCarousel.Step
       {...props}
       class={cn(
-        'flex items-center gap-1 [&[data-current]_span:first-child]:outline-2 [&[data-current]_span:first-child]:outline-offset-[-2px] [&[data-current]_span:first-child]:outline-primary',
+        'flex items-center gap-1 [&[data-current]_span:first-child]:outline-2 [&[data-current]_span:first-child]:-outline-offset-2 [&[data-current]_span:first-child]:outline-primary',
         props.class,
       )}
     >

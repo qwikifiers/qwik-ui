@@ -72,11 +72,11 @@ const Content = component$<PropsOf<typeof HeadlessAccordion.Content>>((props) =>
     <HeadlessAccordion.Content
       {...props}
       class={cn(
-        'overflow-hidden text-sm data-[closed]:animate-accordion-up data-[open]:animate-accordion-down',
+        'overflow-hidden text-sm data-closed:animate-accordion-up data-open:animate-accordion-down',
         props.class,
       )}
     >
-      <div class="pb-4 pt-0">
+      <div class="pt-0 pb-4">
         <Slot />
       </div>
     </HeadlessAccordion.Content>

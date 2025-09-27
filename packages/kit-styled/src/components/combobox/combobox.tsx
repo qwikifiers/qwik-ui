@@ -51,7 +51,7 @@ const Control = component$<PropsOf<typeof HeadlessCombobox.Control>>((props) => 
   return (
     <HeadlessCombobox.Control
       {...props}
-      class={cn('relative flex items-center rounded-base', props.class)}
+      class={cn('rounded-base relative flex items-center', props.class)}
     >
       <Slot />
     </HeadlessCombobox.Control>
@@ -63,7 +63,7 @@ const Input = component$<PropsOf<typeof HeadlessCombobox.Input>>((props) => {
     <HeadlessCombobox.Input
       {...props}
       class={cn(
-        'flex h-12 w-full rounded-base border border-input bg-background px-3 py-1 text-sm text-foreground shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+        'rounded-base flex h-12 w-full border border-input bg-background px-3 py-1 text-sm text-foreground shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50',
         props.class,
       )}
     />
@@ -85,7 +85,7 @@ const Popover = component$<PropsOf<typeof HeadlessCombobox.Popover>>((props) => 
   return (
     <HeadlessCombobox.Popover
       {...props}
-      class={cn('w-48 rounded-base border bg-background p-2', props.class)}
+      class={cn('rounded-base w-48 border bg-background p-2', props.class)}
     >
       <Slot />
     </HeadlessCombobox.Popover>
@@ -97,7 +97,7 @@ const Item = component$<PropsOf<typeof HeadlessCombobox.Item>>(({ ...props }) =>
     <HeadlessCombobox.Item
       {...props}
       class={cn(
-        'group flex justify-between gap-4 rounded-sm px-2 text-foreground aria-disabled:font-light aria-disabled:text-muted-foreground data-[highlighted]:cursor-pointer data-[highlighted]:bg-accent',
+        'group flex justify-between gap-4 rounded-sm px-2 text-foreground aria-disabled:font-light aria-disabled:text-muted-foreground data-highlighted:cursor-pointer data-highlighted:bg-accent',
         props.class,
       )}
     >

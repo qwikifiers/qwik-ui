@@ -12,7 +12,7 @@
   "description": "Qwik UI Command line interface",
   "dependencies": {
     "@clack/prompts": "^0.7.0",
-    "@nx/devkit": "19.2.3",
+    "@nx/devkit": "21.1.2",
     "@qwik-ui/utils": "0.3.2",
     "ansis": "2.3.0",
     "tslib": "^2.3.0",

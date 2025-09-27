@@ -30,7 +30,7 @@ export default component$(() => {
       >
         Copy code
       </Button>
-      <Modal.Panel class="my-animation h-[650px] max-w-2xl overflow-x-hidden rounded-base bg-background p-8 text-foreground shadow-md backdrop:backdrop-blur backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100">
+      <Modal.Panel class="my-animation rounded-base m-auto h-[650px] max-w-2xl overflow-x-hidden bg-background p-8 text-foreground shadow-md backdrop:backdrop-blur-sm backdrop:backdrop-brightness-50 dark:backdrop:backdrop-brightness-100">
         <header>
           <h2 class="mb-2 text-lg font-bold">Copy config</h2>
           <p class="mb-6">
@@ -41,7 +41,7 @@ export default component$(() => {
         <div>
           <Highlight code={cssThemeOutput.value} language="css" class="border" />
         </div>
-        <button onClick$={() => (showSig.value = false)} class="absolute right-6 top-7">
+        <button onClick$={() => (showSig.value = false)} class="absolute top-7 right-6">
           <LuX class="h-8 w-8" />
         </button>
       </Modal.Panel>

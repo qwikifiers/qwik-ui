@@ -14,13 +14,13 @@
   height: 32px;
   cursor: pointer;
   border-radius: var(--rounded-base);
-  background-color: hsl(var(--background));
+  background-color: oklch(from var(--background) l c h);
   padding: 0 8px;
   color: var(--foreground);
-  border: 2px dotted hsl(var(--foreground));
+  border: 2px dotted oklch(from var(--foreground) l c h);
 }
 .prevNextButtons:hover {
-  background-color: hsl(var(--primary) / 0.08);
+  background-color: oklch(from var(--primary) l c h / 0.08);
 }
 .prevNextButtons:disabled {
   pointer-events: none;
@@ -40,7 +40,7 @@
   pointer-events: none;
   height: 32px;
   border-radius: var(--rounded-base);
-  color: hsl(var(--foreground));
-  border: 2px dotted hsl(var(--primary));
-  background-color: hsl(var(--primary) / 0.08);
+  color: oklch(from var(--foreground) l c h);
+  border: 2px dotted oklch(from var(--primary) l c h);
+  background-color: oklch(from var(--primary) l c h / 0.08);
 }

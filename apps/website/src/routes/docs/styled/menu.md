@@ -11,10 +11,10 @@
 
 - [Introduction](/docs/styled/introduction)
 - [Installation](/docs/styled/install)
+- [Legacy Docs](/docs/styled/legacy)
 
 ## Components
 
-- [Missing a component?](/docs/styled/missing)
 - [Accordion](/docs/styled/accordion)
 - [Alert](/docs/styled/alert)
 - [Avatar](/docs/styled/avatar)
@@ -41,3 +41,7 @@
 - [Toggle](/docs/styled/toggle)
 - [ToggleGroup](/docs/styled/toggle-group)
 - [Tooltip](/docs/styled/tooltip)
+
+## Guides
+
+- [Tailwind 3 Migration](/docs/styled/tailwind-3-migration)

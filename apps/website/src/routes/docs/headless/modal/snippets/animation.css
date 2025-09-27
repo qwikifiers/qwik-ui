@@ -21,19 +21,19 @@
 }
 
 .modal-animation::backdrop,
-.sheet::backdrop,
-.bottom-sheet::backdrop {
+.modal-panel.sheet::backdrop,
+.modal-panel.bottom-sheet::backdrop {
   animation: modalFadeIn 0.75s var(--modal-animation);
 }
 
 .modal-animation[data-closing]::backdrop,
-.sheet[data-closing]::backdrop,
-.bottom-sheet[data-closing]::backdrop {
+.modal-panel.sheet[data-closing]::backdrop,
+.modal-panel.bottom-sheet[data-closing]::backdrop {
   animation: modalFadeOut 0.35s var(--modal-animation);
 }
 
 .modal-animation::backdrop {
-  background: hsla(0, 0%, 0%, 0.5);
+  background: oklch(from 0, 0%, 0%, 0.5);
 }
 
 @keyframes modalOpen {
@@ -88,18 +88,19 @@
   }
 }
 
-.sheet::backdrop {
-  background: hsla(0, 0%, 0%, 0.5);
+.modal-panel.sheet::backdrop {
+  background: oklch(from 0, 0%, 0%, 0.5);
 }
 
-.sheet {
+.modal-panel.sheet {
   right: 0;
   margin-right: 0;
   height: 100vh;
   animation: sheetOpen 0.75s var(--modal-animation);
+  margin-left: auto;
 }
 
-.sheet[data-closing] {
+.modal-panel.sheet[data-closing] {
   animation: sheetClose 0.35s var(--modal-animation);
 }
 
@@ -125,15 +126,17 @@
   }
 }
 
-.bottom-sheet {
+.modal-panel.bottom-sheet {
   height: auto;
   top: unset;
   bottom: 0;
   margin-bottom: 0;
+  width: 100%;
+  max-width: unset;
   animation: bottomSheetOpen 0.75s var(--modal-animation);
 }
 
-.bottom-sheet[data-closing] {
+.modal-panel.bottom-sheet[data-closing] {
   animation: bottomSheetClose 0.35s var(--modal-animation);
 }
 

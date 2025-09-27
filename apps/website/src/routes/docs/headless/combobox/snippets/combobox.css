@@ -17,11 +17,11 @@
 .combobox-trigger {
   border-radius: calc(var(--border-radius) / 2);
   width: 44px;
-  background: hsla(var(--primary) / 0.1);
+  background: oklch(from var(--primary) l c h / 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 2px dotted hsla(var(--foreground));
+  border-left: 2px dotted oklch(from var(--foreground) l c h);
   position: absolute;
   right: 0;
 }
@@ -39,12 +39,12 @@
   min-height: 48px;
   display: flex;
   align-items: center;
-  outline: 2px dotted hsla(var(--foreground));
+  outline: 2px dotted oklch(from var(--foreground) l c h);
   position: relative;
 }
 
 .combobox-control:focus-within {
-  background: hsl(var(--primary) / 0.08);
+  background: oklch(from var(--primary) l c h / 0.08);
 }
 
 .combobox-control[data-invalid] {
@@ -54,17 +54,17 @@
 .combobox-popover {
   width: 100%;
   max-width: calc(var(--combobox-width) + 2.5rem);
-  background-color: hsl(var(--background));
+  background-color: oklch(from var(--background) l c h);
   padding: 0.5rem;
-  border: 2px dotted hsla(var(--foreground) / 0.6);
+  border: 2px dotted oklch(from var(--foreground) l c h / 0.6);
   border-radius: calc(var(--border-radius) / 2);
-  color: hsl(var(--foreground));
+  color: oklch(from var(--foreground) l c h);
 }
 
 .combobox-icon {
   width: 1.5rem;
   height: 1.5rem;
-  stroke: hsl(var(--foreground));
+  stroke: oklch(from var(--foreground) l c h);
 }
 
 .combobox-trigger[data-open] .combobox-icon {
@@ -80,7 +80,7 @@
 .combobox-label {
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: hsla(var(--foreground) / 0.8);
+  color: oklch(from var(--foreground) l c h / 0.8);
   padding-top: 0.5rem;
 }
 
@@ -92,19 +92,19 @@
 .combobox-group-label {
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: hsla(var(--foreground) / 0.8);
+  color: oklch(from var(--foreground) l c h / 0.8);
   padding-top: 0.5rem;
 }
 
 .combobox-root [data-highlighted] {
-  outline: 2px dotted hsla(var(--primary) / 1);
-  background: hsla(var(--primary) / 0.08);
+  outline: 2px dotted oklch(from var(--primary) l c h / 1);
+  background: oklch(from var(--primary) l c h / 0.08);
   border-radius: calc(var(--border-radius) / 2);
 }
 
 .combobox-root [data-disabled] {
   opacity: 0.6;
-  background: hsl(var(--foreground) / 0.05);
+  background: oklch(from var(--foreground) l c h / 0.05);
 }
 
 .combobox-pill {
@@ -113,7 +113,7 @@
   gap: 0.25rem;
   margin-inline: 0.25rem;
   padding: 0.25rem 0.5rem;
-  background-color: hsl(var(--muted));
+  background-color: oklch(from var(--muted) l c h);
   margin-block: 0.25rem;
 }
 
@@ -138,13 +138,13 @@
 }
 
 .combobox-clear {
-  background: hsl(var(--secondary) / 0.08);
+  background: oklch(from var(--secondary) l c h / 0.08);
 }
 
 .combobox-control:focus-within .combobox-pill {
-  background-color: hsl(var(--foreground) / 0.08);
+  background-color: oklch(from var(--foreground) l c h / 0.08);
 }
 
 .combobox-control:focus-within .combobox-clear {
-  background: hsl(var(--secondary) / 0.25);
+  background: oklch(from var(--secondary) l c h / 0.25);
 }
