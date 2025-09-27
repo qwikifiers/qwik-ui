@@ -11,6 +11,7 @@
 
 - [Introduction](/docs/styled/introduction)
 - [Installation](/docs/styled/install)
+- [Legacy Docs](/docs/styled/legacy)
 
 ## Components
 
@@ -44,4 +45,4 @@
 
 ## Guides
 
-- [Tailwind 3 Migration](/docs/styled/guides/tailwind-3-migration)
+- [Tailwind 3 Migration](/docs/styled/tailwind-3-migration)
