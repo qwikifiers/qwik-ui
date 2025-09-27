@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.3
+
+### Patch Changes
+
+- 🐞🩹 the accordion `offsetHeight` is now properly calculated with tailwind v4. (by [@maiieul](https://github.com/maiieul) in [#1122](https://github.com/qwikifiers/qwik-ui/pull/1122))
+
 ## 0.7.2
 
 ### Patch Changes
@@ -49,6 +55,7 @@
 ### Patch Changes
 
 - Select fixes for: (by [@thejackshelton](https://github.com/thejackshelton) in [#1042](https://github.com/qwikifiers/qwik-ui/pull/1042))
+
   - [#1001](https://github.com/qwikifiers/qwik-ui/issues/1001)
   - [#979](https://github.com/qwikifiers/qwik-ui/issues/979)
 
@@ -65,6 +72,7 @@
   💡 Combobox inline mode allows for command palettes or other use cases where the search input is directly on the page.
 
   🎠 Carousel fixes:
+
   - [#1032](https://github.com/qwikifiers/qwik-ui/issues/1032)
   - [#1023](https://github.com/qwikifiers/qwik-ui/issues/1023)
   - [#1006](https://github.com/qwikifiers/qwik-ui/issues/1006)
@@ -94,22 +102,27 @@
 - # Combobox Improvements (by [@thejackshelton](https://github.com/thejackshelton) in [#968](https://github.com/qwikifiers/qwik-ui/pull/968))
 
   ## 🔄 Reactive Improvements
+
   - Better handling of array-based values
   - Improved handling of initial and reactive values
 
   ## 🐛 Key Bug Fixes
+
   - Fixed highlight jumping issues
   - Enhanced empty input handling
   - Better filtered item highlighting
 
   ## 🖱️ Interaction Enhancements
+
   - Smoother scrolling experience
   - Improved keyboard and mouse coordination
 
   ## 🚀 Performance Optimizations
+
   - More efficient item filtering
 
   ## 🧪 Reliability
+
   - Added tests for reactivity handling, item unselection, and mouse-to-pointer interaction switching
   - Improved handling of edge cases in user interactions
 
@@ -196,30 +209,39 @@
   ```
 
   ### Anatomy Changes
+
   1. **Combobox.Option** has been renamed to **Combobox.Item**:
+
      - The item is no longer restricted to a string value; any UI can be placed inside the item.
      - Use the `Combobox.ItemLabel` component to display the item's label, which becomes the item's value if no `value` prop is passed to the `Combobox.Item`. (required)
 
   2. **Combobox.Listbox** has been deprecated.
   3. **Combobox.ItemLabel** has been added:
+
      - Move the string value that was once inside `Combobox.Option` into `Combobox.ItemLabel`. (required)
 
   4. **Combobox.ItemIndicator** has been added:
+
      - This component is used to render UI based on the selected state of the item. (optional)
 
   5. **Combobox.Description** has been added:
+
      - The text rendered inside the description component is displayed to screen readers as an accessible description of the combobox. (optional)
 
   6. **Combobox.ErrorMessage** has been added:
+
      - When this component is rendered, the Combobox will be marked as invalid. (optional)
 
   7. **Combobox.HiddenNativeSelect** has been added:
+
      - A native select element allows the submission of forms with the combobox. This component is visually hidden and hidden from screen readers. (optional)
 
   8. **Combobox.Group** has been added:
+
      - Used to visually group related items together. (optional)
 
   9. **Combobox.GroupLabel** has been added:
+
      - Provides an accessible name for the group. (optional)
 
   10. **Combobox.Empty** has been added:
@@ -233,6 +255,7 @@
   The `optionRenderer# Changelog prop on the `Combobox.Listbox` component has been deprecated.
 
   Instead:
+
   1. pass a `<Combobox.Item />` as a child of the `<Combobox.Popover />` component.
   2. pass a `Combobox.ItemLabel` as a child of the `<Combobox.Item />` component.
 
@@ -400,6 +423,7 @@
   #### Forms
 
   The Combobox now supports form submissions. To enable this:
+
   1.  Add the `name` prop to the `Combobox.Root` component, with the name of the Combobox form field.
   2.  Add the `<Combobox.HiddenNativeSelect />` component inside of the `<Combobox.Root />` component.
 
@@ -445,6 +469,7 @@
   | Enter | Toggles the selection of the highlighted item without closing the combobox. |
 
   ### Data Attributes
+
   - `data-invalid` is added to the combobox when the combobox is invalid.
   - `data-open` is added to the combobox when the combobox is open.
   - `data-closed` is added to the combobox when the combobox is closed.
@@ -659,6 +684,7 @@
   There is a new root compomnent. Configurable props have been moved to the root component.
 
   #### Deprecated Props
+
   - You no longer need to style the popover open state with `:popover-open`. Instead, use the `data-open` attribute for it to style across browsers.
 
   ```css
@@ -681,6 +707,7 @@
   ### Docs Improvements
 
   A couple of docs improvements have been made:
+
   - The docs have been updated to reflect the new API.
   - The headless docs no longer include styles in the examples. There is an example CSS section in each component page. If you do not find one, please open an issue on GitHub.
   - Part of the Accordion and Modal docs have been simplified
@@ -689,6 +716,7 @@
 - ### Modal API Changes (by [@thejackshelton](https://github.com/thejackshelton) in [#734](https://github.com/qwikifiers/qwik-ui/pull/734))
 
   In a previous release, the following components have been deprecated:
+
   - ModalHeader
   - ModalContent
   - ModalFooter
@@ -700,6 +728,7 @@
   #### <Modal.Root>
 
   This is the main container of the modal, and now holds the major props and configuration. Examples include:
+
   - 'bind:show'?: Signal<boolean>;
   - closeOnBackdropClick?: boolean;
   - alert?: boolean;
@@ -727,6 +756,7 @@
   This is a button that closes the modal when clicked.
 
 - ### Select API Changes (by [@thejackshelton](https://github.com/thejackshelton) in [#724](https://github.com/qwikifiers/qwik-ui/pull/724))
+
   - `<SelectOption />` has been renamed to `<Select.ItemLabel />`.
   - `<Select.Value />` has been renamed to `<Select.DisplayValue />`.
 
@@ -788,6 +818,7 @@
   The Accordion has been refactored from the ground up to be more accessible and performant.
 
   #### Accordion.Root
+
   - The `behavior="multi"` prop has been deprecated with `multiple` on the `<Accordion.Root />` component.
   - The default behavior is a single item open at a time.
   - The `animated` prop has been removed. Animations are now automatically detected!
@@ -798,12 +829,14 @@
   - Disable the entire accordion by using the `disabled` prop.
 
   #### Accordion.Item
+
   - Pass distinct values to the `<Accordion.Item />` component with the `value` prop.
   - Disable Accordion items by setting the `disabled` prop to true on the `<Accordion.Item />` component.
 
   For more information, please refer to the updated Accordion documentation.
 
   ### Collapsible
+
   - The `onOpenChange# Changelog prop has been deprecated. Use the `onChange# Changelog prop instead.
 
   For more information, please refer to the updated Collapsible documentation.
@@ -811,6 +844,7 @@
   ### Deprecated Components
 
   In 0.4, we have deprecated the following headless components:
+
   - Drawer
   - Breadcrumb
   - Action Button
@@ -952,6 +986,7 @@
 - ## Select component hits beta! (by [@thejackshelton](https://github.com/thejackshelton) in [#637](https://github.com/qwikifiers/qwik-ui/pull/637))
 
   ## Features
+
   - Accessible as a button that shows a list, following web a11y standards.
   - Support for single selection.
   - Controlled or uncontrolled.
@@ -968,6 +1003,7 @@
   - Supports a custom placeholder.
 
   ## Roadmap
+
   - Opt-in native form support via a visually hidden select.
   - RTL support.
   - Multiple Selection and its respective keyboard interactions.
