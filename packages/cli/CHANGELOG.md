@@ -1,5 +1,11 @@
 # qwik-ui
 
+## 0.4.2
+
+### Patch Changes
+
+- 🐞🩹 the cli now properly injects the theme into your global css file. (by [@maiieul](https://github.com/maiieul) in [#1146](https://github.com/qwikifiers/qwik-ui/pull/1146))
+
 ## 0.4.1
 
 ### Patch Changes
