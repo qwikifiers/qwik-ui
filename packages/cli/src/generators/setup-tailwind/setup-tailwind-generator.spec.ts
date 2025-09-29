@@ -8,7 +8,17 @@ describe('Setup Tailwind generator', () => {
     const options: SetupTailwindGeneratorSchema = {};
     const tree = createTreeWithEmptyWorkspace();
 
-    tree.write('src/global.css', '');
+    // add class before tailwind base import to make sure we append the extracted theme css in the right place
+    tree.write(
+      'src/global.css',
+      `
+        test {
+          color: red;
+        }
+
+        @import "tailwindcss";
+      `,
+    );
 
     return {
       tree,
@@ -28,7 +38,11 @@ describe('Setup Tailwind generator', () => {
     const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
 
     expect(updatedGlobalCssContent).toMatchInlineSnapshot(`
-      "@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
+      "test {
+        color: red;
+      }
+
+      @layer base, qwik-ui, popover-polyfill, theme, components, utilities;
       @import 'tailwindcss';
       @import 'tw-animate-css';
 
@@ -219,7 +233,11 @@ describe('Setup Tailwind generator', () => {
     const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
 
     expect(updatedGlobalCssContent).toMatchInlineSnapshot(`
-      "@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
+      "test {
+        color: red;
+      }
+
+      @layer base, qwik-ui, popover-polyfill, theme, components, utilities;
       @import 'tailwindcss';
       @import 'tw-animate-css';
 
