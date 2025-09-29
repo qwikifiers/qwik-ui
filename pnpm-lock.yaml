@@ -297,7 +297,7 @@ importers:
         specifier: 21.1.2
         version: 21.1.2(nx@21.1.2(@swc-node/register@1.11.1(@swc/core@1.13.20(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.7.3))(@swc/core@1.13.20(@swc/helpers@0.5.17)))
       '@qwik-ui/utils':
-        specifier: 0.3.2
+        specifier: 0.3.3
         version: link:../utils
       ansis:
         specifier: 2.3.0
@@ -347,7 +347,7 @@ importers:
         specifier: ^0.7.3
         version: link:../kit-headless
       '@qwik-ui/utils':
-        specifier: 0.3.2
+        specifier: 0.3.3
         version: link:../utils
 
   packages/themes:

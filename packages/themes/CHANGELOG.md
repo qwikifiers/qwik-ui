@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+### Patch Changes
+
+- 🐞🩹 the cli with tailwind v4 was not working because it was using outdated versions of its dependencies. It should now work normally. (by [@maiieul](https://github.com/maiieul) in [#1142](https://github.com/qwikifiers/qwik-ui/pull/1142))
+
 ## 0.1.2
 
 ### Patch Changes
