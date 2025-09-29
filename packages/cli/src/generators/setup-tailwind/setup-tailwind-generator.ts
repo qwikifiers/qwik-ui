@@ -45,21 +45,27 @@ function updateRootCss(
 
   const rootCssContent = tree.read(globalCssPath, 'utf-8');
 
-  const tailwindUtilsDirective = '@tailwind utilities;';
-  const utilsDirectiveIndex = rootCssContent?.indexOf(tailwindUtilsDirective);
+  console.log('rootCssContent', rootCssContent);
 
-  if (!utilsDirectiveIndex) {
-    console.error('Could not find the tailwind directives in your global css file');
-    return;
-  }
+  const tailwindBaseImport = '@import "tailwindcss";';
 
-  const afterTailwindDirectives = utilsDirectiveIndex + tailwindUtilsDirective.length;
+  const rootCssContentWithoutTailwindBaseImport = rootCssContent.replace(
+    tailwindBaseImport,
+    '',
+  );
 
-  const firstPart = rootCssContent?.slice(0, afterTailwindDirectives);
+  const utilsDirectiveIndex = rootCssContent?.indexOf(tailwindBaseImport);
 
-  const secondPart = rootCssContent?.slice(
+  const afterTailwindDirectives = utilsDirectiveIndex + tailwindBaseImport.length;
+
+  const firstPart = rootCssContentWithoutTailwindBaseImport?.slice(
+    0,
     afterTailwindDirectives,
-    rootCssContent.length,
+  );
+
+  const secondPart = rootCssContentWithoutTailwindBaseImport?.slice(
+    afterTailwindDirectives,
+    rootCssContentWithoutTailwindBaseImport.length,
   );
 
   const themeStr = `${themeConfig.style} ${themeConfig.baseColor} ${themeConfig.primaryColor} ${themeConfig.borderRadius}`;
