@@ -141,7 +141,7 @@
     "vite-plugin-inspect": "11.3.3",
     "vite-tsconfig-paths": "4.3.2",
     "vitest": "^1.6.1",
-    "wrangler": "^3.114.14",
+    "wrangler": "^4.40.2",
     "yargs": "^17.7.2"
   },
   "keywords": [
