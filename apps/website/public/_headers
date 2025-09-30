@@ -4,10 +4,6 @@
 /build/*
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
 
-# Pagefind search assets - long-term caching
-/pagefind/*
-  Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
-
 # Documentation pages - cache at edge, allow quick browser updates
 /docs/*
   Cache-Control: public, max-age=600, s-maxage=86400, stale-while-revalidate=604800
