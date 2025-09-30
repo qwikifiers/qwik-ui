@@ -1,5 +1,6 @@
 import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
 import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
+import { Insights } from '@builder.io/qwik-labs';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
@@ -43,6 +44,8 @@ export default component$(() => {
         <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
+        <script dangerouslySetInnerHTML={`(${collectSymbols})()`} />
+        <Insights publicApiKey={'1uelfebvo7l'} />
       </head>
       <body lang="en">
         <ThemeProvider
@@ -72,3 +75,10 @@ export default component$(() => {
     </QwikCityProvider>
   );
 });
+
+export function collectSymbols() {
+  (window as any).symbols = [];
+  document.addEventListener('qsymbol', (e) =>
+    (window as any).symbols.push((e as any).detail.symbol),
+  );
+}
