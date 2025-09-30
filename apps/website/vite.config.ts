@@ -6,6 +6,8 @@ import { recmaProvideComponents } from './recma-provide-components';
 import autoAPI from './auto-api';
 import { ShikiTransformer } from 'shiki';
 import tailwindcss from '@tailwindcss/vite';
+import { qwikInsights } from '@builder.io/qwik-labs/vite';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 export default defineConfig(async () => {
   const { default: shikiRehype } = await import('@shikijs/rehype');
@@ -36,7 +38,7 @@ export default defineConfig(async () => {
       }),
       qwikVite({
         lint: false,
-        debug: false,
+        debug: true,
         tsconfigFileNames: ['tsconfig.app.json'],
         client: {
           outDir: '../../dist/apps/website/client',
@@ -49,6 +51,8 @@ export default defineConfig(async () => {
       // Uncomment for debugging preview with http2 via https
       // basicSsl(),
       tailwindcss(),
+      // qwikInsights({ publicApiKey: '1uelfebvo7l' }),
+      basicSsl(),
     ],
 
     server: {
