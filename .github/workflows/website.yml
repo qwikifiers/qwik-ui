@@ -10,7 +10,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Setup
         uses: ./.github/actions/setup
       - name: Deploy
