@@ -12,7 +12,7 @@ runs:
   using: composite
   steps:
     - name: Checkout all commits
-      uses: actions/checkout@v3
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
 
@@ -28,7 +28,7 @@ runs:
         version: 10.15.0
 
     - name: Use Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: ${{ inputs.node_version }}
         # This doesn't just set the registry url, but also sets
