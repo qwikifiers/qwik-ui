@@ -2,22 +2,22 @@ import {
   useContext,
   component$,
   createContextId,
-  PropsOf,
+  type PropsOf,
   Slot,
   useContextProvider,
-  Signal,
+  type Signal,
 } from '@builder.io/qwik';
-
-import { Carousel as HCarousel } from '@qwik-ui/headless';
-import { cn } from '@qwik-ui/utils';
-import { buttonVariants } from '../button/button';
-import { VariantProps } from 'class-variance-authority';
+import type { VariantProps } from 'class-variance-authority';
 import {
   LuChevronDown,
   LuChevronLeft,
   LuChevronRight,
   LuChevronUp,
 } from '@qwikest/icons/lucide';
+import { Carousel as HCarousel } from '@qwik-ui/headless';
+import { cn } from '@qwik-ui/utils';
+
+import { buttonVariants } from '../button/button';
 
 const styledCarouselContextId = createContextId<{
   orientation: 'horizontal' | 'vertical';
