@@ -1,5 +1,11 @@
 # qwik-ui
 
+## 0.4.3
+
+### Patch Changes
+
+- 🐞🩹 the cli now supports handling tailwind import with simple quotes (by [@maiieul](https://github.com/maiieul) in [#1153](https://github.com/qwikifiers/qwik-ui/pull/1153))
+
 ## 0.4.2
 
 ### Patch Changes
