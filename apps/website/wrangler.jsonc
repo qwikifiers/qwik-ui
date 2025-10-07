@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "qwik-ui-site",
+	"name": "qwik-ui",
 	"compatibility_date": "2025-09-27",
 	"assets": {
 		// The path to the directory containing the `index.html` file to be served at `/`
