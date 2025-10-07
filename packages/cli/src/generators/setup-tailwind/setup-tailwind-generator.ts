@@ -47,7 +47,11 @@ function updateRootCss(
 
   console.log('rootCssContent', rootCssContent);
 
-  const tailwindBaseImport = '@import "tailwindcss";';
+  // support both single and double quote variants
+  const tailwindBaseImportVariants = ['@import "tailwindcss";', "@import 'tailwindcss';"];
+  const tailwindBaseImport =
+    tailwindBaseImportVariants.find((imp) => rootCssContent?.includes(imp)) ??
+    tailwindBaseImportVariants[0];
 
   const rootCssContentWithoutTailwindBaseImport = rootCssContent.replace(
     tailwindBaseImport,

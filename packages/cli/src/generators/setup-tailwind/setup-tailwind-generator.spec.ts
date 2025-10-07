@@ -4,7 +4,7 @@ import { SetupTailwindGeneratorSchema } from './schema';
 import { setupTailwindGenerator } from './setup-tailwind-generator';
 
 describe('Setup Tailwind generator', () => {
-  function setupWithProperFiles() {
+  function setupWithProperFiles(tailwindImport = '@import "tailwindcss";') {
     const options: SetupTailwindGeneratorSchema = {};
     const tree = createTreeWithEmptyWorkspace();
 
@@ -16,7 +16,7 @@ describe('Setup Tailwind generator', () => {
           color: red;
         }
 
-        @import "tailwindcss";
+        ${tailwindImport}
       `,
     );
 
@@ -26,18 +26,22 @@ describe('Setup Tailwind generator', () => {
     };
   }
 
-  test(`
+  const importVariants = ['@import "tailwindcss";', "@import 'tailwindcss';"];
+
+  test.each(importVariants)(
+    `
     GIVEN no options are passed
-    THEN it should generate "simple" style with primary color "cyan-600", base color "slate" and border-radius 0`, async () => {
-    const { tree, options } = setupWithProperFiles();
+    THEN it should generate "simple" style with primary color "cyan-600", base color "slate" and border-radius 0 (base import: %s)`,
+    async (importVariant) => {
+      const { tree, options } = setupWithProperFiles(importVariant);
 
-    options.rootCssPath = 'src/global.css';
+      options.rootCssPath = 'src/global.css';
 
-    await setupTailwindGenerator(tree, options);
+      await setupTailwindGenerator(tree, options);
 
-    const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
+      const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
 
-    expect(updatedGlobalCssContent).toMatchInlineSnapshot(`
+      expect(updatedGlobalCssContent).toMatchInlineSnapshot(`
       "test {
         color: red;
       }
@@ -217,22 +221,25 @@ describe('Setup Tailwind generator', () => {
       }
       "
     `);
-  });
-  test(`
+    },
+  );
+  test.each(importVariants)(
+    `
     GIVEN style is "brutalist" and primary color is "red-600" and border-radius is 1
-    THEN it should generate the correct theme`, async () => {
-    const { tree, options } = setupWithProperFiles();
+    THEN it should generate the correct theme (base import: %s)`,
+    async (importVariant) => {
+      const { tree, options } = setupWithProperFiles(importVariant);
 
-    options.rootCssPath = 'src/global.css';
-    options.borderRadius = ThemeBorderRadiuses['BORDER-RADIUS-1'];
-    options.primaryColor = ThemePrimaryColors.RED600;
-    options.style = ThemeStyles.BRUTALIST;
+      options.rootCssPath = 'src/global.css';
+      options.borderRadius = ThemeBorderRadiuses['BORDER-RADIUS-1'];
+      options.primaryColor = ThemePrimaryColors.RED600;
+      options.style = ThemeStyles.BRUTALIST;
 
-    await setupTailwindGenerator(tree, options);
+      await setupTailwindGenerator(tree, options);
 
-    const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
+      const updatedGlobalCssContent = tree.read('src/global.css', 'utf-8');
 
-    expect(updatedGlobalCssContent).toMatchInlineSnapshot(`
+      expect(updatedGlobalCssContent).toMatchInlineSnapshot(`
       "test {
         color: red;
       }
@@ -406,5 +413,6 @@ describe('Setup Tailwind generator', () => {
       }
       "
     `);
-  });
+    },
+  );
 });
