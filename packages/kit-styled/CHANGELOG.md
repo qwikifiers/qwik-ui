@@ -1,5 +1,11 @@
 # @qwik-ui/styled
 
+## 0.4.1
+
+### Patch Changes
+
+- 🐞🩹 The styled carousel types now use the "type" keyword (by [@maiieul](https://github.com/maiieul) in [#1154](https://github.com/qwikifiers/qwik-ui/pull/1154))
+
 ## 0.4.0
 
 ### Minor Changes
@@ -7,7 +13,6 @@
 - ✨ Qwik UI has now fully migrated and updated the global.css config and components to use tailwind v4. You can copy/paste the components into your project(s) or use the CLI. (by [@maiieul](https://github.com/maiieul) in [#1122](https://github.com/qwikifiers/qwik-ui/pull/1122))
 
   ## Migration guide:
-
   - Make sure to commit any changes before you start the steps below
   - Run the `npx @tailwindcss/upgrade` script and let it do most of the work for you
   - Remove your tailwind.config.cjs and postcss.config.cjs
