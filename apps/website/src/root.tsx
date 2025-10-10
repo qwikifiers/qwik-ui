@@ -1,6 +1,5 @@
 import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
 import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
-import { Insights } from '@builder.io/qwik-labs';
 
 import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
 import { AppState } from './_state/app-state.type';
@@ -45,7 +44,7 @@ export default component$(() => {
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
         <script dangerouslySetInnerHTML={`(${collectSymbols})()`} />
-        <Insights publicApiKey={'1uelfebvo7l'} />
+        {/* <Insights publicApiKey={'j748wqs70n'} /> */}
       </head>
       <body lang="en">
         <ThemeProvider

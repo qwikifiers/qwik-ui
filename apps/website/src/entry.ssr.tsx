@@ -23,5 +23,6 @@ export default function (opts: RenderToStreamOptions) {
       lang: 'en-us',
       ...opts.containerAttributes,
     },
+    qwikLoader: 'inline',
   });
 }
