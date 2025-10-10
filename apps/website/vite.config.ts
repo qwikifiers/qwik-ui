@@ -7,10 +7,10 @@ import autoAPI from './auto-api';
 import { ShikiTransformer } from 'shiki';
 import tailwindcss from '@tailwindcss/vite';
 import { qwikInsights } from '@builder.io/qwik-labs/vite';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 export default defineConfig(async () => {
   const { default: shikiRehype } = await import('@shikijs/rehype');
-  // const { default: tailwindcss } = await import('@tailwindcss/vite');
   return {
     root: 'apps/website',
     plugins: [
@@ -37,7 +37,7 @@ export default defineConfig(async () => {
       }),
       qwikVite({
         lint: false,
-        debug: false,
+        debug: true,
         tsconfigFileNames: ['tsconfig.app.json'],
         client: {
           outDir: '../../dist/apps/website/client',
@@ -49,8 +49,8 @@ export default defineConfig(async () => {
       tsconfigPaths({ root: '../../' }),
       // Uncomment for debugging preview with http2 via https
       tailwindcss(),
-      // qwikInsights({ publicApiKey: '1uelfebvo7l' }),
-      // basicSsl(),
+      qwikInsights({ publicApiKey: 'j748wqs70n' }),
+      basicSsl(),
     ],
 
     server: {
