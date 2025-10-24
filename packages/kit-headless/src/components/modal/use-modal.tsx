@@ -19,31 +19,29 @@ export function useModal() {
     const { animationDuration, transitionDuration } = getComputedStyle(modal);
 
     if (animationDuration !== '0s') {
-      modal.addEventListener(
-        'animationend',
-        (e) => {
-          if (e.target === modal) {
-            delete modal.dataset.closing;
-            modal.classList.remove('modal-closing');
-            enableBodyScroll(modal);
-            modal.close();
-          }
-        },
-        { once: true },
-      );
+      const handler = (e: AnimationEvent) => {
+        if (e.target === modal) {
+          delete modal.dataset.closing;
+          modal.classList.remove('modal-closing');
+          enableBodyScroll(modal);
+          modal.close();
+          modal.removeEventListener('animationend', handler);
+        }
+      };
+
+      modal.addEventListener('animationend', handler);
     } else if (transitionDuration !== '0s') {
-      modal.addEventListener(
-        'transitionend',
-        (e) => {
-          if (e.target === modal) {
-            delete modal.dataset.closing;
-            modal.classList.remove('modal-closing');
-            enableBodyScroll(modal);
-            modal.close();
-          }
-        },
-        { once: true },
-      );
+      const handler = (e: TransitionEvent) => {
+        if (e.target === modal) {
+          delete modal.dataset.closing;
+          modal.classList.remove('modal-closing');
+          enableBodyScroll(modal);
+          modal.close();
+          modal.removeEventListener('transitionend', handler);
+        }
+      };
+
+      modal.addEventListener('transitionend', handler);
     } else if (animationDuration === '0s' && transitionDuration === '0s') {
       delete modal.dataset.closing;
       modal.classList.remove('modal-closing');
