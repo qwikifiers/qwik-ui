@@ -3,7 +3,6 @@
   [data-floating] {
     margin: unset;
     padding: unset;
-    border: unset;
     overflow: unset;
     position: absolute;
   }
@@ -14,7 +13,6 @@
   [data-floating] {
     margin: unset;
     padding: unset;
-    border: unset;
     overflow: unset;
     position: absolute;
   }

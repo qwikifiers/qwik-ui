@@ -6,7 +6,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@layer base {
+@layer theme {
   :root {
     --background: white;
     --foreground: var(--color-slate-900);
