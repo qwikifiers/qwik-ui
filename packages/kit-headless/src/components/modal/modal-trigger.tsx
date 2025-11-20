@@ -10,6 +10,7 @@ export const HModalTrigger = component$((props: PropsOf<'button'>) => {
 
   return (
     <button
+      type="button"
       aria-haspopup="dialog"
       aria-expanded={context.showSig.value}
       data-open={context.showSig.value ? '' : undefined}

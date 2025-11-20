@@ -91,6 +91,7 @@ export const HTooltipTrigger = component$((props: PropsOf<'button'>) => {
 
   return (
     <button
+      type="button"
       ref={context.triggerRef}
       onMouseOver$={[preventDefaultSync$, setTooltipOpen$]}
       onMouseLeave$={setTooltipClosed$}

@@ -75,6 +75,7 @@ export const HDropdownTrigger = component$<DropdownTriggerProps>((props) => {
 
   return (
     <button
+      type="button"
       data-trigger
       {...props}
       id={triggerId}

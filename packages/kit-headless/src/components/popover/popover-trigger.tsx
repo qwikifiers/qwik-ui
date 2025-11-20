@@ -60,6 +60,7 @@ export const HPopoverTrigger = component$<PopoverTriggerProps>(
 
     return (
       <button
+        type="button"
         {...props}
         ref={context.triggerRef}
         id={triggerId}

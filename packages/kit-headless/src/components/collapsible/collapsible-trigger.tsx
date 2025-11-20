@@ -16,6 +16,7 @@ export const HCollapsibleTrigger = component$<PropsOf<'button'>>(
 
     return (
       <button
+        type="button"
         {...props}
         id={triggerId}
         ref={context.triggerRef}

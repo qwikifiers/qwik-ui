@@ -130,6 +130,7 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
 
   return (
     <button
+      type="button"
       {...props}
       id={triggerId}
       ref={triggerRef}
