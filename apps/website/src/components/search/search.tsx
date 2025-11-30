@@ -5,8 +5,8 @@ import {
   useOnWindow,
   useSignal,
   useTask$,
+  isServer,
 } from '@qwik.dev/core';
-import { isServer } from '@qwik.dev/core/build';
 import { Combobox, Modal } from '@qwik-ui/styled';
 import { buttonVariants } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
@@ -128,6 +128,8 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
       class="w-full"
       mode="inline"
       filter={false}
+      multiple={false}
+      // @ts-expect-error -- weird type resolution
       onChange$={$((value: string | string[]) => {
         if (typeof value === 'string') {
           window.location.href = value;

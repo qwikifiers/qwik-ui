@@ -1,6 +1,8 @@
 packages:
   - packages/*
 
+minimumReleaseAge: 10080
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@swc/core'
@@ -14,7 +16,5 @@ onlyBuiltDependencies:
   - tree-sitter-typescript
   - unrs-resolver
   - workerd
-
-minimumReleaseAge: 10080
 
 trustPolicy: no-downgrade

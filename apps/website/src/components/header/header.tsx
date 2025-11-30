@@ -38,19 +38,19 @@ export default component$(({ showVersion = false }: HeaderProps) => {
     .sidebar-mobile::backdrop {
       background: rgba(0,0,0,0.5);
     }
-  
+
     .sidebar-mobile {
       animation: sidebarOpen 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-  
+
     .sidebar-mobile::backdrop {
       animation: sidebarFadeIn 0.75s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-  
+
     .sidebar-mobile.modal-closing {
       animation: sidebarClose 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
-  
+
     .sidebar-mobile.modal-closing::backdrop {
       animation: sidebarFadeOut 0.35s forwards cubic-bezier(0.6, 0.6, 0, 1);
     }
@@ -65,7 +65,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         transform: translateX(0%);
       }
     }
-  
+
     @keyframes sidebarClose {
       from {
         opacity: 1;
@@ -76,7 +76,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         transform: translateX(100%);
       }
     }
-  
+
     @keyframes sidebarFadeIn {
       from {
         opacity: 0;
@@ -85,7 +85,7 @@ export default component$(({ showVersion = false }: HeaderProps) => {
         opacity: 1;
       }
     }
-  
+
     @keyframes sidebarFadeOut {
       from {
         opacity: 1;
@@ -239,12 +239,12 @@ const DarkModeToggle = component$<PropsOf<typeof Button>>(({ ...props }) => {
         (themeSig.value = await switchLightDark(themeSig.value || 'light'))
       }
     >
-      <div class="hidden dark:block">
+      <span class="hidden dark:block">
         <LuMoon class="h-6 w-6" />
-      </div>
-      <div class="block dark:hidden">
+      </span>
+      <span class="block dark:hidden">
         <LuSun class="h-6 w-6" />
-      </div>
+      </span>
     </Button>
   );
 });
