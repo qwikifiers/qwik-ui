@@ -1,4 +1,4 @@
-import type { PropsOf } from '@builder.io/qwik';
+import type { PropsOf } from '@qwik.dev/core';
 import {
   component$,
   useContext,
@@ -7,8 +7,8 @@ import {
   useId,
   useSignal,
   useTask$,
-} from '@builder.io/qwik';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
+} from '@qwik.dev/core';
+import { isBrowser, isServer } from '@qwik.dev/core';
 
 import {
   Direction,
@@ -111,7 +111,7 @@ export const HToggleGroupItem = component$<ToggleGroupItemProps>((props) => {
 
     Still, the order how items render is correct.
 
-    So we doing stuff on the client (CSR, onKeyDown, etc) 
+    So we doing stuff on the client (CSR, onKeyDown, etc)
     we can't use rootApiContext.getAllItem$() as we get Items "out of order").
     Perhaps this can be fix in v2?
 

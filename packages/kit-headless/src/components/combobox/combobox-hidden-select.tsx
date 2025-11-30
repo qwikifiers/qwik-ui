@@ -1,4 +1,4 @@
-import { PropsOf, component$, useContext, useSignal } from '@builder.io/qwik';
+import { PropsOf, component$, useContext, useSignal } from '@qwik.dev/core';
 import { comboboxContextId } from './combobox-context';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 import { ComboboxHiddenSelectOption } from './combobox-hidden-option';

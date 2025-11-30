@@ -7,14 +7,14 @@ import {
   useSignal,
   useStyles$,
   useTask$,
-  type CorrectedToggleEvent,
   type PropsOf,
-} from '@builder.io/qwik';
+  isServer,
+} from '@qwik.dev/core';
 
-import { isServer } from '@builder.io/qwik/build';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { popoverContextId } from './popover-types';
 import popoverStyles from './popover.css?inline';
+import { type CorrectedToggleEvent } from '@qwik.dev/core/internal';
 
 // We don't need a provider, that way we connect all context to the root
 const ensureContextId = createContextId('qui-popover-null-context');

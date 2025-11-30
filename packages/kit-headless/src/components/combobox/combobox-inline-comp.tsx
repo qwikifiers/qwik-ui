@@ -1,4 +1,4 @@
-import { Component, JSXChildren } from '@builder.io/qwik';
+import { Component, JSXChildren } from '@qwik.dev/core';
 import { HComboboxRootImpl, HComboboxRootImplProps } from './combobox-root';
 import { HComboboxItem as InternalComboboxItem } from './combobox-item';
 import { HComboboxItemLabel as InternalComboboxItemLabel } from './combobox-item-label';

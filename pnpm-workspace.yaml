@@ -14,3 +14,7 @@ onlyBuiltDependencies:
   - tree-sitter-typescript
   - unrs-resolver
   - workerd
+
+minimumReleaseAge: 10080
+
+trustPolicy: no-downgrade
