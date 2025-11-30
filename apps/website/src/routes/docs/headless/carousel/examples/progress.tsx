@@ -1,4 +1,4 @@
-import { component$, PropsOf, useSignal, useStyles$ } from '@builder.io/qwik';
+import { component$, PropsOf, useSignal, useStyles$ } from '@qwik.dev/core';
 import { Carousel, Progress } from '@qwik-ui/headless';
 import styles from '../../progress/snippets/progress.css?inline';
 

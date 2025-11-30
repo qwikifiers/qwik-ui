@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Card, Carousel } from '@qwik-ui/styled';
 import { LuChevronDown } from '@qwikest/icons/lucide';
 import { LuChevronUp } from '@qwikest/icons/lucide';

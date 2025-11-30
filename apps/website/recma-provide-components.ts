@@ -105,7 +105,7 @@ export const recmaProvideComponents: Plugin<any, Program> = () => {
           local: { type: 'Identifier', name: '_inlinedQrl' },
         },
       ],
-      source: { type: 'Literal', value: '@builder.io/qwik' },
+      source: { type: 'Literal', value: '@qwik.dev/core' },
     });
   };
 };

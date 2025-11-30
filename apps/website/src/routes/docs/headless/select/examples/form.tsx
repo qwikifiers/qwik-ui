@@ -1,4 +1,4 @@
-import { component$, useStyles$, $, useSignal } from '@builder.io/qwik';
+import { component$, useStyles$, $, useSignal } from '@qwik.dev/core';
 import { Select } from '@qwik-ui/headless';
 import { LuCheck } from '@qwikest/icons/lucide';
 

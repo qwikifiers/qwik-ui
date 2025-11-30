@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { CodeSnippet } from '~/components/code-snippet/code-snippet';
 
 import LongSnippet from './snippets/long.tsx?raw';

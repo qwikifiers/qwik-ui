@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Popover, usePopover } from '@qwik-ui/headless';
 export default component$(() => {
   const { hidePopover } = usePopover('hide-id');
