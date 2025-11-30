@@ -128,7 +128,6 @@ export const Search = component$(({ isOpen }: { isOpen: Signal<boolean> }) => {
       class="w-full"
       mode="inline"
       filter={false}
-      multiple={false}
       // @ts-expect-error -- weird type resolution
       onChange$={$((value: string | string[]) => {
         if (typeof value === 'string') {

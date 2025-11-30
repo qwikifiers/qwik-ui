@@ -1,8 +1,6 @@
 packages:
   - packages/*
 
-minimumReleaseAge: 10080
-
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@swc/core'
@@ -18,3 +16,5 @@ onlyBuiltDependencies:
   - workerd
 
 trustPolicy: no-downgrade
+
+minimumReleaseAge: 10080
