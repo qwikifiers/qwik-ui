@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.5
+
+### Patch Changes
+
+- 🐞🩹 the qwik-ui @layer no longer overrides borders (by [@maiieul](https://github.com/maiieul) in [#1165](https://github.com/qwikifiers/qwik-ui/pull/1165))
+
 ## 0.7.4
 
 ### Patch Changes
