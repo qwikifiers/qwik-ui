@@ -1,55 +1,55 @@
 export const api = {
-  select: [
+  "select": [
     {
-      'hidden-select-option': [],
+      "hidden-select-option": []
     },
     {
-      'hidden-select': [],
+      "hidden-select": []
     },
     {
-      'select-description': [],
+      "select-description": []
     },
     {
-      'select-display-value': [],
+      "select-display-value": []
     },
     {
-      'select-error-message': [],
+      "select-error-message": []
     },
     {
-      'select-group-label': [],
+      "select-group-label": []
     },
     {
-      'select-group': [],
+      "select-group": []
     },
     {
-      'select-inline': [],
+      "select-inline": []
     },
     {
-      'select-item-indicator': [],
+      "select-item-indicator": []
     },
     {
-      'select-item-label': [],
+      "select-item-label": []
     },
     {
-      'select-item': [],
+      "select-item": []
     },
     {
-      'select-label': [],
+      "select-label": []
     },
     {
-      'select-listbox': [],
+      "select-listbox": []
     },
     {
-      'select-popover': [],
+      "select-popover": []
     },
     {
-      'select-root': [],
+      "select-root": []
     },
     {
-      'select-trigger': [],
+      "select-trigger": []
     },
     {
-      'use-select': [],
-    },
-  ],
+      "use-select": []
+    }
+  ]
 };

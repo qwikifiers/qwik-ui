@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@qwik.dev/core';
 import { Popover } from '@qwik-ui/headless';
 
 type InfoProps = {
@@ -12,20 +12,20 @@ export const InfoPopup = component$((props: InfoProps) => {
     transition-behavior: allow-discrete;
     opacity: 0;
   }
-  
+
   .fade-info.popover-showing {
     opacity: 1;
   }
-  
+
   .fade-info.popover-closing {
     opacity: 0;
-  }  
+  }
   `);
 
   return (
     <Popover.Root flip={false} floating="top" gutter={4}>
       <Popover.Trigger class="flex items-center justify-center">
-        <div class="hover:bg-opacity-50 rounded-full p-1 hover:bg-slate-300">
+        <span class="hover:bg-opacity-50 rounded-full p-1 hover:bg-slate-300">
           <svg
             width="16"
             height="16"
@@ -42,7 +42,7 @@ export const InfoPopup = component$((props: InfoProps) => {
               clip-rule="evenodd"
             ></path>
           </svg>
-        </div>
+        </span>
       </Popover.Trigger>
 
       <Popover.Panel class="fade-info listbox rounded-base bg-transparent">

@@ -1,4 +1,4 @@
-import type { PropsOf, QRL, Signal } from '@builder.io/qwik';
+import type { PropsOf, QRL, Signal } from '@qwik.dev/core';
 import {
   component$,
   useContextProvider,
@@ -6,7 +6,7 @@ import {
   useTask$,
   $,
   useStyles$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import {
   toggleGroupRootApiContextId,
   type Direction,
@@ -14,7 +14,7 @@ import {
   type ToggleGroupRootApiContext,
 } from './toggle-group-context';
 import { useToggleGroup } from './use-toggle';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
+import { isBrowser, isServer } from '@qwik.dev/core';
 import styles from './toggle-group.css?inline';
 
 export type ToggleGroupBaseProps = {
@@ -166,7 +166,7 @@ export const HToggleGroupRoot = component$<ToggleGroupRootProps>((props) => {
 
   const setTabIndexInCSR = $(async () => {
     /*
-    Note: given a "single" toggle group with one item already pressed. 
+    Note: given a "single" toggle group with one item already pressed.
     - if we use: const allItems = rootApiContext.itemsCSR.value;
     - and we lookup for the currentPressedItems, we will get 2 items (the previous and the current)
     For that reason to get the currentPressedItems we use: rootApiContext.getAllItem$()
@@ -174,19 +174,19 @@ export const HToggleGroupRoot = component$<ToggleGroupRootProps>((props) => {
     as rootApiContext.getAllItem$() will be "out of order".
 
     Ideally, if rootApiContext.getAllItem$() would be in appropriate order, we could use the same logic
-    for SSR and CSR. 
+    for SSR and CSR.
     In should be the case in v2, so we will refactor so both SSR and CSR will use the same API.
 
 
     The other solution that I consider was:
     to have a similar logic "setTabIndexInCSR" but this time which only use the refs
-    meaning (rootApiContext.itemsCSR.value) within the "toggle-group-item": 
+    meaning (rootApiContext.itemsCSR.value) within the "toggle-group-item":
       useTask$(async ({ track }) => {
         if (isServer) return;
         track(() => rootApiContext.pressedValuesSig.value);
           await setTabIndexInCSR();
       });
-    
+
     However, I decide to use that function in Root to avoid execute that same logic X times
     (X being the number of items) and the fact that Items are consumers that should work in isolation.
     They should not execute logic for other Items. This is what Root should do.
@@ -223,7 +223,7 @@ export const HToggleGroupRoot = component$<ToggleGroupRootProps>((props) => {
     Unfortunately, rootApiContext.itemsCSR.value is empty because in the toggle-group-item
     the first useTask is tracking the pressedValue changes.
     If we put that task at the bottom, we will get the register itemsRef in rootApiContext.itemsCSR.value.
-    However it will cause other missbehaviors. 
+    However it will cause other missbehaviors.
 
     Instead the safe way is to populate manually using the "document".
     In v2, we will not this all those workarounds as the items will be in order and we will use the same API for both SSR and CSR.

@@ -5,7 +5,7 @@ import {
   useComputed$,
   useContext,
   $,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { carouselContextId } from './context';
 
 type AllowedElements = 'button' | 'a' | 'div' | 'span';
