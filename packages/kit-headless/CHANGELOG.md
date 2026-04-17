@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.6
+
+### Patch Changes
+
+- 🐞🩹 onClose$ now doesn't fire if the show prop is set to false by default (by [@FHachez](https://github.com/FHachez) in [#1175](https://github.com/qwikifiers/qwik-ui/pull/1175))
+
+- 🐞🩹 fix modal backdrop close click handling (by [@VEH9](https://github.com/VEH9) in [#1173](https://github.com/qwikifiers/qwik-ui/pull/1173))
+
 ## 0.7.5
 
 ### Patch Changes
