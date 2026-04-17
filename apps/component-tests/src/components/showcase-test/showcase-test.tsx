@@ -11,9 +11,20 @@ export const ShowcaseTest = component$(() => {
   const MetaGlobComponentSig = useSignal<Component<any>>();
 
   useTask$(async () => {
-    MetaGlobComponentSig.value =
-      await // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (metaGlobComponents[componentPath] as () => Promise<Component<any>>)();
+    const componentLoader = metaGlobComponents[componentPath] as
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (() => Promise<Component<any>>) | undefined;
+
+    if (!componentLoader) {
+      MetaGlobComponentSig.value = undefined;
+      return;
+    }
+
+    try {
+      MetaGlobComponentSig.value = await componentLoader();
+    } catch {
+      MetaGlobComponentSig.value = undefined;
+    }
   });
 
   return (
