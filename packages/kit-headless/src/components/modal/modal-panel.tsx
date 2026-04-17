@@ -40,6 +40,7 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
   const context = useContext(modalContextId);
 
   const panelRef = useSignal<HTMLDialogElement>();
+  const wasOpenSig = useSignal(false);
 
   useTask$(async function toggleModal({ track, cleanup }) {
     const isOpen = track(() => context.showSig.value);
@@ -69,11 +70,12 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
   });
 
   useTask$(async ({ track }) => {
-    track(() => context.showSig.value);
+    const isOpen = track(() => context.showSig.value);
 
-    if (context.showSig.value) {
+    if (isOpen) {
+      wasOpenSig.value = true;
       await context.onShow$?.();
-    } else {
+    } else if (wasOpenSig.value) {
       await context.onClose$?.();
     }
   });
