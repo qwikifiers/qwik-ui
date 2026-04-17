@@ -234,6 +234,67 @@ test.describe('Nested Modals', () => {
   });
 });
 
+test.describe('Callbacks', () => {
+  test(`GIVEN a modal with bind:show defaulting to false
+        WHEN the page loads
+        THEN onClose$ should NOT be called`, async ({ page }) => {
+    await setup(page, 'test-callbacks');
+
+    await expect(page.getByTestId('close-count')).toHaveText('onClose count: 0');
+  });
+
+  test(`GIVEN a modal with bind:show defaulting to false
+        WHEN the page loads
+        THEN onShow$ should NOT be called`, async ({ page }) => {
+    await setup(page, 'test-callbacks');
+
+    await expect(page.getByTestId('show-count')).toHaveText('onShow count: 0');
+  });
+
+  test(`GIVEN a closed modal
+        WHEN the modal is opened
+        THEN onShow$ should be called once`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-callbacks');
+
+    await d.getTrigger().click();
+    await expect(d.getModal()).toBeVisible();
+
+    await expect(page.getByTestId('show-count')).toHaveText('onShow count: 1');
+  });
+
+  test(`GIVEN an open modal
+        WHEN the modal is closed
+        THEN onClose$ should be called once`, async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-callbacks');
+
+    await d.getTrigger().click();
+    await expect(d.getModal()).toBeVisible();
+
+    await page.getByRole('button', { name: 'Close' }).click();
+    await expect(d.getModal()).toBeHidden();
+
+    await expect(page.getByTestId('close-count')).toHaveText('onClose count: 1');
+  });
+
+  test(`GIVEN a modal opened and closed twice
+        WHEN the modal is opened and closed a second time
+        THEN onShow$ and onClose$ should each have been called twice`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-callbacks');
+
+    for (let i = 0; i < 2; i++) {
+      await d.getTrigger().click();
+      await expect(d.getModal()).toBeVisible();
+      await page.getByRole('button', { name: 'Close' }).click();
+      await expect(d.getModal()).toBeHidden();
+    }
+
+    await expect(page.getByTestId('show-count')).toHaveText('onShow count: 2');
+    await expect(page.getByTestId('close-count')).toHaveText('onClose count: 2');
+  });
+});
+
 test.describe('A11y', () => {
   test('Axe Validation Test', async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
