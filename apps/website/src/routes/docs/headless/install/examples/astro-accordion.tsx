@@ -1,4 +1,4 @@
-import { PropsOf, component$, useStyles$ } from '@builder.io/qwik';
+import { PropsOf, component$, useStyles$ } from '@qwik.dev/core';
 import { Accordion } from '@qwik-ui/headless';
 
 export default component$(() => {

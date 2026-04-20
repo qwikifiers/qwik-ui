@@ -1,4 +1,4 @@
-import { component$, PropsOf, Slot, useContext } from '@builder.io/qwik';
+import { component$, PropsOf, Slot, useContext } from '@qwik.dev/core';
 import { comboboxContextId } from './combobox-context';
 
 export const ComboboxInline = component$((props: PropsOf<'div'>) => {

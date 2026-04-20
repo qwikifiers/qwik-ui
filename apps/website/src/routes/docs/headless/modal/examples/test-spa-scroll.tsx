@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@qwik.dev/core';
 import { Modal, Label } from '@qwik-ui/headless';
 
 export default component$(() => {
@@ -32,4 +32,4 @@ export default component$(() => {
 
 // internal
 import styles from '../snippets/modal.css?inline';
-import { Link } from '@builder.io/qwik-city';
+import { Link } from '@qwik.dev/router';

@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 import { LuChevronsUpDown } from '@qwikest/icons/lucide';
 import { buttonVariants, Collapsible } from '~/components/ui';

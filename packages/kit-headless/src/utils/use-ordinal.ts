@@ -1,4 +1,4 @@
-import { NoSerialize, noSerialize } from '@builder.io/qwik';
+import { NoSerialize, noSerialize } from '@qwik.dev/core';
 
 export const useOrdinal: () => NoSerialize<(n: number) => string> = () => {
   return noSerialize((n) => {

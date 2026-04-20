@@ -1,4 +1,4 @@
-import { component$, PropsOf, Slot, useContext } from '@builder.io/qwik';
+import { component$, PropsOf, Slot, useContext } from '@qwik.dev/core';
 import { carouselContextId } from './context';
 
 /** Used to distinguish accessible label from other carousels */

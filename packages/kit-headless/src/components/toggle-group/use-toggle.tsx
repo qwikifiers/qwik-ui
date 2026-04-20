@@ -1,4 +1,4 @@
-import { $, Signal, useId, useSignal } from '@builder.io/qwik';
+import { $, Signal, useId, useSignal } from '@qwik.dev/core';
 
 import { Item, ItemId } from './toggle-group-context';
 import {

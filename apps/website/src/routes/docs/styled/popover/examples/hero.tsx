@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Input, Label, Popover, buttonVariants } from '~/components/ui';
 
 export default component$(() => {

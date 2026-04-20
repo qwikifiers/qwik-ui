@@ -1,4 +1,4 @@
-// import { component$, useSignal, useStyles$ } from '@builder.io/qwik';
+// import { component$, useSignal, useStyles$ } from '@qwik.dev/core';
 // import { Checkbox, Checklist } from '@qwik-ui/headless';
 // export default component$(() => {
 //   const firstUserSig = useSignal(false);
