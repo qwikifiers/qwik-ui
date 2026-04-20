@@ -7,7 +7,6 @@ import {
   useSignal,
   useStyles$,
   useTask$,
-  type CorrectedToggleEvent,
   type PropsOf,
 } from '@qwik.dev/core';
 
@@ -56,7 +55,7 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
     }, 0);
   }
 
-  useTask$(async ({ track, cleanup }) => {
+  useTask$(async ({ track }) => {
     track(() => teleportSig.value);
 
     if (isServer) return;
@@ -96,8 +95,6 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
       }
 
       document.dispatchEvent(new CustomEvent('showpopoverpoly'));
-
-      cleanup(() => context.panelRef?.value);
     }
   });
 
@@ -110,7 +107,7 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
         (context.manual && 'manual') || props.popover === 'manual' ? 'manual' : 'auto'
       }
       onBeforeToggle$={[
-        $(async (e) => {
+        $(async (e: any) => {
           if (!context.panelRef?.value) return;
 
           const popover = context.panelRef.value;
@@ -127,7 +124,7 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
         props.onBeforeToggle$,
       ]}
       onToggle$={[
-        $((e: CorrectedToggleEvent) => {
+        $((e: any) => {
           context.isOpenSig.value = e.newState === 'open';
 
           if (!context.panelRef?.value) return;

@@ -14,7 +14,7 @@ export const HTooltipPanel = component$((props: HTooltipPanelProps) => {
     <HPopoverPanel
       {...props}
       role="tooltip"
-      onToggle$={(e) => context.onOpenChange$(e.newState)}
+      onToggle$={(e: any) => context.onOpenChange$(e.newState)}
       id={context.localId}
     >
       <Slot />

@@ -12,7 +12,7 @@ export type TooltipContext = {
 
   state: Signal<TriggerDataState>;
 
-  onOpenChange$: QRL<(state: 'open' | 'closed') => void>;
+  onOpenChange$: QRL<(state: 'open' | 'closed' | string) => void>;
 };
 
 export type TriggerDataState = 'closing' | 'closed' | 'opening' | 'open';
