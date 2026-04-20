@@ -239,12 +239,12 @@ const DarkModeToggle = component$<PropsOf<typeof Button>>(({ ...props }) => {
         (themeSig.value = await switchLightDark(themeSig.value || 'light'))
       }
     >
-      <div class="hidden dark:block">
+      <span class="hidden dark:block">
         <LuMoon class="h-6 w-6" />
-      </div>
-      <div class="block dark:hidden">
+      </span>
+      <span class="block dark:hidden">
         <LuSun class="h-6 w-6" />
-      </div>
+      </span>
     </Button>
   );
 });
