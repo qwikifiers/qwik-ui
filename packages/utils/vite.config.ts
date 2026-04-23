@@ -5,6 +5,7 @@ import * as path from 'path';
 import dts from 'vite-plugin-dts';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
+import { qwikVite } from '@qwik.dev/core/optimizer';
 
 const { dependencies = {}, peerDependencies = {} } = pkg as any;
 const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
@@ -30,6 +31,7 @@ export default defineConfig({
     viteTsConfigPaths({
       root: '../../',
     }),
+    qwikVite(),
     nxViteTsPaths(),
   ],
 
