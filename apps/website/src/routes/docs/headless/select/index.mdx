@@ -5,7 +5,7 @@ title: Qwik UI | Select
 import { FeatureList } from '~/components/feature-list/feature-list';
 import { statusByComponent } from '~/_state/component-statuses';
 
-import { ShowcaseHero, ShowcaseString, ShowcaseObject, ShowcaseItemValue, ShowcaseChangeValue, ShowcaseForm, ShowcaseValidation, ShowcaseDescription, ShowcaseUncontrolled, ShowcaseControlled, ShowcaseBindOpen, ShowcaseControlledValue, ShowcaseDisabled, ShowcaseAddUsers, ShowcaseIndicator, ShowcaseMultiple, ShowcaseMultiplePill, ShowcaseTypeahead, ShowcaseOpenChange, ShowcaseLoop, ShowcaseGroup, ShowcaseScrollable, ShowcaseCsr, ShowcaseFirstValueSelected } from './showcase-components';
+import { ShowcaseHero, ShowcaseString, ShowcaseObject, ShowcaseItemValue, ShowcaseChangeValue, ShowcaseForm, ShowcaseDescription, ShowcaseUncontrolled, ShowcaseControlled, ShowcaseBindOpen, ShowcaseControlledValue, ShowcaseDisabled, ShowcaseAddUsers, ShowcaseIndicator, ShowcaseMultiple, ShowcaseMultiplePill, ShowcaseTypeahead, ShowcaseOpenChange, ShowcaseLoop, ShowcaseGroup, ShowcaseScrollable, ShowcaseCsr, ShowcaseFirstValueSelected } from './showcase-components';
 import { CodeSnippetBuildingBlocks, CodeSnippetSelectCss } from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Select} />
@@ -163,14 +163,6 @@ To use the select in a form, we provide a visually hidden native select element 
 <ShowcaseForm />
 
 The native select element is created when a form name has been given to `<Select.Root />`
-
-### Validation
-
-<ShowcaseValidation />
-
-The `<Select.ErrorMessage />` component is used to display errors when the select is invalid.
-
-To style based on the invalid state, use the `data-invalid` data attribute.
 
 ### Descriptions
 

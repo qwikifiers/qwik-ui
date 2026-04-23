@@ -61,16 +61,6 @@ export const ShowcaseForm = component$(() => {
   );
 });
 
-import Validation from './examples/validation';
-import ValidationRawCode from './examples/validation.tsx?raw';
-export const ShowcaseValidation = component$(() => {
-  return (
-    <Showcase rawCode={ValidationRawCode}>
-      <Validation />
-    </Showcase>
-  );
-});
-
 import Description from './examples/description';
 import DescriptionRawCode from './examples/description.tsx?raw';
 export const ShowcaseDescription = component$(() => {

@@ -9,7 +9,7 @@ export default component$(() => {
       <Popover.Trigger class="popover-trigger">Popover Trigger</Popover.Trigger>
       <Popover.Panel
         class="popover-panel"
-        onToggle$={(e) => {
+        onToggle$={(e: any) => {
           toggleStatus.value = e.newState;
         }}
       >

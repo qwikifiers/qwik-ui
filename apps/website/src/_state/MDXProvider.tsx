@@ -1,9 +1,9 @@
+import type { Component } from '@qwik.dev/core';
 import {
-  Component,
+  Slot,
   component$,
   createContextId,
   useContext,
-  Slot,
   useContextProvider,
 } from '@qwik.dev/core';
 

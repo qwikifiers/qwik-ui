@@ -17,7 +17,7 @@
     "build.client": {
       "executor": "@nx/vite:build",
       "options": {
-        "outputPath": "dist/apps/component-tests",
+        "outputPath": "dist/apps/component-tests/dist",
         "configFile": "apps/component-tests/vite.config.ts"
       }
     },
@@ -25,7 +25,7 @@
       "executor": "@nx/vite:build",
       "defaultConfiguration": "preview",
       "options": {
-        "outputPath": "dist/apps/component-tests"
+        "outputPath": "dist/apps/component-tests/server"
       },
       "configurations": {
         "preview": {

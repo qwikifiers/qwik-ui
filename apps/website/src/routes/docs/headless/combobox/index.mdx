@@ -4,7 +4,7 @@ title: Qwik UI | Combobox
 
 import { statusByComponent } from '~/_state/component-statuses';
 
-import { ShowcaseHero, ShowcaseString, ShowcaseObject, ShowcaseItemValue, ShowcaseChange, ShowcaseInitial, ShowcaseReactive, ShowcaseProgrammatic, ShowcaseDisabled, ShowcaseAddItems, ShowcaseIndicator, ShowcaseMultiple, ShowcasePlaceholder, ShowcaseCsr, ShowcaseInline, ShowcaseCustomInline, ShowcaseFilter, ShowcaseEmpty, ShowcaseOpenChange, ShowcaseReactiveOpen, ShowcaseInput, ShowcaseReactiveInput, ShowcaseLoop, ShowcaseGroup, ShowcaseScrollable, ShowcaseRefs, ShowcaseForm, ShowcaseValidation } from './showcase-components';
+import { ShowcaseHero, ShowcaseString, ShowcaseObject, ShowcaseItemValue, ShowcaseChange, ShowcaseInitial, ShowcaseReactive, ShowcaseProgrammatic, ShowcaseDisabled, ShowcaseAddItems, ShowcaseIndicator, ShowcaseMultiple, ShowcasePlaceholder, ShowcaseCsr, ShowcaseInline, ShowcaseCustomInline, ShowcaseFilter, ShowcaseEmpty, ShowcaseOpenChange, ShowcaseReactiveOpen, ShowcaseInput, ShowcaseReactiveInput, ShowcaseLoop, ShowcaseGroup, ShowcaseScrollable, ShowcaseRefs, ShowcaseForm } from './showcase-components';
 import { CodeSnippetBuildingBlocks, CodeSnippetComboboxCss } from './code-snippets';
 
 <StatusBanner status={statusByComponent.headless.Combobox} />
@@ -347,16 +347,6 @@ To use the combobox in a form, a visually hidden native select element is provid
 <ShowcaseForm />
 
 The `name` prop on the `Combobox.Root` component is used to name the Combobox form field.
-
-### Validation
-
-Form libaries like [Modular Forms](https://modularforms.dev/) can be used to validate the combobox form field.
-
-<ShowcaseValidation />
-
-When the `<Combobox.ErrorMessage>` component is rendered, the component is in an invalid state.
-
-> This allows you to use Qwik UI with any form validation library.
 
 ## Example CSS
 

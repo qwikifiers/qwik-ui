@@ -58,7 +58,6 @@
     "@floating-ui/dom": "^1.7.4",
     "@img/sharp-linux-x64": "^0.34.4",
     "@k11r/nx-cloudflare-wrangler": "3.5.0",
-    "@modular-forms/qwik": "^0.29.1",
     "@nx/devkit": "21.1.2",
     "@nx/eslint": "21.1.2",
     "@nx/eslint-plugin": "21.1.2",
@@ -141,8 +140,8 @@
     "vitest": "^1.6.1",
     "wrangler": "^4.40.2",
     "yargs": "^17.7.2",
-    "@qwik.dev/router": "2.0.0-beta.32",
-    "@qwik.dev/core": "2.0.0-beta.32"
+    "@qwik.dev/core": "link:../qwik-v2/packages/qwik",
+    "@qwik.dev/router": "link:../qwik-v2/packages/qwik-router"
   },
   "keywords": [
     "qwik",

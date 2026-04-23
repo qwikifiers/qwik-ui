@@ -2,7 +2,6 @@ import { qwikRouter } from '@qwik.dev/router/vite';
 import { qwikVite } from '@qwik.dev/core/optimizer';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { recmaProvideComponents } from './recma-provide-components';
 import autoAPI from './auto-api';
 import { ShikiTransformer } from 'shiki';
 import tailwindcss from '@tailwindcss/vite';
@@ -17,6 +16,17 @@ export default defineConfig(async () => {
     },
     plugins: [
       autoAPI(),
+      qwikVite({
+        lint: false,
+        debug: true,
+        tsconfigFileNames: ['tsconfig.app.json'],
+        client: {
+          outDir: '../../dist/apps/website/client',
+        },
+        ssr: {
+          outDir: '../../dist/apps/website/server',
+        },
+      }),
       qwikRouter({
         mdxPlugins: {
           rehypeSyntaxHighlight: false,
@@ -25,7 +35,7 @@ export default defineConfig(async () => {
         },
         mdx: {
           providerImportSource: '~/_state/MDXProvider',
-          recmaPlugins: [recmaProvideComponents],
+          // recmaPlugins: [recmaProvideComponents],
           rehypePlugins: [
             [
               shikiRehype,
@@ -35,17 +45,6 @@ export default defineConfig(async () => {
               },
             ],
           ],
-        },
-      }),
-      qwikVite({
-        lint: false,
-        debug: false,
-        tsconfigFileNames: ['tsconfig.app.json'],
-        client: {
-          outDir: '../../dist/apps/website/client',
-        },
-        ssr: {
-          outDir: '../../dist/apps/website/server',
         },
       }),
       tsconfigPaths({ root: '../../' }),
@@ -63,6 +62,7 @@ export default defineConfig(async () => {
     },
     build: {
       target: 'es2022',
+      minify: false,
     },
     preview: {
       headers: {

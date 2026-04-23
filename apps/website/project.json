@@ -31,7 +31,7 @@
     "build.client": {
       "executor": "@nx/vite:build",
       "options": {
-        "outputPath": "dist/apps/website",
+        "outputPath": "dist/apps/website/client",
         "configFile": "apps/website/vite.config.ts"
       }
     },
@@ -39,7 +39,7 @@
       "executor": "@nx/vite:build",
       "defaultConfiguration": "preview",
       "options": {
-        "outputPath": "dist/apps/website"
+        "outputPath": "dist/apps/website/server"
       },
       "configurations": {
         "preview": {
