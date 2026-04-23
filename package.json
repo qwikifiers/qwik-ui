@@ -132,7 +132,7 @@
     "undici": "6.21.3",
     "unified": "^11.0.5",
     "verdaccio": "6.1.2",
-    "vite": "7.1.7",
+    "vite": "8.0.10",
     "vite-plugin-dts": "4.5.4",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-inspect": "11.3.3",
@@ -140,8 +140,8 @@
     "vitest": "^1.6.1",
     "wrangler": "^4.40.2",
     "yargs": "^17.7.2",
-    "@qwik.dev/core": "link:../qwik-v2/packages/qwik",
-    "@qwik.dev/router": "link:../qwik-v2/packages/qwik-router"
+    "@qwik.dev/core": "https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@e0f7d4a",
+    "@qwik.dev/router": "https://pkg.pr.new/QwikDev/qwik/@qwik.dev/router@e0f7d4a"
   },
   "keywords": [
     "qwik",
