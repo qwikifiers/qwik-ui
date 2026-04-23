@@ -2,7 +2,7 @@ import { component$, useStyles$ } from '@qwik.dev/core';
 import { QwikRouterProvider, RouterOutlet } from '@qwik.dev/router';
 
 import { RouterHead } from './components/router-head/router-head';
-import globalStyles from './global.css?inline';
+import global from './global.css?inline';
 
 import { ThemeProvider } from '@qwik-ui/themes';
 
@@ -22,7 +22,7 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
-  useStyles$(globalStyles);
+  useStyles$(global);
 
   return (
     <QwikRouterProvider>

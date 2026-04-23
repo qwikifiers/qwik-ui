@@ -2,6 +2,7 @@ import { qwikVite } from '@qwik.dev/core/optimizer';
 import { qwikRouter } from '@qwik.dev/router/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import tailwindcss from '@tailwindcss/vite';
 
 const qwikLibs = ['@qwikest/icons'];
 export default defineConfig({
@@ -19,6 +20,7 @@ export default defineConfig({
       tsconfigFileNames: ['tsconfig.app.json'],
     }),
     tsconfigPaths({ root: '../../' }),
+    tailwindcss(),
   ],
 
   optimizeDeps: {
