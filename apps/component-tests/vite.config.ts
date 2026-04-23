@@ -3,6 +3,7 @@ import { qwikRouter } from '@qwik.dev/router/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+const qwikLibs = ['@qwikest/icons'];
 export default defineConfig({
   root: 'apps/component-tests',
   cacheDir: '../../node_modules/.vite/apps/component-tests',
@@ -19,6 +20,13 @@ export default defineConfig({
     }),
     tsconfigPaths({ root: '../../' }),
   ],
+
+  optimizeDeps: {
+    exclude: [...qwikLibs],
+  },
+  ssr: {
+    noExternal: [...qwikLibs],
+  },
   server: {
     fs: {
       // Allow serving files from the project root
