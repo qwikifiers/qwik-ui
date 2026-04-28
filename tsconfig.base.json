@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "@builder.io/qwik",
+    "jsxImportSource": "@qwik.dev/core",
     "baseUrl": ".",
     "paths": {
       "@qwik-ui/headless": ["packages/kit-headless/src/index.ts"],

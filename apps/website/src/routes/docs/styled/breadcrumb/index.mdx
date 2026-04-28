@@ -5,8 +5,6 @@ title: Qwik UI | Styled Breadcrumb Component
 import { statusByComponent } from '~/_state/component-statuses';
 import { ShowcasePrimary } from './showcase-components';
 
-<StatusBanner status={statusByComponent.styled.Breadcrumb} />
-
 # Breadcrumb
 
 Displays the path to the current resource using a hierarchy of links.
@@ -22,7 +20,7 @@ qwik-ui add breadcrumb
 ```
 
 ```tsx
-import { type PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { type PropsOf, Slot, component$ } from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 import { LuChevronRight } from '@qwikest/icons/lucide';
 

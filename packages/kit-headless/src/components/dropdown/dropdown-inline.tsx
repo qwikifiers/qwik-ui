@@ -1,4 +1,4 @@
-import { type JSXNode, Component } from '@builder.io/qwik';
+import { type JSXNode, Component } from '@qwik.dev/core';
 import { HDropdownImpl, type DropdownProps } from './dropdown-root';
 import { HDropdownItem as InternalDropdownItem } from './dropdown-item';
 import { HDropdownRadioItem as InternalDropdownRadioItem } from './dropdown-radio-item';

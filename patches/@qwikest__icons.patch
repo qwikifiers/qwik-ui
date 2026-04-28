@@ -1,0 +1,10 @@
+diff --git a/lib/icons/lu/lu.d.ts b/lib/icons/lu/lu.d.ts
+index 676449d6affef6e6c33289d2af19d74892110283..1cb75177db181d6d52d1f7629adda6c5ab14b876 100644
+--- a/lib/icons/lu/lu.d.ts
++++ b/lib/icons/lu/lu.d.ts
+@@ -1,4 +1,4 @@
+-import type { JSXNode } from '@builder.io/qwik';
++import type { JSXNode } from '@qwik.dev/core';
+ import type { IconProps } from '../../utils';
+ export declare const LuAccessibility: (props: IconProps) => JSXNode;
+ export declare const LuActivitySquare: (props: IconProps) => JSXNode;

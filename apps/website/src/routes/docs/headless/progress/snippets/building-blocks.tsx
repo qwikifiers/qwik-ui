@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Progress } from '@qwik-ui/headless';
 
 export default component$(() => {

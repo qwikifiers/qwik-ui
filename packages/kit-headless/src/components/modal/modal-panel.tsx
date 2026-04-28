@@ -10,13 +10,13 @@ import {
   useTask$,
   sync$,
   useContext,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 import { modalContextId } from './modal-context';
 
 import styles from './modal.css?inline';
 import { useModal } from './use-modal';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer } from '@qwik.dev/core/build';
 import { enableBodyScroll } from 'body-scroll-lock-upgrade';
 
 export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {

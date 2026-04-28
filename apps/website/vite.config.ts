@@ -1,20 +1,33 @@
-import { qwikCity } from '@builder.io/qwik-city/vite';
-import { qwikVite } from '@builder.io/qwik/optimizer';
+import { qwikRouter } from '@qwik.dev/router/vite';
+import { qwikVite } from '@qwik.dev/core/optimizer';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { recmaProvideComponents } from './recma-provide-components';
 import autoAPI from './auto-api';
 import { ShikiTransformer } from 'shiki';
 import tailwindcss from '@tailwindcss/vite';
-import { qwikInsights } from '@builder.io/qwik-labs/vite';
+import { qwikInsights } from '@qwik.dev/core-labs/vite';
 
 export default defineConfig(async () => {
   const { default: shikiRehype } = await import('@shikijs/rehype');
   return {
     root: 'apps/website',
+    ssr: {
+      noExternal: ['@qwikest/icons'],
+    },
     plugins: [
       autoAPI(),
-      qwikCity({
+      qwikVite({
+        lint: false,
+        debug: true,
+        tsconfigFileNames: ['tsconfig.app.json'],
+        client: {
+          outDir: '../../dist/apps/website/client',
+        },
+        ssr: {
+          outDir: '../../dist/apps/website/server',
+        },
+      }),
+      qwikRouter({
         mdxPlugins: {
           rehypeSyntaxHighlight: false,
           remarkGfm: true,
@@ -22,7 +35,7 @@ export default defineConfig(async () => {
         },
         mdx: {
           providerImportSource: '~/_state/MDXProvider',
-          recmaPlugins: [recmaProvideComponents],
+          // recmaPlugins: [recmaProvideComponents],
           rehypePlugins: [
             [
               shikiRehype,
@@ -32,17 +45,6 @@ export default defineConfig(async () => {
               },
             ],
           ],
-        },
-      }),
-      qwikVite({
-        lint: false,
-        debug: false,
-        tsconfigFileNames: ['tsconfig.app.json'],
-        client: {
-          outDir: '../../dist/apps/website/client',
-        },
-        ssr: {
-          outDir: '../../dist/apps/website/server',
         },
       }),
       tsconfigPaths({ root: '../../' }),
@@ -60,6 +62,7 @@ export default defineConfig(async () => {
     },
     build: {
       target: 'es2022',
+      minify: false,
     },
     preview: {
       headers: {

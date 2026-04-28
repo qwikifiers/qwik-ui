@@ -1,4 +1,4 @@
-import { type Component, type PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { type Component, type PropsOf, Slot, component$ } from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 import { AnatomyTable } from '../anatomy-table/anatomy-table';
 import { APITable } from '../api-table/api-table';
@@ -9,7 +9,6 @@ import { FeatureList } from '../feature-list/feature-list';
 import { InstallSnippet } from '../install-snippet/install-snippet';
 import { KeyboardInteractionTable } from '../keyboard-interaction-table/keyboard-interaction-table';
 import { Note } from '../note/note';
-import { StatusBanner } from '../status-banner/status-banner';
 import { TopLayerAnimationsCaveats } from '../animations/caveats';
 import { BrowserAnimationsCompatability } from '../animations/compatability';
 
@@ -135,7 +134,6 @@ export const components: Record<string, Component> = {
   InstallSnippet,
   KeyboardInteractionTable,
   Note,
-  StatusBanner,
   AutoAPI,
   TopLayerAnimationsCaveats,
   BrowserAnimationsCompatability,

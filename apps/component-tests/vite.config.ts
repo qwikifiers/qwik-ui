@@ -1,13 +1,15 @@
-import { qwikVite } from '@builder.io/qwik/optimizer';
-import { qwikCity } from '@builder.io/qwik-city/vite';
+import { qwikVite } from '@qwik.dev/core/optimizer';
+import { qwikRouter } from '@qwik.dev/router/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import tailwindcss from '@tailwindcss/vite';
 
+const qwikLibs = ['@qwikest/icons'];
 export default defineConfig({
   root: 'apps/component-tests',
   cacheDir: '../../node_modules/.vite/apps/component-tests',
   plugins: [
-    qwikCity(),
+    qwikRouter(),
     qwikVite({
       client: {
         outDir: '../../dist/apps/component-tests/client',
@@ -18,7 +20,15 @@ export default defineConfig({
       tsconfigFileNames: ['tsconfig.app.json'],
     }),
     tsconfigPaths({ root: '../../' }),
+    tailwindcss(),
   ],
+
+  optimizeDeps: {
+    exclude: [...qwikLibs],
+  },
+  ssr: {
+    noExternal: [...qwikLibs],
+  },
   server: {
     fs: {
       // Allow serving files from the project root
