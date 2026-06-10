@@ -10,6 +10,7 @@
     "directory": "packages/cli"
   },
   "description": "Qwik UI Command line interface",
+  "license": "MIT",
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "@nx/devkit": "21.1.2",
