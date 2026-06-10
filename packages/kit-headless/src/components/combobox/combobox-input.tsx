@@ -8,7 +8,7 @@ import {
   useTask$,
   useSignal,
   QRL,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { comboboxContextId } from './combobox-context';
 import { useCombobox } from './use-combobox';
 import { useCombinedRef } from '../../hooks/combined-refs';

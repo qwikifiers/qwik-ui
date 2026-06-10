@@ -1,4 +1,4 @@
-import { QRL, Signal, createContextId } from '@builder.io/qwik';
+import { QRL, Signal, createContextId } from '@qwik.dev/core';
 import { TItemsMap } from './combobox-inline-comp';
 
 export type ComboboxExpandedState = 'true' | 'false' | undefined;

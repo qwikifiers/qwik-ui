@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@qwik.dev/core';
 import { Popover } from '@qwik-ui/headless';
 export default component$(() => {
   const toggleStatus = useSignal<'open' | 'closed'>('closed');
@@ -9,7 +9,7 @@ export default component$(() => {
       <Popover.Trigger class="popover-trigger">Popover Trigger</Popover.Trigger>
       <Popover.Panel
         class="popover-panel"
-        onToggle$={(e) => {
+        onToggle$={(e: any) => {
           toggleStatus.value = e.newState;
         }}
       >

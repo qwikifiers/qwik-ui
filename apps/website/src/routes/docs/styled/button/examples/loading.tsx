@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Button } from '~/components/ui';
 import { LuLoader2 } from '@qwikest/icons/lucide';
 

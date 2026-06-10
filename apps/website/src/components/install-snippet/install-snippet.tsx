@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Tabs } from '@qwik-ui/headless';
 import { CodeCopy } from '../code-copy/code-copy';
 

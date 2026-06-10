@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { PropsOf, Slot, component$ } from '@qwik.dev/core';
 import { HCollapsibleContent } from '../collapsible/collapsible-content';
 
 export const HAccordionContent = component$(

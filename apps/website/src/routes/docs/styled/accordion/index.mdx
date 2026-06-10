@@ -8,8 +8,6 @@ import { statusByComponent } from '~/_state/component-statuses';
 import { ShowcaseHero } from './showcase-components';
 
 
-<StatusBanner status={statusByComponent.styled.Accordion} />
-
 # Accordion
 
 A vertically stacked set of interactive headings that each reveal a section of content.
@@ -25,7 +23,7 @@ qwik-ui add accordion
 ```
 
 ```tsx
-import { component$, Slot, type PropsOf } from '@builder.io/qwik';
+import { component$, Slot, type PropsOf } from '@qwik.dev/core';
 
 import { Accordion as HeadlessAccordion } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';

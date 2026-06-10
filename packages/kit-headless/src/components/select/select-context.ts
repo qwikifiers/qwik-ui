@@ -1,6 +1,6 @@
-import { type Signal } from '@builder.io/qwik';
+import { type Signal } from '@qwik.dev/core';
 
-import { createContextId } from '@builder.io/qwik';
+import { createContextId } from '@qwik.dev/core';
 import { TItemsMap } from './select-root';
 
 const SelectContextId = createContextId<SelectContext>('Select');

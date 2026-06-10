@@ -1,5 +1,5 @@
-import { component$ } from '@builder.io/qwik';
-import { useDocumentHead, useLocation } from '@builder.io/qwik-city';
+import { component$ } from '@qwik.dev/core';
+import { useDocumentHead, useLocation } from '@qwik.dev/router';
 import codeCave from '../../../public/images/contributing/code-cave.jpg';
 
 /**
@@ -53,16 +53,32 @@ export const RouterHead = component$(() => {
       <meta property="og:type" content="website" />
       <meta property="og:url" content={loc.url.href} />
 
-      {head.meta.map((m, i) => (
-        <meta key={i} {...m} />
+      {head.meta.map((m) => (
+        <meta key={m.key} {...m} />
       ))}
 
-      {head.links.map((l, i) => (
-        <link key={i} {...l} />
+      {head.links.map((l) => (
+        <link key={l.key} {...l} />
       ))}
 
-      {head.styles.map((s, i) => (
-        <style key={i} {...s.props} dangerouslySetInnerHTML={s.style} />
+      {head.styles.map((s) => (
+        <style
+          key={s.key}
+          {...s.props}
+          {...(s.props?.dangerouslySetInnerHTML
+            ? {}
+            : { dangerouslySetInnerHTML: s.style })}
+        />
+      ))}
+
+      {head.scripts.map((s) => (
+        <script
+          key={s.key}
+          {...s.props}
+          {...(s.props?.dangerouslySetInnerHTML
+            ? {}
+            : { dangerouslySetInnerHTML: s.script })}
+        />
       ))}
     </>
   );

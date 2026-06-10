@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Tooltip, badgeVariants } from '~/components/ui';
 
 export default component$(() => {

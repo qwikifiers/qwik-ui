@@ -6,7 +6,7 @@ import {
   useContext,
   useSignal,
   type PropsOf,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { dropdownContextId } from './dropdown-context';
 import { useDropdown } from './use-dropdown';
 

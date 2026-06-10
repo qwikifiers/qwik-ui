@@ -10,7 +10,7 @@ import {
   useContextProvider,
   useSignal,
   useTask$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 import { DropdownItemProps } from './dropdown-item';
 

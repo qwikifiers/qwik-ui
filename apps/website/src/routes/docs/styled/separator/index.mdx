@@ -6,8 +6,6 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 import { ShowcaseHero } from './showcase-components';
 
-<StatusBanner status={statusByComponent.styled.Separator} />
-
 # Separator
 
 Visually or semantically separates content.
@@ -23,7 +21,7 @@ qwik-ui add separator
 ```
 
 ```tsx
-import { type PropsOf, component$ } from '@builder.io/qwik';
+import { type PropsOf, component$ } from '@qwik.dev/core';
 import { Separator as HeadlessSeparator } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 

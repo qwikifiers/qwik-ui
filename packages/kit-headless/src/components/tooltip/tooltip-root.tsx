@@ -8,7 +8,7 @@ import {
   useId,
   useSignal,
   $,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { type Floating } from '../popover/popover-types';
 import { HPopoverRoot } from '../popover/popover-root';
 import { TooltipContext, TooltipContextId, TriggerDataState } from './tooltip-context';
@@ -29,7 +29,7 @@ export type TooltipRootProps = {
    * QRL handler that runs when the tooltip opens or closes.
    * @param open The new state of the tooltip.
    */
-  onOpenChange$?: QRL<(state: 'open' | 'closed') => void>;
+  onOpenChange$?: QRL<(state: 'open' | 'closed' | string) => void>;
 
   /**
    * A value that determines how long before the tooltip will

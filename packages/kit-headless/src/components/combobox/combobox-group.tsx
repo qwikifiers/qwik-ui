@@ -4,7 +4,7 @@ import {
   component$,
   useContext,
   useContextProvider,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 import { comboboxContextId, groupContextId } from './combobox-context';
 import { useCombinedRef } from '../../hooks/combined-refs';

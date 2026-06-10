@@ -7,7 +7,7 @@ import {
   sync$,
   useSignal,
   useTask$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 import { CheckboxRoot } from '../checkbox/checkbox-root';
 import { DropdownItemProps } from './dropdown-item';

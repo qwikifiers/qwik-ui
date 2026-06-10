@@ -1,4 +1,4 @@
-import { PropsOf, Slot, component$, useContext } from '@builder.io/qwik';
+import { PropsOf, Slot, component$, useContext } from '@qwik.dev/core';
 import { comboboxContextId } from './combobox-context';
 
 type HComboboxErrorMessageProps = PropsOf<'div'>;

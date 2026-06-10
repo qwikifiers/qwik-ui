@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Showcase } from '~/components/showcase/showcase';
 
 import Primary from './examples/primary';

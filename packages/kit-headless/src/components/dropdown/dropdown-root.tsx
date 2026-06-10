@@ -9,7 +9,7 @@ import {
   type QRL,
   useId,
   useComputed$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { dropdownContextId, type DropdownContext } from './dropdown-context';
 
 export type TItemsMap = Map<

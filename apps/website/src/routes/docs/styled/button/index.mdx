@@ -6,8 +6,6 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 import { ShowcasePrimary, ShowcaseSecondary, ShowcaseAlert, ShowcaseOutline, ShowcaseGhost, ShowcaseLink, ShowcaseSize, ShowcaseIcon, ShowcaseWithIcon, ShowcaseLoading } from './showcase-components';
 
-<StatusBanner status={statusByComponent.styled.Button} />
-
 # Button
 
 Displays a button or a component that looks like a button.
@@ -21,7 +19,7 @@ qwik-ui add button
 ```
 
 ```tsx
-import { component$, type PropsOf, Slot } from '@builder.io/qwik';
+import { component$, type PropsOf, Slot } from '@qwik.dev/core';
 import { cn } from '@qwik-ui/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 

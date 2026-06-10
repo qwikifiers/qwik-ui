@@ -1,4 +1,4 @@
-import { QRL, Signal, createContextId } from '@builder.io/qwik';
+import { QRL, Signal, createContextId } from '@qwik.dev/core';
 
 export const accordionContextId = createContextId<AccordionContext>('qui-accordion');
 

@@ -1,4 +1,4 @@
-import { PropsOf, component$ } from '@builder.io/qwik';
+import { PropsOf, component$ } from '@qwik.dev/core';
 import { Button, Card } from '~/components/ui';
 import { cn } from '@qwik-ui/utils';
 import { LuBell, LuCheck } from '@qwikest/icons/lucide';

@@ -1,4 +1,4 @@
-import { PropsOf, component$ } from '@builder.io/qwik';
+import { PropsOf, component$ } from '@qwik.dev/core';
 import { Highlight } from '../highlight/highlight';
 
 type CodeSnippetProps = PropsOf<'div'> & {

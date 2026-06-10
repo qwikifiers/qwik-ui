@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@qwik.dev/core';
 import { Accordion } from '@qwik-ui/headless';
 import { LuChevronDown } from '@qwikest/icons/lucide';
 

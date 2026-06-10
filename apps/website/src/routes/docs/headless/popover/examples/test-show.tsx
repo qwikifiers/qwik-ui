@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@qwik.dev/core';
 import { Popover, usePopover } from '@qwik-ui/headless';
 export default component$(() => {
   const { showPopover } = usePopover(`show-id`);

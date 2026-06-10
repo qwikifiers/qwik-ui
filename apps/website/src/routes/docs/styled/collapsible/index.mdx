@@ -7,9 +7,6 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 import { ShowcaseHero } from './showcase-components';
 
-
-<StatusBanner status={statusByComponent.styled.Collapsible} />
-
 # Collapsible
 
 An interactive section that shows or hides its connected information.
@@ -25,7 +22,7 @@ qwik-ui add collapsible
 ```
 
 ```tsx
-import { component$, Slot, type PropsOf } from '@builder.io/qwik';
+import { component$, Slot, type PropsOf } from '@qwik.dev/core';
 import { Collapsible as HeadlessCollapsible } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 

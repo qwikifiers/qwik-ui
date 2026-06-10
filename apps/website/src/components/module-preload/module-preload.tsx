@@ -1,4 +1,4 @@
-import { component$, sync$, useOnWindow } from '@builder.io/qwik';
+import { component$, sync$, useOnWindow } from '@qwik.dev/core';
 
 export const ModulePreload = component$(() => {
   useOnWindow(

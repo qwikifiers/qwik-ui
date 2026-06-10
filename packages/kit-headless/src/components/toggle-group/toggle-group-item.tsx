@@ -1,4 +1,4 @@
-import type { PropsOf } from '@builder.io/qwik';
+import type { PropsOf } from '@qwik.dev/core';
 import {
   component$,
   useContext,
@@ -7,8 +7,8 @@ import {
   useId,
   useSignal,
   useTask$,
-} from '@builder.io/qwik';
-import { isBrowser, isServer } from '@builder.io/qwik/build';
+} from '@qwik.dev/core';
+import { isBrowser, isServer } from '@qwik.dev/core/build';
 
 import {
   Direction,

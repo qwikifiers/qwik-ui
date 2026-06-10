@@ -6,13 +6,13 @@ import {
   PropsOf,
   $,
   useSignal,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { usePopover } from '../popover/use-popover';
 import { HPopoverPanel } from '../popover/popover-panel';
 
 import { comboboxContextId } from './combobox-context';
 import { HPopoverRoot } from '../popover/popover-root';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer } from '@qwik.dev/core/build';
 import { useCombinedRef } from '../../hooks/combined-refs';
 
 export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props) => {

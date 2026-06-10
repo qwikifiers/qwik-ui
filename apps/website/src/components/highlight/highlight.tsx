@@ -1,4 +1,4 @@
-import { type ClassList, type PropsOf, component$ } from '@builder.io/qwik';
+import { type ClassList, type PropsOf, component$ } from '@qwik.dev/core';
 import { CodeCopy } from '../code-copy/code-copy';
 import { cn } from '@qwik-ui/utils';
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';

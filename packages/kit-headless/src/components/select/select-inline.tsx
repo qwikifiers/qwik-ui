@@ -1,4 +1,4 @@
-import { type JSXNode, Component } from '@builder.io/qwik';
+import { type JSXNode, Component } from '@qwik.dev/core';
 import { HSelectImpl, type SelectProps } from './select-root';
 import { HSelectItem as InternalSelectItem } from './select-item';
 import { HSelectItemLabel as InternalSelectItemLabel } from './select-item-label';

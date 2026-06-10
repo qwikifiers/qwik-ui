@@ -1,4 +1,4 @@
-import { PropsOf, component$, useSignal } from '@builder.io/qwik';
+import { PropsOf, component$, useSignal } from '@qwik.dev/core';
 import { Button } from '~/components/ui';
 import { cn } from '@qwik-ui/utils';
 import copy from 'clipboard-copy';

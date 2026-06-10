@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Checkbox } from '~/components/ui';
 import { Label } from '~/components/ui';
 

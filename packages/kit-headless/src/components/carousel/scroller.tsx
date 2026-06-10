@@ -8,11 +8,11 @@ import {
   Slot,
   useSignal,
   sync$,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 import { carouselContextId } from './context';
-import { useStyles$ } from '@builder.io/qwik';
+import { useStyles$ } from '@qwik.dev/core';
 import styles from './carousel.css?inline';
-import { isServer } from '@builder.io/qwik/build';
+import { isServer } from '@qwik.dev/core/build';
 import { useDebouncer } from '../../hooks/use-debouncer';
 import { useScroller } from './use-scroller';
 import { useCarousel } from './use-carousel';

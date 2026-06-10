@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Showcase } from '~/components/showcase/showcase';
 
 import Hero from './examples/hero';
@@ -267,16 +267,6 @@ export const ShowcaseForm = component$(() => {
   return (
     <Showcase rawCode={FormRawCode}>
       <Form />
-    </Showcase>
-  );
-});
-
-import Validation from './examples/validation';
-import ValidationRawCode from './examples/validation.tsx?raw';
-export const ShowcaseValidation = component$(() => {
-  return (
-    <Showcase rawCode={ValidationRawCode}>
-      <Validation />
     </Showcase>
   );
 });

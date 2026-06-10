@@ -1,4 +1,4 @@
-import { JSXOutput, component$, $, QRL, useTask$, useSignal } from '@builder.io/qwik';
+import { JSXOutput, component$, $, QRL, useTask$, useSignal } from '@qwik.dev/core';
 import { APITable, type APITableProps } from './api-table';
 
 //This is a workaround for not being able to export across packages due to nx rule:

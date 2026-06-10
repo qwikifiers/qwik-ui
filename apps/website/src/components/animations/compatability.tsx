@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Note, NoteStatus } from '../note/note'; // Adjust the import path based on your structure
 
 export const BrowserAnimationsCompatability = component$(() => {

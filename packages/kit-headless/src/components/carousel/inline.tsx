@@ -1,4 +1,4 @@
-import { Component } from '@builder.io/qwik';
+import { Component } from '@qwik.dev/core';
 import { CarouselBase, PublicCarouselRootProps } from './root';
 import { findComponent, processChildren } from '../../utils/inline-component';
 import { CarouselSlide } from './slide';

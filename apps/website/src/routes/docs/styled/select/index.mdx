@@ -6,8 +6,6 @@ import { statusByComponent } from '~/_state/component-statuses';
 
 import { ShowcaseHero } from './showcase-components';
 
-<StatusBanner status={statusByComponent.styled.Select} />
-
 # Select
 
 Displays a list of options for the user to pick from — triggered by a button.
@@ -23,7 +21,7 @@ qwik-ui add select
 ```
 
 ```tsx
-import { type PropsOf, Slot, component$ } from '@builder.io/qwik';
+import { type PropsOf, Slot, component$ } from '@qwik.dev/core';
 import { Select as HeadlessSelect } from '@qwik-ui/headless';
 import { cn } from '@qwik-ui/utils';
 import { LuCheck, LuChevronDown } from '@qwikest/icons/lucide';

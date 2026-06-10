@@ -1,5 +1,5 @@
-import { Component, component$, useSignal, useTask$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { Component, component$, useSignal, useTask$ } from '@qwik.dev/core';
+import { useLocation } from '@qwik.dev/router';
 import { metaGlobComponents } from './component-imports';
 
 export const ShowcaseTest = component$(() => {

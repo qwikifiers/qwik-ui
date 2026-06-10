@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { PropsOf, QRL, Slot, component$, sync$ } from '@builder.io/qwik';
+import { PropsOf, QRL, Slot, component$, sync$ } from '@qwik.dev/core';
 
 import { useDropdownItem } from './use-dropdown-item';
 

@@ -1,11 +1,11 @@
+import type { Component } from '@qwik.dev/core';
 import {
-  Component,
+  Slot,
   component$,
   createContextId,
   useContext,
-  Slot,
   useContextProvider,
-} from '@builder.io/qwik';
+} from '@qwik.dev/core';
 
 export const MDXContext = createContextId<Components>('MDXContext');
 

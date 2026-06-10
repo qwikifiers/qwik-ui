@@ -1,4 +1,4 @@
-import { component$, useComputed$, useSignal } from '@builder.io/qwik';
+import { component$, useComputed$, useSignal } from '@qwik.dev/core';
 import { Card, Carousel, Separator } from '@qwik-ui/styled';
 import { cn } from '@qwik-ui/utils';
 
