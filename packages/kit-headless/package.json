@@ -38,7 +38,7 @@
     "@floating-ui/dom": "^1.6.5",
     "@oddbird/popover-polyfill": "0.4.3",
     "focus-trap": "7.5.4",
-    "body-scroll-lock-upgrade": "^1.1.0"
+    "@fluejs/noscroll": "^1.0.0"
   },
   "sideEffects": false
 }

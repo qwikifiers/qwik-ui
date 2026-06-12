@@ -1,37 +1,37 @@
 export const api = {
-  modal: [
+  "modal": [
     {
-      'modal-close': [],
+      "modal-close": []
     },
     {
-      'modal-content': [],
+      "modal-content": []
     },
     {
-      'modal-context': [],
+      "modal-context": []
     },
     {
-      'modal-description': [],
+      "modal-description": []
     },
     {
-      'modal-footer': [],
+      "modal-footer": []
     },
     {
-      'modal-header': [],
+      "modal-header": []
     },
     {
-      'modal-panel': [],
+      "modal-panel": []
     },
     {
-      'modal-root': [],
+      "modal-root": []
     },
     {
-      'modal-title': [],
+      "modal-title": []
     },
     {
-      'modal-trigger': [],
+      "modal-trigger": []
     },
     {
-      'use-modal': [],
-    },
-  ],
+      "use-modal": []
+    }
+  ]
 };

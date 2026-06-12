@@ -1,10 +1,12 @@
 import {
   $,
+  NoSerialize,
   PropsOf,
   QRL,
   Signal,
   Slot,
   component$,
+  noSerialize,
   useSignal,
   useStyles$,
   useTask$,
@@ -17,7 +19,8 @@ import { modalContextId } from './modal-context';
 import styles from './modal.css?inline';
 import { useModal } from './use-modal';
 import { isServer } from '@builder.io/qwik/build';
-import { enableBodyScroll } from 'body-scroll-lock-upgrade';
+import { createNoScroll, markScrollable } from '@fluejs/noscroll';
+import { initTouchHandler, resetTouchHandler } from '@fluejs/noscroll/touch';
 
 export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
   onShow$?: QRL<() => void>;
@@ -41,21 +44,46 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
 
   const panelRef = useSignal<HTMLDialogElement>();
   const wasOpenSig = useSignal(false);
+  const isInitialized = useSignal(false);
+  const disablePageScroll = useSignal<NoSerialize<() => void>>();
+  const enablePageScroll = useSignal<NoSerialize<() => void>>();
 
   useTask$(async function toggleModal({ track, cleanup }) {
     const isOpen = track(() => context.showSig.value);
 
     if (!panelRef.value) return;
 
+    if (!isInitialized.value) {
+      isInitialized.value = true;
+
+      const noScroll = createNoScroll({
+        onInitScrollDisable: initTouchHandler,
+        onResetScrollDisable: resetTouchHandler,
+      });
+
+      disablePageScroll.value = noSerialize(noScroll.disablePageScroll);
+      enablePageScroll.value = noSerialize(noScroll.enablePageScroll);
+    }
+
     const focusTrap = await trapFocus(panelRef.value);
 
     if (isOpen) {
-      // HACK: keep modal scroll position in place with iOS
-      const storedRequestAnimationFrame = window.requestAnimationFrame;
-      window.requestAnimationFrame = () => 42;
-
       await showModal(panelRef.value);
-      window.requestAnimationFrame = storedRequestAnimationFrame;
+
+      // noscroll only lets touch gestures scroll elements it has marked.
+      // Mark the panel and any inner scroll container (e.g. a scrollable body
+      // with a sticky header/footer) so they remain touch-scrollable on iOS;
+      // otherwise the gesture resolves to the non-scrollable dialog and gets
+      // prevented. Re-scanned on each open to pick up the current content.
+      markScrollable(panelRef.value);
+      panelRef.value.querySelectorAll<HTMLElement>('*').forEach((el) => {
+        const { overflowX, overflowY } = getComputedStyle(el);
+        if (/(auto|scroll|overlay)/.test(`${overflowX} ${overflowY}`)) {
+          markScrollable(el);
+        }
+      });
+
+      disablePageScroll.value?.();
       activateFocusTrap(focusTrap);
     } else {
       await closeModal(panelRef.value);
@@ -64,8 +92,9 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
     cleanup(async () => {
       if (isServer) return;
       await deactivateFocusTrap(focusTrap);
-      if (!panelRef.value) return;
-      enableBodyScroll(panelRef.value);
+      // Only the root modal restores page scroll; nested modals share the lock.
+      if (context.level > 1) return;
+      enablePageScroll.value?.();
     });
   });
 

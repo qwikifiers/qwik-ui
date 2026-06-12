@@ -138,6 +138,24 @@ test.describe('Scroll locking', () => {
     ).toBe(true);
   });
 
+  test(`GIVEN a modal with an inner scroll container
+        WHEN the modal is opened
+        THEN both the panel and the inner container are marked scrollable`, async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'inner-scroll');
+
+    await d.openModal();
+
+    // noscroll only allows touch-scrolling on elements it has marked; the panel
+    // and any inner scroll container must both carry the marker (#1113).
+    await expect(d.getModal()).toHaveAttribute('data-noscroll-target-scrollable', '');
+    await expect(page.getByTestId('inner-scroll')).toHaveAttribute(
+      'data-noscroll-target-scrollable',
+      '',
+    );
+  });
+
   test(`GIVEN a modal
     WHEN navigating to another page in SPA
     THEN the body should not have overflow hidden`, async ({ page }) => {

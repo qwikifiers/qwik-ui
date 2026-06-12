@@ -5,8 +5,6 @@ export type WidthState = {
   width: number | null;
 };
 
-import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock-upgrade';
-
 export function useModal() {
   /**
    * Listens for animation/transition events in order to
@@ -23,7 +21,6 @@ export function useModal() {
         if (e.target === modal) {
           delete modal.dataset.closing;
           modal.classList.remove('modal-closing');
-          enableBodyScroll(modal);
           modal.close();
           modal.removeEventListener('animationend', handler);
         }
@@ -35,7 +32,6 @@ export function useModal() {
         if (e.target === modal) {
           delete modal.dataset.closing;
           modal.classList.remove('modal-closing');
-          enableBodyScroll(modal);
           modal.close();
           modal.removeEventListener('transitionend', handler);
         }
@@ -45,7 +41,6 @@ export function useModal() {
     } else if (animationDuration === '0s' && transitionDuration === '0s') {
       delete modal.dataset.closing;
       modal.classList.remove('modal-closing');
-      enableBodyScroll(modal);
       modal.close();
     }
   });
@@ -79,7 +74,6 @@ export function useModal() {
    * Calls the given callback that is executed after the Modal has been opened.
    */
   const showModal = $(async (modal: HTMLDialogElement) => {
-    disableBodyScroll(modal, { reserveScrollBarGap: true });
     modal.showModal();
   });
 

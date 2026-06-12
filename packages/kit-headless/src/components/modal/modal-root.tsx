@@ -4,6 +4,7 @@ import {
   Signal,
   Slot,
   component$,
+  useContext,
   useContextProvider,
   useId,
   useSignal,
@@ -32,8 +33,13 @@ export const HModalRoot = component$((props: ModalRootProps) => {
   const defaultShowSig = useSignal<boolean>(false);
   const showSig = givenShowSig ?? defaultShowSig;
 
+  // Track nesting so only the root modal restores page scroll when closed.
+  const parentContext = useContext(modalContextId, null);
+  const level = (parentContext?.level ?? 0) + 1;
+
   const context: ModalContext = {
     localId,
+    level,
     showSig,
     closeOnBackdropClick,
     onShow$,
