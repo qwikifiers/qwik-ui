@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.7
+
+### Patch Changes
+
+- 🐞🩹 modals inner elements now scroll properly on webkit (by [@maiieul](https://github.com/maiieul) in [#1179](https://github.com/qwikifiers/qwik-ui/pull/1179))
+
 ## 0.7.6
 
 ### Patch Changes
