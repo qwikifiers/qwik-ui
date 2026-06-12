@@ -1,5 +1,11 @@
 # qwik-ui
 
+## 0.4.4
+
+### Patch Changes
+
+- Add MIT license metadata to the CLI package manifest. (by [@mawxcodehub](https://github.com/mawxcodehub) in [#1180](https://github.com/qwikifiers/qwik-ui/pull/1180))
+
 ## 0.4.3
 
 ### Patch Changes
