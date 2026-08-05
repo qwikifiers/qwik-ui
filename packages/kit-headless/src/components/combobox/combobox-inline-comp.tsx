@@ -1,4 +1,4 @@
-import { Component, JSXChildren } from '@builder.io/qwik';
+import { Component, JSXChildren, isSignal } from '@builder.io/qwik';
 import { HComboboxRootImpl, HComboboxRootImplProps } from './combobox-root';
 import { HComboboxItem as InternalComboboxItem } from './combobox-item';
 import { HComboboxItemLabel as InternalComboboxItemLabel } from './combobox-item-label';
@@ -10,6 +10,27 @@ export type TItemsMap = Map<
   number,
   { value: string; displayValue: string; disabled: boolean }
 >;
+
+/**
+ * The item label's children are not always a plain string. The optimizer turns expressions like
+ * `<Combobox.ItemLabel>{user.label}</Combobox.ItemLabel>` into a derived signal, so we need to
+ * unwrap it to get the text that is displayed in the input.
+ **/
+function getDisplayValue(children: JSXChildren): string {
+  if (isSignal(children)) {
+    return getDisplayValue(children.value as JSXChildren);
+  }
+
+  if (Array.isArray(children)) {
+    return children.map(getDisplayValue).join('');
+  }
+
+  if (children === null || children === undefined || typeof children === 'boolean') {
+    return '';
+  }
+
+  return String(children);
+}
 
 export type InternalComboboxProps = {
   /** When a value is passed, we check if it's an actual item value, and get its index at pre-render time.
@@ -77,7 +98,7 @@ export const HComboboxRoot: Component<InternalComboboxProps & HComboboxRootImplP
   });
 
   findComponent(HComboboxItemLabel, (labelProps) => {
-    const displayValue = labelProps.children as string;
+    const displayValue = getDisplayValue(labelProps.children as JSXChildren);
 
     // distinct value, or the display value is the same as the value
     const value = (givenItemValue !== null ? givenItemValue : displayValue) as string;

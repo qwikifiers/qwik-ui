@@ -666,6 +666,19 @@ test.describe('Props', () => {
       await expect(page.locator('p')).toContainText('The selected value is: 1');
     });
 
+    test(`GIVEN a combobox whose item labels come from a store
+          WHEN an option is selected
+          THEN the input displays the item label instead of "[object Object]"`, async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'store');
+
+      await d.openListbox('click');
+      await d.getItemAt(1).click();
+
+      await expect(d.getInput()).toHaveValue('Ryan');
+    });
+
     test(`GIVEN a combobox with distinct display and option values
           WHEN a reactive value is set to the 5th option
           THEN the selected value matches the 5th option's value`, async ({ page }) => {
