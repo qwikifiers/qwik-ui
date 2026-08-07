@@ -1003,3 +1003,65 @@ test.describe('Inline mode', () => {
     await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
   });
 });
+
+test.describe('Form Validation', () => {
+  test(`GIVEN a combobox inside a form
+        WHEN selecting an option
+        AND submitting the form
+        THEN validation should pass and submit successfully`, async ({ page }) => {
+    // normal behavior
+    const { driver: d } = await setup(page, 'validation');
+
+    // focus the element first to absorb the initial validation layout shift safely
+    await d.getTrigger().focus();
+    await d.openListbox('click');
+
+    // select the first option
+    await d.getItemAt(0).click();
+    await expect(d.getListbox()).toBeHidden();
+
+    // Listens concurrently to catch the example's success log and avoid race conditions.
+    // If 'submitted!' never fires, the promise times out and fails the test.
+    const consolePromise = page.waitForEvent(
+      'console',
+      (msg) => msg.text() === 'submitted!',
+    );
+    await Promise.all([
+      consolePromise,
+      page.getByRole('button', { name: 'Submit my form!' }).click(),
+    ]);
+
+    await expect(page.locator('text=Make sure to select an option')).toBeHidden();
+  });
+
+  test(`GIVEN a combobox inside a form
+        WHEN selecting an initial option AND then selecting the last option
+        AND submitting the form
+        THEN validation should pass and submit successfully`, async ({ page }) => {
+    // Fixes #1186: Ensures a successive choice targeting the last option works cleanly inside forms.
+    const { driver: d } = await setup(page, 'validation');
+
+    await d.getTrigger().focus();
+    await d.openListbox('click');
+    await d.getItemAt(0).click();
+    await expect(d.getListbox()).toBeHidden();
+
+    await d.getTrigger().focus();
+    await d.openListbox('click');
+    await d.getItemAt(4).click();
+    await expect(d.getListbox()).toBeHidden();
+
+    // Listens concurrently to catch the example's success log and avoid race conditions.
+    // If 'submitted!' never fires, the promise times out and fails the test.
+    const consolePromise = page.waitForEvent(
+      'console',
+      (msg) => msg.text() === 'submitted!',
+    );
+    await Promise.all([
+      consolePromise,
+      page.getByRole('button', { name: 'Submit my form!' }).click(),
+    ]);
+
+    await expect(page.locator('text=Make sure to select an option')).toBeHidden();
+  });
+});

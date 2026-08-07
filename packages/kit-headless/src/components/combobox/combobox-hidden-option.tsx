@@ -26,11 +26,6 @@ export const ComboboxHiddenSelectOption = component$(
 
       if (isServer || !nativeSelectRef.value || !optionRef.value) return;
 
-      // modular forms expects the input event fired after interaction
-      const inputEvent = new Event('input', { bubbles: false });
-      nativeSelectRef.value?.dispatchEvent(inputEvent);
-
-      // make sure to programmatically select the option after the input event has fired
       const value = context.itemsMapSig.value.get(index)?.value;
       if (!value) {
         throw new Error(
@@ -39,9 +34,17 @@ export const ComboboxHiddenSelectOption = component$(
       }
 
       const selectedValues = context.selectedValuesSig.value;
+      // MUST set .selected BEFORE dispatching the event so Modular Forms reads the updated state.
       optionRef.value.selected = Array.isArray(selectedValues)
         ? selectedValues.includes(value)
         : selectedValues === value;
+
+      // Dispatch event on the last option only; top-down DOM execution ensures all options are updated.
+      const isLastOption = index === context.itemsMapSig.value.size - 1;
+      if (isLastOption) {
+        const inputEvent = new Event('input', { bubbles: false });
+        nativeSelectRef.value?.dispatchEvent(inputEvent);
+      }
     });
 
     return (
