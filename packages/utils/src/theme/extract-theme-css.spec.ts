@@ -824,6 +824,7 @@ const exampleRootCssContent = `
     --radius-2xl: calc(var(--border-radius) + 1rem);
     --radius-3xl: calc(var(--border-radius) + 1.5rem);
     --shadow-base: var(--shadow-base);
+    --shadow-2xs: var(--shadow-2xs);
     --shadow-xs: var(--shadow-xs);
     --shadow-sm: var(--shadow-sm);
     --shadow-md: var(--shadow-md);

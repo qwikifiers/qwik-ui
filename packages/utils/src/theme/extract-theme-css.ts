@@ -15,7 +15,7 @@ export const extractThemeCSS = (theme: Theme, globalCSS: string) => {
   const objTheme = generateObjThemeOutput({ theme, objRootClasses, objDarkClasses });
   const orderedObjTheme = reorderThemeObject(objTheme);
 
-  const output = objThemeToCSSThemeOutput(orderedObjTheme);
+  const output = objThemeToCSSThemeOutput(orderedObjTheme, globalCSS);
 
   return output;
 };
@@ -250,14 +250,16 @@ function reorderThemeObject(themeObject: ThemeMap) {
   };
 }
 
-function objThemeToCSSThemeOutput(themeObject: ThemeMap) {
-  let cssOutput = `@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
-@import 'tailwindcss';
-@import 'tw-animate-css';
+function objThemeToCSSThemeOutput(themeObject: ThemeMap, globalCSS: string) {
+  // Extract header (before :root), strip @source, rename @layer theme -> @layer base
+  let header = globalCSS.substring(0, globalCSS.indexOf(':root {'));
+  header = header
+    .replace(/@source\s+[^;]+;\n*/g, '')
+    .replace('@layer theme {', '@layer base {')
+    .trimStart()
+    .replace(/\s+$/, '\n');
 
-@custom-variant dark (&:is(.dark *));
-
-@layer base {\n`;
+  let cssOutput = header;
 
   // Iterate over each theme (e.g., 'root', 'dark')
   for (const [theme, values] of Object.entries(themeObject)) {
@@ -268,100 +270,31 @@ function objThemeToCSSThemeOutput(themeObject: ThemeMap) {
     }
     cssOutput += `  }\n`;
   }
+  cssOutput += `}\n\n`;
 
-  cssOutput += `}
+  // Extract @theme { ... } + @utility blocks from globalCSS.
+  // Bounded between @theme { and /* CSS PARSER: START, minus the trailing @layer base block.
+  const themeStart = globalCSS.indexOf('@theme {');
+  const parserStart = globalCSS.indexOf('/* CSS PARSER: START');
+  if (themeStart !== -1 && parserStart !== -1) {
+    let block = globalCSS.substring(themeStart, parserStart);
+    const lastLayer = block.lastIndexOf('@layer');
+    if (lastLayer !== -1) block = block.substring(0, lastLayer);
+    block = block.trimEnd();
 
-@theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-alert: var(--alert);
-  --color-alert-foreground: var(--alert-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-xs: var(--border-radius);
-  --radius-sm: calc(var(--border-radius) + 0.125rem);
-  --radius-md: calc(var(--border-radius) + 0.375rem);
-  --radius-lg: calc(var(--border-radius) + 0.5rem);
-  --radius-xl: calc(var(--border-radius) + 0.75rem);
-  --radius-2xl: calc(var(--border-radius) + 1rem);
-  --radius-3xl: calc(var(--border-radius) + 1.5rem);
-  --shadow-base: var(--shadow-base);
-  --shadow-2xs: var(--shadow-2xs);
-  --shadow-xs: var(--shadow-xs);
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-xl: var(--shadow-xl);
-  --shadow-2xl: var(--shadow-2xl);
-  --shadow-inner: var(--shadow-inner);
-  --default-border-width: calc(var(--border-width) + 1px);
-  --border-width-base: var(--border-width);
-  --border-width-2: calc(var(--border-width) + 2px);
-  --border-width-4: calc(var(--border-width) + 4px);
-  --border-width-8: calc(var(--border-width) + 8px);
-  --stroke-width-0: 0px;
-  --stroke-width-base: var(--stroke-width);
-  --stroke-width-1: calc(var(--stroke-width) + 1px);
-  --stroke-width-2: calc(var(--stroke-width) + 2px);
-  --animate-accordion-down: collapsible-down 0.2s ease-out forwards;
-  --animate-accordion-up: collapsible-up 0.2s ease-out forwards;
-
-  @keyframes collapsible-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--qwikui-collapsible-content-height);
+    // @theme is nested inside @layer theme in global.css, so strip the outer closing }
+    // then un-indent by 2 spaces before appending to output
+    const utilityIdx = block.indexOf('@utility press');
+    if (utilityIdx !== -1) {
+      let themeBlock = block.substring(0, utilityIdx).trimEnd();
+      if (themeBlock.endsWith('}')) {
+        themeBlock = themeBlock.substring(0, themeBlock.length - 1).trimEnd() + '\n\n';
+      }
+      cssOutput += themeBlock.replace(/^ {2}/gm, '') + block.substring(utilityIdx) + '\n';
+    } else {
+      cssOutput += block.replace(/^ {2}/gm, '') + '\n';
     }
   }
-  @keyframes collapsible-up {
-    from {
-      height: var(--qwikui-collapsible-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
-}
-
-@utility press {
-  transform: var(--transform-press);
-}
-@utility border-width-* {
-  /* prettier-ignore */
-  border: --value(--border-width-*);
-}
-@utility stroke-width-* {
-  /* prettier-ignore */
-  stroke: --value(--stroke-width-*);
-}
-@utility shadow-* {
-  /* prettier-ignore */
-  box-shadow: --value(--shadow-*);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-`;
 
   return cssOutput;
 }
