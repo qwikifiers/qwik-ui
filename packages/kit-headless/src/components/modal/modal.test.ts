@@ -313,6 +313,33 @@ test.describe('Callbacks', () => {
   });
 });
 
+test.describe('Styles', () => {
+  test('a closed panel laid out with flex stays hidden', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+
+    await expect(d.getTrigger()).toBeVisible();
+    await expect(page.locator('dialog')).toBeHidden();
+  });
+
+  test('a panel laid out with flex shows when open', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+
+    await d.openModal();
+
+    await expect(d.getModal()).toHaveCSS('display', 'flex');
+  });
+
+  test('a max-width utility applies to an open panel when the app declares the layer order', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-layer-order');
+
+    await d.openModal();
+
+    await expect(d.getModal()).toHaveCSS('max-width', '448px');
+  });
+});
+
 test.describe('A11y', () => {
   test('Axe Validation Test', async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
