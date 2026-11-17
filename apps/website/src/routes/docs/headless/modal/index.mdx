@@ -169,6 +169,17 @@ While in most cases, this would be up to a consumer's CSS reset to solve, in thi
 
 This is done in a separate layer so that styles are easily overridable in consumer facing applications.
 
+For your styles to win, declare the `qwik-ui` layer before your own layers, at the top of your global CSS. With Tailwind:
+
+```css
+@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
+@import 'tailwindcss';
+```
+
+> Without this line the `qwik-ui` layer is declared last and outranks Tailwind's utilities: `max-w-md` on a panel would do nothing.
+
+A closed panel also stays hidden when a class gives it a `display` value such as `flex` or `grid`.
+
 ## Animations
 
 Modals require smooth entry and exit animations to enhance user experience. However, animating properties like display and overlay can be challenging because they are discrete properties and not traditionally animatable.

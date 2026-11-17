@@ -125,6 +125,7 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
   return (
     <dialog
       {...props}
+      data-qui-modal-panel
       id={`${context.localId}-root`}
       aria-labelledby={`${context.localId}-title`}
       aria-describedby={`${context.localId}-description`}

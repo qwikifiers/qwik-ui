@@ -6,4 +6,8 @@
     max-width: unset;
     max-height: unset;
   }
+
+  [data-qui-modal-panel]:not([open]) {
+    display: none !important;
+  }
 }
