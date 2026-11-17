@@ -1,18 +1,11 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import { Modal } from '@qwik-ui/headless';
 
 export default component$(() => {
-  // uncomment this
-  // useVisibleTask$(
-  //   () => {
-  //     showSig.value = true;
-  //   },
-  //   { strategy: 'document-ready' },
-  // );
+  const showSig = useSignal(true);
 
   return (
-    <Modal.Root>
-      <Modal.Trigger>Open Modal</Modal.Trigger>
+    <Modal.Root bind:show={showSig}>
       <Modal.Panel>
         <Modal.Title />
         <Modal.Description />
