@@ -43,7 +43,6 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
   const context = useContext(modalContextId);
 
   const panelRef = useSignal<HTMLDialogElement>();
-  const wasOpenSig = useSignal(false);
   const isInitialized = useSignal(false);
   const isPageLoadedSig = useSignal(false);
   const disablePageScroll = useSignal<NoSerialize<() => void>>();
@@ -90,7 +89,9 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
       activateFocusTrap(focusTrap);
       await context.onShow$?.();
     } else if (panelRef.value.open) {
-      await closeModal(panelRef.value);
+      closeModal(panelRef.value).then(async (isClosed) => {
+        if (isClosed) await context.onClose$?.();
+      });
     }
 
     cleanup(async () => {
@@ -100,16 +101,6 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
       if (context.level > 1) return;
       enablePageScroll.value?.();
     });
-  });
-
-  useTask$(async ({ track }) => {
-    const isOpen = track(() => context.showSig.value);
-
-    if (isOpen) {
-      wasOpenSig.value = true;
-    } else if (wasOpenSig.value) {
-      await context.onClose$?.();
-    }
   });
 
   const closeOnBackdropClick$ = $(async (e: MouseEvent) => {
