@@ -1,5 +1,5 @@
 import { FocusTrap, createFocusTrap } from 'focus-trap';
-import { $ } from '@builder.io/qwik';
+import { $, _waitUntilRendered } from '@builder.io/qwik';
 
 export type WidthState = {
   width: number | null;
@@ -7,42 +7,28 @@ export type WidthState = {
 
 export function useModal() {
   /**
-   * Listens for animation/transition events in order to
-   * remove Animation-CSS-Classes after animation/transition ended.
+   * Waits for the closing animations/transitions of the Modal to end before closing it.
+   * @returns whether the Modal was closed. It is not when it was reopened in the meantime.
    */
-  const supportClosingAnimation = $((modal: HTMLDialogElement) => {
+  const supportClosingAnimation = $(async (modal: HTMLDialogElement) => {
     modal.dataset.closing = '';
     modal.classList.add('modal-closing');
 
-    const { animationDuration, transitionDuration } = getComputedStyle(modal);
+    await _waitUntilRendered(modal);
 
-    if (animationDuration !== '0s') {
-      const handler = (e: AnimationEvent) => {
-        if (e.target === modal) {
-          delete modal.dataset.closing;
-          modal.classList.remove('modal-closing');
-          modal.close();
-          modal.removeEventListener('animationend', handler);
-        }
-      };
+    const closingAnimations = modal.getAnimations({ subtree: true }).filter((animation) => {
+      const effect = animation.effect as KeyframeEffect | null;
+      return effect?.target === modal && effect.getComputedTiming().endTime !== Infinity;
+    });
+    await Promise.allSettled(closingAnimations.map((animation) => animation.finished));
 
-      modal.addEventListener('animationend', handler);
-    } else if (transitionDuration !== '0s') {
-      const handler = (e: TransitionEvent) => {
-        if (e.target === modal) {
-          delete modal.dataset.closing;
-          modal.classList.remove('modal-closing');
-          modal.close();
-          modal.removeEventListener('transitionend', handler);
-        }
-      };
+    if (modal.dataset.closing === undefined) return false;
 
-      modal.addEventListener('transitionend', handler);
-    } else if (animationDuration === '0s' && transitionDuration === '0s') {
-      delete modal.dataset.closing;
-      modal.classList.remove('modal-closing');
-      modal.close();
-    }
+    delete modal.dataset.closing;
+    modal.classList.remove('modal-closing');
+    modal.close();
+
+    return true;
   });
 
   /**
@@ -74,7 +60,10 @@ export function useModal() {
    * Calls the given callback that is executed after the Modal has been opened.
    */
   const showModal = $(async (modal: HTMLDialogElement) => {
-    modal.showModal();
+    delete modal.dataset.closing;
+    modal.classList.remove('modal-closing');
+
+    if (!modal.open) modal.showModal();
   });
 
   /**
@@ -82,8 +71,8 @@ export function useModal() {
    * Applies a CSS-Class to animate the Modal-closing.
    * Calls the given callback that is executed after the Modal has been closed.
    */
-  const closeModal = $(async (modal: HTMLDialogElement) => {
-    await supportClosingAnimation(modal);
+  const closeModal = $((modal: HTMLDialogElement) => {
+    return supportClosingAnimation(modal);
   });
 
   /**

@@ -359,6 +359,57 @@ test.describe('Initially open', () => {
   });
 });
 
+test.describe('Closing', () => {
+  test('onClose$ runs after the dialog has closed', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-unmount-on-close');
+    await d.openModal();
+
+    await page.getByRole('button', { name: 'Close' }).click();
+
+    await expect(page.getByTestId('dialog-state')).toHaveText('dialog on close: closed');
+  });
+
+  test('the page is usable after an onClose$ that unmounts the modal', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-unmount-on-close');
+    await d.openModal();
+
+    await page.getByRole('button', { name: 'Close' }).click();
+    await expect(page.getByTestId('dialog-state')).toHaveText('dialog on close: closed');
+
+    await page.getByRole('button', { name: /outside clicks/ }).click();
+    await expect(page.getByRole('button', { name: /outside clicks/ })).toHaveText(
+      'outside clicks: 1',
+    );
+    await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
+  });
+
+  test('a modal reopened during its closing animation stays open', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-reopen');
+    await d.openModal();
+
+    await page.getByRole('button', { name: 'Close and reopen' }).click();
+    await expect(page.getByTestId('show-count')).toHaveText('onShow count: 2');
+    await page.waitForTimeout(500);
+
+    await expect(d.getModal()).toBeVisible();
+    await expect(page.getByTestId('close-count')).toHaveText('onClose count: 0');
+  });
+
+  test('a panel with an animation duration but no animation closes', async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const { driver: d } = await setup(page, 'test-reduced-motion');
+    await d.openModal();
+
+    await page.getByRole('button', { name: 'Close' }).click();
+
+    await expect(d.getModal()).toBeHidden();
+  });
+});
+
 test.describe('A11y', () => {
   test('Axe Validation Test', async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
