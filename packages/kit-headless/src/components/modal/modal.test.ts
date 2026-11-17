@@ -171,6 +171,62 @@ test.describe('Scroll locking', () => {
 
     await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
   });
+
+  test('the page stays locked when one of two sibling modals closes', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-siblings');
+    await d.getTrigger().click();
+    await page.getByRole('button', { name: 'Open second' }).click();
+    await expect(page.getByRole('dialog', { name: 'Second' })).toBeVisible();
+
+    await page.getByRole('button', { name: 'Close second' }).click();
+    await expect(page.getByRole('dialog', { name: 'Second' })).toBeHidden();
+
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+  });
+
+  test('the page unlocks once both sibling modals are closed', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-siblings');
+    await d.getTrigger().click();
+    await page.getByRole('button', { name: 'Open second' }).click();
+    await page.getByRole('button', { name: 'Close second' }).click();
+    await expect(page.getByRole('dialog', { name: 'Second' })).toBeHidden();
+
+    await page.getByRole('button', { name: 'Close first' }).click();
+    await expect(page.getByRole('dialog', { name: 'First' })).toBeHidden();
+
+    await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
+  });
+
+  test('the page stays locked when a nested modal closes and its root modal stays open', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'nested');
+    await d.openModal();
+    await page.getByRole('button', { name: 'Nested Modal Trigger' }).click();
+    await expect(page.getByRole('dialog').nth(1)).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(page.getByText('Nested Modal Content')).toBeHidden();
+    await expect(d.getModal()).toBeVisible();
+
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+  });
+
+  test('the page unlocks once two nested modals are both closed', async ({ page }) => {
+    const { driver: d } = await setup(page, 'nested');
+    await d.openModal();
+    await page.getByRole('button', { name: 'Nested Modal Trigger' }).click();
+    await expect(page.getByRole('dialog').nth(1)).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog').nth(1)).toBeHidden();
+    await page.keyboard.press('Escape');
+    await expect(d.getModal()).toBeHidden();
+
+    await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
+  });
 });
 
 test.describe('Focus Trap', () => {

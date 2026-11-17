@@ -1,12 +1,10 @@
 import {
   $,
-  NoSerialize,
   PropsOf,
   QRL,
   Signal,
   Slot,
   component$,
-  noSerialize,
   useSignal,
   useStyles$,
   useTask$,
@@ -19,8 +17,8 @@ import { modalContextId } from './modal-context';
 import styles from './modal.css?inline';
 import { useModal } from './use-modal';
 import { isServer } from '@builder.io/qwik/build';
-import { createNoScroll, markScrollable } from '@fluejs/noscroll';
-import { initTouchHandler, resetTouchHandler } from '@fluejs/noscroll/touch';
+import { markScrollable } from '@fluejs/noscroll';
+import { pageScroll } from './modal-page-scroll';
 
 export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
   onShow$?: QRL<() => void>;
@@ -43,10 +41,7 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
   const context = useContext(modalContextId);
 
   const panelRef = useSignal<HTMLDialogElement>();
-  const isInitialized = useSignal(false);
   const isPageLoadedSig = useSignal(false);
-  const disablePageScroll = useSignal<NoSerialize<() => void>>();
-  const enablePageScroll = useSignal<NoSerialize<() => void>>();
 
   useTask$(async function toggleModal({ track, cleanup }) {
     const isOpen = track(() => context.showSig.value);
@@ -54,18 +49,6 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
     track(() => isPageLoadedSig.value);
 
     if (!panelRef.value) return;
-
-    if (!isInitialized.value) {
-      isInitialized.value = true;
-
-      const noScroll = createNoScroll({
-        onInitScrollDisable: initTouchHandler,
-        onResetScrollDisable: resetTouchHandler,
-      });
-
-      disablePageScroll.value = noSerialize(noScroll.disablePageScroll);
-      enablePageScroll.value = noSerialize(noScroll.enablePageScroll);
-    }
 
     const focusTrap = await trapFocus(panelRef.value);
 
@@ -85,7 +68,7 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
         }
       });
 
-      disablePageScroll.value?.();
+      pageScroll.disablePageScroll();
       activateFocusTrap(focusTrap);
       await context.onShow$?.();
     } else if (panelRef.value.open) {
@@ -97,9 +80,7 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
     cleanup(async () => {
       if (isServer) return;
       await deactivateFocusTrap(focusTrap);
-      // Only the root modal restores page scroll; nested modals share the lock.
-      if (context.level > 1) return;
-      enablePageScroll.value?.();
+      if (isOpen) pageScroll.enablePageScroll();
     });
   });
 
