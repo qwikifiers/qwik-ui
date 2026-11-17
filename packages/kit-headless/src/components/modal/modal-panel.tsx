@@ -45,11 +45,14 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
   const panelRef = useSignal<HTMLDialogElement>();
   const wasOpenSig = useSignal(false);
   const isInitialized = useSignal(false);
+  const isPageLoadedSig = useSignal(false);
   const disablePageScroll = useSignal<NoSerialize<() => void>>();
   const enablePageScroll = useSignal<NoSerialize<() => void>>();
 
   useTask$(async function toggleModal({ track, cleanup }) {
     const isOpen = track(() => context.showSig.value);
+    track(() => panelRef.value);
+    track(() => isPageLoadedSig.value);
 
     if (!panelRef.value) return;
 
@@ -85,7 +88,8 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
 
       disablePageScroll.value?.();
       activateFocusTrap(focusTrap);
-    } else {
+      await context.onShow$?.();
+    } else if (panelRef.value.open) {
       await closeModal(panelRef.value);
     }
 
@@ -103,7 +107,6 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
 
     if (isOpen) {
       wasOpenSig.value = true;
-      await context.onShow$?.();
     } else if (wasOpenSig.value) {
       await context.onClose$?.();
     }
@@ -122,6 +125,10 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
     if (await wasModalBackdropClicked(panelRef.value, e)) {
       context.showSig.value = false;
     }
+  });
+
+  const openOnPageLoad$ = $(() => {
+    isPageLoadedSig.value = true;
   });
 
   const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
@@ -157,6 +164,7 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
       role={context.alert === true ? 'alertdialog' : 'dialog'}
       ref={panelRef}
       onKeyDown$={[handleKeyDownSync$, handleKeyDown$, props.onKeyDown$]}
+      document:onQInit$={context.showSig.value ? openOnPageLoad$ : undefined}
       onMouseDown$={async (e) => {
         e.stopPropagation();
         await closeOnBackdropClick$(e);

@@ -236,13 +236,13 @@ The example for the CSS used in all of the examples above can be found below.
 
 <CodeSnippetModalCss />
 
-### SSR dilemma
+### Open on page load
 
-Unfortunately, to create modals that open on page load in the web, it needs to be done eagerly on the client. (including existing implementations)
+Start `bind:show` at `true` to open the modal when the page loads.
 
 <CodeSnippetPageLoad />
 
-> There is currently discussions from the Open UI group about the possibility of a modal dialog that can open on initial load.
+> The web can only open a modal dialog with JavaScript, so a modal that starts open runs a small piece of code eagerly on the client. Modals that start closed stay lazy.
 
 ## Keyboard interaction
 
