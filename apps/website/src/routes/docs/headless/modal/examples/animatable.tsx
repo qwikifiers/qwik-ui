@@ -2,6 +2,7 @@ import { component$, useStyles$ } from '@builder.io/qwik';
 import { Modal, Label } from '@qwik-ui/headless';
 
 export default component$(() => {
+  useStyles$(styles);
   useStyles$(`
     .modal-animation {
       animation: modalClose 0.35s ease-in-out forwards;
@@ -57,3 +58,6 @@ export default component$(() => {
     </Modal.Root>
   );
 });
+
+// internal
+import styles from '../snippets/modal.css?inline';
