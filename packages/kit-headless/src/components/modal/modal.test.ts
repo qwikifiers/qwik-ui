@@ -354,6 +354,52 @@ test.describe('Callbacks', () => {
   });
 });
 
+test.describe('Initially open', () => {
+  test('a modal whose bind:show starts true is open when the page loads', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-open-on-load');
+
+    await expect(d.getModal()).toBeVisible();
+  });
+
+  test('a modal open on load locks the page scroll', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-open-on-load');
+    await expect(d.getModal()).toBeVisible();
+
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+  });
+
+  test('a modal open on load closes', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-open-on-load');
+    await expect(d.getModal()).toBeVisible();
+
+    await page.getByRole('button', { name: 'Close' }).click();
+
+    await expect(d.getModal()).toBeHidden();
+  });
+
+  test('a modal whose bind:show is true when it mounts in the browser is open', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-open-on-mount');
+
+    await page.getByRole('button', { name: 'Mount Modal' }).click();
+
+    await expect(d.getModal()).toBeVisible();
+  });
+
+  test('onShow$ runs once, in the browser, for a modal open on load', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-open-on-load');
+    await expect(d.getModal()).toBeVisible();
+
+    await expect(page.getByTestId('show-count')).toHaveText('onShow count: 1');
+    await expect(page.getByTestId('shown-on')).toHaveText('onShow ran on: the browser');
+  });
+});
+
 test.describe('A11y', () => {
   test('Axe Validation Test', async ({ page }) => {
     const { driver: d } = await setup(page, 'hero');
