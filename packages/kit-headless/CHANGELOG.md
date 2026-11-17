@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.8
+
+### Patch Changes
+
+- 🐞🩹 a modal with an animation duration but no running animation now closes, a modal reopened while closing stays open, and `onClose$` runs once the dialog has closed (by [@maiieul](https://github.com/maiieul) in [#1198](https://github.com/qwikifiers/qwik-ui/pull/1198))
+
+- 🐞🩹 the page stays locked until the last open modal closes, also when the modals are siblings (by [@maiieul](https://github.com/maiieul) in [#1199](https://github.com/qwikifiers/qwik-ui/pull/1199))
+
+- 🐞🩹 a modal whose `bind:show` starts `true` now opens, and `onShow$` no longer runs on the server (by [@maiieul](https://github.com/maiieul) in [#1197](https://github.com/qwikifiers/qwik-ui/pull/1197))
+
+- 🐞🩹 a closed modal panel stays hidden when a class gives it a `display` value such as `flex` (by [@maiieul](https://github.com/maiieul) in [#1200](https://github.com/qwikifiers/qwik-ui/pull/1200))
+
 ## 0.7.7
 
 ### Patch Changes
