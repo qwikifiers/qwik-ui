@@ -21,7 +21,7 @@ export const NestedModal = component$(() => {
   return (
     <Modal.Root>
       <Modal.Trigger class="modal-trigger">Nested Modal Trigger</Modal.Trigger>
-      <Modal.Panel class="modal">Nested Modal Content</Modal.Panel>
+      <Modal.Panel class="modal-panel">Nested Modal Content</Modal.Panel>
     </Modal.Root>
   );
 });
