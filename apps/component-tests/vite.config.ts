@@ -21,6 +21,12 @@ export default defineConfig({
     tsconfigPaths({ root: '../../' }),
     tailwindcss(),
   ],
+  optimizeDeps: {
+    entries: [
+      '../../packages/kit-headless/src/index.ts',
+      '../website/src/routes/docs/headless/**/examples/*.tsx',
+    ],
+  },
   server: {
     fs: {
       // Allow serving files from the project root
