@@ -244,6 +244,18 @@ test.describe('Mouse Behavior', () => {
     await expect(page.getByTestId('submits')).toHaveText('form submits: 0');
   });
 
+  test('padding and border utilities apply to a floating panel when the app declares the layer order', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-layer-order');
+
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await expect(d.getPopover()).toHaveCSS('padding-top', '16px');
+    await expect(d.getPopover()).toHaveCSS('border-top-width', '2px');
+  });
+
   test.describe('Programmatic functionality', () => {
     test(`GIVEN a programmatic popover
         WHEN the showPopover function is called

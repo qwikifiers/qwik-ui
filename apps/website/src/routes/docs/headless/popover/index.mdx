@@ -305,6 +305,15 @@ Qwik UI strips the following styles when in floating mode:
 
 We put it under an `@layer` so that it can be easily overridden when adding your own styles.
 
+For your styles to win, declare the `qwik-ui` layer before your own layers, at the top of your global CSS. With Tailwind:
+
+```css
+@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
+@import 'tailwindcss';
+```
+
+> Without this line the `qwik-ui` layer is declared last and outranks Tailwind's utilities: `p-4` or `border` on a panel would do nothing.
+
 > `data-floating` is a data attribute that gets added to the popover when you set the floating prop to true.
 
 ## Animations
