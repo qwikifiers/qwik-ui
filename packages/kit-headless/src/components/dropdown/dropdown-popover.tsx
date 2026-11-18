@@ -23,7 +23,22 @@ export const HDropdownPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
   const { showPopover, hidePopover } = usePopover(context.localId);
   const initialLoadSig = useSignal<boolean>(true);
 
-  const { floating, flip, hover, gutter, shift, ...rest } = props;
+  const {
+    floating,
+    flip,
+    hover,
+    gutter,
+    shift,
+    hide,
+    arrow,
+    strategy,
+    transform,
+    ancestorScroll,
+    ancestorResize,
+    elementResize,
+    animationFrame,
+    ...rest
+  } = props;
 
   useTask$(async ({ track }) => {
     track(() => context.isOpenSig.value);
@@ -104,6 +119,14 @@ export const HDropdownPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
       id={context.localId}
       style={{ display: 'contents' }}
       shift={shift}
+      hide={hide}
+      arrow={arrow}
+      strategy={strategy}
+      transform={transform}
+      ancestorScroll={ancestorScroll}
+      ancestorResize={ancestorResize}
+      elementResize={elementResize}
+      animationFrame={animationFrame}
     >
       <HPopoverPanel
         id={menuId}

@@ -487,6 +487,18 @@ test.describe('Disabled', () => {
   });
 });
 
+test.describe('Props', () => {
+  test('a menu with the fixed strategy is positioned fixed', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-floating-options');
+
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await expect(d.getPopover()).toHaveCSS('position', 'fixed');
+    await expect(d.getPopover()).not.toHaveAttribute('strategy');
+  });
+});
+
 test.describe('Modal', () => {
   test('by default, the press that closes the menu reaches the button it lands on', async ({
     page,
