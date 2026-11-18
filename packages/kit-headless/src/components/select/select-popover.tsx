@@ -21,7 +21,22 @@ export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) =
   const contextRefOpts = { context, givenContextRef: context.popoverRef };
   const panelRef = useCombinedRef(props.ref, contextRefOpts);
 
-  const { floating, flip, hover, gutter, ...rest } = props;
+  const {
+    floating,
+    flip,
+    hover,
+    gutter,
+    shift,
+    hide,
+    arrow,
+    strategy,
+    transform,
+    ancestorScroll,
+    ancestorResize,
+    elementResize,
+    animationFrame,
+    ...rest
+  } = props;
   const initialLoadSig = useSignal<boolean>(true);
 
   useTask$(async ({ track }) => {
@@ -96,6 +111,15 @@ export const HSelectPopover = component$<PropsOf<typeof HPopoverRoot>>((props) =
       flip={flip}
       hover={hover}
       gutter={gutter}
+      shift={shift}
+      hide={hide}
+      arrow={arrow}
+      strategy={strategy}
+      transform={transform}
+      ancestorScroll={ancestorScroll}
+      ancestorResize={ancestorResize}
+      elementResize={elementResize}
+      animationFrame={animationFrame}
       bind:anchor={props['bind:anchor'] ?? context.triggerRef}
       bind:panel={panelRef}
       manual

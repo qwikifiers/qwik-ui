@@ -520,6 +520,20 @@ test.describe('Disabled', () => {
 });
 
 test.describe('Props', () => {
+  test('a listbox with shift stays inside the viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 900, height: 500 });
+    const { driver: d } = await setup(page, 'test-shift');
+
+    await d.getTrigger().click();
+    await expect(d.getListbox()).toBeVisible();
+
+    const rightEdge = await d
+      .getListbox()
+      .evaluate((listbox) => listbox.getBoundingClientRect().right);
+    expect(rightEdge).toBeLessThanOrEqual(900);
+    await expect(d.getListbox()).not.toHaveAttribute('shift');
+  });
+
   test(`GIVEN a combobox
         WHEN there is a placeholder
         THEN the placeholder should be presented instead of a selected value`, async ({
