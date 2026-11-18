@@ -469,6 +469,27 @@ test.describe('Closing', () => {
     await expect(page.getByTestId('close-count')).toHaveText('onClose count: 0');
   });
 
+  test('a modal reopened before its closing code has loaded stays open', async ({
+    page,
+  }) => {
+    await page.route(/useModal_(closeModal|supportClosingAnimation)/, async (route) => {
+      await page.waitForTimeout(300);
+      await route.continue();
+    });
+    const { driver: d } = await setup(page, 'test-reopen');
+    await d.openModal();
+    await expect(d.getModal()).toHaveAttribute('data-open');
+
+    const closingCodeRequest = page.waitForRequest(/useModal_closeModal/);
+    await page.getByRole('button', { name: 'Close and reopen' }).click();
+    await closingCodeRequest;
+    await expect(page.getByTestId('show-count')).toHaveText('onShow count: 2');
+    await page.waitForTimeout(1000);
+
+    await expect(d.getModal()).toBeVisible();
+    await expect(page.getByTestId('close-count')).toHaveText('onClose count: 0');
+  });
+
   test('a panel with an animation duration but no animation closes', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const { driver: d } = await setup(page, 'test-reduced-motion');
