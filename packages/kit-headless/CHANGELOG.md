@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.8.0
+
+### Minor Changes
+
+- ✨ `Popover.Close`, a button inside the panel that closes the popover (by [@maiieul](https://github.com/maiieul) in [#1221](https://github.com/qwikifiers/qwik-ui/pull/1221))
+
+- ✨ `modal` on the Popover, Select, Combobox and Dropdown roots. While the panel is open, the rest of the page takes no pointer input and does not scroll, and a press outside only closes it. A modal Popover also keeps focus inside. Off by default. (by [@maiieul](https://github.com/maiieul) in [#1212](https://github.com/qwikifiers/qwik-ui/pull/1212))
+
+### Patch Changes
+
+- 🐞🩹 the floating options on `Dropdown.Popover`, such as `strategy` and `hide`, now apply (by [@maiieul](https://github.com/maiieul) in [#1219](https://github.com/qwikifiers/qwik-ui/pull/1219))
+
+- 🐞🩹 while a `modal` Popover, Select, Combobox or Dropdown panel is open, the rest of the page is hidden from screen readers (by [@maiieul](https://github.com/maiieul) in [#1220](https://github.com/qwikifiers/qwik-ui/pull/1220))
+
+- 🐞🩹 a closed popover panel stays hidden when a class gives it a `display` value such as `flex`. This also covers the Select, Combobox and Dropdown panels. (by [@maiieul](https://github.com/maiieul) in [#1218](https://github.com/qwikifiers/qwik-ui/pull/1218))
+
+- 🐞🩹 a popover trigger inside a form now opens the popover instead of submitting the form (by [@maiieul](https://github.com/maiieul) in [#1208](https://github.com/qwikifiers/qwik-ui/pull/1208))
+
+- 🐞🩹 `shift` and the other floating options on `Select.Popover` and `Combobox.Popover` now apply (by [@maiieul](https://github.com/maiieul) in [#1209](https://github.com/qwikifiers/qwik-ui/pull/1209))
+
 ## 0.7.8
 
 ### Patch Changes
