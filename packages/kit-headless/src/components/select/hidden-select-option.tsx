@@ -26,12 +26,14 @@ export const HiddenSelectOption = component$(
 
       if (isServer || !nativeSelectRef.value || !optionRef.value) return;
 
-      // modular forms expects the input event fired after interaction
-      const inputEvent = new Event('input', { bubbles: false });
-      nativeSelectRef.value?.dispatchEvent(inputEvent);
-
-      // make sure to programmatically select the option after the input event has fired
+      // MUST set .selected BEFORE dispatching the event so Modular Forms reads the updated state.
       optionRef.value.selected = context.selectedIndexSetSig.value.has(index);
+
+      // Dispatch event on the last option only; top-down DOM execution ensures all options are updated.
+      if (index === context.itemsMapSig.value.size - 1) {
+        const inputEvent = new Event('input', { bubbles: false });
+        nativeSelectRef.value?.dispatchEvent(inputEvent);
+      }
     });
 
     return (
