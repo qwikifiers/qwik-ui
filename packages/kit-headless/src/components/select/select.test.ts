@@ -304,8 +304,9 @@ test.describe('Keyboard Behavior', () => {
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowDown');
-      1;
+      await expect(d.getItemAt(2)).toHaveAttribute('data-highlighted');
 
       await d.getHighlightedItem().press('ArrowUp');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
@@ -575,6 +576,7 @@ test.describe('Keyboard Behavior', () => {
         // initially last option is highlighted
         await d.openListbox('Enter');
         await d.getItemAt(0).press('End');
+        await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
 
         await d.getItemAt('last').press('ArrowDown');
         await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
@@ -676,6 +678,7 @@ test.describe('Keyboard Behavior', () => {
         // initially last option is highlighted
         await d.openListbox('Enter');
         await d.getHighlightedItem().press('End');
+        await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
         await d.getHighlightedItem().press('Enter');
 
         await expect(d.getListbox()).toBeHidden();
@@ -907,6 +910,7 @@ test.describe('Props', () => {
 
       await expect(page.locator('p')).toContainText('The selected value is: null');
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Enter');
 
       await expect(page.locator('p')).toContainText('The selected value is: 1');
