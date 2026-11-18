@@ -459,6 +459,7 @@ test.describe('Closing', () => {
   test('a modal reopened during its closing animation stays open', async ({ page }) => {
     const { driver: d } = await setup(page, 'test-reopen');
     await d.openModal();
+    await expect(d.getModal()).toHaveAttribute('data-open');
 
     await page.getByRole('button', { name: 'Close and reopen' }).click();
     await expect(page.getByTestId('show-count')).toHaveText('onShow count: 2');
