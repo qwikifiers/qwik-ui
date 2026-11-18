@@ -48,7 +48,7 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Run the headless browser tests
-        run: pnpm test.pw.headless.ci
+        run: pnpm test.pw.headless.ci --skip-nx-cache
 
       - name: Upload the Playwright report
         if: failure()
