@@ -34,7 +34,7 @@ jobs:
           chromatic_token: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
   headless-browser-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Headless browser tests
 
     steps:
