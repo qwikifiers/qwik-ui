@@ -14,6 +14,7 @@ import {
   ShowcaseProgrammatic,
   ShowcaseToggleEvent,
   ShowcaseFloating,
+  ShowcaseClose,
   ShowcaseModal,
   ShowcasePlacement,
   ShowcaseCorners,
@@ -73,6 +74,10 @@ While we wait for support though, Qwik UI uses a polyfill under the hood for you
     {
       name: 'Popover.Panel',
       description: `An HTML Element that is above other content on the page.`,
+    },
+    {
+      name: 'Popover.Close',
+      description: 'A button inside the panel that closes the popover.',
     },
   ]}
 />
@@ -344,6 +349,12 @@ CSS transitions are useful for animating properties like opacity and scale over 
 <TopLayerAnimationsCaveats />
 
 By using keyframe animations and CSS transitions together, we can achieve smooth entry and exit effects for popovers. Keyframes like `popover-grow` and `popover-shrink` handle scaling and visibility, while transitions focus on gradual changes to properties like `opacity`. Remember to include `display` and `overlay` in your transition properties and use `transition-behavior: allow-discrete` to ensure smooth animations across all browsers.
+
+## Closing from inside the panel
+
+Put a `Popover.Close` in the panel to close the popover from a button of your own, such as a row in a menu. It is a plain button: your `onClick$` runs too.
+
+<ShowcaseClose />
 
 ## Modal
 
