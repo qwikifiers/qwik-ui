@@ -522,7 +522,7 @@ test.describe('Modal', () => {
   }) => {
     await setup(page, 'test-modal');
     await openPopover(page);
-    const { x, y } = await centerOf(page.getByRole('link', { name: 'Outside link' }));
+    const { x, y } = await centerOf(page.getByText('Outside link'));
 
     await page.mouse.click(x, y);
 
