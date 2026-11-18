@@ -15,6 +15,7 @@ import { ComboboxContext, comboboxContextId } from './combobox-context';
 import { InternalComboboxProps } from './combobox-inline-comp';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { useBoundSignal } from '../../utils/bound-signal';
+import { preventClickThroughProps } from '../popover/prevent-click-through';
 import styles from './combobox.css?inline';
 
 export type TMultiple<M> = M extends true ? string[] : string;
@@ -46,6 +47,9 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
 
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
+
+  /** While the listbox is open, a pointer press outside it only closes it and reaches nothing else. */
+  preventClickThrough?: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   'bind:displayValue'?: Signal<TMultiple<M>>;
@@ -148,6 +152,7 @@ export const HComboboxRootImpl = component$<
     'bind:value': givenValueSig,
     'bind:open': givenOpenSig,
     'bind:displayValue': givenDisplayValueSig,
+    preventClickThrough,
     ...rest
   } = props;
 
@@ -332,6 +337,7 @@ export const HComboboxRootImpl = component$<
       data-invalid={context.isInvalidSig.value ? '' : undefined}
       aria-invalid={context.isInvalidSig.value}
       data-combobox-root
+      {...preventClickThroughProps(preventClickThrough, `${localId}-panel`, true)}
       {...rest}
     >
       <Slot />

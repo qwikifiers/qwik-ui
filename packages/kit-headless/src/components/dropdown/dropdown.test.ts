@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './dropdown.driver';
+import { recordPressEvents } from '../../utils/test-utils';
 
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/dropdown/${exampleName}`);
@@ -467,5 +468,62 @@ test.describe('Disabled', () => {
 
     await expect(d.getItemAt(2)).toBeDisabled();
     await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
+  });
+});
+
+test.describe('Click through', () => {
+  test('by default, the press that closes the menu reaches the button it lands on', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-click-through');
+    await page.getByLabel('preventClickThrough').uncheck();
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+    const outside = page.getByTestId('outside');
+    const seenEvents = await recordPressEvents(outside);
+
+    await outside.click();
+
+    await expect(d.getPopover()).toBeHidden();
+    await expect(outside).toHaveText('outside clicks: 1');
+    expect(await seenEvents()).toContain('click');
+  });
+
+  test('with preventClickThrough, the press that closes the menu does not reach the button it lands on', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-click-through');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+    const outside = page.getByTestId('outside');
+    const seenEvents = await recordPressEvents(outside);
+
+    await outside.click();
+
+    await expect(d.getPopover()).toBeHidden();
+    expect(await seenEvents()).toEqual([]);
+    await expect(outside).toHaveText('outside clicks: 0');
+  });
+
+  test('with preventClickThrough, a click on the trigger still closes the menu', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-click-through');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await d.getTrigger().click();
+
+    await expect(d.getPopover()).toBeHidden();
+  });
+
+  test('with preventClickThrough, a click on an item still runs it', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-click-through');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await d.getItemAt(0).click();
+
+    await expect(page.getByTestId('item-clicks')).toHaveText('item clicks: 1');
   });
 });

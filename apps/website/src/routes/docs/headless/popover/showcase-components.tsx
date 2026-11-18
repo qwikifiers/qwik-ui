@@ -150,3 +150,13 @@ export const ShowcaseTransition = component$(() => {
     </Showcase>
   );
 });
+
+import ClickThrough from './examples/click-through';
+import ClickThroughRawCode from './examples/click-through.tsx?raw';
+export const ShowcaseClickThrough = component$(() => {
+  return (
+    <Showcase rawCode={ClickThroughRawCode}>
+      <ClickThrough />
+    </Showcase>
+  );
+});

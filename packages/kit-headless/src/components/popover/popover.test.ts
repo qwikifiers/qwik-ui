@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { PopoverOpenKeys, createTestDriver } from './popover.driver';
+import { recordPressEvents } from '../../utils/test-utils';
 
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/popover/${exampleName}`);
@@ -463,5 +464,176 @@ test.describe('Keyboard Behavior', () => {
 
       await expect(d.getPopover()).toBeVisible();
     });
+  });
+});
+
+test.describe('Click through', () => {
+  const openPopover = async (page: Page) => {
+    await page.getByRole('button', { name: 'Open popover' }).click();
+    await expect(page.locator('[popover]')).toBeVisible();
+  };
+
+  test('by default, the click that closes the popover reaches the button it lands on', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through');
+    await page.getByLabel('preventClickThrough').uncheck();
+    await openPopover(page);
+    const outside = page.getByTestId('outside');
+    const seenEvents = await recordPressEvents(outside);
+
+    await outside.click();
+
+    await expect(page.locator('[popover]')).toBeHidden();
+    await expect(outside).toHaveText('outside clicks: 1');
+    expect(await seenEvents()).toContain('click');
+  });
+
+  test('with preventClickThrough, the press that closes the popover does not reach the button it lands on', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through');
+    await openPopover(page);
+    const outside = page.getByTestId('outside');
+    const seenEvents = await recordPressEvents(outside);
+
+    await outside.click();
+
+    await expect(page.locator('[popover]')).toBeHidden();
+    expect(await seenEvents()).toEqual([]);
+    await expect(outside).toHaveText('outside clicks: 0');
+  });
+
+  test('with preventClickThrough, the click that closes the popover does not follow the link it lands on', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through');
+    await openPopover(page);
+
+    await page.getByRole('link', { name: 'Outside link' }).click();
+
+    await expect(page.locator('[popover]')).toBeHidden();
+    expect(new URL(page.url()).hash).toBe('');
+  });
+
+  test('the next click on that button goes through once the popover is closed', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through');
+    await openPopover(page);
+    const outside = page.getByTestId('outside');
+    await outside.click();
+    await expect(page.locator('[popover]')).toBeHidden();
+
+    await outside.click();
+
+    await expect(outside).toHaveText('outside clicks: 1');
+  });
+
+  test('a click on a button inside the panel still runs it', async ({ page }) => {
+    await setup(page, 'test-click-through');
+    await openPopover(page);
+
+    await page.getByRole('button', { name: /panel clicks/ }).click();
+
+    await expect(page.getByRole('button', { name: /panel clicks/ })).toHaveText(
+      'panel clicks: 1',
+    );
+  });
+
+  test('a click on the trigger still closes the popover', async ({ page }) => {
+    await setup(page, 'test-click-through');
+    await openPopover(page);
+
+    await page.getByRole('button', { name: 'Open popover' }).click();
+
+    await expect(page.locator('[popover]')).toBeHidden();
+  });
+
+  test('a keyboard click outside goes through while the popover is open', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through');
+    await openPopover(page);
+    const outside = page.getByTestId('outside');
+
+    await outside.focus();
+    await page.keyboard.press('Enter');
+
+    await expect(outside).toHaveText('outside clicks: 1');
+  });
+
+  test('a press that is cancelled does not stop the click that follows', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through');
+    await openPopover(page);
+    const outside = page.getByTestId('outside');
+
+    await outside.hover();
+    await page.mouse.down();
+    await outside.dispatchEvent('pointercancel');
+    await page.mouse.up();
+
+    await expect(outside).toHaveText('outside clicks: 1');
+  });
+
+  test('preventClickThrough turned on after the page loads takes effect', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through');
+    await page.getByLabel('preventClickThrough').uncheck();
+    await page.getByLabel('preventClickThrough').check();
+    await openPopover(page);
+    const outside = page.getByTestId('outside');
+    const seenEvents = await recordPressEvents(outside);
+
+    await outside.click();
+
+    await expect(page.locator('[popover]')).toBeHidden();
+    expect(await seenEvents()).toEqual([]);
+  });
+
+  test('a popover mounted in the browser with preventClickThrough stops the press', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through');
+    await page.getByLabel('mounted').uncheck();
+    await page.getByLabel('mounted').check();
+    await openPopover(page);
+    const outside = page.getByTestId('outside');
+    const seenEvents = await recordPressEvents(outside);
+
+    await outside.click();
+
+    await expect(page.locator('[popover]')).toBeHidden();
+    expect(await seenEvents()).toEqual([]);
+  });
+
+  test('a manual popover with preventClickThrough lets outside clicks through', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through-manual');
+    await openPopover(page);
+    const outside = page.getByTestId('outside');
+
+    await outside.click();
+
+    await expect(outside).toHaveText('outside clicks: 1');
+    await expect(page.locator('[popover]')).toBeVisible();
+  });
+
+  test('a press on a modal backdrop only closes the popover inside the modal', async ({
+    page,
+  }) => {
+    await setup(page, 'test-click-through-modal');
+    await page.getByRole('button', { name: 'Open Modal' }).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await openPopover(page);
+
+    await page.mouse.click(5, 5);
+
+    await expect(page.locator('[popover]')).toBeHidden();
+    await expect(page.getByRole('dialog')).toBeVisible();
   });
 });

@@ -11,6 +11,7 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import { dropdownContextId, type DropdownContext } from './dropdown-context';
+import { preventClickThroughProps } from '../popover/prevent-click-through';
 
 export type TItemsMap = Map<
   number,
@@ -26,6 +27,9 @@ export type InternalDropdownProps = {
 export type DropdownProps = PropsOf<'div'> & {
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
+
+  /** While the menu is open, a pointer press outside it only closes it and reaches nothing else. */
+  preventClickThrough?: boolean;
 
   /**
    * QRL handler that runs when the dropdown opens or closes.
@@ -53,6 +57,7 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
       onOpenChange$,
       scrollOptions: givenScrollOptions,
       loop: givenLoop,
+      preventClickThrough,
       ...rest
     } = props;
 
@@ -153,6 +158,7 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
         aria-expanded={context.isOpenSig.value}
         aria-haspopup="true"
         aria-activedescendant={activeDescendantSig.value}
+        {...preventClickThroughProps(preventClickThrough, `${localId}-panel`, true)}
         {...rest}
       >
         <Slot />

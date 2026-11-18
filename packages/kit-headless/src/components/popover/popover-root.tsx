@@ -14,6 +14,7 @@ import {
   type Placement,
   type PopoverContext,
 } from './popover-types';
+import { preventClickThroughProps } from './prevent-click-through';
 
 export type PopoverRootProps = {
   popover?: 'manual' | 'auto';
@@ -25,6 +26,8 @@ export type PopoverRootProps = {
   id?: string;
   'bind:anchor'?: Signal<HTMLElement | undefined>;
   'bind:panel'?: Signal<HTMLElement | undefined>;
+  /** While the panel is open, a pointer press outside it only closes it and reaches nothing else. */
+  preventClickThrough?: boolean;
 };
 
 export type PopoverProps = PopoverRootProps & {
@@ -38,6 +41,7 @@ export const HPopoverRoot = component$((props: PopoverProps) => {
     'bind:anchor': givenAnchorRef,
     'bind:panel': givenPanelRef,
     floating = true,
+    preventClickThrough,
     manual,
     hover = false,
     gutter,
@@ -97,7 +101,12 @@ export const HPopoverRoot = component$((props: PopoverProps) => {
   useContextProvider(popoverContextId, context);
 
   return (
-    <div ref={rootRef} id={rootId} {...rest}>
+    <div
+      ref={rootRef}
+      id={rootId}
+      {...preventClickThroughProps(preventClickThrough, `${compId}-panel`)}
+      {...rest}
+    >
       <Slot />
     </div>
   );
