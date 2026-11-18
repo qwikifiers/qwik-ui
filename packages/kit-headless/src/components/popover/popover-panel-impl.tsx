@@ -104,6 +104,7 @@ export const HPopoverPanelImpl = component$((props: PropsOf<'div'>) => {
   return (
     <div
       {...props}
+      data-qui-popover-panel
       id={panelId}
       ref={panelRef}
       popover={
