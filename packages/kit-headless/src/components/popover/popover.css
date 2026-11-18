@@ -39,3 +39,16 @@
     position: fixed;
   }
 }
+
+@layer qwik-ui {
+  body:has(
+    [data-modal-scope='auto'] [popover='auto']:popover-open,
+    [data-modal-scope='manual'] :popover-open
+  ) {
+    pointer-events: none;
+  }
+
+  [data-modal-scope]:has(:popover-open) {
+    pointer-events: auto;
+  }
+}

@@ -150,3 +150,13 @@ export const ShowcaseTransition = component$(() => {
     </Showcase>
   );
 });
+
+import Modal from './examples/modal';
+import ModalRawCode from './examples/modal.tsx?raw';
+export const ShowcaseModal = component$(() => {
+  return (
+    <Showcase rawCode={ModalRawCode}>
+      <Modal />
+    </Showcase>
+  );
+});

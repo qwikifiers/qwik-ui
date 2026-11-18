@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './dropdown.driver';
+import { centerOf, recordPressEvents } from '../../utils/test-utils';
 
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/dropdown/${exampleName}`);
@@ -467,5 +468,109 @@ test.describe('Disabled', () => {
 
     await expect(d.getItemAt(2)).toBeDisabled();
     await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
+  });
+});
+
+test.describe('Modal', () => {
+  test('by default, the press that closes the menu reaches the button it lands on', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-modal?modal=off');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+    const outside = page.getByTestId('outside');
+    const seenEvents = await recordPressEvents(outside);
+    const { x, y } = await centerOf(outside);
+
+    await page.mouse.click(x, y);
+
+    await expect(d.getPopover()).toBeHidden();
+    await expect(outside).toHaveText('outside clicks: 1');
+    expect(await seenEvents()).toContain('click');
+  });
+
+  test('with modal, the press that closes the menu does not reach the button it lands on', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-modal');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+    const outside = page.getByTestId('outside');
+    const seenEvents = await recordPressEvents(outside);
+    const { x, y } = await centerOf(outside);
+
+    await page.mouse.click(x, y);
+
+    await expect(d.getPopover()).toBeHidden();
+    expect(await seenEvents()).toEqual([]);
+    await expect(outside).toHaveText('outside clicks: 0');
+  });
+
+  test('with modal, an outside button is not hovered while the menu is open', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-modal');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+    const outside = page.getByTestId('outside');
+    const { x, y } = await centerOf(outside);
+
+    await page.mouse.move(x, y);
+
+    expect(await outside.evaluate((button) => button.matches(':hover'))).toBe(false);
+  });
+
+  test('with modal, the page does not scroll while the menu is open', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-modal');
+    await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
+
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeHidden();
+    await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
+  });
+
+  test('with modal, a click on the trigger still closes the menu', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-modal');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await d.getTrigger().click();
+
+    await expect(d.getPopover()).toBeHidden();
+  });
+
+  test('with modal, a click on an item still runs it', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-modal');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await d.getItemAt(0).click();
+
+    await expect(page.getByTestId('item-clicks')).toHaveText('item clicks: 1');
+  });
+
+  test.describe('touch', () => {
+    test.use({ hasTouch: true });
+
+    test('with modal, a tap outside only closes the menu', async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-modal');
+      await d.getTrigger().tap();
+      await expect(d.getPopover()).toBeVisible();
+      const outside = page.getByTestId('outside');
+      const seenEvents = await recordPressEvents(outside);
+      const { x, y } = await centerOf(outside);
+
+      await page.touchscreen.tap(x, y);
+
+      await expect(d.getPopover()).toBeHidden();
+      expect(await seenEvents()).toEqual([]);
+      await expect(outside).toHaveText('outside clicks: 0');
+    });
   });
 });

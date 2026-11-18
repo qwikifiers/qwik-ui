@@ -1,5 +1,9 @@
-import { FocusTrap, createFocusTrap } from 'focus-trap';
+import { FocusTrap } from 'focus-trap';
 import { $, _waitUntilRendered } from '@builder.io/qwik';
+import {
+  activateFocusTrap as activateModalFocusTrap,
+  createModalFocusTrap,
+} from '../../utils/focus-trap';
 
 export type WidthState = {
   width: number | null;
@@ -16,10 +20,14 @@ export function useModal() {
 
     await _waitUntilRendered(modal);
 
-    const closingAnimations = modal.getAnimations({ subtree: true }).filter((animation) => {
-      const effect = animation.effect as KeyframeEffect | null;
-      return effect?.target === modal && effect.getComputedTiming().endTime !== Infinity;
-    });
+    const closingAnimations = modal
+      .getAnimations({ subtree: true })
+      .filter((animation) => {
+        const effect = animation.effect as KeyframeEffect | null;
+        return (
+          effect?.target === modal && effect.getComputedTiming().endTime !== Infinity
+        );
+      });
     await Promise.allSettled(closingAnimations.map((animation) => animation.finished));
 
     if (modal.dataset.closing === undefined) return false;
@@ -36,17 +44,11 @@ export function useModal() {
    * @returns FocusTrap
    */
   const trapFocus = $((modal: HTMLDialogElement): FocusTrap => {
-    return createFocusTrap(modal, { escapeDeactivates: false });
+    return createModalFocusTrap(modal);
   });
 
   const activateFocusTrap = $((focusTrap: FocusTrap | null) => {
-    try {
-      focusTrap?.activate();
-    } catch {
-      // Activating the focus trap throws if no tabbable elements are inside the container.
-      // If this is the case we are fine with not activating the focus trap.
-      // That's why we ignore the thrown error.
-    }
+    activateModalFocusTrap(focusTrap);
   });
 
   const deactivateFocusTrap = $((focusTrap: FocusTrap | null) => {

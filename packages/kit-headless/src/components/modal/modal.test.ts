@@ -227,6 +227,21 @@ test.describe('Scroll locking', () => {
 
     await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
   });
+
+  test('the page stays locked when a modal popover inside an open modal closes', async ({
+    page,
+  }) => {
+    await page.goto('/headless/popover/test-modal-in-modal');
+    await page.getByRole('button', { name: 'Open Modal' }).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.getByRole('button', { name: 'Open popover' }).click();
+    await expect(page.locator('[popover]')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Open popover' }).click();
+    await expect(page.locator('[popover]')).toBeHidden();
+
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+  });
 });
 
 test.describe('Focus Trap', () => {
@@ -453,9 +468,7 @@ test.describe('Closing', () => {
     await expect(page.getByTestId('close-count')).toHaveText('onClose count: 0');
   });
 
-  test('a panel with an animation duration but no animation closes', async ({
-    page,
-  }) => {
+  test('a panel with an animation duration but no animation closes', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const { driver: d } = await setup(page, 'test-reduced-motion');
     await d.openModal();

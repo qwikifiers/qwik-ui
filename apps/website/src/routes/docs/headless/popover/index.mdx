@@ -14,6 +14,7 @@ import {
   ShowcaseProgrammatic,
   ShowcaseToggleEvent,
   ShowcaseFloating,
+  ShowcaseModal,
   ShowcasePlacement,
   ShowcaseCorners,
   ShowcaseFlip,
@@ -344,6 +345,24 @@ CSS transitions are useful for animating properties like opacity and scale over 
 
 By using keyframe animations and CSS transitions together, we can achieve smooth entry and exit effects for popovers. Keyframes like `popover-grow` and `popover-shrink` handle scaling and visibility, while transitions focus on gradual changes to properties like `opacity`. Remember to include `display` and `overlay` in your transition properties and use `transition-behavior: allow-discrete` to ensure smooth animations across all browsers.
 
+## Modal
+
+By default a popover is not modal: the click that closes it also reaches whatever it lands on, and the page can still be used. That is how the native popover works.
+
+Set `modal` when the panel should take over until it is closed, such as a menu button that sits on a clickable card.
+
+<ShowcaseModal />
+
+While a modal popover is open:
+
+- Elements outside it cannot be hovered, pressed or clicked. A press outside only closes it.
+- The page does not scroll.
+- Focus stays inside the panel, and goes back to the trigger when it closes.
+
+`modal` does nothing for `manual` popovers, nor in browsers that need the polyfill.
+
+Select, Combobox and Dropdown take the same prop on their root. They already manage focus, so there it only blocks the pointer and the page scroll.
+
 ## Additional References
 
 Qwik UI aims to be in line with the standard whenever possible. Our goal is to empower Qwik developers to create amazing experiences for their users.
@@ -368,6 +387,12 @@ To read more about the popover API you can check it out on:
       type: 'boolean',
       description:
         'A manual popover needs to be manually hidden, such as toggling the button or programmatically.',
+    },
+    {
+      name: 'modal',
+      type: 'boolean',
+      description:
+        'While the panel is open, the rest of the page takes no pointer input and does not scroll, and focus stays in the panel.',
     },
     {
       name: 'floating',

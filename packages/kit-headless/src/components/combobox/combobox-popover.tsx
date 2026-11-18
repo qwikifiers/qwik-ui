@@ -87,11 +87,11 @@ export const HComboboxPopover = component$<PropsOf<typeof HPopoverRoot>>((props)
     if (isServer) return;
 
     if (context.isListboxOpenSig.value) {
-      window.addEventListener('pointerdown', handleDismiss$);
+      window.addEventListener('pointerdown', handleDismiss$, true);
     }
 
     cleanup(() => {
-      window.removeEventListener('pointerdown', handleDismiss$);
+      window.removeEventListener('pointerdown', handleDismiss$, true);
     });
   });
 

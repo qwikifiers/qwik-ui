@@ -11,6 +11,8 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import { dropdownContextId, type DropdownContext } from './dropdown-context';
+import { outsidePressHandlers } from '../popover/modal-outside-press';
+import { useModalPageScrollLock } from '../../utils/page-scroll';
 
 export type TItemsMap = Map<
   number,
@@ -26,6 +28,9 @@ export type InternalDropdownProps = {
 export type DropdownProps = PropsOf<'div'> & {
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
+
+  /** While the menu is open, the rest of the page takes no pointer input and does not scroll. */
+  modal?: boolean;
 
   /**
    * QRL handler that runs when the dropdown opens or closes.
@@ -53,6 +58,7 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
       onOpenChange$,
       scrollOptions: givenScrollOptions,
       loop: givenLoop,
+      modal,
       ...rest
     } = props;
 
@@ -100,6 +106,8 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
     };
 
     useContextProvider(dropdownContextId, context);
+
+    useModalPageScrollLock(isOpenSig, props, panelRef);
 
     useTask$(function reactiveUserOpen({ track }) {
       const bindOpenSig = props['bind:open'];
@@ -153,6 +161,8 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
         aria-expanded={context.isOpenSig.value}
         aria-haspopup="true"
         aria-activedescendant={activeDescendantSig.value}
+        data-modal-scope={props.modal ? 'manual' : undefined}
+        {...outsidePressHandlers(modal)}
         {...rest}
       >
         <Slot />
