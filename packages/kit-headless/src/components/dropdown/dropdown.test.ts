@@ -520,6 +520,30 @@ test.describe('Modal', () => {
     expect(await outside.evaluate((button) => button.matches(':hover'))).toBe(false);
   });
 
+  test('by default, an outside button stays exposed to screen readers while the menu is open', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-modal?modal=off');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await expect(page.getByRole('button', { name: /outside clicks/ })).toHaveCount(1);
+  });
+
+  test('with modal, an outside button is hidden from screen readers while the menu is open', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-modal');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+    await expect(page.getByRole('button', { name: /outside clicks/ })).toHaveCount(0);
+
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeHidden();
+
+    await expect(page.getByRole('button', { name: /outside clicks/ })).toHaveCount(1);
+  });
+
   test('with modal, the page does not scroll while the menu is open', async ({
     page,
   }) => {

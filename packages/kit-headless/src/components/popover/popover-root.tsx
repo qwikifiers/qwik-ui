@@ -18,6 +18,7 @@ import {
 import { outsidePressHandlers } from './modal-outside-press';
 import { isServer } from '@builder.io/qwik/build';
 import { useModalPageScrollLock } from '../../utils/page-scroll';
+import { useModalAriaHideOutside } from '../../utils/aria-hide-outside';
 import { activateFocusTrap, createModalFocusTrap } from '../../utils/focus-trap';
 import type { FocusTrap } from 'focus-trap';
 
@@ -106,6 +107,7 @@ export const HPopoverRoot = component$((props: PopoverProps) => {
   useContextProvider(popoverContextId, context);
 
   useModalPageScrollLock(isOpenSig, props, panelRef);
+  useModalAriaHideOutside(isOpenSig, props, rootRef);
 
   useTask$(({ track, cleanup }) => {
     const isTrapped = track(() => isOpenSig.value && props.modal && !props.manual);

@@ -358,10 +358,11 @@ While a modal popover is open:
 - Elements outside it cannot be hovered, pressed or clicked. A press outside only closes it.
 - The page does not scroll.
 - Focus stays inside the panel, and goes back to the trigger when it closes.
+- The rest of the page is hidden from screen readers.
 
 `modal` does nothing for `manual` popovers, nor in browsers that need the polyfill.
 
-Select, Combobox and Dropdown take the same prop on their root. They already manage focus, so there it only blocks the pointer and the page scroll.
+Select, Combobox and Dropdown take the same prop on their root. They already manage focus, so there it blocks the pointer and the page scroll, and hides the rest of the page from screen readers.
 
 ## Additional References
 

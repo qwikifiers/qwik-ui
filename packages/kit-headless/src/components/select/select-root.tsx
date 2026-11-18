@@ -15,6 +15,7 @@ import { useSelect } from './use-select';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { outsidePressHandlers } from '../popover/modal-outside-press';
 import { useModalPageScrollLock } from '../../utils/page-scroll';
+import { useModalAriaHideOutside } from '../../utils/aria-hide-outside';
 
 export type TItemsMap = Map<
   number,
@@ -215,6 +216,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     useContextProvider(SelectContextId, context);
 
     useModalPageScrollLock(isListboxOpenSig, props, popoverRef);
+    useModalAriaHideOutside(isListboxOpenSig, props, rootRef);
 
     const { selectionManager$ } = useSelect();
 

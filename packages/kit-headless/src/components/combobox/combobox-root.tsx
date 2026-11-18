@@ -17,6 +17,7 @@ import { useCombinedRef } from '../../hooks/combined-refs';
 import { useBoundSignal } from '../../utils/bound-signal';
 import { outsidePressHandlers } from '../popover/modal-outside-press';
 import { useModalPageScrollLock } from '../../utils/page-scroll';
+import { useModalAriaHideOutside } from '../../utils/aria-hide-outside';
 import styles from './combobox.css?inline';
 
 export type TMultiple<M> = M extends true ? string[] : string;
@@ -277,6 +278,7 @@ export const HComboboxRootImpl = component$<
   useContextProvider(comboboxContextId, context);
 
   useModalPageScrollLock(isListboxOpenSig, props, panelRef);
+  useModalAriaHideOutside(isListboxOpenSig, props, rootRef);
 
   useTask$(async function handleOpenChange({ track }) {
     track(() => isListboxOpenSig.value);
