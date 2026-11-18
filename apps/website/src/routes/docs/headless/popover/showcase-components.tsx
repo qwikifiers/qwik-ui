@@ -160,3 +160,13 @@ export const ShowcaseModal = component$(() => {
     </Showcase>
   );
 });
+
+import Close from './examples/close';
+import CloseRawCode from './examples/close.tsx?raw';
+export const ShowcaseClose = component$(() => {
+  return (
+    <Showcase rawCode={CloseRawCode}>
+      <Close />
+    </Showcase>
+  );
+});

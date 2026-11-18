@@ -782,3 +782,36 @@ test.describe('Styles', () => {
     await expect(d.getPopover()).toBeHidden();
   });
 });
+
+test.describe('Close', () => {
+  test('a click on Popover.Close closes the popover', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-close');
+    await page.getByRole('button', { name: 'Open popover' }).click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await page.getByRole('button', { name: 'Close' }).click();
+
+    await expect(d.getPopover()).toBeHidden();
+  });
+
+  test('Popover.Close also runs its own onClick$', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-close');
+    await page.getByRole('button', { name: 'Open popover' }).click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await page.getByRole('button', { name: 'Close' }).click();
+
+    await expect(page.getByTestId('close-clicks')).toHaveText('close clicks: 1');
+    await expect(d.getPopover()).toBeHidden();
+  });
+
+  test('Enter on Popover.Close closes the popover', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-close');
+    await page.getByRole('button', { name: 'Open popover' }).click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await page.getByRole('button', { name: 'Close' }).press('Enter');
+
+    await expect(d.getPopover()).toBeHidden();
+  });
+});
