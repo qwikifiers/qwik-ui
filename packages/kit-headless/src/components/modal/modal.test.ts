@@ -505,6 +505,20 @@ test.describe('Styles', () => {
 
     await expect(d.getModal()).toHaveCSS('max-width', '448px');
   });
+
+  test('a modal closes while a transition runs on a button inside it', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-inner-transition');
+    await d.openModal();
+    const close = page.getByRole('button', { name: 'Close' });
+    await close.hover();
+
+    await close.click();
+    await page.mouse.move(5, 5, { steps: 5 });
+
+    await expect(d.getModal()).toBeHidden();
+  });
 });
 
 test.describe('A11y', () => {
