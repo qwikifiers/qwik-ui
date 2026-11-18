@@ -95,8 +95,8 @@ test.describe('Mouse Behavior', () => {
     const [firstTrigger, secondTrigger] = await d.getAllTriggers();
     const [firstPopover, secondPopover] = await d.getAllPopovers();
 
-    firstTrigger.click();
-    secondTrigger.click();
+    await firstTrigger.click();
+    await secondTrigger.click();
 
     const topPopover = page.locator(
       `[popover]:above(:text("${await firstPopover.innerText()}"))`,
@@ -114,8 +114,8 @@ test.describe('Mouse Behavior', () => {
     const [firstTrigger, secondTrigger] = await d.getAllTriggers();
     const [firstPopover, secondPopover] = await d.getAllPopovers();
 
-    firstTrigger.click();
-    secondTrigger.click();
+    await firstTrigger.click();
+    await secondTrigger.click();
 
     const topPopover = page.locator(
       `[popover]:above(:text("${await secondPopover.innerText()}"))`,
